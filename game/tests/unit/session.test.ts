@@ -89,18 +89,24 @@ describe('F24/M05 same-tick ordering', () => {
     expect(late.outcome?.success).toBe(false);
     expect(late.outcome && !late.outcome.success && late.outcome.code).toBe('deadline');
   });
-  it('a critical contact on the completing tick takes precedence over success', () => {
-    const s = started();
+  it('cargo failure on the completing tick takes precedence over success', () => {
+    const s = started({ cargo: { label: 'x', fragility: 1, failThreshold: 99 } });
     for (let k = 0; k < 20000 && s.phase === 'PLAYING' && s.holdTicks < MISSION.holdTicks - 1; k++) {
       const c = s.stagingPose(s.currentStop!); const d = Math.hypot(s.player.x - c.x, s.player.z - c.z);
       s.step(inp({ brake: d < brakeDist(s) }));
     }
     expect(s.holdTicks).toBe(MISSION.holdTicks - 1);
-    // inject a pedestrian contact exactly on the completing tick
-    s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'ped_x', kind: 'pedestrian', nx: 1, nz: 0, depth: 0.1 }); return out; }, occupancy: () => 0 };
+    s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'bump_x', kind: 'vehicle', nx: 1, nz: 0, depth: 0.01 }); return out; }, occupancy: () => 0 };
     s.step(inp({ brake: true }));
-    expect(s.outcome).toBeNull();
+    expect(s.outcome).toEqual({ success: false, reason: 'Cargo damaged beyond delivery', code: 'cargo' });
+  });
+  it('a moving pedestrian contact is critical and blocks completion (recovery instead)', () => {
+    const s = started();
+    for (let k = 0; k < 600; k++) s.step(inp());
+    s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'ped_x', kind: 'pedestrian', nx: 1, nz: 0, depth: 0.1 }); return out; }, occupancy: () => 0 };
+    s.step(inp());
     expect(s.phase).toBe('RECOVERING');
+    expect(s.outcome).toBeNull();
   });
 });
 

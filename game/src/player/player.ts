@@ -173,7 +173,14 @@ export class Player {
     return pts;
   }
 
-  /** free vertical space above road surface along the whole car footprint */
+  /** overhead-only free height (decks, bridges, gantries) along the whole footprint — drives cruise altitude */
+  private overheadFree(x: number, z: number, h: number, surfY: number): number {
+    let minFree = Infinity;
+    for (const [px, pz] of this.footprint(x, z, h)) minFree = Math.min(minFree, this.world.overheadAt(px, pz, surfY).bottom - surfY);
+    return minFree;
+  }
+
+  /** free vertical space above road surface along the whole car footprint (launch check: buildings count) */
   private clearanceAt(x: number, z: number, h: number, surfY: number): number {
     let minFree = Infinity;
     for (const [px, pz] of this.footprint(x, z, h)) {
@@ -384,30 +391,84 @@ export class Player {
     }
     if (this.speed < 0) this.speed = 0;
     let steer = Math.max(-1, Math.min(1, input.steer));
-    // assisted lane keeping during committed descent so the forecast stays a road surface
-    const s = this.world.roads.surface(this.x, this.z, { preferLevel: this.level, margin: 30 });
-    if (s && this.move === 'DESCENDING' && Math.abs(s.lateral) > s.halfWidth - 1.2) {
-      steer = Math.max(-1, Math.min(1, steer + Math.sign(s.lateral) * -0.8));
+    // Assisted flight (MASTER §12.2/§12.4): with no steering input the controller follows the road
+    // tangent; during descent it also centres the car on the carriageway so the forecast stays valid.
+    const near = this.world.roads.surface(this.x, this.z, { preferLevel: this.level, margin: 30, heading: this.heading });
+    let lateralNudge = 0, roadH = this.heading;
+    if (near) {
+      roadH = Math.abs(wrapAngle(near.heading - this.heading)) <= Math.PI / 2 ? near.heading : wrapAngle(near.heading + Math.PI);
+      const sign = roadH === near.heading ? 1 : -1; // lateral is measured relative to the road's forward direction
+      const lat = near.lateral * sign;
+      const limit = Math.max(0.3, near.halfWidth - 1.3);
+      if (this.move === 'DESCENDING') {
+        const target = Math.max(-limit, Math.min(limit, lat));
+        lateralNudge = Math.max(-4, Math.min(4, (target - lat) * 2.5)) * sign;
+      } else if (Math.abs(lat) > near.halfWidth) {
+        // keep the flight over the carriageway so an affordable landing stays available
+        lateralNudge = Math.max(-1.5, Math.min(1.5, (Math.sign(lat) * near.halfWidth - lat) * 1.5)) * sign;
+      }
     }
+    const assisting = Math.abs(steer) < 0.15 || this.move === 'DESCENDING';
     this.steerAngle = steer * 0.25;
-    this.heading = wrapAngle(this.heading - steer * 1.0 * FLIGHT.airSteerScale * dt * (0.6 + Math.min(1, this.speed / 10)));
+    const yawCmd = -steer * 1.0 * FLIGHT.airSteerScale * (0.6 + Math.min(1, this.speed / 10));
+    let yaw = yawCmd;
+    if (assisting && near) yaw += Math.max(-0.9, Math.min(0.9, wrapAngle(roadH - this.heading) * 1.8)) * (Math.abs(steer) < 0.15 ? 1 : 0.5);
+    this.heading = wrapAngle(this.heading + yaw * dt);
     const [fx, fz] = forwardOf(this.heading);
-    const nx = this.x + fx * this.speed * dt;
-    const nz = this.z + fz * this.speed * dt;
-    // supported air envelope: over selected roads (+ footpath margin) only; visible assist, not a late wall
-    const env = this.world.roads.surface(nx, nz, { margin: 0, preferLevel: this.level });
-    const within = this.world.roads.surface(nx, nz, { margin: FLIGHT.airEnvelopeMarginM + 6, preferLevel: this.level });
-    const ok = !!within && within.dist <= within.halfWidth + FLIGHT.airEnvelopeMarginM;
-    if (ok || env) {
+    let nx = this.x + fx * this.speed * dt;
+    let nz = this.z + fz * this.speed * dt;
+    if (near && lateralNudge !== 0) {
+      // right vector of the road forward direction is (-fz_r, fx_r)
+      const [rfx, rfz] = forwardOf(near.heading);
+      nx += -rfz * lateralNudge * dt; nz += rfx * lateralNudge * dt;
+    }
+    // supported air envelope: over selected roads (+ footpath margin) and never inside a building
+    // volume. Moves that bring the car back toward the road are always allowed (visible assisted edge,
+    // not a late wall); outward moves past the edge are refused.
+    const buildingHit = (px: number, pz: number) => {
+      const buf: Contact[] = [];
+      for (const off of [VEHICLE.circleOffset, -VEHICLE.circleOffset]) this.world.contacts(px + fx * off, pz + fz * off, this.y + 0.05, FLIGHT.carHeight, VEHICLE.collisionRadius + 0.3, buf);
+      return buf.some((c) => c.kind === 'building');
+    };
+    const excess = (px: number, pz: number) => {
+      const w = this.world.roads.surface(px, pz, { margin: FLIGHT.airEnvelopeMarginM + 30, preferLevel: this.level });
+      return w ? Math.max(0, w.dist - (w.halfWidth + FLIGHT.airEnvelopeMarginM)) : Infinity;
+    };
+    const cur = excess(this.x, this.z);
+    const tryMove = (px: number, pz: number) => !buildingHit(px, pz) && (excess(px, pz) <= 0 || excess(px, pz) < cur - 1e-6);
+    if (tryMove(nx, nz)) {
       this.x = nx; this.z = nz; this.lastAirOk = { x: nx, z: nz };
     } else {
-      // stay at the envelope edge, turn toward the road, bleed speed
       this.events.push({ type: 'air_edge' });
+      // keep only the inward (centring) part of the motion and slide along the edge
+      const within = this.world.roads.surface(this.x, this.z, { margin: FLIGHT.airEnvelopeMarginM + 30, preferLevel: this.level });
       if (within) {
-        const toRoad = headingOf(within.px - this.x, within.pz - this.z);
-        this.heading = wrapAngle(this.heading + Math.max(-0.05, Math.min(0.05, wrapAngle(toRoad - this.heading))));
+        const d = Math.hypot(within.px - this.x, within.pz - this.z) || 1;
+        const inward = Math.max(1.5, Math.abs(lateralNudge));
+        const sx = this.x + ((within.px - this.x) / d) * inward * dt, sz = this.z + ((within.pz - this.z) / d) * inward * dt;
+        // tangential slide component along the road
+        const [tfx, tfz] = forwardOf(within.heading);
+        const along = (fx * tfx + fz * tfz) * this.speed * dt;
+        const ax = sx + tfx * along, az = sz + tfz * along;
+        if (!buildingHit(ax, az)) { this.x = ax; this.z = az; }
+        else if (!buildingHit(sx, sz)) { this.x = sx; this.z = sz; }
+        const toRoad = Math.abs(wrapAngle(within.heading - this.heading)) <= Math.PI / 2 ? within.heading : wrapAngle(within.heading + Math.PI);
+        this.heading = wrapAngle(this.heading + Math.max(-0.04, Math.min(0.04, wrapAngle(toRoad - this.heading))));
       }
-      this.speed *= 0.97;
+      this.speed *= 0.985;
+    }
+    // committed descent: bound steering so a static landing on the carriageway stays feasible (§12.5)
+    if (this.move === 'DESCENDING' && this.altitude < 3.5) {
+      const r = this.world.roads.surface(this.x, this.z, { margin: FLIGHT.airEnvelopeMarginM + 30, preferLevel: this.level, heading: this.heading });
+      if (r) {
+        const lim = Math.max(0.2, r.halfWidth - 0.9);
+        if (Math.abs(r.lateral) > lim) {
+          const [rfx, rfz] = forwardOf(r.heading);
+          const corr = Math.min(Math.abs(r.lateral) - lim, 6 * dt) * Math.sign(r.lateral);
+          const cx = this.x - -rfz * corr, cz = this.z - rfx * corr;
+          if (!buildingHit(cx, cz)) { this.x = cx; this.z = cz; }
+        }
+      }
     }
     // vertical controller
     this.updateSurface(FLIGHT.airEnvelopeMarginM + 8);
@@ -416,7 +477,7 @@ export class Player {
     if (this.move === 'TAKEOFF') {
       this.takeoffTicks++;
       this.vy = Math.min(FLIGHT.maxClimbRate, this.vy + FLIGHT.ascentAccel * dt);
-      const free = this.clearanceAt(this.x, this.z, this.heading, surfY);
+      const free = this.overheadFree(this.x, this.z, this.heading, surfY);
       if (free < FLIGHT.minFlightAltitude + FLIGHT.carHeight + 0.2 && alt < 1.0) {
         this.abortTakeoff('New obstruction above');
         if ((this.move as MoveState) === 'LANDING_CONFIRM') { this.y = surfY; return; }
@@ -429,8 +490,9 @@ export class Player {
     } else if (this.move === 'FLYING') {
       const [hx, hz] = forwardOf(this.heading);
       const look = Math.max(6, this.speed * 1.2);
-      const free = Math.min(this.clearanceAt(this.x, this.z, this.heading, surfY), this.clearanceAt(this.x + hx * look, this.z + hz * look, this.heading, surfY));
-      const target = Math.min(FLIGHT.cruiseAltitude, free - FLIGHT.carHeight - FLIGHT.overheadMargin);
+      const free = Math.min(this.overheadFree(this.x, this.z, this.heading, surfY), this.overheadFree(this.x + hx * look, this.z + hz * look, this.heading, surfY));
+      // never let the cruise target sink to the ground: a structure lower than this is collided with (and forecast)
+      const target = Math.max(FLIGHT.minFlightAltitude * 0.75, Math.min(FLIGHT.cruiseAltitude, free - FLIGHT.carHeight - FLIGHT.overheadMargin));
       const want = Math.max(-FLIGHT.descentRate, Math.min(FLIGHT.maxClimbRate, (target - alt) * 1.6));
       this.vy += Math.max(-FLIGHT.ascentAccel * dt, Math.min(FLIGHT.ascentAccel * dt, want - this.vy));
     } else if (this.move === 'DESCENDING') {
@@ -474,7 +536,8 @@ export class Player {
         closing = Math.max(0, -vdotn);
         this.x += c.nx * c.depth; this.z += c.nz * c.depth;
       }
-      const severe = closing >= CONTACT.severeSpeed || c.vertical === 'below' && this.isAirborne && closing > 3 || c.kind === 'pedestrian';
+      // a pedestrian stepping into a stationary/creeping car is not a player crash
+      const severe = closing >= CONTACT.severeSpeed || (c.vertical === 'below' && this.isAirborne && closing > 3) || (c.kind === 'pedestrian' && Math.abs(this.speed) > 1.5);
       if (!this.cooldown.has(c.id)) {
         this.cooldown.set(c.id, this.tick + CONTACT.contactCooldownTicks);
         this.events.push({ type: 'contact', kind: c.kind, id: c.id, severity: severe ? 'severe' : 'light', closing });
@@ -497,7 +560,10 @@ export class Player {
       const surfY = this.surfaceY();
       if (this.move !== 'TAKEOFF' && this.y <= surfY) {
         // touchdown attempt
-        const s = this.surface;
+        // the receiving surface is whichever selected carriageway actually contains the touchdown point
+        // (at or below the car), not merely the road we were last associated with
+        const s = this.world.roads.surface(this.x, this.z, { margin: 0.3, maxY: this.y + 0.5, preferLevel: this.level, heading: this.heading }) ?? this.surface;
+        if (s) { this.surface = s; this.roadId = s.roadId; }
         const vyAtContact = this.vy;
         const validSurface = !!s && s.dist <= s.halfWidth + 0.3 && !this.world.buildingAt(this.x, this.z);
         if (!validSurface) {

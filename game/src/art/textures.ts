@@ -390,7 +390,7 @@ export function getNoiseTexture(kind: 'ground' | 'roof' | 'plaster', q: Quality)
   // low-frequency blotches (wrapped) then grain
   for (let i = 0; i < 90; i++) {
     const x = r() * size, y = r() * size, rad = 8 + r() * 40;
-    const d = (r() - 0.5) * (kind === 'ground' ? 46 : 34);
+    const d = (r() - 0.5) * (kind === 'ground' ? 20 : 34);
     for (const ox of [-size, 0, size]) for (const oy of [-size, 0, size]) {
       const g = ctx.createRadialGradient(x + ox, y + oy, 0, x + ox, y + oy, rad);
       const v = d > 0 ? 255 : 0;

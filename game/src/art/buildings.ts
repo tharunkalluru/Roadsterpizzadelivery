@@ -26,18 +26,18 @@ import { createSignTexture } from './sign';
 import { registerCull } from './cull';
 
 const PALETTE: { c: number; w: number }[] = [
-  { c: 0xf0e4c4, w: 5 }, // cream
-  { c: 0xeeeae0, w: 5 }, // off-white
+  { c: 0xefdfb8, w: 4.5 }, // cream
+  { c: 0xe9e4d6, w: 2.5 }, // off-white
   { c: 0xefc9c0, w: 2 }, // pastel pink
   { c: 0xf0e09c, w: 2 }, // pastel yellow
   { c: 0xc8765c, w: 2 }, // terracotta
   { c: 0xa9c4d8, w: 2 }, // faded blue
   { c: 0xbcd9c8, w: 1.5 }, // mint
   { c: 0xefb98a, w: 1.5 }, // light orange
-  { c: 0xb9b6ae, w: 3 }, // grey concrete
+  { c: 0xb3b0a6, w: 4 }, // grey concrete
   { c: 0xd9a441, w: 0.8 }, // ochre
   { c: 0xe29a86, w: 1.2 }, // salmon
-  { c: 0xd8d2c0, w: 3 }, // dusty beige
+  { c: 0xd2c8ae, w: 4 }, // dusty beige
 ];
 const PAL_TOTAL = PALETTE.reduce((a, p) => a + p.w, 0);
 
@@ -46,7 +46,7 @@ function pickColor(r: () => number): [number, number, number] {
   let c = PALETTE[0].c;
   for (const p of PALETTE) { t -= p.w; if (t <= 0) { c = p.c; break; } }
   const [cr, cg, cb] = hex(c);
-  const j = 0.93 + r() * 0.12;
+  const j = 0.86 + r() * 0.16;
   return [Math.min(1, cr * j), Math.min(1, cg * j), Math.min(1, cb * j)];
 }
 

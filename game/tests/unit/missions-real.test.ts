@@ -51,3 +51,35 @@ describe.skipIf(!have)('real-world missions (reference agent, ground only)', () 
     }, 120_000);
   }
 });
+
+describe.skipIf(!have)('real-world flight use (reference agent with flight)', () => {
+  const { core, w } = have ? loadWorld() : ({} as any);
+  const missions = have ? buildCatalog(core, w) : [];
+  for (const id of ['mt02_first_flight', 'mt06_save_flight', 'mt10_full_corridor']) {
+    it(`${id}: split flights share one ledger, land validly, never exceed allocation`, () => {
+      const m = missions.find((q) => q.id === id)!;
+      const s = new Session(w, m, { runId: `fly_${id}`, seed: m.seed });
+      s.start();
+      const ap = new Autopilot(s, { useFlight: true });
+      let metered = 0, crashes = 0, maxConsumed = 0, guard = 0;
+      while (s.phase !== 'ENDED' && guard++ < m.deadlineSeconds * 60 + 600) {
+        if (s.phase === 'RECOVERING') { s.completeRecovery(); continue; }
+        const before = s.player.ledger.consumedTicks;
+        s.step(ap.input());
+        const after = s.player.ledger.consumedTicks;
+        expect(after - before === 0 || after - before === 1).toBe(true); // at most one tick per tick, never negative
+        metered += after - before;
+        maxConsumed = Math.max(maxConsumed, after);
+        crashes += s.player.events.filter((e) => e.type === 'crash').length;
+      }
+      const r = s.results();
+      expect(r.launches).toBeGreaterThanOrEqual(1);
+      expect(maxConsumed).toBeLessThanOrEqual(s.player.ledger.initialTicks);
+      expect(r.flightUsedSeconds * 60).toBeCloseTo(metered, 6);
+      expect(r.outcome.success, r.outcome.reason).toBe(true);
+      report.push({ id: `${id}+flight`, launches: r.launches, flightUsedS: r.flightUsedSeconds, chargedS: +r.chargedSeconds.toFixed(1), deadlineS: m.deadlineSeconds, crashes, outcome: r.outcome.reason });
+      writeFileSync('qa/artifacts/calibration/flight-runs.json', JSON.stringify({ method: 'reference agent with flight heuristics, real physics, mission traffic', runs: report.filter((x) => String(x.id).endsWith('+flight')) }, null, 2));
+    }, 120_000);
+  }
+  const report: any[] = [];
+});

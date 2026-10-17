@@ -262,7 +262,7 @@ describe('F14 invalid landing surfaces rejected, connected branches allowed', ()
   it('touching down off the carriageway invokes recovery', () => {
     const p = newPlayer();
     p.place(-3, -300, 0, 'A1');
-    p.move = 'DESCENDING'; p.x = -8.5; p.y = 0.4; p.vy = -2; p.speed = 0;
+    p.move = 'DESCENDING'; p.x = -40; p.y = 0.4; p.vy = -2; p.speed = 0; // beyond any carriageway
     let crash = '';
     for (let k = 0; k < 30 && !crash; k++) for (const e of p.step(inp())) if (e.type === 'crash') crash = e.reason;
     expect(crash).toBe('Invalid landing surface');

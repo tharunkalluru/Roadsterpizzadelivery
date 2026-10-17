@@ -309,7 +309,8 @@ export class Session {
   private chooseAnchor(): Anchor {
     for (let i = this.anchors.length - 1; i >= 0; i--) {
       const a = this.anchors[i];
-      if (this.traffic.occupancy(a.x, a.z, 3) < 0.85 && !this.world.buildingAt(a.x, a.z)) return a;
+      const pedNear = this.traffic.peds.some((q) => Math.hypot(q.x - a.x, q.z - a.z) < 4);
+      if (!pedNear && this.traffic.occupancy(a.x, a.z, 3) < 0.85 && !this.world.buildingAt(a.x, a.z)) return a;
     }
     const d = this.delivery(this.mission.pickupId);
     const s = this.stagingPose(d);
