@@ -1,0 +1,617 @@
+{
+  "schema_version": 1,
+  "project_id": "hyderabad-metro-delivery",
+  "run_id": "run-2026-10-17-cloud-001",
+  "updated_at": "2026-10-17T21:50:00Z",
+  "requested_release": "completed_requested_network",
+  "achieved_release": "development_fixture",
+  "phase": "foundation",
+  "activity": "Ledgers initialized from kit templates; data, QA-ledger and app foundations being built; nothing playable yet",
+  "code_revision": null,
+  "bindings": {
+    "build": {
+      "path": "dist/build-manifest.json",
+      "sha256": null
+    },
+    "world": {
+      "path": "public/world/world-manifest.json",
+      "sha256": null
+    },
+    "config": {
+      "path": "config/project-contract.json",
+      "sha256": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb"
+    },
+    "scope": {
+      "path": "scope-manifest.json",
+      "sha256": "abc12aa7b62ca9780c5575a0018f330e883c0481c5d727857b175beff1469d47"
+    },
+    "requirements": {
+      "path": "requirements.json",
+      "sha256": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+    }
+  },
+  "coverage": {
+    "roads_total_metres": 61872.87,
+    "roads_implemented_metres": 0,
+    "roads_verified_metres": 0,
+    "frontage_total_metres": 123745.74,
+    "frontage_inspected_metres": 0,
+    "business_inventory_complete": false,
+    "businesses_inventoried": 0,
+    "businesses_verified_and_implemented": 0,
+    "displayed_names_total": 142,
+    "displayed_names_verified": 0,
+    "required_route_cases": 86,
+    "passed_route_cases": 0,
+    "required_review_views": 15,
+    "passed_review_views": 0
+  },
+  "checks": [
+    {
+      "id": "G01",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G02",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G03",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G04",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G05",
+      "result": "blocked",
+      "evidence_ids": [],
+      "reason": "B3: frontage verification needs street imagery; Mapillary/KartaView are not reachable or credentialed here."
+    },
+    {
+      "id": "G06",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G07",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G08",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G09",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G10",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G11",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "G12",
+      "result": "blocked",
+      "evidence_ids": [],
+      "reason": "B3: local recognition review requires a human local reviewer; none available."
+    },
+    {
+      "id": "F01",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F02",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F03",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F04",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F05",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F06",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F07",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F08",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F09",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F10",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F11",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F12",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F13",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F14",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F15",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F16",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F17",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F18",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F19",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F20",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F21",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F22",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F23",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "F24",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M01",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M02",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M03",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M04",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M05",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M06",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M07",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M08",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M09",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M10",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M11",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M12",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M13",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "M14",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "U01",
+      "result": "blocked",
+      "evidence_ids": [],
+      "reason": "B4: no physical Android/iPhone access in this environment."
+    },
+    {
+      "id": "U02",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "U03",
+      "result": "blocked",
+      "evidence_ids": [],
+      "reason": "B4: no physical Android/iPhone access in this environment."
+    },
+    {
+      "id": "U04",
+      "result": "blocked",
+      "evidence_ids": [],
+      "reason": "B4: no physical Android/iPhone access in this environment."
+    },
+    {
+      "id": "U05",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "U06",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "U07",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "U08",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "U09",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "U10",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "U11",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "U12",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "P01",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "P02",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "P03",
+      "result": "blocked",
+      "evidence_ids": [],
+      "reason": "B4: no physical Android/iPhone access (900-second sustained physical run per platform impossible here)."
+    },
+    {
+      "id": "P04",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "P05",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "P06",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "P07",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "P08",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q01",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q02",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q03",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q04",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q05",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q06",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q07",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q08",
+      "result": "blocked",
+      "evidence_ids": [
+        "EV-Q08-WHITEOUT-DENIED"
+      ],
+      "reason": "B1: Whiteout reference host whiteout.plgb.chatgpt.site is denied by this cloud environment's network policy (HTTP CONNECT 403 from the egress proxy on 2026-10-17); gameplay could not be inspected. Evidence EV-Q08-WHITEOUT-DENIED."
+    },
+    {
+      "id": "Q09",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q10",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q11",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    },
+    {
+      "id": "Q12",
+      "result": "not_run",
+      "evidence_ids": [],
+      "reason": "Not run: no implementation or current evidence yet."
+    }
+  ],
+  "gates": [
+    {
+      "id": "C0",
+      "result": "not_run",
+      "reason": "Not run."
+    },
+    {
+      "id": "C1",
+      "result": "not_run",
+      "reason": "Not run."
+    },
+    {
+      "id": "C2",
+      "result": "not_run",
+      "reason": "Not run."
+    },
+    {
+      "id": "C3",
+      "result": "not_run",
+      "reason": "Not run."
+    },
+    {
+      "id": "C4",
+      "result": "blocked",
+      "reason": "Blocked by B1 (Whiteout host denied, Q08) and B3 (no street imagery or local reviewer, G05/G12)."
+    },
+    {
+      "id": "C5",
+      "result": "blocked",
+      "reason": "Blocked by B2: Overpass/Geofabrik/download hosts denied, only the 4 bundled Uppal-Tarnaka OSM boxes exist, so the full Red/Green/Blue scope cannot be sourced or frozen here."
+    },
+    {
+      "id": "C6",
+      "result": "blocked",
+      "reason": "Blocked by B4 for the physical-device parts (U01, U03, U04, P03): no physical Android/iPhone access."
+    },
+    {
+      "id": "C7",
+      "result": "not_run",
+      "reason": "Not run."
+    }
+  ],
+  "blockers": [
+    "B1: Whiteout reference host whiteout.plgb.chatgpt.site is blocked by this environment's network policy (HTTP CONNECT 403, 2026-10-17). Affects Q08, C4.",
+    "B2: Overpass, Geofabrik and other download hosts are blocked; only the 4 bundled Uppal-Tarnaka OSM boxes exist. Affects C5 and the G-series for Red, Green and the rest of Blue.",
+    "B3: No street imagery (Mapillary/KartaView unreachable or uncredentialed) and no local field reviewer. Affects G05, G12.",
+    "B4: No physical Android or iPhone access. Affects U01, U03, U04, P03 and the physical-device parts of C6.",
+    "Nothing is playable yet; achieved release is development_fixture. Build, world manifest and code revision are not yet recorded."
+  ],
+  "next_actions": [
+    "Build the Uppal-Tarnaka authentic slice from the bundled OSM boxes; record scope inventory and freeze when concrete.",
+    "Ask the user to allow whiteout.plgb.chatgpt.site in the environment Network access settings, or supply gameplay recording/screenshots (see qa/reference-review.md).",
+    "Ask the user for physical Android and iOS test sessions and a local reviewer when available.",
+    "Re-run monitoring/verify_run.py in report mode after each milestone; refresh bindings and coverage."
+  ],
+  "budget_usage": {
+    "paid_spend": 0,
+    "source_download_bytes": 0,
+    "asset_bytes": 0,
+    "elapsed_minutes": 0
+  },
+  "environment": {
+    "node": "v22.22.0",
+    "npm": "10.9.4",
+    "python": "3.13.16",
+    "browser": "Chromium 1194 headless, WebGL2 via SwiftShader software renderer (usable for our own build captures; not representative of phone GPU performance)",
+    "cpus": 4,
+    "gpu": "none",
+    "session_configured_model": "claude-opus-5-5 (configured value from session metadata)",
+    "paid_spend_authorized": false,
+    "observed_on": "2026-10-17"
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "project_id": "hyderabad-metro-delivery",
+  "status": "blocked",
+  "requirement_ids": [
+    "Q08"
+  ],
+  "gate_ids": [
+    "C4"
+  ],
+  "purpose": "Record actual user-reference inspection and built-game comparison. Inspection not performed: reference host denied by network policy.",
+  "reference": {
+    "url": "https://whiteout.plgb.chatgpt.site/",
+    "requested_by": "user",
+    "preparation_observation": "Kit preparation environment reached only the opening interface and could not create WebGL. On 2026-10-17 this environment's egress proxy returned HTTP CONNECT 403 for whiteout.plgb.chatgpt.site, so no page, gameplay or asset was loaded.",
+    "receiving_agent_gameplay_inspected": false,
+    "inspection_date": null,
+    "reference_version_if_exposed": null,
+    "browser": null,
+    "device_class": null,
+    "viewport": null,
+    "settings": null,
+    "artifact_paths": [],
+    "redistribution_permissions": null,
+    "attempted_on": "2026-10-17"
+  },
+  "build_binding": {
+    "code_revision": null,
+    "production_bundle_sha256": null,
+    "world_manifest_sha256": null,
+    "project_contract_sha256": null,
+    "scope_manifest_sha256": null
+  },
+  "reviewer": {
+    "identity_or_agent_role": "QA-ledger worker (AI agent)",
+    "method": "Network reachability probe only (curl); no visual inspection",
+    "limitations": [
+      "Reference gameplay not observed",
+      "No reference captures exist",
+      "No Hyderabad build captures compared"
+    ]
+  },
+  "dimensions": [
+    {
+      "id": "vehicle",
+      "label": "Player vehicle",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": [
+        "Not inspected: reference gameplay inaccessible (network policy denial, 2026-10-17). Inspect per GRAPHICS_REFERENCE_WHITEOUT.md section 2 once access or user captures exist."
+      ]
+    },
+    {
+      "id": "scene",
+      "label": "Road and scene depth",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": [
+        "Not inspected: reference gameplay inaccessible (network policy denial, 2026-10-17). Inspect per GRAPHICS_REFERENCE_WHITEOUT.md section 2 once access or user captures exist."
+      ]
+    },
+    {
+      "id": "materials",
+      "label": "Materials",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": [
+        "Not inspected: reference gameplay inaccessible (network policy denial, 2026-10-17). Inspect per GRAPHICS_REFERENCE_WHITEOUT.md section 2 once access or user captures exist."
+      ]
+    },
+    {
+      "id": "lighting",
+      "label": "Lighting and shadows",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": [
+        "Not inspected: reference gameplay inaccessible (network policy denial, 2026-10-17). Inspect per GRAPHICS_REFERENCE_WHITEOUT.md section 2 once access or user captures exist."
+      ]
+    },
+    {
+      "id": "camera",
+      "label": "Camera and motion",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": [
+        "Not inspected: reference gameplay inaccessible (network policy denial, 2026-10-17). Inspect per GRAPHICS_REFERENCE_WHITEOUT.md section 2 once access or user captures exist."
+      ]
+    },
+    {
+      "id": "activity",
+      "label": "Environmental activity",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": [
+        "Not inspected: reference gameplay inaccessible (network policy denial, 2026-10-17). Inspect per GRAPHICS_REFERENCE_WHITEOUT.md section 2 once access or user captures exist."
+      ]
+    },
+    {
+      "id": "effects",
+      "label": "Effects and atmosphere",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": [
+        "Not inspected: reference gameplay inaccessible (network policy denial, 2026-10-17). Inspect per GRAPHICS_REFERENCE_WHITEOUT.md section 2 once access or user captures exist."
+      ]
+    },
+    {
+      "id": "interface",
+      "label": "Interface",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": [
+        "Not inspected: reference gameplay inaccessible (network policy denial, 2026-10-17). Inspect per GRAPHICS_REFERENCE_WHITEOUT.md section 2 once access or user captures exist."
+      ]
+    }
+  ],
+  "game_views": [],
+  "physical_device_performance_established_by_this_review": false,
+  "geographic_truth_established_by_this_review": false,
+  "all_relevant_dimensions_supported": false,
+  "overall_findings": [
+    "Q08/C4 blocked: reference host denied by cloud network policy (HTTP CONNECT 403 from egress proxy, 2026-10-17). No visual observations are recorded."
+  ],
+  "blocking_inputs": [
+    "Allow host whiteout.plgb.chatgpt.site in the cloud environment Network access settings, or user supplies a gameplay recording or screenshots of the reference (state whether motion or still)."
+  ],
+  "evidence_index_ids": [
+    "EV-Q08-WHITEOUT-DENIED"
+  ]
+}

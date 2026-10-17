@@ -1,0 +1,3152 @@
+{
+  "schema_version": 1,
+  "project_id": "hyderabad-metro-delivery",
+  "world_id": "hyd-uppal-tarnaka",
+  "world_version": "1.0.0",
+  "source_snapshot_id": "osm-hyd-20261017",
+  "reference_date": "2026-10-17",
+  "generated_at": "2026-10-17T20:16:44Z",
+  "notes": [
+    "Every record is verification=provisional: names are OpenStreetMap source claims, not field verified.",
+    "sourceName keeps the original OSM spelling; displayName is whitespace-normalised (first letter capitalised) or, for stations, the line suffix is removed.",
+    "Neighbourhood records carry an extra position (not part of the runtime NameRecord) for map labelling.",
+    "Telugu aliases come from name:te tags only where present; none were invented. The Blue route-level name:te tag (నాగోల్) is NOT a line name and is not used."
+  ],
+  "records": [
+    {
+      "id": "nm_line_blue_line",
+      "kind": "line",
+      "sourceName": "Blue Line",
+      "displayName": "Blue Line",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "relation/13986696"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "blue"
+      ]
+    },
+    {
+      "id": "nm_line_green_line",
+      "kind": "line",
+      "sourceName": "Green Line",
+      "displayName": "Green Line",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "relation/8297697"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "green"
+      ]
+    },
+    {
+      "id": "nm_line_red_line",
+      "kind": "line",
+      "sourceName": "Red Line",
+      "displayName": "Red Line",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "relation/8297698"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "red"
+      ]
+    },
+    {
+      "id": "nm_neighbourhood_bank_colony",
+      "kind": "neighbourhood",
+      "sourceName": "Bank Colony",
+      "displayName": "Bank Colony",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942958203"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942958203"
+      ],
+      "position": {
+        "lat": 17.408853,
+        "lon": 78.559316,
+        "x": 1159.79,
+        "z": 636,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_beerappaguda",
+      "kind": "neighbourhood",
+      "sourceName": "Beerappaguda",
+      "displayName": "Beerappaguda",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942958204"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942958204"
+      ],
+      "position": {
+        "lat": 17.404365,
+        "lon": 78.563283,
+        "x": 1581.3,
+        "z": 1132.8,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_brindavan_colony",
+      "kind": "neighbourhood",
+      "sourceName": "Brindavan Colony",
+      "displayName": "Brindavan Colony",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2930544240"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2930544240"
+      ],
+      "position": {
+        "lat": 17.411449,
+        "lon": 78.545394,
+        "x": -319.37,
+        "z": 348.76,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_dharmapuri_colony",
+      "kind": "neighbourhood",
+      "sourceName": "Dharmapuri Colony",
+      "displayName": "Dharmapuri Colony",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942958208"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942958208"
+      ],
+      "position": {
+        "lat": 17.406713,
+        "lon": 78.563256,
+        "x": 1578.38,
+        "z": 872.94,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_gandhi_nagar_colony",
+      "kind": "neighbourhood",
+      "sourceName": "Gandhi Nagar Colony",
+      "displayName": "Gandhi Nagar Colony",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942925235"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942925235"
+      ],
+      "position": {
+        "lat": 17.407484,
+        "lon": 78.542487,
+        "x": -628.25,
+        "z": 787.59,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_habsiguda",
+      "kind": "neighbourhood",
+      "sourceName": "Habsiguda",
+      "displayName": "Habsiguda",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/1361329778"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_1361329778"
+      ],
+      "position": {
+        "lat": 17.415476,
+        "lon": 78.542692,
+        "x": -606.49,
+        "z": -96.96,
+        "place": "suburb"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_habsiguda_x_roads",
+      "kind": "neighbourhood",
+      "sourceName": "Habsiguda x Roads",
+      "displayName": "Habsiguda x Roads",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/3159082752"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_3159082752"
+      ],
+      "position": {
+        "lat": 17.419181,
+        "lon": 78.541505,
+        "x": -732.6,
+        "z": -506.97,
+        "place": "locality"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_hmt_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "HMT Nagar",
+      "displayName": "HMT Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2930544241"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2930544241"
+      ],
+      "position": {
+        "lat": 17.422895,
+        "lon": 78.547949,
+        "x": -47.92,
+        "z": -918.03,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_kakatiya_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "Kakatiya Nagar",
+      "displayName": "Kakatiya Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2930544243"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2930544243"
+      ],
+      "position": {
+        "lat": 17.414687,
+        "lon": 78.539765,
+        "x": -917.43,
+        "z": -9.57,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_kalyan_puri",
+      "kind": "neighbourhood",
+      "sourceName": "Kalyan Puri",
+      "displayName": "Kalyan Puri",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2935016454"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2935016454"
+      ],
+      "position": {
+        "lat": 17.411009,
+        "lon": 78.556742,
+        "x": 886.33,
+        "z": 397.42,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_lalitha_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "Lalitha Nagar",
+      "displayName": "Lalitha Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942925239"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942925239"
+      ],
+      "position": {
+        "lat": 17.405376,
+        "lon": 78.544254,
+        "x": -440.5,
+        "z": 1020.88,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_laxma_reddy_colony",
+      "kind": "neighbourhood",
+      "sourceName": "Laxma Reddy Colony",
+      "displayName": "Laxma Reddy Colony",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942958210"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942958210"
+      ],
+      "position": {
+        "lat": 17.398474,
+        "lon": 78.562948,
+        "x": 1545.72,
+        "z": 1784.77,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_manikeshwari_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "Manikeshwari Nagar",
+      "displayName": "Manikeshwari Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2930544245"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2930544245"
+      ],
+      "position": {
+        "lat": 17.421205,
+        "lon": 78.523234,
+        "x": -2673.85,
+        "z": -731.02,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_mettuguda",
+      "kind": "neighbourhood",
+      "sourceName": "Mettuguda",
+      "displayName": "Mettuguda",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2929545330"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2929545330"
+      ],
+      "position": {
+        "lat": 17.42905,
+        "lon": 78.525242,
+        "x": -2460.47,
+        "z": -1599.19,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_nagendra_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "Nagendra Nagar",
+      "displayName": "Nagendra Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2930544246"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2930544246"
+      ],
+      "position": {
+        "lat": 17.418667,
+        "lon": 78.544037,
+        "x": -463.59,
+        "z": -450.1,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_prashanth_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "Prashanth Nagar",
+      "displayName": "Prashanth Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942958212"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942958212"
+      ],
+      "position": {
+        "lat": 17.406178,
+        "lon": 78.559845,
+        "x": 1215.97,
+        "z": 932.11,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_ravindra_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "Ravindra Nagar",
+      "displayName": "Ravindra Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2930544247"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2930544247"
+      ],
+      "position": {
+        "lat": 17.425852,
+        "lon": 78.522037,
+        "x": -2801.09,
+        "z": -1245.3,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_ss_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "SS Nagar",
+      "displayName": "SS Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2930544248"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2930544248"
+      ],
+      "position": {
+        "lat": 17.412096,
+        "lon": 78.543518,
+        "x": -518.73,
+        "z": 277.09,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_survey_colony",
+      "kind": "neighbourhood",
+      "sourceName": "Survey Colony",
+      "displayName": "Survey Colony",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942958216"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942958216"
+      ],
+      "position": {
+        "lat": 17.398159,
+        "lon": 78.55695,
+        "x": 908.43,
+        "z": 1819.58,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_tarnaka_flyover_tgsrtc_hospital",
+      "kind": "neighbourhood",
+      "sourceName": "Tarnaka Flyover;TGSRTC Hospital",
+      "displayName": "Tarnaka Flyover / TGSRTC Hospital",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2583708951"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2583708951"
+      ],
+      "position": {
+        "lat": 17.425537,
+        "lon": 78.530679,
+        "x": -1882.88,
+        "z": -1210.45,
+        "place": "locality"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_uppal",
+      "kind": "neighbourhood",
+      "sourceName": "Uppal",
+      "displayName": "Uppal",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఉప్పల్"
+        }
+      ],
+      "sourceIds": [
+        "node/2942958218"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942958218"
+      ],
+      "position": {
+        "lat": 17.402509,
+        "lon": 78.561256,
+        "x": 1365.96,
+        "z": 1338.15,
+        "place": "suburb"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_venkateswara_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "Venkateswara Nagar",
+      "displayName": "Venkateswara Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942958219"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942958219"
+      ],
+      "position": {
+        "lat": 17.400329,
+        "lon": 78.562223,
+        "x": 1468.69,
+        "z": 1579.43,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_vikrampuri",
+      "kind": "neighbourhood",
+      "sourceName": "Vikrampuri",
+      "displayName": "Vikrampuri",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2930544251"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2930544251"
+      ],
+      "position": {
+        "lat": 17.414572,
+        "lon": 78.545554,
+        "x": -302.41,
+        "z": 3.08,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_neighbourhood_vv_nagar",
+      "kind": "neighbourhood",
+      "sourceName": "VV Nagar",
+      "displayName": "VV Nagar",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2942925254"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "place_node_2942925254"
+      ],
+      "position": {
+        "lat": 17.407664,
+        "lon": 78.544664,
+        "x": -396.9,
+        "z": 767.6,
+        "place": "neighbourhood"
+      }
+    },
+    {
+      "id": "nm_poi_bajaj_electronics",
+      "kind": "poi",
+      "sourceName": "Bajaj Electronics",
+      "displayName": "Bajaj Electronics",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/6264953185"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_bajaj_electronics",
+        "p_node_6264953185"
+      ]
+    },
+    {
+      "id": "nm_poi_cafe_coffee_day",
+      "kind": "poi",
+      "sourceName": "Cafe Coffee day",
+      "displayName": "Cafe Coffee day",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/1361329777"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_cafe_coffee_day",
+        "p_node_1361329777"
+      ]
+    },
+    {
+      "id": "nm_poi_ganesh_supermarket",
+      "kind": "poi",
+      "sourceName": "Ganesh Supermarket",
+      "displayName": "Ganesh Supermarket",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/6263600287"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_ganesh_supermarket",
+        "p_node_6263600287"
+      ]
+    },
+    {
+      "id": "nm_poi_goodlands",
+      "kind": "poi",
+      "sourceName": "Goodlands",
+      "displayName": "Goodlands",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2466627233"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_goodlands",
+        "p_node_2466627233"
+      ]
+    },
+    {
+      "id": "nm_poi_habsiguda_poly_clinic_and_nursing_home",
+      "kind": "poi",
+      "sourceName": "Habsiguda Poly Clinic and Nursing Home",
+      "displayName": "Habsiguda Poly Clinic and Nursing Home",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/6494385067"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_habsiguda_poly_clinic_and_nursing_home",
+        "p_node_6494385067"
+      ]
+    },
+    {
+      "id": "nm_poi_hotel_suprabhat",
+      "kind": "poi",
+      "sourceName": "Hotel Suprabhat",
+      "displayName": "Hotel Suprabhat",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/3523097051"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_hotel_suprabhat",
+        "p_node_3523097051"
+      ]
+    },
+    {
+      "id": "nm_poi_petrom",
+      "kind": "poi",
+      "sourceName": "Petrom",
+      "displayName": "Petrom",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1113280971"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_petrom",
+        "p_way_1113280971"
+      ]
+    },
+    {
+      "id": "nm_poi_sri_devi_charitable_trust_blood_bank",
+      "kind": "poi",
+      "sourceName": "Sri Devi Charitable Trust Blood Bank",
+      "displayName": "Sri Devi Charitable Trust Blood Bank",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/6562193592"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_sri_devi_charitable_trust_blood_bank",
+        "p_node_6562193592"
+      ]
+    },
+    {
+      "id": "nm_poi_sri_raghavendra_hotel",
+      "kind": "poi",
+      "sourceName": "Sri Raghavendra Hotel",
+      "displayName": "Sri Raghavendra Hotel",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/8230990104"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_sri_raghavendra_hotel",
+        "p_node_8230990104"
+      ]
+    },
+    {
+      "id": "nm_poi_the_hindu",
+      "kind": "poi",
+      "sourceName": "The Hindu",
+      "displayName": "The Hindu",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2431956348"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "d_the_hindu",
+        "p_node_2431956348"
+      ]
+    },
+    {
+      "id": "nm_road_11th_street",
+      "kind": "road",
+      "sourceName": "11th Street",
+      "displayName": "11th Street",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/140391596"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_140391596_14"
+      ]
+    },
+    {
+      "id": "nm_road_azmath_nagar_road",
+      "kind": "road",
+      "sourceName": "Azmath Nagar Road",
+      "displayName": "Azmath Nagar Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/214568258"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_214568258_0"
+      ]
+    },
+    {
+      "id": "nm_road_dr_zaheer_marg",
+      "kind": "road",
+      "sourceName": "Dr. Zaheer Marg",
+      "displayName": "Dr. Zaheer Marg",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1190545651"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1190545651_0"
+      ]
+    },
+    {
+      "id": "nm_road_genpact_shortcut",
+      "kind": "road",
+      "sourceName": "genpact shortcut",
+      "displayName": "Genpact shortcut",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1392668375",
+        "way/1392668378",
+        "way/1392668379",
+        "way/235099724",
+        "way/355688065"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1392668375_0",
+        "r_1392668378_0",
+        "r_1392668379_0",
+        "r_235099724_0",
+        "r_235099724_1",
+        "r_235099724_2",
+        "r_235099724_3",
+        "r_355688065_3",
+        "r_355688065_4"
+      ]
+    },
+    {
+      "id": "nm_road_habsiguda_main_road",
+      "kind": "road",
+      "sourceName": "Habsiguda Main Road",
+      "displayName": "Habsiguda Main Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1414052871",
+        "way/166513063",
+        "way/29475191",
+        "way/314532785",
+        "way/315572441",
+        "way/318613168",
+        "way/431854870"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1414052871_0",
+        "r_166513063_0",
+        "r_166513063_1",
+        "r_166513063_2",
+        "r_166513063_3",
+        "r_166513063_4",
+        "r_166513063_5",
+        "r_166513063_6",
+        "r_29475191_0",
+        "r_29475191_1",
+        "r_29475191_10",
+        "r_29475191_11",
+        "r_29475191_12",
+        "r_29475191_13",
+        "r_29475191_14",
+        "r_29475191_15",
+        "r_29475191_16",
+        "r_29475191_17",
+        "r_29475191_18",
+        "r_29475191_2",
+        "r_29475191_3",
+        "r_29475191_4",
+        "r_29475191_5",
+        "r_29475191_6",
+        "r_29475191_7",
+        "r_29475191_8",
+        "r_29475191_9",
+        "r_314532785_0",
+        "r_314532785_1",
+        "r_314532785_2",
+        "r_314532785_3",
+        "r_314532785_4",
+        "r_314532785_5",
+        "r_314532785_6",
+        "r_314532785_7",
+        "r_314532785_8",
+        "r_314532785_9",
+        "r_315572441_0",
+        "r_318613168_0",
+        "r_318613168_1",
+        "r_318613168_10",
+        "r_318613168_11",
+        "r_318613168_12",
+        "r_318613168_13",
+        "r_318613168_14",
+        "r_318613168_15",
+        "r_318613168_16",
+        "r_318613168_17",
+        "r_318613168_18",
+        "r_318613168_2",
+        "r_318613168_3",
+        "r_318613168_4",
+        "r_318613168_5",
+        "r_318613168_6",
+        "r_318613168_7",
+        "r_318613168_8",
+        "r_318613168_9",
+        "r_431854870_0",
+        "r_431854870_1",
+        "r_431854870_2",
+        "r_431854870_3",
+        "r_431854870_4"
+      ]
+    },
+    {
+      "id": "nm_road_hmt_road",
+      "kind": "road",
+      "sourceName": "HMT road",
+      "displayName": "HMT road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/29252738"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_29252738_3",
+        "r_29252738_4",
+        "r_29252738_7"
+      ]
+    },
+    {
+      "id": "nm_road_hyderabad_janagam_highway",
+      "kind": "road",
+      "sourceName": "Hyderabad-Janagam Highway",
+      "displayName": "Hyderabad-Janagam Highway",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1546133070",
+        "way/1546133071",
+        "way/377322780",
+        "way/377322781",
+        "way/45037012"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1546133070_0",
+        "r_1546133071_0",
+        "r_1546133071_1",
+        "r_377322780_0",
+        "r_377322781_0",
+        "r_45037012_3",
+        "r_45037012_4"
+      ]
+    },
+    {
+      "id": "nm_road_inner_ring_road",
+      "kind": "road",
+      "sourceName": "Inner Ring Road",
+      "displayName": "Inner Ring Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1350772879",
+        "way/1350772880",
+        "way/27953017",
+        "way/27953020",
+        "way/314673536",
+        "way/377322776",
+        "way/377322777",
+        "way/377322778"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1350772879_0",
+        "r_1350772880_0",
+        "r_27953017_0",
+        "r_27953017_1",
+        "r_27953020_0",
+        "r_27953020_1",
+        "r_27953020_2",
+        "r_314673536_0",
+        "r_377322776_0",
+        "r_377322776_1",
+        "r_377322777_0",
+        "r_377322777_1",
+        "r_377322777_2",
+        "r_377322778_0",
+        "r_377322778_1"
+      ]
+    },
+    {
+      "id": "nm_road_kalyanpuri_colony_road",
+      "kind": "road",
+      "sourceName": "Kalyanpuri Colony Road",
+      "displayName": "Kalyanpuri Colony Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1424773068",
+        "way/354044663"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1424773068_3",
+        "r_354044663_15",
+        "r_354044663_16",
+        "r_354044663_17",
+        "r_354044663_18",
+        "r_354044663_19"
+      ]
+    },
+    {
+      "id": "nm_road_krishna_deva_raya_road",
+      "kind": "road",
+      "sourceName": "Krishna Deva Raya Road",
+      "displayName": "Krishna Deva Raya Road",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "en",
+          "value": "Inner Ring Road"
+        },
+        {
+          "lang": "te",
+          "value": "కృష్ణ దేవరాయ రోడ్"
+        }
+      ],
+      "sourceIds": [
+        "way/166510403",
+        "way/166512368",
+        "way/28095662",
+        "way/432358624"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_166510403_0",
+        "r_166510403_1",
+        "r_166510403_2",
+        "r_166510403_3",
+        "r_166510403_4",
+        "r_166510403_5",
+        "r_166510403_6",
+        "r_166512368_0",
+        "r_166512368_1",
+        "r_28095662_1",
+        "r_28095662_2",
+        "r_28095662_3",
+        "r_28095662_4",
+        "r_28095662_5",
+        "r_28095662_6",
+        "r_28095662_7",
+        "r_432358624_0",
+        "r_432358624_1",
+        "r_432358624_2"
+      ]
+    },
+    {
+      "id": "nm_road_lane_number_5",
+      "kind": "road",
+      "sourceName": "lane number 5",
+      "displayName": "Lane number 5",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/183531616"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_183531616_0"
+      ]
+    },
+    {
+      "id": "nm_road_maula_ali_road",
+      "kind": "road",
+      "sourceName": "Maula Ali Road",
+      "displayName": "Maula Ali Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/28127443",
+        "way/826093293"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_28127443_0",
+        "r_28127443_1",
+        "r_28127443_2",
+        "r_28127443_3",
+        "r_826093293_1",
+        "r_826093293_2",
+        "r_826093293_3",
+        "r_826093293_5",
+        "r_826093293_6",
+        "r_826093293_7"
+      ]
+    },
+    {
+      "id": "nm_road_meher_garden_road",
+      "kind": "road",
+      "sourceName": "Meher Garden Road",
+      "displayName": "Meher Garden Road",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "en",
+          "value": "Beerappagadda Road"
+        }
+      ],
+      "sourceIds": [
+        "way/1133067306",
+        "way/1536501752",
+        "way/28269085"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1133067306_0",
+        "r_1133067306_1",
+        "r_1536501752_0",
+        "r_1536501752_1",
+        "r_1536501752_2",
+        "r_1536501752_3",
+        "r_28269085_2",
+        "r_28269085_3",
+        "r_28269085_4",
+        "r_28269085_5",
+        "r_28269085_6",
+        "r_28269085_7",
+        "r_28269085_8",
+        "r_28269085_9"
+      ]
+    },
+    {
+      "id": "nm_road_nacharam_road",
+      "kind": "road",
+      "sourceName": "Nacharam Road",
+      "displayName": "Nacharam Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/166515441",
+        "way/166515442",
+        "way/310483695",
+        "way/314532786"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_166515441_0",
+        "r_166515441_1",
+        "r_166515441_2",
+        "r_166515441_3",
+        "r_166515441_4",
+        "r_166515442_0",
+        "r_310483695_2",
+        "r_310483695_3",
+        "r_310483695_4",
+        "r_310483695_5",
+        "r_310483695_6",
+        "r_310483695_7",
+        "r_310483695_8",
+        "r_314532786_0"
+      ]
+    },
+    {
+      "id": "nm_road_near_union_bank_of_india",
+      "kind": "road",
+      "sourceName": "near union bank of india",
+      "displayName": "Near union bank of india",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1465050278"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1465050278_0"
+      ]
+    },
+    {
+      "id": "nm_road_nmdc_internal_road",
+      "kind": "road",
+      "sourceName": "NMDC internal road",
+      "displayName": "NMDC internal road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1162024990",
+        "way/354032922",
+        "way/354032923",
+        "way/783242197"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1162024990_0",
+        "r_354032922_0",
+        "r_354032923_0",
+        "r_354032923_1",
+        "r_354032923_2",
+        "r_783242197_0"
+      ]
+    },
+    {
+      "id": "nm_road_osmania_university_road",
+      "kind": "road",
+      "sourceName": "Osmania University Road",
+      "displayName": "Osmania University Road",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "en",
+          "value": "Vidyanagar Main Road"
+        }
+      ],
+      "sourceIds": [
+        "way/310939349"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_310939349_7",
+        "r_310939349_8"
+      ]
+    },
+    {
+      "id": "nm_road_park_road",
+      "kind": "road",
+      "sourceName": "park road",
+      "displayName": "Park road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/28195513"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_28195513_0",
+        "r_28195513_1",
+        "r_28195513_4",
+        "r_28195513_5",
+        "r_28195513_6"
+      ]
+    },
+    {
+      "id": "nm_road_prashanthinagar_main_road",
+      "kind": "road",
+      "sourceName": "Prashanthinagar Main Road",
+      "displayName": "Prashanthinagar Main Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/166515797",
+        "way/259514639",
+        "way/418057108"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_166515797_0",
+        "r_259514639_0",
+        "r_418057108_0",
+        "r_418057108_1",
+        "r_418057108_2",
+        "r_418057108_3"
+      ]
+    },
+    {
+      "id": "nm_road_railway_degree_college_road",
+      "kind": "road",
+      "sourceName": "Railway Degree College Road",
+      "displayName": "Railway Degree College Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/28797732"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_28797732_3"
+      ]
+    },
+    {
+      "id": "nm_road_road_no_1",
+      "kind": "road",
+      "sourceName": "Road No 1",
+      "displayName": "Road No 1",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/420440684"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_420440684_0",
+        "r_420440684_1"
+      ]
+    },
+    {
+      "id": "nm_road_road_no_2",
+      "kind": "road",
+      "sourceName": "Road No 2",
+      "displayName": "Road No 2",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/420447486"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_420447486_3"
+      ]
+    },
+    {
+      "id": "nm_road_sbh_colony_main_road",
+      "kind": "road",
+      "sourceName": "SBH Colony Main Road",
+      "displayName": "SBH Colony Main Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/214066817"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_214066817_0",
+        "r_214066817_1",
+        "r_214066817_2",
+        "r_214066817_3"
+      ]
+    },
+    {
+      "id": "nm_road_sitaphalmandi_road",
+      "kind": "road",
+      "sourceName": "Sitaphalmandi Road",
+      "displayName": "Sitaphalmandi Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1460976970",
+        "way/252088283"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1460976970_0",
+        "r_252088283_4"
+      ]
+    },
+    {
+      "id": "nm_road_street_14",
+      "kind": "road",
+      "sourceName": "Street 14",
+      "displayName": "Street 14",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/29252727"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_29252727_0",
+        "r_29252727_1",
+        "r_29252727_2",
+        "r_29252727_3",
+        "r_29252727_4",
+        "r_29252727_5"
+      ]
+    },
+    {
+      "id": "nm_road_street_8",
+      "kind": "road",
+      "sourceName": "Street 8",
+      "displayName": "Street 8",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/166515437"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_166515437_0",
+        "r_166515437_1",
+        "r_166515437_10",
+        "r_166515437_11",
+        "r_166515437_12",
+        "r_166515437_13",
+        "r_166515437_14",
+        "r_166515437_15",
+        "r_166515437_16",
+        "r_166515437_17",
+        "r_166515437_18",
+        "r_166515437_19",
+        "r_166515437_2",
+        "r_166515437_20",
+        "r_166515437_25",
+        "r_166515437_26",
+        "r_166515437_27",
+        "r_166515437_28",
+        "r_166515437_29",
+        "r_166515437_3",
+        "r_166515437_30",
+        "r_166515437_32",
+        "r_166515437_4",
+        "r_166515437_5",
+        "r_166515437_6",
+        "r_166515437_7",
+        "r_166515437_8",
+        "r_166515437_9"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_06",
+      "kind": "road",
+      "sourceName": "Street No. 06",
+      "displayName": "Street No. 06",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/28656290"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_28656290_0"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_1",
+      "kind": "road",
+      "sourceName": "Street No 1",
+      "displayName": "Street No 1",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/29252679"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_29252679_0",
+        "r_29252679_1",
+        "r_29252679_10",
+        "r_29252679_2",
+        "r_29252679_3",
+        "r_29252679_5"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_13",
+      "kind": "road",
+      "sourceName": "street no 13",
+      "displayName": "Street no 13",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/417871295"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_417871295_2",
+        "r_417871295_3",
+        "r_417871295_4"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_1_ac5e86",
+      "kind": "road",
+      "sourceName": "street no 1",
+      "displayName": "Street no 1",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/121543578",
+        "way/1288300085"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_121543578_2",
+        "r_121543578_3",
+        "r_121543578_4",
+        "r_121543578_5",
+        "r_1288300085_0"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_2",
+      "kind": "road",
+      "sourceName": "street no 2",
+      "displayName": "Street no 2",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1318065235",
+        "way/1318065236",
+        "way/1318065238",
+        "way/28195515"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1318065235_0",
+        "r_1318065236_0",
+        "r_1318065238_0",
+        "r_28195515_0"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_3",
+      "kind": "road",
+      "sourceName": "street no 3",
+      "displayName": "Street no 3",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/121543581"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_121543581_0",
+        "r_121543581_1",
+        "r_121543581_2",
+        "r_121543581_3"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_3_52630b",
+      "kind": "road",
+      "sourceName": "Street No 3",
+      "displayName": "Street No 3",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/183532750"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_183532750_0",
+        "r_183532750_1",
+        "r_183532750_2",
+        "r_183532750_3",
+        "r_183532750_4"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_4",
+      "kind": "road",
+      "sourceName": "Street no. 4",
+      "displayName": "Street no. 4",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/121543582"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_121543582_0",
+        "r_121543582_1",
+        "r_121543582_2",
+        "r_121543582_3",
+        "r_121543582_4",
+        "r_121543582_5",
+        "r_121543582_6",
+        "r_121543582_7"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_4_b3a093",
+      "kind": "road",
+      "sourceName": "Street No 4",
+      "displayName": "Street No 4",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/214620395"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_214620395_0",
+        "r_214620395_1",
+        "r_214620395_2"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_5",
+      "kind": "road",
+      "sourceName": "Street No. 5",
+      "displayName": "Street No. 5",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/213859667"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_213859667_0"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_5_614b80",
+      "kind": "road",
+      "sourceName": "Street No 5",
+      "displayName": "Street No 5",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/1298948786",
+        "way/214620155"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_1298948786_0",
+        "r_214620155_0",
+        "r_214620155_1",
+        "r_214620155_2"
+      ]
+    },
+    {
+      "id": "nm_road_street_no_6",
+      "kind": "road",
+      "sourceName": "Street No. 6",
+      "displayName": "Street No. 6",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/213859671"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_213859671_0",
+        "r_213859671_1",
+        "r_213859671_2"
+      ]
+    },
+    {
+      "id": "nm_road_street_number_11",
+      "kind": "road",
+      "sourceName": "street number 11",
+      "displayName": "Street number 11",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/183537543"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_183537543_2"
+      ]
+    },
+    {
+      "id": "nm_road_street_number_12",
+      "kind": "road",
+      "sourceName": "street number 12",
+      "displayName": "Street number 12",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/418032018"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_418032018_0"
+      ]
+    },
+    {
+      "id": "nm_road_street_number_17",
+      "kind": "road",
+      "sourceName": "street number 17",
+      "displayName": "Street number 17",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/354041335"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_354041335_0"
+      ]
+    },
+    {
+      "id": "nm_road_street_number_2",
+      "kind": "road",
+      "sourceName": "street number 2",
+      "displayName": "Street number 2",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/354041342",
+        "way/354041344"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_354041342_0",
+        "r_354041344_0"
+      ]
+    },
+    {
+      "id": "nm_road_strret_no_2",
+      "kind": "road",
+      "sourceName": "Strret No 2",
+      "displayName": "Strret No 2",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/354033555"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_354033555_0",
+        "r_354033555_10",
+        "r_354033555_4",
+        "r_354033555_5",
+        "r_354033555_6",
+        "r_354033555_7",
+        "r_354033555_8",
+        "r_354033555_9"
+      ]
+    },
+    {
+      "id": "nm_road_surya_nagar_colony",
+      "kind": "road",
+      "sourceName": "Surya Nagar Colony",
+      "displayName": "Surya Nagar Colony",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/149455879"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_149455879_1",
+        "r_149455879_2",
+        "r_149455879_3",
+        "r_149455879_4",
+        "r_149455879_5"
+      ]
+    },
+    {
+      "id": "nm_road_tarnaka_flyover",
+      "kind": "road",
+      "sourceName": "Tarnaka Flyover",
+      "displayName": "Tarnaka Flyover",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "en",
+          "value": "Inner Ring Road"
+        }
+      ],
+      "sourceIds": [
+        "way/316767714",
+        "way/316767715",
+        "way/432570566",
+        "way/432570567",
+        "way/432570568",
+        "way/432570569"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_316767714_0",
+        "r_316767715_0",
+        "r_432570566_0",
+        "r_432570567_0",
+        "r_432570568_0",
+        "r_432570569_0"
+      ]
+    },
+    {
+      "id": "nm_road_uppal_road",
+      "kind": "road",
+      "sourceName": "Uppal Road",
+      "displayName": "Uppal Road",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/355709825"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_355709825_0"
+      ]
+    },
+    {
+      "id": "nm_road_water_tank_lane",
+      "kind": "road",
+      "sourceName": "water tank lane",
+      "displayName": "Water tank lane",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/315939914"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_315939914_1",
+        "r_315939914_2",
+        "r_315939914_3",
+        "r_315939914_4"
+      ]
+    },
+    {
+      "id": "nm_road_zahid_nagar_street_no_2",
+      "kind": "road",
+      "sourceName": "Zahid Nagar Street No 2",
+      "displayName": "Zahid Nagar Street No 2",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "way/214066993"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "r_214066993_0"
+      ]
+    },
+    {
+      "id": "nm_station_ameerpet",
+      "kind": "station",
+      "sourceName": "Ameerpet",
+      "displayName": "Ameerpet",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "అమీర్‌పేట్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173110",
+        "node/2422988997",
+        "node/5787787982",
+        "node/5787787991"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_ameerpet"
+      ]
+    },
+    {
+      "id": "nm_station_assembly",
+      "kind": "station",
+      "sourceName": "Assembly",
+      "displayName": "Assembly",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "అసెంబ్లీ"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179219",
+        "node/2422989068"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_assembly"
+      ]
+    },
+    {
+      "id": "nm_station_balanagar",
+      "kind": "station",
+      "sourceName": "Balanagar",
+      "displayName": "Balanagar",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "బాలానగర్"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179206",
+        "node/2422989180"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_balanagar"
+      ]
+    },
+    {
+      "id": "nm_station_begumpet",
+      "kind": "station",
+      "sourceName": "Begumpet",
+      "displayName": "Begumpet",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "బేగంపేట్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422172987",
+        "node/5787788969"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_begumpet"
+      ]
+    },
+    {
+      "id": "nm_station_bharat_nagar",
+      "kind": "station",
+      "sourceName": "Bharat Nagar",
+      "displayName": "Bharat Nagar",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "భరత్ నగర్"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179208",
+        "node/2422989052"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_bharat_nagar"
+      ]
+    },
+    {
+      "id": "nm_station_chaitanyapuri",
+      "kind": "station",
+      "sourceName": "Chaitanyapuri",
+      "displayName": "Chaitanyapuri",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఛైతన్యపురి"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179223",
+        "node/2422989005"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_chaitanyapuri"
+      ]
+    },
+    {
+      "id": "nm_station_chikkadpally",
+      "kind": "station",
+      "sourceName": "Chikkadpally",
+      "displayName": "Chikkadpally",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "చిక్కడపల్లి"
+        }
+      ],
+      "sourceIds": [
+        "node/2390894266",
+        "node/5787787751"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_chikkadpally"
+      ]
+    },
+    {
+      "id": "nm_station_dilsukh_nagar",
+      "kind": "station",
+      "sourceName": "Dilsukh Nagar",
+      "displayName": "Dilsukh Nagar",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "దిల్‌సుఖ్‌నగర్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422989167",
+        "node/5787788261"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_dilsukh_nagar"
+      ]
+    },
+    {
+      "id": "nm_station_durgam_cheruvu",
+      "kind": "station",
+      "sourceName": "Durgam Cheruvu",
+      "displayName": "Durgam Cheruvu",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "దుర్గం చెరువు"
+        }
+      ],
+      "sourceIds": [
+        "node/6453519084",
+        "node/6453520185"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_durgam_cheruvu"
+      ]
+    },
+    {
+      "id": "nm_station_erragadda",
+      "kind": "station",
+      "sourceName": "Erragadda",
+      "displayName": "Erragadda",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఎర్రగడ్డ"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179209",
+        "node/2422989021"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_erragadda"
+      ]
+    },
+    {
+      "id": "nm_station_esi_hospital",
+      "kind": "station",
+      "sourceName": "ESI Hospital",
+      "displayName": "ESI Hospital",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఈ.ఎస్.ఐ ఆస్పత్రి"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179216",
+        "node/2425474186"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_esi_hospital"
+      ]
+    },
+    {
+      "id": "nm_station_gandhi_bhavan",
+      "kind": "station",
+      "sourceName": "Gandhi Bhavan",
+      "displayName": "Gandhi Bhavan",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "గాంధీ భవన్"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179221",
+        "node/2422989110"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_gandhi_bhavan"
+      ]
+    },
+    {
+      "id": "nm_station_gandhi_hospital",
+      "kind": "station",
+      "sourceName": "Gandhi Hospital",
+      "displayName": "Gandhi Hospital",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "గాంధీ హాస్పిటల్"
+        }
+      ],
+      "sourceIds": [
+        "node/7195061311",
+        "node/7358663505"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_gandhi_hospital"
+      ]
+    },
+    {
+      "id": "nm_station_habsiguda",
+      "kind": "station",
+      "sourceName": "Habsiguda",
+      "displayName": "Habsiguda",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "హబ్సీగూడ"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173048",
+        "node/5787788975",
+        "node/7052069754",
+        "relation/10402704"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_habsiguda"
+      ]
+    },
+    {
+      "id": "nm_station_hitec_city",
+      "kind": "station",
+      "sourceName": "HITEC City",
+      "displayName": "HITEC City",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "హైటెక్ సిటి"
+        }
+      ],
+      "sourceIds": [
+        "node/2422172983",
+        "node/5787787852"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_hitec_city"
+      ]
+    },
+    {
+      "id": "nm_station_irrum_manzil",
+      "kind": "station",
+      "sourceName": "Irrum Manzil",
+      "displayName": "Irrum Manzil",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఇఱం మంజిల్"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179192",
+        "node/2422989191"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_irrum_manzil"
+      ]
+    },
+    {
+      "id": "nm_station_jbs",
+      "kind": "station",
+      "sourceName": "JBS",
+      "displayName": "JBS",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/1118773825",
+        "node/7195061307"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_jbs"
+      ]
+    },
+    {
+      "id": "nm_station_jntu_college",
+      "kind": "station",
+      "sourceName": "JNTU College",
+      "displayName": "JNTU College",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "జె.ఎన్.టి.యూ కాలేజి"
+        }
+      ],
+      "sourceIds": [
+        "node/11737669093",
+        "node/4343145632"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_jntu_college"
+      ]
+    },
+    {
+      "id": "nm_station_jubilee_hills_checkpost",
+      "kind": "station",
+      "sourceName": "Jubilee Hills Checkpost",
+      "displayName": "Jubilee Hills Checkpost",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2422173139",
+        "node/6777782857"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_jubilee_hills_checkpost"
+      ]
+    },
+    {
+      "id": "nm_station_khairatabad",
+      "kind": "station",
+      "sourceName": "Khairatabad",
+      "displayName": "Khairatabad",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఖైరతాబాద్"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179217",
+        "node/5961188254"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_khairatabad"
+      ]
+    },
+    {
+      "id": "nm_station_kphb_colony",
+      "kind": "station",
+      "sourceName": "KPHB Colony",
+      "displayName": "KPHB Colony",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "కె.పి.హెచ్.బి కాలనీ"
+        }
+      ],
+      "sourceIds": [
+        "node/11737669095",
+        "node/7040356387"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_kphb_colony"
+      ]
+    },
+    {
+      "id": "nm_station_kukatpally",
+      "kind": "station",
+      "sourceName": "Kukatpally",
+      "displayName": "Kukatpally",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "కూక్కట్‌పల్లి"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179205",
+        "node/2422988961"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_kukatpally"
+      ]
+    },
+    {
+      "id": "nm_station_l_b_nagar",
+      "kind": "station",
+      "sourceName": "L. B. Nagar",
+      "displayName": "L. B. Nagar",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఎల్.బి. నగర్"
+        }
+      ],
+      "sourceIds": [
+        "node/4332315990",
+        "node/5787788275"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_l_b_nagar"
+      ]
+    },
+    {
+      "id": "nm_station_lakdi_ka_pul",
+      "kind": "station",
+      "sourceName": "Lakdi-ka-pul",
+      "displayName": "Lakdi-ka-pul",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "లక్డి-కా-పుల్"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179218",
+        "node/5968369025"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_lakdi_ka_pul"
+      ]
+    },
+    {
+      "id": "nm_station_madhapur",
+      "kind": "station",
+      "sourceName": "Madhapur",
+      "displayName": "Madhapur",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "మాధాపూర్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173008",
+        "node/5787787896"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_madhapur"
+      ]
+    },
+    {
+      "id": "nm_station_madhura_nagar",
+      "kind": "station",
+      "sourceName": "Madhura Nagar",
+      "displayName": "Madhura Nagar",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "మధుర నగర్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422172989",
+        "node/7052069769"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_madhura_nagar"
+      ]
+    },
+    {
+      "id": "nm_station_mahatma_gandhi_bus_station_red_line",
+      "kind": "station",
+      "sourceName": "Mahatma Gandhi Bus Station (Red Line)",
+      "displayName": "Mahatma Gandhi Bus Station",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "en",
+          "value": "Mahatma Gandhi Bus Station (Green Line)"
+        },
+        {
+          "lang": "te",
+          "value": "ఎం.జి. బస్. స్టేషన్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422989260",
+        "node/7206794945",
+        "node/7632550173",
+        "node/7632550174"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_mahatma_gandhi_bus_station"
+      ]
+    },
+    {
+      "id": "nm_station_malakpet",
+      "kind": "station",
+      "sourceName": "Malakpet",
+      "displayName": "Malakpet",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "మలక్‌పేట్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422989058",
+        "node/7206794933"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_malakpet"
+      ]
+    },
+    {
+      "id": "nm_station_mettuguda",
+      "kind": "station",
+      "sourceName": "Mettuguda",
+      "displayName": "Mettuguda",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "మెట్టుగూడ"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173068",
+        "node/5787788977",
+        "relation/10402706"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_mettuguda"
+      ]
+    },
+    {
+      "id": "nm_station_miyapur",
+      "kind": "station",
+      "sourceName": "Miyapur",
+      "displayName": "Miyapur",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "మియాపూర్"
+        }
+      ],
+      "sourceIds": [
+        "node/10944314449",
+        "node/4343036182"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_miyapur"
+      ]
+    },
+    {
+      "id": "nm_station_moosapet",
+      "kind": "station",
+      "sourceName": "Moosapet",
+      "displayName": "Moosapet",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "మూసాపేట్"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179207",
+        "node/5551948741"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_moosapet"
+      ]
+    },
+    {
+      "id": "nm_station_musarambagh",
+      "kind": "station",
+      "sourceName": "Musarambagh",
+      "displayName": "Musarambagh",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "మూసారంబాగ్"
+        }
+      ],
+      "sourceIds": [
+        "node/10279821750",
+        "node/6800005107"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_musarambagh"
+      ]
+    },
+    {
+      "id": "nm_station_musheerabad",
+      "kind": "station",
+      "sourceName": "Musheerabad",
+      "displayName": "Musheerabad",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ముషీరాబాద్"
+        }
+      ],
+      "sourceIds": [
+        "node/7195061312",
+        "node/7358663504"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_musheerabad"
+      ]
+    },
+    {
+      "id": "nm_station_nagole",
+      "kind": "station",
+      "sourceName": "Nagole",
+      "displayName": "Nagole",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "నాగోల్"
+        }
+      ],
+      "sourceIds": [
+        "node/5961220665",
+        "node/6447168563"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_nagole"
+      ]
+    },
+    {
+      "id": "nm_station_nampally",
+      "kind": "station",
+      "sourceName": "Nampally",
+      "displayName": "Nampally",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "నాంపల్లి"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179220",
+        "node/2422989207"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_nampally"
+      ]
+    },
+    {
+      "id": "nm_station_narayanaguda",
+      "kind": "station",
+      "sourceName": "Narayanaguda",
+      "displayName": "Narayanaguda",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "నారాయణగూడ"
+        }
+      ],
+      "sourceIds": [
+        "node/7195061317",
+        "node/7358663500"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_narayanaguda"
+      ]
+    },
+    {
+      "id": "nm_station_new_market",
+      "kind": "station",
+      "sourceName": "New Market",
+      "displayName": "New Market",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "కొత్త మార్కెట్"
+        }
+      ],
+      "sourceIds": [
+        "node/10278298785",
+        "node/2422989007"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_new_market"
+      ]
+    },
+    {
+      "id": "nm_station_ngri",
+      "kind": "station",
+      "sourceName": "NGRI",
+      "displayName": "NGRI",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఎన్.జి.ఆర్.ఐ"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173113",
+        "node/5787788974",
+        "node/7052069753",
+        "relation/10402703"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_ngri"
+      ]
+    },
+    {
+      "id": "nm_station_osmania_medical_college",
+      "kind": "station",
+      "sourceName": "Osmania Medical College",
+      "displayName": "Osmania Medical College",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఉస్మానియా వైద్య కళాశాల"
+        }
+      ],
+      "sourceIds": [
+        "node/11738179222",
+        "node/2422989049"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_osmania_medical_college"
+      ]
+    },
+    {
+      "id": "nm_station_panjagutta",
+      "kind": "station",
+      "sourceName": "Panjagutta",
+      "displayName": "Panjagutta",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "పంజాగుట్ట"
+        }
+      ],
+      "sourceIds": [
+        "node/2424019772",
+        "node/5787788011"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_panjagutta"
+      ]
+    },
+    {
+      "id": "nm_station_parade_grounds_blue_line",
+      "kind": "station",
+      "sourceName": "Parade Grounds (Blue Line)",
+      "displayName": "Parade Grounds",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "en",
+          "value": "Parade Grounds (Green Line)"
+        },
+        {
+          "lang": "te",
+          "value": "పెరేడ్ గ్రౌండ్స్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173034",
+        "node/5787788979",
+        "node/7195061308",
+        "node/7195061309"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_parade_grounds"
+      ]
+    },
+    {
+      "id": "nm_station_paradise",
+      "kind": "station",
+      "sourceName": "Paradise",
+      "displayName": "Paradise",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ప్యారడైజ్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173063",
+        "node/5787788980"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_paradise"
+      ]
+    },
+    {
+      "id": "nm_station_peddamma_gudi",
+      "kind": "station",
+      "sourceName": "Peddamma Gudi",
+      "displayName": "Peddamma Gudi",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "పెద్దమ్మ గుడి"
+        }
+      ],
+      "sourceIds": [
+        "node/2422172978",
+        "node/7052069773"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_peddamma_gudi"
+      ]
+    },
+    {
+      "id": "nm_station_prakash_nagar",
+      "kind": "station",
+      "sourceName": "Prakash Nagar",
+      "displayName": "Prakash Nagar",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ప్రకాశ్‌నగర్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422172990",
+        "node/5787788982"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_prakash_nagar"
+      ]
+    },
+    {
+      "id": "nm_station_raidurg",
+      "kind": "station",
+      "sourceName": "Raidurg",
+      "displayName": "Raidurg",
+      "language": "en",
+      "aliases": [],
+      "sourceIds": [
+        "node/2422173105",
+        "node/5787787987"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_raidurg"
+      ]
+    },
+    {
+      "id": "nm_station_rasoolpura",
+      "kind": "station",
+      "sourceName": "Rasoolpura",
+      "displayName": "Rasoolpura",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "రసూల్‌పుర"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173010",
+        "node/7052069761"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_rasoolpura"
+      ]
+    },
+    {
+      "id": "nm_station_road_no_5_jubilee_hills",
+      "kind": "station",
+      "sourceName": "Road No 5 Jubilee Hills",
+      "displayName": "Road No 5 Jubilee Hills",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "రోడ్ నం 5 జూబిలీ హిల్స్"
+        }
+      ],
+      "sourceIds": [
+        "node/5787787938",
+        "node/5787788712"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_road_no_5_jubilee_hills"
+      ]
+    },
+    {
+      "id": "nm_station_rtc_cross_roads",
+      "kind": "station",
+      "sourceName": "RTC Cross Roads",
+      "displayName": "RTC Cross Roads",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఆర్ టీ సి క్రాస్ రోడ్స్"
+        }
+      ],
+      "sourceIds": [
+        "node/2390894256",
+        "node/5787787745"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_rtc_cross_roads"
+      ]
+    },
+    {
+      "id": "nm_station_s_r_nagar",
+      "kind": "station",
+      "sourceName": "S. R. Nagar",
+      "displayName": "S. R. Nagar",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఎస్.ఆర్. నగర్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422989193",
+        "node/5787787993"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_s_r_nagar"
+      ]
+    },
+    {
+      "id": "nm_station_secunderabad_east",
+      "kind": "station",
+      "sourceName": "Secunderabad East",
+      "displayName": "Secunderabad East",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "సికింద్రాబాద్ తూర్పు"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173052",
+        "node/5787788978"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_secunderabad_east"
+      ]
+    },
+    {
+      "id": "nm_station_secunderabad_west",
+      "kind": "station",
+      "sourceName": "Secunderabad West",
+      "displayName": "Secunderabad West",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "సికింద్రాబాద్ వెస్ట్"
+        }
+      ],
+      "sourceIds": [
+        "node/2390894252",
+        "node/5787787701"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_secunderabad_west"
+      ]
+    },
+    {
+      "id": "nm_station_stadium",
+      "kind": "station",
+      "sourceName": "Stadium",
+      "displayName": "Stadium",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "స్టేడియం"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173094",
+        "node/5787788973",
+        "node/7052069752",
+        "relation/10402702"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_stadium"
+      ]
+    },
+    {
+      "id": "nm_station_sultan_bazar",
+      "kind": "station",
+      "sourceName": "Sultan Bazar",
+      "displayName": "Sultan Bazar",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "సుల్తాన్ బజార్"
+        }
+      ],
+      "sourceIds": [
+        "node/3157201754",
+        "node/7358663498"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_sultan_bazar"
+      ]
+    },
+    {
+      "id": "nm_station_tarnaka",
+      "kind": "station",
+      "sourceName": "Tarnaka",
+      "displayName": "Tarnaka",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "తార్నాక"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173111",
+        "node/5787788976",
+        "node/7052069755",
+        "relation/10402705"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_tarnaka"
+      ]
+    },
+    {
+      "id": "nm_station_uppal",
+      "kind": "station",
+      "sourceName": "Uppal",
+      "displayName": "Uppal",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "ఉప్పల్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422173009",
+        "node/5787788972",
+        "node/7052069749",
+        "relation/10402701"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_uppal"
+      ]
+    },
+    {
+      "id": "nm_station_victoria_memorial",
+      "kind": "station",
+      "sourceName": "Victoria Memorial",
+      "displayName": "Victoria Memorial",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "విక్టోరియా మెమోరియల్"
+        }
+      ],
+      "sourceIds": [
+        "node/2422989133",
+        "node/5787788272"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_victoria_memorial"
+      ]
+    },
+    {
+      "id": "nm_station_yusufguda",
+      "kind": "station",
+      "sourceName": "Yusufguda",
+      "displayName": "Yusufguda",
+      "language": "en",
+      "aliases": [
+        {
+          "lang": "te",
+          "value": "యూసుఫ్‌గూడ"
+        }
+      ],
+      "sourceIds": [
+        "node/5787788719",
+        "node/7052069771"
+      ],
+      "sourceDate": "2026-10-17",
+      "verification": "provisional",
+      "runtimeRefs": [
+        "st_yusufguda"
+      ]
+    }
+  ]
+}

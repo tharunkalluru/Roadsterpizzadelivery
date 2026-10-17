@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "project_id": "hyderabad-metro-delivery",
+  "records": [
+    {
+      "id": "EV-C0-KIT-CHECK",
+      "requirement_ids": [
+        "G10"
+      ],
+      "scope_ids": [],
+      "result": "stale",
+      "evidence_class": "asset_audit",
+      "started_at": "2026-10-17T21:40:00Z",
+      "command_or_method": "python3 scripts/check_handoff.py (run from hyderabad-game-handoff root)",
+      "expected": "Kit integrity, specification binding, 82 acceptance IDs and contract invariants pass",
+      "observed": "Exit 0, errors: [], acceptance_requirements 82, master_sha256 98a0c57a...50e9. Output saved in artifact.",
+      "limitations": "Kit-level package check only. Not a game build, not geographic accuracy. Recorded as stale because no build/world/scope bindings exist yet, so the ledger cannot count it as a current pass; it does not support any acceptance check.",
+      "bindings": {
+        "build": null,
+        "world": null,
+        "config": null,
+        "scope": null,
+        "requirements": null
+      },
+      "artifacts": [
+        {
+          "path": "qa/artifacts/c0/check_handoff.txt",
+          "sha256": "e866218ad2e9e9e0b5330394f9f2478578f5d8b0bb14944cf003cc458bdbb00a"
+        }
+      ],
+      "environment": {
+        "device_class": "cloud_container_cli",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-C0-SOURCE-CACHE",
+      "requirement_ids": [
+        "G10"
+      ],
+      "scope_ids": [],
+      "result": "stale",
+      "evidence_class": "asset_audit",
+      "started_at": "2026-10-17T21:41:00Z",
+      "command_or_method": "python3 scripts/fetch_sources.py --verify (run from hyderabad-game-handoff root)",
+      "expected": "Frozen source cache hashes verify",
+      "observed": "Cache verification: PASS (14 files). No network requests made. Exit 0.",
+      "limitations": "Verifies local frozen cache bytes only. Recorded as stale because no current build/world/scope bindings exist; supports no acceptance check.",
+      "bindings": {
+        "build": null,
+        "world": null,
+        "config": null,
+        "scope": null,
+        "requirements": null
+      },
+      "artifacts": [
+        {
+          "path": "qa/artifacts/c0/fetch_sources_verify.txt",
+          "sha256": "6679de9e7d717f7e72bc8c3f36480f1ae3dec81c4cbfeeaf4f2cf922c719ec28"
+        }
+      ],
+      "environment": {
+        "device_class": "cloud_container_cli",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-Q08-WHITEOUT-DENIED",
+      "requirement_ids": [
+        "Q08"
+      ],
+      "scope_ids": [],
+      "result": "blocked",
+      "evidence_class": "source_inspection",
+      "started_at": "2026-10-17T21:45:00Z",
+      "command_or_method": "curl -sS -o /dev/null -w \"%{http_code}\" https://whiteout.plgb.chatgpt.site/",
+      "expected": "HTTP response from the Whiteout reference so gameplay could be inspected in a WebGL browser",
+      "observed": "curl: (56) CONNECT tunnel failed, response 403 (egress proxy denied the host); http_code 000; curl exit code 56.",
+      "limitations": "This records a network denial, not an inspection and not a pass. Gameplay of the reference was not observed. Blocks Q08 and gate C4.",
+      "bindings": {
+        "build": null,
+        "world": null,
+        "config": null,
+        "scope": null,
+        "requirements": null
+      },
+      "artifacts": [
+        {
+          "path": "qa/artifacts/c0/whiteout-network-denied.txt",
+          "sha256": "a511c8bfcf11679d3baf132cb39eb36bc3c65a19bd540157700136c25282af5f"
+        }
+      ],
+      "environment": {
+        "device_class": "cloud_container_cli",
+        "physical_device": false
+      }
+    }
+  ]
+}
