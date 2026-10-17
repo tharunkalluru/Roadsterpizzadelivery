@@ -27,20 +27,30 @@ Live checklist. Status values: `passed`, `failed`, `blocked`, `not_run`, `stale`
 ## Work checklist
 | # | Item | Req IDs | Owner | Status |
 |---|---|---|---|---|
-| 1 | Kit audit, offline checks (`check_handoff`, `fetch_sources --verify`, `inventory_osm`) | C0 | lead | done (valid_handoff=true, 82 IDs, 14 source files PASS) |
-| 2 | Scaffold game/ (Vite 8.3.4, three 0.186.1, TS 7.0.2, vitest 5.0.5, playwright 1.64.1) | P01 | lead | done |
-| 3 | World schema contract `game/src/world/schema.ts`, art contract `game/src/art/api.ts` | G01,G04 | lead | done |
-| 4 | OSM import pipeline → world package, scope/name/source manifests | G01–G03,G06–G08,G11,Q01–Q04 | data worker | doing |
-| 5 | Procedural art (hero car, traffic, metro, buildings, roads, env, signs) | C4, P02, P05 | art worker | doing |
-| 6 | Ledgers (requirements, status, evidence, visual review), docs/handoff copy | Q05–Q12 | ledger worker | doing |
-| 7 | Core sim: fixed clock, flight budget state machine, vehicle, missions, recovery, persistence | F01–F24, M01–M06 | lead | doing |
-| 8 | Traffic actors | M07–M11 | lead | todo |
-| 9 | HUD, touch controls, menus, map, results | U01–U04, M06 | lead | todo |
-| 10 | Unit tests + Playwright browser tests + screenshots | C2, C3 | lead | todo |
-| 11 | Independent review pass | C7 | reviewer agent | todo |
+| 1 | Kit audit + offline checks | C0 | lead | done (valid_handoff, 82 IDs, cache PASS) |
+| 2 | Scaffold game/ with pinned deps | P01 | lead | done |
+| 3 | Contracts: `src/world/schema.ts`, `src/art/api.ts` | G01, G04 | lead | done |
+| 4 | OSM import pipeline → `public/world/hyd-uppal-tarnaka/v1` (deterministic, validated) | G01–G03, G06–G08, G11, Q01–Q04 | data worker (Sonnet) | done: 816 edges / 61.9 km (core 655 / 48.3 km), widths clamped to footprints, 147 pillars, 10 deliveries |
+| 5 | Procedural art (car, traffic, metro, buildings, roads, env, signs, markers) | C4, P02, P05 | art worker (Sonnet) | first pass done; follow-up running (stairs off carriageway + `stationObstacles`, car silhouette, auto, ground) |
+| 6 | Ledgers + docs/handoff copy | Q05–Q12 | ledger worker (Sonnet) | initial done; final evidence binding pending (after final build) |
+| 7 | Core sim (clock, FlightLedger, Player, recovery, checkpoints) | F01–F24 | lead | done |
+| 8 | Traffic (IDM, yield + deadlock recycle, curb stops, pedestrians, seeded encounter queues ≤2) | M07–M11 | lead | done (basic) |
+| 9 | App/UI (state machine, HUD, touch, menus, map, results, settings, tutorial, SW) | U01–U12, M06 | lead | done (first pass) |
+| 10 | Tests: 60 Vitest (incl. all 12 missions on the real package via reference agent), 9 Playwright e2e on dist | C2, C3 | lead | Vitest 60/60; e2e 8/9 + U07 flaky |
+| 11 | Reports: README, DECISIONS, QA_REPORT, DATA_SOURCES, CONTENT_GAPS | P08, Q12 | lead/data | drafted |
+| 12 | Independent review pass | C7 | reviewer agent | todo (after art lands) |
+| 13 | Whiteout comparison | Q08, C4 | — | blocked (B1) |
+| 14 | Red/Green/rest-of-Blue packages | C5 | — | blocked (B2) |
+| 15 | Physical phone tests | U01, P03, C6 | — | blocked (B4); procedure in QA_REPORT |
 
 ## Running jobs
-(updated as agents start/finish)
+- art worker: follow-up (stairs/colliders, car, auto, ground)
+
+## Current achieved release
+Playable corridor with disclosed geographic gaps (development build): Blue Line Uppal–Tarnaka package; requested scope = all three operating corridors (not achieved).
+
+## How to run
+`cd game && npm ci && npm run dev` (http://localhost:5173) · `npm test` · `npm run build && npm run test:e2e`.
 
 ## Next actions
 See checklist rows marked `doing`/`todo`.
