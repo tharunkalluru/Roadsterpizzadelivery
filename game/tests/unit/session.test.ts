@@ -225,3 +225,22 @@ describe('M06 HUD/results agree', () => {
     expect(r.penalties.filter((p) => p.seconds > 0).length).toBe(1);
   });
 });
+
+describe('U11 outside-area guidance', () => {
+  it('warns early, then recovers to a previously reached anchor with no progress gain', () => {
+    const s = started({ deadlineSeconds: 600 });
+    for (let k = 0; k < 600; k++) s.step(inp());
+    const anchorsZ = Math.min(...s.anchors.map((a) => a.z));
+    let warned = -1, recovered = -1;
+    for (let k = 0; k < 2000 && recovered < 0; k++) {
+      s.step(inp({ steer: k < 60 ? -1 : 0 })); // veer left off the network into open ground
+      if (s.outOfArea === 'warn' && warned < 0) warned = k;
+      if (s.phase === 'RECOVERING') recovered = k;
+    }
+    expect(warned).toBeGreaterThanOrEqual(0);
+    expect(recovered).toBeGreaterThan(warned);
+    s.completeRecovery();
+    expect(s.player.z).toBeGreaterThanOrEqual(anchorsZ - 0.01);
+    expect(s.player.surface?.onCarriageway).toBe(true);
+  });
+});
