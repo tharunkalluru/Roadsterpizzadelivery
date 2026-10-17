@@ -306,11 +306,11 @@ export class Player {
 
     // 4. contacts
     this.resolveContacts();
-    if (this.move === 'RECOVERING') return this.events;
+    if ((this.move as MoveState) === 'RECOVERING') return this.events;
 
     // 5. surface / touchdown
     this.resolveSurface();
-    if (this.move === 'RECOVERING') return this.events;
+    if ((this.move as MoveState) === 'RECOVERING') return this.events;
 
     // 6. reserve + automatic descent
     if (this.isAirborne) {
@@ -419,10 +419,10 @@ export class Player {
       const free = this.clearanceAt(this.x, this.z, this.heading, surfY);
       if (free < FLIGHT.minFlightAltitude + FLIGHT.carHeight + 0.2 && alt < 1.0) {
         this.abortTakeoff('New obstruction above');
-        if (this.move === 'LANDING_CONFIRM') { this.y = surfY; return; }
+        if ((this.move as MoveState) === 'LANDING_CONFIRM') { this.y = surfY; return; }
       } else if (this.takeoffTicks >= FLIGHT.takeoffProgressTimeoutTicks && alt < FLIGHT.takeoffMinProgressM) {
         this.abortTakeoff('Could not lift off');
-        if (this.move === 'LANDING_CONFIRM') { this.y = surfY; return; }
+        if ((this.move as MoveState) === 'LANDING_CONFIRM') { this.y = surfY; return; }
       } else if (alt >= FLIGHT.minFlightAltitude) {
         this.move = 'FLYING';
       }
@@ -485,7 +485,9 @@ export class Player {
         }
         this.speed *= 1 - CONTACT.lightSpeedLoss;
       } else {
-        this.speed *= 0.98; // sustained contact: bounded drag, no repeated events
+        // sustained contact: bounded drag; the episode stays one event while contact persists
+        this.cooldown.set(c.id, this.tick + CONTACT.contactCooldownTicks);
+        this.speed *= 0.98;
       }
     }
   }

@@ -86,6 +86,8 @@ export interface RoadEdge {
   lengthM: number;
   status: PropertyStatus;
   provenance: Provenance;
+  /** false = drivable boundary road weakly (not strongly) connected to the routable core; leads out of the acquired area */
+  routable?: boolean;
 }
 
 export interface GraphNode {
@@ -135,6 +137,8 @@ export interface Building {
   frontRoadId: string | null;
   frontSide: 'left' | 'right' | null;
   centroid: Vec2;
+  /** footprint still overlaps the minimum-width carriageway (source conflict, see CONTENT_GAPS.md) */
+  intrudesCarriageway?: boolean;
 }
 
 export interface Poi {

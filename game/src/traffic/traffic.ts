@@ -217,7 +217,7 @@ export class TrafficSystem implements DynamicWorld {
       while (a.along > nav.edges.get(a.edge)!.lengthM) {
         const cur = nav.edges.get(a.edge)!;
         const opts = cur.next;
-        if (!opts.length) { a.along = cur.lengthM; a.speed = 0; break; }
+        if (!opts.length) { a.along = cur.lengthM; a.speed = 0; (a as any).exited = true; break; } // leaves the acquired area
         // prefer straight continuation; seeded choice among others
         const straight = nav.straightestNext(a.edge);
         const nxt = this.rng.next() < 0.65 && straight ? straight : this.rng.pick(opts);
@@ -229,6 +229,7 @@ export class TrafficSystem implements DynamicWorld {
       const p = this.pose(a.edge, a.along, a.lateral);
       a.x = p.x; a.z = p.z; a.y = p.y; a.heading = p.heading;
     }
+    this.actors = this.actors.filter((a) => !(a as any).exited);
     // pedestrians: walk footpaths; occasionally wait at the edge, then cross (readable intent)
     this.peds.sort((a, b) => a.id - b.id);
     for (const p of this.peds) {

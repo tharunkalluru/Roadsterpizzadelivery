@@ -1,0 +1,268 @@
+import type { App } from '../app/app';
+import type { MissionDef, ResultSummary } from '../missions/types';
+import type { MapView } from './map';
+import type { Session } from '../missions/session';
+import { fmt, fmtDist } from './hud';
+import type { BestRecord } from '../persistence/store';
+
+const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+
+/** DOM menus and full-screen states (MASTER §20). Semantic buttons, keyboard focusable. */
+export class Screens {
+  private el: HTMLElement;
+  constructor(private ui: HTMLElement, private app: App) {
+    this.el = document.createElement('div');
+    this.el.className = 'screens';
+    ui.appendChild(this.el);
+  }
+
+  clear() { this.el.innerHTML = ''; }
+
+  private set(html: string, dim = false): HTMLElement {
+    this.el.innerHTML = `<div class="screen${dim ? ' dim' : ''}">${html}</div>`;
+    const first = this.el.querySelector<HTMLElement>('button:not([disabled])');
+    first?.focus({ preventScroll: true });
+    return this.el.firstElementChild as HTMLElement;
+  }
+  private on(sel: string, fn: () => void) {
+    this.el.querySelectorAll<HTMLElement>(sel).forEach((b) => b.addEventListener('click', () => { this.app.audio.start(); this.app.audio.click(); fn(); }));
+  }
+
+  boot(status: string) {
+    this.set(`<div class="brand">Metro Express<small>Hyderabad delivery</small></div>
+      <div class="card" style="max-width:420px"><p>${esc(status)}</p><div class="progress"><div style="width:35%"></div></div></div>`);
+  }
+
+  error(message: string, detail: string, retry: (() => void) | null) {
+    this.set(`<div class="card" style="margin-top:12vh"><h2>${esc(message)}</h2>
+      <div class="notice-box err"><span class="mono">${esc(detail).slice(0, 600)}</span></div>
+      <div class="row">${retry ? '<button class="btn primary" data-retry>Retry</button>' : ''}<button class="btn" data-back>Back</button></div></div>`, true);
+    if (retry) this.on('[data-retry]', retry);
+    this.on('[data-back]', () => (this.app.core ? this.app.toMenu() : location.reload()));
+  }
+
+  message(title: string, body: string, ok: () => void) {
+    this.set(`<div class="card" style="margin-top:14vh"><h2>${esc(title)}</h2><p>${esc(body)}</p><button class="btn primary" data-ok>OK</button></div>`, true);
+    this.on('[data-ok]', ok);
+  }
+
+  home(saved: any | null, saveError: string | null) {
+    const a = this.app;
+    const storeNote = a.store.reason ? `<div class="notice-box">${esc(a.store.reason)}</div>` : '';
+    const savedNote = saveError ? `<div class="notice-box">${esc(saveError)}</div>` : '';
+    const contMission = saved ? a.missions.find((m) => m.id === saved.missionId) : null;
+    this.set(`<div class="brand">Metro Express<small>Hyderabad delivery</small></div>
+      <p class="tagline">Deliver parcels on real roads beside the Hyderabad Metro. Drive through traffic, and spend one shared flight allowance wisely.</p>
+      ${storeNote}${savedNote}
+      <div class="menu">
+        ${contMission ? `<button class="btn primary" data-continue>Continue: ${esc(contMission.title)}</button>` : ''}
+        <button class="btn ${contMission ? '' : 'primary'}" data-play>Play</button>
+        <button class="btn" data-practice>Practice <span class="sub">${a.settings.practiceDone ? 'replay' : 'recommended first'}</span></button>
+        <button class="btn" data-corridor>Corridor <span class="sub">Uppal – Tarnaka · Blue Line</span></button>
+        <button class="btn" data-map>Map</button>
+        <button class="btn" data-settings>Settings</button>
+        <button class="btn" data-credits>Credits &amp; data</button>
+      </div>
+      <p class="small" style="text-align:center;margin-top:18px">Map data © OpenStreetMap contributors (ODbL). Development build — see Credits for what is verified.</p>`);
+    if (contMission) this.on('[data-continue]', () => a.continueSaved(saved));
+    this.on('[data-play]', () => this.missionSelect());
+    this.on('[data-practice]', () => { const p = a.missions.find((m) => m.practice); if (p) this.preview(p); });
+    this.on('[data-corridor]', () => this.corridors());
+    this.on('[data-map]', () => this.mapBrowse());
+    this.on('[data-settings]', () => this.settings(() => this.app.toMenu()));
+    this.on('[data-credits]', () => this.credits());
+  }
+
+  corridors() {
+    this.set(`<div class="card" style="margin-top:4vh"><h2>Corridors</h2>
+      <div class="mission-list">
+        <div class="mission"><div class="t">Blue Line · Uppal – Stadium – NGRI – Habsiguda – Tarnaka <span class="pill ok">Playable</span></div>
+        <div class="m">Selected connected roads from bundled OpenStreetMap extracts. Geometry and names are source claims (provisional), not field-verified.</div></div>
+        <div class="mission"><div class="t">Blue Line · rest (Nagole – Raidurg) <span class="pill plan">Planned</span></div><div class="m">Street data not yet acquired in this build.</div></div>
+        <div class="mission"><div class="t">Red Line · Miyapur – LB Nagar <span class="pill plan">Planned</span></div><div class="m">Street data not yet acquired in this build.</div></div>
+        <div class="mission"><div class="t">Green Line · JBS Parade Ground – MG Bus Station <span class="pill plan">Planned</span></div><div class="m">Street data not yet acquired in this build.</div></div>
+      </div><div class="divider"></div><button class="btn" data-back>Back</button></div>`);
+    this.on('[data-back]', () => this.app.toMenu());
+  }
+
+  missionSelect() {
+    const a = this.app;
+    const prog = a.store.loadProgress();
+    const bests = a.store.loadBests();
+    const items = a.missions.filter((m) => !m.practice).map((m) => {
+      const done = prog.completed.includes(m.id);
+      const best = Object.values(bests).find((b) => b.comparableKey.startsWith(`${m.id}@`));
+      return `<button class="mission" data-m="${m.id}"><div class="t">${esc(m.title)} ${done ? '<span class="pill ok">✓ done</span>' : ''}</div>
+        <div class="m">${esc(m.brief)}</div>
+        <div class="m">${fmtDist(m.routeLengthM ?? 0)} · deadline ${fmt(m.deadlineSeconds)} · flight ${m.flightSeconds} s · ${m.traffic} traffic${m.cargo.fragility > 1 ? ' · fragile' : ''}${m.stops.length > 1 ? ` · ${m.stops.length} stops` : ''}${best ? ` · best ${best.score}` : ''}</div></button>`;
+    }).join('');
+    this.set(`<div class="card" style="margin-top:2vh"><h2>Deliveries · Uppal – Tarnaka</h2>
+      <div class="mission-list">${items}
+      <div class="mission" aria-disabled="true"><div class="t">Night route <span class="pill plan">Not available</span></div><div class="m">Night presentation is not implemented or validated in this build (MT11).</div></div></div>
+      <div class="divider"></div><button class="btn" data-back>Back</button></div>`);
+    this.el.querySelectorAll<HTMLElement>('[data-m]').forEach((b) => b.addEventListener('click', () => { a.audio.start(); a.audio.click(); this.preview(a.missions.find((m) => m.id === b.dataset.m)!); }));
+    this.on('[data-back]', () => a.toMenu());
+  }
+
+  preview(m: MissionDef) {
+    const a = this.app;
+    const core = a.core!;
+    const pick = core.deliveries.find((d) => d.id === m.pickupId)!;
+    const stops = m.stops.map((id) => core.deliveries.find((d) => d.id === id)!);
+    this.set(`<div class="card" style="margin-top:2vh"><h2>${esc(m.title)}</h2><p>${esc(m.brief)}</p>
+      <dl class="kv">
+        <dt>Pickup</dt><dd>${esc(pick.label)}</dd>
+        <dt>${stops.length > 1 ? 'Stops (in order)' : 'Deliver to'}</dt><dd>${stops.map((s) => esc(s.label)).join(' → ')}</dd>
+        <dt>Route</dt><dd>${fmtDist(m.routeLengthM ?? 0)} on real roads</dd>
+        <dt>Deadline</dt><dd>${fmt(m.deadlineSeconds)} <span class="small">(${esc(m.deadlineBasis)})</span></dd>
+        <dt>Traffic</dt><dd>${m.traffic}</dd>
+        <dt>Cargo</dt><dd>${esc(m.cargo.label)}${m.cargo.fragility > 1 ? ` — fragile ×${m.cargo.fragility}, fails below ${m.cargo.failThreshold}%` : ''}</dd>
+        <dt>Flight</dt><dd><b>${m.flightSeconds} s for this whole delivery.</b> Use it together or in parts. Takeoff, hover and landing all count; nothing refills it.</dd>
+      </dl>
+      <div class="notice-box">Stop inside the marked area at the entrance, below walking speed, to hand over the parcel. Pickup/drop places are OpenStreetMap entries near the road — names and entrances are not field-verified.</div>
+      <div class="row"><button class="btn primary" data-go>Start delivery</button><button class="btn" data-back>Back</button></div></div>`);
+    this.on('[data-go]', () => void a.startMission(m));
+    this.on('[data-back]', () => (m.practice ? a.toMenu() : this.missionSelect()));
+  }
+
+  loading(m: MissionDef, stage: string, frac: number) {
+    const bar = this.el.querySelector<HTMLElement>('[data-lbar]');
+    const st = this.el.querySelector<HTMLElement>('[data-lstage]');
+    if (bar && st) { bar.style.width = `${Math.round(frac * 100)}%`; st.textContent = stage; return; }
+    this.set(`<div class="card" style="margin-top:20vh;max-width:460px"><h2>${esc(m.title)}</h2><p data-lstage>${esc(stage)}</p>
+      <div class="progress"><div data-lbar style="width:${Math.round(frac * 100)}%"></div></div>
+      <p class="small">Loading never spends delivery time or flight.</p><button class="btn" data-cancel>Cancel</button></div>`, true);
+    this.on('[data-cancel]', () => this.app.toMenu());
+  }
+
+  ready(m: MissionDef, resumed: boolean) {
+    this.set(`<div class="card" style="margin-top:auto;margin-bottom:6vh;max-width:460px">
+      <h2>${resumed ? 'Restored from your last saved checkpoint' : 'Parcel loaded. Start when ready.'}</h2>
+      <p class="small">${esc(m.title)} · Flight ${m.flightSeconds}.0 s · ${fmt(m.deadlineSeconds)}. Left thumb steers; right thumb brakes and flies. Keyboard: ←/→ steer, ↓ brake, ↑ faster, Space fly/land, R reverse, P pause, M map.</p>
+      <div class="row"><button class="btn primary" data-start>Go</button><button class="btn" data-back>Back</button></div></div>`, true);
+    (this.el.firstElementChild as HTMLElement).style.background = 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(6,8,11,0.85))';
+    this.on('[data-start]', () => this.app.beginCountdown());
+    this.on('[data-back]', () => this.app.toMenu());
+  }
+
+  pause(reason: string) {
+    const titles: Record<string, string> = {
+      user: 'Paused', hidden: 'Paused while you were away', orientation: 'Rotate to landscape to continue', loading: 'Road still loading. Your delivery is paused.', stall: 'Paused after a long stall',
+    };
+    const loadingNote = reason === 'loading' ? '<p class="small" data-ln>Waiting for nearby road data… Resume becomes available when it arrives.</p>' : '';
+    this.set(`<div class="card" style="max-width:440px"><h2>${titles[reason] ?? 'Paused'}</h2>${loadingNote}
+      <p class="small">Time, traffic and flight are frozen.</p>
+      <div class="menu" style="width:100%">
+        <button class="btn primary" data-resume>Resume</button>
+        <button class="btn" data-map>Map</button>
+        <button class="btn" data-recover>Recover car (+3 s)</button>
+        <button class="btn" data-restart>Restart delivery</button>
+        <button class="btn" data-settings>Settings</button>
+        <button class="btn" data-abandon>Abandon delivery</button>
+      </div></div>`, true);
+    this.on('[data-resume]', () => this.app.resume());
+    this.on('[data-map]', () => { this.app.pause('map'); this.map(this.app.map!, this.app.session!); });
+    this.on('[data-recover]', () => { this.app.resume(); this.app.session?.requestManualRecovery(); });
+    this.on('[data-restart]', () => this.app.retry(true));
+    this.on('[data-settings]', () => this.settings(() => this.pause(reason)));
+    this.on('[data-abandon]', () => this.app.abandon());
+  }
+
+  map(mv: MapView, s: Session | null) {
+    const root = this.set(`<div class="mapwrap">
+      <div class="mapbar"><h2 style="margin:0;flex:1">Map</h2>
+        <button class="btn" data-fitc>Corridor</button><button class="btn" data-fitn>All lines</button>
+        <button class="btn primary" data-close>${s ? 'Resume' : 'Close'}</button></div>
+      <canvas data-canvas aria-label="Geographic map"></canvas>
+      <div class="legend">
+        <span><i style="background:var(--blue-line)"></i>Blue Line</span><span><i style="background:var(--red-line)"></i>Red Line</span><span><i style="background:var(--green-line)"></i>Green Line</span>
+        <span><i style="background:#a7b3bf"></i>Playable streets</span><span><i style="background:#35d0ff"></i>Your route</span>
+        <span><i style="background:#ffb020"></i>Delivery entrances</span><span><i style="background:rgba(61,220,132,.6)"></i>Available area (dashed)</span>
+        <span>Lines without streets: planned scope, not yet playable</span><span>© OpenStreetMap contributors</span></div></div>`);
+    root.style.padding = '0';
+    const c = this.el.querySelector<HTMLCanvasElement>('[data-canvas]')!;
+    const draw = () => { const r = c.getBoundingClientRect(); const dpr = Math.min(2, devicePixelRatio || 1); c.width = r.width * dpr; c.height = r.height * dpr; mv.draw(c, s); };
+    requestAnimationFrame(() => { const r = c.getBoundingClientRect(); mv.fitCorridor(r.width, r.height); if (s) { mv.cx = s.player.x; mv.cz = s.player.z; mv.scale = Math.max(mv.scale, 0.35); } draw(); });
+    let drag: { x: number; y: number } | null = null;
+    c.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY }; c.setPointerCapture(e.pointerId); });
+    c.addEventListener('pointermove', (e) => { if (!drag) return; mv.cx -= (e.clientX - drag.x) / mv.scale; mv.cz -= (e.clientY - drag.y) / mv.scale; drag = { x: e.clientX, y: e.clientY }; draw(); });
+    c.addEventListener('pointerup', () => (drag = null));
+    c.addEventListener('wheel', (e) => { mv.scale *= e.deltaY < 0 ? 1.2 : 1 / 1.2; draw(); e.preventDefault(); }, { passive: false });
+    this.on('[data-fitc]', () => { const r = c.getBoundingClientRect(); mv.fitCorridor(r.width, r.height); draw(); });
+    this.on('[data-fitn]', () => { const r = c.getBoundingClientRect(); mv.fitNetwork(r.width, r.height); draw(); });
+    this.on('[data-close]', () => (s ? this.app.resume() : this.app.toMenu()));
+  }
+
+  mapBrowse() { this.map(this.app.map!, null); }
+
+  results(r: ResultSummary, m: MissionDef, best: { isBest: boolean; previous: BestRecord | null }) {
+    const ok = r.outcome.success;
+    const pen = r.penalties.length ? r.penalties.map((p) => `<li>${esc(p.reason)}${p.seconds ? ` +${p.seconds.toFixed(0)} s` : ''}${p.cargo ? ` · cargo −${p.cargo}` : ''}</li>`).join('') : '<li>None</li>';
+    const recNote = m.practice ? 'Practice — not scored.' : r.debugUsed ? 'Debug tools were used: not recorded as a personal best.' : r.resumed ? 'Resumed run: kept separate from uninterrupted records.' : best.isBest ? '★ New local personal best' : best.previous ? `Local best: ${best.previous.score}` : '';
+    this.set(`<div class="card" style="margin-top:3vh"><h2 style="color:${ok ? 'var(--good)' : 'var(--bad)'}">${ok ? '✓ Delivered' : '✕ ' + esc(r.outcome.reason)}</h2>
+      <dl class="kv">
+        <dt>Charged time</dt><dd>${fmt(r.chargedSeconds)} / ${fmt(r.deadlineSeconds)} deadline</dd>
+        <dt>Cargo</dt><dd>${r.cargo.toFixed(0)}%</dd>
+        <dt>Flight used</dt><dd>${r.flightUsedSeconds.toFixed(1)} s of ${r.flightInitialSeconds} s · ${r.flightLeftSeconds.toFixed(1)} s left · ${r.launches} launch${r.launches === 1 ? '' : 'es'}</dd>
+        <dt>Penalties</dt><dd>${r.penaltySeconds.toFixed(0)} s</dd>
+      </dl>
+      <details style="margin-top:10px"><summary>Details</summary>
+        <dl class="kv" style="margin-top:8px">
+          <dt>Active driving time</dt><dd>${r.activeSeconds.toFixed(1)} s</dd>
+          <dt>Distance driven</dt><dd>${fmtDist(r.routeDistanceM)}</dd>
+          <dt>Recoveries</dt><dd>${r.recoveries}</dd>
+          <dt>Score</dt><dd>${r.score} = ${r.scoreBreakdown.map((b) => `${b.label} ${b.value}`).join(' + ') || '0'}</dd>
+          <dt>Seed</dt><dd class="mono">${r.seed}</dd>
+        </dl><ul class="small">${pen}</ul></details>
+      <p class="small">${recNote}</p>
+      <div class="row"><button class="btn primary" data-retry>Retry same challenge</button><button class="btn" data-new>New variation</button></div>
+      <div class="row" style="margin-top:10px"><button class="btn" data-another>Another delivery</button><button class="btn" data-menu>Menu</button></div></div>`, true);
+    this.on('[data-retry]', () => this.app.retry(true));
+    this.on('[data-new]', () => this.app.retry(false));
+    this.on('[data-another]', () => { this.app.toMenu(); this.missionSelect(); });
+    this.on('[data-menu]', () => this.app.toMenu());
+  }
+
+  contextLost(restored: boolean) {
+    this.set(`<div class="card" style="max-width:440px"><h2>Graphics were interrupted</h2>
+      <p>${restored ? 'Graphics are back. Your delivery is paused and safe.' : 'Waiting for the browser to restore graphics… Your delivery is paused.'}</p>
+      <div class="row"><button class="btn primary" data-res ${restored ? '' : 'disabled'}>Resume</button><button class="btn" data-reload>Reload from checkpoint</button></div></div>`, true);
+    this.on('[data-res]', () => this.app.resumeAfterContext());
+    this.on('[data-reload]', () => location.reload());
+  }
+
+  settings(back: () => void) {
+    const s = this.app.settings;
+    const chk = (k: keyof typeof s, label: string) => `<label class="btn"><span>${label}</span><input type="checkbox" data-k="${k}" ${s[k] ? 'checked' : ''}></label>`;
+    const rng = (k: keyof typeof s, label: string, min: number, max: number, step: number) => `<label class="btn" style="flex-direction:column;align-items:stretch"><span>${label}</span><input type="range" data-k="${k}" min="${min}" max="${max}" step="${step}" value="${s[k]}"></label>`;
+    this.set(`<div class="card" style="margin-top:2vh"><h2>Settings</h2>
+      <div class="menu" style="width:100%">
+        ${rng('sensitivity', 'Steering sensitivity', 0.5, 2, 0.1)}
+        ${rng('sfxVolume', 'Effects volume', 0, 1, 0.05)}${rng('musicVolume', 'Music volume', 0, 1, 0.05)}${rng('uiVolume', 'Interface volume', 0, 1, 0.05)}
+        ${chk('haptics', 'Haptics (where supported)')}${chk('reducedShake', 'Reduce camera shake')}${chk('reducedFlashing', 'Reduce flashing')}${chk('largeText', 'Larger text')}
+        <label class="btn"><span>Controls layout</span><select data-k="handedness"><option value="right" ${s.handedness === 'right' ? 'selected' : ''}>Steer left / buttons right</option><option value="left" ${s.handedness === 'left' ? 'selected' : ''}>Buttons left / steer right</option></select></label>
+        <label class="btn"><span>Graphics (applies on reload)</span><select data-k="quality">${['auto', 'low', 'standard', 'high'].map((q) => `<option ${s.quality === q ? 'selected' : ''}>${q}</option>`).join('')}</select></label>
+      </div>
+      <p class="small">Settings never change a contract's deadline or flight allocation. ${this.app.store.available ? 'Saved on this device only.' : 'Saving unavailable: settings last for this session.'}</p>
+      <button class="btn primary" data-back>Done</button></div>`, true);
+    this.el.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-k]').forEach((inp) => inp.addEventListener('change', () => {
+      const k = inp.dataset.k as keyof typeof s;
+      const v = inp instanceof HTMLInputElement && inp.type === 'checkbox' ? inp.checked : inp instanceof HTMLInputElement && inp.type === 'range' ? Number(inp.value) : inp.value;
+      (s as any)[k] = v;
+      this.app.applySettings();
+    }));
+    this.on('[data-back]', back);
+  }
+
+  credits() {
+    const core = this.app.core!;
+    this.set(`<div class="card" style="margin-top:2vh"><h2>Credits &amp; data</h2>
+      <p><b>Map data</b> © OpenStreetMap contributors, available under the Open Database License (ODbL 1.0) — openstreetmap.org/copyright. Roads, buildings, metro alignments, station and place names come from dated OSM extracts bundled with this build. They are source claims: not field-verified, and storefront inventory is incomplete.</p>
+      <p><b>Textures</b>: aerial_asphalt_01 and concrete_wall_006 from Poly Haven (CC0). <b>Font</b>: Noto Sans Telugu (SIL Open Font License 1.1).</p>
+      <p><b>Vehicle, buildings, traffic, audio and UI</b>: original procedural work for this game. The car is a fictional Roadster-inspired design; no manufacturer endorsement. Delivery brand "Metro Express" is fictional.</p>
+      <h3>What this build covers</h3>
+      <p class="small">Playable: ${core.roads.length} road segments around the Blue Line from Uppal to Tarnaka. Planned, not yet built: the rest of the Blue Line, the Red Line and the Green Line street networks. Building heights, lane details, metro deck and pillar heights are provisional estimates.</p>
+      <button class="btn" data-back>Back</button></div>`);
+    this.on('[data-back]', () => this.app.toMenu());
+  }
+}
