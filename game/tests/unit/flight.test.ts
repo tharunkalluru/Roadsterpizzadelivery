@@ -326,6 +326,21 @@ describe('F15/F16 final-tick touchdown and exhaustion', () => {
   });
 });
 
+describe('F15/F16 regression (independent review M1): exhaustion within ground contact still validates touchdown', () => {
+  it('off-carriageway or too-hard contact on the exhausting tick is not a free landing', () => {
+    const w = makeFixtureWorld();
+    for (const [x, vy, expectCrash] of [[-40, -1, true], [-3, -6.8, true], [-3, -1, false]] as const) {
+      const p = new Player(w, new FlightLedger(25, 1500));
+      p.place(-3, -300, 0, 'A1');
+      p.move = 'DESCENDING'; p.x = x; p.y = 0.03; p.vy = vy;
+      if (x === -40) p.surface = null;
+      const ev = p.step(inp());
+      expect(ev.some((e) => e.type === 'crash'), `x=${x} vy=${vy}`).toBe(expectCrash);
+      expect(p.ledger.consumedTicks).toBe(1500);
+    }
+  });
+});
+
 describe('F17 losing support during confirmation', () => {
   it('resumes metering in the same transaction; no refund or duplicate', () => {
     const p = newPlayer();

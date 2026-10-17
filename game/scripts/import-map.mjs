@@ -515,24 +515,39 @@ function alignLimit(q, dx, dz) {
   }
   return best && best.cos >= Math.cos((25 * Math.PI) / 180) ? best.d - CLEAR_ALIGN : Infinity;
 }
+const ELEV_SKIP = 2.5; // samples on raised carriageway (interpolated elevation above this) ignore footprint AND alignment limits
+function samplesWithElev(r) {
+  const out = [];
+  for (let i = 0; i + 1 < r.points.length; i++) {
+    const a = r.points[i], b = r.points[i + 1];
+    const n = Math.max(1, Math.ceil(G.dist(a, b) / 5));
+    for (let k = i === 0 ? 0 : 1; k <= n; k++) {
+      const t = k / n;
+      out.push({ p: [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t], elev: r.pointElevM[i] + (r.pointElevM[i + 1] - r.pointElevM[i]) * t });
+    }
+  }
+  return out;
+}
 const widthStats = { clamped: 0, clampedByFootprint: 0, clampedByAlignment: 0, atFloor: 0, skippedWidthTag: 0 };
 const widthHist = {};
 for (const r of roads) {
   const e = r._e;
   if (e.widthBasis.startsWith('width tag')) {
     widthStats.skippedWidthTag++;
+  } else if (r.bridge) {
+    widthStats.skippedBridgeDeck = (widthStats.skippedBridgeDeck || 0) + 1; // deck width is not limited by what lies below it; its ends ramp to grade inside the edge
   } else {
     const defHalf = r.widthM / 2;
     const floorHalf = Math.min(['service', 'living_street'].includes(r.highway) ? 1.5 : 2.25, defHalf);
     let minClear = Infinity;
     let minAlign = Infinity;
-    const dense = G.densify(r.points, 5);
-    for (let i = 0; i < dense.length; i++) {
-      const q = dense[i];
-      minClear = Math.min(minClear, clearanceToFootprints(q));
-      const a = dense[Math.max(0, i - 1)], b = dense[Math.min(dense.length - 1, i + 1)];
+    const smp = samplesWithElev(r);
+    for (let i = 0; i < smp.length; i++) {
+      const q = smp[i].p;
+      if (smp[i].elev <= ELEV_SKIP) minClear = Math.min(minClear, clearanceToFootprints(q));
+      const a = smp[Math.max(0, i - 1)].p, b = smp[Math.min(smp.length - 1, i + 1)].p;
       const L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
-      minAlign = Math.min(minAlign, alignLimit(q, (b[0] - a[0]) / L, (b[1] - a[1]) / L));
+      if (smp[i].elev <= ELEV_SKIP) minAlign = Math.min(minAlign, alignLimit(q, (b[0] - a[0]) / L, (b[1] - a[1]) / L));
     }
     const fpHalf = minClear - CLEAR_FOOTPRINT;
     const half = Math.max(floorHalf, Math.min(defHalf, fpHalf, minAlign));
@@ -557,7 +572,9 @@ const intrudingBuildings = new Set();
 const intrudingRoads = new Map();
 for (const r of roads) {
   const half = r.widthM / 2;
-  for (const q of G.densify(r.points, 5)) {
+  for (const sm of samplesWithElev(r)) {
+    if (sm.elev > ELEV_SKIP) continue;
+    const q = sm.p;
     const hits = new Set(keptGrid.within(q, half - 0.01).map((h) => h.payload.id));
     const inside = buildingAt(q);
     if (inside) hits.add(inside.id);

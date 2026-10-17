@@ -161,6 +161,7 @@ export class App {
   resize() {
     const w = window.innerWidth, h = window.innerHeight;
     if (!this.renderer) return;
+    if (this.state === 'PLAYING' && h > w && w < 820) this.pause('orientation'); // portrait during a delivery
     this.renderer.setSize(w, h, false);
     this.view?.resize(w, h);
   }
@@ -316,6 +317,12 @@ export class App {
     this.screens.contextLost(true);
   }
   resumeAfterContext() {
+    if (this.session && this.session.phase === 'READY') {
+      // lost before the countdown finished: return to the ready card; nothing was charged
+      this.state = 'READY'; this.countdown = 0; this.hud.hide();
+      this.screens.ready(this.session.mission, this.session.resumed);
+      return;
+    }
     if (this.session && this.session.phase !== 'ENDED') {
       this.state = 'PAUSED'; this.pauseReason = 'user';
       this.resume();
@@ -330,9 +337,12 @@ export class App {
 
   continueSaved(saved: any) {
     const m = this.missions.find((q) => q.id === saved.missionId);
-    if (!m) { this.store.clearCheckpoint(); this.screens.message('Saved delivery is no longer available', 'That contract is not part of this world version. Your settings and records are kept.', () => this.toMenu()); return; }
-    try { void this.startMission(m, { checkpoint: saved.cp, seed: saved.seed }); }
-    catch { this.store.clearCheckpoint(); this.toMenu(); }
+    const reject = (why: string) => { this.store.clearCheckpoint(); this.screens.message('Saved delivery cannot be resumed', `${why} Your settings and records are kept.`, () => this.toMenu()); };
+    if (!m) return reject('That contract is not part of this world version.');
+    // validate before entering the loading flow so a bad save cannot cause a retry loop (U08)
+    try { Session.fromCheckpoint(this.world!, m, saved.cp); }
+    catch (e) { return reject(`The save is incompatible or damaged (${(e as Error).message}).`); }
+    void this.startMission(m, { checkpoint: saved.cp, seed: saved.seed });
   }
 
   // ------------------------------------------------------------------ streaming
@@ -536,7 +546,7 @@ export class App {
     this.store.clearCheckpoint();
     const r = s.results();
     this.lastResult = r;
-    if (r.outcome.success) { this.audio.chime(); if (!s.mission.practice) this.store.markCompleted(s.mission.id); }
+    if (r.outcome.success) { this.audio.chime(); if (!s.mission.practice && !r.debugUsed) this.store.markCompleted(s.mission.id); }
     else this.audio.fail();
     const best = s.mission.practice ? { isBest: false, previous: null } : this.store.submitBest({ comparableKey: r.comparableKey, score: r.score, chargedSeconds: r.chargedSeconds, success: r.outcome.success, resumed: r.resumed, debugUsed: r.debugUsed });
     if (s.mission.practice && r.outcome.success) { this.settings.practiceDone = true; this.applySettings(); }

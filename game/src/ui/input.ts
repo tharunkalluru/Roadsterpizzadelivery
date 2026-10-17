@@ -54,7 +54,7 @@ export class InputManager {
     const steerDown = (e: PointerEvent) => {
       if (!this.enabled || this.steerPointer !== null) return;
       this.steerPointer = e.pointerId; this.steerOriginX = e.clientX; this.steerValue = 0;
-      steer.setPointerCapture(e.pointerId);
+      try { steer.setPointerCapture(e.pointerId); } catch { /* capture unavailable: pointerup/cancel still release */ }
       steerKnob.style.left = `${e.clientX - steer.getBoundingClientRect().left}px`;
       steer.classList.add('active');
       e.preventDefault();
@@ -79,7 +79,7 @@ export class InputManager {
     for (const t of ['pointerup', 'pointercancel', 'lostpointercapture'] as const) steer.addEventListener(t, steerEnd);
 
     const holdButton = (el: HTMLElement, set: Set<number>) => {
-      el.addEventListener('pointerdown', (e) => { if (!this.enabled) return; set.add(e.pointerId); el.setPointerCapture(e.pointerId); el.classList.add('down'); e.preventDefault(); });
+      el.addEventListener('pointerdown', (e) => { if (!this.enabled) return; set.add(e.pointerId); try { el.setPointerCapture(e.pointerId); } catch { /* ignore */ } el.classList.add('down'); e.preventDefault(); });
       const up = (e: PointerEvent) => { set.delete(e.pointerId); if (!set.size) el.classList.remove('down'); };
       for (const t of ['pointerup', 'pointercancel', 'lostpointercapture'] as const) el.addEventListener(t, up);
       // finger sliding out of the region releases the control

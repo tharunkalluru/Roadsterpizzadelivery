@@ -10,7 +10,7 @@ export const TICK_SECONDS = 1 / SIM_HZ;
  */
 export class FixedClock {
   private accumulator = 0;
-  constructor(public maxCatchUpTicks = 8, public stallThresholdSeconds = 0.5) {}
+  constructor(public maxCatchUpTicks = 30, public stallThresholdSeconds = 0.5) {} // 30 ticks = 0.5 s: every gap below the stall threshold is simulated, none silently dropped
 
   reset(): void { this.accumulator = 0; }
 

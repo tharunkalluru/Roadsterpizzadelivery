@@ -74,6 +74,18 @@ function checkStatus(label, st) {
   if (!check(st && typeof st === 'object' && STATUS.has(st.geometry), `${label}: status.geometry invalid`)) return;
   for (const [k, v] of Object.entries(st)) if (!STATUS.has(v)) err(`${label}: status.${k} invalid "${v}"`);
 }
+function samplesElev(r) {
+  const out = [];
+  for (let i = 0; i + 1 < r.points.length; i++) {
+    const a = r.points[i], b = r.points[i + 1];
+    const n = Math.max(1, Math.ceil(G.dist(a, b) / 5));
+    for (let k = i === 0 ? 0 : 1; k <= n; k++) {
+      const t = k / n;
+      out.push({ p: [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t], elev: r.pointElevM[i] + (r.pointElevM[i + 1] - r.pointElevM[i]) * t });
+    }
+  }
+  return out;
+}
 function noNaN(label, v, depth = 0) {
   if (typeof v === 'number') {
     if (!Number.isFinite(v)) err(`${label}: non-finite number`);
@@ -229,14 +241,25 @@ function validate() {
       check((deg.get(n.id) || 0) >= 1, `node ${n.id}: no road touches it`);
       check(n.isJunction === (deg.get(n.id) >= 3), `node ${n.id}: isJunction inconsistent with degree ${deg.get(n.id)}`);
     }
-    // elevation continuity at nodes
-    const elev = new Map();
+    // elevation agreement at nodes: endpoint pointElevM of every incident edge must agree (limit 0.5 m; we also require 0.011 m)
+    const ends = new Map();
     for (const r of core.roads) {
       for (const [k, v] of [[r.fromNode, r.pointElevM[0]], [r.toNode, r.pointElevM[r.pointElevM.length - 1]]]) {
-        if (!elev.has(k)) elev.set(k, v);
-        else if (Math.abs(elev.get(k) - v) > 0.011) err(`elevation discontinuity at node ${k}: ${elev.get(k)} vs ${v} (road ${r.id})`);
+        let a = ends.get(k);
+        if (!a) ends.set(k, (a = []));
+        a.push([r.id, v]);
       }
     }
+    let elevViolations = 0;
+    for (const [k, a] of ends) {
+      const vals = a.map((x) => x[1]);
+      const spread = Math.max(...vals) - Math.min(...vals);
+      if (spread > 0.011) {
+        elevViolations++;
+        err(`elevation mismatch at node ${k} (spread ${spread.toFixed(2)} m${spread > 0.5 ? ', exceeds 0.5 m' : ''}): ${a.map((x) => x[0] + '=' + x[1]).join(', ')}`);
+      }
+    }
+    summary.nodeElevationViolations = elevViolations;
   }
 
   // ---- directed edges
@@ -490,7 +513,9 @@ function validate() {
     const intrRoads = new Set();
     for (const r of core.roads) {
       const half = r.widthM / 2;
-      for (const q of G.densify(r.points, 5)) {
+      for (const sm of samplesElev(r)) {
+        if (sm.elev > 2.5) continue;
+        const q = sm.p;
         const ids = new Set(keptGrid.within(q, half - 0.01).map((h) => h.payload.id));
         const c = containing(q);
         if (c) ids.add(c.id);

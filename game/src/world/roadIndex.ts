@@ -123,11 +123,12 @@ export class RoadIndex {
       const elevation = s.ay + (s.by - s.ay) * p.t;
       if (opts.maxY !== undefined && elevation > opts.maxY + 0.75) continue; // surface above the car is not support
       let score = p.dist;
-      if (opts.preferLevel !== undefined && s.road.level !== opts.preferLevel) score += 30;
-      if (prefer && s.road.id !== prefer.id) {
-        const connected = s.road.fromNode === prefer.fromNode || s.road.fromNode === prefer.toNode || s.road.toNode === prefer.fromNode || s.road.toNode === prefer.toNode;
-        score += connected ? 0.5 : 2.0;
-      }
+      const connected = !!prefer && (s.road.fromNode === prefer.fromNode || s.road.fromNode === prefer.toNode || s.road.toNode === prefer.fromNode || s.road.toNode === prefer.toNode);
+      // a level change is legitimate only through a real connection where the surfaces meet at the car's height
+      const carY = opts.maxY !== undefined ? opts.maxY - 0.3 : undefined;
+      const levelTransition = connected && carY !== undefined && Math.abs(elevation - carY) < 0.6;
+      if (opts.preferLevel !== undefined && s.road.level !== opts.preferLevel && !levelTransition) score += 30;
+      if (prefer && s.road.id !== prefer.id) score += connected ? 0.5 : 2.0;
       if (opts.maxY !== undefined) score += Math.max(0, opts.maxY - elevation) * 0.5; // prefer the surface just below the car
       if (opts.heading !== undefined) {
         // travel-direction alignment: a crossing road at a junction is not the road we are on

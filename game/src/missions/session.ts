@@ -72,7 +72,7 @@ export class Session {
   eventLog: { tick: number; e: string }[] = [];
   /** active scenario encounters (bounded: at most TRAFFIC.maxConflictEvents) */
   encounters: { id: string; kind: 'queue'; edge: string; untilTick: number; why: string }[] = [];
-  private nextEncounterTick = 20 * SIM_HZ;
+  nextEncounterTick = 20 * SIM_HZ;
 
   constructor(public world: WorldPhysics, public mission: MissionDef, opts: { runId?: string; seed?: number; trafficEnabled?: boolean } = {}) {
     this.runId = opts.runId ?? `run_${mission.id}_${Date.now().toString(36)}_${Math.floor(Math.random() * 1e6).toString(36)}`;
@@ -451,6 +451,7 @@ export class Session {
       stopIndex: this.stopIndex, recoveries: this.recoveries, penalties: this.penalties, anchors: this.anchors,
       distance: this.distanceTravelled, player: this.player.snapshot() as PlayerSnapshot,
       rng: this.rng.snapshot(), traffic: this.traffic.snapshot(), phase: this.phase === 'RECOVERING' ? 'PLAYING' : this.phase,
+      encounters: this.encounters, nextEncounterTick: this.nextEncounterTick, seed: this.rng.seed,
       pendingRecovery: this.pendingRecovery,
     };
   }
@@ -459,18 +460,26 @@ export class Session {
     if (cp.schema !== CHECKPOINT_SCHEMA || cp.world !== WORLD_VERSION_KEY || cp.missionId !== mission.id || cp.missionVersion !== mission.version) {
       throw new Error('Incompatible checkpoint');
     }
-    const s = new Session(world, mission, { runId: cp.runId, seed: mission.seed });
+    // validate the ledger against the advertised contract (a save can never grant fuel)
+    const l = cp.player?.ledger;
+    const initial = mission.flightSeconds * SIM_HZ;
+    if (!l || l.allocationSeconds !== mission.flightSeconds || !Number.isInteger(l.consumed) || l.consumed < 0 || l.consumed > initial) throw new Error('Incompatible checkpoint: flight ledger does not match the contract');
+    if (![cp.elapsedTicks, cp.penaltyTicks, cp.cargo, cp.stopIndex].every((v) => typeof v === 'number' && isFinite(v) && v >= 0) || cp.stopIndex > mission.stops.length) throw new Error('Incompatible checkpoint: invalid mission ledger');
+    const s = new Session(world, mission, { runId: cp.runId, seed: cp.seed ?? mission.seed });
     s.tick = cp.tick; s.elapsedTicks = cp.elapsedTicks; s.penaltyTicks = cp.penaltyTicks; s.cargo = cp.cargo;
     s.stopIndex = cp.stopIndex; s.recoveries = cp.recoveries; s.penalties = cp.penalties.slice(); s.anchors = cp.anchors.slice();
     s.distanceTravelled = cp.distance;
     s.rng.restore(cp.rng);
+    if (Array.isArray(cp.encounters)) s.encounters = cp.encounters.map((e: any) => ({ ...e }));
+    if (typeof cp.nextEncounterTick === 'number') s.nextEncounterTick = cp.nextEncounterTick;
     s.traffic.restore(cp.traffic);
     s.player.restore(cp.player);
     s.resumed = true;
     if (!exact || s.player.isAirborne || s.player.move === 'LANDING_CONFIRM' || s.player.move === 'RECOVERING') {
       // documented ground-recovery path: terminate airborne state, keep consumed ticks, no crash penalty
       const a = s.anchors.length ? s.anchors[s.anchors.length - 1] : null;
-      if (a) s.player.recoverTo(a); else s.player.move = 'GROUNDED';
+      if (a) s.player.recoverTo(a);
+      else { const d = s.delivery(mission.pickupId); const st = s.stagingPose(d); s.player.recoverTo({ x: st.x, z: st.z, heading: st.heading, roadId: d.roadId }); }
     }
     s.phase = cp.pendingRecovery ? 'RECOVERING' : 'PLAYING';
     s.pendingRecovery = cp.pendingRecovery;

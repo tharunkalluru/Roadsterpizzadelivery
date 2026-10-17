@@ -12,6 +12,8 @@ import { VEHICLE } from '../config/gameplay';
 export class Autopilot {
   private stuckTicks = 0;
   private lostTicks = 0;
+  private bestRemaining = Infinity;
+  private progressTick = 0;
   private kturn: { target: number; phase: 'fwd' | 'stop1' | 'rev' | 'stop2'; ticks: number } | null = null;
   constructor(public s: Session, public opts: { useFlight?: boolean; cruiseBoost?: boolean } = {}) {}
 
@@ -121,6 +123,9 @@ export class Autopilot {
     // simple unstick: if blocked for long, use recovery like a player would
     if (v < 0.2 && vt > 1) this.stuckTicks++; else this.stuckTicks = 0;
     if (this.stuckTicks > 600) { this.stuckTicks = 0; s.requestManualRecovery(); }
+    // no route progress for 20 s (pushing against something, circling): recover like a player would
+    if (remaining < this.bestRemaining - 2) { this.bestRemaining = remaining; this.progressTick = s.tick; }
+    else if (s.tick - this.progressTick > 1200 && !s.encounters.length) { this.progressTick = s.tick; this.bestRemaining = Infinity; s.requestManualRecovery(); }
     let flyPress = false;
     if (this.opts.useFlight && p.move === 'GROUNDED' && v > 8 && remaining > 250 && maxTurn < 0.3 && p.ledger.remainingSeconds > 6) flyPress = (s.tick % 240) === 0;
     if (this.opts.useFlight && p.move === 'FLYING' && (maxTurn > 0.5 || remaining < 120)) flyPress = true;

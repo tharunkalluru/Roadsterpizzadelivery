@@ -89,8 +89,8 @@
     }
   },
   "ramps": {
-    "approachEdgesRamped": 19,
-    "bridgeEndsRampedOnBridge": 0
+    "approachEdgesRamped": 0,
+    "bridgeEndsRampedOnBridge": 2
   },
   "buildings": {
     "considered": 6763,
@@ -117,7 +117,7 @@
     "pillars": 147,
     "chunks": 176,
     "bridgeRoads": 2,
-    "widthClampedRoads": 373,
+    "widthClampedRoads": 371,
     "intrudingBuildings": 258,
     "intrudingRoads": 166,
     "pillarsGenerated": 226,
@@ -131,11 +131,12 @@
   ],
   "carriagewayWidths": {
     "note": "Class-default/lanes widths clamped to >= 0.6 m from source footprints and >= 1.0 m from the Blue alignment (parallel within 25 deg, within 12 m); floor 4.5 m total (3.0 m service/living_street).",
-    "clamped": 373,
+    "clamped": 371,
     "clampedByFootprint": 319,
-    "clampedByAlignment": 65,
-    "atFloor": 262,
+    "clampedByAlignment": 63,
+    "atFloor": 261,
     "skippedWidthTag": 0,
+    "skippedBridgeDeck": 2,
     "minimumWidthDistribution": {
       "3.00": 11,
       "3.20": 8,
@@ -143,7 +144,7 @@
       "3.63": 1,
       "4.15": 1,
       "4.18": 1,
-      "4.50": 314,
+      "4.50": 313,
       "4.53": 1,
       "4.55": 1,
       "4.60": 3,
@@ -209,7 +210,7 @@
       "5.97": 1,
       "6.00": 219,
       "6.40": 11,
-      "6.46": 2,
+      "6.46": 1,
       "6.55": 1,
       "6.61": 1,
       "6.66": 1,
@@ -231,7 +232,7 @@
       "9.60": 16,
       "10.11": 1,
       "10.21": 1,
-      "10.50": 46
+      "10.50": 48
     }
   },
   "intrusion": {

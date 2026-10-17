@@ -6,6 +6,23 @@ import type { MissionDef, MissionTemplate } from './types';
 
 export interface RouteInfo { path: string[]; lengthM: number; turns: number; uturns?: number; signals?: number }
 
+/** distance along a directed edge at which a delivery's stop polygon centre lies */
+export function stopAlongOnEdge(world: WorldPhysics, d: DeliveryLocation, edgeId: string): number {
+  const e = world.nav.edges.get(edgeId);
+  if (!e) return 0;
+  let cx = 0, cz = 0;
+  for (const [x, z] of d.stopPolygon) { cx += x; cz += z; }
+  cx /= d.stopPolygon.length; cz /= d.stopPolygon.length;
+  let best = Infinity, along = 0;
+  for (const sg of world.roads.segmentsByRoad.get(e.roadId) ?? []) {
+    const dx = sg.bx - sg.ax, dz = sg.bz - sg.az;
+    const t = Math.max(0, Math.min(1, ((cx - sg.ax) * dx + (cz - sg.az) * dz) / (sg.len * sg.len)));
+    const dd = Math.hypot(sg.ax + dx * t - cx, sg.az + dz * t - cz);
+    if (dd < best) { best = dd; along = sg.cumStart + t * sg.len; }
+  }
+  return e.forward ? along : e.lengthM - along;
+}
+
 /** route between two deliveries from the pickup's staging carriageway to the destination approach */
 export function routeBetween(world: WorldPhysics, from: DeliveryLocation, to: DeliveryLocation): RouteInfo | null {
   const start = from.approachEdges[0];
@@ -28,8 +45,11 @@ export function routeBetween(world: WorldPhysics, from: DeliveryLocation, to: De
     if (i > 0 && world.nav.edges.get(r.path[i - 1])!.roadId === e.roadId) uturns++;
     if (sigNodes.has(e.toNode)) signals++;
   }
-  // route length without the routing penalty for turnarounds
-  return { path: r.path, lengthM: r.lengthM - uturns * UTURN_COST_M, turns: turns + uturns * 6 + signals * 5, uturns, signals };
+  // physical length: without the routing penalty for turnarounds, and ending at the stop's position on
+  // the final edge (not the end of that edge) — independent review M3
+  const last = r.path[r.path.length - 1];
+  const tail = world.nav.edges.get(last)!.lengthM - stopAlongOnEdge(world, to, last);
+  return { path: r.path, lengthM: Math.max(0, r.lengthM - uturns * UTURN_COST_M - tail), turns: turns + uturns * 6 + signals * 5, uturns, signals };
 }
 
 /**
@@ -104,7 +124,10 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
   for (const p of pairs) {
     if (used.has(key(p)) || p.r.lengthM < 400 || p.r.lengthM > 2500) continue;
     const alt = alternativeRoute(world, p);
-    if (alt && alt.lengthM <= p.r.lengthM * 1.4) { mt07 = p; altLen = alt.lengthM; used.add(key(p)); break; }
+    if (!alt) continue;
+    const last = alt.path[alt.path.length - 1];
+    const altPhys = alt.lengthM - (world.nav.edges.get(last)!.lengthM - stopAlongOnEdge(world, p.b, last));
+    if (altPhys <= p.r.lengthM * 1.4) { mt07 = p; altLen = altPhys; used.add(key(p)); break; }
   }
   if (mt07) missions.push(mk('mt07_route_choice', ['MT07'], 'Route choice', `Main road or the side-road loop (${Math.round(altLen)} m vs ${Math.round(mt07.r.lengthM)} m)? Both are real connections.`, mt07, { traffic: 'busy', deadlineSeconds: deadlineFor(Math.max(altLen, mt07.r.lengthM), mt07.r.turns + 2, 1, 1.6) }));
 

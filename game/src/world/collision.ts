@@ -15,7 +15,7 @@ export interface Contact {
 
 interface PolyObstacle { id: string; poly: Vec2[]; minX: number; maxX: number; minZ: number; maxZ: number; top: number; bottom?: number; chunk: string }
 interface CircleObstacle { id: string; x: number; z: number; r: number; bottom: number; top: number }
-interface OverheadBand { id: string; kind: 'deck' | 'bridge'; ax: number; az: number; bx: number; bz: number; halfWidth: number; bottom: number; top: number; level: number }
+interface OverheadBand { id: string; kind: 'deck' | 'bridge'; ax: number; az: number; bx: number; bz: number; halfWidth: number; bottom: number; top: number; level: number; ya?: number; yb?: number }
 
 function pointInPoly(x: number, z: number, poly: Vec2[]): boolean {
   let inside = false;
@@ -76,7 +76,7 @@ export class WorldPhysics {
         const ya = r.pointElevM[i] ?? r.elevationM, yb = r.pointElevM[i + 1] ?? r.elevationM;
         const y = Math.min(ya, yb);
         if (y < 2.5) continue; // ramp ends: no usable underpass volume
-        this.addBand({ id: `bridge_${r.id}_${i}`, kind: 'bridge', ax: r.points[i][0], az: r.points[i][1], bx: r.points[i + 1][0], bz: r.points[i + 1][1], halfWidth: r.widthM / 2 + 0.5, bottom: y - 1.2, top: Math.max(ya, yb) + 0.05, level: r.level });
+        this.addBand({ id: `bridge_${r.id}_${i}`, kind: 'bridge', ax: r.points[i][0], az: r.points[i][1], bx: r.points[i + 1][0], bz: r.points[i + 1][1], halfWidth: r.widthM / 2 + 0.5, bottom: y - 1.2, top: Math.max(ya, yb) + 0.05, level: r.level, ya, yb });
       }
     }
   }
@@ -133,14 +133,22 @@ export class WorldPhysics {
   private chunkExists(id: string) { return this.knownChunks ? this.knownChunks.has(id) : false; }
   get loadedChunkIds(): string[] { return [...this.loadedChunks]; }
 
+  /** deck top/bottom at the projected point (sloped ramps interpolate) */
+  private bandAt(b: OverheadBand, t: number): { bottom: number; top: number } {
+    if (b.ya === undefined || b.yb === undefined) return { bottom: b.bottom, top: b.top };
+    const y = b.ya + (b.yb - b.ya) * t;
+    return { bottom: y - 1.2, top: y + 0.05 };
+  }
+
   /** lowest overhead underside above `fromY` at (x,z); Infinity if open sky */
   overheadAt(x: number, z: number, fromY: number): { bottom: number; id: string | null; kind: string | null } {
     let bottom = Infinity, id: string | null = null, kind: string | null = null;
     for (const b of this.near(this.bandGrid, x, z)) {
-      if (b.bottom <= fromY + 0.3) continue; // structure at/below us (e.g. the bridge we stand on)
       const c = closestOnSeg(x, z, b.ax, b.az, b.bx, b.bz);
       if (Math.hypot(x - c.x, z - c.z) > b.halfWidth) continue;
-      if (b.bottom < bottom) { bottom = b.bottom; id = b.id; kind = b.kind; }
+      const v = this.bandAt(b, c.t);
+      if (v.bottom <= fromY + 0.3) continue; // structure at/below us (e.g. the bridge we stand on)
+      if (v.bottom < bottom) { bottom = v.bottom; id = b.id; kind = b.kind; }
     }
     return { bottom, id, kind };
   }
@@ -183,11 +191,14 @@ export class WorldPhysics {
       out.push({ id: c.id, kind: 'pillar', nx: (x - c.x) / l, nz: (z - c.z) / l, depth: c.r + r - d });
     }
     for (const b of this.near(this.bandGrid, x, z)) {
-      if (y + h <= b.bottom || y >= b.top - 0.3) continue; // a car standing on / flying over the deck top is not hitting it
       const c = closestOnSeg(x, z, b.ax, b.az, b.bx, b.bz);
       if (Math.hypot(x - c.x, z - c.z) > b.halfWidth + r * 0.5) continue;
+      const v = this.bandAt(b, c.t);
+      // a car standing on / flying over a deck top — or on an adjoining deck at nearly the same height
+      // (parallel carriageways of one flyover) — is not hitting its underside
+      if (y + h <= v.bottom || y >= v.top - 1.0) continue;
       // vertical overlap with an overhead volume we are not standing on
-      out.push({ id: b.id, kind: b.kind, nx: 0, nz: 0, depth: y + h - b.bottom, vertical: 'below' });
+      out.push({ id: b.id, kind: b.kind, nx: 0, nz: 0, depth: y + h - v.bottom, vertical: 'below' });
     }
     return out;
   }

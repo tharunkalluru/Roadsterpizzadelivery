@@ -302,7 +302,8 @@ export class Player {
           this.move = 'RECOVERING';
           return this.events;
         } else {
-          this.move = 'LANDING_CONFIRM'; this.confirmTicks = 0;
+          // within ground contact when the budget runs out: the same touchdown validation applies
+          if (!this.validateTouchdown()) return this.events;
         }
       }
     }
@@ -560,28 +561,7 @@ export class Player {
       const surfY = this.surfaceY();
       if (this.move !== 'TAKEOFF' && this.y <= surfY) {
         // touchdown attempt
-        // the receiving surface is whichever selected carriageway actually contains the touchdown point
-        // (at or below the car), not merely the road we were last associated with
-        const s = this.world.roads.surface(this.x, this.z, { margin: 0.3, maxY: this.y + 0.5, preferLevel: this.level, heading: this.heading }) ?? this.surface;
-        if (s) { this.surface = s; this.roadId = s.roadId; }
-        const vyAtContact = this.vy;
-        const validSurface = !!s && s.dist <= s.halfWidth + 0.3 && !this.world.buildingAt(this.x, this.z);
-        if (!validSurface) {
-          this.events.push({ type: 'crash', reason: 'Invalid landing surface' });
-          this.move = 'RECOVERING';
-          return;
-        }
-        if (vyAtContact < -FLIGHT.maxTouchdownVy) {
-          this.events.push({ type: 'crash', reason: 'Landing too hard' });
-          this.move = 'RECOVERING';
-          return;
-        }
-        this.y = surfY; this.vy = 0;
-        this.level = s!.level;
-        this.move = 'LANDING_CONFIRM';
-        this.confirmTicks = 0;
-        this.landingSoon = false;
-        this.events.push({ type: 'touchdown', hard: vyAtContact < -FLIGHT.hardLandingVy, vy: vyAtContact });
+        this.validateTouchdown();
       }
       return;
     }
@@ -595,7 +575,9 @@ export class Player {
       const nx = (s.px - this.x) / (s.dist || 1), nz = (s.pz - this.z) / (s.dist || 1);
       this.x += nx * push; this.z += nz * push;
       this.speed *= 0.9;
-      if (!this.cooldown.has('parapet')) { this.cooldown.set('parapet', this.tick + CONTACT.contactCooldownTicks); this.events.push({ type: 'contact', kind: 'parapet', id: 'parapet', severity: 'light', closing: 1 }); }
+      // one event per continuous scrape episode (F23): cooldown refreshes while in contact
+      if (!this.cooldown.has('parapet')) this.events.push({ type: 'contact', kind: 'parapet', id: 'parapet', severity: 'light', closing: 1 });
+      this.cooldown.set('parapet', this.tick + CONTACT.contactCooldownTicks);
     }
     if (this.y > surfY + 0.05) {
       // ground-vehicle gravity (not powered flight)
@@ -614,6 +596,26 @@ export class Player {
         }
       }
     }
+  }
+
+  /**
+   * Qualified touchdown (MASTER §12.6): eligible carriageway at the correct level, not a roof, and an
+   * acceptable vertical speed. On success enters LANDING_CONFIRM; otherwise invokes recovery.
+   */
+  private validateTouchdown(): boolean {
+    const s = this.world.roads.surface(this.x, this.z, { margin: 0.3, maxY: this.y + 0.5, preferLevel: this.level, heading: this.heading }) ?? this.surface;
+    if (s) { this.surface = s; this.roadId = s.roadId; }
+    const vyAtContact = this.vy;
+    const validSurface = !!s && s.dist <= s.halfWidth + 0.3 && !this.world.buildingAt(this.x, this.z);
+    if (!validSurface) { this.events.push({ type: 'crash', reason: 'Invalid landing surface' }); this.move = 'RECOVERING'; return false; }
+    if (vyAtContact < -FLIGHT.maxTouchdownVy) { this.events.push({ type: 'crash', reason: 'Landing too hard' }); this.move = 'RECOVERING'; return false; }
+    this.y = s!.elevation; this.vy = 0;
+    this.level = s!.level;
+    this.move = 'LANDING_CONFIRM';
+    this.confirmTicks = 0;
+    this.landingSoon = false;
+    this.events.push({ type: 'touchdown', hard: vyAtContact < -FLIGHT.hardLandingVy, vy: vyAtContact });
+    return true;
   }
 
   /** Gameplay recovery: terminate flight, keep ledger, place at a previously reached anchor (F19). */

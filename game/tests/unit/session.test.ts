@@ -244,3 +244,30 @@ describe('U11 outside-area guidance', () => {
     expect(s.player.surface?.onCarriageway).toBe(true);
   });
 });
+
+describe('F21/M13 regression (independent review M4): checkpoint exactness and validation', () => {
+  it('restores encounter scheduler state; rejects a tampered allocation; airborne w/o anchors lands at pickup', () => {
+    const s = new Session(makeFixtureWorld(), fixtureMission({ traffic: 'busy', deadlineSeconds: 900, stops: ['d_side'] }), { runId: 'x', seed: 4 });
+    s.start();
+    for (let k = 0; k < 1500; k++) s.step(inp());
+    const cp = JSON.parse(JSON.stringify(s.checkpoint()));
+    const r = Session.fromCheckpoint(s.world, s.mission, cp);
+    expect(r.nextEncounterTick).toBe(s.nextEncounterTick);
+    expect(r.encounters.length).toBe(s.encounters.length);
+    const bad = JSON.parse(JSON.stringify(cp)); bad.player.ledger.allocationSeconds = 30;
+    expect(() => Session.fromCheckpoint(s.world, s.mission, bad)).toThrow(/ledger/);
+    const bad2 = JSON.parse(JSON.stringify(cp)); bad2.player.ledger.consumed = -5;
+    expect(() => Session.fromCheckpoint(s.world, s.mission, bad2)).toThrow(/ledger/);
+    const air = started();
+    for (let k = 0; k < 20; k++) air.step(inp());
+    air.step(inp({ flyPress: true }));
+    for (let k = 0; k < 40; k++) air.step(inp());
+    expect(air.player.isAirborne).toBe(true);
+    const cpa = JSON.parse(JSON.stringify(air.checkpoint()));
+    cpa.anchors = [];
+    const ra = Session.fromCheckpoint(air.world, air.mission, cpa);
+    expect(ra.player.isAirborne).toBe(false);
+    expect(ra.player.y).toBeCloseTo(ra.player.surface?.elevation ?? 0, 3);
+    expect(ra.player.ledger.consumedTicks).toBe(air.player.ledger.consumedTicks);
+  });
+});
