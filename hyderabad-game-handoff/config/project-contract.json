@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "project_id": "hyderabad-metro-delivery",
+  "specification_version": "3.0",
+  "prepared_at": "2026-10-17",
+  "requested_release": "completed_requested_network",
+  "contract_state": "initial_specification_requires_geographic_scope_freeze",
+  "engine": "Three.js",
+  "visual_target": "user_selected_whiteout_finish_adapted_to_authentic_mobile_hyderabad",
+  "required_platforms": [
+    "android",
+    "ios"
+  ],
+  "primary_runtime": "mobile_browser",
+  "simulation_hz": 60,
+  "flight": {
+    "model": "shared_per_contract",
+    "default_budget_seconds": 25,
+    "allowed_budget_seconds": [
+      20,
+      25,
+      30
+    ],
+    "regenerates_during_contract": false,
+    "continuous_flight_allowed": true,
+    "split_flights_allowed": true,
+    "per_burst_limit_seconds": null,
+    "airborne_phases_metered": [
+      "takeoff",
+      "travel",
+      "hover",
+      "braking",
+      "coasting",
+      "descent"
+    ],
+    "reserve_is_within_budget": true,
+    "intermediate_stop_refills": false,
+    "recovery_refunds": false,
+    "ground_driving_refills": false,
+    "new_contract_resets_allocation": true,
+    "full_retry_resets_progress_and_allocation": true,
+    "exact_checkpoint_preserves_consumed_ticks": true,
+    "standard_missions_ground_completable": true
+  },
+  "requested_geography": {
+    "city": "Hyderabad",
+    "country": "India",
+    "operating_status_must_be_rechecked_for_world_release": true,
+    "corridors": [
+      {
+        "id": "red",
+        "from": "Miyapur",
+        "to": "LB Nagar",
+        "osm_route_master_id": 8297698
+      },
+      {
+        "id": "blue",
+        "from": "Nagole",
+        "to": "Raidurg",
+        "osm_route_master_id": 13986696
+      },
+      {
+        "id": "green",
+        "from": "JBS Parade Ground",
+        "to": "MG Bus Station",
+        "osm_route_master_id": 8297697
+      }
+    ],
+    "osm_network_relation_id": 8826295,
+    "scope_rule": "Select connected real road carriageways, junction approaches, useful reconnecting deviations and delivery spurs near the operating metro alignment. Freeze exact IDs, metric geometry and required review units before claiming completion.",
+    "initial_alignment_buffer_metres": 200,
+    "justified_expansion_metres": 500,
+    "buffer_values_are_planning_defaults": true,
+    "first_corridor_anchors": [
+      "Uppal",
+      "Stadium",
+      "NGRI",
+      "Habsiguda",
+      "Tarnaka"
+    ],
+    "first_slice_length_metres": {
+      "minimum": 300,
+      "maximum": 500
+    },
+    "selected_physical_road_length_metres": null,
+    "selected_frontage_interval_count": null,
+    "first_corridor_is_internal_milestone": true,
+    "geographic_scale_may_be_compressed": false,
+    "imagined_connectors_may_be_added_to_base_map": false,
+    "source_agreement_equals_field_verification": false
+  },
+  "fidelity": {
+    "property_states": [
+      "verified",
+      "provisional",
+      "missing",
+      "scenario_overlay"
+    ],
+    "all_displayed_real_names_require_registry": true,
+    "unknown_frontage_inventory_may_claim_complete": false,
+    "verified_scope_requires_critical_name_and_geometry_gaps_resolved": true,
+    "source_ids_and_original_spelling_preserved": true,
+    "permanent_map_and_temporary_gameplay_overlays_separate": true,
+    "source_imagery_must_be_visually_inspected_to_support_verification": true
+  },
+  "release_defaults": {
+    "minimum_sustained_mobile_fps_target": 30,
+    "higher_fps_only_where_validated": 60,
+    "physical_device_sustained_test_minutes": 15,
+    "performance_values_are_targets_not_measured_results": true,
+    "all_82_acceptance_ids_required": true,
+    "required_gates": [
+      "C0",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7"
+    ],
+    "emulation_counts_as_physical_device_evidence": false,
+    "ledger_integrity_counts_as_geographic_truth": false
+  },
+  "execution": {
+    "mode": "one_initial_instruction_continuous_implementation",
+    "internal_test_and_repair_cycles_required": true,
+    "independent_reviewer_when_available": true,
+    "new_paid_spend_authorized": false,
+    "runtime_depends_on_public_osm_editing_or_overpass_api": false,
+    "respect_environment_permissions_and_source_limits": true,
+    "blocked_external_inputs_do_not_stop_independent_work": true,
+    "achieved_scope_reported_separately_from_requested_scope": true,
+    "background_execution_started_by_this_kit": false,
+    "requested_agent": "Claude Code",
+    "requested_model": "claude-opus-5-5",
+    "default_effort": "medium",
+    "effective_model_must_be_verified": true,
+    "automatic_model_substitution_authorized": false,
+    "new_application_directory": "game",
+    "await_running_work_before_completion": true,
+    "max_consecutive_no_progress_continuations_same_task": 3
+  },
+  "visual_reference": {
+    "url": "https://whiteout.plgb.chatgpt.site/",
+    "contract_path": "GRAPHICS_REFERENCE_WHITEOUT.md",
+    "required": true,
+    "gameplay_inspection_at_preparation": "blocked_webgl_context_creation",
+    "actual_gameplay_inspection_required": true,
+    "review_requirement": "Q08",
+    "review_gate": "C4",
+    "reuse_rights_granted_by_reference": false
+  }
+}

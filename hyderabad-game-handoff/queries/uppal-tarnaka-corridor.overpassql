@@ -1,0 +1,20 @@
+[out:json][timeout:45][bbox:17.395,78.522,17.435,78.565];
+(
+  nwr["highway"];
+  nwr["building"];
+  nwr["building:part"];
+  nwr["shop"];
+  nwr["amenity"];
+  nwr["office"];
+  nwr["tourism"];
+  nwr["leisure"];
+  nwr["railway"];
+  nwr["public_transport"];
+  nwr["power"];
+  nwr["barrier"];
+  nwr["entrance"];
+  node["natural"="tree"];
+  relation["type"="restriction"];
+);
+(._; >>;);
+out body;

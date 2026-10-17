@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "project_id": "hyderabad-metro-delivery",
+  "status": "not_run",
+  "requirement_ids": [
+    "Q08"
+  ],
+  "gate_ids": [
+    "C4"
+  ],
+  "purpose": "Record actual user-reference inspection and built-game comparison; this template is not evidence of an inspection.",
+  "reference": {
+    "url": "https://whiteout.plgb.chatgpt.site/",
+    "requested_by": "user",
+    "preparation_observation": "Opening interface only; gameplay unavailable because the preparation browser could not create a WebGL context.",
+    "receiving_agent_gameplay_inspected": false,
+    "inspection_date": null,
+    "reference_version_if_exposed": null,
+    "browser": null,
+    "device_class": null,
+    "viewport": null,
+    "settings": null,
+    "artifact_paths": [],
+    "redistribution_permissions": null
+  },
+  "build_binding": {
+    "code_revision": null,
+    "production_bundle_sha256": null,
+    "world_manifest_sha256": null,
+    "project_contract_sha256": null,
+    "scope_manifest_sha256": null
+  },
+  "reviewer": {
+    "identity_or_agent_role": null,
+    "method": null,
+    "limitations": []
+  },
+  "dimensions": [
+    {
+      "id": "vehicle",
+      "label": "Player vehicle",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": []
+    },
+    {
+      "id": "scene",
+      "label": "Road and scene depth",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": []
+    },
+    {
+      "id": "materials",
+      "label": "Materials",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": []
+    },
+    {
+      "id": "lighting",
+      "label": "Lighting and shadows",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": []
+    },
+    {
+      "id": "camera",
+      "label": "Camera and motion",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": []
+    },
+    {
+      "id": "activity",
+      "label": "Environmental activity",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": []
+    },
+    {
+      "id": "effects",
+      "label": "Effects and atmosphere",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": []
+    },
+    {
+      "id": "interface",
+      "label": "Interface",
+      "result": "not_inspected",
+      "observed_in_reference": [],
+      "inferences_with_reasons": [],
+      "proposed_hyderabad_adaptations": [],
+      "actual_game_observations": [],
+      "reference_artifact_paths": [],
+      "game_artifact_paths": [],
+      "gaps_and_next_actions": []
+    }
+  ],
+  "game_views": [],
+  "physical_device_performance_established_by_this_review": false,
+  "geographic_truth_established_by_this_review": false,
+  "all_relevant_dimensions_supported": false,
+  "overall_findings": [],
+  "blocking_inputs": [],
+  "evidence_index_ids": []
+}

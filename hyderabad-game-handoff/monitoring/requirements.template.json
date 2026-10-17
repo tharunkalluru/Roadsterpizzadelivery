@@ -1,0 +1,1345 @@
+{
+  "schema_version": 1,
+  "project_id": "hyderabad-metro-delivery",
+  "source_specification": "MASTER_PROMPT.md",
+  "source_specification_sha256": "98a0c57adf883fcf82520106c48e8f6388c4844263d5b41e1eaaa6f3808b50e9",
+  "requirements": [
+    {
+      "id": "G01",
+      "description": "Every released road edge has stable identity, source provenance, direction, level, and world-version membership.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ]
+        ],
+        "gate": "C1",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G02",
+      "description": "Junction navigation uses real supported connections; no invented shortcut appears in a route.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ],
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C5",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G03",
+      "description": "A return mission is valid on the directed graph and does not simply reverse an outbound one-way path.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ],
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C5",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G04",
+      "description": "Roads, render meshes, colliders, and delivery geometry align within the documented source-justified tolerances.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ],
+          [
+            "ai_visual_review",
+            "local_field_review"
+          ]
+        ],
+        "gate": "C4",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G05",
+      "description": "The complete visible commercial-frontage inventory is accounted for; claimed verified names, order, side, facing, and entrance relationships match inspected evidence.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ],
+          [
+            "ai_visual_review",
+            "local_field_review"
+          ]
+        ],
+        "gate": "C4",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G06",
+      "description": "Property-level provisional and missing data remain visible in the content report and do not become verified through an import alone.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ]
+        ],
+        "gate": "C1",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G07",
+      "description": "Overlapping roads, metro structures, and underpasses have separate physical heights and surface IDs.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ]
+        ],
+        "gate": "C1",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G08",
+      "description": "Detours genuinely reconnect; delivery spurs have valid return or reversing access.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ],
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C5",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G09",
+      "description": "Construction and temporary obstacles have dated base evidence or scenario-overlay identity.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ]
+        ],
+        "gate": "C1",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G10",
+      "description": "Current source/asset attribution and applicable distribution obligations are accounted for in the release package.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "asset_audit"
+          ]
+        ],
+        "gate": "C0",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G11",
+      "description": "Short missions preserve real scale; corridor distance is checked; the geographic map distinguishes metro, stations, streets, deviations, destinations, and available/planned areas.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ],
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C5",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "G12",
+      "description": "Local recognition review checks road shape, landmark position, frontage order, and delivery access; unperformed reviews remain pending.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "local_field_review"
+          ]
+        ],
+        "gate": "C4",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F01",
+      "description": "Equivalent inputs at 30, 60, and 120 render fps produce comparable movement and identical simulation-time fuel use.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F02",
+      "description": "A continuous eligible flight lasts longer than four seconds and is limited by the shared budget and affordable landing, not a per-launch cap.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F03",
+      "description": "The 20, 25, and 30 second contract allocations equal 1,200, 1,500, and 1,800 ticks; total consumption never exceeds allocation.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F04",
+      "description": "Several flights share one balance; early landing preserves the genuinely unspent remainder without a hidden activation tax.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F05",
+      "description": "Five seconds of hover consumes five seconds; steering, braking, coasting, and descent never stop airborne metering.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F06",
+      "description": "A denied launch gives a specific reason, consumes nothing, and does not trigger later from the old press; an obstruction after activation triggers bounded launch abort, preserving consumed ticks.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F07",
+      "description": "Partial remaining fuel supports a launch when the predicted ascent and landing are affordable; insufficient fuel is explained.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F08",
+      "description": "Full-car clearance catches overhead obstacles that a centre ray misses, including thin structures at maximum supported speed.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F09",
+      "description": "Road/surface identity separates a lower road, flyover, metro deck, vehicle roof, and building roof at overlapping coordinates.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F10",
+      "description": "The landing reserve is recomputed from actual state, belongs to the same balance, and triggers automatic descent while still affordable.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F11",
+      "description": "A fresh Land press requests earlier controlled descent; held launch input, repeated presses, and air braking cannot reset the resource ledger.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F12",
+      "description": "Ground driving for thirty seconds and intermediate delivery stops produce no resource refill.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F13",
+      "description": "A moving obstruction updates forecast uncertainty and produces bounded correction or explicit failure without bonus fuel.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F14",
+      "description": "Invalid landing surfaces are rejected; connected road branches work when the approved volume and receiving surface are valid.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F15",
+      "description": "Valid touchdown on the final resource tick can finish grounded confirmation without additional fuel.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F16",
+      "description": "Zero resource while unsupported produces the documented failure without useful free glide, hovering, or emergency descent; exhaustion while still supported in TAKEOFF terminates launch through the documented abort path.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F17",
+      "description": "Losing support during landing confirmation resumes metering in the same transaction; contact jitter never refunds or duplicates ticks.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F18",
+      "description": "Pause, app switch, and technical interruption freeze movement, fuel consumption, traffic, and mission time together.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F19",
+      "description": "Gameplay recovery preserves consumed ticks and ledger values and returns to a previously reached safe ground anchor with no forward gain.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F20",
+      "description": "A full retry resets fuel and route progress together; a waypoint, ground stop, or recovery cannot create a new allocation.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F21",
+      "description": "A checkpoint restores a consistent budget, transaction, movement state, mission ledger, and traffic state; reserve is recomputed.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F22",
+      "description": "The longer continuous-flight envelope is loaded safely; critical missing data causes a technical pause before absent geometry.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F23",
+      "description": "Hard landings and sustained contact produce bounded cargo events rather than per-frame damage or recurring recovery.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "F24",
+      "description": "Deadline, final fuel tick, touchdown, contact, and delivery hold on the same tick follow the documented event ordering.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C3",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M01",
+      "description": "The required corridor mission instances are playable; a player can select, start, drive, fly, land, stop, succeed, fail, retry, and exit.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M02",
+      "description": "Reaching the destination from the wrong side, wrong level, or while airborne does not complete it.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M03",
+      "description": "A deliberate low-speed stop starts the delivery hold, passing at speed does not capture the car, and cancelling the hold restores control.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M04",
+      "description": "Missed-turn and wrong-way guidance use the correct road level/carriageway and a feasible real-road correction.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C5",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M05",
+      "description": "Deadline, success, cargo failure, and critical collision on the same tick follow the documented priority.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M06",
+      "description": "The HUD and results agree on elapsed time, penalties, remaining time, cargo, and outcome.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M07",
+      "description": "No required encounter assumes unavailable flight or removes every feasible response at its intended approach speed.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M08",
+      "description": "NPCs do not spawn inside visible stopping/landing space or teleport through the player.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M09",
+      "description": "Bike filtering, auto stops, bus merges, and pedestrian movement respect physical space and readable intent.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M10",
+      "description": "Junction and curb deadlocks resolve without indefinite mission blockage.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M11",
+      "description": "NPCs crossing chunks retain identity and do not duplicate or disappear within the interaction area.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M12",
+      "description": "Same-seed retry and recorded input replay reproduce the intended challenge within documented tolerances and version rules.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M13",
+      "description": "Multi-stop progress, pickup state, cargo, and remaining time survive a supported pause/restore correctly.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "M14",
+      "description": "Personal bests compare matching conditions, and debug/unsupported resumed runs are not falsely presented as equivalent records.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "simulation_test",
+            "browser_test"
+          ]
+        ],
+        "gate": "C2",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U01",
+      "description": "Steering plus brake or flight works with simultaneous touches on physical target devices.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": true,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U02",
+      "description": "Pointer cancellation, finger leaving a region, lost capture, app switch, and modal opening never leave a control stuck.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U03",
+      "description": "Small screens, large screens, safe areas, browser bars, portrait menus, and rotation preserve usable controls and readable HUD.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": true,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U04",
+      "description": "Essential information is understandable with sound off, haptics off, reduced effects, and color-independent cues.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": true,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U05",
+      "description": "Unsupported WebGL2, denied storage, full storage, suspended audio, and failed asset requests produce usable explanations and recovery.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U06",
+      "description": "Hidden-page and severe-stall handling freezes gameplay safely and does not consume or restore flight resource or consume the deadline.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U07",
+      "description": "WebGL context loss restores resources/state safely or offers the documented checkpoint recovery.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U08",
+      "description": "Incompatible save/world versions are handled explicitly without silently mixing data or destroying unrelated settings.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U09",
+      "description": "A delayed mandatory chunk pauses before missing geometry is reached; decorative failure does not corrupt collision.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U10",
+      "description": "Offline availability matches downloaded packs, and an update cannot mix versions during a mission.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U11",
+      "description": "Outside-area guidance appears early and any return/recovery cannot improve route progress.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "U12",
+      "description": "Restarting or switching missions cancels old loads, events, sounds, and inputs so they cannot leak into the new run.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "P01",
+      "description": "Production build and actual documented run/test commands succeed, with failures reported rather than hidden.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "build_check",
+            "browser_test"
+          ]
+        ],
+        "gate": "C7",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "P02",
+      "description": "First-play payload and ordinary scene budgets are measured and departures are explained with corrective action or evidence.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "P03",
+      "description": "Physical-phone performance is measured over at least 15 minutes, including traffic, flight, heat, and streaming.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": true,
+        "minimum_duration_seconds": 900
+      }
+    },
+    {
+      "id": "P04",
+      "description": "Ten repeated out-and-back traversals do not show sustained resource growth, stale listeners, or duplicate actors.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "P05",
+      "description": "Low and high graphics modes preserve collision, timing, critical hazard visibility, and scenario fairness.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "P06",
+      "description": "Load, shader, and WASM preparation complete before the mission clock begins.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "browser_test",
+            "physical_android",
+            "physical_ios"
+          ]
+        ],
+        "gate": "C6",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "P07",
+      "description": "Source and asset manifests contain no private credential or unaccounted imported resource.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "asset_audit"
+          ]
+        ],
+        "gate": "C7",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "P08",
+      "description": "Final reporting distinguishes fixture, authentic slice, first corridor, and full network, with honest content and device-test coverage.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "build_check",
+            "browser_test"
+          ]
+        ],
+        "gate": "C7",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q01",
+      "description": "Requested scope and achieved scope remain distinct; frozen roads/frontage intervals cannot disappear to inflate completion.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C5",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q02",
+      "description": "Unknown coverage denominators remain unknown, and source-import completeness is separate from field completeness.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C5",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q03",
+      "description": "Every displayed real-world name maps to an evidence-backed registry entry with language and source date.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C5",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q04",
+      "description": "Raw metro stop positions are reconciled with official station identities and are never treated as road delivery entrances.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C5",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q05",
+      "description": "Build, world, configuration, and evidence hashes identify the exact artifact tested.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "release_review",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C7",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q06",
+      "description": "Changed dependencies invalidate affected passes; the final smoke test exercises the final production bundle.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "release_review",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C7",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q07",
+      "description": "Passed evidence records point to existing artifacts with matching hashes and actual expected/observed results.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "asset_audit"
+          ]
+        ],
+        "gate": "C7",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q08",
+      "description": "Source/render comparisons cover required geographic views, and game visuals are reviewed against the user-selected Whiteout reference with unresolved placement, material, and presentation gaps recorded.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "source_inspection"
+          ],
+          [
+            "ai_visual_review",
+            "local_field_review"
+          ]
+        ],
+        "gate": "C4",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q09",
+      "description": "Phone emulation, physical phone tests, AI visual review, and local field review are reported as separate methods.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "release_review",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C7",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q10",
+      "description": "Resource/credential/rate-limit failures are recorded without invented data, unapproved paid purchases, or fabricated success.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "release_review",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C0",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q11",
+      "description": "Machine-readable status, coverage, requirements, evidence, and continuation files stay consistent with the runnable project.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "release_review",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C0",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    },
+    {
+      "id": "Q12",
+      "description": "The final audit supports the claimed release level and reports every mandatory failed or blocked gate.",
+      "mandatory": true,
+      "evidence_policy": {
+        "groups": [
+          [
+            "release_review",
+            "asset_audit"
+          ]
+        ],
+        "gate": "C7",
+        "physical_platforms": false,
+        "minimum_duration_seconds": 0
+      }
+    }
+  ]
+}

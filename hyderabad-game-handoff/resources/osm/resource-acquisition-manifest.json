@@ -1,0 +1,218 @@
+{
+  "created_at": "2026-10-17T20:16:44.433375+00:00",
+  "data_license": "ODbL-1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "license_url": "https://www.openstreetmap.org/copyright",
+  "files": [
+    {
+      "file": "corridor-01-uppal-stadium.osm",
+      "bytes": 3115182,
+      "sha256": "c0c9338a41d4ff91f1899db4fc2e9f18a5ee322cc76b6533cf0d63f3258b1fc7",
+      "local_file_written_at": "2026-10-17T20:15:03.930738+00:00",
+      "status": "acquired_source_not_field_verified",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=78.551%2C17.398%2C78.564%2C17.41",
+      "bbox_west_south_east_north": [
+        78.551,
+        17.398,
+        78.564,
+        17.41
+      ],
+      "requested_at": "2026-10-17T20:15:01.681004+00:00",
+      "received_at": "2026-10-17T20:15:03.933318+00:00",
+      "content_type": "application/xml; charset=utf-8",
+      "counts": {
+        "node": 12152,
+        "way": 2679,
+        "relation": 22
+      }
+    },
+    {
+      "file": "corridor-02-stadium-ngri.osm",
+      "bytes": 2212772,
+      "sha256": "36e1a876bb0ddda235a4ea0ae60509cd44a707e62b3744e1f9b472a3b8c50f78",
+      "local_file_written_at": "2026-10-17T20:15:03.722019+00:00",
+      "status": "acquired_source_not_field_verified",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=78.542%2C17.405%2C78.557%2C17.417",
+      "bbox_west_south_east_north": [
+        78.542,
+        17.405,
+        78.557,
+        17.417
+      ],
+      "requested_at": "2026-10-17T20:15:01.681902+00:00",
+      "received_at": "2026-10-17T20:15:03.722935+00:00",
+      "content_type": "application/xml; charset=utf-8",
+      "counts": {
+        "node": 8710,
+        "way": 1933,
+        "relation": 17
+      }
+    },
+    {
+      "file": "corridor-03-ngri-habsiguda.osm",
+      "bytes": 1653405,
+      "sha256": "896d1e3d404af11dea1e61a4e8f48201374fb46cdfe2d8a26e8286533da9003b",
+      "local_file_written_at": "2026-10-17T20:15:05.517330+00:00",
+      "status": "acquired_source_not_field_verified",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=78.537%2C17.412%2C78.55%2C17.423",
+      "bbox_west_south_east_north": [
+        78.537,
+        17.412,
+        78.55,
+        17.423
+      ],
+      "requested_at": "2026-10-17T20:15:03.729536+00:00",
+      "received_at": "2026-10-17T20:15:05.520997+00:00",
+      "content_type": "application/xml; charset=utf-8",
+      "counts": {
+        "node": 6481,
+        "way": 1426,
+        "relation": 19
+      }
+    },
+    {
+      "file": "corridor-04-habsiguda-tarnaka.osm",
+      "bytes": 3870667,
+      "sha256": "bba26dd996a13d5839e3d2c908048996ae8a9f96ffcb9eeb64c82f8fbfe2a4ab",
+      "local_file_written_at": "2026-10-17T20:15:06.177307+00:00",
+      "status": "acquired_source_not_field_verified",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=78.522%2C17.418%2C78.544%2C17.431",
+      "bbox_west_south_east_north": [
+        78.522,
+        17.418,
+        78.544,
+        17.431
+      ],
+      "requested_at": "2026-10-17T20:15:03.942964+00:00",
+      "received_at": "2026-10-17T20:15:06.181743+00:00",
+      "content_type": "application/xml; charset=utf-8",
+      "counts": {
+        "node": 15702,
+        "way": 3242,
+        "relation": 41
+      }
+    },
+    {
+      "file": "corridor-evidence-summary.json",
+      "bytes": 4723,
+      "sha256": "c711d80f7cb4223a2684694b6231f24d75deeb96c706b651ee88d6eb0836bb61",
+      "local_file_written_at": "2026-10-17T20:16:44.405041+00:00",
+      "status": "derived_evidence_report",
+      "derived_from": [
+        "corridor-01-uppal-stadium.osm",
+        "corridor-02-stadium-ngri.osm",
+        "corridor-03-ngri-habsiguda.osm",
+        "corridor-04-habsiguda-tarnaka.osm"
+      ]
+    },
+    {
+      "file": "corridor-named-features.json",
+      "bytes": 632372,
+      "sha256": "c4fab63bcdb65fe8ebb823ccb275bd61087978527be3984317d88aa6c6db3258",
+      "local_file_written_at": "2026-10-17T20:16:44.427655+00:00",
+      "status": "derived_evidence_report",
+      "derived_from": [
+        "corridor-01-uppal-stadium.osm",
+        "corridor-02-stadium-ngri.osm",
+        "corridor-03-ngri-habsiguda.osm",
+        "corridor-04-habsiguda-tarnaka.osm"
+      ]
+    },
+    {
+      "file": "metro-13986696-full.json",
+      "bytes": 5524,
+      "sha256": "3e430f6b0ecb1197c3f9dbeceb60282b6fa457e08339662b4b541290bdcfbdd3",
+      "local_file_written_at": "2026-10-17T20:09:23.110796+00:00",
+      "status": "source_imported_not_field_verified",
+      "url": "https://www.openstreetmap.org/api/0.6/relation/13986696/full.json"
+    },
+    {
+      "file": "metro-8297697-full.json",
+      "bytes": 2847,
+      "sha256": "d6528461913e0ccf036ddeb7bf80dcb419d447dfc3cf93c812f579fce3182885",
+      "local_file_written_at": "2026-10-17T20:09:22.999244+00:00",
+      "status": "source_imported_not_field_verified",
+      "url": "https://www.openstreetmap.org/api/0.6/relation/8297697/full.json"
+    },
+    {
+      "file": "metro-8297698-full.json",
+      "bytes": 5727,
+      "sha256": "465c4741ce161d63a998960cb3627599afcc6e7fe64098f333c1aff79fe076ac",
+      "local_file_written_at": "2026-10-17T20:09:23.068540+00:00",
+      "status": "source_imported_not_field_verified",
+      "url": "https://www.openstreetmap.org/api/0.6/relation/8297698/full.json"
+    },
+    {
+      "file": "metro-network-full.json",
+      "bytes": 373856,
+      "sha256": "38f1a23eb3f63040849da24aacb604fb339dcf993bf8ed74c8468d476eabb61f",
+      "local_file_written_at": "2026-10-17T20:09:29.384309+00:00",
+      "status": "source_imported_not_field_verified",
+      "url": "https://overpass-api.de/api/interpreter",
+      "method": "POST",
+      "query_file": "metro-network.overpassql",
+      "osm_base_timestamp": "2026-10-17T20:07:36Z",
+      "counts": {
+        "node": 2450,
+        "way": 91,
+        "relation": 10
+      }
+    },
+    {
+      "file": "metro-network-relation.json",
+      "bytes": 751,
+      "sha256": "1d40f144da362f77b4591bd372f64fb6739f6a754a3b3a6b23f7c19518844a7c",
+      "local_file_written_at": "2026-10-17T20:08:08.922164+00:00",
+      "status": "source_imported_not_field_verified",
+      "url": "https://www.openstreetmap.org/api/0.6/relation/8826295.json"
+    },
+    {
+      "file": "metro-network.overpassql",
+      "bytes": 64,
+      "sha256": "d6708eabc3268594cd3d78a2e76cfcc350f63b0ad143f48f6e457035c6b84734",
+      "local_file_written_at": "2026-10-17T20:08:31.758975+00:00",
+      "status": "query_successfully_executed"
+    },
+    {
+      "file": "uppal-starter-osm-map.osm",
+      "bytes": 982844,
+      "sha256": "2ab0f153dc88386bade935e82aebcb8e4bc24c318131fd361ab0311996e90339",
+      "local_file_written_at": "2026-10-17T20:13:43.942524+00:00",
+      "status": "source_imported_not_field_verified",
+      "url": "https://api.openstreetmap.org/api/0.6/map?bbox=78.556,17.398,78.563,17.405",
+      "requested_at": "2026-10-17T20:13:42.336128+00:00",
+      "received_at": "2026-10-17T20:13:43.944575+00:00",
+      "content_type": "application/xml; charset=utf-8",
+      "counts": {
+        "node": 3553,
+        "way": 690,
+        "relation": 19
+      }
+    },
+    {
+      "file": "uppal-tarnaka-corridor.overpassql",
+      "bytes": 389,
+      "sha256": "655995bfee94139dbf9a89b2a22dd6ce11543dacb74df467a8deb973af745155",
+      "local_file_written_at": "2026-10-17T20:10:27.247442+00:00",
+      "status": "documented_query_not_successfully_executed_in_this_session"
+    }
+  ],
+  "bounded_failed_attempts": [
+    {
+      "request": "Overpass corridor POST",
+      "result": "HTTP 502"
+    },
+    {
+      "request": "Overpass corridor GET",
+      "result": "HTTP 406"
+    },
+    {
+      "request": "OSM large corridor map.json bbox",
+      "result": "HTTP 400; error body was not captured, cause not established"
+    },
+    {
+      "request": "One corridor attempt before GET retry",
+      "result": "Automatic permission review timeout before execution; no data request executed in that attempt"
+    }
+  ]
+}

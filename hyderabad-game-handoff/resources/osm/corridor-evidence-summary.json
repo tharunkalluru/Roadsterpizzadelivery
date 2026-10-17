@@ -1,0 +1,192 @@
+{
+  "created_at": "2026-10-17T20:16:44.385997+00:00",
+  "sources": [
+    "corridor-01-uppal-stadium.osm",
+    "corridor-02-stadium-ngri.osm",
+    "corridor-03-ngri-habsiguda.osm",
+    "corridor-04-habsiguda-tarnaka.osm"
+  ],
+  "scope_note": "Union of four overlapping acquisition boxes around the initial corridor, not the final playable selection. Counts describe imported OSM features, not unique real-world businesses or a complete field inventory.",
+  "unique_counts": {
+    "node": 37990,
+    "way": 8336,
+    "relation": 56
+  },
+  "element_version_conflicts": [],
+  "highway_ways": 1347,
+  "highway_type_counts": {
+    "trunk": 16,
+    "path": 20,
+    "secondary": 26,
+    "residential": 756,
+    "tertiary": 21,
+    "primary": 32,
+    "service": 400,
+    "living_street": 19,
+    "trunk_link": 3,
+    "primary_link": 13,
+    "footway": 13,
+    "steps": 8,
+    "cycleway": 1,
+    "tertiary_link": 1,
+    "track": 7,
+    "pedestrian": 3,
+    "unclassified": 2,
+    "services": 5,
+    "secondary_link": 1
+  },
+  "highway_ways_with_name_tag": 165,
+  "highway_ways_with_width_tag": 7,
+  "highway_ways_with_lanes_tag": 26,
+  "highway_ways_with_oneway_tag": 134,
+  "highway_ways_with_surface_tag": 55,
+  "building_features": 6767,
+  "building_features_with_height_tag": 2,
+  "building_features_with_levels_tag": 26,
+  "poi_tagged_features": 269,
+  "poi_features_with_name_tag": 218,
+  "named_features": 632,
+  "named_features_with_name_te": 34,
+  "way_geometries_missing_node_references": [],
+  "relations_missing_member_references": [
+    {
+      "id": 336372,
+      "type": "route",
+      "missing_count": 479
+    },
+    {
+      "id": 3249370,
+      "type": "route",
+      "missing_count": 735
+    },
+    {
+      "id": 5119121,
+      "type": "network",
+      "missing_count": 20
+    },
+    {
+      "id": 5468841,
+      "type": "route",
+      "missing_count": 29
+    },
+    {
+      "id": 6424432,
+      "type": "route",
+      "missing_count": 368
+    },
+    {
+      "id": 7664883,
+      "type": "boundary",
+      "missing_count": 43
+    },
+    {
+      "id": 7850095,
+      "type": "boundary",
+      "missing_count": 1
+    },
+    {
+      "id": 7850118,
+      "type": "boundary",
+      "missing_count": 4
+    },
+    {
+      "id": 7852446,
+      "type": "boundary",
+      "missing_count": 3
+    },
+    {
+      "id": 7867620,
+      "type": "boundary",
+      "missing_count": 64
+    },
+    {
+      "id": 8297688,
+      "type": "route",
+      "missing_count": 37
+    },
+    {
+      "id": 9822045,
+      "type": "boundary",
+      "missing_count": 6
+    },
+    {
+      "id": 11591544,
+      "type": "superroute",
+      "missing_count": 1
+    },
+    {
+      "id": 7849315,
+      "type": "boundary",
+      "missing_count": 2
+    },
+    {
+      "id": 7255986,
+      "type": "boundary",
+      "missing_count": 36
+    },
+    {
+      "id": 9823218,
+      "type": "boundary",
+      "missing_count": 3
+    },
+    {
+      "id": 15027443,
+      "type": "boundary",
+      "missing_count": 93
+    },
+    {
+      "id": 7858671,
+      "type": "boundary",
+      "missing_count": 4
+    },
+    {
+      "id": 7858672,
+      "type": "boundary",
+      "missing_count": 4
+    },
+    {
+      "id": 7868233,
+      "type": "boundary",
+      "missing_count": 74
+    },
+    {
+      "id": 7868535,
+      "type": "boundary",
+      "missing_count": 76
+    },
+    {
+      "id": 9822017,
+      "type": "boundary",
+      "missing_count": 5
+    },
+    {
+      "id": 9823557,
+      "type": "boundary",
+      "missing_count": 5
+    },
+    {
+      "id": 10402706,
+      "type": "public_transport",
+      "missing_count": 1
+    },
+    {
+      "id": 11696466,
+      "type": "multipolygon",
+      "missing_count": 2
+    }
+  ],
+  "turn_restrictions": [],
+  "street_imagery_visual_review_performed": false,
+  "field_survey_performed": false,
+  "known_limitations": [
+    "Raw OSM names and features are not guaranteed current, complete or correctly positioned.",
+    "Absence of a name tag does not establish that a street is unnamed in reality.",
+    "Counts include paths, steps and footways; not every highway way is car-drivable.",
+    "Building footprints and POI points do not provide complete storefront order, physical facade geometry, sign artwork, entrance access or overhead clearances.",
+    "OSM layer encodes relative stacking and must not be converted directly into metres.",
+    "Parent relations such as routes or administrative boundaries may be incomplete outside map boxes.",
+    "Imports were acquired separately over seconds, not as one atomic extract snapshot.",
+    "Track stop positions must not become car delivery entrances.",
+    "Green Line imported stop grouping disagrees with official operator station list and needs reconciliation."
+  ]
+}

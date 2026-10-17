@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "status": "specified_starting_configuration_not_implemented_or_playtested",
+  "simulation_hz": 60,
+  "resource_unit": "active_flight_simulation_tick",
+  "default_budget_seconds": 25,
+  "allowed_budget_seconds": [20, 25, 30],
+  "allocations_ticks": {"20": 1200, "25": 1500, "30": 1800},
+  "meter_from": "successful_activation",
+  "meter_through": "qualified_touchdown_tick_inclusive",
+  "metered_phases": ["takeoff", "travel", "hover", "braking", "coasting", "descent"],
+  "authoritative_counter": "consumedFlightTicks",
+  "remaining_formula": "initialFlightTicks - consumedFlightTicks",
+  "per_launch_duration_cap_seconds": null,
+  "fixed_activation_tax_ticks": 0,
+  "ground_refill_ticks_per_second": 0,
+  "intermediate_stop_refill_ticks": 0,
+  "recovery_refund_ticks": 0,
+  "hover_or_glide_resource_discount": 0,
+  "landing_reserve": {
+    "kind": "dynamic_controller_prediction",
+    "drawn_from_same_allocation": true,
+    "free_emergency_ticks": 0,
+    "formula": "predictedTicksToTouchdown + uncertaintyMarginTicks",
+    "initial_uncertainty_margin_ticks": 30,
+    "margin_requires_controller_and_geometry_validation": true,
+    "post_takeoff_state_used_for_launch_affordability": true,
+    "moving_traffic_is_rolling_forecast_not_guarantee": true
+  },
+  "touchdown": {
+    "requires_valid_support_and_surface_identity": true,
+    "initial_ground_confirmation_ticks": 15,
+    "confirmation_ticks_spend_only_if_support_is_lost": true,
+    "final_allocated_tick_can_be_valid_touchdown": true,
+    "unsupported_tick_with_zero_remaining": "failed_flight_recovery_without_refund"
+  },
+  "accepted_takeoff_abort": {
+    "progress_timeout": "derive_from_controller_and_validate",
+    "new_obstruction_invalidating_ascent_triggers_abort": true,
+    "consumed_ticks_preserved": true,
+    "supported_valid_car": "disable_flight_then_ground_confirmation",
+    "unsupported_or_invalid_car": "normal_recovery",
+    "zero_budget_cannot_remain_in_takeoff": true,
+    "extra_collision_penalty_without_qualifying_collision": false
+  },
+  "accounting": {
+    "pause_freezes_all_simulation_clocks": true,
+    "recovery_preserves_consumed_ticks_and_mission_ledger": true,
+    "new_contract_resets_progress_and_allocation": true,
+    "full_retry_resets_progress_and_allocation": true,
+    "multi_stop_contract_shares_one_allocation": true,
+    "denied_launch_spends_nothing": true,
+    "early_landing_preserves_unspent_ticks": true
+  },
+  "states": ["GROUNDED", "TAKEOFF", "FLYING", "DESCENDING", "LANDING_CONFIRM", "RECOVERING"],
+  "invariants": [
+    "0 <= consumedFlightTicks <= initialFlightTicks",
+    "remainingFlightTicks never increases within a live contract",
+    "each actively flying tick spends exactly one resource tick",
+    "ground driving cannot refill the allocation",
+    "a landing reserve does not create additional resource",
+    "continued eligible flight is not stopped by a per-launch time limit",
+    "a new launch requires affordable ascent and qualified landing",
+    "an exhausted grounded car can finish the delivery by driving"
+  ]
+}

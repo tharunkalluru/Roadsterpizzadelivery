@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "kit_version": "3.0",
+  "prepared_at": "2026-10-17",
+  "description": "Claude Code Opus 5.5 handoff, required Whiteout reference, geographic starter inputs, generic art assets and monitoring helpers. The game remains to be implemented.",
+  "archive_root": "hyderabad-game-handoff",
+  "files": [
+    {
+      "path": "AGENT_ENVIRONMENT.md",
+      "bytes": 14340,
+      "sha256": "e33623ab0fbc479e3910fad37495298838f580224fce4aebd0ddf8bc3e043f14"
+    },
+    {
+      "path": "AGENT_START_PROMPT.md",
+      "bytes": 10497,
+      "sha256": "0a34ea4d2aad8bbce28b158066faa7690c547340a3aea8cc269e3b51d389eb2c"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 7775,
+      "sha256": "ffa82c15cc9ed89cbd95b84d60d2fb9c66f0a773b0db9159f6ae270da0c13ac1"
+    },
+    {
+      "path": "CLAUDE_CODE_SETUP.md",
+      "bytes": 19448,
+      "sha256": "c4f0026355acef097c5bddb2ac0ca3d46e198429ca6ec8d6be045e8aa7b3eed1"
+    },
+    {
+      "path": "GRAPHICS_AND_MAP_CONTRACT.md",
+      "bytes": 22520,
+      "sha256": "f8d4cb6babd0b6be515f31401615bbb4c96f50c93241ec330e577b882d5f10f1"
+    },
+    {
+      "path": "GRAPHICS_REFERENCE_WHITEOUT.md",
+      "bytes": 8322,
+      "sha256": "5f3fb8e93a8ef7de484142d5db22a3d188cddffd4b34ae185b867c917354fc9b"
+    },
+    {
+      "path": "KIT_VALIDATION.md",
+      "bytes": 7985,
+      "sha256": "6083da5f885deab239d941c761cf42dce57aa63cd51cca3f3eae39dee04f84d8"
+    },
+    {
+      "path": "MASTER_PROMPT.md",
+      "bytes": 131620,
+      "sha256": "98a0c57adf883fcf82520106c48e8f6388c4844263d5b41e1eaaa6f3808b50e9"
+    },
+    {
+      "path": "PLAYER_EXPERIENCE.md",
+      "bytes": 16181,
+      "sha256": "c23cdfe9c1ac089c230653c7124457d02c75726b57d2a23c875ce18d11776dad"
+    },
+    {
+      "path": "START_HERE.md",
+      "bytes": 8488,
+      "sha256": "603a5f232ee948b9339ef5baec3a5edabf3123d1b2cec27292d7f5291d57f54a"
+    },
+    {
+      "path": "config/flight-budget.json",
+      "bytes": 3076,
+      "sha256": "2b9d87722498b948ffb127cb15dbb722df5f6f1415d7be2f3cb1ddb715212933"
+    },
+    {
+      "path": "config/project-contract.json",
+      "bytes": 5171,
+      "sha256": "60eab1127d0cc14618018b02402e2220df5500c830d3ee8cbee786d96e34fae6"
+    },
+    {
+      "path": "config/visual-quality.json",
+      "bytes": 2854,
+      "sha256": "e1e5e4a1160b3f1893024e0c59786882d0f02b6b817aa34ee251c486fbc46f9a"
+    },
+    {
+      "path": "monitoring/FORMAT.md",
+      "bytes": 20277,
+      "sha256": "e1219c80bcfd0aa7c19393e9a4b6dea52eb63e6e32024f55842caf3431d8f93e"
+    },
+    {
+      "path": "monitoring/SUPERVISOR_PROMPT.md",
+      "bytes": 18253,
+      "sha256": "b42256e328c2aa35c79f583171faf159543bc49ece5731239ab143b3d962937b"
+    },
+    {
+      "path": "monitoring/evidence-index.template.json",
+      "bytes": 87,
+      "sha256": "749ee5626fccc4691bcb4eadde18b406aa4f1764f3811976a449ad0be021dea6"
+    },
+    {
+      "path": "monitoring/requirements.template.json",
+      "bytes": 37279,
+      "sha256": "179800ae389f7c1ff685b7cd57b242eeba7ca5154b24c7817f2155392c724858"
+    },
+    {
+      "path": "monitoring/scope.template.json",
+      "bytes": 564,
+      "sha256": "9cd4d6a40cd3e9500e9b9dd21d2b06a2d72a247a0e34e457fb33e30ac8141ae8"
+    },
+    {
+      "path": "monitoring/status.template.json",
+      "bytes": 9245,
+      "sha256": "b77da4306addb874dc3e5924eb07601303a83e683f463390f3da6ea11de0c222"
+    },
+    {
+      "path": "monitoring/test_verify_run.py",
+      "bytes": 22727,
+      "sha256": "e03d51ee8e3642e5222a93a38cd802c96649b59c853b5a49a96c0730c8369af3"
+    },
+    {
+      "path": "monitoring/verify_run.py",
+      "bytes": 41683,
+      "sha256": "2fc023f70a2dd637235fcab6a215537b3a407996692979b54e0da9b7a7a6daa9"
+    },
+    {
+      "path": "monitoring/visual-reference-review.template.json",
+      "bytes": 4311,
+      "sha256": "764f0ef01598ae6b0d72b021c57a0a5770d364bb2f402d068e4c8b2a9e290a0e"
+    },
+    {
+      "path": "queries/metro-network.overpassql",
+      "bytes": 64,
+      "sha256": "d6708eabc3268594cd3d78a2e76cfcc350f63b0ad143f48f6e457035c6b84734"
+    },
+    {
+      "path": "queries/uppal-tarnaka-corridor.overpassql",
+      "bytes": 389,
+      "sha256": "655995bfee94139dbf9a89b2a22dd6ce11543dacb74df467a8deb973af745155"
+    },
+    {
+      "path": "references/README.md",
+      "bytes": 881,
+      "sha256": "be508ee6c349bb21674f9d86abc33548c47ae26c249e0117d9a6519f995ffb06"
+    },
+    {
+      "path": "references/opus-5.5-user-provided-guide.txt",
+      "bytes": 28752,
+      "sha256": "0a1d92a3f0eec5f50b240a6b70fc68a363c3af08d8639abbaf887d575111d041"
+    },
+    {
+      "path": "resources/ASSET_AND_DATA_WORK_ORDERS.md",
+      "bytes": 10919,
+      "sha256": "5ca8960facba7a873445945bb9295e4be6fcd78fd0bd9437bad1ad58efdac648"
+    },
+    {
+      "path": "resources/DATA_NOTICE.md",
+      "bytes": 1260,
+      "sha256": "1206d6732dc06210abc14230f386e7f34e346f106420de259eb1a3556be51755"
+    },
+    {
+      "path": "resources/RESOURCE_GUIDE.md",
+      "bytes": 21590,
+      "sha256": "8f4fa7c97d0bf8299ef2d449eea7148fd3b01a535edb68241d6c25edd2f90b5d"
+    },
+    {
+      "path": "resources/STARTER_ASSETS.md",
+      "bytes": 5987,
+      "sha256": "9118893faf852c11a53daee099b57a15fdc770e62baf9c5c8d49e446d3f1e5b9"
+    },
+    {
+      "path": "resources/field-capture.template.json",
+      "bytes": 1598,
+      "sha256": "2d74b6551754d0ec9e9d99d4f7d79115a2251093694d5bd21dfc25217140b6c6"
+    },
+    {
+      "path": "resources/fonts/asset-manifest.json",
+      "bytes": 4606,
+      "sha256": "dad769bb99e7fdae388121eb5777cdc30a508179fcc3a38ecd264dcc3ea23fa0"
+    },
+    {
+      "path": "resources/fonts/noto-sans-telugu/METADATA.pb",
+      "bytes": 1472,
+      "sha256": "f246d1336d7ce4eb47b75ef0ea6c1b73cda632a9021f013b7b3f5415453d2440"
+    },
+    {
+      "path": "resources/fonts/noto-sans-telugu/NotoSansTelugu-Variable.ttf",
+      "bytes": 888808,
+      "sha256": "e618af7bf999df192ed4f388eba2e563f2b5015034e9cbb317b5bd793bd7334d"
+    },
+    {
+      "path": "resources/fonts/noto-sans-telugu/OFL.txt",
+      "bytes": 4382,
+      "sha256": "481c72a8f1b4f645a7e6b10326be41b2da2c15cb470ff48a07fab773eed00102"
+    },
+    {
+      "path": "resources/fonts/source/google-fonts-notosanstelugu-directory.json",
+      "bytes": 5041,
+      "sha256": "7fd72342895b918d897ea7ac34722f7c96022b4e5a94d6890e81fd9e828d7836"
+    },
+    {
+      "path": "resources/materials/aerial_asphalt_01/aerial_asphalt_01_arm_1k.jpg",
+      "bytes": 166656,
+      "sha256": "95eb82c215b9a3e24cc637a7f1ad514a45d6e188d2c121f5a38315ddff03fbf6"
+    },
+    {
+      "path": "resources/materials/aerial_asphalt_01/aerial_asphalt_01_diff_1k.jpg",
+      "bytes": 635143,
+      "sha256": "28bfd71288b364f825e0feb750e487410422d80bf3c31d32da01cae3bf085b58"
+    },
+    {
+      "path": "resources/materials/aerial_asphalt_01/aerial_asphalt_01_nor_gl_1k.png",
+      "bytes": 1671509,
+      "sha256": "7fe4527733954080a5affa1a690f04b21532e092ddd5b6d89e96c9dd07ae61fe"
+    },
+    {
+      "path": "resources/materials/asset-manifest.json",
+      "bytes": 9955,
+      "sha256": "c5c9bce0e325dda040d0b98f548b5848aa7b114f20931eca1433b081a86e968b"
+    },
+    {
+      "path": "resources/materials/concrete_wall_006/concrete_wall_006_arm_1k.png",
+      "bytes": 4224965,
+      "sha256": "15a37b6952154079b59dfa52abbc58f0a06e1cc350c8758475666d9515958a85"
+    },
+    {
+      "path": "resources/materials/concrete_wall_006/concrete_wall_006_diff_1k.jpg",
+      "bytes": 769415,
+      "sha256": "fea247dd085cd05d8deb335234c834764d622029da351f8bcc8913935316bacd"
+    },
+    {
+      "path": "resources/materials/concrete_wall_006/concrete_wall_006_nor_gl_1k.png",
+      "bytes": 5894007,
+      "sha256": "3d8ff20f71bfdf9f1559cd607001f504e2eae041d5207554e4d499f91ecc6e01"
+    },
+    {
+      "path": "resources/materials/source/aerial_asphalt_01-files.json",
+      "bytes": 29760,
+      "sha256": "9ad1e49532eb543ad5f4c5430b41f9fa2cd7de14ae429360f1dd5f8f83edccae"
+    },
+    {
+      "path": "resources/materials/source/aerial_asphalt_01-info.json",
+      "bytes": 931,
+      "sha256": "216927ab754f97b23bce1f191b7611abbbc7ef2c7675b3049d780bdd1b6f286f"
+    },
+    {
+      "path": "resources/materials/source/concrete_wall_006-files.json",
+      "bytes": 27569,
+      "sha256": "dd5440cf3eb1bf752c1c0fca51145a77e89c8d303da3a1009a493f47aa53abf4"
+    },
+    {
+      "path": "resources/materials/source/concrete_wall_006-info.json",
+      "bytes": 1038,
+      "sha256": "a8ada91e3a054481ec107e6fc807ce831363eb57d4d66d70e741a0e577c6b283"
+    },
+    {
+      "path": "resources/materials/source/source-acquisition.json",
+      "bytes": 5019,
+      "sha256": "436946aacea11a4ac26433134c91097976b4ed0fc8d9698bfb73167bf0badcd6"
+    },
+    {
+      "path": "resources/osm/corridor-01-uppal-stadium.osm",
+      "bytes": 3115182,
+      "sha256": "c0c9338a41d4ff91f1899db4fc2e9f18a5ee322cc76b6533cf0d63f3258b1fc7"
+    },
+    {
+      "path": "resources/osm/corridor-02-stadium-ngri.osm",
+      "bytes": 2212772,
+      "sha256": "36e1a876bb0ddda235a4ea0ae60509cd44a707e62b3744e1f9b472a3b8c50f78"
+    },
+    {
+      "path": "resources/osm/corridor-03-ngri-habsiguda.osm",
+      "bytes": 1653405,
+      "sha256": "896d1e3d404af11dea1e61a4e8f48201374fb46cdfe2d8a26e8286533da9003b"
+    },
+    {
+      "path": "resources/osm/corridor-04-habsiguda-tarnaka.osm",
+      "bytes": 3870667,
+      "sha256": "bba26dd996a13d5839e3d2c908048996ae8a9f96ffcb9eeb64c82f8fbfe2a4ab"
+    },
+    {
+      "path": "resources/osm/corridor-evidence-summary.json",
+      "bytes": 4723,
+      "sha256": "c711d80f7cb4223a2684694b6231f24d75deeb96c706b651ee88d6eb0836bb61"
+    },
+    {
+      "path": "resources/osm/corridor-named-features.json",
+      "bytes": 632372,
+      "sha256": "c4fab63bcdb65fe8ebb823ccb275bd61087978527be3984317d88aa6c6db3258"
+    },
+    {
+      "path": "resources/osm/metro-13986696-full.json",
+      "bytes": 5524,
+      "sha256": "3e430f6b0ecb1197c3f9dbeceb60282b6fa457e08339662b4b541290bdcfbdd3"
+    },
+    {
+      "path": "resources/osm/metro-8297697-full.json",
+      "bytes": 2847,
+      "sha256": "d6528461913e0ccf036ddeb7bf80dcb419d447dfc3cf93c812f579fce3182885"
+    },
+    {
+      "path": "resources/osm/metro-8297698-full.json",
+      "bytes": 5727,
+      "sha256": "465c4741ce161d63a998960cb3627599afcc6e7fe64098f333c1aff79fe076ac"
+    },
+    {
+      "path": "resources/osm/metro-network-full.json",
+      "bytes": 373856,
+      "sha256": "38f1a23eb3f63040849da24aacb604fb339dcf993bf8ed74c8468d476eabb61f"
+    },
+    {
+      "path": "resources/osm/metro-network-relation.json",
+      "bytes": 751,
+      "sha256": "1d40f144da362f77b4591bd372f64fb6739f6a754a3b3a6b23f7c19518844a7c"
+    },
+    {
+      "path": "resources/osm/metro-network.overpassql",
+      "bytes": 64,
+      "sha256": "d6708eabc3268594cd3d78a2e76cfcc350f63b0ad143f48f6e457035c6b84734"
+    },
+    {
+      "path": "resources/osm/resource-acquisition-manifest.json",
+      "bytes": 7940,
+      "sha256": "1cf577b55551691086be8a76a17d63c84edb8b9e83cf3711f63ae61805f4b060"
+    },
+    {
+      "path": "resources/osm/uppal-starter-osm-map.osm",
+      "bytes": 982844,
+      "sha256": "2ab0f153dc88386bade935e82aebcb8e4bc24c318131fd361ab0311996e90339"
+    },
+    {
+      "path": "resources/osm/uppal-tarnaka-corridor.overpassql",
+      "bytes": 389,
+      "sha256": "655995bfee94139dbf9a89b2a22dd6ce11543dacb74df467a8deb973af745155"
+    },
+    {
+      "path": "resources/resource-index.json",
+      "bytes": 20317,
+      "sha256": "3597b7731d0c369b0dca0e2a1473def41455875c86b4c2e6d67e44522b1ced58"
+    },
+    {
+      "path": "scripts/README.md",
+      "bytes": 11802,
+      "sha256": "e11a8bec109c75b3784f362c5d4d9f73b946f0963fff31b884e90c593fee4c97"
+    },
+    {
+      "path": "scripts/check_handoff.py",
+      "bytes": 9928,
+      "sha256": "ae78473e9667e22172197d1b09b15236e5cfe2b247301de770f595cce205bcfb"
+    },
+    {
+      "path": "scripts/fetch_sources.py",
+      "bytes": 25353,
+      "sha256": "99a548f145c135b656dadca2728d9bc26a54af8e8d9397114fbf88ec36707c07"
+    },
+    {
+      "path": "scripts/inventory_osm.py",
+      "bytes": 22527,
+      "sha256": "5ec1433d74d7d8bdf6e5b9176826f3de75ec4d7c85acdf39e82383bc821301bf"
+    }
+  ]
+}
