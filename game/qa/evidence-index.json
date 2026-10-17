@@ -3,25 +3,1450 @@
   "project_id": "hyderabad-metro-delivery",
   "records": [
     {
+      "id": "EV-F01-UNIT",
+      "requirement_ids": [
+        "F01"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F01 frame-rate independence 30/60/120 fps produce identical simulation and fuel use; F01 frame-rate independence a severe stall requests a technical pause instead of a giant step",
+      "expected": "All matched tests pass for F01 as described in qa/test-requirement-map.json",
+      "observed": "2 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F02-F10-UNIT",
+      "requirement_ids": [
+        "F02",
+        "F10"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F02/F10 continuous flight limited only by shared budget and affordable landing one continuous flight lasts far longer than 4 s and auto-descends while affordable",
+      "expected": "All matched tests pass for F02, F10 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F03-UNIT",
+      "requirement_ids": [
+        "F03"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F03 allocations and conservation 20/25/30 s equal 1200/1500/1800 ticks and reject others; F03 allocations and conservation ledger never exceeds allocation",
+      "expected": "All matched tests pass for F03 as described in qa/test-requirement-map.json",
+      "observed": "2 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F04-F11-UNIT",
+      "requirement_ids": [
+        "F04",
+        "F11"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F04/F11 split flights share one balance; early landing keeps remainder two flights: consumed equals metered ticks exactly, no activation tax",
+      "expected": "All matched tests pass for F04, F11 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F04-F11-E2E",
+      "requirement_ids": [
+        "F04",
+        "F11"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "browser_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:22:29.605Z",
+      "duration_seconds": 155.445,
+      "command_or_method": "npx playwright test (dist served by vite preview); titles matched: C3: shared budget in the browser — fly, hover-meter, land early, fly again; HUD agrees",
+      "expected": "All matched tests pass for F04, F11 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Headless Chromium with SwiftShader software WebGL; the e2e harness uses ?debug&manualclock and a reference agent; not a physical phone.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/e2e/results.json",
+          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+        },
+        {
+          "path": "qa/artifacts/e2e/run.log",
+          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+        }
+      ],
+      "environment": {
+        "device_class": "desktop_chromium_1194_headless_swiftshader",
+        "physical_device": false,
+        "browser": "Chromium 1194 headless, WebGL2 via SwiftShader"
+      }
+    },
+    {
+      "id": "EV-F05-UNIT",
+      "requirement_ids": [
+        "F05"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F05 hover is metered one-for-one five seconds of hover consumes exactly 300 ticks",
+      "expected": "All matched tests pass for F05 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F06-UNIT",
+      "requirement_ids": [
+        "F06"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F06 denied launch and post-activation abort a new obstruction after activation aborts takeoff, preserving consumed ticks; F06 denied launch and post-activation abort low clearance under a bridge denies with a reason, spends nothing, never queues",
+      "expected": "All matched tests pass for F06 as described in qa/test-requirement-map.json",
+      "observed": "2 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F07-UNIT",
+      "requirement_ids": [
+        "F07"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F07 partial fuel launch eligibility allows a launch exactly when ascent + landing + margin is affordable; F07 partial fuel launch eligibility an empty budget explains \"Flight power used\"",
+      "expected": "All matched tests pass for F07 as described in qa/test-requirement-map.json",
+      "observed": "2 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F08-UNIT",
+      "requirement_ids": [
+        "F08"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F08 whole-car clearance catches what a centre ray misses a thin structure is hit in flight at maximum speed (no tunnelling); F08 whole-car clearance catches what a centre ray misses thin overhead structure beside the centreline denies launch",
+      "expected": "All matched tests pass for F08 as described in qa/test-requirement-map.json",
+      "observed": "2 matched test(s), all passed",
+      "limitations": "fixture geometry; real wires/gantries are not in the source data. Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F09-UNIT",
+      "requirement_ids": [
+        "F09"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F09 surface identity at overlapping coordinates lower road vs overpass vs roof; F09 surface identity at overlapping coordinates vehicle roof is not ground: descending onto a vehicle is a crash, not a landing",
+      "expected": "All matched tests pass for F09 as described in qa/test-requirement-map.json",
+      "observed": "2 matched test(s), all passed",
+      "limitations": "fixture overpass; real package has one non-routable flyover. Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F12-UNIT",
+      "requirement_ids": [
+        "F12"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F12 ground driving never refills 30 s of driving leaves remaining unchanged; F12 intermediate stops never refill; M13 multi-stop survives checkpoint incompatible checkpoints are rejected explicitly; F12 intermediate stops never refill; M13 multi-stop survives checkpoint multi-stop contract shares one allocation across stops and restores from checkpoint; F12 intermediate stops never refill; M13 multi-stop survives checkpoint restoring an airborne checkpoint uses the documented ground-recovery path, keeps consumed ticks",
+      "expected": "All matched tests pass for F12 as described in qa/test-requirement-map.json",
+      "observed": "4 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F13-UNIT",
+      "requirement_ids": [
+        "F13"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F13 moving obstruction updates forecast without bonus fuel forecast becomes uncertain/blocked; ledger unaffected",
+      "expected": "All matched tests pass for F13 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F14-UNIT",
+      "requirement_ids": [
+        "F14"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F14 invalid landing surfaces rejected, connected branches allowed flying onto a connected side road and landing there is valid; F14 invalid landing surfaces rejected, connected branches allowed touching down off the carriageway invokes recovery",
+      "expected": "All matched tests pass for F14 as described in qa/test-requirement-map.json",
+      "observed": "2 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F15-F16-UNIT",
+      "requirement_ids": [
+        "F15",
+        "F16"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F15/F16 final-tick touchdown and exhaustion exhaustion while still supported in TAKEOFF terminates via abort; F15/F16 final-tick touchdown and exhaustion valid touchdown on the final resource tick completes confirmation without fuel; F15/F16 final-tick touchdown and exhaustion zero resource while unsupported fails without free glide",
+      "expected": "All matched tests pass for F15, F16 as described in qa/test-requirement-map.json",
+      "observed": "3 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F17-UNIT",
+      "requirement_ids": [
+        "F17"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F17 losing support during confirmation resumes metering in the same transaction; no refund or duplicate",
+      "expected": "All matched tests pass for F17 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F18-U06-UNIT",
+      "requirement_ids": [
+        "F18",
+        "U06"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F01 frame-rate independence a severe stall requests a technical pause instead of a giant step",
+      "expected": "All matched tests pass for F18, U06 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F18-U06-E2E",
+      "requirement_ids": [
+        "F18",
+        "U06"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "browser_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:22:29.605Z",
+      "duration_seconds": 155.445,
+      "command_or_method": "npx playwright test (dist served by vite preview); titles matched: U06/F18: hidden page pauses everything; nothing is consumed while hidden",
+      "expected": "All matched tests pass for F18, U06 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Headless Chromium with SwiftShader software WebGL; the e2e harness uses ?debug&manualclock and a reference agent; not a physical phone.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/e2e/results.json",
+          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+        },
+        {
+          "path": "qa/artifacts/e2e/run.log",
+          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+        }
+      ],
+      "environment": {
+        "device_class": "desktop_chromium_1194_headless_swiftshader",
+        "physical_device": false,
+        "browser": "Chromium 1194 headless, WebGL2 via SwiftShader"
+      }
+    },
+    {
+      "id": "EV-F19-F20-F23-UNIT",
+      "requirement_ids": [
+        "F19",
+        "F20",
+        "F23"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F19/F20/F23 recovery, retry, bounded cargo full retry resets fuel and progress together; F19/F20/F23 recovery, retry, bounded cargo recovery preserves consumed ticks, adds one penalty, returns to a reached anchor; F19/F20/F23 recovery, retry, bounded cargo sustained contact produces one bounded event, not per-frame damage",
+      "expected": "All matched tests pass for F19, F20, F23 as described in qa/test-requirement-map.json",
+      "observed": "3 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F21-M13-UNIT",
+      "requirement_ids": [
+        "F21",
+        "M13"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F12 intermediate stops never refill; M13 multi-stop survives checkpoint incompatible checkpoints are rejected explicitly; F12 intermediate stops never refill; M13 multi-stop survives checkpoint multi-stop contract shares one allocation across stops and restores from checkpoint; F12 intermediate stops never refill; M13 multi-stop survives checkpoint restoring an airborne checkpoint uses the documented ground-recovery path, keeps consumed ticks",
+      "expected": "All matched tests pass for F21, M13 as described in qa/test-requirement-map.json",
+      "observed": "3 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-F24-M05-UNIT",
+      "requirement_ids": [
+        "F24",
+        "M05"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F24/M05 same-tick ordering a moving pedestrian contact is critical and blocks completion (recovery instead); F24/M05 same-tick ordering cargo failure on the completing tick takes precedence over success; F24/M05 same-tick ordering success on the deadline tick succeeds; one tick later fails",
+      "expected": "All matched tests pass for F24, M05 as described in qa/test-requirement-map.json",
+      "observed": "3 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-M01-UNIT",
+      "requirement_ids": [
+        "M01"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: real-world flight use (reference agent with flight) mt02_first_flight: split flights share one ledger, land validly, never exceed allocation; real-world flight use (reference agent with flight) mt06_save_flight: split flights share one ledger, land validly, never exceed allocation; real-world flight use (reference agent with flight) mt10_full_corridor: split flights share one ledger, land validly, never exceed allocation; real-world missions (reference agent, ground only) instantiates the required templates; real-world missions (reference agent, ground only) mt01_first_parcel completes on the ground within its deadline; real-world missions (reference agent, ground only) mt02_first_flight completes on the ground within its deadline; real-world missions (reference agent, ground only) mt03_correct_approach completes on the ground within its deadline; real-world missions (reference agent, ground only) mt04_fragile completes on the ground within its deadline; real-world missions (reference agent, ground only) mt05_busy_frontage completes on the ground within its deadline; real-world missions (reference agent, ground only) mt06_save_flight completes on the ground within its deadline; real-world missions (reference agent, ground only) mt07_route_choice completes on the ground within its deadline; real-world missions (reference agent, ground only) mt08_return completes on the ground within its deadline; real-world missions (reference agent, ground only) mt09_multi_stop completes on the ground within its deadline; real-world missions (reference agent, ground only) mt10_full_corridor completes on the ground within its deadline; real-world missions (reference agent, ground only) mt12_fixed_challenge completes on the ground within its deadline; real-world missions (reference agent, ground only) practice completes on the ground within its deadline",
+      "expected": "All matched tests pass for M01 as described in qa/test-requirement-map.json",
+      "observed": "16 matched test(s), all passed",
+      "limitations": "driven by the reference agent, not humans; corridor ends (Uppal/Tarnaka) not routable. Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-M01-E2E",
+      "requirement_ids": [
+        "M01"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "browser_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:22:29.605Z",
+      "duration_seconds": 155.445,
+      "command_or_method": "npx playwright test (dist served by vite preview); titles matched: C2: select, pickup, drive (reference agent through real physics), deliver, results, retry, exit",
+      "expected": "All matched tests pass for M01 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "driven by the reference agent, not humans; corridor ends (Uppal/Tarnaka) not routable. Headless Chromium with SwiftShader software WebGL; the e2e harness uses ?debug&manualclock and a reference agent; not a physical phone.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/e2e/results.json",
+          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+        },
+        {
+          "path": "qa/artifacts/e2e/run.log",
+          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+        }
+      ],
+      "environment": {
+        "device_class": "desktop_chromium_1194_headless_swiftshader",
+        "physical_device": false,
+        "browser": "Chromium 1194 headless, WebGL2 via SwiftShader"
+      }
+    },
+    {
+      "id": "EV-M02-M03-UNIT",
+      "requirement_ids": [
+        "M02",
+        "M03"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: M01/M03 deliver: deliberate low-speed stop starts the hold; success cancelling the hold restores normal control; M01/M03 deliver: deliberate low-speed stop starts the hold; success drives the fixture route and delivers; M01/M03 deliver: deliberate low-speed stop starts the hold; success passing through the stop polygon at speed does not capture the car; M02 wrong side / airborne do not complete hovering above the polygon does not deliver; M02 wrong side / airborne do not complete stopping in the polygon facing the wrong direction does not deliver",
+      "expected": "All matched tests pass for M02, M03 as described in qa/test-requirement-map.json",
+      "observed": "5 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-M04-G02-G03-UNIT",
+      "requirement_ids": [
+        "M04",
+        "G02",
+        "G03"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: G02/G03/M04 routing on the directed graph a missed turn reroutes through real connections; G02/G03/M04 routing on the directed graph return route does not reverse a one-way road",
+      "expected": "All matched tests pass for M04, G02, G03 as described in qa/test-requirement-map.json",
+      "observed": "2 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-M06-UNIT",
+      "requirement_ids": [
+        "M06"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: M06 HUD/results agree charged = active + penalties; flight used + left = allocation",
+      "expected": "All matched tests pass for M06 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-M06-E2E",
+      "requirement_ids": [
+        "M06"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "browser_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:22:29.605Z",
+      "duration_seconds": 155.445,
+      "command_or_method": "npx playwright test (dist served by vite preview); titles matched: C3: shared budget in the browser — fly, hover-meter, land early, fly again; HUD agrees",
+      "expected": "All matched tests pass for M06 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Headless Chromium with SwiftShader software WebGL; the e2e harness uses ?debug&manualclock and a reference agent; not a physical phone.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/e2e/results.json",
+          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+        },
+        {
+          "path": "qa/artifacts/e2e/run.log",
+          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+        }
+      ],
+      "environment": {
+        "device_class": "desktop_chromium_1194_headless_swiftshader",
+        "physical_device": false,
+        "browser": "Chromium 1194 headless, WebGL2 via SwiftShader"
+      }
+    },
+    {
+      "id": "EV-M08-M11-UNIT",
+      "requirement_ids": [
+        "M08",
+        "M11"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: M08/M11 traffic identity and spawn safety ids are unique and stable; no actor spawns inside the near forward view or stop area",
+      "expected": "All matched tests pass for M08, M11 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-M12-UNIT",
+      "requirement_ids": [
+        "M12"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: M12 same seed + recorded inputs reproduce the run a different seed changes the traffic; M12 same seed + recorded inputs reproduce the run identical state after 3000 ticks with traffic",
+      "expected": "All matched tests pass for M12 as described in qa/test-requirement-map.json",
+      "observed": "2 matched test(s), all passed",
+      "limitations": "same-platform determinism only; cross-platform float determinism not established. Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-M14-UNIT",
+      "requirement_ids": [
+        "M14"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: M14 personal bests only for comparable, clean runs debug, resumed and failed runs never become records; better scores replace worse",
+      "expected": "All matched tests pass for M14 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-U02-E2E-MOBILE",
+      "requirement_ids": [
+        "U02"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "mobile_emulation",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:22:29.605Z",
+      "duration_seconds": 155.445,
+      "command_or_method": "npx playwright test (dist served by vite preview); titles matched: U01(emulated)/U02: simultaneous touches; pointercancel and blur release controls",
+      "expected": "All matched tests pass for U02 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "synthetic pointer events in emulation. Headless Chromium with SwiftShader software WebGL; the e2e harness uses ?debug&manualclock and a reference agent; mobile VIEWPORT EMULATION only, not a physical phone.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/e2e/results.json",
+          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+        },
+        {
+          "path": "qa/artifacts/e2e/run.log",
+          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+        }
+      ],
+      "environment": {
+        "device_class": "mobile_viewport_emulation_in_chromium",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-U05-UNIT",
+      "requirement_ids": [
+        "U05"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: U08/U05 saves a corrupted latest checkpoint falls back to the previous valid revision; U08/U05 saves denied storage → session-only with explanation, still functional in memory; U08/U05 saves incompatible checkpoint schema is explained; settings survive",
+      "expected": "All matched tests pass for U05 as described in qa/test-requirement-map.json",
+      "observed": "3 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-U05-E2E",
+      "requirement_ids": [
+        "U05"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "browser_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:22:29.605Z",
+      "duration_seconds": 155.445,
+      "command_or_method": "npx playwright test (dist served by vite preview); titles matched: U05: no WebGL2 → readable failure; U05: storage denied → session-only play explained; U09/U05: a failed chunk request is explained and does not corrupt the run",
+      "expected": "All matched tests pass for U05 as described in qa/test-requirement-map.json",
+      "observed": "3 matched test(s), all passed",
+      "limitations": "Headless Chromium with SwiftShader software WebGL; the e2e harness uses ?debug&manualclock and a reference agent; not a physical phone.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/e2e/results.json",
+          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+        },
+        {
+          "path": "qa/artifacts/e2e/run.log",
+          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+        }
+      ],
+      "environment": {
+        "device_class": "desktop_chromium_1194_headless_swiftshader",
+        "physical_device": false,
+        "browser": "Chromium 1194 headless, WebGL2 via SwiftShader"
+      }
+    },
+    {
+      "id": "EV-U07-E2E",
+      "requirement_ids": [
+        "U07"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "browser_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:22:29.605Z",
+      "duration_seconds": 155.445,
+      "command_or_method": "npx playwright test (dist served by vite preview); titles matched: U07: WebGL context loss pauses and resumes safely",
+      "expected": "All matched tests pass for U07 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "flaky under SwiftShader in full-suite runs (renderer loss); judge from the bound run. Headless Chromium with SwiftShader software WebGL; the e2e harness uses ?debug&manualclock and a reference agent; not a physical phone.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/e2e/results.json",
+          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+        },
+        {
+          "path": "qa/artifacts/e2e/run.log",
+          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+        }
+      ],
+      "environment": {
+        "device_class": "desktop_chromium_1194_headless_swiftshader",
+        "physical_device": false,
+        "browser": "Chromium 1194 headless, WebGL2 via SwiftShader"
+      }
+    },
+    {
+      "id": "EV-U08-UNIT",
+      "requirement_ids": [
+        "U08"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: F12 intermediate stops never refill; M13 multi-stop survives checkpoint incompatible checkpoints are rejected explicitly; U08/U05 saves a corrupted latest checkpoint falls back to the previous valid revision; U08/U05 saves denied storage → session-only with explanation, still functional in memory; U08/U05 saves incompatible checkpoint schema is explained; settings survive",
+      "expected": "All matched tests pass for U08 as described in qa/test-requirement-map.json",
+      "observed": "4 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-U11-UNIT",
+      "requirement_ids": [
+        "U11"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: U11 outside-area guidance warns early, then recovers to a previously reached anchor with no progress gain",
+      "expected": "All matched tests pass for U11 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-P04-UNIT",
+      "requirement_ids": [
+        "P04"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: P04 repeated traversal on the real package ten out-and-back legs keep actor and chunk counts bounded",
+      "expected": "All matched tests pass for P04 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "simulation-level resource counts; GPU/heap growth on phones not measured. Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-P06-E2E",
+      "requirement_ids": [
+        "P06"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "browser_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:22:29.605Z",
+      "duration_seconds": 155.445,
+      "command_or_method": "npx playwright test (dist served by vite preview); titles matched: C2: select, pickup, drive (reference agent through real physics), deliver, results, retry, exit",
+      "expected": "All matched tests pass for P06 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "asserts elapsed=0 at PLAYING start after load/warm-up/countdown. Headless Chromium with SwiftShader software WebGL; the e2e harness uses ?debug&manualclock and a reference agent; not a physical phone.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/e2e/results.json",
+          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+        },
+        {
+          "path": "qa/artifacts/e2e/run.log",
+          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+        }
+      ],
+      "environment": {
+        "device_class": "desktop_chromium_1194_headless_swiftshader",
+        "physical_device": false,
+        "browser": "Chromium 1194 headless, WebGL2 via SwiftShader"
+      }
+    },
+    {
+      "id": "EV-M07-M10-UNIT",
+      "requirement_ids": [
+        "M07",
+        "M10"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "simulation_test",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 28.477,
+      "command_or_method": "npx vitest run --reporter=json; titles matched: M07/M10 encounters and deadlocks at most two concurrent encounters; every queue releases; stalled actors are recycled with a log entry",
+      "expected": "All matched tests pass for M07, M10 as described in qa/test-requirement-map.json",
+      "observed": "1 matched test(s), all passed",
+      "limitations": "fixture world; no human judgement of encounter fairness. Automated simulation on Node; not human play.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        }
+      ],
+      "environment": {
+        "device_class": "node_v22.22.0_vitest",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-P01-COMMANDS",
+      "requirement_ids": [
+        "P01"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "build_check",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 183.922,
+      "command_or_method": "npx tsc --noEmit; npx vitest run; npm run validate:world; npx vite build; npx playwright test (outputs saved under qa/artifacts)",
+      "expected": "Typecheck clean, 69/69 unit tests, validate-world ok with 0 errors, production build succeeds, 9/9 e2e tests",
+      "observed": "typecheck OK; vitest 69/69; validate-world ok=True errors=0; build log ok; playwright expected=9 unexpected=0",
+      "limitations": "Run in the cloud container only; e2e had one earlier flaky run history (SwiftShader renderer loss) disclosed in QA_REPORT.md. Does not cover physical devices.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/typecheck.txt",
+          "sha256": "d018f66bb24b65f8f3c86936c97cc0c033c796f2f7b335753a186d3d2c5818a4"
+        },
+        {
+          "path": "qa/artifacts/unit/results.json",
+          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+        },
+        {
+          "path": "qa/artifacts/unit/validate-world.txt",
+          "sha256": "9f97703fc1d11a8d3e67cc8899f89fc6d58dffcb6dab33459ca164e8eaad4268"
+        },
+        {
+          "path": "qa/artifacts/build/vite-build.txt",
+          "sha256": "48352abfd740833ffae8081f93521cebabc05cd46acb8aa4a12825fa5e33a4ae"
+        },
+        {
+          "path": "qa/artifacts/e2e/results.json",
+          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+        },
+        {
+          "path": "qa/artifacts/e2e/run.log",
+          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+        },
+        {
+          "path": "qa/artifacts/build-manifest.json",
+          "sha256": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2"
+        }
+      ],
+      "environment": {
+        "device_class": "cloud_container_cli",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-G01-VALIDATE-WORLD",
+      "requirement_ids": [
+        "G01"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "source_inspection",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:25:13Z",
+      "duration_seconds": 60.0,
+      "command_or_method": "npm run validate:world (scripts/validate-world.mjs): schema, provenance, direction, level, surfaceId, chunk hashes",
+      "expected": "Every road edge has id, provenance sourceIds, oneway flag, level and surface id; chunk hashes match the manifest",
+      "observed": "ok=True, errors=0, warnings=0, chunk hashes 176/176",
+      "limitations": "Automated validation of the imported package against its own schema. Direction is assumed two-way for 590 untagged edges and widths/levels are provisional (CONTENT_GAPS C8-C10); this shows the fields exist, not that they are true.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/unit/validate-world.txt",
+          "sha256": "9f97703fc1d11a8d3e67cc8899f89fc6d58dffcb6dab33459ca164e8eaad4268"
+        }
+      ],
+      "environment": {
+        "device_class": "cloud_container_cli",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-ASSET-AUDIT",
+      "requirement_ids": [
+        "G10",
+        "P07"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "asset_audit",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:30:53Z",
+      "duration_seconds": 5.0,
+      "command_or_method": "python3 scripts/ledger/update_ledgers.py (audit section)",
+      "expected": "Public assets and OSM sources match their manifests; no unlisted assets; no credential-like strings; OSM/ODbL, CC0 and OFL attribution present",
+      "observed": "all audit checks true",
+      "limitations": "Pattern scan is not a guarantee of no secrets.; Legal sufficiency of ODbL/CC0/OFL compliance is not assessed. Same-agent automated audit.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/audit/asset-audit.json",
+          "sha256": "56f1792654e229e69d3d7b872a6ff73f77101c3fb415e0a87428fc14fbaf0b55"
+        }
+      ],
+      "environment": {
+        "device_class": "cloud_container_cli",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-SCOPE-AUDIT",
+      "requirement_ids": [
+        "G06",
+        "Q01"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "source_inspection",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:30:53Z",
+      "duration_seconds": 5.0,
+      "command_or_method": "python3 scripts/ledger/update_ledgers.py (audit section)",
+      "expected": "No property is marked verified by import; content-gap report present; requested corridors and baseline IDs preserved; achieved extent distinct from requested",
+      "observed": "all audit checks true",
+      "limitations": "Checks internal consistency of declarations only; says nothing about geographic truth. Same-agent automated audit.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/audit/scope-audit.json",
+          "sha256": "0684042f1dad8803f494f966cf8ff8e341288f5b80c2e0a34f86bf1261d4fd85"
+        }
+      ],
+      "environment": {
+        "device_class": "cloud_container_cli",
+        "physical_device": false
+      }
+    },
+    {
       "id": "EV-C0-KIT-CHECK",
       "requirement_ids": [
         "G10"
       ],
       "scope_ids": [],
-      "result": "stale",
+      "result": "passed",
       "evidence_class": "asset_audit",
-      "started_at": "2026-10-17T21:40:00Z",
-      "command_or_method": "python3 scripts/check_handoff.py (run from hyderabad-game-handoff root)",
-      "expected": "Kit integrity, specification binding, 82 acceptance IDs and contract invariants pass",
-      "observed": "Exit 0, errors: [], acceptance_requirements 82, master_sha256 98a0c57a...50e9. Output saved in artifact.",
-      "limitations": "Kit-level package check only. Not a game build, not geographic accuracy. Recorded as stale because no build/world/scope bindings exist yet, so the ledger cannot count it as a current pass; it does not support any acceptance check.",
       "bindings": {
-        "build": null,
-        "world": null,
-        "config": null,
-        "scope": null,
-        "requirements": null
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
+      "started_at": "2026-10-17T23:30:53Z",
+      "duration_seconds": 2.0,
+      "command_or_method": "python3 scripts/check_handoff.py (from hyderabad-game-handoff root)",
+      "expected": "Exit 0",
+      "observed": "exit 0: }",
+      "limitations": "Kit integrity and frozen source cache only; unrelated to the game build; does not establish geographic accuracy.",
       "artifacts": [
         {
           "path": "qa/artifacts/c0/check_handoff.txt",
@@ -39,24 +1464,61 @@
         "G10"
       ],
       "scope_ids": [],
-      "result": "stale",
+      "result": "passed",
       "evidence_class": "asset_audit",
-      "started_at": "2026-10-17T21:41:00Z",
-      "command_or_method": "python3 scripts/fetch_sources.py --verify (run from hyderabad-game-handoff root)",
-      "expected": "Frozen source cache hashes verify",
-      "observed": "Cache verification: PASS (14 files). No network requests made. Exit 0.",
-      "limitations": "Verifies local frozen cache bytes only. Recorded as stale because no current build/world/scope bindings exist; supports no acceptance check.",
       "bindings": {
-        "build": null,
-        "world": null,
-        "config": null,
-        "scope": null,
-        "requirements": null
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
+      "started_at": "2026-10-17T23:30:53Z",
+      "duration_seconds": 2.0,
+      "command_or_method": "python3 scripts/fetch_sources.py --verify (from hyderabad-game-handoff root)",
+      "expected": "Exit 0",
+      "observed": "exit 0: No network requests made. Frozen source bytes were not modified.",
+      "limitations": "Kit integrity and frozen source cache only; unrelated to the game build; does not establish geographic accuracy.",
       "artifacts": [
         {
           "path": "qa/artifacts/c0/fetch_sources_verify.txt",
           "sha256": "6679de9e7d717f7e72bc8c3f36480f1ae3dec81c4cbfeeaf4f2cf922c719ec28"
+        }
+      ],
+      "environment": {
+        "device_class": "cloud_container_cli",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-Q10-HONEST-BLOCKS",
+      "requirement_ids": [
+        "Q10"
+      ],
+      "scope_ids": [],
+      "result": "passed",
+      "evidence_class": "asset_audit",
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T23:30:53Z",
+      "duration_seconds": 5.0,
+      "command_or_method": "Inspect saved failure output (curl 403 to Whiteout) and ledger: blocked items carry reasons B1-B4, paid_spend is 0, empty inventories stay null/empty",
+      "expected": "Network denial recorded as blocked evidence, no fabricated reference observations, no paid purchase",
+      "observed": "curl exit 56 / CONNECT 403 saved; Q08 blocked; visual review dimensions not_inspected; scope businesses empty; paid_spend 0",
+      "limitations": "Self-audit by the ledger worker; data-acquisition failures for Overpass/Geofabrik are documented in DATA_SOURCES.md and CONTENT_GAPS.md rather than as saved command output.",
+      "artifacts": [
+        {
+          "path": "qa/artifacts/c0/whiteout-network-denied.txt",
+          "sha256": "a511c8bfcf11679d3baf132cb39eb36bc3c65a19bd540157700136c25282af5f"
+        },
+        {
+          "path": "qa/artifacts/audit/scope-audit.json",
+          "sha256": "0684042f1dad8803f494f966cf8ff8e341288f5b80c2e0a34f86bf1261d4fd85"
         }
       ],
       "environment": {
@@ -72,22 +1534,59 @@
       "scope_ids": [],
       "result": "blocked",
       "evidence_class": "source_inspection",
-      "started_at": "2026-10-17T21:45:00Z",
-      "command_or_method": "curl -sS -o /dev/null -w \"%{http_code}\" https://whiteout.plgb.chatgpt.site/",
-      "expected": "HTTP response from the Whiteout reference so gameplay could be inspected in a WebGL browser",
-      "observed": "curl: (56) CONNECT tunnel failed, response 403 (egress proxy denied the host); http_code 000; curl exit code 56.",
-      "limitations": "This records a network denial, not an inspection and not a pass. Gameplay of the reference was not observed. Blocks Q08 and gate C4.",
       "bindings": {
-        "build": null,
-        "world": null,
-        "config": null,
-        "scope": null,
-        "requirements": null
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
+      "started_at": "2026-10-17T21:45:00Z",
+      "duration_seconds": 1.0,
+      "command_or_method": "curl -sS -o /dev/null -w \"%{http_code}\" https://whiteout.plgb.chatgpt.site/",
+      "expected": "HTTP response so reference gameplay can be inspected in a WebGL browser",
+      "observed": "curl: (56) CONNECT tunnel failed, response 403; http_code 000; exit 56",
+      "limitations": "Records a network denial, not an inspection and not a pass. Blocks Q08 and C4.",
       "artifacts": [
         {
           "path": "qa/artifacts/c0/whiteout-network-denied.txt",
           "sha256": "a511c8bfcf11679d3baf132cb39eb36bc3c65a19bd540157700136c25282af5f"
+        }
+      ],
+      "environment": {
+        "device_class": "cloud_container_cli",
+        "physical_device": false
+      }
+    },
+    {
+      "id": "EV-REVIEW-INDEPENDENT-PREFIX",
+      "requirement_ids": [
+        "Q12"
+      ],
+      "scope_ids": [],
+      "result": "stale",
+      "evidence_class": "release_review",
+      "reviewer": {
+        "kind": "independent_agent",
+        "name": "AI agent (Claude) in a separate session; method ai_review_separate_agent; not a human, field or device review"
+      },
+      "bindings": {
+        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
+      },
+      "started_at": "2026-10-17T00:00:00Z",
+      "duration_seconds": 1.0,
+      "command_or_method": "Code reading plus throwaway Vitest probes against the pre-fix build; see qa/independent-review.md",
+      "expected": "Final adversarial review of the final artifact",
+      "observed": "No critical findings; majors M1-M4 and minors m1-m4 reported. Majors M1-M4 were later fixed with regression tests; minors are not all addressed.",
+      "limitations": "Stale: it reviewed an earlier revision (67 tests), not the bound build, and the fixes were not re-reviewed. Supports no passing check.",
+      "artifacts": [
+        {
+          "path": "qa/independent-review.md",
+          "sha256": "01397b949f60f1031d843cf9faae7dde4132fe2f4b7755c2a0b2a6cd9ebf3a2b"
         }
       ],
       "environment": {

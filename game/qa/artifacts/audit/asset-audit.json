@@ -1,0 +1,161 @@
+{
+  "generated_by": "scripts/ledger/update_ledgers.py",
+  "method": "automated audit of manifests, hashes, text scan and attribution strings",
+  "ok": true,
+  "problems": [],
+  "public_assets_checked": [
+    {
+      "path": "assets/materials/aerial_asphalt_01/aerial_asphalt_01_arm_512.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/materials/aerial_asphalt_01/aerial_asphalt_01_diff_1024.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/materials/aerial_asphalt_01/aerial_asphalt_01_diff_512.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/materials/aerial_asphalt_01/aerial_asphalt_01_nor_1024.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/materials/aerial_asphalt_01/aerial_asphalt_01_nor_512.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/materials/concrete_wall_006/concrete_wall_006_arm_512.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/materials/concrete_wall_006/concrete_wall_006_diff_1024.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/materials/concrete_wall_006/concrete_wall_006_diff_512.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/materials/concrete_wall_006/concrete_wall_006_nor_1024.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/materials/concrete_wall_006/concrete_wall_006_nor_512.jpg",
+      "ok": true,
+      "license": "Poly Haven CC0 (derived)"
+    },
+    {
+      "path": "assets/fonts/NotoSansTelugu-Variable.ttf",
+      "ok": true,
+      "license": "Google Noto Fonts: Noto Sans Telugu 2.005 (unmodified bytes)"
+    },
+    {
+      "path": "assets/fonts/OFL.txt",
+      "ok": true,
+      "license": "Google Noto Fonts (unmodified)"
+    }
+  ],
+  "unlisted_public_assets_allowed": [
+    "assets/fonts/NotoSansTelugu-Variable.ttf",
+    "assets/fonts/OFL.txt"
+  ],
+  "sources_checked": [
+    {
+      "id": "src_corridor_01_uppal_stadium_osm",
+      "path": "hyderabad-game-handoff/resources/osm/corridor-01-uppal-stadium.osm",
+      "ok": true
+    },
+    {
+      "id": "src_corridor_02_stadium_ngri_osm",
+      "path": "hyderabad-game-handoff/resources/osm/corridor-02-stadium-ngri.osm",
+      "ok": true
+    },
+    {
+      "id": "src_corridor_03_ngri_habsiguda_osm",
+      "path": "hyderabad-game-handoff/resources/osm/corridor-03-ngri-habsiguda.osm",
+      "ok": true
+    },
+    {
+      "id": "src_corridor_04_habsiguda_tarnaka_osm",
+      "path": "hyderabad-game-handoff/resources/osm/corridor-04-habsiguda-tarnaka.osm",
+      "ok": true
+    },
+    {
+      "id": "src_corridor_evidence_summary_json",
+      "path": "hyderabad-game-handoff/resources/osm/corridor-evidence-summary.json",
+      "ok": true
+    },
+    {
+      "id": "src_corridor_named_features_json",
+      "path": "hyderabad-game-handoff/resources/osm/corridor-named-features.json",
+      "ok": true
+    },
+    {
+      "id": "src_metro_13986696_full_json",
+      "path": "hyderabad-game-handoff/resources/osm/metro-13986696-full.json",
+      "ok": true
+    },
+    {
+      "id": "src_metro_8297697_full_json",
+      "path": "hyderabad-game-handoff/resources/osm/metro-8297697-full.json",
+      "ok": true
+    },
+    {
+      "id": "src_metro_8297698_full_json",
+      "path": "hyderabad-game-handoff/resources/osm/metro-8297698-full.json",
+      "ok": true
+    },
+    {
+      "id": "src_metro_network_full_json",
+      "path": "hyderabad-game-handoff/resources/osm/metro-network-full.json",
+      "ok": true
+    },
+    {
+      "id": "src_metro_network_relation_json",
+      "path": "hyderabad-game-handoff/resources/osm/metro-network-relation.json",
+      "ok": true
+    },
+    {
+      "id": "src_metro_network_overpassql",
+      "path": "hyderabad-game-handoff/resources/osm/metro-network.overpassql",
+      "ok": true
+    },
+    {
+      "id": "src_resource_acquisition_manifest_json",
+      "path": "hyderabad-game-handoff/resources/osm/resource-acquisition-manifest.json",
+      "ok": true
+    },
+    {
+      "id": "src_uppal_starter_osm_map_osm",
+      "path": "hyderabad-game-handoff/resources/osm/uppal-starter-osm-map.osm",
+      "ok": true
+    },
+    {
+      "id": "src_uppal_tarnaka_corridor_overpassql",
+      "path": "hyderabad-game-handoff/resources/osm/uppal-tarnaka-corridor.overpassql",
+      "ok": true
+    }
+  ],
+  "files_scanned_for_credentials": 57,
+  "credential_hits": [],
+  "attribution": {
+    "in_game_osm_odbl_notice": true,
+    "sources_manifest_notice": true,
+    "font_license_file_present": true,
+    "cc0_asset_attributions_recorded": true
+  },
+  "limitations": [
+    "Pattern scan is not a guarantee of no secrets.",
+    "Legal sufficiency of ODbL/CC0/OFL compliance is not assessed."
+  ]
+}

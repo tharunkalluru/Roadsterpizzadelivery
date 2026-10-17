@@ -17,18 +17,19 @@ environment. Machine-readable bindings: `qa/evidence-index.json`, `qa/status.jso
 | Command | Method | Latest result |
 |---|---|---|
 | `npm run typecheck` | static | clean |
-| `npm test` (Vitest) | automated simulation | 60/60 passed — see table below |
+| `npm test` (Vitest) | automated simulation | 69/69 passed (`qa/artifacts/unit/results.json`, revision 91565e3) |
 | `npm run build` | production bundle | succeeds (≈0.8 s) |
-| `npm run test:e2e` | desktop browser automation on `dist/` via `vite preview` | 9 tests; last full-suite run 8 passed, U07 failed once with "Target page… closed" (renderer process loss under SwiftShader after context restore), passed on isolated re-run of the same build — recorded as flaky, not as a clean pass |
+| `npm run test:e2e` | desktop browser automation on `dist/` via `vite preview` | final build: 9/9 passed (`qa/artifacts/e2e/results.json`, `run.log`). History: U07 failed once in an earlier full-suite run with "Target page… closed" (SwiftShader renderer loss after context restore) and one C3 run failed on a HUD assertion that did not wait for the next rendered frame (test fixed); both are disclosed as flakiness of the software-GPU harness |
 | `npm run validate:world` | data validation | 0 errors, 0 warnings; deterministic rebuild identical |
 | `python3 monitoring/verify_run.py …` | ledger integrity | structurally valid; not release-ready (expected) |
 
 ### Unit / integration coverage (Vitest)
 | File | Requirement IDs exercised |
 |---|---|
-| `tests/unit/flight.test.ts` (23) | F01, F02, F03, F04, F05, F06, F07, F08, F09, F10, F11, F12, F13, F14, F15, F16, F17, U06 (stall→pause) |
-| `tests/unit/session.test.ts` (17) | M01 (fixture), M02, M03, M04, M05, M06, F12, F19, F20, F21, F23, F24, M13, U08, G02, G03 |
-| `tests/unit/replay.test.ts` (4) | M12, M08, M11, P04 (simulation-level repeated traversal with streaming) |
+| `tests/unit/flight.test.ts` (24, incl. review-M1 regression) | F01, F02, F03, F04, F05, F06, F07, F08, F09, F10, F11, F12, F13, F14, F15, F16, F17, U06 (stall→pause) |
+| `tests/unit/session.test.ts` (19, incl. U11 and review-M4 regression) | M01 (fixture), M02, M03, M04, M05, M06, F12, F19, F20, F21, F23, F24, M13, U08, G02, G03 |
+| `tests/unit/replay.test.ts` (6) | M12, M08, M11, M07, M10, S03 signal plan, P04 (simulation-level repeated traversal with streaming) |
+| `tests/unit/store.test.ts` (4) | M14, U08, U05 (persistence) |
 | `tests/unit/missions-real.test.ts` (16) | M01 on the real package: every instantiated mission completed by the reference agent through real physics, mission traffic, no flight; flight variants for MT02/MT06/MT10; deadline calibration (`qa/artifacts/calibration/*.json`) |
 
 ### Browser automation (Playwright, desktop + emulated mobile)
@@ -37,7 +38,7 @@ environment. Machine-readable bindings: `qa/evidence-index.json`, `qa/status.jso
 | C2 select → pickup → drive (reference agent) → deliver → results → retry → exit | C2, M01, P06 | passed |
 | C3 shared budget in browser: launch, metered flight, fresh-press land, HUD agreement, no refill | C3, F04, F11, F12, M06 | passed |
 | Hidden page freezes time and fuel | U06, F18 | passed |
-| WebGL context loss → pause → restore → resume | U07 | flaky (see above) |
+| WebGL context loss → pause → restore → resume | U07 | passed (final build); flaky once earlier |
 | Storage denied → session-only explanation | U05 | passed |
 | No WebGL2 → readable failure | U05 | passed |
 | Missing chunk (404) → explained load error | U05, U09 (load path only) | passed |
@@ -65,7 +66,8 @@ performed; margins are provisional.
 6. Save values into `qa/artifacts/device/<device>.json` and screenshots/recordings; register in `qa/evidence-index.json` as `physical_android` / `physical_ios`.
 
 ## Known issues
-- U07 flaky under SwiftShader (above).
-- Reference agent occasionally lands off the carriageway at the end of a full-budget flight on narrow (4.5 m) clamped roads → recovery; human-controlled landing feedback exists but is untested by people.
+- Software-GPU harness flakiness (U07 once, C3 HUD timing once) — see above.
+- MT08 (return) ground calibration margin is only 8 % with 5 reference-agent recoveries around the Tarnaka flyover approaches; human playtests may need a wider deadline.
+- Independent AI review (`qa/independent-review.md`): majors M1–M4 fixed with regression tests; remaining minors listed there (e.g. restart-abort race in chunk loading, held-steer landing assist, debug handle exposure).
 - Encounter queues use stopped vehicles; no signal-phase simulation (1 signalled junction in source).
-- Station stairs placement vs carriageway is under repair (art follow-up) — see IMPLEMENTATION_STATUS.
+- Station stairs/escalators are placed only clear of carriageways and registered as colliders (`stationObstacles`).

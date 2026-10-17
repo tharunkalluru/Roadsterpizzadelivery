@@ -25,11 +25,11 @@
     "attempted_on": "2026-10-17"
   },
   "build_binding": {
-    "code_revision": null,
-    "production_bundle_sha256": null,
-    "world_manifest_sha256": null,
-    "project_contract_sha256": null,
-    "scope_manifest_sha256": null
+    "code_revision": "91565e307eff33ad902b37a63e8903fc77a9d913",
+    "production_bundle_sha256": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
+    "world_manifest_sha256": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+    "project_contract_sha256": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
+    "scope_manifest_sha256": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5"
   },
   "reviewer": {
     "identity_or_agent_role": "QA-ledger worker (AI agent)",
@@ -154,7 +154,485 @@
       ]
     }
   ],
-  "game_views": [],
+  "game_views": [
+    {
+      "id": "drive-1280",
+      "artifact": {
+        "path": "qa/artifacts/views/drive-1280.png",
+        "sha256": "e5923f14785e15e481249dba4a08e02c93e54b320aa5753974aa86973fd54b32"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "drive-844",
+      "artifact": {
+        "path": "qa/artifacts/views/drive-844.png",
+        "sha256": "74bfab261c0b60e323c322e5911dbb017ac47c563bc78a192ce4071ade0185b7"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "fly-1280",
+      "artifact": {
+        "path": "qa/artifacts/views/fly-1280.png",
+        "sha256": "77060e572765e4a3d54f3e3a0070b73f6340f073a4cd6e88e1ae75be4888cf8e"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "fly-844",
+      "artifact": {
+        "path": "qa/artifacts/views/fly-844.png",
+        "sha256": "55cd2da24837f2b6ea89c6bae5a00dc9a3793d923bed490c45307574ded15010"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "landing-1280",
+      "artifact": {
+        "path": "qa/artifacts/views/landing-1280.png",
+        "sha256": "ed4904409b55640c47a521d5aba266c282be7a99a2f63f2705807881ed3929c8"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "landing-844",
+      "artifact": {
+        "path": "qa/artifacts/views/landing-844.png",
+        "sha256": "185816c336fc3fa155db3188cdfc3973a8e214875d6933ea12f93a9ff2fde8ac"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "menu-1280",
+      "artifact": {
+        "path": "qa/artifacts/views/menu-1280.png",
+        "sha256": "ec6b6b29ec16eb24a44ed60df0a7bbbb9adb55f3a43237b89125ae29b5e6d1ef"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "menu-844",
+      "artifact": {
+        "path": "qa/artifacts/views/menu-844.png",
+        "sha256": "4b09791dde2fc3a9af869f31df188fe3042734092fe67a5d49d8c13607f0dce1"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-aerial",
+      "artifact": {
+        "path": "qa/artifacts/art/high-aerial.png",
+        "sha256": "0118d6a4f95205e7564315ab07e1756360c34033609d007d9a0bb5d7c009ce98"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-car",
+      "artifact": {
+        "path": "qa/artifacts/art/high-car.png",
+        "sha256": "2b588910c8e688b813b940fc93c9b8f92014978bf1168f5c697df33340a8a680"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-carfly",
+      "artifact": {
+        "path": "qa/artifacts/art/high-carfly.png",
+        "sha256": "c36a6d5238c96e8d638160b4ce53cda868698cd2cd074655885f58eebfda936d"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-carfront",
+      "artifact": {
+        "path": "qa/artifacts/art/high-carfront.png",
+        "sha256": "a568468c971b9752d42cdac1d8e4b1664e1eae9a0d2b9c30160e072d3073aa83"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-carside",
+      "artifact": {
+        "path": "qa/artifacts/art/high-carside.png",
+        "sha256": "2e3737d4db408f605fa11f26caec5b50d8202fdb5e6d028becdfc88c30fdb995"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-cartop",
+      "artifact": {
+        "path": "qa/artifacts/art/high-cartop.png",
+        "sha256": "41810065be22db27d6581a3e6f56db3e495c75b6186a4e446c2a158a30d8b6d5"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-junction",
+      "artifact": {
+        "path": "qa/artifacts/art/high-junction.png",
+        "sha256": "2557585112ea3c7e74a50575655af3b34c09b9775cc8b38c7eddb36898abd8b3"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-markers",
+      "artifact": {
+        "path": "qa/artifacts/art/high-markers.png",
+        "sha256": "6b4e002aa864b5af03f5e41b2066b9725943199da9a3d6d3025d6f34fa96f6a3"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-metro",
+      "artifact": {
+        "path": "qa/artifacts/art/high-metro.png",
+        "sha256": "f41c88635c300ccd4410605829a3b00891b7c15e89a0e8a3fcd9e8c9e747fd62"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-real",
+      "artifact": {
+        "path": "qa/artifacts/art/high-real.png",
+        "sha256": "5bc87bd669ccc0c1634ad87408f86d57b0aba230e2520236e8882089bb05030b"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-realmetro",
+      "artifact": {
+        "path": "qa/artifacts/art/high-realmetro.png",
+        "sha256": "a35838f332633116f56f6ada9de546c06dfde9d22fd074c29824b9c42de44497"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-realstreet",
+      "artifact": {
+        "path": "qa/artifacts/art/high-realstreet.png",
+        "sha256": "100f36a754538b7c820230b1315b5dc3751893b6ca97ce737101c756982b46a6"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-sign",
+      "artifact": {
+        "path": "qa/artifacts/art/high-sign.png",
+        "sha256": "719cca5c5df7944ce2d7066002e243921df89dadf041a6d3617957ca691928f2"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-street",
+      "artifact": {
+        "path": "qa/artifacts/art/high-street.png",
+        "sha256": "397d3cb9c8c3ec919e48cf17e3261fa382932ce1301a9d2b1045485565f2d35e"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-high-traffic",
+      "artifact": {
+        "path": "qa/artifacts/art/high-traffic.png",
+        "sha256": "f3c247de8b0911060897437674c842494bf26d643d434758ce46bf935e72451c"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-aerial",
+      "artifact": {
+        "path": "qa/artifacts/art/low-aerial.png",
+        "sha256": "c134a50fd737dc190d2ae51bc790dae8c4e00565d0cab2ab12473ea184709580"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-car",
+      "artifact": {
+        "path": "qa/artifacts/art/low-car.png",
+        "sha256": "6445b4c1a2efd452dd7b00ceddd660045973e369c48595fac20389687060036f"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-carfly",
+      "artifact": {
+        "path": "qa/artifacts/art/low-carfly.png",
+        "sha256": "a87a9fde699c1d5400993b006ab9a618afb470c41ad9f91937fd30f3bd006e6c"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-carfront",
+      "artifact": {
+        "path": "qa/artifacts/art/low-carfront.png",
+        "sha256": "68bc54c4fd829cc88f60bfa38b8c5a33076860fc229ee9fdcc4f600a2d49b13c"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-carside",
+      "artifact": {
+        "path": "qa/artifacts/art/low-carside.png",
+        "sha256": "1e35ededd1300e7564cbebdc6680d9f0b1e7b83d60e102574137fafc512d8f0a"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-cartop",
+      "artifact": {
+        "path": "qa/artifacts/art/low-cartop.png",
+        "sha256": "c3557b0d7ad1bd18424d39629d947bb5de530957c0c774f09cfddc10a2ca5dc2"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-junction",
+      "artifact": {
+        "path": "qa/artifacts/art/low-junction.png",
+        "sha256": "b6b99179c0dc65cbd7a7371612573b61dbda8c049bd3f1d781419b61ea914137"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-markers",
+      "artifact": {
+        "path": "qa/artifacts/art/low-markers.png",
+        "sha256": "2e005afea8517f56e2faea05745dfaf44842936d18d9f556f92664ae20f5d862"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-metro",
+      "artifact": {
+        "path": "qa/artifacts/art/low-metro.png",
+        "sha256": "f9184fbc758d7aeb2761c53f6ad113be3fb71540ea7d6c2a47350794d0b0db2a"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-real",
+      "artifact": {
+        "path": "qa/artifacts/art/low-real.png",
+        "sha256": "9969e8ae82cc728db3d15444b1f65c86afbe6ecabbe3f8a7175f00039757030d"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-realmetro",
+      "artifact": {
+        "path": "qa/artifacts/art/low-realmetro.png",
+        "sha256": "b550fe2b525f79b3c07dd3e08e758152819870eb19337e93be1a34d820e4d064"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-realstreet",
+      "artifact": {
+        "path": "qa/artifacts/art/low-realstreet.png",
+        "sha256": "6fb50b12af9f025d16bc678dc9cf4ceb6183e47d19e04c060f930df85b0e65fc"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-sign",
+      "artifact": {
+        "path": "qa/artifacts/art/low-sign.png",
+        "sha256": "d7abfc771b852b7beeddebbcc4de459166955b0fce56797d7e3b0e85378ca98c"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-street",
+      "artifact": {
+        "path": "qa/artifacts/art/low-street.png",
+        "sha256": "30982f8c21f062049aada7b9cccc91f7a24c1c631358ab474f94c2ac8fbdb6f9"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-low-traffic",
+      "artifact": {
+        "path": "qa/artifacts/art/low-traffic.png",
+        "sha256": "53c854876132f568cd08f383f005ef85528fdd16feb09c7aa377b85cd1de673f"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-aerial",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-aerial.png",
+        "sha256": "46b9567cfea70025ca9f1e0664bb69dcab6355bc1c1d4201c29bc787a3d761fa"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-car",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-car.png",
+        "sha256": "9391d05c7ad8e98f615ec79ea86d00e3a0806eabaf736d1af7e4b8816bbf4ad4"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-carfly",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-carfly.png",
+        "sha256": "f47a6bb52f86411331dabee6029dd033af48762ca40aad50d4ddd7f8ca4fdb14"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-carfront",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-carfront.png",
+        "sha256": "55a5257eec194339732ff2ef63e76276476195ec55dae15efabfcce1229f0310"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-carside",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-carside.png",
+        "sha256": "00e4bebb99ad8de98cdc0ffa73dd6a754d22d0cb0c1b9ed0d5234d17c0357724"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-cartop",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-cartop.png",
+        "sha256": "1a9aaf58fb5628b12fa1bf0ee3bd43118be37b267cda4fd4672f13a29bd03b05"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-junction",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-junction.png",
+        "sha256": "f23f0de0f93fcaa275169bc7b6b415ae8a7672794a9fdb6930f47d525ae022a3"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-markers",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-markers.png",
+        "sha256": "142cd22098c2c5710a614d8ba8525fd77f6fd03bfcb640c0f9833c50be73b7d3"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-metro",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-metro.png",
+        "sha256": "db279e1a83ceb735333a9c1a2d1281bf28281e67c6ce9649ce54009318fed979"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-real",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-real.png",
+        "sha256": "157456dd9119bbec808c57885622682a31583d835c166634de604b47ddc1c54f"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-realmetro",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-realmetro.png",
+        "sha256": "e19b0ec8a476818c4cace9d85ff443cacbe491dae701bda70e56a67862505127"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-realstreet",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-realstreet.png",
+        "sha256": "195e7d8b3ae6e43b5c3a7917986c63c9f6651e0a3a3500d1cda42a5134555075"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-sign",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-sign.png",
+        "sha256": "30dac3abe7a0e0a96ab46eea53d39dfe51b2dcc097f247f0866c926f36e8eb60"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-street",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-street.png",
+        "sha256": "9c0d8e133f4d680e84c6b45fe1a3c51280f5fe7d41aba316eb00912edd90ae88"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-standard-traffic",
+      "artifact": {
+        "path": "qa/artifacts/art/standard-traffic.png",
+        "sha256": "a86e8fbe516362661e3b727b72a8ec17a8e257f5f8efd16e218b106905584910"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    }
+  ],
   "physical_device_performance_established_by_this_review": false,
   "geographic_truth_established_by_this_review": false,
   "all_relevant_dimensions_supported": false,
@@ -166,5 +644,7 @@
   ],
   "evidence_index_ids": [
     "EV-Q08-WHITEOUT-DENIED"
-  ]
+  ],
+  "build_binding_note": "production_bundle_sha256 is the sha256 of qa/artifacts/build-manifest.json, which lists every dist/ file hash.",
+  "game_views_note": "Captures of the Hyderabad build only. No comparison with Whiteout was possible; no verdicts are recorded. Stills only, no motion evidence."
 }
