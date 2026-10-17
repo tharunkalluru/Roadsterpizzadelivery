@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "note": "Maps actual test titles (substring match) to acceptance IDs and evidence method. A requirement may be marked passed ONLY if every mapped test passed in the bound run AND no limitation below says otherwise. Physical-device, geographic-field and Whiteout-dependent parts remain blocked.",
+  "methods": {
+    "vitest": "automated_simulation",
+    "playwright": "desktop_browser_automation (Chromium 1194 headless, SwiftShader WebGL)",
+    "playwright-mobile": "mobile_viewport_emulation (not physical)"
+  },
+  "map": [
+    {
+      "ids": [
+        "F01"
+      ],
+      "tests": [
+        "F01 frame-rate independence"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F02",
+        "F10"
+      ],
+      "tests": [
+        "F02/F10 continuous flight"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F03"
+      ],
+      "tests": [
+        "F03 allocations and conservation"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F04",
+        "F11"
+      ],
+      "tests": [
+        "F04/F11 split flights",
+        "C3: shared budget in the browser"
+      ],
+      "method": "vitest+playwright"
+    },
+    {
+      "ids": [
+        "F05"
+      ],
+      "tests": [
+        "F05 hover is metered"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F06"
+      ],
+      "tests": [
+        "F06 denied launch"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F07"
+      ],
+      "tests": [
+        "F07 partial fuel"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F08"
+      ],
+      "tests": [
+        "F08 whole-car clearance"
+      ],
+      "method": "vitest",
+      "limitation": "fixture geometry; real wires/gantries are not in the source data"
+    },
+    {
+      "ids": [
+        "F09"
+      ],
+      "tests": [
+        "F09 surface identity"
+      ],
+      "method": "vitest",
+      "limitation": "fixture overpass; real package has one non-routable flyover"
+    },
+    {
+      "ids": [
+        "F12"
+      ],
+      "tests": [
+        "F12 ground driving never refills",
+        "F12 intermediate stops never refill"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F13"
+      ],
+      "tests": [
+        "F13 moving obstruction"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F14"
+      ],
+      "tests": [
+        "F14 invalid landing surfaces"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F15",
+        "F16"
+      ],
+      "tests": [
+        "F15/F16 final-tick touchdown"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F17"
+      ],
+      "tests": [
+        "F17 losing support"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F18",
+        "U06"
+      ],
+      "tests": [
+        "U06/F18: hidden page pauses",
+        "a severe stall requests a technical pause"
+      ],
+      "method": "vitest+playwright"
+    },
+    {
+      "ids": [
+        "F19",
+        "F20",
+        "F23"
+      ],
+      "tests": [
+        "F19/F20/F23 recovery, retry, bounded cargo"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F21",
+        "M13"
+      ],
+      "tests": [
+        "F12 intermediate stops never refill; M13 multi-stop survives checkpoint"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "F24",
+        "M05"
+      ],
+      "tests": [
+        "F24/M05 same-tick ordering"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "M01"
+      ],
+      "tests": [
+        "C2: select, pickup, drive",
+        "real-world missions (reference agent, ground only)",
+        "real-world flight use"
+      ],
+      "method": "vitest+playwright",
+      "limitation": "driven by the reference agent, not humans; corridor ends (Uppal/Tarnaka) not routable"
+    },
+    {
+      "ids": [
+        "M02",
+        "M03"
+      ],
+      "tests": [
+        "M02 wrong side / airborne",
+        "M01/M03 deliver"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "M04",
+        "G02",
+        "G03"
+      ],
+      "tests": [
+        "G02/G03/M04 routing on the directed graph"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "M06"
+      ],
+      "tests": [
+        "M06 HUD/results agree",
+        "C3: shared budget in the browser"
+      ],
+      "method": "vitest+playwright"
+    },
+    {
+      "ids": [
+        "M08",
+        "M11"
+      ],
+      "tests": [
+        "M08/M11 traffic identity and spawn safety"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "M12"
+      ],
+      "tests": [
+        "M12 same seed"
+      ],
+      "method": "vitest",
+      "limitation": "same-platform determinism only; cross-platform float determinism not established"
+    },
+    {
+      "ids": [
+        "M14"
+      ],
+      "tests": [
+        "M14 personal bests"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "U02"
+      ],
+      "tests": [
+        "U01(emulated)/U02"
+      ],
+      "method": "playwright-mobile",
+      "limitation": "synthetic pointer events in emulation"
+    },
+    {
+      "ids": [
+        "U05"
+      ],
+      "tests": [
+        "U05: storage denied",
+        "U05: no WebGL2",
+        "U09/U05: a failed chunk request",
+        "U08/U05 saves"
+      ],
+      "method": "vitest+playwright"
+    },
+    {
+      "ids": [
+        "U07"
+      ],
+      "tests": [
+        "U07: WebGL context loss"
+      ],
+      "method": "playwright",
+      "limitation": "flaky under SwiftShader in full-suite runs (renderer loss); judge from the bound run"
+    },
+    {
+      "ids": [
+        "U08"
+      ],
+      "tests": [
+        "U08/U05 saves",
+        "incompatible checkpoints are rejected"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "U11"
+      ],
+      "tests": [
+        "U11 outside-area guidance"
+      ],
+      "method": "vitest"
+    },
+    {
+      "ids": [
+        "P01"
+      ],
+      "tests": [
+        "<build + typecheck + npm test + test:e2e command results>"
+      ],
+      "method": "commands"
+    },
+    {
+      "ids": [
+        "P04"
+      ],
+      "tests": [
+        "P04 repeated traversal"
+      ],
+      "method": "vitest",
+      "limitation": "simulation-level resource counts; GPU/heap growth on phones not measured"
+    },
+    {
+      "ids": [
+        "P06"
+      ],
+      "tests": [
+        "C2: select, pickup, drive"
+      ],
+      "method": "playwright",
+      "limitation": "asserts elapsed=0 at PLAYING start after load/warm-up/countdown"
+    },
+    {
+      "ids": [
+        "M07",
+        "M10"
+      ],
+      "tests": [
+        "M07/M10 encounters and deadlocks"
+      ],
+      "method": "vitest",
+      "limitation": "fixture world; no human judgement of encounter fairness"
+    },
+    {
+      "ids": [
+        "S03"
+      ],
+      "tests": [
+        "S03 signal plan"
+      ],
+      "method": "vitest",
+      "limitation": "scene template, not an acceptance ID; timings authored"
+    }
+  ],
+  "not_covered": {
+    "F22": "in-run technical pause before absent geometry implemented (criticalLoaded→'loading' pause) but not exercised by a test",
+    "M09": "bike filtering / auto curb / bus behaviour implemented in basic form; no test",
+    "U03": "emulated portrait pause only; physical devices blocked",
+    "U04": "not tested",
+    "U09": "load-time failure tested; in-run delayed mandatory chunk not tested",
+    "U10": "service worker implemented; offline not tested",
+    "U12": "not tested",
+    "P02": "payload measured (≈2.4 MB gzip total); scene budgets measured only under SwiftShader",
+    "P05": "not tested",
+    "P07": "manifests scanned manually — re-run scan when binding"
+  }
+}

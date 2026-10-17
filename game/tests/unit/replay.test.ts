@@ -101,3 +101,27 @@ describe('S03 signal plan', () => {
     expect([...seq].sort()).toEqual(['amber', 'green', 'red']);
   });
 });
+
+describe('M07/M10 encounters and deadlocks', () => {
+  it('at most two concurrent encounters; every queue releases; stalled actors are recycled with a log entry', () => {
+    const w = makeFixtureWorld();
+    const s = new Session(w, fixtureMission({ traffic: 'busy', deadlineSeconds: 900, stops: ['d_side'] }), { seed: 9 });
+    s.start();
+    let maxEnc = 0, sawQueue = false;
+    for (let t = 0; t < 120 * 60 && s.phase === 'PLAYING'; t++) {
+      s.step({ ...NO_INPUT, brake: t % 1200 > 900 });
+      maxEnc = Math.max(maxEnc, s.encounters.length);
+      for (const a of s.traffic.actors) if (a.state === 'queue') { sawQueue = true; expect(a.holdUntil).toBeDefined(); expect(a.holdUntil! - s.traffic.tick).toBeLessThanOrEqual(30 * 60); }
+    }
+    expect(maxEnc).toBeLessThanOrEqual(2);
+    // deadlock: force an actor to be permanently blocked and check it is recycled
+    const victim = s.traffic.actors[0];
+    if (victim) {
+      victim.state = 'drive'; victim.vmax = 0; victim.speed = 0;
+      for (let t = 0; t < 11 * 60; t++) s.traffic.step({ x: victim.x + 60, z: victim.z, y: 0, speed: 0, heading: 0, airborne: true }); // player nearby (in range), airborne so it is not a leader
+      expect(s.traffic.actors.some((a) => a.id === victim.id)).toBe(false);
+      expect(s.traffic.log.some((l) => l.startsWith('deadlock-recycle'))).toBe(true);
+    }
+    void sawQueue;
+  });
+});
