@@ -14,6 +14,7 @@ import { Hud } from '../ui/hud';
 import { Screens } from '../ui/screens';
 import { MapView } from '../ui/map';
 import { Autopilot } from '../debug/autopilot';
+import { Tutorial } from '../ui/tutorial';
 import { MISSION, SIM_HZ } from '../config/gameplay';
 import type { ArtApi, Quality } from '../art/api';
 
@@ -55,7 +56,8 @@ export class App {
   private frameTimes: number[] = [];
   private recoveryTimer = 0;
   private countdown = 0;
-  private pauseReason: 'user' | 'map' | 'hidden' | 'orientation' | 'loading' | 'stall' | null = null;
+  private pauseReason: 'user' | 'map' | 'hidden' | 'orientation' | 'loading' | 'stall' | 'tutorial' | null = null;
+  tutorial: Tutorial | null = null;
   private checkpointTimer = 0;
   private streamTimer = 0;
   private menuTime = 0;
@@ -197,6 +199,7 @@ export class App {
       if (abort.signal.aborted) return;
       this.screens.loading(m, 'Warming up graphics', 1);
       this.session = s;
+      this.tutorial = m.practice && !this.autopilot ? new Tutorial() : null;
       this.view.resetCamera();
       this.view.update(s, this.world!, 1, 0);
       this.view.warm();
@@ -246,7 +249,7 @@ export class App {
     this.audio.setDriving(false, 0, 0);
     this.saveCheckpoint();
     if (reason === 'map') this.screens.map(this.map!, this.session!);
-    else this.screens.pause(reason);
+    else if (reason !== 'tutorial') this.screens.pause(reason);
   }
 
   technicalPause(reason: 'hidden' | 'orientation' | 'loading' | 'stall') {
@@ -351,7 +354,8 @@ export class App {
     if (!c || signal.aborted) return;
     // register collision and visuals together (no visible building without its collider)
     this.world!.addChunk(c);
-    this.view.addChunk(c, this.core!);
+    // D12: footprints conflicting with the carriageway are omitted from render and collision alike
+    this.view.addChunk({ ...c, buildings: c.buildings.filter((b) => !b.intrudesCarriageway) }, this.core!);
   }
 
   private stream() {
@@ -507,7 +511,11 @@ export class App {
       this.audio.crash(); this.view.shake = 0.35; this.vibrate(80);
       this.hud.recovering(true, s.pendingRecovery?.reason ?? '');
     }
-    if (s.phase === 'ENDED') this.finish();
+    if (s.phase === 'ENDED') { this.finish(); return; }
+    if (this.tutorial && !this.manualClock && this.state === 'PLAYING') {
+      const lesson = this.tutorial.check(s);
+      if (lesson) { this.pause('tutorial'); this.screens.lesson(lesson.title, lesson.text); }
+    }
   }
 
   private vibrate(ms: number) { if (this.settings.haptics && navigator.vibrate) try { navigator.vibrate(ms); } catch { /* ignore */ } }

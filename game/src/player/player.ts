@@ -151,7 +151,7 @@ export class Player {
   }
 
   private updateSurface(margin: number): void {
-    const s = this.world.roads.surface(this.x, this.z, { preferRoadId: this.roadId, preferLevel: this.level, maxY: this.y + 0.3, margin });
+    const s = this.world.roads.surface(this.x, this.z, { preferRoadId: this.roadId, preferLevel: this.level, maxY: this.y + 0.3, margin, heading: Math.abs(this.speed) > 0.5 ? this.heading : undefined });
     this.surface = s;
     if (s) { this.roadId = s.roadId; if (!this.isAirborne) this.level = s.level; }
   }

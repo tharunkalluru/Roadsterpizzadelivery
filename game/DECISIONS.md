@@ -34,3 +34,6 @@ The reference host is blocked by the environment network policy; no observations
 
 ## D11 Delivery naming
 Delivery labels are OSM `name` values (provisional source claims). The fictional delivery brand is "Metro Express"; no real business is given fictional signage.
+
+## D12 Road precedence over conflicting footprints
+After clamping provisional widths to source footprints (floor 4.5 m; 3.0 m service), 258 OSM building footprints still overlap the minimum carriageway (`intrudesCarriageway: true`). Either the road centreline or the footprint is mis-registered; the source cannot tell which. For gameplay the selected road wins: those footprints are omitted from BOTH render and collision (never one without the other), and remain listed in `CONTENT_GAPS.md` (C28) and `data/import-report.json` for imagery/field resolution. Rejected: keeping them as collision (makes real roads undrivable) or rendering without collision (visible wall the car passes through).

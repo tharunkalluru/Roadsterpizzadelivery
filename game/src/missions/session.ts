@@ -58,6 +58,8 @@ export class Session {
   maneuver: Maneuver | null = null;
   wrongWay = false;
   offRouteTicks = 0;
+  /** metres driven continuously on non-routable boundary roads */
+  boundaryDist = 0;
   outOfArea: 'ok' | 'warn' = 'ok';
   notices: SessionNotice[] = [];
   pendingRecovery: { reason: string; cargoCost: number } | null = null;
@@ -119,14 +121,33 @@ export class Session {
 
   private log(e: string) { this.eventLog.push({ tick: this.tick, e }); if (this.eventLog.length > 400) this.eventLog.shift(); }
 
+  /** distance along a directed approach edge at which the stop polygon centre lies */
+  stopAlong(stop: DeliveryLocation, edgeId: string): number {
+    const e = this.world.nav.edges.get(edgeId);
+    if (!e) return 0;
+    const c = this.stagingPose(stop);
+    const segs = this.world.roads.segmentsByRoad.get(e.roadId) ?? [];
+    let best = Infinity, along = 0;
+    for (const sg of segs) {
+      const dx = sg.bx - sg.ax, dz = sg.bz - sg.az;
+      let t = ((c.x - sg.ax) * dx + (c.z - sg.az) * dz) / (sg.len * sg.len);
+      t = Math.max(0, Math.min(1, t));
+      const d = Math.hypot(sg.ax + dx * t - c.x, sg.az + dz * t - c.z);
+      if (d < best) { best = d; along = sg.cumStart + t * sg.len; }
+    }
+    return e.forward ? along : e.lengthM - along;
+  }
+
   reroute(): void {
     const stop = this.currentStop;
     const p = this.player;
     if (!stop || !p.surface) { this.route = []; return; }
     const d = this.world.nav.directedFor(p.surface, p.heading);
-    const r = this.world.nav.route(d.id, stop.approachEdges, d.along);
+    const passed = stop.approachEdges.includes(d.id) && d.along > this.stopAlong(stop, d.id) + 8;
+    const r = this.world.nav.route(d.id, stop.approachEdges, d.along, passed);
     if (r) { this.route = r.path; this.routeIdx = 0; this.routeAlong = d.along; }
-    else this.route = [];
+    else if (!this.route.length || this.world.nav.inCore(d.id)) this.route = [];
+    // on a boundary road with no route back: keep the last route so guidance points to the return
   }
 
   /** route length remaining in metres (for HUD) */
@@ -134,6 +155,9 @@ export class Session {
     if (!this.route.length) return 0;
     let d = -this.routeAlong;
     for (let i = this.routeIdx; i < this.route.length; i++) d += this.world.nav.edges.get(this.route[i])!.lengthM;
+    const stop = this.currentStop;
+    const last = this.route[this.route.length - 1];
+    if (stop) d -= this.world.nav.edges.get(last)!.lengthM - this.stopAlong(stop, last);
     return Math.max(0, d);
   }
 
@@ -169,11 +193,17 @@ export class Session {
     }
     // boundary (only when grounded or airborne off the network)
     const s = p.surface;
+    const onBoundary = !!s && !p.isAirborne && !this.world.nav.inCore(this.world.nav.directedFor(s, p.heading).id);
+    if (onBoundary) this.boundaryDist += Math.hypot(p.x - px, p.z - pz); else if (s) this.boundaryDist = 0;
     const off = s ? Math.max(0, s.dist - s.halfWidth) : Infinity;
     if (!criticalThisTick && off > MISSION.outOfAreaRecoverM && !p.isAirborne) {
       this.requestRecovery('Outside delivery area', 0);
       criticalThisTick = true;
-    } else if (off > MISSION.outOfAreaWarnM) {
+    } else if (!criticalThisTick && onBoundary && (this.boundaryDist > 150 || (Math.abs(p.speed) < 0.3 && this.boundaryDist > 20))) {
+      // continued past the supported network (boundary roads lead out of the acquired area)
+      this.requestRecovery('Outside delivery area', 0);
+      criticalThisTick = true;
+    } else if (off > MISSION.outOfAreaWarnM || onBoundary) {
       if (this.outOfArea !== 'warn') this.notify('Outside delivery area. Follow the marked return.', 'warn');
       this.outOfArea = 'warn';
     } else this.outOfArea = 'ok';
@@ -265,6 +295,7 @@ export class Session {
     this.pendingRecovery = null;
     const anchor = this.chooseAnchor();
     this.player.recoverTo(anchor);
+    this.boundaryDist = 0;
     this.recoveries++;
     this.penaltyTicks += MISSION.recoveryPenaltyTicks;
     this.penalties.push({ reason, seconds: MISSION.recoveryPenaltyTicks / SIM_HZ, cargo: 0 });
@@ -294,11 +325,28 @@ export class Session {
     const p = this.player;
     const s = p.surface;
     if (!s || p.isAirborne) return;
-    const d = this.world.nav.directedFor(s, p.heading);
+    let d = this.world.nav.directedFor(s, p.heading);
+    // route-aware matching with hysteresis: at junctions prefer the current/next route edge when we are on it
+    if (this.route.length && !this.route.slice(this.routeIdx, this.routeIdx + 2).includes(d.id)) {
+      for (const rid of this.route.slice(this.routeIdx, this.routeIdx + 2)) {
+        const e = this.world.nav.edges.get(rid)!;
+        const hit = this.world.roads.surface(p.x, p.z, { preferRoadId: e.roadId, margin: 2 });
+        if (hit && hit.roadId === e.roadId && hit.dist <= hit.halfWidth + 1.5) {
+          const dd = this.world.nav.directedFor(hit, p.heading);
+          if (dd.id === rid) { d = dd; break; }
+        }
+      }
+    }
     this.wrongWay = d.wrongWay && Math.abs(p.speed) > 1.5;
     if (!this.route.length) { if (this.tick % 60 === 0) this.reroute(); return; }
     const idx = this.route.indexOf(d.id, this.routeIdx);
-    if (idx >= 0) {
+    const stop = this.currentStop;
+    const passedStop = idx === this.route.length - 1 && !!stop && d.along > this.stopAlong(stop, d.id) + 8 && !this.holdActive;
+    if (passedStop) {
+      this.offRouteTicks++;
+      this.reroute();
+      this.log('reroute:passed');
+    } else if (idx >= 0) {
       this.routeIdx = idx; this.routeAlong = d.along; this.offRouteTicks = 0;
     } else if (d.id !== this.lastEdge) {
       // missed turn / deviation: recalculate from the actual edge on real connections
@@ -307,7 +355,11 @@ export class Session {
       this.log('reroute');
     }
     this.lastEdge = d.id;
-    if (this.route.length) this.maneuver = nextManeuver(this.world.nav, this.route, this.routeIdx, this.routeAlong);
+    if (this.route.length) {
+      const m = nextManeuver(this.world.nav, this.route, this.routeIdx, this.routeAlong);
+      const rem = this.routeRemainingM();
+      this.maneuver = m.kind === 'arrive' || m.distanceM > rem ? { kind: 'arrive', distanceM: rem, roadName: null } : m;
+    }
   }
 
   abandon(): void { if (this.phase !== 'ENDED') this.end({ success: false, reason: 'Delivery abandoned', code: 'abandoned' }); }

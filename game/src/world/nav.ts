@@ -1,11 +1,16 @@
 import type { DirectedEdge, WorldCore } from './schema';
 import { RoadIndex, wrapAngle, type SurfaceHit } from './roadIndex';
 
+export const UTURN_COST_M = 400;
+
 /** Binary-heap Dijkstra over the directed road graph (MASTER §15). Never draws straight-line shortcuts. */
 export class NavGraph {
   readonly edges = new Map<string, DirectedEdge>();
   /** outgoing directed edges at node */
   readonly outAt = new Map<string, string[]>();
+
+  /** directed edges in the largest strongly connected component (computed at load; authoritative for routing scope) */
+  readonly core_: Set<string> = new Set();
 
   constructor(public readonly core: WorldCore, public readonly roads: RoadIndex) {
     for (const d of core.directed) {
@@ -14,17 +19,55 @@ export class NavGraph {
       arr.push(d.id);
       this.outAt.set(d.fromNode, arr);
     }
+    this.computeCore();
+  }
+
+  /** inside the largest SCC: every such edge can reach and be reached from every other */
+  inCore(id: string): boolean { return this.core_.has(id); }
+
+  /** iterative Tarjan SCC over directed edges (edge graph via next[]) */
+  private computeCore() {
+    const index = new Map<string, number>(), low = new Map<string, number>(), onStack = new Set<string>();
+    const stack: string[] = [];
+    let idx = 0, best: string[] = [];
+    for (const start of this.edges.keys()) {
+      if (index.has(start)) continue;
+      const work: [string, number][] = [[start, 0]];
+      while (work.length) {
+        const top = work[work.length - 1];
+        const [v, i] = top;
+        if (i === 0) { index.set(v, idx); low.set(v, idx); idx++; stack.push(v); onStack.add(v); }
+        const next = this.edges.get(v)!.next;
+        if (i < next.length) {
+          top[1] = i + 1;
+          const w = next[i];
+          if (!this.edges.has(w)) continue;
+          if (!index.has(w)) work.push([w, 0]);
+          else if (onStack.has(w)) low.set(v, Math.min(low.get(v)!, index.get(w)!));
+        } else {
+          work.pop();
+          if (work.length) { const u = work[work.length - 1][0]; low.set(u, Math.min(low.get(u)!, low.get(v)!)); }
+          if (low.get(v) === index.get(v)) {
+            const comp: string[] = [];
+            let w: string;
+            do { w = stack.pop()!; onStack.delete(w); comp.push(w); } while (w !== v);
+            if (comp.length > best.length) best = comp;
+          }
+        }
+      }
+    }
+    for (const id of best) this.core_.add(id);
   }
 
   /**
    * Shortest path between directed edges. `fromAlong` = distance already travelled on the
    * first edge's travel direction. Returns the list of directed edge ids including both ends.
    */
-  route(fromEdge: string, toEdges: string[], fromAlong = 0): { path: string[]; lengthM: number } | null {
+  route(fromEdge: string, toEdges: string[], fromAlong = 0, mustLeave = false): { path: string[]; lengthM: number } | null {
     const targets = new Set(toEdges);
     const start = this.edges.get(fromEdge);
     if (!start) return null;
-    if (targets.has(fromEdge)) return { path: [fromEdge], lengthM: 0 };
+    if (targets.has(fromEdge) && !mustLeave) return { path: [fromEdge], lengthM: 0 };
     const dist = new Map<string, number>();
     const prev = new Map<string, string>();
     const heap: [number, string][] = [];
@@ -48,15 +91,20 @@ export class NavGraph {
       return top;
     };
     const startCost = Math.max(0, start.lengthM - fromAlong);
-    dist.set(fromEdge, startCost);
-    push(startCost, fromEdge);
+    if (mustLeave) {
+      // the target is behind us on our own edge: leave it and come back through real connections
+      for (const n of start.next) { const ne = this.edges.get(n); if (!ne) continue; const d = startCost + ne.lengthM; if (d < (dist.get(n) ?? Infinity)) { dist.set(n, d); prev.set(n, '__start'); push(d, n); } }
+    } else {
+      dist.set(fromEdge, startCost);
+      push(startCost, fromEdge);
+    }
     while (heap.length) {
       const [d, id] = pop()!;
       if (d > (dist.get(id) ?? Infinity)) continue;
-      if (targets.has(id) && id !== fromEdge) {
+      if (targets.has(id) && (id !== fromEdge || mustLeave)) {
         const path = [id];
         let cur = id;
-        while (prev.has(cur)) { cur = prev.get(cur)!; path.push(cur); }
+        while (prev.has(cur)) { cur = prev.get(cur)!; if (cur === '__start') { cur = fromEdge; path.push(cur); break; } path.push(cur); }
         path.reverse();
         return { path, lengthM: d };
       }
@@ -64,7 +112,8 @@ export class NavGraph {
       for (const n of e.next) {
         const ne = this.edges.get(n);
         if (!ne) continue;
-        const nd = d + ne.lengthM;
+        // a dead-end turnaround needs a slow multi-point turn: allowed, but only as a last resort
+        const nd = d + ne.lengthM + (ne.roadId === e.roadId ? UTURN_COST_M : 0);
         if (nd < (dist.get(n) ?? Infinity)) { dist.set(n, nd); prev.set(n, id); push(nd, n); }
       }
     }

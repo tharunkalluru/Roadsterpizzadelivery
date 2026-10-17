@@ -98,7 +98,7 @@ export class WorldPhysics {
   addChunk(chunk: WorldChunk): void {
     if (this.loadedChunks.has(chunk.id)) return;
     this.loadedChunks.add(chunk.id);
-    for (const b of chunk.buildings) this.addBuilding(b, chunk.id);
+    for (const b of chunk.buildings) if (!b.intrudesCarriageway) this.addBuilding(b, chunk.id); // D12: road precedence
   }
   removeChunk(chunkId: string): void {
     if (!this.loadedChunks.delete(chunkId)) return;

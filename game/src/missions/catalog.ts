@@ -87,9 +87,6 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
   const mt04 = pick((p) => p.r.lengthM >= 500 && p.r.lengthM <= 1600, (p) => Math.abs(p.r.lengthM - 900));
   if (mt04) missions.push(mk('mt04_fragile', ['MT04'], 'Fragile parcel', `Glassware for ${mt04.b.label}. Bumps and hard landings cost 2.5× cargo; below 40% the delivery fails.`, mt04, { cargo: { label: 'Fragile glassware', fragility: 2.5, failThreshold: 40 } }));
 
-  const mt05 = pick((p) => p.r.lengthM >= 400 && p.r.lengthM <= 2000 && !!p.b.poiId, (p) => Math.abs(p.r.lengthM - 1000));
-  if (mt05) missions.push(mk('mt05_busy_frontage', ['MT05'], 'Busy frontage', `Busy traffic outside ${mt05.b.label}. Find the entrance and stop cleanly.`, mt05, { traffic: 'busy' }));
-
   const mt06 = pick((p) => p.r.lengthM >= 1800 && p.r.lengthM <= 3500, (p) => Math.abs(p.r.lengthM - 2500));
   if (mt06) missions.push(mk('mt06_save_flight', ['MT06'], 'Save flight time', `A longer run with only 20 s of flight. Several stretches tempt you — choose where it matters.`, mt06, { flightSeconds: 20, traffic: 'busy' }));
 
@@ -101,6 +98,9 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
     if (alt && alt.lengthM <= p.r.lengthM * 1.4) { mt07 = p; altLen = alt.lengthM; used.add(key(p)); break; }
   }
   if (mt07) missions.push(mk('mt07_route_choice', ['MT07'], 'Route choice', `Main road or the side-road loop (${Math.round(altLen)} m vs ${Math.round(mt07.r.lengthM)} m)? Both are real connections.`, mt07, { traffic: 'busy', deadlineSeconds: deadlineFor(Math.max(altLen, mt07.r.lengthM), mt07.r.turns + 2, 1, 1.4) }));
+
+  const mt05 = pick((p) => p.r.lengthM >= 400 && p.r.lengthM <= 2000 && !!p.b.poiId, (p) => Math.abs(p.r.lengthM - 1000));
+  if (mt05) missions.push(mk('mt05_busy_frontage', ['MT05'], 'Busy frontage', `Busy traffic outside ${mt05.b.label}. Find the entrance and stop cleanly.`, mt05, { traffic: 'busy' }));
 
   if (mt01) {
     const back = pairs.find((p) => p.a.id === mt01.b.id && p.b.id === mt01.a.id);

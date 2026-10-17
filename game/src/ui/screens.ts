@@ -223,6 +223,14 @@ export class Screens {
     this.on('[data-menu]', () => this.app.toMenu());
   }
 
+  lesson(title: string, text: string) {
+    this.set(`<div class="card" style="max-width:480px;margin-top:auto;margin-bottom:8vh"><h2>${esc(title)}</h2><p>${esc(text)}</p>
+      <div class="row"><button class="btn primary" data-ok>Got it</button><button class="btn" data-skip>Skip tips</button></div><p class="small">The world is paused while you read.</p></div>`, true);
+    (this.el.firstElementChild as HTMLElement).style.background = 'rgba(6,8,11,0.35)';
+    this.on('[data-ok]', () => this.app.resume());
+    this.on('[data-skip]', () => { this.app.tutorial = null; this.app.resume(); });
+  }
+
   contextLost(restored: boolean) {
     this.set(`<div class="card" style="max-width:440px"><h2>Graphics were interrupted</h2>
       <p>${restored ? 'Graphics are back. Your delivery is paused and safe.' : 'Waiting for the browser to restore graphics… Your delivery is paused.'}</p>

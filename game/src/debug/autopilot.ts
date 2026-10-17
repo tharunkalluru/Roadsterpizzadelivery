@@ -11,6 +11,7 @@ import { VEHICLE } from '../config/gameplay';
  */
 export class Autopilot {
   private stuckTicks = 0;
+  private lostTicks = 0;
   constructor(public s: Session, public opts: { useFlight?: boolean; cruiseBoost?: boolean } = {}) {}
 
   private laneOffset(roadId: string): number {
@@ -33,7 +34,12 @@ export class Autopilot {
   input(): TickInput {
     const s = this.s, p = s.player;
     const stop = s.currentStop;
-    if (!stop || !s.route.length || !p.surface) return { ...NO_INPUT, brake: true };
+    if (!stop || !s.route.length || !p.surface) {
+      // lost (e.g. strayed onto a boundary road): use recovery like a player would
+      if (++this.lostTicks > 120) { this.lostTicks = 0; s.requestManualRecovery(); }
+      return { ...NO_INPUT, brake: true };
+    }
+    this.lostTicks = 0;
     const v = Math.max(0, p.speed);
     const remaining = s.routeRemainingM();
     const c = s.stagingPose(stop);
@@ -57,7 +63,8 @@ export class Autopilot {
     for (const a of s.traffic.actors) {
       const dx = a.x - p.x, dz = a.z - p.z;
       const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
-      if (ahead > 0 && ahead < v * 1.6 + 9 && side < 2.2) vt = Math.min(vt, Math.max(0, a.speed - 0.5));
+      const sameDir = Math.abs(wrapAngle(a.heading - p.heading)) < 1.0;
+      if (ahead > 0 && side < 2.2 && (sameDir ? ahead < v * 1.6 + 9 : ahead < 6)) vt = Math.min(vt, sameDir ? Math.max(0, a.speed - 0.5) : 0);
     }
     for (const q of s.traffic.peds) {
       const dx = q.x - p.x, dz = q.z - p.z;

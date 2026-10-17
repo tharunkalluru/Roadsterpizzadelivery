@@ -28,6 +28,7 @@ export interface Actor {
   state: 'drive' | 'yield' | 'curb' | 'merge';
   stateTicks: number;
   waitTicks: number;
+  stalledTicks?: number;
   braking: boolean;
   x: number; z: number; y: number; heading: number;
   px: number; pz: number; py: number; pheading: number;
@@ -182,7 +183,9 @@ export class TrafficSystem implements DynamicWorld {
         const [fx, fz] = forwardOf(a.heading);
         const dx = player.x - a.x, dz = player.z - a.z;
         const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
-        if (ahead > 0 && ahead < 40 && side < a.width / 2 + 1.3) { const d = ahead - (a.length / 2 + 2.0); if (d < gap) { gap = d; leaderSpeed = Math.max(0, player.speed); } }
+        const sameDir = Math.abs(wrapAngle(player.heading - a.heading)) < 1.0;
+        // follow the player when travelling the same way; for crossing conflicts only avoid imminent contact
+        if (ahead > 0 && side < a.width / 2 + 1.3 && (sameDir ? ahead < 40 : ahead < a.length / 2 + 6)) { const d = ahead - (a.length / 2 + 2.0); if (d < gap) { gap = d; leaderSpeed = sameDir ? Math.max(0, player.speed) : 0; } }
       }
       // junction yield: approaching a junction node with a conflicting actor already inside it
       const distToEnd = e.lengthM - a.along;
@@ -228,6 +231,12 @@ export class TrafficSystem implements DynamicWorld {
       }
       const p = this.pose(a.edge, a.along, a.lateral);
       a.x = p.x; a.z = p.z; a.y = p.y; a.heading = p.heading;
+    }
+    // pathological deadlock recovery (M10): an actor stalled > 10 s is recycled (it "turns off" out of the scene);
+    // stalls caused by an intentional curb stop are excluded. Logged for diagnostics.
+    for (const a of this.actors) {
+      a.stalledTicks = a.speed < 0.2 && a.state !== 'curb' ? (a.stalledTicks ?? 0) + 1 : 0;
+      if (a.stalledTicks > 10 * SIM_HZ) { (a as any).exited = true; this.log.push(`deadlock-recycle ${a.id} ${a.kind} ${a.edge}`); if (this.log.length > 100) this.log.shift(); }
     }
     this.actors = this.actors.filter((a) => !(a as any).exited);
     // pedestrians: walk footpaths; occasionally wait at the edge, then cross (readable intent)

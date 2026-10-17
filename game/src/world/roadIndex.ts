@@ -112,7 +112,7 @@ export class RoadIndex {
    * level than `preferLevel`, or not connected to `preferRoadId`, are penalised so an overpass
    * or lower road is not selected merely for being slightly closer.
    */
-  surface(x: number, z: number, opts: { preferRoadId?: string | null; preferLevel?: number; maxY?: number; margin?: number } = {}): SurfaceHit | null {
+  surface(x: number, z: number, opts: { preferRoadId?: string | null; preferLevel?: number; maxY?: number; margin?: number; heading?: number } = {}): SurfaceHit | null {
     const margin = opts.margin ?? 0.5;
     let best: SurfaceHit | null = null;
     let bestScore = Infinity;
@@ -129,6 +129,11 @@ export class RoadIndex {
         score += connected ? 0.5 : 2.0;
       }
       if (opts.maxY !== undefined) score += Math.max(0, opts.maxY - elevation) * 0.5; // prefer the surface just below the car
+      if (opts.heading !== undefined) {
+        // travel-direction alignment: a crossing road at a junction is not the road we are on
+        const segH = headingOf(s.bx - s.ax, s.bz - s.az);
+        score += (1 - Math.abs(Math.cos(opts.heading - segH))) * 8;
+      }
       if (score < bestScore) {
         bestScore = score;
         const dx = s.bx - s.ax, dz = s.bz - s.az;
