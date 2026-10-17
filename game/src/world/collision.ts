@@ -13,7 +13,7 @@ export interface Contact {
   vertical?: 'below' | 'above';
 }
 
-interface PolyObstacle { id: string; poly: Vec2[]; minX: number; maxX: number; minZ: number; maxZ: number; top: number; chunk: string }
+interface PolyObstacle { id: string; poly: Vec2[]; minX: number; maxX: number; minZ: number; maxZ: number; top: number; bottom?: number; chunk: string }
 interface CircleObstacle { id: string; x: number; z: number; r: number; bottom: number; top: number }
 interface OverheadBand { id: string; kind: 'deck' | 'bridge'; ax: number; az: number; bx: number; bz: number; halfWidth: number; bottom: number; top: number; level: number }
 
@@ -113,6 +113,15 @@ export class WorldPhysics {
     this.addToGrid(this.polyGrid, minX, maxX, minZ, maxZ, { id: b.id, poly: b.footprint, minX, maxX, minZ, maxZ, top: b.heightM, chunk });
   }
 
+  /** static structures from the art layer (station stairs/escalators) so visuals and collision agree (G04, S02) */
+  addStructures(list: { id: string; poly: [number, number][]; bottom: number; top: number }[]): void {
+    for (const st of list) {
+      let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+      for (const [x, z] of st.poly) { minX = Math.min(minX, x); maxX = Math.max(maxX, x); minZ = Math.min(minZ, z); maxZ = Math.max(maxZ, z); }
+      this.addToGrid(this.polyGrid, minX, maxX, minZ, maxZ, { id: st.id, poly: st.poly, minX, maxX, minZ, maxZ, top: st.top, bottom: st.bottom, chunk: '__static' });
+    }
+  }
+
   chunkIdAt(x: number, z: number): string { return `c_${Math.floor(x / this.chunkSize)}_${Math.floor(z / this.chunkSize)}`; }
   /** collision-critical content for the area is registered (U09/F22) */
   isLoaded(x: number, z: number): boolean {
@@ -151,7 +160,7 @@ export class WorldPhysics {
    */
   contacts(x: number, z: number, y: number, h: number, r: number, out: Contact[] = []): Contact[] {
     for (const o of this.near(this.polyGrid, x, z)) {
-      if (y >= o.top) continue;
+      if (y >= o.top || (o.bottom !== undefined && y + h <= o.bottom)) continue;
       if (x < o.minX - r || x > o.maxX + r || z < o.minZ - r || z > o.maxZ + r) continue;
       const inside = pointInPoly(x, z, o.poly);
       let best = Infinity, bx = 0, bz = 0;

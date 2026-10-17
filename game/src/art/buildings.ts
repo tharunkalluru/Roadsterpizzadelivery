@@ -196,14 +196,22 @@ function addBuilding(
       const nrm: [number, number, number] = [nx, 0, nz];
       // is this wall facing a road?
       let facing = false;
+      let apron = !rg.hole;
       if (!rg.hole && roads.length) {
         const mx = (p[0] + q[0]) / 2 + nx * 1.5, mz = (p[1] + q[1]) / 2 + nz * 1.5;
         const hit = nearestRoadPoint(mx, mz, roads, 22);
         if (hit) {
+          if (hit.d < 6) apron = false;
           const vx = hit.px - mx, vz = hit.pz - mz;
           const vl = Math.hypot(vx, vz) || 1;
           facing = (vx * nx + vz * nz) / vl > 0.35;
         }
+      }
+      if (apron && len > 1.5 && absArea > 16) {
+        const ap = 1.5;
+        const grey = 0.62 + r() * 0.12;
+        B.roofB.quad([p[0], 0.03, p[1], q[0], 0.03, q[1], q[0] + nx * ap, 0.03, q[1] + nz * ap, p[0] + nx * ap, 0.03, p[1] + nz * ap], [p[0] / 5, p[1] / 5, q[0] / 5, q[1] / 5, q[0] / 5, q[1] / 5 + 0.3, p[0] / 5, p[1] / 5 + 0.3], [0, 1, 0], [grey, grey * 0.97, grey * 0.9]);
+        tris += 2;
       }
       const shopWall = facing && !plainKind && len >= 3 && r() < shopChance * 1.6 + 0.0 && absArea > 25;
       if (facing && len > (bestFront?.len ?? 0)) bestFront = { len, ax: p[0], az: p[1], bx: q[0], bz: q[1], nx, nz };

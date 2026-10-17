@@ -12,6 +12,7 @@ import { VEHICLE } from '../config/gameplay';
 export class Autopilot {
   private stuckTicks = 0;
   private lostTicks = 0;
+  private kturn: { target: number; phase: 'fwd' | 'stop1' | 'rev' | 'stop2'; ticks: number } | null = null;
   constructor(public s: Session, public opts: { useFlight?: boolean; cruiseBoost?: boolean } = {}) {}
 
   private laneOffset(roadId: string): number {
@@ -40,6 +41,42 @@ export class Autopilot {
       return { ...NO_INPUT, brake: true };
     }
     this.lostTicks = 0;
+    // dead-end turnaround (U-turn onto the same road): a multi-point turn using reverse
+    const cur = s.world.nav.edges.get(s.route[s.routeIdx])!;
+    const nxtId = s.route[s.routeIdx + 1];
+    const nxt = nxtId ? s.world.nav.edges.get(nxtId) : undefined;
+    if (this.kturn || (nxt && nxt.roadId === cur.roadId && cur.lengthM - s.routeAlong < 10)) {
+      const want = this.kturn?.target ?? s.world.nav.pointOnDirected(nxtId!, 1).heading;
+      if (!this.kturn) this.kturn = { target: want, phase: 'fwd', ticks: 0 };
+      const err = wrapAngle(want - p.heading);
+      if (Math.abs(err) < 0.3) { this.kturn = null; }
+      else {
+        const k = this.kturn;
+        k.ticks++;
+        const turnLeft = err > 0; // heading increases to the left
+        const lat = p.surface ? p.surface.lateral : 0, hw = p.surface ? p.surface.halfWidth : 3;
+        const [hfx, hfz] = forwardOf(p.heading);
+        const [rfx, rfz] = forwardOf(p.surface ? p.surface.heading : p.heading);
+        // which side are we heading toward (in road lateral terms)?
+        const lateralRate = hfx * -rfz + hfz * rfx;
+        const nearEdgeFwd = Math.sign(lateralRate) * lat > hw - 1.6;
+        if (k.phase === 'fwd') {
+          if ((nearEdgeFwd && k.ticks > 20) || k.ticks > 150) { k.phase = 'stop1'; k.ticks = 0; }
+          return { ...NO_INPUT, steer: turnLeft ? -1 : 1, brake: p.speed > 2.5 };
+        }
+        if (k.phase === 'stop1') {
+          if (Math.abs(p.speed) < 0.2) { k.phase = 'rev'; k.ticks = 0; }
+          return { ...NO_INPUT, brake: true, steer: turnLeft ? 1 : -1 };
+        }
+        if (k.phase === 'rev') {
+          const nearEdgeRev = -Math.sign(lateralRate) * lat > hw - 1.6;
+          if ((nearEdgeRev && k.ticks > 30) || k.ticks > 140) { k.phase = 'stop2'; k.ticks = 0; }
+          return { ...NO_INPUT, reverse: true, steer: turnLeft ? 1 : -1 };
+        }
+        if (Math.abs(p.speed) < 0.2) { k.phase = 'fwd'; k.ticks = 0; }
+        return { ...NO_INPUT, brake: true, steer: turnLeft ? -1 : 1 };
+      }
+    }
     const v = Math.max(0, p.speed);
     const remaining = s.routeRemainingM();
     const c = s.stagingPose(stop);
@@ -60,13 +97,13 @@ export class Autopilot {
     if (maxTurn > 1.3) vt = 4.5; else if (maxTurn > 0.8) vt = 6.5; else if (maxTurn > 0.4) vt = 9;
     // traffic ahead in our lane
     const [fx, fz] = forwardOf(p.heading);
-    for (const a of s.traffic.actors) {
+    for (const a of p.isAirborne ? [] : s.traffic.actors) {
       const dx = a.x - p.x, dz = a.z - p.z;
       const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
       const sameDir = Math.abs(wrapAngle(a.heading - p.heading)) < 1.0;
       if (ahead > 0 && side < 2.2 && (sameDir ? ahead < v * 1.6 + 9 : ahead < 6)) vt = Math.min(vt, sameDir ? Math.max(0, a.speed - 0.5) : 0);
     }
-    for (const q of s.traffic.peds) {
+    for (const q of p.isAirborne ? [] : s.traffic.peds) {
       const dx = q.x - p.x, dz = q.z - p.z;
       const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
       if (ahead > 0 && ahead < v * 1.4 + 6 && side < 2.0) vt = 0;

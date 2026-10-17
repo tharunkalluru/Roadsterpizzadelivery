@@ -381,7 +381,7 @@ export function getNoiseTexture(kind: 'ground' | 'roof' | 'plaster', q: Quality)
   const key = `noise${kind}${q}`;
   const hit = atlasCache.get(key);
   if (hit) return hit;
-  const size = q === 'low' ? 128 : 256;
+  const size = kind === 'ground' ? (q === 'low' ? 256 : 512) : q === 'low' ? 128 : 256;
   const [c, ctx] = canvas(size, size);
   const r = rng(kind === 'ground' ? 7 : kind === 'roof' ? 19 : 31);
   const base = kind === 'ground' ? [184, 178, 166] : kind === 'roof' ? [168, 166, 160] : [236, 234, 226];
@@ -404,6 +404,32 @@ export function getNoiseTexture(kind: 'ground' | 'roof' | 'plaster', q: Quality)
     const v = r() > 0.5 ? 255 : 0;
     ctx.fillStyle = `rgba(${v},${v},${v},${0.04 + r() * 0.07})`;
     ctx.fillRect(r() * size, r() * size, 1, 1);
+  }
+  if (kind === 'ground') {
+    // urban dust: pale concrete slab patches with hairline cracks, dark oil/damp stains, pebbles
+    const wrap = (fn: (ox: number, oy: number) => void): void => { for (const ox of [-size, 0, size]) for (const oy of [-size, 0, size]) fn(ox, oy); };
+    for (let i = 0; i < 16; i++) {
+      const x = r() * size, y = r() * size, w = size * (0.12 + r() * 0.2), h = size * (0.1 + r() * 0.16);
+      const lum = r() > 0.5 ? 255 : 120;
+      wrap((ox, oy) => {
+        ctx.fillStyle = `rgba(${lum},${lum},${lum - 8},${0.07 + r() * 0.06})`;
+        ctx.fillRect(x + ox, y + oy, w, h);
+        ctx.strokeStyle = 'rgba(60,55,48,0.09)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x + ox, y + oy, w, h);
+      });
+    }
+    for (let i = 0; i < 26; i++) {
+      const x = r() * size, y = r() * size, rx = size * (0.03 + r() * 0.07), ry = rx * (0.5 + r() * 0.8);
+      wrap((ox, oy) => {
+        ctx.fillStyle = `rgba(52,46,38,${0.03 + r() * 0.04})`;
+        ctx.beginPath(); ctx.ellipse(x + ox, y + oy, rx, ry, r() * 3, 0, Math.PI * 2); ctx.fill();
+      });
+    }
+    for (let i = 0; i < size * 2; i++) {
+      { const v = r() > 0.5 ? 232 : 72; ctx.fillStyle = `rgba(${v},${v - 4},${v - 10},${0.16 + r() * 0.16})`; }
+      ctx.fillRect(r() * size, r() * size, 1 + r(), 1 + r());
+    }
   }
   if (kind === 'roof') {
     ctx.strokeStyle = 'rgba(0,0,0,0.12)';

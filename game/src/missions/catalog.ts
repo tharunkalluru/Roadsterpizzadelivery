@@ -60,7 +60,7 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
   const missions: MissionDef[] = [];
   const mk = (id: string, templates: MissionTemplate[], title: string, brief: string, p: Pair, over: Partial<MissionDef> = {}): MissionDef => {
     const stops = over.stops ?? [p.b.id];
-    const margin = over.practice ? 1.9 : templates.includes('MT01') ? 1.7 : 1.4;
+    const margin = over.practice ? 1.9 : templates.includes('MT01') ? 1.8 : 1.6;
     return {
       id, version: 1, templates, title, brief, pickupId: p.a.id, stops, flightSeconds: 25,
       deadlineSeconds: over.deadlineSeconds ?? deadlineFor(p.r.lengthM, p.r.turns, stops.length, margin),
@@ -97,7 +97,7 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
     const alt = alternativeRoute(world, p);
     if (alt && alt.lengthM <= p.r.lengthM * 1.4) { mt07 = p; altLen = alt.lengthM; used.add(key(p)); break; }
   }
-  if (mt07) missions.push(mk('mt07_route_choice', ['MT07'], 'Route choice', `Main road or the side-road loop (${Math.round(altLen)} m vs ${Math.round(mt07.r.lengthM)} m)? Both are real connections.`, mt07, { traffic: 'busy', deadlineSeconds: deadlineFor(Math.max(altLen, mt07.r.lengthM), mt07.r.turns + 2, 1, 1.4) }));
+  if (mt07) missions.push(mk('mt07_route_choice', ['MT07'], 'Route choice', `Main road or the side-road loop (${Math.round(altLen)} m vs ${Math.round(mt07.r.lengthM)} m)? Both are real connections.`, mt07, { traffic: 'busy', deadlineSeconds: deadlineFor(Math.max(altLen, mt07.r.lengthM), mt07.r.turns + 2, 1, 1.6) }));
 
   const mt05 = pick((p) => p.r.lengthM >= 400 && p.r.lengthM <= 2000 && !!p.b.poiId, (p) => Math.abs(p.r.lengthM - 1000));
   if (mt05) missions.push(mk('mt05_busy_frontage', ['MT05'], 'Busy frontage', `Busy traffic outside ${mt05.b.label}. Find the entrance and stop cleanly.`, mt05, { traffic: 'busy' }));
@@ -120,7 +120,7 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
   }
   if (bestWin) {
     const [a, b, c, d] = bestWin.ids; const turns = bestWin.legs.reduce((x, l) => x + l.turns, 0);
-    missions.push(mk('mt09_multi_stop', ['MT09'], 'Multiple stops', `Three drops in order: ${b.label}, ${c.label}, ${d.label}. One 25 s flight allowance covers all stops — nothing refills.`, { a, b, r: bestWin.legs[0] }, { stops: [b.id, c.id, d.id], deadlineSeconds: deadlineFor(bestWin.len, turns, 3, 1.45), routeLengthM: Math.round(bestWin.len), deadlineBasis: `route ${Math.round(bestWin.len)} m over 3 stops, ${turns} turns; formula ×1.45; verified by reference agent` }));
+    missions.push(mk('mt09_multi_stop', ['MT09'], 'Multiple stops', `Three drops in order: ${b.label}, ${c.label}, ${d.label}. One 25 s flight allowance covers all stops — nothing refills.`, { a, b, r: bestWin.legs[0] }, { stops: [b.id, c.id, d.id], deadlineSeconds: deadlineFor(bestWin.len, turns, 3, 1.6), routeLengthM: Math.round(bestWin.len), deadlineBasis: `route ${Math.round(bestWin.len)} m over 3 stops, ${turns} turns; formula ×1.6; verified by reference agent` }));
   }
 
   // MT10: full corridor, both ends of the corridor axis

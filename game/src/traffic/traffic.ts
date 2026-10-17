@@ -25,7 +25,10 @@ export interface Actor {
   laneLateral: number;
   vmax: number;
   length: number; width: number; height: number;
-  state: 'drive' | 'yield' | 'curb' | 'merge';
+  state: 'drive' | 'yield' | 'curb' | 'merge' | 'queue';
+  /** scenario-overlay queue release tick (actor holds position until then) */
+  holdUntil?: number;
+  encounterId?: string;
   stateTicks: number;
   waitTicks: number;
   stalledTicks?: number;
@@ -189,7 +192,7 @@ export class TrafficSystem implements DynamicWorld {
       }
       // junction yield: approaching a junction node with a conflicting actor already inside it
       const distToEnd = e.lengthM - a.along;
-      a.state = a.state === 'curb' ? 'curb' : 'drive';
+      a.state = a.state === 'curb' || a.state === 'queue' ? a.state : 'drive';
       if (distToEnd < 12 && this.world.core.junctions.length) {
         const conflict = this.actors.some((b) => b !== a && b.id < a.id && b.edge !== a.edge && nav.edges.get(b.edge)!.toNode === e.toNode && nav.edges.get(b.edge)!.lengthM - b.along < 8 && b.speed > 0.5);
         if (conflict && a.waitTicks < 4 * SIM_HZ) { a.state = 'yield'; gap = Math.min(gap, Math.max(0, distToEnd - 6)); leaderSpeed = 0; a.waitTicks++; }
@@ -199,6 +202,10 @@ export class TrafficSystem implements DynamicWorld {
       // autos: occasional curb stop with readable intent (drift to kerb, brake lights)
       if (a.kind === 'auto' && a.state === 'drive' && this.rng.next() < 0.0008) { a.state = 'curb'; a.stateTicks = 0; }
       let targetV = a.vmax;
+      if (a.state === 'queue') {
+        if (this.tickCount >= (a.holdUntil ?? 0)) { a.state = 'drive'; a.encounterId = undefined; }
+        else { targetV = 0; gap = Math.min(gap, 0.5); leaderSpeed = 0; }
+      }
       let targetLat = a.laneLateral;
       if (a.state === 'curb') {
         a.stateTicks++;
@@ -235,7 +242,7 @@ export class TrafficSystem implements DynamicWorld {
     // pathological deadlock recovery (M10): an actor stalled > 10 s is recycled (it "turns off" out of the scene);
     // stalls caused by an intentional curb stop are excluded. Logged for diagnostics.
     for (const a of this.actors) {
-      a.stalledTicks = a.speed < 0.2 && a.state !== 'curb' ? (a.stalledTicks ?? 0) + 1 : 0;
+      a.stalledTicks = a.speed < 0.2 && a.state !== 'curb' && a.state !== 'queue' ? (a.stalledTicks ?? 0) + 1 : 0;
       if (a.stalledTicks > 10 * SIM_HZ) { (a as any).exited = true; this.log.push(`deadlock-recycle ${a.id} ${a.kind} ${a.edge}`); if (this.log.length > 100) this.log.shift(); }
     }
     this.actors = this.actors.filter((a) => !(a as any).exited);
@@ -302,6 +309,29 @@ export class TrafficSystem implements DynamicWorld {
       }
     }
     return occ;
+  }
+
+  /**
+   * Scenario overlay (MASTER §14, S04): a temporary queue of stopped vehicles on a directed edge,
+   * released after `holdTicks`. Placed out of the near view and away from reserved stop/landing areas
+   * by the caller. Returns the number of actors placed.
+   */
+  spawnQueue(edge: string, along: number, count: number, holdTicks: number, encounterId: string): number {
+    const e = this.world.nav.edges.get(edge);
+    if (!e) return 0;
+    let placed = 0, at = along;
+    for (let i = 0; i < count && at > 4; i++) {
+      const kind: ActorKind = this.rng.pick(['car', 'car', 'auto', 'bike', 'bus'] as const);
+      const d = this.dims(kind);
+      const lane = this.laneFor(edge, kind);
+      const p = this.pose(edge, at, lane);
+      if (this.reserved.some((q) => Math.hypot(q.x - p.x, q.z - p.z) < q.r + 6)) break;
+      if (this.actors.some((b) => Math.hypot(b.x - p.x, b.z - p.z) < (b.length + d.length) / 2 + 1)) { at -= d.length + 2; continue; }
+      this.actors.push({ id: this.nextId++, kind, edge, along: at, speed: 0, lateral: lane, laneLateral: lane, vmax: d.vmax * 0.9, length: d.length, width: d.width, height: d.height, state: 'queue', stateTicks: 0, waitTicks: 0, braking: true, holdUntil: this.tickCount + holdTicks + i * 20, encounterId, ...p, px: p.x, pz: p.z, py: p.y, pheading: p.heading });
+      placed++;
+      at -= d.length + 1.8;
+    }
+    return placed;
   }
 
   snapshot() {

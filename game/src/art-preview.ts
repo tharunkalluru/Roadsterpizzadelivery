@@ -7,7 +7,7 @@
  */
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { art, texturesReady } from './art';
+import { art, texturesReady, stationObstacles } from './art';
 import type { Quality } from './art/api';
 import type { RoadEdge, WorldChunk, WorldCore, Building, GraphNode, MetroStation } from './world/schema';
 
@@ -273,8 +273,9 @@ async function tryReal(): Promise<boolean> {
         }
       }
     }
+    const obs = stationObstacles(real);
     realState.loaded = true;
-    realState.stats = { chunks, buildings, buildingTris: tris, roadsMs: Math.round(tr1 - tr0), metroMs: Math.round(tr2 - tr1), chunkAvgMs: Math.round((chunkMs / Math.max(1, chunks)) * 10) / 10, totalMs: Math.round(performance.now() - t0), roadTris: roads.children.reduce((a2, g2) => a2 + g2.children.reduce((a3, m3) => a3 + (((m3 as THREE.Mesh).geometry?.index?.count ?? 0) / 3), 0), 0) };
+    realState.stats = { chunks, buildings, buildingTris: tris, obstacles: obs.length, stairObstacles: obs.filter((o) => o.id.includes(':stairs:')).length, roadsMs: Math.round(tr1 - tr0), metroMs: Math.round(tr2 - tr1), chunkAvgMs: Math.round((chunkMs / Math.max(1, chunks)) * 10) / 10, totalMs: Math.round(performance.now() - t0), roadTris: roads.children.reduce((a2, g2) => a2 + g2.children.reduce((a3, m3) => a3 + (((m3 as THREE.Mesh).geometry?.index?.count ?? 0) / 3), 0), 0) };
     console.log('[real]', JSON.stringify(realState.stats), best);
     return true;
   } catch (e) { console.warn('real load failed', e); return false; }

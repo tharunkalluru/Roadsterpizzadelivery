@@ -1,4 +1,4 @@
-import { CONTACT, FLIGHT, MISSION, SIM_HZ } from '../config/gameplay';
+import { CONTACT, FLIGHT, MISSION, SIM_HZ, TRAFFIC } from '../config/gameplay';
 import { RngStreams } from '../core/rng';
 import { FlightLedger } from '../player/flightLedger';
 import { Player, type PlayerEvent, type TickInput, type PlayerSnapshot } from '../player/player';
@@ -70,6 +70,9 @@ export class Session {
   lastDenial: string | null = null;
   private lastEdge: string | null = null;
   eventLog: { tick: number; e: string }[] = [];
+  /** active scenario encounters (bounded: at most TRAFFIC.maxConflictEvents) */
+  encounters: { id: string; kind: 'queue'; edge: string; untilTick: number; why: string }[] = [];
+  private nextEncounterTick = 20 * SIM_HZ;
 
   constructor(public world: WorldPhysics, public mission: MissionDef, opts: { runId?: string; seed?: number; trafficEnabled?: boolean } = {}) {
     this.runId = opts.runId ?? `run_${mission.id}_${Date.now().toString(36)}_${Math.floor(Math.random() * 1e6).toString(36)}`;
@@ -180,6 +183,7 @@ export class Session {
     if (p.isAirborne && p.forecast.state !== 'hidden') this.traffic.reserved.push({ x: p.forecast.x, z: p.forecast.z, r: 10 });
     this.traffic.step({ x: p.x, z: p.z, y: p.y, speed: p.speed, heading: p.heading, airborne: p.isAirborne });
     if (this.tick % 30 === 0) this.traffic.spawnAround(p.x, p.z, p.heading);
+    this.scheduleEncounters();
 
     // consequences of player events
     let criticalThisTick = false;
@@ -187,7 +191,8 @@ export class Session {
 
     // guidance + anchors
     this.updateGuidance();
-    if (p.move === 'GROUNDED' && p.surface?.onCarriageway && p.speed > 1 && !this.wrongWay && this.tick % MISSION.anchorIntervalTicks === 0) {
+    if (p.move === 'GROUNDED' && p.surface?.onCarriageway && p.speed > 1 && !this.wrongWay && this.tick % MISSION.anchorIntervalTicks === 0
+      && this.world.nav.inCore(this.world.nav.directedFor(p.surface, p.heading).id)) {
       this.anchors.push({ x: p.x, z: p.z, heading: p.heading, roadId: p.roadId, tick: this.tick });
       if (this.anchors.length > 30) this.anchors.shift();
     }
@@ -195,7 +200,8 @@ export class Session {
     const s = p.surface;
     const onBoundary = !!s && !p.isAirborne && !this.world.nav.inCore(this.world.nav.directedFor(s, p.heading).id);
     if (onBoundary) this.boundaryDist += Math.hypot(p.x - px, p.z - pz); else if (s) this.boundaryDist = 0;
-    const off = s ? Math.max(0, s.dist - s.halfWidth) : Infinity;
+    const wide = s ?? this.world.roads.surface(p.x, p.z, { margin: 60 });
+    const off = wide ? Math.max(0, wide.dist - wide.halfWidth) : Infinity;
     if (!criticalThisTick && off > MISSION.outOfAreaRecoverM && !p.isAirborne) {
       this.requestRecovery('Outside delivery area', 0);
       criticalThisTick = true;
@@ -243,6 +249,35 @@ export class Session {
       this.reroute();
     }
     if (this.chargedTicks > this.deadlineTicks) { this.end({ success: false, reason: 'Time ran out before delivery.', code: 'deadline' }); return; }
+  }
+
+  /**
+   * Bounded encounter scheduler (MASTER §14, S04/M07): seeded from the traffic stream; places a
+   * temporary queue on a main-road edge of the route 160–260 m ahead (outside stopping distance and
+   * the near view). Every queue releases on a timer, so waiting/braking always remains a feasible
+   * response; flight is optional and never assumed. Logged with its reason.
+   */
+  private scheduleEncounters() {
+    this.encounters = this.encounters.filter((e) => e.untilTick > this.tick);
+    if (this.mission.traffic === 'light' || this.mission.practice) return;
+    if (this.tick < this.nextEncounterTick || this.encounters.length >= TRAFFIC.maxConflictEvents || !this.route.length) return;
+    const r = this.rng.traffic;
+    this.nextEncounterTick = this.tick + Math.round(r.range(25, 45) * SIM_HZ);
+    const p = this.player;
+    const ahead = this.world.nav.advance(this.route[this.routeIdx], this.routeAlong, r.range(160, 260), this.route);
+    const e = this.world.nav.edges.get(ahead.id)!;
+    const road = this.world.roads.roads.get(e.roadId)!;
+    if (!/^(trunk|primary|secondary|tertiary)/.test(road.highway) || ahead.along < 25) return;
+    const stop = this.currentStop;
+    if (stop && Math.hypot(stop.entrance[0] - ahead.x, stop.entrance[1] - ahead.z) < 60) return;
+    const hold = Math.round(r.range(14, 24) * SIM_HZ);
+    const id = `enc_${this.tick}`;
+    const n = this.traffic.spawnQueue(ahead.id, ahead.along, r.int(3, 6), hold, id);
+    if (n > 0) {
+      const why = `queue x${n} on ${road.name ?? road.highway} ${Math.round(Math.hypot(ahead.x - p.x, ahead.z - p.z))} m ahead; releases in ${(hold / SIM_HZ).toFixed(0)} s; responses: wait, side route, or optional flight (${p.ledger.remainingSeconds.toFixed(1)} s left)`;
+      this.encounters.push({ id, kind: 'queue', edge: ahead.id, untilTick: this.tick + hold + 120, why });
+      this.log(`encounter ${id}: ${why}`);
+    }
   }
 
   private handleEvent(e: PlayerEvent, critical: () => void) {
@@ -325,7 +360,19 @@ export class Session {
   private updateGuidance() {
     const p = this.player;
     const s = p.surface;
-    if (!s || p.isAirborne) return;
+    if (!s) return;
+    if (p.isAirborne) {
+      // keep route progress while flying over route edges (no rerouting until touchdown)
+      const da = this.world.nav.directedFor(s, p.heading);
+      const ia = this.route.indexOf(da.id, this.routeIdx);
+      if (ia >= 0 && ia <= this.routeIdx + 3) { this.routeIdx = ia; this.routeAlong = da.along; }
+      if (this.route.length) {
+        const m = nextManeuver(this.world.nav, this.route, this.routeIdx, this.routeAlong);
+        const rem = this.routeRemainingM();
+        this.maneuver = m.kind === 'arrive' || m.distanceM > rem ? { kind: 'arrive', distanceM: rem, roadName: null } : m;
+      }
+      return;
+    }
     let d = this.world.nav.directedFor(s, p.heading);
     // route-aware matching with hysteresis: at junctions prefer the current/next route edge when we are on it
     if (this.route.length && !this.route.slice(this.routeIdx, this.routeIdx + 2).includes(d.id)) {

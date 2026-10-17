@@ -272,56 +272,84 @@ function buildAuto(q: Quality): TrafficTemplate {
   const seg = q === 'low' ? 10 : 14;
   const black = hex(0x16181a);
   const green = hex(0x1f6b3a);
-  const seat = hex(0x23262a);
-  // passenger tub (yellow lower body), rounded
-  rbox(P.paint, 1.3, 0.56, 1.62, 0.1, 0, 0.62, 0.72);
-  // front cowl: narrow nose widening to the cabin
-  const cowl = loft([
-    { z: -1.42, halfW: 0.0001, yBot: 0.52, yTop: 0.62, n: 3, cx: 0 },
-    { z: -1.36, halfW: 0.2, yBot: 0.5, yTop: 0.74, n: 3 },
-    { z: -1.1, halfW: 0.33, yBot: 0.46, yTop: 0.9, n: 3.2 },
-    { z: -0.7, halfW: 0.5, yBot: 0.42, yTop: 1.02, n: 3.2 },
-    { z: -0.25, halfW: 0.63, yBot: 0.4, yTop: 1.04, n: 3.2 },
-    { z: 0.0, halfW: 0.64, yBot: 0.4, yTop: 1.0, n: 3.2 },
-  ], q === 'low' ? 10 : 14, [1, 1, 1]);
-  P.paint.appendGeometry(cowl);
-  cowl.dispose();
-  // dark floor, seats, driver controls
-  bx(P.detail, 1.1, 0.05, 2.5, 0, 0.36, 0.15, BLACK);
-  bx(P.detail, 1.12, 0.16, 0.52, 0, 0.98, 0.9, seat);
-  bx(P.detail, 1.12, 0.52, 0.12, 0, 1.28, 1.2, seat);
-  bx(P.detail, 0.5, 0.14, 0.42, 0, 1.02, 0.0, seat);
-  // roof posts + canopy
-  const roofY = 1.78;
-  for (const s of [-1, 1]) {
-    bx(P.detail, 0.045, roofY - 1.0, 0.045, s * 0.6, (roofY + 1.0) / 2, -0.28, black, 0, 0.12);
-    bx(P.detail, 0.045, roofY - 1.0, 0.045, s * 0.62, (roofY + 1.0) / 2, 1.34, black);
-    bx(P.detail, 0.045, roofY - 1.0, 0.045, s * 0.62, (roofY + 1.0) / 2, 0.55, black);
+  const seat = hex(0x2a2d31);
+  const ring = q === 'low' ? 12 : 16;
+  // ---- yellow lower body: front fairing + passenger tub as one rounded shell (arches for 3 wheels)
+  const archFront = (ex: number, y: number): number => Math.max(y, 0.6) * 0 + Math.max(y, 0.62) + 0 * ex;
+  const stations: { z: number; halfW: number; yBot: number; yTop: number; n: number; tumble: number; lower?: (ex: number, y: number) => number }[] = [];
+  const N = q === 'low' ? 20 : 30;
+  for (let i = 0; i <= N; i++) {
+    const u = i / N;
+    const z = -1.5 + 3.0 * (0.5 - 0.5 * Math.cos(Math.PI * u));
+    // plan: pointed fairing widening to the cabin, rounded tail
+    const noseT = clamp((z + 1.5) / 0.95, 0, 1);
+    const tailT = clamp((1.5 - z) / 0.3, 0, 1);
+    const hw = 0.66 * Math.min(Math.pow(noseT, 0.7), Math.sqrt(Math.max(0, 1 - Math.pow(1 - tailT, 2))));
+    // profile: fairing rises from the nose to the dash, then a lower tub with seat-back height
+    const yTop = curve([[-1.5, 0.5], [-1.3, 0.78], [-0.9, 1.0], [-0.55, 1.06], [-0.3, 0.92], [0.2, 0.86], [1.0, 0.9], [1.4, 0.86], [1.5, 0.7]], z);
+    const frontArch = Math.abs(z + 1.06) < 0.34 ? 0.26 + 0.04 + Math.sqrt(0.34 * 0.34 - Math.pow(z + 1.06, 2)) : -1;
+    const rearArch = Math.abs(z - 0.95) < 0.36 ? 0.26 + 0.04 + Math.sqrt(0.36 * 0.36 - Math.pow(z - 0.95, 2)) : -1;
+    stations.push({
+      z, halfW: Math.max(0.0001, hw), yBot: 0.3, yTop, n: 3.3, tumble: 0.05,
+      lower: frontArch > 0 ? (_ex, y): number => Math.max(y, frontArch) : rearArch > 0 ? (ex, y): number => y + (Math.max(y, rearArch) - y) * smoothstep(0.4, 0.8, Math.abs(ex)) : undefined,
+    });
   }
-  // windscreen: tall, slightly raked
-  slantGlass(P.glass, [-0.52, 1.04], [-0.3, 1.74], (y) => 0.58 - (y - 1.04) * 0.03, 0.02, 1, 0.01);
-  // black canopy roof, arched rear drop
-  bx(P.detail, 1.42, 0.06, 2.0, 0, roofY, 0.52, black, 0, -0.03);
-  bx(P.detail, 1.4, 0.5, 0.06, 0, roofY - 0.25, 1.52, black, 0, -0.12);
-  // bright visor over the windscreen
-  bx(P.paint, 1.3, 0.05, 0.36, 0, roofY + 0.0, -0.46, WHITE, 0, 0.3);
-  // green side band + bumper
-  for (const s of [-1, 1]) bx(P.detail, 0.015, 0.07, 1.55, s * 0.655, 0.78, 0.72, green);
-  // handlebar, headlamp, front fender and wheel
-  bx(P.detail, 0.72, 0.035, 0.035, 0, 1.12, -0.5, BLACK);
-  limb(P.detail, new THREE.Vector3(0, 1.1, -0.5), new THREE.Vector3(0, 0.3, -1.06), 0.022, 0.022, STEEL, 6);
-  sphere(P.lamp, 0.09, 0, 0.72, -1.4, WHITE, 1, 1, 0.55);
-  bx(P.detail, 0.24, 0.035, 0.52, 0, 0.56, -1.06, black, 0, 0.0);
+  void archFront;
+  const shell = loft(stations, ring, [1, 1, 1]);
+  {
+    const p = shell.getAttribute('position'), nr = shell.getAttribute('normal');
+    const c = shell.getAttribute('color') as THREE.BufferAttribute;
+    for (let i = 0; i < p.count; i++) {
+      const d = Math.max(smoothstep(-0.2, -0.65, nr.getY(i)), smoothstep(0.36, 0.3, p.getY(i)) * 0.8);
+      const f = 1 - d * 0.9;
+      c.setXYZ(i, f, f, f);
+    }
+  }
+  P.paint.appendGeometry(shell);
+  shell.dispose();
+  // green lower skirt line along the sides (Hyderabad yellow-green livery)
+  for (const s of [-1, 1]) bx(P.detail, 0.02, 0.1, 1.9, s * 0.655, 0.46, 0.35, green);
+  // ---- enclosed rounded canopy (black), with rolled side windows
+  const canopy = loft(
+    [-0.42, -0.3, 0.0, 0.5, 1.0, 1.35, 1.52].map((z, i, arr) => {
+      const t = i / (arr.length - 1);
+      return {
+        z,
+        halfW: i === 0 ? 0.0001 : 0.665 * Math.min(1, Math.sqrt(Math.max(0, 1 - Math.pow(1 - Math.min(1, (z + 0.42) / 0.3), 2)))) * (i === arr.length - 1 ? 0.45 : 1) + 0.0001,
+        yBot: 1.0,
+        yTop: curve([[-0.42, 1.55], [-0.3, 1.72], [0.2, 1.82], [0.9, 1.8], [1.4, 1.66], [1.52, 1.45]], z),
+        n: 2.5,
+        tumble: 0.18 + t * 0,
+      };
+    }),
+    q === 'low' ? 12 : 18,
+    [1, 1, 1],
+  );
+  P.detail.appendGeometry(canopy, undefined, black);
+  canopy.dispose();
+  // visor + side openings: dark glass reads as window, pillars stay black
+  slantGlass(P.glass, [-0.62, 1.04], [-0.42, 1.62], (y) => 0.56 - (y - 1.04) * 0.02, 0.02, 1, 0.012);
+  for (const s of [-1, 1]) {
+    P.glass.quad([s * 0.672, 1.12, 0.1, s * 0.672, 1.12, 1.0, s * 0.665, 1.5, 0.95, s * 0.665, 1.5, 0.15], [0, 0, 1, 0, 1, 1, 0, 1], [s, 0.05, 0]);
+  }
+  P.glass.quad([-0.32, 1.45, 1.535, 0.32, 1.45, 1.535, 0.3, 1.62, 1.5, -0.3, 1.62, 1.5], [0, 0, 1, 0, 1, 1, 0, 1], [0, 0.3, 1]);
+  // rear bench visible through the openings
+  bx(P.detail, 1.1, 0.14, 0.5, 0, 0.98, 0.78, seat);
+  bx(P.detail, 1.1, 0.5, 0.1, 0, 1.25, 1.1, seat);
+  bx(P.detail, 0.46, 0.12, 0.4, 0, 1.0, -0.12, seat);
+  // ---- front: handlebar, headlamp in the fairing, mudguard and single wheel
+  bx(P.detail, 0.7, 0.035, 0.035, 0, 1.12, -0.56, BLACK);
+  sphere(P.lamp, 0.1, 0, 0.82, -1.36, WHITE, 1, 0.9, 0.6);
+  bx(P.detail, 0.2, 0.03, 0.5, 0, 0.6, -1.06, black, 0, 0.0);
   wheel(P.detail, 0, 0.26, -1.06, 0.26, 0.11, seg);
-  // rear wheels
+  limb(P.detail, new THREE.Vector3(0.05, 0.28, -1.06), new THREE.Vector3(0.05, 0.62, -1.0), 0.02, 0.02, STEEL, 6);
+  // ---- rear wheels, engine cover, tail lamps
   for (const s of [-1, 1]) {
     wheel(P.detail, s * 0.62, 0.26, 0.95, 0.26, 0.12, seg);
-    bx(P.paint, 0.04, 0.03, 0.58, s * 0.66, 0.54, 0.95);
-    bx(P.brake, 0.1, 0.08, 0.04, s * 0.5, 0.76, 1.54);
+    bx(P.brake, 0.12, 0.08, 0.04, s * 0.5, 0.72, 1.5);
   }
-  bx(P.detail, 0.9, 0.28, 0.06, 0, 0.58, 1.54, BLACK);
-  void green;
-  return finish('auto', P, { length: 2.9, width: 1.4, height: 1.8 }, [0xf2c230, 0x2c8a4b, 0xf2c230, 0xe8b323, 0x35a15a], q);
+  bx(P.detail, 0.8, 0.26, 0.06, 0, 0.56, 1.5, BLACK);
+  return finish('auto', P, { length: 3.0, width: 1.4, height: 1.85 }, [0xf2c230, 0x2c8a4b, 0xf2c230, 0xe8b323, 0x35a15a], q);
 }
 
 function buildBus(q: Quality): TrafficTemplate {

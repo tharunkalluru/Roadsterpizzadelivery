@@ -22,6 +22,7 @@ export interface WorldMats {
   roof: THREE.MeshStandardMaterial;
   clutter: THREE.MeshStandardMaterial;
   ground: THREE.MeshStandardMaterial;
+  verge: THREE.MeshStandardMaterial;
 }
 
 const cache = new Map<Quality, WorldMats>();
@@ -115,7 +116,8 @@ export function getWorldMats(q: Quality): WorldMats {
     polygonOffsetUnits: 3,
   });
 
-  const mats: WorldMats = { asphalt, lineWhite, lineYellow, concrete, paving, railSteel, trackBed, track, stationRoof, stationGlass, stationSteel, metroBlue, facade, shop, plain, roof, clutter, ground };
+  const verge = new THREE.MeshStandardMaterial({ name: 'verge', vertexColors: true, transparent: true, depthWrite: false, roughness: 1, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+  const mats: WorldMats = { asphalt, lineWhite, lineYellow, concrete, paving, railSteel, trackBed, track, stationRoof, stationGlass, stationSteel, metroBlue, facade, shop, plain, roof, clutter, ground, verge };
   cache.set(q, mats);
   return mats;
 }

@@ -78,20 +78,21 @@ export function createHeroCar(quality: Quality): HeroCar {
   // ------------------------------------------------------------ body loft
   const ringN = low ? 14 : high ? 30 : 22;
   const stN = low ? 44 : high ? 100 : 72;
-  const topKeys: [number, number][] = [[-2.0, 0.27], [-1.85, 0.33], [-1.5, 0.45], [-1.0, 0.56], [-0.5, 0.68], [0.0, 0.72], [0.7, 0.74], [1.4, 0.75], [1.8, 0.72], [2.0, 0.6]];
-  const archR = 0.43;
+  const topKeys: [number, number][] = [[-2.0, 0.25], [-1.7, 0.42], [-1.3, 0.66], [-0.8, 0.7], [-0.3, 0.75], [0.3, 0.77], [1.0, 0.8], [1.6, 0.82], [1.9, 0.78], [2.0, 0.66]];
+  const archR = 0.37;
+  const hwFn = (z: number): number => {
+    const noseT = clamp((z + 2) / 0.62, 0, 1);
+    return 0.97 * Math.min(Math.pow(noseT, 0.75), ell(2 - z, 0.5));
+  };
   const stations = [];
   for (let i = 0; i <= stN; i++) {
     const u = i / stN;
     const z = -2 + 4 * (0.5 - 0.5 * Math.cos(Math.PI * u));
-    const noseD = z + 2;
-    const tailD = 2 - z;
-    const noseT = clamp(noseD / 0.78, 0, 1);
-    const hw = 0.97 * Math.min(Math.pow(noseT, 0.52), ell(tailD, 0.55)) * (1 + 0.03 * Math.exp(-Math.pow((z - 1.1) / 0.5, 2)));
+    const hw = hwFn(z);
     const bump = (c: number, w: number): number => Math.max(0, 1 - Math.pow((z - c) / w, 2));
-    const crown = 0.27 * bump(-1.3, 0.78) + 0.23 * bump(1.3, 0.85);
+    const crown = 0.17 * bump(-1.3, 0.75) + 0.05 * bump(1.3, 0.8);
     const yTop = curve(topKeys, z);
-    const yBot = 0.19 + 0.02 * ell(noseD, 0.5) * 0; // base ride line
+    const yBot = 0.19; // flat underside
     const dzF = Math.abs(z + AXLE_Z), dzR = Math.abs(z - AXLE_Z);
     const archTop = (dz: number): number => (dz < archR ? WHEEL_R + 0.02 + Math.sqrt(archR * archR - dz * dz) : -1);
     const arch = Math.max(archTop(dzF), archTop(dzR));
@@ -100,11 +101,11 @@ export function createHeroCar(quality: Quality): HeroCar {
       halfW: Math.max(0.0001, hw),
       yBot,
       yTop,
-      n: 3.1,
-      tumble: 0.16,
+      n: 4.0,
+      tumble: 0.2,
       crown,
       lower: arch > 0 ? (ex: number, y: number): number => {
-        const w = smoothstep(0.4, 0.82, Math.abs(ex));
+        const w = smoothstep(0.45, 0.8, Math.abs(ex));
         return y + (Math.max(y, arch) - y) * w;
       } : undefined,
     });
@@ -130,14 +131,14 @@ export function createHeroCar(quality: Quality): HeroCar {
   const bodyMesh = addMesh(bodyGeo, paint, 'body');
 
   // -------------------------------------------------------- glass canopy
-  const roofKeys: [number, number][] = [[-0.7, 0.68], [-0.4, 0.88], [-0.05, 1.02], [0.45, 1.14], [0.95, 1.1], [1.3, 0.94], [1.6, 0.78]];
+  const roofKeys: [number, number][] = [[-0.6, 0.74], [-0.3, 0.92], [0.15, 1.07], [0.65, 1.15], [1.05, 1.08], [1.3, 0.94], [1.45, 0.82]];
   const cabin = [];
   const cN = low ? 20 : 34;
   for (let i = 0; i <= cN; i++) {
     const u = i / cN;
-    const z = -0.7 + 2.3 * (0.5 - 0.5 * Math.cos(Math.PI * u));
-    const hw = 0.7 * Math.min(ell(z + 0.7, 0.75), ell(1.6 - z, 0.62));
-    cabin.push({ z, halfW: Math.max(0.0001, hw), yBot: 0.55, yTop: curve(roofKeys, z), n: 2.3, tumble: 0.22 });
+    const z = -0.62 + 2.07 * (0.5 - 0.5 * Math.cos(Math.PI * u));
+    const hw = 0.69 * Math.min(ell(z + 0.62, 0.6), ell(1.45 - z, 0.5));
+    cabin.push({ z, halfW: Math.max(0.0001, hw), yBot: 0.55, yTop: curve(roofKeys, z), n: 2.4, tumble: 0.26 });
   }
   const canopyGeo = loft(cabin, low ? 14 : 24);
   addMesh(canopyGeo, glass, 'canopy', body, false);
@@ -147,13 +148,15 @@ export function createHeroCar(quality: Quality): HeroCar {
     const tb = trimB;
     const dk = hex(0x101215);
     // windshield header / cowl strip
-    addBox(tb, 1.0, 0.03, 0.1, boxMatrix(0, 0.74, -0.62, 0, -0.5), 1, dk);
+    addBox(tb, 1.0, 0.03, 0.1, boxMatrix(0, 0.75, -0.56, 0, -0.5), 1, dk);
+    // flat side skirts between the arches
+    for (const s of [-1, 1]) addBox(tb, 0.06, 0.1, 1.5, boxMatrix(s * 0.955, 0.25, 0, 0), 1, dk);
     // mirrors
     for (const s of [-1, 1]) {
-      addBox(tb, 0.11, 0.06, 0.09, boxMatrix(s * 0.86, 0.79, -0.6, s * 0.3), 1, dk);
+      addBox(tb, 0.11, 0.06, 0.09, boxMatrix(s * 0.8, 0.8, -0.42, s * 0.3), 1, dk);
     }
     // side intakes
-    for (const s of [-1, 1]) addBox(tb, 0.04, 0.09, 0.5, boxMatrix(s * 0.955, 0.36, -0.7, 0), 1, dk);
+    for (const s of [-1, 1]) addBox(tb, 0.04, 0.09, 0.5, boxMatrix(s * 0.955, 0.36, -0.85, 0), 1, dk);
   }
 
   // ----------------------------------------------------------- interior
@@ -161,52 +164,51 @@ export function createHeroCar(quality: Quality): HeroCar {
     const ib = trimB;
     const seatC = hex(0x1b1d21), tan = hex(0xb8855a), dash = hex(0x141518);
     for (const s of [-1, 1]) {
-      addBox(ib, 0.46, 0.1, 0.5, boxMatrix(s * 0.33, 0.74, 0.5), 1, seatC);
-      addBox(ib, 0.46, 0.36, 0.1, boxMatrix(s * 0.33, 0.9, 0.8, 0, -0.3), 1, seatC);
-      addBox(ib, 0.34, 0.1, 0.02, boxMatrix(s * 0.33, 0.92, 0.745, 0, -0.3), 1, tan);
+      addBox(ib, 0.46, 0.1, 0.5, boxMatrix(s * 0.33, 0.74, 0.42), 1, seatC);
+      addBox(ib, 0.46, 0.36, 0.1, boxMatrix(s * 0.33, 0.9, 0.72, 0, -0.3), 1, seatC);
+      addBox(ib, 0.34, 0.1, 0.02, boxMatrix(s * 0.33, 0.92, 0.665, 0, -0.3), 1, tan);
     }
-    addBox(ib, 1.2, 0.14, 0.3, boxMatrix(0, 0.76, -0.4, 0, 0.2), 1, dash);
+    addBox(ib, 1.2, 0.14, 0.3, boxMatrix(0, 0.78, -0.3, 0, 0.2), 1, dash);
     const wheelGeo = new THREE.TorusGeometry(0.13, 0.018, 6, 16);
-    ib.appendGeometry(wheelGeo, new THREE.Matrix4().compose(new THREE.Vector3(0.33, 0.88, -0.14), new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.9, 0, 0)), new THREE.Vector3(1, 1, 1)), hex(0x0a0a0a));
+    ib.appendGeometry(wheelGeo, new THREE.Matrix4().compose(new THREE.Vector3(0.33, 0.9, -0.06), new THREE.Quaternion().setFromEuler(new THREE.Euler(-0.9, 0, 0)), new THREE.Vector3(1, 1, 1)), hex(0x0a0a0a));
     wheelGeo.dispose();
   }
 
   // ----------------------------------------------- lights (LED bars) & decals
-  // nose ellipse: halfW(z)=0.97*ell(z+2,0.7) => z(x) solves ell(d,0.7)=x/0.97 -> d = 0.7*(1 - sqrt(1-r^2)) with r=x/0.97 ... invert
-  const noseAt = (x: number): number => {
-    const r = clamp(x / 0.97, 0, 0.999);
-    return -2 + 0.78 * Math.pow(r, 1 / 0.52);
+  const solveZ = (x: number, z0: number, z1: number): number => {
+    // hwFn is monotone over the nose/tail ends: bisection for hwFn(z) = x
+    let lo = z0, hi = z1;
+    const inc = hwFn(z1) > hwFn(z0);
+    for (let i = 0; i < 30; i++) {
+      const m = (lo + hi) / 2;
+      if (hwFn(m) < x === inc) lo = m; else hi = m;
+    }
+    return (lo + hi) / 2;
   };
-  const tailAt = (x: number): number => {
-    const r = clamp(x / 0.97, 0, 0.999);
-    return 2 - 0.55 * (1 - Math.sqrt(1 - r * r));
-  };
+  const noseAt = (x: number): number => solveZ(Math.min(x, 0.95), -2, -1.38);
+  const tailAt = (x: number): number => solveZ(Math.min(x, 0.95), 2, 1.5);
   {
     const hb = new GeoBuilder(false);
-    const x0s = [0.16, 0.42, 0.68, 0.9];
-    // head light bar segments hugging the nose, y=0.43
+    const xs = [0.1, 0.34, 0.58, 0.8, 0.93];
+    // crisp LED blade following the wedge nose; height tracks the body surface
     for (const s of [-1, 1]) {
-      for (let i = 0; i < x0s.length - 1; i++) {
-        const xa = x0s[i], xb = x0s[i + 1];
-        const za = noseAt(xa) - 0.012, zb = noseAt(xb) - 0.012;
-        const y0 = 0.425 - 0.012 * i, h = 0.05 - 0.01 * i;
-        hb.quad([s * xa, y0, za, s * xb, y0, zb, s * xb, y0 + h, zb, s * xa, y0 + h, za], [0, 0, 1, 0, 1, 1, 0, 1], [s * (xb - xa) * 0 - s * 0.2, 0, -1]);
+      for (let i = 0; i < xs.length - 1; i++) {
+        const xa = xs[i], xb = xs[i + 1];
+        const za = noseAt(xa) - 0.01, zb = noseAt(xb) - 0.01;
+        const ya = 0.19 + (curve(topKeys, za) - 0.19) * 0.52, yb = 0.19 + (curve(topKeys, zb) - 0.19) * 0.52;
+        const h2 = 0.032;
+        hb.quad([s * xa, ya, za, s * xb, yb, zb, s * xb, yb + h2, zb, s * xa, ya + h2, za], [0, 0, 1, 0, 1, 1, 0, 1], [-s * 0.3, 0, -1]);
       }
-    }
-    // DRL under-line
-    for (const s of [-1, 1]) {
-      const xa = 0.3, xb = 0.82;
-      hb.quad([s * xa, 0.375, noseAt(xa) - 0.01, s * xb, 0.362, noseAt(xb) - 0.01, s * xb, 0.37, noseAt(xb) - 0.01, s * xa, 0.383, noseAt(xa) - 0.01], [0, 0, 1, 0, 1, 1, 0, 1], [0, 0, -1]);
     }
     addMesh(hb.build(), headMat, 'headlights', body, false);
 
     const tb = new GeoBuilder(false);
     // continuous tail LED bar across the rear
-    const xs = [-0.86, -0.6, -0.3, 0, 0.3, 0.6, 0.86];
-    for (let i = 0; i < xs.length - 1; i++) {
-      const xa = xs[i], xb = xs[i + 1];
+    const txs = [-0.86, -0.6, -0.3, 0, 0.3, 0.6, 0.86];
+    for (let i = 0; i < txs.length - 1; i++) {
+      const xa = txs[i], xb = txs[i + 1];
       const za = tailAt(Math.abs(xa)) + 0.012, zb = tailAt(Math.abs(xb)) + 0.012;
-      tb.quad([xa, 0.62, za, xb, 0.62, zb, xb, 0.67, zb, xa, 0.67, za], [0, 0, 1, 0, 1, 1, 0, 1], [0, 0, 1]);
+      tb.quad([xa, 0.52, za, xb, 0.52, zb, xb, 0.565, zb, xa, 0.565, za], [0, 0, 1, 0, 1, 1, 0, 1], [0, 0, 1]);
     }
     const brake = addMesh(tb.build(), tailMat, 'brake', body, false);
     brake.name = 'brake';
@@ -220,15 +222,15 @@ export function createHeroCar(quality: Quality): HeroCar {
 
   // delivery pod on the rear deck + branding decals (original "Metro Express")
   {
-    const podY = curve(topKeys, 1.62) + 0.015;
-    addBox(trimB, 0.96, 0.05, 0.56, boxMatrix(0, podY + 0.02, 1.62, 0, -0.05), 1, hex(0x22262c));
+    const podY = curve(topKeys, 1.74) - 0.02;
+    addBox(trimB, 0.8, 0.035, 0.38, boxMatrix(0, podY + 0.02, 1.74, 0, -0.04), 1, hex(0x22262c));
     // all decals share one single-line texture and one merged mesh
     const decalTex = own(latinLabelTexture(['METRO EXPRESS'], '#ffffff', null, 512, 64, '800 42px "Helvetica Neue", Arial, sans-serif'));
     const decalMat = own(new THREE.MeshBasicMaterial({ map: decalTex, transparent: true, toneMapped: false, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 }));
     const db = new GeoBuilder(false);
-    const podTop = podY + 0.048;
+    const podTop = podY + 0.04;
     // pod lid decal (reads from behind and above)
-    db.quad([-0.4, podTop, 1.62 - 0.05, 0.4, podTop, 1.62 - 0.05, 0.4, podTop - 0.0, 1.62 + 0.05, -0.4, podTop, 1.62 + 0.05].map((v, i) => (i % 3 === 1 ? v + (i < 6 ? 0.004 : 0.0) : v)), [0, 1, 1, 1, 1, 0, 0, 0], [0, 1, 0]);
+    db.quad([-0.36, podTop, 1.74 - 0.045, 0.36, podTop, 1.74 - 0.045, 0.36, podTop, 1.74 + 0.045, -0.36, podTop, 1.74 + 0.045].map((v, i) => (i % 3 === 1 ? v + (i < 6 ? 0.004 : 0.0) : v)), [0, 1, 1, 1, 1, 0, 0, 0], [0, 1, 0]);
     for (const s of [-1, 1]) {
       const x = s * 0.972;
       db.quad([x, 0.36, 0.2 + s * 0.39, x, 0.36, 0.2 - s * 0.39, x, 0.46, 0.2 - s * 0.39, x, 0.46, 0.2 + s * 0.39], [0, 0, 1, 0, 1, 1, 0, 1], [s, 0, 0]);

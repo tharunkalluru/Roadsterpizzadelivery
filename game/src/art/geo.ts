@@ -14,7 +14,7 @@ export class GeoBuilder {
   uv: number[] = [];
   col: number[] = [];
   idx: number[] = [];
-  constructor(public useColor = false) {}
+  constructor(public useColor = false, public colorSize: 3 | 4 = 3) {}
 
   get vcount(): number {
     return this.pos.length / 3;
@@ -26,7 +26,8 @@ export class GeoBuilder {
     this.nor.push(nx, ny, nz);
     this.uv.push(u, v);
     if (this.useColor) {
-      if (c) this.col.push(c[0], c[1], c[2]);
+      if (this.colorSize === 4) this.col.push(c ? c[0] : 1, c ? c[1] : 1, c ? c[2] : 1, c && c.length > 3 ? c[3] : 1);
+      else if (c) this.col.push(c[0], c[1], c[2]);
       else this.col.push(1, 1, 1);
     }
     return i;
@@ -86,7 +87,7 @@ export class GeoBuilder {
     g.setAttribute('position', new THREE.Float32BufferAttribute(this.pos, 3));
     g.setAttribute('normal', new THREE.Float32BufferAttribute(this.nor, 3));
     g.setAttribute('uv', new THREE.Float32BufferAttribute(this.uv, 2));
-    if (this.useColor) g.setAttribute('color', new THREE.Float32BufferAttribute(this.col, 3));
+    if (this.useColor) g.setAttribute('color', new THREE.Float32BufferAttribute(this.col, this.colorSize));
     g.setIndex(this.vcount > 65535 ? new THREE.Uint32BufferAttribute(this.idx, 1) : new THREE.Uint16BufferAttribute(this.idx, 1));
     g.computeBoundingSphere();
     g.computeBoundingBox();

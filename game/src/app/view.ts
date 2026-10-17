@@ -38,6 +38,8 @@ export class GameView {
 
   async buildStatic(core: WorldCore, quality: Quality, onProgress: (s: string) => void): Promise<void> {
     this.quality = quality;
+    this.camera.far = quality === 'low' ? 650 : quality === 'high' ? 1700 : 1100; // fog far + margin (art notes)
+    this.camera.updateProjectionMatrix();
     onProgress('Preparing the road');
     this.env = this.art.buildEnvironment(this.scene, this.renderer, quality);
     await tick();
@@ -101,7 +103,15 @@ export class GameView {
       let o = this.actorObjs.get(a.id);
       if (!o) {
         o = this.templates[a.kind].object.clone();
-        o.traverse((c) => { const m = c as THREE.Mesh; if (m.isMesh && c.name === 'brake') m.material = (m.material as THREE.Material).clone(); });
+        const tmpl = this.templates[a.kind].object;
+        const variants = (tmpl.userData.paintVariants as (string | number)[] | undefined) ?? [];
+        o.traverse((c) => {
+          const m = c as THREE.Mesh;
+          if (!m.isMesh) return;
+          if (c.name === 'brake') m.material = (m.material as THREE.Material).clone();
+          // cosmetic paint variety from the actor id (never affects simulation)
+          if (c.name === 'body' && variants.length) { const mat = (m.material as THREE.MeshStandardMaterial).clone(); mat.color.set(variants[a.id % variants.length] as any); m.material = mat; }
+        });
         this.actorObjs.set(a.id, o); this.scene.add(o);
       }
       o.position.set(a.px + (a.x - a.px) * alpha, a.py + (a.y - a.py) * alpha, a.pz + (a.z - a.pz) * alpha);

@@ -42,6 +42,108 @@ function nearestOnAlignment(aligns: Align[], x: number, z: number): { a: Align; 
   return best;
 }
 
+interface Zone { align: Align; s0: number; s1: number; station: MetroStation; px: number; pz: number; tx: number; tz: number; plan: StationPlan }
+interface StationPlan { stairs: { side: 1 | -1; z: number }[]; columns: { side: 1 | -1; z: number }[] }
+
+const RUN0 = 0.4, RISE0 = 0.26;
+
+function computeZones(core: WorldCore, H: number): { aligns: Align[]; zones: Zone[] } {
+  const aligns: Align[] = [];
+  for (const line of core.metroLines) {
+    for (const poly of line.local) {
+      const s = makeSamples(poly, H);
+      if (s.length >= 2) aligns.push({ samples: s, lineId: line.id, color: line.color });
+    }
+  }
+  const zones: Zone[] = [];
+  for (const st of core.stations) {
+    if (!st.inCorridor) continue;
+    const near = nearestOnAlignment(aligns, st.x, st.z);
+    if (!near || near.d > 90) continue;
+    zones.push({ align: near.a, s0: near.s - STATION_LEN / 2, s1: near.s + STATION_LEN / 2, station: st, px: near.px, pz: near.pz, tx: near.tx, tz: near.tz, plan: planStation(core, near.px, near.pz, near.tx, near.tz, H) });
+  }
+  return { aligns, zones };
+}
+
+/** local station frame (x lateral/right, z along travel [local -Z = forward]) to world */
+function localToWorld(px: number, pz: number, tx: number, tz: number, lx: number, lz: number): [number, number] {
+  const yaw = Math.atan2(-tx, -tz);
+  const c = Math.cos(yaw), sn = Math.sin(yaw);
+  return [px + lx * c + lz * sn, pz - lx * sn + lz * c];
+}
+
+function stairGeometry(H: number): { run: number; bodyBot: number; nSteps: number } {
+  const bodyBot = H - 5.4;
+  const nSteps = Math.max(2, Math.round(bodyBot / RISE0));
+  return { run: nSteps * RUN0, bodyBot, nSteps };
+}
+
+/** Ground-reaching parts must stay clear of every carriageway; otherwise they are omitted. */
+function planStation(core: WorldCore, px: number, pz: number, tx: number, tz: number, H: number): StationPlan {
+  const hw = STATION_W / 2, hl = STATION_LEN / 2;
+  const { run } = stairGeometry(H);
+  const segs: { ax: number; az: number; bx: number; bz: number; hw: number }[] = [];
+  for (const e of core.roads) {
+    if (e.tunnel) continue;
+    for (let i = 0; i < e.points.length - 1; i++) {
+      const p = e.points[i], q = e.points[i + 1];
+      if (Math.min(p[0], q[0]) > px + 200 || Math.max(p[0], q[0]) < px - 200 || Math.min(p[1], q[1]) > pz + 200 || Math.max(p[1], q[1]) < pz - 200) continue;
+      segs.push({ ax: p[0], az: p[1], bx: q[0], bz: q[1], hw: e.widthM / 2 });
+    }
+  }
+  const clear = (lx0: number, lx1: number, lz0: number, lz1: number, margin: number): boolean => {
+    const nx = Math.max(2, Math.ceil((lx1 - lx0) / 0.7)), nz = Math.max(2, Math.ceil((lz1 - lz0) / 0.7));
+    for (let i = 0; i <= nx; i++) for (let j = 0; j <= nz; j++) {
+      const [wx, wz] = localToWorld(px, pz, tx, tz, lx0 + ((lx1 - lx0) * i) / nx, lz0 + ((lz1 - lz0) * j) / nz);
+      for (const s of segs) {
+        const dx = s.bx - s.ax, dz = s.bz - s.az;
+        const l2 = dx * dx + dz * dz || 1;
+        const t = Math.max(0, Math.min(1, ((wx - s.ax) * dx + (wz - s.az) * dz) / l2));
+        if (Math.hypot(wx - (s.ax + dx * t), wz - (s.az + dz * t)) - s.hw < margin) return false;
+      }
+    }
+    return true;
+  };
+  const plan: StationPlan = { stairs: [], columns: [] };
+  for (const side of [-1, 1] as const) {
+    const placed: number[] = [];
+    for (const z of [-24, 24, -40, 40, -8, 8, -56, 56, -16, 16, -32, 32, -48, 48]) {
+      if (placed.length >= 2 || placed.some((q) => Math.abs(q - z) < 9)) continue;
+      const xa = side * (hw - 0.1), xb = side * (hw - 0.1 + run);
+      if (clear(Math.min(xa, xb), Math.max(xa, xb), z - 1.8, z + 3.3, 1.5)) { placed.push(z); plan.stairs.push({ side, z }); }
+    }
+    for (let z = -hl + 8; z <= hl - 8 + 0.01; z += 17.5) {
+      const x = side * (hw - 1.4);
+      if (clear(x - 0.7, x + 0.7, z - 0.7, z + 0.7, 0.3)) plan.columns.push({ side, z });
+    }
+  }
+  return plan;
+}
+
+export interface StationObstacle { id: string; poly: [number, number][]; bottom: number; top: number }
+
+/** Ground-reaching station parts as world-space footprints (stairs, escalator boxes, support columns). */
+export function stationObstacles(core: WorldCore): StationObstacle[] {
+  const H = core.metro.deckHeightM;
+  const { zones } = computeZones(core, H);
+  const hw = STATION_W / 2;
+  const { run, bodyBot } = stairGeometry(H);
+  const out: StationObstacle[] = [];
+  for (const z of zones) {
+    const rect = (lx0: number, lx1: number, lz0: number, lz1: number): [number, number][] =>
+      [[lx0, lz0], [lx1, lz0], [lx1, lz1], [lx0, lz1]].map(([lx, lz]) => localToWorld(z.px, z.pz, z.tx, z.tz, lx, lz));
+    for (const s of z.plan.stairs) {
+      const xa = s.side * (hw - 0.1), xb = s.side * (hw - 0.1 + run);
+      out.push({ id: `${z.station.id}:stairs:${s.side}:${s.z}`, poly: rect(Math.min(xa, xb), Math.max(xa, xb), s.z - 1.8, s.z + 3.3), bottom: 0, top: bodyBot + 2.8 });
+    }
+    for (const c of z.plan.columns) {
+      const x = c.side * (hw - 1.4);
+      out.push({ id: `${z.station.id}:column:${c.side}:${c.z}`, poly: rect(x - 0.6, x + 0.6, c.z - 0.6, c.z + 0.6), bottom: 0, top: bodyBot });
+    }
+  }
+  return out;
+}
+
 export function buildMetro(core: WorldCore, quality: Quality): THREE.Group {
   const mats = getWorldMats(quality);
   const group = new THREE.Group();
@@ -50,23 +152,7 @@ export function buildMetro(core: WorldCore, quality: Quality): THREE.Group {
   const a = Math.max(4.2, core.metro.deckWidthM / 2);
   const trackX = Math.min(2.3, Math.max(1.75, a * 0.45));
 
-  const aligns: Align[] = [];
-  for (const line of core.metroLines) {
-    for (const poly of line.local) {
-      const s = makeSamples(poly, H);
-      if (s.length >= 2) aligns.push({ samples: s, lineId: line.id, color: line.color });
-    }
-  }
-
-  // station zones along alignments
-  interface Zone { align: Align; s0: number; s1: number; station: MetroStation; px: number; pz: number; tx: number; tz: number }
-  const zones: Zone[] = [];
-  for (const st of core.stations) {
-    if (!st.inCorridor) continue;
-    const near = nearestOnAlignment(aligns, st.x, st.z);
-    if (!near || near.d > 90) continue;
-    zones.push({ align: near.a, s0: near.s - STATION_LEN / 2, s1: near.s + STATION_LEN / 2, station: st, px: near.px, pz: near.pz, tx: near.tx, tz: near.tz });
-  }
+  const { aligns, zones } = computeZones(core, H);
 
   const trough: Profile = [
     [-1.9, -2.1], [1.9, -2.1], [a, -0.8], [a, 1.0], [a - 0.45, 1.0], [a - 0.45, 0],
@@ -202,7 +288,7 @@ export function buildMetro(core: WorldCore, quality: Quality): THREE.Group {
   // ---- stations
   const boardJobs: Promise<void>[] = [];
   for (const z of zones) {
-    const sg = buildStation(z.station, z.px, z.pz, z.tx, z.tz, H, a, trackX, quality, mats, z.align.color, boardJobs);
+    const sg = buildStation(z.station, z.px, z.pz, z.tx, z.tz, H, a, trackX, quality, mats, z.align.color, boardJobs, z.plan);
     group.add(sg);
     registerCull(sg);
   }
@@ -224,6 +310,7 @@ function buildStation(
   mats: ReturnType<typeof getWorldMats>,
   lineColor: string,
   jobs: Promise<void>[],
+  plan: StationPlan,
 ): THREE.Group {
   const g = new THREE.Group();
   g.name = `station_${st.id}`;
@@ -267,8 +354,8 @@ function buildStation(
   // columns under the station body and platform overhangs
   const colR = 0.55;
   const cyl = new THREE.CylinderGeometry(colR, colR * 1.15, bodyBot, 12, 1);
-  for (const side of [-1, 1]) for (let z = -hl + 8; z <= hl - 8 + 0.01; z += 17.5) {
-    concrete.appendGeometry(cyl, new THREE.Matrix4().makeTranslation(side * (hw - 1.4), bodyBot / 2, z));
+  for (const c of plan.columns) {
+    concrete.appendGeometry(cyl, new THREE.Matrix4().makeTranslation(c.side * (hw - 1.4), bodyBot / 2, c.z));
   }
   cyl.dispose();
 
@@ -317,8 +404,8 @@ function buildStation(
   }
 
   // stairs / escalators down to the street on both sides
-  const rise0 = 0.26, run0 = 0.4;
-  const nSteps = Math.round(bodyBot / rise0);
+  const rise0 = RISE0, run0 = RUN0;
+  const nSteps = Math.max(2, Math.round(bodyBot / rise0));
   const rise1 = bodyBot / nSteps;
   const stairShape = new THREE.Shape();
   stairShape.moveTo(0, bodyBot);
@@ -342,7 +429,7 @@ function buildStation(
   }
   const run = nSteps * run0;
   const slope = Math.atan2(bodyBot, run);
-  for (const side of [-1, 1]) for (const z of [-24, 24]) {
+  for (const { side, z } of plan.stairs) {
     const m = new THREE.Matrix4();
     // stairs start at the glazed wall and descend outward
     const x0 = side * (hw - 0.1);

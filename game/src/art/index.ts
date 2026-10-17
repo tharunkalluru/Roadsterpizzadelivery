@@ -26,3 +26,5 @@ export const art: ArtApi = {
 export { texturesReady } from './textures';
 export { ensureTeluguFont } from './sign';
 export { SUN_DIR } from './environment';
+export { stationObstacles } from './metro';
+export type { StationObstacle } from './metro';

@@ -124,6 +124,8 @@ export class App {
       this.world.setKnownChunks(this.manifest.chunks.map((c) => c.id));
       this.missions = buildCatalog(this.core, this.world);
       await this.view.buildStatic(this.core, this.quality, (s) => this.screens.boot(s));
+      this.screens.boot('Loading materials');
+      await mod.texturesReady();
       this.map = new MapView(this.core, this.world);
     } catch (e) {
       this.handleLoadError(e, () => this.boot());

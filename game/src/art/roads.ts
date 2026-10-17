@@ -24,6 +24,24 @@ import { getWorldMats } from './mats';
 import { registerCull } from './cull';
 
 const TILE = 480;
+const VERGE_COL = [0.075, 0.066, 0.055];
+
+/** Soft packed-earth darkening beside kerbs (alpha fades out over 7 m) so the ground reads as trafficked urban earth. */
+function addVerge(b: GeoBuilder, part: PSample[], inner: number): void {
+  const outer = inner + 7;
+  const y = 0.004;
+  for (let i = 0; i < part.length - 1; i++) {
+    const A = part[i], B = part[i + 1];
+    for (const sgn of [-1, 1]) {
+      const [ax, az] = rightOf(A.tx, A.tz), [bx, bz] = rightOf(B.tx, B.tz);
+      const i0 = b.vert(A.x + ax * inner * sgn * A.m, A.y + y, A.z + az * inner * sgn * A.m, 0, 1, 0, 0, 0, [...VERGE_COL, 0.55]);
+      const i1 = b.vert(A.x + ax * outer * sgn * A.m, A.y + y, A.z + az * outer * sgn * A.m, 0, 1, 0, 0, 0, [...VERGE_COL, 0]);
+      const i2 = b.vert(B.x + bx * outer * sgn * B.m, B.y + y, B.z + bz * outer * sgn * B.m, 0, 1, 0, 0, 0, [...VERGE_COL, 0]);
+      const i3 = b.vert(B.x + bx * inner * sgn * B.m, B.y + y, B.z + bz * inner * sgn * B.m, 0, 1, 0, 0, 0, [...VERGE_COL, 0.55]);
+      if (sgn > 0) { b.tri(i0, i2, i1); b.tri(i0, i3, i2); } else { b.tri(i0, i1, i2); b.tri(i0, i2, i3); }
+    }
+  }
+}
 const PED_CLASSES = new Set(['footway', 'pedestrian', 'path', 'steps', 'cycleway', 'bridleway', 'corridor', 'track']);
 const SKIP_MARK = new Set(['service', 'living_street', 'footway', 'pedestrian', 'path', 'steps', 'cycleway', 'track', 'bridleway', 'corridor']);
 
@@ -34,10 +52,11 @@ interface Tile {
   white: GeoBuilder;
   columns: number[]; // x,z,height,radius
   caps: number[]; // x,z,y,width,heading(yaw),depth
+  verge: GeoBuilder;
 }
 
 function newTile(): Tile {
-  return { asphalt: new GeoBuilder(), paving: new GeoBuilder(), concrete: new GeoBuilder(), white: new GeoBuilder(true), columns: [], caps: [] };
+  return { asphalt: new GeoBuilder(), paving: new GeoBuilder(), concrete: new GeoBuilder(), white: new GeoBuilder(true), columns: [], caps: [], verge: new GeoBuilder(true, 4) };
 }
 
 export interface RoadBuildInfo {
@@ -130,6 +149,7 @@ export function buildRoads(core: WorldCore, quality: Quality): THREE.Group {
       const s1 = L - (rj1 > 0 ? rj1 + 0.6 : 0);
       const part = sliceSamples(samples, s0, s1);
       if (part.length >= 2) {
+        if (quality !== 'low') addVerge(tile.verge, part, w / 2 + fw);
         if (quality === 'low') {
           // cheap kerb: inner face + top only, no end caps
           sweep(tile.paving, part, [[w / 2, 0], [w / 2, kh], [w / 2 + fw, kh]], { tile: 2.5, sign: -1 });
@@ -298,6 +318,13 @@ export function buildRoads(core: WorldCore, quality: Quality): THREE.Group {
     emit(t.asphalt, mats.asphalt, 'asphalt', g, false);
     emit(t.paving, mats.paving, 'footpath', g, true);
     emit(t.white, mats.lineWhite, 'markings', g, false);
+    if (t.verge.vcount > 0) {
+      const vm = new THREE.Mesh(t.verge.build(), mats.verge);
+      vm.name = 'verge';
+      vm.renderOrder = 1;
+      vm.receiveShadow = true;
+      g.add(vm);
+    }
     const nc = t.columns.length / 4;
     if (nc > 0) {
       const im = new THREE.InstancedMesh(colGeo, mats.paving, nc);
