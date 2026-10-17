@@ -1,10 +1,10 @@
 import type { WorldCore, DeliveryLocation } from '../world/schema';
 import type { WorldPhysics } from '../world/collision';
 import { wrapAngle } from '../world/roadIndex';
-import { nextManeuver } from '../world/nav';
+import { nextManeuver, UTURN_COST_M } from '../world/nav';
 import type { MissionDef, MissionTemplate } from './types';
 
-export interface RouteInfo { path: string[]; lengthM: number; turns: number }
+export interface RouteInfo { path: string[]; lengthM: number; turns: number; uturns?: number; signals?: number }
 
 /** route between two deliveries from the pickup's staging carriageway to the destination approach */
 export function routeBetween(world: WorldPhysics, from: DeliveryLocation, to: DeliveryLocation): RouteInfo | null {
@@ -21,17 +21,26 @@ export function routeBetween(world: WorldPhysics, from: DeliveryLocation, to: De
     const m = nextManeuver(world.nav, r.path, i, world.nav.edges.get(r.path[i])!.lengthM - 0.5);
     if (m.distanceM < 1 && m.kind !== 'straight' && m.kind !== 'arrive') turns++;
   }
-  return { path: r.path, lengthM: r.lengthM, turns };
+  let uturns = 0, signals = 0;
+  const sigNodes = new Set(world.core.junctions.filter((j) => j.signalled).map((j) => j.nodeId));
+  for (let i = 0; i < r.path.length; i++) {
+    const e = world.nav.edges.get(r.path[i])!;
+    if (i > 0 && world.nav.edges.get(r.path[i - 1])!.roadId === e.roadId) uturns++;
+    if (sigNodes.has(e.toNode)) signals++;
+  }
+  // route length without the routing penalty for turnarounds
+  return { path: r.path, lengthM: r.lengthM - uturns * UTURN_COST_M, turns: turns + uturns * 6 + signals * 5, uturns, signals };
 }
 
 /**
- * Deadline policy (provisional, see DECISIONS.md): reference pace 8.0 m/s average incl. traffic,
- * +2 s per turn, +5 s per stop, then ×1.4 margin for standard play (tutorial ×1.8), rounded up to
+ * Deadline policy (provisional, see DECISIONS.md): reference pace 6.0 m/s average incl. traffic, signals and encounters (measured runs 4.8–8 m/s),
+ * +2 s per turn, +5 s per stop, a dead-end turnaround counts as 6 turns (+12 s) and a signalled
+ * junction as 5 turns (+10 s), then ×1.4 margin for standard play (tutorial ×1.8), rounded up to
  * 5 s. Each instantiated mission is verified by the reference driving agent through real physics
  * on the actual graph with mission traffic and NO flight (tests/unit/missions-real.test.ts).
  */
 export function deadlineFor(lengthM: number, turns: number, stops: number, margin = 1.4): number {
-  const est = lengthM / 8.0 + turns * 2 + stops * 5 + 6;
+  const est = lengthM / 6.0 + turns * 2 + stops * 5 + 6;
   return Math.ceil((est * margin) / 5) * 5;
 }
 

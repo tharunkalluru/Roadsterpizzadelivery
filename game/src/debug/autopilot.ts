@@ -109,11 +109,11 @@ export class Autopilot {
       if (ahead > 0 && ahead < v * 1.4 + 6 && side < 2.0) vt = 0;
     }
     // stop inside the polygon
-    if (remaining < 60 || distStop < 40) {
+    if (remaining < 60) {
       const dStop = finalApproach ? distStop : remaining + 2;
       const vStop = Math.sqrt(Math.max(0, 2 * 5.5 * Math.max(0, dStop - 1.0)));
       vt = Math.min(vt, vStop);
-      if (distStop < 2.5) vt = 0;
+      if (distStop < 2.5 && remaining < 25) vt = 0;
     }
     if (s.holdActive) return { ...NO_INPUT, steer: 0, brake: true };
     const brake = v > vt + 0.6;

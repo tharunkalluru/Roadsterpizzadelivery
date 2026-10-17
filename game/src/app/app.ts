@@ -15,6 +15,7 @@ import { Screens } from '../ui/screens';
 import { MapView } from '../ui/map';
 import { Autopilot } from '../debug/autopilot';
 import { Tutorial } from '../ui/tutorial';
+import { SignalSystem } from '../traffic/signals';
 import { MISSION, SIM_HZ } from '../config/gameplay';
 import type { ArtApi, Quality } from '../art/api';
 
@@ -122,11 +123,15 @@ export class App {
       this.core = await this.loader.loadCore(this.abort.signal);
       this.world = new WorldPhysics(this.core, this.manifest.chunkSizeM);
       this.world.setKnownChunks(this.manifest.chunks.map((c) => c.id));
+      // station stairs/escalators: same footprints for visuals and collision (G04, S02)
+      const so = (mod as any).stationObstacles as undefined | ((c: WorldCore) => { id: string; poly: [number, number][]; bottom: number; top: number }[]);
+      if (so) this.world.addStructures(so(this.core));
       this.missions = buildCatalog(this.core, this.world);
       await this.view.buildStatic(this.core, this.quality, (s) => this.screens.boot(s));
       this.screens.boot('Loading materials');
       await mod.texturesReady();
       this.map = new MapView(this.core, this.world);
+      this.view.buildSignals(new SignalSystem(this.world), this.world);
     } catch (e) {
       this.handleLoadError(e, () => this.boot());
       return;

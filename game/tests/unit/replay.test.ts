@@ -88,3 +88,16 @@ describe.skipIf(!existsSync(base + 'core.json'))('P04 repeated traversal on the 
     expect(secondHalf).toBeLessThanOrEqual(firstHalf + 6); // no steady growth
   }, 300_000);
 });
+
+import { SignalSystem } from '../../src/traffic/signals';
+describe('S03 signal plan', () => {
+  it('two phases never green together; each approach cycles green → amber → red on the sim clock', () => {
+    for (let t = 0; t < SignalSystem.CYCLE * 2; t += 7) {
+      const a = SignalSystem.phaseColor(0, t), b = SignalSystem.phaseColor(1, t);
+      expect(a !== 'red' && b !== 'red').toBe(false);
+    }
+    const seq = new Set<string>();
+    for (let t = 0; t < SignalSystem.CYCLE; t++) seq.add(SignalSystem.phaseColor(0, t));
+    expect([...seq].sort()).toEqual(['amber', 'green', 'red']);
+  });
+});

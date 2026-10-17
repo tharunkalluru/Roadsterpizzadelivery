@@ -4,6 +4,7 @@ import type { Rng } from '../core/rng';
 import type { WorldPhysics, Contact } from '../world/collision';
 import type { DynamicWorld } from '../player/player';
 import { forwardOf, wrapAngle } from '../world/roadIndex';
+import { SignalSystem } from './signals';
 
 export type ActorKind = 'car' | 'auto' | 'bus' | 'bike' | 'truck';
 
@@ -67,7 +68,9 @@ export class TrafficSystem implements DynamicWorld {
   reserved: { x: number; z: number; r: number }[] = [];
   log: string[] = [];
 
-  constructor(private world: WorldPhysics, private rng: Rng) {}
+  readonly signals: SignalSystem;
+  constructor(private world: WorldPhysics, private rng: Rng) { this.signals = new SignalSystem(world); }
+  get tick(): number { return this.tickCount; }
 
   reset(): void { this.actors = []; this.peds = []; this.nextId = 1; this.tickCount = 0; this.reserved = []; }
 
@@ -198,6 +201,13 @@ export class TrafficSystem implements DynamicWorld {
         if (conflict && a.waitTicks < 4 * SIM_HZ) { a.state = 'yield'; gap = Math.min(gap, Math.max(0, distToEnd - 6)); leaderSpeed = 0; a.waitTicks++; }
         else if (!conflict) a.waitTicks = 0;
         // waitTicks >= 4 s: deadlock breaker — proceed (M10)
+      }
+      // signalled junction: stop at the line on red (and on amber when there is room to stop)
+      const sig = this.signals.colorFor(a.edge, this.tickCount);
+      if (sig && sig !== 'green') {
+        const stopAt = distToEnd - 5;
+        const canStop = a.speed * a.speed / (2 * 3.0) < stopAt + 1;
+        if (sig === 'red' || (sig === 'amber' && canStop)) { if (stopAt > -0.5 && stopAt < gap) { gap = Math.max(0, stopAt); leaderSpeed = 0; } }
       }
       // autos: occasional curb stop with readable intent (drift to kerb, brake lights)
       if (a.kind === 'auto' && a.state === 'drive' && this.rng.next() < 0.0008) { a.state = 'curb'; a.stateTicks = 0; }

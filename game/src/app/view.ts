@@ -4,6 +4,7 @@ import type { WorldCore, WorldChunk } from '../world/schema';
 import type { Session } from '../missions/session';
 import type { WorldPhysics } from '../world/collision';
 import { forwardOf } from '../world/roadIndex';
+import { SignalSystem } from '../traffic/signals';
 
 const tmpV = new THREE.Vector3();
 
@@ -30,6 +31,42 @@ export class GameView {
   shake = 0;
   quality: Quality = 'standard';
   stats = { drawCalls: 0, triangles: 0, chunks: 0, actors: 0 };
+  private signalHeads: { edge: string; lamps: THREE.MeshStandardMaterial[] }[] = [];
+
+  /** signal heads at signalled junctions (S03); lamp position + colour, so state is not colour-only */
+  buildSignals(sig: SignalSystem, world: WorldPhysics) {
+    const poleGeo = new THREE.CylinderGeometry(0.09, 0.11, 5.2, 8);
+    const boxGeo = new THREE.BoxGeometry(0.45, 1.25, 0.35);
+    const lampGeo = new THREE.SphereGeometry(0.14, 12, 8);
+    const dark = new THREE.MeshStandardMaterial({ color: 0x1b1f24, roughness: 0.6, metalness: 0.4 });
+    for (const n of sig.nodes) for (const ap of n.approaches) {
+      const e = world.nav.edges.get(ap.edge)!;
+      const road = world.roads.roads.get(e.roadId)!;
+      const p = world.nav.pointOnDirected(ap.edge, Math.max(0, e.lengthM - 5));
+      const [fx, fz] = forwardOf(p.heading);
+      const side = road.widthM / 2 + 0.8; // left kerb (left-hand traffic)
+      const g = new THREE.Group();
+      g.position.set(p.x + fz * side, p.y, p.z - fx * side);
+      g.rotation.y = p.heading + Math.PI; // face oncoming traffic
+      const pole = new THREE.Mesh(poleGeo, dark); pole.position.y = 2.6; g.add(pole);
+      const box = new THREE.Mesh(boxGeo, dark); box.position.set(0, 4.6, 0); g.add(box);
+      const lamps: THREE.MeshStandardMaterial[] = [];
+      [0xff3b30, 0xffb020, 0x34c759].forEach((c, i) => {
+        const m = new THREE.MeshStandardMaterial({ color: 0x222222, emissive: c, emissiveIntensity: 0.05 });
+        const l = new THREE.Mesh(lampGeo, m); l.position.set(0, 5.0 - i * 0.4, -0.2); g.add(l); lamps.push(m);
+      });
+      this.scene.add(g);
+      this.signalHeads.push({ edge: ap.edge, lamps });
+    }
+  }
+  updateSignals(sig: SignalSystem, tick: number) {
+    for (const h of this.signalHeads) {
+      const c = sig.colorFor(h.edge, tick);
+      h.lamps[0].emissiveIntensity = c === 'red' ? 3 : 0.05;
+      h.lamps[1].emissiveIntensity = c === 'amber' ? 3 : 0.05;
+      h.lamps[2].emissiveIntensity = c === 'green' ? 3 : 0.05;
+    }
+  }
 
   constructor(public renderer: THREE.WebGLRenderer, private art: ArtApi) {
     this.camera = new THREE.PerspectiveCamera(62, 1, 0.3, 2200);
@@ -162,6 +199,7 @@ export class GameView {
       } else this.landing.setState('hidden');
     }
     this.syncActors(s, alpha);
+    if (this.signalHeads.length) this.updateSignals(s.traffic.signals, s.traffic.tick);
     this.updateCamera(x, y, z, h, p.isAirborne, p.speed, world, dt);
     this.env?.update(tmpV.set(x, y, z));
   }
