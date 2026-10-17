@@ -5,7 +5,7 @@
       "/home/user/Roadsterpizzadelivery/game/node_modules/.bin/playwright",
       "test",
       "-g",
-      "U07"
+      "C3"
     ],
     "configFile": "/home/user/Roadsterpizzadelivery/game/playwright.config.ts",
     "rootDir": "/home/user/Roadsterpizzadelivery/game/tests/e2e",
@@ -114,13 +114,18 @@
       "line": 0,
       "specs": [
         {
-          "title": "U07: WebGL context loss pauses and resumes safely",
+          "title": "C3: shared budget in the browser — fly, hover-meter, land early, fly again; HUD agrees",
           "ok": true,
           "tags": [],
           "tests": [
             {
               "timeout": 300000,
-              "annotations": [],
+              "annotations": [
+                {
+                  "type": "note",
+                  "description": "first launch denied at this spot; driving on"
+                }
+              ],
               "expectedStatus": "passed",
               "projectId": "",
               "projectName": "",
@@ -129,22 +134,27 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 18025,
+                  "duration": 44873,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T22:38:06.849Z",
-                  "annotations": [],
+                  "startTime": "2026-10-17T22:56:00.809Z",
+                  "annotations": [
+                    {
+                      "type": "note",
+                      "description": "first launch denied at this spot; driving on"
+                    }
+                  ],
                   "attachments": []
                 }
               ],
               "status": "expected"
             }
           ],
-          "id": "8b1bb1493a64c9fc3ab6-1e99d9121b1f107e48cd",
+          "id": "8b1bb1493a64c9fc3ab6-80b0c2bd42943c32cc2b",
           "file": "game.spec.ts",
-          "line": 106,
+          "line": 60,
           "column": 1
         }
       ]
@@ -152,8 +162,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T22:38:05.277Z",
-    "duration": 19884.819,
+    "startTime": "2026-10-17T22:55:58.928Z",
+    "duration": 47180.052,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,

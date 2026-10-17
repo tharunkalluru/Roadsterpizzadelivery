@@ -78,9 +78,8 @@ test('C3: shared budget in the browser — fly, hover-meter, land early, fly aga
   const landed = await hmd(page);
   expect(landed.move).toBe('GROUNDED');
   expect(landed.remaining).toBe(1500 - landed.consumed);
-  await page.waitForTimeout(300);
-  const hudText = await page.locator('[data-mlbl]').textContent();
-  expect(hudText).toBe(`Flight ${(landed.remaining / 60).toFixed(1)} s`);
+  // HUD refreshes on the next rendered frame (≈1 fps under software WebGL)
+  await expect(page.locator('[data-mlbl]')).toHaveText(`Flight ${(landed.remaining / 60).toFixed(1)} s`, { timeout: 20_000 });
   await page.screenshot({ path: `${OUT}/c3-02-landed.png` });
   await adv(page, 600); // ground driving never refills
   expect((await hmd(page)).consumed).toBe(landed.consumed);
