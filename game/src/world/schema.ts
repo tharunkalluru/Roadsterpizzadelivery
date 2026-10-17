@@ -255,3 +255,60 @@ export interface WorldChunk {
   iz: number;
   buildings: Building[];
 }
+
+// ---------------------------------------------------------------- v2 additions (whole network)
+
+/** coarse storefront category groups used by art templates (signboard colour/icon/awning) */
+export type StoreGroup =
+  | 'grocery' | 'restaurant' | 'cafe_bakery' | 'pharmacy' | 'hospital_clinic' | 'bank_atm' | 'apparel'
+  | 'electronics_mobile' | 'jewellery' | 'hotel_lodging' | 'auto_service' | 'hardware' | 'education'
+  | 'worship' | 'office_service' | 'other';
+
+/**
+ * A business frontage derived from an open business listing (Overture Places, CDLA-Permissive-2.0)
+ * attached to the building edge that faces the selected road. Listing-based: NOT street-view verified.
+ */
+export interface Storefront {
+  id: string; // "sf_<gers id prefix>"
+  placeId: string; // Overture GERS id
+  name: string; // original spelling from the listing
+  nameTe: string | null;
+  category: string; // Overture basic_category / taxonomy primary
+  group: StoreGroup;
+  confidence: number; // listing confidence 0..1
+  sources: string[]; // e.g. ["meta","Overture"]
+  license: string; // "CDLA-Permissive-2.0"
+  x: number; z: number; // listing point (local metres)
+  buildingId: string | null;
+  roadId: string; // road the frontage faces
+  side: 'left' | 'right'; // relative to road forward direction
+  /** frontage segment on the building edge (local metres), shop sign spans this */
+  facade: [Vec2, Vec2] | null;
+  facingHeading: number; // heading of the facade normal (toward the road), same convention as everywhere
+  floor: 0 | 1; // 0 = ground-floor shop, 1 = upper-floor board
+  status: FidelityStatus; // 'provisional' for listing-based
+}
+
+/** pedestrian skywalks / foot-over-bridges / named elevated structures (render + collision) */
+export interface Structure {
+  id: string;
+  kind: 'skywalk' | 'footbridge' | 'flyover_deck' | 'landmark';
+  name: string | null;
+  path: Vec2[]; // centreline
+  elevM: number[]; // deck elevation per path point
+  widthM: number;
+  supports: Vec2[]; // column positions
+  stairs: { x: number; z: number; heading: number }[];
+  status: PropertyStatus;
+  provenance: Provenance;
+}
+
+export interface WorldChunkV2 extends WorldChunk {
+  storefronts: Storefront[];
+}
+
+export interface WorldCoreV2 extends WorldCore {
+  structures: Structure[];
+  /** which operating lines this package covers */
+  lines: ('red' | 'blue' | 'green')[];
+}
