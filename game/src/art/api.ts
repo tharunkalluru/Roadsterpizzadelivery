@@ -43,7 +43,7 @@ export interface ArtApi {
   createTrafficTemplates(quality: Quality): Record<TrafficKind, TrafficTemplate>;
   createPedestrianTemplate(quality: Quality): THREE.Object3D;
   /** road surfaces, markings, medians/kerbs, built exactly from RoadEdge.points/widthM/pointElevM */
-  buildRoads(core: WorldCore, quality: Quality): THREE.Group;
+  buildRoads(core: WorldCore, quality: Quality, onlyTile?: string): THREE.Group;
   /** metro viaduct deck, pillars, station boxes along core.metroLines[*].local and core.metro */
   buildMetro(core: WorldCore, quality: Quality): THREE.Group;
   /** buildings + storefront ground floors + roof clutter for one chunk; merged per material */

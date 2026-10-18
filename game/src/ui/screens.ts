@@ -98,7 +98,8 @@ export class Screens {
     const card = (m: MissionDef, locked = false) => {
       const done = prog.completed.includes(m.id);
       const best = Object.values(bests).find((b) => b.comparableKey.startsWith(`${m.id}@`));
-      const area = m.fromArea && m.toArea ? `<div class="m">${esc(m.fromArea)}${m.toArea !== m.fromArea ? ` → ${esc(m.toArea)}` : ''}</div>` : '';
+      const areaText = m.fromArea && m.toArea ? (m.toArea !== m.fromArea ? `${m.fromArea} → ${m.toArea}` : m.fromArea) : '';
+      const area = areaText && areaText !== m.title ? `<div class="m">${esc(areaText)}</div>` : '';
       return `<button class="mission" ${locked ? 'aria-disabled="true" disabled' : `data-m="${m.id}"`}><div class="t">${esc(m.title)} ${done ? '<span class="pill ok">✓ done</span>' : ''}</div>
         ${area}<div class="m">${esc(m.brief)}</div>
         <div class="m">${fmtDist(m.routeLengthM ?? 0)} · deadline ${fmt(m.deadlineSeconds)} · flight ${m.flightSeconds} s · ${m.traffic} traffic${m.cargo.fragility > 1 ? ' · fragile' : ''}${m.stops.length > 1 ? ` · ${m.stops.length} stops` : ''}${best ? ` · best ${best.score}` : ''}</div></button>`;

@@ -1,10 +1,16 @@
 import * as THREE from 'three';
 import type { ArtApi, HeroCar, Quality, TrafficKind, TrafficTemplate, LandingMarker } from '../art/api';
-import type { WorldCore, WorldChunk } from '../world/schema';
+import type { WorldCore, WorldChunk, RoadEdge } from '../world/schema';
 import type { Session } from '../missions/session';
 import type { WorldPhysics } from '../world/collision';
 import { forwardOf } from '../world/roadIndex';
 import { SignalSystem } from '../traffic/signals';
+
+/** must equal ROAD_TILE in src/art/roads.ts (the art bundle is loaded separately) */
+const ROAD_TILE = 480;
+const roadTileKey = (x: number, z: number) => `${Math.floor(x / ROAD_TILE)}_${Math.floor(z / ROAD_TILE)}`;
+/** worlds with more road edges than this stream road geometry by tile */
+const ROAD_STREAM_MIN = 3000;
 
 const tmpV = new THREE.Vector3();
 
@@ -80,7 +86,8 @@ export class GameView {
     onProgress('Preparing the road');
     this.env = this.art.buildEnvironment(this.scene, this.renderer, quality);
     await tick();
-    this.staticGroup.add(this.art.buildRoads(core, quality));
+    if (core.roads.length > ROAD_STREAM_MIN) this.initRoadStream(core); // whole network: stream road tiles around the camera
+    else this.staticGroup.add(this.art.buildRoads(core, quality));
     await tick();
     onProgress('Raising the metro viaduct');
     this.staticGroup.add(this.art.buildMetro(core, quality));
@@ -251,7 +258,79 @@ export class GameView {
     this.env?.update(tmpV.set(cx, 0, cz));
   }
 
+  // ---- road tile streaming (v2 whole network: ~650 km of roads would be ~4 M triangles if built at once)
+  private roadCore: WorldCore | null = null;
+  private roadTileIndex = new Map<string, RoadEdge[]>();
+  private roadTiles = new Map<string, THREE.Group>();
+
+  private initRoadStream(core: WorldCore) {
+    this.roadCore = core;
+    this.roadTileIndex.clear();
+    const M = 40; // margin: roads ending just outside a tile still shape its junction fills and deck frames
+    for (const r of core.roads) {
+      let x0 = Infinity, x1 = -Infinity, z0 = Infinity, z1 = -Infinity;
+      for (const [x, z] of r.points) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
+      for (let ix = Math.floor((x0 - M) / ROAD_TILE); ix <= Math.floor((x1 + M) / ROAD_TILE); ix++)
+        for (let iz = Math.floor((z0 - M) / ROAD_TILE); iz <= Math.floor((z1 + M) / ROAD_TILE); iz++) {
+          const k = `${ix}_${iz}`;
+          let l = this.roadTileIndex.get(k);
+          if (!l) this.roadTileIndex.set(k, (l = []));
+          l.push(r);
+        }
+    }
+  }
+
+  private buildRoadTile(key: string) {
+    const core = this.roadCore!;
+    const roads = this.roadTileIndex.get(key) ?? [];
+    const ids = new Set<string>();
+    for (const r of roads) { ids.add(r.fromNode); ids.add(r.toNode); }
+    const sub = { ...core, roads, nodes: core.nodes.filter((n) => ids.has(n.id)) } as WorldCore;
+    const g = roads.length ? this.art.buildRoads(sub, this.quality, key) : new THREE.Group();
+    g.name = `roadtile_${key}`;
+    this.roadTiles.set(key, g);
+    this.staticGroup.add(g);
+  }
+
+  private disposeRoadTile(key: string) {
+    const g = this.roadTiles.get(key);
+    if (!g) return;
+    this.staticGroup.remove(g);
+    g.traverse((o) => { const m = o as THREE.Mesh; if (m.geometry) m.geometry.dispose(); });
+    for (const geo of (g.userData.sharedGeometries ?? []) as THREE.BufferGeometry[]) geo.dispose();
+    this.roadTiles.delete(key);
+  }
+
+  /** keep road tiles within view range of (x, z); `budget` = tiles to build now (nearest first) */
+  updateRoadTiles(x: number, z: number, budget = 1) {
+    if (!this.roadCore) return;
+    const R = this.camera.far * 0.9;
+    const ix0 = Math.floor((x - R) / ROAD_TILE), ix1 = Math.floor((x + R) / ROAD_TILE);
+    const iz0 = Math.floor((z - R) / ROAD_TILE), iz1 = Math.floor((z + R) / ROAD_TILE);
+    const want: [string, number][] = [];
+    for (let ix = ix0; ix <= ix1; ix++) for (let iz = iz0; iz <= iz1; iz++) {
+      const cx = (ix + 0.5) * ROAD_TILE, cz = (iz + 0.5) * ROAD_TILE;
+      const d = Math.hypot(cx - x, cz - z) - ROAD_TILE * 0.71;
+      const k = `${ix}_${iz}`;
+      if (d < R && this.roadTileIndex.has(k) && !this.roadTiles.has(k)) want.push([k, d]);
+    }
+    want.sort((a, b) => a[1] - b[1]);
+    for (let i = 0; i < Math.min(budget, want.length); i++) this.buildRoadTile(want[i][0]);
+    for (const k of [...this.roadTiles.keys()]) {
+      const [ix, iz] = k.split('_').map(Number);
+      const d = Math.hypot((ix + 0.5) * ROAD_TILE - x, (iz + 0.5) * ROAD_TILE - z) - ROAD_TILE * 0.71;
+      if (d > R + 500) this.disposeRoadTile(k);
+    }
+  }
+
+  get roadTileCount() { return this.roadTiles.size; }
+
   render() {
+    // the nearest missing tile is built at once (never drive on invisible road); further ones one per frame
+    if (this.roadCore) {
+      const k = roadTileKey(this.camera.position.x, this.camera.position.z);
+      this.updateRoadTiles(this.camera.position.x, this.camera.position.z, this.roadTiles.has(k) ? 1 : 2);
+    }
     this.renderer.render(this.scene, this.camera);
     const info = this.renderer.info.render;
     this.stats.drawCalls = info.calls; this.stats.triangles = info.triangles; this.stats.chunks = this.chunkGroups.size;

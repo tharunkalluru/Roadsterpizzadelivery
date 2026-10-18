@@ -148,13 +148,23 @@ export interface RoadBuildInfo {
   junctions: number;
 }
 
-export function buildRoads(core: WorldCore, quality: Quality): THREE.Group {
+/** spatial tile size of road geometry; streamed worlds build one tile at a time (see `onlyTile`) */
+export const ROAD_TILE = TILE;
+export const roadTileKey = (x: number, z: number) => `${Math.floor(x / TILE)}_${Math.floor(z / TILE)}`;
+
+/**
+ * `onlyTile`: build just that tile's geometry. Pass the roads touching the tile (plus a margin) and their nodes as `core`;
+ * every edge is still processed whole, so frames, ramps and markings match the neighbouring tiles exactly.
+ */
+export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string): THREE.Group {
   const mats = getWorldMats(quality);
   const group = new THREE.Group();
   group.name = 'roads';
   const tiles = new Map<string, Tile>();
+  let sink: Tile | null = null;
   const tileFor = (x: number, z: number): Tile => {
     const key = `${Math.floor(x / TILE)}_${Math.floor(z / TILE)}`;
+    if (onlyTile !== undefined && key !== onlyTile) return (sink ??= newTile());
     let t = tiles.get(key);
     if (!t) { t = newTile(); tiles.set(key, t); }
     return t;
