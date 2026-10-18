@@ -114,7 +114,7 @@ export class Screens {
         const ms = list.filter((m) => m.level === L.level);
         if (!ms.length) return '';
         const prev = LEVELS.filter((p) => p.level < L.level && list.some((m) => m.level === p.level)).pop();
-        const locked = !!prev && !doneLevel(prev.level) && !a.debug;
+        const locked = !!prev && !doneLevel(prev.level) && !new URLSearchParams(location.search).has('unlock'); // ?unlock: testing aid
         return `<h3 class="lvl">Level ${L.level} · ${esc(L.title)} ${locked ? `<span class="pill plan">Locked — finish a Level ${prev!.level} delivery</span>` : ''}</h3>
           <p class="small">${esc(L.blurb)}</p>${ms.map((m) => card(m, locked)).join('')}`;
       }).join('');

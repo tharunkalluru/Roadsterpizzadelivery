@@ -11,7 +11,8 @@ test('V2: whole-network package — levels menu, Level 1 delivery by the referen
   await page.click('[data-play]');
   await expect(page.locator('h3.lvl').first()).toContainText('Level 1');
   // fresh progress: Level 2+ are locked and not selectable
-  await expect(page.locator('h3.lvl', { hasText: 'Level 2' })).toContainText('Locked');
+  await expect(page.locator('h3.lvl').nth(1)).toContainText('Level 2');
+  await expect(page.locator('h3.lvl').nth(1)).toContainText('Locked');
   await page.screenshot({ path: `${OUT}/v2-01-levels.png` });
   const id = await page.evaluate(() => (window as any).__hmd.missions.find((m: any) => m.level === 1 && !m.practice).id);
   await page.click(`[data-m="${id}"]`);
