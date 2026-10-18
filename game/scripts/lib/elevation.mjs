@@ -265,3 +265,52 @@ export function repairNodeElevations(roads) {
   }
   return stats;
 }
+
+/**
+ * v2: limit road grades to `maxGrade` by lowering raised points (and raising sunk points) — never the reverse.
+ * Short bridges over drains in the source were ramped to the 6.5 m class default within 10–20 m (20–58 % grades),
+ * which launches vehicles. Node elevations stay shared across all incident edges. Returns { edgesChanged, iterations }.
+ */
+export function limitGrades(roads, maxGrade = 0.1) {
+  const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+  const byNode = new Map();
+  for (const r of roads) for (const [n, i] of [[r.fromNode, 0], [r.toNode, r.points.length - 1]]) {
+    if (!byNode.has(n)) byNode.set(n, []);
+    byNode.get(n).push([r, i]);
+  }
+  const before = new Map(roads.map((r) => [r, r.pointElevM.join(',')]));
+  // toward zero: positive values may only drop, negative values may only rise
+  const clampToward = (v, lim) => (v > 0 ? Math.min(v, Math.max(0, lim)) : v < 0 ? Math.max(v, Math.min(0, -lim)) : 0);
+  let it = 0;
+  for (let changed = true; changed && it < 200; it++) {
+    changed = false;
+    for (const r of roads) {
+      const e = r.pointElevM, p = r.points;
+      if (e.every((v) => v === 0)) continue;
+      for (let pass = 0; pass < 2; pass++) {
+        const idx = pass === 0 ? [...Array(e.length - 1).keys()] : [...Array(e.length - 1).keys()].reverse();
+        for (const i of idx) {
+          const [a, b] = pass === 0 ? [i, i + 1] : [i + 1, i];
+          const lim = Math.abs(e[a]) + maxGrade * dist(p[a], p[b]);
+          const nv = Math.sign(e[a]) === Math.sign(e[b]) || e[a] === 0 ? clampToward(e[b], lim) : clampToward(e[b], maxGrade * dist(p[a], p[b]));
+          if (Math.abs(nv - e[b]) > 1e-6) { e[b] = Math.round(nv * 100) / 100; changed = true; }
+        }
+      }
+    }
+    // shared nodes: every incident end takes the value closest to grade
+    for (const ends of byNode.values()) {
+      if (ends.length < 2) continue;
+      let best = ends[0][0].pointElevM[ends[0][1]];
+      for (const [r, i] of ends) { const v = r.pointElevM[i]; if (Math.abs(v) < Math.abs(best)) best = v; }
+      for (const [r, i] of ends) if (r.pointElevM[i] !== best) { r.pointElevM[i] = best; changed = true; }
+    }
+  }
+  let edgesChanged = 0;
+  for (const r of roads) {
+    if (before.get(r) !== r.pointElevM.join(',')) {
+      edgesChanged++;
+      if ('elevationM' in r) r.elevationM = Math.max(...r.pointElevM); // same convention as computeElevations
+    }
+  }
+  return { edgesChanged, iterations: it };
+}

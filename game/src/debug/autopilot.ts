@@ -14,6 +14,8 @@ export class Autopilot {
   private lostTicks = 0;
   private bestRemaining = Infinity;
   private progressTick = 0;
+  /** diagnostics: what limited the target speed this tick */
+  why = '';
   private kturn: { target: number; phase: 'fwd' | 'stop1' | 'rev' | 'stop2'; ticks: number } | null = null;
   constructor(public s: Session, public opts: { useFlight?: boolean; cruiseBoost?: boolean } = {}) {}
 
@@ -96,19 +98,22 @@ export class Autopilot {
     const h0 = this.target(1)?.heading ?? p.heading;
     for (const d of [8, 16, 26, 38]) { const q = this.target(d); if (q) maxTurn = Math.max(maxTurn, Math.abs(wrapAngle(q.heading - h0))); }
     let vt = this.opts.cruiseBoost ? VEHICLE.maxSpeed : VEHICLE.cruiseSpeed;
-    if (maxTurn > 1.3) vt = 4.5; else if (maxTurn > 0.8) vt = 6.5; else if (maxTurn > 0.4) vt = 9;
+    this.why = 'cruise';
+    if (maxTurn > 2.2) vt = 3.0; else if (maxTurn > 1.3) vt = 4.5; else if (maxTurn > 0.8) vt = 6.5; else if (maxTurn > 0.4) vt = 9;
+    // still mid-turn (heading well off the path): do not accelerate out of the corner yet
+    if (Math.abs(err) > 0.6) vt = Math.min(vt, 4.0);
     // traffic ahead in our lane
     const [fx, fz] = forwardOf(p.heading);
     for (const a of p.isAirborne ? [] : s.traffic.actors) {
       const dx = a.x - p.x, dz = a.z - p.z;
       const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
       const sameDir = Math.abs(wrapAngle(a.heading - p.heading)) < 1.0;
-      if (ahead > 0 && side < 2.2 && (sameDir ? ahead < v * 1.6 + 9 : ahead < 6)) vt = Math.min(vt, sameDir ? Math.max(0, a.speed - 0.5) : 0);
+      if (ahead > 0 && side < 2.2 && (sameDir ? ahead < v * 1.6 + 9 : ahead < 6)) { vt = Math.min(vt, sameDir ? Math.max(0, a.speed - 0.5) : 0); this.why = `actor ${a.id} ${ahead.toFixed(1)} ${side.toFixed(1)}`; }
     }
     for (const q of p.isAirborne ? [] : s.traffic.peds) {
       const dx = q.x - p.x, dz = q.z - p.z;
       const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
-      if (ahead > 0 && ahead < v * 1.4 + 6 && side < 2.0) vt = 0;
+      if (ahead > 0 && ahead < v * 1.4 + 6 && side < 2.0) { vt = 0; this.why = `ped ${q.id}`; }
     }
     // stop inside the polygon
     if (remaining < 60) {

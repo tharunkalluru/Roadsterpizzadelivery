@@ -23,7 +23,7 @@ import * as M from './lib/metro.mjs';
 import * as O from './lib/ovt.mjs';
 import { selectV2 } from './lib/select2.mjs';
 import { buildDirectedRoutable } from './lib/graph.mjs';
-import { computeElevations, repairNodeElevations } from './lib/elevation.mjs';
+import { computeElevations, repairNodeElevations, limitGrades } from './lib/elevation.mjs';
 import { writeOut, compact, pretty, sha256File, slugify, shortHash } from './lib/io.mjs';
 import { groupOf, DELIVERY_WEIGHT, STORE_GROUPS } from './lib/stores.mjs';
 import { attachStorefronts, SF_MIN_CONF, SF_MAX_ROAD_M } from './lib/storefronts.mjs';
@@ -265,6 +265,7 @@ lap(`roads ${roads.length}`);
 // ---------------------------------------------------------------- 6. elevation
 const elevStats = computeElevations(roads, { rampTunnels: true });
 elevStats.nodeRepair = repairNodeElevations(roads);
+elevStats.gradeLimit = limitGrades(roads, 0.1); // drivable grades: no 6.5 m humps over drains
 // Douglas-Peucker (0.3 m) on at-grade edges only (ramps/bridges/tunnels keep every break point); end points never move
 const dpSimplify = (pts, tol) => {
   if (pts.length <= 2) return pts;

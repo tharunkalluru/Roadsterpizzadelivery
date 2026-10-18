@@ -149,9 +149,16 @@ export class TrafficSystem implements DynamicWorld {
       const side: 1 | -1 = this.rng.next() < 0.5 ? 1 : -1;
       const ped: Pedestrian = { id: this.nextId++, edge: s.roadId, along: s.along, side, dir: this.rng.next() < 0.5 ? 1 : -1, speed: this.rng.range(1.0, 1.5), state: 'walk', stateTicks: 0, crossT: 0, x, z, y: s.elevation, heading: 0, px: x, pz: z, pheading: 0 };
       this.placePed(ped);
+      if (this.onOtherCarriageway(ped)) continue; // the footpath here runs across another road's carriageway
       ped.px = ped.x; ped.pz = ped.z;
       this.peds.push(ped);
     }
+  }
+
+  /** a walking pedestrian's footpath point lies on some other road's carriageway (dense real networks: parallel/crossing roads) */
+  private onOtherCarriageway(p: Pedestrian): boolean {
+    const hit = this.world.roads.surface(p.x, p.z, { margin: 0.3 });
+    return !!hit && hit.roadId !== p.edge && Math.abs(hit.elevation - p.y) < 1.5;
   }
 
   private placePed(p: Pedestrian) {
@@ -266,13 +273,27 @@ export class TrafficSystem implements DynamicWorld {
       const len = this.world.roads.roadLength(p.edge);
       p.stateTicks++;
       if (p.state === 'walk') {
+        const prevAlong = p.along;
         p.along += p.dir * p.speed * dt;
         if (p.along < 0 || p.along > len) { p.dir = (p.dir * -1) as 1 | -1; p.along = Math.max(0, Math.min(len, p.along)); }
+        this.placePed(p);
+        // footpaths end where they would run onto another carriageway: turn back instead of walking into traffic
+        if (this.onOtherCarriageway(p)) {
+          p.along = prevAlong; p.dir = (p.dir * -1) as 1 | -1;
+          this.placePed(p);
+          if (this.onOtherCarriageway(p)) (p as any).gone = true; // stranded on a carriageway: leaves the scene
+        }
         if (p.stateTicks > 5 * SIM_HZ && this.rng.next() < 0.002) { p.state = 'wait'; p.stateTicks = 0; }
       } else if (p.state === 'wait') {
         // wait for a gap: no actor on this road within 30 m
         const clear = !this.actors.some((a) => nav.edges.get(a.edge)!.roadId === p.edge && Math.hypot(a.x - p.x, a.z - p.z) < 30) && Math.hypot(player.x - p.x, player.z - p.z) > 35;
-        if (p.stateTicks > 90 && clear) { p.state = 'cross'; p.stateTicks = 0; p.crossT = 0; }
+        if (p.stateTicks > 90 && clear) {
+          // only cross where the far kerb is a footpath, not another carriageway (divided roads)
+          const side = p.side; p.side = (side * -1) as 1 | -1; this.placePed(p);
+          const ok = !this.onOtherCarriageway(p);
+          p.side = side; this.placePed(p);
+          if (ok) { p.state = 'cross'; p.stateTicks = 0; p.crossT = 0; } else { p.state = 'walk'; p.stateTicks = 0; }
+        }
         if (p.stateTicks > 20 * SIM_HZ) { p.state = 'walk'; p.stateTicks = 0; }
       } else {
         const road = this.world.roads.roads.get(p.edge)!;
@@ -281,6 +302,7 @@ export class TrafficSystem implements DynamicWorld {
       }
       this.placePed(p);
     }
+    this.peds = this.peds.filter((p) => !(p as any).gone);
   }
 
   contacts(x: number, z: number, y: number, h: number, r: number, out: Contact[]): Contact[] {

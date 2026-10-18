@@ -213,6 +213,10 @@
       "nodesRepaired": 5,
       "edgesRamped": 7,
       "unresolved": 0
+    },
+    "gradeLimit": {
+      "edgesChanged": 59,
+      "iterations": 200
     }
   },
   "carriagewayWidths": {
@@ -750,17 +754,17 @@
   "storefronts": {
     "summary": {
       "inventoryPlaces": 27994,
-      "rendered": 19508,
-      "excluded": 8486,
+      "rendered": 19507,
+      "excluded": 8487,
       "excludedReasons": {
         "low_confidence": 7321,
         "frontage_capacity": 843,
-        "facade_not_facing_a_road": 181,
-        "no_at_grade_road_within_40m": 172,
+        "facade_not_facing_a_road": 183,
+        "no_at_grade_road_within_40m": 171,
         "kiosk_inside_building": 4
       },
       "renderedByLine": {
-        "red": 9348,
+        "red": 9347,
         "blue": 7738,
         "green": 2422
       },
@@ -771,28 +775,28 @@
       },
       "renderedByGroup": {
         "grocery": 283,
-        "restaurant": 1383,
-        "cafe_bakery": 560,
+        "restaurant": 1384,
+        "cafe_bakery": 559,
         "pharmacy": 263,
         "hospital_clinic": 1519,
         "bank_atm": 819,
         "apparel": 933,
-        "electronics_mobile": 690,
+        "electronics_mobile": 689,
         "jewellery": 319,
         "hotel_lodging": 1060,
         "auto_service": 679,
         "hardware": 364,
         "education": 2001,
         "worship": 404,
-        "office_service": 4837,
-        "other": 3394
+        "office_service": 4835,
+        "other": 3396
       },
       "renderedByStationArea": {
-        "outside_station_areas": 3695,
+        "outside_station_areas": 3697,
         "st_ameerpet": 945,
         "st_assembly": 162,
         "st_balanagar": 109,
-        "st_begumpet": 314,
+        "st_begumpet": 315,
         "st_bharat_nagar": 84,
         "st_chaitanyapuri": 383,
         "st_chikkadpally": 372,
@@ -816,7 +820,7 @@
         "st_madhapur": 499,
         "st_madhura_nagar": 217,
         "st_mahatma_gandhi_bus_station": 73,
-        "st_malakpet": 218,
+        "st_malakpet": 217,
         "st_mettuguda": 57,
         "st_miyapur": 35,
         "st_moosapet": 177,
@@ -834,7 +838,7 @@
         "st_peddamma_gudi": 413,
         "st_prakash_nagar": 333,
         "st_raidurg": 147,
-        "st_rasoolpura": 294,
+        "st_rasoolpura": 291,
         "st_road_no_5_jubilee_hills": 236,
         "st_rtc_cross_roads": 242,
         "st_s_r_nagar": 427,
@@ -930,7 +934,7 @@
     }
   },
   "deliveries": {
-    "candidates": 5039,
+    "candidates": 5038,
     "stationsWith6": 57,
     "stationsShort": [],
     "blocked": 87,
@@ -1330,9 +1334,9 @@
     "maxAbsErrM": 9.88502147591862
   },
   "sizes": {
-    "coreBytes": 12710290,
+    "coreBytes": 12710431,
     "manifestBytes": 447448,
-    "chunkBytes": 34239184,
+    "chunkBytes": 34238719,
     "chunkCount": 1646,
     "chunkMaxBytes": 89269,
     "chunkMedianBytes": 16992
@@ -1349,8 +1353,8 @@
     "junctionsWithTurnRestrictions": 17,
     "turnBansApplied": 17,
     "buildings": 80076,
-    "storefronts": 19508,
-    "storefrontsOnBuildings": 19267,
+    "storefronts": 19507,
+    "storefrontsOnBuildings": 19266,
     "storefrontKiosks": 241,
     "stations": 57,
     "deliveries": 342,
