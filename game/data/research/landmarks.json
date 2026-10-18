@@ -1,0 +1,560 @@
+{
+  "generated": "2026-10-17",
+  "method": "web search snippets; not field-verified",
+  "stations": [
+    {
+      "station": "Ameerpet",
+      "lines": ["blue", "red"],
+      "landmarks": [
+        {"name": "Ameerpet interchange (Red/Blue)", "type": "other", "description": "Red and Blue lines interchange; a 4-level station per one source. Searches did not confirm any skywalk from Ameerpet to malls.", "relation": "the station itself", "sources": ["https://en.wikipedia.org/wiki/Ameerpet_metro_station", "https://themetrorailguy.com/2015/10/15/structural-design-of-hyderabad-metros-ameerpet-interchange-station/"], "confidence": "medium"},
+        {"name": "Asian Satyam Mall (AAA Cinemas)", "type": "mall", "description": "Mall listed as a nearby landmark in the Ameerpet station article. Distance from the station not stated.", "relation": "near Ameerpet station", "sources": ["https://en.wikipedia.org/wiki/Ameerpet_metro_station"], "confidence": "medium"},
+        {"name": "Aster Prime Hospital", "type": "hospital", "description": "Hospital listed near Ameerpet station.", "relation": "near Ameerpet station", "sources": ["https://en.wikipedia.org/wiki/Ameerpet_metro_station"], "confidence": "medium"},
+        {"name": "Ameerpet Gurudwara", "type": "temple", "description": "Gurudwara listed near Ameerpet station.", "relation": "near Ameerpet station", "sources": ["https://en.wikipedia.org/wiki/Ameerpet_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Assembly",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Hyderabad State Legislative Assembly (Public Gardens complex)", "type": "government", "description": "The Assembly building is on the Public Gardens (Bagh-e-Aam) grounds, built by the 7th Nizam; the grounds also host the State Museum.", "relation": "the station is named after the Assembly, near Public Gardens", "sources": ["https://en.wikipedia.org/wiki/Public_Gardens,_Hyderabad", "https://en.wikipedia.org/wiki/Assembly_metro_station"], "confidence": "high"},
+        {"name": "Public Gardens (Bagh-e-Aam)", "type": "park", "description": "Park dating from 1846; nearest metro given as Nampally in one source.", "relation": "adjacent to the station area", "sources": ["https://en.wikipedia.org/wiki/Public_Gardens,_Hyderabad"], "confidence": "medium"},
+        {"name": "Nizam Club", "type": "other", "description": "Listed near the Assembly station.", "relation": "near Assembly station", "sources": ["https://ltmetro.com/?p=322"], "confidence": "low"},
+        {"name": "All India Radio", "type": "government", "description": "Listed near the Assembly station.", "relation": "near Assembly station", "sources": ["https://ltmetro.com/?p=322"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Balanagar",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Balanagar Y Junction", "type": "other", "description": "Junction the station sits at, per a review; sources differ on the exact spot.", "relation": "station is at the Y junction", "sources": ["https://ltmetro.com/?p=313", "https://en.wikipedia.org/wiki/Dr._B._R._Ambedkar_Balanagar_metro_station"], "confidence": "medium"},
+        {"name": "Chennai Shopping Mall", "type": "mall", "description": "Shopping mall named as close to the station in one listing.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Dr._B._R._Ambedkar_Balanagar_metro_station"], "confidence": "low"},
+        {"name": "D-Mart (Balanagar)", "type": "mall", "description": "Store named as next to the station in one review; another review puts a Kukatpally wholesale store nearby instead. Conflicting.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=313"], "confidence": "low"},
+        {"name": "Lakeshore Mall", "type": "mall", "description": "Mentioned in a search query but not confirmed in any result. Not included as a landmark.", "relation": "unconfirmed", "sources": [], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Begumpet",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "ITC Kakatiya Hotel", "type": "other", "description": "Hotel listed near the station.", "relation": "near Begumpet station", "sources": ["https://ltmetro.com/?p=343"], "confidence": "low"},
+        {"name": "Begumpet Airport", "type": "other", "description": "Listed as near the station.", "relation": "near Begumpet station", "sources": ["https://ltmetro.com/?p=343"], "confidence": "low"},
+        {"name": "Country Club", "type": "other", "description": "Listed as near the station.", "relation": "near Begumpet station", "sources": ["https://ltmetro.com/?p=343"], "confidence": "low"},
+        {"name": "Begumpet Railway Station", "type": "other", "description": "Listed as near the station.", "relation": "near Begumpet station", "sources": ["https://ltmetro.com/?p=343"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Bharat Nagar",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Rythu Bazaar", "type": "market", "description": "Farmers' market listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Bharat_Nagar_metro_station"], "confidence": "medium"},
+        {"name": "Asian Cine Pride (Shashikala Cinepride)", "type": "theatre", "description": "Cinema listed near the station. Named as Asian Cine Pride on Wikipedia and Shashikala Cinepride on a station-guide site.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Bharat_Nagar_metro_station", "https://ltmetro.com/?p=364"], "confidence": "medium"},
+        {"name": "Nalla Pochamma Temple", "type": "temple", "description": "Temple listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Bharat_Nagar_metro_station"], "confidence": "medium"},
+        {"name": "TSRTC bus stop (Bharat Nagar)", "type": "bus_stop", "description": "Bus stop listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Bharat_Nagar_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Chaitanyapuri",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Shalini Theatre", "type": "theatre", "description": "Station sits on Dilsukh Nagar Main Road opposite Shalini Theatre.", "relation": "directly opposite the station", "sources": ["https://en.wikipedia.org/wiki/Chaitanyapuri_metro_station"], "confidence": "medium"},
+        {"name": "Omni Super Speciality Hospital", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Chaitanyapuri_metro_station"], "confidence": "medium"},
+        {"name": "GBR Hospital", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Chaitanyapuri_metro_station"], "confidence": "medium"},
+        {"name": "PVT Market", "type": "market", "description": "Market listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Chaitanyapuri_metro_station"], "confidence": "medium"},
+        {"name": "Saroor Nagar Arch", "type": "other", "description": "Landmark arch listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Chaitanyapuri_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Chikkadpally",
+      "lines": ["green"],
+      "landmarks": [
+        {"name": "Venkateswara Swamy Temple", "type": "temple", "description": "Temple listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=361"], "confidence": "low"},
+        {"name": "Balaji Mandir", "type": "temple", "description": "Temple listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=361"], "confidence": "low"},
+        {"name": "Keshav Memorial Law College", "type": "college", "description": "College listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=361"], "confidence": "low"},
+        {"name": "Sundarayya Park", "type": "park", "description": "Park listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=361"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Dilsukh Nagar",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Dilsukhnagar Bus Depot (TSRTC)", "type": "bus_stop", "description": "Bus depot listed in the same suburb; a hotel listing places a bus terminal near the metro station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Dilsukhnagar_metro_station"], "confidence": "medium"},
+        {"name": "Sai Baba Temple (Dilsukh Nagar)", "type": "temple", "description": "Described as a prominent local landmark by several sources.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Dilsukhnagar_metro_station"], "confidence": "medium"},
+        {"name": "Konark Theatre", "type": "theatre", "description": "Theatre listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Dilsukhnagar_metro_station"], "confidence": "medium"},
+        {"name": "Mega Theatre", "type": "theatre", "description": "Theatre listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Dilsukhnagar_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Durgam Cheruvu",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Durgam Cheruvu lake", "type": "lake", "description": "Lake listed as the station's main landmark; the station is named after it.", "relation": "station named after the lake", "sources": ["https://ltmetro.com/?p=336", "https://en.wikipedia.org/wiki/Durgam_Cheruvu_metro_station"], "confidence": "medium"},
+        {"name": "The Rameshwaram Cafe (Madhapur)", "type": "restaurant", "description": "Cafe listed among landmarks near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=336"], "confidence": "medium"},
+        {"name": "Image Hospital", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=336"], "confidence": "medium"},
+        {"name": "BR Hitech Theatre", "type": "theatre", "description": "Theatre listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=336"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Erragadda",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Pista House", "type": "other", "description": "Listed near the station (a landmark on the Erragadda side).", "relation": "near the station", "sources": ["https://ltmetro.com/?p=315"], "confidence": "low"},
+        {"name": "Gokul Theatre", "type": "theatre", "description": "Theatre listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=315"], "confidence": "low"},
+        {"name": "Don Bosco School", "type": "college", "description": "School listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=315"], "confidence": "low"},
+        {"name": "Erragadda Sunday market", "type": "market", "description": "Weekly market listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=315"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "ESI Hospital",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "ESIC Medical College and Government Hospital", "type": "hospital", "description": "Listed near the station (ESI bus stop, Sanath Nagar).", "relation": "the station is named for the ESI hospital", "sources": ["https://ltmetro.com/?p=314"], "confidence": "medium"},
+        {"name": "State Mental Health Centre", "type": "hospital", "description": "Listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=314"], "confidence": "low"},
+        {"name": "Balkampet Yellamma Pochamma Temple", "type": "temple", "description": "Temple listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=314"], "confidence": "low"},
+        {"name": "Gokul Theatre", "type": "theatre", "description": "Theatre listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=314"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Gandhi Bhavan",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Gandhi Bhavan (Congress party HQ)", "type": "other", "description": "Congress party headquarters in Nampally, near the Exhibition Grounds; commonly used as a city landmark.", "relation": "station named after the building", "sources": ["https://en.wikipedia.org/wiki/Gandhi_Bhavan,_Hyderabad", "https://en.wikipedia.org/wiki/Gandhi_Bhavan_metro_station"], "confidence": "high"},
+        {"name": "Numaish Exhibition Grounds", "type": "other", "description": "Exhibition grounds listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Gandhi_Bhavan_metro_station"], "confidence": "medium"},
+        {"name": "Care Hospital (Nampally)", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Gandhi_Bhavan_metro_station"], "confidence": "medium"},
+        {"name": "Hotel Shadab", "type": "restaurant", "description": "Hotel listed near the station. The MGBS station listing also names it, so the listing may be shared.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Gandhi_Bhavan_metro_station"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Gandhi Hospital",
+      "lines": ["green"],
+      "landmarks": [
+        {"name": "Gandhi Hospital", "type": "hospital", "description": "Government hospital; the station is named for it.", "relation": "station named after the hospital", "sources": ["https://ltmetro.com/?p=363"], "confidence": "medium"},
+        {"name": "Gandhi Medical College", "type": "college", "description": "College listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=363"], "confidence": "low"},
+        {"name": "ESI Hospital (Secunderabad)", "type": "hospital", "description": "Hospital listed near the station; the Red Line ESI Hospital station is a separate stop.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=363"], "confidence": "low"},
+        {"name": "St. Philomena High School", "type": "college", "description": "School listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=363"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Habsiguda",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Osmania University", "type": "college", "description": "University listed near the station. Another listing names it for Tarnaka, so the two may be mixed up.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=353"], "confidence": "low"},
+        {"name": "Saint Pious X Degree, PG and MBA College for Women", "type": "college", "description": "College listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=353"], "confidence": "low"},
+        {"name": "Hotel Kinara Grand", "type": "other", "description": "Hotel listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=353"], "confidence": "low"},
+        {"name": "Value Zone Hyper Mart", "type": "mall", "description": "Hypermarket listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=353"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "HITEC City",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Cyber Towers", "type": "other", "description": "Station sits near Cyber Towers in Jaihind Enclave; the line runs through the Cyber Towers compound. No skywalk confirmed.", "relation": "adjacent to the station", "sources": ["https://en.wikipedia.org/wiki/HITEC_City_metro_station"], "confidence": "high"},
+        {"name": "Shilparamam", "type": "other", "description": "Arts and crafts village across the road from Cyber Towers, at the HITEC City entrance.", "relation": "across the road from Cyber Towers, in the area", "sources": ["https://en.wikivoyage.org/wiki/Hyderabad/West", "https://www.wikipedia.org/wiki/Madhapur"], "confidence": "medium"},
+        {"name": "HITEX Convention Centre", "type": "other", "description": "Convention centre in Madhapur.", "relation": "in the Madhapur area; distance not stated", "sources": ["https://www.wikipedia.org/wiki/Madhapur"], "confidence": "medium"},
+        {"name": "Inorbit Mall (Madhapur)", "type": "mall", "description": "Mall listed in Madhapur. The station-to-mall distance is not stated.", "relation": "in the Madhapur area", "sources": ["https://www.wikipedia.org/wiki/Madhapur"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Irrum Manzil",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Skywalk to Next Galleria Mall", "type": "skywalk", "description": "Station has a skywalk leading to Next Galleria Mall. One source gives 2017 as the opening year and the station table gives 2018.", "relation": "skywalk from the station", "sources": ["https://en.wikipedia.org/wiki/Irrum_Manzil_metro_station"], "confidence": "medium"},
+        {"name": "Errum Manzil palace", "type": "other", "description": "Historic palace after which the station is named.", "relation": "station named after the palace", "sources": ["https://en.wikipedia.org/wiki/Irrum_Manzil_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "JBS",
+      "lines": ["green"],
+      "landmarks": [
+        {"name": "Parade Ground (JBS Parade Ground complex)", "type": "park", "description": "The JBS station is named for the Parade Ground; the Green Line northern terminus. The landmark list below is from the Parade Grounds station entry and is not separately verified for this stop.", "relation": "station named after the ground", "sources": ["https://en.wikipedia.org/wiki/Parade_Ground_metro_station"], "confidence": "medium"},
+        {"name": "Sardar Patel Flyover", "type": "flyover", "description": "Flyover listed near the Parade Ground complex.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Parade_Ground_metro_station"], "confidence": "medium"},
+        {"name": "St. Mary's Basilica", "type": "temple", "description": "Church listed near the Parade Ground complex.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Parade_Ground_metro_station"], "confidence": "medium"},
+        {"name": "GHMC Public Park (Parade Ground)", "type": "park", "description": "Public park listed near the Parade Ground complex.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Parade_Ground_metro_station"], "confidence": "medium"}
+      ],
+      "note": "Shares a landmark list with Parade Grounds (Blue/Green interchange); the two are separate stations in core.json."
+    },
+    {
+      "station": "JNTU College",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "JNTU Hyderabad campus", "type": "college", "description": "The station takes its name from the nearby JNTU Hyderabad campus; mostly used by students and staff.", "relation": "station named after the campus", "sources": ["https://en.wikipedia.org/wiki/JNTU_College_metro_station"], "confidence": "high"}
+      ],
+      "note": "Only one landmark confirmed."
+    },
+    {
+      "station": "Jubilee Hills Checkpost",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Apollo Hospitals Jubilee Hills (Check Post)", "type": "hospital", "description": "The station is also known as Apollo Hospitals Jubilee Hills Check Post. The station has no concourse and goes straight to the platform deck.", "relation": "station named after the hospital", "sources": ["https://en.wikipedia.org/wiki/Jubilee_Hills_Check_Post_metro_station"], "confidence": "medium"},
+        {"name": "KBR Park", "type": "park", "description": "Park listed in the station area.", "relation": "in the station area", "sources": ["https://en.wikipedia.org/wiki/Jubilee_Hills_Check_Post_metro_station"], "confidence": "medium"},
+        {"name": "Film Nagar", "type": "other", "description": "Area served by the station, listed on the Wikipedia page.", "relation": "area served", "sources": ["https://en.wikipedia.org/wiki/Jubilee_Hills_Check_Post_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Khairatabad",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Khairatabad railway station", "type": "other", "description": "Railway station listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Khairatabad_metro_station"], "confidence": "medium"},
+        {"name": "Dr. B.R. Ambedkar statue (Khairatabad)", "type": "other", "description": "Statue listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=319"], "confidence": "low"},
+        {"name": "Administrative Staff College of India", "type": "college", "description": "College listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=319"], "confidence": "low"},
+        {"name": "Hanuman temple (Khairatabad)", "type": "temple", "description": "Temple listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=319"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "KPHB Colony",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "KPHB Colony phases", "type": "other", "description": "The station name refers to the numbered KPHB phases it serves. No specific building landmark found.", "relation": "area served", "sources": ["https://en.wikipedia.org/wiki/KPHB_Colony_metro_station"], "confidence": "low"}
+      ],
+      "note": "Only the area name was found. No specific visible landmark confirmed."
+    },
+    {
+      "station": "Kukatpally",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Kukatpally Traffic Police Station", "type": "other", "description": "Police station named as a nearby place in a station-finder listing.", "relation": "near the station", "sources": ["https://yometro.com/metro-station-near-kukatpally-traffic-police-station-hyderabad"], "confidence": "low"}
+      ],
+      "note": "Only generic area information (Mumbai Highway, hospitals, offices) was found. Landmark list is weak."
+    },
+    {
+      "station": "L. B. Nagar",
+      "lines": ["red"],
+      "landmarks": [],
+      "note": "Terminus. No reliable landmark found in these search results beyond the area name; needs an official-site check."
+    },
+    {
+      "station": "Lakdi-ka-pul",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Ravindra Bharathi", "type": "other", "description": "Cultural auditorium named after Tagore; listed as near the station. Walking distance not confirmed.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Lakdi-ka-pul_metro_station"], "confidence": "medium"},
+        {"name": "Global Hospitals", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Lakdi-ka-pul_metro_station"], "confidence": "medium"},
+        {"name": "Birla Mandir", "type": "temple", "description": "Temple listed near the station in one listing.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=321"], "confidence": "low"},
+        {"name": "Cafe Niloufer", "type": "restaurant", "description": "Cafe listed near the station in one listing.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=321"], "confidence": "low"},
+        {"name": "Telephone Bhavan", "type": "other", "description": "Listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Lakdi-ka-pul_metro_station"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Madhapur",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Shilparamam", "type": "other", "description": "Arts and crafts centre in the Madhapur area; distance from this station not stated.", "relation": "in the Madhapur area", "sources": ["https://www.wikipedia.org/wiki/Madhapur"], "confidence": "medium"},
+        {"name": "Inorbit Mall (Madhapur)", "type": "mall", "description": "Mall in Madhapur; distance from this station not stated.", "relation": "in the Madhapur area", "sources": ["https://www.wikipedia.org/wiki/Madhapur"], "confidence": "medium"},
+        {"name": "Mindspace campus", "type": "other", "description": "Office campus in the Madhapur area; one listing puts it about 2.4 km from a Blue Line station, which may not be this one.", "relation": "in the Madhapur area", "sources": ["https://www.wikipedia.org/wiki/Madhapur", "https://yometro.com/metro-station-near-surya-enclave-madhapur-hyderabad"], "confidence": "low"},
+        {"name": "Medicover Hospitals (Madhapur)", "type": "hospital", "description": "Hospital named in a property guide for the Hitec City Road area.", "relation": "in the Madhapur area", "sources": ["https://www.nobroker.in/la-palazzo_hyderabad-prjt-63aac7198caa410001e7795e"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Madhura Nagar",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Saradhi Studios", "type": "other", "description": "Film studio listed near the station on the L&T Metro list.", "relation": "near the station", "sources": ["https://ltmetro.com/stations/madhura-nagar/"], "confidence": "medium"},
+        {"name": "Raja Hospital", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/stations/madhura-nagar/"], "confidence": "medium"},
+        {"name": "Krishna Kanth Park", "type": "park", "description": "Park listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/stations/madhura-nagar/"], "confidence": "medium"},
+        {"name": "PVR Dubbing Academy", "type": "other", "description": "Listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/stations/madhura-nagar/"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Mahatma Gandhi Bus Station",
+      "lines": ["green", "red"],
+      "landmarks": [
+        {"name": "Mahatma Gandhi Bus Station (MGBS)", "type": "bus_stop", "description": "Central bus stand; the station sits next to it. Green Line terminus and Red Line stop.", "relation": "station named after the bus station", "sources": ["https://ltmetro.com/?p=365"], "confidence": "medium"},
+        {"name": "Salar Jung Museum", "type": "other", "description": "Museum listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=365"], "confidence": "low"},
+        {"name": "City Civil Court", "type": "government", "description": "Court listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=365"], "confidence": "low"},
+        {"name": "Imliban Park", "type": "park", "description": "Park listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=365"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Malakpet",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Malakpet Wholesale Market", "type": "market", "description": "Wholesale market listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=328"], "confidence": "low"},
+        {"name": "Yashoda Hospital (Malakpet)", "type": "hospital", "description": "Hospital listed near the station. The same list also appears under New Market, so attribution is unclear.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=328"], "confidence": "low"}
+      ],
+      "note": "The landmark list here may be the same list as New Market's; attribution is uncertain."
+    },
+    {
+      "station": "Mettuguda",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "St. Anthony Shrine", "type": "temple", "description": "Shrine on Krishna Deva Raya Road; the station address refers to it.", "relation": "station address reference", "sources": ["https://en.wikipedia.org/wiki/Mettuguda_metro_station"], "confidence": "medium"},
+        {"name": "Railway Hospital (Lallaguda)", "type": "hospital", "description": "Railway hospital listed as a local landmark.", "relation": "in the station area", "sources": ["https://en.wikipedia.org/wiki/Mettuguda_metro_station"], "confidence": "medium"},
+        {"name": "Railway Officers Club", "type": "other", "description": "Listed as a local landmark.", "relation": "in the station area", "sources": ["https://en.wikipedia.org/wiki/Mettuguda_metro_station"], "confidence": "medium"},
+        {"name": "Railway Recruitment Board", "type": "government", "description": "Listed as a local landmark.", "relation": "in the station area", "sources": ["https://en.wikipedia.org/wiki/Mettuguda_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Miyapur",
+      "lines": ["red"],
+      "landmarks": [],
+      "note": "Terminus. Only locality names (Nadigada Tanda, Hafeezpet) found; no reliable landmark. Needs an official-site check."
+    },
+    {
+      "station": "Moosapet",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Shri Ramulu Theatre", "type": "theatre", "description": "Theatre listed near the station. The Bharat Nagar listing also names it.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=312"], "confidence": "low"},
+        {"name": "Asian Lakshmikala Shashikala Cinepride", "type": "theatre", "description": "Cinema listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=312"], "confidence": "low"},
+        {"name": "Aradhya Hospital", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=312"], "confidence": "low"},
+        {"name": "Balanagar Y Junction", "type": "other", "description": "Junction listed as a neighbourhood point.", "relation": "neighbourhood point", "sources": ["https://ltmetro.com/?p=312"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Musarambagh",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "PVR Musarambagh shopping mall", "type": "mall", "description": "Shopping mall about 60 m from the station, per a station-finder site.", "relation": "about 60 m from the station", "sources": ["https://yometro.com/metro-station-near-pvr-musarambagh-shopping-mall-hyderabad"], "confidence": "low"}
+      ],
+      "note": "Single aggregator source for the distance."
+    },
+    {
+      "station": "Musheerabad",
+      "lines": ["green"],
+      "landmarks": [
+        {"name": "Masjid-e-Meraj", "type": "temple", "description": "Mosque listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=362"], "confidence": "low"},
+        {"name": "Guru Nanak CARE Hospitals", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=362"], "confidence": "low"},
+        {"name": "Sree Sai Theatre", "type": "theatre", "description": "Theatre listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=362"], "confidence": "low"},
+        {"name": "Musheerabad Police Station", "type": "government", "description": "Police station listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=362"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Nagole",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Nagole flyover (GHMC, Uppal-LB Nagar)", "type": "flyover", "description": "Six-lane flyover linking Uppal and LB Nagar. Length is disputed: 947 m, 900+ m and 990 m appear. Cost is also disputed (Rs 143.58 cr vs over Rs 210 cr). Opening was reported for 26 October; opening status not confirmed.", "relation": "flyover near the station", "sources": ["https://www.thenewsminute.com/article/hyderabad-nagole-flyover-almost-complete-ghmc-officials-say-168065", "https://www.thenewsminute.com/article/ktr-inaugurate-nagole-flyover-hyderabad-october-26-169221"], "confidence": "medium"},
+        {"name": "HMR Uppal Depot", "type": "other", "description": "Metro depot named as near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Nagole_metro_station"], "confidence": "medium"},
+        {"name": "Uppal RTO office", "type": "government", "description": "Station is on Inner Ring Road opposite the Uppal RTO office.", "relation": "opposite the station", "sources": ["https://en.wikipedia.org/wiki/Nagole_metro_station"], "confidence": "medium"},
+        {"name": "Mini Shilparamam Park", "type": "park", "description": "Park named as near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Nagole_metro_station"], "confidence": "medium"},
+        {"name": "Metro Cash and Carry", "type": "mall", "description": "Wholesale store named as near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Nagole_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Nampally",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Nampally railway station", "type": "other", "description": "Connected by a covered walkway about 200 m away.", "relation": "200 m away, covered walkway", "sources": ["https://en.wikipedia.org/wiki/Nampally_metro_station"], "confidence": "medium"},
+        {"name": "Numaish Exhibition", "type": "market", "description": "Annual exhibition grounds listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=323"], "confidence": "low"},
+        {"name": "Medwin Hospitals", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=323"], "confidence": "low"},
+        {"name": "Nampally Market", "type": "market", "description": "Market listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=323"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Narayanaguda",
+      "lines": ["green"],
+      "landmarks": [
+        {"name": "YMCA Circle", "type": "other", "description": "Junction listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=361"], "confidence": "low"},
+        {"name": "INOX Mall (Narayanaguda)", "type": "mall", "description": "Mall listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=361"], "confidence": "low"},
+        {"name": "Keshav Memorial Institute of Technology", "type": "college", "description": "College listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=361"], "confidence": "low"},
+        {"name": "Shanti Theatre", "type": "theatre", "description": "Theatre listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=361"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "New Market",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Yashoda Hospital", "type": "hospital", "description": "Hospital listed near the station on the L&T Metro site.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=328"], "confidence": "medium"},
+        {"name": "Hyderabad Race Club", "type": "other", "description": "Listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=328"], "confidence": "medium"},
+        {"name": "Chanchalguda Central Jail", "type": "government", "description": "Listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=328"], "confidence": "medium"},
+        {"name": "Masjid-E-Ameer Fatima", "type": "temple", "description": "Mosque listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=328"], "confidence": "medium"},
+        {"name": "Malakpet Wholesale Market", "type": "market", "description": "Wholesale market listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=328"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "NGRI",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "CSIR National Geophysical Research Institute (NGRI)", "type": "other", "description": "Research institute the station is named after.", "relation": "station named after the institute", "sources": ["https://ltmetro.com/?p=354"], "confidence": "medium"},
+        {"name": "Kakatiya Nagar Main Park", "type": "park", "description": "Park listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=354"], "confidence": "low"},
+        {"name": "Pedda Cheruvu lake", "type": "lake", "description": "Lake listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=354"], "confidence": "low"},
+        {"name": "Rajiv Gandhi International Cricket Stadium", "type": "stadium", "description": "Cricket stadium listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=354"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Osmania Medical College",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Osmania Medical College", "type": "college", "description": "Medical college the station is named after; listed near the station.", "relation": "station named after the college", "sources": ["https://en.wikipedia.org/wiki/Osmania_Medical_College_metro_station"], "confidence": "medium"},
+        {"name": "Putli Bowli", "type": "market", "description": "Area listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Osmania_Medical_College_metro_station"], "confidence": "medium"},
+        {"name": "Koti bus stop", "type": "bus_stop", "description": "Bus stop listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Osmania_Medical_College_metro_station"], "confidence": "medium"},
+        {"name": "Vivek Vardhini College", "type": "college", "description": "College listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Osmania_Medical_College_metro_station"], "confidence": "medium"},
+        {"name": "Fruit Market (Osmania Medical College area)", "type": "market", "description": "Market listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Osmania_Medical_College_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Panjagutta",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Next Premia Mall", "type": "mall", "description": "Mall listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=319"], "confidence": "low"},
+        {"name": "Yashoda Hospitals (Punjagutta)", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=319"], "confidence": "low"},
+        {"name": "NIMS (Nizam's Institute of Medical Sciences)", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=319"], "confidence": "low"},
+        {"name": "Khairatabad RTO office", "type": "government", "description": "RTO office listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=319"], "confidence": "low"},
+        {"name": "Villa Marie College", "type": "college", "description": "College listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=319"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Parade Grounds",
+      "lines": ["blue", "green"],
+      "landmarks": [
+        {"name": "Parade Ground (ground)", "type": "park", "description": "Parade Ground the station is named after; interchange between the Blue Line (HITEC City to Nagole) and the Green Line.", "relation": "station named after the ground", "sources": ["https://en.wikipedia.org/wiki/Parade_Ground_metro_station"], "confidence": "high"},
+        {"name": "Sardar Patel Flyover", "type": "flyover", "description": "Flyover listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Parade_Ground_metro_station"], "confidence": "medium"},
+        {"name": "St. Mary's Basilica", "type": "temple", "description": "Church listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Parade_Ground_metro_station"], "confidence": "medium"},
+        {"name": "GHMC Public Park (Parade Ground)", "type": "park", "description": "Public park listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Parade_Ground_metro_station"], "confidence": "medium"},
+        {"name": "Ganesh Temple (Parade Ground)", "type": "temple", "description": "Temple listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Parade_Ground_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Paradise",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Paradise Restaurant", "type": "restaurant", "description": "Famous restaurant named in the station article.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Paradise_metro_station"], "confidence": "medium"},
+        {"name": "Gymkhana Cricket Ground", "type": "stadium", "description": "Cricket ground listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Paradise_metro_station"], "confidence": "medium"},
+        {"name": "Paradise Fire Station", "type": "government", "description": "Fire station listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Paradise_metro_station"], "confidence": "medium"},
+        {"name": "Sunshine Hospital (Paradise)", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Paradise_metro_station"], "confidence": "medium"},
+        {"name": "NCC Ground", "type": "stadium", "description": "Ground listed near the station on the L&T Metro site.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=346"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Peddamma Gudi",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Peddamma Temple", "type": "temple", "description": "Hindu temple to the Mother Goddess in Jubilee Hills, built 1908; Rajagopuram added 1993. The station is named after it.", "relation": "station named after the temple", "sources": ["https://traveltriangle.com/blog/peddamma-temple/"], "confidence": "high"},
+        {"name": "Apollo Medical (Jubilee Hills)", "type": "hospital", "description": "Named as a nearby place in one listing.", "relation": "near the station", "sources": ["https://yometro.com/from-victoria-memorial-metro-station-hyderabad-to-peddamma-temple-metro-station-hyderabad"], "confidence": "low"},
+        {"name": "Jubilee Hills Police Station", "type": "government", "description": "Named as a nearby place in one listing.", "relation": "near the station", "sources": ["https://yometro.com/from-victoria-memorial-metro-station-hyderabad-to-peddamma-temple-metro-station-hyderabad"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Prakash Nagar",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Shoppers Stop (Prakash Nagar)", "type": "mall", "description": "Store listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Prakash_Nagar_metro_station"], "confidence": "medium"},
+        {"name": "Chikoti Garden", "type": "park", "description": "Park listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Prakash_Nagar_metro_station"], "confidence": "medium"},
+        {"name": "Columbus Hospital", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Prakash_Nagar_metro_station"], "confidence": "medium"},
+        {"name": "Pace Hospital", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Prakash_Nagar_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Raidurg",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Raheja Mindspace Junction (Raheja skywalk)", "type": "skywalk", "description": "HMRL reports a skywalk giving direct connection to Mindspace IT Park from the Raidurg station (HMRL page spells the station Rayadurg). Station is at Raheja Mindspace Junction, opposite Lemon Tree Hotel.", "relation": "skywalk from the station to Mindspace", "sources": ["https://hmrl.co.in/?p=11264", "https://en.wikipedia.org/wiki/Raidurg_metro_station"], "confidence": "medium"},
+        {"name": "Lemon Tree Hotel (Raidurg)", "type": "other", "description": "Hotel the station is opposite.", "relation": "opposite the station", "sources": ["https://en.wikipedia.org/wiki/Raidurg_metro_station"], "confidence": "medium"},
+        {"name": "Raidurgam-T-Hub skywalk and underpass (proposed)", "type": "skywalk", "description": "Proposal only (police commissioner inspected a planned skywalk and underpass on the Raidurgam-T-Hub stretch). Not built as of these results.", "relation": "proposed project nearby", "sources": ["https://telanganatoday.com/tag/raidurgam-t-hub-stretch"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Rasoolpura",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Hyderabad Metro Rail Bhavan", "type": "government", "description": "Metro administrative building listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Rasoolpura_metro_station"], "confidence": "medium"},
+        {"name": "Begumpet Traffic Police Station", "type": "government", "description": "Police station listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Rasoolpura_metro_station"], "confidence": "medium"},
+        {"name": "US Visa Office (Hyderabad)", "type": "government", "description": "Consulate-related office listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Rasoolpura_metro_station"], "confidence": "medium"},
+        {"name": "Begumpet Hockey Stadium", "type": "stadium", "description": "Stadium listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Rasoolpura_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Road No 5 Jubilee Hills",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Annapurna Studios", "type": "other", "description": "Film studio and annexe listed as a landmark for this station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=341"], "confidence": "low"},
+        {"name": "KBR Park", "type": "park", "description": "Park listed as a landmark for this station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=341"], "confidence": "low"},
+        {"name": "Chiranjeevi Eye and Blood Bank", "type": "hospital", "description": "Listed as a landmark for this station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=341"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "RTC Cross Roads",
+      "lines": ["green"],
+      "landmarks": [
+        {"name": "TSRTC Bus Bhavan", "type": "bus_stop", "description": "State bus headquarters listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=362"], "confidence": "low"},
+        {"name": "Bawarchi restaurant", "type": "restaurant", "description": "Well-known restaurant listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=362"], "confidence": "low"},
+        {"name": "Sandhya 70 MM Theatre", "type": "theatre", "description": "Theatre listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=362"], "confidence": "low"},
+        {"name": "NABARD", "type": "other", "description": "Office listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=362"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "S. R. Nagar",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Government General and Chest Hospital", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=316"], "confidence": "low"},
+        {"name": "Krishna Kanth Park", "type": "park", "description": "Park listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=316"], "confidence": "low"},
+        {"name": "SR Nagar Police Station", "type": "government", "description": "Police station listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=316"], "confidence": "low"},
+        {"name": "Balkampet Yellamma Pochamma Temple", "type": "temple", "description": "Temple listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=316"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Secunderabad East",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Secunderabad Railway Station", "type": "other", "description": "Major railway station listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Secunderabad_East_metro_station"], "confidence": "medium"},
+        {"name": "Apollo Hospitals (Secunderabad)", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Secunderabad_East_metro_station"], "confidence": "medium"},
+        {"name": "Rail Nilayam", "type": "government", "description": "Railway Board building listed near the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Secunderabad_East_metro_station"], "confidence": "medium"},
+        {"name": "St. Mary's High School (Secunderabad)", "type": "college", "description": "School listed near the station. Address conflicts (Market Police station vs St Johns Road).", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Secunderabad_East_metro_station"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Secunderabad West",
+      "lines": ["green"],
+      "landmarks": [
+        {"name": "Secunderabad Railway Station", "type": "other", "description": "About 500-800 m away, in the Botiguda area.", "relation": "500-800 m away", "sources": ["https://en.wikipedia.org/wiki/Secunderabad_West_metro_station"], "confidence": "medium"},
+        {"name": "Gandhi Hospital", "type": "hospital", "description": "Hospital reachable from the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Secunderabad_West_metro_station"], "confidence": "medium"},
+        {"name": "Sultan Bazar", "type": "market", "description": "Area reachable from the station.", "relation": "near the station", "sources": ["https://en.wikipedia.org/wiki/Secunderabad_West_metro_station"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Stadium",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Rajiv Gandhi International Stadium", "type": "stadium", "description": "Cricket stadium listed near the station, in Prashanth Nagar, Uppal.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=355"], "confidence": "low"},
+        {"name": "Genpact (Uppal)", "type": "other", "description": "Office listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=355"], "confidence": "low"},
+        {"name": "NSL Arena", "type": "other", "description": "Event venue listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=355"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Sultan Bazar",
+      "lines": ["green"],
+      "landmarks": [
+        {"name": "Government Maternity Hospital (Koti)", "type": "hospital", "description": "Hospital listed near the station, in the Esamiya Bazaar and Koti area.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=365"], "confidence": "low"},
+        {"name": "Telangana Mahila Vishwavidyalaya", "type": "college", "description": "University listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=365"], "confidence": "low"},
+        {"name": "Gokul Chat (Koti)", "type": "restaurant", "description": "Chat restaurant listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=365"], "confidence": "low"},
+        {"name": "Osmania Medical College", "type": "college", "description": "Medical college along Osmania Medical College Road.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=365"], "confidence": "low"}
+      ]
+    },
+    {
+      "station": "Tarnaka",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Osmania University", "type": "college", "description": "University listed near the station (Krishna Deva Raya Road, near Tarnaka Main Road). Some yometro route pages put an OU gate on other stations; treat gate details as unverified.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=352"], "confidence": "medium"},
+        {"name": "CSI Christ Church (South Lallaguda)", "type": "temple", "description": "Church listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=352"], "confidence": "medium"},
+        {"name": "Railway Degree College", "type": "college", "description": "College listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=352"], "confidence": "medium"},
+        {"name": "Railway Golf Course (Secunderabad)", "type": "park", "description": "Golf course listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=352"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Uppal",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Uppal Skywalk (HMDA circular skywalk)", "type": "skywalk", "description": "Circular skywalk around the Uppal junction linking the metro station, roads and the bus terminal. One source says 660 m long, Rs 25 crore, built by HMDA. Vertical transport counts disagree: Deccan Chronicle lists 8 lifts, 6 staircases and 4 escalators; another report says 6 hop-on stations, 9 elevators and staircases. Inauguration by KTR is reported (year not stated in the snippet).", "relation": "circular skywalk around the Uppal junction, linked to the metro station", "sources": ["https://www.thenewsminute.com/telangana/ktr-inaugurates-hyderabad-s-first-skywalk-uppal-178965", "https://deccanchronicle.com/nation/in-other-news/270423/uppal-skywalk-nearing-completion.html", "https://hmrl.co.in/?p=11264"], "confidence": "high"},
+        {"name": "Rajiv Gandhi International Stadium", "type": "stadium", "description": "Cricket stadium named as a nearby landmark in an L&T Metro station-listing snippet (exact page not confirmed).", "relation": "near the station", "sources": ["https://ltmetro.com/?p=355"], "confidence": "low"},
+        {"name": "Mantralayam Raghavendra Swamy Temple Branch", "type": "temple", "description": "Temple named as a nearby landmark in the same station-listing snippet.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=355"], "confidence": "low"},
+        {"name": "Uppal bus terminal (TSRTC)", "type": "bus_stop", "description": "Busy bus terminal the skywalk is designed to serve; a crossing point for bus passengers.", "relation": "linked by the skywalk", "sources": ["https://www.thenewsminute.com/telangana/ktr-inaugurates-hyderabad-s-first-skywalk-uppal-178965"], "confidence": "medium"}
+      ]
+    },
+    {
+      "station": "Victoria Memorial",
+      "lines": ["red"],
+      "landmarks": [
+        {"name": "Victoria Play Ground", "type": "park", "description": "Playground about 60 m from the station, per a station-finder site.", "relation": "about 60 m away", "sources": ["https://en.wikipedia.org/wiki/Victoria_Memorial_metro_station"], "confidence": "low"}
+      ],
+      "note": "Only one aggregator-distance landmark found. Needs an official-site check."
+    },
+    {
+      "station": "Yusufguda",
+      "lines": ["blue"],
+      "landmarks": [
+        {"name": "Yousufguda Police Grounds", "type": "park", "description": "Grounds listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=340"], "confidence": "low"},
+        {"name": "Shri Kotla Vijaya Bhaskar Reddy Stadium", "type": "stadium", "description": "Stadium listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=340"], "confidence": "low"},
+        {"name": "Krishna Kanth Park", "type": "park", "description": "Park listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=340"], "confidence": "low"},
+        {"name": "Krishna Hospital (Yusufguda)", "type": "hospital", "description": "Hospital listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=340"], "confidence": "low"},
+        {"name": "Pochamma Temple (Yusufguda)", "type": "temple", "description": "Temple listed near the station.", "relation": "near the station", "sources": ["https://ltmetro.com/?p=340"], "confidence": "low"}
+      ],
+      "note": "One blog places Yusufguda on the Red Line; Wikipedia and transit listings place it on the Blue Line. Blue used."
+    }
+  ]
+}
