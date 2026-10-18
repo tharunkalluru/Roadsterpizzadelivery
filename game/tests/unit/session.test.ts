@@ -4,7 +4,8 @@ import { Session } from '../../src/missions/session';
 import { NO_INPUT, type TickInput } from '../../src/player/player';
 import { MISSION, SIM_HZ } from '../../src/config/gameplay';
 
-const inp = (o: Partial<TickInput> = {}): TickInput => ({ ...NO_INPUT, ...o });
+// tests drive with ▲ held unless a case says otherwise (control model: no input = stop and hold)
+const inp = (o: Partial<TickInput> = {}): TickInput => ({ ...NO_INPUT, accel: true, ...o });
 
 function started(over = {}, world = makeFixtureWorld()) {
   const s = new Session(world, fixtureMission(over), { runId: 'test', trafficEnabled: false });
@@ -20,7 +21,7 @@ function driveToStop(s: Session, maxTicks = 20000, extra: (s: Session) => Partia
     const stop = s.currentStop!;
     const c = s.stagingPose(stop);
     const d = Math.hypot(s.player.x - c.x, s.player.z - c.z);
-    s.step(inp({ brake: d < brakeDist(s), ...extra(s) }));
+    s.step(inp({ brake: d < brakeDist(s), accel: !(d < brakeDist(s)), ...extra(s) }));
   }
 }
 
@@ -45,10 +46,10 @@ describe('M01/M03 deliver: deliberate low-speed stop starts the hold; success', 
     const s = started();
     for (let k = 0; k < 20000 && !s.holdActive && s.phase === 'PLAYING'; k++) {
       const c = s.stagingPose(s.currentStop!); const d = Math.hypot(s.player.x - c.x, s.player.z - c.z);
-      s.step(inp({ brake: d < brakeDist(s) }));
+      s.step(inp({ brake: d < brakeDist(s), accel: !(d < brakeDist(s)) }));
     }
     expect(s.holdActive).toBe(true);
-    s.step(inp({ boost: true }));
+    s.step(inp({ accel: true }));
     expect(s.holdActive).toBe(false);
     for (let k = 0; k < 120; k++) s.step(inp());
     expect(s.outcome).toBeNull();
@@ -60,7 +61,7 @@ describe('M02 wrong side / airborne do not complete', () => {
   it('stopping in the polygon facing the wrong direction does not deliver', () => {
     const s = started();
     s.player.place(-3.5, -800, Math.PI, 'A1'); // inside polygon but heading south
-    for (let k = 0; k < 300; k++) s.step(inp({ brake: true }));
+    for (let k = 0; k < 300; k++) s.step(inp({ accel: false })); // no input: stop and hold
     expect(s.outcome).toBeNull();
     expect(s.holdHint).toMatch(/Wrong side/);
   });
@@ -69,7 +70,7 @@ describe('M02 wrong side / airborne do not complete', () => {
     s.player.place(-3.5, -760, 0, 'A1');
     for (let k = 0; k < 40; k++) s.step(inp());
     s.step(inp({ flyPress: true }));
-    for (let k = 0; k < 600 && s.phase === 'PLAYING'; k++) s.step(inp({ brake: s.player.z < -790 }));
+    for (let k = 0; k < 600 && s.phase === 'PLAYING'; k++) s.step(inp({ brake: s.player.z < -790, accel: s.player.z >= -790 }));
     expect(s.outcome).toBeNull();
     expect(s.player.isAirborne).toBe(true);
   });
@@ -93,11 +94,11 @@ describe('F24/M05 same-tick ordering', () => {
     const s = started({ cargo: { label: 'x', fragility: 1, failThreshold: 99 } });
     for (let k = 0; k < 20000 && s.phase === 'PLAYING' && s.holdTicks < MISSION.holdTicks - 1; k++) {
       const c = s.stagingPose(s.currentStop!); const d = Math.hypot(s.player.x - c.x, s.player.z - c.z);
-      s.step(inp({ brake: d < brakeDist(s) }));
+      s.step(inp({ brake: d < brakeDist(s), accel: !(d < brakeDist(s)) }));
     }
     expect(s.holdTicks).toBe(MISSION.holdTicks - 1);
     s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'bump_x', kind: 'vehicle', nx: 1, nz: 0, depth: 0.01 }); return out; }, occupancy: () => 0 };
-    s.step(inp({ brake: true }));
+    s.step(inp({ brake: true, accel: false }));
     expect(s.outcome).toEqual({ success: false, reason: 'Cargo damaged beyond delivery', code: 'cargo' });
   });
   it('a moving pedestrian contact is critical and blocks completion (recovery instead)', () => {
@@ -146,7 +147,7 @@ describe('F19/F20/F23 recovery, retry, bounded cargo', () => {
   it('sustained contact produces one bounded event, not per-frame damage', () => {
     const s = started();
     s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'wall', kind: 'building', nx: 0, nz: 1, depth: 0.01 }); return out; }, occupancy: () => 0 };
-    for (let k = 0; k < 40; k++) s.step(inp({ brake: true }));
+    for (let k = 0; k < 40; k++) s.step(inp({ brake: true, accel: false }));
     expect(s.cargo).toBeGreaterThanOrEqual(98);
   });
 });

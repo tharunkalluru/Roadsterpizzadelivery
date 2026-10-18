@@ -16,7 +16,7 @@ export class Tutorial {
       this.shown.add(id);
       return { id, title, text };
     };
-    if (s.tick === 1) return once('steer', 'Steer and brake', 'Left thumb: drag on the steering pad (or ←/→). The car accelerates by itself. Hold BRAKE (or ↓) to slow down or stop. FAST (↑) goes up to 60 km/h.');
+    if (s.tick === 1) return once('steer', 'Steer and brake', 'Left thumb: drag on the steering pad (A/D or ←/→). Right thumb: hold ▲ (W) to drive, ▼ (S) to brake. Let go of everything and the car stops and holds. Keep ▼ held while stopped to reverse.');
     for (const e of p.events) {
       if (e.type === 'launch_denied') return once('denied', 'Fly is unavailable here', `"${e.reason}". A refused launch spends nothing and is not queued for later. Try again on an open stretch.`);
       if (e.type === 'launch') return once('flying', 'You are flying', 'Steer as usual. The meter keeps counting while you climb, hover, brake or descend. The striped part is the reserve needed to land — it is part of the same balance. Press LAND (Space) to come down early and keep the rest.');

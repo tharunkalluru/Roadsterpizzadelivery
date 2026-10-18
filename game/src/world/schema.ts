@@ -88,6 +88,8 @@ export interface RoadEdge {
   provenance: Provenance;
   /** false = drivable boundary road weakly (not strongly) connected to the routable core; leads out of the acquired area */
   routable?: boolean;
+  /** v2: true only for fully at-grade edges with walkable footpaths (pedestrians spawn only here) */
+  footpath?: boolean;
 }
 
 export interface GraphNode {

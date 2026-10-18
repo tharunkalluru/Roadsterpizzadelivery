@@ -20,17 +20,17 @@ export type DenialReason =
 export interface TickInput {
   /** -1 = full left, +1 = full right */
   steer: number;
+  /** ▲ accelerate (forward drive / faster flight). With no input the car brakes and holds. */
+  accel: boolean;
+  /** ▼ brake; held while stopped engages reverse (no separate reverse control) */
   brake: boolean;
-  boost: boolean;
-  /** reverse mode requested (only engages when nearly stopped) */
-  reverse: boolean;
   /** a FRESH press of the Fly/Land control on this tick (edge, never a held state) */
   flyPress: boolean;
-  /** hold the car stationary for a delivery (mission sets this; suspends auto-acceleration) */
+  /** hold the car stationary for a delivery (mission sets this) */
   holdStop: boolean;
 }
 
-export const NO_INPUT: TickInput = { steer: 0, brake: false, boost: false, reverse: false, flyPress: false, holdStop: false };
+export const NO_INPUT: TickInput = { steer: 0, accel: false, brake: false, flyPress: false, holdStop: false };
 
 export type PlayerEvent =
   | { type: 'launch'; transaction: number }
@@ -69,6 +69,9 @@ export interface PlayerSnapshot {
   move: MoveState; roadId: string | null; level: number; takeoffTicks: number; confirmTicks: number; stabilityTicks: number;
   reverseEngaged: boolean; landingSoon: boolean; ledger: ReturnType<FlightLedger['snapshot']>;
 }
+
+/** ▼ must be held this long while stopped before reverse engages (no accidental reverse) */
+const REVERSE_DELAY_TICKS = 18;
 
 const AIRBORNE: ReadonlySet<MoveState> = new Set(['TAKEOFF', 'FLYING', 'DESCENDING']);
 
@@ -273,7 +276,7 @@ export class Player {
           this.move = 'TAKEOFF';
           this.takeoffTicks = 0;
           this.vy = 0;
-          this.reverseEngaged = false;
+          this.reverseEngaged = false; this.backHeldStopped = 0;
           this.events.push({ type: 'launch', transaction: this.ledger.beginTransaction() });
         } else {
           this.events.push({ type: 'launch_denied', reason: ev.reason }); // spends nothing, queues nothing
@@ -345,28 +348,37 @@ export class Player {
     else { this.move = 'DESCENDING'; }
   }
 
+  /** ticks ▼ has been held while stopped (reverse engages after REVERSE_DELAY) */
+  private backHeldStopped = 0;
+
   private integrateGround(input: TickInput, dt: number) {
     const s = this.surface;
     const onRoad = !!s && s.dist <= s.halfWidth + 3.5;
-    // reverse only when nearly stopped; emergency braking never engages reverse by itself
-    if (input.reverse && Math.abs(this.speed) <= VEHICLE.reverseEnableSpeed && !input.brake) this.reverseEngaged = true;
-    if (!input.reverse) this.reverseEngaged = false;
-    let target: number;
-    if (this.move === 'LANDING_CONFIRM') target = this.speed; // hold momentum during confirmation
-    else if (input.holdStop) target = 0;
-    else if (this.reverseEngaged) target = -VEHICLE.reverseMaxSpeed;
-    else target = input.boost ? VEHICLE.maxSpeed : VEHICLE.cruiseSpeed;
-    if (!onRoad) target = Math.sign(target) * Math.min(Math.abs(target), VEHICLE.offRoadMaxSpeed);
-    if (input.brake) {
-      const d = VEHICLE.brakeDecel * dt;
-      this.speed = Math.abs(this.speed) <= d ? 0 : this.speed - Math.sign(this.speed) * d;
-    } else if (input.holdStop) {
-      const d = VEHICLE.brakeDecel * 0.6 * dt;
-      this.speed = Math.abs(this.speed) <= d ? 0 : this.speed - Math.sign(this.speed) * d;
-    } else {
+    const vmax = onRoad ? VEHICLE.maxSpeed : VEHICLE.offRoadMaxSpeed;
+    const approach = (target: number, up: number, down: number) => {
       const diff = target - this.speed;
-      const rate = (Math.sign(diff) === Math.sign(this.speed) || this.speed === 0) ? VEHICLE.accel : VEHICLE.brakeDecel * 0.5;
+      const rate = Math.sign(diff) === Math.sign(this.speed) || this.speed === 0 ? up : down;
       this.speed += Math.max(-rate * dt, Math.min(rate * dt, diff));
+    };
+    // ▼ held while (nearly) stopped → reverse; releasing ▼ or pressing ▲ leaves reverse
+    if (input.brake && Math.abs(this.speed) < 0.3) this.backHeldStopped++;
+    else if (!input.brake) this.backHeldStopped = 0;
+    if (this.backHeldStopped >= REVERSE_DELAY_TICKS) this.reverseEngaged = true;
+    if (!input.brake) this.reverseEngaged = false;
+    if (this.move === 'LANDING_CONFIRM') {
+      // keep landing momentum during the short confirmation; only explicit braking slows it
+      if (input.brake) approach(0, VEHICLE.brakeDecel, VEHICLE.brakeDecel);
+    } else if (input.holdStop) {
+      approach(0, VEHICLE.brakeDecel * 0.6, VEHICLE.brakeDecel * 0.6);
+    } else if (this.reverseEngaged) {
+      approach(-VEHICLE.reverseMaxSpeed, VEHICLE.accel * 0.8, VEHICLE.brakeDecel);
+    } else if (input.brake) {
+      approach(0, VEHICLE.brakeDecel, VEHICLE.brakeDecel); // ▼ wins over ▲ when both are pressed
+    } else if (input.accel) {
+      approach(vmax, VEHICLE.accel, VEHICLE.brakeDecel);
+    } else {
+      // no input: the car slows and holds (engine braking + hold brake at low speed)
+      approach(0, VEHICLE.idleDecel, VEHICLE.idleDecel);
     }
     const v = Math.abs(this.speed);
     const k = Math.min(1, v / VEHICLE.maxSpeed);
@@ -382,14 +394,9 @@ export class Player {
   }
 
   private integrateAir(input: TickInput, dt: number) {
-    // horizontal: no reverse in the air; braking slows to a (metered) hover
-    // assisted cruise mirrors ground auto-acceleration; braking slows toward a (metered) hover
+    // horizontal: ▲ speeds up, ▼ slows toward a (metered) hover, no input keeps the current speed
     if (input.brake) this.speed = Math.max(0, this.speed - FLIGHT.airBrakeDecel * dt);
-    else {
-      const target = input.boost ? FLIGHT.airMaxSpeed : VEHICLE.cruiseSpeed;
-      const d = target - this.speed;
-      this.speed += Math.max(-FLIGHT.airDrag * dt, Math.min(FLIGHT.airAccel * dt, d));
-    }
+    else if (input.accel) this.speed = Math.min(FLIGHT.airMaxSpeed, this.speed + FLIGHT.airAccel * dt);
     if (this.speed < 0) this.speed = 0;
     let steer = Math.max(-1, Math.min(1, input.steer));
     // Assisted flight (MASTER §12.2/§12.4): with no steering input the controller follows the road

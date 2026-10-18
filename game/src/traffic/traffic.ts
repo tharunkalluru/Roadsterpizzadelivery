@@ -143,6 +143,9 @@ export class TrafficSystem implements DynamicWorld {
       const x = px + Math.cos(ang) * r, z = pz + Math.sin(ang) * r;
       const s = this.world.roads.surface(x, z, { margin: 0 });
       if (!s) continue;
+      // footpaths only beside fully at-grade roads: never on bridges, flyovers, ramps or highway links
+      const rd = s.road as typeof s.road & { footpath?: boolean };
+      if (rd.footpath === false || rd.bridge || rd.tunnel || Math.max(...rd.pointElevM, rd.elevationM) > 0.3 || /^(motorway|trunk_link|motorway_link)/.test(rd.highway)) continue;
       const side: 1 | -1 = this.rng.next() < 0.5 ? 1 : -1;
       const ped: Pedestrian = { id: this.nextId++, edge: s.roadId, along: s.along, side, dir: this.rng.next() < 0.5 ? 1 : -1, speed: this.rng.range(1.0, 1.5), state: 'walk', stateTicks: 0, crossT: 0, x, z, y: s.elevation, heading: 0, px: x, pz: z, pheading: 0 };
       this.placePed(ped);

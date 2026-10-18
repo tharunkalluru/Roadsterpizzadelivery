@@ -138,7 +138,7 @@ export class Screens {
   ready(m: MissionDef, resumed: boolean) {
     this.set(`<div class="card" style="margin-top:auto;margin-bottom:6vh;max-width:460px">
       <h2>${resumed ? 'Restored from your last saved checkpoint' : 'Parcel loaded. Start when ready.'}</h2>
-      <p class="small">${esc(m.title)} · Flight ${m.flightSeconds}.0 s · ${fmt(m.deadlineSeconds)}. Left thumb steers; right thumb brakes and flies. Keyboard: ←/→ steer, ↓ brake, ↑ faster, Space fly/land, R reverse, P pause, M map.</p>
+      <p class="small">${esc(m.title)} · Flight ${m.flightSeconds}.0 s · ${fmt(m.deadlineSeconds)}. Left thumb steers. Right thumb: ▲ go, ▼ brake (hold when stopped to reverse), FLY. Let go and the car stops and holds. Keyboard: A/D or ←/→ steer, W/↑ go, S/↓ brake/reverse, Space fly/land, P pause, M map.</p>
       <div class="row"><button class="btn primary" data-start>Go</button><button class="btn" data-back>Back</button></div></div>`, true);
     (this.el.firstElementChild as HTMLElement).style.background = 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(6,8,11,0.85))';
     this.on('[data-start]', () => this.app.beginCountdown());

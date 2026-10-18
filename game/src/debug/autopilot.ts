@@ -37,7 +37,7 @@ export class Autopilot {
   input(): TickInput {
     const s = this.s, p = s.player;
     const stop = s.currentStop;
-    if (!stop || !s.route.length || !p.surface) {
+    if (!stop || !s.route.length) {
       // lost (e.g. strayed onto a boundary road): use recovery like a player would
       if (++this.lostTicks > 120) { this.lostTicks = 0; s.requestManualRecovery(); }
       return { ...NO_INPUT, brake: true };
@@ -64,7 +64,7 @@ export class Autopilot {
         const nearEdgeFwd = Math.sign(lateralRate) * lat > hw - 1.6;
         if (k.phase === 'fwd') {
           if ((nearEdgeFwd && k.ticks > 20) || k.ticks > 150) { k.phase = 'stop1'; k.ticks = 0; }
-          return { ...NO_INPUT, steer: turnLeft ? -1 : 1, brake: p.speed > 2.5 };
+          return { ...NO_INPUT, steer: turnLeft ? -1 : 1, accel: p.speed < 2.0, brake: p.speed > 2.5 };
         }
         if (k.phase === 'stop1') {
           if (Math.abs(p.speed) < 0.2) { k.phase = 'rev'; k.ticks = 0; }
@@ -73,10 +73,10 @@ export class Autopilot {
         if (k.phase === 'rev') {
           const nearEdgeRev = -Math.sign(lateralRate) * lat > hw - 1.6;
           if ((nearEdgeRev && k.ticks > 30) || k.ticks > 140) { k.phase = 'stop2'; k.ticks = 0; }
-          return { ...NO_INPUT, reverse: true, steer: turnLeft ? 1 : -1 };
+          return { ...NO_INPUT, brake: true, steer: turnLeft ? 1 : -1 }; // ▼ held while stopped = reverse
         }
         if (Math.abs(p.speed) < 0.2) { k.phase = 'fwd'; k.ticks = 0; }
-        return { ...NO_INPUT, brake: true, steer: turnLeft ? -1 : 1 };
+        return { ...NO_INPUT, steer: turnLeft ? -1 : 1 }; // release ▼: the car stops and holds
       }
     }
     const v = Math.max(0, p.speed);
@@ -117,9 +117,8 @@ export class Autopilot {
       vt = Math.min(vt, vStop);
       if (distStop < 2.5 && remaining < 25) vt = 0;
     }
-    if (s.holdActive) return { ...NO_INPUT, steer: 0, brake: true };
+    if (s.holdActive) return { ...NO_INPUT }; // no input: the car holds still
     const brake = v > vt + 0.6;
-    const boost = !brake && vt > VEHICLE.cruiseSpeed + 0.1;
     // simple unstick: if blocked for long, use recovery like a player would
     if (v < 0.2 && vt > 1) this.stuckTicks++; else this.stuckTicks = 0;
     if (this.stuckTicks > 600) { this.stuckTicks = 0; s.requestManualRecovery(); }
@@ -129,6 +128,8 @@ export class Autopilot {
     let flyPress = false;
     if (this.opts.useFlight && p.move === 'GROUNDED' && v > 8 && remaining > 250 && maxTurn < 0.3 && p.ledger.remainingSeconds > 6) flyPress = (s.tick % 240) === 0;
     if (this.opts.useFlight && p.move === 'FLYING' && (maxTurn > 0.5 || remaining < 120)) flyPress = true;
-    return { ...NO_INPUT, steer, brake: brake || (vt === 0 && v > 0.05), boost, flyPress };
+    // ▲/▼ control model: accelerate below target, brake well above it, otherwise let the car ease off
+    const accel = !brake && (v < vt - 0.2 || (p.isAirborne && v < vt));
+    return { ...NO_INPUT, steer, brake: brake || (vt === 0 && v > 0.05), accel, flyPress };
   }
 }

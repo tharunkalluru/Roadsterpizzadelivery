@@ -13,9 +13,8 @@ export class InputManager {
   private steerOriginX = 0;
   private steerValue = 0;
   private brakePointers = new Set<number>();
-  private boostPointers = new Set<number>();
+  private accelPointers = new Set<number>();
   private flyEdge = false;
-  private reverseToggle = false;
   sensitivity = 1;
   enabled = false;
   onPause: (() => void) | null = null;
@@ -41,7 +40,6 @@ export class InputManager {
     if (e.repeat) { if (e.code === 'Space') e.preventDefault(); return; }
     this.keys.add(e.code);
     if (e.code === 'Space' || e.code === 'KeyF') { this.flyEdge = true; e.preventDefault(); }
-    if (e.code === 'KeyR') this.reverseToggle = !this.reverseToggle;
     if (e.code === 'Escape' || e.code === 'KeyP') this.onPause?.();
     if (e.code === 'KeyM') this.onMap?.();
     if (e.code === 'KeyH') this.onHorn?.();
@@ -49,8 +47,8 @@ export class InputManager {
   }
 
   /** wire the touch controls of the driving layout */
-  bindTouch(els: { steer: HTMLElement; steerKnob: HTMLElement; brake: HTMLElement; fly: HTMLElement; reverse: HTMLElement; boost?: HTMLElement }) {
-    const { steer, steerKnob, brake, fly, reverse, boost } = els;
+  bindTouch(els: { steer: HTMLElement; steerKnob: HTMLElement; brake: HTMLElement; accel: HTMLElement; fly: HTMLElement }) {
+    const { steer, steerKnob, brake, accel, fly } = els;
     const steerDown = (e: PointerEvent) => {
       if (!this.enabled || this.steerPointer !== null) return;
       this.steerPointer = e.pointerId; this.steerOriginX = e.clientX; this.steerValue = 0;
@@ -86,26 +84,22 @@ export class InputManager {
       el.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'mouse') up(e); });
     };
     holdButton(brake, this.brakePointers);
-    if (boost) holdButton(boost, this.boostPointers);
+    holdButton(accel, this.accelPointers);
     fly.addEventListener('pointerdown', (e) => { if (!this.enabled) return; this.flyEdge = true; fly.classList.add('down'); e.preventDefault(); });
     for (const t of ['pointerup', 'pointercancel', 'pointerleave'] as const) fly.addEventListener(t, () => fly.classList.remove('down'));
-    reverse.addEventListener('pointerdown', (e) => { if (!this.enabled) return; this.reverseToggle = !this.reverseToggle; e.preventDefault(); });
   }
 
   /** clear every held action (U02) */
   clearAll(): void {
     this.keys.clear();
     this.steerPointer = null; this.steerValue = 0;
-    this.brakePointers.clear(); this.boostPointers.clear();
+    this.brakePointers.clear(); this.accelPointers.clear();
     this.flyEdge = false;
-    this.reverseToggle = false;
     this.root.querySelectorAll('.down,.active').forEach((el) => el.classList.remove('down', 'active'));
     const knob = this.root.querySelector<HTMLElement>('.steer-knob');
     if (knob) knob.style.transform = 'translateX(0)';
   }
 
-  get reverseRequested(): boolean { return this.reverseToggle; }
-  setReverse(on: boolean) { this.reverseToggle = on; }
 
   /** sample one simulation tick; the fly edge is consumed by the first tick that reads it */
   sample(): TickInput {
@@ -115,10 +109,10 @@ export class InputManager {
     if (k.has('ArrowRight') || k.has('KeyD')) steer += 1;
     steer = Math.max(-1, Math.min(1, steer));
     const brake = this.brakePointers.size > 0 || k.has('ArrowDown') || k.has('KeyS');
-    const boost = this.boostPointers.size > 0 || k.has('ArrowUp') || k.has('KeyW');
+    const accel = this.accelPointers.size > 0 || k.has('ArrowUp') || k.has('KeyW');
     const flyPress = this.flyEdge;
     this.flyEdge = false;
-    return { steer, brake, boost, reverse: this.reverseToggle, flyPress, holdStop: false };
+    return { steer, accel, brake, flyPress, holdStop: false };
   }
 
   /** discard a pending press that arrived while flight was unavailable (never queued) */

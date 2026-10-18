@@ -9,7 +9,8 @@ import { TrafficSystem } from '../../src/traffic/traffic';
 import { Rng } from '../../src/core/rng';
 
 const AIR = new Set(['TAKEOFF', 'FLYING', 'DESCENDING']);
-const inp = (o: Partial<TickInput> = {}): TickInput => ({ ...NO_INPUT, ...o });
+// tests drive with ▲ held unless a case says otherwise (control model: no input = stop and hold)
+const inp = (o: Partial<TickInput> = {}): TickInput => ({ ...NO_INPUT, accel: true, ...o });
 
 function newPlayer(seconds = 25, consumed = 0, world = makeFixtureWorld()) {
   const p = new Player(world, new FlightLedger(seconds, consumed));
@@ -101,11 +102,11 @@ describe('F05 hover is metered one-for-one', () => {
     const p = newPlayer();
     drive(p, 60);
     p.step(inp({ flyPress: true }));
-    for (let k = 0; k < 400 && (p.speed > 0 || p.move !== 'FLYING'); k++) p.step(inp({ brake: true }));
+    for (let k = 0; k < 400 && (p.speed > 0 || p.move !== 'FLYING'); k++) p.step(inp({ brake: true, accel: false }));
     expect(p.move).toBe('FLYING');
     expect(p.speed).toBe(0);
     const c0 = p.ledger.consumedTicks;
-    for (let k = 0; k < 300; k++) p.step(inp({ brake: true, steer: k % 2 ? 0.5 : -0.5 }));
+    for (let k = 0; k < 300; k++) p.step(inp({ brake: true, accel: false, steer: k % 2 ? 0.5 : -0.5 }));
     expect(p.ledger.consumedTicks - c0).toBe(300);
   });
 });
@@ -181,7 +182,7 @@ describe('F08 whole-car clearance catches what a centre ray misses', () => {
     expect(centreOnly.bottom).toBe(Infinity); // a centre ray would miss it
     const p = new Player(world, new FlightLedger(25));
     p.place(-3, -851, 0, 'A1');
-    drive(p, 20, { brake: true });
+    drive(p, 20, { brake: true, accel: false });
     expect(p.evaluateLaunch()).toEqual({ ok: false, reason: 'Low clearance' });
   });
   it('a thin structure is hit in flight at maximum speed (no tunnelling)', () => {
@@ -194,7 +195,7 @@ describe('F08 whole-car clearance catches what a centre ray misses', () => {
     p.step(inp({ flyPress: true }));
     let crashed = false;
     for (let k = 0; k < 900 && !crashed; k++) {
-      const ev = p.step(inp({ boost: true }));
+      const ev = p.step(inp({ accel: true }));
       crashed = ev.some((e) => e.type === 'crash' || e.type === 'contact');
       if (p.z < -1210) break;
     }
@@ -224,7 +225,7 @@ describe('F09 surface identity at overlapping coordinates', () => {
     p.place(-3, -400, 0, 'A1');
     p.move = 'DESCENDING'; p.y = 5; p.vy = -3.2;
     let crash = false;
-    for (let k = 0; k < 200 && !crash; k++) crash = p.step(inp({ brake: true })).some((e) => e.type === 'crash');
+    for (let k = 0; k < 200 && !crash; k++) crash = p.step(inp({ brake: true, accel: false })).some((e) => e.type === 'crash');
     expect(crash).toBe(true);
   });
 });

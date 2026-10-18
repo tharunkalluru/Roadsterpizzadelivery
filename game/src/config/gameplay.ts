@@ -24,6 +24,7 @@ export const VEHICLE = {
   accel: 3.2,
   brakeDecel: 9.0,
   coastDecel: 0.6,
+  idleDecel: 4.0, // no ▲/▼ input: slow down and hold (user-requested control model)
   reverseMaxSpeed: 3.0,
   reverseEnableSpeed: 0.6,
   maxSteerLow: 0.6, // rad at walking speed

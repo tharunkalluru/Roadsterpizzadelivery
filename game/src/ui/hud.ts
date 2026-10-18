@@ -26,7 +26,6 @@ export class Hud {
   private speedV!: HTMLElement; private gear!: HTMLElement;
   private fly!: HTMLElement; private flyLabel!: HTMLElement; private flySec!: HTMLElement;
   private meterFill!: HTMLElement; private meterRes!: HTMLElement; private meterLbl!: HTMLElement; private meterWhy!: HTMLElement;
-  private reverse!: HTMLElement;
   private minimap!: HTMLCanvasElement;
   private dbg!: HTMLElement;
   private cd!: HTMLElement;
@@ -60,11 +59,10 @@ export class Hud {
       </div>
       <div class="controls">
         <div class="steer" data-steer aria-label="Steering pad"><div class="steer-knob"></div></div>
-        <button class="cbtn reverse hidden" data-rev aria-label="Reverse">REV</button>
         <div class="rbtns">
-          <button class="cbtn boost" data-boost aria-label="Faster">FAST</button>
-          <button class="cbtn brake" data-brake aria-label="Brake">BRAKE</button>
           <button class="cbtn fly" data-fly aria-label="Fly"><span data-flylbl>FLY</span><span class="fs" data-flysec>25.0s</span></button>
+          <button class="cbtn accel" data-accel aria-label="Accelerate">▲</button>
+          <button class="cbtn brake" data-brake aria-label="Brake, hold to reverse">▼</button>
         </div>
       </div>
       <div class="countdown hidden" data-cd></div>
@@ -79,7 +77,7 @@ export class Hud {
     this.speedV = q('speed'); this.gear = q('gear');
     this.fly = q('fly'); this.flyLabel = q('flylbl'); this.flySec = q('flysec');
     this.meterFill = q('mfill'); this.meterRes = q('mreserve'); this.meterLbl = q('mlbl'); this.meterWhy = q('why');
-    this.reverse = q('rev'); this.minimap = q('mini'); this.dbg = q('debug'); this.cd = q('cd'); this.rec = q('rec');
+    this.minimap = q('mini'); this.dbg = q('debug'); this.cd = q('cd'); this.rec = q('rec');
     this.timerLbl = this.root.querySelector('.timer-label') as HTMLElement;
     q('pause').addEventListener('click', () => { this.app.audio.click(); this.app.pause('user'); });
     q('map').addEventListener('click', () => { this.app.audio.click(); this.app.openMap(); });
@@ -93,7 +91,7 @@ export class Hud {
     document.body.classList.add('playing');
     if (!this.bound) {
       const q = (k: string) => this.root.querySelector(`[data-${k}]`) as HTMLElement;
-      this.app.input.bindTouch({ steer: q('steer'), steerKnob: this.root.querySelector('.steer-knob') as HTMLElement, brake: q('brake'), fly: this.fly, reverse: this.reverse, boost: q('boost') });
+      this.app.input.bindTouch({ steer: q('steer'), steerKnob: this.root.querySelector('.steer-knob') as HTMLElement, brake: q('brake'), accel: q('accel'), fly: this.fly });
       this.bound = true;
     }
     this.seenNotices = s.notices.length;
@@ -149,13 +147,11 @@ export class Hud {
     (this.root.querySelector('[data-mres]') as HTMLElement).textContent = air ? `▨ reserve` : '';
     this.banner.classList.toggle('hidden', !(air && p.landingSoon));
     this.banner.textContent = 'Landing soon';
-    this.reverse.classList.toggle('hidden', !(Math.abs(p.speed) < 1.5 && !air));
-    this.reverse.classList.toggle('on', app.input.reverseRequested);
     // hold
     const showHold = !!s.holdHint || s.holdActive;
     this.hold.classList.toggle('hidden', !showHold);
     if (showHold) {
-      this.holdTxt.textContent = s.holdActive ? 'Delivering… press FAST to cancel' : s.holdHint!;
+      this.holdTxt.textContent = s.holdActive ? 'Delivering… press ▲ to cancel' : s.holdHint!;
       this.holdBar.style.width = `${Math.min(100, (s.holdTicks / 60) * 100)}%`;
     }
     // ---- notices

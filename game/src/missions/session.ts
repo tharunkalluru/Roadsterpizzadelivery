@@ -170,7 +170,7 @@ export class Session {
     const p = this.player;
     const stop = this.currentStop;
     const holdInput: TickInput = { ...input, holdStop: this.holdActive };
-    if (this.holdActive && (input.boost || input.reverse)) {
+    if (this.holdActive && input.accel) {
       // explicit resume-driving action cancels the hold and restores control
       this.holdActive = false; this.holdTicks = 0; this.holdArmed = false; holdInput.holdStop = false;
       this.notify('Delivery hold cancelled', 'info');

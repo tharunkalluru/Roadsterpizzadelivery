@@ -8,7 +8,7 @@ import { buildCatalog } from '../../src/missions/catalog';
 import { Autopilot } from '../../src/debug/autopilot';
 import type { WorldCore, WorldManifest, WorldChunk } from '../../src/world/schema';
 
-const script = (t: number): TickInput => ({ ...NO_INPUT, steer: t % 600 < 50 ? 0.2 : 0, brake: t % 900 > 860, flyPress: t === 400 || t === 1300 });
+const script = (t: number): TickInput => ({ ...NO_INPUT, accel: true, steer: t % 600 < 50 ? 0.2 : 0, brake: t % 900 > 860, flyPress: t === 400 || t === 1300 });
 
 describe('M12 same seed + recorded inputs reproduce the run', () => {
   it('identical state after 3000 ticks with traffic', () => {
@@ -36,7 +36,7 @@ describe('M08/M11 traffic identity and spawn safety', () => {
     const firstSeen = new Map<number, string>();
     for (let t = 0; t < 4000 && s.phase === 'PLAYING'; t++) {
       const before = new Set(s.traffic.actors.map((a) => a.id));
-      s.step(NO_INPUT);
+      s.step({ ...NO_INPUT, accel: true });
       const ids = s.traffic.actors.map((a) => a.id);
       expect(new Set(ids).size).toBe(ids.length);
       for (const a of s.traffic.actors) {
@@ -109,7 +109,7 @@ describe('M07/M10 encounters and deadlocks', () => {
     s.start();
     let maxEnc = 0, sawQueue = false;
     for (let t = 0; t < 120 * 60 && s.phase === 'PLAYING'; t++) {
-      s.step({ ...NO_INPUT, brake: t % 1200 > 900 });
+      s.step({ ...NO_INPUT, accel: t % 1200 <= 900, brake: t % 1200 > 900 });
       maxEnc = Math.max(maxEnc, s.encounters.length);
       for (const a of s.traffic.actors) if (a.state === 'queue') { sawQueue = true; expect(a.holdUntil).toBeDefined(); expect(a.holdUntil! - s.traffic.tick).toBeLessThanOrEqual(30 * 60); }
     }
@@ -123,5 +123,22 @@ describe('M07/M10 encounters and deadlocks', () => {
       expect(s.traffic.log.some((l) => l.startsWith('deadlock-recycle'))).toBe(true);
     }
     void sawQueue;
+  });
+});
+
+describe('pedestrians never walk on bridges (playtest feedback)', () => {
+  it('no pedestrian is ever placed on an elevated or bridge edge', () => {
+    const w = makeFixtureWorld();
+    const s = new Session(w, fixtureMission({ traffic: 'busy', deadlineSeconds: 900 }), { seed: 3 });
+    s.start();
+    s.player.place(-3, -1480, 0, 'A2'); // right beside the fixture overpass E
+    for (let t = 0; t < 3000; t++) {
+      s.step({ ...NO_INPUT });
+      for (const p of s.traffic.peds) {
+        const r = w.roads.roads.get(p.edge)!;
+        expect(r.bridge).toBe(false);
+        expect(p.y).toBeLessThan(0.31);
+      }
+    }
   });
 });

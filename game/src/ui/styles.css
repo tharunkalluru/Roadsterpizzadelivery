@@ -121,22 +121,20 @@ code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-
 .steer::after { content: '◀  STEER  ▶'; position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--muted); }
 .steer-knob { position: absolute; top: 50%; left: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(255,255,255,0.16); border: 2px solid rgba(255,255,255,0.4); transition: transform 0.05s; }
 .steer.active { background: rgba(53, 208, 255, 0.08); }
-.rbtns { position: absolute; right: calc(12px + var(--safe-r)); bottom: calc(14px + var(--safe-b)); display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; gap: 12px; pointer-events: auto; align-items: end; }
+.rbtns { position: absolute; right: calc(14px + var(--safe-r)); bottom: calc(14px + var(--safe-b)); display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; gap: 12px; pointer-events: auto; align-items: center; }
 .cbtn { min-width: 76px; min-height: 76px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.35); background: rgba(14, 18, 24, 0.7); font-weight: 800; letter-spacing: 0.06em; touch-action: none; user-select: none; -webkit-user-select: none; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.85rem; cursor: pointer; }
 .cbtn.down { transform: scale(0.95); background: rgba(255,255,255,0.18); }
-.cbtn.brake { grid-column: 1; grid-row: 2; width: 86px; height: 86px; border-color: rgba(255, 90, 90, 0.7); }
-.cbtn.fly { grid-column: 2; grid-row: 1 / span 2; width: 104px; height: 104px; border-color: var(--accent-2); }
+/* right thumb: ▲ accelerate (top), ▼ brake/reverse (bottom), FLY to the left of them */
+.cbtn.accel { grid-column: 2; grid-row: 1; width: 92px; height: 92px; font-size: 2rem; border-color: rgba(61, 220, 132, 0.8); }
+.cbtn.brake { grid-column: 2; grid-row: 2; width: 92px; height: 92px; font-size: 2rem; border-color: rgba(255, 90, 90, 0.8); }
+.cbtn.fly { grid-column: 1; grid-row: 1 / span 2; width: 96px; height: 96px; border-color: var(--accent-2); align-self: center; }
 .cbtn.fly .fs { font-size: 0.8rem; font-weight: 700; color: var(--accent-2); }
 .cbtn.fly.land { border-color: var(--good); }
 .cbtn.fly.land .fs { color: var(--good); }
 .cbtn.fly.unavail { opacity: 0.55; border-style: dashed; }
-.cbtn.boost { grid-column: 1; grid-row: 1; width: 62px; height: 62px; min-width: 62px; min-height: 62px; font-size: 0.7rem; justify-self: center; }
-.cbtn.reverse { position: absolute; right: calc(230px + var(--safe-r)); bottom: calc(24px + var(--safe-b)); width: 60px; height: 60px; min-width: 60px; min-height: 60px; font-size: 0.7rem; pointer-events: auto; }
-.cbtn.reverse.on { border-color: var(--warn); color: var(--warn); }
 .left-handed .steer { left: auto; right: calc(10px + var(--safe-r)); }
 .left-handed .rbtns { right: auto; left: calc(12px + var(--safe-l)); }
-.left-handed .cbtn.reverse { right: auto; left: calc(230px + var(--safe-l)); }
-.flightmeter { position: absolute; right: calc(12px + var(--safe-r)); bottom: calc(196px + var(--safe-b)); width: 210px; }
+.flightmeter { position: absolute; right: calc(12px + var(--safe-r)); bottom: calc(222px + var(--safe-b)); width: 210px; }
 .flightmeter .lbl { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px; font-weight: 700; }
 .flightmeter .bar { position: relative; height: 10px; border-radius: 6px; background: rgba(255,255,255,0.12); overflow: hidden; }
 .flightmeter .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent-2); }
@@ -156,9 +154,9 @@ code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-
 .debug { position: absolute; left: calc(8px + var(--safe-l)); top: 50%; transform: translateY(-50%); font: 11px/1.35 ui-monospace, monospace; background: rgba(0,0,0,0.6); padding: 8px; border-radius: 8px; white-space: pre; pointer-events: auto; max-width: 46vw; }
 .debug button { font-size: 11px; margin: 2px; }
 @media (max-height: 420px) {
-  .cbtn.fly { width: 88px; height: 88px; }
-  .cbtn.brake { width: 74px; height: 74px; }
-  .flightmeter { bottom: calc(172px + var(--safe-b)); width: 180px; }
+  .cbtn.fly { width: 80px; height: 80px; min-width: 80px; min-height: 80px; }
+  .cbtn.accel, .cbtn.brake { width: 72px; height: 72px; min-width: 72px; min-height: 72px; }
+  .flightmeter { bottom: calc(180px + var(--safe-b)); width: 180px; }
   .minimap { width: 96px; height: 96px; }
   .timer { font-size: 1.5rem; }
 }
