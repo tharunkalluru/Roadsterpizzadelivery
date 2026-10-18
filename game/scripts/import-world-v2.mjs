@@ -573,6 +573,7 @@ const bHeight = new Map(buildings.map((b) => [b.id, b.heightM]));
 for (const r of roads) {
   const half = r.widthM / 2;
   for (const sm of samplesWithElev(r)) {
+    if (sm.elev < -2.5) continue; // in a tunnel: buildings above do not conflict
     const q = sm.p;
     const hits = new Set(keptSegGrid.within(q, half - 0.01).map((h) => h.payload.id));
     const inside = buildingAt(q);

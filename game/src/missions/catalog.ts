@@ -7,6 +7,9 @@ import type { MissionDef, MissionTemplate } from './types';
 export interface RouteInfo { path: string[]; lengthM: number; turns: number; uturns?: number; signals?: number }
 
 /** distance along a directed edge at which a delivery's stop polygon centre lies */
+/** code-point string order (locale-independent catalogue) */
+const cmp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+
 export function stopAlongOnEdge(world: WorldPhysics, d: DeliveryLocation, edgeId: string): number {
   const e = world.nav.edges.get(edgeId);
   if (!e) return 0;
@@ -74,7 +77,7 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
     const r = routeBetween(world, a, b);
     if (r && r.lengthM > 50) pairs.push({ a, b, r });
   }
-  pairs.sort((p, q) => p.r.lengthM - q.r.lengthM || p.a.id.localeCompare(q.a.id) || p.b.id.localeCompare(q.b.id));
+  pairs.sort((p, q) => p.r.lengthM - q.r.lengthM || cmp(p.a.id, q.a.id) || cmp(p.b.id, q.b.id));
   const used = new Set<string>();
   const key = (p: Pair) => `${p.a.id}>${p.b.id}`;
   const pick = (pred: (p: Pair) => boolean, prefer?: (p: Pair) => number): Pair | null => {

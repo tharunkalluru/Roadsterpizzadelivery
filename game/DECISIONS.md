@@ -43,3 +43,6 @@ The specification's auto-accelerate cruise is replaced at the user's explicit re
 
 ## D14 Whole-network data source (v2)
 Overpass and Geofabrik are blocked here, but the Overture Maps S3 bucket is reachable. The whole-network package therefore uses Overture release 2026-09-23.1: transportation (ODbL, derived from OSM) and places, buildings and base (CDLA-Permissive-2.0). Street View and satellite imagery are neither reachable nor licensed for copying, so storefront signboards come from Overture place listings and are marked `provisional_listing`.
+
+## D15 Level lengths (v2)
+The plan's bands (L3 5–10 km, L5 15–25 km) were calibrated at real scale with the reference agent. On the ground, L5 contracts of 13–18 km needed 37–50 minutes of driving, with deadlines of 58–82 minutes. That is too long for a phone session, so the bands were shortened: L1 0.4–1.5 km, L2 1.5–4 km, L3 3.5–6 km, L4 4.5–7.5 km, L5 7.5–10 km (about 20–25 minutes on the ground; 30 s of flight). L4 pairs stations on different lines, so the route must go through an interchange area; it is not forced through specific named interchange roads. Lengths stay data-driven: change the `bands` table in `src/missions/levels.ts` and re-run `CALIBRATE_ALL=1 npx vitest run tests/unit/missions-v2.test.ts`.

@@ -298,7 +298,7 @@ export class GameView {
     const g = this.roadTiles.get(key);
     if (!g) return;
     this.staticGroup.remove(g);
-    g.traverse((o) => { const m = o as THREE.Mesh; if (m.geometry) m.geometry.dispose(); });
+    g.traverse((o) => { const m = o as THREE.Mesh; if (m.geometry) m.geometry.dispose(); if ((o as THREE.InstancedMesh).isInstancedMesh) (o as THREE.InstancedMesh).dispose(); });
     for (const geo of (g.userData.sharedGeometries ?? []) as THREE.BufferGeometry[]) geo.dispose();
     this.roadTiles.delete(key);
   }

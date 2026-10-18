@@ -384,7 +384,7 @@ export class Session {
         const hit = this.world.roads.surface(p.x, p.z, { onlyRoadId: e.roadId, maxY: p.y + 0.3, margin: d.wrongWay ? 5 : 2 });
         // swinging wide through a hairpin onto the opposite carriageway of a divided road is still "on the route"
         const slack = d.wrongWay ? 4.5 : 1.5;
-        if (hit && hit.roadId === e.roadId && hit.dist <= hit.halfWidth + slack) {
+        if (hit && hit.roadId === e.roadId && hit.dist <= hit.halfWidth + slack && hit.elevation > p.y - 2.5) { // same level: not the road under a deck
           const dd = this.world.nav.directedFor(hit, p.heading);
           if (dd.id === rid) { d = dd; break; }
         }

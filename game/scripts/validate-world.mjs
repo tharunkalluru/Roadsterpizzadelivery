@@ -827,6 +827,7 @@ function validate() {
     for (const r of core.roads) {
       const half = r.widthM / 2;
       for (const sm of samplesElev(r)) {
+        if (sm.elev < -2.5) continue; // tunnel: same rule as the v2 importer
         const q = sm.p;
         const ids = new Set(keptGrid.within(q, half - 0.01).map((h) => h.payload.id));
         const c = containing(q);

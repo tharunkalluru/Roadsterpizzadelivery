@@ -312,5 +312,6 @@ export function limitGrades(roads, maxGrade = 0.1) {
       if ('elevationM' in r) r.elevationM = Math.max(...r.pointElevM); // same convention as computeElevations
     }
   }
-  return { edgesChanged, iterations: it };
+  if (it >= 200) console.warn(`limitGrades: iteration cap reached (${it}); grades may still exceed ${maxGrade}`);
+  return { edgesChanged, iterations: it, converged: it < 200 };
 }

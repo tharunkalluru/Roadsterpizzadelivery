@@ -394,7 +394,10 @@ export class App {
     // register collision and visuals together (no visible building without its collider)
     this.world!.addChunk(c);
     // D12: footprints conflicting with the carriageway are omitted from render and collision alike
-    this.view.addChunk({ ...c, buildings: c.buildings.filter((b) => !b.intrudesCarriageway) }, this.core!);
+    const dropped = new Set(c.buildings.filter((b) => b.intrudesCarriageway).map((b) => b.id));
+    const sf = (c as any).storefronts as { buildingId: string | null }[] | undefined;
+    // shops on an omitted footprint are omitted too (no sign floating over the road without a collider)
+    this.view.addChunk({ ...c, buildings: c.buildings.filter((b) => !dropped.has(b.id)), ...(sf ? { storefronts: sf.filter((x) => !x.buildingId || !dropped.has(x.buildingId)) } : {}) } as typeof c, this.core!);
   }
 
   private stream() {

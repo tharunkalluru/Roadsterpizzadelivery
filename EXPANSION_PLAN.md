@@ -65,12 +65,13 @@ Prepared 2026-10-17 in response to playtest feedback. Feedback items: the scene 
   - roughly the same draw-call budget as now.
 
 ## 5. Missions and levels (lead)
-- **Level 1:** short local deliveries (0.5–1.5 km) within one station area.
-- **Level 2:** along a line between neighbouring stations (2–4 km).
-- **Level 3:** a full line segment (5–10 km).
-- **Level 4:** cross-line deliveries through real interchange roads (Ameerpet, MGBS, Parade Ground).
-- **Level 5:** long cross-network contracts (15–25 km) with 25–30 s flight budgets.
-- Every level is unlocked by completing the previous one. Each contract is still completable on the ground and calibrated by the reference agent.
+As built (see `game/DECISIONS.md` D15; the first draft had L3 5–10 km and L5 15–25 km, which calibration showed to be 40–80 minute drives):
+- **Level 1:** short local deliveries (0.4–1.5 km) within one station area.
+- **Level 2:** between neighbouring station areas on a shared line (1.5–4 km).
+- **Level 3:** along one line (3.5–6 km).
+- **Level 4:** between stations on different lines, so the route crosses an interchange area (4.5–7.5 km).
+- **Level 5:** cross-city contracts (7.5–10 km) with a 30 s flight budget.
+- Completing any delivery in a level unlocks the next. Every contract is completable on the ground and calibrated by the reference agent (`qa/artifacts/calibration/deadlines-v2-all.json`).
 
 ## 6. Verification lane
 `qa/storefront-inventory.json` lists every frontage interval with: listing-based names, confidence, and status (`provisional_listing` | `verified_imagery` | `verified_field` | `missing`). If you allow `graph.mapillary.com` (and its image CDN) in the environment's Network settings and provide a Mapillary token, an AI-assisted pass can compare listings against open street-level images. A local visit checklist per station area is generated either way.

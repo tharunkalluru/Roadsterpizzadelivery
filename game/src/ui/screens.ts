@@ -290,8 +290,10 @@ export class Screens {
   credits() {
     const core = this.app.core!;
     this.set(`<div class="card" style="margin-top:2vh"><h2>Credits &amp; data</h2>
-      ${this.app.isNetwork() ? `<p><b>Map data</b> from Overture Maps Foundation (release 2026-09-23.1). Places, buildings and base layers: CDLA-Permissive-2.0. Transportation layer © OpenStreetMap contributors, ODbL 1.0. Shop and business names are listings (Meta, Microsoft and other contributors), not street-view checked.</p>` : ''}
-      <p><b>Map data</b> © OpenStreetMap contributors, available under the Open Database License (ODbL 1.0) — openstreetmap.org/copyright. Roads, buildings, metro alignments, station and place names come from dated OSM extracts bundled with this build. They are source claims: not field-verified, and storefront inventory is incomplete.</p>
+      ${this.app.isNetwork()
+        ? `<p><b>Map data.</b> Road network, turn restrictions, building footprints and metro alignments: © OpenStreetMap contributors, ODbL 1.0 (openstreetmap.org/copyright), distributed through the Overture Maps Foundation (release 2026-09-23.1, overturemaps.org). Some road segments come from TomTom Orbis Maps and some footprints from Microsoft ML Buildings and Google Open Buildings, as recorded in the Overture source entries. The map database in this game is an ODbL derivative and, if redistributed, is offered under ODbL 1.0.</p>
+      <p><b>Business listings</b> (shop signboards and delivery names): © Overture Maps Foundation, CDLA-Permissive-2.0, contributed by Meta, Microsoft, Foursquare (Apache-2.0), AllThePlaces (CC0-1.0), DAC and PinMeTo. They are listings, not verified street signs; names and positions can be out of date.</p>`
+        : `<p><b>Map data</b> © OpenStreetMap contributors, available under the Open Database License (ODbL 1.0) — openstreetmap.org/copyright. Roads, buildings, metro alignments, station and place names come from dated OSM extracts bundled with this build. They are source claims: not field-verified, and storefront inventory is incomplete.</p>`}
       <p><b>Textures</b>: aerial_asphalt_01 and concrete_wall_006 from Poly Haven (CC0). <b>Font</b>: Noto Sans Telugu (SIL Open Font License 1.1).</p>
       <p><b>Vehicle, buildings, traffic, audio and UI</b>: original procedural work for this game. The car is a fictional Roadster-inspired design; no manufacturer endorsement. Delivery brand "Metro Express" is fictional.</p>
       <h3>What this build covers</h3>

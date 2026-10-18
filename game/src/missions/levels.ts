@@ -4,10 +4,10 @@ import { routeBetween, deadlineFor, type RouteInfo } from './catalog';
 import type { MissionDef, MissionTemplate } from './types';
 
 /**
- * Level-based contracts across the whole metro network (EXPANSION_PLAN §5).
- *   L1 local (0.4–1.5 km, same station area) · L2 neighbouring stations (1.5–4 km) ·
- *   L3 along a line (4–10 km) · L4 cross-line via real interchange roads (4–14 km) ·
- *   L5 long cross-network (12–30 km).
+ * Level-based contracts across the whole metro network (EXPANSION_PLAN §5, lengths per DECISIONS D15).
+ *   L1 local (0.4–1.5 km, same station area) · L2 neighbouring stations on a shared line (1.5–4 km) ·
+ *   L3 along one line (3.5–6 km) · L4 between stations on different lines, i.e. through an interchange (4.5–7.5 km) ·
+ *   L5 cross-city between different lines (7.5–10 km).
  * Routes are computed on the directed graph only for prefiltered candidate pairs (no all-pairs).
  * Every contract stays completable on the ground; deadlines follow the calibrated formula.
  */
@@ -41,7 +41,7 @@ export function buildLevelCatalog(core: WorldCore, world: WorldPhysics, maxPerLe
     return cache.get(k)!;
   };
   // deterministic order
-  const sorted = ds.slice().sort((p, q) => p.id.localeCompare(q.id));
+  const sorted = ds.slice().sort((p, q) => (p.id < q.id ? -1 : p.id > q.id ? 1 : 0)); // code-point order: same catalogue in every locale
   const bands: { level: number; min: number; max: number; straightMin: number; straightMax: number; pred: (a: DeliveryLocation, b: DeliveryLocation) => boolean }[] = [
     { level: 1, min: 400, max: 1500, straightMin: 150, straightMax: 1100, pred: (a, b) => area.get(a.id) === area.get(b.id) },
     { level: 2, min: 1500, max: 4000, straightMin: 900, straightMax: 3200, pred: (a, b) => area.get(a.id) !== area.get(b.id) && sharesLine(a, b) },
@@ -63,7 +63,7 @@ export function buildLevelCatalog(core: WorldCore, world: WorldPhysics, maxPerLe
     for (let i = 0; i < sorted.length && n < maxPerLevel; i++) {
       const a = sorted[(i * 7 + band.level * 13) % sorted.length];
       const cands = sorted.filter((b) => b !== a && band.pred(a, b)).map((b) => ({ b, d: Math.hypot(b.entrance[0] - a.entrance[0], b.entrance[1] - a.entrance[1]) }))
-        .filter((c) => c.d >= band.straightMin && c.d <= band.straightMax).sort((p, q) => p.d - q.d || p.b.id.localeCompare(q.b.id));
+        .filter((c) => c.d >= band.straightMin && c.d <= band.straightMax).sort((p, q) => p.d - q.d || (p.b.id < q.b.id ? -1 : p.b.id > q.b.id ? 1 : 0));
       for (const c of cands.slice(0, 6)) {
         const key = `${a.id}>${c.b.id}`;
         if (used.has(key)) continue;
