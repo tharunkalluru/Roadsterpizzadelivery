@@ -122,7 +122,8 @@ export class RoadIndex {
       if (p.dist > s.halfWidth + margin) continue;
       const elevation = s.ay + (s.by - s.ay) * p.t;
       if (opts.maxY !== undefined && elevation > opts.maxY + 0.75) continue; // surface above the car is not support
-      let score = p.dist;
+      // width-normalised: at a fork, a narrow road beside a wide carriageway must not win just because its centreline is closer
+      let score = p.dist <= s.halfWidth ? (p.dist / s.halfWidth) * 2 : 2 + (p.dist - s.halfWidth);
       const connected = !!prefer && (s.road.fromNode === prefer.fromNode || s.road.fromNode === prefer.toNode || s.road.toNode === prefer.fromNode || s.road.toNode === prefer.toNode);
       // a level change is legitimate only through a real connection where the surfaces meet at the car's height
       const carY = opts.maxY !== undefined ? opts.maxY - 0.3 : undefined;

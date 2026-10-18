@@ -4,6 +4,7 @@ import type { MapView } from './map';
 import type { Session } from '../missions/session';
 import { fmt, fmtDist } from './hud';
 import type { BestRecord } from '../persistence/store';
+import { LEVELS } from '../missions/levels';
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 
@@ -74,14 +75,19 @@ export class Screens {
   }
 
   corridors() {
-    this.set(`<div class="card" style="margin-top:4vh"><h2>Corridors</h2>
-      <div class="mission-list">
-        <div class="mission"><div class="t">Blue Line · Uppal – Stadium – NGRI – Habsiguda – Tarnaka <span class="pill ok">Playable</span></div>
+    const net = this.app.isNetwork();
+    const rows = net
+      ? `<div class="mission"><div class="t">Red Line · Miyapur – LB Nagar <span class="pill ok">Playable</span></div><div class="m">Roads around the whole line.</div></div>
+        <div class="mission"><div class="t">Blue Line · Nagole – Raidurg <span class="pill ok">Playable</span></div><div class="m">Roads around the whole line, including the Uppal skywalk area.</div></div>
+        <div class="mission"><div class="t">Green Line · JBS Parade Ground – MG Bus Station <span class="pill ok">Playable</span></div><div class="m">Roads around the whole line.</div></div>
+        <div class="mission"><div class="m">Roads, buildings and shop names come from Overture Maps open data (shop listings, not street-view checked). Treat them as provisional.</div></div>`
+      : `<div class="mission"><div class="t">Blue Line · Uppal – Stadium – NGRI – Habsiguda – Tarnaka <span class="pill ok">Playable</span></div>
         <div class="m">Selected connected roads from bundled OpenStreetMap extracts. Geometry and names are source claims (provisional), not field-verified.</div></div>
         <div class="mission"><div class="t">Blue Line · rest (Nagole – Raidurg) <span class="pill plan">Planned</span></div><div class="m">Street data not yet acquired in this build.</div></div>
         <div class="mission"><div class="t">Red Line · Miyapur – LB Nagar <span class="pill plan">Planned</span></div><div class="m">Street data not yet acquired in this build.</div></div>
-        <div class="mission"><div class="t">Green Line · JBS Parade Ground – MG Bus Station <span class="pill plan">Planned</span></div><div class="m">Street data not yet acquired in this build.</div></div>
-      </div><div class="divider"></div><button class="btn" data-back>Back</button></div>`);
+        <div class="mission"><div class="t">Green Line · JBS Parade Ground – MG Bus Station <span class="pill plan">Planned</span></div><div class="m">Street data not yet acquired in this build.</div></div>`;
+    this.set(`<div class="card" style="margin-top:4vh"><h2>Corridors</h2>
+      <div class="mission-list">${rows}</div><div class="divider"></div><button class="btn" data-back>Back</button></div>`);
     this.on('[data-back]', () => this.app.toMenu());
   }
 
@@ -89,15 +95,33 @@ export class Screens {
     const a = this.app;
     const prog = a.store.loadProgress();
     const bests = a.store.loadBests();
-    const items = a.missions.filter((m) => !m.practice).map((m) => {
+    const card = (m: MissionDef, locked = false) => {
       const done = prog.completed.includes(m.id);
       const best = Object.values(bests).find((b) => b.comparableKey.startsWith(`${m.id}@`));
-      return `<button class="mission" data-m="${m.id}"><div class="t">${esc(m.title)} ${done ? '<span class="pill ok">✓ done</span>' : ''}</div>
-        <div class="m">${esc(m.brief)}</div>
+      const area = m.fromArea && m.toArea ? `<div class="m">${esc(m.fromArea)}${m.toArea !== m.fromArea ? ` → ${esc(m.toArea)}` : ''}</div>` : '';
+      return `<button class="mission" ${locked ? 'aria-disabled="true" disabled' : `data-m="${m.id}"`}><div class="t">${esc(m.title)} ${done ? '<span class="pill ok">✓ done</span>' : ''}</div>
+        ${area}<div class="m">${esc(m.brief)}</div>
         <div class="m">${fmtDist(m.routeLengthM ?? 0)} · deadline ${fmt(m.deadlineSeconds)} · flight ${m.flightSeconds} s · ${m.traffic} traffic${m.cargo.fragility > 1 ? ' · fragile' : ''}${m.stops.length > 1 ? ` · ${m.stops.length} stops` : ''}${best ? ` · best ${best.score}` : ''}</div></button>`;
-    }).join('');
-    this.set(`<div class="card" style="margin-top:2vh"><h2>Deliveries · Uppal – Tarnaka</h2>
-      <div class="mission-list">${items}
+    };
+    const list = a.missions.filter((m) => !m.practice);
+    let body: string;
+    let title = 'Deliveries · Uppal – Tarnaka';
+    if (list.some((m) => m.level)) {
+      title = 'Deliveries · Hyderabad Metro';
+      const doneLevel = (lv: number) => list.some((m) => m.level === lv && prog.completed.includes(m.id));
+      body = LEVELS.map((L) => {
+        const ms = list.filter((m) => m.level === L.level);
+        if (!ms.length) return '';
+        const prev = LEVELS.filter((p) => p.level < L.level && list.some((m) => m.level === p.level)).pop();
+        const locked = !!prev && !doneLevel(prev.level) && !a.debug;
+        return `<h3 class="lvl">Level ${L.level} · ${esc(L.title)} ${locked ? `<span class="pill plan">Locked — finish a Level ${prev!.level} delivery</span>` : ''}</h3>
+          <p class="small">${esc(L.blurb)}</p>${ms.map((m) => card(m, locked)).join('')}`;
+      }).join('');
+    } else {
+      body = list.map((m) => card(m)).join('');
+    }
+    this.set(`<div class="card" style="margin-top:2vh"><h2>${title}</h2>
+      <div class="mission-list">${body}
       <div class="mission" aria-disabled="true"><div class="t">Night route <span class="pill plan">Not available</span></div><div class="m">Night presentation is not implemented or validated in this build (MT11).</div></div></div>
       <div class="divider"></div><button class="btn" data-back>Back</button></div>`);
     this.el.querySelectorAll<HTMLElement>('[data-m]').forEach((b) => b.addEventListener('click', () => { a.audio.start(); a.audio.click(); this.preview(a.missions.find((m) => m.id === b.dataset.m)!); }));
@@ -119,7 +143,7 @@ export class Screens {
         <dt>Cargo</dt><dd>${esc(m.cargo.label)}${m.cargo.fragility > 1 ? ` — fragile ×${m.cargo.fragility}, fails below ${m.cargo.failThreshold}%` : ''}</dd>
         <dt>Flight</dt><dd><b>${m.flightSeconds} s for this whole delivery.</b> Use it together or in parts. Takeoff, hover and landing all count; nothing refills it.</dd>
       </dl>
-      <div class="notice-box">Stop inside the marked area at the entrance, below walking speed, to hand over the parcel. Pickup/drop places are OpenStreetMap entries near the road — names and entrances are not field-verified.</div>
+      <div class="notice-box">Stop inside the marked area at the entrance, below walking speed, to hand over the parcel. Pickup/drop places are real map listings near the road — names and entrances are not field-verified.</div>
       <div class="row"><button class="btn primary" data-go>Start delivery</button><button class="btn" data-back>Back</button></div></div>`);
     this.on('[data-go]', () => void a.startMission(m));
     this.on('[data-back]', () => (m.practice ? a.toMenu() : this.missionSelect()));
@@ -265,11 +289,12 @@ export class Screens {
   credits() {
     const core = this.app.core!;
     this.set(`<div class="card" style="margin-top:2vh"><h2>Credits &amp; data</h2>
+      ${this.app.isNetwork() ? `<p><b>Map data</b> from Overture Maps Foundation (release 2026-09-23.1). Places, buildings and base layers: CDLA-Permissive-2.0. Transportation layer © OpenStreetMap contributors, ODbL 1.0. Shop and business names are listings (Meta, Microsoft and other contributors), not street-view checked.</p>` : ''}
       <p><b>Map data</b> © OpenStreetMap contributors, available under the Open Database License (ODbL 1.0) — openstreetmap.org/copyright. Roads, buildings, metro alignments, station and place names come from dated OSM extracts bundled with this build. They are source claims: not field-verified, and storefront inventory is incomplete.</p>
       <p><b>Textures</b>: aerial_asphalt_01 and concrete_wall_006 from Poly Haven (CC0). <b>Font</b>: Noto Sans Telugu (SIL Open Font License 1.1).</p>
       <p><b>Vehicle, buildings, traffic, audio and UI</b>: original procedural work for this game. The car is a fictional Roadster-inspired design; no manufacturer endorsement. Delivery brand "Metro Express" is fictional.</p>
       <h3>What this build covers</h3>
-      <p class="small">Playable: ${core.roads.length} road segments around the Blue Line from Uppal to Tarnaka. Planned, not yet built: the rest of the Blue Line, the Red Line and the Green Line street networks. Building heights, lane details, metro deck and pillar heights are provisional estimates.</p>
+      <p class="small">${this.app.isNetwork() ? `Playable: ${core.roads.length} road segments around all three metro lines (Red, Blue, Green).` : `Playable: ${core.roads.length} road segments around the Blue Line from Uppal to Tarnaka. Planned, not yet built: the rest of the Blue Line, the Red Line and the Green Line street networks.`} Building heights, lane details, metro deck and pillar heights are provisional estimates.</p>
       <button class="btn" data-back>Back</button></div>`);
     this.on('[data-back]', () => this.app.toMenu());
   }

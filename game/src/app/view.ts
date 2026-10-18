@@ -84,6 +84,7 @@ export class GameView {
     await tick();
     onProgress('Raising the metro viaduct');
     this.staticGroup.add(this.art.buildMetro(core, quality));
+    if ((core as any).structures?.length && this.artExtras.buildStructures) this.staticGroup.add(this.artExtras.buildStructures(core, quality));
     await tick();
     onProgress('Preparing vehicles');
     this.car = this.art.createHeroCar(quality);
@@ -95,9 +96,14 @@ export class GameView {
     this.scene.add(this.landing.object);
   }
 
+  /** optional v2 art builders (storefronts, structures) exported outside the ArtApi contract */
+  artExtras: { buildStorefronts?: (c: any, core: WorldCore, q: Quality) => THREE.Group; buildStructures?: (core: any, q: Quality) => THREE.Group } = {};
+
   addChunk(chunk: WorldChunk, core: WorldCore) {
     if (this.chunkGroups.has(chunk.id)) return;
     const g = this.art.buildChunk(chunk, core, this.quality);
+    const sf = (chunk as any).storefronts as unknown[] | undefined;
+    if (sf?.length && this.artExtras.buildStorefronts) g.add(this.artExtras.buildStorefronts(chunk, core, this.quality));
     g.name = chunk.id;
     this.chunkGroups.set(chunk.id, g);
     this.scene.add(g);

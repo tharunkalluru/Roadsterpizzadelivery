@@ -1,6 +1,7 @@
 import type { WorldCore, WorldChunk, WorldManifest } from './schema';
 
 export const WORLD_BASE = './world/hyd-uppal-tarnaka/v1/';
+export const WORLD_BASE_V2 = './world/hyd-metro/v2/';
 
 async function sha256Hex(buf: ArrayBuffer): Promise<string | null> {
   if (!globalThis.crypto?.subtle) return null; // insecure context (e.g. LAN http): integrity check unavailable

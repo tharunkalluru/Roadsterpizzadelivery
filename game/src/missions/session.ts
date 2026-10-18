@@ -9,7 +9,9 @@ import { nextManeuver, type Maneuver } from '../world/nav';
 import { wrapAngle } from '../world/roadIndex';
 import type { MissionDef, Outcome, ResultSummary } from './types';
 
-export const WORLD_VERSION_KEY = 'hyd-uppal-tarnaka@v1';
+export let WORLD_VERSION_KEY = 'hyd-uppal-tarnaka@v1';
+/** set from the loaded world manifest so records/checkpoints never mix world versions */
+export function setWorldVersionKey(k: string) { WORLD_VERSION_KEY = k; }
 export const BUILD_VERSION = '0.1.0';
 export const CHECKPOINT_SCHEMA = 1;
 

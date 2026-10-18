@@ -161,3 +161,4 @@ code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-
   .timer { font-size: 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
+.card h3.lvl { margin: 14px 0 2px; font-size: 1.05rem; }

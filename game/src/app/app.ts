@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import { FixedClock } from '../core/clock';
-import { WorldLoader, LoadError } from '../world/loader';
+import { WorldLoader, LoadError, WORLD_BASE_V2 } from '../world/loader';
 import { WorldPhysics } from '../world/collision';
 import type { WorldCore, WorldChunk, WorldManifest } from '../world/schema';
-import { Session, BUILD_VERSION } from '../missions/session';
+import { Session, BUILD_VERSION, setWorldVersionKey } from '../missions/session';
+import { buildLevelCatalog } from '../missions/levels';
 import { buildCatalog } from '../missions/catalog';
 import type { MissionDef, ResultSummary } from '../missions/types';
 import { GameView } from './view';
@@ -18,6 +19,13 @@ import { Tutorial } from '../ui/tutorial';
 import { SignalSystem } from '../traffic/signals';
 import { MISSION, SIM_HZ } from '../config/gameplay';
 import type { ArtApi, Quality } from '../art/api';
+
+/** a practice run derived from the first level-1 contract (own allowance, no score) */
+function withPractice(ms: MissionDef[]): MissionDef[] {
+  const l1 = ms.find((m) => m.level === 1);
+  if (!l1) return ms;
+  return [{ ...l1, id: 'practice', templates: ['PRACTICE'], title: 'Practice run', practice: true, traffic: 'light', deadlineSeconds: Math.round(l1.deadlineSeconds * 1.2), brief: 'Steer, brake, try a flight and stop at the marked entrance. Practice has its own flight allowance and no score.' }, ...ms];
+}
 
 export type AppState = 'BOOT' | 'MENU' | 'LOADING' | 'READY' | 'PLAYING' | 'PAUSED' | 'RECOVERING' | 'RESULTS' | 'ERROR' | 'CONTEXT_LOST';
 
@@ -117,16 +125,27 @@ export class App {
       this.view = new GameView(this.renderer, this.art);
       this.view.reducedShake = this.settings.reducedShake;
       this.resize();
-      this.screens.boot('Loading the Uppal – Tarnaka corridor…');
+      this.screens.boot('Loading the Hyderabad metro network…');
       this.abort = new AbortController();
-      this.manifest = await this.loader.loadManifest(this.abort.signal);
+      // prefer the whole-network package (v2); fall back to the Uppal–Tarnaka package (v1)
+      const forceV1 = new URLSearchParams(location.search).has('v1');
+      if (!forceV1) {
+        try { this.loader = new WorldLoader(WORLD_BASE_V2); this.manifest = await this.loader.loadManifest(this.abort.signal); }
+        catch (e) { if ((e as Error).name === 'AbortError') throw e; this.loader = new WorldLoader(); this.manifest = null; }
+      }
+      if (!this.manifest) this.manifest = await this.loader.loadManifest(this.abort.signal);
+      setWorldVersionKey(`${this.manifest.worldId}@v${this.manifest.version}`);
       this.core = await this.loader.loadCore(this.abort.signal);
       this.world = new WorldPhysics(this.core, this.manifest.chunkSizeM);
       this.world.setKnownChunks(this.manifest.chunks.map((c) => c.id));
       // station stairs/escalators: same footprints for visuals and collision (G04, S02)
       const so = (mod as any).stationObstacles as undefined | ((c: WorldCore) => { id: string; poly: [number, number][]; bottom: number; top: number }[]);
       if (so) this.world.addStructures(so(this.core));
-      this.missions = buildCatalog(this.core, this.world);
+      // whole-network structures (skywalks, foot-over-bridges): render + collision from one plan
+      const so2 = (mod as any).structureObstacles as undefined | ((c: WorldCore) => { id: string; poly: [number, number][]; bottom: number; top: number }[]);
+      if (so2 && (this.core as any).structures?.length) this.world.addStructures(so2(this.core));
+      this.missions = this.isNetwork() ? withPractice(buildLevelCatalog(this.core, this.world)) : buildCatalog(this.core, this.world);
+      this.view.artExtras = mod as any;
       await this.view.buildStatic(this.core, this.quality, (s) => this.screens.boot(s));
       this.screens.boot('Loading materials');
       await mod.texturesReady();
@@ -139,6 +158,9 @@ export class App {
     requestAnimationFrame((t) => this.frame(t));
     this.toMenu();
   }
+
+  /** true when the loaded package covers the whole network (v2) */
+  isNetwork(): boolean { return !!this.core && Array.isArray((this.core as any).lines); }
 
   private pickQuality(): Quality {
     if (this.settings.quality !== 'auto') return this.settings.quality;

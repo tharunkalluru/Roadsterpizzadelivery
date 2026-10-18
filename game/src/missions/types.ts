@@ -19,6 +19,11 @@ export interface MissionDef {
   deadlineBasis: string;
   practice?: boolean;
   routeLengthM?: number;
+  /** progression level 1..5 (v2 network); unlocked by completing a mission of the previous level */
+  level?: number;
+  /** station areas the contract starts and ends in (display) */
+  fromArea?: string;
+  toArea?: string;
 }
 
 export type Outcome =
