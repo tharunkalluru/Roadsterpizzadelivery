@@ -2,7 +2,7 @@
 """Fetch the Overture Maps corridor snapshot (release 2026-09-23.1) into data/raw/overture/<release>/.
 
 Anonymous S3 read, bbox pushdown on the overall line bbox, then an exact filter against the alignment buffered by
-600 m (union of per-line corridors).  Writes <theme>-<type>-<line>.parquet and fetch-manifest.json (bbox, row counts,
+600 m plus a 2 km disc around each end station (so end-of-line road networks can close their loops).  Writes <theme>-<type>-<line>.parquet and fetch-manifest.json (bbox, row counts,
 bytes, sha256, timestamp).  Re-run with: game/.venv-data/bin/python scripts/overture/fetch.py [--lines blue,red,green]
 """
 import argparse, hashlib, json, sys, time
@@ -41,21 +41,23 @@ def main():
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     fs = s3_fs()
     aligns = line_alignments()
+    termini = line_termini()
     mpath = RAW_DIR / 'fetch-manifest.json'
     manifest = json.load(open(mpath)) if mpath.exists() else {}
     manifest.setdefault('release', RELEASE)
     manifest['buffer_m'] = BUFFER_M
+    manifest['terminus_radius_m'] = TERMINUS_RADIUS_M
     manifest['source'] = 'overturemaps-us-west-2/release/%s/theme=<theme>/type=<type>/ (anonymous S3, us-west-2)' % RELEASE
     manifest['licences'] = {'places': 'CDLA-Permissive-2.0', 'buildings': 'CDLA-Permissive-2.0', 'base': 'CDLA-Permissive-2.0', 'transportation': 'ODbL-1.0 (derived from OpenStreetMap)'}
     manifest['command'] = 'game/.venv-data/bin/python game/scripts/overture/fetch.py'
     manifest.setdefault('files', {})
     manifest.setdefault('lines', {})
     for lid in want:
-        poly = corridor_polygon(aligns[lid])
+        poly = corridor_polygon(aligns[lid], termini=termini[lid])
         shapely.prepare(poly)
         minx, miny, maxx, maxy = poly.bounds
         bb = dict(xmin=minx / KLON, xmax=maxx / KLON, ymin=miny / KLAT, ymax=maxy / KLAT)
-        manifest['lines'][lid] = {'bbox_lonlat': {k: round(v, 6) for k, v in bb.items()}, 'buffer_m': BUFFER_M, 'alignment_polylines': len(aligns[lid])}
+        manifest['lines'][lid] = {'bbox_lonlat': {k: round(v, 6) for k, v in bb.items()}, 'buffer_m': BUFFER_M, 'terminus_radius_m': TERMINUS_RADIUS_M, 'termini_lonlat': [[round(x, 6), round(y, 6)] for x, y in termini[lid]], 'alignment_polylines': len(aligns[lid])}
         for theme, typ, cols in LAYERS:
             key = f'{theme}-{typ}-{lid}'
             if only and f'{theme}-{typ}' not in only:

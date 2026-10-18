@@ -11,8 +11,28 @@ export async function readNdjson(file) {
   return out;
 }
 
-/** 12 hex chars of a GERS uuid as a safe integer (48 bits) */
-export const gersNum = (uuid) => parseInt(uuid.replace(/-/g, '').slice(0, 12), 16);
+/** leading hex chars of a GERS uuid used as a numeric id (9 => 36 bits, 11 decimal digits; raised by the importer if the data would collide) */
+let GERS_HEX = 9;
+export const setGersHex = (n) => { GERS_HEX = n; };
+export const getGersHex = () => GERS_HEX;
+export const gersNum = (uuid) => parseInt(uuid.replace(/-/g, '').slice(0, GERS_HEX), 16);
+/** smallest prefix length (9..12) for which all ids are collision free */
+export function chooseGersHex(idLists) {
+  for (let n = 9; n <= 12; n++) {
+    let ok = true;
+    for (const ids of idLists) {
+      const seen = new Set();
+      for (const id of ids) {
+        const k = id.replace(/-/g, '').slice(0, n);
+        if (seen.has(k)) { ok = false; break; }
+        seen.add(k);
+      }
+      if (!ok) break;
+    }
+    if (ok) return n;
+  }
+  throw new Error('GERS id prefixes collide even at 12 hex chars');
+}
 
 export const DRIVABLE = new Set(['motorway', 'trunk', 'primary', 'secondary', 'tertiary', 'unclassified', 'residential', 'living_street', 'service']);
 export const LINKABLE = new Set(['motorway', 'trunk', 'primary', 'secondary', 'tertiary']);
@@ -169,6 +189,11 @@ export function buildOvtEdges(segs, stats, connPos) {
       const t0 = cuts[k][1];
       const t1 = cuts[k + 1][1];
       const tm = (t0 + t1) / 2;
+      if (flagAt(s.flags, 'is_under_construction', tm) || flagAt(s.flags, 'is_abandoned', tm)) {
+        ex('flag:under_construction/abandoned');
+        piece++;
+        continue;
+      }
       const acc = carAccess(s, tm);
       if (!acc.drivable) {
         ex(acc.reason.startsWith('restricted') ? 'access:private/permit' : acc.reason.startsWith('denied_both') ? 'oneway_both_denied' : 'access:' + acc.reason);

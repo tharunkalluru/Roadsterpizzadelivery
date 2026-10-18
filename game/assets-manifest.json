@@ -6,7 +6,8 @@
     "Only files under public/assets are listed in \"files\". All other art (facade/shop atlases, ground/roof noise, vehicles, hero car, markers, sky, vapour sprites) is original procedural content generated in code at runtime; no external model, texture or image bytes are used for them.",
     "Poly Haven assets are CC0; credit is given without implying endorsement.",
     "No Tesla logos or marks are used. The hero car is an original design; \"Metro Express\" is an original placeholder delivery branding drawn in code.",
-    "Shopfront sign bands are blank colour blocks; real names appear only where a building carries an OSM name (rendered through createSignTexture)."
+    "Shopfront sign bands are blank colour blocks; real names appear only where a building carries an OSM name (rendered through createSignTexture).",
+    "v2: storefront signboards render the REAL listing name (Overture Places, CDLA-Permissive-2.0) as text only, on a per-chunk canvas atlas; no brand logos or trademarks are drawn. Category fixtures (crates, mannequins, ATM box, tyres, pipes) and the shop-front atlas are original procedural content."
   ],
   "procedural_runtime_assets": [
     {
@@ -55,6 +56,24 @@
       "id": "markers",
       "where": "src/art/markers.ts",
       "kind": "procedural geometry + canvas icons",
+      "license": "original"
+    },
+    {
+      "id": "store-front-atlas",
+      "where": "src/art/frontAtlas.ts getFrontAtlas",
+      "kind": "canvas texture, 16 generic shop-front cells (shutters, grocery, restaurant, apparel, electronics, jewellery, pharmacy, clinic, bank, hardware, auto bay, bakery, hotel, office); 512/768/1024 px",
+      "license": "original"
+    },
+    {
+      "id": "store-sign-atlas",
+      "where": "src/art/storefronts.ts buildStorefronts",
+      "kind": "per-chunk canvas atlas of shaped sign text (Noto Sans Telugu bundled, system bold sans for Latin); 512/1024/2048 px by quality; listing text only",
+      "license": "original code; text data from open listings"
+    },
+    {
+      "id": "structures",
+      "where": "src/art/structures.ts",
+      "kind": "procedural skywalk/footbridge/flyover decks, columns, stairs, lift towers, polycarbonate roof (geometry only)",
       "license": "original"
     }
   ],

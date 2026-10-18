@@ -43,16 +43,36 @@ def line_alignments():
     return out
 
 
+PRIMARY_ROUTE = {'red': 8297636, 'blue': 8297688, 'green': 10692235}
+TERMINUS_RADIUS_M = 2000.0
+
+
+def line_termini():
+    """{line: [(lon,lat) first stop, (lon,lat) last stop]} of the primary route relation (OSM kit)."""
+    d = json.load(open(METRO_JSON))
+    el = {(e['type'], e['id']): e for e in d['elements']}
+    out = {}
+    for lid, rid in PRIMARY_ROUTE.items():
+        stops = [m['ref'] for m in el[('relation', rid)]['members'] if m['type'] == 'node' and m.get('role') in ('stop', 'stop_entry_only', 'stop_exit_only') and ('node', m['ref']) in el]
+        a, b = el[('node', stops[0])], el[('node', stops[-1])]
+        out[lid] = [(a['lon'], a['lat']), (b['lon'], b['lat'])]
+    return out
+
+
 def s3_fs():
     import pyarrow.fs as pafs
     return pafs.S3FileSystem(anonymous=True, region='us-west-2', proxy_options=os.environ.get('HTTPS_PROXY'), endpoint_override='https://s3.us-west-2.amazonaws.com')
 
 
-def corridor_polygon(polys, buffer_m=BUFFER_M):
+def corridor_polygon(polys, buffer_m=BUFFER_M, termini=None):
     """Shapely polygon (lon/lat degrees, but built in metres) for the alignment buffered by buffer_m."""
     from shapely.geometry import LineString
     from shapely.ops import unary_union
     from shapely import affinity
+    from shapely.geometry import Point
     lines = [LineString([to_m(*p) for p in pl]) for pl in polys]
-    buf = unary_union([l.buffer(buffer_m, quad_segs=8) for l in lines])
-    return buf
+    parts = [l.buffer(buffer_m, quad_segs=8) for l in lines]
+    # terminus patches: a disc around each end station so that the end-of-line road network can close its loops
+    for t in (termini or []):
+        parts.append(Point(*to_m(*t)).buffer(TERMINUS_RADIUS_M, quad_segs=16))
+    return unary_union(parts)

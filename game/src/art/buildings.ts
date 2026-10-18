@@ -6,7 +6,7 @@
  * building carries an OSM `name`.
  */
 import * as THREE from 'three';
-import type { Building, WorldChunk, WorldCore, RoadEdge } from '../world/schema';
+import type { Building, WorldChunk, WorldChunkV2, WorldCore, RoadEdge, Storefront } from '../world/schema';
 import type { Quality } from './api';
 import {
   GeoBuilder,
@@ -105,6 +105,14 @@ export function buildChunk(chunk: WorldChunk, core: WorldCore, quality: Quality)
     roads.push({ e, minX: a, maxX: b, minZ: c, maxZ: d });
   }
 
+  // v2: storefront frontages (see storefronts.ts) replace the generic shopfront bands on the walls they cover
+  const storeMap = new Map<string, Storefront[]>();
+  for (const sf of (chunk as WorldChunkV2).storefronts ?? []) {
+    if (!sf.buildingId || !sf.facade) continue;
+    const l = storeMap.get(sf.buildingId);
+    if (l) l.push(sf); else storeMap.set(sf.buildingId, [sf]);
+  }
+
   const cylSeg = quality === 'low' ? 6 : 8;
   const unitCyl = new THREE.CylinderGeometry(1, 1, 1, cylSeg, 1, true);
   const unitDome = new THREE.SphereGeometry(1, cylSeg, 2, 0, Math.PI * 2, 0, Math.PI / 2);
@@ -112,7 +120,7 @@ export function buildChunk(chunk: WorldChunk, core: WorldCore, quality: Quality)
   let tris = 0;
 
   for (const bld of chunk.buildings) {
-    tris += addBuilding(bld, quality, roads, { facadeB, shopB, plainB, roofB, clutterB }, unitCyl, unitDome, group, signJobs);
+    tris += addBuilding(bld, quality, roads, { facadeB, shopB, plainB, roofB, clutterB }, unitCyl, unitDome, group, signJobs, storeMap.get(bld.id) ?? null);
   }
   unitCyl.dispose();
   unitDome.dispose();
@@ -148,6 +156,7 @@ function addBuilding(
   unitDome: THREE.BufferGeometry,
   group: THREE.Group,
   signJobs: Promise<void>[],
+  stores: Storefront[] | null,
 ): number {
   let ring = bld.footprint.map((p) => [p[0], p[1]] as [number, number]);
   if (ring.length > 2) {
@@ -174,6 +183,7 @@ function addBuilding(
   const main = styles[Math.floor(r() * styles.length)];
   const alt = styles[Math.floor(r() * styles.length)];
   const patternLen = 1 + Math.floor(r() * 3);
+  const styleShade = r() < 0.35;
   const shopChance = plainKind ? 0 : residential ? 0.25 : commercial ? 0.95 : 0.7;
 
   let tris = 0;
@@ -213,7 +223,23 @@ function addBuilding(
         B.roofB.quad([p[0], 0.03, p[1], q[0], 0.03, q[1], q[0] + nx * ap, 0.03, q[1] + nz * ap, p[0] + nx * ap, 0.03, p[1] + nz * ap], [p[0] / 5, p[1] / 5, q[0] / 5, q[1] / 5, q[0] / 5, q[1] / 5 + 0.3, p[0] / 5, p[1] / 5 + 0.3], [0, 1, 0], [grey, grey * 0.97, grey * 0.9]);
         tris += 2;
       }
-      const shopWall = facing && !plainKind && len >= 3 && r() < shopChance * 1.6 + 0.0 && absArea > 25;
+      // does a v2 storefront sit on this wall segment?
+      let covered = false;
+      if (stores && !rg.hole) {
+        for (const sf of stores) {
+          const fa = sf.facade!;
+          const mx = (fa[0][0] + fa[1][0]) / 2, mz = (fa[0][1] + fa[1][1]) / 2;
+          const t = ((mx - p[0]) * dx + (mz - p[1]) * dz) / (len * len);
+          if (t < -0.02 || t > 1.02) continue;
+          const dist = Math.abs((mx - p[0]) * nx + (mz - p[1]) * nz);
+          if (dist > 1.2) continue;
+          const fl = Math.hypot(fa[1][0] - fa[0][0], fa[1][1] - fa[0][1]) || 1;
+          if (Math.abs(((fa[1][0] - fa[0][0]) * dx + (fa[1][1] - fa[0][1]) * dz) / (fl * len)) < 0.9) continue;
+          covered = true;
+          break;
+        }
+      }
+      const shopWall = !covered && facing && !plainKind && len >= 3 && r() < shopChance * 1.6 + 0.0 && absArea > 25;
       if (facing && len > (bestFront?.len ?? 0)) bestFront = { len, ax: p[0], az: p[1], bx: q[0], bz: q[1], nx, nz };
 
       const nb = Math.max(1, Math.round(len / BAY_W));
@@ -233,7 +259,7 @@ function addBuilding(
           const lightTint: [number, number, number] = [tint[0] * 0.35 + 0.65, tint[1] * 0.35 + 0.65, tint[2] * 0.35 + 0.65];
           const u0 = (variant + 0.03) / SHOP_VARIANTS, u1 = (variant + 0.97) / SHOP_VARIANTS;
           quadWall(B.shopB, 0, gh, u0, u1, 0, 1, lightTint);
-        } else if (plainKind || gh < SHOP_H - 0.01) {
+        } else if (plainKind || gh < SHOP_H - 0.01 || covered) {
           quadWall(B.plainB, 0, gh, 0, (len / nb) / 4, 0, gh / 4, col);
         } else {
           const variant = r() < 0.5 ? 4 : main;
@@ -253,6 +279,43 @@ function addBuilding(
             if (r() < 0.07) variant = 4;
             const u0 = (variant + 0.03) / FACADE_VARIANTS, u1 = (variant + 0.97) / FACADE_VARIANTS;
             quadWall(B.facadeB, gh, H, u0, u1, 0, nFloors, col);
+          }
+        }
+      }
+
+      // ---- wall relief (Hyderabad shophouse look): painted cornice, plinth, sun shades, balconies
+      if (!rg.hole && len >= 4 && quality !== 'low' && absArea > 20) {
+        const yaw = Math.atan2(-dz, dx);
+        const slab = (t: number, off: number, cy: number, sx: number, sy: number, sz: number, c: ArrayLike<number>): void => {
+          addBox(B.plainB, sx, sy, sz, boxMatrix(p[0] + dx * t + nx * off, cy, p[1] + dz * t + nz * off, yaw), 1, c, { bottom: true });
+          tris += 12;
+        };
+        const accent: [number, number, number] = r() < 0.5 ? [0.93, 0.92, 0.88] : [tint[0] * 0.62, tint[1] * 0.62, tint[2] * 0.62];
+        if (H > 5.5) slab(0.5, 0.07, H - 0.22, len, 0.42, 0.14, accent); // cornice band
+        if (!covered && !shopWall && gh >= SHOP_H - 0.01 && !plainKind) slab(0.5, 0.025, 0.25, len, 0.5, 0.05, [tint[0] * 0.5, tint[1] * 0.5, tint[2] * 0.5]); // plinth
+        if (!covered && facing && nFloors >= 1 && !plainKind) {
+          const fh = upperH / nFloors;
+          if (styleShade) {
+            for (let f = 0; f < nFloors; f++) slab(0.5, 0.27, gh + (f + 1) * fh - 0.62, len * 0.96, 0.07, 0.54, [0.86, 0.85, 0.8]); // sun shades over windows
+          }
+          if (nFloors >= 2 && (residential || kind === 'yes' || kind === 'apartments') && len >= 5) {
+            const bw = Math.min(2.3, BAY_W - 0.6);
+            for (let k = 0; k < nb; k++) {
+              if (r() > (quality === 'high' ? 0.3 : 0.2)) continue;
+              const t = (k + 0.5) / nb;
+              const iron: [number, number, number] = r() < 0.5 ? [0.2, 0.21, 0.23] : [0.92, 0.9, 0.84];
+              for (let f = 0; f < nFloors; f++) {
+                if (r() < 0.15) continue;
+                const y0 = gh + f * fh + 0.02;
+                slab(t, 0.55, y0 + 0.07, bw, 0.14, 1.1, [0.8, 0.79, 0.74]);
+                slab(t, 1.07, y0 + 0.14 + 0.45, bw, 0.9, 0.06, iron);
+                if (quality === 'high') {
+                  addBox(B.plainB, 0.06, 0.9, 1.0, boxMatrix(p[0] + dx * t + nx * 0.55 + (dx / len) * (bw / 2 - 0.03), y0 + 0.59, p[1] + dz * t + nz * 0.55 + (dz / len) * (bw / 2 - 0.03), yaw), 1, iron);
+                  addBox(B.plainB, 0.06, 0.9, 1.0, boxMatrix(p[0] + dx * t + nx * 0.55 - (dx / len) * (bw / 2 - 0.03), y0 + 0.59, p[1] + dz * t + nz * 0.55 - (dz / len) * (bw / 2 - 0.03), yaw), 1, iron);
+                  tris += 24;
+                }
+              }
+            }
           }
         }
       }
@@ -295,7 +358,7 @@ function addBuilding(
   }
 
   // --------------------------------------------------------- named sign
-  if (bld.name && bestFront && bestFront.len >= 5 && H >= 4.2) {
+  if (bld.name && !stores && bestFront && bestFront.len >= 5 && H >= 4.2) {
     const f = bestFront;
     const w = Math.min(f.len * 0.85, 9);
     const h = Math.max(0.9, Math.min(1.5, w * 0.16));

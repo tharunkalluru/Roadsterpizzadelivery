@@ -1,6 +1,7 @@
 // Storefront attachment: Overture place -> building edge that faces the road (or a kerb kiosk frontage).
 import * as G from './geo.mjs';
 import { groupOf, UPPER_FLOOR_GROUPS } from './stores.mjs';
+import { pointAt } from './metro.mjs';
 
 export const SF_MAX_ROAD_M = 40; // place must be within this distance of a selected road
 export const SF_MIN_CONF = 0.35; // rendering threshold
@@ -44,6 +45,26 @@ export function attachStorefronts(places, ctx, log = () => {}) {
     return { any: hits.length > 0 };
   }
 
+  /** road that a facade (mid point, outward normal) faces: nearest at-grade road within 27 m whose foot direction is within 60 degrees of the normal */
+  function facingRoad(mid, nrm) {
+    const seen = new Set();
+    const hits = roadGrid.within(mid, EDGE_ROAD_M + 2).sort((a, b) => a.d - b.d || a.id - b.id);
+    for (const h of hits) {
+      if (seen.has(h.payload.ri)) continue;
+      seen.add(h.payload.ri);
+      const r = roads[h.payload.ri];
+      const n = G.nearestOnPolyline(mid, r.points);
+      if (n.d > EDGE_ROAD_M + 2) continue;
+      if (elevAt(r, n.seg, n.t) > 2.5) continue;
+      const ux = n.x - mid[0];
+      const uz = n.z - mid[1];
+      const ul = Math.hypot(ux, uz);
+      if (ul < 0.3) continue;
+      if ((nrm[0] * ux + nrm[1] * uz) / ul < FACING_COS + 0.005) continue;
+      return { road: r, dx: n.dx, dz: n.dz, x: n.x, z: n.z };
+    }
+    return null;
+  }
   const inventory = [];
   const sfs = []; // working storefront records
   const groups = new Map(); // `${bi}:${ei}` -> items
@@ -148,9 +169,9 @@ export function attachStorefronts(places, ctx, log = () => {}) {
         const f0 = [G.r2(g.A[0] + edgeDx * s0), G.r2(g.A[1] + edgeDz * s0)];
         const f1 = [G.r2(g.A[0] + edgeDx * s1), G.r2(g.A[1] + edgeDz * s1)];
         const mid = [(f0[0] + f1[0]) / 2, (f0[1] + f1[1]) / 2];
-        const road = nearestGrade(mid, EDGE_ROAD_M + 2);
-        if (!road.road) {
-          it.rec.reasons.push('no_road_at_facade');
+        const road = facingRoad(mid, g.nrm);
+        if (!road) {
+          it.rec.reasons.push('facade_not_facing_a_road');
           inventory.push(it.rec);
           return;
         }
@@ -193,11 +214,16 @@ export function attachStorefronts(places, ctx, log = () => {}) {
         s = s2;
       }
       prevEnd = s + 3;
-      const sub = G.subPolyline(road.points, road._cum, s - 3, s + 3);
+      // straight 6 m frontage parallel to the road tangent at s, at kerb + 3 m on the listing's side
       const sgn = k.nr.side === 'left' ? 1 : -1;
-      const off = G.offsetLine(sub, sgn * (road.widthM / 2 + 3));
-      const f0 = [G.r2(off[0][0]), G.r2(off[0][1])];
-      const f1 = [G.r2(off[off.length - 1][0]), G.r2(off[off.length - 1][1])];
+      const q = pointAt(road.points, road._cum, s);
+      const lx = q.dz * sgn;
+      const lz = -q.dx * sgn; // lateral unit vector toward the listing side (left of travel is (dz,-dx))
+      const off = road.widthM / 2 + 3;
+      const cx = q.x + lx * off;
+      const cz = q.z + lz * off;
+      const f0 = [G.r2(cx - q.dx * 3), G.r2(cz - q.dz * 3)];
+      const f1 = [G.r2(cx + q.dx * 3), G.r2(cz + q.dz * 3)];
       const mid = [(f0[0] + f1[0]) / 2, (f0[1] + f1[1]) / 2];
       if (buildingAt(mid)) {
         k.rec.reasons.push('kiosk_inside_building');
@@ -205,12 +231,8 @@ export function attachStorefronts(places, ctx, log = () => {}) {
         continue;
       }
       // facade normal points from the kerb frontage toward the road centreline
-      const dx = f1[0] - f0[0];
-      const dz = f1[1] - f0[1];
-      const L = Math.hypot(dx, dz) || 1;
-      // the kerb frontage lies on side `side`; toward the road = opposite side's lateral direction
-      const lat = sgn > 0 ? [-dz / L, dx / L] : [dz / L, -dx / L];
-      // left lateral of travel is (dz,-dx)/L; toward road from the left side is the right lateral = (-dz, dx)/L
+      // normal of the frontage points from the kerb frontage back toward the road centreline
+      const lat = [-lx, -lz];
       out.push({ rec: k.rec, buildingIndex: null, facade: [f0, f1], facingHeading: G.r4(G.headingOf(lat[0], lat[1])), floor: 0, roadId: road.id, side: k.nr.side });
     }
   }

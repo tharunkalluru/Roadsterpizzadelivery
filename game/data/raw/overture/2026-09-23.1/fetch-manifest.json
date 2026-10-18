@@ -3,218 +3,218 @@
   "command": "game/.venv-data/bin/python game/scripts/overture/fetch.py",
   "files": {
     "base-land_use-blue": {
-      "bytes": 184824,
-      "fetched_at": "2026-10-17T23:59:21Z",
+      "bytes": 228032,
+      "fetched_at": "2026-10-18T00:36:44Z",
       "file": "base-land_use-blue.parquet",
       "line": "blue",
       "release": "2026-09-23.1",
-      "rows": 637,
-      "rows_in_line_bbox": 1750,
-      "sha256": "70df3d72aaf3f06bdc90e7b458932259f7cb1dcce87c63e70cef548d7edb0ffc",
+      "rows": 812,
+      "rows_in_line_bbox": 2075,
+      "sha256": "2c96daddb3c5a4bf7e76a3ef11fe73f77c1e291af11f7cde967e5637abf495e4",
       "theme": "base",
       "type": "land_use"
     },
     "base-land_use-green": {
-      "bytes": 112220,
-      "fetched_at": "2026-10-18T00:02:23Z",
+      "bytes": 153084,
+      "fetched_at": "2026-10-18T00:38:09Z",
       "file": "base-land_use-green.parquet",
       "line": "green",
       "release": "2026-09-23.1",
-      "rows": 178,
-      "rows_in_line_bbox": 392,
-      "sha256": "ffaecb130e049aa70f5d3f5aa1b766b3d259954b738a002e9c4ff07ff6039b37",
+      "rows": 378,
+      "rows_in_line_bbox": 655,
+      "sha256": "f3df96942ff6dc4857cebc4bf1237a1e00f3f345f9ed280a9eb794c6930fccfb",
       "theme": "base",
       "type": "land_use"
     },
     "base-land_use-red": {
-      "bytes": 166866,
-      "fetched_at": "2026-10-18T00:01:07Z",
+      "bytes": 195736,
+      "fetched_at": "2026-10-18T00:35:12Z",
       "file": "base-land_use-red.parquet",
       "line": "red",
       "release": "2026-09-23.1",
-      "rows": 445,
-      "rows_in_line_bbox": 2719,
-      "sha256": "90dad1bedc971f562c06a52178b2d24e84adfc0d38a0255148b78cb1ea6d1ad2",
+      "rows": 609,
+      "rows_in_line_bbox": 3286,
+      "sha256": "ba5481c15450d0d3bf025fb642d8093deff5bafbd214cdd6b1426c3b66e70bde",
       "theme": "base",
       "type": "land_use"
     },
     "base-water-blue": {
-      "bytes": 57508,
-      "fetched_at": "2026-10-17T23:59:30Z",
+      "bytes": 75655,
+      "fetched_at": "2026-10-18T00:36:55Z",
       "file": "base-water-blue.parquet",
       "line": "blue",
       "release": "2026-09-23.1",
-      "rows": 55,
-      "rows_in_line_bbox": 212,
-      "sha256": "61409b1ff5c4f6ce8f5ee9eaa5d05d824c65a6835637b2b0c16c4c11e78fe593",
+      "rows": 91,
+      "rows_in_line_bbox": 313,
+      "sha256": "0dcdfd6b8d6e4140efdffb768a7ba357c709c2325da669d62a82fc1f71ead28e",
       "theme": "base",
       "type": "water"
     },
     "base-water-green": {
-      "bytes": 26858,
-      "fetched_at": "2026-10-18T00:02:32Z",
+      "bytes": 43156,
+      "fetched_at": "2026-10-18T00:38:19Z",
       "file": "base-water-green.parquet",
       "line": "green",
       "release": "2026-09-23.1",
-      "rows": 11,
-      "rows_in_line_bbox": 47,
-      "sha256": "4fbb2de9b99ef78d593a70006ffd16ea1db0f7948f49d17f0abdc8a1f38b59c3",
+      "rows": 30,
+      "rows_in_line_bbox": 78,
+      "sha256": "5bf0e28c594f08ccf816a719ed4a4b16e70520d0d849d1b04e6c4fd895a311aa",
       "theme": "base",
       "type": "water"
     },
     "base-water-red": {
-      "bytes": 62556,
-      "fetched_at": "2026-10-18T00:01:16Z",
+      "bytes": 72439,
+      "fetched_at": "2026-10-18T00:35:22Z",
       "file": "base-water-red.parquet",
       "line": "red",
       "release": "2026-09-23.1",
-      "rows": 55,
-      "rows_in_line_bbox": 373,
-      "sha256": "204f2869047506b84219d2dfc70845aa33a2197b721e5dddecfe0f6752e966a5",
+      "rows": 74,
+      "rows_in_line_bbox": 471,
+      "sha256": "24d821b0cd3094069e60ffee0b3c98afece152341026fedc9bef6d11ba547ce0",
       "theme": "base",
       "type": "water"
     },
     "buildings-building-blue": {
-      "bytes": 4431055,
-      "fetched_at": "2026-10-17T23:59:10Z",
+      "bytes": 6523686,
+      "fetched_at": "2026-10-18T00:36:31Z",
       "file": "buildings-building-blue.parquet",
       "line": "blue",
       "release": "2026-09-23.1",
-      "rows": 45225,
-      "rows_in_line_bbox": 279414,
-      "sha256": "3de36075d5f85a36d140bb404ece031bff3c85906c2d594ef0d3426de7c1e42b",
+      "rows": 67875,
+      "rows_in_line_bbox": 382161,
+      "sha256": "9f31cb16c04b664a8349a6ffcd50557f608073e7ea2c3975938d052e4b4ff860",
       "theme": "buildings",
       "type": "building"
     },
     "buildings-building-green": {
-      "bytes": 2729245,
-      "fetched_at": "2026-10-18T00:02:13Z",
+      "bytes": 6155540,
+      "fetched_at": "2026-10-18T00:37:58Z",
       "file": "buildings-building-green.parquet",
       "line": "green",
       "release": "2026-09-23.1",
-      "rows": 28135,
-      "rows_in_line_bbox": 65051,
-      "sha256": "53a8ef1f01b5bebd23fd10cdfe00d5966e9b7d4484ef9d967fac487fdf637aac",
+      "rows": 65902,
+      "rows_in_line_bbox": 118817,
+      "sha256": "655cb8150eedb01328a9137ffecf7ba5fd7569aafde60c10b91910c9582bf551",
       "theme": "buildings",
       "type": "building"
     },
     "buildings-building-red": {
-      "bytes": 6147620,
-      "fetched_at": "2026-10-18T00:00:53Z",
+      "bytes": 9343304,
+      "fetched_at": "2026-10-18T00:34:58Z",
       "file": "buildings-building-red.parquet",
       "line": "red",
       "release": "2026-09-23.1",
-      "rows": 64623,
-      "rows_in_line_bbox": 609734,
-      "sha256": "1115e8a28ec5520b493d3a02dac074f2c4018eae93dd850fcaaf6c6e29c70083",
+      "rows": 100878,
+      "rows_in_line_bbox": 771791,
+      "sha256": "5e39d76ab4e85c5a2312d48eae104ade72d42a10bed4e22c84531ed10e996d2a",
       "theme": "buildings",
       "type": "building"
     },
     "places-place-blue": {
-      "bytes": 1905405,
-      "fetched_at": "2026-10-17T23:59:15Z",
+      "bytes": 2390707,
+      "fetched_at": "2026-10-18T00:36:39Z",
       "file": "places-place-blue.parquet",
       "line": "blue",
       "release": "2026-09-23.1",
-      "rows": 18273,
-      "rows_in_line_bbox": 63815,
-      "sha256": "06261fdfa942227d816ddfda278bbdcf8fcc6d07cefb7a4ee0e9461632923063",
+      "rows": 22996,
+      "rows_in_line_bbox": 76039,
+      "sha256": "15f35e186778b82dc1907e3971bd3106fb0fe8096596d9dd56f9c0e08cd14557",
       "theme": "places",
       "type": "place"
     },
     "places-place-green": {
-      "bytes": 738328,
-      "fetched_at": "2026-10-18T00:02:17Z",
+      "bytes": 1790701,
+      "fetched_at": "2026-10-18T00:38:03Z",
       "file": "places-place-green.parquet",
       "line": "green",
       "release": "2026-09-23.1",
-      "rows": 7056,
-      "rows_in_line_bbox": 16976,
-      "sha256": "3622f4e196b01ee914dced106280f7d2c0e1d68e8f72ef16884071c748f60e5e",
+      "rows": 17625,
+      "rows_in_line_bbox": 29202,
+      "sha256": "e0ded163724595476383242e6cc143ce2c8026d85313e5c2de01c54d57a5f292",
       "theme": "places",
       "type": "place"
     },
     "places-place-red": {
-      "bytes": 2401981,
-      "fetched_at": "2026-10-18T00:01:01Z",
+      "bytes": 2834675,
+      "fetched_at": "2026-10-18T00:35:07Z",
       "file": "places-place-red.parquet",
       "line": "red",
       "release": "2026-09-23.1",
-      "rows": 23393,
-      "rows_in_line_bbox": 104179,
-      "sha256": "8d9d91f3f1aebef0b12fd9bbb2920ad8709c48bfe6c60dbd5419cb5012a4d7e7",
+      "rows": 27608,
+      "rows_in_line_bbox": 119087,
+      "sha256": "c123769207f8890ce526a48035d78be307aaa080bfda841a5f8e0097e3943074",
       "theme": "places",
       "type": "place"
     },
     "transportation-connector-blue": {
-      "bytes": 661910,
-      "fetched_at": "2026-10-17T23:58:24Z",
+      "bytes": 999364,
+      "fetched_at": "2026-10-18T00:35:42Z",
       "file": "transportation-connector-blue.parquet",
       "line": "blue",
       "release": "2026-09-23.1",
-      "rows": 11384,
-      "rows_in_line_bbox": 58434,
-      "sha256": "def613463dff8674bad7d11298ae9c24146c435501adeb678b424a51cd9e53cd",
+      "rows": 17308,
+      "rows_in_line_bbox": 79289,
+      "sha256": "a575bad83126b13e986163470a3acc72514d50df8b6b972d5fe2664ec127d2c9",
       "theme": "transportation",
       "type": "connector"
     },
     "transportation-connector-green": {
-      "bytes": 321587,
-      "fetched_at": "2026-10-18T00:01:32Z",
+      "bytes": 744074,
+      "fetched_at": "2026-10-18T00:37:14Z",
       "file": "transportation-connector-green.parquet",
       "line": "green",
       "release": "2026-09-23.1",
-      "rows": 5563,
-      "rows_in_line_bbox": 12922,
-      "sha256": "31eccae9ccabb3903edbcfe223e2f38239461e1e44121d2082db1cac51350474",
+      "rows": 13241,
+      "rows_in_line_bbox": 23642,
+      "sha256": "5428b461187f10e951e993f43455815ed0e6bde63e7736e1f4ed6570b9095549",
       "theme": "transportation",
       "type": "connector"
     },
     "transportation-connector-red": {
-      "bytes": 828259,
-      "fetched_at": "2026-10-17T23:59:58Z",
+      "bytes": 1260950,
+      "fetched_at": "2026-10-18T00:33:59Z",
       "file": "transportation-connector-red.parquet",
       "line": "red",
       "release": "2026-09-23.1",
-      "rows": 14188,
-      "rows_in_line_bbox": 125667,
-      "sha256": "a2595bad98e9abf305c13b64f8b51f7128e974684822e567be07b5f2485c007d",
+      "rows": 21683,
+      "rows_in_line_bbox": 161139,
+      "sha256": "072646bc45e1564c1910aac783705bf064d29daf95232f75a548a04160d99525",
       "theme": "transportation",
       "type": "connector"
     },
     "transportation-segment-blue": {
-      "bytes": 1537428,
-      "fetched_at": "2026-10-17T23:58:18Z",
+      "bytes": 2250839,
+      "fetched_at": "2026-10-18T00:35:35Z",
       "file": "transportation-segment-blue.parquet",
       "line": "blue",
       "release": "2026-09-23.1",
-      "rows": 12773,
-      "rows_in_line_bbox": 67655,
-      "sha256": "8dd7effb4057555634a98d869e9dbad5243dd8394637df88a92bd80d80338230",
+      "rows": 19499,
+      "rows_in_line_bbox": 92110,
+      "sha256": "a9f237ddf2ad8f94b52fef763a8657811057488697a7c2ddf5b5177a5edc0fda",
       "theme": "transportation",
       "type": "segment"
     },
     "transportation-segment-green": {
-      "bytes": 782976,
-      "fetched_at": "2026-10-18T00:01:28Z",
+      "bytes": 1698056,
+      "fetched_at": "2026-10-18T00:37:08Z",
       "file": "transportation-segment-green.parquet",
       "line": "green",
       "release": "2026-09-23.1",
-      "rows": 6727,
-      "rows_in_line_bbox": 15281,
-      "sha256": "6bc0f23e6148ceb2a56b6cc055c7b55cc377bc60dfe2f1abeb7dbaf7e80544ef",
+      "rows": 15695,
+      "rows_in_line_bbox": 27667,
+      "sha256": "91394f9d136d1c3065445315a806e94395a14e416489cb6bce53b31f4000990a",
       "theme": "transportation",
       "type": "segment"
     },
     "transportation-segment-red": {
-      "bytes": 1869718,
-      "fetched_at": "2026-10-17T23:59:50Z",
+      "bytes": 2737599,
+      "fetched_at": "2026-10-18T00:33:51Z",
       "file": "transportation-segment-red.parquet",
       "line": "red",
       "release": "2026-09-23.1",
-      "rows": 16631,
-      "rows_in_line_bbox": 146898,
-      "sha256": "30d92dab427094d10be5d2805090fcdb172d71315d6f41d61543dc9f005a6689",
+      "rows": 25783,
+      "rows_in_line_bbox": 189290,
+      "sha256": "6093c82dcd3e64f29fe9bc991c807752cc7eb9ebc608fcebf4058dbc45baf551",
       "theme": "transportation",
       "type": "segment"
     }
@@ -229,35 +229,69 @@
     "blue": {
       "alignment_polylines": 44,
       "bbox_lonlat": {
-        "xmax": 78.565923,
-        "xmin": 78.37148,
-        "ymax": 17.456563,
-        "ymin": 17.384856
+        "xmax": 78.577644,
+        "xmin": 78.358375,
+        "ymax": 17.460148,
+        "ymin": 17.373035
       },
-      "buffer_m": 600.0
+      "buffer_m": 600.0,
+      "termini_lonlat": [
+        [
+          78.558815,
+          17.391001
+        ],
+        [
+          78.377204,
+          17.442181
+        ]
+      ],
+      "terminus_radius_m": 2000.0
     },
     "green": {
       "alignment_polylines": 11,
       "bbox_lonlat": {
-        "xmax": 78.50797,
-        "xmin": 78.476916,
-        "ymax": 17.454504,
-        "ymin": 17.369325
+        "xmax": 78.515353,
+        "xmin": 78.467029,
+        "ymax": 17.466781,
+        "ymin": 17.361644
       },
-      "buffer_m": 600.0
+      "buffer_m": 600.0,
+      "termini_lonlat": [
+        [
+          78.496524,
+          17.448815
+        ],
+        [
+          78.485858,
+          17.379611
+        ]
+      ],
+      "terminus_radius_m": 2000.0
     },
     "red": {
       "alignment_polylines": 36,
       "bbox_lonlat": {
-        "xmax": 78.553581,
-        "xmin": 78.367376,
-        "ymax": 17.504862,
-        "ymin": 17.344426
+        "xmax": 78.56677,
+        "xmin": 78.354196,
+        "ymax": 17.514521,
+        "ymin": 17.33188
       },
-      "buffer_m": 600.0
+      "buffer_m": 600.0,
+      "termini_lonlat": [
+        [
+          78.373025,
+          17.496555
+        ],
+        [
+          78.547941,
+          17.349846
+        ]
+      ],
+      "terminus_radius_m": 2000.0
     }
   },
   "release": "2026-09-23.1",
   "source": "overturemaps-us-west-2/release/2026-09-23.1/theme=<theme>/type=<type>/ (anonymous S3, us-west-2)",
-  "total_bytes": 24966344
+  "terminus_radius_m": 2000.0,
+  "total_bytes": 39497597
 }

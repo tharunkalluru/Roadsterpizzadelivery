@@ -156,7 +156,7 @@ export function buildStructures(segs, { alignDist, stations, nearRoads }) {
         supports: supports.map((q) => [q.x, q.z]),
         stairs,
         status: { geometry: 'provisional', ...(named || d.seg.name ? { name: 'provisional' } : {}), width: 'provisional', level: 'provisional', height: 'provisional' },
-        provenance: { source: 'derived', sourceIds: ['overture:segment/' + d.seg.id], snapshot: ['overture-2026-09-23.1'], note: `${d.seg.cls} segment flagged ${d.seg.flags ? 'is_bridge' : 'level>=1'}; component total ${Math.round(total)} m, ${list.length} piece(s); deck elevation, width, supports and stair positions are authored provisional values` },
+        provenance: { source: 'derived', sourceIds: ['ovt:seg/' + d.seg.id.replace(/-/g, '').slice(0, 12)], snapshot: ['overture-2026-09-23.1'], note: `${d.seg.cls} segment flagged ${d.seg.flags ? 'is_bridge' : 'level>=1'}; component total ${Math.round(total)} m, ${list.length} piece(s); deck elevation, width, supports and stair positions are authored provisional values` },
       });
     }
   }

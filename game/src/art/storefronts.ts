@@ -118,6 +118,28 @@ function layoutLatin(ctx: CanvasRenderingContext2D, text: string, maxW: number, 
   return { lines: [one.text], size: one.size };
 }
 
+/** metres of width the laid-out text needs (at its natural size inside a board of the given inner size) */
+function measureSpec(ctx: CanvasRenderingContext2D, spec: CellSpec, innerW: number, innerH: number): number {
+  const REF = 100;
+  const H = innerH * REF, m = 0.12 * REF;
+  const iconW = spec.icon && !spec.vertical ? H * 0.66 + m : 0;
+  const maxW = innerW * REF - 2 * m - iconW;
+  let w = 0;
+  const lineW = (t: string, size: number): number => { setFont(ctx, t, size); return ctx.measureText(t).width; };
+  const hasTe = spec.lines.length > 1 && isTelugu(spec.lines[1]);
+  if (spec.lines.length > 1) {
+    const hA = H * (hasTe ? 0.52 : 0.5);
+    const A = layoutLatin(ctx, spec.lines[0], maxW, hA * 0.95);
+    for (const ln of A.lines) w = Math.max(w, lineW(ln, A.size));
+    const f = fit(ctx, spec.lines[1], maxW, (H - hA) * 0.78, 0.5);
+    w = Math.max(w, lineW(f.text, f.size));
+  } else {
+    const A = layoutLatin(ctx, spec.lines[0], maxW, H * 0.86);
+    for (const ln of A.lines) w = Math.max(w, lineW(ln, A.size));
+  }
+  return (w + iconW + 2 * m) / REF;
+}
+
 function drawCell(ctx: CanvasRenderingContext2D, c: Cell): void {
   const { px, py, pw, ph, spec } = c;
   ctx.save();
@@ -135,29 +157,24 @@ function drawCell(ctx: CanvasRenderingContext2D, c: Cell): void {
     ctx.translate(-ph / 2, -pw / 2);
     W = ph; H = pw;
   }
-  // inset border
-  const b = Math.max(2, H * 0.06);
-  ctx.strokeStyle = spec.pal.fg;
-  ctx.globalAlpha = 0.65;
-  ctx.lineWidth = Math.max(1.5, H * 0.025);
-  ctx.strokeRect(b, b, W - 2 * b, H - 2 * b);
-  ctx.globalAlpha = 1;
+  const dens = c.ph / c.hm; // px per metre of this cell
+  const b = 0.12 * dens;
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'center';
   ctx.fillStyle = spec.pal.fg;
   (ctx as unknown as { textRendering?: string }).textRendering = 'optimizeLegibility';
-  let x0 = b * 2, textW = W - b * 4;
+  let x0 = b, textW = W - b * 2;
   // icon square (pharmacy / clinic) on the left
   if (spec.icon && !spec.vertical) {
     const s = H * 0.66;
-    const ix = b * 2.5, iy = (H - s) / 2;
+    const ix = b, iy = (H - s) / 2;
     ctx.fillStyle = spec.icon === 'greencross' ? '#ffffff' : '#0b4f8a';
     ctx.fillRect(ix, iy, s, s);
     ctx.fillStyle = spec.icon === 'greencross' ? '#0f8a4f' : '#ffffff';
     ctx.fillRect(ix + s * 0.38, iy + s * 0.14, s * 0.24, s * 0.72);
     ctx.fillRect(ix + s * 0.14, iy + s * 0.38, s * 0.72, s * 0.24);
-    x0 = ix + s + b * 1.5;
-    textW = W - x0 - b * 2;
+    x0 = ix + s + b;
+    textW = W - x0 - b;
     ctx.fillStyle = spec.pal.fg;
   }
   const cx = x0 + textW / 2;
@@ -340,13 +357,15 @@ export interface StorefrontStats {
   atlasPx: number;
   pxPerMetre: number;
   upperBoards: number;
+  buildMs: number;
 }
 
 export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: Quality): THREE.Group {
+  const t0 = performance.now();
   const group = new THREE.Group();
   group.name = `stores_${chunk.id}`;
   const list = (chunk.storefronts ?? []).filter((s) => s && s.name && s.facade);
-  const stats: StorefrontStats = { storefronts: 0, drawCalls: 0, triangles: 0, atlasPx: 0, pxPerMetre: 0, upperBoards: 0 };
+  const stats: StorefrontStats = { storefronts: 0, drawCalls: 0, triangles: 0, atlasPx: 0, pxPerMetre: 0, upperBoards: 0, buildMs: 0 };
   group.userData.stats = stats;
   group.userData.pending = Promise.resolve();
   if (!list.length) return group;
@@ -362,6 +381,8 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
   // ------------------------------------------------------- pass 1: plans + sign cells
   const plans: Plan[] = [];
   const cells: Cell[] = [];
+  const mctx = document.createElement('canvas').getContext('2d')!;
+  (mctx as unknown as { textRendering?: string }).textRendering = 'optimizeLegibility';
   let hasTelugu = false;
   for (const sf of list) {
     const fr = frameOf(sf);
@@ -384,11 +405,14 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
       boardW = Math.min(8.5, Math.max(2.2, W * 0.86));
       boardY = Math.max(3.0, Math.min(4.3 + (h % 5) * 0.5, H - boardH - 0.35));
     } else {
-      boardH = te ? 1.25 : long ? 1.15 : 0.95;
+      boardH = te ? 1.45 : long ? 1.25 : 1.1;
       boardW = Math.min(11, Math.max(2.4, W - 0.3));
-      boardY = H >= 3.7 + boardH * 0.2 ? 2.8 : Math.max(1.8, H - boardH - 0.1);
+      boardY = H >= 3.7 + boardH * 0.2 ? 2.55 : Math.max(1.8, H - boardH - 0.1);
     }
-    const cell: Cell = { wm: boardW, hm: boardH, spec: { lines, pal, vertical: false, icon: upper ? undefined : pal.icon }, px: 0, py: 0, pw: 0, ph: 0 };
+    const spec0: CellSpec = { lines, pal, vertical: false, icon: upper ? undefined : pal.icon };
+    const innerW = boardW - 0.34, innerH = boardH - 0.24;
+    const tw = measureSpec(mctx, spec0, innerW, innerH);
+    const cell: Cell = { wm: Math.max(0.8, Math.min(innerW, tw + 0.02)), hm: innerH, spec: spec0, px: 0, py: 0, pw: 0, ph: 0 };
     cells.push(cell);
     const plan: Plan = { sf, fr, W, H, h, pal, underDeck: underDeckAt(fr.cx, fr.cz, elevated), boardCell: cell, boardW, boardH, boardY };
     if (!upper && sf.group === 'hotel_lodging' && H >= 7.5 && quality !== 'low') {
@@ -406,14 +430,24 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
   // ------------------------------------------------------- atlas pack + paint
   const S = quality === 'high' ? 2048 : quality === 'standard' ? 1024 : 512;
   const dMax = quality === 'high' ? 130 : quality === 'standard' ? 100 : 60;
-  let lo = 8, hi = dMax, d = dMax;
-  if (pack(cells, dMax, S) < 0) {
+  const fitDensity = (): number => {
+    let lo = 8, hi = dMax;
+    if (pack(cells, dMax, S) >= 0) return dMax;
     for (let i = 0; i < 9; i++) {
       const mid = (lo + hi) / 2;
       if (pack(cells, mid, S) >= 0) lo = mid; else hi = mid;
     }
-    d = lo;
-    pack(cells, d, S);
+    pack(cells, lo, S);
+    return lo;
+  };
+  let d = fitDensity();
+  // crowded chunk on a small atlas: keep legible ground-floor names, give upper-floor boards a plain colour
+  if (d < (quality === 'low' ? 26 : 34) && quality !== 'high') {
+    for (let i = cells.length - 1; i >= 0; i--) {
+      const owner = plans.find((pl) => pl.boardCell === cells[i]);
+      if (owner && owner.sf.floor === 1) { owner.boardCell.pw = -1; cells.splice(i, 1); }
+    }
+    if (cells.length) d = fitDensity();
   }
   const canvas = document.createElement('canvas');
   canvas.width = canvas.height = S;
@@ -462,8 +496,21 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
     const bw = pl.boardW, bh = pl.boardH, by = pl.boardY;
     const depth = upper ? 0.1 : 0.26;
     L.box(lit, -bw / 2, bw / 2, by, by + bh, 0.02, depth, edgeC, true);
+    L.quad(lit, -bw / 2, bw / 2, by, by + bh, depth + 0.001, bgc, [0, 0, 1, 0, 1, 1, 0, 1]);
     const nSign = depth + 0.004;
-    L.quad(sign, -bw / 2, bw / 2, by, by + bh, nSign, bgc, cellUV(pl.boardCell));
+    const cw = pl.boardCell.wm, chh = pl.boardCell.hm;
+    if (!(pl.boardCell.pw === -1)) L.quad(sign, -cw / 2, cw / 2, by + (bh - chh) / 2, by + (bh + chh) / 2, nSign, bgc, cellUV(pl.boardCell));
+    {
+      // thin trim line round the board face (keeps the 'manufactured sign' look without spending atlas pixels)
+      const ft = 0.035, fi = 0.06, fc = hex(new THREE.Color(pal.fg).getHex());
+      const fcol = [fc[0] * 0.92, fc[1] * 0.92, fc[2] * 0.92];
+      const nF = depth + 0.002;
+      const uvz = [0, 0, 1, 0, 1, 1, 0, 1];
+      L.quad(lit, -bw / 2 + fi, bw / 2 - fi, by + fi, by + fi + ft, nF, fcol, uvz);
+      L.quad(lit, -bw / 2 + fi, bw / 2 - fi, by + bh - fi - ft, by + bh - fi, nF, fcol, uvz);
+      L.quad(lit, -bw / 2 + fi, -bw / 2 + fi + ft, by + fi, by + bh - fi, nF, fcol, uvz);
+      L.quad(lit, bw / 2 - fi - ft, bw / 2 - fi, by + fi, by + bh - fi, nF, fcol, uvz);
+    }
     if (upper) {
       stats.upperBoards++;
       // two small brackets so the board visibly hangs on the wall
@@ -657,6 +704,7 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
   emit(lit, mats.lit, 'store-boards', false);
   const signMat = makeSignMaterial(tex, quality === 'low' ? 80 : 120);
   emit(sign, signMat, 'store-signs', false);
+  stats.buildMs = Math.round((performance.now() - t0) * 10) / 10;
   stats.atlasPx = S;
   stats.pxPerMetre = Math.round(d);
   group.userData.signTexture = tex;

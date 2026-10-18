@@ -17,7 +17,10 @@
     "import:map": "node scripts/import-map.mjs",
     "validate:world": "node scripts/validate-world.mjs",
     "build:world": "node scripts/import-map.mjs && node scripts/validate-world.mjs",
-    "verify:ledger": "python3 monitoring/verify_run.py --root . --status qa/status.json --requirements requirements.json --scope scope-manifest.json --evidence qa/evidence-index.json"
+    "verify:ledger": "python3 monitoring/verify_run.py --root . --status qa/status.json --requirements requirements.json --scope scope-manifest.json --evidence qa/evidence-index.json",
+    "fetch:overture": ".venv-data/bin/python scripts/overture/fetch.py && .venv-data/bin/python scripts/overture/preprocess.py",
+    "import:world": ".venv-data/bin/python scripts/overture/preprocess.py && node scripts/import-world-v2.mjs --project-files",
+    "validate:world:v2": "node scripts/validate-world.mjs --v2"
   },
   "dependencies": {
     "three": "0.186.1"

@@ -7,9 +7,9 @@
  */
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { art, texturesReady, stationObstacles } from './art';
+import { art, texturesReady, stationObstacles, buildStorefronts, disposeStorefronts, buildStructures, structureObstacles } from './art';
 import type { Quality } from './art/api';
-import type { RoadEdge, WorldChunk, WorldCore, Building, GraphNode, MetroStation } from './world/schema';
+import type { RoadEdge, WorldChunk, WorldCore, Building, GraphNode, MetroStation, WorldChunkV2, WorldCoreV2, Storefront, StoreGroup, Structure } from './world/schema';
 
 const params = new URLSearchParams(location.hash.replace(/^#/, '').replace(/&/g, '&'));
 const hashParts = location.hash.replace(/^#/, '').split('&');
@@ -48,7 +48,37 @@ function curve(cx: number, cz: number, r: number, a0: number, a1: number, n: num
   return out;
 }
 
-function buildSyntheticWorld(): { core: WorldCore; chunk: WorldChunk } {
+const SHOP_NAMES: Record<StoreGroup, [string, string | null][]> = {
+  grocery: [['Sri Venkateswara Kirana & General Stores', null], ['Annapurna Fresh Fruits & Vegetables', null], ['Balaji Supermarket', null], ['Lakshmi Provision Store', 'లక్ష్మి ప్రొవిజన్ స్టోర్']],
+  restaurant: [['Sri Raghavendra Tiffin Centre & Fast Food', 'శ్రీ రాఘవేంద్ర టిఫిన్ సెంటర్'], ['శ్రీ రాఘవేంద్ర హోటల్', null], ['Nawab Biryani Point', null], ['Andhra Spice Mess', null], ['Spicy Hub Family Restaurant', null]],
+  cafe_bakery: [['Irani Chai & Bakery', null], ['Sweet Magic Bakery & Cakes', null], ['Corner Coffee House', null]],
+  pharmacy: [['Sri Sai Medical & General Stores', null], ['Care Plus Pharmacy 24x7', null], ['Arogya Medical Hall', 'ఆరోగ్య మెడికల్ హాల్']],
+  hospital_clinic: [['Sunrise Multi-speciality Hospital', null], ["Dr. Ramesh's Dental Clinic", null], ['Shanti Diagnostics Centre', null]],
+  bank_atm: [['Deccan Co-operative Bank & ATM', null], ['Nizam Bank ATM', null]],
+  apparel: [['Sri Lakshmi Textiles & Readymades', null], ["Fashion Junction Men's Wear", null], ['Trendz Ladies Boutique', null]],
+  electronics_mobile: [['Mobile World & Accessories', null], ['Sri Krishna Electronics & Home Appliances', null], ['Digital Hub Mobiles', null]],
+  jewellery: [['Sri Mahalakshmi Jewellers', 'శ్రీ మహాలక్ష్మి జ్యువెలర్స్'], ['Navratna Jewellers', null]],
+  hotel_lodging: [['Hotel Grand Residency', null], ['Sri Sai Lodge & Rooms', null], ['Hotel Royal Palace Suites', null]],
+  auto_service: [['Raju Tyres & Auto Works', null], ['Sri Durga Motor Garage & Two-Wheeler Service', null]],
+  hardware: [['Venkat Hardware & Paints', null], ['Sri Ganesh Building Materials & Sanitary', null]],
+  education: [['Bright Future Coaching Centre', null], ['Vidya Bharathi Tuition Centre', null]],
+  worship: [['శ్రీ ఆంజనేయ స్వామి దేవాలయం', null]],
+  office_service: [['Sri Sai Xerox & Internet Cafe', null], ['Reliable Insurance Agency', null], ['Sri Balaji Travels & Cargo', null]],
+  other: [['City Gift Corner', null], ['Hair Craft Gents Salon', null], ['Laundry Express', null]],
+};
+const JC: [number, number] = [600, -300];
+const TELUGU_CAM = [88, 1.5, 88, 14];
+const GROUPS = Object.keys(SHOP_NAMES) as StoreGroup[];
+
+function mkStore(i: number, bId: string, group: StoreGroup, nameIdx: number, a: [number, number], b: [number, number], heading: number, floor: 0 | 1, roadId: string): Storefront {
+  const [name, nameTe] = SHOP_NAMES[group][nameIdx % SHOP_NAMES[group].length];
+  return {
+    id: `sf_prev_${i}`, placeId: `prev${i}`, name, nameTe, category: group, group, confidence: 0.9, sources: ['synthetic'], license: 'n/a',
+    x: (a[0] + b[0]) / 2, z: (a[1] + b[1]) / 2, buildingId: bId, roadId, side: 'left', facade: [a, b], facingHeading: heading, floor, status: 'provisional',
+  };
+}
+
+function buildSyntheticWorld(): { core: WorldCore; chunk: WorldChunkV2; chunkJ: WorldChunkV2 } {
   const roads: RoadEdge[] = [
     mkRoad('r_main_a', 'Main Road', [[-320, 0], [-160, 0], [0, 0]], 14, { from: 'n_w', to: 'n_c', lanes: 4 }),
     mkRoad('r_main_b', 'Main Road', [[0, 0], [160, 0], [300, 0]], 14, { from: 'n_c', to: 'n_e', lanes: 4 }),
@@ -62,6 +92,50 @@ function buildSyntheticWorld(): { core: WorldCore; chunk: WorldChunk } {
     }),
     mkRoad('r_foot', 'Footpath', [[-30, 30], [-30, 8]], 2.5, { from: 'n_p1', to: 'n_p2', highway: 'footway' }),
   ];
+  // ---- dual-carriageway flyover (eastbound z=-140, westbound z=-152) with ramps, joined at nodes, plus a slip ramp
+  const rampUp = [0, 0.8, 1.7, 2.7, 3.7, 4.7, 5.6, 6.5];
+  const xs = [-330, -300, -270, -240, -220, -200];
+  const flyEdges: RoadEdge[] = [];
+  const flyNodes: GraphNode[] = [];
+  for (const [tag, z, dirSign] of [['a', -140, 1], ['b', -152, -1]] as [string, number, number][]) {
+    const up = [-330, -300, -265, -235, -215, -200].map((x) => [x, z] as [number, number]);
+    const upE = [0, 1.1, 2.6, 4.4, 5.8, 6.5];
+    const deck = [[-200, z], [-100, z], [0, z], [100, z], [200, z]] as [number, number][];
+    const deckE = [6.5, 6.5, 6.5, 6.5, 6.5];
+    const dn = [[200, z], [215, z], [235, z], [265, z], [300, z], [330, z]] as [number, number][];
+    const dnE = [6.5, 5.8, 4.4, 2.6, 1.1, 0];
+    void rampUp; void xs;
+    const segsF: [string, [number, number][], number[], string, string][] = [
+      ['up', up, upE, `n_f${tag}0`, `n_f${tag}1`], ['deck', deck, deckE, `n_f${tag}1`, `n_f${tag}2`], ['dn', dn, dnE, `n_f${tag}2`, `n_f${tag}3`],
+    ];
+    for (const [nm, pts, el, f, t] of segsF) {
+      const rev = dirSign < 0;
+      flyEdges.push(mkRoad(`r_fl_${tag}_${nm}`, 'Flyover', rev ? pts.slice().reverse() : pts, 10, {
+        from: rev ? t : f, to: rev ? f : t, bridge: true, highway: 'primary', oneway: true, lanes: 2, elev: rev ? el.slice().reverse() : el,
+      }));
+    }
+    const nodePos: [number, number][] = [up[0], up[up.length - 1], dn[0], dn[dn.length - 1]];
+    nodePos.forEach((p, i) => {
+      const ids = i === 0 ? [`r_fl_${tag}_up`] : i === 1 ? [`r_fl_${tag}_up`, `r_fl_${tag}_deck`] : i === 2 ? [`r_fl_${tag}_deck`, `r_fl_${tag}_dn`] : [`r_fl_${tag}_dn`];
+      flyNodes.push({ id: `n_f${tag}${i}`, osmNodeId: 0, x: p[0], z: p[1], level: 0, edges: ids, isJunction: false });
+    });
+  }
+  // slip road leaving the eastbound carriageway at x=200 (3-way node on the deck), curving south down to grade
+  flyEdges.push(mkRoad('r_fl_slip', 'Flyover slip', [[200, -140], [230, -128], [255, -108], [270, -80], [275, -50], [275, -20]], 7, {
+    from: 'n_fa2', to: 'n_slip', bridge: true, highway: 'primary', oneway: true, lanes: 1, elev: [6.5, 5.6, 4.0, 2.2, 0.8, 0],
+  }));
+  flyNodes.push({ id: 'n_slip', osmNodeId: 0, x: 275, z: -20, level: 0, edges: ['r_fl_slip'], isJunction: false });
+  flyNodes.find((n) => n.id === 'n_fa2')!.edges.push('r_fl_slip');
+  flyNodes.find((n) => n.id === 'n_fa2')!.isJunction = true;
+  roads.push(...flyEdges);
+
+  // ---- junction with a circular skywalk (Uppal-like): crossing roads at (600,-300)
+  roads.push(
+    mkRoad('r_j_e', 'Junction Road', [[JC[0], JC[1]], [JC[0] + 120, JC[1]], [JC[0] + 260, JC[1]]], 16, { from: 'n_jc', to: 'n_je', lanes: 4 }),
+    mkRoad('r_j_w', 'Junction Road', [[JC[0] - 260, JC[1]], [JC[0] - 120, JC[1]], [JC[0], JC[1]]], 16, { from: 'n_jw', to: 'n_jc', lanes: 4 }),
+    mkRoad('r_j_n', 'Station Road', [[JC[0], JC[1] - 260], [JC[0], JC[1] - 120], [JC[0], JC[1]]], 12, { from: 'n_jn', to: 'n_jc', highway: 'secondary' }),
+    mkRoad('r_j_s', 'Station Road', [[JC[0], JC[1]], [JC[0], JC[1] + 120], [JC[0], JC[1] + 260]], 12, { from: 'n_jc', to: 'n_js', highway: 'secondary' }),
+  );
   const node = (id: string, x: number, z: number, edges: string[], j = false): GraphNode => ({ id, osmNodeId: 0, x, z, level: 0, edges, isJunction: j });
   const nodes: GraphNode[] = [
     node('n_w', -320, 0, ['r_main_a']), node('n_c', 0, 0, ['r_main_a', 'r_main_b', 'r_cross_a', 'r_cross_b'], true),
@@ -69,6 +143,9 @@ function buildSyntheticWorld(): { core: WorldCore; chunk: WorldChunk } {
     node('n_ce', 380, 80, ['r_curve']), node('n_l1', -120, 40, ['r_oneway']), node('n_l2', -60, 120, ['r_oneway']),
     node('n_s1', 60, 30, ['r_service']), node('n_s2', 120, 30, ['r_service']), node('n_f1', -260, 70, ['r_fly']), node('n_f2', 260, 70, ['r_fly']),
     node('n_p1', -30, 30, ['r_foot']), node('n_p2', -30, 8, ['r_foot']),
+    ...flyNodes,
+    node('n_jc', JC[0], JC[1], ['r_j_e', 'r_j_w', 'r_j_n', 'r_j_s'], true), node('n_je', JC[0] + 260, JC[1], ['r_j_e']), node('n_jw', JC[0] - 260, JC[1], ['r_j_w']),
+    node('n_jn', JC[0], JC[1] - 260, ['r_j_n']), node('n_js', JC[0], JC[1] + 260, ['r_j_s']),
   ];
   const H = 12.5;
   const pillars: WorldCore['metro']['pillars'] = [];
@@ -85,6 +162,9 @@ function buildSyntheticWorld(): { core: WorldCore; chunk: WorldChunk } {
   } as unknown as WorldCore;
 
   // buildings
+  const stores: Storefront[] = [];
+  let storeN = 0;
+  let junctionChunk: WorldChunkV2;
   let s = 12345;
   const rnd = (): number => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
   const buildings: Building[] = [];
@@ -109,20 +189,96 @@ function buildSyntheticWorld(): { core: WorldCore; chunk: WorldChunk } {
         name: side > 0 && n === 4 ? 'Test Bakery' : null, kind: kinds[Math.floor(rnd() * kinds.length)],
         frontRoadId: 'r_main_a', frontSide: side > 0 ? 'right' : 'left', centroid: [x + w / 2, (z0 + z1) / 2],
       });
+      // storefront units on the road-facing wall
+      const a0: [number, number] = side > 0 ? [x, z0] : [x + w, z0];
+      const b0: [number, number] = side > 0 ? [x + w, z0] : [x, z0];
+      const heading = side > 0 ? 0 : Math.PI;
+      const units = w >= 12 ? 2 : 1;
+      for (let u = 0; u < units; u++) {
+        const t0 = u / units, t1 = (u + 1) / units;
+        const pa: [number, number] = [a0[0] + (b0[0] - a0[0]) * t0, a0[1]];
+        const pb: [number, number] = [a0[0] + (b0[0] - a0[0]) * t1, a0[1]];
+        const g = GROUPS[(storeN * 5 + (side > 0 ? 3 : 0)) % GROUPS.length];
+        stores.push(mkStore(storeN, id, g, storeN + u, pa, pb, heading, 0, 'r_main_a'));
+        storeN++;
+      }
+      if (h >= 9 && rnd() < 0.5) {
+        const g2 = GROUPS[(storeN * 3 + 1) % GROUPS.length];
+        stores.push(mkStore(storeN, id, g2, storeN, a0, b0, heading, 1, 'r_main_a'));
+        storeN++;
+      }
       x += w + 0.4 + (rnd() < 0.2 ? 6 : 0);
     }
   }
-  return { core, chunk: { id: 'c_0_0', ix: 0, iz: 0, buildings } };
+
+  // ---- buildings + storefronts along the four arms of the skywalk junction
+  const jb: Building[] = [];
+  const jStores: Storefront[] = [];
+  let jn = 0;
+  const arm = (axis: 'x' | 'z', sign: 1 | -1): void => {
+    for (let t = 140; t < 330; t += 21 + (jn % 3) * 3) {
+      for (const side of [-1, 1] as const) {
+        const w = 15 + (jn % 4) * 2, depth = 14, gap = axis === 'x' ? 12.5 : 9.5;
+        const h = [9, 12.5, 16, 7.5, 21][(jn + (side > 0 ? 2 : 0)) % 5];
+        const id = `j_${jn++}`;
+        const along0 = sign * t;
+        let a: [number, number], b: [number, number], fp: [number, number][], heading: number;
+        if (axis === 'x') {
+          const x0 = JC[0] + Math.min(along0, along0 + sign * w), x1 = JC[0] + Math.max(along0, along0 + sign * w);
+          const zf = JC[1] + side * gap, zb = JC[1] + side * (gap + depth);
+          fp = [[x0, Math.min(zf, zb)], [x1, Math.min(zf, zb)], [x1, Math.max(zf, zb)], [x0, Math.max(zf, zb)]];
+          a = [x0, zf]; b = [x1, zf]; heading = side > 0 ? 0 : Math.PI;
+        } else {
+          const z0 = JC[1] + Math.min(along0, along0 + sign * w), z1 = JC[1] + Math.max(along0, along0 + sign * w);
+          const xf = JC[0] + side * gap, xb = JC[0] + side * (gap + depth);
+          fp = [[Math.min(xf, xb), z0], [Math.max(xf, xb), z0], [Math.max(xf, xb), z1], [Math.min(xf, xb), z1]];
+          a = [xf, z0]; b = [xf, z1]; heading = side > 0 ? Math.PI / 2 : -Math.PI / 2;
+        }
+        jb.push({ id, osmId: 'way/' + id, footprint: fp, heightM: h, heightStatus: 'provisional', levels: null, name: null, kind: 'commercial', frontRoadId: null, frontSide: null, centroid: [(fp[0][0] + fp[2][0]) / 2, (fp[0][1] + fp[2][1]) / 2] });
+        const g = GROUPS[(jn * 7 + 2) % GROUPS.length];
+        jStores.push(mkStore(1000 + jn, id, g, jn, a, b, heading, 0, 'r_j_e'));
+        if (h >= 12) jStores.push(mkStore(2000 + jn, id, GROUPS[(jn * 3) % GROUPS.length], jn + 1, a, b, heading, 1, 'r_j_e'));
+      }
+    }
+  };
+  arm('x', 1); arm('x', -1); arm('z', 1); arm('z', -1);
+
+  // ---- structures: circular skywalk (660 m, ~105 m radius) with stairs and lifts, and a footbridge
+  const R = 105;
+  const ring: [number, number][] = [];
+  for (let i = 0; i <= 72; i++) { const a = (i / 72) * Math.PI * 2; ring.push([JC[0] + Math.cos(a) * R, JC[1] + Math.sin(a) * R]); }
+  const stairsRing = [25, 85, 145, 205, 265, 325].map((deg) => {
+    const a = (deg / 180) * Math.PI;
+    return { x: JC[0] + Math.cos(a) * (R + 14), z: JC[1] + Math.sin(a) * (R + 14), heading: Math.atan2(Math.cos(a), Math.sin(a)) };
+  });
+  const supportsRing: [number, number][] = [];
+  for (let i = 0; i < 30; i++) { const a = ((i + 0.5) / 30) * Math.PI * 2; supportsRing.push([JC[0] + Math.cos(a) * R, JC[1] + Math.sin(a) * R]); }
+  const stt = (id: string, kind: Structure['kind'], name: string, path: [number, number][], elev: number, width: number, stairs: Structure['stairs'], supports: [number, number][]): Structure => ({
+    id, kind, name, path, elevM: path.map(() => elev), widthM: width, supports, stairs,
+    status: { geometry: 'provisional' }, provenance: { source: 'authored', sourceIds: [] },
+  });
+  const structures: Structure[] = [
+    stt('st_skywalk', 'skywalk', 'Uppal circular skywalk (synthetic)', ring, 5.6, 3.4, stairsRing, supportsRing),
+    stt('st_fob', 'footbridge', 'Foot-over-bridge (synthetic)', [[-16, 90], [16, 90]], 5.4, 2.6, [{ x: -16, z: 90, heading: Math.PI / 2 }, { x: 16, z: 90, heading: -Math.PI / 2 }], []),
+  ];
+  (core as unknown as WorldCoreV2).structures = structures;
+  (core as unknown as WorldCoreV2).lines = ['blue'];
+  junctionChunk = { id: 'c_3_-2', ix: 3, iz: -2, buildings: jb, storefronts: jStores };
+  return { core, chunk: { id: 'c_0_0', ix: 0, iz: 0, buildings, storefronts: stores }, chunkJ: junctionChunk };
 }
 
 /* -------------------------------------------------------------------- scene */
 
-const { core, chunk } = buildSyntheticWorld();
+const { core, chunk, chunkJ } = buildSyntheticWorld();
 const env = art.buildEnvironment(scene, renderer, quality);
 const roadsGroup = art.buildRoads(core, quality);
 const metroGroup = art.buildMetro(core, quality);
 const chunkGroup = art.buildChunk(chunk, core, quality);
-scene.add(roadsGroup, metroGroup, chunkGroup);
+const chunkJGroup = art.buildChunk(chunkJ, core, quality);
+const storesGroup = buildStorefronts(chunk, core, quality);
+const storesJGroup = buildStorefronts(chunkJ, core, quality);
+const structuresGroup = buildStructures(core as WorldCoreV2, quality);
+scene.add(roadsGroup, metroGroup, chunkGroup, chunkJGroup, storesGroup, storesJGroup, structuresGroup);
 
 const hero = art.createHeroCar(quality);
 hero.root.position.set(-20, 0, -3.5);
@@ -225,11 +381,11 @@ void art.createSignTexture([{ text: 'ఉప్పల్', lang: 'te' }, { text: 
 
 /* -------------------------------------------------------------- real world */
 
-const realState: { loaded: boolean; station?: THREE.Vector3; heroPos?: THREE.Vector3; heroYaw?: number; stats?: Record<string, number> } = { loaded: false };
+const realState: { loaded: boolean; fly?: { cam: THREE.Vector3; target: THREE.Vector3; aerialCam: THREE.Vector3; aerialTarget: THREE.Vector3 }; station?: THREE.Vector3; heroPos?: THREE.Vector3; heroYaw?: number; stats?: Record<string, number> } = { loaded: false };
 
-async function tryReal(): Promise<boolean> {
+async function tryReal(v2 = false): Promise<boolean> {
   try {
-    const base = './world/hyd-uppal-tarnaka/v1/';
+    const base = v2 ? './world/hyd-metro/v2/' : './world/hyd-uppal-tarnaka/v1/';
     const r = await fetch(base + 'core.json');
     if (!r.ok) return false;
     const real = (await r.json()) as WorldCore;
@@ -240,11 +396,19 @@ async function tryReal(): Promise<boolean> {
     const metro = art.buildMetro(real, quality);
     const tr2 = performance.now();
     scene.add(roads, metro);
-    const st = real.stations.find((x) => x.inCorridor && x.name === 'Habsiguda') ?? real.stations.find((x) => x.inCorridor);
+    let structuresTris = 0, storeCalls = 0, storeTris = 0, storefronts = 0;
+    if (v2) {
+      const sg = buildStructures(real as WorldCoreV2, quality);
+      scene.add(sg);
+      structuresTris = (sg.userData.triangles as number) ?? 0;
+    }
+    const st = v2 ? (real.stations.find((x) => x.name === 'Uppal') ?? real.stations[0]) : (real.stations.find((x) => x.inCorridor && x.name === 'Habsiguda') ?? real.stations.find((x) => x.inCorridor));
     if (!st) return true;
     realState.station = new THREE.Vector3(st.x, 0, st.z);
-    const cix = Math.floor(st.x / 200), ciz = Math.floor(st.z / 200);
-    const m = await (await fetch(base + 'manifest.json')).json();
+    const mf = await (await fetch(base + 'manifest.json')).json();
+    const CS = (mf.chunkSizeM as number | undefined) ?? 200;
+    const cix = Math.floor(st.x / CS), ciz = Math.floor(st.z / CS);
+    const m = mf;
     let chunks = 0, buildings = 0, tris = 0, chunkMs = 0;
     for (const c of (m.chunks ?? []) as { ix: number; iz: number; file: string }[]) {
       if (Math.abs(c.ix - cix) > 2 || Math.abs(c.iz - ciz) > 2) continue;
@@ -253,6 +417,13 @@ async function tryReal(): Promise<boolean> {
       const g = art.buildChunk(ch, real, quality);
       chunkMs += performance.now() - tc0;
       scene.add(g);
+      if (v2) {
+        const sf = buildStorefronts(ch as WorldChunkV2, real, quality);
+        scene.add(sf);
+        const stt2 = sf.userData.stats as { drawCalls: number; triangles: number; storefronts: number };
+        storeCalls += stt2.drawCalls; storeTris += stt2.triangles; storefronts += stt2.storefronts;
+        await (sf.userData.pending as Promise<void>);
+      }
       chunks++; buildings += ch.buildings.length; tris += (g.userData.triangles as number) ?? 0;
     }
     // hero on the nearest road to the station
@@ -273,9 +444,26 @@ async function tryReal(): Promise<boolean> {
         }
       }
     }
+    {
+      const fe = real.roads.filter((e) => Math.max(...e.pointElevM, 0) > 3).sort((a, b) => b.lengthM - a.lengthM)[0];
+      if (fe) {
+        const pts = fe.points;
+        const at = (f: number): { x: number; z: number; y: number; tx: number; tz: number } => {
+          const i = Math.min(pts.length - 2, Math.floor(f * (pts.length - 1)));
+          const dx = pts[i + 1][0] - pts[i][0], dz = pts[i + 1][1] - pts[i][1], l = Math.hypot(dx, dz) || 1;
+          return { x: pts[i][0], z: pts[i][1], y: fe.pointElevM[i], tx: dx / l, tz: dz / l };
+        };
+        const a = at(0.02), b = at(0.2), m = at(0.5);
+        realState.fly = {
+          cam: new THREE.Vector3(a.x - a.tx * 30 - a.tz * 16, 3.2, a.z - a.tz * 30 + a.tx * 16),
+          target: new THREE.Vector3(b.x, 4.5, b.z),
+          aerialCam: new THREE.Vector3(m.x - 60, 110, m.z + 90), aerialTarget: new THREE.Vector3(m.x, 4, m.z),
+        };
+      }
+    }
     const obs = stationObstacles(real);
     realState.loaded = true;
-    realState.stats = { chunks, buildings, buildingTris: tris, obstacles: obs.length, stairObstacles: obs.filter((o) => o.id.includes(':stairs:')).length, roadsMs: Math.round(tr1 - tr0), metroMs: Math.round(tr2 - tr1), chunkAvgMs: Math.round((chunkMs / Math.max(1, chunks)) * 10) / 10, totalMs: Math.round(performance.now() - t0), roadTris: roads.children.reduce((a2, g2) => a2 + g2.children.reduce((a3, m3) => a3 + (((m3 as THREE.Mesh).geometry?.index?.count ?? 0) / 3), 0), 0) };
+    realState.stats = { structureObstacles: v2 ? structureObstacles(real as WorldCoreV2).length : 0, structuresTris, storefronts, storeCalls, storeTris, chunks, buildings, buildingTris: tris, obstacles: obs.length, stairObstacles: obs.filter((o) => o.id.includes(':stairs:')).length, roadsMs: Math.round(tr1 - tr0), metroMs: Math.round(tr2 - tr1), chunkAvgMs: Math.round((chunkMs / Math.max(1, chunks)) * 10) / 10, totalMs: Math.round(performance.now() - t0), roadTris: roads.children.reduce((a2, g2) => a2 + g2.children.reduce((a3, m3) => a3 + (((m3 as THREE.Mesh).geometry?.index?.count ?? 0) / 3), 0), 0) };
     console.log('[real]', JSON.stringify(realState.stats), best);
     return true;
   } catch (e) { console.warn('real load failed', e); return false; }
@@ -325,6 +513,46 @@ function setPreset(name: string): void {
       camera.position.set(70, 2.4, -3.8);
       t.set(135, 8, -3);
       break;
+    case 'shops':
+      camera.position.set(-62, 2.6, 8.6); t.set(8, 3.4, -13); break;
+    case 'shops2':
+      camera.position.set(30, 2.6, -8.6); t.set(78, 3.4, 14); break;
+    case 'shopsclose':
+      camera.position.set(-60, 1.9, -4); t.set(-42, 3.1, -13); break;
+    case 'shopsclose2':
+      camera.position.set(-76, 2.2, 8.2); t.set(-70, 3.4, 14); break;
+    case 'shopsaerial':
+      camera.position.set(52, 46, 48); t.set(36, 0, -6); break;
+    case 'shopsfar':
+      camera.position.set(-205, 3.2, 2); t.set(0, 3.0, -12); break;
+    case 'shopsfar2':
+      camera.position.set(-318, 3.2, 2); t.set(0, 3.0, -12); break;
+    case 'telugu2':
+      camera.position.set(52, 1.6, 52); t.set(52, 3.0, 14); break;
+    case 'telugu':
+      camera.position.set(TELUGU_CAM[0], 2.2, TELUGU_CAM[1]); t.set(TELUGU_CAM[2], 3.0, TELUGU_CAM[3]); break;
+    case 'flyover':
+      camera.position.set(-310, 10, -108); t.set(-190, 5, -146); break;
+    case 'flyoverside':
+      camera.position.set(-120, 2.4, -118); t.set(-70, 5.5, -146); break;
+    case 'flyoverunder':
+      camera.position.set(-62, 1.7, -146); t.set(70, 5.0, -146); break;
+    case 'flyoveraerial':
+      camera.position.set(-40, 150, -40); t.set(0, 0, -146); break;
+    case 'flyoverslip':
+      camera.position.set(150, 14, -95); t.set(225, 4, -128); break;
+    case 'flyoverramp':
+      camera.position.set(-232, 3.0, -125); t.set(-286, 1.5, -146); break;
+    case 'skywalk':
+      camera.position.set(JC[0] - 190, 62, JC[1] + 200); t.set(JC[0], 3, JC[1]); break;
+    case 'skywalkground':
+      camera.position.set(JC[0] + 150, 2.6, JC[1] + 85); t.set(JC[0] + 105, 4.4, JC[1] + 44); break;
+    case 'skywalkdeck':
+      camera.position.set(JC[0] + 68, 7.3, JC[1] + 82); t.set(JC[0] + 26, 6.9, JC[1] + 106); break;
+    case 'skywalkstairs':
+      camera.position.set(JC[0] + 128, 4.2, JC[1] + 70); t.set(JC[0] + 106, 3.6, JC[1] + 46); break;
+    case 'footbridge':
+      camera.position.set(-40, 4.5, 118); t.set(0, 4.2, 90); break;
     case 'junction':
       camera.position.set(-22, 26, 38);
       t.set(4, 0, 4);
@@ -345,12 +573,23 @@ function setPreset(name: string): void {
       camera.position.set(30, 4.0, 3);
       t.set(30, 3.9, -9.6);
       break;
+    case 'realfly':
+    case 'realflyaerial':
+    case 'real-v2-fly': {
+      const f = realState.fly;
+      if (f) { camera.position.copy(name === 'realflyaerial' ? f.aerialCam : f.cam); t.copy(name === 'realflyaerial' ? f.aerialTarget : f.target); }
+      break;
+    }
+    case 'real-v2':
+    case 'real-v2-street':
+    case 'real-v2-skywalk':
     case 'real':
     case 'realstreet':
     case 'realmetro': {
       const st = realState.station ?? new THREE.Vector3();
       if (realState.heroPos) { hero.root.position.copy(realState.heroPos); hero.root.rotation.y = realState.heroYaw ?? 0; }
-      if (name === 'real') { camera.position.set(st.x - 120, 150, st.z + 190); t.copy(st); }
+      if (name === 'real' || name === 'real-v2') { camera.position.set(st.x - 120, 150, st.z + 190); t.copy(st); }
+      else if (name === 'real-v2-skywalk') { camera.position.set(st.x + 60, 24, st.z + 90); t.set(st.x, 5, st.z); }
       else if (name === 'realmetro') { camera.position.set(st.x + 45, 22, st.z + 70); t.set(st.x, 10, st.z); }
       else {
         const f = new THREE.Vector3(-Math.sin(hero.root.rotation.y), 0, -Math.cos(hero.root.rotation.y));
@@ -366,13 +605,17 @@ function setPreset(name: string): void {
   controls.target.copy(t);
   camera.lookAt(t);
   controls.update();
-  env.update(name === 'aerial' || name === 'metro' || name === 'junction' || name === 'far' || name === 'real' || name === 'realmetro' ? t : name.startsWith('traffic') ? new THREE.Vector3(200, 0, 150) : hero.root.position);
+  env.update(name === 'aerial' || name === 'metro' || name === 'junction' || name === 'far' || name === 'real' || name === 'realmetro' ? t : name.startsWith('traffic') ? new THREE.Vector3(200, 0, 150) : /^(shops|telugu|flyover|skywalk|footbridge|real-v2|realfly)/.test(name) ? t : hero.root.position);
   if (name !== 'carfly') hero.root.position.y = 0;
+  const dressed = !/^(shops|telugu|flyover|skywalk|footbridge|real-v2|realfly)/.test(name);
+  hero.root.visible = dressed;
+  metroGroup.visible = dressed;
+  trafficRoot.visible = dressed;
   hud.textContent = `preset: ${name}  quality: ${quality}`;
 }
 
 let lastPreset = preset0;
-if (preset0.startsWith('real')) void tryReal().then(() => { setPreset(lastPreset); });
+if (preset0.startsWith('real')) void tryReal(preset0.startsWith('real-v2')).then(() => { setPreset(lastPreset); });
 setPreset(preset0);
 window.addEventListener('hashchange', () => {
   lastPreset = location.hash.replace(/^#/, '').split('&')[0] || 'street';
@@ -392,7 +635,36 @@ const w = window as unknown as Record<string, unknown>;
 w.__artReady = false;
 w.__artStats = () => ({ calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, textures: renderer.info.memory.textures, geometries: renderer.info.memory.geometries, quality });
 w.__artFrames = () => frames;
+w.__artFuzz = () => {
+  const out: Record<string, unknown> = {};
+  const base = chunk.storefronts[0];
+  const mk = (over: Partial<Storefront>, i: number): Storefront => ({ ...base, id: `sf_fz_${i}`, ...over });
+  const odd: Storefront[] = [
+    mk({ facade: null }, 1), mk({ facade: [[0, 0], [0, 0]] }, 2), mk({ name: 'X'.repeat(300) }, 3), mk({ name: 'A \u{1F600} \u0C36\u0C4D\u0C30\u0C40 Mixed Name' }, 4),
+    mk({ nameTe: '   ' }, 5), mk({ buildingId: null }, 6), mk({ name: '' }, 7), mk({ nameTe: 'శ్రీ రాఘవేంద్ర హోటల్ అండ్ రెస్టారెంట్ టిఫిన్ సెంటర్ ఫాస్ట్ ఫుడ్ కార్నర్' }, 8),
+    mk({ facade: [[-20, 20], [-19.2, 20]] }, 9), mk({ facade: [[-20, 20], [50, 20]] }, 10),
+  ];
+  const run = (label: string, list: Storefront[], q: Quality): void => {
+    try {
+      const t0 = performance.now();
+      const g = buildStorefronts({ ...chunk, storefronts: list }, core, q);
+      const st = g.userData.stats as Record<string, number>;
+      out[label] = { ok: true, ms: Math.round(performance.now() - t0), calls: st.drawCalls, tris: st.triangles, px: st.pxPerMetre, n: st.storefronts };
+      disposeStorefronts(g);
+    } catch (e) { out[label] = { ok: false, err: String(e) }; }
+  };
+  for (const q of ['low', 'standard', 'high'] as Quality[]) {
+    run(`empty-${q}`, [], q);
+    run(`odd-${q}`, odd, q);
+    const dense: Storefront[] = [];
+    for (let i = 0; i < 320; i++) dense.push(mk({ id: `sf_d${i}`, name: `${SHOP_NAMES[GROUPS[i % 16]][i % SHOP_NAMES[GROUPS[i % 16]].length][0]} ${i}`, group: GROUPS[i % 16], floor: (i % 5 === 0 ? 1 : 0) as 0 | 1, facade: [[-150 + (i % 40) * 8, i < 160 ? -11.5 : 11.5], [-150 + (i % 40) * 8 + 6, i < 160 ? -11.5 : 11.5]], facingHeading: i < 160 ? Math.PI : 0 }, 100 + i));
+    run(`dense320-${q}`, dense, q);
+    run(`dense110-${q}`, dense.slice(0, 110), q);
+  }
+  return out;
+};
 w.__artReal = () => realState;
+w.__artStores = () => [...chunk.storefronts, ...chunkJ.storefronts].map((f) => ({ n: f.name, te: f.nameTe, x: Math.round(f.x), z: Math.round(f.z), fl: f.floor, h: f.facingHeading, g: f.group }));
 w.__artVisible = () => {
   const fr = new THREE.Frustum();
   fr.setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
@@ -419,7 +691,7 @@ w.__artVisible = () => {
 w.__artBreakdown = () => { const out: Record<string, number> = {}; scene.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh && m.geometry) { const n = (m.geometry.index?.count ?? m.geometry.getAttribute('position').count) / 3; const k = m.name || 'unnamed'; out[k] = (out[k] ?? 0) + Math.round(n * ((m as unknown as THREE.InstancedMesh).isInstancedMesh ? (m as unknown as THREE.InstancedMesh).count : 1)); } }); return out; };
 w.__artInfo = () => {
   const count = (o: THREE.Object3D): { meshes: number; tris: number } => { let meshes = 0, tris = 0; o.traverse((c) => { const m = c as THREE.Mesh; if (m.isMesh) { meshes++; const g = m.geometry; const n = (g.index?.count ?? g.getAttribute('position').count) / 3; tris += (m as unknown as THREE.InstancedMesh).isInstancedMesh ? n * (m as unknown as THREE.InstancedMesh).count : n; } }); return { meshes, tris: Math.round(tris) }; };
-  const out: Record<string, unknown> = { roads: count(roadsGroup), metro: count(metroGroup), chunk: count(chunkGroup), hero: count(hero.root), pedestrian: count(ped) };
+  const out: Record<string, unknown> = { roads: count(roadsGroup), metro: count(metroGroup), chunk: count(chunkGroup), hero: count(hero.root), pedestrian: count(ped), stores: count(storesGroup), storesJ: count(storesJGroup), structures: count(structuresGroup), storeStats: storesGroup.userData.stats, storeStatsJ: storesJGroup.userData.stats, structureObstacles: structureObstacles(core as WorldCoreV2).length };
   for (const k of kinds) out[k] = count(traffic[k].object);
   return out;
 };
@@ -433,7 +705,7 @@ function loop(): void {
   renderer.render(scene, camera);
   frames++;
   if (frames === 3) {
-    const pend = [texturesReady(), chunkGroup.userData.pending as Promise<void>, metroGroup.userData.pending as Promise<void>];
+    const pend = [texturesReady(), chunkGroup.userData.pending as Promise<void>, metroGroup.userData.pending as Promise<void>, storesGroup.userData.pending as Promise<void>, storesJGroup.userData.pending as Promise<void>];
     Promise.all(pend).then(() => { setTimeout(() => { w.__artReady = true; frames = 0; }, 400); });
   }
   requestAnimationFrame(loop);

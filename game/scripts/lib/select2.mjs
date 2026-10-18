@@ -88,107 +88,126 @@ export function selectV2(all, isNear, banned, opts = {}) {
   const nearK = near.filter((e) => Kset.has(e));
   report.nearEdges = near.length;
   report.nearEdgesInAcquiredScc = nearK.length;
-  // 2. components of the near set; connect each big one to the largest through K by shortest detours
+  // 2. connect the near set: SCCs of the directed-state graph of S are joined to the largest one through K by shortest
+  //    forward and backward detours; repeated because every added road brings its opposite direction along
   let S = new Set(nearK);
-  let comps = components([...S], banned);
-  report.nearComponentsInitial = comps.slice(0, 10).map((c) => c.length);
   const KA = K.kept;
   const kIdx = new Map(KA.map((e, i) => [e, i]));
   const { d: kd, next: kn } = buildDirected(KA, banned);
+  const kStateById = new Map(kd.map((x, i) => [x.id, i]));
   const pred = kd.map(() => []);
   kn.forEach((ns, i) => ns.forEach((j) => pred[j].push(i)));
   const len = kd.map((x) => KA[x.ei].length);
-  const stateOfEdge = new Map();
-  kd.forEach((x, i) => {
-    let a = stateOfEdge.get(x.ei);
-    if (!a) stateOfEdge.set(x.ei, (a = []));
-    a.push(i);
-  });
+  const stateComponents = (edges) => {
+    const { d, next } = buildDirected(edges, banned);
+    const { comp, count } = scc(next);
+    const groups = Array.from({ length: count }, () => []);
+    for (let i = 0; i < d.length; i++) {
+      const k = kStateById.get(d[i].id);
+      if (k !== undefined) groups[comp[i]].push(k);
+    }
+    return groups.filter((g) => g.length).sort((a, b) => b.length - a.length);
+  };
+  report.nearComponentsInitial = stateComponents([...S]).slice(0, 10).map((c) => c.length);
   const detours = [];
-  for (let round = 0; round < 4; round++) {
-    comps = components([...S], banned);
-    if (comps.length <= 1) break;
-    const main = comps[0];
-    const inMain = new Set();
-    for (const e of main) for (const si of stateOfEdge.get(kIdx.get(e)) || []) inMain.add(si);
-    const n = kd.length;
-    const fwd = new Float64Array(n).fill(Infinity);
-    const pf = new Int32Array(n).fill(-1);
-    const bwd = new Float64Array(n).fill(Infinity);
-    const pb = new Int32Array(n).fill(-1);
-    {
-      const h = new MinHeap();
-      for (const s of inMain) {
-        fwd[s] = 0;
-        h.push(0, s);
-      }
-      while (h.size) {
-        const [dd, v] = h.pop();
-        if (dd > fwd[v]) continue;
-        for (const w of kn[v]) {
-          if (inMain.has(w)) continue;
-          const nd = dd + len[w];
-          if (nd < fwd[w]) {
-            fwd[w] = nd;
-            pf[w] = v;
-            h.push(nd, w);
+  let unconnected = [];
+  let fin = null;
+  for (let outer = 0; outer < 4; outer++) {
+    for (let round = 0; round < 8; round++) {
+      const comps = stateComponents([...S]);
+      if (comps.length <= 1) break;
+      const inMain = new Set(comps[0]);
+      const n = kd.length;
+      const fwd = new Float64Array(n).fill(Infinity);
+      const pf = new Int32Array(n).fill(-1);
+      const bwd = new Float64Array(n).fill(Infinity);
+      const pb = new Int32Array(n).fill(-1);
+      {
+        const h = new MinHeap();
+        for (const s0 of inMain) {
+          fwd[s0] = 0;
+          h.push(0, s0);
+        }
+        while (h.size) {
+          const [dd, v] = h.pop();
+          if (dd > fwd[v]) continue;
+          for (const w of kn[v]) {
+            if (inMain.has(w)) continue;
+            const nd = dd + len[w];
+            if (nd < fwd[w]) {
+              fwd[w] = nd;
+              pf[w] = v;
+              h.push(nd, w);
+            }
           }
         }
       }
-    }
-    {
-      const h = new MinHeap();
-      for (const s of inMain) {
-        bwd[s] = 0;
-        h.push(0, s);
-      }
-      while (h.size) {
-        const [dd, q] = h.pop();
-        if (dd > bwd[q]) continue;
-        const cost = inMain.has(q) ? 0 : len[q];
-        for (const p of pred[q]) {
-          if (inMain.has(p)) continue;
-          const nd = dd + cost;
-          if (nd < bwd[p]) {
-            bwd[p] = nd;
-            pb[p] = q;
-            h.push(nd, p);
+      {
+        const h = new MinHeap();
+        for (const s0 of inMain) {
+          bwd[s0] = 0;
+          h.push(0, s0);
+        }
+        while (h.size) {
+          const [dd, q] = h.pop();
+          if (dd > bwd[q]) continue;
+          const cost = inMain.has(q) ? 0 : len[q];
+          for (const p of pred[q]) {
+            if (inMain.has(p)) continue;
+            const nd = dd + cost;
+            if (nd < bwd[p]) {
+              bwd[p] = nd;
+              pb[p] = q;
+              h.push(nd, p);
+            }
           }
         }
       }
-    }
-    let added = 0;
-    const add = new Set();
-    for (let ci = 1; ci < comps.length; ci++) {
-      const c = comps[ci];
-      let best = Infinity;
-      let bi = -1;
-      for (const e of c) for (const si of stateOfEdge.get(kIdx.get(e)) || []) {
-        const t = fwd[si] + bwd[si];
-        if (t < best) {
-          best = t;
-          bi = si;
+      let added = 0;
+      const add = new Set();
+      unconnected = [];
+      for (let ci = 1; ci < comps.length; ci++) {
+        const c = comps[ci];
+        let best = Infinity;
+        let bi = -1;
+        for (const si of c) {
+          const t = fwd[si] + bwd[si];
+          if (t < best) {
+            best = t;
+            bi = si;
+          }
         }
+        const lengthM = c.reduce((t, si) => t + len[si], 0);
+        const limit = lengthM >= BIG_COMP_M ? Infinity : Math.max(SMALL_DETOUR_M, 4 * lengthM);
+        if (bi < 0 || !(best <= limit)) {
+          unconnected.push({ states: c.length, lengthM: Math.round(lengthM), bestDetourM: Number.isFinite(best) ? Math.round(best) : null, at: KA[kd[c[0]].ei].pts[0].map((v) => Math.round(v)) });
+          continue;
+        }
+        for (let s0 = bi; s0 >= 0 && !inMain.has(s0); s0 = pf[s0]) add.add(KA[kd[s0].ei]);
+        for (let s0 = bi; s0 >= 0 && !inMain.has(s0); s0 = pb[s0]) add.add(KA[kd[s0].ei]);
+        for (const si of c) add.add(KA[kd[si].ei]);
+        added++;
+        detours.push({ componentStates: c.length, componentLengthM: Math.round(lengthM), detourM: Math.round(best) });
       }
-      const lengthM = c.reduce((s, e) => s + e.length, 0);
-      const limit = lengthM >= BIG_COMP_M ? Infinity : SMALL_DETOUR_M;
-      if (bi < 0 || !(best <= limit)) continue;
-      // forward path S1 -> bi, backward path bi -> S1
-      for (let s = bi; s >= 0 && !inMain.has(s); s = pf[s]) add.add(KA[kd[s].ei]);
-      for (let s = bi; s >= 0 && !inMain.has(s); s = pb[s]) add.add(KA[kd[s].ei]);
-      for (const e of c) add.add(e);
-      added++;
-      detours.push({ componentEdges: c.length, componentLengthM: Math.round(lengthM), detourM: Math.round(best) });
+      log(`connect outer ${outer} round ${round}: +${added} components, ${unconnected.length} left, S=${S.size}`);
+      if (!added) break;
+      for (const e of add) S.add(e);
     }
-    if (!added) break;
-    for (const e of add) S.add(e);
-    log(`connect round ${round}: +${added} components, S=${S.size}`);
+    // 3. final strongly connected core
+    fin = largestScc([...S], banned);
+    if (!fin.dropped.length) break;
+    // give the dropped near edges another chance with the new surroundings
+    const before = S.size;
+    S = new Set(fin.kept);
+    for (const e of fin.dropped) if (isNear(e) && Kset.has(e)) S.add(e);
+    log(`final SCC dropped ${fin.dropped.length}; retry with S=${S.size} (was ${before})`);
+    if (S.size === before && outer > 0) break;
   }
-  report.detours = { count: detours.length, totalDetourM: detours.reduce((s, x) => s + x.detourM, 0), biggest: detours.sort((a, b) => b.detourM - a.detourM).slice(0, 5) };
-  // 3. final strongly connected core
-  const fin = largestScc([...S], banned);
+  report.unconnectedComponents = unconnected.sort((a, b) => b.lengthM - a.lengthM).slice(0, 12);
+  report.detours = { count: detours.length, totalDetourM: detours.reduce((t, x) => t + x.detourM, 0), biggest: detours.sort((a, b) => b.detourM - a.detourM).slice(0, 5) };
   const core = fin.kept;
   const coreSet = new Set(core);
+  report.droppedByFinalSccSample = fin.dropped.slice().sort((a, b) => b.length - a.length).slice(0, 12).map((e) => ({ id: e.id, highway: e.highway, oneway: e.oneway, lengthM: Math.round(e.length), near: isNear(e), at: e.pts[0].map((v) => Math.round(v)) }));
   report.core = { edges: core.length, nearEdgesInCore: core.filter(isNear).length, farEdgesInCore: core.filter((e) => !isNear(e)).length, droppedByFinalScc: fin.dropped.length };
   // 4. weak extension: near edges not in the core, weakly connected to the core (links within FAR m of the alignment)
   const pool = all.filter((e) => !coreSet.has(e) && e.minDist <= FAR);

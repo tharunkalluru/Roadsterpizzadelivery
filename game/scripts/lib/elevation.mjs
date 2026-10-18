@@ -27,7 +27,9 @@ function pointAtS(pts, cum, s) {
  *    max(25 % of length, 30 m) (at most half of the edge).
  *  Node elevations are therefore identical for every incident edge.
  */
-export function computeElevations(roads) {
+export function computeElevations(roads, opts = {}) {
+  // opts.rampTunnels (v2): tunnels get the same ramp treatment as bridges, mirrored below grade (v1 keeps them flat -5 m)
+  const rampT = !!opts.rampTunnels;
   const atGrade = (r) => !r.bridge && !r.tunnel;
   const info = new Map();
   for (const r of roads) {
@@ -45,7 +47,7 @@ export function computeElevations(roads) {
     }
   }
   const stats = { rampApproachEdges: 0, rampOwnEnds: 0, rampChainEnds: 0, rampOwnEdges: 0 };
-  for (const b of roads.filter((x) => x.bridge && !x.tunnel)) {
+  for (const b of roads.filter((x) => (x.bridge && !x.tunnel) || (rampT && x.tunnel))) {
     const E = info.get(b).base;
     for (const end of [{ node: b.fromNode, atStart: true }, { node: b.toNode, atStart: false }]) {
       const others = (roadsAtNode.get(end.node) || []).filter((o) => o !== b);
@@ -125,7 +127,7 @@ export function computeElevations(roads) {
     r.pointElevM = r.points.map((_, i) => {
       const s = cum[i];
       let v = inf.base;
-      if (r.bridge && (inf.ownStart || inf.ownEnd)) {
+      if ((r.bridge || (rampT && r.tunnel)) && (inf.ownStart || inf.ownEnd)) {
         const f0 = inf.ownStart ? Math.min(1, s / own2) : 1;
         const f1 = inf.ownEnd ? Math.min(1, (L2 - s) / own2) : 1;
         v = inf.base * Math.min(f0, f1);
@@ -133,7 +135,7 @@ export function computeElevations(roads) {
       for (const rp of inf.ramps) {
         const dd = Math.min(rp.da + s, rp.db + (L2 - s));
         const val = rp.E * Math.max(0, 1 - dd / rp.R);
-        if (val > v) {
+        if (rp.E > 0 ? val > v : val < v) {
           v = val;
           rampedRoads.add(r.id);
         }
@@ -148,7 +150,7 @@ export function computeElevations(roads) {
 }
 
 /** Synthetic self-test used by validate-world.mjs. */
-export function elevationSelfTest() {
+export function elevationSelfTest(opts = {}) {
   const len = (pts) => pts.reduce((s, p, i) => (i ? s + dist(pts[i - 1], p) : 0), 0);
   const mk = (id, a, b, pts, extra = {}) => ({ id, fromNode: a, toNode: b, points: pts, lengthM: len(pts), level: 0, bridge: false, tunnel: false, ...extra });
   const roads = [
@@ -166,7 +168,7 @@ export function elevationSelfTest() {
     mk('g', 'nJ', 'nK', [[0, 300], [300, 300]], { bridge: true, level: 1 }),
     mk('j', 'nK', 'nL', [[300, 300], [500, 300]]),
   ];
-  const st = computeElevations(roads);
+  const st = computeElevations(roads, opts);
   const by = Object.fromEntries(roads.map((r) => [r.id, r]));
   const errs = [];
   const near = (x, y) => Math.abs(x - y) < 0.011;
@@ -176,7 +178,10 @@ export function elevationSelfTest() {
   if (!(near(by.c.pointElevM[0], 6.5) && near(by.c.pointElevM[1], ramp100))) errs.push('approach c ramp wrong: ' + by.c.pointElevM);
   if (!(by.d.points.length === 3 && near(by.d.pointElevM[0], ramp100) && by.d.pointElevM[1] === 0 && by.d.pointElevM[2] === 0 && near(by.d.points[1][0], 520))) errs.push('approach d should reach 0 at 120 m from the bridge end: ' + JSON.stringify(by.d.points) + by.d.pointElevM);
   if (!(by.e.points.length === 4 && near(by.e.elevationM, 13) && by.e.pointElevM[0] === 0 && near(by.e.pointElevM[1], 13) && near(by.e.pointElevM[2], 13) && by.e.pointElevM[3] === 0)) errs.push('free bridge ends must ramp on the bridge (layer 2 = 13 m): ' + by.e.pointElevM);
-  if (!by.f.pointElevM.every((v) => v === -5) || by.f.elevationM !== -5) errs.push('tunnel must be -5 m');
+  if (opts.rampTunnels) {
+    // free-ended tunnel ramps down over max(25 %, 30 m) of its own length and comes back up: -5 m inside, 0 at both ends
+    if (!(by.f.pointElevM[0] === 0 && by.f.pointElevM[by.f.pointElevM.length - 1] === 0 && Math.min(...by.f.pointElevM) === -5)) errs.push('rampTunnels: free tunnel must run 0 -> -5 -> 0: ' + by.f.pointElevM);
+  } else if (!by.f.pointElevM.every((v) => v === -5) || by.f.elevationM !== -5) errs.push('tunnel must be -5 m');
   // junction end: bridge g ramps itself over max(25 %, 30 m) = 75 m; roads h and i stay at grade
   if (!(by.h.pointElevM.every((v) => v === 0) && by.i.pointElevM.every((v) => v === 0))) errs.push('at-grade roads at a bridge junction must stay at 0: ' + by.h.pointElevM + ' / ' + by.i.pointElevM);
   if (!(near(by.g.pointElevM[0], 0) && near(by.g.pointElevM[by.g.pointElevM.length - 1], 6.5) && by.g.points.some((p, i) => near(p[0], 75) && near(by.g.pointElevM[i], 6.5)))) errs.push('bridge g must ramp from 0 to 6.5 within its first 75 m: ' + JSON.stringify(by.g.points) + by.g.pointElevM);
@@ -188,4 +193,75 @@ export function elevationSelfTest() {
     else if (Math.abs(el.get(k) - v) > 0.011) errs.push(`node ${k} elevation mismatch (${el.get(k)} vs ${v}, edge ${r.id})`);
   }
   return { errs, stats: st };
+}
+
+/**
+ * v2 repair pass: Overture connectors can join an elevated road (bridge/tunnel) and at-grade roads at the same node (ramp mouths,
+ * mid-flyover connectors).  Node elevation must still be identical for every incident edge, so the at-grade edges at such a node
+ * ramp linearly from the elevated value to their far end over min(RAMP_M, edge length).  Bridge/tunnel edges are never changed.
+ * Mutates points (collinear break point where a ramp ends), lengthM, pointElevM, elevationM.  Returns {nodesRepaired, edgesRamped, unresolved}.
+ */
+export function repairNodeElevations(roads) {
+  const ends = new Map();
+  for (const r of roads) {
+    for (const [node, atStart] of [[r.fromNode, true], [r.toNode, false]]) {
+      let a = ends.get(node);
+      if (!a) ends.set(node, (a = []));
+      a.push({ r, atStart });
+    }
+  }
+  const val = (e) => (e.atStart ? e.r.pointElevM[0] : e.r.pointElevM[e.r.pointElevM.length - 1]);
+  const stats = { nodesRepaired: 0, edgesRamped: 0, unresolved: 0 };
+  for (const node of [...ends.keys()].sort()) {
+    const list = ends.get(node);
+    const vals = list.map(val);
+    if (Math.max(...vals) - Math.min(...vals) <= 0.011) continue;
+    const t = vals.reduce((b, v) => (Math.abs(v) > Math.abs(b) ? v : b), 0);
+    let fixed = true;
+    for (const e of list) {
+      if (Math.abs(val(e) - t) <= 0.011) continue;
+      const r = e.r;
+      if (r.bridge || r.tunnel) {
+        fixed = false;
+        stats.unresolved++;
+        continue;
+      }
+      // orient so that the ramp runs from the node end
+      let pts = r.points.slice();
+      let el = r.pointElevM.slice();
+      if (!e.atStart) {
+        pts.reverse();
+        el.reverse();
+      }
+      let cum = cumulative(pts);
+      const L = cum[cum.length - 1];
+      const R = Math.min(RAMP_M, L);
+      if (R < L - 0.05) {
+        const i = cum.findIndex((c) => c >= R - 1e-9);
+        if (Math.abs(cum[i] - R) > 0.05) {
+          const seg = cum[i] - cum[i - 1];
+          const f = (R - cum[i - 1]) / seg;
+          const p = [r2(pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * f), r2(pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * f)];
+          pts.splice(i, 0, p);
+          el.splice(i, 0, el[i - 1] + (el[i] - el[i - 1]) * f);
+          cum = cumulative(pts);
+        }
+      }
+      el = el.map((v, i) => {
+        const w = t * Math.max(0, 1 - cum[i] / R);
+        return r2(t > 0 ? Math.max(v, w) : Math.min(v, w));
+      });
+      if (!e.atStart) {
+        pts.reverse();
+        el.reverse();
+      }
+      r.points = pts;
+      r.pointElevM = el;
+      r.lengthM = r2(polyLength(pts));
+      r.elevationM = Math.max(...el);
+      stats.edgesRamped++;
+    }
+    if (fixed) stats.nodesRepaired++;
+  }
+  return stats;
 }

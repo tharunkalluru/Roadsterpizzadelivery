@@ -55,6 +55,18 @@ def when_of(w):
     return o
 
 
+LIC = {}
+
+
+def lic_note(key, rows):
+    c = {}
+    for r in rows:
+        for x in (r.get('sources') or []):
+            k = f"{x.get('dataset')}|{x.get('license')}"
+            c[k] = c.get(k, 0) + 1
+    LIC[key] = {k: c[k] for k in sorted(c)}
+
+
 def seg_row(r):
     prim, te = common_names(r['names'])
     g = shapely.from_wkb(r['geometry'])
@@ -102,7 +114,9 @@ def main():
 
     # --- segments (roads, footways ...; rail is skipped: metro alignments come from the OSM kit)
     segs = []
-    for r in read_all('transportation', 'segment'):
+    rows_ = read_all('transportation', 'segment')
+    lic_note('transportation/segment', rows_)
+    for r in rows_:
         if r['subtype'] != 'road':
             continue
         o = seg_row(r)
@@ -111,13 +125,17 @@ def main():
     out('segments.ndjson', segs)
 
     conns = []
-    for r in read_all('transportation', 'connector'):
+    rows_ = read_all('transportation', 'connector')
+    lic_note('transportation/connector', rows_)
+    for r in rows_:
         g = shapely.from_wkb(r['geometry'])
         conns.append({'id': r['id'], 'p': [round(g.x, NDP), round(g.y, NDP)]})
     out('connectors.ndjson', conns)
 
     bl = []
-    for r in read_all('buildings', 'building'):
+    rows_ = read_all('buildings', 'building')
+    lic_note('buildings/building', rows_)
+    for r in rows_:
         if r['is_underground']:
             continue
         g = shapely.from_wkb(r['geometry'])
@@ -131,11 +149,15 @@ def main():
                 o[k] = v
         if prim:
             o['name'] = prim
+        s0 = (r['sources'] or [{}])[0]
+        o['src'] = [s0.get('dataset'), s0.get('record_id')]
         bl.append(o)
     out('buildings.ndjson', bl)
 
     pl = []
-    for r in read_all('places', 'place'):
+    rows_ = read_all('places', 'place')
+    lic_note('places/place', rows_)
+    for r in rows_:
         g = shapely.from_wkb(r['geometry'])
         prim, te = common_names(r['names'])
         tx = r['taxonomy'] or {}
@@ -160,7 +182,9 @@ def main():
 
     for typ, name in (('land_use', 'landuse.ndjson'), ('water', 'water.ndjson')):
         rows = []
-        for r in read_all('base', typ):
+        rows_ = read_all('base', typ)
+        lic_note('base/' + typ, rows_)
+        for r in rows_:
             g = shapely.from_wkb(r['geometry'])
             polys = [g] if g.geom_type == 'Polygon' else (list(g.geoms) if g.geom_type == 'MultiPolygon' else [])
             if not polys:
@@ -172,6 +196,8 @@ def main():
             rows.append(o)
         out(name, rows)
     json.dump(man, open(INTERIM_DIR / 'preprocess-manifest.json', 'w'), indent=2, sort_keys=True)
+    # committed with the raw snapshot: which datasets/licences the frozen rows actually carry (source[] entries, de-duplicated rows)
+    json.dump({'release': RELEASE, 'note': 'count of source[] entries per "dataset|license" over the de-duplicated rows of the frozen snapshot', 'themes': LIC}, open(RAW_DIR / 'source-licences.json', 'w'), indent=2, sort_keys=True)
 
 
 if __name__ == '__main__':

@@ -28,3 +28,9 @@ export { ensureTeluguFont } from './sign';
 export { SUN_DIR } from './environment';
 export { stationObstacles } from './metro';
 export type { StationObstacle } from './metro';
+
+/* v2 additions (not part of ArtApi) */
+export { buildStorefronts, disposeStorefronts } from './storefronts';
+export type { StorefrontStats } from './storefronts';
+export { buildStructures, structureObstacles } from './structures';
+export type { StructureObstacle } from './structures';
