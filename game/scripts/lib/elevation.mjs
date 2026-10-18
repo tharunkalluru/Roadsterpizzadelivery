@@ -293,7 +293,7 @@ export function limitGrades(roads, maxGrade = 0.1) {
           const [a, b] = pass === 0 ? [i, i + 1] : [i + 1, i];
           const lim = Math.abs(e[a]) + maxGrade * dist(p[a], p[b]);
           const nv = Math.sign(e[a]) === Math.sign(e[b]) || e[a] === 0 ? clampToward(e[b], lim) : clampToward(e[b], maxGrade * dist(p[a], p[b]));
-          if (Math.abs(nv - e[b]) > 1e-6) { e[b] = Math.round(nv * 100) / 100; changed = true; }
+          if (Math.abs(nv - e[b]) > 0.015) { e[b] = Math.round(nv * 100) / 100; changed = true; } // tolerance above the 1 cm rounding: converges
         }
       }
     }

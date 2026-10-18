@@ -6,6 +6,39 @@ viewport emulation** (Playwright touch/mobile context), **physical Android**, **
 **local geographic review**, **AI visual review**. Only the first three were available in this
 environment. Machine-readable bindings: `qa/evidence-index.json`, `qa/status.json`.
 
+## v2 update (2026-10-18): whole metro network, real storefronts, new controls
+This section covers the latest build. The sections below it describe the v1 Uppal–Tarnaka build, which can still be loaded with `?v1`.
+
+| Check | Command | Result |
+|---|---|---|
+| Typecheck | `npx tsc --noEmit` | clean |
+| Unit/integration | `npx vitest run` | 87 passed, 2 dev tools skipped; includes v1 missions, v2 L1–L2 missions and the pedestrian-on-bridge regression |
+| Full v2 ground calibration | `CALIBRATE_ALL=1 npx vitest run tests/unit/missions-v2.test.ts` | all 40 level missions delivered on the ground by the reference agent, with no flight (`qa/artifacts/calibration/deadlines-v2-all.json`); lowest margin 5 % (one L1 run with a recovery), L5 margins 33–45 % |
+| World validation | `npm run validate:world:v2` / `npm run validate:world` | 0 errors; 1 warning (core.json is 12 MB raw, 2.1 MB gzip) / 0 errors |
+| Determinism | `npm run validate:world:v2 -- --check-determinism` | two fresh imports byte-identical (data worker run) |
+| Browser | `npm run build && npx playwright test` | 10/10: the v1 suite pinned with `?v1`, plus `v2.spec.ts` (level menu with locks, a Level 1 delivery by the reference agent, streamed roads, real-name storefronts) |
+| Independent review | `qa/independent-review-v2.md` | 3 major findings, all fixed: credits licence text, shops drawn on omitted footprints, undocumented level lengths (now D15). Minor findings fixed: instance-buffer leak, same-level route matching, locale-dependent catalogue order, tunnel intrusion rule, grade-limit convergence. Still open: possible deck seams at tile borders on very long edges; road tiles pop in over the first frames |
+
+**Performance (SwiftShader software rendering, so the frame rate is not representative):**
+- Heap during a mission: 449 MB before road streaming, about 145 MB after.
+- Resident road triangles: 3.9 M before, about 80 k after (480 m tiles within view range).
+- Draw calls: about 130–200.
+- Rendered triangles: about 0.45–0.55 M at standard quality.
+- The metro viaduct (about 0.6 M triangles for the whole network) is still built at load; it is the next candidate for streaming.
+- Physical phones remain untested (B4).
+
+**Fixes found by v2 calibration:**
+- Pedestrians were walking or crossing onto overlapping carriageways of divided roads.
+- Slip roads overlapping the left lane were treated as a turn.
+- Hairpin U-turns between divided carriageways.
+- Short bridges ramped to 6.5 m within 10–20 m (grades of 20–58 %); the importer now limits grades to 10 %.
+- Buildings poked through flyover decks.
+- Traffic and pedestrians on another level blocked the car.
+
+**Data honesty:**
+- Storefront names are Overture listings marked `provisional_listing`. No street-view or satellite verification was possible here (blocked hosts; Google terms).
+- `qa/storefront-inventory.json` lists all 27,994 nearby places and the reason for each one that was excluded.
+
 ## Environment (2026-10-17)
 - Linux container, 4 vCPU, no GPU; Node 22.22.0; npm 10.9.4; Python 3.13.16.
 - Chromium 1194 headless, WebGL2 via ANGLE/SwiftShader (software). Frame rates in this environment
