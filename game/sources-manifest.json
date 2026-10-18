@@ -1,16 +1,935 @@
 {
   "schema_version": 1,
   "project_id": "hyderabad-metro-delivery",
-  "source_snapshot_id": "osm-hyd-20261017",
-  "reference_date": "2026-10-17",
-  "generated_at": "2026-10-17T20:16:44Z",
+  "source_snapshot_id": "overture-2026-09-23.1+osm-hyd-20261017",
+  "reference_date": "2026-09-23",
+  "generated_at": "2026-10-18T00:38:19Z",
   "kit": {
     "version": "3.0",
     "prepared_at": "2026-10-17",
     "master_prompt_sha256": "98a0c57adf883fcf82520106c48e8f6388c4844263d5b41e1eaaa6f3808b50e9"
   },
-  "notice": "Geographic data © OpenStreetMap contributors, ODbL 1.0 (https://www.openstreetmap.org/copyright). Contributor metadata (user, uid, changeset, timestamps) is not copied into runtime packages.",
+  "notice": "Geographic data: © OpenStreetMap contributors, ODbL 1.0 (roads, building footprints, land use/water, metro alignments), via the Overture Maps Foundation release 2026-09-23.1; business listings: Overture Maps Places, CDLA-Permissive-2.0 (some source datasets Apache-2.0 / CC0-1.0). Contributor metadata and contact fields are not copied into runtime packages.",
+  "licence_summary": {
+    "transportation (roads, turn restrictions, footways)": "ODbL-1.0 (OpenStreetMap; TomTom Orbis segments recorded as ODbL-1.0)",
+    "buildings (footprints, heights)": "per record: OpenStreetMap ODbL-1.0 (54672 kept footprints), Microsoft ML Buildings ODbL-1.0 (2676), Google Open Buildings, licence value absent (22728). NOT CDLA-Permissive-2.0 in this release.",
+    "base (land use, water)": "ODbL-1.0 (OpenStreetMap)",
+    "places (storefront listings)": "CDLA-Permissive-2.0 (Overture, Meta, Microsoft, DAC, PinMeTo), Apache-2.0 (Foursquare), CC0-1.0 (AllThePlaces)",
+    "metro alignments and stations": "ODbL-1.0 (OpenStreetMap, bundled kit snapshot)",
+    "combined_package": "The v2 world package merges ODbL data (roads, buildings, metro) with permissive listings. If it is publicly distributed, the ODbL-derived database must be offered under ODbL-1.0 with the attributions above; the permissive listings keep their own licences. Legal classification needs review before release."
+  },
   "sources": [
+    {
+      "id": "src_overture_base_land_use_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/base-land_use-blue.parquet",
+      "sha256": "2c96daddb3c5a4bf7e76a3ef11fe73f77c1e291af11f7cde967e5637abf495e4",
+      "bytes": 228032,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "base",
+      "type": "land_use",
+      "line": "blue",
+      "rows": 812,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:36:44Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=base/type=land_use/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.358375,
+        17.373035,
+        78.577644,
+        17.460148
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 1582
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Land use / water from the Overture Maps Foundation base theme: © OpenStreetMap contributors (ODbL 1.0).",
+      "used_by_import": false,
+      "sha256_expected_by_fetch_manifest": "2c96daddb3c5a4bf7e76a3ef11fe73f77c1e291af11f7cde967e5637abf495e4",
+      "sha256_verified": true,
+      "coverage": "Rows of base/land_use whose bbox intersects the blue line alignment buffered by 600 m (812 of 2075 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Fetched and cached for art use; not read by the importer."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_base_land_use_green",
+      "path": "game/data/raw/overture/2026-09-23.1/base-land_use-green.parquet",
+      "sha256": "f3df96942ff6dc4857cebc4bf1237a1e00f3f345f9ed280a9eb794c6930fccfb",
+      "bytes": 153084,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "base",
+      "type": "land_use",
+      "line": "green",
+      "rows": 378,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:38:09Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=base/type=land_use/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.467029,
+        17.361644,
+        78.515353,
+        17.466781
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 1582
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Land use / water from the Overture Maps Foundation base theme: © OpenStreetMap contributors (ODbL 1.0).",
+      "used_by_import": false,
+      "sha256_expected_by_fetch_manifest": "f3df96942ff6dc4857cebc4bf1237a1e00f3f345f9ed280a9eb794c6930fccfb",
+      "sha256_verified": true,
+      "coverage": "Rows of base/land_use whose bbox intersects the green line alignment buffered by 600 m (378 of 655 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Fetched and cached for art use; not read by the importer."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_base_land_use_red",
+      "path": "game/data/raw/overture/2026-09-23.1/base-land_use-red.parquet",
+      "sha256": "ba5481c15450d0d3bf025fb642d8093deff5bafbd214cdd6b1426c3b66e70bde",
+      "bytes": 195736,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "base",
+      "type": "land_use",
+      "line": "red",
+      "rows": 609,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:35:12Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=base/type=land_use/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.354196,
+        17.33188,
+        78.56677,
+        17.514521
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 1582
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Land use / water from the Overture Maps Foundation base theme: © OpenStreetMap contributors (ODbL 1.0).",
+      "used_by_import": false,
+      "sha256_expected_by_fetch_manifest": "ba5481c15450d0d3bf025fb642d8093deff5bafbd214cdd6b1426c3b66e70bde",
+      "sha256_verified": true,
+      "coverage": "Rows of base/land_use whose bbox intersects the red line alignment buffered by 600 m (609 of 3286 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Fetched and cached for art use; not read by the importer."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_base_water_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/base-water-blue.parquet",
+      "sha256": "0dcdfd6b8d6e4140efdffb768a7ba357c709c2325da669d62a82fc1f71ead28e",
+      "bytes": 75655,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "base",
+      "type": "water",
+      "line": "blue",
+      "rows": 91,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:36:55Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=base/type=water/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.358375,
+        17.373035,
+        78.577644,
+        17.460148
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 169
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Land use / water from the Overture Maps Foundation base theme: © OpenStreetMap contributors (ODbL 1.0).",
+      "used_by_import": false,
+      "sha256_expected_by_fetch_manifest": "0dcdfd6b8d6e4140efdffb768a7ba357c709c2325da669d62a82fc1f71ead28e",
+      "sha256_verified": true,
+      "coverage": "Rows of base/water whose bbox intersects the blue line alignment buffered by 600 m (91 of 313 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Fetched and cached for art use; not read by the importer."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_base_water_green",
+      "path": "game/data/raw/overture/2026-09-23.1/base-water-green.parquet",
+      "sha256": "5bf0e28c594f08ccf816a719ed4a4b16e70520d0d849d1b04e6c4fd895a311aa",
+      "bytes": 43156,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "base",
+      "type": "water",
+      "line": "green",
+      "rows": 30,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:38:19Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=base/type=water/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.467029,
+        17.361644,
+        78.515353,
+        17.466781
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 169
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Land use / water from the Overture Maps Foundation base theme: © OpenStreetMap contributors (ODbL 1.0).",
+      "used_by_import": false,
+      "sha256_expected_by_fetch_manifest": "5bf0e28c594f08ccf816a719ed4a4b16e70520d0d849d1b04e6c4fd895a311aa",
+      "sha256_verified": true,
+      "coverage": "Rows of base/water whose bbox intersects the green line alignment buffered by 600 m (30 of 78 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Fetched and cached for art use; not read by the importer."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_base_water_red",
+      "path": "game/data/raw/overture/2026-09-23.1/base-water-red.parquet",
+      "sha256": "24d821b0cd3094069e60ffee0b3c98afece152341026fedc9bef6d11ba547ce0",
+      "bytes": 72439,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "base",
+      "type": "water",
+      "line": "red",
+      "rows": 74,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:35:22Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=base/type=water/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.354196,
+        17.33188,
+        78.56677,
+        17.514521
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 169
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Land use / water from the Overture Maps Foundation base theme: © OpenStreetMap contributors (ODbL 1.0).",
+      "used_by_import": false,
+      "sha256_expected_by_fetch_manifest": "24d821b0cd3094069e60ffee0b3c98afece152341026fedc9bef6d11ba547ce0",
+      "sha256_verified": true,
+      "coverage": "Rows of base/water whose bbox intersects the red line alignment buffered by 600 m (74 of 471 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Fetched and cached for art use; not read by the importer."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_buildings_building_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/buildings-building-blue.parquet",
+      "sha256": "9f31cb16c04b664a8349a6ffcd50557f608073e7ea2c3975938d052e4b4ff860",
+      "bytes": 6523686,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "buildings",
+      "type": "building",
+      "line": "blue",
+      "rows": 67875,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:36:31Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=buildings/type=building/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.358375,
+        17.373035,
+        78.577644,
+        17.460148
+      ],
+      "license": "ODbL-1.0 (OpenStreetMap and Microsoft ML Buildings records); Google Open Buildings records carry no licence value",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "Google Open Buildings",
+          "license": null,
+          "entries": 64878
+        },
+        {
+          "dataset": "Microsoft ML Buildings",
+          "license": "ODbL-1.0",
+          "entries": 7694
+        },
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 140080
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Building footprints from the Overture Maps Foundation buildings theme (release 2026-09-23.1): © OpenStreetMap contributors (ODbL 1.0) for the OpenStreetMap-sourced records, Microsoft ML Buildings (licence recorded as ODbL-1.0 in each source entry) and Google Open Buildings (no licence value in the Overture source entry; the publisher licence must be confirmed before release).",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "9f31cb16c04b664a8349a6ffcd50557f608073e7ea2c3975938d052e4b4ff860",
+      "sha256_verified": true,
+      "coverage": "Rows of buildings/building whose bbox intersects the blue line alignment buffered by 600 m (67875 of 382161 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Heights are present for few footprints (provisional heights otherwise); footprints can overlap carriageways."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0, unspecified-in-source-entry"
+    },
+    {
+      "id": "src_overture_buildings_building_green",
+      "path": "game/data/raw/overture/2026-09-23.1/buildings-building-green.parquet",
+      "sha256": "655cb8150eedb01328a9137ffecf7ba5fd7569aafde60c10b91910c9582bf551",
+      "bytes": 6155540,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "buildings",
+      "type": "building",
+      "line": "green",
+      "rows": 65902,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:37:58Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=buildings/type=building/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.467029,
+        17.361644,
+        78.515353,
+        17.466781
+      ],
+      "license": "ODbL-1.0 (OpenStreetMap and Microsoft ML Buildings records); Google Open Buildings records carry no licence value",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "Google Open Buildings",
+          "license": null,
+          "entries": 64878
+        },
+        {
+          "dataset": "Microsoft ML Buildings",
+          "license": "ODbL-1.0",
+          "entries": 7694
+        },
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 140080
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Building footprints from the Overture Maps Foundation buildings theme (release 2026-09-23.1): © OpenStreetMap contributors (ODbL 1.0) for the OpenStreetMap-sourced records, Microsoft ML Buildings (licence recorded as ODbL-1.0 in each source entry) and Google Open Buildings (no licence value in the Overture source entry; the publisher licence must be confirmed before release).",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "655cb8150eedb01328a9137ffecf7ba5fd7569aafde60c10b91910c9582bf551",
+      "sha256_verified": true,
+      "coverage": "Rows of buildings/building whose bbox intersects the green line alignment buffered by 600 m (65902 of 118817 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Heights are present for few footprints (provisional heights otherwise); footprints can overlap carriageways."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0, unspecified-in-source-entry"
+    },
+    {
+      "id": "src_overture_buildings_building_red",
+      "path": "game/data/raw/overture/2026-09-23.1/buildings-building-red.parquet",
+      "sha256": "5e39d76ab4e85c5a2312d48eae104ade72d42a10bed4e22c84531ed10e996d2a",
+      "bytes": 9343304,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "buildings",
+      "type": "building",
+      "line": "red",
+      "rows": 100878,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:34:58Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=buildings/type=building/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.354196,
+        17.33188,
+        78.56677,
+        17.514521
+      ],
+      "license": "ODbL-1.0 (OpenStreetMap and Microsoft ML Buildings records); Google Open Buildings records carry no licence value",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "Google Open Buildings",
+          "license": null,
+          "entries": 64878
+        },
+        {
+          "dataset": "Microsoft ML Buildings",
+          "license": "ODbL-1.0",
+          "entries": 7694
+        },
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 140080
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Building footprints from the Overture Maps Foundation buildings theme (release 2026-09-23.1): © OpenStreetMap contributors (ODbL 1.0) for the OpenStreetMap-sourced records, Microsoft ML Buildings (licence recorded as ODbL-1.0 in each source entry) and Google Open Buildings (no licence value in the Overture source entry; the publisher licence must be confirmed before release).",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "5e39d76ab4e85c5a2312d48eae104ade72d42a10bed4e22c84531ed10e996d2a",
+      "sha256_verified": true,
+      "coverage": "Rows of buildings/building whose bbox intersects the red line alignment buffered by 600 m (100878 of 771791 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Heights are present for few footprints (provisional heights otherwise); footprints can overlap carriageways."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0, unspecified-in-source-entry"
+    },
+    {
+      "id": "src_overture_places_place_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/places-place-blue.parquet",
+      "sha256": "15f35e186778b82dc1907e3971bd3106fb0fe8096596d9dd56f9c0e08cd14557",
+      "bytes": 2390707,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "places",
+      "type": "place",
+      "line": "blue",
+      "rows": 22996,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:36:39Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=places/type=place/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.358375,
+        17.373035,
+        78.577644,
+        17.460148
+      ],
+      "license": "CDLA-Permissive-2.0 (Overture, Meta, Microsoft, DAC, PinMeTo); Apache-2.0 (Foursquare); CC0-1.0 (AllThePlaces)",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "AllThePlaces",
+          "license": "CC0-1.0",
+          "entries": 595
+        },
+        {
+          "dataset": "DAC",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 248
+        },
+        {
+          "dataset": "Foursquare",
+          "license": "Apache-2.0",
+          "entries": 1273
+        },
+        {
+          "dataset": "Microsoft",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 8429
+        },
+        {
+          "dataset": "Overture",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 58463
+        },
+        {
+          "dataset": "PinMeTo",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 46
+        },
+        {
+          "dataset": "meta",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 47872
+        }
+      ],
+      "license_url": "https://cdla.dev/permissive-2-0/",
+      "attribution": "Places data © Overture Maps Foundation (CDLA-Permissive-2.0); business listings contributed by Meta, Microsoft, DAC and PinMeTo (CDLA-Permissive-2.0), Foursquare (Apache-2.0) and AllThePlaces (CC0-1.0), as recorded in each Overture source entry.",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "15f35e186778b82dc1907e3971bd3106fb0fe8096596d9dd56f9c0e08cd14557",
+      "sha256_verified": true,
+      "coverage": "Rows of places/place whose bbox intersects the blue line alignment buffered by 600 m (22996 of 76039 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Listings are not imagery verified; contact fields (phone, email, website, social) are deliberately not fetched; confidence is a model score."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: Apache-2.0, CC0-1.0, CDLA-Permissive-2.0"
+    },
+    {
+      "id": "src_overture_places_place_green",
+      "path": "game/data/raw/overture/2026-09-23.1/places-place-green.parquet",
+      "sha256": "e0ded163724595476383242e6cc143ce2c8026d85313e5c2de01c54d57a5f292",
+      "bytes": 1790701,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "places",
+      "type": "place",
+      "line": "green",
+      "rows": 17625,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:38:03Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=places/type=place/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.467029,
+        17.361644,
+        78.515353,
+        17.466781
+      ],
+      "license": "CDLA-Permissive-2.0 (Overture, Meta, Microsoft, DAC, PinMeTo); Apache-2.0 (Foursquare); CC0-1.0 (AllThePlaces)",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "AllThePlaces",
+          "license": "CC0-1.0",
+          "entries": 595
+        },
+        {
+          "dataset": "DAC",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 248
+        },
+        {
+          "dataset": "Foursquare",
+          "license": "Apache-2.0",
+          "entries": 1273
+        },
+        {
+          "dataset": "Microsoft",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 8429
+        },
+        {
+          "dataset": "Overture",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 58463
+        },
+        {
+          "dataset": "PinMeTo",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 46
+        },
+        {
+          "dataset": "meta",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 47872
+        }
+      ],
+      "license_url": "https://cdla.dev/permissive-2-0/",
+      "attribution": "Places data © Overture Maps Foundation (CDLA-Permissive-2.0); business listings contributed by Meta, Microsoft, DAC and PinMeTo (CDLA-Permissive-2.0), Foursquare (Apache-2.0) and AllThePlaces (CC0-1.0), as recorded in each Overture source entry.",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "e0ded163724595476383242e6cc143ce2c8026d85313e5c2de01c54d57a5f292",
+      "sha256_verified": true,
+      "coverage": "Rows of places/place whose bbox intersects the green line alignment buffered by 600 m (17625 of 29202 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Listings are not imagery verified; contact fields (phone, email, website, social) are deliberately not fetched; confidence is a model score."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: Apache-2.0, CC0-1.0, CDLA-Permissive-2.0"
+    },
+    {
+      "id": "src_overture_places_place_red",
+      "path": "game/data/raw/overture/2026-09-23.1/places-place-red.parquet",
+      "sha256": "c123769207f8890ce526a48035d78be307aaa080bfda841a5f8e0097e3943074",
+      "bytes": 2834675,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "places",
+      "type": "place",
+      "line": "red",
+      "rows": 27608,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:35:07Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=places/type=place/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.354196,
+        17.33188,
+        78.56677,
+        17.514521
+      ],
+      "license": "CDLA-Permissive-2.0 (Overture, Meta, Microsoft, DAC, PinMeTo); Apache-2.0 (Foursquare); CC0-1.0 (AllThePlaces)",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "AllThePlaces",
+          "license": "CC0-1.0",
+          "entries": 595
+        },
+        {
+          "dataset": "DAC",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 248
+        },
+        {
+          "dataset": "Foursquare",
+          "license": "Apache-2.0",
+          "entries": 1273
+        },
+        {
+          "dataset": "Microsoft",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 8429
+        },
+        {
+          "dataset": "Overture",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 58463
+        },
+        {
+          "dataset": "PinMeTo",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 46
+        },
+        {
+          "dataset": "meta",
+          "license": "CDLA-Permissive-2.0",
+          "entries": 47872
+        }
+      ],
+      "license_url": "https://cdla.dev/permissive-2-0/",
+      "attribution": "Places data © Overture Maps Foundation (CDLA-Permissive-2.0); business listings contributed by Meta, Microsoft, DAC and PinMeTo (CDLA-Permissive-2.0), Foursquare (Apache-2.0) and AllThePlaces (CC0-1.0), as recorded in each Overture source entry.",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "c123769207f8890ce526a48035d78be307aaa080bfda841a5f8e0097e3943074",
+      "sha256_verified": true,
+      "coverage": "Rows of places/place whose bbox intersects the red line alignment buffered by 600 m (27608 of 119087 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Listings are not imagery verified; contact fields (phone, email, website, social) are deliberately not fetched; confidence is a model score."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: Apache-2.0, CC0-1.0, CDLA-Permissive-2.0"
+    },
+    {
+      "id": "src_overture_transportation_connector_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-connector-blue.parquet",
+      "sha256": "a575bad83126b13e986163470a3acc72514d50df8b6b972d5fe2664ec127d2c9",
+      "bytes": 999364,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "transportation",
+      "type": "connector",
+      "line": "blue",
+      "rows": 17308,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:35:42Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=transportation/type=connector/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.358375,
+        17.373035,
+        78.577644,
+        17.460148
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 47226
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Transportation data © OpenStreetMap contributors (ODbL 1.0), distributed by the Overture Maps Foundation (release 2026-09-23.1); segments sourced from TomTom Orbis Maps carry the dataset licence ODbL-1.0 recorded in each Overture source entry (© TomTom).",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "a575bad83126b13e986163470a3acc72514d50df8b6b972d5fe2664ec127d2c9",
+      "sha256_verified": true,
+      "coverage": "Rows of transportation/connector whose bbox intersects the blue line alignment buffered by 600 m (17308 of 79289 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Turn restrictions are sparse (prohibited_transitions); no signal nodes; widths are class defaults unless width_rules exist."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_transportation_connector_green",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-connector-green.parquet",
+      "sha256": "5428b461187f10e951e993f43455815ed0e6bde63e7736e1f4ed6570b9095549",
+      "bytes": 744074,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "transportation",
+      "type": "connector",
+      "line": "green",
+      "rows": 13241,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:37:14Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=transportation/type=connector/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.467029,
+        17.361644,
+        78.515353,
+        17.466781
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 47226
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Transportation data © OpenStreetMap contributors (ODbL 1.0), distributed by the Overture Maps Foundation (release 2026-09-23.1); segments sourced from TomTom Orbis Maps carry the dataset licence ODbL-1.0 recorded in each Overture source entry (© TomTom).",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "5428b461187f10e951e993f43455815ed0e6bde63e7736e1f4ed6570b9095549",
+      "sha256_verified": true,
+      "coverage": "Rows of transportation/connector whose bbox intersects the green line alignment buffered by 600 m (13241 of 23642 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Turn restrictions are sparse (prohibited_transitions); no signal nodes; widths are class defaults unless width_rules exist."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_transportation_connector_red",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-connector-red.parquet",
+      "sha256": "072646bc45e1564c1910aac783705bf064d29daf95232f75a548a04160d99525",
+      "bytes": 1260950,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "transportation",
+      "type": "connector",
+      "line": "red",
+      "rows": 21683,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:33:59Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=transportation/type=connector/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.354196,
+        17.33188,
+        78.56677,
+        17.514521
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 47226
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Transportation data © OpenStreetMap contributors (ODbL 1.0), distributed by the Overture Maps Foundation (release 2026-09-23.1); segments sourced from TomTom Orbis Maps carry the dataset licence ODbL-1.0 recorded in each Overture source entry (© TomTom).",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "072646bc45e1564c1910aac783705bf064d29daf95232f75a548a04160d99525",
+      "sha256_verified": true,
+      "coverage": "Rows of transportation/connector whose bbox intersects the red line alignment buffered by 600 m (21683 of 161139 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Turn restrictions are sparse (prohibited_transitions); no signal nodes; widths are class defaults unless width_rules exist."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_transportation_segment_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-segment-blue.parquet",
+      "sha256": "a9f237ddf2ad8f94b52fef763a8657811057488697a7c2ddf5b5177a5edc0fda",
+      "bytes": 2250839,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "transportation",
+      "type": "segment",
+      "line": "blue",
+      "rows": 19499,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:35:35Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=transportation/type=segment/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.358375,
+        17.373035,
+        78.577644,
+        17.460148
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 59547
+        },
+        {
+          "dataset": "TomTom",
+          "license": "ODbL-1.0",
+          "entries": 2306
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Transportation data © OpenStreetMap contributors (ODbL 1.0), distributed by the Overture Maps Foundation (release 2026-09-23.1); segments sourced from TomTom Orbis Maps carry the dataset licence ODbL-1.0 recorded in each Overture source entry (© TomTom).",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "a9f237ddf2ad8f94b52fef763a8657811057488697a7c2ddf5b5177a5edc0fda",
+      "sha256_verified": true,
+      "coverage": "Rows of transportation/segment whose bbox intersects the blue line alignment buffered by 600 m (19499 of 92110 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Turn restrictions are sparse (prohibited_transitions); no signal nodes; widths are class defaults unless width_rules exist."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_transportation_segment_green",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-segment-green.parquet",
+      "sha256": "91394f9d136d1c3065445315a806e94395a14e416489cb6bce53b31f4000990a",
+      "bytes": 1698056,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "transportation",
+      "type": "segment",
+      "line": "green",
+      "rows": 15695,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:37:08Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=transportation/type=segment/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.467029,
+        17.361644,
+        78.515353,
+        17.466781
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 59547
+        },
+        {
+          "dataset": "TomTom",
+          "license": "ODbL-1.0",
+          "entries": 2306
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Transportation data © OpenStreetMap contributors (ODbL 1.0), distributed by the Overture Maps Foundation (release 2026-09-23.1); segments sourced from TomTom Orbis Maps carry the dataset licence ODbL-1.0 recorded in each Overture source entry (© TomTom).",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "91394f9d136d1c3065445315a806e94395a14e416489cb6bce53b31f4000990a",
+      "sha256_verified": true,
+      "coverage": "Rows of transportation/segment whose bbox intersects the green line alignment buffered by 600 m (15695 of 27667 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Turn restrictions are sparse (prohibited_transitions); no signal nodes; widths are class defaults unless width_rules exist."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_transportation_segment_red",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-segment-red.parquet",
+      "sha256": "6093c82dcd3e64f29fe9bc991c807752cc7eb9ebc608fcebf4058dbc45baf551",
+      "bytes": 2737599,
+      "provider": "Overture Maps Foundation",
+      "kind": "overture_parquet",
+      "release": "2026-09-23.1",
+      "theme": "transportation",
+      "type": "segment",
+      "line": "red",
+      "rows": 25783,
+      "acquisition_date": "2026-10-18",
+      "acquired_at": "2026-10-18T00:33:51Z",
+      "source_url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=transportation/type=segment/ (anonymous, region us-west-2)",
+      "bbox_west_south_east_north": [
+        78.354196,
+        17.33188,
+        78.56677,
+        17.514521
+      ],
+      "license": "ODbL-1.0",
+      "licenses_per_source_dataset": [
+        {
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "entries": 59547
+        },
+        {
+          "dataset": "TomTom",
+          "license": "ODbL-1.0",
+          "entries": 2306
+        }
+      ],
+      "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+      "attribution": "Transportation data © OpenStreetMap contributors (ODbL 1.0), distributed by the Overture Maps Foundation (release 2026-09-23.1); segments sourced from TomTom Orbis Maps carry the dataset licence ODbL-1.0 recorded in each Overture source entry (© TomTom).",
+      "used_by_import": true,
+      "sha256_expected_by_fetch_manifest": "6093c82dcd3e64f29fe9bc991c807752cc7eb9ebc608fcebf4058dbc45baf551",
+      "sha256_verified": true,
+      "coverage": "Rows of transportation/segment whose bbox intersects the red line alignment buffered by 600 m (25783 of 189290 rows in the line bbox).",
+      "status": "frozen_snapshot",
+      "gaps": [
+        "Turn restrictions are sparse (prohibited_transitions); no signal nodes; widths are class defaults unless width_rules exist."
+      ],
+      "licence_summary_note": "licences found in the source entries of this theme: ODbL-1.0"
+    },
+    {
+      "id": "src_overture_fetch_manifest_json",
+      "path": "game/data/raw/overture/2026-09-23.1/fetch-manifest.json",
+      "sha256": "da8797b6a7cf7ddd71db7240a34d02c9a4ee5990d57726818b3d3590bb5b9e88",
+      "bytes": 8914,
+      "provider": "this project (derived from the Overture fetch)",
+      "kind": "overture_fetch_manifest",
+      "release": "2026-09-23.1",
+      "acquisition_date": "2026-09-23",
+      "acquired_at": null,
+      "source_url": null,
+      "license": "n/a (inventory of data under ODbL-1.0 / CDLA-Permissive-2.0 / Apache-2.0 / CC0-1.0)",
+      "license_url": null,
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
+      "used_by_import": true,
+      "coverage": "bbox, row counts, bytes, sha256 and timestamp of every frozen parquet file",
+      "status": "derived_inventory",
+      "gaps": []
+    },
+    {
+      "id": "src_overture_source_licences_json",
+      "path": "game/data/raw/overture/2026-09-23.1/source-licences.json",
+      "sha256": "d9c21174a9948bc46d3304afb1f1fe02c9de184682582d6e69446e521f405c7c",
+      "bytes": 954,
+      "provider": "this project (derived from the Overture fetch)",
+      "kind": "overture_licence_summary",
+      "release": "2026-09-23.1",
+      "acquisition_date": "2026-09-23",
+      "acquired_at": null,
+      "source_url": null,
+      "license": "n/a (inventory of data under ODbL-1.0 / CDLA-Permissive-2.0 / Apache-2.0 / CC0-1.0)",
+      "license_url": null,
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
+      "used_by_import": true,
+      "coverage": "dataset|licence counts of the source entries in the frozen rows",
+      "status": "derived_inventory",
+      "gaps": []
+    },
     {
       "id": "src_corridor_01_uppal_stadium_osm",
       "path": "hyderabad-game-handoff/resources/osm/corridor-01-uppal-stadium.osm",
@@ -29,15 +948,13 @@
       ],
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
-      "used_by_import": true,
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
+      "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "c0c9338a41d4ff91f1899db4fc2e9f18a5ee322cc76b6533cf0d63f3258b1fc7",
       "sha256_verified": true,
-      "coverage": "OSM API 0.6 map bbox (W,S,E,N) 78.551,17.398,78.564,17.410: Uppal to Stadium Blue Line corridor area.",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "acquired_source_not_field_verified",
-      "gaps": [
-        "Not field verified; no turn_restriction relations present; 2 height tags and 26 building:levels tags only; boxes were requested separately over seconds (not one atomic snapshot)."
-      ]
+      "gaps": []
     },
     {
       "id": "src_corridor_02_stadium_ngri_osm",
@@ -57,15 +974,13 @@
       ],
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
-      "used_by_import": true,
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
+      "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "36e1a876bb0ddda235a4ea0ae60509cd44a707e62b3744e1f9b472a3b8c50f78",
       "sha256_verified": true,
-      "coverage": "OSM API 0.6 map bbox 78.542,17.405,78.557,17.417: Stadium to NGRI corridor area.",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "acquired_source_not_field_verified",
-      "gaps": [
-        "Not field verified; no turn_restriction relations present; 2 height tags and 26 building:levels tags only; boxes were requested separately over seconds (not one atomic snapshot)."
-      ]
+      "gaps": []
     },
     {
       "id": "src_corridor_03_ngri_habsiguda_osm",
@@ -85,15 +1000,13 @@
       ],
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
-      "used_by_import": true,
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
+      "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "896d1e3d404af11dea1e61a4e8f48201374fb46cdfe2d8a26e8286533da9003b",
       "sha256_verified": true,
-      "coverage": "OSM API 0.6 map bbox 78.537,17.412,78.550,17.423: NGRI to Habsiguda corridor area.",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "acquired_source_not_field_verified",
-      "gaps": [
-        "Not field verified; no turn_restriction relations present; 2 height tags and 26 building:levels tags only; boxes were requested separately over seconds (not one atomic snapshot)."
-      ]
+      "gaps": []
     },
     {
       "id": "src_corridor_04_habsiguda_tarnaka_osm",
@@ -113,15 +1026,13 @@
       ],
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
-      "used_by_import": true,
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
+      "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "bba26dd996a13d5839e3d2c908048996ae8a9f96ffcb9eeb64c82f8fbfe2a4ab",
       "sha256_verified": true,
-      "coverage": "OSM API 0.6 map bbox 78.522,17.418,78.544,17.431: Habsiguda to Tarnaka corridor area.",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "acquired_source_not_field_verified",
-      "gaps": [
-        "Not field verified; no turn_restriction relations present; 2 height tags and 26 building:levels tags only; boxes were requested separately over seconds (not one atomic snapshot)."
-      ]
+      "gaps": []
     },
     {
       "id": "src_corridor_evidence_summary_json",
@@ -136,11 +1047,11 @@
       "bbox_west_south_east_north": null,
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "c711d80f7cb4223a2684694b6231f24d75deeb96c706b651ee88d6eb0836bb61",
       "sha256_verified": true,
-      "coverage": "derived_evidence_report",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "derived_evidence_report",
       "gaps": []
     },
@@ -157,11 +1068,11 @@
       "bbox_west_south_east_north": null,
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "c4fab63bcdb65fe8ebb823ccb275bd61087978527be3984317d88aa6c6db3258",
       "sha256_verified": true,
-      "coverage": "derived_evidence_report",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "derived_evidence_report",
       "gaps": []
     },
@@ -178,11 +1089,11 @@
       "bbox_west_south_east_north": null,
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "3e430f6b0ecb1197c3f9dbeceb60282b6fa457e08339662b4b541290bdcfbdd3",
       "sha256_verified": true,
-      "coverage": "source_imported_not_field_verified",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "source_imported_not_field_verified",
       "gaps": []
     },
@@ -199,11 +1110,11 @@
       "bbox_west_south_east_north": null,
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "d6528461913e0ccf036ddeb7bf80dcb419d447dfc3cf93c812f579fce3182885",
       "sha256_verified": true,
-      "coverage": "source_imported_not_field_verified",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "source_imported_not_field_verified",
       "gaps": []
     },
@@ -220,11 +1131,11 @@
       "bbox_west_south_east_north": null,
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "465c4741ce161d63a998960cb3627599afcc6e7fe64098f333c1aff79fe076ac",
       "sha256_verified": true,
-      "coverage": "source_imported_not_field_verified",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "source_imported_not_field_verified",
       "gaps": []
     },
@@ -241,11 +1152,11 @@
       "bbox_west_south_east_north": null,
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": true,
       "sha256_expected_by_acquisition_manifest": "38f1a23eb3f63040849da24aacb604fb339dcf993bf8ed74c8468d476eabb61f",
       "sha256_verified": true,
-      "coverage": "Overpass recursive dump of relation 8826295 (Hyderabad Metro network): Red 8297698, Blue 13986696, Green 8297697 route masters, route relations, route ways and stop nodes.",
+      "coverage": "Hyderabad Metro network relation 8826295: Red 8297698, Blue 13986696, Green 8297697 route masters, routes, route ways and stop nodes (metro alignments, 57 stations).",
       "status": "source_imported_not_field_verified",
       "gaps": [
         "Stops only (no platform/station polygons); no deck or pillar dimensions; Telugu names partial."
@@ -264,11 +1175,11 @@
       "bbox_west_south_east_north": null,
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "1d40f144da362f77b4591bd372f64fb6739f6a754a3b3a6b23f7c19518844a7c",
       "sha256_verified": true,
-      "coverage": "source_imported_not_field_verified",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "source_imported_not_field_verified",
       "gaps": []
     },
@@ -285,11 +1196,11 @@
       "bbox_west_south_east_north": null,
       "license": "n/a (derived from OSM data under ODbL-1.0 or kit text)",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "d6708eabc3268594cd3d78a2e76cfcc350f63b0ad143f48f6e457035c6b84734",
       "sha256_verified": true,
-      "coverage": "query_successfully_executed",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "query_successfully_executed",
       "gaps": []
     },
@@ -306,11 +1217,11 @@
       "bbox_west_south_east_north": null,
       "license": "n/a (derived from OSM data under ODbL-1.0 or kit text)",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": true,
       "sha256_expected_by_acquisition_manifest": null,
       "sha256_verified": null,
-      "coverage": "acquisition manifest / inventory",
+      "coverage": "acquisition provenance record",
       "status": "kit_file",
       "gaps": []
     },
@@ -327,11 +1238,11 @@
       "bbox_west_south_east_north": null,
       "license": "ODbL-1.0",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "2ab0f153dc88386bade935e82aebcb8e4bc24c318131fd361ab0311996e90339",
       "sha256_verified": true,
-      "coverage": "OSM API 0.6 map bbox 78.556,17.398,78.563,17.405 (Uppal only). Subset of corridor-01; not used by the importer.",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "source_imported_not_field_verified",
       "gaps": []
     },
@@ -348,11 +1259,11 @@
       "bbox_west_south_east_north": null,
       "license": "n/a (derived from OSM data under ODbL-1.0 or kit text)",
       "license_url": "https://opendatacommons.org/licenses/odbl/1-0/",
-      "attribution": "© OpenStreetMap contributors",
+      "attribution": "© OpenStreetMap contributors (ODbL 1.0, https://www.openstreetmap.org/copyright)",
       "used_by_import": false,
       "sha256_expected_by_acquisition_manifest": "655995bfee94139dbf9a89b2a22dd6ce11543dacb74df467a8deb973af745155",
       "sha256_verified": true,
-      "coverage": "documented_query_not_successfully_executed_in_this_session",
+      "coverage": "v1 Blue Line corridor extract; kept as history, not read by the v2 importer.",
       "status": "documented_query_not_successfully_executed_in_this_session",
       "gaps": []
     }
@@ -500,5 +1411,5 @@
       "note": "Source record only. The art worker builds assets-manifest.json; not geographic data."
     }
   ],
-  "network_note": "Overpass and Geofabrik endpoints are blocked by the environment network policy; no network access was used by the importer. Only bundled files listed above are read."
+  "network_note": "The importer reads only the frozen snapshot files listed above (no network). Overture was fetched anonymously from S3 by scripts/overture/fetch.py; stac.overturemaps.org, Overpass, Geofabrik and the OSM API are blocked by the environment."
 }

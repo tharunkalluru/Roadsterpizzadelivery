@@ -8,6 +8,8 @@ import { buildFrontage } from './outputs.mjs';
 const PROJECT_ID = 'hyderabad-metro-delivery';
 export const SCOPE_REVISION = 'hyd-metro-v2-r1';
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+/** pretty top level, one compact record per line inside arrays (keeps big inventories diff-friendly and small) */
+const pretty1 = (o) => '{\n' + Object.entries(o).map(([k, v]) => '  ' + JSON.stringify(k) + ': ' + (Array.isArray(v) && v.length && typeof v[0] === 'object' && v.length > 20 ? '[\n' + v.map((x) => '    ' + JSON.stringify(x)).join(',\n') + '\n  ]' : JSON.stringify(v, null, 2).replace(/\n/g, '\n  '))).join(',\n') + '\n}\n';
 const ll = (x, z) => {
   const p = G.unproject(x, z);
   return [G.r6(p[1]), G.r6(p[0])]; // GeoJSON [lon, lat]
@@ -213,7 +215,7 @@ export function writeV2ProjectFiles(ctx) {
     const n = Math.max(1, Math.ceil(L / 100));
     const k = Math.max(0, Math.min(n - 1, Math.floor((nr.s / L) * n)));
     const fid = `fi_${r.id}_${sf.side === 'left' ? 'L' : 'R'}_${k}`;
-    return { id: 'biz_' + sf.id, storefront_id: sf.id, name: sf.name, frontage_interval_id: frontageById.has(fid) ? fid : `fi_${r.id}_${sf.side === 'left' ? 'L' : 'R'}_0`, implemented: false, identity_verified: false, placement_verified: false, listing_status: 'provisional_listing', confidence: sf.confidence, group: sf.group, source_refs: ['overture:place/' + sf.placeId, 'snapshot:overture-' + RELEASE] };
+    return { id: 'biz_' + sf.id, storefront_id: sf.id, name: sf.name, frontage_interval_id: frontageById.has(fid) ? fid : `fi_${r.id}_${sf.side === 'left' ? 'L' : 'R'}_0`, implemented: false, identity_verified: false, placement_verified: false, listing_status: 'provisional_listing', source_refs: ['ovt:place/' + sf.placeId.replace(/-/g, '').slice(0, 12)] };
   }).sort((a, b) => cmp(a.id, b.id));
   // route cases: consecutive deliveries along each line (by arclength on the line's primary alignment) and boundary recoveries
   const ds = deliveriesInternal.slice().sort((a, b) => {
@@ -369,7 +371,7 @@ export function writeV2ProjectFiles(ctx) {
     selection_rules_ref: 'game/DATA_SOURCES.md#v2-selection',
     generated_from: { world_manifest: PKG_DIR.replace(/\\/g, '/') + '/manifest.json', world_manifest_sha256: manifestOut.sha256 },
   };
-  const scopeOut = out('scope-manifest.json', pretty(scope));
+  const scopeOut = out('scope-manifest.json', pretty1(scope));
 
   // ------------------------------------------------------------ coverage helper done; ledger-style world manifest
   const artifacts = [];

@@ -977,11 +977,20 @@ function validate() {
 }
 
 // ------------------------------------------------------------------ determinism
+function v2ScopeOnDisk() {
+  try {
+    return /^hyd-metro-v2/.test(JSON.parse(fs.readFileSync(path.join(ROOT, 'scope-manifest.json'), 'utf8')).revision || '');
+  } catch (e) {
+    return false;
+  }
+}
 function hashTree(root) {
   const out = {};
   const files = V2
     ? ['qa/storefront-inventory.json', 'qa/skywalks.json', 'data/import-report-v2.json', 'name-registry.json', 'sources-manifest.json', 'scope-manifest.json', 'scope.geojson', 'qa/coverage.geojson', 'data/scope-baseline-v2.json', 'public/world/world-manifest-v2.json']
-    : ['scope-manifest.json', 'scope.geojson', 'name-registry.json', 'sources-manifest.json', 'qa/coverage.geojson', 'data/scope-baseline.json', 'data/import-report.json', 'public/world/world-manifest.json'];
+    : v2ScopeOnDisk()
+      ? ['data/import-report.json'] // shared project files now describe v2; the v1 package itself is still compared
+      : ['scope-manifest.json', 'scope.geojson', 'name-registry.json', 'sources-manifest.json', 'qa/coverage.geojson', 'data/scope-baseline.json', 'data/import-report.json', 'public/world/world-manifest.json'];
   const walk = (dir) => {
     for (const e of fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => (a.name < b.name ? -1 : 1))) {
       const p = path.join(dir, e.name);

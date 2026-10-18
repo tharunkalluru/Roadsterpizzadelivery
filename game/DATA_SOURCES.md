@@ -163,3 +163,135 @@ The validator also checks: no pillar within 0.5 m (+1.0 m radius) of any carriag
 
 ```
 ```
+
+---
+
+# v2: whole network (Red, Blue, Green), Overture Maps + bundled OSM metro snapshot
+
+Everything above documents the v1 package `public/world/hyd-uppal-tarnaka/v1/` (Blue Line, Uppal to Tarnaka) and stays as history. This part documents the v2 package `public/world/hyd-metro/v2/` (`worldId` `hyd-metro`, version `2.0.0`). The shared project files (`sources-manifest.json`, `name-registry.json`, `scope-manifest.json`, `scope.geojson`, `qa/coverage.geojson`, `data/scope-baseline.json`, `public/world/world-manifest.json`) now describe v2; the v1 baseline is preserved as `data/scope-baseline-uppal-tarnaka-r1.json`. Running `npm run import:map` (v1) would overwrite the shared files with v1 content; use `npm run import:world` for v2. All counts below come from `data/import-report-v2.json` and `npm run validate:world:v2`.
+
+Nothing in v2 is field verified. Roads, widths, directions, turn restrictions, building heights, shop listings, skywalk dimensions and station positions are source claims or authored provisional values (see `CONTENT_GAPS.md`, part v2).
+
+## v2.1 Sources and licences
+
+| Source | Content | Licence in the data | Used for |
+|---|---|---|---|
+| Overture Maps release `2026-09-23.1`, theme `transportation` (segment, connector) | 54,883 road/footway segments, 47,226 connectors in the fetched area (after de-duplication across lines) | **ODbL-1.0**. Source entries of the frozen rows: OpenStreetMap 59,547, TomTom Orbis Maps 2,306 (their records also say ODbL-1.0); counts per dataset and licence are frozen in `data/raw/overture/2026-09-23.1/source-licences.json` | roads, directions, turn restrictions, bridges/tunnels, footways (skywalks) |
+| Overture `buildings` (building) | 212,652 footprints in the fetched area, 80,076 kept | **Per record, not CDLA**: OpenStreetMap (ODbL-1.0), Microsoft ML Buildings (licence value `ODbL-1.0`), Google Open Buildings (the Overture source entry carries NO licence value). Source entries of all 212,652 footprints: OSM 140,080, Google 64,878, Microsoft 7,694. Kept footprints: OSM 54,672, Google 22,728, Microsoft 2,676 | building footprints and heights |
+| Overture `places` (place) | 58,463 named listings | **CDLA-Permissive-2.0** for Overture, Meta (`meta`), Microsoft, DAC, PinMeTo entries; **Apache-2.0** for Foursquare entries; **CC0-1.0** for AllThePlaces entries | storefronts and deliveries |
+| Overture `base` (land_use, water) | 1,580 land-use and 102 water polygons | **ODbL-1.0** (OpenStreetMap) | fetched and cached only; not read by the importer |
+| Bundled OSM kit snapshot `metro-network-full.json` | Hyderabad Metro relation 8826295: route masters Red 8297698, Blue 13986696, Green 8297697, 10 relations, 91 ways, 2,450 nodes | ODbL-1.0 | metro alignments, 57 stations, pillars |
+
+The lead's planning assumption that places, buildings and base are all CDLA-Permissive-2.0 is **not what this release carries**: buildings and base are ODbL (OpenStreetMap-derived) and one building source has no licence value at all. Only the Places theme (and its listing sources) is permissive.
+
+Attribution text for the credits / map screens:
+
+> Road network, turn restrictions, building footprints and metro alignments: (c) OpenStreetMap contributors, ODbL 1.0 (https://www.openstreetmap.org/copyright), distributed through the Overture Maps Foundation (release 2026-09-23.1, https://overturemaps.org); some road segments from TomTom Orbis Maps and some footprints from Microsoft ML Buildings and Google Open Buildings as recorded in the Overture source entries. Business listings: (c) Overture Maps Foundation, CDLA-Permissive-2.0, contributed by Meta, Microsoft, Foursquare (Apache-2.0), AllThePlaces (CC0-1.0), DAC and PinMeTo. Shop names are listings, not verified signs.
+
+Obligations (ODbL section 2 above applies unchanged): the combined package merges ODbL data with permissive listings. If it is distributed publicly, the ODbL-derived database (roads, buildings, metro, and any extraction of them) must be offered under ODbL-1.0 with the attribution above; the places keep their own licences. The legal classification of the game as a whole is still open (acceptance G10). The Google Open Buildings licence value is absent from the Overture records; confirm the publisher licence before release.
+
+## v2.2 Reproduction, freezing and size rule
+
+```
+cd game
+python3 -m venv .venv-data && .venv-data/bin/pip install -r scripts/overture/requirements.txt   # pyarrow 26.0.0, shapely 2.2.0, numpy 2.5.4
+npm run fetch:overture        # network needed: anonymous S3 (honours HTTPS_PROXY); normally NOT needed, the frozen snapshot is committed
+npm run import:world          # preprocess.py (parquet -> data/interim NDJSON, gitignored) then import-world-v2.mjs --project-files
+npm run validate:world:v2     # add  -- --check-determinism  for two fresh imports compared by hash
+```
+
+- `scripts/overture/fetch.py` reads `overturemaps-us-west-2/release/2026-09-23.1/theme=<theme>/type=<type>/` with pyarrow (bbox struct pushdown, then an exact filter of each row's bbox against the line alignment buffered by 600 m, plus a 2 km disc around each end station so end-of-line road networks close their loops). `stac.overturemaps.org` is blocked here, so the `overturemaps` CLI is not used. Places columns for contact data (phones, emails, websites, socials) are not fetched.
+- Output: `data/raw/overture/2026-09-23.1/<theme>-<type>-<line>.parquet` (18 files) and `fetch-manifest.json` (bbox, buffer, terminus discs, row counts, bytes, sha256, UTC time per file). Total 39.5 MB, below the 80 MB rule, so the raw snapshot is committed (not ignored). `source-licences.json` (written by `preprocess.py`) records dataset|licence counts of the frozen rows.
+- Rows overlapping between line corridors are de-duplicated by GERS id; every output is sorted by id so imports are deterministic. `data/interim/` and `.venv-data/` are gitignored.
+- `generatedAt` is the latest fetch time in `fetch-manifest.json` (never the wall clock). Two fresh imports produce byte-identical output (see `validate:world:v2 -- --check-determinism`).
+
+## v2.3 Selection (rule of EXPANSION_PLAN 1.2, as implemented)
+
+1. Candidates: every drivable Overture segment piece (v2.4) inside the fetched area (alignment buffer 600 m or terminus disc 2 km).
+2. Near set: **main classes** (motorway, trunk, primary, secondary, tertiary and their `_link`) within **300 m** of any line alignment, and **every drivable class** within **150 m**. Distance = minimum distance of the piece geometry (sampled every 10 m) to the alignment ways of all route relations of the three lines.
+3. Connectivity: directed edges follow the v1 turn rule (no U-turn onto the reverse of the same road, except at dead ends or when the arriving edge is the only one at the node) minus the `prohibited_transitions` bans. The near set is joined into **one strongly connected core** by shortest forward and backward detours through the strongly connected part of the whole fetched network (`lib/select2.mjs`); components of 800 m or more are always joined, smaller ones only when the detour is at most max(1,200 m, 4 x their length). Roads that became part of the core only for connectivity are the "beyond criteria" roads. Lines are linked at the interchanges (Ameerpet, MG Bus Station, Parade Grounds) through real roads only.
+4. Near-set roads that cannot join the core (one-way carriageways running out of the fetched area, etc.) are kept as **boundary roads** (`routable: false`) if they are weakly connected to the core (also via link roads within 450 m); they get real geometry, direction and `next[]` but are never used for deliveries or routes. 22 near edges are not weakly connected and are dropped.
+5. Result (this import): 10,276 road edges, **630.7 km routable** (571.4 km inside the criteria + 59.3 km kept only for connectivity) and **23.5 km boundary** (23.4 km inside the criteria + 0.1 km links). Per line (nearest alignment): Red 280.6 km routable + 12.0 km boundary, Blue 255.0 + 9.6, Green 95.1 + 1.9. 6.2 km of near-set roads is not selected.
+
+## v2.4 Overture field interpretation
+
+| Field | Interpretation in the importer |
+|---|---|
+| segment `subtype` | only `road` is read. `rail` segments (metro tracks) are ignored: metro alignments come from the OSM kit snapshot |
+| `class` | drivable: `motorway, trunk, primary, secondary, tertiary, unclassified, residential, living_street, service` become `RoadEdge.highway`. `footway, pedestrian, steps, path, cycleway` are only used for structures. `track` and `unknown` are excluded (`unknown` is 2,319 pieces, almost all TomTom Orbis, no name) |
+| `subclass`, `subclass_rules` | `link` (or `road_flags` `is_link`) turns `motorway..tertiary` into `<class>_link`. `parking_aisle`, `driveway`, `alley` are excluded. `sidewalk`/`crosswalk` exist only on footways (ignored) |
+| `connectors[{connector_id, at}]` | graph nodes. A segment is split at both ends and at every mid connector used by two or more drivable segments; the cut is the vertex that coincides with the connector point (snapped to its exact coordinate when within 2.5 m), so adjoining segments share identical node coordinates. Node id `n_<first 9 hex chars of the connector id as a decimal number>` (longer prefix is used automatically if the data would collide); road id `r_<same for the segment>_<piece index>` |
+| `access_restrictions` | evaluated per piece at its mid fraction (`between`). `denied` with no `when`, or only a car-ish mode (`car, motor_vehicle, vehicle`), closes the piece. `denied` with `heading: backward` makes the piece one-way along the geometry; `heading: forward` makes it one-way against it (the geometry is stored reversed so `:f` is always the legal direction); both headings denied closes it. `allowed` with `when.recognized` (`as_private`, `as_permitted`) and a car-ish or unspecified mode is a private/permit-only road and is excluded (as v1 excluded `access=private`), unless an `allowed` rule with `using: at_destination`/`to_deliver`/`as_customer` exists. Rules with `during` (time), `vehicle` (dimensions) or `using` conditions are ignored (counted); non-car modes are ignored. Untagged direction = two-way (unknown) |
+| `prohibited_transitions` | `sequence[0] = {connector_id c, segment_id T}` with `when.heading` H on the owning segment S: leaving S at connector `c` (travelling forward or backward along S, H or both) may not enter T; the banned pair is (S's directed edge that ends at c, T's directed edge that starts at c; `final_heading` picks T's direction). The pair is removed from `next[]` and the strong-connectivity analysis already respects it. Rules whose `sequence` has two or more steps cannot be expressed on directed edges and are counted, not enforced. All pairs are listed in `core.turnRestrictions` (`[fromDirectedId, toDirectedId]`) so validators can recompute `next[]` |
+| `road_flags` | `is_bridge` gives `bridge: true`, `is_tunnel` gives `tunnel: true` (tunnel wins over bridge), `is_link` see `subclass`. `is_under_construction` and `is_abandoned` pieces are excluded. `is_covered` is ignored |
+| `level_rules` | the value is the OSM `layer` and becomes `RoadEdge.level`; bridge elevation uses 6.5 m x max(1, level) (as v1) |
+| `width_rules` | metres, used as `widthM` when present (4 selected roads), and such roads are not clamped. Otherwise class defaults of v1 (`primary/trunk/motorway` 10.5 m one-way or 12 m two-way, secondary 9, tertiary 7.5, residential/unclassified 6, service/living_street 4.5, `_link` 5.5) clamped at grade to keep 0.6 m from building footprints and 1.0 m from a parallel metro alignment (floor 4.5 m, 3.0 m for service/living_street), exactly as v1 |
+| `names.primary`, `names.common['te']` | `RoadEdge.name` and the Telugu alias in the name registry; no Telugu name exists in this snapshot (0 of the 58,463 places, no road) |
+| `sources` | first source gives `provenance.sourceIds` (`ovt:seg/<12 hex>` and, for OpenStreetMap records, `osm:<record id>`); `provenance.source` is `derived` |
+| not used | `speed_limits`, `road_surface`, `routes`, `destinations`, `names.rules`, `subclass_rules` other than link/parking/driveway |
+
+Places: `names.primary` verbatim (whitespace-normalised) is `Storefront.name`; `names.common['te']` would be `nameTe`; `confidence` is the listing confidence; `operating_status` `permanently_closed` is excluded (the field is empty for all but 32 rows); `sources` are the dataset names plus `Overture`; `basic_category` + `taxonomy.hierarchy` feed the category mapping (v2.9). Buildings: `height`, `num_floors`, `class`/`subtype`, `names.primary`, `is_underground` (skipped) and the first source's record id (an OSM `w123@4` becomes `osmId` `way/123`; other sources become `ovt:msml:<12 hex>` or `ovt:gob:<12 hex>`).
+
+## v2.5 Graph, elevation, widths
+
+- `RoadEdge`, `DirectedEdge`, `Junction`, `GraphNode` keep the v1 structure. Differences: `provenance.source` is `derived`, `status` lists only the keys that apply (all values `provisional`), and `provenance.note` is present only for explicit `width_rules` or a width clamp. Junctions are nodes of degree 3 or more; `signalled` is always false (Overture carries no signal nodes). `core.pois` is empty. `core.turnRestrictions` is new.
+- Elevation reuses `lib/elevation.mjs`: bridges 6.5 m per level, 120 m approach ramps or own-edge ramps, node continuity. v2 additions: tunnels (-5 m) ramp like mirrored bridges (`rampTunnels`), and a repair pass (`repairNodeElevations`) ramps at-grade edges at nodes where Overture joins a bridge/tunnel and at-grade roads (5 nodes, 7 edges). Result: 73 bridge edges, 18 tunnel edges, 0 node-elevation violations.
+- At-grade edges are simplified with Douglas-Peucker at 0.3 m (31,223 to 28,523 points); ramped, bridge and tunnel edges keep every point.
+- `RoadEdge.footpath` (new, optional): true only for edges that are at grade for their whole length (`pointElevM` all 0), not bridge, not tunnel, and not `motorway`, `motorway_link` or `trunk_link`. It marks where pedestrians may spawn (10,031 of 10,276 edges).
+
+## v2.6 Buildings
+
+- Overture footprints whose centroid (or, for large footprints, any vertex) is within 120 m of a selected road: 80,076 of 212,662. Polygons with holes keep them; winding is CCW from above as v1.
+- Heights: `height` (28), else `num_floors x 3.2 + 0.6` (231), else a provisional floor count from a hash of the id by footprint area (under 150 m2: 2 to 4; 150 to 600 m2: 3 to 5; above 600 m2: 4 to 8) x 3.2 + 0.6 (79,817). `heightStatus` is `provisional` for all.
+- 29 `transportation` footprints that are elevated metro stations sitting on the alignment (for example "Ameerpet Metro Interchange") are not emitted; the station model replaces them. 5,485 buildings still overlap a carriageway and are flagged `intrudesCarriageway`.
+- Chunks: 200 m grid by centroid, `c_<ix>_<iz>`, 1,646 chunk files (median 17.0 KB, p90 45 KB, max 87 KB raw). Each chunk also carries the `storefronts` of its buildings.
+
+## v2.7 Storefronts and inventory
+
+- Scope: every Overture place within 40 m of a selected routable or boundary road (27,994 places) is in `qa/storefront-inventory.json`; 19,508 are rendered as `Storefront` (status `provisional`, inventory status `provisional_listing`).
+- Excluded, always with reasons: `low_confidence` (below 0.35, 7,321), `frontage_capacity` (843), `facade_not_facing_a_road` (181), `no_at_grade_road_within_40m` (172, only an elevated road within 40 m), `kiosk_inside_building` (4). No record is `permanently_closed` in this snapshot. Statuses reserved for later passes: `verified_imagery`, `verified_field`, `missing`.
+- Attachment: a place goes to the nearest building exterior edge (any ring edge within 40 m, 8 m bonus when the point is inside the building) that **faces a road**: the edge is at least 3 m long, its outward normal is within 60 degrees of the direction from the edge to the nearest at-grade road foot point, and the edge is within 25 m of that road (a road is "at grade" when its surface at the foot point is at most 2.5 m). The facade is the part of that edge nearest the listing (6 m, clipped to the edge). When several shops share one edge and floor they are ordered along the road and given equal cells of the edge (at most 8 m each). Floor 0 holds retail, food and services; `office_service`, `hospital_clinic` and `education` go to floor 1 when two or more ground-floor shops already occupy the edge. Capacity per floor is floor(edge length / 3.2 m); overflow goes to the other floor, else is excluded as `frontage_capacity`. `roadId` and `side` are recomputed at the final facade mid point (the road it faces, side relative to that road's forward direction).
+- `facingHeading` is the heading of the building edge's outward normal (forward = (-sin h, 0, -cos h)); the validator checks it independently (a point 0.3 m in front of the facade is outside the building).
+- No facing building: a **kiosk** frontage, a straight 6 m segment parallel to the road tangent at the listing's foot point, at the kerb + 3 m on the listing's side, normal pointing at the road, `buildingId: null`, `floor: 0` (241 storefronts). A kiosk inside a building footprint is excluded.
+- 19,267 storefronts sit on buildings. Rendered by group: office_service 4,837, other 3,394, education 2,001, hospital_clinic 1,519, restaurant 1,383, hotel_lodging 1,060, apparel 933, bank_atm 819, electronics_mobile 690, auto_service 679, cafe_bakery 560, worship 404, hardware 364, jewellery 319, grocery 283, pharmacy 263. Per line (nearest alignment): Red 9,348, Blue 7,738, Green 2,422; per station area (500 m): see `qa/storefront-inventory.json` summary.
+
+## v2.8 Structures (skywalks and foot-over-bridges)
+
+- Footway-like segments (`footway, pedestrian, path, cycleway`) flagged `is_bridge` (or `level` >= 1) within 300 m of an alignment: 56 pieces (15 more lie farther away), 42 connected components. A component is a `skywalk` when it is at least 250 m long in total and within 400 m of a station (or its only name contains "skywalk"), else a `footbridge`. One `Structure` is emitted per Overture segment (a branching skywalk is several structures that share end points).
+- `elevM` 6.0 m at every path point (provisional), width 3.0 m (skywalk) or 2.4 m (footbridge), supports about every 15 m including both ends (positions inside an at-grade carriageway slide up to 6 m, else are dropped: 40 shifted, 33 dropped), stairs at free ends (heading = direction away from the deck; taken from an attached `steps` segment when there is one).
+- Found: **"Uppal Skywalk" exists in the data** as a connected component of 10 pieces, 745 m of path in total (its longest piece is a 395 m named segment), 31 m from the Uppal station position. 41 other components are plain foot-over-bridges (8 to 157 m, two named "Foot Over Bridge"). See `qa/skywalks.json`. Road flyovers (Tarnaka, Khairatabad, Salarjung, ...) are roads, not structures.
+
+## v2.9 Category mapping (Overture Places to `StoreGroup`)
+
+Tokens are `basic_category` plus every level of `taxonomy.hierarchy`; the first rule that matches any token wins (rules in this order); no category means `other`.
+
+| StoreGroup | Overture tokens |
+|---|---|
+| pharmacy | `pharmacy`, `pharmacy_and_drug_store`, `drugstore`, `medical_supply_store` |
+| bank_atm | `bank_or_credit_union`, `bank`, `credit_union`, `atm` |
+| hotel_lodging | `lodging`, `hotel`, `resort`, `hostel`, `lodge`, `inn`, `service_apartment`, `bed_and_breakfast`, `private_lodging`, `cabin`, `campground` |
+| cafe_bakery | `cafe`, `coffee_shop`, `tea_room`, `bakery`, `dessert_shop`, `ice_cream_shop`, `smoothie_juice_bar`, `non_alcoholic_beverage_venue`, `juice_bar`, `donut_shop`, `bubble_tea_shop`, `sweet_shop` |
+| restaurant | `restaurant`, `casual_eatery`, `fast_food_restaurant`, `bar`, `pub`, `lounge`, `brewery`, `alcoholic_beverage_venue`, `food_truck_stand`, `caterer`, `food_service`, `food_delivery_service`, `food_and_drink`, `dance_club`, `nightlife_venue`, any token ending `restaurant` or `eatery` |
+| grocery | `grocery_store`, `organic_grocery_store`, `supermarket`, `convenience_store`, `food_and_beverage_store`, `produce_store`, `butcher_shop`, `specialty_foods_store`, `health_food_store`, `candy_store`, `farmers_market`, `market`, `warehouse_club_store`, `superstore`, `discount_store`, `liquor_store`, `wine_shop` |
+| hospital_clinic | `health_care`, `hospital`, `specialty_hospital`, `outpatient_care_facility`, `doctors_office`, `dental_clinic`, `diagnostics_imaging_or_lab_service`, `medical_service`, `specialized_health_care`, `specialized_medical_facility`, `emergency_or_urgent_care_facility`, `primary_care_or_general_clinic`, `complementary_and_alternative_medicine`, `vision_or_eye_care_clinic`, `pediatric_clinic`, `behavioral_or_mental_health_clinic`, `medical_service_organization`, `home_health_care`, `senior_living_facility` |
+| jewellery | `jewelry_store`, `jewelry_and_watches_manufacturer`, `watch_store`, `jewelry_and_watches_store` |
+| electronics_mobile | `electronics_store`, `mobile_phone_store`, `computer_store`, `appliance_store`, `audio_visual_equipment_store`, `camera_and_photography_store`, `electronic_equipment_supplier`, `it_service_and_computer_repair`, `telecommunications_service`, `appliance_repair_service` |
+| apparel | `fashion_and_apparel_store`, `clothing_store`, `shoe_store`, `womens_clothing_store`, `mens_clothing_store`, `childrens_clothing_store`, `fashion_boutique`, `fashion_accessories_store`, `fabric_store`, `textile_manufacturer`, `luggage_store` |
+| auto_service | `automotive_service`, `auto_dealer`, `vehicle_dealer`, `vehicle_parts_store`, `auto_parts_store`, `automotive_repair`, `gas_station`, `fueling_station`, `vehicle_service`, `motorcycle_dealer`, `motorcycle_service`, `motorcycle_repair`, `car_rental_service`, `vehicle_rental_service`, `auto_detailing`, `car_wash`, `bike_store`, `taxi_or_ride_share_service` |
+| hardware | `hardware_home_and_garden_store`, `hardware_store`, `building_supply_store`, `home_improvement_store`, `tile_store`, `kitchen_and_bath_store`, `lighting_store`, `furniture_store`, `mattress_store`, `home_goods_store` |
+| education | `education`, `place_of_learning`, `educational_service`, `specialty_school`, `school`, `college_university`, `preschool`, `high_school`, `elementary_school`, `middle_school`, `tutoring_service`, `computer_coaching`, `vocational_and_technical_school`, `language_school`, `driving_school`, `library`, `educational_facility`, `research_institute`, `art_school`, `test_preparation`, `child_care_and_day_care` |
+| worship | `place_of_worship`, `religious_organization`, any token ending `place_of_worship` |
+| office_service | `services_and_business`, `community_and_government`, `government_office`, `professional_service`, `real_estate_service`, `corporate_or_business_office`, `financial_service`, `event_or_party_service`, `travel_service`, `home_service`, `technical_service`, `media_service`, `printing_service`, `design_service`, `legal_service`, `b2b_service`, `manufacturer`, any token starting `b2b_` |
+| other | everything else (beauty and wellness, gyms, entertainment, parks, historic sites, shopping malls, `specialty_store`, uncategorised) |
+
+## v2.10 Metro, stations, pillars, deliveries, boundary
+
+- `metroLines`: all three lines, `local` = every route chain in local metres (both direction tracks), `geo` = lat/lon. `stations`: 57 (Red 27, Blue 23, Green 10; Ameerpet, MG Bus Station and Parade Grounds merged by name and distance), all `inCorridor: true`, never delivery entrances.
+- Pillars: every 30 m along the primary route of each line (Miyapur to LB Nagar, Nagole to Raidurg, JBS to MG Bus Station); a pillar (1.0 m radius) must keep 0.5 m from every selected carriageway as in v1. v2 first slides a blocked pillar along the alignment (3, 6, 9, 12 m either way; 213 moved) before dropping it: 2,153 generated, 895 dropped, 1,258 kept (Red 563, Blue 508, Green 187).
+- Deliveries: 342, six per station area (all 57 areas reach six): real named listings with confidence at least 0.6, a Latin-letter name, a destination group (not office or worship), on a routable at-grade road that is not trunk/motorway, at least 26 m long and at least 10 m from its ends, within 35 m of it, within 500 m of the nearest station; stop polygon at the kerb of the listing's side (v1 geometry, 14 m x 4.5 m), not intersecting a building or within 1 m of a pillar; picks are at least 70 m apart and favour different groups. `poiId` is the **storefront id** (`core.pois` is empty). Per line (nearest alignment): Red 154, Blue 132, Green 56.
+- Boundary: polygon = union of the selected roads buffered by 60 m, closed by 150 m, simplified at 5 m (`scripts/overture/boundary.py`, shapely), CCW from above, 1,663 vertices; `warningMarginM` 60; `exits` (583) = dead-end nodes touching an unselected drivable edge or the fetched area's edge.
+
+## v2.11 Coordinates, precision, payload
+
+- `WORLD_ORIGIN` is unchanged. The v2 extent is x -19.5 km to +1.9 km and z -9.8 km to +8.2 km (largest coordinate 19.5 km, more than the +-12 km assumed in the brief). Local coordinates are rounded to 0.01 m; the largest float32 round-trip error of any stored coordinate is 0.00094 m (floats between 16,384 and 32,768 are spaced 0.00195 m). The equirectangular projection differs from the WGS84 geodesic (Vincenty) by at most **0.048 percent** of distance (9.9 m on a 25 km pair; 0.019 percent when measured from the origin), i.e. about 5 m per 10 km, larger than the 0.0245 percent documented for the +-5 km v1 box. Rendering code should keep float64 world positions and subtract a chunk origin before building float32 vertex data.
+- Sizes: `core.json` 12.1 MiB raw (2.1 MiB gzip), 1,646 chunks 32.7 MiB raw (7.0 MiB gzip), `manifest.json` 0.4 MiB; total about 46 MiB raw and 9.1 MiB gzip. The 6 MB core target is not reachable with the v1 core structure (ids, per-edge status/provenance, `directed`, `junctions`, `nodes[].edges` for 10,276 roads); see CONTENT_GAPS W14.
