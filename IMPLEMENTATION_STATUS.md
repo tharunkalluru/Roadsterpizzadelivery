@@ -50,18 +50,22 @@ Live checklist. Status values: `passed`, `failed`, `blocked`, `not_run`, `stale`
 | V2 | Controls: steer pad, ▲ accelerate, ▼ brake (hold = reverse), FLY; no input = hold | lead | done (tests, tutorial, reference agent updated) |
 | V3 | Pedestrians only on at-grade footpaths (never bridges/flyovers) | lead | done (regression test) |
 | V4 | Landmark research for 57 stations (web search, cited) | research worker (Haiku) | done (`game/data/research/landmarks.json`) |
-| V5 | Whole-network package from Overture (roads, buildings, storefronts, structures, ~300 deliveries) | data worker (Sonnet) | doing |
-| V6 | Signboards with real names, bridge decks/ramps/piers, Uppal skywalk, facade polish | art worker (Sonnet) | doing |
+| V5 | Whole-network package from Overture (roads, buildings, storefronts, structures, ~300 deliveries) | data worker (Sonnet) | done: 630.7 km routable roads across all three lines, 80,076 buildings, 19,508 listing-based storefronts, 342 deliveries (6 per station area), 56 structures including the Uppal skywalk; validates with 0 errors and is deterministic |
+| V6 | Signboards with real names, bridge decks/ramps/piers, Uppal skywalk, facade polish | art worker (Sonnet) | done (preview screenshots in `game/qa/artifacts/art/v2-*`; in-game in `game/qa/artifacts/v2/`) |
 | V7 | Levels 1–5 catalog + level menu with unlocks; v2 loader with v1 fallback | lead | done (awaiting v2 data for calibration) |
 | V8 | Fork surface matching (narrow service road beside flyover ramp) | lead | done (MT08 margin 19.7 %) |
-| V9 | v2 calibration, streaming performance, e2e, captures, review, ledgers | lead + reviewer | todo |
+| V9 | v2 integration fixes found by calibration: pedestrians on overlapping divided-road carriageways, slip-road fork matching, hairpin U-turns, 20–58 % short-bridge grades (importer grade limit 10 %), buildings poking through decks, level-aware obstacle checks | lead | done |
+| V10 | Road geometry streamed by 480 m tile (heap 449 → 145 MB; resident road triangles 3.9 M → ~80 k) | lead | done |
+| V11 | Ground calibration of all 40 level missions by the reference agent | lead | doing (level lengths rebalanced: L5 7.5–10 km) |
+| V12 | e2e for v2 (`tests/e2e/v2.spec.ts`), v1 suite pinned with `?v1` | lead | doing |
+| V13 | Independent review v2 | reviewer (Sonnet) | doing |
+| V14 | Ledger refresh, QA report v2 | lead | todo |
 
 B2 is superseded by V5: Overture S3 is reachable. B3 is still open: street-view and satellite imagery are blocked here, and copying them is not permitted. Storefronts are listing-based and provisional.
 
 ## Running jobs
-- data v2 worker (Sonnet): Overture whole-network package
-- art v2 worker (Sonnet): storefronts, structures, bridges
-- lead: e2e on new controls
+- reviewer v2 (Sonnet): independent review
+- lead: full-level calibration (CALIBRATE_ALL=1)
 
 ## Current achieved release
 Playable corridor with disclosed geographic gaps (development build): Blue Line Uppal–Tarnaka package. Requested: completed three-corridor network with Android + iOS validation — not achieved.

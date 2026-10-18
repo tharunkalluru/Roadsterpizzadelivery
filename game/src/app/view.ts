@@ -104,13 +104,13 @@ export class GameView {
   }
 
   /** optional v2 art builders (storefronts, structures) exported outside the ArtApi contract */
-  artExtras: { buildStorefronts?: (c: any, core: WorldCore, q: Quality) => THREE.Group; buildStructures?: (core: any, q: Quality) => THREE.Group } = {};
+  artExtras: { buildStorefronts?: (c: any, core: WorldCore, q: Quality) => THREE.Group; disposeStorefronts?: (g: THREE.Object3D) => void; buildStructures?: (core: any, q: Quality) => THREE.Group } = {};
 
   addChunk(chunk: WorldChunk, core: WorldCore) {
     if (this.chunkGroups.has(chunk.id)) return;
     const g = this.art.buildChunk(chunk, core, this.quality);
     const sf = (chunk as any).storefronts as unknown[] | undefined;
-    if (sf?.length && this.artExtras.buildStorefronts) g.add(this.artExtras.buildStorefronts(chunk, core, this.quality));
+    if (sf?.length && this.artExtras.buildStorefronts) { const sg = this.artExtras.buildStorefronts(chunk, core, this.quality); sg.name = 'storefronts'; g.add(sg); }
     g.name = chunk.id;
     this.chunkGroups.set(chunk.id, g);
     this.scene.add(g);
@@ -119,6 +119,8 @@ export class GameView {
     const g = this.chunkGroups.get(id);
     if (!g) return;
     this.scene.remove(g);
+    const sg = g.getObjectByName('storefronts');
+    if (sg) this.artExtras.disposeStorefronts?.(sg); // per-chunk sign atlas textures
     g.traverse((o) => { const m = o as THREE.Mesh; if (m.geometry && !m.geometry.userData.shared) m.geometry.dispose(); });
     this.chunkGroups.delete(id);
   }

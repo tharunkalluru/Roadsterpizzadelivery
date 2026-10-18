@@ -7,7 +7,8 @@ const hmd = (p: Page) => p.evaluate(() => {
 });
 const adv = (p: Page, n: number) => p.evaluate((n) => (window as any).__hmd.debugAdvance(n), n);
 
-async function toMenu(p: Page, q = '?debug&manualclock') {
+// this suite pins the v1 Uppal–Tarnaka package (?v1); v2.spec.ts covers the whole-network package
+async function toMenu(p: Page, q = '?debug&manualclock&v1') {
   await p.goto(q);
   await p.waitForFunction(() => (window as any).__hmd?.state === 'MENU', null, { timeout: 180_000 });
 }
@@ -86,7 +87,7 @@ test('C3: shared budget in the browser — fly, hover-meter, land early, fly aga
 });
 
 test('U06/F18: hidden page pauses everything; nothing is consumed while hidden', async ({ page }) => {
-  await toMenu(page, '?debug');
+  await toMenu(page, '?debug&v1');
   await startMission(page, 'mt01_first_parcel');
   const before = await hmd(page);
   await page.evaluate(() => { Object.defineProperty(document, 'hidden', { value: true, configurable: true }); document.dispatchEvent(new Event('visibilitychange')); });
@@ -130,7 +131,7 @@ test('U05: storage denied → session-only play explained', async ({ page }) => 
 
 test('U05: no WebGL2 → readable failure', async ({ page }) => {
   await page.addInitScript(() => { const o = HTMLCanvasElement.prototype.getContext; (HTMLCanvasElement.prototype as any).getContext = function (t: string, ...a: any[]) { return t === 'webgl2' ? null : o.call(this, t, ...a); }; });
-  await page.goto('/');
+  await page.goto('/?v1');
   await page.waitForFunction(() => (window as any).__hmd?.state === 'ERROR');
   await expect(page.locator('.screen h2')).toContainText('WebGL2');
   await page.screenshot({ path: `${OUT}/u05-nowebgl.png` });

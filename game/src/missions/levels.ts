@@ -45,9 +45,10 @@ export function buildLevelCatalog(core: WorldCore, world: WorldPhysics, maxPerLe
   const bands: { level: number; min: number; max: number; straightMin: number; straightMax: number; pred: (a: DeliveryLocation, b: DeliveryLocation) => boolean }[] = [
     { level: 1, min: 400, max: 1500, straightMin: 150, straightMax: 1100, pred: (a, b) => area.get(a.id) === area.get(b.id) },
     { level: 2, min: 1500, max: 4000, straightMin: 900, straightMax: 3200, pred: (a, b) => area.get(a.id) !== area.get(b.id) && sharesLine(a, b) },
-    { level: 3, min: 4000, max: 10000, straightMin: 3000, straightMax: 8500, pred: (a, b) => sharesLine(a, b) },
-    { level: 4, min: 4000, max: 14000, straightMin: 2500, straightMax: 11000, pred: (a, b) => !sharesLine(a, b) },
-    { level: 5, min: 12000, max: 30000, straightMin: 9000, straightMax: 26000, pred: () => true },
+    { level: 3, min: 3500, max: 6000, straightMin: 2500, straightMax: 5500, pred: (a, b) => sharesLine(a, b) },
+    { level: 4, min: 4500, max: 7500, straightMin: 3000, straightMax: 6500, pred: (a, b) => !sharesLine(a, b) },
+    // cross-city, but kept to a phone-session length at real scale (~20–25 min on the ground)
+    { level: 5, min: 7500, max: 10000, straightMin: 5000, straightMax: 9000, pred: (a, b) => !sharesLine(a, b) },
   ];
   const templatesFor: Record<number, MissionTemplate[][]> = {
     1: [['MT01'], ['MT03'], ['MT04'], ['MT05'], ['MT01'], ['MT03'], ['MT05'], ['MT04']],
