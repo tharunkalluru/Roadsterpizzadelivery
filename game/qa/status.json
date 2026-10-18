@@ -2,20 +2,20 @@
   "schema_version": 1,
   "project_id": "hyderabad-metro-delivery",
   "run_id": "run-2026-10-17-cloud-001",
-  "updated_at": "2026-10-17T23:30:53Z",
+  "updated_at": "2026-10-18T01:52:02Z",
   "requested_release": "completed_requested_network",
   "achieved_release": "playable_corridor_with_gaps",
   "phase": "implemented-awaiting-blocked-inputs",
   "activity": "Blue Uppal-Tarnaka slice playable in the browser (ground and flight, 10 deliveries); tests bound to the production build; Red, Green, rest of Blue, Whiteout comparison, imagery review and physical-phone tests are blocked by the environment (B1-B4).",
-  "code_revision": "91565e307eff33ad902b37a63e8903fc77a9d913",
+  "code_revision": "4824b24",
   "bindings": {
     "build": {
       "path": "qa/artifacts/build-manifest.json",
-      "sha256": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2"
+      "sha256": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5"
     },
     "world": {
       "path": "public/world/world-manifest.json",
-      "sha256": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7"
+      "sha256": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44"
     },
     "config": {
       "path": "config/project-contract.json",
@@ -23,7 +23,7 @@
     },
     "scope": {
       "path": "scope-manifest.json",
-      "sha256": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5"
+      "sha256": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59"
     },
     "requirements": {
       "path": "requirements.json",
@@ -31,19 +31,19 @@
     }
   },
   "coverage": {
-    "roads_total_metres": 61872.87000000002,
+    "roads_total_metres": 654208.6699999975,
     "roads_implemented_metres": 0,
     "roads_verified_metres": 0,
-    "frontage_total_metres": 123745.73999999992,
+    "frontage_total_metres": 1308417.3400000022,
     "frontage_inspected_metres": 0,
     "business_inventory_complete": false,
-    "businesses_inventoried": 0,
+    "businesses_inventoried": 19507,
     "businesses_verified_and_implemented": 0,
-    "displayed_names_total": 142,
+    "displayed_names_total": 926,
     "displayed_names_verified": 0,
-    "required_route_cases": 86,
+    "required_route_cases": 1267,
     "passed_route_cases": 0,
-    "required_review_views": 15,
+    "required_review_views": 399,
     "passed_review_views": 0
   },
   "checks": [
@@ -670,7 +670,7 @@
     {
       "id": "C5",
       "result": "blocked",
-      "reason": "B2: Overpass/Geofabrik/download hosts denied; only the Blue Uppal-Tarnaka package exists, so the requested three-corridor scope cannot be frozen, sourced or routed here.",
+      "reason": "The three-corridor network is built, frozen and routed (v2, Overture 2026-09-23.1; B2 resolved), but its geographic properties are import claims only: B3: no street imagery access (Mapillary/KartaView unreachable or uncredentialed) and no local field reviewer. No road, name, frontage or delivery access is verified.",
       "dependent_requirements_not_passed": [
         "G02",
         "G03",
@@ -704,7 +704,7 @@
     {
       "id": "C7",
       "result": "blocked",
-      "reason": "Requested release (all three corridors) is not met; upstream gates blocked (B1-B4).",
+      "reason": "Requested release is not met: the three-corridor network is playable but unverified geographically (B3), the Whiteout comparison is blocked (B1) and phones are untested (B4).",
       "dependent_requirements_not_passed": [
         "G02",
         "G03",
@@ -746,7 +746,7 @@
   ],
   "blockers": [
     "B1: Whiteout reference host whiteout.plgb.chatgpt.site is blocked by this environment's network policy (HTTP CONNECT 403, 2026-10-17). Affects Q08, C4.",
-    "B2: Overpass, Geofabrik and other download hosts are blocked; only the 4 bundled Uppal-Tarnaka OSM boxes exist. Red, Green and the rest of Blue have no road data. Affects C5 and the geographic requirements for those corridors.",
+    "B2 (resolved 2026-10-18): Overpass and Geofabrik stay blocked, but the Overture Maps S3 release 2026-09-23.1 was reachable; the v2 package covers all three corridors (630.7 km routable roads).",
     "B3: No street imagery (Mapillary/KartaView unreachable or uncredentialed) and no local field reviewer. Affects G04, G05, G12; all 2,176 frontage intervals stay uninspected and the business inventory is unknown.",
     "B4: No physical Android or iPhone access. Affects U01, U03, U04, P03 and the physical-device parts of C6; phone performance is unmeasured.",
     "Known software gaps: F22, M09, U09 (in-run), U10, U12, P05 untested; independent review (pre-fix) minor findings m1-m4 are not all addressed."
@@ -774,7 +774,7 @@
     "paid_spend_authorized": false,
     "observed_on": "2026-10-17"
   },
-  "code_revision_note": "Bound to the commit hash given by the lead; working tree may contain uncommitted ledger and documentation changes (git status at generation time: M ../IMPLEMENTATION_STATUS.md;  M CONTENT_GAPS.md;  M QA_REPORT.md;  M qa/evidence-index.json;  M qa/status.json;  M qa/visual-reference-review.json; ?? qa/artifacts/audit/; ?? qa/artifacts/build-manifest.json; ?? qa/artifacts/build/; ?? qa/release-report.md; ?? scripts/ledger/).",
+  "code_revision_note": "Bound to the commit hash given by the lead; working tree may contain uncommitted ledger and documentation changes (git status at generation time: M qa/artifacts/audit/asset-audit.json;  M qa/artifacts/audit/scope-audit.json;  M qa/artifacts/build-manifest.json;  M qa/artifacts/build/vite-build.txt;  M qa/artifacts/calibration/deadlines-v2-all.json;  M qa/artifacts/e2e/c2-01-menu.png;  M qa/artifacts/e2e/c2-02-missions.png;  M qa/artifacts/e2e).",
   "achieved_release_note": "playable_corridor_with_gaps is the closest allowed value: one corridor package (Blue Uppal-Tarnaka, 5 stations) with disclosed geographic gaps. The requested release (three corridors) is unchanged.",
   "coverage_note": "Package-only denominators (Blue Uppal-Tarnaka): requested-network denominators remain unknown (null in scope-manifest.json achieved_scope.requested_network_denominators). Values are derived by monitoring/verify_run.py from scope-manifest.json."
 }

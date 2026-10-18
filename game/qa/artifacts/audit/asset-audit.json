@@ -71,6 +71,106 @@
   ],
   "sources_checked": [
     {
+      "id": "src_overture_base_land_use_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/base-land_use-blue.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_base_land_use_green",
+      "path": "game/data/raw/overture/2026-09-23.1/base-land_use-green.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_base_land_use_red",
+      "path": "game/data/raw/overture/2026-09-23.1/base-land_use-red.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_base_water_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/base-water-blue.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_base_water_green",
+      "path": "game/data/raw/overture/2026-09-23.1/base-water-green.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_base_water_red",
+      "path": "game/data/raw/overture/2026-09-23.1/base-water-red.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_buildings_building_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/buildings-building-blue.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_buildings_building_green",
+      "path": "game/data/raw/overture/2026-09-23.1/buildings-building-green.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_buildings_building_red",
+      "path": "game/data/raw/overture/2026-09-23.1/buildings-building-red.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_places_place_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/places-place-blue.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_places_place_green",
+      "path": "game/data/raw/overture/2026-09-23.1/places-place-green.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_places_place_red",
+      "path": "game/data/raw/overture/2026-09-23.1/places-place-red.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_transportation_connector_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-connector-blue.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_transportation_connector_green",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-connector-green.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_transportation_connector_red",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-connector-red.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_transportation_segment_blue",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-segment-blue.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_transportation_segment_green",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-segment-green.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_transportation_segment_red",
+      "path": "game/data/raw/overture/2026-09-23.1/transportation-segment-red.parquet",
+      "ok": true
+    },
+    {
+      "id": "src_overture_fetch_manifest_json",
+      "path": "game/data/raw/overture/2026-09-23.1/fetch-manifest.json",
+      "ok": true
+    },
+    {
+      "id": "src_overture_source_licences_json",
+      "path": "game/data/raw/overture/2026-09-23.1/source-licences.json",
+      "ok": true
+    },
+    {
       "id": "src_corridor_01_uppal_stadium_osm",
       "path": "hyderabad-game-handoff/resources/osm/corridor-01-uppal-stadium.osm",
       "ok": true
@@ -146,7 +246,7 @@
       "ok": true
     }
   ],
-  "files_scanned_for_credentials": 57,
+  "files_scanned_for_credentials": 64,
   "credential_hits": [],
   "attribution": {
     "in_game_osm_odbl_notice": true,

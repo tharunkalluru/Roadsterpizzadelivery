@@ -82,13 +82,13 @@ GATE_MANUAL = {
  'C2': ('not_run', "Delivery loop evidence is strong, but the gate needs every M-series item passed (M09 has no test)."),
  'C3': ('not_run', "Flight ledger evidence is strong, but the gate needs every F-series item passed (F22 is untested)."),
  'C4': ('blocked', B1 + " " + B3),
- 'C5': ('blocked', "B2: Overpass/Geofabrik/download hosts denied; only the Blue Uppal-Tarnaka package exists, so the requested three-corridor scope cannot be frozen, sourced or routed here."),
+ 'C5': ('blocked', "The three-corridor network is built, frozen and routed (v2, Overture 2026-09-23.1; B2 resolved), but its geographic properties are import claims only: " + B3 + " No road, name, frontage or delivery access is verified."),
  'C6': ('blocked', B4 + " Physical-device checks U01, U03, U04, P03 cannot run."),
- 'C7': ('blocked', "Requested release (all three corridors) is not met; upstream gates blocked (B1-B4)."),
+ 'C7': ('blocked', "Requested release is not met: the three-corridor network is playable but unverified geographically (B3), the Whiteout comparison is blocked (B1) and phones are untested (B4)."),
 }
 BLOCKERS = [
  "B1: Whiteout reference host whiteout.plgb.chatgpt.site is blocked by this environment's network policy (HTTP CONNECT 403, 2026-10-17). Affects Q08, C4.",
- "B2: Overpass, Geofabrik and other download hosts are blocked; only the 4 bundled Uppal-Tarnaka OSM boxes exist. Red, Green and the rest of Blue have no road data. Affects C5 and the geographic requirements for those corridors.",
+ "B2 (resolved 2026-10-18): Overpass and Geofabrik stay blocked, but the Overture Maps S3 release 2026-09-23.1 was reachable; the v2 package covers all three corridors (630.7 km routable roads).",
  "B3: No street imagery (Mapillary/KartaView unreachable or uncredentialed) and no local field reviewer. Affects G04, G05, G12; all 2,176 frontage intervals stay uninspected and the business inventory is unknown.",
  "B4: No physical Android or iPhone access. Affects U01, U03, U04, P03 and the physical-device parts of C6; phone performance is unmeasured.",
  "Known software gaps: F22, M09, U09 (in-run), U10, U12, P05 untested; independent review (pre-fix) minor findings m1-m4 are not all addressed.",
@@ -201,8 +201,10 @@ def scope_audit():
     checks = {'no_property_marked_verified_by_import': all(v == 0 for v in flags.values()),
               'content_gaps_report_present_and_mentions_provisional': 'provisional' in gaps and 'not verified' in gaps.lower() or 'provisional' in gaps,
               'requested_corridors_preserved': sorted(sc['requested_corridor_ids']) == ['blue', 'green', 'red'],
-              'scope_extent_distinct_from_requested': sc['scope_extent'] != 'requested_network',
-              'requested_denominators_null': rd.get('roads_total_metres') is None and rd.get('frontage_total_metres') is None,
+              # v2: the frozen extent may claim the requested network only if its roads represent all three corridors
+              'scope_extent_consistent': sc['scope_extent'] != 'requested_network' or {c for r in sc['roads'] for c in r.get('corridor_ids', [])} >= {'red', 'blue', 'green'},
+              # denominators are either unknown (null) or exactly the frozen inventory totals — never an outside guess
+              'denominators_match_frozen_inventory': rd.get('roads_total_metres') is None or abs(rd['roads_total_metres'] - sum(r['length_metres'] for r in sc['roads'])) < 1.0,
               'business_inventory_flag_false': rd.get('business_inventory_complete') is False,
               'baseline_ids_equal_for_all_tables': all({x['id'] for x in sc[t]} == {x['id'] for x in base[t]} for t in ('roads', 'junctions', 'stations', 'metro_structures', 'frontage_intervals', 'businesses', 'displayed_names', 'delivery_locations', 'route_cases', 'review_views')),
               'scope_frozen': sc['frozen'] is True}
@@ -284,7 +286,7 @@ def main():
     vw = jload('qa/artifacts/unit/validate-world.txt') if Path('qa/artifacts/unit/validate-world.txt').read_text().lstrip().startswith('{') else {'ok': False}
     ujs = jload(UNIT); ejs = jload(E2E)
     build_ok = Path(BUILD_LOG).is_file() and 'built in' in Path(BUILD_LOG).read_text() and Path(BUILD_LOG).read_text().rstrip().endswith('exit 0')
-    p01ok = tsc_ok and vw.get('ok') is True and ujs['success'] and ejs['stats']['unexpected'] == 0 and ejs['stats']['expected'] == 9 and 'EXIT 0' in Path(E2E_LOG).read_text() and build_ok
+    p01ok = tsc_ok and vw.get('ok') is True and ujs['success'] and ejs['stats']['unexpected'] == 0 and ejs['stats']['expected'] >= 10 and 'EXIT 0' in Path(E2E_LOG).read_text() and build_ok
     derived['P01'] = ('passed' if p01ok else 'failed', None if p01ok else 'a documented command did not succeed')
     records.append({'id': 'EV-P01-COMMANDS', 'requirement_ids': ['P01'], 'scope_ids': [], 'result': 'passed' if p01ok else 'failed', 'evidence_class': 'build_check',
         'bindings': bind, 'started_at': u_start, 'duration_seconds': round(e_dur + u_dur, 3),

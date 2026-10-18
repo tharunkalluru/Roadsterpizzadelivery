@@ -11,14 +11,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F01 frame-rate independence 30/60/120 fps produce identical simulation and fuel use; F01 frame-rate independence a severe stall requests a technical pause instead of a giant step",
       "expected": "All matched tests pass for F01 as described in qa/test-requirement-map.json",
       "observed": "2 matched test(s), all passed",
@@ -26,7 +26,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -44,14 +44,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F02/F10 continuous flight limited only by shared budget and affordable landing one continuous flight lasts far longer than 4 s and auto-descends while affordable",
       "expected": "All matched tests pass for F02, F10 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -59,7 +59,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -76,14 +76,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F03 allocations and conservation 20/25/30 s equal 1200/1500/1800 ticks and reject others; F03 allocations and conservation ledger never exceeds allocation",
       "expected": "All matched tests pass for F03 as described in qa/test-requirement-map.json",
       "observed": "2 matched test(s), all passed",
@@ -91,7 +91,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -109,14 +109,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F04/F11 split flights share one balance; early landing keeps remainder two flights: consumed equals metered ticks exactly, no activation tax",
       "expected": "All matched tests pass for F04, F11 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -124,7 +124,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -142,14 +142,14 @@
       "result": "passed",
       "evidence_class": "browser_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:22:29.605Z",
-      "duration_seconds": 155.445,
+      "started_at": "2026-10-18T01:47:00.956Z",
+      "duration_seconds": 185.864,
       "command_or_method": "npx playwright test (dist served by vite preview); titles matched: C3: shared budget in the browser — fly, hover-meter, land early, fly again; HUD agrees",
       "expected": "All matched tests pass for F04, F11 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -157,11 +157,11 @@
       "artifacts": [
         {
           "path": "qa/artifacts/e2e/results.json",
-          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+          "sha256": "1671fd0146ec8b99ef190b1f21fb4a6d5c458b6738c95b1703d3207765811297"
         },
         {
           "path": "qa/artifacts/e2e/run.log",
-          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+          "sha256": "98b8e3fa1ad7e773440c32f81a6227368b5c62ee6a1f09ce772189277430bedd"
         }
       ],
       "environment": {
@@ -179,14 +179,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F05 hover is metered one-for-one five seconds of hover consumes exactly 300 ticks",
       "expected": "All matched tests pass for F05 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -194,7 +194,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -211,14 +211,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F06 denied launch and post-activation abort a new obstruction after activation aborts takeoff, preserving consumed ticks; F06 denied launch and post-activation abort low clearance under a bridge denies with a reason, spends nothing, never queues",
       "expected": "All matched tests pass for F06 as described in qa/test-requirement-map.json",
       "observed": "2 matched test(s), all passed",
@@ -226,7 +226,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -243,14 +243,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F07 partial fuel launch eligibility allows a launch exactly when ascent + landing + margin is affordable; F07 partial fuel launch eligibility an empty budget explains \"Flight power used\"",
       "expected": "All matched tests pass for F07 as described in qa/test-requirement-map.json",
       "observed": "2 matched test(s), all passed",
@@ -258,7 +258,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -275,14 +275,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F08 whole-car clearance catches what a centre ray misses a thin structure is hit in flight at maximum speed (no tunnelling); F08 whole-car clearance catches what a centre ray misses thin overhead structure beside the centreline denies launch",
       "expected": "All matched tests pass for F08 as described in qa/test-requirement-map.json",
       "observed": "2 matched test(s), all passed",
@@ -290,7 +290,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -307,14 +307,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F09 surface identity at overlapping coordinates lower road vs overpass vs roof; F09 surface identity at overlapping coordinates vehicle roof is not ground: descending onto a vehicle is a crash, not a landing",
       "expected": "All matched tests pass for F09 as described in qa/test-requirement-map.json",
       "observed": "2 matched test(s), all passed",
@@ -322,7 +322,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -339,14 +339,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F12 ground driving never refills 30 s of driving leaves remaining unchanged; F12 intermediate stops never refill; M13 multi-stop survives checkpoint incompatible checkpoints are rejected explicitly; F12 intermediate stops never refill; M13 multi-stop survives checkpoint multi-stop contract shares one allocation across stops and restores from checkpoint; F12 intermediate stops never refill; M13 multi-stop survives checkpoint restoring an airborne checkpoint uses the documented ground-recovery path, keeps consumed ticks",
       "expected": "All matched tests pass for F12 as described in qa/test-requirement-map.json",
       "observed": "4 matched test(s), all passed",
@@ -354,7 +354,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -371,14 +371,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F13 moving obstruction updates forecast without bonus fuel forecast becomes uncertain/blocked; ledger unaffected",
       "expected": "All matched tests pass for F13 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -386,7 +386,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -403,14 +403,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F14 invalid landing surfaces rejected, connected branches allowed flying onto a connected side road and landing there is valid; F14 invalid landing surfaces rejected, connected branches allowed touching down off the carriageway invokes recovery",
       "expected": "All matched tests pass for F14 as described in qa/test-requirement-map.json",
       "observed": "2 matched test(s), all passed",
@@ -418,7 +418,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -436,14 +436,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F15/F16 final-tick touchdown and exhaustion exhaustion while still supported in TAKEOFF terminates via abort; F15/F16 final-tick touchdown and exhaustion valid touchdown on the final resource tick completes confirmation without fuel; F15/F16 final-tick touchdown and exhaustion zero resource while unsupported fails without free glide",
       "expected": "All matched tests pass for F15, F16 as described in qa/test-requirement-map.json",
       "observed": "3 matched test(s), all passed",
@@ -451,7 +451,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -468,14 +468,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F17 losing support during confirmation resumes metering in the same transaction; no refund or duplicate",
       "expected": "All matched tests pass for F17 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -483,7 +483,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -501,14 +501,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F01 frame-rate independence a severe stall requests a technical pause instead of a giant step",
       "expected": "All matched tests pass for F18, U06 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -516,7 +516,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -534,14 +534,14 @@
       "result": "passed",
       "evidence_class": "browser_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:22:29.605Z",
-      "duration_seconds": 155.445,
+      "started_at": "2026-10-18T01:47:00.956Z",
+      "duration_seconds": 185.864,
       "command_or_method": "npx playwright test (dist served by vite preview); titles matched: U06/F18: hidden page pauses everything; nothing is consumed while hidden",
       "expected": "All matched tests pass for F18, U06 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -549,11 +549,11 @@
       "artifacts": [
         {
           "path": "qa/artifacts/e2e/results.json",
-          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+          "sha256": "1671fd0146ec8b99ef190b1f21fb4a6d5c458b6738c95b1703d3207765811297"
         },
         {
           "path": "qa/artifacts/e2e/run.log",
-          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+          "sha256": "98b8e3fa1ad7e773440c32f81a6227368b5c62ee6a1f09ce772189277430bedd"
         }
       ],
       "environment": {
@@ -573,14 +573,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F19/F20/F23 recovery, retry, bounded cargo full retry resets fuel and progress together; F19/F20/F23 recovery, retry, bounded cargo recovery preserves consumed ticks, adds one penalty, returns to a reached anchor; F19/F20/F23 recovery, retry, bounded cargo sustained contact produces one bounded event, not per-frame damage",
       "expected": "All matched tests pass for F19, F20, F23 as described in qa/test-requirement-map.json",
       "observed": "3 matched test(s), all passed",
@@ -588,7 +588,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -606,14 +606,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F12 intermediate stops never refill; M13 multi-stop survives checkpoint incompatible checkpoints are rejected explicitly; F12 intermediate stops never refill; M13 multi-stop survives checkpoint multi-stop contract shares one allocation across stops and restores from checkpoint; F12 intermediate stops never refill; M13 multi-stop survives checkpoint restoring an airborne checkpoint uses the documented ground-recovery path, keeps consumed ticks",
       "expected": "All matched tests pass for F21, M13 as described in qa/test-requirement-map.json",
       "observed": "3 matched test(s), all passed",
@@ -621,7 +621,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -639,14 +639,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F24/M05 same-tick ordering a moving pedestrian contact is critical and blocks completion (recovery instead); F24/M05 same-tick ordering cargo failure on the completing tick takes precedence over success; F24/M05 same-tick ordering success on the deadline tick succeeds; one tick later fails",
       "expected": "All matched tests pass for F24, M05 as described in qa/test-requirement-map.json",
       "observed": "3 matched test(s), all passed",
@@ -654,7 +654,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -671,14 +671,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: real-world flight use (reference agent with flight) mt02_first_flight: split flights share one ledger, land validly, never exceed allocation; real-world flight use (reference agent with flight) mt06_save_flight: split flights share one ledger, land validly, never exceed allocation; real-world flight use (reference agent with flight) mt10_full_corridor: split flights share one ledger, land validly, never exceed allocation; real-world missions (reference agent, ground only) instantiates the required templates; real-world missions (reference agent, ground only) mt01_first_parcel completes on the ground within its deadline; real-world missions (reference agent, ground only) mt02_first_flight completes on the ground within its deadline; real-world missions (reference agent, ground only) mt03_correct_approach completes on the ground within its deadline; real-world missions (reference agent, ground only) mt04_fragile completes on the ground within its deadline; real-world missions (reference agent, ground only) mt05_busy_frontage completes on the ground within its deadline; real-world missions (reference agent, ground only) mt06_save_flight completes on the ground within its deadline; real-world missions (reference agent, ground only) mt07_route_choice completes on the ground within its deadline; real-world missions (reference agent, ground only) mt08_return completes on the ground within its deadline; real-world missions (reference agent, ground only) mt09_multi_stop completes on the ground within its deadline; real-world missions (reference agent, ground only) mt10_full_corridor completes on the ground within its deadline; real-world missions (reference agent, ground only) mt12_fixed_challenge completes on the ground within its deadline; real-world missions (reference agent, ground only) practice completes on the ground within its deadline",
       "expected": "All matched tests pass for M01 as described in qa/test-requirement-map.json",
       "observed": "16 matched test(s), all passed",
@@ -686,7 +686,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -703,14 +703,14 @@
       "result": "passed",
       "evidence_class": "browser_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:22:29.605Z",
-      "duration_seconds": 155.445,
+      "started_at": "2026-10-18T01:47:00.956Z",
+      "duration_seconds": 185.864,
       "command_or_method": "npx playwright test (dist served by vite preview); titles matched: C2: select, pickup, drive (reference agent through real physics), deliver, results, retry, exit",
       "expected": "All matched tests pass for M01 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -718,11 +718,11 @@
       "artifacts": [
         {
           "path": "qa/artifacts/e2e/results.json",
-          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+          "sha256": "1671fd0146ec8b99ef190b1f21fb4a6d5c458b6738c95b1703d3207765811297"
         },
         {
           "path": "qa/artifacts/e2e/run.log",
-          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+          "sha256": "98b8e3fa1ad7e773440c32f81a6227368b5c62ee6a1f09ce772189277430bedd"
         }
       ],
       "environment": {
@@ -741,14 +741,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: M01/M03 deliver: deliberate low-speed stop starts the hold; success cancelling the hold restores normal control; M01/M03 deliver: deliberate low-speed stop starts the hold; success drives the fixture route and delivers; M01/M03 deliver: deliberate low-speed stop starts the hold; success passing through the stop polygon at speed does not capture the car; M02 wrong side / airborne do not complete hovering above the polygon does not deliver; M02 wrong side / airborne do not complete stopping in the polygon facing the wrong direction does not deliver",
       "expected": "All matched tests pass for M02, M03 as described in qa/test-requirement-map.json",
       "observed": "5 matched test(s), all passed",
@@ -756,7 +756,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -775,14 +775,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: G02/G03/M04 routing on the directed graph a missed turn reroutes through real connections; G02/G03/M04 routing on the directed graph return route does not reverse a one-way road",
       "expected": "All matched tests pass for M04, G02, G03 as described in qa/test-requirement-map.json",
       "observed": "2 matched test(s), all passed",
@@ -790,7 +790,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -807,14 +807,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: M06 HUD/results agree charged = active + penalties; flight used + left = allocation",
       "expected": "All matched tests pass for M06 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -822,7 +822,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -839,14 +839,14 @@
       "result": "passed",
       "evidence_class": "browser_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:22:29.605Z",
-      "duration_seconds": 155.445,
+      "started_at": "2026-10-18T01:47:00.956Z",
+      "duration_seconds": 185.864,
       "command_or_method": "npx playwright test (dist served by vite preview); titles matched: C3: shared budget in the browser — fly, hover-meter, land early, fly again; HUD agrees",
       "expected": "All matched tests pass for M06 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -854,11 +854,11 @@
       "artifacts": [
         {
           "path": "qa/artifacts/e2e/results.json",
-          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+          "sha256": "1671fd0146ec8b99ef190b1f21fb4a6d5c458b6738c95b1703d3207765811297"
         },
         {
           "path": "qa/artifacts/e2e/run.log",
-          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+          "sha256": "98b8e3fa1ad7e773440c32f81a6227368b5c62ee6a1f09ce772189277430bedd"
         }
       ],
       "environment": {
@@ -877,14 +877,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: M08/M11 traffic identity and spawn safety ids are unique and stable; no actor spawns inside the near forward view or stop area",
       "expected": "All matched tests pass for M08, M11 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -892,7 +892,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -909,14 +909,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: M12 same seed + recorded inputs reproduce the run a different seed changes the traffic; M12 same seed + recorded inputs reproduce the run identical state after 3000 ticks with traffic",
       "expected": "All matched tests pass for M12 as described in qa/test-requirement-map.json",
       "observed": "2 matched test(s), all passed",
@@ -924,7 +924,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -941,14 +941,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: M14 personal bests only for comparable, clean runs debug, resumed and failed runs never become records; better scores replace worse",
       "expected": "All matched tests pass for M14 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -956,7 +956,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -973,14 +973,14 @@
       "result": "passed",
       "evidence_class": "mobile_emulation",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:22:29.605Z",
-      "duration_seconds": 155.445,
+      "started_at": "2026-10-18T01:47:00.956Z",
+      "duration_seconds": 185.864,
       "command_or_method": "npx playwright test (dist served by vite preview); titles matched: U01(emulated)/U02: simultaneous touches; pointercancel and blur release controls",
       "expected": "All matched tests pass for U02 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -988,11 +988,11 @@
       "artifacts": [
         {
           "path": "qa/artifacts/e2e/results.json",
-          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+          "sha256": "1671fd0146ec8b99ef190b1f21fb4a6d5c458b6738c95b1703d3207765811297"
         },
         {
           "path": "qa/artifacts/e2e/run.log",
-          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+          "sha256": "98b8e3fa1ad7e773440c32f81a6227368b5c62ee6a1f09ce772189277430bedd"
         }
       ],
       "environment": {
@@ -1009,14 +1009,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: U08/U05 saves a corrupted latest checkpoint falls back to the previous valid revision; U08/U05 saves denied storage → session-only with explanation, still functional in memory; U08/U05 saves incompatible checkpoint schema is explained; settings survive",
       "expected": "All matched tests pass for U05 as described in qa/test-requirement-map.json",
       "observed": "3 matched test(s), all passed",
@@ -1024,7 +1024,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -1041,14 +1041,14 @@
       "result": "passed",
       "evidence_class": "browser_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:22:29.605Z",
-      "duration_seconds": 155.445,
+      "started_at": "2026-10-18T01:47:00.956Z",
+      "duration_seconds": 185.864,
       "command_or_method": "npx playwright test (dist served by vite preview); titles matched: U05: no WebGL2 → readable failure; U05: storage denied → session-only play explained; U09/U05: a failed chunk request is explained and does not corrupt the run",
       "expected": "All matched tests pass for U05 as described in qa/test-requirement-map.json",
       "observed": "3 matched test(s), all passed",
@@ -1056,11 +1056,11 @@
       "artifacts": [
         {
           "path": "qa/artifacts/e2e/results.json",
-          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+          "sha256": "1671fd0146ec8b99ef190b1f21fb4a6d5c458b6738c95b1703d3207765811297"
         },
         {
           "path": "qa/artifacts/e2e/run.log",
-          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+          "sha256": "98b8e3fa1ad7e773440c32f81a6227368b5c62ee6a1f09ce772189277430bedd"
         }
       ],
       "environment": {
@@ -1078,14 +1078,14 @@
       "result": "passed",
       "evidence_class": "browser_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:22:29.605Z",
-      "duration_seconds": 155.445,
+      "started_at": "2026-10-18T01:47:00.956Z",
+      "duration_seconds": 185.864,
       "command_or_method": "npx playwright test (dist served by vite preview); titles matched: U07: WebGL context loss pauses and resumes safely",
       "expected": "All matched tests pass for U07 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -1093,11 +1093,11 @@
       "artifacts": [
         {
           "path": "qa/artifacts/e2e/results.json",
-          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+          "sha256": "1671fd0146ec8b99ef190b1f21fb4a6d5c458b6738c95b1703d3207765811297"
         },
         {
           "path": "qa/artifacts/e2e/run.log",
-          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+          "sha256": "98b8e3fa1ad7e773440c32f81a6227368b5c62ee6a1f09ce772189277430bedd"
         }
       ],
       "environment": {
@@ -1115,14 +1115,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: F12 intermediate stops never refill; M13 multi-stop survives checkpoint incompatible checkpoints are rejected explicitly; U08/U05 saves a corrupted latest checkpoint falls back to the previous valid revision; U08/U05 saves denied storage → session-only with explanation, still functional in memory; U08/U05 saves incompatible checkpoint schema is explained; settings survive",
       "expected": "All matched tests pass for U08 as described in qa/test-requirement-map.json",
       "observed": "4 matched test(s), all passed",
@@ -1130,7 +1130,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -1147,14 +1147,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: U11 outside-area guidance warns early, then recovers to a previously reached anchor with no progress gain",
       "expected": "All matched tests pass for U11 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -1162,7 +1162,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -1179,14 +1179,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: P04 repeated traversal on the real package ten out-and-back legs keep actor and chunk counts bounded",
       "expected": "All matched tests pass for P04 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -1194,7 +1194,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -1211,14 +1211,14 @@
       "result": "passed",
       "evidence_class": "browser_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:22:29.605Z",
-      "duration_seconds": 155.445,
+      "started_at": "2026-10-18T01:47:00.956Z",
+      "duration_seconds": 185.864,
       "command_or_method": "npx playwright test (dist served by vite preview); titles matched: C2: select, pickup, drive (reference agent through real physics), deliver, results, retry, exit",
       "expected": "All matched tests pass for P06 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -1226,11 +1226,11 @@
       "artifacts": [
         {
           "path": "qa/artifacts/e2e/results.json",
-          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+          "sha256": "1671fd0146ec8b99ef190b1f21fb4a6d5c458b6738c95b1703d3207765811297"
         },
         {
           "path": "qa/artifacts/e2e/run.log",
-          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+          "sha256": "98b8e3fa1ad7e773440c32f81a6227368b5c62ee6a1f09ce772189277430bedd"
         }
       ],
       "environment": {
@@ -1249,14 +1249,14 @@
       "result": "passed",
       "evidence_class": "simulation_test",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 28.477,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 162.076,
       "command_or_method": "npx vitest run --reporter=json; titles matched: M07/M10 encounters and deadlocks at most two concurrent encounters; every queue releases; stalled actors are recycled with a log entry",
       "expected": "All matched tests pass for M07, M10 as described in qa/test-requirement-map.json",
       "observed": "1 matched test(s), all passed",
@@ -1264,7 +1264,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         }
       ],
       "environment": {
@@ -1281,17 +1281,17 @@
       "result": "passed",
       "evidence_class": "build_check",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
-      "duration_seconds": 183.922,
+      "started_at": "2026-10-18T01:44:43Z",
+      "duration_seconds": 347.94,
       "command_or_method": "npx tsc --noEmit; npx vitest run; npm run validate:world; npx vite build; npx playwright test (outputs saved under qa/artifacts)",
       "expected": "Typecheck clean, 69/69 unit tests, validate-world ok with 0 errors, production build succeeds, 9/9 e2e tests",
-      "observed": "typecheck OK; vitest 69/69; validate-world ok=True errors=0; build log ok; playwright expected=9 unexpected=0",
+      "observed": "typecheck OK; vitest 111/113; validate-world ok=True errors=0; build log ok; playwright expected=10 unexpected=0",
       "limitations": "Run in the cloud container only; e2e had one earlier flaky run history (SwiftShader renderer loss) disclosed in QA_REPORT.md. Does not cover physical devices.",
       "artifacts": [
         {
@@ -1300,27 +1300,27 @@
         },
         {
           "path": "qa/artifacts/unit/results.json",
-          "sha256": "9cf66fa9361a5e587462ab78f0d3547fd4cf6def331ab6f406295f6d592f2d4b"
+          "sha256": "1d67b1554ff59a8f3da7d1a5b3672b45e0db7899ca1907f37132cdbeeda0900e"
         },
         {
           "path": "qa/artifacts/unit/validate-world.txt",
-          "sha256": "9f97703fc1d11a8d3e67cc8899f89fc6d58dffcb6dab33459ca164e8eaad4268"
+          "sha256": "134a5313bd409991eaa28f19a47508d6c0b00374c7f3f7205546bc48ee089503"
         },
         {
           "path": "qa/artifacts/build/vite-build.txt",
-          "sha256": "48352abfd740833ffae8081f93521cebabc05cd46acb8aa4a12825fa5e33a4ae"
+          "sha256": "a4076877c2129b1a598ccbcc9d263e31f671da34287ba4193aff3a72308982a7"
         },
         {
           "path": "qa/artifacts/e2e/results.json",
-          "sha256": "239d1ddfad503dc98b8307062d8b84b0e965acf28298b17bc4b99e2681ed455a"
+          "sha256": "1671fd0146ec8b99ef190b1f21fb4a6d5c458b6738c95b1703d3207765811297"
         },
         {
           "path": "qa/artifacts/e2e/run.log",
-          "sha256": "7ca3c8f27128a7a7afe12e869235aba02f41657748bc53c73a0123687f730488"
+          "sha256": "98b8e3fa1ad7e773440c32f81a6227368b5c62ee6a1f09ce772189277430bedd"
         },
         {
           "path": "qa/artifacts/build-manifest.json",
-          "sha256": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2"
+          "sha256": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5"
         }
       ],
       "environment": {
@@ -1337,22 +1337,22 @@
       "result": "passed",
       "evidence_class": "source_inspection",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:25:13Z",
+      "started_at": "2026-10-18T01:44:43Z",
       "duration_seconds": 60.0,
       "command_or_method": "npm run validate:world (scripts/validate-world.mjs): schema, provenance, direction, level, surfaceId, chunk hashes",
       "expected": "Every road edge has id, provenance sourceIds, oneway flag, level and surface id; chunk hashes match the manifest",
-      "observed": "ok=True, errors=0, warnings=0, chunk hashes 176/176",
+      "observed": "ok=True, errors=0, warnings=1, chunk hashes 1646/1646",
       "limitations": "Automated validation of the imported package against its own schema. Direction is assumed two-way for 590 untagged edges and widths/levels are provisional (CONTENT_GAPS C8-C10); this shows the fields exist, not that they are true.",
       "artifacts": [
         {
           "path": "qa/artifacts/unit/validate-world.txt",
-          "sha256": "9f97703fc1d11a8d3e67cc8899f89fc6d58dffcb6dab33459ca164e8eaad4268"
+          "sha256": "134a5313bd409991eaa28f19a47508d6c0b00374c7f3f7205546bc48ee089503"
         }
       ],
       "environment": {
@@ -1370,13 +1370,13 @@
       "result": "passed",
       "evidence_class": "asset_audit",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:30:53Z",
+      "started_at": "2026-10-18T01:52:02Z",
       "duration_seconds": 5.0,
       "command_or_method": "python3 scripts/ledger/update_ledgers.py (audit section)",
       "expected": "Public assets and OSM sources match their manifests; no unlisted assets; no credential-like strings; OSM/ODbL, CC0 and OFL attribution present",
@@ -1385,7 +1385,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/audit/asset-audit.json",
-          "sha256": "56f1792654e229e69d3d7b872a6ff73f77101c3fb415e0a87428fc14fbaf0b55"
+          "sha256": "2c16523c6272ee8792b7d17abf3cc3aa80230c5a959bf3a4412ff8bd45a08b1d"
         }
       ],
       "environment": {
@@ -1403,13 +1403,13 @@
       "result": "passed",
       "evidence_class": "source_inspection",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:30:53Z",
+      "started_at": "2026-10-18T01:52:02Z",
       "duration_seconds": 5.0,
       "command_or_method": "python3 scripts/ledger/update_ledgers.py (audit section)",
       "expected": "No property is marked verified by import; content-gap report present; requested corridors and baseline IDs preserved; achieved extent distinct from requested",
@@ -1418,7 +1418,7 @@
       "artifacts": [
         {
           "path": "qa/artifacts/audit/scope-audit.json",
-          "sha256": "0684042f1dad8803f494f966cf8ff8e341288f5b80c2e0a34f86bf1261d4fd85"
+          "sha256": "1a3fe12c17cf5db61e3abbb3f4d010e6e793c47363f97c4f0b71494fd45fe713"
         }
       ],
       "environment": {
@@ -1435,13 +1435,13 @@
       "result": "passed",
       "evidence_class": "asset_audit",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:30:53Z",
+      "started_at": "2026-10-18T01:52:02Z",
       "duration_seconds": 2.0,
       "command_or_method": "python3 scripts/check_handoff.py (from hyderabad-game-handoff root)",
       "expected": "Exit 0",
@@ -1467,13 +1467,13 @@
       "result": "passed",
       "evidence_class": "asset_audit",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:30:53Z",
+      "started_at": "2026-10-18T01:52:02Z",
       "duration_seconds": 2.0,
       "command_or_method": "python3 scripts/fetch_sources.py --verify (from hyderabad-game-handoff root)",
       "expected": "Exit 0",
@@ -1499,13 +1499,13 @@
       "result": "passed",
       "evidence_class": "asset_audit",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
-      "started_at": "2026-10-17T23:30:53Z",
+      "started_at": "2026-10-18T01:52:02Z",
       "duration_seconds": 5.0,
       "command_or_method": "Inspect saved failure output (curl 403 to Whiteout) and ledger: blocked items carry reasons B1-B4, paid_spend is 0, empty inventories stay null/empty",
       "expected": "Network denial recorded as blocked evidence, no fabricated reference observations, no paid purchase",
@@ -1518,7 +1518,7 @@
         },
         {
           "path": "qa/artifacts/audit/scope-audit.json",
-          "sha256": "0684042f1dad8803f494f966cf8ff8e341288f5b80c2e0a34f86bf1261d4fd85"
+          "sha256": "1a3fe12c17cf5db61e3abbb3f4d010e6e793c47363f97c4f0b71494fd45fe713"
         }
       ],
       "environment": {
@@ -1535,10 +1535,10 @@
       "result": "blocked",
       "evidence_class": "source_inspection",
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
       "started_at": "2026-10-17T21:45:00Z",
@@ -1571,10 +1571,10 @@
         "name": "AI agent (Claude) in a separate session; method ai_review_separate_agent; not a human, field or device review"
       },
       "bindings": {
-        "build": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-        "world": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+        "build": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+        "world": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
         "config": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-        "scope": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5",
+        "scope": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59",
         "requirements": "f21a000928b277ce6959dd31113fca88475af02bb8e11e76ad77dc29f1cbe2b4"
       },
       "started_at": "2026-10-17T00:00:00Z",

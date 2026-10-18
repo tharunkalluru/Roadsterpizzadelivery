@@ -6,8 +6,8 @@
     "no_property_marked_verified_by_import": true,
     "content_gaps_report_present_and_mentions_provisional": true,
     "requested_corridors_preserved": true,
-    "scope_extent_distinct_from_requested": true,
-    "requested_denominators_null": true,
+    "scope_extent_consistent": true,
+    "denominators_match_frozen_inventory": true,
     "business_inventory_flag_false": true,
     "baseline_ids_equal_for_all_tables": true,
     "scope_frozen": true
@@ -22,19 +22,19 @@
     "junctions_verified": 0
   },
   "counts": {
-    "roads": 816,
-    "junctions": 294,
-    "stations": 5,
-    "metro_structures": 9,
-    "frontage_intervals": 2176,
-    "businesses": 0,
-    "displayed_names": 142,
-    "delivery_locations": 10,
-    "route_cases": 86,
-    "review_views": 15
+    "roads": 10276,
+    "junctions": 4515,
+    "stations": 57,
+    "metro_structures": 114,
+    "frontage_intervals": 25272,
+    "businesses": 19507,
+    "displayed_names": 926,
+    "delivery_locations": 342,
+    "route_cases": 1267,
+    "review_views": 399
   },
-  "scope_extent": "achieved_package_uppal_tarnaka_blue_only",
-  "content_gaps_sha256": "3e25521993f26d6d59ab18289249eba4b7e3b8bd89e1af733ce7607105400ee8",
+  "scope_extent": "requested_network",
+  "content_gaps_sha256": "0c773cb42769c933c1db91ff73a26dcebf8453e227094fac27bd461a9616a797",
   "limitations": [
     "Checks internal consistency of declarations only; says nothing about geographic truth."
   ]

@@ -20,7 +20,7 @@ Live checklist. Status values: `passed`, `failed`, `blocked`, `not_run`, `stale`
 | ID | Blocker | Affects | Continuation |
 |---|---|---|---|
 | B1 | Whiteout reference host denied by network policy → gameplay cannot be inspected | Q08, C4 | User can allow the host in environment Network settings, or supply gameplay recording/screenshots. Comparison stays `blocked`. |
-| B2 | Overpass/Geofabrik denied → no road data beyond the 4 bundled Uppal–Tarnaka boxes | C5, G-series for Red/Green/rest of Blue | Allow hosts or supply a clipped PBF; pipeline accepts more `.osm` inputs. |
+| B2 | ~~Overpass/Geofabrik denied~~ **resolved** via Overture S3 (v2 package, all three corridors) | — | — |
 | B3 | No street imagery / field review | G05, G12, frontage verification | Capture brief in CONTENT_GAPS.md. |
 | B4 | No physical phones | U01, P03, C6 | Procedure in QA_REPORT.md. |
 
@@ -56,26 +56,26 @@ Live checklist. Status values: `passed`, `failed`, `blocked`, `not_run`, `stale`
 | V8 | Fork surface matching (narrow service road beside flyover ramp) | lead | done (MT08 margin 19.7 %) |
 | V9 | v2 integration fixes found by calibration: pedestrians on overlapping divided-road carriageways, slip-road fork matching, hairpin U-turns, 20–58 % short-bridge grades (importer grade limit 10 %), buildings poking through decks, level-aware obstacle checks | lead | done |
 | V10 | Road geometry streamed by 480 m tile (heap 449 → 145 MB; resident road triangles 3.9 M → ~80 k) | lead | done |
-| V11 | Ground calibration of all 40 level missions by the reference agent | lead | doing (level lengths rebalanced: L5 7.5–10 km) |
-| V12 | e2e for v2 (`tests/e2e/v2.spec.ts`), v1 suite pinned with `?v1` | lead | doing |
-| V13 | Independent review v2 | reviewer (Sonnet) | doing |
-| V14 | Ledger refresh, QA report v2 | lead | todo |
+| V11 | Ground calibration of all 40 level missions by the reference agent | lead | done: 40/40 delivered, no flight (lengths per DECISIONS D15) |
+| V12 | e2e for v2 (`tests/e2e/v2.spec.ts`), v1 suite pinned with `?v1` | lead | done: 10/10 |
+| V13 | Independent review v2 | reviewer (Sonnet) | done: 3 major findings fixed (`game/qa/independent-review-v2.md`) |
+| V14 | Ledger refresh, QA report v2 | lead | done: ledger valid (0 errors); 47 passed, 28 not_run, 7 blocked, 0 failed |
 
 B2 is superseded by V5: Overture S3 is reachable. B3 is still open: street-view and satellite imagery are blocked here, and copying them is not permitted. Storefronts are listing-based and provisional.
 
 ## Running jobs
-- reviewer v2 (Sonnet): independent review
-- lead: full-level calibration (CALIBRATE_ALL=1)
+- none
 
 ## Current achieved release
-Playable corridor with disclosed geographic gaps (development build): Blue Line Uppal–Tarnaka package. Requested: completed three-corridor network with Android + iOS validation — not achieved.
+Playable three-corridor network with disclosed geographic gaps (development build): v2 whole-network package (Red, Blue, Green) with listing-based storefront signboards, 5 levels and 40 calibrated contracts. Requested: completed three-corridor network with geographic verification, Whiteout comparison and Android + iOS validation. Not achieved (B1, B3, B4).
 
 ## How to run
 `cd game && npm ci && npm run dev` (http://localhost:5173) · `npm test` · `npm run build && npm run test:e2e` · `npm run import:map && npm run validate:world`.
 
 ## Next actions
-1. Unblock B1: allow `whiteout.plgb.chatgpt.site` (environment Network access) or supply gameplay captures → run the GRAPHICS_REFERENCE_WHITEOUT §2–4 comparison and iterate art.
-2. Unblock B2: allow Overpass/Geofabrik or supply a clipped PBF → widen Uppal/Tarnaka boxes (CONTENT_GAPS C1/C2), then Red/Green/Blue packages via `npm run import:map`.
-3. B4: run the physical-device procedure in QA_REPORT.md on one Android + one iPhone.
-4. B3: imagery/field frontage inventory and recognition review (CONTENT_GAPS).
-5. Human playtests to re-tune deadlines (MT08 margin 8 %) and flight assist.
+1. B3, storefront verification: allow `graph.mapillary.com` and its image CDN in the environment's Network settings and provide a Mapillary token. An AI-assisted pass can then compare the listing-based signboards (`game/qa/storefront-inventory.json`) with open street-level photos. Otherwise use the local field checklist.
+2. B4: run the physical-device procedure in `game/QA_REPORT.md` on one Android phone and one iPhone, with the v2 network. The heap is about 145 MB on desktop; check that phones sustain it.
+3. B1: allow `whiteout.plgb.chatgpt.site` or supply gameplay captures, then run the Whiteout comparison and iterate the art.
+4. Performance: stream the metro viaduct like the roads (about 0.6 M triangles are still built at load). Shrink core.json (12 MB raw / 2.1 MB gzip) by moving provenance and status into a sidecar file.
+5. Art: the dusty ground texture tiles visibly from the air; shop-front templates are generic per category.
+6. Human playtests to tune the level deadlines and the ▲/▼ feel.

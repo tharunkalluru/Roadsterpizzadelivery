@@ -25,11 +25,11 @@
     "attempted_on": "2026-10-17"
   },
   "build_binding": {
-    "code_revision": "91565e307eff33ad902b37a63e8903fc77a9d913",
-    "production_bundle_sha256": "27c0e8ea1afa06190399ba28859a8078dc08360d61df2e91965cbe8508b532f2",
-    "world_manifest_sha256": "e772c5ab74b0d01e994850a91ee6ab0b8bbed5d82b06a03462bb900abcdf85f7",
+    "code_revision": "4824b24",
+    "production_bundle_sha256": "306080d887d6df98615a5e2f4c72d93f43d1f7d17eb94157eb900916e6226ba5",
+    "world_manifest_sha256": "7288ea04c75fb8b7f823141772555a5be14e1bf407b1ce07be67fafa4dabbc44",
     "project_contract_sha256": "25be9fe50fd12233c980651841c1331f653ff866a1b780aa3ac6b95ebae270eb",
-    "scope_manifest_sha256": "72a057762bb4a564650503a3a83fd4320524bc5385a2ccdfe9c53b3ade95d1a5"
+    "scope_manifest_sha256": "e00a9e7fd9bc0346f5c9a6d25fc94856e52ef6156558180bee9259f711d4ea59"
   },
   "reviewer": {
     "identity_or_agent_role": "QA-ledger worker (AI agent)",
@@ -582,7 +582,7 @@
       "id": "art-standard-real",
       "artifact": {
         "path": "qa/artifacts/art/standard-real.png",
-        "sha256": "157456dd9119bbec808c57885622682a31583d835c166634de604b47ddc1c54f"
+        "sha256": "af7e7f1e233a202b2d3e64815d323ab2f78b58cdf6d2ee2c9e90c0af27ee9489"
       },
       "kind": "still capture of our own game (SwiftShader software WebGL)",
       "comparison_verdict": null
@@ -600,7 +600,7 @@
       "id": "art-standard-realstreet",
       "artifact": {
         "path": "qa/artifacts/art/standard-realstreet.png",
-        "sha256": "195e7d8b3ae6e43b5c3a7917986c63c9f6651e0a3a3500d1cda42a5134555075"
+        "sha256": "eae9691243fbcd2d5de48d859c67b733eee0f1bf8e1b4a4dd556dfcf25c7e60a"
       },
       "kind": "still capture of our own game (SwiftShader software WebGL)",
       "comparison_verdict": null
@@ -628,6 +628,519 @@
       "artifact": {
         "path": "qa/artifacts/art/standard-traffic.png",
         "sha256": "a86e8fbe516362661e3b727b72a8ec17a8e257f5f8efd16e218b106905584910"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-flyover",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-flyover.png",
+        "sha256": "0bf1d39b4cbca14bcbf1e2bd9daae08d375127cb2929c0e936489c8f55a2d70d"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-flyoveraerial",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-flyoveraerial.png",
+        "sha256": "04caab808c0e1267fd80541a5165fb1df271fccc274dc61d836d0777d713b885"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-flyoverramp",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-flyoverramp.png",
+        "sha256": "10a476a4535c0ad0d8ac504e05601518208a59c7a5be0a93721517e4ed560846"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-flyoverside",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-flyoverside.png",
+        "sha256": "28512b435616b97ab2057473585ed59e38e2ed270481c64c3342e22c6dff4d1b"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-flyoverslip",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-flyoverslip.png",
+        "sha256": "8bc8578fc4122136f9146f1ba8197b83ec035379e48e8bf7044a667ed1888798"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-flyoverunder",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-flyoverunder.png",
+        "sha256": "8c9841ad4ba09bde855d84808577b88cf65fb6177a52d53619c68ee390eac266"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-footbridge",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-footbridge.png",
+        "sha256": "cd8cc56aca86587c6ac0c84525aa04eeb5fa84330e965742d2215abd7b095365"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-shops",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-shops.png",
+        "sha256": "569217db9c6a83441267e7c4cac1fea67d83d14d8620878e96f7832dafa3c367"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-shops2",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-shops2.png",
+        "sha256": "9cc01116e3f829de5e646b213b66c4a6dc906a96202e5e8614854442bd21f862"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-shopsaerial",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-shopsaerial.png",
+        "sha256": "175b5128ea162d4752c846de137c226dbb95103b4cb8f103c92f9df0e28356d2"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-shopsclose",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-shopsclose.png",
+        "sha256": "3b5e1a01f69332edd8da26957494af7394f339423898f23b0c09a3d56f92bbd5"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-shopsclose2",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-shopsclose2.png",
+        "sha256": "02f53e65d365844fa13f2d3dfc8865041080245a48620a7abe9057bc2b9e855a"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-shopsfar",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-shopsfar.png",
+        "sha256": "f07d2bc499705371d01db9fc32f4ccb09eb9ddb9b128c8d6fd5c89cb0dd4e54b"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-shopsfar2",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-shopsfar2.png",
+        "sha256": "739c01383051628238ba2d925b07bab92bfb5780a80abed73f9b6c1b75bfbf52"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-skywalk",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-skywalk.png",
+        "sha256": "c7f94d38f06a6801eec2e664f324b5c87c534fc4f8163591be3cd21169650b0f"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-skywalkdeck",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-skywalkdeck.png",
+        "sha256": "b7d7e8c0c1fd77e4ff19e6faa88e2ffbec0dd33ec9cffbdc91f931b39cbaa6f9"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-skywalkground",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-skywalkground.png",
+        "sha256": "c664f85f0b4ee450bf9e4a295d31cb3ed014ed69b9e5ba5d7c52b11e7002a80d"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-skywalkstairs",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-skywalkstairs.png",
+        "sha256": "a72395ff4fe497225fa7185b9afb669c1f2cfe9925ce0ac116bcba8367de9d1b"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-high-telugu",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-high-telugu.png",
+        "sha256": "41f1fd71105112b060f14a540e0b3602206938383698fda13d6e1abec473c3df"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-flyover",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-flyover.png",
+        "sha256": "24b9bd10103eeb73ad68e1103775c36d79b7505f9e36ca0904cc9702ee7a4f86"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-flyoveraerial",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-flyoveraerial.png",
+        "sha256": "e083a7bf45dd57ae5f927dd7157686ff9c52e4b6f71124e1e18507ab115338b8"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-flyoverramp",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-flyoverramp.png",
+        "sha256": "5f100eee8c2cf58b1784d30f4612f5ca0aef7893dba4ac128ccf17b838e54856"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-flyoverside",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-flyoverside.png",
+        "sha256": "c0275cd44236545d23b18dc00e9e9c88b8c57509f17cae8d49b25a57f8f3c597"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-flyoverslip",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-flyoverslip.png",
+        "sha256": "785d1eb326187f805c38b0854c2e3d2d149c5895ef68a982d5c392f3e51238e9"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-flyoverunder",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-flyoverunder.png",
+        "sha256": "08d455281f1929a310cfd1fbe946119127351fba3db14950a58ea32adaf6fba8"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-footbridge",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-footbridge.png",
+        "sha256": "80747087d87ebd398d357b73c13dcdd9c391047cb44519380765b57f467bba8e"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-shops",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-shops.png",
+        "sha256": "655f0151bafb7dcf6e79ea8cee8150dc1ce4503002b00a28781b7954afdc23e2"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-shops2",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-shops2.png",
+        "sha256": "eb9ef28fc3dfc9f6f94ab9ab2d9f51a08c419c681bb3d6a63c8f174e0fa63544"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-shopsaerial",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-shopsaerial.png",
+        "sha256": "ed424d6b6a9959a31bb914d5268cf07322f3097fee0ab0a3a2968b9d439d6110"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-shopsclose",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-shopsclose.png",
+        "sha256": "7c19188e45586554c6e00446e3bda7d96406ef5158b0636bd6ff84e3262612ec"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-shopsclose2",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-shopsclose2.png",
+        "sha256": "15bf5db6a776b1fb003cd30dcf1dcee91ae10880f4358aa22e8d3e3f6ace81a9"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-shopsfar",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-shopsfar.png",
+        "sha256": "64f200587959fb192368b41fdc19f5b3dbe14630ec02333502abc130e4e5a059"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-shopsfar2",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-shopsfar2.png",
+        "sha256": "0ac1ac7d9c00f65f0894292525193240cd76c6c64ee8339ab362f40d0de3eb4a"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-skywalk",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-skywalk.png",
+        "sha256": "0ca4469211c1496022d5b613ddb41537d8346e54dc1556274be21e0f8ea43c7c"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-skywalkdeck",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-skywalkdeck.png",
+        "sha256": "d0687c0baea2d51d275ee403c2070944f8fb1e790c57ab9e3e15f4371bc1b371"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-skywalkground",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-skywalkground.png",
+        "sha256": "b65b3b1fba16e81bac33b8eeaaeccd0fd93fa0ec84d8c2ec416c7399b48788e0"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-skywalkstairs",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-skywalkstairs.png",
+        "sha256": "6f4881b2180a08a3ffe6fd2273c190314ed1b33b06c8b9dceac9defccc62a26b"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-low-telugu",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-low-telugu.png",
+        "sha256": "0c719a7f219cb28e41ffb40c72d28dce8a545e53a3d0921d84c588694c6d7168"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-flyover",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-flyover.png",
+        "sha256": "66c6d751784f7925141a91530c4270f635b6ecd4f0f99666f0c375af7a47cb81"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-flyoveraerial",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-flyoveraerial.png",
+        "sha256": "6cb88fe86b13c8c3ac12725bca94743773d1a70787db899352921025c62c1698"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-flyoverramp",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-flyoverramp.png",
+        "sha256": "101daa49fa190813638d60f2c1e18f38ab9ec895dc0ad2a3ba8cc0573cecebb2"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-flyoverside",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-flyoverside.png",
+        "sha256": "132b722d5e5c321a79b3496ee42822b350d392283deb949d49ae20a5c1b759c3"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-flyoverslip",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-flyoverslip.png",
+        "sha256": "3f9f580dc9d2d6370d974784cabfb7c0706404ef2a336e1a0a5b096134121c0c"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-flyoverunder",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-flyoverunder.png",
+        "sha256": "b8fec46f1f2bfc0c43924d6cbc65b3227c8e09d4cda06f3127eb80944fb5a2e6"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-footbridge",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-footbridge.png",
+        "sha256": "5f0603f09cf79218ee8b713f584884ca9d2b5a0dd7d63452ccd53f815485193d"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-shops",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-shops.png",
+        "sha256": "d47e89c3c60cbbdd6a37ff5a6a8e2dcccfc47ed902bf92d56cb351df8f02c49b"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-shops2",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-shops2.png",
+        "sha256": "6f7f75193a20a31cebe03acefb355eaddd13dd93563365b456fdf22ed88cc316"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-shopsaerial",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-shopsaerial.png",
+        "sha256": "a9b916f31fb8ea4fb89cf72f18d2e5f1386e3c9e34fb629eb13c9c42e819b29a"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-shopsclose",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-shopsclose.png",
+        "sha256": "e29249cf10e4882f2f7b945d6dd4414b196ed6e465ef19360281f29cb4bb3085"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-shopsclose2",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-shopsclose2.png",
+        "sha256": "aff58d11a6cdaa036220f6f02f549517610c36e75311a8d17c7b509eb15895c9"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-shopsfar",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-shopsfar.png",
+        "sha256": "573e1026808b4ee456cc226703599cef7fb7d53f06b83e97ce3f73f974e3fb0a"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-shopsfar2",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-shopsfar2.png",
+        "sha256": "c60d406ed75e01e6a7b1ddfecf569201f6c779b45d9dd20daaa011bdb32d3b18"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-skywalk",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-skywalk.png",
+        "sha256": "4339097695f0d08abc96a5cf40e2e9c3246213362133caaeadf10e51abad9710"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-skywalkdeck",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-skywalkdeck.png",
+        "sha256": "26c59856ca6390d54d3f99a24183a4ed13a59f67b9b04de8b04048bc458caef1"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-skywalkground",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-skywalkground.png",
+        "sha256": "aef89b83c02a737de5c37bcffc7d38748f14c4bb6d21812b49ccdd34cabc69f7"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-skywalkstairs",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-skywalkstairs.png",
+        "sha256": "713f4fb9841adfc97ed52c96213d2d81816983dd492cfa2711216742e02ff8e8"
+      },
+      "kind": "still capture of our own game (SwiftShader software WebGL)",
+      "comparison_verdict": null
+    },
+    {
+      "id": "art-v2-standard-telugu",
+      "artifact": {
+        "path": "qa/artifacts/art/v2-standard-telugu.png",
+        "sha256": "6e79c959dc050b7b4ee13ccf45d36dcfd90fb085ede31e0705fe03adceabbe41"
       },
       "kind": "still capture of our own game (SwiftShader software WebGL)",
       "comparison_verdict": null
