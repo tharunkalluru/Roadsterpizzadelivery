@@ -1,0 +1,263 @@
+{
+  "buffer_m": 600.0,
+  "command": "game/.venv-data/bin/python game/scripts/overture/fetch.py",
+  "files": {
+    "base-land_use-blue": {
+      "bytes": 184824,
+      "fetched_at": "2026-10-17T23:59:21Z",
+      "file": "base-land_use-blue.parquet",
+      "line": "blue",
+      "release": "2026-09-23.1",
+      "rows": 637,
+      "rows_in_line_bbox": 1750,
+      "sha256": "70df3d72aaf3f06bdc90e7b458932259f7cb1dcce87c63e70cef548d7edb0ffc",
+      "theme": "base",
+      "type": "land_use"
+    },
+    "base-land_use-green": {
+      "bytes": 112220,
+      "fetched_at": "2026-10-18T00:02:23Z",
+      "file": "base-land_use-green.parquet",
+      "line": "green",
+      "release": "2026-09-23.1",
+      "rows": 178,
+      "rows_in_line_bbox": 392,
+      "sha256": "ffaecb130e049aa70f5d3f5aa1b766b3d259954b738a002e9c4ff07ff6039b37",
+      "theme": "base",
+      "type": "land_use"
+    },
+    "base-land_use-red": {
+      "bytes": 166866,
+      "fetched_at": "2026-10-18T00:01:07Z",
+      "file": "base-land_use-red.parquet",
+      "line": "red",
+      "release": "2026-09-23.1",
+      "rows": 445,
+      "rows_in_line_bbox": 2719,
+      "sha256": "90dad1bedc971f562c06a52178b2d24e84adfc0d38a0255148b78cb1ea6d1ad2",
+      "theme": "base",
+      "type": "land_use"
+    },
+    "base-water-blue": {
+      "bytes": 57508,
+      "fetched_at": "2026-10-17T23:59:30Z",
+      "file": "base-water-blue.parquet",
+      "line": "blue",
+      "release": "2026-09-23.1",
+      "rows": 55,
+      "rows_in_line_bbox": 212,
+      "sha256": "61409b1ff5c4f6ce8f5ee9eaa5d05d824c65a6835637b2b0c16c4c11e78fe593",
+      "theme": "base",
+      "type": "water"
+    },
+    "base-water-green": {
+      "bytes": 26858,
+      "fetched_at": "2026-10-18T00:02:32Z",
+      "file": "base-water-green.parquet",
+      "line": "green",
+      "release": "2026-09-23.1",
+      "rows": 11,
+      "rows_in_line_bbox": 47,
+      "sha256": "4fbb2de9b99ef78d593a70006ffd16ea1db0f7948f49d17f0abdc8a1f38b59c3",
+      "theme": "base",
+      "type": "water"
+    },
+    "base-water-red": {
+      "bytes": 62556,
+      "fetched_at": "2026-10-18T00:01:16Z",
+      "file": "base-water-red.parquet",
+      "line": "red",
+      "release": "2026-09-23.1",
+      "rows": 55,
+      "rows_in_line_bbox": 373,
+      "sha256": "204f2869047506b84219d2dfc70845aa33a2197b721e5dddecfe0f6752e966a5",
+      "theme": "base",
+      "type": "water"
+    },
+    "buildings-building-blue": {
+      "bytes": 4431055,
+      "fetched_at": "2026-10-17T23:59:10Z",
+      "file": "buildings-building-blue.parquet",
+      "line": "blue",
+      "release": "2026-09-23.1",
+      "rows": 45225,
+      "rows_in_line_bbox": 279414,
+      "sha256": "3de36075d5f85a36d140bb404ece031bff3c85906c2d594ef0d3426de7c1e42b",
+      "theme": "buildings",
+      "type": "building"
+    },
+    "buildings-building-green": {
+      "bytes": 2729245,
+      "fetched_at": "2026-10-18T00:02:13Z",
+      "file": "buildings-building-green.parquet",
+      "line": "green",
+      "release": "2026-09-23.1",
+      "rows": 28135,
+      "rows_in_line_bbox": 65051,
+      "sha256": "53a8ef1f01b5bebd23fd10cdfe00d5966e9b7d4484ef9d967fac487fdf637aac",
+      "theme": "buildings",
+      "type": "building"
+    },
+    "buildings-building-red": {
+      "bytes": 6147620,
+      "fetched_at": "2026-10-18T00:00:53Z",
+      "file": "buildings-building-red.parquet",
+      "line": "red",
+      "release": "2026-09-23.1",
+      "rows": 64623,
+      "rows_in_line_bbox": 609734,
+      "sha256": "1115e8a28ec5520b493d3a02dac074f2c4018eae93dd850fcaaf6c6e29c70083",
+      "theme": "buildings",
+      "type": "building"
+    },
+    "places-place-blue": {
+      "bytes": 1905405,
+      "fetched_at": "2026-10-17T23:59:15Z",
+      "file": "places-place-blue.parquet",
+      "line": "blue",
+      "release": "2026-09-23.1",
+      "rows": 18273,
+      "rows_in_line_bbox": 63815,
+      "sha256": "06261fdfa942227d816ddfda278bbdcf8fcc6d07cefb7a4ee0e9461632923063",
+      "theme": "places",
+      "type": "place"
+    },
+    "places-place-green": {
+      "bytes": 738328,
+      "fetched_at": "2026-10-18T00:02:17Z",
+      "file": "places-place-green.parquet",
+      "line": "green",
+      "release": "2026-09-23.1",
+      "rows": 7056,
+      "rows_in_line_bbox": 16976,
+      "sha256": "3622f4e196b01ee914dced106280f7d2c0e1d68e8f72ef16884071c748f60e5e",
+      "theme": "places",
+      "type": "place"
+    },
+    "places-place-red": {
+      "bytes": 2401981,
+      "fetched_at": "2026-10-18T00:01:01Z",
+      "file": "places-place-red.parquet",
+      "line": "red",
+      "release": "2026-09-23.1",
+      "rows": 23393,
+      "rows_in_line_bbox": 104179,
+      "sha256": "8d9d91f3f1aebef0b12fd9bbb2920ad8709c48bfe6c60dbd5419cb5012a4d7e7",
+      "theme": "places",
+      "type": "place"
+    },
+    "transportation-connector-blue": {
+      "bytes": 661910,
+      "fetched_at": "2026-10-17T23:58:24Z",
+      "file": "transportation-connector-blue.parquet",
+      "line": "blue",
+      "release": "2026-09-23.1",
+      "rows": 11384,
+      "rows_in_line_bbox": 58434,
+      "sha256": "def613463dff8674bad7d11298ae9c24146c435501adeb678b424a51cd9e53cd",
+      "theme": "transportation",
+      "type": "connector"
+    },
+    "transportation-connector-green": {
+      "bytes": 321587,
+      "fetched_at": "2026-10-18T00:01:32Z",
+      "file": "transportation-connector-green.parquet",
+      "line": "green",
+      "release": "2026-09-23.1",
+      "rows": 5563,
+      "rows_in_line_bbox": 12922,
+      "sha256": "31eccae9ccabb3903edbcfe223e2f38239461e1e44121d2082db1cac51350474",
+      "theme": "transportation",
+      "type": "connector"
+    },
+    "transportation-connector-red": {
+      "bytes": 828259,
+      "fetched_at": "2026-10-17T23:59:58Z",
+      "file": "transportation-connector-red.parquet",
+      "line": "red",
+      "release": "2026-09-23.1",
+      "rows": 14188,
+      "rows_in_line_bbox": 125667,
+      "sha256": "a2595bad98e9abf305c13b64f8b51f7128e974684822e567be07b5f2485c007d",
+      "theme": "transportation",
+      "type": "connector"
+    },
+    "transportation-segment-blue": {
+      "bytes": 1537428,
+      "fetched_at": "2026-10-17T23:58:18Z",
+      "file": "transportation-segment-blue.parquet",
+      "line": "blue",
+      "release": "2026-09-23.1",
+      "rows": 12773,
+      "rows_in_line_bbox": 67655,
+      "sha256": "8dd7effb4057555634a98d869e9dbad5243dd8394637df88a92bd80d80338230",
+      "theme": "transportation",
+      "type": "segment"
+    },
+    "transportation-segment-green": {
+      "bytes": 782976,
+      "fetched_at": "2026-10-18T00:01:28Z",
+      "file": "transportation-segment-green.parquet",
+      "line": "green",
+      "release": "2026-09-23.1",
+      "rows": 6727,
+      "rows_in_line_bbox": 15281,
+      "sha256": "6bc0f23e6148ceb2a56b6cc055c7b55cc377bc60dfe2f1abeb7dbaf7e80544ef",
+      "theme": "transportation",
+      "type": "segment"
+    },
+    "transportation-segment-red": {
+      "bytes": 1869718,
+      "fetched_at": "2026-10-17T23:59:50Z",
+      "file": "transportation-segment-red.parquet",
+      "line": "red",
+      "release": "2026-09-23.1",
+      "rows": 16631,
+      "rows_in_line_bbox": 146898,
+      "sha256": "30d92dab427094d10be5d2805090fcdb172d71315d6f41d61543dc9f005a6689",
+      "theme": "transportation",
+      "type": "segment"
+    }
+  },
+  "licences": {
+    "base": "CDLA-Permissive-2.0",
+    "buildings": "CDLA-Permissive-2.0",
+    "places": "CDLA-Permissive-2.0",
+    "transportation": "ODbL-1.0 (derived from OpenStreetMap)"
+  },
+  "lines": {
+    "blue": {
+      "alignment_polylines": 44,
+      "bbox_lonlat": {
+        "xmax": 78.565923,
+        "xmin": 78.37148,
+        "ymax": 17.456563,
+        "ymin": 17.384856
+      },
+      "buffer_m": 600.0
+    },
+    "green": {
+      "alignment_polylines": 11,
+      "bbox_lonlat": {
+        "xmax": 78.50797,
+        "xmin": 78.476916,
+        "ymax": 17.454504,
+        "ymin": 17.369325
+      },
+      "buffer_m": 600.0
+    },
+    "red": {
+      "alignment_polylines": 36,
+      "bbox_lonlat": {
+        "xmax": 78.553581,
+        "xmin": 78.367376,
+        "ymax": 17.504862,
+        "ymin": 17.344426
+      },
+      "buffer_m": 600.0
+    }
+  },
+  "release": "2026-09-23.1",
+  "source": "overturemaps-us-west-2/release/2026-09-23.1/theme=<theme>/type=<type>/ (anonymous S3, us-west-2)",
+  "total_bytes": 24966344
+}
