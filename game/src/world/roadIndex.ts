@@ -112,12 +112,13 @@ export class RoadIndex {
    * level than `preferLevel`, or not connected to `preferRoadId`, are penalised so an overpass
    * or lower road is not selected merely for being slightly closer.
    */
-  surface(x: number, z: number, opts: { preferRoadId?: string | null; preferLevel?: number; maxY?: number; margin?: number; heading?: number } = {}): SurfaceHit | null {
+  surface(x: number, z: number, opts: { preferRoadId?: string | null; preferLevel?: number; maxY?: number; margin?: number; heading?: number; onlyRoadId?: string } = {}): SurfaceHit | null {
     const margin = opts.margin ?? 0.5;
     let best: SurfaceHit | null = null;
     let bestScore = Infinity;
     const prefer = opts.preferRoadId ? this.roads.get(opts.preferRoadId) : undefined;
     for (const s of this.segmentsNear(x, z)) {
+      if (opts.onlyRoadId && s.road.id !== opts.onlyRoadId) continue;
       const p = this.project(s, x, z);
       if (p.dist > s.halfWidth + margin) continue;
       const elevation = s.ay + (s.by - s.ay) * p.t;

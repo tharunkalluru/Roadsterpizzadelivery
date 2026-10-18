@@ -380,7 +380,8 @@ export class Session {
     if (this.route.length && !this.route.slice(this.routeIdx, this.routeIdx + 2).includes(d.id)) {
       for (const rid of this.route.slice(this.routeIdx, this.routeIdx + 2)) {
         const e = this.world.nav.edges.get(rid)!;
-        const hit = this.world.roads.surface(p.x, p.z, { preferRoadId: e.roadId, margin: d.wrongWay ? 5 : 2 });
+        // still inside the route edge's own carriageway (forks: a slip road overlapping our lane is not a turn yet)
+        const hit = this.world.roads.surface(p.x, p.z, { onlyRoadId: e.roadId, maxY: p.y + 0.3, margin: d.wrongWay ? 5 : 2 });
         // swinging wide through a hairpin onto the opposite carriageway of a divided road is still "on the route"
         const slack = d.wrongWay ? 4.5 : 1.5;
         if (hit && hit.roadId === e.roadId && hit.dist <= hit.halfWidth + slack) {

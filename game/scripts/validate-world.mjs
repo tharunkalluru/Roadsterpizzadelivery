@@ -821,17 +821,21 @@ function validate() {
         }
     }
     const containing = (q) => (bgrid.get(Math.floor(q[0] / 50) * 100003 + Math.floor(q[1] / 50)) || []).find((b) => q[0] >= b._bb[0] && q[0] <= b._bb[1] && q[1] >= b._bb[2] && q[1] <= b._bb[3] && G.pointInPolygon(q, b.footprint));
+    const bHeightById = new Map(buildings.map((b) => [b.id, b.heightM]));
     const intr = new Set();
     const intrRoads = new Set();
     for (const r of core.roads) {
       const half = r.widthM / 2;
       for (const sm of samplesElev(r)) {
-        if (sm.elev > 2.5) continue;
         const q = sm.p;
         const ids = new Set(keptGrid.within(q, half - 0.01).map((h) => h.payload.id));
         const c = containing(q);
         if (c) ids.add(c.id);
-        for (const id of ids) { intr.add(id); intrRoads.add(r.id); }
+        for (const id of ids) {
+          // under a deck only buildings taller than the deck (minus 1 m) conflict — same rule as the v2 importer
+          if (sm.elev > 2.5 && !((bHeightById.get(id) ?? Infinity) > sm.elev - 1.0)) continue;
+          intr.add(id); intrRoads.add(r.id);
+        }
       }
     }
     const flagged = new Set(buildings.filter((b) => b.intrudesCarriageway === true).map((b) => b.id));

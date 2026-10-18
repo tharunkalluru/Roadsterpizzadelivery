@@ -569,15 +569,17 @@ for (const r of roads) {
 const keptSegGrid = fpAll;
 const intrudingBuildings = new Set();
 const intrudingRoads = new Map();
+const bHeight = new Map(buildings.map((b) => [b.id, b.heightM]));
 for (const r of roads) {
   const half = r.widthM / 2;
   for (const sm of samplesWithElev(r)) {
-    if (sm.elev > ELEV_SKIP) continue;
     const q = sm.p;
     const hits = new Set(keptSegGrid.within(q, half - 0.01).map((h) => h.payload.id));
     const inside = buildingAt(q);
     if (inside) hits.add(inside.id);
     for (const id of hits) {
+      // under a deck only buildings that would poke through it conflict (a low shed under a flyover is fine)
+      if (sm.elev > ELEV_SKIP && !((bHeight.get(id) ?? Infinity) > sm.elev - 1.0)) continue;
       intrudingBuildings.add(id);
       let s = intrudingRoads.get(r.id);
       if (!s) intrudingRoads.set(r.id, (s = new Set()));
