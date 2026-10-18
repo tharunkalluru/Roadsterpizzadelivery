@@ -93,7 +93,7 @@ export const nameClean = (s) => (s ? s.replace(/\s+/g, ' ').trim() : null);
  *   {id, wayId, seg, highway, name, oneway, widthM, widthBasis, level, bridge, tunnel, from, to, nodeIds(from..to connector keys), pts, length}
  * from/to are connector keys "n_<gersNum>" (string) with raw connector ids in fromC/toC.
  */
-export function buildOvtEdges(segs, stats) {
+export function buildOvtEdges(segs, stats, connPos) {
   stats.excluded = stats.excluded || {};
   const ex = (k) => (stats.excluded[k] = (stats.excluded[k] || 0) + 1);
   const cand = [];
@@ -137,10 +137,12 @@ export function buildOvtEdges(segs, stats) {
       if (k === 0) return 0;
       if (k === cuts.length - 1) return pts.length - 1;
       const sPos = c[1] * L;
+      const cp = connPos && connPos.get(c[0]);
       let bi = 1;
       let bd = Infinity;
       for (let i = 1; i < pts.length - 1; i++) {
-        const d = Math.abs(cum[i] - sPos);
+        // prefer the vertex that coincides with the connector point; fall back to the linear-reference fraction
+        const d = cp ? Math.hypot(pts[i][0] - cp[0], pts[i][1] - cp[1]) : Math.abs(cum[i] - sPos);
         if (d < bd) {
           bd = d;
           bi = i;
@@ -148,6 +150,14 @@ export function buildOvtEdges(segs, stats) {
       }
       return bi;
     });
+    // snap cut vertices / end points exactly onto the connector location so adjoining segments share identical coordinates
+    if (connPos) {
+      cuts.forEach((c, k) => {
+        const cp = connPos.get(c[0]);
+        const i = cutIdx[k];
+        if (cp && Math.hypot(pts[i][0] - cp[0], pts[i][1] - cp[1]) < 2.5) pts[i] = cp.slice();
+      });
+    }
     let piece = 0;
     for (let k = 0; k + 1 < cuts.length; k++) {
       const i0 = cutIdx[k];
