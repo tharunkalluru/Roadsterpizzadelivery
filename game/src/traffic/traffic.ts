@@ -195,7 +195,7 @@ export class TrafficSystem implements DynamicWorld {
         else if (e.next.includes(b.edge) && Math.abs(b.lateral - a.lateral) < (a.width + b.width) / 2 + 0.6) d = e.lengthM - a.along + b.along;
         if (d !== null) { d -= (a.length + b.length) / 2; if (d < gap) { gap = d; leaderSpeed = b.speed; } }
       }
-      if (!player.airborne) {
+      if (!player.airborne && Math.abs(player.y - a.y) < 2.5) {
         const [fx, fz] = forwardOf(a.heading);
         const dx = player.x - a.x, dz = player.z - a.z;
         const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);

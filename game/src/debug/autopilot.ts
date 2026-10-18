@@ -105,12 +105,14 @@ export class Autopilot {
     // traffic ahead in our lane
     const [fx, fz] = forwardOf(p.heading);
     for (const a of p.isAirborne ? [] : s.traffic.actors) {
+      if (Math.abs(a.y - p.y) > 2.5) continue; // different level (deck above/below)
       const dx = a.x - p.x, dz = a.z - p.z;
       const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
       const sameDir = Math.abs(wrapAngle(a.heading - p.heading)) < 1.0;
       if (ahead > 0 && side < 2.2 && (sameDir ? ahead < v * 1.6 + 9 : ahead < 6)) { vt = Math.min(vt, sameDir ? Math.max(0, a.speed - 0.5) : 0); this.why = `actor ${a.id} ${ahead.toFixed(1)} ${side.toFixed(1)}`; }
     }
     for (const q of p.isAirborne ? [] : s.traffic.peds) {
+      if (Math.abs(q.y - p.y) > 2.5) continue;
       const dx = q.x - p.x, dz = q.z - p.z;
       const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
       if (ahead > 0 && ahead < v * 1.4 + 6 && side < 2.0) { vt = 0; this.why = `ped ${q.id}`; }
