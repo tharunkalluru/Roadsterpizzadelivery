@@ -25,9 +25,15 @@ complete; see `../IMPLEMENTATION_STATUS.md`, `CONTENT_GAPS.md`, `qa/status.json`
 | `npm run verify:ledger` | Run the supplied ledger checker on requirements/status/scope/evidence. |
 
 ## Controls
-- **Touch (landscape):** left thumb steering pad (drag left/right, recentres on release); right thumb **BRAKE** (hold), **FLY/LAND** (press; a fresh press during flight requests landing), **FAST** (hold for up to 60 km/h). **REV** appears when nearly stopped. Map and pause buttons top right.
-- **Keyboard:** ←/→ or A/D steer, ↓/S brake, ↑/W faster, Space/F fly/land, R reverse toggle, P/Esc pause, M map (pauses), H horn.
-- Deliver by stopping inside the marked area at the entrance below walking speed for about one second. FAST cancels a delivery hold.
+- **Touch (landscape):** left thumb steering pad (drag left/right, recentres on release). Right thumb: **▲** accelerate, **▼** brake (keep holding ▼ when stopped to reverse), **FLY/LAND** (press; a fresh press during flight requests landing). Map and pause buttons top right.
+- **No input = the car slows and holds.** There is no automatic cruise and no separate reverse button.
+- **In the air:** ▲ speeds up, ▼ slows to a hover (still uses flight time), no input keeps the current speed.
+- **Keyboard:** W/↑ accelerate, S/↓ brake/reverse, A/D or ←/→ steer, Space/F fly/land, P/Esc pause, M map (pauses), H horn.
+- Deliver by stopping inside the marked area at the entrance below walking speed for about one second. ▲ cancels a delivery hold.
+
+## World and levels
+- `public/world/hyd-metro/v2/` (when present) covers the roads around all three metro lines from Overture Maps open data, including real business names as shop signboards. Shop names come from listings and are **not** street-view checked; see `qa/storefront-inventory.json`. The original Blue Line Uppal–Tarnaka package (`hyd-uppal-tarnaka/v1`) remains as a fallback (`?v1`).
+- Deliveries come in five levels: 1 Neighbourhood, 2 Next stop, 3 Line runner, 4 Interchange, 5 Across the city. Completing any delivery in a level unlocks the next.
 
 ## Architecture
 `src/app` (state machine, streaming, lifecycle) · `src/core` (fixed 60 Hz clock, seeded RNG streams) · `src/player` (FlightLedger, Player state machine) · `src/world` (schema, road index, nav graph, collision, loader) · `src/traffic` · `src/missions` (session, catalog) · `src/ui` (input, HUD, screens, map) · `src/art` (procedural assets, implements `src/art/api.ts`) · `src/audio` · `src/persistence` · `src/debug` (reference driving agent) · `scripts/` (OSM import + validation) · `public/world/` (versioned world packages).

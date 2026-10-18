@@ -8,7 +8,7 @@
  * otherwise be unreachable because the arriving edge is the ONLY edge arriving at that node (e.g. a two-way spur that
  * hangs off the start of a one-way road). Everywhere else U-turns are not offered.
  */
-export function buildDirected(edges) {
+export function buildDirected(edges, banned) {
   const d = [];
   for (let i = 0; i < edges.length; i++) {
     const e = edges[i];
@@ -32,7 +32,8 @@ export function buildDirected(edges) {
     const outs = out.get(d[i].to) || [];
     const n = outs.filter((j) => j !== d[i].rev);
     if (d[i].rev >= 0 && (n.length === 0 || incoming.get(d[i].to) === 1)) n.push(d[i].rev);
-    next[i] = n;
+    // v2: Overture prohibited_transitions (banned = Set of "<fromDirectedId>><toDirectedId>")
+    next[i] = banned && banned.size ? n.filter((j) => !banned.has(d[i].id + '>' + d[j].id)) : n;
   }
   return { d, next };
 }
@@ -93,9 +94,9 @@ export function scc(adj) {
   return { comp, count, sizes };
 }
 
-export function isStronglyConnected(edges) {
+export function isStronglyConnected(edges, banned) {
   if (edges.length === 0) return false;
-  const { next } = buildDirected(edges);
+  const { next } = buildDirected(edges, banned);
   return scc(next).count === 1;
 }
 
@@ -153,12 +154,12 @@ export function dijkstraEdges(next, len, startIdx) {
  * (so the routable subset stays strongly connected) plus every outgoing NON-routable directed edge at their end node
  * (same U-turn rule on the full network). Non-routable directed edges use the full-network rule.
  */
-export function buildDirectedRoutable(edges) {
-  const full = buildDirected(edges);
+export function buildDirectedRoutable(edges, banned) {
+  const full = buildDirected(edges, banned);
   const keepIdx = [];
   edges.forEach((e, i) => e.routable && keepIdx.push(i));
   const coreEdges = keepIdx.map((i) => edges[i]);
-  const core = buildDirected(coreEdges);
+  const core = buildDirected(coreEdges, banned);
   const coreIdByName = new Map(core.d.map((x, i) => [x.id, i]));
   const fullIdx = new Map(full.d.map((x, i) => [x.id, i]));
   const next = full.d.map((x, i) => {

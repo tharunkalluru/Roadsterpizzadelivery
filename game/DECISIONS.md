@@ -37,3 +37,9 @@ Delivery labels are OSM `name` values (provisional source claims). The fictional
 
 ## D12 Road precedence over conflicting footprints
 After clamping provisional widths to source footprints (floor 4.5 m; 3.0 m service), 258 OSM building footprints still overlap the minimum carriageway (`intrudesCarriageway: true`). Either the road centreline or the footprint is mis-registered; the source cannot tell which. For gameplay the selected road wins: those footprints are omitted from BOTH render and collision (never one without the other), and remain listed in `CONTENT_GAPS.md` (C28) and `data/import-report.json` for imagery/field resolution. Rejected: keeping them as collision (makes real roads undrivable) or rendering without collision (visible wall the car passes through).
+
+## D13 Control model (v2, playtest request)
+The specification's auto-accelerate cruise is replaced at the user's explicit request: steering pad on one side, ▲ accelerate / ▼ brake / FLY on the other. With no input the car slows at 4 m/s² and holds. Keeping ▼ held for 0.3 s while stopped reverses, so there is no reverse button. Deadlines are still calibrated with the reference agent driving these same controls.
+
+## D14 Whole-network data source (v2)
+Overpass and Geofabrik are blocked here, but the Overture Maps S3 bucket is reachable. The whole-network package therefore uses Overture release 2026-09-23.1: transportation (ODbL, derived from OSM) and places, buildings and base (CDLA-Permissive-2.0). Street View and satellite imagery are neither reachable nor licensed for copying, so storefront signboards come from Overture place listings and are marked `provisional_listing`.

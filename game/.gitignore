@@ -3,3 +3,8 @@ dist/
 test-results/
 playwright-report/
 *.log
+
+# data worker v2
+.venv-data/
+data/interim/
+__pycache__/

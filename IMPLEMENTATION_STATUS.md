@@ -43,8 +43,25 @@ Live checklist. Status values: `passed`, `failed`, `blocked`, `not_run`, `stale`
 | 14 | Physical phone tests | U01, P03, C6 | — | blocked (B4); procedure in `game/QA_REPORT.md` |
 | 15 | Local recognition / imagery frontage review | G05, G12 | — | blocked (B3) |
 
+## v2 checklist: whole network, real storefronts, new controls (plan: `EXPANSION_PLAN.md`)
+| # | Item | Owner | Status |
+|---|---|---|---|
+| V1 | Schema v2 (storefronts, structures, lines) | lead | done |
+| V2 | Controls: steer pad, ▲ accelerate, ▼ brake (hold = reverse), FLY; no input = hold | lead | done (tests, tutorial, reference agent updated) |
+| V3 | Pedestrians only on at-grade footpaths (never bridges/flyovers) | lead | done (regression test) |
+| V4 | Landmark research for 57 stations (web search, cited) | research worker (Haiku) | done (`game/data/research/landmarks.json`) |
+| V5 | Whole-network package from Overture (roads, buildings, storefronts, structures, ~300 deliveries) | data worker (Sonnet) | doing |
+| V6 | Signboards with real names, bridge decks/ramps/piers, Uppal skywalk, facade polish | art worker (Sonnet) | doing |
+| V7 | Levels 1–5 catalog + level menu with unlocks; v2 loader with v1 fallback | lead | done (awaiting v2 data for calibration) |
+| V8 | Fork surface matching (narrow service road beside flyover ramp) | lead | done (MT08 margin 19.7 %) |
+| V9 | v2 calibration, streaming performance, e2e, captures, review, ledgers | lead + reviewer | todo |
+
+B2 is superseded by V5: Overture S3 is reachable. B3 is still open: street-view and satellite imagery are blocked here, and copying them is not permitted. Storefronts are listing-based and provisional.
+
 ## Running jobs
-- ledger worker: final evidence binding (requirements.json, qa/status.json, qa/evidence-index.json, qa/release-report.md)
+- data v2 worker (Sonnet): Overture whole-network package
+- art v2 worker (Sonnet): storefronts, structures, bridges
+- lead: e2e on new controls
 
 ## Current achieved release
 Playable corridor with disclosed geographic gaps (development build): Blue Line Uppal–Tarnaka package. Requested: completed three-corridor network with Android + iOS validation — not achieved.
