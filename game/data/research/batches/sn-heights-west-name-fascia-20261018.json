@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "id": "sn-heights-west-name-fascia-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex Chrome source registration",
+  "notes": "Add photographed roof building-name fascia to the corrected west alley profile, with no extra business/frontage count.",
+  "corrections": [
+    {
+      "id": "profile-madhapur-sn-heights",
+      "kind": "building_profile",
+      "buildingId": "b_debb5e0d92",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "heightM": 11.8,
+      "levels": 3,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#ece5df",
+      "style": "madhapur_sn_heights",
+      "notes": "Three visible levels including ground inform an approximately 11.8 m provisional height. Offwhite horizontal fascia, dark-blue SN HEIGHTS lettering and a tall right rose/pink fascia with a gold emblem are observed. Footprint b_29048e3fbb is provisionally matched by its position immediately east of Ayyappa Society Main Road; precise geometry is not field-measured. Ground shop and ATM entrances remain pending. CORRECTION: Relocated north to b_debb5e0d92 west alley face after dated multi-angle structural and current listing match; initial south-face/b_29048e3fbb association is superseded. Source-backed SN HEIGHTS building-name fascia uses provisional dimensions; it is not an extra tenant.",
+      "profile": {
+        "sourceIds": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+          "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+          "listing-vave-sn-heights-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#ece5df",
+        "material": "mixed",
+        "fronts": [
+          {
+            "storefrontIds": [
+              "survey-madhapur-vave-salon",
+              "survey-madhapur-neoclassic-concepts",
+              "survey-madhapur-rajadhani-bank",
+              "survey-madhapur-fit-hive-gym"
+            ],
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.6,
+                "glazingRatio": 0.3,
+                "glassColor": "#40545c",
+                "bandColor": "#ece5df",
+                "bandHeightM": 0.4
+              },
+              {
+                "baseM": 3.6,
+                "heightM": 3.7,
+                "glazingRatio": 0.68,
+                "glassColor": "#40545c",
+                "bandColor": "#ece5df",
+                "bandHeightM": 0.5
+              },
+              {
+                "baseM": 7.3,
+                "heightM": 4.5,
+                "glazingRatio": 0.6,
+                "glassColor": "#40545c",
+                "bandColor": "#ece5df",
+                "bandHeightM": 0.5
+              }
+            ],
+            "bays": [
+              {
+                "start": 0,
+                "end": 0.64
+              },
+              {
+                "start": 0.68,
+                "end": 0.93
+              }
+            ],
+            "piers": [
+              {
+                "at": 0,
+                "widthM": 0.25,
+                "color": "#ece5df"
+              },
+              {
+                "at": 0.65,
+                "widthM": 0.3,
+                "color": "#ece5df"
+              },
+              {
+                "at": 0.98,
+                "widthM": 0.3,
+                "color": "#b67d84"
+              }
+            ],
+            "accents": [
+              {
+                "start": 0.94,
+                "end": 1,
+                "baseM": 0,
+                "heightM": 11.8,
+                "color": "#b67d84",
+                "outsetM": 0.25
+              }
+            ]
+          }
+        ],
+        "nameBand": {
+          "frontIndex": 0,
+          "baseM": 10.9,
+          "heightM": 0.65,
+          "widthRatio": 0.65,
+          "color": "#ece5df",
+          "textColor": "#25375f",
+          "outsetM": 0.65
+        }
+      }
+    }
+  ],
+  "expectedPrevious": {
+    "corrections:profile-madhapur-sn-heights": "0e74e05f6561321ed08a8231eea6ea9281e9dcb2d86a9a605f3ce8fac86f17e1"
+  }
+}

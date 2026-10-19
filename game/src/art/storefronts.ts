@@ -13,8 +13,16 @@ import { FC, frontCellUV, getFrontAtlas } from './frontAtlas';
 import { ensureTeluguFont, TELUGU_FAMILY } from './sign';
 import { anisoFor } from './textures';
 import { registerCull } from './cull';
+import { layoutSignAtlasPages,signTextArea,signCellPadding, type SignAtlasCell } from './signAtlas';
+import type { SurveyAppearance } from '../world/streetSurveyTypes';
+import { researchedFacesOf } from './researchedBuildings';
+import { accessRoadIndex,buildingAccessPlan,accessRecessForFacade,type BuildingAccessPlan } from '../world/buildingAccess';
+import { appendObservedStock,type ObservedStock } from './observedDisplays';
+import { layoutExplicitLines } from './signTextLayout';
 
 /* ------------------------------------------------------------------ palettes */
+
+type StyledStorefront = Storefront & { appearance?: SurveyAppearance };
 
 interface Pal { bg: string; fg: string; awn: [number, number]; icon?: 'greencross' | 'bluecross'; shutterTint?: number }
 
@@ -66,8 +74,8 @@ const LATIN = '"Noto Sans","Liberation Sans","DejaVu Sans","Helvetica Neue",Aria
 const TELUGU = `"${TELUGU_FAMILY}","Noto Sans","Liberation Sans","DejaVu Sans",sans-serif`;
 const isTelugu = (s: string): boolean => /[ఀ-౿]/.test(s);
 
-interface CellSpec { lines: string[]; pal: Pal; vertical: boolean; icon?: Pal['icon'] }
-interface Cell { wm: number; hm: number; spec: CellSpec; px: number; py: number; pw: number; ph: number }
+interface CellSpec { lines: string[]; pal: Pal; vertical: boolean; icon?: Pal['icon']; preserveText?:boolean }
+interface Cell extends SignAtlasCell { spec: CellSpec }
 
 const segmenter: { segment(s: string): Iterable<{ segment: string }> } | null = (() => {
   try {
@@ -101,16 +109,21 @@ function fit(ctx: CanvasRenderingContext2D, text: string, maxW: number, capH: nu
   return { text: g.slice(0, n).join('').trimEnd() + '…', size };
 }
 
-function layoutLatin(ctx: CanvasRenderingContext2D, text: string, maxW: number, maxH: number): { lines: string[]; size: number } {
+function explicitLines(ctx:CanvasRenderingContext2D,text:string,maxW:number,maxH:number){
+  return layoutExplicitLines(text,maxW,maxH,(line,size)=>{setFont(ctx,line,size);return ctx.measureText(line).width;});
+}
+
+function layoutLatin(ctx: CanvasRenderingContext2D, text: string, maxW: number, maxH: number, preserveText=false): { lines: string[]; size: number } {
+  if(preserveText){const authored=explicitLines(ctx,text,maxW,maxH);if(authored)return authored;}
   const capH = maxH * 0.8;
-  const one = fit(ctx, text, maxW, capH);
+  const one = fit(ctx, text, maxW, capH,preserveText?0:.42);
   const words = text.split(/\s+/);
   if (words.length < 2 || one.size >= capH * 0.7) return { lines: [one.text], size: one.size };
   // best balanced split
   let best: { lines: string[]; size: number } | null = null;
   for (let i = 1; i < words.length; i++) {
     const a = words.slice(0, i).join(' '), b = words.slice(i).join(' ');
-    const fa = fit(ctx, a, maxW, maxH * 0.5 * 0.86, 0.5), fb = fit(ctx, b, maxW, maxH * 0.5 * 0.86, 0.5);
+    const fa = fit(ctx, a, maxW, maxH * 0.5 * 0.86, preserveText?0:.5), fb = fit(ctx, b, maxW, maxH * 0.5 * 0.86, preserveText?0:.5);
     const size = Math.min(fa.size, fb.size);
     if (!best || size > best.size) best = { lines: [fa.text, fb.text], size };
   }
@@ -129,12 +142,13 @@ function measureSpec(ctx: CanvasRenderingContext2D, spec: CellSpec, innerW: numb
   const hasTe = spec.lines.length > 1 && isTelugu(spec.lines[1]);
   if (spec.lines.length > 1) {
     const hA = H * (hasTe ? 0.52 : 0.5);
-    const A = layoutLatin(ctx, spec.lines[0], maxW, hA * 0.95);
+    const A = layoutLatin(ctx, spec.lines[0], maxW, hA * 0.95,spec.preserveText);
     for (const ln of A.lines) w = Math.max(w, lineW(ln, A.size));
-    const f = fit(ctx, spec.lines[1], maxW, (H - hA) * 0.78, 0.5);
-    w = Math.max(w, lineW(f.text, f.size));
+    const B=spec.preserveText?explicitLines(ctx,spec.lines[1],maxW,(H-hA)*.975):null;
+    if(B)for(const line of B.lines)w=Math.max(w,lineW(line,B.size));
+    else{const f=fit(ctx,spec.lines[1],maxW,(H-hA)*.78,spec.preserveText?0:.5);w=Math.max(w,lineW(f.text,f.size));}
   } else {
-    const A = layoutLatin(ctx, spec.lines[0], maxW, H * 0.86);
+    const A = layoutLatin(ctx, spec.lines[0], maxW, H * 0.86,spec.preserveText);
     for (const ln of A.lines) w = Math.max(w, lineW(ln, A.size));
   }
   return (w + iconW + 2 * m) / REF;
@@ -157,8 +171,7 @@ function drawCell(ctx: CanvasRenderingContext2D, c: Cell): void {
     ctx.translate(-ph / 2, -pw / 2);
     W = ph; H = pw;
   }
-  const dens = c.ph / c.hm; // px per metre of this cell
-  const b = 0.12 * dens;
+  const b = signCellPadding(c);
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'center';
   ctx.fillStyle = spec.pal.fg;
@@ -181,37 +194,18 @@ function drawCell(ctx: CanvasRenderingContext2D, c: Cell): void {
   const hasTe = spec.lines.length > 1 && isTelugu(spec.lines[1]);
   if (spec.lines.length > 1) {
     const hA = H * (hasTe ? 0.52 : 0.5), hB = H - hA;
-    const A = layoutLatin(ctx, spec.lines[0], textW, hA * 0.95);
+    const A = layoutLatin(ctx, spec.lines[0], textW, hA * 0.95,spec.preserveText);
     const lh = (hA * 0.95) / A.lines.length;
     A.lines.forEach((ln, i) => { setFont(ctx, ln, A.size); ctx.fillText(ln, cx, H * 0.04 + lh * (i + 0.5)); });
-    const f = fit(ctx, spec.lines[1], textW, hB * 0.78, 0.5);
-    setFont(ctx, f.text, f.size);
-    ctx.fillText(f.text, cx, hA + hB * 0.5);
+    const B=spec.preserveText?explicitLines(ctx,spec.lines[1],textW,hB*.975):null;
+    if(B)B.lines.forEach((line,i)=>{setFont(ctx,line,B.size);ctx.fillText(line,cx,hA+hB*(i+.5)/B.lines.length);});
+    else{const f=fit(ctx,spec.lines[1],textW,hB*.78,spec.preserveText?0:.5);setFont(ctx,f.text,f.size);ctx.fillText(f.text,cx,hA+hB*.5);}
   } else {
-    const A = layoutLatin(ctx, spec.lines[0], textW, H * 0.86);
+    const A = layoutLatin(ctx, spec.lines[0], textW, H * 0.86,spec.preserveText);
     const lh = (H * 0.86) / A.lines.length;
     A.lines.forEach((ln, i) => { setFont(ctx, ln, A.size); ctx.fillText(ln, cx, H * 0.07 + lh * (i + 0.5)); });
   }
   ctx.restore();
-}
-
-/** shelf-pack cells at pixel density d (px per metre); returns atlas height used or -1 if it does not fit */
-function pack(cells: Cell[], d: number, S: number): number {
-  const PAD = 5;
-  for (const c of cells) {
-    c.pw = Math.max(16, Math.min(S - 2 * PAD, Math.ceil(c.wm * d)));
-    c.ph = Math.max(16, Math.ceil(c.hm * d));
-  }
-  const order = cells.slice().sort((a, b) => b.ph - a.ph);
-  let x = PAD, y = PAD, rowH = 0;
-  for (const c of order) {
-    if (x + c.pw + PAD > S) { x = PAD; y += rowH + PAD; rowH = 0; }
-    if (y + c.ph + PAD > S) return -1;
-    c.px = x; c.py = y;
-    x += c.pw + PAD;
-    rowH = Math.max(rowH, c.ph);
-  }
-  return y + rowH + PAD;
 }
 
 /* ------------------------------------------------------------------ materials */
@@ -309,7 +303,7 @@ function frameOf(sf: Storefront): Frame | null {
   const [A, B] = sf.facade;
   const dx = B[0] - A[0], dz = B[1] - A[1];
   const len = Math.hypot(dx, dz);
-  if (len < 0.8) return null;
+  if (len < (sf.placeId.startsWith('survey:building-panel-')?.08:.8)) return null;
   let nx = dz / len, nz = -dx / len;
   const hx = -Math.sin(sf.facingHeading), hz = -Math.cos(sf.facingHeading);
   if (nx * hx + nz * hz < 0) { nx = -nx; nz = -nz; }
@@ -355,6 +349,7 @@ export interface StorefrontStats {
   drawCalls: number;
   triangles: number;
   atlasPx: number;
+  atlasPages: number;
   pxPerMetre: number;
   upperBoards: number;
   buildMs: number;
@@ -364,15 +359,38 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
   const t0 = performance.now();
   const group = new THREE.Group();
   group.name = `stores_${chunk.id}`;
-  const list = (chunk.storefronts ?? []).filter((s) => s && s.name && s.facade);
-  const stats: StorefrontStats = { storefronts: 0, drawCalls: 0, triangles: 0, atlasPx: 0, pxPerMetre: 0, upperBoards: 0, buildMs: 0 };
+  const byBuilding = new Map(chunk.buildings.map(b=>[b.id,b]));
+  const list = (chunk.storefronts ?? []).filter(s=>{
+    if(!s?.name||!s.facade)return false;
+    if(s.placeId.startsWith('survey:'))return true;
+    const b=s.buildingId?byBuilding.get(s.buildingId):undefined;
+    // Researched architecture shows researched fronts. Raw listings remain in the map inventory.
+    return !b?.researchedProfile&&!b?.surveyStyle&&s.placement?.display!=='listing_only';
+  });
+  const accessPlans=new Map<string,BuildingAccessPlan>();
+  for(const b of chunk.buildings)if(b.researchedProfile?.fronts.some(f=>f.access)||['madhapur_commercial','madhapur_brown_commercial','habsiguda_gatsi_block'].includes(b.surveyStyle??''))accessPlans.set(b.id,buildingAccessPlan(b,chunk.storefronts.filter(s=>s.buildingId===b.id),accessRoadIndex(core)));
+  // Source-backed building names and advertisement boards share the sign atlas without creating tenancy data.
+  for(const building of chunk.buildings){
+    const profile=building.researchedProfile;if(!profile)continue;
+    const panels=[...(profile.nameBand&&building.name?[{...profile.nameBand,text:building.name,kind:'building_name'}]:[]),...(profile.signPanels??[]).map(p=>({...p,kind:'observed_advertisement'}))];
+    for(const [index,band]of panels.entries()){
+      const rule=profile.fronts[band.frontIndex??0];if(!rule)continue;
+      const face=researchedFacesOf(building,rule,list.filter(s=>s.buildingId===building.id))[0];if(!face)continue;
+      const [a,b]=face.facade,W=Math.hypot(b[0]-a[0],b[1]-a[1]);let x=(a[0]+b[0])/2,z=(a[1]+b[1])/2,facade=face.facade;
+      if(band.at!==undefined){
+        let nx=(b[1]-a[1])/W,nz=-(b[0]-a[0])/W;if(nx*-Math.sin(face.heading)+nz*-Math.cos(face.heading)<0){nx=-nx;nz=-nz;}
+        const offset=(band.at-.5)*W,half=W*(band.widthRatio??.65)/2;x+=nz*offset;z-=nx*offset;
+        facade=[[x-nz*half,z+nx*half],[x+nz*half,z-nx*half]];
+      }
+      list.push({id:`building-panel-${building.id}-${index}`,placeId:`survey:building-panel-${building.id}-${index}`,name:band.text,nameTe:null,category:band.kind,group:'office_service',confidence:1,sources:profile.sourceIds,license:'Factual survey; reference imagery not redistributed',x,z,buildingId:building.id,roadId:building.frontRoadId??'',side:building.frontSide??'left',facade,facingHeading:face.heading,floor:1,status:'provisional',appearance:{signColor:band.color,signTextColor:band.textColor,signBaseM:band.baseM,signHeightM:band.heightM,signWidthM:W*(band.widthRatio??.65),signOutsetM:band.outsetM??.65,awning:false,categoryProps:false}});
+    }
+  }
+  const stats: StorefrontStats = { storefronts: 0, drawCalls: 0, triangles: 0, atlasPx: 0, atlasPages: 0, pxPerMetre: 0, upperBoards: 0, buildMs: 0 };
   group.userData.stats = stats;
   group.userData.pending = Promise.resolve();
   if (!list.length) return group;
 
   const mats = sharedMats(quality);
-  const byBuilding = new Map<string, Building>();
-  for (const b of chunk.buildings) byBuilding.set(b.id, b);
 
   let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
   for (const s of list) { const f = s.facade!; for (const p of f) { minX = Math.min(minX, p[0]); maxX = Math.max(maxX, p[0]); minZ = Math.min(minZ, p[1]); maxZ = Math.max(maxZ, p[1]); } }
@@ -390,14 +408,26 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
     const len = Math.hypot(sf.facade![1][0] - sf.facade![0][0], sf.facade![1][1] - sf.facade![0][1]);
     const h = hashString(sf.id);
     const bld = sf.buildingId ? byBuilding.get(sf.buildingId) : undefined;
-    const H = bld ? bld.heightM : 9;
-    const pal = palette(sf.group, h >>> 4);
-    const te = sf.nameTe && sf.nameTe.trim() ? sf.nameTe.trim() : null;
+    const appearance = (sf as StyledStorefront).appearance;
+    const H = appearance?.heightM ?? (bld ? bld.heightM : 9);
+    const basePalette = palette(sf.group, h >>> 4);
+    const pal: Pal = { ...basePalette, awn: [...basePalette.awn] };
+    if(appearance?.signColor)pal.bg=appearance.signColor;
+    if(appearance?.signTextColor)pal.fg=appearance.signTextColor;
+    if(appearance?.shutterColor)pal.shutterTint=new THREE.Color(appearance.shutterColor).getHex();
+    if(appearance?.awningColor)pal.awn=[new THREE.Color(appearance.awningColor).getHex(),new THREE.Color(appearance.awningColor).getHex()];
+    if(appearance?.categoryProps===false)pal.icon=undefined;
+    const researchSign=sf.placeId.startsWith('survey:') || sf.status==='verified';
+    const te = sf.nameTe && sf.nameTe.trim() ? researchSign&&/[\r\n]/.test(sf.nameTe)?sf.nameTe:sf.nameTe.trim() : null;
     if (te) hasTelugu = true;
     if (isTelugu(sf.name)) hasTelugu = true;
-    const W = Math.min(18, Math.max(2.6, len));
-    const upper = sf.floor === 1;
-    const lines = te && !isTelugu(sf.name) ? [sf.name.trim(), te] : [sf.name.trim()];
+    const W = sf.status === 'verified' || appearance ? len : Math.min(18, Math.max(2.6, len));
+    const upper = sf.floor > 0;
+    const neutralListing=sf.placement?.floorBasis==='unknown'&&!sf.placeId.startsWith('survey:');
+    if(neutralListing){pal.bg='#435256';pal.fg='#e5ebe8';pal.icon=undefined;}
+    const displayName=appearance?.displayName ?? sf.name;
+    const label=researchSign&&/[\r\n]/.test(displayName)?displayName:displayName.trim();
+    const lines = te && !isTelugu(displayName) ? [label, te] : [label];
     const long = sf.name.length > 26;
     let boardH: number, boardW: number, boardY: number;
     if (upper) {
@@ -409,16 +439,24 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
       boardW = Math.min(11, Math.max(2.4, W - 0.3));
       boardY = H >= 3.7 + boardH * 0.2 ? 2.55 : Math.max(1.8, H - boardH - 0.1);
     }
-    const spec0: CellSpec = { lines, pal, vertical: false, icon: upper ? undefined : pal.icon };
-    const innerW = boardW - 0.34, innerH = boardH - 0.24;
+    if(appearance?.signWidthM!==undefined)boardW=Math.max(sf.placeId.startsWith('survey:building-panel-')?.08:.7,Math.min(W,appearance.signWidthM));
+    if(neutralListing){
+      const base=bld?.baseHeightM??0,bodyH=Math.max(.9,(bld?.heightM??H)-base);
+      boardW=Math.max(.7,Math.min(W-.2,5));boardH=.7;boardY=base+Math.max(.1,Math.min(2.55,bodyH-boardH-.15));
+    }
+    if(appearance?.signHeightM!==undefined)boardH=Math.max(.3,appearance.signHeightM);
+    if(appearance?.signBaseM!==undefined)boardY=Math.max(.1,appearance.signBaseM);
+    const spec0: CellSpec = { lines, pal, vertical: false, icon: upper ? undefined : pal.icon,preserveText:researchSign };
+    const textArea=signTextArea(boardW,boardH),innerW=textArea.widthM,innerH=textArea.heightM;
     const tw = measureSpec(mctx, spec0, innerW, innerH);
-    const cell: Cell = { wm: Math.max(0.8, Math.min(innerW, tw + 0.02)), hm: innerH, spec: spec0, px: 0, py: 0, pw: 0, ph: 0 };
+    const cell: Cell = { priority:researchSign,minimumDensity:quality==='low'?64:quality==='high'?130:96,wm: Math.max(0.08, Math.min(innerW, tw + 0.02)), hm: innerH, spec: spec0, px: 0, py: 0, pw: 0, ph: 0 };
     cells.push(cell);
     const plan: Plan = { sf, fr, W, H, h, pal, underDeck: underDeckAt(fr.cx, fr.cz, elevated), boardCell: cell, boardW, boardH, boardY };
-    if (!upper && sf.group === 'hotel_lodging' && H >= 7.5 && quality !== 'low') {
+    // A photographed horizontal hotel board does not establish an additional vertical sign.
+    if (!researchSign && !upper && sf.group === 'hotel_lodging' && H >= 7.5 && quality !== 'low') {
       const bh = Math.min(3.2, H - boardY - boardH - 0.5);
       if (bh >= 1.8) {
-        const bc: Cell = { wm: 0.85, hm: bh, spec: { lines: [sf.name.trim()], pal, vertical: true }, px: 0, py: 0, pw: 0, ph: 0 };
+        const bc: Cell = { priority:researchSign,minimumDensity:quality==='high'?130:96,wm: 0.85, hm: bh, spec: { lines: [sf.name.trim()], pal, vertical: true }, px: 0, py: 0, pw: 0, ph: 0 };
         cells.push(bc);
         plan.bladeCell = bc; plan.bladeH = bh; plan.bladeY0 = boardY + boardH + 0.25;
       }
@@ -428,41 +466,20 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
   if (!plans.length) return group;
 
   // ------------------------------------------------------- atlas pack + paint
-  const S = quality === 'high' ? 2048 : quality === 'standard' ? 1024 : 512;
   const dMax = quality === 'high' ? 130 : quality === 'standard' ? 100 : 60;
-  const fitDensity = (): number => {
-    let lo = 8, hi = dMax;
-    if (pack(cells, dMax, S) >= 0) return dMax;
-    for (let i = 0; i < 9; i++) {
-      const mid = (lo + hi) / 2;
-      if (pack(cells, mid, S) >= 0) lo = mid; else hi = mid;
-    }
-    pack(cells, lo, S);
-    return lo;
-  };
-  let d = fitDensity();
-  // crowded chunk on a small atlas: keep legible ground-floor names, give upper-floor boards a plain colour
-  if (d < (quality === 'low' ? 26 : 34) && quality !== 'high') {
-    for (let i = cells.length - 1; i >= 0; i--) {
-      const owner = plans.find((pl) => pl.boardCell === cells[i]);
-      if (owner && owner.sf.floor === 1) { owner.boardCell.pw = -1; cells.splice(i, 1); }
-    }
-    if (cells.length) d = fitDensity();
-  }
-  const canvas = document.createElement('canvas');
-  canvas.width = canvas.height = S;
-  const ctx = canvas.getContext('2d')!;
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = anisoFor(quality);
-  tex.generateMipmaps = true;
-  tex.minFilter = THREE.LinearMipmapLinearFilter;
-  tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
+  const layout=layoutSignAtlasPages(cells,dMax,quality==='high'?2048:quality==='standard'?1024:512,quality==='high'?4096:2048);
+  const S=layout.size,d=dMax;
+  const pages=Array.from({length:layout.pages},()=>{
+    const canvas=document.createElement('canvas');canvas.width=canvas.height=S;
+    const ctx=canvas.getContext('2d')!,tex=new THREE.CanvasTexture(canvas);
+    tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=anisoFor(quality);tex.generateMipmaps=true;
+    tex.minFilter=THREE.LinearMipmapLinearFilter;tex.wrapS=tex.wrapT=THREE.ClampToEdgeWrapping;
+    return {ctx,tex};
+  });
   const paint = (): void => {
-    ctx.fillStyle = '#444';
-    ctx.fillRect(0, 0, S, S);
-    for (const c of cells) drawCell(ctx, c);
-    tex.needsUpdate = true;
+    for(const {ctx}of pages){ctx.fillStyle='#444';ctx.fillRect(0,0,S,S);}
+    for(const c of cells)drawCell(pages[c.page!].ctx,c);
+    for(const {tex}of pages)tex.needsUpdate=true;
   };
   paint();
   if (hasTelugu) {
@@ -478,15 +495,16 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
   const lit = new GeoBuilder(true);
   const body = new GeoBuilder(true);
   const front = new GeoBuilder(true);
-  const sign = new GeoBuilder(true);
+  const signs = pages.map(()=>new GeoBuilder(true));
   const cylGeo = quality === 'low' ? unitCylLow : unitCyl;
   const full = quality !== 'low';
 
   for (const pl of plans) {
     const { sf, fr, W, H, h, pal } = pl;
+    const appearance = (sf as StyledStorefront).appearance;
     const L = new Loc(fr);
     const r = rng(h ^ 0x9e3779b9);
-    const upper = sf.floor === 1;
+    const upper = sf.floor > 0;
     stats.storefronts++;
     const bgc = hex(new THREE.Color(pal.bg).getHex());
     const fgc = hex(new THREE.Color(pal.fg).getHex());
@@ -494,54 +512,104 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
 
     // ---- sign board (3D box in the lit mesh + text quad in the sign mesh)
     const bw = pl.boardW, bh = pl.boardH, by = pl.boardY;
-    const depth = upper ? 0.1 : 0.26;
-    L.box(lit, -bw / 2, bw / 2, by, by + bh, 0.02, depth, edgeC, true);
-    L.quad(lit, -bw / 2, bw / 2, by, by + bh, depth + 0.001, bgc, [0, 0, 1, 0, 1, 1, 0, 1]);
-    const nSign = depth + 0.004;
+    const observedBuilding=sf.buildingId?byBuilding.get(sf.buildingId):undefined;
+    // The observed Suprabhat header sits on the projecting balcony face, not behind its skin.
+    const depth = upper ? 0.1 : 0.26, mount=appearance?.signOutsetM??(upper&&observedBuilding?.surveyStyle==='hotel_suprabhat'?.68:0);
+    L.box(lit, -bw / 2, bw / 2, by, by + bh, mount+0.02, mount+depth, edgeC, true);
+    L.quad(lit, -bw / 2, bw / 2, by, by + bh, mount+depth + 0.001, bgc, [0, 0, 1, 0, 1, 1, 0, 1]);
+    const nSign = mount+depth + 0.004;
     const cw = pl.boardCell.wm, chh = pl.boardCell.hm;
-    if (!(pl.boardCell.pw === -1)) L.quad(sign, -cw / 2, cw / 2, by + (bh - chh) / 2, by + (bh + chh) / 2, nSign, bgc, cellUV(pl.boardCell));
+    L.quad(signs[pl.boardCell.page!], -cw / 2, cw / 2, by + (bh - chh) / 2, by + (bh + chh) / 2, nSign, bgc, cellUV(pl.boardCell));
     {
       // thin trim line round the board face (keeps the 'manufactured sign' look without spending atlas pixels)
       const ft = 0.035, fi = 0.06, fc = hex(new THREE.Color(pal.fg).getHex());
       const fcol = [fc[0] * 0.92, fc[1] * 0.92, fc[2] * 0.92];
-      const nF = depth + 0.002;
+      const nF = mount+depth + 0.002;
       const uvz = [0, 0, 1, 0, 1, 1, 0, 1];
       L.quad(lit, -bw / 2 + fi, bw / 2 - fi, by + fi, by + fi + ft, nF, fcol, uvz);
       L.quad(lit, -bw / 2 + fi, bw / 2 - fi, by + bh - fi - ft, by + bh - fi, nF, fcol, uvz);
       L.quad(lit, -bw / 2 + fi, -bw / 2 + fi + ft, by + fi, by + bh - fi, nF, fcol, uvz);
       L.quad(lit, bw / 2 - fi - ft, bw / 2 - fi, by + fi, by + bh - fi, nF, fcol, uvz);
     }
-    if (upper) {
-      stats.upperBoards++;
+    const neutralListing=sf.placement?.floorBasis==='unknown'&&!sf.placeId.startsWith('survey:');
+    // Some observed records establish only a board (not a door or occupied shop bay).
+    const observedBoardOnly=sf.placeId.startsWith('survey:')&&sf.category.endsWith('_signage');
+    if (upper||neutralListing||observedBoardOnly) {
+      if(upper)stats.upperBoards++;
       // two small brackets so the board visibly hangs on the wall
-      L.box(body, -bw / 2 + 0.2, -bw / 2 + 0.26, by - 0.18, by, 0.02, 0.06, [0.3, 0.3, 0.3]);
-      L.box(body, bw / 2 - 0.26, bw / 2 - 0.2, by - 0.18, by, 0.02, 0.06, [0.3, 0.3, 0.3]);
+      L.box(body, -bw / 2 + 0.2, -bw / 2 + 0.26, by - 0.18, by, 0.02, mount+0.06, [0.3, 0.3, 0.3]);
+      L.box(body, bw / 2 - 0.26, bw / 2 - 0.2, by - 0.18, by, 0.02, mount+0.06, [0.3, 0.3, 0.3]);
       continue;
     }
 
+    const access=sf.buildingId?accessPlans.get(sf.buildingId):undefined;
+    const recess=access&&sf.facade?accessRecessForFacade(access,sf.facade,sf.facingHeading):undefined;
+    const baseY=appearance?.frontBaseM??0,inset=(appearance?.frontInsetM??0)-(recess?.depthM??0);
+    if(appearance?.facadeColor) {
+      L.box(body,-W/2,W/2,baseY,Math.max(by+bh+.2,Math.min(H,7)), inset-.08,inset, hex(new THREE.Color(appearance.facadeColor).getHex()));
+    }
     // ---- ground-floor front: pilasters + textured panel(s)
     const fh = by; // front height (up to the underside of the board)
-    const pil = hex(h % 2 ? 0xd8d2c0 : 0xb8b2a2);
-    L.box(body, -W / 2, -W / 2 + 0.14, 0, fh, 0, 0.16, pil);
-    L.box(body, W / 2 - 0.14, W / 2, 0, fh, 0, 0.16, pil);
+    const pil = hex(appearance?.facadeColor ? new THREE.Color(appearance.facadeColor).getHex() : h % 2 ? 0xd8d2c0 : 0xb8b2a2);
+    L.box(body, -W / 2, -W / 2 + 0.14, baseY, fh, inset, inset+0.16, pil);
+    L.box(body, W / 2 - 0.14, W / 2, baseY, fh, inset, inset+0.16, pil);
     const iw = W - 0.28;
     const nb = Math.max(1, Math.round(iw / 3.0));
     const cellsFor = FRONT_CELLS[sf.group] ?? FRONT_CELLS.other;
     const tint = pal.shutterTint !== undefined ? hex(pal.shutterTint) : hex([0x6f8aa6, 0x9a4a3a, 0x4e7a56, 0xb8b1a0, 0x7c7f86][h % 5]);
     for (let k = 0; k < nb; k++) {
-      const ci = cellsFor[k === 0 ? 0 : (1 + (h + k)) % cellsFor.length] ?? cellsFor[0];
+      const ci = appearance?.frontStyle==='shutter'?FC.shutter:cellsFor[k === 0 ? 0 : (1 + (h + k)) % cellsFor.length] ?? cellsFor[0];
       const uvr = frontCellUV(ci, quality);
       const u0 = -iw / 2 + (iw * k) / nb, u1 = -iw / 2 + (iw * (k + 1)) / nb;
       const shutter = ci === FC.shutter || ci === FC.shutterHalf;
       const col = shutter ? tint : [1, 1, 1];
       // a hair of vertical variation of the frame colour avoids a tiled look
-      L.quad(front, u0, u1, 0.0, fh, 0.05, col, [uvr.u0, uvr.v0, uvr.u1, uvr.v0, uvr.u1, uvr.v1, uvr.u0, uvr.v1]);
+      if(appearance?.frontStyle==='open_bay'){
+        // A shallow dark stock bay has no invented glass door, shutter or handles.
+        L.quad(lit,u0,u1,baseY,fh,inset+.018,hex(0x292e28),[0,0,1,0,1,1,0,1]);
+      }else if(appearance?.frontStyle==='glazed'){
+        L.quad(lit,u0,u1,baseY,fh,inset+.05,hex(0x263b3d),[0,0,1,0,1,1,0,1]);
+        L.box(body,u0,u0+.045,baseY,fh,inset+.05,inset+.09,hex(0x84938e));
+        L.box(body,u1-.045,u1,baseY,fh,inset+.05,inset+.09,hex(0x84938e));
+        L.box(body,(u0+u1)/2-.025,(u0+u1)/2+.025,baseY+.7,Math.min(fh,baseY+1.35),inset+.08,inset+.13,hex(0xc2c6ba));
+      }else if(appearance?.frontStyle==='shutter'&&appearance.frontOpening){
+        const opening=appearance.frontOpening,centre=(opening.at-.5)*W,a=centre-opening.widthM/2,b=centre+opening.widthM/2;
+        for(const [left,right]of [[u0,Math.min(u1,a)],[Math.max(u0,b),u1]])if(right-left>.02)L.quad(front,left,right,baseY,fh,inset+.05,col,[uvr.u0,uvr.v0,uvr.u1,uvr.v0,uvr.u1,uvr.v1,uvr.u0,uvr.v1]);
+        const left=Math.max(u0,a),right=Math.min(u1,b);
+        if(right>left){
+          L.quad(lit,left,right,baseY,fh,inset+.051,hex(0x142025),[0,0,1,0,1,1,0,1]);
+          L.box(body,left,left+.05,baseY,fh,inset+.06,inset+.1,hex(0x999b8f));
+          L.box(body,right-.05,right,baseY,fh,inset+.06,inset+.1,hex(0x999b8f));
+        }
+      }else L.quad(front, u0, u1, baseY, fh, inset+0.05, col, [uvr.u0, uvr.v0, uvr.u1, uvr.v0, uvr.u1, uvr.v1, uvr.u0, uvr.v1]);
+    }
+    // Stock visible in the source photograph is an explicit authored choice.
+    // These shallow display pieces stay inside the facade's visual bay.
+    if(appearance?.observedDisplay){
+      if(['medicines','cement_bags','appliances','framed_art','hardware_goods','luggage_goods'].includes(appearance.observedDisplay)){
+        const stock=appendObservedStock(appearance.observedDisplay as ObservedStock,appearance.displaySide,{widthM:iw,baseY,topY:fh,insetM:inset,yaw:fr.th,at:(u,n)=>L.at(u,n)},quality,body,lit);
+        (group.userData.observedDisplays??=[]).push({storefrontId:sf.id,...stock,placementStatus:'provisional'});
+      }else{
+        L.quad(lit,-iw/2,iw/2,baseY,fh,inset+.10,hex(0x302f24),[0,0,1,0,1,1,0,1]);
+        const cols=Math.max(3,Math.round(iw/.65));
+        for(let col=0;col<cols;col++)for(let row=0;row<2+col%2;row++){
+          const x=-iw/2+.12+(iw-.24)*(col+.5)/cols,w=(iw-.32)/cols*.85,y=baseY+row*.48;
+          L.box(body,x-w/2,x+w/2,y,y+.44,inset+.13,inset+.52,hex(col%3===0?0xad9068:0xdad9c7));
+          L.box(body,x-w/2,x+w/2,y+.06,y+.17,inset+.52,inset+.535,hex(0x276c93));
+        }
+        const coil=new THREE.TorusGeometry(.2,.025,quality==='low'?4:6,quality==='low'?10:18);
+        for(let col=0;col<Math.max(2,Math.round(iw/1.1));col++){
+          const x=-iw/2+.4+col*1.1,[wx,wz]=L.at(x,inset+.32);
+          body.appendGeometry(coil,boxMatrix(wx,fh-.35,wz,fr.th),hex(0xaeb5ae));
+        }
+        coil.dispose();
+      }
     }
     // doorstep
-    L.box(body, -0.5 + ((h >> 3) % 7) * 0.12, 0.7 + ((h >> 3) % 7) * 0.12, 0, 0.12, 0.05, 0.38, hex(0x9a968c));
+    if(baseY===0 && appearance?.frontStyle!=='glazed'&&appearance?.frontStyle!=='open_bay')L.box(body, -0.5 + ((h >> 3) % 7) * 0.12, 0.7 + ((h >> 3) % 7) * 0.12, 0, 0.12, 0.05, 0.38, hex(0x9a968c));
 
     // ---- awning / sun-shade (projecting)
-    const wantAwn = !pl.underDeck && sf.group !== 'worship' && (full || sf.group === 'restaurant') && ((h >> 5) % 5 !== 0 || sf.group === 'restaurant' || sf.group === 'cafe_bakery' || sf.group === 'grocery');
+    const wantAwn = appearance?.awning ?? (!pl.underDeck && sf.group !== 'worship' && (full || sf.group === 'restaurant') && ((h >> 5) % 5 !== 0 || sf.group === 'restaurant' || sf.group === 'cafe_bakery' || sf.group === 'grocery'));
     if (wantAwn) {
       const aw = W - 0.3;
       const ns = Math.max(2, Math.round(aw / 0.42));
@@ -557,7 +625,7 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
     }
 
     // ---- category props
-    if (!pl.underDeck && quality !== 'low') {
+    if (appearance?.categoryProps!==false && !pl.underDeck && quality !== 'low') {
       const nProps = quality === 'high' ? 1.4 : 1;
       const slotU = (k: number, n: number): number => {
         const span = Math.max(0.1, W - 1.4);
@@ -680,7 +748,7 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
     if (pl.bladeCell && pl.bladeH && pl.bladeY0 !== undefined && !pl.underDeck) {
       const bu = W / 2 - 0.65;
       L.box(lit, bu - 0.45, bu + 0.45, pl.bladeY0, pl.bladeY0 + pl.bladeH, 0.02, 0.1, edgeC, true);
-      L.quad(sign, bu - 0.425, bu + 0.425, pl.bladeY0 + 0.02, pl.bladeY0 + pl.bladeH - 0.02, 0.104, bgc, cellUV(pl.bladeCell));
+      L.quad(signs[pl.bladeCell.page!], bu - 0.425, bu + 0.425, pl.bladeY0 + 0.02, pl.bladeY0 + pl.bladeH - 0.02, 0.104, bgc, cellUV(pl.bladeCell));
     }
     void fgc;
   }
@@ -702,13 +770,13 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
   emit(front, mats.front, 'store-fronts', false);
   emit(body, mats.body, 'store-body', true);
   emit(lit, mats.lit, 'store-boards', false);
-  const signMat = makeSignMaterial(tex, quality === 'low' ? 80 : 120);
-  emit(sign, signMat, 'store-signs', false);
+  const signMaterials=pages.map(({tex},i)=>{const mat=makeSignMaterial(tex,quality==='low'?80:120);emit(signs[i],mat,i?'store-signs-'+i:'store-signs',false);return mat;});
   stats.buildMs = Math.round((performance.now() - t0) * 10) / 10;
   stats.atlasPx = S;
+  stats.atlasPages = pages.length;
   stats.pxPerMetre = Math.round(d);
-  group.userData.signTexture = tex;
-  group.userData.signMaterial = signMat;
+  group.userData.signTextures = pages.map(p=>p.tex);
+  group.userData.signMaterials = signMaterials;
   registerCull(group);
   return group;
 }
@@ -719,6 +787,6 @@ export function disposeStorefronts(g: THREE.Object3D): void {
     const m = o as THREE.Mesh;
     if (m.isMesh) m.geometry.dispose();
   });
-  (g.userData.signTexture as THREE.Texture | undefined)?.dispose();
-  (g.userData.signMaterial as THREE.Material | undefined)?.dispose();
+  for(const tex of (g.userData.signTextures??[]) as THREE.Texture[])tex.dispose();
+  for(const mat of (g.userData.signMaterials??[]) as THREE.Material[])mat.dispose();
 }

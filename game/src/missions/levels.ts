@@ -1,6 +1,6 @@
 import type { WorldCore, DeliveryLocation, MetroStation } from '../world/schema';
 import type { WorldPhysics } from '../world/collision';
-import { routeBetween, deadlineFor, type RouteInfo } from './catalog';
+import { routeBetween, deadlineFor, isFoodPickup, isPizzaPickup, type RouteInfo } from './catalog';
 import type { MissionDef, MissionTemplate } from './types';
 
 /**
@@ -42,6 +42,9 @@ export function buildLevelCatalog(core: WorldCore, world: WorldPhysics, maxPerLe
   };
   // deterministic order
   const sorted = ds.slice().sort((p, q) => (p.id < q.id ? -1 : p.id > q.id ? 1 : 0)); // code-point order: same catalogue in every locale
+  const pickups = sorted.filter((d) => isFoodPickup(core, d));
+  const pizza = pickups.filter((d) => isPizzaPickup(core, d));
+  const otherFood = pickups.filter((d) => !isPizzaPickup(core, d));
   const bands: { level: number; min: number; max: number; straightMin: number; straightMax: number; pred: (a: DeliveryLocation, b: DeliveryLocation) => boolean }[] = [
     { level: 1, min: 400, max: 1500, straightMin: 150, straightMax: 1100, pred: (a, b) => area.get(a.id) === area.get(b.id) },
     { level: 2, min: 1500, max: 4000, straightMin: 900, straightMax: 3200, pred: (a, b) => area.get(a.id) !== area.get(b.id) && sharesLine(a, b) },
@@ -60,8 +63,10 @@ export function buildLevelCatalog(core: WorldCore, world: WorldPhysics, maxPerLe
   for (const band of bands) {
     let n = 0;
     // spread over areas: rotate start index per level for variety
-    for (let i = 0; i < sorted.length && n < maxPerLevel; i++) {
-      const a = sorted[(i * 7 + band.level * 13) % sorted.length];
+    for (let i = 0; i < pickups.length && n < maxPerLevel; i++) {
+      // Start with real pizza-outlet listings. Food-business categories remain a fallback where
+      // a neighbourhood/distance band has no compatible pizza-outlet route.
+      const a = i < pizza.length ? pizza[(i + band.level - 1) % pizza.length] : otherFood[(i - pizza.length + band.level * 13) % otherFood.length];
       const cands = sorted.filter((b) => b !== a && band.pred(a, b)).map((b) => ({ b, d: Math.hypot(b.entrance[0] - a.entrance[0], b.entrance[1] - a.entrance[1]) }))
         .filter((c) => c.d >= band.straightMin && c.d <= band.straightMax).sort((p, q) => p.d - q.d || (p.b.id < q.b.id ? -1 : p.b.id > q.b.id ? 1 : 0));
       for (const c of cands.slice(0, 6)) {
@@ -76,14 +81,14 @@ export function buildLevelCatalog(core: WorldCore, world: WorldPhysics, maxPerLe
         const from = area.get(a.id)?.name ?? '', to = area.get(c.b.id)?.name ?? '';
         const margin = band.level === 1 ? 1.8 : 1.6;
         out.push({
-          id: `l${band.level}_${n + 1}_${a.id.replace(/^d_/, '')}`.slice(0, 64), version: 1, templates: tpl, level: band.level,
+          id: `l${band.level}_${n + 1}_${a.id.replace(/^d_/, '')}`.slice(0, 64), version: 2, templates: tpl, level: band.level,
           title: `${from === to ? from : `${from} → ${to}`}`,
-          brief: `${a.label} to ${c.b.label}. ${(r.lengthM / 1000).toFixed(1)} km on real roads. ${flight} s of flight for the whole delivery.${fragile ? ' Fragile: bumps cost 2.5× cargo.' : ''}`,
+          brief: `Collect pizza at ${a.label}, then deliver to ${c.b.label}. ${(r.lengthM / 1000).toFixed(1)} km on real roads. Drive to recharge flight.${fragile ? ' Keep the pizza level: bumps cost 2.5× condition.' : ''}`,
           pickupId: a.id, stops: [c.b.id], flightSeconds: flight as 20 | 25 | 30,
-          deadlineSeconds: deadlineFor(r.lengthM, r.turns, 1, margin),
-          cargo: fragile ? { label: 'Fragile parcel', fragility: 2.5, failThreshold: 40 } : { label: 'Parcel', fragility: 1, failThreshold: 0 },
+          deadlineSeconds: deadlineFor(r.lengthM + 180, r.turns, 2, margin, band.level === 1 ? 4.5 : 3.8),
+          cargo: fragile ? { label: 'Fresh pizza — keep level', fragility: 2.5, failThreshold: 40 } : { label: 'Hot pizza', fragility: 1, failThreshold: 0 },
           traffic: band.level === 1 ? 'normal' : 'busy', seed: 5000 + band.level * 100 + n,
-          deadlineBasis: `route ${Math.round(r.lengthM)} m, ${r.turns} turn units; formula ×${margin}; verified by reference agent (ground only)`,
+          deadlineBasis: `route ${Math.round(r.lengthM)} m plus 180 m pickup approach; ${band.level === 1 ? 4.5 : 3.8} m/s dense-traffic planning pace ×${margin}; includes collection and handover`,
           routeLengthM: Math.round(r.lengthM), fromArea: from, toArea: to,
         });
         n++;

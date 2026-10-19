@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "id": "habsiguda-paradise-station-context-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Dated Street View context at Habsiguda Metro and Paradise Metro. Habsiguda captures January 2026 and Paradise captures February 2026. The records document visible station-side public realm and a partly cropped kiosk fascia only; no complete frontage order, exact store positions, road-side range, operating status, or metric geometry is asserted.",
+  "sources": [
+    {
+      "id": "sv-habsiguda-station-road-202601-20261018",
+      "kind": "street_view",
+      "title": "Habsiguda station road under elevated metro — 2026-01",
+      "url": "https://www.google.com/maps/@17.4201695,78.5405199,538a,90y,33h,90t/data=!3m7!1e1!3m5!1swTdeorP757Y8tJmgUbVb-Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DwTdeorP757Y8tJmgUbVb-Q%26yaw%3D33!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4201695,
+        "lon": 78.5405199,
+        "panoId": "wTdeorP757Y8tJmgUbVb-Q",
+        "headingDeg": 33
+      },
+      "assetPolicy": "reference_only",
+      "notes": "January 2026 Street View at Habsiguda shows the metro structure over the road, concrete piers, a raised planted strip, a long roofed passenger waiting area, a city bus, cars and motorcycles. The view does not prove a particular transit stop identifier or street-side storefront order. Reference imagery is not copied."
+    },
+    {
+      "id": "sv-paradise-sardar-patel-station-road-202602-20261018",
+      "kind": "street_view",
+      "title": "Paradise station Sardar Patel Road under parallel flyovers — 2026-02",
+      "url": "https://www.google.com/maps/@17.443452,78.4862916,543a,90y,270h,90t/data=!3m7!1e1!3m5!1stewjeY8qHjLmuHbqeT5sug!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DtewjeY8qHjLmuHbqeT5sug%26yaw%3D270!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.443452,
+        "lon": 78.4862916,
+        "panoId": "tewjeY8qHjLmuHbqeT5sug",
+        "headingDeg": 270
+      },
+      "assetPolicy": "reference_only",
+      "notes": "February 2026 view faces west on Sardar Patel Road near Paradise Metro. It shows the roadway under large elevated structures, repeated concrete piers, a raised planted edge, several autos, buses, a car and motorcycles. A small shuttered frontage with a partly cropped cafe-like fascia and adjacent green menu-board kiosk is visible at the right edge. No image data is copied."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-habsiguda-2026-station-waiting-area",
+      "sourceIds": [
+        "sv-habsiguda-station-road-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Habsiguda station roadway: metro piers, planted strip, roofed waiting area and mixed traffic",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.4201695,
+        "lon": 78.5405199,
+        "headingDeg": 33
+      },
+      "placementStatus": "pending",
+      "notes": "Street View shows the roadway passing under the metro, large concrete supports, a raised planted area, a long roofed passenger waiting structure, a city bus, cars and motorcycles. The view is bounded and does not establish the formal bus-stop ID, cross-section dimensions, shop order, or station entrance. The camera position is not a storefront entrance."
+    },
+    {
+      "id": "obs-paradise-2026-metro-site-fascia",
+      "sourceIds": [
+        "sv-paradise-sardar-patel-station-road-202602-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "Partly cropped fascia: 'The Metro Site C…' beside Paradise station",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": "r_10056722278_1",
+      "position": {
+        "lat": 17.443452,
+        "lon": 78.4862916,
+        "headingDeg": 270
+      },
+      "placementStatus": "pending",
+      "notes": "A dark fascia at the right edge of the Sardar Patel Road view visibly begins 'The Metro Site C…'; the remainder is cropped, so the full name is unresolved. The roller shutter is down in this capture. This records a sign and shutter state on one date, not an operating-status claim or exact shop boundary, floor, entrance, source building, side, or neighbor order. Camera point is not the unit entrance."
+    },
+    {
+      "id": "obs-paradise-2026-green-kiosk",
+      "sourceIds": [
+        "sv-paradise-sardar-patel-station-road-202602-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "Green menu-board kiosk beside Paradise station frontage; operator unreadable",
+      "category": "first_pass_roadside_context",
+      "roadId": "r_10056722278_1",
+      "position": {
+        "lat": 17.443452,
+        "lon": 78.4862916,
+        "headingDeg": 270
+      },
+      "placementStatus": "pending",
+      "notes": "A small green kiosk/counter with food imagery on its menu board is visible beside the shuttered fascia. No operator name, permanence, exact footprint, service side, relationship to the adjacent shuttered unit, or entrance is established. Camera point is not a kiosk position."
+    },
+    {
+      "id": "obs-paradise-2026-parallel-flyovers-traffic",
+      "sourceIds": [
+        "sv-paradise-sardar-patel-station-road-202602-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "Paradise station road: parallel elevated structures, planting and bus/auto traffic",
+      "category": "first_pass_roadside_context",
+      "roadId": "r_10056722278_1",
+      "position": {
+        "lat": 17.443452,
+        "lon": 78.4862916,
+        "headingDeg": 270
+      },
+      "placementStatus": "pending",
+      "notes": "A single February 2026 view shows Sardar Patel Road beneath/alongside parallel elevated structures with concrete piers, a planted raised edge, autos, buses, a car and motorcycles. This documents visible context only; it does not establish lane widths, a complete traffic sample, signal placement/timing, or exact station and kiosk geometry. Camera point is not an object position."
+    }
+  ],
+  "storefrontOverrides": [],
+  "corrections": [],
+  "suppressions": [],
+  "roadReviews": []
+}

@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "project_id": "hyderabad-metro-delivery",
-  "specification_version": "3.0",
+  "specification_version": "4.0-rebuild",
   "prepared_at": "2026-10-17",
   "requested_release": "completed_requested_network",
-  "contract_state": "initial_specification_requires_geographic_scope_freeze",
+  "contract_state": "rebuild_in_progress_street_survey_required",
   "engine": "Three.js",
   "visual_target": "user_selected_whiteout_finish_adapted_to_authentic_mobile_hyderabad",
   "required_platforms": [
@@ -14,14 +14,14 @@
   "primary_runtime": "mobile_browser",
   "simulation_hz": 60,
   "flight": {
-    "model": "shared_per_contract",
+    "model": "road_recharged_boost",
     "default_budget_seconds": 25,
     "allowed_budget_seconds": [
       20,
       25,
       30
     ],
-    "regenerates_during_contract": false,
+    "regenerates_during_contract": true,
     "continuous_flight_allowed": true,
     "split_flights_allowed": true,
     "per_burst_limit_seconds": null,
@@ -33,14 +33,18 @@
       "coasting",
       "descent"
     ],
-    "reserve_is_within_budget": true,
+    "reserve_is_within_budget": "predicted normal reserve; bounded descent-only protection if prediction falls short",
     "intermediate_stop_refills": false,
     "recovery_refunds": false,
-    "ground_driving_refills": false,
+    "ground_driving_refills": true,
     "new_contract_resets_allocation": true,
     "full_retry_resets_progress_and_allocation": true,
     "exact_checkpoint_preserves_consumed_ticks": true,
-    "standard_missions_ground_completable": true
+    "standard_missions_ground_completable": true,
+    "initial_charge_seconds": 2.5,
+    "recharge_road_seconds": 10,
+    "recharge_flight_seconds": 2.5,
+    "protected_descent_only_seconds": 4
   },
   "requested_geography": {
     "city": "Hyderabad",
@@ -150,5 +154,13 @@
     "review_requirement": "Q08",
     "review_gate": "C4",
     "reuse_rights_granted_by_reference": false
+  },
+  "delivery": {
+    "acceptance": "explicit_order_acceptance",
+    "spawn": "connected_road_approach_away_from_pickup",
+    "pickup": "stopped_correct_entrance_explicit_E_or_button",
+    "handover": "stopped_correct_customer_entrance_explicit_E_or_button",
+    "pickups": "source_category_restaurant_or_cafe_bakery",
+    "automatic_collection": false
   }
 }

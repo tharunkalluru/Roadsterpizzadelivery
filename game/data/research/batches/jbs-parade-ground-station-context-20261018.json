@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "jbs-parade-ground-station-context-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "First-pass January 2025 Street View at the JBS Parade Ground station-area junction. The panorama shows elevated metro and flyover structures, a traffic-signal mast, buses, motorcycles, cars and pedestrians. No shop fascia or continuous business row is legible. This is public-realm context only; no business, storefront order, canonical road side, signal phase/timing or measured geometry is added.",
+  "sources": [
+    {
+      "id": "sv-jbs-parade-ground-junction-202501-20261018",
+      "kind": "street_view",
+      "title": "Hyderabad–Karimnagar–Ramagundam Road at JBS junction — 2025-01",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=b4QeCLSM9fgReN9lNysUNg&heading=72.45",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4432672,
+        "lon": 78.4956351,
+        "panoId": "b4QeCLSM9fgReN9lNysUNg",
+        "headingDeg": 72.45
+      },
+      "assetPolicy": "reference_only",
+      "notes": "January 2025 Street View near JBS Parade Ground, labelled Hyderabad–Karimnagar–Ramagundam Road. The view frames a broad junction beneath elevated metro and flyover structures; a traffic-signal mast, buses, motorcycles, cars and pedestrians are visible. No shop sign is readable. Reference imagery is not copied."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-jbs-parade-ground-2025-junction-context",
+      "sourceIds": [
+        "sv-jbs-parade-ground-junction-202501-20261018"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-18",
+      "name": "JBS junction: elevated metro and flyover, signal mast, buses, motorcycles and pedestrians",
+      "category": "first_pass_station_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.4432672,
+        "lon": 78.4956351,
+        "headingDeg": 72.45
+      },
+      "placementStatus": "pending",
+      "notes": "The January 2025 view shows a broad paved junction under an elevated metro viaduct, with a separate flyover visible to the right, concrete piers, a traffic-signal mast at the left edge, buses, motorcycles/scooters, cars, a goods vehicle and pedestrians. No shop fascia or ordered frontage is legible. The signal's active phase, timing, exact junction mapping, road-side assignment, geometry and traffic volume remain unresolved."
+    }
+  ],
+  "storefrontOverrides": [],
+  "corrections": [],
+  "suppressions": [],
+  "roadReviews": []
+}

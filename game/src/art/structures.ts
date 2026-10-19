@@ -11,6 +11,7 @@ import type { Quality } from './api';
 import { GeoBuilder, PSample, addBox, hex, makeSamples, polyLength, rightOf, sampleAt, sliceSamples, strip, sweep } from './geo';
 import { getWorldMats } from './mats';
 import { registerCull } from './cull';
+import { RoadIndex } from '../world/roadIndex';
 
 export interface StructureObstacle { id: string; poly: [number, number][]; bottom: number; top: number }
 
@@ -33,6 +34,7 @@ interface StairPlan {
   landingLen: number;
   /** arclength along the deck where a side-attached flight meets it (null for flights that continue an open end) */
   gapS: number | null;
+  connector: [number,number][] | null;
 }
 
 interface Layout {
@@ -85,27 +87,64 @@ function orientedBox(b: GeoBuilder, c: [number, number, number], zdir: [number, 
   addBox(b, sx, sy, sz, m, 1, col);
 }
 
-/** true if (x,z) lies on an at-grade carriageway (columns must not stand in traffic) */
-function roadConflictFn(core: WorldCoreV2): (x: number, z: number) => boolean {
-  const segs: { ax: number; az: number; dx: number; dz: number; l2: number; hw: number }[] = [];
-  for (const e of core.roads) {
-    if (e.tunnel || e.widthM < 3 || Math.max(...e.pointElevM, 0) > 0.5) continue;
-    if (['footway', 'pedestrian', 'path', 'steps', 'cycleway', 'corridor', 'track', 'bridleway'].includes(e.highway)) continue;
-    for (let i = 0; i < e.points.length - 1; i++) {
-      const a = e.points[i], b = e.points[i + 1];
-      segs.push({ ax: a[0], az: a[1], dx: b[0] - a[0], dz: b[1] - a[1], l2: (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2 || 1, hw: e.widthM / 2 + 0.9 });
-    }
-  }
-  return (x, z) => {
-    for (const s of segs) {
-      const t = Math.max(0, Math.min(1, ((x - s.ax) * s.dx + (z - s.az) * s.dz) / s.l2));
-      if (Math.hypot(x - (s.ax + s.dx * t), z - (s.az + s.dz * t)) < s.hw) return true;
+type RoadConflict = (x:number,z:number,top?:number)=>boolean;
+/** Full physical clearance, including at-grade ends of ramps and explicit supports. */
+function roadConflictFn(core: WorldCoreV2): RoadConflict {
+  const index=new RoadIndex(core);
+  return (x,z,top=Infinity)=>{
+    for(const s of index.segmentsNear(x,z)) {
+      if(s.road.tunnel || /^(footway|pedestrian|path|steps|cycleway|corridor|track|bridleway)$/.test(s.road.highway))continue;
+      const dx=s.bx-s.ax,dz=s.bz-s.az,l2=s.len*s.len||1;
+      const t=Math.max(0,Math.min(1,((x-s.ax)*dx+(z-s.az)*dz)/l2));
+      const elevation=s.ay+(s.by-s.ay)*t;
+      if(elevation>=top || elevation < -.5)continue;
+      if(Math.hypot(x-s.ax-dx*t,z-s.az-dz*t)<s.halfWidth+.8)return true;
     }
     return false;
   };
 }
 
-function layoutOf(st: Structure, onRoad: (x: number, z: number) => boolean): Layout | null {
+function clearRect(onRoad:RoadConflict,center:[number,number],dir:[number,number],start:number,end:number,halfWidth:number,top:number):boolean {
+  const nx=-dir[1],nz=dir[0],steps=Math.max(1,Math.ceil((end-start)/.75));
+  for(let i=0;i<=steps;i++){
+    const along=start+(end-start)*i/steps;
+    for(const side of [-1,0,1])if(onRoad(center[0]+dir[0]*along+nx*halfWidth*side,center[1]+dir[1]*along+nz*halfWidth*side,top))return false;
+  }
+  return true;
+}
+
+/** Source access points are estimates; derive a clear flight and visible elevated connector
+ * rather than placing a solid stair through a carriageway or dropping only its collider. */
+function clearStairPlan(id:string,originalTop:[number,number],originalDir:[number,number],E:number,flight:number,gapS:number|null,preferredSide:number,onRoad:RoadConflict):StairPlan|null {
+  const directionAngles=[0,Math.PI/2,-Math.PI/2,Math.PI,Math.PI/4,-Math.PI/4,Math.PI*3/4,-Math.PI*3/4];
+  const baseAngle=Math.atan2(-originalDir[1],-originalDir[0]);
+  for(const radius of [0,3,6,9,12,16,20,25,32,40])for(let sector=0;sector<(radius===0?1:16);sector++) {
+    const angle=baseAngle+sector*Math.PI/8;
+    const top:[number,number]=[originalTop[0]+Math.cos(angle)*radius,originalTop[1]+Math.sin(angle)*radius];
+    // A flight's top and entire concrete body reach the ground. Checking the given
+    // source foot alone cannot establish that the rest of its footprint is clear.
+    if(onRoad(top[0],top[1],E))continue;
+    for(const turn of directionAngles) {
+      const c=Math.cos(turn),sn=Math.sin(turn),dir:[number,number]=[originalDir[0]*c-originalDir[1]*sn,originalDir[0]*sn+originalDir[1]*c];
+      const foot:[number,number]=[top[0]-dir[0]*flight,top[1]-dir[1]*flight];
+      if(!clearRect(onRoad,foot,dir,0,flight+.8,STAIR_W/2+.15,E))continue;
+      let lift:[number,number]|null=null;
+      for(const side of [preferredSide,-preferredSide]){
+        const lx=top[0]-dir[0]*.5-dir[1]*side*(STAIR_W/2+.9+LIFT/2),lz=top[1]-dir[1]*.5+dir[0]*side*(STAIR_W/2+.9+LIFT/2);
+        if(clearRect(onRoad,[lx,lz],dir,-LIFT/2-.2,LIFT/2+.2,LIFT/2+.2,E+1)) {lift=[lx,lz];break;}
+      }
+      // Apron supports stay beside the clear flight when a lift cannot fit.
+      const apronWidth=lift?STAIR_W+.9+LIFT+.2:STAIR_W+.3;
+      const side=lift?((lift[0]-top[0])*(-dir[1])+(lift[1]-top[1])*dir[0]>=0?1:-1):1;
+      const center:[number,number]=[top[0]+dir[0]*.1-dir[1]*side*(apronWidth/2-STAIR_W/2),top[1]+dir[1]*.1+dir[0]*side*(apronWidth/2-STAIR_W/2)];
+      if(!clearRect(onRoad,center,dir,-.7,.7,apronWidth/2,E))continue;
+      return {id,foot,top,dir,E,lift,landingLen:1.5,gapS,connector:radius>.1?[originalTop,top]:null};
+    }
+  }
+  return null;
+}
+
+function layoutOf(st: Structure, onRoad: RoadConflict): Layout | null {
   if (!st.path || st.path.length < 2) return null;
   const el = st.elevM && st.elevM.length ? st.elevM : st.path.map(() => 5);
   const step = st.kind === 'skywalk' || st.kind === 'footbridge' ? 5 : 10;
@@ -135,7 +174,19 @@ function layoutOf(st: Structure, onRoad: (x: number, z: number) => boolean): Lay
   const taken: [number, number][] = [];
   const addSupport = (x: number, z: number): void => {
     const n = nearestOnPath(samples, x, z);
-    out.supports.push({ x, z, y: n.p.y, qx: n.p.x, qz: n.p.z, tx: n.p.tx, tz: n.p.tz });
+    let sx=x,sz=z;
+    if(onRoad(sx,sz,n.p.y-DECK_T)){
+      let placed=false;
+      for(const radius of [2,4,6,8,12,16]){
+        for(const side of [-1,1]){
+          const xx=x-n.p.tz*radius*side,zz=z+n.p.tx*radius*side;
+          if(!onRoad(xx,zz,n.p.y-DECK_T)){sx=xx;sz=zz;placed=true;break;}
+        }
+        if(placed)break;
+      }
+      if(!placed)return;
+    }
+    out.supports.push({ x:sx, z:sz, y: n.p.y, qx: n.p.x, qz: n.p.z, tx: n.p.tx, tz: n.p.tz });
     taken.push([n.s, 0]);
   };
   for (const sp of st.supports ?? []) addSupport(sp[0], sp[1]);
@@ -156,7 +207,7 @@ function layoutOf(st: Structure, onRoad: (x: number, z: number) => boolean): Lay
       const s = Math.max(0, Math.min(L, s0 + off));
       const p = sampleAt(samples, s);
       if (p.y < 2.2 || gap(s) < spacing * 0.75) break;
-      if (onRoad(p.x, p.z)) continue;
+      if (onRoad(p.x, p.z,p.y-DECK_T)) continue;
       out.supports.push({ x: p.x, z: p.z, y: p.y, qx: p.x, qz: p.z, tx: p.tx, tz: p.tz });
       taken.push([s, 0]);
       break;
@@ -193,13 +244,19 @@ function layoutOf(st: Structure, onRoad: (x: number, z: number) => boolean): Lay
       top = [q.p.x + (vx / vl) * edge, q.p.z + (vz / vl) * edge];
       // keep geometry consistent: if the given foot is too close for the rise, use the natural run
     }
-    const foot: [number, number] = [top[0] - dir[0] * flight, top[1] - dir[1] * flight];
-    const side = (hx * -dir[1] + hz * dir[0]) >= 0 ? 1 : -1; // lift on the side the heading prefers (right of travel is (-dz,dx))
-    const px = -dir[1] * side, pz = dir[0] * side;
-    const lift: [number, number] = [top[0] - dir[0] * 0.5 + px * (STAIR_W / 2 + 0.9 + LIFT / 2), top[1] - dir[1] * 0.5 + pz * (STAIR_W / 2 + 0.9 + LIFT / 2)];
-    out.stairs.push({ id: `${st.id}:stairs:${i}`, foot, top, dir, E, lift, landingLen: 1.5, gapS: q.d < 1.5 && (atStart || atEnd) ? null : q.s });
+    const side = (hx * -dir[1] + hz * dir[0]) >= 0 ? 1 : -1;
+    const clear=clearStairPlan(`${st.id}:stairs:${i}`,top,dir,E,flight,q.d<1.5&&(atStart||atEnd)?null:q.s,side,onRoad);
+    if(clear)out.stairs.push(clear);
   });
   return out;
+}
+
+const layoutCache=new WeakMap<WorldCoreV2,{signature:number;layouts:Layout[]}>();
+function layoutsFor(core:WorldCoreV2):Layout[]{
+  const signature=core.roads.reduce((sum,r)=>sum+r.widthM+r.elevationM,0);
+  const cached=layoutCache.get(core);if(cached?.signature===signature)return cached.layouts;
+  const onRoad=roadConflictFn(core),layouts=(core.structures??[]).map(st=>layoutOf(st,onRoad)).filter((l):l is Layout=>!!l);
+  layoutCache.set(core,{signature,layouts});return layouts;
 }
 
 /* ---------------------------------------------------------------- materials */
@@ -236,15 +293,14 @@ export function buildStructures(core: WorldCoreV2, quality: Quality): THREE.Grou
   const capGeo = new THREE.BoxGeometry(1, 1, 1);
   let totalTris = 0;
 
-  const onRoad = roadConflictFn(core);
-  for (const st of core.structures ?? []) {
-    const lay = layoutOf(st, onRoad);
-    if (!lay) continue;
+  for (const lay of layoutsFor(core)) {
+    const st=lay.st;
     const g = new THREE.Group();
     g.name = `structure_${st.id}`;
     g.userData.structureId = st.id;
     g.userData.kind = st.kind;
     g.userData.name = st.name;
+    g.userData.accessPlanning = { geometryStatus:'provisional',stairs:lay.stairs.length,sourceAccessPoints:st.stairs?.length??0,connectors:lay.stairs.filter(sp=>!!sp.connector).length,lifts:lay.stairs.filter(sp=>!!sp.lift).length,note:'Derived clearance placement; access dimensions and relocated connectors are not street-survey verified.' };
     const { samples, w, closed } = lay;
     const roofed = st.kind === 'skywalk';
     const road = st.kind === 'flyover_deck' || st.kind === 'landmark';
@@ -386,6 +442,12 @@ export function buildStructures(core: WorldCoreV2, quality: Quality): THREE.Grou
     const liftFrame = new GeoBuilder(true);
     for (const sp of lay.stairs) {
       const { foot, top, dir, E } = sp;
+      if(sp.connector){
+        const connector=makeSamples(sp.connector,E),hwC=STAIR_W/2+.15;
+        strip(walk,connector,-hwC,hwC,0,(x,z)=>[x/2.5,z/2.5]);
+        sweep(steel,connector,[[hwC,0],[hwC,-DECK_T],[-hwC,-DECK_T],[-hwC,0]],{sign:-1,tile:2,color:STEEL});
+        for(const side of [-1,1])sweep(steel,connector,[[side*hwC,.1],[side*hwC,1.1]],{tile:2,color:STEEL_LIGHT});
+      }
       const n = Math.ceil(E / RISER);
       const rise = E / n;
       const pxv = -dir[1], pzv = dir[0];
@@ -415,7 +477,7 @@ export function buildStructures(core: WorldCoreV2, quality: Quality): THREE.Grou
       // top landing apron (steel plate) connecting flight, deck edge and the lift
       {
         const apronL = 1.4;
-        const wTot = STAIR_W + 0.9 + LIFT + 0.2;
+        const wTot = sp.lift ? STAIR_W + 0.9 + LIFT + 0.2 : STAIR_W + .3;
         const side = (sp.lift ? ((sp.lift[0] - top[0]) * pxv + (sp.lift[1] - top[1]) * pzv >= 0 ? 1 : -1) : 1);
         const cx = top[0] + dir[0] * 0.1 + pxv * side * (wTot / 2 - STAIR_W / 2);
         const cz = top[1] + dir[1] * 0.1 + pzv * side * (wTot / 2 - STAIR_W / 2);
@@ -536,10 +598,8 @@ export function buildStructures(core: WorldCoreV2, quality: Quality): THREE.Grou
 /** Collision footprints (columns, stair flights, lift towers) in the same format as stationObstacles. */
 export function structureObstacles(core: WorldCoreV2): StructureObstacle[] {
   const out: StructureObstacle[] = [];
-  const onRoad = roadConflictFn(core);
-  for (const st of core.structures ?? []) {
-    const lay = layoutOf(st, onRoad);
-    if (!lay) continue;
+  for (const lay of layoutsFor(core)) {
+    const st=lay.st;
     const road = st.kind === 'flyover_deck' || st.kind === 'landmark';
     const deckT = road ? 1.2 : DECK_T;
     const capH = road ? 1.1 : 0.5;
@@ -552,6 +612,10 @@ export function structureObstacles(core: WorldCoreV2): StructureObstacle[] {
       out.push({ id: `${st.id}:column:${i}`, poly, bottom: 0, top: sp.y - deckT });
     });
     for (const sp of lay.stairs) {
+      if(sp.connector){
+        const a=sp.connector[0],b=sp.connector[1],len=Math.hypot(b[0]-a[0],b[1]-a[1]),nx=-(b[1]-a[1])/len*(STAIR_W/2+.15),nz=(b[0]-a[0])/len*(STAIR_W/2+.15);
+        out.push({id:`${sp.id}:connector`,poly:[[a[0]+nx,a[1]+nz],[b[0]+nx,b[1]+nz],[b[0]-nx,b[1]-nz],[a[0]-nx,a[1]-nz]],bottom:sp.E-DECK_T,top:sp.E});
+      }
       const [dx, dz] = sp.dir;
       const px = -dz, pz = dx;
       const n = Math.ceil(sp.E / RISER);

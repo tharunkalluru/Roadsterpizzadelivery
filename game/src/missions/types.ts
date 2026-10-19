@@ -6,10 +6,11 @@ export interface MissionDef {
   templates: MissionTemplate[];
   title: string;
   brief: string;
-  /** staging pose: start at this delivery location's curb (a real validated entrance) */
+  /** Restaurant pickup target. The player starts elsewhere on a connected approach road. */
   pickupId: string;
   /** ordered stop delivery ids */
   stops: string[];
+  /** Rechargeable boost capacity, not a per-order allowance. */
   flightSeconds: 20 | 25 | 30;
   deadlineSeconds: number;
   cargo: { label: string; fragility: number; failThreshold: number };
@@ -44,6 +45,8 @@ export interface ResultSummary {
   flightInitialSeconds: number;
   flightUsedSeconds: number;
   flightLeftSeconds: number;
+  flightEarnedSeconds?: number;
+  flightCapacitySeconds?: number;
   launches: number;
   recoveries: number;
   penalties: { reason: string; seconds: number; cargo: number }[];

@@ -1,0 +1,446 @@
+{
+  "version": 2,
+  "date": "2026-10-18",
+  "appliedSurveyRevision": 47,
+  "scope": "Deferred detailed source geometry, placement, names and unresolved-side work; not shop-unit counts or automatic edits",
+  "pendingIssueGroups": 30,
+  "automaticEditsOrImports": false,
+  "sections": [
+    {
+      "version": 1,
+      "date": "2026-10-18",
+      "section": "madhapur-after-shelter-next",
+      "sourceChronologySHA256": "a8258ab1990702a0cb89fa8a09ae7db11404cd97248f7beab8421fcb5d02085a",
+      "distinctFirstPassRouteM": 246.48,
+      "exactRoadsAndCuts": [
+        {
+          "roadId": "r_21627390159_0",
+          "startM": 0,
+          "endM": 75.18,
+          "side": "left",
+          "startLatLon": [
+            17.4389474,
+            78.3970833
+          ],
+          "endLatLon": [
+            17.4387227,
+            78.3977508
+          ]
+        },
+        {
+          "roadId": "r_28656101950_0",
+          "startM": 0,
+          "endM": 6.8,
+          "side": "left",
+          "startLatLon": [
+            17.4387227,
+            78.3977508
+          ],
+          "endLatLon": [
+            17.4386981,
+            78.3978095
+          ]
+        },
+        {
+          "roadId": "r_21924906449_0",
+          "startM": 0,
+          "endM": 164.5,
+          "side": "left",
+          "startLatLon": [
+            17.4386981,
+            78.3978095
+          ],
+          "endLatLon": [
+            17.4388586,
+            78.3991918
+          ]
+        }
+      ],
+      "scope": "Second-pass evidence/metric/detail work only; no automatic imports or physical edits",
+      "issues": [
+        {
+          "id": "45-utility-body",
+          "type": "utility_geometry",
+          "description": "Resolve the two circular source bodies versus concrete tank stem/top and source dimensions; preserve current bodies/heights until supported.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-shelter",
+          "type": "public_realm_geometry",
+          "description": "Waiting benches/stop identity, wall, bins, bollards, signs and exact shelter extent remain unmeasured.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-temporary-vendors",
+          "type": "temporary_activity",
+          "description": "Toy/balloon bicycle sellers observed January2025; operator, permanence, present condition and metric placement unknown.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-rear-green-food",
+          "type": "unreadable_name_and_parent",
+          "description": "Rear green food board remains unreadable with unresolved source parent/door.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-vk-counter",
+          "type": "partial_name_and_parent",
+          "description": "Small portable counter begins VK SNA\u2026; full words, operator and source parent remain uncertain.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-kshatriya-site",
+          "type": "direction_vs_frontage",
+          "description": "KSHATRIYA FOODS arrow points left into rear approach; actual shop front, room and entrance unproved.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-construction",
+          "type": "structure_function_and_geometry",
+          "description": "Blue fence, unfinished concrete frame and elevated rail-like deck need exact function/source geometry and public-edge modelling.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-road-alignment",
+          "type": "source_road_alignment",
+          "description": "Retained4.5m width is an earlier clearance clamp from10.5m, neither photo-measured; cameras lie roughly5\u20136m outside narrowed strip.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-tarpaulin",
+          "type": "unidentified_activity",
+          "description": "White-tarpaulin temporary activity/frontage remains unknown.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-four-businesses",
+          "type": "facade_floor_profile_placement",
+          "description": "Havana/Kingsmen/PVK/Oprea identities/order resolved; provisional b155 association, exact face spans/elevations/rooms/profile/access deferred.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-unassigned-bands",
+          "type": "unknown_upper_and_advert_scope",
+          "description": "Highest dark glazing is unassigned; west ground jewellery advertisement is not another proved tenant.",
+          "status": "second_pass_pending"
+        },
+        {
+          "id": "45-right-side",
+          "type": "unreviewed_immediate_side",
+          "description": "RIGHT immediate side not fully inventoried; no complete median or opposite-carriageway shop claim.",
+          "status": "second_pass_pending"
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "date": "2026-10-18",
+      "section": "raidurg-hitec-quickpass",
+      "status": "frozen_second_pass_queue",
+      "scope": "Deferred second-pass evidence and detail only; no automatic imports or physical changes",
+      "issues": [
+        {
+          "id": "46-corner-return",
+          "type": "corner_vs_main_frontage",
+          "description": "Resolve MOBI TOYS / THE SHAWARMA exact return-versus-main-road faces, relative unit order and entrances only in second pass.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-book-kiosk",
+          "type": "unreadable_identity_and_geometry",
+          "description": "Unnamed book kiosk operator, exact extent and permanent versus temporary status remain unknown.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-substation",
+          "type": "utility_geometry",
+          "description": "Utility board identity is readable; gate, compound geometry and source-body correspondence are not researched in quickpass.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-station-road-join",
+          "type": "source_alignment",
+          "description": "Rail stop-to-ground-road node is provisional; no measured station entrance, curb, road width or safe camera position is asserted.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-rear-hotel-boards",
+          "type": "unresolved_rear_identity_and_ad_scope",
+          "description": "Rear hotel/restaurant board context behind the utility compound must not become guessed main-road shop fronts or doors.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-dostea-kiosk",
+          "type": "kiosk_geometry_and_access",
+          "description": "DOSTEA CHAI CAFE identity is clear near80\u2013105m; exact kiosk footprint, access and relation to pedestrian-bridge structure are deferred.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-hotel-wall",
+          "type": "nameboard_vs_site_extent",
+          "description": "redfox HOTEL wall name is readable; exact hotel body/compound span and entrance allocation remain second-pass work.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-frame-side",
+          "type": "source_framing_uncertainty",
+          "description": "131m/168m intended heading versus saved framing remains unresolved; hold exact side/frontage attribution. New211m explicit west frame may support broad forecourt context only.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-fuel-site",
+          "type": "forecourt_geometry_and_operator",
+          "description": "IndianOil brand/forecourt near211m is observed; exact operator, boundaries and entrance remain unverified. Rear ORACLE roofboard is not a main-front location.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-office-site",
+          "type": "corporate_nameboard_vs_site_geometry",
+          "description": "foundever high board and landscaped gated entrance are observed broadly; source-body association, exact boundary and entry geometry stay second-pass work.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-tree-screened-wall",
+          "type": "occluded_compound_and_public_realm",
+          "description": "Tree-screened building/compound and mural retaining-wall/railing dimensions remain second-pass work; no hidden tenant/floor inference or copied mural pixels.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-campus-gate",
+          "type": "campus_access_and_landmark_geometry",
+          "description": "CYBER GATE / HITEC CITY portal and side-access context is observed; exact campus/body identity, boundary and access geometry remain second-pass work.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "46-pedestrian-ramp",
+          "type": "public_access_structure_geometry",
+          "description": "Curved pedestrian bridge/ramp near490m and tree-screened retaining-wall edge are observed but exact geometry, usable access and source alignment remain deferred.",
+          "status": "pending_second_pass"
+        }
+      ],
+      "sourceChronologySHA256": "d914bdf4a31be6d22a0a46933e4b20ef8c49f1caef02f3d55fe2bcab4383e277"
+    },
+    {
+      "version": 1,
+      "date": "2026-10-18",
+      "section": "raidurg-hitec-quickpass-2",
+      "status": "frozen_second_pass_queue",
+      "scope": "Deferred second-pass evidence and detail only; no automatic imports or physical changes",
+      "issues": [
+        {
+          "id": "47-bus-shelter",
+          "type": "public_transport_identity_and_geometry",
+          "description": "TGIIC - IALA BUS SHELTER - MADHAPUR wording is observed; exact stop/source association, footprint, benches/access dimensions and occluded right portion remain second-pass work. Hospital billboard is not tenancy proof.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "47-boundary-drains",
+          "type": "public_realm_and_occluded_site_use",
+          "description": "Corrugated boundary, drain/service-cover sidewalk edge and vegetation remain unmeasured; van occlusion prevents a complete view. Resonance poster does not prove a local college tenant.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "47-landscaped-access",
+          "type": "landscaped_boundary_and_public_access",
+          "description": "Retaining wall, mature tree screen, tiled sidewalk and broad concrete steps are observed; ownership, dimensions, source association and actual access route remain unresolved.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "47-screened-structure-use",
+          "type": "unidentified_structure_use_and_geometry",
+          "description": "Partly open facade grid, blue glazing, modern cladding and landscaped screen need source identification and dimensions in second pass. The320m garden credit is not building occupancy proof; the408m TRIDENT entrance monument supports only that named-site context. Do not allocate all earlier structures, floors or uses retrospectively. Electrical-yard extent and driveway/source association remain unresolved.",
+          "status": "pending_second_pass"
+        },
+        {
+          "id": "47-endpoint-continuation",
+          "type": "endpoint_source_scope_and_next_section_identity",
+          "description": "Endpoint decorative boundary, scaffolded red-white structure and side-access geometry remain unresolved. KFC is readable just onward of the cut but remains next-section context; no full frontage, source-parent, entry or extra47 route length is claimed.",
+          "status": "pending_second_pass"
+        }
+      ],
+      "sourceChronologySHA256": "9cfe38a7fdc75eb4d4deccfc59b211ffea673bbd369ff0bd50e21798b27c4fc1"
+    }
+  ],
+  "issues": [
+    {
+      "id": "45-utility-body",
+      "type": "utility_geometry",
+      "description": "Resolve the two circular source bodies versus concrete tank stem/top and source dimensions; preserve current bodies/heights until supported.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-shelter",
+      "type": "public_realm_geometry",
+      "description": "Waiting benches/stop identity, wall, bins, bollards, signs and exact shelter extent remain unmeasured.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-temporary-vendors",
+      "type": "temporary_activity",
+      "description": "Toy/balloon bicycle sellers observed January2025; operator, permanence, present condition and metric placement unknown.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-rear-green-food",
+      "type": "unreadable_name_and_parent",
+      "description": "Rear green food board remains unreadable with unresolved source parent/door.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-vk-counter",
+      "type": "partial_name_and_parent",
+      "description": "Small portable counter begins VK SNA\u2026; full words, operator and source parent remain uncertain.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-kshatriya-site",
+      "type": "direction_vs_frontage",
+      "description": "KSHATRIYA FOODS arrow points left into rear approach; actual shop front, room and entrance unproved.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-construction",
+      "type": "structure_function_and_geometry",
+      "description": "Blue fence, unfinished concrete frame and elevated rail-like deck need exact function/source geometry and public-edge modelling.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-road-alignment",
+      "type": "source_road_alignment",
+      "description": "Retained4.5m width is an earlier clearance clamp from10.5m, neither photo-measured; cameras lie roughly5\u20136m outside narrowed strip.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-tarpaulin",
+      "type": "unidentified_activity",
+      "description": "White-tarpaulin temporary activity/frontage remains unknown.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-four-businesses",
+      "type": "facade_floor_profile_placement",
+      "description": "Havana/Kingsmen/PVK/Oprea identities/order resolved; provisional b155 association, exact face spans/elevations/rooms/profile/access deferred.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-unassigned-bands",
+      "type": "unknown_upper_and_advert_scope",
+      "description": "Highest dark glazing is unassigned; west ground jewellery advertisement is not another proved tenant.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "45-right-side",
+      "type": "unreviewed_immediate_side",
+      "description": "RIGHT immediate side not fully inventoried; no complete median or opposite-carriageway shop claim.",
+      "status": "second_pass_pending"
+    },
+    {
+      "id": "46-corner-return",
+      "type": "corner_vs_main_frontage",
+      "description": "Resolve MOBI TOYS / THE SHAWARMA exact return-versus-main-road faces, relative unit order and entrances only in second pass.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-book-kiosk",
+      "type": "unreadable_identity_and_geometry",
+      "description": "Unnamed book kiosk operator, exact extent and permanent versus temporary status remain unknown.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-substation",
+      "type": "utility_geometry",
+      "description": "Utility board identity is readable; gate, compound geometry and source-body correspondence are not researched in quickpass.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-station-road-join",
+      "type": "source_alignment",
+      "description": "Rail stop-to-ground-road node is provisional; no measured station entrance, curb, road width or safe camera position is asserted.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-rear-hotel-boards",
+      "type": "unresolved_rear_identity_and_ad_scope",
+      "description": "Rear hotel/restaurant board context behind the utility compound must not become guessed main-road shop fronts or doors.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-dostea-kiosk",
+      "type": "kiosk_geometry_and_access",
+      "description": "DOSTEA CHAI CAFE identity is clear near80\u2013105m; exact kiosk footprint, access and relation to pedestrian-bridge structure are deferred.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-hotel-wall",
+      "type": "nameboard_vs_site_extent",
+      "description": "redfox HOTEL wall name is readable; exact hotel body/compound span and entrance allocation remain second-pass work.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-frame-side",
+      "type": "source_framing_uncertainty",
+      "description": "131m/168m intended heading versus saved framing remains unresolved; hold exact side/frontage attribution. New211m explicit west frame may support broad forecourt context only.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-fuel-site",
+      "type": "forecourt_geometry_and_operator",
+      "description": "IndianOil brand/forecourt near211m is observed; exact operator, boundaries and entrance remain unverified. Rear ORACLE roofboard is not a main-front location.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-office-site",
+      "type": "corporate_nameboard_vs_site_geometry",
+      "description": "foundever high board and landscaped gated entrance are observed broadly; source-body association, exact boundary and entry geometry stay second-pass work.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-tree-screened-wall",
+      "type": "occluded_compound_and_public_realm",
+      "description": "Tree-screened building/compound and mural retaining-wall/railing dimensions remain second-pass work; no hidden tenant/floor inference or copied mural pixels.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-campus-gate",
+      "type": "campus_access_and_landmark_geometry",
+      "description": "CYBER GATE / HITEC CITY portal and side-access context is observed; exact campus/body identity, boundary and access geometry remain second-pass work.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "46-pedestrian-ramp",
+      "type": "public_access_structure_geometry",
+      "description": "Curved pedestrian bridge/ramp near490m and tree-screened retaining-wall edge are observed but exact geometry, usable access and source alignment remain deferred.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "47-bus-shelter",
+      "type": "public_transport_identity_and_geometry",
+      "description": "TGIIC - IALA BUS SHELTER - MADHAPUR wording is observed; exact stop/source association, footprint, benches/access dimensions and occluded right portion remain second-pass work. Hospital billboard is not tenancy proof.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "47-boundary-drains",
+      "type": "public_realm_and_occluded_site_use",
+      "description": "Corrugated boundary, drain/service-cover sidewalk edge and vegetation remain unmeasured; van occlusion prevents a complete view. Resonance poster does not prove a local college tenant.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "47-landscaped-access",
+      "type": "landscaped_boundary_and_public_access",
+      "description": "Retaining wall, mature tree screen, tiled sidewalk and broad concrete steps are observed; ownership, dimensions, source association and actual access route remain unresolved.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "47-screened-structure-use",
+      "type": "unidentified_structure_use_and_geometry",
+      "description": "Partly open facade grid, blue glazing, modern cladding and landscaped screen need source identification and dimensions in second pass. The320m garden credit is not building occupancy proof; the408m TRIDENT entrance monument supports only that named-site context. Do not allocate all earlier structures, floors or uses retrospectively. Electrical-yard extent and driveway/source association remain unresolved.",
+      "status": "pending_second_pass"
+    },
+    {
+      "id": "47-endpoint-continuation",
+      "type": "endpoint_source_scope_and_next_section_identity",
+      "description": "Endpoint decorative boundary, scaffolded red-white structure and side-access geometry remain unresolved. KFC is readable just onward of the cut but remains next-section context; no full frontage, source-parent, entry or extra47 route length is claimed.",
+      "status": "pending_second_pass"
+    }
+  ]
+}

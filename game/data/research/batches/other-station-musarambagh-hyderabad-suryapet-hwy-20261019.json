@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "other-station-musarambagh-hyderabad-suryapet-hwy-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View inspection",
+  "notes": "First Street View pass at Musarambagh Metro on Hyderabad–Suryapet Highway. Two headings from one March 2026 Google panorama show a tree-lined paved edge, repeated poster panels, a school-admission panel, covered roadside setups and mixed traffic. These are public-realm observations only; no readable independent storefront, road side, full inventory or exact order is established.",
+  "sources": [
+    {
+      "id": "sv-musarambagh-hyderabad-suryapet-hwy-20261019-01",
+      "kind": "street_view",
+      "title": "Musarambagh Metro approach on Hyderabad–Suryapet Highway — north-facing",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Gmo313_fF4cFa5Qjt8_Www&heading=351.9816&pitch=0&fov=85",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3714788,
+        "lon": 78.5114562,
+        "headingDeg": 351.9816,
+        "panoId": "Gmo313_fF4cFa5Qjt8_Www"
+      },
+      "notes": "Google Street View labels this panorama March 2026. The camera looks along Hyderabad–Suryapet Highway beside Musarambagh Metro. Visible context includes the paved pedestrian edge, tree canopy and large planters, several two-wheelers, an auto-rickshaw, pedestrians and small roadside setups. A camera point is not a shop entrance; the road side and local sequence are not established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-musarambagh-hyderabad-suryapet-hwy-20261019-02",
+      "kind": "street_view",
+      "title": "Musarambagh Metro poster wall and roadside setup — eastward view",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Gmo313_fF4cFa5Qjt8_Www&heading=30.216&pitch=0&fov=85",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3714788,
+        "lon": 78.5114562,
+        "headingDeg": 30.216,
+        "panoId": "Gmo313_fF4cFa5Qjt8_Www"
+      },
+      "notes": "The reverse heading shows repeated blue political posters on a low roadside wall and a lower black panel reading “Admissions Open Nursery–XII” and “Dilsukhnagar.” Tarpaulin-covered setups and a handcart are nearby, but their operators, goods and permanence are unknown. The signs are advertising/public-realm context, not proof of a tenant. The source camera location does not establish facade position or ordering.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-musarambagh-metro-poster-wall-vendors-20261019",
+      "sourceIds": [
+        "sv-musarambagh-hyderabad-suryapet-hwy-20261019-01",
+        "sv-musarambagh-hyderabad-suryapet-hwy-20261019-02"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "Musarambagh Metro roadside poster wall, advertising and vendor setups",
+      "category": "station_public_realm_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.3714788,
+        "lon": 78.5114562,
+        "headingDeg": 30.216
+      },
+      "placementStatus": "pending",
+      "notes": "The March 2026 view shows a long low wall with repeated blue political posters and one “Admissions Open Nursery–XII / Dilsukhnagar” advertisement; nearby are tarpaulin-covered roadside setups, a small handcart, mature trees, large circular planters, a paved sidewalk and mixed auto/motorcycle traffic. No vendor product, operator, exact premises boundary or shop order is legible. This is a camera-context record only; no road side, entrance or frontage geometry is assigned."
+    }
+  ]
+}

@@ -1,0 +1,480 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-r328-rama-shubham-hostel-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex shared Chrome evidence review",
+  "notes": "Three legible cream-west entry/shop records plus one Schneider supplier board, based on two settled camera positions and an additional reverse angle. All frontages remain provisional. Narrow subface fractions are estimates and not a source building split. SHOE Khazana/KAIRO are observations only, with unknown source-parent assignment. Source5 m height mismatch versus tall cream/rear body is explicitly preserved unresolved. Signage-only profile: no height/levels, footprint, architecture, access or collision change. Partial evidence range only; allFrontagesRecorded stays false. Source imagery remains reference-only.",
+  "sources": [
+    {
+      "id": "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+      "kind": "street_view",
+      "title": "Madhapur cream electrical/jewellery/hostel row \u2014 April 2026 close view",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=h4htUOdS1zF-Fs6CH4nj3Q&heading=180&pitch=8&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "position": {
+        "lat": 17.4408202,
+        "lon": 78.3928044,
+        "headingDeg": 180,
+        "panoId": "h4htUOdS1zF-Fs6CH4nj3Q"
+      },
+      "notes": "Photo east-to-west shows a red foreground shop with partly blocked logo (resolved as SHOE Khazana by the next camera), narrow SRI SHIVA BALAJI MEN'S HOSTEL entry/yellow boards, SRI SHUBHAM JEWELLERS black/gold ground sign, then SRI RAMA ELECTRICALS white plate beside a large Schneider Electric green supplier board. Repeated yellow hostel boards and old upper Sri Rama/TO LET roof banner are not additional operators. Cream upper domestic-window band and tall corrugated metal roof are visible, but the source footprint may merge the lower red and taller cream bodies. Panorama directly inspected in the authorized Chrome session by parent; this author reviewed the returned unchanged screenshot. Exact source-parent subdivision and dimensions await next-end/roof evidence. Camera point is not a shop entrance; no source imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+      "kind": "street_view",
+      "title": "Madhapur SHOE Khazana / KAIRO \u2014 east-end identity and cream boundary, April 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=4DvZLySabvX-rpZODLbgmg&heading=180&pitch=8&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "position": {
+        "lat": 17.4408019,
+        "lon": 78.3928742,
+        "headingDeg": 180,
+        "panoId": "4DvZLySabvX-rpZODLbgmg"
+      },
+      "notes": "Clear view reads SHOE Khazana (shoe word/logo) on a low red foreground shop and KAIRO on adjacent gold clothing frontage. Narrow hostel entry is at red facade western/right edge, with a taller cream body behind/beyond it. These identities are recorded as observations only; the source footprint split and relationship of the low foreground to tall rear block are not resolved. Direct Chrome panorama inspected by the parent researcher; batch author reviewed returned unchanged screenshot bytes. Camera coordinates do not become doors. All active frontage geometry remains provisional; reference-only source pixels are not redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-madhapur-cream-row-from-east-apr2026-20261018",
+      "kind": "street_view",
+      "title": "Madhapur cream row \u2014 reverse oblique passage, jewellery and electrical sequence, April 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=4DvZLySabvX-rpZODLbgmg&heading=220&pitch=8&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "position": {
+        "lat": 17.4408019,
+        "lon": 78.3928742,
+        "headingDeg": 220,
+        "panoId": "4DvZLySabvX-rpZODLbgmg"
+      },
+      "notes": "Oblique west-facing view confirms low red SHOE Khazana canopy in front of a taller cream hostel/balcony body. Road order continuing west is narrow SRI SHIVA BALAJI MEN'S HOSTEL passage, SRI SHUBHAM JEWELLERS, Schneider-branded SRI RAMA ELECTRICALS, then neighbouring MedPlus. Clear upper yellow hostel board, white balcony/black rail and gable/corrugated metal roof are observed, but exact parent split, metric heights and frontage divisions remain unresolved. Direct Chrome panorama inspected by the parent researcher; batch author reviewed returned unchanged screenshot bytes. Camera coordinates do not become doors. All active frontage geometry remains provisional; reference-only source pixels are not redistributed.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-madhapur-r328-red-clothing-partial-logo",
+      "sourceIds": [
+        "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+        "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+        "sv-madhapur-cream-row-from-east-apr2026-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "SHOE Khazana and KAIRO \u2014 unplaced foreground retail fronts",
+      "category": "unplaced_retail_frontage",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.4408019,
+        "lon": 78.3928742,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Next-end view directly resolves SHOE Khazana footwear frontage on low red canopy and KAIRO clothing frontage on adjacent gold face. Both are known visible identities, not active exact fronts in this batch. No source polygon split, source-parent assignment, frontage width, entrance or full-side completion is invented. Their low foreground mass sits in front of/beside the taller cream block; exact boundaries remain pending."
+    },
+    {
+      "id": "obs-madhapur-r328-cream-metal-roof-banner",
+      "sourceIds": [
+        "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+        "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+        "sv-madhapur-cream-row-from-east-apr2026-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Cream upper band, corrugated metal roof and old Sri Rama/TO LET banner",
+      "category": "non_shop_frontage",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.4408202,
+        "lon": 78.3928044,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Cream upper domestic windows, white balconies/black railings, higher corrugated metal/gable roof and dated old Sri Rama/TO LET banner are visually accounted for. Upper yellow hostel board repeats the entry operator. Source5 m ground-front rectangle cannot represent the full taller cream/rear structure; no whole-parent height correction is justified without a footprint split. Upstairs allocation, room floors, roof height and exact rear parent remain unresolved. Upper legacy banner is kept pending instead of floating it above the unchanged source body."
+    },
+    {
+      "id": "obs-madhapur-r328-cream-shared-entry-stock",
+      "sourceIds": [
+        "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+        "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+        "sv-madhapur-cream-row-from-east-apr2026-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Narrow hostel entry, shared forecourt and electrical stock",
+      "category": "non_shop_frontage",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.4408202,
+        "lon": 78.3928044,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Repeated yellow hostel boards, a narrow entry passage, jewellery glazing/cream folding side shutters, electrical cable/conduit/box stock, utility wires and paved forecourt are visible. Exact entry/steps/stock dimensions are not measured. No new physical stair, excavation or full interior is authored."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-madhapur-shiva-balaji-hostel-r328-entry",
+      "placementStatus": "provisional",
+      "chunkId": "c_-83_-15",
+      "name": "SRI SHIVA BALAJI MEN'S HOSTEL",
+      "nameTe": null,
+      "category": "mens_hostel_entry_signage",
+      "group": "hotel_lodging",
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "buildingId": "b_955bbd2dbe",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16527.8946,
+          -2890.7624
+        ],
+        [
+          -16529.2842,
+          -2890.9848
+        ]
+      ],
+      "entrance": [
+        -16528.5894,
+        -2890.8736
+      ],
+      "floor": 0,
+      "frontageWidthM": 1.4073,
+      "alongRoadM": 15.4,
+      "facingHeading": -0.1587001686686168,
+      "lat": 17.4407207,
+      "lon": 78.3928352,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+        "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+        "sv-madhapur-cream-row-from-east-apr2026-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "position": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "side": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "facade": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "neighbours": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ]
+      },
+      "appearance": {
+        "awning": false,
+        "categoryProps": false,
+        "displayName": "SRI SHIVA BALAJI\nMEN'S HOSTEL",
+        "signColor": "#e3c745",
+        "signTextColor": "#253b36",
+        "signBaseM": 2.0,
+        "signHeightM": 0.8,
+        "signWidthM": 1.3,
+        "signOutsetM": 0.32
+      },
+      "notes": "One observed hostel operator at its narrow ground entry/board. Floor0 describes the entry-board band, not room-floor occupancy. Upper and freestanding yellow hostel boards repeat the same business; balconies, stairs, room allocation and tall rear parent remain unresolved. Board-only category avoids inventing a storefront door. Canonical OSM way356160729 is kept intact. The ground-front/source rectangle may combine low red foreground, cream shopfront and taller rear/upper structures; exact physical parent/subdivision remains unresolved. Only an estimated narrow western source-edge subface is used for these sign/entry records. Geometry is not transferred from a listing pin. Source-accuracy5 m height stays unchanged as an archived estimate, despite the known mismatch with the taller cream rear body. No height/levels, footprint, access, pit or retainPresence override. Shop divisions, entry midpoint, sign width/elevation and stock extent are unmeasured; all placement remains provisional. No source imagery or phone numbers reproduced."
+    },
+    {
+      "id": "survey-madhapur-sri-shubham-jewellers-r328-ground",
+      "placementStatus": "provisional",
+      "chunkId": "c_-83_-15",
+      "name": "SRI SHUBHAM JEWELLERS",
+      "nameTe": null,
+      "category": "jewellery_store",
+      "group": "jewellery",
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "buildingId": "b_955bbd2dbe",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16529.2842,
+          -2890.9848
+        ],
+        [
+          -16532.7582,
+          -2891.5408
+        ]
+      ],
+      "entrance": [
+        -16531.0212,
+        -2891.2628
+      ],
+      "floor": 0,
+      "frontageWidthM": 3.5182,
+      "alongRoadM": 17.8494,
+      "facingHeading": -0.1587001686686168,
+      "lat": 17.4407242,
+      "lon": 78.3928123,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+        "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+        "sv-madhapur-cream-row-from-east-apr2026-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "position": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "side": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "facade": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "neighbours": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ]
+      },
+      "appearance": {
+        "awning": false,
+        "categoryProps": false,
+        "frontStyle": "glazed",
+        "facadeColor": "#d5cba6",
+        "frontBaseM": 0.2,
+        "heightM": 3.5,
+        "signColor": "#2c211c",
+        "signTextColor": "#c8a65c",
+        "signBaseM": 2.65,
+        "signHeightM": 1.1,
+        "signWidthM": 3.3,
+        "signOutsetM": 0.33
+      },
+      "notes": "Direct physical black/gold board reads SRI SHUBHAM JEWELLERS, gold/silver showroom. The imported Sri Shushan snapped frontage is superseded as an unreviewed transcription/placement, while frozen raw source remains archived. Ground jewellery glazing/cream folding side shutters are observed; interior stock arrangement is not reproduced. Canonical OSM way356160729 is kept intact. The ground-front/source rectangle may combine low red foreground, cream shopfront and taller rear/upper structures; exact physical parent/subdivision remains unresolved. Only an estimated narrow western source-edge subface is used for these sign/entry records. Geometry is not transferred from a listing pin. Source-accuracy5 m height stays unchanged as an archived estimate, despite the known mismatch with the taller cream rear body. No height/levels, footprint, access, pit or retainPresence override. Shop divisions, entry midpoint, sign width/elevation and stock extent are unmeasured; all placement remains provisional. No source imagery or phone numbers reproduced.",
+      "replaceStorefrontIds": [
+        "sf_80970fc2a1"
+      ]
+    },
+    {
+      "id": "survey-madhapur-sri-rama-electricals-r328-ground",
+      "placementStatus": "provisional",
+      "chunkId": "c_-83_-15",
+      "name": "SRI RAMA ELECTRICALS",
+      "nameTe": null,
+      "category": "electrical_goods_store",
+      "group": "hardware",
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "buildingId": "b_955bbd2dbe",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16533.8004,
+          -2891.7076
+        ],
+        [
+          -16535.19,
+          -2891.93
+        ]
+      ],
+      "entrance": [
+        -16534.4952,
+        -2891.8188
+      ],
+      "floor": 0,
+      "frontageWidthM": 1.4073,
+      "alongRoadM": 21.3485,
+      "facingHeading": -0.1587001686686168,
+      "lat": 17.4407292,
+      "lon": 78.3927796,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+        "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+        "sv-madhapur-cream-row-from-east-apr2026-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "position": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "side": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "facade": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "neighbours": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ]
+      },
+      "appearance": {
+        "awning": false,
+        "categoryProps": false,
+        "displayName": "SRI RAMA\nELECTRICALS",
+        "frontStyle": "open_bay",
+        "frontBaseM": 0.2,
+        "heightM": 3.5,
+        "signColor": "#e6e4ce",
+        "signTextColor": "#325c40",
+        "signBaseM": 2.65,
+        "signHeightM": 1.1,
+        "signWidthM": 1.3,
+        "signOutsetM": 0.32,
+        "observedDisplay": "electrical_goods"
+      },
+      "notes": "Observed SRI RAMA ELECTRICALS operator white plate sits beside a broader green Schneider Electric supplier board. The branding belongs to this same observed unit, not another operator. Bounded generic electrical stock represents visible cable/conduit/carton classes, not the full interior. The old higher Sri Rama/TO LET banner is repeated legacy advertising and remains an unresolved observation, not another tenant. Canonical OSM way356160729 is kept intact. The ground-front/source rectangle may combine low red foreground, cream shopfront and taller rear/upper structures; exact physical parent/subdivision remains unresolved. Only an estimated narrow western source-edge subface is used for these sign/entry records. Geometry is not transferred from a listing pin. Source-accuracy5 m height stays unchanged as an archived estimate, despite the known mismatch with the taller cream rear body. No height/levels, footprint, access, pit or retainPresence override. Shop divisions, entry midpoint, sign width/elevation and stock extent are unmeasured; all placement remains provisional. No source imagery or phone numbers reproduced."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "profile-madhapur-rama-shubham-hostel-signage",
+      "kind": "building_profile",
+      "buildingId": "b_955bbd2dbe",
+      "dimensionStatus": "provisional",
+      "sourceIds": [
+        "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+        "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+        "sv-madhapur-cream-row-from-east-apr2026-20261018"
+      ],
+      "notes": "Signage-only profile preserves all source body/roof/access geometry while the foreground/rear-parent mismatch remains unresolved. This is not a reconstructed cream upper building. Supplier branding is co-located display, not a new tenant. Canonical OSM way356160729 is kept intact. The ground-front/source rectangle may combine low red foreground, cream shopfront and taller rear/upper structures; exact physical parent/subdivision remains unresolved. Only an estimated narrow western source-edge subface is used for these sign/entry records. Geometry is not transferred from a listing pin. Source-accuracy5 m height stays unchanged as an archived estimate, despite the known mismatch with the taller cream rear body. No height/levels, footprint, access, pit or retainPresence override. Shop divisions, entry midpoint, sign width/elevation and stock extent are unmeasured; all placement remains provisional. No source imagery or phone numbers reproduced.",
+      "profile": {
+        "signageOnly": true,
+        "sourceIds": [
+          "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+          "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+          "sv-madhapur-cream-row-from-east-apr2026-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#d8cfa4",
+        "signPanels": [
+          {
+            "text": "Schneider\nElectric",
+            "frontIndex": 0,
+            "at": 0.7380952380952382,
+            "baseM": 2.65,
+            "heightM": 1.1,
+            "widthRatio": 0.14285714285714285,
+            "color": "#379a3b",
+            "textColor": "#f2eee2",
+            "outsetM": 0.33
+          }
+        ],
+        "fronts": [
+          {
+            "facade": [
+              [
+                -16527.8946,
+                -2890.7624
+              ],
+              [
+                -16535.19,
+                -2891.93
+              ]
+            ],
+            "facingHeading": -0.1587001686686168,
+            "storefrontIds": [
+              "survey-madhapur-shiva-balaji-hostel-r328-entry",
+              "survey-madhapur-sri-shubham-jewellers-r328-ground",
+              "survey-madhapur-sri-rama-electricals-r328-ground"
+            ],
+            "floors": []
+          }
+        ]
+      }
+    }
+  ],
+  "suppressions": [],
+  "roadReviews": [
+    {
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 14.7002,
+          "endM": 22.0483,
+          "sourceIds": [
+            "sv-madhapur-rama-shubham-hostel-apr2026-20261018",
+            "sv-madhapur-shoe-khazana-kairo-east-apr2026-20261018",
+            "sv-madhapur-cream-row-from-east-apr2026-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex shared Chrome evidence review",
+          "completeness": "partial",
+          "allFrontagesRecorded": false,
+          "storefrontIds": [
+            "survey-madhapur-shiva-balaji-hostel-r328-entry",
+            "survey-madhapur-sri-shubham-jewellers-r328-ground",
+            "survey-madhapur-sri-rama-electricals-r328-ground"
+          ],
+          "notes": "Three legible cream-west entry/shop identities are authored provisionally in observed east-to-west order. Source red/gold foreground, taller cream/rear parent, exact divisions and other non-shop extent are unresolved. This is partial evidence only: no complete visual inventory, metric completeness or opposite-side/whole-road completion claim."
+        }
+      ],
+      "notes": "Partial signage/entry records on a narrow uncertain source subface only; exact parent division and remaining foreground/upper geometry remain unresolved."
+    }
+  ]
+}

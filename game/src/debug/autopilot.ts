@@ -14,6 +14,9 @@ export class Autopilot {
   private lostTicks = 0;
   private bestRemaining = Infinity;
   private progressTick = 0;
+  private targetStopId: string | null = null;
+  private routeReference:readonly string[]|null=null;
+  private routeSignature='';
   /** diagnostics: what limited the target speed this tick */
   why = '';
   private kturn: { target: number; phase: 'fwd' | 'stop1' | 'rev' | 'stop2'; ticks: number } | null = null;
@@ -39,12 +42,20 @@ export class Autopilot {
   input(): TickInput {
     const s = this.s, p = s.player;
     const stop = s.currentStop;
+    if (stop?.id !== this.targetStopId) {
+      this.targetStopId = stop?.id ?? null;
+      this.bestRemaining = Infinity; this.progressTick = s.tick; this.stuckTicks = 0;
+    }
     if (!stop || !s.route.length) {
       // lost (e.g. strayed onto a boundary road): use recovery like a player would
       if (++this.lostTicks > 120) { this.lostTicks = 0; s.requestManualRecovery(); }
       return { ...NO_INPUT, brake: true };
     }
     this.lostTicks = 0;
+    if(this.routeReference!==s.route){
+      this.routeReference=s.route;const signature=s.route.join('|');
+      if(signature!==this.routeSignature){this.routeSignature=signature;this.bestRemaining=Infinity;this.progressTick=s.tick;this.stuckTicks=0;}
+    }
     // dead-end turnaround (U-turn onto the same road): a multi-point turn using reverse
     const cur = s.world.nav.edges.get(s.route[s.routeIdx])!;
     const nxtId = s.route[s.routeIdx + 1];
@@ -104,18 +115,22 @@ export class Autopilot {
     if (Math.abs(err) > 0.6) vt = Math.min(vt, 4.0);
     // traffic ahead in our lane
     const [fx, fz] = forwardOf(p.heading);
+    let waitingForLegalStop=false;
     for (const a of p.isAirborne ? [] : s.traffic.actors) {
       if (Math.abs(a.y - p.y) > 2.5) continue; // different level (deck above/below)
       const dx = a.x - p.x, dz = a.z - p.z;
       const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
       const sameDir = Math.abs(wrapAngle(a.heading - p.heading)) < 1.0;
-      if (ahead > 0 && side < 2.2 && (sameDir ? ahead < v * 1.6 + 9 : ahead < 6)) { vt = Math.min(vt, sameDir ? Math.max(0, a.speed - 0.5) : 0); this.why = `actor ${a.id} ${ahead.toFixed(1)} ${side.toFixed(1)}`; }
+      if (ahead > 0 && side < 2.2 && (sameDir ? ahead < v * 1.6 + 9 : ahead < 6)) {
+        vt = Math.min(vt, sameDir ? Math.max(0, a.speed - 0.5) : 0); this.why = `actor ${a.id} ${ahead.toFixed(1)} ${side.toFixed(1)}`;
+        if(a.speed<.3&&a.blockedBy!=='geometry'&&(a.waitingForSignal||(a.stopDwellUntil??0)>s.traffic.tick||(a.holdUntil??0)>s.traffic.tick))waitingForLegalStop=true;
+      }
     }
     for (const q of p.isAirborne ? [] : s.traffic.peds) {
       if (Math.abs(q.y - p.y) > 2.5) continue;
       const dx = q.x - p.x, dz = q.z - p.z;
       const ahead = dx * fx + dz * fz, side = Math.abs(dx * -fz + dz * fx);
-      if (ahead > 0 && ahead < v * 1.4 + 6 && side < 2.0) { vt = 0; this.why = `ped ${q.id}`; }
+      if (ahead > 0 && ahead < v * 1.4 + 6 && side < VEHICLE.collisionRadius+.3+.12) { vt = 0; this.why = `ped ${q.id}`; }
     }
     // stop inside the polygon
     if (remaining < 60) {
@@ -125,6 +140,11 @@ export class Autopilot {
       if (distStop < 2.5 && remaining < 25) vt = 0;
     }
     if (s.holdActive) return { ...NO_INPUT }; // no input: the car holds still
+    if (s.canInteract) return { ...NO_INPUT, interactPress: true };
+    // A real stop is route progress waiting to happen. Protected pedestrian intervals
+    // can keep this approach red for more than the generic 20-second unstick timer.
+    // Invalid geometry and expired/stagnant junction reservations are not exempted.
+    if(v<.3&&vt<.3&&waitingForLegalStop){this.progressTick=s.tick;this.stuckTicks=0;}
     const brake = v > vt + 0.6;
     // simple unstick: if blocked for long, use recovery like a player would
     if (v < 0.2 && vt > 1) this.stuckTicks++; else this.stuckTicks = 0;

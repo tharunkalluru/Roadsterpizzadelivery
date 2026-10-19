@@ -1,0 +1,516 @@
+{
+  "schemaVersion": 1,
+  "id": "paradise-arcade-local-access-correction-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex source-backed integration correction",
+  "notes": "Correct a broad provisional platform to separate source-observed shallow shop entrances on explicit local facade spans. Business identities/order, building profile/height and all other evidence stay unchanged. No new road geometry or physics algorithm.",
+  "expectedPrevious": {
+    "corrections:profile-paradise-arcade-contiguous": "9d03e8b13e18382f03a84cdece60ffcb8e8de105942982eaec49ad15ef25c231"
+  },
+  "corrections": [
+    {
+      "id": "profile-paradise-arcade-contiguous",
+      "kind": "building_profile",
+      "buildingId": "b_b5036a537e",
+      "retainPresence": true,
+      "sourceIds": [
+        "sv-paradise-arcade-east-2026-02-20261018",
+        "sv-paradise-arcade-centre-2026-02-20261018",
+        "sv-paradise-arcade-west-2026-02-20261018",
+        "sat-paradise-opposite-blocks-20261018",
+        "listing-swastik-glass-paradise-20261018"
+      ],
+      "heightM": 11.4,
+      "levels": 3,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#d9d0b8",
+      "profile": {
+        "sourceIds": [
+          "sv-paradise-arcade-east-2026-02-20261018",
+          "sv-paradise-arcade-centre-2026-02-20261018",
+          "sv-paradise-arcade-west-2026-02-20261018",
+          "sat-paradise-opposite-blocks-20261018",
+          "listing-swastik-glass-paradise-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#d9d0b8",
+        "material": "painted_plaster",
+        "fronts": [
+          {
+            "facade": [
+              [
+                -6543.92,
+                -3031.3
+              ],
+              [
+                -6507.53,
+                -3029.55
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0.15,
+                "heightM": 3.55,
+                "glazingRatio": 0.95,
+                "glassColor": "#344442",
+                "bandColor": "#c9c2ae",
+                "bandHeightM": 0.12
+              },
+              {
+                "baseM": 3.7,
+                "heightM": 3.5,
+                "glazingRatio": 1,
+                "glazingHeightRatio": 0.84,
+                "openingShape": "arched",
+                "balustrade": {
+                  "heightM": 0.72,
+                  "color": "#85694f",
+                  "spacingM": 0.2
+                },
+                "glassColor": "#1b2422",
+                "bandColor": "#d9d0b8",
+                "bandHeightM": 0.3
+              },
+              {
+                "baseM": 7.2,
+                "heightM": 3.5,
+                "glazingRatio": 1,
+                "glazingHeightRatio": 0.84,
+                "openingShape": "arched",
+                "balustrade": {
+                  "heightM": 0.72,
+                  "color": "#85694f",
+                  "spacingM": 0.2
+                },
+                "glassColor": "#1b2422",
+                "bandColor": "#d9d0b8",
+                "bandHeightM": 0.3
+              }
+            ],
+            "bays": [
+              {
+                "start": 0.025,
+                "end": 0.09
+              },
+              {
+                "start": 0.1,
+                "end": 0.165
+              },
+              {
+                "start": 0.225,
+                "end": 0.29
+              },
+              {
+                "start": 0.3,
+                "end": 0.365
+              },
+              {
+                "start": 0.425,
+                "end": 0.49
+              },
+              {
+                "start": 0.5,
+                "end": 0.565
+              },
+              {
+                "start": 0.625,
+                "end": 0.69
+              },
+              {
+                "start": 0.7,
+                "end": 0.765
+              },
+              {
+                "start": 0.825,
+                "end": 0.89
+              },
+              {
+                "start": 0.9,
+                "end": 0.965
+              }
+            ],
+            "piers": [
+              {
+                "at": 0.01,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              },
+              {
+                "at": 0.18,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              },
+              {
+                "at": 0.21,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              },
+              {
+                "at": 0.38,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              },
+              {
+                "at": 0.41,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              },
+              {
+                "at": 0.58,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              },
+              {
+                "at": 0.61,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              },
+              {
+                "at": 0.78,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              },
+              {
+                "at": 0.81,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              },
+              {
+                "at": 0.98,
+                "widthM": 0.16,
+                "color": "#ece9db",
+                "depthM": 0.15
+              }
+            ],
+            "fascia": {
+              "baseM": 10.75,
+              "heightM": 0.5,
+              "color": "#d4cbb3",
+              "outsetM": 0.16
+            }
+          },
+          {
+            "accessOnly": true,
+            "facade": [
+              [
+                -6542.6348,
+                -3031.2382
+              ],
+              [
+                -6539.0189,
+                -3031.0643
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.7,
+                "glazingRatio": 0
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.5,
+              "landingDepthM": 0.6,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 3.5,
+                  "risers": 3,
+                  "runM": 0.9
+                }
+              ]
+            }
+          },
+          {
+            "accessOnly": true,
+            "facade": [
+              [
+                -6537.2498,
+                -3030.9792
+              ],
+              [
+                -6534.433,
+                -3030.8438
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.7,
+                "glazingRatio": 0
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.5,
+              "landingDepthM": 0.6,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 2.7,
+                  "risers": 3,
+                  "runM": 0.9
+                }
+              ]
+            }
+          },
+          {
+            "accessOnly": true,
+            "facade": [
+              [
+                -6533.5837,
+                -3030.8029
+              ],
+              [
+                -6530.9667,
+                -3030.6771
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.7,
+                "glazingRatio": 0
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.5,
+              "landingDepthM": 0.6,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 2.5,
+                  "risers": 4,
+                  "runM": 1
+                }
+              ]
+            }
+          },
+          {
+            "accessOnly": true,
+            "facade": [
+              [
+                -6530.1901,
+                -3030.6397
+              ],
+              [
+                -6527.3734,
+                -3030.5043
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.7,
+                "glazingRatio": 0
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.5,
+              "landingDepthM": 0.6,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 2.7,
+                  "risers": 2,
+                  "runM": 0.6
+                }
+              ]
+            }
+          },
+          {
+            "accessOnly": true,
+            "facade": [
+              [
+                -6526.2236,
+                -3030.449
+              ],
+              [
+                -6523.4069,
+                -3030.3135
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.7,
+                "glazingRatio": 0
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.5,
+              "landingDepthM": 0.6,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 2.7,
+                  "risers": 3,
+                  "runM": 0.9
+                }
+              ]
+            }
+          },
+          {
+            "accessOnly": true,
+            "facade": [
+              [
+                -6521.9432,
+                -3030.2431
+              ],
+              [
+                -6519.0265,
+                -3030.1029
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.7,
+                "glazingRatio": 0
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.5,
+              "landingDepthM": 0.6,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 2.8,
+                  "risers": 2,
+                  "runM": 0.6
+                }
+              ]
+            }
+          },
+          {
+            "accessOnly": true,
+            "facade": [
+              [
+                -6518.0316,
+                -3030.055
+              ],
+              [
+                -6515.5145,
+                -3029.934
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.7,
+                "glazingRatio": 0
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.5,
+              "landingDepthM": 0.6,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 2.4,
+                  "risers": 2,
+                  "runM": 0.6
+                }
+              ]
+            }
+          },
+          {
+            "accessOnly": true,
+            "facade": [
+              [
+                -6514.6109,
+                -3029.8905
+              ],
+              [
+                -6512.0939,
+                -3029.7695
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.7,
+                "glazingRatio": 0
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.5,
+              "landingDepthM": 0.6,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 2.4,
+                  "risers": 1,
+                  "runM": 0.3
+                }
+              ]
+            }
+          },
+          {
+            "accessOnly": true,
+            "facade": [
+              [
+                -6510.7172,
+                -3029.7033
+              ],
+              [
+                -6508.2001,
+                -3029.5822
+              ]
+            ],
+            "facingHeading": 3.093539539641621,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.7,
+                "glazingRatio": 0
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.5,
+              "landingDepthM": 0.6,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 2.4,
+                  "risers": 2,
+                  "runM": 0.6
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "notes": "Presence, three visible levels and the observed facade character are corroborated in connected views. Height, curve shape, metric bays, depth, unit attachments and shared approximate entry level remain provisional. Observed individual shallow entry steps are represented with estimated dimensions fitted through the shared road-clearance/collision plan; no exact rise is claimed. Retaining the clearly observed building overrides a prior derived road-intrusion flag; no claim of measured road width is made. Correction: each photographed shallow shop entrance now has its own local provisional landing. No long continuous raised platform is inferred across the entire L-shaped block. Explicit subsegment endpoints keep each section local; all access dimensions remain estimates."
+    }
+  ]
+}

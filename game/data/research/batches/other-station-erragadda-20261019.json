@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "id": "other-station-erragadda-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "January 2026 Google Street View coverage across several adjacent points on the Erragadda station road. It documents the elevated Metro access structure, roadside railing and heavy mixed traffic, plus readable SugarCane and AI Traders/Nice Wood Work signs and R.S Hotel menu boards. Pillars, stairs, advertising and distance obscure the shop entrances and block a complete ordered frontage inventory; all business names stay pending camera-context candidates. Camera offsets also make the adjacent road assignment ambiguous. No exact storefront, road range, side or frontage sequence is admitted.",
+  "sources": [
+    {
+      "id": "sv-erragadda-mumbai-highway-01-202601-2nRsclA-FBPKrZPuB8e6kA",
+      "kind": "street_view",
+      "title": "Mumbai Highway beneath Erragadda Metro — 2026-01 — view 1",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=2nRsclA-FBPKrZPuB8e6kA&heading=255.3977",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4566617, "lon": 78.4337549, "panoId": "2nRsclA-FBPKrZPuB8e6kA", "headingDeg": 255.3977 },
+      "assetPolicy": "reference_only",
+      "notes": "Street-level view beside Erragadda Metro, looking across the highway toward station stairs, metal railings and a row of low commercial frontages. Cars, auto-rickshaws and motorcycles share the road. Several signs are partly hidden or too small to read in this wide view; no frontage order is assigned."
+    },
+    {
+      "id": "sv-erragadda-mumbai-highway-02-202601-ZaTwO1V6dWEgFGYZ5sjsAA",
+      "kind": "street_view",
+      "title": "Mumbai Highway beneath Erragadda Metro — 2026-01 — view 2",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=ZaTwO1V6dWEgFGYZ5sjsAA&heading=269.5594",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4567255, "lon": 78.4337287, "panoId": "ZaTwO1V6dWEgFGYZ5sjsAA", "headingDeg": 269.5594 },
+      "assetPolicy": "reference_only",
+      "notes": "Adjacent camera point under the elevated Metro and pedestrian stair bridge. The view shows the commercial row behind columns and railings, with signboards and open bays, plus cars, auto-rickshaws, motorcycles and pedestrians. Shop names and entrances remain obscured at this scale."
+    },
+    {
+      "id": "sv-erragadda-mumbai-highway-03-202601-0i1NI32Hz5yL5rUgSt8fHg",
+      "kind": "street_view",
+      "title": "Mumbai Highway beneath Erragadda Metro — 2026-01 — view 3",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=0i1NI32Hz5yL5rUgSt8fHg&heading=269.5594",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4568096, "lon": 78.4336902, "panoId": "0i1NI32Hz5yL5rUgSt8fHg", "headingDeg": 269.5594 },
+      "assetPolicy": "reference_only",
+      "notes": "Zoomed view of the ground-floor row beneath the elevated stair bridge. The red fascia reads AI TRADERS / NICE WOOD WORK above a wood-and-door display; a separate green sign reads SugarCane. The first shop frontage is partly interrupted by a Metro column, and the second sign sits behind foreground railing and roadside activity. These are sign candidates, not verified shop placements."
+    },
+    {
+      "id": "sv-erragadda-mumbai-highway-04-202601-n-PX7B6YhKVEfq3PQQDUdQ",
+      "kind": "street_view",
+      "title": "Mumbai Highway beneath Erragadda Metro — 2026-01 — view 4",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=n-PX7B6YhKVEfq3PQQDUdQ&heading=269.5594",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4568991, "lon": 78.4336503, "panoId": "n-PX7B6YhKVEfq3PQQDUdQ", "headingDeg": 269.5594 },
+      "assetPolicy": "reference_only",
+      "notes": "Adjacent camera point along the same shop row. Two freestanding red menu boards read R.S HOTEL beside an open commercial bay, while a painted NO PARKING message is on the Metro stair base and a separate TO-LET board is visible over another bay. The restaurant entrance and exact unit are not established by these boards; no ordered inventory is assigned."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-erragadda-metro-roadside-context-20261019",
+      "sourceIds": [
+        "sv-erragadda-mumbai-highway-01-202601-2nRsclA-FBPKrZPuB8e6kA",
+        "sv-erragadda-mumbai-highway-02-202601-ZaTwO1V6dWEgFGYZ5sjsAA",
+        "sv-erragadda-mumbai-highway-03-202601-0i1NI32Hz5yL5rUgSt8fHg",
+        "sv-erragadda-mumbai-highway-04-202601-n-PX7B6YhKVEfq3PQQDUdQ"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Erragadda Metro stairs, railings and mixed highway traffic",
+      "category": "first_pass_station_public_realm_context",
+      "roadId": null,
+      "position": { "lat": 17.4566617, "lon": 78.4337549, "headingDeg": 255.3977 },
+      "placementStatus": "pending",
+      "notes": "The roadside frames show the elevated station structure, large support columns, long stair/footbridge access, pedestrian metal railings and commercial bays under the structure. Autos, motorcycles and cars pass along the highway. These camera points are close to multiple adjacent road edges, so no road ID, dimensions, side assignment or traffic count is asserted."
+    },
+    {
+      "id": "obs-erragadda-sugarcane-sign-candidate-20261019",
+      "sourceIds": [
+        "sv-erragadda-mumbai-highway-03-202601-0i1NI32Hz5yL5rUgSt8fHg",
+        "sv-erragadda-mumbai-highway-04-202601-n-PX7B6YhKVEfq3PQQDUdQ"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "SugarCane sign above a roadside commercial bay",
+      "category": "first_pass_candidate_storefront",
+      "roadId": null,
+      "position": { "lat": 17.4568096, "lon": 78.4336902, "headingDeg": 269.5594 },
+      "placementStatus": "pending",
+      "notes": "A green sign reading SugarCane is visible above a ground-level bay beneath the Metro structure. The camera viewpoint and foreground columns/railings do not establish an exact entrance point, road side, dimensions, neighbor sequence or whether the visible bay remains the sign's current tenant."
+    },
+    {
+      "id": "obs-erragadda-ai-traders-sign-candidate-20261019",
+      "sourceIds": [
+        "sv-erragadda-mumbai-highway-03-202601-0i1NI32Hz5yL5rUgSt8fHg",
+        "sv-erragadda-mumbai-highway-04-202601-n-PX7B6YhKVEfq3PQQDUdQ"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "AI Traders / Nice Wood Work sign candidate",
+      "category": "first_pass_candidate_storefront",
+      "roadId": null,
+      "position": { "lat": 17.4568096, "lon": 78.4336902, "headingDeg": 269.5594 },
+      "placementStatus": "pending",
+      "notes": "A red and white fascia reads AI TRADERS / NICE WOOD WORK over an open bay displaying wooden panels or doors. A Metro column and stairs interrupt the frontage, and the camera point does not establish the exact entrance, road side, width or order relative to neighboring units. The sign text is retained as an unverified candidate only."
+    },
+    {
+      "id": "obs-erragadda-rs-hotel-sign-candidate-20261019",
+      "sourceIds": [
+        "sv-erragadda-mumbai-highway-03-202601-0i1NI32Hz5yL5rUgSt8fHg",
+        "sv-erragadda-mumbai-highway-04-202601-n-PX7B6YhKVEfq3PQQDUdQ"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "R.S Hotel menu-board candidate",
+      "category": "first_pass_candidate_food_signage",
+      "roadId": null,
+      "position": { "lat": 17.4568991, "lon": 78.4336503, "headingDeg": 269.5594 },
+      "placementStatus": "pending",
+      "notes": "Two red freestanding menu boards read R.S HOTEL beside an open commercial bay under the station stair structure. The boards establish visible food-service signage but do not prove which exact entrance or unit they serve, so no storefront placement or neighbor order is assigned."
+    }
+  ]
+}

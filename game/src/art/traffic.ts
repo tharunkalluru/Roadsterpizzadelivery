@@ -1,7 +1,7 @@
 /**
  * Low-poly but well-proportioned Hyderabad street traffic: hatchback car,
  * auto-rickshaw, TSRTC-style city bus (generic livery, no logos), motorbike with
- * rider, goods truck. Shared materials, merged geometry (<= 5 draw calls each).
+ * rider, goods truck and pedal cycle. Shared materials and merged/instanced details.
  *
  * Every template exposes:
  *   - child "body"  : paint mesh (material.color is the vehicle colour; clone material to vary)
@@ -14,6 +14,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import type { Quality, TrafficKind, TrafficTemplate } from './api';
 import { GeoBuilder, addBox, boxMatrix, clamp, hex, loft, smoothstep } from './geo';
 import { curve } from './hero';
+import { updateBicycleAnimation } from './bicycleAnimation';
 
 type RGB = [number, number, number];
 
@@ -44,6 +45,7 @@ function getVMats(): VMats {
       auto: mk(0xf2c230, 0.2, 0.45),
       bus: mk(0xc3281f, 0.25, 0.42),
       bike: mk(0xb81f27, 0.55, 0.3),
+      bicycle:mk(0x2c7669,.45,.4),
       truck: mk(0x2563a8, 0.3, 0.4),
     },
   };
@@ -487,12 +489,42 @@ function buildTruck(q: Quality): TrafficTemplate {
   return finish('truck', P, { length: 6.4, width: 2.2, height: 2.85 }, [0x2563a8, 0xc3281f, 0x2f7a4a, 0xe0a21f, 0x6b7077], q);
 }
 
+/** Diamond frame and hollow spoked wheels distinguish a pedal cycle from the motorbike. */
+function buildBicycle(q:Quality):TrafficTemplate{
+  const P=newParts(),V=(x:number,y:number,z:number)=>new THREE.Vector3(x,y,z),rear=V(0,.31,.59),front=V(0,.31,-.59),crank=V(0,.34,.12),saddle=V(0,.88,.27),head=V(0,.85,-.36);
+  for(const [a,b]of [[rear,crank],[crank,saddle],[saddle,rear],[saddle,head],[head,crank],[head,front]])limb(P.paint,a,b,.018,.018,WHITE,7);
+  for(const side of [-1,1]){limb(P.detail,V(side*.04,.31,-.59),V(side*.04,.9,-.36),.013,.013,CHROME,6);}
+  bx(P.detail,.27,.06,.3,0,.91,.29,BLACK);bx(P.detail,.59,.025,.025,0,1.02,-.4,BLACK);
+  limb(P.detail,head,V(0,1.02,-.4),.02,.02,CHROME,6);bx(P.brake,.07,.09,.025,0,.77,.7);bx(P.lamp,.07,.07,.025,0,.93,-.47);
+  const shirt=hex(0x678968),trousers=hex(0x38424f),skin=hex(0xb27d58);
+  limb(P.detail,V(0,.98,.28),V(0,1.36,.06),.13,.16,shirt,8);sphere(P.detail,.13,0,1.55,.015,hex(0xc7c6ba),1,1,1.1,10);
+  for(const side of [-1,1]){
+    limb(P.detail,V(side*.15,1.32,.06),V(side*.24,1.13,-.18),.04,.035,shirt,6);limb(P.detail,V(side*.24,1.13,-.18),V(side*.27,1.02,-.4),.034,.028,skin,6);
+  }
+  const result=finish('bicycle',P,{length:1.85,width:.65,height:1.65},[0x2c7669,0x365f8a,0x7c4239,0xa79554],q),root=result.object;
+  const wheelB=new GeoBuilder(true),torus=new THREE.TorusGeometry(.3,.023,5,q==='low'?12:18);torus.rotateY(Math.PI/2);wheelB.appendGeometry(torus,new THREE.Matrix4(),RUBBER);torus.dispose();
+  for(let i=0;i<10;i++){const a=Math.PI*2*i/10;limb(wheelB,V(0,0,0),V(0,Math.cos(a)*.28,Math.sin(a)*.28),.003,.003,CHROME,4);}
+  const wheelGeo=wheelB.build();wheelGeo.userData.shared=true;
+  for(const [name,z]of [['bicycle-wheel-front',-.59],['bicycle-wheel-rear',.59]]as const){const m=new THREE.Mesh(wheelGeo,getVMats().detail);m.name=name;m.position.set(0,.31,z);root.add(m);}
+  const pedals=new GeoBuilder(true);cylX(pedals,.018,.28,0,0,0,CHROME,6);for(const side of [-1,1])limb(pedals,V(side*.1,0,0),V(side*.18,side*.13,0),.012,.012,CHROME,5);
+  const pedalGeo=pedals.build();pedalGeo.userData.shared=true;const pedal=new THREE.Mesh(pedalGeo,getVMats().detail);pedal.name='bicycle-cranks';pedal.position.copy(crank);root.add(pedal);root.userData.cycleWheelRadius=.3;
+  const legBuilder=new GeoBuilder(true),legUnit=new THREE.CylinderGeometry(.8,1,1,6);legBuilder.appendGeometry(legUnit,new THREE.Matrix4(),trousers);legUnit.dispose();
+  const footBuilder=new GeoBuilder(true);bx(footBuilder,1,1,1,0,0,0,BLACK);
+  for(const [name,geometry]of [['bicycle-legs',legBuilder.build()],['bicycle-footrests',footBuilder.build()]]as const){
+    geometry.userData.shared=true;const mesh=new THREE.InstancedMesh(geometry,getVMats().detail,4);mesh.name=name;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.castShadow=q!=='low';mesh.receiveShadow=true;
+    mesh.boundingSphere=new THREE.Sphere(V(0,.65,.12),.78);root.add(mesh);
+  }
+  updateBicycleAnimation(root,0);
+  return result;
+}
+
 export function createTrafficTemplates(quality: Quality): Record<TrafficKind, TrafficTemplate> {
   return {
     car: buildCar(quality),
     auto: buildAuto(quality),
     bus: buildBus(quality),
     bike: buildBike(quality),
+    bicycle:buildBicycle(quality),
     truck: buildTruck(quality),
   };
 }

@@ -1,0 +1,447 @@
+{
+  "schemaVersion": 1,
+  "id": "paradise-cafe-bakery-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex separate Chrome corridor inspection",
+  "notes": "Dated Paradise corridor first batch. One photographed block plus an infrastructure observation, not complete corridor coverage. Geometry, floor indices, access dimensions and metric height are provisional. No image assets are redistributed.",
+  "sources": [
+    {
+      "id": "sv-paradise-cafe-bakery-2026-02-chrome-20261018",
+      "kind": "street_view",
+      "title": "Paradise Cafe and Bakery — Sarojini Devi Road",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=iig6Fgwkac6BSTaCwxIGQA&heading=205.71",
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex separate Chrome corridor inspection",
+      "position": {
+        "lat": 17.4418424,
+        "lon": 78.4872832,
+        "headingDeg": 205.71,
+        "panoId": "iig6Fgwkac6BSTaCwxIGQA"
+      },
+      "notes": "Directly inspected at ground level and tilted upward in Chrome. Readable left-to-right sign sequence in the oblique road view is PARADISE CAFE, menu text (not a separate shop), PARADISE BAKERY. Continuous upper blue glazing, offwhite/silver horizontal cladding, red roof PARADISE board and orange projecting window surround are visible. Cafe has a wide stair; bakery has a separate narrower stair; both have silver rails and potted plants. The containing Paradise Hotel OSM footprint and public restaurant listing agree on block identity. No metric dimensions, floor count, facade subdivision or entrance is field measured. All authored facade geometry remains provisional.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-paradise-flyover-2026-02-chrome-20261018",
+      "kind": "street_view",
+      "title": "Paradise flyover and metro station",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=dRb94cYTLXYaiB5XoaDArA&heading=277.27",
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex separate Chrome corridor inspection",
+      "position": {
+        "lat": 17.4433068,
+        "lon": 78.4875354,
+        "headingDeg": 277.27,
+        "panoId": "dRb94cYTLXYaiB5XoaDArA"
+      },
+      "notes": "Narrow elevated two-way carriageway has a low modular concrete centre divider and yellow/black outer parapets with metal rails. Trees are below on the left; a metro station with a curved ribbed canopy is beside the road on the right. Autos, scooters, cars and a bus are present in this one capture; no traffic rate or frequency is inferred. Observation only, no structure corrections or measured geometry.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-paradise-cafe-bakery-block",
+      "sourceIds": [
+        "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "Paradise Cafe and Bakery frontage",
+      "category": "commercial_frontage",
+      "roadId": "r_13220415640_0",
+      "position": {
+        "lat": 17.4418424,
+        "lon": 78.4872832,
+        "headingDeg": 205.71
+      },
+      "placementStatus": "pending",
+      "notes": "Cafe, bakery and roof brand identity are observed; authored frontages remain provisional until exact facade and entry survey. Upper curtain wall obscures individual floor divisions; no exact floor count is claimed."
+    },
+    {
+      "id": "obs-paradise-flyover-metro",
+      "sourceIds": [
+        "sv-paradise-flyover-2026-02-chrome-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "Paradise flyover parapets and metro station",
+      "category": "streetscape",
+      "roadId": null,
+      "position": {
+        "lat": 17.4433068,
+        "lon": 78.4875354,
+        "headingDeg": 277.27
+      },
+      "placementStatus": "pending",
+      "notes": "Narrow elevated two-way carriageway has a low modular concrete centre divider and yellow/black outer parapets with metal rails. Trees are below on the left; a metro station with a curved ribbed canopy is beside the road on the right. Autos, scooters, cars and a bus are present in this one capture; no traffic rate or frequency is inferred. Observation only, no structure corrections or measured geometry."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-paradise-cafe",
+      "placementStatus": "provisional",
+      "chunkId": "c_-33_-15",
+      "name": "PARADISE CAFÉ",
+      "nameTe": null,
+      "category": "cafe",
+      "group": "cafe_bakery",
+      "roadId": "r_13220415640_0",
+      "side": "left",
+      "buildingId": "b_8490a44a37",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -6484.02,
+          -3007.2
+        ],
+        [
+          -6507,
+          -3007.29
+        ]
+      ],
+      "entrance": [
+        -6495.51,
+        -3007.245
+      ],
+      "floor": 0,
+      "frontageWidthM": 22.98,
+      "alongRoadM": 10.9,
+      "facingHeading": -0.0039,
+      "lat": 17.4417141,
+      "lon": 78.4872154,
+      "captureDate": "2026-02",
+      "sourceIds": [
+        "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex separate Chrome corridor inspection",
+      "evidence": {
+        "identity": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [
+        "sf_dd3e9cdd8d",
+        "sf_d0b27a12a1"
+      ],
+      "appearance": {
+        "signColor": "#f1eee8",
+        "signTextColor": "#7e2730",
+        "heightM": 4.5,
+        "frontBaseM": 1.3,
+        "signBaseM": 3.5,
+        "signHeightM": 0.95,
+        "signWidthM": 22.98,
+        "signOutsetM": 0.65,
+        "frontStyle": "glazed",
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Identity and relative order are directly visible; assignment to the north frontage of the Paradise Hotel footprint is corroborated by the public restaurant pin. Facade endpoints, entrance, width, elevation and rendering floor index are provisional. Raised landing and entry stairs are observed but dimensions and exact stair position are estimates."
+    },
+    {
+      "id": "survey-paradise-bakery",
+      "placementStatus": "provisional",
+      "chunkId": "c_-33_-15",
+      "name": "PARADISE BAKERY",
+      "nameTe": null,
+      "category": "bakery",
+      "group": "cafe_bakery",
+      "roadId": "r_13220415640_0",
+      "side": "left",
+      "buildingId": "b_8490a44a37",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -6507.3,
+          -3007.29
+        ],
+        [
+          -6522.63,
+          -3007.35
+        ]
+      ],
+      "entrance": [
+        -6514.965,
+        -3007.3199999999997
+      ],
+      "floor": 0,
+      "frontageWidthM": 15.33,
+      "alongRoadM": 30.36,
+      "facingHeading": -0.0039,
+      "lat": 17.4417141,
+      "lon": 78.4872154,
+      "captureDate": "2026-02",
+      "sourceIds": [
+        "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex separate Chrome corridor inspection",
+      "evidence": {
+        "identity": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "signColor": "#c99ca2",
+        "signTextColor": "#ffffff",
+        "heightM": 4.5,
+        "frontBaseM": 1.3,
+        "signBaseM": 3.5,
+        "signHeightM": 0.95,
+        "signWidthM": 15.33,
+        "signOutsetM": 0.65,
+        "frontStyle": "glazed",
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Identity and relative order are directly visible; assignment to the north frontage of the Paradise Hotel footprint is corroborated by the public restaurant pin. Facade endpoints, entrance, width, elevation and rendering floor index are provisional. Raised landing and entry stairs are observed but dimensions and exact stair position are estimates."
+    },
+    {
+      "id": "survey-paradise-roof",
+      "placementStatus": "provisional",
+      "chunkId": "c_-33_-15",
+      "name": "PARADISE",
+      "nameTe": null,
+      "category": "restaurant",
+      "group": "restaurant",
+      "roadId": "r_13220415640_0",
+      "side": "left",
+      "buildingId": "b_8490a44a37",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -6488,
+          -3007.22
+        ],
+        [
+          -6507,
+          -3007.29
+        ]
+      ],
+      "entrance": [
+        -6497.5,
+        -3007.255
+      ],
+      "floor": 1,
+      "frontageWidthM": 19.0,
+      "alongRoadM": 12.89,
+      "facingHeading": -0.0039,
+      "lat": 17.4417141,
+      "lon": 78.4872154,
+      "captureDate": "2026-02",
+      "sourceIds": [
+        "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex separate Chrome corridor inspection",
+      "evidence": {
+        "identity": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "signColor": "#a63e43",
+        "signTextColor": "#f2eee5",
+        "heightM": 4.5,
+        "frontBaseM": 1.3,
+        "signBaseM": 14.1,
+        "signHeightM": 1.0,
+        "signWidthM": 19.0,
+        "signOutsetM": 0.65,
+        "frontStyle": "glazed",
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Identity and relative order are directly visible; assignment to the north frontage of the Paradise Hotel footprint is corroborated by the public restaurant pin. Facade endpoints, entrance, width, elevation and rendering floor index are provisional. Roof branding of the same Paradise business, not a separate tenant or an observed occupied floor."
+    }
+  ],
+  "suppressions": [],
+  "corrections": [
+    {
+      "id": "profile-paradise-cafe-bakery",
+      "kind": "building_profile",
+      "buildingId": "b_8490a44a37",
+      "sourceIds": [
+        "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+      ],
+      "heightM": 15.2,
+      "levels": null,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#d8d9d2",
+      "profile": {
+        "sourceIds": [
+          "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#d8d9d2",
+        "material": "mixed",
+        "fronts": [
+          {
+            "facade": [
+              [
+                -6484.02,
+                -3007.2
+              ],
+              [
+                -6522.63,
+                -3007.35
+              ]
+            ],
+            "facingHeading": -0.0039,
+            "floors": [
+              {
+                "baseM": 1.3,
+                "heightM": 3.1,
+                "glazingRatio": 0.94,
+                "glazingHeightRatio": 0.9,
+                "glassColor": "#344b4a",
+                "bandColor": "#d8d9d2",
+                "bandHeightM": 0.12
+              },
+              {
+                "baseM": 4.4,
+                "heightM": 1.4,
+                "glazingRatio": 0.97,
+                "glazingHeightRatio": 0.83,
+                "glassColor": "#becdd0",
+                "bandColor": "#d7d9d3",
+                "bandHeightM": 0.18
+              },
+              {
+                "baseM": 5.8,
+                "heightM": 8.3,
+                "glazingRatio": 0.98,
+                "glazingHeightRatio": 0.94,
+                "glassColor": "#51819c",
+                "bandColor": "#d8dad3",
+                "bandHeightM": 0.65
+              }
+            ],
+            "fascia": {
+              "baseM": 14.1,
+              "heightM": 1.1,
+              "color": "#d9dad2",
+              "outsetM": 0.2
+            },
+            "piers": [
+              {
+                "at": 0.015,
+                "widthM": 0.35,
+                "color": "#d8dad4",
+                "depthM": 0.35
+              },
+              {
+                "at": 0.985,
+                "widthM": 0.35,
+                "color": "#d8dad4",
+                "depthM": 0.35
+              }
+            ],
+            "accents": [
+              {
+                "start": 0.61,
+                "end": 0.69,
+                "baseM": 9,
+                "heightM": 2.1,
+                "color": "#be6c50",
+                "outsetM": 0.3,
+                "outlineM": 0.18
+              }
+            ],
+            "access": {
+              "landingHeightM": 1.3,
+              "landingDepthM": 1.1,
+              "railings": true,
+              "stairs": [
+                {
+                  "at": 0.28,
+                  "widthM": 5.7,
+                  "risers": 8,
+                  "runM": 2.4
+                },
+                {
+                  "at": 0.78,
+                  "widthM": 3.2,
+                  "risers": 6,
+                  "runM": 1.8
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "notes": "Observed curtain glazing and cladding composition is authored with the reusable profile. Approximately15.2m height and all access/window dimensions are estimates; distinct floors are not visible through the curtain wall, so levels remains null."
+    },
+    {
+      "id": "anchor-paradise-cafe-bakery",
+      "kind": "landmark_anchor",
+      "buildingId": "b_8490a44a37",
+      "name": "PARADISE",
+      "sourceIds": [
+        "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+      ],
+      "notes": "Red roof PARADISE lettering and Cafe/Bakery bands corroborate this mapped Paradise Hotel building identity."
+    }
+  ],
+  "roadReviews": [
+    {
+      "roadId": "r_13220415640_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 0,
+          "endM": 45.36,
+          "sourceIds": [
+            "sv-paradise-cafe-bakery-2026-02-chrome-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex separate Chrome corridor inspection",
+          "completeness": "partial",
+          "allFrontagesRecorded": false,
+          "storefrontIds": [
+            "survey-paradise-cafe",
+            "survey-paradise-roof",
+            "survey-paradise-bakery"
+          ],
+          "notes": "One oblique view records cafe/bakery/roof branding; exact entry geometry and adjacent units remain unreviewed."
+        }
+      ]
+    }
+  ]
+}

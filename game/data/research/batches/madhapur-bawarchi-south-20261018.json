@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-bawarchi-south-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex separate Chrome corridor inspection",
+  "notes": "Separate Bawarchi south main-road block after the SN Heights west-alley correction. All geometry remains provisional. Source imagery is reference only.",
+  "suppressions": [
+    {
+      "id": "suppress-bawarchi-main-sf_2381ff638e",
+      "storefrontId": "sf_2381ff638e",
+      "sourceIds": [
+        "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+      ],
+      "reason": "Direct April2026 Bawarchi south-front imagery contradicts this unreviewed raw listing snapped onto the same main-road facade. Independent from the superseded SN Heights association."
+    },
+    {
+      "id": "suppress-bawarchi-main-sf_3c80cefac5",
+      "storefrontId": "sf_3c80cefac5",
+      "sourceIds": [
+        "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+      ],
+      "reason": "Direct April2026 Bawarchi south-front imagery contradicts this unreviewed raw listing snapped onto the same main-road facade. Independent from the superseded SN Heights association."
+    },
+    {
+      "id": "suppress-bawarchi-main-sf_e94c09118e",
+      "storefrontId": "sf_e94c09118e",
+      "sourceIds": [
+        "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+      ],
+      "reason": "Direct April2026 Bawarchi south-front imagery contradicts this unreviewed raw listing snapped onto the same main-road facade. Independent from the superseded SN Heights association."
+    }
+  ],
+  "sources": [
+    {
+      "id": "sv-madhapur-bawarchi-south-2026-04-chrome-20261018",
+      "kind": "street_view",
+      "title": "Hi-Tech Bawarchi Food Court — south main-road face",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=cASiFj_NvTwuQIGtw2hXwg&heading=350&pitch=8&fov=70",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex coordinated Chrome street-level inspection",
+      "position": {
+        "lat": 17.4410474,
+        "lon": 78.3916865,
+        "headingDeg": 350,
+        "panoId": "cASiFj_NvTwuQIGtw2hXwg"
+      },
+      "notes": "Direct north-looking street view shows HI-TECH BAWARCHI FOOD COURT on the south main-road face of the tall peach/offwhite block. Brown lower shutters and raised restaurant access are visible. Public restaurant locator pin17.4411504,78.3917191 lies inside canonical b_29048e3fbb; address1-98/90/24 Ayyappa Society Main Road opposite IOC petrol pump. This is separate from SN Heights further north along the west alley, whose earlier south-face placement is superseded. Facade divisions, five-level composition, approximate18m height and access dimensions are unmeasured estimates. Direct independent close inspection confirms lower dark-grey cladding and red rectangular window surrounds, brown rolled shutters, white boards with blue letters, and a visible lower/basement opening toward the right. Precise stair position is not established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-madhapur-bawarchi-full-2026-04-chrome-20261018",
+      "kind": "street_view",
+      "title": "Hi-Tech Bawarchi — clearer full south elevation",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=m8V0Q--yGJu18O2v5lHEYg&heading=350&pitch=8&fov=70",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex coordinated Chrome street-level inspection",
+      "position": {
+        "lat": 17.4410371,
+        "lon": 78.3917812,
+        "headingDeg": 350,
+        "panoId": "m8V0Q--yGJu18O2v5lHEYg"
+      },
+      "notes": "Coordinated Chrome full-front review clarifies four visible levels, not the earlier rough five-level estimate: raised ground/brown shutters with an open central doorway, grey first upper with red window frames, then two peach/offwhite upper window bands. Repeated restaurant boards are the same business. Entry stair is near the left third of the raised landing; footpath is rough. All metric heights and geometry remain provisional.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-madhapur-hitech-bawarchi-south",
+      "sourceIds": [
+        "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "HI-TECH BAWARCHI FOOD COURT",
+      "category": "restaurant",
+      "roadId": "r_38680221829_0",
+      "position": {
+        "lat": 17.4410474,
+        "lon": 78.3916865,
+        "headingDeg": 350
+      },
+      "placementStatus": "pending",
+      "notes": "Main-road identity is visible and its public pin is contained in this footprint. The band is authored across the observed south face with provisional width, floor0 rendering index, raised level and central access estimate. Telugu lettering is visible but not transcribed. Existing raw side-snapped Bawarchi record is replaced by this directly observed frontage."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-madhapur-hitech-bawarchi",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "G HI-TECH BAWARCHI FOOD COURT",
+      "nameTe": null,
+      "category": "restaurant",
+      "group": "restaurant",
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "buildingId": "b_29048e3fbb",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16660.44,
+          -2938.04
+        ],
+        [
+          -16642.14,
+          -2936.42
+        ]
+      ],
+      "entrance": [
+        -16651.29,
+        -2937.23
+      ],
+      "floor": 0,
+      "frontageWidthM": 18.37,
+      "alongRoadM": 16.36,
+      "facingHeading": 2.97348,
+      "lat": 17.4411504,
+      "lon": 78.3917191,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-bawarchi-south-2026-04-chrome-20261018",
+        "sv-madhapur-bawarchi-full-2026-04-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex coordinated Chrome street-level inspection",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [
+        "sf_a0acd59231"
+      ],
+      "appearance": {
+        "facadeColor": "#4b4c4a",
+        "signColor": "#e9e4d7",
+        "signTextColor": "#2e438e",
+        "shutterColor": "#644333",
+        "frontBaseM": 1.1,
+        "heightM": 5.0,
+        "signBaseM": 4.0,
+        "signHeightM": 1.0,
+        "signWidthM": 17.3,
+        "signOutsetM": 0.65,
+        "awning": false,
+        "categoryProps": false,
+        "frontStyle": "shutter",
+        "frontOpening": {
+          "at": 0.5,
+          "widthM": 1.8
+        }
+      },
+      "notes": "Main-road identity is visible and its public pin is contained in this footprint. The band is authored across the observed south face with provisional width, floor0 rendering index, raised level and central access estimate. Telugu lettering is visible but not transcribed. Existing raw side-snapped Bawarchi record is replaced by this directly observed frontage. Photographed shutters are explicitly rendered closed; no category-generated restaurant entrance is inferred. Clearer full view confirms open central doorway amid brown shutters and stairs near the left third; these proportions remain authored estimates."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "profile-madhapur-hitech-bawarchi",
+      "kind": "building_profile",
+      "buildingId": "b_29048e3fbb",
+      "sourceIds": [
+        "sv-madhapur-bawarchi-south-2026-04-chrome-20261018",
+        "sv-madhapur-bawarchi-full-2026-04-chrome-20261018"
+      ],
+      "heightM": 15.2,
+      "levels": 4,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#d9bbab",
+      "profile": {
+        "sourceIds": [
+          "sv-madhapur-bawarchi-south-2026-04-chrome-20261018",
+          "sv-madhapur-bawarchi-full-2026-04-chrome-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#d9bbab",
+        "material": "painted_plaster",
+        "fronts": [
+          {
+            "storefrontIds": [
+              "survey-madhapur-hitech-bawarchi"
+            ],
+            "floors": [
+              {
+                "baseM": 1.1,
+                "heightM": 3.45,
+                "glazingRatio": 0.78,
+                "glassColor": "#684b38",
+                "wallColor": "#4b4c4a",
+                "bandColor": "#555652",
+                "bandHeightM": 0.2
+              },
+              {
+                "baseM": 4.55,
+                "heightM": 3.55,
+                "glazingRatio": 0.75,
+                "glassColor": "#49616a",
+                "wallColor": "#4b4c4a",
+                "bandColor": "#4b4c4a",
+                "bandHeightM": 0.3
+              },
+              {
+                "baseM": 8.1,
+                "heightM": 3.5,
+                "glazingRatio": 0.68,
+                "glassColor": "#61798d",
+                "wallColor": "#d9bbab",
+                "bandColor": "#e0cdbb",
+                "bandHeightM": 0.4
+              },
+              {
+                "baseM": 11.6,
+                "heightM": 3.6,
+                "glazingRatio": 0.68,
+                "glassColor": "#61798d",
+                "wallColor": "#d9bbab",
+                "bandColor": "#e0cdbb",
+                "bandHeightM": 0.4
+              }
+            ],
+            "bays": [
+              {
+                "start": 0,
+                "end": 0.46
+              },
+              {
+                "start": 0.51,
+                "end": 1
+              }
+            ],
+            "piers": [
+              {
+                "at": 0.015,
+                "widthM": 0.4,
+                "color": "#e2cbb9"
+              },
+              {
+                "at": 0.49,
+                "widthM": 0.55,
+                "color": "#e2cbb9"
+              },
+              {
+                "at": 0.985,
+                "widthM": 0.4,
+                "color": "#e2cbb9"
+              }
+            ],
+            "fascia": {
+              "baseM": 14.6,
+              "heightM": 0.6,
+              "color": "#dfc7b6",
+              "outsetM": 0.2
+            },
+            "access": {
+              "landingHeightM": 1.1,
+              "landingDepthM": 0.75,
+              "railings": false,
+              "stairs": [
+                {
+                  "at": 0.3,
+                  "widthM": 2.4,
+                  "risers": 6,
+                  "runM": 1.8
+                }
+              ],
+              "basementOpenings": [
+                {
+                  "at": 0.75,
+                  "widthM": 2.2,
+                  "depthM": 1.1
+                }
+              ]
+            },
+            "accents": [
+              {
+                "start": 0.06,
+                "end": 0.27,
+                "baseM": 5.0,
+                "heightM": 2.2,
+                "color": "#b94336",
+                "outsetM": 0.18,
+                "outlineM": 0.1
+              },
+              {
+                "start": 0.37,
+                "end": 0.59,
+                "baseM": 5.0,
+                "heightM": 2.2,
+                "color": "#b94336",
+                "outsetM": 0.18,
+                "outlineM": 0.1
+              },
+              {
+                "start": 0.7,
+                "end": 0.93,
+                "baseM": 5.0,
+                "heightM": 2.2,
+                "color": "#b94336",
+                "outsetM": 0.18,
+                "outlineM": 0.1
+              }
+            ]
+          }
+        ],
+        "nameBand": {
+          "frontIndex": 0,
+          "baseM": 8.0,
+          "heightM": 1.0,
+          "widthRatio": 0.83,
+          "color": "#e9e4d7",
+          "textColor": "#2e438e",
+          "outsetM": 0.65
+        }
+      },
+      "notes": "Four visible levels are clarified by the full-front view, superseding an earlier rough five-level estimate.15.2m height and all façade/access dimensions remain provisional. Lower dark-grey cladding/red window surrounds and upper peach/offwhite bands are observed."
+    },
+    {
+      "id": "anchor-madhapur-hitech-bawarchi",
+      "kind": "landmark_anchor",
+      "buildingId": "b_29048e3fbb",
+      "name": "G HI-TECH BAWARCHI FOOD COURT",
+      "sourceIds": [
+        "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+      ],
+      "notes": "Repeated white/blue boards show the same G HI-TECH BAWARCHI FOOD COURT identity on this main-road building; the upper nameBand is branding of the same business, not another tenancy."
+    }
+  ],
+  "roadReviews": [
+    {
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 4.36,
+          "endM": 28.36,
+          "sourceIds": [
+            "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex coordinated Chrome street-level inspection",
+          "completeness": "partial",
+          "allFrontagesRecorded": false,
+          "storefrontIds": [
+            "survey-madhapur-hitech-bawarchi"
+          ],
+          "notes": "Main Bawarchi block directly observed; precise dimensions/entrance and adjacent frontage completeness remain unresolved."
+        }
+      ]
+    }
+  ]
+}

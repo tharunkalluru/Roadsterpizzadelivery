@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-existing-secondary-service-boards-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex reconstruction of existing dated Chrome observations",
+  "notes": "Three already photographed secondary/service boards on the matched brown and MedPlus blocks. Source capture April2026; no new browsing or source identities are claimed. signageOnly adds panel visuals without new tenants, changes to physical access, footprint/height changes or any road-review/coverage increase. Board dimensions and uncertain colours are explicitly provisional.",
+  "observations": [
+    {
+      "id": "survey-madhapur-brown-samsung-repair-observation",
+      "name": "SAMSUNG MOBILE | ACCESSORIES | REPAIR wording",
+      "category": "electronics_mobile",
+      "notes": "Centre-left ground sign wording is visible, but the business identity and whether this is an official brand service centre are ambiguous. It remains an observation without a separate storefront placement or brand affiliation claim. The already observed service/product wording is now reproduced in a provisional secondary sign panel on the matched brown main face, before SLNS. This panel is not a new storefront, a named proprietor, proof of an official Samsung affiliation, or an expanded visual inventory. Exact board metrics and neutral colour values remain inferred.",
+      "sourceIds": [
+        "sv-madhapur-brown-block-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "roadId": "r_14775775715_0",
+      "position": {
+        "lat": 17.4411909,
+        "lon": 78.3910953,
+        "headingDeg": 350
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "survey-madhapur-mounika-xerox-observation",
+      "name": "MOUNIKA XEROX secondary board",
+      "category": "office_service",
+      "sourceIds": [
+        "sv-madhapur-lower-shops-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "roadId": "r_40395506413_0",
+      "position": {
+        "lat": 17.4411613,
+        "lon": 78.3911867,
+        "headingDeg": 22
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-madhapur-mounika-communications",
+      "notes": "Small secondary MOUNIKA XEROX board is legible beside the Truecare/MedPlus stair opening. It is recorded as a sign observation associated with Mounika, not a separately measured business entrance or invented additional shop. The observed small secondary wording is now rendered as a provisional profile sign panel near the existing stair; no new frontage or tenant is added. Exact panel placement and colour are inferred."
+    },
+    {
+      "id": "survey-madhapur-slns-notary-secondary-board",
+      "name": "NOTARY STAMP PAPERS secondary board",
+      "category": "observed_service_sign",
+      "roadId": "r_14775775715_0",
+      "position": {
+        "lat": 17.4411909,
+        "lon": 78.3910953,
+        "headingDeg": 350
+      },
+      "sourceIds": [
+        "sv-madhapur-brown-block-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-madhapur-slns-printers",
+      "notes": "The dated brown-block Chrome inspection explicitly records a black NOTARY STAMP PAPERS board adjacent to the SLNS PRINTERS / JUMBO XEROX opening. It is associated service signage of that opening, not an independently established tenant. The panel is reconstructed with estimated dimensions and position within the existing SLNS span. Capture coordinates locate the camera, not a notary entrance. No frontage completeness or measured placement is claimed."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "profile-madhapur-brown-commercial-block",
+      "kind": "building_profile",
+      "buildingId": "b_743cd80e16",
+      "sourceIds": [
+        "sv-madhapur-brown-block-2026-04-chrome-20261018",
+        "satellite-madhapur-post-office-blocks-chrome-20261018"
+      ],
+      "heightM": 18,
+      "levels": 5,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#926952",
+      "style": "madhapur_brown_commercial",
+      "notes": "Five visible levels including raised ground are observed. Approximately 18 m height and the existing narrow OSM footprint association remain provisional. Brown vertical cladding piers, offwhite floor bands, wider left windows, narrower right windows and a narrow central structural strip inform the independently authored profile. Retain this block separately from the western white building b_1363284530; no footprint merge or measured dimensions are claimed. Secondary signage from the existing dated Chrome inspection is now rendered without a new tenancy: the SAMSUNG MOBILE | ACCESSORIES | REPAIR wording is at ground centre-left before SLNS, while NOTARY STAMP PAPERS is a secondary board of the SLNS opening. This does not establish a Samsung-authorised centre or a separate Notary operator. Narrow face divisions, board elevations/widths/outsets and neutral Samsung colours are authored estimates. The source describes a black NOTARY board; exact colour values/lettering remain estimates. signageOnly preserves the existing brown architecture, access and basement plan.",
+      "profile": {
+        "signageOnly": true,
+        "sourceIds": [
+          "sv-madhapur-brown-block-2026-04-chrome-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#926952",
+        "fronts": [
+          {
+            "facade": [
+              [
+                -16727.098,
+                -2957.3104
+              ],
+              [
+                -16724.608,
+                -2957.1484
+              ]
+            ],
+            "facingHeading": 2.90964,
+            "floors": []
+          },
+          {
+            "facade": [
+              [
+                -16724.2345,
+                -2957.1241
+              ],
+              [
+                -16722.7405,
+                -2957.0269
+              ]
+            ],
+            "facingHeading": 2.90964,
+            "floors": []
+          }
+        ],
+        "signPanels": [
+          {
+            "text": "SAMSUNG MOBILE | ACCESSORIES | REPAIR",
+            "frontIndex": 0,
+            "baseM": 3,
+            "heightM": 0.58,
+            "widthRatio": 1,
+            "color": "#e4e4e0",
+            "textColor": "#343a40",
+            "outsetM": 0.65
+          },
+          {
+            "text": "NOTARY STAMP PAPERS",
+            "frontIndex": 1,
+            "baseM": 2.2,
+            "heightM": 0.45,
+            "widthRatio": 1,
+            "color": "#252729",
+            "textColor": "#eeeeea",
+            "outsetM": 0.65
+          }
+        ]
+      }
+    },
+    {
+      "id": "profile-madhapur-medplus-building",
+      "kind": "building_profile",
+      "buildingId": "b_42a55533aa",
+      "sourceIds": [
+        "sv-madhapur-medplus-2026-04-chrome-20261017",
+        "sv-madhapur-g5-east-front-2026-04-chrome-20261018",
+        "sv-madhapur-lower-shops-2026-04-chrome-20261018"
+      ],
+      "heightM": 18,
+      "levels": 5,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#e5e9e9",
+      "style": "madhapur_commercial",
+      "notes": "Photographed building has a white structural frame, blue glazing and approximately five visible levels plus basement. Use an approximately 18 m authored height while retaining provisional dimension status. Raised ground-floor stairs and lower units need further measured geometry; existing residential kind is not evidence of current use. The October 18 east view also confirms a separate raised-ground G5 frontage below Just For U and a distinct approximately six-riser stair at its far-right end; metric dimensions remain provisional. The existing closer April 2026 source also records a small MOUNIKA XEROX secondary board near the Truecare/MedPlus stair. It is rendered as associated service signage, not a separate shop or Xerox doorway. The approximately1.2m board span, near-stair placement, elevation/outset and neutral colours remain authored estimates. signageOnly preserves the existing architecture and both access fronts/basement plan.",
+      "profile": {
+        "signageOnly": true,
+        "sourceIds": [
+          "sv-madhapur-lower-shops-2026-04-chrome-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#e5e9e9",
+        "fronts": [
+          {
+            "facade": [
+              [
+                -16696.1,
+                -2953.247
+              ],
+              [
+                -16694.9,
+                -2953.18
+              ]
+            ],
+            "facingHeading": 2.91729,
+            "floors": []
+          }
+        ],
+        "signPanels": [
+          {
+            "text": "MOUNIKA XEROX",
+            "frontIndex": 0,
+            "baseM": 1.4,
+            "heightM": 0.4,
+            "widthRatio": 1,
+            "color": "#e4e4dc",
+            "textColor": "#343a40",
+            "outsetM": 0.65
+          }
+        ]
+      }
+    }
+  ],
+  "expectedPrevious": {
+    "corrections:profile-madhapur-brown-commercial-block": "af87120c3f7ca568f0fa18bb675f6338e424dc2c69ab2067eeca072c6c46ab64",
+    "corrections:profile-madhapur-medplus-building": "593d0619cc9d113c132c1afc17d69fa1c0775887b7d9c313249547c422e75db6",
+    "observations:survey-madhapur-brown-samsung-repair-observation": "b661a14643937cdeb8b6592d611c017829dcb7c5290e3030315b3fdda8ce4a46",
+    "observations:survey-madhapur-mounika-xerox-observation": "b53ba5d38e59e54d3e9c976fc5ef75f790f6b7b02536eaf5d568d8e3c095e7c9"
+  }
+}

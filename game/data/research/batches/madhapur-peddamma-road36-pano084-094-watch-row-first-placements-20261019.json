@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-road36-pano084-094-watch-row-first-placements-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Revision-90 quick placement pass for the unchanged active pair Madhapur to Peddamma Gudi. Fresh Chrome inspection resumed at saved Jan 2025 pano084, checked connected panos085–086 and 091, and inspected pano094 forward plus a rotated opposite-side view. Source-linked provisional render anchors are added for the visible Shaaranga frontage and RADO/BREITLING watch signs. The latter two are across the planted median and map to an existing candidate building/road face; that relation remains low-to-medium confidence. Views are sampled rather than a complete frontage walk; no road-side range, metric alignment, exact unit dimensions/order, or complete inventory is claimed. Keep the Jan 2025/Dec 2021 pano081 junction date gap open and do not reorder the active pair.",
+  "storefrontOverrides": [
+    {
+      "id": "survey-mp-peddamma-shaaranga-pano084-085-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-75_-10",
+      "name": "Shaaranga",
+      "nameTe": null,
+      "category": "flowers_and_gifts_store",
+      "group": "other",
+      "roadId": "r_50590156871_0",
+      "side": "left",
+      "buildingId": "b_ef5e4bc44a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -14997.96,
+          -1942.72
+        ],
+        [
+          -15001.15,
+          -1935.38
+        ]
+      ],
+      "entrance": [
+        -14999.555,
+        -1939.0500000000002
+      ],
+      "floor": 0,
+      "frontageWidthM": 8.003230597702535,
+      "alongRoadM": 36.36331730066624,
+      "facingHeading": 1.1605,
+      "lat": 17.4322116,
+      "lon": 78.4071178,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-084",
+        "sv-mp-road36-middle-chain-20261019-085"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-084",
+          "sv-mp-road36-middle-chain-20261019-085"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-084",
+          "sv-mp-road36-middle-chain-20261019-085"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-084",
+          "sv-mp-road36-middle-chain-20261019-085"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-084",
+          "sv-mp-road36-middle-chain-20261019-085"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_510d62920a"
+      ],
+      "notes": "PROVISIONAL placement; high confidence for the Shaaranga sign identity, medium for the r_50590156871_0 left-side/building match, low for unit geometry. Jan 2025 panos084–085 show the Shaaranga fascia on a ground-floor retail frontage along the forward Road No. 36 chain. The existing footprint-backed candidate sf_510d62920a on b_ef5e4bc44a supports a broad left-side match. Existing facade/entrance geometry is reused only as a rendering anchor; the panorama is not an entrance coordinate. Exact unit bounds, door, neighboring order, current tenancy, route alignment, and measured frontage remain unknown. No road-side review or coverage is claimed."
+    },
+    {
+      "id": "survey-mp-peddamma-rado-pano094-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-76_-10",
+      "name": "RADO",
+      "nameTe": null,
+      "category": "fashion_and_apparel_store",
+      "group": "jewellery",
+      "roadId": "r_28026767843_0",
+      "side": "left",
+      "buildingId": "b_c41fe871b8",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15007.77,
+          -1840.19
+        ],
+        [
+          -15011.76,
+          -1842.63
+        ]
+      ],
+      "entrance": [
+        -15009.765,
+        -1841.41
+      ],
+      "floor": 0,
+      "frontageWidthM": 4.67693275555663,
+      "alongRoadM": 68.0931457445743,
+      "facingHeading": -0.5479,
+      "lat": 17.4314375,
+      "lon": 78.4073225,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-094"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-094"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-094"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-094"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-094"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_b61be81f89"
+      ],
+      "notes": "PROVISIONAL placement; high confidence that a RADO fascia is visible, low-to-medium confidence that the nearby Rado By Kamal Watch Company listing is this exact unit and that its candidate road face is correct, low confidence for unit geometry. Pano094 rotated to heading 230.38 degrees shows the RADO sign in a watch/jewellery storefront row viewed across the raised median from Road No. 36. The existing b_c41fe871b8 / r_28026767843_0 left-side candidate is a provisional map anchor, not a verified route-side assignment. Existing facade/entrance geometry is reused only as an approximate rendering anchor. Exact unit boundaries, door, operator, neighbor order, service-road relation, current tenancy, and measured frontage remain unresolved. No road-side review or coverage is claimed."
+    },
+    {
+      "id": "survey-mp-peddamma-breitling-pano094-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-76_-10",
+      "name": "Breitling Boutique",
+      "nameTe": null,
+      "category": "fashion_and_apparel_store",
+      "group": "jewellery",
+      "roadId": "r_28026767843_0",
+      "side": "left",
+      "buildingId": "b_c41fe871b8",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -14999.78,
+          -1835.32
+        ],
+        [
+          -15003.78,
+          -1837.76
+        ]
+      ],
+      "entrance": [
+        -15001.78,
+        -1836.54
+      ],
+      "floor": 0,
+      "frontageWidthM": 4.685466892423877,
+      "alongRoadM": 58.78236942544543,
+      "facingHeading": -0.5479,
+      "lat": 17.4314375,
+      "lon": 78.4073225,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-094"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-094"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-094"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-094"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-094"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_05b928fc7d"
+      ],
+      "notes": "PROVISIONAL placement; high confidence for a BREITLING fascia, medium for matching the existing Breitling Boutique listing, low-to-medium for the across-median r_28026767843_0 left-side road-face match, and low for exact unit geometry. Pano094 forward view shows the BREITLING sign in a commercial watch/jewellery row across the planted median from Road No. 36. The existing b_c41fe871b8 / r_28026767843_0 candidate is retained as a provisional game anchor, not a verified assignment to the active route. Existing facade/entrance geometry is reused only as an approximate rendering anchor. Exact unit boundary, door, neighbor order, service-road relation, current tenancy, and measured frontage remain unresolved. No road-side review or coverage is claimed."
+    }
+  ]
+}

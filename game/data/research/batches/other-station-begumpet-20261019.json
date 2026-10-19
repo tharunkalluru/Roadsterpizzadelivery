@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "other-station-begumpet-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Station-area coverage continuation for Begumpet. The three sources are connected January 2026 Street View camera points near station access infrastructure. They document Metro/station public realm and adjacent traffic only. No readable storefront identity was established; no exact placement, side, frontage order, continuous range, or coverage credit is claimed.",
+  "sources": [
+    {
+      "id": "sv-begumpet-access-202601-01-rb7qWAdTNV-32ZU27n_wzA",
+      "kind": "street_view",
+      "title": "Begumpet station-side access lane — January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=rb7qWAdTNV-32ZU27n_wzA&heading=217.5804",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4376057,
+        "lon": 78.4569777,
+        "headingDeg": 217.5804,
+        "panoId": "rb7qWAdTNV-32ZU27n_wzA"
+      },
+      "notes": "The road-level view shows the Begumpet Metro deck and piers above a narrow access lane, a long painted retaining wall, and passing cars and scooters. SBI-branded panels appear on Metro columns; they are transit/advertising context, not evidence of an SBI street storefront. Reference imagery was inspected in Google Chrome; no imagery is redistributed. Camera location only.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-begumpet-access-202601-02-tYIa0DUPDvu_RXesuzLdug",
+      "kind": "street_view",
+      "title": "Begumpet station stairs and access lane — January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=tYIa0DUPDvu_RXesuzLdug&heading=217.5804",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4375228,
+        "lon": 78.4569257,
+        "headingDeg": 217.5804,
+        "panoId": "tYIa0DUPDvu_RXesuzLdug"
+      },
+      "notes": "Connected nearby panorama showing the station stairs/escalator, pedestrian railing, Metro piers with SBI-branded panels, the painted wall, and a car and scooters on the access lane. No readable shop fascia appears in this frame. Reference imagery was inspected in Google Chrome; no imagery is redistributed. Camera location only.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-begumpet-access-202601-03-E2tNNr3b4tqg007d2TJviA",
+      "kind": "street_view",
+      "title": "Begumpet Metro mural wall and approach — January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=E2tNNr3b4tqg007d2TJviA&heading=217.5804",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4374387,
+        "lon": 78.4568769,
+        "headingDeg": 217.5804,
+        "panoId": "E2tNNr3b4tqg007d2TJviA"
+      },
+      "notes": "Connected nearby panorama showing the long painted wall beside the station approach; large lettering is partial and is not transcribed as a business. The Metro deck, stair access and mixed scooters/cars remain visible. No storefront identity is established. Reference imagery was inspected in Google Chrome; no imagery is redistributed. Camera location only.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-begumpet-metro-access-lane-202601-20261019",
+      "sourceIds": [
+        "sv-begumpet-access-202601-01-rb7qWAdTNV-32ZU27n_wzA",
+        "sv-begumpet-access-202601-02-tYIa0DUPDvu_RXesuzLdug",
+        "sv-begumpet-access-202601-03-E2tNNr3b4tqg007d2TJviA"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Begumpet Metro station access lane, stairs, mural wall and traffic",
+      "category": "station_public_realm_context",
+      "roadId": "r_42384490128_0",
+      "position": {
+        "lat": 17.4376057,
+        "lon": 78.4569777,
+        "headingDeg": 217.5804
+      },
+      "placementStatus": "pending",
+      "notes": "Three nearby January 2026 camera views show the Begumpet Metro underside and concrete piers, station stairs/escalator with pedestrian railings, SBI-branded panels on Metro columns, a long painted wall, and cars/scooters on the station-side access lane. The nearest core road segment is r_42384490128_0, about 6–8 m from these camera points; this is camera context only. Sampled views do not provide a readable storefront name or a continuous frontage inventory. No road review, exact shop placement, or coverage credit is claimed."
+    }
+  ]
+}

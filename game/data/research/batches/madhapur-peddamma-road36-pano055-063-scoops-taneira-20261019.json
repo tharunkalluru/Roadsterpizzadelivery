@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-road36-pano055-063-scoops-taneira-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex",
+  "notes": "Revision-88 bounded continuation for the unchanged active pair Madhapur → Peddamma Gudi. Reviewed the existing connected Jan 2025 pano055–063 chain (pano055 at the saved pointer through pano063 at the junction approach); this batch adds no sources and no road-side reviews. Two clearly signed image-left storefronts are given provisional building-anchored placements: Scoops then Taneira in the partial forward view sequence. Pano063 reaches a junction with traffic-police barricades and a visible AUKERA frontage across the junction; exact turn, building/road attachment, side coverage, signal, and shop order there remain unresolved. Do not treat camera positions as entrances, approximate base facades as measured geometry, or this batch as a complete side inventory.",
+  "observations": [
+    {
+      "id": "obs-mp-road36-scoops-fascia-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-057"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "SCOOPS fascia on the image-left Road No. 36 frontage",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": "r_45946481775_0",
+      "position": {
+        "lat": 17.4338874,
+        "lon": 78.4050981,
+        "headingDeg": 140.38
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-mp-peddamma-scoops-20261019",
+      "notes": "The Jan 2025 pano057 clearly shows the SCOOPS fascia on the image-left ground-floor commercial row. Provisional placement links it to an existing footprint-backed frontage on the left of r_45946481775_0. The exact unit boundary, entrance, current tenancy, and complete neighbor order remain unverified; camera position is not the shop entrance."
+    },
+    {
+      "id": "obs-mp-road36-taneira-fascia-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-060",
+        "sv-mp-road36-middle-chain-20261019-062"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "TANEIRA fascia on the image-left Road No. 36 frontage",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": "r_45946481775_0",
+      "position": {
+        "lat": 17.4337381,
+        "lon": 78.4053635,
+        "headingDeg": 140.38
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-mp-peddamma-taneira-20261019",
+      "notes": "The Jan 2025 panos060 and 062 show the TANEIRA fascia on the image-left ground-floor commercial row. Provisional placement links it to an existing footprint-backed frontage on the left of r_45946481775_0. The exact unit boundary, entrance, current tenancy, and complete neighbor order remain unverified; camera position is not the shop entrance."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-mp-peddamma-scoops-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-76_-11",
+      "name": "Scoops Ice Cream",
+      "nameTe": null,
+      "category": "casual_eatery",
+      "group": "cafe_bakery",
+      "roadId": "r_45946481775_0",
+      "side": "left",
+      "buildingId": "b_91459518ba",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15198.45,
+          -2134.54
+        ],
+        [
+          -15193.87,
+          -2132.54
+        ]
+      ],
+      "entrance": [
+        -15196.16,
+        -2133.54
+      ],
+      "floor": 0,
+      "frontageWidthM": 4.998,
+      "alongRoadM": 56.03,
+      "facingHeading": 2.7304,
+      "lat": 17.4338874,
+      "lon": 78.4050981,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-057"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-057"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-057"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-057"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-057"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_049ba0de18"
+      ],
+      "notes": "PROVISIONAL placement; confidence high for sign identity; medium for side/building association; low for unit geometry. The clear SCOOPS fascia is visible on the image-left ground-floor retail row at pano057. The saved camera sequence and mapped r_45946481775_0 facade geometry support a provisional LEFT-side anchor. It appears before the TANEIRA fascia in the forward camera sequence and along-road projection, but this is not a complete neighbor sequence. Facade endpoints and entrance marker reuse the existing footprint-derived game frontage as an approximate render anchor, not as measured Street View geometry. Unit boundaries, exact door center, current tenancy, complete shop order, and all intervening/non-shop frontage remain unverified. Camera coordinates are not shop entrances. This placement adds no bounded road-side review or visual inventory claim."
+    },
+    {
+      "id": "survey-mp-peddamma-taneira-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-76_-11",
+      "name": "Taneira Sarees",
+      "nameTe": null,
+      "category": "fashion_and_apparel_store",
+      "group": "apparel",
+      "roadId": "r_45946481775_0",
+      "side": "left",
+      "buildingId": "b_d0edf73c72",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15180.3,
+          -2121.33
+        ],
+        [
+          -15174.8,
+          -2118.94
+        ]
+      ],
+      "entrance": [
+        -15177.55,
+        -2120.135
+      ],
+      "floor": 0,
+      "frontageWidthM": 5.997,
+      "alongRoadM": 78.828,
+      "facingHeading": 2.7323,
+      "lat": 17.4337381,
+      "lon": 78.4053635,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-060",
+        "sv-mp-road36-middle-chain-20261019-062"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-060"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-060",
+          "sv-mp-road36-middle-chain-20261019-062"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-060",
+          "sv-mp-road36-middle-chain-20261019-062"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-060",
+          "sv-mp-road36-middle-chain-20261019-062"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_4a2f1867b5"
+      ],
+      "notes": "PROVISIONAL placement; confidence high for sign identity; medium-high for side/building association; low for unit geometry. The TANEIRA fascia is visible on the image-left ground-floor frontage at panos060 and 062. The saved camera sequence and mapped r_45946481775_0 facade geometry support a provisional LEFT-side anchor. Its projected frontage follows Scoops along the road, without establishing adjacency or complete neighbor order. Facade endpoints and entrance marker reuse the existing footprint-derived game frontage as an approximate render anchor, not as measured Street View geometry. Unit boundaries, exact door center, current tenancy, complete shop order, and all intervening/non-shop frontage remain unverified. Camera coordinates are not shop entrances. This placement adds no bounded road-side review or visual inventory claim."
+    }
+  ]
+}

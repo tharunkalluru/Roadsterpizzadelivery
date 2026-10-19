@@ -42,6 +42,22 @@ describe('F03 allocations and conservation', () => {
     expect(l.remainingTicks).toBe(0);
     expect(l.spendTick()).toBe(false);
   });
+  it('caps earned charge, preserves fractional recharge, and restores cumulative use beyond capacity', () => {
+    const l = new FlightLedger(25, 0, 2.5);
+    for (let i = 0; i < 10000; i++) l.earnRoadTick();
+    expect(l.remainingTicks).toBe(1500);
+    for (let round = 0; round < 4; round++) {
+      for (let i = 0; i < 600; i++) l.spendTick();
+      for (let i = 0; i < 2400; i++) l.earnRoadTick();
+    }
+    expect(l.consumedTicks).toBe(2400);
+    expect(l.remainingTicks).toBe(1500);
+    l.spendTick(); l.earnRoadTick();
+    const restored = FlightLedger.restore(l.snapshot());
+    expect(restored.snapshot()).toEqual(l.snapshot());
+    for (let i = 0; i < 3; i++) restored.earnRoadTick();
+    expect(restored.remainingTicks).toBe(1500);
+  });
 });
 
 describe('F02/F10 continuous flight limited only by shared budget and affordable landing', () => {
@@ -83,8 +99,8 @@ describe('F04/F11 split flights share one balance; early landing keeps remainder
     expect(p.move).toBe('GROUNDED');
     const afterFirst = p.ledger.consumedTicks;
     expect(afterFirst).toBe(metered);
-    expect(p.ledger.remainingTicks).toBe(1500 - afterFirst);
-    drive(p, 30); // ground: no refill
+    expect(p.ledger.remainingTicks).toBe(1500 + p.ledger.earnedTicks - afterFirst);
+    drive(p, 30); // qualifying road driving recharges without changing cumulative spending
     expect(p.ledger.consumedTicks).toBe(afterFirst);
     if (stepCount(p, { flyPress: true })) metered++;
     expect(p.ledger.launches).toBe(2);
@@ -92,7 +108,7 @@ describe('F04/F11 split flights share one balance; early landing keeps remainder
     if (stepCount(p, { flyPress: true })) metered++;
     for (let k = 0; k < 400 && p.move !== 'GROUNDED'; k++) if (stepCount(p, {})) metered++;
     expect(p.ledger.consumedTicks).toBe(metered);
-    expect(p.ledger.remainingTicks).toBe(1500 - metered);
+    expect(p.ledger.remainingTicks).toBe(1500 + p.ledger.earnedTicks - metered);
     expect(p.ledger.remainingTicks).toBeGreaterThan(0);
   });
 });
@@ -151,10 +167,10 @@ describe('F07 partial fuel launch eligibility', () => {
   it('allows a launch exactly when ascent + landing + margin is affordable', () => {
     const need = predictAscentTicks() + predictTicksToTouchdown(FLIGHT.minFlightAltitude, FLIGHT.maxClimbRate) + FLIGHT.uncertaintyMarginTicks;
     const poor = newPlayer(25, 1500 - (need - 1));
-    drive(poor, 30);
+    drive(poor, 30, { accel: false });
     expect(poor.evaluateLaunch()).toEqual({ ok: false, reason: 'Not enough flight time to launch here' });
     const ok = newPlayer(25, 1500 - need);
-    drive(ok, 30);
+    drive(ok, 30, { accel: false });
     const r = ok.evaluateLaunch();
     expect(r.ok).toBe(true);
     ok.step(inp({ flyPress: true }));
@@ -230,11 +246,38 @@ describe('F09 surface identity at overlapping coordinates', () => {
   });
 });
 
-describe('F12 ground driving never refills', () => {
-  it('30 s of driving leaves remaining unchanged', () => {
+describe('Rechargeable boost only rewards moving on the carriageway', () => {
+  it('ten qualifying seconds earns exactly 2.5 seconds and cumulative spending is unchanged', () => {
     const p = newPlayer(25, 700);
-    drive(p, 1800);
-    expect(p.ledger.remainingTicks).toBe(800);
+    p.place(-3, -900, 0, 'A1'); p.speed = 8;
+    drive(p, 600);
+    expect(p.ledger.remainingTicks).toBe(950);
+    expect(p.ledger.consumedTicks).toBe(700);
+    expect(p.ledger.earnedTicks).toBe(150);
+  });
+  it('idle, off-road, recovering and flying time do not recharge', () => {
+    const p = newPlayer(25, 700);
+    drive(p, 600, { accel: false }); expect(p.ledger.earnedTicks).toBe(0);
+    p.place(-20, -900, 0, 'A1'); p.speed = 8;
+    drive(p, 120); expect(p.ledger.earnedTicks).toBe(0);
+    p.move = 'RECOVERING'; drive(p, 600); expect(p.ledger.earnedTicks).toBe(0);
+  });
+  it('one 2.5-second increment permits a useful hop and a protected landing', () => {
+    const p = new Player(makeFixtureWorld(), new FlightLedger(25, 0, 2.5));
+    p.place(-3, -900, 0, 'A1');
+    drive(p, 30, { accel: false }); p.speed = 9;
+    const z = p.z;
+    expect(p.evaluateLaunch().ok).toBe(true);
+    p.step(inp({ flyPress: true }));
+    let high = 0;
+    for (let i = 0; i < 500 && p.move !== 'GROUNDED'; i++) {
+      const ev = p.step(inp({ accel: false })); high = Math.max(high, p.altitude);
+      expect(ev.some((e) => e.type === 'crash')).toBe(false);
+    }
+    expect(high).toBeGreaterThan(3.2); expect(p.move).toBe('GROUNDED');
+    expect(z - p.z).toBeGreaterThan(12);
+    expect(p.ledger.consumedTicks).toBeLessThanOrEqual(150);
+    expect(p.ledger.earnedTicks).toBe(0);
   });
 });
 
@@ -270,13 +313,13 @@ describe('F14 invalid landing surfaces rejected, connected branches allowed', ()
   });
   it('flying onto a connected side road and landing there is valid', () => {
     const p = newPlayer();
-    p.place(-3, -820, 0, 'A1');
-    drive(p, 240);
+    p.place(-3, -930, 0, 'A1');
+    drive(p, 30, { accel: false }); p.speed = 9;
     p.step(inp({ flyPress: true }));
     // turn right toward road B (east) near the junction
     for (let k = 0; k < 1800 && p.move !== 'GROUNDED'; k++) {
       const onB = p.x > 30;
-      const ev = p.step(inp({ steer: !onB && p.z < -990 && p.heading > -Math.PI / 2 ? 1 : 0, flyPress: onB && p.move === 'FLYING' }));
+      const ev = p.step(inp({ accel: false, steer: !onB && p.z < -990 && p.heading > -Math.PI / 2 ? 1 : 0, flyPress: onB && p.move === 'FLYING' }));
       expect(ev.some((e) => e.type === 'crash')).toBe(false);
     }
     expect(p.move).toBe('GROUNDED');
@@ -299,22 +342,24 @@ describe('F15/F16 final-tick touchdown and exhaustion', () => {
     p.place(-3, -300, 0, 'A1');
     p.move = 'DESCENDING'; p.y = 3; p.vy = 0; p.speed = 5;
     const evs: string[] = [];
-    for (let k = 0; k < n + 40; k++) for (const e of p.step(inp())) evs.push(e.type);
+    for (let k = 0; k < n + 40 && (p.move as string) !== 'GROUNDED'; k++) for (const e of p.step(inp())) evs.push(e.type);
     expect(p.ledger.remainingTicks).toBe(0);
     expect(evs).toContain('touchdown');
     expect(evs).toContain('landed');
     expect(evs).not.toContain('crash');
     expect(p.move).toBe('GROUNDED');
   });
-  it('zero resource while unsupported fails without free glide', () => {
+  it('prediction shortfall uses descent-only protected landing without granting boost', () => {
     const n = descentTicks();
     const p = newPlayer(25, 1500 - (n - 5));
     p.place(-3, -300, 0, 'A1');
     p.move = 'DESCENDING'; p.y = 3; p.vy = 0; p.speed = 5;
     const evs: string[] = [];
     for (let k = 0; k < n + 5; k++) for (const e of p.step(inp())) evs.push(e.type);
-    expect(evs).toContain('exhausted_unsupported');
-    expect(evs).toContain('crash');
+    expect(evs).not.toContain('crash');
+    expect(evs).toContain('touchdown');
+    expect(p.protectedLandingUsed).toBeGreaterThan(0);
+    expect(p.move).toBe('LANDING_CONFIRM');
     expect(p.ledger.consumedTicks).toBe(1500);
   });
   it('exhaustion while still supported in TAKEOFF terminates via abort', () => {

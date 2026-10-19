@@ -1,4 +1,6 @@
 import type { RoadEdge, WorldCore, Vec2 } from './schema';
+import { publicRealmHeightAt, publicRealmOf } from './publicRealm';
+import { accessPitSurfaceAt } from './accessPits';
 
 /** One straight piece of a road centreline. */
 export interface Segment {
@@ -31,6 +33,11 @@ export interface SurfaceHit {
   onCarriageway: boolean;
 }
 
+export interface ParapetShape {
+  id: string; ax: number; az: number; bx: number; bz: number; ay: number; by: number;
+  height: number; radius: number; inwardX: number; inwardZ: number;
+}
+
 /** heading h such that forward = (-sin h, -cos h) in (x,z) */
 export function headingOf(dx: number, dz: number): number {
   return Math.atan2(-dx, -dz);
@@ -53,8 +60,10 @@ export class RoadIndex {
   private grid = new Map<string, Segment[]>();
   readonly roads = new Map<string, RoadEdge>();
   readonly segmentsByRoad = new Map<string, Segment[]>();
+  private nodeById: Map<string, WorldCore['nodes'][number]>;
 
   constructor(public readonly core: WorldCore) {
+    this.nodeById = new Map(core.nodes.map((n) => [n.id, n]));
     for (const r of core.roads) {
       this.roads.set(r.id, r);
       const segs: Segment[] = [];
@@ -161,4 +170,84 @@ export class RoadIndex {
   }
 
   roadLength(roadId: string): number { return this.roads.get(roadId)!.lengthM; }
+
+  /** Canonical 30 cm × 1 m parapet pieces. Both road art and collision consume these exact
+   * positions; joints use the polyline miter, and real branch junctions leave matching openings.
+   */
+  parapetSegments(roadId: string): ParapetShape[] {
+    const road = this.roads.get(roadId), segs = this.segmentsByRoad.get(roadId) ?? [];
+    if (!road || /^(footway|pedestrian|path|steps|cycleway|track)$/.test(road.highway)) return [];
+    const out: ParapetShape[] = [];
+    const offset = (index: number, fallback: Segment): Vec2 => {
+      const a = segs.find((s) => s.i === index - 1) ?? fallback, b = segs.find((s) => s.i === index) ?? fallback;
+      const arx = -(a.bz - a.az) / a.len, arz = (a.bx - a.ax) / a.len, brx = -(b.bz - b.az) / b.len, brz = (b.bx - b.ax) / b.len;
+      const mx = arx + brx, mz = arz + brz, len = Math.hypot(mx, mz) || 1;
+      const nx = mx / len, nz = mz / len, scale = Math.min(2.5, 1 / Math.max(0.4, nx * brx + nz * brz));
+      return [nx * scale, nz * scale];
+    };
+    for (const s of segs) {
+      if (Math.max(s.ay, s.by) < 0.25) continue;
+      const t0 = s.ay < 0.25 ? (0.25 - s.ay) / (s.by - s.ay) : 0, t1 = s.by < 0.25 ? (0.25 - s.ay) / (s.by - s.ay) : 1;
+      const [arx, arz] = offset(s.i, s), [brx, brz] = offset(s.i + 1, s);
+      for (const side of [-1, 1]) {
+        const lateral = side * (road.widthM / 2 + 0.15);
+        const ax = s.ax + arx * lateral, az = s.az + arz * lateral, bx = s.bx + brx * lateral, bz = s.bz + brz * lateral;
+        const pieces = Math.max(1, Math.ceil((t1 - t0) * s.len / 2));
+        for (let piece = 0; piece < pieces; piece++) {
+          const a = t0 + (t1 - t0) * piece / pieces, b = t0 + (t1 - t0) * (piece + 1) / pieces, mid = (a + b) / 2;
+          if (!this.barrierClear(roadId, ax + (bx - ax) * mid, az + (bz - az) * mid, s.ay + (s.by - s.ay) * mid)) continue;
+          out.push({ id: `parapet_${roadId}_${s.i}_${side}`, ax: ax + (bx - ax) * a, az: az + (bz - az) * a, bx: ax + (bx - ax) * b, bz: az + (bz - az) * b, ay: s.ay + (s.by - s.ay) * a, by: s.ay + (s.by - s.ay) * b, height: 1, radius: 0.15, inwardX: (s.bz - s.az) / s.len * side, inwardZ: -(s.bx - s.ax) / s.len * side });
+        }
+      }
+    }
+    return out;
+  }
+
+  /** A parapet must open at an actual connected, same-height road junction. Shared by art
+   * and collision; a road underneath a flyover does not create an opening in its side wall.
+   */
+  barrierClear(roadId: string, x: number, z: number, elevation: number): boolean {
+    const road = this.roads.get(roadId);
+    if (!road) return true;
+    for (const s of this.segmentsNear(x, z)) {
+      if (s.road.id === roadId || /^(footway|pedestrian|path|steps|cycleway|track)$/.test(s.road.highway)) continue;
+      const connected = s.road.fromNode === road.fromNode || s.road.fromNode === road.toNode || s.road.toNode === road.fromNode || s.road.toNode === road.toNode;
+      if (!connected) continue;
+      const shared = [road.fromNode, road.toNode].filter((id) => id === s.road.fromNode || id === s.road.toNode);
+      const fork = shared.some((id) => (this.nodeById.get(id)?.edges.filter((edgeId) => {
+        const edge = this.roads.get(edgeId);
+        return edge && !/^(footway|pedestrian|path|steps|cycleway|track)$/.test(edge.highway);
+      }).length ?? 0) > 2);
+      const p = this.project(s, x, z);
+      if (p.dist > s.halfWidth + 0.45 || Math.abs(s.ay + (s.by - s.ay) * p.t - elevation) > (fork ? 1.25 : 0.55)) continue;
+      // A straight continuation keeps its outside wall. A crossing/turning carriageway opens it.
+      const own = this.segmentsByRoad.get(roadId)!;
+      const end = Math.hypot(x - road.points[0][0], z - road.points[0][1]) < Math.hypot(x - road.points.at(-1)![0], z - road.points.at(-1)![1]) ? own[0] : own.at(-1)!;
+      const cross = Math.abs(((end.bx - end.ax) * (s.bz - s.az) - (end.bz - end.az) * (s.bx - s.ax)) / (end.len * s.len));
+      if (cross > (fork ? 0.04 : 0.25)) return false;
+    }
+    return true;
+  }
+
+  /** Height of the rendered 16 cm footpath, excluding junction cuts and crossing streets. */
+  groundHeight(x: number, z: number, preferRoadId: string | null, level: number, maxY: number): number {
+    const hit = this.surface(x, z, { preferRoadId, preferLevel: level, maxY, margin: 2 });
+    const pit=level<=0?accessPitSurfaceAt(this.core,x,z):undefined;
+    if(pit&&(!hit||hit.elevation<.25))return pit.height;
+    if (!hit) return 0;
+    if (hit.onCarriageway) return hit.elevation + publicRealmHeightAt(publicRealmOf(this.core), hit.roadId, x, z);
+    if (hit.elevation >= 0.25 || /^(footway|pedestrian|path|steps|cycleway|track)$/.test(hit.road.highway)) return hit.elevation;
+    const fw = hit.road.widthM >= 7 ? 1.8 : 1;
+    if (hit.dist > hit.halfWidth + fw) return hit.elevation;
+    for (const seg of this.segmentsNear(x, z)) {
+      const p = this.project(seg, x, z);
+      const y = seg.ay + (seg.by - seg.ay) * p.t;
+      if (p.dist <= seg.halfWidth + 0.1 && Math.abs(y - hit.elevation) < 0.3) return y;
+    }
+    for (const node of [hit.road.fromNode, hit.road.toNode]) {
+      const n = this.nodeById.get(node);
+      if (n?.isJunction && Math.hypot(x - n.x, z - n.z) < hit.road.widthM * 0.59 + 0.6) return hit.elevation;
+    }
+    return hit.elevation + 0.16;
+  }
 }

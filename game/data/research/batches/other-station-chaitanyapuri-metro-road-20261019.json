@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "id": "other-station-chaitanyapuri-metro-road-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Four February–March 2026 Google Street View points beside Chaitanyapuri station, including 23 Pune–Machilipatnam Highway and the adjacent Orchid Hospital Road frontage. They document the elevated Metro/highway interface, Austin Plywood signage, mixed traffic, and an unfinished construction site. Signage and site observations remain pending; columns, barriers, and hoarding prevent complete entrance or business-order verification.",
+  "sources": [
+    {
+      "id": "sv-chaitanyapuri-metro-01-202602-h09eKA1NF0_s14EmC0cgDA",
+      "kind": "street_view",
+      "title": "23 Pune–Machilipatnam Highway at Chaitanyapuri Metro — 2026-02 — view 1",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=h09eKA1NF0_s14EmC0cgDA&heading=0",
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.3683009, "lon": 78.5358727, "panoId": "h09eKA1NF0_s14EmC0cgDA", "headingDeg": 0 },
+      "assetPolicy": "reference_only",
+      "notes": "The view is under the elevated Metro deck, with a large central concrete pier, the adjacent carriageway and a low planted median with concrete edge. Autos, motorcycles and cars are visible. A roadside plywood sign is partly obscured by the pier; a Metro anti-postering warning is painted on the support."
+    },
+    {
+      "id": "sv-chaitanyapuri-metro-02-202603-WRlbXJDbY3sWCGVA9IsgHQ",
+      "kind": "street_view",
+      "title": "23 Pune–Machilipatnam Highway near Chaitanyapuri — Austin Plywood frontage — 2026-03",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=WRlbXJDbY3sWCGVA9IsgHQ&heading=0",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.3683751, "lon": 78.5360256, "panoId": "WRlbXJDbY3sWCGVA9IsgHQ", "headingDeg": 0 },
+      "assetPolicy": "reference_only",
+      "notes": "A prominent red sign reads AUSTIN PLYWOOD above a small ground-floor shop. A Telugu religious/temple sign is visible over the neighboring entrance but is not fully legible. A metal pedestrian barrier, parked cars and scooters, a Metro pier and a large unfinished multi-storey concrete structure are also visible."
+    },
+    {
+      "id": "sv-chaitanyapuri-metro-03-202603-GJ9MAVSxjqwFtNKEEzOArA",
+      "kind": "street_view",
+      "title": "Pune–Machilipatnam Highway beside Chaitanyapuri Metro — 2026-03 — view 3",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=GJ9MAVSxjqwFtNKEEzOArA&heading=353.778",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.3683768, "lon": 78.536119, "panoId": "GJ9MAVSxjqwFtNKEEzOArA", "headingDeg": 353.778 },
+      "assetPolicy": "reference_only",
+      "notes": "The continuing view shows the concrete Metro deck and supports, pedestrian railing and central planted strip, with autos, cars, motorcycles and a pedestrian using the carriageway edge. The Austin Plywood frontage is partly visible at the left edge; an unfinished building and a shuttered roadside bay sit behind the opposite barrier."
+    },
+    {
+      "id": "sv-chaitanyapuri-orchid-road-04-202602-_MRdVCic8j5y47S9Iu3OkA",
+      "kind": "street_view",
+      "title": "Orchid Hospital Road near Chaitanyapuri — construction hoarding — 2026-02",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=_MRdVCic8j5y47S9Iu3OkA&heading=353.778",
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.3685487, "lon": 78.536209, "panoId": "_MRdVCic8j5y47S9Iu3OkA", "headingDeg": 353.778 },
+      "assetPolicy": "reference_only",
+      "notes": "A long blue corrugated-metal construction fence fronts an unfinished multi-storey concrete building. Dirt, scattered refuse and loose produce lie along the edge, with scooters parked nearby and tree branches overhanging the fence. No readable project or business name is visible."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-chaitanyapuri-elevated-metro-road-context-20261019",
+      "sourceIds": [
+        "sv-chaitanyapuri-metro-01-202602-h09eKA1NF0_s14EmC0cgDA",
+        "sv-chaitanyapuri-metro-02-202603-WRlbXJDbY3sWCGVA9IsgHQ",
+        "sv-chaitanyapuri-metro-03-202603-GJ9MAVSxjqwFtNKEEzOArA"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "Elevated Metro, highway median and mixed traffic at Chaitanyapuri",
+      "category": "first_pass_station_road_context",
+      "roadId": null,
+      "position": { "lat": 17.3683009, "lon": 78.5358727, "headingDeg": 0 },
+      "placementStatus": "pending",
+      "notes": "Street-level imagery shows the Metro deck and massive concrete piers over or beside the highway, with a guarded planted median separating traffic. Autos, cars, motorcycles and pedestrians share the corridor. A support carries an anti-postering warning. Road dimensions, actual signal phases and traffic counts have not been measured."
+    },
+    {
+      "id": "obs-chaitanyapuri-austin-plywood-sign-candidate-20261019",
+      "sourceIds": [
+        "sv-chaitanyapuri-metro-01-202602-h09eKA1NF0_s14EmC0cgDA",
+        "sv-chaitanyapuri-metro-02-202603-WRlbXJDbY3sWCGVA9IsgHQ",
+        "sv-chaitanyapuri-metro-03-202603-GJ9MAVSxjqwFtNKEEzOArA"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "Austin Plywood sign and shop candidate near Chaitanyapuri",
+      "category": "first_pass_candidate_storefront",
+      "roadId": null,
+      "position": { "lat": 17.3683751, "lon": 78.5360256, "headingDeg": 0 },
+      "placementStatus": "pending",
+      "notes": "The red storefront fascia is legible as AUSTIN PLYWOOD across adjacent views. A nearby pier, traffic and elevated structure obscure parts of the frontage; the exact shop entrance, facade boundaries, dimensions, road side and neighboring order still require direct mapping."
+    },
+    {
+      "id": "obs-chaitanyapuri-orchid-road-construction-site-20261019",
+      "sourceIds": [
+        "sv-chaitanyapuri-orchid-road-04-202602-_MRdVCic8j5y47S9Iu3OkA"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-19",
+      "name": "Unfinished building behind blue construction hoarding on Orchid Hospital Road",
+      "category": "first_pass_unresolved_construction_frontage",
+      "roadId": null,
+      "position": { "lat": 17.3685487, "lon": 78.536209, "headingDeg": 353.778 },
+      "placementStatus": "pending",
+      "notes": "The view shows a tall unfinished concrete building behind a continuous blue corrugated hoarding, with a rough unpaved edge, scattered refuse and produce, and parked two-wheelers. Site dimensions, building use, construction status beyond the visible frame, exact frontage limits and any business identity are unverified."
+    }
+  ]
+}

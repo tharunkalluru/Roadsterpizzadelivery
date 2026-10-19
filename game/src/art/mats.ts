@@ -2,6 +2,7 @@
 import * as THREE from 'three';
 import type { Quality } from './api';
 import { anisoFor, getFacadeAtlas, getNoiseTexture, getShopAtlas, loadMapTexture } from './textures';
+import { markTerrainMaterial } from './terrainCutouts';
 
 export interface WorldMats {
   asphalt: THREE.MeshStandardMaterial;
@@ -118,6 +119,7 @@ export function getWorldMats(q: Quality): WorldMats {
 
   const verge = new THREE.MeshStandardMaterial({ name: 'verge', vertexColors: true, transparent: true, depthWrite: false, roughness: 1, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
   const mats: WorldMats = { asphalt, lineWhite, lineYellow, concrete, paving, railSteel, trackBed, track, stationRoof, stationGlass, stationSteel, metroBlue, facade, shop, plain, roof, clutter, ground, verge };
+  for(const material of [asphalt,paving,ground,verge,lineWhite,lineYellow])markTerrainMaterial(material);
   cache.set(q, mats);
   return mats;
 }

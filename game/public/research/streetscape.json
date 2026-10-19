@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "note": "Dated Habsiguda and Madhapur Street View facts inspected in authorized Chrome. Presence and estimated metric geometry are classified separately. Original generated artwork only; no reference imagery is redistributed. Median and wall runs are clipped to keep mapped at-grade carriageways and junctions clear.",
+  "features": [
+    {
+      "sourceId": "sv-habsiguda-2026-01-chrome-20261017",
+      "imageryDate": "2026-01",
+      "geometryStatus": "provisional",
+      "presenceStatus": "verified",
+      "id": "habsiguda-planted-median",
+      "kind": "planted_median",
+      "points": [
+        [
+          -834.05,
+          -617.51
+        ],
+        [
+          -766.93,
+          -527.25
+        ]
+      ],
+      "heightM": 0.55,
+      "widthM": 4
+    },
+    {
+      "sourceId": "sv-habsiguda-2026-01-chrome-20261017",
+      "imageryDate": "2026-01",
+      "geometryStatus": "provisional",
+      "presenceStatus": "verified",
+      "id": "habsiguda-iict-wall",
+      "kind": "compound_wall",
+      "points": [
+        [
+          -809,
+          -648
+        ],
+        [
+          -737,
+          -550
+        ],
+        [
+          -695,
+          -512
+        ]
+      ],
+      "heightM": 2.1,
+      "widthM": 0.2,
+      "treesBehind": true
+    },
+    {
+      "sourceId": "sv-habsiguda-2026-01-chrome-20261017",
+      "imageryDate": "2026-01",
+      "geometryStatus": "provisional",
+      "presenceStatus": "verified",
+      "id": "habsiguda-pier-c986",
+      "kind": "pier_identifier",
+      "points": [
+        [
+          -796.48,
+          -561.99
+        ]
+      ],
+      "heightM": 2.7,
+      "widthM": 0.9,
+      "label": "C986",
+      "heading": 2.5
+    },
+    {
+      "sourceId": "sv-habsiguda-2026-01-chrome-20261017",
+      "imageryDate": "2026-01",
+      "geometryStatus": "provisional",
+      "presenceStatus": "verified",
+      "id": "habsiguda-pier-c985",
+      "kind": "pier_identifier",
+      "points": [
+        [
+          -778.62,
+          -537.88
+        ]
+      ],
+      "heightM": 2.7,
+      "widthM": 0.9,
+      "label": "C985",
+      "heading": 2.5
+    },
+    {
+      "id": "madhapur-c1729-planted-median",
+      "kind": "planted_median",
+      "points": [
+        [
+          -16664,
+          -2926.9
+        ],
+        [
+          -16624,
+          -2920
+        ]
+      ],
+      "heightM": 0.5,
+      "widthM": 3.4,
+      "sourceId": "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018",
+      "imageryDate": "2026-04",
+      "geometryStatus": "provisional",
+      "presenceStatus": "verified"
+    },
+    {
+      "id": "madhapur-pier-c1729",
+      "kind": "pier_identifier",
+      "points": [
+        [
+          -16642.66,
+          -2921.37
+        ]
+      ],
+      "heightM": 3.1,
+      "widthM": 0.92,
+      "label": "C1729",
+      "heading": 1.4415,
+      "sourceId": "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018",
+      "imageryDate": "2026-04",
+      "geometryStatus": "provisional",
+      "presenceStatus": "verified"
+    }
+  ]
+}

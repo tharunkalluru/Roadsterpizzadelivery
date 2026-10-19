@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "other-station-osmania-medical-college-maharani-jhansi-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View inspection",
+  "notes": "April 2026 Street View pass near Osmania Medical College station on Maharani Jhansi Road. The camera views a New Look shop, an adjacent partly readable cards fascia, a mosque frontage and active-looking footpath/utility works beside mixed traffic. The camera is near station access but not yet matched to a canonical edge; all tenant observations remain pending and no shop order is claimed.",
+  "sources": [
+    {
+      "id": "sv-osmania-medical-college-maharani-jhansi-20261019-01",
+      "kind": "street_view",
+      "title": "Osmania Medical College station approach, Maharani Jhansi Road — April 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=kUHuhr7zubV3oiDhQ7Aang&heading=150.9683&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3818834,
+        "lon": 78.4815459,
+        "headingDeg": 150.9683,
+        "panoId": "kUHuhr7zubV3oiDhQ7Aang"
+      },
+      "notes": "Google Street View labels this imagery April 2026 and the road as Maharani Jhansi Road. This heading shows a long blue-sheet construction fence, mature trees, rough/unfinished sidewalk paving and a green auto-rickshaw with motorcycles and pedestrians in the roadway. The New Look shop row is visible beyond the obstruction. The camera is near Osmania Medical College Metro, but the exact canonical road edge has not been matched.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-osmania-medical-college-maharani-jhansi-20261019-02",
+      "kind": "street_view",
+      "title": "New Look and mosque-side frontage near Osmania Medical College — April 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=kUHuhr7zubV3oiDhQ7Aang&heading=193.705&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3818834,
+        "lon": 78.4815459,
+        "headingDeg": 193.705,
+        "panoId": "kUHuhr7zubV3oiDhQ7Aang"
+      },
+      "notes": "The April 2026 view resolves a large “NEW LOOK” fascia with “OFFERS AVAILABLE” wording and visible hanging garments below. A nearby blue fascia ends in “CARDS,” but its first word is partly obscured and is not transcribed. To the right is a mosque entrance with twin minarets and an unreadable Urdu/Arabic panel. Construction barrels, cones, a rough footpath edge, parked two-wheelers, motorcycles and passing auto traffic remain visible. Exact frontage boundaries and road side are unresolved.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-osmania-medical-college-new-look-20261019",
+      "sourceIds": [
+        "sv-osmania-medical-college-maharani-jhansi-20261019-01",
+        "sv-osmania-medical-college-maharani-jhansi-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "NEW LOOK clothing shop",
+      "category": "clothing_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3818834,
+        "lon": 78.4815459,
+        "headingDeg": 193.705
+      },
+      "placementStatus": "pending",
+      "notes": "The large fascia reads “NEW LOOK”; lower panels read “NEW LOOK OFFERS AVAILABLE,” and hanging garments are visible at the frontage. A section of blue construction fencing and street furniture obscures neighboring boundaries. This is a camera-context identity, not a verified entrance or building match; no road side, floor, frontage span or order is assigned."
+    },
+    {
+      "id": "obs-osmania-medical-college-cards-fascia-unresolved-20261019",
+      "sourceIds": [
+        "sv-osmania-medical-college-maharani-jhansi-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Unresolved storefront fascia ending in “CARDS”",
+      "category": "unresolved_shop_signage",
+      "roadId": null,
+      "position": {
+        "lat": 17.3818834,
+        "lon": 78.4815459,
+        "headingDeg": 193.705
+      },
+      "placementStatus": "pending",
+      "notes": "A blue fascia to the left of the New Look shop visibly ends in “CARDS,” but the first word is partly obscured by trees and the viewing angle. It may be advertising a card-related business; the exact operator and unit are not established. No guessed name, road side, entrance or neighbor order is assigned."
+    },
+    {
+      "id": "obs-osmania-medical-college-roadworks-mosque-traffic-20261019",
+      "sourceIds": [
+        "sv-osmania-medical-college-maharani-jhansi-20261019-01",
+        "sv-osmania-medical-college-maharani-jhansi-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Maharani Jhansi Road station approach, works and mosque context",
+      "category": "station_public_realm_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.3818834,
+        "lon": 78.4815459,
+        "headingDeg": 193.705
+      },
+      "placementStatus": "pending",
+      "notes": "The April 2026 views show long blue-sheet construction fencing, uneven/unfinished sidewalk paving, rows of barrels, cones, utility poles and mature trees beside a near-station street. A mosque entrance with twin minarets is visible beyond the shops; its sign is not readable. An auto-rickshaw, motorcycles, parked two-wheelers and pedestrians occupy the road edge. This is a camera-context record and does not claim current construction status or measured geometry."
+    }
+  ]
+}

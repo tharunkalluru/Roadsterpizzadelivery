@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-road36-pano036-retail-sign-hints-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "One bounded identity-only pass on the existing January 2025 Road No. 36 panorama at 17.4347047, 78.403239, using the user's Chrome Street View at heading 175 degrees and FOV 70. The same pano is already stored as sv-mp-road36-middle-chain-20261019-036; this batch adds no duplicate source or panorama. Two legible fascia names are recorded as pending dated sign hints. Local world geometry places the camera about 4.6 m from candidate core edge r_16308288432_0 (Jubilee Hills Road No. 36, 282.92 m) and about 19.1 m from a nearby parallel Road No. 36 edge r_47486731183_0 (308.31 m). These are corridor anchors only, not an approved station-pair route, storefront assignment, side review, or coverage range.",
+  "sources": [],
+  "observations": [
+    {
+      "id": "obs-mp-road36-hush-puppies-hint-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-036"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "Hush Puppies fascia visible on the Road No. 36 retail row",
+      "notes": "The January 2025 panorama at 17.4347047, 78.403239 was opened in the user's Chrome at heading 175 degrees (FOV 70). A Hush Puppies fascia is legible on the image-right retail row beyond the planted divider. This is a dated sign identity only. The exact premises boundary, entrance, canonical road side, along-road order, current tenancy, and association with either nearby core edge remain unverified. The panorama coordinate is the camera location, not the storefront entrance.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4347047,
+        "lon": 78.403239,
+        "headingDeg": 175
+      }
+    },
+    {
+      "id": "obs-mp-road36-skechers-hint-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-036"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "SKECHERS fascia visible on the Road No. 36 retail row",
+      "notes": "The January 2025 panorama at 17.4347047, 78.403239 was opened in the user's Chrome at heading 175 degrees (FOV 70). A SKECHERS fascia is legible on the image-right retail row beyond the planted divider, adjacent in the frame to the Hush Puppies sign. Record the visible brand text only; exact unit boundaries, entrance, canonical road side, along-road order, current tenancy, and association with either nearby core edge remain unverified. The panorama coordinate is the camera location, not the storefront entrance.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4347047,
+        "lon": 78.403239,
+        "headingDeg": 175
+      }
+    }
+  ]
+}

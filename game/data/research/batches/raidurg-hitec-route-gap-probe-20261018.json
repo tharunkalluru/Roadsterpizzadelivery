@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "id": "raidurg-hitec-route-gap-probe-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex authorized Chrome route survey",
+  "notes": "Chrome Street View navigation probe from the retained Raidurg-to-HITEC City route at approximately 121 m through the existing 163 m junction panorama. Three intervening November 2025 panoramas are registered as route evidence. The available route link ends at the junction panorama: forward navigation at headings 45 and 90 degrees did not move to another panorama. The 110.02 m junction branch and 58.53 m station tail remain open. Pending observations only; no storefront geometry, road-side reviews or route length coverage is added. Google imagery remains reference-only.",
+  "sources": [
+    {
+      "id": "sv-raidurg-hitec-gap-intermediate-a-202511-20261018",
+      "kind": "street_view",
+      "title": "Hitech City Main Road — continuous route probe, intermediate panorama A — 2025-11",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=5yGO4vMtGSVLOtLwfaGSAw&heading=45&pitch=0&fov=85",
+      "captureDate": "2025-11",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome route survey",
+      "position": {
+        "lat": 17.4512258,
+        "lon": 78.3804339,
+        "panoId": "5yGO4vMtGSVLOtLwfaGSAw",
+        "headingDeg": 45
+      },
+      "notes": "Reached by forward Street View navigation from the saved 121 m route panorama while following Hitech City Main Road. Nov 2025 capture date displayed in Chrome. Camera and roadside identities are not shop entrance coordinates.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-raidurg-hitec-gap-intermediate-b-202511-20261018",
+      "kind": "street_view",
+      "title": "Hitech City Main Road — continuous route probe, intermediate panorama B — 2025-11",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=sLW42-5eP-n17VYYH45Jog&heading=45&pitch=0&fov=85",
+      "captureDate": "2025-11",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome route survey",
+      "position": {
+        "lat": 17.4512794,
+        "lon": 78.3805069,
+        "panoId": "sLW42-5eP-n17VYYH45Jog",
+        "headingDeg": 45
+      },
+      "notes": "Reached in sequence by forward Street View navigation on Hitech City Main Road. The panorama shows the junction approach and distant signboards; the capture point does not locate any frontage entrance.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-raidurg-hitec-gap-intermediate-c-202511-20261018",
+      "kind": "street_view",
+      "title": "Hitech City Main Road — continuous route probe, intermediate panorama C — 2025-11",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=iJ7_JbGIdugjqsq0SrCkZw&heading=45&pitch=0&fov=85",
+      "captureDate": "2025-11",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome route survey",
+      "position": {
+        "lat": 17.4513433,
+        "lon": 78.3805716,
+        "panoId": "iJ7_JbGIdugjqsq0SrCkZw",
+        "headingDeg": 45
+      },
+      "notes": "Reached in sequence by forward Street View navigation on Hitech City Main Road, immediately before the existing 163 m junction panorama. A distant facade sign stack and elevated-road advertisements are visible, but no shop doors or frontage bounds are resolved.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-raidurg-hitec-gap-junction-forward-202511-20261018",
+      "kind": "street_view",
+      "title": "Hitech City Main Road — junction continuation probe — 2025-11",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=sZjZ7gUANYHmUuKibnZDjQ&heading=45&pitch=0&fov=85",
+      "captureDate": "2025-11",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome route survey",
+      "position": {
+        "lat": 17.4514133,
+        "lon": 78.3806236,
+        "panoId": "sZjZ7gUANYHmUuKibnZDjQ",
+        "headingDeg": 45
+      },
+      "notes": "Existing retained-route junction panorama inspected in Chrome while facing along the approach. Forward navigation was tested from this point; the pano did not change. Route continuity, store order and exact frontage remain unresolved.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-raidurg-hitec-gap-junction-east-check-202511-20261018",
+      "kind": "street_view",
+      "title": "Hitech City Main Road — east-facing junction continuation check — 2025-11",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=sZjZ7gUANYHmUuKibnZDjQ&heading=90&pitch=0&fov=85",
+      "captureDate": "2025-11",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome route survey",
+      "position": {
+        "lat": 17.4514133,
+        "lon": 78.3806236,
+        "panoId": "sZjZ7gUANYHmUuKibnZDjQ",
+        "headingDeg": 90
+      },
+      "notes": "Same November 2025 panorama as the forward view, turned east toward the elevated structure. Forward navigation from this heading also did not move to another panorama; this is an orientation of the same source panorama, not a second capture.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-raidurg-hitec-gap-black-and-blues-nilkamal-sign-stack",
+      "sourceIds": [
+        "sv-raidurg-hitec-gap-intermediate-a-202511-20261018",
+        "sv-raidurg-hitec-gap-intermediate-b-202511-20261018",
+        "sv-raidurg-hitec-gap-intermediate-c-202511-20261018"
+      ],
+      "captureDate": "2025-11",
+      "observedDate": "2026-10-18",
+      "name": "black & blues / Nilkamal Homes sign stack",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4513433,
+        "lon": 78.3805716,
+        "headingDeg": 45
+      },
+      "placementStatus": "pending",
+      "notes": "The Nov 2025 route-approach views show a grey commercial facade on camera-left with readable black & blues signage above a red Nilkamal Homes board. This establishes a vertical sign stack only, not along-road shop order, tenancy boundaries, ground operator, precise road side, entrances or frontage geometry. Camera coordinates are not shop coordinates. Source capture date: 2025-11."
+    },
+    {
+      "id": "obs-raidurg-hitec-gap-bantia-furnitures-context",
+      "sourceIds": [
+        "sv-raidurg-hitec-gap-intermediate-c-202511-20261018"
+      ],
+      "captureDate": "2025-11",
+      "observedDate": "2026-10-18",
+      "name": "BANTIA FURNITURES sign across elevated-road junction",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.4513433,
+        "lon": 78.3805716,
+        "headingDeg": 45
+      },
+      "placementStatus": "pending",
+      "notes": "A red BANTIA FURNITURES board is legible on a distant roofline across the junction beside the elevated structure. The camera does not establish which carriageway serves the building, the road side, an entrance, current tenancy or frontage bounds. Retain as dated sign context only; do not count it as an exact shop placement or as evidence closing the junction gap."
+    },
+    {
+      "id": "obs-raidurg-hitec-gap-auto-queue-island-context",
+      "sourceIds": [
+        "sv-raidurg-hitec-gap-junction-forward-202511-20261018"
+      ],
+      "captureDate": "2025-11",
+      "observedDate": "2026-10-18",
+      "name": "junction traffic island, auto queue and canopy context",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.4514133,
+        "lon": 78.3806236,
+        "headingDeg": 45
+      },
+      "placementStatus": "pending",
+      "notes": "The Nov 2025 panorama shows a divided traffic island with railings, trees and canopies, plus several autos and mixed traffic queued around it. This is junction public-realm context only; no auto stand identity, route branch, traffic pattern, vendor identity or shop order is inferred."
+    },
+    {
+      "id": "obs-raidurg-hitec-gap-110m-branch-source-blocker",
+      "sourceIds": [
+        "sv-raidurg-hitec3-121m-left-202511-20261018",
+        "sv-raidurg-hitec-gap-intermediate-a-202511-20261018",
+        "sv-raidurg-hitec-gap-intermediate-b-202511-20261018",
+        "sv-raidurg-hitec-gap-intermediate-c-202511-20261018",
+        "sv-raidurg-hitec-gap-junction-forward-202511-20261018",
+        "sv-raidurg-hitec-gap-junction-east-check-202511-20261018",
+        "sv-raidurg-hitec3-247m-resume-forward-202412-20261018"
+      ],
+      "captureDate": null,
+      "observedDate": "2026-10-18",
+      "name": "136.63–246.65 m junction branch remains unconnected in Street View",
+      "category": "first_pass_route_gap_issue",
+      "roadId": null,
+      "position": {
+        "lat": 17.4514133,
+        "lon": 78.3806236,
+        "headingDeg": 45
+      },
+      "placementStatus": "pending",
+      "notes": "Chrome forward navigation followed the actual Hitech City Main Road sequence from the existing 121 m panorama through three newly registered November 2025 intermediate panoramas to the existing 163 m junction panorama. From that junction panorama, forward navigation at headings 45 and 90 degrees did not change the panorama or position. The retained quickpass records the later 247 m resumed camera as a separate December 2024 panorama and the nearby northbound junction views as a divergent branch; no source currently links those views along the retained route. Therefore the 136.63–246.65 m interval remains open (110.02 m). This is a documented imagery-connectivity blocker, not surveyed coverage; no road side, shop order or frontage is inferred across it. The separate approximately 58.53 m station-projection tail also remains open."
+    }
+  ],
+  "storefrontOverrides": [],
+  "suppressions": [],
+  "corrections": [],
+  "roadReviews": []
+}

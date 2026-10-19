@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "id": "yusufguda-station-context-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Three adjacent January 2026 panoramas were opened near the Yusufguda station map coordinate and followed forward along Krishna Nagar Main Road. They show the elevated Metro crossing, planted median, shuttered and active retail frontages, cars, a delivery truck, auto-rickshaws, motorcycles, pedestrians and several readable or partial signs. Sign records are dated identity-only observations. The camera positions are not shop entrances; the station map marker is not a verified gate. No exact canonical road side, complete shop order, frontage interval, geometry, traffic rate or current tenant status is asserted. Google imagery remains reference-only.",
+  "sources": [
+    {
+      "id": "sv-yusufguda-krishna-nagar-station-approach-202601-20261018",
+      "kind": "street_view",
+      "title": "Yusufguda station-area Krishna Nagar Main Road under Metro — January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=SW-AZpOmBQ67xElBv1aWbQ&heading=147&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4351238,
+        "lon": 78.4273498,
+        "panoId": "SW-AZpOmBQ67xElBv1aWbQ",
+        "headingDeg": 147
+      },
+      "notes": "Opened from the local Yusufguda station coordinate. Street View identifies Krishna Nagar Main Road; the camera is close to the station map marker. The image shows the broad concrete Metro structure and piers, a planted median, cars, a Tata delivery truck, auto-rickshaws, motorcycles and pedestrians. This does not identify a station gate or establish measured road geometry. Reference imagery is not copied.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-yusufguda-krishna-nagar-retail-row-202601-20261018",
+      "kind": "street_view",
+      "title": "Yusufguda Krishna Nagar Main Road retail row and SBI sign — January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=HJ1tjD6B0TPyZfrkcBFbbw&heading=147&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4350405,
+        "lon": 78.4273172,
+        "panoId": "HJ1tjD6B0TPyZfrkcBFbbw",
+        "headingDeg": 147
+      },
+      "notes": "Reached by the visible forward Street View arrow from the station-approach panorama. Across the median, the view shows shuttered retail frontages, an auto queue, motorcycles and a blue SBI nameboard on a red-fronted building. A pink fascia partially reads Trends Men's Wear and additional text, but the rest is blocked by a Metro pier. No canonical road-side assignment or exact shop sequence is inferred. Reference imagery is not copied.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-yusufguda-krishna-nagar-smm-frontage-202601-20261018",
+      "kind": "street_view",
+      "title": "Yusufguda Krishna Nagar Main Road SMM storefront view — January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=AhZGkOeNhY3BSGda5o1ePw&heading=147&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.43498,
+        "lon": 78.4272936,
+        "panoId": "AhZGkOeNhY3BSGda5o1ePw",
+        "headingDeg": 147
+      },
+      "notes": "Reached by the next forward Street View step. The closer view shows a fascia reading SMM Makeup & Beauty Salon and Services; a Christmas/New Year/Sankranti offer panel sits below the same sign. A large Metro pier obscures a separate red shuttered frontage nearby. Camera coordinates are not shop entrances, and road side, unit bounds, neighboring order and current operation remain unresolved. Reference imagery is not copied.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-yusufguda-trends-mens-wear-partial-2026",
+      "sourceIds": [
+        "sv-yusufguda-krishna-nagar-retail-row-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Trends Men's Wear — partial fascia wording",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4350405,
+        "lon": 78.4273172,
+        "headingDeg": 147
+      },
+      "placementStatus": "pending",
+      "notes": "Only the words TRENDS MEN'S WEAR are legible on the pink fascia; the remaining copy is hidden behind a Metro pier. Record the partial wording, not a completed business name. The camera is across the median from the frontage and is not an entrance coordinate; road side, exact unit, along-road order and current operation remain unresolved."
+    },
+    {
+      "id": "obs-yusufguda-sbi-nameboard-context-2026",
+      "sourceIds": [
+        "sv-yusufguda-krishna-nagar-retail-row-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "SBI nameboard at Yusufguda station approach",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4350405,
+        "lon": 78.4273172,
+        "headingDeg": 147
+      },
+      "placementStatus": "pending",
+      "notes": "A blue board with SBI lettering is visible beside a red-fronted building across the median. The exact branch/service, entrance, canonical road side, frontage bounds, neighbor order and current operation are not verified. The camera point is not the board or building entrance."
+    },
+    {
+      "id": "obs-yusufguda-smm-makeup-beauty-2026",
+      "sourceIds": [
+        "sv-yusufguda-krishna-nagar-smm-frontage-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "SMM Makeup & Beauty Salon and Services",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.43498,
+        "lon": 78.4272936,
+        "headingDeg": 147
+      },
+      "placementStatus": "pending",
+      "notes": "The fascia reads SMM Makeup & Beauty Salon and Services. A Christmas/New Year/Sankranti promotion panel below it belongs to the same sign group and is not counted as another tenant. The camera is not the entrance; exact unit boundaries, canonical road side, neighbor order and current operation remain unverified."
+    },
+    {
+      "id": "obs-yusufguda-under-metro-roadlife-2026",
+      "sourceIds": [
+        "sv-yusufguda-krishna-nagar-station-approach-202601-20261018",
+        "sv-yusufguda-krishna-nagar-retail-row-202601-20261018",
+        "sv-yusufguda-krishna-nagar-smm-frontage-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Yusufguda area: Metro piers, planted median, retail shutters and mixed traffic",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.4351238,
+        "lon": 78.4273498,
+        "headingDeg": 147
+      },
+      "placementStatus": "pending",
+      "notes": "The January 2026 forward-linked views show a wide Metro soffit and piers, a low planted concrete median with exposed soil and litter, metal roadside railings, shuttered and active shopfronts, cars, a delivery truck, auto-rickshaws, motorcycles and pedestrians. One pier hides parts of the storefront row. These images are context only; they do not measure the road, curb, median, traffic rate or station entrance and do not establish a complete shop order."
+    }
+  ],
+  "storefrontOverrides": [],
+  "suppressions": [],
+  "corrections": [],
+  "roadReviews": []
+}

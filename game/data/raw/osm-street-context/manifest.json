@@ -1,0 +1,13 @@
+{
+  "source": "OpenStreetMap contributors",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "query": "[out:json][timeout:40];\n(\nnode[\"highway\"~\"^(traffic_signals|crossing|bus_stop|street_lamp)$\"](17.339,78.362,17.505,78.568);\nnode[\"public_transport\"~\"^(platform|stop_position)$\"](17.339,78.362,17.505,78.568);\nnode[\"traffic_calming\"](17.339,78.362,17.505,78.568);\nnode[\"railway\"=\"subway_entrance\"](17.339,78.362,17.505,78.568);\nnode[\"power\"~\"^(pole|transformer|substation)$\"](17.339,78.362,17.505,78.568);\nnode[\"amenity\"~\"^(taxi|parking|bicycle_parking|bench|waste_basket|drinking_water|marketplace)$\"](17.339,78.362,17.505,78.568);\nnode[\"natural\"=\"tree\"](17.339,78.362,17.505,78.568);\nway[\"public_transport\"=\"platform\"](17.339,78.362,17.505,78.568);\nway[\"amenity\"~\"^(parking|taxi)$\"](17.339,78.362,17.505,78.568);\n);\nout center meta;",
+  "fetchedAt": "2026-10-18T17:46:49.654453+00:00",
+  "osmTimestamp": "2026-10-18T17:45:26Z",
+  "license": "ODbL-1.0",
+  "attribution": "\u00a9 OpenStreetMap contributors",
+  "licenseUrl": "https://www.openstreetmap.org/copyright",
+  "sha256": "59e6b19d829435a4e96e1e50693a672106748db64fd3137e5cc978e194b9e29b",
+  "count": 2387,
+  "note": "Mapped source features; not Street View-confirmed, measured or guaranteed current. Raw tags and OSM versions retained."
+}

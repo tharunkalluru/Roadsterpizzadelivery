@@ -9,9 +9,18 @@ import type { Quality } from './api';
 import { getSoftSprite } from './textures';
 import { getWorldMats } from './mats';
 import { applyCull } from './cull';
+import type { WorldCore } from '../world/schema';
+import { TerrainCutoutController,markTerrainMaterial } from './terrainCutouts';
 
 export const SUN_DIR = new THREE.Vector3(0.42, 0.74, 0.52).normalize();
 export const HAZE = 0xd9d3c4;
+export interface AtmosphereState {timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}
+export function atmosphereLighting(state:AtmosphereState):{sky:number;haze:number;sun:number;sunIntensity:number;hemi:number;ground:number;exposure:number;environment:number}{
+  const rain=state.weather==='rain';
+  if(state.timeOfDay==='night')return{sky:0x071321,haze:rain?0x25323e:0x142331,sun:0xa7c1e2,sunIntensity:.12,hemi:.48,ground:0x4b5359,exposure:.8,environment:.15};
+  if(state.timeOfDay==='dusk')return{sky:rain?0x4c5a70:0x596a8b,haze:rain?0x737a83:0xd5a292,sun:0xffb273,sunIntensity:rain?.65:1.5,hemi:.85,ground:0x8f827c,exposure:.9,environment:.55};
+  return{sky:rain?0x657c8d:0x2f73c4,haze:rain?0x929fA4:HAZE,sun:rain?0xd5e0e4:0xffefd2,sunIntensity:rain?1.05:3.1,hemi:rain?1.0:1.25,ground:rain?0x858f91:0xa59f94,exposure:rain?.88:1,environment:rain?.65:.95};
+}
 
 const skyVert = /* glsl */ `
 varying vec3 vDir;
@@ -33,6 +42,7 @@ uniform vec3 uMid;
 uniform vec3 uGround;
 uniform float uGroundMix;
 uniform float uClouds;
+uniform float uSunStrength;
 
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float vnoise(vec2 p) {
@@ -55,9 +65,9 @@ void main() {
   // below the horizon: haze to ground
   col = mix(col, mix(uHaze, uGround, uGroundMix), smoothstep(0.0, 0.12, -e));
   float sd = max(dot(d, normalize(uSun)), 0.0);
-  col += vec3(1.0, 0.88, 0.68) * (pow(sd, 6.0) * 0.12 + pow(sd, 64.0) * 0.28 + pow(sd, 900.0) * 14.0);
+  col += vec3(1.0, 0.88, 0.68) * (pow(sd, 6.0) * 0.12 + pow(sd, 64.0) * 0.28 + pow(sd, 900.0) * 14.0)*uSunStrength;
   // horizon glow toward the sun
-  col += vec3(1.0, 0.85, 0.6) * pow(sd, 3.0) * 0.07 * (1.0 - smoothstep(0.0, 0.5, up));
+  col += vec3(1.0, 0.85, 0.6) * pow(sd, 3.0) * 0.07 * (1.0 - smoothstep(0.0, 0.5, up))*uSunStrength;
   if (uClouds > 0.5 && e > 0.015) {
     vec2 cp = d.xz / (e + 0.22) * 1.35 + vec2(3.7, 1.3);
     float n = fbm(cp);
@@ -86,6 +96,7 @@ function makeSkyMaterial(clouds: boolean, groundMix: number): THREE.ShaderMateri
       uGround: { value: new THREE.Color(0x938f86) },
       uGroundMix: { value: groundMix },
       uClouds: { value: clouds ? 1 : 0 },
+      uSunStrength:{value:1},
     },
     side: THREE.BackSide,
     depthWrite: false,
@@ -95,11 +106,15 @@ function makeSkyMaterial(clouds: boolean, groundMix: number): THREE.ShaderMateri
 }
 
 export interface EnvHandle {
-  update(target: THREE.Vector3): void;
+  update(target: THREE.Vector3,dt?:number): void;
+  setAtmosphere(state:AtmosphereState):void;
+  setTerrainCore(core:WorldCore):void;
+  bindTerrainObject(object:THREE.Object3D):void;
   dispose(): void;
 }
 
 export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRenderer, quality: Quality): EnvHandle {
+  let cutouts:TerrainCutoutController|null=null;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.0;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -187,7 +202,7 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
   let blob: THREE.Mesh | null = null;
   let blobMat: THREE.MeshBasicMaterial | null = null;
   if (!shadows) {
-    blobMat = own(new THREE.MeshBasicMaterial({ map: getSoftSprite('blob'), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -8, fog: false }));
+    blobMat = own(markTerrainMaterial(new THREE.MeshBasicMaterial({ map: getSoftSprite('blob'), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -8, fog: false })));
     const g = own(new THREE.PlaneGeometry(6.4, 7.6));
     g.rotateX(-Math.PI / 2);
     blob = new THREE.Mesh(g, blobMat);
@@ -197,8 +212,33 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
     scene.add(blob);
   }
 
+  let atmosphere:AtmosphereState={timeOfDay:'day',weather:'clear'},rainTime=0;
+  const rainCount=quality==='low'?120:quality==='standard'?300:550,rainPositions=new Float32Array(rainCount*6);
+  const rainGeo=own(new THREE.BufferGeometry());rainGeo.setAttribute('position',new THREE.BufferAttribute(rainPositions,3));
+  const rainMat=own(new THREE.LineBasicMaterial({color:0xb6cbd5,transparent:true,opacity:.38,depthWrite:false}));
+  const rain=new THREE.LineSegments(rainGeo,rainMat);rain.name='scenario-rain';rain.visible=false;rain.frustumCulled=false;scene.add(rain);
+  const originalRoad={color:mats.asphalt.color.clone(),roughness:mats.asphalt.roughness,metalness:mats.asphalt.metalness};
+  const originalGround=mats.ground.color.clone();
+  const setAtmosphere=(state:AtmosphereState)=>{
+    atmosphere={...state};const light=atmosphereLighting(state),wet=state.weather==='rain';
+    skyMat.uniforms.uZenith.value.setHex(light.sky);skyMat.uniforms.uHaze.value.setHex(light.haze);skyMat.uniforms.uMid.value.setHex(light.haze).lerp(new THREE.Color(light.sky),.4);
+    skyMat.uniforms.uClouds.value=state.timeOfDay==='night'?0:1;
+    skyMat.uniforms.uSunStrength.value=state.timeOfDay==='night'?.015:state.weather==='rain'?.2:1;
+    // Original sky reflection remains bounded through environment intensity; no fake weather data is implied.
+    scene.environmentIntensity=light.environment;renderer.toneMappingExposure=light.exposure;
+    sun.color.setHex(light.sun);sun.intensity=light.sunIntensity;hemi.intensity=light.hemi;hemi.groundColor.setHex(light.ground);
+    sun.castShadow=shadows&&state.timeOfDay!=='night';
+    (scene.fog as THREE.Fog).color.setHex(light.haze);(scene.background as THREE.Color).setHex(light.haze);
+    mats.asphalt.color.copy(originalRoad.color).multiplyScalar(wet?.62:1);mats.asphalt.roughness=wet?.28:originalRoad.roughness;mats.asphalt.metalness=wet?.08:originalRoad.metalness;
+    mats.ground.color.copy(originalGround).multiplyScalar(wet?.73:1);rain.visible=wet;
+  };
+
   return {
-    update(target: THREE.Vector3): void {
+    setAtmosphere,
+    setTerrainCore(core:WorldCore){cutouts?.dispose();cutouts=new TerrainCutoutController(scene,core);cutouts.update(new THREE.Vector3());cutouts.bind(scene);},
+    bindTerrainObject(object:THREE.Object3D){cutouts?.bind(object);},
+    update(target: THREE.Vector3,dt=1/60): void {
+      cutouts?.syncMaterials();
       applyCull(target.x, target.z, fogFar);
       // sun follows target; snap in light space to prevent shadow shimmer
       const a = Math.round(target.dot(lx) / texel) * texel;
@@ -215,9 +255,19 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
         blobMat.opacity = Math.max(0, 0.9 - target.y / 28);
         blob.visible = blobMat.opacity > 0.02;
       }
+      if(atmosphere.weather==='rain'){
+        rainTime+=Math.max(0,Math.min(.1,dt));rain.position.set(target.x,target.y,target.z);
+        for(let i=0;i<rainCount;i++){
+          const seed=(i*16807%2147483647)/2147483647,x=((i*37.13)%96)-48,z=((i*17.31)%96)-48,y=(((i*11.73-rainTime*19)%38)+38)%38-3;
+          const j=i*6;rainPositions[j]=x+seed;rainPositions[j+1]=y;rainPositions[j+2]=z;rainPositions[j+3]=x+.32+seed;rainPositions[j+4]=y-1.1;rainPositions[j+5]=z+.18;
+        }
+        rainGeo.getAttribute('position').needsUpdate=true;
+      }
     },
     dispose(): void {
-      scene.remove(sky, sun, sun.target, hemi, ground);
+      cutouts?.dispose();cutouts=null;
+      scene.remove(sky, sun, sun.target, hemi, ground,rain);
+      mats.asphalt.color.copy(originalRoad.color);mats.asphalt.roughness=originalRoad.roughness;mats.asphalt.metalness=originalRoad.metalness;mats.ground.color.copy(originalGround);
       if (blob) scene.remove(blob);
       sun.shadow.map?.dispose();
       sun.dispose();

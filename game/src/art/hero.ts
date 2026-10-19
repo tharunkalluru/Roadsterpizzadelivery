@@ -42,9 +42,9 @@ export function createHeroCar(quality: Quality): HeroCar {
 
   // ------------------------------------------------------------- materials
   const paint: THREE.MeshStandardMaterial = low
-    ? own(new THREE.MeshStandardMaterial({ name: 'hero-paint', color: 0x1f58b8, metalness: 0.6, roughness: 0.34, vertexColors: true }))
+    ? own(new THREE.MeshStandardMaterial({ name: 'hero-paint', color: 0xb72e2a, metalness: 0.6, roughness: 0.34, vertexColors: true }))
     : own(new THREE.MeshPhysicalMaterial({
-        name: 'hero-paint', color: 0x1f58b8, metalness: 0.78, roughness: 0.3, vertexColors: true,
+        name: 'hero-paint', color: 0xb72e2a, metalness: 0.78, roughness: 0.3, vertexColors: true,
         clearcoat: 1, clearcoatRoughness: 0.05, envMapIntensity: 1.25,
       }));
   const trim = own(new THREE.MeshStandardMaterial({ name: 'hero-trim', color: 0x15171a, roughness: 0.55, metalness: 0.35, vertexColors: true }));
@@ -54,16 +54,20 @@ export function createHeroCar(quality: Quality): HeroCar {
   }));
   const tyreMat = own(new THREE.MeshStandardMaterial({ name: 'hero-tyre', color: 0x111214, roughness: 0.88, metalness: 0 }));
   const rimMat = own(new THREE.MeshStandardMaterial({ name: 'hero-rim', color: 0xffffff, vertexColors: true, roughness: 0.28, metalness: 0.92, envMapIntensity: 1.3 }));
-  const headMat = own(new THREE.MeshStandardMaterial({ name: 'hero-head', color: 0xeaf4ff, emissive: 0xdfeeff, emissiveIntensity: 2.4, roughness: 0.3 }));
+  const headMat = own(new THREE.MeshStandardMaterial({ name: 'hero-head', color: 0xe1e6e3, emissive: 0xdfeeff, emissiveIntensity: 2.4, roughness: 0.3 }));
   const tailMat = own(new THREE.MeshStandardMaterial({ name: 'hero-tail', color: 0x3a0505, emissive: 0xff1c14, emissiveIntensity: 0.9, roughness: 0.4 }));
   const reverseMat = own(new THREE.MeshStandardMaterial({ name: 'hero-reverse', color: 0xd8d8d8, emissive: 0xffffff, emissiveIntensity: 0, roughness: 0.4 }));
-  const nozzleGlow = own(new THREE.MeshBasicMaterial({ color: 0x7fd0ff, transparent: true, opacity: 0, depthWrite: false, toneMapped: false }));
+  const nozzleGlow = own(new THREE.MeshBasicMaterial({ color: 0xdce6e6, transparent: true, opacity: 0, depthWrite: false, toneMapped: false }));
 
   const root = new THREE.Group();
   root.name = 'hero-car';
   const body = new THREE.Group();
   body.name = 'hero-body';
   root.add(body);
+  // One shared forward beam lights the actual road surface at night without a second shadow pass.
+  const headBeam=own(new THREE.SpotLight(0xffefd6,0,85,Math.PI/6,.55,2));
+  headBeam.name='road-headlight-beam';headBeam.position.set(0,.56,-1.9);
+  headBeam.target.position.set(0,-.3,-32);root.add(headBeam,headBeam.target);
 
   const addMesh = (g: THREE.BufferGeometry, m: THREE.Material, name: string, parent: THREE.Object3D = body, cast = true): THREE.Mesh => {
     own(g);
@@ -220,12 +224,21 @@ export function createHeroCar(quality: Quality): HeroCar {
     addMesh(rb.build(), reverseMat, 'reverse', body, false);
   }
 
+  const cargo=new THREE.Group();cargo.name='collected-pizza-box';cargo.visible=false;body.add(cargo);
+  {
+    const cardboard=own(new THREE.MeshStandardMaterial({color:0xd9c49a,roughness:.85}));
+    const lidMat=own(new THREE.MeshStandardMaterial({color:0xf0e6ce,roughness:.8}));
+    const bandMat=own(new THREE.MeshStandardMaterial({color:0xae3129,roughness:.75}));
+    const base=addMesh(new THREE.BoxGeometry(.86,.105,.48),cardboard,'pizza-carton',cargo);base.position.set(0,.885,1.7);
+    const lid=addMesh(new THREE.BoxGeometry(.89,.022,.5),lidMat,'pizza-lid',cargo);lid.position.set(0,.948,1.7);
+    const stripe=addMesh(new THREE.BoxGeometry(.12,.006,.49),bandMat,'pizza-band',cargo);stripe.position.set(0,.964,1.7);
+  }
   // delivery pod on the rear deck + branding decals (original "Metro Express")
   {
     const podY = curve(topKeys, 1.74) - 0.02;
     addBox(trimB, 0.8, 0.035, 0.38, boxMatrix(0, podY + 0.02, 1.74, 0, -0.04), 1, hex(0x22262c));
     // all decals share one single-line texture and one merged mesh
-    const decalTex = own(latinLabelTexture(['METRO EXPRESS'], '#ffffff', null, 512, 64, '800 42px "Helvetica Neue", Arial, sans-serif'));
+    const decalTex = own(latinLabelTexture(['ROADSTER PIZZA'], '#ffffff', null, 512, 64, '800 42px "Helvetica Neue", Arial, sans-serif'));
     const decalMat = own(new THREE.MeshBasicMaterial({ map: decalTex, transparent: true, toneMapped: false, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 }));
     const db = new GeoBuilder(false);
     const podTop = podY + 0.04;
@@ -326,6 +339,8 @@ export function createHeroCar(quality: Quality): HeroCar {
   // ------------------------------------------------------------ thrusters
   const nozzlePos: THREE.Vector3[] = [];
   const nozzleRings: THREE.Mesh[] = [];
+  const nozzleCovers: THREE.Group[] = [];
+  const downwash: {sprite:THREE.Sprite;mat:THREE.SpriteMaterial;phase:number}[]=[];
   const puffs: { sprite: THREE.Sprite; nozzle: number; phase: number; mat: THREE.SpriteMaterial }[] = [];
   const glowTex = getSoftSprite('glow');
   const nozzleGlows: THREE.Sprite[] = [];
@@ -334,11 +349,16 @@ export function createHeroCar(quality: Quality): HeroCar {
     const nb = trimB;
     const nozzleGeo = new THREE.CylinderGeometry(0.13, 0.1, 0.07, low ? 8 : 14, 1, true);
     const ringGeo = own(new THREE.RingGeometry(0.045, 0.085, low ? 8 : 14).rotateX(Math.PI / 2));
-    const pts: [number, number][] = [[-0.5, -0.78], [0.5, -0.78], [-0.5, 0.78], [0.5, 0.78]];
+    const pts: [number, number][] = [[-0.64, -0.78], [0.64, -0.78], [-0.64, 0.95], [0.64, 0.95]];
     for (const [x, z] of pts) {
       nb.appendGeometry(nozzleGeo, new THREE.Matrix4().makeTranslation(x, 0.19, z), hex(0x1b1e22));
       const v = new THREE.Vector3(x, 0.152, z);
       nozzlePos.push(v);
+      // Hinged underside covers uncover a short pressure nozzle before visible gas release.
+      // This is a fictional flight conversion, not a claimed manufacturer deployment sequence.
+      const coverPivot=new THREE.Group();coverPivot.position.set(x,.20,z+.12);coverPivot.name='thruster-hatch';
+      const cover=new THREE.Mesh(own(new THREE.BoxGeometry(.31,.035,.27)),paint);cover.position.z=-.12;
+      coverPivot.add(cover);body.add(coverPivot);nozzleCovers.push(coverPivot);
       const ring = new THREE.Mesh(ringGeo, nozzleGlow);
       ring.position.copy(v);
       ring.visible = false;
@@ -348,7 +368,7 @@ export function createHeroCar(quality: Quality): HeroCar {
       const gs = new THREE.Sprite(gm);
       gs.position.set(x, 0.1, z);
       gs.visible = false;
-      gs.name = 'nozzle-glow';
+      gs.name = 'cold-gas-core';
       body.add(gs);
       nozzleGlows.push(gs);
     }
@@ -356,7 +376,7 @@ export function createHeroCar(quality: Quality): HeroCar {
     const per = low ? 2 : 4;
     nozzlePos.forEach((_, ni) => {
       for (let j = 0; j < per; j++) {
-        const mat = own(new THREE.SpriteMaterial({ map: vapourTex, transparent: true, opacity: 0, depthWrite: false, color: 0xeaf4ff, fog: true }));
+        const mat = own(new THREE.SpriteMaterial({ map: vapourTex, transparent: true, opacity: 0, depthWrite: false, color: 0xe1e6e3, fog: true }));
         const sp = new THREE.Sprite(mat);
         sp.visible = false;
         sp.name = 'vapour';
@@ -366,10 +386,17 @@ export function createHeroCar(quality: Quality): HeroCar {
     });
   }
 
+  // Low-altitude air displaces a broad, soft dust ring; it fades with ground clearance.
+  for(let i=0;i<(low?5:10);i++) {
+    const mat=own(new THREE.SpriteMaterial({map:vapourTex,transparent:true,opacity:0,depthWrite:false,color:0xb9ac93,fog:true}));
+    const sprite=new THREE.Sprite(mat);sprite.name='thruster-downwash';sprite.visible=false;root.add(sprite);
+    downwash.push({sprite,mat,phase:i/(low?5:10)});
+  }
   addMesh(trimB.build(), trim, 'trim');
 
   // -------------------------------------------------------------- state
   let thrTarget = 0, thr = 0, time = 0, spinAngle = 0;
+  let flight={heightM:0,verticalSpeed:0,speedMps:0,steerRad:0};
   const reverseOn = { v: false };
   const brakeOn = { v: false };
   const tmpCol = new THREE.Color();
@@ -378,10 +405,12 @@ export function createHeroCar(quality: Quality): HeroCar {
     const on = thr > 0.01;
     for (const g of nozzleGlows) {
       g.visible = on;
-      g.material.opacity = thr * 0.9;
+      g.material.opacity = thr * 0.13;
       g.scale.set(0.35 + thr * 0.35, 0.35 + thr * 0.35, 1);
     }
-    nozzleGlow.opacity = thr * 0.95;
+    nozzleGlow.opacity = thr * 0.28;
+    for(const cover of nozzleCovers)cover.rotation.x=-Math.min(1,thr*2.2)*1.35;
+    nozzleRings.forEach((r,i)=>{r.position.y=nozzlePos[i].y-thr*.1;});
     for (const r of nozzleRings) r.visible = on;
     for (const p of puffs) p.sprite.visible = on;
   };
@@ -392,6 +421,9 @@ export function createHeroCar(quality: Quality): HeroCar {
     setThruster(intensity: number): void {
       thrTarget = clamp(intensity, 0, 1);
     },
+    setFlightContext(context): void { flight=context; },
+    setCargoLoaded(loaded): void { cargo.visible=loaded; },
+    setHeadlights(on):void { headBeam.intensity=on?1800:0;headMat.emissiveIntensity=on?4:2.4; },
     setBrakeLights(on: boolean): void {
       brakeOn.v = on;
       tailMat.emissiveIntensity = on ? 4.2 : 0.9;
@@ -420,11 +452,21 @@ export function createHeroCar(quality: Quality): HeroCar {
           const ph = (time * 1.1 + p.phase + p.nozzle * 0.17) % 1;
           const n = nozzlePos[p.nozzle];
           const side = n.x < 0 ? -1 : 1;
-          p.sprite.position.set(n.x + side * ph * 0.22, n.y - 0.08 - ph * 1.5, n.z);
-          const s = 0.26 + ph * 1.1;
-          p.sprite.scale.set(s, s, 1);
-          p.mat.opacity = thr * 0.75 * (1 - ph) * smoothstep(0, 0.1, ph);
+          const stream = ph * (1.7+thr*.7);
+          // No combustion flame: pale expanding cold gas, tilted for roll/pitch stabilization.
+          p.sprite.position.set(n.x + (side*.11-flight.steerRad*.8)*stream, n.y - .13 - stream, n.z + Math.min(.4,flight.speedMps*.012)*stream);
+          const s = .17 + ph * .68;
+          p.sprite.scale.set(s, s*1.8, 1);
+          p.mat.opacity = thr * .40 * (1 - ph) * smoothstep(0, .08, ph);
         }
+      }
+      for(const dust of downwash) {
+        const ground=Math.max(0,1-flight.heightM/5),ph=(time*.85+dust.phase)%1;
+        dust.sprite.visible=thr>.04&&ground>0;
+        const a=dust.phase*Math.PI*2+time*.25,r=.9+ph*3.8;
+        dust.sprite.position.set(Math.cos(a)*r,-flight.heightM+.12+ph*.28,Math.sin(a)*r);
+        dust.sprite.scale.set(1.4+ph*2.2,.35+ph*.65,1);
+        dust.mat.opacity=thr*ground*.25*(1-ph)*smoothstep(0,.12,ph);
       }
     },
     dispose(): void {
@@ -432,7 +474,8 @@ export function createHeroCar(quality: Quality): HeroCar {
       for (const o of owned) o.dispose();
     },
   };
-  root.userData.dimensions = { length: 4.0, width: 2.0, height: 1.15 };
+  root.userData.dimensions = { length: 4.48, width: 2.0, height: 1.15 };
+  body.scale.z=1.12;wheelPivots.forEach(w=>{w.position.z*=1.12;});
   root.userData.bodyMesh = bodyMesh;
   return car;
 }

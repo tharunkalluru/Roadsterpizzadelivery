@@ -1,0 +1,4787 @@
+{
+  "schemaVersion": 1,
+  "kind": "bounded_station_pair_checkpoint_receipt",
+  "createdAtUTC": "2026-10-19T05:40:39.516164+00:00",
+  "scope": {
+    "pair": "Durgam Cheruvu → Madhapur",
+    "onlyPairWorkedThisCheckpoint": true,
+    "otherStationsVisited": false,
+    "preservedOpenGap": "HITEC City → Durgam Cheruvu remains a separate, open approach gap and is not included in this pair denominator.",
+    "explicitlyExcluded": [
+      "Miyapur → JNTU cloud-worker reservation",
+      "three-road frontage-lane extension"
+    ],
+    "noActiveSurveyOrGameGeometryChangedByReceipt": true
+  },
+  "basis": {
+    "activeSurveyRevision": 62,
+    "activeSurveySha256": "8c4c96d9ab9c9dc454561d13b3cf8a28d3bc2ddcadc83840f149d9af72ac9f05",
+    "coverageRefreshedAtUTC": "2026-10-19T05:39:07.542011+00:00",
+    "routePlanApprovalStatus": "isolated_derived_geometry_only_not_owner_approved",
+    "routePlanApprovalNote": "Isolated derived geometry only; not owner-approved and not validated as a continuous real Street View drive.",
+    "frozenRouteGeometryRevision": 43,
+    "frozenRouteGeometryManifest": "qa/artifacts/historical/revision43-final-durgam-madhapur-pair-route-progress.json",
+    "frozenRouteGeometryManifestSha256": "a185210d38f2ab24ff0dd421db35bda5aa1c608113f8138bb807e6979119cc8f",
+    "routeWasRecomputed": false,
+    "edgeCount": 28,
+    "plannedDistanceM": 1640.597256210161,
+    "denominatorMeaning": "Saved rounded road-segment lengths along the frozen derived 28-edge route; provisional geometry and station projections, not a surveyed or approved street route."
+  },
+  "coverage": {
+    "surveyRevision": 62,
+    "anySideRecordedObservation": {
+      "distanceM": 950.9899999999999,
+      "percent": 57.96608499741254,
+      "routeIntervalsM": [
+        {
+          "startM": 445.479108832915,
+          "endM": 464.479108832915,
+          "lengthM": 19.0,
+          "roadRanges": [
+            {
+              "roadId": "r_14775775715_0",
+              "startM": 18.0,
+              "endM": 37.0,
+              "routeStartM": 445.479108832915,
+              "routeEndM": 464.479108832915,
+              "startLatLon": {
+                "lat": 17.441256282839188,
+                "lon": 78.39091960462619
+              },
+              "endLatLon": {
+                "lat": 17.44121681875273,
+                "lon": 78.39109364102374
+              }
+            }
+          ]
+        },
+        {
+          "startM": 465.45910883291504,
+          "endM": 500.45910883291504,
+          "lengthM": 35.0,
+          "roadRanges": [
+            {
+              "roadId": "r_40395506413_0",
+              "startM": 0.0,
+              "endM": 35.0,
+              "routeStartM": 465.45910883291504,
+              "routeEndM": 500.45910883291504,
+              "startLatLon": {
+                "lat": 17.441214789413962,
+                "lon": 78.39110259039619
+              },
+              "endLatLon": {
+                "lat": 17.441144448341728,
+                "lon": 78.39142375350997
+              }
+            }
+          ]
+        },
+        {
+          "startM": 511.08910883291503,
+          "endM": 1408.079108832915,
+          "lengthM": 896.9899999999999,
+          "roadRanges": [
+            {
+              "roadId": "r_38680221829_0",
+              "startM": 0.0,
+              "endM": 48.23000000000002,
+              "routeStartM": 511.08910883291503,
+              "routeEndM": 559.319108832915,
+              "startLatLon": {
+                "lat": 17.441123078461697,
+                "lon": 78.39152132406149
+              },
+              "endLatLon": {
+                "lat": 17.441050161477975,
+                "lon": 78.39196885801934
+              }
+            },
+            {
+              "roadId": "r_37185680086_0",
+              "startM": 0.0,
+              "endM": 50.75999999999999,
+              "routeStartM": 559.319108832915,
+              "routeEndM": 610.079108832915,
+              "startLatLon": {
+                "lat": 17.441050161477975,
+                "lon": 78.39196885801934
+              },
+              "endLatLon": {
+                "lat": 17.440994773484142,
+                "lon": 78.39244312166046
+              }
+            },
+            {
+              "roadId": "r_35746161453_0",
+              "startM": 0.0,
+              "endM": 27.50999999999999,
+              "routeStartM": 610.079108832915,
+              "routeEndM": 637.589108832915,
+              "startLatLon": {
+                "lat": 17.440994773484142,
+                "lon": 78.39244312166046
+              },
+              "endLatLon": {
+                "lat": 17.44096748608751,
+                "lon": 78.3927004419214
+              }
+            },
+            {
+              "roadId": "r_17731498241_0",
+              "startM": 0.0,
+              "endM": 10.259999999999991,
+              "routeStartM": 637.589108832915,
+              "routeEndM": 647.849108832915,
+              "startLatLon": {
+                "lat": 17.44096748608751,
+                "lon": 78.3927004419214
+              },
+              "endLatLon": {
+                "lat": 17.44094227687009,
+                "lon": 78.39279333698269
+              }
+            },
+            {
+              "roadId": "r_22340296037_0",
+              "startM": 0.0,
+              "endM": 154.92999999999995,
+              "routeStartM": 647.849108832915,
+              "routeEndM": 802.779108832915,
+              "startLatLon": {
+                "lat": 17.44094227687009,
+                "lon": 78.39279333698269
+              },
+              "endLatLon": {
+                "lat": 17.440484806376183,
+                "lon": 78.39416953919755
+              }
+            },
+            {
+              "roadId": "r_36314993425_0",
+              "startM": 0.0,
+              "endM": 79.88999999999999,
+              "routeStartM": 802.779108832915,
+              "routeEndM": 882.669108832915,
+              "startLatLon": {
+                "lat": 17.440484806376183,
+                "lon": 78.39416953919755
+              },
+              "endLatLon": {
+                "lat": 17.440277530588503,
+                "lon": 78.39488982886725
+              }
+            },
+            {
+              "roadId": "r_68630266621_0",
+              "startM": 0.0,
+              "endM": 32.24000000000001,
+              "routeStartM": 882.669108832915,
+              "routeEndM": 914.909108832915,
+              "startLatLon": {
+                "lat": 17.440277530588503,
+                "lon": 78.39488982886725
+              },
+              "endLatLon": {
+                "lat": 17.44019124097332,
+                "lon": 78.39517962004626
+              }
+            },
+            {
+              "roadId": "r_57338498840_0",
+              "startM": 0.0,
+              "endM": 40.08000000000004,
+              "routeStartM": 914.909108832915,
+              "routeEndM": 954.989108832915,
+              "startLatLon": {
+                "lat": 17.44019124097332,
+                "lon": 78.39517962004626
+              },
+              "endLatLon": {
+                "lat": 17.440036100377224,
+                "lon": 78.39552023527096
+              }
+            },
+            {
+              "roadId": "r_31627731675_0",
+              "startM": 0.0,
+              "endM": 32.700000000000045,
+              "routeStartM": 954.989108832915,
+              "routeEndM": 987.689108832915,
+              "startLatLon": {
+                "lat": 17.440036100377224,
+                "lon": 78.39552023527096
+              },
+              "endLatLon": {
+                "lat": 17.439857738387303,
+                "lon": 78.39576560246931
+              }
+            },
+            {
+              "roadId": "r_54532951764_0",
+              "startM": 0.0,
+              "endM": 59.1099999999999,
+              "routeStartM": 987.689108832915,
+              "routeEndM": 1046.799108832915,
+              "startLatLon": {
+                "lat": 17.439857738387303,
+                "lon": 78.39576560246931
+              },
+              "endLatLon": {
+                "lat": 17.439508875346228,
+                "lon": 78.39618687733689
+              }
+            },
+            {
+              "roadId": "r_49611679382_0",
+              "startM": 0.0,
+              "endM": 75.86999999999989,
+              "routeStartM": 1046.799108832915,
+              "routeEndM": 1122.6691088329148,
+              "startLatLon": {
+                "lat": 17.439508875346228,
+                "lon": 78.39618687733689
+              },
+              "endLatLon": {
+                "lat": 17.43908384251918,
+                "lon": 78.39674556536502
+              }
+            },
+            {
+              "roadId": "r_43518450735_0",
+              "startM": 0.0,
+              "endM": 38.930000000000064,
+              "routeStartM": 1122.6691088329148,
+              "routeEndM": 1161.599108832915,
+              "startLatLon": {
+                "lat": 17.43908384251918,
+                "lon": 78.39674556536502
+              },
+              "endLatLon": {
+                "lat": 17.43894740553601,
+                "lon": 78.39708326291303
+              }
+            },
+            {
+              "roadId": "r_21627390159_0",
+              "startM": 0.0,
+              "endM": 75.18000000000006,
+              "routeStartM": 1161.599108832915,
+              "routeEndM": 1236.779108832915,
+              "startLatLon": {
+                "lat": 17.43894740553601,
+                "lon": 78.39708326291303
+              },
+              "endLatLon": {
+                "lat": 17.438722691114055,
+                "lon": 78.39775084616498
+              }
+            },
+            {
+              "roadId": "r_28656101950_0",
+              "startM": 0.0,
+              "endM": 6.7999999999999545,
+              "routeStartM": 1236.779108832915,
+              "routeEndM": 1243.579108832915,
+              "startLatLon": {
+                "lat": 17.438722691114055,
+                "lon": 78.39775084616498
+              },
+              "endLatLon": {
+                "lat": 17.43869811438596,
+                "lon": 78.39780948205473
+              }
+            },
+            {
+              "roadId": "r_21924906449_0",
+              "startM": 0.0,
+              "endM": 164.5,
+              "routeStartM": 1243.579108832915,
+              "routeEndM": 1408.079108832915,
+              "startLatLon": {
+                "lat": 17.43869811438596,
+                "lon": 78.39780948205473
+              },
+              "endLatLon": {
+                "lat": 17.43885858596352,
+                "lon": 78.39919180197879
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "noSideRecordedObservation": {
+      "distanceM": 689.6072562101612,
+      "percent": 42.03391500258746,
+      "routeGaps": [
+        {
+          "routeStartM": 0,
+          "routeEndM": 445.479108832915,
+          "lengthM": 445.479108832915,
+          "startLatLon": {
+            "lat": 17.44295277355167,
+            "lon": 78.38767705777748
+          },
+          "endLatLon": {
+            "lat": 17.441256282839188,
+            "lon": 78.39091960462619
+          },
+          "roadRanges": [
+            {
+              "roadId": "r_62726365110_0",
+              "startM": 33.33089116708498,
+              "endM": 46.05,
+              "routeStartM": 0,
+              "routeEndM": 12.719108832915019,
+              "startLatLon": {
+                "lat": 17.44295277355167,
+                "lon": 78.38767705777748
+              },
+              "endLatLon": {
+                "lat": 17.44284760578674,
+                "lon": 78.38772533256034
+              }
+            },
+            {
+              "roadId": "r_33007360703_0",
+              "startM": 0.0,
+              "endM": 113.10999999999999,
+              "routeStartM": 12.719108832915019,
+              "routeEndM": 125.82910883291501,
+              "startLatLon": {
+                "lat": 17.44284760578674,
+                "lon": 78.38772533256034
+              },
+              "endLatLon": {
+                "lat": 17.44190329922308,
+                "lon": 78.38813079550259
+              }
+            },
+            {
+              "roadId": "r_50451961525_0",
+              "startM": 0.0,
+              "endM": 32.31,
+              "routeStartM": 125.82910883291501,
+              "routeEndM": 158.139108832915,
+              "startLatLon": {
+                "lat": 17.44190329922308,
+                "lon": 78.38813079550259
+              },
+              "endLatLon": {
+                "lat": 17.441665031458427,
+                "lon": 78.38830162076725
+              }
+            },
+            {
+              "roadId": "r_19055811559_0",
+              "startM": 0.0,
+              "endM": 79.81,
+              "routeStartM": 158.139108832915,
+              "routeEndM": 237.94910883291502,
+              "startLatLon": {
+                "lat": 17.441665031458427,
+                "lon": 78.38830162076725
+              },
+              "endLatLon": {
+                "lat": 17.441391525002757,
+                "lon": 78.38897870999813
+              }
+            },
+            {
+              "roadId": "r_53033292642_0",
+              "startM": 0.0,
+              "endM": 108.53,
+              "routeStartM": 237.94910883291502,
+              "routeEndM": 346.479108832915,
+              "startLatLon": {
+                "lat": 17.441391525002757,
+                "lon": 78.38897870999813
+              },
+              "endLatLon": {
+                "lat": 17.441386194021295,
+                "lon": 78.389999896842
+              }
+            },
+            {
+              "roadId": "r_42815022460_0",
+              "startM": 0.0,
+              "endM": 8.089999999999975,
+              "routeStartM": 346.479108832915,
+              "routeEndM": 354.569108832915,
+              "startLatLon": {
+                "lat": 17.441386194021295,
+                "lon": 78.389999896842
+              },
+              "endLatLon": {
+                "lat": 17.441385922954442,
+                "lon": 78.39007603879193
+              }
+            },
+            {
+              "roadId": "r_55072144376_0",
+              "startM": 0.0,
+              "endM": 13.310000000000002,
+              "routeStartM": 354.569108832915,
+              "routeEndM": 367.879108832915,
+              "startLatLon": {
+                "lat": 17.441385922954442,
+                "lon": 78.39007603879193
+              },
+              "endLatLon": {
+                "lat": 17.441379417349946,
+                "lon": 78.39020112241548
+              }
+            },
+            {
+              "roadId": "r_62300594119_0",
+              "startM": 0.0,
+              "endM": 59.60000000000002,
+              "routeStartM": 367.879108832915,
+              "routeEndM": 427.479108832915,
+              "startLatLon": {
+                "lat": 17.441379417349946,
+                "lon": 78.39020112241548
+              },
+              "endLatLon": {
+                "lat": 17.441293669868468,
+                "lon": 78.39075472803906
+              }
+            },
+            {
+              "roadId": "r_14775775715_0",
+              "startM": 0.0,
+              "endM": 18.0,
+              "routeStartM": 427.479108832915,
+              "routeEndM": 445.479108832915,
+              "startLatLon": {
+                "lat": 17.441293669868468,
+                "lon": 78.39075472803906
+              },
+              "endLatLon": {
+                "lat": 17.441256282839188,
+                "lon": 78.39091960462619
+              }
+            }
+          ]
+        },
+        {
+          "routeStartM": 464.479108832915,
+          "routeEndM": 465.45910883291504,
+          "lengthM": 0.9800000000000182,
+          "startLatLon": {
+            "lat": 17.44121681875273,
+            "lon": 78.39109364102374
+          },
+          "endLatLon": {
+            "lat": 17.441214789413962,
+            "lon": 78.39110259039619
+          },
+          "roadRanges": [
+            {
+              "roadId": "r_14775775715_0",
+              "startM": 37.0,
+              "endM": 37.98000000000002,
+              "routeStartM": 464.479108832915,
+              "routeEndM": 465.45910883291504,
+              "startLatLon": {
+                "lat": 17.44121681875273,
+                "lon": 78.39109364102374
+              },
+              "endLatLon": {
+                "lat": 17.441214789413962,
+                "lon": 78.39110259039619
+              }
+            }
+          ]
+        },
+        {
+          "routeStartM": 500.45910883291504,
+          "routeEndM": 511.08910883291503,
+          "lengthM": 10.629999999999995,
+          "startLatLon": {
+            "lat": 17.441144448341728,
+            "lon": 78.39142375350997
+          },
+          "endLatLon": {
+            "lat": 17.441123078461697,
+            "lon": 78.39152132406149
+          },
+          "roadRanges": [
+            {
+              "roadId": "r_40395506413_0",
+              "startM": 35.0,
+              "endM": 45.629999999999995,
+              "routeStartM": 500.45910883291504,
+              "routeEndM": 511.08910883291503,
+              "startLatLon": {
+                "lat": 17.441144448341728,
+                "lon": 78.39142375350997
+              },
+              "endLatLon": {
+                "lat": 17.441123078461697,
+                "lon": 78.39152132406149
+              }
+            }
+          ]
+        },
+        {
+          "routeStartM": 1408.079108832915,
+          "routeEndM": 1640.597256210161,
+          "lengthM": 232.51814737724612,
+          "startLatLon": {
+            "lat": 17.43885858596352,
+            "lon": 78.39919180197879
+          },
+          "endLatLon": {
+            "lat": 17.43730622420192,
+            "lon": 78.40051030200797
+          },
+          "roadRanges": [
+            {
+              "roadId": "r_47977268473_0",
+              "startM": 0.0,
+              "endM": 10.579999999999927,
+              "routeStartM": 1408.079108832915,
+              "routeEndM": 1418.6591088329149,
+              "startLatLon": {
+                "lat": 17.43885858596352,
+                "lon": 78.39919180197879
+              },
+              "endLatLon": {
+                "lat": 17.43891451609106,
+                "lon": 78.39927255574027
+              }
+            },
+            {
+              "roadId": "r_67873533196_0",
+              "startM": 0.0,
+              "endM": 15.339999999999918,
+              "routeStartM": 1418.6591088329149,
+              "routeEndM": 1433.9991088329148,
+              "startLatLon": {
+                "lat": 17.43891451609106,
+                "lon": 78.39927255574027
+              },
+              "endLatLon": {
+                "lat": 17.43880943250733,
+                "lon": 78.39936676846199
+              }
+            },
+            {
+              "roadId": "r_56672988322_0",
+              "startM": 0.0,
+              "endM": 206.59814737724628,
+              "routeStartM": 1433.9991088329148,
+              "routeEndM": 1640.597256210161,
+              "startLatLon": {
+                "lat": 17.43880943250733,
+                "lon": 78.39936676846199
+              },
+              "endLatLon": {
+                "lat": 17.43730622420192,
+                "lon": 78.40051030200797
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "left": {
+      "interpretation": "Saved forward-relative LEFT side; mostly the outer frontage in researched blocks.",
+      "recordedObservationWindowUnionM": 950.9899999999999,
+      "recordedObservationIntervalsRouteM": [
+        [
+          445.479108832915,
+          464.479108832915
+        ],
+        [
+          465.45910883291504,
+          500.45910883291504
+        ],
+        [
+          511.08910883291503,
+          1408.079108832915
+        ]
+      ],
+      "visuallyInventoriedWindowUnionM": 126.5,
+      "visuallyInventoriedIntervalsRouteM": [
+        [
+          511.08910883291503,
+          637.589108832915
+        ]
+      ],
+      "notFullyVisuallyInventoriedRouteRanges": [
+        {
+          "startM": 0,
+          "endM": 511.08910883291503,
+          "lengthM": 511.08910883291503,
+          "roadRanges": [
+            {
+              "roadId": "r_62726365110_0",
+              "startM": 33.33089116708498,
+              "endM": 46.05,
+              "routeStartM": 0,
+              "routeEndM": 12.719108832915019,
+              "startLatLon": {
+                "lat": 17.44295277355167,
+                "lon": 78.38767705777748
+              },
+              "endLatLon": {
+                "lat": 17.44284760578674,
+                "lon": 78.38772533256034
+              }
+            },
+            {
+              "roadId": "r_33007360703_0",
+              "startM": 0.0,
+              "endM": 113.10999999999999,
+              "routeStartM": 12.719108832915019,
+              "routeEndM": 125.82910883291501,
+              "startLatLon": {
+                "lat": 17.44284760578674,
+                "lon": 78.38772533256034
+              },
+              "endLatLon": {
+                "lat": 17.44190329922308,
+                "lon": 78.38813079550259
+              }
+            },
+            {
+              "roadId": "r_50451961525_0",
+              "startM": 0.0,
+              "endM": 32.31,
+              "routeStartM": 125.82910883291501,
+              "routeEndM": 158.139108832915,
+              "startLatLon": {
+                "lat": 17.44190329922308,
+                "lon": 78.38813079550259
+              },
+              "endLatLon": {
+                "lat": 17.441665031458427,
+                "lon": 78.38830162076725
+              }
+            },
+            {
+              "roadId": "r_19055811559_0",
+              "startM": 0.0,
+              "endM": 79.81,
+              "routeStartM": 158.139108832915,
+              "routeEndM": 237.94910883291502,
+              "startLatLon": {
+                "lat": 17.441665031458427,
+                "lon": 78.38830162076725
+              },
+              "endLatLon": {
+                "lat": 17.441391525002757,
+                "lon": 78.38897870999813
+              }
+            },
+            {
+              "roadId": "r_53033292642_0",
+              "startM": 0.0,
+              "endM": 108.53,
+              "routeStartM": 237.94910883291502,
+              "routeEndM": 346.479108832915,
+              "startLatLon": {
+                "lat": 17.441391525002757,
+                "lon": 78.38897870999813
+              },
+              "endLatLon": {
+                "lat": 17.441386194021295,
+                "lon": 78.389999896842
+              }
+            },
+            {
+              "roadId": "r_42815022460_0",
+              "startM": 0.0,
+              "endM": 8.089999999999975,
+              "routeStartM": 346.479108832915,
+              "routeEndM": 354.569108832915,
+              "startLatLon": {
+                "lat": 17.441386194021295,
+                "lon": 78.389999896842
+              },
+              "endLatLon": {
+                "lat": 17.441385922954442,
+                "lon": 78.39007603879193
+              }
+            },
+            {
+              "roadId": "r_55072144376_0",
+              "startM": 0.0,
+              "endM": 13.310000000000002,
+              "routeStartM": 354.569108832915,
+              "routeEndM": 367.879108832915,
+              "startLatLon": {
+                "lat": 17.441385922954442,
+                "lon": 78.39007603879193
+              },
+              "endLatLon": {
+                "lat": 17.441379417349946,
+                "lon": 78.39020112241548
+              }
+            },
+            {
+              "roadId": "r_62300594119_0",
+              "startM": 0.0,
+              "endM": 59.60000000000002,
+              "routeStartM": 367.879108832915,
+              "routeEndM": 427.479108832915,
+              "startLatLon": {
+                "lat": 17.441379417349946,
+                "lon": 78.39020112241548
+              },
+              "endLatLon": {
+                "lat": 17.441293669868468,
+                "lon": 78.39075472803906
+              }
+            },
+            {
+              "roadId": "r_14775775715_0",
+              "startM": 0.0,
+              "endM": 37.98000000000002,
+              "routeStartM": 427.479108832915,
+              "routeEndM": 465.45910883291504,
+              "startLatLon": {
+                "lat": 17.441293669868468,
+                "lon": 78.39075472803906
+              },
+              "endLatLon": {
+                "lat": 17.441214789413962,
+                "lon": 78.39110259039619
+              }
+            },
+            {
+              "roadId": "r_40395506413_0",
+              "startM": 0.0,
+              "endM": 45.629999999999995,
+              "routeStartM": 465.45910883291504,
+              "routeEndM": 511.08910883291503,
+              "startLatLon": {
+                "lat": 17.441214789413962,
+                "lon": 78.39110259039619
+              },
+              "endLatLon": {
+                "lat": 17.441123078461697,
+                "lon": 78.39152132406149
+              }
+            }
+          ]
+        },
+        {
+          "startM": 637.589108832915,
+          "endM": 1640.597256210161,
+          "lengthM": 1003.008147377246,
+          "roadRanges": [
+            {
+              "roadId": "r_17731498241_0",
+              "startM": 0.0,
+              "endM": 10.259999999999991,
+              "routeStartM": 637.589108832915,
+              "routeEndM": 647.849108832915,
+              "startLatLon": {
+                "lat": 17.44096748608751,
+                "lon": 78.3927004419214
+              },
+              "endLatLon": {
+                "lat": 17.44094227687009,
+                "lon": 78.39279333698269
+              }
+            },
+            {
+              "roadId": "r_22340296037_0",
+              "startM": 0.0,
+              "endM": 154.92999999999995,
+              "routeStartM": 647.849108832915,
+              "routeEndM": 802.779108832915,
+              "startLatLon": {
+                "lat": 17.44094227687009,
+                "lon": 78.39279333698269
+              },
+              "endLatLon": {
+                "lat": 17.440484806376183,
+                "lon": 78.39416953919755
+              }
+            },
+            {
+              "roadId": "r_36314993425_0",
+              "startM": 0.0,
+              "endM": 79.88999999999999,
+              "routeStartM": 802.779108832915,
+              "routeEndM": 882.669108832915,
+              "startLatLon": {
+                "lat": 17.440484806376183,
+                "lon": 78.39416953919755
+              },
+              "endLatLon": {
+                "lat": 17.440277530588503,
+                "lon": 78.39488982886725
+              }
+            },
+            {
+              "roadId": "r_68630266621_0",
+              "startM": 0.0,
+              "endM": 32.24000000000001,
+              "routeStartM": 882.669108832915,
+              "routeEndM": 914.909108832915,
+              "startLatLon": {
+                "lat": 17.440277530588503,
+                "lon": 78.39488982886725
+              },
+              "endLatLon": {
+                "lat": 17.44019124097332,
+                "lon": 78.39517962004626
+              }
+            },
+            {
+              "roadId": "r_57338498840_0",
+              "startM": 0.0,
+              "endM": 40.08000000000004,
+              "routeStartM": 914.909108832915,
+              "routeEndM": 954.989108832915,
+              "startLatLon": {
+                "lat": 17.44019124097332,
+                "lon": 78.39517962004626
+              },
+              "endLatLon": {
+                "lat": 17.440036100377224,
+                "lon": 78.39552023527096
+              }
+            },
+            {
+              "roadId": "r_31627731675_0",
+              "startM": 0.0,
+              "endM": 32.700000000000045,
+              "routeStartM": 954.989108832915,
+              "routeEndM": 987.689108832915,
+              "startLatLon": {
+                "lat": 17.440036100377224,
+                "lon": 78.39552023527096
+              },
+              "endLatLon": {
+                "lat": 17.439857738387303,
+                "lon": 78.39576560246931
+              }
+            },
+            {
+              "roadId": "r_54532951764_0",
+              "startM": 0.0,
+              "endM": 59.1099999999999,
+              "routeStartM": 987.689108832915,
+              "routeEndM": 1046.799108832915,
+              "startLatLon": {
+                "lat": 17.439857738387303,
+                "lon": 78.39576560246931
+              },
+              "endLatLon": {
+                "lat": 17.439508875346228,
+                "lon": 78.39618687733689
+              }
+            },
+            {
+              "roadId": "r_49611679382_0",
+              "startM": 0.0,
+              "endM": 75.86999999999989,
+              "routeStartM": 1046.799108832915,
+              "routeEndM": 1122.6691088329148,
+              "startLatLon": {
+                "lat": 17.439508875346228,
+                "lon": 78.39618687733689
+              },
+              "endLatLon": {
+                "lat": 17.43908384251918,
+                "lon": 78.39674556536502
+              }
+            },
+            {
+              "roadId": "r_43518450735_0",
+              "startM": 0.0,
+              "endM": 38.930000000000064,
+              "routeStartM": 1122.6691088329148,
+              "routeEndM": 1161.599108832915,
+              "startLatLon": {
+                "lat": 17.43908384251918,
+                "lon": 78.39674556536502
+              },
+              "endLatLon": {
+                "lat": 17.43894740553601,
+                "lon": 78.39708326291303
+              }
+            },
+            {
+              "roadId": "r_21627390159_0",
+              "startM": 0.0,
+              "endM": 75.18000000000006,
+              "routeStartM": 1161.599108832915,
+              "routeEndM": 1236.779108832915,
+              "startLatLon": {
+                "lat": 17.43894740553601,
+                "lon": 78.39708326291303
+              },
+              "endLatLon": {
+                "lat": 17.438722691114055,
+                "lon": 78.39775084616498
+              }
+            },
+            {
+              "roadId": "r_28656101950_0",
+              "startM": 0.0,
+              "endM": 6.7999999999999545,
+              "routeStartM": 1236.779108832915,
+              "routeEndM": 1243.579108832915,
+              "startLatLon": {
+                "lat": 17.438722691114055,
+                "lon": 78.39775084616498
+              },
+              "endLatLon": {
+                "lat": 17.43869811438596,
+                "lon": 78.39780948205473
+              }
+            },
+            {
+              "roadId": "r_21924906449_0",
+              "startM": 0.0,
+              "endM": 164.5,
+              "routeStartM": 1243.579108832915,
+              "routeEndM": 1408.079108832915,
+              "startLatLon": {
+                "lat": 17.43869811438596,
+                "lon": 78.39780948205473
+              },
+              "endLatLon": {
+                "lat": 17.43885858596352,
+                "lon": 78.39919180197879
+              }
+            },
+            {
+              "roadId": "r_47977268473_0",
+              "startM": 0.0,
+              "endM": 10.579999999999927,
+              "routeStartM": 1408.079108832915,
+              "routeEndM": 1418.6591088329149,
+              "startLatLon": {
+                "lat": 17.43885858596352,
+                "lon": 78.39919180197879
+              },
+              "endLatLon": {
+                "lat": 17.43891451609106,
+                "lon": 78.39927255574027
+              }
+            },
+            {
+              "roadId": "r_67873533196_0",
+              "startM": 0.0,
+              "endM": 15.339999999999918,
+              "routeStartM": 1418.6591088329149,
+              "routeEndM": 1433.9991088329148,
+              "startLatLon": {
+                "lat": 17.43891451609106,
+                "lon": 78.39927255574027
+              },
+              "endLatLon": {
+                "lat": 17.43880943250733,
+                "lon": 78.39936676846199
+              }
+            },
+            {
+              "roadId": "r_56672988322_0",
+              "startM": 0.0,
+              "endM": 206.59814737724628,
+              "routeStartM": 1433.9991088329148,
+              "routeEndM": 1640.597256210161,
+              "startLatLon": {
+                "lat": 17.43880943250733,
+                "lon": 78.39936676846199
+              },
+              "endLatLon": {
+                "lat": 17.43730622420192,
+                "lon": 78.40051030200797
+              }
+            }
+          ]
+        }
+      ],
+      "strictMetricVerifiedM": 0
+    },
+    "right": {
+      "interpretation": "Saved forward-relative RIGHT side; in the recorded mid-route span this is the immediate planted Metro/road median, not the far shop row across the other carriageway.",
+      "recordedObservationWindowUnionM": 650.5099999999999,
+      "recordedObservationIntervalsRouteM": [
+        [
+          511.08910883291503,
+          1161.599108832915
+        ]
+      ],
+      "visuallyInventoriedWindowUnionM": 650.5099999999999,
+      "visuallyInventoriedIntervalsRouteM": [
+        [
+          511.08910883291503,
+          1161.599108832915
+        ]
+      ],
+      "notFullyVisuallyInventoriedRouteRanges": [
+        {
+          "startM": 0,
+          "endM": 511.08910883291503,
+          "lengthM": 511.08910883291503,
+          "roadRanges": [
+            {
+              "roadId": "r_62726365110_0",
+              "startM": 33.33089116708498,
+              "endM": 46.05,
+              "routeStartM": 0,
+              "routeEndM": 12.719108832915019,
+              "startLatLon": {
+                "lat": 17.44295277355167,
+                "lon": 78.38767705777748
+              },
+              "endLatLon": {
+                "lat": 17.44284760578674,
+                "lon": 78.38772533256034
+              }
+            },
+            {
+              "roadId": "r_33007360703_0",
+              "startM": 0.0,
+              "endM": 113.10999999999999,
+              "routeStartM": 12.719108832915019,
+              "routeEndM": 125.82910883291501,
+              "startLatLon": {
+                "lat": 17.44284760578674,
+                "lon": 78.38772533256034
+              },
+              "endLatLon": {
+                "lat": 17.44190329922308,
+                "lon": 78.38813079550259
+              }
+            },
+            {
+              "roadId": "r_50451961525_0",
+              "startM": 0.0,
+              "endM": 32.31,
+              "routeStartM": 125.82910883291501,
+              "routeEndM": 158.139108832915,
+              "startLatLon": {
+                "lat": 17.44190329922308,
+                "lon": 78.38813079550259
+              },
+              "endLatLon": {
+                "lat": 17.441665031458427,
+                "lon": 78.38830162076725
+              }
+            },
+            {
+              "roadId": "r_19055811559_0",
+              "startM": 0.0,
+              "endM": 79.81,
+              "routeStartM": 158.139108832915,
+              "routeEndM": 237.94910883291502,
+              "startLatLon": {
+                "lat": 17.441665031458427,
+                "lon": 78.38830162076725
+              },
+              "endLatLon": {
+                "lat": 17.441391525002757,
+                "lon": 78.38897870999813
+              }
+            },
+            {
+              "roadId": "r_53033292642_0",
+              "startM": 0.0,
+              "endM": 108.53,
+              "routeStartM": 237.94910883291502,
+              "routeEndM": 346.479108832915,
+              "startLatLon": {
+                "lat": 17.441391525002757,
+                "lon": 78.38897870999813
+              },
+              "endLatLon": {
+                "lat": 17.441386194021295,
+                "lon": 78.389999896842
+              }
+            },
+            {
+              "roadId": "r_42815022460_0",
+              "startM": 0.0,
+              "endM": 8.089999999999975,
+              "routeStartM": 346.479108832915,
+              "routeEndM": 354.569108832915,
+              "startLatLon": {
+                "lat": 17.441386194021295,
+                "lon": 78.389999896842
+              },
+              "endLatLon": {
+                "lat": 17.441385922954442,
+                "lon": 78.39007603879193
+              }
+            },
+            {
+              "roadId": "r_55072144376_0",
+              "startM": 0.0,
+              "endM": 13.310000000000002,
+              "routeStartM": 354.569108832915,
+              "routeEndM": 367.879108832915,
+              "startLatLon": {
+                "lat": 17.441385922954442,
+                "lon": 78.39007603879193
+              },
+              "endLatLon": {
+                "lat": 17.441379417349946,
+                "lon": 78.39020112241548
+              }
+            },
+            {
+              "roadId": "r_62300594119_0",
+              "startM": 0.0,
+              "endM": 59.60000000000002,
+              "routeStartM": 367.879108832915,
+              "routeEndM": 427.479108832915,
+              "startLatLon": {
+                "lat": 17.441379417349946,
+                "lon": 78.39020112241548
+              },
+              "endLatLon": {
+                "lat": 17.441293669868468,
+                "lon": 78.39075472803906
+              }
+            },
+            {
+              "roadId": "r_14775775715_0",
+              "startM": 0.0,
+              "endM": 37.98000000000002,
+              "routeStartM": 427.479108832915,
+              "routeEndM": 465.45910883291504,
+              "startLatLon": {
+                "lat": 17.441293669868468,
+                "lon": 78.39075472803906
+              },
+              "endLatLon": {
+                "lat": 17.441214789413962,
+                "lon": 78.39110259039619
+              }
+            },
+            {
+              "roadId": "r_40395506413_0",
+              "startM": 0.0,
+              "endM": 45.629999999999995,
+              "routeStartM": 465.45910883291504,
+              "routeEndM": 511.08910883291503,
+              "startLatLon": {
+                "lat": 17.441214789413962,
+                "lon": 78.39110259039619
+              },
+              "endLatLon": {
+                "lat": 17.441123078461697,
+                "lon": 78.39152132406149
+              }
+            }
+          ]
+        },
+        {
+          "startM": 1161.599108832915,
+          "endM": 1640.597256210161,
+          "lengthM": 478.99814737724614,
+          "roadRanges": [
+            {
+              "roadId": "r_21627390159_0",
+              "startM": 0.0,
+              "endM": 75.18000000000006,
+              "routeStartM": 1161.599108832915,
+              "routeEndM": 1236.779108832915,
+              "startLatLon": {
+                "lat": 17.43894740553601,
+                "lon": 78.39708326291303
+              },
+              "endLatLon": {
+                "lat": 17.438722691114055,
+                "lon": 78.39775084616498
+              }
+            },
+            {
+              "roadId": "r_28656101950_0",
+              "startM": 0.0,
+              "endM": 6.7999999999999545,
+              "routeStartM": 1236.779108832915,
+              "routeEndM": 1243.579108832915,
+              "startLatLon": {
+                "lat": 17.438722691114055,
+                "lon": 78.39775084616498
+              },
+              "endLatLon": {
+                "lat": 17.43869811438596,
+                "lon": 78.39780948205473
+              }
+            },
+            {
+              "roadId": "r_21924906449_0",
+              "startM": 0.0,
+              "endM": 164.5,
+              "routeStartM": 1243.579108832915,
+              "routeEndM": 1408.079108832915,
+              "startLatLon": {
+                "lat": 17.43869811438596,
+                "lon": 78.39780948205473
+              },
+              "endLatLon": {
+                "lat": 17.43885858596352,
+                "lon": 78.39919180197879
+              }
+            },
+            {
+              "roadId": "r_47977268473_0",
+              "startM": 0.0,
+              "endM": 10.579999999999927,
+              "routeStartM": 1408.079108832915,
+              "routeEndM": 1418.6591088329149,
+              "startLatLon": {
+                "lat": 17.43885858596352,
+                "lon": 78.39919180197879
+              },
+              "endLatLon": {
+                "lat": 17.43891451609106,
+                "lon": 78.39927255574027
+              }
+            },
+            {
+              "roadId": "r_67873533196_0",
+              "startM": 0.0,
+              "endM": 15.339999999999918,
+              "routeStartM": 1418.6591088329149,
+              "routeEndM": 1433.9991088329148,
+              "startLatLon": {
+                "lat": 17.43891451609106,
+                "lon": 78.39927255574027
+              },
+              "endLatLon": {
+                "lat": 17.43880943250733,
+                "lon": 78.39936676846199
+              }
+            },
+            {
+              "roadId": "r_56672988322_0",
+              "startM": 0.0,
+              "endM": 206.59814737724628,
+              "routeStartM": 1433.9991088329148,
+              "routeEndM": 1640.597256210161,
+              "startLatLon": {
+                "lat": 17.43880943250733,
+                "lon": 78.39936676846199
+              },
+              "endLatLon": {
+                "lat": 17.43730622420192,
+                "lon": 78.40051030200797
+              }
+            }
+          ]
+        }
+      ],
+      "strictMetricVerifiedM": 0
+    },
+    "combinedVisualInventoryUnionM": 650.5099999999999,
+    "strictMetricVerifiedUnionM": 0,
+    "fullShopReconstructionComplete": false,
+    "interpretation": "Observation windows include partial frontage evidence and complete visual inventory of non-shop median windows. They do not prove exact storefront placement, full shop order, or metric accuracy."
+  },
+  "fixedOrderedRouteRanges": [
+    {
+      "order": 1,
+      "roadId": "r_62726365110_0",
+      "edgeId": "r_62726365110_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 33.33089116708498,
+      "endM": 46.05,
+      "plannedDistanceM": 12.719108832915019,
+      "routeStartM": 0,
+      "routeEndM": 12.719108832915019,
+      "startPoint": [
+        -17076.639143575394,
+        -3137.909316654128
+      ],
+      "endPoint": [
+        -17071.51,
+        -3126.27
+      ],
+      "startLatLon": {
+        "lat": 17.44295277355167,
+        "lon": 78.38767705777748
+      },
+      "endLatLon": {
+        "lat": 17.44284760578674,
+        "lon": 78.38772533256034
+      },
+      "fromNode": "n_7384820355",
+      "toNode": "n_13200217246",
+      "connection": null,
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 46.05,
+      "geometricFullLengthM": 46.05023887017432,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/e9ac85fb616a",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->4.5 m (footprint clearance 0 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 2,
+      "roadId": "r_33007360703_0",
+      "edgeId": "r_33007360703_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 113.11,
+      "plannedDistanceM": 113.11,
+      "routeStartM": 12.719108832915019,
+      "routeEndM": 125.82910883291501,
+      "startPoint": [
+        -17071.51,
+        -3126.27
+      ],
+      "endPoint": [
+        -17028.43,
+        -3021.76
+      ],
+      "startLatLon": {
+        "lat": 17.44284760578674,
+        "lon": 78.38772533256034
+      },
+      "endLatLon": {
+        "lat": 17.44190329922308,
+        "lon": 78.38813079550259
+      },
+      "fromNode": "n_13200217246",
+      "toNode": "n_65232796273",
+      "connection": {
+        "previousEdgeId": "r_62726365110_0:f",
+        "selectedEdgeId": "r_33007360703_0:f",
+        "sharedNode": "n_13200217246",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 113.11,
+      "geometricFullLengthM": 113.11285204507159,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/7af645abf705",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->4.5 m (footprint clearance 0 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 3,
+      "roadId": "r_50451961525_0",
+      "edgeId": "r_50451961525_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 32.31,
+      "plannedDistanceM": 32.31,
+      "routeStartM": 125.82910883291501,
+      "routeEndM": 158.139108832915,
+      "startPoint": [
+        -17028.43,
+        -3021.76
+      ],
+      "endPoint": [
+        -17010.28,
+        -2995.39
+      ],
+      "startLatLon": {
+        "lat": 17.44190329922308,
+        "lon": 78.38813079550259
+      },
+      "endLatLon": {
+        "lat": 17.441665031458427,
+        "lon": 78.38830162076725
+      },
+      "fromNode": "n_65232796273",
+      "toNode": "n_2590475892",
+      "connection": {
+        "previousEdgeId": "r_33007360703_0:f",
+        "selectedEdgeId": "r_50451961525_0:f",
+        "sharedNode": "n_65232796273",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 32.31,
+      "geometricFullLengthM": 32.30773293542397,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/bbf2bd6b560d",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->4.5 m (footprint clearance 2.57 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 4,
+      "roadId": "r_19055811559_0",
+      "edgeId": "r_19055811559_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 79.81,
+      "plannedDistanceM": 79.81,
+      "routeStartM": 158.139108832915,
+      "routeEndM": 237.94910883291502,
+      "startPoint": [
+        -17010.28,
+        -2995.39
+      ],
+      "endPoint": [
+        -16938.34,
+        -2965.12
+      ],
+      "startLatLon": {
+        "lat": 17.441665031458427,
+        "lon": 78.38830162076725
+      },
+      "endLatLon": {
+        "lat": 17.441391525002757,
+        "lon": 78.38897870999813
+      },
+      "fromNode": "n_2590475892",
+      "toNode": "n_54096984521",
+      "connection": {
+        "previousEdgeId": "r_50451961525_0:f",
+        "selectedEdgeId": "r_19055811559_0:f",
+        "sharedNode": "n_2590475892",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 79.81,
+      "geometricFullLengthM": 79.80525265318117,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/46fd09be7272",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->5.27 m (footprint clearance 3.3 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 5,
+      "roadId": "r_53033292642_0",
+      "edgeId": "r_53033292642_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 108.53,
+      "plannedDistanceM": 108.53,
+      "routeStartM": 237.94910883291502,
+      "routeEndM": 346.479108832915,
+      "startPoint": [
+        -16938.34,
+        -2965.12
+      ],
+      "endPoint": [
+        -16829.84,
+        -2964.53
+      ],
+      "startLatLon": {
+        "lat": 17.441391525002757,
+        "lon": 78.38897870999813
+      },
+      "endLatLon": {
+        "lat": 17.441386194021295,
+        "lon": 78.389999896842
+      },
+      "fromNode": "n_54096984521",
+      "toNode": "n_35549220970",
+      "connection": {
+        "previousEdgeId": "r_19055811559_0:f",
+        "selectedEdgeId": "r_53033292642_0:f",
+        "sharedNode": "n_54096984521",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 108.53,
+      "geometricFullLengthM": 108.52594693516818,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/c5907d3621e7",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->6.81 m (footprint clearance 8.44 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 6,
+      "roadId": "r_42815022460_0",
+      "edgeId": "r_42815022460_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 8.09,
+      "plannedDistanceM": 8.09,
+      "routeStartM": 346.479108832915,
+      "routeEndM": 354.569108832915,
+      "startPoint": [
+        -16829.84,
+        -2964.53
+      ],
+      "endPoint": [
+        -16821.75,
+        -2964.5
+      ],
+      "startLatLon": {
+        "lat": 17.441386194021295,
+        "lon": 78.389999896842
+      },
+      "endLatLon": {
+        "lat": 17.441385922954442,
+        "lon": 78.39007603879193
+      },
+      "fromNode": "n_35549220970",
+      "toNode": "n_35504723065",
+      "connection": {
+        "previousEdgeId": "r_53033292642_0:f",
+        "selectedEdgeId": "r_42815022460_0:f",
+        "sharedNode": "n_35549220970",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 8.09,
+      "geometricFullLengthM": 8.090055624036362,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/9f7f9657c213",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->8.25 m (footprint clearance none m)"
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 7,
+      "roadId": "r_55072144376_0",
+      "edgeId": "r_55072144376_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 13.31,
+      "plannedDistanceM": 13.31,
+      "routeStartM": 354.569108832915,
+      "routeEndM": 367.879108832915,
+      "startPoint": [
+        -16821.75,
+        -2964.5
+      ],
+      "endPoint": [
+        -16808.46,
+        -2963.78
+      ],
+      "startLatLon": {
+        "lat": 17.441385922954442,
+        "lon": 78.39007603879193
+      },
+      "endLatLon": {
+        "lat": 17.441379417349946,
+        "lon": 78.39020112241548
+      },
+      "fromNode": "n_35504723065",
+      "toNode": "n_52631208620",
+      "connection": {
+        "previousEdgeId": "r_42815022460_0:f",
+        "selectedEdgeId": "r_55072144376_0:f",
+        "sharedNode": "n_35504723065",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 13.31,
+      "geometricFullLengthM": 13.309489096130733,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/cd28e3bf8082",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->9.45 m (footprint clearance none m)"
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 8,
+      "roadId": "r_62300594119_0",
+      "edgeId": "r_62300594119_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 59.6,
+      "plannedDistanceM": 59.6,
+      "routeStartM": 367.879108832915,
+      "routeEndM": 427.479108832915,
+      "startPoint": [
+        -16808.46,
+        -2963.78
+      ],
+      "endPoint": [
+        -16749.64,
+        -2954.29
+      ],
+      "startLatLon": {
+        "lat": 17.441379417349946,
+        "lon": 78.39020112241548
+      },
+      "endLatLon": {
+        "lat": 17.441293669868468,
+        "lon": 78.39075472803906
+      },
+      "fromNode": "n_52631208620",
+      "toNode": "n_30046124854",
+      "connection": {
+        "previousEdgeId": "r_55072144376_0:f",
+        "selectedEdgeId": "r_62300594119_0:f",
+        "sharedNode": "n_52631208620",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 59.6,
+      "geometricFullLengthM": 59.59504913516237,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/e81679fc7f7d",
+          "osm:w31521331@49"
+        ]
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 9,
+      "roadId": "r_14775775715_0",
+      "edgeId": "r_14775775715_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 37.98,
+      "plannedDistanceM": 37.98,
+      "routeStartM": 427.479108832915,
+      "routeEndM": 465.45910883291504,
+      "startPoint": [
+        -16749.64,
+        -2954.29
+      ],
+      "endPoint": [
+        -16712.68,
+        -2945.56
+      ],
+      "startLatLon": {
+        "lat": 17.441293669868468,
+        "lon": 78.39075472803906
+      },
+      "endLatLon": {
+        "lat": 17.441214789413962,
+        "lon": 78.39110259039619
+      },
+      "fromNode": "n_30046124854",
+      "toNode": "n_1006075562",
+      "connection": {
+        "previousEdgeId": "r_62300594119_0:f",
+        "selectedEdgeId": "r_14775775715_0:f",
+        "sharedNode": "n_30046124854",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 37.98,
+      "geometricFullLengthM": 37.97702594990734,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/370b471e30f6",
+          "osm:w31521331@49"
+        ]
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 18,
+              "endM": 37,
+              "routeIntervalM": [
+                445.479108832915,
+                464.479108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-brown-block-2026-04-chrome-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-evania",
+                "survey-madhapur-nothing-service-centre",
+                "survey-madhapur-slns-printers",
+                "survey-madhapur-purple-spa",
+                "survey-madhapur-trend-tags",
+                "survey-madhapur-kotak-mutual-fund"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              18,
+              37
+            ]
+          ]
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 10,
+      "roadId": "r_40395506413_0",
+      "edgeId": "r_40395506413_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 45.63,
+      "plannedDistanceM": 45.63,
+      "routeStartM": 465.45910883291504,
+      "routeEndM": 511.08910883291503,
+      "startPoint": [
+        -16712.68,
+        -2945.56
+      ],
+      "endPoint": [
+        -16668.19,
+        -2935.41
+      ],
+      "startLatLon": {
+        "lat": 17.441214789413962,
+        "lon": 78.39110259039619
+      },
+      "endLatLon": {
+        "lat": 17.441123078461697,
+        "lon": 78.39152132406149
+      },
+      "fromNode": "n_1006075562",
+      "toNode": "n_6810851945",
+      "connection": {
+        "previousEdgeId": "r_14775775715_0:f",
+        "selectedEdgeId": "r_40395506413_0:f",
+        "sharedNode": "n_1006075562",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 45.63,
+      "geometricFullLengthM": 45.63313050843811,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/967c282ed840",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->9.43 m (footprint clearance 7.8 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 35,
+              "routeIntervalM": [
+                465.45910883291504,
+                500.45910883291504
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-medplus-2026-04-chrome-20261017",
+                "sv-madhapur-lower-shops-2026-04-chrome-20261018",
+                "sv-madhapur-g5-east-front-2026-04-chrome-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-mounika-communications",
+                "survey-madhapur-ss-computers",
+                "survey-madhapur-prestige-xclusive",
+                "survey-madhapur-medplus",
+                "survey-madhapur-truecare-surgicals",
+                "survey-madhapur-just-for-u",
+                "survey-madhapur-g5-gourmet-shawarma"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              35
+            ]
+          ]
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 11,
+      "roadId": "r_38680221829_0",
+      "edgeId": "r_38680221829_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 48.23,
+      "plannedDistanceM": 48.23,
+      "routeStartM": 511.08910883291503,
+      "routeEndM": 559.319108832915,
+      "startPoint": [
+        -16668.19,
+        -2935.41
+      ],
+      "endPoint": [
+        -16620.64,
+        -2927.34
+      ],
+      "startLatLon": {
+        "lat": 17.441123078461697,
+        "lon": 78.39152132406149
+      },
+      "endLatLon": {
+        "lat": 17.441050161477975,
+        "lon": 78.39196885801934
+      },
+      "fromNode": "n_6810851945",
+      "toNode": "n_56328264811",
+      "connection": {
+        "previousEdgeId": "r_40395506413_0:f",
+        "selectedEdgeId": "r_38680221829_0:f",
+        "sharedNode": "n_6810851945",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 48.23,
+      "geometricFullLengthM": 48.22994298151228,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/901855885940",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->6.94 m (footprint clearance 4.07 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 48.23,
+              "routeIntervalM": [
+                511.08910883291503,
+                559.319108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018",
+                "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+                "sv-madhapur-bawarchi-full-2026-04-chrome-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-hitech-bawarchi",
+                "survey-madhapur-zeeshan-ambica",
+                "survey-madhapur-zeeshan-mobile-board",
+                "survey-madhapur-zeeshan-restaurant",
+                "survey-madhapur-zeeshan-sri-sai-xerox",
+                "survey-madhapur-zeeshan-eco-cc-express",
+                "survey-madhapur-zeeshan-sai-priya"
+              ]
+            },
+            {
+              "startM": 4.36,
+              "endM": 28.36,
+              "routeIntervalM": [
+                515.449108832915,
+                539.449108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-bawarchi-south-2026-04-chrome-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-hitech-bawarchi"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              48.23
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 48.23,
+              "routeIntervalM": [
+                511.08910883291503,
+                559.319108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018",
+                "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+                "sv-madhapur-bawarchi-full-2026-04-chrome-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              48.23
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 12,
+      "roadId": "r_37185680086_0",
+      "edgeId": "r_37185680086_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 50.76,
+      "plannedDistanceM": 50.76,
+      "routeStartM": 559.319108832915,
+      "routeEndM": 610.079108832915,
+      "startPoint": [
+        -16620.64,
+        -2927.34
+      ],
+      "endPoint": [
+        -16570.25,
+        -2921.21
+      ],
+      "startLatLon": {
+        "lat": 17.441050161477975,
+        "lon": 78.39196885801934
+      },
+      "endLatLon": {
+        "lat": 17.440994773484142,
+        "lon": 78.39244312166046
+      },
+      "fromNode": "n_56328264811",
+      "toNode": "n_8238597964",
+      "connection": {
+        "previousEdgeId": "r_38680221829_0:f",
+        "selectedEdgeId": "r_37185680086_0:f",
+        "sharedNode": "n_56328264811",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 50.76,
+      "geometricFullLengthM": 50.76149130984966,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/8a87072d6ed9",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->6.97 m (footprint clearance 4.9 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 50.76,
+              "routeIntervalM": [
+                559.319108832915,
+                610.079108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-dsk-vista-west-2026-04-chrome-20261018",
+                "sv-madhapur-dsk-vista-main-2026-04-chrome-20261018",
+                "sv-madhapur-ss-estates-main-2026-04-chrome-20261018",
+                "sv-madhapur-ss-estates-east-boundary-2026-04-chrome-20261018",
+                "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-dsk-global-express",
+                "survey-madhapur-dhruvanth-forex",
+                "survey-madhapur-madhav-marketing-services",
+                "survey-madhapur-sri-madhav-acc",
+                "survey-madhapur-vista-dental-studio",
+                "survey-madhapur-apollo-pharmacy-dsk-row",
+                "survey-madhapur-balaji-art-gallery",
+                "survey-madhapur-imfs-study-abroad",
+                "survey-madhapur-gvr-luxury-beauty",
+                "survey-madhapur-bosch-ss-estates",
+                "survey-madhapur-expertz-clinic"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              50.76
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 50.76,
+              "routeIntervalM": [
+                559.319108832915,
+                610.079108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-dsk-vista-west-2026-04-chrome-20261018",
+                "sv-madhapur-dsk-vista-main-2026-04-chrome-20261018",
+                "sv-madhapur-ss-estates-main-2026-04-chrome-20261018",
+                "sv-madhapur-ss-estates-east-boundary-2026-04-chrome-20261018",
+                "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              50.76
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 13,
+      "roadId": "r_35746161453_0",
+      "edgeId": "r_35746161453_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 27.51,
+      "plannedDistanceM": 27.51,
+      "routeStartM": 610.079108832915,
+      "routeEndM": 637.589108832915,
+      "startPoint": [
+        -16570.25,
+        -2921.21
+      ],
+      "endPoint": [
+        -16542.91,
+        -2918.19
+      ],
+      "startLatLon": {
+        "lat": 17.440994773484142,
+        "lon": 78.39244312166046
+      },
+      "endLatLon": {
+        "lat": 17.44096748608751,
+        "lon": 78.3927004419214
+      },
+      "fromNode": "n_8238597964",
+      "toNode": "n_54485549899",
+      "connection": {
+        "previousEdgeId": "r_37185680086_0:f",
+        "selectedEdgeId": "r_35746161453_0:f",
+        "sharedNode": "n_8238597964",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 27.51,
+      "geometricFullLengthM": 27.506290189700394,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/852a3232d2e1",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->7 m (footprint clearance 8.85 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 27.51,
+              "routeIntervalM": [
+                610.079108832915,
+                637.589108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-bata-west-apr2026-20261018",
+                "sv-madhapur-bata-front-apr2026-20261018",
+                "sv-madhapur-bata-east-apr2026-20261018",
+                "sv-madhapur-bata-reverse-west-apr2026-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-bata-r357-ground",
+                "survey-madhapur-lakshmi-guest-house-r357-second",
+                "survey-madhapur-music-stores-r357-first"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              27.51
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 27.51,
+              "routeIntervalM": [
+                610.079108832915,
+                637.589108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-bata-median-apr2026-20261018",
+                "sv-madhapur-bata-reverse-west-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              27.51
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 14,
+      "roadId": "r_17731498241_0",
+      "edgeId": "r_17731498241_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 10.26,
+      "plannedDistanceM": 10.26,
+      "routeStartM": 637.589108832915,
+      "routeEndM": 647.849108832915,
+      "startPoint": [
+        -16542.91,
+        -2918.19
+      ],
+      "endPoint": [
+        -16533.04,
+        -2915.4
+      ],
+      "startLatLon": {
+        "lat": 17.44096748608751,
+        "lon": 78.3927004419214
+      },
+      "endLatLon": {
+        "lat": 17.44094227687009,
+        "lon": 78.39279333698269
+      },
+      "fromNode": "n_54485549899",
+      "toNode": "n_51460329166",
+      "connection": {
+        "previousEdgeId": "r_35746161453_0:f",
+        "selectedEdgeId": "r_17731498241_0:f",
+        "sharedNode": "n_54485549899",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 10.26,
+      "geometricFullLengthM": 10.256753872448128,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/420e1310142f",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->8.91 m (footprint clearance 9.6 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 10.26,
+              "routeIntervalM": [
+                637.589108832915,
+                647.849108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-r177-r223-cream-corner-apr2026-20261018",
+                "sv-madhapur-r177-r223-foodcourt-close-apr2026-20261018",
+                "sv-madhapur-r177-r223-section-east-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              10.26
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 10.26,
+              "routeIntervalM": [
+                637.589108832915,
+                647.849108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-r177-r223-median-west-apr2026-20261018",
+                "sv-madhapur-r177-r223-median-middle-apr2026-20261018",
+                "sv-madhapur-r177-r223-median-east-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              10.26
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 15,
+      "roadId": "r_22340296037_0",
+      "edgeId": "r_22340296037_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 154.93,
+      "plannedDistanceM": 154.93,
+      "routeStartM": 647.849108832915,
+      "routeEndM": 802.779108832915,
+      "startPoint": [
+        -16533.04,
+        -2915.4
+      ],
+      "endPoint": [
+        -16386.82,
+        -2864.77
+      ],
+      "startLatLon": {
+        "lat": 17.44094227687009,
+        "lon": 78.39279333698269
+      },
+      "endLatLon": {
+        "lat": 17.440484806376183,
+        "lon": 78.39416953919755
+      },
+      "fromNode": "n_51460329166",
+      "toNode": "n_24595916031",
+      "connection": {
+        "previousEdgeId": "r_17731498241_0:f",
+        "selectedEdgeId": "r_22340296037_0:f",
+        "sharedNode": "n_51460329166",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 154.93,
+      "geometricFullLengthM": 154.92976014100876,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/53395dd65ce5",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->6.91 m (footprint clearance 4.06 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 55,
+              "routeIntervalM": [
+                647.849108832915,
+                702.849108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-r177-r223-cream-corner-apr2026-20261018",
+                "sv-madhapur-r177-r223-foodcourt-close-apr2026-20261018",
+                "sv-madhapur-r177-r223-section-east-apr2026-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-r223-surya-plywood-hardware",
+                "survey-madhapur-r223-sri-sai-saritha-dental",
+                "survey-madhapur-r223-oxrich-admissions",
+                "survey-madhapur-r223-rajasthan-restaurant-entry",
+                "survey-madhapur-r223-laxmi-electro-vision",
+                "survey-madhapur-r223-viras-homeopathy",
+                "survey-madhapur-r223-magic-look",
+                "survey-madhapur-r223-sri-laxmi-sanitation",
+                "survey-madhapur-r223-madhapuram-food-court"
+              ]
+            },
+            {
+              "startM": 55,
+              "endM": 154.93,
+              "routeIntervalM": [
+                702.849108832915,
+                802.779108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-r223-tail-glass-front-apr2026-20261018",
+                "sv-madhapur-r223-tail-bank-gap-apr2026-20261018",
+                "sv-madhapur-r223-tail-pride-front-apr2026-20261018",
+                "sv-madhapur-r223-tail-sangeetha-front-apr2026-20261018",
+                "sv-madhapur-r223-tail-ola-sjl-apr2026-20261018",
+                "sv-madhapur-r223-tail-electrical-hostel-apr2026-20261018",
+                "sv-madhapur-r223-tail-icici-salon-apr2026-20261018",
+                "sv-madhapur-r223-tail-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-r223-tail-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-r223-tail-samsung",
+                "survey-madhapur-r223-tail-lakme",
+                "survey-madhapur-r223-tail-la-excellence",
+                "survey-madhapur-r223-tail-amrutha-sankalp-clinic",
+                "survey-madhapur-r223-tail-f2-thai-spa",
+                "survey-madhapur-r223-tail-linen-club",
+                "survey-madhapur-r223-tail-krafteria",
+                "survey-madhapur-r223-tail-american-hair-clinic",
+                "survey-madhapur-r223-tail-rego-thai-spa",
+                "survey-madhapur-r223-tail-iac-dental",
+                "survey-madhapur-r223-tail-canara-bank",
+                "survey-madhapur-r223-tail-shiva-sai-hostel"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              154.93
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 55,
+              "routeIntervalM": [
+                647.849108832915,
+                702.849108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-r177-r223-median-west-apr2026-20261018",
+                "sv-madhapur-r177-r223-median-middle-apr2026-20261018",
+                "sv-madhapur-r177-r223-median-east-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            },
+            {
+              "startM": 55,
+              "endM": 154.93,
+              "routeIntervalM": [
+                702.849108832915,
+                802.779108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-r223-tail-glass-front-apr2026-20261018",
+                "sv-madhapur-r223-tail-bank-gap-apr2026-20261018",
+                "sv-madhapur-r223-tail-pride-front-apr2026-20261018",
+                "sv-madhapur-r223-tail-sangeetha-front-apr2026-20261018",
+                "sv-madhapur-r223-tail-ola-sjl-apr2026-20261018",
+                "sv-madhapur-r223-tail-electrical-hostel-apr2026-20261018",
+                "sv-madhapur-r223-tail-icici-salon-apr2026-20261018",
+                "sv-madhapur-r223-tail-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-r223-tail-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              154.93
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 16,
+      "roadId": "r_36314993425_0",
+      "edgeId": "r_36314993425_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 79.89,
+      "plannedDistanceM": 79.89,
+      "routeStartM": 802.779108832915,
+      "routeEndM": 882.669108832915,
+      "startPoint": [
+        -16386.82,
+        -2864.77
+      ],
+      "endPoint": [
+        -16310.29,
+        -2841.83
+      ],
+      "startLatLon": {
+        "lat": 17.440484806376183,
+        "lon": 78.39416953919755
+      },
+      "endLatLon": {
+        "lat": 17.440277530588503,
+        "lon": 78.39488982886725
+      },
+      "fromNode": "n_24595916031",
+      "toNode": "n_25375673108",
+      "connection": {
+        "previousEdgeId": "r_22340296037_0:f",
+        "selectedEdgeId": "r_36314993425_0:f",
+        "sharedNode": "n_24595916031",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 79.89,
+      "geometricFullLengthM": 79.89420817556068,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/8748ad311121",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->7.53 m (footprint clearance 6.36 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 79.89,
+              "routeIntervalM": [
+                802.779108832915,
+                882.669108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-east-next-forest-happi-apr2026-20261018",
+                "sv-madhapur-east-next-arvind-zee-boundary-apr2026-20261018",
+                "sv-madhapur-east-next-zee-classical-apr2026-20261018",
+                "sv-madhapur-east-next-jagadamba-ratan-apr2026-20261018",
+                "sv-madhapur-east-next-low-row-west-apr2026-20261018",
+                "sv-madhapur-east-next-low-row-east-apr2026-20261018",
+                "sv-madhapur-east-next-dtdc-medical-swapna-apr2026-20261018",
+                "sv-madhapur-east-next-junction-kirana-apr2026-20261018",
+                "sv-madhapur-east-next-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-east-next-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-east-next-happi",
+                "survey-madhapur-east-next-arvind",
+                "survey-madhapur-east-next-hotel-zee-entry",
+                "survey-madhapur-east-next-jagadamba",
+                "survey-madhapur-east-next-ratan",
+                "survey-madhapur-east-next-dtdc",
+                "survey-madhapur-east-next-mahalakshmi-medical",
+                "survey-madhapur-east-next-swapna"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              79.89
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 79.89,
+              "routeIntervalM": [
+                802.779108832915,
+                882.669108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-east-next-forest-happi-apr2026-20261018",
+                "sv-madhapur-east-next-arvind-zee-boundary-apr2026-20261018",
+                "sv-madhapur-east-next-zee-classical-apr2026-20261018",
+                "sv-madhapur-east-next-jagadamba-ratan-apr2026-20261018",
+                "sv-madhapur-east-next-low-row-west-apr2026-20261018",
+                "sv-madhapur-east-next-low-row-east-apr2026-20261018",
+                "sv-madhapur-east-next-dtdc-medical-swapna-apr2026-20261018",
+                "sv-madhapur-east-next-junction-kirana-apr2026-20261018",
+                "sv-madhapur-east-next-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-east-next-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              79.89
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 17,
+      "roadId": "r_68630266621_0",
+      "edgeId": "r_68630266621_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 32.24,
+      "plannedDistanceM": 32.24,
+      "routeStartM": 882.669108832915,
+      "routeEndM": 914.909108832915,
+      "startPoint": [
+        -16310.29,
+        -2841.83
+      ],
+      "endPoint": [
+        -16279.5,
+        -2832.28
+      ],
+      "startLatLon": {
+        "lat": 17.440277530588503,
+        "lon": 78.39488982886725
+      },
+      "endLatLon": {
+        "lat": 17.44019124097332,
+        "lon": 78.39517962004626
+      },
+      "fromNode": "n_25375673108",
+      "toNode": "n_58676669804",
+      "connection": {
+        "previousEdgeId": "r_36314993425_0:f",
+        "selectedEdgeId": "r_68630266621_0:f",
+        "sharedNode": "n_25375673108",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 32.24,
+      "geometricFullLengthM": 32.23703770510015,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/ffaaec2fdf71",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->7.61 m (footprint clearance 6.83 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 32.24,
+              "routeIntervalM": [
+                882.669108832915,
+                914.909108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-east-next-junction-kirana-apr2026-20261018",
+                "sv-madhapur-east-next-kirana-wood-grey-apr2026-20261018",
+                "sv-madhapur-east-next-ramraj-live-roman-apr2026-20261018",
+                "sv-madhapur-east-next-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-east-next-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-east-next-ramraj",
+                "survey-madhapur-east-next-live-ceramique",
+                "survey-madhapur-east-next-stark-cult",
+                "survey-madhapur-east-next-roman-island"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              32.24
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 32.24,
+              "routeIntervalM": [
+                882.669108832915,
+                914.909108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-east-next-junction-kirana-apr2026-20261018",
+                "sv-madhapur-east-next-kirana-wood-grey-apr2026-20261018",
+                "sv-madhapur-east-next-ramraj-live-roman-apr2026-20261018",
+                "sv-madhapur-east-next-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-east-next-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              32.24
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 18,
+      "roadId": "r_57338498840_0",
+      "edgeId": "r_57338498840_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 40.08,
+      "plannedDistanceM": 40.08,
+      "routeStartM": 914.909108832915,
+      "routeEndM": 954.989108832915,
+      "startPoint": [
+        -16279.5,
+        -2832.28
+      ],
+      "endPoint": [
+        -16243.31,
+        -2815.11
+      ],
+      "startLatLon": {
+        "lat": 17.44019124097332,
+        "lon": 78.39517962004626
+      },
+      "endLatLon": {
+        "lat": 17.440036100377224,
+        "lon": 78.39552023527096
+      },
+      "fromNode": "n_58676669804",
+      "toNode": "n_19211397119",
+      "connection": {
+        "previousEdgeId": "r_68630266621_0:f",
+        "selectedEdgeId": "r_57338498840_0:f",
+        "sharedNode": "n_58676669804",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 40.08,
+      "geometricFullLengthM": 40.07597936396661,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/d59a40f18ea3",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->8.79 m (footprint clearance 5.42 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 40.08,
+              "routeIntervalM": [
+                914.909108832915,
+                954.989108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-east-after-ramraj-start-north-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-godavari-pan-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-devi-dental-canopy-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-canopy-temple-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-median-overlap-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-east-after-ramraj-godavari"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              40.08
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 40.08,
+              "routeIntervalM": [
+                914.909108832915,
+                954.989108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-east-after-ramraj-start-north-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-godavari-pan-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-devi-dental-canopy-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-canopy-temple-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-median-overlap-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              40.08
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 19,
+      "roadId": "r_31627731675_0",
+      "edgeId": "r_31627731675_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 32.7,
+      "plannedDistanceM": 32.7,
+      "routeStartM": 954.989108832915,
+      "routeEndM": 987.689108832915,
+      "startPoint": [
+        -16243.31,
+        -2815.11
+      ],
+      "endPoint": [
+        -16217.24,
+        -2795.37
+      ],
+      "startLatLon": {
+        "lat": 17.440036100377224,
+        "lon": 78.39552023527096
+      },
+      "endLatLon": {
+        "lat": 17.439857738387303,
+        "lon": 78.39576560246931
+      },
+      "fromNode": "n_19211397119",
+      "toNode": "n_9956623829",
+      "connection": {
+        "previousEdgeId": "r_57338498840_0:f",
+        "selectedEdgeId": "r_31627731675_0:f",
+        "sharedNode": "n_19211397119",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 32.7,
+      "geometricFullLengthM": 32.70034403488737,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/75d28e2dbee2",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->7.95 m (footprint clearance 6.36 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 32.7,
+              "routeIntervalM": [
+                954.989108832915,
+                987.689108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-east-after-ramraj-tree-shrine-white-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-gas-laundry-enclave-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-helmet-enclave-east-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-venkateswara-board-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-median-overlap-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-east-after-ramraj-ram-enterprises",
+                "survey-madhapur-east-after-ramraj-helmet-world"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              32.7
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 32.7,
+              "routeIntervalM": [
+                954.989108832915,
+                987.689108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-east-after-ramraj-tree-shrine-white-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-gas-laundry-enclave-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-helmet-enclave-east-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-venkateswara-board-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-median-overlap-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              32.7
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 20,
+      "roadId": "r_54532951764_0",
+      "edgeId": "r_54532951764_0:f",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "startM": 0,
+      "endM": 59.11,
+      "plannedDistanceM": 59.11,
+      "routeStartM": 987.689108832915,
+      "routeEndM": 1046.799108832915,
+      "startPoint": [
+        -16217.24,
+        -2795.37
+      ],
+      "endPoint": [
+        -16172.48,
+        -2756.76
+      ],
+      "startLatLon": {
+        "lat": 17.439857738387303,
+        "lon": 78.39576560246931
+      },
+      "endLatLon": {
+        "lat": 17.439508875346228,
+        "lon": 78.39618687733689
+      },
+      "fromNode": "n_9956623829",
+      "toNode": "n_34551066360",
+      "connection": {
+        "previousEdgeId": "r_31627731675_0:f",
+        "selectedEdgeId": "r_54532951764_0:f",
+        "sharedNode": "n_9956623829",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 59.11,
+      "geometricFullLengthM": 59.11167143635844,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/cb26aced4fe7",
+          "osm:w31521331@49"
+        ],
+        "note": "clamped 10.5->8.46 m (footprint clearance 11.15 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 59.11,
+              "routeIntervalM": [
+                987.689108832915,
+                1046.799108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-east-after-ramraj-venkateswara-board-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-compound-west-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-compound-kiosk-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-compound-occlusion-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-compound-parking-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              59.11
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 59.11,
+              "routeIntervalM": [
+                987.689108832915,
+                1046.799108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-east-after-ramraj-venkateswara-board-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-compound-west-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-compound-kiosk-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-compound-occlusion-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-compound-parking-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-east-after-ramraj-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              59.11
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 21,
+      "roadId": "r_49611679382_0",
+      "edgeId": "r_49611679382_0:f",
+      "name": "Road No 36",
+      "startM": 0,
+      "endM": 75.87,
+      "plannedDistanceM": 75.87,
+      "routeStartM": 1046.799108832915,
+      "routeEndM": 1122.6691088329148,
+      "startPoint": [
+        -16172.48,
+        -2756.76
+      ],
+      "endPoint": [
+        -16113.12,
+        -2709.72
+      ],
+      "startLatLon": {
+        "lat": 17.439508875346228,
+        "lon": 78.39618687733689
+      },
+      "endLatLon": {
+        "lat": 17.43908384251918,
+        "lon": 78.39674556536502
+      },
+      "fromNode": "n_34551066360",
+      "toNode": "n_62127747292",
+      "connection": {
+        "previousEdgeId": "r_54532951764_0:f",
+        "selectedEdgeId": "r_49611679382_0:f",
+        "sharedNode": "n_34551066360",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 75.87,
+      "geometricFullLengthM": 75.86951677755263,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/b8d16269693b",
+          "osm:w314523290@7"
+        ],
+        "note": "clamped 10.5->8.84 m (footprint clearance 13.59 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 75.87,
+              "routeIntervalM": [
+                1046.799108832915,
+                1122.6691088329148
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-after-compound-start-apr2026-20261018",
+                "sv-madhapur-after-compound-space-iii-apr2026-20261018",
+                "sv-madhapur-after-compound-face-clinics-apr2026-20261018",
+                "sv-madhapur-after-compound-blind-lbr-apr2026-20261018",
+                "sv-madhapur-after-compound-lbr-vogue-apr2026-20261018",
+                "sv-madhapur-after-compound-printo-optic-apr2026-20261018",
+                "sv-madhapur-after-compound-electronics-close-apr2026-20261018",
+                "sv-madhapur-after-compound-parking-wall-apr2026-20261018",
+                "sv-madhapur-after-compound-junction-stall-apr2026-20261018",
+                "sv-madhapur-after-compound-eye-floor-close-apr2026-20261018",
+                "sv-madhapur-after-compound-public-shelter-apr2026-20261018",
+                "sv-madhapur-after-compound-public-shelter-continuation-apr2026-20261018",
+                "sv-madhapur-after-compound-shelter-east-apr2026-20261018",
+                "sv-madhapur-after-compound-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-after-compound-endpoint-reverse-apr2026-20261018",
+                "sv-madhapur-after-compound-median-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": [
+                "survey-madhapur-after-compound-face-clinics",
+                "survey-madhapur-after-compound-vogue-salon",
+                "survey-madhapur-after-compound-lbr-dental",
+                "survey-madhapur-after-compound-printo",
+                "survey-madhapur-after-compound-tvs-electronics",
+                "survey-madhapur-after-compound-optic-store",
+                "survey-madhapur-after-compound-bangs-salon"
+              ]
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              75.87
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 75.87,
+              "routeIntervalM": [
+                1046.799108832915,
+                1122.6691088329148
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-after-compound-start-apr2026-20261018",
+                "sv-madhapur-after-compound-median-reverse-apr2026-20261018",
+                "sv-madhapur-after-compound-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-after-compound-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              75.87
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 22,
+      "roadId": "r_43518450735_0",
+      "edgeId": "r_43518450735_0:f",
+      "name": "Road No 36",
+      "startM": 0,
+      "endM": 38.93,
+      "plannedDistanceM": 38.93,
+      "routeStartM": 1122.6691088329148,
+      "routeEndM": 1161.599108832915,
+      "startPoint": [
+        -16113.12,
+        -2709.72
+      ],
+      "endPoint": [
+        -16077.24,
+        -2694.62
+      ],
+      "startLatLon": {
+        "lat": 17.43908384251918,
+        "lon": 78.39674556536502
+      },
+      "endLatLon": {
+        "lat": 17.43894740553601,
+        "lon": 78.39708326291303
+      },
+      "fromNode": "n_62127747292",
+      "toNode": "n_49527271051",
+      "connection": {
+        "previousEdgeId": "r_49611679382_0:f",
+        "selectedEdgeId": "r_43518450735_0:f",
+        "sharedNode": "n_62127747292",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 38.93,
+      "geometricFullLengthM": 38.927938553178876,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/a21e6dc2f058",
+          "osm:w172814917@17"
+        ],
+        "note": "clamped 10.5->8.84 m (footprint clearance 10.44 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 38.93,
+              "routeIntervalM": [
+                1122.6691088329148,
+                1161.599108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-after-compound-start-apr2026-20261018",
+                "sv-madhapur-after-compound-space-iii-apr2026-20261018",
+                "sv-madhapur-after-compound-face-clinics-apr2026-20261018",
+                "sv-madhapur-after-compound-blind-lbr-apr2026-20261018",
+                "sv-madhapur-after-compound-lbr-vogue-apr2026-20261018",
+                "sv-madhapur-after-compound-printo-optic-apr2026-20261018",
+                "sv-madhapur-after-compound-electronics-close-apr2026-20261018",
+                "sv-madhapur-after-compound-parking-wall-apr2026-20261018",
+                "sv-madhapur-after-compound-junction-stall-apr2026-20261018",
+                "sv-madhapur-after-compound-eye-floor-close-apr2026-20261018",
+                "sv-madhapur-after-compound-public-shelter-apr2026-20261018",
+                "sv-madhapur-after-compound-public-shelter-continuation-apr2026-20261018",
+                "sv-madhapur-after-compound-shelter-east-apr2026-20261018",
+                "sv-madhapur-after-compound-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-after-compound-endpoint-reverse-apr2026-20261018",
+                "sv-madhapur-after-compound-median-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              38.93
+            ]
+          ]
+        },
+        "right": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 38.93,
+              "routeIntervalM": [
+                1122.6691088329148,
+                1161.599108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": true,
+              "sourceIds": [
+                "sv-madhapur-after-compound-start-apr2026-20261018",
+                "sv-madhapur-after-compound-median-reverse-apr2026-20261018",
+                "sv-madhapur-after-compound-endpoint-forward-apr2026-20261018",
+                "sv-madhapur-after-compound-endpoint-reverse-apr2026-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              38.93
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "order": 23,
+      "roadId": "r_21627390159_0",
+      "edgeId": "r_21627390159_0:f",
+      "name": "Road No 36",
+      "startM": 0,
+      "endM": 75.18,
+      "plannedDistanceM": 75.18,
+      "routeStartM": 1161.599108832915,
+      "routeEndM": 1236.779108832915,
+      "startPoint": [
+        -16077.24,
+        -2694.62
+      ],
+      "endPoint": [
+        -16006.31,
+        -2669.75
+      ],
+      "startLatLon": {
+        "lat": 17.43894740553601,
+        "lon": 78.39708326291303
+      },
+      "endLatLon": {
+        "lat": 17.438722691114055,
+        "lon": 78.39775084616498
+      },
+      "fromNode": "n_49527271051",
+      "toNode": "n_42946081787",
+      "connection": {
+        "previousEdgeId": "r_43518450735_0:f",
+        "selectedEdgeId": "r_21627390159_0:f",
+        "sharedNode": "n_49527271051",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 75.18,
+      "geometricFullLengthM": 75.1781049218693,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/50917c8cf360",
+          "osm:w172814917@17"
+        ],
+        "note": "clamped 10.5->4.5 m (footprint clearance 9.51 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 75.18,
+              "routeIntervalM": [
+                1161.599108832915,
+                1236.779108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-after-shelter-outer-start-202604-20261018",
+                "sv-madhapur-after-shelter-utility-base-202604-20261018",
+                "sv-madhapur-after-shelter-utility-front-202501-20261018",
+                "sv-madhapur-after-shelter-utility-board-close-202501-20261018",
+                "sv-madhapur-after-shelter-frontage-202501-20261018",
+                "sv-madhapur-after-shelter-wall-front-202501-20261018",
+                "sv-madhapur-after-shelter-shelter-east-202501-20261018",
+                "sv-madhapur-after-shelter-premises-202501-20261018",
+                "sv-madhapur-after-shelter-food-row-202501-20261018",
+                "sv-madhapur-after-shelter-corner-wall-202501-20261018",
+                "sv-madhapur-after-shelter-corner-fence-202501-20261018",
+                "sv-madhapur-after-shelter-construction-202501-20261018",
+                "sv-madhapur-after-shelter-construction-east-202501-20261018",
+                "sv-madhapur-after-shelter-fence-east-202501-20261018",
+                "sv-madhapur-after-shelter-fence-bend-202501-20261018",
+                "sv-madhapur-after-shelter-bend-bus-202501-20261018",
+                "sv-madhapur-after-shelter-outer-bend-202501-20261018",
+                "sv-madhapur-after-shelter-rear-boards-202501-20261018",
+                "sv-madhapur-after-shelter-rear-business-202501-20261018",
+                "sv-madhapur-after-shelter-business-block-202501-20261018",
+                "sv-madhapur-after-shelter-business-close-202501-20261018",
+                "sv-madhapur-after-shelter-endpoint-forward-202501-20261018",
+                "sv-madhapur-after-shelter-endpoint-reverse-202501-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              75.18
+            ]
+          ]
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 24,
+      "roadId": "r_28656101950_0",
+      "edgeId": "r_28656101950_0:f",
+      "name": "Road No 36",
+      "startM": 0,
+      "endM": 6.8,
+      "plannedDistanceM": 6.8,
+      "routeStartM": 1236.779108832915,
+      "routeEndM": 1243.579108832915,
+      "startPoint": [
+        -16006.31,
+        -2669.75
+      ],
+      "endPoint": [
+        -16000.08,
+        -2667.03
+      ],
+      "startLatLon": {
+        "lat": 17.438722691114055,
+        "lon": 78.39775084616498
+      },
+      "endLatLon": {
+        "lat": 17.43869811438596,
+        "lon": 78.39780948205473
+      },
+      "fromNode": "n_42946081787",
+      "toNode": "n_64579273237",
+      "connection": {
+        "previousEdgeId": "r_21627390159_0:f",
+        "selectedEdgeId": "r_28656101950_0:f",
+        "sharedNode": "n_42946081787",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 6.8,
+      "geometricFullLengthM": 6.79788937832865,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/6ac096a3ee2c",
+          "osm:w172814917@17"
+        ],
+        "note": "clamped 10.5->4.5 m (footprint clearance none m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 6.8,
+              "routeIntervalM": [
+                1236.779108832915,
+                1243.579108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-after-shelter-outer-start-202604-20261018",
+                "sv-madhapur-after-shelter-utility-base-202604-20261018",
+                "sv-madhapur-after-shelter-utility-front-202501-20261018",
+                "sv-madhapur-after-shelter-utility-board-close-202501-20261018",
+                "sv-madhapur-after-shelter-frontage-202501-20261018",
+                "sv-madhapur-after-shelter-wall-front-202501-20261018",
+                "sv-madhapur-after-shelter-shelter-east-202501-20261018",
+                "sv-madhapur-after-shelter-premises-202501-20261018",
+                "sv-madhapur-after-shelter-food-row-202501-20261018",
+                "sv-madhapur-after-shelter-corner-wall-202501-20261018",
+                "sv-madhapur-after-shelter-corner-fence-202501-20261018",
+                "sv-madhapur-after-shelter-construction-202501-20261018",
+                "sv-madhapur-after-shelter-construction-east-202501-20261018",
+                "sv-madhapur-after-shelter-fence-east-202501-20261018",
+                "sv-madhapur-after-shelter-fence-bend-202501-20261018",
+                "sv-madhapur-after-shelter-bend-bus-202501-20261018",
+                "sv-madhapur-after-shelter-outer-bend-202501-20261018",
+                "sv-madhapur-after-shelter-rear-boards-202501-20261018",
+                "sv-madhapur-after-shelter-rear-business-202501-20261018",
+                "sv-madhapur-after-shelter-business-block-202501-20261018",
+                "sv-madhapur-after-shelter-business-close-202501-20261018",
+                "sv-madhapur-after-shelter-endpoint-forward-202501-20261018",
+                "sv-madhapur-after-shelter-endpoint-reverse-202501-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              6.8
+            ]
+          ]
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 25,
+      "roadId": "r_21924906449_0",
+      "edgeId": "r_21924906449_0:f",
+      "name": "Road No 36",
+      "startM": 0,
+      "endM": 164.5,
+      "plannedDistanceM": 164.5,
+      "routeStartM": 1243.579108832915,
+      "routeEndM": 1408.079108832915,
+      "startPoint": [
+        -16000.08,
+        -2667.03
+      ],
+      "endPoint": [
+        -15853.21,
+        -2684.79
+      ],
+      "startLatLon": {
+        "lat": 17.43869811438596,
+        "lon": 78.39780948205473
+      },
+      "endLatLon": {
+        "lat": 17.43885858596352,
+        "lon": 78.39919180197879
+      },
+      "fromNode": "n_64579273237",
+      "toNode": "n_48875734951",
+      "connection": {
+        "previousEdgeId": "r_28656101950_0:f",
+        "selectedEdgeId": "r_21924906449_0:f",
+        "sharedNode": "n_64579273237",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 164.5,
+      "geometricFullLengthM": 164.49739564259156,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/51ad385d1719",
+          "osm:w172814917@17"
+        ],
+        "note": "clamped 10.5->4.5 m (footprint clearance none m)"
+      },
+      "sides": {
+        "left": {
+          "status": "partial",
+          "clippedRecordedWindows": [
+            {
+              "startM": 0,
+              "endM": 164.5,
+              "routeIntervalM": [
+                1243.579108832915,
+                1408.079108832915
+              ],
+              "completeness": "partial",
+              "allFrontagesRecorded": false,
+              "sourceIds": [
+                "sv-madhapur-after-shelter-outer-start-202604-20261018",
+                "sv-madhapur-after-shelter-utility-base-202604-20261018",
+                "sv-madhapur-after-shelter-utility-front-202501-20261018",
+                "sv-madhapur-after-shelter-utility-board-close-202501-20261018",
+                "sv-madhapur-after-shelter-frontage-202501-20261018",
+                "sv-madhapur-after-shelter-wall-front-202501-20261018",
+                "sv-madhapur-after-shelter-shelter-east-202501-20261018",
+                "sv-madhapur-after-shelter-premises-202501-20261018",
+                "sv-madhapur-after-shelter-food-row-202501-20261018",
+                "sv-madhapur-after-shelter-corner-wall-202501-20261018",
+                "sv-madhapur-after-shelter-corner-fence-202501-20261018",
+                "sv-madhapur-after-shelter-construction-202501-20261018",
+                "sv-madhapur-after-shelter-construction-east-202501-20261018",
+                "sv-madhapur-after-shelter-fence-east-202501-20261018",
+                "sv-madhapur-after-shelter-fence-bend-202501-20261018",
+                "sv-madhapur-after-shelter-bend-bus-202501-20261018",
+                "sv-madhapur-after-shelter-outer-bend-202501-20261018",
+                "sv-madhapur-after-shelter-rear-boards-202501-20261018",
+                "sv-madhapur-after-shelter-rear-business-202501-20261018",
+                "sv-madhapur-after-shelter-business-block-202501-20261018",
+                "sv-madhapur-after-shelter-business-close-202501-20261018",
+                "sv-madhapur-after-shelter-endpoint-forward-202501-20261018",
+                "sv-madhapur-after-shelter-endpoint-reverse-202501-20261018"
+              ],
+              "storefrontIds": []
+            }
+          ],
+          "observedUnionLocalM": [
+            [
+              0,
+              164.5
+            ]
+          ]
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 26,
+      "roadId": "r_47977268473_0",
+      "edgeId": "r_47977268473_0:f",
+      "name": "Road No 36",
+      "startM": 0,
+      "endM": 10.58,
+      "plannedDistanceM": 10.58,
+      "routeStartM": 1408.079108832915,
+      "routeEndM": 1418.6591088329149,
+      "startPoint": [
+        -15853.21,
+        -2684.79
+      ],
+      "endPoint": [
+        -15844.63,
+        -2690.98
+      ],
+      "startLatLon": {
+        "lat": 17.43885858596352,
+        "lon": 78.39919180197879
+      },
+      "endLatLon": {
+        "lat": 17.43891451609106,
+        "lon": 78.39927255574027
+      },
+      "fromNode": "n_48875734951",
+      "toNode": "n_57062620144",
+      "connection": {
+        "previousEdgeId": "r_21924906449_0:f",
+        "selectedEdgeId": "r_47977268473_0:f",
+        "sharedNode": "n_48875734951",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 10.58,
+      "geometricFullLengthM": 10.579815688375644,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/b2bab04f9008",
+          "osm:w312015893@6"
+        ]
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 27,
+      "roadId": "r_67873533196_0",
+      "edgeId": "r_67873533196_0:f",
+      "name": "Jubilee Hills Road No 36",
+      "startM": 0,
+      "endM": 15.34,
+      "plannedDistanceM": 15.34,
+      "routeStartM": 1418.6591088329149,
+      "routeEndM": 1433.9991088329148,
+      "startPoint": [
+        -15844.63,
+        -2690.98
+      ],
+      "endPoint": [
+        -15834.62,
+        -2679.35
+      ],
+      "startLatLon": {
+        "lat": 17.43891451609106,
+        "lon": 78.39927255574027
+      },
+      "endLatLon": {
+        "lat": 17.43880943250733,
+        "lon": 78.39936676846199
+      },
+      "fromNode": "n_57062620144",
+      "toNode": "n_54804163311",
+      "connection": {
+        "previousEdgeId": "r_47977268473_0:f",
+        "selectedEdgeId": "r_67873533196_0:f",
+        "sharedNode": "n_57062620144",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "storedFullLengthM": 15.34,
+      "geometricFullLengthM": 15.34460817355629,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/fcd93ed0c08b",
+          "osm:w312015895@6"
+        ]
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    },
+    {
+      "order": 28,
+      "roadId": "r_56672988322_0",
+      "edgeId": "r_56672988322_0:f",
+      "name": "Jubilee Hills Road No 36",
+      "startM": 0,
+      "endM": 206.5981473772463,
+      "plannedDistanceM": 206.5981473772463,
+      "routeStartM": 1433.9991088329148,
+      "routeEndM": 1640.597256210161,
+      "startPoint": [
+        -15834.62,
+        -2679.35
+      ],
+      "endPoint": [
+        -15713.120794949908,
+        -2512.9842179073007
+      ],
+      "startLatLon": {
+        "lat": 17.43880943250733,
+        "lon": 78.39936676846199
+      },
+      "endLatLon": {
+        "lat": 17.43730622420192,
+        "lon": 78.40051030200797
+      },
+      "fromNode": "n_54804163311",
+      "toNode": "n_29780240753",
+      "connection": {
+        "previousEdgeId": "r_67873533196_0:f",
+        "selectedEdgeId": "r_56672988322_0:f",
+        "sharedNode": "n_54804163311",
+        "explicitDirectedNext": true,
+        "sourceEndpointGapM": 0.0
+      },
+      "highway": "primary",
+      "oneway": true,
+      "routable": true,
+      "bridge": false,
+      "tunnel": false,
+      "pointElevM": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "storedFullLengthM": 279.14,
+      "geometricFullLengthM": 279.13566931617436,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/d31f92ca2dc0",
+          "osm:w28655149@52"
+        ],
+        "note": "clamped 10.5->4.5 m (footprint clearance 0 m)"
+      },
+      "sides": {
+        "left": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        },
+        "right": {
+          "status": "unreviewed",
+          "clippedRecordedWindows": [],
+          "observedUnionLocalM": []
+        }
+      }
+    }
+  ],
+  "streetViewEvidence": {
+    "chromeCurrentlyVerified": {
+      "panoId": "oSyQcQs8imYDGPmVHNcQdQ",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=oSyQcQs8imYDGPmVHNcQdQ&heading=147&pitch=0&fov=85",
+      "title": "2 Hitech City Rd",
+      "captureDate": "2026-04",
+      "position": {
+        "lat": 17.4428544,
+        "lon": 78.3876411,
+        "headingDeg": 147
+      },
+      "visibleContext": [
+        "elevated Metro deck and piers",
+        "planted median",
+        "cars, two-wheelers and auto-rickshaws",
+        "pedestrians",
+        "commercial frontage including a glass office building",
+        "advertising panels"
+      ],
+      "limitation": "This camera point is not a shop entrance, is not a measured route interval, and does not establish both sides or exact shop order."
+    },
+    "savedBatch": {
+      "path": "data/research/batches/durgam-madhapur-hitech-frontage-20261019.json",
+      "batchId": "durgam-madhapur-hitech-frontage-20261019",
+      "sourceCount": 5,
+      "observationCount": 18,
+      "roadReviewCount": 0,
+      "sources": [
+        {
+          "id": "sv-dmdp-hitech-near-durgam-202604-20261019",
+          "kind": "street_view",
+          "title": "Hitech City Road near Durgam Cheruvu approach — April 2026",
+          "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=oSyQcQs8imYDGPmVHNcQdQ&heading=147&pitch=0&fov=85",
+          "captureDate": "2026-04",
+          "observedDate": "2026-10-19",
+          "reviewer": "Codex authorized Chrome Street View review",
+          "position": {
+            "lat": 17.4428544,
+            "lon": 78.3876411,
+            "panoId": "oSyQcQs8imYDGPmVHNcQdQ",
+            "headingDeg": 147
+          },
+          "assetPolicy": "reference_only",
+          "notes": "Opening view on Hitech City Road near the Durgam Cheruvu side. It shows the elevated Metro deck/piers, vehicles, auto-rickshaws, motorcycles and pedestrians. Nearby small signs are too distant or occluded for reliable transcription. This is a camera point, not a station gate or storefront entrance."
+        },
+        {
+          "id": "sv-dmdp-hitech-future-trends-202604-20261019",
+          "kind": "street_view",
+          "title": "Hitech City Road under Metro with Future Trends wall sign — April 2026",
+          "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=XVbaTbXDKg5ikH36u-nZ4Q&heading=147&pitch=0&fov=85",
+          "captureDate": "2026-04",
+          "observedDate": "2026-10-19",
+          "reviewer": "Codex authorized Chrome Street View review",
+          "position": {
+            "lat": 17.4423423,
+            "lon": 78.3878486,
+            "panoId": "XVbaTbXDKg5ikH36u-nZ4Q",
+            "headingDeg": 147
+          },
+          "assetPolicy": "reference_only",
+          "notes": "Forward-linked view beneath the elevated Metro. It shows a planted median, piers and stair access, mixed cars/two-wheelers/auto-rickshaws, pedestrians, and construction netting on a nearby building. A large FUTURE TRENDS / THE KUBE sign is visible on a wall; it is recorded as a building/site sign, not a storefront."
+        },
+        {
+          "id": "sv-dmdp-hitech-retail-signs-202604-20261019",
+          "kind": "street_view",
+          "title": "Hitech City Road retail frontage and Metro — April 2026",
+          "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=upvpGyrf4hHlCM_a9EvSfw&heading=147&pitch=0&fov=85",
+          "captureDate": "2026-04",
+          "observedDate": "2026-10-19",
+          "reviewer": "Codex authorized Chrome Street View review",
+          "position": {
+            "lat": 17.4421634,
+            "lon": 78.3879175,
+            "panoId": "upvpGyrf4hHlCM_a9EvSfw",
+            "headingDeg": 147
+          },
+          "assetPolicy": "reference_only",
+          "notes": "Reached during the forward Street View pass along Hitech City Road. A dense row of ground-floor signs is visible beyond the planted median; the signs and units overlap in perspective. The image supports dated sign identities but not exact entrances, unit boundaries, storefront order in stored road direction or a complete inventory."
+        },
+        {
+          "id": "sv-dmdp-hitech-multi-shop-frontage-202604-20261019",
+          "kind": "street_view",
+          "title": "Hitech City Road multi-shop frontage near Madhapur approach — April 2026",
+          "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=La9b9DEtz8oSmpFs-Qdicg&heading=229.42&pitch=-13.24&fov=85",
+          "captureDate": "2026-04",
+          "observedDate": "2026-10-19",
+          "reviewer": "Codex authorized Chrome Street View review",
+          "position": {
+            "lat": 17.4414211,
+            "lon": 78.3885139,
+            "panoId": "La9b9DEtz8oSmpFs-Qdicg",
+            "headingDeg": 229.42
+          },
+          "assetPolicy": "reference_only",
+          "notes": "Later panorama on the connected street-view pass, turned toward a dense multi-storey frontage near the r_19055811559_0 route segment. It is an angled frontage-facing view rather than an along-road view; the observed businesses cannot yet be assigned to canonical road left/right or exact route order."
+        },
+        {
+          "id": "sv-dmdp-hitech-retail-row-followup-202604-20261019",
+          "kind": "street_view",
+          "title": "Hitech City Road retail row and neighboring blue-glass building — April 2026",
+          "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=55ivD5ap57umz5ue_Ej3Kg&heading=228.90&pitch=-13.24&fov=85",
+          "captureDate": "2026-04",
+          "observedDate": "2026-10-19",
+          "reviewer": "Codex authorized Chrome Street View review",
+          "position": {
+            "lat": 17.4416128,
+            "lon": 78.3882073,
+            "panoId": "55ivD5ap57umz5ue_Ej3Kg",
+            "headingDeg": 228.9
+          },
+          "assetPolicy": "reference_only",
+          "notes": "Adjacent linked view of the same multi-storey frontage row. The sign bands and entrances are more visible, but the camera looks across the frontage and the exact direction of travel, route side, shared units and full shop order remain unresolved."
+        }
+      ],
+      "observations": [
+        {
+          "id": "obs-dmdp-hitech-future-trends-site-sign-2026",
+          "name": "FUTURE TRENDS / THE KUBE wall sign near Hitech City Road",
+          "roadId": "r_33007360703_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-future-trends-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-dr-lavanya-dental-2026",
+          "name": "Dr. Lavanya's Dental Clinic sign",
+          "roadId": "r_33007360703_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-signs-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-tumbledry-2026",
+          "name": "Tumbledry Laundry & Dry Clean sign",
+          "roadId": "r_33007360703_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-signs-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-sparkles-dry-cleaners-2026",
+          "name": "Sparkles — The Real Dry Cleaners sign",
+          "roadId": "r_33007360703_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-signs-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-party-in-style-2026",
+          "name": "Party in Style sign",
+          "roadId": "r_33007360703_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-signs-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-fruits-sign-2026",
+          "name": "Unresolved fruit-shop fascia reading 'Fruits'",
+          "roadId": "r_33007360703_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-signs-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-balaji-batteries-2026",
+          "name": "Balaji Batteries sign with Exide and Amaron panels",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-multi-shop-frontage-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-ramdev-lighting-2026",
+          "name": "Ramdev Lighting sign with Philips board",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-multi-shop-frontage-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-rikto-style-2026",
+          "name": "RIKTO — Own Your Style sign",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-multi-shop-frontage-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-kamiliant-sign-2026",
+          "name": "Kamiliant luggage sign",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-multi-shop-frontage-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-american-tourister-2026",
+          "name": "American Tourister luggage sign",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-multi-shop-frontage-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-hiyya-mandi-chrono-jail-2026",
+          "name": "HIYYA MANDI — The Chrono Jail sign",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-row-followup-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-sundher-timbers-2026",
+          "name": "Sundher Timbers (P) Ltd. sign",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-row-followup-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-vevon-tiles-2026",
+          "name": "VEVON TILES sign",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-row-followup-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-ramdev-sports-2026",
+          "name": "Ramdev Sports Co. sign",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-row-followup-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-hdfc-signage-2026",
+          "name": "HDFC / HDFC Mutual Fund signage on blue-glass building",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-retail-row-followup-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-retail-row-image-order-2026",
+          "name": "Hitech City Road shop row: image-relative order and unit uncertainty",
+          "roadId": "r_19055811559_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-multi-shop-frontage-202604-20261019",
+            "sv-dmdp-hitech-retail-row-followup-202604-20261019"
+          ]
+        },
+        {
+          "id": "obs-dmdp-hitech-retail-mixed-roadlife-2026",
+          "name": "Hitech City Road under Metro: street scene and frontage context",
+          "roadId": "r_33007360703_0",
+          "placementStatus": "pending",
+          "sourceIds": [
+            "sv-dmdp-hitech-near-durgam-202604-20261019",
+            "sv-dmdp-hitech-future-trends-202604-20261019",
+            "sv-dmdp-hitech-retail-signs-202604-20261019"
+          ]
+        }
+      ],
+      "batchNotes": "Selected April 2026 Street View views were examined along the Durgam-side Hitech City Road approach and the next retail frontage block. Several under-Metro views are connected by forward navigation; later shop-front views face across an adjacent frontage and are not sufficient to establish the canonical left/right side or full along-route order. The batch records dated sign identities and an image-relative frontage note only. No storefront geometry, complete inventory, road-side review or metric verification is claimed. The HITEC City-to-Durgam approach gap remains open. Google imagery is reference-only."
+    },
+    "additionalPanosReviewedButNotImportedAsSurveySources": {
+      "status": "Retained as prior live-Chrome inspection notes only; these do not create road coverage.",
+      "connectedForwardApproach": [
+        {
+          "panoId": "XVbaTbXDKg5ikH36u-nZ4Q",
+          "position": {
+            "lat": 17.4423423,
+            "lon": 78.3878486,
+            "headingDeg": 147
+          },
+          "projectedRoad": "r_33007360703_0",
+          "projectedLocalM": 56.5,
+          "approxOffsetM": 10.5
+        },
+        {
+          "panoId": "upvpGyrf4hHlCM_a9EvSfw",
+          "position": {
+            "lat": 17.4421634,
+            "lon": 78.3879175,
+            "headingDeg": 147
+          },
+          "projectedRoad": "r_33007360703_0",
+          "projectedLocalM": 78.4,
+          "approxOffsetM": 10.4
+        },
+        {
+          "panoId": "v2_0BrfQXrodgyVw5odGbg",
+          "position": {
+            "lat": 17.4420793,
+            "lon": 78.3879496,
+            "headingDeg": 147
+          },
+          "projectedRoad": "r_33007360703_0",
+          "projectedLocalM": 88.3,
+          "approxOffsetM": 10.3
+        }
+      ],
+      "frontageFacingRow": [
+        {
+          "panoId": "La9b9DEtz8oSmpFs-Qdicg",
+          "position": {
+            "lat": 17.4414211,
+            "lon": 78.3885139,
+            "headingDeg": 229.42
+          },
+          "projectedRoad": "r_19055811559_0",
+          "projectedLocalM": 32.6,
+          "approxOffsetM": 9.4
+        },
+        {
+          "panoId": "B7SQjRFFilssxTARNrjyUw",
+          "position": {
+            "lat": 17.4414583,
+            "lon": 78.3884316,
+            "headingDeg": 229.42
+          },
+          "approxProjectedRoad": "r_19055811559_0",
+          "approxProjectedLocalM": 20.0
+        },
+        {
+          "panoId": "yvdmDwXUxI4Unzhy7T76xw",
+          "position": {
+            "lat": 17.4415612,
+            "lon": 78.3882666
+          }
+        },
+        {
+          "panoId": "55ivD5ap57umz5ue_Ej3Kg",
+          "position": {
+            "lat": 17.4416128,
+            "lon": 78.3882073,
+            "headingDeg": 228.9
+          },
+          "savedBatchSource": true
+        },
+        {
+          "panoId": "-_9l17N3hgYQf4QXU30XQQ",
+          "position": {
+            "lat": 17.4413877,
+            "lon": 78.3886028
+          }
+        },
+        {
+          "panoId": "GRqthxnmwifztF511WM6Bg",
+          "position": {
+            "lat": 17.4413588,
+            "lon": 78.3886921
+          }
+        },
+        {
+          "panoId": "j4hxhe19eb09tHLYvGM9FQ",
+          "position": {
+            "lat": 17.4413347,
+            "lon": 78.388781
+          }
+        },
+        {
+          "panoId": "t3rkTRQf9hziqk4VwKVZPw",
+          "position": {
+            "lat": 17.4413138,
+            "lon": 78.3888728
+          }
+        },
+        {
+          "panoId": "LdMpso051NNoy2Vy1NUILw",
+          "position": {
+            "lat": 17.4413003,
+            "lon": 78.3889647
+          }
+        },
+        {
+          "panoId": "lOhbezAVo72U7-DiqjQGHw",
+          "position": {
+            "lat": 17.441291,
+            "lon": 78.3890729
+          }
+        },
+        {
+          "panoId": "vlKi6yde9aXKypt_HcAAXg",
+          "position": {
+            "lat": 17.4412868,
+            "lon": 78.3891648
+          }
+        },
+        {
+          "panoId": "2WC0oe1t04wX-dYmeFumsA",
+          "position": {
+            "lat": 17.4412846,
+            "lon": 78.3892561
+          }
+        },
+        {
+          "panoId": "A0kxgDqvtqKYmCkNxZuHRw",
+          "position": {
+            "lat": 17.441283,
+            "lon": 78.3893498
+          }
+        },
+        {
+          "panoId": "x7aIjLd0o7UQ6quOX43l6g",
+          "position": {
+            "lat": 17.4412816,
+            "lon": 78.3894453
+          }
+        },
+        {
+          "panoId": "DNovJ7_ShOJ-qnOpv-tP0g",
+          "position": {
+            "lat": 17.4412804,
+            "lon": 78.3895481
+          }
+        },
+        {
+          "panoId": "qwwZJXJ78e4XHEBkZyU7Kw",
+          "position": {
+            "lat": 17.441279,
+            "lon": 78.3896312
+          }
+        },
+        {
+          "panoId": "VKhZgLyowY_dvBzVEPhZoQ",
+          "position": {
+            "lat": 17.4412755,
+            "lon": 78.3897383
+          },
+          "projectedRoad": "r_53033292642_0",
+          "projectedLocalM": 80.95
+        },
+        {
+          "panoId": "pi5jK-kvSEonRNmNIyvMwQ",
+          "position": {
+            "lat": 17.4412645,
+            "lon": 78.3898335,
+            "headingDeg": 147
+          }
+        }
+      ],
+      "visualNotes": "Legible sign groups were observed in the side-facing row, including Dr. Lavanya Dental Clinic, Tumbledry, Sparkles, Party in Style, a partly legible Fruits fascia, Balaji Batteries, Ramdev Lighting, RIKTO, Kamiliant, American Tourister, HIYYA MANDI / The Chrono Jail, Sundher Timbers, VEVON Tiles, Ramdev Sports, HDFC/HDFC Mutual Fund signage, and additional restaurant/food-carts/retail signage. These were not all imported as individual source observations and are not established as an exact continuous left/right route order."
+    },
+    "alignmentBlocker": {
+      "adjacentPanoId": "_Ca3wa9OJvl1i_Qk-VFY1g",
+      "position": {
+        "lat": 17.4411674,
+        "lon": 78.3900791
+      },
+      "streetLabel": "1736 Inorbit Mall Rd",
+      "approxDistanceFromSelectedRouteM": 24.1,
+      "disposition": "Off-route/adjacent; excluded from route coverage.",
+      "otherAdjacentPanoIds": [
+        "mh4xPsZJ1Uw2k4Im9sJw7w",
+        "l6WOkMFEQmUeLaKPFPOB2Q"
+      ],
+      "exactBlocker": "At the Inorbit junction the available continuation turns onto Inorbit Mall Road; it is about 24.1 m from the selected primary carriageway. The exact central-carriageway Street View link and route-side alignment across this junction remain unproven, so this continuation cannot close the route gap or fix frontage order."
+    }
+  },
+  "remainingWork": [
+    "Trace and validate continuous Street View links on the selected primary carriageway from route 0.00–445.48 m, including the Durgam approach and exact route-side relationship of the sign row.",
+    "Close short unobserved route gaps 464.48–465.46 m and 500.46–511.09 m.",
+    "Continue route-aligned evidence from 1408.08–1640.60 m (232.52 m) through the final three edges to the Madhapur endpoint.",
+    "Inspect every route frontage on both canonical sides; complete the left inventory outside 511.09–637.59 m and verify non-shop or shop status where the right side is unreviewed.",
+    "Resolve pano-to-road alignment, storefront unit boundaries, floor/entrance placement and exact along-road business order; keep uncertain signage as pending observations.",
+    "Reconcile the derived 28-edge route with an owner-approved, continuous real-world station-to-station street path before treating the route denominator as final.",
+    "Only after route-aligned inspections, add bounded roadReviews and rerun the protected coverage refresh; strict metric verification currently remains 0 m."
+  ],
+  "handoff": {
+    "progressReportPath": "work/durgam-madhapur-pair-route-progress.json",
+    "coverageRefreshCommand": "python3 work/durgam-madhapur-route-progress/refresh-coverage.py --expected-revision 62",
+    "coverageRefreshWritesOnlyDerivedReports": true,
+    "receiptStatus": "checkpoint saved; targeted one-link alignment attempt blocked without a pano transition; segment remains incomplete; no completion or metric-verified claim"
+  },
+  "targetedAlignmentChecks": [
+    {
+      "check": "single-forward-link-attempt-from-last-confirmed-main-carriageway-pano",
+      "checkedAtUTC": "2026-10-19T06:15:02.373061+00:00",
+      "sourcePanoId": "v2_0BrfQXrodgyVw5odGbg",
+      "sourceUrl": "https://www.google.com/maps/@?api=1&map_action=pano&pano=v2_0BrfQXrodgyVw5odGbg&heading=147&pitch=0&fov=85",
+      "sourcePosition": {
+        "lat": 17.4420793,
+        "lon": 78.3879496,
+        "headingDeg": 147
+      },
+      "sourceCaptureDate": "2026-04",
+      "sourceDisplayTitle": "Hitech City Rd",
+      "singleAttempt": {
+        "action": "one click on the visible forward carriageway at viewport coordinate [970,470]",
+        "result": "No navigation; the URL, pano ID, and image remained on the source pano."
+      },
+      "linkedPanoId": null,
+      "linkedPosition": null,
+      "boundedIntervalM": null,
+      "routeProjectionContext": {
+        "roadId": "r_33007360703_0",
+        "approxSourceLocalM": 88.3,
+        "approxRouteM": 101.0,
+        "projectionOffsetM": 10.3
+      },
+      "status": "open_blocked_no_linked_pano_obtained",
+      "blocker": "Street View did not advance on the single forward attempt from the confirmed Hitech City Road pano. No linked pano ID, position, heading, or route interval was exposed, so this attempt cannot establish the onward route or the Inorbit-junction alignment. The route gap 0.00–445.48 m remains open; no coverage was added. Do not substitute the nearby 1736 Inorbit Mall Rd pano, which is already documented as approximately 24.1 m off-route.",
+      "scopeCompliance": "No neighboring point, alternate link, or other station was inspected."
+    }
+  ]
+}

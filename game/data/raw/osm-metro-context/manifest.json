@@ -1,0 +1,12 @@
+{
+  "query": "[out:json][timeout:40];(node[\"railway\"=\"station\"][\"station\"=\"subway\"](17.33,78.34,17.52,78.58);way[\"railway\"=\"station\"](17.33,78.34,17.52,78.58);way[\"building\"=\"train_station\"](17.33,78.34,17.52,78.58);way[\"railway\"=\"platform\"](17.33,78.34,17.52,78.58);way[\"public_transport\"=\"platform\"][\"subway\"=\"yes\"](17.33,78.34,17.52,78.58);relation[\"railway\"=\"station\"](17.33,78.34,17.52,78.58);relation[\"public_transport\"=\"station\"][\"subway\"=\"yes\"](17.33,78.34,17.52,78.58););out geom meta;",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "fetchedAt": "2026-10-18T18:15:25.688201+00:00",
+  "osmTimestamp": "2026-10-18T18:14:16Z",
+  "sha256": "579e7ddb79cfcc79a83bc18cf155cf3ac1f9918defdaadd36a866862ceea47c7",
+  "license": "ODbL-1.0",
+  "attribution": "\u00a9 OpenStreetMap contributors",
+  "licenseUrl": "https://www.openstreetmap.org/copyright",
+  "count": 176,
+  "note": "Source-mapped footprints/platforms; geometry is not field measured, and non-metro rail features must not be attached to metro stations."
+}

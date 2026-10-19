@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "durgam-cheruvu-station-context-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "One April 2026 Street View panorama was opened directly at the Durgam Cheruvu station map coordinate. It is separate from the forward-linked Hitech City Road quickpass, whose last view turns into a frontage lane. This view documents the elevated Metro structure, commercial frontage, queued autos, cars, motorcycles and pedestrians; it does not identify a station gate or prove a connected route from the prior pass. Google imagery remains reference-only.",
+  "sources": [
+    {
+      "id": "sv-durgam-cheruvu-coordinate-approach-202604-20261018",
+      "kind": "street_view",
+      "title": "Durgam Cheruvu station map-coordinate area — April 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=_I4IUbjfvkG5vUA-NlL4oA&heading=147&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4429374,
+        "lon": 78.3876053,
+        "panoId": "_I4IUbjfvkG5vUA-NlL4oA",
+        "headingDeg": 147
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Opened by direct Street View coordinate lookup at the local Durgam Cheruvu station map marker. Google labels the view 2 Hitech City Road. The image shows the broad elevated Metro deck/piers and roadway, a commercial frontage, cars, motorcycles, pedestrians and a queue of auto-rickshaws. The station marker is not a confirmed gate; no continuous route from the HITEC City retail-lane quickpass is established."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-durgam-station-map-area-roadlife-2026",
+      "sourceIds": [
+        "sv-durgam-cheruvu-coordinate-approach-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Durgam Cheruvu map-marker area: elevated Metro and queued auto-rickshaws",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.4429374,
+        "lon": 78.3876053,
+        "headingDeg": 147
+      },
+      "placementStatus": "pending",
+      "notes": "The April 2026 image at the local station marker shows a large concrete Metro deck and piers over Hitech City Road, cars, several motorcycles, pedestrians and multiple auto-rickshaws gathered along the roadside. Nearby shop fascias are too small or occluded to transcribe reliably. The image does not show a confirmed station gate, train movement, exact storefront order, road-side assignment or measured geometry; this coordinate lookup is not connected-route evidence."
+    }
+  ],
+  "storefrontOverrides": [],
+  "suppressions": [],
+  "corrections": [],
+  "roadReviews": []
+}

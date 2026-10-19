@@ -15,6 +15,7 @@ export class InputManager {
   private brakePointers = new Set<number>();
   private accelPointers = new Set<number>();
   private flyEdge = false;
+  private interactEdge = false;
   sensitivity = 1;
   enabled = false;
   onPause: (() => void) | null = null;
@@ -40,6 +41,7 @@ export class InputManager {
     if (e.repeat) { if (e.code === 'Space') e.preventDefault(); return; }
     this.keys.add(e.code);
     if (e.code === 'Space' || e.code === 'KeyF') { this.flyEdge = true; e.preventDefault(); }
+    if (e.code === 'KeyE') { this.interactEdge = true; e.preventDefault(); }
     if (e.code === 'Escape' || e.code === 'KeyP') this.onPause?.();
     if (e.code === 'KeyM') this.onMap?.();
     if (e.code === 'KeyH') this.onHorn?.();
@@ -95,6 +97,7 @@ export class InputManager {
     this.steerPointer = null; this.steerValue = 0;
     this.brakePointers.clear(); this.accelPointers.clear();
     this.flyEdge = false;
+    this.interactEdge = false;
     this.root.querySelectorAll('.down,.active').forEach((el) => el.classList.remove('down', 'active'));
     const knob = this.root.querySelector<HTMLElement>('.steer-knob');
     if (knob) knob.style.transform = 'translateX(0)';
@@ -111,12 +114,16 @@ export class InputManager {
     const brake = this.brakePointers.size > 0 || k.has('ArrowDown') || k.has('KeyS');
     const accel = this.accelPointers.size > 0 || k.has('ArrowUp') || k.has('KeyW');
     const flyPress = this.flyEdge;
+    const interactPress = this.interactEdge;
     this.flyEdge = false;
-    return { steer, accel, brake, flyPress, holdStop: false };
+    this.interactEdge = false;
+    return { steer, accel, brake, flyPress, interactPress, holdStop: false };
   }
 
   /** discard a pending press that arrived while flight was unavailable (never queued) */
-  discardEdges(): void { this.flyEdge = false; }
+  discardEdges(): void { this.flyEdge = false; this.interactEdge = false; }
+
+  requestInteraction(): void { if (this.enabled) this.interactEdge = true; }
 
   dispose(): void { this.cleanup.forEach((f) => f()); }
 }

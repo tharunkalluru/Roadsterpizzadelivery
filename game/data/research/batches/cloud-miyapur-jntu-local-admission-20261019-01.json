@@ -1,0 +1,911 @@
+{
+  "schemaVersion": 1,
+  "id": "cloud-miyapur-jntu-local-admission-20261019-01",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex local evidence audit with user-authorized Chrome Street View inspection",
+  "notes": "Locally audited admission of the immutable consolidated Miyapur→JNTU Street View handoff. Input: /Users/tharun/Documents/Codex/2026-10-18/task/library-recovery-20261019/cloud-miyapur-jntu-20261019-consolidated-handoff01.json; bytes=84467; sha256=824737b7bafac1fb88df694c3a1be7a22660da18b08fde90d0d34bd1ad206801; handoffId=cloud-miyapur-jntu-20261019-consolidated-handoff01. Active pre-import survey was revision 62, sha256=8c4c96d9ab9c9dc454561d13b3cf8a28d3bc2ddcadc83840f149d9af72ac9f05; the source and observation IDs were checked against it before import. The handoff base checkpoint is revision 59 and is stale relative to this active revision. All 38 source IDs and 14 observation IDs are unique and collision-free. Evidence admitted: 38 Street View source references with camera coordinates/pano IDs parsed from their own URLs and 14 pending observations positioned at their camera points. No source position or observation point is a storefront entrance. No storefrontOverrides, no exact placements, no geometry changes, and no roadReviews are admitted. Independent Chrome classification of all candidate views: KFC is a Metro tenant-directory mention and ANANTH DIAMONDS is a roadside advertisement, both excluded from storefront inventory; the remaining name claims are kept pending, with GRT a facade/collection panel, RATNADEEP below larger advertising, LIC HFL visible, and mehfil lettering not independently legible enough to confirm. Exact identity-unit association, entrance, canonical road side, route order, and frontage coverage remain open. Ordered correction application from the handoff text: manifest01 sets observations 006a and 006b roadId=null and initially sets 007a/008a=null; manifest02 then supersedes only 007a/008a to r_4485149297_3 as camera-context only. The 006a/006b null assignment remains. The manifest files themselves were not present in the local environment, so their bytes could not be independently rehashed; only the manifest IDs, paths, hashes and instructions embedded in the checksum-verified handoff were followed. Original batch files are likewise external/unavailable; provenance remains in the source handoff. Correction manifest refs: /workspace/scratch/4205b77daa9e/cloud-miyapur-jntu-20261019-correction-manifest01.json sha256=56eeb42003ad876e820d9af38226dbd652c42460d96e1603e87bd6fc76155490; /workspace/scratch/4205b77daa9e/cloud-miyapur-jntu-20261019-correction-manifest02.json sha256=66ceeb83f5b985179c09b8a26473155bcbf2852346d3738174f69add5e6de003. Original 14 batch refs (external paths and hashes preserved in the handoff): run01 cloud-miyapur-jntu-20261019-run01 sha256=e95fd779ea05c82f0e3167ec340e26f570c8e6ef81fb9f16d4ab8fea2af9ca60; run02 cloud-miyapur-jntu-20261019-run02 sha256=c9c179d2b847aaa9ad954b0df911a5e9939365cc9705361859cea2bfd9ad1498; run03 cloud-miyapur-jntu-20261019-run03 sha256=a25e581a1361f9bca0f1f5e2387394b861e4897b4232662b76878b5619cc8b71; run04 cloud-miyapur-jntu-20261019-run04 sha256=e21c31530b177f439a607ef25b0de47fdee4e7f74eb6f849ea4e1268ea2a5395; run05 cloud-miyapur-jntu-20261019-run05 sha256=a3660d8dcef6672ed3a8f220557fea53dab9f17f58649f7382ea7362584a6603; run06 cloud-miyapur-jntu-20261019-run06 sha256=b46587aef80a5fdbac32bfeaf57a8454b092e81abca12060c83d53f4b8cdaec1; run07 cloud-miyapur-jntu-20261019-run07 sha256=393cb177e26eb0cb8779c5900f02d9c48853280da8fed57f2a1e7ed9f8f776be; run08 cloud-miyapur-jntu-20261019-run08 sha256=cf31a4d2b5e3b70dd0218a4ac7e984557654560eaef2ac272e608952d8e043f4; run09 cloud-miyapur-jntu-20261019-run09 sha256=10b090f5450a1d1d513285f70da9f850a866fd329fd03e541c4f4be8b91de5c2; run10 cloud-miyapur-jntu-20261019-run10 sha256=cea61297b07de914abe98092e804fe3e27230ef7ce34f26d49dd5306daa4c950; run11 cloud-miyapur-jntu-20261019-run11 sha256=9e3d749bd87d264982b6e568dd9daee9e163a62a11930447aab6096c425c7c09; run12 cloud-miyapur-jntu-20261019-run12 sha256=7abbe9b83146d54ee17a8830166a53de3564e3a1075cc880a83e2c614d609c55; run13 cloud-miyapur-jntu-20261019-run13 sha256=151a895aa27b9199203e344423acee502addad1c8388c43864b1b70b3720aad7; run14 cloud-miyapur-jntu-20261019-run14 sha256=4ff3055d1d4a87c2d83c493b7f87135425a7181068f31a00b78682c408cebfb9. The proposed 19.7 m partial road review is withheld: its only support is two discrete camera points at 18.9 m and 38.6 m, each about 8–9 m from the provisional centerline, with no interval inventory or continuous frontage evidence. All seven handoff gaps remain open and are preserved in the unchanged handoff: run11 55 m camera jump; eight sparse run03 jumps; run05 ~29 m sample gap; run05→service-lane divergence/return; run05→run09 direct return; run13→endpoint gap/endpoint-only view; and no reverse pass or opposite-side survey. The 32-road reservation and three existing extension segments were not expanded or geometrically edited. Source batch IDs and per-record paths are available from the unchanged handoff wrappers; original batch bytes were unavailable locally. Source kind google_street_view was normalized to survey schema street_view while the original kind is retained in each source note.",
+  "sources": [
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-001",
+      "kind": "street_view",
+      "title": "Pune - Machilipatnam Hwy at Miyapur Metro retail sign",
+      "url": "https://www.google.com/maps/@17.4966242,78.3737082,623a,90y,90t/data=!3m7!1e1!3m5!1sE3__f4H-3DbFygkgdNivTA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DE3__f4H-3DbFygkgdNivTA%26yaw%3D0!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera position 17.4966242 N, 78.3737082 E; heading 0° (yaw 0); panoId E3__f4H-3DbFygkgdNivTA. Camera is approximately at route arclength 217 m on provisional road r_43302053920_0 (segment range 144.51–247.12 m), about 2.6 m north of its canonical centerline. The image shows a metro entrance retail-information sign stating that food, retail and daily essentials are available on the first floor; KFC logo is legible. This is an in-building tenant listing only; exact shop/frontage position is not visible. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4966242,
+        "lon": 78.3737082,
+        "headingDeg": 0.0,
+        "panoId": "E3__f4H-3DbFygkgdNivTA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-002",
+      "kind": "street_view",
+      "title": "9 Pune - Machilipatnam Hwy, Hyderabad",
+      "url": "https://www.google.com/maps/@17.4993997,78.381764,623a,90y,90t/data=!3m7!1e1!3m5!1sBQUftN0tK3-NNTt9nr6C8Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DBQUftN0tK3-NNTt9nr6C8Q%26yaw%3D0!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera position 17.4993997 N, 78.381764 E; heading 0° (yaw 0); panoId BQUftN0tK3-NNTt9nr6C8Q. Camera is approximately 92 m along provisional road r_13074868757_0 (road range 0–115.46 m), about 1.2 m from its canonical centerline. A roadside advertising panel in the visible scene reads ANANTH DIAMONDS. The panel is readable, but it does not establish the business's exact premises or entrance. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4993997,
+        "lon": 78.381764,
+        "headingDeg": 0.0,
+        "panoId": "BQUftN0tK3-NNTt9nr6C8Q"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-003a",
+      "kind": "street_view",
+      "title": "2 NH 65, Hyderabad (connected Street View point 1)",
+      "url": "https://www.google.com/maps/@17.4996008,78.3830729,620a,75y,90h,90t/data=!3m7!1e1!3m5!1s5n0rYhz55JDVyxdlLdt7Ww!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D5n0rYhz55JDVyxdlLdt7Ww%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera position 17.4996008 N, 78.3830729 E; heading 90° east; panoId 5n0rYhz55JDVyxdlLdt7Ww. Camera projects to approximately 18.9 m on provisional road r_493397216_0, about 8.8 m north of its centerline. This was the first point in a connected eastbound Street View movement; no shop name was legible at this frame. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4996008,
+        "lon": 78.3830729,
+        "headingDeg": 90.0,
+        "panoId": "5n0rYhz55JDVyxdlLdt7Ww"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-003b",
+      "kind": "street_view",
+      "title": "2 NH 65, Hyderabad (connected Street View point 2)",
+      "url": "https://www.google.com/maps/@17.4995754,78.3832563,620a,75y,90h,90t/data=!3m7!1e1!3m5!1so66LvwOdHlrlT67rVxz9oQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3Do66LvwOdHlrlT67rVxz9oQ%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera position 17.4995754 N, 78.3832563 E; heading 90° east; panoId o66LvwOdHlrlT67rVxz9oQ. Camera projects to approximately 38.6 m on provisional road r_493397216_0, about 8.0 m north of its centerline. A roadside juice stall is visible on the viewer-left in this eastbound frame. Its sign reads SPECIAL FRUIT JUICE; exact storefront point and relation to the frontage are not measured. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4995754,
+        "lon": 78.3832563,
+        "headingDeg": 90.0,
+        "panoId": "o66LvwOdHlrlT67rVxz9oQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-004",
+      "kind": "street_view",
+      "title": "2 NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4995536,78.3834491,619a,75y,90h,90t/data=!3m7!1e1!3m5!1sKCBfUZd4IVIqNB01LLJqjQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DKCBfUZd4IVIqNB01LLJqjQ%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera position 17.4995536 N, 78.3834491 E; heading 90° east; panoId KCBfUZd4IVIqNB01LLJqjQ. Camera projects to approximately 5.1 m along provisional road r_60410134410_0, about 7.9 m north of its centerline. A large façade panel on the viewer-left reads GRT JEWELLERS and BRIDES: THE BRIDAL COLLECTION. The brand text is legible; exact storefront premises and entrance are not independently confirmed. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4995536,
+        "lon": 78.3834491,
+        "headingDeg": 90.0,
+        "panoId": "KCBfUZd4IVIqNB01LLJqjQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005a",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4995282,78.3836382,618a,75y,90h,90t/data=!3m7!1e1!3m5!1sDdpgY7ufeamcNjaRt9wlRA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DDdpgY7ufeamcNjaRt9wlRA%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4995282 N, 78.3836382 E; heading 90° east; panoId DdpgY7ufeamcNjaRt9wlRA. No additional readable facade storefront name recorded; partial distant text is not transcribed. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4995282,
+        "lon": 78.3836382,
+        "headingDeg": 90.0,
+        "panoId": "DdpgY7ufeamcNjaRt9wlRA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005b",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4995135,78.3837401,618a,75y,90h,90t/data=!3m7!1e1!3m5!1sGfeudYymGi4K1NY9xhg5tA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DGfeudYymGi4K1NY9xhg5tA%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4995135 N, 78.3837401 E; heading 90° east; panoId GfeudYymGi4K1NY9xhg5tA. Facades/signage not clear enough for a verified storefront transcription. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4995135,
+        "lon": 78.3837401,
+        "headingDeg": 90.0,
+        "panoId": "GfeudYymGi4K1NY9xhg5tA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005c",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4995100,78.3838377,618a,75y,90h,90t/data=!3m7!1e1!3m5!1sDp_WMruA1TCPxHyj73wd9Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DDp_WMruA1TCPxHyj73wd9Q%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4995100 N, 78.3838377 E; heading 90° east; panoId Dp_WMruA1TCPxHyj73wd9Q. A hospital facade is visible; no additional storefront observation recorded. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.49951,
+        "lon": 78.3838377,
+        "headingDeg": 90.0,
+        "panoId": "Dp_WMruA1TCPxHyj73wd9Q"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005d",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4994895,78.3839341,618a,75y,90h,90t/data=!3m7!1e1!3m5!1sKAf53UcuEzySh-IaPEMiXQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DKAf53UcuEzySh-IaPEMiXQ%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4994895 N, 78.3839341 E; heading 90° east; panoId KAf53UcuEzySh-IaPEMiXQ. Same hospital area; no additional storefront observation recorded. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4994895,
+        "lon": 78.3839341,
+        "headingDeg": 90.0,
+        "panoId": "KAf53UcuEzySh-IaPEMiXQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005e",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4994654,78.3841319,618a,75y,90h,90t/data=!3m7!1e1!3m5!1sLKjWgPNgRmFk6JBsI5jrSA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DLKjWgPNgRmFk6JBsI5jrSA%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4994654 N, 78.3841319 E; heading 90° east; panoId LKjWgPNgRmFk6JBsI5jrSA. No clearly legible storefront text recorded. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4994654,
+        "lon": 78.3841319,
+        "headingDeg": 90.0,
+        "panoId": "LKjWgPNgRmFk6JBsI5jrSA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005f",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4994080,78.3844429,618a,75y,90h,90t/data=!3m7!1e1!3m5!1sWDJBJmSqlgoSouUapnDtGg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DWDJBJmSqlgoSouUapnDtGg%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4994080 N, 78.3844429 E; heading 90° east; panoId WDJBJmSqlgoSouUapnDtGg. Street-level facade detail is distant/partly screened; no storefront name assigned. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.499408,
+        "lon": 78.3844429,
+        "headingDeg": 90.0,
+        "panoId": "WDJBJmSqlgoSouUapnDtGg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005g",
+      "kind": "street_view",
+      "title": "Srila Towers Internal Rd / NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4993956,78.3845597,618a,75y,90h,90t/data=!3m7!1e1!3m5!1s-cE4F4J2XDotAYpjvtafog!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D-cE4F4J2XDotAYpjvtafog%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4993956 N, 78.3845597 E; heading 90° east; panoId -cE4F4J2XDotAYpjvtafog. Storefront signs remain distant and partly obscured by trees; no name transcribed. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4993956,
+        "lon": 78.3845597,
+        "headingDeg": 90.0,
+        "panoId": "-cE4F4J2XDotAYpjvtafog"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005h",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4993591,78.3846831,618a,75y,90h,90t/data=!3m7!1e1!3m5!1sSm7pb33nY1fEGtvH8lVXag!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DSm7pb33nY1fEGtvH8lVXag%26yaw%3D90!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4993591 N, 78.3846831 E; heading 90° east; panoId Sm7pb33nY1fEGtvH8lVXag. Ad boards and trees obscure parts of the roadside; no storefront name recorded. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4993591,
+        "lon": 78.3846831,
+        "headingDeg": 90.0,
+        "panoId": "Sm7pb33nY1fEGtvH8lVXag"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005i",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4993310,78.3849886,618a,75y,69.66h,90t/data=!3m7!1e1!3m5!1sQWeH-oTWrPwuY58upHF4-A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DQWeH-oTWrPwuY58upHF4-A%26yaw%3D69.66243442599068!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4993310 N, 78.3849886 E; heading 69.66° east-northeast; panoId QWeH-oTWrPwuY58upHF4-A. Large residential marketing display and other advertisements are not treated as storefront observations; street-level shopfronts are too distant for confident names. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.499331,
+        "lon": 78.3849886,
+        "headingDeg": 69.66243442599068,
+        "panoId": "QWeH-oTWrPwuY58upHF4-A"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005j",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4993132,78.3851350,618a,75y,69.66h,90t/data=!3m7!1e1!3m5!1saX3eROlqPbYe1RgPSnOz0w!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DaX3eROlqPbYe1RgPSnOz0w%26yaw%3D69.66243442599068!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4993132 N, 78.3851350 E; heading 69.66° east-northeast; panoId aX3eROlqPbYe1RgPSnOz0w. Multiple large brand/retail display advertisements are visible; they do not establish premises at this camera location. No storefront name asserted here. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4993132,
+        "lon": 78.385135,
+        "headingDeg": 69.66243442599068,
+        "panoId": "aX3eROlqPbYe1RgPSnOz0w"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005k",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4992994,78.3852268,618a,75y,69.66h,90t/data=!3m7!1e1!3m5!1s1Pp1zPLWlm5RCEj5l870UA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D1Pp1zPLWlm5RCEj5l870UA%26yaw%3D69.66243442599068!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4992994 N, 78.3852268 E; heading 69.66° east-northeast; panoId 1Pp1zPLWlm5RCEj5l870UA. RATNADEEP is legible on the ground-level commercial facade below separate roadside advertising boards, viewer-left. The brand text appears associated with that facade, but exact premises, entrance, footprint, and floor are not independently confirmed. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4992994,
+        "lon": 78.3852268,
+        "headingDeg": 69.66243442599068,
+        "panoId": "1Pp1zPLWlm5RCEj5l870UA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-005l",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4992817,78.3853315,618a,75y,69.66h,90t/data=!3m7!1e1!3m5!1sXyzXI3CkduxruBEBkCeMwg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DXyzXI3CkduxruBEBkCeMwg%26yaw%3D69.66243442599068!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4992817 N, 78.3853315 E; heading 69.66° east-northeast; panoId XyzXI3CkduxruBEBkCeMwg. Connected follow-on after the RATNADEEP camera; no additional readable storefront name recorded. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4992817,
+        "lon": 78.3853315,
+        "headingDeg": 69.66243442599068,
+        "panoId": "XyzXI3CkduxruBEBkCeMwg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-006a",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4992611,78.3855447,617a,75y,69.66h,90t/data=!3m7!1e1!3m5!1s9ZzqVaZPD7m8YKkJN8mfFQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D9ZzqVaZPD7m8YKkJN8mfFQ%26yaw%3D69.66243442599068!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4992611 N, 78.3855447 E; heading 69.66°; panoId 9ZzqVaZPD7m8YKkJN8mfFQ. Shows a high-rise with numerous tenant/brand panels. These are not taken as storefront evidence; ground-level names are unclear in this frame. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4992611,
+        "lon": 78.3855447,
+        "headingDeg": 69.66243442599068,
+        "panoId": "9ZzqVaZPD7m8YKkJN8mfFQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-006b",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4993544,78.3855692,618a,75y,52.62h,95.3t/data=!3m7!1e1!3m5!1sBGupJrh4zPbvJzhP5sMQ8w!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.300955409973994%26panoid%3DBGupJrh4zPbvJzhP5sMQ8w%26yaw%3D52.620898098257435!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993544 N, 78.3855692 E; heading 52.62°; panoId BGupJrh4zPbvJzhP5sMQ8w. Intermediate connected point; large tenant panels remain unrecorded as shops. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4993544,
+        "lon": 78.3855692,
+        "headingDeg": 52.620898098257435,
+        "panoId": "BGupJrh4zPbvJzhP5sMQ8w"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-006c",
+      "kind": "street_view",
+      "title": "Zaheerabad - Hyderabad Rd, Hyderabad (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4993249,78.3857570,617a,75y,52.62h,95.3t/data=!3m7!1e1!3m5!1sqtdSrXJwY2iXGOMJtlJpBQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.300955409973994%26panoid%3DqtdSrXJwY2iXGOMJtlJpBQ%26yaw%3D52.620898098257435!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993249 N, 78.3857570 E; heading 52.62°, pitch -5.30°; panoId qtdSrXJwY2iXGOMJtlJpBQ. Readable ground-level commercial facade signs: THE JAWED HABIB (with Salon wording on the sign) and KARACHI BAKERY, above visible shopfront glazing/entrance area. Viewer-left in this frame. Camera is about 18.8 m north of the nearest reserved route centerline segment r_36666371031_0; this is camera-context evidence only, with no precise storefront placement. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4993249,
+        "lon": 78.385757,
+        "headingDeg": 52.620898098257435,
+        "panoId": "qtdSrXJwY2iXGOMJtlJpBQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-007a",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4993097,78.3858496,617a,75y,101h,95.3t/data=!3m7!1e1!3m5!1sVHUFisqHVKZjKnMrOl784g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DVHUFisqHVKZjKnMrOl784g%26yaw%3D101!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993097 N, 78.3858496 E; heading 101°; panoId VHUFisqHVKZjKnMrOl784g. Tree cover and distant signs; no storefront name transcribed. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4993097,
+        "lon": 78.3858496,
+        "headingDeg": 101.0,
+        "panoId": "VHUFisqHVKZjKnMrOl784g"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-007b",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4992919,78.3859508,617a,75y,101h,95.3t/data=!3m7!1e1!3m5!1scgYpFP9XTuoZ11WXW_8wfA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DcgYpFP9XTuoZ11WXW_8wfA%26yaw%3D101!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4992919 N, 78.3859508 E; heading 101°; panoId cgYpFP9XTuoZ11WXW_8wfA. A to-let board and other roadside advertising are visible; no storefront name asserted. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4992919,
+        "lon": 78.3859508,
+        "headingDeg": 101.0,
+        "panoId": "cgYpFP9XTuoZ11WXW_8wfA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-007c",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4992787,78.3860464,617a,75y,101h,95.3t/data=!3m7!1e1!3m5!1scjuxZFxcMvp10yHk-G7LDg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DcjuxZFxcMvp10yHk-G7LDg%26yaw%3D101!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4992787 N, 78.3860464 E; heading 101°; panoId cjuxZFxcMvp10yHk-G7LDg. Shuttered shops are partly screened by trees; fascia text not reliably readable. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4992787,
+        "lon": 78.3860464,
+        "headingDeg": 101.0,
+        "panoId": "cjuxZFxcMvp10yHk-G7LDg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-007d",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4992699,78.3861452,617a,75y,101h,95.3t/data=!3m7!1e1!3m5!1si8ugJCOdLllbbDtA7PjQow!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3Di8ugJCOdLllbbDtA7PjQow%26yaw%3D101!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4992699 N, 78.3861452 E; heading 101°; panoId i8ugJCOdLllbbDtA7PjQow. Tree-obscured fascia over shuttered storefronts; no name transcribed. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4992699,
+        "lon": 78.3861452,
+        "headingDeg": 101.0,
+        "panoId": "i8ugJCOdLllbbDtA7PjQow"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-007e",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4992610,78.3862418,617a,75y,101h,95.3t/data=!3m7!1e1!3m5!1sRO_iJikuUQkLtTxPYVcA5g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DRO_iJikuUQkLtTxPYVcA5g%26yaw%3D101!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4992610 N, 78.3862418 E; heading 101°; panoId RO_iJikuUQkLtTxPYVcA5g. A yellow fascia on a shuttered commercial unit is partly obscured and too indistinct for a safe transcription. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.499261,
+        "lon": 78.3862418,
+        "headingDeg": 101.0,
+        "panoId": "RO_iJikuUQkLtTxPYVcA5g"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-007f",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4992456,78.3863402,617a,75y,101h,95.3t/data=!3m7!1e1!3m5!1sOlnPi18jjtZEzIwtk2Rtig!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DOlnPi18jjtZEzIwtk2Rtig%26yaw%3D101!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4992456 N, 78.3863402 E; heading 101°; panoId OlnPi18jjtZEzIwtk2Rtig. TEA MOMENT sign is legible above a commercial shopfront with visible glass frontage. A separate generic FAST FOOD fascia appears over an adjacent shutter; it is not recorded as a distinct business name. Camera lies approximately 18.4 m north of the nearest reserved provisional centerline segment r_36666371031_0; roadId is camera-context only. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4992456,
+        "lon": 78.3863402,
+        "headingDeg": 101.0,
+        "panoId": "OlnPi18jjtZEzIwtk2Rtig"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-008a",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4992226,78.3864313,617a,75y,101h,95.3t/data=!3m7!1e1!3m5!1seXCZ1nTX48j0xVzfmyrmlg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DeXCZ1nTX48j0xVzfmyrmlg%26yaw%3D101!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4992226 N, 78.3864313 E; heading 101° east-southeast; panoId eXCZ1nTX48j0xVzfmyrmlg. Adjacent point in connected service-lane sequence; nearby signage remains tree-obscured and was not transcribed as a business name. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4992226,
+        "lon": 78.3864313,
+        "headingDeg": 101.0,
+        "panoId": "eXCZ1nTX48j0xVzfmyrmlg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-008b",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View; facade-facing view)",
+      "url": "https://www.google.com/maps/@17.4992088,78.386529,617a,75y,160h,95.3t/data=!3m7!1e1!3m5!1sf4YRWuE0bAuVwP6dClMsOA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3Df4YRWuE0bAuVwP6dClMsOA%26yaw%3D160!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4992088 N, 78.3865290 E; heading 160° for facade inspection; panoId f4YRWuE0bAuVwP6dClMsOA. BHIMAVARAM'S MIXTURE POINT fascia is legible above a ground-level food shop/counter. The adjacent BARNYARD product/health board is separate and not treated as a storefront observation. Camera is about 17.0 m north of the nearest reserved provisional centerline segment r_36666371031_0; this is only camera-context evidence. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4992088,
+        "lon": 78.386529,
+        "headingDeg": 160.0,
+        "panoId": "f4YRWuE0bAuVwP6dClMsOA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-009a",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (re-entry panorama on authorized extension)",
+      "url": "https://www.google.com/maps/@17.4991739,78.3868129,617a,75y,101h,95.3t/data=!3m7!1e1!3m5!1sA2XbS67ZC6Rc6m4Gf4oR4Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DA2XbS67ZC6Rc6m4Gf4oR4Q%26yaw%3D101!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4991739 N, 78.3868129 E; heading 101°; panoId A2XbS67ZC6Rc6m4Gf4oR4Q. Camera is approximately 5.0 m from added road r_4485149297_3, used here as camera context only. This is a direct return to a known panorama after a navigation gap; intermediate lane frontage was not reviewed. Signage in view is not transcribed as a business name. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4991739,
+        "lon": 78.3868129,
+        "headingDeg": 101.0,
+        "panoId": "A2XbS67ZC6Rc6m4Gf4oR4Q"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-009b",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4991604,78.386908,617a,75y,101h,95.3t/data=!3m7!1e1!3m5!1sKO3lbsDz2aUxP00698HlNw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DKO3lbsDz2aUxP00698HlNw%26yaw%3D101!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4991604 N, 78.3869080 E; heading 101°; panoId KO3lbsDz2aUxP00698HlNw. Connected continuation on the added frontage-road sequence; nearest reserved centerline is about 4.9 m away. Generic HAIR TRANSPLANT wording is visible on a facade panel, not treated as a distinct business name. Roadside advertisements and transit-shelter panels are excluded. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4991604,
+        "lon": 78.386908,
+        "headingDeg": 101.0,
+        "panoId": "KO3lbsDz2aUxP00698HlNw"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-009c",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View; facade-facing view)",
+      "url": "https://www.google.com/maps/@17.4991487,78.387,617a,15y,75.34h,95.3t/data=!3m7!1e1!3m5!1svhnLyQVWaWcrotOUTM0zFw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DvhnLyQVWaWcrotOUTM0zFw%26yaw%3D75.33728448332414!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4991487 N, 78.3870000 E; heading 75.34° after rotating view to inspect facades; panoId vhnLyQVWaWcrotOUTM0zFw. Nearest reserved extension centerline is approximately 4.8 m away on r_4485149297_4. The facade-facing panorama visibly shows the text LIC HFL on a blue/white fascia and mehfil in white lettering on a dark fascia, over ground-level commercial frontage. These are camera-context signs only; exact business-unit association, entrance, position, side and relative route order are unverified. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4991487,
+        "lon": 78.387,
+        "headingDeg": 75.33728448332414,
+        "panoId": "vhnLyQVWaWcrotOUTM0zFw"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-010a",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4991237,78.3872151,616a,75y,111.21h,95.3t/data=!3m7!1e1!3m5!1sKZdh53s20NUN7_con3NQFw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DKZdh53s20NUN7_con3NQFw%26yaw%3D111.2149062509474!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4991237 N, 78.3872151 E; heading 111.21°; panoId KZdh53s20NUN7_con3NQFw. Camera is approximately 4.8 m from reserved extension centerline r_4485149297_4. A readable OPTORIUM OPTICALS fascia is visible above a ground-level optical storefront on viewer-left in this heading; camera context only. This panorama is Jan 2025, older than the March 2026 images elsewhere in this survey. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4991237,
+        "lon": 78.3872151,
+        "headingDeg": 111.2149062509474,
+        "panoId": "KZdh53s20NUN7_con3NQFw"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-011a",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4991245,78.3873082,616a,75y,111.21h,95.3t/data=!3m7!1e1!3m5!1sJPf8ypzaDE3pZpSrw-dLww!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DJPf8ypzaDE3pZpSrw-dLww%26yaw%3D111.2149062509474!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4991245 N, 78.3873082 E; heading 111.21°; panoId JPf8ypzaDE3pZpSrw-dLww. Connected panorama after the OPTORIUM OPTICALS view. Some distant facade fascias are visible but not clearly readable; no name recorded. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4991245,
+        "lon": 78.3873082,
+        "headingDeg": 111.2149062509474,
+        "panoId": "JPf8ypzaDE3pZpSrw-dLww"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-011b",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (connected Street View continuation)",
+      "url": "https://www.google.com/maps/@17.4991092,78.3874025,616a,75y,111.21h,95.3t/data=!3m7!1e1!3m5!1s3HebyvpluVgmpX3osQWcSQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3D3HebyvpluVgmpX3osQWcSQ%26yaw%3D111.2149062509474!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4991092 N, 78.3874025 E; heading 111.21°; panoId 3HebyvpluVgmpX3osQWcSQ. Connected continuation; fascia lettering is partly hidden/distant and not reliably transcribed. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4991092,
+        "lon": 78.3874025,
+        "headingDeg": 111.2149062509474,
+        "panoId": "3HebyvpluVgmpX3osQWcSQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-011c",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected continuation near JNTU College station)",
+      "url": "https://www.google.com/maps/@17.4989242,78.38789,616a,75y,111.21h,95.3t/data=!3m7!1e1!3m5!1sooMhOIdo0Bll5RcaNiJN4w!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DooMhOIdo0Bll5RcaNiJN4w%26yaw%3D111.2149062509474!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4989242 N, 78.3878900 E; heading 111.21°; panoId ooMhOIdo0Bll5RcaNiJN4w. Camera is approximately 8.7 m from the reserved extension centerline r_4485149297_5. Distant station/building panels and other signs are visible but not sufficiently clear or directly attributable to a storefront; no name recorded. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4989242,
+        "lon": 78.38789,
+        "headingDeg": 111.2149062509474,
+        "panoId": "ooMhOIdo0Bll5RcaNiJN4w"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-012a",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (facade-facing view near JNTU College station)",
+      "url": "https://www.google.com/maps/@17.4989242,78.38789,616a,15y,135.15h,95.3t/data=!3m7!1e1!3m5!1sooMhOIdo0Bll5RcaNiJN4w!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DooMhOIdo0Bll5RcaNiJN4w%26yaw%3D135.1450799292644!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4989242 N, 78.3878900 E; heading 135.15°; panoId ooMhOIdo0Bll5RcaNiJN4w. Camera is approximately 8.7 m from added road r_4485149297_5. Readable LOOKS HAIR STUDIO fascia and a Domino's sign are visible on commercial facades in this direction. Signs appear across/near the roadway in the panorama; no exact storefront-to-camera or frontage assignment is established. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4989242,
+        "lon": 78.38789,
+        "headingDeg": 135.1450799292644,
+        "panoId": "ooMhOIdo0Bll5RcaNiJN4w"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-013a",
+      "kind": "street_view",
+      "title": "NH 65, Hyderabad (connected Street View approach to r_4485149297_5 endpoint)",
+      "url": "https://www.google.com/maps/@17.4989018,78.387985,616a,75y,84.71h,95.3t/data=!3m7!1e1!3m5!1saLdNldpoWbB-HspFkE03Zg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-5.299999999999997%26panoid%3DaLdNldpoWbB-HspFkE03Zg%26yaw%3D84.711985250602!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4989018 N, 78.3879850 E; heading 84.71°; panoId aLdNldpoWbB-HspFkE03Zg. This connected panorama is approximately 9.9 m from reserved road r_4485149297_5; it is still about 21 m before the exact authorized endpoint. Signage in this direction is mostly transit-station advertising and is not transcribed as storefront evidence. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4989018,
+        "lon": 78.387985,
+        "headingDeg": 84.711985250602,
+        "panoId": "aLdNldpoWbB-HspFkE03Zg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-src-20261019-014a",
+      "kind": "street_view",
+      "title": "Hyderabad, Telangana (panorama at authorized r_4485149297_5 endpoint)",
+      "url": "https://www.google.com/maps/@17.4990071,78.3881755,616a,75y,90t/data=!3m7!1e1!3m5!1s4aGWZhc2gQc_4gR-LmNxtQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D4aGWZhc2gQc_4gR-LmNxtQ%26yaw%3D0!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4990071 N, 78.3881755 E; heading 0°; panoId 4aGWZhc2gQc_4gR-LmNxtQ. Approximate offset from the exact reserved r_4485149297_5 endpoint is 4.1 m. Generic PHARMACY wording is visible, but a specific storefront name is not legible. Camera stayed at the endpoint panorama; no onward movement. Original handoff source kind was google_street_view; normalized to the survey schema kind street_view. Coordinates and heading identify this Street View camera, not a shop entrance. Local Chrome review on 2026-10-19 was used to assess linked candidate signage.",
+      "assetPolicy": "reference_only",
+      "position": {
+        "lat": 17.4990071,
+        "lon": 78.3881755,
+        "headingDeg": 0.0,
+        "panoId": "4aGWZhc2gQc_4gR-LmNxtQ"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-001",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-001"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "KFC",
+      "category": "tenant_directory_context",
+      "roadId": null,
+      "placementStatus": "pending",
+      "notes": "Brand logo read from the posted Miyapur Metro first-floor food/retail tenant sign. The observation is an unplaced name hint, not a mapped storefront: exact shop, entrance, road side, storefront order, position and camera-to-door relationship are unsupported. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-001; it is not the storefront entrance. Chrome classification: KFC logo appears on a Metro first-floor food/retail tenant directory; this is tenant context, not a street storefront. Excluded from storefront inventory.",
+      "position": {
+        "lat": 17.4966242,
+        "lon": 78.3737082,
+        "headingDeg": 0.0
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-002",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-002"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "ANANTH DIAMONDS",
+      "category": "roadside_advertising_context",
+      "roadId": "r_13074868757_0",
+      "placementStatus": "pending",
+      "notes": "Readable on a roadside advertising panel from a panorama near route arclength 92 m on this road segment. Treat the name as a visible roadside advertising/signage mention only: exact store footprint, latitude/longitude, entrance, side, adjacent-shop order and camera-to-door relationship are unsupported. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-002; it is not the storefront entrance. Chrome classification: ANANTH DIAMONDS is printed on a temporary roadside barricade/banner, not a building frontage. Excluded from storefront inventory.",
+      "position": {
+        "lat": 17.4993997,
+        "lon": 78.381764,
+        "headingDeg": 0.0
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-003",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-003b"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "SPECIAL FRUIT JUICE",
+      "category": "juice_shop",
+      "roadId": "r_493397216_0",
+      "placementStatus": "pending",
+      "notes": "This is the legible sign text on a roadside juice stall visible from the camera context of r_493397216_0, near approximately 38.6 m along the provisional segment; roadId identifies the sign-camera context, not a verified business footprint. The stall appears viewer-left while the panorama faces east toward JNTU, but the exact frontage position and ordering among adjacent premises remain unmeasured. Treat as a pending storefront-name candidate; no lat/lon assigned. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-003b; it is not the storefront entrance. Chrome classification: SPECIAL FRUIT JUICE wording is readable on a roadside juice stall/kiosk with a counter. Keep as an unplaced storefront-name candidate; do not assign a frontage point or order.",
+      "position": {
+        "lat": 17.4995754,
+        "lon": 78.3832563,
+        "headingDeg": 90.0
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-004",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-004"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "GRT JEWELLERS",
+      "category": "retail",
+      "roadId": "r_60410134410_0",
+      "placementStatus": "pending",
+      "notes": "Readable brand text on a large façade panel visible from the camera context of r_60410134410_0; roadId means sign-camera context only and does not assert that the business occupies the nearest frontage. It appears viewer-left while facing east toward JNTU, a provisional side. This is the next legible name after SPECIAL FRUIT JUICE in the connected pass, roughly 20 m farther along the route; exact storefront point, entrance, and other intervening businesses are unverified. No lat/lon assigned. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-004; it is not the storefront entrance. Chrome classification: GRT JEWELLERS wording is on a large mounted facade/collection panel; an independent ground-level unit or entrance is not established. Retain as pending sign/name evidence only.",
+      "position": {
+        "lat": 17.4995536,
+        "lon": 78.3834491,
+        "headingDeg": 90.0
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-005a",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-005k"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "RATNADEEP",
+      "category": "retail",
+      "roadId": "r_15041345687_0",
+      "placementStatus": "pending",
+      "notes": "Readable RATNADEEP sign on a ground-level commercial facade visible from the camera context of r_15041345687_0; roadId means sign-camera context only and does not prove that this business occupies the nearest road frontage. The facade appears viewer-left when facing approximately east-northeast toward JNTU, a provisional side only. Exact premises, entrance, footprint and floor are unverified; no lat/lon assigned. This is the next legible storefront-like facade sign after GRT JEWELLERS in run04, with intervening views that did not yield reliable names; not a complete sequence. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-005k; it is not the storefront entrance. Chrome classification: RATNADEEP fascia is visible below larger building advertising panels; exact unit and entrance remain unresolved. Retain as pending name evidence only.",
+      "position": {
+        "lat": 17.4992994,
+        "lon": 78.3852268,
+        "headingDeg": 69.66243442599068
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-006a",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-006c"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "THE JAWED HABIB",
+      "category": "salon",
+      "roadId": null,
+      "placementStatus": "pending",
+      "notes": "Readable THE JAWED HABIB sign with Salon wording above a ground-level commercial storefront area, visible from the camera context of r_36666371031_0 only. Camera is approximately 18.8 m north of the provisional road centerline; roadId does not assert that the business occupies that road frontage. The sign appears viewer-left in this panorama; side/route relation is provisional. No exact entrance, footprint, floor beyond ground-level signage, or lat/lon assigned. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-006c; it is not the storefront entrance. Chrome classification: THE JAWED HABIB salon fascia is readable above a ground-level commercial frontage. Camera was on an unreserved frontage lane; correction manifest 01 sets roadId=null. Pending identity evidence only.",
+      "position": {
+        "lat": 17.4993249,
+        "lon": 78.385757,
+        "headingDeg": 52.620898098257435
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-006b",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-006c"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "KARACHI BAKERY",
+      "category": "bakery",
+      "roadId": null,
+      "placementStatus": "pending",
+      "notes": "Readable KARACHI BAKERY sign above a ground-level commercial storefront area, visible from the camera context of r_36666371031_0 only. Camera is approximately 18.8 m north of the provisional road centerline; roadId does not assert that the business occupies that road frontage. The sign appears viewer-left in this panorama; side/route relation is provisional. No exact entrance, footprint, floor beyond ground-level signage, or lat/lon assigned. Co-visible with THE JAWED HABIB; relative order along the reserved route is not established. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-006c; it is not the storefront entrance. Chrome classification: KARACHI BAKERY fascia is readable above a ground-level commercial frontage, co-visible with THE JAWED HABIB. Camera was on an unreserved frontage lane; correction manifest 01 sets roadId=null. Pending identity evidence only; no along-road order.",
+      "position": {
+        "lat": 17.4993249,
+        "lon": 78.385757,
+        "headingDeg": 52.620898098257435
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-007a",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-007f"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "TEA MOMENT",
+      "category": "cafe",
+      "roadId": "r_4485149297_3",
+      "placementStatus": "pending",
+      "notes": "Readable TEA MOMENT fascia above a ground-level shopfront with glass frontage, visible from the camera context of r_36666371031_0 only. Camera is approximately 18.4 m north of the provisional road centerline; roadId does not assert that the business occupies that road frontage. The fascia appears viewer-right facing approximately east-southeast along the connected lane; route-side relation remains provisional. No exact entrance, footprint, or lat/lon assigned. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-007f; it is not the storefront entrance. Chrome classification: TEA MOMENT fascia is readable above a glass-fronted shopfront. Ordered correction manifest 01 first nulls the unreserved lane roadId; manifest 02 supersedes that value with r_4485149297_3 as camera context only. Pending; no storefront point or side.",
+      "position": {
+        "lat": 17.4992456,
+        "lon": 78.3863402,
+        "headingDeg": 101.0
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-008a",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-008b"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "BHIMAVARAM'S MIXTURE POINT",
+      "category": "snack_shop",
+      "roadId": "r_4485149297_3",
+      "placementStatus": "pending",
+      "notes": "Readable BHIMAVARAM'S MIXTURE POINT fascia over a ground-level food shop/counter, visible from the camera context of r_36666371031_0 only. Camera is approximately 17.0 m north of the provisional route centerline; roadId does not assert that the business occupies that road frontage. The fascia appears on the viewer-right when following the connected lane toward JNTU; route-side relation remains provisional. No exact entrance, footprint, or lat/lon assigned. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-008b; it is not the storefront entrance. Chrome classification: BHIMAVARAM'S MIXTURE POINT fascia is readable over a ground-level food shop/counter. Ordered correction manifest 01 first nulls the unreserved lane roadId; manifest 02 supersedes that value with r_4485149297_3 as camera context only. Pending; no storefront point or side.",
+      "position": {
+        "lat": 17.4992088,
+        "lon": 78.386529,
+        "headingDeg": 160.0
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-009a",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-009c"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "LIC HFL",
+      "category": "financial_services",
+      "roadId": "r_4485149297_4",
+      "placementStatus": "pending",
+      "notes": "Readable LIC HFL text on a blue/white facade fascia over a ground-level commercial frontage, visible from camera context of reserved extension road r_4485149297_4 only. RoadId does not claim that the business occupies this road frontage. No exact unit, entrance, footprint, business position, road-side assignment, floor or lat/lon assigned. Co-visible with the sign recorded as mehfil; exact unit associations and route order are not established. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-009c; it is not the storefront entrance. Chrome classification: LIC HFL lettering is visible on an upper facade fascia. A specific shop entrance, occupied unit and side cannot be established. Pending name evidence only.",
+      "position": {
+        "lat": 17.4991487,
+        "lon": 78.387,
+        "headingDeg": 75.33728448332414
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-009b",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-009c"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "mehfil",
+      "category": "unknown",
+      "roadId": "r_4485149297_4",
+      "placementStatus": "pending",
+      "notes": "Readable mehfil text in white lettering on a dark facade fascia over ground-level commercial frontage, visible from camera context of reserved extension road r_4485149297_4 only. RoadId does not claim that the business occupies this road frontage. No exact unit, entrance, footprint, business position, road-side assignment, floor or lat/lon assigned. Co-visible with the sign recorded as LIC HFL; exact unit associations and route order are not established. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-009c; it is not the storefront entrance. Chrome classification: the reported mehfil lettering could not be read confidently from the inspected frame. Preserve only as an unverified name hint; do not treat as verified business identity or frontage.",
+      "position": {
+        "lat": 17.4991487,
+        "lon": 78.387,
+        "headingDeg": 75.33728448332414
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-010a",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-010a"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "OPTORIUM OPTICALS",
+      "category": "optical_store",
+      "roadId": "r_4485149297_4",
+      "placementStatus": "pending",
+      "notes": "Readable OPTORIUM OPTICALS fascia above a ground-level optical storefront, visible from the camera context of reserved extension road r_4485149297_4 only. The facade is viewer-left in the 111.21° panorama; no canonical road-side assignment. RoadId does not claim that the business occupies this road frontage. No exact unit, entrance, footprint, storefront position, floor, or lat/lon assigned. This is observed after LIC HFL/mehfil in the connected panorama sequence, but exact frontage order remains approximate. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-010a; it is not the storefront entrance. Chrome classification: OPTORIUM OPTICALS fascia is readable above a ground-level optical storefront in Jan 2025 imagery. Retain pending; storefront entrance coordinate, road-side assignment, and order are not measured.",
+      "position": {
+        "lat": 17.4991237,
+        "lon": 78.3872151,
+        "headingDeg": 111.2149062509474
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-012a",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-012a"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "LOOKS HAIR STUDIO",
+      "category": "salon",
+      "roadId": "r_4485149297_5",
+      "placementStatus": "pending",
+      "notes": "Readable LOOKS HAIR STUDIO sign above a commercial salon-style frontage, visible from the camera context of reserved extension road r_4485149297_5 only. The sign is not assigned to this road as a tenant; no exact unit, entrance, footprint, position, side, floor, or lat/lon is established. Co-visible with Domino's; exact route order is not assigned. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-012a; it is not the storefront entrance. Chrome classification: LOOKS HAIR STUDIO signage is readable on a commercial facade in Mar 2026 imagery. Retain pending; exact unit, entrance, side and road assignment are not proven.",
+      "position": {
+        "lat": 17.4989242,
+        "lon": 78.38789,
+        "headingDeg": 135.1450799292644
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-obs-20261019-012b",
+      "sourceIds": [
+        "cloud-miyapur-jntu-src-20261019-012a"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "Domino's",
+      "category": "restaurant",
+      "roadId": "r_4485149297_5",
+      "placementStatus": "pending",
+      "notes": "Readable Domino's sign on a commercial facade, visible from the camera context of reserved extension road r_4485149297_5 only. The sign is not assigned to this road as a tenant; no exact unit, entrance, footprint, position, side, floor, or lat/lon is established. Co-visible with LOOKS HAIR STUDIO; exact route order is not assigned. Camera point copied from primary Street View source cloud-miyapur-jntu-src-20261019-012a; it is not the storefront entrance. Chrome classification: Domino's sign is readable on a commercial facade in Mar 2026 imagery, across/near the road from the camera. Retain pending; exact unit, entrance, side and road assignment are not proven.",
+      "position": {
+        "lat": 17.4989242,
+        "lon": 78.38789,
+        "headingDeg": 135.1450799292644
+      }
+    }
+  ]
+}

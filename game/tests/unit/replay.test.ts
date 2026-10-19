@@ -6,6 +6,7 @@ import { NO_INPUT, type TickInput } from '../../src/player/player';
 import { WorldPhysics } from '../../src/world/collision';
 import { buildCatalog } from '../../src/missions/catalog';
 import { Autopilot } from '../../src/debug/autopilot';
+import { TRAFFIC } from '../../src/config/gameplay';
 import type { WorldCore, WorldManifest, WorldChunk } from '../../src/world/schema';
 
 const script = (t: number): TickInput => ({ ...NO_INPUT, accel: true, steer: t % 600 < 50 ? 0.2 : 0, brake: t % 900 > 860, flyPress: t === 400 || t === 1300 });
@@ -83,7 +84,7 @@ describe.skipIf(!existsSync(base + 'core.json'))('P04 repeated traversal on the 
       }
       counts.push({ actors: s.traffic.actors.length, peds: s.traffic.peds.length, chunks: w.loadedChunkIds.length });
     }
-    for (const c of counts) { expect(c.actors).toBeLessThanOrEqual(24); expect(c.peds).toBeLessThanOrEqual(12); expect(c.chunks).toBeLessThan(m.chunks.length); }
+    for (const c of counts) { expect(c.actors).toBeLessThanOrEqual(TRAFFIC.maxActors + TRAFFIC.maxConflictEvents * 6); expect(c.peds).toBeLessThanOrEqual(TRAFFIC.maxPedestrians); expect(c.chunks).toBeLessThan(m.chunks.length); }
     const firstHalf = Math.max(...counts.slice(0, 5).map((c) => c.chunks)), secondHalf = Math.max(...counts.slice(5).map((c) => c.chunks));
     expect(secondHalf).toBeLessThanOrEqual(firstHalf + 6); // no steady growth
   }, 300_000);

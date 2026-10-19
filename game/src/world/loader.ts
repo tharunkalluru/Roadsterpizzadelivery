@@ -1,4 +1,5 @@
 import type { WorldCore, WorldChunk, WorldManifest } from './schema';
+import { SourceAccuracyLayer, type SourceAccuracyData, type SourcePlaceListingIndex } from './sourceAccuracy';
 
 export const WORLD_BASE = './world/hyd-uppal-tarnaka/v1/';
 export const WORLD_BASE_V2 = './world/hyd-metro/v2/';
@@ -21,6 +22,8 @@ export class LoadError extends Error {
 export class WorldLoader {
   manifest: WorldManifest | null = null;
   integrityChecked = false;
+  accuracy: SourceAccuracyLayer | null = null;
+  listingIndex: SourcePlaceListingIndex | null = null;
   failChunkIds = new Set<string>(); // debug: simulate failures
   delayMs = 0; // debug: simulate slow network
 
@@ -60,7 +63,15 @@ export class WorldLoader {
   async loadCore(signal: AbortSignal): Promise<WorldCore> {
     const m = this.manifest!;
     const text = await this.verified(m.core.file, m.core.sha256, signal);
-    return JSON.parse(text) as WorldCore;
+    const core = JSON.parse(text) as WorldCore;
+    if (!m.sourceAccuracy) return core;
+    const data = JSON.parse(await this.verified(m.sourceAccuracy.file, m.sourceAccuracy.sha256, signal)) as SourceAccuracyData;
+    if (data.worldId !== m.worldId || data.worldVersion !== m.version || data.coreSha256 !== m.core.sha256) throw new LoadError('Source accuracy data does not match this map', 'source-accuracy.json package mismatch', false);
+    const digestInput = m.chunks.slice().sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0).map(c=>`${c.id}:${c.sha256}`).join('\n');
+    const chunkDigest = await sha256Hex(new TextEncoder().encode(digestInput).buffer as ArrayBuffer);
+    if (chunkDigest !== null && chunkDigest !== data.chunkDigest) throw new LoadError('Source accuracy data does not match these buildings', 'source-accuracy.json chunk digest mismatch', false);
+    this.accuracy = new SourceAccuracyLayer(data);
+    return this.accuracy.applyCore(core);
   }
 
   async loadChunk(id: string, signal: AbortSignal): Promise<WorldChunk> {
@@ -68,6 +79,17 @@ export class WorldLoader {
     if (!ref) throw new LoadError('Unknown area', id, false);
     if (this.failChunkIds.has(id)) throw new LoadError('Could not download road data', `${id}: simulated failure`);
     const text = await this.verified(ref.file, ref.sha256, signal);
-    return JSON.parse(text) as WorldChunk;
+    const chunk = JSON.parse(text) as WorldChunk;
+    return this.accuracy ? this.accuracy.applyChunk(chunk) : chunk;
+  }
+
+  /** Full-area source listing points, fetched independently of visible3D chunks. */
+  async loadPlaceListings(signal: AbortSignal): Promise<SourcePlaceListingIndex | null> {
+    if (this.listingIndex) return this.listingIndex;
+    const m=this.manifest!,ref=m.listingIndex;
+    if (!ref) return null;
+    const data=JSON.parse(await this.verified(ref.file,ref.sha256,signal)) as SourcePlaceListingIndex;
+    if(data.version!==1 || data.worldId!==m.worldId || data.worldVersion!==m.version || data.count!==data.places?.length)throw new LoadError('Place listing data does not match this map','listings.json package mismatch',false);
+    this.listingIndex=data;return data;
   }
 }

@@ -1,0 +1,387 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-reverse-opposite-midblock-20261019-handoff",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Handoff batch preserved in the permitted task workspace and ready for the existing Roadster importer. After the revision-92 station-end batch, Chrome inspected the Jan 2025 reverse corridor sequence from panos 102 through 88, using northwest-facing views plus direct cross-median angles (224/270 degrees) where useful. Candidate facades/signs are TYAANI (pano 102), ORRA (pano 100), KUMON (pano 99), NAUGHTY KODI across the median (pano 93), and an unresolved koshki/koskii text at a brick frontage (panos 89/88). MicroCare E.N.T. Hospital is recorded as healthcare/non-retail; LEADS PACE and GOWRI boards are advertisements, not storefronts. Several other facades are foliage/traffic-obscured. Camera locations are approximate evidence anchors only. Store order, exact doors/bounds/floors, canonical road side, measured route and full frontage coverage remain unresolved. No storefront overrides or road reviews are included. The resume pointer is the next known January 2025 chain pano (087); it is not a claim that the intervening corridor is verified.",
+  "sources": [
+    {
+      "id": "sv-mp-reverse-opposite-pano102-heading44-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 102 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=C_o7SNbmVZNkNZeHSUKgJw&heading=44&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4309728,
+        "lon": 78.4079808,
+        "panoId": "C_o7SNbmVZNkNZeHSUKgJw",
+        "headingDeg": 44
+      },
+      "notes": "Direct facade angle across the raised median. TYAANI is legible on the white facade; TITAN EYE+ appears behind foliage in the same commercial block. A GOWRI panel is on the rail and is treated as advertising, not an extra shop.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano101-heading44-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 101 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=yr7lgU4O5gsNyXQmKSBMNw&heading=44&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4310257,
+        "lon": 78.407903,
+        "panoId": "yr7lgU4O5gsNyXQmKSBMNw",
+        "headingDeg": 44
+      },
+      "notes": "Direct angle across the raised median to a retail block with partial ROOTS and TITAN/TITAN EYE+ lettering. Trees, people and overlays obscure the internal unit boundaries; no new storefront identity is asserted from this frame.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano100-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 100 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=T9ruiFJ4fKMbopS2VF7oEg&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.431083,
+        "lon": 78.4078143,
+        "panoId": "T9ruiFJ4fKMbopS2VF7oEg",
+        "headingDeg": 314
+      },
+      "notes": "Reverse-facing road view toward Madhapur. ORRA lettering is visible on a glass-fronted commercial block at image-right. Camera point is not an entrance; unit and canonical side remain unknown.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano099-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 099 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=sM0KRA-XPwcQ7XvTmuEtrw&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4311415,
+        "lon": 78.4077252,
+        "panoId": "sM0KRA-XPwcQ7XvTmuEtrw",
+        "headingDeg": 314
+      },
+      "notes": "Reverse-facing view. KUMON lettering is visible on an upper part of a roadside commercial building at image-right; floor and exact tenancy/entrance are not established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano098-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 098 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=-RPCEXoWZKbHw9dCrXxCBA&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4311931,
+        "lon": 78.4076489,
+        "panoId": "-RPCEXoWZKbHw9dCrXxCBA",
+        "headingDeg": 314
+      },
+      "notes": "Reverse-facing Road No. 36 view. Trees, traffic and distance obscure the image-right frontage; no additional business name is transcribed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano097-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 097 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=vOg-QKE1P4Gtkxfis-fekw&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4312437,
+        "lon": 78.4075757,
+        "panoId": "vOg-QKE1P4Gtkxfis-fekw",
+        "headingDeg": 314
+      },
+      "notes": "Reverse-facing view. LEADS PACE banner spans the Metro structure above the road; it is advertising, not a storefront. Nearby shop fronts remain too distant/obscured for identities.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano096-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 096 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=o5nJGSlobQlK5SX4fKzclw&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4313119,
+        "lon": 78.4074811,
+        "panoId": "o5nJGSlobQlK5SX4fKzclw",
+        "headingDeg": 314
+      },
+      "notes": "Reverse-facing view of the same overhead LEADS PACE advertising span and Road No. 36. The banner is not counted as a storefront; no continuous frontage inventory is inferred.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano095-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 095 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=eIWd8nMj_hsekgWQYUAcIw&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4313732,
+        "lon": 78.407401,
+        "panoId": "eIWd8nMj_hsekgWQYUAcIw",
+        "headingDeg": 314
+      },
+      "notes": "Reverse-facing view under the LEADS PACE bridge banner. The opposite/median-side building facades and near-side blue hoarding are partially blocked; no additional storefront identity is confidently legible.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano094-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 094 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Cji3DLXVIOZmyTsOkcOvIA&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4314375,
+        "lon": 78.4073225,
+        "panoId": "Cji3DLXVIOZmyTsOkcOvIA",
+        "headingDeg": 314
+      },
+      "notes": "Reverse-facing view shows E.N.T. HOSPITAL signage on a blue wall/hoarding at image-right. This is recorded as a healthcare-facility sign, not a retail shop; exact facility entrance and boundary are unknown.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano093-heading224-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 093 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Gdy3mM6gjmTlhM13S395uQ&heading=224&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4314977,
+        "lon": 78.4072553,
+        "panoId": "Gdy3mM6gjmTlhM13S395uQ",
+        "headingDeg": 224
+      },
+      "notes": "Cross-median direct view of the far-side commercial facade. NAUGHTY KODI lettering is legible on the dark building behind the planted median. No door, unit boundary, canonical road side or verified route alignment is established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano092-heading224-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 092 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=8xN6rfuYavntafW4kMzNuA&heading=224&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4315705,
+        "lon": 78.4071948,
+        "panoId": "8xN6rfuYavntafW4kMzNuA",
+        "headingDeg": 224
+      },
+      "notes": "Cross-median view of the same broad retail area; palm trees, median planting and roadside panels obscure most fasciae. No additional business identity is transcribed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano091-heading224-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 091 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=S-SCHixzT1274ee1XuNyfA&heading=224&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4316531,
+        "lon": 78.4071477,
+        "panoId": "S-SCHixzT1274ee1XuNyfA",
+        "headingDeg": 224
+      },
+      "notes": "Cross-median view of a commercial block with several partly legible upper signs, including text that may read ZONAH/NEPTUNE. Identity is unresolved; no business is added from this view.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano090-heading224-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 090 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=b9WMqNjSVAI6AGBslr4NIw&heading=224&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4317457,
+        "lon": 78.4071162,
+        "panoId": "b9WMqNjSVAI6AGBslr4NIw",
+        "headingDeg": 224
+      },
+      "notes": "Cross-median view of a flag-decorated arch/roadside structure and adjacent clinic frontage. Advertising and decoration do not establish additional storefronts; business text is not confidently legible.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano089-heading270-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 089 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=f3OCwLg9p9cNIQ6S5r16gQ&heading=270&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4318366,
+        "lon": 78.407099,
+        "panoId": "f3OCwLg9p9cNIQ6S5r16gQ",
+        "headingDeg": 270
+      },
+      "notes": "Direct facade angle across the planted median. A lowercase sign on the brick frontage appears to read koshki/koskii; spelling and business identity remain unresolved. The red upper band reads MicroCare E.N.T. Hospital, a healthcare facility rather than a shop.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-opposite-pano088-heading224-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 reverse/cross-median view \u2014 pano 088 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=JWaN1cdt8s-uYPfLjv14Mw&heading=224&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4319332,
+        "lon": 78.4070916,
+        "panoId": "JWaN1cdt8s-uYPfLjv14Mw",
+        "headingDeg": 224
+      },
+      "notes": "Overlapping cross-median view of the same brick commercial/medical block. The koshki/koskii lettering and MicroCare E.N.T. Hospital band recur; this corroborates one candidate frontage and is not a second shop.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-mp-reverse-tyaani-sign-candidate-20261019",
+      "sourceIds": [
+        "sv-mp-reverse-opposite-pano102-heading44-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "TYAANI facade candidate near Peddamma station end",
+      "notes": "At pano C_o7SNbmVZNkNZeHSUKgJw, 17.4309728,78.4079808, January 2025, direct heading 44-degree angle across the planted median, TYAANI lettering appears on a white commercial facade. Camera location is only an approximate evidence anchor. Exact entrance, frontage boundary, floor, canonical side, current tenancy and route alignment remain unresolved.",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4309728,
+        "lon": 78.4079808,
+        "headingDeg": 44
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "obs-mp-reverse-orra-sign-candidate-20261019",
+      "sourceIds": [
+        "sv-mp-reverse-opposite-pano100-heading314-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "ORRA facade candidate near Peddamma station end",
+      "notes": "At pano T9ruiFJ4fKMbopS2VF7oEg, 17.431083,78.4078143, January 2025, heading 314 degrees toward Madhapur, ORRA lettering is visible on a glass-fronted commercial block at image-right. Treat this as one identity candidate; no exact door, unit boundary, floor, canonical side or relation to the game road geometry is established.",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.431083,
+        "lon": 78.4078143,
+        "headingDeg": 314
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "obs-mp-reverse-kumon-sign-candidate-20261019",
+      "sourceIds": [
+        "sv-mp-reverse-opposite-pano099-heading314-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "KUMON sign candidate near Peddamma station end",
+      "notes": "At pano sM0KRA-XPwcQ7XvTmuEtrw, 17.4311415,78.4077252, January 2025, heading 314 degrees toward Madhapur, KUMON lettering is visible on an upper part of a commercial building at image-right. This is not a verified street-level shop entrance; floor, business unit, canonical side and route alignment remain unknown.",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4311415,
+        "lon": 78.4077252,
+        "headingDeg": 314
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "obs-mp-reverse-naughty-kodi-facade-candidate-20261019",
+      "sourceIds": [
+        "sv-mp-reverse-opposite-pano093-heading224-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "NAUGHTY KODI facade candidate across the median",
+      "notes": "At pano Gdy3mM6gjmTlhM13S395uQ, 17.4314977,78.4072553, January 2025, heading 224 degrees, the far-side dark commercial facade across the planted median carries legible NAUGHTY KODI lettering. The camera is not an entrance; exact storefront boundary, floor, canonical game side and route match remain unresolved.",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4314977,
+        "lon": 78.4072553,
+        "headingDeg": 224
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "obs-mp-reverse-koshki-text-unresolved-20261019",
+      "sourceIds": [
+        "sv-mp-reverse-opposite-pano089-heading270-20261019",
+        "sv-mp-reverse-opposite-pano088-heading224-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "Unresolved lowercase facade text appearing as koshki/koskii",
+      "notes": "At panos f3OCwLg9p9cNIQ6S5r16gQ and JWaN1cdt8s-uYPfLjv14Mw, January 2025, direct/cross-median views show a lowercase word on a brick commercial facade that appears to read koshki or koskii. The spelling and business identity are not settled; the overlapping images refer to one possible frontage, not two shops. Entrance, boundaries, floor and canonical side remain unknown.",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4318366,
+        "lon": 78.407099,
+        "headingDeg": 270
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "obs-mp-reverse-microcare-ent-hospital-sign-20261019",
+      "sourceIds": [
+        "sv-mp-reverse-opposite-pano089-heading270-20261019",
+        "sv-mp-reverse-opposite-pano088-heading224-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "MicroCare E.N.T. Hospital sign on a non-retail frontage",
+      "notes": "The red upper band visible at panos f3OCwLg9p9cNIQ6S5r16gQ and JWaN1cdt8s-uYPfLjv14Mw reads MicroCare E.N.T. Hospital. This is a healthcare-facility/non-shop frontage hint, not an extra storefront. Exact entrance, building boundary and side assignment are unverified.",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4318366,
+        "lon": 78.407099,
+        "headingDeg": 270
+      },
+      "placementStatus": "pending"
+    }
+  ],
+  "resumePointer": {
+    "panoId": "QC01fA7OL2u_Ge6R1VmEWw",
+    "lat": 17.4320234,
+    "lon": 78.4070951,
+    "captureDate": "2025-01",
+    "headingDeg": 224,
+    "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=QC01fA7OL2u_Ge6R1VmEWw&heading=224&pitch=0&fov=85",
+    "note": "Next known January 2025 chain panorama after inspected pano 088; continue northwest from the Peddamma end toward Madhapur. This pointer does not establish metric continuity or frontage coverage."
+  }
+}

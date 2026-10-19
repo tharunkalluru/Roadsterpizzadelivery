@@ -13,3 +13,8 @@ export function project(lat: number, lon: number): [number, number] {
   const z = -((lat - WORLD_ORIGIN.lat) * Math.PI / 180) * M;
   return [x, z];
 }
+
+/** Exact inverse of the package projection, used for street-reference links citywide. */
+export function unproject(x: number, z: number): [number, number] {
+  return [WORLD_ORIGIN.lat - z / M * 180 / Math.PI, WORLD_ORIGIN.lon + x / (Math.cos(phi) * N) * 180 / Math.PI];
+}

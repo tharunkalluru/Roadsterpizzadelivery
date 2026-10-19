@@ -12,8 +12,8 @@ import type { MissionDef, Outcome, ResultSummary } from './types';
 export let WORLD_VERSION_KEY = 'hyd-uppal-tarnaka@v1';
 /** set from the loaded world manifest so records/checkpoints never mix world versions */
 export function setWorldVersionKey(k: string) { WORLD_VERSION_KEY = k; }
-export const BUILD_VERSION = '0.1.0';
-export const CHECKPOINT_SCHEMA = 1;
+export const BUILD_VERSION = '0.2.0';
+export const CHECKPOINT_SCHEMA = 2;
 
 function pointInPoly(x: number, z: number, poly: Vec2[]): boolean {
   let inside = false;
@@ -46,9 +46,11 @@ export class Session {
   elapsedTicks = 0;
   penaltyTicks = 0;
   cargo = 100;
+  cargoLoaded = false;
   stopIndex = 0;
   holdTicks = 0;
   holdActive = false;
+  canInteract = false;
   private holdArmed = true;
   outcome: Outcome | null = null;
   recoveries = 0;
@@ -75,18 +77,20 @@ export class Session {
   /** active scenario encounters (bounded: at most TRAFFIC.maxConflictEvents) */
   encounters: { id: string; kind: 'queue'; edge: string; untilTick: number; why: string }[] = [];
   nextEncounterTick = 20 * SIM_HZ;
+  readonly initialAnchor: Anchor;
+  private trafficPrepared = false;
 
-  constructor(public world: WorldPhysics, public mission: MissionDef, opts: { runId?: string; seed?: number; trafficEnabled?: boolean } = {}) {
+  constructor(public world: WorldPhysics, public mission: MissionDef, opts: { runId?: string; seed?: number; trafficEnabled?: boolean; spawn?: { x: number; z: number; heading: number; roadId: string } } = {}) {
     this.runId = opts.runId ?? `run_${mission.id}_${Date.now().toString(36)}_${Math.floor(Math.random() * 1e6).toString(36)}`;
     this.rng = new RngStreams(opts.seed ?? mission.seed);
-    this.player = new Player(world, new FlightLedger(mission.flightSeconds));
+    this.player = new Player(world, new FlightLedger(mission.flightSeconds, 0, FLIGHT.initialChargeSeconds));
     this.traffic = new TrafficSystem(world, this.rng.traffic);
     this.traffic.density = mission.traffic === 'light' ? 0.5 : mission.traffic === 'busy' ? 1.0 : 0.75;
     if (opts.trafficEnabled === false) this.traffic.density = 0;
     this.player.dyn = this.traffic;
     const pickup = this.delivery(mission.pickupId);
-    const start = this.stagingPose(pickup);
-    this.player.place(start.x, start.z, start.heading, pickup.roadId);
+    this.initialAnchor = opts.spawn ? { ...opts.spawn, tick: 0 } : this.pickupApproachSpawn(pickup);
+    this.player.place(this.initialAnchor.x, this.initialAnchor.z, this.initialAnchor.heading, this.initialAnchor.roadId);
     this.reroute();
   }
 
@@ -97,7 +101,34 @@ export class Session {
   }
 
   get currentStop(): DeliveryLocation | null {
+    if (!this.cargoLoaded) return this.delivery(this.mission.pickupId);
     return this.stopIndex < this.mission.stops.length ? this.delivery(this.mission.stops[this.stopIndex]) : null;
+  }
+
+  get deliveryStage(): 'PICKUP' | 'DELIVERY' | 'COMPLETE' { return this.outcome?.success ? 'COMPLETE' : this.cargoLoaded ? 'DELIVERY' : 'PICKUP'; }
+  get actionLabel(): string { return this.cargoLoaded ? 'HAND OVER' : 'COLLECT PIZZA'; }
+
+  /** Walk backwards over connected directed edges, so acceptance starts a real pickup journey. */
+  private pickupApproachSpawn(pickup: DeliveryLocation): Anchor {
+    let edgeId = pickup.approachEdges.find((id) => this.world.nav.inCore(id)) ?? pickup.approachEdges[0];
+    const first = this.world.nav.edges.get(edgeId);
+    if (!first) { const p = this.stagingPose(pickup); return { ...p, roadId: pickup.roadId, tick: 0 }; }
+    let along = this.stopAlong(pickup, edgeId), remaining = 180;
+    const visited = new Set<string>();
+    while (remaining > along - 5) {
+      remaining -= Math.max(0, along - 5);
+      visited.add(edgeId);
+      const edge = this.world.nav.edges.get(edgeId)!;
+      const prior = [...this.world.nav.edges.values()].filter((e) => e.next.includes(edgeId) && !visited.has(e.id) && e.roadId !== edge.roadId && this.world.nav.inCore(e.id)).sort((a, b) => b.lengthM - a.lengthM || (a.id < b.id ? -1 : 1))[0];
+      if (!prior) { along = 5; remaining = 0; break; }
+      edgeId = prior.id; along = prior.lengthM;
+    }
+    along = Math.max(3, along - remaining);
+    const p = this.world.nav.pointOnDirected(edgeId, along);
+    const road = this.world.roads.roads.get(this.world.nav.edges.get(edgeId)!.roadId)!;
+    const [fx, fz] = [-Math.sin(p.heading), -Math.cos(p.heading)];
+    const lateral = -Math.min(road.widthM / 4, Math.max(0, road.widthM / 2 - 1.3));
+    return { x: p.x - fz * lateral, z: p.z + fx * lateral, heading: p.heading, roadId: road.id, tick: 0 };
   }
 
   /** staging pose: on the approach carriageway at the pickup's curb entrance, facing travel */
@@ -114,9 +145,19 @@ export class Session {
 
   start(): void {
     if (this.phase !== 'READY') return;
+    this.prepareTraffic();
     this.phase = 'PLAYING';
-    this.traffic.spawnAround(this.player.x, this.player.z, this.player.heading);
-    this.notify('Parcel collected. Go!', 'good');
+    this.notify(`Order accepted. Drive to ${this.delivery(this.mission.pickupId).label} and collect your pizza.`, 'good');
+  }
+
+  /** Called after start-area collision chunks load, before the ready/countdown scene renders. */
+  prepareTraffic(): void {
+    if(this.trafficPrepared || this.phase!=='READY')return;
+    this.trafficPrepared=true;
+    const stop=this.currentStop;
+    this.traffic.reserved=stop?[{x:stop.entrance[0],z:stop.entrance[1],r:12}]:[];
+    this.traffic.prewarmAround(this.player);
+    this.traffic.spawnAround(this.player.x,this.player.z,this.player.heading);
   }
 
   notify(text: string, kind: SessionNotice['kind'] = 'info') {
@@ -143,13 +184,18 @@ export class Session {
     return e.forward ? along : e.lengthM - along;
   }
 
-  reroute(): void {
+  reroute(trafficOnly=false): void {
     const stop = this.currentStop;
     const p = this.player;
     if (!stop || !p.surface) { this.route = []; return; }
     const d = this.world.nav.directedFor(p.surface, p.heading);
     const passed = stop.approachEdges.includes(d.id) && d.along > this.stopAlong(stop, d.id) + 8;
-    const r = this.world.nav.route(d.id, stop.approachEdges, d.along, passed);
+    const delays=this.traffic.delayFactors();
+    const r = this.world.nav.route(d.id, stop.approachEdges, d.along, passed,delays);
+    if(trafficOnly){
+      if(!r||this.route[this.routeIdx]!==d.id||r.costM>=this.world.nav.pathCost(this.route.slice(this.routeIdx),d.along,delays)*.85)return;
+      this.log('reroute:traffic');
+    }
     if (r) { this.route = r.path; this.routeIdx = 0; this.routeAlong = d.along; }
     else if (!this.route.length || this.world.nav.inCore(d.id)) this.route = [];
     // on a boundary road with no route back: keep the last route so guidance points to the return
@@ -186,6 +232,7 @@ export class Session {
     this.traffic.step({ x: p.x, z: p.z, y: p.y, speed: p.speed, heading: p.heading, airborne: p.isAirborne });
     if (this.tick % 30 === 0) this.traffic.spawnAround(p.x, p.z, p.heading);
     this.scheduleEncounters();
+    if(this.tick%(10*SIM_HZ)===0&&!p.isAirborne&&!this.holdActive)this.reroute(true);
 
     // consequences of player events
     let criticalThisTick = false;
@@ -219,6 +266,7 @@ export class Session {
     // delivery hold (mission trigger)
     let delivered = false;
     this.holdHint = null;
+    this.canInteract = false;
     if (stop && !criticalThisTick) {
       const inside = pointInPoly(p.x, p.z, stop.stopPolygon);
       if (!inside) { this.holdActive = false; this.holdTicks = 0; this.holdArmed = true; }
@@ -227,11 +275,16 @@ export class Session {
         const levelOk = p.level === stop.level;
         const dir = s ? this.world.nav.directedFor(s, p.heading) : null;
         const approachOk = (dir && stop.approachEdges.includes(dir.id)) || Math.abs(wrapAngle(p.heading - stop.facingHeading)) < Math.PI / 3;
-        if (!grounded) this.holdHint = p.isAirborne ? 'Land on the road to deliver' : 'Confirming landing…';
+        const verb = this.cargoLoaded ? 'hand over pizza' : 'collect pizza';
+        if (!grounded) this.holdHint = p.isAirborne ? `Land on the road to ${verb}` : 'Confirming landing…';
         else if (!levelOk) this.holdHint = 'Wrong road level for this entrance';
         else if (!approachOk) this.holdHint = 'Wrong side — approach from the marked direction';
-        else if (!this.holdActive && this.holdArmed && Math.abs(p.speed) < MISSION.holdSpeed) { this.holdActive = true; this.holdTicks = 0; }
-        else if (!this.holdActive) this.holdHint = 'Stop here to deliver';
+        else if (Math.abs(p.speed) >= MISSION.holdSpeed) this.holdHint = `Stop here to ${verb}`;
+        else {
+          this.canInteract = !this.holdActive;
+          if (!this.holdActive) this.holdHint = `Press E or tap ${this.actionLabel} to ${verb}`;
+          if (!this.holdActive && this.holdArmed && input.interactPress) { this.holdActive = true; this.holdTicks = 0; }
+        }
         if (this.holdActive) {
           if (!grounded || !levelOk || !approachOk) { this.holdActive = false; this.holdTicks = 0; }
           else if (Math.abs(p.speed) < MISSION.holdSpeed) { this.holdTicks++; if (this.holdTicks >= MISSION.holdTicks) delivered = true; }
@@ -243,11 +296,18 @@ export class Session {
     // outcome — critical contact > success > deadline/cargo
     if (this.cargo <= this.mission.cargo.failThreshold) { this.end({ success: false, reason: 'Cargo damaged beyond delivery', code: 'cargo' }); return; }
     if (delivered && !criticalThisTick && this.chargedTicks <= this.deadlineTicks) {
-      this.log(`delivered ${stop!.id}`);
       this.holdActive = false; this.holdTicks = 0;
-      this.stopIndex++;
-      if (this.stopIndex >= this.mission.stops.length) { this.end({ success: true, reason: 'Delivered' }); return; }
-      this.notify(`Stop ${this.stopIndex} delivered. Next: ${this.currentStop!.label}`, 'good');
+      if (!this.cargoLoaded) {
+        this.cargoLoaded = true;
+        this.log(`collected ${stop!.id}`);
+        this.notify(`Pizza collected. Deliver to ${this.currentStop!.label}.`, 'good');
+      } else {
+        this.log(`delivered ${stop!.id}`);
+        this.stopIndex++;
+        if (this.stopIndex >= this.mission.stops.length) { this.end({ success: true, reason: 'Delivered' }); return; }
+        this.notify(`Pizza handed over. Next: ${this.currentStop!.label}`, 'good');
+      }
+      this.holdArmed = true;
       this.reroute();
     }
     if (this.chargedTicks > this.deadlineTicks) { this.end({ success: false, reason: 'Time ran out before delivery.', code: 'deadline' }); return; }
@@ -269,6 +329,9 @@ export class Session {
     const ahead = this.world.nav.advance(this.route[this.routeIdx], this.routeAlong, r.range(160, 260), this.route);
     const e = this.world.nav.edges.get(ahead.id)!;
     const road = this.world.roads.roads.get(e.roadId)!;
+    // A looping return route can be 200 m away along the graph but only 20 m away in the
+    // visible street. Repeatedly queueing that point creates a permanent, visible traffic trap.
+    if (Math.hypot(ahead.x - p.x, ahead.z - p.z) < Math.max(90, TRAFFIC.minSpawnDistance + 10)) return;
     if (!/^(trunk|primary|secondary|tertiary)/.test(road.highway) || ahead.along < 25) return;
     const stop = this.currentStop;
     if (stop && Math.hypot(stop.entrance[0] - ahead.x, stop.entrance[1] - ahead.z) < 60) return;
@@ -286,8 +349,8 @@ export class Session {
     const p = this.player;
     this.log(e.type + ('reason' in e ? `:${e.reason}` : ''));
     switch (e.type) {
-      case 'launch': this.notify(`Flight ${p.ledger.remainingSeconds.toFixed(1)} s left — use it together or in parts`, 'info'); break;
-      case 'launch_denied': this.lastDenial = e.reason; this.notify(e.reason === 'Flight power used' ? 'Flight power used. Keep driving.' : e.reason, 'warn'); break;
+      case 'launch': this.notify(`Boost ${p.ledger.remainingSeconds.toFixed(1)} s left — drive on the road to recharge`, 'info'); break;
+      case 'launch_denied': this.lastDenial = e.reason; this.notify(e.reason === 'Flight power used' ? 'Boost empty. Drive on the road to recharge.' : e.reason, 'warn'); break;
       case 'land_denied': this.notify(`Can't land here: ${e.reason}`, 'warn'); break;
       case 'descent': if (e.auto) this.notify('Landing soon', 'warn'); break;
       case 'takeoff_abort': this.notify(`Takeoff aborted: ${e.reason}`, 'warn'); break;
@@ -308,6 +371,7 @@ export class Session {
   }
 
   private applyCargo(base: number, reason: string) {
+    if (!this.cargoLoaded) return;
     const cost = Math.round(base * this.mission.cargo.fragility * 10) / 10;
     this.cargo = Math.max(0, Math.round((this.cargo - cost) * 10) / 10);
     this.penalties.push({ reason, seconds: 0, cargo: cost });
@@ -349,9 +413,7 @@ export class Session {
       const pedNear = this.traffic.peds.some((q) => Math.hypot(q.x - a.x, q.z - a.z) < 4);
       if (!pedNear && this.traffic.occupancy(a.x, a.z, 3) < 0.85 && !this.world.buildingAt(a.x, a.z)) return a;
     }
-    const d = this.delivery(this.mission.pickupId);
-    const s = this.stagingPose(d);
-    return { x: s.x, z: s.z, heading: s.heading, roadId: d.roadId, tick: 0 };
+    return this.initialAnchor;
   }
 
   /** manual stuck recovery (player request) */
@@ -440,7 +502,8 @@ export class Session {
       missionId: this.mission.id, runId: this.runId, seed: this.rng.seed, outcome: o,
       activeSeconds: this.elapsedTicks / SIM_HZ, penaltySeconds: this.penaltyTicks / SIM_HZ, chargedSeconds: charged,
       deadlineSeconds: this.mission.deadlineSeconds, cargo: this.cargo, routeDistanceM: Math.round(this.distanceTravelled),
-      flightInitialSeconds: l.allocationSeconds, flightUsedSeconds: l.consumedSeconds, flightLeftSeconds: l.remainingSeconds,
+      flightInitialSeconds: l.initialChargeTicks / SIM_HZ, flightUsedSeconds: l.consumedSeconds, flightLeftSeconds: l.remainingSeconds,
+      flightEarnedSeconds: l.earnedTicks / SIM_HZ, flightCapacitySeconds: l.allocationSeconds,
       launches: l.launches, recoveries: this.recoveries, penalties: this.penalties.slice(), score, scoreBreakdown: breakdown,
       resumed: this.resumed, debugUsed: this.debugUsed,
       comparableKey: `${this.mission.id}@v${this.mission.version}|${WORLD_VERSION_KEY}|seed:${this.rng.seed}|traffic:${this.mission.traffic}`,
@@ -453,8 +516,9 @@ export class Session {
       schema: CHECKPOINT_SCHEMA, build: BUILD_VERSION, world: WORLD_VERSION_KEY,
       missionId: this.mission.id, missionVersion: this.mission.version, runId: this.runId,
       tick: this.tick, elapsedTicks: this.elapsedTicks, penaltyTicks: this.penaltyTicks, cargo: this.cargo,
-      stopIndex: this.stopIndex, recoveries: this.recoveries, penalties: this.penalties, anchors: this.anchors,
+      stopIndex: this.stopIndex, cargoLoaded: this.cargoLoaded, recoveries: this.recoveries, penalties: this.penalties, anchors: this.anchors,
       distance: this.distanceTravelled, player: this.player.snapshot() as PlayerSnapshot,
+      initialAnchor: this.initialAnchor,
       rng: this.rng.snapshot(), traffic: this.traffic.snapshot(), phase: this.phase === 'RECOVERING' ? 'PLAYING' : this.phase,
       encounters: this.encounters, nextEncounterTick: this.nextEncounterTick, seed: this.rng.seed,
       pendingRecovery: this.pendingRecovery,
@@ -468,11 +532,16 @@ export class Session {
     // validate the ledger against the advertised contract (a save can never grant fuel)
     const l = cp.player?.ledger;
     const initial = mission.flightSeconds * SIM_HZ;
-    if (!l || l.allocationSeconds !== mission.flightSeconds || !Number.isInteger(l.consumed) || l.consumed < 0 || l.consumed > initial) throw new Error('Incompatible checkpoint: flight ledger does not match the contract');
-    if (![cp.elapsedTicks, cp.penaltyTicks, cp.cargo, cp.stopIndex].every((v) => typeof v === 'number' && isFinite(v) && v >= 0) || cp.stopIndex > mission.stops.length) throw new Error('Incompatible checkpoint: invalid mission ledger');
-    const s = new Session(world, mission, { runId: cp.runId, seed: cp.seed ?? mission.seed });
+    if (!l || l.allocationSeconds !== mission.flightSeconds || l.initialChargeTicks !== Math.round(FLIGHT.initialChargeSeconds * SIM_HZ) || l.initialChargeTicks > initial) throw new Error('Incompatible checkpoint: flight ledger does not match the contract');
+    try { FlightLedger.restore(l); } catch { throw new Error('Incompatible checkpoint: invalid flight ledger'); }
+    if (![cp.tick, cp.elapsedTicks, cp.penaltyTicks, cp.stopIndex].every((v) => Number.isInteger(v) && v >= 0) || !Number.isFinite(cp.cargo) || cp.cargo < 0 || cp.cargo > 100 || cp.stopIndex > mission.stops.length || typeof cp.cargoLoaded !== 'boolean') throw new Error('Incompatible checkpoint: invalid mission ledger');
+    const start = cp.initialAnchor;
+    if (!start || ![start.x, start.z, start.heading].every(Number.isFinite) || !start.roadId || !world.roads.roads.has(start.roadId)) throw new Error('Incompatible checkpoint: invalid start location');
+    const s = new Session(world, mission, { runId: cp.runId, seed: cp.seed ?? mission.seed, spawn: { x: start.x, z: start.z, heading: start.heading, roadId: start.roadId } });
     s.tick = cp.tick; s.elapsedTicks = cp.elapsedTicks; s.penaltyTicks = cp.penaltyTicks; s.cargo = cp.cargo;
     s.stopIndex = cp.stopIndex; s.recoveries = cp.recoveries; s.penalties = cp.penalties.slice(); s.anchors = cp.anchors.slice();
+    s.cargoLoaded = cp.cargoLoaded === true;
+    if (!s.cargoLoaded && s.stopIndex > 0) throw new Error('Incompatible checkpoint: missing pizza pickup');
     s.distanceTravelled = cp.distance;
     s.rng.restore(cp.rng);
     if (Array.isArray(cp.encounters)) s.encounters = cp.encounters.map((e: any) => ({ ...e }));
@@ -484,7 +553,7 @@ export class Session {
       // documented ground-recovery path: terminate airborne state, keep consumed ticks, no crash penalty
       const a = s.anchors.length ? s.anchors[s.anchors.length - 1] : null;
       if (a) s.player.recoverTo(a);
-      else { const d = s.delivery(mission.pickupId); const st = s.stagingPose(d); s.player.recoverTo({ x: st.x, z: st.z, heading: st.heading, roadId: d.roadId }); }
+      else s.player.recoverTo(s.initialAnchor);
     }
     s.phase = cp.pendingRecovery ? 'RECOVERING' : 'PLAYING';
     s.pendingRecovery = cp.pendingRecovery;

@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-reverse-station-end-20261019-handoff",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Handoff batch preserved in the permitted task workspace because the Roadster checkout is read-only in this executor. It records only directly observed, reverse-facing Jan 2025 Street View hints near the Peddamma station end. Chrome was navigated from saved station anchor Pqjbe5ufI1UnA2ijOlIgzQ at 17.4306678,78.4084665, heading 250, to connected northwest panos 4JWkzALLpn0fi4rueUsGfw and xuFpgnReEew3d9c9wM1WEA. Reverse-angle frames include a possible Goyathi Reddy fascia and a clear TITAN EYE+ facade; GOWRI lettering at pano U66cZrZoKeT_dQZ9Z5g_lg is on a stair/fence advertising panel and is not added as a storefront. Camera coordinates are evidence anchors, not shop doors. Canonical road side, route match, store order, frontage bounds, entrances, floors, and measured route distance remain unverified. No storefront overrides or road reviews are included. This file is a handoff artifact only; it has not been imported into the project ledger.",
+  "sources": [
+    {
+      "id": "sv-mp-reverse-station-pano106-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 station-end reverse view \u2014 pano 106 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=xuFpgnReEew3d9c9wM1WEA&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.43077,
+        "lon": 78.4083065,
+        "panoId": "xuFpgnReEew3d9c9wM1WEA",
+        "headingDeg": 314
+      },
+      "notes": "Direct reverse-facing Chrome view at heading 314 degrees, toward Madhapur. Image-right shows an orange retail frontage with a fascia that appears to read GOYATHI REDDY; exact spelling/business identity is provisional. The camera is not the entrance. Facade bounds, floor, canonical road side and relation to the provisional ground-road corridor are unresolved.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-station-pano105-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 station-end reverse view \u2014 pano 105 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=U66cZrZoKeT_dQZ9Z5g_lg&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4308203,
+        "lon": 78.4082274,
+        "panoId": "U66cZrZoKeT_dQZ9Z5g_lg",
+        "headingDeg": 314
+      },
+      "notes": "Direct reverse-facing Chrome view. GOWRI/GOWRI SIGNATURES lettering appears on a low stair/fence panel; treated as advertising rather than a separate storefront. This angle does not establish a new entrance, unit boundary or shop placement.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-station-pano104-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 station-end reverse view \u2014 pano 104 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=hnqQUbVV88RDk8v8Hy7YrA&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4308747,
+        "lon": 78.4081396,
+        "panoId": "hnqQUbVV88RDk8v8Hy7YrA",
+        "headingDeg": 314
+      },
+      "notes": "Direct reverse-facing Chrome view of the station-end frontage. A large TITAN EYE+ sign is visible above a glass-fronted commercial facade on image-right while facing northwest. Exact unit entrance, bounds, floor and canonical road side are not established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-reverse-station-pano103-heading314-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 station-end reverse view \u2014 pano 103 \u2014 January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=RdMFbMjVqk1Hywq2hmI15w&heading=314&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4309245,
+        "lon": 78.4080595,
+        "panoId": "RdMFbMjVqk1Hywq2hmI15w",
+        "headingDeg": 314
+      },
+      "notes": "Direct reverse-facing Chrome view repeats the TITAN EYE+ fascia in the image-right commercial frontage. The overlapping camera views support one candidate identity, not two shops. Exact unit bounds, entrance, floor, canonical side, current tenancy, mapped storefront and route alignment remain unresolved.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-mp-reverse-station-goyathi-reddy-candidate-20261019",
+      "sourceIds": [
+        "sv-mp-reverse-station-pano106-heading314-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "Possible GOYATHI REDDY fascia near Peddamma station end",
+      "notes": "At pano xuFpgnReEew3d9c9wM1WEA, 17.43077,78.4083065, January 2025, heading 314 degrees toward Madhapur, an orange retail facade on image-right carries lettering that appears to read GOYATHI REDDY. Treat the transcription as provisional. This is a camera-point candidate only: no entrance, exact facade bounds, floor, canonical road side, current tenancy, mapped storefront or route alignment is established.",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.43077,
+        "lon": 78.4083065,
+        "headingDeg": 314
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "obs-mp-reverse-station-titan-eye-fascia-candidate-20261019",
+      "sourceIds": [
+        "sv-mp-reverse-station-pano104-heading314-20261019",
+        "sv-mp-reverse-station-pano103-heading314-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "TITAN EYE+ facade candidate near Peddamma station end",
+      "notes": "The January 2025 reverse-facing views at panos hnqQUbVV88RDk8v8Hy7YrA (17.4308747,78.4081396) and RdMFbMjVqk1Hywq2hmI15w (17.4309245,78.4080595), heading 314 degrees toward Madhapur, show a large TITAN EYE+ sign above a glass-fronted commercial facade on image-right. These overlapping camera views suggest one frontage candidate, not two shops. The cameras are not entrances; exact unit bounds, floor, canonical side, current tenancy, mapped storefront and route alignment remain unresolved.",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4308747,
+        "lon": 78.4081396,
+        "headingDeg": 314
+      },
+      "placementStatus": "pending"
+    }
+  ],
+  "resumePointer": {
+    "panoId": "xuFpgnReEew3d9c9wM1WEA",
+    "lat": 17.43077,
+    "lon": 78.4083065,
+    "captureDate": "2025-01",
+    "headingDeg": 314,
+    "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=xuFpgnReEew3d9c9wM1WEA&heading=314&pitch=0&fov=85",
+    "note": "Exact browser resume pointer at the station-end reverse view; continue northwest along the connected Road No. 36 chain toward Madhapur. This handoff does not establish continuity, frontage coverage or a route length."
+  }
+}

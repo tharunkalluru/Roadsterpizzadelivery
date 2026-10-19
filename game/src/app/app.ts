@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { FixedClock } from '../core/clock';
 import { WorldLoader, LoadError, WORLD_BASE_V2 } from '../world/loader';
 import { WorldPhysics } from '../world/collision';
-import type { WorldCore, WorldChunk, WorldManifest } from '../world/schema';
+import type { WorldCore, WorldChunk, WorldChunkV2, WorldManifest, RoadEdge, DirectedEdge } from '../world/schema';
 import { Session, BUILD_VERSION, setWorldVersionKey } from '../missions/session';
 import { buildLevelCatalog } from '../missions/levels';
 import { buildCatalog } from '../missions/catalog';
@@ -19,6 +19,14 @@ import { Tutorial } from '../ui/tutorial';
 import { SignalSystem } from '../traffic/signals';
 import { MISSION, SIM_HZ } from '../config/gameplay';
 import type { ArtApi, Quality } from '../art/api';
+import { loadStreetSurvey, type StreetSurvey } from '../world/streetSurvey';
+import { StreetAtlas } from '../ui/atlas';
+import { worldCompatibilityKey } from '../world/identity';
+import { attachTransport, type TransportData } from '../traffic/placements';
+import { attachPublicRealm, loadPublicRealm, mergePublicRealmData, publicRealmWithTransport } from '../world/publicRealm';
+import { attachLandscape, loadLandscape } from '../world/landscape';
+import { attachStationEntrances, loadStationEntrances } from '../world/stationEntrances';
+import { attachStationGeometry, loadStationGeometry } from '../world/stationGeometry';
 
 /** a practice run derived from the first level-1 contract (own allowance, no score) */
 function withPractice(ms: MissionDef[]): MissionDef[] {
@@ -54,6 +62,8 @@ export class App {
   hud: Hud;
   screens: Screens;
   map: MapView | null = null;
+  survey: StreetSurvey | null = null;
+  atlas: StreetAtlas | null = null;
   autopilot: Autopilot | null = null;
   debug = new URLSearchParams(location.search).has('debug');
   /** DEBUG ONLY: simulation advances only through debugAdvance() (software-GPU test harness) */
@@ -70,6 +80,7 @@ export class App {
   private checkpointTimer = 0;
   private streamTimer = 0;
   private menuTime = 0;
+  private ambienceTimer = 0;
   private lastResult: ResultSummary | null = null;
   quality: Quality = 'standard';
   private art: ArtApi | null = null;
@@ -92,7 +103,9 @@ export class App {
     this.input.sensitivity = s.sensitivity;
     this.audio.volumes = { music: s.musicVolume, sfx: s.sfxVolume, ui: s.uiVolume };
     this.audio.applyVolumes();
+    this.audio.setAmbience({timeOfDay:s.timeOfDay,weather:s.weather});
     if (this.view) this.view.reducedShake = s.reducedShake;
+    this.view?.setAtmosphere({timeOfDay:s.timeOfDay,weather:s.weather});
     this.hud.setHandedness(s.handedness);
     this.store.saveSettings(s);
   }
@@ -124,6 +137,7 @@ export class App {
       this.art = mod.art;
       this.view = new GameView(this.renderer, this.art);
       this.view.reducedShake = this.settings.reducedShake;
+      this.view.setAtmosphere({timeOfDay:this.settings.timeOfDay,weather:this.settings.weather});
       this.resize();
       this.screens.boot('Loading the Hyderabad metro network…');
       this.abort = new AbortController();
@@ -134,9 +148,38 @@ export class App {
         catch (e) { if ((e as Error).name === 'AbortError') throw e; this.loader = new WorldLoader(); this.manifest = null; }
       }
       if (!this.manifest) this.manifest = await this.loader.loadManifest(this.abort.signal);
-      setWorldVersionKey(`${this.manifest.worldId}@v${this.manifest.version}`);
       this.core = await this.loader.loadCore(this.abort.signal);
+      if (this.isNetwork()) {
+        this.screens.boot('Applying researched street records…');
+        this.survey = await loadStreetSurvey(this.core, './research/street-survey.json', this.abort.signal);
+        this.core = this.survey.applyCoreCorrections(this.core);
+      }
+      const streetscape = await mod.loadStreetscape('./research/streetscape.json', this.abort.signal);
+      let transport: TransportData | null = null;
+      let publicRealm = null;
+      let landscape = null;
+      let stationEntrances = null;
+      let stationGeometry = null;
+      let observedPublicRealm = null;
+      let scenarioPublicRealm = null;
+      if (this.isNetwork()) {
+        const response = await fetch('./research/transport.json', { signal: this.abort.signal });
+        if (response.status !== 404) {
+          if (!response.ok) throw new Error(`Transport data unavailable (${response.status})`);
+          transport = await response.json() as TransportData;
+          this.core = attachTransport(this.core, transport);
+        }
+        [landscape, stationEntrances,stationGeometry] = await Promise.all([loadLandscape('./research/landscape.json',this.abort.signal),loadStationEntrances('./research/station-entrances.json',this.abort.signal),loadStationGeometry('./research/station-geometry.json',this.abort.signal)]);
+        if (landscape) attachLandscape(this.core, landscape);
+        if (stationEntrances) this.core = attachStationEntrances(this.core, stationEntrances);
+        if (stationGeometry) this.core = attachStationGeometry(this.core, stationGeometry);
+        [publicRealm, observedPublicRealm, scenarioPublicRealm] = await Promise.all([loadPublicRealm('./research/public-realm.json',this.abort.signal),loadPublicRealm('./research/observed-public-realm.json',this.abort.signal),loadPublicRealm('./research/scenario-public-realm.json',this.abort.signal)]);
+        attachPublicRealm(this.core, publicRealmWithTransport(this.core, mergePublicRealmData(publicRealm, observedPublicRealm, scenarioPublicRealm)));
+      }
+      setWorldVersionKey(worldCompatibilityKey(this.manifest,this.isNetwork()?this.survey?.data.revision??null:null,streetscape,{transport,publicRealm,observedPublicRealm,scenarioPublicRealm,landscape,stationEntrances,stationGeometry}));
+      if (streetscape) (this.core as WorldCore & { streetscape: typeof streetscape }).streetscape = streetscape;
       this.world = new WorldPhysics(this.core, this.manifest.chunkSizeM);
+      if (streetscape) this.world.addRoadBarriers(mod.streetscapeBarriers(streetscape, this.core));
       this.world.setKnownChunks(this.manifest.chunks.map((c) => c.id));
       // station stairs/escalators: same footprints for visuals and collision (G04, S02)
       const so = (mod as any).stationObstacles as undefined | ((c: WorldCore) => { id: string; poly: [number, number][]; bottom: number; top: number }[]);
@@ -149,7 +192,16 @@ export class App {
       await this.view.buildStatic(this.core, this.quality, (s) => this.screens.boot(s));
       this.screens.boot('Loading materials');
       await mod.texturesReady();
-      this.map = new MapView(this.core, this.world);
+      this.map = new MapView(this.core, this.world, this.survey);
+      this.map.setChunkSource(this.manifest.chunks,this.manifest.chunkSizeM,async(id,signal)=>{
+        const raw=await this.loader.loadChunk(id,signal);
+        const chunk=this.survey?this.survey.applyChunk(raw):raw;
+        return {...chunk,storefronts:(chunk as WorldChunkV2).storefronts??[]};
+      });
+      this.screens.boot('Loading places across Hyderabad…');
+      const listings=await this.loader.loadPlaceListings(this.abort.signal);
+      if(listings)this.map.setListings(listings);
+      this.atlas = new StreetAtlas(this);
       this.view.buildSignals(new SignalSystem(this.world), this.world);
     } catch (e) {
       this.handleLoadError(e, () => this.boot());
@@ -201,7 +253,7 @@ export class App {
   }
 
   /** start a mission: LOADING → READY (countdown) → PLAYING; cancels all previous run state (U12) */
-  async startMission(m: MissionDef, opts: { seed?: number; checkpoint?: any } = {}) {
+  async startMission(m: MissionDef, opts: { seed?: number; checkpoint?: any; spawn?: { x:number; z:number; heading:number; roadId:string } } = {}) {
     this.cancelRun();
     this.audio.start();
     this.state = 'LOADING';
@@ -213,7 +265,7 @@ export class App {
       if (opts.checkpoint) {
         s = Session.fromCheckpoint(this.world!, m, opts.checkpoint);
       } else {
-        s = new Session(this.world!, m, { seed: opts.seed ?? m.seed });
+        s = new Session(this.world!, m, { seed: opts.seed ?? m.seed, spawn: opts.spawn });
       }
       s.debugUsed = this.debug && !!this.autopilot;
       // preload everything around the start (and the destination) before the clock exists
@@ -228,6 +280,7 @@ export class App {
       }));
       if (abort.signal.aborted) return;
       this.screens.loading(m, 'Warming up graphics', 1);
+      s.prepareTraffic();
       this.session = s;
       this.tutorial = m.practice && !this.autopilot ? new Tutorial() : null;
       this.view.resetCamera();
@@ -267,6 +320,8 @@ export class App {
     this.input.enabled = false;
     this.input.clearAll();
     this.audio.setDriving(false, 0, 0);
+    this.audio.setAmbience({timeOfDay:this.settings.timeOfDay,weather:this.settings.weather,traffic:.35,metro:0});
+    this.ambienceTimer=0;
     this.pauseReason = null;
   }
 
@@ -288,6 +343,33 @@ export class App {
   }
 
   openMap() { this.pause('map'); }
+
+  openStreetAtlas() { this.atlas?.open(); }
+
+  async exploreRoad(road: RoadEdge) {
+    const initialEdge = this.core!.directed.find(e => e.roadId === road.id && this.world!.nav.inCore(e.id));
+    if (!initialEdge) { this.screens.message('Outside the connected driving area', 'This street is visible on the map but is not yet connected to a delivery route.', () => this.openStreetAtlas()); return; }
+    let edge:DirectedEdge=initialEdge;
+    const fronts=this.survey?.data.storefrontOverrides.filter(s=>s.roadId===road.id)??[];
+    // Approach researched fronts from upstream so they are visible ahead of the car.
+    let along=fronts.length?Math.min(...fronts.map(s=>edge!.forward?s.alongRoadM:edge!.lengthM-s.alongRoadM))-35:edge.lengthM*.5;
+    for(let guard=0;along<0&&guard<8;guard++){
+      const heading:number=this.world!.nav.pointOnDirected(edge.id,0).heading;
+      const previous:{edge:DirectedEdge;turn:number}|undefined=this.core!.directed.filter(e=>e.roadId!==edge.roadId&&e.next.includes(edge.id)&&this.world!.nav.inCore(e.id)).map(e=>({edge:e,turn:Math.abs(Math.atan2(Math.sin(this.world!.nav.pointOnDirected(e.id,e.lengthM).heading-heading),Math.cos(this.world!.nav.pointOnDirected(e.id,e.lengthM).heading-heading)))})).sort((a,b)=>a.turn-b.turn)[0];
+      if(!previous||previous.turn>Math.PI/3)break;
+      edge=previous.edge;along+=edge.lengthM;
+    }
+    const p = this.world!.nav.pointOnDirected(edge.id,Math.max(2,Math.min(edge.lengthM-2,along)));
+    const spawnRoad=this.core!.roads.find(r=>r.id===edge!.roadId)!;
+    const fx=-Math.sin(p.heading),fz=-Math.cos(p.heading),lateral=-Math.max(.6,spawnRoad.widthM*.23);
+    const spawn={x:p.x-fz*lateral,z:p.z+fx*lateral,heading:p.heading,roadId:spawnRoad.id};
+    const candidates=this.missions.filter(m=>!m.practice).sort((a,b)=>{
+      const pa=this.core!.deliveries.find(d=>d.id===a.pickupId)!,pb=this.core!.deliveries.find(d=>d.id===b.pickupId)!;
+      return Math.hypot(pa.entrance[0]-p.x,pa.entrance[1]-p.z)-Math.hypot(pb.entrance[0]-p.x,pb.entrance[1]-p.z);
+    });
+    const base=candidates[0];if(!base)return;
+    await this.startMission({...base,id:'street-explore',title:road.name??'Explore Hyderabad',practice:true,deadlineSeconds:3600,traffic:'busy',brief:'Explore the streets, collect pizza at the restaurant and try rechargeable flight. Practice is not scored.'},{spawn});
+  }
 
   resume() {
     if (this.state !== 'PAUSED' || !this.session) return;
@@ -386,13 +468,18 @@ export class App {
       if (this.chunkLoading.has(id)) { while (this.chunkLoading.has(id)) await new Promise((r) => setTimeout(r, 30)); c = this.chunkCache.get(id); }
       else {
         this.chunkLoading.add(id);
-        try { c = await this.loader.loadChunk(id, signal); this.chunkCache.set(id, c); }
+        try {
+          const raw = await this.loader.loadChunk(id, signal);
+          c = this.survey ? this.survey.applyChunk(raw) : raw;
+          this.chunkCache.set(id, c);
+        }
         finally { this.chunkLoading.delete(id); }
       }
     }
     if (!c || signal.aborted) return;
     // register collision and visuals together (no visible building without its collider)
     this.world!.addChunk(c);
+    this.map?.addChunk({ ...c, storefronts: (c as WorldChunkV2).storefronts ?? [] });
     // D12: footprints conflicting with the carriageway are omitted from render and collision alike
     const dropped = new Set(c.buildings.filter((b) => b.intrudesCarriageway).map((b) => b.id));
     const sf = (c as any).storefronts as { buildingId: string | null }[] | undefined;
@@ -420,7 +507,7 @@ export class App {
     // unload far chunks (reference: visuals and colliders together)
     const keep = new Set(this.chunksAround(p.x, p.z, lookR + 250));
     if (stop) for (const id of this.chunksAround(stop.entrance[0], stop.entrance[1], 120)) keep.add(id);
-    for (const id of this.view.chunkIds) if (!keep.has(id)) { this.view.removeChunk(id); this.world!.removeChunk(id); }
+    for (const id of this.view.chunkIds) if (!keep.has(id)) { this.view.removeChunk(id); this.world!.removeChunk(id); this.map?.removeChunk(id); }
     if (this.chunkCache.size > 120) for (const id of [...this.chunkCache.keys()]) if (!keep.has(id) && this.chunkCache.size > 80) this.chunkCache.delete(id);
   }
 
@@ -439,6 +526,7 @@ export class App {
     requestAnimationFrame((tt) => this.frame(tt));
     const dt = this.lastTime ? (t - this.lastTime) / 1000 : 0;
     this.lastTime = t;
+    if (this.atlas?.isOpen) return;
     if (this.state === 'CONTEXT_LOST' || !this.view) return;
     if (dt > 0) { this.frameTimes.push(dt * 1000); if (this.frameTimes.length > 600) this.frameTimes.shift(); }
     const s = this.session;
@@ -493,6 +581,12 @@ export class App {
     this.view.update(s, this.world!, alpha, dt);
     this.view.render();
     this.hud.update(s, dt, this);
+    this.ambienceTimer+=dt;
+    if(this.ambienceTimer>.4){
+      this.ambienceTimer=0;
+      const traffic=s.traffic.actors.reduce((gain,a)=>gain+Math.max(0,1-Math.hypot(a.x-s.player.x,a.z-s.player.z)/100)*.09,0);
+      this.audio.setAmbience({timeOfDay:this.settings.timeOfDay,weather:this.settings.weather,traffic:Math.min(1,traffic),metro:this.view.metroAmbience});
+    }
     if (this.state === 'PLAYING' || this.state === 'RECOVERING') this.audio.setDriving(true, s.player.speed, s.player.isAirborne ? 1 : 0);
     if (this.debug) this.hud.debugText(this.debugInfo());
   }

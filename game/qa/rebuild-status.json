@@ -1,0 +1,2302 @@
+{
+  "schemaVersion": 3,
+  "date": "2026-10-18",
+  "state": "tested_section_checkpoint_rebuild_in_progress",
+  "requestedReconstructionComplete": false,
+  "primaryRequirement": "Recognizable real streets and actual ordered shop fronts across the entire playable map.",
+  "surveyRevision": 47,
+  "surveySummary": {
+    "schemaVersion": 1,
+    "revision": 47,
+    "worldId": "hyd-metro",
+    "worldVersion": "2.0.0",
+    "generatedAt": "2026-10-18",
+    "totalRoads": 10276,
+    "totalSides": 20552,
+    "verifiedSides": 0,
+    "partialSides": 59,
+    "unreviewedSides": 20493,
+    "unavailableSides": 0,
+    "needsRevisitSides": 0,
+    "verifiedStorefronts": 0,
+    "provisionalStorefronts": 159,
+    "positionedStorefronts": 159,
+    "evidenceObservations": 273,
+    "totalRoadLengthM": 654208.67,
+    "reviewedSideLengthM": 3457.793,
+    "visuallyInventoriedSides": 19,
+    "visuallyInventoriedSideLengthM": 1552.751,
+    "visualInventoryPercent": 0.119,
+    "verifiedSideLengthM": 0,
+    "coveragePercent": 0
+  },
+  "profileCount": 42,
+  "newFrontSignRecordsSinceRevision32": 70,
+  "verification": {
+    "newUnitTestsRun": false,
+    "newUnitPassed": null,
+    "unitSuiteScope": "None required for pending-only data; no repeated45tests. Source validation, deterministic network and work-queue reproduction passed.",
+    "sourceChecks": {
+      "surveyValidate": "passed",
+      "networkReproduction": "passed",
+      "queueReproduction": "passed",
+      "all1646BaseChunkHashes": "passed",
+      "scope": "Existing source/geometry validators only; zero strict verification"
+    },
+    "build": {
+      "date": "2026-10-18",
+      "surveyRevision": 47,
+      "build": "passed",
+      "typecheck": "passed",
+      "buildWallSeconds": 1.185,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "872de368fbff00b7bc4fbc23f294c54008eea2974f5c5bc4a5554ae19a6d828a",
+      "assets": [
+        "art-BXavBK1a.js",
+        "index-ClbuWotN.css",
+        "index-DtSifVGn.js"
+      ],
+      "serviceWorkerCache": "hmd-shell-0.2.0-map47-street-context-sign-text",
+      "runtimeUnchangedSince42": true,
+      "productionResearchBytesMatch": true,
+      "physicalParity": "Full staged1,646-chunk/80,125-component audit retained; pending observations only, no new building profiles, access plans or world geometry.",
+      "strictMetricVerification": 0
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "surveyRevision": 47,
+      "url": "http://127.0.0.1:4173/?unlock",
+      "result": "passed",
+      "checks": {
+        "newTridentObservationSearchable": true,
+        "leftPartial": true,
+        "rightUnreviewed": true,
+        "placementPending": true,
+        "12SourceReferences": true,
+        "noConsoleWarningsErrors": true
+      },
+      "screenshot": "/Users/tharun/Documents/Codex/2026-10-17/referenced-chatgpt-conversation-this-is-an/outputs/rebuild-raidurg-trident-atlas-checkpoint.png",
+      "screenshotSha256": "4abfdf9c04ee1b937f613a7e30999349a244045a91070d24e3e5a61386837103",
+      "sameAXAndScreenshotBytesSaved": true,
+      "knownResearchLinkLimitation": "Primary Street View link uses first batch source rather than nearest source to selected13m segment; observed link opens the bus-shelter source about370m earlier. Queued for a separate runtime fix after frozen data checkpoints.",
+      "scope": "Atlas observations only; no new rendered storefront, driving, delivery, flight, collision or facade ray certification."
+    },
+    "currentFullRouteSweepRun": false,
+    "newManualDrivingRun": false,
+    "newFacadePixelCertification": false,
+    "newRuntimeOrPhysicalChanges": false,
+    "knownResearchLinkLimitation": "Primary Street View link uses first batch source rather than nearest source to selected13m segment; observed link opens the bus-shelter source about370m earlier. Queued for a separate runtime fix after frozen data checkpoints."
+  },
+  "historicalVerificationRevision32": {
+    "unitPassed": 239,
+    "unitFailed": 0,
+    "unitSkipped": 2,
+    "routeCount": 40,
+    "routeOutcomes": {
+      "Delivered": 40
+    },
+    "routeRecoveries": 25,
+    "routeRunsWithoutRecovery": 26,
+    "routeMinimumDeadlineMarginPercent": 37.3,
+    "routeMinimumCargoPercent": 68,
+    "authored": {
+      "revision": 32,
+      "storefronts": 89,
+      "corrections": 33,
+      "barriers": 4,
+      "stationObstacles": 6679,
+      "structureObstacles": 438,
+      "basementPits": 4,
+      "profileAccessPlanSha256": "aa4304c098f7ce60372c3dc295fe45fcd5871d04359cdc89fe5a3d280094fa52",
+      "physicsLayoutVersion": "safe-footprints-station-envelopes-basement-pits-v3",
+      "runtimeSourceSha256": "c4d670c9e529e6cb371267a4f319f43f0285d5cb7e1da3a8d9895a877d1719e4",
+      "inputs": {
+        "street-survey": {
+          "path": "public/research/street-survey.json",
+          "sha256": "957de14888aba89ccaa73c3499dfc65833fd4c210c3e8d0721a81557db0a1830"
+        },
+        "streetscape": {
+          "path": "public/research/streetscape.json",
+          "sha256": "49f12603e7d4b1ee648dbf8456d3d5cb76d9baa6ebdead2dcb4500991278c4e4"
+        },
+        "transport": {
+          "path": "public/research/transport.json",
+          "sha256": "06111d464e71fab08251b42369e4a760284fa3b606f53a4035ae3caa7fe8dcfc"
+        },
+        "public-realm": {
+          "path": "public/research/public-realm.json",
+          "sha256": "5e09c93e4850f00faf9cacf492907d99b9e8bb1fec8341582bdea7498a13baaa"
+        },
+        "observed-public-realm": {
+          "path": "public/research/observed-public-realm.json",
+          "sha256": "21a8043db9deb54aeaa38b2745c375662d760d3076e134196eb9978efecca3f5"
+        },
+        "scenario-public-realm": {
+          "path": "public/research/scenario-public-realm.json",
+          "sha256": "18cf7272a8f4eb203c54663015a7bf65d4102a20d0029bf5b1471a54ca5e5856"
+        },
+        "station-entrances": {
+          "path": "public/research/station-entrances.json",
+          "sha256": "25b517ee47869f5bd210383869f7c442b5251119d2032cc136360849a4a96fb3"
+        },
+        "station-geometry": {
+          "path": "public/research/station-geometry.json",
+          "sha256": "cd7abf2c5a2ef39d77e1fd459b44900af2062586ac6dae18e6657178b92e1de5"
+        },
+        "landscape": {
+          "path": "public/research/landscape.json",
+          "sha256": "2566fcd90c687817a6526d2e3b0e03a30097b18f8a7f18bb81051daef9a55602"
+        }
+      }
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "url": "http://127.0.0.1:4173/?unlock",
+      "productionAssets": [
+        "index-DbwVAIpp.js",
+        "art-BrOQc3Hm.js"
+      ],
+      "summary": "Final production build loads in Chrome with no captured warning/error entries. Atlas shows 89 researched front/sign records; the new hospital signs/screens and pink shop strip render on the matching road side. Manual Kukatpally acceptance, a 190 m approach, explicit collection and the loaded customer route were checked; one recovery was used. Earned boost, driving at 96 km/h, curb response, reload/continue with carried pizza, day/night/rain/headlights and the traffic/landscape map were checked. Full manual customer handover and phone performance were not established.",
+      "warningOrErrorEntries": [],
+      "screenshots": [
+        "rebuild-madhapur-hospital.png",
+        "rebuild-night-rain.png",
+        "rebuild-traffic-map.png",
+        "rebuild-pickup-ready.png",
+        "rebuild-pickup-collected.png"
+      ],
+      "settingsPreserved": {
+        "effectsVolume": 0,
+        "musicVolume": 0
+      }
+    },
+    "routeResults": [
+      {
+        "id": "l1_1_domino_s_pizza",
+        "level": 1,
+        "from": "Kukatpally",
+        "to": "Kukatpally",
+        "routeLengthM": 1390,
+        "deadlineS": 675,
+        "chargedS": 220.3,
+        "marginPct": 67.4,
+        "recoveries": 0,
+        "cargo": 100,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l1_2_domino_s_pizza_india",
+        "level": 1,
+        "from": "Paradise",
+        "to": "Paradise",
+        "routeLengthM": 797,
+        "deadlineS": 445,
+        "chargedS": 127.9,
+        "marginPct": 71.3,
+        "recoveries": 0,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l1_3_domino_s_pizza_lb_nagar_metro_station_hyderabad",
+        "level": 1,
+        "from": "L. B. Nagar",
+        "to": "L. B. Nagar",
+        "routeLengthM": 1294,
+        "deadlineS": 645,
+        "chargedS": 197.3,
+        "marginPct": 69.4,
+        "recoveries": 1,
+        "cargo": 90,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l1_4_domino_s_pizza_uppal_cross_road_hyderabad",
+        "level": 1,
+        "from": "Uppal",
+        "to": "Uppal",
+        "routeLengthM": 655,
+        "deadlineS": 400,
+        "chargedS": 212.8,
+        "marginPct": 46.8,
+        "recoveries": 0,
+        "cargo": 100,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l1_5_papa_john_s_pizza",
+        "level": 1,
+        "from": "Secunderabad West",
+        "to": "Secunderabad West",
+        "routeLengthM": 967,
+        "deadlineS": 500,
+        "chargedS": 217.8,
+        "marginPct": 56.4,
+        "recoveries": 0,
+        "cargo": 96,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l1_6_pizza_zone_subhash_bridge",
+        "level": 1,
+        "from": "Rasoolpura",
+        "to": "Rasoolpura",
+        "routeLengthM": 1027,
+        "deadlineS": 570,
+        "chargedS": 256.9,
+        "marginPct": 54.9,
+        "recoveries": 0,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l1_7_chaayos_cafe_at_rahejha_mindspace",
+        "level": 1,
+        "from": "Raidurg",
+        "to": "Raidurg",
+        "routeLengthM": 955,
+        "deadlineS": 515,
+        "chargedS": 181.2,
+        "marginPct": 64.8,
+        "recoveries": 0,
+        "cargo": 100,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l1_8_chicago_cafeteria",
+        "level": 1,
+        "from": "Rasoolpura",
+        "to": "Rasoolpura",
+        "routeLengthM": 1258,
+        "deadlineS": 620,
+        "chargedS": 194.8,
+        "marginPct": 68.6,
+        "recoveries": 1,
+        "cargo": 100,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l2_1_domino_s_pizza_india",
+        "level": 2,
+        "from": "Paradise",
+        "to": "Rasoolpura",
+        "routeLengthM": 2716,
+        "deadlineS": 1285,
+        "chargedS": 629.2,
+        "marginPct": 51,
+        "recoveries": 0,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l2_2_domino_s_pizza_lb_nagar_metro_station_hyderabad",
+        "level": 2,
+        "from": "L. B. Nagar",
+        "to": "Victoria Memorial",
+        "routeLengthM": 1904,
+        "deadlineS": 935,
+        "chargedS": 281.6,
+        "marginPct": 69.9,
+        "recoveries": 0,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l2_3_domino_s_pizza_uppal_cross_road_hyderabad",
+        "level": 2,
+        "from": "Uppal",
+        "to": "Stadium",
+        "routeLengthM": 2148,
+        "deadlineS": 1055,
+        "chargedS": 523.6,
+        "marginPct": 50.4,
+        "recoveries": 0,
+        "cargo": 100,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l2_4_papa_john_s_pizza",
+        "level": 2,
+        "from": "Secunderabad West",
+        "to": "Gandhi Hospital",
+        "routeLengthM": 1790,
+        "deadlineS": 885,
+        "chargedS": 346.2,
+        "marginPct": 60.9,
+        "recoveries": 0,
+        "cargo": 96,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l2_5_pizza_zone_subhash_bridge",
+        "level": 2,
+        "from": "Rasoolpura",
+        "to": "Prakash Nagar",
+        "routeLengthM": 1526,
+        "deadlineS": 770,
+        "chargedS": 337.9,
+        "marginPct": 56.1,
+        "recoveries": 0,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l2_6_domino_s_pizza",
+        "level": 2,
+        "from": "Kukatpally",
+        "to": "Balanagar",
+        "routeLengthM": 2211,
+        "deadlineS": 1050,
+        "chargedS": 417.4,
+        "marginPct": 60.2,
+        "recoveries": 0,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l2_7_hall_of_fame_sports_bar",
+        "level": 2,
+        "from": "Peddamma Gudi",
+        "to": "Madhapur",
+        "routeLengthM": 1771,
+        "deadlineS": 855,
+        "chargedS": 279.6,
+        "marginPct": 67.3,
+        "recoveries": 0,
+        "cargo": 100,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l2_8_hameedi_confectioners",
+        "level": 2,
+        "from": "Gandhi Bhavan",
+        "to": "Osmania Medical College",
+        "routeLengthM": 1882,
+        "deadlineS": 930,
+        "chargedS": 306.5,
+        "marginPct": 67,
+        "recoveries": 0,
+        "cargo": 84,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l3_1_domino_s_pizza_lb_nagar_metro_station_hyderabad",
+        "level": 3,
+        "from": "L. B. Nagar",
+        "to": "Dilsukh Nagar",
+        "routeLengthM": 4088,
+        "deadlineS": 1855,
+        "chargedS": 649.1,
+        "marginPct": 65,
+        "recoveries": 0,
+        "cargo": 94,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l3_2_domino_s_pizza_uppal_cross_road_hyderabad",
+        "level": 3,
+        "from": "Uppal",
+        "to": "NGRI",
+        "routeLengthM": 4000,
+        "deadlineS": 1895,
+        "chargedS": 768.4,
+        "marginPct": 59.5,
+        "recoveries": 0,
+        "cargo": 96,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l3_3_papa_john_s_pizza",
+        "level": 3,
+        "from": "Secunderabad West",
+        "to": "RTC Cross Roads",
+        "routeLengthM": 4100,
+        "deadlineS": 1865,
+        "chargedS": 845.4,
+        "marginPct": 54.7,
+        "recoveries": 6,
+        "cargo": 90,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l3_4_pizza_zone_subhash_bridge",
+        "level": 3,
+        "from": "Rasoolpura",
+        "to": "Begumpet",
+        "routeLengthM": 3825,
+        "deadlineS": 1780,
+        "chargedS": 769.5,
+        "marginPct": 56.8,
+        "recoveries": 0,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l3_5_domino_s_pizza",
+        "level": 3,
+        "from": "Kukatpally",
+        "to": "Bharat Nagar",
+        "routeLengthM": 4447,
+        "deadlineS": 2005,
+        "chargedS": 792.9,
+        "marginPct": 60.5,
+        "recoveries": 2,
+        "cargo": 94,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l3_6_domino_s_pizza_india",
+        "level": 3,
+        "from": "Paradise",
+        "to": "Begumpet",
+        "routeLengthM": 4791,
+        "deadlineS": 2195,
+        "chargedS": 1089.5,
+        "marginPct": 50.4,
+        "recoveries": 1,
+        "cargo": 68,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l3_7_kausar_cafe",
+        "level": 3,
+        "from": "Panjagutta",
+        "to": "Lakdi-ka-pul",
+        "routeLengthM": 3523,
+        "deadlineS": 1695,
+        "chargedS": 636.1,
+        "marginPct": 62.5,
+        "recoveries": 0,
+        "cargo": 94,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l3_8_kfc",
+        "level": 3,
+        "from": "JNTU College",
+        "to": "Kukatpally",
+        "routeLengthM": 3810,
+        "deadlineS": 1725,
+        "chargedS": 788.5,
+        "marginPct": 54.3,
+        "recoveries": 0,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l4_1_papa_john_s_pizza",
+        "level": 4,
+        "from": "Secunderabad West",
+        "to": "Tarnaka",
+        "routeLengthM": 4655,
+        "deadlineS": 2190,
+        "chargedS": 1050.1,
+        "marginPct": 52.1,
+        "recoveries": 3,
+        "cargo": 92,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l4_2_pizza_zone_subhash_bridge",
+        "level": 4,
+        "from": "Rasoolpura",
+        "to": "Gandhi Hospital",
+        "routeLengthM": 5028,
+        "deadlineS": 2315,
+        "chargedS": 752.5,
+        "marginPct": 67.5,
+        "recoveries": 0,
+        "cargo": 96,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l4_3_domino_s_pizza_india",
+        "level": 4,
+        "from": "Paradise",
+        "to": "Musheerabad",
+        "routeLengthM": 5334,
+        "deadlineS": 2495,
+        "chargedS": 821.1,
+        "marginPct": 67.1,
+        "recoveries": 0,
+        "cargo": 96,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l4_4_mayur_pan_house",
+        "level": 4,
+        "from": "New Market",
+        "to": "Chikkadpally",
+        "routeLengthM": 6627,
+        "deadlineS": 2970,
+        "chargedS": 1042.2,
+        "marginPct": 64.9,
+        "recoveries": 0,
+        "cargo": 96,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l4_5_melco_ice_cream_parlour",
+        "level": 4,
+        "from": "Yusufguda",
+        "to": "Panjagutta",
+        "routeLengthM": 4557,
+        "deadlineS": 2105,
+        "chargedS": 968.7,
+        "marginPct": 54,
+        "recoveries": 1,
+        "cargo": 78,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l4_6_mohammed_ibrahim_tea_point",
+        "level": 4,
+        "from": "Musheerabad",
+        "to": "Tarnaka",
+        "routeLengthM": 5010,
+        "deadlineS": 2340,
+        "chargedS": 1292.8,
+        "marginPct": 44.8,
+        "recoveries": 0,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l4_7_moksh_banquets",
+        "level": 4,
+        "from": "JBS",
+        "to": "Mettuguda",
+        "routeLengthM": 4558,
+        "deadlineS": 2195,
+        "chargedS": 1376.6,
+        "marginPct": 37.3,
+        "recoveries": 1,
+        "cargo": 96,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l4_8_patangg_vegetarian_delight",
+        "level": 4,
+        "from": "Narayanaguda",
+        "to": "Lakdi-ka-pul",
+        "routeLengthM": 5287,
+        "deadlineS": 2445,
+        "chargedS": 1265,
+        "marginPct": 48.3,
+        "recoveries": 1,
+        "cargo": 98,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l5_1_papa_john_s_pizza",
+        "level": 5,
+        "from": "Secunderabad West",
+        "to": "Irrum Manzil",
+        "routeLengthM": 8714,
+        "deadlineS": 3900,
+        "chargedS": 1636,
+        "marginPct": 58.1,
+        "recoveries": 0,
+        "cargo": 94,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l5_2_pizza_zone_subhash_bridge",
+        "level": 5,
+        "from": "Rasoolpura",
+        "to": "Erragadda",
+        "routeLengthM": 8146,
+        "deadlineS": 3690,
+        "chargedS": 1658.7,
+        "marginPct": 55.1,
+        "recoveries": 1,
+        "cargo": 88,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l5_3_domino_s_pizza_india",
+        "level": 5,
+        "from": "Paradise",
+        "to": "Lakdi-ka-pul",
+        "routeLengthM": 9115,
+        "deadlineS": 4080,
+        "chargedS": 1690.6,
+        "marginPct": 58.6,
+        "recoveries": 0,
+        "cargo": 94,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l5_4_snehitha_restaurant",
+        "level": 5,
+        "from": "RTC Cross Roads",
+        "to": "NGRI",
+        "routeLengthM": 8354,
+        "deadlineS": 3795,
+        "chargedS": 1581.6,
+        "marginPct": 58.3,
+        "recoveries": 3,
+        "cargo": 96,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l5_5_sri_sharmaji_pav_bhaji_center",
+        "level": 5,
+        "from": "Gandhi Bhavan",
+        "to": "Secunderabad West",
+        "routeLengthM": 8138,
+        "deadlineS": 3605,
+        "chargedS": 1347.7,
+        "marginPct": 62.6,
+        "recoveries": 1,
+        "cargo": 94,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l5_6_srikanya_comfort_restaurant",
+        "level": 5,
+        "from": "Panjagutta",
+        "to": "Peddamma Gudi",
+        "routeLengthM": 8168,
+        "deadlineS": 3665,
+        "chargedS": 1605.6,
+        "marginPct": 56.2,
+        "recoveries": 1,
+        "cargo": 80,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l5_7_subway",
+        "level": 5,
+        "from": "NGRI",
+        "to": "RTC Cross Roads",
+        "routeLengthM": 8631,
+        "deadlineS": 3855,
+        "chargedS": 1982.4,
+        "marginPct": 48.6,
+        "recoveries": 2,
+        "cargo": 94,
+        "outcome": "Delivered"
+      },
+      {
+        "id": "l5_8_ta_ma_sha",
+        "level": 5,
+        "from": "Madhapur",
+        "to": "S. R. Nagar",
+        "routeLengthM": 7984,
+        "deadlineS": 3625,
+        "chargedS": 1429.8,
+        "marginPct": 60.6,
+        "recoveries": 0,
+        "cargo": 86,
+        "outcome": "Delivered"
+      }
+    ]
+  },
+  "historicalVerificationNote": "Previous checks remain bound to their original revisions. Revision44 main plus image-caption amendments are unchanged. All40-delivery calibration is historical 32. No47unit suite, driving, new-front render, flight, delivery or facade-pixel certification was performed.",
+  "findings": [
+    {
+      "id": "01",
+      "finding": "Continuous real shop order",
+      "status": "partial",
+      "change": "159 provisional fronts and 42 profiles unchanged. Revision 47 records 444.68 m LEFT-only context on five connected roads, with twelve new November 2025 views, two reused46references and eleven pending observations. No new front, profile, suppression, RIGHT inventory or geometry.",
+      "remaining": "Exact full-map reconstruction remains unfinished. Shelter/TRIDENT/context placement, source bodies and public-access geometry are pending. Combined1,216.90m/52views have30second-pass issue groups, not shop units. No complete inventory or metric verification is added."
+    },
+    {
+      "id": "02",
+      "finding": "Shop identity, floor and entrance",
+      "status": "partial",
+      "change": "Separated observed businesses, repeated supplier/advertising boards, floors and basement sign-only records. Suppressed unsupported raw facade names inside fully inventoried intervals. The atlas now groups shop order by floor and swaps both sides/order when reversing direction.",
+      "remaining": "Source listings do not establish current tenancy or exact entrances; unknown and occluded units remain pending."
+    },
+    {
+      "id": "03",
+      "finding": "Missing building masses",
+      "status": "substantially corrected",
+      "change": "Restored 5,485 hidden parent buildings using road-safe clipped source geometry; rendered components and collision use the same outlines. Unsupported signs were not restored onto them. Bata now has three provisional authored fronts on a retained road-safe source face; its clipped alley strip remains omitted.",
+      "remaining": "13 consumed or unusable small outlines remain omitted. Clipped geometry is provisional, not an exact surveyed building boundary."
+    },
+    {
+      "id": "04",
+      "finding": "Road widths, lanes and medians",
+      "status": "partial",
+      "change": "Preserved source width, surface, speed and relative-layer ranges with provenance; conservative same-level road/building reconciliation.",
+      "remaining": "Only four road widths have explicit source evidence. No sourced lane counts; carriageways, service lanes and U-turn gaps still require street-level measurement."
+    },
+    {
+      "id": "05",
+      "finding": "Terrain, bridge height and road grade",
+      "status": "partial",
+      "change": "Kept ground/elevated collision separation and shared bridge barriers; corrected new concourse conflicts with elevated road clearances.",
+      "remaining": "10,134 road edges remain flat placeholders. Road grades, metric bridge elevations and hillside terrain are not measured."
+    },
+    {
+      "id": "06",
+      "finding": "Building scale and skyline",
+      "status": "partial",
+      "change": "Added two distinct researched building profiles and retained source/floor/satellite/class height provenance. Unmeasured height corrections no longer become verified.",
+      "remaining": "Most of 80,076 original buildings still use estimated heights and generic architecture. All height placements remain provisional."
+    },
+    {
+      "id": "07",
+      "finding": "Pavements and driveway transitions",
+      "status": "partial",
+      "change": "Shared physical surface patches, wheel-height sampling, furniture clearances and basement openings improve street-edge continuity.",
+      "remaining": "Most pavement widths, forecourts, curb breaks and driveway slopes remain authored defaults."
+    },
+    {
+      "id": "08",
+      "finding": "Basements and access",
+      "status": "corrected for authored openings",
+      "change": "Four existing basement openings now have actual ground voids, descending treads, lower floors, retaining walls and bounded building openings. Rendering, shadows and wheel support share the same pit plan.",
+      "remaining": "Their depth uses an explicit unmeasured six-riser estimate. Other photographed basements, slopes and door approaches remain incomplete."
+    },
+    {
+      "id": "09",
+      "finding": "Signals and junction layout",
+      "status": "partial",
+      "change": "Mapped source signals now activate 100 graph junctions after safe matching and existing manual corrections; explicit crossing tags control marking art.",
+      "remaining": "Source snapshot has 192 signal points but only 82 safe matches. Exact stop lines, lane channels and local phase plans remain unverified."
+    },
+    {
+      "id": "10",
+      "finding": "Junction behaviour",
+      "status": "corrected simulation",
+      "change": "Continuous turn paths, deterministic conflict reservations, protected crossing intervals, yielding and legitimate red-light waits replace unsafe forced-entry/recovery behaviour.",
+      "remaining": "Signal timings and movement permissions are authored and are not verified Hyderabad controller plans."
+    },
+    {
+      "id": "11",
+      "finding": "Traffic density and congestion",
+      "status": "partial",
+      "change": "Safer replenishment, source-speed caps, continuous turning and queue-aware routes improve moving traffic; actor startup and runtime use equivalent clearance safeguards.",
+      "remaining": "Local bounded simulation is not measured city demand or observed peak-hour fleet flow."
+    },
+    {
+      "id": "12",
+      "finding": "Bus routes and stops",
+      "status": "partial",
+      "change": "98 source stop points match roads; 87 can safely render. Buses use matched curb positions, dwell and merge with clearance. Shelters/benches appear only when supported by tags.",
+      "remaining": "Full route numbers, destinations, liveries, actual passenger demand and stop architecture are not reconstructed."
+    },
+    {
+      "id": "13",
+      "finding": "Auto ranks and parking",
+      "status": "partial",
+      "change": "Two source auto ranks and 213 source surface-parking placements now appear, with rank stopping/merge behaviour. Parking is shown without inventing occupancy.",
+      "remaining": "Persistent demand, loading activity, parked motorcycle rows and exact rank geometry remain unsurveyed."
+    },
+    {
+      "id": "14",
+      "finding": "Pedestrians and station access",
+      "status": "partial",
+      "change": "Pedestrians use mapped crossing candidates, signal-coordinated protection, footpath heights and furniture clearance; seven source station-entrance points are retained.",
+      "remaining": "A complete entrance-to-footpath-to-platform walking/boarding network is still missing. Entrance points do not establish stair dimensions."
+    },
+    {
+      "id": "15",
+      "finding": "Potholes and speed breakers",
+      "status": "implemented with source limits",
+      "change": "Four safely matched source traffic-calming patches and 36 shallow scenario potholes use shared visual/physical surface sampling. Scenario placement avoids arterial/elevated roads and pickup approaches.",
+      "remaining": "The 36 potholes are fictional game obstacles; 35 drain covers are fictional non-solid props. Neither documents current Hyderabad defects."
+    },
+    {
+      "id": "16",
+      "finding": "Runtime collision safety",
+      "status": "corrected simulation risks",
+      "change": "Runtime spawning checks full bodies, loaded geometry and braking room; NPC/player contacts sweep between poses; turns stop for player/pedestrian bodies and static obstacles.",
+      "remaining": "Automated checks do not prove every high-speed contact, traffic seed or manual route is flawless."
+    },
+    {
+      "id": "17",
+      "finding": "Traffic-aware navigation",
+      "status": "implemented for game traffic",
+      "change": "Map congestion is directional, remaining ETA respects source speeds, and routing re-evaluates queues every ten seconds with a 15% improvement threshold.",
+      "remaining": "This is nearby simulated traffic, not live Google Maps or Hyderabad traffic data."
+    },
+    {
+      "id": "18",
+      "finding": "Station and bridge identity",
+      "status": "partial",
+      "change": "Nine safely associated OSM station envelopes set horizontal dimensions. Rendering and collision share platforms, concourses, roof shells, stairs and supports; ground/flyover clearances are tested.",
+      "remaining": "48 stations retain generic envelopes. Nagole/MGBS irregular outlines remain explicit unapplied evidence. Roofs, vertical heights, interiors and exits are still authored."
+    },
+    {
+      "id": "19",
+      "finding": "Vendors and local activity",
+      "status": "partial",
+      "change": "Reconstructed the photographed Habsiguda pottery seller with ground pots/vessels/figurines and umbrella; suppressed invented carts in researched blocks.",
+      "remaining": "Other vendor types/positions mostly remain scenario content. This is not a full vendor survey."
+    },
+    {
+      "id": "20",
+      "finding": "Utilities, lights and drainage",
+      "status": "partial",
+      "change": "Added 366 source lamps, 12 mapped electrical-equipment placements and source trees; transformer/substation tags render equipment rather than invented tall poles.",
+      "remaining": "Cable spans, local pole types, drain locations and cover geometry need dated observation. Scenario drains are explicitly fictional."
+    },
+    {
+      "id": "21",
+      "finding": "Facades, signs and materials",
+      "status": "partial",
+      "change": "Added source-guided cream/blue-glass and gray/white frontage templates, pharmacy/glass bays, original cement/appliance/art/hardware/luggage display geometry, secondary boards and Xiaomi raised access. Pharmacy stock is sparse and glass remains predominant.",
+      "remaining": "Exact dimensions, logos, materials and most full-map architecture remain provisional. The merged Shoe Khazana/cream source boundary and broad Xiaomi basement forecourt remain unresolved. Food-court open canopy and low boundary are observed but its inherited7m placeholder body remains; no new enclosed facade is claimed."
+    },
+    {
+      "id": "22",
+      "finding": "Hoardings and unfinished construction",
+      "status": "partial",
+      "change": "Added the photographed green corrugated/maroon masonry boundary behind the Habsiguda pottery seller, retaining source notes and provisional dimensions.",
+      "remaining": "No citywide works/hoarding inventory or verified lane-closure/diversion network."
+    },
+    {
+      "id": "23",
+      "finding": "Landscape and neighbourhood identity",
+      "status": "partial",
+      "change": "Imported 881 source land-use and 32 water features, totalling 921 polygon parts; map and world render them. Added 564 safely placed source trees.",
+      "remaining": "Terrain/rock character and most distinctive compounds/landmarks remain generic. 38 nonpolygon water records (36 lines and two points) remain unapplied."
+    },
+    {
+      "id": "24",
+      "finding": "Street-user and fleet variety",
+      "status": "partial",
+      "change": "Added moving bicycles, articulated pedalling and rotating wheels, alongside existing cars, bikes, autos, buses and trucks.",
+      "remaining": "Fleet mix is authored; pedal rickshaws, commercial variants and local loading/passenger actions remain incomplete."
+    },
+    {
+      "id": "25",
+      "finding": "Metro operations and commuters",
+      "status": "partial",
+      "change": "Retained running trains/doors/dwell and connected sound to actual nearby train speed/distance. Source station envelopes/entrance evidence improve placement.",
+      "remaining": "150-second headway is authored, not an official per-line timetable. Boarding/alighting and street-to-platform passenger flow remain unfinished."
+    },
+    {
+      "id": "26",
+      "finding": "Sound, time and weather",
+      "status": "implemented atmosphere",
+      "change": "Added saved day/dusk/night and clear/rain settings, responsive lighting/exposure, wet roads, rain streaks, working headlights and original traffic/rain/rail ambience.",
+      "remaining": "No local voice recordings or multilingual announcements; authored atmosphere is not measured weather or acoustics."
+    },
+    {
+      "id": "27",
+      "finding": "Car and delivery realism",
+      "status": "retained and tested foundations",
+      "change": "Explicit acceptance, physical collection and separate handover remain; earned 2.5-second flight boosts per ten qualifying driving seconds, 120/150 km/h road/air tuning and deployable fictional thruster effects remain.",
+      "remaining": "Roadster appearance, real thruster sequence and real restaurant menus are not verified. Arcade vehicle fidelity still needs visual refinement."
+    }
+  ],
+  "historicalVerificationRevision39": {
+    "unitPassed": 250,
+    "unitFailed": 0,
+    "unitSkipped": 2,
+    "unitSuiteScope": "Current regression suite excluding missions-real, missions-v2 and replay; no current full-route completion claim.",
+    "unitReport": "qa/artifacts/unit/revision39-regressions.json",
+    "build": {
+      "date": "2026-10-18",
+      "surveyRevision": 39,
+      "build": "passed",
+      "typecheck": "passed",
+      "runtimeSourceSha256": "a1d0c1c7fee3bd668229fe3d687694b819719e6b65114362395c690a7ed75104",
+      "surveySha256": "5e266647deb4abbe10e6c7dbe236ad4e5d7b333497906e93d57a59d66e2bd34a",
+      "assets": [
+        "art-CgTv4g9E.js",
+        "fonts",
+        "index-ClbuWotN.css",
+        "index-DUINdz39.js",
+        "materials"
+      ],
+      "previewUrl": "http://127.0.0.1:4173/?unlock",
+      "serviceWorkerCache": "hmd-shell-0.2.0-map39-street-context",
+      "checks": {
+        "sourceReproduction": "passed: byte-identical layer/listings and frozen core/chunk hashes",
+        "baseWorldValidator": "passed: zero errors",
+        "warnings": [
+          "Existing raw core payload12.12MB exceeds6MB target;2.11MB gzip.",
+          "Strict metric street/shop verification remains zero."
+        ]
+      }
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "surveyRevision": 39,
+      "url": "http://127.0.0.1:4173/?unlock",
+      "productionAssets": [
+        "index-DUINdz39.js",
+        "art-CgTv4g9E.js",
+        "index-ClbuWotN.css"
+      ],
+      "atlasFrontCount": 116,
+      "streetId": "r_37185680086_0",
+      "location": "Cyber Towers\u2013Madhapur Main Road, Durgam Cheruvu/Madhapur",
+      "summary": "Production game loaded in Chrome. Atlas shows116 researched fronts. DSK/cement/Apollo/Balaji/Bosch ground-floor sequence and separate upper-floor lists checked; reverse direction swaps sides and reverses shop order. Started Drive this street, drove along sourced frontage, stopped and orbited camera. Revised pharmacy sparse stock/glass and gallery/appliance displays render. No captured browser warning/error entries. No full customer handover or complete current delivery-route sweep claimed.",
+      "warningOrErrorEntries": [],
+      "screenshots": [
+        "rebuild-madhapur-shop-checkpoint.png"
+      ],
+      "settingsPreserved": {
+        "productionObservedWeather": "rain",
+        "musicVolumeUnchanged": true,
+        "effectsVolumeUnchanged": true
+      },
+      "streetViewResearch": {
+        "operator": "one root Chrome operator",
+        "dateObserved": "2026-10-18",
+        "captureDate": "2026-04",
+        "referenceOnly": true,
+        "lastPano": "4DvZLySabvX-rpZODLbgmg",
+        "imageryUsedAsTexture": false
+      },
+      "workflow": "Reusable facade/display templates; batched structured signs with provisional position/floor/span; both immediate road sides reviewed at usable viewpoints; unclear parent boundaries and occluded units remain pending. Parallel source preparation and checking; serialized imports."
+    },
+    "currentFullRouteSweepRun": false,
+    "sourceValidation": "survey validation/reproduction and source checks passed; strict metric verification remains zero"
+  },
+  "section": {
+    "id": "raidurg-hitec-quickpass-2",
+    "phase": "first_pass_left_observation_only",
+    "roadSideRanges": [
+      {
+        "roadId": "r_27446356585_6",
+        "directedId": "r_27446356585_6:f",
+        "startM": 0,
+        "endM": 18.46,
+        "side": "left",
+        "status": "partial",
+        "allFrontagesRecorded": false
+      },
+      {
+        "roadId": "r_39977434396_0",
+        "directedId": "r_39977434396_0:f",
+        "startM": 0,
+        "endM": 384.42,
+        "side": "left",
+        "status": "partial",
+        "allFrontagesRecorded": false
+      },
+      {
+        "roadId": "r_39977434396_1",
+        "directedId": "r_39977434396_1:f",
+        "startM": 0,
+        "endM": 13.38,
+        "side": "left",
+        "status": "partial",
+        "allFrontagesRecorded": false
+      },
+      {
+        "roadId": "r_39977434396_2",
+        "directedId": "r_39977434396_2:f",
+        "startM": 0,
+        "endM": 12.48,
+        "side": "left",
+        "status": "partial",
+        "allFrontagesRecorded": false
+      },
+      {
+        "roadId": "r_24885139625_0",
+        "directedId": "r_24885139625_0:f",
+        "startM": 0,
+        "endM": 15.94,
+        "side": "left",
+        "status": "partial",
+        "allFrontagesRecorded": false
+      }
+    ],
+    "firstPassDistinctRouteM": 444.68,
+    "newFrontSignRecords": 0,
+    "newProfiles": 0,
+    "newSources": 12,
+    "newPendingObservations": 11,
+    "captureDateCounts": {
+      "2025-11": 12
+    },
+    "reused46ContextSources": 2,
+    "rawFacadeSuppressions": [],
+    "rightReviewed": false,
+    "newVisualInventoryM": 0,
+    "strictMetricVerifiedM": 0,
+    "readableFeatureGroups": [
+      {
+        "id": "47-tgiic-bus-shelter",
+        "name": "TGIIC - IALA BUS SHELTER - MADHAPUR",
+        "kind": "public_shelter_identity_board_not_tenant",
+        "side": "left",
+        "orderGroup": 1,
+        "approximateAlong": {
+          "roadId": "r_39977434396_0",
+          "startM": 0,
+          "endM": 60,
+          "uncertaintyM": 25,
+          "status": "broad_context_not_verified_shop_endpoints_or_door"
+        },
+        "relationToCorridor": "Green fascia on public bus shelter with benches/paving/green-white kerb near approximate41m new-section label. Exact transport record, shelter dimensions and surveyed placement remain unresolved. Not a commercial tenant.",
+        "occupancyStatus": "dated_public_sign_observed_current_condition_uncertified",
+        "sourceIds": [
+          "sv-raidurg-hitec2-041m-west-202511-20261018"
+        ]
+      },
+      {
+        "id": "47-trident-garden-credit",
+        "name": "GARDEN MAINTAINED BY TRIDENT",
+        "kind": "maintenance_credit_not_tenant",
+        "side": "left",
+        "orderGroup": 2,
+        "approximateAlong": {
+          "roadId": "r_39977434396_0",
+          "startM": 275,
+          "endM": 330,
+          "uncertaintyM": 25,
+          "status": "broad_context_not_verified_shop_endpoints_or_door"
+        },
+        "relationToCorridor": "Small board credits maintenance of the landscaped roadside garden. This alone does not establish the identity, occupancy or entrance of the glazed/clad building behind it. Approximate interval is context only, not a surveyed garden boundary.",
+        "occupancyStatus": "dated_maintenance_credit_observed_building_occupancy_unproved",
+        "sourceIds": [
+          "sv-raidurg-hitec2-320m-west-202511-20261018"
+        ]
+      },
+      {
+        "id": "47-trident-site-entrance",
+        "name": "TRIDENT",
+        "kind": "named_site_entrance_context_not_mapped_tenant",
+        "side": "left",
+        "orderGroup": 3,
+        "approximateAlong": {
+          "roadId": "r_39977434396_1",
+          "startM": 0,
+          "endM": 13.38,
+          "uncertaintyM": 25,
+          "status": "broad_context_not_verified_shop_endpoints_or_door"
+        },
+        "relationToCorridor": "Planted entrance monument reads TRIDENT between a large dark-clad/glazed body and an electrical yard. This supports named-site entrance context at this view, not the ownership or floor allocation of all earlier screened/open structural bodies. No source footprint, doorway, room or precise driveway geometry is assigned.",
+        "occupancyStatus": "dated_site_name_observed_current_operation_uncertified",
+        "sourceIds": [
+          "sv-raidurg-hitec2-408m-west-202511-20261018"
+        ]
+      }
+    ],
+    "featureGroupCountIsNotShopCount": true,
+    "unresolvedFramingKeys": [],
+    "unknownIssueGroups": 5,
+    "unknownShopUnitCount": null,
+    "captureWindowElapsedSeconds": 617.038,
+    "captureWindowBasis": "Actual saved screenshot timestamp window includes navigation, annotation, coordination and an intervening46build/atlas check. Excludes final import/build/reports; not exclusive labour or pure tool latency.",
+    "canonicalBatchContentSha256": "574a419f6af1f95ddd11bbe25d1b652b2ef791f41f007a3a06f9c4933fe7ea51",
+    "batchRawFileSha256": "7055a2b540d180312ec19e758891d6a72d10fe013bc25c31d62896587639c8b3",
+    "physicalGeometryChanges": false,
+    "runtimeChanges": false,
+    "combinedQuickpass": {
+      "file": "first-pass-coverage.json",
+      "sha256": "8fbaed1c3ff556e224a8b0c36214b1140af3191da9a56295ecd547afa2641a67",
+      "distinctLeftM": 1216.9,
+      "views": 52,
+      "sections": 3,
+      "raidurgOnlyLeftM": 970.42,
+      "newCompleteVisualInventoryM": 0
+    },
+    "secondPassQueue": {
+      "file": "second-pass-queue.json",
+      "sha256": "6fee1c85af5a98fb5dc46fdcc7d65d1ba7081d0047ed769f316ea31a09a899a3",
+      "issueGroups": 30,
+      "notShopUnits": true,
+      "automaticEditsOrImports": false
+    },
+    "durgamMadhapurProgress": {
+      "file": "durgam-madhapur-route-progress.json",
+      "sha256": "3cd48dae6bd7b9c0eac545a3259eb1da5d951778e69addb200a2e7bf578fb45f",
+      "observedUnionM": 950.99,
+      "unchangedFrom45": true,
+      "notAdditiveWithQuickpassTotal": true
+    },
+    "timing": {
+      "scope": "Only revision47 Raidurg\u2013HITEC City section; excludes48 and final unlogged report/archive administration",
+      "generatedAt": "2026-10-19T00:43:08.998+00:00",
+      "durationBasis": "Actual UTC timestamp difference between explicit start and stop; command-process monotonic readings retained only as diagnostic metadata",
+      "parallelism": "Totals are person-seconds by actor; parallel spans are not summed as elapsed sprint duration",
+      "measuredWindows": [
+        {
+          "section": "raidurg-hitec-quickpass-2",
+          "firstMeasuredStartUtc": "2026-10-19T00:21:57.643+00:00",
+          "latestMeasuredEndUtc": "2026-10-19T00:42:48.148+00:00",
+          "elapsedMeasuredWindowSeconds": 1250.505,
+          "hasOpenSpans": false
+        }
+      ],
+      "totals": [
+        {
+          "actor": "gameplay",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "prep",
+          "mode": "active",
+          "seconds": 170.823
+        },
+        {
+          "actor": "gameplay",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "waiting",
+          "seconds": 126.574
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "seconds": 404.368
+        },
+        {
+          "actor": "root",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "navigation",
+          "mode": "active",
+          "seconds": 715.24
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "coordination",
+          "mode": "waiting",
+          "seconds": 352.913
+        },
+        {
+          "actor": "survey",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "prep",
+          "mode": "active",
+          "seconds": 11.966
+        },
+        {
+          "actor": "survey",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "annotation",
+          "mode": "waiting",
+          "seconds": 53.255
+        },
+        {
+          "actor": "root",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "seconds": 148.434
+        },
+        {
+          "actor": "survey",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "import",
+          "mode": "active",
+          "seconds": 31.701
+        },
+        {
+          "actor": "survey",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "seconds": 100.246
+        }
+      ],
+      "spans": [
+        {
+          "actor": "gameplay",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "prep",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:21:57.643+00:00",
+          "endUtc": "2026-10-19T00:24:48.466+00:00",
+          "seconds": 170.823,
+          "closed": true,
+          "note": "Geometry-only next47 northbound primary chain from accepted46 endpoint to about500m meaningful junction; no browser/source annotation/facade packet/data/tests/build",
+          "stopNote": "47 geometry packet444.68m/5edges andGeoJSON saved; root informed; waiting independent art connectivity/end-cut review, no source or runtime work"
+        },
+        {
+          "actor": "gameplay",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "waiting",
+          "startUtc": "2026-10-19T00:24:48.466+00:00",
+          "endUtc": "2026-10-19T00:26:55.040+00:00",
+          "seconds": 126.574,
+          "closed": true,
+          "note": "47 geometry packet444.68m/5edges andGeoJSON saved; root informed; waiting independent art connectivity/end-cut review, no source or runtime work",
+          "stopNote": "47 geometry-only packet and GeoJSON complete; independent art review passed exact53e193ed proposal,5edges444.68m, no active source/runtime/test/build changes"
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:25:34.001+00:00",
+          "endUtc": "2026-10-19T00:26:36.061+00:00",
+          "seconds": 62.06,
+          "closed": true,
+          "note": "Bounded independent47 geometry-only route/end-cut review requested by gameplay; no source research, building/listing packet or active edits.",
+          "stopNote": "Independent47 geometry-only review complete:5 ground edges444.68m, exact46join and endpoint branch verified.46 annotation already stopped at freeze; no47 source annotation timer until new source images arrive."
+        },
+        {
+          "actor": "root",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "navigation",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:26:37.754+00:00",
+          "endUtc": "2026-10-19T00:38:32.994+00:00",
+          "seconds": 715.24,
+          "closed": true,
+          "note": "Continue beyond46cut along proposed444.68m ground main road; no47coverage counted before closure",
+          "stopNote": "47walkclosed444.68m; navigation span included one intervening46build/atlascheck, not pure47navigation time"
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:27:52.356+00:00",
+          "endUtc": "2026-10-19T00:29:13.793+00:00",
+          "seconds": 81.437,
+          "closed": true,
+          "note": "First new47 image arrived; begin source annotation at041m, November2025 bus shelter/public-sign context only.",
+          "stopNote": "2 new47 November2025 sources reviewed through081m; bus-shelter identity and non-shop fence/drain context recorded, source-local only. Root briefly checks46 atlas before continuing."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "coordination",
+          "mode": "waiting",
+          "startUtc": "2026-10-19T00:29:13.793+00:00",
+          "endUtc": "2026-10-19T00:30:53.944+00:00",
+          "seconds": 100.151,
+          "closed": true,
+          "note": "2 new47 November2025 sources reviewed through081m; bus-shelter identity and non-shop fence/drain context recorded, source-local only. Root briefly checks46 atlas before continuing.",
+          "stopNote": "Review120m November2025 outer roadside source; identity/context only."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:30:53.944+00:00",
+          "endUtc": "2026-10-19T00:31:13.997+00:00",
+          "seconds": 20.053,
+          "closed": true,
+          "note": "Review120m November2025 outer roadside source; identity/context only.",
+          "stopNote": "3 new47 images through120m reviewed; fence/utility/partly unfinished structure context remains unnamed and unassigned. Await next root saved images."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "coordination",
+          "mode": "waiting",
+          "startUtc": "2026-10-19T00:31:13.997+00:00",
+          "endUtc": "2026-10-19T00:31:44.568+00:00",
+          "seconds": 30.571,
+          "closed": true,
+          "note": "3 new47 images through120m reviewed; fence/utility/partly unfinished structure context remains unnamed and unassigned. Await next root saved images.",
+          "stopNote": "Review161m newly saved landscaped retaining-wall/steps context; names only if directly readable."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:31:44.568+00:00",
+          "endUtc": "2026-10-19T00:32:02.143+00:00",
+          "seconds": 17.575,
+          "closed": true,
+          "note": "Review161m newly saved landscaped retaining-wall/steps context; names only if directly readable.",
+          "stopNote": "4 new47 source images through161m reviewed; bus shelter and non-shop fence/landscaping/access context recorded; exact uses/geometry remain queued."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "coordination",
+          "mode": "waiting",
+          "startUtc": "2026-10-19T00:32:02.143+00:00",
+          "endUtc": "2026-10-19T00:33:31.085+00:00",
+          "seconds": 88.942,
+          "closed": true,
+          "note": "4 new47 source images through161m reviewed; bus shelter and non-shop fence/landscaping/access context recorded; exact uses/geometry remain queued.",
+          "stopNote": "Review201m/240m new November2025 outer-site and street-furniture context; no parent/profile/floor work."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:33:31.085+00:00",
+          "endUtc": "2026-10-19T00:33:52.756+00:00",
+          "seconds": 21.671,
+          "closed": true,
+          "note": "Review201m/240m new November2025 outer-site and street-furniture context; no parent/profile/floor work.",
+          "stopNote": "6 new47 November2025 views through240m reviewed; unidentified open/glazed structure remains pending behind dense planting. No new merchant inferred."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "coordination",
+          "mode": "waiting",
+          "startUtc": "2026-10-19T00:33:52.756+00:00",
+          "endUtc": "2026-10-19T00:34:05.720+00:00",
+          "seconds": 12.964,
+          "closed": true,
+          "note": "6 new47 November2025 views through240m reviewed; unidentified open/glazed structure remains pending behind dense planting. No new merchant inferred.",
+          "stopNote": "Review280m access-opening continuation as one continuous unidentified-site context, not repeated unknown shop units."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:34:05.720+00:00",
+          "endUtc": "2026-10-19T00:34:21.267+00:00",
+          "seconds": 15.547,
+          "closed": true,
+          "note": "Review280m access-opening continuation as one continuous unidentified-site context, not repeated unknown shop units.",
+          "stopNote": "7 new47 images reviewed through280m. Continuous unidentified site/access context retained as one observation group, no repeated unknown shop units or activity/use claim."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "coordination",
+          "mode": "waiting",
+          "startUtc": "2026-10-19T00:34:21.267+00:00",
+          "endUtc": "2026-10-19T00:34:54.488+00:00",
+          "seconds": 33.221,
+          "closed": true,
+          "note": "7 new47 images reviewed through280m. Continuous unidentified site/access context retained as one observation group, no repeated unknown shop units or activity/use claim.",
+          "stopNote": "Review320m garden-maintenance credit; distinguish credited name from visible building tenant or entrance."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:34:54.488+00:00",
+          "endUtc": "2026-10-19T00:37:17.496+00:00",
+          "seconds": 143.008,
+          "closed": true,
+          "note": "Review320m garden-maintenance credit; distinguish credited name from visible building tenant or entrance.",
+          "stopNote": "Section-local first-pass review through408m saved; awaiting root endpoint clearance and final chronology."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "coordination",
+          "mode": "waiting",
+          "startUtc": "2026-10-19T00:37:17.496+00:00",
+          "endUtc": "2026-10-19T00:38:44.560+00:00",
+          "seconds": 87.064,
+          "closed": true,
+          "note": "Section-local first-pass review through408m saved; awaiting root endpoint clearance and final chronology.",
+          "stopNote": "Review root-cleared47 endpoint and next-section-only KFC context; freeze section-local pending evidence."
+        },
+        {
+          "actor": "art",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:38:44.560+00:00",
+          "endUtc": "2026-10-19T00:39:27.577+00:00",
+          "seconds": 43.017,
+          "closed": true,
+          "note": "Review root-cleared47 endpoint and next-section-only KFC context; freeze section-local pending evidence.",
+          "stopNote": "47 immutable local pending-only batch frozen;12newNov2025 sources,444.68mLEFT,0fronts/profiles; final chronology parity and importer preview pass."
+        },
+        {
+          "actor": "survey",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "prep",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:39:24.611+00:00",
+          "endUtc": "2026-10-19T00:39:36.577+00:00",
+          "seconds": 11.966,
+          "closed": true,
+          "note": "Prepare sole serialized47 import and preserve46; await exact root hash clearance. No import or active data change.",
+          "stopNote": "Frozen46 archive and47 pending-only contract checked; await root exact canonical/raw hash clearance before sole import."
+        },
+        {
+          "actor": "survey",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "annotation",
+          "mode": "waiting",
+          "startUtc": "2026-10-19T00:39:36.577+00:00",
+          "endUtc": "2026-10-19T00:40:29.832+00:00",
+          "seconds": 53.255,
+          "closed": true,
+          "note": "Frozen46 archive and47 pending-only contract checked; await root exact canonical/raw hash clearance before sole import.",
+          "stopNote": "Root cleared exact47batch hashes. Copy immutable input, sole import once, cache47 and deterministic summaries."
+        },
+        {
+          "actor": "root",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:40:01.429+00:00",
+          "endUtc": "2026-10-19T00:40:43.693+00:00",
+          "seconds": 42.264,
+          "closed": true,
+          "note": "Review exact12newview47batch and five retained range cuts before soleimport",
+          "stopNote": "Approved exact47 source review; soleimporter proceeding"
+        },
+        {
+          "actor": "survey",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "import",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:40:29.832+00:00",
+          "endUtc": "2026-10-19T00:41:01.533+00:00",
+          "seconds": 31.701,
+          "closed": true,
+          "note": "Root cleared exact47batch hashes. Copy immutable input, sole import once, cache47 and deterministic summaries.",
+          "stopNote": "47 sole import and bounded source/network/queue checks passed; combined ledgers/current docs and compact checkpoint next."
+        },
+        {
+          "actor": "survey",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:41:01.533+00:00",
+          "endUtc": "2026-10-19T00:42:41.779+00:00",
+          "seconds": 100.246,
+          "closed": true,
+          "note": "47 sole import and bounded source/network/queue checks passed; combined ledgers/current docs and compact checkpoint next.",
+          "stopNote": "47 validation, combined ledgers and scoped documentation complete; checkpoint/archive administration excluded."
+        },
+        {
+          "actor": "root",
+          "section": "raidurg-hitec-quickpass-2",
+          "phase": "review",
+          "mode": "active",
+          "startUtc": "2026-10-19T00:41:01.978+00:00",
+          "endUtc": "2026-10-19T00:42:48.148+00:00",
+          "seconds": 106.17,
+          "closed": true,
+          "note": "Single47build and shortatlasverification",
+          "stopNote": "47singlebuild/atlas passed; documented primaryreference-link bug for separate runtimefix"
+        }
+      ]
+    }
+  },
+  "historicalVerificationRevision40": {
+    "unitPassed": 49,
+    "unitFailed": 0,
+    "unitSkipped": 0,
+    "unitSuiteScope": "Targeted section/source-order/signage/survey regressions only; no repeated broad or full-route suite.",
+    "unitReport": "qa/artifacts/unit/revision40-section.json",
+    "build": {
+      "date": "2026-10-18",
+      "surveyRevision": 40,
+      "build": "passed",
+      "buildWallSeconds": 0.92,
+      "typecheck": "passed",
+      "runtimeSourceSha256": "a1d0c1c7fee3bd668229fe3d687694b819719e6b65114362395c690a7ed75104",
+      "surveySha256": "7c7e51bfc63a43fbb706e27bffc2ecc281427484bccf175732e86967949612cf",
+      "assets": [
+        "art-CgTv4g9E.js",
+        "index-ClbuWotN.css",
+        "index-DUINdz39.js"
+      ],
+      "serviceWorkerCache": "hmd-shell-0.2.0-map40-street-context",
+      "runtimeUnchangedSince39": true,
+      "physicalParity": "80,125 applied components across all1,646chunks unchanged in height/footprint/access; targeted batch audit retained",
+      "strictMetricVerification": 0
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "surveyRevision": 40,
+      "url": "http://127.0.0.1:4173/?unlock",
+      "atlasFrontCount": 125,
+      "location": "East of Bata, Cyber Towers\u2013Madhapur Main Road; Durgam Cheruvu\u2013Madhapur station pair",
+      "streetId": "r_22340296037_0",
+      "observedStreetViewRanges": [
+        {
+          "roadId": "r_17731498241_0",
+          "startM": 0,
+          "endM": 10.26,
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "roadId": "r_22340296037_0",
+          "startM": 0,
+          "endM": 55,
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "summary": "Production loaded in connected Chrome. Atlas displayed125 researched fronts, ground order Surya\u2192Rajasthan\u2192Laxmi Electro\u2192Sri Laxmi Sanitation\u2192Madhapuram Food Court with separate floor1/floor2 operators. Reversed view swaps side and order. Entered Drive this street, followed the junction bend and stopped beside cream corner; source signs render on its matching face. Ground/upper screenshots saved. No complete delivery or entire65m in-game route sweep is claimed.",
+      "warningOrErrorEntries": [],
+      "screenshots": [
+        "rebuild-madhapur-corner-checkpoint.png",
+        "rebuild-madhapur-corner-upper.png"
+      ],
+      "previousCheckpointPreserved": "rebuild-madhapur-shop-checkpoint.png",
+      "settingsPreserved": true,
+      "observedWeather": "rain",
+      "referenceImageryOnly": true,
+      "foodCourtGeometryLimit": "Inherited7m solid placeholder remains; low open canopy, wall and gates are not reconstructed yet."
+    },
+    "currentFullRouteSweepRun": false,
+    "sourceValidation": "survey validation and deterministic network reproduction passed; strict metric verification zero"
+  },
+  "historicalVerificationRevision41": {
+    "unitPassed": 14,
+    "unitFailed": 0,
+    "unitSkipped": 0,
+    "unitSuiteScope": "Current affected glass/bank/tail order, profile and physical parity checks; no full-route recertification.",
+    "unitReport": "qa/artifacts/unit/revision41-current.json",
+    "signTextReport": "qa/artifacts/unit/revision41-sign-text.json",
+    "signTextFix": "Explicit authored line breaks preserve stacked Village Taste lettering and other multiline panels. Ordinary automatic wrapping and bilingual rendering remain checked.",
+    "build": {
+      "date": "2026-10-18",
+      "surveyRevision": 41,
+      "build": "passed",
+      "typecheck": "passed",
+      "buildWallSeconds": 1.537,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "97fea989fb15c21f8114c7eb040d6dd47af66e82e4838fb529d12a5a6a254d50",
+      "assets": [
+        "art-BXavBK1a.js",
+        "index-ClbuWotN.css",
+        "index-DtSifVGn.js"
+      ],
+      "serviceWorkerCache": "hmd-shell-0.2.0-map41-street-context-sign-text",
+      "runtimeUnchangedSince39": false,
+      "physicalParity": "80,125 applied building components across1,646chunks retain identical physical height/footprint/access body inputs; staged full-world audit retained",
+      "strictMetricVerification": 0,
+      "productionResearchBytesMatch": true,
+      "runtimeChange": "Preserve explicit authored sign line breaks in width measurement and painting; ordinary automatic wrapping/bilingual behavior retained."
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "surveyRevision": 41,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "97fea989fb15c21f8114c7eb040d6dd47af66e82e4838fb529d12a5a6a254d50",
+      "url": "http://127.0.0.1:4173/?unlock",
+      "atlasFrontCount": 137,
+      "location": "Cyber Towers\u2013Madhapur Main Road; north carriageway in Durgam Cheruvu\u2013Madhapur pair",
+      "streetId": "r_22340296037_0",
+      "observedStreetViewRanges": [
+        {
+          "roadId": "r_22340296037_0",
+          "startM": 55,
+          "endM": 154.93,
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "summary": "Production reload shows137 researched fronts. Atlas west-to-east ground order Samsung\u2192Linen Club\u2192Canara with correct upper bands; reverse view swaps side/order. All orange/eastern uncertain parents remain pending. Inspected glass block and bank in driving scene; source-authored Village Taste stacked22letters visibly render after explicit-line fix. Fresh junction-to-glass approach passed without recovery; earlier3recovery events retained in junction report. No entire99.93m in-game sweep or pickup/delivery completion claimed.",
+      "warningOrErrorEntries": [],
+      "screenshots": [
+        {
+          "file": "rebuild-madhapur-r223-tail-checkpoint.png",
+          "capture": "After sign text fix; corrected22-letter vertical panel and glass block; current runtime fingerprint",
+          "sha256": "549dc9251e48c34ed845b070fddcb9d5e04731735985d7c72ea28954ffa9de1e"
+        },
+        {
+          "file": "rebuild-madhapur-junction-pass.png",
+          "capture": "After sign text fix; fresh successful bounded approach,0km/h,on-road charge available,no recovery",
+          "sha256": "1d8f0b559243bfe7f1e4db7bc7994fb6c03935dd6f7eefbd78733efe6d3ed339"
+        },
+        {
+          "file": "rebuild-madhapur-canara-checkpoint.png",
+          "capture": "Survey41 bank proof before text-only renderer fix; bank geometry/data unchanged; previous runtimea1d0c1c7\u2026",
+          "sha256": "c3664d4dc70c4f915ffe948ff362e25a57e6f0fa3a5ef18dd1c50844f032b495"
+        }
+      ],
+      "previousCheckpointsPreserved": [
+        "rebuild-madhapur-shop-checkpoint.png",
+        "rebuild-madhapur-corner-checkpoint.png",
+        "rebuild-madhapur-corner-upper.png"
+      ],
+      "settingsPreserved": true,
+      "observedWeather": "rain",
+      "referenceImageryOnly": true,
+      "strictMetricVerification": 0,
+      "geometryLimit": "Madhapur Pride broad source parent missing/ambiguous; east parent/floor/access gaps pending. Food court inherited7m solid body still unresolved.",
+      "junctionEvidence": "madhapur-junction-check.json",
+      "junctionReproducibleDefectFound": false,
+      "currentFreshJunctionApproachRecoveries": 0,
+      "priorManualApproachRecoveries": 3
+    },
+    "currentFullRouteSweepRun": false,
+    "sourceValidation": "Survey validation and deterministic network reproduction passed; strict metric verification remains zero."
+  },
+  "historicalVerificationRevision42": {
+    "unitPassed": 12,
+    "unitFailed": 0,
+    "unitSkipped": 0,
+    "unitSuiteScope": "Current affected section identity/order/floors, uncertainty, source ranges and physical parity. No full-route recertification.",
+    "unitReport": "qa/artifacts/unit/revision42-section.json",
+    "visibilityReport": "qa/artifacts/unit/revision42-frontage-visibility.json",
+    "plateIntervalReport": "qa/artifacts/unit/revision42-sign-plate-stats.json",
+    "build": {
+      "date": "2026-10-18",
+      "surveyRevision": 42,
+      "build": "passed",
+      "typecheck": "passed",
+      "buildWallSeconds": 0.983,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "000637f0197282851e7985ec91d884db3d3509c0b6faa8b3cc78575316f8e456",
+      "assets": [
+        "art-BXavBK1a.js",
+        "index-ClbuWotN.css",
+        "index-DtSifVGn.js"
+      ],
+      "serviceWorkerCache": "hmd-shell-0.2.0-map42-street-context-sign-text",
+      "runtimeUnchangedSince41": true,
+      "physicalParity": "80,125 applied building components/1,646 chunks and six affected shared access plans unchanged; full-world staged preview audit retained",
+      "strictMetricVerification": 0,
+      "productionResearchBytesMatch": true
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "surveyRevision": 42,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "000637f0197282851e7985ec91d884db3d3509c0b6faa8b3cc78575316f8e456",
+      "url": "http://127.0.0.1:4173/?unlock",
+      "atlasFrontCount": 149,
+      "location": "Cyber Towers\u2013Madhapur Main Road; north carriageway west to east",
+      "streetIds": [
+        "r_36314993425_0",
+        "r_68630266621_0"
+      ],
+      "observedStreetViewRanges": [
+        {
+          "roadId": "r_36314993425_0",
+          "startM": 0,
+          "endM": 79.89,
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "roadId": "r_68630266621_0",
+          "startM": 0,
+          "endM": 32.24,
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "summary": "Production reload showed149 researched fronts and14 imagery-inventoried sides. Atlas new r363 eight ground fronts order checked eastward and reversed westward to opposite side. Native bounded driving from upstream passed the new ground blocks and stopped by Ramraj/Roman; new upper bands inspected while parked. No recoveries or resets. One median-edge/off-road drift occurred while continuing straight through the bend; steering correction returned to lane. Not an uninterrupted on-road whole-section pass, flight/landing test or pickup/delivery loop. Strict exact placement remains0.",
+      "warningOrErrorEntries": [],
+      "screenshots": [
+        {
+          "file": "rebuild-madhapur-happi-checkpoint.png",
+          "capture": "Parked on-road, new happi/Arvind and neighboring Hotel Zee boards; Forest and SIS remain observed panels, approximate metric placement.",
+          "sha256": "baeeafd03dd5097c480f7791c46901d066c1218cbf9058cdfd90b56a162cb898"
+        },
+        {
+          "file": "rebuild-madhapur-ramraj-checkpoint.png",
+          "capture": "Parked beside Ramraj/Roman Island; Live Ceramique, SIS panels and combined STARK/cult.fit bands visible; moving traffic occupies lane. No landing attempted.",
+          "sha256": "8f0831ea2c31a85952ffc6d0ec0e74a3c2659ff55ecde0aa17b81c3e72e8c253"
+        }
+      ],
+      "previousCheckpointsPreserved": [
+        "rebuild-madhapur-shop-checkpoint.png",
+        "rebuild-madhapur-corner-checkpoint.png",
+        "rebuild-madhapur-corner-upper.png",
+        "rebuild-madhapur-r223-tail-checkpoint.png",
+        "rebuild-madhapur-junction-pass.png",
+        "rebuild-madhapur-canara-checkpoint.png"
+      ],
+      "settingsPreserved": true,
+      "observedWeather": "rain",
+      "referenceImageryOnly": true,
+      "strictMetricVerification": 0,
+      "geometryLimit": "Low-canopy source associations, Zee/Swapna height mismatches, raised access metrics and earlier Madhapur Pride footprint remain open.",
+      "manualDrive": {
+        "startingAtlasRoadId": "r_36314993425_0",
+        "keyInputs": [
+          {
+            "wMs": 2600,
+            "sMs": 850
+          },
+          {
+            "wMs": 1700,
+            "sMs": 700
+          },
+          {
+            "wMs": 3900,
+            "sMs": 1100
+          },
+          {
+            "wMs": 2800,
+            "sMs": 950,
+            "result": "Continued straight through bend; car reached median edge/off-road."
+          },
+          {
+            "wPlusAMs": 450,
+            "wMs": 1500,
+            "sMs": 750,
+            "result": "Returned to lane without recovery/reset."
+          },
+          {
+            "wMs": 1500,
+            "sMs": 650
+          }
+        ],
+        "stationaryPausesBetweenInputs": true,
+        "recoveries": 0,
+        "offRoadEventsObserved": 1,
+        "pickupOrDeliveryCompleted": false,
+        "flightOrLandingAttempted": false,
+        "wholeSectionUninterruptedOnRoadCertified": false
+      }
+    },
+    "currentFullRouteSweepRun": false,
+    "sourceValidation": "Survey validation and deterministic network reproduction passed; strict metric verification remains zero."
+  },
+  "currentLimitations": [
+    "Queue inventory is not observed coverage; strict street/front verification remains zero",
+    "Reconciled component boundaries and heights remain provisional, not measured outlines",
+    "Source width exists on 4 roads; no source lane-count or metric terrain-Z field exists",
+    "38 nonpolygon water records (36 lines, 2 points), 13 unresolved building outlines and unmatched transport points remain unresolved",
+    "Scenario potholes/drains are game fiction, separate from sourced or photographed street features",
+    "Station heights/interiors remain authored; 2 irregular source envelopes and 8 unmatched records are not applied",
+    "Four basement openings now have real provisional voids; their inferred 0.66 m drops are not measured source dimensions",
+    "All 159 researched front/sign records remain provisional; visible branding or a dated closed shop does not prove current operation or exact tenancy boundaries",
+    "The revision 47 source fingerprint and coverage are current; the full 40-contract calibration is historical revision 32 and does not validate new Xiaomi stairs or later estimated heights",
+    "Xiaomi broad below-grade forecourt/descent and the electrical-row red/cream parent/roof division remain unresolved; no forced excavation or source parcel split was authored",
+    "The broad Madhapur Pride building still has no defensible source parent; its operators are not packed onto the neighboring 4.106 m strip",
+    "Madhapuram Food Court remains signage-only over its mismatched 7 m inherited mass; canopy, forecourt and exact source parent are unresolved",
+    "Revision 42 extends observed north-carriageway research through r363 and r686; shop-side inventory is incomplete, immediate median inventory is provisional, and strict metric verification remains zero",
+    "Sri Ganesh, Ambica, Shiv Shankar Power Tools, Balaji Bag Repair, MD Ali, unnamed plastic/housekeeping stalls and GEETA remain pending where the low-canopy source boundary cannot be defended; ZEE PAN HUB protruding booth is not flattened onto a wall",
+    "Forest high board and SIS panels do not certify occupied floors; the two top open balcony levels are unassigned. Hotel Zee 16.9 m satellite height and Swapna 7 m class fallback remain visually mismatched and were not changed",
+    "Revision 43 extends dated research131.89 m beyond Ramraj along r573, r316 and r545; only the immediate metro median has a bounded visual inventory. The northern shop side remains incomplete and strict metric verification remains zero",
+    "The white gas/laundry building has no defensible source outline; narrow clinic/canopy associations, low stalls, wall kiosk and Sri Venkateswara temple geometry remain pending. The BALAIAH YADAV ENCLAVE name anchor does not establish all compound buildings or tenants",
+    "Two specifically unsupported snapped public facade labels were suppressed from dated street evidence; archived source listings remain intact. Roof ambiguity and occluded or unreadable units were not resolved by guessing",
+    "Godavari observed red arched ground facade and curved upper frame are not reproduced by current reusable glazing template.",
+    "Enclave exact balcony recesses, ornament, stairs/forecourt and source dimensions remain provisional.",
+    "Revision 44 adds SPACE III/FACE CLINICS and APURUPA KUSHI source-supported appearance/fronts over114.80 m; northern outer inventory remains incomplete. Inherited18.4/20.5 m satellite heights, source safe footprints and access remain unchanged and provisional",
+    "Dr Madhavi\u2019s Eye Hospital posted5th Floor/Lift in Cellar wording is observed, but canonical room/floor/lift geometry is not assigned. SREA and K T K accountant panels do not establish occupied rooms; TVS/Dell service is one operator",
+    "Raised room/parking-stilt voids, shared stairs/forecourt, blind tower, yellow-tent activity, round endpoint utility and occluded wall/gaps remain unresolved. No source access, basement or utility geometry was invented",
+    "The photographed blue-roof/red-railing public waiting shelter, benches/advertisements and three bins remain unmodelled. Nearby mapped node1365115101 currently draws a bare stop marker; no speculative shelter centre or public-realm change was made in44",
+    "SPACE III actual raised lowest room, open parking/stilt frontage, stairs/rails and upper curtain-wall fins remain approximate or unmodelled.",
+    "APURUPA KUSHI exact shared stairs, open parking/lift access, continuous facade/floor/window divisions and upper details remain unmodelled; retained angled source body is provisional.",
+    "Public blue-roof/red-rail waiting shelter, advertisement benches and three bins remain pending; existing nearby mapped stop is only a pole without supported observed-appearance override.",
+    "Revision 45 is a LEFT-only246.48 m first-pass observation window, not new reconstructed fronts/profiles, complete visual inventory, RIGHT-side review or measured geometry. The2April2026 and21January2025 views retain their actual dates and do not prove present operation",
+    "Kavuri Hills reservoir/cash-counter utility, public waiting facilities, temporary toy/balloon sellers, rear food direction boards and construction fence/deck remain unmodelled or incompletely associated. Advertisements are not tenants",
+    "Havana/Kingsmen/PVK/Oprea identities and relative bands are pending observations only; source-face/room/entrance/profile placement is in the separate second-pass queue. No merchant frontage was added by the first pass",
+    "The existing4.5 m road-width clamp and roughly5\u20136 m camera displacement from its narrowed strip remain a source alignment/width follow-up; camera coordinates are not storefront entrances and widths were not silently expanded",
+    "Revision44Apurupa parked-screenshot caption was corrected by a separate evidence amendment. The replacement is a partial stationary view, not proof of all seven names or later driving-state certification; original archive retained",
+    "Revision 46 adds 525.74 m of LEFT-only partial observation windows on nine exact directed roads, with 17 dated views and 20 pending observations. No RIGHT inventory, new frontage/profile, suppression, complete visual inventory or physical change is added",
+    "The six April 2026 and eleven November 2025 views do not establish present operation, entrances, road widths or measured station access. Precise framing attribution for the131m/168m frames remains held; their intended headings are not promoted to evidence",
+    "MOBI TOYS and THE SHAWARMA corner returns, DOSTEA kiosk, substation, redfox hotel context, IndianOil forecourt, foundever site and CYBER GATE identity remain approximate observations, not placed merchant fronts. Kiosk, utility, hotel/site boundaries, tree-screened wall and pedestrian ramp are deferred in thirteen new second-pass issue groups",
+    "The combined quickpass ledger covers 772.22 m across two LEFT-only sections with forty views and twenty-five issue groups, not twenty-five shops. It must not be added to the separate950.99m Durgam\u2013Madhapur observation union because its246.48m Madhapur section already overlaps that union",
+    "Atlas primary Street View navigation currently picks the first batch reference rather than the nearest source to the selected segment; for the13m TRIDENT segment it opens the bus-shelter view roughly370m earlier. Observation search/status are valid, but the primary research link needs a separate runtime fix after frozen data checkpoints",
+    "Revision 47 adds 444.68 m of LEFT-only partial observation windows on five connected directed roads, with twelve new November 2025 views and eleven pending observations. Two existing46endpoint references are reused without duplicate source count. No new front, profile, suppression, RIGHT inventory or physical change is added",
+    "TGIIC\u2013IALA bus shelter identity, TRIDENT maintenance credit and the TRIDENT entrance monument remain pending identities/context, not placed merchants or verified entrances. Opaque wall, foliage, public access, unreadable boards and beyond-cut KFC context are retained without guessed tenant allocation",
+    "The47capture window is617.038seconds and includes the intervening46build/atlas check; it is not exclusive47active labour. Detailed work remains in five new second-pass issue groups",
+    "Combined global first-pass coverage is1216.90m across three disjoint LEFT-only sections with52distinct views and30issue groups; Raidurg-only coverage is970.42m. These are not complete visual inventories or shop-unit counts. Separate950.99m Durgam\u2013Madhapur progress is unchanged and not additive"
+  ],
+  "historicalVerificationRevision43": {
+    "unitPassed": 7,
+    "unitFailed": 0,
+    "unitSkipped": 0,
+    "unitSuiteScope": "Current affected source consistency, order, suppressions, uncertainty, body/access parity and actual low/standard sign visibility; no full-route recertification.",
+    "unitReport": "qa/artifacts/unit/revision43-section.json",
+    "build": {
+      "date": "2026-10-18",
+      "surveyRevision": 43,
+      "build": "passed",
+      "typecheck": "passed",
+      "buildWallSeconds": 1.269,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "51722ec0ffcd3f3957cf2ea89eb33b839edf841d548e9e4ddd14f79f7e97b6c7",
+      "assets": [
+        "art-BXavBK1a.js",
+        "index-ClbuWotN.css",
+        "index-DtSifVGn.js"
+      ],
+      "serviceWorkerCache": "hmd-shell-0.2.0-map43-street-context-sign-text",
+      "runtimeUnchangedSince42": true,
+      "productionResearchBytesMatch": true,
+      "physicalParity": "Full staged1,646-chunk/80,125-component audit retained; new two access plans unchanged.",
+      "strictMetricVerification": 0
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "surveyRevision": 43,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "51722ec0ffcd3f3957cf2ea89eb33b839edf841d548e9e4ddd14f79f7e97b6c7",
+      "url": "http://127.0.0.1:4173/?unlock",
+      "atlasFrontCount": 152,
+      "atlasImageryInventorySides": 17,
+      "location": "Cyber Towers\u2013Madhapur Main Road; southeast-going north carriageway",
+      "streetIds": [
+        "r_57338498840_0",
+        "r_31627731675_0",
+        "r_54532951764_0"
+      ],
+      "observedStreetViewRanges": [
+        {
+          "roadId": "r_57338498840_0",
+          "startM": 0,
+          "endM": 40.08,
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "roadId": "r_31627731675_0",
+          "startM": 0,
+          "endM": 32.7,
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "roadId": "r_54532951764_0",
+          "startM": 0,
+          "endM": 59.11,
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "summary": "Production reload confirmed152fronts/17imagery-inventoried sides. Godavari atlas LEFTsoutheast and RIGHTnorthwest after reversal; provisional/pending semantics preserved. Native driving from upstream reached Godavari then the Ram/Helmet block on-road, with stationary camera inspections and no observed off-road event, reset or recovery. Only a bounded approach through two new source-supported bodies; no whole131.89m in-game sweep, flight/landing or pickup/delivery certification.",
+      "warningOrErrorEntries": [],
+      "screenshots": [
+        {
+          "file": "rebuild-madhapur-godavari-checkpoint.png",
+          "capture": "Parked on-road; new Telugu/English Godavari sign and source-associated reusable glazing template. Red arched ground frontage/curved upper frame remain unmodelled.",
+          "sha256": "12c11ab402e4952ef41c3fc3c15dad43f3721f9b845a0ab7602d56640d4034fd"
+        },
+        {
+          "file": "rebuild-madhapur-helmet-checkpoint.png",
+          "capture": "Parked on-road; Ram Enterprises west then Helmet World/Padmaja Agencies east, Prince supplier plate and Enclave name on retained cream body. Exact balconies, stairs and ornament remain provisional.",
+          "sha256": "db67beffac0f1b126b93f5522ddb348888d785435277264c1d9055196856ae90"
+        }
+      ],
+      "settingsPreserved": true,
+      "observedWeather": "rain",
+      "referenceImageryOnly": true,
+      "strictMetricVerification": 0,
+      "geometryLimit": "Missing white HP Gas/LaundryTO source body; clinic/canopy split, pan booth, both shrine/temple geometry, compound/kiosk parents and prior Madhapur Pride gap remain pending. Generic source/template shells are not exact visual reconstruction.",
+      "visualMismatchRemaining": [
+        "Godavari observed red arched ground facade and curved upper frame are not reproduced by current reusable glazing template.",
+        "Enclave exact balcony recesses, ornament, stairs/forecourt and source dimensions remain provisional."
+      ],
+      "manualDrive": {
+        "startingAtlasRoadId": "r_57338498840_0",
+        "keyInputs": [
+          {
+            "wMs": 2300,
+            "wPlusDMs": 100,
+            "sMs": 800
+          },
+          {
+            "wMs": 1800,
+            "sMs": 750,
+            "result": "Parked beside Godavari; on-road."
+          },
+          {
+            "wMs": 2500,
+            "sMs": 850
+          },
+          {
+            "wMs": 1000,
+            "wPlusDMs": 180,
+            "wAfterTurnMs": 1100,
+            "sMs": 800,
+            "result": "Parked beside Ram/Helmet body; on-road."
+          }
+        ],
+        "stationaryPausesBetweenInputs": true,
+        "recoveries": 0,
+        "resets": 0,
+        "offRoadEventsObserved": 0,
+        "pickupOrDeliveryCompleted": false,
+        "flightOrLandingAttempted": false,
+        "wholeSectionUninterruptedOnRoadCertified": false
+      },
+      "previousCheckpointsPreserved": [
+        "rebuild-madhapur-happi-checkpoint.png",
+        "rebuild-madhapur-ramraj-checkpoint.png",
+        "rebuild-madhapur-r223-tail-checkpoint.png",
+        "rebuild-madhapur-junction-pass.png",
+        "rebuild-madhapur-canara-checkpoint.png"
+      ]
+    },
+    "currentFullRouteSweepRun": false,
+    "sourceValidation": "Survey validation and deterministic network/work-queue reproduction passed; strict metric verification remains zero."
+  },
+  "historicalEvidenceAmendmentRevision44": {
+    "id": "survey44-apurupa-parked-screenshot-caption-correction-20261018",
+    "createdAtUTC": "2026-10-18T23:37:49.686849+00:00",
+    "scope": "Saved screenshot proof/caption correction only; no survey, runtime, building, test or build change",
+    "originalCheckpoint": {
+      "file": "qa/artifacts/historical/survey44-checkpoint-20261018.json",
+      "sha256": "4dea67f02765b940941f93380867ddebd60622ea5b30ed3060387c13994e29aa",
+      "retainedUnchanged": true
+    },
+    "invalidatedEvidence": {
+      "file": "rebuild-madhapur-apurupa-kushi-checkpoint.png",
+      "capture": "Parked on-road; west-to-east raisedground Vogue/Printo/Optic with LBR/TVS-Dell/Bangs upper band, hospital roof and posted5th/LiftinCellar panels. Retained angled source faces, approximate glazing; exact shared stair/parking openings, floor/window geometry and set-backs remain provisional.",
+      "sha256": "fd360ddec301115c8e633ffb1a93e60967a328fc249a76fa6f89a698be182375",
+      "parkedFacadeCaptionValid": false,
+      "observedFileContent": "Forward driving road view with25km/h HUD; does not substantiate the parked APURUPA KUSHI facade caption",
+      "fileAndOriginalArchivePreserved": true
+    },
+    "replacementEvidence": {
+      "file": "rebuild-madhapur-apurupa-kushi-stationary.png",
+      "capture": "Independent preview spawned onr435, stationary0km/h on-road, looking back from east at retained APURUPA KUSHI angled body; OpticStore/Bangs/hospital/Kangen panels visible, farther Printo/Vogue fronts partly occluded by angled walls. Saved same returned AX-and-screenshot bytes and inspected the local file. This image does not show every merchant board or certify a full driving route.",
+      "sha256": "46c74150a802d0d319e7dc1da7c8ac382d924c4bb21755ae5a82b7ed2062f096",
+      "parkedFacadeCaptionValid": true,
+      "localPixelInspection": {
+        "reviewedAtUTC": "2026-10-18T23:37:39.635949+00:00",
+        "method": "Assistant opened saved local PNG with view_image after root saved same returned screenshot bytes",
+        "file": "rebuild-madhapur-apurupa-kushi-stationary.png",
+        "sha256": "46c74150a802d0d319e7dc1da7c8ac382d924c4bb21755ae5a82b7ed2062f096",
+        "parkedFacadeCaptionValid": true,
+        "observedPixels": "0km/h HUD; stationary car on marked carriageway looking back at angled APURUPA KUSHI body; Optic/Bangs/hospital/Kangen panels visible; fartherPrinto/Vogue partly occluded",
+        "allSevenMerchantReadabilityProven": false,
+        "driveCertification": false,
+        "scope": "Parked image only; atlasr435spawn, not a continued manual drive or new route/physics verification"
+      }
+    },
+    "captureFailure": "Earlier browser accessibility/screenshot state and a separate subsequent screenshot capture were different frames. The later saved file was incorrectly captioned as the parked facade.",
+    "verificationLimit": "Eight original focused tests/build retain their original scope and hashes; not rerun or recertified. Replacement is parked image evidence only, not a new route, flight/landing or delivery result.",
+    "savedImageReadabilityLimit": "Optic/Bangs/hospital/Kangen panels visible; farther Printo/Vogue partly occluded. This replacement does not substantiate all seven merchant names. Earlier transient browser observations remain separately reported, not certified by this saved image.",
+    "rejectedRecapture": {
+      "file": "rebuild-madhapur-apurupa-kushi-parked.png",
+      "reason": "Root-reported first recapture went off-road near piers; rejected as on-road parked or driving proof",
+      "usedAsVerification": false,
+      "sha256": "24dd394311674a03ccc131a869c3a6dd11f371eb385b8207fd9e7881f7d57e77"
+    },
+    "amendmentReceipt": "qa/artifacts/historical/survey44-evidence-amendment-20261018.json"
+  },
+  "historicalEvidenceReceiptsRevision44": [
+    {
+      "file": "qa/artifacts/historical/survey44-checkpoint-20261018.json",
+      "sha256": "4dea67f02765b940941f93380867ddebd60622ea5b30ed3060387c13994e29aa"
+    },
+    {
+      "file": "qa/artifacts/historical/survey44-evidence-amendment-20261018.json",
+      "sha256": "3a94a2c199d0c3c392f709f346bfaeafb9bda00438cfb2eec1a62b1a1c8d7cfb"
+    },
+    {
+      "file": "qa/artifacts/historical/survey44-evidence-formatting-addendum-20261018.json",
+      "sha256": "a25ab4083632a88a381d98b60f9abc10b73d7986e4c5909785ecd05a23afa5e4"
+    }
+  ],
+  "historicalVerificationRevision44": {
+    "unitPassed": 8,
+    "unitFailed": 0,
+    "unitSkipped": 0,
+    "unitSuiteScope": "Seven current section source/order/body/access checks plus one bounded new-front/profile appearance check. No unchanged152-front or full-route rerun.",
+    "unitReport": "qa/artifacts/unit/revision44-section.json",
+    "visibilityReport": "qa/artifacts/unit/revision44-frontage-visibility.json",
+    "appearanceScopeReport": "qa/artifacts/unit/revision44-appearance-summary.json",
+    "build": {
+      "date": "2026-10-18",
+      "surveyRevision": 44,
+      "build": "passed",
+      "typecheck": "passed",
+      "buildWallSeconds": 1.292,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "8c989b2d9b3dfba97a8ba1eb4689ed79a905ecebf5d890d9d8bc3df1ddadc15f",
+      "assets": [
+        "art-BXavBK1a.js",
+        "index-ClbuWotN.css",
+        "index-DtSifVGn.js"
+      ],
+      "serviceWorkerCache": "hmd-shell-0.2.0-map44-street-context-sign-text",
+      "runtimeUnchangedSince42": true,
+      "productionResearchBytesMatch": true,
+      "physicalParity": "Full staged1,646-chunk/80,125-component audit retained; new two access plans unchanged.",
+      "strictMetricVerification": 0
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "surveyRevision": 44,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "8c989b2d9b3dfba97a8ba1eb4689ed79a905ecebf5d890d9d8bc3df1ddadc15f",
+      "url": "http://127.0.0.1:4173/?unlock",
+      "atlasFrontCount": 159,
+      "atlasImageryInventorySides": 19,
+      "location": "Road No36, Madhapur; southeast-going north carriageway",
+      "streetIds": [
+        "r_49611679382_0",
+        "r_43518450735_0"
+      ],
+      "observedStreetViewRanges": [
+        {
+          "roadId": "r_49611679382_0",
+          "startM": 0,
+          "endM": 75.87,
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "roadId": "r_43518450735_0",
+          "startM": 0,
+          "endM": 38.93,
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "summary": "Production reload confirmed159fronts/19imagery-inventoried sides. Atlas southeast LEFT ground Vogue\u2192Printo\u2192Optic and upper FaceClinics\u2192LBR\u2192TVS/Dell\u2192Bangs; reverse northwest RIGHT reverses all orders. Provisional/pending semantics preserved. Native driving from upstream approached SPACE III then APURUPA KUSHI on-road; stationary camera inspections confirmed all7merchant names and source panels visibly rendered. No observed off-road event, reset or recovery. Bounded approach through two new bodies only; no whole114.80m in-game sweep, flight/landing or pickup/delivery certification. Evidence amendment: original Apurupa saved PNG was a later driving frame; only its caption/parked-proof claim invalidated, replaced by inspected stationaryeastview. Original bounded transient browser view is retained as an observation, not whole-route certification.",
+      "warningOrErrorEntries": [],
+      "screenshots": [
+        {
+          "file": "rebuild-madhapur-space-iii-checkpoint.png",
+          "capture": "Parked on-road; FACE CLINICS on separate SPACE III blue-glass body, SREA high panel retained, blind west side of next body has no merchant front. Actual raised entry, forecourt, parking and long right stairs/rails not reconstructed.",
+          "sha256": "921bea3754234a5922042708e69a0674089c629b3a0d72fc04202218b771a435"
+        },
+        {
+          "file": "rebuild-madhapur-apurupa-kushi-stationary.png",
+          "capture": "Independent preview spawned onr435, stationary0km/h on-road, looking back from east at retained APURUPA KUSHI angled body; OpticStore/Bangs/hospital/Kangen panels visible, farther Printo/Vogue fronts partly occluded by angled walls. Saved same returned AX-and-screenshot bytes and inspected the local file. This image does not show every merchant board or certify a full driving route.",
+          "sha256": "46c74150a802d0d319e7dc1da7c8ac382d924c4bb21755ae5a82b7ed2062f096"
+        }
+      ],
+      "settingsPreserved": true,
+      "observedWeather": "rain",
+      "referenceImageryOnly": true,
+      "strictMetricVerification": 0,
+      "geometryLimit": "Source footprints/heights remain unchanged and provisional. Shared stair/parking/stilt openings and raised forecourt, kiosk/yellow-tent seller, white compound wall/waiting shelter/three bins, large tank-like utility/source parents and uncertain upper rooms remain pending. Generic source/template shells are not exact visual reconstruction.",
+      "visualMismatchRemaining": [
+        "SPACE III actual raised lowest room, open parking/stilt frontage, stairs/rails and upper curtain-wall fins remain approximate or unmodelled.",
+        "APURUPA KUSHI exact shared stairs, open parking/lift access, continuous facade/floor/window divisions and upper details remain unmodelled; retained angled source body is provisional.",
+        "Public blue-roof/red-rail waiting shelter, advertisement benches and three bins remain pending; existing nearby mapped stop is only a pole without supported observed-appearance override."
+      ],
+      "manualDrive": {
+        "startingAtlasRoadId": "r_49611679382_0",
+        "keyInputs": [
+          {
+            "wMs": 2300,
+            "wPlusDMs": 100,
+            "sMs": 800
+          },
+          {
+            "wMs": 2400,
+            "sMs": 850,
+            "result": "Parked on-road beside SPACE III; orbit inspected SPACE III and separate blind tower/retail row."
+          },
+          {
+            "wMs": 2200,
+            "wPlusDMs": 100,
+            "wAfterTurnMs": 500,
+            "sMs": 850,
+            "result": "Parked on-road beside APURUPA KUSHI; orbit inspected raisedground and upper order."
+          }
+        ],
+        "stationaryPausesBetweenInputs": true,
+        "recoveries": 0,
+        "resets": 0,
+        "offRoadEventsObserved": 0,
+        "pickupOrDeliveryCompleted": false,
+        "flightOrLandingAttempted": false,
+        "wholeSectionUninterruptedOnRoadCertified": false
+      },
+      "previousCheckpointsPreserved": [
+        "rebuild-madhapur-godavari-checkpoint.png",
+        "rebuild-madhapur-helmet-checkpoint.png",
+        "rebuild-madhapur-happi-checkpoint.png",
+        "rebuild-madhapur-ramraj-checkpoint.png"
+      ],
+      "routeProgressLimit": "Same28edge geometry-only DurgamCheruvu\u2013Madhapur route;704.51m distinct any-side observation union/1640.597256m (42.94%), not reconstructed length. Full shop-side visualinventory126.50m; strict0.",
+      "evidenceCorrections": [
+        {
+          "invalidImage": "rebuild-madhapur-apurupa-kushi-checkpoint.png",
+          "invalidImageSha256": "fd360ddec301115c8e633ffb1a93e60967a328fc249a76fa6f89a698be182375",
+          "reason": "Original saved image is a later forward-driving25km/h frame, not the parked retail view in original caption. That caption and its parked-proof use are invalidated; frozen original archive retained as history.",
+          "replacement": "rebuild-madhapur-apurupa-kushi-stationary.png",
+          "replacementMethod": "Same returned AX-and-screenshot bytes; localfile independently inspected. No driving inputs used in this final stationary capture; selectedr435viaatlas.",
+          "extraAttempt": "Separate first recapture attempt went off-road and is not proof of on-road driving. Temporary rebuild-madhapur-apurupa-kushi-parked.png is rejected. No fullroute/physics recertification from this correction."
+        }
+      ],
+      "evidenceAmendment": {
+        "id": "survey44-apurupa-parked-screenshot-caption-correction-20261018",
+        "createdAtUTC": "2026-10-18T23:37:49.686849+00:00",
+        "scope": "Saved screenshot proof/caption correction only; no survey, runtime, building, test or build change",
+        "originalCheckpoint": {
+          "file": "qa/artifacts/historical/survey44-checkpoint-20261018.json",
+          "sha256": "4dea67f02765b940941f93380867ddebd60622ea5b30ed3060387c13994e29aa",
+          "retainedUnchanged": true
+        },
+        "invalidatedEvidence": {
+          "file": "rebuild-madhapur-apurupa-kushi-checkpoint.png",
+          "capture": "Parked on-road; west-to-east raisedground Vogue/Printo/Optic with LBR/TVS-Dell/Bangs upper band, hospital roof and posted5th/LiftinCellar panels. Retained angled source faces, approximate glazing; exact shared stair/parking openings, floor/window geometry and set-backs remain provisional.",
+          "sha256": "fd360ddec301115c8e633ffb1a93e60967a328fc249a76fa6f89a698be182375",
+          "parkedFacadeCaptionValid": false,
+          "observedFileContent": "Forward driving road view with25km/h HUD; does not substantiate the parked APURUPA KUSHI facade caption",
+          "fileAndOriginalArchivePreserved": true
+        },
+        "replacementEvidence": {
+          "file": "rebuild-madhapur-apurupa-kushi-stationary.png",
+          "capture": "Independent preview spawned onr435, stationary0km/h on-road, looking back from east at retained APURUPA KUSHI angled body; OpticStore/Bangs/hospital/Kangen panels visible, farther Printo/Vogue fronts partly occluded by angled walls. Saved same returned AX-and-screenshot bytes and inspected the local file. This image does not show every merchant board or certify a full driving route.",
+          "sha256": "46c74150a802d0d319e7dc1da7c8ac382d924c4bb21755ae5a82b7ed2062f096",
+          "parkedFacadeCaptionValid": true,
+          "localPixelInspection": {
+            "reviewedAtUTC": "2026-10-18T23:37:39.635949+00:00",
+            "method": "Assistant opened saved local PNG with view_image after root saved same returned screenshot bytes",
+            "file": "rebuild-madhapur-apurupa-kushi-stationary.png",
+            "sha256": "46c74150a802d0d319e7dc1da7c8ac382d924c4bb21755ae5a82b7ed2062f096",
+            "parkedFacadeCaptionValid": true,
+            "observedPixels": "0km/h HUD; stationary car on marked carriageway looking back at angled APURUPA KUSHI body; Optic/Bangs/hospital/Kangen panels visible; fartherPrinto/Vogue partly occluded",
+            "allSevenMerchantReadabilityProven": false,
+            "driveCertification": false,
+            "scope": "Parked image only; atlasr435spawn, not a continued manual drive or new route/physics verification"
+          }
+        },
+        "captureFailure": "Earlier browser accessibility/screenshot state and a separate subsequent screenshot capture were different frames. The later saved file was incorrectly captioned as the parked facade.",
+        "verificationLimit": "Eight original focused tests/build retain their original scope and hashes; not rerun or recertified. Replacement is parked image evidence only, not a new route, flight/landing or delivery result.",
+        "savedImageReadabilityLimit": "Optic/Bangs/hospital/Kangen panels visible; farther Printo/Vogue partly occluded. This replacement does not substantiate all seven merchant names. Earlier transient browser observations remain separately reported, not certified by this saved image.",
+        "rejectedRecapture": {
+          "file": "rebuild-madhapur-apurupa-kushi-parked.png",
+          "reason": "Root-reported first recapture went off-road near piers; rejected as on-road parked or driving proof",
+          "usedAsVerification": false,
+          "sha256": "24dd394311674a03ccc131a869c3a6dd11f371eb385b8207fd9e7881f7d57e77"
+        },
+        "amendmentReceipt": "qa/artifacts/historical/survey44-evidence-amendment-20261018.json"
+      },
+      "savedImageProofScope": {
+        "allSevenMerchantNamesProven": false,
+        "replacementIsStationaryAtlasSpawn": true,
+        "newDrivingInputs": false,
+        "rejectedOffRoadRecaptureIsNotVerification": true,
+        "limit": "Optic/Bangs/hospital/Kangen panels visible; farther Printo/Vogue partly occluded. This replacement does not substantiate all seven merchant names. Earlier transient browser observations remain separately reported, not certified by this saved image."
+      }
+    },
+    "currentFullRouteSweepRun": false,
+    "sourceValidation": "Survey validation and deterministic network/work-queue reproduction passed; strict metric verification remains zero."
+  },
+  "historicalVerificationRevision45": {
+    "unitPassed": 5,
+    "unitFailed": 0,
+    "unitSkipped": 0,
+    "unitReport": "qa/artifacts/unit/revision45-section.json",
+    "unitSuiteScope": "First-pass source dates/IDs, LEFT coverage bounds, narrow suppression, pending queues and unchanged input contracts only",
+    "build": {
+      "date": "2026-10-18",
+      "surveyRevision": 45,
+      "build": "passed",
+      "typecheck": "passed",
+      "buildWallSeconds": 2.068,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "6bb2e0ccde9cfddb5f43a83f74cee4d36401b6462c06e81a3cad82c7d67f5e70",
+      "assets": [
+        "art-BXavBK1a.js",
+        "index-ClbuWotN.css",
+        "index-DtSifVGn.js"
+      ],
+      "serviceWorkerCache": "hmd-shell-0.2.0-map45-street-context-sign-text",
+      "runtimeUnchangedSince42": true,
+      "productionResearchBytesMatch": true,
+      "physicalParity": "Full staged1,646-chunk/80,125-component audit retained; no new building profiles or access plans, only observations and one named-front suppression.",
+      "strictMetricVerification": 0
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "surveyRevision": 45,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "6bb2e0ccde9cfddb5f43a83f74cee4d36401b6462c06e81a3cad82c7d67f5e70",
+      "url": "http://127.0.0.1:4173/?unlock",
+      "browserTabId": "1933377231",
+      "atlasFrontCount": 159,
+      "atlasImageryInventorySides": 19,
+      "firstPassDistinctRouteM": 246.48,
+      "firstPassObservedSide": "left",
+      "newRuntimeFronts": 0,
+      "newRuntimeProfiles": 0,
+      "captureWindowElapsedSeconds": 933.283,
+      "summary": "Production reload and atlas search HAVANA selects Road No36/165m. Facing east shows LEFT partly reviewed and RIGHT not reviewed; four resolved business names remain Observed/placement pending, no placed shop sequence manufactured.23reference notes. No new driving, flight, delivery or facade-pixel certification performed for the first-pass checkpoint.",
+      "warningOrErrorEntries": [],
+      "screenshot": {
+        "file": "rebuild-first-pass-atlas-checkpoint.png",
+        "sha256": "eafc92c5393040bfcf6edadfb32534064d58990a7c45b7437f12ca8d5a207310",
+        "capture": "Same returned AX-and-screenshot bytes saved. Atlas shows 159priorresearchedfronts/19priorinventorysides, LEFTpartial/RIGHTunreviewed on165msegment and Havana/Kingsmen/PVK/Oprea pending observations. No placed facades added by45."
+      },
+      "strictMetricVerification": 0,
+      "visualInventoryIncrementM": 0,
+      "fourResolvedNames": [
+        "HAVANA THE SALON",
+        "KINGSMEN BARBER SHOP",
+        "PVK VISUALS",
+        "OPREA DIAMONDS"
+      ],
+      "otherReadableFeatureGroups": [
+        "KSHATRIYA FOODS directional board",
+        "HMWSSB/KAVURI HILLS RESERVOIR & CASH COUNTER MADHAPUR SECTION utility board"
+      ],
+      "unknownIssueGroups": 12,
+      "unknownShopUnitCount": null,
+      "unknownCountBasis": "second-pass issue groups, not individual unknown shop units",
+      "nextPassPolicy": "Quick dated names/order/canonical side/approximate interval first; detailed parent/floor/entrance/profile work is queued separately.",
+      "manualDrive": {
+        "performed": false,
+        "reason": "Pending first-pass observations have no new rendered fronts; preserve44driving evidence and correction history without repetition."
+      }
+    },
+    "currentFullRouteSweepRun": false,
+    "newManualDrivingRun": false,
+    "newFacadePixelCertification": false,
+    "sourceValidation": "All-chunk survey validation and deterministic network/work-queue reproduction passed; strict verification remains0"
+  },
+  "historicalVerificationRevision46": {
+    "newUnitTestsRun": false,
+    "newUnitPassed": null,
+    "unitSuiteScope": "None required for pending-only data; no repeated45tests. Source validation, deterministic network and work-queue reproduction passed.",
+    "sourceChecks": {
+      "surveyValidate": "passed",
+      "networkReproduction": "passed",
+      "queueReproduction": "passed",
+      "all1646BaseChunkHashes": "passed",
+      "scope": "Existing source/geometry validators only; zero strict verification"
+    },
+    "build": {
+      "date": "2026-10-18",
+      "surveyRevision": 46,
+      "build": "passed",
+      "typecheck": "passed",
+      "buildWallSeconds": 1.854,
+      "runtimeSourceSha256": "6c431268a03d71425fe2056ce96f06efcf163518bdc7a80fed5aee8b37be736e",
+      "surveySha256": "4ffd4143f90e05ee6031d94c38f41d2eedaaf563c43363184f6e6e2f5d0a75f7",
+      "assets": [
+        "art-BXavBK1a.js",
+        "index-ClbuWotN.css",
+        "index-DtSifVGn.js"
+      ],
+      "serviceWorkerCache": "hmd-shell-0.2.0-map46-street-context-sign-text",
+      "runtimeUnchangedSince42": true,
+      "productionResearchBytesMatch": true,
+      "physicalParity": "Full staged1,646-chunk/80,125-component audit retained; pending observations only, no new building profiles, access plans or world geometry.",
+      "strictMetricVerification": 0
+    },
+    "browser": {
+      "date": "2026-10-18",
+      "surveyRevision": 46,
+      "url": "http://127.0.0.1:4173/?unlock",
+      "result": "passed",
+      "checks": {
+        "newDosteaObservationSearchable": true,
+        "leftPartial": true,
+        "rightUnreviewed": true,
+        "placementPending": true,
+        "17SourceReferences": true,
+        "noConsoleWarningsErrors": true
+      },
+      "screenshot": "/Users/tharun/Documents/Codex/2026-10-17/referenced-chatgpt-conversation-this-is-an/outputs/rebuild-raidurg-first-pass-atlas-checkpoint.png",
+      "screenshotSha256": "5f7923ab981c7f7682338d845dab5692829033bf05ce4f22bb5b9c55d65e07a0",
+      "sameAXAndScreenshotBytesSaved": true,
+      "scope": "Atlas observations only; no new rendered storefront, driving, delivery, flight, collision or facade ray certification."
+    },
+    "currentFullRouteSweepRun": false,
+    "newManualDrivingRun": false,
+    "newFacadePixelCertification": false,
+    "newRuntimeOrPhysicalChanges": false
+  }
+}

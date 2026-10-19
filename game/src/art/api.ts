@@ -14,6 +14,10 @@ export interface HeroCar {
   wheels: THREE.Object3D[];
   /** 0..1 thruster/vapor intensity (flight presentation) */
   setThruster(intensity: number): void;
+  /** World-ground clearance supplies cold-gas ground interaction; visual only. */
+  setFlightContext?(context: { heightM: number; verticalSpeed: number; speedMps: number; steerRad: number }): void;
+  setCargoLoaded?(loaded: boolean): void;
+  setHeadlights?(on: boolean): void;
   setBrakeLights(on: boolean): void;
   setReverseLights(on: boolean): void;
   /** per-frame visual update: wheel spin from speed (m/s), steer angle (rad), dt seconds */
@@ -21,7 +25,7 @@ export interface HeroCar {
   dispose(): void;
 }
 
-export type TrafficKind = 'car' | 'auto' | 'bus' | 'bike' | 'truck';
+export type TrafficKind = 'car' | 'auto' | 'bus' | 'bike' | 'bicycle' | 'truck';
 
 export interface TrafficTemplate {
   kind: TrafficKind;
@@ -51,6 +55,9 @@ export interface ArtApi {
   /** sky, sun, hemisphere/ambient, fog, shadow camera that follows target */
   buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRenderer, quality: Quality): {
     update(target: THREE.Vector3): void;
+    setAtmosphere?(state: {timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}): void;
+    setTerrainCore?(core:WorldCore):void;
+    bindTerrainObject?(object:THREE.Object3D):void;
     dispose(): void;
   };
   /** destination marker (stop polygon + entrance beacon) */

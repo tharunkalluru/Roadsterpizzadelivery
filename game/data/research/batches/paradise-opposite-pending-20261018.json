@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "id": "paradise-opposite-pending-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex separate Chrome corridor inspection",
+  "notes": "Dated opposite-side shop order. Keep pending while adjacent footprint/unit assignment remains ambiguous; no completeness or facade verification claim.",
+  "sources": [
+    {
+      "id": "sv-paradise-opposite-shops-2026-02-chrome-20261018",
+      "kind": "street_view",
+      "title": "Sarojini Devi Road opposite Paradise — Maharaja, Happy Rooms, Kallada and Zam Zam",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=iig6Fgwkac6BSTaCwxIGQA&heading=10&pitch=10&fov=45",
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex separate Chrome corridor inspection",
+      "position": {
+        "lat": 17.4418424,
+        "lon": 78.4872832,
+        "headingDeg": 10,
+        "panoId": "iig6Fgwkac6BSTaCwxIGQA"
+      },
+      "notes": "Direct opposite-side inspection shows, left to right: Maharaja Bar & Restaurant entrance sign, Kallada Travels & Logistics turquoise sign, Zam Zam black/yellow-white restaurant sign. Hotel Happy Rooms blue/yellow board is above the left part. A long pale Maharaja Restaurant & Bar band is above the Kallada/Zam Zam section; this is not treated as another operator. Upper facade is aged offwhite plaster with shallow pilasters/cornice, rectangular room windows and window AC units. Numerous utility wires and actual signal heads are visible. Precise assignment across adjacent canonical b_b5036a537e and b_b206b72b34 footprints has not been established, so no frontage geometry is authored.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "listing-paradise-zam-zam-20261018",
+      "kind": "map_listing",
+      "title": "ZAM ZAM RESTAURANT — Paradise Circle public listing",
+      "url": "https://www.google.com/maps/place/ZAM+ZAM+RESTAURANT/@17.4419878,78.4873202,18z/",
+      "captureDate": null,
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex separate Chrome map-listing inspection",
+      "position": {
+        "lat": 17.4419878,
+        "lon": 78.4873202
+      },
+      "notes": "Directly opened listing shows ZAM ZAM RESTAURANT at Shop No1 Paradise Circle, Secunderabad. The public pin is contained by canonical b_b206b72b34 and agrees with the directly visible opposite-side sign. A listing pin still does not establish an exact doorway, unit boundary, floor or facade width.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-paradise-opposite-maharaja",
+      "sourceIds": [
+        "sv-paradise-opposite-shops-2026-02-chrome-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "MAHARAJA BAR & RESTAURANT",
+      "category": "restaurant",
+      "roadId": "r_65379100444_2",
+      "position": {
+        "lat": 17.4418424,
+        "lon": 78.4872832,
+        "headingDeg": 10
+      },
+      "placementStatus": "pending",
+      "notes": "Blue/white entrance board at left and a longer pale upper board are visible; their shared operator/access and footprint boundary remain unresolved. Position is the observation camera, not the business entrance."
+    },
+    {
+      "id": "obs-paradise-opposite-happy-rooms",
+      "sourceIds": [
+        "sv-paradise-opposite-shops-2026-02-chrome-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "HOTEL HAPPY ROOMS",
+      "category": "hotel",
+      "roadId": "r_65379100444_2",
+      "position": {
+        "lat": 17.4418424,
+        "lon": 78.4872832,
+        "headingDeg": 10
+      },
+      "placementStatus": "pending",
+      "notes": "Blue/yellow upper board reads HOTEL HAPPY ROOMS; observed upper-floor identity does not yet establish exact floor or unit bounds. Position is the observation camera, not the business entrance."
+    },
+    {
+      "id": "obs-paradise-opposite-kallada",
+      "sourceIds": [
+        "sv-paradise-opposite-shops-2026-02-chrome-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "Kallada Travels & Logistics",
+      "category": "travel_agency",
+      "roadId": "r_65379100444_2",
+      "position": {
+        "lat": 17.4418424,
+        "lon": 78.4872832,
+        "headingDeg": 10
+      },
+      "placementStatus": "pending",
+      "notes": "Turquoise board sits immediately left of Zam Zam. Lower red travel-agency boards may represent additional operators, but unclear names remain unrecorded. Position is the observation camera, not the business entrance."
+    },
+    {
+      "id": "obs-paradise-opposite-zam-zam",
+      "sourceIds": [
+        "sv-paradise-opposite-shops-2026-02-chrome-20261018",
+        "listing-paradise-zam-zam-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "ZAM ZAM RESTAURANT",
+      "category": "restaurant",
+      "roadId": "r_65379100444_2",
+      "position": {
+        "lat": 17.4418424,
+        "lon": 78.4872832,
+        "headingDeg": 10
+      },
+      "placementStatus": "pending",
+      "notes": "Black board with bold ZAM ZAM lettering is right of Kallada. Public pin corroborates b_b206b72b34, but metric facade/door geometry is still pending. Position is the observation camera, not the business entrance."
+    }
+  ],
+  "storefrontOverrides": [],
+  "suppressions": [],
+  "corrections": [],
+  "roadReviews": []
+}

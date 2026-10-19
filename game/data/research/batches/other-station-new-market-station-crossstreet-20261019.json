@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "id": "other-station-new-market-station-crossstreet-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View inspection",
+  "notes": "April 2026 Street View pass around New Market station access. Three headings from one connected panorama reveal Vijay Auto Garage, Shree Maruti courier/cargo signage, a narrow side street meeting the Metro/highway corridor and heavy vehicle/parking context. Shop identities are pending camera-context candidates; side, facade boundaries and neighbor order are not proven.",
+  "sources": [
+    {
+      "id": "sv-new-market-station-crossstreet-20261019-01",
+      "kind": "street_view",
+      "title": "New Market station-side garage frontage — April 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=IkDLtDnq_k-0A9SqmzXK-g&heading=220.1077&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3729386,
+        "lon": 78.5039375,
+        "headingDeg": 220.1077,
+        "panoId": "IkDLtDnq_k-0A9SqmzXK-g"
+      },
+      "notes": "The fascia clearly reads “Vijay Auto Garage — Service Center” with Honda and Hero branding. The open ground-level bay contains motorcycles; the upper floors are residential-looking balconies. Google Street View labels the capture April 2026. The camera is not the shop entrance and does not establish a canonical road side or frontage span.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-new-market-station-crossstreet-20261019-02",
+      "kind": "street_view",
+      "title": "New Market side-street courier frontage — April 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=IkDLtDnq_k-0A9SqmzXK-g&heading=320.696&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3729386,
+        "lon": 78.5039375,
+        "headingDeg": 320.696,
+        "panoId": "IkDLtDnq_k-0A9SqmzXK-g"
+      },
+      "notes": "A large fascia reads “Shree Maruti”; its adjoining vertical board lists courier, express-cargo and international-service wording. A parked freight truck obscures much of the lower frontage. The same panorama also catches the edge of the Vijay Auto Garage fascia, but does not resolve unit boundaries or neighbor order. Camera location only.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-new-market-station-crossstreet-20261019-03",
+      "kind": "street_view",
+      "title": "New Market station cross-street and Metro corridor — April 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=IkDLtDnq_k-0A9SqmzXK-g&heading=11.9407&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3729386,
+        "lon": 78.5039375,
+        "headingDeg": 11.9407,
+        "panoId": "IkDLtDnq_k-0A9SqmzXK-g"
+      },
+      "notes": "The April 2026 view looks down a narrow side street toward the elevated Metro/highway junction. It shows a bus crossing the junction, a delivery truck, parked two-wheelers, a pedestrian, overhead utility wires and shuttered/blank wall sections. A distant “Blue Star” board cannot be tied to a tenant or exact frontage. No continuous inventory is established.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-new-market-vijay-auto-garage-20261019",
+      "sourceIds": [
+        "sv-new-market-station-crossstreet-20261019-01",
+        "sv-new-market-station-crossstreet-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Vijay Auto Garage — Service Center",
+      "category": "auto_repair_shop",
+      "roadId": null,
+      "position": {
+        "lat": 17.3729386,
+        "lon": 78.5039375,
+        "headingDeg": 220.1077
+      },
+      "placementStatus": "pending",
+      "notes": "The April 2026 fascia reads “Vijay Auto Garage — Service Center” and carries Honda and Hero branding. The shuttered/open-bay boundary and exact entrance are partly obscured by parked motorcycles and the angle. This is a camera-context identity only; no road side, facade geometry, floor tenancy or neighbor order is assigned."
+    },
+    {
+      "id": "obs-new-market-shree-maruti-courier-20261019",
+      "sourceIds": [
+        "sv-new-market-station-crossstreet-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Shree Maruti — courier and cargo signage",
+      "category": "courier_service",
+      "roadId": null,
+      "position": {
+        "lat": 17.3729386,
+        "lon": 78.5039375,
+        "headingDeg": 320.696
+      },
+      "placementStatus": "pending",
+      "notes": "A large fascia reads “Shree Maruti”; a vertical board beside it lists courier, express-cargo and international-service wording. A freight truck obscures the lower frontage, so the active entrance, exact unit boundary and relation to the nearby auto garage remain unresolved. No road side, facade span or ordering is assigned."
+    },
+    {
+      "id": "obs-new-market-station-crossstreet-context-20261019",
+      "sourceIds": [
+        "sv-new-market-station-crossstreet-20261019-03"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "New Market station cross-street and Metro junction context",
+      "category": "station_public_realm_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.3729386,
+        "lon": 78.5039375,
+        "headingDeg": 11.9407
+      },
+      "placementStatus": "pending",
+      "notes": "The April 2026 panorama shows a narrow access street meeting the elevated Metro/highway corridor, with a crossing city bus, freight/delivery vehicles, parked two-wheelers, a pedestrian, dense overhead wiring and shuttered or blank wall frontage. The distant “Blue Star” board is not tied to a specific unit. Camera context only; no shop order or side is claimed."
+    }
+  ]
+}

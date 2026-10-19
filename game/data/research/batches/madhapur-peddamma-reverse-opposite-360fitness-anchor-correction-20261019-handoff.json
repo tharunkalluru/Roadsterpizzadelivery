@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-reverse-opposite-360fitness-anchor-correction-20261019-handoff",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Correct the approximate camera anchor for the pending 360 FITNESS sign candidate to pano 016 at 17.4357125,78.4015906, heading 250°, the direct view used to resolve its fascia. The prior anchor accidentally paired pano 014 coordinates with pano 016 heading. No storefront, road side, bounds, door or verification status changes.",
+  "observations": [
+    {
+      "id": "obs-mp-reverse-360-fitness-fascia-candidate-20261019",
+      "sourceIds": [
+        "sv-mp-reverse-opposite-endpass-pano016-h250-20261019",
+        "sv-mp-reverse-opposite-endpass-pano015-h224-20261019",
+        "sv-mp-reverse-opposite-endpass-pano014-h224-20261019",
+        "sv-mp-reverse-opposite-endpass-pano013-h224-20261019",
+        "sv-mp-reverse-opposite-endpass-pano012-h224-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "360 FITNESS fascia candidate at the Madhapur-end commercial block",
+      "notes": "Repeated 360 FITNESS fascia lettering identifies one possible tenant/sign on the far-side blue-glass commercial block across panos 016–012. Repeated panels are not separate shops; the sign is above the lower retail level. Exact floor/access, bounds and canonical side remain unverified.",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4357125,
+        "lon": 78.4015906,
+        "headingDeg": 250
+      },
+      "placementStatus": "pending"
+    }
+  ],
+  "expectedPrevious": {
+    "observations:obs-mp-reverse-360-fitness-fascia-candidate-20261019": "175ae4353668b601b5f72f0f7f33973eec22da62c3815a40b8b05384fd91320d"
+  }
+}

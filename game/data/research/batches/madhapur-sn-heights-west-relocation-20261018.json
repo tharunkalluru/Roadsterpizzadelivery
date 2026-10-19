@@ -1,0 +1,734 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-sn-heights-west-relocation-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex Chrome multi-angle research",
+  "notes": "Correct earlier main-road building association using multi-angle dated structure, current business listing and alley alignment. Retain original IDs and historical records; all metric geometry remains provisional.",
+  "sources": [
+    {
+      "id": "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+      "kind": "street_photo",
+      "title": "SN Heights west alley structural corroboration — August2022 user photo",
+      "url": "https://www.google.com/maps/@17.4413253,78.391533,3a,70y,90h,93t/data=!3m7!1e1!3m5!1sCIHM0ogKEICAgICurYzzQA!2e10!7i10240!8i5120",
+      "captureDate": "2022-08",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex Chrome multi-angle research",
+      "position": {
+        "lat": 17.4413253,
+        "lon": 78.391533,
+        "headingDeg": 90,
+        "panoId": "CIHM0ogKEICAgICurYzzQA"
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Root inspected the user photo-sphere by justinkarthik. Same three-level west-facing structural alley frontage shows older Navabharat Cooperative Bank upstairs and RANGOLI FASHIONS below. Used only for building/facade correspondence and long-lived access, not current business verification. Current2026 Vave/Rajadhani boards belong to the renovated same alley frontage. No imagery redistributed."
+    },
+    {
+      "id": "listing-vave-sn-heights-20261018",
+      "kind": "map_listing",
+      "title": "Vave Salon Unisex — SN HEIGHTS, Ayyappa Society Main Road",
+      "url": "https://www.google.com/maps/place/Vave+Salon+Unisex/data=!4m6!3m5!1s0x3bcb938129ab1215:0x1b7a6a671fb1b607!8m2!3d17.4413715!4d78.391667!16s%2Fg%2F11y310ym7t",
+      "captureDate": null,
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex Chrome multi-angle research",
+      "position": {
+        "lat": 17.4413715,
+        "lon": 78.391667
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Root selected the business pin in satellite view and opened its listing. Address SN HEIGHTS,Ayyappa Society Main Rd and pin17.4413715,78.391667 support parent block b_debb5e0d92 north behind the earlier wrong building. The pin is not a measured entrance. Current-business and old2022 structural evidence remain separately dated."
+    }
+  ],
+  "observations": [
+    {
+      "id": "survey-madhapur-vave-salon-observation",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "VAVE SALON UNISEX",
+      "category": "beauty_salon",
+      "roadId": "r_61811731267_0",
+      "position": {
+        "lat": 17.4410804,
+        "lon": 78.3914984,
+        "headingDeg": 50
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-madhapur-vave-salon",
+      "notes": "Photographed identity and broad upper-floor arrangement are provisionally reconstructed. Exact metric geometry remains pending. Vave Salon Unisex is legible on the wider left first-upper-floor band. Approximately 11.02 m frontage follows the observed broad division. Endpoints, entrance, colours and sign height are authored estimates; no measured unit dimensions are claimed. CORRECTION: Observation belongs to the north block west-facing Ayyappa Society alley frontage, not the earlier b_29048e3fbb south face. Exact access and unresolved operator names remain pending."
+    },
+    {
+      "id": "survey-madhapur-neoclassic-concepts-observation",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Neoclassic Concepts",
+      "category": "interior_design",
+      "roadId": "r_61811731267_0",
+      "position": {
+        "lat": 17.4410804,
+        "lon": 78.3914984,
+        "headingDeg": 50
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-madhapur-neoclassic-concepts",
+      "notes": "Photographed identity and broad upper-floor arrangement are provisionally reconstructed. Exact metric geometry remains pending. Neoclassic Concepts black board with white lettering and a gold couch icon occupies the right first-upper-floor portion. The 5.33 m span, central entrance and all metric elevations are provisional. Its furniture-like icon is observed but does not by itself establish a retail category or ground entrance. CORRECTION: Observation belongs to the north block west-facing Ayyappa Society alley frontage, not the earlier b_29048e3fbb south face. Exact access and unresolved operator names remain pending."
+    },
+    {
+      "id": "survey-madhapur-fit-hive-gym-observation",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "FIT.HIVE GYM",
+      "category": "fitness_centre",
+      "roadId": "r_61811731267_0",
+      "position": {
+        "lat": 17.4410804,
+        "lon": 78.3914984,
+        "headingDeg": 50
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-madhapur-fit-hive-gym",
+      "notes": "Photographed identity and broad upper-floor arrangement are provisionally reconstructed. Exact metric geometry remains pending. FIT.HIVE GYM has observed red/white bands near the centre and right of the second upper floor. This is a single business registration spanning that level, not two tenants. A single authored 10 m sign approximates the main band; exact board divisions, access, 17.09 m tenancy span and elevations remain unmeasured. CORRECTION: Observation belongs to the north block west-facing Ayyappa Society alley frontage, not the earlier b_29048e3fbb south face. Exact access and unresolved operator names remain pending."
+    },
+    {
+      "id": "survey-madhapur-vantage-mobile-observation",
+      "name": "Ground mobile-store board (operator name uncertain)",
+      "category": "electronics_mobile",
+      "notes": "Closer view rejects the original VANTAGE transcription. The blurred board may read HARSH MOBILE STORE, but the exact operator name remains uncertain. Legacy observation ID preserves correction history; neither Vantage nor Harsh is canonically displayed as a shop. Exact unit division and doorway remain pending. CORRECTION: Observation belongs to the north block west-facing Ayyappa Society alley frontage, not the earlier b_29048e3fbb south face. Exact access and unresolved operator names remain pending.",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "roadId": "r_61811731267_0",
+      "position": {
+        "lat": 17.4410804,
+        "lon": 78.3914984,
+        "headingDeg": 32
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "survey-madhapur-rajadhani-bank-atm-observation",
+      "name": "RAJADHANI BANK / vertical 24x7 ATM sign",
+      "category": "bank_atm",
+      "notes": "Closer view identifies a blue Rajadhani Bank board on floor 2 left quarter, now provisionally reconstructed. The vertical purple/yellow 24x7 ATM sign remains a sign observation: exact ATM entrance, shared stair, bank door and measured dimensions are unresolved. No ground ATM placement is invented. CORRECTION: Observation belongs to the north block west-facing Ayyappa Society alley frontage, not the earlier b_29048e3fbb south face. Exact access and unresolved operator names remain pending.",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "roadId": "r_61811731267_0",
+      "position": {
+        "lat": 17.4410804,
+        "lon": 78.3914984,
+        "headingDeg": 32
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-madhapur-rajadhani-bank"
+    },
+    {
+      "id": "survey-madhapur-sn-fashions-observation",
+      "name": "Partly obscured ... FASHIONS ground board",
+      "category": "apparel",
+      "notes": "Ground-left sign has legible FASHIONS wording but an obscured operator name. Generic wording is recorded without an invented business name, doorway or frontage. CORRECTION: Observation belongs to the north block west-facing Ayyappa Society alley frontage, not the earlier b_29048e3fbb south face. Exact access and unresolved operator names remain pending.",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "roadId": "r_61811731267_0",
+      "position": {
+        "lat": 17.4410804,
+        "lon": 78.3914984,
+        "headingDeg": 32
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "survey-madhapur-sn-photo-studio-observation",
+      "name": "PHOTO STUDIO ground board (operator obscured)",
+      "category": "photography",
+      "notes": "Ground-centre photo-studio wording is visible but the operator name is obscured. This is an unpositioned sign observation, not an invented named storefront. CORRECTION: Observation belongs to the north block west-facing Ayyappa Society alley frontage, not the earlier b_29048e3fbb south face. Exact access and unresolved operator names remain pending.",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "roadId": "r_61811731267_0",
+      "position": {
+        "lat": 17.4410804,
+        "lon": 78.3914984,
+        "headingDeg": 32
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "survey-madhapur-sn-titan-branding-observation",
+      "name": "TITAN / fastrack branding",
+      "category": "apparel",
+      "notes": "Right-side Titan / fastrack marks are visible branding only. They do not establish a separately operated branded shop or its actual entrance; no tenant placement is created. CORRECTION: Observation belongs to the north block west-facing Ayyappa Society alley frontage, not the earlier b_29048e3fbb south face. Exact access and unresolved operator names remain pending.",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "roadId": "r_61811731267_0",
+      "position": {
+        "lat": 17.4410804,
+        "lon": 78.3914984,
+        "headingDeg": 32
+      },
+      "placementStatus": "pending"
+    },
+    {
+      "id": "survey-sn-rangoli-fashions-observation",
+      "sourceIds": [
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2022-08",
+      "observedDate": "2026-10-18",
+      "name": "RANGOLI FASHIONS ground board (current identity pending)",
+      "category": "apparel",
+      "roadId": "r_61811731267_0",
+      "position": {
+        "lat": 17.4413253,
+        "lon": 78.391533,
+        "headingDeg": 90
+      },
+      "placementStatus": "pending",
+      "notes": "Name is clearly readable in2022 structural photo. The2026 partial FASHIONS wording is consistent, but current operator identity and doorway remain pending; do not create a current named storefront from older imagery alone."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-madhapur-vave-salon",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "VAVE SALON UNISEX",
+      "nameTe": null,
+      "category": "beauty_salon",
+      "group": "other",
+      "roadId": "r_61811731267_0",
+      "side": "left",
+      "buildingId": "b_debb5e0d92",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16657.5,
+          -2967.76
+        ],
+        [
+          -16657.63,
+          -2961.66
+        ]
+      ],
+      "entrance": [
+        -16657.565000000002,
+        -2964.71
+      ],
+      "floor": 1,
+      "frontageWidthM": 6.1,
+      "alongRoadM": 65.53,
+      "facingHeading": 1.49412,
+      "lat": 17.4413878,
+      "lon": 78.3916213,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex Chrome street-level inspection",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018"
+        ]
+      },
+      "suppressAliases": [
+        "Vave Salon",
+        "Vave Salon Unisex"
+      ],
+      "suppressionRadiusM": 45,
+      "appearance": {
+        "facadeColor": "#ece5df",
+        "signColor": "#24272b",
+        "signTextColor": "#ffffff",
+        "heightM": 3.2,
+        "signHeightM": 1,
+        "signBaseM": 6.1,
+        "signOutsetM": 0.65,
+        "signWidthM": 6.1,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Vave Salon Unisex is legible on the wider left first-upper-floor band. Approximately 11.02 m frontage follows the observed broad division. Endpoints, entrance, colours and sign height are authored estimates; no measured unit dimensions are claimed. CORRECTION: Earlier south/main-road placement on b_29048e3fbb was wrong. Current listing plus older structural photo associate these boards with b_debb5e0d92 WEST alley facade. All spans/entrances/elevations remain provisional; the older photo does not certify current tenants."
+    },
+    {
+      "id": "survey-madhapur-neoclassic-concepts",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "Neoclassic Concepts",
+      "nameTe": null,
+      "category": "interior_design",
+      "group": "office_service",
+      "roadId": "r_61811731267_0",
+      "side": "left",
+      "buildingId": "b_debb5e0d92",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16657.64,
+          -2961.26
+        ],
+        [
+          -16657.7,
+          -2958.36
+        ]
+      ],
+      "entrance": [
+        -16657.67,
+        -2959.8100000000004
+      ],
+      "floor": 1,
+      "frontageWidthM": 2.9,
+      "alongRoadM": 70.43,
+      "facingHeading": 1.49412,
+      "lat": 17.4413435,
+      "lon": 78.3916203,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex Chrome street-level inspection",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018"
+        ]
+      },
+      "suppressAliases": [
+        "Neoclassic Concepts"
+      ],
+      "suppressionRadiusM": 45,
+      "appearance": {
+        "facadeColor": "#ece5df",
+        "signColor": "#24272b",
+        "signTextColor": "#ffffff",
+        "heightM": 3.2,
+        "signHeightM": 1,
+        "signBaseM": 6.1,
+        "signOutsetM": 0.65,
+        "signWidthM": 2.9,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Neoclassic Concepts black board with white lettering and a gold couch icon occupies the right first-upper-floor portion. The 5.33 m span, central entrance and all metric elevations are provisional. Its furniture-like icon is observed but does not by itself establish a retail category or ground entrance. CORRECTION: Earlier south/main-road placement on b_29048e3fbb was wrong. Current listing plus older structural photo associate these boards with b_debb5e0d92 WEST alley facade. All spans/entrances/elevations remain provisional; the older photo does not certify current tenants."
+    },
+    {
+      "id": "survey-madhapur-rajadhani-bank",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "RAJADHANI BANK",
+      "nameTe": null,
+      "category": "bank",
+      "group": "bank_atm",
+      "roadId": "r_61811731267_0",
+      "buildingId": "b_debb5e0d92",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16657.5,
+          -2967.76
+        ],
+        [
+          -16657.55,
+          -2965.56
+        ]
+      ],
+      "entrance": [
+        -16657.525,
+        -2966.66
+      ],
+      "side": "left",
+      "frontageWidthM": 2.2,
+      "alongRoadM": 63.59,
+      "facingHeading": 1.49412,
+      "lat": 17.4414054,
+      "lon": 78.3916217,
+      "floor": 2,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex Chrome street-level inspection",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+        ]
+      },
+      "suppressAliases": [
+        "Rajadhani Bank"
+      ],
+      "suppressionRadiusM": 45,
+      "appearance": {
+        "facadeColor": "#ece5df",
+        "signColor": "#344a97",
+        "signTextColor": "#ffffff",
+        "heightM": 3.2,
+        "signHeightM": 1,
+        "signBaseM": 9.7,
+        "signOutsetM": 0.65,
+        "signWidthM": 2.2,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Closer view confirms the blue RAJADHANI BANK board on the left quarter of SN Heights second upper floor. The 3.86 m frontage, floor elevation and central facade anchor are estimates; common stair and actual bank door remain unresolved. A separate vertical 24x7 ATM sign is observed but does not establish a ground-level ATM entrance. CORRECTION: Earlier south/main-road placement on b_29048e3fbb was wrong. Current listing plus older structural photo associate these boards with b_debb5e0d92 WEST alley facade. All spans/entrances/elevations remain provisional; the older photo does not certify current tenants."
+    },
+    {
+      "id": "survey-madhapur-fit-hive-gym",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "FIT.HIVE GYM",
+      "nameTe": null,
+      "category": "fitness_centre",
+      "group": "other",
+      "roadId": "r_61811731267_0",
+      "side": "left",
+      "buildingId": "b_debb5e0d92",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16657.55,
+          -2965.26
+        ],
+        [
+          -16657.7,
+          -2958.36
+        ]
+      ],
+      "entrance": [
+        -16657.625,
+        -2961.8100000000004
+      ],
+      "floor": 2,
+      "frontageWidthM": 6.9,
+      "alongRoadM": 68.43,
+      "facingHeading": 1.49412,
+      "lat": 17.4413616,
+      "lon": 78.3916208,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex Chrome street-level inspection",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+          "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+          "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+          "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+        ]
+      },
+      "suppressAliases": [
+        "Fit Hive Gym",
+        "Fit.Hive Gym"
+      ],
+      "suppressionRadiusM": 45,
+      "appearance": {
+        "facadeColor": "#ece5df",
+        "signColor": "#c6313d",
+        "signTextColor": "#ffffff",
+        "heightM": 3.2,
+        "signHeightM": 1,
+        "signBaseM": 9.7,
+        "signOutsetM": 0.65,
+        "signWidthM": 6.9,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Closer view reserves the second-upper-floor left quarter for Rajadhani Bank and confirms FIT.HIVE GYM on the remaining centre/right, with two red/white sign bands referring to one business. Its approximately 12.68 m authored span and single 10 m main-band reconstruction are estimates. Common stair access, actual door, sign divisions and every vertical dimension remain unmeasured. CORRECTION: Earlier south/main-road placement on b_29048e3fbb was wrong. Current listing plus older structural photo associate these boards with b_debb5e0d92 WEST alley facade. All spans/entrances/elevations remain provisional; the older photo does not certify current tenants."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "profile-madhapur-sn-heights",
+      "kind": "building_profile",
+      "buildingId": "b_debb5e0d92",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "heightM": 11.8,
+      "levels": 3,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#ece5df",
+      "style": "madhapur_sn_heights",
+      "notes": "Three visible levels including ground inform an approximately 11.8 m provisional height. Offwhite horizontal fascia, dark-blue SN HEIGHTS lettering and a tall right rose/pink fascia with a gold emblem are observed. Footprint b_29048e3fbb is provisionally matched by its position immediately east of Ayyappa Society Main Road; precise geometry is not field-measured. Ground shop and ATM entrances remain pending. CORRECTION: Relocated north to b_debb5e0d92 west alley face after dated multi-angle structural and current listing match; initial south-face/b_29048e3fbb association is superseded.",
+      "profile": {
+        "sourceIds": [
+          "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+          "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+          "listing-vave-sn-heights-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#ece5df",
+        "material": "mixed",
+        "fronts": [
+          {
+            "storefrontIds": [
+              "survey-madhapur-vave-salon",
+              "survey-madhapur-neoclassic-concepts",
+              "survey-madhapur-rajadhani-bank",
+              "survey-madhapur-fit-hive-gym"
+            ],
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.6,
+                "glazingRatio": 0.3,
+                "glassColor": "#40545c",
+                "bandColor": "#ece5df",
+                "bandHeightM": 0.4
+              },
+              {
+                "baseM": 3.6,
+                "heightM": 3.7,
+                "glazingRatio": 0.68,
+                "glassColor": "#40545c",
+                "bandColor": "#ece5df",
+                "bandHeightM": 0.5
+              },
+              {
+                "baseM": 7.3,
+                "heightM": 4.5,
+                "glazingRatio": 0.6,
+                "glassColor": "#40545c",
+                "bandColor": "#ece5df",
+                "bandHeightM": 0.5
+              }
+            ],
+            "bays": [
+              {
+                "start": 0,
+                "end": 0.64
+              },
+              {
+                "start": 0.68,
+                "end": 0.93
+              }
+            ],
+            "piers": [
+              {
+                "at": 0,
+                "widthM": 0.25,
+                "color": "#ece5df"
+              },
+              {
+                "at": 0.65,
+                "widthM": 0.3,
+                "color": "#ece5df"
+              },
+              {
+                "at": 0.98,
+                "widthM": 0.3,
+                "color": "#b67d84"
+              }
+            ],
+            "accents": [
+              {
+                "start": 0.94,
+                "end": 1,
+                "baseM": 0,
+                "heightM": 11.8,
+                "color": "#b67d84",
+                "outsetM": 0.25
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "anchor-madhapur-sn-heights",
+      "kind": "landmark_anchor",
+      "buildingId": "b_debb5e0d92",
+      "name": "SN HEIGHTS",
+      "sourceIds": [
+        "sv-madhapur-sn-heights-2026-04-chrome-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018",
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018"
+      ],
+      "notes": "Dark-blue SN HEIGHTS roof-fascia text is visible on the photographed building. This building-name anchor is not an additional tenant or verified measured sign geometry. CORRECTION: Relocated north to b_debb5e0d92 west alley face after dated multi-angle structural and current listing match; initial south-face/b_29048e3fbb association is superseded."
+    }
+  ],
+  "retractions": [
+    {
+      "collection": "suppressions",
+      "id": "suppress-sn-heights-main-sf_2381ff638e",
+      "expectedHash": "54b257d2e03bcc66411791f35c402933615cfe5b41cbe8c1bc88d14da71af21b",
+      "reason": "Earlier SN source was associated with the wrong south-facing building. It cannot justify suppressing this separate raw main-face identity. Retraction preserves history without asserting this generic identity is correct.",
+      "sourceIds": [
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+      ]
+    },
+    {
+      "collection": "suppressions",
+      "id": "suppress-sn-heights-main-sf_3c80cefac5",
+      "expectedHash": "4ee39b69086ff2fcb5c90818a6c79c05abdc639dceb3c09543cd71bb9e356fac",
+      "reason": "Earlier SN source was associated with the wrong south-facing building. It cannot justify suppressing this separate raw main-face identity. Retraction preserves history without asserting this generic identity is correct.",
+      "sourceIds": [
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+      ]
+    },
+    {
+      "collection": "suppressions",
+      "id": "suppress-sn-heights-main-sf_e94c09118e",
+      "expectedHash": "61b4811786d05c1aef646c3d5f6b033ee497a35b8f69a385d6681755efc66665",
+      "reason": "Earlier SN source was associated with the wrong south-facing building. It cannot justify suppressing this separate raw main-face identity. Retraction preserves history without asserting this generic identity is correct.",
+      "sourceIds": [
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+      ]
+    }
+  ],
+  "expectedPrevious": {
+    "storefrontOverrides:survey-madhapur-vave-salon": "4573a6b1e6ef4376f12ab6e0a947fb204e770c9a6904644d30046aae0f28d3ce",
+    "storefrontOverrides:survey-madhapur-neoclassic-concepts": "2252f40f19c2949d289bea8cb942f7ac2d24fde27378a38b80079809b16d3449",
+    "storefrontOverrides:survey-madhapur-rajadhani-bank": "5a5f7df95745533e5501f41b8673dd869aa7a84ff42aae3ecf155d533933e619",
+    "storefrontOverrides:survey-madhapur-fit-hive-gym": "503d20b596bd1433700522fb4150b1e32b75219c74526e2d10fa2c77b0461497",
+    "observations:survey-madhapur-vave-salon-observation": "dd0a40147dece804590572b5248c12b62d2110f69b1a1bb1f6815ab23a953c63",
+    "observations:survey-madhapur-neoclassic-concepts-observation": "8bec14daa5668a9b3a8e613a99ef353c7d1d7b2f37a6ec0058671d0a762c6981",
+    "observations:survey-madhapur-fit-hive-gym-observation": "fa8eb401100d248fa6e0922ce8c9670a5b618b85d606f59c618459f0682a592c",
+    "observations:survey-madhapur-vantage-mobile-observation": "0ad26db95a3de9641af15296df46661a92b6faa0b398e7c908bbd64bcd2cb81e",
+    "observations:survey-madhapur-rajadhani-bank-atm-observation": "b74e708b22d797663803fb6fcdfe4b3ea53719e5363f015b51ba4e01316dbbf1",
+    "observations:survey-madhapur-sn-fashions-observation": "a4d6db293720b9192f28aa2bab47d7f3a140ef61c3a5d2158ec6ffea7955cd45",
+    "observations:survey-madhapur-sn-photo-studio-observation": "0cd319205cd655c266e7bfc4e6fce12418639efa63b26cf57ec0ee37ab4fedd9",
+    "observations:survey-madhapur-sn-titan-branding-observation": "bf09f7239420b54edd6ae83d639ffcb5bf007c1a3e3d595f9d5194726c0b6bac",
+    "corrections:profile-madhapur-sn-heights": "9ba064b1539e1f43fbd7078e437fefb5bfdb0d9abb95b4899276d7d3501df109",
+    "corrections:anchor-madhapur-sn-heights": "fb4c28d0781914705379f22f7cd986cf3ff945d0c8ddab73fc3d125a57ce27d4",
+    "roadReviews:r_38680221829_0:left": "fa039bae20d61c3ee46f4cf7248e95ef782f063768d4146ed19854090052efd8"
+  },
+  "roadReviews": [
+    {
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "status": "needs_revisit",
+      "replace": true,
+      "sourceIds": [
+        "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+        "listing-vave-sn-heights-20261018",
+        "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+      ],
+      "notes": "Withdraw earlier SN observation windows from this main-road face: they belonged to a different west alley building. Actual Bawarchi/main-face context now needs separate source-backed review; no verified coverage is retained."
+    },
+    {
+      "roadId": "r_61811731267_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 60.59,
+          "endM": 73.43,
+          "sourceIds": [
+            "sv-sn-heights-west-structure-2022-08-chrome-20261018",
+            "sv-madhapur-sn-heights-close-2026-04-chrome-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex Chrome multi-angle research",
+          "completeness": "partial",
+          "allFrontagesRecorded": false,
+          "storefrontIds": [
+            "survey-madhapur-rajadhani-bank",
+            "survey-madhapur-vave-salon",
+            "survey-madhapur-fit-hive-gym",
+            "survey-madhapur-neoclassic-concepts"
+          ],
+          "notes": "West alley facade identity supported by2026business views and2022structural photo; metric spans and access remain estimated. Other alley frontage and opposite side not fully reviewed."
+        }
+      ]
+    }
+  ]
+}

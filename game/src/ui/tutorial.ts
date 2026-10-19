@@ -20,11 +20,11 @@ export class Tutorial {
     for (const e of p.events) {
       if (e.type === 'launch_denied') return once('denied', 'Fly is unavailable here', `"${e.reason}". A refused launch spends nothing and is not queued for later. Try again on an open stretch.`);
       if (e.type === 'launch') return once('flying', 'You are flying', 'Steer as usual. The meter keeps counting while you climb, hover, brake or descend. The striped part is the reserve needed to land — it is part of the same balance. Press LAND (Space) to come down early and keep the rest.');
-      if (e.type === 'landed') return once('landed', 'Landed — nothing refills', `You kept ${(p.ledger.remainingTicks / SIM_HZ).toFixed(1)} s. Driving, landing and stops never refill flight. A new delivery gets a fresh allowance.`);
+      if (e.type === 'landed') return once('landed', 'Landed — recharge on the road', `You kept ${(p.ledger.remainingTicks / SIM_HZ).toFixed(1)} s. Drive on the road to earn 2.5 seconds of boost per 10 seconds of moving. Stopping and waiting do not recharge.`);
     }
-    if (s.tick > 6 * SIM_HZ && p.move === 'GROUNDED') return once('fly', 'One shared flight allowance', `${s.mission.flightSeconds} seconds for this whole delivery. Use it together or in parts. Press FLY (Space) when the road ahead is open.`);
+    if (s.tick > 6 * SIM_HZ && p.move === 'GROUNDED') return once('fly', 'Drive to recharge boost', `Start with 2.5 seconds of boost. Drive 10 seconds on the road to earn another 2.5 seconds, up to ${s.mission.flightSeconds} seconds stored. Press FLY (Space) when the road ahead is open.`);
     if (s.offRouteTicks > 0) return once('reroute', 'Missed a turn?', 'The route is recalculated along real connected roads. There are no shortcuts through medians or buildings.');
-    if (s.currentStop && s.routeRemainingM() < 90) return once('stop', 'Stop at the entrance', 'Slow down inside the glowing area at the entrance and hold still for about a second to hand over the parcel.');
+    if (s.currentStop && s.routeRemainingM() < 90) return once('stop', 'Stop at the entrance', 'Stop inside the glowing area at the entrance. Press E or the action button to collect the pizza, then follow the customer route and explicitly hand it over.');
     return null;
   }
 }

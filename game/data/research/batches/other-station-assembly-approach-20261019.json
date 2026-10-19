@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View inspection",
+  "id": "other-station-assembly-approach-20261019",
+  "notes": "Assembly station approach context from two Google Street View camera positions. This batch records only visible ads and public-realm/metro context. It does not inventory shops, establish frontage order, or add reviewed road coverage. Camera-to-road context uses the nearest core edge r_36400411425_0; all feature coordinates remain pending.",
+  "sources": [
+    {
+      "id": "sv-assembly-pune-machilipatnam-approach-20261019-01",
+      "kind": "street_view",
+      "title": "Pune–Machilipatnam Highway, Assembly approach, south-facing",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=dZDCfeO3tRMy98Tjy9Ea0A&heading=180&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3981321,
+        "lon": 78.4707787,
+        "headingDeg": 180,
+        "panoId": "dZDCfeO3tRMy98Tjy9Ea0A"
+      },
+      "notes": "Chrome inspection at Nampalli Assembly Road–Public Garden Road. A Prakash Arts / 8884 555 555 advertisement and a separate “Advertise / Impress / Repeat” panel are mounted on Metro piers; a small SBI-marked sign is distant across the roadway. No shop unit is established. Google Street View labels this imagery April 2026; coordinates and heading identify the camera view only, not a storefront entrance.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-assembly-pune-machilipatnam-approach-20261019-02",
+      "kind": "street_view",
+      "title": "Pune–Machilipatnam Highway, Assembly-side staircase and garden edge",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=FS1rWGUpJasuMnXRtBuQMQ&heading=270&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3978642,
+        "lon": 78.4708171,
+        "headingDeg": 270,
+        "panoId": "FS1rWGUpJasuMnXRtBuQMQ"
+      },
+      "notes": "A street-level view of the large stair/covered elevated structure, fenced tree-filled public-garden edge and paved sidewalk beside the Assembly corridor. No business frontage is visible from this angle. Google Street View labels this imagery April 2026; coordinates and heading identify the camera view only, not a storefront entrance.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "sv-assembly-pier-advertisement-prakash-20261019",
+      "sourceIds": [
+        "sv-assembly-pune-machilipatnam-approach-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Prakash Arts / 8884 555 555 pier advertisement",
+      "category": "advertisement",
+      "roadId": "r_36400411425_0",
+      "position": {
+        "lat": 17.3981321,
+        "lon": 78.4707787,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Legible advertisement attached to a Metro pier. It is not evidence of a Prakash Arts shop on this frontage. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-assembly-pier-advertisement-slogan-20261019",
+      "sourceIds": [
+        "sv-assembly-pune-machilipatnam-approach-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Advertise / Impress / Repeat pier panel",
+      "category": "advertisement",
+      "roadId": "r_36400411425_0",
+      "position": {
+        "lat": 17.3981321,
+        "lon": 78.4707787,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "A separate dark panel with the wording “ADVERTISE / IMPRESS / REPEAT” is attached to a Metro pier. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-assembly-sbi-sign-candidate-20261019",
+      "sourceIds": [
+        "sv-assembly-pune-machilipatnam-approach-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Distant SBI-marked sign",
+      "category": "unresolved_signage",
+      "roadId": "r_36400411425_0",
+      "position": {
+        "lat": 17.3981321,
+        "lon": 78.4707787,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Blue SBI lettering is visible at a distance across the road. The frame does not establish the branch, building, entrance or occupancy. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-assembly-stair-park-edge-20261019",
+      "sourceIds": [
+        "sv-assembly-pune-machilipatnam-approach-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Covered elevated stair structure and fenced green edge",
+      "category": "metro_infrastructure",
+      "roadId": "r_36400411425_0",
+      "position": {
+        "lat": 17.3978642,
+        "lon": 78.4708171,
+        "headingDeg": 270
+      },
+      "placementStatus": "pending",
+      "notes": "The view shows a broad metal-clad stair structure, covered elevated walkway/bridge, paved sidewalk and continuous iron fence backed by dense trees. Treat the green edge as park-like context; exact facility boundaries are not reconstructed. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    }
+  ]
+}

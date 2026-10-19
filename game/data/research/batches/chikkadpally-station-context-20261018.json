@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "id": "chikkadpally-station-context-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "First-pass January 2026 Street View near Chikkadpally Metro. One pano clearly shows repeated RK's Pan Mahal signs; a second nearby pano shows a Maya Graphics / ID CARDS board and stored poles/ladders. The camera centres are about 63 m apart in a straight line, but the road alignment changes and imagery does not establish a continuous route, travel order, canonical road side, exact shop frontage intervals, building parent or current operations. All businesses and context remain pending; images are reference-only.",
+  "sources": [
+    {
+      "id": "sv-chikkadpally-station-approach-pan-mahal-202601-20261018",
+      "kind": "street_view",
+      "title": "Chikkadpally station approach and Pan Mahal — 2026-01",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=SwaVHO2fyIgO9EkUM1WrMg&heading=155.59",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.3998308,
+        "lon": 78.4949476,
+        "panoId": "SwaVHO2fyIgO9EkUM1WrMg",
+        "headingDeg": 155.59
+      },
+      "assetPolicy": "reference_only",
+      "notes": "January 2026 panorama near Chikkadpally station. A large PAN MAHAL board and lower RK'S PAN MAHAL awning appear to be repeated branding for one frontage. The camera is at a corner/road approach and does not establish the business entrance's canonical road side or a measured position. Reference imagery is not copied."
+    },
+    {
+      "id": "sv-chikkadpally-station-area-poles-graphics-202601-20261018",
+      "kind": "street_view",
+      "title": "Chikkadpally station-area street with poles and graphics board — 2026-01",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=McbIfND_MJiRcP_aMOKexw&heading=155.79",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.3992799,
+        "lon": 78.4948189,
+        "panoId": "McbIfND_MJiRcP_aMOKexw",
+        "headingDeg": 155.79
+      },
+      "assetPolicy": "reference_only",
+      "notes": "January 2026 panorama in the Chikkadpally station area, about 63 m straight-line from the Pan Mahal camera point. It shows a dense curbside stack of long poles and ladders, parked motorcycles, auto-rickshaws and pedestrians. The apparent road alignment differs from the other panorama; do not join the two into a continuous frontage or travel sequence. Reference imagery is not copied."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-chikkadpally-2026-rks-pan-mahal",
+      "sourceIds": [
+        "sv-chikkadpally-station-approach-pan-mahal-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "RK's Pan Mahal",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.3998308,
+        "lon": 78.4949476,
+        "headingDeg": 155.59
+      },
+      "placementStatus": "pending",
+      "notes": "The large board reads PAN MAHAL and the lower awning reads RK'S PAN MAHAL; these are repeated signs for one business, not two shops. The fascia is visible beside raised entry steps. The camera point is not the entrance, and this corner view cannot assign the business to a canonical road side, exact road segment, building parent, along-road order, route interval or current operation."
+    },
+    {
+      "id": "obs-chikkadpally-2026-station-approach-context",
+      "sourceIds": [
+        "sv-chikkadpally-station-approach-pan-mahal-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Chikkadpally approach: raised shop steps, uneven footpath and mixed traffic",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.3998308,
+        "lon": 78.4949476,
+        "headingDeg": 155.59
+      },
+      "placementStatus": "pending",
+      "notes": "The January 2026 view shows a brick-paved raised footpath with irregular kerb/steps and a rough open edge, close-set multi-storey concrete/brick frontages, overhead utility cables, posters, a street tree, pedestrians, parked motorcycles and mixed cars/auto-rickshaws. This is a single approach view, not a complete street inventory or measurement of the curb, road, signal, speed breaker or traffic rate."
+    },
+    {
+      "id": "obs-chikkadpally-2026-maya-graphics",
+      "sourceIds": [
+        "sv-chikkadpally-station-area-poles-graphics-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Maya Graphics",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.3992799,
+        "lon": 78.4948189,
+        "headingDeg": 155.79
+      },
+      "placementStatus": "pending",
+      "notes": "A yellow board reads MAYA GRAPHICS, with ID CARDS visible beneath it; smaller copy is not transcribed. The camera is not at the business entrance. Exact road, side, unit, floor, building parent, neighbor order, interval and current operation remain unverified."
+    },
+    {
+      "id": "obs-chikkadpally-2026-poles-ladders-traffic",
+      "sourceIds": [
+        "sv-chikkadpally-station-area-poles-graphics-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Chikkadpally station-area curbside pole and ladder stacks with auto/motorcycle traffic",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.3992799,
+        "lon": 78.4948189,
+        "headingDeg": 155.79
+      },
+      "placementStatus": "pending",
+      "notes": "The panorama shows a tall, dense stock of long poles and ladders stored beside the roadway, overhead cables, mature trees, pedestrians, several auto-rickshaws and motorcycles. It does not identify the operator or establish whether this is a shop, worksite or temporary roadside storage; no exact footprint or road-side assignment is made."
+    }
+  ],
+  "storefrontOverrides": [],
+  "corrections": [],
+  "suppressions": [],
+  "roadReviews": []
+}

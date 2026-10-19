@@ -1,0 +1,571 @@
+{
+  "schemaVersion": 1,
+  "id": "habsiguda-jewellery-block-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex dedicated Habsiguda Chrome survey",
+  "notes": "Own Chrome walk southeast from established hotel panorama. Dated wider frontages and selected Malabar pin support provisional shared-retail-building registration, with unresolved neighboring geometry left pending.",
+  "sources": [
+    {
+      "id": "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+      "kind": "street_view",
+      "title": "Habsiguda west frontage — ORRA, Bata, Champion Cricket Nets and adjoining jewellery block",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=NKqN12jyA3zaZvh3EYdyhA&heading=235&pitch=5&fov=75",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda Chrome survey",
+      "position": {
+        "lat": 17.4192431,
+        "lon": 78.5412034,
+        "headingDeg": 235,
+        "panoId": "NKqN12jyA3zaZvh3EYdyhA"
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Directly inspected in an independently owned Chrome tab. Wide west-facing view shows Amaravathi to the right/northwest, then a pale multi-level commercial building with ORRA Fine Jewellery left and Bata right at raised ground, and Champion Cricket Nets / Indoor Batting Centre blue boards at roof/upper level. Joyalukkas is to the left/southeast. Broad forecourts, storefront stairs, parked cars/two-wheelers, plants and dense overhead cables are visible. Exact ORRA/Bata/Champion building footprint and doorway geometry are not established; those names remain pending observations. No imagery redistributed."
+    },
+    {
+      "id": "sv-habsiguda-malabar-corner-2026-01-chrome-20261018",
+      "kind": "street_view",
+      "title": "Habsiguda Malabar/Joyalukkas shared corner and Kritunga Train roof board",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=GGTaUJ3P-6nlgHWNZdStFg&heading=235&pitch=5&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda Chrome survey",
+      "position": {
+        "lat": 17.4189362,
+        "lon": 78.5414383,
+        "headingDeg": 235,
+        "panoId": "GGTaUJ3P-6nlgHWNZdStFg"
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Own Chrome walk and full corner view show Malabar Gold & Diamonds on the southeast/left corner and Joyalukkas on the northwest/right part of a shared tall silver/grey and maroon retail facade, with a JAGAVI'S Kritunga Train Restaurant roof band above. Ground forecourt is paved and occupied by parked cars/two-wheelers; main street meets a narrower side road at the corner. A signal pole, dense utility wires and rough patched kerb/edge are visible. The selected Malabar business pin lands inside existing b_7a6e8f1834. Assignment of individual frontage halves, central entry points, four-level interpretation and every metric height/width remain provisional estimates, not exact frontage verification. No imagery redistributed."
+    },
+    {
+      "id": "listing-malabar-habsiguda-20261018",
+      "kind": "map_listing",
+      "title": "Malabar Gold & Diamonds Habsiguda — L M Central business pin/address",
+      "url": "https://www.google.com/maps/place/Malabar+Gold+%26+Diamonds+-+Habsiguda/@17.4189362,78.5414383,535a,75y,249.81h,91.52t/data=!3m7!1e1!3m5!1sGGTaUJ3P-6nlgHWNZdStFg!2e0!7i16384!8i8192!4m6!3m5!1s0x3bcb99904fe178d7:0x501760c63769571a!8m2!3d17.4189137!4d78.5411643",
+      "captureDate": null,
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda Chrome survey",
+      "position": {
+        "lat": 17.4189137,
+        "lon": 78.5411643
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Selected actual Malabar pin in the inspected panorama. Maps states Ground,1st&2nd Floor,L M Central,1-1-86,StreetNo1,Professors Quarters,Habsiguda and links official Habsiguda branch website. Pin falls inside existing b_7a6e8f1834 but is not a measured doorway. Listing supports identity/parent building only; its current existence does not certify January2026 geometric dimensions."
+    }
+  ],
+  "observations": [
+    {
+      "id": "survey-habsiguda-joyalukkas-observation",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+        "sv-habsiguda-malabar-corner-2026-01-chrome-20261018",
+        "listing-malabar-habsiguda-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Joyalukkas Jewellery",
+      "category": "jewellery_store",
+      "roadId": "r_53082489897_0",
+      "position": {
+        "lat": 17.4189362,
+        "lon": 78.5414383,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-habsiguda-joyalukkas",
+      "notes": "Photographed maroon Joyalukkas board occupies northwest/right portion of shared retail front. Unit span and primary doorway are approximate; brand panels extend over multiple visible levels. Identity and broad order reconstructed; exact geometry still pending."
+    },
+    {
+      "id": "survey-habsiguda-malabar-observation",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+        "sv-habsiguda-malabar-corner-2026-01-chrome-20261018",
+        "listing-malabar-habsiguda-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Malabar Gold & Diamonds",
+      "category": "jewellery_store",
+      "roadId": "r_53082489897_0",
+      "position": {
+        "lat": 17.4189362,
+        "lon": 78.5414383,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-habsiguda-malabar",
+      "notes": "Photographed Malabar corner is southeast/left and selected pin supports this footprint. Listing names ground,first&second floors; this is one primary storefront, not duplicated tenants. Half-facade division and exact primary doorway remain estimates. Identity and broad order reconstructed; exact geometry still pending."
+    },
+    {
+      "id": "survey-habsiguda-kritunga-train-observation",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+        "sv-habsiguda-malabar-corner-2026-01-chrome-20261018",
+        "listing-malabar-habsiguda-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "JAGAVI'S Kritunga Train Restaurant",
+      "category": "restaurant",
+      "roadId": "r_53082489897_0",
+      "position": {
+        "lat": 17.4189362,
+        "lon": 78.5414383,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-habsiguda-kritunga-train",
+      "notes": "Roof band clearly reads JAGAVI'S Kritunga Train Restaurant above jewellery facade. Floor3 is an estimated upper-level index, not measured interior access. Exact tenant area, entry and sign dimensions remain provisional. Identity and broad order reconstructed; exact geometry still pending."
+    },
+    {
+      "id": "survey-habsiguda-orra-observation",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "ORRA Fine Jewellery",
+      "category": "jewellery_store",
+      "roadId": "r_53082489897_0",
+      "position": {
+        "lat": 17.4192431,
+        "lon": 78.5412034,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Legible in the shared ORRA/Bata/Champion pale commercial facade between Amaravathi and Joyalukkas. Canonical footprint is incomplete/ambiguous; exact parent building, entry, width and metric floor positions must be checked before placement."
+    },
+    {
+      "id": "survey-habsiguda-bata-observation",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Bata",
+      "category": "footwear",
+      "roadId": "r_53082489897_0",
+      "position": {
+        "lat": 17.4192431,
+        "lon": 78.5412034,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Legible in the shared ORRA/Bata/Champion pale commercial facade between Amaravathi and Joyalukkas. Canonical footprint is incomplete/ambiguous; exact parent building, entry, width and metric floor positions must be checked before placement."
+    },
+    {
+      "id": "survey-habsiguda-champion-cricket-observation",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "CHAMPION CRICKET NETS / INDOOR BATTING CENTRE",
+      "category": "sports_facility",
+      "roadId": "r_53082489897_0",
+      "position": {
+        "lat": 17.4192431,
+        "lon": 78.5412034,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Legible in the shared ORRA/Bata/Champion pale commercial facade between Amaravathi and Joyalukkas. Canonical footprint is incomplete/ambiguous; exact parent building, entry, width and metric floor positions must be checked before placement."
+    },
+    {
+      "id": "survey-habsiguda-retail-corner-streetscape-observation",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+        "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Retail corner forecourt, overhead cables, signal and rough street edge",
+      "category": "streetscape",
+      "roadId": "r_53082489897_0",
+      "position": {
+        "lat": 17.4189362,
+        "lon": 78.5414383,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Visible large paved retail setbacks/forecourts, entry stairs, parking, tangled power/telecom wires on concrete poles, signal pole, rough patched road edge, pedestrians and autos. Location of each pole/kerb/access and traffic frequency remain unmeasured; no geometry invented."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-habsiguda-joyalukkas",
+      "placementStatus": "provisional",
+      "chunkId": "c_-4_-3",
+      "name": "Joyalukkas Jewellery",
+      "nameTe": null,
+      "category": "jewellery_store",
+      "group": "jewellery",
+      "roadId": "r_53082489897_0",
+      "side": "left",
+      "buildingId": "b_7a6e8f1834",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -775.62,
+          -494.55
+        ],
+        [
+          -768.9,
+          -487.62
+        ]
+      ],
+      "entrance": [
+        -772.26,
+        -491.08500000000004
+      ],
+      "floor": 0,
+      "frontageWidthM": 9.65,
+      "alongRoadM": 22.56,
+      "facingHeading": -0.82794,
+      "lat": 17.4190372,
+      "lon": 78.5411316,
+      "captureDate": "2026-01",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+        "sv-habsiguda-malabar-corner-2026-01-chrome-20261018",
+        "listing-malabar-habsiguda-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda Chrome survey",
+      "evidence": {
+        "identity": [
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "suppressAliases": [
+        "Joyalukkas Jewellery"
+      ],
+      "suppressionRadiusM": 45,
+      "appearance": {
+        "facadeColor": "#a2a39b",
+        "signColor": "#8c344b",
+        "signTextColor": "#efe7da",
+        "heightM": 4,
+        "signBaseM": 6,
+        "signHeightM": 1.4,
+        "signWidthM": 9.65,
+        "signOutsetM": 0.65,
+        "frontStyle": "glazed",
+        "frontBaseM": 0.6,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Photographed maroon Joyalukkas board occupies northwest/right portion of shared retail front. Unit span and primary doorway are approximate; brand panels extend over multiple visible levels. Existing footprint association and all geometry are provisional; no fully verified frontage is claimed."
+    },
+    {
+      "id": "survey-habsiguda-malabar",
+      "placementStatus": "provisional",
+      "chunkId": "c_-4_-3",
+      "name": "Malabar Gold & Diamonds",
+      "nameTe": null,
+      "category": "jewellery_store",
+      "group": "jewellery",
+      "roadId": "r_53082489897_0",
+      "side": "left",
+      "buildingId": "b_7a6e8f1834",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -768.28,
+          -486.99
+        ],
+        [
+          -760.95,
+          -479.43
+        ]
+      ],
+      "entrance": [
+        -764.615,
+        -483.21000000000004
+      ],
+      "floor": 0,
+      "frontageWidthM": 10.53,
+      "alongRoadM": 11.59,
+      "facingHeading": -0.82794,
+      "lat": 17.4189661,
+      "lon": 78.5412036,
+      "captureDate": "2026-01",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+        "sv-habsiguda-malabar-corner-2026-01-chrome-20261018",
+        "listing-malabar-habsiguda-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda Chrome survey",
+      "evidence": {
+        "identity": [
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [
+        "sf_e58b4a1ef1"
+      ],
+      "suppressAliases": [
+        "Malabar Gold & Diamonds"
+      ],
+      "suppressionRadiusM": 45,
+      "appearance": {
+        "facadeColor": "#a2a39b",
+        "signColor": "#7c3e45",
+        "signTextColor": "#ede4ca",
+        "heightM": 4,
+        "signBaseM": 6,
+        "signHeightM": 1.4,
+        "signWidthM": 10.53,
+        "signOutsetM": 0.65,
+        "frontStyle": "glazed",
+        "frontBaseM": 0.6,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Photographed Malabar corner is southeast/left and selected pin supports this footprint. Listing names ground,first&second floors; this is one primary storefront, not duplicated tenants. Half-facade division and exact primary doorway remain estimates. Existing footprint association and all geometry are provisional; no fully verified frontage is claimed."
+    },
+    {
+      "id": "survey-habsiguda-kritunga-train",
+      "placementStatus": "provisional",
+      "chunkId": "c_-4_-3",
+      "name": "JAGAVI'S Kritunga Train Restaurant",
+      "nameTe": null,
+      "category": "restaurant",
+      "group": "restaurant",
+      "roadId": "r_53082489897_0",
+      "side": "left",
+      "buildingId": "b_7a6e8f1834",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -775.47,
+          -494.4
+        ],
+        [
+          -768.59,
+          -487.31
+        ]
+      ],
+      "entrance": [
+        -772.03,
+        -490.855
+      ],
+      "floor": 3,
+      "frontageWidthM": 9.88,
+      "alongRoadM": 22.23,
+      "facingHeading": -0.82794,
+      "lat": 17.4190352,
+      "lon": 78.5411338,
+      "captureDate": "2026-01",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+        "sv-habsiguda-malabar-corner-2026-01-chrome-20261018",
+        "listing-malabar-habsiguda-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda Chrome survey",
+      "evidence": {
+        "identity": [
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": [
+          "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "suppressAliases": [
+        "JAGAVI'S Kritunga Train Restaurant"
+      ],
+      "suppressionRadiusM": 45,
+      "appearance": {
+        "facadeColor": "#a2a39b",
+        "signColor": "#383c3c",
+        "signTextColor": "#d4ba64",
+        "heightM": 4,
+        "signBaseM": 14.3,
+        "signHeightM": 1.1,
+        "signWidthM": 9.88,
+        "signOutsetM": 0.65,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Roof band clearly reads JAGAVI'S Kritunga Train Restaurant above jewellery facade. Floor3 is an estimated upper-level index, not measured interior access. Exact tenant area, entry and sign dimensions remain provisional. Existing footprint association and all geometry are provisional; no fully verified frontage is claimed."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "profile-habsiguda-jewellery-corner",
+      "kind": "building_profile",
+      "buildingId": "b_7a6e8f1834",
+      "sourceIds": [
+        "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+        "sv-habsiguda-malabar-corner-2026-01-chrome-20261018",
+        "listing-malabar-habsiguda-20261018"
+      ],
+      "heightM": 16.6,
+      "levels": null,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#a2a39b",
+      "notes": "Existing16.6m estimated height retained. Grey/silver shared retail corner with maroon signage, upper roof restaurant board and glazed ground is observed; true storey dimensions remain unmeasured.",
+      "profile": {
+        "sourceIds": [
+          "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+          "sv-habsiguda-malabar-corner-2026-01-chrome-20261018",
+          "listing-malabar-habsiguda-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#a2a39b",
+        "material": "mixed",
+        "fronts": [
+          {
+            "storefrontIds": [
+              "survey-habsiguda-joyalukkas",
+              "survey-habsiguda-malabar",
+              "survey-habsiguda-kritunga-train"
+            ],
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 4.2,
+                "glazingRatio": 0.8,
+                "glassColor": "#38505a",
+                "bandColor": "#a2a39b",
+                "bandHeightM": 0.3
+              },
+              {
+                "baseM": 4.2,
+                "heightM": 4.1,
+                "glazingRatio": 0.35,
+                "glassColor": "#40505a",
+                "bandColor": "#a2a39b",
+                "bandHeightM": 0.25
+              },
+              {
+                "baseM": 8.3,
+                "heightM": 4.1,
+                "glazingRatio": 0.15,
+                "glassColor": "#40505a",
+                "bandColor": "#a2a39b",
+                "bandHeightM": 0.25
+              },
+              {
+                "baseM": 12.4,
+                "heightM": 4.2,
+                "glazingRatio": 0.4,
+                "glassColor": "#40505a",
+                "bandColor": "#a2a39b",
+                "bandHeightM": 0.3
+              }
+            ],
+            "bays": [
+              {
+                "start": 0.02,
+                "end": 0.46
+              },
+              {
+                "start": 0.5,
+                "end": 0.98
+              }
+            ],
+            "piers": [
+              {
+                "at": 0,
+                "widthM": 0.4,
+                "color": "#a2a39b"
+              },
+              {
+                "at": 0.48,
+                "widthM": 0.45,
+                "color": "#a2a39b"
+              },
+              {
+                "at": 1,
+                "widthM": 0.4,
+                "color": "#a2a39b"
+              }
+            ],
+            "accents": [
+              {
+                "start": 0.02,
+                "end": 0.46,
+                "baseM": 4.3,
+                "heightM": 8,
+                "color": "#8c344b",
+                "outsetM": 0.15
+              },
+              {
+                "start": 0.5,
+                "end": 0.98,
+                "baseM": 4.3,
+                "heightM": 8,
+                "color": "#7c3e45",
+                "outsetM": 0.15
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "roadReviews": [
+    {
+      "roadId": "r_53082489897_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 0,
+          "endM": 42,
+          "sourceIds": [
+            "sv-habsiguda-orra-bata-2026-01-chrome-20261018",
+            "sv-habsiguda-malabar-corner-2026-01-chrome-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex dedicated Habsiguda Chrome survey",
+          "completeness": "partial",
+          "allFrontagesRecorded": false,
+          "storefrontIds": [
+            "survey-habsiguda-malabar",
+            "survey-habsiguda-kritunga-train",
+            "survey-habsiguda-joyalukkas"
+          ],
+          "notes": "Approximate42m retail observation window; legible adjoining fronts and forecourts inspected in two panoramas. ORRA/Bata/Champion geometry remains unresolved. No complete frontage measurement or opposite-side verification claimed."
+        }
+      ]
+    }
+  ]
+}

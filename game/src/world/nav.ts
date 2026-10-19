@@ -63,11 +63,12 @@ export class NavGraph {
    * Shortest path between directed edges. `fromAlong` = distance already travelled on the
    * first edge's travel direction. Returns the list of directed edge ids including both ends.
    */
-  route(fromEdge: string, toEdges: string[], fromAlong = 0, mustLeave = false): { path: string[]; lengthM: number } | null {
+  route(fromEdge: string, toEdges: string[], fromAlong = 0, mustLeave = false,delayFactors?:ReadonlyMap<string,number>): { path: string[]; lengthM: number; costM:number } | null {
     const targets = new Set(toEdges);
     const start = this.edges.get(fromEdge);
     if (!start) return null;
-    if (targets.has(fromEdge) && !mustLeave) return { path: [fromEdge], lengthM: 0 };
+    if (targets.has(fromEdge) && !mustLeave) return { path: [fromEdge], lengthM: 0,costM:0 };
+    const factor=(id:string)=>Math.max(1,Math.min(5,delayFactors?.get(id)??1));
     const dist = new Map<string, number>();
     const prev = new Map<string, string>();
     const heap: [number, string][] = [];
@@ -90,10 +91,10 @@ export class NavGraph {
       }
       return top;
     };
-    const startCost = Math.max(0, start.lengthM - fromAlong);
+    const startCost = Math.max(0, start.lengthM - fromAlong)*factor(fromEdge);
     if (mustLeave) {
       // the target is behind us on our own edge: leave it and come back through real connections
-      for (const n of start.next) { const ne = this.edges.get(n); if (!ne) continue; const d = startCost + ne.lengthM; if (d < (dist.get(n) ?? Infinity)) { dist.set(n, d); prev.set(n, '__start'); push(d, n); } }
+      for (const n of start.next) { const ne = this.edges.get(n); if (!ne) continue; const d = startCost + ne.lengthM*factor(n); if (d < (dist.get(n) ?? Infinity)) { dist.set(n, d); prev.set(n, '__start'); push(d, n); } }
     } else {
       dist.set(fromEdge, startCost);
       push(startCost, fromEdge);
@@ -106,18 +107,28 @@ export class NavGraph {
         let cur = id;
         while (prev.has(cur)) { cur = prev.get(cur)!; if (cur === '__start') { cur = fromEdge; path.push(cur); break; } path.push(cur); }
         path.reverse();
-        return { path, lengthM: d };
+        return { path, lengthM: this.pathCost(path,fromAlong),costM:d };
       }
       const e = this.edges.get(id)!;
       for (const n of e.next) {
         const ne = this.edges.get(n);
         if (!ne) continue;
         // a dead-end turnaround needs a slow multi-point turn: allowed, but only as a last resort
-        const nd = d + ne.lengthM + (ne.roadId === e.roadId ? UTURN_COST_M : 0);
+        const nd = d + ne.lengthM*factor(n) + (ne.roadId === e.roadId ? UTURN_COST_M : 0);
         if (nd < (dist.get(n) ?? Infinity)) { dist.set(n, nd); prev.set(n, id); push(nd, n); }
       }
     }
     return null;
+  }
+
+  pathCost(path:readonly string[],fromAlong=0,delayFactors?:ReadonlyMap<string,number>):number {
+    let cost=0;
+    for(let i=0;i<path.length;i++){
+      const e=this.edges.get(path[i]);if(!e)continue;
+      cost+=Math.max(0,e.lengthM-(i===0?fromAlong:0))*Math.max(1,Math.min(5,delayFactors?.get(e.id)??1));
+      if(i&&this.edges.get(path[i-1])?.roadId===e.roadId)cost+=UTURN_COST_M;
+    }
+    return cost;
   }
 
   /** directed edge id for travelling a road in a given heading */

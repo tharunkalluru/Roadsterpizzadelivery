@@ -8,3 +8,5 @@ playwright-report/
 .venv-data/
 data/interim/
 __pycache__/
+# Reproducible 2023 public COG AOI cache; fetch-manifest.json retains provenance and checksum.
+data/raw/google-open-buildings-2023/*.tif

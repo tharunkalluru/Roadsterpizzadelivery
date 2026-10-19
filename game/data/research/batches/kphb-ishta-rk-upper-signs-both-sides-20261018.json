@@ -1,0 +1,1339 @@
+{
+  "schemaVersion": 1,
+  "id": "kphb-ishta-rk-upper-signs-both-sides-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex northwest Red Line Chrome street survey",
+  "notes": "Second NW batch, adjacent east of MIG217/218: two source footprints, ten legible sign/front records and two reusable appearance profiles. Exact metrics remain provisional. Explicitly distinguishes former/closed shop signs, basement identity, upper board position, product advertising and unresolved small signs. No height/access/physics overrides. Three new sources plus first-batch dated panos/satellite reused. Research gaps are not claimed completed.",
+  "sources": [
+    {
+      "id": "sv-kphb-service-apr2026-p5-20261018",
+      "kind": "street_view",
+      "title": "KPHB service lane Ishta Sakhi and R.K. Collections, April2026 camera5",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=ImBJTM25WfZU22bPkJH8dA&heading=180&pitch=15&fov=60",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "position": {
+        "lat": 17.4933483,
+        "lon": 78.4019271,
+        "panoId": "ImBJTM25WfZU22bPkJH8dA"
+      },
+      "notes": "Actually inspected in user Chrome at street level and upward/zoomed through the roofline. Repeated camera positions establish the sequence Kamakshi -> blue-glass Ishta Sakhi closed shutters/Gayathri basement board -> cream R.K. Collections with stacked clinic/training boards -> broad orange clothing-ad facade. Camera coordinates are not storefront coordinates. Visible board names and relative vertical bands are observed; metric elevations, widths, entrance midpoints and footprint matching remain provisional. Unreadable small roofline and hearing-clinic-adjacent text is explicitly unresolved. No phone numbers or source imagery are copied into runtime assets.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-kphb-service-apr2026-p6-20261018",
+      "kind": "street_view",
+      "title": "KPHB service lane Ishta Sakhi and R.K. Collections, April2026 camera6",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Z6dLxyVeYZuWSXqCKsBCOA&heading=180&pitch=15&fov=60",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "position": {
+        "lat": 17.4933045,
+        "lon": 78.4020159,
+        "panoId": "Z6dLxyVeYZuWSXqCKsBCOA"
+      },
+      "notes": "Actually inspected in user Chrome at street level and upward/zoomed through the roofline. Repeated camera positions establish the sequence Kamakshi -> blue-glass Ishta Sakhi closed shutters/Gayathri basement board -> cream R.K. Collections with stacked clinic/training boards -> broad orange clothing-ad facade. Camera coordinates are not storefront coordinates. Visible board names and relative vertical bands are observed; metric elevations, widths, entrance midpoints and footprint matching remain provisional. Unreadable small roofline and hearing-clinic-adjacent text is explicitly unresolved. No phone numbers or source imagery are copied into runtime assets.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "maps-kphb-ishta-sakhi-identity-20261018",
+      "kind": "map_listing",
+      "title": "Ishta Sakhi KPHB identity and closed-listing cross-check",
+      "url": "https://www.google.com/maps/place/Ishta+Sakhi/data=!4m7!3m6!1s0x3bcb91eb53a4f589:0xe2531ec4c00bfc!8m2!3d17.49317!4d78.401759!16s%2Fg%2F1ptxln2vc",
+      "captureDate": null,
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "position": {
+        "lat": 17.49317,
+        "lon": 78.401759
+      },
+      "notes": "Maps result identifies Ishta Sakhi, clothing store, MIG218/NH65, permanently closed. A second closed listing at216RoadNumber1 also appears, so address/pin is not used to infer facade corners. The nearby Sakhi house of kanchi weaves is a different business farther east; its large metro-parking advertisements are not Ishta Sakhi storefronts. Direct imagery supplies the small Ishta Sakhi board on the shuttered blue-glass building.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-kphb-rk-unresolved-small-upper-panels",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "R.K. building unreadable small upper boards and product advertising",
+      "category": "unresolved_signage",
+      "roadId": "r_13150090821_0",
+      "position": {
+        "lat": 17.4933045,
+        "lon": 78.4020159,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Visual inventory explicitly includes: small white clinical/ear-logo board immediately beside QUALITY HearingCare, small roofline centre badge/text board, broad roofline east-side academy/training board with unreadable name, central ornamental medallion, and a dark hair-model/product-brand glazing strip below ITDesk. Schwarzkopf product advertising is not an independently proven salon tenancy. Each panel location is accounted for; unreadable text and tenant identity remain unresolved. No missing names are synthesized."
+    },
+    {
+      "id": "obs-kphb-ishta-gayathri-gap-and-basement",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Ishta Sakhi raised shutter platform, Gayathri basement descent and utility gap",
+      "category": "non_shop_frontage",
+      "roadId": "r_13150090821_0",
+      "position": {
+        "lat": 17.4933483,
+        "lon": 78.4019271,
+        "headingDeg": 190
+      },
+      "placementStatus": "pending",
+      "notes": "Visible descending basement void is below the Gayathri board at eastern end of the Ishta face. Beige raised shutter platform, small temporary blue corrugated canopy, scaffold-like poles, dense utility wires and transformers fill the adjoining R.K. gap. Faded SVR letters on the shutter are recorded as legacy paint, not a separate confirmed unit. Exact stairs, basement void and platform depth are not authored, so no false traversable entrance is created."
+    },
+    {
+      "id": "obs-kphb-metro-parking-opposite-ishta-rk",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Metro bike parking canopy and Sakhi advertising opposite Ishta/R.K.",
+      "category": "non_shop_frontage",
+      "roadId": "r_13150090821_0",
+      "position": {
+        "lat": 17.4933045,
+        "lon": 78.4020159,
+        "headingDeg": 0
+      },
+      "placementStatus": "pending",
+      "notes": "North side remains blue steel motorcycle-parking canopy, cream/grey metro boundary structure and parked two-wheelers. Sakhi HouseofKanchiWeaves advertisements above it point visitors farther east; they are not shop entrances along this bounded interval. Station notice boards are regulatory/service signage, not commercial tenants. Eastward A.S.Bakers building lies beyond this bounded facade inventory."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-kphb-ishta-sakhi-closed-frontage",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "Ishta Sakhi",
+      "nameTe": null,
+      "category": "closed_clothing_frontage",
+      "group": "apparel",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_538f3294fc",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15568.47,
+          -8703.86
+        ],
+        [
+          -15577.65,
+          -8708.17
+        ]
+      ],
+      "entrance": [
+        -15573.06,
+        -8706.01
+      ],
+      "floor": 0,
+      "frontageWidthM": 10.14,
+      "alongRoadM": 63.12,
+      "facingHeading": -0.45771842885284836,
+      "lat": 17.4932637,
+      "lon": 78.4018285,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018",
+        "maps-kphb-ishta-sakhi-identity-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018",
+          "maps-kphb-ishta-sakhi-identity-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "signColor": "#eeeadc",
+        "signTextColor": "#38362e",
+        "signBaseM": 2.3,
+        "signHeightM": 0.8,
+        "signWidthM": 2.1,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false,
+        "frontStyle": "shutter",
+        "frontBaseM": 1.1,
+        "heightM": 2.6,
+        "shutterColor": "#aa9c7d"
+      },
+      "notes": "Small physical ISHTA SAKHI/Wholesale Salwar Suits&Sarees board sits on beige closed rolling shutters. Listing marks this branch permanently closed; reproduce the retained shutter/sign as dated appearance, not a currently open showroom. Large faded SVR letters and Your Designer Friend fascia are physical legacy lettering, not independent invented tenants. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    },
+    {
+      "id": "survey-kphb-gayathri-residency-basement-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "Gayathri Residency",
+      "nameTe": null,
+      "category": "lodging_signage",
+      "group": "hotel_lodging",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_538f3294fc",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15568.47,
+          -8703.86
+        ],
+        [
+          -15570.95,
+          -8705.02
+        ]
+      ],
+      "entrance": [
+        -15569.71,
+        -8704.44
+      ],
+      "floor": -1,
+      "frontageWidthM": 2.74,
+      "alongRoadM": 66.82,
+      "facingHeading": -0.45771842885279657,
+      "lat": 17.4932495,
+      "lon": 78.4018601,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018",
+        "maps-kphb-ishta-sakhi-identity-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018",
+          "maps-kphb-ishta-sakhi-identity-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "signColor": "#b8373f",
+        "signTextColor": "#f2d550",
+        "signBaseM": 0.8,
+        "signHeightM": 1.1,
+        "signWidthM": 2.7,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Red/yellow GAYATHRI RESIDENCY AC/NONACROOMS sign directly above a visible descending basement opening at the eastern end of the Ishta Sakhi face. Basement entry is observed. This batch places its board only: stair geometry, basement interior depth and exact aperture dimensions remain a modelling gap; no ground-level hotel door is invented. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    },
+    {
+      "id": "survey-kphb-rk-collections-former-location",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "R.K. Collections",
+      "nameTe": null,
+      "category": "former_clothing_frontage",
+      "group": "apparel",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_4541ffcc5a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15553.08,
+          -8702.5
+        ],
+        [
+          -15563.61,
+          -8707.31
+        ]
+      ],
+      "entrance": [
+        -15558.35,
+        -8704.9
+      ],
+      "floor": 0,
+      "frontageWidthM": 11.58,
+      "alongRoadM": 76.81,
+      "facingHeading": -0.4577184288525653,
+      "lat": 17.4932537,
+      "lon": 78.401967,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [
+        "sf_470d7693aa"
+      ],
+      "appearance": {
+        "signColor": "#c8bb96",
+        "signTextColor": "#eee9dd",
+        "signBaseM": 2.7,
+        "signHeightM": 1.1,
+        "signWidthM": 10.769400000000001,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false,
+        "frontStyle": "shutter",
+        "heightM": 2.7,
+        "shutterColor": "#ae9b70"
+      },
+      "notes": "Cream R.K.COLLECTIONS lettering above a beige shutter; a second wholesale/retail fascia and display banner explicitly say SHIFTED TO A BIGGER NEW LOCATION / OPP TO TEMPLE. This is the former location sign, not evidence the retailer remains active at this shutter. Ground-side corridor is partly blocked by vehicles. Source old sf is replaced on this observed face. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    },
+    {
+      "id": "survey-kphb-itdesk-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "ITDesk",
+      "nameTe": null,
+      "category": "computer_training_signage",
+      "group": "education",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_4541ffcc5a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15553.08,
+          -8702.5
+        ],
+        [
+          -15563.61,
+          -8707.31
+        ]
+      ],
+      "entrance": [
+        -15558.35,
+        -8704.9
+      ],
+      "floor": 1,
+      "frontageWidthM": 11.58,
+      "alongRoadM": 76.81,
+      "facingHeading": -0.4577184288525653,
+      "lat": 17.4932537,
+      "lon": 78.401967,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "signColor": "#e9853f",
+        "signTextColor": "#fcf7ed",
+        "signBaseM": 6.3,
+        "signHeightM": 0.85,
+        "signWidthM": 10.769400000000001,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "White ITDesk logo panel joined to orange PYTHON/FULLSTACK/JAVA,DATAANALYTICS,POWERBI,DS-AI,TALLY/ADVEXCEL board. Board spans the dark-glazed band above the R.K. display. Course list observed; no individual classroom or floor occupancy is inferred. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    },
+    {
+      "id": "survey-kphb-quality-hearing-care-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "Quality Hearing Care",
+      "nameTe": null,
+      "category": "hearing_clinic_signage",
+      "group": "hospital_clinic",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_4541ffcc5a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15558.35,
+          -8704.9
+        ],
+        [
+          -15563.61,
+          -8707.31
+        ]
+      ],
+      "entrance": [
+        -15560.98,
+        -8706.1
+      ],
+      "floor": 2,
+      "frontageWidthM": 5.79,
+      "alongRoadM": 73.92,
+      "facingHeading": -0.4577184288526603,
+      "lat": 17.4932645,
+      "lon": 78.4019422,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "signColor": "#f1eee5",
+        "signTextColor": "#295789",
+        "signBaseM": 7.4,
+        "signHeightM": 1.1,
+        "signWidthM": 4.2,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "QUALITY Hearing Care/Joy of Hearing board on the western half, above ITDesk and below XpressVisa. Small adjacent white board has unresolved name/clinical text and is separately inventoried without invented tenancy. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    },
+    {
+      "id": "survey-kphb-cad-desk-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "CAD Desk",
+      "nameTe": null,
+      "category": "technical_training_signage",
+      "group": "education",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_4541ffcc5a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15553.08,
+          -8702.5
+        ],
+        [
+          -15558.35,
+          -8704.9
+        ]
+      ],
+      "entrance": [
+        -15555.72,
+        -8703.7
+      ],
+      "floor": 2,
+      "frontageWidthM": 5.79,
+      "alongRoadM": 79.7,
+      "facingHeading": -0.45771842885290154,
+      "lat": 17.4932428,
+      "lon": 78.4019918,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [
+        "sf_7d3717d4a3"
+      ],
+      "appearance": {
+        "signColor": "#d9854e",
+        "signTextColor": "#fff3df",
+        "signBaseM": 7.4,
+        "signHeightM": 1.65,
+        "signWidthM": 5.3847000000000005,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "CAD DESK sign and orange CIVILCAD/MECHANICALCAD/INTERIORDESIGN/ARCHITECTURALCAD/ELECTRICALCAD/PROJECTMANAGEMENT panel on the eastern half, below England English. The raw listing attached this institution to a ground frontage; this directly observed upper board replaces that unsupported ground-floor placement. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    },
+    {
+      "id": "survey-kphb-xpressvisa-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "XpressVisa",
+      "nameTe": null,
+      "category": "education_consultancy_signage",
+      "group": "education",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_4541ffcc5a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15558.35,
+          -8704.9
+        ],
+        [
+          -15563.61,
+          -8707.31
+        ]
+      ],
+      "entrance": [
+        -15560.98,
+        -8706.1
+      ],
+      "floor": 3,
+      "frontageWidthM": 5.79,
+      "alongRoadM": 73.92,
+      "facingHeading": -0.4577184288526603,
+      "lat": 17.4932645,
+      "lon": 78.4019422,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [
+        "sf_b5e47c4f5c"
+      ],
+      "appearance": {
+        "signColor": "#ecece4",
+        "signTextColor": "#397d9a",
+        "signBaseM": 9.5,
+        "signHeightM": 1.2,
+        "signWidthM": 5.3847000000000005,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "XpressVisa ImmigrationCoaching/STUDY,VISIT,IMMIGRATION&COACHING board on western half below StarSecrets. Existing raw rear-road listing is replaced by this observed service-road sign, preserving source listing archive. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    },
+    {
+      "id": "survey-kphb-england-english-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "England English",
+      "nameTe": null,
+      "category": "language_training_signage",
+      "group": "education",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_4541ffcc5a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15553.08,
+          -8702.5
+        ],
+        [
+          -15558.35,
+          -8704.9
+        ]
+      ],
+      "entrance": [
+        -15555.72,
+        -8703.7
+      ],
+      "floor": 3,
+      "frontageWidthM": 5.79,
+      "alongRoadM": 79.7,
+      "facingHeading": -0.45771842885290154,
+      "lat": 17.4932428,
+      "lon": 78.4019918,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "signColor": "#ecece3",
+        "signTextColor": "#3586b4",
+        "signBaseM": 9.4,
+        "signHeightM": 1.5,
+        "signWidthM": 5.3847000000000005,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "England English board states international English-test training and overseas education consultancy; 2ndFloor is printed on the board. Its physically observed board position is above CADDesk; no unobserved internal entrance or exact storey volume is fabricated. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    },
+    {
+      "id": "survey-kphb-star-secrets-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "Star Secrets",
+      "nameTe": null,
+      "category": "skin_hair_training_signage",
+      "group": "hospital_clinic",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_4541ffcc5a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15558.35,
+          -8704.9
+        ],
+        [
+          -15563.61,
+          -8707.31
+        ]
+      ],
+      "entrance": [
+        -15560.98,
+        -8706.1
+      ],
+      "floor": 4,
+      "frontageWidthM": 5.79,
+      "alongRoadM": 73.92,
+      "facingHeading": -0.4577184288526603,
+      "lat": 17.4932645,
+      "lon": 78.4019422,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "signColor": "#eee7d9",
+        "signTextColor": "#844866",
+        "signBaseM": 11.9,
+        "signHeightM": 1.2,
+        "signWidthM": 5.3847000000000005,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "StarSecrets/SKIN-HAIR-LASER&TRAININGINSTITUTE board on the western half above XpressVisa. Upper window strip behind/above sign is directly visible. Names of clinicians or services are not inferred. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    },
+    {
+      "id": "survey-kphb-cynexai-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-78_-44",
+      "name": "CYNEXAI",
+      "nameTe": null,
+      "category": "ai_training_signage",
+      "group": "education",
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "buildingId": "b_4541ffcc5a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15553.08,
+          -8702.5
+        ],
+        [
+          -15558.35,
+          -8704.9
+        ]
+      ],
+      "entrance": [
+        -15555.72,
+        -8703.7
+      ],
+      "floor": 4,
+      "frontageWidthM": 5.79,
+      "alongRoadM": 79.7,
+      "facingHeading": -0.45771842885290154,
+      "lat": 17.4932428,
+      "lon": 78.4019918,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex northwest Red Line Chrome street survey",
+      "evidence": {
+        "identity": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "position": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "side": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "floor": [
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ],
+        "facade": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "neighbours": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "signColor": "#8bd3e6",
+        "signTextColor": "#326e9c",
+        "signBaseM": 13.5,
+        "signHeightM": 1,
+        "signWidthM": 5.3847000000000005,
+        "signOutsetM": 0.28,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Blue CYNEXAI board advertises LLMEngineering,DataSciencewithAI,MachineLearning,Python,GenerativeAI,DevOps,AWS,Testing,SAP. A repeated CYNEXAI board is visible at the western roofline; one business record represents both boards. Exact tenant floor is uncertain despite the sign positions. Floor describes the observed board/entrance band, not proof of exclusive tenancy throughout that storey. Existing canonical footprint edge retained; entrance midpoint, sign dimensions and elevations are unmeasured estimates, placement provisional. No source imagery is a runtime texture."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "profile-kphb-ishta-sakhi-blue-glass-front",
+      "kind": "building_profile",
+      "buildingId": "b_538f3294fc",
+      "dimensionStatus": "provisional",
+      "facadeColor": "#d4cbbb",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "notes": "Closed beige horizontal shutters sit below a broad cream fascia, then a blue-glass upper face with horizontal louvres at both sides and a shallow curved roof feature. Generic reusable geometry approximates the rectangular frame/glazing; exact curved crown, temporary canopy, scaffold/cables and basement opening are unmodelled. Current retained body height does not certify storey count. No height, levels, access or collision override: retain separate masked satellite estimate. Bands are a provisional visual composition, not measured geometry.",
+      "profile": {
+        "sourceIds": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#d4cbbb",
+        "material": "mixed",
+        "signPanels": [
+          {
+            "text": "Your Designer Friend",
+            "baseM": 5.2,
+            "heightM": 0.6,
+            "widthRatio": 0.9,
+            "color": "#dcd4c5",
+            "textColor": "#8b7771",
+            "outsetM": 0.22
+          }
+        ],
+        "fronts": [
+          {
+            "facade": [
+              [
+                -15568.47,
+                -8703.86
+              ],
+              [
+                -15577.65,
+                -8708.17
+              ]
+            ],
+            "facingHeading": -0.45771842885284836,
+            "storefrontIds": [
+              "survey-kphb-ishta-sakhi-closed-frontage",
+              "survey-kphb-gayathri-residency-basement-board"
+            ],
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 4.6,
+                "glazingRatio": 0,
+                "wallColor": "#bbae94",
+                "bandColor": "#c5b99e",
+                "bandHeightM": 0.15
+              },
+              {
+                "baseM": 4.6,
+                "heightM": 2.1,
+                "glazingRatio": 0,
+                "wallColor": "#d8d0be",
+                "bandColor": "#dad0bb",
+                "bandHeightM": 0.2
+              },
+              {
+                "baseM": 6.7,
+                "heightM": 13.6,
+                "glazingRatio": 0.82,
+                "glassColor": "#5789ba",
+                "bandColor": "#bbad92",
+                "bandHeightM": 0.3
+              }
+            ],
+            "accents": [
+              {
+                "start": 0,
+                "end": 0.055,
+                "baseM": 6.6,
+                "heightM": 13.4,
+                "color": "#908b78",
+                "outsetM": 0.12
+              },
+              {
+                "start": 0.945,
+                "end": 1,
+                "baseM": 6.6,
+                "heightM": 13.4,
+                "color": "#908b78",
+                "outsetM": 0.12
+              }
+            ],
+            "piers": [
+              {
+                "at": 0,
+                "widthM": 0.25,
+                "color": "#d5cdb8",
+                "depthM": 0.2
+              },
+              {
+                "at": 1,
+                "widthM": 0.25,
+                "color": "#d5cdb8",
+                "depthM": 0.2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "profile-kphb-rk-training-clinic-stack",
+      "kind": "building_profile",
+      "buildingId": "b_4541ffcc5a",
+      "dimensionStatus": "provisional",
+      "facadeColor": "#d3ccb5",
+      "sourceIds": [
+        "sv-kphb-service-apr2026-p4-20261018",
+        "sv-kphb-service-apr2026-p5-20261018",
+        "sv-kphb-service-apr2026-p6-20261018",
+        "sat-kphb-service-roofs-20261018"
+      ],
+      "notes": "Cream former R.K.Collections facade with beige shutter and branded display, dark hair-product advertising/glass band, dense stacked clinic/training signs, pink/cream middle wall and blue-grey upper window strip. Unreadable small panels remain plain coloured rectangles rather than invented named tenants. No height, levels, access or collision override: retain separate masked satellite estimate. Bands are a provisional visual composition, not measured geometry.",
+      "profile": {
+        "sourceIds": [
+          "sv-kphb-service-apr2026-p4-20261018",
+          "sv-kphb-service-apr2026-p5-20261018",
+          "sv-kphb-service-apr2026-p6-20261018",
+          "sat-kphb-service-roofs-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#d3ccb5",
+        "material": "mixed",
+        "signPanels": [
+          {
+            "text": "SHIFTED TO A BIGGER NEW LOCATION — OPP TO TEMPLE",
+            "baseM": 4,
+            "heightM": 1.5,
+            "widthRatio": 0.83,
+            "color": "#793c4d",
+            "textColor": "#f5e8bb",
+            "outsetM": 0.32
+          },
+          {
+            "text": "R.K. COLLECTIONS — WHOLESALE & RETAIL",
+            "baseM": 5.55,
+            "heightM": 0.65,
+            "widthRatio": 0.94,
+            "color": "#cab992",
+            "textColor": "#eee7d0",
+            "outsetM": 0.3
+          },
+          {
+            "text": "CYNEXAI",
+            "baseM": 17.35,
+            "heightM": 0.8,
+            "widthRatio": 0.43,
+            "color": "#8bd3e6",
+            "textColor": "#326e9c",
+            "outsetM": 0.25
+          }
+        ],
+        "fronts": [
+          {
+            "facade": [
+              [
+                -15553.08,
+                -8702.5
+              ],
+              [
+                -15563.61,
+                -8707.31
+              ]
+            ],
+            "facingHeading": -0.4577184288525653,
+            "storefrontIds": [
+              "survey-kphb-rk-collections-former-location",
+              "survey-kphb-itdesk-board",
+              "survey-kphb-quality-hearing-care-board",
+              "survey-kphb-cad-desk-board",
+              "survey-kphb-xpressvisa-board",
+              "survey-kphb-england-english-board",
+              "survey-kphb-star-secrets-board",
+              "survey-kphb-cynexai-board"
+            ],
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.8,
+                "glazingRatio": 0,
+                "wallColor": "#d0c09a",
+                "bandColor": "#c0ae87",
+                "bandHeightM": 0.15
+              },
+              {
+                "baseM": 3.8,
+                "heightM": 2.3,
+                "glazingRatio": 0.78,
+                "glassColor": "#493d43",
+                "bandColor": "#c1b28d",
+                "bandHeightM": 0.25
+              },
+              {
+                "baseM": 6.1,
+                "heightM": 5.4,
+                "glazingRatio": 0.5,
+                "glassColor": "#40505a",
+                "bandColor": "#c9bfa3",
+                "bandHeightM": 0.24
+              },
+              {
+                "baseM": 11.5,
+                "heightM": 4.3,
+                "glazingRatio": 0.7,
+                "glassColor": "#647f9a",
+                "wallColor": "#d0aa9f",
+                "bandColor": "#c5bba3",
+                "bandHeightM": 0.23
+              },
+              {
+                "baseM": 15.8,
+                "heightM": 2.7,
+                "glazingRatio": 0.75,
+                "glassColor": "#61859c",
+                "bandColor": "#d3c8aa",
+                "bandHeightM": 0.2
+              }
+            ],
+            "accents": [
+              {
+                "start": 0.46,
+                "end": 0.54,
+                "baseM": 9.5,
+                "heightM": 2.1,
+                "color": "#bd8d81",
+                "outsetM": 0.18
+              },
+              {
+                "start": 0.44,
+                "end": 0.56,
+                "baseM": 15.9,
+                "heightM": 1.3,
+                "color": "#d9d1ba",
+                "outsetM": 0.2
+              }
+            ],
+            "piers": [
+              {
+                "at": 0.01,
+                "widthM": 0.22,
+                "color": "#d1c4a4",
+                "depthM": 0.2
+              },
+              {
+                "at": 0.99,
+                "widthM": 0.22,
+                "color": "#d1c4a4",
+                "depthM": 0.2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "roadReviews": [
+    {
+      "roadId": "r_13150090821_0",
+      "side": "right",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 58.05,
+          "endM": 82.6,
+          "sourceIds": [
+            "sv-kphb-service-apr2026-p4-20261018",
+            "sv-kphb-service-apr2026-p5-20261018",
+            "sv-kphb-service-apr2026-p6-20261018",
+            "sat-kphb-service-roofs-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex northwest Red Line Chrome street survey",
+          "completeness": "partial",
+          "allFrontagesRecorded": true,
+          "storefrontIds": [
+            "survey-kphb-ishta-sakhi-closed-frontage",
+            "survey-kphb-gayathri-residency-basement-board",
+            "survey-kphb-quality-hearing-care-board",
+            "survey-kphb-xpressvisa-board",
+            "survey-kphb-star-secrets-board",
+            "survey-kphb-rk-collections-former-location",
+            "survey-kphb-itdesk-board",
+            "survey-kphb-cad-desk-board",
+            "survey-kphb-england-english-board",
+            "survey-kphb-cynexai-board"
+          ],
+          "notes": "Both Ishta/Gayathri and R.K. faces inventoried, including retained closed/relocated retail signs, all legible upper business boards, explicitly unresolved small panels, basement gap, transformers and utility wires. Bounded visual inventory only. All metric geometry is provisional; exact basement/stair/curved roof modelling and unreadable text remain gaps. No complete/verified side is claimed."
+        }
+      ],
+      "notes": "Adjacent eastward KPHB service-lane inventory; remaining road ends and adjoining blocks still need research."
+    },
+    {
+      "roadId": "r_13150090821_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 58.05,
+          "endM": 82.6,
+          "sourceIds": [
+            "sv-kphb-service-apr2026-p4-20261018",
+            "sv-kphb-service-apr2026-p5-20261018",
+            "sv-kphb-service-apr2026-p6-20261018",
+            "sat-kphb-service-roofs-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex northwest Red Line Chrome street survey",
+          "completeness": "partial",
+          "allFrontagesRecorded": true,
+          "storefrontIds": [],
+          "notes": "Continuous non-shop metro motorcycle parking, boundary, regulatory notices and Sakhi advertising panels inventoried; no storefront entrances in this interval. Bounded visual inventory only. All metric geometry is provisional; exact basement/stair/curved roof modelling and unreadable text remain gaps. No complete/verified side is claimed."
+        }
+      ],
+      "notes": "Adjacent eastward KPHB service-lane inventory; remaining road ends and adjoining blocks still need research."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "hyderabad-metro-delivery",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Mobile-browser Three.js delivery game on real Hyderabad roads near the metro corridors.",
   "engines": {
@@ -20,7 +20,26 @@
     "verify:ledger": "python3 monitoring/verify_run.py --root . --status qa/status.json --requirements requirements.json --scope scope-manifest.json --evidence qa/evidence-index.json",
     "fetch:overture": ".venv-data/bin/python scripts/overture/fetch.py && .venv-data/bin/python scripts/overture/preprocess.py",
     "import:world": ".venv-data/bin/python scripts/overture/preprocess.py && node scripts/import-world-v2.mjs --project-files",
-    "validate:world:v2": "node scripts/validate-world.mjs --v2"
+    "validate:world:v2": "node scripts/validate-world.mjs --v2",
+    "survey:validate": "node --experimental-strip-types scripts/survey-validate.mjs",
+    "survey:network": "node --experimental-strip-types scripts/survey-network.mjs",
+    "survey:check": "node --experimental-strip-types scripts/survey-network.mjs --check",
+    "food:build": "node scripts/build-food-pickups.mjs",
+    "source:heights": ".venv-data/bin/python scripts/source_accuracy/heights.py",
+    "source:build": ".venv-data/bin/python scripts/source_accuracy/build.py --write",
+    "source:check": ".venv-data/bin/python scripts/source_accuracy/build.py --check",
+    "source:test": ".venv-data/bin/python -m unittest discover -s scripts/source_accuracy -p 'test_*.py' -v",
+    "postinstall": "node scripts/restore-runtime-data.mjs",
+    "setup:data": "node scripts/restore-runtime-data.mjs",
+    "archive:data": "node scripts/restore-runtime-data.mjs --pack",
+    "prebuild": "node scripts/restore-runtime-data.mjs",
+    "predev": "node scripts/restore-runtime-data.mjs",
+    "pretest": "node scripts/restore-runtime-data.mjs",
+    "presurvey:validate": "node scripts/restore-runtime-data.mjs",
+    "presurvey:check": "node scripts/restore-runtime-data.mjs",
+    "presurvey:network": "node scripts/restore-runtime-data.mjs",
+    "prevalidate:world": "node scripts/restore-runtime-data.mjs",
+    "prevalidate:world:v2": "node scripts/restore-runtime-data.mjs"
   },
   "dependencies": {
     "three": "0.186.1"

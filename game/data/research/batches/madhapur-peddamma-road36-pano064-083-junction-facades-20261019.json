@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-road36-pano064-083-junction-facades-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex",
+  "notes": "Revision-89 bounded continuation for the unchanged active pair Madhapur → Peddamma Gudi. The Jan 2025 connected chain was checked from pano064 through the second junction and to pano083 on the post-junction Road No. 36 alignment; selected views included 064 (forward and rotated toward the corner), 065, 068, 070, 072–073, 080 (forward and rotated), 082 and 083. This batch reuses saved sources and adds no road-side reviews. It places AUKERA and W provisionally on separate faces of the same existing corner building, records XORA and a tentative Shree Jewellers identity hint without placement, and preserves the junction/date gap. Pano081 is Dec 2021 only; do not use it as Jan 2025 tenancy evidence. The mapped connector from r_27041705642_0 through the junction to r_50590156871_0 is provisional and has not been measured or reviewed as complete frontage. No generated queue may reorder the active pair.",
+  "observations": [
+    {
+      "id": "obs-mp-road36-aukera-corner-fascia-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-063",
+        "sv-mp-road36-middle-chain-20261019-064"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "AUKERA fascia on the corner building at Road No. 36",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": "r_40958894672_0",
+      "position": {
+        "lat": 17.4335372,
+        "lon": 78.4057038,
+        "headingDeg": 230.38
+      },
+      "placementStatus": "pending",
+      "notes": "Pano063 shows AUKERA at the junction edge; pano064, rotated to heading 230.38°, shows the ground-floor sign clearly. Existing building b_6e739324f6 has separate mapped faces for the AUKERA side-road frontage and adjacent W frontage. Its r_40958894672_0 RIGHT-side association is provisional; exact unit bounds, entrance, current tenancy, and which junction approach serves it remain unverified. Camera position is not the entrance.",
+      "storefrontOverrideId": "survey-mp-peddamma-aukera-20261019"
+    },
+    {
+      "id": "obs-mp-road36-w-for-woman-corner-fascia-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-064"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "W fascia on the corner building at Road No. 36",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": "r_37958831364_0",
+      "position": {
+        "lat": 17.4335372,
+        "lon": 78.4057038,
+        "headingDeg": 230.38
+      },
+      "placementStatus": "pending",
+      "notes": "Pano064, rotated to heading 230.38°, shows a red W mark on a ground-floor frontage adjoining AUKERA on the same corner footprint. The existing candidate W for Woman frontage on the LEFT of r_37958831364_0 is a medium-confidence match; exact unit boundary, entrance, and current tenancy are not established.",
+      "storefrontOverrideId": "survey-mp-peddamma-w-for-woman-20261019"
+    },
+    {
+      "id": "obs-mp-road36-xora-upper-sign-hint-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-070"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "XORA sign on an upper commercial facade along Road No. 36",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4332382,
+        "lon": 78.4062206
+      },
+      "placementStatus": "pending",
+      "notes": "Pano070 shows a legible XORA sign on an upper commercial facade. It is recorded as a dated identity hint only; no ground-floor unit, building association, entrance, floor, or road side is established."
+    },
+    {
+      "id": "obs-mp-road36-possible-shree-jewellers-sign-hint-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-080"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "Possible SHREE JEWELLERS sign near the Road No. 36 junction",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4327079,
+        "lon": 78.4069915
+      },
+      "placementStatus": "pending",
+      "notes": "Pano080 rotated to heading 90° shows a small sign on a beige commercial facade that appears to read SHREE JEWELLERS. Keep this tentative sign identity pending; exact building, road, side, unit, and entrance are not established."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-mp-peddamma-aukera-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-76_-11",
+      "name": "Aukera Grown Diamond Jewellery - Jubilee Hills",
+      "nameTe": null,
+      "category": "flowers_and_gifts_store",
+      "group": "other",
+      "roadId": "r_40958894672_0",
+      "side": "right",
+      "buildingId": "b_6e739324f6",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15175.42,
+          -2055.71
+        ],
+        [
+          -15173.6,
+          -2059.62
+        ]
+      ],
+      "entrance": [
+        -15174.51,
+        -2057.665
+      ],
+      "floor": 0,
+      "frontageWidthM": 4.313,
+      "alongRoadM": 22.943,
+      "facingHeading": -2.0057,
+      "lat": 17.4335372,
+      "lon": 78.4057038,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-063",
+        "sv-mp-road36-middle-chain-20261019-064"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-063",
+          "sv-mp-road36-middle-chain-20261019-064"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-063",
+          "sv-mp-road36-middle-chain-20261019-064"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-063",
+          "sv-mp-road36-middle-chain-20261019-064"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-063",
+          "sv-mp-road36-middle-chain-20261019-064"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_2ff37ec8d6"
+      ],
+      "notes": "PROVISIONAL placement; confidence high for sign identity; medium-high for corner building association; medium for side-road face assignment; low for exact unit geometry. Pano063 in the forward view and pano064 rotated to heading 230.38° show the AUKERA fascia on the ground floor of the corner building. The existing footprint b_6e739324f6 and frontage geometry support a provisional RIGHT-side placement on r_40958894672_0. The facade is distinct from the adjacent W frontage on the building’s other face. The facade endpoints and entrance marker reuse the existing footprint-derived geometry as an approximate render anchor, not measured Street View dimensions. Exact unit boundary, door center, current tenancy, and full neighbor order remain unknown. The panorama camera coordinate is not the store entrance. No complete road-side inventory or review is claimed."
+    },
+    {
+      "id": "survey-mp-peddamma-w-for-woman-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-76_-11",
+      "name": "W For Woman",
+      "nameTe": null,
+      "category": "fashion_and_apparel_store",
+      "group": "apparel",
+      "roadId": "r_37958831364_0",
+      "side": "left",
+      "buildingId": "b_6e739324f6",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15182.93,
+          -2073.39
+        ],
+        [
+          -15188.38,
+          -2075.89
+        ]
+      ],
+      "entrance": [
+        -15185.654999999999,
+        -2074.64
+      ],
+      "floor": 0,
+      "frontageWidthM": 5.996,
+      "alongRoadM": 22.898,
+      "facingHeading": -0.4303,
+      "lat": 17.4335372,
+      "lon": 78.4057038,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-064"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-064"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-064"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-064"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-064"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_eb959fb517"
+      ],
+      "notes": "PROVISIONAL placement; confidence medium-high for visible W fascia; medium for building/road-face association; low for exact unit geometry. Pano064 rotated to heading 230.38° shows a red W fascia on the same corner footprint. Existing geometry supports a separate provisional LEFT-side placement on the main-road face r_37958831364_0. The visible lettermark and candidate business match; exact shop-unit boundaries remain unresolved. The facade endpoints and entrance marker reuse the existing footprint-derived geometry as an approximate render anchor, not measured Street View dimensions. Exact unit boundary, door center, current tenancy, and full neighbor order remain unknown. The panorama camera coordinate is not the store entrance. No complete road-side inventory or review is claimed."
+    }
+  ]
+}

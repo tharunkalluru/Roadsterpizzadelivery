@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "jbs-dated-streetscape-pending-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex separate Chrome corridor inspection",
+  "notes": "Older JBS reference only. Keep pending for newer-source comparison and geometry survey. No shop fronts, building corrections or reviewed-road completeness are claimed.",
+  "sources": [
+    {
+      "id": "sv-jbs-terminal-2021-10-chrome-20261018",
+      "kind": "street_view",
+      "title": "Jubilee Bus Station forecourt and opposite motorcycle parking",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Drt8RR1fR2tAk6IGfJ0Clg&heading=199.44&pitch=0&fov=75",
+      "captureDate": "2021-10",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex separate Chrome corridor inspection",
+      "position": {
+        "lat": 17.4480765,
+        "lon": 78.4981202,
+        "headingDeg": 199.44,
+        "panoId": "Drt8RR1fR2tAk6IGfJ0Clg"
+      },
+      "notes": "The provider shows October2021, an older capture that must not be treated as current2026 verification. The forecourt view shows a long roughly three-level cream terminal block with broad dark-blue horizontal bands, rectangular room windows, flat overhanging roofline and bus stands. Blue/white city and red/white regional buses are visible. A wheeled traffic-police barrier is in the foreground. The opposite heading20 view shows many parked motorcycles under mature shade trees, a low white/blue compound wall with wire fencing, a small white/blue building, steps and a gate, and red plastic barricades. Geometry, dates of later modifications and current bus liveries are unresolved.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-jbs-terminal",
+      "sourceIds": [
+        "sv-jbs-terminal-2021-10-chrome-20261018"
+      ],
+      "captureDate": "2021-10",
+      "observedDate": "2026-10-18",
+      "name": "Jubilee Bus Station terminal and forecourt",
+      "category": "bus_station",
+      "roadId": null,
+      "position": {
+        "lat": 17.4480765,
+        "lon": 78.4981202,
+        "headingDeg": 199.44
+      },
+      "placementStatus": "pending",
+      "notes": "Observed terminal/bus-stand character and multiple bus types are present in the2021 capture. No current timetable, traffic rate, exact dimensions or current operator livery is inferred."
+    },
+    {
+      "id": "obs-jbs-parking",
+      "sourceIds": [
+        "sv-jbs-terminal-2021-10-chrome-20261018"
+      ],
+      "captureDate": "2021-10",
+      "observedDate": "2026-10-18",
+      "name": "JBS opposite motorcycle parking and compound edge",
+      "category": "streetscape",
+      "roadId": null,
+      "position": {
+        "lat": 17.4480765,
+        "lon": 78.4981202,
+        "headingDeg": 20
+      },
+      "placementStatus": "pending",
+      "notes": "Many parked two-wheelers, mature trees, low compound wall/fence, gate/steps and red barricades are visible. This is a dated observation, not an exact runtime parking footprint or2026 verification."
+    }
+  ],
+  "storefrontOverrides": [],
+  "suppressions": [],
+  "corrections": [],
+  "roadReviews": []
+}

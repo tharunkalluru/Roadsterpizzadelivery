@@ -52,6 +52,7 @@ export class Hud {
       <div class="banner hidden" data-banner></div>
       <div class="hold hidden" data-hold><div class="chip" data-holdtxt>Stop here to deliver</div><div class="bar"><div data-holdbar></div></div></div>
       <div class="speed"><div class="v" data-speed>0</div><div class="u">km/h</div><div class="gear" data-gear></div></div>
+      <div class="camera-hint" data-look-hint>Drag the view to look around while stopped.</div>
       <div class="flightmeter chip" aria-live="polite">
         <div class="lbl"><span data-mlbl>Flight 25.0 s</span><span class="small" data-mres></span></div>
         <div class="bar"><div class="fill" data-mfill></div><div class="reserve" data-mreserve></div></div>
@@ -59,6 +60,7 @@ export class Hud {
       </div>
       <div class="controls">
         <div class="steer" data-steer aria-label="Steering pad"><div class="steer-knob"></div></div>
+        <button class="cbtn interact hidden" data-interact aria-label="Collect pizza (E)">COLLECT PIZZA <small>E</small></button>
         <div class="rbtns">
           <button class="cbtn fly" data-fly aria-label="Fly"><span data-flylbl>FLY</span><span class="fs" data-flysec>25.0s</span></button>
           <button class="cbtn accel" data-accel aria-label="Accelerate">▲</button>
@@ -81,6 +83,7 @@ export class Hud {
     this.timerLbl = this.root.querySelector('.timer-label') as HTMLElement;
     q('pause').addEventListener('click', () => { this.app.audio.click(); this.app.pause('user'); });
     q('map').addEventListener('click', () => { this.app.audio.click(); this.app.openMap(); });
+    q('interact').addEventListener('click', () => this.app.input.requestInteraction());
     void this.timerLbl;
   }
 
@@ -122,6 +125,7 @@ export class Hud {
   update(s: Session, dt: number, app: App) {
     const p = s.player;
     const l = p.ledger;
+    this.root.querySelector('[data-look-hint]')!.classList.toggle('hidden',p.isAirborne||Math.abs(p.speed)>.5);
     // ---- every frame: fly control + meter (urgent feedback)
     const air = p.isAirborne;
     const remainS = l.remainingTicks / SIM_HZ;
@@ -142,8 +146,8 @@ export class Hud {
     const reserve = air ? Math.min(l.remainingTicks, p.reserveTicks) : (l.remainingTicks > 0 ? Math.min(l.remainingTicks, predictAscentTicks() + predictTicksToTouchdown(FLIGHT.minFlightAltitude, FLIGHT.maxClimbRate) + FLIGHT.uncertaintyMarginTicks) : 0);
     this.meterRes.style.left = `${(((l.remainingTicks - reserve) / l.initialTicks) * 100).toFixed(1)}%`;
     this.meterRes.style.width = `${((reserve / l.initialTicks) * 100).toFixed(1)}%`;
-    this.meterLbl.textContent = `Flight ${remainS.toFixed(1)} s`;
-    this.meterWhy.textContent = air ? (p.landingSoon || p.move === 'DESCENDING' ? (p.landingSoon ? 'Landing soon — reserve in use' : 'Descending') : `Landing reserve ${(reserve / SIM_HZ).toFixed(1)} s · ${forecastText(p.forecast.state, p.forecast.reason)}`) : unavailable ? (unavailable === 'Flight power used' ? 'Flight power used. Keep driving.' : unavailable) : '';
+    this.meterLbl.textContent = `Boost ${remainS.toFixed(1)} / ${l.allocationSeconds} s`;
+    this.meterWhy.textContent = air ? (p.landingSoon || p.move === 'DESCENDING' ? (p.protectedLandingUsed ? 'Protected landing — boost empty' : 'Landing soon — reserve in use') : `Landing reserve ${(reserve / SIM_HZ).toFixed(1)} s · ${forecastText(p.forecast.state, p.forecast.reason)}`) : unavailable && unavailable !== 'Flight power used' && !unavailable.includes('Not enough') ? unavailable : `Drive 10 s on the road → +2.5 s boost${p.speed >= FLIGHT.rechargeMinSpeed && p.surface?.onCarriageway ? ' · CHARGING' : ''}`;
     (this.root.querySelector('[data-mres]') as HTMLElement).textContent = air ? `▨ reserve` : '';
     this.banner.classList.toggle('hidden', !(air && p.landingSoon));
     this.banner.textContent = 'Landing soon';
@@ -151,9 +155,13 @@ export class Hud {
     const showHold = !!s.holdHint || s.holdActive;
     this.hold.classList.toggle('hidden', !showHold);
     if (showHold) {
-      this.holdTxt.textContent = s.holdActive ? 'Delivering… press ▲ to cancel' : s.holdHint!;
+      this.holdTxt.textContent = s.holdActive ? `${s.cargoLoaded ? 'Handing over pizza' : 'Collecting pizza'}… press ▲ to cancel` : s.holdHint!;
       this.holdBar.style.width = `${Math.min(100, (s.holdTicks / 60) * 100)}%`;
     }
+    const action = this.root.querySelector<HTMLButtonElement>('[data-interact]')!;
+    action.classList.toggle('hidden', !s.canInteract || s.holdActive);
+    action.textContent = `${s.actionLabel} · E`;
+    action.setAttribute('aria-label', `${s.actionLabel} (E)`);
     // ---- notices
     if (s.notices.length !== this.seenNotices) {
       for (const n of s.notices.slice(Math.max(0, s.notices.length - (s.notices.length - this.seenNotices)))) this.toast(n.text, n.kind);
@@ -168,10 +176,10 @@ export class Hud {
     this.timer.textContent = fmt(Math.max(0, left));
     this.timer.classList.toggle('low', left < 20);
     const stop = s.currentStop;
-    this.dest.textContent = stop ? `${s.mission.stops.length > 1 ? `Stop ${s.stopIndex + 1}/${s.mission.stops.length}: ` : ''}${stop.label} · ${fmtDist(s.routeRemainingM())}` : '';
-    const showCargo = s.mission.cargo.fragility > 1 || s.cargo < 100;
+    this.dest.textContent = stop ? `${s.cargoLoaded ? 'DELIVER' : 'PICK UP'} · ${stop.label} · ${fmtDist(s.routeRemainingM())}` : '';
+    const showCargo = s.cargoLoaded;
     this.cargo.classList.toggle('hidden', !showCargo);
-    this.cargo.textContent = `Cargo ${s.cargo.toFixed(0)}%${s.mission.cargo.failThreshold > 0 ? ` (fails < ${s.mission.cargo.failThreshold}%)` : ''}`;
+    this.cargo.textContent = `🍕 Pizza ${s.cargo.toFixed(0)}%${s.mission.cargo.failThreshold > 0 ? ` (fails < ${s.mission.cargo.failThreshold}%)` : ''}`;
     const m = s.maneuver;
     if (s.wrongWay) { this.manArrow.textContent = '⛔'; this.manD.textContent = 'Wrong way'; this.manN.textContent = 'Turn around where permitted'; }
     else if (s.outOfArea === 'warn') { this.manArrow.textContent = '⚠'; this.manD.textContent = 'Outside delivery area'; this.manN.textContent = 'Follow the marked return'; }

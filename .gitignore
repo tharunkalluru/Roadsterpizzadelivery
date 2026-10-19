@@ -1,0 +1,26 @@
+# Machine-local state and secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+node_modules/
+dist/
+.venv*/
+__pycache__/
+*.pyc
+.DS_Store
+.playwright-cli/
+**/.playwright-cli/
+playwright-report/
+test-results/
+*.log
+*.lock.tmp
+**/street-survey.json.lock
+**/storage-state*.json
+**/cookies*.json
+**/*session-export*
+**/*credential*.json
+# Restored losslessly from the tracked archive during install/build.
+/game/public/world/hyd-metro/v2/source-accuracy.json

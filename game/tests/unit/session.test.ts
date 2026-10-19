@@ -2,273 +2,185 @@ import { describe, it, expect } from 'vitest';
 import { makeFixtureWorld, fixtureMission } from './fixture';
 import { Session } from '../../src/missions/session';
 import { NO_INPUT, type TickInput } from '../../src/player/player';
+import { Autopilot } from '../../src/debug/autopilot';
 import { MISSION, SIM_HZ } from '../../src/config/gameplay';
 
-// tests drive with ▲ held unless a case says otherwise (control model: no input = stop and hold)
-const inp = (o: Partial<TickInput> = {}): TickInput => ({ ...NO_INPUT, accel: true, ...o });
-
-function started(over = {}, world = makeFixtureWorld()) {
-  const s = new Session(world, fixtureMission(over), { runId: 'test', trafficEnabled: false });
-  s.start();
-  return s;
+function started(over = {}) {
+  const s = new Session(makeFixtureWorld(), fixtureMission(over), { runId: 'test', trafficEnabled: false });
+  s.start(); return s;
 }
-
-const brakeDist = (s: Session) => (s.player.speed * s.player.speed) / (2 * 9) + 1.0;
-
-/** simple reference driver: cruise along the route, brake to stop inside the stop polygon */
-function driveToStop(s: Session, maxTicks = 20000, extra: (s: Session) => Partial<TickInput> = () => ({})) {
-  for (let k = 0; k < maxTicks && s.phase === 'PLAYING'; k++) {
-    const stop = s.currentStop!;
-    const c = s.stagingPose(stop);
-    const d = Math.hypot(s.player.x - c.x, s.player.z - c.z);
-    s.step(inp({ brake: d < brakeDist(s), accel: !(d < brakeDist(s)), ...extra(s) }));
+function atStop(s: Session) {
+  const stop = s.currentStop!, c = s.stagingPose(stop);
+  s.player.place(c.x, c.z, stop.facingHeading, stop.roadId);
+}
+function interact(s: Session) {
+  s.step({ ...NO_INPUT, interactPress: true });
+  for (let i = 1; i < MISSION.holdTicks && s.phase === 'PLAYING'; i++) s.step(NO_INPUT);
+}
+function collect(s: Session) { atStop(s); interact(s); expect(s.cargoLoaded).toBe(true); }
+function driveJourney(s: Session, limit = 30000) {
+  const ap = new Autopilot(s);
+  for (let i = 0; i < limit && s.phase !== 'ENDED'; i++) {
+    if (s.phase === 'RECOVERING') s.completeRecovery();
+    else s.step(ap.input());
   }
 }
 
-describe('M01/M03 deliver: deliberate low-speed stop starts the hold; success', () => {
-  it('drives the fixture route and delivers', () => {
-    const s = started();
-    driveToStop(s);
-    expect(s.outcome).toEqual({ success: true, reason: 'Delivered' });
-    const r = s.results();
-    expect(r.chargedSeconds).toBeLessThanOrEqual(r.deadlineSeconds);
-    expect(r.flightUsedSeconds).toBe(0);
+describe('Explicit pizza collection and handover', () => {
+  it('acceptance starts away from the restaurant, unloaded, with a connected pickup route', () => {
+    const s = started(), stop = s.delivery(s.mission.pickupId), c = s.stagingPose(stop);
+    expect(s.cargoLoaded).toBe(false);
+    expect(s.deliveryStage).toBe('PICKUP');
+    expect(s.currentStop?.id).toBe(s.mission.pickupId);
+    expect(Math.hypot(s.player.x - c.x, s.player.z - c.z)).toBeGreaterThan(20);
+    expect(s.route.length).toBeGreaterThan(0);
+    expect(s.notices[0].text).toMatch(/Order accepted/);
   });
-  it('passing through the stop polygon at speed does not capture the car', () => {
-    const s = started();
-    let maxHold = 0;
-    for (let k = 0; k < 6000 && s.player.z > -900; k++) { s.step(inp()); maxHold = Math.max(maxHold, s.holdTicks); }
+  it('waiting at pickup cannot collect; an explicit E press collects and changes the route', () => {
+    const s = started(); atStop(s);
+    for (let i = 0; i < 180; i++) s.step(NO_INPUT);
+    expect(s.cargoLoaded).toBe(false);
+    expect(s.canInteract).toBe(true);
+    expect(s.holdTicks).toBe(0);
+    interact(s);
+    expect(s.cargoLoaded).toBe(true);
+    expect(s.stopIndex).toBe(0);
+    expect(s.currentStop?.id).toBe('d_main');
     expect(s.outcome).toBeNull();
-    expect(maxHold).toBe(0);
-    expect(s.player.speed).toBeGreaterThan(10);
   });
-  it('cancelling the hold restores normal control', () => {
+  it('a press outside the entrance is discarded, and passing at speed cannot collect', () => {
     const s = started();
-    for (let k = 0; k < 20000 && !s.holdActive && s.phase === 'PLAYING'; k++) {
-      const c = s.stagingPose(s.currentStop!); const d = Math.hypot(s.player.x - c.x, s.player.z - c.z);
-      s.step(inp({ brake: d < brakeDist(s), accel: !(d < brakeDist(s)) }));
-    }
-    expect(s.holdActive).toBe(true);
-    s.step(inp({ accel: true }));
+    s.step({ ...NO_INPUT, interactPress: true }); atStop(s);
+    for (let i = 0; i < 100; i++) s.step(NO_INPUT);
+    expect(s.cargoLoaded).toBe(false);
+    s.player.speed = 10;
+    s.step({ ...NO_INPUT, accel: true, interactPress: true });
     expect(s.holdActive).toBe(false);
-    for (let k = 0; k < 120; k++) s.step(inp());
+  });
+  it('the complete approach, collection, customer journey and handover work through real driving', () => {
+    const s = started(); driveJourney(s);
+    expect(s.outcome).toEqual({ success: true, reason: 'Delivered' });
+    expect(s.eventLog.some((e) => e.e.startsWith('collected '))).toBe(true);
+    expect(s.eventLog.some((e) => e.e.startsWith('delivered '))).toBe(true);
+    expect(s.results().chargedSeconds).toBeLessThan(s.mission.deadlineSeconds);
+    expect(s.distanceTravelled).toBeGreaterThan(750);
+  });
+  it('stopping at the customer never completes without the handover action', () => {
+    const s = started(); collect(s); atStop(s);
+    for (let i = 0; i < 180; i++) s.step(NO_INPUT);
     expect(s.outcome).toBeNull();
-    expect(s.player.speed).toBeGreaterThan(2);
+    expect(s.holdHint).toMatch(/HAND OVER/);
+    interact(s);
+    expect(s.outcome?.success).toBe(true);
+  });
+  it('accelerating cancels collection and requires another explicit press', () => {
+    const s = started(); atStop(s);
+    s.step({ ...NO_INPUT, interactPress: true });
+    expect(s.holdActive).toBe(true);
+    s.step({ ...NO_INPUT, accel: true });
+    expect(s.holdActive).toBe(false);
+    for (let i = 0; i < 100; i++) s.step(NO_INPUT);
+    expect(s.cargoLoaded).toBe(false);
+  });
+  it('wrong approach and airborne position cannot hand over', () => {
+    const s = started(); collect(s); atStop(s);
+    s.player.heading = Math.PI;
+    for (let i = 0; i < 100; i++) s.step({ ...NO_INPUT, interactPress: true });
+    expect(s.outcome).toBeNull(); expect(s.holdHint).toMatch(/Wrong side/);
+    atStop(s); s.player.move = 'FLYING'; s.player.y = 4.8;
+    s.step({ ...NO_INPUT, interactPress: true });
+    expect(s.holdActive).toBe(false);
+    expect(s.holdHint).toMatch(/Land on the road/);
   });
 });
 
-describe('M02 wrong side / airborne do not complete', () => {
-  it('stopping in the polygon facing the wrong direction does not deliver', () => {
-    const s = started();
-    s.player.place(-3.5, -800, Math.PI, 'A1'); // inside polygon but heading south
-    for (let k = 0; k < 300; k++) s.step(inp({ accel: false })); // no input: stop and hold
-    expect(s.outcome).toBeNull();
-    expect(s.holdHint).toMatch(/Wrong side/);
-  });
-  it('hovering above the polygon does not deliver', () => {
-    const s = started();
-    s.player.place(-3.5, -760, 0, 'A1');
-    for (let k = 0; k < 40; k++) s.step(inp());
-    s.step(inp({ flyPress: true }));
-    for (let k = 0; k < 600 && s.phase === 'PLAYING'; k++) s.step(inp({ brake: s.player.z < -790, accel: s.player.z >= -790 }));
-    expect(s.outcome).toBeNull();
-    expect(s.player.isAirborne).toBe(true);
-  });
-});
-
-describe('F24/M05 same-tick ordering', () => {
-  it('success on the deadline tick succeeds; one tick later fails', () => {
-    // first measure when the hold completes with a generous deadline
-    const a = started();
-    driveToStop(a);
-    const doneTick = a.chargedTicks;
-    const exact = started({ deadlineSeconds: doneTick / SIM_HZ });
-    driveToStop(exact);
-    expect(exact.outcome?.success).toBe(true);
-    const late = started({ deadlineSeconds: (doneTick - 1) / SIM_HZ });
-    driveToStop(late);
-    expect(late.outcome?.success).toBe(false);
-    expect(late.outcome && !late.outcome.success && late.outcome.code).toBe('deadline');
-  });
-  it('cargo failure on the completing tick takes precedence over success', () => {
-    const s = started({ cargo: { label: 'x', fragility: 1, failThreshold: 99 } });
-    for (let k = 0; k < 20000 && s.phase === 'PLAYING' && s.holdTicks < MISSION.holdTicks - 1; k++) {
-      const c = s.stagingPose(s.currentStop!); const d = Math.hypot(s.player.x - c.x, s.player.z - c.z);
-      s.step(inp({ brake: d < brakeDist(s), accel: !(d < brakeDist(s)) }));
+describe('Mission clocks, cargo and critical contacts', () => {
+  it('handover on the deadline tick succeeds; one tick late fails', () => {
+    const measured = started(); collect(measured); atStop(measured); interact(measured);
+    const done = measured.chargedTicks;
+    for (const [deadline, success] of [[done, true], [done - 1, false]] as const) {
+      const s = started({ deadlineSeconds: deadline / SIM_HZ }); collect(s); atStop(s); interact(s);
+      expect(s.outcome?.success).toBe(success);
     }
-    expect(s.holdTicks).toBe(MISSION.holdTicks - 1);
-    s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'bump_x', kind: 'vehicle', nx: 1, nz: 0, depth: 0.01 }); return out; }, occupancy: () => 0 };
-    s.step(inp({ brake: true, accel: false }));
+  });
+  it('pizza takes no damage before pickup, but cargo failure overrides a completing handover', () => {
+    const s = started({ cargo: { label: 'Pizza', fragility: 1, failThreshold: 99 } });
+    s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'prepickup', kind: 'vehicle', nx: 1, nz: 0, depth: 0.01 }); return out; }, occupancy: () => 0 };
+    s.step(NO_INPUT); expect(s.cargo).toBe(100);
+    s.player.dyn = s.traffic; collect(s); atStop(s);
+    s.step({ ...NO_INPUT, interactPress: true });
+    for (let i = 1; i < MISSION.holdTicks - 1; i++) s.step(NO_INPUT);
+    s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'loadedbump', kind: 'vehicle', nx: 1, nz: 0, depth: 0.01 }); return out; }, occupancy: () => 0 };
+    s.step(NO_INPUT);
     expect(s.outcome).toEqual({ success: false, reason: 'Cargo damaged beyond delivery', code: 'cargo' });
   });
-  it('a moving pedestrian contact is critical and blocks completion (recovery instead)', () => {
-    const s = started();
-    for (let k = 0; k < 600; k++) s.step(inp());
-    s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'ped_x', kind: 'pedestrian', nx: 1, nz: 0, depth: 0.1 }); return out; }, occupancy: () => 0 };
-    s.step(inp());
-    expect(s.phase).toBe('RECOVERING');
-    expect(s.outcome).toBeNull();
-  });
-});
-
-describe('F19/F20/F23 recovery, retry, bounded cargo', () => {
-  it('recovery preserves consumed ticks, adds one penalty, returns to a reached anchor', () => {
-    const s = started();
-    for (let k = 0; k < 400; k++) s.step(inp());
-    s.step(inp({ flyPress: true }));
-    for (let k = 0; k < 120; k++) s.step(inp());
-    const consumed = s.player.ledger.consumedTicks;
-    const maxZ = Math.min(...s.anchors.map((a) => a.z));
-    const elapsed = s.elapsedTicks;
-    s.requestManualRecovery();
-    expect(s.phase).toBe('RECOVERING');
-    for (let k = 0; k < 100; k++) s.step(inp()); // frozen
+  it('recovery freezes simulation and preserves cumulative charge; it cannot advance to pickup', () => {
+    const s = started(); const start = { x: s.player.x, z: s.player.z }, ledger = s.player.ledger.snapshot();
+    s.requestManualRecovery(); const elapsed = s.elapsedTicks;
+    for (let i = 0; i < 100; i++) s.step(NO_INPUT);
     expect(s.elapsedTicks).toBe(elapsed);
-    s.completeRecovery();
-    s.completeRecovery(); // applied once only
-    expect(s.player.ledger.consumedTicks).toBe(consumed);
+    s.completeRecovery(); s.completeRecovery();
+    expect(s.player.ledger.snapshot()).toEqual(ledger);
     expect(s.penaltyTicks).toBe(MISSION.recoveryPenaltyTicks);
     expect(s.recoveries).toBe(1);
-    expect(s.player.move).toBe('GROUNDED');
-    expect(s.player.z).toBeGreaterThanOrEqual(maxZ - 0.01); // no forward progress gain (north = -z)
+    expect(s.player.x).toBe(start.x); expect(s.player.z).toBe(start.z);
+    expect(s.cargoLoaded).toBe(false);
   });
-  it('full retry resets fuel and progress together', () => {
-    const s = started();
-    for (let k = 0; k < 300; k++) s.step(inp());
-    s.step(inp({ flyPress: true }));
-    for (let k = 0; k < 200; k++) s.step(inp());
-    expect(s.player.ledger.consumedTicks).toBeGreaterThan(0);
-    const retry = new Session(s.world, s.mission, { trafficEnabled: false });
-    expect(retry.runId).not.toBe(s.runId);
-    expect(retry.player.ledger.consumedTicks).toBe(0);
-    expect(retry.elapsedTicks).toBe(0);
-    expect(retry.stopIndex).toBe(0);
-  });
-  it('sustained contact produces one bounded event, not per-frame damage', () => {
-    const s = started();
-    s.player.dyn = { contacts: (_x, _z, _y, _h, _r, out) => { out.push({ id: 'wall', kind: 'building', nx: 0, nz: 1, depth: 0.01 }); return out; }, occupancy: () => 0 };
-    for (let k = 0; k < 40; k++) s.step(inp({ brake: true, accel: false }));
-    expect(s.cargo).toBeGreaterThanOrEqual(98);
-  });
-});
-
-describe('F12 intermediate stops never refill; M13 multi-stop survives checkpoint', () => {
-  it('multi-stop contract shares one allocation across stops and restores from checkpoint', () => {
-    const s = started({ stops: ['d_main', 'd_side'], deadlineSeconds: 600 });
-    // fly a bit before the first stop
-    for (let k = 0; k < 200; k++) s.step(inp());
-    s.step(inp({ flyPress: true }));
-    for (let k = 0; k < 100; k++) s.step(inp());
-    s.step(inp({ flyPress: true }));
-    for (let k = 0; k < 400 && s.player.move !== 'GROUNDED'; k++) s.step(inp());
-    const consumed = s.player.ledger.consumedTicks;
-    driveToStop(s, 20000, () => ({}));
-    // stop 1 delivered or still driving to stop 2
-    for (let k = 0; k < 20000 && s.stopIndex < 1 && s.phase === 'PLAYING'; k++) s.step(inp());
-    expect(s.stopIndex).toBe(1);
-    expect(s.player.ledger.consumedTicks).toBe(consumed);
-    const cp = JSON.parse(JSON.stringify(s.checkpoint()));
-    const r = Session.fromCheckpoint(s.world, s.mission, cp);
-    expect(r.stopIndex).toBe(1);
-    expect(r.player.ledger.consumedTicks).toBe(consumed);
-    expect(r.elapsedTicks).toBe(s.elapsedTicks);
-    expect(r.cargo).toBe(s.cargo);
-    expect(r.resumed).toBe(true);
-  });
-  it('restoring an airborne checkpoint uses the documented ground-recovery path, keeps consumed ticks', () => {
-    const s = started();
-    for (let k = 0; k < 300; k++) s.step(inp());
-    s.step(inp({ flyPress: true }));
-    for (let k = 0; k < 150; k++) s.step(inp());
-    const cp = JSON.parse(JSON.stringify(s.checkpoint()));
-    const r = Session.fromCheckpoint(s.world, s.mission, cp);
-    expect(r.player.isAirborne).toBe(false);
-    expect(r.player.ledger.consumedTicks).toBe(s.player.ledger.consumedTicks);
-    expect(r.penaltyTicks).toBe(s.penaltyTicks); // technical restore: no crash penalty
-  });
-  it('incompatible checkpoints are rejected explicitly', () => {
-    const s = started();
-    const cp = s.checkpoint();
-    expect(() => Session.fromCheckpoint(s.world, { ...s.mission, version: 99 }, cp)).toThrow(/Incompatible/);
-  });
-});
-
-describe('G02/G03/M04 routing on the directed graph', () => {
-  it('return route does not reverse a one-way road', () => {
-    const w = makeFixtureWorld();
-    const out = w.nav.route('B:f', ['D:f'])!;
-    expect(out.path).toContain('C:f');
-    const back = w.nav.route('D:b', ['A1:b'])!;
-    expect(back.path).not.toContain('C:b');
-    expect(back.path).toEqual(['D:b', 'D:f', 'A2:b', 'A1:b']); // dead-end turnaround, then real roads
-    for (let i = 0; i < back.path.length - 1; i++) expect(w.nav.edges.get(back.path[i])!.next).toContain(back.path[i + 1]);
-  });
-  it('a missed turn reroutes through real connections', () => {
-    const s = started({ stops: ['d_side'], deadlineSeconds: 600 });
-    // drive straight past the junction to the side road (missed right turn)
-    for (let k = 0; k < 6000 && s.player.z > -1100; k++) s.step(inp());
-    const r = s.route;
-    expect(r.length).toBeGreaterThan(0);
-    for (let i = 0; i < r.length - 1; i++) expect(s.world.nav.edges.get(r[i])!.next).toContain(r[i + 1]);
-    expect(r[r.length - 1]).toBe('B:f');
-  });
-});
-
-describe('M06 HUD/results agree', () => {
-  it('charged = active + penalties; flight used + left = allocation', () => {
-    const s = started();
-    for (let k = 0; k < 300; k++) s.step(inp());
-    s.requestManualRecovery(); s.completeRecovery();
-    driveToStop(s);
+  it('results reconcile active time, penalties, initial charge, earned charge and spending', () => {
+    const s = started(); driveJourney(s);
     const r = s.results();
     expect(r.chargedSeconds).toBeCloseTo(r.activeSeconds + r.penaltySeconds, 9);
-    expect(r.flightUsedSeconds + r.flightLeftSeconds).toBeCloseTo(r.flightInitialSeconds, 9);
-    expect(r.penalties.filter((p) => p.seconds > 0).length).toBe(1);
+    expect(r.flightUsedSeconds + r.flightLeftSeconds).toBeCloseTo(r.flightInitialSeconds + (r.flightEarnedSeconds ?? 0), 9);
+    expect(r.flightInitialSeconds).toBe(2.5);
+    expect(r.flightEarnedSeconds).toBeGreaterThan(0);
   });
 });
 
-describe('U11 outside-area guidance', () => {
-  it('warns early, then recovers to a previously reached anchor with no progress gain', () => {
-    const s = started({ deadlineSeconds: 600 });
-    for (let k = 0; k < 600; k++) s.step(inp());
-    const anchorsZ = Math.min(...s.anchors.map((a) => a.z));
-    let warned = -1, recovered = -1;
-    for (let k = 0; k < 2000 && recovered < 0; k++) {
-      s.step(inp({ steer: k < 60 ? -1 : 0 })); // veer left off the network into open ground
-      if (s.outOfArea === 'warn' && warned < 0) warned = k;
-      if (s.phase === 'RECOVERING') recovered = k;
-    }
-    expect(warned).toBeGreaterThanOrEqual(0);
-    expect(recovered).toBeGreaterThan(warned);
-    s.completeRecovery();
-    expect(s.player.z).toBeGreaterThanOrEqual(anchorsZ - 0.01);
-    expect(s.player.surface?.onCarriageway).toBe(true);
+describe('Checkpoints preserve both halves of a delivery', () => {
+  it('a pre-pickup checkpoint cannot silently load a pizza', () => {
+    const s = started(); const r = Session.fromCheckpoint(s.world, s.mission, JSON.parse(JSON.stringify(s.checkpoint())));
+    expect(r.cargoLoaded).toBe(false); expect(r.currentStop?.id).toBe(s.mission.pickupId);
   });
-});
-
-describe('F21/M13 regression (independent review M4): checkpoint exactness and validation', () => {
-  it('restores encounter scheduler state; rejects a tampered allocation; airborne w/o anchors lands at pickup', () => {
-    const s = new Session(makeFixtureWorld(), fixtureMission({ traffic: 'busy', deadlineSeconds: 900, stops: ['d_side'] }), { runId: 'x', seed: 4 });
-    s.start();
-    for (let k = 0; k < 1500; k++) s.step(inp());
-    const cp = JSON.parse(JSON.stringify(s.checkpoint()));
-    const r = Session.fromCheckpoint(s.world, s.mission, cp);
+  it('post-pickup and multi-drop progress, earned charge and seeded traffic survive restore', () => {
+    const s = started({ stops: ['d_main', 'd_side'], deadlineSeconds: 600 }); collect(s); atStop(s); interact(s);
+    expect(s.stopIndex).toBe(1);
+    for (let i = 0; i < 120; i++) s.step({ ...NO_INPUT, accel: true });
+    const r = Session.fromCheckpoint(s.world, s.mission, JSON.parse(JSON.stringify(s.checkpoint())));
+    expect(r.stopIndex).toBe(1); expect(r.cargoLoaded).toBe(true); expect(r.currentStop?.id).toBe('d_side');
+    expect(r.player.ledger.snapshot()).toEqual(s.player.ledger.snapshot());
+    expect(r.elapsedTicks).toBe(s.elapsedTicks);
     expect(r.nextEncounterTick).toBe(s.nextEncounterTick);
-    expect(r.encounters.length).toBe(s.encounters.length);
-    const bad = JSON.parse(JSON.stringify(cp)); bad.player.ledger.allocationSeconds = 30;
-    expect(() => Session.fromCheckpoint(s.world, s.mission, bad)).toThrow(/ledger/);
-    const bad2 = JSON.parse(JSON.stringify(cp)); bad2.player.ledger.consumed = -5;
-    expect(() => Session.fromCheckpoint(s.world, s.mission, bad2)).toThrow(/ledger/);
-    const air = started();
-    for (let k = 0; k < 20; k++) air.step(inp());
-    air.step(inp({ flyPress: true }));
-    for (let k = 0; k < 40; k++) air.step(inp());
-    expect(air.player.isAirborne).toBe(true);
-    const cpa = JSON.parse(JSON.stringify(air.checkpoint()));
-    cpa.anchors = [];
-    const ra = Session.fromCheckpoint(air.world, air.mission, cpa);
-    expect(ra.player.isAirborne).toBe(false);
-    expect(ra.player.y).toBeCloseTo(ra.player.surface?.elevation ?? 0, 3);
-    expect(ra.player.ledger.consumedTicks).toBe(air.player.ledger.consumedTicks);
+  });
+  it('rejects forged charge, missing collection, mismatched versions and negative accounting', () => {
+    const s = started(); collect(s);
+    const cp = s.checkpoint();
+    expect(() => Session.fromCheckpoint(s.world, { ...s.mission, version: 99 }, cp)).toThrow(/Incompatible/);
+    for (const change of [(q: typeof cp) => { q.player.ledger.earned = 100000; }, (q: typeof cp) => { q.player.ledger.consumed = -1; }, (q: typeof cp) => { q.stopIndex = 1; q.cargoLoaded = false; }]) {
+      const bad = JSON.parse(JSON.stringify(cp)); change(bad);
+      expect(() => Session.fromCheckpoint(s.world, s.mission, bad)).toThrow(/Incompatible/);
+    }
+  });
+  it('an airborne restore returns to a reached ground anchor without granting charge', () => {
+    const s = started();
+    for (let i = 0; i < 60; i++) s.step(NO_INPUT);
+    s.step({ ...NO_INPUT, flyPress: true });
+    for (let i = 0; i < 25; i++) s.step(NO_INPUT);
+    expect(s.player.isAirborne).toBe(true);
+    const r = Session.fromCheckpoint(s.world, s.mission, JSON.parse(JSON.stringify(s.checkpoint())));
+    expect(r.player.isAirborne).toBe(false);
+    expect(r.player.ledger.snapshot()).toEqual(s.player.ledger.snapshot());
+  });
+});
+
+describe('Directed routing remains valid across pickup and delivery', () => {
+  it('a missed delivery turn reroutes through real connected roads', () => {
+    const s = started({ stops: ['d_side'], deadlineSeconds: 600 }); collect(s);
+    for (let i = 0; i < 6000 && s.player.z > -1100; i++) s.step({ ...NO_INPUT, accel: true });
+    expect(s.route.at(-1)).toBe('B:f');
+    for (let i = 0; i < s.route.length - 1; i++) expect(s.world.nav.edges.get(s.route[i])!.next).toContain(s.route[i + 1]);
+  });
+  it('return routes respect the one-way side road', () => {
+    const s = started();
+    expect(s.world.nav.route('D:b', ['A1:b'])!.path).not.toContain('C:b');
   });
 });

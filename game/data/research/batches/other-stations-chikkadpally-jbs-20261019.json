@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "id": "other-stations-chikkadpally-jbs-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Additional station-area Street View work at Chikkadpally and JBS Parade Grounds. At Chikkadpally, the January 2026 Pan Mahal approach was followed through visible forward Street View links into 11 Chikkadpalli Road; new signs and a curbside food cart are recorded as pending identity/context only. This documents a linked imagery path, not a matched canonical road ID, exact route side, full frontage sequence, unit boundaries, or measured placement. At JBS, a second heading on the existing January 2025 panorama confirms a red signal state at one instant and mixed bus/auto/two-wheeler/pedestrian activity; it does not establish a signal cycle or traffic volume. No reviewed road ranges or storefront geometry are added.",
+  "sources": [
+    {
+      "id": "sv-chikkadpally-11-chikkadpalli-pigeon-mplus-202601-20261019",
+      "kind": "street_view",
+      "title": "11 Chikkadpalli Road storefronts and roadside snack cart — 2026-01",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Xt3Q0r9uMzHYcbcOel27gg&heading=155.59",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.3995631,
+        "lon": 78.4948475,
+        "panoId": "Xt3Q0r9uMzHYcbcOel27gg",
+        "headingDeg": 155.59
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Reached by the visible forward Street View path from the Chikkadpally Pan Mahal approach. Google labels this panorama 11 Chikkadpalli Road. In this oblique view, the near frontage shows a Pigeon-branded appliance fascia, a M Plus Diagnostics / Collection Centre board, an adjacent temporary 75% discount advertisement, and an unnamed glass-front roadside food cart with food-photo panels. Storefront sequence and exact tenancy edges are not proven by this camera angle. The road shoulder is broken and littered, with parked motorcycles, moving autos/two-wheelers, pedestrians, utility wires, trees and the elevated Metro structure. Reference imagery is not copied."
+    },
+    {
+      "id": "sv-chikkadpally-11-chikkadpalli-ruchi-vkprint-202601-20261019",
+      "kind": "street_view",
+      "title": "11 Chikkadpalli Road ID and print-shop signs — 2026-01",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=QWxJAJczgC0g-ND-V3WpXw&heading=121.48",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.3990263,
+        "lon": 78.4949052,
+        "panoId": "QWxJAJczgC0g-ND-V3WpXw",
+        "headingDeg": 121.48
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Reached through a forward-linked Street View sequence from the station-side approach, via the 11 Chikkadpalli Road panorama and the previously recorded nearby poles/ladders view. This establishes a navigable imagery connection only; it does not resolve which canonical road edge or side contains each facade. Readable boards include RUCHI ID SOLUTION and VK PRINT SOLUTIONS. Nearby blue-painted shutter/gate bays, additional partly blocked signs, parked scooters, autos and a rough littered edge remain unresolved. Reference imagery is not copied."
+    },
+    {
+      "id": "sv-jbs-parade-ground-heading34-202501-20261019",
+      "kind": "street_view",
+      "title": "JBS Parade Grounds junction approach under Metro and flyover — 2025-01",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=b4QeCLSM9fgReN9lNysUNg&heading=34",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4432672,
+        "lon": 78.4956351,
+        "panoId": "b4QeCLSM9fgReN9lNysUNg",
+        "headingDeg": 34
+      },
+      "assetPolicy": "reference_only",
+      "notes": "A second heading of the same January 2025 Street View panorama already recorded for JBS. The view shows a signal head with red illuminated, a bus near the junction, an auto-rickshaw waiting group, motorcycles, cars and pedestrians beneath the Metro/flyover structures. The red indication is a single captured state, not signal timing or a cycle. No readable storefront row is visible. Reference imagery is not copied."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-chikkadpally-2026-pigeon-frontage",
+      "sourceIds": ["sv-chikkadpally-11-chikkadpalli-pigeon-mplus-202601-20261019"],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Pigeon-branded appliance frontage",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": { "lat": 17.3995631, "lon": 78.4948475, "headingDeg": 155.59 },
+      "placementStatus": "pending",
+      "notes": "The January 2026 view shows a large Pigeon brand panel and a smaller 'fast cooking' panel above a stocked appliance frontage. The shop operator/name is not legible, so this is a visible fascia identity only; the camera is not an entrance, and the building, unit, road side, floor and route order remain unassigned."
+    },
+    {
+      "id": "obs-chikkadpally-2026-m-plus-diagnostics",
+      "sourceIds": ["sv-chikkadpally-11-chikkadpalli-pigeon-mplus-202601-20261019"],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "M Plus Diagnostics — Collection Centre",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": { "lat": 17.3995631, "lon": 78.4948475, "headingDeg": 155.59 },
+      "placementStatus": "pending",
+      "notes": "A red/blue board appears to read M PLUS DIAGNOSTICS with COLLECTION CENTRE beneath it; an adjacent red 75% discount panel may be related advertising and is not counted as another business. Exact spelling, bay boundary, entrance, building parent, road side and order remain pending."
+    },
+    {
+      "id": "obs-chikkadpally-2026-unnamed-food-cart",
+      "sourceIds": ["sv-chikkadpally-11-chikkadpalli-pigeon-mplus-202601-20261019"],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Unidentified roadside food cart beside the shop steps",
+      "category": "first_pass_vendor_context",
+      "roadId": null,
+      "position": { "lat": 17.3995631, "lon": 78.4948475, "headingDeg": 155.59 },
+      "placementStatus": "pending",
+      "notes": "A small glass-front cart with food-photo panels stands on the uneven roadside edge by the raised shop steps. No operator name is legible. Camera point is not the cart location; its exact side, anchor, dimensions and business identity remain unknown."
+    },
+    {
+      "id": "obs-chikkadpally-2026-ruchi-id-solution",
+      "sourceIds": ["sv-chikkadpally-11-chikkadpalli-ruchi-vkprint-202601-20261019"],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "RUCHI ID SOLUTION",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": { "lat": 17.3990263, "lon": 78.4949052, "headingDeg": 121.48 },
+      "placementStatus": "pending",
+      "notes": "A large fascia reads RUCHI ID SOLUTION, with a product board showing ID-card/badge items. The camera is angled along the lane and does not establish the sign's exact entrance, unit boundary, canonical road side, floor or neighbour order."
+    },
+    {
+      "id": "obs-chikkadpally-2026-vk-print-solutions",
+      "sourceIds": ["sv-chikkadpally-11-chikkadpalli-ruchi-vkprint-202601-20261019"],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "VK PRINT SOLUTIONS",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": { "lat": 17.3990263, "lon": 78.4949052, "headingDeg": 121.48 },
+      "placementStatus": "pending",
+      "notes": "The board above a narrow ground-floor counter reads VK PRINT SOLUTIONS. Nearby closed shutter/gate bays and hanging merchandise make exact unit separation ambiguous; no canonical road side, building parent, entrance, floor or along-road order is assigned."
+    },
+    {
+      "id": "obs-chikkadpally-2026-malleshwara-board",
+      "sourceIds": ["sv-chikkadpally-station-area-poles-graphics-202601-20261018"],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Sri Malleshwara — 'All Two Wheelers' board, identity unresolved",
+      "category": "first_pass_ambiguous_business_sign",
+      "roadId": null,
+      "position": { "lat": 17.3992799, "lon": 78.4948189, "headingDeg": 155.79 },
+      "placementStatus": "pending",
+      "notes": "A blue roadside board appears to read SRI MALLESHWARA and ALL TWO WHEELERS. It may refer to a two-wheeler business, but the full name and service are not clear enough to infer. The camera is not the entrance; exact operator, road side, unit and location remain unverified."
+    },
+    {
+      "id": "obs-chikkadpally-2026-side-lane-context",
+      "sourceIds": [
+        "sv-chikkadpally-11-chikkadpalli-pigeon-mplus-202601-20261019",
+        "sv-chikkadpally-11-chikkadpalli-ruchi-vkprint-202601-20261019",
+        "sv-chikkadpally-station-area-poles-graphics-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Chikkadpally local-road activity and obstructed frontage edge",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": { "lat": 17.3992799, "lon": 78.4948189, "headingDeg": 155.79 },
+      "placementStatus": "pending",
+      "notes": "The linked and nearby January 2026 views show dense parked scooters, passing motorcycles and auto-rickshaws, pedestrians, roadside material/pole/ladder stacks, a small food cart, overhead utility cables, a Metro structure, and broken/littered edge paving. This supports local texture and obstacle variety only; no exact road width, curb geometry, continuous shop order, signal placement or traffic rate is measured."
+    },
+    {
+      "id": "obs-jbs-2025-red-signal-state-heading34",
+      "sourceIds": ["sv-jbs-parade-ground-heading34-202501-20261019"],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "JBS approach traffic signal showing red in one January 2025 frame",
+      "category": "first_pass_signal_state_observation",
+      "roadId": null,
+      "position": { "lat": 17.4432672, "lon": 78.4956351, "headingDeg": 34 },
+      "placementStatus": "pending",
+      "notes": "The heading-34 panorama shows a red signal light illuminated on the approach mast. This is a single static image state and does not establish junction ID, exact pole position, phase duration, cycle or current signal operation."
+    },
+    {
+      "id": "obs-jbs-2025-junction-mix-heading34",
+      "sourceIds": ["sv-jbs-parade-ground-heading34-202501-20261019"],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "JBS junction bus, auto-rickshaw and pedestrian activity",
+      "category": "first_pass_station_context",
+      "roadId": null,
+      "position": { "lat": 17.4432672, "lon": 78.4956351, "headingDeg": 34 },
+      "placementStatus": "pending",
+      "notes": "One January 2025 frame shows a city bus near the junction, auto-rickshaws waiting along the approach, motorcycles/scooters, cars and pedestrians crossing beneath the Metro and adjacent flyover. The image is an episodic scene, not a measured traffic count or guaranteed transit/auto stand location. No shop fascia is readable."
+    }
+  ]
+}

@@ -18,11 +18,14 @@ export interface Settings {
   quality: 'auto' | 'low' | 'standard' | 'high';
   handedness: 'right' | 'left';
   practiceDone: boolean;
+  timeOfDay: 'day' | 'dusk' | 'night';
+  weather: 'clear' | 'rain';
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   sensitivity: 1, musicVolume: 0.5, sfxVolume: 0.8, uiVolume: 0.7, haptics: true, reducedShake: false,
   reducedFlashing: false, largeText: false, quality: 'auto', handedness: 'right', practiceDone: false,
+  timeOfDay: 'day', weather: 'clear',
 };
 
 export interface BestRecord { comparableKey: string; score: number; chargedSeconds: number; at: string }
@@ -68,6 +71,8 @@ export class Store {
     if (!s || s.schema !== SAVE_SCHEMA) return { ...DEFAULT_SETTINGS };
     const merged = { ...DEFAULT_SETTINGS, ...s.data };
     if (typeof merged.sensitivity !== 'number' || merged.sensitivity < 0.4 || merged.sensitivity > 2.5) merged.sensitivity = 1;
+    if (!['day', 'dusk', 'night'].includes(merged.timeOfDay)) merged.timeOfDay = 'day';
+    if (!['clear', 'rain'].includes(merged.weather)) merged.weather = 'clear';
     return merged;
   }
   saveSettings(s: Settings) { this.set('settings', JSON.stringify({ schema: SAVE_SCHEMA, data: s })); }

@@ -1,0 +1,445 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-medplus-vijaya-low-yellow-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex coordinated Chrome source review",
+  "notes": "One directly photographed low yellow source body: two provisional ground fronts, one ground+upper-window/parapet profile and dated repeated/service/ad signPanels. Explicit7.4m/two-level height estimate replaces10.5m satellite interpretation, with all metrics provisional. Existing footprint/holes/access remain unchanged. Only a bounded observation window is added; a single close view does not certify full-side or metric completion.",
+  "sources": [
+    {
+      "id": "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018",
+      "kind": "street_view",
+      "title": "Madhapur low yellow MedPlus / Vijaya Sai photo block",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=6aSreqMnSKrz5UFecn72Mw&heading=180&pitch=8&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex coordinated Chrome source review",
+      "position": {
+        "lat": 17.440833,
+        "lon": 78.39271,
+        "headingDeg": 180,
+        "panoId": "6aSreqMnSKrz5UFecn72Mw"
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Fresh settled April2026 south-facing Chrome view, whose exact returned screenshot bytes were saved as south-medplus-close.png and inspected by the authoring agent. Looking from the road, east-to-west order is an unbranded black gated gap, a broad glass MedPlus ground pharmacy, then VIJAYA SAI PHOTO FRAMES & STUDIO with repeated red/yellow/white service bands. One upper row of domestic rectangular windows and a flat yellow parapet have no readable other operator. The high MedPlus fascia, small rectangular and circular50–80% discount advertising belong to the same pharmacy and are dated to this capture, not a current price offer or extra tenant. Rough forecourt, cables, a pole and parked motorcycles partly obscure entrance/ground details. Adjacent eastern electrical/jewellery body is outside this correction. All metrics/footprint association remain provisional; no source imagery is redistributed."
+    }
+  ],
+  "observations": [
+    {
+      "id": "survey-madhapur-medplus-low-yellow-observed",
+      "name": "MedPlus",
+      "category": "pharmacy",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.440833,
+        "lon": 78.39271,
+        "headingDeg": 180,
+        "panoId": "6aSreqMnSKrz5UFecn72Mw"
+      },
+      "sourceIds": [
+        "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-madhapur-medplus-low-yellow",
+      "notes": "The photographed broad red band and glazed ground medicine display identify this pharmacy. English/Telugu words and green-cross branding refer to one business; independent exact logo artwork is not copied. Source face association, shop widths, entrance midpoint placeholders, threshold and sign dimensions/colours are authored estimates. No exact frontage or current occupancy verification is claimed."
+    },
+    {
+      "id": "survey-madhapur-vijaya-sai-photo-studio-observed",
+      "name": "VIJAYA SAI PHOTO FRAMES & STUDIO",
+      "category": "photography_and_framing",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.440833,
+        "lon": 78.39271,
+        "headingDeg": 180,
+        "panoId": "6aSreqMnSKrz5UFecn72Mw"
+      },
+      "sourceIds": [
+        "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-madhapur-vijaya-sai-photo-studio",
+      "notes": "The west red/yellow photo, printing and framing entrance has repeated boards of the same studio. Framing displays are observed; images, portraits and exact product graphics are not copied. Source face association, shop widths, entrance midpoint placeholders, threshold and sign dimensions/colours are authored estimates. No exact frontage or current occupancy verification is claimed."
+    },
+    {
+      "id": "obs-madhapur-medplus-vijaya-gate-and-upper-windows-20261018",
+      "name": "Unbranded gated gap and single domestic upper window row",
+      "category": "non_shop_frontage",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.440833,
+        "lon": 78.39271,
+        "headingDeg": 180,
+        "panoId": "6aSreqMnSKrz5UFecn72Mw"
+      },
+      "sourceIds": [
+        "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "placementStatus": "pending",
+      "notes": "Black gated gap east of MedPlus has no readable operator. The one upper window row/parapet has no additional tenant board. Gate material/pattern, window positions and exact building/entrance divisions are inferred; no hidden business or access stair is invented."
+    },
+    {
+      "id": "obs-madhapur-medplus-vijaya-discount-advertisement-20261018",
+      "name": "MedPlus50–80% dated discount advertisements",
+      "category": "observed_advertisement",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.440833,
+        "lon": 78.39271,
+        "headingDeg": 180,
+        "panoId": "6aSreqMnSKrz5UFecn72Mw"
+      },
+      "sourceIds": [
+        "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "placementStatus": "pending",
+      "notes": "The small rectangular and larger round discount boards are photographed April2026 advertising of the same pharmacy, not separate operators or a current offer. The rectangular wording is rendered as a non-tenant panel; the round shape/other detailed joinery remain simplified."
+    },
+    {
+      "id": "obs-madhapur-medplus-vijaya-rough-forecourt-utilities-20261018",
+      "name": "Rough forecourt, wires and partly obscured ground access",
+      "category": "unresolved_geometry",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.440833,
+        "lon": 78.39271,
+        "headingDeg": 180,
+        "panoId": "6aSreqMnSKrz5UFecn72Mw"
+      },
+      "sourceIds": [
+        "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "placementStatus": "pending",
+      "notes": "Broken/rough forecourt edge, cable bundles/pole and parked motorcycles obscure fine ground details. Exact curb heights, gate opening, drain/defect positions and shop threshold geometry remain unmeasured. No guessed physical road hazard or extra tenant is added."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-madhapur-medplus-low-yellow",
+      "placementStatus": "provisional",
+      "chunkId": "c_-83_-15",
+      "name": "MedPlus",
+      "nameTe": null,
+      "category": "pharmacy",
+      "group": "pharmacy",
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "buildingId": "b_93e07dedb0",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16539.319,
+          -2892.3691
+        ],
+        [
+          -16549.465,
+          -2893.4693
+        ]
+      ],
+      "entrance": [
+        -16544.392,
+        -2892.9192000000003
+      ],
+      "floor": 0,
+      "frontageWidthM": 10.2055,
+      "alongRoadM": 31.191147522405863,
+      "facingHeading": -0.1080050347076014,
+      "lat": 17.440739150212387,
+      "lon": 78.39268649354443,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex coordinated Chrome source review",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [
+        "sf_5752d31d87"
+      ],
+      "suppressAliases": [],
+      "appearance": {
+        "facadeColor": "#d7d19f",
+        "signColor": "#c12b39",
+        "signTextColor": "#f3eee2",
+        "heightM": 2.8,
+        "signBaseM": 3.25,
+        "signHeightM": 1.05,
+        "signOutsetM": 0.65,
+        "frontBaseM": 0.1,
+        "frontInsetM": 0.15,
+        "frontStyle": "glazed",
+        "observedDisplay": "medicines",
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "The photographed broad red band and glazed ground medicine display identify this pharmacy. English/Telugu words and green-cross branding refer to one business; independent exact logo artwork is not copied. Source face association, shop widths, entrance midpoint placeholders, threshold and sign dimensions/colours are authored estimates. No exact frontage or current occupancy verification is claimed."
+    },
+    {
+      "id": "survey-madhapur-vijaya-sai-photo-studio",
+      "placementStatus": "provisional",
+      "chunkId": "c_-83_-15",
+      "name": "VIJAYA SAI PHOTO FRAMES & STUDIO",
+      "nameTe": null,
+      "category": "photography_and_framing",
+      "group": "office_service",
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "buildingId": "b_93e07dedb0",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16549.643,
+          -2893.4886
+        ],
+        [
+          -16554.093,
+          -2893.9711
+        ]
+      ],
+      "entrance": [
+        -16551.868000000002,
+        -2893.72985
+      ],
+      "floor": 0,
+      "frontageWidthM": 4.4761,
+      "alongRoadM": 39.3993870616296,
+      "facingHeading": -0.1080050347076014,
+      "lat": 17.44074647489056,
+      "lon": 78.39261613047672,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex coordinated Chrome source review",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "suppressAliases": [],
+      "appearance": {
+        "facadeColor": "#d7d19f",
+        "signColor": "#b52c32",
+        "signTextColor": "#f3e5af",
+        "heightM": 2.8,
+        "signBaseM": 3.25,
+        "signHeightM": 0.65,
+        "signOutsetM": 0.65,
+        "frontBaseM": 0.1,
+        "frontInsetM": 0.15,
+        "frontStyle": "glazed",
+        "observedDisplay": "framed_art",
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "The west red/yellow photo, printing and framing entrance has repeated boards of the same studio. Framing displays are observed; images, portraits and exact product graphics are not copied. Source face association, shop widths, entrance midpoint placeholders, threshold and sign dimensions/colours are authored estimates. No exact frontage or current occupancy verification is claimed."
+    }
+  ],
+  "suppressions": [
+    {
+      "id": "suppress-madhapur-medplus-vijaya-gowayy",
+      "storefrontId": "sf_1850fbfacf",
+      "sourceIds": [
+        "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+      ],
+      "reason": "The dated photographed north face of this low yellow body carries MedPlus and VIJAYA SAI photo/framing studio, not the listing-snapped The Gowayy fascia. Suppress this unsupported facade/search association only; original listing remains archived and no closure/absence elsewhere is inferred."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "profile-madhapur-low-yellow-medplus-vijaya",
+      "kind": "building_profile",
+      "buildingId": "b_93e07dedb0",
+      "sourceIds": [
+        "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+      ],
+      "heightM": 7.4,
+      "levels": 2,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#d7d19f",
+      "notes": "The new dated complete elevation shows ground plus one domestic-window upper level and a flat parapet, rather than the existing10.5m satellite mass. Estimate7.4m as3.5+3.5+.4m; no floor rise/roof height is measured or verified. Original source footprint, centroid, holes and ground access remain unchanged; no retainPresence, excavation, raised platform or new physical access body. Yellow walls, rectangle window positions, gate pattern and every stock/sign metric are independently authored provisional geometry.",
+      "profile": {
+        "sourceIds": [
+          "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#d7d19f",
+        "material": "painted_plaster",
+        "fronts": [
+          {
+            "facade": [
+              [
+                -16536.56,
+                -2892.07
+              ],
+              [
+                -16554.36,
+                -2894
+              ]
+            ],
+            "facingHeading": -0.1080050347076014,
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.5,
+                "glazingRatio": 0
+              },
+              {
+                "baseM": 3.5,
+                "heightM": 3.5,
+                "glazingRatio": 0.45,
+                "glazingHeightRatio": 0.42,
+                "glassColor": "#526257",
+                "bandColor": "#bcaa72",
+                "bandHeightM": 0.15
+              },
+              {
+                "baseM": 7,
+                "heightM": 0.4,
+                "glazingRatio": 0,
+                "wallColor": "#d7d19f"
+              }
+            ],
+            "bays": [
+              {
+                "start": 0.25,
+                "end": 0.43
+              },
+              {
+                "start": 0.59,
+                "end": 0.76
+              },
+              {
+                "start": 0.86,
+                "end": 0.93
+              }
+            ],
+            "screens": [
+              {
+                "outline": [
+                  [
+                    0.005,
+                    0.1
+                  ],
+                  [
+                    0.145,
+                    0.1
+                  ],
+                  [
+                    0.145,
+                    2.65
+                  ],
+                  [
+                    0.005,
+                    2.65
+                  ]
+                ],
+                "color": "#263129",
+                "outsetM": 0.25,
+                "cellM": 0.18,
+                "pattern": "lattice"
+              }
+            ]
+          }
+        ],
+        "signPanels": [
+          {
+            "text": "Quality Chemists & Druggists",
+            "at": 0.44,
+            "widthRatio": 0.56,
+            "baseM": 3,
+            "heightM": 0.2,
+            "color": "#284e8d",
+            "textColor": "#e7e4dc",
+            "outsetM": 0.65
+          },
+          {
+            "text": "50–80% DISCOUNT ON MEDICINES",
+            "at": 0.35,
+            "widthRatio": 0.15,
+            "baseM": 2.4,
+            "heightM": 0.38,
+            "color": "#ece8dc",
+            "textColor": "#bb3035",
+            "outsetM": 0.65
+          },
+          {
+            "text": "VIJAYA SAI FRAMES & STUDIO · PHOTO FRAMING CENTER",
+            "at": 0.86,
+            "widthRatio": 0.25,
+            "baseM": 3.95,
+            "heightM": 0.6,
+            "color": "#b52c32",
+            "textColor": "#f3e5af",
+            "outsetM": 0.65
+          }
+        ]
+      }
+    }
+  ],
+  "roadReviews": [
+    {
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 23.407625477256566,
+          "endM": 41.89715884350903,
+          "sourceIds": [
+            "sv-madhapur-medplus-vijaya-south-2026-04-chrome-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex coordinated Chrome source review",
+          "completeness": "partial",
+          "allFrontagesRecorded": false,
+          "storefrontIds": [
+            "survey-madhapur-medplus-low-yellow",
+            "survey-madhapur-vijaya-sai-photo-studio"
+          ],
+          "notes": "Bounded close observation of black gated gap, MedPlus, Vijaya Sai, upper domestic windows and rough forecourt only. Full canonical side, intervening neighbours and the immediate median require separate multi-position/reverse inventory; no full visible/metric completeness is claimed."
+        }
+      ]
+    }
+  ]
+}

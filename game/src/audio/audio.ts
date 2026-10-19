@@ -3,12 +3,16 @@
  * chimes, light ambient pad. Separate music / effects / interface buses (MASTER §20).
  * Started only after a user gesture; suspended on page hide. The game is fully playable muted.
  */
+export interface AmbienceState {timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain';traffic?:number;metro?:number}
 export class AudioSystem {
   ctx: AudioContext | null = null;
   private music!: GainNode; private sfx!: GainNode; private ui!: GainNode;
   private engOsc: OscillatorNode | null = null; private engGain!: GainNode; private engFilter!: BiquadFilterNode;
   private thrGain!: GainNode; private thrFilter!: BiquadFilterNode;
   private padGain!: GainNode;
+  private rainGain!:GainNode;private cityGain!:GainNode;private railGain!:GainNode;private tyreGain!:GainNode;
+  private ambience:AmbienceState={timeOfDay:'day',weather:'clear',traffic:.35,metro:0};
+  private nextRoadHorn=0;
   volumes = { music: 0.5, sfx: 0.8, ui: 0.7 };
   state: 'off' | 'running' | 'suspended' | 'unavailable' = 'off';
 
@@ -40,6 +44,14 @@ export class AudioSystem {
     this.thrGain = ctx.createGain(); this.thrGain.gain.value = 0;
     noise.connect(this.thrFilter).connect(this.thrGain).connect(this.sfx);
     noise.start();
+    // Original layered urban ambience: no unlicensed recordings or fabricated spoken announcements.
+    const layer=(type:BiquadFilterType,frequency:number,q:number)=>{
+      const src=ctx.createBufferSource();src.buffer=buf;src.loop=true;
+      const filter=ctx.createBiquadFilter();filter.type=type;filter.frequency.value=frequency;filter.Q.value=q;
+      const gain=ctx.createGain();gain.gain.value=0;src.connect(filter).connect(gain).connect(this.sfx);src.start();return gain;
+    };
+    this.rainGain=layer('highpass',1300,.35);this.cityGain=layer('lowpass',210,.5);
+    this.railGain=layer('bandpass',380,.8);this.tyreGain=layer('bandpass',900,.45);
     // ambient pad (original): two detuned sines, slow swell
     this.padGain = ctx.createGain(); this.padGain.gain.value = 0.0;
     for (const f of [110, 164.8, 220.5]) {
@@ -49,6 +61,7 @@ export class AudioSystem {
     }
     this.padGain.connect(this.music);
     this.state = 'running';
+    this.setAmbience(this.ambience);
   }
 
   applyVolumes() {
@@ -61,6 +74,15 @@ export class AudioSystem {
   suspend() { if (this.ctx && this.ctx.state === 'running') { void this.ctx.suspend(); this.state = 'suspended'; } }
   resume() { if (this.ctx) { void this.ctx.resume().then(() => { this.state = 'running'; }); } }
 
+  setAmbience(state:AmbienceState):void {
+    this.ambience={...state,traffic:Math.max(0,Math.min(1,state.traffic??.35)),metro:Math.max(0,Math.min(1,state.metro??0))};
+    if(!this.ctx||!this.rainGain)return;
+    const t=this.ctx.currentTime,night=state.timeOfDay==='night'?.55:1;
+    this.rainGain.gain.setTargetAtTime(state.weather==='rain'?.055:0,t,.8);
+    this.cityGain.gain.setTargetAtTime((this.ambience.traffic??.35)*.055*night,t,.6);
+    this.railGain.gain.setTargetAtTime((this.ambience.metro??0)*.065,t,.45);
+  }
+
   setDriving(active: boolean, speedMps: number, thrust: number) {
     if (!this.ctx || !this.engOsc) return;
     const t = this.ctx.currentTime;
@@ -71,6 +93,13 @@ export class AudioSystem {
     this.thrGain.gain.setTargetAtTime(active ? thrust * 0.22 : 0, t, 0.08);
     this.thrFilter.frequency.setTargetAtTime(500 + thrust * 900, t, 0.1);
     this.padGain.gain.setTargetAtTime(active ? 0.6 : 0.3, t, 1.5);
+    this.tyreGain.gain.setTargetAtTime(active?Math.min(.055,v*.0016)*(this.ambience.weather==='rain'?1.6:.5):0,t,.2);
+    // Sparse distant horns vary with the selected density; never a constant citywide loop.
+    const traffic=this.ambience.traffic??.35;
+    if(active&&traffic>.05&&this.ctx.state==='running'&&t>=this.nextRoadHorn){
+      this.nextRoadHorn=t+9+(1-traffic)*16+(this.ambience.timeOfDay==='night'?9:0);
+      if(t>2){this.tone('sfx',294,.15,'triangle',.016*traffic);this.tone('sfx',370,.2,'triangle',.012*traffic);}
+    }
   }
 
   private tone(bus: 'sfx' | 'ui', freq: number, dur: number, type: OscillatorType = 'sine', vol = 0.3, slide = 0) {

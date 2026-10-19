@@ -1,0 +1,1107 @@
+{
+  "schemaVersion": 1,
+  "id": "cloud-miyapur-jntu-reverse-supported-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex local provenance normalization from user-authorized Street View handoff",
+  "notes": "Checksum-verified handoff bfb5538099ad412a6e6c21ab6a76f47e8356ac65a35e6721dc288426389041d2; journey st_jntu_college--st_miyapur, kept separate from Blue Line station surveys. Imported 58 of 59 deduplicated source records and all 6 observations as pending evidence only. Source 055 is excluded because its Google Maps URL duplicates source 054 at pano fAFTJrPZ-kUo71bmXgvq7g and conflicts with its notes, which name camera 17.4993643, 78.3826728 and pano cYS4X6cPhaUQLpmQU9fUnA; the listed correction manifest is absent, so no replacement is inferred. Camera coordinates/headings/pano IDs are parsed from URL and cross-checked against notes. Observations remain pending; road IDs are camera context only. No storefront placement, side/order, road review, or coverage completion is claimed.",
+  "sources": [
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-001",
+      "title": "Mumbai Hwy, Hyderabad (JNTU-end reverse-pass start)",
+      "url": "https://www.google.com/maps/@17.4985771,78.3888619,615a,75y,270h,90t/data=!3m7!1e1!3m5!1seHehzB4bG0dXFz14Jed7QQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DeHehzB4bG0dXFz14Jed7QQ%26yaw%3D270!7i16384!8i8192?entry=ttu",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4985771 N, 78.3888619 E; heading 270°. PanoId eHehzB4bG0dXFz14Jed7QQ. Capture month Google Street View: Mar 2026. Read-only observation through dot cloud Linux Chromium; original survey rev72/hash and reservation provenance recorded in baseCheckpoint/reservationContext. Coordinates are panorama camera locations, not shop positions. Camera is approximately 4 m from the JNTU endpoint of reserved reverse road r_62538447925_0. Start was a direct search/reposition from the prior extension endpoint (about 80 m); no frontage/coverage is claimed for the reposition.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4985771,
+        "lon": 78.3888619,
+        "headingDeg": 270.0,
+        "panoId": "eHehzB4bG0dXFz14Jed7QQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-002",
+      "title": "Mumbai Hwy, Hyderabad (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4986229,78.3884782,615a,75y,270h,90t/data=!3m7!1e1!3m5!1sV3001JP9puWHnRQB75qBTQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DV3001JP9puWHnRQB75qBTQ%26yaw%3D270!7i16384!8i8192?entry=ttu",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4986229 N, 78.3884782 E; heading 270°. PanoId V3001JP9puWHnRQB75qBTQ. Capture month Google Street View: Mar 2026. Read-only observation through dot cloud Linux Chromium; original survey rev72/hash and reservation provenance recorded in baseCheckpoint/reservationContext. Coordinates are panorama camera locations, not shop positions. Connected navigation from source 001, but the panorama centers are about 41 m apart; the intervening frontage is an explicit unreviewed gap. Camera is near the first reverse road r_62538447925_0.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4986229,
+        "lon": 78.3884782,
+        "headingDeg": 270.0,
+        "panoId": "V3001JP9puWHnRQB75qBTQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-003",
+      "title": "Mumbai Hwy, Hyderabad (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4986341,78.3883812,615a,75y,270h,90t/data=!3m7!1e1!3m5!1sE3nfn9GnEcJzdEXMXwmJgg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DE3nfn9GnEcJzdEXMXwmJgg%26yaw%3D270!7i16384!8i8192?entry=ttu",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4986341 N, 78.3883812 E; heading 270°. PanoId E3nfn9GnEcJzdEXMXwmJgg. Capture month Google Street View: Mar 2026. Read-only observation through dot cloud Linux Chromium; original survey rev72/hash and reservation provenance recorded in baseCheckpoint/reservationContext. Coordinates are panorama camera locations, not shop positions. Connected westbound follow-up from source 002, about 10 m between cameras; camera remains near r_62538447925_0. No continuous frontage range is claimed.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4986341,
+        "lon": 78.3883812,
+        "headingDeg": 270.0,
+        "panoId": "E3nfn9GnEcJzdEXMXwmJgg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-004",
+      "title": "Mumbai Hwy (connected reverse pass; facade-facing view)",
+      "url": "https://www.google.com/maps/@17.4986472,78.3882889,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sI25klv0CeIhwmrGoT6WSpA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DI25klv0CeIhwmrGoT6WSpA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4986472 N, 78.3882889 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId I25klv0CeIhwmrGoT6WSpA. Google capture date 2026-03. Camera viewed while following the original reserved JNTU College→Miyapur reverse geometry westbound; no specific storefront placement is inferred. The partly obscured BFC fascia candidate is already documented in reverse-run01; no duplicate observation is added.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4986472,
+        "lon": 78.3882889,
+        "headingDeg": 282.21,
+        "panoId": "I25klv0CeIhwmrGoT6WSpA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-005",
+      "title": "Mumbai Hwy (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.49866,78.3881931,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s9kfzppEutTD1TwWUt0lofg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D9kfzppEutTD1TwWUt0lofg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.49866 N, 78.3881931 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId 9kfzppEutTD1TwWUt0lofg. Google capture date 2026-03. Camera viewed while following the original reserved JNTU College→Miyapur reverse geometry westbound; no specific storefront placement is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.49866,
+        "lon": 78.3881931,
+        "headingDeg": 282.21,
+        "panoId": "9kfzppEutTD1TwWUt0lofg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-006",
+      "title": "Mumbai Hwy (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4986732,78.3880918,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1skqlhsN78XW_JSFeYb4sORQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DkqlhsN78XW_JSFeYb4sORQ%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4986732 N, 78.3880918 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId kqlhsN78XW_JSFeYb4sORQ. Google capture date 2026-03. Camera viewed while following the original reserved JNTU College→Miyapur reverse geometry westbound; no specific storefront placement is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4986732,
+        "lon": 78.3880918,
+        "headingDeg": 282.21,
+        "panoId": "kqlhsN78XW_JSFeYb4sORQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-007",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4986861,78.3880044,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sqQBDGwaZDmcQ4Pf79Uda3g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DqQBDGwaZDmcQ4Pf79Uda3g%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4986861 N, 78.3880044 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId qQBDGwaZDmcQ4Pf79Uda3g. Google capture date 2026-03. Camera viewed while following the original reserved JNTU College→Miyapur reverse geometry westbound; no specific storefront placement is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4986861,
+        "lon": 78.3880044,
+        "headingDeg": 282.21,
+        "panoId": "qQBDGwaZDmcQ4Pf79Uda3g"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-008",
+      "title": "283 NH 65 (connected westbound continuation; older capture date)",
+      "url": "https://www.google.com/maps/@17.4987501,78.3878524,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1soRcfAzoCVURrqruI2msn4Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DoRcfAzoCVURrqruI2msn4Q%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4987501 N, 78.3878524 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId oRcfAzoCVURrqruI2msn4Q. Google capture date 2024-12. Camera viewed while following the original reserved JNTU College→Miyapur reverse geometry westbound; no specific storefront placement is inferred. The connected camera sequence has a capture-date seam here (preceding point is Mar 2026); treat this as imagery-date variation, not a continuous capture session.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4987501,
+        "lon": 78.3878524,
+        "headingDeg": 282.21,
+        "panoId": "oRcfAzoCVURrqruI2msn4Q"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-009",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4987655,78.3877501,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1scg9csHDnZxLOzXGDjzXDig!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3Dcg9csHDnZxLOzXGDjzXDig%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4987655 N, 78.3877501 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId cg9csHDnZxLOzXGDjzXDig. Google capture date 2024-12. Camera viewed while following the original reserved JNTU College→Miyapur reverse geometry westbound; no specific storefront placement is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4987655,
+        "lon": 78.3877501,
+        "headingDeg": 282.21,
+        "panoId": "cg9csHDnZxLOzXGDjzXDig"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-010",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4987779,78.3876705,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sDfyN2Cnq5gURy07vsEtwDg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DDfyN2Cnq5gURy07vsEtwDg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4987779 N, 78.3876705 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId DfyN2Cnq5gURy07vsEtwDg. Google capture date 2024-12. Camera viewed while following the original reserved JNTU College→Miyapur reverse geometry westbound; no specific storefront placement is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4987779,
+        "lon": 78.3876705,
+        "headingDeg": 282.21,
+        "panoId": "DfyN2Cnq5gURy07vsEtwDg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-011",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4987932,78.3875746,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sggDPD4MkdCpkelfSRebogg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DggDPD4MkdCpkelfSRebogg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4987932 N, 78.3875746 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId ggDPD4MkdCpkelfSRebogg. Google capture date 2024-12. Camera viewed while following the original reserved JNTU College→Miyapur reverse geometry westbound; no specific storefront placement is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4987932,
+        "lon": 78.3875746,
+        "headingDeg": 282.21,
+        "panoId": "ggDPD4MkdCpkelfSRebogg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-012",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4988067,78.3874784,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sbsLJqMGq4efBOKEEy0F6zA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DbsLJqMGq4efBOKEEy0F6zA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4988067 N, 78.3874784 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId bsLJqMGq4efBOKEEy0F6zA. Google capture date 2024-12. Camera viewed while following the original reserved JNTU College→Miyapur reverse geometry westbound; no specific storefront placement is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4988067,
+        "lon": 78.3874784,
+        "headingDeg": 282.21,
+        "panoId": "bsLJqMGq4efBOKEEy0F6zA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-013",
+      "title": "Mumbai Hwy / NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4988186,78.3873828,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1scx2n7YSILBf3x8C59UiI1g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3Dcx2n7YSILBf3x8C59UiI1g%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4988186 N, 78.3873828 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId cx2n7YSILBf3x8C59UiI1g. Google capture date Dec 2024. Camera reached in connected westbound Street View navigation along reserved reverse road r_54575029906_0; camera location is not a storefront position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4988186,
+        "lon": 78.3873828,
+        "headingDeg": 282.21,
+        "panoId": "cx2n7YSILBf3x8C59UiI1g"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-014",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4988313,78.3872739,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s-YM071FH2tatGgTXCjrK8Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D-YM071FH2tatGgTXCjrK8Q%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4988313 N, 78.3872739 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId -YM071FH2tatGgTXCjrK8Q. Google capture date Dec 2024. Camera reached in connected westbound Street View navigation along reserved reverse road r_54575029906_0; camera location is not a storefront position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4988313,
+        "lon": 78.3872739,
+        "headingDeg": 282.21,
+        "panoId": "-YM071FH2tatGgTXCjrK8Q"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-015",
+      "title": "283 NH 65 (connected westbound storefront view)",
+      "url": "https://www.google.com/maps/@17.4988477,78.3871172,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sePtf2myoJFpu3lKUi2sJrw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DePtf2myoJFpu3lKUi2sJrw%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4988477 N, 78.3871172 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId ePtf2myoJFpu3lKUi2sJrw. Google capture date Dec 2024. Camera reached in connected westbound Street View navigation along reserved reverse road r_54575029906_0; camera location is not a storefront position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4988477,
+        "lon": 78.3871172,
+        "headingDeg": 282.21,
+        "panoId": "ePtf2myoJFpu3lKUi2sJrw"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-016",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4988598,78.3870248,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sdW3kBwNKxYguNFCUqAEbLQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DdW3kBwNKxYguNFCUqAEbLQ%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4988598 N, 78.3870248 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId dW3kBwNKxYguNFCUqAEbLQ. Google capture date Dec 2024. Connected westbound camera on reserved road r_54575029906_0; camera location is not storefront placement.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4988598,
+        "lon": 78.3870248,
+        "headingDeg": 282.21,
+        "panoId": "dW3kBwNKxYguNFCUqAEbLQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-017",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4988712,78.3869405,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sSNW5EM9KdSa83h3gAlFw1g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DSNW5EM9KdSa83h3gAlFw1g%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4988712 N, 78.3869405 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId SNW5EM9KdSa83h3gAlFw1g. Google capture date Dec 2024. Connected westbound camera on reserved road r_54575029906_0; camera location is not storefront placement.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4988712,
+        "lon": 78.3869405,
+        "headingDeg": 282.21,
+        "panoId": "SNW5EM9KdSa83h3gAlFw1g"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-018",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4988859,78.3868438,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sOSeh4-9SYxFJhkCwV4gdgQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DOSeh4-9SYxFJhkCwV4gdgQ%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4988859 N, 78.3868438 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId OSeh4-9SYxFJhkCwV4gdgQ. Google capture date Dec 2024. Connected westbound camera on reserved road r_54575029906_0; camera location is not storefront placement.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4988859,
+        "lon": 78.3868438,
+        "headingDeg": 282.21,
+        "panoId": "OSeh4-9SYxFJhkCwV4gdgQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-019",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4989011,78.3867307,616a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sWosYlgfbRoh9bhOElLTwQA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DWosYlgfbRoh9bhOElLTwQA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4989011 N, 78.3867307 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId WosYlgfbRoh9bhOElLTwQA. Google capture date Dec 2024. Connected westbound camera on reserved road r_54575029906_0. A cut-off 'TENALI MIXTUR…' fascia-like sign is present at frame right among the shop frontage and street advertising, but is not recorded as a business observation because the full name and shop association are not sufficiently established.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4989011,
+        "lon": 78.3867307,
+        "headingDeg": 282.21,
+        "panoId": "WosYlgfbRoh9bhOElLTwQA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-020",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4989124,78.3866602,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s4cxjG5le7jIwkTM7z68Keg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D4cxjG5le7jIwkTM7z68Keg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4989124 N, 78.3866602 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId 4cxjG5le7jIwkTM7z68Keg. Google capture date Dec 2024. Connected westbound camera on reserved road r_54575029906_0; camera location is not storefront placement.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4989124,
+        "lon": 78.3866602,
+        "headingDeg": 282.21,
+        "panoId": "4cxjG5le7jIwkTM7z68Keg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-021",
+      "title": "283 NH 65 (connected westbound continuation)",
+      "url": "https://www.google.com/maps/@17.4989229,78.3865758,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1stJId-NhOKHmgDVAKaDuibA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DtJId-NhOKHmgDVAKaDuibA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4989229 N, 78.3865758 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId tJId-NhOKHmgDVAKaDuibA. Google capture date Dec 2024. Connected westbound camera on reserved road r_54575029906_0; camera location is not storefront placement.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4989229,
+        "lon": 78.3865758,
+        "headingDeg": 282.21,
+        "panoId": "tJId-NhOKHmgDVAKaDuibA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-022",
+      "title": "283 NH 65 (connected westbound continuation; capture-date seam)",
+      "url": "https://www.google.com/maps/@17.4988858,78.3864598,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s2Mcfdielro3_vuEhceJl5g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D2Mcfdielro3_vuEhceJl5g%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4988858 N, 78.3864598 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId 2Mcfdielro3_vuEhceJl5g. Google capture date Mar 2026. This adjacent camera follows the Dec 2024 camera at 17.4989229 N, 78.3865758 E by about 14 m; capture date changes here. Camera lies near the reserved r_54575029906_0 / r_66734065525_0 junction; camera position alone does not establish road coverage or storefront placement.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4988858,
+        "lon": 78.3864598,
+        "headingDeg": 282.21,
+        "panoId": "2Mcfdielro3_vuEhceJl5g"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-023",
+      "title": "283 NH 65 (connected westbound continuation on next reserved segment)",
+      "url": "https://www.google.com/maps/@17.4988982,78.3863761,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sjdK07uCrD_KcqVdqAR8wWQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DjdK07uCrD_KcqVdqAR8wWQ%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4988982 N, 78.3863761 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId jdK07uCrD_KcqVdqAR8wWQ. Google capture date Mar 2026. Connected westbound camera about 10 m beyond the preceding one, on the reserved continuation r_66734065525_0; no storefront location or road-side placement inferred. A large film billboard in frame was not treated as a shop.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4988982,
+        "lon": 78.3863761,
+        "headingDeg": 282.21,
+        "panoId": "jdK07uCrD_KcqVdqAR8wWQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-024",
+      "title": "283 NH 65 (connected westbound storefront view)",
+      "url": "https://www.google.com/maps/@17.4989256,78.3862017,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s7XxfRAyGXKu3wcrO9Pax4Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D7XxfRAyGXKu3wcrO9Pax4Q%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4989256 N, 78.3862017 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId 7XxfRAyGXKu3wcrO9Pax4Q. Google capture date Mar 2026. Connected westbound view; the camera is on reserved r_54575029906_0. Camera location is not storefront placement.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4989256,
+        "lon": 78.3862017,
+        "headingDeg": 282.21,
+        "panoId": "7XxfRAyGXKu3wcrO9Pax4Q"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-025",
+      "title": "283 Pune - Machilipatnam Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4990137,78.3855267,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sI4snzUCv-_KC6DkOt9G_jA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DI4snzUCv-_KC6DkOt9G_jA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4990137 N, 78.3855267 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId I4snzUCv-_KC6DkOt9G_jA. Google capture date Mar 2026. This camera follows run05 pano 7XxfRAyGXKu3wcrO9Pax4Q (17.4989256 N, 78.3862017 E) by an approximate 73 m westbound Street View jump. The interval across the reserved r_54575029906_0 / r_66734065525_0 junction is unreviewed and is an explicit gap; this is not counted as full frontage coverage. No storefront location, side, or road arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4990137,
+        "lon": 78.3855267,
+        "headingDeg": 282.21,
+        "panoId": "I4snzUCv-_KC6DkOt9G_jA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-026",
+      "title": "283 Pune - Machilipatnam Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4990198,78.3854296,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sU5IPB9qbYQlO-2UMhaqhwA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DU5IPB9qbYQlO-2UMhaqhwA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4990198 N, 78.3854296 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId U5IPB9qbYQlO-2UMhaqhwA. Google capture date Mar 2026. Connected continuation ~10 m after the prior camera along reserved r_66734065525_0. No storefront location, side, or road arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4990198,
+        "lon": 78.3854296,
+        "headingDeg": 282.21,
+        "panoId": "U5IPB9qbYQlO-2UMhaqhwA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-027",
+      "title": "283 Pune - Machilipatnam Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4990286,78.3853361,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sXHieI-C-WqdSJe-pDogCWg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DXHieI-C-WqdSJe-pDogCWg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4990286 N, 78.3853361 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId XHieI-C-WqdSJe-pDogCWg. Google capture date Mar 2026. Connected continuation ~10 m after the prior camera along reserved r_66734065525_0. No storefront location, side, or road arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4990286,
+        "lon": 78.3853361,
+        "headingDeg": 282.21,
+        "panoId": "XHieI-C-WqdSJe-pDogCWg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-028",
+      "title": "283 Pune - Machilipatnam Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4990404,78.3852281,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sgt4E_jMXqgNGd48Re12JyQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3Dgt4E_jMXqgNGd48Re12JyQ%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4990404 N, 78.3852281 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId gt4E_jMXqgNGd48Re12JyQ. Google capture date Mar 2026. Connected continuation ~12 m after the prior camera along reserved r_66734065525_0. No storefront location, side, or road arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4990404,
+        "lon": 78.3852281,
+        "headingDeg": 282.21,
+        "panoId": "gt4E_jMXqgNGd48Re12JyQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-029",
+      "title": "283 Pune - Machilipatnam Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4990543,78.3851260,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1szGyZ33FHlZKyxptab9Ai7Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DzGyZ33FHlZKyxptab9Ai7Q%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4990543 N, 78.3851260 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId zGyZ33FHlZKyxptab9Ai7Q. Google capture date Mar 2026. Connected continuation ~11 m after the prior camera along reserved r_66734065525_0. No storefront location, side, or road arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4990543,
+        "lon": 78.385126,
+        "headingDeg": 282.21,
+        "panoId": "zGyZ33FHlZKyxptab9Ai7Q"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-030",
+      "title": "283 Pune - Machilipatnam Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4990674,78.3850280,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sEd2zHFm1V2BuQK_mkbtBXg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DEd2zHFm1V2BuQK_mkbtBXg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4990674 N, 78.3850280 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId Ed2zHFm1V2BuQK_mkbtBXg. Google capture date Mar 2026. Connected continuation ~11 m after the prior camera along reserved r_66734065525_0. No storefront location, side, or road arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4990674,
+        "lon": 78.385028,
+        "headingDeg": 282.21,
+        "panoId": "Ed2zHFm1V2BuQK_mkbtBXg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-031",
+      "title": "283 Pune - Machilipatnam Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4990859,78.3849365,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1smicK2lf9i3Y-3_GQyf0kow!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DmicK2lf9i3Y-3_GQyf0kow%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4990859 N, 78.3849365 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId micK2lf9i3Y-3_GQyf0kow. Google capture date Mar 2026. Connected camera near the shared r_66734065525_0 / r_26552727215_0 endpoint. It is about 2–3 m from the geometry junction, so precise road association is uncertain. No storefront location, side, or road arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4990859,
+        "lon": 78.3849365,
+        "headingDeg": 282.21,
+        "panoId": "micK2lf9i3Y-3_GQyf0kow"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-032",
+      "title": "Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4990975,78.3848402,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1seCCgc9RfsFrtptG07X053A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DeCCgc9RfsFrtptG07X053A%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4990975 N, 78.3848402 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId eCCgc9RfsFrtptG07X053A. Google capture date Mar 2026. Connected continuation near the reserved r_26552727215_0 / r_30714547834_0 connector; precise segment assignment at the short junction is not claimed. No storefront location, side, or road arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4990975,
+        "lon": 78.3848402,
+        "headingDeg": 282.21,
+        "panoId": "eCCgc9RfsFrtptG07X053A"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-033",
+      "title": "Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4991137,78.3847420,617a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sg7Way5UgQStIUhTHKIu6Tg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3Dg7Way5UgQStIUhTHKIu6Tg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4991137 N, 78.3847420 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId g7Way5UgQStIUhTHKIu6Tg. Google capture date Mar 2026. Connected continuation along the reserved r_30714547834_0 main-road segment. No storefront location, side, or road arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4991137,
+        "lon": 78.384742,
+        "headingDeg": 282.21,
+        "panoId": "g7Way5UgQStIUhTHKIu6Tg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-034",
+      "title": "Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4991180,78.3846471,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sf5h1cjj6WE4kXfue9OMSGA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3Df5h1cjj6WE4kXfue9OMSGA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4991180 N, 78.3846471 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId f5h1cjj6WE4kXfue9OMSGA. Google capture date Mar 2026. Previous run06 endpoint g7Way5UgQStIUhTHKIu6Tg to this camera is about 11 m along the reserved route; connected continuation. Camera context is reserved road r_30714547834_0; no storefront position, side, or arclength interval is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.499118,
+        "lon": 78.3846471,
+        "headingDeg": 282.21,
+        "panoId": "f5h1cjj6WE4kXfue9OMSGA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-035",
+      "title": "Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4991294,78.3845498,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s8A81Jc0ndUcjsQpQH20CRA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D8A81Jc0ndUcjsQpQH20CRA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4991294 N, 78.3845498 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId 8A81Jc0ndUcjsQpQH20CRA. Google capture date Mar 2026. Connected continuation about 10 m after the prior camera. Camera context is reserved road r_30714547834_0; no storefront position, side, or arclength interval is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4991294,
+        "lon": 78.3845498,
+        "headingDeg": 282.21,
+        "panoId": "8A81Jc0ndUcjsQpQH20CRA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-036",
+      "title": "Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4991480,78.3844537,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s_FTy3g6-Vuwbqnz_XC5Nww!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D_FTy3g6-Vuwbqnz_XC5Nww%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4991480 N, 78.3844537 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId _FTy3g6-Vuwbqnz_XC5Nww. Google capture date Mar 2026. Connected continuation about 10 m after the prior camera. Camera context is reserved road r_30714547834_0; no storefront position, side, or arclength interval is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.499148,
+        "lon": 78.3844537,
+        "headingDeg": 282.21,
+        "panoId": "_FTy3g6-Vuwbqnz_XC5Nww"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-037",
+      "title": "Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4991536,78.3843645,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s8FH1o9L86ajOSkfptpc0pg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D8FH1o9L86ajOSkfptpc0pg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4991536 N, 78.3843645 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId 8FH1o9L86ajOSkfptpc0pg. Google capture date Mar 2026. Connected continuation about 10 m after the prior camera; frame contains a red ground-level retail facade with legible “SHOE MART” sign text. Camera context is reserved road r_30714547834_0; no storefront position, side, or arclength interval is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4991536,
+        "lon": 78.3843645,
+        "headingDeg": 282.21,
+        "panoId": "8FH1o9L86ajOSkfptpc0pg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-039",
+      "title": "Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4991597,78.3842726,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sB4Fs437aLJaRQqUmNshdCQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DB4Fs437aLJaRQqUmNshdCQ%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4991597 N, 78.3842726 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId B4Fs437aLJaRQqUmNshdCQ. Google capture date Mar 2026. Connected continuation, about 10 m from the prior camera, near the reserved r_30714547834_0 endpoint. No business location, exact road side, or arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4991597,
+        "lon": 78.3842726,
+        "headingDeg": 282.21,
+        "panoId": "B4Fs437aLJaRQqUmNshdCQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-040",
+      "title": "21 Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4991766,78.3841803,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s4o0JrUN01OTiXLhfAl5UVg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D4o0JrUN01OTiXLhfAl5UVg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4991766 N, 78.3841803 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId 4o0JrUN01OTiXLhfAl5UVg. Google capture date Mar 2026. Camera at the shared r_30714547834_0 / r_20087813675_0 junction; endpoint visit only, not a reviewed range. No business location, exact road side, or arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4991766,
+        "lon": 78.3841803,
+        "headingDeg": 282.21,
+        "panoId": "4o0JrUN01OTiXLhfAl5UVg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-041",
+      "title": "21 Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4992122,78.3840935,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1saqrDqjLfrFrtSi6j2vW7Jw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DaqrDqjLfrFrtSi6j2vW7Jw%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4992122 N, 78.3840935 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId aqrDqjLfrFrtSi6j2vW7Jw. Google capture date Mar 2026. Connected camera about 9 m west of the shared endpoint, on the reserved r_20087813675_0 continuation. No business location, exact road side, or arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4992122,
+        "lon": 78.3840935,
+        "headingDeg": 282.21,
+        "panoId": "aqrDqjLfrFrtSi6j2vW7Jw"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-042",
+      "title": "21 Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4992329,78.3839992,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sDe7UkXEWJxfYhcTdjOB2ww!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DDe7UkXEWJxfYhcTdjOB2ww%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4992329 N, 78.3839992 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId De7UkXEWJxfYhcTdjOB2ww. Google capture date Mar 2026. Connected continuation, about 11 m after the prior camera on reserved r_20087813675_0. No business location, exact road side, or arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4992329,
+        "lon": 78.3839992,
+        "headingDeg": 282.21,
+        "panoId": "De7UkXEWJxfYhcTdjOB2ww"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-043",
+      "title": "21 Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4992454,78.3839033,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s6_DSxtT-i4f37J8NhAHzZQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D6_DSxtT-i4f37J8NhAHzZQ%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4992454 N, 78.3839033 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId 6_DSxtT-i4f37J8NhAHzZQ. Google capture date Mar 2026. Connected continuation, about 10 m after the prior camera on reserved r_20087813675_0. No business location, exact road side, or arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4992454,
+        "lon": 78.3839033,
+        "headingDeg": 282.21,
+        "panoId": "6_DSxtT-i4f37J8NhAHzZQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-044",
+      "title": "21 Mumbai Hwy (connected westbound reserved-route sample)",
+      "url": "https://www.google.com/maps/@17.4992587,78.3838101,618a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s3z8Ao4FUoXpzH1FC1wKjDg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D3z8Ao4FUoXpzH1FC1wKjDg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4992587 N, 78.3838101 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId 3z8Ao4FUoXpzH1FC1wKjDg. Google capture date Mar 2026. Connected continuation, about 10 m after the prior camera on reserved r_20087813675_0. A distant “dominos” logo/word is visible on a red-white facade band across the median, but direct shop occupancy/entrance is not established. No business location, exact road side, or arclength interval inferred from camera position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4992587,
+        "lon": 78.3838101,
+        "headingDeg": 282.21,
+        "panoId": "3z8Ao4FUoXpzH1FC1wKjDg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-045",
+      "title": "21 Mumbai Hwy (connected westbound storefront view)",
+      "url": "https://www.google.com/maps/@17.4992859,78.3836189,619a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sTeFwjKNsuvVaisQHMW8d9Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DTeFwjKNsuvVaisQHMW8d9Q%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4992859 N, 78.3836189 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId TeFwjKNsuvVaisQHMW8d9Q. Google capture date Mar 2026. Connected continuation from run08 camera 3z8Ao4FUoXpzH1FC1wKjDg (17.4992587 N, 78.3838101 E), roughly 20 m along the reserved route; the interval between cameras is not treated as a reviewed frontage range. Camera context is reserved r_20087813675_0; no storefront placement, side, or arclength interval is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4992859,
+        "lon": 78.3836189,
+        "headingDeg": 282.21,
+        "panoId": "TeFwjKNsuvVaisQHMW8d9Q"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-046",
+      "title": "21 Mumbai Hwy (connected westbound storefront view)",
+      "url": "https://www.google.com/maps/@17.4993027,78.3835218,619a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sdNGG_FrX-C8COaP0W44P6A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DdNGG_FrX-C8COaP0W44P6A%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual panorama camera 17.4993027 N, 78.3835218 E; heading 282.21345320651477°; pitch -1.523750099135981°; panoId dNGG_FrX-C8COaP0W44P6A. Google capture date Mar 2026. Connected continuation about 11 m after prior camera. The facade at frame left bears legible “UNIQUE SPORTS WORLD” lettering; nearby stores/signs were not transcribed unless readable. Camera context is reserved r_20087813675_0; no storefront placement, side, or arclength interval is inferred.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993027,
+        "lon": 78.3835218,
+        "headingDeg": 282.21,
+        "panoId": "dNGG_FrX-C8COaP0W44P6A"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-047",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993215,78.3834305,619a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sqb9IrUtECCiZSe84y5_qKg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3Dqb9IrUtECCiZSe84y5_qKg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993215 N, 78.3834305 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId qb9IrUtECCiZSe84y5_qKg. Mar 2026 capture. Connected westward continuation after run09 source 046; this camera contributes context only and no distinct storefront-name observation was added.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993215,
+        "lon": 78.3834305,
+        "headingDeg": 282.21,
+        "panoId": "qb9IrUtECCiZSe84y5_qKg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-048",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993344,78.3833359,619a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sUNmHIVpJmjNTW1ATtRV2jw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DUNmHIVpJmjNTW1ATtRV2jw%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993344 N, 78.3833359 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId UNmHIVpJmjNTW1ATtRV2jw. Mar 2026 capture. Connected westward continuation; no distinct storefront-name observation added.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993344,
+        "lon": 78.3833359,
+        "headingDeg": 282.21,
+        "panoId": "UNmHIVpJmjNTW1ATtRV2jw"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-049",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993436,78.3832426,619a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s7x699kLxgU_8LSrBHXG3Gg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D7x699kLxgU_8LSrBHXG3Gg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993436 N, 78.3832426 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId 7x699kLxgU_8LSrBHXG3Gg. Mar 2026 capture. Connected westward continuation; no distinct storefront-name observation added.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993436,
+        "lon": 78.3832426,
+        "headingDeg": 282.21,
+        "panoId": "7x699kLxgU_8LSrBHXG3Gg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-050",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993519,78.3831467,619a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s4oDh8ut_8uecIWJjjzMGJw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D4oDh8ut_8uecIWJjjzMGJw%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993519 N, 78.3831467 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId 4oDh8ut_8uecIWJjjzMGJw. Mar 2026 capture. Connected westward continuation; no distinct storefront-name observation added.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993519,
+        "lon": 78.3831467,
+        "headingDeg": 282.21,
+        "panoId": "4oDh8ut_8uecIWJjjzMGJw"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-051",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993527,78.3830545,619a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sTG2PuA3bBLyAJ_5jDICCXQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DTG2PuA3bBLyAJ_5jDICCXQ%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993527 N, 78.3830545 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId TG2PuA3bBLyAJ_5jDICCXQ. Mar 2026 capture. Connected westward continuation. A distant building sign at frame right beyond the central divider reads SHIFA CLINIC; recorded as a text candidate only, without asserted frontage, address, road side, or exact position.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993527,
+        "lon": 78.3830545,
+        "headingDeg": 282.21,
+        "panoId": "TG2PuA3bBLyAJ_5jDICCXQ"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-052",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.499358,78.3829597,619a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s1dy3gUUpZGsx68zH0oIN8A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D1dy3gUUpZGsx68zH0oIN8A%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.499358 N, 78.3829597 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId 1dy3gUUpZGsx68zH0oIN8A. Mar 2026 capture. Connected westward continuation; no distinct additional storefront-name observation added.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.499358,
+        "lon": 78.3829597,
+        "headingDeg": 282.21,
+        "panoId": "1dy3gUUpZGsx68zH0oIN8A"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-053",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993648,78.3828634,619a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1s9SX1cJTlq_RGl07PeXq_fw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3D9SX1cJTlq_RGl07PeXq_fw%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993648 N, 78.3828634 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId 9SX1cJTlq_RGl07PeXq_fw. Mar 2026 capture. Connected continuation after run10; no distinct storefront name transcribed.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993648,
+        "lon": 78.3828634,
+        "headingDeg": 282.21,
+        "panoId": "9SX1cJTlq_RGl07PeXq_fw"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-054",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993664,78.3827686,620a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sfAFTJrPZ-kUo71bmXgvq7g!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DfAFTJrPZ-kUo71bmXgvq7g%26yaw%3D282.21345320651477!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993664 N, 78.3827686 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId fAFTJrPZ-kUo71bmXgvq7g. Mar 2026 capture. Connected continuation; no distinct storefront name transcribed. The source URL is a concise Maps panorama link for this observed point.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993664,
+        "lon": 78.3827686,
+        "headingDeg": 282.21,
+        "panoId": "fAFTJrPZ-kUo71bmXgvq7g"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-056",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993543,78.3825789,621a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1siMeoYkAoD1WAIJNeVZUZKA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DiMeoYkAoD1WAIJNeVZUZKA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993543 N, 78.3825789 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId iMeoYkAoD1WAIJNeVZUZKA. Mar 2026 capture. Connected continuation; no distinct storefront name transcribed.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993543,
+        "lon": 78.3825789,
+        "headingDeg": 282.21,
+        "panoId": "iMeoYkAoD1WAIJNeVZUZKA"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-057",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993495,78.3824793,621a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1sjq-rJwDbog3nO65X37h5sw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3Djq-rJwDbog3nO65X37h5sw%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993495 N, 78.3824793 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId jq-rJwDbog3nO65X37h5sw. Mar 2026 capture. Connected continuation; no distinct storefront name transcribed.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993495,
+        "lon": 78.3824793,
+        "headingDeg": 282.21,
+        "panoId": "jq-rJwDbog3nO65X37h5sw"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-058",
+      "title": "21 Mumbai Hwy (connected reverse-direction panorama)",
+      "url": "https://www.google.com/maps/@17.4993395,78.3823838,621a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1smgCno8s4gmnc9eTNTmu3Ug!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DmgCno8s4gmnc9eTNTmu3Ug%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993395 N, 78.3823838 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId mgCno8s4gmnc9eTNTmu3Ug. Mar 2026 capture. Connected continuation; no distinct storefront name transcribed.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993395,
+        "lon": 78.3823838,
+        "headingDeg": 282.21,
+        "panoId": "mgCno8s4gmnc9eTNTmu3Ug"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-059",
+      "title": "21 Mumbai Hwy (last observed panorama on reserved reverse segment)",
+      "url": "https://www.google.com/maps/@17.4993303,78.3822869,621a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1skeQZqXcRk0gCFf34OByDfg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DkeQZqXcRk0gCFf34OByDfg%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.4993303 N, 78.3822869 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId keQZqXcRk0gCFf34OByDfg. Mar 2026 capture. Last camera confirmed on reserved reverse road r_20087813675_0, before a substantial navigation jump to a different carriageway/path.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.4993303,
+        "lon": 78.3822869,
+        "headingDeg": 282.21,
+        "panoId": "keQZqXcRk0gCFf34OByDfg"
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revsrc-20261019-060",
+      "title": "9 Pune - Machilipatnam Hwy (off-reverse-segment navigation point)",
+      "url": "https://www.google.com/maps/@17.499349,78.3815809,623a,75y,282.21h,91.52t/data=!3m7!1e1!3m5!1snjDFCriiPBc1_pWREzjjrA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.523750099135981%26panoid%3DnjDFCriiPBc1_pWREzjjrA%26yaw%3D282.21345320651477!7i16384!8i8192",
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "reviewer": "dot cloud worker via remote Linux Chromium",
+      "notes": "Actual camera 17.499349 N, 78.3815809 E; heading 282.21345320651477 degrees; pitch -1.523750099135981 degrees; panoId njDFCriiPBc1_pWREzjjrA. Mar 2026 capture. After navigation jump, this point projects close to r_13074868757_0 from the opposite Miyapur-to-JNTU journey and about 24 m from the intended reverse segment r_20087813675_0. It is preserved only as a reference to classify the gap; not treated as on-segment survey evidence and has no storefront observation.",
+      "assetPolicy": "reference_only",
+      "kind": "street_view",
+      "position": {
+        "lat": 17.499349,
+        "lon": 78.3815809,
+        "headingDeg": 282.21,
+        "panoId": "njDFCriiPBc1_pWREzjjrA"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "id": "cloud-miyapur-jntu-revobs-20261019-001",
+      "sourceIds": [
+        "cloud-miyapur-jntu-revsrc-20261019-003"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "BFC",
+      "category": "unknown",
+      "roadId": "r_62538447925_0",
+      "placementStatus": "pending",
+      "notes": "Readable “BFC” on a red ground-level commercial fascia, partly obscured by the station staircase/railings, from this camera view. Road ID denotes only camera context near reserved reverse segment r_62538447925_0; no claim that the business occupies this road frontage, and no exact door, footprint, side, position, floor, or ordering is supported. Treat as a provisional facade-name candidate. Structured observation position is the linked panorama camera, not a storefront location.",
+      "position": {
+        "lat": 17.4986341,
+        "lon": 78.3883812,
+        "headingDeg": 270.0
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revobs-20261019-002",
+      "sourceIds": [
+        "cloud-miyapur-jntu-revsrc-20261019-015"
+      ],
+      "captureDate": "2024-12",
+      "observedDate": "2026-10-19",
+      "name": "HOMESTYLE FURNITURE",
+      "category": "furniture_store",
+      "roadId": "r_54575029906_0",
+      "placementStatus": "pending",
+      "notes": "The words “HOMESTYLE FURNITURE” are legible on a large building facade in the Street View frame; this is a provisional business-name candidate only. Road ID denotes camera context near reserved reverse road r_54575029906_0, not verified business occupancy of that frontage. No exact unit, entrance, footprint, road side, floor, position, or neighbour order is established. Structured observation position is the linked panorama camera, not a storefront location.",
+      "position": {
+        "lat": 17.4988477,
+        "lon": 78.3871172,
+        "headingDeg": 282.21
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revobs-20261019-003",
+      "sourceIds": [
+        "cloud-miyapur-jntu-revsrc-20261019-024"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "NR LIQUOR MART",
+      "category": "liquor_store",
+      "roadId": "r_54575029906_0",
+      "placementStatus": "pending",
+      "notes": "The words “NR LIQUOR MART” are legible on a ground-level retail facade in the panorama; a provisional business-name/category candidate only. The camera view places the sign visually at left, but the road ID marks only the camera context on r_54575029906_0 and does not establish business occupancy, exact frontage, or road side. No exact entrance, footprint, floor, position, or neighbor order is established. Structured observation position is the linked panorama camera, not a storefront location.",
+      "position": {
+        "lat": 17.4989256,
+        "lon": 78.3862017,
+        "headingDeg": 282.21
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revobs-20261019-004",
+      "sourceIds": [
+        "cloud-miyapur-jntu-revsrc-20261019-037"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "SHOE MART",
+      "category": "shoe_store",
+      "roadId": "r_30714547834_0",
+      "placementStatus": "pending",
+      "notes": "The words “SHOE MART” are legible on a large red facade sign in the street-level retail cluster; preceding brand/name text is partly obscured by the Street View overlay/crop and is not transcribed. Provisional partial-name/category candidate only. Road ID means camera context. No exact business occupancy, entrance, footprint, side, floor, position, or neighbor order is established. Structured observation position is the linked panorama camera, not a storefront location.",
+      "position": {
+        "lat": 17.4991536,
+        "lon": 78.3843645,
+        "headingDeg": 282.21
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revobs-20261019-005",
+      "sourceIds": [
+        "cloud-miyapur-jntu-revsrc-20261019-046"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "UNIQUE SPORTS WORLD",
+      "category": "sporting_goods_store",
+      "roadId": "r_20087813675_0",
+      "placementStatus": "pending",
+      "notes": "The words “UNIQUE SPORTS WORLD” are legible on a facade sign in the street-level commercial cluster, on the left side of the camera view. Provisional business-name/category candidate only. Road ID denotes camera context and does not establish store occupancy, road side, exact frontage, entrance, floor, or position. No neighbor order is established. Structured observation position is the linked panorama camera, not a storefront location.",
+      "position": {
+        "lat": 17.4993027,
+        "lon": 78.3835218,
+        "headingDeg": 282.21
+      }
+    },
+    {
+      "id": "cloud-miyapur-jntu-revobs-20261019-006",
+      "sourceIds": [
+        "cloud-miyapur-jntu-revsrc-20261019-051"
+      ],
+      "captureDate": "2026-03",
+      "observedDate": "2026-10-19",
+      "name": "SHIFA CLINIC",
+      "category": "medical_clinic",
+      "roadId": "r_20087813675_0",
+      "placementStatus": "pending",
+      "notes": "Legible SHIFA CLINIC wording on a building-mounted sign at frame right in this panorama, across the central divider and at a distance. Provisional name/category candidate from the sign only. Road ID denotes only the reserved camera context; the panorama does not establish the facility's road frontage, address, road side, precise location, entrance, floor, occupancy details, or neighbor order. No position is assigned. Structured observation position is the linked panorama camera, not a storefront location.",
+      "position": {
+        "lat": 17.4993527,
+        "lon": 78.3830545,
+        "headingDeg": 282.21
+      }
+    }
+  ]
+}

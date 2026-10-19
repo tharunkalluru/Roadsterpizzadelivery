@@ -1,0 +1,759 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-xiaomi-arched-north-face-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex shared Chrome evidence review",
+  "notes": "Source-backed Xiaomi white arched block, dated raised-front branding and three below-road basement fascia records in observed east-to-west order. Preserve the separate source footprint and current 12.5 m satellite height. Shared provisional landing/two side ascent stairs add physical solids and require calibration. Wide below-grade forecourt and left descending basement route are observed but not excavated: their depth and exact layout are unmeasured, and the current narrow pit primitive would misrepresent them. No current occupancy claims, extra tenants, copied brand art or guessed interiors. The bounded main face is inventoried; adjoining gaps and the full78.21m road side remain incomplete.",
+  "sources": [
+    {
+      "id": "sv-madhapur-xiaomi-east-apr2026-20261018",
+      "kind": "street_view",
+      "title": "Xiaomi and Downtown boundary — eastern angled view, April2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=XqWVxFgl3BNeCYSb3N3VZQ&heading=180&pitch=8&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "position": {
+        "lat": 17.4408639,
+        "lon": 78.3925153,
+        "headingDeg": 180,
+        "panoId": "XqWVxFgl3BNeCYSb3N3VZQ"
+      },
+      "notes": "Xiaomi white arched building appears west/right of the separate grey Downtown PG body. Raised Xiaomi fascia/glazing, below-road Raymond/SRINIS/Tupperware boards and narrow interbuilding gap are visible. Foreground obstruction means this angle alone cannot establish all access geometry. Original panorama was directly inspected in the authorized Chrome session by the parent researcher; this batch author reviewed the returned unchanged screenshot. Camera positions are observations, not surveyed entrances. Reference image pixels are not redistributed. Metric dimensions and exact frontage placement are authored estimates, not measured facts. A visible brand or rent notice does not certify present tenancy/operating status.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-madhapur-xiaomi-front-apr2026-20261018",
+      "kind": "street_view",
+      "title": "Xiaomi white arched building — whole front, April2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=5_aelG3euuz80mpKirOTlQ&heading=180&pitch=8&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "position": {
+        "lat": 17.4408796,
+        "lon": 78.3924236,
+        "headingDeg": 180,
+        "panoId": "5_aelG3euuz80mpKirOTlQ"
+      },
+      "notes": "Whole front establishes two upper window rows, a single central dark arched bay spanning those rows, white side rectangular windows/columns and roof railing. Raised Xiaomi Home white fascia, Telugu brand wording and orange mi board sit over glass. Below-road fascia order as viewed from north/east-to-west is Raymond, SRINIS DESIGNERSTUDIO, Tupperware. Two side ascent stairs reach the continuous raised guarded landing. A wide recessed basement forecourt has a low street-side retaining wall and a left descent, whose precise depth/layout are unresolved. A TO-LET notice includes upper-floor wording; it does not prove the raised Xiaomi unit vacant. The pink Mia jewellery body to the west/right and grey Downtown body east/left are separate buildings. Original panorama was directly inspected in the authorized Chrome session by the parent researcher; this batch author reviewed the returned unchanged screenshot. Camera positions are observations, not surveyed entrances. Reference image pixels are not redistributed. Metric dimensions and exact frontage placement are authored estimates, not measured facts. A visible brand or rent notice does not certify present tenancy/operating status.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sat-madhapur-xiaomi-roof-20261018",
+      "kind": "satellite",
+      "title": "Madhapur south-row roof sequence — source parcel corroboration",
+      "url": "https://www.google.com/maps/@17.44075,78.39252,168m/data=!3m1!1e3",
+      "captureDate": null,
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "position": {
+        "lat": 17.44075,
+        "lon": 78.39252
+      },
+      "notes": "Capture date is not exposed/known. Parent directly inspected roof sequence west to east: separate Mia parcel, square Xiaomi white block roof with green patch, then rectangular grey Downtown body and low MedPlus strip. This corroborates b_d59e7d52ac as distinct from b_4f47cd269d; it does not prove floor dimensions, active business occupancy, basement depth or entrance locations. Reference only; no image asset redistribution.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-madhapur-xiaomi-forecourt-access",
+      "sourceIds": [
+        "sv-madhapur-xiaomi-east-apr2026-20261018",
+        "sv-madhapur-xiaomi-front-apr2026-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Xiaomi block below-road forecourt and left basement descent",
+      "category": "unresolved_access",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.4408796,
+        "lon": 78.3924236,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "The three lower shop units are physically below the road/raised Xiaomi level and are recorded floor-1. Broad recessed forecourt, low front retaining edge and a left descending route are visible; depth, run, exact boundary and subgrade entrance elevations are unmeasured. Keep the shop fascias board-only and no terrain excavation until a matching forecourt plan can be authored safely. The two photographed side ascent stairs/raised landing are separately represented by the shared access plan using provisional dimensions."
+    },
+    {
+      "id": "obs-madhapur-xiaomi-upper-units",
+      "sourceIds": [
+        "sv-madhapur-xiaomi-east-apr2026-20261018",
+        "sv-madhapur-xiaomi-front-apr2026-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Xiaomi block unnamed upper window rows and rental notice",
+      "category": "unresolved_signage",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.4408796,
+        "lon": 78.3924236,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Two upper window rows flank a single tall arched dark central glazing bay. No independent upper tenant is reliably identified. Visible TO-LET board has upper-floor wording (2nd/3rdFloor areas); transcribe a generic rent notice only, without attributing vacancy to the raised Xiaomi shop or certifying any unit active. Roof railing and cables observed; precise railing pattern/cable paths remain unmodelled."
+    },
+    {
+      "id": "obs-madhapur-xiaomi-adjoining-gaps",
+      "sourceIds": [
+        "sv-madhapur-xiaomi-east-apr2026-20261018",
+        "sv-madhapur-xiaomi-front-apr2026-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Separate Downtown and Mia parcels around Xiaomi",
+      "category": "non_shop_frontage",
+      "roadId": "r_32889097687_0",
+      "position": {
+        "lat": 17.4408796,
+        "lon": 78.3924236,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Narrow east interbuilding gap separates the grey Downtown PG body; west pink Mia jewellery body is also separate. The source roof comparison confirms separate parcels. Do not merge architecture or extend Xiaomi access into either neighbour. Full frontage inventory beyond the bounded Xiaomi north face is incomplete."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-madhapur-xiaomi-home-brand",
+      "placementStatus": "provisional",
+      "chunkId": "c_-83_-15",
+      "name": "Xiaomi Home",
+      "nameTe": "షావోమి",
+      "category": "electronics_signage",
+      "group": "electronics_mobile",
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "buildingId": "b_d59e7d52ac",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16574.6431,
+          -2891.6724
+        ],
+        [
+          -16580.3885,
+          -2892.114
+        ]
+      ],
+      "entrance": [
+        -16577.5158,
+        -2891.8932
+      ],
+      "floor": 0,
+      "frontageWidthM": 5.76235,
+      "alongRoadM": 66.2229,
+      "facingHeading": -0.0767106655305691,
+      "lat": 17.440729879725982,
+      "lon": 78.3923747369658,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-xiaomi-east-apr2026-20261018",
+        "sv-madhapur-xiaomi-front-apr2026-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "position": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "side": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "facade": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "neighbours": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "displayName": "షావోమి",
+        "signColor": "#f0eee4",
+        "signTextColor": "#242826",
+        "signBaseM": 4.07,
+        "signHeightM": 0.92,
+        "signOutsetM": 0.65,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Photographed April2026 fascia identity and relative position, not certification of current tenancy. Geometry/board dimensions, outward offset and frontage span remain provisional. Raised Xiaomi branded fascia/glass is observed; upper-floor TO-LET notice does not establish ground-unit vacancy."
+    },
+    {
+      "id": "survey-madhapur-raymond-basement-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-83_-15",
+      "name": "Raymond",
+      "nameTe": null,
+      "category": "apparel_signage",
+      "group": "apparel",
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "buildingId": "b_d59e7d52ac",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16572.58225,
+          -2891.514
+        ],
+        [
+          -16576.57905,
+          -2891.8212
+        ]
+      ],
+      "entrance": [
+        -16574.58065,
+        -2891.6676
+      ],
+      "floor": -1,
+      "frontageWidthM": 4.00859,
+      "alongRoadM": 63.2791,
+      "facingHeading": -0.0767106655305691,
+      "lat": 17.44072784130324,
+      "lon": 78.39240236218761,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-xiaomi-east-apr2026-20261018",
+        "sv-madhapur-xiaomi-front-apr2026-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "position": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "side": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "facade": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "neighbours": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "displayName": "Raymond",
+        "signColor": "#ad202d",
+        "signTextColor": "#eee9d7",
+        "signBaseM": 0.48,
+        "signHeightM": 0.52,
+        "signOutsetM": 0.65,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Photographed April2026 fascia identity and relative position, not certification of current tenancy. Geometry/board dimensions, outward offset and frontage span remain provisional. Below-road basement unit floor-1 is observed, but its actual depth/door elevation is unresolved; this record is board-only and creates no invented street-level door, interior or pit."
+    },
+    {
+      "id": "survey-madhapur-srinis-designer-studio-basement-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-83_-15",
+      "name": "SRINIS Designer Studio",
+      "nameTe": null,
+      "category": "design_studio_signage",
+      "group": "apparel",
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "buildingId": "b_d59e7d52ac",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16576.70395,
+          -2891.8308
+        ],
+        [
+          -16580.20115,
+          -2892.0996
+        ]
+      ],
+      "entrance": [
+        -16578.45255,
+        -2891.9652
+      ],
+      "floor": -1,
+      "frontageWidthM": 3.50751,
+      "alongRoadM": 67.16241,
+      "facingHeading": -0.0767106655305691,
+      "lat": 17.44073053028643,
+      "lon": 78.39236592040567,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-xiaomi-east-apr2026-20261018",
+        "sv-madhapur-xiaomi-front-apr2026-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "position": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "side": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "facade": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "neighbours": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [],
+      "appearance": {
+        "displayName": "SRINIS DESIGNERSTUDIO",
+        "signColor": "#ded6b9",
+        "signTextColor": "#7e3533",
+        "signBaseM": 0.48,
+        "signHeightM": 0.52,
+        "signOutsetM": 0.65,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Photographed April2026 fascia identity and relative position, not certification of current tenancy. Geometry/board dimensions, outward offset and frontage span remain provisional. Below-road basement unit floor-1 is observed, but its actual depth/door elevation is unresolved; this record is board-only and creates no invented street-level door, interior or pit."
+    },
+    {
+      "id": "survey-madhapur-tupperware-basement-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-83_-15",
+      "name": "Tupperware",
+      "nameTe": null,
+      "category": "housewares_signage",
+      "group": "other",
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "buildingId": "b_d59e7d52ac",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16580.32605,
+          -2892.1092
+        ],
+        [
+          -16584.44775,
+          -2892.426
+        ]
+      ],
+      "entrance": [
+        -16582.3869,
+        -2892.2676
+      ],
+      "floor": -1,
+      "frontageWidthM": 4.13386,
+      "alongRoadM": 71.10837,
+      "facingHeading": -0.0767106655305691,
+      "lat": 17.440733262640318,
+      "lon": 78.39232889085305,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-xiaomi-east-apr2026-20261018",
+        "sv-madhapur-xiaomi-front-apr2026-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex shared Chrome evidence review",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "position": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "side": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "facade": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ],
+        "neighbours": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018"
+        ]
+      },
+      "replaceStorefrontIds": [
+        "sf_7b15879354"
+      ],
+      "appearance": {
+        "displayName": "Tupperware",
+        "signColor": "#e4ddc9",
+        "signTextColor": "#252c29",
+        "signBaseM": 0.48,
+        "signHeightM": 0.52,
+        "signOutsetM": 0.65,
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Photographed April2026 fascia identity and relative position, not certification of current tenancy. Geometry/board dimensions, outward offset and frontage span remain provisional. Below-road basement unit floor-1 is observed, but its actual depth/door elevation is unresolved; this record is board-only and creates no invented street-level door, interior or pit. Parent approved local branch association to the nearby13m legacy Tupperware record sf_7b15879354, wrongly attached to Downtown and already listing-only. Only this explicit record is replaced; immutable raw source archive and original listing point are preserved, no citywide alias removal or claim that either point was measured."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "profile-madhapur-xiaomi-white-arch",
+      "kind": "building_profile",
+      "buildingId": "b_d59e7d52ac",
+      "sourceIds": [
+        "sv-madhapur-xiaomi-east-apr2026-20261018",
+        "sv-madhapur-xiaomi-front-apr2026-20261018",
+        "sat-madhapur-xiaomi-roof-20261018"
+      ],
+      "dimensionStatus": "provisional",
+      "profile": {
+        "sourceIds": [
+          "sv-madhapur-xiaomi-east-apr2026-20261018",
+          "sv-madhapur-xiaomi-front-apr2026-20261018",
+          "sat-madhapur-xiaomi-roof-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#e8e4d8",
+        "material": "painted_plaster",
+        "fronts": [
+          {
+            "facade": [
+              [
+                -16572.27,
+                -2891.49
+              ],
+              [
+                -16584.76,
+                -2892.45
+              ]
+            ],
+            "facingHeading": -0.0767106655305691,
+            "floors": [
+              {
+                "baseM": 1.35,
+                "heightM": 2.55,
+                "glazingRatio": 0.9,
+                "glazingHeightRatio": 0.96,
+                "glassColor": "#314741",
+                "bandHeightM": 0.08
+              },
+              {
+                "baseM": 4.05,
+                "heightM": 1.04,
+                "glazingRatio": 0,
+                "bandHeightM": 0
+              },
+              {
+                "baseM": 5.2,
+                "heightM": 6.5,
+                "glazingRatio": 0,
+                "bandHeightM": 0
+              }
+            ],
+            "piers": [
+              {
+                "at": 0.035,
+                "widthM": 0.2,
+                "color": "#e0ded2",
+                "depthM": 0.22
+              },
+              {
+                "at": 0.335,
+                "widthM": 0.2,
+                "color": "#e0ded2",
+                "depthM": 0.22
+              },
+              {
+                "at": 0.665,
+                "widthM": 0.2,
+                "color": "#e0ded2",
+                "depthM": 0.22
+              },
+              {
+                "at": 0.965,
+                "widthM": 0.2,
+                "color": "#e0ded2",
+                "depthM": 0.22
+              }
+            ],
+            "fascia": {
+              "baseM": 4.05,
+              "heightM": 1.04,
+              "color": "#eeeade",
+              "outsetM": 0.18
+            },
+            "accents": [
+              {
+                "start": 0,
+                "end": 1,
+                "baseM": 11.72,
+                "heightM": 0.24,
+                "color": "#d6d3c5",
+                "outsetM": 0.13,
+                "depthM": 0.38
+              },
+              {
+                "start": 0,
+                "end": 1,
+                "baseM": 5.12,
+                "heightM": 0.16,
+                "color": "#d2d1c4",
+                "outsetM": 0.1,
+                "depthM": 0.28
+              }
+            ],
+            "access": {
+              "landingHeightM": 1.35,
+              "landingDepthM": 0.9,
+              "railings": true,
+              "stairs": [
+                {
+                  "at": 0.065,
+                  "widthM": 1.15,
+                  "risers": 8,
+                  "runM": 2.24
+                },
+                {
+                  "at": 0.935,
+                  "widthM": 1.15,
+                  "risers": 8,
+                  "runM": 2.24
+                }
+              ]
+            }
+          },
+          {
+            "facade": [
+              [
+                -16573.519,
+                -2891.586
+              ],
+              [
+                -16576.017,
+                -2891.778
+              ]
+            ],
+            "facingHeading": -0.0767106655305691,
+            "floors": [
+              {
+                "baseM": 5.5,
+                "heightM": 2.35,
+                "glazingRatio": 0.9,
+                "glazingHeightRatio": 0.85,
+                "glassColor": "#263c47",
+                "bandHeightM": 0.05
+              },
+              {
+                "baseM": 8.6,
+                "heightM": 2.35,
+                "glazingRatio": 0.9,
+                "glazingHeightRatio": 0.85,
+                "glassColor": "#263c47",
+                "bandHeightM": 0.05
+              }
+            ],
+            "accents": [
+              {
+                "start": 0,
+                "end": 1,
+                "baseM": 7.9,
+                "heightM": 0.11,
+                "color": "#d3cfc0",
+                "outsetM": 0.15,
+                "depthM": 0.22
+              },
+              {
+                "start": 0,
+                "end": 1,
+                "baseM": 11.0,
+                "heightM": 0.11,
+                "color": "#d3cfc0",
+                "outsetM": 0.15,
+                "depthM": 0.22
+              }
+            ]
+          },
+          {
+            "facade": [
+              [
+                -16581.013,
+                -2892.162
+              ],
+              [
+                -16583.511,
+                -2892.354
+              ]
+            ],
+            "facingHeading": -0.0767106655305691,
+            "floors": [
+              {
+                "baseM": 5.5,
+                "heightM": 2.35,
+                "glazingRatio": 0.9,
+                "glazingHeightRatio": 0.85,
+                "glassColor": "#263c47",
+                "bandHeightM": 0.05
+              },
+              {
+                "baseM": 8.6,
+                "heightM": 2.35,
+                "glazingRatio": 0.9,
+                "glazingHeightRatio": 0.85,
+                "glassColor": "#263c47",
+                "bandHeightM": 0.05
+              }
+            ],
+            "accents": [
+              {
+                "start": 0,
+                "end": 1,
+                "baseM": 7.9,
+                "heightM": 0.11,
+                "color": "#d3cfc0",
+                "outsetM": 0.15,
+                "depthM": 0.22
+              },
+              {
+                "start": 0,
+                "end": 1,
+                "baseM": 11.0,
+                "heightM": 0.11,
+                "color": "#d3cfc0",
+                "outsetM": 0.15,
+                "depthM": 0.22
+              }
+            ]
+          },
+          {
+            "facade": [
+              [
+                -16576.82885,
+                -2891.8404
+              ],
+              [
+                -16580.20115,
+                -2892.0996
+              ]
+            ],
+            "facingHeading": -0.0767106655305691,
+            "floors": [
+              {
+                "baseM": 5.42,
+                "heightM": 6.02,
+                "glazingRatio": 0.96,
+                "glazingHeightRatio": 0.99,
+                "openingShape": "arched",
+                "glassColor": "#223647",
+                "bandHeightM": 0
+              }
+            ]
+          }
+        ],
+        "signPanels": [
+          {
+            "text": "Xiaomi Home",
+            "frontIndex": 0,
+            "at": 0.105,
+            "baseM": 4.78,
+            "heightM": 0.2,
+            "widthRatio": 0.18,
+            "color": "#eeeade",
+            "textColor": "#252b27",
+            "outsetM": 0.65
+          },
+          {
+            "text": "mi",
+            "frontIndex": 0,
+            "at": 0.79,
+            "baseM": 4.17,
+            "heightM": 0.78,
+            "widthRatio": 0.13,
+            "color": "#ed702b",
+            "textColor": "#f6f0dc",
+            "outsetM": 0.66
+          },
+          {
+            "text": "TO LET",
+            "frontIndex": 0,
+            "at": 0.405,
+            "baseM": 1.48,
+            "heightM": 0.5,
+            "widthRatio": 0.1,
+            "color": "#e8ce63",
+            "textColor": "#b3382b",
+            "outsetM": 1.0
+          }
+        ]
+      },
+      "notes": "White columned facade, two upper rectangular side-window rows and one continuous tall central dark arched window are observed, with independent original geometry. Preserve current satellite12.5m source height and exact footprint; no height/levels override. Raised continuous guarded landing and one ascent stair at each side are photographed; estimated level1.35m/depth.9m, eight risers/run2.24m are provisional and must pass shared road-clearance/physical calibration. New physical access signature, not appearance-only. Basement forecourt/depth and left descent remain pending; board-only basement records are not a fabricated street-level entrance or invented excavation. Simplified roof cornice substitutes for unmeasured decorative roof railing; cables/side AC units are explicit detail gaps."
+    }
+  ],
+  "suppressions": [],
+  "roadReviews": [
+    {
+      "roadId": "r_32889097687_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 60.9616,
+          "endM": 73.4885,
+          "sourceIds": [
+            "sv-madhapur-xiaomi-east-apr2026-20261018",
+            "sv-madhapur-xiaomi-front-apr2026-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex shared Chrome evidence review",
+          "completeness": "partial",
+          "allFrontagesRecorded": true,
+          "storefrontIds": [
+            "survey-madhapur-raymond-basement-board",
+            "survey-madhapur-xiaomi-home-brand",
+            "survey-madhapur-srinis-designer-studio-basement-board",
+            "survey-madhapur-tupperware-basement-board"
+          ],
+          "notes": "Bounded Xiaomi northface only. Ground raised Xiaomi brand, three physically below-road basement fascias, unnamed upper window rows and east/west separate-building gaps are recorded; Every visible named fascia and unnamed upper/non-shop portion within this bounded face is accounted for, so its visual inventory flag is true. Approximate plan metrics, unknown current occupancy and incomplete wider road-side/end-to-end context prevent complete/verified status. Storefront order is east-to-west within each floor. No additional named upper tenant inferred."
+        }
+      ],
+      "notes": "This is the outer/south LEFT edge of the stored east-to-west south carriageway, not the opposite north-road shop row or planted median. Wider78.21m road segment and other immediate side remain unreviewed."
+    }
+  ]
+}

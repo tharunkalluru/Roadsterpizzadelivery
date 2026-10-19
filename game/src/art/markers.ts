@@ -1,17 +1,22 @@
 /**
- * Delivery destination marker (glowing outline + beam + parcel icon) and landing
+ * Delivery destination marker (ground outline + distant parcel guidance) and landing
  * footprint marker (state is carried by shape AND icon AND colour).
  */
 import * as THREE from 'three';
 import type { LandingMarker } from './api';
 import { GeoBuilder, addHorizontalPolygon, makeSamples, strip } from './geo';
-import { getSoftSprite } from './textures';
 
 const DELIVERY_COLOR = 0x22c8ff;
 const STATE_COLORS = { clear: 0x38e07a, uncertain: 0xffb81f, blocked: 0xff4a4a } as const;
 
 function nowSec(): number {
   return performance.now() / 1000;
+}
+
+/** Fade elevated guidance before the chase camera reaches the stop; the exact ground edge remains. */
+export function deliveryGuidanceFade(distanceM: number): number {
+  const t = Math.max(0, Math.min(1, (distanceM - 18) / 24));
+  return t * t * (3 - 2 * t);
 }
 
 const beamVert = /* glsl */ `
@@ -78,18 +83,18 @@ export function createDeliveryMarker(polygon: [number, number][], elevation: num
   const fillB = new GeoBuilder();
   const coreB = new GeoBuilder();
   const glowB = new GeoBuilder();
-  const y = elevation + 0.07;
+  const y = elevation + 0.055;
   if (polygon.length >= 3) {
     addHorizontalPolygon(fillB, polygon, undefined, y, () => [0, 0]);
     const closed = polygon.concat([polygon[0]]);
     const samples = makeSamples(closed, y);
     // miter factors can explode on closed loops; clamp the offsets by using thin strips
-    strip(coreB, samples, -0.26, 0.26, 0.01, () => [0, 0]);
-    strip(glowB, samples, -0.9, 0.9, 0.0, () => [0, 0]);
+    strip(coreB, samples, -0.085, 0.085, 0.01, () => [0, 0]);
+    strip(glowB, samples, -0.18, 0.18, 0.0, () => [0, 0]);
   }
-  const fillMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.2, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -6 });
-  const glowMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.28, depthWrite: false, toneMapped: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -8 });
-  const coreMat = new THREE.MeshBasicMaterial({ color: 0xbff0ff, transparent: true, opacity: 0.95, depthWrite: false, toneMapped: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -5, polygonOffsetUnits: -10 });
+  const fillMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.035, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -6 });
+  const glowMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.09, depthWrite: false, toneMapped: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -8 });
+  const coreMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.68, depthWrite: false, toneMapped: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -5, polygonOffsetUnits: -10 });
   for (const [b, m, n, ro] of [[fillB, fillMat, 'delivery-fill', 1], [glowB, glowMat, 'delivery-outline-glow', 2], [coreB, coreMat, 'delivery-outline', 3]] as const) {
     if (b.vcount === 0) continue;
     const mesh = new THREE.Mesh(b.build(), m);
@@ -99,51 +104,27 @@ export function createDeliveryMarker(polygon: [number, number][], elevation: num
     root.add(mesh);
   }
 
-  // vertical beam (additive)
-  const beamH = 70;
+  // A thin, non-additive locator at distance, never a bright volume around the parked car.
+  const beamH = 12;
   const beamMat = new THREE.ShaderMaterial({
     vertexShader: beamVert,
     fragmentShader: beamFrag,
-    uniforms: { uColor: { value: color }, uHeight: { value: beamH }, uTime: timeU, uAlpha: { value: 0.5 } },
+    uniforms: { uColor: { value: color }, uHeight: { value: beamH }, uTime: timeU, uAlpha: { value: 0 } },
     transparent: true,
     depthWrite: false,
     side: THREE.DoubleSide,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
     fog: false,
   });
-  const beamGeo = new THREE.CylinderGeometry(1.5, 2.6, beamH, 20, 1, true);
+  const beamGeo = new THREE.CylinderGeometry(0.075, 0.13, beamH, 10, 1, true);
   beamGeo.translate(0, beamH / 2, 0);
   const beam = new THREE.Mesh(beamGeo, beamMat);
   beam.position.set(cx, elevation, cz);
   beam.renderOrder = 10;
   beam.name = 'delivery-beam';
-  beam.onBeforeRender = (): void => { timeU.value = nowSec(); };
   root.add(beam);
-  const coreBeamMat = beamMat.clone();
-  coreBeamMat.uniforms = { uColor: { value: new THREE.Color(0xd8f6ff) }, uHeight: { value: beamH }, uTime: timeU, uAlpha: { value: 0.65 } };
-  const coreBeam = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.6, beamH, 12, 1, true).translate(0, beamH / 2, 0), coreBeamMat);
-  coreBeam.position.copy(beam.position);
-  coreBeam.renderOrder = 11;
-  root.add(coreBeam);
 
-  // floating parcel (3D) + badge sprite
-  const parcel = new THREE.Group();
-  const boxGeo = new THREE.BoxGeometry(1.5, 1.2, 1.5);
-  const boxMat = new THREE.MeshStandardMaterial({ color: 0xc89455, roughness: 0.7, emissive: 0x3b2a12, emissiveIntensity: 0.5 });
-  const tapeMat = new THREE.MeshStandardMaterial({ color: 0xf3e6c4, roughness: 0.6, emissive: 0x4a4230, emissiveIntensity: 0.5 });
-  parcel.add(new THREE.Mesh(boxGeo, boxMat));
-  const t1 = new THREE.Mesh(new THREE.BoxGeometry(0.34, 1.23, 1.53), tapeMat);
-  const t2 = new THREE.Mesh(new THREE.BoxGeometry(1.53, 1.23, 0.34), tapeMat);
-  parcel.add(t1, t2);
-  parcel.position.set(cx, elevation + 7, cz);
-  parcel.name = 'delivery-parcel';
-  parcel.onBeforeRender = (): void => {
-    const t = nowSec();
-    parcel.rotation.y = t * 1.1;
-    parcel.position.y = elevation + 7 + Math.sin(t * 1.8) * 0.35;
-  };
-  root.add(parcel);
-
+  // Compact parcel badge; opacity follows the same near-stop fade as the beacon.
   const iconTex = canvasIcon((ctx, s) => {
     badge(ctx, s, hexCss(DELIVERY_COLOR));
     // parcel glyph
@@ -155,38 +136,35 @@ export function createDeliveryMarker(polygon: [number, number][], elevation: num
     ctx.fillStyle = '#ffffff';
     ctx.beginPath(); ctx.moveTo(s * 0.5, s * 0.36); ctx.lineTo(s * 0.4, s * 0.27); ctx.lineTo(s * 0.46, s * 0.25); ctx.lineTo(s * 0.5, s * 0.33); ctx.lineTo(s * 0.54, s * 0.25); ctx.lineTo(s * 0.6, s * 0.27); ctx.closePath(); ctx.fill();
   });
-  const iconMat = new THREE.SpriteMaterial({ map: iconTex, transparent: true, depthWrite: false, toneMapped: false, fog: false });
+  const iconMat = new THREE.SpriteMaterial({ map: iconTex, transparent: true, opacity: 0, depthWrite: false, toneMapped: false, fog: false });
   const icon = new THREE.Sprite(iconMat);
-  icon.position.set(cx, elevation + 13, cz);
-  icon.scale.set(6.5, 6.5, 1);
+  icon.position.set(cx, elevation + 4.2, cz);
+  icon.scale.set(1.35, 1.35, 1);
   icon.renderOrder = 20;
   icon.name = 'delivery-icon';
   root.add(icon);
 
-  // ground pulse ring
-  const ringGeo = new THREE.RingGeometry(0.92, 1.0, 40);
-  ringGeo.rotateX(-Math.PI / 2);
-  const ringMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.6, depthWrite: false, toneMapped: false, side: THREE.DoubleSide });
-  const ring = new THREE.Mesh(ringGeo, ringMat);
-  ring.position.set(cx, elevation + 0.1, cz);
-  let rad = 4;
-  for (const p of polygon) rad = Math.max(rad, Math.hypot(p[0] - cx, p[1] - cz));
-  ring.renderOrder = 4;
-  ring.onBeforeRender = (): void => {
-    const k = (nowSec() * 0.5) % 1;
-    const sc = rad * (0.5 + k * 1.1);
-    ring.scale.set(sc, 1, sc);
-    ringMat.opacity = 0.55 * (1 - k);
+  const cameraPosition = new THREE.Vector3();
+  const updateGuidance = (camera: THREE.Camera): void => {
+    camera.getWorldPosition(cameraPosition);
+    const fade = deliveryGuidanceFade(Math.hypot(cameraPosition.x - cx, cameraPosition.z - cz));
+    beamMat.uniforms.uAlpha.value = .18 * fade;
+    iconMat.opacity = .78 * fade;
+    timeU.value = nowSec();
   };
-  root.add(ring);
+  beam.onBeforeRender = (_renderer, _scene, camera): void => updateGuidance(camera);
+  icon.onBeforeRender = (_renderer, _scene, camera): void => updateGuidance(camera);
 
   root.userData.dispose = (): void => {
+    const geometries = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>();
     root.traverse((o) => {
       const m = o as THREE.Mesh;
-      m.geometry?.dispose?.();
+      // Sprite geometry is a Three.js shared quad, not owned by this marker.
+      if (m.isMesh && m.geometry) geometries.add(m.geometry);
       const mat = m.material as THREE.Material | THREE.Material[] | undefined;
-      if (Array.isArray(mat)) mat.forEach((x) => x.dispose()); else mat?.dispose?.();
+      if (Array.isArray(mat)) mat.forEach(x => materials.add(x)); else if (mat) materials.add(mat);
     });
+    geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose());
     iconTex.dispose();
   };
   return root;

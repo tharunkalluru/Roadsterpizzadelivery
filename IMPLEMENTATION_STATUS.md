@@ -1,5 +1,17 @@
 # IMPLEMENTATION_STATUS — Hyderabad Metro Delivery
 
+## Current checkpoint — 18 October 2026, survey 47 first pass
+
+Exact full-map reconstruction remains **unfinished**. Added 444.68 m LEFT-only partial windows, twelve new November 2025 views and eleven pending observations; two prior references are reused, not duplicated. No new model/profile, suppression, RIGHT inventory, complete inventory, runtime or physical change.
+
+Existing source/network/queue validation, base hashes, build/typecheck and a bounded atlas observation check passed. No new unit suite, driving, facade-ray/pixel, flight or delivery certification. All-forty delivery calibration is historical 32; prior 44 caption corrections remain preserved.
+
+Combined1,216.90m /52views /30second-pass issue groups are not shop-unit counts. Raidurg-only 970.42 m; Durgam–Madhapur 950.99 m is unchanged and not additive.159 provisional fronts / 42 profiles unchanged, visual inventory 0.119%, strict 0. The checklist below is historical and has not been recertified.
+
+---
+
+## Historical baseline
+
 Live checklist. Status values: `passed`, `failed`, `blocked`, `not_run`, `stale` (acceptance); work items use todo / doing / done / blocked.
 
 ## Paths

@@ -20,30 +20,30 @@ export const VEHICLE = {
   collisionRadius: 1.05, // two circles front/back
   circleOffset: 1.0,
   cruiseSpeed: 45 / 3.6, // automatic cruise
-  maxSpeed: 60 / 3.6, // with boost key / accelerate
-  accel: 3.2,
-  brakeDecel: 9.0,
+  maxSpeed: 120 / 3.6,
+  accel: 4.5,
+  brakeDecel: 11.0,
   coastDecel: 0.6,
   idleDecel: 4.0, // no ▲/▼ input: slow down and hold (user-requested control model)
   reverseMaxSpeed: 3.0,
   reverseEnableSpeed: 0.6,
   maxSteerLow: 0.6, // rad at walking speed
-  maxSteerHigh: 0.16, // rad at max speed
+  maxSteerHigh: 0.07, // stable steering at 120 km/h
   steerRate: 3.2, // rad/s visual/control slew
   offRoadMaxSpeed: 6.0,
 };
 
 export const FLIGHT = {
-  minFlightAltitude: 4.5, // metres above road surface; clears buses (≈3.2 m)
-  cruiseAltitude: 6.5,
-  ascentAccel: 7.0,
-  maxClimbRate: 4.5,
-  descentRate: 3.2,
-  flareTicks: 18,
+  minFlightAltitude: 4.0, // clears buses; fast ascent makes a 2.5-second hop usable
+  cruiseAltitude: 4.8,
+  ascentAccel: 32.0,
+  maxClimbRate: 9.0,
+  descentRate: 7.0,
+  flareTicks: 6,
   airSteerScale: 0.7,
   airBrakeDecel: 5.0,
-  airAccel: 2.0,
-  airMaxSpeed: 60 / 3.6,
+  airAccel: 6.0,
+  airMaxSpeed: 150 / 3.6,
   airDrag: 0.15,
   carHeight: 1.15,
   overheadMargin: 0.6,
@@ -56,10 +56,14 @@ export const FLIGHT = {
   hardLandingVy: 4.0,
   maxTouchdownTilt: 0.35,
   airEnvelopeMarginM: 3.5, // beyond road half-width (over footpath)
+  initialChargeSeconds: 2.5,
+  rechargeMinSpeed: 2.0,
+  rechargeFlightTicksPerRoadTick: 0.25, // 10 s moving on the road earns 2.5 s
+  protectedLandingTicks: 240, // descent only; never reusable flight or free hover
 };
 
 export const MISSION = {
-  holdSpeed: 1.0, // m/s
+  holdSpeed: 0.6, // must deliberately stop before collecting / handing over
   holdTicks: 60, // ≈1 s
   countdownSeconds: 3,
   recoveryPenaltyTicks: 180, // 3 s added to mission ledger
@@ -81,10 +85,10 @@ export const CONTACT = {
 };
 
 export const TRAFFIC = {
-  maxActors: 24,
-  maxPedestrians: 12,
-  spawnRadius: 220,
-  despawnRadius: 260,
+  maxActors: 64,
+  maxPedestrians: 26,
+  spawnRadius: 300,
+  despawnRadius: 380,
   minSpawnDistance: 70,
   maxConflictEvents: 2,
 };

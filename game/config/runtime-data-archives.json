@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "policy": "Lossless archive of the complete frozen runtime layer; restore locally before build. Only the integrator refreshes archives and manifest hashes.",
+  "files": [
+    {
+      "archive": "data/archives/source-accuracy.json.gz",
+      "output": "public/world/hyd-metro/v2/source-accuracy.json",
+      "bytes": 19856474,
+      "sha256": "53ffc82503447ec72846894343e1562c9f5f33456514bfc90aadea3103111e05",
+      "archiveBytes": 2044381,
+      "archiveSha256": "4e0e9f32c651de10e6ce40f6a4eec96986b4e8d7b0fcfd77de4610d512d490fd"
+    }
+  ]
+}

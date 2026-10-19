@@ -3,6 +3,22 @@ import type { WorldPhysics } from '../world/collision';
 import { wrapAngle } from '../world/roadIndex';
 import { nextManeuver, UTURN_COST_M } from '../world/nav';
 import type { MissionDef, MissionTemplate } from './types';
+import foodListings from '../../config/food-pickups.json';
+
+/** Source-category filter: a bank, pharmacy or electronics shop can never supply pizza. */
+export function isFoodPickup(core: WorldCore, delivery: DeliveryLocation): boolean {
+  if (!delivery.poiId) return false;
+  const category = core.pois.find((p) => p.id === delivery.poiId)?.category;
+  return !!category && /(^|[:_])(restaurant|cafe|fast_food|bakery|food_court|pizzeria)([:_]|$)/.test(category)
+    || Object.prototype.hasOwnProperty.call(foodListings, delivery.poiId);
+}
+
+/** Prefer source pizza categories and the pizza/oven outlets already present in the map. */
+export function isPizzaPickup(core: WorldCore, delivery: DeliveryLocation): boolean {
+  const category = delivery.poiId ? core.pois.find((p) => p.id === delivery.poiId)?.category
+    ?? (foodListings as Record<string, { category: string }>)[delivery.poiId]?.category : '';
+  return isFoodPickup(core, delivery) && (/pizza|pizzeria/.test(category ?? '') || /pizza|country\s*oven/i.test(delivery.label));
+}
 
 export interface RouteInfo { path: string[]; lengthM: number; turns: number; uturns?: number; signals?: number }
 
@@ -56,14 +72,13 @@ export function routeBetween(world: WorldPhysics, from: DeliveryLocation, to: De
 }
 
 /**
- * Deadline policy (provisional, see DECISIONS.md): reference pace 6.0 m/s average incl. traffic, signals and encounters (measured runs 4.8–8 m/s),
- * +2 s per turn, +5 s per stop, a dead-end turnaround counts as 6 turns (+12 s) and a signalled
- * junction as 5 turns (+10 s), then ×1.4 margin for standard play (tutorial ×1.8), rounded up to
- * 5 s. Each instantiated mission is verified by the reference driving agent through real physics
- * on the actual graph with mission traffic and NO flight (tests/unit/missions-real.test.ts).
+ * Dense-traffic planning pace: normal 4.5 m/s, busy 3.8 m/s, light 6 m/s, including
+ * queueing. Add 2 s per turn and 5 s per interaction, then a teaching/gameplay margin.
+ * Contract builders include the 180 m restaurant approach and collection interaction.
+ * Calibrated by complete ground-only journeys through real vehicle physics and traffic.
  */
-export function deadlineFor(lengthM: number, turns: number, stops: number, margin = 1.4): number {
-  const est = lengthM / 6.0 + turns * 2 + stops * 5 + 6;
+export function deadlineFor(lengthM: number, turns: number, stops: number, margin = 1.4, referencePaceMps = 4.5): number {
+  const est = lengthM / referencePaceMps + turns * 2 + stops * 5 + 6;
   return Math.ceil((est * margin) / 5) * 5;
 }
 
@@ -72,7 +87,7 @@ interface Pair { a: DeliveryLocation; b: DeliveryLocation; r: RouteInfo }
 export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[] {
   const ds = core.deliveries;
   const pairs: Pair[] = [];
-  for (const a of ds) for (const b of ds) {
+  for (const a of ds.filter((d) => isFoodPickup(core, d))) for (const b of ds) {
     if (a === b) continue;
     const r = routeBetween(world, a, b);
     if (r && r.lengthM > 50) pairs.push({ a, b, r });
@@ -93,34 +108,35 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
   const mk = (id: string, templates: MissionTemplate[], title: string, brief: string, p: Pair, over: Partial<MissionDef> = {}): MissionDef => {
     const stops = over.stops ?? [p.b.id];
     const margin = over.practice ? 1.9 : templates.includes('MT01') ? 1.8 : 1.6;
+    const pace = over.traffic === 'busy' ? 3.8 : over.traffic === 'light' ? 6 : 4.5;
     return {
-      id, version: 1, templates, title, brief, pickupId: p.a.id, stops, flightSeconds: 25,
-      deadlineSeconds: over.deadlineSeconds ?? deadlineFor(p.r.lengthM, p.r.turns, stops.length, margin),
-      cargo: { label: 'Parcel', fragility: 1, failThreshold: 0 }, traffic: 'normal', seed: 1000 + missions.length * 17,
-      deadlineBasis: `route ${Math.round(p.r.lengthM)} m, ${p.r.turns} turns; formula ×${margin}; verified by reference agent (ground only)`,
+      id, version: 2, templates, title, brief, pickupId: p.a.id, stops, flightSeconds: 25,
+      cargo: { label: 'Hot pizza', fragility: 1, failThreshold: 0 }, traffic: 'normal', seed: 1000 + missions.length * 17,
+      deadlineBasis: `route ${Math.round(p.r.lengthM)} m plus 180 m pickup approach, ${p.r.turns} turns; ${pace} m/s dense-traffic planning pace ×${margin}; includes collection and handover`,
       routeLengthM: Math.round(p.r.lengthM), ...over,
+      deadlineSeconds: over.deadlineSeconds ? over.deadlineSeconds + 100 : deadlineFor(p.r.lengthM + 180, p.r.turns, stops.length + 1, margin, pace),
     };
   };
 
   const practice = pick((p) => p.r.lengthM >= 250 && p.r.lengthM <= 800, (p) => Math.abs(p.r.lengthM - 450));
-  if (practice) missions.push(mk('practice', ['PRACTICE'], 'Practice run', 'Steer, brake, try a flight and stop at the marked entrance. Practice has its own flight allowance and no score.', practice, { practice: true, traffic: 'light' }));
+  if (practice) missions.push(mk('practice', ['PRACTICE'], 'Practice run', 'Steer, brake, try a flight and stop at the marked entrance. Practice has rechargeable boost and no score.', practice, { practice: true, traffic: 'light' }));
 
   const mt01 = pick((p) => p.r.lengthM >= 350 && p.r.lengthM <= 1100, (p) => Math.abs(p.r.lengthM - 650));
-  if (mt01) missions.push(mk('mt01_first_parcel', ['MT01'], 'First parcel', `A short real delivery to ${mt01.b.label}. Learn steering, braking and stopping at the entrance.`, mt01, { traffic: 'light' }));
+  if (mt01) missions.push(mk('mt01_first_parcel', ['MT01'], 'First pizza', `Collect pizza, then make a short delivery to ${mt01.b.label}. Learn steering, braking and stopping at the entrance.`, mt01, { traffic: 'light' }));
 
   // prefer pairs whose route runs mostly on main carriageways (long straight-ish flight opportunities)
   const mainShare = (p: Pair) => p.r.path.reduce((a, id) => { const e = world.nav.edges.get(id)!; const r = world.roads.roads.get(e.roadId)!; return a + (/^(trunk|primary|secondary)/.test(r.highway) ? e.lengthM : 0); }, 0) / p.r.lengthM;
   const mt02 = pick((p) => (isMain(p.a) || isMain(p.b) || mainShare(p) > 0.6) && p.r.lengthM >= 700 && p.r.lengthM <= 2000, (p) => -mainShare(p) * 1000 + Math.abs(p.r.lengthM - 1200) * 0.2);
-  if (mt02) missions.push(mk('mt02_first_flight', ['MT02', 'MT06'], 'First useful flight', `Queues build on the main road. 25 s of flight for the whole delivery to ${mt02.b.label} — spend it together or in parts.`, mt02, { traffic: 'busy' }));
+  if (mt02) missions.push(mk('mt02_first_flight', ['MT02', 'MT06'], 'First useful flight', `Queues build on the main road. Drive to earn boost for the delivery to ${mt02.b.label}; spend it in short hops or save up.`, mt02, { traffic: 'busy' }));
 
   const mt03 = pick((p) => Math.abs(wrapAngle(p.b.facingHeading - p.a.facingHeading)) > 2.2 && p.r.lengthM <= 2500 && p.r.lengthM >= 300, (p) => p.r.lengthM);
   if (mt03) missions.push(mk('mt03_correct_approach', ['MT03', 'MT08'], 'Correct approach', `${mt03.b.label} is on the other carriageway. Reach it from the permitted side.`, mt03));
 
   const mt04 = pick((p) => p.r.lengthM >= 500 && p.r.lengthM <= 1600, (p) => Math.abs(p.r.lengthM - 900));
-  if (mt04) missions.push(mk('mt04_fragile', ['MT04'], 'Fragile parcel', `Glassware for ${mt04.b.label}. Bumps and hard landings cost 2.5× cargo; below 40% the delivery fails.`, mt04, { cargo: { label: 'Fragile glassware', fragility: 2.5, failThreshold: 40 } }));
+  if (mt04) missions.push(mk('mt04_fragile', ['MT04'], 'Keep the pizza level', `Pizza for ${mt04.b.label}. Bumps and hard landings cost 2.5× cargo; below 40% the delivery fails.`, mt04, { cargo: { label: 'Fresh pizza — keep level', fragility: 2.5, failThreshold: 40 } }));
 
   const mt06 = pick((p) => p.r.lengthM >= 1800 && p.r.lengthM <= 3500, (p) => Math.abs(p.r.lengthM - 2500));
-  if (mt06) missions.push(mk('mt06_save_flight', ['MT06'], 'Save flight time', `A longer run with only 20 s of flight. Several stretches tempt you — choose where it matters.`, mt06, { flightSeconds: 20, traffic: 'busy' }));
+  if (mt06) missions.push(mk('mt06_save_flight', ['MT06'], 'Save flight time', `A longer pizza run. Recharge boost by driving, and save it for queues.`, mt06, { flightSeconds: 20, traffic: 'busy' }));
 
   // MT07: a genuinely reconnecting alternative exists (edge-disjoint enough, ≤ 1.4× length)
   let mt07: Pair | null = null; let altLen = 0;
@@ -139,7 +155,7 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
 
   if (mt01) {
     const back = pairs.find((p) => p.a.id === mt01.b.id && p.b.id === mt01.a.id);
-    if (back) { used.add(key(back)); missions.push(mk('mt08_return', ['MT08', 'MT03'], 'Return delivery', `Take a return parcel back to ${back.b.label}. The return trip uses its own carriageway and turns.`, back)); }
+    if (back) { used.add(key(back)); missions.push(mk('mt08_return', ['MT08', 'MT03'], 'Return delivery', `Collect another pizza and return to ${back.b.label}. The return trip uses its own carriageway and turns.`, back)); }
   }
 
   // MT09: three stops in corridor order — the most compact window of four consecutive deliveries
@@ -148,6 +164,7 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
   let bestWin: { legs: RouteInfo[]; ids: DeliveryLocation[]; len: number } | null = null;
   for (let i = 0; i + 3 < ordered.length; i++) {
     const w = ordered.slice(i, i + 4);
+    if (!isFoodPickup(core, w[0])) continue;
     const legs = [routeBetween(world, w[0], w[1]), routeBetween(world, w[1], w[2]), routeBetween(world, w[2], w[3])];
     if (legs.some((l) => !l)) continue;
     const len = legs.reduce((a, l) => a + l!.lengthM, 0);
@@ -155,13 +172,13 @@ export function buildCatalog(core: WorldCore, world: WorldPhysics): MissionDef[]
   }
   if (bestWin) {
     const [a, b, c, d] = bestWin.ids; const turns = bestWin.legs.reduce((x, l) => x + l.turns, 0);
-    missions.push(mk('mt09_multi_stop', ['MT09'], 'Multiple stops', `Three drops in order: ${b.label}, ${c.label}, ${d.label}. One 25 s flight allowance covers all stops — nothing refills.`, { a, b, r: bestWin.legs[0] }, { stops: [b.id, c.id, d.id], deadlineSeconds: deadlineFor(bestWin.len, turns, 3, 1.6), routeLengthM: Math.round(bestWin.len), deadlineBasis: `route ${Math.round(bestWin.len)} m over 3 stops, ${turns} turns; formula ×1.6; verified by reference agent` }));
+    missions.push(mk('mt09_multi_stop', ['MT09'], 'Multiple stops', `Three drops in order: ${b.label}, ${c.label}, ${d.label}. One rechargeable boost battery serves all stops.`, { a, b, r: bestWin.legs[0] }, { stops: [b.id, c.id, d.id], deadlineSeconds: deadlineFor(bestWin.len, turns, 3, 1.6), routeLengthM: Math.round(bestWin.len), deadlineBasis: `route ${Math.round(bestWin.len)} m over 3 stops, ${turns} turns; formula ×1.6; +50 s for restaurant approach and collection` }));
   }
 
   // MT10: full corridor, both ends of the corridor axis
   if (ordered.length >= 2) {
-    const a = ordered[ordered.length - 1], b = ordered[0];
-    const r = routeBetween(world, a, b);
+    const a = ordered.slice().reverse().find((d) => isFoodPickup(core, d))!, b = ordered[0];
+    const r = a ? routeBetween(world, a, b) : null;
     if (r) missions.push(mk('mt10_full_corridor', ['MT10'], 'Full corridor', `End-to-end along the Blue Line: ${a.label} to ${b.label} at real scale (${(r.lengthM / 1000).toFixed(1)} km).`, { a, b, r }, { traffic: 'normal', flightSeconds: 30 }));
   }
 

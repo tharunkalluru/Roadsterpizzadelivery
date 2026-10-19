@@ -1,8 +1,30 @@
 # DATA_SOURCES: provenance, conventions and transformation history
 
-Scope of this document: the generated world package `public/world/hyd-uppal-tarnaka/v1/` (Blue Line, Uppal to Tarnaka) and the files derived from it (`scope-manifest.json`, `scope.geojson`, `qa/coverage.geojson`, `name-registry.json`, `sources-manifest.json`). Every number below comes from `npm run import:map` (see `data/import-report.json`, which is regenerated and deterministic).
+> Handoff snapshot: validated survey revision **102**, 708 sources, 551 observations and 169 provisional storefronts. Strict verification remains zero. See [root STATUS](../STATUS.md) and the current root ASSIGNMENTS; the revision-specific narrative below is historical and does not activate work.
 
-Nothing in this package is field verified. All geometry, names, widths, directions, heights and levels are OpenStreetMap source claims or authored provisional values, and are labelled `provisional` per property. See `CONTENT_GAPS.md` for the concrete gaps.
+## Active composed world — survey revision 47 (2026-10-18)
+
+The default package is `public/world/hyd-metro/v2/`: 10,276 road edges / 654.21 km, 80,076 original building footprints, 19,507 original front records, 37,583 named listing points and 57 metro stations. The older Uppal–Tarnaka package remains a fallback. Frozen importer records and current runtime composition use different denominators; the tables below describe the current composition. [Source accuracy](data/research/source-accuracy.md) and [street research](data/research/street-survey.md) record methods and limitations.
+
+| Current layer | Source and transformation | Remaining uncertainty |
+|---|---|---|
+| Heights | 28 explicit source heights, 231 floor-derived heights, then 50,286 masked 2023 satellite estimates and 29,531 class placeholders before manual review. Current manual review replaces 20 of the latter estimates: the original-building denominator then has 50,267 satellite / 29,530 class / 20 manual estimates. | Every height label remains provisional. Satellite effective resolution is 4 m; neither inferred floors nor Hyderabad metric accuracy is established. |
+| Building presence | 5,502 frozen outlines are flagged for road conflicts. Four manual presence overrides leave 5,498 omitted before recovery; safe polygon difference restores 5,485 of those parents and retains 49 extra parts. | 13 outlines remain unresolved and omitted. The final layer has 80,125 component records / 80,112 visible masses. Trimmed parts are disclosed estimates, not measured footprint corrections. |
+| Businesses | Source accuracy classifies all 19,507 original front records; 7,641 support neutral placards and 11,866 stay listing-only. The separate index preserves all 37,583 named points. Revision 47 contains 159 provisional photographed front/sign records on 42 profiles. | A point or contained listing is not a tenancy or doorway. Repeated branding is not another shop. Strictly verified fronts and road sides remain zero. |
+| Roads | Four source width rules, 1,309 surface rules, 2,838 unconditional speed-limit samples and 117 relative-layer rules, with original ranges/conditions retained. | 10,272 widths remain inferred; lane counts and metric terrain Z are absent. Bridges, tunnels, ramps, curbs and markings still contain authored geometry. |
+| Landscape | Frozen Overture/OSM polygons yield 881 land-use and 32 water records / 921 parts, clipped to the boundary and simplified by at most 0.25 m. | Flat surface elevations and colours are visual assumptions. 36 line waterways, two water points and one tiny land-use polygon remain unapplied. |
+| Roadside context | OSM 2026-10-18 snapshot retains original coordinates/tags. The composed plan applies 1,248 mapped features, two photographed features and 71 scenario features. | Fitted positions/dimensions are provisional; 68 unsafe/unusable fits are withheld. Potholes and drain scenarios are not a survey of real defects. |
+| Station envelopes | `station-geometry.json` retains 11 source polygons: nine ordinary same-line station envelopes inform horizontal extents; Nagole/MGBS remain custom-layout evidence, with eight other records unmatched. | Heights, platforms, concourse detail and access are authored. The other 48 layouts retain fallback dimensions. Shared bodies/roofs and the two flyover-clearance portals are model geometry, not verified architecture. |
+| Station entrances | Seven OSM points associate provisionally with Uppal (four), Paradise (one) and Rasoolpura (two). Original coordinates, node versions and timestamps remain. | A point does not specify a stair footprint, direction, rise or current accessibility; this is not seven surveyed access models. |
+| Basement support | Four existing photographed opening records drive shared lower floors, descending treads, retaining walls, bounded ceilings, terrain cutouts and wheel support. | The six 0.11 m risers / 0.66 m drop are an explicit authored estimate. Full basements and interiors are not reconstructed. |
+
+The whole network has a work inventory of 20,552 sides in 1,913 connected blocks / 57 work regions. Actual imagery review covers 59 partial sides / 3,457.79 m of observation windows; 1,552.75 m (0.119% of total side length) has a visual inventory. Its 207 sources and 273 observations are not full-map completion. No field measurement is claimed. Google Street View is reference only; no imagery is distributed as game textures.
+
+Additional provenance is retained in `data/raw/osm-street-context/`, `data/raw/osm-metro-context/`, `data/raw/google-open-buildings-2023/`, the research manifests and batch receipts. App applies source accuracy and manual survey before attaching transport, station entrances/envelopes and public-realm plans. Rendering/collision share the final geometry; landscape is visual-only. The checkpoint identity includes every loaded layer and `safe-footprints-station-envelopes-basement-pits-v3`.
+
+## Historical v1 acquisition and importer record
+
+The numbered sections 1–9 below describe `public/world/hyd-uppal-tarnaka/v1/` and its original derived files. Their counts, network-access limitations and acquisition statements are historical; they do not describe revision 47. The later v2 sections preserve the frozen importer rules. Current runtime behaviour is the composed layer above.
 
 ## 1. Provenance
 
@@ -166,9 +188,9 @@ The validator also checks: no pillar within 0.5 m (+1.0 m radius) of any carriag
 
 ---
 
-# v2: whole network (Red, Blue, Green), Overture Maps + bundled OSM metro snapshot
+# Frozen v2 importer history: Red, Blue and Green network
 
-Everything above documents the v1 package `public/world/hyd-uppal-tarnaka/v1/` (Blue Line, Uppal to Tarnaka) and stays as history. This part documents the v2 package `public/world/hyd-metro/v2/` (`worldId` `hyd-metro`, version `2.0.0`). The shared project files (`sources-manifest.json`, `name-registry.json`, `scope-manifest.json`, `scope.geojson`, `qa/coverage.geojson`, `data/scope-baseline.json`, `public/world/world-manifest.json`) now describe v2; the v1 baseline is preserved as `data/scope-baseline-uppal-tarnaka-r1.json`. Running `npm run import:map` (v1) would overwrite the shared files with v1 content; use `npm run import:world` for v2. All counts below come from `data/import-report-v2.json` and `npm run validate:world:v2`.
+Everything above documents the v1 package `public/world/hyd-uppal-tarnaka/v1/` (Blue Line, Uppal to Tarnaka) and stays as history. This part documents the v2 package `public/world/hyd-metro/v2/` (`worldId` `hyd-metro`, version `2.0.0`). The shared project files (`sources-manifest.json`, `name-registry.json`, `scope-manifest.json`, `scope.geojson`, `qa/coverage.geojson`, `data/scope-baseline.json`, `public/world/world-manifest.json`) now describe v2; the v1 baseline is preserved as `data/scope-baseline-uppal-tarnaka-r1.json`. Running `npm run import:map` (v1) would overwrite the shared files with v1 content; use `npm run import:world` for v2. These sections preserve original importer rules and archived report totals. Current frozen chunks contain 19,507 original front records; older inventory/report totals of 19,508 below are historical and are not current rendered-front counts. The active overlay table at the top of this document takes precedence.
 
 Nothing in v2 is field verified. Roads, widths, directions, turn restrictions, building heights, shop listings, skywalk dimensions and station positions are source claims or authored provisional values (see `CONTENT_GAPS.md`, part v2).
 
@@ -179,7 +201,7 @@ Nothing in v2 is field verified. Roads, widths, directions, turn restrictions, b
 | Overture Maps release `2026-09-23.1`, theme `transportation` (segment, connector) | 54,883 road/footway segments, 47,226 connectors in the fetched area (after de-duplication across lines) | **ODbL-1.0**. Source entries of the frozen rows: OpenStreetMap 59,547, TomTom Orbis Maps 2,306 (their records also say ODbL-1.0); counts per dataset and licence are frozen in `data/raw/overture/2026-09-23.1/source-licences.json` | roads, directions, turn restrictions, bridges/tunnels, footways (skywalks) |
 | Overture `buildings` (building) | 212,652 footprints in the fetched area, 80,076 kept | **Per record, not CDLA**: OpenStreetMap (ODbL-1.0), Microsoft ML Buildings (licence value `ODbL-1.0`), Google Open Buildings (the Overture source entry carries NO licence value). Source entries of all 212,652 footprints: OSM 140,080, Google 64,878, Microsoft 7,694. Kept footprints: OSM 54,672, Google 22,728, Microsoft 2,676 | building footprints and heights |
 | Overture `places` (place) | 58,463 named listings | **CDLA-Permissive-2.0** for Overture, Meta (`meta`), Microsoft, DAC, PinMeTo entries; **Apache-2.0** for Foursquare entries; **CC0-1.0** for AllThePlaces entries | storefronts and deliveries |
-| Overture `base` (land_use, water) | 1,580 land-use and 102 water polygons | **ODbL-1.0** (OpenStreetMap) | fetched and cached only; not read by the importer |
+| Overture `base` (land_use, water) | 1,580 land-use and 102 water polygons | **ODbL-1.0** (OpenStreetMap) | historical importer did not read them; the current source-landscape layer uses the supported polygons |
 | Bundled OSM kit snapshot `metro-network-full.json` | Hyderabad Metro relation 8826295: route masters Red 8297698, Blue 13986696, Green 8297697, 10 relations, 91 ways, 2,450 nodes | ODbL-1.0 | metro alignments, 57 stations, pillars |
 
 The lead's planning assumption that places, buildings and base are all CDLA-Permissive-2.0 is **not what this release carries**: buildings and base are ODbL (OpenStreetMap-derived) and one building source has no licence value at all. Only the Places theme (and its listing sources) is permissive.
@@ -234,7 +256,7 @@ Places: `names.primary` verbatim (whitespace-normalised) is `Storefront.name`; `
 
 ## v2.5 Graph, elevation, widths
 
-- `RoadEdge`, `DirectedEdge`, `Junction`, `GraphNode` keep the v1 structure. Differences: `provenance.source` is `derived`, `status` lists only the keys that apply (all values `provisional`), and `provenance.note` is present only for explicit `width_rules` or a width clamp. Junctions are nodes of degree 3 or more; `signalled` is always false (Overture carries no signal nodes). `core.pois` is empty. `core.turnRestrictions` is new.
+- `RoadEdge`, `DirectedEdge`, `Junction`, `GraphNode` keep the v1 structure. Differences: `provenance.source` is `derived`, `status` lists only the keys that apply (all values `provisional`), and `provenance.note` is present only for explicit `width_rules` or a width clamp. Junctions are nodes of degree 3 or more; `signalled` is false in the frozen core (Overture carries no signal nodes); the current sourced transport overlay enables 100 graph junctions with provisional timing. `core.pois` is empty. `core.turnRestrictions` is new.
 - Elevation reuses `lib/elevation.mjs`: bridges 6.5 m per level, 120 m approach ramps or own-edge ramps, node continuity. v2 additions: tunnels (-5 m) ramp like mirrored bridges (`rampTunnels`), and a repair pass (`repairNodeElevations`) ramps at-grade edges at nodes where Overture joins a bridge/tunnel and at-grade roads (5 nodes, 7 edges). Result: 73 bridge edges, 18 tunnel edges, 0 node-elevation violations.
 - At-grade edges are simplified with Douglas-Peucker at 0.3 m (31,223 to 28,523 points); ramped, bridge and tunnel edges keep every point.
 - `RoadEdge.footpath` (new, optional): true only for edges that are at grade for their whole length (`pointElevM` all 0), not bridge, not tunnel, and not `motorway`, `motorway_link` or `trunk_link`. It marks where pedestrians may spawn (10,031 of 10,276 edges).
@@ -243,10 +265,10 @@ Places: `names.primary` verbatim (whitespace-normalised) is `Storefront.name`; `
 
 - Overture footprints whose centroid (or, for large footprints, any vertex) is within 120 m of a selected road: 80,076 of 212,662. Polygons with holes keep them; winding is CCW from above as v1.
 - Heights: `height` (28), else `num_floors x 3.2 + 0.6` (231), else a provisional floor count from a hash of the id by footprint area (under 150 m2: 2 to 4; 150 to 600 m2: 3 to 5; above 600 m2: 4 to 8) x 3.2 + 0.6 (79,817). `heightStatus` is `provisional` for all.
-- 29 `transportation` footprints that are elevated metro stations sitting on the alignment (for example "Ameerpet Metro Interchange") are not emitted; the station model replaces them. 5,485 buildings still overlap a carriageway and are flagged `intrudesCarriageway`.
+- 29 `transportation` footprints that are elevated metro stations sitting on the alignment (for example "Ameerpet Metro Interchange") are not emitted; the station model replaces them. The current frozen archive contains 5,502 flagged outlines. The older report count is superseded by the composed recovery counts at the top of this document; 13 bodies remain omitted after manual/recovery layers.
 - Chunks: 200 m grid by centroid, `c_<ix>_<iz>`, 1,646 chunk files (median 17.0 KB, p90 45 KB, max 87 KB raw). Each chunk also carries the `storefronts` of its buildings.
 
-## v2.7 Storefronts and inventory
+## v2.7 Historical storefront attachment rules and inventory
 
 - Scope: every Overture place within 40 m of a selected routable or boundary road (27,994 places) is in `qa/storefront-inventory.json`; 19,508 are rendered as `Storefront` (status `provisional`, inventory status `provisional_listing`).
 - Excluded, always with reasons: `low_confidence` (below 0.35, 7,321), `frontage_capacity` (843), `facade_not_facing_a_road` (181), `no_at_grade_road_within_40m` (172, only an elevated road within 40 m), `kiosk_inside_building` (4). No record is `permanently_closed` in this snapshot. Statuses reserved for later passes: `verified_imagery`, `verified_field`, `missing`.
@@ -295,3 +317,11 @@ Tokens are `basic_category` plus every level of `taxonomy.hierarchy`; the first 
 
 - `WORLD_ORIGIN` is unchanged. The v2 extent is x -19.5 km to +1.9 km and z -9.8 km to +8.2 km (largest coordinate 19.5 km, more than the +-12 km assumed in the brief). Local coordinates are rounded to 0.01 m; the largest float32 round-trip error of any stored coordinate is 0.00094 m (floats between 16,384 and 32,768 are spaced 0.00195 m). The equirectangular projection differs from the WGS84 geodesic (Vincenty) by at most **0.048 percent** of distance (9.9 m on a 25 km pair; 0.019 percent when measured from the origin), i.e. about 5 m per 10 km, larger than the 0.0245 percent documented for the +-5 km v1 box. Rendering code should keep float64 world positions and subtract a chunk origin before building float32 vertex data.
 - Sizes: `core.json` 12.1 MiB raw (2.1 MiB gzip), 1,646 chunks 32.7 MiB raw (7.0 MiB gzip), `manifest.json` 0.4 MiB; total about 46 MiB raw and 9.1 MiB gzip. The 6 MB core target is not reachable with the v1 core structure (ids, per-edge status/provenance, `directed`, `junctions`, `nodes[].edges` for 10,276 roads); see CONTENT_GAPS W14.
+
+The revision 43 matched-view check still finds architectural gaps: Godavari's red arched ground frontage and curved upper frame are not reproduced by its current glazing template. Enclave balcony recesses, ornament, forecourt and stairs remain approximate. Correct provisional labels do not establish exact facade reconstruction.
+
+### Revision 46 first-pass source addition
+
+Seventeen dated views (6 April 2026, 11 November 2025) support 525.74 m of LEFT-only partial observation windows and 20 pending observations on nine connected Raidurg–HITEC City roads. No runtime fronts/profiles, suppressions, RIGHT inventory or physical changes are added. Uncertain 131 m/168 m framing is retained without precise attribution. Combined first-pass ledgers cover 772.22 m and 40 views across revisions 45–46; their 25 second-pass issue groups are not shops. Durgam–Madhapur progress remains separately frozen and overlapping, not an additive total.
+
+Revision 47 adds 444.68 m of LEFT-only partial quickpass observation windows on five connected roads, twelve new November 2025 views and eleven pending observations. Two reused 46 endpoint references are not counted again. No fronts/profiles, suppressions, physical changes, RIGHT review or visual completeness is added. Combined first-pass totals are 1,216.90 m / 52 views / 30 issue groups; Raidurg-only is 970.42 m. Detailed shelter, wall/foliage, TRIDENT entrance and public-access work remains pending. The separate Durgam–Madhapur progress files remain unchanged.

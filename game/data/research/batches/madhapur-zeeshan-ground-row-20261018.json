@@ -1,0 +1,843 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-zeeshan-ground-row-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+  "notes": "Actual Chrome close views resolve five ground retail/service boards beneath first-upper Zeeshan Mandi. Includes corrections to two distant-view interpretations. No full-map or metric verification claim.",
+  "sources": [
+    {
+      "id": "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+      "kind": "street_view",
+      "title": "Zeeshan Mandi ground units and full elevation — two adjacent April 2026 panoramas",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=iUIOJJlmCRMKnhJvu0zbvg&heading=350&pitch=12&fov=65",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "position": {
+        "lat": 17.4410282,
+        "lon": 78.3918787,
+        "headingDeg": 350,
+        "panoId": "iUIOJJlmCRMKnhJvu0zbvg"
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Walked east from m8V0Q--yGJu18O2v5lHEYg to this adjacent panorama. Close views heading38 and55 at the western camera clearly resolve Ambica Electricals & Hardware, a combined Samsung Galaxy/iPhone mobile-accessories board, Sri Sai Xerox, Eco-CC Express courier, and Sai Priya Medical & General Store from west to east. Zeeshan Mandi occupies the first upper floor with broad glazed strip, maroon/gold fascia, vertical decorative light strings/slats and white roof parapet. Ground divides, metric dimensions and rear footprint extent remain estimates; source photos are not redistributed."
+    },
+    {
+      "id": "sat-madhapur-zeeshan-roof-chrome-20261018",
+      "kind": "satellite",
+      "title": "Zeeshan/Bawarchi roof and Megha Hills Road junction",
+      "url": "https://www.google.com/maps/@17.44117,78.39187,132m/data=!3m1!1e3",
+      "captureDate": null,
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "assetPolicy": "reference_only",
+      "notes": "Chrome satellite view corroborates the low front strip immediately east of the taller peach Bawarchi block and west of Megha Hills Road. Canonical OSM way356160898 is the south street-facing strip, with separate rear roof outlines. Public Zeeshan listing pin lies near the east rear edge and is not treated as a measured entrance. Source pixels are not runtime textures."
+    }
+  ],
+  "observations": [
+    {
+      "id": "survey-madhapur-c1729-zeeshan-mandi-observation",
+      "sourceIds": [
+        "sv-madhapur-c1729-north-2026-04-chrome-20261018",
+        "listing-zeeshan-mandi-madhapur-20261018",
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Zeeshan Mandi",
+      "category": "restaurant",
+      "roadId": "r_38680221829_0",
+      "position": {
+        "lat": 17.4410371,
+        "lon": 78.3917812,
+        "headingDeg": 45
+      },
+      "placementStatus": "pending",
+      "notes": "First upper restaurant with broad curtained glazing below a maroon/gold fascia. The public listing explicitly says 1st Floor opposite Best Vision Eye Hospital, Pillar1729; its pin is not a measured doorway. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional. Supersedes the earlier distant reading; placement remains pending because exact metric proof is incomplete.",
+      "storefrontOverrideId": "survey-madhapur-zeeshan-restaurant"
+    },
+    {
+      "id": "survey-madhapur-c1729-samsung-iphone-board-observation",
+      "sourceIds": [
+        "sv-madhapur-c1729-north-2026-04-chrome-20261018",
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Samsung Galaxy / iPhone signboard",
+      "category": "electronics_mobile",
+      "roadId": "r_38680221829_0",
+      "position": {
+        "lat": 17.4410371,
+        "lon": 78.3917812,
+        "headingDeg": 45
+      },
+      "placementStatus": "pending",
+      "notes": "One combined black mobile-accessories/services sign above a closed shutter. Proprietor name and manufacturer authorisation are not established; this reconstructs the observed board, not two official dealerships. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional. Supersedes the earlier distant reading; placement remains pending because exact metric proof is incomplete.",
+      "storefrontOverrideId": "survey-madhapur-zeeshan-mobile-board"
+    },
+    {
+      "id": "survey-madhapur-c1729-sai-priya-observation",
+      "sourceIds": [
+        "sv-madhapur-c1729-north-2026-04-chrome-20261018",
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Sai Priya Medical & General Store",
+      "category": "pharmacy",
+      "roadId": "r_38680221829_0",
+      "position": {
+        "lat": 17.4410371,
+        "lon": 78.3917812,
+        "headingDeg": 45
+      },
+      "placementStatus": "pending",
+      "notes": "Eastern ground shop, blue pharmacy board with green/white medical crosses, medicines visible below. Corrects the earlier distant-view electrical-shop misreading. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional. Supersedes the earlier distant reading; placement remains pending because exact metric proof is incomplete.",
+      "storefrontOverrideId": "survey-madhapur-zeeshan-sai-priya"
+    },
+    {
+      "id": "survey-madhapur-c1729-crompton-board-observation",
+      "sourceIds": [
+        "sv-madhapur-c1729-north-2026-04-chrome-20261018",
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Ambica Electricals & Hardware",
+      "category": "hardware",
+      "roadId": "r_38680221829_0",
+      "position": {
+        "lat": 17.4410371,
+        "lon": 78.3917812,
+        "headingDeg": 45
+      },
+      "placementStatus": "pending",
+      "notes": "Open western unit, blue board with Telugu and English operator text; Crompton product panels and electrical goods are branding, not separate shops. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional. Supersedes the earlier distant reading; placement remains pending because exact metric proof is incomplete.",
+      "storefrontOverrideId": "survey-madhapur-zeeshan-ambica"
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-madhapur-zeeshan-ambica",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "AMBICA ELECTRICALS & HARDWARE",
+      "nameTe": null,
+      "category": "hardware",
+      "group": "hardware",
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "buildingId": "b_63d5a9ca25",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16640.99,
+          -2935.93
+        ],
+        [
+          -16635.67,
+          -2935.57
+        ]
+      ],
+      "entrance": [
+        -16638.33,
+        -2935.75
+      ],
+      "floor": 0,
+      "frontageWidthM": 5.33,
+      "alongRoadM": 29.38,
+      "facingHeading": 2.9734784464696338,
+      "lat": 17.44112615055271,
+      "lon": 78.39180236221041,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ]
+      },
+      "appearance": {
+        "frontBaseM": 0.15,
+        "heightM": 3.55,
+        "signBaseM": 2.6,
+        "signHeightM": 0.9,
+        "awning": false,
+        "categoryProps": false,
+        "signColor": "#1b4a82",
+        "signTextColor": "#ece4cf",
+        "frontStyle": "glazed",
+        "facadeColor": "#dad2b9",
+        "shutterColor": "#807c68"
+      },
+      "notes": "Open western unit, blue board with Telugu and English operator text; Crompton product panels and electrical goods are branding, not separate shops. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional."
+    },
+    {
+      "id": "survey-madhapur-zeeshan-mobile-board",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "SAMSUNG Galaxy / iPhone",
+      "nameTe": null,
+      "category": "electronics_mobile",
+      "group": "electronics_mobile",
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "buildingId": "b_63d5a9ca25",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16635.67,
+          -2935.57
+        ],
+        [
+          -16630.97,
+          -2935.26
+        ]
+      ],
+      "entrance": [
+        -16633.32,
+        -2935.415
+      ],
+      "floor": 0,
+      "frontageWidthM": 4.71,
+      "alongRoadM": 34.38,
+      "facingHeading": 2.9734784464697532,
+      "lat": 17.441123123639507,
+      "lon": 78.39184951563057,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ]
+      },
+      "appearance": {
+        "frontBaseM": 0.15,
+        "heightM": 3.55,
+        "signBaseM": 2.6,
+        "signHeightM": 0.9,
+        "awning": false,
+        "categoryProps": false,
+        "signColor": "#191c1c",
+        "signTextColor": "#f0ede0",
+        "frontStyle": "shutter",
+        "shutterColor": "#5e594b"
+      },
+      "notes": "One combined black mobile-accessories/services sign above a closed shutter. Proprietor name and manufacturer authorisation are not established; this reconstructs the observed board, not two official dealerships. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional."
+    },
+    {
+      "id": "survey-madhapur-zeeshan-sri-sai-xerox",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "SRI SAI XEROX",
+      "nameTe": null,
+      "category": "office_service",
+      "group": "office_service",
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "buildingId": "b_63d5a9ca25",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16630.97,
+          -2935.26
+        ],
+        [
+          -16629.11,
+          -2935.13
+        ]
+      ],
+      "entrance": [
+        -16630.04,
+        -2935.195
+      ],
+      "floor": 0,
+      "frontageWidthM": 1.86,
+      "alongRoadM": 37.65,
+      "facingHeading": 2.9734784464699286,
+      "lat": 17.44112113581591,
+      "lon": 78.39188038653239,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ]
+      },
+      "appearance": {
+        "frontBaseM": 0.15,
+        "heightM": 3.55,
+        "signBaseM": 2.6,
+        "signHeightM": 0.9,
+        "awning": false,
+        "categoryProps": false,
+        "signColor": "#eee6a6",
+        "signTextColor": "#aa342b",
+        "frontStyle": "glazed",
+        "facadeColor": "#e4d8aa"
+      },
+      "notes": "Narrow yellow-board unit immediately east of the mobile shutter; Xerox, print/scan and lamination text visible. Shares a small glazed frontage area with the neighbouring courier board; exact internal division is unmeasured. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional."
+    },
+    {
+      "id": "survey-madhapur-zeeshan-eco-cc-express",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "ECO-CC EXPRESS COURIER SERVICES",
+      "nameTe": null,
+      "category": "office_service",
+      "group": "office_service",
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "buildingId": "b_63d5a9ca25",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16629.11,
+          -2935.13
+        ],
+        [
+          -16627.16,
+          -2935
+        ]
+      ],
+      "entrance": [
+        -16628.135000000002,
+        -2935.065
+      ],
+      "floor": 0,
+      "frontageWidthM": 1.95,
+      "alongRoadM": 39.55,
+      "facingHeading": 2.973478446469771,
+      "lat": 17.441119961192875,
+      "lon": 78.39189831612629,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ]
+      },
+      "appearance": {
+        "frontBaseM": 0.15,
+        "heightM": 3.55,
+        "signBaseM": 2.6,
+        "signHeightM": 0.9,
+        "awning": false,
+        "categoryProps": false,
+        "signColor": "#ecead8",
+        "signTextColor": "#30304b",
+        "frontStyle": "glazed",
+        "facadeColor": "#e8e2c8"
+      },
+      "notes": "White courier board immediately east of Sri Sai Xerox and before Sai Priya. International/domestic courier text visible. Shared/adjacent narrow glazed bays are represented with provisional widths. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional."
+    },
+    {
+      "id": "survey-madhapur-zeeshan-sai-priya",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "SAI PRIYA MEDICAL & GENERAL STORE",
+      "nameTe": null,
+      "category": "pharmacy",
+      "group": "pharmacy",
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "buildingId": "b_63d5a9ca25",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16627.16,
+          -2935
+        ],
+        [
+          -16623.26,
+          -2934.74
+        ]
+      ],
+      "entrance": [
+        -16625.21,
+        -2934.87
+      ],
+      "floor": 0,
+      "frontageWidthM": 3.91,
+      "alongRoadM": 42.46,
+      "facingHeading": 2.973478446469816,
+      "lat": 17.441118199258323,
+      "lon": 78.39192584581771,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ]
+      },
+      "appearance": {
+        "frontBaseM": 0.15,
+        "heightM": 3.55,
+        "signBaseM": 2.6,
+        "signHeightM": 0.9,
+        "awning": false,
+        "categoryProps": false,
+        "signColor": "#347d9b",
+        "signTextColor": "#eee9c8",
+        "frontStyle": "glazed",
+        "facadeColor": "#d9d8c1"
+      },
+      "notes": "Eastern ground shop, blue pharmacy board with green/white medical crosses, medicines visible below. Corrects the earlier distant-view electrical-shop misreading. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional."
+    },
+    {
+      "id": "survey-madhapur-zeeshan-restaurant",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "Zeeshan Mandi",
+      "nameTe": null,
+      "category": "restaurant",
+      "group": "restaurant",
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "buildingId": "b_63d5a9ca25",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16640.99,
+          -2935.93
+        ],
+        [
+          -16623.26,
+          -2934.74
+        ]
+      ],
+      "entrance": [
+        -16632.125,
+        -2935.335
+      ],
+      "floor": 1,
+      "frontageWidthM": 17.77,
+      "alongRoadM": 35.57,
+      "facingHeading": 2.973478446469892,
+      "lat": 17.441122400794562,
+      "lon": 78.39186076280365,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ]
+      },
+      "appearance": {
+        "frontBaseM": 3.8,
+        "heightM": 6.45,
+        "signBaseM": 7,
+        "signHeightM": 2.4,
+        "awning": false,
+        "categoryProps": false,
+        "signColor": "#714439",
+        "signTextColor": "#e1bb55",
+        "frontStyle": "glazed",
+        "facadeColor": "#827e60"
+      },
+      "notes": "First upper restaurant with broad curtained glazing below a maroon/gold fascia. The public listing explicitly says 1st Floor opposite Best Vision Eye Hospital, Pillar1729; its pin is not a measured doorway. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "profile-madhapur-zeeshan-complex",
+      "kind": "building_profile",
+      "buildingId": "b_63d5a9ca25",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "heightM": 11.4,
+      "levels": 2,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#e0ddc9",
+      "profile": {
+        "sourceIds": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+          "sat-madhapur-zeeshan-roof-chrome-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#e0ddc9",
+        "material": "mixed",
+        "fronts": [
+          {
+            "storefrontIds": [
+              "survey-madhapur-zeeshan-ambica",
+              "survey-madhapur-zeeshan-mobile-board",
+              "survey-madhapur-zeeshan-sri-sai-xerox",
+              "survey-madhapur-zeeshan-eco-cc-express",
+              "survey-madhapur-zeeshan-sai-priya",
+              "survey-madhapur-zeeshan-restaurant"
+            ],
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.8,
+                "glazingRatio": 0,
+                "wallColor": "#c8c6b4",
+                "bandColor": "#d2d0bc",
+                "bandHeightM": 0.2
+              },
+              {
+                "baseM": 3.8,
+                "heightM": 3.2,
+                "glazingRatio": 0.96,
+                "glassColor": "#777b61",
+                "wallColor": "#a8a48d",
+                "bandHeightM": 0.08
+              },
+              {
+                "baseM": 7,
+                "heightM": 2.8,
+                "glazingRatio": 0,
+                "wallColor": "#714439",
+                "bandColor": "#714439",
+                "bandHeightM": 0.1
+              },
+              {
+                "baseM": 9.8,
+                "heightM": 1.6,
+                "glazingRatio": 0,
+                "wallColor": "#e0ddc9",
+                "bandColor": "#c3b68a",
+                "bandHeightM": 0.12
+              }
+            ],
+            "accents": [
+              {
+                "start": 0.025,
+                "end": 0.029,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.07200000000000001,
+                "end": 0.07600000000000001,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.11900000000000001,
+                "end": 0.12300000000000001,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.166,
+                "end": 0.17,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.21300000000000002,
+                "end": 0.21700000000000003,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.26,
+                "end": 0.264,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.307,
+                "end": 0.311,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.354,
+                "end": 0.358,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.40099999999999997,
+                "end": 0.40499999999999997,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.44799999999999995,
+                "end": 0.45199999999999996,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.49499999999999994,
+                "end": 0.49899999999999994,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.5419999999999999,
+                "end": 0.5459999999999999,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.589,
+                "end": 0.593,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.636,
+                "end": 0.64,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.683,
+                "end": 0.687,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.7300000000000001,
+                "end": 0.7340000000000001,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.7770000000000001,
+                "end": 0.7810000000000001,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.8240000000000002,
+                "end": 0.8280000000000002,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.8710000000000002,
+                "end": 0.8750000000000002,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.9180000000000003,
+                "end": 0.9220000000000003,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.9650000000000003,
+                "end": 0.9690000000000003,
+                "baseM": 3.8,
+                "heightM": 6.5,
+                "color": "#c4ba8d",
+                "outsetM": 0.3
+              },
+              {
+                "start": 0.02,
+                "end": 0.22,
+                "baseM": 10.1,
+                "heightM": 1.1,
+                "color": "#b3a77d",
+                "outsetM": 0.17,
+                "outlineM": 0.14
+              },
+              {
+                "start": 0.27,
+                "end": 0.47000000000000003,
+                "baseM": 10.1,
+                "heightM": 1.1,
+                "color": "#b3a77d",
+                "outsetM": 0.17,
+                "outlineM": 0.14
+              },
+              {
+                "start": 0.52,
+                "end": 0.72,
+                "baseM": 10.1,
+                "heightM": 1.1,
+                "color": "#b3a77d",
+                "outsetM": 0.17,
+                "outlineM": 0.14
+              },
+              {
+                "start": 0.77,
+                "end": 0.97,
+                "baseM": 10.1,
+                "heightM": 1.1,
+                "color": "#b3a77d",
+                "outsetM": 0.17,
+                "outlineM": 0.14
+              }
+            ],
+            "fascia": {
+              "baseM": 11.25,
+              "heightM": 0.15,
+              "color": "#d5d1b9",
+              "outsetM": 0.1
+            }
+          }
+        ]
+      },
+      "notes": "Two occupied levels with tall first-floor restaurant fascia and roof parapet. Canonical front strip immediately east of Bawarchi is matched using adjacent cameras and satellite roof context. Heights, shop boundaries and entrance positions are estimates. Rear roof pieces remain independent source buildings; no invented tenants or ground-floor restaurant doorway."
+    }
+  ],
+  "expectedPrevious": {
+    "observations:survey-madhapur-c1729-zeeshan-mandi-observation": "ce530c043055801aa727fc73b3305447adc91d016359fedc682edf56446fedf0",
+    "observations:survey-madhapur-c1729-samsung-iphone-board-observation": "4ab8557decfb0253621c24aab26159b8e45df4922eab14bf320ef1b6ed412252",
+    "observations:survey-madhapur-c1729-sai-priya-observation": "0f85875d9a93ba4fb35a223217e1450ff19ced188298c01160941ebe877e5946",
+    "observations:survey-madhapur-c1729-crompton-board-observation": "7e6676a189c5b9dd2a7ccea4a0116212674a3ce18eda2765b9c70ece4313b1ab"
+  },
+  "suppressions": [
+    {
+      "id": "suppress-zeeshan-front-hivee-ground",
+      "storefrontId": "sf_61a2bbc951",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+      ],
+      "reason": "Dated street-level views show Ambica Electricals at this ground face, not Hivee Inn. The source listing is preserved in the archive; no claim is made about its separate location or current operation."
+    }
+  ]
+}

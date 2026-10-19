@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-road36-pano039-046-sign-hints-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "A bounded identity-only review of the existing connected January 2025 Road No. 36 panorama chain from pano 39 through pano 46. The camera sequence spans approximately 74.4 m of summed Street View camera positions; this is not measured road length or verified frontage coverage. No duplicate panorama sources are added. The views show dense commercial facades across a planted median, but Metro columns, trees, traffic, and later construction fencing block portions of the ground-level frontages. Two legible sign identities are stored as pending hints. The next saved pano's live date label showed Oct 2026 despite its stored source metadata saying Jan 2025; keep that discrepancy open and verify the date before using the view as Jan 2025 evidence.",
+  "sources": [],
+  "observations": [
+    {
+      "id": "obs-mp-road36-puma-sign-hint-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-039"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "PUMA sign visible on the Road No. 36 building frontage",
+      "notes": "The January 2025 panorama at 17.4345466, 78.4034692, viewed at heading 140.38 degrees, shows the PUMA wordmark on the image-right building facade near the edge of the frame. Record the visible sign only as a dated identity hint. The exact shop unit, entrance, frontage boundary, canonical side, along-road order, current tenancy, and building association remain unverified. The panorama coordinate is the camera location, not the storefront entrance.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4345466,
+        "lon": 78.4034692,
+        "headingDeg": 140.38
+      }
+    },
+    {
+      "id": "obs-mp-road36-bisi-bisi-sign-hint-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-041",
+        "sv-mp-road36-middle-chain-20261019-042"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "BISI BISI sign text visible on the Road No. 36 frontage",
+      "notes": "The January 2025 connected views at 17.4344452, 78.4036281 and 17.4343919, 78.4037213 show white BISI BISI lettering on a green frontage panel to image-right. Foliage partly obscures the panel and the smaller yellow line below; its remaining text is unresolved. This is a dated sign identity hint only. Do not infer a complete tenant name, exact unit, entrance, frontage boundary, canonical side, along-road order, current tenancy, or association with a particular game edge. The panorama coordinates are camera positions, not storefront entrances.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4344452,
+        "lon": 78.4036281,
+        "headingDeg": 140.38
+      }
+    }
+  ]
+}

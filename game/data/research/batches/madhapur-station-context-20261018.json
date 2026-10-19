@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-station-context-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "A January 2025 Road No. 36 panorama was opened in Chrome at the nearest mapped street point to the provisional Madhapur station marker. The view is roughly 33 m from that marker and shows elevated Metro structure, a raised planted divider, paved carriageway, cars, motorcycles, auto-rickshaws and pedestrians, plus a legible Zuri Skin Clinic sign. The marker is not a verified station gate; no complete frontage order, exact road side or measured geometry is claimed. Google imagery remains reference-only.",
+  "sources": [
+    {
+      "id": "sv-madhapur-road36-station-approach-202501-20261018",
+      "kind": "street_view",
+      "title": "Madhapur station-area Road No. 36 under Metro — January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=eoPBi2k4_X7NKvfTf2UWGw&heading=147&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4375615,
+        "lon": 78.4003716,
+        "panoId": "eoPBi2k4_X7NKvfTf2UWGw",
+        "headingDeg": 147
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Opened at the nearest available Street View road point to the provisional Madhapur station map coordinate. Google identifies 640 Road No. 36; the camera point is about 33 m from the local station marker. The image shows a broad elevated Metro deck and piers, a planted raised divider, brick-paved road surface, cars, motorcycles, auto-rickshaws and pedestrians. It does not show a confirmed station gate. Reference imagery is not copied."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-madhapur-zuri-skin-clinic-2025",
+      "sourceIds": [
+        "sv-madhapur-road36-station-approach-202501-20261018"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-18",
+      "name": "Zuri Skin Clinic sign near Madhapur station approach",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4375615,
+        "lon": 78.4003716,
+        "headingDeg": 147
+      },
+      "placementStatus": "pending",
+      "notes": "The fascia reads ZURI SKIN CLINIC on a building beside the Road No. 36 view. The camera is not the entrance coordinate; exact unit, canonical side, along-road order and current operation remain unverified."
+    },
+    {
+      "id": "obs-madhapur-road36-under-metro-roadlife-2025",
+      "sourceIds": [
+        "sv-madhapur-road36-station-approach-202501-20261018"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-18",
+      "name": "Madhapur station-area Road No. 36: Metro, raised divider and mixed traffic",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.4375615,
+        "lon": 78.4003716,
+        "headingDeg": 147
+      },
+      "placementStatus": "pending",
+      "notes": "The January 2025 view shows the elevated Metro deck and piers, planted raised divider, interlocking/paved road surface, cars, motorcycles, auto-rickshaws and pedestrians. Repeated Honer panels are advertisements on piers, not storefronts. The camera is near but not at the station marker; gate, measured geometry, traffic volume, complete shop order and canonical road side remain unresolved."
+    }
+  ],
+  "storefrontOverrides": [],
+  "suppressions": [],
+  "corrections": [],
+  "roadReviews": []
+}

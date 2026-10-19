@@ -1,10 +1,14 @@
 import * as THREE from 'three';
+import { buildSourceLandscape } from '../art/sourceLandscape';
 import type { ArtApi, HeroCar, Quality, TrafficKind, TrafficTemplate, LandingMarker } from '../art/api';
 import type { WorldCore, WorldChunk, RoadEdge } from '../world/schema';
 import type { Session } from '../missions/session';
 import type { WorldPhysics } from '../world/collision';
 import { forwardOf } from '../world/roadIndex';
 import { SignalSystem } from '../traffic/signals';
+import { SIM_HZ } from '../config/gameplay';
+import { buildStreetscape, type StreetscapeData } from '../art/streetscape';
+import { updateBicycleAnimation } from '../art/bicycleAnimation';
 
 /** must equal ROAD_TILE in src/art/roads.ts (the art bundle is loaded separately) */
 const ROAD_TILE = 480;
@@ -13,18 +17,22 @@ const roadTileKey = (x: number, z: number) => `${Math.floor(x / ROAD_TILE)}_${Ma
 const ROAD_STREAM_MIN = 3000;
 
 const tmpV = new THREE.Vector3();
+const cameraDragBindings = new WeakMap<HTMLCanvasElement, () => void>();
 
 /** X east, Y up, Z south — identical to the simulation frame, so no axis conversion. */
 export class GameView {
   readonly scene = new THREE.Scene();
   readonly camera: THREE.PerspectiveCamera;
-  private env: { update(t: THREE.Vector3): void; dispose(): void } | null = null;
+  private env: { update(t: THREE.Vector3,dt?:number): void; setAtmosphere?(state:{timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}):void;setTerrainCore?(core:WorldCore):void;bindTerrainObject?(object:THREE.Object3D):void; dispose(): void } | null = null;
+  private atmosphere:{timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}={timeOfDay:'day',weather:'clear'};
+  setAtmosphere(state:{timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}) { this.atmosphere={...state};this.env?.setAtmosphere?.(state);this.car?.setHeadlights?.(state.timeOfDay!=='day'||state.weather==='rain'); }
   private staticGroup = new THREE.Group();
   private chunkGroups = new Map<string, THREE.Group>();
   car: HeroCar | null = null;
   private templates: Record<TrafficKind, TrafficTemplate> | null = null;
   private pedTemplate: THREE.Object3D | null = null;
   private actorObjs = new Map<number, THREE.Object3D>();
+  private actorMaterials = new WeakMap<THREE.Object3D, THREE.Material[]>();
   private pedObjs = new Map<number, THREE.Object3D>();
   private deliveryMarker: THREE.Object3D | null = null;
   private markerFor: string | null = null;
@@ -33,10 +41,21 @@ export class GameView {
   private camPos = new THREE.Vector3();
   private camLook = new THREE.Vector3();
   private camInit = false;
+  private cameraOrbit = 0;
+  private cameraPitch = 0;
+  private lookAllowed = false;
+  private lookPointer: number | null = null;
+  private lookX = 0;
+  private lookY = 0;
+  private lookCanvas: HTMLCanvasElement | null = null;
+  private releaseLookListeners: (() => void) | null = null;
   reducedShake = false;
   shake = 0;
   quality: Quality = 'standard';
   stats = { drawCalls: 0, triangles: 0, chunks: 0, actors: 0 };
+  private metroVisual: THREE.Group | null = null;
+  get metroAmbience():number { return Math.max(0,Math.min(1,Number(this.metroVisual?.userData.nearbySound??0))); }
+  private presentationTime = 0;
   private signalHeads: { edge: string; lamps: THREE.MeshStandardMaterial[] }[] = [];
 
   /** signal heads at signalled junctions (S03); lamp position + colour, so state is not colour-only */
@@ -77,7 +96,51 @@ export class GameView {
   constructor(public renderer: THREE.WebGLRenderer, private art: ArtApi) {
     this.camera = new THREE.PerspectiveCamera(62, 1, 0.3, 2200);
     this.scene.add(this.staticGroup);
+    this.bindCameraLook(renderer.domElement);
   }
+
+  /** Canvas-only gesture: UI controls keep their own independent pointers. */
+  private bindCameraLook(canvas: HTMLCanvasElement | undefined) {
+    if (!canvas?.addEventListener) return;
+    cameraDragBindings.get(canvas)?.();
+    this.lookCanvas = canvas;
+    const down = (e: PointerEvent) => {
+      if (!this.lookAllowed || this.lookPointer !== null || e.button !== 0 || e.target !== canvas) return;
+      this.lookPointer = e.pointerId; this.lookX = e.clientX; this.lookY = e.clientY;
+      try { canvas.setPointerCapture(e.pointerId); } catch { /* pointer cancel/up still releases */ }
+      e.preventDefault();
+    };
+    const move = (e: PointerEvent) => {
+      if (e.pointerId !== this.lookPointer || !this.lookAllowed) return;
+      this.cameraOrbit = Math.max(-Math.PI, Math.min(Math.PI, this.cameraOrbit + (e.clientX - this.lookX) * .006));
+      // Pull the scene downward to look up at upper-floor shops; only the aim changes.
+      this.cameraPitch = Math.max(-.25, Math.min(.65, this.cameraPitch + (e.clientY - this.lookY) * .004));
+      this.lookX = e.clientX; this.lookY = e.clientY;
+      e.preventDefault();
+    };
+    const end = (e: PointerEvent) => { if (e.pointerId === this.lookPointer) this.endCameraLook(); };
+    const blur = () => this.endCameraLook();
+    canvas.addEventListener('pointerdown', down);
+    canvas.addEventListener('pointermove', move);
+    for (const name of ['pointerup', 'pointercancel', 'lostpointercapture'] as const) canvas.addEventListener(name, end);
+    if (typeof window !== 'undefined') window.addEventListener('blur', blur);
+    this.releaseLookListeners = () => {
+      this.endCameraLook();
+      canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move);
+      for (const name of ['pointerup', 'pointercancel', 'lostpointercapture'] as const) canvas.removeEventListener(name, end);
+      if (typeof window !== 'undefined') window.removeEventListener('blur', blur);
+      if (cameraDragBindings.get(canvas) === this.releaseLookListeners) cameraDragBindings.delete(canvas);
+      this.lookCanvas = null;
+    };
+    cameraDragBindings.set(canvas, this.releaseLookListeners);
+  }
+
+  private endCameraLook() {
+    const pointer = this.lookPointer; this.lookPointer = null;
+    if (pointer !== null) try { this.lookCanvas?.releasePointerCapture(pointer); } catch { /* capture may already be lost */ }
+  }
+
+  disposeCameraControls() { this.releaseLookListeners?.(); this.releaseLookListeners = null; }
 
   async buildStatic(core: WorldCore, quality: Quality, onProgress: (s: string) => void): Promise<void> {
     this.quality = quality;
@@ -85,16 +148,24 @@ export class GameView {
     this.camera.updateProjectionMatrix();
     onProgress('Preparing the road');
     this.env = this.art.buildEnvironment(this.scene, this.renderer, quality);
+    this.env.setTerrainCore?.(core);
+    this.env.setAtmosphere?.(this.atmosphere);
+    this.staticGroup.add(buildSourceLandscape(core));
     await tick();
     if (core.roads.length > ROAD_STREAM_MIN) this.initRoadStream(core); // whole network: stream road tiles around the camera
     else this.staticGroup.add(this.art.buildRoads(core, quality));
     await tick();
     onProgress('Raising the metro viaduct');
-    this.staticGroup.add(this.art.buildMetro(core, quality));
+    this.metroVisual = this.art.buildMetro(core, quality);
+    this.staticGroup.add(this.metroVisual);
     if ((core as any).structures?.length && this.artExtras.buildStructures) this.staticGroup.add(this.artExtras.buildStructures(core, quality));
     await tick();
+    const streetscape=(core as WorldCore & {streetscape?:StreetscapeData}).streetscape;
+    if(streetscape)this.staticGroup.add(buildStreetscape(streetscape,core,quality));
+    this.env.bindTerrainObject?.(this.staticGroup);
     onProgress('Preparing vehicles');
     this.car = this.art.createHeroCar(quality);
+    this.car.setHeadlights?.(this.atmosphere.timeOfDay!=='day'||this.atmosphere.weather==='rain');
     this.scene.add(this.car.root);
     this.templates = this.art.createTrafficTemplates(quality);
     this.pedTemplate = this.art.createPedestrianTemplate(quality);
@@ -114,6 +185,7 @@ export class GameView {
     g.name = chunk.id;
     this.chunkGroups.set(chunk.id, g);
     this.scene.add(g);
+    this.env?.bindTerrainObject?.(g);
   }
   removeChunk(id: string) {
     const g = this.chunkGroups.get(id);
@@ -131,13 +203,13 @@ export class GameView {
 
   setDeliveryMarker(polygon: [number, number][] | null, elevation: number, id: string | null) {
     if (this.markerFor === id) return;
-    if (this.deliveryMarker) { this.scene.remove(this.deliveryMarker); this.deliveryMarker = null; }
+    if (this.deliveryMarker) { this.scene.remove(this.deliveryMarker); this.deliveryMarker.userData.dispose?.(); this.deliveryMarker = null; }
     this.markerFor = id;
     if (polygon) { this.deliveryMarker = this.art.createDeliveryMarker(polygon, elevation); this.scene.add(this.deliveryMarker); }
   }
 
   setRoute(points: THREE.Vector3[] | null) {
-    if (this.routeLine) { this.scene.remove(this.routeLine); this.routeLine.geometry.dispose(); this.routeLine = null; }
+    if (this.routeLine) { this.scene.remove(this.routeLine); this.routeLine.geometry.dispose();for(const mat of Array.isArray(this.routeLine.material)?this.routeLine.material:[this.routeLine.material])mat.dispose(); this.routeLine = null; }
     if (!points || points.length < 2) return;
     const g = new THREE.BufferGeometry().setFromPoints(points);
     const m = new THREE.LineDashedMaterial({ color: 0x35d0ff, dashSize: 3, gapSize: 2, transparent: true, opacity: 0.85, depthWrite: false });
@@ -157,21 +229,30 @@ export class GameView {
         o = this.templates[a.kind].object.clone();
         const tmpl = this.templates[a.kind].object;
         const variants = (tmpl.userData.paintVariants as (string | number)[] | undefined) ?? [];
+        const ownedMaterials:THREE.Material[]=[];
         o.traverse((c) => {
           const m = c as THREE.Mesh;
           if (!m.isMesh) return;
-          if (c.name === 'brake') m.material = (m.material as THREE.Material).clone();
+          if (c.name === 'brake') { const mat=(m.material as THREE.Material).clone();m.material=mat;ownedMaterials.push(mat); }
           // cosmetic paint variety from the actor id (never affects simulation)
-          if (c.name === 'body' && variants.length) { const mat = (m.material as THREE.MeshStandardMaterial).clone(); mat.color.set(variants[a.id % variants.length] as any); m.material = mat; }
+          if (c.name === 'body' && variants.length) { const mat = (m.material as THREE.MeshStandardMaterial).clone(); mat.color.set(variants[a.id % variants.length] as any); m.material = mat;ownedMaterials.push(mat); }
         });
+        this.actorMaterials.set(o,ownedMaterials);
         this.actorObjs.set(a.id, o); this.scene.add(o);
       }
       o.position.set(a.px + (a.x - a.px) * alpha, a.py + (a.y - a.py) * alpha, a.pz + (a.z - a.pz) * alpha);
       o.rotation.y = lerpAngle(a.pheading, a.heading, alpha);
+      if(a.kind==='bicycle'){
+        const moved=Math.hypot(o.position.x-(o.userData.cycleX??o.position.x),o.position.z-(o.userData.cycleZ??o.position.z));
+        // Accumulate actual movement so a new directed edge never resets the crank phase.
+        o.userData.cycleDistance=(o.userData.cycleDistance??a.along)+(moved<10?moved:0);
+        o.userData.cycleX=o.position.x;o.userData.cycleZ=o.position.z;
+        updateBicycleAnimation(o,o.userData.cycleDistance);
+      }
       const brake = o.getObjectByName('brake') as THREE.Mesh | undefined;
       if (brake) { const m = brake.material as THREE.MeshStandardMaterial; if (m.emissiveIntensity !== undefined) m.emissiveIntensity = a.braking ? 2.2 : 0.25; }
     }
-    for (const [id, o] of this.actorObjs) if (!live.has(id)) { this.scene.remove(o); this.actorObjs.delete(id); }
+    for (const [id, o] of this.actorObjs) if (!live.has(id)) { this.releaseActor(o); this.actorObjs.delete(id); }
     const livep = new Set<number>();
     for (const p of s.traffic.peds) {
       livep.add(p.id);
@@ -184,13 +265,21 @@ export class GameView {
     this.stats.actors = this.actorObjs.size + this.pedObjs.size;
   }
 
+  private releaseActor(o:THREE.Object3D) {
+    this.scene.remove(o);
+    o.traverse(c=>{if((c as THREE.InstancedMesh).isInstancedMesh)(c as THREE.InstancedMesh).dispose();});
+    for(const mat of this.actorMaterials.get(o)??[])mat.dispose();
+    this.actorMaterials.delete(o);
+  }
+
   clearActors() {
-    for (const o of this.actorObjs.values()) this.scene.remove(o);
+    for (const o of this.actorObjs.values()) this.releaseActor(o);
     for (const o of this.pedObjs.values()) this.scene.remove(o);
     this.actorObjs.clear(); this.pedObjs.clear();
   }
 
   update(s: Session, world: WorldPhysics, alpha: number, dt: number) {
+    this.presentationTime = s.tick / SIM_HZ;
     const p = s.player;
     const x = p.prev.x + (p.x - p.prev.x) * alpha;
     const y = p.prev.y + (p.y - p.prev.y) * alpha;
@@ -198,11 +287,17 @@ export class GameView {
     const h = lerpAngle(p.prev.heading, p.heading, alpha);
     if (this.car) {
       this.car.root.position.set(x, y, z);
+      const suspension = p as typeof p & { suspensionPitch?: number; suspensionRoll?: number; curbImpact?: number };
       this.car.root.rotation.set(0, h, 0);
+      this.car.root.rotateX(suspension.suspensionPitch ?? 0);
+      this.car.root.rotateZ(suspension.suspensionRoll ?? 0);
       // gentle visual pitch in flight / bank on steer — visual only
       if (p.isAirborne) { this.car.root.rotateX(Math.max(-0.12, Math.min(0.12, p.vy * 0.03))); this.car.root.rotateZ(-p.steerAngle * 0.5); }
+      const ground=world.roads.surface(x,z,{maxY:y+.3,margin:0});
+      this.car.setFlightContext?.({heightM:Math.max(0,y-(ground?.elevation??0)),verticalSpeed:p.vy,speedMps:p.speed,steerRad:p.steerAngle});
       this.car.animate(dt, p.speed, p.steerAngle);
       this.car.setThruster(p.isAirborne ? (p.move === 'TAKEOFF' ? 1 : p.move === 'DESCENDING' ? 0.6 : 0.75) : p.move === 'LANDING_CONFIRM' ? 0.3 : 0);
+      this.car.setCargoLoaded?.(s.cargoLoaded);
       this.car.setBrakeLights(p.speed < 0.5 || (s as any)._brakeHeld === true);
       this.car.setReverseLights(p.reverseEngaged);
     }
@@ -216,11 +311,20 @@ export class GameView {
     this.syncActors(s, alpha);
     if (this.signalHeads.length) this.updateSignals(s.traffic.signals, s.traffic.tick);
     this.updateCamera(x, y, z, h, p.isAirborne, p.speed, world, dt);
-    this.env?.update(tmpV.set(x, y, z));
+    this.env?.update(tmpV.set(x, y, z),dt);
+    this.metroVisual?.userData.update?.(this.presentationTime, tmpV);
   }
 
   private updateCamera(x: number, y: number, z: number, h: number, air: boolean, speed: number, world: WorldPhysics, dt: number) {
-    const [fx, fz] = forwardOf(h);
+    this.lookAllowed = !air && Math.abs(speed) <= .75;
+    if (!this.lookAllowed) {
+      this.endCameraLook();
+      this.cameraOrbit *= Math.exp(-dt * 1.6);
+      this.cameraPitch *= Math.exp(-dt * 1.6);
+      if (Math.abs(this.cameraOrbit) < .001) this.cameraOrbit = 0;
+      if (Math.abs(this.cameraPitch) < .001) this.cameraPitch = 0;
+    }
+    const [fx, fz] = forwardOf(h + this.cameraOrbit);
     const back = air ? 11.5 : 7.2 + Math.min(2, Math.abs(speed) * 0.08);
     const up = air ? 6.0 : 3.1;
     let tx = x - fx * back, tz = z - fz * back, ty = y + up;
@@ -233,7 +337,8 @@ export class GameView {
     const over = world.overheadAt(x, z, y);
     if (over.bottom < Infinity) ty = Math.min(ty, over.bottom - 0.6);
     const lookAhead = air ? 9 : 6 + Math.abs(speed) * 0.35;
-    const lx = x + fx * lookAhead, lz = z + fz * lookAhead, ly = y + (air ? -1.2 : 1.0);
+    const lx = x + fx * lookAhead, lz = z + fz * lookAhead;
+    const ly = y + (air ? -1.2 : 1.0) + Math.tan(this.cameraPitch) * (back + lookAhead);
     const k = this.camInit ? 1 - Math.exp(-dt * 5.5) : 1;
     this.camPos.x += (tx - this.camPos.x) * k; this.camPos.y += (ty - this.camPos.y) * k; this.camPos.z += (tz - this.camPos.z) * k;
     this.camLook.x += (lx - this.camLook.x) * k; this.camLook.y += (ly - this.camLook.y) * k; this.camLook.z += (lz - this.camLook.z) * k;
@@ -250,14 +355,16 @@ export class GameView {
     this.camera.updateProjectionMatrix();
   }
 
-  resetCamera() { this.camInit = false; }
+  resetCamera() { this.camInit = false; this.cameraOrbit = 0; this.cameraPitch = 0; this.lookAllowed = false; this.endCameraLook(); }
 
   /** static overview camera for menus */
   menuCamera(t: number, cx: number, cz: number) {
+    this.lookAllowed = false; this.endCameraLook();
     const r = 140;
     this.camera.position.set(cx + Math.cos(t * 0.05) * r, 70, cz + Math.sin(t * 0.05) * r);
     this.camera.lookAt(cx, 8, cz);
     this.env?.update(tmpV.set(cx, 0, cz));
+    this.metroVisual?.userData.update?.(t, tmpV);
   }
 
   // ---- road tile streaming (v2 whole network: ~650 km of roads would be ~4 M triangles if built at once)
@@ -292,6 +399,7 @@ export class GameView {
     g.name = `roadtile_${key}`;
     this.roadTiles.set(key, g);
     this.staticGroup.add(g);
+    this.env?.bindTerrainObject?.(g);
   }
 
   private disposeRoadTile(key: string) {

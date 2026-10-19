@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-road36-provisional-corridor-placements-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex",
+  "notes": "Revision-87 bounded corridor and provisional placement update for the unchanged active pair Madhapur → Peddamma Gudi. The corridor is a provisional clip through connected existing Jubilee Hills Road No. 36 core edges, matched to the existing saved panorama chain. The batch adds no sources and no road-side reviews. It links three existing pending sign-identity observations to provisional game placements with separate empty evidence for unverified facade-boundary/neighbour dimensions. Do not treat the generated nearest-station queue as authority to reorder the pair.",
+  "observations": [
+    {
+      "id": "obs-mp-road36-go-colors-sign-hint-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-049",
+        "sv-mp-road36-middle-chain-20261019-050"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "GO COLORS! sign visible on the Road No. 36 frontage",
+      "notes": "The January 2025 views at 17.4342706, 78.4043637 and 17.4342436, 78.4044372 show a GO COLORS! fascia on the image-left commercial row. Record the sign text only. Its exact unit, entrance, boundary, canonical road side, along-road position, current tenancy, and association with any particular game edge are unverified. The coordinates are Street View camera positions, not storefront entrances. Revision 87 links this dated identity sighting to a source-backed provisional game frontage; unit boundaries, entrance center, present tenancy and full neighbor order remain unverified.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4342706,
+        "lon": 78.4043637,
+        "headingDeg": 140.38
+      },
+      "storefrontOverrideId": "survey-mp-peddamma-go-colors-20261019"
+    },
+    {
+      "id": "obs-mp-road36-brooks-sign-hint-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-049",
+        "sv-mp-road36-middle-chain-20261019-050"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "BROOKS sign visible on the Road No. 36 frontage",
+      "notes": "The January 2025 views at 17.4342706, 78.4043637 and 17.4342436, 78.4044372 show BROOKS lettering on a blue fascia beside the GO COLORS! sign in the same image-left row. This records visible sign text only. Exact unit boundaries, entrance, canonical road side, along-road order, current tenancy, and building/edge assignment remain unverified. The coordinates are camera positions, not storefront entrances. Revision 87 links this dated identity sighting to a source-backed provisional game frontage; unit boundaries, entrance center, present tenancy and full neighbor order remain unverified.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4342706,
+        "lon": 78.4043637,
+        "headingDeg": 140.38
+      },
+      "storefrontOverrideId": "survey-mp-peddamma-brooks-20261019"
+    },
+    {
+      "id": "obs-mp-road36-canon-sign-hint-20261019",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-051"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "CANON sign visible on the Road No. 36 frontage",
+      "notes": "The January 2025 panorama at 17.4342100, 78.4045172 shows a red CANON sign on the image-left commercial row, just beyond the previously recorded BRAND FREAK fascia in the camera sequence. This is a dated sign identity only; no exact unit, entrance, boundary, canonical side, neighbor order, current tenancy, or game-edge association is established. The coordinate is the camera position, not the storefront entrance. Revision 87 links this dated identity sighting to a source-backed provisional game frontage; unit boundaries, entrance center, present tenancy and full neighbor order remain unverified.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.43421,
+        "lon": 78.4045172,
+        "headingDeg": 140.38
+      },
+      "storefrontOverrideId": "survey-mp-peddamma-canon-20261019"
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-mp-peddamma-go-colors-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-77_-11",
+      "name": "Go Colors",
+      "nameTe": null,
+      "category": "fashion_and_apparel_store",
+      "group": "apparel",
+      "roadId": "r_6188833340_0",
+      "side": "left",
+      "buildingId": "b_5486d00c2a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15290.93,
+          -2179.94
+        ],
+        [
+          -15280.52,
+          -2176.07
+        ]
+      ],
+      "entrance": [
+        -15285.725,
+        -2178.005
+      ],
+      "floor": 0,
+      "frontageWidthM": 11.106,
+      "alongRoadM": 23.836,
+      "facingHeading": 2.65295,
+      "lat": 17.4342706,
+      "lon": 78.4043637,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-049",
+        "sv-mp-road36-middle-chain-20261019-050"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_15d7f1cc91",
+        "sf_66867b8bcd"
+      ],
+      "notes": "PROVISIONAL placement; confidence medium-high for sign identity/side and medium for footprint association; low for exact unit geometry. Saved January 2025 Street View shows the named sign on the image-left frontage. Camera heading (140.38°), local Road No. 36 direction, and the game road/building side support the LEFT side of r_6188833340_0. The facade endpoints reuse approximate footprint-derived game geometry as a rendering anchor; frontage width, unit bounds, door center, current tenancy and exact neighbor order are not surveyed. The stored lat/lon is the panorama camera, not the shop entrance. Two same-anchor Go Colors / Go Fashion India Ltd map records are collapsed to one approximately 11.1 m photographed Go Colors frontage; they remain preserved as displaced base IDs. No road-side review or complete frontage inventory is claimed."
+    },
+    {
+      "id": "survey-mp-peddamma-brooks-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-77_-11",
+      "name": "Brooks Shoes",
+      "nameTe": null,
+      "category": "fashion_and_apparel_store",
+      "group": "apparel",
+      "roadId": "r_6188833340_0",
+      "side": "left",
+      "buildingId": "b_5486d00c2a",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15280.52,
+          -2176.07
+        ],
+        [
+          -15275.31,
+          -2174.13
+        ]
+      ],
+      "entrance": [
+        -15277.915,
+        -2175.1000000000004
+      ],
+      "floor": 0,
+      "frontageWidthM": 5.559,
+      "alongRoadM": 31.279,
+      "facingHeading": 2.59125,
+      "lat": 17.4342706,
+      "lon": 78.4043637,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-049",
+        "sv-mp-road36-middle-chain-20261019-050"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_968df96606",
+        "sf_cdd4120b5c"
+      ],
+      "notes": "PROVISIONAL placement; confidence medium-high for sign identity/side and medium for footprint association; low for exact unit geometry. Saved January 2025 Street View shows the named sign on the image-left frontage. Camera heading (140.38°), local Road No. 36 direction, and the game road/building side support the LEFT side of r_6188833340_0. The facade endpoints reuse approximate footprint-derived game geometry as a rendering anchor; frontage width, unit bounds, door center, current tenancy and exact neighbor order are not surveyed. The stored lat/lon is the panorama camera, not the shop entrance. The photographed BROOKS frontage replaces the existing Brooks listing and a coincident Provogue map entry sharing the same stored facade span; the original base records are retained. This does not assert current operation or rule out a later tenancy change. No road-side review or complete frontage inventory is claimed."
+    },
+    {
+      "id": "survey-mp-peddamma-canon-20261019",
+      "placementStatus": "provisional",
+      "chunkId": "c_-77_-11",
+      "name": "Canon Image Square",
+      "nameTe": null,
+      "category": "electronics_store",
+      "group": "electronics_mobile",
+      "roadId": "r_6188833340_0",
+      "side": "left",
+      "buildingId": "b_46e689039c",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -15271.88,
+          -2172.36
+        ],
+        [
+          -15266.23,
+          -2170.34
+        ]
+      ],
+      "entrance": [
+        -15269.055,
+        -2171.3500000000004
+      ],
+      "floor": 0,
+      "frontageWidthM": 6,
+      "alongRoadM": 40.792,
+      "facingHeading": 2.59125,
+      "lat": 17.43421,
+      "lon": 78.4045172,
+      "captureDate": "2025-01",
+      "sourceIds": [
+        "sv-mp-road36-middle-chain-20261019-051",
+        "sv-mp-road36-middle-chain-20261019-052"
+      ],
+      "reviewedAt": "2026-10-19",
+      "reviewer": "Codex",
+      "evidence": {
+        "identity": [
+          "sv-mp-road36-middle-chain-20261019-051"
+        ],
+        "position": [
+          "sv-mp-road36-middle-chain-20261019-051",
+          "sv-mp-road36-middle-chain-20261019-052"
+        ],
+        "side": [
+          "sv-mp-road36-middle-chain-20261019-051",
+          "sv-mp-road36-middle-chain-20261019-052"
+        ],
+        "floor": [
+          "sv-mp-road36-middle-chain-20261019-051"
+        ],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_d7fd98cd94"
+      ],
+      "notes": "PROVISIONAL placement; confidence high for visible CANON sign and medium-low for exact building/edge association; low for exact unit geometry. Saved January 2025 Street View shows the named sign on the image-left frontage. Camera heading (140.38°), local Road No. 36 direction, and the game road/building side support the LEFT side of r_6188833340_0. The facade endpoints reuse approximate footprint-derived game geometry as a rendering anchor; frontage width, unit bounds, door center, current tenancy and exact neighbor order are not surveyed. The stored lat/lon is the panorama camera, not the shop entrance. The sign is visible farther along the same image-left retail row. The footprint-derived Canon anchor lies on the LEFT side of the chain road in the existing world; its building is also associated with nearby Road number 31, so this edge attachment remains lower confidence. No road-side review or complete frontage inventory is claimed."
+    }
+  ],
+  "expectedPrevious": {
+    "observations:obs-mp-road36-go-colors-sign-hint-20261019": "9b2faec6ab095da83b0a35a4cd2193904d217673f9feab3a7e814f341ea2369e",
+    "observations:obs-mp-road36-brooks-sign-hint-20261019": "a5b4b5cf6f0e8d44dd8246830fd16b651052c7d4d89b504581b3d011bcda535a",
+    "observations:obs-mp-road36-canon-sign-hint-20261019": "b2f0fa2b0a98aac35c438c8ead83320a974d8a0de7e381c4c211f8565fa844fb"
+  }
+}

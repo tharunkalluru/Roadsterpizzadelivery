@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "id": "other-station-esi-hospital-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "January 2026 roadside Street View points approximately 150–180 metres south of ESI Hospital Metro Station along Sanjeeva Reddy Nagar Road. The images show the elevated Metro, a broad paved road, autos and motorcycles, and a large gated institutional frontage. They do not show readable nearby shop identities or a continuous shop row; no storefront placements, road-side assignments, or reviewed ranges are added.",
+  "sources": [
+    {
+      "id": "sv-esi-hospital-sanjeeva-reddy-nagar-01-202601-HpTeoPbxLx8LnxqQZaLpSQ",
+      "kind": "street_view",
+      "title": "Sanjeeva Reddy Nagar Road near ESI Hospital Metro — 2026-01 — view 1",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=HpTeoPbxLx8LnxqQZaLpSQ&heading=182.548",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4462103, "lon": 78.4389197, "panoId": "HpTeoPbxLx8LnxqQZaLpSQ", "headingDeg": 182.548 },
+      "assetPolicy": "reference_only",
+      "notes": "Street-level view on Sanjeeva Reddy Nagar Road, close to ESI Hospital Metro. The elevated Metro deck and piers run beside a broad paved road. Auto-rickshaws and motorcycles are visible; farther buildings and pillar advertisements are too distant to identify reliably."
+    },
+    {
+      "id": "sv-esi-hospital-sanjeeva-reddy-nagar-02-202601-ohEZLLUytJtnv4zo9GvCWA",
+      "kind": "street_view",
+      "title": "Sanjeeva Reddy Nagar Road near ESI Hospital Metro — 2026-01 — view 2",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=ohEZLLUytJtnv4zo9GvCWA&heading=182.548",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4461307, "lon": 78.4389681, "panoId": "ohEZLLUytJtnv4zo9GvCWA", "headingDeg": 182.548 },
+      "assetPolicy": "reference_only",
+      "notes": "Adjacent Street View point on the same road. It confirms the Metro structure beside the carriageway, sparse but mixed auto, motorcycle and car traffic, and a walled institutional frontage on the right. No readable shop fascia or exact entrance is established."
+    },
+    {
+      "id": "sv-esi-hospital-sanjeeva-reddy-nagar-03-202601-vdfIxoSuFo-uzMQVdx7KRw",
+      "kind": "street_view",
+      "title": "Sanjeeva Reddy Nagar Road institutional gate near ESI Hospital Metro — 2026-01",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=vdfIxoSuFo-uzMQVdx7KRw&heading=182.548",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4460503, "lon": 78.4390157, "panoId": "vdfIxoSuFo-uzMQVdx7KRw", "headingDeg": 182.548 },
+      "assetPolicy": "reference_only",
+      "notes": "Adjacent view of a large formal white entrance arch, guarded gate and boundary wall, with multi-storey institutional buildings behind it. A Metro viaduct continues along the road, and auto-rickshaw and motorcycle traffic is visible. The gate has no readable institution name in this frame, so it is not assigned a facility identity."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-esi-hospital-metro-road-context-20261019",
+      "sourceIds": [
+        "sv-esi-hospital-sanjeeva-reddy-nagar-01-202601-HpTeoPbxLx8LnxqQZaLpSQ",
+        "sv-esi-hospital-sanjeeva-reddy-nagar-02-202601-ohEZLLUytJtnv4zo9GvCWA",
+        "sv-esi-hospital-sanjeeva-reddy-nagar-03-202601-vdfIxoSuFo-uzMQVdx7KRw"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Elevated Metro beside Sanjeeva Reddy Nagar Road near ESI Hospital",
+      "category": "first_pass_station_road_context",
+      "roadId": null,
+      "position": { "lat": 17.4462103, "lon": 78.4389197, "headingDeg": 182.548 },
+      "placementStatus": "pending",
+      "notes": "Three adjacent views show the elevated Metro deck and piers beside a broad paved road near ESI Hospital station. Auto-rickshaws, motorcycles and cars share the visible corridor. This remains qualitative camera context: road boundaries and width were not measured, traffic was not counted, and shopfronts are not legible enough to inventory."
+    },
+    {
+      "id": "obs-esi-hospital-gated-institutional-frontage-20261019",
+      "sourceIds": [
+        "sv-esi-hospital-sanjeeva-reddy-nagar-02-202601-ohEZLLUytJtnv4zo9GvCWA",
+        "sv-esi-hospital-sanjeeva-reddy-nagar-03-202601-vdfIxoSuFo-uzMQVdx7KRw"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Large gated institutional frontage beside the Metro road",
+      "category": "first_pass_unresolved_frontage",
+      "roadId": null,
+      "position": { "lat": 17.4460503, "lon": 78.4390157, "headingDeg": 182.548 },
+      "placementStatus": "pending",
+      "notes": "A white entrance arch, guarded driveway, metal gate, perimeter wall and large multi-storey building are visible beside the road. No facility name is legible in the Street View frame, so no hospital or campus identity, building, exact entrance position or frontage order is assigned."
+    }
+  ]
+}

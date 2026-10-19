@@ -3,7 +3,7 @@ import { test, expect, type Page } from '@playwright/test';
 const OUT = 'qa/artifacts/e2e';
 const hmd = (p: Page) => p.evaluate(() => {
   const a = (window as any).__hmd; const s = a.session;
-  return { state: a.state, move: s?.player.move, consumed: s?.player.ledger.consumedTicks, remaining: s?.player.ledger.remainingTicks, launches: s?.player.ledger.launches, elapsed: s?.elapsedTicks, phase: s?.phase, stop: s?.stopIndex, outcome: s?.outcome, x: s?.player.x, z: s?.player.z, speed: s?.player.speed, recoveries: s?.recoveries, penalty: s?.penaltyTicks };
+  return { state: a.state, move: s?.player.move, consumed: s?.player.ledger.consumedTicks, remaining: s?.player.ledger.remainingTicks, initialCharge: s?.player.ledger.initialChargeTicks, earned: s?.player.ledger.earnedTicks, capacity: s?.player.ledger.initialTicks, capacitySeconds: s?.player.ledger.allocationSeconds, launches: s?.player.ledger.launches, elapsed: s?.elapsedTicks, phase: s?.phase, stop: s?.stopIndex, outcome: s?.outcome, x: s?.player.x, z: s?.player.z, speed: s?.player.speed, recoveries: s?.recoveries, penalty: s?.penaltyTicks };
 });
 const adv = (p: Page, n: number) => p.evaluate((n) => (window as any).__hmd.debugAdvance(n), n);
 
@@ -58,7 +58,7 @@ test('C2: select, pickup, drive (reference agent through real physics), deliver,
   await page.waitForFunction(() => (window as any).__hmd.state === 'MENU');
 });
 
-test('C3: shared budget in the browser — fly, hover-meter, land early, fly again; HUD agrees', async ({ page }) => {
+test('C3: earned boost — metered flight, landing, idle and driving recharge; HUD agrees', async ({ page }) => {
   await toMenu(page);
   await startMission(page, 'mt03_correct_approach');
   await adv(page, 240);
@@ -73,17 +73,35 @@ test('C3: shared budget in the browser — fly, hover-meter, land early, fly aga
   await page.waitForTimeout(300);
   await page.screenshot({ path: `${OUT}/c3-01-flight.png` });
   const mid = await hmd(page);
-  expect(mid.consumed).toBeGreaterThanOrEqual(150);
-  await page.keyboard.press('Space'); // fresh press → land
+  expect(mid.consumed).toBeGreaterThan(0);
+  expect(mid.remaining).toBe(mid.initialCharge + mid.earned - mid.consumed);
+  expect(mid.remaining).toBeGreaterThanOrEqual(0);
+  // A short initial boost may have already initiated protected landing.
+  if (mid.move !== 'GROUNDED') await page.keyboard.press('Space');
   for (let k = 0; k < 20 && (await hmd(page)).move !== 'GROUNDED'; k++) await adv(page, 30);
   const landed = await hmd(page);
   expect(landed.move).toBe('GROUNDED');
-  expect(landed.remaining).toBe(1500 - landed.consumed);
+  expect(landed.initialCharge).toBe(150); // contracts start with 2.5 s, not their full capacity
+  expect(landed.remaining).toBe(landed.initialCharge + landed.earned - landed.consumed);
+  expect(landed.remaining).toBeLessThanOrEqual(landed.capacity);
   // HUD refreshes on the next rendered frame (≈1 fps under software WebGL)
-  await expect(page.locator('[data-mlbl]')).toHaveText(`Flight ${(landed.remaining / 60).toFixed(1)} s`, { timeout: 20_000 });
+  await expect(page.locator('[data-mlbl]')).toHaveText(`Boost ${(landed.remaining / 60).toFixed(1)} / ${landed.capacitySeconds} s`, { timeout: 20_000 });
   await page.screenshot({ path: `${OUT}/c3-02-landed.png` });
-  await adv(page, 600); // ground driving never refills
-  expect((await hmd(page)).consumed).toBe(landed.consumed);
+  await adv(page, 600); // idle grounded time earns no boost
+  const idle = await hmd(page);
+  expect(idle.consumed).toBe(landed.consumed);
+  expect(idle.earned).toBe(landed.earned);
+  // The road-following agent uses the normal ground controller; traffic/stops may pause charging.
+  await page.evaluate(() => (window as any).__hmd.enableAutopilot());
+  let driving = idle;
+  for (let k = 0; k < 10 && driving.earned === idle.earned; k++) {
+    await adv(page, 120);
+    driving = await hmd(page);
+  }
+  expect(driving.earned).toBeGreaterThan(idle.earned);
+  expect(driving.consumed).toBe(idle.consumed);
+  expect(driving.remaining).toBe(driving.initialCharge + driving.earned - driving.consumed);
+  expect(driving.remaining).toBeLessThanOrEqual(driving.capacity);
 });
 
 test('U06/F18: hidden page pauses everything; nothing is consumed while hidden', async ({ page }) => {

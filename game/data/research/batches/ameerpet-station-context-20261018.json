@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 1,
+  "id": "ameerpet-station-context-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Ameerpet Metro station-area research only. The April 2026 Street View is taken at a multi-road junction and views a commercial building across traffic; visible boards are captured as dated sign identities/context only. The Aug 2018 imagery is an interior station-concourse reference. No storefront positions, road sides, operating status, frontage order, route coverage, or metric geometry are certified.",
+  "sources": [
+    {
+      "id": "sv-ameerpet-junction-commercial-frontage-202604-20261018",
+      "kind": "street_view",
+      "title": "Ameerpet Metro junction commercial frontage — 2026-04",
+      "url": "https://www.google.com/maps/@17.4361788,78.4442279,555a,90y,34h,90t/data=!3m7!1e1!3m5!1sL_5nJ2fbVHniVsNg_XalQQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DL_5nJ2fbVHniVsNg_XalQQ%26yaw%3D34!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "panoId": "L_5nJ2fbVHniVsNg_XalQQ",
+        "headingDeg": 34
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Street View at the Ameerpet/Sanjeeva Reddy Nagar road junction. A multi-storey commercial facade with many training, computer/mobile, travel-service and studio signs is visible across moving traffic, beneath the metro viaduct and pedestrian stair structure. Several signs are partly occluded by metro pillars, roadside structures and vehicles. The camera position is near overlapping junction/turn edges; do not assign the distant frontage to a single road side, exact door, floor, or along-road sequence. Traffic includes cars, motorcycles and auto-rickshaws with pedestrians. Reference imagery is not copied."
+    },
+    {
+      "id": "sv-ameerpet-station-level-2-concourse-201808-20261018",
+      "kind": "street_view",
+      "title": "Ameerpet Metro station level 2 concourse — 2018-08",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=qOVMrVsi4tiQz98rn_-uYw&heading=50",
+      "captureDate": "2018-08",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.435418,
+        "lon": 78.444669,
+        "panoId": "qOVMrVsi4tiQz98rn_-uYw",
+        "headingDeg": 50
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Google Maps Street View floor selector showed level 2. The interior concourse image visibly shows Tibbs Frankie and Dadu's signage. This is dated internal station retail context, not a street-side storefront record; present operation, exact units and current appearance are unverified. Reference imagery is not copied."
+    },
+    {
+      "id": "sv-ameerpet-station-level-1-entry-201808-20261018",
+      "kind": "street_view",
+      "title": "Ameerpet Metro station level 1 entry and SBI ATM — 2018-08",
+      "url": "https://www.google.com/maps/@17.4354982,78.4448253,76a,90y,31h,90t/data=!3m7!1e1!3m5!1s6JYEzkqx1n-YxyA5jzKYwQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.clients6.google.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3D6JYEzkqx1n-YxyA5jzKYwQ%26yaw%3D31!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D",
+      "captureDate": "2018-08",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4354982,
+        "lon": 78.4448253,
+        "panoId": "6JYEzkqx1n-YxyA5jzKYwQ",
+        "headingDeg": 31
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Station interior at level 1 shows fare gates, the stair access and a prominent SBI ATM. Dated station-access context only; this is not evidence of a roadside bank branch or current station layout. Reference imagery is not copied."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-ameerpet-2026-qualitythought",
+      "sourceIds": [
+        "sv-ameerpet-junction-commercial-frontage-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "QualityThought",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "headingDeg": 34
+      },
+      "placementStatus": "pending",
+      "notes": "The facade sign reads QUALITYTHOUGHT. It is visible on the multi-storey building across the junction; exact operator unit, building parent, floor, road side, order and current operation remain unverified. The observation coordinate is the Street View camera, not a shop entrance."
+    },
+    {
+      "id": "obs-ameerpet-2026-salesforce-oscar-it",
+      "sourceIds": [
+        "sv-ameerpet-junction-commercial-frontage-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Salesforce / Oscar IT",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "headingDeg": 34
+      },
+      "placementStatus": "pending",
+      "notes": "A large board reads SALESFORCE and OSCAR IT alongside placement/training copy. Record the visible board identity only; it may be an institute/advertising panel rather than a ground-floor shop. Unit, floor, building parent, road side, order and current operation remain unverified. The observation coordinate is the Street View camera, not a shop entrance."
+    },
+    {
+      "id": "obs-ameerpet-2026-speak-well",
+      "sourceIds": [
+        "sv-ameerpet-junction-commercial-frontage-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Speak Well · Spoken English",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "headingDeg": 34
+      },
+      "placementStatus": "pending",
+      "notes": "A board reads SPEAK WELL with SPOKEN ENGLISH below. The camera is across the junction; unit, floor, building parent, road side, order and current operation remain unverified. The observation coordinate is the Street View camera, not a shop entrance."
+    },
+    {
+      "id": "obs-ameerpet-2026-fullstack-testing-tools",
+      "sourceIds": [
+        "sv-ameerpet-junction-commercial-frontage-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Fullstack Testing Tools",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "headingDeg": 34
+      },
+      "placementStatus": "pending",
+      "notes": "A large fascia reads FULLSTACK TESTING TOOLS with testing-related copy. This is a dated sign identity only; exact unit, floor, building parent, road side, along-road order and current operation remain unverified. The observation coordinate is the Street View camera, not a shop entrance."
+    },
+    {
+      "id": "obs-ameerpet-2026-vr-computers",
+      "sourceIds": [
+        "sv-ameerpet-junction-commercial-frontage-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "VR Computers",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "headingDeg": 34
+      },
+      "placementStatus": "pending",
+      "notes": "A lower sign reads VR COMPUTERS. The view is distant and partially blocked by traffic/metro structures; exact unit boundary, floor, building parent, road side, order and current operation remain unverified. The observation coordinate is the Street View camera, not a shop entrance."
+    },
+    {
+      "id": "obs-ameerpet-2026-anu-mobil",
+      "sourceIds": [
+        "sv-ameerpet-junction-commercial-frontage-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "ANU MOBIL",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "headingDeg": 34
+      },
+      "placementStatus": "pending",
+      "notes": "The visible fascia reads ANU MOBIL (spelling transcribed as displayed). Exact unit, floor, building parent, road side, along-road order and current operation remain unverified. The observation coordinate is the Street View camera, not a shop entrance."
+    },
+    {
+      "id": "obs-ameerpet-2026-ink-tattoo-piercing",
+      "sourceIds": [
+        "sv-ameerpet-junction-commercial-frontage-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "INK Tattoo & Piercing Studio",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "headingDeg": 34
+      },
+      "placementStatus": "pending",
+      "notes": "The fascia reads INK TATTOO & PIERCING STUDIO. Exact unit boundary, floor, building parent, road side, order and current operation remain unverified. The observation coordinate is the Street View camera, not a shop entrance."
+    },
+    {
+      "id": "obs-ameerpet-2026-air-tickets-forex",
+      "sourceIds": [
+        "sv-ameerpet-junction-commercial-frontage-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Air Tickets & Forex Services",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "headingDeg": 34
+      },
+      "placementStatus": "pending",
+      "notes": "A red fascia reads AIR TICKETS & FOREX SERVICES. It is a dated visible sign identity only; exact unit boundary, floor, building parent, road side, order and current operation remain unverified. The observation coordinate is the Street View camera, not a shop entrance."
+    },
+    {
+      "id": "obs-ameerpet-2026-junction-and-metro-public-realm",
+      "sourceIds": [
+        "sv-ameerpet-junction-commercial-frontage-202604-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "Ameerpet junction: elevated metro viaduct, pedestrian stair, commercial frontage and mixed road traffic",
+      "category": "first_pass_roadside_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.4361788,
+        "lon": 78.4442279,
+        "headingDeg": 34
+      },
+      "placementStatus": "pending",
+      "notes": "The April 2026 view shows an elevated metro structure and pedestrian stair, a multi-storey commercial frontage across the junction, planted/divided roadway, cars, motorcycles, auto-rickshaws and pedestrians. Signs are read from a distant, partly occluded view. Screen-left/right is not a verified along-road neighbor order. No station entrance, signal timing, road-side range, shop parent or dimensions are assigned. Camera coordinate is not a shop entrance."
+    },
+    {
+      "id": "obs-ameerpet-station-2018-tibbs-frankie",
+      "sourceIds": [
+        "sv-ameerpet-station-level-2-concourse-201808-20261018"
+      ],
+      "captureDate": "2018-08",
+      "observedDate": "2026-10-18",
+      "name": "Tibbs Frankie",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.435418,
+        "lon": 78.444669,
+        "headingDeg": 50
+      },
+      "placementStatus": "pending",
+      "notes": "The dated Street View image shows this sign inside Ameerpet Metro level 2 concourse. It is not a street-front shop placement, and current operation and exact unit location are unknown. Observation coordinate is the camera, not an entrance."
+    },
+    {
+      "id": "obs-ameerpet-station-2018-dadus",
+      "sourceIds": [
+        "sv-ameerpet-station-level-2-concourse-201808-20261018"
+      ],
+      "captureDate": "2018-08",
+      "observedDate": "2026-10-18",
+      "name": "Dadu's",
+      "category": "first_pass_dated_business_sign_identity_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.435418,
+        "lon": 78.444669,
+        "headingDeg": 50
+      },
+      "placementStatus": "pending",
+      "notes": "The dated Street View image shows this sign inside Ameerpet Metro level 2 concourse. It is not a street-front shop placement, and current operation and exact unit location are unknown. Observation coordinate is the camera, not an entrance."
+    },
+    {
+      "id": "obs-ameerpet-station-2018-level-1-sbi-atm",
+      "sourceIds": [
+        "sv-ameerpet-station-level-1-entry-201808-20261018"
+      ],
+      "captureDate": "2018-08",
+      "observedDate": "2026-10-18",
+      "name": "SBI ATM and fare-gate/stair access context",
+      "category": "first_pass_station_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.4354982,
+        "lon": 78.4448253,
+        "headingDeg": 31
+      },
+      "placementStatus": "pending",
+      "notes": "The dated image shows an SBI ATM cabinet inside the level 1 station area beside fare gates and stairs. It does not establish an SBI bank branch or current access arrangement. Observation coordinate is the camera, not a frontage."
+    }
+  ],
+  "storefrontOverrides": [],
+  "corrections": [],
+  "suppressions": [],
+  "roadReviews": []
+}

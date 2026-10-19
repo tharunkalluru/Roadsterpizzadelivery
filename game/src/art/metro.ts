@@ -11,56 +11,25 @@ import { GeoBuilder, PSample, addBox, hex, boxMatrix, makeSamples, polyLength, s
 import { getWorldMats } from './mats';
 import { registerCull } from './cull';
 import { createSignTexture } from './sign';
+import { createMetroService } from './metroTrains';
+import { metroAlignments, type MetroAlignment as Align } from '../world/metroGeometry';
+import { stationLayout, stationBodyBoxes, stationRoofProfile, stationRoofObstacles, type StationLayout } from '../world/stationGeometry';
+export { metroAlignments } from '../world/metroGeometry';
 
 const SEG_LEN = 360;
-const STATION_LEN = 140;
-const STATION_W = 22;
-
-interface Align {
-  samples: PSample[];
-  lineId: string;
-  color: string;
-}
-
-function nearestOnAlignment(aligns: Align[], x: number, z: number): { a: Align; s: number; px: number; pz: number; tx: number; tz: number; d: number } | null {
-  let best: ReturnType<typeof nearestOnAlignment> = null;
-  for (const a of aligns) {
-    const sm = a.samples;
-    for (let i = 0; i < sm.length - 1; i++) {
-      const p = sm[i], q = sm[i + 1];
-      const dx = q.x - p.x, dz = q.z - p.z;
-      const l2 = dx * dx + dz * dz || 1;
-      const t = Math.max(0, Math.min(1, ((x - p.x) * dx + (z - p.z) * dz) / l2));
-      const px = p.x + dx * t, pz = p.z + dz * t;
-      const d = Math.hypot(x - px, z - pz);
-      if (!best || d < best.d) {
-        const l = Math.sqrt(l2);
-        best = { a, s: p.s + t * l, px, pz, tx: dx / l, tz: dz / l, d };
-      }
-    }
-  }
-  return best;
-}
-
-interface Zone { align: Align; s0: number; s1: number; station: MetroStation; px: number; pz: number; tx: number; tz: number; plan: StationPlan }
+interface Zone { align: Align; s0: number; s1: number; station: MetroStation; px: number; pz: number; tx: number; tz: number; plan: StationPlan; layout:StationLayout }
 interface StationPlan { stairs: { side: 1 | -1; z: number }[]; columns: { side: 1 | -1; z: number }[] }
 
 const RUN0 = 0.4, RISE0 = 0.26;
 
+
 function computeZones(core: WorldCore, H: number): { aligns: Align[]; zones: Zone[] } {
-  const aligns: Align[] = [];
-  for (const line of core.metroLines) {
-    for (const poly of line.local) {
-      const s = makeSamples(poly, H);
-      if (s.length >= 2) aligns.push({ samples: s, lineId: line.id, color: line.color });
-    }
-  }
+  const aligns = metroAlignments(core,H);
   const zones: Zone[] = [];
   for (const st of core.stations) {
     if (!st.inCorridor) continue;
-    const near = nearestOnAlignment(aligns, st.x, st.z);
-    if (!near || near.d > 90) continue;
-    zones.push({ align: near.a, s0: near.s - STATION_LEN / 2, s1: near.s + STATION_LEN / 2, station: st, px: near.px, pz: near.pz, tx: near.tx, tz: near.tz, plan: planStation(core, near.px, near.pz, near.tx, near.tz, H) });
+    const layout=stationLayout(core,st,aligns);if(!layout)continue;
+    zones.push({align:layout.alignment,s0:layout.alongM-layout.lengthM/2,s1:layout.alongM+layout.lengthM/2,station:st,px:layout.x,pz:layout.z,tx:layout.tx,tz:layout.tz,layout,plan:planStation(core,layout.x,layout.z,layout.tx,layout.tz,H,layout.lengthM,layout.widthM)});
   }
   return { aligns, zones };
 }
@@ -79,8 +48,8 @@ function stairGeometry(H: number): { run: number; bodyBot: number; nSteps: numbe
 }
 
 /** Ground-reaching parts must stay clear of every carriageway; otherwise they are omitted. */
-function planStation(core: WorldCore, px: number, pz: number, tx: number, tz: number, H: number): StationPlan {
-  const hw = STATION_W / 2, hl = STATION_LEN / 2;
+function planStation(core: WorldCore, px: number, pz: number, tx: number, tz: number, H: number, L:number,W:number): StationPlan {
+  const hw = W / 2, hl = L / 2;
   const { run } = stairGeometry(H);
   const segs: { ax: number; az: number; bx: number; bz: number; hw: number }[] = [];
   for (const e of core.roads) {
@@ -122,16 +91,20 @@ function planStation(core: WorldCore, px: number, pz: number, tx: number, tz: nu
 
 export interface StationObstacle { id: string; poly: [number, number][]; bottom: number; top: number }
 
-/** Ground-reaching station parts as world-space footprints (stairs, escalator boxes, support columns). */
+/** Shared authored station shells and ground-reaching access/support footprints. */
 export function stationObstacles(core: WorldCore): StationObstacle[] {
   const H = core.metro.deckHeightM;
   const { zones } = computeZones(core, H);
-  const hw = STATION_W / 2;
   const { run, bodyBot } = stairGeometry(H);
   const out: StationObstacle[] = [];
   for (const z of zones) {
+    const hw=z.layout.widthM/2;
     const rect = (lx0: number, lx1: number, lz0: number, lz1: number): [number, number][] =>
       [[lx0, lz0], [lx1, lz0], [lx1, lz1], [lx0, lz1]].map(([lx, lz]) => localToWorld(z.px, z.pz, z.tx, z.tz, lx, lz));
+    const a=Math.max(4.2,core.metro.deckWidthM/2),trackX=Math.min(2.3,Math.max(1.75,a*.45));
+    for(const box of [...stationBodyBoxes(z.layout.lengthM,z.layout.widthM,H,trackX,z.layout.clearancePortals),...stationRoofObstacles(z.layout.lengthM,z.layout.widthM,H)]){
+      out.push({id:`${z.station.id}:${box.id}`,poly:rect(box.x-box.width/2,box.x+box.width/2,box.z-box.length/2,box.z+box.length/2),bottom:box.bottom,top:box.top});
+    }
     for (const s of z.plan.stairs) {
       const xa = s.side * (hw - 0.1), xb = s.side * (hw - 0.1 + run);
       out.push({ id: `${z.station.id}:stairs:${s.side}:${s.z}`, poly: rect(Math.min(xa, xb), Math.max(xa, xb), s.z - 1.8, s.z + 3.3), bottom: 0, top: bodyBot + 2.8 });
@@ -288,10 +261,16 @@ export function buildMetro(core: WorldCore, quality: Quality): THREE.Group {
   // ---- stations
   const boardJobs: Promise<void>[] = [];
   for (const z of zones) {
-    const sg = buildStation(z.station, z.px, z.pz, z.tx, z.tz, H, a, trackX, quality, mats, z.align.color, boardJobs, z.plan);
+    const sg = buildStation(z.station, z.px, z.pz, z.tx, z.tz, H, a, trackX, quality, mats, z.align.color, boardJobs, z.plan, z.layout);
     group.add(sg);
     registerCull(sg);
   }
+  group.userData.alignmentCount=aligns.length;
+  const service = createMetroService(aligns.map(al => ({ ...al, stations: zones.filter(z => z.align === al).map(z => (z.s0 + z.s1) / 2) })), quality,trackX);
+  group.add(service);
+  group.userData.nearbySound=0;
+  group.userData.update = (time:number,target:THREE.Vector3)=>{service.userData.update(time,target);group.userData.nearbySound=service.userData.nearbySound;};
+  group.userData.dispose = service.userData.dispose;
   group.userData.pending = Promise.all(boardJobs).then(() => undefined);
   group.userData.sharedGeometries = [colGeo, capGeo];
   return group;
@@ -311,13 +290,14 @@ function buildStation(
   lineColor: string,
   jobs: Promise<void>[],
   plan: StationPlan,
+  layout:StationLayout,
 ): THREE.Group {
   const g = new THREE.Group();
   g.name = `station_${st.id}`;
   g.position.set(px, 0, pz);
   g.rotation.y = Math.atan2(-tx, -tz); // local -Z = direction of travel; local +X = right
-  const L = STATION_LEN;
-  const W = STATION_W;
+  const L = layout.lengthM;
+  const W = layout.widthM;
   const hl = L / 2;
   const hw = W / 2;
   const concrete = new GeoBuilder();
@@ -328,29 +308,13 @@ function buildStation(
   const dark = steel;
   const STEELC = hex(0x8d979f), DARKC = hex(0x2a2d31), YELC = hex(0xe9b92a);
 
-  // side platforms
   const pIn = trackX + 1.5;
-  for (const side of [-1, 1]) {
-    const cx = side * ((pIn + hw - 0.4) / 2);
-    const w = hw - 0.4 - pIn;
-    addBox(concrete, w, 2.4, L, boxMatrix(cx, H - 0.3, 0), 3);
-    // tactile / safety line
-    addBox(yellow, 0.35, 0.04, L - 2, boxMatrix(side * (pIn + 0.5), H + 0.92, 0), 1, YELC);
+  const bodyTop = H - 1.5,bodyBot = H - 5.4;
+  for(const box of stationBodyBoxes(L,W,H,trackX,layout.clearancePortals)){
+    const builder=box.material==='concrete'?concrete:box.material==='glass'?glass:steel;
+    addBox(builder,box.width,box.top-box.bottom,box.length,boxMatrix(box.x,(box.top+box.bottom)/2,box.z),box.material==='steel'?1:box.material==='glass'?2:3,box.material==='steel'?STEELC:undefined);
   }
-  // concourse / station body beneath the platforms
-  const bodyTop = H - 1.5;
-  const bodyBot = H - 5.4;
-  const bodyL = 78;
-  addBox(concrete, W - 0.4, 0.7, bodyL, boxMatrix(0, bodyBot + 0.35, 0), 3); // concourse floor slab
-  addBox(concrete, W - 0.4, 0.5, bodyL, boxMatrix(0, bodyTop - 0.25, 0), 3); // ceiling / platform slab
-  for (const side of [-1, 1]) {
-    // glazed long walls with mullions
-    const x = side * (hw - 0.25);
-    addBox(glass, 0.12, bodyTop - bodyBot - 1.6, bodyL - 4, boxMatrix(x, (bodyTop + bodyBot) / 2, 0), 2);
-    for (let z = -bodyL / 2; z <= bodyL / 2 + 0.01; z += 6.5) addBox(steel, 0.35, bodyTop - bodyBot, 0.35, boxMatrix(x, (bodyTop + bodyBot) / 2, z), 1, STEELC);
-    addBox(steel, 0.35, 0.3, bodyL, boxMatrix(x, bodyTop - 0.9, 0), 1, STEELC);
-  }
-  for (const end of [-1, 1]) addBox(concrete, W - 0.4, bodyTop - bodyBot, 0.5, boxMatrix(0, (bodyTop + bodyBot) / 2, end * (bodyL / 2)), 3);
+  for(const side of [-1,1])addBox(yellow,.35,.04,L-2,boxMatrix(side*(pIn+.5),H+.92,0),1,YELC);
   // columns under the station body and platform overhangs
   const colR = 0.55;
   const cyl = new THREE.CylinderGeometry(colR, colR * 1.15, bodyBot, 12, 1);
@@ -362,14 +326,7 @@ function buildStation(
   // curved roof canopy: thin shell swept along the station length
   const rise = 2.2;
   const roofBase = H + 4.6;
-  const arc: Profile = [];
-  const arcN = quality === 'low' ? 8 : 14;
-  for (let i = 0; i <= arcN; i++) {
-    const t = i / arcN;
-    const x = -hw - 1.2 + t * (W + 2.4);
-    const u = (x / (hw + 1.2));
-    arc.push([x, roofBase + rise * (1 - u * u)]);
-  }
+  const arc: Profile = stationRoofProfile(W,H);
   const shell: Profile = arc.concat(arc.slice().reverse().map(([x, y]) => [x, y - 0.35] as [number, number]));
   const roofSamples = makeSamples([[0, -hl], [0, hl]], 0).map((s) => ({ ...s }));
   // sweep runs along +Z; "right" there is -X, symmetric profile so this is fine
@@ -402,6 +359,34 @@ function buildStation(
       addBox(glass, 0.06, 1.3, 3.2, boxMatrix(side * (pIn + 0.2), H + 1.55, z + 6), 1);
     }
   }
+
+  // Waiting passengers and platform furniture remain above the clear carriageway.
+  // Individuals are generic presentation actors, not surveyed crowd positions.
+  const skin = hex(0xb87d55);
+  const headGeo = new THREE.SphereGeometry(0.13, 6, 4);
+  for (const side of [-1, 1]) {
+    for (let k = 0; k < (quality === 'low' ? 5 : 13); k++) {
+      const z = -hl + 9 + k * (L - 20) / (quality === 'low' ? 5 : 13);
+      const x = side * (pIn + 1.3 + (k % 3) * 0.55);
+      const y = H + 0.94;
+      addBox(steel, .32, .62, .22, boxMatrix(x, y + .9, z), 1, hex([0xb95c37, 0x277a86, 0xd9c26d, 0x687190, 0x734361][k % 5]));
+      for (const dx of [-.09,.09]) addBox(dark,.1,.58,.13,boxMatrix(x+dx,y+.29,z),1,DARKC);
+      steel.appendGeometry(headGeo,boxMatrix(x,y+1.38,z),skin);
+    }
+    // Ticket gates and wide concourse circulation underneath the platform.
+    for (let k = 0; k < 5; k++) {
+      const x=side*(hw-3), z=-5+k*1.6;
+      if(layout.clearancePortals.some(p=>x+.8>p.x0&&x-.8<p.x1&&z+.7>p.z0&&z-.7<p.z1&&bodyBot+1.5>p.bottom&&bodyBot<p.top))continue;
+      addBox(steel,1.3,.95,.28,boxMatrix(x,bodyBot+1,z),1,STEELC);
+      addBox(glass,.06,.5,.6,boxMatrix(x,bodyBot+1.25,z+.42),1);
+    }
+    for(let z=-hl+12;z<hl;z+=24) {
+      addBox(dark,.12,1.7,.12,boxMatrix(side*(hw-1.8),H+1.8,z),1,DARKC);
+      addBox(dark,.85,.5,2.4,boxMatrix(side*(hw-1.8),H+2.5,z),1,DARKC);
+      addBox(yellow,.87,.07,2.42,boxMatrix(side*(hw-1.8),H+2.68,z),1,YELC);
+    }
+  }
+  headGeo.dispose();
 
   // stairs / escalators down to the street on both sides
   const rise0 = RISE0, run0 = RUN0;
@@ -493,5 +478,8 @@ function buildStation(
       .catch(() => undefined),
   );
   g.userData.stationId = st.id;
+  g.userData.horizontalEnvelope={lengthM:L,widthM:W,basis:layout.basis,sourceFeatureId:layout.sourceFeatureId,status:'provisional',unappliedReason:layout.unappliedReason};
+  g.userData.verticalGeometry='authored_provisional';
+  g.userData.clearancePortals=layout.clearancePortals;
   return g;
 }

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "gandhi-hospital-station-context-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "One February 2026 panorama on 3 Bhoiguda Road at Gandhi Hospital Metro documents the elevated line, road edge and mixed traffic. No storefront fascia is readable in the view. The source supports station-area context only: no roadside business, canonical road side, signal timing, traffic rate or measured street geometry is added.",
+  "sources": [
+    {
+      "id": "sv-gandhi-hospital-bhoiguda-road-under-metro-202602-20261018",
+      "kind": "street_view",
+      "title": "3 Bhoiguda Road under Gandhi Hospital Metro — 2026-02",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=vM75hRoaHjLyNPzmj7nhwQ&heading=158.68",
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.425701,
+        "lon": 78.5018504,
+        "panoId": "vM75hRoaHjLyNPzmj7nhwQ",
+        "headingDeg": 158.68
+      },
+      "assetPolicy": "reference_only",
+      "notes": "The February 2026 view titled 3 Bhoiguda Road looks along a paved roadway beneath the elevated Gandhi Hospital Metro structure. Concrete piers and deck, a fenced raised edge, city buses, an auto-rickshaw, motorcycles and pedestrians are visible. No shop sign is legible in this frame. Reference imagery is not copied."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-gandhi-hospital-2026-station-road-context",
+      "sourceIds": [
+        "sv-gandhi-hospital-bhoiguda-road-under-metro-202602-20261018"
+      ],
+      "captureDate": "2026-02",
+      "observedDate": "2026-10-18",
+      "name": "Gandhi Hospital Metro road under viaduct with bus, auto-rickshaw, motorcycles and pedestrians",
+      "category": "first_pass_station_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.425701,
+        "lon": 78.5018504,
+        "headingDeg": 158.68
+      },
+      "placementStatus": "pending",
+      "notes": "A February 2026 panorama on 3 Bhoiguda Road shows the elevated concrete metro deck and repeating piers over a paved road, a fenced raised roadside edge, one city bus ahead, another bus behind the fence, an auto-rickshaw, motorcycles and pedestrians. No shop fascia is readable. This single view does not prove a complete road inventory, exact station entrance, canonical road ID/side, lane or curb dimensions, signal timing or traffic volume."
+    }
+  ],
+  "storefrontOverrides": [],
+  "corrections": [],
+  "suppressions": [],
+  "roadReviews": []
+}

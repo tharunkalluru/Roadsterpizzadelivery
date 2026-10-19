@@ -34,3 +34,6 @@ export { buildStorefronts, disposeStorefronts } from './storefronts';
 export type { StorefrontStats } from './storefronts';
 export { buildStructures, structureObstacles } from './structures';
 export type { StructureObstacle } from './structures';
+
+export { buildStreetscape, loadStreetscape, streetscapeBarriers } from './streetscape';
+export type { StreetscapeData, StreetscapeFeature } from './streetscape';

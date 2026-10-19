@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "id": "other-station-bharat-nagar-market-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "January 2026 Street View cameras on the access lane beside Bharat Nagar Metro show an active wholesale produce-loading frontage beneath the elevated road. This is station-area and road-life context only: camera points do not establish a shop entrance or exact unit, the visible ROH DEPOT text is on a roadside advertisement, and no business identity, road side or frontage sequence is assigned. No reviewed road range or storefront override is added.",
+  "sources": [
+    {
+      "id": "sv-bharat-nagar-market-01-202601-iVRtTgq7cBSFCMItloBzJA",
+      "kind": "street_view",
+      "title": "Bharat Nagar market access lane and produce loading — 2026-01 — view 1",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=iVRtTgq7cBSFCMItloBzJA&heading=331.3222",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4641337, "lon": 78.4305902, "panoId": "iVRtTgq7cBSFCMItloBzJA", "headingDeg": 331.3222 },
+      "assetPolicy": "reference_only",
+      "notes": "Street View shows the lane beside Bharat Nagar Metro with produce crates and sacks at the roadside, goods trucks, auto-rickshaws and other loading activity beneath the elevated road. A blue temporary wall carries roadside advertising; the readable ROH DEPOT wording is not established as a market tenant or shop. No storefront entrance, shop identity, side or order can be assigned from this camera view."
+    },
+    {
+      "id": "sv-bharat-nagar-market-02-202601-izNblr4z5RN7GIMHrCzCYQ",
+      "kind": "street_view",
+      "title": "Bharat Nagar market access lane and produce loading — 2026-01 — view 2",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=izNblr4z5RN7GIMHrCzCYQ&heading=331.3222",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4642978, "lon": 78.4305076, "panoId": "izNblr4z5RN7GIMHrCzCYQ", "headingDeg": 331.3222 },
+      "assetPolicy": "reference_only",
+      "notes": "Adjacent camera point along the same under-flyover market access lane. Produce crates are visible among parked and moving delivery vehicles and auto-rickshaws. The view supports market loading and mixed traffic context only; it does not resolve business identity or frontage order."
+    },
+    {
+      "id": "sv-bharat-nagar-market-03-202601-fNj9m7bnLEZ20_laxLUy6g",
+      "kind": "street_view",
+      "title": "Bharat Nagar market access lane and produce loading — 2026-01 — view 3",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=fNj9m7bnLEZ20_laxLUy6g&heading=331.3222",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4643823, "lon": 78.4304602, "panoId": "fNj9m7bnLEZ20_laxLUy6g", "headingDeg": 331.3222 },
+      "assetPolicy": "reference_only",
+      "notes": "Adjacent camera point looking along the elevated-road market lane. Multiple goods autos and other vehicles are stopped beside produce crates; roadside stalls or loading bays are partially occluded. No readable tenant name or exact shop entrance is established."
+    },
+    {
+      "id": "sv-bharat-nagar-market-04-202601-QhbPCxNWTL0kPGanlvw2vQ",
+      "kind": "street_view",
+      "title": "Bharat Nagar market access lane and produce loading — 2026-01 — view 4",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=QhbPCxNWTL0kPGanlvw2vQ&heading=331.3222",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4645542, "lon": 78.4303725, "panoId": "QhbPCxNWTL0kPGanlvw2vQ", "headingDeg": 331.3222 },
+      "assetPolicy": "reference_only",
+      "notes": "Further adjacent camera point under the flyover. The lane remains crowded with auto-rickshaws and goods vehicles; a water tanker partly blocks the left-side frontage and a blue boundary wall, advertising boards and overhead wiring line the other edge. The camera does not establish a continuous frontage inventory."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-bharat-nagar-market-wholesale-produce-20261019",
+      "sourceIds": [
+        "sv-bharat-nagar-market-01-202601-iVRtTgq7cBSFCMItloBzJA",
+        "sv-bharat-nagar-market-02-202601-izNblr4z5RN7GIMHrCzCYQ",
+        "sv-bharat-nagar-market-03-202601-fNj9m7bnLEZ20_laxLUy6g",
+        "sv-bharat-nagar-market-04-202601-QhbPCxNWTL0kPGanlvw2vQ"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Wholesale produce loading beside Bharat Nagar Metro",
+      "category": "market_vendor_context",
+      "roadId": "r_56815955189_0",
+      "position": { "lat": 17.4641337, "lon": 78.4305902, "headingDeg": 331.3222 },
+      "placementStatus": "pending",
+      "notes": "Across adjacent camera views, produce crates and sacks are visible at an open roadside loading frontage beneath the elevated road, with delivery trucks and goods autos alongside. This observation is anchored to the Street View camera context; no exact market unit, frontage entrance, business name, road side or ordered shop position is established. The ROH DEPOT wording is on a roadside advertising board and is not treated as the frontage identity."
+    },
+    {
+      "id": "obs-bharat-nagar-market-lane-traffic-edge-20261019",
+      "sourceIds": [
+        "sv-bharat-nagar-market-01-202601-iVRtTgq7cBSFCMItloBzJA",
+        "sv-bharat-nagar-market-02-202601-izNblr4z5RN7GIMHrCzCYQ",
+        "sv-bharat-nagar-market-03-202601-fNj9m7bnLEZ20_laxLUy6g",
+        "sv-bharat-nagar-market-04-202601-QhbPCxNWTL0kPGanlvw2vQ"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Crowded goods-vehicle and auto loading lane beneath elevated road",
+      "category": "first_pass_market_access_context",
+      "roadId": "r_56815955189_0",
+      "position": { "lat": 17.4641337, "lon": 78.4305902, "headingDeg": 331.3222 },
+      "placementStatus": "pending",
+      "notes": "The adjacent views show repeated auto-rickshaw and goods-vehicle loading activity, a water tanker, overhead wiring, a blue temporary boundary wall and an uneven road edge beneath the elevated road. These are qualitative camera-context observations only; lane dimensions, side assignments, continuous extents and traffic counts were not measured."
+    }
+  ]
+}

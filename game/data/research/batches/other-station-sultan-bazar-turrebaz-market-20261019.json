@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View inspection",
+  "id": "other-station-sultan-bazar-turrebaz-market-20261019",
+  "notes": "Three April 2026 Street View cameras form a roughly 40 m southbound visual chain on Google-labelled Turrebaz Khan Road near Sultan Bazar. Sign identities are recorded as pending camera-context observations. The camera points project about 18 m from each of two parallel named core edges, so road-edge alignment and stored left/right side are unresolved; roadId is null. Image-relative sign progression is not canonical arclength order. No storefront geometry, road-side review, or completeness is claimed; unclear operator names, shop boundaries, floors, entrances, and vendor identities remain open.",
+  "sources": [
+    {
+      "id": "sv-sultan-bazar-turrebaz-20261019-01",
+      "kind": "street_view",
+      "title": "5 Turrebaz Khan Road, Sultan Bazar row, south-facing",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=gHtjM0TjS8A4iwwKHm3yUA&heading=180&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3844085,
+        "lon": 78.4840013,
+        "headingDeg": 180,
+        "panoId": "gHtjM0TjS8A4iwwKHm3yUA"
+      },
+      "notes": "Street View title: 5 Turrebaz Khan Rd. Frame includes SRK FOOT WEAR, MEN’S ZONE / MEN’S SHOPPE and Bell Condor / Exclusive Men’s Wear signs, with dense outdoor footwear/accessory displays and a sidewalk umbrella stall. The shop row is visually on the camera-left; unit edges and canonical road side/order are not resolved. Google Street View labels this imagery April 2026; coordinates and heading identify the camera view only, not a storefront entrance.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-sultan-bazar-turrebaz-20261019-02",
+      "kind": "street_view",
+      "title": "4 Turrebaz Khan Road, Sultan Bazar row, south-facing",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=lJDo-jGWGVbpuZejHlIEJA&heading=180&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3842649,
+        "lon": 78.4838823,
+        "headingDeg": 180,
+        "panoId": "lJDo-jGWGVbpuZejHlIEJA"
+      },
+      "notes": "Street View title: 4 Turrebaz Khan Rd. Visible sign candidates include M.M. Fashion Point, M.M.M. Medical Hall (shutter down in this capture), FEET N FASHION, COLLEGE SHOES and SANTHOSH FOOT WEAR / company-outlet panels. Shop boundaries, vertical tenancy and exact sequence remain unresolved. Google Street View labels this imagery April 2026; coordinates and heading identify the camera view only, not a storefront entrance.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-sultan-bazar-turrebaz-20261019-03",
+      "kind": "street_view",
+      "title": "4 Turrebaz Khan Road, Sultan Bazar market continuation, south-facing",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=1aaUbtSk01c1EhM6bErjCQ&heading=180&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3841197,
+        "lon": 78.4837548,
+        "headingDeg": 180,
+        "panoId": "1aaUbtSk01c1EhM6bErjCQ"
+      },
+      "notes": "Street View title: 4 Turrebaz Khan Rd. Legible SRI STORES GENERAL MERCHANTS fascia; a NASEER & CO. board with plastic/rubber-stamp wording partly legible; yellow mobile-glass/repair panels; footwear brand/company-outlet signage; street-side tables and carts with clothing and small goods. Unreadable fascia text remains untranscribed. Google Street View labels this imagery April 2026; coordinates and heading identify the camera view only, not a storefront entrance.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "sv-sultan-bazar-srk-footwear-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "SRK Foot Wear",
+      "category": "shoe_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3844085,
+        "lon": 78.4840013,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "The red SRK FOOT WEAR fascia is legible in the camera-left retail row. Candidate identity only; exact unit entrance and facade span are not established. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-mens-zone-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Men’s Zone / Men’s Shoppe",
+      "category": "clothing_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3844085,
+        "lon": 78.4840013,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Black fascia reads MEN’S ZONE and MEN’S SHOPPE. The sign identifies a candidate operator; exact unit/floor is not established. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-bell-condor-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Bell Condor / Exclusive Men’s Wear",
+      "category": "clothing_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3844085,
+        "lon": 78.4840013,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Visible fascia reads Bell Condor with Exclusive Men’s Wear beneath. Candidate name/category only. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-mm-fashion-point-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "M.M. Fashion Point",
+      "category": "clothing_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3842649,
+        "lon": 78.4838823,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Large yellow sign reads M.M. Fashion Point. The sign is above a different-looking M.M.M. Medical Hall fascia; tenancy/building relationships need a closer positional pass. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-mmm-medical-hall-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "M.M.M. Medical Hall",
+      "category": "pharmacy",
+      "roadId": null,
+      "position": {
+        "lat": 17.3842649,
+        "lon": 78.4838823,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Ground-level fascia reads M.M.M. Medical Hall; the shutter appears closed in April 2026 imagery. This does not establish current operation. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-feet-n-fashion-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Feet N Fashion",
+      "category": "shoe_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3842649,
+        "lon": 78.4838823,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Blue/white fascia reads FEET N FASHION; the adjacent display contains footwear. Exact frontage boundary remains pending. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-college-shoes-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "College Shoes",
+      "category": "shoe_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3842649,
+        "lon": 78.4838823,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "White fascia reads COLLEGE SHOES above an open footwear display. Its precise relationship to neighboring units is not resolved. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-santhosh-footwear-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-03"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Santhosh Foot Wear / company outlet",
+      "category": "shoe_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3841197,
+        "lon": 78.4837548,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Large orange sign reads SANTHOSH FOOT WEAR; a “Company Outlet” panel and VKC Pride, Woodland and Paragon brand panels sit above. These boards appear grouped in the same shop area, but exact unit/facade boundaries remain pending. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-sri-stores-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-03"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Sri Stores General Merchants",
+      "category": "general_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3841197,
+        "lon": 78.4837548,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Yellow fascia clearly reads SRI STORES GENERAL MERCHANTS. The subtitle lists mixed general goods; exact entrance span is not measured. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-naseer-co-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-03"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Naseer & Co. sign",
+      "category": "unresolved_retail",
+      "roadId": null,
+      "position": {
+        "lat": 17.3841197,
+        "lon": 78.4837548,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "A roadside board reads NASEER & CO.; smaller plastic-work / rubber-stamp wording is partly legible. It may be a secondary business board rather than a separate street frontage. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-mobile-repair-signs-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-03"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Unresolved mobile glass / repair signage",
+      "category": "mobile_repair_signage",
+      "roadId": null,
+      "position": {
+        "lat": 17.3841197,
+        "lon": 78.4837548,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Yellow panels mention mobile covers/glass and mobile repair. Operator name and frontage are not clear enough to transcribe. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-street-market-displays-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Footwear racks, clothing tables and sidewalk merchandise",
+      "category": "street_vendor_display",
+      "roadId": null,
+      "position": {
+        "lat": 17.3844085,
+        "lon": 78.4840013,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Several merchandise racks and a covered sidewalk stall sit directly outside shops. Later contiguous frames show additional ground tables and a clothing/textile cart; seller names and exact stalls are unknown. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    },
+    {
+      "id": "sv-sultan-bazar-market-metro-context-20261019",
+      "sourceIds": [
+        "sv-sultan-bazar-turrebaz-20261019-03"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Turrebaz Khan Road market under the Metro viaduct",
+      "category": "market_street_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.3841197,
+        "lon": 78.4837548,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Narrow, continuous multi-storey retail frontage and temporary sidewalk displays sit beside a broad concrete Metro structure. The frame also shows pedestrians, parked two-wheelers, cars and an auto-rickshaw farther down-road; these are scene context, not measured traffic counts. Position is the panorama camera, not the feature/store location; no exact unit, side, dimensions or shop order is claimed."
+    }
+  ]
+}

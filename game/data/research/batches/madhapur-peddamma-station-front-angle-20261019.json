@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-peddamma-station-front-angle-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex Chrome Street View review",
+  "notes": "Focused station-end continuation from the saved Madhapur → Peddamma Gudi chain. Chrome review resumed at Jan 2025 pano095 and checked the forward-connected pano096–106 sequence, then direct station-area angles. The forward frames show continuous Road No. 36 under the Metro, raised planted median, piers and advertising, traffic and intermittent retail facades. New direct-angle sources below make the visible Ajfan, Glam and Gowri identities clearer and preserve an unidentified SALONS fascia as unresolved. The Peddamma-side station marker area is reached, but the actual station gate and its approach remain unconfirmed. No storefront overrides or road-side reviews are added: route alignment, exact road side, door/unit bounds and measured route length are not established. Do not treat the advertising boards as separate shops or advance to the next station pair.",
+  "sources": [
+    {
+      "id": "sv-mp-peddamma-approach-frontage-202501-heading0-20261019",
+      "kind": "street_view",
+      "title": "Peddamma Gudi Road No. 36 station approach — direct frontage view — January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=4JWkzALLpn0fi4rueUsGfw&heading=0&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex Chrome Street View review",
+      "position": {
+        "lat": 17.4307199,
+        "lon": 78.4083846,
+        "panoId": "4JWkzALLpn0fi4rueUsGfw",
+        "headingDeg": 0
+      },
+      "notes": "Directly inspected in Chrome at heading 0. AJFAN DATES & NUTS and GLAM AESTHETICS fasciae are legible on the photographed retail block; an adjacent generic SALONS word is visible but its operator is not. The view is a camera location, not a shop entrance. No canonical side, road alignment, floor, exact shop boundaries or current tenancy is established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-peddamma-gowri-frontage-202501-heading50-20261019",
+      "kind": "street_view",
+      "title": "Gowri Signatures direct facade angle — January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=sKn2n4K6ogQHCm2WWF6vbA&heading=50.38&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex Chrome Street View review",
+      "position": {
+        "lat": 17.4305453,
+        "lon": 78.408536,
+        "panoId": "sKn2n4K6ogQHCm2WWF6vbA",
+        "headingDeg": 50.38
+      },
+      "notes": "Directly inspected in Chrome at heading 50.38. The view shows a glass-fronted retail facade with GOWRI SIGNATURES and BESPOKE WEDDING ENSEMBLES wording. Separate bridal panels on the median/pier are advertisements and do not prove additional storefronts. Exact unit bounds, entrance, canonical side, route alignment and neighbor order remain unresolved.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-mp-peddamma-stair-check-202501-heading250-20261019",
+      "kind": "street_view",
+      "title": "Road No. 36 Peddamma-side station access check — January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Pqjbe5ufI1UnA2ijOlIgzQ&heading=250&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex Chrome Street View review",
+      "position": {
+        "lat": 17.4306678,
+        "lon": 78.4084665,
+        "panoId": "Pqjbe5ufI1UnA2ijOlIgzQ",
+        "headingDeg": 250
+      },
+      "notes": "A frontal-angle check of the station-area Road No. 36 panorama shows the elevated Metro structure, median, adjacent frontage and street activity. No station nameplate, gate or fare-control threshold is legible in this frame. This view does not establish that an entrance is absent; it leaves the actual gate/approach unidentified.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-mp-peddamma-ajfan-glam-direct-fascia-20261019",
+      "sourceIds": [
+        "sv-mp-peddamma-approach-frontage-202501-heading0-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "AJFAN DATES & NUTS and GLAM AESTHETICS fasciae near Peddamma Gudi",
+      "notes": "The January 2025 direct view at 17.4307199, 78.4083846, heading 0, clearly shows the AJFAN DATES & NUTS and GLAM AESTHETICS fasciae on a nearby retail block. Ajfan appears to the image-left of Glam in this frame; that is only image-relative, not a canonical road-side or shop-order assignment. A generic SALONS word appears on an adjacent fascia and is recorded separately as unresolved. Exact unit boundaries, entrances, floor, route alignment, current tenancy and mapped storefront associations remain unknown. Existing nearby listing candidates are not treated as proven placements.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4307199,
+        "lon": 78.4083846,
+        "headingDeg": 0
+      }
+    },
+    {
+      "id": "obs-mp-peddamma-salons-fascia-unresolved-20261019",
+      "sourceIds": [
+        "sv-mp-peddamma-approach-frontage-202501-heading0-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "Unidentified adjacent frontage marked SALONS",
+      "notes": "The January 2025 station-approach view shows the generic word SALONS on a fascia near the AJFAN DATES & NUTS and GLAM AESTHETICS signs. The operator/branding before SALONS is not legible, so no business identity is inferred. Exact unit boundary, entrance, floor, road side and neighbor order remain unresolved.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4307199,
+        "lon": 78.4083846,
+        "headingDeg": 0
+      }
+    },
+    {
+      "id": "obs-mp-peddamma-gowri-direct-facade-angle-20261019",
+      "sourceIds": [
+        "sv-mp-peddamma-gowri-frontage-202501-heading50-20261019"
+      ],
+      "category": "first_pass_dated_business_sign_identity_only",
+      "name": "GOWRI SIGNATURES / BESPOKE WEDDING ENSEMBLES direct facade view",
+      "notes": "The January 2025 direct angle at 17.4305453, 78.408536, heading 50.38, shows GOWRI SIGNATURES and BESPOKE WEDDING ENSEMBLES on a glass-fronted retail facade. Similar GOWRI bridal panels on the Metro median and piers are advertising, not extra premises. The camera is not the entrance; exact storefront bounds, road side, frontage order, current tenancy and relation to the mapped route remain unverified.",
+      "placementStatus": "pending",
+      "roadId": null,
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "position": {
+        "lat": 17.4305453,
+        "lon": 78.408536,
+        "headingDeg": 50.38
+      }
+    }
+  ]
+}

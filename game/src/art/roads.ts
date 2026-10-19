@@ -22,6 +22,9 @@ import {
 } from './geo';
 import { getWorldMats } from './mats';
 import { registerCull } from './cull';
+import { RoadIndex } from '../world/roadIndex';
+import { publicRealmOf,publicRealmSurfaceHeight,type PublicRealmSurfacePatch } from '../world/publicRealm';
+import { transportOf } from '../traffic/placements';
 
 const TILE = 480;
 const VERGE_COL = [0.075, 0.066, 0.055];
@@ -49,6 +52,37 @@ const DECK_MIN = 0.3;
 const BEAM = 0.3;
 const PARAPET = 1.0;
 const PIER_SPACING = 25;
+
+/** Subdivide only the few metres around a mapped surface defect, not the entire road network. */
+export function appendPatchedRoadSurface(builder:GeoBuilder,samples:PSample[],width:number,patches:PublicRealmSurfacePatch[]):void{
+  if(!patches.length){strip(builder,samples,-width/2,width/2,0,(x,z)=>[x/8,z/8]);return;}
+  const height=(x:number,z:number)=>patches.reduce((h,p)=>h+publicRealmSurfaceHeight(p,x,z),0);
+  for(let i=1;i<samples.length;i++){
+    const a=samples[i-1],b=samples[i],length=b.s-a.s;if(length<1e-5)continue;
+    const dx=b.x-a.x,dz=b.z-a.z,l2=dx*dx+dz*dz;
+    const ranges=patches.map(p=>{const at=((p.x-a.x)*dx+(p.z-a.z)*dz)/(l2||1),r=(Math.hypot(p.widthM,p.lengthM)/2+.6)/length;return[Math.max(0,at-r),Math.min(1,at+r)]as[number,number];}).filter(([lo,hi])=>hi>lo);
+    const cuts=[...new Set([0,1,...ranges.flat()])].sort((x,y)=>x-y);
+    for(let k=1;k<cuts.length;k++){
+      const lo=cuts[k-1],hi=cuts[k],mid=(lo+hi)/2,dense=ranges.some(([x,y])=>mid>=x&&mid<=y);
+      const along=dense?Math.max(1,Math.ceil((hi-lo)*length/.28)):1,across=dense?Math.max(2,Math.ceil(width/.28)):1;
+      for(let j=0;j<along;j++){
+        const at=lo+(hi-lo)*j/along,bt=lo+(hi-lo)*(j+1)/along;
+        const pa=sampleAt(samples,a.s+length*at),pb=sampleAt(samples,a.s+length*bt);
+        for(let q=0;q<across;q++){
+          const r0=-width/2+width*q/across,r1=-width/2+width*(q+1)/across;
+          const point=(p:PSample,r:number)=>{const [rx,rz]=rightOf(p.tx,p.tz),x=p.x+rx*r*p.m,z=p.z+rz*r*p.m;return[x,p.y+height(x,z),z];};
+          const p0=point(pa,r0),p1=point(pa,r1),p2=point(pb,r1),p3=point(pb,r0);
+          const indices=[p0,p1,p2,p3].map(([x,y,z])=>{
+            const ex=(height(x+.03,z)-height(x-.03,z))/.06,ez=(height(x,z+.03)-height(x,z-.03))/.06,n=Math.hypot(ex,1,ez);
+            return builder.vert(x,y,z,-ex/n,1/n,-ez/n,x/8,z/8);
+          });
+          // Match the up-facing winding used by strip().
+          builder.tri(indices[0],indices[1],indices[2]);builder.tri(indices[0],indices[2],indices[3]);
+        }
+      }
+    }
+  }
+}
 
 /** slab thickness under the deck surface at elevation y: solid ramp to ~2 m, 1.2 m deck from ~3.2 m up */
 function slabThickness(y: number): number {
@@ -170,6 +204,15 @@ export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string)
     return t;
   };
 
+  const roadGeometry = new RoadIndex(core);
+  const publicRealm=publicRealmOf(core),transport=transportOf(core);
+  const crossingByRoad=new Map<string,number[]>();
+  if(transport){const byId=new Map(transport.features.map(f=>[f.id,f]));for(const m of transport.matches){
+    const f=byId.get(m.featureId);if(f?.kind!=='crossing'||!(/^(yes|zebra|ladder)$/.test(f.tags?.['crossing:markings']??'')||/^(zebra|marked)$/.test(f.tags?.crossing??'')))continue;
+    const list=crossingByRoad.get(m.roadId)??[];list.push(m.alongM);crossingByRoad.set(m.roadId,list);
+  }}
+  const surfaceByRoad=new Map<string,PublicRealmSurfacePatch[]>();
+  for(const p of publicRealm?.surfaces??[]){const list=surfaceByRoad.get(p.roadId)??[];list.push(p);surfaceByRoad.set(p.roadId,list);}
   const nodeById = new Map(core.nodes.map((n) => [n.id, n]));
   const roadById = new Map<string, RoadEdge>();
   for (const r of core.roads) roadById.set(r.id, r);
@@ -327,7 +370,7 @@ export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string)
       strip(tile.paving, samples, -w / 2, w / 2, 0, (x, z) => uvPaving(x, z));
       continue;
     }
-    strip(tile.asphalt, samples, -w / 2, w / 2, 0, (x, z) => uvAsphalt(x, z));
+    appendPatchedRoadSurface(tile.asphalt,samples,w,surfaceByRoad.get(e.id)??[]);
 
     const fromN = nodeInfo.get(e.fromNode);
     const toN = nodeInfo.get(e.toNode);
@@ -370,19 +413,10 @@ export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string)
       const contStart = cont(e.fromNode), contEnd = cont(e.toNode);
       if (!contStart && samples[0].y > 0.05) endFace(tile.concrete, samples[0], -1, hw, slabThickness(samples[0].y));
       if (!contEnd && samples[samples.length - 1].y > 0.05) endFace(tile.concrete, samples[samples.length - 1], 1, hw, slabThickness(samples[samples.length - 1].y));
-      // parapets along the raised part (continuous across edges; closed profile incl. inner face)
-      const runs: PSample[][] = [];
-      let cur: PSample[] = [];
-      for (const p of samples) {
-        if (p.y >= 0.25) cur.push(p); else { if (cur.length >= 2) runs.push(cur); cur = []; }
-      }
-      if (cur.length >= 2) runs.push(cur);
-      for (const run of runs) {
-        sweep(tile.concrete, run, [[w / 2, 0], [w / 2, PARAPET], [hw, PARAPET], [hw, 0]], { tile: 2, sign: -1 });
-        sweep(tile.concrete, run, [[-w / 2, 0], [-w / 2, PARAPET], [-hw, PARAPET], [-hw, 0]], { tile: 2, sign: 1 });
-        // coping strip on top of the barrier is part of the profile above; end faces where the barrier stops
-        if (run[0] !== samples[0] || !contStart) endFace2(tile.concrete, run[0], -1, w / 2, hw, PARAPET);
-        if (run[run.length - 1] !== samples[samples.length - 1] || !contEnd) endFace2(tile.concrete, run[run.length - 1], 1, w / 2, hw, PARAPET);
+      // Exact same wall pieces and branch openings as WorldPhysics, including low ramp ends.
+      for (const wall of roadGeometry.parapetSegments(e.id)) {
+        const path = makeSamples([[wall.ax, wall.az], [wall.bx, wall.bz]], [wall.ay, wall.by]);
+        sweep(tile.concrete, path, [[-wall.radius, 0], [-wall.radius, wall.height], [wall.radius, wall.height], [wall.radius, 0]], { tile: 2, caps: true, sign: -1 });
       }
       // piers (~25 m) wherever the underside is clear of the ground; never in a crossing carriageway
       if (maxElev > 2.5) {
@@ -464,7 +498,7 @@ export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string)
         const frame = sampleAt(samples, sA);
         const [rx, rz] = rightOf(frame.tx, frame.tz);
         // stripes across the carriageway (skipped on low; stop bar kept)
-        if (quality !== 'low') {
+        if (quality !== 'low'&&!transport) {
         const stripes = Math.max(4, Math.floor((w - 1) / 1.5));
         const span = w - 0.8;
         const zl = 3.0;
@@ -500,6 +534,17 @@ export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string)
         white.quad(P, [0, 0, 0, 1, 1, 1, 1, 0], [0, 1, 0], WHT);
       };
       if (w >= 6) { placeEnd(false, rj0); placeEnd(true, rj1); }
+    }
+    // Source-mapped crossings retain their actual road attachment. No synthetic zebra at every junction.
+    if(transport&&!elevated){
+      for(const along of crossingByRoad.get(e.id)??[]){
+        const centre=sampleAt(samples,along),[rx,rz]=rightOf(centre.tx,centre.tz),span=w-.7,stripes=Math.max(4,Math.floor(span/.8));
+        for(let k=0;k<stripes;k++){
+          const r0=-span/2+span*(k+.1)/stripes,r1=-span/2+span*(k+.58)/stripes;
+          const a=sampleAt(samples,Math.max(0,along-1.5)),b=sampleAt(samples,Math.min(L,along+1.5));
+          white.quad([a.x+rx*r0,a.y+dy,a.z+rz*r0,a.x+rx*r1,a.y+dy,a.z+rz*r1,b.x+rx*r1,b.y+dy,b.z+rz*r1,b.x+rx*r0,b.y+dy,b.z+rz*r0],[0,0,0,1,1,1,1,0],[0,1,0],WHT);
+        }
+      }
     }
   }
 

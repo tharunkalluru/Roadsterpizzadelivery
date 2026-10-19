@@ -53,7 +53,7 @@ export class Screens {
     const savedNote = saveError ? `<div class="notice-box">${esc(saveError)}</div>` : '';
     const contMission = saved ? a.missions.find((m) => m.id === saved.missionId) : null;
     this.set(`<div class="brand">Metro Express<small>Hyderabad delivery</small></div>
-      <p class="tagline">Deliver parcels on real roads beside the Hyderabad Metro. Drive through traffic, and spend one shared flight allowance wisely.</p>
+      <p class="tagline">Pick up pizza, navigate Hyderabad traffic and earn short flights by driving.</p>
       ${storeNote}${savedNote}
       <div class="menu">
         ${contMission ? `<button class="btn primary" data-continue>Continue: ${esc(contMission.title)}</button>` : ''}
@@ -61,6 +61,7 @@ export class Screens {
         <button class="btn" data-practice>Practice <span class="sub">${a.settings.practiceDone ? 'replay' : 'recommended first'}</span></button>
         <button class="btn" data-corridor>Corridor <span class="sub">Uppal – Tarnaka · Blue Line</span></button>
         <button class="btn" data-map>Map</button>
+        <button class="btn" data-atlas>Explore Hyderabad</button>
         <button class="btn" data-settings>Settings</button>
         <button class="btn" data-credits>Credits &amp; data</button>
       </div>
@@ -70,6 +71,7 @@ export class Screens {
     this.on('[data-practice]', () => { const p = a.missions.find((m) => m.practice); if (p) this.preview(p); });
     this.on('[data-corridor]', () => this.corridors());
     this.on('[data-map]', () => this.mapBrowse());
+    this.on('[data-atlas]', () => a.openStreetAtlas());
     this.on('[data-settings]', () => this.settings(() => this.app.toMenu()));
     this.on('[data-credits]', () => this.credits());
   }
@@ -102,7 +104,7 @@ export class Screens {
       const area = areaText && areaText !== m.title ? `<div class="m">${esc(areaText)}</div>` : '';
       return `<button class="mission" ${locked ? 'aria-disabled="true" disabled' : `data-m="${m.id}"`}><div class="t">${esc(m.title)} ${done ? '<span class="pill ok">✓ done</span>' : ''}</div>
         ${area}<div class="m">${esc(m.brief)}</div>
-        <div class="m">${fmtDist(m.routeLengthM ?? 0)} · deadline ${fmt(m.deadlineSeconds)} · flight ${m.flightSeconds} s · ${m.traffic} traffic${m.cargo.fragility > 1 ? ' · fragile' : ''}${m.stops.length > 1 ? ` · ${m.stops.length} stops` : ''}${best ? ` · best ${best.score}` : ''}</div></button>`;
+        <div class="m">${fmtDist(m.routeLengthM ?? 0)} · deadline ${fmt(m.deadlineSeconds)} · rechargeable boost · ${m.flightSeconds} s capacity · ${m.traffic} traffic${m.cargo.fragility > 1 ? ' · fragile' : ''}${m.stops.length > 1 ? ` · ${m.stops.length} stops` : ''}${best ? ` · best ${best.score}` : ''}</div></button>`;
     };
     const list = a.missions.filter((m) => !m.practice);
     let body: string;
@@ -123,7 +125,7 @@ export class Screens {
     }
     this.set(`<div class="card" style="margin-top:2vh"><h2>${title}</h2>
       <div class="mission-list">${body}
-      <div class="mission" aria-disabled="true"><div class="t">Night route <span class="pill plan">Not available</span></div><div class="m">Night presentation is not implemented or validated in this build (MT11).</div></div></div>
+      <div class="mission"><div class="t">Choose the atmosphere in Settings</div><div class="m">Day, dusk or night, with clear skies or rain. Delivery routes and deadlines stay the same.</div></div></div>
       <div class="divider"></div><button class="btn" data-back>Back</button></div>`);
     this.el.querySelectorAll<HTMLElement>('[data-m]').forEach((b) => b.addEventListener('click', () => { a.audio.start(); a.audio.click(); this.preview(a.missions.find((m) => m.id === b.dataset.m)!); }));
     this.on('[data-back]', () => a.toMenu());
@@ -139,13 +141,13 @@ export class Screens {
         <dt>Pickup</dt><dd>${esc(pick.label)}</dd>
         <dt>${stops.length > 1 ? 'Stops (in order)' : 'Deliver to'}</dt><dd>${stops.map((s) => esc(s.label)).join(' → ')}</dd>
         <dt>Route</dt><dd>${fmtDist(m.routeLengthM ?? 0)} on real roads</dd>
-        <dt>Deadline</dt><dd>${fmt(m.deadlineSeconds)} <span class="small">(${esc(m.deadlineBasis)})</span></dd>
+        <dt>Deadline</dt><dd>${fmt(m.deadlineSeconds)}</dd>
         <dt>Traffic</dt><dd>${m.traffic}</dd>
         <dt>Cargo</dt><dd>${esc(m.cargo.label)}${m.cargo.fragility > 1 ? ` — fragile ×${m.cargo.fragility}, fails below ${m.cargo.failThreshold}%` : ''}</dd>
-        <dt>Flight</dt><dd><b>${m.flightSeconds} s for this whole delivery.</b> Use it together or in parts. Takeoff, hover and landing all count; nothing refills it.</dd>
+        <dt>Boost</dt><dd><b>Drive 10 seconds on the road to earn 2.5 seconds of flight.</b> Starts with 2.5 s; stores up to ${m.flightSeconds} s. Idle time earns nothing. Automatic descent protects landing.</dd>
       </dl>
-      <div class="notice-box">Stop inside the marked area at the entrance, below walking speed, to hand over the parcel. Pickup/drop places are real map listings near the road — names and entrances are not field-verified.</div>
-      <div class="row"><button class="btn primary" data-go>Start delivery</button><button class="btn" data-back>Back</button></div></div>`);
+      <div class="notice-box">Accept the order, drive to the restaurant, stop and press E or COLLECT PIZZA. Then follow the route to the customer, stop and press E or HAND OVER. Business listings and estimated entrances remain provisional until street-survey verified.</div>
+      <div class="row"><button class="btn primary" data-go>Accept order</button><button class="btn" data-back>Back</button></div></div>`);
     this.on('[data-go]', () => void a.startMission(m));
     this.on('[data-back]', () => (m.practice ? a.toMenu() : this.missionSelect()));
   }
@@ -162,9 +164,9 @@ export class Screens {
 
   ready(m: MissionDef, resumed: boolean) {
     this.set(`<div class="card" style="margin-top:auto;margin-bottom:6vh;max-width:460px">
-      <h2>${resumed ? 'Restored from your last saved checkpoint' : 'Parcel loaded. Start when ready.'}</h2>
-      <p class="small">${esc(m.title)} · Flight ${m.flightSeconds}.0 s · ${fmt(m.deadlineSeconds)}. Left thumb steers. Right thumb: ▲ go, ▼ brake (hold when stopped to reverse), FLY. Let go and the car stops and holds. Keyboard: A/D or ←/→ steer, W/↑ go, S/↓ brake/reverse, Space fly/land, P pause, M map.</p>
-      <div class="row"><button class="btn primary" data-start>Go</button><button class="btn" data-back>Back</button></div></div>`, true);
+      <h2>${resumed ? 'Restored from your last saved checkpoint' : 'Order accepted. Drive to the restaurant.'}</h2>
+      <p class="small">${esc(m.title)} · Rechargeable boost · ${fmt(m.deadlineSeconds)}. Left thumb steers. Right thumb: ▲ go, ▼ brake (hold when stopped to reverse), FLY. Let go and the car stops and holds. Keyboard: A/D or ←/→ steer, W/↑ go, S/↓ brake/reverse, Space fly/land, E collect/hand over, P pause, M map.</p>
+      <div class="row"><button class="btn primary" data-start>${resumed ? 'Continue delivery' : 'Drive to pickup'}</button><button class="btn" data-back>Back</button></div></div>`, true);
     (this.el.firstElementChild as HTMLElement).style.background = 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(6,8,11,0.85))';
     this.on('[data-start]', () => this.app.beginCountdown());
     this.on('[data-back]', () => this.app.toMenu());
@@ -194,28 +196,39 @@ export class Screens {
   }
 
   map(mv: MapView, s: Session | null) {
+    mv.layer = 'traffic';
+    mv.focusedPlaceIds.clear();
+    const eta = s ? Math.max(1, Math.round(mv.etaSeconds(s) / 60)) : 0;
     const root = this.set(`<div class="mapwrap">
-      <div class="mapbar"><h2 style="margin:0;flex:1">Map</h2>
-        <button class="btn" data-fitc>Corridor</button><button class="btn" data-fitn>All lines</button>
+      <div class="mapbar"><h2 style="margin:0">Hyderabad</h2>
+        <span class="map-eta">${s ? `About ${eta} min · traffic near you` : 'Explore the metro corridors'}</span>
+        <button class="btn map-layer active" data-layer="traffic">Traffic</button><button class="btn map-layer" data-layer="streets">Streets</button><button class="btn map-layer" data-layer="research">Street review</button>
+        <button class="btn" data-fitc>All streets</button><button class="btn" data-here>${s ? 'Near me' : 'All lines'}</button>
         <button class="btn primary" data-close>${s ? 'Resume' : 'Close'}</button></div>
-      <canvas data-canvas aria-label="Geographic map"></canvas>
-      <div class="legend">
-        <span><i style="background:var(--blue-line)"></i>Blue Line</span><span><i style="background:var(--red-line)"></i>Red Line</span><span><i style="background:var(--green-line)"></i>Green Line</span>
-        <span><i style="background:#a7b3bf"></i>Playable streets</span><span><i style="background:#35d0ff"></i>Your route</span>
-        <span><i style="background:#ffb020"></i>Delivery entrances</span><span><i style="background:rgba(61,220,132,.6)"></i>Available area (dashed)</span>
-        <span>Lines without streets: planned scope, not yet playable</span><span>© OpenStreetMap contributors</span></div></div>`);
+      <canvas data-canvas aria-label="Hyderabad street and traffic map"></canvas>
+      <div class="legend" data-map-legend></div></div>`);
     root.style.padding = '0';
     const c = this.el.querySelector<HTMLCanvasElement>('[data-canvas]')!;
-    const draw = () => { const r = c.getBoundingClientRect(); const dpr = Math.min(2, devicePixelRatio || 1); c.width = r.width * dpr; c.height = r.height * dpr; mv.draw(c, s); };
-    requestAnimationFrame(() => { const r = c.getBoundingClientRect(); mv.fitCorridor(r.width, r.height); if (s) { mv.cx = s.player.x; mv.cz = s.player.z; mv.scale = Math.max(mv.scale, 0.35); } draw(); });
-    let drag: { x: number; y: number } | null = null;
-    c.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY }; c.setPointerCapture(e.pointerId); });
-    c.addEventListener('pointermove', (e) => { if (!drag) return; mv.cx -= (e.clientX - drag.x) / mv.scale; mv.cz -= (e.clientY - drag.y) / mv.scale; drag = { x: e.clientX, y: e.clientY }; draw(); });
-    c.addEventListener('pointerup', () => (drag = null));
-    c.addEventListener('wheel', (e) => { mv.scale *= e.deltaY < 0 ? 1.2 : 1 / 1.2; draw(); e.preventDefault(); }, { passive: false });
-    this.on('[data-fitc]', () => { const r = c.getBoundingClientRect(); mv.fitCorridor(r.width, r.height); draw(); });
-    this.on('[data-fitn]', () => { const r = c.getBoundingClientRect(); mv.fitNetwork(r.width, r.height); draw(); });
-    this.on('[data-close]', () => (s ? this.app.resume() : this.app.toMenu()));
+    const legend = () => {
+      const el=this.el.querySelector<HTMLElement>('[data-map-legend]')!;
+      el.innerHTML=mv.layer==='traffic'
+        ? '<span><i style="background:#4ca879"></i>Moving</span><span><i style="background:#f0ab32"></i>Slow</span><span><i style="background:#df5345"></i>Queueing</span><span><i style="background:repeating-linear-gradient(90deg,#858b91 0 4px,transparent 4px 8px)"></i>Metro</span><span>Traffic is the paused game snapshot near your car; other streets have no traffic reading.</span>'
+        : mv.layer==='research'
+        ? '<span><i style="background:#178578"></i>Both sides reviewed</span><span><i style="background:#dca03a"></i>Research started</span><span><i style="background:#b7bdc0"></i>Not reviewed</span>'
+        : '<span><i style="background:#2467cf"></i>Your route</span><span><i style="background:#7c8992"></i>Business listing</span><span><i style="background:#b36b46"></i>Provisional façade</span><span><i style="background:#178578"></i>Checked placement</span>';
+      el.innerHTML+='<span>Map data © OpenStreetMap contributors · Overture Maps</span>';
+    };
+    const draw = () => { const r=c.getBoundingClientRect(),dpr=Math.min(2,devicePixelRatio||1);c.width=r.width*dpr;c.height=r.height*dpr;mv.draw(c,s); };
+    requestAnimationFrame(()=>{const r=c.getBoundingClientRect();mv.fitCorridor(r.width,r.height);if(s){mv.cx=s.player.x;mv.cz=s.player.z;mv.scale=.65;}legend();draw();});
+    let drag: {x:number;y:number}|null=null;
+    c.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};c.setPointerCapture(e.pointerId);});
+    c.addEventListener('pointermove',e=>{if(!drag)return;mv.cx-=(e.clientX-drag.x)/mv.scale;mv.cz-=(e.clientY-drag.y)/mv.scale;drag={x:e.clientX,y:e.clientY};draw();});
+    c.addEventListener('pointerup',()=>drag=null);c.addEventListener('pointercancel',()=>drag=null);
+    c.addEventListener('wheel',e=>{mv.scale=Math.max(.015,Math.min(6,mv.scale*(e.deltaY<0?1.2:1/1.2)));draw();e.preventDefault();},{passive:false});
+    this.el.querySelectorAll<HTMLButtonElement>('[data-layer]').forEach(b=>b.addEventListener('click',()=>{mv.layer=b.dataset.layer as typeof mv.layer;this.el.querySelectorAll('[data-layer]').forEach(el=>el.classList.toggle('active',el===b));legend();draw();}));
+    this.on('[data-fitc]',()=>{const r=c.getBoundingClientRect();mv.fitCorridor(r.width,r.height);draw();});
+    this.on('[data-here]',()=>{if(s){mv.cx=s.player.x;mv.cz=s.player.z;mv.scale=.85;}else{const r=c.getBoundingClientRect();mv.fitNetwork(r.width,r.height);}draw();});
+    this.on('[data-close]',()=>s?this.app.resume():this.app.toMenu());
   }
 
   mapBrowse() { this.map(this.app.map!, null); }
@@ -228,7 +241,7 @@ export class Screens {
       <dl class="kv">
         <dt>Charged time</dt><dd>${fmt(r.chargedSeconds)} / ${fmt(r.deadlineSeconds)} deadline</dd>
         <dt>Cargo</dt><dd>${r.cargo.toFixed(0)}%</dd>
-        <dt>Flight used</dt><dd>${r.flightUsedSeconds.toFixed(1)} s of ${r.flightInitialSeconds} s · ${r.flightLeftSeconds.toFixed(1)} s left · ${r.launches} launch${r.launches === 1 ? '' : 'es'}</dd>
+        <dt>Boost used</dt><dd>${r.flightUsedSeconds.toFixed(1)} s used · ${(r.flightEarnedSeconds ?? 0).toFixed(1)} s earned · ${r.flightLeftSeconds.toFixed(1)} s left · ${r.launches} launch${r.launches === 1 ? '' : 'es'}</dd>
         <dt>Penalties</dt><dd>${r.penaltySeconds.toFixed(0)} s</dd>
       </dl>
       <details style="margin-top:10px"><summary>Details</summary>
@@ -275,6 +288,8 @@ export class Screens {
         ${chk('haptics', 'Haptics (where supported)')}${chk('reducedShake', 'Reduce camera shake')}${chk('reducedFlashing', 'Reduce flashing')}${chk('largeText', 'Larger text')}
         <label class="btn"><span>Controls layout</span><select data-k="handedness"><option value="right" ${s.handedness === 'right' ? 'selected' : ''}>Steer left / buttons right</option><option value="left" ${s.handedness === 'left' ? 'selected' : ''}>Buttons left / steer right</option></select></label>
         <label class="btn"><span>Graphics (applies on reload)</span><select data-k="quality">${['auto', 'low', 'standard', 'high'].map((q) => `<option ${s.quality === q ? 'selected' : ''}>${q}</option>`).join('')}</select></label>
+        <label class="btn"><span>Time of day</span><select data-k="timeOfDay">${['day','dusk','night'].map(q=>`<option value="${q}" ${s.timeOfDay===q?'selected':''}>${q[0].toUpperCase()+q.slice(1)}</option>`).join('')}</select></label>
+        <label class="btn"><span>Weather</span><select data-k="weather"><option value="clear" ${s.weather==='clear'?'selected':''}>Clear</option><option value="rain" ${s.weather==='rain'?'selected':''}>Rain</option></select></label>
       </div>
       <p class="small">Settings never change a contract's deadline or flight allocation. ${this.app.store.available ? 'Saved on this device only.' : 'Saving unavailable: settings last for this session.'}</p>
       <button class="btn primary" data-back>Done</button></div>`, true);
@@ -295,9 +310,11 @@ export class Screens {
       <p><b>Business listings</b> (shop signboards and delivery names): © Overture Maps Foundation, CDLA-Permissive-2.0, contributed by Meta, Microsoft, Foursquare (Apache-2.0), AllThePlaces (CC0-1.0), DAC and PinMeTo. They are listings, not verified street signs; names and positions can be out of date.</p>`
         : `<p><b>Map data</b> © OpenStreetMap contributors, available under the Open Database License (ODbL 1.0) — openstreetmap.org/copyright. Roads, buildings, metro alignments, station and place names come from dated OSM extracts bundled with this build. They are source claims: not field-verified, and storefront inventory is incomplete.</p>`}
       <p><b>Textures</b>: aerial_asphalt_01 and concrete_wall_006 from Poly Haven (CC0). <b>Font</b>: Noto Sans Telugu (SIL Open Font License 1.1).</p>
+      ${this.app.loader.accuracy?'<p><b>Building height estimates</b>: Google Research, <a href="https://sites.research.google/gr/open-buildings/temporal/" target="_blank" rel="noopener noreferrer">Open Buildings 2.5D Temporal</a>, 2023, CC BY 4.0. Derived from Copernicus Sentinel-2 data processed by ESA. This game masks low-presence pixels and takes robust footprint medians at 4 m effective resolution. These are model estimates with possible roof offsets, not measured Hyderabad dimensions; source dimensions and researched profiles take priority.</p>':''}
       <p><b>Vehicle, buildings, traffic, audio and UI</b>: original procedural work for this game. The car is a fictional Roadster-inspired design; no manufacturer endorsement. Delivery brand "Metro Express" is fictional.</p>
       <h3>What this build covers</h3>
       <p class="small">${this.app.isNetwork() ? `Playable: ${core.roads.length} road segments around all three metro lines (Red, Blue, Green).` : `Playable: ${core.roads.length} road segments around the Blue Line from Uppal to Tarnaka. Planned, not yet built: the rest of the Blue Line, the Red Line and the Green Line street networks.`} Building heights, lane details, metro deck and pillar heights are provisional estimates.</p>
+      ${this.app.loader.listingIndex?`<p class="small">${this.app.loader.listingIndex.count.toLocaleString()} named source points form the citywide listing index. Researched replacements and suppressions apply to map and search; grey markers preserve the remaining source coordinates. A nearest road association helps orientation; it does not establish the shop side, floor, entrance or current operation.</p>`:''}
       <button class="btn" data-back>Back</button></div>`);
     this.on('[data-back]', () => this.app.toMenu());
   }

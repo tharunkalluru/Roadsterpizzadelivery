@@ -1,0 +1,442 @@
+{
+  "schemaVersion": 1,
+  "id": "habsiguda-trends-vendors-corridor-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex dedicated Habsiguda corridor Chrome survey",
+  "notes": "Own dated January2026 Chrome corridor walk: matched Trends main facade plus pending restaurant/food-stall/construction/pottery facts. Source points span roughly330m from the initial hotel viewpoint, but only explicit matched observation windows count toward reviewed length; traversal and source context do not certify intervening frontage.",
+  "sources": [
+    {
+      "id": "sv-habsiguda-pulse-streetscape-2026-01-chrome-20261018",
+      "kind": "street_view",
+      "title": "Habsiguda — Pulse restaurant, small food signs, green works wrap and footpath detail",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=JiJ9dZgr2FuukrBB7O3EHg&heading=235&pitch=3&fov=90",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda corridor Chrome survey",
+      "position": {
+        "lat": 17.4188016,
+        "lon": 78.5415747,
+        "headingDeg": 235,
+        "panoId": "JiJ9dZgr2FuukrBB7O3EHg"
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Own Chrome inspection shows a narrow blue-glass building with PULSE Multi Cuisine Restaurant upper boards and dining/takeaway text. Ground signs include a partly obscured yellow PICKLES board, a TEA & FAST FOOD board with uncertain operator name, and IRANI CHAI wording on a small kiosk. Adjacent grey/red gold-buyer frontage text corroborates Attica Gold Company listing identity, but exact building/facade association is not yet resolved. Green construction mesh/unfinished structure, paver footpath, rough concrete covers/rubble, tightly parked motorcycles, political posters, dense utility wires and a lit red signal head are visible. No unverified shop entrance or pole/drain geometry is invented. Source imagery remains reference only and is not redistributed."
+    },
+    {
+      "id": "sv-habsiguda-trends-2026-01-chrome-20261018",
+      "kind": "street_view",
+      "title": "Habsiguda — Trends grey retail front and large paved setback",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=s5cN909XofaLrfTLGe9szw&heading=235&pitch=3&fov=90",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda corridor Chrome survey",
+      "position": {
+        "lat": 17.4181355,
+        "lon": 78.5423545,
+        "headingDeg": 235,
+        "panoId": "s5cN909XofaLrfTLGe9szw"
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Full directly viewed facade reads TRENDS in large white letters on grey cladding, with a second ground-entry band, glazed lower display, broad central entry stair with metal rails and a large paved forecourt/parked cars. Upper levels have long horizontal glazing/fascia strips and offwhite rectangular framing. Source camera/face orientation, listing-point parent footprint and the street-no2 corner support provisional b_0d3d5f055e association. Exact widths, access, four-level interpretation and13.4m height are estimates. Old side-road-facing snapped storefront is replaced by the photographed main-road facade; this does not verify the whole street. Source imagery remains reference only and is not redistributed."
+    },
+    {
+      "id": "sv-habsiguda-pottery-boundary-2026-01-chrome-20261018",
+      "kind": "street_view",
+      "title": "Habsiguda — unnamed pottery vendor against green screen and tree-lined maroon wall",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=oEfBwPHIUT0vAbD5qm1dMw&heading=235&pitch=3&fov=90",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda corridor Chrome survey",
+      "position": {
+        "lat": 17.4173638,
+        "lon": 78.5432164,
+        "headingDeg": 235,
+        "panoId": "oEfBwPHIUT0vAbD5qm1dMw"
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Full west-side view shows stacks of large terracotta water pots, red and black vessels and small clay figurines, displayed on the road edge under a red/green/yellow/white umbrella and makeshift tarps. A long green corrugated screen stands above a maroon painted wall, with mature trees, overhead cables, a narrow black/yellow kerb and scooters. No business name, property owner, construction purpose or exact stall footprint is established; record as an unnamed pottery seller and boundary observations only. The traversed camera sequence spans roughly330m from the earlier hotel source, not a claim of continuous reviewed frontage. Source imagery remains reference only and is not redistributed."
+    }
+  ],
+  "observations": [
+    {
+      "id": "survey-habsiguda-pulse-pending-20261018",
+      "sourceIds": [
+        "sv-habsiguda-pulse-streetscape-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "PULSE Multi Cuisine Restaurant",
+      "category": "restaurant",
+      "roadId": "r_14482805248_0",
+      "position": {
+        "lat": 17.4188016,
+        "lon": 78.5415747,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Upper boards are legible on the blue-glass building. Exact footprint, floor access, doorway and frontage dimensions remain pending."
+    },
+    {
+      "id": "survey-habsiguda-pickles-pending-20261018",
+      "sourceIds": [
+        "sv-habsiguda-pulse-streetscape-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Yellow PICKLES board (brand partly obscured)",
+      "category": "grocery",
+      "roadId": "r_14482805248_0",
+      "position": {
+        "lat": 17.4188016,
+        "lon": 78.5415747,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Brand is obscured by foliage/poles. Do not invent a chain/operator name."
+    },
+    {
+      "id": "survey-habsiguda-tea-fast-food-pending-20261018",
+      "sourceIds": [
+        "sv-habsiguda-pulse-streetscape-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "TEA & FAST FOOD board (operator uncertain)",
+      "category": "tea_and_fast_food",
+      "roadId": "r_14482805248_0",
+      "position": {
+        "lat": 17.4188016,
+        "lon": 78.5415747,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Small roadside food-shop wording is visible; apparent Varnika-like name is not confidently registered."
+    },
+    {
+      "id": "survey-habsiguda-irani-chai-pending-20261018",
+      "sourceIds": [
+        "sv-habsiguda-pulse-streetscape-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "IRANI CHAI kiosk wording",
+      "category": "tea_stall",
+      "roadId": "r_14482805248_0",
+      "position": {
+        "lat": 17.4188016,
+        "lon": 78.5415747,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Visible kiosk wording is generic product branding, not a verified operator name or measured stall footprint."
+    },
+    {
+      "id": "survey-habsiguda-attica-pending-20261018",
+      "sourceIds": [
+        "sv-habsiguda-pulse-streetscape-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Attica Gold Company gold-buyer frontage",
+      "category": "jewellery",
+      "roadId": "r_14482805248_0",
+      "position": {
+        "lat": 17.4188016,
+        "lon": 78.5415747,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Photographed grey/red gold-buyer wording corroborates a nearby base listing. Keep exact parent facade and entrance unpositioned until a closer match."
+    },
+    {
+      "id": "survey-habsiguda-works-footpath-pending-20261018",
+      "sourceIds": [
+        "sv-habsiguda-pulse-streetscape-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Green construction wrap, parked bikes, posters and rough footpath",
+      "category": "streetscape",
+      "roadId": "r_14482805248_0",
+      "position": {
+        "lat": 17.4188016,
+        "lon": 78.5415747,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Source-observed works wrap and road-edge clutter. No occupancy, exact drain/curb dimensions or traffic frequency is inferred."
+    },
+    {
+      "id": "survey-habsiguda-pottery-vendor-20261018",
+      "sourceIds": [
+        "sv-habsiguda-pottery-boundary-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Unnamed pottery seller with multicolour umbrella",
+      "category": "roadside_vendor",
+      "roadId": "r_22301737470_0",
+      "position": {
+        "lat": 17.4173638,
+        "lon": 78.5432164,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "Terracotta water pots, red/black vessels and small clay figurines are directly visible. Operator name, stall area and exact world placement remain pending."
+    },
+    {
+      "id": "survey-habsiguda-green-boundary-20261018",
+      "sourceIds": [
+        "sv-habsiguda-pottery-boundary-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "Tree-lined maroon wall and tall green corrugated screen",
+      "category": "non_shop_frontage",
+      "roadId": "r_22301737470_0",
+      "position": {
+        "lat": 17.4173638,
+        "lon": 78.5432164,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "notes": "A non-shop frontage is directly visible behind the pottery seller. Screen purpose, parcel identity, exact wall endpoints and material dimensions remain pending."
+    },
+    {
+      "id": "survey-habsiguda-trends-observation",
+      "sourceIds": [
+        "sv-habsiguda-trends-2026-01-chrome-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-18",
+      "name": "TRENDS",
+      "category": "fashion_and_apparel_store",
+      "roadId": "r_23892298989_0",
+      "position": {
+        "lat": 17.4181355,
+        "lon": 78.5423545,
+        "headingDeg": 235
+      },
+      "placementStatus": "pending",
+      "storefrontOverrideId": "survey-habsiguda-trends",
+      "notes": "Identity/main-road face are directly seen and provisionally reconstructed; exact measured facade, access and building dimensions remain pending."
+    }
+  ],
+  "storefrontOverrides": [
+    {
+      "id": "survey-habsiguda-trends",
+      "placementStatus": "provisional",
+      "chunkId": "c_-4_-2",
+      "name": "TRENDS",
+      "nameTe": null,
+      "category": "fashion_and_apparel_store",
+      "group": "apparel",
+      "roadId": "r_23892298989_0",
+      "side": "left",
+      "buildingId": "b_0d3d5f055e",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -655.79,
+          -377.78
+        ],
+        [
+          -640.37,
+          -363.5
+        ]
+      ],
+      "entrance": [
+        -648.0799999999999,
+        -370.64
+      ],
+      "floor": 0,
+      "frontageWidthM": 21.02,
+      "alongRoadM": 17.6,
+      "facingHeading": -0.70742,
+      "lat": 17.4179489,
+      "lon": 78.5423004,
+      "captureDate": "2026-01",
+      "sourceIds": [
+        "sv-habsiguda-trends-2026-01-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex dedicated Habsiguda corridor Chrome survey",
+      "evidence": {
+        "identity": [
+          "sv-habsiguda-trends-2026-01-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-habsiguda-trends-2026-01-chrome-20261018"
+        ],
+        "floor": [],
+        "facade": [],
+        "neighbours": []
+      },
+      "replaceStorefrontIds": [
+        "sf_5dbe6d8689"
+      ],
+      "suppressAliases": [
+        "TRENDS",
+        "Reliance Trends"
+      ],
+      "suppressionRadiusM": 45,
+      "appearance": {
+        "facadeColor": "#737a7d",
+        "signColor": "#2b3032",
+        "signTextColor": "#f4f1e9",
+        "heightM": 3.3,
+        "signBaseM": 2.9,
+        "signHeightM": 0.7,
+        "signWidthM": 21.02,
+        "signOutsetM": 0.65,
+        "frontBaseM": 0.85,
+        "frontStyle": "glazed",
+        "awning": false,
+        "categoryProps": false
+      },
+      "notes": "Photographed TRENDS main-road frontage replaces the earlier snapped side-road assignment on the same candidate footprint. All span endpoints, central entry, step/rail dimensions and heights are provisional estimates. Upper repeated TRENDS board is a building-name band of this one business, not an additional tenant."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "anchor-habsiguda-trends",
+      "kind": "landmark_anchor",
+      "buildingId": "b_0d3d5f055e",
+      "name": "TRENDS",
+      "sourceIds": [
+        "sv-habsiguda-trends-2026-01-chrome-20261018"
+      ],
+      "notes": "Repeated TRENDS lettering belongs to the same photographed business; name anchor does not add a tenant."
+    },
+    {
+      "id": "profile-habsiguda-trends",
+      "kind": "building_profile",
+      "buildingId": "b_0d3d5f055e",
+      "sourceIds": [
+        "sv-habsiguda-trends-2026-01-chrome-20261018"
+      ],
+      "heightM": 13.4,
+      "levels": 4,
+      "dimensionStatus": "provisional",
+      "facadeColor": "#737a7d",
+      "notes": "Existing13.4m estimated height retained; four visible retail levels are an image interpretation. Long upper strips, offwhite frame and grey cladding inform authored profile. Broad forecourt/access dimensions remain approximate.",
+      "profile": {
+        "sourceIds": [
+          "sv-habsiguda-trends-2026-01-chrome-20261018"
+        ],
+        "appearanceStatus": "observed",
+        "dimensionStatus": "provisional",
+        "wallColor": "#737a7d",
+        "material": "metal_cladding",
+        "nameBand": {
+          "frontIndex": 0,
+          "baseM": 5.2,
+          "heightM": 1,
+          "widthRatio": 0.8,
+          "color": "#737a7d",
+          "textColor": "#f4f1e9",
+          "outsetM": 0.65
+        },
+        "fronts": [
+          {
+            "storefrontIds": [
+              "survey-habsiguda-trends"
+            ],
+            "floors": [
+              {
+                "baseM": 0,
+                "heightM": 3.4,
+                "glazingRatio": 0.75,
+                "glassColor": "#4a5d64",
+                "bandColor": "#737a7d",
+                "bandHeightM": 0.25
+              },
+              {
+                "baseM": 3.4,
+                "heightM": 3.3,
+                "glazingRatio": 0.38,
+                "glassColor": "#52636b",
+                "bandColor": "#d5d6d1",
+                "bandHeightM": 0.25
+              },
+              {
+                "baseM": 6.7,
+                "heightM": 3.3,
+                "glazingRatio": 0.38,
+                "glassColor": "#52636b",
+                "bandColor": "#d5d6d1",
+                "bandHeightM": 0.25
+              },
+              {
+                "baseM": 10,
+                "heightM": 3.4,
+                "glazingRatio": 0.38,
+                "glassColor": "#52636b",
+                "bandColor": "#d5d6d1",
+                "bandHeightM": 0.25
+              }
+            ],
+            "bays": [
+              {
+                "start": 0.02,
+                "end": 0.98
+              }
+            ],
+            "piers": [
+              {
+                "at": 0,
+                "widthM": 0.45,
+                "color": "#d5d6d1"
+              },
+              {
+                "at": 1,
+                "widthM": 0.45,
+                "color": "#d5d6d1"
+              }
+            ],
+            "access": {
+              "landingHeightM": 0.85,
+              "landingDepthM": 1.7,
+              "railings": true,
+              "stairs": [
+                {
+                  "at": 0.5,
+                  "widthM": 5,
+                  "risers": 5,
+                  "runM": 1.5
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "roadReviews": [
+    {
+      "roadId": "r_23892298989_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 4,
+          "endM": 38,
+          "sourceIds": [
+            "sv-habsiguda-trends-2026-01-chrome-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex dedicated Habsiguda corridor Chrome survey",
+          "completeness": "partial",
+          "allFrontagesRecorded": false,
+          "storefrontIds": [
+            "survey-habsiguda-trends"
+          ],
+          "notes": "Approximate34m observation window around the photographed Trends main front. Forecourt and adjacent low/closed units seen, but exact frontage measurement and all neighbour identities are incomplete. No opposite-side coverage is claimed."
+        }
+      ]
+    }
+  ]
+}

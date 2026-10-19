@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-zeeshan-photographed-stock-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex Chrome photograph-to-game rendering verification",
+  "notes": "Art-only explicit observed stock choices for two already placed shops. No identity, floor, facade, height, entrance or collision change. Source remains the original directly inspected April2026 close panoramas.",
+  "storefrontOverrides": [
+    {
+      "id": "survey-madhapur-zeeshan-ambica",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "AMBICA ELECTRICALS & HARDWARE",
+      "nameTe": null,
+      "category": "hardware",
+      "group": "hardware",
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "buildingId": "b_63d5a9ca25",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16640.99,
+          -2935.93
+        ],
+        [
+          -16635.67,
+          -2935.57
+        ]
+      ],
+      "entrance": [
+        -16638.33,
+        -2935.75
+      ],
+      "floor": 0,
+      "frontageWidthM": 5.33,
+      "alongRoadM": 29.38,
+      "facingHeading": 2.9734784464696338,
+      "lat": 17.44112615055271,
+      "lon": 78.39180236221041,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ]
+      },
+      "appearance": {
+        "frontBaseM": 0.15,
+        "heightM": 3.55,
+        "signBaseM": 2.6,
+        "signHeightM": 0.9,
+        "awning": false,
+        "categoryProps": false,
+        "signColor": "#1b4a82",
+        "signTextColor": "#ece4cf",
+        "frontStyle": "glazed",
+        "facadeColor": "#dad2b9",
+        "shutterColor": "#807c68",
+        "observedDisplay": "electrical_goods"
+      },
+      "notes": "Open western unit, blue board with Telugu and English operator text; Crompton product panels and electrical goods are branding, not separate shops. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional. The close source shows stacked pale/blue electrical appliance cartons and hanging grey wire coils at the open shop edge. Independent simplified cartons/coils approximate that photographed stock; quantities and proportions are not a measured inventory."
+    },
+    {
+      "id": "survey-madhapur-zeeshan-sai-priya",
+      "placementStatus": "provisional",
+      "chunkId": "c_-84_-15",
+      "name": "SAI PRIYA MEDICAL & GENERAL STORE",
+      "nameTe": null,
+      "category": "pharmacy",
+      "group": "pharmacy",
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "buildingId": "b_63d5a9ca25",
+      "frontageKind": "building",
+      "facade": [
+        [
+          -16627.16,
+          -2935
+        ],
+        [
+          -16623.26,
+          -2934.74
+        ]
+      ],
+      "entrance": [
+        -16625.21,
+        -2934.87
+      ],
+      "floor": 0,
+      "frontageWidthM": 3.91,
+      "alongRoadM": 42.46,
+      "facingHeading": 2.973478446469816,
+      "lat": 17.441118199258323,
+      "lon": 78.39192584581771,
+      "captureDate": "2026-04",
+      "sourceIds": [
+        "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+        "sat-madhapur-zeeshan-roof-chrome-20261018"
+      ],
+      "reviewedAt": "2026-10-18",
+      "reviewer": "Codex direct Chrome Madhapur block reconstruction",
+      "evidence": {
+        "identity": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "position": [],
+        "side": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "floor": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ],
+        "facade": [],
+        "neighbours": [
+          "sv-madhapur-zeeshan-close-2026-04-chrome-20261018"
+        ]
+      },
+      "appearance": {
+        "frontBaseM": 0.15,
+        "heightM": 3.55,
+        "signBaseM": 2.6,
+        "signHeightM": 0.9,
+        "awning": false,
+        "categoryProps": false,
+        "signColor": "#347d9b",
+        "signTextColor": "#eee9c8",
+        "frontStyle": "glazed",
+        "facadeColor": "#d9d8c1",
+        "observedDisplay": "medicines"
+      },
+      "notes": "Eastern ground shop, blue pharmacy board with green/white medical crosses, medicines visible below. Corrects the earlier distant-view electrical-shop misreading. Photographed identity, side, floor and order are recorded. Attachment to the front strip is supported by adjacent panoramas and satellite context; facade widths, exact entrances and metric elevations remain provisional. The close source shows a pharmacy counter and stacked medicine packs in the ground bay. Independent simplified counter/shelf/pack geometry approximates the visible display; product brands and exact quantities are not copied or inferred."
+    }
+  ],
+  "expectedPrevious": {
+    "storefrontOverrides:survey-madhapur-zeeshan-ambica": "289c706415ab4a3d9b789943d12fa80e58a928918fbd1e27042a62c20097dbfe",
+    "storefrontOverrides:survey-madhapur-zeeshan-sai-priya": "8bab7ff021e6f45ce1e093e060e0f9cfda4b46f64f61ce6e0d5ffcb97b3f230f"
+  }
+}

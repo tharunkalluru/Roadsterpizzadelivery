@@ -1,38 +1,54 @@
 {
-  "schema_version": 1,
-  "status": "specified_starting_configuration_not_implemented_or_playtested",
+  "schema_version": 2,
+  "status": "implemented_rechargeable_boost_initial_tuning",
   "simulation_hz": 60,
   "resource_unit": "active_flight_simulation_tick",
   "default_budget_seconds": 25,
-  "allowed_budget_seconds": [20, 25, 30],
-  "allocations_ticks": {"20": 1200, "25": 1500, "30": 1800},
+  "allowed_budget_seconds": [
+    20,
+    25,
+    30
+  ],
+  "allocations_ticks": {
+    "20": 1200,
+    "25": 1500,
+    "30": 1800
+  },
   "meter_from": "successful_activation",
   "meter_through": "qualified_touchdown_tick_inclusive",
-  "metered_phases": ["takeoff", "travel", "hover", "braking", "coasting", "descent"],
+  "metered_phases": [
+    "takeoff",
+    "travel",
+    "hover",
+    "braking",
+    "coasting",
+    "descent"
+  ],
   "authoritative_counter": "consumedFlightTicks",
-  "remaining_formula": "initialFlightTicks - consumedFlightTicks",
+  "remaining_formula": "initialChargeTicks + earnedTicks - consumedFlightTicks",
   "per_launch_duration_cap_seconds": null,
   "fixed_activation_tax_ticks": 0,
-  "ground_refill_ticks_per_second": 0,
+  "ground_refill_ticks_per_second": 15,
   "intermediate_stop_refill_ticks": 0,
   "recovery_refund_ticks": 0,
   "hover_or_glide_resource_discount": 0,
   "landing_reserve": {
-    "kind": "dynamic_controller_prediction",
+    "kind": "predicted_automatic_descent_with_bounded_protected_landing",
     "drawn_from_same_allocation": true,
-    "free_emergency_ticks": 0,
+    "free_emergency_ticks": 240,
     "formula": "predictedTicksToTouchdown + uncertaintyMarginTicks",
-    "initial_uncertainty_margin_ticks": 30,
+    "initial_uncertainty_margin_ticks": 12,
     "margin_requires_controller_and_geometry_validation": true,
     "post_takeoff_state_used_for_launch_affordability": true,
-    "moving_traffic_is_rolling_forecast_not_guarantee": true
+    "moving_traffic_is_rolling_forecast_not_guarantee": true,
+    "free_emergency_descent_only": true
   },
   "touchdown": {
     "requires_valid_support_and_surface_identity": true,
     "initial_ground_confirmation_ticks": 15,
     "confirmation_ticks_spend_only_if_support_is_lost": true,
     "final_allocated_tick_can_be_valid_touchdown": true,
-    "unsupported_tick_with_zero_remaining": "failed_flight_recovery_without_refund"
+    "unsupported_tick_with_zero_remaining": "bounded_descent_only_protection_then_recovery_if_no_safe_touchdown"
   },
   "accepted_takeoff_abort": {
     "progress_timeout": "derive_from_controller_and_validate",
@@ -52,15 +68,32 @@
     "denied_launch_spends_nothing": true,
     "early_landing_preserves_unspent_ticks": true
   },
-  "states": ["GROUNDED", "TAKEOFF", "FLYING", "DESCENDING", "LANDING_CONFIRM", "RECOVERING"],
+  "states": [
+    "GROUNDED",
+    "TAKEOFF",
+    "FLYING",
+    "DESCENDING",
+    "LANDING_CONFIRM",
+    "RECOVERING"
+  ],
   "invariants": [
-    "0 <= consumedFlightTicks <= initialFlightTicks",
-    "remainingFlightTicks never increases within a live contract",
-    "each actively flying tick spends exactly one resource tick",
-    "ground driving cannot refill the allocation",
-    "a landing reserve does not create additional resource",
-    "continued eligible flight is not stopped by a per-launch time limit",
+    "0 <= remainingFlightTicks <= capacityTicks",
+    "consumedFlightTicks and earnedTicks are cumulative",
+    "each active powered-flight tick spends one available resource tick",
+    "10 qualifying road-driving seconds earns 2.5 seconds of boost",
+    "idle, airborne, paused and recovery time never recharges",
+    "protected landing cannot be used for cruise, hover or another launch",
     "a new launch requires affordable ascent and qualified landing",
-    "an exhausted grounded car can finish the delivery by driving"
-  ]
+    "an exhausted grounded car can continue driving and recharge"
+  ],
+  "initial_charge_seconds": 2.5,
+  "recharge": {
+    "qualifying": "grounded, on carriageway, moving at least 2 m/s, no hold or collision this tick",
+    "road_seconds": 10,
+    "earned_flight_seconds": 2.5,
+    "capacity_seconds": "mission.flightSeconds",
+    "idle_air_pause_recovery_earns": 0
+  },
+  "meter_exception": "protected_descent_after_zero_charge_never_grants_reusable_boost",
+  "allocation_semantics": "capacity; new contracts start with initial_charge_seconds"
 }

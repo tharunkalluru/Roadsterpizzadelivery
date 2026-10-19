@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "id": "other-station-malakpet-station-road-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View inspection",
+  "notes": "Three views from two nearby April 2026 Google Street View panos around Malakpet Station Road. The frames show dental and allied health signs, a gas-stove shop, a photo-service sign, a masjid entrance and passing auto/motorcycle traffic. The visible left-to-right sign grouping is an image-relative note only; the camera sits about 18 m from the nearest core road edge and no edge/side assignment is safe yet. These are pending observations, not a complete street inventory or placed storefront geometry.",
+  "sources": [
+    {
+      "id": "sv-malakpet-station-rd-20261019-01",
+      "kind": "street_view",
+      "title": "12 Malakpet Station Road, market frontage",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=V33eAmO5Nq8vuojJ8z7eUA&heading=180&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180,
+        "panoId": "V33eAmO5Nq8vuojJ8z7eUA"
+      },
+      "notes": "The cross-road frame shows signs for Confident Dental Clinic, Healing Touch, Bone Setting Centre and Star Gas Stoves, plus a Self Press Photo Service board and the Masjid Chanda Sahab gate. An auto-rickshaw and two-wheeler are in the foreground. Google Street View labels the imagery April 2026. Position and heading describe the camera view, not a business entrance.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-malakpet-station-rd-20261019-02",
+      "kind": "street_view",
+      "title": "12 Malakpet Station Road, reverse corridor view",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=V33eAmO5Nq8vuojJ8z7eUA&heading=0&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 0,
+        "panoId": "V33eAmO5Nq8vuojJ8z7eUA"
+      },
+      "notes": "The reverse heading shows a concrete elevated transport structure over the road, a Metro-pier warning panel and planted median context. It does not provide a clear opposite-side shop inventory. Google Street View labels the imagery April 2026. Position and heading describe the camera view, not a business entrance.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-malakpet-station-rd-20261019-03",
+      "kind": "street_view",
+      "title": "12 Malakpet Station Road, adjacent dental frontage",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=r-2Rab1MclIhzPB3emtsmw&heading=180&pitch=0&fov=85",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View inspection",
+      "position": {
+        "lat": 17.3771757,
+        "lon": 78.4940733,
+        "headingDeg": 180,
+        "panoId": "r-2Rab1MclIhzPB3emtsmw"
+      },
+      "notes": "The adjacent April 2026 panorama repeats the Confident Dental Clinic signage and shows National Dental Clinic – Multi Speciality (Ortho & Implants Specialist) across shuttered bays. This is a nearby overlapping camera view, not a separate measured road section. Google Street View labels the imagery April 2026. Position and heading describe the camera view, not a business entrance.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "sv-malakpet-confident-dental-20261019",
+      "sourceIds": [
+        "sv-malakpet-station-rd-20261019-01",
+        "sv-malakpet-station-rd-20261019-03"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Confident Dental Clinic / Dental Clinic & Lab",
+      "category": "dental_clinic",
+      "roadId": null,
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Red fascia reads CONFIDENT DENTAL CLINIC; the neighboring view has a “Confident Dental Clinic & Lab” sign. These likely describe the same visible clinic cluster, but unit boundaries and exact entrance remain uncertain. The panorama camera is about 18 m from the nearest named core road edge; road alignment is left open. Position is not the storefront entrance. No exact frontage span, road side, floor, or canonical order is claimed."
+    },
+    {
+      "id": "sv-malakpet-national-dental-clinic-20261019",
+      "sourceIds": [
+        "sv-malakpet-station-rd-20261019-03"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "National Dental Clinic – Multi Speciality",
+      "category": "dental_clinic",
+      "roadId": null,
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Large fascia reads NATIONAL DENTAL CLINIC – MULTI SPECIALITY, with Ortho & Implants Specialist below. The shutters are closed in the capture; current operation is not inferred. The panorama camera is about 18 m from the nearest named core road edge; road alignment is left open. Position is not the storefront entrance. No exact frontage span, road side, floor, or canonical order is claimed."
+    },
+    {
+      "id": "sv-malakpet-healing-touch-sign-20261019",
+      "sourceIds": [
+        "sv-malakpet-station-rd-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Healing Touch clinic signage",
+      "category": "medical_signage",
+      "roadId": null,
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Upper blue board reads HEALING TOUCH; smaller physiotherapy wording is visible but the precise premises relationship to the bone-setting shutter is unresolved. The panorama camera is about 18 m from the nearest named core road edge; road alignment is left open. Position is not the storefront entrance. No exact frontage span, road side, floor, or canonical order is claimed."
+    },
+    {
+      "id": "sv-malakpet-bone-setting-centre-20261019",
+      "sourceIds": [
+        "sv-malakpet-station-rd-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Bone Setting Centre",
+      "category": "medical_clinic",
+      "roadId": null,
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Large white fascia clearly reads BONE SETTING CENTRE above two shuttered bays. A shared entrance or two-unit boundary is not established. The panorama camera is about 18 m from the nearest named core road edge; road alignment is left open. Position is not the storefront entrance. No exact frontage span, road side, floor, or canonical order is claimed."
+    },
+    {
+      "id": "sv-malakpet-star-gas-stoves-20261019",
+      "sourceIds": [
+        "sv-malakpet-station-rd-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Star Gas Stoves",
+      "category": "appliance_store",
+      "roadId": null,
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Yellow sign reads STAR GAS STOVES above an open-looking shop bay. Exact width and entrance are not measured. The panorama camera is about 18 m from the nearest named core road edge; road alignment is left open. Position is not the storefront entrance. No exact frontage span, road side, floor, or canonical order is claimed."
+    },
+    {
+      "id": "sv-malakpet-self-press-photo-service-20261019",
+      "sourceIds": [
+        "sv-malakpet-station-rd-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Self Press Photo Service",
+      "category": "photo_service",
+      "roadId": null,
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Green sign reads SELF PRESS PHOTO SERVICE above the low roofline; its exact premises and entrance are uncertain. The panorama camera is about 18 m from the nearest named core road edge; road alignment is left open. Position is not the storefront entrance. No exact frontage span, road side, floor, or canonical order is claimed."
+    },
+    {
+      "id": "sv-malakpet-masjid-chanda-sahab-gate-20261019",
+      "sourceIds": [
+        "sv-malakpet-station-rd-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Masjid Chanda Sahab entrance",
+      "category": "religious_site",
+      "roadId": null,
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Green sign reads MASJID CHANDA SAHAB above a narrow gated entrance between commercial fascias; this is an access marker, not a retail unit. The panorama camera is about 18 m from the nearest named core road edge; road alignment is left open. Position is not the storefront entrance. No exact frontage span, road side, floor, or canonical order is claimed."
+    },
+    {
+      "id": "sv-malakpet-auto-two-wheeler-snapshot-20261019",
+      "sourceIds": [
+        "sv-malakpet-station-rd-20261019-01"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Auto-rickshaw and two-wheeler street snapshot",
+      "category": "traffic_context",
+      "roadId": null,
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "An auto-rickshaw occupies the immediate foreground and a motorcycle crosses the same short road view. This is a single image snapshot, not a traffic count. The panorama camera is about 18 m from the nearest named core road edge; road alignment is left open. Position is not the storefront entrance. No exact frontage span, road side, floor, or canonical order is claimed."
+    },
+    {
+      "id": "sv-malakpet-elevated-structure-context-20261019",
+      "sourceIds": [
+        "sv-malakpet-station-rd-20261019-02"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-19",
+      "name": "Elevated transport structure and planted median",
+      "category": "transport_infrastructure",
+      "roadId": null,
+      "position": {
+        "lat": 17.3771909,
+        "lon": 78.4938845,
+        "headingDeg": 180
+      },
+      "placementStatus": "pending",
+      "notes": "Reverse view shows the concrete elevated structure, a pier-mounted warning panel, planted median and exposed utility equipment; exact structure boundaries are not reconstructed. The panorama camera is about 18 m from the nearest named core road edge; road alignment is left open. Position is not the storefront entrance. No exact frontage span, road side, floor, or canonical order is claimed."
+    }
+  ]
+}

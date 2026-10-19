@@ -44,3 +44,7 @@ Total rows: 204. High confidence: 7 (Assembly / Legislative Assembly, Gandhi Bha
 - Musarambagh: only a mall about 60 m away.
 - Malakpet: the landmark list may be the same list attributed to New Market.
 - Balanagar: conflicting reviews on D-Mart and the Kukatpally wholesale store. Lakeshore Mall was not confirmed.
+
+## Street and storefront reconstruction
+
+The new full-network street-level research workflow, provenance rules and runtime override format are documented in [street-survey.md](street-survey.md). Existing station landmark research above remains a separate, provisional source.

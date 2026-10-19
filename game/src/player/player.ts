@@ -28,6 +28,8 @@ export interface TickInput {
   flyPress: boolean;
   /** hold the car stationary for a delivery (mission sets this) */
   holdStop: boolean;
+  /** Fresh E / collection button press, consumed only at an eligible stopped entrance. */
+  interactPress?: boolean;
 }
 
 export const NO_INPUT: TickInput = { steer: 0, accel: false, brake: false, flyPress: false, holdStop: false };
@@ -68,6 +70,7 @@ export interface PlayerSnapshot {
   x: number; y: number; z: number; heading: number; speed: number; vy: number; steerAngle: number;
   move: MoveState; roadId: string | null; level: number; takeoffTicks: number; confirmTicks: number; stabilityTicks: number;
   reverseEngaged: boolean; landingSoon: boolean; ledger: ReturnType<FlightLedger['snapshot']>;
+  protectedLandingUsed?: number;
 }
 
 /** ▼ must be held this long while stopped before reverse engages (no accidental reverse) */
@@ -119,6 +122,12 @@ export class Player {
   events: PlayerEvent[] = [];
   forecast: LandingForecast = { state: 'hidden', x: 0, z: 0, y: 0, reason: null, ticksToTouchdown: 0 };
   reserveTicks = 0;
+  protectedLandingUsed = 0;
+  suspensionPitch = 0;
+  suspensionRoll = 0;
+  curbImpact = 0;
+  wheelHeights = [0, 0, 0, 0];
+  private rideHeight = 0;
   private cooldown = new Map<string, number>();
   private tick = 0;
   private contactsBuf: Contact[] = [];
@@ -144,6 +153,8 @@ export class Player {
     this.move = 'GROUNDED';
     this.takeoffTicks = 0; this.confirmTicks = 0; this.stabilityTicks = FLIGHT.groundConfirmTicks;
     this.reverseEngaged = false; this.landingSoon = false;
+    this.protectedLandingUsed = 0;
+    this.suspensionPitch = 0; this.suspensionRoll = 0; this.curbImpact = 0; this.rideHeight = this.y;
     this.prev = { x: this.x, y: this.y, z: this.z, heading: this.heading };
     this.lastAirOk = { x, z };
     this.cooldown.clear();
@@ -275,6 +286,7 @@ export class Player {
         if (ev.ok) {
           this.move = 'TAKEOFF';
           this.takeoffTicks = 0;
+          this.protectedLandingUsed = 0;
           this.vy = 0;
           this.reverseEngaged = false; this.backHeldStopped = 0;
           this.events.push({ type: 'launch', transaction: this.ledger.beginTransaction() });
@@ -300,10 +312,15 @@ export class Player {
         if (this.supported() && this.move === 'TAKEOFF') {
           this.abortTakeoff('Flight power used');
         } else if (!this.supported()) {
-          this.events.push({ type: 'exhausted_unsupported' });
-          this.events.push({ type: 'crash', reason: 'Flight power ran out in the air' });
-          this.move = 'RECOVERING';
-          return this.events;
+          // A bounded descent reserve protects a short boost from prediction error. It cannot
+          // prolong cruise, hover, or become charge for a subsequent launch.
+          if (this.move !== 'DESCENDING') this.events.push({ type: 'descent', auto: true });
+          this.move = 'DESCENDING'; this.landingSoon = true;
+          this.protectedLandingUsed++;
+          if (this.protectedLandingUsed > FLIGHT.protectedLandingTicks) {
+            this.events.push({ type: 'crash', reason: 'No safe landing surface' });
+            this.move = 'RECOVERING'; return this.events;
+          }
         } else {
           // within ground contact when the budget runs out: the same touchdown validation applies
           if (!this.validateTouchdown()) return this.events;
@@ -322,6 +339,10 @@ export class Player {
     // 5. surface / touchdown
     this.resolveSurface();
     if ((this.move as MoveState) === 'RECOVERING') return this.events;
+
+    if (this.move === 'GROUNDED' && this.surface?.onCarriageway && this.supported() && this.speed >= FLIGHT.rechargeMinSpeed && !input.holdStop && !this.events.some((e) => e.type === 'contact')) {
+      this.ledger.earnRoadTick(FLIGHT.rechargeFlightTicksPerRoadTick);
+    }
 
     // 6. reserve + automatic descent
     if (this.isAirborne) {
@@ -514,18 +535,32 @@ export class Player {
 
   private resolveContacts() {
     const out = this.contactsBuf; out.length = 0;
-    const [fx, fz] = forwardOf(this.heading);
     const h = FLIGHT.carHeight;
-    for (const off of [VEHICLE.circleOffset, -VEHICLE.circleOffset]) {
-      const cx = this.x + fx * off, cz = this.z + fz * off;
-      this.world.contacts(cx, cz, this.y + 0.05, h - 0.1, VEHICLE.collisionRadius, out);
-      this.dyn.contacts(cx, cz, this.y + 0.05, h - 0.1, VEHICLE.collisionRadius, out);
+    // Sweep both collision volumes through the entire movement, including yaw. This catches
+    // narrow parapets, ramp-wall ends and poles before the final position can cross them.
+    const travel = Math.hypot(this.x - this.prev.x, this.z - this.prev.z);
+    const yaw = wrapAngle(this.heading - this.prev.heading);
+    const steps = Math.max(1, Math.ceil((travel + Math.abs(yaw) * VEHICLE.circleOffset) / 0.3));
+    const endX = this.x, endZ = this.z;
+    for (let i = 1; i <= steps; i++) {
+      const t = i / steps, x = this.prev.x + (endX - this.prev.x) * t, z = this.prev.z + (endZ - this.prev.z) * t;
+      const [sx, sz] = forwardOf(this.prev.heading + yaw * t);
+      const y = this.prev.y + (this.y - this.prev.y) * t;
+      for (const off of [VEHICLE.circleOffset, -VEHICLE.circleOffset]) {
+        const cx=x+sx*off,cz=z+sz*off;
+        this.world.contacts(cx,cz,y+.05,h-.1,VEHICLE.collisionRadius,out);
+        this.dyn.contacts(cx,cz,y+.05,h-.1,VEHICLE.collisionRadius,out);
+      }
+      if(out.length){this.x=x;this.z=z;this.y=y;this.heading=wrapAngle(this.prev.heading+yaw*t);break;}
     }
     if (!out.length) return;
-    const seen = new Set<string>();
+    const [fx,fz]=forwardOf(this.heading);
+    const deepest = new Map<string, Contact>();
     for (const c of out) {
-      if (seen.has(c.id)) continue;
-      seen.add(c.id);
+      const previous = deepest.get(c.id);
+      if (!previous || c.depth > previous.depth || (c.vertical === 'above' && previous.vertical !== 'above')) deepest.set(c.id, c);
+    }
+    for (const c of deepest.values()) {
       let closing: number;
       if (c.vertical === 'above') {
         if (this.isAirborne) {
@@ -543,6 +578,7 @@ export class Player {
         const vdotn = (fx * this.speed) * c.nx + (fz * this.speed) * c.nz;
         closing = Math.max(0, -vdotn);
         this.x += c.nx * c.depth; this.z += c.nz * c.depth;
+        if (c.kind === 'parapet') this.speed *= Math.max(0, 1 - Math.abs(fx * c.nx + fz * c.nz));
       }
       // a pedestrian stepping into a stationary/creeping car is not a player crash
       const severe = closing >= CONTACT.severeSpeed || (c.vertical === 'below' && this.isAirborne && closing > 3) || (c.kind === 'pedestrian' && Math.abs(this.speed) > 1.5);
@@ -575,24 +611,27 @@ export class Player {
     // ground: follow road surface identity with hysteresis
     this.updateSurface(4.5);
     const s = this.surface;
-    const surfY = this.surfaceY();
-    if (s && s.elevation > 1.0 && s.dist > s.halfWidth + 0.2) {
-      // parapet on a raised carriageway
-      const push = s.dist - (s.halfWidth + 0.2);
-      const nx = (s.px - this.x) / (s.dist || 1), nz = (s.pz - this.z) / (s.dist || 1);
-      this.x += nx * push; this.z += nz * push;
-      this.speed *= 0.9;
-      // one event per continuous scrape episode (F23): cooldown refreshes while in contact
-      if (!this.cooldown.has('parapet')) this.events.push({ type: 'contact', kind: 'parapet', id: 'parapet', severity: 'light', closing: 1 });
-      this.cooldown.set('parapet', this.tick + CONTACT.contactCooldownTicks);
+    const [fx, fz] = forwardOf(this.heading), rx = -fz, rz = fx;
+    let wi = 0;
+    for (const front of [1, -1]) for (const side of [-1, 1]) {
+      this.wheelHeights[wi++] = this.world.roads.groundHeight(this.x + fx * front * VEHICLE.wheelbase / 2 + rx * side * VEHICLE.width * 0.4, this.z + fz * front * VEHICLE.wheelbase / 2 + rz * side * VEHICLE.width * 0.4, this.roadId, this.level, this.y + 0.5);
     }
+    const surfY = this.wheelHeights.reduce((a, b) => a + b, 0) / 4;
+    const step = surfY - this.rideHeight;
+    this.curbImpact = Math.max(this.curbImpact * 0.82, Math.min(1, Math.abs(step) * Math.abs(this.speed) * 1.5));
+    if (step > 0.03 && Math.abs(this.speed) > 1) this.speed *= 1 - Math.min(0.15, step * 0.6);
+    this.rideHeight = surfY;
+    const targetPitch = Math.atan2((this.wheelHeights[0] + this.wheelHeights[1] - this.wheelHeights[2] - this.wheelHeights[3]) / 2, VEHICLE.wheelbase);
+    const targetRoll = Math.atan2((this.wheelHeights[0] + this.wheelHeights[2] - this.wheelHeights[1] - this.wheelHeights[3]) / 2, VEHICLE.width * 0.8);
+    this.suspensionPitch += (targetPitch - this.suspensionPitch) * 0.24;
+    this.suspensionRoll += (targetRoll - this.suspensionRoll) * 0.24;
     if (this.y > surfY + 0.05) {
       // ground-vehicle gravity (not powered flight)
       this.vy -= 9.81 * TICK_SECONDS;
       this.y += this.vy * TICK_SECONDS;
       if (this.y <= surfY) { this.y = surfY; this.vy = 0; }
     } else {
-      this.y = surfY; this.vy = 0;
+      this.y = Math.abs(surfY - this.y) < 0.0001 ? surfY : this.y + (surfY - this.y) * 0.35; this.vy = 0;
     }
     if (this.move === 'LANDING_CONFIRM') {
       if (this.supported()) {
@@ -633,12 +672,13 @@ export class Player {
   }
 
   snapshot(): PlayerSnapshot {
-    return { x: this.x, y: this.y, z: this.z, heading: this.heading, speed: this.speed, vy: this.vy, steerAngle: this.steerAngle, move: this.move, roadId: this.roadId, level: this.level, takeoffTicks: this.takeoffTicks, confirmTicks: this.confirmTicks, stabilityTicks: this.stabilityTicks, reverseEngaged: this.reverseEngaged, landingSoon: this.landingSoon, ledger: this.ledger.snapshot() };
+    return { x: this.x, y: this.y, z: this.z, heading: this.heading, speed: this.speed, vy: this.vy, steerAngle: this.steerAngle, move: this.move, roadId: this.roadId, level: this.level, takeoffTicks: this.takeoffTicks, confirmTicks: this.confirmTicks, stabilityTicks: this.stabilityTicks, reverseEngaged: this.reverseEngaged, landingSoon: this.landingSoon, protectedLandingUsed: this.protectedLandingUsed, ledger: this.ledger.snapshot() };
   }
 
   restore(s: PlayerSnapshot): void {
     Object.assign(this, { x: s.x, y: s.y, z: s.z, heading: s.heading, speed: s.speed, vy: s.vy, steerAngle: s.steerAngle, move: s.move, roadId: s.roadId, level: s.level, takeoffTicks: s.takeoffTicks, confirmTicks: s.confirmTicks, stabilityTicks: s.stabilityTicks, reverseEngaged: s.reverseEngaged, landingSoon: s.landingSoon });
     this.ledger = FlightLedger.restore(s.ledger);
+    this.protectedLandingUsed = s.protectedLandingUsed ?? 0;
     this.surface = this.world.roads.surface(this.x, this.z, { preferRoadId: this.roadId, preferLevel: this.level, maxY: this.y + 0.3, margin: 12 });
     this.prev = { x: this.x, y: this.y, z: this.z, heading: this.heading };
     // reserve is recomputed from restored state on the next tick (never restored as a number)

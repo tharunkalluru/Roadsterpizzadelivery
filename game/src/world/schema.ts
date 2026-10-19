@@ -1,3 +1,7 @@
+import type { StationEntrance } from './stationEntrances';
+import type { StationGeometryData } from './stationGeometry';
+import type { BuildingGeometryReconciliation, BuildingHeightBasis, FrontagePlacement, RoadSourceProperties, SatelliteHeightEstimate, SourceBuildingProperties } from './sourceAccuracy';
+
 /**
  * Canonical world-package schema (shared contract between the import pipeline,
  * runtime world builder, navigation, physics and art). Owned by the lead.
@@ -49,6 +53,8 @@ export interface WorldManifest {
   chunks: ChunkRef[];
   sourceManifest: { file: string; sha256: string }[];
   core: { file: string; sha256: string; bytes: number };
+  sourceAccuracy?: { file: string; sha256: string; bytes: number };
+  listingIndex?: { file: string; sha256: string; bytes: number; count: number };
   counts: Record<string, number>;
 }
 
@@ -90,6 +96,7 @@ export interface RoadEdge {
   routable?: boolean;
   /** v2: true only for fully at-grade edges with walkable footpaths (pedestrians spawn only here) */
   footpath?: boolean;
+  sourceProperties?: RoadSourceProperties;
 }
 
 export interface GraphNode {
@@ -131,6 +138,11 @@ export interface Building {
   footprint: Vec2[]; // CCW, not closed (first != last)
   holes?: Vec2[][];
   heightM: number;
+  heightBasis?: BuildingHeightBasis;
+  baseHeightM?: number;
+  sourceProperties?: SourceBuildingProperties;
+  satelliteHeight?: SatelliteHeightEstimate;
+  geometryReconciliation?:BuildingGeometryReconciliation;
   heightStatus: FidelityStatus; // provisional unless height/levels tagged
   levels: number | null;
   name: string | null;
@@ -141,6 +153,10 @@ export interface Building {
   centroid: Vec2;
   /** footprint still overlaps the minimum-width carriageway (source conflict, see CONTENT_GAPS.md) */
   intrudesCarriageway?: boolean;
+  /** Independently authored appearance from a dated street review; dimensions retain their own status. */
+  facadeColor?: string;
+  surveyStyle?: string;
+  researchedProfile?: import('./buildingProfile').ResearchedBuildingProfile;
 }
 
 export interface Poi {
@@ -186,6 +202,8 @@ export interface MetroStation {
   /** never a road delivery entrance (Q04) */
   isDeliveryEntrance: false;
   inCorridor: boolean;
+  /** Original mapped entrance points; stair geometry and association remain provisional. */
+  entrances?: StationEntrance[];
   status: PropertyStatus;
 }
 
@@ -245,6 +263,8 @@ export interface WorldCore {
   pois: Poi[];
   metroLines: MetroLine[];
   stations: MetroStation[];
+  /** Retained OSM envelopes; application is conservative and horizontal-only. */
+  stationGeometry?: StationGeometryData;
   metro: MetroStructure;
   deliveries: DeliveryLocation[];
   names: NameRecord[];
@@ -287,8 +307,20 @@ export interface Storefront {
   /** frontage segment on the building edge (local metres), shop sign spans this */
   facade: [Vec2, Vec2] | null;
   facingHeading: number; // heading of the facade normal (toward the road), same convention as everywhere
-  floor: 0 | 1; // 0 = ground-floor shop, 1 = upper-floor board
+  floor: number; // observed floor; 0 is ground level, negative values are basement tenancies
   status: FidelityStatus; // 'provisional' for listing-based
+  placement?: FrontagePlacement;
+  appearance?: {
+    facadeColor?: string; signColor?: string; signTextColor?: string;
+    shutterColor?: string; awningColor?: string; displayName?: string;
+    heightM?: number; signHeightM?: number; signBaseM?: number;
+    frontBaseM?: number; frontInsetM?: number; signWidthM?: number; signOutsetM?: number;
+    awning?: boolean; categoryProps?: boolean;
+    frontStyle?: 'glazed' | 'shutter' | 'open_bay';
+    observedDisplay?: 'electrical_goods' | 'medicines' | 'cement_bags' | 'appliances' | 'framed_art' | 'hardware_goods' | 'luggage_goods';
+    displaySide?: 'left' | 'right' | 'both';
+    frontOpening?: {at:number;widthM:number};
+  };
 }
 
 /** pedestrian skywalks / foot-over-bridges / named elevated structures (render + collision) */

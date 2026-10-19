@@ -6,7 +6,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { WorldPhysics } from '../../src/world/collision';
-import { buildCatalog } from '../../src/missions/catalog';
+import { buildCatalog, isFoodPickup } from '../../src/missions/catalog';
 import { Session } from '../../src/missions/session';
 import { Autopilot } from '../../src/debug/autopilot';
 import type { WorldCore, WorldManifest, WorldChunk } from '../../src/world/schema';
@@ -24,13 +24,15 @@ function loadWorld() {
 }
 
 describe.skipIf(!have)('real-world missions (reference agent, ground only)', () => {
-  const { core, w } = have ? loadWorld() : ({} as any);
+  const { core, w } = have ? loadWorld() : ({} as ReturnType<typeof loadWorld>);
   const missions = have ? buildCatalog(core, w) : [];
   const report: any[] = [];
 
-  it('instantiates the required templates', () => {
+  it('instantiates supported templates using source-category food pickups', () => {
     const t = new Set(missions.flatMap((m) => m.templates));
-    for (const id of ['MT01', 'MT02', 'MT03', 'MT04', 'MT05', 'MT06', 'MT07', 'MT08', 'MT09', 'MT10', 'MT12']) expect(t.has(id as any), id).toBe(true);
+    for (const id of ['MT01', 'MT02', 'MT03', 'MT04', 'MT05', 'MT06', 'MT08', 'MT09', 'MT10', 'MT12']) expect(t.has(id as any), id).toBe(true);
+    for (const m of missions) expect(isFoodPickup(core, core.deliveries.find((d) => d.id === m.pickupId)!)).toBe(true);
+    // MT07 is emitted only when a food-pickup route has a genuine short reconnecting alternative.
   });
 
   for (const m of missions) {
@@ -53,10 +55,10 @@ describe.skipIf(!have)('real-world missions (reference agent, ground only)', () 
 });
 
 describe.skipIf(!have)('real-world flight use (reference agent with flight)', () => {
-  const { core, w } = have ? loadWorld() : ({} as any);
+  const { core, w } = have ? loadWorld() : ({} as ReturnType<typeof loadWorld>);
   const missions = have ? buildCatalog(core, w) : [];
   for (const id of ['mt02_first_flight', 'mt06_save_flight', 'mt10_full_corridor']) {
-    it(`${id}: split flights share one ledger, land validly, never exceed allocation`, () => {
+    it(`${id}: split flights share one ledger, land validly, never exceed earned charge`, () => {
       const m = missions.find((q) => q.id === id)!;
       const s = new Session(w, m, { runId: `fly_${id}`, seed: m.seed });
       s.start();
@@ -74,7 +76,8 @@ describe.skipIf(!have)('real-world flight use (reference agent with flight)', ()
       }
       const r = s.results();
       expect(r.launches).toBeGreaterThanOrEqual(1);
-      expect(maxConsumed).toBeLessThanOrEqual(s.player.ledger.initialTicks);
+      expect(maxConsumed).toBeLessThanOrEqual(s.player.ledger.initialChargeTicks + s.player.ledger.earnedTicks);
+      expect(s.player.ledger.remainingTicks).toBeLessThanOrEqual(s.player.ledger.initialTicks);
       expect(r.flightUsedSeconds * 60).toBeCloseTo(metered, 6);
       expect(r.outcome.success, r.outcome.reason).toBe(true);
       report.push({ id: `${id}+flight`, launches: r.launches, flightUsedS: r.flightUsedSeconds, chargedS: +r.chargedSeconds.toFixed(1), deadlineS: m.deadlineSeconds, crashes, outcome: r.outcome.reason });

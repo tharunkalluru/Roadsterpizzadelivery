@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "id": "madhapur-bawarchi-zeeshan-side-inventory-20261018",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-18",
+  "reviewer": "Codex Chrome endpoint and midpoint block inventory",
+  "notes": "Full visual inventory of a single 48.23m north-carriageway road segment. Both immediate road edges are accounted for; exact placement and metric dimensions remain unverified. Does not imply full-map completion.",
+  "sources": [
+    {
+      "id": "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018",
+      "kind": "street_view",
+      "title": "Bawarchi/Zeeshan short block — east endpoint looking back west",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=zkRdXpMXImYVHfrejukWwA&heading=270&pitch=8&fov=75",
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "reviewer": "Codex Chrome endpoint and midpoint block inventory",
+      "position": {
+        "lat": 17.4410192,
+        "lon": 78.3919821,
+        "headingDeg": 270,
+        "panoId": "zkRdXpMXImYVHfrejukWwA"
+      },
+      "assetPolicy": "reference_only",
+      "notes": "Walked sequentially east through m8V0Q--yGJu18O2v5lHEYg, iUIOJJlmCRMKnhJvu0zbvg and this endpoint, inspecting north elevations and the immediate planted median/metro edge. Seven authored front/sign records account for Bawarchi and the ground units beneath Zeeshan; upper Bawarchi windows are unmarked, Zeeshan roof parapet has no additional visible tenancy. The mobile board proprietor is unresolved; its observed combined board is retained without implying official dealership. Alley/junction gaps at each end and rough footpath are non-shop frontage. Source photos are reference only."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-madhapur-c1729-immediate-median",
+      "sourceIds": [
+        "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018",
+        "sv-madhapur-c1729-south-2026-04-chrome-20261018"
+      ],
+      "captureDate": "2026-04",
+      "observedDate": "2026-10-18",
+      "name": "C1729 metro pier and planted central median",
+      "category": "street_detail",
+      "roadId": "r_38680221829_0",
+      "position": {
+        "lat": 17.4410192,
+        "lon": 78.3919821,
+        "headingDeg": 270
+      },
+      "placementStatus": "pending",
+      "notes": "Immediate right edge of this eastbound carriageway is a raised concrete planted median with shrubs, elevated metro deck/piers and advertising frames. No adjacent shops exist on that immediate edge; shops beyond the opposite carriageway belong to separate road-side records. Exact pier, poster and planting dimensions/positions are not measured."
+    }
+  ],
+  "roadReviews": [
+    {
+      "roadId": "r_38680221829_0",
+      "side": "left",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 0,
+          "endM": 48.23,
+          "sourceIds": [
+            "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018",
+            "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+            "sv-madhapur-bawarchi-full-2026-04-chrome-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex Chrome endpoint and midpoint block inventory",
+          "completeness": "partial",
+          "allFrontagesRecorded": true,
+          "storefrontIds": [
+            "survey-madhapur-hitech-bawarchi",
+            "survey-madhapur-zeeshan-ambica",
+            "survey-madhapur-zeeshan-mobile-board",
+            "survey-madhapur-zeeshan-restaurant",
+            "survey-madhapur-zeeshan-sri-sai-xerox",
+            "survey-madhapur-zeeshan-eco-cc-express",
+            "survey-madhapur-zeeshan-sai-priya"
+          ],
+          "notes": "End-to-end visual inventory: western junction/alley gap; Bawarchi raised restaurant frontage and unmarked upper window bands; Ambica Electricals, combined Samsung Galaxy/iPhone accessories board, Sri Sai Xerox, Eco-CC Express courier, Sai Priya Medical, first-upper Zeeshan Mandi; eastern alley boundary. All visible names/signs and unmarked/roof areas are accounted for; the mobile proprietor and internal Xerox/courier division remain unresolved. Geometry is provisional, so completeness/status remain partial."
+        }
+      ]
+    },
+    {
+      "roadId": "r_38680221829_0",
+      "side": "right",
+      "status": "partial",
+      "reviewedRanges": [
+        {
+          "startM": 0,
+          "endM": 48.23,
+          "sourceIds": [
+            "sv-madhapur-bawarchi-zeeshan-endpoint-2026-04-chrome-20261018",
+            "sv-madhapur-zeeshan-close-2026-04-chrome-20261018",
+            "sv-madhapur-bawarchi-full-2026-04-chrome-20261018"
+          ],
+          "reviewedAt": "2026-10-18",
+          "reviewer": "Codex Chrome endpoint and midpoint block inventory",
+          "completeness": "partial",
+          "allFrontagesRecorded": true,
+          "storefrontIds": [],
+          "notes": "End-to-end immediate road edge is a planted raised central median and metro viaduct with C1729 pier/advertising frames. No immediate shop frontage. Buildings across the second carriageway are outside this side inventory. Exact non-shop geometry remains provisional."
+        }
+      ]
+    }
+  ]
+}
