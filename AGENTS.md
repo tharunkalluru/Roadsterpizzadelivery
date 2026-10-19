@@ -8,10 +8,12 @@ Run `git status --short`, `git branch --show-current`, `git rev-parse HEAD`, and
 
 ## Ownership and boundaries
 
+**Role separation:** The parent/designated coordinator is the single integrator. It may update and push expressly authorized coordination documents/reservations on the handoff branch and alone owns shared-data imports/integration/deployments. The personal-branch-only restrictions below apply to external mapping workers, not to that coordinator. This does not authorize force-pushes, credential/access changes, provider evasion or unrelated edits. Read `docs/handoff/RESERVATIONS.json`; its active bounded lease takes precedence over the historical broad proposal.
+
 - Work only on a personal `worker/<worker-id>/<assignment-id>` branch. Never push shared `main`, the default branch `claude/adoring-dijkstra-ireick`, or the handoff/integrator branch. Never force-push, enable auto-merge, change visibility/access, or deploy.
 - Current sole mapping owner `01a155cd-daee-76ce-a294-b890d8aaa02b` exclusively owns **Peddamma Gudi → Jubilee Hills Checkpost**, both directions and sides, including junction alternatives and station connectors. Do not overlap it.
 - **Miyapur ↔ JNTU College is reserved and provider-blocked.** It is not available to claim. Madhapur → Peddamma has a saved quick pass with explicit gaps; it is not a free new assignment.
-- The proposed external **Khairatabad → Lakdi-ka-pul** pair is **NOT ACTIVE**. The parent/integrator must verify the live owner ledger, reserve its exact canonical road ranges/sides, set an actual worker identity and activation base hash, and update ASSIGNMENTS before a new worker starts. Do not race to claim it or launch the second machine automatically.
+- External worker **`second-computer-01`** has ACTIVE assignment **`khairatabad-lakdi-pilot-r8306076003-3`**: only **`r_8306076003_3`**, both canonical sides, **20.00–168.60m** in stored-point order. Endpoint buffers/junctions, all other roads/carriageways and station connectors/gates are excluded. The whole Khairatabad → Lakdi-ka-pul pair remains unassigned; never expand beyond this pilot. Confirm startup bindings in ASSIGNMENTS and the machine reservation before research.
 
 ## Evidence and shared files
 

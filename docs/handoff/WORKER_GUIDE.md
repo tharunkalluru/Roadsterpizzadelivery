@@ -4,7 +4,9 @@
 
 Read root AGENTS/STATUS/ASSIGNMENTS and the linked checkpoint at every startup, resume and pull. `git fetch origin` then compare `git rev-parse HEAD`, `git rev-parse origin/<integrator-branch>` and `git merge-base HEAD origin/<integrator-branch>`. In a worker branch, `git log --oneline HEAD..origin/<integrator-branch>` reveals integrator changes you lack. Read their coordination files before deciding whether your assignment is still valid. Fetch/auth failure blocks a fresh exclusivity assertion. Save your changes before switching; do not discard or overwrite work.
 
-When the parent activates your named reservation, branch from the recorded exact commit:
+For the active second-computer pilot, read `docs/handoff/RESERVATIONS.json` and resolve the exact activation commit with `git log -1 --format=%H -- docs/handoff/RESERVATIONS.json`. The manifest `baseCommit` is the frozen source predecessor; the resolved activation commit is the worker branch base. Record both. Report the required startup binding, then begin only the matching ACTIVE lease without another approval. If the lease changed, stop dependent work. The whole proposed station pair is not assigned.
+
+When the parent activates your named reservation, branch from the exact activation commit:
 
 ```sh
 git switch -c worker/YOUR_ID/ASSIGNMENT_ID APPROVED_COMMIT_SHA

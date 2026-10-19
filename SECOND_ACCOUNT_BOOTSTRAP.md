@@ -1,13 +1,39 @@
-# Paste this into the agent on the second computer
+# Start the activated second-computer pilot
 
-You are contributing to **Roadster**, a Three.js Hyderabad metro delivery game, in `https://github.com/tharunkalluru/Roadsterpizzadelivery`. You inherit no other account's memory. Use the files as your context.
+You are `second-computer-01`, assignment **`khairatabad-lakdi-pilot-r8306076003-3`**. The parent has activated only the bounded road slice below; earlier broad proposal text is historical and grants no extra scope. Pulling alone does not execute research.
 
-1. Clone **branch `handoff/parallel-mapping-2026-10-19`**, or explicitly fetch/check out that branch if already cloned. Do not assume pulling the default branch gives the handoff. Read root `AGENTS.md`, `STATUS.md`, `ASSIGNMENTS.md`, `docs/handoff/WORKER_GUIDE.md`, `docs/handoff/VALIDATION.md`, `docs/handoff/SNAPSHOT.json`, and the latest checkpoint for any assignment. Re-read these on every startup/resume/pull. `git pull` only updates files; it does not start an agent, transfer memory, or activate an assignment.
-2. Fetch origin, inspect status/branch/HEAD, verify the frozen input hashes and report the exact base SHA, survey revision/hash, worker identity and assignment state. This snapshot descends from `440d5b40e3b8751ea31a51ab69d41aa8e1289a1f` and contains survey 102. Use the current remote head and the integrator's activation SHA when it assigns work; do not treat the historical base as a new lease.
-3. Install Node 24.13.1; `cd game && npm ci && npm run build && npm run survey:validate && npm run survey:check && node --experimental-strip-types scripts/survey-queue.mjs --check`. Run locally with `npm run dev -- --host 127.0.0.1` at http://127.0.0.1:5173. No `.env` or runtime API key is required. `npm ci` restores the full checksum-verified source-accuracy JSON from its tracked gzip archive; if scripts are disabled, run `npm run setup:data` before direct validation. Do not commit the ignored restored JSON or alter its archive. Report known failures/limits from VALIDATION; do not call a build a verified map.
-4. **There is currently NO ACTIVE external assignment.** The parent/integrator must verify/reserve and activate the proposal with the current owner. You may set up, read and validate now; do not start mapping based on a proposal. Proposed Khairatabad → Lakdi-ka-pul is NOT ACTIVE and may change. Never overlap owner `01a155cd-daee-76ce-a294-b890d8aaa02b` on Peddamma Gudi → Jubilee Hills Checkpost, or reserved/provider-blocked Miyapur ↔ JNTU. Madhapur → Peddamma has a quick pass with gaps and is not unassigned work.
-5. After explicit coordinated activation, create your own `worker/<worker-id>/<assignment-id>` branch from the approved commit. Work only the exact reserved road IDs/arclength ranges/canonical sides. Author new immutable evidence JSON batches and checkpoint notes. Record dated source URLs, camera positions/headings, observations, confidence, unresolved text, gaps and provenance; camera points are not shop entrances. Use real canonical IDs. Keep uncertain placement pending/provisional. Do not reuse a batch ID with changed contents or upgrade coverage without proof.
-6. Do not edit shared `game/public/research/` or `game/public/world/`, rewrite old batches, change survey revisions/receipts, or push shared main/default/handoff branches. Only the single integrator imports batches, regenerates data, handles shared reservation changes, merges and deploys. Preview batches only in a disposable clone. Stop and checkpoint provider blocks; never rotate accounts, proxies or sessions to evade them. Do not redistribute reference imagery.
-7. Before each save/push, fetch and check for stale bases/reservations. Update your checkpoint with UTC time, branch/base hash, completed/blocked/unverified state, batch hashes, last/next panorama/date/heading, gaps, validation and next action. Stage explicit paths; scan for secrets, `.env`, tokens, cookies/session data and private screenshots. Push your personal branch and open a draft PR to the integrator's current branch, with no auto-merge. Verify the remote SHA and provide the branch/PR, batch hashes and resume pointer. GitHub pushes do not publish the game; existing Sites deployment 101 is separate.
+1. Preserve any local changes first. With a clean checkout, run:
 
-Start by reporting your clone/HEAD, setup checks and **inactive** assignment state. Wait for coordinated activation before research.
+```sh
+git fetch origin
+git switch handoff/parallel-mapping-2026-10-19
+git pull --ff-only origin handoff/parallel-mapping-2026-10-19
+git status --short
+git rev-parse HEAD
+```
+
+2. Read `AGENTS.md`, `STATUS.md`, `ASSIGNMENTS.md`, `docs/handoff/RESERVATIONS.json`, `docs/handoff/SECOND_COMPUTER_ACTIVATION.md`, `docs/handoff/WORKER_GUIDE.md`, `docs/handoff/VALIDATION.md` and `docs/handoff/SNAPSHOT.json`. Confirm the named ACTIVE lease. Resolve the exact activation/base commit:
+
+```sh
+git log -1 --format=%H -- docs/handoff/RESERVATIONS.json
+```
+
+Use that full SHA, also supplied by the integrator after publication, in:
+
+```sh
+git switch -c worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3 EXACT_ACTIVATION_SHA
+```
+
+If the personal branch already exists, preserve it and compare/reconcile the base; do not reset, overwrite or create a second writer.
+
+3. Report worker=`second-computer-01`, assignment=`khairatabad-lakdi-pilot-r8306076003-3`, exact HEAD/activation SHA, personal branch and setup results. Verify frozen survey102 SHA-256=`2500760b5de99102489055f7f52d1639ad64b486424fdbcbe54b5ece3d7f1e2a`; source snapshot predecessor=`7145ba2b954c2ec01c67e902a44e45c6fc5d91a4`. Do not claim the frozen runtime is the live owner's106. Existing successful setup can be retained; if missing, use Node24.13.1 and the documented npm setup. No `.env` or runtime API key is required. Preserve the lossless checksum-bound source-accuracy archive and ignored restored output.
+
+4. **Then begin only this ACTIVE pilot:** `r_8306076003_3` (Lakdikapul Road), canonical left and right, closed arclength20.00–168.60m along stored `road.points`. Exclude0–20m and168.60–188.60m outside the included endpoints, both endpoint junctions, every other road/carriageway, branches, station connectors and gates. Approximate map endpoints17.4064797,78.4625119 →17.4054927,78.4634551. This is not the whole Khairatabad–Lakdi-ka-pul route. Actual pano/date/heading is unknown; locate and align via supported ordinary imagery UI. Stop and checkpoint if unavailable/misaligned; do not expand scope.
+
+5. Save new immutable evidence batches as `game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-<sequence>-<YYYYMMDD>.json`, source IDs prefixed `sv-second-computer-01-khairatabad-lakdi-pilot-`, and checkpoints under `game/work/khairatabad-lakdi-pilot-r8306076003-3/`. Record actual source URLs/date/camera positions/headings, confidence, unknowns and non-shop gaps; camera points are not doors. No source evidence is preapproved. Keep unsupported placement pending; never inflate coverage.
+
+6. Keep Peddamma–Jubilee Hills Checkpost entirely with primary owner `01a155cd-daee-76ce-a294-b890d8aaa02b`; keep Miyapur–JNTU's35roads/70sides reserved/provider-blocked; do not resume earlier sampled pairs. Never edit shared generated survey/world data, revisions/receipts, old batches, reservations or deployment metadata. One integrator imports, coordinates, merges and deploys. Stop provider blocks without evasion or redistribution of reference imagery.
+
+7. Fetch/check the live lease before saving/pushing. Stage only your explicit new batch/checkpoint files, scan for secrets/browser state, push your personal branch using your supported GitHub login, then open a **draft PR into `handoff/parallel-mapping-2026-10-19`** with base, batch hashes, checks, completed/blocked/unverified details and resume pointer. No handoff/main/default push, force-push, auto-merge, deployment or access change.
+
+When startup bindings match, the ACTIVE reservation already authorizes bounded research; no additional conversational approval is required. A changed/inactive lease or freshness/auth/provider/alignment problem pauses only the affected work and must be reported precisely.

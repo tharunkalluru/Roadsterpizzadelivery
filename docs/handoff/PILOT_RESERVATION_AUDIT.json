@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-19T22:30:52+00:00",
+  "status": "AUDITED_EXACT_PILOT",
+  "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
+  "roadId": "r_8306076003_3",
+  "ranges": [
+    {
+      "roadId": "r_8306076003_3",
+      "side": "left",
+      "startM": 20.0,
+      "endM": 168.6,
+      "boundaryRule": "closed interval; outside ranges and junctions excluded",
+      "direction": "stored road.points order"
+    },
+    {
+      "roadId": "r_8306076003_3",
+      "side": "right",
+      "startM": 20.0,
+      "endM": 168.6,
+      "boundaryRule": "closed interval; outside ranges and junctions excluded",
+      "direction": "stored road.points order"
+    }
+  ],
+  "frozenBaseCommit": "7145ba2b954c2ec01c67e902a44e45c6fc5d91a4",
+  "frozenSurveyRevision": 102,
+  "frozenSurveySha256": "2500760b5de99102489055f7f52d1639ad64b486424fdbcbe54b5ece3d7f1e2a",
+  "liveAuditRevision": 106,
+  "liveAuditSha256": "02e9583394434ff69a7f9ac6d11ed44c0cf8ea4b5d670c029cc760f1468e43ff",
+  "roadGeometryIdenticalBetweenFrozenAndLive": true,
+  "road": {
+    "id": "r_8306076003_3",
+    "wayId": 8306076003,
+    "name": "Lakdikapul Road",
+    "nameId": "nm_road_lakdikapul_road",
+    "highway": "trunk",
+    "oneway": true,
+    "routable": true,
+    "lanes": null,
+    "widthM": 4.5,
+    "level": 0,
+    "bridge": false,
+    "tunnel": false,
+    "elevationM": 0,
+    "pointElevM": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "surfaceId": "s_0_r_8306076003_3",
+    "fromNode": "n_57046252173",
+    "toNode": "n_4127550256",
+    "points": [
+      [
+        -9143.31,
+        889.64
+      ],
+      [
+        -9128.8,
+        896.5
+      ],
+      [
+        -9118.62,
+        903.34
+      ],
+      [
+        -9108.22,
+        913.2
+      ],
+      [
+        -9097.93,
+        923.78
+      ],
+      [
+        -9067.26,
+        961.29
+      ],
+      [
+        -9011.92,
+        1022.81
+      ]
+    ],
+    "lengthM": 188.6,
+    "footpath": true,
+    "status": {
+      "geometry": "provisional",
+      "name": "provisional",
+      "width": "provisional",
+      "direction": "provisional"
+    },
+    "provenance": {
+      "source": "derived",
+      "sourceIds": [
+        "ovt:seg/1ef14a963395",
+        "osm:r3249370@248"
+      ],
+      "note": "clamped 10.5->4.5 m (footprint clearance 4.3 m)"
+    }
+  },
+  "selectedSideStatus": {
+    "left": "unreviewed",
+    "right": "unreviewed"
+  },
+  "attachedObservations": 0,
+  "attachedOverrides": 0,
+  "sourcesWithin350mOfSelectedRoad": 0,
+  "nearestRecordedSource": {
+    "id": "sv-assembly-pune-machilipatnam-approach-20261019-01",
+    "distanceM": 1106.5426135236119
+  },
+  "cloudReservedRoadIntersection": [],
+  "primaryReservation": "geographically separate western Blue Line pair; parent notified primary owner of this exact road-side pilot before activation",
+  "bounds": "20m buffers leave both endpoint junctions unassigned; all nonselected road IDs excluded",
+  "notClaimed": [
+    "Whole Khairatabad–Lakdi station-pair route eligibility",
+    "Actual station gates/public connectors",
+    "Field-measured road dimensions",
+    "Complete frontage visibility",
+    "Previously sampled stretches elsewhere being unreviewed"
+  ]
+}

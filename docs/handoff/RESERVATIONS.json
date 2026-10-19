@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-19T22:30:52+00:00",
+  "integrator": {
+    "threadId": "01a102f7-6811-70bb-a5b0-4f535900f0f6",
+    "coordinationBranch": "handoff/parallel-mapping-2026-10-19",
+    "role": "Single coordinator/integrator; may maintain and push only authorized coordination state on the handoff branch. External workers cannot edit shared reservations, generated runtime data or deployments."
+  },
+  "assignments": [
+    {
+      "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
+      "status": "ACTIVE",
+      "workerId": "second-computer-01",
+      "ownerBranch": "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3",
+      "baseCommit": "7145ba2b954c2ec01c67e902a44e45c6fc5d91a4",
+      "baseCommitMeaning": "exact frozen source snapshot predecessor; worker activation base is the Git-resolved activationCommit below",
+      "activationCommit": {
+        "resolution": "last_commit_changing_manifest",
+        "gitPath": "docs/handoff/RESERVATIONS.json",
+        "command": "git log -1 --format=%H -- docs/handoff/RESERVATIONS.json",
+        "rule": "Resolve the exact SHA from Git after fetching; record it and branch from that activation commit. The SHA cannot be embedded in its own commit contents."
+      },
+      "snapshotSurveyRevision": 102,
+      "snapshotSurveySha256": "2500760b5de99102489055f7f52d1639ad64b486424fdbcbe54b5ece3d7f1e2a",
+      "auditSurveyRevision": 106,
+      "auditSurveySha256": "02e9583394434ff69a7f9ac6d11ed44c0cf8ea4b5d670c029cc760f1468e43ff",
+      "worldId": "hyd-metro",
+      "worldVersion": "2.0.0",
+      "stationRegionIds": [
+        "st_khairatabad",
+        "st_lakdi_ka_pul"
+      ],
+      "scopeType": "bounded road-edge pilot, not an entire station pair or a proven station-to-station route",
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_8306076003_3",
+          "side": "left",
+          "startM": 20.0,
+          "endM": 168.6,
+          "boundaryRule": "closed interval; outside ranges and junctions excluded",
+          "direction": "stored road.points order"
+        },
+        {
+          "roadId": "r_8306076003_3",
+          "side": "right",
+          "startM": 20.0,
+          "endM": 168.6,
+          "boundaryRule": "closed interval; outside ranges and junctions excluded",
+          "direction": "stored road.points order"
+        }
+      ],
+      "roadLengthM": 188.6,
+      "roadName": "Lakdikapul Road",
+      "geometryStatus": "provisional canonical map geometry, not field-measured dimensions",
+      "excludedRanges": [
+        {
+          "roadId": "r_8306076003_3",
+          "startM": 0.0,
+          "endM": 20.0,
+          "boundaryRule": "end exclusive"
+        },
+        {
+          "roadId": "r_8306076003_3",
+          "startM": 168.6,
+          "endM": 188.6,
+          "boundaryRule": "start exclusive"
+        }
+      ],
+      "exclusions": [
+        "Endpoint junctions n_57046252173 and n_4127550256 and any side-road branch",
+        "Every other road ID, parallel/opposite carriageway, station connector and station gate",
+        "Primary Peddamma Gudi–Jubilee Hills Checkpost reservation and its junction alternatives",
+        "Miyapur–JNTU 35-road reservation; Madhapur–Peddamma and all prior sampled stretches outside this pilot"
+      ],
+      "rangeAnchors": [
+        {
+          "alongM": 20.0,
+          "lat": 17.40647971357815,
+          "lon": 78.46251186845221
+        },
+        {
+          "alongM": 168.6,
+          "lat": 17.405492720877184,
+          "lon": 78.4634551491262
+        }
+      ],
+      "reservationConfirmation": {
+        "authorizer": "parent/integrator",
+        "primaryOwnerId": "01a155cd-daee-76ce-a294-b890d8aaa02b",
+        "primaryOwnerNotified": true,
+        "parentExplicitlyAuthorizedActivationAfterNotification": true,
+        "primarySeparateAcknowledgement": "not separately available; parent confirmed notice and authorized activation",
+        "scopeExpanded": false
+      },
+      "canonicalSourceIds": [
+        "ovt:seg/1ef14a963395",
+        "osm:r3249370@248"
+      ],
+      "priorSurveySourceIds": [],
+      "newSourceIdPrefix": "sv-second-computer-01-khairatabad-lakdi-pilot-",
+      "batchPathPattern": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-<sequence>-<YYYYMMDD>.json",
+      "checkpointPathPattern": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-<UTC-or-sequence>.md",
+      "latestCheckpoint": "docs/handoff/SECOND_COMPUTER_ACTIVATION.md",
+      "lastPanorama": null,
+      "nextPanorama": null,
+      "panoramaStatus": "not yet inspected; capture date/heading/pano ID unknown",
+      "startupConfirmation": {
+        "status": "REQUIRED_BEFORE_RESEARCH",
+        "reportFields": [
+          "workerId",
+          "assignmentId",
+          "actual clone HEAD",
+          "resolved activation SHA",
+          "branch",
+          "snapshot survey revision and SHA256",
+          "exact two reserved road-side ranges and exclusions",
+          "freshness and lease match",
+          "actual setup results or failures",
+          "first actual panorama and capture date, or precise access/alignment blocker"
+        ],
+        "rule": "Report the matching startup binding before research. This active lease needs no second conversational approval; a mismatch, changed lease or auth/provider block stops dependent work."
+      },
+      "nextAction": "Fetch/read activation; create personal branch from its exact SHA; report startup binding; inspect only publicly available imagery aligned to the reserved interior. If imagery cannot be aligned to this edge, stop and checkpoint; do not expand."
+    },
+    {
+      "assignmentId": "peddamma-jubilee-checkpost",
+      "status": "ACTIVE",
+      "workerId": "01a155cd-daee-76ce-a294-b890d8aaa02b",
+      "scope": "Entire Peddamma Gudi–Jubilee Hills Checkpost pair, both directions/sides, junction alternatives and station connectors; exact route unresolved; external pilot does not overlap."
+    },
+    {
+      "assignmentId": "miyapur-jntu",
+      "status": "RESERVED_PROVIDER_BLOCKED",
+      "workerId": "existing cloud owner, identity unknown in frozen handoff",
+      "roadIds": [
+        "r_13074868757_0",
+        "r_13693910208_0",
+        "r_15041345687_0",
+        "r_20087813675_0",
+        "r_20087813675_1",
+        "r_23146823111_0",
+        "r_23146823111_1",
+        "r_26064294617_0",
+        "r_26438912736_0",
+        "r_26552727215_0",
+        "r_30714547834_0",
+        "r_34555197483_0",
+        "r_36666371031_0",
+        "r_3699140038_0",
+        "r_3699140038_1",
+        "r_4075726924_0",
+        "r_41190453217_0",
+        "r_43302053920_0",
+        "r_43302053920_1",
+        "r_4485149297_3",
+        "r_4485149297_4",
+        "r_4485149297_5",
+        "r_46330639858_0",
+        "r_48236862260_0",
+        "r_493397216_0",
+        "r_53897771105_0",
+        "r_54575029906_0",
+        "r_60410134410_0",
+        "r_62538447925_0",
+        "r_63502857738_0",
+        "r_63502857738_1",
+        "r_64687749352_0",
+        "r_65688744566_0",
+        "r_6624632274_0",
+        "r_66734065525_0"
+      ],
+      "canonicalSides": [
+        "left",
+        "right"
+      ],
+      "scopeChange": "none; existing 35-road/70-side reservation preserved"
+    },
+    {
+      "assignmentId": "madhapur-peddamma",
+      "status": "QUICK_PASS_SAVED_GAPS_OPEN",
+      "scope": "No external reassignment; retain prior evidence and gaps."
+    }
+  ]
+}
