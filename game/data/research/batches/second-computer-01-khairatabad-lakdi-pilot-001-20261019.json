@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "second-computer-01-khairatabad-lakdi-pilot-001-20261019",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "second-computer-01 / Codex authorized local Chrome review",
+  "notes": "First small batch for ACTIVE assignment khairatabad-lakdi-pilot-r8306076003-3 from activation 50e23bd3b8162381623e8ea7bd617409f88bda54 and frozen survey102. Only r_8306076003_3 canonical left/right [20.00,168.60]m. One visible continuation from excluded locator pano 1fe1afa reached camera S76a at 17.4064672,78.4625709, nearest stored-polyline offset25.978m and distance2.348m. Selected edge is nearest; next candidate is8.240m away. Same visible public road continuation, no branch taken. Images change from Apr2026 outside the lease to Nov2021 at this camera; dates are not continuous tenancy evidence. Two pending angle-specific context observations only. Excluded locator pano is not batch evidence. No named storefronts, overrides, roadReviews, reviewed ranges or completion claim. Endpoint buffers/junctions, other roads/carriageways, station gates/connectors remain excluded. See checkpoint-20261019T235519Z-first-batch.md for projection, bounds, gaps and exact resume.",
+  "sources": [
+    {
+      "kind": "street_view",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-19",
+      "reviewer": "second-computer-01 / Codex authorized local Chrome review",
+      "assetPolicy": "reference_only",
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261019-S76a-h048",
+      "title": "Lakdikapul pilot S76a — canonical left-facing context",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=S76aL2Sv9OLkf6WqmLbU1Q&heading=48&pitch=0&fov=65",
+      "position": {
+        "lat": 17.4064672,
+        "lon": 78.4625709,
+        "headingDeg": 48,
+        "panoId": "S76aL2Sv9OLkf6WqmLbU1Q"
+      },
+      "notes": "The left-facing frame has roadway traffic in the near foreground obscuring portions of the far visible edge. It does not resolve frontage continuity or entrances within the lease. Signs across the roadway are not transcribed or assigned as tenants because their individual arclength/edge association is unconfirmed. No other road or carriageway is surveyed. Camera alignment: nearest assigned-edge arclength 25.978m, lateral distance 2.348m using frozen canonical projection. Side-facing direction follows stored road points, not a verified facade/entrance side. Capture date visibly shown by provider; imagery reference only."
+    },
+    {
+      "kind": "street_view",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-19",
+      "reviewer": "second-computer-01 / Codex authorized local Chrome review",
+      "assetPolicy": "reference_only",
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261019-S76a-h228",
+      "title": "Lakdikapul pilot S76a — canonical right-facing pier context",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=S76aL2Sv9OLkf6WqmLbU1Q&heading=228&pitch=0&fov=65",
+      "position": {
+        "lat": 17.4064672,
+        "lon": 78.4625709,
+        "headingDeg": 228,
+        "panoId": "S76aL2Sv9OLkf6WqmLbU1Q"
+      },
+      "notes": "A large concrete viaduct pier/base occupies the immediate right-facing view with roadside barriers and small vegetation near it. The pier partly occludes the view. Vehicles and premises beyond the immediate road boundary are excluded; no parking-area, connector, gate or other-carriageway frontage is inventoried. No retail entrance or unit is established. Camera alignment: nearest assigned-edge arclength 25.978m, lateral distance 2.348m using frozen canonical projection. Side-facing direction follows stored road points, not a verified facade/entrance side. Capture date visibly shown by provider; imagery reference only."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-001-h048",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261019-S76a-h048"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-19",
+      "name": "Lakdikapul pilot — canonical left-facing context",
+      "category": "bounded_first_pass_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4064672,
+        "lon": 78.4625709,
+        "headingDeg": 48
+      },
+      "placementStatus": "pending",
+      "notes": "The left-facing frame has roadway traffic in the near foreground obscuring portions of the far visible edge. It does not resolve frontage continuity or entrances within the lease. Signs across the roadway are not transcribed or assigned as tenants because their individual arclength/edge association is unconfirmed. No other road or carriageway is surveyed. Confidence: direct visible context at this camera; provisional canonical map alignment. Camera is not an entrance. This is an angle-specific pending context record only, with no metric frontage span, named storefront, measured dimensions, coverage or side completion asserted."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-001-h228",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261019-S76a-h228"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-19",
+      "name": "Lakdikapul pilot — canonical right-facing pier context",
+      "category": "bounded_first_pass_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4064672,
+        "lon": 78.4625709,
+        "headingDeg": 228
+      },
+      "placementStatus": "pending",
+      "notes": "A large concrete viaduct pier/base occupies the immediate right-facing view with roadside barriers and small vegetation near it. The pier partly occludes the view. Vehicles and premises beyond the immediate road boundary are excluded; no parking-area, connector, gate or other-carriageway frontage is inventoried. No retail entrance or unit is established. Confidence: direct visible context at this camera; provisional canonical map alignment. Camera is not an entrance. This is an angle-specific pending context record only, with no metric frontage span, named storefront, measured dimensions, coverage or side completion asserted."
+    }
+  ]
+}
