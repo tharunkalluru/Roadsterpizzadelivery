@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T01:27:15Z",
+  "updatedAt": "2026-10-20T01:39:20Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -100,10 +100,18 @@
       "newSourceIdPrefix": "sv-second-computer-01-khairatabad-lakdi-pilot-",
       "batchPathPattern": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-<sequence>-<YYYYMMDD>.json",
       "checkpointPathPattern": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-<UTC-or-sequence>.md",
-      "latestCheckpoint": "docs/handoff/reviews/second-computer-01-primary-import-113.md",
-      "lastPanorama": null,
+      "latestCheckpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-batch002.md",
+      "lastPanorama": {
+        "panoId": "o-vaNpcgphoMVn379vda1w",
+        "lat": 17.4063211,
+        "lon": 78.4627284,
+        "captureDate": "2021-11",
+        "headingDeg": 226,
+        "fov": 65,
+        "projectedAlongM": 48.81477493990692
+      },
       "nextPanorama": null,
-      "panoramaStatus": "Batch001 reviewed and imported once at113; next evidence context remains pending; see TAKEOVER.json.",
+      "panoramaStatus": "Batch002 imported once at114 as4pending contexts at2Nov2021cameras. Last o-va h226; orient same camera h138 for navigation; next distinct panorama unknown.",
       "startupConfirmation": {
         "status": "PILOT_STARTUP_COMPLETED_FULL_TAKEOVER_CLAIMED",
         "reportFields": [
@@ -120,9 +128,11 @@
         ],
         "rule": "Report the matching startup binding before research. This active lease needs no second conversational approval; a mismatch, changed lease or auth/provider block stops dependent work."
       },
-      "nextAction": "Continue a small immutable batch002 under the exact existing lease; record fresh worker/coordinator heads and review before single-integrator admission. No pilot expansion.",
+      "nextAction": "Continue small batch003 evidence only inside unchanged road/side lease, with actual camera alignment and bounds checks; preserve all coverage gaps and review before admission.",
       "activationCommitMeaning": "Original exact pilot activation; final handover does not reactivate/expand the lease.",
-      "batch001ImportedRevision": 113
+      "batch001ImportedRevision": 113,
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-batch002-import-114.md",
+      "batch002ImportedRevision": 114
     },
     {
       "assignmentId": "peddamma-jubilee-checkpost",

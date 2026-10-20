@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T01:27:15Z",
+  "updatedAt": "2026-10-20T01:39:20Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
     "workerId": "second-computer-01",
     "branch": "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3",
     "activationCommit": "50e23bd3b8162381623e8ea7bd617409f88bda54",
-    "lastReviewedWorkerCommit": "81ce543c677e2eb6e59cbcfe29d8ff20bb973022",
+    "lastReviewedWorkerCommit": "011c03d37a4a9068813292ab0860e703bcc606cc",
     "lease": "ACTIVE_UNCHANGED_UNTIL_RECORDED_SECOND_COORDINATOR_REASSIGNMENT",
     "roadId": "r_8306076003_3",
     "canonicalSides": [
@@ -103,7 +103,16 @@
     "batch001CanonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
     "observations": "Exactly2November2021pendingcontexts,no placements/coverage;April2026locator/datebreakexcluded. Do not duplicate/reimport001.",
     "receipt": "docs/handoff/reviews/second-computer-01-primary-import-113.md",
-    "continuation": "Batch002 evidence collection under existing lease only; check branch fresh head after claim; review before sole-integrator admission."
+    "continuation": "After reading batch002 receipt, continue only small batch003 evidence under unchanged lease from o-va h226; check every new camera. No coverage promotion.",
+    "batch002": {
+      "id": "second-computer-01-khairatabad-lakdi-pilot-002-20261020",
+      "workerCommit": "011c03d37a4a9068813292ab0860e703bcc606cc",
+      "canonicalHash": "568f0850dbc4e6a107283774592d24a0e404eab1db30ee6391ea02f4a6cf5cc8",
+      "fileSha256": "28d49d907d965e25f127356b1a899dbde51b3b45f4c677f56c867f705dd18b88",
+      "importedOnce": true,
+      "revision": 114,
+      "receipt": "docs/handoff/reviews/second-computer-01-batch002-import-114.md"
+    }
   },
   "cloud": {
     "reservation": "Miyapur-JNTU35roads/70canonical sides unchanged",
@@ -116,7 +125,7 @@
     "workerBranches": [
       "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3"
     ],
-    "lastWorkerHead": "81ce543c677e2eb6e59cbcfe29d8ff20bb973022",
+    "lastWorkerHead": "011c03d37a4a9068813292ab0860e703bcc606cc",
     "watch": "Receiving system owns future GitHub review/watch workflow; no connected webhook or running automation is implied. Verify actual integrations; do not depend on outgoing polling.",
     "auth": "Use receiving supported login/collaborator access. No credentials transferred."
   },
@@ -147,5 +156,13 @@
     "validation": "Install locked dependencies and validate113; regenerate/check derived summaries and queues as needed without changing authored evidence.",
     "testSite": "No fully mapped zone qualified; do not build/publish a misleading driving demo. Qualify a defensible zone under a recorded later scope plan first.",
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
+  },
+  "currentRuntime": {
+    "surveyRevision": 114,
+    "surveySha256": "a29402c27013da98f97e925a133ff935822666d99b9357b83805b8566b7f8aa3",
+    "sources": 812,
+    "observations": 587,
+    "snapshotPath": "docs/handoff/SNAPSHOT.json",
+    "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }
 }
