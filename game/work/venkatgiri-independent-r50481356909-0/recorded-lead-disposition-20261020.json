@@ -1,0 +1,1203 @@
+{
+  "recordedAt": "2026-10-20T07:52:52.669722+00:00",
+  "inputSurveyRevision": 132,
+  "unadmittedProposedBatch": "second-computer-01-independent-r50481356909-0-001-20261020",
+  "box": {
+    "lat": [
+      17.429,
+      17.433
+    ],
+    "lon": [
+      78.42,
+      78.426
+    ]
+  },
+  "locationDateTuples": 51,
+  "uniquePanoDates": 49,
+  "groups": [
+    {
+      "roadId": "r_14143362194_0",
+      "canonicalName": "roasd no 5",
+      "assignmentIds": [],
+      "locationDateTuples": 2,
+      "rows": [
+        {
+          "panoId": "9NMH5ijgix_r52WrUjIcXw",
+          "captureDate": "2026-01",
+          "lat": 17.432093,
+          "lon": 78.4214086,
+          "projection": {
+            "roadId": "r_14143362194_0",
+            "alongM": 10.744802951084736,
+            "lateralM": 4.306929589318068,
+            "nextOtherRoadDistanceM": 10.889811366413038
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-9NM-h080"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "44TvmQBuX13sc_Oa8Afauw",
+          "captureDate": "2026-01",
+          "lat": 17.4321783,
+          "lon": 78.4214394,
+          "projection": {
+            "roadId": "r_14143362194_0",
+            "alongM": 0.7565715703532588,
+            "lateralM": 4.048374654180744,
+            "nextOtherRoadDistanceM": 4.118463048478141
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-44T-h080"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        }
+      ],
+      "disposition": "DEFERRED_TINY_BUFFERED_WINDOW",
+      "reason": "Only0.75m interior10–10.75m; 9NM10.7448m margin0.0052m. Other old44T near endpoint. Junction-clearance/geometry evidence needed before considering any new bounds; no buffer relaxation.",
+      "nextTargetKnown": false
+    },
+    {
+      "roadId": "r_15543570465_0",
+      "canonicalName": "road no 2",
+      "assignmentIds": [
+        "road5-yusufguda-road2-r15543570465-0"
+      ],
+      "locationDateTuples": 5,
+      "rows": [
+        {
+          "panoId": "g7Fl11ZejwHLLmtEUlFKRw",
+          "captureDate": "2026-01",
+          "lat": 17.4302616,
+          "lon": 78.4251374,
+          "projection": {
+            "roadId": "r_15543570465_0",
+            "alongM": 12.477387223551085,
+            "lateralM": 1.3473252612812154,
+            "nextOtherRoadDistanceM": 12.549919413531004
+          },
+          "sourceIds": [
+            "sv-jhc-road5-route-20261019-pano-g7Fl-h114",
+            "sv-jhc-road5-opposite-20261019-pano-g7fl-h294"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "g7Fl11ZejwHLLmtEUlFKRw",
+          "captureDate": "2026-01",
+          "lat": 17.4302999,
+          "lon": 78.4251564,
+          "projection": {
+            "roadId": "r_15543570465_0",
+            "alongM": 12.183785966903898,
+            "lateralM": 6.033106883694923,
+            "nextOtherRoadDistanceM": 13.59569855349152
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-r15543570465-0-20261020-g7Fl-202601-h029",
+            "sv-second-computer-01-road2-r15543570465-0-20261020-g7Fl-202601-h209"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "SwrdX5xZAblFT2r0ND5MIQ",
+          "captureDate": "2025-01",
+          "lat": 17.4302941,
+          "lon": 78.425141,
+          "projection": {
+            "roadId": "r_15543570465_0",
+            "alongM": 11.065124067620674,
+            "lateralM": 4.6774147380846784,
+            "nextOtherRoadDistanceM": 12.013125291275792
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-r15543570465-0-20261020-Swrd-202501-h029",
+            "sv-second-computer-01-road2-r15543570465-0-20261020-Swrd-202501-h209"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "vDWUaSjqRXJ8l-URg9EEDA",
+          "captureDate": "2026-01",
+          "lat": 17.4302587,
+          "lon": 78.4252561,
+          "projection": {
+            "roadId": "r_15543570465_0",
+            "alongM": 23.658228585113136,
+            "lateralM": 7.190950634318659,
+            "nextOtherRoadDistanceM": 10.636338413009925
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-r15543570465-0-20261020-vDWU-202601-h029",
+            "sv-second-computer-01-road2-r15543570465-0-20261020-vDWU-202601-h209"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "6TcqPRH5J9OQ5E1qt3vo1Q",
+          "captureDate": "2021-12",
+          "lat": 17.430289,
+          "lon": 78.4251745,
+          "projection": {
+            "roadId": "r_15543570465_0",
+            "alongM": 14.450728616886835,
+            "lateralM": 5.91238975534807,
+            "nextOtherRoadDistanceM": 15.613452858930883
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-r15543570465-0-20261020-6Tcq-202112-h029",
+            "sv-second-computer-01-road2-r15543570465-0-20261020-6Tcq-202112-h209"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        }
+      ],
+      "disposition": "RECORDED_TARGET_SET_REVIEWED_EVIDENCE_LIMITED_NO_REPEAT",
+      "reason": "Saved named side/date sets reviewed, prior checkpoint gaps/metadata holds retained. No new unreviewed source target justified by this read-only inventory; a camera/sign is not calibration/currentness or full bounded inventory.",
+      "checkpoint": "game/work/road5-yusufguda-road2-r15543570465-0/checkpoint-20261020-oblique-gap-review.md",
+      "recordedState": "TARGETED_OBLIQUE_REVIEW_COMPLETE_EVIDENCE_LIMIT",
+      "nextTargetKnown": false
+    },
+    {
+      "roadId": "r_3122046738_0",
+      "canonicalName": "roasd no 5",
+      "assignmentIds": [],
+      "locationDateTuples": 1,
+      "rows": [
+        {
+          "panoId": "SYr_zFVEKqfDedmtzm4wPw",
+          "captureDate": "2026-01",
+          "lat": 17.4319161,
+          "lon": 78.4213597,
+          "projection": {
+            "roadId": "r_3122046738_0",
+            "alongM": 10.21946081739865,
+            "lateralM": 6.223662329994994,
+            "nextOtherRoadDistanceM": 11.96542319335781
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-SYr-h026"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        }
+      ],
+      "disposition": "DEFERRED_MARGINAL_LOCATOR_ALIGNMENT",
+      "reason": "Only saved SYr10.219m in10–21.13m interior, lower margin0.219m/lateral6.224m; no robust new source. Needs better actual interior camera and alignment, no activation or blind query.",
+      "nextTargetKnown": false
+    },
+    {
+      "roadId": "r_36985565509_0",
+      "canonicalName": "Road Number 5",
+      "assignmentIds": [
+        "road5-yusufguda-r36985565509-0"
+      ],
+      "locationDateTuples": 5,
+      "rows": [
+        {
+          "panoId": "X_A755v2ljJNY8HGmGYFIw",
+          "captureDate": "2026-01",
+          "lat": 17.430628,
+          "lon": 78.4210081,
+          "projection": {
+            "roadId": "r_36985565509_0",
+            "alongM": 176.32692011315999,
+            "lateralM": 2.6802964983461806,
+            "nextOtherRoadDistanceM": 11.422555834170726
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-routepreview-20261019-pano-XA-h267",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-XA-202601-h182",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-XA-202601-h002"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "0EjG_CIcCmsPqaNzhqdC_A",
+          "captureDate": "2026-01",
+          "lat": 17.4306327,
+          "lon": 78.4211041,
+          "projection": {
+            "roadId": "r_36985565509_0",
+            "alongM": 166.15582191639947,
+            "lateralM": 1.7544339962891076,
+            "nextOtherRoadDistanceM": 21.34695455650896
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road5-r36985565509-0-20261020-0EjG-202601-h182",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-0EjG-202601-h002"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "EihavhLyuQS1CfrMd-aCkg",
+          "captureDate": "2025-01",
+          "lat": 17.4306688,
+          "lon": 78.4211394,
+          "projection": {
+            "roadId": "r_36985565509_0",
+            "alongM": 162.5672824872436,
+            "lateralM": 2.387051663284178,
+            "nextOtherRoadDistanceM": 24.97760047509879
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road5-r36985565509-0-20261020-Eihav-202501-h002",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-Eihav-202501-h182"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "J3eSzUbyKZuDszVYdH6FUA",
+          "captureDate": "2021-12",
+          "lat": 17.4306271,
+          "lon": 78.4210941,
+          "projection": {
+            "roadId": "r_36985565509_0",
+            "alongM": 167.19279241883245,
+            "lateralM": 2.4160187902599946,
+            "nextOtherRoadDistanceM": 20.38147039794264
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road5-r36985565509-0-20261020-J3eS-202112-h182",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-J3eS-202112-h002"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "dXet1Aigm3Zn7d6KL3xiaQ",
+          "captureDate": "2026-01",
+          "lat": 17.430631,
+          "lon": 78.4212043,
+          "projection": {
+            "roadId": "r_36985565509_0",
+            "alongM": 155.51063069199202,
+            "lateralM": 1.5185549736561579,
+            "nextOtherRoadDistanceM": 31.956029489198386
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road5-r36985565509-0-20261020-dXet-202601-h182",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-dXet-202601-h002"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        }
+      ],
+      "disposition": "RECORDED_TARGET_SET_REVIEWED_EVIDENCE_LIMITED_NO_REPEAT",
+      "reason": "Saved named side/date sets reviewed, prior checkpoint gaps/metadata holds retained. No new unreviewed source target justified by this read-only inventory; a camera/sign is not calibration/currentness or full bounded inventory.",
+      "checkpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-lower-gap-historical-review.md",
+      "recordedState": "LOWER_TARGETED_REVIEW_COMPLETE_CALIBRATION_CURRENTNESS_INPUT_REQUIRED",
+      "nextTargetKnown": false
+    },
+    {
+      "roadId": "r_39952804437_0",
+      "canonicalName": null,
+      "assignmentIds": [
+        "road5-yusufguda-krishna-r39952804437-0"
+      ],
+      "locationDateTuples": 5,
+      "rows": [
+        {
+          "panoId": "Zthp60eHW4zeTobWMZLLeA",
+          "captureDate": "2026-01",
+          "lat": 17.4296049,
+          "lon": 78.4251397,
+          "projection": {
+            "roadId": "r_39952804437_0",
+            "alongM": 37.00836434559673,
+            "lateralM": 0.6297996651740859,
+            "nextOtherRoadDistanceM": 7.185695175220514
+          },
+          "sourceIds": [
+            "sv-jhc-road5-route-20261019-pano-Zthp-h211",
+            "sv-jhc-road5-opposite-20261019-pano-zthp-h053"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "QoaaSSYtMe9wG0lTbeXzrg",
+          "captureDate": "2026-01",
+          "lat": 17.429776,
+          "lon": 78.4252188,
+          "projection": {
+            "roadId": "r_39952804437_0",
+            "alongM": 16.300470610906178,
+            "lateralM": 1.2608483389485938,
+            "nextOtherRoadDistanceM": 7.170435287703823
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-routepreview-20261019-pano-Qoaa-h204",
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-Qoaa-h116",
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-Qoaa-h296"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "Zthp60eHW4zeTobWMZLLeA",
+          "captureDate": "2026-01",
+          "lat": 17.429606,
+          "lon": 78.4251368,
+          "projection": {
+            "roadId": "r_39952804437_0",
+            "alongM": 37.03215943037272,
+            "lateralM": 0.9602445118621553,
+            "nextOtherRoadDistanceM": 6.8546890601103
+          },
+          "sourceIds": [
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-Zthp-h116",
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-Zthp-h296"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "DdHr-yFw7ih8q15vuTJXOg",
+          "captureDate": "2021-12",
+          "lat": 17.4297262,
+          "lon": 78.425224,
+          "projection": {
+            "roadId": "r_39952804437_0",
+            "alongM": 21.028318306922646,
+            "lateralM": 1.6253169086964976,
+            "nextOtherRoadDistanceM": 9.914797387927017
+          },
+          "sourceIds": [
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-DdHr-202112-h116"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "J_mrGooEDM5oERkyfmu3Dg",
+          "captureDate": "2021-12",
+          "lat": 17.4295586,
+          "lon": 78.4251429,
+          "projection": {
+            "roadId": "r_39952804437_0",
+            "alongM": 40.90208822723421,
+            "lateralM": 2.189340207740121,
+            "nextOtherRoadDistanceM": 9.028030140791481
+          },
+          "sourceIds": [
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-JmrG-202112-h116"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        }
+      ],
+      "disposition": "RECORDED_TARGET_SET_REVIEWED_EVIDENCE_LIMITED_NO_REPEAT",
+      "reason": "Saved named side/date sets reviewed, prior checkpoint gaps/metadata holds retained. No new unreviewed source target justified by this read-only inventory; a camera/sign is not calibration/currentness or full bounded inventory.",
+      "checkpoint": "game/work/road5-yusufguda-krishna-r39952804437-0/checkpoint-20261020-batch002.md",
+      "recordedState": "BATCH002_PENDING_CONTEXT_ADMITTED_RIGHT_CORRESPONDENCE_HELD",
+      "nextTargetKnown": false
+    },
+    {
+      "roadId": "r_40507059846_0",
+      "canonicalName": "roasd no 5",
+      "assignmentIds": [
+        "venkatgiri-independent-r40507059846-0"
+      ],
+      "locationDateTuples": 5,
+      "rows": [
+        {
+          "panoId": "REcpcGOvctgcb3VwWaZEIQ",
+          "captureDate": "2026-01",
+          "lat": 17.4314125,
+          "lon": 78.4211406,
+          "projection": {
+            "roadId": "r_40507059846_0",
+            "alongM": 39.53974479398934,
+            "lateralM": 1.6971837059201655,
+            "nextOtherRoadDistanceM": 8.881091438781633
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-REc-h026"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "ryraSaJ2jYn-_ik7J5Qm3Q",
+          "captureDate": "2026-01",
+          "lat": 17.4314967,
+          "lon": 78.4211773,
+          "projection": {
+            "roadId": "r_40507059846_0",
+            "alongM": 29.479453035112837,
+            "lateralM": 2.610505040186059,
+            "nextOtherRoadDistanceM": 18.91416496310471
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-ryra-h026",
+            "sv-second-computer-01-independent-r40507059846-0-20261020-ryra-202601-h108",
+            "sv-second-computer-01-independent-r40507059846-0-20261020-ryra-202601-h288"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "BWNZBhvxt6zRu4ZQ-1HK6A",
+          "captureDate": "2026-01",
+          "lat": 17.4315791,
+          "lon": 78.4212166,
+          "projection": {
+            "roadId": "r_40507059846_0",
+            "alongM": 19.525977337010236,
+            "lateralM": 3.8472279826740046,
+            "nextOtherRoadDistanceM": 19.9013807087877
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-BWN-h026",
+            "sv-second-computer-01-independent-r40507059846-0-20261020-BWN-202601-h108",
+            "sv-second-computer-01-independent-r40507059846-0-20261020-BWN-202601-h288"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "bHGgnWS2jepgZhz4y1UHng",
+          "captureDate": "2026-01",
+          "lat": 17.4317501,
+          "lon": 78.4212453,
+          "projection": {
+            "roadId": "r_40507059846_0",
+            "alongM": 0.5606441285354332,
+            "lateralM": 1.0582122481544687,
+            "nextOtherRoadDistanceM": 1.197553757041992
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-bHG-h026"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "IQVhDuIZ9p7WSxNpjAtwIQ",
+          "captureDate": "2021-12",
+          "lat": 17.4315367,
+          "lon": 78.4212295,
+          "projection": {
+            "roadId": "r_40507059846_0",
+            "alongM": 23.588305900042094,
+            "lateralM": 6.566836061667649,
+            "nextOtherRoadDistanceM": 24.485332570638683
+          },
+          "sourceIds": [
+            "sv-second-computer-01-independent-r40507059846-0-20261020-IQVh-202112-h108",
+            "sv-second-computer-01-independent-r40507059846-0-20261020-IQVh-202112-h288"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        }
+      ],
+      "disposition": "RECORDED_TARGET_SET_REVIEWED_EVIDENCE_LIMITED_NO_REPEAT",
+      "reason": "Survey132 six pending contexts and six review-only views saved; planned anchor/date target set reviewed. REc39.540m/bHG0.561m remain outside10–38.47m. Exact/calibrated/current evidence still missing; no repeat.",
+      "checkpoint": "game/work/venkatgiri-independent-r40507059846-0/checkpoint-20261020-batch001.md",
+      "recordedState": "TARGETED_SIDE_DATE_REVIEW_COMPLETE_QUALIFICATION_EVIDENCE_BLOCKED",
+      "nextTargetKnown": false
+    },
+    {
+      "roadId": "r_50481356909_0",
+      "canonicalName": "roasd no 5",
+      "assignmentIds": [
+        "venkatgiri-independent-r50481356909-0"
+      ],
+      "locationDateTuples": 6,
+      "rows": [
+        {
+          "panoId": "xGmahh-9mFR3oNs8DXtCaA",
+          "captureDate": "2026-01",
+          "lat": 17.4322651,
+          "lon": 78.4214738,
+          "projection": {
+            "roadId": "r_50481356909_0",
+            "alongM": 38.66171277401053,
+            "lateralM": 4.660989518388947,
+            "nextOtherRoadDistanceM": 8.132942627061793
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-xGma-h080"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "zRYvA3eocZjuRbayufMD7Q",
+          "captureDate": "2026-01",
+          "lat": 17.4323512,
+          "lon": 78.4214928,
+          "projection": {
+            "roadId": "r_50481356909_0",
+            "alongM": 28.97439158304182,
+            "lateralM": 3.6445272656675263,
+            "nextOtherRoadDistanceM": 16.75336869651308
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-zRY-h080",
+            "sv-r5-yusufguda-ganesh-traders-20261019-pano-zRY-h270",
+            "sv-second-computer-01-independent-r50481356909-0-20261020-zRY-202601-h108",
+            "sv-second-computer-01-independent-r50481356909-0-20261020-zRY-202601-h288"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "proposedNewBatch001Source",
+            "proposedNewBatch001Source"
+          ]
+        },
+        {
+          "panoId": "6KX5Pfs3g89xCMIbHGldow",
+          "captureDate": "2026-01",
+          "lat": 17.4324397,
+          "lon": 78.4215065,
+          "projection": {
+            "roadId": "r_50481356909_0",
+            "alongM": 19.20794160129476,
+            "lateralM": 2.010493627701726,
+            "nextOtherRoadDistanceM": 18.988973146845865
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-6KX-h080",
+            "sv-second-computer-01-independent-r50481356909-0-20261020-6KX-202601-h288"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "proposedNewBatch001Source"
+          ]
+        },
+        {
+          "panoId": "Kpr9afuUONMRCFilbdkLsw",
+          "captureDate": "2025-01",
+          "lat": 17.4324172,
+          "lon": 78.4215057,
+          "projection": {
+            "roadId": "r_50481356909_0",
+            "alongM": 21.60307613329946,
+            "lateralM": 2.697119614172457,
+            "nextOtherRoadDistanceM": 21.480493885808205
+          },
+          "sourceIds": [
+            "sv-second-computer-01-independent-r50481356909-0-20261020-Kpr9-202501-h288",
+            "sv-second-computer-01-independent-r50481356909-0-20261020-Kpr9-202501-h108"
+          ],
+          "recordKinds": [
+            "proposedNewBatch001Source",
+            "proposedNewBatch001Source"
+          ]
+        },
+        {
+          "panoId": "65Ng1I_OORc0GGgLHOoc6w",
+          "captureDate": "2021-12",
+          "lat": 17.4324266,
+          "lon": 78.4215071,
+          "projection": {
+            "roadId": "r_50481356909_0",
+            "alongM": 20.56754138039656,
+            "lateralM": 2.5179877488119975,
+            "nextOtherRoadDistanceM": 20.436691562562423
+          },
+          "sourceIds": [
+            "sv-second-computer-01-independent-r50481356909-0-20261020-65Ng-202112-h108",
+            "sv-second-computer-01-independent-r50481356909-0-20261020-65Ng-202112-h288"
+          ],
+          "recordKinds": [
+            "proposedNewBatch001Source",
+            "proposedNewBatch001Source"
+          ]
+        },
+        {
+          "panoId": "IoI6pkw9y8hB7HFZt272rg",
+          "captureDate": "2021-12",
+          "lat": 17.4323431,
+          "lon": 78.4214811,
+          "projection": {
+            "roadId": "r_50481356909_0",
+            "alongM": 30.210346056956823,
+            "lateralM": 2.7382262532650987,
+            "nextOtherRoadDistanceM": 15.362201216801605
+          },
+          "sourceIds": [
+            "sv-second-computer-01-independent-r50481356909-0-20261020-IoI6-202112-h288"
+          ],
+          "recordKinds": [
+            "proposedNewBatch001Source"
+          ]
+        }
+      ],
+      "disposition": "RECORDED_TARGET_SET_REVIEWED_EVIDENCE_LIMITED_NO_REPEAT",
+      "reason": "New zRY/6KX sides and all offered2025/2021 targets reviewed:12views/6cameras,8pending contexts,4review-only. xGma38.662m is outside35.33m; no forward truck retry. All25.33m per side unqualified.",
+      "checkpoint": "game/work/venkatgiri-independent-r50481356909-0/checkpoint-20261020-batch001.md",
+      "recordedState": "TARGETED_SIDE_DATE_REVIEW_COMPLETE_QUALIFICATION_EVIDENCE_BLOCKED",
+      "nextTargetKnown": false
+    },
+    {
+      "roadId": "r_63797909905_0",
+      "canonicalName": "road no 2",
+      "assignmentIds": [
+        "road5-yusufguda-road2-r63797909905-0"
+      ],
+      "locationDateTuples": 17,
+      "rows": [
+        {
+          "panoId": "TqeFWcmcoksX5tXcPM_u_g",
+          "captureDate": "2026-01",
+          "lat": 17.4311564,
+          "lon": 78.421038,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 56.780813542858134,
+            "lateralM": 1.001050946826675,
+            "nextOtherRoadDistanceM": 21.382685176644905
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-routepreview-20261019-pano-Tqe-h026",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Tqe-h285",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Tqe-h105"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "a8oHkcsNWTj8JES7u9ZS8A",
+          "captureDate": "2026-01",
+          "lat": 17.4312441,
+          "lon": 78.4210728,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 67.1182281856066,
+            "lateralM": 0.007572673693743468,
+            "nextOtherRoadDistanceM": 11.020796269821627
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-a8o-h026",
+            "sv-r5-yusufguda-rev112-pano-a8o-h090"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "rAcziqO_Viw4xf2njV1Emg",
+          "captureDate": "2026-01",
+          "lat": 17.4307217,
+          "lon": 78.4208516,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 4.637506038510161,
+            "lateralM": 2.968788896751497,
+            "nextOtherRoadDistanceM": 3.75204561715266
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-rAc-h020"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "zHV4L6pXMiMZq4rA5ILirw",
+          "captureDate": "2026-01",
+          "lat": 17.4308033,
+          "lon": 78.4208905,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 14.09179896264064,
+            "lateralM": 0.07380283603645292,
+            "nextOtherRoadDistanceM": 13.666191107970258
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-zHV-h020",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-zHV-h312",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-zHV-h132"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "EQAPW3ta-MkMW_B188KXwQ",
+          "captureDate": "2026-01",
+          "lat": 17.4308888,
+          "lon": 78.4209269,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 24.69367854883474,
+            "lateralM": 2.0706118058543197,
+            "nextOtherRoadDistanceM": 23.83666260467119
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-EQAP-h020",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EQAP-h292",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EQAP-h112"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "JlcXKkzbnWgJAS9VtNg_Qw",
+          "captureDate": "2026-01",
+          "lat": 17.4309707,
+          "lon": 78.4209622,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 34.503122321284934,
+            "lateralM": 2.036594012588409,
+            "nextOtherRoadDistanceM": 33.60049086645628
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-Jlc-h020",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Jlc-h292",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Jlc-h112"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "vQXGB_oADHNV9NDMrkViaw",
+          "captureDate": "2026-01",
+          "lat": 17.4310619,
+          "lon": 78.421,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 45.62781695207565,
+            "lateralM": 2.139301754028239,
+            "nextOtherRoadDistanceM": 32.5825432304999
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-vQX-h020",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-vQX-h285",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-vQX-h105",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-vQX-202601-h135"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "dZpu68AiRTRpl-Cr4WOG0g",
+          "captureDate": "2025-01",
+          "lat": 17.4310412,
+          "lon": 78.4210252,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 44.26091238186794,
+            "lateralM": 1.1991390331109224,
+            "nextOtherRoadDistanceM": 34.00003803612024
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-dZpu-202501-h135",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-dZpu-202501-h292"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "brBVL7JoEPi21V6rtqX5dA",
+          "captureDate": "2021-12",
+          "lat": 17.4310723,
+          "lon": 78.4209978,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 46.67652336602969,
+            "lateralM": 2.6681412656036074,
+            "nextOtherRoadDistanceM": 31.576457888428298
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-brBV-202112-h135"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "EmR0qz8Da93BohVzfN2VLg",
+          "captureDate": "2025-01",
+          "lat": 17.4308008,
+          "lon": 78.4209196,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 15.973642931549547,
+            "lateralM": 2.3949447006629048,
+            "nextOtherRoadDistanceM": 14.873927124857696
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EmR0-202501-h132"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "2oxvE9vqdHSxybJueDdTBA",
+          "captureDate": "2021-12",
+          "lat": 17.4308125,
+          "lon": 78.4208833,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 14.327185477354751,
+            "lateralM": 1.3254159969678645,
+            "nextOtherRoadDistanceM": 14.205863162610632
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-2oxv-202112-h132"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "xr6zfJFANSFZfaulK9thBg",
+          "captureDate": "2025-01",
+          "lat": 17.4311267,
+          "lon": 78.4210382,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 53.61561842673047,
+            "lateralM": 0.11423683283135916,
+            "nextOtherRoadDistanceM": 24.523848889069775
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-xr6z-202501-h285",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-xr6z-202501-h105"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "8aD9ChkwOX2T6D32s3wCpw",
+          "captureDate": "2021-12",
+          "lat": 17.4311348,
+          "lon": 78.4210228,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 54.049139806411986,
+            "lateralM": 1.9288870740492905,
+            "nextOtherRoadDistanceM": 24.168010211449264
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-8aD9-202112-h105"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "hvIWyACotfj8tkJITojMqA",
+          "captureDate": "2025-01",
+          "lat": 17.4309113,
+          "lon": 78.4209414,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 27.582026383047133,
+            "lateralM": 1.589130987068952,
+            "nextOtherRoadDistanceM": 26.758649667346454
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-hvIW-202501-h112"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "3PUb0ffNYBv1KuJb7NV1sQ",
+          "captureDate": "2021-12",
+          "lat": 17.4309222,
+          "lon": 78.4209373,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 28.53314731106431,
+            "lateralM": 2.4495966998361522,
+            "nextOtherRoadDistanceM": 27.619110425641455
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-3PUb-202112-h112",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-3PUb-202112-h292"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "Egywd1A3-Cvmphvs_18zDQ",
+          "captureDate": "2025-01",
+          "lat": 17.4309391,
+          "lon": 78.4209524,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 30.872163050086513,
+            "lateralM": 1.6741478913530214,
+            "nextOtherRoadDistanceM": 30.02385952787903
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Egyw-202501-h112",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Egyw-202501-h292"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "_EkVxsH_RGKaeiCbUHdvmQ",
+          "captureDate": "2021-12",
+          "lat": 17.4309934,
+          "lon": 78.4209664,
+          "projection": {
+            "roadId": "r_63797909905_0",
+            "alongM": 36.99704010950712,
+            "lateralM": 2.5761651996470576,
+            "nextOtherRoadDistanceM": 36.02807784371849
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EkVx-202112-h292",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EkVx-202112-h112"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        }
+      ],
+      "disposition": "RECORDED_TARGET_SET_REVIEWED_EVIDENCE_LIMITED_NO_REPEAT",
+      "reason": "Saved named side/date sets reviewed, prior checkpoint gaps/metadata holds retained. No new unreviewed source target justified by this read-only inventory; a camera/sign is not calibration/currentness or full bounded inventory.",
+      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch008-historical-gaps.md",
+      "recordedState": "BATCH008_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
+      "nextTargetKnown": false
+    },
+    {
+      "roadId": "r_64237527671_0",
+      "canonicalName": "Road Number 5",
+      "assignmentIds": [
+        "road5-yusufguda-r64237527671-0"
+      ],
+      "locationDateTuples": 5,
+      "rows": [
+        {
+          "panoId": "RoO_ExTkgi147Gls7Vvbsg",
+          "captureDate": "2026-01",
+          "lat": 17.4305262,
+          "lon": 78.420659,
+          "projection": {
+            "roadId": "r_64237527671_0",
+            "alongM": 29.907731971635997,
+            "lateralM": 1.478224952181485,
+            "nextOtherRoadDistanceM": 5.6413504386550875
+          },
+          "sourceIds": [
+            "sv-jhc-road5-route-20261019-pano-RoO-h70",
+            "sv-jhc-road5-opposite-20261019-pano-roo-h250",
+            "sv-jhc-road5-opposite-20261019-pano-roo-h310",
+            "sv-second-computer-01-road5-r64237527671-0-20261020-RoO-202601-h152"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "CUXPz4fyO2sxYBlCuyVbMg",
+          "captureDate": "2026-01",
+          "lat": 17.4306165,
+          "lon": 78.4209137,
+          "projection": {
+            "roadId": "r_64237527671_0",
+            "alongM": 1.6406856150036238,
+            "lateralM": 4.186272574163091,
+            "nextOtherRoadDistanceM": 4.351375659190271
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-CUXP-h267"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "wcqFkJkyK9dxUXLHQZMl4Q",
+          "captureDate": "2026-01",
+          "lat": 17.4305924,
+          "lon": 78.4208264,
+          "projection": {
+            "roadId": "r_64237527671_0",
+            "alongM": 10.837093913971444,
+            "lateralM": 1.2578416238485588,
+            "nextOtherRoadDistanceM": 10.139276837920924
+          },
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-wcq-h267",
+            "sv-second-computer-01-road5-r64237527671-0-20261020-wcq-202601-h146"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source",
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "hlmvDP6EaJ_25l4XTuaw8g",
+          "captureDate": "2021-12",
+          "lat": 17.4305813,
+          "lon": 78.4208193,
+          "projection": {
+            "roadId": "r_64237527671_0",
+            "alongM": 12.146371730304319,
+            "lateralM": 1.8611847226002594,
+            "nextOtherRoadDistanceM": 11.510791779197762
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road5-r64237527671-0-20261020-hlmv-202112-h146"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        },
+        {
+          "panoId": "Dy9oC9NJph9f3fGm6u-ljw",
+          "captureDate": "2021-12",
+          "lat": 17.4305281,
+          "lon": 78.4206543,
+          "projection": {
+            "roadId": "r_64237527671_0",
+            "alongM": 30.251938193182184,
+            "lateralM": 1.8966866307734678,
+            "nextOtherRoadDistanceM": 5.227551297584322
+          },
+          "sourceIds": [
+            "sv-second-computer-01-road5-r64237527671-0-20261020-Dy9o-202112-h152"
+          ],
+          "recordKinds": [
+            "committedSurvey132Source"
+          ]
+        }
+      ],
+      "disposition": "RECORDED_TARGET_SET_REVIEWED_EVIDENCE_LIMITED_NO_REPEAT",
+      "reason": "Saved named side/date sets reviewed, prior checkpoint gaps/metadata holds retained. No new unreviewed source target justified by this read-only inventory; a camera/sign is not calibration/currentness or full bounded inventory.",
+      "checkpoint": "game/work/road5-yusufguda-r64237527671-0/checkpoint-20261020-startup-and-batch001.md",
+      "recordedState": "NAMED_SOURCE_SET_REVIEWED_CANONICAL_CALIBRATION_CURRENTNESS_GAPS",
+      "nextTargetKnown": false
+    }
+  ],
+  "meaning": "Read-only targeted recorded-source audit: every positioned committed survey132 Street View source within the stated current-pair box plus proposed001 sources; all twelve actual new view projections checked separately. Review-only old/current camera pointers are retained in assignment checkpoint ledgers; no global provider/imagery exhaustion claim.",
+  "proposedNewViews": 12,
+  "proposedNewPendingContexts": 8,
+  "reviewOnlyViews": 4,
+  "noFurtherActionableRecordedTargetInAuditedSet": true,
+  "externalInputs": [
+    {
+      "scope": "r504 current lease",
+      "required": "New unobstructed dated in-lease ground/field views covering both canonical sides10–35.33m, with overlapping start/end/intermediate views, every visible/hidden shop/non-shop floor/unit, access and doorway accounted for. Specific remaining obstructions: trucks/carts/pipes/panels/sacks/vehicles on wall side; goods/poles/cables/banners/shadow on shop side.",
+      "why": "Existing twelve views cannot establish continuous bounded inventory; no exact occlusion lengths invented."
+    },
+    {
+      "scope": "r504 calibration",
+      "required": "Measured reference/control points tying the exact10m and35.33m bounds and each facade/unit/door to frozen canonical geometry; measured frontage/access positions/widths and any physical changes. Resolve provisional7.16m width clamp and zRY3.6445m lateral displacement.",
+      "why": "Camera projection and map width do not place an entrance or whole property within bounds."
+    },
+    {
+      "scope": "current operation",
+      "required": "Current dated on-site or independently corroborated occupancy/use for the same exact units/doors; distinguish GANESH/GORKHNATH and historical Vasavi labels, shutters, rental/food/product advertising from present tenants.",
+      "why": "Jan2026/Jan2025/Dec2021 imagery does not establish current operation or dates of changes."
+    },
+    {
+      "scope": "r312 deferred",
+      "required": "A reliable new actual camera safely inside10–21.13m and canonical alignment evidence, replacing the sole0.219m-margin/lateral6.224m locator.",
+      "why": "No robust source/activation; do not silently claim or expand it."
+    },
+    {
+      "scope": "r141 deferred",
+      "required": "Independent junction-clearance and geometry evidence sufficient to assess whether any useful safe interior exists under a separately recorded plan.",
+      "why": "Current10m buffers leave0.75m and near-zero locator margin; no useful robust mapping target."
+    },
+    {
+      "scope": "station route/a8/gates",
+      "required": "Independent physical route/road-name correspondence resolving a8 east-link and correct station approach, plus actual gate/connector/marker evidence under a separately recorded bounded plan.",
+      "why": "Canonical adjacency and old connected image chain do not identify the approved station route; previous unavailable marker targets not retried."
+    },
+    {
+      "scope": "retained leases",
+      "required": "Genuinely new unobstructed/calibrated/current field evidence for their exact saved bounds and documented hidden-unit/endpoint/inter-camera gaps; preserve existing contexts and provider holds.",
+      "why": "Known saved side/date sets are already reviewed; no benefit from repetitive replay."
+    }
+  ],
+  "protected": "All ten prior assignments/retained mapping/provider limits unchanged; Miyapur–JNTU35roads/70sides reserved/provider-blocked. No provider bypass or global exhaustion claim.",
+  "stationRouteIdentityUnresolved": true,
+  "scope": "Current-pair recorded-source box and four explicitly assessed candidates; not the entire city/network/provider catalogue."
+}
