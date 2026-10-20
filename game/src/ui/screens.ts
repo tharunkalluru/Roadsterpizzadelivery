@@ -49,6 +49,17 @@ export class Screens {
 
   home(saved: any | null, saveError: string | null) {
     const a = this.app;
+    if (a.pilotZone) {
+      const zone = a.pilotZone.definition;
+      const cont = saved ? a.missions.find(m => m.id === saved.missionId) : null;
+      this.set(`<div class="brand">Roadster<small>Pizza delivery</small></div><div class="card"><h1>${esc(zone.label)}</h1><p>Accept an order, collect pizza and complete your delivery inside the marked play boundary.</p><p class="small">Verified zone · survey ${zone.surveyRevision}. Surrounding map context is outside the play area.</p>${saveError ? `<p>${esc(saveError)}</p>` : ''}<div class="menu">${cont ? `<button class="btn" data-continue>Continue delivery</button>` : ''}<button class="btn primary" data-play>Choose an order</button><button class="btn" data-map>Zone map</button><button class="btn" data-settings>Settings</button><button class="btn" data-credits>Credits &amp; data</button></div></div>`);
+      this.on('[data-play]', () => this.missionSelect());
+      this.on('[data-continue]', () => a.continueSaved(saved));
+      this.on('[data-map]', () => this.mapBrowse());
+      this.on('[data-settings]', () => this.settings(() => a.toMenu()));
+      this.on('[data-credits]', () => this.credits());
+      return;
+    }
     const storeNote = a.store.reason ? `<div class="notice-box">${esc(a.store.reason)}</div>` : '';
     const savedNote = saveError ? `<div class="notice-box">${esc(saveError)}</div>` : '';
     const contMission = saved ? a.missions.find((m) => m.id === saved.missionId) : null;
@@ -108,7 +119,7 @@ export class Screens {
     };
     const list = a.missions.filter((m) => !m.practice);
     let body: string;
-    let title = 'Deliveries · Uppal – Tarnaka';
+    let title = a.pilotZone ? `Deliveries · ${esc(a.pilotZone.definition.label)}` : 'Deliveries · Uppal – Tarnaka';
     if (list.some((m) => m.level)) {
       title = 'Deliveries · Hyderabad Metro';
       const doneLevel = (lv: number) => list.some((m) => m.level === lv && prog.completed.includes(m.id));

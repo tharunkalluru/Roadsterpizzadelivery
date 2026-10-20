@@ -1,3 +1,5 @@
+import type { StreetSurveyData } from '../world/streetSurveyTypes';
+import { PilotZone, type PilotZoneDefinition } from '../pilot/zone';
 import * as THREE from 'three';
 import { FixedClock } from '../core/clock';
 import { WorldLoader, LoadError, WORLD_BASE_V2 } from '../world/loader';
@@ -19,7 +21,7 @@ import { Tutorial } from '../ui/tutorial';
 import { SignalSystem } from '../traffic/signals';
 import { MISSION, SIM_HZ } from '../config/gameplay';
 import type { ArtApi, Quality } from '../art/api';
-import { loadStreetSurvey, type StreetSurvey } from '../world/streetSurvey';
+import { loadStreetSurvey, StreetSurvey } from '../world/streetSurvey';
 import { StreetAtlas } from '../ui/atlas';
 import { worldCompatibilityKey } from '../world/identity';
 import { attachTransport, type TransportData } from '../traffic/placements';
@@ -54,6 +56,7 @@ export class App {
   world: WorldPhysics | null = null;
   missions: MissionDef[] = [];
   session: Session | null = null;
+  pilotZone: PilotZone | null = null;
   clock = new FixedClock();
   input: InputManager;
   store = new Store();
@@ -86,7 +89,8 @@ export class App {
   private art: ArtApi | null = null;
   readonly ui: HTMLElement;
 
-  constructor(private canvas: HTMLCanvasElement, ui: HTMLElement) {
+  constructor(private canvas: HTMLCanvasElement, ui: HTMLElement, private pilot?: { definition: PilotZoneDefinition; surveySha256: string; surveyData: StreetSurveyData }) {
+    if (pilot) this.store = new Store(`hmd.pilot.${pilot.definition.id}.`);
     this.ui = ui;
     this.settings = this.store.loadSettings();
     this.input = new InputManager(ui);
@@ -151,7 +155,7 @@ export class App {
       this.core = await this.loader.loadCore(this.abort.signal);
       if (this.isNetwork()) {
         this.screens.boot('Applying researched street records…');
-        this.survey = await loadStreetSurvey(this.core, './research/street-survey.json', this.abort.signal);
+        this.survey = this.pilot ? new StreetSurvey(this.pilot.surveyData, this.core) : await loadStreetSurvey(this.core, './research/street-survey.json', this.abort.signal);
         this.core = this.survey.applyCoreCorrections(this.core);
       }
       const streetscape = await mod.loadStreetscape('./research/streetscape.json', this.abort.signal);
@@ -187,12 +191,24 @@ export class App {
       // whole-network structures (skywalks, foot-over-bridges): render + collision from one plan
       const so2 = (mod as any).structureObstacles as undefined | ((c: WorldCore) => { id: string; poly: [number, number][]; bottom: number; top: number }[]);
       if (so2 && (this.core as any).structures?.length) this.world.addStructures(so2(this.core));
-      this.missions = this.isNetwork() ? withPractice(buildLevelCatalog(this.core, this.world)) : buildCatalog(this.core, this.world);
+      if (this.pilot) {
+        if (!this.survey) throw new Error('Pilot requires the pinned network survey');
+        this.pilotZone = new PilotZone(this.pilot.definition, this.core, this.survey.data, this.pilot.surveySha256);
+      }
+      this.missions = this.pilotZone ? this.pilotZone.missions : this.isNetwork() ? withPractice(buildLevelCatalog(this.core, this.world)) : buildCatalog(this.core, this.world);
       this.view.artExtras = mod as any;
       await this.view.buildStatic(this.core, this.quality, (s) => this.screens.boot(s));
       this.screens.boot('Loading materials');
       await mod.texturesReady();
-      this.map = new MapView(this.core, this.world, this.survey);
+      if (this.pilotZone) {
+        const points = [...this.pilotZone.definition.polygon, this.pilotZone.definition.polygon[0]].map(([x, z]) => new THREE.Vector3(x, 1, z));
+        const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), new THREE.LineBasicMaterial({ color: 0xa2f177, depthTest: false }));
+        line.renderOrder = 20; this.view.scene.add(line);
+        const label = document.createElement('div'); label.className = 'pilot-zone-label';
+        label.textContent = `${this.pilotZone.definition.label} · Verified play boundary · Survey ${this.pilotZone.definition.surveyRevision}`;
+        this.ui.append(label);
+      }
+      this.map = new MapView(this.core, this.world, this.survey, this.pilotZone);
       this.map.setChunkSource(this.manifest.chunks,this.manifest.chunkSizeM,async(id,signal)=>{
         const raw=await this.loader.loadChunk(id,signal);
         const chunk=this.survey?this.survey.applyChunk(raw):raw;
@@ -263,9 +279,9 @@ export class App {
     try {
       let s: Session;
       if (opts.checkpoint) {
-        s = Session.fromCheckpoint(this.world!, m, opts.checkpoint);
+        s = Session.fromCheckpoint(this.world!, m, opts.checkpoint, true, this.pilotZone);
       } else {
-        s = new Session(this.world!, m, { seed: opts.seed ?? m.seed, spawn: opts.spawn });
+        s = new Session(this.world!, m, { seed: opts.seed ?? m.seed, spawn: opts.spawn, pilotZone: this.pilotZone });
       }
       s.debugUsed = this.debug && !!this.autopilot;
       // preload everything around the start (and the destination) before the clock exists
@@ -347,6 +363,7 @@ export class App {
   openStreetAtlas() { this.atlas?.open(); }
 
   async exploreRoad(road: RoadEdge) {
+    if (this.pilotZone) return; // No citywide exploration or alternate spawn in the separate pilot.
     const initialEdge = this.core!.directed.find(e => e.roadId === road.id && this.world!.nav.inCore(e.id));
     if (!initialEdge) { this.screens.message('Outside the connected driving area', 'This street is visible on the map but is not yet connected to a delivery route.', () => this.openStreetAtlas()); return; }
     let edge:DirectedEdge=initialEdge;
@@ -444,7 +461,7 @@ export class App {
     const reject = (why: string) => { this.store.clearCheckpoint(); this.screens.message('Saved delivery cannot be resumed', `${why} Your settings and records are kept.`, () => this.toMenu()); };
     if (!m) return reject('That contract is not part of this world version.');
     // validate before entering the loading flow so a bad save cannot cause a retry loop (U08)
-    try { Session.fromCheckpoint(this.world!, m, saved.cp); }
+    try { Session.fromCheckpoint(this.world!, m, saved.cp, true, this.pilotZone); }
     catch (e) { return reject(`The save is incompatible or damaged (${(e as Error).message}).`); }
     void this.startMission(m, { checkpoint: saved.cp, seed: saved.seed });
   }

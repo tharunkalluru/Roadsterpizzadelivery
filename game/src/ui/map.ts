@@ -1,3 +1,4 @@
+import type { PilotZone } from '../pilot/zone';
 import type { RoadEdge, Storefront, WorldChunkV2, WorldCore } from '../world/schema';
 import type { WorldPhysics } from '../world/collision';
 import type { Session } from '../missions/session';
@@ -44,7 +45,7 @@ export class MapView {
   focusedPlaceIds=new Set<string>();
   private boundsAll: { minX: number; maxX: number; minZ: number; maxZ: number };
 
-  constructor(public core: WorldCore, public world: WorldPhysics, public survey: StreetSurvey | null = null) {
+  constructor(public core: WorldCore, public world: WorldPhysics, public survey: StreetSurvey | null = null, private pilotZone: PilotZone | null = null) {
     let minX=Infinity,maxX=-Infinity,minZ=Infinity,maxZ=-Infinity;
     for (const l of core.metroLines) {
       const pts=l.geo.map(pl=>pl.map(([la,lo])=>project(la,lo)));
@@ -142,7 +143,9 @@ export class MapView {
     if(this.scale>.65){let count=0;for(const sf of this.storefronts.filter(sf=>!this.hasListingIndex||sf.placeId.startsWith('survey:')).sort((a,b)=>Number(b.placeId.startsWith('survey:'))-Number(a.placeId.startsWith('survey:')))){if(count>100)break;const listed=sf.placement?.display==='listing_only',p=!listed&&sf.facade?[(sf.facade[0][0]+sf.facade[1][0])/2,(sf.facade[0][1]+sf.facade[1][1])/2]:[sf.x,sf.z];if(!on(p[0],p[1],-20))continue;g.fillStyle=sf.status==='verified'?'#178578':listed?'#7c8992':'#b36b46';g.beginPath();g.arc(X(p[0]),Y(p[1]),3*dpr,0,Math.PI*2);g.fill();label(sf.name,X(p[0])+6*dpr,Y(p[1])+8*dpr,10,listed?'#687780':'#4c5657');count++;}
       for(const [i,p] of this.visibleListings(W/(2*sc),H/(2*sc)).sort((a,b)=>Number(this.focusedPlaceIds.has(b.id))-Number(this.focusedPlaceIds.has(a.id))).slice(0,700).entries()){const selected=this.focusedPlaceIds.has(p.id);if(selected){g.fillStyle='#2467cf22';g.beginPath();g.arc(X(p.x),Y(p.z),10*dpr,0,Math.PI*2);g.fill();}g.fillStyle=selected?'#2467cf':'#7c8992';g.beginPath();g.arc(X(p.x),Y(p.z),(selected?4:2)*dpr,0,Math.PI*2);g.fill();if(i<90||selected)label(p.name,X(p.x)+6*dpr,Y(p.z)+8*dpr,selected?12:10,selected?'#245b9b':'#687780',selected);}
     }
-    for(const d of this.core.deliveries){const active=s?.currentStop?.id===d.id;if(!active&&this.scale<.55)continue;if(!on(...d.entrance))continue;g.fillStyle=active?'#e27a32':'#a78b6a';g.beginPath();g.arc(X(d.entrance[0]),Y(d.entrance[1]),(active?7:2)*dpr,0,Math.PI*2);g.fill();if(active)label(d.label,X(d.entrance[0])+10*dpr,Y(d.entrance[1]),12,'#9f4c16',true);}
+    const admitted = this.pilotZone ? new Set(this.pilotZone.definition.entrances.map(e => e.deliveryId)) : null;
+    for(const d of this.core.deliveries){if(admitted && !admitted.has(d.id))continue;const active=s?.currentStop?.id===d.id;if(!active&&this.scale<.55)continue;if(!on(...d.entrance))continue;g.fillStyle=active?'#e27a32':'#a78b6a';g.beginPath();g.arc(X(d.entrance[0]),Y(d.entrance[1]),(active?7:2)*dpr,0,Math.PI*2);g.fill();if(active)label(d.label,X(d.entrance[0])+10*dpr,Y(d.entrance[1]),12,'#9f4c16',true);}
+    if(this.pilotZone){path(this.pilotZone.definition.polygon);g.closePath();g.strokeStyle='#275f35';g.lineWidth=3*dpr;g.setLineDash([8*dpr,4*dpr]);g.stroke();g.setLineDash([]);label('Verified play boundary',22*dpr,22*dpr,12,'#275f35',true);}
     if(s){const p=s.player;g.save();g.translate(X(p.x),Y(p.z));g.rotate(-p.heading);g.fillStyle='#1769d8';g.strokeStyle='#fff';g.lineWidth=2*dpr;g.beginPath();g.moveTo(0,-10*dpr);g.lineTo(7*dpr,8*dpr);g.lineTo(0,4*dpr);g.lineTo(-7*dpr,8*dpr);g.closePath();g.fill();g.stroke();g.restore();}
     const px=100*sc;if(px>25*dpr&&px<250*dpr){g.strokeStyle='#5a6261';g.lineWidth=2*dpr;g.beginPath();g.moveTo(22*dpr,H-28*dpr);g.lineTo(22*dpr+px,H-28*dpr);g.stroke();label('100 m',22*dpr,H-42*dpr,10);}
     if(this.mapChunks?.loading||this.mapChunks?.failed)label(this.mapChunks.loading?'Loading buildings and places…':'Some places could not load. Move the map to retry.',22*dpr,H-12*dpr,10);

@@ -1,0 +1,102 @@
+{
+  "recordedAt": "2026-10-20T13:50:22.305820+00:00",
+  "assignmentId": "qualified-zone-game-survey133",
+  "splitCommit": "ee6062f7adbbc573e180232b4906ee52812a145c",
+  "surveyRevision": 133,
+  "surveySha256": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+  "mappingAssignmentsUnchanged": true,
+  "snapshotHashesVerified": 5,
+  "receivingAcknowledgement": "REQUESTED_NOT_OBSERVED",
+  "newSite": {
+    "id": "appgprj_6ad76f01fa8c81919c9133f696ca256f",
+    "currentUserRole": "owner",
+    "audience": "owner-private custom policy: one user, zero editors/groups/external visitors",
+    "latestVersionNumber": 0,
+    "currentLiveUrl": null,
+    "sourcePush": false,
+    "deploymentAttempted": false
+  },
+  "browser": {
+    "syntheticOnly": true,
+    "physicalDevice": false,
+    "desktopViewport": [
+      1280,
+      720
+    ],
+    "phoneViewport": [
+      390,
+      844
+    ],
+    "phoneOverflow": false,
+    "builtRootAppStarted": false,
+    "builtRootStatus": 200,
+    "builtStaticAssetStatus": [
+      200,
+      200
+    ],
+    "builtConsoleErrors": 0,
+    "journeys": [
+      {
+        "mode": "keyboard",
+        "job": 0,
+        "ticks": 4138,
+        "interactions": 2,
+        "success": true,
+        "recoveries": 0
+      },
+      {
+        "mode": "keyboard",
+        "job": 1,
+        "ticks": 6419,
+        "interactions": 2,
+        "success": true,
+        "recoveries": 0
+      },
+      {
+        "mode": "touch-pointer",
+        "job": 0,
+        "ticks": 4138,
+        "interactions": 2,
+        "success": true,
+        "recoveries": 0
+      },
+      {
+        "mode": "touch-pointer",
+        "job": 1,
+        "ticks": 6428,
+        "interactions": 2,
+        "success": true,
+        "recoveries": 0
+      }
+    ]
+  },
+  "releaseGates": [
+    "receiving acknowledgement",
+    "coherent verified zone and reviewed receipt",
+    "real qualified-zone full desktop/touch game and boundary QA",
+    "source-push/archive/private deploy success"
+  ],
+  "mainSiteOperations": [],
+  "sourceDataChanges": [],
+  "focusedTests": {
+    "files": 6,
+    "passed": 91,
+    "failed": 0,
+    "skipped": 0,
+    "command": "npx vitest run tests/unit/pilot-zone.test.ts tests/unit/session.test.ts tests/unit/store.test.ts tests/unit/replay.test.ts tests/unit/flight.test.ts tests/unit/map-traffic.test.ts --reporter=dot"
+  },
+  "typecheck": "passed",
+  "productionBuild": {
+    "pilotOnly": true,
+    "modules": 87,
+    "passed": true,
+    "rootIsPilot": true,
+    "serviceWorkerRemoved": true
+  },
+  "releaseBuild": {
+    "command": "node scripts/build-pilot.mjs --release",
+    "expectedResult": "blocked before build: no qualified zone",
+    "observed": true
+  },
+  "lastCoordinationReadback": "ee6062f7adbbc573e180232b4906ee52812a145c"
+}

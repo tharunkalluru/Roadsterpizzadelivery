@@ -35,9 +35,9 @@ export class Store {
   reason: string | null = null;
   private mem = new Map<string, string>();
 
-  constructor() {
+  constructor(private readonly prefix = PREFIX) {
     try {
-      const k = PREFIX + 'probe';
+      const k = this.prefix + 'probe';
       localStorage.setItem(k, '1');
       localStorage.removeItem(k);
     } catch (e) {
@@ -48,17 +48,17 @@ export class Store {
 
   private get(key: string): string | null {
     if (!this.available) return this.mem.get(key) ?? null;
-    try { return localStorage.getItem(PREFIX + key); } catch { return this.mem.get(key) ?? null; }
+    try { return localStorage.getItem(this.prefix + key); } catch { return this.mem.get(key) ?? null; }
   }
   private set(key: string, v: string): boolean {
     this.mem.set(key, v);
     if (!this.available) return false;
-    try { localStorage.setItem(PREFIX + key, v); return true; } catch {
+    try { localStorage.setItem(this.prefix + key, v); return true; } catch {
       this.reason = 'Storage is full; progress is kept for this session only.';
       return false;
     }
   }
-  private del(key: string) { this.mem.delete(key); try { localStorage.removeItem(PREFIX + key); } catch { /* ignore */ } }
+  private del(key: string) { this.mem.delete(key); try { localStorage.removeItem(this.prefix + key); } catch { /* ignore */ } }
 
   private readJson<T>(key: string): T | null {
     const raw = this.get(key);

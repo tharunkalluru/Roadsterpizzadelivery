@@ -20,6 +20,17 @@ describe('M14 personal bests only for comparable, clean runs', async () => {
 
 describe('U08/U05 saves', async () => {
   const { Store, DEFAULT_SETTINGS } = await import('../../src/persistence/store');
+  it('keeps pilot saves and settings separate from the main game', () => {
+    const main = new Store(), pilot = new Store('hmd.pilot.synthetic.');
+    main.saveCheckpoint({ run: 'main' }); pilot.saveCheckpoint({ run: 'pilot' });
+    main.saveSettings({ ...DEFAULT_SETTINGS, sensitivity: 1.7 });
+    pilot.saveSettings({ ...DEFAULT_SETTINGS, sensitivity: .8 });
+    expect((main.loadCheckpoint() as any).cp.run).toBe('main');
+    expect((pilot.loadCheckpoint() as any).cp.run).toBe('pilot');
+    expect(new Store().loadSettings().sensitivity).toBe(1.7);
+    expect(new Store('hmd.pilot.synthetic.').loadSettings().sensitivity).toBe(.8);
+    pilot.clearCheckpoint(); expect((main.loadCheckpoint() as any).cp.run).toBe('main');
+  });
   it('incompatible checkpoint schema is explained; settings survive', () => {
     const s = new Store();
     s.saveSettings({ ...DEFAULT_SETTINGS, sensitivity: 1.7 });
