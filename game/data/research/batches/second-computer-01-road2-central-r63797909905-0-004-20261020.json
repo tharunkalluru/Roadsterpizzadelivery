@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "second-computer-01-road2-central-r63797909905-0-004-20261020",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-20",
+  "reviewer": "second-computer-01 / official-link location corroboration",
+  "notes": "Same ACTIVE assignment road5-yusufguda-road2-r63797909905-0, activation c12c65dc67562da0f78ca46310622fee0d1486ff. Worker predecessor e37a5f1a7736a8e18610ad98ad85c57fbfbd21d4; coordinator 06a1a11f162ba6416fc2d8bd1642588ebf1da601, survey 121 SHA256 f6320726efefbc2251e863eace7e2c5d36c828105a5cd75d3dfb9fb22198cacb. One new map_listing source and one pending location-corroboration observation; prior official/imagery sources reused by reference. No earlier batch edits or receipt reimports, no new business count, placement, correction, roadReview or coverage. The official gallery rows inspected showed menus/product imagery, without a dated/calibrated exterior match. Web-reader redirect rendering failed earlier; the normal local browser followed the official visible Directions link successfully, without login/access changes or account/session rotation. This is no provider denial. Corroboration only: the first-party Directions link resolves to a Maps listing pin with along-road projection 34.099897619 m near Jlc camera 34.503122321 m. Their proximity and consistent official address support the candidate association, not an exact facade/door match. The listing pin is 12.917607327 m from the provisional centerline and must not be used as an entrance or calibrated control point. The observation point below remains the Jlc camera. Road No.5 address naming versus Street View Road No.2 remains unresolved; no road/name/geometry correction. Existing sign leads and official-source observations are not additional premises. Same assigned left/right 10.00–62.00 m scope; no coverage or out-of-lease unit assignment.",
+  "sources": [
+    {
+      "id": "map-second-computer-01-central-20261020-pizzahut-official-cid",
+      "kind": "map_listing",
+      "title": "Official Pizza Hut Directions target; business pin is not an entrance",
+      "url": "https://www.google.com/maps?cid=15840747397136275076",
+      "captureDate": null,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01",
+      "position": {
+        "lat": 17.4309161,
+        "lon": 78.421091
+      },
+      "notes": "The official Pizza Hut outlet page exposes a public Directions link to this Maps CID. Normal local Chrome resolved it to Pizza Hut | Jubilee Hills, Hyderabad and the same address stem as the official listing. The displayed place URL contains pin 17.4309161,78.421091; projection on the nearest assigned road is 34.099897619 m, lateral 12.917607327 m. This is a business listing pin, not an entrance, camera position, measured facade point or survey control. It strengthens locality/address association with the photographed Jlc pizza fascia but does not establish exact doorway, footprint, canonical side, dimensions, current on-site operation or complete frontage. Publication/update date is unknown. No transient hours, phone numbers or reviewer identities retained. Reference only.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-second-computer-01-road2-central-r63797909905-0-004-official-map-corroboration",
+      "sourceIds": [
+        "map-second-computer-01-central-20261020-pizzahut-official-cid",
+        "official-second-computer-01-central-20261020-pizzahut-jubilee",
+        "sv-second-computer-01-road2-central-r63797909905-0-20261020-Jlc-h112"
+      ],
+      "captureDate": null,
+      "observedDate": "2026-10-20",
+      "name": "Official-link place marker near photographed pizza fascia; exact door unresolved",
+      "category": "location_corroboration_pending",
+      "roadId": "r_63797909905_0",
+      "position": {
+        "lat": 17.4309707,
+        "lon": 78.4209622,
+        "headingDeg": 112
+      },
+      "placementStatus": "pending",
+      "notes": "Corroboration only: the first-party Directions link resolves to a Maps listing pin with along-road projection 34.099897619 m near Jlc camera 34.503122321 m. Their proximity and consistent official address support the candidate association, not an exact facade/door match. The listing pin is 12.917607327 m from the provisional centerline and must not be used as an entrance or calibrated control point. The observation point below remains the Jlc camera. Road No.5 address naming versus Street View Road No.2 remains unresolved; no road/name/geometry correction. Existing sign leads and official-source observations are not additional premises. Same assigned left/right 10.00–62.00 m scope; no coverage or out-of-lease unit assignment."
+    }
+  ]
+}
