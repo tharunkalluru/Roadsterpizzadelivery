@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:03:08Z",
+  "updatedAt": "2026-10-20T06:07:39Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
       "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
       "owner": "second-computer-01",
-      "state": "BATCH006_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
+      "state": "BATCH007_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
       "roadId": "r_63797909905_0",
       "rangesM": [
         10,
@@ -101,28 +101,28 @@
       "oldA8AndMarkerGapsPreserved": true,
       "separateAnchorJumpDisclosed": true,
       "activationCommit": "c12c65dc67562da0f78ca46310622fee0d1486ff",
-      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch006-historical-gaps.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch006-import-124.md",
-      "workerCommit": "67f2db7a743cd3e8544b7da49dbc7256beeaeb71",
-      "pendingObservations": 21,
+      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch007-historical-gaps.md",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch007-import-125.md",
+      "workerCommit": "a123feb532bd9a896669833c93a17ae989b6f35f",
+      "pendingObservations": 24,
       "qualifiedSideMetres": 0,
       "lastPanorama": {
-        "panoId": "8aD9ChkwOX2T6D32s3wCpw",
-        "lat": 17.4311348,
-        "lon": 78.4210228,
+        "panoId": "3PUb0ffNYBv1KuJb7NV1sQ",
+        "lat": 17.4309222,
+        "lon": 78.4209373,
         "captureDate": "2021-12",
-        "headingDeg": 105,
-        "fov": 75,
-        "projectedAlongM": 54.049139806411986,
-        "lateralM": 1.9288870740492905
+        "headingDeg": 292,
+        "fov": 65,
+        "projectedAlongM": 28.53314731106431,
+        "lateralM": 2.4495966998361522
       },
-      "nextAction": "The lower and upper offered historical checks are saved. Continue only a named, unreviewed gap-addressing source: the middle EQAP anchor has not yet been checked for offered historical dates that might clarify the lower shutter/clinic-board obstruction. Reopen it solely to inspect offered dates and verify actual camera position before authoring; do not repeat existing view evidence or cross endpoints/a8. Measured geometry, exact bounded unit/door correspondence and currentness remain required.",
+      "nextAction": "Middle EQAP historical views are saved. The remaining named central source check is the Jlc anchor's offered historical dates, not yet inspected; inspect its date control only if it can clarify exact door/facade correspondence, checking actual returned camera coordinates first. Do not duplicate existing cameras/angles or expand to endpoints/a8. Complete bounded unit inventory, measured reference/control geometry and on-site currentness remain missing.",
       "evidenceQualificationLimit": {
         "type": "MISSING_CALIBRATION_CORRESPONDENCE_CURRENTNESS",
         "notProviderDenial": true,
         "allAssignedSideMetresUnqualified": 52.0,
-        "knownCamerasReviewed": 11,
-        "imagesReviewed": 19,
+        "knownCamerasReviewed": 13,
+        "imagesReviewed": 22,
         "officialSourcesReviewed": 2,
         "required": [
           "Unobstructed dated views of endpoint/inter-camera and hidden unit/floor boundaries.",
@@ -334,10 +334,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 124,
-    "surveySha256": "2c6c971a4c3ccd10d785eeb03f17a54ca232f9f83b059a438ea1f69e3f30fe1c",
-    "sources": 867,
-    "observations": 641,
+    "surveyRevision": 125,
+    "surveySha256": "745fcadfbe2377dce075ed990232eee6f13460ba3b564353e3b5dfff11b825c4",
+    "sources": 870,
+    "observations": 644,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }
