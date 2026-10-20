@@ -1,0 +1,11 @@
+# Activation: independent r504 interior
+
+## Current independent r504 startup — 2026-10-20T07:42:44Z
+
+Published plan `4378546b44980a2aafc5ae2c0a7bb457468d5bcc` activates `venkatgiri-independent-r50481356909-0`, owner second-computer-01, branch `worker/second-computer-01/venkatgiri-independent-r50481356909-0`. ONLY r_50481356909_0 canonical left/right closed **10.00–35.33 m**, 25.33 m per side, stored-point order. Independent canonical inventory; unresolved station route remains unresolved. Exclude endpoint/junction buffers/nodes n_23384083302/n_58226819420, all other roads/carriageways including r114/r148/r601, station gates/markers/connectors/a8 route recovery, xGma38.662m, and whole properties extending outside bounds. r312/r141 deferrals and all ten prior assignment objects/retained limits/provider blocks remain EXACT; r405 six pending contexts/zero coverage retained, no repeat.
+
+Exact activation is the first addition of `docs/handoff/claims/venkatgiri-independent-r50481356909-0-activation-20261020.md`; publish/read back, isolate new worker exactly there, record/report startup binding and all five survey132 hashes BEFORE imagery. Saved January2026 zRY28.974391583m/lateral3.644527266m and6KX19.207941601m/lateral2.010493628m are locators only. Verify actual date/pano/coordinates/nearest road/closed bounds first, stop mismatch; new side-sector h108/h288,pitch0/fov65 addresses access/unit/boundary visibility. No roadway arrows, old forward truck/no-arrow retry or identity-sign replay. Provisional7.16m width/clamp and zRY slight half-width exceedance remain uncertainty, not measurements. Old GANESH TRADERS lead stays roadId=null; repeated boards not premises.
+
+Frozen132 survey SHA256 `536860d9e80b972524649062f525a54a26651fb24daddd98c4c820cac2285848`,900sources/674observations/169provisional storefronts/zero verified storefronts or sides; five hashes unchanged. No new imagery/batch/import/coverage/physical change/merge/deployment in activation. Dedicated tab only; no unrelated user tab/global focus/native dialog/app switch. One operator/importer, former writers quiescent, Miyapur–JNTU35roads/70sides provider hold and Sites park preserved.
+
+Literal activation SHA is pinned after published first-addition readback, no self-reference invented.

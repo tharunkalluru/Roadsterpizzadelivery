@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:38:36Z",
+  "updatedAt": "2026-10-20T07:42:44Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -10,7 +10,7 @@
     "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
     "claimedAt": "2026-10-20T01:27:15Z",
-    "currentCollectionAssignmentId": "venkatgiri-independent-r40507059846-0"
+    "currentCollectionAssignmentId": "venkatgiri-independent-r50481356909-0"
   },
   "assignments": [
     {
@@ -1782,6 +1782,135 @@
         "currentOperationEstablished": false,
         "alignmentUncertainty": "BWN lateral3.847m; December6.567–7.533m versus provisional half-width3.75m; no dimension/door inference."
       }
+    },
+    {
+      "assignmentId": "venkatgiri-independent-r50481356909-0",
+      "status": "ACTIVE",
+      "workerId": "second-computer-01",
+      "ownerBranch": "worker/second-computer-01/venkatgiri-independent-r50481356909-0",
+      "claimCheckpoint": "docs/handoff/claims/venkatgiri-independent-r50481356909-0-activation-20261020.md",
+      "publishedPlan": "docs/handoff/claims/venkatgiri-independent-r50481356909-0-plan-20261020.md",
+      "publishedPlanCommit": "4378546b44980a2aafc5ae2c0a7bb457468d5bcc",
+      "scopeAudit": "docs/handoff/reviews/second-computer-01-independent-r504-scope-132.json",
+      "claimedAt": "2026-10-20T07:42:44Z",
+      "coordinatorBaseCommit": "4378546b44980a2aafc5ae2c0a7bb457468d5bcc",
+      "activationCommit": null,
+      "activationCommitResolution": {
+        "claimFile": "docs/handoff/claims/venkatgiri-independent-r50481356909-0-activation-20261020.md",
+        "rule": "Resolve initial-addition SHA; publish/read back, isolated worker exactly there, startup report before new imagery."
+      },
+      "snapshotSurveyRevision": 132,
+      "snapshotSurveySha256": "536860d9e80b972524649062f525a54a26651fb24daddd98c4c820cac2285848",
+      "worldId": "hyd-metro",
+      "worldVersion": "2.0.0",
+      "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
+      "stationPairRelation": "Independent local canonical inventory only; unresolved RoadNo5→Yusufguda route/a8/gate/marker gaps retained, no station advance.",
+      "roadId": "r_50481356909_0",
+      "roadName": "roasd no 5",
+      "roadLengthM": 45.33,
+      "canonicalPoints": [
+        [
+          -13478.29,
+          -1993.28
+        ],
+        [
+          -13492.26,
+          -1950.16
+        ]
+      ],
+      "canonicalSourceIds": [
+        "ovt:seg/bc0ec606d65b",
+        "osm:w252270756@8"
+      ],
+      "geometryStatus": "Provisional width7.16m clamped7.5→7.16 for footprint clearance4.18m; zRY lateral3.645 slightly exceeds half-width3.58m. No measurement.",
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_50481356909_0",
+          "side": "left",
+          "startM": 10.0,
+          "endM": 35.33,
+          "boundaryRule": "closed interval; stored road.points order"
+        },
+        {
+          "roadId": "r_50481356909_0",
+          "side": "right",
+          "startM": 10.0,
+          "endM": 35.33,
+          "boundaryRule": "closed interval; stored road.points order"
+        }
+      ],
+      "excludedRanges": [
+        {
+          "roadId": "r_50481356909_0",
+          "startM": 0,
+          "endM": 10,
+          "boundaryRule": "end exclusive"
+        },
+        {
+          "roadId": "r_50481356909_0",
+          "startM": 35.33,
+          "endM": 45.33,
+          "boundaryRule": "start exclusive"
+        }
+      ],
+      "excludedNodes": [
+        "n_23384083302",
+        "n_58226819420"
+      ],
+      "excludedAdjacentRoadIds": [
+        "r_11425936670_0",
+        "r_14842271660_0",
+        "r_60191496056_0"
+      ],
+      "exclusions": [
+        "Both endpoint/junction buffers/nodes and EVERY other road/carriageway, including r114/r148/r601.",
+        "Station gates/connectors/markers, a8 recovery and route continuation; no station-route identity/advancement.",
+        "All ten prior assignments/evidence limits/provider holds retained EXACT; r312/r141 deferrals preserved; xGma38.662m out of bounds; whole properties crossing bounds excluded."
+      ],
+      "startReference": {
+        "panoId": "zRYvA3eocZjuRbayufMD7Q",
+        "lat": 17.4323512,
+        "lon": 78.4214928,
+        "captureDate": "2026-01",
+        "alongM": 28.97439158304182,
+        "lateralM": 3.6445272656675263
+      },
+      "otherSavedReference": {
+        "panoId": "6KX5Pfs3g89xCMIbHGldow",
+        "lat": 17.4324397,
+        "lon": 78.4215065,
+        "captureDate": "2026-01",
+        "alongM": 19.20794160129476,
+        "lateralM": 2.010493627701726
+      },
+      "excludedSavedLocators": [
+        {
+          "panoId": "xGma",
+          "projectedAlongM": 38.662,
+          "reason": "Beyond35.33 upper bound; saved abbreviated locator only, do not query."
+        }
+      ],
+      "existingReferenceSourceIds": [
+        "sv-r5-yusufguda-arrowchain-20261019-pano-zRY-h080",
+        "sv-r5-yusufguda-arrowchain-20261019-pano-6KX-h080",
+        "sv-r5-yusufguda-ganesh-traders-20261019-pano-zRY-h270"
+      ],
+      "immutablePriorContextObservation": "obs-r5-yusufguda-visible-arrow-chain-20261019-a",
+      "immutablePriorIdentityObservation": "obs-r5-yusufguda-ganesh-traders-sign-20261019",
+      "newSourceIdPrefix": "sv-second-computer-01-independent-r50481356909-0-",
+      "batchPathPattern": "game/data/research/batches/second-computer-01-independent-r50481356909-0-<sequence>-<YYYYMMDD>.json",
+      "nonOverlapAudit": {
+        "allTenPriorAssignmentObjectsPreserved": true,
+        "candidateAbsentFromReservedRoadSets": true,
+        "fiveSnapshotHashesMatch": true,
+        "existingRoadBoundObservations": 0,
+        "existingStorefrontOverrides": 0,
+        "bothRoadSidesUnreviewed": true
+      },
+      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "latestCheckpoint": null,
+      "nextPanorama": null,
+      "nextAction": "Resolve/publish/read back initial activation SHA; isolate worker exactly there and record/report owner/branch/HEAD/five frozen132 hashes/sides/closed10–35.33m before imagery. Then actual-metadata/nearest-road/bounds checks before new h108/h288 side questions at zRY/6KX; disclosed direct/date opens, no road arrows/forward truck retries or old sign replay. Offered historical dates only if useful and actual returned camera is valid. No exact units/doors/currentness/geometry/coverage inference."
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"

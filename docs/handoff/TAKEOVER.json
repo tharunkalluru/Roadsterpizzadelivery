@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:38:36Z",
+  "updatedAt": "2026-10-20T07:42:44Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -84,16 +84,16 @@
     },
     "exclusions": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage; Road5/Yusufguda markers have saved imagery gaps; station gates/connectors unknown.",
     "receivingBoundedAssignment": {
-      "assignmentId": "venkatgiri-independent-r40507059846-0",
-      "claimCheckpoint": "docs/handoff/claims/venkatgiri-independent-r40507059846-0-activation-20261020.md",
-      "publishedPlanCommit": "d029f80327b656d597d38ad3802557a280b13788",
+      "assignmentId": "venkatgiri-independent-r50481356909-0",
+      "claimCheckpoint": "docs/handoff/claims/venkatgiri-independent-r50481356909-0-activation-20261020.md",
+      "publishedPlanCommit": "4378546b44980a2aafc5ae2c0a7bb457468d5bcc",
       "owner": "second-computer-01",
-      "state": "TARGETED_SIDE_DATE_REVIEW_COMPLETE_QUALIFICATION_EVIDENCE_BLOCKED",
+      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
       "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
-      "roadId": "r_40507059846_0",
+      "roadId": "r_50481356909_0",
       "rangesM": [
         10,
-        38.47
+        35.33
       ],
       "sides": [
         "left",
@@ -101,25 +101,7 @@
       ],
       "oldA8AndMarkerGapsPreserved": true,
       "stationRouteIdentityUnresolved": true,
-      "separateAnchorJumpDisclosed": true,
-      "activationCommit": "a87daf84cad7abd91b40d6dd189feaf545658a36",
-      "checkpoint": "game/work/venkatgiri-independent-r40507059846-0/checkpoint-20261020-batch001.md",
-      "evidenceLedger": "game/work/venkatgiri-independent-r40507059846-0/evidence-ledger-20261020-batch001.json",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-independent-r405-batch001-import-132.md",
-      "workerCommit": "9a50ca270be0cb257ea925799408d2e3ba013f1c",
-      "pendingObservations": 6,
-      "qualifiedSideMetres": 0,
-      "lastPanorama": {
-        "panoId": "A0ZI5NzfRH3lLRGsJtD5NA",
-        "lat": 17.4314929,
-        "lon": 78.421182,
-        "captureDate": "2025-01",
-        "headingDeg": 288,
-        "fov": 65,
-        "projectedAlongM": 29.730184911313597,
-        "lateralM": 3.2133109370565807
-      },
-      "nextAction": "Known saved-anchor side/date target set is reviewed. No further gap-closing source identified in this targeted set; do not repeat these views absent a new question, open excluded REc/bHG or traverse endpoint/junction arrows. Qualification needs genuinely new unobstructed in-lease/field evidence: exact canonical facade/unit/door and boundary controls, complete endpoint/inter-camera hidden-unit inventory, measured access/reference geometry and current on-site corroboration. No qualified side metres. r504 remains a separately actionable independent candidate requiring its own published plan/activation; r312 needs a better robust locator/alignment; r141 tiny buffered window remains deferred. None establishes the station route."
+      "separateAnchorJumpDisclosed": true
     },
     "retainedBoundedAssignments": [
       {
@@ -556,6 +538,44 @@
           "runtimeRecordsAdded": 0,
           "method": "One further visible highlighted-map point selection toward the lower boundary from validated dXet 155.511 m, after completing its offered-date review. Actual returned camera below 150 m; no photograph/date-control inspection, repeat or scope expansion."
         }
+      },
+      {
+        "assignmentId": "venkatgiri-independent-r40507059846-0",
+        "claimCheckpoint": "docs/handoff/claims/venkatgiri-independent-r40507059846-0-activation-20261020.md",
+        "publishedPlanCommit": "d029f80327b656d597d38ad3802557a280b13788",
+        "owner": "second-computer-01",
+        "state": "TARGETED_SIDE_DATE_REVIEW_COMPLETE_QUALIFICATION_EVIDENCE_BLOCKED",
+        "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
+        "roadId": "r_40507059846_0",
+        "rangesM": [
+          10,
+          38.47
+        ],
+        "sides": [
+          "left",
+          "right"
+        ],
+        "oldA8AndMarkerGapsPreserved": true,
+        "stationRouteIdentityUnresolved": true,
+        "separateAnchorJumpDisclosed": true,
+        "activationCommit": "a87daf84cad7abd91b40d6dd189feaf545658a36",
+        "checkpoint": "game/work/venkatgiri-independent-r40507059846-0/checkpoint-20261020-batch001.md",
+        "evidenceLedger": "game/work/venkatgiri-independent-r40507059846-0/evidence-ledger-20261020-batch001.json",
+        "reviewReceipt": "docs/handoff/reviews/second-computer-01-independent-r405-batch001-import-132.md",
+        "workerCommit": "9a50ca270be0cb257ea925799408d2e3ba013f1c",
+        "pendingObservations": 6,
+        "qualifiedSideMetres": 0,
+        "lastPanorama": {
+          "panoId": "A0ZI5NzfRH3lLRGsJtD5NA",
+          "lat": 17.4314929,
+          "lon": 78.421182,
+          "captureDate": "2025-01",
+          "headingDeg": 288,
+          "fov": 65,
+          "projectedAlongM": 29.730184911313597,
+          "lateralM": 3.2133109370565807
+        },
+        "nextAction": "Known saved-anchor side/date target set is reviewed. No further gap-closing source identified in this targeted set; do not repeat these views absent a new question, open excluded REc/bHG or traverse endpoint/junction arrows. Qualification needs genuinely new unobstructed in-lease/field evidence: exact canonical facade/unit/door and boundary controls, complete endpoint/inter-camera hidden-unit inventory, measured access/reference geometry and current on-site corroboration. No qualified side metres. r504 remains a separately actionable independent candidate requiring its own published plan/activation; r312 needs a better robust locator/alignment; r141 tiny buffered window remains deferred. None establishes the station route."
       }
     ]
   },
