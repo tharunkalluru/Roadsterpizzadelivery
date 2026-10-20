@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T05:30:17Z",
+  "updatedAt": "2026-10-20T05:36:06Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -631,35 +631,37 @@
           "right": "unreviewed"
         }
       },
-      "evidenceCollectionState": "BATCH001_PENDING_CONTEXT_ADMITTED",
-      "latestCheckpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-startup-and-batch001.md",
+      "evidenceCollectionState": "BATCH002_PENDING_CONTEXT_ADMITTED",
+      "latestCheckpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch002.md",
       "nextPanorama": null,
-      "nextAction": "Continue the already planned saved vQX and Tqe interior anchors after actual date/coordinate/nearest-road projection checks. No a8 or endpoint junction recovery. Save only genuinely new visible evidence in the next immutable batch; all missing geometry/currentness/coverage remains pending.",
-      "latestEvidenceLedger": "game/work/road5-yusufguda-road2-r63797909905-0/evidence-ledger-20261020-batch001.json",
-      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch001-import-119.md",
-      "workerCommit": "80a3e2a4542d94c67867138b5484bc850ecb3045",
+      "nextAction": "The five known interior cameras have new side views saved. Review a genuinely new unobstructed source or targeted angle only if it can address a specific visibility/correspondence gap; do not duplicate the same facade branding as another premise. Exact endpoint/inter-camera units, entrance geometry and currentness remain unresolved. Do not advance into a8 or endpoint junctions; same bounds and exclusions apply.",
+      "latestEvidenceLedger": "game/work/road5-yusufguda-road2-r63797909905-0/evidence-ledger-20261020-batch002.json",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch002-import-120.md",
+      "workerCommit": "870f392018599c8427394bf9dba354ab48c0dda7",
       "workerPullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/3",
       "lastPanorama": {
-        "panoId": "EQAPW3ta-MkMW_B188KXwQ",
-        "lat": 17.4308888,
-        "lon": 78.4209269,
+        "panoId": "TqeFWcmcoksX5tXcPM_u_g",
+        "lat": 17.4311564,
+        "lon": 78.421038,
         "captureDate": "2026-01",
-        "headingDeg": 112,
+        "headingDeg": 105,
         "fov": 65,
-        "projectedAlongM": 24.69367854883474,
-        "lateralM": 2.0706118058543197
+        "projectedAlongM": 56.780813542858134,
+        "lateralM": 1.001050946826675
       },
       "batch001ImportedRevision": 119,
       "batch001ContentHash": "48db591d03c3435c951c314b4aeb5e42fa8c83e8e5809491e5679292a40ebc14",
       "contextAdmission": {
-        "newSources": 6,
-        "pendingObservations": 6,
-        "datedCameras": 3,
+        "newSources": 10,
+        "pendingObservations": 10,
+        "datedCameras": 5,
         "storefrontPlacementsAdded": 0,
         "roadReviewRangesAdded": 0,
         "qualifiedSideMetres": 0,
         "historicalRoadBoundObservationsPreserved": 2
-      }
+      },
+      "batch002ImportedRevision": 120,
+      "batch002ContentHash": "cf3c7a260a0a802582b567c73004630d8aca4f15f3f19b17644045c8e2aacefe"
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"
