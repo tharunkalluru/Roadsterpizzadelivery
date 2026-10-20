@@ -1,0 +1,20 @@
+# Four-candidate canonical/scope determination — survey 131
+
+Recorded 2026-10-20T07:21:35.229891+00:00; fresh predecessor `5aaebdbf36628d5073ba7f670541cf6d162d4c18`, second-computer-01. Read-only audit of frozen geometry, all current reservations/plans and saved source metadata; no new imagery/frontage inspection. Five SNAPSHOT hashes match, runtime 131 unchanged.
+
+All four candidates are unreserved tertiary, two-way, routable ground-level segments of canonical `osm:w252270756@8`, named `roasd no 5` provisionally. Their source pages used Venkatgiri Rd/Rd Number 8. A 2.66 m canonical segment r_14842271660_0 bridges r504 to r141; north-to-south graph chain r504→r148→r141→r312→r405 reaches n_58553242227 beside r637/r446. This establishes frozen graph identity/adjacency only, not the RoadNo5→Yusufguda route or physical station connection. No road-bound observations/overrides on any candidate; both sides unreviewed; existing chain and GANESH TRADERS identity-only observations have roadId=null and remain unchanged.
+
+| Canonical candidate | Interior with 10 m buffers | Saved in-range locators | Determination |
+|---|---|---|---|
+| r_40507059846_0,48.47 m |10.00–38.47 m,28.47 m/side |ryra29.479/lateral 2.611; BWN19.526/lateral 3.847 |Select first; two robust interior anchors; no reserved overlap.|
+| r_3122046738_0,31.13 m |10.00–21.13 m,11.13 m/side |SYr10.219/lateral 6.224 |Defer; only 0.219 m lower margin and substantial alignment uncertainty.|
+| r_14143362194_0,20.75 m |10.00–10.75 m,0.75 m/side |9NM10.745/lateral4.307 |Defer; tiny remaining window/0.0052 m margin is not a useful robust frontage task; no buffer relaxation.|
+| r_50481356909_0,45.33 m |10.00–35.33 m,25.33 m/side |zRY28.974/lateral 3.645;6KX19.208/lateral 2.010 |Later independent candidate; not activated, old identity/forward-stop preserved.|
+
+Literal authority: TAKEOVER.md transfers the entire coordinator/operator/sole-importer workload and directs a recorded new coordinator plan instead of silent scope/order change; SECOND_ACCOUNT_BOOTSTRAP permits a8 work only under a recorded plan. TAKEOVER.json says not to treat the unconfirmed branch as continuous coverage; station-sequence-plan says not to continue it **as the station route**. Current personal leases exclude other roads/branches within those leases.
+
+Interpretation: an independent bounded canonical-road inventory can be separately planned/activated under the accepted full takeover, keeping every old object/exclusion and the station-route gap unchanged. It is not a declaration that this branch leads to Yusufguda or permission to cross a8/endpoint junctions. No extra user approval is required for this distinct reversible authorized coordinator process; actual source access still applies. The former candidate hold is therefore resolved for a standalone r405 interior survey, while station-route identity remains unresolved.
+
+Publish/read back a separate plan, then a separate ACTIVE reservation/activation; isolate worker exactly at the published initial activation SHA and report startup before new images. Proposed assignment `venkatgiri-independent-r40507059846-0`, r405 left/right 10.00–38.47 m only; exclude n_65259530979/n_58553242227 junctions, r312/r645/r637/r446/every other road/carriageway, station gates/markers/connectors and a8 east-link/route recovery. REc 39.540 and bHG 0.561 are outside and must not be inspected as assigned frontage. Source names/geometry/7.5 m width remain provisional; BWN lateral 3.847 slightly exceeds half model width and is uncertainty, not measured proof. Start saved ryra actual-metadata/nearest-road/bounds checks, then BWN as disclosed direct opens, no roadway arrows or old forward/oblique repeats.
+
+No new runtime, assignment, claim, batch, import, coverage, source/date/premise correction, station advance, provider retry or deployment in this audit. Every previous lease, evidence limit and Miyapur–JNTU 35-road provider block preserved. More pending imagery will not by itself qualify a game zone; current calibrated boundary/unit/door/geometry/currentness evidence remains required.

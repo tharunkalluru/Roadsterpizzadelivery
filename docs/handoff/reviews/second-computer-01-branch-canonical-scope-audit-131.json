@@ -1,0 +1,414 @@
+{
+  "recordedAt": "2026-10-20T07:21:35.229891+00:00",
+  "coordinatorPredecessor": "5aaebdbf36628d5073ba7f670541cf6d162d4c18",
+  "surveyRevision": 131,
+  "surveySha256": "a0acd7cb8cbbba73fbbff24354cf5f2fdf9d51e12a46b5d91822ead4388f81e9",
+  "coreSha256": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+  "workerId": "second-computer-01",
+  "analysisMode": "Read-only frozen geometry/reservations/plans/source metadata; NO new browser/frontage inspection.",
+  "authority": {
+    "literalRules": [
+      {
+        "file": "docs/handoff/TAKEOVER.md",
+        "rule": "Entire workload transferred; record any new coordinator plan rather than silently changing scope/order; preserve evidence gaps/provider blocks."
+      },
+      {
+        "file": "SECOND_ACCOUNT_BOOTSTRAP.md",
+        "rule": "Continue a8 east-link ambiguity only under a recorded plan; full coordinator/operator/sole-integrator authority, no additional takeover approval."
+      },
+      {
+        "file": "docs/handoff/TAKEOVER.json",
+        "rule": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage."
+      },
+      {
+        "file": "game/work/station-sequence-plan.md",
+        "rule": "Do not continue previous uncertain branch as the station route; no station advancement or gap closure."
+      }
+    ],
+    "interpretation": "A standalone bounded canonical-road survey is permitted after a distinct published plan/activation, while route identity remains unconfirmed. Existing worker-lease branch exclusions continue unchanged. This does not permit treating the branch as the approved station route, crossing a8/junctions, changing names/geometry, importing old context again or activating other candidate roads.",
+    "noUserDecisionRequiredForSelectedIndependentScope": true,
+    "unresolvedStationRouteIdentity": true,
+    "notPermissionToClaimStationRoute": true
+  },
+  "topology": {
+    "sameOsmWay": "osm:w252270756@8",
+    "canonicalName": "roasd no 5",
+    "sourcePageLabels": "Venkatgiri Rd / Rd Number8; labels differ and do not rename canonical roads.",
+    "chainNorthToSouth": [
+      "r_50481356909_0",
+      "r_14842271660_0",
+      "r_14143362194_0",
+      "r_3122046738_0",
+      "r_40507059846_0"
+    ],
+    "bridgeSegmentLengthM": 2.66,
+    "a8JunctionNode": "n_58553242227",
+    "adjacentAtA8": [
+      "r_63797909905_0",
+      "r_44631118593_0"
+    ],
+    "meaning": "Frozen graph adjacency only, not physical route/entrance or station connectivity proof."
+  },
+  "candidates": [
+    {
+      "road": {
+        "id": "r_40507059846_0",
+        "wayId": 40507059846,
+        "name": "roasd no 5",
+        "nameId": "nm_road_roasd_no_5",
+        "highway": "tertiary",
+        "oneway": false,
+        "routable": true,
+        "lanes": null,
+        "widthM": 7.5,
+        "level": 0,
+        "bridge": false,
+        "tunnel": false,
+        "elevationM": 0,
+        "pointElevM": [
+          0,
+          0
+        ],
+        "surfaceId": "s_0_r_40507059846_0",
+        "fromNode": "n_65259530979",
+        "toNode": "n_58553242227",
+        "points": [
+          [
+            -13510.89,
+            -1898.92
+          ],
+          [
+            -13525.48,
+            -1852.7
+          ]
+        ],
+        "lengthM": 48.47,
+        "footpath": true,
+        "status": {
+          "geometry": "provisional",
+          "name": "provisional",
+          "width": "provisional",
+          "direction": "provisional"
+        },
+        "provenance": {
+          "source": "derived",
+          "sourceIds": [
+            "ovt:seg/96e68ae86382",
+            "osm:w252270756@8"
+          ]
+        }
+      },
+      "proposedSides": [
+        "left",
+        "right"
+      ],
+      "proposedClosedRangeM": [
+        10.0,
+        38.47
+      ],
+      "metresPerSide": 28.47,
+      "savedAnchors": [
+        {
+          "panoId": "ryraSaJ2jYn-_ik7J5Qm3Q",
+          "projectedAlongM": 29.479453035112837,
+          "lateralM": 2.610505040186059,
+          "date": "2026-01",
+          "locatorOnly": true
+        },
+        {
+          "panoId": "BWNZBhvxt6zRu4ZQ-1HK6A",
+          "projectedAlongM": 19.525977337010236,
+          "lateralM": 3.8472279826740046,
+          "date": "2026-01",
+          "locatorOnly": true
+        }
+      ],
+      "reservationConflicts": [],
+      "existingRoadBoundObservations": [],
+      "existingStorefrontOverrides": [],
+      "existingRoadReview": {
+        "roadId": "r_40507059846_0",
+        "left": {
+          "status": "unreviewed"
+        },
+        "right": {
+          "status": "unreviewed"
+        }
+      },
+      "decision": "SELECT_FIRST_INDEPENDENT_INTERIOR",
+      "reason": "Two saved anchors well inside a28.47 m interior; nearest other canonical roads18.9+ m; actual provider metadata still requires recheck before frontage."
+    },
+    {
+      "road": {
+        "id": "r_3122046738_0",
+        "wayId": 3122046738,
+        "name": "roasd no 5",
+        "nameId": "nm_road_roasd_no_5",
+        "highway": "tertiary",
+        "oneway": false,
+        "routable": true,
+        "lanes": null,
+        "widthM": 7.5,
+        "level": 0,
+        "bridge": false,
+        "tunnel": false,
+        "elevationM": 0,
+        "pointElevM": [
+          0,
+          0
+        ],
+        "surfaceId": "s_0_r_3122046738_0",
+        "fromNode": "n_15511179675",
+        "toNode": "n_65259530979",
+        "points": [
+          [
+            -13500.25,
+            -1928.17
+          ],
+          [
+            -13510.89,
+            -1898.92
+          ]
+        ],
+        "lengthM": 31.13,
+        "footpath": true,
+        "status": {
+          "geometry": "provisional",
+          "name": "provisional",
+          "width": "provisional",
+          "direction": "provisional"
+        },
+        "provenance": {
+          "source": "derived",
+          "sourceIds": [
+            "ovt:seg/0ba16a712dac",
+            "osm:w252270756@8"
+          ]
+        }
+      },
+      "proposedSides": [
+        "left",
+        "right"
+      ],
+      "proposedClosedRangeM": [
+        10.0,
+        21.13
+      ],
+      "metresPerSide": 11.13,
+      "savedAnchors": [
+        {
+          "panoId": "SYr_zFVEKqfDedmtzm4wPw",
+          "projectedAlongM": 10.21946081739865,
+          "lateralM": 6.223662329994994,
+          "date": "2026-01",
+          "locatorOnly": true
+        }
+      ],
+      "reservationConflicts": [],
+      "existingRoadBoundObservations": [],
+      "existingStorefrontOverrides": [],
+      "existingRoadReview": {
+        "roadId": "r_3122046738_0",
+        "left": {
+          "status": "unreviewed"
+        },
+        "right": {
+          "status": "unreviewed"
+        }
+      },
+      "decision": "DEFER_MARGINAL_LOCATOR",
+      "reason": "Only one saved point0.219 m above lower buffer, lateral6.224 m vs provisional7.5 m width. Needs a better actual in-lease locator/alignment check before useful activation."
+    },
+    {
+      "road": {
+        "id": "r_14143362194_0",
+        "wayId": 14143362194,
+        "name": "roasd no 5",
+        "nameId": "nm_road_roasd_no_5",
+        "highway": "tertiary",
+        "oneway": false,
+        "routable": true,
+        "lanes": null,
+        "widthM": 7.5,
+        "level": 0,
+        "bridge": false,
+        "tunnel": false,
+        "elevationM": 0,
+        "pointElevM": [
+          0,
+          0
+        ],
+        "surfaceId": "s_0_r_14143362194_0",
+        "fromNode": "n_10682459040",
+        "toNode": "n_15511179675",
+        "points": [
+          [
+            -13492.95,
+            -1947.59
+          ],
+          [
+            -13500.25,
+            -1928.17
+          ]
+        ],
+        "lengthM": 20.75,
+        "footpath": true,
+        "status": {
+          "geometry": "provisional",
+          "name": "provisional",
+          "width": "provisional",
+          "direction": "provisional"
+        },
+        "provenance": {
+          "source": "derived",
+          "sourceIds": [
+            "ovt:seg/34b0294929cf",
+            "osm:w252270756@8"
+          ]
+        }
+      },
+      "proposedSides": [
+        "left",
+        "right"
+      ],
+      "proposedClosedRangeM": [
+        10.0,
+        10.75
+      ],
+      "metresPerSide": 0.75,
+      "savedAnchors": [
+        {
+          "panoId": "9NMH5ijgix_r52WrUjIcXw",
+          "projectedAlongM": 10.744802951084736,
+          "lateralM": 4.306929589318068,
+          "date": "2026-01",
+          "locatorOnly": true
+        }
+      ],
+      "reservationConflicts": [],
+      "existingRoadBoundObservations": [],
+      "existingStorefrontOverrides": [],
+      "existingRoadReview": {
+        "roadId": "r_14143362194_0",
+        "left": {
+          "status": "unreviewed"
+        },
+        "right": {
+          "status": "unreviewed"
+        }
+      },
+      "decision": "DEFER_TOO_NARROW_WITH_CURRENT_BUFFERS",
+      "reason": "Ten-metre endpoint buffers leave only0.75 m; saved point0.0052 m below upper bound, not a robust meaningful frontage task. Do not relax buffers without junction-clearance evidence."
+    },
+    {
+      "road": {
+        "id": "r_50481356909_0",
+        "wayId": 50481356909,
+        "name": "roasd no 5",
+        "nameId": "nm_road_roasd_no_5",
+        "highway": "tertiary",
+        "oneway": false,
+        "routable": true,
+        "lanes": null,
+        "widthM": 7.16,
+        "level": 0,
+        "bridge": false,
+        "tunnel": false,
+        "elevationM": 0,
+        "pointElevM": [
+          0,
+          0
+        ],
+        "surfaceId": "s_0_r_50481356909_0",
+        "fromNode": "n_23384083302",
+        "toNode": "n_58226819420",
+        "points": [
+          [
+            -13478.29,
+            -1993.28
+          ],
+          [
+            -13492.26,
+            -1950.16
+          ]
+        ],
+        "lengthM": 45.33,
+        "footpath": true,
+        "status": {
+          "geometry": "provisional",
+          "name": "provisional",
+          "width": "provisional",
+          "direction": "provisional"
+        },
+        "provenance": {
+          "source": "derived",
+          "sourceIds": [
+            "ovt:seg/bc0ec606d65b",
+            "osm:w252270756@8"
+          ],
+          "note": "clamped 7.5->7.16 m (footprint clearance 4.18 m)"
+        }
+      },
+      "proposedSides": [
+        "left",
+        "right"
+      ],
+      "proposedClosedRangeM": [
+        10.0,
+        35.33
+      ],
+      "metresPerSide": 25.33,
+      "savedAnchors": [
+        {
+          "panoId": "zRYvA3eocZjuRbayufMD7Q",
+          "projectedAlongM": 28.97439158304182,
+          "lateralM": 3.6445272656675263,
+          "date": "2026-01",
+          "locatorOnly": true
+        },
+        {
+          "panoId": "6KX5Pfs3g89xCMIbHGldow",
+          "projectedAlongM": 19.20794160129476,
+          "lateralM": 2.010493627701726,
+          "date": "2026-01",
+          "locatorOnly": true
+        }
+      ],
+      "reservationConflicts": [],
+      "existingRoadBoundObservations": [],
+      "existingStorefrontOverrides": [],
+      "existingRoadReview": {
+        "roadId": "r_50481356909_0",
+        "left": {
+          "status": "unreviewed"
+        },
+        "right": {
+          "status": "unreviewed"
+        }
+      },
+      "decision": "LATER_INDEPENDENT_CANDIDATE_NOT_ACTIVATED",
+      "reason": "Two interior anchors; existing GANESH TRADERS sign remains one identity-only lead. Last forward arrow/truck obstruction not retried; new bounded side question could be planned after this task, metadata/alignment first."
+    }
+  ],
+  "selectedAssignmentId": "venkatgiri-independent-r40507059846-0",
+  "selectedRoadId": "r_40507059846_0",
+  "selectedClosedRangeM": [
+    10,
+    38.47
+  ],
+  "selectedOwnerBranch": "worker/second-computer-01/venkatgiri-independent-r40507059846-0",
+  "selectedRemoteBranchAbsent": true,
+  "existingContext": {
+    "chainObservation": "obs-r5-yusufguda-visible-arrow-chain-20261019-a",
+    "chainRoadId": null,
+    "ganeshIdentityObservation": "obs-r5-yusufguda-ganesh-traders-sign-20261019",
+    "ganeshRoadId": null,
+    "rule": "Retain immutable old roadId-null context and sign lead; not complete frontage or another premise. Do not reimport/correct old metadata in this task."
+  },
+  "protected": {
+    "allNinePriorAssignmentObjectsUnchanged": true,
+    "miyapurJntu": "35roads/70sides reserved/provider-blocked",
+    "stationsMarkersA8": "All route/station/marker gaps and old unconfirmed branch-as-route hold preserved."
+  },
+  "result": "SELECTED_INDEPENDENT_CANONICAL_INTERIOR_PLAN_REQUIRED_BEFORE_ACTIVATION; no new imagery/batch/import/coverage/assignment in audit."
+}
