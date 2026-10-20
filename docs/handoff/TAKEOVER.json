@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T05:23:58Z",
+  "updatedAt": "2026-10-20T05:30:17Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
       "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
       "owner": "second-computer-01",
-      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "state": "BATCH001_PENDING_CONTEXT_ADMITTED",
       "roadId": "r_63797909905_0",
       "rangesM": [
         10,
@@ -99,7 +99,24 @@
         "right"
       ],
       "oldA8AndMarkerGapsPreserved": true,
-      "separateAnchorJumpDisclosed": true
+      "separateAnchorJumpDisclosed": true,
+      "activationCommit": "c12c65dc67562da0f78ca46310622fee0d1486ff",
+      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-startup-and-batch001.md",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch001-import-119.md",
+      "workerCommit": "80a3e2a4542d94c67867138b5484bc850ecb3045",
+      "pendingObservations": 6,
+      "qualifiedSideMetres": 0,
+      "lastPanorama": {
+        "panoId": "EQAPW3ta-MkMW_B188KXwQ",
+        "lat": 17.4308888,
+        "lon": 78.4209269,
+        "captureDate": "2026-01",
+        "headingDeg": 112,
+        "fov": 65,
+        "projectedAlongM": 24.69367854883474,
+        "lateralM": 2.0706118058543197
+      },
+      "nextAction": "Continue the already planned saved vQX and Tqe interior anchors after actual date/coordinate/nearest-road projection checks. No a8 or endpoint junction recovery. Save only genuinely new visible evidence in the next immutable batch; all missing geometry/currentness/coverage remains pending."
     },
     "retainedBoundedAssignments": [
       {
@@ -290,10 +307,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 118,
-    "surveySha256": "3d07a199a727686e1881c10cd86d4c3ce3b1be74df47a4b2de23c5362471560f",
-    "sources": 845,
-    "observations": 620,
+    "surveyRevision": 119,
+    "surveySha256": "db4682d23eb5b84bd2db7234ee54210c58ddda920eab40eacd293dd5511c0a72",
+    "sources": 851,
+    "observations": 626,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T05:23:58Z",
+  "updatedAt": "2026-10-20T05:30:17Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -520,7 +520,7 @@
       "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
       "claimedAt": "2026-10-20T05:23:58Z",
       "coordinatorBaseCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
-      "activationCommit": null,
+      "activationCommit": "c12c65dc67562da0f78ca46310622fee0d1486ff",
       "activationCommitResolution": {
         "claimFile": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
         "rule": "Resolve the first commit adding this activation file with git log --diff-filter=A -1 --format=%H -- claimFile. It must be published/read back before imagery; branch exactly there. Pin its literal SHA in the next saved coordinator checkpoint."
@@ -631,10 +631,35 @@
           "right": "unreviewed"
         }
       },
-      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
-      "latestCheckpoint": null,
+      "evidenceCollectionState": "BATCH001_PENDING_CONTEXT_ADMITTED",
+      "latestCheckpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-startup-and-batch001.md",
       "nextPanorama": null,
-      "nextAction": "After exact published activation/startup binding, open known central Jlc anchor and verify actual date/coords/nearest road, then inspect new left/right sectors. Inspect other saved in-range anchors only after actual projection; no blind endpoint/junction movement. Existing heading20/26 and ZERO INTERIORS identity lead are immutable and must not be duplicated. Keep missing geometry/currentness/coverage pending."
+      "nextAction": "Continue the already planned saved vQX and Tqe interior anchors after actual date/coordinate/nearest-road projection checks. No a8 or endpoint junction recovery. Save only genuinely new visible evidence in the next immutable batch; all missing geometry/currentness/coverage remains pending.",
+      "latestEvidenceLedger": "game/work/road5-yusufguda-road2-r63797909905-0/evidence-ledger-20261020-batch001.json",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch001-import-119.md",
+      "workerCommit": "80a3e2a4542d94c67867138b5484bc850ecb3045",
+      "workerPullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/3",
+      "lastPanorama": {
+        "panoId": "EQAPW3ta-MkMW_B188KXwQ",
+        "lat": 17.4308888,
+        "lon": 78.4209269,
+        "captureDate": "2026-01",
+        "headingDeg": 112,
+        "fov": 65,
+        "projectedAlongM": 24.69367854883474,
+        "lateralM": 2.0706118058543197
+      },
+      "batch001ImportedRevision": 119,
+      "batch001ContentHash": "48db591d03c3435c951c314b4aeb5e42fa8c83e8e5809491e5679292a40ebc14",
+      "contextAdmission": {
+        "newSources": 6,
+        "pendingObservations": 6,
+        "datedCameras": 3,
+        "storefrontPlacementsAdded": 0,
+        "roadReviewRangesAdded": 0,
+        "qualifiedSideMetres": 0,
+        "historicalRoadBoundObservationsPreserved": 2
+      }
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"
