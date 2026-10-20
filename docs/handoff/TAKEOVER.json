@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T05:49:48Z",
+  "updatedAt": "2026-10-20T05:54:51Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
       "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
       "owner": "second-computer-01",
-      "state": "FOUR_BATCHES_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
+      "state": "FIVE_BATCHES_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
       "roadId": "r_63797909905_0",
       "rangesM": [
         10,
@@ -101,28 +101,28 @@
       "oldA8AndMarkerGapsPreserved": true,
       "separateAnchorJumpDisclosed": true,
       "activationCommit": "c12c65dc67562da0f78ca46310622fee0d1486ff",
-      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch004-place-corroboration.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch004-import-122.md",
-      "workerCommit": "3762822c952bd6333878bb6e6ef100498e24b3b8",
-      "pendingObservations": 12,
+      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch005-dated-access.md",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch005-import-123.md",
+      "workerCommit": "d3e1cfb35c9e34872248c4040cd70ecbc51466c2",
+      "pendingObservations": 16,
       "qualifiedSideMetres": 0,
       "lastPanorama": {
-        "panoId": "TqeFWcmcoksX5tXcPM_u_g",
-        "lat": 17.4311564,
-        "lon": 78.421038,
-        "captureDate": "2026-01",
-        "headingDeg": 105,
+        "panoId": "brBVL7JoEPi21V6rtqX5dA",
+        "lat": 17.4310723,
+        "lon": 78.4209978,
+        "captureDate": "2021-12",
+        "headingDeg": 135,
         "fov": 65,
-        "projectedAlongM": 56.780813542858134,
-        "lateralM": 1.001050946826675
+        "projectedAlongM": 46.67652336602969,
+        "lateralM": 2.6681412656036074
       },
-      "nextAction": "Review a genuinely new targeted in-lease sightline only to address a named hidden boundary, unit or access gap. Qualifying placement and coverage still need measured reference/control points, exact endpoint/facade/unit/door correspondence and current on-site corroboration. The official-linked map pin is checked and remains documentary corroboration only. Do not repeat existing side sectors, infer dimensions from provisional geometry, advance into a8/endpoint junctions, expand the lease or duplicate batches. Last imagery Tqe 56.780814 m, h105, next new panorama unknown.",
+      "nextAction": "The targeted central access review and offered 2025/2021 captures at vQX are saved. Next qualifying evidence must address endpoint/inter-camera hidden unit/floor boundaries, exact canonical facade/door and official-address correspondence, measured reference/control geometry and current on-site operation. Historical shutter/sign differences do not date tenant changes. Do not repeat these angles/dates without a new question, infer measurements, advance into a8/endpoint junctions or expand the lease. Last actual brBV 46.676523366 m, December 2021, h135; retained Tqe upper interior anchor 56.780813543 m, never advanced. Next new panorama unknown.",
       "evidenceQualificationLimit": {
         "type": "MISSING_CALIBRATION_CORRESPONDENCE_CURRENTNESS",
         "notProviderDenial": true,
         "allAssignedSideMetresUnqualified": 52.0,
-        "knownCamerasReviewed": 5,
-        "imagesReviewed": 10,
+        "knownCamerasReviewed": 7,
+        "imagesReviewed": 14,
         "officialSourcesReviewed": 2,
         "required": [
           "Unobstructed dated views of endpoint/inter-camera and hidden unit/floor boundaries.",
@@ -130,7 +130,19 @@
           "Exact official-address-to-photographed-door association and newer on-site operation proof."
         ],
         "universalImageryExhaustionClaim": false,
-        "mapListingSourcesReviewed": 1
+        "mapListingSourcesReviewed": 1,
+        "additionalReviewOnlyViews": 1
+      },
+      "retainedUpperInteriorAnchor": {
+        "panoId": "TqeFWcmcoksX5tXcPM_u_g",
+        "lat": 17.4311564,
+        "lon": 78.421038,
+        "captureDate": "2026-01",
+        "headingDeg": 105,
+        "fov": 65,
+        "projectedAlongM": 56.780813542858134,
+        "lateralM": 1.001050946826675,
+        "movementMeaning": "Disclosed direct known-anchor open; no roadway traversal or coverage inferred."
       }
     },
     "retainedBoundedAssignments": [
@@ -322,10 +334,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 122,
-    "surveySha256": "9515857ca5b2e6c89cc99c4a8a585184b6c8f63f587ec24b25c3cd3629a9833c",
-    "sources": 858,
-    "observations": 632,
+    "surveyRevision": 123,
+    "surveySha256": "4b25ae951a846d75ac03270ce1cf8364b44621283942141247663cb61f725078",
+    "sources": 862,
+    "observations": 636,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }
