@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:14:16Z",
+  "updatedAt": "2026-10-20T07:23:11Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -10,7 +10,7 @@
     "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
     "claimedAt": "2026-10-20T01:27:15Z",
-    "currentCollectionAssignmentId": "road5-yusufguda-r36985565509-0"
+    "currentCollectionAssignmentId": "venkatgiri-independent-r40507059846-0"
   },
   "assignments": [
     {
@@ -1607,6 +1607,148 @@
           "result": "REVIEW_ONLY_NO_NEW_RUNTIME_RECORD"
         }
       ]
+    },
+    {
+      "assignmentId": "venkatgiri-independent-r40507059846-0",
+      "status": "ACTIVE",
+      "workerId": "second-computer-01",
+      "ownerBranch": "worker/second-computer-01/venkatgiri-independent-r40507059846-0",
+      "claimCheckpoint": "docs/handoff/claims/venkatgiri-independent-r40507059846-0-activation-20261020.md",
+      "publishedPlan": "docs/handoff/claims/venkatgiri-independent-r40507059846-0-plan-20261020.md",
+      "publishedPlanCommit": "d029f80327b656d597d38ad3802557a280b13788",
+      "scopeAudit": "docs/handoff/reviews/second-computer-01-branch-canonical-scope-audit-131.json",
+      "claimedAt": "2026-10-20T07:23:11Z",
+      "coordinatorBaseCommit": "d029f80327b656d597d38ad3802557a280b13788",
+      "activationCommit": null,
+      "activationCommitResolution": {
+        "claimFile": "docs/handoff/claims/venkatgiri-independent-r40507059846-0-activation-20261020.md",
+        "rule": "Resolve initial addition SHA, publish/read back, create isolated worker exactly there and report startup before new imagery."
+      },
+      "snapshotSurveyRevision": 131,
+      "snapshotSurveySha256": "a0acd7cb8cbbba73fbbff24354cf5f2fdf9d51e12a46b5d91822ead4388f81e9",
+      "worldId": "hyd-metro",
+      "worldVersion": "2.0.0",
+      "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
+      "stationPairRelation": "Existing Road No5->Yusufguda station work remains unfinished; independent local canonical inventory only, no station advance or route continuity.",
+      "roadId": "r_40507059846_0",
+      "roadName": "roasd no 5",
+      "sourceLocalityLabel": "Saved source page Venkatgiri Rd; canonical roasd no 5 retained provisionally.",
+      "roadLengthM": 48.47,
+      "canonicalPoints": [
+        [
+          -13510.89,
+          -1898.92
+        ],
+        [
+          -13525.48,
+          -1852.7
+        ]
+      ],
+      "canonicalSourceIds": [
+        "ovt:seg/96e68ae86382",
+        "osm:w252270756@8"
+      ],
+      "geometryStatus": "Provisional geometry/name/7.5 m width/direction/footpath flag; BWN lateral3.847 m slightly exceeds half model width, no field calibration.",
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_40507059846_0",
+          "side": "left",
+          "startM": 10.0,
+          "endM": 38.47,
+          "boundaryRule": "closed interval; stored road.points order"
+        },
+        {
+          "roadId": "r_40507059846_0",
+          "side": "right",
+          "startM": 10.0,
+          "endM": 38.47,
+          "boundaryRule": "closed interval; stored road.points order"
+        }
+      ],
+      "excludedRanges": [
+        {
+          "roadId": "r_40507059846_0",
+          "startM": 0,
+          "endM": 10,
+          "boundaryRule": "end exclusive"
+        },
+        {
+          "roadId": "r_40507059846_0",
+          "startM": 38.47,
+          "endM": 48.47,
+          "boundaryRule": "start exclusive"
+        }
+      ],
+      "excludedNodes": [
+        "n_65259530979",
+        "n_58553242227"
+      ],
+      "excludedAdjacentRoadIds": [
+        "r_3122046738_0",
+        "r_64551432275_0",
+        "r_63797909905_0",
+        "r_44631118593_0"
+      ],
+      "exclusions": [
+        "Both endpoint/junction buffers/nodes and EVERY other road/carriageway; only this independent interior is activated.",
+        "a8 junction/east-link recovery, route continuation, all station gates/connectors/markers; no station-route claim or advancement.",
+        "Other three candidate roads and all prior assignments/bounds/evidence gaps/provider blocks remain unchanged."
+      ],
+      "startReference": {
+        "panoId": "ryraSaJ2jYn-_ik7J5Qm3Q",
+        "lat": 17.4314967,
+        "lon": 78.4211773,
+        "historicalCaptureDate": "2026-01",
+        "projectedAlongM": 29.479453035112837,
+        "lateralM": 2.610505040186059,
+        "rule": "Saved locator only; verify actual date/coords/nearest road/bounds before image/authoring; disclosed direct open, no roadway arrows."
+      },
+      "otherSavedReference": {
+        "panoId": "BWNZBhvxt6zRu4ZQ-1HK6A",
+        "lat": 17.4315791,
+        "lon": 78.4212166,
+        "historicalCaptureDate": "2026-01",
+        "projectedAlongM": 19.525977337010236,
+        "lateralM": 3.8472279826740046
+      },
+      "excludedSavedLocators": [
+        {
+          "panoId": "REcpcGOvctgcb3VwWaZEIQ",
+          "projectedAlongM": 39.54,
+          "reason": "Beyond38.47 upper bound."
+        },
+        {
+          "panoId": "bHGgnWS2jepgZhz4y1UHng",
+          "projectedAlongM": 0.561,
+          "reason": "Below10 lower bound/endpoint junction."
+        }
+      ],
+      "existingReferenceSourceIds": [
+        "sv-r5-yusufguda-arrowchain-20261019-pano-ryra-h026",
+        "sv-r5-yusufguda-arrowchain-20261019-pano-BWN-h026"
+      ],
+      "immutablePriorContextObservation": "obs-r5-yusufguda-visible-arrow-chain-20261019-a",
+      "newSourceIdPrefix": "sv-second-computer-01-independent-r40507059846-0-",
+      "batchPathPattern": "game/data/research/batches/second-computer-01-independent-r40507059846-0-<sequence>-<YYYYMMDD>.json",
+      "checkpointPathPattern": "game/work/venkatgiri-independent-r40507059846-0/checkpoint-<UTC-or-sequence>.md",
+      "authority": {
+        "role": "CLAIMED full-takeover coordinator/operator/sole importer",
+        "publishedPlanCommit": "d029f80327b656d597d38ad3802557a280b13788",
+        "scopeInterpretation": "Standalone canonical inventory after separate recorded activation permitted; uncertain branch is NOT established station route. Old personal-lease exclusions preserved within those leases."
+      },
+      "nonOverlapAudit": {
+        "allNinePriorAssignmentObjectsPreserved": true,
+        "candidateAbsentFromReservedRoadSets": true,
+        "remoteWorkerBranchPreviouslyAbsent": true,
+        "fiveSnapshotHashesMatch": true,
+        "existingRoadBoundObservations": 0,
+        "existingStorefrontOverrides": 0,
+        "bothRoadSidesUnreviewed": true
+      },
+      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "latestCheckpoint": null,
+      "nextPanorama": null,
+      "nextAction": "Resolve/publish/read back initial activation SHA, create isolated worker exactly there and record/report startup. Then inspect only genuinely new side sectors h108/h288 at actual-validated ryra and BWN. Recheck date/coords/nearest road/bounds before each new capture; independent direct opens, no road arrows/a8/junction/source-route recovery, no repeats of old forward h26 views. Stop any mismatch; no unit/door/dimension/currentness/coverage invention."
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"

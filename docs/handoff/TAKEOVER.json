@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:14:16Z",
+  "updatedAt": "2026-10-20T07:23:11Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -84,133 +84,24 @@
     },
     "exclusions": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage; Road5/Yusufguda markers have saved imagery gaps; station gates/connectors unknown.",
     "receivingBoundedAssignment": {
-      "assignmentId": "road5-yusufguda-r36985565509-0",
-      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-r36985565509-0-activation-20261020.md",
-      "publishedPlanCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
+      "assignmentId": "venkatgiri-independent-r40507059846-0",
+      "claimCheckpoint": "docs/handoff/claims/venkatgiri-independent-r40507059846-0-activation-20261020.md",
+      "publishedPlanCommit": "d029f80327b656d597d38ad3802557a280b13788",
       "owner": "second-computer-01",
-      "state": "LOWER_TARGETED_REVIEW_COMPLETE_CALIBRATION_CURRENTNESS_INPUT_REQUIRED",
-      "roadId": "r_36985565509_0",
+      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
+      "roadId": "r_40507059846_0",
       "rangesM": [
-        150,
-        177.43
+        10,
+        38.47
       ],
       "sides": [
         "left",
         "right"
       ],
       "oldA8AndMarkerGapsPreserved": true,
-      "separateAnchorJumpDisclosed": true,
-      "activationCommit": "0bd1e48e560f7bce54372d235658b3c8e3e66eeb",
-      "checkpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-lower-gap-historical-review.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-lower-review-131.md",
-      "qualificationAudit": "docs/handoff/reviews/second-computer-01-qualification-readiness-130.json",
-      "workerCommit": "c0d0e71c4d9a03ed8666b40cd1cf3e5ee953a72b",
-      "pendingObservations": 10,
-      "qualifiedSideMetres": 0,
-      "lastPanorama": {
-        "panoId": "cxiFSFCUprIv7rKQKR6N4Q",
-        "lat": 17.4306867,
-        "lon": 78.4212058,
-        "captureDate": "2021-12",
-        "headingDeg": 2,
-        "fov": 65,
-        "projectedAlongM": 155.59682399840278,
-        "lateralM": 4.647433343101242
-      },
-      "nextAction": "Targeted lower map/date review is complete and yielded no calibrated/current qualification proof beyond the two already saved pending January 2026 contexts. Do not repeat these four historical views, existing anchor sets or held upper/lower targets; no batch 003/import/runtime change for this review. Need genuinely new unobstructed in-lease evidence with exact canonical facade/unit/door/boundary controls, measured reference/access geometry and current on-site operation, especially remaining 150–154.613 m and hidden/inter-camera gaps. A new validated lower panorama could support context but would not replace those qualification inputs. No fresh distinct currently allowed recorded source task found; unreserved a8/Venkatgiri branch candidates need independent route/canonical-scope resolution and published allowed plan/activation. Preserve all old leases/provider blocks and no station advance. Browser restored, no user recovery action or provider denial/global imagery-exhaustion claim.",
-      "metadataOnlyBoundaryHolds": [
-        {
-          "panoId": "HgfEHD60UDgGn1zLyKUGtA",
-          "captureDate": "2025-01",
-          "lat": 17.4306974,
-          "lon": 78.4209824,
-          "requestedHeadingDeg": 92,
-          "fov": 75,
-          "nearestRoad": "r_36985565509_0",
-          "assignedAlongM": 179.36116114546053,
-          "lateralM": 4.885656722815487,
-          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
-          "screenshotInspected": false,
-          "runtimeRecordsAdded": 0,
-          "reason": "Beyond177.43 m upper bound despite nearest assigned road; no boundary expansion."
-        },
-        {
-          "panoId": "_w4AqsHcW41cyarhhScK_g",
-          "captureDate": "2021-12",
-          "lat": 17.4306199,
-          "lon": 78.4209962,
-          "requestedHeadingDeg": 92,
-          "fov": 75,
-          "nearestRoad": "r_36985565509_0",
-          "assignedAlongM": 177.55458732210633,
-          "lateralM": 3.6263839678994887,
-          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
-          "screenshotInspected": false,
-          "runtimeRecordsAdded": 0,
-          "reason": "0.124587322 m beyond177.43 m upper bound; no rounding or expansion to accept historical capture."
-        }
-      ],
-      "pointLocatorReview": "game/work/road5-yusufguda-r36985565509-0/point-locator-review-20261020.json",
-      "browserBlock": {
-        "action": "Open See more dates at new dXet camera; subsequent read-only getAXState to check outcome.",
-        "target": "Google Maps browser 2/profile Tharun, tab 1996309912, dXet1Aigm3Zn7d6KL3xiaQ January 2026 155.510630692 m h2/fov65.",
-        "reason": "Computer-use tool transport closed on date-control click and again on state check; browser state could not be read.",
-        "status": "BLOCKED_BY_UNAVAILABLE_BROWSER_CONNECTION; click outcome UNCERTAIN",
-        "denied": false,
-        "approvalPending": false,
-        "offeredDatesObserved": false,
-        "historicalImageryInspected": false,
-        "bypassOrSessionChangeAttempted": false,
-        "lastConfirmedImagery": "https://www.google.com/maps/@?api=1&map_action=pano&pano=dXet1Aigm3Zn7d6KL3xiaQ&heading=2&pitch=0&fov=65",
-        "resume": "Restore existing browser connection, inspect actual current page/date-control state before another click. Confirm any offered capture actual date/pano/coords/nearest road/bounds before screenshot/frontage; preserve prior held upper captures. No alternate account/profile/provider or hidden endpoint."
-      },
-      "actionableSourceAudit": "docs/handoff/reviews/second-computer-01-actionable-source-audit-131.json",
-      "browserRecovery": {
-        "status": "RESOLVED_WITHOUT_USER_ACTION",
-        "extensionInstanceId": "2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c",
-        "profileName": "Tharun",
-        "oldBrowserId": "2",
-        "newBrowserId": "1",
-        "sameTabId": "1996309912",
-        "reason": "Tool connection/runtime reset renumbered browser IDs. Original stable extension/profile matched before tab recovery. Different Person 1 profile not used.",
-        "uncertainClickOutcome": "Confirmed executed: actual same-tab date carousel was already open. Did not repeat click.",
-        "offeredDatesReadBack": [
-          "2025-01",
-          "2021-12"
-        ],
-        "historicalViewsInspectedAfterProjectionChecks": true,
-        "accountProfileSessionAccessChanged": false,
-        "userActionRequired": false
-      },
-      "historicalReview": "game/work/road5-yusufguda-r36985565509-0/lower-gap-historical-review-20261020.json",
-      "lastNavigationImageInspected": {
-        "panoId": "dXet1Aigm3Zn7d6KL3xiaQ",
-        "captureDate": "2026-01",
-        "lat": 17.430631,
-        "lon": 78.4212043,
-        "alongM": 155.51063069199202,
-        "headingDeg": 92,
-        "fov": 65,
-        "purpose": "Navigation/map selection only, no new frontage authored."
-      },
-      "lastMetadataOnly": {
-        "panoId": "AvOowwXTxIEeRtPpJ36KiA",
-        "lat": 17.4306111,
-        "lon": 78.4212979,
-        "captureDate": "2026-01",
-        "returnedHeadingDeg": 106.4122477020399,
-        "fov": 75,
-        "nearestRoad": "r_36985565509_0",
-        "alongM": 145.0112736379687,
-        "lateralM": 1.785626633529434,
-        "tangentHeading": 282.89778985697603,
-        "withinLease": false,
-        "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
-        "screenshotInspected": false,
-        "offeredDatesInspected": false,
-        "runtimeRecordsAdded": 0,
-        "method": "One further visible highlighted-map point selection toward the lower boundary from validated dXet 155.511 m, after completing its offered-date review. Actual returned camera below 150 m; no photograph/date-control inspection, repeat or scope expansion."
-      }
+      "stationRouteIdentityUnresolved": true,
+      "separateAnchorJumpDisclosed": true
     },
     "retainedBoundedAssignments": [
       {
@@ -517,6 +408,135 @@
           "excludedAdjacentRoadId": "r_5733266100_0",
           "farPremiseInventoryAdded": false,
           "reason": "No right frontage/unit attributed across excluded parallel r_5733266100_0; old wall/advertising source reused without duplication."
+        }
+      },
+      {
+        "assignmentId": "road5-yusufguda-r36985565509-0",
+        "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-r36985565509-0-activation-20261020.md",
+        "publishedPlanCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
+        "owner": "second-computer-01",
+        "state": "LOWER_TARGETED_REVIEW_COMPLETE_CALIBRATION_CURRENTNESS_INPUT_REQUIRED",
+        "roadId": "r_36985565509_0",
+        "rangesM": [
+          150,
+          177.43
+        ],
+        "sides": [
+          "left",
+          "right"
+        ],
+        "oldA8AndMarkerGapsPreserved": true,
+        "separateAnchorJumpDisclosed": true,
+        "activationCommit": "0bd1e48e560f7bce54372d235658b3c8e3e66eeb",
+        "checkpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-lower-gap-historical-review.md",
+        "reviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-lower-review-131.md",
+        "qualificationAudit": "docs/handoff/reviews/second-computer-01-qualification-readiness-130.json",
+        "workerCommit": "c0d0e71c4d9a03ed8666b40cd1cf3e5ee953a72b",
+        "pendingObservations": 10,
+        "qualifiedSideMetres": 0,
+        "lastPanorama": {
+          "panoId": "cxiFSFCUprIv7rKQKR6N4Q",
+          "lat": 17.4306867,
+          "lon": 78.4212058,
+          "captureDate": "2021-12",
+          "headingDeg": 2,
+          "fov": 65,
+          "projectedAlongM": 155.59682399840278,
+          "lateralM": 4.647433343101242
+        },
+        "nextAction": "Targeted lower map/date review is complete and yielded no calibrated/current qualification proof beyond the two already saved pending January 2026 contexts. Do not repeat these four historical views, existing anchor sets or held upper/lower targets; no batch 003/import/runtime change for this review. Need genuinely new unobstructed in-lease evidence with exact canonical facade/unit/door/boundary controls, measured reference/access geometry and current on-site operation, especially remaining 150–154.613 m and hidden/inter-camera gaps. A new validated lower panorama could support context but would not replace those qualification inputs. No fresh distinct currently allowed recorded source task found; unreserved a8/Venkatgiri branch candidates need independent route/canonical-scope resolution and published allowed plan/activation. Preserve all old leases/provider blocks and no station advance. Browser restored, no user recovery action or provider denial/global imagery-exhaustion claim.",
+        "metadataOnlyBoundaryHolds": [
+          {
+            "panoId": "HgfEHD60UDgGn1zLyKUGtA",
+            "captureDate": "2025-01",
+            "lat": 17.4306974,
+            "lon": 78.4209824,
+            "requestedHeadingDeg": 92,
+            "fov": 75,
+            "nearestRoad": "r_36985565509_0",
+            "assignedAlongM": 179.36116114546053,
+            "lateralM": 4.885656722815487,
+            "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+            "screenshotInspected": false,
+            "runtimeRecordsAdded": 0,
+            "reason": "Beyond177.43 m upper bound despite nearest assigned road; no boundary expansion."
+          },
+          {
+            "panoId": "_w4AqsHcW41cyarhhScK_g",
+            "captureDate": "2021-12",
+            "lat": 17.4306199,
+            "lon": 78.4209962,
+            "requestedHeadingDeg": 92,
+            "fov": 75,
+            "nearestRoad": "r_36985565509_0",
+            "assignedAlongM": 177.55458732210633,
+            "lateralM": 3.6263839678994887,
+            "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+            "screenshotInspected": false,
+            "runtimeRecordsAdded": 0,
+            "reason": "0.124587322 m beyond177.43 m upper bound; no rounding or expansion to accept historical capture."
+          }
+        ],
+        "pointLocatorReview": "game/work/road5-yusufguda-r36985565509-0/point-locator-review-20261020.json",
+        "browserBlock": {
+          "action": "Open See more dates at new dXet camera; subsequent read-only getAXState to check outcome.",
+          "target": "Google Maps browser 2/profile Tharun, tab 1996309912, dXet1Aigm3Zn7d6KL3xiaQ January 2026 155.510630692 m h2/fov65.",
+          "reason": "Computer-use tool transport closed on date-control click and again on state check; browser state could not be read.",
+          "status": "BLOCKED_BY_UNAVAILABLE_BROWSER_CONNECTION; click outcome UNCERTAIN",
+          "denied": false,
+          "approvalPending": false,
+          "offeredDatesObserved": false,
+          "historicalImageryInspected": false,
+          "bypassOrSessionChangeAttempted": false,
+          "lastConfirmedImagery": "https://www.google.com/maps/@?api=1&map_action=pano&pano=dXet1Aigm3Zn7d6KL3xiaQ&heading=2&pitch=0&fov=65",
+          "resume": "Restore existing browser connection, inspect actual current page/date-control state before another click. Confirm any offered capture actual date/pano/coords/nearest road/bounds before screenshot/frontage; preserve prior held upper captures. No alternate account/profile/provider or hidden endpoint."
+        },
+        "actionableSourceAudit": "docs/handoff/reviews/second-computer-01-actionable-source-audit-131.json",
+        "browserRecovery": {
+          "status": "RESOLVED_WITHOUT_USER_ACTION",
+          "extensionInstanceId": "2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c",
+          "profileName": "Tharun",
+          "oldBrowserId": "2",
+          "newBrowserId": "1",
+          "sameTabId": "1996309912",
+          "reason": "Tool connection/runtime reset renumbered browser IDs. Original stable extension/profile matched before tab recovery. Different Person 1 profile not used.",
+          "uncertainClickOutcome": "Confirmed executed: actual same-tab date carousel was already open. Did not repeat click.",
+          "offeredDatesReadBack": [
+            "2025-01",
+            "2021-12"
+          ],
+          "historicalViewsInspectedAfterProjectionChecks": true,
+          "accountProfileSessionAccessChanged": false,
+          "userActionRequired": false
+        },
+        "historicalReview": "game/work/road5-yusufguda-r36985565509-0/lower-gap-historical-review-20261020.json",
+        "lastNavigationImageInspected": {
+          "panoId": "dXet1Aigm3Zn7d6KL3xiaQ",
+          "captureDate": "2026-01",
+          "lat": 17.430631,
+          "lon": 78.4212043,
+          "alongM": 155.51063069199202,
+          "headingDeg": 92,
+          "fov": 65,
+          "purpose": "Navigation/map selection only, no new frontage authored."
+        },
+        "lastMetadataOnly": {
+          "panoId": "AvOowwXTxIEeRtPpJ36KiA",
+          "lat": 17.4306111,
+          "lon": 78.4212979,
+          "captureDate": "2026-01",
+          "returnedHeadingDeg": 106.4122477020399,
+          "fov": 75,
+          "nearestRoad": "r_36985565509_0",
+          "alongM": 145.0112736379687,
+          "lateralM": 1.785626633529434,
+          "tangentHeading": 282.89778985697603,
+          "withinLease": false,
+          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+          "screenshotInspected": false,
+          "offeredDatesInspected": false,
+          "runtimeRecordsAdded": 0,
+          "method": "One further visible highlighted-map point selection toward the lower boundary from validated dXet 155.511 m, after completing its offered-date review. Actual returned camera below 150 m; no photograph/date-control inspection, repeat or scope expansion."
         }
       }
     ]

@@ -1,0 +1,13 @@
+# Activation: independent Venkatgiri canonical interior
+
+## Current independent collection startup — 2026-10-20T07:23:11Z
+
+Published plan `d029f80327b656d597d38ad3802557a280b13788` activates `venkatgiri-independent-r40507059846-0`, owner second-computer-01, branch `worker/second-computer-01/venkatgiri-independent-r40507059846-0`. ONLY r_40507059846_0 canonical left/right closed **10.00–38.47 m**, 28.47 m per side, stored-point order. Independent local canonical inventory; the saved Venkatgiri/Rd8 branch remains unconfirmed as the RoadNo5→Yusufguda station route. No station advance, a8/junction recovery or route continuity claim. Canonical provisional name `roasd no 5`, 7.5 m width/direction/geometry/footpath flag retained without field calibration.
+
+Exclude [0,10), (38.47,48.47], endpoint nodes n_65259530979/n_58553242227/junctions, EVERY other road/carriageway including r312/r645/r637/r446, other three branch candidates, station gates/markers/connectors and a8 east-link recovery. All nine previous assignment objects/old exclusions/provider blocks retained EXACT; previous r369 ten-context/two-batch/evidence-limit object is retained exactly, latest worker c0d0e71c4d9a03ed8666b40cd1cf3e5ee953a72b. No old target replay or writer resumption.
+
+Exact activation is the initial addition commit of `docs/handoff/claims/venkatgiri-independent-r40507059846-0-activation-20261020.md`; publish/read back it, isolate worker exactly there, record/report startup identity/branch/HEAD/frozen 131 hashes/sides/ranges/resume before imagery. Start saved ryra 29.479453035 m then BWN 19.525977337 m only after actual date/pano/coordinates/nearest-road/bounds checks. Proposed new side sectors h108/h288,pitch0/fov65; no roadway arrows. REc 39.540 m/bHG 0.561 m are outside and not assigned. BWN lateral 3.847 m is model-alignment uncertainty, no measurement. Saved forward h26 views are not new evidence.
+
+Frozen survey 131 SHA256 `a0acd7cb8cbbba73fbbff24354cf5f2fdf9d51e12a46b5d91822ead4388f81e9`,894 sources/668 observations/169 provisional storefronts/zero verified storefronts or sides; all five hashes unchanged. No new imagery/batch/import/coverage/physical change/merge/deployment in activation. One operator/importer; Sites remains parked and protected Miyapur–JNTU 35-road/70-side provider block preserved. Scope audit `docs/handoff/reviews/second-computer-01-branch-canonical-scope-audit-131.md` explains standalone-task authority and the unaltered station-route gap.
+
+Initial activation SHA must be resolved by first addition of this file, published/read back and pinned at the next coordinator save; no self-referential value invented.
