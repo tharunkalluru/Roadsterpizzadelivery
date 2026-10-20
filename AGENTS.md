@@ -2,7 +2,7 @@
 
 ## FINAL workload takeover
 
-Read `docs/handoff/TAKEOVER.md`, `TAKEOVER.json`, `SNAPSHOT.json` and `TEST_GAME_REQUIREMENTS.md` first. ENTIRE workload is authorized for second-computer-01 after its receiving claim; outgoing account/parent and former primary mapping owners are QUIESCENT/INACTIVE. Never auto-resume them at quota reset: only explicit user transfer back can do that. Handover ownership supersedes historical owner references; all evidence limits, pilot boundaries and cloud/provider blocks remain. No automatic control of another account/computer or backend access is implied.
+Read `docs/handoff/TAKEOVER.md`, `TAKEOVER.json`, `SNAPSHOT.json` and `TEST_GAME_REQUIREMENTS.md` first. ENTIRE workload is CLAIMED by second-computer-01; see docs/handoff/claims/second-computer-01-20261020.md; outgoing account/parent and former primary mapping owners are QUIESCENT/INACTIVE. Never auto-resume them at quota reset: only explicit user transfer back can do that. Handover ownership supersedes historical owner references; all evidence limits, pilot boundaries and cloud/provider blocks remain. No automatic control of another account/computer or backend access is implied.
 
 ## Every startup, resume, checkout, or pull
 

@@ -1,3 +1,5 @@
+> Receiving claim recorded 2026-10-20T01:27:15Z by second-computer-01. Original packet `882b13f0a9079c14407ea872800863d08c7b63b7` is pinned in TAKEOVER.json. Do not repeat the claim or infer a new handover from later changes to that file. Read the current claim checkpoint and plan before continuing.
+
 # Paste into second-computer-01 — ENTIRE workload takeover
 
 The user transfers the ENTIRE Roadster workload to you until explicitly transferred back. Outgoing account and former primary owners are QUIESCENT/INACTIVE; do not auto-resume them after quota reset. Own coordinator, mapping, single runtime importer/integrator, GitHub reviews/watch and Sites publication, subject to your actual service access.

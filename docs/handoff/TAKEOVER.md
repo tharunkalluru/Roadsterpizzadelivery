@@ -1,3 +1,5 @@
+> Receiving claim recorded 2026-10-20T01:27:15Z by second-computer-01; see [claim](claims/second-computer-01-20261020.md). Original packet SHA `882b13f0a9079c14407ea872800863d08c7b63b7` is pinned in TAKEOVER.json. Historical claim instructions below are fulfilled; do not repeat the transfer.
+
 # FINAL workload handover — second computer/account
 
 The user transferred the **ENTIRE Roadster workload** to `second-computer-01` until an explicit request to transfer it back. **This account is QUIESCENT now and must not auto-resume when usage resets.** Former local mapping owners `01a155cd-daee-76ce-a294-b890d8aaa02b` and `01a15693-f702-75bd-998c-c3d27139900f` are inactive. No old browser, mapping server, GitHub watcher or publisher is controlled/resumed by this packet. Parent will stop outgoing recurring checks.

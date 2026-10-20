@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T00:55:24+00:00",
-  "status": "AUTHORIZED_TRANSFER_AWAITING_INCOMING_CLAIM",
+  "updatedAt": "2026-10-20T01:27:15Z",
+  "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
-    "resolveCommand": "git log -1 --format=%H -- docs/handoff/TAKEOVER.json",
-    "meaning": "Exact commit containing this final packet; supplied after verified push. Record it in the receiving claim."
+    "sha": "882b13f0a9079c14407ea872800863d08c7b63b7",
+    "meaning": "Original verified transfer packet, pinned before this receiving claim; later changes to this file do not change that original SHA."
   },
   "outgoing": {
     "accountState": "QUIESCENT",
@@ -21,7 +21,7 @@
   },
   "incoming": {
     "workerId": "second-computer-01",
-    "roleClaimStatus": "PENDING_EXPLICIT_RECEIVING_STARTUP_CLAIM",
+    "roleClaimStatus": "CLAIMED",
     "roles": [
       "coordinator",
       "primary mapping owner",
@@ -37,7 +37,17 @@
       "Ensure old local/primary jobs stay idle; choose one runtime importer and one controlled browser operator; no automatic control of the old account or computer.",
       "Check actual GitHub write/auth and Sites create/edit capability without exposing tokens or changing access.",
       "Publish a receiving claim/plan normally on the coordination branch before work that changes reservations. No additional user permission is needed for the authorized transfer."
-    ]
+    ],
+    "claimedAt": "2026-10-20T01:27:15Z",
+    "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
+    "claimBranch": "handoff/parallel-mapping-2026-10-19",
+    "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
+    "claimSurveySha256": "17741d5b1fe3df3845944c2632da2628a5e22f2d8a54bee7e58272a4e5c3f66a",
+    "serviceAccess": {
+      "github": "collaborator write confirmed by prior successful worker pushes; coordination push readback required",
+      "mainSites": "BLOCKED: get_site appgprj_6ad576049ff8819196715b604db10264 returned NOT_FOUND/project_not_found, HTTP404",
+      "newSites": "native create capability exposed; no project created and backend create authorization unverified"
+    }
   },
   "snapshot": {
     "surveyRevision": 113,
@@ -119,7 +129,7 @@
     "deploymentId": "appgdep_6ad6b59f8ae4819187ec210f05aee186",
     "sourceCommit": "5fa915e111dbb324ad29bd3649de89a73c64cb4c",
     "status": "deployed succeeded; preserve main113 during separate test build",
-    "capability": "Second account main-Site edit access is UNVERIFIED. Public view/GitHub write do not imply Sites editing. Check get_site/access; if unavailable report blocker, do not replace main or change audience.",
+    "capability": "BLOCKED: receiving get_site returned NOT_FOUND/project_not_found HTTP404 at claim startup. Preserve main; no credentials/access changes.",
     "rollback": "Prior saved revision110 version appgprj_6ad576049ff8819196715b604db10264~appgver_6091debf35488191aeade7665c975b29; deployment appgdep_6ad6a88bb4b081918ced0fce64bfeb44. Use native saved-version rollback only if needed/authorized."
   },
   "testSite": {
@@ -130,5 +140,12 @@
     "separateProjectRequired": true,
     "capability": "Check receiving ChatGPT Sites create/edit capability before claiming a link; no tool/account control assumed."
   },
-  "credentials": "NONE transferred; do not export tokens/cookies/session/browser state or change permissions/audiences."
+  "credentials": "NONE transferred; do not export tokens/cookies/session/browser state or change permissions/audiences.",
+  "receivingPlan": {
+    "mapping": "Continue batch002 evidence only under unchanged Lakdikapul pilot; one controlled browser operator. No Road5/Yusufguda gap recheck without a separately recorded plan and relevant evidence.",
+    "integration": "One runtime importer in roadster-coordinator checkout; review/check each immutable batch on current survey before serialized admission. Never reimport batch001.",
+    "validation": "Install locked dependencies and validate113; regenerate/check derived summaries and queues as needed without changing authored evidence.",
+    "testSite": "No fully mapped zone qualified; do not build/publish a misleading driving demo. Qualify a defensible zone under a recorded later scope plan first.",
+    "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
+  }
 }

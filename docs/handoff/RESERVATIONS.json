@@ -1,12 +1,15 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T00:55:24+00:00",
+  "updatedAt": "2026-10-20T01:27:15Z",
   "integrator": {
     "workerId": "second-computer-01",
-    "state": "AUTHORIZED_TAKEOVER_AWAITING_RECEIVING_CLAIM",
+    "state": "CLAIMED",
     "outgoingState": "QUIESCENT",
     "coordinationBranch": "handoff/parallel-mapping-2026-10-19",
-    "rule": "Receiving claim transfers the entire workload; outgoing never auto-resumes at quota reset. One importer/integrator. Existing pilot bounds and provider/cloud blocks preserved."
+    "rule": "Receiving claim transfers the entire workload; outgoing never auto-resumes at quota reset. One importer/integrator. Existing pilot bounds and provider/cloud blocks preserved.",
+    "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
+    "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
+    "claimedAt": "2026-10-20T01:27:15Z"
   },
   "assignments": [
     {
@@ -66,8 +69,8 @@
       "exclusions": [
         "Endpoint junctions n_57046252173 and n_4127550256 and any side-road branch",
         "Every other road ID, parallel/opposite carriageway, station connector and station gate",
-        "Primary Peddamma Gudi\u2013Jubilee Hills Checkpost reservation and its junction alternatives",
-        "Miyapur\u2013JNTU 35-road reservation; Madhapur\u2013Peddamma and all prior sampled stretches outside this pilot"
+        "Primary Peddamma Gudi–Jubilee Hills Checkpost reservation and its junction alternatives",
+        "Miyapur–JNTU 35-road reservation; Madhapur–Peddamma and all prior sampled stretches outside this pilot"
       ],
       "rangeAnchors": [
         {
@@ -102,7 +105,7 @@
       "nextPanorama": null,
       "panoramaStatus": "Batch001 reviewed and imported once at113; next evidence context remains pending; see TAKEOVER.json.",
       "startupConfirmation": {
-        "status": "ORIGINAL_PILOT_STARTUP_COMPLETED_FULL_TAKEOVER_CLAIM_PENDING",
+        "status": "PILOT_STARTUP_COMPLETED_FULL_TAKEOVER_CLAIMED",
         "reportFields": [
           "workerId",
           "assignmentId",
@@ -117,7 +120,7 @@
         ],
         "rule": "Report the matching startup binding before research. This active lease needs no second conversational approval; a mismatch, changed lease or auth/provider block stops dependent work."
       },
-      "nextAction": "Claim full incoming workload using TAKEOVER.json, preserve worker branch, then continue batch002 only within unchanged pilot lease until a recorded coordinator reassignment.",
+      "nextAction": "Continue a small immutable batch002 under the exact existing lease; record fresh worker/coordinator heads and review before single-integrator admission. No pilot expansion.",
       "activationCommitMeaning": "Original exact pilot activation; final handover does not reactivate/expand the lease.",
       "batch001ImportedRevision": 113
     },

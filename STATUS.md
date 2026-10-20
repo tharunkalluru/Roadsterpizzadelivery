@@ -1,6 +1,6 @@
-# FINAL handover status — outgoing QUIESCENT
+# Current status — receiving claim recorded; outgoing QUIESCENT
 
-Updated 2026-10-20T00:55:24+00:00. Entire workload is authorized for **second-computer-01**, awaiting its receiving claim. This account and former primary mapping threads are **INACTIVE/QUIESCENT**. No automatic resume at quota reset; only an explicit user transfer-back request can return ownership. [TAKEOVER.md](docs/handoff/TAKEOVER.md) and [machine state](docs/handoff/TAKEOVER.json) govern current ownership.
+Updated 2026-10-20T00:55:24+00:00. Entire workload is CLAIMED by **second-computer-01** from verified handover `882b13f0a9079c14407ea872800863d08c7b63b7`. Receiving claim recorded 2026-10-20T01:27:15Z; see [claim and next plan](docs/handoff/claims/second-computer-01-20261020.md). This account and former primary mapping threads are **INACTIVE/QUIESCENT**. No automatic resume at quota reset; only an explicit user transfer-back request can return ownership. [TAKEOVER.md](docs/handoff/TAKEOVER.md) and [machine state](docs/handoff/TAKEOVER.json) govern current ownership.
 
 Current handoff runtime is **113**, not102:808sources,583observations,169provisionalstorefronts,0verifiedstorefronts/sides. Survey SHA25617741d5b1fe3df3845944c2632da2628a5e22f2d8a54bee7e58272a4e5c3f66a. Current research/batches/checkpoints are included by hash in TRANSFER_DELTA. Prepared archive/restore setup is preserved. No new outgoing build/audit/deployment.
 
@@ -8,4 +8,6 @@ Current unfinished mapping:Road5→Yusufguda;a8 Jan2026h90 east-link gap; g7Fl J
 
 Pilot r_8306076003_3 left/right20.00–168.60m remains ACTIVE/bounded until the receiving coordinator's recorded reassignment. Batch001 imported once at113 as2pendingNov2021contexts, no placements/coverage; all receipts included. Worker branch head last verified81ce543c677e2eb6e59cbcfe29d8ff20bb973022.
 
-Main public Sites URL remains https://roadster-pizza-delivery.blithe-okapi-0017.chatgpt.site revision113; exact IDs/access caveats in TAKEOVER.json. Separate full pizza-game test Site is **NOT BUILT/PUBLISHED**. No area is yet qualified FULLY MAPPED; receiver must qualify/finish one first and pass the confined full-loop/boundary/reset checks. Second-account main-Site edit/create capabilities are unverified.
+Main public Sites URL remains https://roadster-pizza-delivery.blithe-okapi-0017.chatgpt.site revision113; exact IDs/access caveats in TAKEOVER.json. Separate full pizza-game test Site is **NOT BUILT/PUBLISHED**. No area is yet qualified FULLY MAPPED; receiver must qualify/finish one first and pass the confined full-loop/boundary/reset checks. Main-Site access check returned NOT_FOUND/project_not_found (HTTP404). Main maintenance/publication is blocked; no permissions changed. New-Site backend creation is not yet verified.
+
+Receiving plan: validate113 in the separate coordinator checkout; continue small batch002 evidence on the existing pilot worker branch, without lease expansion. One importer and one browser operator. Road5→Yusufguda gaps remain parked pending a recorded next plan. No qualified test zone exists.
