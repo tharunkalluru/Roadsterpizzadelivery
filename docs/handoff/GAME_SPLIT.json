@@ -41,7 +41,11 @@
   "integrationPath": {
     "type": "single draft code PR to handoff/parallel-mapping-2026-10-19",
     "reviewAndIntegrationOwner": "second-computer-01",
-    "rule": "Explicit code/test paths only; preserve current survey on integration. No blind merge of mapping PR1-8, no survey133 rollback/reimport, no second survey writer. Sites source synchronization is a separate NEW project only."
+    "rule": "Explicit code/test paths only; preserve current survey on integration. No blind merge of mapping PR1-8, no survey133 rollback/reimport, no second survey writer. Sites source synchronization is a separate NEW project only.",
+    "pullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/9",
+    "codeCommit": "ee02e66c7b704431de660dbbb3708137edd38d43",
+    "state": "DRAFT_NOT_MERGED_AWAITING_RECEIVING_ACK",
+    "zoneHandoffContract": "docs/handoff/claims/game-split-request-20261020.md#real-zone-handoff-contract"
   },
   "receivingAcknowledgement": {
     "state": "REQUESTED_NOT_YET_OBSERVED",
@@ -54,5 +58,19 @@
       "Record qualified-zone handoff only when evidence qualifies; pending contexts remain unqualified"
     ],
     "dependentWork": "Isolated code/tests may proceed; integration/shared-file edits and publishing wait for acknowledgement and relevant release gates."
+  },
+  "checkpoint": {
+    "checkedAt": "2026-10-20T13:54:08.609079+00:00",
+    "coordinationReadSha": "ee6062f7adbbc573e180232b4906ee52812a145c",
+    "receivingAcknowledgementObserved": false,
+    "qualifiedZoneObserved": false,
+    "surveyRevision": 133,
+    "verifiedSides": 0,
+    "verifiedStorefronts": 0,
+    "gameState": "SAFE_TESTED_CHECKPOINT_IMPLEMENTATION_PAUSED_AWAITING_INPUT",
+    "nextActionByAccount": {
+      "second-computer-01": "Record the receiving acknowledgement and evidence disposition checkpoint at the requested acknowledgement path; include a qualified zone manifest only if evidence actually qualifies, otherwise exact missing evidence and no qualifying zone. Preserve mapping/importer ownership and all leases/provider holds.",
+      "returning-account-game-01": "Wait at game commit ee02e66c7b704431de660dbbb3708137edd38d43 for the receiving checkpoint; do not implement, integrate or publish while awaiting these inputs."
+    }
   }
 }
