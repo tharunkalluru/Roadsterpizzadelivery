@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:07:39Z",
+  "updatedAt": "2026-10-20T06:13:09Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -631,37 +631,37 @@
           "right": "unreviewed"
         }
       },
-      "evidenceCollectionState": "BATCH007_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
-      "latestCheckpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch007-historical-gaps.md",
+      "evidenceCollectionState": "BATCH008_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
+      "latestCheckpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch008-historical-gaps.md",
       "nextPanorama": null,
-      "nextAction": "Middle EQAP historical views are saved. The remaining named central source check is the Jlc anchor's offered historical dates, not yet inspected; inspect its date control only if it can clarify exact door/facade correspondence, checking actual returned camera coordinates first. Do not duplicate existing cameras/angles or expand to endpoints/a8. Complete bounded unit inventory, measured reference/control geometry and on-site currentness remain missing.",
-      "latestEvidenceLedger": "game/work/road5-yusufguda-road2-r63797909905-0/historical-gap-review-20261020-batch007.json",
-      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch007-import-125.md",
-      "workerCommit": "a123feb532bd9a896669833c93a17ae989b6f35f",
+      "nextAction": "The named known-anchor/date target set is reviewed and saved. Further qualification on this lease requires genuinely new unobstructed in-lease/field evidence for endpoint/inter-camera hidden units, exact facade/door and address correspondence, measured reference/control geometry and current on-site operation. No further gap-closing source was identified in this targeted set; do not repeat these angles/dates absent a new question. The recorded receiving coordinator may assess a different unreserved bounded task only through the documented published plan and activation process, preserving this ACTIVE lease and all gaps/protected reservations. No station advance, endpoint/a8 recovery or new-road mapping is implied by this checkpoint.",
+      "latestEvidenceLedger": "game/work/road5-yusufguda-road2-r63797909905-0/historical-gap-review-20261020-batch008.json",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch008-import-126.md",
+      "workerCommit": "4b495ef82ecc085e7d4ea0bdfda82576d77b5626",
       "workerPullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/3",
       "lastPanorama": {
-        "panoId": "3PUb0ffNYBv1KuJb7NV1sQ",
-        "lat": 17.4309222,
-        "lon": 78.4209373,
+        "panoId": "_EkVxsH_RGKaeiCbUHdvmQ",
+        "lat": 17.4309934,
+        "lon": 78.4209664,
         "captureDate": "2021-12",
-        "headingDeg": 292,
+        "headingDeg": 112,
         "fov": 65,
-        "projectedAlongM": 28.53314731106431,
-        "lateralM": 2.4495966998361522
+        "projectedAlongM": 36.99704010950712,
+        "lateralM": 2.5761651996470576
       },
       "batch001ImportedRevision": 119,
       "batch001ContentHash": "48db591d03c3435c951c314b4aeb5e42fa8c83e8e5809491e5679292a40ebc14",
       "contextAdmission": {
-        "newSources": 25,
-        "pendingObservations": 24,
-        "datedCameras": 13,
+        "newSources": 29,
+        "pendingObservations": 28,
+        "datedCameras": 15,
         "storefrontPlacementsAdded": 0,
         "roadReviewRangesAdded": 0,
         "qualifiedSideMetres": 0,
         "historicalRoadBoundObservationsPreserved": 2,
-        "imagerySources": 22,
+        "imagerySources": 26,
         "officialBusinessSources": 2,
-        "pendingSideContexts": 22,
+        "pendingSideContexts": 26,
         "pendingCorroborations": 2,
         "mapListingSources": 1
       },
@@ -673,8 +673,8 @@
         "type": "MISSING_CALIBRATION_CORRESPONDENCE_CURRENTNESS",
         "notProviderDenial": true,
         "allAssignedSideMetresUnqualified": 52.0,
-        "knownCamerasReviewed": 13,
-        "imagesReviewed": 22,
+        "knownCamerasReviewed": 15,
+        "imagesReviewed": 26,
         "officialSourcesReviewed": 2,
         "required": [
           "Unobstructed dated views of endpoint/inter-camera and hidden unit/floor boundaries.",
@@ -720,15 +720,17 @@
       "batch006ImportedRevision": 124,
       "batch006ContentHash": "384935a66dcfae1e65d8f4a089a42d2b238cc6faaee41c44428dcafe6f461f2a",
       "historicalGapReview": {
-        "sequence": "007",
-        "workerCommit": "a123feb532bd9a896669833c93a17ae989b6f35f",
-        "materialViews": 3,
+        "sequence": "008",
+        "workerCommit": "4b495ef82ecc085e7d4ea0bdfda82576d77b5626",
+        "materialViews": 4,
         "reviewOnlyViews": 0,
-        "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch007-historical-gaps.md",
+        "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch008-historical-gaps.md",
         "qualifiedSideMetres": 0
       },
       "batch007ImportedRevision": 125,
-      "batch007ContentHash": "3909f75028d372008f9ac32091bf88c269c72c1d078e2d1ebfcbd43f43f33bcd"
+      "batch007ContentHash": "3909f75028d372008f9ac32091bf88c269c72c1d078e2d1ebfcbd43f43f33bcd",
+      "batch008ImportedRevision": 126,
+      "batch008ContentHash": "e5413581095aa7fba77c7d8fcd70bfb85417fcea661d422fde0472ba10be31ce"
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"

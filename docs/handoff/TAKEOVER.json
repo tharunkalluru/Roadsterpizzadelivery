@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:07:39Z",
+  "updatedAt": "2026-10-20T06:13:09Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
       "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
       "owner": "second-computer-01",
-      "state": "BATCH007_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
+      "state": "BATCH008_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
       "roadId": "r_63797909905_0",
       "rangesM": [
         10,
@@ -101,28 +101,28 @@
       "oldA8AndMarkerGapsPreserved": true,
       "separateAnchorJumpDisclosed": true,
       "activationCommit": "c12c65dc67562da0f78ca46310622fee0d1486ff",
-      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch007-historical-gaps.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch007-import-125.md",
-      "workerCommit": "a123feb532bd9a896669833c93a17ae989b6f35f",
-      "pendingObservations": 24,
+      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch008-historical-gaps.md",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch008-import-126.md",
+      "workerCommit": "4b495ef82ecc085e7d4ea0bdfda82576d77b5626",
+      "pendingObservations": 28,
       "qualifiedSideMetres": 0,
       "lastPanorama": {
-        "panoId": "3PUb0ffNYBv1KuJb7NV1sQ",
-        "lat": 17.4309222,
-        "lon": 78.4209373,
+        "panoId": "_EkVxsH_RGKaeiCbUHdvmQ",
+        "lat": 17.4309934,
+        "lon": 78.4209664,
         "captureDate": "2021-12",
-        "headingDeg": 292,
+        "headingDeg": 112,
         "fov": 65,
-        "projectedAlongM": 28.53314731106431,
-        "lateralM": 2.4495966998361522
+        "projectedAlongM": 36.99704010950712,
+        "lateralM": 2.5761651996470576
       },
-      "nextAction": "Middle EQAP historical views are saved. The remaining named central source check is the Jlc anchor's offered historical dates, not yet inspected; inspect its date control only if it can clarify exact door/facade correspondence, checking actual returned camera coordinates first. Do not duplicate existing cameras/angles or expand to endpoints/a8. Complete bounded unit inventory, measured reference/control geometry and on-site currentness remain missing.",
+      "nextAction": "The named known-anchor/date target set is reviewed and saved. Further qualification on this lease requires genuinely new unobstructed in-lease/field evidence for endpoint/inter-camera hidden units, exact facade/door and address correspondence, measured reference/control geometry and current on-site operation. No further gap-closing source was identified in this targeted set; do not repeat these angles/dates absent a new question. The recorded receiving coordinator may assess a different unreserved bounded task only through the documented published plan and activation process, preserving this ACTIVE lease and all gaps/protected reservations. No station advance, endpoint/a8 recovery or new-road mapping is implied by this checkpoint.",
       "evidenceQualificationLimit": {
         "type": "MISSING_CALIBRATION_CORRESPONDENCE_CURRENTNESS",
         "notProviderDenial": true,
         "allAssignedSideMetresUnqualified": 52.0,
-        "knownCamerasReviewed": 13,
-        "imagesReviewed": 22,
+        "knownCamerasReviewed": 15,
+        "imagesReviewed": 26,
         "officialSourcesReviewed": 2,
         "required": [
           "Unobstructed dated views of endpoint/inter-camera and hidden unit/floor boundaries.",
@@ -334,10 +334,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 125,
-    "surveySha256": "745fcadfbe2377dce075ed990232eee6f13460ba3b564353e3b5dfff11b825c4",
-    "sources": 870,
-    "observations": 644,
+    "surveyRevision": 126,
+    "surveySha256": "c21782e0a130531b7fbb0c8015bd76636dead82e84188713e2e59afe6e37146a",
+    "sources": 874,
+    "observations": 648,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }
