@@ -1,0 +1,268 @@
+{
+  "touchEmulation": true,
+  "physicalDevice": false,
+  "normalSpawn": true,
+  "teleports": false,
+  "driver": "Reference agent through real physics; actual touch for selection/collection/handover",
+  "runs": [
+    {
+      "name": "first job; cancelled/retried pickup",
+      "pickup": {
+        "state": "PLAYING",
+        "can": true,
+        "hold": false,
+        "cargo": false,
+        "stage": "PICKUP",
+        "outcome": null,
+        "tick": 422,
+        "position": {
+          "x": -6560.407325041142,
+          "z": -3015.0724797460816
+        }
+      },
+      "arrival": {
+        "state": "PLAYING",
+        "can": true,
+        "hold": false,
+        "cargo": true,
+        "stage": "DELIVERY",
+        "outcome": null,
+        "tick": 5930,
+        "position": {
+          "x": -6656.107696222786,
+          "z": -2924.7482870558
+        }
+      },
+      "cancellation": {
+        "before": true,
+        "cancelled": {
+          "hold": false,
+          "cargo": false
+        }
+      },
+      "collect": {
+        "hit": {
+          "text": "COLLECT PIZZA · E",
+          "pointerEvents": "auto",
+          "hitSelf": true
+        },
+        "result": {
+          "state": "PLAYING",
+          "cargoLoaded": true,
+          "stage": "DELIVERY",
+          "outcome": null
+        }
+      },
+      "handover": {
+        "hit": {
+          "text": "HAND OVER · E",
+          "pointerEvents": "auto",
+          "hitSelf": true
+        },
+        "result": {
+          "state": "RESULTS",
+          "cargoLoaded": true,
+          "stage": "COMPLETE",
+          "outcome": {
+            "success": true,
+            "reason": "Delivered"
+          }
+        }
+      },
+      "result": {
+        "outcome": {
+          "success": true,
+          "reason": "Delivered"
+        },
+        "events": [
+          {
+            "tick": 486,
+            "e": "collected d_domino_s_pizza_india"
+          },
+          {
+            "tick": 5990,
+            "e": "delivered d_eco_basket"
+          }
+        ],
+        "recoveries": 0,
+        "distance": 714.1766851683617,
+        "mission": "preview_paradise-source-preview-r133_order1",
+        "zoneMode": "provisional",
+        "inside": true
+      }
+    },
+    {
+      "name": "same job restarted",
+      "pickup": {
+        "state": "PLAYING",
+        "can": true,
+        "hold": false,
+        "cargo": false,
+        "stage": "PICKUP",
+        "outcome": null,
+        "tick": 422,
+        "position": {
+          "x": -6560.407325041142,
+          "z": -3015.0724797460816
+        }
+      },
+      "arrival": {
+        "state": "PLAYING",
+        "can": true,
+        "hold": false,
+        "cargo": true,
+        "stage": "DELIVERY",
+        "outcome": null,
+        "tick": 5931,
+        "position": {
+          "x": -6656.107883821509,
+          "z": -2924.749552667786
+        }
+      },
+      "cancellation": null,
+      "collect": {
+        "hit": {
+          "text": "COLLECT PIZZA · E",
+          "pointerEvents": "auto",
+          "hitSelf": true
+        },
+        "result": {
+          "state": "PLAYING",
+          "cargoLoaded": true,
+          "stage": "DELIVERY",
+          "outcome": null
+        }
+      },
+      "handover": {
+        "hit": {
+          "text": "HAND OVER · E",
+          "pointerEvents": "auto",
+          "hitSelf": true
+        },
+        "result": {
+          "state": "RESULTS",
+          "cargoLoaded": true,
+          "stage": "COMPLETE",
+          "outcome": {
+            "success": true,
+            "reason": "Delivered"
+          }
+        }
+      },
+      "result": {
+        "outcome": {
+          "success": true,
+          "reason": "Delivered"
+        },
+        "events": [
+          {
+            "tick": 482,
+            "e": "collected d_domino_s_pizza_india"
+          },
+          {
+            "tick": 5991,
+            "e": "delivered d_eco_basket"
+          }
+        ],
+        "recoveries": 0,
+        "distance": 714.1777685017095,
+        "mission": "preview_paradise-source-preview-r133_order1",
+        "zoneMode": "provisional",
+        "inside": true
+      }
+    },
+    {
+      "name": "second job",
+      "pickup": {
+        "state": "PLAYING",
+        "can": true,
+        "hold": false,
+        "cargo": false,
+        "stage": "PICKUP",
+        "outcome": null,
+        "tick": 422,
+        "position": {
+          "x": -6560.422827800585,
+          "z": -3015.074716241844
+        }
+      },
+      "arrival": {
+        "state": "PLAYING",
+        "can": true,
+        "hold": false,
+        "cargo": true,
+        "stage": "DELIVERY",
+        "outcome": null,
+        "tick": 6912,
+        "position": {
+          "x": -6719.09082956336,
+          "z": -2827.8915648681727
+        }
+      },
+      "cancellation": null,
+      "collect": {
+        "hit": {
+          "text": "COLLECT PIZZA · E",
+          "pointerEvents": "auto",
+          "hitSelf": true
+        },
+        "result": {
+          "state": "PLAYING",
+          "cargoLoaded": true,
+          "stage": "DELIVERY",
+          "outcome": null
+        }
+      },
+      "handover": {
+        "hit": {
+          "text": "HAND OVER · E",
+          "pointerEvents": "auto",
+          "hitSelf": true
+        },
+        "result": {
+          "state": "RESULTS",
+          "cargoLoaded": true,
+          "stage": "COMPLETE",
+          "outcome": {
+            "success": true,
+            "reason": "Delivered"
+          }
+        }
+      },
+      "result": {
+        "outcome": {
+          "success": true,
+          "reason": "Delivered"
+        },
+        "events": [
+          {
+            "tick": 482,
+            "e": "collected d_domino_s_pizza_india"
+          },
+          {
+            "tick": 6972,
+            "e": "delivered d_frost_bakery"
+          }
+        ],
+        "recoveries": 0,
+        "distance": 851.8807151278035,
+        "mission": "preview_paradise-source-preview-r133_order2",
+        "zoneMode": "provisional",
+        "inside": true
+      }
+    }
+  ],
+  "selectionBackReturned": true,
+  "abandon": {
+    "success": false,
+    "reason": "Delivery abandoned",
+    "code": "abandoned"
+  },
+  "hosted": true,
+  "url": "https://roadster-verified-zone-pilot.blithe-okapi-0017.chatgpt.site",
+  "rootStatus": 200,
+  "anonymousStatus": 401,
+  "anonymousLocation": null,
+  "pageErrors": [],
+  "badResponses": []
+}

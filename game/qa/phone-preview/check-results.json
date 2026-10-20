@@ -3,7 +3,9 @@
   "numPassedTests": 377,
   "numFailedTests": 1,
   "numPendingTests": 2,
-  "failure": "Pre-existing researched-frontage-order test accesses absent appearance.signBaseM outside preview scope; baseline reproduction pending.",
+  "failure": "Unchanged researched-frontage-order.test.ts accesses absent appearance.signBaseM on ten frontage records outside this preview. Reproduced on untouched ee02e66; selected preview fronts all have appearance.",
   "phoneJourneys": "3 complete normal-spawn touch runs, including collection cancellation/retry; no teleports or recoveries; touch selection/back and abandon passed",
-  "build": "TypeScript and 88-module production preview build passed"
+  "build": "TypeScript and 88-module production preview build passed",
+  "baselineConfirmed": true,
+  "baselineCommit": "ee02e66c7b704431de660dbbb3708137edd38d43"
 }
