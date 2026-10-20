@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "id": "road5-yusufguda-route-preview-20261019-a",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "First actual Chrome route-preview pass for the adjacent Road No 5 Jubilee Hills → Yusufguda pair. Starting from nearby Krishna Nagar Main Road context pano Zthp (not a station gate), Google Maps directions suggested 1.6 km via Road Number 5, Rd Number 2, and Krishna Nagar Main Road. The route preview opened January 2026 camera views Qoaa, X_A and Tqe; it reused the already-saved g7Fl panorama and ended at the provisional Yusufguda marker with “No Street View imagery available here.” The sequence skips gaps, including the unvisited Road No. 5 marker point. The suggested path and distance are navigation context only, not a measured or continuous ground-road route, storefront inventory or coverage. No storefront overrides, road reviews, placements, sides, entrances, floors or metric coverage are added. Preserve existing nearby Yusufguda station context as previously recorded rather than duplicating its sources or angles.",
+  "sources": [
+    {
+      "id": "sv-r5-yusufguda-routepreview-20261019-pano-Qoaa-h204",
+      "kind": "street_view",
+      "title": "Road No. 5 → Yusufguda directions preview start — pano Qoaa, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=QoaaSSYtMe9wG0lTbeXzrg&heading=204.14642&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.429776, "lon": 78.4252188, "headingDeg": 204.14642, "panoId": "QoaaSSYtMe9wG0lTbeXzrg" },
+      "notes": "First available Street View step selected by the Google Maps directions preview from nearby Krishna Nagar Main Road context toward Yusufguda. Road, traffic, trees and boundary frontage are visible; no named storefront or unit boundary is legible. This camera is not a Road No. 5 entrance or gate.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-r5-yusufguda-routepreview-20261019-pano-XA-h267",
+      "kind": "street_view",
+      "title": "Road Number 5 directions preview — pano X_A, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=X_A755v2ljJNY8HGmGYFIw&heading=267.43988&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.430628, "lon": 78.4210081, "headingDeg": 267.43988, "panoId": "X_A755v2ljJNY8HGmGYFIw" },
+      "notes": "Google Maps directions preview labeled this view “42 Road Number 5.” The frame shows roadway, trees, a blue roadside fence and parked vehicles; no legible fascia, individual frontage division or shop order is resolved. The preview jumps here from the nearby Zthp context; it does not establish intervening continuity or coverage. The unavailable marker at 17.4300073, 78.4231908 was not opened or retried.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-r5-yusufguda-routepreview-20261019-pano-Tqe-h026",
+      "kind": "street_view",
+      "title": "Road Number 2 directions preview — pano Tqe, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=TqeFWcmcoksX5tXcPM_u_g&heading=26.432667&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4311564, "lon": 78.421038, "headingDeg": 26.432667, "panoId": "TqeFWcmcoksX5tXcPM_u_g" },
+      "notes": "Google Maps directions preview labeled this view “61 Rd Number 2.” It shows a local roadway, trees, boundary wall and green gate/hoarding; no legible tenant fascia, entrance or shop sequence is visible. This is a route-step camera only, not evidence of continuous frontage coverage.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-road5-yusufguda-route-preview-context-20261019",
+      "sourceIds": [
+        "sv-jhc-road5-opposite-20261019-pano-zthp-h053",
+        "sv-r5-yusufguda-routepreview-20261019-pano-Qoaa-h204",
+        "sv-r5-yusufguda-routepreview-20261019-pano-XA-h267",
+        "sv-r5-yusufguda-routepreview-20261019-pano-Tqe-h026"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Road No. 5 → Yusufguda candidate navigation route — preview only",
+      "category": "route_preview_navigation_context_only",
+      "roadId": null,
+      "position": { "lat": 17.4296049, "lon": 78.4251397, "headingDeg": 53 },
+      "placementStatus": "pending",
+      "notes": "From the nearby Krishna Nagar Main Road camera anchor (not a station gate), Google Maps directions suggested a 1.6 km, 3 minute drive via Road Number 5, Rd Number 2 and Krishna Nagar Main Road/Yousufguda Main Road. The step list showed 21 m, 450 m, 85 m, 500 m and 600 m legs. The preview provided separate January 2026 views Qoaa, X_A and Tqe and reused the previously saved g7Fl pano; it did not provide imagery at every route point. Do not treat the suggested distance, steps or these isolated route previews as a continuous mapped route, measured corridor, shop order, frontage side or coverage. No exact route-to-game-road match or station connector is established."
+    },
+    {
+      "id": "obs-road5-yusufguda-marker-imagery-gap-20261019",
+      "sourceIds": [
+        "sv-r5-yusufguda-routepreview-20261019-pano-Tqe-h026",
+        "sv-jhc-road5-route-20261019-pano-g7Fl-h114",
+        "sv-yusufguda-krishna-nagar-station-approach-202601-20261018"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Yusufguda route-preview endpoint returned no imagery",
+      "category": "provider_coverage_gap",
+      "roadId": null,
+      "position": { "lat": 17.435112, "lon": 78.427319 },
+      "placementStatus": "pending",
+      "notes": "The visible Google Maps route-preview step at the provisional Yusufguda core marker returned “No Street View imagery available here.” This is an exact route-preview endpoint gap, not proof of absent station access or absent nearby imagery. A previously recorded January 2026 station-area camera SW-AZpOmBQ67xElBv1aWbQ lies about 3–4 m away and shows Krishna Nagar Main Road, but it is not thereby connected to this route or a confirmed gate. No direct imagery retry was made at the unavailable endpoint."
+    }
+  ]
+}

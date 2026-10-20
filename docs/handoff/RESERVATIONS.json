@@ -1,10 +1,12 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-19T22:30:52+00:00",
+  "updatedAt": "2026-10-20T00:55:24+00:00",
   "integrator": {
-    "threadId": "01a102f7-6811-70bb-a5b0-4f535900f0f6",
+    "workerId": "second-computer-01",
+    "state": "AUTHORIZED_TAKEOVER_AWAITING_RECEIVING_CLAIM",
+    "outgoingState": "QUIESCENT",
     "coordinationBranch": "handoff/parallel-mapping-2026-10-19",
-    "role": "Single coordinator/integrator; may maintain and push only authorized coordination state on the handoff branch. External workers cannot edit shared reservations, generated runtime data or deployments."
+    "rule": "Receiving claim transfers the entire workload; outgoing never auto-resumes at quota reset. One importer/integrator. Existing pilot bounds and provider/cloud blocks preserved."
   },
   "assignments": [
     {
@@ -14,12 +16,7 @@
       "ownerBranch": "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3",
       "baseCommit": "7145ba2b954c2ec01c67e902a44e45c6fc5d91a4",
       "baseCommitMeaning": "exact frozen source snapshot predecessor; worker activation base is the Git-resolved activationCommit below",
-      "activationCommit": {
-        "resolution": "last_commit_changing_manifest",
-        "gitPath": "docs/handoff/RESERVATIONS.json",
-        "command": "git log -1 --format=%H -- docs/handoff/RESERVATIONS.json",
-        "rule": "Resolve the exact SHA from Git after fetching; record it and branch from that activation commit. The SHA cannot be embedded in its own commit contents."
-      },
+      "activationCommit": "50e23bd3b8162381623e8ea7bd617409f88bda54",
       "snapshotSurveyRevision": 102,
       "snapshotSurveySha256": "2500760b5de99102489055f7f52d1639ad64b486424fdbcbe54b5ece3d7f1e2a",
       "auditSurveyRevision": 106,
@@ -69,8 +66,8 @@
       "exclusions": [
         "Endpoint junctions n_57046252173 and n_4127550256 and any side-road branch",
         "Every other road ID, parallel/opposite carriageway, station connector and station gate",
-        "Primary Peddamma Gudi–Jubilee Hills Checkpost reservation and its junction alternatives",
-        "Miyapur–JNTU 35-road reservation; Madhapur–Peddamma and all prior sampled stretches outside this pilot"
+        "Primary Peddamma Gudi\u2013Jubilee Hills Checkpost reservation and its junction alternatives",
+        "Miyapur\u2013JNTU 35-road reservation; Madhapur\u2013Peddamma and all prior sampled stretches outside this pilot"
       ],
       "rangeAnchors": [
         {
@@ -100,12 +97,12 @@
       "newSourceIdPrefix": "sv-second-computer-01-khairatabad-lakdi-pilot-",
       "batchPathPattern": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-<sequence>-<YYYYMMDD>.json",
       "checkpointPathPattern": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-<UTC-or-sequence>.md",
-      "latestCheckpoint": "docs/handoff/SECOND_COMPUTER_ACTIVATION.md",
+      "latestCheckpoint": "docs/handoff/reviews/second-computer-01-primary-import-113.md",
       "lastPanorama": null,
       "nextPanorama": null,
-      "panoramaStatus": "not yet inspected; capture date/heading/pano ID unknown",
+      "panoramaStatus": "Batch001 reviewed and imported once at113; next evidence context remains pending; see TAKEOVER.json.",
       "startupConfirmation": {
-        "status": "REQUIRED_BEFORE_RESEARCH",
+        "status": "ORIGINAL_PILOT_STARTUP_COMPLETED_FULL_TAKEOVER_CLAIM_PENDING",
         "reportFields": [
           "workerId",
           "assignmentId",
@@ -120,13 +117,17 @@
         ],
         "rule": "Report the matching startup binding before research. This active lease needs no second conversational approval; a mismatch, changed lease or auth/provider block stops dependent work."
       },
-      "nextAction": "Fetch/read activation; create personal branch from its exact SHA; report startup binding; inspect only publicly available imagery aligned to the reserved interior. If imagery cannot be aligned to this edge, stop and checkpoint; do not expand."
+      "nextAction": "Claim full incoming workload using TAKEOVER.json, preserve worker branch, then continue batch002 only within unchanged pilot lease until a recorded coordinator reassignment.",
+      "activationCommitMeaning": "Original exact pilot activation; final handover does not reactivate/expand the lease.",
+      "batch001ImportedRevision": 113
     },
     {
       "assignmentId": "peddamma-jubilee-checkpost",
-      "status": "ACTIVE",
+      "status": "FORMER_LOCAL_OWNER_INACTIVE_HANDOVER",
       "workerId": "01a155cd-daee-76ce-a294-b890d8aaa02b",
-      "scope": "Entire Peddamma Gudi–Jubilee Hills Checkpost pair, both directions/sides, junction alternatives and station connectors; exact route unresolved; external pilot does not overlap."
+      "scope": "Prior pair gaps preserved; no claim of completion. Incoming coordinator alone plans next work.",
+      "formerOwnerId": "01a155cd-daee-76ce-a294-b890d8aaa02b",
+      "nextOwner": "second-computer-01 after receiving claim"
     },
     {
       "assignmentId": "miyapur-jntu",
@@ -180,5 +181,6 @@
       "status": "QUICK_PASS_SAVED_GAPS_OPEN",
       "scope": "No external reassignment; retain prior evidence and gaps."
     }
-  ]
+  ],
+  "handover": "docs/handoff/TAKEOVER.json"
 }

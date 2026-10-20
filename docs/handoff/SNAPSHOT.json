@@ -1,20 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-19T21:54:31+00:00",
+  "updatedAt": "2026-10-20T00:55:24+00:00",
   "baseCommit": "440d5b40e3b8751ea31a51ab69d41aa8e1289a1f",
   "ownerBranch": "claude/adoring-dijkstra-ireick",
   "handoffBranch": "handoff/parallel-mapping-2026-10-19",
-  "surveyRevision": 102,
-  "sources": 708,
-  "observations": 551,
+  "surveyRevision": 113,
+  "sources": 808,
+  "observations": 583,
   "provisionalStorefronts": 169,
   "files": {
-    "game/public/research/street-survey.json": "2500760b5de99102489055f7f52d1639ad64b486424fdbcbe54b5ece3d7f1e2a",
+    "game/public/research/street-survey.json": "17741d5b1fe3df3845944c2632da2628a5e22f2d8a54bee7e58272a4e5c3f66a",
     "game/public/world/hyd-metro/v2/manifest.json": "b07636419815d2428d110b6e912144f93679d1b928ce53cd5d1464db62fe1089",
     "game/public/world/hyd-metro/v2/core.json": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
     "game/package-lock.json": "dc36354e007ddbe185b883df2d2723348aa4e0387de975138c016c18b43fc9f6",
     "game/data/archives/source-accuracy.json.gz": "4e0e9f32c651de10e6ce40f6a4eec96986b4e8d7b0fcfd77de4610d512d490fd"
   },
   "archiveManifest": "game/config/runtime-data-archives.json",
-  "restoreCommand": "cd game && npm run setup:data"
+  "restoreCommand": "cd game && npm run setup:data",
+  "preparedSnapshotBaseCommit": "7145ba2b954c2ec01c67e902a44e45c6fc5d91a4",
+  "coordinationPredecessor": "75d56fabded379ffc623b792de9b156d7075007b",
+  "handover": "docs/handoff/TAKEOVER.json",
+  "transferDelta": "docs/handoff/TRANSFER_DELTA.json"
 }

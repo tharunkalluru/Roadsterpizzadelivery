@@ -1,0 +1,2544 @@
+{
+  "type": "FeatureCollection",
+  "name": "Madhapur-Peddamma provisional ground corridor and shop anchors revision 87",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "provisional_ground_road_corridor",
+        "pair": "Madhapur → Peddamma Gudi",
+        "status": "provisional",
+        "confidence": "medium for connected core-road chain; low at station connectors",
+        "roadIds": [
+          "r_56672988322_0",
+          "r_150567764_0",
+          "r_27507103133_0",
+          "r_16308288432_0",
+          "r_6188833340_0",
+          "r_45946481775_0",
+          "r_27041705642_0",
+          "r_22337127219_0",
+          "r_50590156871_0",
+          "r_14800565705_0"
+        ],
+        "centerlineLengthM": 1175.28,
+        "startRoadId": "r_56672988322_0",
+        "startAlongRoadM": 206.6,
+        "startMarkerOffsetM": 10.31,
+        "endRoadId": "r_14800565705_0",
+        "endAlongRoadM": 81.7,
+        "endMarkerOffsetM": 10.45,
+        "cameraCount": 106,
+        "jan2025Cameras": 105,
+        "olderComparisonCameras": 1,
+        "minCameraOffsetM": 0.03,
+        "maxCameraOffsetM": 9.1,
+        "note": "Clipped existing core road-edge centerlines between station-marker projections. The centerline length is map geometry, not a surveyed driving distance. Core edge directions are provisional despite stored oneway flags. No endpoint connector, station gate, side inventory, or metric-verified survey range is asserted.",
+        "directionStatus": "provisional",
+        "storedOneWay": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.40051030200797,
+            17.43730622420192
+          ],
+          [
+            78.40084699183339,
+            17.43673600809982
+          ],
+          [
+            78.40125026994768,
+            17.43604726126524
+          ],
+          [
+            78.40135700044362,
+            17.43590856539162
+          ],
+          [
+            78.40146683685347,
+            17.43578658530733
+          ],
+          [
+            78.40155973191474,
+            17.435707162719112
+          ],
+          [
+            78.4018507744138,
+            17.435534928472528
+          ],
+          [
+            78.40196508244894,
+            17.435471886776803
+          ],
+          [
+            78.40220999734373,
+            17.435337066107806
+          ],
+          [
+            78.40254176541974,
+            17.43514262081788
+          ],
+          [
+            78.403074100239,
+            17.434760416553765
+          ],
+          [
+            78.4033847857479,
+            17.434561724549795
+          ],
+          [
+            78.40375608363722,
+            17.4343669178374
+          ],
+          [
+            78.4038848378863,
+            17.434319029359862
+          ],
+          [
+            78.4040055920541,
+            17.43429526583233
+          ],
+          [
+            78.40418121736754,
+            17.434278007909295
+          ],
+          [
+            78.40427274226344,
+            17.434263725227733
+          ],
+          [
+            78.40430733629572,
+            17.43425822002895
+          ],
+          [
+            78.40448032628825,
+            17.434184580200288
+          ],
+          [
+            78.40482956125665,
+            17.433978863529887
+          ],
+          [
+            78.40555949953038,
+            17.433582626003826
+          ],
+          [
+            78.40582706938034,
+            17.433424328030483
+          ],
+          [
+            78.40618848481633,
+            17.433223377136063
+          ],
+          [
+            78.40702378741905,
+            17.43261266351404
+          ],
+          [
+            78.40704875290977,
+            17.43258779174852
+          ],
+          [
+            78.40709032927145,
+            17.432521313984246
+          ],
+          [
+            78.40711706365508,
+            17.432463656962923
+          ],
+          [
+            78.40711310597341,
+            17.43233319358758
+          ],
+          [
+            78.40704741118843,
+            17.431817172653215
+          ],
+          [
+            78.4070493876791,
+            17.43173982824421
+          ],
+          [
+            78.40707432910892,
+            17.431669531573412
+          ],
+          [
+            78.4071459533659,
+            17.43158053128969
+          ],
+          [
+            78.40718953027914,
+            17.431542130152042
+          ],
+          [
+            78.40778232128424,
+            17.431133700681524
+          ],
+          [
+            78.40842713244973,
+            17.43073160129782
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "station_marker",
+        "stationId": "st_madhapur",
+        "name": "Madhapur",
+        "status": "provisional",
+        "nearestRoadProjectionId": "r_56672988322_0",
+        "offsetToCorridorM": 10.31,
+        "endpoint": "start",
+        "note": "Station marker is not a verified station gate or pedestrian connection."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.400426,
+          17.43726
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "station_marker_projection",
+        "stationId": "st_madhapur",
+        "roadId": "r_56672988322_0",
+        "alongRoadM": 206.6,
+        "unconnectedGapM": 10.31,
+        "endpoint": "start"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.40051030200797,
+          17.43730622420192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "station_marker",
+        "stationId": "st_peddamma_gudi",
+        "name": "Peddamma Gudi",
+        "status": "provisional",
+        "nearestRoadProjectionId": "r_14800565705_0",
+        "offsetToCorridorM": 10.45,
+        "endpoint": "end",
+        "note": "Station marker is not a verified station gate or pedestrian connection."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.408374,
+          17.430652
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "station_marker_projection",
+        "stationId": "st_peddamma_gudi",
+        "roadId": "r_14800565705_0",
+        "alongRoadM": 81.7,
+        "unconnectedGapM": 10.45,
+        "endpoint": "end"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.40842713244973,
+          17.43073160129782
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-01",
+        "panoId": "MgOAS7_nUvhj1jXb9P6eQA",
+        "captureDate": "2025-01",
+        "headingDeg": 147,
+        "matchedRoadId": "r_56672988322_0",
+        "offsetToRoadM": 1.15,
+        "routeMeasureM": 184.64
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4004178,
+          17.437484
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-02",
+        "panoId": "69O9vFWHk15v1uhAzuB3EQ",
+        "captureDate": "2025-01",
+        "headingDeg": 147,
+        "matchedRoadId": "r_56672988322_0",
+        "offsetToRoadM": 0.88,
+        "routeMeasureM": 195.48
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4004659,
+          17.4373975
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-03",
+        "panoId": "QNGmBzY5MLlS08jMZlfo5A",
+        "captureDate": "2025-01",
+        "headingDeg": 147,
+        "matchedRoadId": "r_56672988322_0",
+        "offsetToRoadM": 1.11,
+        "routeMeasureM": 214.93
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4005581,
+          17.4372457
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-04",
+        "panoId": "4oK4WhAanyly_BEtu_3t0g",
+        "captureDate": "2025-01",
+        "headingDeg": 147,
+        "matchedRoadId": "r_56672988322_0",
+        "offsetToRoadM": 1.42,
+        "routeMeasureM": 235.04
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4006539,
+          17.437089
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-05",
+        "panoId": "yBdtc7-tx2TuOVDKZ4GBjQ",
+        "captureDate": "2025-01",
+        "headingDeg": 147,
+        "matchedRoadId": "r_56672988322_0",
+        "offsetToRoadM": 1.83,
+        "routeMeasureM": 254.72
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4007486,
+          17.4369361
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-06",
+        "panoId": "I5U_ccIBPVLVLSImoZrVuA",
+        "captureDate": "2025-01",
+        "headingDeg": 147,
+        "matchedRoadId": "r_56672988322_0",
+        "offsetToRoadM": 2.16,
+        "routeMeasureM": 265.16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4007998,
+          17.4368555
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-07",
+        "panoId": "WvZGI66MJ2INDlY9J033LQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 2.96,
+        "routeMeasureM": 293.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4009361,
+          17.4366384
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-08",
+        "panoId": "FVDSGv61uZ_PhX8TH3fBTQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 3.07,
+        "routeMeasureM": 303.14
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4009828,
+          17.4365606
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-09",
+        "panoId": "Pg8Ro2aye7aHmcQ-dqQWKQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 2.94,
+        "routeMeasureM": 313.43
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4010292,
+          17.436479
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-10",
+        "panoId": "sfqTZ7IOLsEmAXDfvDa2Xw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 3.87,
+        "routeMeasureM": 335.76
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4011399,
+          17.4363072
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-11",
+        "panoId": "T9isJgc81a3LMdJZBcfcrg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 4.52,
+        "routeMeasureM": 347.74
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4012004,
+          17.4362157
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-12",
+        "panoId": "q4dvU6qjv3Xp3QSeRGkCCg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 4.99,
+        "routeMeasureM": 357.86
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.401251,
+          17.4361381
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-13",
+        "panoId": "zIKNxE4US6sAsDdjIIh5qA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 4.6,
+        "routeMeasureM": 378.83
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4013535,
+          17.435983
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-14",
+        "panoId": "Dd-po9HEhjSD-6wzrVj8uw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 4.14,
+        "routeMeasureM": 389.13
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4014078,
+          17.4359094
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-chain-20261019-15",
+        "panoId": "6AvrSar6QpQkCNLQ0vSWiA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 3.39,
+        "routeMeasureM": 405.64
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.401503,
+          17.4357967
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-016",
+        "panoId": "4Kss3nFnosZnbHgCx72_vw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 2.22,
+        "routeMeasureM": 419.22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4015906,
+          17.4357125
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-017",
+        "panoId": "yBqWio8iYUh2qDWDOSWDUg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 0.9,
+        "routeMeasureM": 428.82
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.401661,
+          17.4356568
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-018",
+        "panoId": "dbyDkNIDKEY9DR2ifNce6g",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 0.23,
+        "routeMeasureM": 438.58
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4017359,
+          17.4356053
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-019",
+        "panoId": "mHJvQI7PazdG1AFQ7iSW8w",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_150567764_0",
+        "offsetToRoadM": 0.03,
+        "routeMeasureM": 448.56
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4018146,
+          17.435556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-020",
+        "panoId": "NiKbEolaP1aqfYFJrhiCMg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27507103133_0",
+        "offsetToRoadM": 0.12,
+        "routeMeasureM": 457.91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4018909,
+          17.4355141
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-021",
+        "panoId": "jM2M3rF87LtHto8VEmw13g",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 0.76,
+        "routeMeasureM": 470.96
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4020004,
+          17.4354604
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-022",
+        "panoId": "_s-nRKfg0x5uIG8DRtfuzg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 0.68,
+        "routeMeasureM": 481.77
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4020883,
+          17.4354111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-023",
+        "panoId": "7JUn2nNJGgbmSCAq2991LA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 5.73,
+        "routeMeasureM": 491.95
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4021951,
+          17.435405
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-024",
+        "panoId": "qiUko0halh7SciqpX7hVJQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 6.98,
+        "routeMeasureM": 504.98
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4023078,
+          17.4353536
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-025",
+        "panoId": "xwXnDhgTDL7PD5CA-8cPLA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 6.81,
+        "routeMeasureM": 516.16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4023968,
+          17.4352997
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-026",
+        "panoId": "nxAv-ySKUsEgCHUQxJUroA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 5.82,
+        "routeMeasureM": 526.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4024782,
+          17.4352415
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-027",
+        "panoId": "noaKiUmwNZLC7O0fSZ_QMg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 4.37,
+        "routeMeasureM": 537.39
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4025554,
+          17.4351809
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-028",
+        "panoId": "nMZQesIGyEgrHJx6TAKn_g",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 3.82,
+        "routeMeasureM": 547.89
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4026351,
+          17.4351187
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-029",
+        "panoId": "87Pp3d2yAvXihE7r9yDXJA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 3.87,
+        "routeMeasureM": 557.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4027056,
+          17.4350687
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-030",
+        "panoId": "ixKS6wGS9O31RHVQFJ8J2A",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 4.2,
+        "routeMeasureM": 569.15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4027975,
+          17.4350064
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-031",
+        "panoId": "q-cUCpfwYXoxxAblkX60Sg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 4.48,
+        "routeMeasureM": 577.62
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4028629,
+          17.4349626
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-032",
+        "panoId": "oNnIejx91z-mulwlfcdGuQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 4.74,
+        "routeMeasureM": 585.48
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4029236,
+          17.434922
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-033",
+        "panoId": "d6PFwAwCwlkCVtcQKCl6AA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 5.13,
+        "routeMeasureM": 595.19
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.402999,
+          17.4348722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-034",
+        "panoId": "HuWaydd6VtTkB47KKp-I5Q",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 5.4,
+        "routeMeasureM": 605.09
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4030751,
+          17.4348206
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-035",
+        "panoId": "p38Gl1tsVrnnuAbJwXe1tA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 5.08,
+        "routeMeasureM": 616.97
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4031631,
+          17.4347587
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-036",
+        "panoId": "51XcY9goefF_Yf_idRoe9Q",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 4.58,
+        "routeMeasureM": 626.99
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.403239,
+          17.4347047
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-037",
+        "panoId": "kjJeqb9FY97RUrk3hks2rQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 4.16,
+        "routeMeasureM": 637.16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4033165,
+          17.4346506
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-038",
+        "panoId": "cIaCuctp_-3RuXvYs98v4g",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 3.79,
+        "routeMeasureM": 647.46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4033952,
+          17.4345962
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-039",
+        "panoId": "OpcTLAILnuw_IfYVZ93dyg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 2.83,
+        "routeMeasureM": 657.33
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4034692,
+          17.4345466
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-040",
+        "panoId": "UCgpX_dDGiv9hlUOs5FlkA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 1.95,
+        "routeMeasureM": 666.38
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.40354,
+          17.4345004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-041",
+        "panoId": "yhSUMUbcIdmtmBUnumFCAA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 1.08,
+        "routeMeasureM": 677.53
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4036281,
+          17.4344452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-042",
+        "panoId": "HUQcvPCVrTh0zEc5OV_9Sg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 0.65,
+        "routeMeasureM": 689.04
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4037213,
+          17.4343919
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-043",
+        "panoId": "bHb07lRI3IOAf4s4sRpl_g",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 1.21,
+        "routeMeasureM": 700.41
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4038198,
+          17.4343549
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-044",
+        "panoId": "ljZrfxNSMQWpuBCuTX2evg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 3.12,
+        "routeMeasureM": 710.25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4039089,
+          17.4343431
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-045",
+        "panoId": "G865HXU6SJ9VLdzbyvHShg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 4.57,
+        "routeMeasureM": 722.91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4040243,
+          17.4343349
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-046",
+        "panoId": "alrUWuzy923u0b7ibPIIbg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 4.65,
+        "routeMeasureM": 732.5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4041142,
+          17.4343268
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-047",
+        "panoId": "P-xFRXJiwDMGCpSqPcQw5g",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 4.23,
+        "routeMeasureM": 740.91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4041948,
+          17.4343146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-048",
+        "panoId": "8J3wBOZnUBjPJ6AhZHYl9A",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_16308288432_0",
+        "offsetToRoadM": 3.68,
+        "routeMeasureM": 749.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4042775,
+          17.4342967
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-049",
+        "panoId": "WCTuYbPBZtmZwheoZ95E7w",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_6188833340_0",
+        "offsetToRoadM": 3.68,
+        "routeMeasureM": 758.64
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4043637,
+          17.4342706
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-050",
+        "panoId": "KYqX81LwJ5dQMImtaYRATQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_6188833340_0",
+        "offsetToRoadM": 4.11,
+        "routeMeasureM": 766.99
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4044372,
+          17.4342436
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-051",
+        "panoId": "PdNH5ucUECauf9pfufYtrA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_6188833340_0",
+        "offsetToRoadM": 4.45,
+        "routeMeasureM": 775.69
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4045172,
+          17.43421
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-052",
+        "panoId": "Hns3-IhTP1baJ8cW6nWQWg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_6188833340_0",
+        "offsetToRoadM": 5.29,
+        "routeMeasureM": 785.98
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4046039,
+          17.4341679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-053",
+        "panoId": "mTJ5k8U4dsS7P6YXHHosSQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_6188833340_0",
+        "offsetToRoadM": 5.77,
+        "routeMeasureM": 796.37
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4046896,
+          17.4341225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-054",
+        "panoId": "brUsoCCT_XvPU_JyQB4j-w",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_6188833340_0",
+        "offsetToRoadM": 6.29,
+        "routeMeasureM": 806.78
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4047757,
+          17.4340773
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-055",
+        "panoId": "8pQcYHVnJ078ZVszAosxIw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_45946481775_0",
+        "offsetToRoadM": 9.1,
+        "routeMeasureM": 826.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4049499,
+          17.434008
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-056",
+        "panoId": "ZEmHepcFABLWyfglT-tA8w",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_45946481775_0",
+        "offsetToRoadM": 7.33,
+        "routeMeasureM": 836.98
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4050243,
+          17.4339492
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-057",
+        "panoId": "_bjRQzBObL-5wI75A41A1g",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_45946481775_0",
+        "offsetToRoadM": 5.23,
+        "routeMeasureM": 847.17
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4050981,
+          17.4338874
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-058",
+        "panoId": "Yv__g82Q7r_WuH6-31ZC1w",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_45946481775_0",
+        "offsetToRoadM": 5.05,
+        "routeMeasureM": 857.83
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4051846,
+          17.4338386
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-059",
+        "panoId": "G6k6VgkkiOUVRmvUBp_qXA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_45946481775_0",
+        "offsetToRoadM": 4.94,
+        "routeMeasureM": 868.06
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4052679,
+          17.4337922
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-060",
+        "panoId": "30Qtn7J5svEaeur_u1YyKA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_45946481775_0",
+        "offsetToRoadM": 4.73,
+        "routeMeasureM": 879.85
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4053635,
+          17.4337381
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-061",
+        "panoId": "W-e4ElPYLAAXc8VImjbY_w",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_45946481775_0",
+        "offsetToRoadM": 4.62,
+        "routeMeasureM": 890.06
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4054466,
+          17.4336919
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-062",
+        "panoId": "gLvGEgYDNxwJRHmRqKxRvg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_45946481775_0",
+        "offsetToRoadM": 4.41,
+        "routeMeasureM": 900.93
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4055347,
+          17.4336419
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-063",
+        "panoId": "USyjQVjLrs64jKkWnkMUMw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 3.98,
+        "routeMeasureM": 911.19
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4056171,
+          17.4335908
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-064",
+        "panoId": "xixkJUtTKiU6C6nOmBmJ2A",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 3.76,
+        "routeMeasureM": 922.14
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4057038,
+          17.4335372
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-065",
+        "panoId": "d2wQBg1TmKkQscuHhlhyiA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 3.7,
+        "routeMeasureM": 932.18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4057839,
+          17.4334891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-066",
+        "panoId": "Y3QkC8Pr-emI6nJxjRlRvw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 4.06,
+        "routeMeasureM": 942.84
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4058706,
+          17.4334425
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-067",
+        "panoId": "p0eRkr2D-mkOkU4udiehlQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 3.94,
+        "routeMeasureM": 953.19
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4059543,
+          17.4333947
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-068",
+        "panoId": "qpWJsiXLwd-Lr3EiZ-b2Yg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 3.66,
+        "routeMeasureM": 963.65
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4060382,
+          17.4333452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-069",
+        "panoId": "MKKYwrdasV-MEIG3mjCmWw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 3.43,
+        "routeMeasureM": 974.21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4061231,
+          17.4332955
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-070",
+        "panoId": "cqF9TpC0J0mtzJBWGRXq0A",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 3.37,
+        "routeMeasureM": 985.94
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4062206,
+          17.4332382
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-071",
+        "panoId": "0lrdTpLXtW21y_Kl1DLPDQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 4.44,
+        "routeMeasureM": 995.91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4063013,
+          17.4331913
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-072",
+        "panoId": "kHG6O8roJjKWjkewadwD_w",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 5.64,
+        "routeMeasureM": 1006.8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4063897,
+          17.4331403
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-073",
+        "panoId": "9MLyjxS9JkZ2dTo9fcb_aQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 6.51,
+        "routeMeasureM": 1016.39
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4064665,
+          17.4330941
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-074",
+        "panoId": "rFuHFf3aF1DYl2S_kYyAqQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 7.15,
+        "routeMeasureM": 1027.93
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4065565,
+          17.4330355
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-075",
+        "panoId": "ph4y6bFxSobyeeDgzDabTA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 7.37,
+        "routeMeasureM": 1038.17
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4066345,
+          17.432981
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-076",
+        "panoId": "_U81bLSOHYOwChkBrnOpDQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 7.15,
+        "routeMeasureM": 1047.45
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4067027,
+          17.4329286
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-077",
+        "panoId": "im3Hc3tbZ7o5NHZLgadSmA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 6.63,
+        "routeMeasureM": 1055.86
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4067627,
+          17.4328789
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-078",
+        "panoId": "Y2mHfm-SP5iHPuxRHXKHHg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 6.21,
+        "routeMeasureM": 1067.43
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4068469,
+          17.4328125
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-079",
+        "panoId": "zUJv_3Gr9UzVpBrVaEYuQA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 6.06,
+        "routeMeasureM": 1077.09
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4069184,
+          17.4327585
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-080",
+        "panoId": "2akpo3eQ1SMG_CeET_yuBQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 6.31,
+        "routeMeasureM": 1086.66
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4069915,
+          17.4327079
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-081",
+        "panoId": "8-c1jNMlbgPviiTYF3HmdQ",
+        "captureDate": "2021-12",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_27041705642_0",
+        "offsetToRoadM": 4.77,
+        "routeMeasureM": 1099.6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.407084,
+          17.4326145
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-082",
+        "panoId": "mBxawt8A2h6ZRSu5fov4NQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_22337127219_0",
+        "offsetToRoadM": 5.2,
+        "routeMeasureM": 1113.86
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4071568,
+          17.4324936
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-083",
+        "panoId": "QjV8oA9VgF0S55btsoYTaQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.66,
+        "routeMeasureM": 1123.57
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4071398,
+          17.4323871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-084",
+        "panoId": "05n847EmUKk5_eFWXjkKhw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.22,
+        "routeMeasureM": 1133.05
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4071299,
+          17.4323
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-085",
+        "panoId": "yGNSONSj7OW22rZToXL0lA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.13,
+        "routeMeasureM": 1142.91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4071178,
+          17.4322116
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-086",
+        "panoId": "3Qa3Pjr4spw8xQVeae7pRw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.01,
+        "routeMeasureM": 1153.19
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.407105,
+          17.4321196
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-087",
+        "panoId": "QC01fA7OL2u_Ge6R1VmEWw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.26,
+        "routeMeasureM": 1163.88
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4070951,
+          17.4320234
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-088",
+        "panoId": "JWaN1cdt8s-uYPfLjv14Mw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 3.1,
+        "routeMeasureM": 1173.84
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4070916,
+          17.4319332
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-089",
+        "panoId": "f3OCwLg9p9cNIQ6S5r16gQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 5.18,
+        "routeMeasureM": 1184.35
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.407099,
+          17.4318366
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-090",
+        "panoId": "b9WMqNjSVAI6AGBslr4NIw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 6.93,
+        "routeMeasureM": 1197.39
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4071162,
+          17.4317457
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-091",
+        "panoId": "S-SCHixzT1274ee1XuNyfA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 5.06,
+        "routeMeasureM": 1210.14
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4071477,
+          17.4316531
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-092",
+        "panoId": "8xN6rfuYavntafW4kMzNuA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.69,
+        "routeMeasureM": 1220.95
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4071948,
+          17.4315705
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-093",
+        "panoId": "Gdy3mM6gjmTlhM13S395uQ",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 0.08,
+        "routeMeasureM": 1231.21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4072553,
+          17.4314977
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-094",
+        "panoId": "Cji3DLXVIOZmyTsOkcOvIA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 1.17,
+        "routeMeasureM": 1240.89
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4073225,
+          17.4314375
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-095",
+        "panoId": "eIWd8nMj_hsekgWQYUAcIw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.09,
+        "routeMeasureM": 1251.82
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.407401,
+          17.4313732
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-096",
+        "panoId": "o5nJGSlobQlK5SX4fKzclw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.64,
+        "routeMeasureM": 1262.69
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4074811,
+          17.4313119
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-097",
+        "panoId": "vOg-QKE1P4Gtkxfis-fekw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.91,
+        "routeMeasureM": 1275.26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4075757,
+          17.4312437
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-098",
+        "panoId": "-RPCEXoWZKbHw9dCrXxCBA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.92,
+        "routeMeasureM": 1284.84
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4076489,
+          17.4311931
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-099",
+        "panoId": "sM0KRA-XPwcQ7XvTmuEtrw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_50590156871_0",
+        "offsetToRoadM": 2.84,
+        "routeMeasureM": 1294.76
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4077252,
+          17.4311415
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-100",
+        "panoId": "T9ruiFJ4fKMbopS2VF7oEg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_14800565705_0",
+        "offsetToRoadM": 2.85,
+        "routeMeasureM": 1306.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4078143,
+          17.431083
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-101",
+        "panoId": "yr7lgU4O5gsNyXQmKSBMNw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_14800565705_0",
+        "offsetToRoadM": 3.04,
+        "routeMeasureM": 1317.46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.407903,
+          17.4310257
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-102",
+        "panoId": "C_o7SNbmVZNkNZeHSUKgJw",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_14800565705_0",
+        "offsetToRoadM": 3.45,
+        "routeMeasureM": 1327.58
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4079808,
+          17.4309728
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-103",
+        "panoId": "RdMFbMjVqk1Hywq2hmI15w",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_14800565705_0",
+        "offsetToRoadM": 3.37,
+        "routeMeasureM": 1337.5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4080595,
+          17.4309245
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-104",
+        "panoId": "hnqQUbVV88RDk8v8Hy7YrA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_14800565705_0",
+        "offsetToRoadM": 3.36,
+        "routeMeasureM": 1347.64
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4081396,
+          17.4308747
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-105",
+        "panoId": "U66cZrZoKeT_dQZ9Z5g_lg",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_14800565705_0",
+        "offsetToRoadM": 3.33,
+        "routeMeasureM": 1358.75
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4082274,
+          17.4308203
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "streetview_camera",
+        "sourceId": "sv-mp-road36-middle-chain-20261019-106",
+        "panoId": "xuFpgnReEew3d9c9wM1WEA",
+        "captureDate": "2025-01",
+        "headingDeg": 140.38,
+        "matchedRoadId": "r_14800565705_0",
+        "offsetToRoadM": 3.42,
+        "routeMeasureM": 1368.83
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4083065,
+          17.43077
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "provisional_storefront_facade",
+        "storefrontId": "survey-mp-peddamma-go-colors-20261019",
+        "name": "Go Colors",
+        "status": "provisional",
+        "confidence": "medium-high for sign identity/side and medium for footprint association; low for exact unit geometry",
+        "roadId": "r_6188833340_0",
+        "side": "left",
+        "buildingId": "b_5486d00c2a",
+        "frontageWidthM": 11.106,
+        "sourceIds": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "replaceStorefrontIds": [
+          "sf_15d7f1cc91",
+          "sf_66867b8bcd"
+        ],
+        "note": "PROVISIONAL placement; confidence medium-high for sign identity/side and medium for footprint association; low for exact unit geometry. Saved January 2025 Street View shows the named sign on the image-left frontage. Camera heading (140.38°), local Road No. 36 direction, and the game road/building side support the LEFT side of r_6188833340_0. The facade endpoints reuse approximate footprint-derived game geometry as a rendering anchor; frontage width, unit bounds, door center, current tenancy and exact neighbor order are not surveyed. The stored lat/lon is the panorama camera, not the shop entrance. Two same-anchor Go Colors / Go Fashion India Ltd map records are collapsed to one approximately 11.1 m photographed Go Colors frontage; they remain preserved as displaced base IDs. No road-side review or complete frontage inventory is claimed."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.40448390279518,
+            17.43429698258907
+          ],
+          [
+            78.40458188026102,
+            17.434262014964908
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "provisional_storefront_anchor",
+        "storefrontId": "survey-mp-peddamma-go-colors-20261019",
+        "name": "Go Colors",
+        "status": "provisional",
+        "confidence": "low for entrance center",
+        "note": "Facade midpoint used as a rendering anchor; actual doorway is not located."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.40453289152809,
+          17.43427949877699
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "provisional_storefront_facade",
+        "storefrontId": "survey-mp-peddamma-brooks-20261019",
+        "name": "Brooks Shoes",
+        "status": "provisional",
+        "confidence": "medium-high for sign identity/side and medium for footprint association; low for exact unit geometry",
+        "roadId": "r_6188833340_0",
+        "side": "left",
+        "buildingId": "b_5486d00c2a",
+        "frontageWidthM": 5.559,
+        "sourceIds": [
+          "sv-mp-road36-middle-chain-20261019-049",
+          "sv-mp-road36-middle-chain-20261019-050"
+        ],
+        "replaceStorefrontIds": [
+          "sf_968df96606",
+          "sf_cdd4120b5c"
+        ],
+        "note": "PROVISIONAL placement; confidence medium-high for sign identity/side and medium for footprint association; low for exact unit geometry. Saved January 2025 Street View shows the named sign on the image-left frontage. Camera heading (140.38°), local Road No. 36 direction, and the game road/building side support the LEFT side of r_6188833340_0. The facade endpoints reuse approximate footprint-derived game geometry as a rendering anchor; frontage width, unit bounds, door center, current tenancy and exact neighbor order are not surveyed. The stored lat/lon is the panorama camera, not the shop entrance. The photographed BROOKS frontage replaces the existing Brooks listing and a coincident Provogue map entry sharing the same stored facade span; the original base records are retained. This does not assert current operation or rule out a later tenancy change. No road-side review or complete frontage inventory is claimed."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.40458188026102,
+            17.434262014964908
+          ],
+          [
+            78.40463091605325,
+            17.434244485975018
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "provisional_storefront_anchor",
+        "storefrontId": "survey-mp-peddamma-brooks-20261019",
+        "name": "Brooks Shoes",
+        "status": "provisional",
+        "confidence": "low for entrance center",
+        "note": "Facade midpoint used as a rendering anchor; actual doorway is not located."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.40460639815714,
+          17.434253250469965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "provisional_storefront_facade",
+        "storefrontId": "survey-mp-peddamma-canon-20261019",
+        "name": "Canon Image Square",
+        "status": "provisional",
+        "confidence": "high for visible CANON sign and medium-low for exact building/edge association; low for exact unit geometry",
+        "roadId": "r_6188833340_0",
+        "side": "left",
+        "buildingId": "b_46e689039c",
+        "frontageWidthM": 6,
+        "sourceIds": [
+          "sv-mp-road36-middle-chain-20261019-051",
+          "sv-mp-road36-middle-chain-20261019-052"
+        ],
+        "replaceStorefrontIds": [
+          "sf_d7fd98cd94"
+        ],
+        "note": "PROVISIONAL placement; confidence high for visible CANON sign and medium-low for exact building/edge association; low for exact unit geometry. Saved January 2025 Street View shows the named sign on the image-left frontage. Camera heading (140.38°), local Road No. 36 direction, and the game road/building side support the LEFT side of r_6188833340_0. The facade endpoints reuse approximate footprint-derived game geometry as a rendering anchor; frontage width, unit bounds, door center, current tenancy and exact neighbor order are not surveyed. The stored lat/lon is the panorama camera, not the shop entrance. The sign is visible farther along the same image-left retail row. The footprint-derived Canon anchor lies on the LEFT side of the chain road in the existing world; its building is also associated with nearby Road number 31, so this edge attachment remains lower confidence. No road-side review or complete frontage inventory is claimed."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.40466319873413,
+            17.434228493030634
+          ],
+          [
+            78.40471637574488,
+            17.4342102411958
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kind": "provisional_storefront_anchor",
+        "storefrontId": "survey-mp-peddamma-canon-20261019",
+        "name": "Canon Image Square",
+        "status": "provisional",
+        "confidence": "low for entrance center",
+        "note": "Facade midpoint used as a rendering anchor; actual doorway is not located."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4046897872395,
+          17.434219367113215
+        ]
+      }
+    }
+  ]
+}

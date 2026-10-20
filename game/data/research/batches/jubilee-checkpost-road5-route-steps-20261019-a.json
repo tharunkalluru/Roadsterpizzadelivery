@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "id": "jubilee-checkpost-road5-route-steps-20261019-a",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "First actual Chrome pass for the adjacent Jubilee Hills Checkpost → Road No 5 Jubilee Hills pair. Starting from saved Checkpost-area pano v3rCgDlT4_ZfJGEMyqGuWw, the existing Chrome tab followed January 2025 connected images and Google Maps route-preview Street View steps through Checkpost Road/Mathur Road/Road No. 1, Road Number 5, Road Number 2 and the Road No. 5 destination area. Google Maps directions are navigation context only; their route distance and suggested turns are not measured ground-road geometry. The exact provisional Road No. 5 station marker at 17.4300073, 78.4231908 returned “No Street View imagery available here.” The adjacent local branch toward Road Number 17 shows a DHRUVA College of Fashion Technology sign and a wall/parked-car endpoint, but its relation to the station route is unproven. Fasciae along the route are not legible enough to support named storefront identities or placements. No entrances, floors, unit bounds, canonical sides, metric distances, complete frontage order, route coverage or station gate are claimed. See checkpoint-revision108-route-pass-a-20261019.md for the synchronized endpoint and remaining gaps.",
+  "sources": [
+    {
+      "id": "sv-jhc-road5-route-20261019-pano-JKKJr-h321",
+      "kind": "street_view",
+      "title": "Checkpost route preview — Road No. 36 panorama JKKJr, January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=JKKJr-012CmU9M0UlZxPHw&heading=321.1227&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4289476, "lon": 78.4129673, "headingDeg": 321.1227, "panoId": "JKKJr-012CmU9M0UlZxPHw" },
+      "notes": "Google Maps route-preview Street View step at the Checkpost approach. The January 2025 frame shows the Road No. 36/Metro environment and traffic. It is route-context evidence only; no station gate or entrance is visible.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-route-20261019-pano-5sv-h314",
+      "kind": "street_view",
+      "title": "Checkpost route preview — Road No. 36 panorama 5sv, January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=5sv-Nuaoc1F5dp__IIVX5A&heading=314.4198&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4288193, "lon": 78.4130932, "headingDeg": 314.4198, "panoId": "5sv-Nuaoc1F5dp__IIVX5A" },
+      "notes": "Next Google Maps route-preview Street View step from the Checkpost area. Elevated Metro structure, Road No. 36 and mixed traffic are visible; no reliable tenant name or exact frontage is resolved.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-route-20261019-pano-y8dPma-h133",
+      "kind": "street_view",
+      "title": "Checkpost route preview — Road No. 36 panorama y8-dPma, January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=y8-dPmaitlix7rTDHQyzoA&heading=133.255&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4267971, "lon": 78.4153298, "headingDeg": 133.255, "panoId": "y8-dPmaitlix7rTDHQyzoA" },
+      "notes": "Google Maps route-preview Street View step around the Checkpost/Mathur Road turn sequence. The elevated viaduct, road traffic, barriers and nearby commercial blocks are visible; text and route-side assignment are unresolved.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-route-20261019-pano-x57AX-h49",
+      "kind": "street_view",
+      "title": "Road Number 5 route approach — panorama x57AX, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=x57AX7T7jZUypbm80fauTQ&heading=48.5236&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4308354, "lon": 78.4195598, "headingDeg": 48.5236, "panoId": "x57AX7T7jZUypbm80fauTQ" },
+      "notes": "Google Maps route-preview Street View step on the candidate Road No. 1 approach. Tree cover, roadway and commercial frontage are visible; fascia text is too distant or obscured to identify tenants or assign exact fronts.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-route-20261019-pano-RoO-h70",
+      "kind": "street_view",
+      "title": "Road Number 5 approach — panorama RoO, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=RoO_ExTkgi147Gls7Vvbsg&heading=69.5873&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4305262, "lon": 78.420659, "headingDeg": 69.5873, "panoId": "RoO_ExTkgi147Gls7Vvbsg" },
+      "notes": "Route-preview view titled Road Number 5, approaching the mapped station area. Trees, traffic and several commercial facades are visible, but fascia wording and individual unit divisions are not defensible from this view.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-route-20261019-pano-g7Fl-h114",
+      "kind": "street_view",
+      "title": "Road Number 2 near Road No. 5 — panorama g7Fl, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=g7Fl11ZejwHLLmtEUlFKRw&heading=114.3037&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4302616, "lon": 78.4251374, "headingDeg": 114.3037, "panoId": "g7Fl11ZejwHLLmtEUlFKRw" },
+      "notes": "Route-preview panorama titled 5 Rd Number 2, showing a paved road, motorcycles and a row of commercial facades to image-right. Fascia text is not legible enough to identify businesses or establish exact frontage order.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-route-20261019-pano-Zthp-h211",
+      "kind": "street_view",
+      "title": "Krishna Nagar Main Road near Road No. 5 — panorama Zthp, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Zthp60eHW4zeTobWMZLLeA&heading=210.8864&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4296049, "lon": 78.4251397, "headingDeg": 210.8864, "panoId": "Zthp60eHW4zeTobWMZLLeA" },
+      "notes": "Route-preview panorama near the Road No. 5 destination area. A tree-lined local road, walls and mixed roadside frontage are visible; no station entrance or unique storefront identity is established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-checkpost-branch-20261019-pano-OhUl-h78",
+      "kind": "street_view",
+      "title": "Checkpost-area Road No. 36 branch — panorama OhUl, January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=OhUlOyQMNkFLjW3OREIUNQ&heading=78&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4280808, "lon": 78.4139928, "headingDeg": 78, "panoId": "OhUlOyQMNkFLjW3OREIUNQ" },
+      "notes": "Direct connected Street View step from Checkpost-area pano v3rCg. Elevated Metro, traffic, parked vehicles and a screened commercial block are visible; this branch was not established as the Road No. 5 route.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-checkpost-branch-20261019-pano-s1g-h78",
+      "kind": "street_view",
+      "title": "Checkpost-area Road No. 36 branch — panorama s1gPW, January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=s1gPWlgxKuMQtZw01qdRhQ&heading=78&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4280146, "lon": 78.4140611, "headingDeg": 78, "panoId": "s1gPWlgxKuMQtZw01qdRhQ" },
+      "notes": "Adjacent connected image with an under-Metro commercial block and partially screened frontage. The view does not support a named storefront or a Road No. 5 route assignment.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-checkpost-branch-20261019-pano-RQsr-h78",
+      "kind": "street_view",
+      "title": "Checkpost-area Road No. 36 branch — panorama RQsr, January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=RQsrBabmAKcRcJUqEdXdZw&heading=78&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4279537, "lon": 78.4141234, "headingDeg": 78, "panoId": "RQsrBabmAKcRcJUqEdXdZw" },
+      "notes": "Adjacent under-Metro roadway view with a large support column, traffic and partial commercial frontage; no tenant identity or exact side can be assigned.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-checkpost-branch-20261019-pano-ob5-h78",
+      "kind": "street_view",
+      "title": "Checkpost-area Road No. 36 branch — panorama o_b5, January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=o_b5kYtrL3ZpKaTmQQvpYA&heading=78&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.427891, "lon": 78.4141887, "headingDeg": 78, "panoId": "o_b5kYtrL3ZpKaTmQQvpYA" },
+      "notes": "A DHRUVA College of Fashion Technology sign is readable on a fenced frontage in the image-left view. This is an education frontage identity, not a retail storefront; its relationship to the Road No. 5 route and any exact entrance remain unverified.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-checkpost-branch-20261019-pano-FWmB-h78",
+      "kind": "street_view",
+      "title": "Checkpost-area Road Number 17 branch — panorama FWmB, January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=FWmBJcmz-6qtSRgfMx_1lQ&heading=78&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.427828, "lon": 78.4142541, "headingDeg": 78, "panoId": "FWmBJcmz-6qtSRgfMx_1lQ" },
+      "notes": "A visible connected branch reaches a local junction with cones, traffic, trees and walled commercial/property frontage. Its relation to the selected Road No. 5 route is unproven.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-jhc-road5-checkpost-branch-20261019-pano-QLr2-h57",
+      "kind": "street_view",
+      "title": "Checkpost-area Road Number 17 local edge — panorama QLr2, January 2025",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=QLr2LFW6ygpXiX4EY9LruQ&heading=57.394&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4287474, "lon": 78.4145901, "headingDeg": 57.394, "panoId": "QLr2LFW6ygpXiX4EY9LruQ" },
+      "notes": "The local edge shows stone wall, trees, parked vehicles and a paved area. A forward keyboard step did not change panorama; no onward connection toward Road No. 5 is visible from this branch.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-jhc-road5-route-start-context-20261019",
+      "sourceIds": [
+        "sv-jhc-road5-route-20261019-pano-JKKJr-h321",
+        "sv-jhc-road5-route-20261019-pano-5sv-h314",
+        "sv-jhc-road5-route-20261019-pano-y8dPma-h133"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "Checkpost-to-Mathur route context — Road No. 36 and Metro frontage",
+      "category": "first_pass_dated_streetscape_context_only",
+      "roadId": null,
+      "position": { "lat": 17.4288193, "lon": 78.4130932, "headingDeg": 314.4198 },
+      "placementStatus": "pending",
+      "notes": "The Google Maps directions preview supplies one candidate public-road approach: head toward Rd Number 63, then turn/U-turn toward Jubilee Hills Check Post Road/Mathur Road/Road No. 1. The route estimate is navigation context only. Connected January 2025 images show the elevated Metro, traffic, barriers and partly obscured commercial blocks; no exact frontage order, canonical side, entrance or metric route is established."
+    },
+    {
+      "id": "obs-jhc-road5-road1-commercial-context-20261019",
+      "sourceIds": [
+        "sv-jhc-road5-route-20261019-pano-x57AX-h49",
+        "sv-jhc-road5-route-20261019-pano-RoO-h70"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Road No. 1 / Road No. 5 approach — commercial frontage context",
+      "category": "first_pass_dated_streetscape_context_only",
+      "roadId": null,
+      "position": { "lat": 17.4305262, "lon": 78.420659, "headingDeg": 69.5873 },
+      "placementStatus": "pending",
+      "notes": "January 2026 imagery shows tree cover, traffic and commercial facades, including a route-view label Road Number 5. Signs are distant or blurred and the individual tenants, entrances, floors, unit edges, image-relative shop order and canonical side cannot be assigned. No storefront placement is added."
+    },
+    {
+      "id": "obs-jhc-road5-road2-commercial-context-20261019",
+      "sourceIds": [
+        "sv-jhc-road5-route-20261019-pano-g7Fl-h114",
+        "sv-jhc-road5-route-20261019-pano-Zthp-h211"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Road No. 2 / Krishna Nagar Main Road approach — frontage context",
+      "category": "first_pass_dated_streetscape_context_only",
+      "roadId": null,
+      "position": { "lat": 17.4302616, "lon": 78.4251374, "headingDeg": 114.3037 },
+      "placementStatus": "pending",
+      "notes": "The route-preview views show a row of commercial facades along image-right at Road Number 2 and a tree-lined local-road edge at Krishna Nagar Main Road. Fascias are not legible enough for identities. The camera sequence is an approximate route order only; no exact shop order, canonical road side, frontage bounds, entrances or station gate are established."
+    },
+    {
+      "id": "obs-jhc-road5-marker-imagery-gap-20261019",
+      "sourceIds": [
+        "sv-jhc-road5-route-20261019-pano-Zthp-h211"
+      ],
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-19",
+      "name": "Road No. 5 provisional station marker — no Street View imagery",
+      "category": "first_pass_dated_access_gap",
+      "roadId": null,
+      "position": { "lat": 17.4300073, "lon": 78.4231908 },
+      "placementStatus": "pending",
+      "notes": "In the same Google Maps route-preview sequence, the next step at the provisional Road No. 5 station marker returned the visible message “No Street View imagery available here.” This is a provider-coverage gap at the marker, not evidence that no station access exists. Nearby pano Zthp is context only; it is not an entrance, gate, exact connector or boundary."
+    },
+    {
+      "id": "obs-jhc-road5-road17-branch-context-20261019",
+      "sourceIds": [
+        "sv-jhc-road5-checkpost-branch-20261019-pano-OhUl-h78",
+        "sv-jhc-road5-checkpost-branch-20261019-pano-s1g-h78",
+        "sv-jhc-road5-checkpost-branch-20261019-pano-RQsr-h78",
+        "sv-jhc-road5-checkpost-branch-20261019-pano-ob5-h78",
+        "sv-jhc-road5-checkpost-branch-20261019-pano-FWmB-h78",
+        "sv-jhc-road5-checkpost-branch-20261019-pano-QLr2-h57"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "Checkpost-area alternate Road No. 36 / Road Number 17 branch context",
+      "category": "first_pass_dated_streetscape_context_only",
+      "roadId": null,
+      "position": { "lat": 17.427891, "lon": 78.4141887, "headingDeg": 78 },
+      "placementStatus": "pending",
+      "notes": "A connected local branch from the Checkpost-area panorama passes under the Metro; one view has a readable DHRUVA College of Fashion Technology sign on the image-left fenced frontage. This is a non-retail identity/context observation, not a storefront. The adjacent Road Number 17 local edge shows a stone wall, trees, parked cars and paved area, and no onward connection toward Road No. 5 was visible. This branch is not asserted to be part of the selected station route."
+    }
+  ]
+}

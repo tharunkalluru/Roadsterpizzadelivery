@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "id": "peddamma-jubilee-road16-underpass-h114-20261019-g",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-19",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Fresh h114 inspection of the connected Road No. 36 underpass approach, Road No. 16 junction, and local glass-frontage branch in the existing Chrome Street View tab. The visible route from 2kNw advances to RNEl and then to l7N0/3z6z on the local edge. This confirms only a bounded connected-image branch; no continuous public connector to destination-area pano v3rCg or station gate is visible. Signs remain pending context and no storefront/road-side placement or metric coverage is asserted.",
+  "sources": [
+    {
+      "id": "sv-pjhc-20261019-pano-2kNw-h114",
+      "kind": "street_view",
+      "title": "240 Road No. 36 panorama 2kNw — southeast-facing underpass approach",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=2kNw3l_h2Mk1cxzknK_-5w&heading=114&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4291022,
+        "lon": 78.4129549,
+        "headingDeg": 114,
+        "panoId": "2kNw3l_h2Mk1cxzknK_-5w"
+      },
+      "notes": "Direct h114 view along Road No. 36 beneath the elevated Metro. Mixed traffic, roadside barriers and an elevated station stair/walkway structure are visible. APOLLO HOSPITALS boards are overhead/context signage; this view does not locate a shop entrance or station gate.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-pjhc-20261019-pano-RNEl-h114",
+      "kind": "street_view",
+      "title": "Road No. 16 panorama RNEl — southeast-facing junction context",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=RNEl3zPP0Dfc0g1iFrSEeA&heading=114&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4290709,
+        "lon": 78.4130747,
+        "headingDeg": 114,
+        "panoId": "RNEl3zPP0Dfc0g1iFrSEeA"
+      },
+      "notes": "The angle shows an underpass junction, Metro columns, traffic, roadside barriers and large APOLLO HOSPITALS/E.N.T. advertising boards. No shop unit boundary, accessible public station gate or onward station connector is established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-pjhc-20261019-pano-3z6z-h114",
+      "kind": "street_view",
+      "title": "238 Road No. 16 panorama 3z6z — h114 glass frontage and local edge",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=3z6z90hNDQirFctke7RjyQ&heading=114&pitch=0&fov=85",
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": {
+        "lat": 17.4291573,
+        "lon": 78.4132434,
+        "headingDeg": 114,
+        "panoId": "3z6z90hNDQirFctke7RjyQ"
+      },
+      "notes": "The close h114 view shows the glass-fronted building with lettering appearing to read R.C. Textiles, external steps/cones and a rough partly hoarded forecourt. This is the previously recorded identity-only sign candidate; no tenant match, unit boundary, entrance, floor, road side or frontage order is inferred.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-pjhc-underpass-h114-context-g",
+      "sourceIds": [
+        "sv-pjhc-20261019-pano-2kNw-h114",
+        "sv-pjhc-20261019-pano-RNEl-h114"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "Road No. 36 / Road No. 16 underpass — h114 traffic and access context",
+      "category": "first_pass_dated_streetscape_context_only",
+      "roadId": null,
+      "position": {
+        "lat": 17.4291022,
+        "lon": 78.4129549,
+        "headingDeg": 114
+      },
+      "placementStatus": "pending",
+      "notes": "Fresh h114 views document the underpass roadway, mixed traffic, elevated walkway/stair structure, barriers and advertising panels on the Road No. 36 approach and junction. They do not establish exact storefront locations or a station gate, canonical sides, metric route length, complete frontage order or visually inventoried side."
+    },
+    {
+      "id": "obs-pjhc-road16-branch-endpoint-h114-g",
+      "sourceIds": [
+        "sv-pjhc-20261019-pano-RNEl-h114",
+        "sv-pjhc-20261019-pano-3z6z-h114"
+      ],
+      "captureDate": "2025-01",
+      "observedDate": "2026-10-19",
+      "name": "Jubilee Hills Check Post area — h114 Road No. 16 branch endpoint still unresolved",
+      "category": "station_area_unresolved_connector",
+      "roadId": null,
+      "position": {
+        "lat": 17.4290709,
+        "lon": 78.4130747,
+        "headingDeg": 114
+      },
+      "placementStatus": "pending",
+      "notes": "From the current connected imagery chain, visible Street View hotspots join 2kNw to RNEl and continue from RNEl to l7N0 and 3z6z along the Road No. 16 local edge. The latter views show a glass frontage, steps/cones and partial blue hoarding, with no visible onward public path to destination-area pano v3rCg or verified station entrance. Treat this as a bounded branch observation only: it does not prove no alternative access route, complete station connector coverage, endpoint geometry, metric distance or any storefront placement. The destination-area pano remains separate context."
+    }
+  ],
+  "storefrontOverrides": [],
+  "suppressions": [],
+  "corrections": [],
+  "roadReviews": []
+}

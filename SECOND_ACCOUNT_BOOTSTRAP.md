@@ -1,43 +1,11 @@
-# Start the activated second-computer pilot
+# Paste into second-computer-01 — ENTIRE workload takeover
 
-You are `second-computer-01`, assignment **`khairatabad-lakdi-pilot-r8306076003-3`**. The parent has activated only the bounded road slice below; earlier broad proposal text is historical and grants no extra scope. Pulling alone does not execute research.
+The user transfers the ENTIRE Roadster workload to you until explicitly transferred back. Outgoing account and former primary owners are QUIESCENT/INACTIVE; do not auto-resume them after quota reset. Own coordinator, mapping, single runtime importer/integrator, GitHub reviews/watch and Sites publication, subject to your actual service access.
 
-1. Preserve any local changes first. With a clean checkout, run:
+With local changes preserved, fetch `handoff/parallel-mapping-2026-10-19` from https://github.com/tharunkalluru/Roadsterpizzadelivery. Read `AGENTS.md`, `STATUS.md`, `ASSIGNMENTS.md`, `docs/handoff/TAKEOVER.md`, `TAKEOVER.json`, `SNAPSHOT.json`, `TRANSFER_DELTA.json`, `TEST_GAME_REQUIREMENTS.md` and linked current checkpoints/review receipts. Verify the final commit supplied by the user and the113survey SHA25617741d5b1fe3df3845944c2632da2628a5e22f2d8a54bee7e58272a4e5c3f66a. Resolve this handover commit with `git log -1 --format=%H -- docs/handoff/TAKEOVER.json`. Do not start from stale102. Preserve the existing pilot branch/two commits; do not reset/duplicate001.
 
-```sh
-git fetch origin
-git switch handoff/parallel-mapping-2026-10-19
-git pull --ff-only origin handoff/parallel-mapping-2026-10-19
-git status --short
-git rev-parse HEAD
-```
+Record a receiving claim with exact commit/identity/branch/survey hash, set incoming second-computer-01 CLAIMED/outgoing QUIESCENT, and publish the claim normally. No further approval is needed for this user-authorized takeover. Check your GitHub write/auth and native Sites capability/access; never copy credentials or assume control of the old account/computer. Use one runtime importer and one controlled browser operator. Rebuild/regenerate/check on YOUR system as needed; no outgoing audit/test build was requested.
 
-2. Read `AGENTS.md`, `STATUS.md`, `ASSIGNMENTS.md`, `docs/handoff/RESERVATIONS.json`, `docs/handoff/SECOND_COMPUTER_ACTIVATION.md`, `docs/handoff/WORKER_GUIDE.md`, `docs/handoff/VALIDATION.md` and `docs/handoff/SNAPSHOT.json`. Confirm the named ACTIVE lease. Resolve the exact activation/base commit:
+Continue from the saved Road5→Yusufguda a8 east-link ambiguity only under a recorded plan; separate g7Fl anchor is an unconnected preview jump. All prior pair gaps remain open. Keep Miyapur↔JNTU35roads/70sides RESERVED/PROVIDER-BLOCKED; never use this second account/session to evade it. Existing pilot r_8306076003_3 left/right20–168.60m stays bounded until you explicitly reassign through a recorded plan. Batch001 is already imported once at113 as two pending Nov2021 contexts with no coverage/placements. Review later batches before sole-integrator admission.
 
-```sh
-git log -1 --format=%H -- docs/handoff/RESERVATIONS.json
-```
-
-Use that full SHA, also supplied by the integrator after publication, in:
-
-```sh
-git switch -c worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3 EXACT_ACTIVATION_SHA
-```
-
-If the personal branch already exists, preserve it and compare/reconcile the base; do not reset, overwrite or create a second writer.
-
-3. Report worker=`second-computer-01`, assignment=`khairatabad-lakdi-pilot-r8306076003-3`, exact HEAD/activation SHA, personal branch and setup results. Verify frozen survey102 SHA-256=`2500760b5de99102489055f7f52d1639ad64b486424fdbcbe54b5ece3d7f1e2a`; source snapshot predecessor=`7145ba2b954c2ec01c67e902a44e45c6fc5d91a4`. Do not claim the frozen runtime is the live owner's106. Existing successful setup can be retained; if missing, use Node24.13.1 and the documented npm setup. No `.env` or runtime API key is required. Preserve the lossless checksum-bound source-accuracy archive and ignored restored output.
-
-4. **Then begin only this ACTIVE pilot:** `r_8306076003_3` (Lakdikapul Road), canonical left and right, closed arclength20.00–168.60m along stored `road.points`. Exclude0–20m and168.60–188.60m outside the included endpoints, both endpoint junctions, every other road/carriageway, branches, station connectors and gates. Approximate map endpoints17.4064797,78.4625119 →17.4054927,78.4634551. This is not the whole Khairatabad–Lakdi-ka-pul route. Actual pano/date/heading is unknown; locate and align via supported ordinary imagery UI. Stop and checkpoint if unavailable/misaligned; do not expand scope.
-
-5. Save new immutable evidence batches as `game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-<sequence>-<YYYYMMDD>.json`, source IDs prefixed `sv-second-computer-01-khairatabad-lakdi-pilot-`, and checkpoints under `game/work/khairatabad-lakdi-pilot-r8306076003-3/`. Record actual source URLs/date/camera positions/headings, confidence, unknowns and non-shop gaps; camera points are not doors. No source evidence is preapproved. Keep unsupported placement pending; never inflate coverage.
-
-6. Keep Peddamma–Jubilee Hills Checkpost entirely with primary owner `01a155cd-daee-76ce-a294-b890d8aaa02b`; keep Miyapur–JNTU's35roads/70sides reserved/provider-blocked; do not resume earlier sampled pairs. Never edit shared generated survey/world data, revisions/receipts, old batches, reservations or deployment metadata. One integrator imports, coordinates, merges and deploys. Stop provider blocks without evasion or redistribution of reference imagery.
-
-7. Fetch/check the live lease before saving/pushing. Stage only your explicit new batch/checkpoint files, scan for secrets/browser state, push your personal branch using your supported GitHub login, then open a **draft PR into `handoff/parallel-mapping-2026-10-19`** with base, batch hashes, checks, completed/blocked/unverified details and resume pointer. No handoff/main/default push, force-push, auto-merge, deployment or access change.
-
-When startup bindings match, the ACTIVE reservation already authorizes bounded research; no additional conversational approval is required. A changed/inactive lease or freshness/auth/provider/alignment problem pauses only the affected work and must be reported precisely.
-
-## First batch review and bounded continuation
-
-See [docs/handoff/reviews/second-computer-01-first-batch-81ce543c.md](docs/handoff/reviews/second-computer-01-first-batch-81ce543c.md) and its JSON receipt. Worker HEAD81ce543c was structurally validated for two pending contexts; **imported=true at revision113**, exact reviewed hash verified against actual sole-primary import receipt. No coordinator/concurrent import or duplicate001; do not edit reservation restrictions. The existing ACTIVE r_8306076003_3 left/right20.00–168.60m lease is unchanged. Parent-authorized next bounded evidence batch002 may continue from S76a under the receipt rules; batch001 is now admitted once as pending context only. No duplicate001, scope expansion, shared runtime edits or coverage promotion.
+Main public Site stays https://roadster-pizza-delivery.blithe-okapi-0017.chatgpt.site revision113. Its project/deployment IDs are in TAKEOVER.json. Check main-Site edit access; if missing, report it without replacing main or changing its audience. Separately, build a NEW ChatGPT Sites link for the actual full pizza-delivery game inside FULLY MAPPED area(s), not a driving demo. No area currently qualifies: qualify a coherent complete small zone or finish one first; do not call the provisional1.18km corridor/pending contexts fully mapped. Then confine spawn/jobs/pickups/deliveries/connected routes/roaming/flight/reset to that zone, with visible enforced boundary and touch/desktop full-loop controls. Follow the concrete acceptance checks in TEST_GAME_REQUIREMENTS before claiming a separate published link. Preserve main113. Report exact scope, checks and capability/evidence blockers honestly.

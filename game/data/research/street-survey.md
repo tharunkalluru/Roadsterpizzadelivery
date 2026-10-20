@@ -1,7 +1,5 @@
 # Street and frontage reconstruction record
 
-> Handoff snapshot: validated survey revision **102**, 708 sources, 551 observations and 169 provisional storefronts. Strict verification remains zero. See [root STATUS](../../../STATUS.md) and the current root ASSIGNMENTS; the revision-specific narrative below is historical and does not activate work.
-
 The scope is **all 10,276 road edges (approximately 654 km), both sides**, including service streets and boundary edges. It is not a claim that these roads have already been visually surveyed. `public/research/street-survey.json` is the authoritative authored layer. Base world JSON and its integrity hashes are not rewritten by this layer.
 
 ## Record evidence before placement

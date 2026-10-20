@@ -1,3 +1,7 @@
+# FINAL full-workload transfer
+
+Start with [SECOND_ACCOUNT_BOOTSTRAP.md](SECOND_ACCOUNT_BOOTSTRAP.md) and [TAKEOVER.md](docs/handoff/TAKEOVER.md). Current bundled survey is113, outgoing account is QUIESCENT, all roles transfer to second-computer-01 after its receiving claim. No automatic quota-reset return. A separate fully-mapped-zone pizza-game Site is requested but not built; no area currently qualifies.
+
 # Roadster — Hyderabad metro delivery game
 
 This handoff branch contains the current runnable game and a frozen, validated street-survey snapshot at **revision 102**. It preserves the repository's existing history. The default branch is currently `claude/adoring-dijkstra-ireick`; this handoff is a separate branch and has not been merged. A normal pull of the default branch does **not** fetch these files into your working tree.

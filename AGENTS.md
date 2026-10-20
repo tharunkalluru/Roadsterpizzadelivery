@@ -1,5 +1,9 @@
 # Roadster worker instructions
 
+## FINAL workload takeover
+
+Read `docs/handoff/TAKEOVER.md`, `TAKEOVER.json`, `SNAPSHOT.json` and `TEST_GAME_REQUIREMENTS.md` first. ENTIRE workload is authorized for second-computer-01 after its receiving claim; outgoing account/parent and former primary mapping owners are QUIESCENT/INACTIVE. Never auto-resume them at quota reset: only explicit user transfer back can do that. Handover ownership supersedes historical owner references; all evidence limits, pilot boundaries and cloud/provider blocks remain. No automatic control of another account/computer or backend access is implied.
+
 ## Every startup, resume, checkout, or pull
 
 Read this file, then **[STATUS.md](STATUS.md), [ASSIGNMENTS.md](ASSIGNMENTS.md), [WORKER_GUIDE.md](docs/handoff/WORKER_GUIDE.md)** and the latest checkpoint linked from your assignment. These files carry context; Git does not run an agent or inherit memory. Older `game/docs/handoff` prompts are historical project context and do not activate work or supersede the current coordination files.
@@ -8,10 +12,10 @@ Run `git status --short`, `git branch --show-current`, `git rev-parse HEAD`, and
 
 ## Ownership and boundaries
 
-**Role separation:** The parent/designated coordinator is the single integrator. It may update and push expressly authorized coordination documents/reservations on the handoff branch and alone owns shared-data imports/integration/deployments. The personal-branch-only restrictions below apply to external mapping workers, not to that coordinator. This does not authorize force-pushes, credential/access changes, provider evasion or unrelated edits. Read `docs/handoff/RESERVATIONS.json`; its active bounded lease takes precedence over the historical broad proposal.
+**Role separation:** After the receiving claim, second-computer-01 is the designated coordinator and single integrator; the outgoing parent/account is quiescent. It may update and push expressly authorized coordination documents/reservations on the handoff branch and alone owns shared-data imports/integration/deployments. The personal-branch-only restrictions below apply to external mapping workers, not to that coordinator. This does not authorize force-pushes, credential/access changes, provider evasion or unrelated edits. Read `docs/handoff/RESERVATIONS.json`; its active bounded lease takes precedence over the historical broad proposal.
 
 - Work only on a personal `worker/<worker-id>/<assignment-id>` branch. Never push shared `main`, the default branch `claude/adoring-dijkstra-ireick`, or the handoff/integrator branch. Never force-push, enable auto-merge, change visibility/access, or deploy.
-- Current sole mapping owner `01a155cd-daee-76ce-a294-b890d8aaa02b` exclusively owns **Peddamma Gudi → Jubilee Hills Checkpost**, both directions and sides, including junction alternatives and station connectors. Do not overlap it.
+- Former primary owners `01a155cd-daee-76ce-a294-b890d8aaa02b` and `01a15693-f702-75bd-998c-c3d27139900f` are INACTIVE_HANDOVER. Existing Peddamma–Checkpost and Road5–Yusufguda evidence/gaps remain; the incoming coordinator records the next mapping plan after claim. Do not resume an old-account writer.
 - **Miyapur ↔ JNTU College is reserved and provider-blocked.** It is not available to claim. Madhapur → Peddamma has a saved quick pass with explicit gaps; it is not a free new assignment.
 - External worker **`second-computer-01`** has ACTIVE assignment **`khairatabad-lakdi-pilot-r8306076003-3`**: only **`r_8306076003_3`**, both canonical sides, **20.00–168.60m** in stored-point order. Endpoint buffers/junctions, all other roads/carriageways and station connectors/gates are excluded. The whole Khairatabad → Lakdi-ka-pul pair remains unassigned; never expand beyond this pilot. Confirm startup bindings in ASSIGNMENTS and the machine reservation before research.
 

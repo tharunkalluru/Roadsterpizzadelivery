@@ -1,3 +1,7 @@
+# Final takeover precedence
+
+TAKEOVER.md/JSON govern current113ownership. Second-computer-01 may claim all coordinator/single-integrator roles; old account stays quiescent until explicit user transfer back. Original pilot activation is literal50e23bd3b8162381623e8ea7bd617409f88bda54, not the latest RESERVATIONS file change. Its bounds are unchanged until recorded reassignment. External-worker restrictions below remain applicable when acting as a worker; provider blocks are never lifted by takeover.
+
 # Branches, evidence and integration
 
 ## Personal branches and freshness

@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-20T00:55:24+00:00",
+  "status": "AUTHORIZED_TRANSFER_AWAITING_INCOMING_CLAIM",
+  "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
+  "handoverCommit": {
+    "resolveCommand": "git log -1 --format=%H -- docs/handoff/TAKEOVER.json",
+    "meaning": "Exact commit containing this final packet; supplied after verified push. Record it in the receiving claim."
+  },
+  "outgoing": {
+    "accountState": "QUIESCENT",
+    "formerCoordinatorThread": "01a102f7-6811-70bb-a5b0-4f535900f0f6",
+    "formerPrimaryThreads": [
+      "01a155cd-daee-76ce-a294-b890d8aaa02b",
+      "01a15693-f702-75bd-998c-c3d27139900f"
+    ],
+    "formerPrimaryOwnerState": "INACTIVE_HANDOVER",
+    "resumeAtUsageReset": false,
+    "resumeCondition": "Only a new explicit user request transferring workload back; quota reset/recovery is not authorization.",
+    "remainingAction": "Deliver this final commit/prompt only; parent stops recurring checks."
+  },
+  "incoming": {
+    "workerId": "second-computer-01",
+    "roleClaimStatus": "PENDING_EXPLICIT_RECEIVING_STARTUP_CLAIM",
+    "roles": [
+      "coordinator",
+      "primary mapping owner",
+      "single runtime importer/integrator",
+      "GitHub worker-branch review/watch owner",
+      "main Sites publisher/maintainer subject to access",
+      "separate qualified-zone pizza-game test Site builder"
+    ],
+    "authority": "User explicitly transferred the ENTIRE workload until an explicit transfer back. Existing cloud/provider restrictions and pilot bounds are not lifted.",
+    "claimRequirements": [
+      "Fetch/read final handover commit and verify snapshot hashes; preserve local worker commits.",
+      "Record exact handover SHA, worker identity, branch, survey113 hash and all roles in TAKEOVER.json/claim checkpoint; set incoming CLAIMED and outgoing QUIESCENT.",
+      "Ensure old local/primary jobs stay idle; choose one runtime importer and one controlled browser operator; no automatic control of the old account or computer.",
+      "Check actual GitHub write/auth and Sites create/edit capability without exposing tokens or changing access.",
+      "Publish a receiving claim/plan normally on the coordination branch before work that changes reservations. No additional user permission is needed for the authorized transfer."
+    ]
+  },
+  "snapshot": {
+    "surveyRevision": 113,
+    "sources": 808,
+    "observations": 583,
+    "provisionalStorefronts": 169,
+    "verifiedStorefronts": 0,
+    "verifiedSides": 0,
+    "surveySha256": "17741d5b1fe3df3845944c2632da2628a5e22f2d8a54bee7e58272a4e5c3f66a",
+    "deltaManifest": "docs/handoff/TRANSFER_DELTA.json",
+    "scope": "Current113 research JSON, immutable batches and required checkpoint/route-state delta applied over the complete prepared snapshot. Restore/compressed runtime-data setup retained.",
+    "derivedQueues": "Generation freshness not independently audited here; receiving single integrator should regenerate/check queues from113. Generated queues never override reservations/station sequence."
+  },
+  "currentMapping": {
+    "pair": "Road No5 Jubilee Hills -> Yusufguda",
+    "formerOwnerState": "INACTIVE_HANDOVER",
+    "checkpoint": "game/work/road5-yusufguda-route-progress/checkpoint-revision113-a8-recheck-20261020.md",
+    "chainStop": {
+      "panoId": "a8oHkcsNWTj8JES7u9ZS8A",
+      "lat": 17.4312441,
+      "lon": 78.4210728,
+      "captureDate": "2026-01",
+      "headingDeg": 90,
+      "state": "No visible arrow confidently matches eastbound RoadNo2 toward Krishna Nagar; gap unresolved."
+    },
+    "separateAnchor": {
+      "panoId": "g7Fl11ZejwHLLmtEUlFKRw",
+      "lat": 17.4302616,
+      "lon": 78.4251374,
+      "captureDate": "2026-01",
+      "headingDeg": 114.3,
+      "state": "Existing directions-preview context; NOT linked to a8; not newly reopened during113 recheck."
+    },
+    "exclusions": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage; Road5/Yusufguda markers have saved imagery gaps; station gates/connectors unknown."
+  },
+  "pilot": {
+    "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
+    "workerId": "second-computer-01",
+    "branch": "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3",
+    "activationCommit": "50e23bd3b8162381623e8ea7bd617409f88bda54",
+    "lastReviewedWorkerCommit": "81ce543c677e2eb6e59cbcfe29d8ff20bb973022",
+    "lease": "ACTIVE_UNCHANGED_UNTIL_RECORDED_SECOND_COORDINATOR_REASSIGNMENT",
+    "roadId": "r_8306076003_3",
+    "canonicalSides": [
+      "left",
+      "right"
+    ],
+    "startM": 20.0,
+    "endM": 168.6,
+    "excluded": "Endpoint buffers/junctions,every other road/carriageway,station gates/connectors",
+    "batch001Imported": true,
+    "importedRevision": 113,
+    "batch001CanonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
+    "observations": "Exactly2November2021pendingcontexts,no placements/coverage;April2026locator/datebreakexcluded. Do not duplicate/reimport001.",
+    "receipt": "docs/handoff/reviews/second-computer-01-primary-import-113.md",
+    "continuation": "Batch002 evidence collection under existing lease only; check branch fresh head after claim; review before sole-integrator admission."
+  },
+  "cloud": {
+    "reservation": "Miyapur-JNTU35roads/70canonical sides unchanged",
+    "status": "RESERVED_PROVIDER_BLOCKED",
+    "rule": "Do not resume blocked Google/cloud actions through the second account, rotate accounts/sessions, proxies or hidden endpoints to evade restrictions. Preserve gaps and exact owner/block notes."
+  },
+  "github": {
+    "repository": "https://github.com/tharunkalluru/Roadsterpizzadelivery",
+    "coordinationBranch": "handoff/parallel-mapping-2026-10-19",
+    "workerBranches": [
+      "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3"
+    ],
+    "lastWorkerHead": "81ce543c677e2eb6e59cbcfe29d8ff20bb973022",
+    "watch": "Receiving system owns future GitHub review/watch workflow; no connected webhook or running automation is implied. Verify actual integrations; do not depend on outgoing polling.",
+    "auth": "Use receiving supported login/collaborator access. No credentials transferred."
+  },
+  "mainSite": {
+    "projectId": "appgprj_6ad576049ff8819196715b604db10264",
+    "url": "https://roadster-pizza-delivery.blithe-okapi-0017.chatgpt.site",
+    "audience": "public",
+    "surveyRevision": 113,
+    "savedVersionId": "appgprj_6ad576049ff8819196715b604db10264~appgver_3d803432b0348191ba5402807fb56f66",
+    "deploymentId": "appgdep_6ad6b59f8ae4819187ec210f05aee186",
+    "sourceCommit": "5fa915e111dbb324ad29bd3649de89a73c64cb4c",
+    "status": "deployed succeeded; preserve main113 during separate test build",
+    "capability": "Second account main-Site edit access is UNVERIFIED. Public view/GitHub write do not imply Sites editing. Check get_site/access; if unavailable report blocker, do not replace main or change audience.",
+    "rollback": "Prior saved revision110 version appgprj_6ad576049ff8819196715b604db10264~appgver_6091debf35488191aeade7665c975b29; deployment appgdep_6ad6a88bb4b081918ced0fce64bfeb44. Use native saved-version rollback only if needed/authorized."
+  },
+  "testSite": {
+    "requirement": "Actual complete pizza-delivery GAME confined to a coherent FULLY MAPPED zone, not a driving demo",
+    "state": "NOT_BUILT_NOT_PUBLISHED",
+    "fullyMappedQualifiedZoneCurrently": null,
+    "instructions": "docs/handoff/TEST_GAME_REQUIREMENTS.md",
+    "separateProjectRequired": true,
+    "capability": "Check receiving ChatGPT Sites create/edit capability before claiming a link; no tool/account control assumed."
+  },
+  "credentials": "NONE transferred; do not export tokens/cookies/session/browser state or change permissions/audiences."
+}

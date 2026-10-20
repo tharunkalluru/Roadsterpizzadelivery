@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "id": "road5-yusufguda-road2-corridor-segment-20261020-a",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-20",
+  "reviewer": "Codex authorized Chrome Street View review",
+  "notes": "Revision 112 adds actual connected-arrow evidence from the existing Road Number 5 preview anchor to Road Number 2, the Maps route context used to select the provisional corridor, an east-facing junction view, and one pending readable business-sign identity lead. Road geometry and directions support a provisional candidate path but are not field-measured. Keep the marker-to-anchor gap, continuation beyond a8, station entrance, storefront placements, sides, order, complete frontage inventory, and coverage unresolved. Do not follow the unconfirmed Venkatgiri/Rd Number 8 branch as the route.",
+  "sources": [
+    {
+      "id": "sv-r5-yusufguda-rev112-pano-CUXP-h267",
+      "kind": "street_view",
+      "title": "Road Number 5 visible-arrow chain — pano CUXP, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=CUXPz4fyO2sxYBlCuyVbMg&heading=267.43988&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4306165, "lon": 78.4209137, "headingDeg": 267.43988, "panoId": "CUXPz4fyO2sxYBlCuyVbMg" },
+      "notes": "Reached by clicking the visible forward roadway arrow from the previously saved X_A Road Number 5 panorama. Roadside boundary, wall, trees and parked traffic are visible; no storefront identity or unit boundary is established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-r5-yusufguda-rev112-pano-wcq-h267",
+      "kind": "street_view",
+      "title": "Road Number 5 / Rd Number 2 junction approach — pano wcq, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=wcqFkJkyK9dxUXLHQZMl4Q&heading=267.43988&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4305924, "lon": 78.4208264, "headingDeg": 267.43988, "panoId": "wcqFkJkyK9dxUXLHQZMl4Q" },
+      "notes": "Reached from CUXP by visible forward arrow on Road Number 5. This camera is close to the mapped Road Number 5 to road no 2 connector; the camera point itself is not an intersection survey or frontage coordinate.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-r5-yusufguda-rev112-pano-rAc-h020",
+      "kind": "street_view",
+      "title": "5 Rd Number 2 visible-arrow chain — pano rAc, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=rAcziqO_Viw4xf2njV1Emg&heading=20&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4307217, "lon": 78.4208516, "headingDeg": 20, "panoId": "rAcziqO_Viw4xf2njV1Emg" },
+      "notes": "Reached from wcq by a visible roadway arrow while aligned with the mapped connector. Google labels the frame 5 Rd Number 2. No exact frontage or shop identity is established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-r5-yusufguda-rev112-pano-zHV-h020",
+      "kind": "street_view",
+      "title": "5 Rd Number 2 visible-arrow chain — pano zHV, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=zHV4L6pXMiMZq4rA5ILirw&heading=20&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4308033, "lon": 78.4208905, "headingDeg": 20, "panoId": "zHV4L6pXMiMZq4rA5ILirw" },
+      "notes": "Successive visible-arrow panorama on the locally labeled Rd Number 2. No exact frontage boundary or readable identity was recorded.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-r5-yusufguda-rev112-pano-EQAP-h020",
+      "kind": "street_view",
+      "title": "5 Rd Number 2 visible-arrow chain — pano EQAP, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=EQAPW3ta-MkMW_B188KXwQ&heading=20&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4308888, "lon": 78.4209269, "headingDeg": 20, "panoId": "EQAPW3ta-MkMW_B188KXwQ" },
+      "notes": "Successive visible-arrow panorama on the locally labeled Rd Number 2. Adjacent sign text is not clear enough here for a new business identity; no placement is established.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-r5-yusufguda-rev112-pano-Jlc-h020",
+      "kind": "street_view",
+      "title": "5 Rd Number 2 visible-arrow chain — pano Jlc, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=JlcXKkzbnWgJAS9VtNg_Qw&heading=20&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4309707, "lon": 78.4209622, "headingDeg": 20, "panoId": "JlcXKkzbnWgJAS9VtNg_Qw" },
+      "notes": "Successive visible-arrow panorama on the locally labeled Rd Number 2. The image-right facade shows a legible ZERO INTERIORS sign; the sign is recorded separately as a pending identity-only lead. Exact unit, entrance, footprint, floor and canonical side remain unresolved.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-r5-yusufguda-rev112-pano-vQX-h020",
+      "kind": "street_view",
+      "title": "5 Rd Number 2 visible-arrow chain — pano vQX, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=vQXGB_oADHNV9NDMrkViaw&heading=20&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4310619, "lon": 78.421, "headingDeg": 20, "panoId": "vQXGB_oADHNV9NDMrkViaw" },
+      "notes": "Successive visible-arrow panorama on the locally labeled Rd Number 2, reached from Jlc. This is the last newly captured camera before the previously saved Tqe Road Number 2 panorama.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-r5-yusufguda-rev112-pano-a8o-h090",
+      "kind": "street_view",
+      "title": "Road No. 2 junction eastbound check — pano a8o, January 2026",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=a8oHkcsNWTj8JES7u9ZS8A&heading=90&pitch=0&fov=85",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Street View review",
+      "position": { "lat": 17.4312441, "lon": 78.4210728, "headingDeg": 90, "panoId": "a8oHkcsNWTj8JES7u9ZS8A" },
+      "notes": "This angle was inspected at the mapped Road Number 2 anchor to look for the eastbound continuation shown by Maps. It faces a boundary wall and junction frontage; I could not identify a visible arrow that connects to the eastbound path. The distinct heading-26 arrow leads toward the unconfirmed Venkatgiri branch; this is a local link gap, not evidence that Street View imagery is absent.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "map-r5-yusufguda-rev112-route-markers-20261020",
+      "kind": "map_listing",
+      "title": "Google Maps driving directions — Road No. 5 Jubilee Hills to Yusufguda",
+      "url": "https://www.google.com/maps/dir/17.430049,78.423207/17.435112,78.427319/@17.4325,78.4254,16z/data=!4m2!4m1!3e0",
+      "captureDate": null,
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Maps review",
+      "notes": "Google Maps displayed a 1.4 km, 3 minute driving suggestion via Rd Number 2 and Krishna Nagar Main Rd for the stored station-marker coordinates. Directions are route-planning context only, not field-measured distance or proof of a station gate or connector.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "map-r5-yusufguda-rev112-route-a8o-20261020",
+      "kind": "map_listing",
+      "title": "Google Maps driving directions — Road Number 2 to Yusufguda",
+      "url": "https://www.google.com/maps/dir/17.4312441,78.4210728/17.435112,78.427319/@17.4330,78.4230,16z/data=!4m2!4m1!3e0",
+      "captureDate": null,
+      "observedDate": "2026-10-20",
+      "reviewer": "Codex authorized Chrome Maps review",
+      "notes": "Google Maps displayed a 1.1 km, 2 minute driving route via Rd Number 2 and Krishna Nagar Main Rd from the a8 camera coordinate to the provisional Yusufguda marker. This is contextual route evidence only; it does not resolve the visible-arrow junction at a8.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-r5-yusufguda-rev112-connected-road5-road2-segment",
+      "sourceIds": [
+        "sv-r5-yusufguda-routepreview-20261019-pano-XA-h267",
+        "sv-r5-yusufguda-rev112-pano-CUXP-h267",
+        "sv-r5-yusufguda-rev112-pano-wcq-h267",
+        "sv-r5-yusufguda-rev112-pano-rAc-h020",
+        "sv-r5-yusufguda-rev112-pano-zHV-h020",
+        "sv-r5-yusufguda-rev112-pano-EQAP-h020",
+        "sv-r5-yusufguda-rev112-pano-Jlc-h020",
+        "sv-r5-yusufguda-rev112-pano-vQX-h020",
+        "sv-r5-yusufguda-routepreview-20261019-pano-Tqe-h026",
+        "sv-r5-yusufguda-arrowchain-20261019-pano-a8o-h026",
+        "map-r5-yusufguda-rev112-route-markers-20261020",
+        "map-r5-yusufguda-rev112-route-a8o-20261020"
+      ],
+      "category": "first_pass_connected_corridor_context",
+      "name": "Visible-arrow chain from Road Number 5 to the mapped Rd Number 2 anchor",
+      "roadId": null,
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "position": { "lat": 17.4312441, "lon": 78.4210728, "headingDeg": 26.432667 },
+      "placementStatus": "pending",
+      "notes": "The live Chrome session followed visible roadway arrows from the already-saved X_A Road Number 5 camera through CUXP and wcq, reoriented at wcq, then followed arrows through rAc, zHV, EQAP, Jlc, vQX and the saved Tqe Road Number 2 camera to a8. All Street View frames are dated January 2026. The station-marker directions page shows 1.4 km / 3 min via Rd Number 2 and Krishna Nagar Main Rd; directions from a8 show 1.1 km / 2 min via the same named roads. The core directed road-graph candidate between nearest nodes is 1,443.3 m and follows an unnamed local connector, Road No. 7, Road Number 5, Rd Number 2, Labour Adda Rd and Yousufguda Main Road. The nearest-node snaps are 62.5 m from the Road No. 5 marker and 28.9 m from the Yusufguda marker. This agreement supports a provisional corridor family, not an exact field route or measured length. The connected Street View chain starts at the earlier route-preview X_A anchor, so the marker-to-X_A approach remains open. At a8, the east-facing view did not reveal a visible arrow along the mapped eastbound continuation; do not substitute the separate Venkatgiri/Rd Number 8 branch. No side, frontage order, station access, complete inventory, metric coverage, or storefront placement is established."
+    },
+    {
+      "id": "obs-r5-yusufguda-rev112-zero-interiors-sign",
+      "sourceIds": ["sv-r5-yusufguda-rev112-pano-Jlc-h020"],
+      "category": "shop",
+      "name": "ZERO INTERIORS",
+      "roadId": "r_63797909905_0",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "position": { "lat": 17.4309707, "lon": 78.4209622, "headingDeg": 20 },
+      "placementStatus": "pending",
+      "notes": "The January 2026 image-right facade sign reads ZERO INTERIORS on the Rd Number 2 approach. Identity-only lead; camera coordinate is not an entrance. Exact unit, entrance, footprint, floor, canonical side, frontage order, current tenancy and any game placement are unknown."
+    },
+    {
+      "id": "obs-r5-yusufguda-rev112-eastbound-link-gap",
+      "sourceIds": [
+        "sv-r5-yusufguda-routepreview-20261019-pano-Tqe-h026",
+        "sv-r5-yusufguda-arrowchain-20261019-pano-a8o-h026",
+        "sv-r5-yusufguda-rev112-pano-a8o-h090",
+        "map-r5-yusufguda-rev112-route-markers-20261020",
+        "map-r5-yusufguda-rev112-route-a8o-20261020"
+      ],
+      "category": "route_connection_gap",
+      "name": "Eastbound Road Number 2 to Krishna Nagar Main Rd visible-arrow link not identified at a8",
+      "roadId": "r_63797909905_0",
+      "captureDate": "2026-01",
+      "observedDate": "2026-10-20",
+      "position": { "lat": 17.4312441, "lon": 78.4210728, "headingDeg": 90 },
+      "placementStatus": "pending",
+      "notes": "The current Google Maps driving route from the a8 camera coordinate continues via Rd Number 2 and Krishna Nagar Main Rd, while the directed core geometry turns east near this point. In the heading-90 view, I could not identify a visible Street View arrow linking to that eastbound route. The known heading-26 forward arrow enters the Venkatgiri-labeled branch from the earlier chain, which remains unconfirmed against the station route and is excluded from this pass. Stop here pending a visible connection; this is an unresolved local path junction, not a claim that imagery is unavailable along the rest of the route. The Yusufguda marker and the previously unavailable Road No. 5 marker were not opened or retried."
+    }
+  ]
+}
