@@ -1,0 +1,106 @@
+{
+  "recordedAt": "2026-10-20T17:33:55.448779+00:00",
+  "coordinatorReadSha": "f8e456bac437c35aab805b9816717c38a854ad2f",
+  "mode": "READ_ONLY_CANONICAL_GRAPH_FEASIBILITY_NOT_MAPPING_ACTIVATION",
+  "surveyRevision": 133,
+  "surveySha256": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+  "coreSha256": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+  "provisionalPreview": "User authorized separate labelled preview; existing27.51m visual setting may use clearly fictional job markers/reset or explicitly synthetic route handling. No verified labels or real pizza claims. Game owner implements/QA; mapping owner does not duplicate.",
+  "directedCycle": [
+    "r_35746161453_0:f",
+    "r_58407483981_0:f",
+    "r_20784239011_0:f",
+    "r_62617115125_0:f",
+    "r_35746161453_0:f"
+  ],
+  "graphLengthProxyM": 243.56,
+  "additionalUnreviewedRoadLengthM": 216.05,
+  "roads": [
+    {
+      "id": "r_35746161453_0",
+      "name": "Cyber Towers - Madhapur Main Road",
+      "lengthM": 27.51,
+      "oneway": true,
+      "fromNode": "n_8238597964",
+      "toNode": "n_54485549899",
+      "level": 0,
+      "bridge": false,
+      "tunnel": false,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      }
+    },
+    {
+      "id": "r_58407483981_0",
+      "name": null,
+      "lengthM": 82.67,
+      "oneway": true,
+      "fromNode": "n_54485549899",
+      "toNode": "n_52965406785",
+      "level": 0,
+      "bridge": false,
+      "tunnel": false,
+      "status": {
+        "geometry": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      }
+    },
+    {
+      "id": "r_20784239011_0",
+      "name": "Road Number 2",
+      "lengthM": 47.01,
+      "oneway": false,
+      "fromNode": "n_52965406785",
+      "toNode": "n_36864024645",
+      "level": 0,
+      "bridge": false,
+      "tunnel": false,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      }
+    },
+    {
+      "id": "r_62617115125_0",
+      "name": null,
+      "lengthM": 86.37,
+      "oneway": false,
+      "fromNode": "n_36864024645",
+      "toNode": "n_8238597964",
+      "level": 0,
+      "bridge": false,
+      "tunnel": false,
+      "status": {
+        "geometry": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      }
+    }
+  ],
+  "method": "Minimum positive-length directed return cycle through r357:f using frozen next[] and canonical edge lengths. Graph planning proxy only, not measured drive distance or actual junction/route proof.",
+  "priorVisualInventory": {
+    "r357": "Both0–27.51m visually inventoried; partial/provisional, not verified.",
+    "newThreeRoads": "Both sides unreviewed; zero road-bound observations in current survey."
+  },
+  "recordedDeliveryStopsOnCycle": 0,
+  "sourceSupportedPizzaPickupOnCycle": false,
+  "reservationConflictsFound": [],
+  "nextMappingStep": "Publish a separate bounded feasibility plan/activation before imagery. First validate actual road/node continuity, permitted directed turns, ground-level access and safe stopping on r58482.67m→r20747.01m→r62686.37m, and source-confirm whether an actual pizza outlet with a supported pickup entrance and a customer stop exists on this cycle. Use genuinely new eligible sources/field evidence; no replay or provider evasion. If no real pizza pickup exists, reject this real-pickup candidate or select another evidenced location rather than inventing one.",
+  "evidenceNeeded": [
+    "Actual dated road/junction/turn/return correspondence; canonical adjacency is only a hypothesis.",
+    "Named real pizza outlet plus current service and exact safe pickup entrance, one customer stop and approach correspondence; none recorded now.",
+    "For the verified mode, full both-side shop/non-shop/hidden-unit inventory and calibrated/current boundary/door/access controls on all admitted roads, then game-owner route/containment/full-loop QA."
+  ],
+  "whatCanProceedNow": "Game owner may implement separately labelled provisional/synthetic preview under existing user authorization. Mapping may plan the candidate feasibility survey; no current activation or qualified-zone handoff.",
+  "qualifiedZone": null,
+  "dataMutation": false,
+  "newImagery": false,
+  "mainSite": "UNCHANGED",
+  "providerRestrictions": "All prior holds/exclusions/no-bypass and reference-only imagery restrictions preserved."
+}
