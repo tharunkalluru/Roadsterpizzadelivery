@@ -42,3 +42,7 @@ See [VALIDATION.md](docs/handoff/VALIDATION.md) for actual check results and lim
 ## Second-computer activation binding
 
 Resolve the exact activation commit using `git log -1 --format=%H -- docs/handoff/RESERVATIONS.json` after fetching the handoff branch. Source snapshot predecessor remains `7145ba2b954c2ec01c67e902a44e45c6fc5d91a4`; branch from the resolved activation SHA and report it with the frozen102 survey hash before research. See [startup instructions](SECOND_ACCOUNT_BOOTSTRAP.md). Primary and cloud ownership above is unchanged.
+
+## First batch review and bounded continuation
+
+See [docs/handoff/reviews/second-computer-01-first-batch-81ce543c.md](docs/handoff/reviews/second-computer-01-first-batch-81ce543c.md) and its JSON receipt. Worker HEAD81ce543c was structurally validated for two pending contexts; **imported=false**, exact import now user-approved, awaiting actual sole-primary import receipt. No coordinator/concurrent import; do not claim imported or edit reservation restrictions. The existing ACTIVE r_8306076003_3 left/right20.00–168.60m lease is unchanged. Parent-authorized next bounded evidence batch002 may continue from S76a under the receipt rules; it does not require batch001 admission. No duplicate001, scope expansion, shared runtime edits or coverage promotion.

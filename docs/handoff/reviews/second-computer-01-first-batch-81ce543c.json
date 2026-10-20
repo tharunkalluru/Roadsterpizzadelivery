@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-20T00:16:07+00:00",
+  "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
+  "workerId": "second-computer-01",
+  "workerBranch": "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3",
+  "pinnedWorkerCommit": "81ce543c677e2eb6e59cbcfe29d8ff20bb973022",
+  "activationCommit": "50e23bd3b8162381623e8ea7bd617409f88bda54",
+  "batchId": "second-computer-01-khairatabad-lakdi-pilot-001-20261019",
+  "batchCanonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
+  "batchFileSha256": "7108b5b31e4d7a9f3e5fbbd755320a3b6e2f307239a77dadabdb0e2f0c7728a5",
+  "reviewStatus": "STRUCTURAL_SCOPE_VALIDATION_PASSED_PENDING_CONTEXT_ONLY",
+  "imported": false,
+  "importStatus": "USER_APPROVED_AWAITING_SOLE_PRIMARY_IMPORT_RECEIPT",
+  "importRule": "No coordinator import or concurrent writer. Sole primary importer has explicit user clarification and may perform its serialized normal fresh-base check/import. Do not claim imported until its actual receipt is returned. No reservation restriction is removed or reinterpreted; no general import or placement authorization.",
+  "validationBase": {
+    "surveyRevision": 112,
+    "surveySha256": "a20c72f6989479ae909847686ca9eeb69f62488d312cef4a7e84873700e3da3e",
+    "method": "consistent disposable source snapshot; importer --check only",
+    "result": "validated_preview",
+    "hypotheticalRevision": 113,
+    "previewIsImport": false
+  },
+  "findings": {
+    "sources": 2,
+    "pendingObservations": 2,
+    "duplicates": false,
+    "roadId": "r_8306076003_3",
+    "alongM": 25.978411567280332,
+    "lateralM": 2.3484200902264116,
+    "nextNearestRoadDistanceM": 8.239540346822388,
+    "storefrontsAdded": 0,
+    "roadReviewsAdded": 0,
+    "coverageAddedM": 0,
+    "imageryIndependentlyReverified": false
+  },
+  "existingLease": {
+    "status": "ACTIVE_UNCHANGED",
+    "manifest": "docs/handoff/RESERVATIONS.json",
+    "manifestSha256": "b7d7c6015549200e17d058ed47b683d74c4fd66b485c72093f1b3e81d53a15d1",
+    "roadId": "r_8306076003_3",
+    "sides": [
+      "left",
+      "right"
+    ],
+    "startM": 20.0,
+    "endM": 168.6,
+    "exclusions": "Endpoint buffers/junctions, every other road/carriageway, station gates/connectors; all primary and cloud reservations unchanged."
+  },
+  "continuation": {
+    "authorizedBy": "parent/designated coordinator after structural first-batch review",
+    "status": "NEXT_BOUNDED_BATCH_ALLOWED_UNDER_EXISTING_LEASE",
+    "requiresFirstBatchImport": false,
+    "resume": {
+      "panoId": "S76aL2Sv9OLkf6WqmLbU1Q",
+      "lat": 17.4064672,
+      "lon": 78.4625709,
+      "captureDate": "2021-11",
+      "headingDeg": 228,
+      "fov": 65,
+      "navigationOrientationDeg": 138
+    },
+    "nextDistinctPanorama": "unknown; do not invent date/position",
+    "nextBatchPath": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-002-<YYYYMMDD>.json",
+    "rules": [
+      "Fetch/read current coordination and confirm unchanged lease before continuing; record actual worker HEAD, activation SHA and coordination SHA.",
+      "Do not duplicate or modify batch001 or its source/observation IDs. New actual pano/angle evidence only, with immutable new IDs.",
+      "The excluded April2026 locator is not batch evidence; preserve the April2026→November2021 break, provisional alignment and all unobserved gaps.",
+      "No source or batch import to shared runtime, generated-data edits, footprint/tenant placement or coverage promotion.",
+      "Validate each actual new camera against the assigned edge and20.00–168.60m bounds before authoring it; stop on ambiguity/provider block/boundary approach.",
+      "No entire-pair expansion, junction/other-road/carriageway research, gate/connector assignment, old-batch mutation or provider evasion.",
+      "Save explicit checkpoint/batch paths only and submit next small batch for review on existing personal branch."
+    ]
+  },
+  "importApproval": {
+    "reportedBy": "parent/designated coordinator",
+    "userMessageId": "Sentinel_cf2914937b108191aeae03c75455fe17",
+    "scope": "exact two-observation batch001 import into sole primary runtime; existing lease/exclusions unchanged"
+  }
+}

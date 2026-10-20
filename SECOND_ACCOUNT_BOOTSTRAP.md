@@ -37,3 +37,7 @@ If the personal branch already exists, preserve it and compare/reconcile the bas
 7. Fetch/check the live lease before saving/pushing. Stage only your explicit new batch/checkpoint files, scan for secrets/browser state, push your personal branch using your supported GitHub login, then open a **draft PR into `handoff/parallel-mapping-2026-10-19`** with base, batch hashes, checks, completed/blocked/unverified details and resume pointer. No handoff/main/default push, force-push, auto-merge, deployment or access change.
 
 When startup bindings match, the ACTIVE reservation already authorizes bounded research; no additional conversational approval is required. A changed/inactive lease or freshness/auth/provider/alignment problem pauses only the affected work and must be reported precisely.
+
+## First batch review and bounded continuation
+
+See [docs/handoff/reviews/second-computer-01-first-batch-81ce543c.md](docs/handoff/reviews/second-computer-01-first-batch-81ce543c.md) and its JSON receipt. Worker HEAD81ce543c was structurally validated for two pending contexts; **imported=false**, exact import now user-approved, awaiting actual sole-primary import receipt. No coordinator/concurrent import; do not claim imported or edit reservation restrictions. The existing ACTIVE r_8306076003_3 left/right20.00–168.60m lease is unchanged. Parent-authorized next bounded evidence batch002 may continue from S76a under the receipt rules; it does not require batch001 admission. No duplicate001, scope expansion, shared runtime edits or coverage promotion.
