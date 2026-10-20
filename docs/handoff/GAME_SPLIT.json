@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "assignmentId": "qualified-zone-game-survey133",
+  "status": "AUTHORIZED_GAME_WORK_ACK_REQUESTED",
+  "authorizedAt": "2026-10-20T13:34:29.327555+00:00",
+  "baseCommit": "7a2726db6a9cf31937931d230d8ad58b8de638e0",
+  "owner": "returning-account-game-01",
+  "requestedExecution": {
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "medium"
+  },
+  "branch": "worker/returning-account-game-01/qualified-zone-game-survey133",
+  "scope": [
+    "game mechanics",
+    "game QA",
+    "separate private test Site subject to verified-zone release gate"
+  ],
+  "excluded": [
+    "mapping/browser imagery",
+    "survey imports or generated research/world edits",
+    "mapping reservation changes",
+    "main Site publication or access/audience changes"
+  ],
+  "pinnedSurvey": {
+    "revision": 133,
+    "sha256": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+    "coordinationCommit": "7a2726db6a9cf31937931d230d8ad58b8de638e0"
+  },
+  "mappingOwner": "second-computer-01",
+  "soleSurveyImporter": "second-computer-01",
+  "mainSite": {
+    "state": "UNCHANGED_NO_PUBLICATION_AUTHORITY_TRANSFER",
+    "projectId": "appgprj_6ad576049ff8819196715b604db10264",
+    "revision": 113
+  },
+  "releaseGate": {
+    "qualifiedZone": null,
+    "state": "BLOCKED_MISSING_QUALIFIED_ZONE",
+    "rule": "No pilot represented as fully mapped before coherent verified coverage, source-supported entrances/jobs and in-zone route/boundary/full-loop checks pass."
+  },
+  "integrationPath": {
+    "type": "single draft code PR to handoff/parallel-mapping-2026-10-19",
+    "reviewAndIntegrationOwner": "second-computer-01",
+    "rule": "Explicit code/test paths only; preserve current survey on integration. No blind merge of mapping PR1-8, no survey133 rollback/reimport, no second survey writer. Sites source synchronization is a separate NEW project only."
+  },
+  "receivingAcknowledgement": {
+    "state": "REQUESTED_NOT_YET_OBSERVED",
+    "requestedFrom": "second-computer-01",
+    "recordPath": "docs/handoff/claims/game-split-receiving-ack-20261020.json",
+    "requirements": [
+      "Read this exact split commit and record SHA and current own checkout/assignment",
+      "Confirm mapping/sole survey importer retained, all eight leases/provider holds unchanged",
+      "Confirm no concurrent game-code or separate-Site edits; route game code through the named PR",
+      "Record qualified-zone handoff only when evidence qualifies; pending contexts remain unqualified"
+    ],
+    "dependentWork": "Isolated code/tests may proceed; integration/shared-file edits and publishing wait for acknowledgement and relevant release gates."
+  }
+}

@@ -6,7 +6,7 @@
     "state": "CLAIMED",
     "outgoingState": "QUIESCENT",
     "coordinationBranch": "handoff/parallel-mapping-2026-10-19",
-    "rule": "Receiving claim transfers the entire workload; outgoing never auto-resumes at quota reset. One importer/integrator. Existing pilot bounds and provider/cloud blocks preserved.",
+    "rule": "second-computer-01 remains mapping coordinator and sole survey importer/integrator. Returning account owns isolated game-code/QA/separate-test-Site work per GAME_SPLIT.json. Main Site unchanged. All mapping leases/provider holds retained; no dual survey writer.",
     "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
     "claimedAt": "2026-10-20T01:27:15Z",
@@ -70,8 +70,8 @@
       "exclusions": [
         "Endpoint junctions n_57046252173 and n_4127550256 and any side-road branch",
         "Every other road ID, parallel/opposite carriageway, station connector and station gate",
-        "Primary Peddamma Gudi–Jubilee Hills Checkpost reservation and its junction alternatives",
-        "Miyapur–JNTU 35-road reservation; Madhapur–Peddamma and all prior sampled stretches outside this pilot"
+        "Primary Peddamma Gudi\u2013Jubilee Hills Checkpost reservation and its junction alternatives",
+        "Miyapur\u2013JNTU 35-road reservation; Madhapur\u2013Peddamma and all prior sampled stretches outside this pilot"
       ],
       "rangeAnchors": [
         {
@@ -129,7 +129,7 @@
         ],
         "rule": "Report the matching startup binding before research. This active lease needs no second conversational approval; a mismatch, changed lease or auth/provider block stops dependent work."
       },
-      "nextAction": "Remaining inventory/placement/coverage EVIDENCE_BLOCKED. Obtain specified unobstructed dated in-lease ground/field views with bounded correspondence,calibrated geometry/entrance proof and newer tenancy evidence. Do not repeat failed rotations/traversal,reimport001–004,invent missing details or activate another road. Review warranted genuinely new source under unchangedlease before promotion. No new permission needed for completedreview;missingproof,notproviderdenial.",
+      "nextAction": "Remaining inventory/placement/coverage EVIDENCE_BLOCKED. Obtain specified unobstructed dated in-lease ground/field views with bounded correspondence,calibrated geometry/entrance proof and newer tenancy evidence. Do not repeat failed rotations/traversal,reimport001\u2013004,invent missing details or activate another road. Review warranted genuinely new source under unchangedlease before promotion. No new permission needed for completedreview;missingproof,notproviderdenial.",
       "activationCommitMeaning": "Original exact pilot activation; final handover does not reactivate/expand the lease.",
       "batch001ImportedRevision": 113,
       "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-batch004-import-116.md",
@@ -1348,7 +1348,7 @@
       "evidenceCollectionState": "LOWER_TARGETED_REVIEW_COMPLETE_CALIBRATION_CURRENTNESS_INPUT_REQUIRED",
       "latestCheckpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-lower-gap-historical-review.md",
       "nextPanorama": null,
-      "nextAction": "Targeted lower map/date review is complete and yielded no calibrated/current qualification proof beyond the two already saved pending January 2026 contexts. Do not repeat these four historical views, existing anchor sets or held upper/lower targets; no batch 003/import/runtime change for this review. Need genuinely new unobstructed in-lease evidence with exact canonical facade/unit/door/boundary controls, measured reference/access geometry and current on-site operation, especially remaining 150–154.613 m and hidden/inter-camera gaps. A new validated lower panorama could support context but would not replace those qualification inputs. No fresh distinct currently allowed recorded source task found; unreserved a8/Venkatgiri branch candidates need independent route/canonical-scope resolution and published allowed plan/activation. Preserve all old leases/provider blocks and no station advance. Browser restored, no user recovery action or provider denial/global imagery-exhaustion claim.",
+      "nextAction": "Targeted lower map/date review is complete and yielded no calibrated/current qualification proof beyond the two already saved pending January 2026 contexts. Do not repeat these four historical views, existing anchor sets or held upper/lower targets; no batch 003/import/runtime change for this review. Need genuinely new unobstructed in-lease evidence with exact canonical facade/unit/door/boundary controls, measured reference/access geometry and current on-site operation, especially remaining 150\u2013154.613 m and hidden/inter-camera gaps. A new validated lower panorama could support context but would not replace those qualification inputs. No fresh distinct currently allowed recorded source task found; unreserved a8/Venkatgiri branch candidates need independent route/canonical-scope resolution and published allowed plan/activation. Preserve all old leases/provider blocks and no station advance. Browser restored, no user recovery action or provider denial/global imagery-exhaustion claim.",
       "latestEvidenceLedger": "game/work/road5-yusufguda-r36985565509-0/evidence-ledger-20261020-batch002.json",
       "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-lower-review-131.md",
       "latestQualificationAudit": "docs/handoff/reviews/second-computer-01-qualification-readiness-130.json",
@@ -1780,7 +1780,7 @@
         "completeUnitDoorBoundaryInventoryEstablished": false,
         "calibratedGeometryEstablished": false,
         "currentOperationEstablished": false,
-        "alignmentUncertainty": "BWN lateral3.847m; December6.567–7.533m versus provisional half-width3.75m; no dimension/door inference."
+        "alignmentUncertainty": "BWN lateral3.847m; December6.567\u20137.533m versus provisional half-width3.75m; no dimension/door inference."
       }
     },
     {
@@ -1804,7 +1804,7 @@
       "worldId": "hyd-metro",
       "worldVersion": "2.0.0",
       "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
-      "stationPairRelation": "Independent local canonical inventory only; unresolved RoadNo5→Yusufguda route/a8/gate/marker gaps retained, no station advance.",
+      "stationPairRelation": "Independent local canonical inventory only; unresolved RoadNo5\u2192Yusufguda route/a8/gate/marker gaps retained, no station advance.",
       "roadId": "r_50481356909_0",
       "roadName": "roasd no 5",
       "roadLengthM": 45.33,
@@ -1822,7 +1822,7 @@
         "ovt:seg/bc0ec606d65b",
         "osm:w252270756@8"
       ],
-      "geometryStatus": "Provisional width7.16m clamped7.5→7.16 for footprint clearance4.18m; zRY lateral3.645 slightly exceeds half-width3.58m. No measurement.",
+      "geometryStatus": "Provisional width7.16m clamped7.5\u21927.16 for footprint clearance4.18m; zRY lateral3.645 slightly exceeds half-width3.58m. No measurement.",
       "exclusiveRoadRanges": [
         {
           "roadId": "r_50481356909_0",
@@ -1910,7 +1910,7 @@
       "evidenceCollectionState": "TARGETED_SIDE_DATE_REVIEW_COMPLETE_QUALIFICATION_EVIDENCE_BLOCKED",
       "latestCheckpoint": "game/work/venkatgiri-independent-r50481356909-0/checkpoint-20261020-batch001.md",
       "nextPanorama": null,
-      "nextAction": "Saved zRY/6KX side and offered January2025/December2021 target set is reviewed. No further useful gap-closing recorded target identified; do not repeat these views, old forward/sign views, xGma out-of-bounds locator or road arrows. Need genuinely new unobstructed in-lease/field views with exact canonical 10–35.33m boundary controls, full both-side shop/non-shop/hidden-unit/floor/door inventory, measured reference/access geometry and current on-site operation. All25.33m per side unqualified. r312 still needs robust in-interior locator/alignment; r141 tiny buffered window needs junction-clearance evidence before any buffer reconsideration. Station-route/a8/connector proof separately unresolved. Read-only recorded-lead-disposition audit checked all positioned current-pair committed sources plus proposed batch and retained checkpoint states; no further actionable recorded target identified in that audited set. External inputs itemized there; no global imagery-exhaustion claim.",
+      "nextAction": "Saved zRY/6KX side and offered January2025/December2021 target set is reviewed. No further useful gap-closing recorded target identified; do not repeat these views, old forward/sign views, xGma out-of-bounds locator or road arrows. Need genuinely new unobstructed in-lease/field views with exact canonical 10\u201335.33m boundary controls, full both-side shop/non-shop/hidden-unit/floor/door inventory, measured reference/access geometry and current on-site operation. All25.33m per side unqualified. r312 still needs robust in-interior locator/alignment; r141 tiny buffered window needs junction-clearance evidence before any buffer reconsideration. Station-route/a8/connector proof separately unresolved. Read-only recorded-lead-disposition audit checked all positioned current-pair committed sources plus proposed batch and retained checkpoint states; no further actionable recorded target identified in that audited set. External inputs itemized there; no global imagery-exhaustion claim.",
       "latestEvidenceLedger": "game/work/venkatgiri-independent-r50481356909-0/evidence-ledger-20261020-batch001.json",
       "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-independent-r504-batch001-import-133.md",
       "latestRecordedLeadAudit": "game/work/venkatgiri-independent-r50481356909-0/recorded-lead-disposition-20261020.json",
@@ -1950,5 +1950,6 @@
       }
     }
   ],
-  "handover": "docs/handoff/TAKEOVER.json"
+  "handover": "docs/handoff/TAKEOVER.json",
+  "gameWorkAssignment": "docs/handoff/GAME_SPLIT.json"
 }

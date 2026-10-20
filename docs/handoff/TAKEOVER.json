@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-10-20T07:56:33Z",
-  "status": "CLAIMED_BY_SECOND_COMPUTER_01",
+  "status": "MAPPING_RETAINED_GAME_WORK_SPLIT_AUTHORIZED_ACK_REQUESTED",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
     "sha": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "meaning": "Original verified transfer packet, pinned before this receiving claim; later changes to this file do not change that original SHA."
   },
   "outgoing": {
-    "accountState": "QUIESCENT",
+    "accountState": "ACTIVE_GAME_QA_SEPARATE_TEST_SITE_ONLY",
     "formerCoordinatorThread": "01a102f7-6811-70bb-a5b0-4f535900f0f6",
     "formerPrimaryThreads": [
       "01a155cd-daee-76ce-a294-b890d8aaa02b",
@@ -17,20 +17,19 @@
     "formerPrimaryOwnerState": "INACTIVE_HANDOVER",
     "resumeAtUsageReset": false,
     "resumeCondition": "Only a new explicit user request transferring workload back; quota reset/recovery is not authorization.",
-    "remainingAction": "Deliver this final commit/prompt only; parent stops recurring checks."
+    "remainingAction": "Authorized game work only on isolated branch; no former mapping writer resumes."
   },
   "incoming": {
     "workerId": "second-computer-01",
-    "roleClaimStatus": "CLAIMED",
+    "roleClaimStatus": "CLAIMED_MAPPING_RETAINED_GAME_SPLIT_ACK_REQUESTED",
     "roles": [
-      "coordinator",
+      "mapping coordinator",
       "primary mapping owner",
-      "single runtime importer/integrator",
-      "GitHub worker-branch review/watch owner",
-      "main Sites publisher/maintainer subject to access",
-      "separate qualified-zone pizza-game test Site builder"
+      "single runtime survey importer/integrator",
+      "GitHub mapping worker review/watch owner",
+      "explicit game PR review/integration owner"
     ],
-    "authority": "User explicitly transferred the ENTIRE workload until an explicit transfer back. Existing cloud/provider restrictions and pilot bounds are not lifted.",
+    "authority": "Previous mapping claim retained. User explicitly approved returning-account game/QA/separate-test-Site split; main Site remains unchanged and no main publishing authority transfers.",
     "claimRequirements": [
       "Fetch/read final handover commit and verify snapshot hashes; preserve local worker commits.",
       "Record exact handover SHA, worker identity, branch, survey113 hash and all roles in TAKEOVER.json/claim checkpoint; set incoming CLAIMED and outgoing QUIESCENT.",
@@ -121,7 +120,7 @@
         "projectedAlongM": 30.210346056956823,
         "lateralM": 2.7382262532650987
       },
-      "nextAction": "Saved zRY/6KX side and offered January2025/December2021 target set is reviewed. No further useful gap-closing recorded target identified; do not repeat these views, old forward/sign views, xGma out-of-bounds locator or road arrows. Need genuinely new unobstructed in-lease/field views with exact canonical 10–35.33m boundary controls, full both-side shop/non-shop/hidden-unit/floor/door inventory, measured reference/access geometry and current on-site operation. All25.33m per side unqualified. r312 still needs robust in-interior locator/alignment; r141 tiny buffered window needs junction-clearance evidence before any buffer reconsideration. Station-route/a8/connector proof separately unresolved. Read-only recorded-lead-disposition audit checked all positioned current-pair committed sources plus proposed batch and retained checkpoint states; no further actionable recorded target identified in that audited set. External inputs itemized there; no global imagery-exhaustion claim."
+      "nextAction": "Saved zRY/6KX side and offered January2025/December2021 target set is reviewed. No further useful gap-closing recorded target identified; do not repeat these views, old forward/sign views, xGma out-of-bounds locator or road arrows. Need genuinely new unobstructed in-lease/field views with exact canonical 10\u201335.33m boundary controls, full both-side shop/non-shop/hidden-unit/floor/door inventory, measured reference/access geometry and current on-site operation. All25.33m per side unqualified. r312 still needs robust in-interior locator/alignment; r141 tiny buffered window needs junction-clearance evidence before any buffer reconsideration. Station-route/a8/connector proof separately unresolved. Read-only recorded-lead-disposition audit checked all positioned current-pair committed sources plus proposed batch and retained checkpoint states; no further actionable recorded target identified in that audited set. External inputs itemized there; no global imagery-exhaustion claim."
     },
     "retainedBoundedAssignments": [
       {
@@ -464,7 +463,7 @@
           "projectedAlongM": 155.59682399840278,
           "lateralM": 4.647433343101242
         },
-        "nextAction": "Targeted lower map/date review is complete and yielded no calibrated/current qualification proof beyond the two already saved pending January 2026 contexts. Do not repeat these four historical views, existing anchor sets or held upper/lower targets; no batch 003/import/runtime change for this review. Need genuinely new unobstructed in-lease evidence with exact canonical facade/unit/door/boundary controls, measured reference/access geometry and current on-site operation, especially remaining 150–154.613 m and hidden/inter-camera gaps. A new validated lower panorama could support context but would not replace those qualification inputs. No fresh distinct currently allowed recorded source task found; unreserved a8/Venkatgiri branch candidates need independent route/canonical-scope resolution and published allowed plan/activation. Preserve all old leases/provider blocks and no station advance. Browser restored, no user recovery action or provider denial/global imagery-exhaustion claim.",
+        "nextAction": "Targeted lower map/date review is complete and yielded no calibrated/current qualification proof beyond the two already saved pending January 2026 contexts. Do not repeat these four historical views, existing anchor sets or held upper/lower targets; no batch 003/import/runtime change for this review. Need genuinely new unobstructed in-lease evidence with exact canonical facade/unit/door/boundary controls, measured reference/access geometry and current on-site operation, especially remaining 150\u2013154.613 m and hidden/inter-camera gaps. A new validated lower panorama could support context but would not replace those qualification inputs. No fresh distinct currently allowed recorded source task found; unreserved a8/Venkatgiri branch candidates need independent route/canonical-scope resolution and published allowed plan/activation. Preserve all old leases/provider blocks and no station advance. Browser restored, no user recovery action or provider denial/global imagery-exhaustion claim.",
         "metadataOnlyBoundaryHolds": [
           {
             "panoId": "HgfEHD60UDgGn1zLyKUGtA",
@@ -715,7 +714,8 @@
     "fullyMappedQualifiedZoneCurrently": null,
     "instructions": "docs/handoff/TEST_GAME_REQUIREMENTS.md",
     "separateProjectRequired": true,
-    "capability": "Check receiving ChatGPT Sites create/edit capability before claiming a link; no tool/account control assumed."
+    "capability": "Check receiving ChatGPT Sites create/edit capability before claiming a link; no tool/account control assumed.",
+    "owner": "returning-account-game-01"
   },
   "credentials": "NONE transferred; do not export tokens/cookies/session/browser state or change permissions/audiences.",
   "receivingPlan": {
@@ -732,5 +732,6 @@
     "observations": 682,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
-  }
+  },
+  "gameWorkAssignment": "docs/handoff/GAME_SPLIT.json"
 }

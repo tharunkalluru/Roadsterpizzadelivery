@@ -1,5 +1,12 @@
 # Roadster worker instructions
 
+## Authorized game/mapping split — 2026-10-20T13:34:29.327555+00:00
+
+[GAME_SPLIT.json](docs/handoff/GAME_SPLIT.json) supersedes blanket outgoing quiescence ONLY for `returning-account-game-01` game development, QA and a separate test Site. User explicitly approved this bounded resumption. `second-computer-01` retains mapping coordination, sole survey imports/integration and all eight mapping leases/provider holds unchanged. Main public Site remains113; main publishing authority is not transferred. Former mapping writers remain inactive.
+
+Game branch `worker/returning-account-game-01/qualified-zone-game-survey133` pins survey133 SHA256 `39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42`. Single integration path: a draft code-only PR reviewed/integrated by second-computer-01, preserving current survey. No blind merging admitted mapping PRs. Incoming acknowledgement requested at `docs/handoff/claims/game-split-receiving-ack-20261020.json`; not yet observed. Isolated code/tests may proceed; integration/publication awaits acknowledgement and applicable zone/access/QA gates. No coherent fully verified zone currently qualifies. New evidence is needed; pending contexts cannot be relabelled fully mapped.
+
+
 ## Independent r504 review admitted — 2026-10-20T07:56:33Z
 
 Current `venkatgiri-independent-r50481356909-0`, second-computer-01; ONLY r_50481356909_0 canonical left/right closed **10.00–35.33 m**,25.33 m per side. Plan `4378546b44980a2aafc5ae2c0a7bb457468d5bcc`, exact activation `97a76663a968be2034661145ba9ec0803bd866e1`, worker `63a176d86eac9c322776527fb49eb76ac12c7156`, [draft PR8](https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/8). Prior startup required steps fulfilled before imagery. All ten earlier assignment objects and retained mapping/provider holds exact; r312/r141 deferrals and unresolved station/a8/gate/marker identity/gaps unchanged.
