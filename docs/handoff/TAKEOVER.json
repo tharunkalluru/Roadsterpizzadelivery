@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T04:05:16Z",
+  "updatedAt": "2026-10-20T05:23:58Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -84,64 +84,84 @@
     },
     "exclusions": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage; Road5/Yusufguda markers have saved imagery gaps; station gates/connectors unknown.",
     "receivingBoundedAssignment": {
-      "assignmentId": "road5-yusufguda-road2-r15543570465-0",
-      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r15543570465-0-20261020.md",
+      "assignmentId": "road5-yusufguda-road2-r63797909905-0",
+      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
+      "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
       "owner": "second-computer-01",
-      "state": "TARGETED_OBLIQUE_REVIEW_COMPLETE_EVIDENCE_LIMIT",
-      "roadId": "r_15543570465_0",
+      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "roadId": "r_63797909905_0",
       "rangesM": [
-        8,
-        27.26
+        10,
+        62
       ],
       "sides": [
         "left",
         "right"
       ],
       "oldA8AndMarkerGapsPreserved": true,
-      "separateG7FlJumpDisclosed": true,
-      "activationCommit": "20a7231a4f87b541c9542f4bc29438c67acadb74",
-      "checkpoint": "game/work/road5-yusufguda-road2-r15543570465-0/checkpoint-20261020-oblique-gap-review.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-road2-batch002-import-118.md",
-      "workerCommit": "f5d76354c209406cf3ce69ad8bffcc0c9dae6cee",
-      "pendingObservations": 8,
-      "qualifiedSideMetres": 0,
-      "lastPanorama": {
-        "panoId": "vDWUaSjqRXJ8l-URg9EEDA",
-        "lat": 17.4302587,
-        "lon": 78.4252561,
-        "captureDate": "2026-01",
-        "headingDeg": 164,
-        "fov": 65,
-        "projectedAlongM": 23.658228585113136,
-        "lateralM": 7.190950634318659
-      },
-      "nextAction": "Obtain a genuinely new unobstructed dated in-lease sightline or field evidence with calibrated endpoint/facade/unit correspondence, entrance/geometry measurements and currentness corroboration. Check actual camera projection before authoring. Keep samelease/exclusions; no blind forward advance fromvDWU into unknownjunctioncamera.",
-      "lastForwardTraversalPanorama": {
-        "panoId": "vDWUaSjqRXJ8l-URg9EEDA",
-        "lat": 17.4302587,
-        "lon": 78.4252561,
-        "captureDate": "2026-01",
-        "headingDeg": 209,
-        "fov": 65,
-        "projectedAlongM": 23.658228585113136,
-        "lateralM": 7.190950634318659
-      },
-      "latestObliqueReviewReceipt": "docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md",
-      "obliqueReviewOutcome": {
+      "separateAnchorJumpDisclosed": true
+    },
+    "retainedBoundedAssignments": [
+      {
+        "assignmentId": "road5-yusufguda-road2-r15543570465-0",
+        "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r15543570465-0-20261020.md",
+        "owner": "second-computer-01",
+        "state": "TARGETED_OBLIQUE_REVIEW_COMPLETE_EVIDENCE_LIMIT",
+        "roadId": "r_15543570465_0",
+        "rangesM": [
+          8,
+          27.26
+        ],
+        "sides": [
+          "left",
+          "right"
+        ],
+        "oldA8AndMarkerGapsPreserved": true,
+        "separateG7FlJumpDisclosed": true,
+        "activationCommit": "20a7231a4f87b541c9542f4bc29438c67acadb74",
+        "checkpoint": "game/work/road5-yusufguda-road2-r15543570465-0/checkpoint-20261020-oblique-gap-review.md",
+        "reviewReceipt": "docs/handoff/reviews/second-computer-01-road2-batch002-import-118.md",
         "workerCommit": "f5d76354c209406cf3ce69ad8bffcc0c9dae6cee",
-        "views": 4,
-        "distinctCameras": 2,
-        "captureDate": "2026-01",
-        "runtimeRecordsAdded": 0,
-        "batch003Created": false,
-        "importExecuted": false,
-        "coveragePromoted": false,
-        "ledger": "game/work/road5-yusufguda-road2-r15543570465-0/oblique-gap-review-20261020.json",
-        "receipt": "docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md",
-        "stopReason": "The four targeted unreviewed fixed-camera angles do not supply qualifying bounded inventory, placement, metric or currentness evidence. No further useful gap-closing source identified in this inspected set; no claim that all imagery everywhere is exhausted. Do not repeat without genuinely new evidence/question.",
-        "requiredEvidence": "Obtain a genuinely new unobstructed dated in-lease sightline or field evidence with calibrated endpoint/facade/unit correspondence, entrance/geometry measurements and currentness corroboration. Check actual camera projection before authoring. Keep samelease/exclusions; no blind forward advance fromvDWU into unknownjunctioncamera."
+        "pendingObservations": 8,
+        "qualifiedSideMetres": 0,
+        "lastPanorama": {
+          "panoId": "vDWUaSjqRXJ8l-URg9EEDA",
+          "lat": 17.4302587,
+          "lon": 78.4252561,
+          "captureDate": "2026-01",
+          "headingDeg": 164,
+          "fov": 65,
+          "projectedAlongM": 23.658228585113136,
+          "lateralM": 7.190950634318659
+        },
+        "nextAction": "Obtain a genuinely new unobstructed dated in-lease sightline or field evidence with calibrated endpoint/facade/unit correspondence, entrance/geometry measurements and currentness corroboration. Check actual camera projection before authoring. Keep samelease/exclusions; no blind forward advance fromvDWU into unknownjunctioncamera.",
+        "lastForwardTraversalPanorama": {
+          "panoId": "vDWUaSjqRXJ8l-URg9EEDA",
+          "lat": 17.4302587,
+          "lon": 78.4252561,
+          "captureDate": "2026-01",
+          "headingDeg": 209,
+          "fov": 65,
+          "projectedAlongM": 23.658228585113136,
+          "lateralM": 7.190950634318659
+        },
+        "latestObliqueReviewReceipt": "docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md",
+        "obliqueReviewOutcome": {
+          "workerCommit": "f5d76354c209406cf3ce69ad8bffcc0c9dae6cee",
+          "views": 4,
+          "distinctCameras": 2,
+          "captureDate": "2026-01",
+          "runtimeRecordsAdded": 0,
+          "batch003Created": false,
+          "importExecuted": false,
+          "coveragePromoted": false,
+          "ledger": "game/work/road5-yusufguda-road2-r15543570465-0/oblique-gap-review-20261020.json",
+          "receipt": "docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md",
+          "stopReason": "The four targeted unreviewed fixed-camera angles do not supply qualifying bounded inventory, placement, metric or currentness evidence. No further useful gap-closing source identified in this inspected set; no claim that all imagery everywhere is exhausted. Do not repeat without genuinely new evidence/question.",
+          "requiredEvidence": "Obtain a genuinely new unobstructed dated in-lease sightline or field evidence with calibrated endpoint/facade/unit correspondence, entrance/geometry measurements and currentness corroboration. Check actual camera projection before authoring. Keep samelease/exclusions; no blind forward advance fromvDWU into unknownjunctioncamera."
+        }
       }
-    }
+    ]
   },
   "pilot": {
     "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",

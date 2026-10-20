@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T04:05:16Z",
+  "updatedAt": "2026-10-20T05:23:58Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -10,7 +10,7 @@
     "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
     "claimedAt": "2026-10-20T01:27:15Z",
-    "currentCollectionAssignmentId": "road5-yusufguda-road2-r15543570465-0"
+    "currentCollectionAssignmentId": "road5-yusufguda-road2-r63797909905-0"
   },
   "assignments": [
     {
@@ -508,6 +508,133 @@
         "allAssignedSideMetresUnqualified": 19.26,
         "repeatPolicy": "Do not repeat these views without a specific genuinely new evidence question/source."
       }
+    },
+    {
+      "assignmentId": "road5-yusufguda-road2-r63797909905-0",
+      "status": "ACTIVE",
+      "workerId": "second-computer-01",
+      "ownerBranch": "worker/second-computer-01/road5-yusufguda-road2-r63797909905-0",
+      "claimId": "road5-yusufguda-road2-r63797909905-0-20261020",
+      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
+      "publishedPlan": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-plan-20261020.md",
+      "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
+      "claimedAt": "2026-10-20T05:23:58Z",
+      "coordinatorBaseCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
+      "activationCommit": null,
+      "activationCommitResolution": {
+        "claimFile": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
+        "rule": "Resolve the first commit adding this activation file with git log --diff-filter=A -1 --format=%H -- claimFile. It must be published/read back before imagery; branch exactly there. Pin its literal SHA in the next saved coordinator checkpoint."
+      },
+      "snapshotSurveyRevision": 118,
+      "snapshotSurveySha256": "3d07a199a727686e1881c10cd86d4c3ce3b1be74df47a4b2de23c5362471560f",
+      "worldId": "hyd-metro",
+      "worldVersion": "2.0.0",
+      "stationPair": "Road No5 Jubilee Hills -> Yusufguda",
+      "roadId": "r_63797909905_0",
+      "roadName": "road no 2",
+      "roadLengthM": 78.14,
+      "geometryStatus": "Provisional geometry, name, width and direction; no field measurements.",
+      "canonicalPoints": [
+        [
+          -13557.2,
+          -1782.83
+        ],
+        [
+          -13543.79,
+          -1797.5
+        ],
+        [
+          -13534.1,
+          -1821.15
+        ],
+        [
+          -13525.48,
+          -1852.7
+        ]
+      ],
+      "canonicalSourceIds": [
+        "ovt:seg/edaa6d991a9a",
+        "osm:w686846202@2"
+      ],
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_63797909905_0",
+          "side": "left",
+          "startM": 10.0,
+          "endM": 62.0,
+          "boundaryRule": "closed interval; stored road.points order"
+        },
+        {
+          "roadId": "r_63797909905_0",
+          "side": "right",
+          "startM": 10.0,
+          "endM": 62.0,
+          "boundaryRule": "closed interval; stored road.points order"
+        }
+      ],
+      "excludedRanges": [
+        {
+          "roadId": "r_63797909905_0",
+          "startM": 0,
+          "endM": 10,
+          "boundaryRule": "end exclusive"
+        },
+        {
+          "roadId": "r_63797909905_0",
+          "startM": 62,
+          "endM": 78.14,
+          "boundaryRule": "start exclusive"
+        }
+      ],
+      "excludedNodes": [
+        "n_48899500394",
+        "n_58553242227"
+      ],
+      "exclusions": [
+        "Both endpoint junctions and buffers; every other road/carriageway; station gates and connectors.",
+        "a8 at about67.118m and its unresolved east link; uncertain Venkatgiri/RoadNo8 branch. No a8 retry or route inference.",
+        "Prior r_15543570465_0 lease/gaps, Lakdikapul pilot and Miyapur-JNTU35road reservation remain unchanged."
+      ],
+      "startReference": {
+        "panoId": "JlcXKkzbnWgJAS9VtNg_Qw",
+        "lat": 17.4309707,
+        "lon": 78.4209622,
+        "historicalCaptureDate": "2026-01",
+        "historicalHeadingDeg": 20,
+        "projectedAlongM": 34.503,
+        "lateralM": 2.037,
+        "rule": "Saved central interior anchor. Verify actual metadata/projection before authoring; direct jump disclosed, not route continuity."
+      },
+      "priorObservationIds": [
+        "obs-r5-yusufguda-rev112-zero-interiors-sign",
+        "obs-r5-yusufguda-rev112-eastbound-link-gap"
+      ],
+      "newSourceIdPrefix": "sv-second-computer-01-road2-central-r63797909905-0-",
+      "batchPathPattern": "game/data/research/batches/second-computer-01-road2-central-r63797909905-0-<sequence>-<YYYYMMDD>.json",
+      "checkpointPathPattern": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-<UTC-or-sequence>.md",
+      "authority": {
+        "role": "CLAIMED receiving coordinator, mapping operator and sole importer",
+        "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
+        "userContext": "Entire takeover accepted; user requests sustained progress through work permitted by documented coordinator process. Preserve old leases and protected boundaries."
+      },
+      "nonOverlapAudit": {
+        "allOtherAssignmentObjectsPreserved": true,
+        "candidateAbsentFromEveryExistingReservedRoadSet": true,
+        "remoteWorkerBranchPreviouslyAbsent": true,
+        "singleOperatorAndImporter": "second-computer-01",
+        "outgoingQuiescent": true,
+        "fiveSnapshotHashesMatch": true,
+        "existingRoadBoundObservations": 2,
+        "existingStorefrontOverrides": 0,
+        "existingRoadReviews": {
+          "left": "unreviewed",
+          "right": "unreviewed"
+        }
+      },
+      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "latestCheckpoint": null,
+      "nextPanorama": null,
+      "nextAction": "After exact published activation/startup binding, open known central Jlc anchor and verify actual date/coords/nearest road, then inspect new left/right sectors. Inspect other saved in-range anchors only after actual projection; no blind endpoint/junction movement. Existing heading20/26 and ZERO INTERIORS identity lead are immutable and must not be duplicated. Keep missing geometry/currentness/coverage pending."
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"
