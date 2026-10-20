@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T02:31:37Z",
+  "updatedAt": "2026-10-20T03:04:38Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -9,7 +9,8 @@
     "rule": "Receiving claim transfers the entire workload; outgoing never auto-resumes at quota reset. One importer/integrator. Existing pilot bounds and provider/cloud blocks preserved.",
     "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
-    "claimedAt": "2026-10-20T01:27:15Z"
+    "claimedAt": "2026-10-20T01:27:15Z",
+    "currentCollectionAssignmentId": "road5-yusufguda-road2-r15543570465-0"
   },
   "assignments": [
     {
@@ -298,6 +299,146 @@
       "assignmentId": "madhapur-peddamma",
       "status": "QUICK_PASS_SAVED_GAPS_OPEN",
       "scope": "No external reassignment; retain prior evidence and gaps."
+    },
+    {
+      "assignmentId": "road5-yusufguda-road2-r15543570465-0",
+      "status": "ACTIVE",
+      "workerId": "second-computer-01",
+      "ownerBranch": "worker/second-computer-01/road5-yusufguda-road2-r15543570465-0",
+      "claimId": "road5-yusufguda-road2-r15543570465-0-20261020T030438Z",
+      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r15543570465-0-20261020.md",
+      "claimedAt": "2026-10-20T03:04:38Z",
+      "coordinatorBaseCommit": "709d35e38bc8586ee9d6e2d76cc723201155a66a",
+      "activationCommit": null,
+      "activationCommitResolution": {
+        "claimFile": "docs/handoff/claims/road5-yusufguda-road2-r15543570465-0-20261020.md",
+        "rule": "Resolve the initial commit adding this claim file (git log --diff-filter=A -1 --format=%H -- claimFile). It must be published on origin/handoff/parallel-mapping-2026-10-19 before mapping; branch from that exact SHA and record it in startup checkpoint."
+      },
+      "snapshotSurveyRevision": 116,
+      "snapshotSurveySha256": "f925e617373b9694ecad96a0157fb053adbf9018f57e4b2fcc7011d874d85521",
+      "worldId": "hyd-metro",
+      "worldVersion": "2.0.0",
+      "stationPair": "Road No5 Jubilee Hills -> Yusufguda",
+      "stationSequence": "Blue Line existing adjacent pair7->8; no station advancement",
+      "scopeType": "separate bounded interior road-edge slice; not a station route or old pilot extension",
+      "roadName": "road no 2",
+      "roadId": "r_15543570465_0",
+      "roadLengthM": 35.26,
+      "geometryStatus": "provisional canonical geometry/width/direction; not field measurements",
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_15543570465_0",
+          "side": "left",
+          "startM": 8.0,
+          "endM": 27.26,
+          "boundaryRule": "closed interval; stored road.points order"
+        },
+        {
+          "roadId": "r_15543570465_0",
+          "side": "right",
+          "startM": 8.0,
+          "endM": 27.26,
+          "boundaryRule": "closed interval; stored road.points order"
+        }
+      ],
+      "excludedRanges": [
+        {
+          "roadId": "r_15543570465_0",
+          "startM": 0,
+          "endM": 8,
+          "boundaryRule": "end exclusive"
+        },
+        {
+          "roadId": "r_15543570465_0",
+          "startM": 27.26,
+          "endM": 35.26,
+          "boundaryRule": "start exclusive"
+        }
+      ],
+      "excludedNodes": [
+        "n_60101518319",
+        "n_28718770527"
+      ],
+      "exclusions": [
+        "Both endpoint junctions, side branches and buffers",
+        "Every other road ID, parallel/opposite carriageway and station gate/connector",
+        "a8 east-link ambiguity, Venkatgiri/RoadNo8 branch, unavailable RoadNo5/Yusufguda marker targets; no retry or inferred route connection",
+        "Lakdikapul pilot road/ranges and all31pending contexts/gaps retained without reimport",
+        "Miyapur-JNTU35road/70side reservation and provider block; all other assignments unchanged"
+      ],
+      "rangeAnchors": [
+        {
+          "alongM": 8.0,
+          "lat": 17.43027060290335,
+          "lon": 78.42509440366192
+        },
+        {
+          "alongM": 27.26,
+          "lat": 17.430186097313115,
+          "lon": 78.42525286912559
+        }
+      ],
+      "canonicalPoints": [
+        [
+          -13108.08,
+          -1738.21
+        ],
+        [
+          -13077.26,
+          -1721.09
+        ]
+      ],
+      "canonicalSourceIds": [
+        "ovt:seg/39e781021243",
+        "osm:w116438106@15"
+      ],
+      "startReference": {
+        "panoId": "g7Fl11ZejwHLLmtEUlFKRw",
+        "lat": 17.4302616,
+        "lon": 78.4251374,
+        "historicalCaptureDate": "2026-01",
+        "historicalHeadingDeg": 114.3037,
+        "projectedAlongM": 12.477387223551085,
+        "lateralM": 1.3473252612812154,
+        "nextNearestRoadDistanceM": 12.549919413531004,
+        "rule": "Known separate directions-preview anchor; actual date/location must be reverified. Disclose direct jump from prior pilot/old a8 chain. No a8-to-g7Fl continuity is asserted."
+      },
+      "priorSourceIds": [
+        "sv-jhc-road5-route-20261019-pano-g7Fl-h114",
+        "sv-jhc-road5-opposite-20261019-pano-g7fl-h294"
+      ],
+      "newSourceIdPrefix": "sv-second-computer-01-road2-r15543570465-0-",
+      "batchPathPattern": "game/data/research/batches/second-computer-01-road2-r15543570465-0-<sequence>-<YYYYMMDD>.json",
+      "checkpointPathPattern": "game/work/road5-yusufguda-road2-r15543570465-0/checkpoint-<UTC-or-sequence>.md",
+      "nonOverlapAudit": {
+        "baseCommit": "709d35e38bc8586ee9d6e2d76cc723201155a66a",
+        "roadNotInAnyExistingReservation": true,
+        "outgoingOwnersQuiescent": true,
+        "singleBrowserOperatorAndImporter": "second-computer-01",
+        "existingRoadReviews": {
+          "left": "unreviewed",
+          "right": "unreviewed"
+        },
+        "existingOverrides": 0,
+        "existingRoadBoundObservations": 0,
+        "existingCorrections": 0,
+        "remoteWorkerBranchPreviouslyAbsent": true,
+        "fiveSnapshotHashesMatch": true
+      },
+      "authority": {
+        "role": "receiving CLAIMED coordinator/single integrator",
+        "references": [
+          "AGENTS.md ownership/role separation",
+          "docs/handoff/TAKEOVER.md Receiving claim and roles / current mapping",
+          "docs/handoff/TAKEOVER.json incoming.claimRequirements[4]",
+          "game/work/station-sequence-plan.md existing RoadNo5->Yusufguda pair"
+        ],
+        "userInstruction": "Continue mapping; coordinator may select/reserve next bounded segment through documented process before mapping. No lowered evidence standard or protected-work override."
+      },
+      "evidenceCollectionState": "CLAIM_PUBLISHED_STARTUP_BINDING_REQUIRED",
+      "nextAction": "After remote claim SHA verification and clean isolated worker branch, open known g7Fl camera, reverify date/coordinates/projection; inspect new canonical left/right sectors approximately29/209degrees. Reuse existing114/294sources if rechecked; author only new visible factual evidence/unknowns. No transition into another road or endpoint buffers. Stop on misalignment/access block/boundary; no coverage promotion without required evidence.",
+      "latestCheckpoint": null,
+      "nextPanorama": null
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"

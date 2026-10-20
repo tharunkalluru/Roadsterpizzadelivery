@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T02:31:37Z",
+  "updatedAt": "2026-10-20T03:04:38Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -82,7 +82,24 @@
       "headingDeg": 114.3,
       "state": "Existing directions-preview context; NOT linked to a8; not newly reopened during113 recheck."
     },
-    "exclusions": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage; Road5/Yusufguda markers have saved imagery gaps; station gates/connectors unknown."
+    "exclusions": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage; Road5/Yusufguda markers have saved imagery gaps; station gates/connectors unknown.",
+    "receivingBoundedAssignment": {
+      "assignmentId": "road5-yusufguda-road2-r15543570465-0",
+      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r15543570465-0-20261020.md",
+      "owner": "second-computer-01",
+      "state": "ACTIVE_AFTER_PUBLISHED_CLAIM_STARTUP_CHECK",
+      "roadId": "r_15543570465_0",
+      "rangesM": [
+        8,
+        27.26
+      ],
+      "sides": [
+        "left",
+        "right"
+      ],
+      "oldA8AndMarkerGapsPreserved": true,
+      "separateG7FlJumpDisclosed": true
+    }
   },
   "pilot": {
     "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
