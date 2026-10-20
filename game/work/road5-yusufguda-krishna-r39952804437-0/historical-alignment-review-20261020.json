@@ -1,0 +1,127 @@
+{
+  "assignmentId": "road5-yusufguda-krishna-r39952804437-0",
+  "reviewedAt": "2026-10-20T06:25:55.818704+00:00",
+  "workerPredecessor": "afe47dd78c3bb5867c9d7cf157cf6d8d272a6ad0",
+  "coordinatorCommit": "eebe964965860e368c4b9af335d97ae87c06bb49",
+  "surveyRevision": 127,
+  "surveySha256": "d06c7742c31beb6561998462f28ad77719909b13d41bc928eb23244005f3351e",
+  "activationCommit": "aee7c39310f7b2165b56ed9e2442f160980af200",
+  "metadataOnlyTargets": [
+    {
+      "panoId": "8nf80Pe7EQsAaI3O7CUN8A",
+      "captureDate": "2025-01",
+      "lat": 17.4296314,
+      "lon": 78.4251041,
+      "requestedHeadingDeg": 296,
+      "actualFov": 75,
+      "selection": "Offered January 2025 at saved Zthp anchor; actual date/coords read only.",
+      "assignedProjection": {
+        "roadId": "r_39952804437_0",
+        "alongM": 36.004141472227815,
+        "lateralM": 5.309564110133665,
+        "withinAlongRange": true
+      },
+      "nearestRoad": {
+        "roadId": "r_32699653228_0",
+        "alongM": 61.80918171681137,
+        "lateralM": 2.537847398303306,
+        "excluded": true
+      },
+      "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+      "screenshotInspected": false,
+      "runtimeRecordsAdded": 0,
+      "reason": "Nearest canonical road is explicitly excluded despite along-range projection on assigned edge; no silent road/side reassignment."
+    },
+    {
+      "panoId": "LdyAUusTFsAtrEP4hW8Otw",
+      "captureDate": "2025-01",
+      "lat": 17.4297634,
+      "lon": 78.4251716,
+      "requestedHeadingDeg": 116,
+      "actualFov": 75,
+      "selection": "Separately offered January 2025 at assigned Qoaa anchor; actual date/coords read only.",
+      "assignedProjection": {
+        "roadId": "r_39952804437_0",
+        "alongM": 19.7302920636814,
+        "lateralM": 5.176284589170212,
+        "withinAlongRange": true
+      },
+      "nearestRoad": {
+        "roadId": "r_32699653228_0",
+        "alongM": 45.54648426012307,
+        "lateralM": 3.1547829176072613,
+        "excluded": true
+      },
+      "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+      "screenshotInspected": false,
+      "runtimeRecordsAdded": 0,
+      "reason": "Nearest canonical road explicitly excluded despite in-range along projection; no silent assignment/side switch."
+    }
+  ],
+  "canonicalSideAudit": {
+    "coreSha256": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+    "assignedRoad": "r_39952804437_0",
+    "assignedSourceIds": [
+      "ovt:seg/94d5f6a557b8",
+      "osm:w1148129326@4"
+    ],
+    "excludedAdjacentRoad": "r_32699653228_0",
+    "adjacentSourceIds": [
+      "ovt:seg/79d0d1c6cee1",
+      "osm:w749675380@8"
+    ],
+    "bothCanonicalOneway": true,
+    "sharedToNode": "n_68591765210",
+    "interpretation": "Distinct canonical source ways converge at a shared endpoint. This does not establish exact physical carriageway or facade-side correspondence; no core correction or opposite premise assignment."
+  },
+  "lastInspectedImagery": {
+    "panoId": "J_mrGooEDM5oERkyfmu3Dg",
+    "captureDate": "2021-12",
+    "lat": 17.4295586,
+    "lon": 78.4251429,
+    "headingDeg": 116,
+    "fov": 75,
+    "alongM": 40.90208822723421
+  },
+  "nextPanorama": null,
+  "nextAction": "Both selected January 2025 captures remain held on explicitly excluded r_32699653228_0 and produced no frontage images inspected or runtime records. Independently offered December 2021 left views from both saved anchors passed nearest-assigned-road and in-bound checks and are retained separately for pending batch002. The named offered-date target set is checked; no repeats of held captures or further boundary exploration. Exact canonical right-side/door/unit correspondence, unobstructed bounded evidence, measured control geometry and currentness are still required. This is a scoped canonical-alignment/evidence hold, not provider denial or universal imagery exhaustion.",
+  "runtimeChanged": false,
+  "providerDenial": false,
+  "qualifiedSideMetres": 0,
+  "acceptedIndependentTargets": [
+    {
+      "panoId": "DdHr-yFw7ih8q15vuTJXOg",
+      "captureDate": "2021-12",
+      "lat": 17.4297262,
+      "lon": 78.425224,
+      "headingDeg": 116,
+      "fov": 75,
+      "nearestRoad": "r_39952804437_0",
+      "alongM": 21.028318306922646,
+      "lateralM": 1.6253169086964976,
+      "result": "Metadata/projection passed; left frontage inspected, pending new batch only after validation."
+    },
+    {
+      "panoId": "J_mrGooEDM5oERkyfmu3Dg",
+      "captureDate": "2021-12",
+      "lat": 17.4295586,
+      "lon": 78.4251429,
+      "headingDeg": 116,
+      "fov": 75,
+      "nearestRoad": "r_39952804437_0",
+      "alongM": 40.90208822723421,
+      "lateralM": 2.189340207740121,
+      "result": "Actual metadata/projection passed; left frontage inspected, pending separate batch validation."
+    }
+  ],
+  "lastInspectedImageryAtFirstStop": {
+    "panoId": "Zthp60eHW4zeTobWMZLLeA",
+    "lat": 17.429606,
+    "lon": 78.4251368,
+    "captureDate": "2026-01",
+    "headingDeg": 296,
+    "fov": 65,
+    "alongM": 37.03215943037272
+  },
+  "updatedAt": "2026-10-20T06:31:28.368312+00:00"
+}
