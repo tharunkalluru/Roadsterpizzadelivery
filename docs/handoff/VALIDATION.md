@@ -63,3 +63,7 @@ Exact immutable batch002 (canonical hash 568f0850dbc4e6a107283774592d24a0e404eab
 ## Alternative in-lease sightline review (no runtime mutation)
 
 2026-10-20T02:31:37Z:10actualNov2021views/7knowncameras,allrecomputedwithinlease/nearestassignedroad;noS76arepeat orjunction/othercarriageway traversal. Partialcontextclarification,remaininginventory EVIDENCE_BLOCKED. URL/date/heading/position bindings andunique reviewrefs checked;5SNAPSHOT hashes,4immutablebatchhashes/once-onlyreceipts,31pendingcontexts andpilotunreviewed0ranges/coverage unchanged. Exactworkerfa18213b45e4dad88ff83bceaa3b11cf58ccebdbcheckpoint/ledger copied;secret/path/whitespace checks. No newbatch/import/build/unit/E2E/device rerun;priorlimitsremain. See alternative-sightlines-116 receipt.
+
+## Receiving Road No.2 batch001 / survey117 — 2026-10-20T03:19:19Z
+
+Sixnewpendingcontexts admittedonce,canonical `ae9b32eb9fc4fa6986f3b2ed64348fbb0adf3c6396548484f9fadc525faee99f`. Disposablepreview,serialimport,survey:validate0errors,network/queue regeneration,reproducibilitychecks andtsc/Vite84module productionbuild passed. Priorrecord/receiptprefixes,roadreviews/placements/corrections andprotectedreservations unchanged. All5SNAPSHOT currenthashesmatch; originals113capture unchanged. Noindependentsecondimageryreview,unit/E2E/device rerun orcoveragepromotion. See `docs/handoff/reviews/second-computer-01-road2-batch001-import-117.md` for fullreceipt/actualsourceuncertainties.

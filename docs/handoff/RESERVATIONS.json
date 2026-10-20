@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T03:04:38Z",
+  "updatedAt": "2026-10-20T03:19:19Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -309,7 +309,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r15543570465-0-20261020.md",
       "claimedAt": "2026-10-20T03:04:38Z",
       "coordinatorBaseCommit": "709d35e38bc8586ee9d6e2d76cc723201155a66a",
-      "activationCommit": null,
+      "activationCommit": "20a7231a4f87b541c9542f4bc29438c67acadb74",
       "activationCommitResolution": {
         "claimFile": "docs/handoff/claims/road5-yusufguda-road2-r15543570465-0-20261020.md",
         "rule": "Resolve the initial commit adding this claim file (git log --diff-filter=A -1 --format=%H -- claimFile). It must be published on origin/handoff/parallel-mapping-2026-10-19 before mapping; branch from that exact SHA and record it in startup checkpoint."
@@ -435,10 +435,36 @@
         ],
         "userInstruction": "Continue mapping; coordinator may select/reserve next bounded segment through documented process before mapping. No lowered evidence standard or protected-work override."
       },
-      "evidenceCollectionState": "CLAIM_PUBLISHED_STARTUP_BINDING_REQUIRED",
-      "nextAction": "After remote claim SHA verification and clean isolated worker branch, open known g7Fl camera, reverify date/coordinates/projection; inspect new canonical left/right sectors approximately29/209degrees. Reuse existing114/294sources if rechecked; author only new visible factual evidence/unknowns. No transition into another road or endpoint buffers. Stop on misalignment/access block/boundary; no coverage promotion without required evidence.",
-      "latestCheckpoint": null,
-      "nextPanorama": null
+      "evidenceCollectionState": "BATCH001_CONTEXT_ADMITTED_BOUNDARY_STOP",
+      "nextAction": "Continue only warranted genuinely new in-lease evidence under same bounded lease. Dec2021 was visibly offered at g7Fl but not inspected; any date selection requires actual pano/coords/date/projection check before authoring. No forward road click from vDWU23.658229m into unknown next camera/junction. Missing calibrated road/facade correspondence, endpoint/inter-camera/occlusion/currentness proof holds all19.26m per side unqualified; do not repeat exhausted oldpilot views, infer tenancy, expand scope or reimport evidence.",
+      "latestCheckpoint": "game/work/road5-yusufguda-road2-r15543570465-0/checkpoint-20261020-startup-and-batch001.md",
+      "nextPanorama": null,
+      "latestEvidenceLedger": "game/work/road5-yusufguda-road2-r15543570465-0/evidence-ledger-20261020-batch001.json",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-road2-batch001-import-117.md",
+      "workerCommit": "99a6e40d3ab16deadf60ff228e4db9b8ea60eea1",
+      "workerPullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/2",
+      "batch001ImportedRevision": 117,
+      "batch001ContentHash": "ae9b32eb9fc4fa6986f3b2ed64348fbb0adf3c6396548484f9fadc525faee99f",
+      "lastPanorama": {
+        "panoId": "vDWUaSjqRXJ8l-URg9EEDA",
+        "lat": 17.4302587,
+        "lon": 78.4252561,
+        "captureDate": "2026-01",
+        "headingDeg": 209,
+        "fov": 65,
+        "projectedAlongM": 23.658228585113136,
+        "lateralM": 7.190950634318659
+      },
+      "contextAdmission": {
+        "pendingObservations": 6,
+        "newSources": 6,
+        "datedCameras": 3,
+        "roadReviewRangesAdded": 0,
+        "qualifiedSideMetres": 0,
+        "storefrontPlacementsAdded": 0,
+        "sourceCoordinateDriftExplicitlyRecorded": true,
+        "providerDenied": false
+      }
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"
