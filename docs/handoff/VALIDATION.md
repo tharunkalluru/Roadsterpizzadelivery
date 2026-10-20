@@ -119,3 +119,7 @@ Current-127 disposable preview and once-only admission with canonical `c797d8a8b
 ## Road Number 5 r642 / survey 129 — 2026-10-20T06:44:40Z
 
 Current 128 preview and once-only admission canonical `54e39d3da4b0a9af459a11aaaa6a5f74d1ca4ec25fb11bf8a57203d8316b7841` passed. Survey validation zero errors/existing warning; network/queue generation and reproducibility, tsc/Vite 84-module build passed. Four actual date/camera/heading/projection checks, two duplicate review-only right views and two metadata-only excluded January 2025 cameras checked. Prior prefixes/physical collections/all old assignments and five snapshot hashes preserved. No coverage/placement/independent second imagery review/full unit/E2E/device rerun. See `docs/handoff/reviews/second-computer-01-road5-r642-batch001-import-129.md`.
+
+## Road Number 5 approach / survey 130 — 2026-10-20T06:56:04Z
+
+Current 129 preview and serial once-only admission canonical `a72433d0d0fd1d6bfaffa7e7eb84de9bb7e4700cb89d7eeeaf9480635acc9756` passed. Survey validation zero errors/existing warning; network/queue regeneration and reproducibility; tsc/Vite 84-module build passed. Eight source/ledger/observation/date/camera projections and two metadata-only out-of-bound holds checked; all 118 receipt hashes and five SNAPSHOT hashes match. Prior prefixes/physical collections/old assignment objects unchanged. No coverage/placement/independent second imagery review/full unit/E2E/device rerun. `docs/handoff/reviews/second-computer-01-road5-r369-batch001-import-130.md`.

@@ -1,0 +1,105 @@
+{
+  "recordedAt": "2026-10-20T06:56:05.206363+00:00",
+  "surveyRevision": 130,
+  "surveySha256": "2ee4f85f95204abdc5deda965b566c651c0e609843981f918d9d27a582c5c0a9",
+  "coordinatorPredecessor": "0bd1e48e560f7bce54372d235658b3c8e3e66eeb",
+  "workerId": "second-computer-01",
+  "currentAssignmentId": "road5-yusufguda-r36985565509-0",
+  "currentScope": {
+    "roadId": "r_36985565509_0",
+    "sides": [
+      "left",
+      "right"
+    ],
+    "closedRangeM": [
+      150,
+      177.43
+    ],
+    "unqualifiedMetresPerSide": 27.43
+  },
+  "qualification": {
+    "verifiedStorefronts": 0,
+    "verifiedSides": 0,
+    "fullyMappedPlayableZoneExists": false,
+    "missing": [
+      "Calibrated canonical facade/unit/floor/door and endpoint/inter-camera boundary correspondence.",
+      "Full unobstructed both-side bounded inventory, including lower150–162 m and hidden/non-shop gaps.",
+      "Measured reference/control geometry, road/entrance locations and access dimensions.",
+      "Current on-site operation corroboration."
+    ]
+  },
+  "reviewedNamedSourceSets": [
+    {
+      "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
+      "roadId": null,
+      "state": "ALTERNATIVE_REVIEW_COMPLETE_EVIDENCE_BLOCKED",
+      "checkpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-alternative-sightlines-consolidated.md"
+    },
+    {
+      "assignmentId": "road5-yusufguda-road2-r15543570465-0",
+      "roadId": "r_15543570465_0",
+      "state": "TARGETED_OBLIQUE_REVIEW_COMPLETE_EVIDENCE_LIMIT",
+      "checkpoint": "game/work/road5-yusufguda-road2-r15543570465-0/checkpoint-20261020-oblique-gap-review.md"
+    },
+    {
+      "assignmentId": "road5-yusufguda-road2-r63797909905-0",
+      "roadId": "r_63797909905_0",
+      "state": "BATCH008_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
+      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch008-historical-gaps.md"
+    },
+    {
+      "assignmentId": "road5-yusufguda-krishna-r39952804437-0",
+      "roadId": "r_39952804437_0",
+      "state": "BATCH002_PENDING_CONTEXT_ADMITTED_RIGHT_CORRESPONDENCE_HELD",
+      "checkpoint": "game/work/road5-yusufguda-krishna-r39952804437-0/checkpoint-20261020-batch002.md"
+    },
+    {
+      "assignmentId": "road5-yusufguda-r64237527671-0",
+      "roadId": "r_64237527671_0",
+      "state": "NAMED_SOURCE_SET_REVIEWED_CANONICAL_CALIBRATION_CURRENTNESS_GAPS",
+      "checkpoint": "game/work/road5-yusufguda-r64237527671-0/checkpoint-20261020-startup-and-batch001.md"
+    },
+    {
+      "assignmentId": "road5-yusufguda-r36985565509-0",
+      "roadId": "r_36985565509_0",
+      "state": "BOUNDED_SOURCE_SET_REVIEWED_QUALIFICATION_INPUT_REQUIRED",
+      "checkpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-startup-and-batch001.md"
+    }
+  ],
+  "preservedProtectedWork": {
+    "miyapurJntu": "RESERVED_PROVIDER_BLOCKED; exact35 roads/70 sides retained, no claim or retry.",
+    "a8Venkatgiri": "Unconfirmed east link/branch and marker gaps remain excluded, no station advance.",
+    "allPriorAssignmentObjectsUnchanged": true
+  },
+  "currentSourceLimits": {
+    "upperHistoricalTargets": "HgfE179.361161145 m and _w4A177.554587322 m stopped beyond177.43 before frontage inspection; zero runtime records.",
+    "reverseNavigation": "X_A h92 had no unambiguous visible arrow, no road click.",
+    "focusedInteriorLookup": "One model164 m public point lookup succeeded at actual0EjG166.155821916 m; its historical dates independently checked. No coordinate grid/variants.",
+    "nextValidatedLowerCameraKnown": false,
+    "universalImageryExhaustionClaim": false
+  },
+  "recommendedNextStep": {
+    "type": "CURRENT_CALIBRATED_FIELD_EVIDENCE_FOR_ONE_EXISTING_SMALL_SCOPE",
+    "roadId": "r_36985565509_0",
+    "sides": [
+      "left",
+      "right"
+    ],
+    "closedRangeM": [
+      150,
+      177.43
+    ],
+    "requiredInput": [
+      "Dated unobstructed walking survey/photo set covering both complete canonical side intervals and all units/floors/non-shop/hidden gaps.",
+      "Identify endpoint/boundary control points and exact facade/unit/door correspondence; include measured road width, relative entrance positions and access geometry.",
+      "Current public business/operation corroboration for each proposed game entrypoint; keep advertising/closed shutters separate from current tenancy.",
+      "Alternatively supply a source with equivalent calibrated/current proof; a bare panorama ID can enable more context collection but cannot qualify physical geometry."
+    ],
+    "afterInput": "Register new source evidence, resolve uncertainties in new immutable batches, independently qualify a coherent playable scope, then implement/test the full bounded game through TEST_GAME_REQUIREMENTS. Preserve current bounds until a recorded new scope is justified."
+  },
+  "permissionState": "No new approval or ownership claim needed for ordinary authorized work. Missing physical/current proof is the qualification blocker. This audit does not assert that all global mapping possibilities are exhausted or that future bounded tasks cannot be planned.",
+  "publishing": {
+    "main": "Parked on known Sites project_not_found/HTTP404, no retry/access change/replacement.",
+    "test": "No qualified fully mapped zone; no separate game deployment attempted or claimed."
+  }
+}

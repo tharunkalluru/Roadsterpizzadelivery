@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:46:39.512024+00:00",
+  "updatedAt": "2026-10-20T06:56:04Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-r36985565509-0-activation-20261020.md",
       "publishedPlanCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
       "owner": "second-computer-01",
-      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "state": "BOUNDED_SOURCE_SET_REVIEWED_QUALIFICATION_INPUT_REQUIRED",
       "roadId": "r_36985565509_0",
       "rangesM": [
         150,
@@ -99,7 +99,58 @@
         "right"
       ],
       "oldA8AndMarkerGapsPreserved": true,
-      "separateAnchorJumpDisclosed": true
+      "separateAnchorJumpDisclosed": true,
+      "activationCommit": "0bd1e48e560f7bce54372d235658b3c8e3e66eeb",
+      "checkpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-startup-and-batch001.md",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-batch001-import-130.md",
+      "qualificationAudit": "docs/handoff/reviews/second-computer-01-qualification-readiness-130.json",
+      "workerCommit": "066aad1d2edb599bc865844fa1f27fc60de5e5e4",
+      "pendingObservations": 8,
+      "qualifiedSideMetres": 0,
+      "lastPanorama": {
+        "panoId": "J3eSzUbyKZuDszVYdH6FUA",
+        "lat": 17.4306271,
+        "lon": 78.4210941,
+        "captureDate": "2021-12",
+        "headingDeg": 2,
+        "fov": 65,
+        "projectedAlongM": 167.19279241883245,
+        "lateralM": 2.4160187902599946
+      },
+      "nextAction": "The saved upper anchor and one focused lower-point locator, both sides and named offered-date targets are reviewed. Do not repeat these views or either held upper historical target. A new unambiguous lower in-lease source/visible navigation target is required to inspect the remaining150–162 m interval; none is identified in this targeted set, no blind road click or coordinate-query grid. Qualification also needs exact canonical facade/unit/door and boundary correspondence, unobstructed endpoint/inter-camera inventory, measured reference/control geometry and current on-site corroboration. Preserve all old reservations/evidence/provider holds and unfinished pair/marker/a8 gaps. No station advance or other-road inventory without a separately recorded allowed plan/activation.",
+      "metadataOnlyBoundaryHolds": [
+        {
+          "panoId": "HgfEHD60UDgGn1zLyKUGtA",
+          "captureDate": "2025-01",
+          "lat": 17.4306974,
+          "lon": 78.4209824,
+          "requestedHeadingDeg": 92,
+          "fov": 75,
+          "nearestRoad": "r_36985565509_0",
+          "assignedAlongM": 179.36116114546053,
+          "lateralM": 4.885656722815487,
+          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+          "screenshotInspected": false,
+          "runtimeRecordsAdded": 0,
+          "reason": "Beyond177.43 m upper bound despite nearest assigned road; no boundary expansion."
+        },
+        {
+          "panoId": "_w4AqsHcW41cyarhhScK_g",
+          "captureDate": "2021-12",
+          "lat": 17.4306199,
+          "lon": 78.4209962,
+          "requestedHeadingDeg": 92,
+          "fov": 75,
+          "nearestRoad": "r_36985565509_0",
+          "assignedAlongM": 177.55458732210633,
+          "lateralM": 3.6263839678994887,
+          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+          "screenshotInspected": false,
+          "runtimeRecordsAdded": 0,
+          "reason": "0.124587322 m beyond177.43 m upper bound; no rounding or expansion to accept historical capture."
+        }
+      ],
+      "pointLocatorReview": "game/work/road5-yusufguda-r36985565509-0/point-locator-review-20261020.json"
     },
     "retainedBoundedAssignments": [
       {
@@ -537,10 +588,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 129,
-    "surveySha256": "fec36e246a40609a46eb8d3a9360403f7ffabaab90185f9fe14e629a4a1ef087",
-    "sources": 884,
-    "observations": 658,
+    "surveyRevision": 130,
+    "surveySha256": "2ee4f85f95204abdc5deda965b566c651c0e609843981f918d9d27a582c5c0a9",
+    "sources": 892,
+    "observations": 666,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }

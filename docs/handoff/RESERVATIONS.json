@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:46:39.512024+00:00",
+  "updatedAt": "2026-10-20T06:56:04Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -1227,7 +1227,7 @@
       "publishedPlanCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
       "claimedAt": "2026-10-20T06:46:39.512024+00:00",
       "coordinatorBaseCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
-      "activationCommit": null,
+      "activationCommit": "0bd1e48e560f7bce54372d235658b3c8e3e66eeb",
       "activationCommitResolution": {
         "claimFile": "docs/handoff/claims/road5-yusufguda-r36985565509-0-activation-20261020.md",
         "rule": "Resolve initial file-addition SHA; publish/read back, isolated worker exactly there and startup report before imagery."
@@ -1345,10 +1345,98 @@
           "right": "unreviewed"
         }
       },
-      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
-      "latestCheckpoint": null,
+      "evidenceCollectionState": "BOUNDED_SOURCE_SET_REVIEWED_QUALIFICATION_INPUT_REQUIRED",
+      "latestCheckpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-startup-and-batch001.md",
       "nextPanorama": null,
-      "nextAction": "Publish/read back initial activation SHA, create isolated worker exactly there and report startup; check X_A actual metadata/nearest road/bounds then only new side sectors about h182/h2. Independently offered historical dates require their own actual checks. No forward upper-endpoint step; any clearly visible reverse step must be verified on the assigned road and within150–177.43 m before frontage inspection, stop on ambiguity/buffer mismatch. No other road/station/a8 mapping or invented dimensions/coverage."
+      "nextAction": "The saved upper anchor and one focused lower-point locator, both sides and named offered-date targets are reviewed. Do not repeat these views or either held upper historical target. A new unambiguous lower in-lease source/visible navigation target is required to inspect the remaining150–162 m interval; none is identified in this targeted set, no blind road click or coordinate-query grid. Qualification also needs exact canonical facade/unit/door and boundary correspondence, unobstructed endpoint/inter-camera inventory, measured reference/control geometry and current on-site corroboration. Preserve all old reservations/evidence/provider holds and unfinished pair/marker/a8 gaps. No station advance or other-road inventory without a separately recorded allowed plan/activation.",
+      "latestEvidenceLedger": "game/work/road5-yusufguda-r36985565509-0/evidence-ledger-20261020-batch001.json",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-batch001-import-130.md",
+      "latestQualificationAudit": "docs/handoff/reviews/second-computer-01-qualification-readiness-130.json",
+      "workerCommit": "066aad1d2edb599bc865844fa1f27fc60de5e5e4",
+      "workerPullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/6",
+      "batch001ImportedRevision": 130,
+      "batch001ContentHash": "a72433d0d0fd1d6bfaffa7e7eb84de9bb7e4700cb89d7eeeaf9480635acc9756",
+      "lastPanorama": {
+        "panoId": "J3eSzUbyKZuDszVYdH6FUA",
+        "lat": 17.4306271,
+        "lon": 78.4210941,
+        "captureDate": "2021-12",
+        "headingDeg": 2,
+        "fov": 65,
+        "projectedAlongM": 167.19279241883245,
+        "lateralM": 2.4160187902599946
+      },
+      "contextAdmission": {
+        "newSources": 8,
+        "pendingObservations": 8,
+        "datedCameras": 4,
+        "leftFrontageContexts": 4,
+        "rightFrontageContexts": 4,
+        "metadataOnlyBoundaryHolds": 2,
+        "navigationOnlyViews": 1,
+        "storefrontPlacementsAdded": 0,
+        "roadReviewRangesAdded": 0,
+        "qualifiedSideMetres": 0
+      },
+      "metadataOnlyBoundaryHolds": [
+        {
+          "panoId": "HgfEHD60UDgGn1zLyKUGtA",
+          "captureDate": "2025-01",
+          "lat": 17.4306974,
+          "lon": 78.4209824,
+          "requestedHeadingDeg": 92,
+          "fov": 75,
+          "nearestRoad": "r_36985565509_0",
+          "assignedAlongM": 179.36116114546053,
+          "lateralM": 4.885656722815487,
+          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+          "screenshotInspected": false,
+          "runtimeRecordsAdded": 0,
+          "reason": "Beyond177.43 m upper bound despite nearest assigned road; no boundary expansion."
+        },
+        {
+          "panoId": "_w4AqsHcW41cyarhhScK_g",
+          "captureDate": "2021-12",
+          "lat": 17.4306199,
+          "lon": 78.4209962,
+          "requestedHeadingDeg": 92,
+          "fov": 75,
+          "nearestRoad": "r_36985565509_0",
+          "assignedAlongM": 177.55458732210633,
+          "lateralM": 3.6263839678994887,
+          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+          "screenshotInspected": false,
+          "runtimeRecordsAdded": 0,
+          "reason": "0.124587322 m beyond177.43 m upper bound; no rounding or expansion to accept historical capture."
+        }
+      ],
+      "pointLocatorReview": "game/work/road5-yusufguda-r36985565509-0/point-locator-review-20261020.json",
+      "navigationReview": {
+        "panoId": "X_A755v2ljJNY8HGmGYFIw",
+        "captureDate": "2026-01",
+        "headingDeg": 92,
+        "fov": 65,
+        "alongM": 176.32692011315999,
+        "result": "NO_UNAMBIGUOUS_VISIBLE_REVERSE_ARROW_NO_STEP",
+        "frontageAuthored": false,
+        "runtimeRecordsAdded": 0
+      },
+      "evidenceQualificationLimit": {
+        "type": "MISSING_CALIBRATED_UNIT_DOOR_BOUNDARIES_AND_CURRENT_ONSITE_PROOF",
+        "allAssignedSideMetresUnqualified": 27.43,
+        "notProviderDenial": true,
+        "universalImageryExhaustionClaim": false,
+        "remainingLowerIntervalM": [
+          150,
+          162
+        ],
+        "required": [
+          "Calibrated canonical facade/unit/door and endpoint/inter-camera boundaries.",
+          "Unobstructed both-side full bounded unit/floor/non-shop inventory.",
+          "Measured reference/control geometry and entrance positions.",
+          "Current on-site operation corroboration."
+        ]
+      }
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"
