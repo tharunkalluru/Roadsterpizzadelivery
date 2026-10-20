@@ -1,0 +1,181 @@
+{
+  "recordedAt": "2026-10-20T17:42:21.739376+00:00",
+  "workerId": "second-computer-01",
+  "assignmentId": "madhapur-r357-return-feasibility",
+  "ownerBranch": "worker/second-computer-01/madhapur-r357-return-feasibility",
+  "activationCommit": "aa69542c8c195c898b4dbd9c2d2c26fbb3b5eaaf",
+  "publishedPlanCommit": "2e6c96b04ec5298d57507402ce53f524e80d4191",
+  "frozenFiles": {
+    "game/public/research/street-survey.json": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+    "game/public/world/hyd-metro/v2/manifest.json": "b07636419815d2428d110b6e912144f93679d1b928ce53cd5d1464db62fe1089",
+    "game/public/world/hyd-metro/v2/core.json": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+    "game/package-lock.json": "dc36354e007ddbe185b883df2d2723348aa4e0387de975138c016c18b43fc9f6",
+    "game/data/archives/source-accuracy.json.gz": "4e0e9f32c651de10e6ce40f6a4eec96986b4e8d7b0fcfd77de4610d512d490fd"
+  },
+  "surveyRevision": 133,
+  "startupHashesMatch": true,
+  "scope": [
+    {
+      "roadId": "r_58407483981_0",
+      "side": "left",
+      "startM": 0,
+      "endM": 82.67,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_58407483981_0",
+      "side": "right",
+      "startM": 0,
+      "endM": 82.67,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_20784239011_0",
+      "side": "left",
+      "startM": 0,
+      "endM": 47.01,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_20784239011_0",
+      "side": "right",
+      "startM": 0,
+      "endM": 47.01,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_62617115125_0",
+      "side": "left",
+      "startM": 0,
+      "endM": 86.37,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_62617115125_0",
+      "side": "right",
+      "startM": 0,
+      "endM": 86.37,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    }
+  ],
+  "junctionMovements": [
+    {
+      "nodeId": "n_54485549899",
+      "junctionId": "j_54485549899",
+      "incoming": "r_35746161453_0:f",
+      "outgoing": "r_58407483981_0:f",
+      "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+    },
+    {
+      "nodeId": "n_52965406785",
+      "junctionId": "j_52965406785",
+      "incoming": "r_58407483981_0:f",
+      "outgoing": "r_20784239011_0:f",
+      "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+    },
+    {
+      "nodeId": "n_36864024645",
+      "junctionId": "j_36864024645",
+      "incoming": "r_20784239011_0:f",
+      "outgoing": "r_62617115125_0:f",
+      "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+    },
+    {
+      "nodeId": "n_8238597964",
+      "junctionId": "j_8238597964",
+      "incoming": "r_62617115125_0:f",
+      "outgoing": "r_35746161453_0:f",
+      "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+    }
+  ],
+  "views": [
+    {
+      "panoId": "xV0Yv860XOblmtT10gi2hQ",
+      "captureDate": "2026-04",
+      "lat": 17.4409419,
+      "lon": 78.392653,
+      "headingDeg": 19,
+      "fov": 65,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=xV0Yv860XOblmtT10gi2hQ&heading=19&pitch=0&fov=65",
+      "scope": "j_54485549899 transition interface seen from existing r357 camera22.807m,3.368m lateral; not new r357 frontage inventory",
+      "observed": "Street mouth/open paved approach beside Bata, mesh fence and vegetation nearby, moving vehicles. View does not resolve signs/actual lawful turn/current access or prove whole r584 continuity."
+    },
+    {
+      "panoId": "BRk3Ds1vqqVivqYO23Faxg",
+      "captureDate": "2025-01",
+      "lat": 17.4414226,
+      "lon": 78.3925226,
+      "roadId": "r_62617115125_0",
+      "alongM": 38.424517396954215,
+      "lateralM": 3.7883839173132627,
+      "headingDeg": 2.1444443474023522,
+      "fov": 75,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=BRk3Ds1vqqVivqYO23Faxg&heading=2.1444443474023522&pitch=0&fov=75",
+      "observed": "North-facing narrow paved street, closely spaced buildings, vehicles parked both sides, rubble/uneven edge and utility wires. No pizza identity established. Camera lateral offset exceeds half provisional4.5m model width; alignment uncertainty, not measured width. View is against proposed southbound return; not proof of legal travel."
+    },
+    {
+      "panoId": "39DlvGNrWFZrOvMkDidQhg",
+      "captureDate": "2025-01",
+      "lat": 17.4417417,
+      "lon": 78.3927415,
+      "roadId": "r_20784239011_0",
+      "alongM": 23.597817468461265,
+      "lateralM": 2.136487313078499,
+      "headingDeg": 279.2749615797166,
+      "fov": 75,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=39DlvGNrWFZrOvMkDidQhg&heading=279.2749615797166&pitch=0&fov=75",
+      "observed": "West-facing paved street, parked two-wheelers/vehicles, buildings/stairs and trees; farther junction obscured by distance, vehicles and clutter. Laundry advertising is not pizza evidence; no inferred new tenant/door/unit."
+    },
+    {
+      "panoId": "39DlvGNrWFZrOvMkDidQhg",
+      "captureDate": "2025-01",
+      "lat": 17.4417417,
+      "lon": 78.3927415,
+      "roadId": "r_20784239011_0",
+      "alongM": 23.597817468461265,
+      "lateralM": 2.136487313078499,
+      "headingDeg": 103,
+      "fov": 75,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=39DlvGNrWFZrOvMkDidQhg&heading=103&pitch=0&fov=75",
+      "observed": "East-facing street toward broad-road interface; vans/trucks/auto-rickshaw parked along edges, wall/tree/ramp occlusion. No clear restriction sign, full turning envelope, safe stopping place or pizza entrance established. Absence of readable sign is not permission."
+    }
+  ],
+  "metadataOnlyHold": {
+    "panoId": "81YS85VStPJi--hOrKQDDA",
+    "captureDate": "2026-04",
+    "lat": 17.4414222,
+    "lon": 78.3929211,
+    "requestedRoad": "r_58407483981_0",
+    "targetAlongM": 55.21047413939029,
+    "targetLateralM": 5.8355915589456195,
+    "nearestRoad": "r_46336194016_0",
+    "nearestAlongM": 26.936480505207825,
+    "nearestLateralM": 4.725740817713525,
+    "outcome": "Metadata only; stopped before screenshot/frontage/authoring because excluded carriageway is nearer. No invented binding, traversal or scoped legal-turn proof."
+  },
+  "navigationReconciliation": "Single visible branch click at first anchor produced no confirmed movement, not repeated. Western forward click initially unchanged; a later Back exposed transient report link -jGxubTuPEK76TiAw9f3wg, then full readback returned BRk3 original coordinates/pano. No pixels inspected or records authored for transient target; its location/date remain unknown, no onward continuity inferred. Navigation timing is not provider denial.",
+  "publicSearch": {
+    "query": "pizza \"Bata\" \"Madhapur\" \"Road\" pickup",
+    "outcome": "One focused web search returned no qualifying operator/local pizza page for exact cycle; unrelated results rejected, no business absence claim or repeated query loop."
+  },
+  "counts": {
+    "actualReferenceViews": 4,
+    "newRuntimeSources": 0,
+    "newRuntimeObservations": 0,
+    "newBatches": 0,
+    "imports": 0,
+    "verifiedSides": 0,
+    "verifiedStorefronts": 0
+  },
+  "conclusion": "PROVISIONAL_GRAPH_CANDIDATE_ONLY_NOT_REAL_PICKUP_ROUTE",
+  "limitations": [
+    "No current lawful turn/return access established at any of four nodes.",
+    "r584 first visible map camera mismatches excluded parallel carriageway; canonical/source alignment needs exact field control or genuinely unambiguous new source.",
+    "No source-supported real pizza operator, door, safe pickup/customer stop on loop.",
+    "2025/2026 references do not establish present restrictions, current tenants, metric clearance or complete inventories."
+  ],
+  "nextAction": "Dated bounded field capture/checklist; no repeated reviewed target set. A genuinely new unambiguous r584 camera can add provisional context after metadata checks, but cannot replace current field/legal/access and pizza-door evidence.",
+  "rawProviderAssetsSaved": false,
+  "mainSite": "UNCHANGED",
+  "gameRuntimeChanged": false
+}
