@@ -34,3 +34,7 @@ Required evidence for the existing qualified goal:
 - r312 robust new interior camera/alignment, r141 junction-clearance evidence before altered buffers, separate a8/station/gate/connector correspondence; provider holds unchanged.
 
 Next mapping action: collect only genuinely new qualifying inputs when available, under unchanged ownership/bounds/provider restrictions. No further useful recorded target was identified by the saved nine-road audit; that is not universal imagery exhaustion. No current browser, permission or account-recovery blocker. Game fixes/QA/separate Site remain the other account's work; main Site unchanged.
+
+## Subsequent user clarification: provisional preview authorized
+
+The explicit request to play the mapped/provisional area satisfies the separate-mode acceptance decision above. No generic reapproval is missing. See [authorization and exact route/pickup/asset assumptions](../claims/provisional-preview-authorization-20261020.md). The current verified-mode gate/qualifiedZone:null and zero verified counters remain; a separately labelled provisional implementation is the game owner’s work. The one-way27.51m candidate needs an explicitly fictional/reset-based gameplay design or separate synthetic layout, never a fabricated real pizza shop or return road.

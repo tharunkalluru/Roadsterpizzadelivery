@@ -1,5 +1,9 @@
 # Roadster worker instructions
 
+## Provisional preview authorization clarified
+
+The explicit user request satisfies separate honestly labelled provisional-preview acceptance; no repeated generic approval needed. See `docs/handoff/claims/provisional-preview-authorization-20261020.md` and GAME_SPLIT.provisionalPreviewAuthorization for exact route/pickup/asset assumptions. Game owner implements a distinct provisional mode; verified-mode gate/qualifiedZone:null, zero verified counts, mapping/provider holds and main Site remain unchanged. No game code or deployment here.
+
 ## Receiving split acknowledged and PR9 data review — 2026-10-20T17:28:50.590319+00:00
 
 Exact split read `c9f9c103bee11ae6338fff7f2283da83347ea180`, original split `ee6062f7adbbc573e180232b4906ee52812a145c`; [acknowledgement](docs/handoff/claims/game-split-receiving-ack-20261020.json), [review/evidence disposition](docs/handoff/reviews/second-computer-01-pr9-mapping-compatibility-20261020.md). Mapping coordinator/sole importer second-computer-01 retains all8ACTIVE leases/11reservation records and provider holds; returning-account-game-01 owns game/mobile/QA/separate test Site. No concurrent game fixes or Site work here, no merge/deployment. All local mapping work clean/published before safe fast-forward.

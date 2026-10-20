@@ -136,7 +136,23 @@
     "currentRule": "docs/handoff/GAME_SPLIT.json releaseGate + docs/handoff/claims/game-split-request-20261020.md Real-zone handoff contract + docs/handoff/TEST_GAME_REQUIREMENTS.md lines3,7,9",
     "blockedAction": "Represent or release a real fully mapped pizza-delivery pilot from current provisional data.",
     "reason": "No qualified full-edge both-side verified zone, verified source-supported pizza pickup/entrances or supported returnable candidate loop.",
-    "decisionNeededForProvisionalAlternative": "Explicit user authorization of a separately labelled provisional/synthetic gameplay preview, distinct from the fully-mapped acceptance target, followed by the game owner’s reviewed mode/geometry/job design. Keep verified counters zero; do not bypass current qualified-zone gate or label synthetic merchants as real."
+    "decisionNeededForProvisionalAlternative": "SATISFIED by explicit user request, clarified in provisional-preview-authorization-20261020.md. Remaining game-owner design choices are route/return handling and clearly fictional pickup/customer markers, not another generic user approval. Keep current verified-zone gate and mapping counters unchanged.",
+    "provisionalAlternativeAuthorization": {
+      "state": "USER_AUTHORIZED_SEPARATE_LABELLED_PROVISIONAL_PREVIEW",
+      "recordedAt": "2026-10-20T17:31:52.020614+00:00",
+      "trustedUserClarification": "User already explicitly wants to play whatever is mapped through separate test link with provisional labels/provider restrictions and main site unchanged.",
+      "recordPath": "docs/handoff/claims/provisional-preview-authorization-20261020.md",
+      "meaning": "This satisfies the previously requested explicit acceptance decision for a separate provisional preview. No repeat generic approval is needed. It does not qualify mapping evidence or authorize representing the area as fully mapped.",
+      "implementationOwner": "returning-account-game-01",
+      "constraints": [
+        "Separate provisional mode/config and private test project; verified-mode gate unchanged and qualifiedZone remains null.",
+        "Keep all survey/status/verified counters unchanged; all169overrides remain provisional.",
+        "Explicitly label estimated geometry and any fictional gameplay pickup/customer markers; do not claim real pizza business/current tenant/door correspondence.",
+        "Do not invent real road connectivity or lawful return routes. A synthetic reset/turnaround/connector must be clearly fictional, confined and separate from canonical mapping.",
+        "Reference-only Street View/maps screenshots/photos/tiles/textures/sign crops cannot be redistributed without explicit licence. Use existing licensed runtime assets and original procedural graphics; preserve attribution.",
+        "Main Site, all mapping leases/provider holds and no-bypass restrictions unchanged. Game owner reviews mode/route/job/containment assumptions and QA; mapping owner does not implement game fixes or deploy."
+      ]
+    }
   },
   "pr9": {
     "url": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/9",
