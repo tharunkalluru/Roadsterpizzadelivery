@@ -1,0 +1,49 @@
+{
+  "recordedAt": "2026-10-20T06:38:16.593753+00:00",
+  "workerId": "second-computer-01",
+  "assignmentId": "road5-yusufguda-r64237527671-0",
+  "branch": "worker/second-computer-01/road5-yusufguda-r64237527671-0",
+  "head": "1228ce46fdec0a0fb87b2c1b45d76669e32adbac",
+  "activationCommit": "1228ce46fdec0a0fb87b2c1b45d76669e32adbac",
+  "planCommit": "7f99a3ae6e7e8566897512cd25a7b3846aa71534",
+  "surveyRevision": 128,
+  "frozenFiles": {
+    "game/public/research/street-survey.json": "32edacf9d41aa433346e3267f77e9a95df2cb04b7ca2b49d5ae8b49f2954f4f7",
+    "game/public/world/hyd-metro/v2/manifest.json": "b07636419815d2428d110b6e912144f93679d1b928ce53cd5d1464db62fe1089",
+    "game/public/world/hyd-metro/v2/core.json": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+    "game/package-lock.json": "dc36354e007ddbe185b883df2d2723348aa4e0387de975138c016c18b43fc9f6",
+    "game/data/archives/source-accuracy.json.gz": "4e0e9f32c651de10e6ce40f6a4eec96986b4e8d7b0fcfd77de4610d512d490fd"
+  },
+  "ranges": [
+    {
+      "roadId": "r_64237527671_0",
+      "side": "left",
+      "startM": 10.0,
+      "endM": 39.67,
+      "boundaryRule": "closed interval; stored road.points order"
+    },
+    {
+      "roadId": "r_64237527671_0",
+      "side": "right",
+      "startM": 10.0,
+      "endM": 39.67,
+      "boundaryRule": "closed interval; stored road.points order"
+    }
+  ],
+  "excludedRoadIds": [
+    "r_5733266100_0",
+    "r_39673286574_0",
+    "r_36985565509_0"
+  ],
+  "resume": {
+    "panoId": "RoO_ExTkgi147Gls7Vvbsg",
+    "lat": 17.4305262,
+    "lon": 78.420659,
+    "historicalCaptureDate": "2026-01",
+    "projectedAlongM": 29.907731971635997,
+    "lateralM": 1.478224952181485,
+    "rule": "Saved locator only; actual metadata/nearest road/in-bound projection required before authoring. Direct open, no route continuity."
+  },
+  "imageryInspectedOnNewAssignment": false,
+  "coordinationFreshness": "Remote activation exact SHA read back before isolated checkout; old leases preserved."
+}
