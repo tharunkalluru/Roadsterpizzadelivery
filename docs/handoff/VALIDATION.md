@@ -71,3 +71,7 @@ Sixnewpendingcontexts admittedonce,canonical `ae9b32eb9fc4fa6986f3b2ed64348fbb0a
 ## Road No.2 batch002 / survey118 — 2026-10-20T04:00:15Z
 
 Two new December2021 pending contexts imported once, canonical `e465f0bdb737875b4c854b766838fe57062eff7c473c9577a50df16e0ff57a28`. Current117 disposable preview, serial import, survey validation0errors, network/queue regeneration and reproducibility, tsc/Vite84module build passed. Prior evidence/receipt prefixes and all road/placement/coverage collections unchanged; all5SNAPSHOT hashes match. No unit/E2E/device rerun or coverage promotion. See `docs/handoff/reviews/second-computer-01-road2-batch002-import-118.md`.
+
+## Road No.2 fixed-camera oblique review — 2026-10-20T04:05:16Z
+
+Four new January2026 review references at two known in-lease cameras; date/coordinates/headings/URL and recomputed projection/nearest-road bindings checked. Five118SNAPSHOT hashes, eight pending contexts, both unreviewed sides and immutable001–002 receipts unchanged. No runtime record/batch003/import/build/unit/E2E/device rerun. Scope remains8.00–27.26m both sides; evidence limit and required genuinely new proof in `docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md`. Explicit work/doc paths, whitespace and excluded-data checks before save.

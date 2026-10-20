@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T04:00:15Z",
+  "updatedAt": "2026-10-20T04:05:16Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -87,7 +87,7 @@
       "assignmentId": "road5-yusufguda-road2-r15543570465-0",
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r15543570465-0-20261020.md",
       "owner": "second-computer-01",
-      "state": "BATCH002_DATED_CONTEXT_ADMITTED_GAPS_OPEN",
+      "state": "TARGETED_OBLIQUE_REVIEW_COMPLETE_EVIDENCE_LIMIT",
       "roadId": "r_15543570465_0",
       "rangesM": [
         8,
@@ -100,22 +100,22 @@
       "oldA8AndMarkerGapsPreserved": true,
       "separateG7FlJumpDisclosed": true,
       "activationCommit": "20a7231a4f87b541c9542f4bc29438c67acadb74",
-      "checkpoint": "game/work/road5-yusufguda-road2-r15543570465-0/checkpoint-20261020-dated-gap-review.md",
+      "checkpoint": "game/work/road5-yusufguda-road2-r15543570465-0/checkpoint-20261020-oblique-gap-review.md",
       "reviewReceipt": "docs/handoff/reviews/second-computer-01-road2-batch002-import-118.md",
-      "workerCommit": "2ea349c8818a3e6e80b7e2eb85693f8744aa1e5a",
+      "workerCommit": "f5d76354c209406cf3ce69ad8bffcc0c9dae6cee",
       "pendingObservations": 8,
       "qualifiedSideMetres": 0,
       "lastPanorama": {
-        "panoId": "6TcqPRH5J9OQ5E1qt3vo1Q",
-        "lat": 17.430289,
-        "lon": 78.4251745,
-        "captureDate": "2021-12",
-        "headingDeg": 209,
+        "panoId": "vDWUaSjqRXJ8l-URg9EEDA",
+        "lat": 17.4302587,
+        "lon": 78.4252561,
+        "captureDate": "2026-01",
+        "headingDeg": 164,
         "fov": 65,
-        "projectedAlongM": 14.450728616886835,
-        "lateralM": 5.91238975534807
+        "projectedAlongM": 23.658228585113136,
+        "lateralM": 7.190950634318659
       },
-      "nextAction": "Review only genuinely new in-lease evidence against the explicit gaps. December2021 at g7Fl is now inspected; do not repeatedly rotate collected views without a specific new evidence question. Forward stop vDWU23.658229m stays fixed; no blind advance into the endpoint junction. Obtain unobstructed bounded endpoint/inter-camera/facade and unit correspondence, calibrated geometry/entrance proof and newer currentness evidence before inventory/placement/coverage promotion. All19.26m per side remains unqualified. No scope expansion or protected-reservation changes.",
+      "nextAction": "Obtain a genuinely new unobstructed dated in-lease sightline or field evidence with calibrated endpoint/facade/unit correspondence, entrance/geometry measurements and currentness corroboration. Check actual camera projection before authoring. Keep samelease/exclusions; no blind forward advance fromvDWU into unknownjunctioncamera.",
       "lastForwardTraversalPanorama": {
         "panoId": "vDWUaSjqRXJ8l-URg9EEDA",
         "lat": 17.4302587,
@@ -125,6 +125,21 @@
         "fov": 65,
         "projectedAlongM": 23.658228585113136,
         "lateralM": 7.190950634318659
+      },
+      "latestObliqueReviewReceipt": "docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md",
+      "obliqueReviewOutcome": {
+        "workerCommit": "f5d76354c209406cf3ce69ad8bffcc0c9dae6cee",
+        "views": 4,
+        "distinctCameras": 2,
+        "captureDate": "2026-01",
+        "runtimeRecordsAdded": 0,
+        "batch003Created": false,
+        "importExecuted": false,
+        "coveragePromoted": false,
+        "ledger": "game/work/road5-yusufguda-road2-r15543570465-0/oblique-gap-review-20261020.json",
+        "receipt": "docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md",
+        "stopReason": "The four targeted unreviewed fixed-camera angles do not supply qualifying bounded inventory, placement, metric or currentness evidence. No further useful gap-closing source identified in this inspected set; no claim that all imagery everywhere is exhausted. Do not repeat without genuinely new evidence/question.",
+        "requiredEvidence": "Obtain a genuinely new unobstructed dated in-lease sightline or field evidence with calibrated endpoint/facade/unit correspondence, entrance/geometry measurements and currentness corroboration. Check actual camera projection before authoring. Keep samelease/exclusions; no blind forward advance fromvDWU into unknownjunctioncamera."
       }
     }
   },
