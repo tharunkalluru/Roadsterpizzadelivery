@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:37:52Z",
+  "updatedAt": "2026-10-20T06:44:40Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -1009,7 +1009,7 @@
       "publishedPlanCommit": "7f99a3ae6e7e8566897512cd25a7b3846aa71534",
       "claimedAt": "2026-10-20T06:37:52Z",
       "coordinatorBaseCommit": "7f99a3ae6e7e8566897512cd25a7b3846aa71534",
-      "activationCommit": null,
+      "activationCommit": "1228ce46fdec0a0fb87b2c1b45d76669e32adbac",
       "activationCommitResolution": {
         "claimFile": "docs/handoff/claims/road5-yusufguda-r64237527671-0-activation-20261020.md",
         "rule": "Resolve initial file-addition commit; publish/read back exact SHA, create isolated worker exactly there and report startup before imagery."
@@ -1132,10 +1132,90 @@
           "right": "unreviewed"
         }
       },
-      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
-      "latestCheckpoint": null,
+      "evidenceCollectionState": "NAMED_SOURCE_SET_REVIEWED_CANONICAL_CALIBRATION_CURRENTNESS_GAPS",
+      "latestCheckpoint": "game/work/road5-yusufguda-r64237527671-0/checkpoint-20261020-startup-and-batch001.md",
       "nextPanorama": null,
-      "nextAction": "Publish/read back initial activation SHA, create isolated worker exactly there, report startup; inspect new narrow side sectors at saved RoO then wcq only after actual metadata/nearest-road/bounds checks. No road arrows, endpoint/a8/station/other-carriageway inventory, repeated source records, invented dimensions or coverage."
+      "nextAction": "Both saved anchors and named offered 2026/2025/2021 date targets are checked for the left access/hidden-unit question. Four distinct left contexts retained, two right-sector reviews add no duplicate runtime records, both January 2025 cameras held on excluded parallel road before frontage inspection. No repeat of this target set without new evidence/question; no road arrows or endpoint/other-road expansion. Qualification requires calibrated exact canonical facade/unit/door correspondence and boundary control, unobstructed endpoint/inter-camera inventory, measured geometry and current on-site corroboration. Different bounded work requires the recorded coordinator plan/activation process; no continuity or station advance inferred.",
+      "latestEvidenceLedger": "game/work/road5-yusufguda-r64237527671-0/evidence-ledger-20261020-batch001.json",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r642-batch001-import-129.md",
+      "workerCommit": "87792f8e65f9a7f5972ac4e1667a6f417fdc068f",
+      "workerPullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/5",
+      "batch001ImportedRevision": 129,
+      "batch001ContentHash": "54e39d3da4b0a9af459a11aaaa6a5f74d1ca4ec25fb11bf8a57203d8316b7841",
+      "lastPanorama": {
+        "panoId": "Dy9oC9NJph9f3fGm6u-ljw",
+        "lat": 17.4305281,
+        "lon": 78.4206543,
+        "captureDate": "2021-12",
+        "headingDeg": 152,
+        "fov": 75,
+        "projectedAlongM": 30.251938193182184,
+        "lateralM": 1.8966866307734678
+      },
+      "contextAdmission": {
+        "newSources": 4,
+        "pendingObservations": 4,
+        "datedCameras": 4,
+        "leftFrontageContexts": 4,
+        "reviewOnlyViews": 2,
+        "metadataOnlyHolds": 2,
+        "storefrontPlacementsAdded": 0,
+        "roadReviewRangesAdded": 0,
+        "qualifiedSideMetres": 0
+      },
+      "historicalAlignmentHolds": [
+        {
+          "panoId": "KL_xW-NrdRTM55aifPlKwQ",
+          "captureDate": "2025-01",
+          "lat": 17.4306633,
+          "lon": 78.4207965,
+          "requestedHeadingDeg": 326,
+          "fov": 75,
+          "assignedAlongM": 9.12546458003501,
+          "assignedLateralM": 7.032785442408807,
+          "withinAlongRange": false,
+          "nearestRoad": "r_5733266100_0",
+          "nearestLateralM": 3.276680064381393,
+          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+          "screenshotInspected": false,
+          "runtimeRecordsAdded": 0,
+          "reason": "Excluded parallel road nearest and assigned along projection below 10.00 m lower bound."
+        },
+        {
+          "panoId": "fh2tsA9qX9K6yzzPcmVrFg",
+          "captureDate": "2025-01",
+          "lat": 17.4305823,
+          "lon": 78.4206478,
+          "requestedHeadingDeg": 152,
+          "fov": 75,
+          "assignedAlongM": 28.0725438086887,
+          "assignedLateralM": 7.527800014915866,
+          "withinAlongRange": true,
+          "nearestRoad": "r_5733266100_0",
+          "nearestLateralM": 0.43233618161910514,
+          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+          "screenshotInspected": false,
+          "runtimeRecordsAdded": 0,
+          "reason": "Nearest explicitly excluded parallel road despite in-range assigned along projection."
+        }
+      ],
+      "rightSideCorrespondenceHold": {
+        "excludedAdjacentRoadId": "r_5733266100_0",
+        "farPremiseInventoryAdded": false,
+        "reason": "No right frontage/unit attributed across excluded parallel r_5733266100_0; old wall/advertising source reused without duplication."
+      },
+      "evidenceQualificationLimit": {
+        "type": "MISSING_CANONICAL_SIDE_UNIT_CALIBRATION_CURRENTNESS",
+        "allAssignedSideMetresUnqualified": 29.67,
+        "notProviderDenial": true,
+        "universalImageryExhaustionClaim": false,
+        "required": [
+          "Exact canonical facade/unit/door correspondence and boundary controls.",
+          "Unobstructed endpoint/inter-camera bounded inventory.",
+          "Measured reference/control geometry and entrances.",
+          "Current on-site operation corroboration."
+        ]
+      }
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"
