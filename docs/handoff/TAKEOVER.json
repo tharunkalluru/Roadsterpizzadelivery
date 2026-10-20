@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:56:33Z",
+  "updatedAt": "2026-10-20T17:38:30.987076+00:00",
   "status": "MAPPING_RETAINED_GAME_WORK_SPLIT_AUTHORIZED_ACK_REQUESTED",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -83,44 +83,87 @@
     },
     "exclusions": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage; Road5/Yusufguda markers have saved imagery gaps; station gates/connectors unknown.",
     "receivingBoundedAssignment": {
-      "assignmentId": "venkatgiri-independent-r50481356909-0",
-      "claimCheckpoint": "docs/handoff/claims/venkatgiri-independent-r50481356909-0-activation-20261020.md",
-      "publishedPlanCommit": "4378546b44980a2aafc5ae2c0a7bb457468d5bcc",
+      "assignmentId": "madhapur-r357-return-feasibility",
       "owner": "second-computer-01",
-      "state": "TARGETED_SIDE_DATE_REVIEW_COMPLETE_QUALIFICATION_EVIDENCE_BLOCKED",
-      "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
-      "roadId": "r_50481356909_0",
-      "rangesM": [
-        10,
-        35.33
+      "ownerBranch": "worker/second-computer-01/madhapur-r357-return-feasibility",
+      "claimCheckpoint": "docs/handoff/claims/madhapur-r357-return-feasibility-activation-20261020.md",
+      "publishedPlanCommit": "2e6c96b04ec5298d57507402ce53f524e80d4191",
+      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_58407483981_0",
+          "side": "left",
+          "startM": 0,
+          "endM": 82.67,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_58407483981_0",
+          "side": "right",
+          "startM": 0,
+          "endM": 82.67,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_20784239011_0",
+          "side": "left",
+          "startM": 0,
+          "endM": 47.01,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_20784239011_0",
+          "side": "right",
+          "startM": 0,
+          "endM": 47.01,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_62617115125_0",
+          "side": "left",
+          "startM": 0,
+          "endM": 86.37,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_62617115125_0",
+          "side": "right",
+          "startM": 0,
+          "endM": 86.37,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        }
       ],
-      "sides": [
-        "left",
-        "right"
+      "junctionMovements": [
+        {
+          "nodeId": "n_54485549899",
+          "junctionId": "j_54485549899",
+          "incoming": "r_35746161453_0:f",
+          "outgoing": "r_58407483981_0:f",
+          "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+        },
+        {
+          "nodeId": "n_52965406785",
+          "junctionId": "j_52965406785",
+          "incoming": "r_58407483981_0:f",
+          "outgoing": "r_20784239011_0:f",
+          "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+        },
+        {
+          "nodeId": "n_36864024645",
+          "junctionId": "j_36864024645",
+          "incoming": "r_20784239011_0:f",
+          "outgoing": "r_62617115125_0:f",
+          "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+        },
+        {
+          "nodeId": "n_8238597964",
+          "junctionId": "j_8238597964",
+          "incoming": "r_62617115125_0:f",
+          "outgoing": "r_35746161453_0:f",
+          "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+        }
       ],
-      "oldA8AndMarkerGapsPreserved": true,
-      "stationRouteIdentityUnresolved": true,
-      "separateAnchorJumpDisclosed": true,
-      "activationCommit": "97a76663a968be2034661145ba9ec0803bd866e1",
-      "checkpoint": "game/work/venkatgiri-independent-r50481356909-0/checkpoint-20261020-batch001.md",
-      "evidenceLedger": "game/work/venkatgiri-independent-r50481356909-0/evidence-ledger-20261020-batch001.json",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-independent-r504-batch001-import-133.md",
-      "recordedLeadAudit": "game/work/venkatgiri-independent-r50481356909-0/recorded-lead-disposition-20261020.json",
-      "externalInputs": "docs/handoff/reviews/second-computer-01-recorded-leads-and-external-inputs-133.md",
-      "workerCommit": "63a176d86eac9c322776527fb49eb76ac12c7156",
-      "pendingObservations": 8,
-      "qualifiedSideMetres": 0,
-      "lastPanorama": {
-        "panoId": "IoI6pkw9y8hB7HFZt272rg",
-        "lat": 17.4323431,
-        "lon": 78.4214811,
-        "captureDate": "2021-12",
-        "headingDeg": 288,
-        "fov": 65,
-        "projectedAlongM": 30.210346056956823,
-        "lateralM": 2.7382262532650987
-      },
-      "nextAction": "Saved zRY/6KX side and offered January2025/December2021 target set is reviewed. No further useful gap-closing recorded target identified; do not repeat these views, old forward/sign views, xGma out-of-bounds locator or road arrows. Need genuinely new unobstructed in-lease/field views with exact canonical 10\u201335.33m boundary controls, full both-side shop/non-shop/hidden-unit/floor/door inventory, measured reference/access geometry and current on-site operation. All25.33m per side unqualified. r312 still needs robust in-interior locator/alignment; r141 tiny buffered window needs junction-clearance evidence before any buffer reconsideration. Station-route/a8/connector proof separately unresolved. Read-only recorded-lead-disposition audit checked all positioned current-pair committed sources plus proposed batch and retained checkpoint states; no further actionable recorded target identified in that audited set. External inputs itemized there; no global imagery-exhaustion claim."
+      "qualifiedZone": null
     },
     "retainedBoundedAssignments": [
       {
@@ -595,6 +638,46 @@
           "lateralM": 3.2133109370565807
         },
         "nextAction": "Known saved-anchor side/date target set is reviewed. No further gap-closing source identified in this targeted set; do not repeat these views absent a new question, open excluded REc/bHG or traverse endpoint/junction arrows. Qualification needs genuinely new unobstructed in-lease/field evidence: exact canonical facade/unit/door and boundary controls, complete endpoint/inter-camera hidden-unit inventory, measured access/reference geometry and current on-site corroboration. No qualified side metres. r504 remains a separately actionable independent candidate requiring its own published plan/activation; r312 needs a better robust locator/alignment; r141 tiny buffered window remains deferred. None establishes the station route."
+      },
+      {
+        "assignmentId": "venkatgiri-independent-r50481356909-0",
+        "claimCheckpoint": "docs/handoff/claims/venkatgiri-independent-r50481356909-0-activation-20261020.md",
+        "publishedPlanCommit": "4378546b44980a2aafc5ae2c0a7bb457468d5bcc",
+        "owner": "second-computer-01",
+        "state": "TARGETED_SIDE_DATE_REVIEW_COMPLETE_QUALIFICATION_EVIDENCE_BLOCKED",
+        "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
+        "roadId": "r_50481356909_0",
+        "rangesM": [
+          10,
+          35.33
+        ],
+        "sides": [
+          "left",
+          "right"
+        ],
+        "oldA8AndMarkerGapsPreserved": true,
+        "stationRouteIdentityUnresolved": true,
+        "separateAnchorJumpDisclosed": true,
+        "activationCommit": "97a76663a968be2034661145ba9ec0803bd866e1",
+        "checkpoint": "game/work/venkatgiri-independent-r50481356909-0/checkpoint-20261020-batch001.md",
+        "evidenceLedger": "game/work/venkatgiri-independent-r50481356909-0/evidence-ledger-20261020-batch001.json",
+        "reviewReceipt": "docs/handoff/reviews/second-computer-01-independent-r504-batch001-import-133.md",
+        "recordedLeadAudit": "game/work/venkatgiri-independent-r50481356909-0/recorded-lead-disposition-20261020.json",
+        "externalInputs": "docs/handoff/reviews/second-computer-01-recorded-leads-and-external-inputs-133.md",
+        "workerCommit": "63a176d86eac9c322776527fb49eb76ac12c7156",
+        "pendingObservations": 8,
+        "qualifiedSideMetres": 0,
+        "lastPanorama": {
+          "panoId": "IoI6pkw9y8hB7HFZt272rg",
+          "lat": 17.4323431,
+          "lon": 78.4214811,
+          "captureDate": "2021-12",
+          "headingDeg": 288,
+          "fov": 65,
+          "projectedAlongM": 30.210346056956823,
+          "lateralM": 2.7382262532650987
+        },
+        "nextAction": "Saved zRY/6KX side and offered January2025/December2021 target set is reviewed. No further useful gap-closing recorded target identified; do not repeat these views, old forward/sign views, xGma out-of-bounds locator or road arrows. Need genuinely new unobstructed in-lease/field views with exact canonical 10\u201335.33m boundary controls, full both-side shop/non-shop/hidden-unit/floor/door inventory, measured reference/access geometry and current on-site operation. All25.33m per side unqualified. r312 still needs robust in-interior locator/alignment; r141 tiny buffered window needs junction-clearance evidence before any buffer reconsideration. Station-route/a8/connector proof separately unresolved. Read-only recorded-lead-disposition audit checked all positioned current-pair committed sources plus proposed batch and retained checkpoint states; no further actionable recorded target identified in that audited set. External inputs itemized there; no global imagery-exhaustion claim."
       }
     ]
   },

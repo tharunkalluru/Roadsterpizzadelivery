@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:56:33Z",
+  "updatedAt": "2026-10-20T17:38:30.987076+00:00",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -10,7 +10,7 @@
     "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
     "claimedAt": "2026-10-20T01:27:15Z",
-    "currentCollectionAssignmentId": "venkatgiri-independent-r50481356909-0"
+    "currentCollectionAssignmentId": "madhapur-r357-return-feasibility"
   },
   "assignments": [
     {
@@ -1948,6 +1948,105 @@
         "noFurtherActionableRecordedTargetInAuditedSet": true,
         "externalInputs": "docs/handoff/reviews/second-computer-01-recorded-leads-and-external-inputs-133.md"
       }
+    },
+    {
+      "assignmentId": "madhapur-r357-return-feasibility",
+      "workerId": "second-computer-01",
+      "ownerBranch": "worker/second-computer-01/madhapur-r357-return-feasibility",
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_58407483981_0",
+          "side": "left",
+          "startM": 0,
+          "endM": 82.67,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_58407483981_0",
+          "side": "right",
+          "startM": 0,
+          "endM": 82.67,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_20784239011_0",
+          "side": "left",
+          "startM": 0,
+          "endM": 47.01,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_20784239011_0",
+          "side": "right",
+          "startM": 0,
+          "endM": 47.01,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_62617115125_0",
+          "side": "left",
+          "startM": 0,
+          "endM": 86.37,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        },
+        {
+          "roadId": "r_62617115125_0",
+          "side": "right",
+          "startM": 0,
+          "endM": 86.37,
+          "boundaryRule": "closed full canonical edge; stored road.points order"
+        }
+      ],
+      "junctionMovements": [
+        {
+          "nodeId": "n_54485549899",
+          "junctionId": "j_54485549899",
+          "incoming": "r_35746161453_0:f",
+          "outgoing": "r_58407483981_0:f",
+          "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+        },
+        {
+          "nodeId": "n_52965406785",
+          "junctionId": "j_52965406785",
+          "incoming": "r_58407483981_0:f",
+          "outgoing": "r_20784239011_0:f",
+          "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+        },
+        {
+          "nodeId": "n_36864024645",
+          "junctionId": "j_36864024645",
+          "incoming": "r_20784239011_0:f",
+          "outgoing": "r_62617115125_0:f",
+          "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+        },
+        {
+          "nodeId": "n_8238597964",
+          "junctionId": "j_8238597964",
+          "incoming": "r_62617115125_0:f",
+          "outgoing": "r_35746161453_0:f",
+          "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+        }
+      ],
+      "exclusions": [
+        "All other roads/frontages/carriageways and junction movements; r357 existing frontage context only, no re-survey lease.",
+        "Adjacent r17731498241/r65331069968/r54606796167/r37185680086 frontage/traversal excluded.",
+        "Station gates/connectors and all former scopes/exclusions/provider blocks retained unchanged.",
+        "Game runtime/mobile fixes/QA/deployment/main Site excluded."
+      ],
+      "evidencePolicy": "New public/reference evidence only after activation publication and isolated-worker startup. No replay of old Bata facade/sign views. Actual metadata and scope checks before pixels/frontage. Old imagery cannot prove current legal access/tenancy; listing alone cannot prove entrance. No inferred outlet/door/occupancy/connectivity or verified counter promotion. Stop dependent claim at missing evidence; produce bounded dated field checklist. Reference-only imagery; no redistributed raw provider assets or bypass.",
+      "browserPolicy": "One operator, dedicated original Chrome Roadster tab, serial tab-ID actions; no unrelated tabs/global focus/native dialogs/application switching.",
+      "status": "ACTIVE",
+      "claimedAt": "2026-10-20T17:38:30.987076+00:00",
+      "publishedPlanCommit": "2e6c96b04ec5298d57507402ce53f524e80d4191",
+      "publishedPlan": "docs/handoff/claims/madhapur-r357-return-feasibility-plan-20261020.json",
+      "claimCheckpoint": "docs/handoff/claims/madhapur-r357-return-feasibility-activation-20261020.md",
+      "activationCommit": null,
+      "activationCommitResolution": "Resolve first-addition commit of claimCheckpoint; publish/read back and isolated startup before imagery.",
+      "snapshotSurveyRevision": 133,
+      "snapshotSurveySha256": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "latestCheckpoint": null,
+      "nextAction": "Publish plan/read back; separately activate preserving all11 existing assignment objects/eight leases and split. Resolve first-addition activation SHA, publish/read back, new isolated worker exactly there and startup report all5 hashes before new evidence."
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json",
