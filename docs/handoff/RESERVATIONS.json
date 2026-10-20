@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T02:05:53Z",
+  "updatedAt": "2026-10-20T02:11:23Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -100,7 +100,7 @@
       "newSourceIdPrefix": "sv-second-computer-01-khairatabad-lakdi-pilot-",
       "batchPathPattern": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-<sequence>-<YYYYMMDD>.json",
       "checkpointPathPattern": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-<UTC-or-sequence>.md",
-      "latestCheckpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-batch004-boundary.md",
+      "latestCheckpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-pilot-gap-audit.md",
       "lastPanorama": {
         "panoId": "dEjZp5gMqbt9o7EBasmOXw",
         "lat": 17.405521,
@@ -128,14 +128,26 @@
         ],
         "rule": "Report the matching startup binding before research. This active lease needs no second conversational approval; a mismatch, changed lease or auth/provider block stops dependent work."
       },
-      "nextAction": "Review remaining start/hidden/inter-camera/boundary gaps under a recorded bounded plan; retain lease/exclusions. Do not continue beyond168.60m, into junctions/other roads, or promote coverage from camera progression.",
+      "nextAction": "Same ACTIVE pilot only: recorded same-pilot-known-anchor-gap-review. Revisit fixed S76a camera25.978411567m after freshness/alignment/date checks; supported reverse/oblique views for near-edge gaps, no translational navigation into excluded buffers/roads or onward from final dEjZ. New actual evidence only in005, reuse identical source IDs; preview/review/sole-integrator admission required. Coverage/placement held for missing evidence.",
       "activationCommitMeaning": "Original exact pilot activation; final handover does not reactivate/expand the lease.",
       "batch001ImportedRevision": 113,
       "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-batch004-import-116.md",
       "batch002ImportedRevision": 114,
-      "evidenceCollectionState": "BOUNDARY_REACHED_GAPS_OPEN",
+      "evidenceCollectionState": "AUDIT_COMPLETE_GAPS_OPEN_BOUNDARY_HOLD",
       "batch003ImportedRevision": 115,
-      "batch004ImportedRevision": 116
+      "batch004ImportedRevision": 116,
+      "latestAudit": "docs/handoff/reviews/second-computer-01-pilot-gap-audit-116.json",
+      "auditResult": {
+        "surveyRevision": 116,
+        "pendingObservations": 31,
+        "sideFacingContexts": 30,
+        "forwardContexts": 1,
+        "distinctCameras": 15,
+        "reviewedSideMetres": 0,
+        "visuallyInventoriedSideMetres": 0,
+        "verifiedSideMetres": 0,
+        "newRoadAssignment": null
+      }
     },
     {
       "assignmentId": "peddamma-jubilee-checkpost",

@@ -1,0 +1,764 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-10-20T02:11:23Z",
+  "workerId": "second-computer-01",
+  "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
+  "coordinatorBase": "aead848c01f92a1c4cd3318c7ee650d1274b2791",
+  "workerHead": "23cb04810b2643f6c9c4147cc648b29e6184406a",
+  "surveyRevision": 116,
+  "surveySha256": "f925e617373b9694ecad96a0157fb053adbf9018f57e4b2fcc7011d874d85521",
+  "scope": {
+    "roadId": "r_8306076003_3",
+    "sides": [
+      "left",
+      "right"
+    ],
+    "startM": 20,
+    "endM": 168.6,
+    "assignedSideLengthM": 148.6,
+    "totalAssignedSideMetres": 297.2,
+    "geometry": "provisional canonical projection"
+  },
+  "batches": [
+    {
+      "id": "second-computer-01-khairatabad-lakdi-pilot-001-20261019",
+      "path": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-001-20261019.json",
+      "fileSha256": "7108b5b31e4d7a9f3e5fbbd755320a3b6e2f307239a77dadabdb0e2f0c7728a5",
+      "canonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
+      "receiptCount": 1,
+      "recordEquality": true,
+      "importedRevision": 113,
+      "sources": 2,
+      "pendingObservations": 2,
+      "storefrontsAdded": 0,
+      "roadReviewsAdded": 0
+    },
+    {
+      "id": "second-computer-01-khairatabad-lakdi-pilot-002-20261020",
+      "path": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-002-20261020.json",
+      "fileSha256": "28d49d907d965e25f127356b1a899dbde51b3b45f4c677f56c867f705dd18b88",
+      "canonicalHash": "568f0850dbc4e6a107283774592d24a0e404eab1db30ee6391ea02f4a6cf5cc8",
+      "receiptCount": 1,
+      "recordEquality": true,
+      "importedRevision": 114,
+      "sources": 4,
+      "pendingObservations": 4,
+      "storefrontsAdded": 0,
+      "roadReviewsAdded": 0
+    },
+    {
+      "id": "second-computer-01-khairatabad-lakdi-pilot-003-20261020",
+      "path": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-003-20261020.json",
+      "fileSha256": "e8a942d0b8345dafb41f8bfbbb30308ff59a3f44433883a5bb16d3da548f2a7a",
+      "canonicalHash": "d6cf9f695107874b0a9433ee7ac28ead637de040c99813569acbd1d62b573f7f",
+      "receiptCount": 1,
+      "recordEquality": true,
+      "importedRevision": 115,
+      "sources": 1,
+      "pendingObservations": 1,
+      "storefrontsAdded": 0,
+      "roadReviewsAdded": 0
+    },
+    {
+      "id": "second-computer-01-khairatabad-lakdi-pilot-004-20261020",
+      "path": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-004-20261020.json",
+      "fileSha256": "da11c13f837d6f4543c8780daf44e6cae063bc9a9cc398359477be92362e6794",
+      "canonicalHash": "3767c47258b6097948d8f5a679dce571b811c8db86bfe78ad780683fe989a4cb",
+      "receiptCount": 1,
+      "recordEquality": true,
+      "importedRevision": 116,
+      "sources": 24,
+      "pendingObservations": 24,
+      "storefrontsAdded": 0,
+      "roadReviewsAdded": 0
+    }
+  ],
+  "counts": {
+    "sources": 31,
+    "pendingObservations": 31,
+    "sideFacingContexts": 30,
+    "forwardContexts": 1,
+    "distinctCameras": 15,
+    "acceptedProvisionalStorefronts": 0,
+    "verifiedStorefronts": 0,
+    "reviewedRanges": 0,
+    "reviewedSideMetres": 0,
+    "visuallyInventoriedSideMetres": 0,
+    "verifiedSideMetres": 0,
+    "qualifiedPlayableZones": 0
+  },
+  "pilotRoadReview": {
+    "roadId": "r_8306076003_3",
+    "left": {
+      "status": "unreviewed"
+    },
+    "right": {
+      "status": "unreviewed"
+    }
+  },
+  "cameras": [
+    {
+      "panoId": "S76aL2Sv9OLkf6WqmLbU1Q",
+      "lat": 17.4064672,
+      "lon": 78.4625709,
+      "projectedAlongM": 25.978411567280332,
+      "lateralM": 2.348420090226154,
+      "nextNearestRoadId": "r_13068586755_0",
+      "nextNearestRoadDistanceM": 8.239540346822253,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261019-S76a-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261019-S76a-h228"
+      ]
+    },
+    {
+      "panoId": "1PBg5J5YtEBKCWHrJsU_jw",
+      "lat": 17.4063868,
+      "lon": 78.4626628,
+      "projectedAlongM": 38.82827116506143,
+      "lateralM": 2.187701547358639,
+      "nextNearestRoadId": "r_13068586755_0",
+      "nextNearestRoadDistanceM": 8.237437657940673,
+      "captureDate": "2021-11",
+      "headings": [
+        43,
+        223
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-1PBg-h043",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-1PBg-h223"
+      ]
+    },
+    {
+      "panoId": "o-vaNpcgphoMVn379vda1w",
+      "lat": 17.4063211,
+      "lon": 78.4627284,
+      "projectedAlongM": 48.81477493990692,
+      "lateralM": 1.9580458388417266,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 8.857220559579853,
+      "captureDate": "2021-11",
+      "headings": [
+        46,
+        226
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-ova-h046",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-ova-h226"
+      ]
+    },
+    {
+      "panoId": "QMjBEf_gY6kDB97EYaVM4Q",
+      "lat": 17.4062617,
+      "lon": 78.4627922,
+      "projectedAlongM": 58.058405666577144,
+      "lateralM": 2.298697077425553,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 9.097162358501794,
+      "captureDate": "2021-11",
+      "headings": [
+        138,
+        51,
+        231
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-QMjB-h138",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-QMjB-h051",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-QMjB-h231"
+      ]
+    },
+    {
+      "panoId": "Y59qzZVpzqHRnne4tb3jew",
+      "lat": 17.4062013,
+      "lon": 78.462851,
+      "projectedAlongM": 67.187996357534,
+      "lateralM": 2.9038595929335536,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 9.348880295260027,
+      "captureDate": "2021-11",
+      "headings": [
+        51,
+        231
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Y59q-h051",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Y59q-h231"
+      ]
+    },
+    {
+      "panoId": "xiztE-Rbni-cvnz5I-uy3A",
+      "lat": 17.4061317,
+      "lon": 78.462909,
+      "projectedAlongM": 77.05203189269726,
+      "lateralM": 2.7987089171116093,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.01615030641854,
+      "captureDate": "2021-11",
+      "headings": [
+        51,
+        231
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-xizt-h051",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-xizt-h231"
+      ]
+    },
+    {
+      "panoId": "Rj0cRGl5yNaKkGo91g6e3g",
+      "lat": 17.4060693,
+      "lon": 78.4629603,
+      "projectedAlongM": 85.84857176938758,
+      "lateralM": 2.6468583660349405,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.669192643451407,
+      "captureDate": "2021-11",
+      "headings": [
+        51,
+        231
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Rj0c-h051",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Rj0c-h231"
+      ]
+    },
+    {
+      "panoId": "2awrXb19OUAb178IswEahg",
+      "lat": 17.4059997,
+      "lon": 78.4630219,
+      "projectedAlongM": 95.95472371192054,
+      "lateralM": 2.837820714027972,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 11.054632750981769,
+      "captureDate": "2021-11",
+      "headings": [
+        51,
+        231
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-2awr-h051",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-2awr-h231"
+      ]
+    },
+    {
+      "panoId": "rMW-R1MAZ5rcCQhhwiGsJQ",
+      "lat": 17.4059285,
+      "lon": 78.4630889,
+      "projectedAlongM": 106.71877197520678,
+      "lateralM": 3.3239271987865693,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 11.137048988604722,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-rMW-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-rMW-h228"
+      ]
+    },
+    {
+      "panoId": "-aB4UQcZE0eynNzym7vN_g",
+      "lat": 17.4058794,
+      "lon": 78.4631393,
+      "projectedAlongM": 114.34007736649124,
+      "lateralM": 3.6709333802375586,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.865368104526281,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-aB4-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-aB4-h228"
+      ]
+    },
+    {
+      "panoId": "KGQW7mWa7fGew9B-r4DP1A",
+      "lat": 17.4058277,
+      "lon": 78.4631918,
+      "projectedAlongM": 122.32453498640974,
+      "lateralM": 3.991380854766336,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.623833044531944,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-KGQW-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-KGQW-h228"
+      ]
+    },
+    {
+      "panoId": "MmB9Dsus6dXfK1hgtm6PkQ",
+      "lat": 17.4057659,
+      "lon": 78.4632528,
+      "projectedAlongM": 131.7440226646094,
+      "lateralM": 4.235697556281399,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.472604994074588,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-MmB9-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-MmB9-h228"
+      ]
+    },
+    {
+      "panoId": "Hdp8DEocf-1pqu68d4PGMA",
+      "lat": 17.4056683,
+      "lon": 78.4633468,
+      "projectedAlongM": 146.45407733681864,
+      "lateralM": 4.436973516904955,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.41669322894605,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Hdp8-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Hdp8-h228"
+      ]
+    },
+    {
+      "panoId": "G6CFJgLm22hgY0zrPIIaQw",
+      "lat": 17.4055921,
+      "lon": 78.4634133,
+      "projectedAlongM": 157.4492361090834,
+      "lateralM": 4.049913650150012,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.912380590898676,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-G6CF-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-G6CF-h228"
+      ]
+    },
+    {
+      "panoId": "dEjZp5gMqbt9o7EBasmOXw",
+      "lat": 17.405521,
+      "lon": 78.4634809,
+      "projectedAlongM": 168.1029202583163,
+      "lateralM": 4.127227579507804,
+      "nextNearestRoadId": "r_8377315877_0",
+      "nextNearestRoadDistanceM": 10.88336909299917,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-dEjZ-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-dEjZ-h228"
+      ]
+    }
+  ],
+  "cameraInterspaces": [
+    {
+      "fromM": 25.978411567280332,
+      "toM": 38.82827116506143,
+      "cameraSpacingM": 12.849859597781098,
+      "fromPanoId": "S76aL2Sv9OLkf6WqmLbU1Q",
+      "toPanoId": "1PBg5J5YtEBKCWHrJsU_jw",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 38.82827116506143,
+      "toM": 48.81477493990692,
+      "cameraSpacingM": 9.986503774845488,
+      "fromPanoId": "1PBg5J5YtEBKCWHrJsU_jw",
+      "toPanoId": "o-vaNpcgphoMVn379vda1w",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 48.81477493990692,
+      "toM": 58.058405666577144,
+      "cameraSpacingM": 9.243630726670226,
+      "fromPanoId": "o-vaNpcgphoMVn379vda1w",
+      "toPanoId": "QMjBEf_gY6kDB97EYaVM4Q",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 58.058405666577144,
+      "toM": 67.187996357534,
+      "cameraSpacingM": 9.12959069095686,
+      "fromPanoId": "QMjBEf_gY6kDB97EYaVM4Q",
+      "toPanoId": "Y59qzZVpzqHRnne4tb3jew",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 67.187996357534,
+      "toM": 77.05203189269726,
+      "cameraSpacingM": 9.864035535163254,
+      "fromPanoId": "Y59qzZVpzqHRnne4tb3jew",
+      "toPanoId": "xiztE-Rbni-cvnz5I-uy3A",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 77.05203189269726,
+      "toM": 85.84857176938758,
+      "cameraSpacingM": 8.796539876690318,
+      "fromPanoId": "xiztE-Rbni-cvnz5I-uy3A",
+      "toPanoId": "Rj0cRGl5yNaKkGo91g6e3g",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 85.84857176938758,
+      "toM": 95.95472371192054,
+      "cameraSpacingM": 10.10615194253296,
+      "fromPanoId": "Rj0cRGl5yNaKkGo91g6e3g",
+      "toPanoId": "2awrXb19OUAb178IswEahg",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 95.95472371192054,
+      "toM": 106.71877197520678,
+      "cameraSpacingM": 10.764048263286242,
+      "fromPanoId": "2awrXb19OUAb178IswEahg",
+      "toPanoId": "rMW-R1MAZ5rcCQhhwiGsJQ",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 106.71877197520678,
+      "toM": 114.34007736649124,
+      "cameraSpacingM": 7.621305391284466,
+      "fromPanoId": "rMW-R1MAZ5rcCQhhwiGsJQ",
+      "toPanoId": "-aB4UQcZE0eynNzym7vN_g",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 114.34007736649124,
+      "toM": 122.32453498640974,
+      "cameraSpacingM": 7.984457619918501,
+      "fromPanoId": "-aB4UQcZE0eynNzym7vN_g",
+      "toPanoId": "KGQW7mWa7fGew9B-r4DP1A",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 122.32453498640974,
+      "toM": 131.7440226646094,
+      "cameraSpacingM": 9.419487678199644,
+      "fromPanoId": "KGQW7mWa7fGew9B-r4DP1A",
+      "toPanoId": "MmB9Dsus6dXfK1hgtm6PkQ",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 131.7440226646094,
+      "toM": 146.45407733681864,
+      "cameraSpacingM": 14.710054672209253,
+      "fromPanoId": "MmB9Dsus6dXfK1hgtm6PkQ",
+      "toPanoId": "Hdp8DEocf-1pqu68d4PGMA",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 146.45407733681864,
+      "toM": 157.4492361090834,
+      "cameraSpacingM": 10.995158772264745,
+      "fromPanoId": "Hdp8DEocf-1pqu68d4PGMA",
+      "toPanoId": "G6CFJgLm22hgY0zrPIIaQw",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    },
+    {
+      "fromM": 157.4492361090834,
+      "toM": 168.1029202583163,
+      "cameraSpacingM": 10.653684149232902,
+      "fromPanoId": "G6CFJgLm22hgY0zrPIIaQw",
+      "toPanoId": "dEjZp5gMqbt9o7EBasmOXw",
+      "coverageClaim": false,
+      "reason": "Camera spacing only; intervening frontage has not been bounded/inventoried gap-free."
+    }
+  ],
+  "endpointGaps": [
+    {
+      "kind": "start",
+      "startM": 20,
+      "endM": 25.978411567280332,
+      "lengthM": 5.978411567280332,
+      "sides": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "kind": "end",
+      "startM": 168.1029202583163,
+      "endM": 168.6,
+      "lengthM": 0.49707974168370583,
+      "sides": [
+        "left",
+        "right"
+      ]
+    }
+  ],
+  "coverageConclusion": "All148.60m on each side remain unqualified for gap-free inventory/verified coverage. Source admission is evidence retention only.",
+  "reviewLimit": "Repository/evidence-ledger audit; no new imagery or independent second visual review.",
+  "checks": {
+    "snapshotHashes": 5,
+    "receiptCountEach": 1,
+    "canonicalHashes": "match",
+    "runtimeSourceObservationRecords": "each exactly once and unchanged",
+    "globalPilotAngleSignatures": "unique",
+    "allCamerasNearestRoadAndInLease": true,
+    "validationErrors": [],
+    "validationWarnings": [
+      "No storefronts have exact street-level placement verification yet. Existing listings and estimated reconstructions remain provisional."
+    ]
+  },
+  "assignmentStatus": {
+    "lease": "ACTIVE unchanged and retained",
+    "evidence": "AUDIT_COMPLETE_GAPS_OPEN_BOUNDARY_HOLD",
+    "nextNewRoadAssignment": null,
+    "nextAuthorizedAction": "Same-pilot known-anchor gap review recorded below; first fixed S76a camera25.978411567m, no translational navigation into excluded start/end buffers. Not executed during this repository audit.",
+    "otherOwnerApprovalRequiredForCurrentAudit": false,
+    "unrelatedReservedWork": "Miyapur-JNTU remains blocked; old routes parked; no new activation",
+    "recordedNextPlan": {
+      "id": "same-pilot-known-anchor-gap-review",
+      "owner": "second-computer-01",
+      "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
+      "scopeChange": false,
+      "state": "RECORDED_NEXT_AUTHORIZED_STEP_NOT_EXECUTED_IN_AUDIT",
+      "firstAnchor": {
+        "panoId": "S76aL2Sv9OLkf6WqmLbU1Q",
+        "lat": 17.4064672,
+        "lon": 78.4625709,
+        "projectedAlongM": 25.978411567280332,
+        "knownHeadings": [
+          48,
+          228
+        ],
+        "captureDateToReverify": "2021-11"
+      },
+      "method": "After fresh lease check, revisit fixed existing in-lease anchor and inspect supported visible/reverse angles to resolve alignment/start-boundary/occlusion where possible. No forward movement from final dEjZ or into endpoint buffers; stop on ambiguity/provider block. Only actually new facts may enter new batch005 with review and sole-integrator admission; do not duplicate identical pano/heading/date sources.",
+      "coveragePromotion": "PARKED_MISSING_EVIDENCE",
+      "anotherOwnerApprovalRequired": false,
+      "approvalReason": "Current same-worker ACTIVE lease and explicit takeover cover bounded review; no repository rule found requiring another owner for this audit/fixed-anchor plan. No independent imagery reviewer claimed.",
+      "newRoadAssignment": null,
+      "sourceReuseRule": "Reuse existing source IDs for identical pano/heading/capture date; add only unique new views or dated observations. Corrections to existing records need new immutable batch and exact expectedPrevious hashes."
+    }
+  },
+  "publishing": {
+    "status": "BLOCKED_PARKED",
+    "projectId": "appgprj_6ad576049ff8819196715b604db10264",
+    "action": "sites_get_site/get_site",
+    "error": "SitesConnectorError: Sites project not found",
+    "errorCode": "NOT_FOUND",
+    "errorType": "project_not_found",
+    "httpStatus": 404,
+    "mainPublicRevision": 113
+  },
+  "recoveredHistoricalCheckpoints": [
+    {
+      "path": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261019T224042Z-alignment-blocked.md",
+      "sourceCommit": "81ce543c677e2eb6e59cbcfe29d8ff20bb973022",
+      "sha256": "92ceeeb5fce074b6e2bf4a3abd9ab5bf51647f640ef9782df6a9e9edda1977fb",
+      "action": "Recovered missing coordinator copy; historical bytes unchanged."
+    },
+    {
+      "path": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261019T235519Z-first-batch.md",
+      "sourceCommit": "81ce543c677e2eb6e59cbcfe29d8ff20bb973022",
+      "sha256": "f6a77f5f79079164032712ac3e46fff3fd35d7d48e4b8dd432f634b196558eb0",
+      "action": "Recovered missing coordinator copy; historical bytes unchanged."
+    }
+  ],
+  "remainingGaps": [
+    {
+      "id": "start-boundary-and-alignment",
+      "panoIds": [
+        "S76aL2Sv9OLkf6WqmLbU1Q"
+      ],
+      "sides": [
+        "left",
+        "right"
+      ],
+      "reason": "First admitted camera25.978411567m;20.00–25.978411567m has no bounded inventory. Earlier locator at16.03249m/April2026 is outside lease and excluded. First sector geometry/occlusion remains provisional.",
+      "metricExtent": null,
+      "metricExtentReason": "Not established by current evidence; anchor is not a frontage span.",
+      "nextEvidenceNeeded": "Re-examine existing in-lease S76a views and reverse angles with current visible date/alignment. No navigation to excluded locator and no inference of unseen start frontage."
+    },
+    {
+      "id": "left-median-pier-and-far-carriageway",
+      "panoIds": [
+        "S76aL2Sv9OLkf6WqmLbU1Q",
+        "1PBg5J5YtEBKCWHrJsU_jw",
+        "o-vaNpcgphoMVn379vda1w",
+        "QMjBEf_gY6kDB97EYaVM4Q",
+        "Y59qzZVpzqHRnne4tb3jew",
+        "xiztE-Rbni-cvnz5I-uy3A",
+        "Rj0cRGl5yNaKkGo91g6e3g",
+        "2awrXb19OUAb178IswEahg",
+        "rMW-R1MAZ5rcCQhhwiGsJQ",
+        "-aB4UQcZE0eynNzym7vN_g",
+        "KGQW7mWa7fGew9B-r4DP1A",
+        "MmB9Dsus6dXfK1hgtm6PkQ",
+        "Hdp8DEocf-1pqu68d4PGMA",
+        "G6CFJgLm22hgY0zrPIIaQw",
+        "dEjZp5gMqbt9o7EBasmOXw"
+      ],
+      "sides": [
+        "left"
+      ],
+      "reason": "Traffic, supports and dense planting hide portions; distant signs and business rows across separate carriageway are excluded. No proof that whole assigned left edge is gap-free non-shop frontage.",
+      "metricExtent": null,
+      "metricExtentReason": "Not established by current evidence; anchor is not a frontage span.",
+      "nextEvidenceNeeded": "Use only existing in-lease anchors to resolve near-edge visible boundaries; retain hidden portions, exact geometry and other-carriageway exclusions. No promotion from absence of a mapped merchant."
+    },
+    {
+      "id": "right-vegetation-walls-and-utilities",
+      "panoIds": [
+        "S76aL2Sv9OLkf6WqmLbU1Q",
+        "1PBg5J5YtEBKCWHrJsU_jw",
+        "o-vaNpcgphoMVn379vda1w",
+        "QMjBEf_gY6kDB97EYaVM4Q",
+        "Y59qzZVpzqHRnne4tb3jew",
+        "xiztE-Rbni-cvnz5I-uy3A",
+        "Rj0cRGl5yNaKkGo91g6e3g",
+        "2awrXb19OUAb178IswEahg",
+        "rMW-R1MAZ5rcCQhhwiGsJQ",
+        "-aB4UQcZE0eynNzym7vN_g",
+        "KGQW7mWa7fGew9B-r4DP1A",
+        "MmB9Dsus6dXfK1hgtm6PkQ",
+        "Hdp8DEocf-1pqu68d4PGMA",
+        "G6CFJgLm22hgY0zrPIIaQw"
+      ],
+      "sides": [
+        "right"
+      ],
+      "reason": "Foliage, shade, wall, planters, poles and equipment conceal property details. Advertising and institutional signs do not establish tenant, floor, door or frontage extent.",
+      "metricExtent": null,
+      "metricExtentReason": "Not established by current evidence; anchor is not a frontage span.",
+      "nextEvidenceNeeded": "Target visible alternate/reverse views of same in-lease anchors if useful. Record actual visible units/non-shop gaps; unresolved hidden areas remain pending."
+    },
+    {
+      "id": "right-blur-Rj0c",
+      "panoIds": [
+        "Rj0cRGl5yNaKkGo91g6e3g"
+      ],
+      "sides": [
+        "right"
+      ],
+      "reason": "Large provider blur conceals central/right detail at camera85.848571769m.",
+      "metricExtent": null,
+      "metricExtentReason": "Not established by current evidence; anchor is not a frontage span.",
+      "nextEvidenceNeeded": "Ordinary visible alternate angles only if they add new evidence; preserve blur gap. No hidden endpoint/asset retrieval or inference."
+    },
+    {
+      "id": "left-blur-MmB9",
+      "panoIds": [
+        "MmB9Dsus6dXfK1hgtm6PkQ"
+      ],
+      "sides": [
+        "left"
+      ],
+      "reason": "Substantial provider blur conceals left/central detail at camera131.744022665m.",
+      "metricExtent": null,
+      "metricExtentReason": "Not established by current evidence; anchor is not a frontage span.",
+      "nextEvidenceNeeded": "Ordinary visible alternate angles only if useful; leave concealed details unknown."
+    },
+    {
+      "id": "access-faces-and-barrier-occlusion",
+      "panoIds": [
+        "Y59qzZVpzqHRnne4tb3jew",
+        "xiztE-Rbni-cvnz5I-uy3A",
+        "2awrXb19OUAb178IswEahg",
+        "rMW-R1MAZ5rcCQhhwiGsJQ",
+        "-aB4UQcZE0eynNzym7vN_g",
+        "KGQW7mWa7fGew9B-r4DP1A"
+      ],
+      "sides": [
+        "right"
+      ],
+      "reason": "Access faces/openings, steps and gates excluded; barriers/vehicles hide curb and wall. No access/connector or route claim exists.",
+      "metricExtent": null,
+      "metricExtentReason": "Not established by current evidence; anchor is not a frontage span.",
+      "nextEvidenceNeeded": "Keep exclusions; focus any allowed evidence review on assigned near-edge non-access context. Station gates/connectors remain out of scope."
+    },
+    {
+      "id": "parked-vehicle-and-sign-occlusion",
+      "panoIds": [
+        "KGQW7mWa7fGew9B-r4DP1A",
+        "MmB9Dsus6dXfK1hgtm6PkQ",
+        "Hdp8DEocf-1pqu68d4PGMA"
+      ],
+      "sides": [
+        "right"
+      ],
+      "reason": "Vehicles and foliage/shadow conceal curb/property portions; incomplete sign text is not an operator identity.",
+      "metricExtent": null,
+      "metricExtentReason": "Not established by current evidence; anchor is not a frontage span.",
+      "nextEvidenceNeeded": "Review only supported visible angles at known in-lease cameras; no transcription guesses or reconstructed hidden units."
+    },
+    {
+      "id": "end-boundary-and-extent",
+      "panoIds": [
+        "dEjZp5gMqbt9o7EBasmOXw"
+      ],
+      "sides": [
+        "left",
+        "right"
+      ],
+      "reason": "Final camera168.102920258m leaves0.497079742m to168.60m. Median opening/junction and hospital facade/access extents may span beyond limit; excluded from inventory.",
+      "metricExtent": null,
+      "metricExtentReason": "Not established by current evidence; anchor is not a frontage span.",
+      "nextEvidenceNeeded": "No forward navigation. Use known fixed in-bounds images for context only; without bounded evidence, retain end-tail gap and omit uncertain facade/access extent."
+    },
+    {
+      "id": "geometry-currentness-and-playability",
+      "panoIds": [
+        "S76aL2Sv9OLkf6WqmLbU1Q",
+        "1PBg5J5YtEBKCWHrJsU_jw",
+        "o-vaNpcgphoMVn379vda1w",
+        "QMjBEf_gY6kDB97EYaVM4Q",
+        "Y59qzZVpzqHRnne4tb3jew",
+        "xiztE-Rbni-cvnz5I-uy3A",
+        "Rj0cRGl5yNaKkGo91g6e3g",
+        "2awrXb19OUAb178IswEahg",
+        "rMW-R1MAZ5rcCQhhwiGsJQ",
+        "-aB4UQcZE0eynNzym7vN_g",
+        "KGQW7mWa7fGew9B-r4DP1A",
+        "MmB9Dsus6dXfK1hgtm6PkQ",
+        "Hdp8DEocf-1pqu68d4PGMA",
+        "G6CFJgLm22hgY0zrPIIaQw",
+        "dEjZp5gMqbt9o7EBasmOXw"
+      ],
+      "sides": [
+        "left",
+        "right"
+      ],
+      "reason": "All admitted images November2021. Camera coordinates and canonical road are provisional; no dimensions, entrance coordinates, floors/neighbours, traffic geometry or source-supported game job access has been accepted.",
+      "metricExtent": null,
+      "metricExtentReason": "Not established by current evidence; anchor is not a frontage span.",
+      "nextEvidenceNeeded": "Obtain evidence required by schema/qualification process within scope before geometry/placement/coverage changes. Do not claim current tenancy or a complete playable zone."
+    }
+  ],
+  "countsScope": "ONLY r_8306076003_3 assigned pilot, not global runtime totals"
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T02:05:53Z",
+  "updatedAt": "2026-10-20T02:11:23Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -104,7 +104,7 @@
     "batch001CanonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
     "observations": "Exactly2November2021pendingcontexts,no placements/coverage;April2026locator/datebreakexcluded. Do not duplicate/reimport001.",
     "receipt": "docs/handoff/reviews/second-computer-01-primary-import-113.md",
-    "continuation": "BOUNDARY_REACHED_GAPS_OPEN:004 admitted once at116; last dEjZ Nov2021 h228 offset168.102920m. No onward click. Audit gap/boundary evidence before a recorded further plan; no automatic scope expansion.",
+    "continuation": "001–004 audit complete:31pending contexts,0pilot reviewed ranges/placements/qualified coverage. Boundary hold retained. Same-pilot fixed S76a gap review is recorded next plan, not executed in audit; no new road or bound extension.",
     "batch002": {
       "id": "second-computer-01-khairatabad-lakdi-pilot-002-20261020",
       "workerCommit": "011c03d37a4a9068813292ab0860e703bcc606cc",
@@ -135,6 +135,15 @@
       "sources": 24,
       "pendingObservations": 24,
       "receipt": "docs/handoff/reviews/second-computer-01-batch004-import-116.md"
+    },
+    "audit": {
+      "checkpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-pilot-gap-audit.md",
+      "machineReport": "docs/handoff/reviews/second-computer-01-pilot-gap-audit-116.json",
+      "surveyRevision": 116,
+      "result": "AUDIT_COMPLETE_GAPS_OPEN_BOUNDARY_HOLD",
+      "runtimeChanged": false,
+      "nextAssignedWork": "same-pilot-known-anchor-gap-review; fixed S76a camera; lease unchanged",
+      "anotherOwnerApprovalRequired": false
     }
   },
   "cloud": {
