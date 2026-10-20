@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:56:04Z",
+  "updatedAt": "2026-10-20T07:07:12Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-r36985565509-0-activation-20261020.md",
       "publishedPlanCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
       "owner": "second-computer-01",
-      "state": "BOUNDED_SOURCE_SET_REVIEWED_QUALIFICATION_INPUT_REQUIRED",
+      "state": "LOWER_SOURCE_SAVED_BROWSER_RECOVERED_HISTORICAL_CHECK_PENDING",
       "roadId": "r_36985565509_0",
       "rangesM": [
         150,
@@ -101,23 +101,23 @@
       "oldA8AndMarkerGapsPreserved": true,
       "separateAnchorJumpDisclosed": true,
       "activationCommit": "0bd1e48e560f7bce54372d235658b3c8e3e66eeb",
-      "checkpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-startup-and-batch001.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-batch001-import-130.md",
+      "checkpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-batch002-lower-gap.md",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-batch002-import-131.md",
       "qualificationAudit": "docs/handoff/reviews/second-computer-01-qualification-readiness-130.json",
-      "workerCommit": "066aad1d2edb599bc865844fa1f27fc60de5e5e4",
-      "pendingObservations": 8,
+      "workerCommit": "4d6f87e888d98524d80bb4e47ab0187218337b2f",
+      "pendingObservations": 10,
       "qualifiedSideMetres": 0,
       "lastPanorama": {
-        "panoId": "J3eSzUbyKZuDszVYdH6FUA",
-        "lat": 17.4306271,
-        "lon": 78.4210941,
-        "captureDate": "2021-12",
+        "panoId": "dXet1Aigm3Zn7d6KL3xiaQ",
+        "lat": 17.430631,
+        "lon": 78.4212043,
+        "captureDate": "2026-01",
         "headingDeg": 2,
         "fov": 65,
-        "projectedAlongM": 167.19279241883245,
-        "lateralM": 2.4160187902599946
+        "projectedAlongM": 155.51063069199202,
+        "lateralM": 1.5185549736561579
       },
-      "nextAction": "The saved upper anchor and one focused lower-point locator, both sides and named offered-date targets are reviewed. Do not repeat these views or either held upper historical target. A new unambiguous lower in-lease source/visible navigation target is required to inspect the remaining150–162 m interval; none is identified in this targeted set, no blind road click or coordinate-query grid. Qualification also needs exact canonical facade/unit/door and boundary correspondence, unobstructed endpoint/inter-camera inventory, measured reference/control geometry and current on-site corroboration. Preserve all old reservations/evidence/provider holds and unfinished pair/marker/a8 gaps. No station advance or other-road inventory without a separately recorded allowed plan/activation.",
+      "nextAction": "Browser connection recovered by matching the original stable extension identity/profile Tharun after numeric IDs reset. Actual same-tab readback confirmed the interrupted click opened the date carousel; do not repeat it. January2025 and December2021 are offered but UNINSPECTED. Check each selected historical capture actual date/pano/coordinates/nearest assigned road and closed150.00–177.43 m bounds before frontage image/authoring; stop mismatches, retain all existing holds. New lower pending contexts do not establish calibrated/current qualification proof. Other candidate work remains subject to scope/route/canonical assessment and published plan/activation; no global exhaustion claim.",
       "metadataOnlyBoundaryHolds": [
         {
           "panoId": "HgfEHD60UDgGn1zLyKUGtA",
@@ -150,7 +150,34 @@
           "reason": "0.124587322 m beyond177.43 m upper bound; no rounding or expansion to accept historical capture."
         }
       ],
-      "pointLocatorReview": "game/work/road5-yusufguda-r36985565509-0/point-locator-review-20261020.json"
+      "pointLocatorReview": "game/work/road5-yusufguda-r36985565509-0/point-locator-review-20261020.json",
+      "browserBlock": {
+        "action": "Open See more dates at new dXet camera; subsequent read-only getAXState to check outcome.",
+        "target": "Google Maps browser 2/profile Tharun, tab 1996309912, dXet1Aigm3Zn7d6KL3xiaQ January 2026 155.510630692 m h2/fov65.",
+        "reason": "Computer-use tool transport closed on date-control click and again on state check; browser state could not be read.",
+        "status": "BLOCKED_BY_UNAVAILABLE_BROWSER_CONNECTION; click outcome UNCERTAIN",
+        "denied": false,
+        "approvalPending": false,
+        "offeredDatesObserved": false,
+        "historicalImageryInspected": false,
+        "bypassOrSessionChangeAttempted": false,
+        "lastConfirmedImagery": "https://www.google.com/maps/@?api=1&map_action=pano&pano=dXet1Aigm3Zn7d6KL3xiaQ&heading=2&pitch=0&fov=65",
+        "resume": "Restore existing browser connection, inspect actual current page/date-control state before another click. Confirm any offered capture actual date/pano/coords/nearest road/bounds before screenshot/frontage; preserve prior held upper captures. No alternate account/profile/provider or hidden endpoint."
+      },
+      "actionableSourceAudit": "docs/handoff/reviews/second-computer-01-actionable-source-audit-131.json",
+      "browserRecovery": {
+        "recordedAt": "2026-10-20T07:07:12.812614+00:00",
+        "status": "RESOLVED_SUPPORTED_EXISTING_BROWSER",
+        "extensionInstanceId": "2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c",
+        "profileName": "Tharun",
+        "oldNumericBrowserId": "2",
+        "currentNumericBrowserId": "1",
+        "tabId": "1996309912",
+        "actualReadback": "Same dXet January2026 h2 tab; See latest date/carousel open with offered January2025 and December2021 controls. Interrupted click DID execute; not repeated.",
+        "historicalImageryInspected": false,
+        "userActionRequired": false,
+        "accountProfileSessionAccessChanged": false
+      }
     },
     "retainedBoundedAssignments": [
       {
@@ -588,10 +615,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 130,
-    "surveySha256": "2ee4f85f95204abdc5deda965b566c651c0e609843981f918d9d27a582c5c0a9",
-    "sources": 892,
-    "observations": 666,
+    "surveyRevision": 131,
+    "surveySha256": "a0acd7cb8cbbba73fbbff24354cf5f2fdf9d51e12a46b5d91822ead4388f81e9",
+    "sources": 894,
+    "observations": 668,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }

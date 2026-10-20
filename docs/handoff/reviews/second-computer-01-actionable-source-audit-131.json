@@ -1,0 +1,619 @@
+{
+  "recordedAt": "2026-10-20T07:07:12Z",
+  "surveyRevision": 131,
+  "surveySha256": "a0acd7cb8cbbba73fbbff24354cf5f2fdf9d51e12a46b5d91822ead4388f81e9",
+  "currentAssignmentId": "road5-yusufguda-r36985565509-0",
+  "method": "Audit of all committed Street View source position tuples in current-pair bounding box lat17.429–17.433/lon78.420–78.426, nearest frozen canonical road recomputed before new selection; plus newly verified dXet. Legacy metadata positions preserved separately, no claim of unique cameras from differing old coordinates.",
+  "storedLocationDateTuples": 47,
+  "uniquePanoDatePairs": 45,
+  "roadGroups": [
+    {
+      "roadId": "r_14143362194_0",
+      "roadName": "roasd no 5",
+      "storedLocationDateTuples": 2,
+      "uniquePanoDatePairs": 2,
+      "assignments": [],
+      "disposition": "UNRESERVED_CANDIDATE_ON_UNCONFIRMED_A8_VENKATGIRI_BRANCH_NOT_CURRENTLY_ACTIVATED",
+      "reason": "Existing source labels/route context and canonical road labels do not resolve approved route/scope correspondence. Current plan explicitly excludes that branch. Must independently resolve scope/canonical alignment and publish a distinct allowed plan/activation before any inventory; no continuity or current assignment expansion.",
+      "cameraRefs": [
+        {
+          "panoId": "9NMH5ijgix_r52WrUjIcXw",
+          "captureDate": "2026-01",
+          "alongM": 10.744802951084736,
+          "lateralM": 4.306929589318068,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-9NM-h080"
+          ]
+        },
+        {
+          "panoId": "44TvmQBuX13sc_Oa8Afauw",
+          "captureDate": "2026-01",
+          "alongM": 0.7565715703532588,
+          "lateralM": 4.048374654180744,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-44T-h080"
+          ]
+        }
+      ]
+    },
+    {
+      "roadId": "r_15543570465_0",
+      "roadName": "road no 2",
+      "storedLocationDateTuples": 5,
+      "uniquePanoDatePairs": 4,
+      "assignments": [
+        "road5-yusufguda-road2-r15543570465-0:ACTIVE"
+      ],
+      "disposition": "RETAINED_ACTIVE_TARGETED_SOURCE_SET_REVIEWED_EVIDENCE_LIMIT",
+      "reason": "Read linked current assignment checkpoint before any future source work; no fresh independent gap-closing source identified in stored named set. Prior camera/date/oblique targets are not repeated. Some old source positions lie outside bounded leases and remain excluded.",
+      "cameraRefs": [
+        {
+          "panoId": "g7Fl11ZejwHLLmtEUlFKRw",
+          "captureDate": "2026-01",
+          "alongM": 12.477387223551085,
+          "lateralM": 1.3473252612812154,
+          "sourceIds": [
+            "sv-jhc-road5-route-20261019-pano-g7Fl-h114",
+            "sv-jhc-road5-opposite-20261019-pano-g7fl-h294"
+          ]
+        },
+        {
+          "panoId": "g7Fl11ZejwHLLmtEUlFKRw",
+          "captureDate": "2026-01",
+          "alongM": 12.183785966903898,
+          "lateralM": 6.033106883694923,
+          "sourceIds": [
+            "sv-second-computer-01-road2-r15543570465-0-20261020-g7Fl-202601-h029",
+            "sv-second-computer-01-road2-r15543570465-0-20261020-g7Fl-202601-h209"
+          ]
+        },
+        {
+          "panoId": "SwrdX5xZAblFT2r0ND5MIQ",
+          "captureDate": "2025-01",
+          "alongM": 11.065124067620674,
+          "lateralM": 4.6774147380846784,
+          "sourceIds": [
+            "sv-second-computer-01-road2-r15543570465-0-20261020-Swrd-202501-h029",
+            "sv-second-computer-01-road2-r15543570465-0-20261020-Swrd-202501-h209"
+          ]
+        },
+        {
+          "panoId": "vDWUaSjqRXJ8l-URg9EEDA",
+          "captureDate": "2026-01",
+          "alongM": 23.658228585113136,
+          "lateralM": 7.190950634318659,
+          "sourceIds": [
+            "sv-second-computer-01-road2-r15543570465-0-20261020-vDWU-202601-h029",
+            "sv-second-computer-01-road2-r15543570465-0-20261020-vDWU-202601-h209"
+          ]
+        },
+        {
+          "panoId": "6TcqPRH5J9OQ5E1qt3vo1Q",
+          "captureDate": "2021-12",
+          "alongM": 14.450728616886835,
+          "lateralM": 5.91238975534807,
+          "sourceIds": [
+            "sv-second-computer-01-road2-r15543570465-0-20261020-6Tcq-202112-h029",
+            "sv-second-computer-01-road2-r15543570465-0-20261020-6Tcq-202112-h209"
+          ]
+        }
+      ]
+    },
+    {
+      "roadId": "r_3122046738_0",
+      "roadName": "roasd no 5",
+      "storedLocationDateTuples": 1,
+      "uniquePanoDatePairs": 1,
+      "assignments": [],
+      "disposition": "UNRESERVED_CANDIDATE_ON_UNCONFIRMED_A8_VENKATGIRI_BRANCH_NOT_CURRENTLY_ACTIVATED",
+      "reason": "Existing source labels/route context and canonical road labels do not resolve approved route/scope correspondence. Current plan explicitly excludes that branch. Must independently resolve scope/canonical alignment and publish a distinct allowed plan/activation before any inventory; no continuity or current assignment expansion.",
+      "cameraRefs": [
+        {
+          "panoId": "SYr_zFVEKqfDedmtzm4wPw",
+          "captureDate": "2026-01",
+          "alongM": 10.21946081739865,
+          "lateralM": 6.223662329994994,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-SYr-h026"
+          ]
+        }
+      ]
+    },
+    {
+      "roadId": "r_36985565509_0",
+      "roadName": "Road Number 5",
+      "storedLocationDateTuples": 5,
+      "uniquePanoDatePairs": 5,
+      "assignments": [
+        "road5-yusufguda-r36985565509-0:ACTIVE"
+      ],
+      "disposition": "USEFUL_CURRENT_LOWER_HISTORICAL_CHECK_ACTIONABLE_AFTER_BROWSER_RECOVERY",
+      "reason": "Browser connection recovered by matching the original stable extension identity/profile Tharun after numeric IDs reset. Actual same-tab readback confirmed the interrupted click opened the date carousel; do not repeat it. January2025 and December2021 are offered but UNINSPECTED. Check each selected historical capture actual date/pano/coordinates/nearest assigned road and closed150.00–177.43 m bounds before frontage image/authoring; stop mismatches, retain all existing holds. New lower pending contexts do not establish calibrated/current qualification proof. Other candidate work remains subject to scope/route/canonical assessment and published plan/activation; no global exhaustion claim.",
+      "cameraRefs": [
+        {
+          "panoId": "X_A755v2ljJNY8HGmGYFIw",
+          "captureDate": "2026-01",
+          "alongM": 176.32692011315999,
+          "lateralM": 2.6802964983461806,
+          "sourceIds": [
+            "sv-r5-yusufguda-routepreview-20261019-pano-XA-h267",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-XA-202601-h182",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-XA-202601-h002"
+          ]
+        },
+        {
+          "panoId": "0EjG_CIcCmsPqaNzhqdC_A",
+          "captureDate": "2026-01",
+          "alongM": 166.15582191639947,
+          "lateralM": 1.7544339962891076,
+          "sourceIds": [
+            "sv-second-computer-01-road5-r36985565509-0-20261020-0EjG-202601-h182",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-0EjG-202601-h002"
+          ]
+        },
+        {
+          "panoId": "EihavhLyuQS1CfrMd-aCkg",
+          "captureDate": "2025-01",
+          "alongM": 162.5672824872436,
+          "lateralM": 2.387051663284178,
+          "sourceIds": [
+            "sv-second-computer-01-road5-r36985565509-0-20261020-Eihav-202501-h002",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-Eihav-202501-h182"
+          ]
+        },
+        {
+          "panoId": "J3eSzUbyKZuDszVYdH6FUA",
+          "captureDate": "2021-12",
+          "alongM": 167.19279241883245,
+          "lateralM": 2.4160187902599946,
+          "sourceIds": [
+            "sv-second-computer-01-road5-r36985565509-0-20261020-J3eS-202112-h182",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-J3eS-202112-h002"
+          ]
+        },
+        {
+          "panoId": "dXet1Aigm3Zn7d6KL3xiaQ",
+          "captureDate": "2026-01",
+          "alongM": 155.51063069199202,
+          "lateralM": 1.5185549736561579,
+          "sourceIds": [
+            "sv-second-computer-01-road5-r36985565509-0-20261020-dXet-202601-h182",
+            "sv-second-computer-01-road5-r36985565509-0-20261020-dXet-202601-h002"
+          ]
+        }
+      ]
+    },
+    {
+      "roadId": "r_39952804437_0",
+      "roadName": null,
+      "storedLocationDateTuples": 5,
+      "uniquePanoDatePairs": 4,
+      "assignments": [
+        "road5-yusufguda-krishna-r39952804437-0:ACTIVE"
+      ],
+      "disposition": "RETAINED_ACTIVE_TARGETED_SOURCE_SET_REVIEWED_EVIDENCE_LIMIT",
+      "reason": "Read linked current assignment checkpoint before any future source work; no fresh independent gap-closing source identified in stored named set. Prior camera/date/oblique targets are not repeated. Some old source positions lie outside bounded leases and remain excluded.",
+      "cameraRefs": [
+        {
+          "panoId": "Zthp60eHW4zeTobWMZLLeA",
+          "captureDate": "2026-01",
+          "alongM": 37.00836434559673,
+          "lateralM": 0.6297996651740859,
+          "sourceIds": [
+            "sv-jhc-road5-route-20261019-pano-Zthp-h211",
+            "sv-jhc-road5-opposite-20261019-pano-zthp-h053"
+          ]
+        },
+        {
+          "panoId": "QoaaSSYtMe9wG0lTbeXzrg",
+          "captureDate": "2026-01",
+          "alongM": 16.300470610906178,
+          "lateralM": 1.2608483389485938,
+          "sourceIds": [
+            "sv-r5-yusufguda-routepreview-20261019-pano-Qoaa-h204",
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-Qoaa-h116",
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-Qoaa-h296"
+          ]
+        },
+        {
+          "panoId": "Zthp60eHW4zeTobWMZLLeA",
+          "captureDate": "2026-01",
+          "alongM": 37.03215943037272,
+          "lateralM": 0.9602445118621553,
+          "sourceIds": [
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-Zthp-h116",
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-Zthp-h296"
+          ]
+        },
+        {
+          "panoId": "DdHr-yFw7ih8q15vuTJXOg",
+          "captureDate": "2021-12",
+          "alongM": 21.028318306922646,
+          "lateralM": 1.6253169086964976,
+          "sourceIds": [
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-DdHr-202112-h116"
+          ]
+        },
+        {
+          "panoId": "J_mrGooEDM5oERkyfmu3Dg",
+          "captureDate": "2021-12",
+          "alongM": 40.90208822723421,
+          "lateralM": 2.189340207740121,
+          "sourceIds": [
+            "sv-second-computer-01-krishna-r39952804437-0-20261020-JmrG-202112-h116"
+          ]
+        }
+      ]
+    },
+    {
+      "roadId": "r_40507059846_0",
+      "roadName": "roasd no 5",
+      "storedLocationDateTuples": 4,
+      "uniquePanoDatePairs": 4,
+      "assignments": [],
+      "disposition": "UNRESERVED_CANDIDATE_ON_UNCONFIRMED_A8_VENKATGIRI_BRANCH_NOT_CURRENTLY_ACTIVATED",
+      "reason": "Existing source labels/route context and canonical road labels do not resolve approved route/scope correspondence. Current plan explicitly excludes that branch. Must independently resolve scope/canonical alignment and publish a distinct allowed plan/activation before any inventory; no continuity or current assignment expansion.",
+      "cameraRefs": [
+        {
+          "panoId": "REcpcGOvctgcb3VwWaZEIQ",
+          "captureDate": "2026-01",
+          "alongM": 39.53974479398934,
+          "lateralM": 1.6971837059201655,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-REc-h026"
+          ]
+        },
+        {
+          "panoId": "ryraSaJ2jYn-_ik7J5Qm3Q",
+          "captureDate": "2026-01",
+          "alongM": 29.479453035112837,
+          "lateralM": 2.610505040186059,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-ryra-h026"
+          ]
+        },
+        {
+          "panoId": "BWNZBhvxt6zRu4ZQ-1HK6A",
+          "captureDate": "2026-01",
+          "alongM": 19.525977337010236,
+          "lateralM": 3.8472279826740046,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-BWN-h026"
+          ]
+        },
+        {
+          "panoId": "bHGgnWS2jepgZhz4y1UHng",
+          "captureDate": "2026-01",
+          "alongM": 0.5606441285354332,
+          "lateralM": 1.0582122481544687,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-bHG-h026"
+          ]
+        }
+      ]
+    },
+    {
+      "roadId": "r_50481356909_0",
+      "roadName": "roasd no 5",
+      "storedLocationDateTuples": 3,
+      "uniquePanoDatePairs": 3,
+      "assignments": [],
+      "disposition": "UNRESERVED_CANDIDATE_ON_UNCONFIRMED_A8_VENKATGIRI_BRANCH_NOT_CURRENTLY_ACTIVATED",
+      "reason": "Existing source labels/route context and canonical road labels do not resolve approved route/scope correspondence. Current plan explicitly excludes that branch. Must independently resolve scope/canonical alignment and publish a distinct allowed plan/activation before any inventory; no continuity or current assignment expansion.",
+      "cameraRefs": [
+        {
+          "panoId": "xGmahh-9mFR3oNs8DXtCaA",
+          "captureDate": "2026-01",
+          "alongM": 38.66171277401053,
+          "lateralM": 4.660989518388947,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-xGma-h080"
+          ]
+        },
+        {
+          "panoId": "zRYvA3eocZjuRbayufMD7Q",
+          "captureDate": "2026-01",
+          "alongM": 28.97439158304182,
+          "lateralM": 3.6445272656675263,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-zRY-h080",
+            "sv-r5-yusufguda-ganesh-traders-20261019-pano-zRY-h270"
+          ]
+        },
+        {
+          "panoId": "6KX5Pfs3g89xCMIbHGldow",
+          "captureDate": "2026-01",
+          "alongM": 19.20794160129476,
+          "lateralM": 2.010493627701726,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-6KX-h080"
+          ]
+        }
+      ]
+    },
+    {
+      "roadId": "r_63797909905_0",
+      "roadName": "road no 2",
+      "storedLocationDateTuples": 17,
+      "uniquePanoDatePairs": 17,
+      "assignments": [
+        "road5-yusufguda-road2-r63797909905-0:ACTIVE"
+      ],
+      "disposition": "RETAINED_ACTIVE_TARGETED_SOURCE_SET_REVIEWED_EVIDENCE_LIMIT",
+      "reason": "Read linked current assignment checkpoint before any future source work; no fresh independent gap-closing source identified in stored named set. Prior camera/date/oblique targets are not repeated. Some old source positions lie outside bounded leases and remain excluded.",
+      "cameraRefs": [
+        {
+          "panoId": "TqeFWcmcoksX5tXcPM_u_g",
+          "captureDate": "2026-01",
+          "alongM": 56.780813542858134,
+          "lateralM": 1.001050946826675,
+          "sourceIds": [
+            "sv-r5-yusufguda-routepreview-20261019-pano-Tqe-h026",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Tqe-h285",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Tqe-h105"
+          ]
+        },
+        {
+          "panoId": "a8oHkcsNWTj8JES7u9ZS8A",
+          "captureDate": "2026-01",
+          "alongM": 67.1182281856066,
+          "lateralM": 0.007572673693743468,
+          "sourceIds": [
+            "sv-r5-yusufguda-arrowchain-20261019-pano-a8o-h026",
+            "sv-r5-yusufguda-rev112-pano-a8o-h090"
+          ]
+        },
+        {
+          "panoId": "rAcziqO_Viw4xf2njV1Emg",
+          "captureDate": "2026-01",
+          "alongM": 4.637506038510161,
+          "lateralM": 2.968788896751497,
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-rAc-h020"
+          ]
+        },
+        {
+          "panoId": "zHV4L6pXMiMZq4rA5ILirw",
+          "captureDate": "2026-01",
+          "alongM": 14.09179896264064,
+          "lateralM": 0.07380283603645292,
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-zHV-h020",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-zHV-h312",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-zHV-h132"
+          ]
+        },
+        {
+          "panoId": "EQAPW3ta-MkMW_B188KXwQ",
+          "captureDate": "2026-01",
+          "alongM": 24.69367854883474,
+          "lateralM": 2.0706118058543197,
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-EQAP-h020",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EQAP-h292",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EQAP-h112"
+          ]
+        },
+        {
+          "panoId": "JlcXKkzbnWgJAS9VtNg_Qw",
+          "captureDate": "2026-01",
+          "alongM": 34.503122321284934,
+          "lateralM": 2.036594012588409,
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-Jlc-h020",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Jlc-h292",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Jlc-h112"
+          ]
+        },
+        {
+          "panoId": "vQXGB_oADHNV9NDMrkViaw",
+          "captureDate": "2026-01",
+          "alongM": 45.62781695207565,
+          "lateralM": 2.139301754028239,
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-vQX-h020",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-vQX-h285",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-vQX-h105",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-vQX-202601-h135"
+          ]
+        },
+        {
+          "panoId": "dZpu68AiRTRpl-Cr4WOG0g",
+          "captureDate": "2025-01",
+          "alongM": 44.26091238186794,
+          "lateralM": 1.1991390331109224,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-dZpu-202501-h135",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-dZpu-202501-h292"
+          ]
+        },
+        {
+          "panoId": "brBVL7JoEPi21V6rtqX5dA",
+          "captureDate": "2021-12",
+          "alongM": 46.67652336602969,
+          "lateralM": 2.6681412656036074,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-brBV-202112-h135"
+          ]
+        },
+        {
+          "panoId": "EmR0qz8Da93BohVzfN2VLg",
+          "captureDate": "2025-01",
+          "alongM": 15.973642931549547,
+          "lateralM": 2.3949447006629048,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EmR0-202501-h132"
+          ]
+        },
+        {
+          "panoId": "2oxvE9vqdHSxybJueDdTBA",
+          "captureDate": "2021-12",
+          "alongM": 14.327185477354751,
+          "lateralM": 1.3254159969678645,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-2oxv-202112-h132"
+          ]
+        },
+        {
+          "panoId": "xr6zfJFANSFZfaulK9thBg",
+          "captureDate": "2025-01",
+          "alongM": 53.61561842673047,
+          "lateralM": 0.11423683283135916,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-xr6z-202501-h285",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-xr6z-202501-h105"
+          ]
+        },
+        {
+          "panoId": "8aD9ChkwOX2T6D32s3wCpw",
+          "captureDate": "2021-12",
+          "alongM": 54.049139806411986,
+          "lateralM": 1.9288870740492905,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-8aD9-202112-h105"
+          ]
+        },
+        {
+          "panoId": "hvIWyACotfj8tkJITojMqA",
+          "captureDate": "2025-01",
+          "alongM": 27.582026383047133,
+          "lateralM": 1.589130987068952,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-hvIW-202501-h112"
+          ]
+        },
+        {
+          "panoId": "3PUb0ffNYBv1KuJb7NV1sQ",
+          "captureDate": "2021-12",
+          "alongM": 28.53314731106431,
+          "lateralM": 2.4495966998361522,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-3PUb-202112-h112",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-3PUb-202112-h292"
+          ]
+        },
+        {
+          "panoId": "Egywd1A3-Cvmphvs_18zDQ",
+          "captureDate": "2025-01",
+          "alongM": 30.872163050086513,
+          "lateralM": 1.6741478913530214,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Egyw-202501-h112",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-Egyw-202501-h292"
+          ]
+        },
+        {
+          "panoId": "_EkVxsH_RGKaeiCbUHdvmQ",
+          "captureDate": "2021-12",
+          "alongM": 36.99704010950712,
+          "lateralM": 2.5761651996470576,
+          "sourceIds": [
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EkVx-202112-h292",
+            "sv-second-computer-01-road2-central-r63797909905-0-20261020-EkVx-202112-h112"
+          ]
+        }
+      ]
+    },
+    {
+      "roadId": "r_64237527671_0",
+      "roadName": "Road Number 5",
+      "storedLocationDateTuples": 5,
+      "uniquePanoDatePairs": 5,
+      "assignments": [
+        "road5-yusufguda-r64237527671-0:ACTIVE"
+      ],
+      "disposition": "RETAINED_ACTIVE_TARGETED_SOURCE_SET_REVIEWED_EVIDENCE_LIMIT",
+      "reason": "Read linked current assignment checkpoint before any future source work; no fresh independent gap-closing source identified in stored named set. Prior camera/date/oblique targets are not repeated. Some old source positions lie outside bounded leases and remain excluded.",
+      "cameraRefs": [
+        {
+          "panoId": "RoO_ExTkgi147Gls7Vvbsg",
+          "captureDate": "2026-01",
+          "alongM": 29.907731971635997,
+          "lateralM": 1.478224952181485,
+          "sourceIds": [
+            "sv-jhc-road5-route-20261019-pano-RoO-h70",
+            "sv-jhc-road5-opposite-20261019-pano-roo-h250",
+            "sv-jhc-road5-opposite-20261019-pano-roo-h310",
+            "sv-second-computer-01-road5-r64237527671-0-20261020-RoO-202601-h152"
+          ]
+        },
+        {
+          "panoId": "CUXPz4fyO2sxYBlCuyVbMg",
+          "captureDate": "2026-01",
+          "alongM": 1.6406856150036238,
+          "lateralM": 4.186272574163091,
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-CUXP-h267"
+          ]
+        },
+        {
+          "panoId": "wcqFkJkyK9dxUXLHQZMl4Q",
+          "captureDate": "2026-01",
+          "alongM": 10.837093913971444,
+          "lateralM": 1.2578416238485588,
+          "sourceIds": [
+            "sv-r5-yusufguda-rev112-pano-wcq-h267",
+            "sv-second-computer-01-road5-r64237527671-0-20261020-wcq-202601-h146"
+          ]
+        },
+        {
+          "panoId": "hlmvDP6EaJ_25l4XTuaw8g",
+          "captureDate": "2021-12",
+          "alongM": 12.146371730304319,
+          "lateralM": 1.8611847226002594,
+          "sourceIds": [
+            "sv-second-computer-01-road5-r64237527671-0-20261020-hlmv-202112-h146"
+          ]
+        },
+        {
+          "panoId": "Dy9oC9NJph9f3fGm6u-ljw",
+          "captureDate": "2021-12",
+          "alongM": 30.251938193182184,
+          "lateralM": 1.8966866307734678,
+          "sourceIds": [
+            "sv-second-computer-01-road5-r64237527671-0-20261020-Dy9o-202112-h152"
+          ]
+        }
+      ]
+    }
+  ],
+  "browserBlock": {
+    "action": "Open See more dates at new dXet camera; subsequent read-only getAXState to check outcome.",
+    "target": "Google Maps browser 2/profile Tharun, tab 1996309912, dXet1Aigm3Zn7d6KL3xiaQ January 2026 155.510630692 m h2/fov65.",
+    "reason": "Computer-use tool transport closed on date-control click and again on state check; browser state could not be read.",
+    "status": "BLOCKED_BY_UNAVAILABLE_BROWSER_CONNECTION; click outcome UNCERTAIN",
+    "denied": false,
+    "approvalPending": false,
+    "offeredDatesObserved": false,
+    "historicalImageryInspected": false,
+    "bypassOrSessionChangeAttempted": false,
+    "lastConfirmedImagery": "https://www.google.com/maps/@?api=1&map_action=pano&pano=dXet1Aigm3Zn7d6KL3xiaQ&heading=2&pitch=0&fov=65",
+    "resume": "Restore existing browser connection, inspect actual current page/date-control state before another click. Confirm any offered capture actual date/pano/coords/nearest road/bounds before screenshot/frontage; preserve prior held upper captures. No alternate account/profile/provider or hidden endpoint."
+  },
+  "otherPreservedWork": {
+    "pilot": "Retained ACTIVE Lakdikapul target-set evidence limit; no new source identified in its saved checkpoint.",
+    "miyapurJntu": "RESERVED_PROVIDER_BLOCKED35 roads/70 sides, no reassignment/retry.",
+    "stationsAndA8": "Marker/no-imagery and a8 connectivity gaps remain excluded; no pair advance.",
+    "adjacentMetadataHolds": "r399/r642 excluded-adjacent-road historical targets remain metadata-only; not a fresh independent task merely because unreserved; no canonical facade-side correspondence resolved."
+  },
+  "conclusion": "Recovery resolved the temporary transport blocker through the original stable browser extension/profile. The uncertain date click was confirmed executed and not repeated. Current lower Jan2025/Dec2021 source check remains useful and now actionable, uninspected. No other fresh distinct currently allowed recorded source task was identified; unreserved branch candidates require independent scope/canonical-route assessment and separate plan/activation. No global exhaustion claim.",
+  "externalInputs": [
+    "Restore existing browser2/profileTharun computer-use connection; check uncertain date-control state before retry.",
+    "For physical qualification, current calibrated both-side survey/photo/control/entrance measurements and current operation proof as qualification-readiness-130 specifies.",
+    "For any branch candidate, resolve its route/canonical-scope relationship before a distinct published activation."
+  ],
+  "nextAction": "Browser connection recovered by matching the original stable extension identity/profile Tharun after numeric IDs reset. Actual same-tab readback confirmed the interrupted click opened the date carousel; do not repeat it. January2025 and December2021 are offered but UNINSPECTED. Check each selected historical capture actual date/pano/coordinates/nearest assigned road and closed150.00–177.43 m bounds before frontage image/authoring; stop mismatches, retain all existing holds. New lower pending contexts do not establish calibrated/current qualification proof. Other candidate work remains subject to scope/route/canonical assessment and published plan/activation; no global exhaustion claim.",
+  "browserRecovery": {
+    "recordedAt": "2026-10-20T07:07:12.812614+00:00",
+    "status": "RESOLVED_SUPPORTED_EXISTING_BROWSER",
+    "extensionInstanceId": "2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c",
+    "profileName": "Tharun",
+    "oldNumericBrowserId": "2",
+    "currentNumericBrowserId": "1",
+    "tabId": "1996309912",
+    "actualReadback": "Same dXet January2026 h2 tab; See latest date/carousel open with offered January2025 and December2021 controls. Interrupted click DID execute; not repeated.",
+    "historicalImageryInspected": false,
+    "userActionRequired": false,
+    "accountProfileSessionAccessChanged": false
+  }
+}
