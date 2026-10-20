@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:13:09Z",
+  "updatedAt": "2026-10-20T06:15:20Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -84,66 +84,22 @@
     },
     "exclusions": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage; Road5/Yusufguda markers have saved imagery gaps; station gates/connectors unknown.",
     "receivingBoundedAssignment": {
-      "assignmentId": "road5-yusufguda-road2-r63797909905-0",
-      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
-      "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
+      "assignmentId": "road5-yusufguda-krishna-r39952804437-0",
+      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-krishna-r39952804437-0-activation-20261020.md",
+      "publishedPlanCommit": "9451ee68fb6a8348ac08b0d29c89a91653634f2b",
       "owner": "second-computer-01",
-      "state": "BATCH008_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
-      "roadId": "r_63797909905_0",
+      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "roadId": "r_39952804437_0",
       "rangesM": [
         10,
-        62
+        44.65
       ],
       "sides": [
         "left",
         "right"
       ],
       "oldA8AndMarkerGapsPreserved": true,
-      "separateAnchorJumpDisclosed": true,
-      "activationCommit": "c12c65dc67562da0f78ca46310622fee0d1486ff",
-      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch008-historical-gaps.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch008-import-126.md",
-      "workerCommit": "4b495ef82ecc085e7d4ea0bdfda82576d77b5626",
-      "pendingObservations": 28,
-      "qualifiedSideMetres": 0,
-      "lastPanorama": {
-        "panoId": "_EkVxsH_RGKaeiCbUHdvmQ",
-        "lat": 17.4309934,
-        "lon": 78.4209664,
-        "captureDate": "2021-12",
-        "headingDeg": 112,
-        "fov": 65,
-        "projectedAlongM": 36.99704010950712,
-        "lateralM": 2.5761651996470576
-      },
-      "nextAction": "The named known-anchor/date target set is reviewed and saved. Further qualification on this lease requires genuinely new unobstructed in-lease/field evidence for endpoint/inter-camera hidden units, exact facade/door and address correspondence, measured reference/control geometry and current on-site operation. No further gap-closing source was identified in this targeted set; do not repeat these angles/dates absent a new question. The recorded receiving coordinator may assess a different unreserved bounded task only through the documented published plan and activation process, preserving this ACTIVE lease and all gaps/protected reservations. No station advance, endpoint/a8 recovery or new-road mapping is implied by this checkpoint.",
-      "evidenceQualificationLimit": {
-        "type": "MISSING_CALIBRATION_CORRESPONDENCE_CURRENTNESS",
-        "notProviderDenial": true,
-        "allAssignedSideMetresUnqualified": 52.0,
-        "knownCamerasReviewed": 15,
-        "imagesReviewed": 26,
-        "officialSourcesReviewed": 2,
-        "required": [
-          "Unobstructed dated views of endpoint/inter-camera and hidden unit/floor boundaries.",
-          "Measured reference/control points and calibrated facade/entrance geometry.",
-          "Exact official-address-to-photographed-door association and newer on-site operation proof."
-        ],
-        "universalImageryExhaustionClaim": false,
-        "mapListingSourcesReviewed": 1,
-        "additionalReviewOnlyViews": 2
-      },
-      "retainedUpperInteriorAnchor": {
-        "panoId": "TqeFWcmcoksX5tXcPM_u_g",
-        "lat": 17.4311564,
-        "lon": 78.421038,
-        "captureDate": "2026-01",
-        "headingDeg": 105,
-        "fov": 65,
-        "projectedAlongM": 56.780813542858134,
-        "lateralM": 1.001050946826675,
-        "movementMeaning": "Disclosed direct known-anchor open; no roadway traversal or coverage inferred."
-      }
+      "separateAnchorJumpDisclosed": true
     },
     "retainedBoundedAssignments": [
       {
@@ -203,6 +159,68 @@
           "receipt": "docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md",
           "stopReason": "The four targeted unreviewed fixed-camera angles do not supply qualifying bounded inventory, placement, metric or currentness evidence. No further useful gap-closing source identified in this inspected set; no claim that all imagery everywhere is exhausted. Do not repeat without genuinely new evidence/question.",
           "requiredEvidence": "Obtain a genuinely new unobstructed dated in-lease sightline or field evidence with calibrated endpoint/facade/unit correspondence, entrance/geometry measurements and currentness corroboration. Check actual camera projection before authoring. Keep samelease/exclusions; no blind forward advance fromvDWU into unknownjunctioncamera."
+        }
+      },
+      {
+        "assignmentId": "road5-yusufguda-road2-r63797909905-0",
+        "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
+        "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
+        "owner": "second-computer-01",
+        "state": "BATCH008_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
+        "roadId": "r_63797909905_0",
+        "rangesM": [
+          10,
+          62
+        ],
+        "sides": [
+          "left",
+          "right"
+        ],
+        "oldA8AndMarkerGapsPreserved": true,
+        "separateAnchorJumpDisclosed": true,
+        "activationCommit": "c12c65dc67562da0f78ca46310622fee0d1486ff",
+        "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch008-historical-gaps.md",
+        "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch008-import-126.md",
+        "workerCommit": "4b495ef82ecc085e7d4ea0bdfda82576d77b5626",
+        "pendingObservations": 28,
+        "qualifiedSideMetres": 0,
+        "lastPanorama": {
+          "panoId": "_EkVxsH_RGKaeiCbUHdvmQ",
+          "lat": 17.4309934,
+          "lon": 78.4209664,
+          "captureDate": "2021-12",
+          "headingDeg": 112,
+          "fov": 65,
+          "projectedAlongM": 36.99704010950712,
+          "lateralM": 2.5761651996470576
+        },
+        "nextAction": "The named known-anchor/date target set is reviewed and saved. Further qualification on this lease requires genuinely new unobstructed in-lease/field evidence for endpoint/inter-camera hidden units, exact facade/door and address correspondence, measured reference/control geometry and current on-site operation. No further gap-closing source was identified in this targeted set; do not repeat these angles/dates absent a new question. The recorded receiving coordinator may assess a different unreserved bounded task only through the documented published plan and activation process, preserving this ACTIVE lease and all gaps/protected reservations. No station advance, endpoint/a8 recovery or new-road mapping is implied by this checkpoint.",
+        "evidenceQualificationLimit": {
+          "type": "MISSING_CALIBRATION_CORRESPONDENCE_CURRENTNESS",
+          "notProviderDenial": true,
+          "allAssignedSideMetresUnqualified": 52.0,
+          "knownCamerasReviewed": 15,
+          "imagesReviewed": 26,
+          "officialSourcesReviewed": 2,
+          "required": [
+            "Unobstructed dated views of endpoint/inter-camera and hidden unit/floor boundaries.",
+            "Measured reference/control points and calibrated facade/entrance geometry.",
+            "Exact official-address-to-photographed-door association and newer on-site operation proof."
+          ],
+          "universalImageryExhaustionClaim": false,
+          "mapListingSourcesReviewed": 1,
+          "additionalReviewOnlyViews": 2
+        },
+        "retainedUpperInteriorAnchor": {
+          "panoId": "TqeFWcmcoksX5tXcPM_u_g",
+          "lat": 17.4311564,
+          "lon": 78.421038,
+          "captureDate": "2026-01",
+          "headingDeg": 105,
+          "fov": 65,
+          "projectedAlongM": 56.780813542858134,
+          "lateralM": 1.001050946826675,
+          "movementMeaning": "Disclosed direct known-anchor open; no roadway traversal or coverage inferred."
         }
       }
     ]

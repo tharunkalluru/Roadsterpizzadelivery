@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:13:09Z",
+  "updatedAt": "2026-10-20T06:15:20Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -10,7 +10,7 @@
     "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
     "claimedAt": "2026-10-20T01:27:15Z",
-    "currentCollectionAssignmentId": "road5-yusufguda-road2-r63797909905-0"
+    "currentCollectionAssignmentId": "road5-yusufguda-krishna-r39952804437-0"
   },
   "assignments": [
     {
@@ -731,6 +731,142 @@
       "batch007ContentHash": "3909f75028d372008f9ac32091bf88c269c72c1d078e2d1ebfcbd43f43f33bcd",
       "batch008ImportedRevision": 126,
       "batch008ContentHash": "e5413581095aa7fba77c7d8fcd70bfb85417fcea661d422fde0472ba10be31ce"
+    },
+    {
+      "assignmentId": "road5-yusufguda-krishna-r39952804437-0",
+      "status": "ACTIVE",
+      "workerId": "second-computer-01",
+      "ownerBranch": "worker/second-computer-01/road5-yusufguda-krishna-r39952804437-0",
+      "claimId": "road5-yusufguda-krishna-r39952804437-0-20261020",
+      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-krishna-r39952804437-0-activation-20261020.md",
+      "publishedPlan": "docs/handoff/claims/road5-yusufguda-krishna-r39952804437-0-plan-20261020.md",
+      "publishedPlanCommit": "9451ee68fb6a8348ac08b0d29c89a91653634f2b",
+      "claimedAt": "2026-10-20T06:15:20Z",
+      "coordinatorBaseCommit": "9451ee68fb6a8348ac08b0d29c89a91653634f2b",
+      "activationCommit": null,
+      "activationCommitResolution": {
+        "claimFile": "docs/handoff/claims/road5-yusufguda-krishna-r39952804437-0-activation-20261020.md",
+        "rule": "Resolve the first commit adding this activation file with git log --diff-filter=A -1 --format=%H -- claimFile; publish/read back before an isolated branch and startup report, then pin literal SHA at next coordinator save."
+      },
+      "snapshotSurveyRevision": 126,
+      "snapshotSurveySha256": "c21782e0a130531b7fbb0c8015bd76636dead82e84188713e2e59afe6e37146a",
+      "worldId": "hyd-metro",
+      "worldVersion": "2.0.0",
+      "stationPair": "Road No5 Jubilee Hills -> Yusufguda",
+      "roadId": "r_39952804437_0",
+      "roadName": null,
+      "sourceLocalityLabel": "Krishna Nagar Main Road / directions-preview context; canonical road remains unnamed",
+      "roadLengthM": 54.65,
+      "geometryStatus": "Provisional geometry/name/width/direction, footpath flag and footprint-clearance width clamp retained; no field measurements or route proof.",
+      "canonicalPoints": [
+        [
+          -13079.67,
+          -1693.73
+        ],
+        [
+          -13097.07,
+          -1657.54
+        ],
+        [
+          -13106.72,
+          -1646.73
+        ]
+      ],
+      "canonicalSourceIds": [
+        "ovt:seg/94d5f6a557b8",
+        "osm:w1148129326@4"
+      ],
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_39952804437_0",
+          "side": "left",
+          "startM": 10.0,
+          "endM": 44.65,
+          "boundaryRule": "closed interval; stored road.points order"
+        },
+        {
+          "roadId": "r_39952804437_0",
+          "side": "right",
+          "startM": 10.0,
+          "endM": 44.65,
+          "boundaryRule": "closed interval; stored road.points order"
+        }
+      ],
+      "excludedRanges": [
+        {
+          "roadId": "r_39952804437_0",
+          "startM": 0,
+          "endM": 10,
+          "boundaryRule": "end exclusive"
+        },
+        {
+          "roadId": "r_39952804437_0",
+          "startM": 44.65,
+          "endM": 54.65,
+          "boundaryRule": "start exclusive"
+        }
+      ],
+      "excludedNodes": [
+        "n_33090891616",
+        "n_68591765210"
+      ],
+      "excludedAdjacentRoadIds": [
+        "r_32699653228_0"
+      ],
+      "exclusions": [
+        "Both endpoint junctions/buffers and every other road/carriageway, especially adjacent Yousufguda Main Road r_32699653228_0.",
+        "All station gates/connectors; a8/unconfirmed east link/Venkatgiri branch; no station-pair advance or route-continuity claim.",
+        "All prior leases/owners/bounds/evidence gaps and protected Miyapur-JNTU reservation/provider block remain unchanged."
+      ],
+      "startReference": {
+        "panoId": "QoaaSSYtMe9wG0lTbeXzrg",
+        "lat": 17.429776,
+        "lon": 78.4252188,
+        "historicalCaptureDate": "2026-01",
+        "projectedAlongM": 16.3,
+        "lateralM": 1.261,
+        "rule": "Saved directions-preview interior locator, not station entrance. Recheck actual date/coords/nearest road before authoring; disclosed direct jump only."
+      },
+      "otherSavedReference": {
+        "panoId": "Zthp60eHW4zeTobWMZLLeA",
+        "lat": 17.4296049,
+        "lon": 78.4251397,
+        "historicalCaptureDate": "2026-01",
+        "projectedAlongM": 37.008,
+        "lateralM": 0.63
+      },
+      "existingReferenceSourceIds": [
+        "sv-r5-yusufguda-routepreview-20261019-pano-Qoaa-h204",
+        "sv-jhc-road5-route-20261019-pano-Zthp-h211",
+        "sv-jhc-road5-opposite-20261019-pano-zthp-h053"
+      ],
+      "priorObservationIds": [],
+      "newSourceIdPrefix": "sv-second-computer-01-krishna-r39952804437-0-",
+      "batchPathPattern": "game/data/research/batches/second-computer-01-krishna-r39952804437-0-<sequence>-<YYYYMMDD>.json",
+      "checkpointPathPattern": "game/work/road5-yusufguda-krishna-r39952804437-0/checkpoint-<UTC-or-sequence>.md",
+      "authority": {
+        "role": "CLAIMED receiving coordinator, mapping operator and sole importer",
+        "publishedPlanCommit": "9451ee68fb6a8348ac08b0d29c89a91653634f2b",
+        "userContext": "Accepted entire takeover, sustained-work instruction and parent direction to assess the next authorized task after the central evidence qualification limit."
+      },
+      "nonOverlapAudit": {
+        "allOtherAssignmentObjectsPreserved": true,
+        "candidateAbsentFromEveryExistingReservedRoadSet": true,
+        "remoteWorkerBranchPreviouslyAbsent": true,
+        "singleOperatorAndImporter": "second-computer-01",
+        "outgoingQuiescent": true,
+        "fiveSnapshotHashesMatch": true,
+        "existingRoadBoundObservations": 0,
+        "existingStorefrontOverrides": 0,
+        "existingRoadReviews": {
+          "left": "unreviewed",
+          "right": "unreviewed"
+        }
+      },
+      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "latestCheckpoint": null,
+      "nextPanorama": null,
+      "nextAction": "Resolve/publish/read back exact initial activation commit, create isolated worker exactly there, record/report startup bindings; then open Qoaa interior and verify actual date/coords/nearest road. Inspect only new side sectors within this lease, then saved Zthp if still aligned/in bounds. No blind roadway arrows, endpoint/a8 recovery, other carriageway, station gates/connectors, duplicate sources/identities, invented geometry or coverage."
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"
