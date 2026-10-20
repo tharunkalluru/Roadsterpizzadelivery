@@ -87,3 +87,7 @@ Disposable current-119 preview passed; serial import returned 120 with canonical
 ## Central Road No.2 batch 003 / survey 121 — 2026-10-20T05:39:41Z
 
 Disposable current-120 preview passed; serial import returned 121 with canonical `b750d4370e53b7dced28a069883deb56341acf83232443e20ef66cb3477230cd`. Survey validation passed zero errors (existing placement warning); network/queue regeneration and reproducibility plus tsc/Vite production build passed (84 modules). Prior record/receipt prefixes and all road/physical/coverage collections unchanged. All five current SNAPSHOT hashes match; original transfer capture/protected reservations preserved. No full unit/E2E/device rerun or independent second imagery review. See `docs/handoff/reviews/second-computer-01-central-batch003-import-121.md`.
+
+## Central Road No.2 batch 004 / survey 122 — 2026-10-20T05:49:48Z
+
+Disposable current-121 preview passed; serial importer returned 122 and canonical `e3d98e84009aec8319fd7ae1216ab2ef00845fe7a14452c55e621fe316ddefd2`. Survey validation passed zero errors with the existing exact-placement warning; network/queue regeneration and both reproducibility checks passed; tsc/Vite build passed 84 modules. Prior record/receipt prefixes and all physical/coverage collections are identical; all five SNAPSHOT hashes match. One pending map corroboration, no new imagery, measured control, entrance or coverage. Full unit/E2E/devices and independent second imagery review were not run. See `docs/handoff/reviews/second-computer-01-central-batch004-import-122.md`.
