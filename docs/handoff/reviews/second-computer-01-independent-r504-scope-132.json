@@ -1,0 +1,116 @@
+{
+  "recordedAt": "2026-10-20T07:42:00.985615+00:00",
+  "coordinatorPredecessor": "3969688161b18ad7e229368906df582067d674a8",
+  "assignmentId": "venkatgiri-independent-r50481356909-0",
+  "workerId": "second-computer-01",
+  "analysisMode": "Frozen geometry/reservations/source metadata only; no new imagery before activation/startup",
+  "frozenFiles": {
+    "game/public/research/street-survey.json": "536860d9e80b972524649062f525a54a26651fb24daddd98c4c820cac2285848",
+    "game/public/world/hyd-metro/v2/manifest.json": "b07636419815d2428d110b6e912144f93679d1b928ce53cd5d1464db62fe1089",
+    "game/public/world/hyd-metro/v2/core.json": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+    "game/package-lock.json": "dc36354e007ddbe185b883df2d2723348aa4e0387de975138c016c18b43fc9f6",
+    "game/data/archives/source-accuracy.json.gz": "4e0e9f32c651de10e6ce40f6a4eec96986b4e8d7b0fcfd77de4610d512d490fd"
+  },
+  "road": {
+    "id": "r_50481356909_0",
+    "wayId": 50481356909,
+    "name": "roasd no 5",
+    "nameId": "nm_road_roasd_no_5",
+    "highway": "tertiary",
+    "oneway": false,
+    "routable": true,
+    "lanes": null,
+    "widthM": 7.16,
+    "level": 0,
+    "bridge": false,
+    "tunnel": false,
+    "elevationM": 0,
+    "pointElevM": [
+      0,
+      0
+    ],
+    "surfaceId": "s_0_r_50481356909_0",
+    "fromNode": "n_23384083302",
+    "toNode": "n_58226819420",
+    "points": [
+      [
+        -13478.29,
+        -1993.28
+      ],
+      [
+        -13492.26,
+        -1950.16
+      ]
+    ],
+    "lengthM": 45.33,
+    "footpath": true,
+    "status": {
+      "geometry": "provisional",
+      "name": "provisional",
+      "width": "provisional",
+      "direction": "provisional"
+    },
+    "provenance": {
+      "source": "derived",
+      "sourceIds": [
+        "ovt:seg/bc0ec606d65b",
+        "osm:w252270756@8"
+      ],
+      "note": "clamped 7.5->7.16 m (footprint clearance 4.18 m)"
+    }
+  },
+  "closedRangeM": [
+    10,
+    35.33
+  ],
+  "sides": [
+    "left",
+    "right"
+  ],
+  "metresPerSide": 25.33,
+  "savedLocatorOnlyAnchors": [
+    {
+      "panoId": "zRYvA3eocZjuRbayufMD7Q",
+      "lat": 17.4323512,
+      "lon": 78.4214928,
+      "captureDate": "2026-01",
+      "alongM": 28.97439158304182,
+      "lateralM": 3.6445272656675263
+    },
+    {
+      "panoId": "6KX5Pfs3g89xCMIbHGldow",
+      "lat": 17.4324397,
+      "lon": 78.4215065,
+      "captureDate": "2026-01",
+      "alongM": 19.20794160129476,
+      "lateralM": 2.010493627701726
+    }
+  ],
+  "excludedAdjacentRoadIds": [
+    "r_11425936670_0",
+    "r_14842271660_0",
+    "r_60191496056_0"
+  ],
+  "reservationConflicts": [],
+  "priorAssignmentCount": 10,
+  "existingRoadBoundObservations": 0,
+  "existingStorefrontOverrides": 0,
+  "oldRoadIdNullIdentity": "obs-r5-yusufguda-ganesh-traders-sign-20261019",
+  "oldSourcesImmutable": [
+    "sv-r5-yusufguda-arrowchain-20261019-pano-zRY-h080",
+    "sv-r5-yusufguda-arrowchain-20261019-pano-6KX-h080",
+    "sv-r5-yusufguda-ganesh-traders-20261019-pano-zRY-h270"
+  ],
+  "tangentHeadingDeg": 197.9512660885296,
+  "sideSectors": {
+    "left": 108,
+    "right": 288
+  },
+  "widthUncertainty": "Provisional width7.16m clamped7.5→7.16 for footprint clearance4.18m; zRY lateral3.645 slightly exceeds half-width3.58m. No measurement.",
+  "preservedDeferrals": [
+    "r_3122046738_0: marginal0.219m locator/lateral6.224m; better robust actual source/alignment required",
+    "r_14143362194_0: only0.75m buffered window, upper margin0.0052m; no buffer relaxation"
+  ],
+  "stationRouteIdentityUnresolved": true,
+  "decision": "SELECT_INDEPENDENT_CANONICAL_INTERIOR_REQUIRING_DISTINCT_PUBLISHED_PLAN_AND_ACTIVATION"
+}
