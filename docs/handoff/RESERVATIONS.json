@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:15:20Z",
+  "updatedAt": "2026-10-20T06:22:40Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -743,7 +743,7 @@
       "publishedPlanCommit": "9451ee68fb6a8348ac08b0d29c89a91653634f2b",
       "claimedAt": "2026-10-20T06:15:20Z",
       "coordinatorBaseCommit": "9451ee68fb6a8348ac08b0d29c89a91653634f2b",
-      "activationCommit": null,
+      "activationCommit": "aee7c39310f7b2165b56ed9e2442f160980af200",
       "activationCommitResolution": {
         "claimFile": "docs/handoff/claims/road5-yusufguda-krishna-r39952804437-0-activation-20261020.md",
         "rule": "Resolve the first commit adding this activation file with git log --diff-filter=A -1 --format=%H -- claimFile; publish/read back before an isolated branch and startup report, then pin literal SHA at next coordinator save."
@@ -863,10 +863,69 @@
           "right": "unreviewed"
         }
       },
-      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
-      "latestCheckpoint": null,
+      "evidenceCollectionState": "BATCH001_PENDING_CONTEXT_ADMITTED_RIGHT_CORRESPONDENCE_HELD",
+      "latestCheckpoint": "game/work/road5-yusufguda-krishna-r39952804437-0/checkpoint-20261020-startup-and-batch001.md",
       "nextPanorama": null,
-      "nextAction": "Resolve/publish/read back exact initial activation commit, create isolated worker exactly there, record/report startup bindings; then open Qoaa interior and verify actual date/coords/nearest road. Inspect only new side sectors within this lease, then saved Zthp if still aligned/in bounds. No blind roadway arrows, endpoint/a8 recovery, other carriageway, station gates/connectors, duplicate sources/identities, invented geometry or coverage."
+      "nextAction": "Inspect a genuinely new unobstructed in-lease source or offered historical capture only to address named stair/gate/small-frontage/unit correspondence; check actual metadata/projection first. Right-side far properties remain excluded until exact canonical road/carriageway correspondence is supported. No blind endpoint steps, other-road inventory or repetition of these same sectors. Measured geometry/currentness and full bounded inventory remain missing.",
+      "latestEvidenceLedger": "game/work/road5-yusufguda-krishna-r39952804437-0/evidence-ledger-20261020-batch001.json",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-krishna-batch001-import-127.md",
+      "workerCommit": "afe47dd78c3bb5867c9d7cf157cf6d8d272a6ad0",
+      "workerPullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/4",
+      "lastPanorama": {
+        "panoId": "Zthp60eHW4zeTobWMZLLeA",
+        "lat": 17.429606,
+        "lon": 78.4251368,
+        "captureDate": "2026-01",
+        "headingDeg": 296,
+        "fov": 65,
+        "projectedAlongM": 37.03215943037272,
+        "lateralM": 0.9602445118621553
+      },
+      "batch001ImportedRevision": 127,
+      "batch001ContentHash": "1ce8fcea9bd0af26cfb18045d261b317ac11ad280ea79496209d925516ec50cd",
+      "contextAdmission": {
+        "newSources": 4,
+        "pendingObservations": 4,
+        "datedCameras": 2,
+        "leftFrontageContexts": 2,
+        "rightRoadCorrespondenceContexts": 2,
+        "storefrontPlacementsAdded": 0,
+        "roadReviewRangesAdded": 0,
+        "qualifiedSideMetres": 0
+      },
+      "rightSideCorrespondenceHold": {
+        "excludedAdjacentRoadId": "r_32699653228_0",
+        "farPremiseInventoryAdded": false,
+        "reason": "Far corridor frontage/adjacent r_32699653228_0 excluded from premise inventory pending calibrated correspondence."
+      },
+      "metadataReconciliation": {
+        "panoId": "Zthp60eHW4zeTobWMZLLeA",
+        "saved": {
+          "lat": 17.4296049,
+          "lon": 78.4251397
+        },
+        "returned": {
+          "lat": 17.429606,
+          "lon": 78.4251368
+        },
+        "pausedBeforeEvidence": true,
+        "actualNearestRoad": "r_39952804437_0",
+        "alongM": 37.03215943037272,
+        "lateralM": 0.9602445118621553,
+        "resolution": "Same ACTIVE bounded lease and date/pano; actual point reprojected in bounds and recorded before frontage inspection/authoring. Reason for discrepancy unknown, old sources unchanged."
+      },
+      "evidenceQualificationLimit": {
+        "type": "MISSING_CANONICAL_SIDE_UNIT_CALIBRATION_CURRENTNESS",
+        "allAssignedSideMetresUnqualified": 34.65,
+        "notProviderDenial": true,
+        "universalImageryExhaustionClaim": false,
+        "required": [
+          "Exact road/carriageway-side and bounded facade/unit/door correspondence.",
+          "Unobstructed endpoint/inter-camera/hidden lower-unit evidence.",
+          "Measured reference/control points and entrance/facade geometry.",
+          "Current on-site operation corroboration."
+        ]
+      }
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"

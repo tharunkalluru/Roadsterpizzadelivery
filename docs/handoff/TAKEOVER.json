@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:15:20Z",
+  "updatedAt": "2026-10-20T06:22:40Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-krishna-r39952804437-0-activation-20261020.md",
       "publishedPlanCommit": "9451ee68fb6a8348ac08b0d29c89a91653634f2b",
       "owner": "second-computer-01",
-      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "state": "BATCH001_PENDING_CONTEXT_ADMITTED_RIGHT_CORRESPONDENCE_HELD",
       "roadId": "r_39952804437_0",
       "rangesM": [
         10,
@@ -99,7 +99,29 @@
         "right"
       ],
       "oldA8AndMarkerGapsPreserved": true,
-      "separateAnchorJumpDisclosed": true
+      "separateAnchorJumpDisclosed": true,
+      "activationCommit": "aee7c39310f7b2165b56ed9e2442f160980af200",
+      "checkpoint": "game/work/road5-yusufguda-krishna-r39952804437-0/checkpoint-20261020-startup-and-batch001.md",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-krishna-batch001-import-127.md",
+      "workerCommit": "afe47dd78c3bb5867c9d7cf157cf6d8d272a6ad0",
+      "pendingObservations": 4,
+      "qualifiedSideMetres": 0,
+      "lastPanorama": {
+        "panoId": "Zthp60eHW4zeTobWMZLLeA",
+        "lat": 17.429606,
+        "lon": 78.4251368,
+        "captureDate": "2026-01",
+        "headingDeg": 296,
+        "fov": 65,
+        "projectedAlongM": 37.03215943037272,
+        "lateralM": 0.9602445118621553
+      },
+      "nextAction": "Inspect a genuinely new unobstructed in-lease source or offered historical capture only to address named stair/gate/small-frontage/unit correspondence; check actual metadata/projection first. Right-side far properties remain excluded until exact canonical road/carriageway correspondence is supported. No blind endpoint steps, other-road inventory or repetition of these same sectors. Measured geometry/currentness and full bounded inventory remain missing.",
+      "rightSideCorrespondenceHold": {
+        "excludedAdjacentRoadId": "r_32699653228_0",
+        "farPremiseInventoryAdded": false,
+        "reason": "Far corridor frontage/adjacent r_32699653228_0 excluded from premise inventory pending calibrated correspondence."
+      }
     },
     "retainedBoundedAssignments": [
       {
@@ -352,10 +374,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 126,
-    "surveySha256": "c21782e0a130531b7fbb0c8015bd76636dead82e84188713e2e59afe6e37146a",
-    "sources": 874,
-    "observations": 648,
+    "surveyRevision": 127,
+    "surveySha256": "d06c7742c31beb6561998462f28ad77719909b13d41bc928eb23244005f3351e",
+    "sources": 878,
+    "observations": 652,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }
