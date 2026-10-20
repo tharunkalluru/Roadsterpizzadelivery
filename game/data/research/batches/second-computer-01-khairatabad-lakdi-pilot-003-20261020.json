@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "second-computer-01-khairatabad-lakdi-pilot-003-20261020",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-20",
+  "reviewer": "second-computer-01 / Codex local Chrome review",
+  "notes": "Interrupted small batch003 under unchanged ACTIVE assignment khairatabad-lakdi-pilot-r8306076003-3; only r_8306076003_3 canonical left/right [20.00,168.60]m. Worker predecessor011c03d37a4a9068813292ab0860e703bcc606cc; current coordinator770eef23c0c324112624552048168369791e5019/survey114 SHA256a29402c27013da98f97e925a133ff935822666d99b9357b83805b8566b7f8aa3. Original activation50e23bd3b8162381623e8ea7bd617409f88bda54; receiving claim ee683f5fe4713e700e2887e175545f84726ef256. A visible forward click from o-va reached QMjB, Nov2021, inside the lease at58.058406m. One actual forward source and one pending context observation only. Requested h51/h231 views were not confirmed because local browser control timed out, followed by a failed handle recovery; do not treat them as inspected. No storefrontOverrides, corrections, roadReviews, ranges, placements or coverage. All buffers/junctions/other roads/carriageways/gates/connectors and provider-blocked reservations remain excluded. No001/002 duplication. See checkpoint-20261020-batch003-browser-blocked.md.",
+  "sources": [
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-QMjB-h138",
+      "kind": "street_view",
+      "title": "Lakdikapul QMjB — forward lane/boundary context; side views unconfirmed",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=QMjBEf_gY6kDB97EYaVM4Q&heading=138&pitch=0&fov=75",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome review",
+      "position": {
+        "lat": 17.4062617,
+        "lon": 78.4627922,
+        "headingDeg": 138,
+        "panoId": "QMjBEf_gY6kDB97EYaVM4Q"
+      },
+      "notes": "Actual forward view at the next visible camera after o-va: the selected lane continues beside a low planted median/viaduct boundary on the left and a tree-shaded wall/curb/pavement on the right. Vegetation and roadside objects obscure parts of the edge. Far-carriageway premises and all gate/connector faces are excluded. No tenant, door, entrance, exact facade, continuous frontage or measured dimension is identified. Only this forward angle was visibly inspected; subsequent requested side views timed out and are not evidence. Camera projection is offset58.058406m/lateral2.298697m on r_8306076003_3, next candidate9.097162m; provisional canonical geometry, not a surveyed entrance. Provider panel/footer visibly show Nov2021; returned URL specifies h138/fov75. Reference only; no raw imagery saved.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-003-QMjB-h138",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-QMjB-h138"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Forward lane and obscured roadside context; side inventory incomplete",
+      "category": "bounded_pending_forward_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4062617,
+        "lon": 78.4627922,
+        "headingDeg": 138
+      },
+      "placementStatus": "pending",
+      "notes": "Actual forward view at the next visible camera after o-va: the selected lane continues beside a low planted median/viaduct boundary on the left and a tree-shaded wall/curb/pavement on the right. Vegetation and roadside objects obscure parts of the edge. Far-carriageway premises and all gate/connector faces are excluded. No tenant, door, entrance, exact facade, continuous frontage or measured dimension is identified. Only this forward angle was visibly inspected; subsequent requested side views timed out and are not evidence. Camera projection is offset58.058406m/lateral2.298697m on r_8306076003_3, next candidate9.097162m; provisional canonical geometry, not a surveyed entrance. Confidence limited to the dated visible forward context. This does not complete either canonical side or establish a frontage range. Camera is not an entrance."
+    }
+  ]
+}

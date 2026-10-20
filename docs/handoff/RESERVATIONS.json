@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T01:39:20Z",
+  "updatedAt": "2026-10-20T01:47:38Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -100,18 +100,18 @@
       "newSourceIdPrefix": "sv-second-computer-01-khairatabad-lakdi-pilot-",
       "batchPathPattern": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-<sequence>-<YYYYMMDD>.json",
       "checkpointPathPattern": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-<UTC-or-sequence>.md",
-      "latestCheckpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-batch002.md",
+      "latestCheckpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-batch003-browser-blocked.md",
       "lastPanorama": {
-        "panoId": "o-vaNpcgphoMVn379vda1w",
-        "lat": 17.4063211,
-        "lon": 78.4627284,
+        "panoId": "QMjBEf_gY6kDB97EYaVM4Q",
+        "lat": 17.4062617,
+        "lon": 78.4627922,
         "captureDate": "2021-11",
-        "headingDeg": 226,
-        "fov": 65,
-        "projectedAlongM": 48.81477493990692
+        "headingDeg": 138,
+        "fov": 75,
+        "projectedAlongM": 58.058405666577144
       },
       "nextPanorama": null,
-      "panoramaStatus": "Batch002 imported once at114 as4pending contexts at2Nov2021cameras. Last o-va h226; orient same camera h138 for navigation; next distinct panorama unknown.",
+      "panoramaStatus": "003 imported once at115 as1pending forward context, Nov2021. QMjB h138 was last visibly inspected; attempted h51/h231 are unconfirmed. Actual current tab state uncertain.",
       "startupConfirmation": {
         "status": "PILOT_STARTUP_COMPLETED_FULL_TAKEOVER_CLAIMED",
         "reportFields": [
@@ -128,11 +128,13 @@
         ],
         "rule": "Report the matching startup binding before research. This active lease needs no second conversational approval; a mismatch, changed lease or auth/provider block stops dependent work."
       },
-      "nextAction": "Continue small batch003 evidence only inside unchanged road/side lease, with actual camera alignment and bounds checks; preserve all coverage gaps and review before admission.",
+      "nextAction": "Repair/reconnect supported local Chrome control, inventory same tab and reconcile UI, then recheck lease and inspect QMjB side sectors in NEW batch004. No other edge/account/browser workaround.",
       "activationCommitMeaning": "Original exact pilot activation; final handover does not reactivate/expand the lease.",
       "batch001ImportedRevision": 113,
-      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-batch002-import-114.md",
-      "batch002ImportedRevision": 114
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-batch003-import-115.md",
+      "batch002ImportedRevision": 114,
+      "evidenceCollectionState": "PAUSED_LOCAL_BROWSER_CONTROL_TIMEOUT",
+      "batch003ImportedRevision": 115
     },
     {
       "assignmentId": "peddamma-jubilee-checkpost",
