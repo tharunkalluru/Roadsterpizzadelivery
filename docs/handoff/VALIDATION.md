@@ -44,7 +44,7 @@ Full unit suite, browser E2E and physical-device runtime testing were not rerun.
 
 Exact immutable batch002 (canonical hash 568f0850dbc4e6a107283774592d24a0e404eab1db30ee6391ea02f4a6cf5cc8) passed disposable113 importer preview, duplicate/road/scope checks and coordinator review, then was imported once at114. Post-import survey validation passed0errors; network and queue regenerated, both --check commands passed; TypeScript/Vite production build passed. Batch001 remains exactly one receipt. Counts812sources/587observations/169provisional storefronts;0verified storefronts/sides. No placements/coverage added. Survey SHA256a29402c27013da98f97e925a133ff935822666d99b9357b83805b8566b7f8aa3. Full unit/E2E/device suites not rerun; main Site remains unchanged/inaccessible to this connection.
 
-## Interrupted batch003 admission at115
+## Interrupted batch 003 admission at115
 
 1actual Nov2021 forward source/1pending context atQMjB; no unconfirmed side-view evidence. Disposable114preview and coordinator duplicate/scope checks passed; exact canonical hash d6cf9f695107874b0a9433ee7ac28ead637de040c99813569acbd1d62b573f7f. Imported once at115. Post-import survey validation passed0errors; network/queue regenerated and both reproducibility checks passed; TypeScript/Vite build passed84modules.813sources/588observations/169provisional storefronts,0verified storefronts/sides. Survey SHA256200ac5b3bacc443ec021b1dfedf65206906901a40c586c83371a45bc70a10a50. No coverage/placement, prior evidence, world/lock/archive or reservation range change. Full tests/E2E/devices not rerun. Local browser-control timeout blocks more imagery; no independent second imagery review or publication claimed.
 
@@ -54,7 +54,7 @@ Exact immutable batch002 (canonical hash 568f0850dbc4e6a107283774592d24a0e404eab
 
 ## Pilot001–004 evidence/gap audit (no runtime mutation)
 
-2026-10-20T02:11:23Z: recomputed four canonical hashes with actual surveyRecordHash; exactlyone receipt each, all31source/observation records equal immutable batches and occur once,31unique(pano,heading,date)signatures across15cameras. Recomputed allcamera projections/nearest road/bounds; five SNAPSHOT hashes match. Full read-only validator with real chunks passed0errors/existing exact-placement warning. Both pilot sides remain unreviewed, no ranges/overrides/coverage. Survey116andhash unchanged; no importer/build/unit/E2E/device rerun. Recovered two byte-identical missing coordinator checkpoint copies from reviewed worker81ce543. See pilot-gap-audit report and JSON.
+2026-10-20T02:11:23Z: recomputed four canonical hashes with actual surveyRecordHash; exactlyone receipt each, all31source/observation records equal immutable batches and occur once,31unique(pano,heading,date)signatures across15cameras. Recomputed allcamera projections/nearest road/bounds; five SNAPSHOT hashes match. Full read-only validator with real chunks passed0errors/existing exact-placement warning. Both pilot sides remain unreviewed, no ranges/overrides/coverage. Survey116and hash unchanged; no importer/build/unit/E2E/device rerun. Recovered two byte-identical missing coordinator checkpoint copies from reviewed worker81ce543. See pilot-gap-audit report and JSON.
 
 ## S76a fixed-camera review (no import/runtime mutation)
 
@@ -74,7 +74,7 @@ Two new December 2021 pending contexts imported once, canonical `e465f0bdb737875
 
 ## Road No.2 fixed-camera oblique review — 2026-10-20T04:05:16Z
 
-Four new January 2026 review references at two known in-lease cameras; date/coordinates/headings/URL and recomputed projection/nearest-road bindings checked. Five118SNAPSHOT hashes, eight pending contexts, both unreviewed sides and immutable001–002 receipts unchanged. No runtime record/batch003/import/build/unit/E2E/device rerun. Scope remains8.00–27.26m both sides; evidence limit and required genuinely new proof in `docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md`. Explicit work/doc paths, whitespace and excluded-data checks before save.
+Four new January 2026 review references at two known in-lease cameras; date/coordinates/headings/URL and recomputed projection/nearest-road bindings checked. Five118SNAPSHOT hashes, eight pending contexts, both unreviewed sides and immutable001–002 receipts unchanged. No runtime record/batch 003/import/build/unit/E2E/device rerun. Scope remains8.00–27.26m both sides; evidence limit and required genuinely new proof in `docs/handoff/reviews/second-computer-01-road2-oblique-review-118.md`. Explicit work/doc paths, whitespace and excluded-data checks before save.
 
 ## Central Road No.2 batch 001 / survey 119 — 2026-10-20T05:30:17Z
 
@@ -86,7 +86,7 @@ Disposable current-119 preview passed; serial import returned 120 with canonical
 
 ## Central Road No.2 batch 003 / survey 121 — 2026-10-20T05:39:41Z
 
-Disposable current-120 preview passed; serial import returned 121 with canonical `b750d4370e53b7dced28a069883deb56341acf83232443e20ef66cb3477230cd`. Survey validation passed zero errors (existing placement warning); network/queue regeneration and reproducibility plus tsc/Vite production build passed (84 modules). Prior record/receipt prefixes and all road/physical/coverage collections unchanged. All five current SNAPSHOT hashes match; original transfer capture/protected reservations preserved. No full unit/E2E/device rerun or independent second imagery review. See `docs/handoff/reviews/second-computer-01-central-batch003-import-121.md`.
+Disposable current-120 preview passed; serial import returned 121 with canonical `b750d4370e53b7dced28a069883deb56341acf83232443e20ef66cb3477230cd`. Survey validation passed zero errors (existing placement warning); network/queue regeneration and reproducibility plus tsc/Vite production build passed (84 modules). Prior record/receipt prefixes and all road/physical/coverage collections unchanged. All five current SNAPSHOT hashes match; original transfer capture/protected reservations preserved. No full unit/E2E/device rerun or independent second imagery review. See `docs/handoff/reviews/second-computer-01-central-batch 003-import-121.md`.
 
 ## Central Road No.2 batch 004 / survey 122 — 2026-10-20T05:49:48Z
 
@@ -131,3 +131,7 @@ Current 130 disposable preview/serial import canonical `76d4f3995159edac66b43582
 ## Browser recovery supersedes the temporary block — 2026-10-20T07:07:12.812614+00:00
 
 The existing browser connection recovered. Inventory showed numeric browser IDs reset; original extension 2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c/profile Tharun is now browser 1. Same research tab 1996309912 was recovered there; different Person 1 profile untouched. Actual same-tab readback confirmed the uncertain See more dates click DID execute: carousel open with January 2025 and December 2021 options, current dXet January 2026 h2 unchanged. No click repeated, no account/profile/session/access change or user action. Offered historical images remain UNINSPECTED. Browser connection recovered by matching the original stable extension identity/profile Tharun after numeric IDs reset. Actual same-tab readback confirmed the interrupted click opened the date carousel; do not repeat it. January 2025 and December 2021 are offered but UNINSPECTED. Check each selected historical capture actual date/pano/coordinates/nearest assigned road and closed 150.00–177.43 m bounds before frontage image/authoring; stop mismatches, retain all existing holds. New lower pending contexts do not establish calibrated/current qualification proof. Other candidate work remains subject to scope/route/canonical assessment and published plan/activation; no global exhaustion claim.
+
+## Lower historical review-only / survey 131 unchanged — 2026-10-20T07:14:16Z
+
+Four actual metadata/heading/date/nearest-road/bounds records, original-browser recovery and lower 145.011 m metadata-only stop checked. Zero runtime/source/observation/batch/import changes; current 131/119 receipts/five hashes match. Explicit new review paths/cached diff/whitespace/credential/browser-state scans checked before commit. No build/unit/E2E/device or independent second imagery rerun for documentation-only save. `docs/handoff/reviews/second-computer-01-road5-r369-lower-review-131.md`.

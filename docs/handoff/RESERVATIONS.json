@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:07:12Z",
+  "updatedAt": "2026-10-20T07:14:16Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -1345,26 +1345,26 @@
           "right": "unreviewed"
         }
       },
-      "evidenceCollectionState": "LOWER_SOURCE_SAVED_BROWSER_RECOVERED_HISTORICAL_CHECK_PENDING",
-      "latestCheckpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-batch002-lower-gap.md",
+      "evidenceCollectionState": "LOWER_TARGETED_REVIEW_COMPLETE_CALIBRATION_CURRENTNESS_INPUT_REQUIRED",
+      "latestCheckpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-lower-gap-historical-review.md",
       "nextPanorama": null,
-      "nextAction": "Browser connection recovered by matching the original stable extension identity/profile Tharun after numeric IDs reset. Actual same-tab readback confirmed the interrupted click opened the date carousel; do not repeat it. January2025 and December2021 are offered but UNINSPECTED. Check each selected historical capture actual date/pano/coordinates/nearest assigned road and closed150.00–177.43 m bounds before frontage image/authoring; stop mismatches, retain all existing holds. New lower pending contexts do not establish calibrated/current qualification proof. Other candidate work remains subject to scope/route/canonical assessment and published plan/activation; no global exhaustion claim.",
+      "nextAction": "Targeted lower map/date review is complete and yielded no calibrated/current qualification proof beyond the two already saved pending January 2026 contexts. Do not repeat these four historical views, existing anchor sets or held upper/lower targets; no batch 003/import/runtime change for this review. Need genuinely new unobstructed in-lease evidence with exact canonical facade/unit/door/boundary controls, measured reference/access geometry and current on-site operation, especially remaining 150–154.613 m and hidden/inter-camera gaps. A new validated lower panorama could support context but would not replace those qualification inputs. No fresh distinct currently allowed recorded source task found; unreserved a8/Venkatgiri branch candidates need independent route/canonical-scope resolution and published allowed plan/activation. Preserve all old leases/provider blocks and no station advance. Browser restored, no user recovery action or provider denial/global imagery-exhaustion claim.",
       "latestEvidenceLedger": "game/work/road5-yusufguda-r36985565509-0/evidence-ledger-20261020-batch002.json",
-      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-batch002-import-131.md",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-lower-review-131.md",
       "latestQualificationAudit": "docs/handoff/reviews/second-computer-01-qualification-readiness-130.json",
-      "workerCommit": "4d6f87e888d98524d80bb4e47ab0187218337b2f",
+      "workerCommit": "c0d0e71c4d9a03ed8666b40cd1cf3e5ee953a72b",
       "workerPullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/6",
       "batch001ImportedRevision": 130,
       "batch001ContentHash": "a72433d0d0fd1d6bfaffa7e7eb84de9bb7e4700cb89d7eeeaf9480635acc9756",
       "lastPanorama": {
-        "panoId": "dXet1Aigm3Zn7d6KL3xiaQ",
-        "lat": 17.430631,
-        "lon": 78.4212043,
-        "captureDate": "2026-01",
+        "panoId": "cxiFSFCUprIv7rKQKR6N4Q",
+        "lat": 17.4306867,
+        "lon": 78.4212058,
+        "captureDate": "2021-12",
         "headingDeg": 2,
         "fov": 65,
-        "projectedAlongM": 155.51063069199202,
-        "lateralM": 1.5185549736561579
+        "projectedAlongM": 155.59682399840278,
+        "lateralM": 4.647433343101242
       },
       "contextAdmission": {
         "newSources": 10,
@@ -1428,7 +1428,7 @@
         "universalImageryExhaustionClaim": false,
         "remainingLowerIntervalM": [
           150,
-          155.51063069199202
+          154.61287337711974
         ],
         "required": [
           "Calibrated canonical facade/unit/door and endpoint/inter-camera boundaries.",
@@ -1437,7 +1437,8 @@
           "Current on-site operation corroboration."
         ],
         "lowerSourcePointFound": true,
-        "continuousLowerInventoryEstablished": false
+        "continuousLowerInventoryEstablished": false,
+        "minimumReviewedCameraAlongM": 154.61287337711974
       },
       "latestActionableSourceAudit": "docs/handoff/reviews/second-computer-01-actionable-source-audit-131.json",
       "batch002ImportedRevision": 131,
@@ -1456,18 +1457,156 @@
         "resume": "Restore existing browser connection, inspect actual current page/date-control state before another click. Confirm any offered capture actual date/pano/coords/nearest road/bounds before screenshot/frontage; preserve prior held upper captures. No alternate account/profile/provider or hidden endpoint."
       },
       "browserRecovery": {
-        "recordedAt": "2026-10-20T07:07:12.812614+00:00",
-        "status": "RESOLVED_SUPPORTED_EXISTING_BROWSER",
+        "status": "RESOLVED_WITHOUT_USER_ACTION",
         "extensionInstanceId": "2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c",
         "profileName": "Tharun",
-        "oldNumericBrowserId": "2",
-        "currentNumericBrowserId": "1",
-        "tabId": "1996309912",
-        "actualReadback": "Same dXet January2026 h2 tab; See latest date/carousel open with offered January2025 and December2021 controls. Interrupted click DID execute; not repeated.",
-        "historicalImageryInspected": false,
-        "userActionRequired": false,
-        "accountProfileSessionAccessChanged": false
-      }
+        "oldBrowserId": "2",
+        "newBrowserId": "1",
+        "sameTabId": "1996309912",
+        "reason": "Tool connection/runtime reset renumbered browser IDs. Original stable extension/profile matched before tab recovery. Different Person 1 profile not used.",
+        "uncertainClickOutcome": "Confirmed executed: actual same-tab date carousel was already open. Did not repeat click.",
+        "offeredDatesReadBack": [
+          "2025-01",
+          "2021-12"
+        ],
+        "historicalViewsInspectedAfterProjectionChecks": true,
+        "accountProfileSessionAccessChanged": false,
+        "userActionRequired": false
+      },
+      "latestHistoricalReview": "game/work/road5-yusufguda-r36985565509-0/lower-gap-historical-review-20261020.json",
+      "lastFrontageInspected": {
+        "panoId": "cxiFSFCUprIv7rKQKR6N4Q",
+        "lat": 17.4306867,
+        "lon": 78.4212058,
+        "captureDate": "2021-12",
+        "alongM": 155.59682399840278,
+        "lateralM": 4.647433343101242,
+        "tangentHeading": 272.2818301153933,
+        "nearestRoad": "r_36985565509_0",
+        "validatedBeforeFrontageInspection": true,
+        "sideSector": "right",
+        "headingDeg": 2,
+        "fov": 65,
+        "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=cxiFSFCUprIv7rKQKR6N4Q&heading=2&pitch=0&fov=65",
+        "facts": "Same hardware glazing/access steps/planters, adjoining older blue hoarding/poster edge and distant logo. Distant logo/advertising is not assigned as a premise/entrance or another road. Repeats prior dated context without calibrated boundary/control/currentness proof; review only.",
+        "result": "REVIEW_ONLY_NO_NEW_RUNTIME_RECORD"
+      },
+      "lastNavigationImageInspected": {
+        "panoId": "dXet1Aigm3Zn7d6KL3xiaQ",
+        "captureDate": "2026-01",
+        "lat": 17.430631,
+        "lon": 78.4212043,
+        "alongM": 155.51063069199202,
+        "headingDeg": 92,
+        "fov": 65,
+        "purpose": "Navigation/map selection only, no new frontage authored."
+      },
+      "lastMetadataOnly": {
+        "panoId": "AvOowwXTxIEeRtPpJ36KiA",
+        "lat": 17.4306111,
+        "lon": 78.4212979,
+        "captureDate": "2026-01",
+        "returnedHeadingDeg": 106.4122477020399,
+        "fov": 75,
+        "nearestRoad": "r_36985565509_0",
+        "alongM": 145.0112736379687,
+        "lateralM": 1.785626633529434,
+        "tangentHeading": 282.89778985697603,
+        "withinLease": false,
+        "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+        "screenshotInspected": false,
+        "offeredDatesInspected": false,
+        "runtimeRecordsAdded": 0,
+        "method": "One further visible highlighted-map point selection toward the lower boundary from validated dXet 155.511 m, after completing its offered-date review. Actual returned camera below 150 m; no photograph/date-control inspection, repeat or scope expansion."
+      },
+      "lowerBoundaryMetadataHold": {
+        "panoId": "AvOowwXTxIEeRtPpJ36KiA",
+        "lat": 17.4306111,
+        "lon": 78.4212979,
+        "captureDate": "2026-01",
+        "returnedHeadingDeg": 106.4122477020399,
+        "fov": 75,
+        "nearestRoad": "r_36985565509_0",
+        "alongM": 145.0112736379687,
+        "lateralM": 1.785626633529434,
+        "tangentHeading": 282.89778985697603,
+        "withinLease": false,
+        "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+        "screenshotInspected": false,
+        "offeredDatesInspected": false,
+        "runtimeRecordsAdded": 0,
+        "method": "One further visible highlighted-map point selection toward the lower boundary from validated dXet 155.511 m, after completing its offered-date review. Actual returned camera below 150 m; no photograph/date-control inspection, repeat or scope expansion."
+      },
+      "historicalReviewOnlyViews": [
+        {
+          "panoId": "-ux3rUtpkAcx2BWaevc5yw",
+          "lat": 17.4306441,
+          "lon": 78.4212133,
+          "captureDate": "2025-01",
+          "alongM": 154.61287337711974,
+          "lateralM": 0.03180511194838781,
+          "tangentHeading": 272.2818301153933,
+          "nearestRoad": "r_36985565509_0",
+          "validatedBeforeFrontageInspection": true,
+          "sideSector": "right",
+          "headingDeg": 2,
+          "fov": 75,
+          "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=-ux3rUtpkAcx2BWaevc5yw&heading=2&pitch=0&fov=75",
+          "facts": "Same hardware display glazing, two stair sections/planters and side boundary; repeated clinic sign/recess. Repeats already saved access context without exact door/unit measurements or current operation proof; no duplicate runtime record.",
+          "result": "REVIEW_ONLY_NO_NEW_RUNTIME_RECORD"
+        },
+        {
+          "panoId": "-ux3rUtpkAcx2BWaevc5yw",
+          "lat": 17.4306441,
+          "lon": 78.4212133,
+          "captureDate": "2025-01",
+          "alongM": 154.61287337711974,
+          "lateralM": 0.03180511194838781,
+          "tangentHeading": 272.2818301153933,
+          "nearestRoad": "r_36985565509_0",
+          "validatedBeforeFrontageInspection": true,
+          "sideSector": "left",
+          "headingDeg": 182,
+          "fov": 65,
+          "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=-ux3rUtpkAcx2BWaevc5yw&heading=182&pitch=0&fov=65",
+          "facts": "Transformer/pole/cables still obscure the lower gap between the tile-display edge and raised court/food-advertising frontage; side stair/railing visible. Dated advertising/signs and partial access do not establish full units/doors, dimensions or current tenancy. Any whole court/property below 150 m remains excluded; review only.",
+          "result": "REVIEW_ONLY_NO_NEW_RUNTIME_RECORD"
+        },
+        {
+          "panoId": "cxiFSFCUprIv7rKQKR6N4Q",
+          "lat": 17.4306867,
+          "lon": 78.4212058,
+          "captureDate": "2021-12",
+          "alongM": 155.59682399840278,
+          "lateralM": 4.647433343101242,
+          "tangentHeading": 272.2818301153933,
+          "nearestRoad": "r_36985565509_0",
+          "validatedBeforeFrontageInspection": true,
+          "sideSector": "left",
+          "headingDeg": 182,
+          "fov": 75,
+          "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=cxiFSFCUprIv7rKQKR6N4Q&heading=182&pitch=0&fov=75",
+          "facts": "Older versions of same raised court/food-advertising and tile-display frontage; vehicles, poles and vegetation hide boundaries. No tenant-transition dates, whole out-of-bound premises, exact bounded inventory or measured door geometry inferred. Lateral 4.647 m versus provisional clamped 4.5 m road width is explicit model-alignment uncertainty; review only.",
+          "result": "REVIEW_ONLY_NO_NEW_RUNTIME_RECORD"
+        },
+        {
+          "panoId": "cxiFSFCUprIv7rKQKR6N4Q",
+          "lat": 17.4306867,
+          "lon": 78.4212058,
+          "captureDate": "2021-12",
+          "alongM": 155.59682399840278,
+          "lateralM": 4.647433343101242,
+          "tangentHeading": 272.2818301153933,
+          "nearestRoad": "r_36985565509_0",
+          "validatedBeforeFrontageInspection": true,
+          "sideSector": "right",
+          "headingDeg": 2,
+          "fov": 65,
+          "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=cxiFSFCUprIv7rKQKR6N4Q&heading=2&pitch=0&fov=65",
+          "facts": "Same hardware glazing/access steps/planters, adjoining older blue hoarding/poster edge and distant logo. Distant logo/advertising is not assigned as a premise/entrance or another road. Repeats prior dated context without calibrated boundary/control/currentness proof; review only.",
+          "result": "REVIEW_ONLY_NO_NEW_RUNTIME_RECORD"
+        }
+      ]
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:07:12Z",
+  "updatedAt": "2026-10-20T07:14:16Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-r36985565509-0-activation-20261020.md",
       "publishedPlanCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
       "owner": "second-computer-01",
-      "state": "LOWER_SOURCE_SAVED_BROWSER_RECOVERED_HISTORICAL_CHECK_PENDING",
+      "state": "LOWER_TARGETED_REVIEW_COMPLETE_CALIBRATION_CURRENTNESS_INPUT_REQUIRED",
       "roadId": "r_36985565509_0",
       "rangesM": [
         150,
@@ -101,23 +101,23 @@
       "oldA8AndMarkerGapsPreserved": true,
       "separateAnchorJumpDisclosed": true,
       "activationCommit": "0bd1e48e560f7bce54372d235658b3c8e3e66eeb",
-      "checkpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-batch002-lower-gap.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-batch002-import-131.md",
+      "checkpoint": "game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-lower-gap-historical-review.md",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-road5-r369-lower-review-131.md",
       "qualificationAudit": "docs/handoff/reviews/second-computer-01-qualification-readiness-130.json",
-      "workerCommit": "4d6f87e888d98524d80bb4e47ab0187218337b2f",
+      "workerCommit": "c0d0e71c4d9a03ed8666b40cd1cf3e5ee953a72b",
       "pendingObservations": 10,
       "qualifiedSideMetres": 0,
       "lastPanorama": {
-        "panoId": "dXet1Aigm3Zn7d6KL3xiaQ",
-        "lat": 17.430631,
-        "lon": 78.4212043,
-        "captureDate": "2026-01",
+        "panoId": "cxiFSFCUprIv7rKQKR6N4Q",
+        "lat": 17.4306867,
+        "lon": 78.4212058,
+        "captureDate": "2021-12",
         "headingDeg": 2,
         "fov": 65,
-        "projectedAlongM": 155.51063069199202,
-        "lateralM": 1.5185549736561579
+        "projectedAlongM": 155.59682399840278,
+        "lateralM": 4.647433343101242
       },
-      "nextAction": "Browser connection recovered by matching the original stable extension identity/profile Tharun after numeric IDs reset. Actual same-tab readback confirmed the interrupted click opened the date carousel; do not repeat it. January2025 and December2021 are offered but UNINSPECTED. Check each selected historical capture actual date/pano/coordinates/nearest assigned road and closed150.00–177.43 m bounds before frontage image/authoring; stop mismatches, retain all existing holds. New lower pending contexts do not establish calibrated/current qualification proof. Other candidate work remains subject to scope/route/canonical assessment and published plan/activation; no global exhaustion claim.",
+      "nextAction": "Targeted lower map/date review is complete and yielded no calibrated/current qualification proof beyond the two already saved pending January 2026 contexts. Do not repeat these four historical views, existing anchor sets or held upper/lower targets; no batch 003/import/runtime change for this review. Need genuinely new unobstructed in-lease evidence with exact canonical facade/unit/door/boundary controls, measured reference/access geometry and current on-site operation, especially remaining 150–154.613 m and hidden/inter-camera gaps. A new validated lower panorama could support context but would not replace those qualification inputs. No fresh distinct currently allowed recorded source task found; unreserved a8/Venkatgiri branch candidates need independent route/canonical-scope resolution and published allowed plan/activation. Preserve all old leases/provider blocks and no station advance. Browser restored, no user recovery action or provider denial/global imagery-exhaustion claim.",
       "metadataOnlyBoundaryHolds": [
         {
           "panoId": "HgfEHD60UDgGn1zLyKUGtA",
@@ -166,17 +166,50 @@
       },
       "actionableSourceAudit": "docs/handoff/reviews/second-computer-01-actionable-source-audit-131.json",
       "browserRecovery": {
-        "recordedAt": "2026-10-20T07:07:12.812614+00:00",
-        "status": "RESOLVED_SUPPORTED_EXISTING_BROWSER",
+        "status": "RESOLVED_WITHOUT_USER_ACTION",
         "extensionInstanceId": "2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c",
         "profileName": "Tharun",
-        "oldNumericBrowserId": "2",
-        "currentNumericBrowserId": "1",
-        "tabId": "1996309912",
-        "actualReadback": "Same dXet January2026 h2 tab; See latest date/carousel open with offered January2025 and December2021 controls. Interrupted click DID execute; not repeated.",
-        "historicalImageryInspected": false,
-        "userActionRequired": false,
-        "accountProfileSessionAccessChanged": false
+        "oldBrowserId": "2",
+        "newBrowserId": "1",
+        "sameTabId": "1996309912",
+        "reason": "Tool connection/runtime reset renumbered browser IDs. Original stable extension/profile matched before tab recovery. Different Person 1 profile not used.",
+        "uncertainClickOutcome": "Confirmed executed: actual same-tab date carousel was already open. Did not repeat click.",
+        "offeredDatesReadBack": [
+          "2025-01",
+          "2021-12"
+        ],
+        "historicalViewsInspectedAfterProjectionChecks": true,
+        "accountProfileSessionAccessChanged": false,
+        "userActionRequired": false
+      },
+      "historicalReview": "game/work/road5-yusufguda-r36985565509-0/lower-gap-historical-review-20261020.json",
+      "lastNavigationImageInspected": {
+        "panoId": "dXet1Aigm3Zn7d6KL3xiaQ",
+        "captureDate": "2026-01",
+        "lat": 17.430631,
+        "lon": 78.4212043,
+        "alongM": 155.51063069199202,
+        "headingDeg": 92,
+        "fov": 65,
+        "purpose": "Navigation/map selection only, no new frontage authored."
+      },
+      "lastMetadataOnly": {
+        "panoId": "AvOowwXTxIEeRtPpJ36KiA",
+        "lat": 17.4306111,
+        "lon": 78.4212979,
+        "captureDate": "2026-01",
+        "returnedHeadingDeg": 106.4122477020399,
+        "fov": 75,
+        "nearestRoad": "r_36985565509_0",
+        "alongM": 145.0112736379687,
+        "lateralM": 1.785626633529434,
+        "tangentHeading": 282.89778985697603,
+        "withinLease": false,
+        "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+        "screenshotInspected": false,
+        "offeredDatesInspected": false,
+        "runtimeRecordsAdded": 0,
+        "method": "One further visible highlighted-map point selection toward the lower boundary from validated dXet 155.511 m, after completing its offered-date review. Actual returned camera below 150 m; no photograph/date-control inspection, repeat or scope expansion."
       }
     },
     "retainedBoundedAssignments": [
