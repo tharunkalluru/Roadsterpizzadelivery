@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:42:44Z",
+  "updatedAt": "2026-10-20T07:56:33Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -1794,7 +1794,7 @@
       "scopeAudit": "docs/handoff/reviews/second-computer-01-independent-r504-scope-132.json",
       "claimedAt": "2026-10-20T07:42:44Z",
       "coordinatorBaseCommit": "4378546b44980a2aafc5ae2c0a7bb457468d5bcc",
-      "activationCommit": null,
+      "activationCommit": "97a76663a968be2034661145ba9ec0803bd866e1",
       "activationCommitResolution": {
         "claimFile": "docs/handoff/claims/venkatgiri-independent-r50481356909-0-activation-20261020.md",
         "rule": "Resolve initial-addition SHA; publish/read back, isolated worker exactly there, startup report before new imagery."
@@ -1907,10 +1907,47 @@
         "existingStorefrontOverrides": 0,
         "bothRoadSidesUnreviewed": true
       },
-      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
-      "latestCheckpoint": null,
+      "evidenceCollectionState": "TARGETED_SIDE_DATE_REVIEW_COMPLETE_QUALIFICATION_EVIDENCE_BLOCKED",
+      "latestCheckpoint": "game/work/venkatgiri-independent-r50481356909-0/checkpoint-20261020-batch001.md",
       "nextPanorama": null,
-      "nextAction": "Resolve/publish/read back initial activation SHA; isolate worker exactly there and record/report owner/branch/HEAD/five frozen132 hashes/sides/closed10–35.33m before imagery. Then actual-metadata/nearest-road/bounds checks before new h108/h288 side questions at zRY/6KX; disclosed direct/date opens, no road arrows/forward truck retries or old sign replay. Offered historical dates only if useful and actual returned camera is valid. No exact units/doors/currentness/geometry/coverage inference."
+      "nextAction": "Saved zRY/6KX side and offered January2025/December2021 target set is reviewed. No further useful gap-closing recorded target identified; do not repeat these views, old forward/sign views, xGma out-of-bounds locator or road arrows. Need genuinely new unobstructed in-lease/field views with exact canonical 10–35.33m boundary controls, full both-side shop/non-shop/hidden-unit/floor/door inventory, measured reference/access geometry and current on-site operation. All25.33m per side unqualified. r312 still needs robust in-interior locator/alignment; r141 tiny buffered window needs junction-clearance evidence before any buffer reconsideration. Station-route/a8/connector proof separately unresolved. Read-only recorded-lead-disposition audit checked all positioned current-pair committed sources plus proposed batch and retained checkpoint states; no further actionable recorded target identified in that audited set. External inputs itemized there; no global imagery-exhaustion claim.",
+      "latestEvidenceLedger": "game/work/venkatgiri-independent-r50481356909-0/evidence-ledger-20261020-batch001.json",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-independent-r504-batch001-import-133.md",
+      "latestRecordedLeadAudit": "game/work/venkatgiri-independent-r50481356909-0/recorded-lead-disposition-20261020.json",
+      "latestExternalInputs": "docs/handoff/reviews/second-computer-01-recorded-leads-and-external-inputs-133.md",
+      "workerCommit": "63a176d86eac9c322776527fb49eb76ac12c7156",
+      "pullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/8",
+      "batch001ImportedRevision": 133,
+      "batch001ContentHash": "0a25a51be81a2255fa0b5f9d2d8af37e5de585c4447440a1095ba8e6b63a4493",
+      "lastPanorama": {
+        "panoId": "IoI6pkw9y8hB7HFZt272rg",
+        "lat": 17.4323431,
+        "lon": 78.4214811,
+        "captureDate": "2021-12",
+        "headingDeg": 288,
+        "fov": 65,
+        "projectedAlongM": 30.210346056956823,
+        "lateralM": 2.7382262532650987
+      },
+      "contextAdmission": {
+        "newSources": 8,
+        "pendingObservations": 8,
+        "datedCameras": 5,
+        "leftFrontageContexts": 3,
+        "rightFrontageContexts": 5,
+        "reviewOnlyViews": 4,
+        "totalInspectedDatedCameras": 6,
+        "qualifiedSideMetres": 0
+      },
+      "evidenceQualificationLimit": {
+        "all25_33MetresPerSideUnqualified": true,
+        "completeUnitDoorBoundaryInventoryEstablished": false,
+        "calibratedGeometryEstablished": false,
+        "currentOperationEstablished": false,
+        "alignmentUncertainty": "Provisional7.16m width/clamp; zRY3.6445m slightly exceeds half-width3.58m, no field calibration.",
+        "noFurtherActionableRecordedTargetInAuditedSet": true,
+        "externalInputs": "docs/handoff/reviews/second-computer-01-recorded-leads-and-external-inputs-133.md"
+      }
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"

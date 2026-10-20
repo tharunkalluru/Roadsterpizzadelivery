@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T07:42:44Z",
+  "updatedAt": "2026-10-20T07:56:33Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/venkatgiri-independent-r50481356909-0-activation-20261020.md",
       "publishedPlanCommit": "4378546b44980a2aafc5ae2c0a7bb457468d5bcc",
       "owner": "second-computer-01",
-      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "state": "TARGETED_SIDE_DATE_REVIEW_COMPLETE_QUALIFICATION_EVIDENCE_BLOCKED",
       "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
       "roadId": "r_50481356909_0",
       "rangesM": [
@@ -101,7 +101,27 @@
       ],
       "oldA8AndMarkerGapsPreserved": true,
       "stationRouteIdentityUnresolved": true,
-      "separateAnchorJumpDisclosed": true
+      "separateAnchorJumpDisclosed": true,
+      "activationCommit": "97a76663a968be2034661145ba9ec0803bd866e1",
+      "checkpoint": "game/work/venkatgiri-independent-r50481356909-0/checkpoint-20261020-batch001.md",
+      "evidenceLedger": "game/work/venkatgiri-independent-r50481356909-0/evidence-ledger-20261020-batch001.json",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-independent-r504-batch001-import-133.md",
+      "recordedLeadAudit": "game/work/venkatgiri-independent-r50481356909-0/recorded-lead-disposition-20261020.json",
+      "externalInputs": "docs/handoff/reviews/second-computer-01-recorded-leads-and-external-inputs-133.md",
+      "workerCommit": "63a176d86eac9c322776527fb49eb76ac12c7156",
+      "pendingObservations": 8,
+      "qualifiedSideMetres": 0,
+      "lastPanorama": {
+        "panoId": "IoI6pkw9y8hB7HFZt272rg",
+        "lat": 17.4323431,
+        "lon": 78.4214811,
+        "captureDate": "2021-12",
+        "headingDeg": 288,
+        "fov": 65,
+        "projectedAlongM": 30.210346056956823,
+        "lateralM": 2.7382262532650987
+      },
+      "nextAction": "Saved zRY/6KX side and offered January2025/December2021 target set is reviewed. No further useful gap-closing recorded target identified; do not repeat these views, old forward/sign views, xGma out-of-bounds locator or road arrows. Need genuinely new unobstructed in-lease/field views with exact canonical 10–35.33m boundary controls, full both-side shop/non-shop/hidden-unit/floor/door inventory, measured reference/access geometry and current on-site operation. All25.33m per side unqualified. r312 still needs robust in-interior locator/alignment; r141 tiny buffered window needs junction-clearance evidence before any buffer reconsideration. Station-route/a8/connector proof separately unresolved. Read-only recorded-lead-disposition audit checked all positioned current-pair committed sources plus proposed batch and retained checkpoint states; no further actionable recorded target identified in that audited set. External inputs itemized there; no global imagery-exhaustion claim."
     },
     "retainedBoundedAssignments": [
       {
@@ -706,10 +726,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 132,
-    "surveySha256": "536860d9e80b972524649062f525a54a26651fb24daddd98c4c820cac2285848",
-    "sources": 900,
-    "observations": 674,
+    "surveyRevision": 133,
+    "surveySha256": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+    "sources": 908,
+    "observations": 682,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }

@@ -1,0 +1,63 @@
+{
+  "recordedAt": "2026-10-20T07:43:05.281461+00:00",
+  "workerId": "second-computer-01",
+  "assignmentId": "venkatgiri-independent-r50481356909-0",
+  "branch": "worker/second-computer-01/venkatgiri-independent-r50481356909-0",
+  "head": "97a76663a968be2034661145ba9ec0803bd866e1",
+  "activationCommit": "97a76663a968be2034661145ba9ec0803bd866e1",
+  "planCommit": "4378546b44980a2aafc5ae2c0a7bb457468d5bcc",
+  "frozenSurveyRevision": 132,
+  "frozenFiles": {
+    "game/public/research/street-survey.json": "536860d9e80b972524649062f525a54a26651fb24daddd98c4c820cac2285848",
+    "game/public/world/hyd-metro/v2/manifest.json": "b07636419815d2428d110b6e912144f93679d1b928ce53cd5d1464db62fe1089",
+    "game/public/world/hyd-metro/v2/core.json": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+    "game/package-lock.json": "dc36354e007ddbe185b883df2d2723348aa4e0387de975138c016c18b43fc9f6",
+    "game/data/archives/source-accuracy.json.gz": "4e0e9f32c651de10e6ce40f6a4eec96986b4e8d7b0fcfd77de4610d512d490fd"
+  },
+  "scopeKind": "INDEPENDENT_CANONICAL_ROAD_INTERIOR_NOT_CONFIRMED_STATION_ROUTE",
+  "ranges": [
+    {
+      "roadId": "r_50481356909_0",
+      "side": "left",
+      "startM": 10.0,
+      "endM": 35.33,
+      "boundaryRule": "closed interval; stored road.points order"
+    },
+    {
+      "roadId": "r_50481356909_0",
+      "side": "right",
+      "startM": 10.0,
+      "endM": 35.33,
+      "boundaryRule": "closed interval; stored road.points order"
+    }
+  ],
+  "excludedNodes": [
+    "n_23384083302",
+    "n_58226819420"
+  ],
+  "excludedRoadIds": [
+    "r_11425936670_0",
+    "r_14842271660_0",
+    "r_60191496056_0"
+  ],
+  "allTenPriorAssignmentsPreserved": true,
+  "stationRouteIdentityUnresolved": true,
+  "resume": {
+    "panoId": "zRYvA3eocZjuRbayufMD7Q",
+    "lat": 17.4323512,
+    "lon": 78.4214928,
+    "captureDate": "2026-01",
+    "alongM": 28.97439158304182,
+    "lateralM": 3.6445272656675263
+  },
+  "otherReference": {
+    "panoId": "6KX5Pfs3g89xCMIbHGldow",
+    "lat": 17.4324397,
+    "lon": 78.4215065,
+    "captureDate": "2026-01",
+    "alongM": 19.20794160129476,
+    "lateralM": 2.010493627701726
+  },
+  "newImageryInspected": false,
+  "tooling": "Dedicated Roadster tab only on original stable Tharun extension; no global focus, native dialogs, application switching or unrelated user tab."
+}
