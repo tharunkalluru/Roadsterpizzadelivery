@@ -55,3 +55,7 @@ Exact immutable batch002 (canonical hash 568f0850dbc4e6a107283774592d24a0e404eab
 ## Pilot001–004 evidence/gap audit (no runtime mutation)
 
 2026-10-20T02:11:23Z: recomputed four canonical hashes with actual surveyRecordHash; exactlyone receipt each, all31source/observation records equal immutable batches and occur once,31unique(pano,heading,date)signatures across15cameras. Recomputed allcamera projections/nearest road/bounds; five SNAPSHOT hashes match. Full read-only validator with real chunks passed0errors/existing exact-placement warning. Both pilot sides remain unreviewed, no ranges/overrides/coverage. Survey116andhash unchanged; no importer/build/unit/E2E/device rerun. Recovered two byte-identical missing coordinator checkpoint copies from reviewed worker81ce543. See pilot-gap-audit report and JSON.
+
+## S76a fixed-camera review (no import/runtime mutation)
+
+2026-10-20T02:19:43Z:8actualNov2021views atsamecamera25.978411567m;2existing sourceviews reused+6review-only angle references. Ledger URLs/coordinates/date/headings andreference-onlypolicy checked. All5SNAPSHOT and4batchfilehashes/once-onlyreceipts unchanged;runtime116andpilot unreviewed0ranges/overrides/coverage unchanged. Exactworker5d517fa51426b0a1b0fb09592afb65ff64675cabcheckpoint/ledger copied;nogamecode/datachanges,importerpreview/build/unit/E2E/devicererun. Existingknownlimitsremain. See second-computer-01-S76a-fixed-review-116.md.

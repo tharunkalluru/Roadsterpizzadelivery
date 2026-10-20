@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T02:11:23Z",
+  "updatedAt": "2026-10-20T02:19:43Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -47,7 +47,7 @@
       "github": "collaborator write confirmed by prior successful worker pushes; coordination push readback required",
       "mainSites": "BLOCKED: get_site appgprj_6ad576049ff8819196715b604db10264 returned NOT_FOUND/project_not_found, HTTP404",
       "newSites": "native create capability exposed; no project created and backend create authorization unverified",
-      "localBrowser": "RECOVERED: same Chrome extension/profile/tab reconciled via supported inventory; current browser ID1, no account/session rotation. Actual24side views recorded through dEjZ offset168.102920m; stopped before lease boundary."
+      "localBrowser": "OPERATIONAL during fixed S76a review: same Chrome1/Tharun extension2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c; old ephemeral tab absent,new tasktab1996309845; no account/session rotation/provider denial. Last visibleS76ah80Nov2021."
     }
   },
   "snapshot": {
@@ -89,7 +89,7 @@
     "workerId": "second-computer-01",
     "branch": "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3",
     "activationCommit": "50e23bd3b8162381623e8ea7bd617409f88bda54",
-    "lastReviewedWorkerCommit": "23cb04810b2643f6c9c4147cc648b29e6184406a",
+    "lastReviewedWorkerCommit": "5d517fa51426b0a1b0fb09592afb65ff64675cab",
     "lease": "ACTIVE_UNCHANGED_UNTIL_RECORDED_SECOND_COORDINATOR_REASSIGNMENT",
     "roadId": "r_8306076003_3",
     "canonicalSides": [
@@ -104,7 +104,7 @@
     "batch001CanonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
     "observations": "Exactly2November2021pendingcontexts,no placements/coverage;April2026locator/datebreakexcluded. Do not duplicate/reimport001.",
     "receipt": "docs/handoff/reviews/second-computer-01-primary-import-113.md",
-    "continuation": "001–004 audit complete:31pending contexts,0pilot reviewed ranges/placements/qualified coverage. Boundary hold retained. Same-pilot fixed S76a gap review is recorded next plan, not executed in audit; no new road or bound extension.",
+    "continuation": "Fixed S76a review completed8views without translation, old record correction or coverage/placement. Hidden start/near-edge gaps remain; additional in-lease parallax/source evidence needed. No new anchor/road plan activated; no reimport. Last forward stopdEjZ168.102920m retained.",
     "batch002": {
       "id": "second-computer-01-khairatabad-lakdi-pilot-002-20261020",
       "workerCommit": "011c03d37a4a9068813292ab0860e703bcc606cc",
@@ -144,6 +144,16 @@
       "runtimeChanged": false,
       "nextAssignedWork": "same-pilot-known-anchor-gap-review; fixed S76a camera; lease unchanged",
       "anotherOwnerApprovalRequired": false
+    },
+    "fixedCameraReview": {
+      "checkpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-S76a-fixed-review.md",
+      "ledger": "game/work/khairatabad-lakdi-pilot-r8306076003-3/fixed-camera-review-20261020-S76a.json",
+      "receipt": "docs/handoff/reviews/second-computer-01-S76a-fixed-review-116.md",
+      "workerCommit": "5d517fa51426b0a1b0fb09592afb65ff64675cab",
+      "surveyRevisionUnchanged": 116,
+      "result": "S76A_FIXED_REVIEW_COMPLETE_GAPS_UNRESOLVED",
+      "runtimeRecordsAdded": 0,
+      "sourceViewCounts": "2existing rechecks+6additional review angles at1camera; no runtime evidence admission"
     }
   },
   "cloud": {

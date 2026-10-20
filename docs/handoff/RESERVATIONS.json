@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T02:11:23Z",
+  "updatedAt": "2026-10-20T02:19:43Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -100,18 +100,18 @@
       "newSourceIdPrefix": "sv-second-computer-01-khairatabad-lakdi-pilot-",
       "batchPathPattern": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-<sequence>-<YYYYMMDD>.json",
       "checkpointPathPattern": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-<UTC-or-sequence>.md",
-      "latestCheckpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-pilot-gap-audit.md",
+      "latestCheckpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-S76a-fixed-review.md",
       "lastPanorama": {
-        "panoId": "dEjZp5gMqbt9o7EBasmOXw",
-        "lat": 17.405521,
-        "lon": 78.4634809,
+        "panoId": "S76aL2Sv9OLkf6WqmLbU1Q",
+        "lat": 17.4064672,
+        "lon": 78.4625709,
         "captureDate": "2021-11",
-        "headingDeg": 228,
+        "headingDeg": 80,
         "fov": 65,
-        "projectedAlongM": 168.10292025831626
+        "projectedAlongM": 25.978411567280332
       },
       "nextPanorama": null,
-      "panoramaStatus": "Same local Chrome control recovered.004 imported once at116:12cameras/24pending Nov2021 side contexts. Last dEjZ offset168.102920m; stopped before another forward click. No continuous inventory/coverage.",
+      "panoramaStatus": "Fixed S76a review completed at same camera25.978411567m:8actual Nov2021views,existing48/228rechecked plus124/304/34/214/170/80. No translation/newruntime records. Last visibleh80; prior forward-traversal stopdEjZ168.102920m retained, never advanced.",
       "startupConfirmation": {
         "status": "PILOT_STARTUP_COMPLETED_FULL_TAKEOVER_CLAIMED",
         "reportFields": [
@@ -128,12 +128,12 @@
         ],
         "rule": "Report the matching startup binding before research. This active lease needs no second conversational approval; a mismatch, changed lease or auth/provider block stops dependent work."
       },
-      "nextAction": "Same ACTIVE pilot only: recorded same-pilot-known-anchor-gap-review. Revisit fixed S76a camera25.978411567m after freshness/alignment/date checks; supported reverse/oblique views for near-edge gaps, no translational navigation into excluded buffers/roads or onward from final dEjZ. New actual evidence only in005, reuse identical source IDs; preview/review/sole-integrator admission required. Coverage/placement held for missing evidence.",
+      "nextAction": "Return fixed S76a results and missing-evidence dependencies. No further S76a rotation establishes hidden surfaces or complete20.00–25.978411567m inventory. Additional in-lease parallax/dated field sightline and calibrated geometry/currentness evidence are needed for gap closure. Coordinator may record a targeted same-lease source/anchor plan; none activated here, no new road/scope. No coverage/placement promotion or reimport.",
       "activationCommitMeaning": "Original exact pilot activation; final handover does not reactivate/expand the lease.",
       "batch001ImportedRevision": 113,
       "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-batch004-import-116.md",
       "batch002ImportedRevision": 114,
-      "evidenceCollectionState": "AUDIT_COMPLETE_GAPS_OPEN_BOUNDARY_HOLD",
+      "evidenceCollectionState": "S76A_FIXED_REVIEW_COMPLETE_GAPS_UNRESOLVED",
       "batch003ImportedRevision": 115,
       "batch004ImportedRevision": 116,
       "latestAudit": "docs/handoff/reviews/second-computer-01-pilot-gap-audit-116.json",
@@ -147,6 +147,29 @@
         "visuallyInventoriedSideMetres": 0,
         "verifiedSideMetres": 0,
         "newRoadAssignment": null
+      },
+      "lastForwardTraversalPanorama": {
+        "panoId": "dEjZp5gMqbt9o7EBasmOXw",
+        "lat": 17.405521,
+        "lon": 78.4634809,
+        "captureDate": "2021-11",
+        "headingDeg": 228,
+        "fov": 65,
+        "projectedAlongM": 168.10292025831626
+      },
+      "latestFixedCameraReview": "game/work/khairatabad-lakdi-pilot-r8306076003-3/fixed-camera-review-20261020-S76a.json",
+      "latestFixedCameraReviewReceipt": "docs/handoff/reviews/second-computer-01-S76a-fixed-review-116.md",
+      "fixedReviewOutcome": {
+        "workerCommit": "5d517fa51426b0a1b0fb09592afb65ff64675cab",
+        "existingViewsRechecked": 2,
+        "additionalAngularReviewViews": 6,
+        "distinctCameras": 1,
+        "cameraMovement": false,
+        "runtimeRecordsAdded": 0,
+        "batch005Created": false,
+        "importExecuted": false,
+        "newRoadAssignment": null,
+        "missingEvidence": "Additional in-lease sightline with parallax or dated ground/field evidence; measured/calibrated bounded geometry and newer tenancy corroboration."
       }
     },
     {
