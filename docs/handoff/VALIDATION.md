@@ -30,3 +30,12 @@ A clean `npm ci --offline` with the output JSON absent executed the project post
 ## Final113handover validation
 
 Current113JSON shapes, unique IDs, source references and consistent capture hashes checked; full manifest in TRANSFER_DELTA. Source/world functional code unchanged (one trailing-newline delta); prepared gzip restore hooks retained. No new outgoing build, browser/mapping audit, broad tests or test-Site build were performed. Existing main113publication previously passed build/survey and hosted start/assets with zero runtime errors; headless software renderer triggered its long-stall safeguard, so sustained real-device performance remains unverified. Incoming system must run its own needed setup/checks and qualify a fully mapped zone before the separate actual pizza-game test publication.
+
+
+## Receiving system revision113 validation
+
+Coordinator base `ee683f5fe4713e700e2887e175545f84726ef256`, original packet882b13f. Node24.13.1/npm11.8.0 locked install passed,59packages. Postinstall restored19,856,474bytes with expected SHA25653ffc82503447ec72846894343e1562c9f5f33456514bfc90aadea3103111e05. `npm run build` passed TypeScript and Vite (84modules). `npm run survey:validate` passed0errors; the existing no-exact-placement warning remains. `npm run survey:check` passed.
+
+Initial `survey-queue.mjs --check` failed because the transferred queue was stale (its revision/source/observation-derived state predated113). The receiving sole integrator regenerated queue and queue summary with `survey-queue.mjs`; the subsequent `--check` passed. Only these derived queue files changed; authored survey113 and world/lock/archive input hashes are unchanged. No new evidence or batch receipt was created by this refresh. Generated queue priorities never override reservations or station order.
+
+Full unit suite, browser E2E and physical-device runtime testing were not rerun. The historical researched-frontage-order failure and full-suite limits remain unresolved. These checks establish build/internal consistency, not map accuracy, a fully mapped game zone or Sites access. Main Sites get_site returned project_not_found/HTTP404 for the receiving connection; no publication attempted.
