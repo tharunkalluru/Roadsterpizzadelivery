@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "assignmentId": "qualified-zone-game-survey133",
-  "status": "AUTHORIZED_GAME_WORK_ACK_REQUESTED",
+  "status": "AUTHORIZED_SPLIT_ACKNOWLEDGED_NO_QUALIFIED_ZONE",
   "authorizedAt": "2026-10-20T13:34:29.327555+00:00",
   "baseCommit": "7a2726db6a9cf31937931d230d8ad58b8de638e0",
   "owner": "returning-account-game-01",
@@ -44,11 +44,11 @@
     "rule": "Explicit code/test paths only; preserve current survey on integration. No blind merge of mapping PR1-8, no survey133 rollback/reimport, no second survey writer. Sites source synchronization is a separate NEW project only.",
     "pullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/9",
     "codeCommit": "ee02e66c7b704431de660dbbb3708137edd38d43",
-    "state": "DRAFT_NOT_MERGED_AWAITING_RECEIVING_ACK",
+    "state": "DRAFT_MAPPING_DATA_REVIEWED_NOT_MERGED",
     "zoneHandoffContract": "docs/handoff/claims/game-split-request-20261020.md#real-zone-handoff-contract"
   },
   "receivingAcknowledgement": {
-    "state": "REQUESTED_NOT_YET_OBSERVED",
+    "state": "ACKNOWLEDGED",
     "requestedFrom": "second-computer-01",
     "recordPath": "docs/handoff/claims/game-split-receiving-ack-20261020.json",
     "requirements": [
@@ -57,20 +57,23 @@
       "Confirm no concurrent game-code or separate-Site edits; route game code through the named PR",
       "Record qualified-zone handoff only when evidence qualifies; pending contexts remain unqualified"
     ],
-    "dependentWork": "Isolated code/tests may proceed; integration/shared-file edits and publishing wait for acknowledgement and relevant release gates."
+    "dependentWork": "Isolated code/tests may proceed; integration/shared-file edits and publishing wait for acknowledgement and relevant release gates.",
+    "recordedAt": "2026-10-20T17:28:50.590319+00:00",
+    "coordinationReadSha": "c9f9c103bee11ae6338fff7f2283da83347ea180"
   },
   "checkpoint": {
-    "checkedAt": "2026-10-20T13:54:08.609079+00:00",
-    "coordinationReadSha": "ee6062f7adbbc573e180232b4906ee52812a145c",
-    "receivingAcknowledgementObserved": false,
+    "checkedAt": "2026-10-20T17:28:50.590319+00:00",
+    "coordinationReadSha": "c9f9c103bee11ae6338fff7f2283da83347ea180",
+    "receivingAcknowledgementObserved": true,
     "qualifiedZoneObserved": false,
     "surveyRevision": 133,
     "verifiedSides": 0,
     "verifiedStorefronts": 0,
     "gameState": "SAFE_TESTED_CHECKPOINT_IMPLEMENTATION_PAUSED_AWAITING_INPUT",
     "nextActionByAccount": {
-      "second-computer-01": "Record the receiving acknowledgement and evidence disposition checkpoint at the requested acknowledgement path; include a qualified zone manifest only if evidence actually qualifies, otherwise exact missing evidence and no qualifying zone. Preserve mapping/importer ownership and all leases/provider holds.",
-      "returning-account-game-01": "Wait at game commit ee02e66c7b704431de660dbbb3708137edd38d43 for the receiving checkpoint; do not implement, integrate or publish while awaiting these inputs."
-    }
+      "second-computer-01": "Receiving acknowledgement and mapping-data review recorded. Keep qualifiedZone null; retain current leases/provider holds and obtain new calibrated/current field/source proof. Report exact decision for a separate honestly provisional/synthetic mode; do not implement game fixes or publish.",
+      "returning-account-game-01": "Read receiving acknowledgement and PR9 mapping-data review. No real zone currently qualifies; retain pinned locked draft and separate private Site. Future provisional-mode implementation/release needs the explicit user decision described in the review, or a qualified evidence package and actual-zone QA. Main Site unchanged."
+    },
+    "reviewReport": "docs/handoff/reviews/second-computer-01-pr9-mapping-compatibility-20261020.md"
   }
 }

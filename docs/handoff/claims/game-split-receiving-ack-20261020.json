@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-20T17:28:50.590319+00:00",
+  "state": "ACKNOWLEDGED_MAPPING_ROLES_RETAINED_NO_QUALIFIED_ZONE",
+  "workerId": "second-computer-01",
+  "originalSplitCommit": "ee6062f7adbbc573e180232b4906ee52812a145c",
+  "coordinationReadSha": "c9f9c103bee11ae6338fff7f2283da83347ea180",
+  "splitFile": "docs/handoff/GAME_SPLIT.json",
+  "requestedExecution": {
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "medium",
+    "note": "User request recorded; actual model selection is a host/task setting, not independently changed or verified by this repository acknowledgement."
+  },
+  "checkout": {
+    "path": "/Users/sreedivya/Documents/Codex/2026-10-19/task/roadster-coordinator",
+    "branch": "handoff/parallel-mapping-2026-10-19",
+    "headAtInspectionBeforePull": "7a2726db6a9cf31937931d230d8ad58b8de638e0",
+    "headAfterSafeFastForward": "c9f9c103bee11ae6338fff7f2283da83347ea180",
+    "dirtyBeforePull": [],
+    "unpushedBeforePull": [],
+    "mappingWorkerHeadsAllMatchPublishedRemote": true,
+    "workerCheckoutsPreserved": true
+  },
+  "currentAssignment": {
+    "assignmentId": "venkatgiri-independent-r50481356909-0",
+    "owner": "second-computer-01",
+    "branch": "worker/second-computer-01/venkatgiri-independent-r50481356909-0",
+    "workerCommit": "63a176d86eac9c322776527fb49eb76ac12c7156",
+    "ranges": [
+      {
+        "roadId": "r_50481356909_0",
+        "side": "left",
+        "startM": 10.0,
+        "endM": 35.33,
+        "boundaryRule": "closed interval; stored road.points order"
+      },
+      {
+        "roadId": "r_50481356909_0",
+        "side": "right",
+        "startM": 10.0,
+        "endM": 35.33,
+        "boundaryRule": "closed interval; stored road.points order"
+      }
+    ],
+    "latestCheckpoint": "game/work/venkatgiri-independent-r50481356909-0/checkpoint-20261020-batch001.md",
+    "latestEvidenceInputs": "docs/handoff/reviews/second-computer-01-recorded-leads-and-external-inputs-133.md"
+  },
+  "roles": {
+    "mappingCoordinator": "second-computer-01",
+    "soleSurveyImporter": "second-computer-01",
+    "gameDevelopmentMobileQASeparateTestSiteOwner": "returning-account-game-01",
+    "noConcurrentGameCodeOrSeparateSiteEditsByMappingOwner": true,
+    "selectCollectFixesNotDuplicated": true,
+    "steeringComplaintWithdrawn": true
+  },
+  "reservationAudit": {
+    "records": 11,
+    "activeLeases": 8,
+    "allAssignmentValuesExactlyPreserved": true,
+    "providerHold": "Miyapur–JNTU35roads/70sides remains reserved/provider-blocked",
+    "r312r141Deferred": true,
+    "stationA8GateConnectorGapsUnchanged": true
+  },
+  "survey": {
+    "revision": 133,
+    "sha256": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+    "sources": 908,
+    "observations": 682,
+    "authoredStorefrontOverrides": 169,
+    "provisionalOverrides": 169,
+    "verifiedStorefronts": 0,
+    "verifiedSides": 0,
+    "note": "169 is the actual authored override count, not all city storefronts or verified premises.",
+    "frozenFiles": {
+      "game/public/research/street-survey.json": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+      "game/public/world/hyd-metro/v2/manifest.json": "b07636419815d2428d110b6e912144f93679d1b928ce53cd5d1464db62fe1089",
+      "game/public/world/hyd-metro/v2/core.json": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+      "game/package-lock.json": "dc36354e007ddbe185b883df2d2723348aa4e0387de975138c016c18b43fc9f6",
+      "game/data/archives/source-accuracy.json.gz": "4e0e9f32c651de10e6ce40f6a4eec96986b4e8d7b0fcfd77de4610d512d490fd"
+    }
+  },
+  "qualifiedZone": null,
+  "provisionalVisualCandidate": {
+    "roadId": "r_35746161453_0",
+    "name": "Cyber Towers - Madhapur Main Road / Bata frontage",
+    "lengthM": 27.51,
+    "rangeM": [
+      0,
+      27.51
+    ],
+    "sides": [
+      "left",
+      "right"
+    ],
+    "criterion": "Smallest entire canonical edge whose existing allFrontagesRecorded range unions span both full sides; not smallest arbitrary clipped window.",
+    "captureDate": "2026-04",
+    "reviewedDate": "2026-10-18",
+    "sideStatuses": [
+      "partial",
+      "partial"
+    ],
+    "completeness": "partial",
+    "geometryStatus": "provisional",
+    "widthM": 7,
+    "widthStatus": "provisional",
+    "storefrontIds": [
+      "survey-madhapur-bata-r357-ground",
+      "survey-madhapur-music-stores-r357-first",
+      "survey-madhapur-lakshmi-guest-house-r357-second"
+    ],
+    "storefrontNames": [
+      "Bata",
+      "MUSIC STORES",
+      "LAKSHMI GUEST HOUSE"
+    ],
+    "verifiedStorefronts": 0,
+    "sourceIds": [
+      "sv-madhapur-bata-west-apr2026-20261018",
+      "sv-madhapur-bata-front-apr2026-20261018",
+      "sv-madhapur-bata-east-apr2026-20261018",
+      "sv-madhapur-bata-median-apr2026-20261018",
+      "sv-madhapur-bata-reverse-west-apr2026-20261018"
+    ],
+    "oneway": true,
+    "admittedDirectedEdge": "r_35746161453_0:f",
+    "inSegmentSuccessors": [],
+    "outsideSuccessors": [
+      "r_17731498241_0:f",
+      "r_58407483981_0:f"
+    ],
+    "pizzaPickupSupported": false,
+    "playableQualifiedZone": false,
+    "meaning": "Evidence-backed provisional visual candidate only. No verified entrance/pizza pickup or returnable in-segment delivery loop. Not activated, not promoted, no field reinspection or scope expansion."
+  },
+  "previewDecision": {
+    "currentRule": "docs/handoff/GAME_SPLIT.json releaseGate + docs/handoff/claims/game-split-request-20261020.md Real-zone handoff contract + docs/handoff/TEST_GAME_REQUIREMENTS.md lines3,7,9",
+    "blockedAction": "Represent or release a real fully mapped pizza-delivery pilot from current provisional data.",
+    "reason": "No qualified full-edge both-side verified zone, verified source-supported pizza pickup/entrances or supported returnable candidate loop.",
+    "decisionNeededForProvisionalAlternative": "Explicit user authorization of a separately labelled provisional/synthetic gameplay preview, distinct from the fully-mapped acceptance target, followed by the game owner’s reviewed mode/geometry/job design. Keep verified counters zero; do not bypass current qualified-zone gate or label synthetic merchants as real."
+  },
+  "pr9": {
+    "url": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/9",
+    "reviewedHead": "ee02e66c7b704431de660dbbb3708137edd38d43",
+    "base": "ee6062f7adbbc573e180232b4906ee52812a145c",
+    "mappingDataCompatibility": "No mapping-data integration incompatibility found in reviewed pinned draft. No survey/world/generated/configured mapping reservation changes; current survey133 pin exact; fail-closed null zone remains.",
+    "postBaseCoordinatorChangedPathOverlap": [],
+    "reviewReport": "docs/handoff/reviews/second-computer-01-pr9-mapping-compatibility-20261020.md",
+    "independentValidation": {
+      "focusedTestFiles": 6,
+      "focusedTestsPassed": 91,
+      "focusedTestsFailed": 0,
+      "typecheck": "PASS",
+      "pilotOnlyBuild": "PASS87modules",
+      "releaseBuild": "Expected refusal before build: no qualified zone",
+      "actualZoneQA": false,
+      "browserPhoneQARepeated": false,
+      "merge": false,
+      "deployment": false
+    },
+    "integration": "Single draft PR9 remains open/unmerged; this acknowledgement is not integration or publication authorization."
+  },
+  "missingEvidence": [
+    "New unobstructed bounded both-side field inventory, including hidden units/floors/non-shop gaps and play-critical endpoints/junctions.",
+    "Measured canonical boundary/facade/unit/door/access controls and current occupancy/use corroboration; no camera-to-door inference.",
+    "Source-supported pizza pickup and customer entrances bound to exact runtime stops; no verified storefront presently exists.",
+    "A connected returnable in-zone graph and every normal-start keyboard/touch delivery/boundary/reset/reload check by the game owner.",
+    "r312 robust new interior camera/alignment, r141 junction-clearance evidence before altered buffers, separate a8/station/gate/connector correspondence; provider holds unchanged."
+  ],
+  "nextStepsByOwner": {
+    "secondComputerMapping": "Retain r504 eight pending contexts and exact bounds; no exhausted imagery replay. Obtain genuinely new calibrated/current field/source inputs before qualification. Preserve all leases/provider holds and report qualifiedZone:null.",
+    "gameOwner": "Use PR9 as sole code path. Await qualification or an explicit decision authorizing a distinct honestly provisional/synthetic preview mode; no duplicate Select/Collect fixes or withdrawn steering work by mapping owner. Perform real-zone QA only after an evidence-backed package. Main Site unchanged."
+  },
+  "mainSite": "UNCHANGED_PUBLIC113_NO_OPERATIONS",
+  "newEvidenceCollected": false,
+  "surveyMutation": false
+}

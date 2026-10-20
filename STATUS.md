@@ -1,5 +1,11 @@
 # Current Roadster status
 
+## Receiving split acknowledged and PR9 data review — 2026-10-20T17:28:50.590319+00:00
+
+Exact split read `c9f9c103bee11ae6338fff7f2283da83347ea180`, original split `ee6062f7adbbc573e180232b4906ee52812a145c`; [acknowledgement](docs/handoff/claims/game-split-receiving-ack-20261020.json), [review/evidence disposition](docs/handoff/reviews/second-computer-01-pr9-mapping-compatibility-20261020.md). Mapping coordinator/sole importer second-computer-01 retains all8ACTIVE leases/11reservation records and provider holds; returning-account-game-01 owns game/mobile/QA/separate test Site. No concurrent game fixes or Site work here, no merge/deployment. All local mapping work clean/published before safe fast-forward.
+
+Actual survey133 hash `39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42`,908sources/682observations/169authored provisional overrides,0verified storefronts/sides; all5hashes unchanged. PR9 `ee02e66c7b704431de660dbbb3708137edd38d43` has no data changes/path overlap; independent91focused tests/typecheck/pilot87-module build pass, release correctly blocked. Current r504 checkpoint/bounds/evidence limit unchanged. Smallest whole-edge both-side visual candidate r357/Bata27.51m remains provisional, one-way/no isolated return loop or supported pizza pickup; **qualifiedZone:null**. Current rules require qualified full edges; an honestly provisional/synthetic alternative needs explicit user policy decision and game-owner review, never evidence relabelling. Exact field/calibration/currentness/entrance/route inputs in review. Do not replay exhausted imagery or duplicate game fixes; main113unchanged.
+
 ## Authorized game/mapping split — 2026-10-20T13:34:29.327555+00:00
 
 [GAME_SPLIT.json](docs/handoff/GAME_SPLIT.json) supersedes blanket outgoing quiescence ONLY for `returning-account-game-01` game development, QA and a separate test Site. User explicitly approved this bounded resumption. `second-computer-01` retains mapping coordination, sole survey imports/integration and all eight mapping leases/provider holds unchanged. Main public Site remains113; main publishing authority is not transferred. Former mapping writers remain inactive.
