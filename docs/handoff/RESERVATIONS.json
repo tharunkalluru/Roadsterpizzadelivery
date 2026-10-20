@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:44:40Z",
+  "updatedAt": "2026-10-20T06:46:39.512024+00:00",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -10,7 +10,7 @@
     "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
     "claimedAt": "2026-10-20T01:27:15Z",
-    "currentCollectionAssignmentId": "road5-yusufguda-r64237527671-0"
+    "currentCollectionAssignmentId": "road5-yusufguda-r36985565509-0"
   },
   "assignments": [
     {
@@ -1216,6 +1216,139 @@
           "Current on-site operation corroboration."
         ]
       }
+    },
+    {
+      "assignmentId": "road5-yusufguda-r36985565509-0",
+      "status": "ACTIVE",
+      "workerId": "second-computer-01",
+      "ownerBranch": "worker/second-computer-01/road5-yusufguda-r36985565509-0",
+      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-r36985565509-0-activation-20261020.md",
+      "publishedPlan": "docs/handoff/claims/road5-yusufguda-r36985565509-0-plan-20261020.md",
+      "publishedPlanCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
+      "claimedAt": "2026-10-20T06:46:39.512024+00:00",
+      "coordinatorBaseCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
+      "activationCommit": null,
+      "activationCommitResolution": {
+        "claimFile": "docs/handoff/claims/road5-yusufguda-r36985565509-0-activation-20261020.md",
+        "rule": "Resolve initial file-addition SHA; publish/read back, isolated worker exactly there and startup report before imagery."
+      },
+      "snapshotSurveyRevision": 129,
+      "snapshotSurveySha256": "fec36e246a40609a46eb8d3a9360403f7ffabaab90185f9fe14e629a4a1ef087",
+      "worldId": "hyd-metro",
+      "worldVersion": "2.0.0",
+      "stationPair": "Road No5 Jubilee Hills -> Yusufguda",
+      "roadId": "r_36985565509_0",
+      "roadName": "Road Number 5",
+      "roadLengthM": 187.43,
+      "canonicalPoints": [
+        [
+          -13365.87,
+          -1730.24
+        ],
+        [
+          -13431.14,
+          -1751.94
+        ],
+        [
+          -13473.45,
+          -1766.74
+        ],
+        [
+          -13512.36,
+          -1775.65
+        ],
+        [
+          -13546.24,
+          -1777
+        ]
+      ],
+      "canonicalSourceIds": [
+        "ovt:seg/89c82f145d5f",
+        "osm:w195865065@6"
+      ],
+      "geometryStatus": "Provisional geometry/name/width/direction, footpath flag and width clamp 9->4.5 m retained. Saved camera lateral 2.680 m exceeds half provisional width; explicit alignment uncertainty, no measured road or entrance geometry.",
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_36985565509_0",
+          "side": "left",
+          "startM": 150.0,
+          "endM": 177.43,
+          "boundaryRule": "closed interval; stored road.points order"
+        },
+        {
+          "roadId": "r_36985565509_0",
+          "side": "right",
+          "startM": 150.0,
+          "endM": 177.43,
+          "boundaryRule": "closed interval; stored road.points order"
+        }
+      ],
+      "excludedRanges": [
+        {
+          "roadId": "r_36985565509_0",
+          "startM": 0,
+          "endM": 150,
+          "boundaryRule": "end exclusive"
+        },
+        {
+          "roadId": "r_36985565509_0",
+          "startM": 177.43,
+          "endM": 187.43,
+          "boundaryRule": "start exclusive"
+        }
+      ],
+      "excludedNodes": [
+        "n_68378654432",
+        "n_61505996079"
+      ],
+      "excludedAdjacentRoadIds": [
+        "r_39673286574_0",
+        "r_64237527671_0",
+        "r_5733266100_0",
+        "r_63797909905_0"
+      ],
+      "exclusions": [
+        "Both endpoint junctions/buffers and EVERY other road/carriageway, all station gates/connectors and unavailable markers.",
+        "a8/unconfirmed east link/Venkatgiri branch, every old lease/protected reservation and all provider blocks preserved.",
+        "No station advance, source-jump continuity, properties or whole units beyond assigned bounds."
+      ],
+      "startReference": {
+        "panoId": "X_A755v2ljJNY8HGmGYFIw",
+        "lat": 17.430628,
+        "lon": 78.4210081,
+        "historicalCaptureDate": "2026-01",
+        "projectedAlongM": 176.32692011315999,
+        "lateralM": 2.6802964983461806,
+        "rule": "Saved locator only; actual metadata/nearest road/bounds before frontage; 1.103 m upper margin, no forward junction step."
+      },
+      "existingReferenceSourceIds": [
+        "sv-r5-yusufguda-routepreview-20261019-pano-XA-h267"
+      ],
+      "priorObservationIds": [],
+      "newSourceIdPrefix": "sv-second-computer-01-road5-r36985565509-0-",
+      "batchPathPattern": "game/data/research/batches/second-computer-01-road5-r36985565509-0-<sequence>-<YYYYMMDD>.json",
+      "checkpointPathPattern": "game/work/road5-yusufguda-r36985565509-0/checkpoint-<UTC-or-sequence>.md",
+      "authority": {
+        "role": "CLAIMED receiving coordinator/operator/sole importer",
+        "publishedPlanCommit": "e3ddb59c3cecd8830b7b41d101a1c1f9b8029944",
+        "userContext": "Accepted entire takeover and explicit sustained work; next distinct allowed bounded task after scoped evidence limits."
+      },
+      "nonOverlapAudit": {
+        "allOtherAssignmentObjectsPreserved": true,
+        "candidateAbsentFromEveryExistingReservedRoadSet": true,
+        "remoteWorkerBranchPreviouslyAbsent": true,
+        "fiveSnapshotHashesMatch": true,
+        "existingRoadBoundObservations": 0,
+        "existingStorefrontOverrides": 0,
+        "existingRoadReviews": {
+          "left": "unreviewed",
+          "right": "unreviewed"
+        }
+      },
+      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "latestCheckpoint": null,
+      "nextPanorama": null,
+      "nextAction": "Publish/read back initial activation SHA, create isolated worker exactly there and report startup; check X_A actual metadata/nearest road/bounds then only new side sectors about h182/h2. Independently offered historical dates require their own actual checks. No forward upper-endpoint step; any clearly visible reverse step must be verified on the assigned road and within150–177.43 m before frontage inspection, stop on ambiguity/buffer mismatch. No other road/station/a8 mapping or invented dimensions/coverage."
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"
