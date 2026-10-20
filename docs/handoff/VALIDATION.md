@@ -95,3 +95,7 @@ Disposable current-121 preview passed; serial importer returned 122 and canonica
 ## Central Road No.2 batch 005 / survey 123 — 2026-10-20T05:54:51Z
 
 Current-122 disposable preview passed; serial admission returned 123 and canonical `9b9ef14853b61615438fc17f608bb56298f8f2ca2ab0dc7c1725b2ddc4473f59`. Survey validation zero errors with existing placement warning; network/queue regeneration and reproducibility checks passed; tsc/Vite build passed 84 modules. Four pending dated contexts, no placements or coverage. Prior records/receipt prefixes and all physical/coverage collections unchanged; five SNAPSHOT hashes match. Actual historical date/camera/fov changes and projections checked. No full unit/E2E/device rerun or independent second imagery review. See `docs/handoff/reviews/second-computer-01-central-batch005-import-123.md`.
+
+## Central Road No.2 batch 006 / survey 124 — 2026-10-20T06:03:08Z
+
+Current-123 disposable preview, serial admission with canonical `384935a66dcfae1e65d8f4a089a42d2b238cc6faaee41c44428dcafe6f461f2a`, survey validation zero errors/existing placement warning, network/queue regeneration and both reproducibility checks, and tsc/Vite 84-module build passed. Actual historical dates/camera coordinates/fov and nearest-road in-bound projections checked. Prior prefixes/physical collections/other assignments preserved, five snapshot hashes match. No placement/coverage or full unit/E2E/device/independent second imagery review. See `docs/handoff/reviews/second-computer-01-central-batch006-import-124.md`.
