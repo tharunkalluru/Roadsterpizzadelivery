@@ -1,0 +1,11 @@
+# Activation: bounded Road Number 5 interior
+
+## Current collection: bounded Road Number 5 interior
+
+Updated 2026-10-20T06:37:52Z. Published plan `7f99a3ae6e7e8566897512cd25a7b3846aa71534` precedes ACTIVE `road5-yusufguda-r64237527671-0`, owner second-computer-01, branch `worker/second-computer-01/road5-yusufguda-r64237527671-0`. ONLY `r_64237527671_0` canonical left/right closed 10.00–39.67 m, 29.67 m per side, stored-point order. Exclude both endpoint buffers/junctions, EVERY other road/carriageway (parallel r_5733266100_0, connector r_39673286574_0 and adjacent continuation r_36985565509_0 included), station gates/connectors, a8/unconfirmed east link/Venkatgiri branch and all prior leases. Same Road No.5→Yusufguda pair, no station advance. Canonical geometry/name/width/direction provisional.
+
+Exact activation is THIS initial addition commit of `docs/handoff/claims/road5-yusufguda-r64237527671-0-activation-20261020.md`; publish/read back, create fresh isolated worker exactly there and report startup bindings before imagery. Saved RoO at 29.907731972 m then wcq at 10.837093914 m are locators until actual date/coordinates/nearest-road checks. Direct opens only, no road arrows, junction/other-carriageway frontage inventory or continuity claim. CUXP near the endpoint is excluded. Far properties across the parallel road stay excluded without canonical correspondence proof.
+
+All previous assignment objects, owners/bounds/evidence/provider holds are identical. Krishna retains six pending contexts/two batches at 127/128 and two January 2025 metadata-only alignment holds; all 34.65 m per side unqualified. Central r637/28 contexts, old r155/eight, Lakdikapul 31 and protected Miyapur–JNTU 35 roads retained. One operator/importer, outgoing writers quiescent. Survey 128 SHA256 `32edacf9d41aa433346e3267f77e9a95df2cb04b7ca2b49d5ae8b49f2954f4f7` and all five snapshot hashes unchanged. No imagery, batch/import, physical change, qualified coverage, PR merge or deployment in activation. Sites remains parked at project_not_found/HTTP404.
+
+The initial activation-addition SHA must be resolved with git log --diff-filter=A, published/read back and pinned at the next coordinator save. No self-referential SHA is invented.

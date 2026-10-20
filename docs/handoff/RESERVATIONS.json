@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:34:18Z",
+  "updatedAt": "2026-10-20T06:37:52Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -10,7 +10,7 @@
     "claimBaseCommit": "882b13f0a9079c14407ea872800863d08c7b63b7",
     "claimCheckpoint": "docs/handoff/claims/second-computer-01-20261020.md",
     "claimedAt": "2026-10-20T01:27:15Z",
-    "currentCollectionAssignmentId": "road5-yusufguda-krishna-r39952804437-0"
+    "currentCollectionAssignmentId": "road5-yusufguda-r64237527671-0"
   },
   "assignments": [
     {
@@ -997,6 +997,145 @@
         "interpretation": "Distinct canonical source ways converge at a shared endpoint. This does not establish exact physical carriageway or facade-side correspondence; no core correction or opposite premise assignment."
       },
       "latestAlignmentReview": "game/work/road5-yusufguda-krishna-r39952804437-0/historical-alignment-review-20261020.json"
+    },
+    {
+      "assignmentId": "road5-yusufguda-r64237527671-0",
+      "status": "ACTIVE",
+      "workerId": "second-computer-01",
+      "ownerBranch": "worker/second-computer-01/road5-yusufguda-r64237527671-0",
+      "claimId": "road5-yusufguda-r64237527671-0-20261020",
+      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-r64237527671-0-activation-20261020.md",
+      "publishedPlan": "docs/handoff/claims/road5-yusufguda-r64237527671-0-plan-20261020.md",
+      "publishedPlanCommit": "7f99a3ae6e7e8566897512cd25a7b3846aa71534",
+      "claimedAt": "2026-10-20T06:37:52Z",
+      "coordinatorBaseCommit": "7f99a3ae6e7e8566897512cd25a7b3846aa71534",
+      "activationCommit": null,
+      "activationCommitResolution": {
+        "claimFile": "docs/handoff/claims/road5-yusufguda-r64237527671-0-activation-20261020.md",
+        "rule": "Resolve initial file-addition commit; publish/read back exact SHA, create isolated worker exactly there and report startup before imagery."
+      },
+      "snapshotSurveyRevision": 128,
+      "snapshotSurveySha256": "32edacf9d41aa433346e3267f77e9a95df2cb04b7ca2b49d5ae8b49f2954f4f7",
+      "worldId": "hyd-metro",
+      "worldVersion": "2.0.0",
+      "stationPair": "Road No5 Jubilee Hills -> Yusufguda",
+      "roadId": "r_64237527671_0",
+      "roadName": "Road Number 5",
+      "roadLengthM": 49.67,
+      "geometryStatus": "Provisional geometry/name/width/direction and footpath flag; no measured road or entrance coordinates.",
+      "canonicalPoints": [
+        [
+          -13546.24,
+          -1777
+        ],
+        [
+          -13562.76,
+          -1765.98
+        ],
+        [
+          -13589.15,
+          -1752.11
+        ]
+      ],
+      "canonicalSourceIds": [
+        "ovt:seg/ef4dae277c8e",
+        "osm:w195865065@6"
+      ],
+      "exclusiveRoadRanges": [
+        {
+          "roadId": "r_64237527671_0",
+          "side": "left",
+          "startM": 10.0,
+          "endM": 39.67,
+          "boundaryRule": "closed interval; stored road.points order"
+        },
+        {
+          "roadId": "r_64237527671_0",
+          "side": "right",
+          "startM": 10.0,
+          "endM": 39.67,
+          "boundaryRule": "closed interval; stored road.points order"
+        }
+      ],
+      "excludedRanges": [
+        {
+          "roadId": "r_64237527671_0",
+          "startM": 0,
+          "endM": 10,
+          "boundaryRule": "end exclusive"
+        },
+        {
+          "roadId": "r_64237527671_0",
+          "startM": 39.67,
+          "endM": 49.67,
+          "boundaryRule": "start exclusive"
+        }
+      ],
+      "excludedNodes": [
+        "n_61505996079",
+        "n_36199880295"
+      ],
+      "excludedAdjacentRoadIds": [
+        "r_5733266100_0",
+        "r_39673286574_0",
+        "r_36985565509_0"
+      ],
+      "exclusions": [
+        "Endpoint junctions/buffers and every other road/carriageway, especially parallel opposite-direction r_5733266100_0.",
+        "All station gates/connectors and a8/unconfirmed east link/Venkatgiri branch; no station advance or route continuity inferred.",
+        "All prior leases and protected provider reservation remain unchanged; far properties across an excluded carriageway are not assigned."
+      ],
+      "startReference": {
+        "panoId": "RoO_ExTkgi147Gls7Vvbsg",
+        "lat": 17.4305262,
+        "lon": 78.420659,
+        "historicalCaptureDate": "2026-01",
+        "projectedAlongM": 29.907731971635997,
+        "lateralM": 1.478224952181485,
+        "rule": "Saved locator only; actual metadata/nearest road/in-bound projection required before authoring. Direct open, no route continuity."
+      },
+      "otherSavedReference": {
+        "panoId": "wcqFkJkyK9dxUXLHQZMl4Q",
+        "lat": 17.4305924,
+        "lon": 78.4208264,
+        "historicalCaptureDate": "2026-01",
+        "projectedAlongM": 10.837093913971444,
+        "lateralM": 1.2578416238485588,
+        "rule": "Only 0.837 m above lower buffer; no junction inventory or roadway arrows."
+      },
+      "existingReferenceSourceIds": [
+        "sv-jhc-road5-route-20261019-pano-RoO-h70",
+        "sv-jhc-road5-opposite-20261019-pano-roo-h250",
+        "sv-jhc-road5-opposite-20261019-pano-roo-h310",
+        "sv-r5-yusufguda-rev112-pano-wcq-h267"
+      ],
+      "priorObservationIds": [],
+      "newSourceIdPrefix": "sv-second-computer-01-road5-r64237527671-0-",
+      "batchPathPattern": "game/data/research/batches/second-computer-01-road5-r64237527671-0-<sequence>-<YYYYMMDD>.json",
+      "checkpointPathPattern": "game/work/road5-yusufguda-r64237527671-0/checkpoint-<UTC-or-sequence>.md",
+      "authority": {
+        "role": "CLAIMED receiving coordinator, mapping operator and sole importer",
+        "publishedPlanCommit": "7f99a3ae6e7e8566897512cd25a7b3846aa71534",
+        "userContext": "Accepted entire takeover and explicit sustained-work instruction; parent directs next distinct bounded plan/activation after evidence limits."
+      },
+      "nonOverlapAudit": {
+        "allOtherAssignmentObjectsPreserved": true,
+        "candidateAbsentFromEveryExistingReservedRoadSet": true,
+        "remoteWorkerBranchPreviouslyAbsent": true,
+        "singleOperatorAndImporter": "second-computer-01",
+        "outgoingQuiescent": true,
+        "fiveSnapshotHashesMatch": true,
+        "existingRoadBoundObservations": 0,
+        "existingStorefrontOverrides": 0,
+        "existingRoadReviews": {
+          "left": "unreviewed",
+          "right": "unreviewed"
+        }
+      },
+      "evidenceCollectionState": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "latestCheckpoint": null,
+      "nextPanorama": null,
+      "nextAction": "Publish/read back initial activation SHA, create isolated worker exactly there, report startup; inspect new narrow side sectors at saved RoO then wcq only after actual metadata/nearest-road/bounds checks. No road arrows, endpoint/a8/station/other-carriageway inventory, repeated source records, invented dimensions or coverage."
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"

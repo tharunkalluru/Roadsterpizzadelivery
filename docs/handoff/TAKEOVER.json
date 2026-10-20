@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T06:34:18Z",
+  "updatedAt": "2026-10-20T06:37:52Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -84,113 +84,22 @@
     },
     "exclusions": "Do not treat unconfirmed Venkatgiri/RoadNo8 branch or directions-preview jumps as continuous coverage; Road5/Yusufguda markers have saved imagery gaps; station gates/connectors unknown.",
     "receivingBoundedAssignment": {
-      "assignmentId": "road5-yusufguda-krishna-r39952804437-0",
-      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-krishna-r39952804437-0-activation-20261020.md",
-      "publishedPlanCommit": "9451ee68fb6a8348ac08b0d29c89a91653634f2b",
+      "assignmentId": "road5-yusufguda-r64237527671-0",
+      "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-r64237527671-0-activation-20261020.md",
+      "publishedPlanCommit": "7f99a3ae6e7e8566897512cd25a7b3846aa71534",
       "owner": "second-computer-01",
-      "state": "BATCH002_PENDING_CONTEXT_ADMITTED_RIGHT_CORRESPONDENCE_HELD",
-      "roadId": "r_39952804437_0",
+      "state": "ACTIVATION_PUBLISHED_STARTUP_REQUIRED",
+      "roadId": "r_64237527671_0",
       "rangesM": [
         10,
-        44.65
+        39.67
       ],
       "sides": [
         "left",
         "right"
       ],
       "oldA8AndMarkerGapsPreserved": true,
-      "separateAnchorJumpDisclosed": true,
-      "activationCommit": "aee7c39310f7b2165b56ed9e2442f160980af200",
-      "checkpoint": "game/work/road5-yusufguda-krishna-r39952804437-0/checkpoint-20261020-batch002.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-krishna-batch002-import-128.md",
-      "workerCommit": "39a7cf1c770fda6bb2b9a6a6f286de7db2ed2aca",
-      "pendingObservations": 6,
-      "qualifiedSideMetres": 0,
-      "lastPanorama": {
-        "panoId": "J_mrGooEDM5oERkyfmu3Dg",
-        "lat": 17.4295586,
-        "lon": 78.4251429,
-        "captureDate": "2021-12",
-        "headingDeg": 116,
-        "fov": 75,
-        "projectedAlongM": 40.90208822723421,
-        "lateralM": 2.189340207740121
-      },
-      "nextAction": "The named offered historical set is checked: two December 2021 left contexts saved, both January 2025 captures held on excluded adjacent canonical edge before frontage inspection. Do not repeat those targets, expand bounds or assign opposite properties. Further qualification needs exact canonical road/carriageway/unit/door correspondence, unobstructed endpoint/inter-camera evidence, measured control/entrance geometry and current on-site corroboration. Independent canonical source-way audit is saved without a world correction. Any different task requires the separate documented coordinator plan/activation process; no new-road mapping implied.",
-      "rightSideCorrespondenceHold": {
-        "excludedAdjacentRoadId": "r_32699653228_0",
-        "farPremiseInventoryAdded": false,
-        "reason": "Far corridor frontage/adjacent r_32699653228_0 excluded from premise inventory pending calibrated correspondence."
-      },
-      "historicalAlignmentHolds": [
-        {
-          "panoId": "8nf80Pe7EQsAaI3O7CUN8A",
-          "captureDate": "2025-01",
-          "lat": 17.4296314,
-          "lon": 78.4251041,
-          "requestedHeadingDeg": 296,
-          "actualFov": 75,
-          "selection": "Offered January 2025 at saved Zthp anchor; actual date/coords read only.",
-          "assignedProjection": {
-            "roadId": "r_39952804437_0",
-            "alongM": 36.004141472227815,
-            "lateralM": 5.309564110133665,
-            "withinAlongRange": true
-          },
-          "nearestRoad": {
-            "roadId": "r_32699653228_0",
-            "alongM": 61.80918171681137,
-            "lateralM": 2.537847398303306,
-            "excluded": true
-          },
-          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
-          "screenshotInspected": false,
-          "runtimeRecordsAdded": 0,
-          "reason": "Nearest canonical road is explicitly excluded despite along-range projection on assigned edge; no silent road/side reassignment."
-        },
-        {
-          "panoId": "LdyAUusTFsAtrEP4hW8Otw",
-          "captureDate": "2025-01",
-          "lat": 17.4297634,
-          "lon": 78.4251716,
-          "requestedHeadingDeg": 116,
-          "actualFov": 75,
-          "selection": "Separately offered January 2025 at assigned Qoaa anchor; actual date/coords read only.",
-          "assignedProjection": {
-            "roadId": "r_39952804437_0",
-            "alongM": 19.7302920636814,
-            "lateralM": 5.176284589170212,
-            "withinAlongRange": true
-          },
-          "nearestRoad": {
-            "roadId": "r_32699653228_0",
-            "alongM": 45.54648426012307,
-            "lateralM": 3.1547829176072613,
-            "excluded": true
-          },
-          "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
-          "screenshotInspected": false,
-          "runtimeRecordsAdded": 0,
-          "reason": "Nearest canonical road explicitly excluded despite in-range along projection; no silent assignment/side switch."
-        }
-      ],
-      "canonicalSideAudit": {
-        "coreSha256": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
-        "assignedRoad": "r_39952804437_0",
-        "assignedSourceIds": [
-          "ovt:seg/94d5f6a557b8",
-          "osm:w1148129326@4"
-        ],
-        "excludedAdjacentRoad": "r_32699653228_0",
-        "adjacentSourceIds": [
-          "ovt:seg/79d0d1c6cee1",
-          "osm:w749675380@8"
-        ],
-        "bothCanonicalOneway": true,
-        "sharedToNode": "n_68591765210",
-        "interpretation": "Distinct canonical source ways converge at a shared endpoint. This does not establish exact physical carriageway or facade-side correspondence; no core correction or opposite premise assignment."
-      },
-      "latestAlignmentReview": "game/work/road5-yusufguda-krishna-r39952804437-0/historical-alignment-review-20261020.json"
+      "separateAnchorJumpDisclosed": true
     },
     "retainedBoundedAssignments": [
       {
@@ -313,6 +222,115 @@
           "lateralM": 1.001050946826675,
           "movementMeaning": "Disclosed direct known-anchor open; no roadway traversal or coverage inferred."
         }
+      },
+      {
+        "assignmentId": "road5-yusufguda-krishna-r39952804437-0",
+        "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-krishna-r39952804437-0-activation-20261020.md",
+        "publishedPlanCommit": "9451ee68fb6a8348ac08b0d29c89a91653634f2b",
+        "owner": "second-computer-01",
+        "state": "BATCH002_PENDING_CONTEXT_ADMITTED_RIGHT_CORRESPONDENCE_HELD",
+        "roadId": "r_39952804437_0",
+        "rangesM": [
+          10,
+          44.65
+        ],
+        "sides": [
+          "left",
+          "right"
+        ],
+        "oldA8AndMarkerGapsPreserved": true,
+        "separateAnchorJumpDisclosed": true,
+        "activationCommit": "aee7c39310f7b2165b56ed9e2442f160980af200",
+        "checkpoint": "game/work/road5-yusufguda-krishna-r39952804437-0/checkpoint-20261020-batch002.md",
+        "reviewReceipt": "docs/handoff/reviews/second-computer-01-krishna-batch002-import-128.md",
+        "workerCommit": "39a7cf1c770fda6bb2b9a6a6f286de7db2ed2aca",
+        "pendingObservations": 6,
+        "qualifiedSideMetres": 0,
+        "lastPanorama": {
+          "panoId": "J_mrGooEDM5oERkyfmu3Dg",
+          "lat": 17.4295586,
+          "lon": 78.4251429,
+          "captureDate": "2021-12",
+          "headingDeg": 116,
+          "fov": 75,
+          "projectedAlongM": 40.90208822723421,
+          "lateralM": 2.189340207740121
+        },
+        "nextAction": "The named offered historical set is checked: two December 2021 left contexts saved, both January 2025 captures held on excluded adjacent canonical edge before frontage inspection. Do not repeat those targets, expand bounds or assign opposite properties. Further qualification needs exact canonical road/carriageway/unit/door correspondence, unobstructed endpoint/inter-camera evidence, measured control/entrance geometry and current on-site corroboration. Independent canonical source-way audit is saved without a world correction. Any different task requires the separate documented coordinator plan/activation process; no new-road mapping implied.",
+        "rightSideCorrespondenceHold": {
+          "excludedAdjacentRoadId": "r_32699653228_0",
+          "farPremiseInventoryAdded": false,
+          "reason": "Far corridor frontage/adjacent r_32699653228_0 excluded from premise inventory pending calibrated correspondence."
+        },
+        "historicalAlignmentHolds": [
+          {
+            "panoId": "8nf80Pe7EQsAaI3O7CUN8A",
+            "captureDate": "2025-01",
+            "lat": 17.4296314,
+            "lon": 78.4251041,
+            "requestedHeadingDeg": 296,
+            "actualFov": 75,
+            "selection": "Offered January 2025 at saved Zthp anchor; actual date/coords read only.",
+            "assignedProjection": {
+              "roadId": "r_39952804437_0",
+              "alongM": 36.004141472227815,
+              "lateralM": 5.309564110133665,
+              "withinAlongRange": true
+            },
+            "nearestRoad": {
+              "roadId": "r_32699653228_0",
+              "alongM": 61.80918171681137,
+              "lateralM": 2.537847398303306,
+              "excluded": true
+            },
+            "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+            "screenshotInspected": false,
+            "runtimeRecordsAdded": 0,
+            "reason": "Nearest canonical road is explicitly excluded despite along-range projection on assigned edge; no silent road/side reassignment."
+          },
+          {
+            "panoId": "LdyAUusTFsAtrEP4hW8Otw",
+            "captureDate": "2025-01",
+            "lat": 17.4297634,
+            "lon": 78.4251716,
+            "requestedHeadingDeg": 116,
+            "actualFov": 75,
+            "selection": "Separately offered January 2025 at assigned Qoaa anchor; actual date/coords read only.",
+            "assignedProjection": {
+              "roadId": "r_39952804437_0",
+              "alongM": 19.7302920636814,
+              "lateralM": 5.176284589170212,
+              "withinAlongRange": true
+            },
+            "nearestRoad": {
+              "roadId": "r_32699653228_0",
+              "alongM": 45.54648426012307,
+              "lateralM": 3.1547829176072613,
+              "excluded": true
+            },
+            "result": "STOPPED_BEFORE_FRONTAGE_INSPECTION_OR_AUTHORING",
+            "screenshotInspected": false,
+            "runtimeRecordsAdded": 0,
+            "reason": "Nearest canonical road explicitly excluded despite in-range along projection; no silent assignment/side switch."
+          }
+        ],
+        "canonicalSideAudit": {
+          "coreSha256": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+          "assignedRoad": "r_39952804437_0",
+          "assignedSourceIds": [
+            "ovt:seg/94d5f6a557b8",
+            "osm:w1148129326@4"
+          ],
+          "excludedAdjacentRoad": "r_32699653228_0",
+          "adjacentSourceIds": [
+            "ovt:seg/79d0d1c6cee1",
+            "osm:w749675380@8"
+          ],
+          "bothCanonicalOneway": true,
+          "sharedToNode": "n_68591765210",
+          "interpretation": "Distinct canonical source ways converge at a shared endpoint. This does not establish exact physical carriageway or facade-side correspondence; no core correction or opposite premise assignment."
+        },
+        "latestAlignmentReview": "game/work/road5-yusufguda-krishna-r39952804437-0/historical-alignment-review-20261020.json"
       }
     ]
   },
