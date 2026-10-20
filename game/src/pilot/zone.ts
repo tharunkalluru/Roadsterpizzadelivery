@@ -23,6 +23,7 @@ export interface PilotZoneDefinition {
 
 /** No nearest-listing inference or fallback to the unrestricted catalogue. */
 export class PilotZone {
+  readonly mode = 'verified' as const;
   readonly nav: NavGraph;
   readonly missions: MissionDef[];
   private orientation: number;

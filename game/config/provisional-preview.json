@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "mode": "provisional",
+  "status": "ready",
+  "surveyRevision": 133,
+  "surveySha256": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+  "zone": {
+    "schemaVersion": 1,
+    "id": "paradise-source-preview-r133",
+    "label": "Paradise / S.D. Road \u2014 provisional source-map preview",
+    "surveyRevision": 133,
+    "surveySha256": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+    "scopeReceipt": "game/work/phone-provisional-preview-survey133/source-scope.md",
+    "limitations": [
+      "Not fully mapped or verified.",
+      "Researched storefront appearances are provisional; connecting roads are bundled canonical map context, not a confirmed street-view route.",
+      "Pizza/place identities come from saved listings; current operation and exact door/stop positions are unverified."
+    ],
+    "polygon": [
+      [
+        -6961.93,
+        -3417.55
+      ],
+      [
+        -6161.93,
+        -3417.55
+      ],
+      [
+        -6161.93,
+        -2617.55
+      ],
+      [
+        -6961.93,
+        -2617.55
+      ]
+    ],
+    "roadIds": [
+      "r_13220415640_0",
+      "r_14578024155_0",
+      "r_1868748713_0",
+      "r_19998825746_0",
+      "r_19998825746_1",
+      "r_19998825746_2",
+      "r_19998825746_3",
+      "r_20209639561_0",
+      "r_23244852229_0",
+      "r_23586272925_0",
+      "r_26536707937_0",
+      "r_29486938475_0",
+      "r_30728278372_0",
+      "r_32160564241_0",
+      "r_32766059773_0",
+      "r_32766059773_1",
+      "r_33807351206_0",
+      "r_39898534717_0",
+      "r_3995418699_0",
+      "r_40222982096_0",
+      "r_41236400680_0",
+      "r_42752673614_0",
+      "r_44245009601_0",
+      "r_44348880070_0",
+      "r_44914140808_0",
+      "r_46593502977_0",
+      "r_4775913013_0",
+      "r_4775913013_1",
+      "r_48346965503_0",
+      "r_49422987306_0",
+      "r_49532969120_0",
+      "r_50292593735_0",
+      "r_50292593735_1",
+      "r_50292593735_2",
+      "r_50292593735_3",
+      "r_50292593735_4",
+      "r_51035611608_0",
+      "r_51035611608_1",
+      "r_52846369302_0",
+      "r_53010397579_0",
+      "r_53252412741_0",
+      "r_53252412741_1",
+      "r_53485308446_0",
+      "r_55017732742_0",
+      "r_5689585072_0",
+      "r_57496352757_0",
+      "r_57496352757_1",
+      "r_57625079885_0",
+      "r_58674555676_0",
+      "r_59975131925_0",
+      "r_62259297990_0",
+      "r_63364949382_0",
+      "r_63700616422_0",
+      "r_63755799014_0",
+      "r_63908696303_0",
+      "r_64221351671_0",
+      "r_65379100444_0",
+      "r_65379100444_1",
+      "r_65379100444_2",
+      "r_66927097623_0",
+      "r_67026299482_0",
+      "r_67870246696_0",
+      "r_6964444870_0",
+      "r_7170167232_0",
+      "r_7220661381_0",
+      "r_7630200761_0",
+      "r_9517354005_0"
+    ],
+    "researchedRoadIds": [
+      "r_13220415640_0",
+      "r_65379100444_2"
+    ],
+    "spawn": {
+      "x": -6499.61,
+      "z": -3011.925,
+      "heading": 1.5707963267948966,
+      "roadId": "r_13220415640_0"
+    },
+    "entrances": [
+      {
+        "deliveryId": "d_domino_s_pizza_india"
+      },
+      {
+        "deliveryId": "d_radisson_blu_hyderabad"
+      },
+      {
+        "deliveryId": "d_eco_basket"
+      }
+    ],
+    "jobs": [
+      {
+        "id": "order1",
+        "title": "Test pizza delivery 1 \u2014 Radisson Blu, Hyderabad",
+        "pickupId": "d_domino_s_pizza_india",
+        "stops": [
+          "d_radisson_blu_hyderabad"
+        ]
+      },
+      {
+        "id": "order2",
+        "title": "Test pizza delivery 2 \u2014 Eco Basket",
+        "pickupId": "d_domino_s_pizza_india",
+        "stops": [
+          "d_eco_basket"
+        ]
+      }
+    ],
+    "maxHeightM": 40
+  },
+  "reason": "Bounded source-only catalogue and immutable pin validated; actual game/phone QA required before private publication. Not a verified map."
+}

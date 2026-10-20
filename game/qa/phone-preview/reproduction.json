@@ -1,0 +1,14 @@
+{
+  "surveyRevision": 133,
+  "gameBaseCommit": "ee02e66c7b704431de660dbbb3708137edd38d43",
+  "phoneViewport": [844,390],
+  "touchEnabled": true,
+  "diagnosticStopPlacement": true,
+  "selectionAndAcceptanceTaps": "passed before fix",
+  "before": {"buttonVisible":true,"canInteract":true,"pointerEvents":"none","hitElement":"CANVAS","cargoLoaded":false},
+  "actualTouchTapBeforeFix": {"cargoLoaded":false,"holdTicks":0},
+  "temporaryCssFix": ".cbtn.interact { pointer-events: auto; }",
+  "actualTouchTapAfterFix": {"cargoLoaded":true,"deliveryStage":"DELIVERY"},
+  "consoleErrors":0,
+  "limitations":"Chrome-for-Testing touch emulation/software WebGL; diagnostic placement isolates the tap defect. Not yet a normal-start complete journey or physical-device pass. Steering unchanged."
+}

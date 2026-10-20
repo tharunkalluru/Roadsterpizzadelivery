@@ -79,7 +79,7 @@ describe('Pilot gameplay boundary, recovery and persistence', () => {
   it('binds reloads to the same zone/pin and safely recovers an outside saved pose', () => {
     const { s, zone, world } = session(); const cp = s.checkpoint();
     expect(() => Session.fromCheckpoint(world, s.mission, { ...cp, pilotZoneId: 'other' }, true, zone)).toThrow(/zone changed/);
-    expect(() => Session.fromCheckpoint(world, s.mission, cp)).toThrow(/policy changed/);
+    expect(() => Session.fromCheckpoint(world, s.mission, cp)).toThrow(/mode changed/);
     expect(() => Session.fromCheckpoint(world, s.mission, { ...cp, pilotPolicyKey: 'changed' }, true, zone)).toThrow(/policy changed/);
     cp.player.x = 999; cp.player.z = 999;
     const restored = Session.fromCheckpoint(world, s.mission, cp, true, zone);

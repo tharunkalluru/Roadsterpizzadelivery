@@ -1,4 +1,4 @@
-import type { PilotZone } from '../pilot/zone';
+import type { PlayZone } from '../pilot/playZone';
 import type { NavGraph } from '../world/nav';
 import { CONTACT, FLIGHT, MISSION, SIM_HZ, TRAFFIC } from '../config/gameplay';
 import { RngStreams } from '../core/rng';
@@ -81,10 +81,10 @@ export class Session {
   nextEncounterTick = 20 * SIM_HZ;
   readonly initialAnchor: Anchor;
   private trafficPrepared = false;
-  readonly pilotZone: PilotZone | null;
+  readonly pilotZone: PlayZone | null;
   readonly nav: NavGraph;
 
-  constructor(public world: WorldPhysics, public mission: MissionDef, opts: { runId?: string; seed?: number; trafficEnabled?: boolean; pilotZone?: PilotZone | null; spawn?: { x: number; z: number; heading: number; roadId: string } } = {}) {
+  constructor(public world: WorldPhysics, public mission: MissionDef, opts: { runId?: string; seed?: number; trafficEnabled?: boolean; pilotZone?: PlayZone | null; spawn?: { x: number; z: number; heading: number; roadId: string } } = {}) {
     this.pilotZone = opts.pilotZone ?? null;
     this.nav = this.pilotZone?.nav ?? world.nav;
     if (this.pilotZone && !this.pilotZone.missions.some(m => JSON.stringify(m) === JSON.stringify(mission))) throw new Error('Mission is not in the qualified pilot catalogue');
@@ -293,6 +293,9 @@ export class Session {
         else if (!approachOk) this.holdHint = 'Wrong side — approach from the marked direction';
         else if (Math.abs(p.speed) >= MISSION.holdSpeed) this.holdHint = `Stop here to ${verb}`;
         else {
+          // Cancelling by nudging the accelerator must not strand the next fresh tap.
+          // Re-arm only after releasing it and satisfying the existing stopped/approach checks.
+          if (!this.holdActive && !input.accel) this.holdArmed = true;
           this.canInteract = !this.holdActive;
           if (!this.holdActive) this.holdHint = `Press E or tap ${this.actionLabel} to ${verb}`;
           if (!this.holdActive && this.holdArmed && input.interactPress) { this.holdActive = true; this.holdTicks = 0; }
@@ -423,7 +426,7 @@ export class Session {
   private guardPilotBoundary(): boolean {
     if (!this.pilotZone || this.pilotZone.allowsPose(this.player)) return false;
     this.player.recoverTo(this.chooseAnchor());
-    this.requestRecovery('Verified zone boundary — return inside', 0);
+    this.requestRecovery(`${this.pilotZone.mode === 'verified' ? 'Verified zone' : 'Provisional preview'} boundary — return inside`, 0);
     return true;
   }
 
@@ -535,6 +538,7 @@ export class Session {
   checkpoint() {
     return {
       schema: CHECKPOINT_SCHEMA, build: BUILD_VERSION, world: WORLD_VERSION_KEY,
+      pilotMode: this.pilotZone?.mode ?? null,
       pilotPolicyKey: this.pilotZone ? JSON.stringify(this.pilotZone.definition) : null,
       pilotZoneId: this.pilotZone?.definition.id ?? null, pilotSurveySha256: this.pilotZone?.definition.surveySha256 ?? null,
       missionId: this.mission.id, missionVersion: this.mission.version, runId: this.runId,
@@ -548,7 +552,8 @@ export class Session {
     };
   }
 
-  static fromCheckpoint(world: WorldPhysics, mission: MissionDef, cp: ReturnType<Session['checkpoint']>, exact = true, pilotZone: PilotZone | null = null): Session {
+  static fromCheckpoint(world: WorldPhysics, mission: MissionDef, cp: ReturnType<Session['checkpoint']>, exact = true, pilotZone: PlayZone | null = null): Session {
+    if ((cp.pilotMode ?? null) !== (pilotZone?.mode ?? null)) throw new Error('Incompatible checkpoint: preview mode changed');
     if ((cp.pilotPolicyKey ?? null) !== (pilotZone ? JSON.stringify(pilotZone.definition) : null)) throw new Error('Incompatible checkpoint: pilot policy changed');
     if ((cp.pilotZoneId ?? null) !== (pilotZone?.definition.id ?? null) || (cp.pilotSurveySha256 ?? null) !== (pilotZone?.definition.surveySha256 ?? null)) throw new Error('Incompatible checkpoint: pilot zone changed');
     if (cp.schema !== CHECKPOINT_SCHEMA || cp.world !== WORLD_VERSION_KEY || cp.missionId !== mission.id || cp.missionVersion !== mission.version) {

@@ -82,6 +82,18 @@ describe('Explicit pizza collection and handover', () => {
     for (let i = 0; i < 100; i++) s.step(NO_INPUT);
     expect(s.cargoLoaded).toBe(false);
   });
+  it('a fresh collect press works after cancelling at low speed without leaving the pickup', () => {
+    const s = started(); atStop(s);
+    s.step({ ...NO_INPUT, interactPress: true });
+    expect(s.holdActive).toBe(true);
+    s.step({ ...NO_INPUT, accel: true });
+    expect(s.holdActive).toBe(false);
+    for (let i = 0; i < 100; i++) s.step(NO_INPUT);
+    expect(s.cargoLoaded).toBe(false);
+    expect(s.canInteract).toBe(true);
+    interact(s);
+    expect(s.cargoLoaded).toBe(true);
+  });
   it('wrong approach and airborne position cannot hand over', () => {
     const s = started(); collect(s); atStop(s);
     s.player.heading = Math.PI;

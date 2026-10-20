@@ -1,3 +1,5 @@
+import { ProvisionalZone, type ProvisionalZoneDefinition } from '../pilot/provisionalZone';
+import type { PlayZone } from '../pilot/playZone';
 import type { StreetSurveyData } from '../world/streetSurveyTypes';
 import { PilotZone, type PilotZoneDefinition } from '../pilot/zone';
 import * as THREE from 'three';
@@ -56,7 +58,7 @@ export class App {
   world: WorldPhysics | null = null;
   missions: MissionDef[] = [];
   session: Session | null = null;
-  pilotZone: PilotZone | null = null;
+  pilotZone: PlayZone | null = null;
   clock = new FixedClock();
   input: InputManager;
   store = new Store();
@@ -89,8 +91,8 @@ export class App {
   private art: ArtApi | null = null;
   readonly ui: HTMLElement;
 
-  constructor(private canvas: HTMLCanvasElement, ui: HTMLElement, private pilot?: { definition: PilotZoneDefinition; surveySha256: string; surveyData: StreetSurveyData }) {
-    if (pilot) this.store = new Store(`hmd.pilot.${pilot.definition.id}.`);
+  constructor(private canvas: HTMLCanvasElement, ui: HTMLElement, private pilot?: { definition: PilotZoneDefinition | ProvisionalZoneDefinition; mode?: 'provisional'; surveySha256: string; surveyData: StreetSurveyData }) {
+    if (pilot) this.store = new Store(`hmd.${pilot.mode ?? 'verified'}.${pilot.definition.id}.`);
     this.ui = ui;
     this.settings = this.store.loadSettings();
     this.input = new InputManager(ui);
@@ -191,9 +193,10 @@ export class App {
       // whole-network structures (skywalks, foot-over-bridges): render + collision from one plan
       const so2 = (mod as any).structureObstacles as undefined | ((c: WorldCore) => { id: string; poly: [number, number][]; bottom: number; top: number }[]);
       if (so2 && (this.core as any).structures?.length) this.world.addStructures(so2(this.core));
+      const pilotListings = this.pilot?.mode === 'provisional' ? await this.loader.loadPlaceListings(this.abort.signal) : null;
       if (this.pilot) {
         if (!this.survey) throw new Error('Pilot requires the pinned network survey');
-        this.pilotZone = new PilotZone(this.pilot.definition, this.core, this.survey.data, this.pilot.surveySha256);
+        this.pilotZone = this.pilot.mode === 'provisional' ? new ProvisionalZone(this.pilot.definition as ProvisionalZoneDefinition, this.core, this.survey.data, this.pilot.surveySha256, pilotListings) : new PilotZone(this.pilot.definition as PilotZoneDefinition, this.core, this.survey.data, this.pilot.surveySha256);
       }
       this.missions = this.pilotZone ? this.pilotZone.missions : this.isNetwork() ? withPractice(buildLevelCatalog(this.core, this.world)) : buildCatalog(this.core, this.world);
       this.view.artExtras = mod as any;
@@ -205,7 +208,7 @@ export class App {
         const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), new THREE.LineBasicMaterial({ color: 0xa2f177, depthTest: false }));
         line.renderOrder = 20; this.view.scene.add(line);
         const label = document.createElement('div'); label.className = 'pilot-zone-label';
-        label.textContent = `${this.pilotZone.definition.label} · Verified play boundary · Survey ${this.pilotZone.definition.surveyRevision}`;
+        label.textContent = `${this.pilotZone.definition.label} · ${this.pilotZone.mode === 'verified' ? 'Verified' : 'PROVISIONAL — not fully mapped'} play boundary · Survey ${this.pilotZone.definition.surveyRevision}`;
         this.ui.append(label);
       }
       this.map = new MapView(this.core, this.world, this.survey, this.pilotZone);
@@ -215,7 +218,7 @@ export class App {
         return {...chunk,storefronts:(chunk as WorldChunkV2).storefronts??[]};
       });
       this.screens.boot('Loading places across Hyderabad…');
-      const listings=await this.loader.loadPlaceListings(this.abort.signal);
+      const listings=pilotListings ?? await this.loader.loadPlaceListings(this.abort.signal);
       if(listings)this.map.setListings(listings);
       this.atlas = new StreetAtlas(this);
       this.view.buildSignals(new SignalSystem(this.world), this.world);

@@ -1,0 +1,54 @@
+{
+  "reviewedAt": "2026-10-20T17:39:37.718991+00:00",
+  "reviewKind": "game-source-catalogue preparation; no field/imagery research or survey admission",
+  "mode": "provisional",
+  "definition": "game/config/provisional-preview.json",
+  "roadCount": 67,
+  "researchedRoadIds": [
+    "r_13220415640_0",
+    "r_65379100444_2"
+  ],
+  "provisionalFrontageCount": 31,
+  "appearanceSourceIds": [
+    "listing-paradise-zam-zam-20261018",
+    "listing-surabhi-laxmi-towers-20261018",
+    "listing-swastik-glass-paradise-20261018",
+    "sat-paradise-opposite-blocks-20261018",
+    "sat-paradise-south-blocks-20261018",
+    "sv-paradise-arcade-centre-2026-02-20261018",
+    "sv-paradise-arcade-east-2026-02-20261018",
+    "sv-paradise-arcade-west-2026-02-20261018",
+    "sv-paradise-cafe-bakery-2026-02-chrome-20261018",
+    "sv-paradise-laxmi-east-2026-02-20261018",
+    "sv-paradise-laxmi-front-2026-02-20261018",
+    "sv-paradise-opposite-shops-2026-02-chrome-20261018",
+    "sv-paradise-south-white-block-2026-02-20261018"
+  ],
+  "mapSourceStatus": "canonical geometry and source-listed places remain provisional; door, carriageway correspondence and current operation unverified",
+  "overlapWithActiveMappingRangesOrMiyapurHold": [],
+  "pinnedFiles": {
+    "game/public/research/street-survey.json": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+    "game/public/world/hyd-metro/v2/core.json": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+    "game/public/world/hyd-metro/v2/manifest.json": "b07636419815d2428d110b6e912144f93679d1b928ce53cd5d1464db62fe1089",
+    "game/public/world/hyd-metro/v2/listings.json": "476ee9815186a0fab903ba8c538e0074ea7e2091bbb68f6343a4b02dd38d2288"
+  },
+  "jobs": [
+    {
+      "id": "order1",
+      "title": "Test pizza delivery 1 \u2014 Radisson Blu, Hyderabad",
+      "pickupId": "d_domino_s_pizza_india",
+      "stops": [
+        "d_radisson_blu_hyderabad"
+      ]
+    },
+    {
+      "id": "order2",
+      "title": "Test pizza delivery 2 \u2014 Eco Basket",
+      "pickupId": "d_domino_s_pizza_india",
+      "stops": [
+        "d_eco_basket"
+      ]
+    }
+  ],
+  "qualification": "NONE; no verified coverage or verified storefronts claimed"
+}

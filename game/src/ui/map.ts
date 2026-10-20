@@ -1,4 +1,4 @@
-import type { PilotZone } from '../pilot/zone';
+import type { PlayZone } from '../pilot/playZone';
 import type { RoadEdge, Storefront, WorldChunkV2, WorldCore } from '../world/schema';
 import type { WorldPhysics } from '../world/collision';
 import type { Session } from '../missions/session';
@@ -45,7 +45,7 @@ export class MapView {
   focusedPlaceIds=new Set<string>();
   private boundsAll: { minX: number; maxX: number; minZ: number; maxZ: number };
 
-  constructor(public core: WorldCore, public world: WorldPhysics, public survey: StreetSurvey | null = null, private pilotZone: PilotZone | null = null) {
+  constructor(public core: WorldCore, public world: WorldPhysics, public survey: StreetSurvey | null = null, private pilotZone: PlayZone | null = null) {
     let minX=Infinity,maxX=-Infinity,minZ=Infinity,maxZ=-Infinity;
     for (const l of core.metroLines) {
       const pts=l.geo.map(pl=>pl.map(([la,lo])=>project(la,lo)));
@@ -145,7 +145,7 @@ export class MapView {
     }
     const admitted = this.pilotZone ? new Set(this.pilotZone.definition.entrances.map(e => e.deliveryId)) : null;
     for(const d of this.core.deliveries){if(admitted && !admitted.has(d.id))continue;const active=s?.currentStop?.id===d.id;if(!active&&this.scale<.55)continue;if(!on(...d.entrance))continue;g.fillStyle=active?'#e27a32':'#a78b6a';g.beginPath();g.arc(X(d.entrance[0]),Y(d.entrance[1]),(active?7:2)*dpr,0,Math.PI*2);g.fill();if(active)label(d.label,X(d.entrance[0])+10*dpr,Y(d.entrance[1]),12,'#9f4c16',true);}
-    if(this.pilotZone){path(this.pilotZone.definition.polygon);g.closePath();g.strokeStyle='#275f35';g.lineWidth=3*dpr;g.setLineDash([8*dpr,4*dpr]);g.stroke();g.setLineDash([]);label('Verified play boundary',22*dpr,22*dpr,12,'#275f35',true);}
+    if(this.pilotZone){path(this.pilotZone.definition.polygon);g.closePath();g.strokeStyle='#275f35';g.lineWidth=3*dpr;g.setLineDash([8*dpr,4*dpr]);g.stroke();g.setLineDash([]);label(this.pilotZone.mode==='verified'?'Verified play boundary':'Provisional preview boundary',22*dpr,22*dpr,12,'#275f35',true);}
     if(s){const p=s.player;g.save();g.translate(X(p.x),Y(p.z));g.rotate(-p.heading);g.fillStyle='#1769d8';g.strokeStyle='#fff';g.lineWidth=2*dpr;g.beginPath();g.moveTo(0,-10*dpr);g.lineTo(7*dpr,8*dpr);g.lineTo(0,4*dpr);g.lineTo(-7*dpr,8*dpr);g.closePath();g.fill();g.stroke();g.restore();}
     const px=100*sc;if(px>25*dpr&&px<250*dpr){g.strokeStyle='#5a6261';g.lineWidth=2*dpr;g.beginPath();g.moveTo(22*dpr,H-28*dpr);g.lineTo(22*dpr+px,H-28*dpr);g.stroke();label('100 m',22*dpr,H-42*dpr,10);}
     if(this.mapChunks?.loading||this.mapChunks?.failed)label(this.mapChunks.loading?'Loading buildings and places…':'Some places could not load. Move the map to retry.',22*dpr,H-12*dpr,10);
