@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "id": "second-computer-01-khairatabad-lakdi-pilot-002-20261020",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-20",
+  "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+  "notes": "Small batch002 under unchanged ACTIVE lease khairatabad-lakdi-pilot-r8306076003-3: only r_8306076003_3 canonical left/right [20.00,168.60]m. Original activation50e23bd3b8162381623e8ea7bd617409f88bda54; receiving coordinator ee683f5fe4713e700e2887e175545f84726ef256 from takeover882b13f0a9079c14407ea872800863d08c7b63b7/current survey113 SHA25617741d5b1fe3df3845944c2632da2628a5e22f2d8a54bee7e58272a4e5c3f66a. Ordinary visible forward roadway continuation from S76a (batch001) reached 1PBg then o-va; all inspected new images visibly Nov2021. Two cameras, four side-facing sources/four pending boundary/occlusion context observations only. No named premises, storefrontOverrides, corrections, roadReviews or reviewed ranges. Far signs across the divided roadway are not assigned as pilot frontage. Preserve all excluded buffers/junctions, branches, other roads/carriageways, station gates/connectors and provider-blocked reservations. The older Apr2026 locator remains excluded; batch001 already imported once and not duplicated. Camera offsets are map projections, not measured frontage or continuous coverage. See checkpoint-20261020-batch002.md.",
+  "sources": [
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-1PBg-h043",
+      "kind": "street_view",
+      "title": "Left-facing context; cross-carriageway frontage unresolved",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=1PBg5J5YtEBKCWHrJsU_jw&heading=43&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4063868,
+        "lon": 78.4626628,
+        "headingDeg": 43,
+        "panoId": "1PBg5J5YtEBKCWHrJsU_jw"
+      },
+      "notes": "Traffic obscures parts of the far visible edge. A strip of shutters and upper signboards is visible across the divided roadway, but those premises are not assigned to this road edge or inventoried. No brand/tenant, door, facade range or other-carriageway observation is authored. The road-side association of distant frontage remains unknown. Camera projection on r_8306076003_3: offset38.828271m, lateral2.187702m, inside [20.00,168.60]m; geometry provisional. Canonical left-facing angular sector follows stored points; no exact facade-side/entrance placement is verified. Provider panel/footer visibly show Nov2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-1PBg-h223",
+      "kind": "street_view",
+      "title": "Right roadside barriers and vegetation",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=1PBg5J5YtEBKCWHrJsU_jw&heading=223&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4063868,
+        "lon": 78.4626628,
+        "headingDeg": 223,
+        "panoId": "1PBg5J5YtEBKCWHrJsU_jw"
+      },
+      "notes": "The immediate edge has portable traffic-police barriers in front of rough planted/vegetated ground; utility equipment is partly visible at the frame edge. These objects and vegetation obscure the boundary. Buses, parking/access space and other premises beyond the immediate edge are excluded. No storefront, station gate or connector is identified. Camera projection on r_8306076003_3: offset38.828271m, lateral2.187702m, inside [20.00,168.60]m; geometry provisional. Canonical right-facing angular sector follows stored points; no exact facade-side/entrance placement is verified. Provider panel/footer visibly show Nov2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-ova-h046",
+      "kind": "street_view",
+      "title": "Left viaduct pier and planted boundary",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=o-vaNpcgphoMVn379vda1w&heading=46&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4063211,
+        "lon": 78.4627284,
+        "headingDeg": 46,
+        "panoId": "o-vaNpcgphoMVn379vda1w"
+      },
+      "notes": "A large concrete viaduct pier fills much of the near left-facing frame; low planted greenery runs along its base/adjacent boundary. Traffic and signs are visible beyond, across the divided roadway, but they are excluded from assigned-premise inventory. The pier and vehicles occlude continuity. No tenant, door or frontage span is assigned. Camera projection on r_8306076003_3: offset48.814775m, lateral1.958046m, inside [20.00,168.60]m; geometry provisional. Canonical left-facing angular sector follows stored points; no exact facade-side/entrance placement is verified. Provider panel/footer visibly show Nov2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-ova-h226",
+      "kind": "street_view",
+      "title": "Right wall, utility installation and advertising",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=o-vaNpcgphoMVn379vda1w&heading=226&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4063211,
+        "lon": 78.4627284,
+        "headingDeg": 226,
+        "panoId": "o-vaNpcgphoMVn379vda1w"
+      },
+      "notes": "Visible immediate roadside context includes a low weathered boundary wall, trees/vegetation, utility poles and a raised transformer installation. A small support/pillar bears painted LADIES GYM advertising; this is recorded as text only, not proof of a gym at this location, a shop entrance or tenancy. Vegetation and equipment hide parts of the wall. The bus/access area beyond the immediate boundary is not surveyed. No exact utility/building dimensions or entrance is assigned. Camera projection on r_8306076003_3: offset48.814775m, lateral1.958046m, inside [20.00,168.60]m; geometry provisional. Canonical right-facing angular sector follows stored points; no exact facade-side/entrance placement is verified. Provider panel/footer visibly show Nov2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-002-1PBg-h043",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-1PBg-h043"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left-facing context; cross-carriageway frontage unresolved",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4063868,
+        "lon": 78.4626628,
+        "headingDeg": 43
+      },
+      "placementStatus": "pending",
+      "notes": "Traffic obscures parts of the far visible edge. A strip of shutters and upper signboards is visible across the divided roadway, but those premises are not assigned to this road edge or inventoried. No brand/tenant, door, facade range or other-carriageway observation is authored. The road-side association of distant frontage remains unknown. Camera projection on r_8306076003_3: offset38.828271m, lateral2.187702m, inside [20.00,168.60]m; geometry provisional. Canonical left-facing angular sector follows stored points; no exact facade-side/entrance placement is verified. Confidence is limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-002-1PBg-h223",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-1PBg-h223"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right roadside barriers and vegetation",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4063868,
+        "lon": 78.4626628,
+        "headingDeg": 223
+      },
+      "placementStatus": "pending",
+      "notes": "The immediate edge has portable traffic-police barriers in front of rough planted/vegetated ground; utility equipment is partly visible at the frame edge. These objects and vegetation obscure the boundary. Buses, parking/access space and other premises beyond the immediate edge are excluded. No storefront, station gate or connector is identified. Camera projection on r_8306076003_3: offset38.828271m, lateral2.187702m, inside [20.00,168.60]m; geometry provisional. Canonical right-facing angular sector follows stored points; no exact facade-side/entrance placement is verified. Confidence is limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-002-ova-h046",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-ova-h046"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left viaduct pier and planted boundary",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4063211,
+        "lon": 78.4627284,
+        "headingDeg": 46
+      },
+      "placementStatus": "pending",
+      "notes": "A large concrete viaduct pier fills much of the near left-facing frame; low planted greenery runs along its base/adjacent boundary. Traffic and signs are visible beyond, across the divided roadway, but they are excluded from assigned-premise inventory. The pier and vehicles occlude continuity. No tenant, door or frontage span is assigned. Camera projection on r_8306076003_3: offset48.814775m, lateral1.958046m, inside [20.00,168.60]m; geometry provisional. Canonical left-facing angular sector follows stored points; no exact facade-side/entrance placement is verified. Confidence is limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-002-ova-h226",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-ova-h226"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right wall, utility installation and advertising",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4063211,
+        "lon": 78.4627284,
+        "headingDeg": 226
+      },
+      "placementStatus": "pending",
+      "notes": "Visible immediate roadside context includes a low weathered boundary wall, trees/vegetation, utility poles and a raised transformer installation. A small support/pillar bears painted LADIES GYM advertising; this is recorded as text only, not proof of a gym at this location, a shop entrance or tenancy. Vegetation and equipment hide parts of the wall. The bus/access area beyond the immediate boundary is not surveyed. No exact utility/building dimensions or entrance is assigned. Camera projection on r_8306076003_3: offset48.814775m, lateral1.958046m, inside [20.00,168.60]m; geometry provisional. Canonical right-facing angular sector follows stored points; no exact facade-side/entrance placement is verified. Confidence is limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    }
+  ]
+}
