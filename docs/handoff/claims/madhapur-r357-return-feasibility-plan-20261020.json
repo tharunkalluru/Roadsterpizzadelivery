@@ -1,0 +1,248 @@
+{
+  "assignmentId": "madhapur-r357-return-feasibility",
+  "workerId": "second-computer-01",
+  "ownerBranch": "worker/second-computer-01/madhapur-r357-return-feasibility",
+  "recordedAt": "2026-10-20T17:38:14.433666+00:00",
+  "coordinatorPredecessor": "4175fc3cc7993d805d83fcec02bee40b89d527ea",
+  "status": "PLAN_ONLY_NOT_ACTIVE",
+  "authorization": "Explicit user delegation: bounded feasibility survey for r357 return candidate three connectors r584/r207/r626 and junctions; mapping/survey integration only.",
+  "frozenFiles": {
+    "game/public/research/street-survey.json": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42",
+    "game/public/world/hyd-metro/v2/manifest.json": "b07636419815d2428d110b6e912144f93679d1b928ce53cd5d1464db62fe1089",
+    "game/public/world/hyd-metro/v2/core.json": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c",
+    "game/package-lock.json": "dc36354e007ddbe185b883df2d2723348aa4e0387de975138c016c18b43fc9f6",
+    "game/data/archives/source-accuracy.json.gz": "4e0e9f32c651de10e6ce40f6a4eec96986b4e8d7b0fcfd77de4610d512d490fd"
+  },
+  "surveyRevision": 133,
+  "roads": [
+    {
+      "id": "r_58407483981_0",
+      "wayId": 58407483981,
+      "name": null,
+      "nameId": null,
+      "highway": "secondary",
+      "oneway": true,
+      "routable": true,
+      "lanes": null,
+      "widthM": 9,
+      "level": 0,
+      "bridge": false,
+      "tunnel": false,
+      "elevationM": 0,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "surfaceId": "s_0_r_58407483981_0",
+      "fromNode": "n_54485549899",
+      "toNode": "n_52965406785",
+      "points": [
+        [
+          -16542.91,
+          -2918.19
+        ],
+        [
+          -16516.07,
+          -2996.38
+        ]
+      ],
+      "lengthM": 82.67,
+      "footpath": true,
+      "status": {
+        "geometry": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/d995b7a4d0eb",
+          "osm:w31357633@17"
+        ]
+      }
+    },
+    {
+      "id": "r_20784239011_0",
+      "wayId": 20784239011,
+      "name": "Road Number 2",
+      "nameId": "nm_road_road_number_2",
+      "highway": "residential",
+      "oneway": false,
+      "routable": true,
+      "lanes": null,
+      "widthM": 4.93,
+      "level": 0,
+      "bridge": false,
+      "tunnel": false,
+      "elevationM": 0,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "surfaceId": "s_0_r_20784239011_0",
+      "fromNode": "n_52965406785",
+      "toNode": "n_36864024645",
+      "points": [
+        [
+          -16516.07,
+          -2996.38
+        ],
+        [
+          -16561.83,
+          -3007.17
+        ]
+      ],
+      "lengthM": 47.01,
+      "footpath": true,
+      "status": {
+        "geometry": "provisional",
+        "name": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/4d6d651a33c2",
+          "osm:w31357615@15"
+        ],
+        "note": "clamped 6->4.93 m (footprint clearance 3.06 m)"
+      }
+    },
+    {
+      "id": "r_62617115125_0",
+      "wayId": 62617115125,
+      "name": null,
+      "nameId": null,
+      "highway": "residential",
+      "oneway": false,
+      "routable": true,
+      "lanes": null,
+      "widthM": 4.5,
+      "level": 0,
+      "bridge": false,
+      "tunnel": false,
+      "elevationM": 0,
+      "pointElevM": [
+        0,
+        0
+      ],
+      "surfaceId": "s_0_r_62617115125_0",
+      "fromNode": "n_36864024645",
+      "toNode": "n_8238597964",
+      "points": [
+        [
+          -16561.83,
+          -3007.17
+        ],
+        [
+          -16570.25,
+          -2921.21
+        ]
+      ],
+      "lengthM": 86.37,
+      "footpath": true,
+      "status": {
+        "geometry": "provisional",
+        "width": "provisional",
+        "direction": "provisional"
+      },
+      "provenance": {
+        "source": "derived",
+        "sourceIds": [
+          "ovt:seg/e944559f5c87",
+          "osm:w31357627@5"
+        ],
+        "note": "clamped 6->4.5 m (footprint clearance 1.36 m)"
+      }
+    }
+  ],
+  "exclusiveRoadRanges": [
+    {
+      "roadId": "r_58407483981_0",
+      "side": "left",
+      "startM": 0,
+      "endM": 82.67,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_58407483981_0",
+      "side": "right",
+      "startM": 0,
+      "endM": 82.67,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_20784239011_0",
+      "side": "left",
+      "startM": 0,
+      "endM": 47.01,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_20784239011_0",
+      "side": "right",
+      "startM": 0,
+      "endM": 47.01,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_62617115125_0",
+      "side": "left",
+      "startM": 0,
+      "endM": 86.37,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    },
+    {
+      "roadId": "r_62617115125_0",
+      "side": "right",
+      "startM": 0,
+      "endM": 86.37,
+      "boundaryRule": "closed full canonical edge; stored road.points order"
+    }
+  ],
+  "junctionMovements": [
+    {
+      "nodeId": "n_54485549899",
+      "junctionId": "j_54485549899",
+      "incoming": "r_35746161453_0:f",
+      "outgoing": "r_58407483981_0:f",
+      "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+    },
+    {
+      "nodeId": "n_52965406785",
+      "junctionId": "j_52965406785",
+      "incoming": "r_58407483981_0:f",
+      "outgoing": "r_20784239011_0:f",
+      "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+    },
+    {
+      "nodeId": "n_36864024645",
+      "junctionId": "j_36864024645",
+      "incoming": "r_20784239011_0:f",
+      "outgoing": "r_62617115125_0:f",
+      "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+    },
+    {
+      "nodeId": "n_8238597964",
+      "junctionId": "j_8238597964",
+      "incoming": "r_62617115125_0:f",
+      "outgoing": "r_35746161453_0:f",
+      "boundary": "Only specified transition/interface at canonical node; no invented measured radius; no adjacent-road frontage/traversal"
+    }
+  ],
+  "exclusions": [
+    "All other roads/frontages/carriageways and junction movements; r357 existing frontage context only, no re-survey lease.",
+    "Adjacent r17731498241/r65331069968/r54606796167/r37185680086 frontage/traversal excluded.",
+    "Station gates/connectors and all former scopes/exclusions/provider blocks retained unchanged.",
+    "Game runtime/mobile fixes/QA/deployment/main Site excluded."
+  ],
+  "priorAssignments": 11,
+  "priorActiveLeases": 8,
+  "reservationConflicts": [],
+  "objective": "Test actual directed continuity, signs/barriers/legal turns and safe return; identify a source-supported real pizza pickup and exact safe entrance/customer stop, if any exists inside scope. Canonical graph adjacency is only hypothesis.",
+  "evidencePolicy": "New public/reference evidence only after activation publication and isolated-worker startup. No replay of old Bata facade/sign views. Actual metadata and scope checks before pixels/frontage. Old imagery cannot prove current legal access/tenancy; listing alone cannot prove entrance. No inferred outlet/door/occupancy/connectivity or verified counter promotion. Stop dependent claim at missing evidence; produce bounded dated field checklist. Reference-only imagery; no redistributed raw provider assets or bypass.",
+  "browserPolicy": "One operator, dedicated original Chrome Roadster tab, serial tab-ID actions; no unrelated tabs/global focus/native dialogs/application switching.",
+  "nextAction": "Publish plan/read back; separately activate preserving all11 existing assignment objects/eight leases and split. Resolve first-addition activation SHA, publish/read back, new isolated worker exactly there and startup report all5 hashes before new evidence.",
+  "canonicalFeasibilityReference": "docs/handoff/reviews/second-computer-01-r357-return-loop-feasibility-20261020.json"
+}
