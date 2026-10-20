@@ -1,5 +1,22 @@
 # Current Roadster status
 
+## Current resume pointer — 2026-10-20T07:17:29Z
+
+Current collection is `road5-yusufguda-r36985565509-0`, owner `second-computer-01`, branch `worker/second-computer-01/road5-yusufguda-r36985565509-0`, worker `c0d0e71c4d9a03ed8666b40cd1cf3e5ee953a72b`. ONLY r_36985565509_0 canonical left/right closed **150.00–177.43 m**, all recorded exclusions retained. Current runtime is **survey 131**, SHA256 `a0acd7cb8cbbba73fbbff24354cf5f2fdf9d51e12a46b5d91822ead4388f81e9`; ten assigned pending contexts, zero qualified side metres. The completed review was accepted at coordinator `5517ee5b6125aa28b4a01f825221b72af0d36a15`.
+
+**The lower dXet historical-option investigation is COMPLETE.** Both offered captures were actually inspected after metadata/nearest-road/bounds checks:
+
+| Capture | Actual panorama | Assigned offset | Checked views |
+|---|---|---:|---|
+| January 2025 | `-ux3rUtpkAcx2BWaevc5yw` | 154.612873377 m | right h2/fov75; left h182/fov65 |
+| December 2021 | `cxiFSFCUprIv7rKQKR6N4Q` | 155.596823998 m | left h182/fov75; right h2/fov65 |
+
+Four views were saved as REVIEW-ONLY, with no duplicate sources/observations, batch 003, import or qualified coverage. December's 4.647433343 m lateral offset remains explicit model-alignment uncertainty. Browser recovery is resolved without user action; actual same-tab readback confirmed the interrupted date click executed, and it was not repeated. Earlier dated narratives saying these options were uninspected describe the state before this completed review.
+
+Final lower-neighbor `AvOowwXTxIEeRtPpJ36KiA` returned 145.011273638 m, below 150.00 m, and was stopped BEFORE frontage/screenshot/date inspection or authoring. Do not reopen it or repeat the completed dXet/date target set without genuinely new relevant evidence. [Latest checkpoint](game/work/road5-yusufguda-r36985565509-0/checkpoint-20261020-lower-gap-historical-review.md), [actual review ledger](game/work/road5-yusufguda-r36985565509-0/lower-gap-historical-review-20261020.json), [current source/task audit](docs/handoff/reviews/second-computer-01-actionable-source-audit-131.md).
+
+Next dependency is calibrated/current canonical unit/door/boundary/measurement and complete bounded inventory proof, including remaining lower/hidden gaps. No fresh distinct currently allowed recorded source task was found. Four unreserved a8/Venkatgiri branch candidates remain unconfirmed/excluded under the saved plan and require route/canonical-scope determination plus a distinct allowed published activation before inventory. All existing reservations/provider blocks and station-order gaps remain. No global imagery/task exhaustion is asserted.
+
 Updated 2026-10-20T03:19:19Z. Second-computer-01 retains CLAIMED coordinator/single-integrator ownership under handover `882b13f0a9079c14407ea872800863d08c7b63b7` and claim `ee683f5fe4713e700e2887e175545f84726ef256`. The outgoing account and former primary owners01a155cd-daee-76ce-a294-b890d8aaa02b /01a15693-f702-75bd-998c-c3d27139900f remain QUIESCENT/INACTIVE until explicit user transfer back; no quota-reset resumption.
 
 Runtime is now **survey 131**, hyd-metro/2.0.0: 894 sources,668 observations,169 provisional storefronts,zero verified storefronts/sides. Survey SHA256 `a0acd7cb8cbbba73fbbff24354cf5f2fdf9d51e12a46b5d91822ead4388f81e9`; all five SNAPSHOT hashes match. Original113 transfer capture remains pinned separately.
