@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T05:36:06Z",
+  "updatedAt": "2026-10-20T05:39:41Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -631,13 +631,13 @@
           "right": "unreviewed"
         }
       },
-      "evidenceCollectionState": "BATCH002_PENDING_CONTEXT_ADMITTED",
-      "latestCheckpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch002.md",
+      "evidenceCollectionState": "THREE_BATCHES_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
+      "latestCheckpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch003-official-sources.md",
       "nextPanorama": null,
-      "nextAction": "The five known interior cameras have new side views saved. Review a genuinely new unobstructed source or targeted angle only if it can address a specific visibility/correspondence gap; do not duplicate the same facade branding as another premise. Exact endpoint/inter-camera units, entrance geometry and currentness remain unresolved. Do not advance into a8 or endpoint junctions; same bounds and exclusions apply.",
-      "latestEvidenceLedger": "game/work/road5-yusufguda-road2-r63797909905-0/evidence-ledger-20261020-batch002.json",
-      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch002-import-120.md",
-      "workerCommit": "870f392018599c8427394bf9dba354ab48c0dda7",
+      "nextAction": "Review genuinely new evidence that addresses the recorded gaps. Qualifying placement/coverage needs unobstructed dated in-lease or field views with measured reference/control points, exact endpoint/facade/unit/door correspondence and current on-site corroboration. Existing official addresses are only a possible match and use different road wording. Do not repeat the same side sectors, infer metric geometry from provisional core width, advance into a8/endpoint junctions, expand this lease or duplicate batches. Last imagery Tqe 56.780814 m, heading 105, next new panorama unknown.",
+      "latestEvidenceLedger": "game/work/road5-yusufguda-road2-r63797909905-0/official-source-review-20261020.json",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch003-import-121.md",
+      "workerCommit": "e37a5f1a7736a8e18610ad98ad85c57fbfbd21d4",
       "workerPullRequest": "https://github.com/tharunkalluru/Roadsterpizzadelivery/pull/3",
       "lastPanorama": {
         "panoId": "TqeFWcmcoksX5tXcPM_u_g",
@@ -652,16 +652,36 @@
       "batch001ImportedRevision": 119,
       "batch001ContentHash": "48db591d03c3435c951c314b4aeb5e42fa8c83e8e5809491e5679292a40ebc14",
       "contextAdmission": {
-        "newSources": 10,
-        "pendingObservations": 10,
+        "newSources": 12,
+        "pendingObservations": 11,
         "datedCameras": 5,
         "storefrontPlacementsAdded": 0,
         "roadReviewRangesAdded": 0,
         "qualifiedSideMetres": 0,
-        "historicalRoadBoundObservationsPreserved": 2
+        "historicalRoadBoundObservationsPreserved": 2,
+        "imagerySources": 10,
+        "officialBusinessSources": 2,
+        "pendingSideContexts": 10,
+        "pendingCorroborations": 1
       },
       "batch002ImportedRevision": 120,
-      "batch002ContentHash": "cf3c7a260a0a802582b567c73004630d8aca4f15f3f19b17644045c8e2aacefe"
+      "batch002ContentHash": "cf3c7a260a0a802582b567c73004630d8aca4f15f3f19b17644045c8e2aacefe",
+      "batch003ImportedRevision": 121,
+      "batch003ContentHash": "b750d4370e53b7dced28a069883deb56341acf83232443e20ef66cb3477230cd",
+      "evidenceQualificationLimit": {
+        "type": "MISSING_CALIBRATION_CORRESPONDENCE_CURRENTNESS",
+        "notProviderDenial": true,
+        "allAssignedSideMetresUnqualified": 52.0,
+        "knownCamerasReviewed": 5,
+        "imagesReviewed": 10,
+        "officialSourcesReviewed": 2,
+        "required": [
+          "Unobstructed dated views of endpoint/inter-camera and hidden unit/floor boundaries.",
+          "Measured reference/control points and calibrated facade/entrance geometry.",
+          "Exact official-address-to-photographed-door association and newer on-site operation proof."
+        ],
+        "universalImageryExhaustionClaim": false
+      }
     }
   ],
   "handover": "docs/handoff/TAKEOVER.json"

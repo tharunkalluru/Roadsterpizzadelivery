@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "second-computer-01-road2-central-r63797909905-0-003-20261020",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-20",
+  "reviewer": "second-computer-01 / official source and photographed-fascia review",
+  "notes": "Assignment road5-yusufguda-road2-r63797909905-0, activation c12c65dc67562da0f78ca46310622fee0d1486ff. Current coordinator ebe1b3fa9099812b11c17c48dd98f8dcd620a902 / survey 120, worker predecessor 870f392018599c8427394bf9dba354ab48c0dda7. Two new first-party references and one pending corroboration observation linked to the existing Jlc right-side source. Website content publication/update dates are unknown (captureDate null); observedDate is the actual review date. No prior observation/source edits or duplicate premises, no physical or coverage fields. Inference only: the two first-party addresses share a house-identifier stem and enclave, consistent with a possible relationship to the adjacent pizza fascias in the January 2026 Jlc image. Exact premise/door match is unresolved. Official Road No.5 naming differs from Street View Road No.2; no road or geometry correction inferred. The point below is the existing Jlc camera, not an official listing pin or entrance. These are corroborating references for already observed signs, not two new premises or current-tenancy verification. Canonical side, floor/unit, dimensions, full frontage and operation on 2026-10-20 remain unverified. Same assigned r_63797909905_0 left/right 10.00–62.00 m; no coverage or endpoint/junction/other-road assignment.",
+  "sources": [
+    {
+      "id": "official-second-computer-01-central-20261020-pizzahut-jubilee",
+      "kind": "official_business",
+      "title": "Pizza Hut official Jubilee Hills listing; facade match pending",
+      "url": "https://restaurants.pizzahut.co.in/pizza-hut-ph-jubilee-hills-hyderabad-pizza-restaurant-jubilee-hills-hyderabad-121156/Home",
+      "captureDate": null,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / official source and photographed-fascia review",
+      "notes": "The first-party listing includes a Jubilee Hills outlet with Divya Sai Enclave and house identifier 8/2/293/82/A/23, using Road No.5 in its address. Publication/update date and exact photographed doorway match are unknown. No website coordinates or entrance placement inferred. A live listing is not proof of operation at the photographed door. Reference only.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "official-second-computer-01-central-20261020-dominos-jubilee",
+      "kind": "official_business",
+      "title": "Domino's official Jubilee Hill directory entry; facade match pending",
+      "url": "https://www.dominos.co.in/store-location/hyderabad/jublee-hills-hyderabad",
+      "captureDate": null,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / official source and photographed-fascia review",
+      "notes": "The public official directory rendered in local Chrome lists a Jubilee Hill outlet with the same house-identifier stem and Divyasai Enclave, using Road No.5. This supports a possible co-location inference, not a verified link to the photographed shutters or entrance. Directory update date is unknown; hours and phone numbers are not retained. Reference only.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-second-computer-01-road2-central-r63797909905-0-003-official-address-corroboration",
+      "sourceIds": [
+        "official-second-computer-01-central-20261020-pizzahut-jubilee",
+        "official-second-computer-01-central-20261020-dominos-jubilee",
+        "sv-second-computer-01-road2-central-r63797909905-0-20261020-Jlc-h112"
+      ],
+      "captureDate": null,
+      "observedDate": "2026-10-20",
+      "name": "Official pizza listings: address corroboration with unresolved facade match",
+      "category": "identity_corroboration_pending",
+      "roadId": "r_63797909905_0",
+      "position": {
+        "lat": 17.4309707,
+        "lon": 78.4209622,
+        "headingDeg": 112
+      },
+      "placementStatus": "pending",
+      "notes": "Inference only: the two first-party addresses share a house-identifier stem and enclave, consistent with a possible relationship to the adjacent pizza fascias in the January 2026 Jlc image. Exact premise/door match is unresolved. Official Road No.5 naming differs from Street View Road No.2; no road or geometry correction inferred. The point below is the existing Jlc camera, not an official listing pin or entrance. These are corroborating references for already observed signs, not two new premises or current-tenancy verification. Canonical side, floor/unit, dimensions, full frontage and operation on 2026-10-20 remain unverified. Same assigned r_63797909905_0 left/right 10.00–62.00 m; no coverage or endpoint/junction/other-road assignment."
+    }
+  ]
+}

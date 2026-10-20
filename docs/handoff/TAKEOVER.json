@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T05:36:06Z",
+  "updatedAt": "2026-10-20T05:39:41Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -88,7 +88,7 @@
       "claimCheckpoint": "docs/handoff/claims/road5-yusufguda-road2-r63797909905-0-activation-20261020.md",
       "publishedPlanCommit": "57b4c09d53c0271d808e8185e062034fc3822fed",
       "owner": "second-computer-01",
-      "state": "BATCH002_PENDING_CONTEXT_ADMITTED",
+      "state": "THREE_BATCHES_ADMITTED_CALIBRATION_AND_MATCH_GAPS_OPEN",
       "roadId": "r_63797909905_0",
       "rangesM": [
         10,
@@ -101,10 +101,10 @@
       "oldA8AndMarkerGapsPreserved": true,
       "separateAnchorJumpDisclosed": true,
       "activationCommit": "c12c65dc67562da0f78ca46310622fee0d1486ff",
-      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch002.md",
-      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch002-import-120.md",
-      "workerCommit": "870f392018599c8427394bf9dba354ab48c0dda7",
-      "pendingObservations": 10,
+      "checkpoint": "game/work/road5-yusufguda-road2-r63797909905-0/checkpoint-20261020-batch003-official-sources.md",
+      "reviewReceipt": "docs/handoff/reviews/second-computer-01-central-batch003-import-121.md",
+      "workerCommit": "e37a5f1a7736a8e18610ad98ad85c57fbfbd21d4",
+      "pendingObservations": 11,
       "qualifiedSideMetres": 0,
       "lastPanorama": {
         "panoId": "TqeFWcmcoksX5tXcPM_u_g",
@@ -116,7 +116,21 @@
         "projectedAlongM": 56.780813542858134,
         "lateralM": 1.001050946826675
       },
-      "nextAction": "The five known interior cameras have new side views saved. Review a genuinely new unobstructed source or targeted angle only if it can address a specific visibility/correspondence gap; do not duplicate the same facade branding as another premise. Exact endpoint/inter-camera units, entrance geometry and currentness remain unresolved. Do not advance into a8 or endpoint junctions; same bounds and exclusions apply."
+      "nextAction": "Review genuinely new evidence that addresses the recorded gaps. Qualifying placement/coverage needs unobstructed dated in-lease or field views with measured reference/control points, exact endpoint/facade/unit/door correspondence and current on-site corroboration. Existing official addresses are only a possible match and use different road wording. Do not repeat the same side sectors, infer metric geometry from provisional core width, advance into a8/endpoint junctions, expand this lease or duplicate batches. Last imagery Tqe 56.780814 m, heading 105, next new panorama unknown.",
+      "evidenceQualificationLimit": {
+        "type": "MISSING_CALIBRATION_CORRESPONDENCE_CURRENTNESS",
+        "notProviderDenial": true,
+        "allAssignedSideMetresUnqualified": 52.0,
+        "knownCamerasReviewed": 5,
+        "imagesReviewed": 10,
+        "officialSourcesReviewed": 2,
+        "required": [
+          "Unobstructed dated views of endpoint/inter-camera and hidden unit/floor boundaries.",
+          "Measured reference/control points and calibrated facade/entrance geometry.",
+          "Exact official-address-to-photographed-door association and newer on-site operation proof."
+        ],
+        "universalImageryExhaustionClaim": false
+      }
     },
     "retainedBoundedAssignments": [
       {
@@ -307,10 +321,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 120,
-    "surveySha256": "5b69226377696613d9958d9c427f3a492d17b739ae0d83a82788cbb457978df7",
-    "sources": 855,
-    "observations": 630,
+    "surveyRevision": 121,
+    "surveySha256": "f6320726efefbc2251e863eace7e2c5d36c828105a5cd75d3dfb9fb22198cacb",
+    "sources": 857,
+    "observations": 631,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }

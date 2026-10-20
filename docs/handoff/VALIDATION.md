@@ -83,3 +83,7 @@ Disposable current-118 preview passed; serial import returned 119 with canonical
 ## Central Road No.2 batch 002 / survey 120 — 2026-10-20T05:36:06Z
 
 Disposable current-119 preview passed; serial import returned 120 with canonical `cf3c7a260a0a802582b567c73004630d8aca4f15f3f19b17644045c8e2aacefe`. Survey validation passed zero errors (existing placement warning); network/queue regeneration and reproducibility plus tsc/Vite production build passed (84 modules). Prior record/receipt prefixes and all road/physical/coverage collections unchanged. All five current SNAPSHOT hashes match; original transfer capture/protected reservations preserved. No full unit/E2E/device rerun or independent second imagery review. See `docs/handoff/reviews/second-computer-01-central-batch002-import-120.md`.
+
+## Central Road No.2 batch 003 / survey 121 — 2026-10-20T05:39:41Z
+
+Disposable current-120 preview passed; serial import returned 121 with canonical `b750d4370e53b7dced28a069883deb56341acf83232443e20ef66cb3477230cd`. Survey validation passed zero errors (existing placement warning); network/queue regeneration and reproducibility plus tsc/Vite production build passed (84 modules). Prior record/receipt prefixes and all road/physical/coverage collections unchanged. All five current SNAPSHOT hashes match; original transfer capture/protected reservations preserved. No full unit/E2E/device rerun or independent second imagery review. See `docs/handoff/reviews/second-computer-01-central-batch003-import-121.md`.
