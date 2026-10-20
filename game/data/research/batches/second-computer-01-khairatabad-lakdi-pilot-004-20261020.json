@@ -1,0 +1,853 @@
+{
+  "schemaVersion": 1,
+  "id": "second-computer-01-khairatabad-lakdi-pilot-004-20261020",
+  "worldId": "hyd-metro",
+  "worldVersion": "2.0.0",
+  "reviewedAt": "2026-10-20",
+  "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+  "notes": "Same local Chrome recovery succeeded: original extension instance and survey tab were inventoried/reconciled; browser inventory ID changed from4 to1, without account/session rotation. Batch003 remains immutable and is not reimported. NEW actual side views at QMjB h51/h231, then ordinary visible same-lane clicks through Y59q,xizt,Rj0c,2awr,rMW,aB4,KGQW,MmB9,Hdp8,G6CF,dEjZ. All12cameras/24side views visibly November2021. Only r_8306076003_3 canonical left/right closed20.00-168.60m; original activation50e23bd3b8162381623e8ea7bd617409f88bda54, worker predecessor a70755bf475fc6520c80ce08dbbdd56149bc2c51, current coordinator9b477daa93dd956a805bfd02548858303ad2dc8a survey115 SHA256200ac5b3bacc443ec021b1dfedf65206906901a40c586c83371a45bc70a10a50. Last camera168.102920m; stop at lease boundary with no onward navigation. Pending dated boundary/occlusion contexts only. No storefrontOverrides, corrections, roadReviews, reviewed ranges or coverage. Exclude endpoint buffers/junctions, branches, other roads/carriageways, station gates/connectors, access faces and uncertain out-of-bounds facade extents. Preserve provider-blocked Miyapur-JNTU and parked Road5-Yusufguda gaps. Camera spacing, angular views and map projections do not establish continuous frontage or dimensions. Foliage, shadow, parked vehicles, pier occlusion and provider blur remain explicit gaps; current tenancy unknown. See checkpoint-20261020-batch004-boundary.md.",
+  "sources": [
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-QMjB-h051",
+      "kind": "street_view",
+      "title": "Left planted median; far carriageway excluded",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=QMjBEf_gY6kDB97EYaVM4Q&heading=51&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4062617,
+        "lon": 78.4627922,
+        "headingDeg": 51,
+        "panoId": "QMjBEf_gY6kDB97EYaVM4Q"
+      },
+      "notes": "The near left boundary shows a low concrete planter/median densely covered by hedge plants, with a roadside advertising panel beyond it. Traffic and building signs across the separate carriageway are visible but are not assigned or inventoried as pilot premises. Vegetation/traffic obscure details; no door, tenant or exact frontage is established. Camera projection on r_8306076003_3: offset58.058406m,lateral2.298697m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-QMjB-h231",
+      "kind": "street_view",
+      "title": "Right tree-shaded wall and pavement",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=QMjBEf_gY6kDB97EYaVM4Q&heading=231&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4062617,
+        "lon": 78.4627922,
+        "headingDeg": 231,
+        "panoId": "QMjBEf_gY6kDB97EYaVM4Q"
+      },
+      "notes": "A weathered low wall, dense trees/vegetation and red circular plant pots are visible along the immediate pavement/curb. Foliage hides the property beyond. No storefront or entrance is established; no gate or connector face is inventoried. Wall/plant dimensions and continuity outside the frame are unknown. Camera projection on r_8306076003_3: offset58.058406m,lateral2.298697m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Y59q-h051",
+      "kind": "street_view",
+      "title": "Left median hedge and viaduct boundary",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Y59qzZVpzqHRnne4tb3jew&heading=51&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4062013,
+        "lon": 78.462851,
+        "headingDeg": 51,
+        "panoId": "Y59qzZVpzqHRnne4tb3jew"
+      },
+      "notes": "Near left edge shows a dense planted median in a low concrete boundary, with a viaduct support at the frame edge. Road traffic and far-carriageway building signs beyond the median are excluded from premise inventory. No tenant, entrance or exact frontage is assigned; planting/vehicles obscure details. Camera projection on r_8306076003_3: offset67.187996m,lateral2.903860m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Y59q-h231",
+      "kind": "street_view",
+      "title": "Right shaded wall and planters; access face excluded",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Y59qzZVpzqHRnne4tb3jew&heading=231&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4062013,
+        "lon": 78.462851,
+        "headingDeg": 231,
+        "panoId": "Y59qzZVpzqHRnne4tb3jew"
+      },
+      "notes": "The immediate right pavement has trees in red circular pots along a low weathered wall, with dense foliage hiding the property beyond. An access face visible at the frame edge is excluded and not classified or inventoried as a station/property gate or connector. No entrance, tenancy or frontage span is assigned; hidden portions remain gaps. Camera projection on r_8306076003_3: offset67.187996m,lateral2.903860m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-xizt-h051",
+      "kind": "street_view",
+      "title": "Left viaduct pier and planted median",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=xiztE-Rbni-cvnz5I-uy3A&heading=51&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4061317,
+        "lon": 78.462909,
+        "headingDeg": 51,
+        "panoId": "xiztE-Rbni-cvnz5I-uy3A"
+      },
+      "notes": "A concrete viaduct pier occupies much of the left sector, with a low concrete median containing dense planting. Opposite-carriageway traffic, shops and signs are excluded from pilot premise inventory. Pier/planting occlude details; no tenant, entrance or exact frontage is established. Camera projection on r_8306076003_3: offset77.052032m,lateral2.798709m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-xizt-h231",
+      "kind": "street_view",
+      "title": "Right shaded wall and planting; access face excluded",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=xiztE-Rbni-cvnz5I-uy3A&heading=231&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4061317,
+        "lon": 78.462909,
+        "headingDeg": 231,
+        "panoId": "xiztE-Rbni-cvnz5I-uy3A"
+      },
+      "notes": "Near pavement has a weathered wall, trees and red circular planters. The visible metal access face is excluded from inventory, with no station/property gate or connector classification or mapping. Foliage and shadow hide property details; no tenant, entrance, dimensions or continuous frontage is established. Camera projection on r_8306076003_3: offset77.052032m,lateral2.798709m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Rj0c-h051",
+      "kind": "street_view",
+      "title": "Left planted median and utility pole",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Rj0cRGl5yNaKkGo91g6e3g&heading=51&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4060693,
+        "lon": 78.4629603,
+        "headingDeg": 51,
+        "panoId": "Rj0cRGl5yNaKkGo91g6e3g"
+      },
+      "notes": "Low concrete median filled with dense shrubs/flowers and a utility pole are visible at the near left edge. Far-carriageway shops, signs and traffic are excluded from this road inventory. No premise or entrance is established, and planting hides the median interior. Camera projection on r_8306076003_3: offset85.848572m,lateral2.646858m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Rj0c-h231",
+      "kind": "street_view",
+      "title": "Right wall and planters with imagery blur gap",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Rj0cRGl5yNaKkGo91g6e3g&heading=231&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4060693,
+        "lon": 78.4629603,
+        "headingDeg": 231,
+        "panoId": "Rj0cRGl5yNaKkGo91g6e3g"
+      },
+      "notes": "Near pavement has red circular planters, trees and a weathered wall. A foliage-obscured advertising board does not establish an on-site operator or entrance. A large blurred patch conceals central/right detail and remains an explicit unobserved gap; no dimensions, tenancy or continuous frontage are assigned. Camera projection on r_8306076003_3: offset85.848572m,lateral2.646858m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-2awr-h051",
+      "kind": "street_view",
+      "title": "Left planted median and support pier",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=2awrXb19OUAb178IswEahg&heading=51&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4059997,
+        "lon": 78.4630219,
+        "headingDeg": 51,
+        "panoId": "2awrXb19OUAb178IswEahg"
+      },
+      "notes": "The near left boundary is a low concrete planted median with dense shrubs and a large viaduct support at the frame edge. Shops/traffic beyond the other carriageway are excluded; no pilot premise, door, dimensions or continuous frontage is established. Camera projection on r_8306076003_3: offset95.954724m,lateral2.837821m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-2awr-h231",
+      "kind": "street_view",
+      "title": "Right wall and institutional facade context; access excluded",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=2awrXb19OUAb178IswEahg&heading=231&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4059997,
+        "lon": 78.4630219,
+        "headingDeg": 231,
+        "panoId": "2awrXb19OUAb178IswEahg"
+      },
+      "notes": "Weathered wall, trees in red pots, wiring and pavement are visible. Upper facade lettering includes SILVER JUBILEE; other letters are uncertain and an SBI board is visible as dated context only, without validating operator/current tenancy or treating either as a storefront. The access face, steps and gate are excluded from mapping/inventory; no entrance coordinates, connector, dimensions or frontage span are assigned. Foliage/shadow obscure portions. Camera projection on r_8306076003_3: offset95.954724m,lateral2.837821m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-rMW-h048",
+      "kind": "street_view",
+      "title": "Left viaduct support and planted median",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=rMW-R1MAZ5rcCQhhwiGsJQ&heading=48&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4059285,
+        "lon": 78.4630889,
+        "headingDeg": 48,
+        "panoId": "rMW-R1MAZ5rcCQhhwiGsJQ"
+      },
+      "notes": "Near left edge has a viaduct support, paved base and a low concrete median containing shrubs/flowers. Signs, shops and traffic across the other carriageway are excluded. Support and planting hide portions; no frontage, door or dimensions are established. Camera projection on r_8306076003_3: offset106.718772m,lateral3.323927m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-rMW-h228",
+      "kind": "street_view",
+      "title": "Right wall, planters and obscured signs",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=rMW-R1MAZ5rcCQhhwiGsJQ&heading=228&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4059285,
+        "lon": 78.4630889,
+        "headingDeg": 228,
+        "panoId": "rMW-R1MAZ5rcCQhhwiGsJQ"
+      },
+      "notes": "Near pavement shows a low weathered wall, trees in red circular planters, poles, wiring and a utility cabinet. Building/signs behind foliage provide dated context only and do not establish tenants or storefronts. Access face at frame edge is excluded with no gate/connector inventory. Foliage/shadow obscure portions; no entrance, exact frontage or dimensions are assigned. Camera projection on r_8306076003_3: offset106.718772m,lateral3.323927m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-aB4-h048",
+      "kind": "street_view",
+      "title": "Left planted median with advertising support",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=-aB4UQcZE0eynNzym7vN_g&heading=48&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4058794,
+        "lon": 78.4631393,
+        "headingDeg": 48,
+        "panoId": "-aB4UQcZE0eynNzym7vN_g"
+      },
+      "notes": "Low concrete median filled with shrubs/flowers and an advertising support are visible at the near left edge. Opposite-carriageway businesses, shutters, signs and traffic are excluded from pilot inventory. No on-edge premise, entrance, dimensions or frontage span are established. Camera projection on r_8306076003_3: offset114.340077m,lateral3.670933m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-aB4-h228",
+      "kind": "street_view",
+      "title": "Right traffic barriers, wall and posters; access excluded",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=-aB4UQcZE0eynNzym7vN_g&heading=228&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4058794,
+        "lon": 78.4631393,
+        "headingDeg": 228,
+        "panoId": "-aB4UQcZE0eynNzym7vN_g"
+      },
+      "notes": "Portable blue traffic-police barriers stand by the immediate curb/pavement; trees, wall-mounted posters, utility cabinet and poles are visible behind. Access opening/interior beyond is excluded, with no gate/connector inventory. Poster text does not establish an on-site storefront or tenant. Barriers/foliage/shadow obscure portions; no dimensions or entrance position are assigned. Camera projection on r_8306076003_3: offset114.340077m,lateral3.670933m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-KGQW-h048",
+      "kind": "street_view",
+      "title": "Left concrete median with dense planting",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=KGQW7mWa7fGew9B-r4DP1A&heading=48&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4058277,
+        "lon": 78.4631918,
+        "headingDeg": 48,
+        "panoId": "KGQW7mWa7fGew9B-r4DP1A"
+      },
+      "notes": "Near left boundary has a low concrete median with dense shrubs and an advertising panel/support at frame edge. Opposite-carriageway signs, shops and traffic are excluded. Vegetation hides median details; no on-edge premise, entrance, dimension or frontage range is established. Camera projection on r_8306076003_3: offset122.324535m,lateral3.991381m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-KGQW-h228",
+      "kind": "street_view",
+      "title": "Right barriers and posters; access and hidden portions excluded",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=KGQW7mWa7fGew9B-r4DP1A&heading=228&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4058277,
+        "lon": 78.4631918,
+        "headingDeg": 228,
+        "panoId": "KGQW7mWa7fGew9B-r4DP1A"
+      },
+      "notes": "Immediate pavement/curb is partly blocked by portable blue/yellow traffic barriers and a parked vehicle. Trees and poster-covered wall portions are visible. Access opening/interior is excluded, not inventoried as gate or connector. Text/advertising does not validate an on-site operator. Vehicles, barriers and foliage obscure portions; no entrance, tenant or frontage span is assigned. Camera projection on r_8306076003_3: offset122.324535m,lateral3.991381m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-MmB9-h048",
+      "kind": "street_view",
+      "title": "Left support pier with substantial imagery blur",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=MmB9Dsus6dXfK1hgtm6PkQ&heading=48&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4057659,
+        "lon": 78.4632528,
+        "headingDeg": 48,
+        "panoId": "MmB9Dsus6dXfK1hgtm6PkQ"
+      },
+      "notes": "A large viaduct support, concrete base and portions of planted median are visible. A substantial provider blur masks much of the left/central image and remains an unobserved gap. Far-carriageway shops and traffic are excluded. No entrance, premise, dimensions or continuous frontage are assigned. Camera projection on r_8306076003_3: offset131.744023m,lateral4.235698m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-MmB9-h228",
+      "kind": "street_view",
+      "title": "Right wall hidden by parked vehicles and foliage",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=MmB9Dsus6dXfK1hgtm6PkQ&heading=228&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4057659,
+        "lon": 78.4632528,
+        "headingDeg": 228,
+        "panoId": "MmB9Dsus6dXfK1hgtm6PkQ"
+      },
+      "notes": "Parked cars obscure much of the immediate curb/pavement; a weathered wall, trees, red planters and partial signs are visible behind. Partial lettering is insufficient for a tenant/premise claim. Dense foliage and shadow hide property details; no entrance, exact frontage, dimensions or continuous inventory is established. Camera projection on r_8306076003_3: offset131.744023m,lateral4.235698m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Hdp8-h048",
+      "kind": "street_view",
+      "title": "Left planted median and sign support",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Hdp8DEocf-1pqu68d4PGMA&heading=48&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4056683,
+        "lon": 78.4633468,
+        "headingDeg": 48,
+        "panoId": "Hdp8DEocf-1pqu68d4PGMA"
+      },
+      "notes": "The near left boundary shows a low concrete planted median with dense shrubs and a sign support. Far-carriageway businesses, signs and traffic including a bus are excluded. No pilot premise, door, dimension or exact frontage is established; planting obscures details. Camera projection on r_8306076003_3: offset146.454077m,lateral4.436974m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Hdp8-h228",
+      "kind": "street_view",
+      "title": "Right wall, trees and obscured advertising boards",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Hdp8DEocf-1pqu68d4PGMA&heading=228&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4056683,
+        "lon": 78.4633468,
+        "headingDeg": 228,
+        "panoId": "Hdp8DEocf-1pqu68d4PGMA"
+      },
+      "notes": "Immediate right pavement has a low weathered wall, large trees, red planters and a covered cabinet/box. Multiple signs/boards behind foliage are not validated as on-site tenants or storefronts; their text is incomplete/unreadable. A parked vehicle obscures the lower frame edge. No entrance, gate/connector, dimensions or frontage range are mapped. Camera projection on r_8306076003_3: offset146.454077m,lateral4.436974m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-G6CF-h048",
+      "kind": "street_view",
+      "title": "Left planted median with viaduct pier at edge",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=G6CFJgLm22hgY0zrPIIaQw&heading=48&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4055921,
+        "lon": 78.4634133,
+        "headingDeg": 48,
+        "panoId": "G6CFJgLm22hgY0zrPIIaQw"
+      },
+      "notes": "Near left boundary is a low concrete median with dense shrubs and a viaduct support at the frame edge. Businesses/signs and traffic across the other carriageway are excluded from pilot inventory. No on-edge entrance, premise, measured dimensions or exact frontage is established. Camera projection on r_8306076003_3: offset157.449236m,lateral4.049914m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-G6CF-h228",
+      "kind": "street_view",
+      "title": "Right wall, utility equipment and planters",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=G6CFJgLm22hgY0zrPIIaQw&heading=228&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.4055921,
+        "lon": 78.4634133,
+        "headingDeg": 228,
+        "panoId": "G6CFJgLm22hgY0zrPIIaQw"
+      },
+      "notes": "Immediate pavement shows red circular planters with small trees, a weathered painted wall, poles and dense overhead cables. Utility equipment behind the wall is partly visible but not measured or placed. Foliage/equipment obscure property details; no tenant, storefront, entrance, gate/connector or continuous frontage is inventoried. Camera projection on r_8306076003_3: offset157.449236m,lateral4.049914m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-dEjZ-h048",
+      "kind": "street_view",
+      "title": "Final near-boundary pier context; junction excluded",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=dEjZp5gMqbt9o7EBasmOXw&heading=48&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.405521,
+        "lon": 78.4634809,
+        "headingDeg": 48,
+        "panoId": "dEjZp5gMqbt9o7EBasmOXw"
+      },
+      "notes": "Near left sector shows a concrete viaduct support/base and adjoining planted median. The visible median opening/junction, crossing routes and other-carriageway premises are excluded from inventory. At camera offset168.102920m only0.497080m remains to the lease end; field of view is not a frontage range and no object spanning/beyond168.60m is assigned. No route, entrance or dimensions are established. Camera projection on r_8306076003_3: offset168.102920m,lateral4.127228m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "id": "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-dEjZ-h228",
+      "kind": "street_view",
+      "title": "Final right pavement context; premise extent unresolved",
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=dEjZp5gMqbt9o7EBasmOXw&heading=228&pitch=0&fov=65",
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / Codex local Chrome evidence review",
+      "position": {
+        "lat": 17.405521,
+        "lon": 78.4634809,
+        "headingDeg": 228,
+        "panoId": "dEjZp5gMqbt9o7EBasmOXw"
+      },
+      "notes": "Near road edge shows a broad paved setback, overhead cables, parked vehicle and portable railing. A glazed building and hospital-related signs are visible, but their facade/access extents relative to168.60m are unresolved and are not assigned as a pilot premise or entrance. Forecourt/access/door detail, gates/connectors and out-of-bounds portions are excluded from inventory. No tenant verification, exact frontage, entrance coordinates or dimensions are assigned. Camera is only0.497080m before the lease end; view is not a metric coverage interval. Camera projection on r_8306076003_3: offset168.102920m,lateral4.127228m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Provider panel/footer visibly November2021. Reference only; no raw imagery redistributed.",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-QMjB-h051",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-QMjB-h051"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left planted median; far carriageway excluded",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4062617,
+        "lon": 78.4627922,
+        "headingDeg": 51
+      },
+      "placementStatus": "pending",
+      "notes": "The near left boundary shows a low concrete planter/median densely covered by hedge plants, with a roadside advertising panel beyond it. Traffic and building signs across the separate carriageway are visible but are not assigned or inventoried as pilot premises. Vegetation/traffic obscure details; no door, tenant or exact frontage is established. Camera projection on r_8306076003_3: offset58.058406m,lateral2.298697m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-QMjB-h231",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-QMjB-h231"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right tree-shaded wall and pavement",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4062617,
+        "lon": 78.4627922,
+        "headingDeg": 231
+      },
+      "placementStatus": "pending",
+      "notes": "A weathered low wall, dense trees/vegetation and red circular plant pots are visible along the immediate pavement/curb. Foliage hides the property beyond. No storefront or entrance is established; no gate or connector face is inventoried. Wall/plant dimensions and continuity outside the frame are unknown. Camera projection on r_8306076003_3: offset58.058406m,lateral2.298697m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-Y59q-h051",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Y59q-h051"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left median hedge and viaduct boundary",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4062013,
+        "lon": 78.462851,
+        "headingDeg": 51
+      },
+      "placementStatus": "pending",
+      "notes": "Near left edge shows a dense planted median in a low concrete boundary, with a viaduct support at the frame edge. Road traffic and far-carriageway building signs beyond the median are excluded from premise inventory. No tenant, entrance or exact frontage is assigned; planting/vehicles obscure details. Camera projection on r_8306076003_3: offset67.187996m,lateral2.903860m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-Y59q-h231",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Y59q-h231"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right shaded wall and planters; access face excluded",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4062013,
+        "lon": 78.462851,
+        "headingDeg": 231
+      },
+      "placementStatus": "pending",
+      "notes": "The immediate right pavement has trees in red circular pots along a low weathered wall, with dense foliage hiding the property beyond. An access face visible at the frame edge is excluded and not classified or inventoried as a station/property gate or connector. No entrance, tenancy or frontage span is assigned; hidden portions remain gaps. Camera projection on r_8306076003_3: offset67.187996m,lateral2.903860m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-xizt-h051",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-xizt-h051"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left viaduct pier and planted median",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4061317,
+        "lon": 78.462909,
+        "headingDeg": 51
+      },
+      "placementStatus": "pending",
+      "notes": "A concrete viaduct pier occupies much of the left sector, with a low concrete median containing dense planting. Opposite-carriageway traffic, shops and signs are excluded from pilot premise inventory. Pier/planting occlude details; no tenant, entrance or exact frontage is established. Camera projection on r_8306076003_3: offset77.052032m,lateral2.798709m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-xizt-h231",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-xizt-h231"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right shaded wall and planting; access face excluded",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4061317,
+        "lon": 78.462909,
+        "headingDeg": 231
+      },
+      "placementStatus": "pending",
+      "notes": "Near pavement has a weathered wall, trees and red circular planters. The visible metal access face is excluded from inventory, with no station/property gate or connector classification or mapping. Foliage and shadow hide property details; no tenant, entrance, dimensions or continuous frontage is established. Camera projection on r_8306076003_3: offset77.052032m,lateral2.798709m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-Rj0c-h051",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Rj0c-h051"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left planted median and utility pole",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4060693,
+        "lon": 78.4629603,
+        "headingDeg": 51
+      },
+      "placementStatus": "pending",
+      "notes": "Low concrete median filled with dense shrubs/flowers and a utility pole are visible at the near left edge. Far-carriageway shops, signs and traffic are excluded from this road inventory. No premise or entrance is established, and planting hides the median interior. Camera projection on r_8306076003_3: offset85.848572m,lateral2.646858m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-Rj0c-h231",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Rj0c-h231"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right wall and planters with imagery blur gap",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4060693,
+        "lon": 78.4629603,
+        "headingDeg": 231
+      },
+      "placementStatus": "pending",
+      "notes": "Near pavement has red circular planters, trees and a weathered wall. A foliage-obscured advertising board does not establish an on-site operator or entrance. A large blurred patch conceals central/right detail and remains an explicit unobserved gap; no dimensions, tenancy or continuous frontage are assigned. Camera projection on r_8306076003_3: offset85.848572m,lateral2.646858m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-2awr-h051",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-2awr-h051"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left planted median and support pier",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4059997,
+        "lon": 78.4630219,
+        "headingDeg": 51
+      },
+      "placementStatus": "pending",
+      "notes": "The near left boundary is a low concrete planted median with dense shrubs and a large viaduct support at the frame edge. Shops/traffic beyond the other carriageway are excluded; no pilot premise, door, dimensions or continuous frontage is established. Camera projection on r_8306076003_3: offset95.954724m,lateral2.837821m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-2awr-h231",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-2awr-h231"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right wall and institutional facade context; access excluded",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4059997,
+        "lon": 78.4630219,
+        "headingDeg": 231
+      },
+      "placementStatus": "pending",
+      "notes": "Weathered wall, trees in red pots, wiring and pavement are visible. Upper facade lettering includes SILVER JUBILEE; other letters are uncertain and an SBI board is visible as dated context only, without validating operator/current tenancy or treating either as a storefront. The access face, steps and gate are excluded from mapping/inventory; no entrance coordinates, connector, dimensions or frontage span are assigned. Foliage/shadow obscure portions. Camera projection on r_8306076003_3: offset95.954724m,lateral2.837821m,canonical tangent140.728897degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-rMW-h048",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-rMW-h048"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left viaduct support and planted median",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4059285,
+        "lon": 78.4630889,
+        "headingDeg": 48
+      },
+      "placementStatus": "pending",
+      "notes": "Near left edge has a viaduct support, paved base and a low concrete median containing shrubs/flowers. Signs, shops and traffic across the other carriageway are excluded. Support and planting hide portions; no frontage, door or dimensions are established. Camera projection on r_8306076003_3: offset106.718772m,lateral3.323927m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-rMW-h228",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-rMW-h228"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right wall, planters and obscured signs",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4059285,
+        "lon": 78.4630889,
+        "headingDeg": 228
+      },
+      "placementStatus": "pending",
+      "notes": "Near pavement shows a low weathered wall, trees in red circular planters, poles, wiring and a utility cabinet. Building/signs behind foliage provide dated context only and do not establish tenants or storefronts. Access face at frame edge is excluded with no gate/connector inventory. Foliage/shadow obscure portions; no entrance, exact frontage or dimensions are assigned. Camera projection on r_8306076003_3: offset106.718772m,lateral3.323927m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-aB4-h048",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-aB4-h048"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left planted median with advertising support",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4058794,
+        "lon": 78.4631393,
+        "headingDeg": 48
+      },
+      "placementStatus": "pending",
+      "notes": "Low concrete median filled with shrubs/flowers and an advertising support are visible at the near left edge. Opposite-carriageway businesses, shutters, signs and traffic are excluded from pilot inventory. No on-edge premise, entrance, dimensions or frontage span are established. Camera projection on r_8306076003_3: offset114.340077m,lateral3.670933m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-aB4-h228",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-aB4-h228"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right traffic barriers, wall and posters; access excluded",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4058794,
+        "lon": 78.4631393,
+        "headingDeg": 228
+      },
+      "placementStatus": "pending",
+      "notes": "Portable blue traffic-police barriers stand by the immediate curb/pavement; trees, wall-mounted posters, utility cabinet and poles are visible behind. Access opening/interior beyond is excluded, with no gate/connector inventory. Poster text does not establish an on-site storefront or tenant. Barriers/foliage/shadow obscure portions; no dimensions or entrance position are assigned. Camera projection on r_8306076003_3: offset114.340077m,lateral3.670933m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-KGQW-h048",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-KGQW-h048"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left concrete median with dense planting",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4058277,
+        "lon": 78.4631918,
+        "headingDeg": 48
+      },
+      "placementStatus": "pending",
+      "notes": "Near left boundary has a low concrete median with dense shrubs and an advertising panel/support at frame edge. Opposite-carriageway signs, shops and traffic are excluded. Vegetation hides median details; no on-edge premise, entrance, dimension or frontage range is established. Camera projection on r_8306076003_3: offset122.324535m,lateral3.991381m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-KGQW-h228",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-KGQW-h228"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right barriers and posters; access and hidden portions excluded",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4058277,
+        "lon": 78.4631918,
+        "headingDeg": 228
+      },
+      "placementStatus": "pending",
+      "notes": "Immediate pavement/curb is partly blocked by portable blue/yellow traffic barriers and a parked vehicle. Trees and poster-covered wall portions are visible. Access opening/interior is excluded, not inventoried as gate or connector. Text/advertising does not validate an on-site operator. Vehicles, barriers and foliage obscure portions; no entrance, tenant or frontage span is assigned. Camera projection on r_8306076003_3: offset122.324535m,lateral3.991381m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-MmB9-h048",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-MmB9-h048"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left support pier with substantial imagery blur",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4057659,
+        "lon": 78.4632528,
+        "headingDeg": 48
+      },
+      "placementStatus": "pending",
+      "notes": "A large viaduct support, concrete base and portions of planted median are visible. A substantial provider blur masks much of the left/central image and remains an unobserved gap. Far-carriageway shops and traffic are excluded. No entrance, premise, dimensions or continuous frontage are assigned. Camera projection on r_8306076003_3: offset131.744023m,lateral4.235698m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-MmB9-h228",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-MmB9-h228"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right wall hidden by parked vehicles and foliage",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4057659,
+        "lon": 78.4632528,
+        "headingDeg": 228
+      },
+      "placementStatus": "pending",
+      "notes": "Parked cars obscure much of the immediate curb/pavement; a weathered wall, trees, red planters and partial signs are visible behind. Partial lettering is insufficient for a tenant/premise claim. Dense foliage and shadow hide property details; no entrance, exact frontage, dimensions or continuous inventory is established. Camera projection on r_8306076003_3: offset131.744023m,lateral4.235698m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-Hdp8-h048",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Hdp8-h048"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left planted median and sign support",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4056683,
+        "lon": 78.4633468,
+        "headingDeg": 48
+      },
+      "placementStatus": "pending",
+      "notes": "The near left boundary shows a low concrete planted median with dense shrubs and a sign support. Far-carriageway businesses, signs and traffic including a bus are excluded. No pilot premise, door, dimension or exact frontage is established; planting obscures details. Camera projection on r_8306076003_3: offset146.454077m,lateral4.436974m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-Hdp8-h228",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Hdp8-h228"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right wall, trees and obscured advertising boards",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4056683,
+        "lon": 78.4633468,
+        "headingDeg": 228
+      },
+      "placementStatus": "pending",
+      "notes": "Immediate right pavement has a low weathered wall, large trees, red planters and a covered cabinet/box. Multiple signs/boards behind foliage are not validated as on-site tenants or storefronts; their text is incomplete/unreadable. A parked vehicle obscures the lower frame edge. No entrance, gate/connector, dimensions or frontage range are mapped. Camera projection on r_8306076003_3: offset146.454077m,lateral4.436974m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-G6CF-h048",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-G6CF-h048"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Left planted median with viaduct pier at edge",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4055921,
+        "lon": 78.4634133,
+        "headingDeg": 48
+      },
+      "placementStatus": "pending",
+      "notes": "Near left boundary is a low concrete median with dense shrubs and a viaduct support at the frame edge. Businesses/signs and traffic across the other carriageway are excluded from pilot inventory. No on-edge entrance, premise, measured dimensions or exact frontage is established. Camera projection on r_8306076003_3: offset157.449236m,lateral4.049914m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-G6CF-h228",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-G6CF-h228"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Right wall, utility equipment and planters",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.4055921,
+        "lon": 78.4634133,
+        "headingDeg": 228
+      },
+      "placementStatus": "pending",
+      "notes": "Immediate pavement shows red circular planters with small trees, a weathered painted wall, poles and dense overhead cables. Utility equipment behind the wall is partly visible but not measured or placed. Foliage/equipment obscure property details; no tenant, storefront, entrance, gate/connector or continuous frontage is inventoried. Camera projection on r_8306076003_3: offset157.449236m,lateral4.049914m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-dEjZ-h048",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-dEjZ-h048"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Final near-boundary pier context; junction excluded",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.405521,
+        "lon": 78.4634809,
+        "headingDeg": 48
+      },
+      "placementStatus": "pending",
+      "notes": "Near left sector shows a concrete viaduct support/base and adjoining planted median. The visible median opening/junction, crossing routes and other-carriageway premises are excluded from inventory. At camera offset168.102920m only0.497080m remains to the lease end; field of view is not a frontage range and no object spanning/beyond168.60m is assigned. No route, entrance or dimensions are established. Camera projection on r_8306076003_3: offset168.102920m,lateral4.127228m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Left angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    },
+    {
+      "id": "obs-second-computer-01-khairatabad-lakdi-pilot-004-dEjZ-h228",
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-dEjZ-h228"
+      ],
+      "captureDate": "2021-11",
+      "observedDate": "2026-10-20",
+      "name": "Final right pavement context; premise extent unresolved",
+      "category": "bounded_pending_roadside_context",
+      "roadId": "r_8306076003_3",
+      "position": {
+        "lat": 17.405521,
+        "lon": 78.4634809,
+        "headingDeg": 228
+      },
+      "placementStatus": "pending",
+      "notes": "Near road edge shows a broad paved setback, overhead cables, parked vehicle and portable railing. A glazed building and hospital-related signs are visible, but their facade/access extents relative to168.60m are unresolved and are not assigned as a pilot premise or entrance. Forecourt/access/door detail, gates/connectors and out-of-bounds portions are excluded from inventory. No tenant verification, exact frontage, entrance coordinates or dimensions are assigned. Camera is only0.497080m before the lease end; view is not a metric coverage interval. Camera projection on r_8306076003_3: offset168.102920m,lateral4.127228m,canonical tangent138.027198degrees,inside[20.00,168.60]m. Right angular sector follows stored points; exact facade side/entrance placement remains unverified. Confidence limited to directly visible dated context. Camera is not an entrance. No continuous inventory, metric frontage range, coverage or present-tenancy claim."
+    }
+  ]
+}

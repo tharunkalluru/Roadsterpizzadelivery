@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T01:47:38Z",
+  "updatedAt": "2026-10-20T02:05:53Z",
   "integrator": {
     "workerId": "second-computer-01",
     "state": "CLAIMED",
@@ -100,18 +100,18 @@
       "newSourceIdPrefix": "sv-second-computer-01-khairatabad-lakdi-pilot-",
       "batchPathPattern": "game/data/research/batches/second-computer-01-khairatabad-lakdi-pilot-<sequence>-<YYYYMMDD>.json",
       "checkpointPathPattern": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-<UTC-or-sequence>.md",
-      "latestCheckpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-batch003-browser-blocked.md",
+      "latestCheckpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-batch004-boundary.md",
       "lastPanorama": {
-        "panoId": "QMjBEf_gY6kDB97EYaVM4Q",
-        "lat": 17.4062617,
-        "lon": 78.4627922,
+        "panoId": "dEjZp5gMqbt9o7EBasmOXw",
+        "lat": 17.405521,
+        "lon": 78.4634809,
         "captureDate": "2021-11",
-        "headingDeg": 138,
-        "fov": 75,
-        "projectedAlongM": 58.058405666577144
+        "headingDeg": 228,
+        "fov": 65,
+        "projectedAlongM": 168.10292025831626
       },
       "nextPanorama": null,
-      "panoramaStatus": "003 imported once at115 as1pending forward context, Nov2021. QMjB h138 was last visibly inspected; attempted h51/h231 are unconfirmed. Actual current tab state uncertain.",
+      "panoramaStatus": "Same local Chrome control recovered.004 imported once at116:12cameras/24pending Nov2021 side contexts. Last dEjZ offset168.102920m; stopped before another forward click. No continuous inventory/coverage.",
       "startupConfirmation": {
         "status": "PILOT_STARTUP_COMPLETED_FULL_TAKEOVER_CLAIMED",
         "reportFields": [
@@ -128,13 +128,14 @@
         ],
         "rule": "Report the matching startup binding before research. This active lease needs no second conversational approval; a mismatch, changed lease or auth/provider block stops dependent work."
       },
-      "nextAction": "Repair/reconnect supported local Chrome control, inventory same tab and reconcile UI, then recheck lease and inspect QMjB side sectors in NEW batch004. No other edge/account/browser workaround.",
+      "nextAction": "Review remaining start/hidden/inter-camera/boundary gaps under a recorded bounded plan; retain lease/exclusions. Do not continue beyond168.60m, into junctions/other roads, or promote coverage from camera progression.",
       "activationCommitMeaning": "Original exact pilot activation; final handover does not reactivate/expand the lease.",
       "batch001ImportedRevision": 113,
-      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-batch003-import-115.md",
+      "latestReviewReceipt": "docs/handoff/reviews/second-computer-01-batch004-import-116.md",
       "batch002ImportedRevision": 114,
-      "evidenceCollectionState": "PAUSED_LOCAL_BROWSER_CONTROL_TIMEOUT",
-      "batch003ImportedRevision": 115
+      "evidenceCollectionState": "BOUNDARY_REACHED_GAPS_OPEN",
+      "batch003ImportedRevision": 115,
+      "batch004ImportedRevision": 116
     },
     {
       "assignmentId": "peddamma-jubilee-checkpost",

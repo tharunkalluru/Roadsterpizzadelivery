@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T01:47:38Z",
+  "updatedAt": "2026-10-20T02:05:53Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -47,7 +47,7 @@
       "github": "collaborator write confirmed by prior successful worker pushes; coordination push readback required",
       "mainSites": "BLOCKED: get_site appgprj_6ad576049ff8819196715b604db10264 returned NOT_FOUND/project_not_found, HTTP404",
       "newSites": "native create capability exposed; no project created and backend create authorization unverified",
-      "localBrowser": "BLOCKED: same-pano h51/h231 navigation/screenshot call timed out/kernel reset; recovery getBrowser(id4) also timed out. No side view returned."
+      "localBrowser": "RECOVERED: same Chrome extension/profile/tab reconciled via supported inventory; current browser ID1, no account/session rotation. Actual24side views recorded through dEjZ offset168.102920m; stopped before lease boundary."
     }
   },
   "snapshot": {
@@ -89,7 +89,7 @@
     "workerId": "second-computer-01",
     "branch": "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3",
     "activationCommit": "50e23bd3b8162381623e8ea7bd617409f88bda54",
-    "lastReviewedWorkerCommit": "a70755bf475fc6520c80ce08dbbdd56149bc2c51",
+    "lastReviewedWorkerCommit": "23cb04810b2643f6c9c4147cc648b29e6184406a",
     "lease": "ACTIVE_UNCHANGED_UNTIL_RECORDED_SECOND_COORDINATOR_REASSIGNMENT",
     "roadId": "r_8306076003_3",
     "canonicalSides": [
@@ -104,7 +104,7 @@
     "batch001CanonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
     "observations": "Exactly2November2021pendingcontexts,no placements/coverage;April2026locator/datebreakexcluded. Do not duplicate/reimport001.",
     "receipt": "docs/handoff/reviews/second-computer-01-primary-import-113.md",
-    "continuation": "PAUSED_LOCAL_BROWSER: restore same Chrome/tab after control timeouts, reconcile uncertain UI state, then inspect QMjB actual side sectors in new004; no new distinct camera approved.",
+    "continuation": "BOUNDARY_REACHED_GAPS_OPEN:004 admitted once at116; last dEjZ Nov2021 h228 offset168.102920m. No onward click. Audit gap/boundary evidence before a recorded further plan; no automatic scope expansion.",
     "batch002": {
       "id": "second-computer-01-khairatabad-lakdi-pilot-002-20261020",
       "workerCommit": "011c03d37a4a9068813292ab0860e703bcc606cc",
@@ -124,6 +124,17 @@
       "sources": 1,
       "pendingObservations": 1,
       "receipt": "docs/handoff/reviews/second-computer-01-batch003-import-115.md"
+    },
+    "batch004": {
+      "id": "second-computer-01-khairatabad-lakdi-pilot-004-20261020",
+      "workerCommit": "23cb04810b2643f6c9c4147cc648b29e6184406a",
+      "canonicalHash": "3767c47258b6097948d8f5a679dce571b811c8db86bfe78ad780683fe989a4cb",
+      "fileSha256": "da11c13f837d6f4543c8780daf44e6cae063bc9a9cc398359477be92362e6794",
+      "importedOnce": true,
+      "revision": 116,
+      "sources": 24,
+      "pendingObservations": 24,
+      "receipt": "docs/handoff/reviews/second-computer-01-batch004-import-116.md"
     }
   },
   "cloud": {
@@ -170,10 +181,10 @@
     "outgoing": "No automatic control or resumption of former accounts, jobs, browsers or computers. Former writers remain QUIESCENT."
   },
   "currentRuntime": {
-    "surveyRevision": 115,
-    "surveySha256": "200ac5b3bacc443ec021b1dfedf65206906901a40c586c83371a45bc70a10a50",
-    "sources": 813,
-    "observations": 588,
+    "surveyRevision": 116,
+    "surveySha256": "f925e617373b9694ecad96a0157fb053adbf9018f57e4b2fcc7011d874d85521",
+    "sources": 837,
+    "observations": 612,
     "snapshotPath": "docs/handoff/SNAPSHOT.json",
     "rule": "snapshot field above is the original113 transfer capture; currentRuntime/SNAPSHOT.json track subsequent receiving integrations."
   }
