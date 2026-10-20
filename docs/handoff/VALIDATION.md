@@ -59,3 +59,7 @@ Exact immutable batch002 (canonical hash 568f0850dbc4e6a107283774592d24a0e404eab
 ## S76a fixed-camera review (no import/runtime mutation)
 
 2026-10-20T02:19:43Z:8actualNov2021views atsamecamera25.978411567m;2existing sourceviews reused+6review-only angle references. Ledger URLs/coordinates/date/headings andreference-onlypolicy checked. All5SNAPSHOT and4batchfilehashes/once-onlyreceipts unchanged;runtime116andpilot unreviewed0ranges/overrides/coverage unchanged. Exactworker5d517fa51426b0a1b0fb09592afb65ff64675cabcheckpoint/ledger copied;nogamecode/datachanges,importerpreview/build/unit/E2E/devicererun. Existingknownlimitsremain. See second-computer-01-S76a-fixed-review-116.md.
+
+## Alternative in-lease sightline review (no runtime mutation)
+
+2026-10-20T02:31:37Z:10actualNov2021views/7knowncameras,allrecomputedwithinlease/nearestassignedroad;noS76arepeat orjunction/othercarriageway traversal. Partialcontextclarification,remaininginventory EVIDENCE_BLOCKED. URL/date/heading/position bindings andunique reviewrefs checked;5SNAPSHOT hashes,4immutablebatchhashes/once-onlyreceipts,31pendingcontexts andpilotunreviewed0ranges/coverage unchanged. Exactworkerfa18213b45e4dad88ff83bceaa3b11cf58ccebdbcheckpoint/ledger copied;secret/path/whitespace checks. No newbatch/import/build/unit/E2E/device rerun;priorlimitsremain. See alternative-sightlines-116 receipt.

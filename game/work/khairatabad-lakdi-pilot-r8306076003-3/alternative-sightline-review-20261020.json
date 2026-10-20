@@ -1,0 +1,590 @@
+{
+  "schemaVersion": 1,
+  "documentType": "alternative_in_lease_sightline_review_not_import_batch",
+  "recordedAt": "2026-10-20T02:23:22.949273+00:00",
+  "workerId": "second-computer-01",
+  "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
+  "workerPredecessor": "5d517fa51426b0a1b0fb09592afb65ff64675cab",
+  "coordinatorBase": "ae0780e7e4ebb8433c6204882d5f3b47f6e7d83d",
+  "surveyRevision": 116,
+  "surveySha256": "f925e617373b9694ecad96a0157fb053adbf9018f57e4b2fcc7011d874d85521",
+  "scope": {
+    "roadId": "r_8306076003_3",
+    "canonicalSides": [
+      "left",
+      "right"
+    ],
+    "startM": 20,
+    "endM": 168.6,
+    "unchanged": true
+  },
+  "authorization": "Parent explicitly requested alternative in-lease parallax/dated views; same assignment only, no new road activation.",
+  "method": "Direct revisit already-collected known cameras, verify actual coords/date, rotate only. No sequential traversal, S76a repeat, endpoint/junction/other-carriageway navigation. Review only near assigned boundary; distant/access/out-of-bounds features excluded. No duplicate imports or promotion.",
+  "targets": [
+    {
+      "panoId": "1PBg5J5YtEBKCWHrJsU_jw",
+      "lat": 17.4063868,
+      "lon": 78.4626628,
+      "projectedAlongM": 38.82827116506143,
+      "lateralM": 2.187701547358639,
+      "nextNearestRoadId": "r_13068586755_0",
+      "nextNearestRoadDistanceM": 8.237437657940673,
+      "captureDate": "2021-11",
+      "headings": [
+        43,
+        223
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-1PBg-h043",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-1PBg-h223"
+      ],
+      "plannedHeadings": [
+        313,
+        268
+      ],
+      "reviewGoal": "start gap / pier and barrier occlusion",
+      "projectionRecomputed": {
+        "roadId": "r_8306076003_3",
+        "distanceM": 2.1877015473592247,
+        "alongM": 38.82827116506142,
+        "tangentHeading": 133.47322816205926
+      }
+    },
+    {
+      "panoId": "o-vaNpcgphoMVn379vda1w",
+      "lat": 17.4063211,
+      "lon": 78.4627284,
+      "projectedAlongM": 48.81477493990692,
+      "lateralM": 1.9580458388417266,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 8.857220559579853,
+      "captureDate": "2021-11",
+      "headings": [
+        46,
+        226
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-ova-h046",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-ova-h226"
+      ],
+      "plannedHeadings": [
+        316,
+        271
+      ],
+      "reviewGoal": "start-facing parallax and near utility/wall context",
+      "projectionRecomputed": {
+        "roadId": "r_8306076003_3",
+        "distanceM": 1.9580458388416349,
+        "alongM": 48.81477493990692,
+        "tangentHeading": 135.79610477994134
+      }
+    },
+    {
+      "panoId": "xiztE-Rbni-cvnz5I-uy3A",
+      "lat": 17.4061317,
+      "lon": 78.462909,
+      "projectedAlongM": 77.05203189269726,
+      "lateralM": 2.7987089171116093,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.01615030641854,
+      "captureDate": "2021-11",
+      "headings": [
+        51,
+        231
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-xizt-h051",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-xizt-h231"
+      ],
+      "plannedHeadings": [
+        186
+      ],
+      "reviewGoal": "Rj0c-right blur from earlier anchor",
+      "projectionRecomputed": {
+        "roadId": "r_8306076003_3",
+        "distanceM": 2.7987089171110635,
+        "alongM": 77.05203189269743,
+        "tangentHeading": 140.72889743446757
+      }
+    },
+    {
+      "panoId": "2awrXb19OUAb178IswEahg",
+      "lat": 17.4059997,
+      "lon": 78.4630219,
+      "projectedAlongM": 95.95472371192054,
+      "lateralM": 2.837820714027972,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 11.054632750981769,
+      "captureDate": "2021-11",
+      "headings": [
+        51,
+        231
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-2awr-h051",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-2awr-h231"
+      ],
+      "plannedHeadings": [
+        276
+      ],
+      "reviewGoal": "Rj0c-right blur from later anchor",
+      "projectionRecomputed": {
+        "roadId": "r_8306076003_3",
+        "distanceM": 2.8378207140281275,
+        "alongM": 95.9547237119207,
+        "tangentHeading": 140.72889743446757
+      }
+    },
+    {
+      "panoId": "KGQW7mWa7fGew9B-r4DP1A",
+      "lat": 17.4058277,
+      "lon": 78.4631918,
+      "projectedAlongM": 122.32453498640974,
+      "lateralM": 3.991380854766336,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.623833044531944,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-KGQW-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-KGQW-h228"
+      ],
+      "plannedHeadings": [
+        93
+      ],
+      "reviewGoal": "MmB9-left blur from earlier anchor",
+      "projectionRecomputed": {
+        "roadId": "r_8306076003_3",
+        "distanceM": 3.9913808547658345,
+        "alongM": 122.32453498640974,
+        "tangentHeading": 138.02719817008824
+      }
+    },
+    {
+      "panoId": "Hdp8DEocf-1pqu68d4PGMA",
+      "lat": 17.4056683,
+      "lon": 78.4633468,
+      "projectedAlongM": 146.45407733681864,
+      "lateralM": 4.436973516904955,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.41669322894605,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Hdp8-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-Hdp8-h228"
+      ],
+      "plannedHeadings": [
+        3
+      ],
+      "reviewGoal": "MmB9-left blur from later anchor",
+      "projectionRecomputed": {
+        "roadId": "r_8306076003_3",
+        "distanceM": 4.436973516903334,
+        "alongM": 146.45407733681742,
+        "tangentHeading": 138.02719817008824
+      }
+    },
+    {
+      "panoId": "G6CFJgLm22hgY0zrPIIaQw",
+      "lat": 17.4055921,
+      "lon": 78.4634133,
+      "projectedAlongM": 157.4492361090834,
+      "lateralM": 4.049913650150012,
+      "nextNearestRoadId": "r_12916774679_0",
+      "nextNearestRoadDistanceM": 10.912380590898676,
+      "captureDate": "2021-11",
+      "headings": [
+        48,
+        228
+      ],
+      "sourceIds": [
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-G6CF-h048",
+        "sv-second-computer-01-khairatabad-lakdi-pilot-20261020-G6CF-h228"
+      ],
+      "plannedHeadings": [
+        183,
+        93
+      ],
+      "reviewGoal": "end-tail facade/median extent from inside lease",
+      "projectionRecomputed": {
+        "roadId": "r_8306076003_3",
+        "distanceM": 4.0499136501493265,
+        "alongM": 157.44923610908216,
+        "tangentHeading": 138.02719817008824
+      }
+    }
+  ],
+  "reviewedViews": [
+    {
+      "panoId": "1PBg5J5YtEBKCWHrJsU_jw",
+      "lat": 17.4063868,
+      "lon": 78.4626628,
+      "projectedAlongM": 38.82827116506143,
+      "headingDeg": 313,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=1PBg5J5YtEBKCWHrJsU_jw&heading=313&pitch=0&fov=65",
+      "result": "Reverse view toward the pilot start has a substantial provider blur across central/upper image. Near rough shoulder, portable barriers and vehicles are partly visible; traffic also obscures the roadway. This additional camera does not resolve a bounded start inventory or anything behind blur. Far premises and out-of-lease/access portions excluded.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "panoId": "1PBg5J5YtEBKCWHrJsU_jw",
+      "lat": 17.4063868,
+      "lon": 78.4626628,
+      "projectedAlongM": 38.82827116506143,
+      "headingDeg": 268,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=1PBg5J5YtEBKCWHrJsU_jw&heading=268&pitch=0&fov=65",
+      "result": "Right-back oblique view reveals portable traffic barriers, rough shoulder, partial low planted edge and vegetation at frame left. A large provider blur masks the right/central start-facing area; parked/moving vehicles obscure other portions. Bus/access area beyond is excluded. No complete boundary, entrance or metric range established.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "panoId": "o-vaNpcgphoMVn379vda1w",
+      "lat": 17.4063211,
+      "lon": 78.4627284,
+      "projectedAlongM": 48.81477493990692,
+      "headingDeg": 316,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=o-vaNpcgphoMVn379vda1w&heading=316&pitch=0&fov=65",
+      "result": "The second reverse sightline is unblurred where the1PBg view was blurred and shows a coarse line of portable barriers, rough shoulder and supports toward the start. This resolves some scene arrangement only. Vehicles and the near pier still hide portions; exact20.00–25.978411567m boundary/frontage is not delimited. Other-carriageway premises and bus/access area excluded.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "panoId": "o-vaNpcgphoMVn379vda1w",
+      "lat": 17.4063211,
+      "lon": 78.4627284,
+      "projectedAlongM": 48.81477493990692,
+      "headingDeg": 271,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=o-vaNpcgphoMVn379vda1w&heading=271&pitch=0&fov=65",
+      "result": "Oblique view exposes a near transformer/poles, wall portions, vegetation and portable barriers looking back toward the start. Existing painted advertising remains advertising only, not an on-site business. Equipment/foliage/vehicles conceal portions; no measured boundary, entrance or continuous start inventory established. Bus/access area and other roads excluded.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "panoId": "xiztE-Rbni-cvnz5I-uy3A",
+      "lat": 17.4061317,
+      "lon": 78.462909,
+      "projectedAlongM": 77.05203189269726,
+      "headingDeg": 186,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=xiztE-Rbni-cvnz5I-uy3A&heading=186&pitch=0&fov=65",
+      "result": "Earlier-anchor right-forward view is not covered by the Rj0c blur and shows a weathered wall, tiled pavement/curb, trees and red circular planters in the surrounding right-edge scene. Foliage/shadow conceal property and board details; access face at frame edge excluded. This corroborates coarse context but does not bound/map the exact area hidden in Rj0c or establish tenant/entrance/complete frontage.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "panoId": "2awrXb19OUAb178IswEahg",
+      "lat": 17.4059997,
+      "lon": 78.4630219,
+      "projectedAlongM": 95.95472371192054,
+      "headingDeg": 276,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=2awrXb19OUAb178IswEahg&heading=276&pitch=0&fov=65",
+      "result": "Later-anchor right-back view also shows wall portions, tree planters, curb/pavement and foliage without the original Rj0c blur. Trees/signboards obscure property detail and an access face is excluded. Some surrounding context is clearer from genuine parallax; no exact correspondence/metric span for every original blurred pixel, hidden operator or entrance is established.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "panoId": "KGQW7mWa7fGew9B-r4DP1A",
+      "lat": 17.4058277,
+      "lon": 78.4631918,
+      "projectedAlongM": 122.32453498640974,
+      "headingDeg": 93,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=KGQW7mWa7fGew9B-r4DP1A&heading=93&pitch=0&fov=65",
+      "result": "Earlier-anchor left-forward view shows an unblurred visible face/base of viaduct support marked A1203 and adjoining concrete median with shrubs. This provides actual parallax context near the original MmB9 mask. Pier/planting still hide surfaces and interior portions; no exact facade/metric coverage interval or dimensions are established. Far-carriageway businesses/traffic excluded.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "panoId": "Hdp8DEocf-1pqu68d4PGMA",
+      "lat": 17.4056683,
+      "lon": 78.4633468,
+      "projectedAlongM": 146.45407733681864,
+      "headingDeg": 3,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=Hdp8DEocf-1pqu68d4PGMA&heading=3&pitch=0&fov=65",
+      "result": "Later-anchor left-back view shows another unblurred face/base of support A1203 and adjoining planted concrete median from the other direction. Coarse visible support/median arrangement is corroborated across two anchors. Hidden areas behind support/hedge and exact bounded completeness remain unknown. Other-carriageway premises/traffic excluded; no inferred shops or measured geometry.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "panoId": "G6CFJgLm22hgY0zrPIIaQw",
+      "lat": 17.4055921,
+      "lon": 78.4634133,
+      "projectedAlongM": 157.4492361090834,
+      "headingDeg": 183,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=G6CFJgLm22hgY0zrPIIaQw&heading=183&pitch=0&fov=65",
+      "result": "End-facing right oblique shows near wall, pots, wiring/poles, utility equipment and a parked vehicle/barrier; more distant glazed/hospital-related facade/forecourt is visible as context only. It does not locate facade/access extents relative to168.60m or inventory the final0.497079742m tail. Access/door/gate details and out-of-bounds extents excluded; no entrance/tenant/dimensions assigned.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    },
+    {
+      "panoId": "G6CFJgLm22hgY0zrPIIaQw",
+      "lat": 17.4055921,
+      "lon": 78.4634133,
+      "projectedAlongM": 157.4492361090834,
+      "headingDeg": 93,
+      "captureDate": "2021-11",
+      "fov": 65,
+      "pitch": 0,
+      "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=G6CFJgLm22hgY0zrPIIaQw&heading=93&pitch=0&fov=65",
+      "result": "End-facing left oblique shows planted concrete median and support/base leading toward a visible median opening. The opening/junction/crossing routes and far-carriageway premises are excluded. This adds scene context but does not delimit gap-free inventory up to168.60m; finaltail remains unresolved. Camera stayed157.449236m; no forward movement.",
+      "dateSelectorObserved": false,
+      "rawImagerySaved": false,
+      "runtimeAdmission": false,
+      "observedDate": "2026-10-20",
+      "reviewer": "second-computer-01 / actual local Chrome visible review",
+      "assetPolicy": "reference_only"
+    }
+  ],
+  "completionState": "ALTERNATIVE_SIGHTLINES_REVIEW_COMPLETE_EVIDENCE_BLOCKED",
+  "completedAt": "2026-10-20T02:29:49Z",
+  "browser": {
+    "browserInventoryId": "3",
+    "extensionInstanceId": "2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c",
+    "profile": "Tharun",
+    "reviewTabId": "1996309849",
+    "sameBrowserIdentity": true,
+    "oldEphemeralTabAbsent": true,
+    "sessionAccountRotation": false,
+    "providerDenialObserved": false,
+    "noOtherAppOrTabModified": true
+  },
+  "availableDatedImageryAssessment": {
+    "allInspectedViewsCaptureDate": "2021-11",
+    "alternateDateSelectorObserved": false,
+    "menuInspectedAtFinalAnchor": true,
+    "menuItems": [
+      "Print",
+      "Report a problem",
+      "Share or embed image"
+    ],
+    "newerImagerySelected": false,
+    "limit": "No additional date option offered in inspected controls/menu. This does not prove that no other imagery/date exists globally. No hidden endpoint or provider workaround used."
+  },
+  "partialClarifications": [
+    {
+      "target": "start",
+      "evidence": [
+        "o-va/316",
+        "o-va/271"
+      ],
+      "result": "Unblurred coarse barrier/shoulder/support and utility/wall context compared with1PBg blur; no bounded start inventory."
+    },
+    {
+      "target": "Rj0c-right blur",
+      "evidence": [
+        "xizt/186",
+        "2awr/276"
+      ],
+      "result": "Adjacent parallax gives unblurred wall/pavement/planter context; exact full blurred-region correspondence and hidden details remain unknown."
+    },
+    {
+      "target": "MmB9-left blur",
+      "evidence": [
+        "KGQW/93",
+        "Hdp8/3"
+      ],
+      "result": "Two unblurred perspectives of visible support A1203 faces/base and planted concrete median; no claim to hidden surfaces or complete bounded range."
+    },
+    {
+      "target": "end",
+      "evidence": [
+        "G6CF/183",
+        "G6CF/93"
+      ],
+      "result": "Near wall/utility/median-opening arrangement clearer; facade/tail extents relative168.60m unresolved, junction/access/outside portions excluded."
+    }
+  ],
+  "unresolvedEvidenceGaps": [
+    {
+      "id": "start-left",
+      "side": "left",
+      "startM": 20.0,
+      "endM": 25.978411567280332,
+      "status": "EVIDENCE_BLOCKED",
+      "missingEvidence": "Unobstructed dated in-lease sightline or field/photo evidence tying the exact20.00m start to the first anchor and accounting for all assigned near-edge units/non-shop portions. Traffic/distance and1PBg blur prevent current bounded inventory."
+    },
+    {
+      "id": "start-right",
+      "side": "right",
+      "startM": 20.0,
+      "endM": 25.978411567280332,
+      "status": "EVIDENCE_BLOCKED",
+      "missingEvidence": "Unobstructed bounded view around pier/barriers/vehicles showing the assigned near right edge through the start span. o-va reveals coarse layout only; excluded bus/access space is not substitute frontage."
+    },
+    {
+      "id": "Rj0c-right-residual",
+      "side": "right",
+      "anchorAlongM": 85.84857176938871,
+      "metricExtent": null,
+      "status": "PARTLY_CLARIFIED_RESIDUAL_EVIDENCE_BLOCKED",
+      "missingEvidence": "Dated view/calibrated correspondence for obscured property/board/near-edge portions not resolved by xizt/2awr; exact occluded span, tenant/floor/entrance remain unknown."
+    },
+    {
+      "id": "MmB9-left-residual",
+      "side": "left",
+      "anchorAlongM": 131.7440226646094,
+      "metricExtent": null,
+      "status": "PARTLY_CLARIFIED_RESIDUAL_EVIDENCE_BLOCKED",
+      "missingEvidence": "Bounded inventory through any hidden support/hedge portions and source-backed geometry/correspondence; visible A1203 faces and median are now corroborated but do not prove allFrontagesRecorded."
+    },
+    {
+      "id": "right-wall-vegetation-vehicles",
+      "side": "right",
+      "anchorRangeDescription": "Saved cameras58.058406–157.449236m; anchor range is not a measured continuous occlusion span.",
+      "metricExtent": null,
+      "status": "EVIDENCE_BLOCKED",
+      "missingEvidence": "Unobstructed ground/dated source through concealed wall/vegetation/vehicle portions, preserving access/gate exclusions; no unseen businesses inferred."
+    },
+    {
+      "id": "end-tail",
+      "sides": [
+        "left",
+        "right"
+      ],
+      "startM": 168.10292025831626,
+      "endM": 168.6,
+      "status": "EVIDENCE_BLOCKED",
+      "missingEvidence": "In-lease dated bounded evidence locating the final0.497079742m and resolving which visible median/facade portions are inside168.60m. No junction crossing or out-of-lease facade assignment."
+    },
+    {
+      "id": "inter-camera-completeness-and-geometry",
+      "sides": [
+        "left",
+        "right"
+      ],
+      "startM": 20.0,
+      "endM": 168.6,
+      "status": "UNQUALIFIED_EVIDENCE_BLOCKED",
+      "missingEvidence": "Gap-free unit/non-shop/unknown inventory and calibrated/measured facade/entrance/side/floor/neighbour/geometry proof required for each promoted bounded range. Camera spacing alone is not coverage."
+    },
+    {
+      "id": "current-tenancy",
+      "sides": [
+        "left",
+        "right"
+      ],
+      "status": "EVIDENCE_BLOCKED",
+      "missingEvidence": "Newer dated on-site/field/business corroboration; inspected November2021 images cannot establish current operation or occupation."
+    }
+  ],
+  "evidenceAccounting": {
+    "runtimeSurveyRevision": 116,
+    "existingAcceptedForRetentionSources": 31,
+    "existingPendingObservations": 31,
+    "existingDistinctCameras": 15,
+    "onceOnlyReceipts": 4,
+    "newReviewViews": 10,
+    "reviewCameras": 7,
+    "newRuntimeSourcesOrObservations": 0,
+    "newBatchCreated": false,
+    "importExecuted": false,
+    "oldRecordsChanged": false,
+    "pilotAcceptedStorefronts": 0,
+    "pilotReviewedRanges": 0,
+    "pilotReviewedSideMetres": 0,
+    "pilotVisualInventorySideMetres": 0,
+    "pilotVerifiedSideMetres": 0,
+    "pilotQualifiedSideMetres": 0,
+    "wholeAssignedLengthUnqualifiedPerSideM": 148.6
+  },
+  "lastVisibleReview": {
+    "panoId": "G6CFJgLm22hgY0zrPIIaQw",
+    "lat": 17.4055921,
+    "lon": 78.4634133,
+    "projectedAlongM": 157.44923610908216,
+    "headingDeg": 93,
+    "captureDate": "2021-11",
+    "fov": 65,
+    "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=G6CFJgLm22hgY0zrPIIaQw&heading=93&pitch=0&fov=65"
+  },
+  "forwardTraversalStop": {
+    "panoId": "dEjZp5gMqbt9o7EBasmOXw",
+    "projectedAlongM": 168.10292025831626,
+    "noOnwardNavigation": true
+  },
+  "nextStep": {
+    "status": "EVIDENCE_DEPENDENCIES_REPORTED_NO_NEW_ASSIGNMENT",
+    "permissionNeededForCompletedReview": false,
+    "scopeChangeNeededForCurrentTask": false,
+    "requiredForProgress": "Obtain the specified unobstructed dated in-lease ground views/field evidence and calibrated boundary/geometry/currentness proof; review warranted new evidence under existing lease before any immutable correction/admission or coverage change. No further useful gap-closing view was identified in the inspected targeted set.",
+    "limit": "Evidence-blocked describes missing proof in available reviewed sources, not exhaustive proof that no other public view exists. No repeat S76a rotations, continuous boundary traversal or hidden-source/provider bypass."
+  },
+  "publishing": {
+    "status": "PARKED_BLOCKED",
+    "projectId": "appgprj_6ad576049ff8819196715b604db10264",
+    "action": "sites_get_site/get_site",
+    "errorCode": "NOT_FOUND",
+    "errorType": "project_not_found",
+    "httpStatus": 404,
+    "retried": false,
+    "deployment": false
+  }
+}

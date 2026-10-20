@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T02:19:43Z",
+  "updatedAt": "2026-10-20T02:31:37Z",
   "status": "CLAIMED_BY_SECOND_COMPUTER_01",
   "sourceBaseCommit": "75d56fabded379ffc623b792de9b156d7075007b",
   "handoverCommit": {
@@ -47,7 +47,7 @@
       "github": "collaborator write confirmed by prior successful worker pushes; coordination push readback required",
       "mainSites": "BLOCKED: get_site appgprj_6ad576049ff8819196715b604db10264 returned NOT_FOUND/project_not_found, HTTP404",
       "newSites": "native create capability exposed; no project created and backend create authorization unverified",
-      "localBrowser": "OPERATIONAL during fixed S76a review: same Chrome1/Tharun extension2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c; old ephemeral tab absent,new tasktab1996309845; no account/session rotation/provider denial. Last visibleS76ah80Nov2021."
+      "localBrowser": "OPERATIONAL during alternative sightline review: stable Chromeextension2acd6bb7-c4aa-41fa-bfb6-b2b1e49bea9c/Tharun;currentinventoryID3,tasktab1996309849. All10views returnedNov2021;no alternate-date selector in inspected controls/menu,no provider denial/accountrotation. Remaining block is missing evidence."
     }
   },
   "snapshot": {
@@ -89,7 +89,7 @@
     "workerId": "second-computer-01",
     "branch": "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3",
     "activationCommit": "50e23bd3b8162381623e8ea7bd617409f88bda54",
-    "lastReviewedWorkerCommit": "5d517fa51426b0a1b0fb09592afb65ff64675cab",
+    "lastReviewedWorkerCommit": "fa18213b45e4dad88ff83bceaa3b11cf58ccebdb",
     "lease": "ACTIVE_UNCHANGED_UNTIL_RECORDED_SECOND_COORDINATOR_REASSIGNMENT",
     "roadId": "r_8306076003_3",
     "canonicalSides": [
@@ -104,7 +104,7 @@
     "batch001CanonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
     "observations": "Exactly2November2021pendingcontexts,no placements/coverage;April2026locator/datebreakexcluded. Do not duplicate/reimport001.",
     "receipt": "docs/handoff/reviews/second-computer-01-primary-import-113.md",
-    "continuation": "Fixed S76a review completed8views without translation, old record correction or coverage/placement. Hidden start/near-edge gaps remain; additional in-lease parallax/source evidence needed. No new anchor/road plan activated; no reimport. Last forward stopdEjZ168.102920m retained.",
+    "continuation": "Alternative known-camera parallax review complete:10views/7in-lease anchors,allNov2021. Coarse context partly clarified;start,occlusion,tail,geometry/currentness proof remains EVIDENCE_BLOCKED. No repeats without new evidence,no reimport/promotion,newroad or bounds extension. LastG6CF157.449236mh93;forwardstopdEjZ168.102920m retained.",
     "batch002": {
       "id": "second-computer-01-khairatabad-lakdi-pilot-002-20261020",
       "workerCommit": "011c03d37a4a9068813292ab0860e703bcc606cc",
@@ -154,6 +154,17 @@
       "result": "S76A_FIXED_REVIEW_COMPLETE_GAPS_UNRESOLVED",
       "runtimeRecordsAdded": 0,
       "sourceViewCounts": "2existing rechecks+6additional review angles at1camera; no runtime evidence admission"
+    },
+    "alternativeSightlineReview": {
+      "checkpoint": "game/work/khairatabad-lakdi-pilot-r8306076003-3/checkpoint-20261020-alternative-sightlines-consolidated.md",
+      "ledger": "game/work/khairatabad-lakdi-pilot-r8306076003-3/alternative-sightline-review-20261020.json",
+      "receipt": "docs/handoff/reviews/second-computer-01-alternative-sightlines-116.md",
+      "workerCommit": "fa18213b45e4dad88ff83bceaa3b11cf58ccebdb",
+      "surveyRevisionUnchanged": 116,
+      "result": "ALTERNATIVE_REVIEW_COMPLETE_EVIDENCE_BLOCKED",
+      "reviewViews": 10,
+      "reviewCameras": 7,
+      "runtimeRecordsAdded": 0
     }
   },
   "cloud": {
