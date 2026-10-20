@@ -65,7 +65,7 @@ export class ProvisionalZone implements PlayZone {
       const stop=core.deliveries.find(s=>s.id===entry.deliveryId);check(stop && !admitted.has(entry.deliveryId),'unknown/duplicate source delivery');
       check(this.roadIds.has(stop!.roadId) && this.contains(...stop!.entrance) && stop!.stopPolygon.length>=3 && stop!.stopPolygon.every(p=>this.contains(...p,3)), 'source stop outside boundary');
       check(stop!.approachEdges.length>0 && stop!.approachEdges.every(id=>ids.has(id) && this.nav.edges.get(id)!.roadId===stop!.roadId), 'stop approach outside scope');
-      const sourceListed = listings?.places.some(p=>p.frontageId===stop!.poiId && p.name===stop!.label && p.positionStatus==='source_listing' && p.sources.length>0 && p.licenses.length>0);
+      const sourceListed = listings?.places.some(p=>p.frontageId===stop!.poiId && p.name===stop!.label && p.roadId===stop!.roadId && p.positionStatus==='source_listing' && p.sources.length>0 && p.licenses.length>0);
       check(!!stop!.poiId && (core.pois.some(p=>p.id===stop!.poiId)||sourceListed),'stop lacks source listing identity');
       admitted.set(entry.deliveryId,stop!);
     }

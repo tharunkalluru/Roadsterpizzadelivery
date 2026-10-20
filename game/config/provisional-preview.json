@@ -118,27 +118,27 @@
         "deliveryId": "d_domino_s_pizza_india"
       },
       {
-        "deliveryId": "d_radisson_blu_hyderabad"
+        "deliveryId": "d_eco_basket"
       },
       {
-        "deliveryId": "d_eco_basket"
+        "deliveryId": "d_frost_bakery"
       }
     ],
     "jobs": [
       {
         "id": "order1",
-        "title": "Test pizza delivery 1 \u2014 Radisson Blu, Hyderabad",
+        "title": "Test pizza delivery 1 \u2014 Eco Basket",
         "pickupId": "d_domino_s_pizza_india",
         "stops": [
-          "d_radisson_blu_hyderabad"
+          "d_eco_basket"
         ]
       },
       {
         "id": "order2",
-        "title": "Test pizza delivery 2 \u2014 Eco Basket",
+        "title": "Test pizza delivery 2 \u2014 Frost Bakery",
         "pickupId": "d_domino_s_pizza_india",
         "stops": [
-          "d_eco_basket"
+          "d_frost_bakery"
         ]
       }
     ],
