@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T00:16:07+00:00",
+  "updatedAt": "2026-10-20T00:25:40+00:00",
   "assignmentId": "khairatabad-lakdi-pilot-r8306076003-3",
   "workerId": "second-computer-01",
   "workerBranch": "worker/second-computer-01/khairatabad-lakdi-pilot-r8306076003-3",
@@ -10,9 +10,9 @@
   "batchCanonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
   "batchFileSha256": "7108b5b31e4d7a9f3e5fbbd755320a3b6e2f307239a77dadabdb0e2f0c7728a5",
   "reviewStatus": "STRUCTURAL_SCOPE_VALIDATION_PASSED_PENDING_CONTEXT_ONLY",
-  "imported": false,
-  "importStatus": "USER_APPROVED_AWAITING_SOLE_PRIMARY_IMPORT_RECEIPT",
-  "importRule": "No coordinator import or concurrent writer. Sole primary importer has explicit user clarification and may perform its serialized normal fresh-base check/import. Do not claim imported until its actual receipt is returned. No reservation restriction is removed or reinterpreted; no general import or placement authorization.",
+  "imported": true,
+  "importStatus": "IMPORTED_ONCE_BY_SOLE_PRIMARY_AS_PENDING_CONTEXT_ONLY",
+  "importRule": "Batch001 was imported once by the sole primary importer after exact user approval. Do not duplicate, retry, reimport or rewrite it. No coordinator import was performed. All further immutable batches require review and serialized sole-primary admission; worker lease/exclusions and shared-runtime editing restrictions remain unchanged.",
   "validationBase": {
     "surveyRevision": 112,
     "surveySha256": "a20c72f6989479ae909847686ca9eeb69f62488d312cef4a7e84873700e3da3e",
@@ -76,5 +76,20 @@
     "reportedBy": "parent/designated coordinator",
     "userMessageId": "Sentinel_cf2914937b108191aeae03c75455fe17",
     "scope": "exact two-observation batch001 import into sole primary runtime; existing lease/exclusions unchanged"
+  },
+  "actualImport": {
+    "surveyRevision": 113,
+    "canonicalHash": "8367814cde80fd0f11911d8c778740396135ad2d2233dbff4ab481c85d7841e1",
+    "surveySha256": "17741d5b1fe3df3845944c2632da2628a5e22f2d8a54bee7e58272a4e5c3f66a",
+    "sourcesAdded": 2,
+    "pendingObservationsAdded": 2,
+    "sourcesTotal": 808,
+    "observationsTotal": 583,
+    "provisionalStorefronts": 169,
+    "verifiedStorefronts": 0,
+    "verifiedSides": 0,
+    "validationErrors": 0,
+    "networkCheck": "ok",
+    "receipt": "docs/handoff/reviews/second-computer-01-primary-import-113.md"
   }
 }
