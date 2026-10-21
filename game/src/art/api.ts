@@ -8,6 +8,13 @@ import type { WorldCore, WorldChunk } from '../world/schema';
 
 export type Quality = 'low' | 'standard' | 'high';
 
+/** Screen-readable companion to a board already rendered from canonical source data. */
+export interface ReadableSign {
+  id: string; text: string; x: number; y: number; z: number;
+  nx: number; nz: number; buildingId: string | null;
+  kind: 'shop' | 'building' | 'sign'; provisional: boolean;
+}
+
 export interface HeroCar {
   root: THREE.Group; // origin at ground-contact centre; forward is -Z (Three.js convention); length ~4.0 m
   /** wheel pivots: [FL, FR, RL, RR]; rotate x for spin, y for steer on front */
@@ -15,7 +22,7 @@ export interface HeroCar {
   /** 0..1 thruster/vapor intensity (flight presentation) */
   setThruster(intensity: number): void;
   /** World-ground clearance supplies cold-gas ground interaction; visual only. */
-  setFlightContext?(context: { heightM: number; verticalSpeed: number; speedMps: number; steerRad: number }): void;
+  setFlightContext?(context: { heightM: number; verticalSpeed: number; speedMps: number; steerRad: number; airborne?: boolean }): void;
   setCargoLoaded?(loaded: boolean): void;
   setHeadlights?(on: boolean): void;
   setBrakeLights(on: boolean): void;

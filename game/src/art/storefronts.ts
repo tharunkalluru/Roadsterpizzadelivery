@@ -7,7 +7,7 @@
  */
 import * as THREE from 'three';
 import type { Building, RoadEdge, Storefront, StoreGroup, WorldChunkV2, WorldCore, WorldCoreV2 } from '../world/schema';
-import type { Quality } from './api';
+import type { Quality, ReadableSign } from './api';
 import { GeoBuilder, addBox, boxMatrix, hashString, hex, rng } from './geo';
 import { FC, frontCellUV, getFrontAtlas } from './frontAtlas';
 import { ensureTeluguFont, TELUGU_FAMILY } from './sign';
@@ -229,7 +229,7 @@ function sharedMats(q: Quality): { lit: THREE.MeshBasicMaterial; body: THREE.Mes
 }
 
 function makeSignMaterial(map: THREE.Texture, far: number): THREE.MeshBasicMaterial {
-  const m = new THREE.MeshBasicMaterial({ name: 'store-sign', map, vertexColors: true, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+  const m = new THREE.MeshBasicMaterial({ name: 'store-sign', map, vertexColors: true, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
   const f = far.toFixed(1);
   m.onBeforeCompile = (sh) => {
     sh.vertexShader = sh.vertexShader
@@ -359,6 +359,8 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
   const t0 = performance.now();
   const group = new THREE.Group();
   group.name = `stores_${chunk.id}`;
+  const readableSigns: ReadableSign[] = [];
+  group.userData.readableSigns = readableSigns;
   const byBuilding = new Map(chunk.buildings.map(b=>[b.id,b]));
   const list = (chunk.storefronts ?? []).filter(s=>{
     if(!s?.name||!s.facade)return false;
@@ -518,6 +520,13 @@ export function buildStorefronts(chunk: WorldChunkV2, core: WorldCore, quality: 
     L.box(lit, -bw / 2, bw / 2, by, by + bh, mount+0.02, mount+depth, edgeC, true);
     L.quad(lit, -bw / 2, bw / 2, by, by + bh, mount+depth + 0.001, bgc, [0, 0, 1, 0, 1, 1, 0, 1]);
     const nSign = mount+depth + 0.004;
+    // Reuse the actual board plan, including authored name bands and upper-floor
+    // signs. This creates no tenancy, location, or verification evidence.
+    readableSigns.push({ id: sf.id, text: pl.boardCell.spec.lines.join(' · '),
+      x: fr.cx + fr.nx * (nSign + .04), y: by + bh / 2, z: fr.cz + fr.nz * (nSign + .04),
+      nx: fr.nx, nz: fr.nz, buildingId: sf.buildingId,
+      kind: sf.category === 'building_name' ? 'building' : sf.category === 'observed_advertisement' || sf.category.endsWith('_signage') ? 'sign' : 'shop',
+      provisional: sf.status !== 'verified' });
     const cw = pl.boardCell.wm, chh = pl.boardCell.hm;
     L.quad(signs[pl.boardCell.page!], -cw / 2, cw / 2, by + (bh - chh) / 2, by + (bh + chh) / 2, nSign, bgc, cellUV(pl.boardCell));
     {

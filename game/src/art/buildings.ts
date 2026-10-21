@@ -7,7 +7,7 @@
  */
 import * as THREE from 'three';
 import type { Building, WorldChunk, WorldChunkV2, WorldCore, RoadEdge, Storefront } from '../world/schema';
-import type { Quality } from './api';
+import type { Quality, ReadableSign } from './api';
 import {
   GeoBuilder,
   addBox,
@@ -436,7 +436,7 @@ function addBuilding(
     let matp = signMatCache.get(key);
     const bgs = ['#1d4e89', '#7a1f2b', '#1f6f4a', '#33343a', '#8a5a14'];
     if (!matp) {
-      matp = new THREE.MeshBasicMaterial({ color: new THREE.Color(bgs[hashString(bld.name) % bgs.length]), toneMapped: true });
+      matp = new THREE.MeshBasicMaterial({ color: new THREE.Color(bgs[hashString(bld.name) % bgs.length]), toneMapped: false });
       signMatCache.set(key, matp);
       let job = signTexCache.get(key);
       if (!job) {
@@ -452,9 +452,22 @@ function addBuilding(
     mesh.scale.set(w, h, 1);
     mesh.name = 'building-sign';
     mesh.userData.buildingId = bld.id;
+    (group.userData.readableSigns ??= [] as ReadableSign[]).push({ id: bld.id, text: bld.name,
+      x: cx + f.nx * .04, y: y + baseHeight, z: cz + f.nz * .04, nx: f.nx, nz: f.nz,
+      buildingId: bld.id, kind: 'building', provisional: true } satisfies ReadableSign);
     group.add(mesh);
     const job = signTexCache.get(key);
     if (job) signJobs.push(job.then(() => undefined, () => undefined));
+  }
+  // Baked contact shading on the existing vertices adds depth even without shadow maps.
+  // This is presentation-only; recorded facade colours, footprints and geometry stay intact.
+  for (let k = 0; k < builders.length; k++) {
+    const b = builders[k];
+    for (let i = starts[k]; i < b.pos.length; i += 3) {
+      const wall = 1 - Math.abs(b.nor[i + 1]);
+      const shade = 1 - wall * .2 * Math.max(0, 1 - b.pos[i + 1] / Math.min(H, 5));
+      b.col[i] *= shade; b.col[i + 1] *= shade; b.col[i + 2] *= shade;
+    }
   }
   // Source min_height is shared with physical collision; never turn a raised building into a ground wall.
   if(baseHeight>0){
@@ -565,7 +578,7 @@ function addSnHeightsFacade(bld:Building,H:number,group:THREE.Group,quality:Qual
     const key=`observed-sn-heights|${quality}`;
     let mat=signMatCache.get(key);
     if(!mat){
-      mat=new THREE.MeshBasicMaterial({color:0x233854});signMatCache.set(key,mat);
+      mat=new THREE.MeshBasicMaterial({color:0x233854,toneMapped:false});signMatCache.set(key,mat);
       signTexCache.set(key,createSignTexture([{text:bld.name,lang:'en'}],{bg:'#e8e2d7',fg:'#233854',width:1024,height:128}));
       const target=mat;
       signTexCache.get(key)!.then(t=>{target.map=t;target.color.set(0xffffff);target.needsUpdate=true;}).catch(()=>undefined);
@@ -574,6 +587,9 @@ function addSnHeightsFacade(bld:Building,H:number,group:THREE.Group,quality:Qual
     sign.position.copy(position);
     const normal=front.world(0,0,1).sub(front.world(0,0,0));sign.rotation.y=Math.atan2(normal.x,normal.z);
     sign.scale.set(W*.48,.62,1);sign.name='sn-heights-name';sign.userData.buildingId=bld.id;group.add(sign);
+    (group.userData.readableSigns ??= [] as ReadableSign[]).push({id:bld.id,text:bld.name,
+      x:position.x+normal.x*.04,y:position.y+(bld.baseHeightM??0),z:position.z+normal.z*.04,
+      nx:normal.x,nz:normal.z,buildingId:bld.id,kind:'building',provisional:true} satisfies ReadableSign);
     signJobs.push(signTexCache.get(key)!.then(()=>undefined,()=>undefined));
   }
 }

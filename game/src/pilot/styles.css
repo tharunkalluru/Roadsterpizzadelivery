@@ -1,1 +1,36 @@
-.pilot-gate{position:fixed;inset:0;overflow:auto;background:#f2efe6;color:#192f27;padding:clamp(20px,5vw,64px);font-family:system-ui,sans-serif;pointer-events:auto}.pilot-wordmark{font-weight:850;letter-spacing:.12em;font-size:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.pilot-wordmark span{font-size:10px;letter-spacing:.14em;background:#19392c;color:#fff;padding:7px 9px;border-radius:4px}.pilot-card{max-width:640px;margin:clamp(30px,7vh,80px) auto 20px}.pilot-eyebrow{font-size:11px;letter-spacing:.16em;font-weight:750;color:#617067}.pilot-card h1{font-size:clamp(35px,5.4vw,60px);line-height:1.06;letter-spacing:-.055em;margin:22px 0}.pilot-lead{font-size:clamp(17px,2vw,20px);line-height:1.6;max-width:590px;color:#4c5d53}.pilot-status{display:flex;gap:16px;border:1px solid #d5d7ca;border-radius:14px;padding:20px;margin:28px 0;background:#e9eadf}.pilot-status>span{font-size:30px;color:#8a621b}.pilot-status p{margin:7px 0 0;line-height:1.55;font-size:14px;color:#526152}.pilot-detail{font-size:14px;line-height:1.65;color:#536055}.pilot-card button{width:100%;min-height:52px;background:#cfd5c8;color:#52604e;border:0;border-radius:10px;font-weight:700;font-size:15px;margin:12px 0;cursor:not-allowed}.pilot-footnote{font-size:12px;line-height:1.5;color:#6a756a}.pilot-error{margin:10vh auto;padding:24px;max-width:560px;pointer-events:auto;background:#172a24}.pilot-zone-label{position:fixed;left:50%;top:8px;transform:translateX(-50%);z-index:10;background:#173a2eee;color:white;padding:7px 14px;border:1px solid #8ac48a;border-radius:12px;max-width:80vw;font:12px system-ui;text-align:center;pointer-events:none}@media(max-height:600px){.pilot-card{margin-top:25px}.pilot-card h1{font-size:36px}}
+.pilot-gate {
+  position:fixed; inset:0; overflow:auto; overscroll-behavior:contain;
+  background:#f5eedc; color:#20392f;
+  padding:calc(clamp(20px,4vw,56px) + var(--safe-t)) calc(clamp(20px,5vw,72px) + var(--safe-r)) calc(24px + var(--safe-b)) calc(clamp(20px,5vw,72px) + var(--safe-l));
+  font-family:var(--font); pointer-events:auto;
+}
+.pilot-wordmark { font-weight:900; letter-spacing:-.05em; font-size:30px; display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+.pilot-wordmark span { font-size:10px; letter-spacing:.13em; background:#c8442e; color:#fff9ec; padding:8px 10px; border-radius:5px; }
+.pilot-card { max-width:640px; margin:clamp(30px,7vh,80px) auto 20px; }
+.pilot-card.preview-card { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(240px,.8fr); max-width:1080px; gap:clamp(28px,6vw,80px); align-items:center; margin-top:clamp(40px,10vh,110px); }
+.pilot-eyebrow { font-size:10px; letter-spacing:.14em; font-weight:800; color:#8b4936; line-height:1.5; }
+.pilot-card h1 { font-size:clamp(38px,5.3vw,68px); line-height:1.01; letter-spacing:-.065em; margin:24px 0; font-weight:850; }
+.pilot-lead { font-size:clamp(16px,1.5vw,18px); line-height:1.6; max-width:560px; color:#526255; }
+.pilot-notes { border-top:5px solid #20392f; border-bottom:1px solid #20392f30; padding:26px 0; }
+.pilot-status { display:flex; gap:16px; border:1px solid #d8d8c7; border-radius:14px; padding:20px; margin:28px 0; background:#eeeddc; }
+.preview-card .pilot-status { border:0; background:transparent; border-radius:0; margin:0 0 22px; padding:0; }
+.pilot-status > span { font-size:30px; color:#a55432; }
+.pilot-status .pilot-order-number { font-size:34px; line-height:1; font-weight:850; letter-spacing:-.06em; color:#c8442e; }
+.pilot-status strong { font-size:17px; line-height:1.3; letter-spacing:-.03em; }
+.pilot-status p { margin:10px 0 0; line-height:1.6; font-size:13px; color:#526255; }
+.pilot-scope { border-top:1px dashed #20392f40; padding-top:22px; }
+.pilot-detail { font-size:12px; line-height:1.65; color:#536055; overflow-wrap:anywhere; }
+.pilot-card button { width:100%; min-height:56px; display:flex; align-items:center; justify-content:space-between; gap:16px; background:#d6dbce; color:#52604e; border:0; border-radius:12px; font-weight:750; font-size:15px; margin:24px 0 14px; cursor:not-allowed; }
+.pilot-card [data-preview-start] { background:#c8442e; color:#fff9ec; cursor:pointer; padding:16px 20px; box-shadow:0 3px 0 #922f22; transition:transform 140ms cubic-bezier(.23,1,.32,1),background-color 140ms ease-out; }
+.pilot-card [data-preview-start] span { font-size:22px; line-height:1; }
+.pilot-card [data-preview-start]:active { transform:translateY(2px); box-shadow:0 1px 0 #922f22; }
+.pilot-card [data-preview-start]:disabled { opacity:.6; cursor:wait; }
+.pilot-footnote { font-size:11px; line-height:1.55; color:#657263; }
+.pilot-bottomline { margin:42px auto 0; max-width:1080px; border-top:1px solid #20392f25; padding-top:18px; font-size:9px; font-weight:700; letter-spacing:.19em; color:#6d7765; }
+.pilot-error { margin:10vh auto; padding:24px; max-width:560px; pointer-events:auto; background:#fff9ec; color:#20392f; border:1px solid #c8442e; border-radius:14px; }
+.pilot-zone-label { position:fixed; left:50%; top:calc(8px + var(--safe-t)); transform:translateX(-50%); z-index:10; background:#fff4d9; color:#734323; padding:5px 12px; border:1px solid #d5b888; border-radius:6px; max-width:calc(100vw - 32px - var(--safe-l) - var(--safe-r)); font:600 11px/1.25 var(--font); text-align:center; pointer-events:none; }
+.screens:not(:empty) ~ .pilot-zone-label { display:none; }
+@media (hover:hover) and (pointer:fine) { .pilot-card [data-preview-start]:hover { background:#ad3828; } }
+@media(max-width:700px) { .pilot-card.preview-card { grid-template-columns:1fr; gap:24px; margin-top:36px; }.pilot-notes{padding:22px 0}.pilot-card h1{font-size:44px}.pilot-wordmark{font-size:26px}.pilot-bottomline{margin-top:30px} }
+@media(max-height:500px) and (orientation:landscape) { .pilot-gate{padding-top:calc(20px + var(--safe-t))}.pilot-card.preview-card{margin-top:30px;gap:30px;grid-template-columns:minmax(0,1.1fr) minmax(220px,1fr)}.pilot-card h1{font-size:42px;margin:16px 0}.pilot-lead{font-size:14px}.pilot-wordmark{font-size:24px}.pilot-card button{margin-top:18px}.pilot-bottomline{margin-top:24px} }
+@media(prefers-reduced-motion:reduce) { .pilot-card [data-preview-start] { transition:none; } }

@@ -13,13 +13,13 @@ import type { WorldCore } from '../world/schema';
 import { TerrainCutoutController,markTerrainMaterial } from './terrainCutouts';
 
 export const SUN_DIR = new THREE.Vector3(0.42, 0.74, 0.52).normalize();
-export const HAZE = 0xd9d3c4;
+export const HAZE = 0xe4ded0;
 export interface AtmosphereState {timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}
 export function atmosphereLighting(state:AtmosphereState):{sky:number;haze:number;sun:number;sunIntensity:number;hemi:number;ground:number;exposure:number;environment:number}{
   const rain=state.weather==='rain';
   if(state.timeOfDay==='night')return{sky:0x071321,haze:rain?0x25323e:0x142331,sun:0xa7c1e2,sunIntensity:.12,hemi:.48,ground:0x4b5359,exposure:.8,environment:.15};
   if(state.timeOfDay==='dusk')return{sky:rain?0x4c5a70:0x596a8b,haze:rain?0x737a83:0xd5a292,sun:0xffb273,sunIntensity:rain?.65:1.5,hemi:.85,ground:0x8f827c,exposure:.9,environment:.55};
-  return{sky:rain?0x657c8d:0x2f73c4,haze:rain?0x929fA4:HAZE,sun:rain?0xd5e0e4:0xffefd2,sunIntensity:rain?1.05:3.1,hemi:rain?1.0:1.25,ground:rain?0x858f91:0xa59f94,exposure:rain?.88:1,environment:rain?.65:.95};
+  return{sky:rain?0x657c8d:0x75aecb,haze:rain?0x929fA4:HAZE,sun:rain?0xd5e0e4:0xffe6be,sunIntensity:rain?1.05:2.4,hemi:rain?1.0:1.5,ground:rain?0x858f91:0xa79b84,exposure:rain?.88:1.02,environment:rain?.65:.8};
 }
 
 const skyVert = /* glsl */ `
@@ -91,8 +91,8 @@ function makeSkyMaterial(clouds: boolean, groundMix: number): THREE.ShaderMateri
     uniforms: {
       uSun: { value: SUN_DIR.clone() },
       uHaze: { value: new THREE.Color(HAZE) },
-      uZenith: { value: new THREE.Color(0x2f73c4) },
-      uMid: { value: new THREE.Color(0x7fb0e0) },
+      uZenith: { value: new THREE.Color(0x75aecb) },
+      uMid: { value: new THREE.Color(0xb9d6df) },
       uGround: { value: new THREE.Color(0x938f86) },
       uGroundMix: { value: groundMix },
       uClouds: { value: clouds ? 1 : 0 },
@@ -126,7 +126,7 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
   const own = <T extends { dispose(): void }>(o: T): T => { created.push(o); return o; };
 
   // ---- sky dome (rendered at far depth, never clipped by the camera far plane)
-  const skyMat = own(makeSkyMaterial(quality !== 'low', 0));
+  const skyMat = own(makeSkyMaterial(quality === 'high', 0));
   const skyGeo = own(new THREE.SphereGeometry(1, 32, 16));
   const sky = new THREE.Mesh(skyGeo, skyMat);
   sky.name = 'sky-dome';
@@ -138,17 +138,18 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
   const prevBackground = scene.background;
   const prevEnv = scene.environment;
   const prevFog = scene.fog;
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  const envScene = new THREE.Scene();
-  const envMat = own(makeSkyMaterial(false, 0.85));
-  const envDome = new THREE.Mesh(skyGeo, envMat);
-  envDome.frustumCulled = false;
-  envScene.add(envDome);
-  const envRT = pmrem.fromScene(envScene, 0, 0.1, 100);
-  pmrem.dispose();
-  scene.environment = envRT.texture;
+  // Low uses sun + hemisphere only: no cube capture, PMREM targets or reflection lookup.
+  if (quality !== 'low') {
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const envScene = new THREE.Scene();
+    const envMat = own(makeSkyMaterial(false, 0.85));
+    const envDome = new THREE.Mesh(skyGeo, envMat);
+    envDome.frustumCulled = false; envScene.add(envDome);
+    const envRT = pmrem.fromScene(envScene, 0, 0.1, 100, { size: quality === 'high' ? 256 : 128 });
+    pmrem.dispose(); scene.environment = envRT.texture;
+    created.push({ dispose: () => envRT.dispose() });
+  } else scene.environment = null;
   scene.environmentIntensity = quality === 'low' ? 0.75 : 0.95;
-  created.push({ dispose: () => envRT.dispose() });
 
   // ---- fog
   const fogColor = new THREE.Color(HAZE);
@@ -222,7 +223,7 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
   const setAtmosphere=(state:AtmosphereState)=>{
     atmosphere={...state};const light=atmosphereLighting(state),wet=state.weather==='rain';
     skyMat.uniforms.uZenith.value.setHex(light.sky);skyMat.uniforms.uHaze.value.setHex(light.haze);skyMat.uniforms.uMid.value.setHex(light.haze).lerp(new THREE.Color(light.sky),.4);
-    skyMat.uniforms.uClouds.value=state.timeOfDay==='night'?0:1;
+    skyMat.uniforms.uClouds.value=quality==='high'&&state.timeOfDay!=='night'?1:0;
     skyMat.uniforms.uSunStrength.value=state.timeOfDay==='night'?.015:state.weather==='rain'?.2:1;
     // Original sky reflection remains bounded through environment intensity; no fake weather data is implied.
     scene.environmentIntensity=light.environment;renderer.toneMappingExposure=light.exposure;
@@ -238,7 +239,7 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
     setTerrainCore(core:WorldCore){cutouts?.dispose();cutouts=new TerrainCutoutController(scene,core);cutouts.update(new THREE.Vector3());cutouts.bind(scene);},
     bindTerrainObject(object:THREE.Object3D){cutouts?.bind(object);},
     update(target: THREE.Vector3,dt=1/60): void {
-      cutouts?.syncMaterials();
+      // TerrainCutoutController synchronizes once in scene.onBeforeRender.
       applyCull(target.x, target.z, fogFar);
       // sun follows target; snap in light space to prevent shadow shimmer
       const a = Math.round(target.dot(lx) / texel) * texel;

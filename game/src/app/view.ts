@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { buildSourceLandscape } from '../art/sourceLandscape';
-import type { ArtApi, HeroCar, Quality, TrafficKind, TrafficTemplate, LandingMarker } from '../art/api';
+import type { ArtApi, HeroCar, Quality, TrafficKind, TrafficTemplate, LandingMarker, ReadableSign } from '../art/api';
 import type { WorldCore, WorldChunk, RoadEdge } from '../world/schema';
 import type { Session } from '../missions/session';
 import type { WorldPhysics } from '../world/collision';
@@ -9,10 +9,10 @@ import { SignalSystem } from '../traffic/signals';
 import { SIM_HZ } from '../config/gameplay';
 import { buildStreetscape, type StreetscapeData } from '../art/streetscape';
 import { updateBicycleAnimation } from '../art/bicycleAnimation';
+import { WorldLabels } from '../ui/worldLabels';
 
 /** must equal ROAD_TILE in src/art/roads.ts (the art bundle is loaded separately) */
 const ROAD_TILE = 480;
-const roadTileKey = (x: number, z: number) => `${Math.floor(x / ROAD_TILE)}_${Math.floor(z / ROAD_TILE)}`;
 /** worlds with more road edges than this stream road geometry by tile */
 const ROAD_STREAM_MIN = 3000;
 
@@ -33,6 +33,10 @@ export class GameView {
   private pedTemplate: THREE.Object3D | null = null;
   private actorObjs = new Map<number, THREE.Object3D>();
   private actorMaterials = new WeakMap<THREE.Object3D, THREE.Material[]>();
+  private actorBrakes = new WeakMap<THREE.Object3D, THREE.MeshStandardMaterial>();
+  private liveActors = new Set<number>();
+  private livePeds = new Set<number>();
+  private flightContext = { heightM: 0, verticalSpeed: 0, speedMps: 0, steerRad: 0, airborne: false };
   private pedObjs = new Map<number, THREE.Object3D>();
   private deliveryMarker: THREE.Object3D | null = null;
   private markerFor: string | null = null;
@@ -57,6 +61,7 @@ export class GameView {
   get metroAmbience():number { return Math.max(0,Math.min(1,Number(this.metroVisual?.userData.nearbySound??0))); }
   private presentationTime = 0;
   private signalHeads: { edge: string; lamps: THREE.MeshStandardMaterial[] }[] = [];
+  private worldLabels: WorldLabels | null = null;
 
   /** signal heads at signalled junctions (S03); lamp position + colour, so state is not colour-only */
   buildSignals(sig: SignalSystem, world: WorldPhysics) {
@@ -97,6 +102,7 @@ export class GameView {
     this.camera = new THREE.PerspectiveCamera(62, 1, 0.3, 2200);
     this.scene.add(this.staticGroup);
     this.bindCameraLook(renderer.domElement);
+    if (renderer.domElement?.parentElement) this.worldLabels = new WorldLabels(renderer.domElement.parentElement);
   }
 
   /** Canvas-only gesture: UI controls keep their own independent pointers. */
@@ -140,7 +146,7 @@ export class GameView {
     if (pointer !== null) try { this.lookCanvas?.releasePointerCapture(pointer); } catch { /* capture may already be lost */ }
   }
 
-  disposeCameraControls() { this.releaseLookListeners?.(); this.releaseLookListeners = null; }
+  disposeCameraControls() { this.releaseLookListeners?.(); this.releaseLookListeners = null; this.worldLabels?.dispose(); this.worldLabels = null; }
 
   async buildStatic(core: WorldCore, quality: Quality, onProgress: (s: string) => void): Promise<void> {
     this.quality = quality;
@@ -186,6 +192,9 @@ export class GameView {
     this.chunkGroups.set(chunk.id, g);
     this.scene.add(g);
     this.env?.bindTerrainObject?.(g);
+    const labels: ReadableSign[] = [];
+    g.traverse(o => { if (o.userData.readableSigns) labels.push(...o.userData.readableSigns); });
+    this.worldLabels?.attachChunk(chunk.id, labels, chunk.buildings);
   }
   removeChunk(id: string) {
     const g = this.chunkGroups.get(id);
@@ -195,6 +204,7 @@ export class GameView {
     if (sg) this.artExtras.disposeStorefronts?.(sg); // per-chunk sign atlas textures
     g.traverse((o) => { const m = o as THREE.Mesh; if (m.geometry && !m.geometry.userData.shared) m.geometry.dispose(); });
     this.chunkGroups.delete(id);
+    this.worldLabels?.removeChunk(id);
   }
   get chunkIds() { return [...this.chunkGroups.keys()]; }
 
@@ -221,7 +231,7 @@ export class GameView {
 
   private syncActors(s: Session, alpha: number) {
     if (!this.templates || !this.pedTemplate) return;
-    const live = new Set<number>();
+    const live = this.liveActors; live.clear();
     for (const a of s.traffic.actors) {
       live.add(a.id);
       let o = this.actorObjs.get(a.id);
@@ -233,7 +243,7 @@ export class GameView {
         o.traverse((c) => {
           const m = c as THREE.Mesh;
           if (!m.isMesh) return;
-          if (c.name === 'brake') { const mat=(m.material as THREE.Material).clone();m.material=mat;ownedMaterials.push(mat); }
+          if (c.name === 'brake') { const mat=(m.material as THREE.MeshStandardMaterial).clone();m.material=mat;ownedMaterials.push(mat);this.actorBrakes.set(o!,mat); }
           // cosmetic paint variety from the actor id (never affects simulation)
           if (c.name === 'body' && variants.length) { const mat = (m.material as THREE.MeshStandardMaterial).clone(); mat.color.set(variants[a.id % variants.length] as any); m.material = mat;ownedMaterials.push(mat); }
         });
@@ -249,11 +259,11 @@ export class GameView {
         o.userData.cycleX=o.position.x;o.userData.cycleZ=o.position.z;
         updateBicycleAnimation(o,o.userData.cycleDistance);
       }
-      const brake = o.getObjectByName('brake') as THREE.Mesh | undefined;
-      if (brake) { const m = brake.material as THREE.MeshStandardMaterial; if (m.emissiveIntensity !== undefined) m.emissiveIntensity = a.braking ? 2.2 : 0.25; }
+      const brake = this.actorBrakes.get(o);
+      if (brake) brake.emissiveIntensity = a.braking ? 2.2 : 0.25;
     }
     for (const [id, o] of this.actorObjs) if (!live.has(id)) { this.releaseActor(o); this.actorObjs.delete(id); }
-    const livep = new Set<number>();
+    const livep = this.livePeds; livep.clear();
     for (const p of s.traffic.peds) {
       livep.add(p.id);
       let o = this.pedObjs.get(p.id);
@@ -270,6 +280,7 @@ export class GameView {
     o.traverse(c=>{if((c as THREE.InstancedMesh).isInstancedMesh)(c as THREE.InstancedMesh).dispose();});
     for(const mat of this.actorMaterials.get(o)??[])mat.dispose();
     this.actorMaterials.delete(o);
+    this.actorBrakes.delete(o);
   }
 
   clearActors() {
@@ -278,7 +289,7 @@ export class GameView {
     this.actorObjs.clear(); this.pedObjs.clear();
   }
 
-  update(s: Session, world: WorldPhysics, alpha: number, dt: number) {
+  update(s: Session, world: WorldPhysics, alpha: number, dt: number, showLabels = false) {
     this.presentationTime = s.tick / SIM_HZ;
     const p = s.player;
     const x = p.prev.x + (p.x - p.prev.x) * alpha;
@@ -294,7 +305,10 @@ export class GameView {
       // gentle visual pitch in flight / bank on steer — visual only
       if (p.isAirborne) { this.car.root.rotateX(Math.max(-0.12, Math.min(0.12, p.vy * 0.03))); this.car.root.rotateZ(-p.steerAngle * 0.5); }
       const ground=world.roads.surface(x,z,{maxY:y+.3,margin:0});
-      this.car.setFlightContext?.({heightM:Math.max(0,y-(ground?.elevation??0)),verticalSpeed:p.vy,speedMps:p.speed,steerRad:p.steerAngle});
+      this.flightContext.heightM=Math.max(0,y-(ground?.elevation??0));this.flightContext.verticalSpeed=p.vy;
+      this.flightContext.speedMps=p.speed;this.flightContext.steerRad=p.steerAngle;
+      this.flightContext.airborne=p.isAirborne;
+      this.car.setFlightContext?.(this.flightContext);
       this.car.animate(dt, p.speed, p.steerAngle);
       this.car.setThruster(p.isAirborne ? (p.move === 'TAKEOFF' ? 1 : p.move === 'DESCENDING' ? 0.6 : 0.75) : p.move === 'LANDING_CONFIRM' ? 0.3 : 0);
       this.car.setCargoLoaded?.(s.cargoLoaded);
@@ -311,6 +325,7 @@ export class GameView {
     this.syncActors(s, alpha);
     if (this.signalHeads.length) this.updateSignals(s.traffic.signals, s.traffic.tick);
     this.updateCamera(x, y, z, h, p.isAirborne, p.speed, world, dt);
+    this.worldLabels?.update(this.camera, world, showLabels);
     this.env?.update(tmpV.set(x, y, z),dt);
     this.metroVisual?.userData.update?.(this.presentationTime, tmpV);
   }
@@ -351,14 +366,17 @@ export class GameView {
     }
     this.camera.lookAt(this.camLook);
     const targetFov = air ? 66 : 60 + Math.min(6, Math.abs(speed) * 0.3);
-    this.camera.fov += (targetFov - this.camera.fov) * Math.min(1, dt * 2);
-    this.camera.updateProjectionMatrix();
+    if (Math.abs(targetFov - this.camera.fov) > .001) {
+      this.camera.fov += (targetFov - this.camera.fov) * Math.min(1, dt * 2);
+      this.camera.updateProjectionMatrix();
+    }
   }
 
   resetCamera() { this.camInit = false; this.cameraOrbit = 0; this.cameraPitch = 0; this.lookAllowed = false; this.endCameraLook(); }
 
   /** static overview camera for menus */
   menuCamera(t: number, cx: number, cz: number) {
+    this.worldLabels?.setVisible(false);
     this.lookAllowed = false; this.endCameraLook();
     const r = 140;
     this.camera.position.set(cx + Math.cos(t * 0.05) * r, 70, cz + Math.sin(t * 0.05) * r);
@@ -371,6 +389,11 @@ export class GameView {
   private roadCore: WorldCore | null = null;
   private roadTileIndex = new Map<string, RoadEdge[]>();
   private roadTiles = new Map<string, THREE.Group>();
+  private roadScanX = Infinity;
+  private roadScanZ = Infinity;
+  private roadScanRange = 0;
+  private roadPending: [string, number][] = [];
+  private roadPendingIndex = 0;
 
   private initRoadStream(core: WorldCore) {
     this.roadCore = core;
@@ -415,31 +438,37 @@ export class GameView {
   updateRoadTiles(x: number, z: number, budget = 1) {
     if (!this.roadCore) return;
     const R = this.camera.far * 0.9;
-    const ix0 = Math.floor((x - R) / ROAD_TILE), ix1 = Math.floor((x + R) / ROAD_TILE);
-    const iz0 = Math.floor((z - R) / ROAD_TILE), iz1 = Math.floor((z + R) / ROAD_TILE);
-    const want: [string, number][] = [];
-    for (let ix = ix0; ix <= ix1; ix++) for (let iz = iz0; iz <= iz1; iz++) {
-      const cx = (ix + 0.5) * ROAD_TILE, cz = (iz + 0.5) * ROAD_TILE;
-      const d = Math.hypot(cx - x, cz - z) - ROAD_TILE * 0.71;
-      const k = `${ix}_${iz}`;
-      if (d < R && this.roadTileIndex.has(k) && !this.roadTiles.has(k)) want.push([k, d]);
+    // A 32 m movement threshold is far inside the preloaded ring. Drain build work
+    // every frame, but don't allocate keys/arrays and sort an unchanged view each frame.
+    if ((x-this.roadScanX)**2+(z-this.roadScanZ)**2 >= 1024 || this.roadScanRange !== R) {
+      this.roadScanX=x;this.roadScanZ=z;this.roadScanRange=R;
+      const ix0 = Math.floor((x - R) / ROAD_TILE), ix1 = Math.floor((x + R) / ROAD_TILE);
+      const iz0 = Math.floor((z - R) / ROAD_TILE), iz1 = Math.floor((z + R) / ROAD_TILE);
+      const want = this.roadPending; want.length = 0; this.roadPendingIndex = 0;
+      for (let ix = ix0; ix <= ix1; ix++) for (let iz = iz0; iz <= iz1; iz++) {
+        const cx = (ix + 0.5) * ROAD_TILE, cz = (iz + 0.5) * ROAD_TILE;
+        const d = Math.hypot(cx - x, cz - z) - ROAD_TILE * 0.71;
+        const k = `${ix}_${iz}`;
+        if (d < R && this.roadTileIndex.has(k) && !this.roadTiles.has(k)) want.push([k, d]);
+      }
+      want.sort((a, b) => a[1] - b[1]);
+      for (const k of this.roadTiles.keys()) {
+        const [ix, iz] = k.split('_').map(Number);
+        const d = Math.hypot((ix + 0.5) * ROAD_TILE - x, (iz + 0.5) * ROAD_TILE - z) - ROAD_TILE * 0.71;
+        if (d > R + 500) this.disposeRoadTile(k);
+      }
     }
-    want.sort((a, b) => a[1] - b[1]);
-    for (let i = 0; i < Math.min(budget, want.length); i++) this.buildRoadTile(want[i][0]);
-    for (const k of [...this.roadTiles.keys()]) {
-      const [ix, iz] = k.split('_').map(Number);
-      const d = Math.hypot((ix + 0.5) * ROAD_TILE - x, (iz + 0.5) * ROAD_TILE - z) - ROAD_TILE * 0.71;
-      if (d > R + 500) this.disposeRoadTile(k);
+    for (let i = 0; i < budget && this.roadPendingIndex < this.roadPending.length; i++) {
+      this.buildRoadTile(this.roadPending[this.roadPendingIndex++][0]);
     }
   }
 
   get roadTileCount() { return this.roadTiles.size; }
 
   render() {
-    // the nearest missing tile is built at once (never drive on invisible road); further ones one per frame
+    // Drain the prefetched ring nearest first, one tile per frame.
     if (this.roadCore) {
-      const k = roadTileKey(this.camera.position.x, this.camera.position.z);
-      this.updateRoadTiles(this.camera.position.x, this.camera.position.z, this.roadTiles.has(k) ? 1 : 2);
+      this.updateRoadTiles(this.camera.position.x, this.camera.position.z);
     }
     this.renderer.render(this.scene, this.camera);
     const info = this.renderer.info.render;

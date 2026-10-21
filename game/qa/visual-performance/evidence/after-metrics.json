@@ -1,0 +1,126 @@
+{
+  "phase": "after",
+  "at": "2026-10-21T05:50:04.036Z",
+  "results": [
+    {
+      "profile": {
+        "name": "phone-low",
+        "width": 844,
+        "height": 390,
+        "quality": "low",
+        "touch": true,
+        "dpr": 2
+      },
+      "menuMs": 2043.2669999999998,
+      "playMs": 7558.817417,
+      "method": "10-second stationary normal-spawn rendered sample, simulation manually frozen; developer server; not physical-phone certification",
+      "samples": 601,
+      "frameMs": {
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "p99": 16.80000000000109
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)",
+      "drawCalls": {
+        "min": 177,
+        "max": 177
+      },
+      "triangles": {
+        "min": 179714,
+        "max": 179714
+      },
+      "gpuResources": {
+        "geometries": 170,
+        "textures": 29,
+        "programs": 30
+      },
+      "memory": {
+        "usedJSHeapSize": 315007277,
+        "totalJSHeapSize": 387591165
+      },
+      "loadedResources": {
+        "count": 128,
+        "transferBytes": 62317372,
+        "decodedBytes": 62278972
+      },
+      "resolution": {
+        "dpr": 1,
+        "width": 844,
+        "height": 390
+      },
+      "quality": "low",
+      "state": "PLAYING",
+      "position": {
+        "x": -6499.61,
+        "z": -3011.925
+      },
+      "retainedHeapAfterGC": {
+        "usedSize": 139456968,
+        "totalSize": 145653760,
+        "embedderHeapUsedSize": 15870272,
+        "backingStorageSize": 90906931
+      },
+      "pageErrors": []
+    },
+    {
+      "profile": {
+        "name": "desktop-standard",
+        "width": 1280,
+        "height": 720,
+        "quality": "standard",
+        "touch": false,
+        "dpr": 1
+      },
+      "menuMs": 2379.5803750000014,
+      "playMs": 7999.195166999998,
+      "method": "10-second stationary normal-spawn rendered sample, simulation manually frozen; developer server; not physical-phone certification",
+      "samples": 601,
+      "frameMs": {
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "p99": 16.80000000000109
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)",
+      "drawCalls": {
+        "min": 278,
+        "max": 278
+      },
+      "triangles": {
+        "min": 535922,
+        "max": 535922
+      },
+      "gpuResources": {
+        "geometries": 228,
+        "textures": 31,
+        "programs": 38
+      },
+      "memory": {
+        "usedJSHeapSize": 428337066,
+        "totalJSHeapSize": 485120222
+      },
+      "loadedResources": {
+        "count": 128,
+        "transferBytes": 62317372,
+        "decodedBytes": 62278972
+      },
+      "resolution": {
+        "dpr": 1,
+        "width": 1280,
+        "height": 720
+      },
+      "quality": "standard",
+      "state": "PLAYING",
+      "position": {
+        "x": -6499.61,
+        "z": -3011.925
+      },
+      "retainedHeapAfterGC": {
+        "usedSize": 140343704,
+        "totalSize": 145915904,
+        "embedderHeapUsedSize": 20492496,
+        "backingStorageSize": 134535642
+      },
+      "pageErrors": []
+    }
+  ]
+}

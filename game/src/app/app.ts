@@ -12,6 +12,7 @@ import { buildLevelCatalog } from '../missions/levels';
 import { buildCatalog } from '../missions/catalog';
 import type { MissionDef, ResultSummary } from '../missions/types';
 import { GameView } from './view';
+import { AdaptiveResolution, automaticQuality, pixelRatioFor } from './renderQuality';
 import { InputManager } from '../ui/input';
 import { Store, type Settings } from '../persistence/store';
 import { AudioSystem } from '../audio/audio';
@@ -78,6 +79,8 @@ export class App {
   private chunkLoading = new Set<string>();
   private lastTime = 0;
   private frameTimes: number[] = [];
+  private resolution = new AdaptiveResolution();
+  private debugTimer = 0;
   private recoveryTimer = 0;
   private countdown = 0;
   private pauseReason: 'user' | 'map' | 'hidden' | 'orientation' | 'loading' | 'stall' | 'tutorial' | null = null;
@@ -119,15 +122,17 @@ export class App {
   // ------------------------------------------------------------------ boot
   async boot(): Promise<void> {
     this.screens.boot('Checking your device…');
-    const gl = this.canvas.getContext('webgl2', { antialias: true, powerPreference: 'high-performance' }) as WebGL2RenderingContext | null;
+    this.quality = this.pickQuality();
+    // Keep thin railings, lettering and vehicle edges legible at the low DPR cap.
+    // Pixel budgets, simple materials and disabled low-tier shadows bound the cost.
+    const antialias = true;
+    const gl = this.canvas.getContext('webgl2', { antialias, powerPreference: 'high-performance', alpha: false, stencil: false }) as WebGL2RenderingContext | null;
     if (!gl) {
       this.fail('This browser cannot start WebGL2 graphics.', 'Try an up-to-date Chrome, Safari or Firefox, enable hardware acceleration, or close other heavy tabs, then reload.', false);
       return;
     }
-    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, context: gl, antialias: true, powerPreference: 'high-performance' });
-    this.quality = this.pickQuality();
-    const dprCap = this.quality === 'high' ? 2 : this.quality === 'standard' ? 1.5 : 1;
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap));
+    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, context: gl, antialias, powerPreference: 'high-performance' });
+    this.renderer.setPixelRatio(pixelRatioFor(this.quality, window.devicePixelRatio, window.innerWidth, window.innerHeight));
     this.canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); this.onContextLost(); });
     this.canvas.addEventListener('webglcontextrestored', () => this.onContextRestored());
     window.addEventListener('resize', () => this.resize());
@@ -141,6 +146,7 @@ export class App {
     try {
       const mod = await import('../art/index');
       this.art = mod.art;
+      this.view?.disposeCameraControls();
       this.view = new GameView(this.renderer, this.art);
       this.view.reducedShake = this.settings.reducedShake;
       this.view.setAtmosphere({timeOfDay:this.settings.timeOfDay,weather:this.settings.weather});
@@ -235,8 +241,7 @@ export class App {
 
   private pickQuality(): Quality {
     if (this.settings.quality !== 'auto') return this.settings.quality;
-    const mobile = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && window.innerWidth < 1100);
-    return mobile ? 'low' : 'standard';
+    return automaticQuality(window.matchMedia('(pointer: coarse)').matches, (navigator as Navigator & { deviceMemory?: number }).deviceMemory, navigator.hardwareConcurrency);
   }
 
   private handleLoadError(e: unknown, retry: () => void) {
@@ -255,6 +260,7 @@ export class App {
     const w = window.innerWidth, h = window.innerHeight;
     if (!this.renderer) return;
     if (this.state === 'PLAYING' && h > w && w < 820) this.pause('orientation'); // portrait during a delivery
+    this.renderer.setPixelRatio(pixelRatioFor(this.quality, window.devicePixelRatio, w, h) * this.resolution.scale);
     this.renderer.setSize(w, h, false);
     this.view?.resize(w, h);
   }
@@ -528,7 +534,11 @@ export class App {
     const keep = new Set(this.chunksAround(p.x, p.z, lookR + 250));
     if (stop) for (const id of this.chunksAround(stop.entrance[0], stop.entrance[1], 120)) keep.add(id);
     for (const id of this.view.chunkIds) if (!keep.has(id)) { this.view.removeChunk(id); this.world!.removeChunk(id); this.map?.removeChunk(id); }
-    if (this.chunkCache.size > 120) for (const id of [...this.chunkCache.keys()]) if (!keep.has(id) && this.chunkCache.size > 80) this.chunkCache.delete(id);
+    // Visible/collision-critical chunks are never evicted. Keep less old scenery
+    // after a long drive on low graphics instead of retaining up to 120 chunks.
+    const cacheHigh = this.quality === 'low' ? 32 : this.quality === 'standard' ? 64 : 120;
+    const cacheLow = this.quality === 'low' ? 24 : this.quality === 'standard' ? 48 : 80;
+    if (this.chunkCache.size > cacheHigh) for (const id of this.chunkCache.keys()) if (!keep.has(id) && this.chunkCache.size > cacheLow) this.chunkCache.delete(id);
   }
 
   /** collision-critical content at the car and immediately ahead (U09, F22) */
@@ -546,9 +556,13 @@ export class App {
     requestAnimationFrame((tt) => this.frame(tt));
     const dt = this.lastTime ? (t - this.lastTime) / 1000 : 0;
     this.lastTime = t;
+    if (document.hidden) { this.resolution.resetWindow(); return; }
     if (this.atlas?.isOpen) return;
     if (this.state === 'CONTEXT_LOST' || !this.view) return;
     if (dt > 0) { this.frameTimes.push(dt * 1000); if (this.frameTimes.length > 600) this.frameTimes.shift(); }
+    if (this.state === 'PLAYING' && !this.manualClock && this.settings.quality === 'auto') {
+      if (this.resolution.sample(dt * 1000)) this.resize();
+    } else this.resolution.resetWindow();
     const s = this.session;
     if (this.state === 'MENU' || this.state === 'ERROR' || this.state === 'BOOT' || (this.state === 'LOADING' && !s)) {
       this.menuTime += dt;
@@ -598,7 +612,7 @@ export class App {
     this.checkpointTimer += dt;
     if (this.checkpointTimer > 5 && this.state === 'PLAYING') { this.checkpointTimer = 0; this.saveCheckpoint(); }
 
-    this.view.update(s, this.world!, alpha, dt);
+    this.view.update(s, this.world!, alpha, dt, this.state === 'PLAYING');
     this.view.render();
     this.hud.update(s, dt, this);
     this.ambienceTimer+=dt;
@@ -608,7 +622,8 @@ export class App {
       this.audio.setAmbience({timeOfDay:this.settings.timeOfDay,weather:this.settings.weather,traffic:Math.min(1,traffic),metro:this.view.metroAmbience});
     }
     if (this.state === 'PLAYING' || this.state === 'RECOVERING') this.audio.setDriving(true, s.player.speed, s.player.isAirborne ? 1 : 0);
-    if (this.debug) this.hud.debugText(this.debugInfo());
+    this.debugTimer += dt;
+    if (this.debug && this.debugTimer >= .25) { this.debugTimer = 0; this.hud.debugText(this.debugInfo()); }
   }
 
   /** the single per-tick path used by the frame loop and the debug harness */

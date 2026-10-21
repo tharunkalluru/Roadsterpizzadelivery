@@ -1,0 +1,84 @@
+{
+  "before": {
+    "method": "production provisional Vite build; gzip level6; excludes unchanged world data, fonts and textures",
+    "files": [
+      {
+        "file": "preview.html",
+        "bytes": 870,
+        "gzipBytes": 485
+      },
+      {
+        "file": "assets/app-DqEKdfqJ.js",
+        "bytes": 945511,
+        "gzipBytes": 264481
+      },
+      {
+        "file": "assets/art-CkQzkwJI.js",
+        "bytes": 144726,
+        "gzipBytes": 56256
+      },
+      {
+        "file": "assets/preview-zvJWtF6k.js",
+        "bytes": 7470,
+        "gzipBytes": 3500
+      },
+      {
+        "file": "assets/preview-C9cJGJEk.css",
+        "bytes": 21436,
+        "gzipBytes": 5682
+      }
+    ],
+    "totalBytes": 1120013,
+    "gzipBytes": 330404
+  },
+  "after": {
+    "method": "production provisional Vite build; gzip level6; excludes unchanged world data, fonts and textures",
+    "files": [
+      {
+        "file": "preview.html",
+        "bytes": 906,
+        "gzipBytes": 501
+      },
+      {
+        "file": "assets/app-U3loIjef.js",
+        "bytes": 957102,
+        "gzipBytes": 268386
+      },
+      {
+        "file": "assets/art-BamaOxl0.js",
+        "bytes": 149746,
+        "gzipBytes": 58178
+      },
+      {
+        "file": "assets/preview-CMAIJpzI.js",
+        "bytes": 7869,
+        "gzipBytes": 3652
+      },
+      {
+        "file": "assets/preview-D8ZsulA_.css",
+        "bytes": 27113,
+        "gzipBytes": 7005
+      }
+    ],
+    "totalBytes": 1142736,
+    "gzipBytes": 337722
+  },
+  "unchangedRuntimeData": [
+    {
+      "file": "research/street-survey.json",
+      "bytes": 3151477
+    },
+    {
+      "file": "world/hyd-metro/v2/core.json",
+      "bytes": 12710431
+    },
+    {
+      "file": "world/hyd-metro/v2/source-accuracy.json",
+      "bytes": 19856474
+    },
+    {
+      "file": "world/hyd-metro/v2/listings.json",
+      "bytes": 13373183
+    }
+  ]
+}

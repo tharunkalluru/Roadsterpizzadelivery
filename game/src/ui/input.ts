@@ -61,7 +61,8 @@ export class InputManager {
     };
     const steerMove = (e: PointerEvent) => {
       if (e.pointerId !== this.steerPointer) return;
-      const range = Math.max(40, steer.clientWidth * 0.28) / this.sensitivity;
+      // Preserve the original travel calibration when the visible HUD pad is compact.
+      const range = Math.max(40, Math.min(window.innerWidth * .42, 360) * .28) / this.sensitivity;
       const dx = e.clientX - this.steerOriginX;
       const dead = 6;
       const v = Math.abs(dx) < dead ? 0 : (dx - Math.sign(dx) * dead) / range;

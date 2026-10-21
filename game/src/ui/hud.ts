@@ -30,13 +30,18 @@ export class Hud {
   private dbg!: HTMLElement;
   private cd!: HTMLElement;
   private rec!: HTMLElement;
+  private action!: HTMLButtonElement;
+  private lookHint!: HTMLElement;
+  private reserveLabel!: HTMLElement;
   private acc = 0;
   private seenNotices = 0;
   private bound = false;
 
   constructor(private ui: HTMLElement, private app: App) {
     this.root = el('div', 'hud hidden');
+    this.root.setAttribute('aria-live', 'off');
     this.root.innerHTML = `
+      <div class="hud-top">
       <div class="tl">
         <div class="chip"><div class="timer-label">Time left</div><div class="timer" data-t>0:00</div></div>
         <div class="chip dest" data-dest></div>
@@ -45,15 +50,16 @@ export class Hud {
       <div class="chip maneuver" data-man><span class="arrow" data-ma>↑</span><div><div class="d" data-md>—</div><div class="n" data-mn></div></div></div>
       <div class="tr">
         <canvas class="minimap" width="256" height="256" data-mini aria-label="Compact route map"></canvas>
-        <button class="iconbtn" data-map aria-label="Open map (pauses)">🗺</button>
+        <button class="iconbtn" data-map aria-label="Open map (pauses)"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2Z M9 3v16 M15 5v16"/></svg></button>
         <button class="iconbtn" data-pause aria-label="Pause">❚❚</button>
       </div>
-      <div class="toast-wrap" data-toasts></div>
+      </div>
+      <div class="toast-wrap" data-toasts role="status" aria-live="polite"></div>
       <div class="banner hidden" data-banner></div>
       <div class="hold hidden" data-hold><div class="chip" data-holdtxt>Stop here to deliver</div><div class="bar"><div data-holdbar></div></div></div>
-      <div class="speed"><div class="v" data-speed>0</div><div class="u">km/h</div><div class="gear" data-gear></div></div>
       <div class="camera-hint" data-look-hint>Drag the view to look around while stopped.</div>
-      <div class="flightmeter chip" aria-live="polite">
+      <div class="flightmeter chip">
+        <div class="speed"><div class="v" data-speed>0</div><div class="u">km/h</div><div class="gear" data-gear></div></div>
         <div class="lbl"><span data-mlbl>Flight 25.0 s</span><span class="small" data-mres></span></div>
         <div class="bar"><div class="fill" data-mfill></div><div class="reserve" data-mreserve></div></div>
         <div class="why" data-why></div>
@@ -80,10 +86,11 @@ export class Hud {
     this.fly = q('fly'); this.flyLabel = q('flylbl'); this.flySec = q('flysec');
     this.meterFill = q('mfill'); this.meterRes = q('mreserve'); this.meterLbl = q('mlbl'); this.meterWhy = q('why');
     this.minimap = q('mini'); this.dbg = q('debug'); this.cd = q('cd'); this.rec = q('rec');
+    this.action = q('interact'); this.lookHint = q('look-hint'); this.reserveLabel = q('mres');
     this.timerLbl = this.root.querySelector('.timer-label') as HTMLElement;
     q('pause').addEventListener('click', () => { this.app.audio.click(); this.app.pause('user'); });
     q('map').addEventListener('click', () => { this.app.audio.click(); this.app.openMap(); });
-    q('interact').addEventListener('click', () => this.app.input.requestInteraction());
+    this.action.addEventListener('click', () => this.app.input.requestInteraction());
     void this.timerLbl;
   }
 
@@ -91,6 +98,12 @@ export class Hud {
 
   show(s: Session) {
     this.root.classList.remove('hidden');
+    this.root.classList.toggle('zone-hud', !!this.app.pilotZone);
+    const zoneLabel = this.ui.querySelector<HTMLElement>('.pilot-zone-label');
+    if (zoneLabel && this.app.pilotZone) {
+      zoneLabel.textContent = `${this.app.pilotZone.mode === 'verified' ? 'Verified play boundary' : 'PROVISIONAL PREVIEW · not fully mapped'} · Survey ${this.app.pilotZone.definition.surveyRevision}`;
+      zoneLabel.title = this.app.pilotZone.definition.label;
+    }
     document.body.classList.add('playing');
     if (!this.bound) {
       const q = (k: string) => this.root.querySelector(`[data-${k}]`) as HTMLElement;
@@ -113,6 +126,12 @@ export class Hud {
   }
 
   toast(text: string, kind: 'info' | 'warn' | 'bad' | 'good' = 'info') {
+    // A successful retry supersedes the cancellation feedback; retain the session notice log.
+    if (kind === 'good' && text.startsWith('Pizza collected. Deliver to ')) {
+      for (const previous of Array.from(this.toasts.children)) {
+        if (previous.textContent === 'Delivery hold cancelled') previous.remove();
+      }
+    }
     const t = el('div', `toast ${kind}`);
     t.textContent = text;
     this.toasts.appendChild(t);
@@ -125,7 +144,7 @@ export class Hud {
   update(s: Session, dt: number, app: App) {
     const p = s.player;
     const l = p.ledger;
-    this.root.querySelector('[data-look-hint]')!.classList.toggle('hidden',p.isAirborne||Math.abs(p.speed)>.5);
+    this.lookHint.classList.toggle('hidden',p.isAirborne||Math.abs(p.speed)>.5);
     // ---- every frame: fly control + meter (urgent feedback)
     const air = p.isAirborne;
     const remainS = l.remainingTicks / SIM_HZ;
@@ -138,30 +157,31 @@ export class Hud {
       } else unavailable = p.move === 'LANDING_CONFIRM' ? 'Landing not confirmed yet' : null;
     }
     this.fly.classList.toggle('unavail', !!unavailable);
-    this.flyLabel.textContent = air ? (p.move === 'DESCENDING' ? 'LANDING' : 'LAND') : 'FLY';
-    this.flySec.textContent = `${remainS.toFixed(1)}s`;
-    this.fly.setAttribute('aria-label', air ? 'Land' : `Fly, ${remainS.toFixed(1)} seconds left${unavailable ? ', unavailable: ' + unavailable : ''}`);
+    setText(this.flyLabel, air ? (p.move === 'DESCENDING' ? 'LANDING' : 'LAND') : 'FLY');
+    setText(this.flySec, `${remainS.toFixed(1)}s`);
+    const flyAria = air ? 'Land' : `Fly, ${remainS.toFixed(1)} seconds left${unavailable ? ', unavailable: ' + unavailable : ''}`;
+    if (this.fly.getAttribute('aria-label') !== flyAria) this.fly.setAttribute('aria-label', flyAria);
     const frac = l.remainingTicks / l.initialTicks;
-    this.meterFill.style.width = `${(frac * 100).toFixed(1)}%`;
+    this.meterFill.style.transform = `scaleX(${frac.toFixed(4)})`;
     const reserve = air ? Math.min(l.remainingTicks, p.reserveTicks) : (l.remainingTicks > 0 ? Math.min(l.remainingTicks, predictAscentTicks() + predictTicksToTouchdown(FLIGHT.minFlightAltitude, FLIGHT.maxClimbRate) + FLIGHT.uncertaintyMarginTicks) : 0);
-    this.meterRes.style.left = `${(((l.remainingTicks - reserve) / l.initialTicks) * 100).toFixed(1)}%`;
-    this.meterRes.style.width = `${((reserve / l.initialTicks) * 100).toFixed(1)}%`;
-    this.meterLbl.textContent = `Boost ${remainS.toFixed(1)} / ${l.allocationSeconds} s`;
-    this.meterWhy.textContent = air ? (p.landingSoon || p.move === 'DESCENDING' ? (p.protectedLandingUsed ? 'Protected landing — boost empty' : 'Landing soon — reserve in use') : `Landing reserve ${(reserve / SIM_HZ).toFixed(1)} s · ${forecastText(p.forecast.state, p.forecast.reason)}`) : unavailable && unavailable !== 'Flight power used' && !unavailable.includes('Not enough') ? unavailable : `Drive 10 s on the road → +2.5 s boost${p.speed >= FLIGHT.rechargeMinSpeed && p.surface?.onCarriageway ? ' · CHARGING' : ''}`;
-    (this.root.querySelector('[data-mres]') as HTMLElement).textContent = air ? `▨ reserve` : '';
+    this.meterRes.style.transform = `translateX(${(((l.remainingTicks - reserve) / l.initialTicks) * 100).toFixed(2)}%) scaleX(${(reserve / l.initialTicks).toFixed(4)})`;
+    setText(this.meterLbl, `Boost ${remainS.toFixed(1)} / ${l.allocationSeconds} s`);
+    setText(this.meterWhy, air ? (p.landingSoon || p.move === 'DESCENDING' ? (p.protectedLandingUsed ? 'Protected landing — boost empty' : 'Landing soon — reserve in use') : `Landing reserve ${(reserve / SIM_HZ).toFixed(1)} s · ${forecastText(p.forecast.state, p.forecast.reason)}`) : unavailable && unavailable !== 'Flight power used' && !unavailable.includes('Not enough') ? unavailable : `Drive 10 s on the road → +2.5 s boost${p.speed >= FLIGHT.rechargeMinSpeed && p.surface?.onCarriageway ? ' · CHARGING' : ''}`);
+    setText(this.reserveLabel, air ? `▨ reserve` : '');
     this.banner.classList.toggle('hidden', !(air && p.landingSoon));
     this.banner.textContent = 'Landing soon';
     // hold
-    const showHold = !!s.holdHint || s.holdActive;
+    const showHold = s.holdActive || (!!s.holdHint && !s.canInteract);
     this.hold.classList.toggle('hidden', !showHold);
     if (showHold) {
       this.holdTxt.textContent = s.holdActive ? `${s.cargoLoaded ? 'Handing over pizza' : 'Collecting pizza'}… press ▲ to cancel` : s.holdHint!;
-      this.holdBar.style.width = `${Math.min(100, (s.holdTicks / 60) * 100)}%`;
+      this.holdBar.style.transform = `scaleX(${Math.min(1, s.holdTicks / 60)})`;
     }
-    const action = this.root.querySelector<HTMLButtonElement>('[data-interact]')!;
-    action.classList.toggle('hidden', !s.canInteract || s.holdActive);
-    action.textContent = `${s.actionLabel} · E`;
-    action.setAttribute('aria-label', `${s.actionLabel} (E)`);
+    this.root.classList.toggle('interaction-state', s.canInteract || showHold);
+    this.action.classList.toggle('hidden', !s.canInteract || s.holdActive);
+    setText(this.action, `${s.actionLabel} · E`);
+    const actionAria = `${s.actionLabel} (E)`;
+    if (this.action.getAttribute('aria-label') !== actionAria) this.action.setAttribute('aria-label', actionAria);
     // ---- notices
     if (s.notices.length !== this.seenNotices) {
       for (const n of s.notices.slice(Math.max(0, s.notices.length - (s.notices.length - this.seenNotices)))) this.toast(n.text, n.kind);
@@ -185,7 +205,7 @@ export class Hud {
     else if (s.outOfArea === 'warn') { this.manArrow.textContent = '⚠'; this.manD.textContent = 'Outside delivery area'; this.manN.textContent = 'Follow the marked return'; }
     else if (m) { this.manArrow.textContent = ARROWS[m.kind]; this.manD.textContent = fmtDist(m.distanceM); this.manN.textContent = m.kind === 'arrive' ? (stop?.label ?? '') : (m.roadName ?? 'unnamed road'); }
     this.speedV.textContent = String(Math.round(Math.abs(p.speed) * 3.6));
-    this.gear.textContent = p.reverseEngaged ? 'R' : air ? p.move : '';
+    this.gear.textContent = p.reverseEngaged ? 'R' : air ? 'AIR' : '';
     this.drawMinimap(s);
   }
 
@@ -225,6 +245,10 @@ export class Hud {
     g.setTransform(1, 0, 0, 1, 0, 0);
     g.fillStyle = '#fff'; g.beginPath(); g.moveTo(W / 2, H / 2 - 9); g.lineTo(W / 2 + 6, H / 2 + 6); g.lineTo(W / 2 - 6, H / 2 + 6); g.closePath(); g.fill();
   }
+}
+
+function setText(element: HTMLElement, text: string) {
+  if (element.textContent !== text) element.textContent = text;
 }
 
 function forecastText(state: string, reason: string | null): string {

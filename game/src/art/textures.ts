@@ -345,6 +345,22 @@ function drawShopCell(ctx: CanvasRenderingContext2D, x0: number, variant: number
 
 const atlasCache = new Map<string, THREE.CanvasTexture>();
 
+/** Original quiet asphalt grain; one tiny shared map replaces three PBR maps on everyday presets. */
+export function getRoadSurface(): THREE.CanvasTexture {
+  const key = 'roadster-asphalt';
+  const hit = atlasCache.get(key);
+  if (hit) return hit;
+  const [c, ctx] = canvas(128, 128), random = rng(133);
+  ctx.fillStyle = '#d4d7d5'; ctx.fillRect(0, 0, 128, 128);
+  for (let i = 0; i < 1800; i++) {
+    ctx.fillStyle = random() > .5 ? '#c9cdca' : '#e0e2de';
+    ctx.fillRect(Math.floor(random() * 128), Math.floor(random() * 128), 1, 1);
+  }
+  const t = finishCanvasTexture(c, true, 2);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  atlasCache.set(key, t); return t;
+}
+
 export function getFacadeAtlas(q: Quality): THREE.CanvasTexture {
   const key = `facade${q}`;
   const hit = atlasCache.get(key);

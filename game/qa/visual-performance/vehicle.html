@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roadster visual inspection</title>
+<link rel="icon" href="data:,">
+<style>
+  * { box-sizing: border-box; } body { margin: 0; background: #e7e6dc; color: #21372f; font: 14px system-ui,sans-serif; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  header { position: absolute; left: 5%; top: 7%; max-width: 70%; pointer-events:none; }
+  small { display: block; text-transform: uppercase; letter-spacing: .14em; font-weight: 750; }
+  h1 { font-size: clamp(28px, 5vw, 52px); letter-spacing: -.04em; margin: 8px 0; }
+  p { max-width: 440px; line-height: 1.5; margin: 0; }
+  footer { position: absolute; left: 5%; bottom: 6%; font-size: 12px; max-width: 85%; }
+</style>
+<header><small>Roadster · original game model</small><h1 id="title">Road ready</h1><p>Angular white bodywork, gold glass and a full-width rear light. Built from lightweight geometry.</p></header>
+<footer>Visual inspection only · Tesla Roadster design reference · Cosmetic flight jets; gameplay physics unchanged</footer>
+<canvas></canvas>
+<script type="module">
+import * as THREE from 'three';
+import { createHeroCar } from '/src/art/hero.ts';
+const params = new URLSearchParams(location.search), mode = params.get('view') || 'front', quality = params.get('quality') || 'low';
+const renderer = new THREE.WebGLRenderer({canvas:document.querySelector('canvas'),antialias:true,alpha:false});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);
+renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+const scene = new THREE.Scene();scene.background=new THREE.Color(0xe7e6dc);
+scene.add(new THREE.HemisphereLight(0xdce9ee,0x8b846e,2.7));
+const sun = new THREE.DirectionalLight(0xffedcf,3.3);sun.position.set(-6,12,-5);scene.add(sun);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:0xe7e6dc,roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.015;scene.add(floor);
+const shadow = new THREE.Mesh(new THREE.CircleGeometry(1,24),new THREE.MeshBasicMaterial({color:0x8a8a7e,transparent:true,opacity:.2,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.scale.set(1.3,2.5,1);shadow.position.y=.005;scene.add(shadow);
+const hero=createHeroCar(quality);scene.add(hero.root);hero.setCargoLoaded(true);hero.setHeadlights(true);
+const camera=new THREE.PerspectiveCamera(38,innerWidth/innerHeight,.1,200);
+camera.position.set(mode==='front'?5.4:-5.2,mode==='flight'?4.0:3.1,mode==='front'?-7.3:7.0);
+camera.lookAt(0,mode==='flight'?1.55:.6,0);
+if(mode==='flight'){
+  document.querySelector('#title').textContent='Cold-gas lift';
+  document.querySelector('header p').textContent='White cold-gas jets and a raised rear wing bring the flying Roadster to life.';
+  hero.root.position.y=1.55;hero.setFlightContext({heightM:1.55,verticalSpeed:.2,speedMps:8,steerRad:.18,airborne:true});hero.setThruster(.9);
+}else{document.querySelector('#title').textContent=mode==='rear'?'Light, wide, low':'Road ready';hero.setFlightContext({heightM:0,verticalSpeed:0,speedMps:0,steerRad:0,airborne:false});hero.setThruster(0);}
+const start=performance.now();let last=start;function frame(t){hero.animate(Math.min(.05,(t-last)/1000),mode==='flight'?8+(t-start)*.003:0,.08);last=t;renderer.render(scene,camera);requestAnimationFrame(frame);}requestAnimationFrame(frame);
+window.__vehicleQa={hero,renderer,scene,camera,mode,quality};
+</script>
+</html>

@@ -1,7 +1,7 @@
 /** Shared world materials (roads, concrete, buildings), cached per quality preset. */
 import * as THREE from 'three';
 import type { Quality } from './api';
-import { anisoFor, getFacadeAtlas, getNoiseTexture, getShopAtlas, loadMapTexture } from './textures';
+import { anisoFor, getFacadeAtlas, getNoiseTexture, getRoadSurface, getShopAtlas, loadMapTexture } from './textures';
 import { markTerrainMaterial } from './terrainCutouts';
 
 export interface WorldMats {
@@ -38,13 +38,13 @@ export function getWorldMats(q: Quality): WorldMats {
 
   const asphalt = new THREE.MeshStandardMaterial({
     name: 'asphalt',
-    color: 0xe6ded2,
-    map: loadMapTexture(`${a}_diff_${q === 'low' ? 512 : 1024}.jpg`, true, aniso),
-    roughnessMap: loadMapTexture(`${a}_arm_512.jpg`, false, aniso),
+    color: q === 'high' ? 0xe6ded2 : 0x59656b,
+    map: q === 'high' ? loadMapTexture(`${a}_diff_1024.jpg`, true, aniso) : getRoadSurface(),
+    roughnessMap: q === 'high' ? loadMapTexture(`${a}_arm_512.jpg`, false, aniso) : null,
     roughness: 1,
     metalness: 0,
   });
-  if (q !== 'low') {
+  if (q === 'high') {
     asphalt.normalMap = loadMapTexture(`${a}_nor_${res}.jpg`, false, aniso);
     asphalt.normalScale.set(0.9, 0.9);
   }
@@ -55,20 +55,20 @@ export function getWorldMats(q: Quality): WorldMats {
   const concrete = new THREE.MeshStandardMaterial({
     name: 'concrete',
     color: 0xcfcac1,
-    map: loadMapTexture(`${c}_diff_${q === 'low' ? 512 : 1024}.jpg`, true, aniso),
-    roughnessMap: loadMapTexture(`${c}_arm_512.jpg`, false, aniso),
+    map: q === 'high' ? loadMapTexture(`${c}_diff_1024.jpg`, true, aniso) : getNoiseTexture('plaster', q),
+    roughnessMap: q === 'high' ? loadMapTexture(`${c}_arm_512.jpg`, false, aniso) : null,
     roughness: 1,
     metalness: 0,
   });
-  if (q !== 'low') {
+  if (q === 'high') {
     concrete.normalMap = loadMapTexture(`${c}_nor_${res}.jpg`, false, aniso);
     concrete.normalScale.set(0.8, 0.8);
   }
   // pavement: same concrete maps, lighter and slightly warmer
   const paving = concrete.clone();
   paving.name = 'paving';
-  paving.color = new THREE.Color().setRGB(1.7, 1.66, 1.58);
-  concrete.color.setRGB(1.45, 1.4, 1.32);
+  paving.color = new THREE.Color(q === 'high' ? 0xfff7e8 : 0xbeb9a9);
+  concrete.color.setHex(q === 'high' ? 0xe9e2d5 : 0xc6c4b9);
 
   const railSteel = new THREE.MeshStandardMaterial({ name: 'rail-steel', color: 0x9aa0a6, roughness: 0.35, metalness: 0.9 });
   const trackBed = new THREE.MeshStandardMaterial({ name: 'track-bed', color: 0x5f5e5a, roughness: 1 });
