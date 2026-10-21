@@ -1,7 +1,7 @@
 import { chromium } from '@playwright/test';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
-const output = new URL('../../output/visual-performance/v2-after/', import.meta.url);
+const output = new URL(`../../output/visual-performance/${process.argv[2] ?? 'v2-after'}/`, import.meta.url);
 const config = JSON.parse(await readFile(new URL('../../config/provisional-preview.json', import.meta.url)));
 await mkdir(output, {recursive:true});
 const browser = await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});

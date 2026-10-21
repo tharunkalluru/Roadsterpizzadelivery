@@ -2,7 +2,7 @@ import { chromium } from '@playwright/test';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const browser = await chromium.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true });
-const output = new URL('../../output/visual-performance/v2-after/', import.meta.url);
+const output = new URL(`../../output/visual-performance/${process.argv[2] ?? 'v2-after'}/`, import.meta.url);
 await mkdir(output, { recursive: true });
 try {
   const context = await browser.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true, deviceScaleFactor: 2 });

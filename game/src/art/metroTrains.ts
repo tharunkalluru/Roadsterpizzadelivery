@@ -35,53 +35,107 @@ export function createMetroService(alignments: Alignment[], quality: Quality,tra
   }
   const geometries=[base.build(),windows.build(),detail.build(),lights.build(),...doorB.map(b=>b.build())];
   geometries.forEach(g=>{g.userData.shared=true;});
-  const services: {al:Alignment;timetable:MetroTimetable;direction:number;offset:number;cars:{g:THREE.Group;doors:THREE.Mesh[]}[];container:THREE.Group}[]=[];
-  for (const al of alignments) {
-    const length=polyLength(al.samples); if(length<120) continue;
-    for(const direction of [1,-1]) {
-      const stops=al.stations.map(s=>direction===1?s:length-s);
-      const timetable=new MetroTimetable(length,stops);
-      const count=Math.max(1,Math.ceil((timetable.duration+24)/150));
-      for(let k=0;k<count;k++) {
-        const container=new THREE.Group();container.name=`metro-${direction===1?'outbound':'inbound'}-${k}`;
-        const cars:{g:THREE.Group;doors:THREE.Mesh[]}[]=[];
-        for(let c=0;c<3;c++) {
-          const g=new THREE.Group();g.name=`coach-${c+1}`;
-          const mats=[silver,glass,dark,lamp,silver,silver]; const doors:THREE.Mesh[]=[];
-          geometries.forEach((geo,i)=>{const mesh=new THREE.Mesh(geo,mats[i]);mesh.castShadow=quality==='high';g.add(mesh);if(i>=4)doors.push(mesh);});
-          cars.push({g,doors});container.add(g);
-        }
-        root.add(container);services.push({al,timetable,direction,offset:k*150+(direction===1?0:75),cars,container});
-      }
+  type TrainRig = { container: THREE.Group; cars: { g: THREE.Group; doors: THREE.Mesh[] }[] };
+  type Service = { al: Alignment; timetable: MetroTimetable; direction: number; offset: number; name: string; rig: TrainRig | null; centerS: number; open: number };
+  const services: Service[] = [];
+  // Timetables cover the full network; only visible services need scene objects.
+  // A small detached reserve avoids churn when trains cross the visibility boundary.
+  const pool: TrainRig[] = [];
+  const visible: Service[] = [];
+  const MAX_POOLED_TRAINS = 4;
+  const stats = { services: 0, active: 0, pooled: 0, created: 0 };
+  root.userData.trainStats = stats;
+  let disposed = false;
+  const createRig = (): TrainRig => {
+    const container = new THREE.Group();
+    const cars: TrainRig['cars'] = [];
+    const mats = [silver, glass, dark, lamp, silver, silver];
+    for (let c = 0; c < 3; c++) {
+      const g = new THREE.Group(); g.name = `coach-${c + 1}`;
+      const doors: THREE.Mesh[] = [];
+      geometries.forEach((geo, i) => {
+        const mesh = new THREE.Mesh(geo, mats[i]); mesh.castShadow = quality === 'high';
+        // Rigid coach parts keep a constant local matrix, but their world matrix
+        // must still follow the coach. Sliding doors retain automatic updates.
+        if (i < 4) { mesh.updateMatrix(); mesh.matrixAutoUpdate = false; }
+        g.add(mesh); if (i >= 4) doors.push(mesh);
+      });
+      cars.push({ g, doors }); container.add(g);
     }
-  }
-  root.userData.update=(time:number,target:THREE.Vector3)=>{
-    let sound=0;
-    for(const service of services) {
-      const {al,timetable,direction,cars,container}=service;
-      const cycle=Math.ceil((timetable.duration+24)/150)*150;
-      const elapsed=((time+service.offset)%cycle+cycle)%cycle;
-      if(elapsed>timetable.duration){container.visible=false;continue;}
-      const run=timetable.sample(elapsed);
-      const centerS=direction===1?run.distance:timetable.length-run.distance;
-      const center=sampleAt(al.samples,centerS);
-      const distance=Math.hypot(center.x-target.x,center.z-target.z,center.y-target.y),falloff=Math.max(0,1-distance/180);
-      sound=Math.max(sound,falloff*falloff*(run.dwelling?.08:Math.min(1,run.speed/18)));
-      container.visible=Math.hypot(center.x-target.x,center.z-target.z)<(quality==='low'?700:1400);
-      if(!container.visible)continue;
-      const open=run.dwelling ? Math.min(1,run.dwellProgress*8,(1-run.dwellProgress)*8) : 0;
-      cars.forEach(({g,doors},i)=>{
-        const s=centerS-direction*(i-1)*20.1;
-        g.visible=s>10&&s<timetable.length-10;
-        const p=sampleAt(al.samples,Math.max(0,Math.min(timetable.length,s)));
-        const yaw=Math.atan2(-p.tx*direction,-p.tz*direction);
-        const track=direction*trackOffsetM;
-        g.position.set(p.x-p.tz*track,p.y+.25,p.z+p.tx*track);g.rotation.y=yaw;
-        doors[0].position.z=-open*.66;doors[1].position.z=open*.66;
+    stats.created++;
+    return { container, cars };
+  };
+  const release = (service: Service): void => {
+    if (!service.rig) return;
+    root.remove(service.rig.container);
+    if (pool.length < MAX_POOLED_TRAINS) pool.push(service.rig);
+    service.rig = null;
+  };
+  for (const al of alignments) {
+    const length = polyLength(al.samples); if (length < 120) continue;
+    for (const direction of [1, -1]) {
+      const stops = al.stations.map(s => direction === 1 ? s : length - s);
+      const timetable = new MetroTimetable(length, stops);
+      const count = Math.max(1, Math.ceil((timetable.duration + 24) / 150));
+      for (let k = 0; k < count; k++) services.push({
+        al, timetable, direction, offset: k * 150 + (direction === 1 ? 0 : 75),
+        name: `metro-${direction === 1 ? 'outbound' : 'inbound'}-${k}`,
+        rig: null, centerS: 0, open: 0,
       });
     }
-    root.userData.nearbySound=sound;
+  }
+  stats.services = services.length;
+  root.userData.update = (time: number, target: THREE.Vector3) => {
+    if (disposed) return;
+    let sound = 0;
+    visible.length = 0;
+    // Release all out-of-range rigs before acquiring replacements. A camera jump
+    // reuses the old set instead of temporarily allocating another full set.
+    for (const service of services) {
+      const { al, timetable, direction } = service;
+      const cycle = Math.ceil((timetable.duration + 24) / 150) * 150;
+      const elapsed = ((time + service.offset) % cycle + cycle) % cycle;
+      if (elapsed > timetable.duration) { release(service); continue; }
+      const run = timetable.sample(elapsed);
+      const centerS = direction === 1 ? run.distance : timetable.length - run.distance;
+      const center = sampleAt(al.samples, centerS);
+      const distance = Math.hypot(center.x - target.x, center.z - target.z, center.y - target.y);
+      const falloff = Math.max(0, 1 - distance / 180);
+      sound = Math.max(sound, falloff * falloff * (run.dwelling ? .08 : Math.min(1, run.speed / 18)));
+      if (Math.hypot(center.x - target.x, center.z - target.z) >= (quality === 'low' ? 700 : 1400)) {
+        release(service); continue;
+      }
+      service.centerS = centerS;
+      service.open = run.dwelling ? Math.min(1, run.dwellProgress * 8, (1 - run.dwellProgress) * 8) : 0;
+      visible.push(service);
+    }
+    for (const service of visible) {
+      const { al, timetable, direction, centerS, open } = service;
+      const rig = service.rig ?? (service.rig = pool.pop() ?? createRig());
+      rig.container.name = service.name;
+      for (let i = 0; i < rig.cars.length; i++) {
+        const { g, doors } = rig.cars[i];
+        const s = centerS - direction * (i - 1) * 20.1;
+        g.visible = s > 10 && s < timetable.length - 10;
+        const p = sampleAt(al.samples, Math.max(0, Math.min(timetable.length, s)));
+        const yaw = Math.atan2(-p.tx * direction, -p.tz * direction);
+        const track = direction * trackOffsetM;
+        g.position.set(p.x - p.tz * track, p.y + .25, p.z + p.tx * track); g.rotation.y = yaw;
+        doors[0].position.z = -open * .66; doors[1].position.z = open * .66;
+      }
+      // Complete every reused pose before attachment and the next render.
+      if (rig.container.parent !== root) root.add(rig.container);
+    }
+    stats.active = visible.length; stats.pooled = pool.length;
+    root.userData.nearbySound = sound;
   };
-  root.userData.dispose=()=>{geometries.forEach(g=>g.dispose());[silver,glass,dark,lamp].forEach(m=>m.dispose());};
+  root.userData.dispose = () => {
+    if (disposed) return; disposed = true;
+    root.clear(); pool.length = 0; visible.length = 0;
+    for (const service of services) service.rig = null;
+    services.length = 0;
+    stats.active = 0; stats.pooled = 0; root.userData.nearbySound = 0;
+    geometries.forEach(g => g.dispose()); [silver, glass, dark, lamp].forEach(m => m.dispose());
+  };
   return root;
 }

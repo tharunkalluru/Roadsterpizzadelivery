@@ -1,0 +1,206 @@
+{
+  "phase": "v3-workload",
+  "at": "2026-10-21T15:39:15.068Z",
+  "results": [
+    {
+      "profile": {
+        "name": "phone-low",
+        "width": 844,
+        "height": 390,
+        "quality": "low",
+        "touch": true,
+        "dpr": 2
+      },
+      "method": "Paired 60-frame real-scene transform-call diagnostic at normal spawn with manual simulation clock; instrumented, not an FPS benchmark",
+      "nodes": {
+        "total": 3409,
+        "frozen": 3189,
+        "meshes": 2524,
+        "invisible": 1056
+      },
+      "current": {
+        "frames": 60,
+        "perFrame": {
+          "updateMatrix": {
+            "min": 197,
+            "max": 197,
+            "total": 11820,
+            "mean": 197
+          },
+          "multiplyWorld": {
+            "min": 220,
+            "max": 220,
+            "total": 13200,
+            "mean": 220
+          },
+          "frozenUpdateMatrix": {
+            "min": 0,
+            "max": 0,
+            "total": 0,
+            "mean": 0
+          },
+          "frozenMultiplyWorld": {
+            "min": 0,
+            "max": 0,
+            "total": 0,
+            "mean": 0
+          }
+        },
+        "topologyStable": true
+      },
+      "automatic": {
+        "frames": 60,
+        "perFrame": {
+          "updateMatrix": {
+            "min": 3386,
+            "max": 3386,
+            "total": 203160,
+            "mean": 3386
+          },
+          "multiplyWorld": {
+            "min": 3409,
+            "max": 3409,
+            "total": 204540,
+            "mean": 3409
+          },
+          "frozenUpdateMatrix": {
+            "min": 3189,
+            "max": 3189,
+            "total": 191340,
+            "mean": 3189
+          },
+          "frozenMultiplyWorld": {
+            "min": 3189,
+            "max": 3189,
+            "total": 191340,
+            "mean": 3189
+          }
+        },
+        "topologyStable": true
+      },
+      "matrixComparison": {
+        "method": "Two synchronous renders of the same paused simulation state; exact numeric equality of every scene world-matrix element",
+        "nodesCompared": 3409,
+        "differentNodes": 0,
+        "differentElements": 0,
+        "examples": [],
+        "topologyStable": true
+      },
+      "restored": true,
+      "valid": true,
+      "quality": "low",
+      "state": "PLAYING",
+      "tick": 0,
+      "position": {
+        "x": -6499.61,
+        "z": -3011.925
+      },
+      "resolution": {
+        "dpr": 1,
+        "width": 844,
+        "height": 390
+      },
+      "pageErrors": []
+    },
+    {
+      "profile": {
+        "name": "desktop-standard",
+        "width": 1280,
+        "height": 720,
+        "quality": "standard",
+        "touch": false,
+        "dpr": 1
+      },
+      "method": "Paired 60-frame real-scene transform-call diagnostic at normal spawn with manual simulation clock; instrumented, not an FPS benchmark",
+      "nodes": {
+        "total": 3559,
+        "frozen": 3252,
+        "meshes": 2649,
+        "invisible": 1034
+      },
+      "current": {
+        "frames": 60,
+        "perFrame": {
+          "updateMatrix": {
+            "min": 260,
+            "max": 260,
+            "total": 15600,
+            "mean": 260
+          },
+          "multiplyWorld": {
+            "min": 307,
+            "max": 307,
+            "total": 18420,
+            "mean": 307
+          },
+          "frozenUpdateMatrix": {
+            "min": 0,
+            "max": 0,
+            "total": 0,
+            "mean": 0
+          },
+          "frozenMultiplyWorld": {
+            "min": 0,
+            "max": 0,
+            "total": 0,
+            "mean": 0
+          }
+        },
+        "topologyStable": true
+      },
+      "automatic": {
+        "frames": 60,
+        "perFrame": {
+          "updateMatrix": {
+            "min": 3512,
+            "max": 3512,
+            "total": 210720,
+            "mean": 3512
+          },
+          "multiplyWorld": {
+            "min": 3559,
+            "max": 3559,
+            "total": 213540,
+            "mean": 3559
+          },
+          "frozenUpdateMatrix": {
+            "min": 3252,
+            "max": 3252,
+            "total": 195120,
+            "mean": 3252
+          },
+          "frozenMultiplyWorld": {
+            "min": 3252,
+            "max": 3252,
+            "total": 195120,
+            "mean": 3252
+          }
+        },
+        "topologyStable": true
+      },
+      "matrixComparison": {
+        "method": "Two synchronous renders of the same paused simulation state; exact numeric equality of every scene world-matrix element",
+        "nodesCompared": 3559,
+        "differentNodes": 0,
+        "differentElements": 0,
+        "examples": [],
+        "topologyStable": true
+      },
+      "restored": true,
+      "valid": true,
+      "quality": "standard",
+      "state": "PLAYING",
+      "tick": 0,
+      "position": {
+        "x": -6499.61,
+        "z": -3011.925
+      },
+      "resolution": {
+        "dpr": 1,
+        "width": 1280,
+        "height": 720
+      },
+      "pageErrors": []
+    }
+  ]
+}

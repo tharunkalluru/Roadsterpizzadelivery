@@ -1,0 +1,1288 @@
+{
+  "phase": "v3-before",
+  "at": "2026-10-21T15:20:56.119Z",
+  "sourceHead": "e68ad6a55bb4a17ce178b55ca58ab12c419ee599",
+  "method": "Serial stationary normal-spawn diagnostic on desktop Chrome; manual simulation clock. Method timing includes instrumentation overhead; 4x throttle is desktop CPU pressure, not phone certification. CPU self samples include idle and browser overhead. No GPU/total RAM measurement.",
+  "results": [
+    {
+      "profile": {
+        "name": "phone-low",
+        "width": 844,
+        "height": 390,
+        "quality": "low",
+        "touch": true,
+        "dpr": 2
+      },
+      "readyMs": 5897.938541,
+      "scene": {
+        "nodes": 5896,
+        "meshCount": 4516,
+        "geometryBytes": 79985684,
+        "renderInfo": {
+          "frame": 325,
+          "calls": 176,
+          "triangles": 179694,
+          "points": 0,
+          "lines": 6
+        },
+        "resources": {
+          "geometries": 170,
+          "textures": 29,
+          "programs": 31
+        },
+        "rendered": [
+          {
+            "name": "roofs|roof",
+            "draws": 10,
+            "triangles": 34438
+          },
+          {
+            "name": "facades|facade",
+            "draws": 10,
+            "triangles": 34310
+          },
+          {
+            "name": "bridge-deck|concrete",
+            "draws": 1,
+            "triangles": 22788
+          },
+          {
+            "name": "footpath|paving",
+            "draws": 5,
+            "triangles": 18496
+          },
+          {
+            "name": "source-landscape|MeshStandardMaterial",
+            "draws": 5,
+            "triangles": 7602
+          },
+          {
+            "name": "markings|markings",
+            "draws": 5,
+            "triangles": 7034
+          },
+          {
+            "name": "street-life|MeshStandardMaterial",
+            "draws": 5,
+            "triangles": 6456
+          },
+          {
+            "name": "station-steel|station-steel",
+            "draws": 1,
+            "triangles": 4736
+          },
+          {
+            "name": "detail|veh-detail",
+            "draws": 5,
+            "triangles": 4564
+          },
+          {
+            "name": "streetscape-wall-median|MeshStandardMaterial",
+            "draws": 1,
+            "triangles": 4188
+          },
+          {
+            "name": "researched-details|station-steel",
+            "draws": 2,
+            "triangles": 4108
+          },
+          {
+            "name": "store-body|store-body",
+            "draws": 9,
+            "triangles": 3530
+          },
+          {
+            "name": "shopfronts|shop",
+            "draws": 10,
+            "triangles": 3316
+          },
+          {
+            "name": "store-boards|store-lit",
+            "draws": 9,
+            "triangles": 2798
+          },
+          {
+            "name": "asphalt|asphalt",
+            "draws": 5,
+            "triangles": 2338
+          },
+          {
+            "name": "streetscape-trees-planting|MeshStandardMaterial",
+            "draws": 1,
+            "triangles": 1720
+          },
+          {
+            "name": "researched-cladding|station-steel",
+            "draws": 2,
+            "triangles": 1620
+          },
+          {
+            "name": "bridge-piers|concrete",
+            "draws": 1,
+            "triangles": 1536
+          },
+          {
+            "name": "researched-glazing|station-steel",
+            "draws": 2,
+            "triangles": 1084
+          },
+          {
+            "name": "sky-dome|sky",
+            "draws": 1,
+            "triangles": 960
+          },
+          {
+            "name": "station-concrete|concrete",
+            "draws": 1,
+            "triangles": 920
+          },
+          {
+            "name": "coach-3|MeshStandardMaterial",
+            "draws": 5,
+            "triangles": 900
+          },
+          {
+            "name": "struct-steel|struct-steel",
+            "draws": 1,
+            "triangles": 850
+          },
+          {
+            "name": "struct-stairs|concrete",
+            "draws": 1,
+            "triangles": 760
+          },
+          {
+            "name": "trim|hero-trim",
+            "draws": 1,
+            "triangles": 718
+          },
+          {
+            "name": "body|hero-paint",
+            "draws": 1,
+            "triangles": 640
+          },
+          {
+            "name": "body|veh-paint-truck",
+            "draws": 2,
+            "triangles": 632
+          },
+          {
+            "name": "rim|hero-rim",
+            "draws": 4,
+            "triangles": 608
+          },
+          {
+            "name": "pillar-columns--15_-7|paving",
+            "draws": 1,
+            "triangles": 600
+          },
+          {
+            "name": "body|veh-paint-car",
+            "draws": 1,
+            "triangles": 588
+          },
+          {
+            "name": "bridge-pier-caps|concrete",
+            "draws": 1,
+            "triangles": 576
+          },
+          {
+            "name": "tyre|hero-tyre",
+            "draws": 4,
+            "triangles": 480
+          },
+          {
+            "name": "body|veh-paint-auto",
+            "draws": 1,
+            "triangles": 480
+          },
+          {
+            "name": "public-furniture|MeshStandardMaterial",
+            "draws": 2,
+            "triangles": 468
+          },
+          {
+            "name": "pillar-caps--15_-7|paving",
+            "draws": 1,
+            "triangles": 420
+          },
+          {
+            "name": "track|track",
+            "draws": 3,
+            "triangles": 376
+          },
+          {
+            "name": "pillar-columns--14_-7|paving",
+            "draws": 1,
+            "triangles": 320
+          },
+          {
+            "name": "store-signs|store-sign",
+            "draws": 9,
+            "triangles": 248
+          },
+          {
+            "name": "pillar-caps--14_-7|paving",
+            "draws": 1,
+            "triangles": 224
+          },
+          {
+            "name": "deck|paving",
+            "draws": 3,
+            "triangles": 216
+          },
+          {
+            "name": "body|veh-paint-bike",
+            "draws": 1,
+            "triangles": 204
+          },
+          {
+            "name": "courier|hero-courier-detail",
+            "draws": 1,
+            "triangles": 200
+          },
+          {
+            "name": "station-roof|station-roof",
+            "draws": 1,
+            "triangles": 142
+          },
+          {
+            "name": "brake|veh-brake-off",
+            "draws": 5,
+            "triangles": 108
+          },
+          {
+            "name": "struct-rail-mesh|rail-mesh",
+            "draws": 1,
+            "triangles": 52
+          },
+          {
+            "name": "wing-blade|hero-trim",
+            "draws": 1,
+            "triangles": 36
+          },
+          {
+            "name": "struct-columns|concrete",
+            "draws": 1,
+            "triangles": 32
+          },
+          {
+            "name": "struct-walkway|paving",
+            "draws": 1,
+            "triangles": 30
+          },
+          {
+            "name": "canopy|hero-glass",
+            "draws": 1,
+            "triangles": 26
+          },
+          {
+            "name": "reverse|hero-reverse",
+            "draws": 1,
+            "triangles": 24
+          },
+          {
+            "name": "delivery-beam|ShaderMaterial",
+            "draws": 1,
+            "triangles": 20
+          },
+          {
+            "name": "building-sign|MeshBasicMaterial",
+            "draws": 9,
+            "triangles": 18
+          },
+          {
+            "name": "struct-lift-glass|lift-glass",
+            "draws": 1,
+            "triangles": 16
+          },
+          {
+            "name": "struct-caps|concrete",
+            "draws": 1,
+            "triangles": 12
+          },
+          {
+            "name": "station-name-boards|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 12
+          },
+          {
+            "name": "delivery-outline-glow|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 8
+          },
+          {
+            "name": "delivery-outline|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 8
+          },
+          {
+            "name": "headlights|hero-head",
+            "draws": 1,
+            "triangles": 4
+          },
+          {
+            "name": "ground|ground",
+            "draws": 1,
+            "triangles": 2
+          },
+          {
+            "name": "brake|hero-tail",
+            "draws": 1,
+            "triangles": 2
+          },
+          {
+            "name": "decals|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 2
+          },
+          {
+            "name": "delivery-fill|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 2
+          },
+          {
+            "name": "blob-shadow|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 2
+          }
+        ],
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)",
+        "resolution": {
+          "dpr": 1,
+          "width": 844,
+          "height": 390
+        },
+        "position": {
+          "x": -6499.61,
+          "z": -3011.925
+        }
+      },
+      "retainedHeapAfterGC": {
+        "usedSize": 139806980,
+        "totalSize": 144343040,
+        "embedderHeapUsedSize": 16345456,
+        "backingStorageSize": 90928644
+      },
+      "samples": [
+        {
+          "desktopCPUThrottle": 1,
+          "workMs": {
+            "frame": {
+              "samples": 601,
+              "p50": 2.4000000059604645,
+              "p95": 4,
+              "p99": 4.800000011920929,
+              "total": 1522.5999997854233,
+              "mean": 2.5334442592103548
+            },
+            "update": {
+              "samples": 601,
+              "p50": 0.30000001192092896,
+              "p95": 0.699999988079071,
+              "p99": 0.800000011920929,
+              "total": 208.59999999403954,
+              "mean": 0.3470881863461556
+            },
+            "render": {
+              "samples": 601,
+              "p50": 2,
+              "p95": 3.2000000178813934,
+              "p99": 3.9000000059604645,
+              "total": 1254.6000002026558,
+              "mean": 2.0875207990060827
+            },
+            "hud": {
+              "samples": 601,
+              "p50": 0,
+              "p95": 0.30000001192092896,
+              "p99": 0.4000000059604645,
+              "total": 39.499999701976776,
+              "mean": 0.06572379318132575
+            },
+            "interval": {
+              "samples": 600,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "p99": 16.80000000000109,
+              "total": 9999.6,
+              "mean": 16.666
+            }
+          },
+          "processMetricsDeltaSeconds": {
+            "Timestamp": 10.01871000000392,
+            "TaskDuration": 1.675959,
+            "ScriptDuration": 1.5298379999999998,
+            "LayoutDuration": 0.0194,
+            "RecalcStyleDuration": 0.002881
+          }
+        },
+        {
+          "desktopCPUThrottle": 4,
+          "workMs": {
+            "frame": {
+              "samples": 602,
+              "p50": 5.5,
+              "p95": 8.700000017881393,
+              "p99": 12.5,
+              "total": 3537.600000113249,
+              "mean": 5.876411960321011
+            },
+            "update": {
+              "samples": 602,
+              "p50": 0.5999999940395355,
+              "p95": 1.199999988079071,
+              "p99": 1.5999999940395355,
+              "total": 363.5000001490116,
+              "mean": 0.6038205982541721
+            },
+            "render": {
+              "samples": 602,
+              "p50": 4.700000017881393,
+              "p95": 7.4000000059604645,
+              "p99": 10,
+              "total": 3034.9999999403954,
+              "mean": 5.041528239103647
+            },
+            "hud": {
+              "samples": 602,
+              "p50": 0,
+              "p95": 0.7999999821186066,
+              "p99": 1,
+              "total": 98.49999997019768,
+              "mean": 0.16362126240896624
+            },
+            "interval": {
+              "samples": 601,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "p99": 16.80000000000291,
+              "total": 10016.199999999997,
+              "mean": 16.66589018302828
+            }
+          },
+          "processMetricsDeltaSeconds": {
+            "Timestamp": 10.033229000022402,
+            "TaskDuration": 3.9170070000000003,
+            "ScriptDuration": 3.54782,
+            "LayoutDuration": 0.055589,
+            "RecalcStyleDuration": 0.005759000000000001
+          }
+        }
+      ],
+      "cpuTopSelfMilliseconds": [
+        {
+          "name": "(idle) :0",
+          "ms": 5154.715
+        },
+        {
+          "name": "(program) :0",
+          "ms": 308.141
+        },
+        {
+          "name": "updateMatrixWorld deps/three.module-Bj7iJlUn.js:10046",
+          "ms": 209.703
+        },
+        {
+          "name": "projectObject deps/three.module-Bj7iJlUn.js:52080",
+          "ms": 122.872
+        },
+        {
+          "name": "applyCull art/cull.ts:27",
+          "ms": 63.878
+        },
+        {
+          "name": "multiplyMatrices deps/three.module-Bj7iJlUn.js:8252",
+          "ms": 35.401
+        },
+        {
+          "name": "getParameters deps/three.module-Bj7iJlUn.js:46085",
+          "ms": 31.185
+        },
+        {
+          "name": "getProgram deps/three.module-Bj7iJlUn.js:52227",
+          "ms": 17.479
+        },
+        {
+          "name": "WebGLRenderer.renderBufferDirect deps/three.module-Bj7iJlUn.js:51786",
+          "ms": 14.933
+        },
+        {
+          "name": "(garbage collector) :0",
+          "ms": 13.8
+        },
+        {
+          "name": "bindVertexArray :0",
+          "ms": 13.654
+        },
+        {
+          "name": "updateSignals app/view.ts:137",
+          "ms": 11.47
+        },
+        {
+          "name": "root.userData.update art/metroTrains.ts:116",
+          "ms": 10.805
+        },
+        {
+          "name": "update ui/hud.ts:202",
+          "ms": 10.11
+        },
+        {
+          "name": "setProgram deps/three.module-Bj7iJlUn.js:52328",
+          "ms": 10.075
+        },
+        {
+          "name": "renderObject deps/three.module-Bj7iJlUn.js:52210",
+          "ms": 10.057
+        },
+        {
+          "name": "sort deps/three.module-Bj7iJlUn.js:46579",
+          "ms": 7.566
+        },
+        {
+          "name": "frame app/app.ts:680",
+          "ms": 7.542
+        },
+        {
+          "name": "upload deps/three.module-Bj7iJlUn.js:45414",
+          "ms": 7.274
+        },
+        {
+          "name": "bindVertexArrayObject deps/three.module-Bj7iJlUn.js:42906",
+          "ms": 6.335
+        },
+        {
+          "name": "arraysEqual deps/three.module-Bj7iJlUn.js:44900",
+          "ms": 6.286
+        },
+        {
+          "name": "painterSortStable deps/three.module-Bj7iJlUn.js:46505",
+          "ms": 6.184
+        },
+        {
+          "name": "(anonymous) app/app.ts:681",
+          "ms": 5.08
+        },
+        {
+          "name": "clear :0",
+          "ms": 5.068
+        },
+        {
+          "name": "setValue deps/three.module-Bj7iJlUn.js:45357",
+          "ms": 5.062
+        },
+        {
+          "name": "applyMatrix4 deps/three.module-Bj7iJlUn.js:6681",
+          "ms": 5.036
+        },
+        {
+          "name": "update app/view.ts:408",
+          "ms": 4.914
+        },
+        {
+          "name": "update art/environment.ts:300",
+          "ms": 4.912
+        },
+        {
+          "name": "WebGLRenderer.render deps/three.module-Bj7iJlUn.js:51996",
+          "ms": 3.809
+        },
+        {
+          "name": "setValueV1f deps/three.module-Bj7iJlUn.js:44917",
+          "ms": 3.808
+        },
+        {
+          "name": "drawElements :0",
+          "ms": 3.791
+        },
+        {
+          "name": "renderObjects deps/three.module-Bj7iJlUn.js:52200",
+          "ms": 3.788
+        },
+        {
+          "name": "setup deps/three.module-Bj7iJlUn.js:42887",
+          "ms": 3.782
+        },
+        {
+          "name": "markUniformsLightsNeedsUpdate deps/three.module-Bj7iJlUn.js:52491",
+          "ms": 3.776
+        },
+        {
+          "name": "syncActors app/view.ts:324",
+          "ms": 3.774
+        },
+        {
+          "name": "refreshFogUniforms deps/three.module-Bj7iJlUn.js:50041",
+          "ms": 3.772
+        },
+        {
+          "name": "setFromEuler deps/three.module-Bj7iJlUn.js:3591",
+          "ms": 3.761
+        },
+        {
+          "name": "refreshMaterialUniforms deps/three.module-Bj7iJlUn.js:50048",
+          "ms": 3.76
+        },
+        {
+          "name": "needsUpdate deps/three.module-Bj7iJlUn.js:42958",
+          "ms": 3.758
+        },
+        {
+          "name": "push deps/three.module-Bj7iJlUn.js:46566",
+          "ms": 3.754
+        }
+      ],
+      "errors": []
+    },
+    {
+      "profile": {
+        "name": "desktop-standard",
+        "width": 1280,
+        "height": 720,
+        "quality": "standard",
+        "touch": false,
+        "dpr": 1
+      },
+      "readyMs": 5737.79075,
+      "scene": {
+        "nodes": 6002,
+        "meshCount": 4605,
+        "geometryBytes": 123548176,
+        "renderInfo": {
+          "frame": 357,
+          "calls": 278,
+          "triangles": 536010,
+          "points": 0,
+          "lines": 6
+        },
+        "resources": {
+          "geometries": 227,
+          "textures": 31,
+          "programs": 39
+        },
+        "rendered": [
+          {
+            "name": "facades|facade",
+            "draws": 10,
+            "triangles": 98874
+          },
+          {
+            "name": "roofs|roof",
+            "draws": 10,
+            "triangles": 68074
+          },
+          {
+            "name": "footpath|paving",
+            "draws": 8,
+            "triangles": 50368
+          },
+          {
+            "name": "bridge-deck|concrete",
+            "draws": 3,
+            "triangles": 33238
+          },
+          {
+            "name": "verge|verge",
+            "draws": 8,
+            "triangles": 15696
+          },
+          {
+            "name": "station-steel|station-steel",
+            "draws": 2,
+            "triangles": 12376
+          },
+          {
+            "name": "markings|markings",
+            "draws": 8,
+            "triangles": 10588
+          },
+          {
+            "name": "street-life|MeshStandardMaterial",
+            "draws": 5,
+            "triangles": 9080
+          },
+          {
+            "name": "source-landscape|MeshStandardMaterial",
+            "draws": 5,
+            "triangles": 7602
+          },
+          {
+            "name": "researched-details|station-steel",
+            "draws": 2,
+            "triangles": 6040
+          },
+          {
+            "name": "asphalt|asphalt",
+            "draws": 8,
+            "triangles": 4424
+          },
+          {
+            "name": "detail|veh-detail",
+            "draws": 4,
+            "triangles": 4364
+          },
+          {
+            "name": "streetscape-wall-median|MeshStandardMaterial",
+            "draws": 1,
+            "triangles": 4356
+          },
+          {
+            "name": "bridge-piers|concrete",
+            "draws": 3,
+            "triangles": 3808
+          },
+          {
+            "name": "store-body|store-body",
+            "draws": 9,
+            "triangles": 3530
+          },
+          {
+            "name": "shopfronts|shop",
+            "draws": 10,
+            "triangles": 3312
+          },
+          {
+            "name": "streetscape-trees-planting|MeshStandardMaterial",
+            "draws": 1,
+            "triangles": 2800
+          },
+          {
+            "name": "store-boards|store-lit",
+            "draws": 9,
+            "triangles": 2798
+          },
+          {
+            "name": "station-concrete|concrete",
+            "draws": 2,
+            "triangles": 1720
+          },
+          {
+            "name": "(unnamed)|MeshStandardMaterial",
+            "draws": 15,
+            "triangles": 1644
+          },
+          {
+            "name": "researched-cladding|station-steel",
+            "draws": 2,
+            "triangles": 1620
+          },
+          {
+            "name": "struct-steel|struct-steel",
+            "draws": 1,
+            "triangles": 1330
+          },
+          {
+            "name": "researched-glazing|station-steel",
+            "draws": 2,
+            "triangles": 1204
+          },
+          {
+            "name": "pillar-columns--15_-7|paving",
+            "draws": 1,
+            "triangles": 1200
+          },
+          {
+            "name": "sky-dome|sky",
+            "draws": 1,
+            "triangles": 960
+          },
+          {
+            "name": "body|veh-paint-auto",
+            "draws": 1,
+            "triangles": 960
+          },
+          {
+            "name": "pillar-caps--15_-7|paving",
+            "draws": 1,
+            "triangles": 900
+          },
+          {
+            "name": "pillar-columns--16_-7|paving",
+            "draws": 1,
+            "triangles": 880
+          },
+          {
+            "name": "trim|hero-trim",
+            "draws": 1,
+            "triangles": 826
+          },
+          {
+            "name": "bridge-pier-caps|concrete",
+            "draws": 3,
+            "triangles": 816
+          },
+          {
+            "name": "body|hero-paint",
+            "draws": 1,
+            "triangles": 816
+          },
+          {
+            "name": "struct-stairs|concrete",
+            "draws": 1,
+            "triangles": 760
+          },
+          {
+            "name": "station-glass|station-glass",
+            "draws": 2,
+            "triangles": 744
+          },
+          {
+            "name": "rim|hero-rim",
+            "draws": 4,
+            "triangles": 688
+          },
+          {
+            "name": "pillar-caps--16_-7|paving",
+            "draws": 1,
+            "triangles": 660
+          },
+          {
+            "name": "pillar-columns--14_-7|paving",
+            "draws": 1,
+            "triangles": 640
+          },
+          {
+            "name": "tyre|hero-tyre",
+            "draws": 4,
+            "triangles": 640
+          },
+          {
+            "name": "body|veh-paint-truck",
+            "draws": 2,
+            "triangles": 632
+          },
+          {
+            "name": "track|track",
+            "draws": 5,
+            "triangles": 608
+          },
+          {
+            "name": "pillar-caps--14_-7|paving",
+            "draws": 1,
+            "triangles": 480
+          },
+          {
+            "name": "public-furniture|MeshStandardMaterial",
+            "draws": 2,
+            "triangles": 468
+          },
+          {
+            "name": "deck|paving",
+            "draws": 5,
+            "triangles": 332
+          },
+          {
+            "name": "lamps|veh-lamp",
+            "draws": 4,
+            "triangles": 288
+          },
+          {
+            "name": "station-roof|station-roof",
+            "draws": 2,
+            "triangles": 284
+          },
+          {
+            "name": "store-signs|store-sign",
+            "draws": 9,
+            "triangles": 248
+          },
+          {
+            "name": "body|veh-paint-bike",
+            "draws": 1,
+            "triangles": 204
+          },
+          {
+            "name": "courier|hero-courier-detail",
+            "draws": 1,
+            "triangles": 200
+          },
+          {
+            "name": "brake|veh-brake-off",
+            "draws": 4,
+            "triangles": 84
+          },
+          {
+            "name": "struct-columns|concrete",
+            "draws": 1,
+            "triangles": 56
+          },
+          {
+            "name": "struct-rail-mesh|rail-mesh",
+            "draws": 1,
+            "triangles": 52
+          },
+          {
+            "name": "wing-blade|hero-trim",
+            "draws": 1,
+            "triangles": 36
+          },
+          {
+            "name": "struct-walkway|paving",
+            "draws": 1,
+            "triangles": 30
+          },
+          {
+            "name": "canopy|hero-glass",
+            "draws": 1,
+            "triangles": 26
+          },
+          {
+            "name": "station-name-boards|MeshBasicMaterial",
+            "draws": 2,
+            "triangles": 24
+          },
+          {
+            "name": "reverse|hero-reverse",
+            "draws": 1,
+            "triangles": 24
+          },
+          {
+            "name": "glass|veh-glass",
+            "draws": 3,
+            "triangles": 20
+          },
+          {
+            "name": "delivery-beam|ShaderMaterial",
+            "draws": 1,
+            "triangles": 20
+          },
+          {
+            "name": "struct-lift-glass|lift-glass",
+            "draws": 1,
+            "triangles": 16
+          },
+          {
+            "name": "building-sign|MeshBasicMaterial",
+            "draws": 7,
+            "triangles": 14
+          },
+          {
+            "name": "struct-caps|concrete",
+            "draws": 1,
+            "triangles": 12
+          },
+          {
+            "name": "delivery-outline-glow|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 8
+          },
+          {
+            "name": "delivery-outline|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 8
+          },
+          {
+            "name": "headlights|hero-head",
+            "draws": 1,
+            "triangles": 4
+          },
+          {
+            "name": "ground|ground",
+            "draws": 1,
+            "triangles": 2
+          },
+          {
+            "name": "brake|hero-tail",
+            "draws": 1,
+            "triangles": 2
+          },
+          {
+            "name": "decals|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 2
+          },
+          {
+            "name": "delivery-fill|MeshBasicMaterial",
+            "draws": 1,
+            "triangles": 2
+          }
+        ],
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)",
+        "resolution": {
+          "dpr": 1,
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -6499.61,
+          "z": -3011.925
+        }
+      },
+      "retainedHeapAfterGC": {
+        "usedSize": 140462836,
+        "totalSize": 145653760,
+        "embedderHeapUsedSize": 20852984,
+        "backingStorageSize": 134557749
+      },
+      "samples": [
+        {
+          "desktopCPUThrottle": 1,
+          "workMs": {
+            "frame": {
+              "samples": 601,
+              "p50": 2.600000023841858,
+              "p95": 4.0999999940395355,
+              "p99": 4.9000000059604645,
+              "total": 1661.9000001251698,
+              "mean": 2.765224625832229
+            },
+            "update": {
+              "samples": 601,
+              "p50": 0.29999998211860657,
+              "p95": 0.4000000059604645,
+              "p99": 0.5,
+              "total": 159.7000004351139,
+              "mean": 0.2657237944011879
+            },
+            "render": {
+              "samples": 601,
+              "p50": 2.300000011920929,
+              "p95": 3.5,
+              "p99": 4.4000000059604645,
+              "total": 1448.8999998867512,
+              "mean": 2.4108153076318657
+            },
+            "hud": {
+              "samples": 601,
+              "p50": 0,
+              "p95": 0.29999998211860657,
+              "p99": 0.30000001192092896,
+              "total": 34.99999991059303,
+              "mean": 0.0582362727297721
+            },
+            "interval": {
+              "samples": 600,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "p99": 16.799999999999272,
+              "total": 9999.7,
+              "mean": 16.66616666666667
+            }
+          },
+          "processMetricsDeltaSeconds": {
+            "Timestamp": 10.023631000018213,
+            "TaskDuration": 1.7922800000000003,
+            "ScriptDuration": 1.6674039999999999,
+            "LayoutDuration": 0.016793,
+            "RecalcStyleDuration": 0.002461
+          }
+        },
+        {
+          "desktopCPUThrottle": 4,
+          "workMs": {
+            "frame": {
+              "samples": 601,
+              "p50": 6.5999999940395355,
+              "p95": 10.099999994039536,
+              "p99": 13.399999976158142,
+              "total": 4230.499999731779,
+              "mean": 7.039101497057869
+            },
+            "update": {
+              "samples": 601,
+              "p50": 0.5,
+              "p95": 1.0999999940395355,
+              "p99": 1.2999999821186066,
+              "total": 316.0999996960163,
+              "mean": 0.5259567382629223
+            },
+            "render": {
+              "samples": 601,
+              "p50": 5.9000000059604645,
+              "p95": 8.800000011920929,
+              "p99": 11.100000023841858,
+              "total": 3772.8000001609325,
+              "mean": 6.277537437871768
+            },
+            "hud": {
+              "samples": 601,
+              "p50": 0,
+              "p95": 0.800000011920929,
+              "p99": 1,
+              "total": 101.89999973773956,
+              "mean": 0.16955074831570643
+            },
+            "interval": {
+              "samples": 600,
+              "p50": 16.69999999999709,
+              "p95": 16.799999999999272,
+              "p99": 16.799999999999272,
+              "total": 9999.7,
+              "mean": 16.66616666666667
+            }
+          },
+          "processMetricsDeltaSeconds": {
+            "Timestamp": 10.027474000002258,
+            "TaskDuration": 4.617433,
+            "ScriptDuration": 4.247165000000001,
+            "LayoutDuration": 0.051536,
+            "RecalcStyleDuration": 0.005053
+          }
+        }
+      ],
+      "cpuTopSelfMilliseconds": [
+        {
+          "name": "(idle) :0",
+          "ms": 4984.117
+        },
+        {
+          "name": "(program) :0",
+          "ms": 304.419
+        },
+        {
+          "name": "updateMatrixWorld deps/three.module-Bj7iJlUn.js:10046",
+          "ms": 231.829
+        },
+        {
+          "name": "projectObject deps/three.module-Bj7iJlUn.js:52080",
+          "ms": 106.109
+        },
+        {
+          "name": "applyCull art/cull.ts:27",
+          "ms": 52.335
+        },
+        {
+          "name": "multiplyMatrices deps/three.module-Bj7iJlUn.js:8252",
+          "ms": 49.082
+        },
+        {
+          "name": "renderObject deps/three.module-Bj7iJlUn.js:47372",
+          "ms": 43.686
+        },
+        {
+          "name": "WebGLRenderer.renderBufferDirect deps/three.module-Bj7iJlUn.js:51786",
+          "ms": 34.73
+        },
+        {
+          "name": "getParameters deps/three.module-Bj7iJlUn.js:46085",
+          "ms": 28.704
+        },
+        {
+          "name": "getProgram deps/three.module-Bj7iJlUn.js:52227",
+          "ms": 27.825
+        },
+        {
+          "name": "setProgram deps/three.module-Bj7iJlUn.js:52328",
+          "ms": 18.878
+        },
+        {
+          "name": "root.userData.update art/metroTrains.ts:116",
+          "ms": 17.535
+        },
+        {
+          "name": "upload deps/three.module-Bj7iJlUn.js:45414",
+          "ms": 14.697
+        },
+        {
+          "name": "painterSortStable deps/three.module-Bj7iJlUn.js:46505",
+          "ms": 13.588
+        },
+        {
+          "name": "(garbage collector) :0",
+          "ms": 12.713
+        },
+        {
+          "name": "bindVertexArrayObject deps/three.module-Bj7iJlUn.js:42906",
+          "ms": 12.628
+        },
+        {
+          "name": "bindVertexArray :0",
+          "ms": 12.588
+        },
+        {
+          "name": "update deps/three.module-Bj7iJlUn.js:44598",
+          "ms": 12.465
+        },
+        {
+          "name": "arraysEqual deps/three.module-Bj7iJlUn.js:44900",
+          "ms": 12.28
+        },
+        {
+          "name": "drawElements :0",
+          "ms": 11.22
+        },
+        {
+          "name": "applyMatrix4 deps/three.module-Bj7iJlUn.js:13656",
+          "ms": 10.029
+        },
+        {
+          "name": "update ui/hud.ts:202",
+          "ms": 9.87
+        },
+        {
+          "name": "sort deps/three.module-Bj7iJlUn.js:46579",
+          "ms": 8.833
+        },
+        {
+          "name": "updateSignals app/view.ts:137",
+          "ms": 8.803
+        },
+        {
+          "name": "setup deps/three.module-Bj7iJlUn.js:42887",
+          "ms": 8.798
+        },
+        {
+          "name": "refreshFogUniforms deps/three.module-Bj7iJlUn.js:50041",
+          "ms": 7.564
+        },
+        {
+          "name": "uniformMatrix4fv :0",
+          "ms": 7.557
+        },
+        {
+          "name": "setValueV3f deps/three.module-Bj7iJlUn.js:44937",
+          "ms": 7.551
+        },
+        {
+          "name": "renderObject deps/three.module-Bj7iJlUn.js:52210",
+          "ms": 6.309
+        },
+        {
+          "name": "copyArray deps/three.module-Bj7iJlUn.js:44905",
+          "ms": 6.308
+        },
+        {
+          "name": "flatten deps/three.module-Bj7iJlUn.js:44882",
+          "ms": 6.3
+        },
+        {
+          "name": "setMaterial deps/three.module-Bj7iJlUn.js:47819",
+          "ms": 6.296
+        },
+        {
+          "name": "refreshUniformsCommon deps/three.module-Bj7iJlUn.js:50083",
+          "ms": 5.051
+        },
+        {
+          "name": "disable deps/three.module-Bj7iJlUn.js:47667",
+          "ms": 5.036
+        },
+        {
+          "name": "needsUpdate deps/three.module-Bj7iJlUn.js:42958",
+          "ms": 5.026
+        },
+        {
+          "name": "bindTexture deps/three.module-Bj7iJlUn.js:47885",
+          "ms": 5.023
+        },
+        {
+          "name": "getNextRenderItem deps/three.module-Bj7iJlUn.js:46537",
+          "ms": 5.02
+        },
+        {
+          "name": "drawMinimap ui/hud.ts:297",
+          "ms": 4.892
+        },
+        {
+          "name": "frame app/app.ts:680",
+          "ms": 4.759
+        },
+        {
+          "name": "viewport :0",
+          "ms": 3.864
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

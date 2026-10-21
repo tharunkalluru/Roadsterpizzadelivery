@@ -1,0 +1,253 @@
+{
+  "at": "2026-10-21T15:35:03.623Z",
+  "results": [
+    {
+      "quality": "low",
+      "method": "Same-task original-v2 and batched rendering of real-world heads, same camera/light/materials; 512px framebuffer pixel comparison. Instancing can introduce subpixel raster differences.",
+      "heads": 176,
+      "results": [
+        {
+          "edge": "r_67026299482_0:f",
+          "tick": 0,
+          "position": [
+            -6473.76175812819,
+            0,
+            -3016.1559220017907
+          ],
+          "budgets": [
+            {
+              "frame": 207,
+              "calls": 56,
+              "triangles": 6060,
+              "points": 0,
+              "lines": 0
+            },
+            {
+              "frame": 208,
+              "calls": 19,
+              "triangles": 9316,
+              "points": 0,
+              "lines": 0
+            }
+          ],
+          "changedPixels": 0,
+          "changedPixelFraction": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "maximumChannelDifference": 0
+        },
+        {
+          "edge": "r_7220661381_0:f",
+          "tick": 1080,
+          "position": [
+            -6471.693013685076,
+            0,
+            -3006.9333042740905
+          ],
+          "budgets": [
+            {
+              "frame": 209,
+              "calls": 61,
+              "triangles": 6608,
+              "points": 0,
+              "lines": 0
+            },
+            {
+              "frame": 210,
+              "calls": 19,
+              "triangles": 9316,
+              "points": 0,
+              "lines": 0
+            }
+          ],
+          "changedPixels": 2,
+          "changedPixelFraction": 0.00000762939453125,
+          "meanAbsoluteChannelDifference": 0.000005086263020833333,
+          "maximumChannelDifference": 1
+        },
+        {
+          "edge": "r_5689585072_0:f",
+          "tick": 1260,
+          "position": [
+            -6453.142963598321,
+            0,
+            -3027.2257377762767
+          ],
+          "budgets": [
+            {
+              "frame": 211,
+              "calls": 20,
+              "triangles": 2192,
+              "points": 0,
+              "lines": 0
+            },
+            {
+              "frame": 212,
+              "calls": 7,
+              "triangles": 4384,
+              "points": 0,
+              "lines": 0
+            }
+          ],
+          "changedPixels": 5,
+          "changedPixelFraction": 0.000019073486328125,
+          "meanAbsoluteChannelDifference": 0.00020345052083333334,
+          "maximumChannelDifference": 54
+        },
+        {
+          "edge": "r_27343822633_0:f",
+          "tick": -120,
+          "position": [
+            -17835.29387442062,
+            0,
+            -4066.7515770543773
+          ],
+          "budgets": [
+            {
+              "frame": 213,
+              "calls": 31,
+              "triangles": 3320,
+              "points": 0,
+              "lines": 0
+            },
+            {
+              "frame": 214,
+              "calls": 19,
+              "triangles": 4932,
+              "points": 0,
+              "lines": 0
+            }
+          ],
+          "changedPixels": 1,
+          "changedPixelFraction": 0.000003814697265625,
+          "meanAbsoluteChannelDifference": 0.0000012715657552083333,
+          "maximumChannelDifference": 1
+        }
+      ],
+      "errors": []
+    },
+    {
+      "quality": "standard",
+      "method": "Same-task original-v2 and batched rendering of real-world heads, same camera/light/materials; 512px framebuffer pixel comparison. Instancing can introduce subpixel raster differences.",
+      "heads": 176,
+      "results": [
+        {
+          "edge": "r_67026299482_0:f",
+          "tick": 0,
+          "position": [
+            -6473.76175812819,
+            0,
+            -3016.1559220017907
+          ],
+          "budgets": [
+            {
+              "frame": 234,
+              "calls": 56,
+              "triangles": 6060,
+              "points": 0,
+              "lines": 0
+            },
+            {
+              "frame": 235,
+              "calls": 19,
+              "triangles": 9316,
+              "points": 0,
+              "lines": 0
+            }
+          ],
+          "changedPixels": 0,
+          "changedPixelFraction": 0,
+          "meanAbsoluteChannelDifference": 0,
+          "maximumChannelDifference": 0
+        },
+        {
+          "edge": "r_7220661381_0:f",
+          "tick": 1080,
+          "position": [
+            -6471.693013685076,
+            0,
+            -3006.9333042740905
+          ],
+          "budgets": [
+            {
+              "frame": 236,
+              "calls": 61,
+              "triangles": 6608,
+              "points": 0,
+              "lines": 0
+            },
+            {
+              "frame": 237,
+              "calls": 19,
+              "triangles": 9316,
+              "points": 0,
+              "lines": 0
+            }
+          ],
+          "changedPixels": 1,
+          "changedPixelFraction": 0.000003814697265625,
+          "meanAbsoluteChannelDifference": 0.0000012715657552083333,
+          "maximumChannelDifference": 1
+        },
+        {
+          "edge": "r_5689585072_0:f",
+          "tick": 1260,
+          "position": [
+            -6453.142963598321,
+            0,
+            -3027.2257377762767
+          ],
+          "budgets": [
+            {
+              "frame": 238,
+              "calls": 20,
+              "triangles": 2192,
+              "points": 0,
+              "lines": 0
+            },
+            {
+              "frame": 239,
+              "calls": 7,
+              "triangles": 4384,
+              "points": 0,
+              "lines": 0
+            }
+          ],
+          "changedPixels": 12,
+          "changedPixelFraction": 0.0000457763671875,
+          "meanAbsoluteChannelDifference": 0.000194549560546875,
+          "maximumChannelDifference": 48
+        },
+        {
+          "edge": "r_27343822633_0:f",
+          "tick": -120,
+          "position": [
+            -17835.29387442062,
+            0,
+            -4066.7515770543773
+          ],
+          "budgets": [
+            {
+              "frame": 240,
+              "calls": 31,
+              "triangles": 3320,
+              "points": 0,
+              "lines": 0
+            },
+            {
+              "frame": 241,
+              "calls": 19,
+              "triangles": 4932,
+              "points": 0,
+              "lines": 0
+            }
+          ],
+          "changedPixels": 1,
+          "changedPixelFraction": 0.000003814697265625,
+          "meanAbsoluteChannelDifference": 0.0000012715657552083333,
+          "maximumChannelDifference": 1
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

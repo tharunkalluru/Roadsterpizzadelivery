@@ -1,0 +1,56 @@
+{
+  "baseCommit": "e68ad6a55bb4a17ce178b55ca58ab12c419ee599",
+  "baseTree": "9e21b002b69c73d1d2238554f3a46f3cd07fad47",
+  "source": [
+    {
+      "path": "game/src/app/view.ts",
+      "sha256": "357657adb974f8a7623a2ae584977adf321086ce6c1f5c96ce669cbd416be36d"
+    },
+    {
+      "path": "game/src/art/metroTrains.ts",
+      "sha256": "913bc63c3bbd982a8a128729c1b6069c43a491755e6baf67763b796be2785ad7"
+    },
+    {
+      "path": "game/src/art/trafficSignals.ts",
+      "sha256": "22613a80cd205c890c10ab435005deefaab2dadf498afd185dff40983625fe51"
+    },
+    {
+      "path": "game/tests/unit/metro-presentation-pool.test.ts",
+      "sha256": "93eb5915b04c8ba25b2913feada4d2de6534efaedbea212b839cef9bbedc6727"
+    },
+    {
+      "path": "game/tests/unit/traffic-signal-presentation.test.ts",
+      "sha256": "5aea7a7e678a5109ae67409aee6a65dce32bf2074ef95b41e1242d5f174984ff"
+    }
+  ],
+  "frozen": [
+    {
+      "path": "game/public/research/street-survey.json",
+      "sha256": "39016ea94266f623198c8a9a13dd94dc7ae6feb1433300c2725a700f0337fc42"
+    },
+    {
+      "path": "game/public/world/hyd-metro/v2/manifest.json",
+      "sha256": "b07636419815d2428d110b6e912144f93679d1b928ce53cd5d1464db62fe1089"
+    },
+    {
+      "path": "game/public/world/hyd-metro/v2/core.json",
+      "sha256": "6a1f8ae682113b3ac6ea7faf4e64edef5062bf9358d626bead5025fa496d2d7c"
+    },
+    {
+      "path": "game/package-lock.json",
+      "sha256": "dc36354e007ddbe185b883df2d2723348aa4e0387de975138c016c18b43fc9f6"
+    },
+    {
+      "path": "game/data/archives/source-accuracy.json.gz",
+      "sha256": "4e0e9f32c651de10e6ce40f6a4eec96986b4e8d7b0fcfd77de4610d512d490fd"
+    }
+  ],
+  "profilingHarness": {
+    "path": "game/qa/visual-performance/v3-profile.mjs",
+    "sha256": "80d2c470fbc996225555ba51601f197c57fdf16e1ffd627cf3a071e57bf41935",
+    "matchedRuns": [
+      "v3-before-matched",
+      "v3-after-matched"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # Roadster visual and performance review
 
-The current **v2** pass responds to distracting driving text and refines the car, camera, street presentation and game flow. It is a local, code-only continuation of survey 133. Main public Site revision 113 and the existing private preview are unchanged. The world still has zero verified storefronts/sides; the provisional gate and verified-mode lock remain.
+The current **v3** pass reduces scene and material work while retaining the v2 car, camera, street presentation and game flow. It is a local, code-only continuation of survey 133. Main public Site revision 113 and the existing private preview are unchanged. The world still has zero verified storefronts/sides; the provisional gate and verified-mode lock remain.
 
 ## Run the local preview
 
@@ -8,7 +8,28 @@ Use Node.js 22.12 or newer. From `game`, run `npm ci`, then `qa/visual-performan
 
 While stopped, drag and briefly hold the view to inspect a nearby sign. Names never appear automatically during driving or flight. Inspection shows at most one compact roadside label, after a continuous 350 ms hold, with a 1.5-second reading window after release. The name comes from an already-rendered board, remains provisional, and wraps to show the full name in at most three lines; names too long for that bound stay on the physical sign and map. Full physical signs and map context remain available.
 
-## What changed in v2
+## What changed in v3
+
+- Metro timetables still contain all 82 services. Only nearby services acquire a train rendering hierarchy; invisible trains return to a detached reserve of at most four rigs. Every visible train remains represented, regardless of the reserve size. Geometry, movement, doors, sound, headway and visibility distances are preserved.
+- The same 176 traffic-signal heads use 41 spatial batches, 328 mesh objects and seven shared materials. Signal timing still comes from the simulation. Lamp buffers change only when a displayed state changes; tile bounds are refreshed then. Local tile coordinates preserve placement precision.
+
+At the same low/standard spawn, scene nodes fell **5,896→3,409 / 6,002→3,559**, retained JavaScript heap fell **143.19→132.79 / 143.30→133.99 MB**, and triangles stayed **179,694 / 536,010**. Draw calls stayed 176 on low and fell 278→270 on standard. The 4× desktop CPU-pressure sample's mean frame work fell **5.84→4.03 / 7.75→5.84 ms**. These are matched-run snapshots, not universal savings; native timings varied across captures; both remain display-capped near 60 Hz. This is not a physical-phone FPS or total-RAM result, and computing has no zero-cost mode.
+
+Source, exact measurements, tradeoffs and validation are recorded in the [v3 checkpoint](../../work/visual-performance-survey133/checkpoint-20261021-v3.md). [Before phone](evidence-v3/before-phone-low.png), [after phone](evidence-v3/after-phone-low.png) and [after desktop](evidence-v3/after-desktop-standard.png) retain the same appearance. Signal batch culling can submit additional offscreen triangles near tile edges; the isolated close-up checks explicitly record this tradeoff and compare the resulting pixels.
+
+Run current checks serially against the preview on port 5486:
+
+```sh
+node qa/visual-performance/v3-profile.mjs v3-after 5486
+node qa/visual-performance/v3-fidelity.mjs
+node qa/visual-performance/v2-regression.mjs v3-after
+node qa/visual-performance/v2-inspection.mjs v3-after
+node qa/visual-performance/v2-workload.mjs v3-workload 5486
+```
+
+The exact v3 baseline is `e68ad6a55bb4a17ce178b55ca58ab12c419ee599`. A baseline server must serve that source separately; pass its port and source directory to the profiler (`node qa/visual-performance/v3-profile.mjs v3-before-matched 5487 /path/to/baseline/game`). The profiler's method wrappers and framebuffer readbacks belong only to QA. Raw profiles/logs remain scratch output. The v2 scripts now accept an optional output phase so new runs preserve the historical v2 records.
+
+## Retained v2 presentation
 
 | Previous pass | Current pass |
 | --- | --- |
@@ -21,7 +42,7 @@ While stopped, drag and briefly hold the view to inspect a nearby sign. Names ne
 
 The design review used official [Absolute Drift](https://www.absolutedrift.com/) (clear driving space and sparse accents), [art of rally](https://www.artofrally.com/) (coherent colour and directional depth), and [Horizon Chase 2](https://www.horizonchase2.com/) (car readability and compact racing feedback) references. These are principles translated into original game code, not copied assets or claims of equivalent production quality. The original white vehicle remains inspired by the [current Tesla Roadster](https://www.tesla.com/roadster); dimensions, underside jets and flight actuation are authored game approximations.
 
-## Reproduce current checks
+## Historical v2 checks
 
 With the local preview running on port 5486, execute these **serially**:
 

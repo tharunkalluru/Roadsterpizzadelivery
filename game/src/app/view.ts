@@ -10,6 +10,8 @@ import { SIM_HZ } from '../config/gameplay';
 import { buildStreetscape, type StreetscapeData } from '../art/streetscape';
 import { updateBicycleAnimation } from '../art/bicycleAnimation';
 import { WorldLabels } from '../ui/worldLabels';
+import { buildTrafficSignals, type TrafficSignalPresentation } from '../art/trafficSignals';
+import { freezeStaticTransforms } from '../art/staticTransforms';
 
 /** must equal ROAD_TILE in src/art/roads.ts (the art bundle is loaded separately) */
 const ROAD_TILE = 480;
@@ -62,42 +64,19 @@ export class GameView {
   private metroVisual: THREE.Group | null = null;
   get metroAmbience():number { return Math.max(0,Math.min(1,Number(this.metroVisual?.userData.nearbySound??0))); }
   private presentationTime = 0;
-  private signalHeads: { edge: string; lamps: THREE.MeshStandardMaterial[] }[] = [];
+  private signalPresentation: TrafficSignalPresentation | null = null;
   private worldLabels: WorldLabels | null = null;
 
-  /** signal heads at signalled junctions (S03); lamp position + colour, so state is not colour-only */
+  /** Exact source signal placement and clock, with repeated parts batched by tile. */
   buildSignals(sig: SignalSystem, world: WorldPhysics) {
-    const poleGeo = new THREE.CylinderGeometry(0.09, 0.11, 5.2, 8);
-    const boxGeo = new THREE.BoxGeometry(0.45, 1.25, 0.35);
-    const lampGeo = new THREE.SphereGeometry(0.14, 12, 8);
-    const dark = new THREE.MeshStandardMaterial({ color: 0x1b1f24, roughness: 0.6, metalness: 0.4 });
-    for (const n of sig.nodes) for (const ap of n.approaches) {
-      const e = world.nav.edges.get(ap.edge)!;
-      const road = world.roads.roads.get(e.roadId)!;
-      const p = world.nav.pointOnDirected(ap.edge, Math.max(0, e.lengthM - 5));
-      const [fx, fz] = forwardOf(p.heading);
-      const side = road.widthM / 2 + 0.8; // left kerb (left-hand traffic)
-      const g = new THREE.Group();
-      g.position.set(p.x + fz * side, p.y, p.z - fx * side);
-      g.rotation.y = p.heading + Math.PI; // face oncoming traffic
-      const pole = new THREE.Mesh(poleGeo, dark); pole.position.y = 2.6; g.add(pole);
-      const box = new THREE.Mesh(boxGeo, dark); box.position.set(0, 4.6, 0); g.add(box);
-      const lamps: THREE.MeshStandardMaterial[] = [];
-      [0xff3b30, 0xffb020, 0x34c759].forEach((c, i) => {
-        const m = new THREE.MeshStandardMaterial({ color: 0x222222, emissive: c, emissiveIntensity: 0.05 });
-        const l = new THREE.Mesh(lampGeo, m); l.position.set(0, 5.0 - i * 0.4, -0.2); g.add(l); lamps.push(m);
-      });
-      this.scene.add(g);
-      this.signalHeads.push({ edge: ap.edge, lamps });
-    }
+    this.signalPresentation?.dispose();
+    this.signalPresentation = buildTrafficSignals(sig, world);
+    this.scene.add(this.signalPresentation.root);
+    // Phase changes only replace instance membership; these tile transforms stay fixed.
+    freezeStaticTransforms(this.signalPresentation.root);
   }
   updateSignals(sig: SignalSystem, tick: number) {
-    for (const h of this.signalHeads) {
-      const c = sig.colorFor(h.edge, tick);
-      h.lamps[0].emissiveIntensity = c === 'red' ? 3 : 0.05;
-      h.lamps[1].emissiveIntensity = c === 'amber' ? 3 : 0.05;
-      h.lamps[2].emissiveIntensity = c === 'green' ? 3 : 0.05;
-    }
+    this.signalPresentation?.update(sig, tick);
   }
 
   constructor(public renderer: THREE.WebGLRenderer, private art: ArtApi) {
@@ -148,7 +127,7 @@ export class GameView {
     if (pointer !== null) try { this.lookCanvas?.releasePointerCapture(pointer); } catch { /* capture may already be lost */ }
   }
 
-  disposeCameraControls() { this.releaseLookListeners?.(); this.releaseLookListeners = null; this.worldLabels?.dispose(); this.worldLabels = null; }
+  disposeCameraControls() { this.releaseLookListeners?.(); this.releaseLookListeners = null; this.worldLabels?.dispose(); this.worldLabels = null; this.signalPresentation?.dispose(); this.signalPresentation = null; this.metroVisual?.userData.dispose?.(); }
 
   async buildStatic(core: WorldCore, quality: Quality, onProgress: (s: string) => void): Promise<void> {
     this.quality = quality;
@@ -328,7 +307,7 @@ export class GameView {
       } else this.landing.setState('hidden');
     }
     this.syncActors(s, alpha);
-    if (this.signalHeads.length) this.updateSignals(s.traffic.signals, s.traffic.tick);
+    this.updateSignals(s.traffic.signals, s.traffic.tick);
     this.updateCamera(x, y, z, h, p.isAirborne, p.speed, world, dt, p.steerAngle);
     this.labelContext.speedMps=p.speed;this.labelContext.airborne=p.isAirborne;
     this.labelContext.inspecting=this.lookAllowed&&this.lookPointer!==null;
