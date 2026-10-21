@@ -6,19 +6,74 @@ import type { Building, Vec2 } from '../world/schema';
 export type { ReadableSign } from '../art/api';
 type LabelWorld = Pick<WorldPhysics, 'buildingAt'>;
 
-const LIMIT = 6;
-const NEAR_LIMIT = 18;
-const RANGE = 80;
+const LIMIT = 1;
+const NEAR_LIMIT = 8;
+const RANGE = 48;
 const INTERVAL_MS = 100;
-const PHONE_WIDTH = 172;
-const DESKTOP_WIDTH = 204;
+const PHONE_WIDTH = 180;
+const DESKTOP_WIDTH = 220;
+const LINE_HEIGHT = 16;
+const MAX_LINES = 3;
+
+interface LabelLayout { width: number; height: number; lines: number }
+
+/** Match the small parked label's word wrapping once, when its source chunk arrives. */
+export function measureLabelLayout(text: string, maxWidth: number, measure: (text: string) => number): LabelLayout | null {
+  const width = Math.min(Math.ceil(measure(text)) + 20, maxWidth);
+  const contentWidth = width - 20;
+  let lines = 1, line = '';
+  for (const word of text.split(' ')) {
+    const joined = line ? `${line} ${word}` : word;
+    if (measure(joined) <= contentWidth) { line = joined; continue; }
+    if (line) { lines++; line = ''; }
+    if (lines > MAX_LINES) return null;
+    if (measure(word) <= contentWidth) { line = word; continue; }
+    // CSS overflow-wrap:anywhere also handles an unusually long source token.
+    for (const character of word) {
+      if (line && measure(line + character) > contentWidth) { lines++; line = ''; }
+      if (lines > MAX_LINES) return null;
+      line += character;
+    }
+  }
+  return { width, height: lines * LINE_HEIGHT + 12, lines };
+}
+
+export interface LabelInspectionContext {
+  speedMps: number;
+  airborne: boolean;
+  inspecting: boolean;
+}
+
+/** A deliberate stopped glance, with a short reading window after the finger leaves. */
+export class LabelInspectionGate {
+  private startedAt = -Infinity;
+  private lastHeldAt = -Infinity;
+  private ready = false;
+
+  reset() { this.startedAt = this.lastHeldAt = -Infinity; this.ready = false; }
+
+  update(enabled: boolean, context: LabelInspectionContext, nowMs: number): boolean {
+    if (!enabled || context.airborne || !Number.isFinite(context.speedMps) || Math.abs(context.speedMps) > .15) {
+      this.reset();
+      return false;
+    }
+    if (context.inspecting) {
+      if (nowMs - this.lastHeldAt > 1500) { this.startedAt = nowMs; this.ready = false; }
+      this.lastHeldAt = nowMs;
+      if (nowMs - this.startedAt >= 350) this.ready = true;
+    } else if (!this.ready || nowMs - this.lastHeldAt > 1500) {
+      this.reset();
+    }
+    return this.ready;
+  }
+}
 
 interface Candidate {
   source: ReadableSign;
   text: string;
   key: string;
-  phoneHeight: number;
-  desktopHeight: number;
+  phoneLayout: LabelLayout | null;
+  desktopLayout: LabelLayout | null;
   score: number;
   sx: number;
   sy: number;
@@ -30,7 +85,7 @@ interface Candidate {
 }
 interface BuildingBlocker { building: Building; minX: number; maxX: number; minZ: number; maxZ: number }
 interface ChunkLabels { candidates: Candidate[]; blockers: BuildingBlocker[]; minX: number; maxX: number; minZ: number; maxZ: number }
-interface Slot { node: HTMLDivElement; name: HTMLSpanElement; caption: HTMLSpanElement; leader: HTMLSpanElement; candidate: Candidate | null }
+interface Slot { node: HTMLDivElement; name: HTMLSpanElement; candidate: Candidate | null }
 interface ReservedRect { left: number; top: number; width: number; height: number }
 
 /** Fixed DOM pool for existing, rendered signs. It never creates a business or changes source data. */
@@ -43,6 +98,7 @@ export class WorldLabels {
   private readonly selected: Candidate[] = [];
   private readonly projected = new Vector3();
   private readonly measure: CanvasRenderingContext2D | null;
+  private readonly inspection = new LabelInspectionGate();
   private lastUpdate = -Infinity;
   private visible = false;
   private width = 0;
@@ -61,25 +117,25 @@ export class WorldLabels {
     this.root.setAttribute('aria-hidden', 'true');
     for (let i = 0; i < LIMIT; i++) {
       const node = document.createElement('div'), name = document.createElement('span');
-      const caption = document.createElement('span'), leader = document.createElement('span');
       node.className = 'world-label'; name.className = 'world-label__name';
-      caption.className = 'world-label__caption'; leader.className = 'world-label__leader';
-      node.hidden = true; node.append(leader, name, caption); this.root.append(node);
-      this.slots.push({ node, name, caption, leader, candidate: null });
+      node.hidden = true; node.append(name); this.root.append(node);
+      this.slots.push({ node, name, candidate: null });
     }
     host.append(this.root);
     this.measure = document.createElement('canvas').getContext('2d');
-    if (this.measure) this.measure.font = '700 13px system-ui, -apple-system, "Segoe UI", sans-serif';
+    if (this.measure) this.measure.font = '650 12px system-ui, -apple-system, "Segoe UI", sans-serif';
   }
 
   attachChunk(id: string, signs: readonly ReadableSign[], buildings: readonly Building[] = []) {
     this.removeChunk(id);
     const chunk: ChunkLabels = { candidates: [], blockers: [], minX: Infinity, maxX: -Infinity, minZ: Infinity, maxZ: -Infinity };
+    const measure = (text: string) => this.measure?.measureText(text).width ?? text.length * 7;
     for (const source of signs) {
       const text = source.text.trim().replace(/\s+/g, ' ');
       if (!text || !Number.isFinite(source.x + source.y + source.z + source.nx + source.nz)) continue;
-      const phoneHeight = this.textHeight(text, PHONE_WIDTH - 24), desktopHeight = this.textHeight(text, DESKTOP_WIDTH - 24);
-      chunk.candidates.push({ source, text, key: `${id}:${source.id}`, phoneHeight, desktopHeight, score: 0, sx: 0, sy: 0, left: 0, top: 0, width: 0, height: 0, active: false });
+      const phoneLayout = measureLabelLayout(text, PHONE_WIDTH, measure);
+      const desktopLayout = measureLabelLayout(text, DESKTOP_WIDTH, measure);
+      chunk.candidates.push({ source, text, key: `${id}:${source.id}`, phoneLayout, desktopLayout, score: 0, sx: 0, sy: 0, left: 0, top: 0, width: 0, height: 0, active: false });
       chunk.minX = Math.min(chunk.minX, source.x); chunk.maxX = Math.max(chunk.maxX, source.x);
       chunk.minZ = Math.min(chunk.minZ, source.z); chunk.maxZ = Math.max(chunk.maxZ, source.z);
     }
@@ -115,14 +171,26 @@ export class WorldLabels {
   }
 
   setVisible(visible: boolean) {
+    if (!visible) this.inspection.reset();
+    this.applyVisibility(visible);
+  }
+
+  private applyVisibility(visible: boolean) {
     if (this.visible === visible) return;
     this.visible = visible; this.root.hidden = !visible;
     if (visible) { this.lastUpdate = -Infinity; this.layoutDirty = true; }
-    else this.stats.visible = 0;
+    else {
+      this.stats.visible = 0;
+      for (const slot of this.slots) {
+        if (slot.candidate) slot.candidate.active = false;
+        slot.candidate = null; slot.node.hidden = true;
+      }
+    }
   }
 
-  update(camera: PerspectiveCamera, world: LabelWorld, visible: boolean, nowMs = performance.now()) {
-    this.setVisible(visible);
+  update(camera: PerspectiveCamera, world: LabelWorld, enabled: boolean, context: LabelInspectionContext, nowMs = performance.now()) {
+    const visible = this.inspection.update(enabled, context, nowMs);
+    this.applyVisibility(visible);
     if (!visible) return;
     const width = window.innerWidth, height = window.innerHeight;
     if (width !== this.width || height !== this.height) { this.width = width; this.height = height; this.lastUpdate = -Infinity; this.layoutDirty = true; }
@@ -130,8 +198,8 @@ export class WorldLabels {
     this.lastUpdate = nowMs; this.stats.updates++; this.stats.rayChecks = 0;
     if (this.layoutDirty) this.reserveControls();
     this.near.length = 0; this.selected.length = 0;
-    const phone = width <= 900, limit = phone ? 4 : LIMIT;
-    const minY = phone ? (height <= 340 ? 108 : 124) : 144, maxY = height - (phone ? 100 : 142);
+    const phone = width <= 900;
+    const minY = phone ? 104 : 112, maxY = height - (phone ? 92 : 132);
     camera.updateMatrixWorld();
     const cx = camera.position.x, cy = camera.position.y, cz = camera.position.z;
     for (const chunk of this.chunks.values()) {
@@ -144,16 +212,17 @@ export class WorldLabels {
         const p = this.projected;
         if (p.z < -1 || p.z > 1 || Math.abs(p.x) > .97 || Math.abs(p.y) > .94) continue;
         candidate.sx = (p.x + 1) * width * .5; candidate.sy = (1 - p.y) * height * .5;
-        candidate.width = phone ? PHONE_WIDTH : DESKTOP_WIDTH;
-        candidate.height = phone ? candidate.phoneHeight : candidate.desktopHeight;
-        if (candidate.height > 86) continue;
+        const layout = phone ? candidate.phoneLayout : candidate.desktopLayout;
+        if (!layout) continue;
+        candidate.width = layout.width;
+        candidate.height = layout.height;
         candidate.left = Math.max(10, Math.min(width - candidate.width - 10, candidate.sx - candidate.width / 2));
         candidate.top = candidate.sy - candidate.height - 12;
         if (candidate.top < minY) candidate.top = candidate.sy + 12;
         if (candidate.top < minY || candidate.top + candidate.height > maxY) continue;
         if (this.reserved.some(rect => overlaps(candidate, rect))) continue;
-        // The actor occupies the lower central view; keep the forward road above it available for names.
-        if (candidate.left < width * .57 && candidate.left + candidate.width > width * .43 && candidate.top + candidate.height > height * .60) continue;
+        // A glance belongs at the roadside. The entire forward driving corridor stays clear.
+        if (candidate.left < width * .66 && candidate.left + candidate.width > width * .34) continue;
         // Keep already visible names stable when two nearby signs have similar distance.
         candidate.score = distance2 * (candidate.active ? .72 : 1);
         let at = this.near.length;
@@ -165,10 +234,7 @@ export class WorldLabels {
       }
     }
     for (const candidate of this.near) {
-      if (this.selected.length >= limit || this.stats.rayChecks >= 12) break;
-      // Unabridged names that need more room remain on their real signs and in the map.
-      if (this.selected.some(other => other.text === candidate.text)) continue;
-      if (this.selected.some(other => overlaps(candidate, other))) continue;
+      if (this.selected.length >= LIMIT || this.stats.rayChecks >= 8) break;
       this.stats.rayChecks++;
       if (this.occluded(candidate.source, camera.position, world)) continue;
       this.selected.push(candidate);
@@ -182,18 +248,14 @@ export class WorldLabels {
       if (!slot) {
         slot = this.slots.find(item => !item.candidate)!;
         slot.candidate = candidate; slot.name.textContent = candidate.text;
-        const kind = candidate.source.kind === 'building' ? 'Building' : candidate.source.kind === 'sign' ? 'Sign' : 'Shop';
-        slot.caption.textContent = candidate.source.provisional ? `${kind} · provisional` : kind;
+        // Evidence status is disclosed by the persistent preview badge, entry gate and atlas.
+        // Keep the source status available without repeating it over the roadway.
+        slot.node.dataset.provisional = String(candidate.source.provisional);
         slot.node.dataset.signId = candidate.source.id;
       }
       slot.node.style.width = `${candidate.width}px`;
+      slot.node.style.height = `${candidate.height}px`;
       slot.node.style.transform = `translate(${Math.round(candidate.left)}px, ${Math.round(candidate.top)}px)`;
-      const fromX = Math.max(12, Math.min(candidate.width - 12, candidate.sx - candidate.left));
-      const fromY = candidate.sy < candidate.top ? 0 : candidate.height;
-      const lineX = candidate.sx - candidate.left - fromX, lineY = candidate.sy - candidate.top - fromY;
-      slot.leader.style.left = `${fromX}px`; slot.leader.style.top = `${fromY}px`;
-      slot.leader.style.height = `${Math.hypot(lineX, lineY).toFixed(1)}px`;
-      slot.leader.style.transform = `rotate(${-Math.atan2(lineX, lineY)}rad)`;
       slot.node.hidden = false;
     }
     this.stats.visible = this.selected.length;
@@ -206,19 +268,6 @@ export class WorldLabels {
     this.layoutObserver.disconnect(); this.observedControls.clear();
     this.buildingCount = 0;
     this.stats.candidates = 0; this.stats.visible = 0; this.root.remove();
-  }
-
-  private textHeight(text: string, width: number) {
-    // Match CSS line-height and word wrapping once when a chunk arrives, never in the render loop.
-    let lines = 1, lineWidth = 0;
-    const space = this.measure?.measureText(' ').width ?? 4;
-    for (const word of text.split(' ')) {
-      const wordWidth = this.measure?.measureText(word).width ?? word.length * 8;
-      if (lineWidth && lineWidth + space + wordWidth > width) { lines++; lineWidth = 0; }
-      if (wordWidth > width) { lines += Math.floor(wordWidth / width); lineWidth = wordWidth % width; }
-      else lineWidth += (lineWidth ? space : 0) + wordWidth;
-    }
-    return 30 + lines * 16;
   }
 
   private reserveControls() {

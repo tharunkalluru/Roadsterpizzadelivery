@@ -38,7 +38,7 @@ export function getWorldMats(q: Quality): WorldMats {
 
   const asphalt = new THREE.MeshStandardMaterial({
     name: 'asphalt',
-    color: q === 'high' ? 0xe6ded2 : 0x59656b,
+    color: q === 'high' ? 0xe6ded2 : 0x596062,
     map: q === 'high' ? loadMapTexture(`${a}_diff_1024.jpg`, true, aniso) : getRoadSurface(),
     roughnessMap: q === 'high' ? loadMapTexture(`${a}_arm_512.jpg`, false, aniso) : null,
     roughness: 1,
@@ -64,11 +64,11 @@ export function getWorldMats(q: Quality): WorldMats {
     concrete.normalMap = loadMapTexture(`${c}_nor_${res}.jpg`, false, aniso);
     concrete.normalScale.set(0.8, 0.8);
   }
-  // pavement: same concrete maps, lighter and slightly warmer
+  // A light neutral pavement keeps the driveable charcoal surface distinct.
   const paving = concrete.clone();
   paving.name = 'paving';
-  paving.color = new THREE.Color(q === 'high' ? 0xfff7e8 : 0xbeb9a9);
-  concrete.color.setHex(q === 'high' ? 0xe9e2d5 : 0xc6c4b9);
+  paving.color = new THREE.Color(q === 'high' ? 0xfff7e8 : 0xc2c4bc);
+  concrete.color.setHex(q === 'high' ? 0xe9e2d5 : 0xc6c8c2);
 
   const railSteel = new THREE.MeshStandardMaterial({ name: 'rail-steel', color: 0x9aa0a6, roughness: 0.35, metalness: 0.9 });
   const trackBed = new THREE.MeshStandardMaterial({ name: 'track-bed', color: 0x5f5e5a, roughness: 1 });

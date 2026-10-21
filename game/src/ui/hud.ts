@@ -1,4 +1,4 @@
-import type { Session } from '../missions/session';
+import type { Session, SessionNotice } from '../missions/session';
 import type { App } from '../app/app';
 import { SIM_HZ } from '../config/gameplay';
 import { predictAscentTicks, predictTicksToTouchdown } from '../player/player';
@@ -33,8 +33,9 @@ export class Hud {
   private action!: HTMLButtonElement;
   private lookHint!: HTMLElement;
   private reserveLabel!: HTMLElement;
+  private meter!: HTMLElement;
   private acc = 0;
-  private seenNotices = 0;
+  private lastNotice: SessionNotice | undefined;
   private bound = false;
 
   constructor(private ui: HTMLElement, private app: App) {
@@ -43,9 +44,8 @@ export class Hud {
     this.root.innerHTML = `
       <div class="hud-top">
       <div class="tl">
-        <div class="chip"><div class="timer-label">Time left</div><div class="timer" data-t>0:00</div></div>
-        <div class="chip dest" data-dest></div>
-        <div class="chip cargo hidden" data-cargo></div>
+        <div class="chip hud-status"><div><div class="timer-label">Time left</div><div class="timer" data-t>0:00</div></div><div class="cargo hidden" data-cargo></div></div>
+        <div class="dest" data-dest></div>
       </div>
       <div class="chip maneuver" data-man><span class="arrow" data-ma>↑</span><div><div class="d" data-md>—</div><div class="n" data-mn></div></div></div>
       <div class="tr">
@@ -57,8 +57,8 @@ export class Hud {
       <div class="toast-wrap" data-toasts role="status" aria-live="polite"></div>
       <div class="banner hidden" data-banner></div>
       <div class="hold hidden" data-hold><div class="chip" data-holdtxt>Stop here to deliver</div><div class="bar"><div data-holdbar></div></div></div>
-      <div class="camera-hint" data-look-hint>Drag the view to look around while stopped.</div>
-      <div class="flightmeter chip">
+      <div class="camera-hint" data-look-hint>Drag the view to inspect nearby signs.</div>
+      <div class="flightmeter chip" data-meter>
         <div class="speed"><div class="v" data-speed>0</div><div class="u">km/h</div><div class="gear" data-gear></div></div>
         <div class="lbl"><span data-mlbl>Flight 25.0 s</span><span class="small" data-mres></span></div>
         <div class="bar"><div class="fill" data-mfill></div><div class="reserve" data-mreserve></div></div>
@@ -87,6 +87,7 @@ export class Hud {
     this.meterFill = q('mfill'); this.meterRes = q('mreserve'); this.meterLbl = q('mlbl'); this.meterWhy = q('why');
     this.minimap = q('mini'); this.dbg = q('debug'); this.cd = q('cd'); this.rec = q('rec');
     this.action = q('interact'); this.lookHint = q('look-hint'); this.reserveLabel = q('mres');
+    this.meter = q('meter');
     this.timerLbl = this.root.querySelector('.timer-label') as HTMLElement;
     q('pause').addEventListener('click', () => { this.app.audio.click(); this.app.pause('user'); });
     q('map').addEventListener('click', () => { this.app.audio.click(); this.app.openMap(); });
@@ -101,8 +102,9 @@ export class Hud {
     this.root.classList.toggle('zone-hud', !!this.app.pilotZone);
     const zoneLabel = this.ui.querySelector<HTMLElement>('.pilot-zone-label');
     if (zoneLabel && this.app.pilotZone) {
-      zoneLabel.textContent = `${this.app.pilotZone.mode === 'verified' ? 'Verified play boundary' : 'PROVISIONAL PREVIEW · not fully mapped'} · Survey ${this.app.pilotZone.definition.surveyRevision}`;
-      zoneLabel.title = this.app.pilotZone.definition.label;
+      const verified = this.app.pilotZone.mode === 'verified';
+      zoneLabel.textContent = `${verified ? 'Verified boundary' : 'Provisional'} · Survey ${this.app.pilotZone.definition.surveyRevision}`;
+      zoneLabel.title = verified ? this.app.pilotZone.definition.label : 'Partial-map preview; buildings, shops, entrances and road dimensions are approximate. Not fully mapped or verified.';
     }
     document.body.classList.add('playing');
     if (!this.bound) {
@@ -110,7 +112,7 @@ export class Hud {
       this.app.input.bindTouch({ steer: q('steer'), steerKnob: this.root.querySelector('.steer-knob') as HTMLElement, brake: q('brake'), accel: q('accel'), fly: this.fly });
       this.bound = true;
     }
-    this.seenNotices = s.notices.length;
+    this.lastNotice = s.notices.at(-1);
     this.toasts.innerHTML = '';
     this.update(s, 1, this.app);
   }
@@ -148,6 +150,7 @@ export class Hud {
     // ---- every frame: fly control + meter (urgent feedback)
     const air = p.isAirborne;
     const remainS = l.remainingTicks / SIM_HZ;
+    const visibleSeconds = Math.floor(remainS * 10) / 10;
     this.fly.classList.toggle('land', air);
     let unavailable: string | null = null;
     if (!air) {
@@ -158,16 +161,24 @@ export class Hud {
     }
     this.fly.classList.toggle('unavail', !!unavailable);
     setText(this.flyLabel, air ? (p.move === 'DESCENDING' ? 'LANDING' : 'LAND') : 'FLY');
-    setText(this.flySec, `${remainS.toFixed(1)}s`);
+    setText(this.flySec, `${visibleSeconds}s`);
     const flyAria = air ? 'Land' : `Fly, ${remainS.toFixed(1)} seconds left${unavailable ? ', unavailable: ' + unavailable : ''}`;
     if (this.fly.getAttribute('aria-label') !== flyAria) this.fly.setAttribute('aria-label', flyAria);
     const frac = l.remainingTicks / l.initialTicks;
     this.meterFill.style.transform = `scaleX(${frac.toFixed(4)})`;
     const reserve = air ? Math.min(l.remainingTicks, p.reserveTicks) : (l.remainingTicks > 0 ? Math.min(l.remainingTicks, predictAscentTicks() + predictTicksToTouchdown(FLIGHT.minFlightAltitude, FLIGHT.maxClimbRate) + FLIGHT.uncertaintyMarginTicks) : 0);
     this.meterRes.style.transform = `translateX(${(((l.remainingTicks - reserve) / l.initialTicks) * 100).toFixed(2)}%) scaleX(${(reserve / l.initialTicks).toFixed(4)})`;
-    setText(this.meterLbl, `Boost ${remainS.toFixed(1)} / ${l.allocationSeconds} s`);
-    setText(this.meterWhy, air ? (p.landingSoon || p.move === 'DESCENDING' ? (p.protectedLandingUsed ? 'Protected landing — boost empty' : 'Landing soon — reserve in use') : `Landing reserve ${(reserve / SIM_HZ).toFixed(1)} s · ${forecastText(p.forecast.state, p.forecast.reason)}`) : unavailable && unavailable !== 'Flight power used' && !unavailable.includes('Not enough') ? unavailable : `Drive 10 s on the road → +2.5 s boost${p.speed >= FLIGHT.rechargeMinSpeed && p.surface?.onCarriageway ? ' · CHARGING' : ''}`);
-    setText(this.reserveLabel, air ? `▨ reserve` : '');
+    setText(this.meterLbl, `Boost ${visibleSeconds} s`);
+    const charging = !air && p.speed >= FLIGHT.rechargeMinSpeed && !!p.surface?.onCarriageway && l.remainingTicks < l.initialTicks;
+    const why = air
+      ? (p.landingSoon || p.move === 'DESCENDING' ? (p.protectedLandingUsed ? 'Protected landing — boost empty' : 'Landing soon — reserve in use') : forecastText(p.forecast.state, p.forecast.reason))
+      : charging ? 'Recharging' : unavailable === 'Flight power used' || unavailable?.includes('Not enough') ? 'Drive to recharge' : '';
+    setText(this.meterWhy, why);
+    this.meterWhy.classList.toggle('hidden', !why);
+    this.meter.classList.toggle('airborne', air);
+    this.meter.classList.toggle('charging', charging);
+    this.meter.title = air ? `Landing reserve ${(reserve / SIM_HZ).toFixed(1)} seconds` : `${unavailable ? `${unavailable}. ` : ''}Drive 10 seconds on the road to recharge 2.5 seconds of boost.`;
+    setText(this.reserveLabel, air ? `▨ ${(reserve / SIM_HZ).toFixed(1)}s` : '');
     this.banner.classList.toggle('hidden', !(air && p.landingSoon));
     this.banner.textContent = 'Landing soon';
     // hold
@@ -183,11 +194,7 @@ export class Hud {
     const actionAria = `${s.actionLabel} (E)`;
     if (this.action.getAttribute('aria-label') !== actionAria) this.action.setAttribute('aria-label', actionAria);
     // ---- notices
-    if (s.notices.length !== this.seenNotices) {
-      for (const n of s.notices.slice(Math.max(0, s.notices.length - (s.notices.length - this.seenNotices)))) this.toast(n.text, n.kind);
-      this.seenNotices = s.notices.length;
-    }
-    if (s.notices.length < this.seenNotices) this.seenNotices = s.notices.length;
+    this.announceNotices(s.notices);
     // ---- 10 Hz text
     this.acc += dt;
     if (this.acc < 0.1) return;
@@ -199,7 +206,10 @@ export class Hud {
     this.dest.textContent = stop ? `${s.cargoLoaded ? 'DELIVER' : 'PICK UP'} · ${stop.label} · ${fmtDist(s.routeRemainingM())}` : '';
     const showCargo = s.cargoLoaded;
     this.cargo.classList.toggle('hidden', !showCargo);
-    this.cargo.textContent = `🍕 Pizza ${s.cargo.toFixed(0)}%${s.mission.cargo.failThreshold > 0 ? ` (fails < ${s.mission.cargo.failThreshold}%)` : ''}`;
+    this.cargo.textContent = `🍕 ${s.cargo.toFixed(0)}%`;
+    this.cargo.title = `Pizza condition ${s.cargo.toFixed(0)}%${s.mission.cargo.failThreshold > 0 ? `; delivery fails below ${s.mission.cargo.failThreshold}%` : ''}`;
+    this.cargo.setAttribute('aria-label', this.cargo.title);
+    this.dest.title = this.dest.textContent;
     const m = s.maneuver;
     if (s.wrongWay) { this.manArrow.textContent = '⛔'; this.manD.textContent = 'Wrong way'; this.manN.textContent = 'Turn around where permitted'; }
     else if (s.outOfArea === 'warn') { this.manArrow.textContent = '⚠'; this.manD.textContent = 'Outside delivery area'; this.manN.textContent = 'Follow the marked return'; }
@@ -207,6 +217,16 @@ export class Hud {
     this.speedV.textContent = String(Math.round(Math.abs(p.speed) * 3.6));
     this.gear.textContent = p.reverseEngaged ? 'R' : air ? 'AIR' : '';
     this.drawMinimap(s);
+  }
+
+  private announceNotices(notices: readonly SessionNotice[]) {
+    const newest = notices.at(-1);
+    if (newest === this.lastNotice) return;
+    // Session keeps only its latest eight notices; its array length stops changing.
+    // Object identity retains ordering even when several notices share a simulation tick.
+    const previous = this.lastNotice ? notices.indexOf(this.lastNotice) : -1;
+    for (let i = previous + 1; i < notices.length; i++) this.toast(notices[i].text, notices[i].kind);
+    this.lastNotice = newest;
   }
 
   private drawMinimap(s: Session) {

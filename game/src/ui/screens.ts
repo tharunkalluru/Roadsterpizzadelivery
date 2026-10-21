@@ -174,10 +174,20 @@ export class Screens {
   }
 
   ready(m: MissionDef, resumed: boolean) {
-    this.set(`<div class="card" style="margin-top:auto;margin-bottom:6vh;max-width:460px">
-      <h2>${resumed ? 'Restored from your last saved checkpoint' : 'Order accepted. Drive to the restaurant.'}</h2>
-      <p class="small">${esc(m.title)} · Rechargeable boost · ${fmt(m.deadlineSeconds)}. Left thumb steers. Right thumb: ▲ go, ▼ brake (hold when stopped to reverse), FLY. Let go and the car stops and holds. Keyboard: A/D or ←/→ steer, W/↑ go, S/↓ brake/reverse, Space fly/land, E collect/hand over, P pause, M map.</p>
-      <div class="row"><button class="btn primary" data-start>${resumed ? 'Continue delivery' : 'Drive to pickup'}</button><button class="btn" data-back>Back</button></div></div>`, true);
+    const s = this.app.session;
+    const stop = s?.currentStop ?? this.app.core?.deliveries.find((d) => d.id === m.pickupId);
+    this.set(`<div class="card" style="margin-top:auto;margin-bottom:2vh;max-width:520px;padding:16px 20px">
+      <h2>${resumed ? 'Delivery restored' : 'Ready to drive'}</h2>
+      <p style="margin:0 0 10px"><b>${s?.cargoLoaded ? 'Deliver to' : 'Pick up at'}</b> ${esc(stop?.label ?? m.title)}<br><span class="small">${fmt(m.deadlineSeconds)} deadline${resumed ? ' · From your last saved checkpoint' : ''}</span></p>
+      <p class="small" style="margin:0 0 14px"><b>← →</b> Steer &nbsp; · &nbsp; <b>▲ / ▼</b> Go / brake &nbsp; · &nbsp; <b>FLY</b> Lift off</p>
+      <div class="row"><button class="btn primary" data-start>${resumed ? 'Continue delivery' : 'Drive to pickup'}</button><button class="btn" data-back>Back</button></div>
+      <details style="margin-top:4px"><summary class="small" style="min-height:44px;padding:12px 0;cursor:pointer">Controls &amp; street names</summary>
+        <p class="small"><b>Touch:</b> drag the steering pad to steer. Hold ▲ to drive and ▼ to brake; keep ▼ held while stopped to reverse. Release the controls to stop and hold. Tap FLY to launch or LAND to descend.</p>
+        <p class="small"><b>Pickup &amp; delivery:</b> stop in the marked area, then tap COLLECT PIZZA or HAND OVER. Press ▲ to cancel a handoff.</p>
+        <p class="small"><b>Look around:</b> stop, then drag and briefly hold the view to read a nearby sign. Names remain provisional.</p>
+        <p class="small"><b>Keyboard:</b> A/D or ←/→ steer; W/↑ go; S/↓ brake or reverse; Space fly or land; E collect or hand over; P pause; M map.</p>
+        <p class="small"><b>Boost:</b> drive 10 seconds on the road to earn 2.5 seconds of flight. Waiting does not recharge.</p>
+      </details></div>`, true);
     (this.el.firstElementChild as HTMLElement).style.background = 'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(6,8,11,0.85))';
     this.on('[data-start]', () => this.app.beginCountdown());
     this.on('[data-back]', () => this.app.toMenu());
@@ -249,23 +259,26 @@ export class Screens {
     const pen = r.penalties.length ? r.penalties.map((p) => `<li>${esc(p.reason)}${p.seconds ? ` +${p.seconds.toFixed(0)} s` : ''}${p.cargo ? ` · cargo −${p.cargo}` : ''}</li>`).join('') : '<li>None</li>';
     const recNote = m.practice ? 'Practice — not scored.' : r.debugUsed ? 'Debug tools were used: not recorded as a personal best.' : r.resumed ? 'Resumed run: kept separate from uninterrupted records.' : best.isBest ? '★ New local personal best' : best.previous ? `Local best: ${best.previous.score}` : '';
     this.set(`<div class="card" style="margin-top:3vh"><h2 style="color:${ok ? 'var(--good)' : 'var(--bad)'}">${ok ? '✓ Delivered' : '✕ ' + esc(r.outcome.reason)}</h2>
+      <p class="small" style="margin:0 0 12px">${esc(m.title)}</p>
       <dl class="kv">
-        <dt>Charged time</dt><dd>${fmt(r.chargedSeconds)} / ${fmt(r.deadlineSeconds)} deadline</dd>
-        <dt>Cargo</dt><dd>${r.cargo.toFixed(0)}%</dd>
-        <dt>Boost used</dt><dd>${r.flightUsedSeconds.toFixed(1)} s used · ${(r.flightEarnedSeconds ?? 0).toFixed(1)} s earned · ${r.flightLeftSeconds.toFixed(1)} s left · ${r.launches} launch${r.launches === 1 ? '' : 'es'}</dd>
-        <dt>Penalties</dt><dd>${r.penaltySeconds.toFixed(0)} s</dd>
+        ${m.practice ? '' : `<dt>Score</dt><dd><strong class="timer">${r.score}</strong></dd>`}
+        <dt>Time used</dt><dd><b>${fmt(r.chargedSeconds)}</b> / ${fmt(r.deadlineSeconds)} deadline</dd>
+        <dt>Pizza condition</dt><dd><b>${r.cargo.toFixed(0)}%</b></dd>
       </dl>
-      <details style="margin-top:10px"><summary>Details</summary>
+      ${recNote ? `<p class="small">${recNote}</p>` : ''}
+      <div class="row"><button class="btn primary" data-retry>Retry same challenge</button><button class="btn" data-new>New variation</button></div>
+      <div class="row" style="margin-top:10px"><button class="btn" data-another>Another delivery</button><button class="btn" data-menu>Menu</button></div>
+      <details style="margin-top:4px"><summary class="small" style="min-height:44px;padding:12px 0;cursor:pointer">Run details</summary>
         <dl class="kv" style="margin-top:8px">
           <dt>Active driving time</dt><dd>${r.activeSeconds.toFixed(1)} s</dd>
+          <dt>Time penalties</dt><dd>${r.penaltySeconds.toFixed(0)} s</dd>
           <dt>Distance driven</dt><dd>${fmtDist(r.routeDistanceM)}</dd>
+          <dt>Boost</dt><dd>${r.flightUsedSeconds.toFixed(1)} s used · ${(r.flightEarnedSeconds ?? 0).toFixed(1)} s earned · ${r.flightLeftSeconds.toFixed(1)} s left</dd>
+          <dt>Flights</dt><dd>${r.launches}</dd>
           <dt>Recoveries</dt><dd>${r.recoveries}</dd>
-          <dt>Score</dt><dd>${r.score} = ${r.scoreBreakdown.map((b) => `${b.label} ${b.value}`).join(' + ') || '0'}</dd>
+          ${m.practice ? '' : `<dt>Score breakdown</dt><dd>${r.score} = ${r.scoreBreakdown.map((b) => `${esc(b.label)} ${b.value}`).join(' + ') || '0'}</dd>`}
           <dt>Seed</dt><dd class="mono">${r.seed}</dd>
-        </dl><ul class="small">${pen}</ul></details>
-      <p class="small">${recNote}</p>
-      <div class="row"><button class="btn primary" data-retry>Retry same challenge</button><button class="btn" data-new>New variation</button></div>
-      <div class="row" style="margin-top:10px"><button class="btn" data-another>Another delivery</button><button class="btn" data-menu>Menu</button></div></div>`, true);
+        </dl><ul class="small">${pen}</ul></details></div>`, true);
     this.on('[data-retry]', () => this.app.retry(true));
     this.on('[data-new]', () => this.app.retry(false));
     this.on('[data-another]', () => { this.app.toMenu(); this.missionSelect(); });

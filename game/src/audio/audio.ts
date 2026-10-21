@@ -113,6 +113,7 @@ export class AudioSystem {
   }
 
   click() { this.tone('ui', 880, 0.06, 'triangle', 0.15); }
+  pickup() { this.tone('ui', 660, 0.14, 'sine', 0.13, 220); this.tone('ui', 990, 0.09, 'sine', 0.055); }
   deny() { this.tone('ui', 220, 0.18, 'square', 0.12); this.tone('ui', 165, 0.2, 'square', 0.08); }
   launch() { this.tone('sfx', 180, 0.5, 'sawtooth', 0.12, 220); }
   land() { this.tone('sfx', 120, 0.25, 'sine', 0.3, -60); }

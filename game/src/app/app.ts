@@ -214,7 +214,8 @@ export class App {
         const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), new THREE.LineBasicMaterial({ color: 0xa2f177, depthTest: false }));
         line.renderOrder = 20; this.view.scene.add(line);
         const label = document.createElement('div'); label.className = 'pilot-zone-label';
-        label.textContent = `${this.pilotZone.definition.label} · ${this.pilotZone.mode === 'verified' ? 'Verified' : 'PROVISIONAL — not fully mapped'} play boundary · Survey ${this.pilotZone.definition.surveyRevision}`;
+        label.textContent = `${this.pilotZone.mode === 'verified' ? 'Verified boundary' : 'Provisional'} · Survey ${this.pilotZone.definition.surveyRevision}`;
+        label.title = this.pilotZone.mode === 'verified' ? 'Verified play boundary' : 'Partial-map preview. Not fully mapped or verified.';
         this.ui.append(label);
       }
       this.map = new MapView(this.core, this.world, this.survey, this.pilotZone);
@@ -634,7 +635,11 @@ export class App {
       if (!this.criticalLoaded()) { this.technicalPause('loading'); break; }
       const inp = this.autopilot ? this.autopilot.input() : this.input.sample();
       (s as any)._brakeHeld = inp.brake;
+      const hadCargo = s.cargoLoaded;
       s.step(inp);
+      // A real collection transition gets one brief confirmation. Checkpoints
+      // already carrying pizza never replay it when a session is restored.
+      if (!hadCargo && s.cargoLoaded) { this.audio.pickup(); this.vibrate(15); }
       ran++;
       this.afterTick(s);
       if (s.phase !== 'PLAYING') break;

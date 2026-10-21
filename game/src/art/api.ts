@@ -61,7 +61,7 @@ export interface ArtApi {
   buildChunk(chunk: WorldChunk, core: WorldCore, quality: Quality): THREE.Group;
   /** sky, sun, hemisphere/ambient, fog, shadow camera that follows target */
   buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRenderer, quality: Quality): {
-    update(target: THREE.Vector3): void;
+    update(target: THREE.Vector3, dt?: number, surface?: {groundY:number;heightM:number;heading:number}): void;
     setAtmosphere?(state: {timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}): void;
     setTerrainCore?(core:WorldCore):void;
     bindTerrainObject?(object:THREE.Object3D):void;

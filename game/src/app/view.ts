@@ -23,7 +23,7 @@ const cameraDragBindings = new WeakMap<HTMLCanvasElement, () => void>();
 export class GameView {
   readonly scene = new THREE.Scene();
   readonly camera: THREE.PerspectiveCamera;
-  private env: { update(t: THREE.Vector3,dt?:number): void; setAtmosphere?(state:{timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}):void;setTerrainCore?(core:WorldCore):void;bindTerrainObject?(object:THREE.Object3D):void; dispose(): void } | null = null;
+  private env: { update(t: THREE.Vector3,dt?:number,surface?:{groundY:number;heightM:number;heading:number}): void; setAtmosphere?(state:{timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}):void;setTerrainCore?(core:WorldCore):void;bindTerrainObject?(object:THREE.Object3D):void; dispose(): void } | null = null;
   private atmosphere:{timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}={timeOfDay:'day',weather:'clear'};
   setAtmosphere(state:{timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}) { this.atmosphere={...state};this.env?.setAtmosphere?.(state);this.car?.setHeadlights?.(state.timeOfDay!=='day'||state.weather==='rain'); }
   private staticGroup = new THREE.Group();
@@ -37,6 +37,8 @@ export class GameView {
   private liveActors = new Set<number>();
   private livePeds = new Set<number>();
   private flightContext = { heightM: 0, verticalSpeed: 0, speedMps: 0, steerRad: 0, airborne: false };
+  private groundPresentation = { groundY: 0, heightM: 0, heading: 0 };
+  private labelContext = { speedMps: 0, airborne: false, inspecting: false };
   private pedObjs = new Map<number, THREE.Object3D>();
   private deliveryMarker: THREE.Object3D | null = null;
   private markerFor: string | null = null;
@@ -306,6 +308,9 @@ export class GameView {
       if (p.isAirborne) { this.car.root.rotateX(Math.max(-0.12, Math.min(0.12, p.vy * 0.03))); this.car.root.rotateZ(-p.steerAngle * 0.5); }
       const ground=world.roads.surface(x,z,{maxY:y+.3,margin:0});
       this.flightContext.heightM=Math.max(0,y-(ground?.elevation??0));this.flightContext.verticalSpeed=p.vy;
+      this.groundPresentation.groundY=ground?.elevation??0;
+      this.groundPresentation.heightM=this.flightContext.heightM;
+      this.groundPresentation.heading=h;
       this.flightContext.speedMps=p.speed;this.flightContext.steerRad=p.steerAngle;
       this.flightContext.airborne=p.isAirborne;
       this.car.setFlightContext?.(this.flightContext);
@@ -324,13 +329,15 @@ export class GameView {
     }
     this.syncActors(s, alpha);
     if (this.signalHeads.length) this.updateSignals(s.traffic.signals, s.traffic.tick);
-    this.updateCamera(x, y, z, h, p.isAirborne, p.speed, world, dt);
-    this.worldLabels?.update(this.camera, world, showLabels);
-    this.env?.update(tmpV.set(x, y, z),dt);
+    this.updateCamera(x, y, z, h, p.isAirborne, p.speed, world, dt, p.steerAngle);
+    this.labelContext.speedMps=p.speed;this.labelContext.airborne=p.isAirborne;
+    this.labelContext.inspecting=this.lookAllowed&&this.lookPointer!==null;
+    this.worldLabels?.update(this.camera, world, showLabels, this.labelContext);
+    this.env?.update(tmpV.set(x, y, z),dt,this.groundPresentation);
     this.metroVisual?.userData.update?.(this.presentationTime, tmpV);
   }
 
-  private updateCamera(x: number, y: number, z: number, h: number, air: boolean, speed: number, world: WorldPhysics, dt: number) {
+  private updateCamera(x: number, y: number, z: number, h: number, air: boolean, speed: number, world: WorldPhysics, dt: number, steer=0) {
     this.lookAllowed = !air && Math.abs(speed) <= .75;
     if (!this.lookAllowed) {
       this.endCameraLook();
@@ -340,8 +347,10 @@ export class GameView {
       if (Math.abs(this.cameraPitch) < .001) this.cameraPitch = 0;
     }
     const [fx, fz] = forwardOf(h + this.cameraOrbit);
-    const back = air ? 11.5 : 7.2 + Math.min(2, Math.abs(speed) * 0.08);
-    const up = air ? 6.0 : 3.1;
+    // A lower chase view gives the car a clear silhouette and opens the street
+    // ahead. Speed adds only a small amount of distance; no camera roll or bob.
+    const back = air ? 11.5 : 6.7 + Math.min(2.2, Math.abs(speed) * 0.085);
+    const up = air ? 6.0 : 2.65 + Math.min(.2, Math.abs(speed) * .01);
     let tx = x - fx * back, tz = z - fz * back, ty = y + up;
     // keep camera out of buildings: pull in along the boom until clear
     for (let k = 0; k < 6; k++) {
@@ -351,12 +360,17 @@ export class GameView {
     // stay under an overhead deck when the car is under it
     const over = world.overheadAt(x, z, y);
     if (over.bottom < Infinity) ty = Math.min(ty, over.bottom - 0.6);
-    const lookAhead = air ? 9 : 6 + Math.abs(speed) * 0.35;
-    const lx = x + fx * lookAhead, lz = z + fz * lookAhead;
-    const ly = y + (air ? -1.2 : 1.0) + Math.tan(this.cameraPitch) * (back + lookAhead);
-    const k = this.camInit ? 1 - Math.exp(-dt * 5.5) : 1;
+    const lookAhead = air ? 9 : 7.5 + Math.min(8, Math.abs(speed) * 0.32);
+    // Look slightly into a turn without moving the boom or altering steering.
+    // Reduced motion and stationary inspection retain the centred aim.
+    const turnLead = air||this.reducedShake||this.lookAllowed ? 0 : Math.max(-.085,Math.min(.085,steer*Math.min(1,Math.abs(speed)/12)*.18));
+    const [aimX,aimZ] = forwardOf(h + this.cameraOrbit + turnLead);
+    const lx = x + aimX * lookAhead, lz = z + aimZ * lookAhead;
+    const ly = y + (air ? -1.2 : .85) + Math.tan(this.cameraPitch) * (back + lookAhead);
+    const k = this.camInit ? 1 - Math.exp(-dt * 6.5) : 1;
+    const aimK = this.camInit ? 1 - Math.exp(-dt * 8) : 1;
     this.camPos.x += (tx - this.camPos.x) * k; this.camPos.y += (ty - this.camPos.y) * k; this.camPos.z += (tz - this.camPos.z) * k;
-    this.camLook.x += (lx - this.camLook.x) * k; this.camLook.y += (ly - this.camLook.y) * k; this.camLook.z += (lz - this.camLook.z) * k;
+    this.camLook.x += (lx - this.camLook.x) * aimK; this.camLook.y += (ly - this.camLook.y) * aimK; this.camLook.z += (lz - this.camLook.z) * aimK;
     this.camInit = true;
     this.camera.position.copy(this.camPos);
     if (this.shake > 0 && !this.reducedShake) {
@@ -365,9 +379,9 @@ export class GameView {
       this.shake = Math.max(0, this.shake - dt * 1.5);
     }
     this.camera.lookAt(this.camLook);
-    const targetFov = air ? 66 : 60 + Math.min(6, Math.abs(speed) * 0.3);
+    const targetFov = air ? 66 : 58 + (this.reducedShake ? 0 : Math.min(7, Math.abs(speed) * 0.3));
     if (Math.abs(targetFov - this.camera.fov) > .001) {
-      this.camera.fov += (targetFov - this.camera.fov) * Math.min(1, dt * 2);
+      this.camera.fov += (targetFov - this.camera.fov) * (1 - Math.exp(-dt * 2.5));
       this.camera.updateProjectionMatrix();
     }
   }

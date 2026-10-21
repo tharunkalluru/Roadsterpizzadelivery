@@ -5,6 +5,7 @@
  * module hid are ever re-shown, so the host's own visibility logic is never overridden.
  */
 import * as THREE from 'three';
+import { freezeStaticTransforms } from './staticTransforms';
 
 interface Item {
   ref: WeakRef<THREE.Object3D>;
@@ -21,6 +22,9 @@ export function registerCull(g: THREE.Object3D): void {
   box.setFromObject(g);
   if (box.isEmpty()) return;
   box.getBoundingSphere(sphere);
+  // Registered scenery is immobile. Keep its final transform instead of
+  // composing and multiplying it again on every rendered frame.
+  freezeStaticTransforms(g);
   items.push({ ref: new WeakRef(g), x: sphere.center.x, z: sphere.center.z, r: sphere.radius });
 }
 

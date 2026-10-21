@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { ReadableSign } from '../../src/art/api';
 import type { Building, Vec2 } from '../../src/world/schema';
-import { labelOccludedByBuilding } from '../../src/ui/worldLabels';
+import { LabelInspectionGate, labelOccludedByBuilding, measureLabelLayout } from '../../src/ui/worldLabels';
 
 const rectangle = (left: number, right: number, near: number, far: number): Vec2[] => [
   [left, far], [right, far], [right, near], [left, near],
@@ -25,6 +25,83 @@ function sign(overrides: Partial<ReadableSign> = {}): ReadableSign {
 }
 
 const camera = { x: 0, y: 3, z: 0 };
+
+describe('full-name inspection layout', () => {
+  const measure = (text: string) => text.length * 6;
+
+  it('fits the complete Kallada name on two phone lines', () => {
+    const layout = measureLabelLayout('Kallada Tours Travels & Logistics', 180, measure);
+    expect(layout).toEqual({ width: 180, height: 44, lines: 2 });
+  });
+
+  it('keeps short names compact and includes all wrapped lines in placement height', () => {
+    expect(measureLabelLayout('R MOBILES', 180, measure)).toEqual({ width: 74, height: 28, lines: 1 });
+    expect(measureLabelLayout('A source building name with several separate words', 180, measure)).toEqual({ width: 180, height: 60, lines: 3 });
+  });
+
+  it('suppresses names beyond the safe three-line budget instead of truncating them', () => {
+    expect(measureLabelLayout('A source building name with several separate words and a very long additional source name', 180, measure)).toBeNull();
+    expect(measureLabelLayout('A'.repeat(53), 180, measure)).toEqual({ width: 180, height: 60, lines: 3 });
+    expect(measureLabelLayout('A'.repeat(79), 180, measure)).toBeNull();
+  });
+});
+
+describe('stationary sign inspection', () => {
+  const held = { speedMps: 0, airborne: false, inspecting: true };
+  const released = { ...held, inspecting: false };
+
+  it('shows no automatic labels or delayed labels from a short tap', () => {
+    const gate = new LabelInspectionGate();
+    expect(gate.update(true, released, 0)).toBe(false);
+    expect(gate.update(true, held, 100)).toBe(false);
+    expect(gate.update(true, released, 150)).toBe(false);
+    expect(gate.update(true, released, 600)).toBe(false);
+  });
+
+  it('requires a held glance, then allows a short reading interval after release', () => {
+    const gate = new LabelInspectionGate();
+    expect(gate.update(true, held, 0)).toBe(false);
+    expect(gate.update(true, held, 349)).toBe(false);
+    expect(gate.update(true, held, 350)).toBe(true);
+    expect(gate.update(true, released, 1850)).toBe(true);
+    expect(gate.update(true, released, 1851)).toBe(false);
+    expect(gate.update(true, held, 2000)).toBe(false);
+  });
+
+  it('does not combine separate short taps into a held inspection', () => {
+    const gate = new LabelInspectionGate();
+    expect(gate.update(true, held, 100)).toBe(false);
+    expect(gate.update(true, released, 150)).toBe(false);
+    expect(gate.update(true, held, 600)).toBe(false);
+    expect(gate.update(true, released, 650)).toBe(false);
+    expect(gate.update(true, held, 1000)).toBe(false);
+    expect(gate.update(true, held, 1350)).toBe(true);
+  });
+
+  it.each([
+    { ...held, speedMps: .16 },
+    { ...held, speedMps: -.16 },
+    { ...held, airborne: true },
+    { ...held, speedMps: NaN },
+  ])('immediately clears an inspection when driving or airborne: %j', context => {
+    const gate = new LabelInspectionGate();
+    gate.update(true, held, 0);
+    expect(gate.update(true, held, 350)).toBe(true);
+    expect(gate.update(true, context, 351)).toBe(false);
+    expect(gate.update(true, released, 400)).toBe(false);
+    expect(gate.update(true, held, 450)).toBe(false);
+  });
+
+  it('does not carry an inspection across a hidden or reset view', () => {
+    const gate = new LabelInspectionGate();
+    gate.update(true, held, 0); gate.update(true, held, 350);
+    expect(gate.update(false, held, 351)).toBe(false);
+    expect(gate.update(true, released, 352)).toBe(false);
+    gate.update(true, held, 400); gate.update(true, held, 750);
+    gate.reset();
+    expect(gate.update(true, released, 751)).toBe(false);
+  });
+});
 
 describe('world-label building occlusion', () => {
   it('hides a sign behind a thin foreground building between spatial sample points', () => {

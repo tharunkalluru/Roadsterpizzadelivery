@@ -13,13 +13,15 @@ import type { WorldCore } from '../world/schema';
 import { TerrainCutoutController,markTerrainMaterial } from './terrainCutouts';
 
 export const SUN_DIR = new THREE.Vector3(0.42, 0.74, 0.52).normalize();
-export const HAZE = 0xe4ded0;
+export const HAZE = 0xc6d6d8;
 export interface AtmosphereState {timeOfDay:'day'|'dusk'|'night';weather:'clear'|'rain'}
 export function atmosphereLighting(state:AtmosphereState):{sky:number;haze:number;sun:number;sunIntensity:number;hemi:number;ground:number;exposure:number;environment:number}{
   const rain=state.weather==='rain';
   if(state.timeOfDay==='night')return{sky:0x071321,haze:rain?0x25323e:0x142331,sun:0xa7c1e2,sunIntensity:.12,hemi:.48,ground:0x4b5359,exposure:.8,environment:.15};
   if(state.timeOfDay==='dusk')return{sky:rain?0x4c5a70:0x596a8b,haze:rain?0x737a83:0xd5a292,sun:0xffb273,sunIntensity:rain?.65:1.5,hemi:.85,ground:0x8f827c,exposure:.9,environment:.55};
-  return{sky:rain?0x657c8d:0x75aecb,haze:rain?0x929fA4:HAZE,sun:rain?0xd5e0e4:0xffe6be,sunIntensity:rain?1.05:2.4,hemi:rain?1.0:1.5,ground:rain?0x858f91:0xa79b84,exposure:rain?.88:1.02,environment:rain?.65:.8};
+  // Keep a readable sun/shade split on low, where there is no shadow or reflection pass.
+  // Neutral ground bounce preserves the authored facade palette and the white car paint.
+  return{sky:rain?0x657c8d:0x6da9cb,haze:rain?0x929fA4:HAZE,sun:rain?0xd5e0e4:0xfff0d6,sunIntensity:rain?1.05:2.65,hemi:rain?1.0:1.1,ground:rain?0x858f91:0x859297,exposure:rain?.88:1.02,environment:.65};
 }
 
 const skyVert = /* glsl */ `
@@ -91,9 +93,9 @@ function makeSkyMaterial(clouds: boolean, groundMix: number): THREE.ShaderMateri
     uniforms: {
       uSun: { value: SUN_DIR.clone() },
       uHaze: { value: new THREE.Color(HAZE) },
-      uZenith: { value: new THREE.Color(0x75aecb) },
-      uMid: { value: new THREE.Color(0xb9d6df) },
-      uGround: { value: new THREE.Color(0x938f86) },
+      uZenith: { value: new THREE.Color(0x6da9cb) },
+      uMid: { value: new THREE.Color(HAZE).lerp(new THREE.Color(0x6da9cb), .4) },
+      uGround: { value: new THREE.Color(0x7b8586) },
       uGroundMix: { value: groundMix },
       uClouds: { value: clouds ? 1 : 0 },
       uSunStrength:{value:1},
@@ -105,8 +107,10 @@ function makeSkyMaterial(clouds: boolean, groundMix: number): THREE.ShaderMateri
   });
 }
 
+export interface EnvironmentSurface { groundY:number; heightM:number; heading:number }
+
 export interface EnvHandle {
-  update(target: THREE.Vector3,dt?:number): void;
+  update(target: THREE.Vector3,dt?:number,surface?:EnvironmentSurface): void;
   setAtmosphere(state:AtmosphereState):void;
   setTerrainCore(core:WorldCore):void;
   bindTerrainObject(object:THREE.Object3D):void;
@@ -159,9 +163,10 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
   scene.background = fogColor.clone();
 
   // ---- lights
-  const sun = new THREE.DirectionalLight(0xffefd2, 3.1);
+  const daylight = atmosphereLighting({timeOfDay:'day',weather:'clear'});
+  const sun = new THREE.DirectionalLight(daylight.sun, daylight.sunIntensity);
   sun.name = 'sun';
-  const hemi = new THREE.HemisphereLight(0xd4dfec, 0xa59f94, quality === 'low' ? 1.5 : 1.25);
+  const hemi = new THREE.HemisphereLight(0xd4dfec, daylight.ground, daylight.hemi);
   hemi.name = 'hemisphere';
   scene.add(sun, sun.target, hemi);
 
@@ -204,10 +209,11 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
   let blobMat: THREE.MeshBasicMaterial | null = null;
   if (!shadows) {
     blobMat = own(markTerrainMaterial(new THREE.MeshBasicMaterial({ map: getSoftSprite('blob'), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -8, fog: false })));
-    const g = own(new THREE.PlaneGeometry(6.4, 7.6));
+    const g = own(new THREE.PlaneGeometry(3.2, 5.6));
     g.rotateX(-Math.PI / 2);
     blob = new THREE.Mesh(g, blobMat);
     blob.name = 'blob-shadow';
+    blob.visible = false;
     blob.renderOrder = 5;
     blob.frustumCulled = false;
     scene.add(blob);
@@ -238,7 +244,7 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
     setAtmosphere,
     setTerrainCore(core:WorldCore){cutouts?.dispose();cutouts=new TerrainCutoutController(scene,core);cutouts.update(new THREE.Vector3());cutouts.bind(scene);},
     bindTerrainObject(object:THREE.Object3D){cutouts?.bind(object);},
-    update(target: THREE.Vector3,dt=1/60): void {
+    update(target: THREE.Vector3,dt=1/60,surface?:EnvironmentSurface): void {
       // TerrainCutoutController synchronizes once in scene.onBeforeRender.
       applyCull(target.x, target.z, fogFar);
       // sun follows target; snap in light space to prevent shadow shimmer
@@ -252,9 +258,16 @@ export function buildEnvironment(scene: THREE.Scene, renderer: THREE.WebGLRender
       ground.position.x = Math.round(target.x / tile) * tile;
       ground.position.z = Math.round(target.z / tile) * tile;
       if (blob && blobMat) {
-        blob.position.set(target.x, 0.06, target.z);
-        blobMat.opacity = Math.max(0, 0.9 - target.y / 28);
-        blob.visible = blobMat.opacity > 0.02;
+        // Absolute world elevation is not flight height: follow the actual road/deck
+        // surface and fade by clearance above it. Menus have no hero surface context.
+        if (surface) {
+          const height = Math.max(0, surface.heightM);
+          blob.position.set(target.x, surface.groundY + 0.06, target.z);
+          blob.rotation.y = surface.heading;
+          blob.scale.setScalar(1 + Math.min(height, 12) * .035);
+          blobMat.opacity = .88 * Math.max(0, 1 - height / 28);
+          blob.visible = blobMat.opacity > 0.02;
+        } else blob.visible = false;
       }
       if(atmosphere.weather==='rain'){
         rainTime+=Math.max(0,Math.min(.1,dt));rain.position.set(target.x,target.y,target.z);

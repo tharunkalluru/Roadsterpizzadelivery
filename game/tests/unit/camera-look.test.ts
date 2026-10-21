@@ -62,4 +62,36 @@ describe('canvas look-around camera',()=>{
     expect(view.camera.position.y).toBeLessThan(2);
     view.disposeCameraControls();
   });
+
+  it('keeps chase settling consistent across frame rates and bounds its turn anticipation',()=>{
+    const run=(fps:number)=>{
+      const {view}=create();
+      const update=(view as unknown as {updateCamera(x:number,y:number,z:number,h:number,air:boolean,speed:number,world:WorldPhysics,dt:number,steer:number):void}).updateCamera.bind(view);
+      for(let i=0;i<fps;i++)update(10,0,-10,.3,false,18,clearWorld,1/fps,.4);
+      return view;
+    };
+    const a=run(30),b=run(120);
+    expect(a.camera.position.distanceTo(b.camera.position)).toBeLessThan(.00001);
+    expect(a.camera.quaternion.angleTo(b.camera.quaternion)).toBeLessThan(.00001);
+    expect(a.camera.fov).toBeCloseTo(b.camera.fov,6);
+    expect(a.camera.position.y).toBeGreaterThan(2.6);
+    expect(a.camera.position.y).toBeLessThan(3);
+    expect(a.camera.fov).toBeLessThan(66);
+    a.disposeCameraControls();b.disposeCameraControls();
+  });
+
+  it('keeps reduced-motion driving centred and the flight boom clear of a low deck',()=>{
+    const {view}=create();view.reducedShake=true;
+    const update=(view as unknown as {updateCamera(x:number,y:number,z:number,h:number,air:boolean,speed:number,world:WorldPhysics,dt:number,steer:number):void}).updateCamera.bind(view);
+    update(0,0,0,0,false,24,clearWorld,5,.6);
+    const direction=new THREE.Vector3();view.camera.getWorldDirection(direction);
+    expect(direction.x).toBeCloseTo(0,8);
+    expect(view.camera.fov).toBeCloseTo(58,3);
+    const underDeck={buildingAt:()=>null,overheadAt:()=>({bottom:8})} as unknown as WorldPhysics;
+    update(0,3,0,0,true,14,underDeck,5,.6);
+    expect(view.camera.position.y).toBeLessThanOrEqual(7.4);
+    expect(view.camera.position.z).toBeCloseTo(11.5,3);
+    expect(view.camera.fov).toBeCloseTo(66,3);
+    view.disposeCameraControls();
+  });
 });

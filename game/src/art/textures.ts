@@ -351,9 +351,9 @@ export function getRoadSurface(): THREE.CanvasTexture {
   const hit = atlasCache.get(key);
   if (hit) return hit;
   const [c, ctx] = canvas(128, 128), random = rng(133);
-  ctx.fillStyle = '#d4d7d5'; ctx.fillRect(0, 0, 128, 128);
+  ctx.fillStyle = '#d6d6d5'; ctx.fillRect(0, 0, 128, 128);
   for (let i = 0; i < 1800; i++) {
-    ctx.fillStyle = random() > .5 ? '#c9cdca' : '#e0e2de';
+    ctx.fillStyle = random() > .5 ? '#cfcfce' : '#dbdbda';
     ctx.fillRect(Math.floor(random() * 128), Math.floor(random() * 128), 1, 1);
   }
   const t = finishCanvasTexture(c, true, 2);
@@ -467,8 +467,9 @@ export function getSoftSprite(kind: 'vapour' | 'glow' | 'blob'): THREE.CanvasTex
   const [c, ctx] = canvas(s, s);
   const g = ctx.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
   if (kind === 'blob') {
-    g.addColorStop(0, 'rgba(0,0,0,0.62)');
-    g.addColorStop(0.55, 'rgba(0,0,0,0.3)');
+    g.addColorStop(0, 'rgba(0,0,0,0.72)');
+    g.addColorStop(0.32, 'rgba(0,0,0,0.58)');
+    g.addColorStop(0.65, 'rgba(0,0,0,0.16)');
     g.addColorStop(1, 'rgba(0,0,0,0)');
   } else if (kind === 'glow') {
     g.addColorStop(0, 'rgba(190,230,255,1)');

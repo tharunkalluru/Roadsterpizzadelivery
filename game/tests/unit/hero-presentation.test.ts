@@ -43,7 +43,7 @@ describe('delivery roadster presentation', () => {
     hero.dispose();
   });
 
-  it('keeps the low, enclosed canopy and its framing below the roof envelope', () => {
+  it('keeps the shaded canopy within the low roof envelope without reflection textures', () => {
     const hero = createHeroCar('low');
     const canopy = hero.root.getObjectByName('canopy') as THREE.Mesh;
     const trim = hero.root.getObjectByName('trim') as THREE.Mesh;
@@ -52,7 +52,32 @@ describe('delivery roadster presentation', () => {
     expect(canopy.geometry.boundingBox!.max.y).toBeLessThan(1.2);
     expect(trim.geometry.boundingBox!.max.y).toBeLessThan(1.21);
     expect(courier.geometry.boundingBox!.max.y + courier.position.y).toBeLessThan(canopy.geometry.boundingBox!.max.y);
-    expect((canopy.material as THREE.Material).side).toBe(THREE.FrontSide);
+    const glass=canopy.material as THREE.MeshStandardMaterial;
+    expect(glass.side).toBe(THREE.FrontSide);
+    expect(glass.vertexColors).toBe(true); expect(glass.transparent).toBe(true);
+    expect(glass.map).toBeNull(); expect(glass.envMap).toBeNull();
+    const position=canopy.geometry.getAttribute('position'),normal=canopy.geometry.getAttribute('normal'),colour=canopy.geometry.getAttribute('color');
+    expect(colour.count).toBe(position.count); expect(colour.itemSize).toBe(4);
+    const upperRear:number[]=[],lowerRear:number[]=[],frontAlpha:number[]=[],rearAlpha:number[]=[];
+    for(let i=0;i<position.count;i++) {
+      expect(colour.getW(i)).toBeGreaterThan(0); expect(colour.getW(i)).toBeLessThanOrEqual(1);
+      if(normal.getZ(i)>.3) {
+        rearAlpha.push(colour.getW(i));
+        const value=(colour.getX(i)+colour.getY(i)+colour.getZ(i))/3;
+        if(position.getY(i)>1.15) {
+          upperRear.push(value);
+          expect(colour.getZ(i)).toBeGreaterThan(colour.getX(i)); // sky reflected in the top of the glass
+        }
+        if(position.getY(i)<.88) {
+          lowerRear.push(value);
+          expect(colour.getX(i)).toBeGreaterThan(colour.getZ(i)); // restrained bronze lower edge
+        }
+      } else if(normal.getZ(i)<-.3)frontAlpha.push(colour.getW(i));
+    }
+    const average=(values:number[])=>values.reduce((sum,value)=>sum+value,0)/values.length;
+    expect(upperRear.length).toBeGreaterThan(0); expect(lowerRear.length).toBeGreaterThan(0);
+    expect(average(upperRear)).toBeGreaterThan(average(lowerRear)*1.8);
+    expect(average(frontAlpha)).toBeLessThan(average(rearAlpha)); // courier stays visible from the windscreen
     hero.dispose();
   });
 
@@ -95,9 +120,10 @@ describe('delivery roadster presentation', () => {
   it('bounds mobile geometry, shares wheels and disposes every owned resource once', () => {
     for (const quality of ['low', 'standard', 'high'] as const) {
       const hero = createHeroCar(quality), geometries = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>(), instances = new Set<THREE.InstancedMesh>();
-      let triangles = 0;
+      let triangles = 0, meshCount = 0;
       hero.root.traverse(object => {
         if (object instanceof THREE.Mesh) {
+          meshCount++;
           geometries.add(object.geometry);
           triangles += (object.geometry.index?.count ?? object.geometry.getAttribute('position').count) / 3 * (object instanceof THREE.InstancedMesh ? object.count : 1);
           if (object instanceof THREE.InstancedMesh) instances.add(object);
@@ -108,6 +134,7 @@ describe('delivery roadster presentation', () => {
         }
       });
       expect(triangles).toBeLessThan(quality === 'low' ? 4000 : quality === 'standard' ? 5000 : 12000);
+      expect(meshCount).toBe(20); expect(materials.size).toBe(12); // contour/reflection polish adds no draws or materials
       const tyres = hero.wheels.map(wheel => wheel.getObjectByName('tyre') as THREE.Mesh);
       const rims = hero.wheels.map(wheel => wheel.getObjectByName('rim') as THREE.Mesh);
       expect(new Set(tyres.map(wheel => wheel.geometry)).size).toBe(1);

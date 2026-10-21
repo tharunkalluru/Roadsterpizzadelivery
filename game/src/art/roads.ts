@@ -188,17 +188,17 @@ export const roadTileKey = (x: number, z: number) => `${Math.floor(x / TILE)}_${
 
 /**
  * `onlyTile`: build just that tile's geometry. Pass the roads touching the tile (plus a margin) and their nodes as `core`;
- * every edge is still processed whole, so frames, ramps and markings match the neighbouring tiles exactly.
+ * All edges still participate in shared frames, ramps and crossing clearance; only
+ * geometry owned by this tile is emitted, with each selected edge kept whole.
  */
 export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string): THREE.Group {
   const mats = getWorldMats(quality);
   const group = new THREE.Group();
   group.name = 'roads';
   const tiles = new Map<string, Tile>();
-  let sink: Tile | null = null;
-  const tileFor = (x: number, z: number): Tile => {
+  const tileFor = (x: number, z: number): Tile | null => {
     const key = `${Math.floor(x / TILE)}_${Math.floor(z / TILE)}`;
-    if (onlyTile !== undefined && key !== onlyTile) return (sink ??= newTile());
+    if (onlyTile !== undefined && key !== onlyTile) return null;
     let t = tiles.get(key);
     if (!t) { t = newTile(); tiles.set(key, t); }
     return t;
@@ -347,12 +347,14 @@ export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string)
   for (const [, ni] of nodeInfo) {
     if (!ni.junction || ni.r <= 0 || ni.raised) continue;
     junctions++;
+    const tile = tileFor(ni.x, ni.z);
+    if (!tile) continue;
     const poly: [number, number][] = [];
     for (let i = 0; i < segs; i++) {
       const a = (i / segs) * Math.PI * 2;
       poly.push([ni.x + Math.cos(a) * ni.r, ni.z + Math.sin(a) * ni.r]);
     }
-    addHorizontalPolygon(tileFor(ni.x, ni.z).asphalt, poly, undefined, ni.y, uvAsphalt);
+    addHorizontalPolygon(tile.asphalt, poly, undefined, ni.y, uvAsphalt);
   }
 
   const zebraAndBars = quality !== 'low' || true;
@@ -364,6 +366,7 @@ export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string)
     const L = polyLength(samples);
     const mid = sampleAt(samples, L / 2);
     const tile = tileFor(mid.x, mid.z);
+    if (!tile) continue;
     const w = Math.max(1.5, e.widthM);
 
     if (ped) {
@@ -564,6 +567,7 @@ export function buildRoads(core: WorldCore, quality: Quality, onlyTile?: string)
     const t = slabThickness(y);
     const R = mw / 2 + BEAM;
     const tile = tileFor(n.x, n.z);
+    if (!tile) continue;
     const poly: [number, number][] = [];
     for (let i = 0; i < 20; i++) { const a = (i / 20) * Math.PI * 2; poly.push([n.x + Math.cos(a) * R, n.z + Math.sin(a) * R]); }
     addHorizontalPolygon(tile.asphalt, poly, undefined, y, uvAsphalt);

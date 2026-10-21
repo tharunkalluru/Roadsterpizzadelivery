@@ -1,6 +1,6 @@
 /**
  * Original low-poly geometry inspired by the current Tesla Roadster official imagery.
- * White angular body, gold glazing, T-top frame, thin rear light and four rear nozzles.
+ * White angular body, smoked bronze glazing, T-top frame, thin rear light and four rear nozzles.
  * Dimensions and flight actuation are authored game presentation, not engineering specifications.
  * Shared wheels and two instanced cold-gas effects keep the mobile presentation bounded.
  */
@@ -46,10 +46,10 @@ export function createHeroCar(quality: Quality): HeroCar {
   const trim = own(new THREE.MeshStandardMaterial({ name: 'hero-trim', color: 0xffffff, roughness: 0.72, metalness: 0.12, vertexColors: true }));
   const detail = own(new THREE.MeshStandardMaterial({ name: 'hero-courier-detail', vertexColors: true, roughness: 0.82, metalness: 0.02, flatShading: true }));
   const glass = own(new THREE.MeshStandardMaterial({
-    name: 'hero-glass', color: 0x514127, metalness: 0.14, roughness: 0.32, transparent: true, opacity: 0.78,
+    name: 'hero-glass', color: 0xffffff, vertexColors: true, metalness: 0.1, roughness: 0.27, transparent: true, opacity: 0.96,
     envMapIntensity: 0.8, depthWrite: false, side: THREE.FrontSide,
   }));
-  const tyreMat = own(new THREE.MeshStandardMaterial({ name: 'hero-tyre', color: 0x111214, roughness: 0.88, metalness: 0 }));
+  const tyreMat = own(new THREE.MeshStandardMaterial({ name: 'hero-tyre', color: 0x1c2224, roughness: 0.88, metalness: 0 }));
   const rimMat = own(new THREE.MeshStandardMaterial({ name: 'hero-rim', color: 0xffffff, vertexColors: true, roughness: 0.42, metalness: 0.5, envMapIntensity: 0.9, flatShading: !high }));
   const headMat = own(new THREE.MeshStandardMaterial({ name: 'hero-head', color: 0xe1e6e3, emissive: 0xdfeeff, emissiveIntensity: 2.4, roughness: 0.3 }));
   const tailMat = own(new THREE.MeshStandardMaterial({ name: 'hero-tail', color: 0x3a0505, emissive: 0xff1c14, emissiveIntensity: 0.9, roughness: 0.4 }));
@@ -87,24 +87,49 @@ export function createHeroCar(quality: Quality): HeroCar {
     const upper=Math.max(shoulder-.08,lower+.025);
     sections.push([[0,top,z],[w*.62,top,z],[w*.91,shoulder,z],[w,upper,z],[w,lower,z],[w*.79,.2,z],[-w*.79,.2,z],[-w,lower,z],[-w,upper,z],[-w*.91,shoulder,z],[-w*.62,top,z]]);
   }
+  // Broad value changes keep white paint legible on low without an environment map.
+  const shellColours=[0xf4f6f3,0xffffff,0xe3e9e7,0xcdd7d7,0x343a3c,0x343a3c,0x343a3c,0xcdd7d7,0xe3e9e7,0xffffff,0xf4f6f3].map(hex);
   for(let i=1;i<sections.length;i++)for(let j=0;j<sections[i].length;j++) {
     const k=(j+1)%sections[i].length,A=sections[i-1],B=sections[i];
-    shell.quad([...A[j],...B[j],...B[k],...A[k]],[0,0,0,1,1,1,1,0],undefined,j>=4&&j<=6?hex(0x343a3c):[1,1,1]);
+    shell.quad([...A[j],...B[j],...B[k],...A[k]],[0,0,0,1,1,1,1,0],undefined,shellColours[j]);
   }
   for(const [index,direction]of [[0,-1],[sections.length-1,1]]) {
     const ring=sections[index],centre:[number,number,number]=[0,.4,ring[0][2]];
-    for(let j=0;j<ring.length;j++)shell.triangle(centre,ring[j] as [number,number,number],ring[(j+1)%ring.length] as [number,number,number],[.5,.5],[0,0],[1,0],[0,0,direction],[1,1,1]);
+    const faceColour=hex(direction>0?0xd1d9d8:0xe1e5e2);
+    for(let j=0;j<ring.length;j++)shell.triangle(centre,ring[j] as [number,number,number],ring[(j+1)%ring.length] as [number,number,number],[.5,.5],[0,0],[1,0],[0,0,direction],faceColour);
   }
   // White rear buttresses close the quarter panels beneath the tapering rear glass.
   for(const side of [-1,1])shell.triangle([side*.62,1.19,.78],[side*.74,.83,1.1],[side*.47,.87,1.52],[0,1],[0,0],[1,0],[side,.4,.3],[1,1,1]);
   const bodyMesh=addMesh(shell.build(),paint,'body');
 
-  // Copper-gold canopy panels retain the current Roadster's low roof and tapering rear glass.
-  const canopy=new GeoBuilder();
-  canopy.quad([-.72,.82,-.67,.72,.82,-.67,.63,1.165,-.08,-.63,1.165,-.08],[0,0,1,0,1,1,0,1],[0,.86,-.5]);
-  canopy.quad([-.63,1.165,-.08,.63,1.165,-.08,.62,1.19,.78,-.62,1.19,.78],[0,0,1,0,1,1,0,1],[0,1,0]);
-  canopy.quad([-.62,1.19,.78,.62,1.19,.78,.47,.87,1.52,-.47,.87,1.52],[0,0,1,0,1,1,0,1],[0,.92,.4]);
-  for(const side of [-1,1])canopy.quad([side*.72,.82,-.67,side*.63,1.165,-.08,side*.62,1.19,.78,side*.74,.83,1.1],[0,0,0,1,1,1,1,0],[side,0,0]);
+  // A baked sky reflection makes the taper read as glass even on the reflection-free
+  // low preset. Bronze stays at the lower edge; all strips share one transparent draw.
+  const canopy=new GeoBuilder(true,4);
+  type GlazingStop=readonly [t:number,colour:number,opacity:number];
+  const glazing=(corners:number[],normal:number[],stops:readonly GlazingStop[])=>{
+    const at=(a:number,b:number,t:number)=>corners[a]+(corners[b]-corners[a])*t;
+    for(let i=1;i<stops.length;i++) {
+      const [t0,c0,a0]=stops[i-1],[t1,c1,a1]=stops[i];
+      const base=canopy.vcount,col0=[...hex(c0),a0],col1=[...hex(c1),a1];
+      canopy.quad([
+        at(0,9,t0),at(1,10,t0),at(2,11,t0),at(3,6,t0),at(4,7,t0),at(5,8,t0),
+        at(3,6,t1),at(4,7,t1),at(5,8,t1),at(0,9,t1),at(1,10,t1),at(2,11,t1),
+      ],[0,t0,1,t0,1,t1,0,t1],normal);
+      for(let v=0;v<4;v++)for(let c=0;c<4;c++)canopy.col[(base+v)*4+c]=(v<2?col0:col1)[c];
+    }
+  };
+  glazing([-.72,.82,-.67,.72,.82,-.67,.63,1.165,-.08,-.63,1.165,-.08],[0,.86,-.5],[
+    [0,0x423f34,.82],[.1,0x303d40,.8],[.7,0x4d666d,.84],[1,0x849b9d,.95],
+  ]);
+  glazing([-.63,1.165,-.08,.63,1.165,-.08,.62,1.19,.78,-.62,1.19,.78],[0,1,0],[
+    [0,0x72888c,.96],[.32,0x3e535a,.96],[1,0x607a80,.98],
+  ]);
+  glazing([-.62,1.19,.78,.62,1.19,.78,.47,.87,1.52,-.47,.87,1.52],[0,.92,.4],[
+    [0,0x6b858a,.99],[.18,0x7b9497,.99],[.5,0x3f565d,.98],[.92,0x263336,.99],[1,0x464337,1],
+  ]);
+  for(const side of [-1,1])glazing([side*.72,.82,-.67,side*.74,.83,1.1,side*.62,1.19,.78,side*.63,1.165,-.08],[side,0,0],[
+    [0,0x474337,.88],[.12,0x29383b,.82],[1,0x52696e,.94],
+  ]);
   addMesh(canopy.build(),glass,'canopy',body,false);
   const trimB=new GeoBuilder(true),dk=hex(0x171c20),titanium=hex(0x777a76);
   // Endpoint transforms keep every frame segment attached to its glazing corners.
@@ -123,6 +148,10 @@ export function createHeroCar(quality: Quality): HeroCar {
     addBox(trimB,.065,.09,1.45,boxMatrix(side*.95,.255,0),1,dk);
     addBox(trimB,.13,.055,.1,boxMatrix(side*.82,.87,-.41,side*.25),1,dk);
   }
+  // A single seam across the rear deck separates the wing from the tail volume.
+  const deckZ=1.84,deckY=curve(topKeys,deckZ)+.007,deckShoulder=curve(shoulderKeys,deckZ)+.007,seam=hex(0x738184);
+  frame(new THREE.Vector3(-.57,deckY,deckZ),new THREE.Vector3(.57,deckY,deckZ),.009,seam);
+  for(const side of [-1,1])frame(new THREE.Vector3(side*.57,deckY,deckZ),new THREE.Vector3(side*.85,deckShoulder,deckZ),.009,seam);
   // Wide black splitter/grille, rear light recess and diffuser stay within the silhouette.
   addBox(trimB,1.64,.17,.075,boxMatrix(0,.365,-2.005),1,dk);
   addBox(trimB,1.84,.045,.21,boxMatrix(0,.235,-1.94),1,hex(0x0b1014));
