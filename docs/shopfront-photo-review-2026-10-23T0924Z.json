@@ -1,0 +1,1141 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T0924Z",
+  "reviewedAt": "2026-10-23T09:33:53.046621+00:00",
+  "method": "Root inspected eight original Mapillary API thumbnails at original resolution, and checked Vinayak and new commercial-frontage source pages in user Chrome. Independent comparison sequences were selected by cached position/heading then actually inspected. No synthetic images, automatic name substitutions or placement changes.",
+  "scope": {
+    "candidateBusinessesReviewed": 8,
+    "uniqueOriginalImagesInspected": 8,
+    "newOcrCandidateBusinessesReviewed": 4,
+    "newPhotoNamesApplied": 0,
+    "exactPlacementsApplied": 0,
+    "exactShopOrderVerified": false
+  },
+  "reviews": [
+    {
+      "candidateBoardId": "b_8d184a40-14dd-46",
+      "candidateName": "Vinayak Tiffins",
+      "sources": [
+        {
+          "imageId": "180625853951909",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=180625853951909",
+          "captureDate": "2020-11-23T01:49:47.639000+00:00",
+          "capturedAt": 1606096187639,
+          "sequenceId": "24mq1yjy7thsxg5lllpge2",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.395105164433,
+            78.504235983818
+          ],
+          "rawCompassAngle": 314.21145629883,
+          "computedCompassAngle": 316.68069521198,
+          "originalImage": "pipeline/build/review/180625853951909.jpg"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "180625853951909",
+          "readableSignText": [
+            "VINAYAK TIFFI…",
+            "VINAYAK TIFFIN’S"
+          ],
+          "identitySupport": true,
+          "context": "Right-hand roadside, opposite the camera lane across the divided road. Yellow main fascia is cropped at the image edge; the awning below repeats the name. Ground-level open food-service frontage with parked two-wheelers.",
+          "floor": "Street-level commercial frontage consistent with floor0; exact facade binding not established.",
+          "neighbors": "Nearby fronts to image-left show partial S.MART and other signs; exact boundaries and immediate adjacent businesses are not resolved. No continuous shop sequence inferred."
+        }
+      ],
+      "decision": "historical_name_corroboration_keep_exact_binding_pending",
+      "independentPhotoSequencesInspected": 1,
+      "mappedCandidate": {
+        "boardId": "b_8d184a40-14dd-46",
+        "text": "Vinayak Tiffins",
+        "fullName": "Vinayak Tiffins",
+        "pack": "p0_0.pack.wasm",
+        "tile": "0_1",
+        "buildingId": "ff9c5bd1-e04",
+        "slot": {
+          "floor": 0,
+          "index": 0,
+          "of": 1
+        },
+        "road": "Tilak Nagar Main Road",
+        "facadeWorldEndpoints": [
+          [
+            803.7,
+            1211.1
+          ],
+          [
+            811.3,
+            1218.3
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.39535703110535,
+            78.5041639685239
+          ],
+          [
+            17.395291975060395,
+            78.50423549541301
+          ]
+        ],
+        "facadeFraction": 0.413,
+        "boardAnchorWorld": [
+          806.8388,
+          1214.0736
+        ],
+        "boardAnchorLatLon": [
+          17.395330162958782,
+          78.5041935091291
+        ],
+        "buildingGeometry": {
+          "id": "ff9c5bd1-e04",
+          "h": 11.5,
+          "ring": [
+            [
+              803.7,
+              1211.1
+            ],
+            [
+              811.3,
+              1218.3
+            ],
+            [
+              817.8,
+              1209.7
+            ],
+            [
+              809.4,
+              1203.5
+            ]
+          ]
+        },
+        "buildingRingLatLon": [
+          [
+            17.39535703110535,
+            78.5041639685239
+          ],
+          [
+            17.395291975060395,
+            78.50423549541301
+          ],
+          [
+            17.395369680891864,
+            78.50429666972607
+          ],
+          [
+            17.395425701375018,
+            78.50421761369073
+          ]
+        ],
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "existingVerification": null,
+        "exactPlacementApproved": false,
+        "exactShopOrderApproved": false,
+        "boardSources": [],
+        "photoMatchStatus": "automated_photo_match_candidate",
+        "photoSources": [
+          {
+            "imageId": "180625853951909",
+            "sourceUrl": "https://www.mapillary.com/app/?pKey=180625853951909",
+            "captureDate": "2020-11-23T01:49:47.639000+00:00",
+            "sequenceId": "24mq1yjy7thsxg5lllpge2",
+            "cameraLatLon": [
+              17.395105164433,
+              78.504235983818
+            ],
+            "rawCompassAngle": 314.21145629883,
+            "computedCompassAngle": 316.68069521198,
+            "resolvedHeading": 316.68069521198,
+            "license": "CC-BY-SA-4.0",
+            "geometryMethod": "computed_geometry preferred, geometry fallback"
+          }
+        ]
+      },
+      "unresolved": [
+        "One 2020 sequence only; full main fascia is cropped.",
+        "Match the photographed entrance and frontage endpoints to building ff9c5bd1-e04 before approving slot0/of1.",
+        "Current operation and intervening neighboring bays unverified."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_397dadc0-7748-4f",
+      "candidateName": "Hush Puppies Store",
+      "sources": [
+        {
+          "imageId": "359611979346943",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=359611979346943",
+          "captureDate": "2022-05-09T12:40:23.377000+00:00",
+          "capturedAt": 1652100023377,
+          "sequenceId": "W5f1TH7jzgquLU2tX8YOrc",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.401049377222,
+            78.486526962794
+          ],
+          "rawCompassAngle": 0,
+          "computedCompassAngle": 116.06335303746,
+          "originalImage": "pipeline/build/review/359611979346943.jpg"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "359611979346943",
+          "readableSignText": [
+            "Hush"
+          ],
+          "identitySupport": "partial_brand_only",
+          "context": "Dark fascia on far/right roadside. Adidas storefront is visibly to image-left; tree and other signs obscure the rest of the Hush frontage. cult.fit and a spa sign occupy higher levels.",
+          "floor": "Appears in lower street-facing sign band; exact entrance and slot6/of9 unverified.",
+          "neighbors": "Adidas is left of partial Hush in this view, but all intervening frontage boundaries and exact contiguous order are not established."
+        }
+      ],
+      "decision": "partial_name_reading_keep_identity_and_binding_pending",
+      "independentPhotoSequencesInspected": 1,
+      "mappedCandidate": {
+        "boardId": "b_397dadc0-7748-4f",
+        "text": "Hush Puppies Store",
+        "fullName": "Hush Puppies Store",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "3558fff3-4a1",
+        "slot": {
+          "floor": 0,
+          "index": 6,
+          "of": 9
+        },
+        "road": "Himayat Nagar Main Road",
+        "facadeWorldEndpoints": [
+          [
+            -1030.1,
+            616.0
+          ],
+          [
+            -1061.0,
+            616.5
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.400734093931877,
+            78.48690528309511
+          ],
+          [
+            17.400729576150976,
+            78.48661446982226
+          ]
+        ],
+        "facadeFraction": 0.38,
+        "boardAnchorWorld": [
+          -1041.8419999999999,
+          616.19
+        ],
+        "boardAnchorLatLon": [
+          17.400732377175135,
+          78.48679477405142
+        ],
+        "buildingGeometry": {
+          "id": "3558fff3-4a1",
+          "h": 17.5,
+          "ring": [
+            [
+              -1030.1,
+              616.0
+            ],
+            [
+              -1061.0,
+              616.5
+            ],
+            [
+              -1060.3,
+              658.9
+            ],
+            [
+              -1029.4,
+              658.4
+            ]
+          ]
+        },
+        "buildingRingLatLon": [
+          [
+            17.400734093931877,
+            78.48690528309511
+          ],
+          [
+            17.400729576150976,
+            78.48661446982226
+          ],
+          [
+            17.400346468330703,
+            78.4866210578252
+          ],
+          [
+            17.4003509861116,
+            78.48691187109806
+          ]
+        ],
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "existingVerification": null,
+        "exactPlacementApproved": false,
+        "exactShopOrderApproved": false,
+        "boardSources": [],
+        "photoMatchStatus": "automated_photo_match_candidate",
+        "photoSources": [
+          {
+            "imageId": "359611979346943",
+            "sourceUrl": "https://www.mapillary.com/app/?pKey=359611979346943",
+            "captureDate": "2022-05-09T12:40:23.377000+00:00",
+            "sequenceId": "W5f1TH7jzgquLU2tX8YOrc",
+            "cameraLatLon": [
+              17.401049377222,
+              78.486526962794
+            ],
+            "rawCompassAngle": 0,
+            "computedCompassAngle": 116.06335303746,
+            "resolvedHeading": 116.06335303746,
+            "license": "CC-BY-SA-4.0",
+            "geometryMethod": "computed_geometry preferred, geometry fallback"
+          }
+        ]
+      },
+      "unresolved": [
+        "Do not complete Hush to full Hush Puppies solely from mapped name.",
+        "One 2022 sequence; foliage and lower-frontage occlusion prevent full identity/entrance verification."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_65ec28d504a5af39",
+      "candidateName": "ANALOG IAS",
+      "sources": [
+        {
+          "imageId": "285967769835428",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=285967769835428",
+          "captureDate": "2019-07-07T00:35:05.801000+00:00",
+          "capturedAt": 1562459705801,
+          "sequenceId": "b2tqormbqpnerb21srn31p",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.409057634199,
+            78.489799913136
+          ],
+          "rawCompassAngle": 284.51434326172,
+          "computedCompassAngle": 301.07458891097,
+          "originalImage": "pipeline/build/review/285967769835428.jpg"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "285967769835428",
+          "readableSignText": [
+            "…REER IAS"
+          ],
+          "identitySupport": false,
+          "context": "A cropped institute sign at far image-left says REER IAS; ANALOG is not readable. Frame is soft and distant.",
+          "floor": "Facade sign around lower/elevated commercial levels; exact floor and operator entrance unresolved.",
+          "neighbors": "Other institute/book signage is partial and soft; no neighboring order asserted."
+        }
+      ],
+      "decision": "reject_this_photo_as_analog_identity_evidence",
+      "independentPhotoSequencesInspected": 1,
+      "mappedCandidate": {
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "exactBindingReviewed": false
+      },
+      "unresolved": [
+        "IAS is a course/category descriptor and cannot identify ANALOG.",
+        "This rejection does not prove ANALOG absent, closed or replaced; it rejects the supplied matching evidence."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_1cd5bf8d-e65b-43",
+      "candidateName": "Home Cleaning Services",
+      "sources": [
+        {
+          "imageId": "518601855834410",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=518601855834410",
+          "captureDate": "2019-04-08T10:30:44.858000+00:00",
+          "capturedAt": 1554719444858,
+          "sequenceId": "M1KZaEOFRlSPTAGYxpV9eg",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.395200430963,
+            78.504259614693
+          ],
+          "rawCompassAngle": 134.08065795898,
+          "computedCompassAngle": 132.88321107595,
+          "originalImage": "pipeline/build/review/518601855834410.jpg"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "518601855834410",
+          "readableSignText": [
+            "e-Filing Services"
+          ],
+          "identitySupport": false,
+          "context": "Yellow elevated sign on image-right, above the road approaching a double-arch underpass. It advertises filing services; no Home Cleaning identity is visible in the matched sign.",
+          "floor": "Elevated facade band; business entrance not resolved.",
+          "neighbors": "Other service signs occur below, but no exact full sequence is inferred."
+        }
+      ],
+      "decision": "reject_this_photo_as_home_cleaning_identity_evidence",
+      "independentPhotoSequencesInspected": 1,
+      "mappedCandidate": {
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "exactBindingReviewed": false
+      },
+      "unresolved": [
+        "SERVICE/SERVICES is generic and cannot transfer identity between filing and cleaning businesses.",
+        "No claim about whether the mapped cleaning business exists elsewhere or currently operates."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_585ea16f-8b4a-46",
+      "candidateName": "Aarya Gold",
+      "sources": [
+        {
+          "imageId": "292387383109854",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=292387383109854",
+          "captureDate": "2022-05-09T12:25:18.532000+00:00",
+          "capturedAt": 1652099118532,
+          "sequenceId": "BvtMLiY74OFrDuZoHl0g1m",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.404996619862,
+            78.480517261625
+          ],
+          "rawCompassAngle": 0,
+          "computedCompassAngle": 140.1312895613,
+          "originalImage": "pipeline/build/review/292387383109854.jpg"
+        },
+        {
+          "imageId": "849840628934709",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=849840628934709",
+          "captureDate": "2020-06-30T11:45:43.017000+00:00",
+          "capturedAt": 1593517543017,
+          "sequenceId": "FOZmQFL9kcaHNVuF3tdbzo",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.405030634939,
+            78.480478190353
+          ],
+          "rawCompassAngle": -1,
+          "computedCompassAngle": 132.76558272189,
+          "originalImage": "pipeline/build/review/849840628934709.jpg"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "292387383109854",
+          "readableSignText": [
+            "AARYA G…"
+          ],
+          "identitySupport": "partial_distinctive_name",
+          "context": "Elevated maroon sign at far image-right below naturals signage and above red airtel band. Right end is clipped.",
+          "floor": "Elevated sign conflicts with a simple ground-floor sign placement, but business entrance and actual floor extent remain unresolved.",
+          "neighbors": "Vertical order in frame: naturals above AARYA G… above airtel; this is not linear ground-floor shop order."
+        },
+        {
+          "imageId": "849840628934709",
+          "identitySupport": false,
+          "context": "Independent 2020 view shows nearby naturals/Fabindia/Helios context, but Aarya name is not reliably legible. No claim of name continuity or rename."
+        }
+      ],
+      "decision": "historical_partial_name_possible_floor_mismatch_pending",
+      "independentPhotoSequencesInspected": 2,
+      "mappedCandidate": {
+        "boardId": "b_585ea16f-8b4a-46",
+        "text": "Aarya Gold - Gold Buyers in",
+        "fullName": "Aarya Gold - Gold Buyers in Himayat Nagar | Hyderabad",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "b93182e0-a3c",
+        "slot": {
+          "floor": 0,
+          "index": 2,
+          "of": 4
+        },
+        "road": null,
+        "facadeWorldEndpoints": [
+          [
+            -1708.9,
+            193.4
+          ],
+          [
+            -1695.2,
+            188.9
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.404552522348094,
+            78.48051680252522
+          ],
+          [
+            17.40459318237619,
+            78.48064573915428
+          ]
+        ],
+        "facadeFraction": 0.439,
+        "boardAnchorWorld": [
+          -1702.8857,
+          191.4245
+        ],
+        "boardAnchorLatLon": [
+          17.404570372100427,
+          78.48057340570537
+        ],
+        "buildingGeometry": {
+          "id": "b93182e0-a3c",
+          "h": 13.7,
+          "ring": [
+            [
+              -1695.2,
+              188.9
+            ],
+            [
+              -1713.3,
+              171.4
+            ],
+            [
+              -1720.5,
+              170.9
+            ],
+            [
+              -1720.9,
+              190.8
+            ],
+            [
+              -1708.9,
+              193.4
+            ]
+          ]
+        },
+        "buildingRingLatLon": [
+          [
+            17.40459318237619,
+            78.48064573915428
+          ],
+          [
+            17.40475130470767,
+            78.480475392221
+          ],
+          [
+            17.404755822488568,
+            78.48040762990499
+          ],
+          [
+            17.40457601480877,
+            78.48040386533188
+          ],
+          [
+            17.404552522348094,
+            78.48051680252522
+          ]
+        ],
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "existingVerification": null,
+        "exactPlacementApproved": false,
+        "exactShopOrderApproved": false,
+        "boardSources": [],
+        "photoMatchStatus": "automated_photo_match_candidate",
+        "photoSources": [
+          {
+            "imageId": "292387383109854",
+            "sourceUrl": "https://www.mapillary.com/app/?pKey=292387383109854",
+            "captureDate": "2022-05-09T12:25:18.532000+00:00",
+            "sequenceId": "BvtMLiY74OFrDuZoHl0g1m",
+            "cameraLatLon": [
+              17.404996619862,
+              78.480517261625
+            ],
+            "rawCompassAngle": 0,
+            "computedCompassAngle": 140.1312895613,
+            "resolvedHeading": 140.1312895613,
+            "license": "CC-BY-SA-4.0",
+            "geometryMethod": "computed_geometry preferred, geometry fallback"
+          }
+        ]
+      },
+      "unresolved": [
+        "Mapped building b93182e0-a3c floor0/index2/of4 is not approved from this photo.",
+        "Exact photographed building and facade segment need binding before correcting floor or slots."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_eebd0e25-a851-43",
+      "candidateName": "Airtel Store",
+      "sources": [
+        {
+          "imageId": "292387383109854",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=292387383109854",
+          "captureDate": "2022-05-09T12:25:18.532000+00:00",
+          "capturedAt": 1652099118532,
+          "sequenceId": "BvtMLiY74OFrDuZoHl0g1m",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.404996619862,
+            78.480517261625
+          ],
+          "rawCompassAngle": 0,
+          "computedCompassAngle": 140.1312895613,
+          "originalImage": "pipeline/build/review/292387383109854.jpg"
+        },
+        {
+          "imageId": "849840628934709",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=849840628934709",
+          "captureDate": "2020-06-30T11:45:43.017000+00:00",
+          "capturedAt": 1593517543017,
+          "sequenceId": "FOZmQFL9kcaHNVuF3tdbzo",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.405030634939,
+            78.480478190353
+          ],
+          "rawCompassAngle": -1,
+          "computedCompassAngle": 132.76558272189,
+          "originalImage": "pipeline/build/review/849840628934709.jpg"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "292387383109854",
+          "readableSignText": [
+            "airtel"
+          ],
+          "identitySupport": true,
+          "context": "Clear white airtel brand on a red lower storefront band at far image-right, below the Aarya/Naturals signs.",
+          "floor": "Appears to be lower street-facing frontage; mapped floor2 is suspect until exact facade/entrance binding is resolved.",
+          "neighbors": "Vertical relation to Aarya/Naturals is visible. Tree cover prevents complete ground-floor neighboring sequence."
+        },
+        {
+          "imageId": "849840628934709",
+          "identitySupport": false,
+          "context": "Independent older view is substantially obscured by trees at the relevant red frontage; no complete independent Airtel reading accepted."
+        }
+      ],
+      "decision": "historical_brand_supported_possible_floor_mismatch_pending",
+      "independentPhotoSequencesInspected": 2,
+      "mappedCandidate": {
+        "boardId": "b_eebd0e25-a851-43",
+        "text": "Airtel Store",
+        "fullName": "Airtel Store",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "b93182e0-a3c",
+        "slot": {
+          "floor": 2,
+          "index": 0,
+          "of": 1,
+          "overflow": true
+        },
+        "road": null,
+        "facadeWorldEndpoints": [
+          [
+            -1708.9,
+            193.4
+          ],
+          [
+            -1695.2,
+            188.9
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.404552522348094,
+            78.48051680252522
+          ],
+          [
+            17.40459318237619,
+            78.48064573915428
+          ]
+        ],
+        "facadeFraction": 0.614,
+        "boardAnchorWorld": [
+          -1700.4882,
+          190.637
+        ],
+        "boardAnchorLatLon": [
+          17.404577487605344,
+          78.48059596961546
+        ],
+        "buildingGeometry": {
+          "id": "b93182e0-a3c",
+          "h": 13.7,
+          "ring": [
+            [
+              -1695.2,
+              188.9
+            ],
+            [
+              -1713.3,
+              171.4
+            ],
+            [
+              -1720.5,
+              170.9
+            ],
+            [
+              -1720.9,
+              190.8
+            ],
+            [
+              -1708.9,
+              193.4
+            ]
+          ]
+        },
+        "buildingRingLatLon": [
+          [
+            17.40459318237619,
+            78.48064573915428
+          ],
+          [
+            17.40475130470767,
+            78.480475392221
+          ],
+          [
+            17.404755822488568,
+            78.48040762990499
+          ],
+          [
+            17.40457601480877,
+            78.48040386533188
+          ],
+          [
+            17.404552522348094,
+            78.48051680252522
+          ]
+        ],
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "existingVerification": null,
+        "exactPlacementApproved": false,
+        "exactShopOrderApproved": false,
+        "boardSources": [],
+        "photoMatchStatus": "automated_photo_match_candidate",
+        "photoSources": [
+          {
+            "imageId": "292387383109854",
+            "sourceUrl": "https://www.mapillary.com/app/?pKey=292387383109854",
+            "captureDate": "2022-05-09T12:25:18.532000+00:00",
+            "sequenceId": "BvtMLiY74OFrDuZoHl0g1m",
+            "cameraLatLon": [
+              17.404996619862,
+              78.480517261625
+            ],
+            "rawCompassAngle": 0,
+            "computedCompassAngle": 140.1312895613,
+            "resolvedHeading": 140.1312895613,
+            "license": "CC-BY-SA-4.0",
+            "geometryMethod": "computed_geometry preferred, geometry fallback"
+          }
+        ]
+      },
+      "unresolved": [
+        "Airtel and Helios both map to floor2/index0/of1 with overflow on the same building, although their sign anchors differ.",
+        "No serialized placement update approved because facade and floor binding remain unresolved."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_83803555-937d-4b",
+      "candidateName": "Helios Watch Store",
+      "sources": [
+        {
+          "imageId": "292387383109854",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=292387383109854",
+          "captureDate": "2022-05-09T12:25:18.532000+00:00",
+          "capturedAt": 1652099118532,
+          "sequenceId": "BvtMLiY74OFrDuZoHl0g1m",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.404996619862,
+            78.480517261625
+          ],
+          "rawCompassAngle": 0,
+          "computedCompassAngle": 140.1312895613,
+          "originalImage": "pipeline/build/review/292387383109854.jpg"
+        },
+        {
+          "imageId": "849840628934709",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=849840628934709",
+          "captureDate": "2020-06-30T11:45:43.017000+00:00",
+          "capturedAt": 1593517543017,
+          "sequenceId": "FOZmQFL9kcaHNVuF3tdbzo",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.405030634939,
+            78.480478190353
+          ],
+          "rawCompassAngle": -1,
+          "computedCompassAngle": 132.76558272189,
+          "originalImage": "pipeline/build/review/849840628934709.jpg"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "292387383109854",
+          "readableSignText": [
+            "…WATCH…"
+          ],
+          "identitySupport": false,
+          "context": "Tree obscures much of the black watch-store sign between Ramesh Watch Co. and the Airtel side. Automated ELIOS reading is not accepted as a complete visual identity in this frame.",
+          "floor": "Lower street-facing retail sign band; exact entrance partly hidden.",
+          "neighbors": "Ramesh Watch Co. appears to image-left, with the watch frontage then Airtel direction to image-right; no complete immediate bay order is verified."
+        },
+        {
+          "imageId": "849840628934709",
+          "readableSignText": [
+            "…LIO…",
+            "THE … STORE"
+          ],
+          "identitySupport": "probable_brand_from_partial_text",
+          "context": "Independent2020 view shows a partially legible black watch-store fascia consistent with Helios. Foliage obscures letters in both lines, so neither HELIOS nor THE WATCH STORE is claimed as an independently complete transcription. Trees also hide parts of the storefront and entrance."
+        }
+      ],
+      "decision": "probable_historical_identity_from_partial_text_possible_floor_mismatch_pending",
+      "independentPhotoSequencesInspected": 2,
+      "mappedCandidate": {
+        "boardId": "b_83803555-937d-4b",
+        "text": "Helios Watch Store",
+        "fullName": "Helios Watch Store - Himayatnagar",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "b93182e0-a3c",
+        "slot": {
+          "floor": 2,
+          "index": 0,
+          "of": 1,
+          "overflow": true
+        },
+        "road": null,
+        "facadeWorldEndpoints": [
+          [
+            -1708.9,
+            193.4
+          ],
+          [
+            -1695.2,
+            188.9
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.404552522348094,
+            78.48051680252522
+          ],
+          [
+            17.40459318237619,
+            78.48064573915428
+          ]
+        ],
+        "facadeFraction": 0.669,
+        "boardAnchorWorld": [
+          -1699.7347,
+          190.3895
+        ],
+        "boardAnchorLatLon": [
+          17.40457972390689,
+          78.48060306113007
+        ],
+        "buildingGeometry": {
+          "id": "b93182e0-a3c",
+          "h": 13.7,
+          "ring": [
+            [
+              -1695.2,
+              188.9
+            ],
+            [
+              -1713.3,
+              171.4
+            ],
+            [
+              -1720.5,
+              170.9
+            ],
+            [
+              -1720.9,
+              190.8
+            ],
+            [
+              -1708.9,
+              193.4
+            ]
+          ]
+        },
+        "buildingRingLatLon": [
+          [
+            17.40459318237619,
+            78.48064573915428
+          ],
+          [
+            17.40475130470767,
+            78.480475392221
+          ],
+          [
+            17.404755822488568,
+            78.48040762990499
+          ],
+          [
+            17.40457601480877,
+            78.48040386533188
+          ],
+          [
+            17.404552522348094,
+            78.48051680252522
+          ]
+        ],
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "existingVerification": null,
+        "exactPlacementApproved": false,
+        "exactShopOrderApproved": false,
+        "boardSources": [],
+        "photoMatchStatus": "automated_photo_match_candidate",
+        "photoSources": [
+          {
+            "imageId": "292387383109854",
+            "sourceUrl": "https://www.mapillary.com/app/?pKey=292387383109854",
+            "captureDate": "2022-05-09T12:25:18.532000+00:00",
+            "sequenceId": "BvtMLiY74OFrDuZoHl0g1m",
+            "cameraLatLon": [
+              17.404996619862,
+              78.480517261625
+            ],
+            "rawCompassAngle": 0,
+            "computedCompassAngle": 140.1312895613,
+            "resolvedHeading": 140.1312895613,
+            "license": "CC-BY-SA-4.0",
+            "geometryMethod": "computed_geometry preferred, geometry fallback"
+          }
+        ]
+      },
+      "unresolved": [
+        "2020 identity remains probable from partial text;2022 same-front sign is partly hidden. Obtain a fully legible original before accepting the complete business identity.",
+        "Mapped floor2 overflow and exact facade endpoints need correction review; no current operation claim."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_c2efd7f8-41ee-43",
+      "candidateName": "Rejuvenate Fitness Den",
+      "sources": [
+        {
+          "imageId": "415370633382470",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=415370633382470",
+          "captureDate": "2022-05-09T12:45:42.516000+00:00",
+          "capturedAt": 1652100342516,
+          "sequenceId": "W5f1TH7jzgquLU2tX8YOrc",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.397444561343,
+            78.494744871406
+          ],
+          "rawCompassAngle": 0,
+          "computedCompassAngle": 126.20288914209,
+          "originalImage": "pipeline/build/review/415370633382470.jpg"
+        },
+        {
+          "imageId": "811868788051624",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=811868788051624",
+          "captureDate": "2025-10-13T09:19:51.581000+00:00",
+          "capturedAt": 1760347191581,
+          "sequenceId": "xha13vWSiwUJlQdukYNPFR",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.397539754789,
+            78.494772489319
+          ],
+          "rawCompassAngle": 118,
+          "computedCompassAngle": 133.99846420147,
+          "originalImage": "pipeline/build/review/811868788051624.jpg"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "415370633382470",
+          "readableSignText": [
+            "REJUVENATE",
+            "FITNESS DEN"
+          ],
+          "identitySupport": true,
+          "context": "Small dark sign on the cream building at image-right, viewed from a busy elevated approach. Cars obscure the lower frontage.",
+          "floor": "Road camera elevation complicates floor numbering; do not equate sign height in frame with ground-floor status.",
+          "neighbors": "No adjacent business names readable with reliable boundaries."
+        },
+        {
+          "imageId": "811868788051624",
+          "identitySupport": false,
+          "context": "Independent 2025 image is from the lower side road. A tall painted flyover wall on image-right blocks the relevant building. It cannot corroborate or contradict the older gym sign.",
+          "floor": "Different road elevation and wall occlusion prevent facade comparison."
+        }
+      ],
+      "decision": "historical_name_supported_newer_view_occluded_pending",
+      "independentPhotoSequencesInspected": 2,
+      "mappedCandidate": {
+        "boardId": "b_c2efd7f8-41ee-43",
+        "text": "Rejuvenate Fitness Den",
+        "fullName": "Rejuvenate Fitness Den",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-1_0",
+        "buildingId": "e4eaf8d9-616",
+        "slot": {
+          "floor": 0,
+          "index": 0,
+          "of": 2
+        },
+        "road": "Narayanguda Road",
+        "facadeWorldEndpoints": [
+          [
+            -186.9,
+            1004.0
+          ],
+          [
+            -217.8,
+            982.3
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.3972282959539,
+            78.49484100321374
+          ],
+          [
+            17.397424367644938,
+            78.4945501899409
+          ]
+        ],
+        "facadeFraction": 0.147,
+        "boardAnchorWorld": [
+          -191.44230000000002,
+          1000.8101
+        ],
+        "boardAnchorLatLon": [
+          17.397257118492483,
+          78.49479825366264
+        ],
+        "buildingGeometry": {
+          "id": "e4eaf8d9-616",
+          "h": 13.4,
+          "ring": [
+            [
+              -227.2,
+              976.2
+            ],
+            [
+              -239.7,
+              995.0
+            ],
+            [
+              -200.4,
+              1023.4
+            ],
+            [
+              -186.9,
+              1004.0
+            ],
+            [
+              -217.8,
+              982.3
+            ]
+          ]
+        },
+        "buildingRingLatLon": [
+          [
+            17.39747948457191,
+            78.49446172247278
+          ],
+          [
+            17.39730961601009,
+            78.49434407956305
+          ],
+          [
+            17.397053006055,
+            78.49471394887124
+          ],
+          [
+            17.3972282959539,
+            78.49484100321374
+          ],
+          [
+            17.397424367644938,
+            78.4945501899409
+          ]
+        ],
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "existingVerification": null,
+        "exactPlacementApproved": false,
+        "exactShopOrderApproved": false,
+        "boardSources": [],
+        "photoMatchStatus": "automated_photo_match_candidate",
+        "photoSources": [
+          {
+            "imageId": "415370633382470",
+            "sourceUrl": "https://www.mapillary.com/app/?pKey=415370633382470",
+            "captureDate": "2022-05-09T12:45:42.516000+00:00",
+            "sequenceId": "W5f1TH7jzgquLU2tX8YOrc",
+            "cameraLatLon": [
+              17.397444561343,
+              78.494744871406
+            ],
+            "rawCompassAngle": 0,
+            "computedCompassAngle": 126.20288914209,
+            "resolvedHeading": 126.20288914209,
+            "license": "CC-BY-SA-4.0",
+            "geometryMethod": "computed_geometry preferred, geometry fallback"
+          }
+        ]
+      },
+      "unresolved": [
+        "2022 supports historical identity;2025 does not establish current operation.",
+        "Bind exact entrance/facade and road elevation before changing mapped floor0/index0/of2."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    }
+  ],
+  "matchingFix": {
+    "genericTokensAdded": [
+      "IAS",
+      "SERVICE",
+      "SERVICES"
+    ],
+    "rejectedAutomaticBoardIds": [
+      "b_65ec28d504a5af39",
+      "b_1cd5bf8d-e65b-43"
+    ],
+    "regressions": "False matching examples fail before correction; positive distinctive-brand controls retained;53 pipeline tests pass."
+  },
+  "attribution": "Mapillary contributors; original public image links, image IDs, dates and independent sequences retained;CC-BY-SA-4.0.",
+  "limitations": "Historical name evidence does not certify current operation, exact facade, entrance, floor or complete neighboring shop order. Source coverage is not street verification.",
+  "reviewQualityCheck": "A second reviewer checked counts and the Helios image. Complete Helios transcription was downgraded to partial/probable before finalizing; no placement approval."
+}

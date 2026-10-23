@@ -126,6 +126,23 @@ class MatchingProvenanceTests(unittest.TestCase):
         self.assertEqual(distinctive_match('SZUKI', core_business_name('Maanya Suzuki'))['businessToken'], 'SUZUKI')
         self.assertEqual(distinctive_match('ONANDU O', core_business_name('Nandu Juice Centre'))['businessToken'], 'NANDU')
 
+    def test_ias_course_label_cannot_identify_a_different_institute(self):
+        from ocr_match import core_business_name, distinctive_match
+        core = core_business_name('ANALOG IAS')
+        # Photo 285967769835428 shows a clipped REER IAS sign, not ANALOG.
+        self.assertIsNone(distinctive_match('REER IAS', core))
+        self.assertEqual(distinctive_match('ANALOG IAS', core)['businessToken'], 'ANALOG')
+
+    def test_service_descriptor_cannot_identify_an_unrelated_business(self):
+        from ocr_match import core_business_name, distinctive_match
+        core = core_business_name('Home Cleaning Services')
+        # Photo 518601855834410 shows e-Filing Services, not a cleaning identity.
+        for reading in ['e-Filing Service', 'e-Filing Services']:
+            with self.subTest(reading=reading):
+                self.assertIsNone(distinctive_match(reading, core))
+        branded = core_business_name('Sparkle Home Cleaning Services')
+        self.assertEqual(distinctive_match('SPARKLE HOME CLEANING SERVICES', branded)['businessToken'], 'SPARKLE')
+
     def test_fallback_match_remains_candidate_with_original_photo_source(self):
         import ocr_match
         with tempfile.TemporaryDirectory() as tmp:
