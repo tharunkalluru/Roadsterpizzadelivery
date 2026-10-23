@@ -102,6 +102,25 @@ class MatchingProvenanceTests(unittest.TestCase):
         self.assertIsNone(distinctive_match('KINGDOM', core))
         self.assertIsNotNone(distinctive_match('KING', core))
 
+    def test_dance_studio_descriptors_do_not_identify_the_operator(self):
+        from ocr_match import core_business_name, distinctive_match
+        core = core_business_name("Chandu's Wow Dance Studio")
+        # The first two readings came from separate photos of this frontage;
+        # matching STUDIO alone must not count as independent identity evidence.
+        for reading in ['ANCE STUDIO', 'NESS STUDIO', 'DANCE STUDIO', 'FITNESS STUDIO']:
+            with self.subTest(reading=reading):
+                self.assertIsNone(distinctive_match(reading, core))
+        program_name = core_business_name("Chandu's Wow Dance & Zumba Fitness Studio")
+        self.assertIsNone(distinctive_match('ZUMBA', program_name))
+
+    def test_dance_studio_distinctive_operator_and_short_brand_still_match(self):
+        from ocr_match import core_business_name, distinctive_match
+        core = core_business_name("Chandu's Wow Dance & Zumba Fitness Studio")
+        self.assertEqual(distinctive_match("CHANDU'S FITNESS", core)['businessToken'], 'CHANDU')
+        self.assertEqual(distinctive_match('WOW DANCE & ZUMBA', core)['businessToken'], 'WOW')
+        full_sign = distinctive_match("CHANDU'S WOW DANCE & ZUMBA FITNESS STUDIO", core)
+        self.assertIn(full_sign['businessToken'], {'CHANDU', 'WOW'})
+
     def test_full_token_ocr_error_is_a_review_candidate(self):
         from ocr_match import core_business_name, distinctive_match
         self.assertEqual(distinctive_match('SZUKI', core_business_name('Maanya Suzuki'))['businessToken'], 'SUZUKI')

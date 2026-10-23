@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T0807Z",
+  "automationId": "hyderabad-citywide-shopfront-naming",
+  "completedAt": "2026-10-23T08:32:52.665967+00:00",
+  "branch": "codex/shopfronts-map-roadster",
+  "baseCommit": "5fafa49",
+  "scope": "Bounded source/photo research and conservative provenance import; no push or deployment.",
+  "source": {
+    "maxCells": 8,
+    "attemptedCells": 3,
+    "processedCellIds": [
+      "tile_0_-1",
+      "tile_-1_0"
+    ],
+    "retryCellIds": [
+      "tile_0_0"
+    ],
+    "recordsProcessed": 67,
+    "existingNameMatches": 49,
+    "recordsQueuedForPhotoReview": 18,
+    "sourceLinksAdded": 11,
+    "newNamesActuallyAdded": [],
+    "processedCellsTotal": 3,
+    "playableCellsTotal": 2527,
+    "sourceRecordOutcomesTotal": 171,
+    "sourceRecordsMayRepeatAcrossCells": true,
+    "pendingPhotoReviewOutcomesTotal": 37,
+    "sourceLinksTotal": 49,
+    "newNamesTotal": 1,
+    "blocker": "Overpass HTTP 504 on tile_0_0. Coordinator stopped at its first failure and saved retry/backoff; no extra run or cooldown bypass.",
+    "cooldownUntil": "2026-10-23T08:13:50.948365Z",
+    "sourceLinks": [
+      {
+        "boardId": "b_n634135188",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "node/634135188",
+            "url": "https://www.openstreetmap.org/node/634135188",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:11:13.233902Z",
+            "name": "Odeon complex",
+            "point": [
+              17.4054697,
+              78.4965246
+            ],
+            "version": 5,
+            "timestamp": "2016-09-30T07:58:44Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_n2712510238",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "node/2712510238",
+            "url": "https://www.openstreetmap.org/node/2712510238",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:11:13.233902Z",
+            "name": "hariharan and hariharan law offices",
+            "point": [
+              17.4036137,
+              78.4924809
+            ],
+            "version": 1,
+            "timestamp": "2014-03-11T13:42:15Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_n677300639",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "node/677300639",
+            "url": "https://www.openstreetmap.org/node/677300639",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:11:13.233902Z",
+            "name": "Deepak Theatre",
+            "point": [
+              17.3980757,
+              78.492579
+            ],
+            "version": 2,
+            "timestamp": "2010-05-09T07:58:14Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_n636456848",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "node/636456848",
+            "url": "https://www.openstreetmap.org/node/636456848",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:11:13.233902Z",
+            "name": "Venkatesa Cinema Theatre",
+            "point": [
+              17.3992059,
+              78.4928268
+            ],
+            "version": 1,
+            "timestamp": "2010-02-12T04:12:13Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_n4415288812",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "node/4415288812",
+            "url": "https://www.openstreetmap.org/node/4415288812",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:11:13.233902Z",
+            "name": "petrol bunk",
+            "point": [
+              17.3994754,
+              78.4920506
+            ],
+            "version": 1,
+            "timestamp": "2016-09-23T19:00:33Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_n7244264250",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "node/7244264250",
+            "url": "https://www.openstreetmap.org/node/7244264250",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:11:13.233902Z",
+            "name": "Gurunanak school",
+            "point": [
+              17.3995042,
+              78.4879484
+            ],
+            "version": 2,
+            "timestamp": "2020-12-19T03:52:09Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_n771240789",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "node/771240789",
+            "url": "https://www.openstreetmap.org/node/771240789",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:10:07.662365Z",
+            "name": "Sri Sai Raja theatre",
+            "point": [
+              17.4146824,
+              78.4981191
+            ],
+            "version": 1,
+            "timestamp": "2010-06-13T11:33:40Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_n6559986603",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "node/6559986603",
+            "url": "https://www.openstreetmap.org/node/6559986603",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:10:07.662365Z",
+            "name": "Urban Primary Health Centre, Musheerabad",
+            "point": [
+              17.4150151,
+              78.497702
+            ],
+            "version": 5,
+            "timestamp": "2023-05-05T10:15:51Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_w579468932",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "way/579468932",
+            "url": "https://www.openstreetmap.org/way/579468932",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:10:07.662365Z",
+            "name": "Sandhya cinemas",
+            "point": [
+              17.40701994,
+              78.49734228
+            ],
+            "version": 2,
+            "timestamp": "2025-03-15T10:30:26Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_w413807359",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "way/413807359",
+            "url": "https://www.openstreetmap.org/way/413807359",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:10:07.662365Z",
+            "name": "Corner Bakery",
+            "point": [
+              17.40893994,
+              78.50586034
+            ],
+            "version": 3,
+            "timestamp": "2023-08-20T06:45:52Z"
+          }
+        ]
+      },
+      {
+        "boardId": "b_n13436948467",
+        "sources": [
+          {
+            "provider": "OpenStreetMap",
+            "id": "node/13436948467",
+            "url": "https://www.openstreetmap.org/node/13436948467",
+            "license": "ODbL-1.0",
+            "retrievedAt": "2026-10-23T08:11:13.233902Z",
+            "name": "Fast Food Centre",
+            "point": [
+              17.3975185,
+              78.4965809
+            ],
+            "version": 1,
+            "timestamp": "2026-01-07T05:07:40Z"
+          }
+        ]
+      }
+    ]
+  },
+  "mapillary": {
+    "fullPlayableBbox": [
+      17.18944651682626,
+      78.18602271831716,
+      17.623153483173745,
+      78.72247438667843
+    ],
+    "cellsVisited": 4,
+    "requests": 16,
+    "maxPagesPerSubcell": 1,
+    "completedCellsTotal": 5,
+    "cellsTotal": 2376,
+    "completedCellIds": [
+      "17.395,78.485",
+      "17.405,78.495",
+      "17.395,78.495",
+      "17.405,78.485",
+      "17.405,78.505"
+    ],
+    "cachedImages": 2413,
+    "preparedManifestImages": 315,
+    "shards": [
+      {
+        "index": 0,
+        "newImages": 40,
+        "totalRows": 60
+      },
+      {
+        "index": 1,
+        "newImages": 40,
+        "totalRows": 55
+      }
+    ],
+    "newImagesProcessed": 80,
+    "uniqueOcrImagesTotal": 115,
+    "candidateReportsGeneratedWithoutApply": true,
+    "matchReport": {
+      "images": 115,
+      "readings": 215,
+      "matched_readings": 15,
+      "boards_with_automated_photo_matches": 14,
+      "spelling_candidates": 3,
+      "photo_only_boards": 1,
+      "placed_boards_in_zone": 178615
+    },
+    "photoBoardReport": {
+      "photos": 73,
+      "readings": 312,
+      "shop_like": 125,
+      "hit_a_front": 78,
+      "new_boards": 0,
+      "buildings": 0,
+      "packs": 0
+    },
+    "automatedExistingNameCandidates": 14,
+    "existingNameCandidatesNotYetVisuallyReviewed": 8,
+    "existingNameCandidatesAwaitingExactPlacementReview": 14,
+    "manuallySupportedStudioCandidateRetainedOutsideAutomaticMatches": true,
+    "photoOnlyCategoryCandidatesWithoutBusinessIdentity": 1,
+    "photoNamesApplied": 0
+  },
+  "manualReview": {
+    "businesses": 5,
+    "originalImages": 7,
+    "evidence": "docs/shopfront-photo-review-2026-10-23T0807Z.json",
+    "historicalNames": [
+      "Avanthi Degree and PG College",
+      "GKB Opticals",
+      "Maanya Suzuki (partial dealer name)",
+      "Chandu's WOW Dance Studio",
+      "Sree Vidya book centre"
+    ],
+    "possiblePlacementIssue": "GKB mapped floor=1 versus a raised street-level entrance; exact facade binding must be resolved before changing floor.",
+    "newNamesApplied": 0,
+    "exactPlacementsApplied": 0,
+    "streetVerifiedCells": 0,
+    "exactCitywideShopOrderComplete": false
+  },
+  "matchingFix": {
+    "problem": "Generic STUDIO readings from two sequences incorrectly counted as distinctive identity evidence. Manual review supported Chandu/WOW only in the 2025 image.",
+    "change": "STUDIO, DANCE and ZUMBA are generic descriptors. Distinctive CHANDU and exact WOW still match.",
+    "candidateCountBefore": 15,
+    "candidateCountAfter": 14,
+    "manualEvidencePreserved": true
+  },
+  "validation": {
+    "pipelineTests": "51 passed",
+    "gameTypecheck": "passed",
+    "productionBuild": "passed",
+    "existingBuildWarning": "fonts/fonts.css missing at build time",
+    "decompressedPackDiff": "Only 11 source arrays added; no board names, positions, floors, slots or other game data changed.",
+    "coreDiff": "Only three compressed byte sizes changed.",
+    "compressedManifestSizes": "3 of 3 changed packs match actual file sizes",
+    "gameplayClaim": "Build validation only; no new gameplay verification claimed."
+  },
+  "resume": {
+    "source": "Resume saved citywide coordinator queue; retry tile_0_0 when eligible.",
+    "photos": "Continue bounded metadata/OCR coverage and the remaining eight uninspected name candidates. Prioritize generic Service/IAS evidence, exact GKB floor/facade binding and unoccluded neighboring fronts.",
+    "stateFiles": [
+      "pipeline/build/citywide-shopfronts/status.json",
+      "pipeline/build/mly_images_city.jsonl",
+      "pipeline/build/mly_metadata_progress.jsonl",
+      "pipeline/build/ocr_rapid_city.shard-000-of-002.jsonl",
+      "pipeline/build/ocr_rapid_city.shard-001-of-002.jsonl"
+    ],
+    "needsUserAction": false
+  }
+}

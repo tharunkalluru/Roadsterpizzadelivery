@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-23T06:58:22.561274+00:00",
+  "updatedAt": "2026-10-23T08:32:52.665967+00:00",
   "automation": {
     "id": "hyderabad-citywide-shopfront-naming",
     "kind": "heartbeat",
@@ -19,35 +19,55 @@
     "resolvedIssue": "System Python 3.9 LibreSSL TLS handshake failure to Overpass; bundled Python 3.12 OpenSSL succeeds with normal certificate verification"
   },
   "sourceCoverage": {
-    "processedCells": 1,
+    "processedCells": 3,
     "totalPlayableCells": 2527,
     "firstCell": "tile_-1_-1",
-    "sourceRecords": 104,
-    "sourceLinksAdded": 38,
+    "sourceRecords": 171,
+    "sourceLinksAdded": 49,
     "newNamesAdded": 1,
     "newName": "Sudarshan 35mm",
-    "pendingPhotoReview": 19,
+    "pendingPhotoReview": 37,
     "placementStatus": "mapped_name_inferred_facade",
-    "sourceTimestampRetained": true
+    "sourceTimestampRetained": true,
+    "sourceRecordsMayRepeatAcrossCells": true
   },
   "mapillary": {
-    "metadataImagesFound": 619,
+    "metadataImagesFound": 2413,
     "photosReadThisSetup": 35,
     "independentOcrWorkers": 2,
-    "photosManuallyInspected": 2,
+    "photosManuallyInspected": 9,
     "newPhotoNamesApplied": 0,
     "reviewEvidence": "docs/shopfront-photo-review-2026-10-23.json",
-    "automatedPhotoCandidatesAwaitingReview": 4,
-    "falseMatchesRemoved": 2
+    "automatedPhotoCandidatesAwaitingReview": 14,
+    "falseMatchesRemoved": 2,
+    "photosReadTotal": 115,
+    "photosReadLatestBatch": 80,
+    "photosManuallyInspectedLatestBatch": 7,
+    "metadataCellsCompleted": 5,
+    "metadataCellsTotal": 2376,
+    "candidatesAwaitingInitialVisualReview": 8,
+    "reviewEvidenceFiles": [
+      "docs/shopfront-photo-review-2026-10-23.json",
+      "docs/shopfront-photo-review-2026-10-23T0807Z.json"
+    ],
+    "reviewCountNote": "14 current automated candidates still need exact placement review; 8 lack an initial manual name review. Chandu manual evidence is retained separately after descriptor-only automatic matches were filtered."
   },
   "verification": {
     "streetVerifiedCells": 0,
     "exactCitywideShopOrderComplete": false,
     "gameTypecheck": "passed",
-    "mapAndGameplayRegressions": "passed",
+    "mapAndGameplayRegressions": "Passed during initial setup; not rerun or claimed as gameplay verification in this source-data batch.",
     "productionBuild": "passed",
     "existingBuildWarning": "fonts/fonts.css missing at build time",
-    "pipelineTests": "49 passed, including live-review false-match regressions"
+    "pipelineTests": "51 passed, including descriptor-only rejection and distinctive operator/brand regressions"
   },
-  "nextWork": "Resume both coverage queues; review individual photo candidates and neighboring order before changing frontage placements. Never run the legacy wholesale OCR apply."
+  "nextWork": "Resume saved source and photo coverage. Resolve photographed facade/floor and continuous neighboring order before changing placements. Review remaining initial-name candidates and generic Service/IAS matches; never run the legacy wholesale OCR apply.",
+  "latestBatch": {
+    "record": "docs/shopfront-runs/2026-10-23T0807Z.json",
+    "sourceLinksAdded": 11,
+    "newNamesAdded": 0,
+    "photoPlacementsApplied": 0,
+    "recoverableBlocker": "Overpass HTTP 504 on tile_0_0; retry checkpoint saved.",
+    "needsUserAction": false
+  }
 }

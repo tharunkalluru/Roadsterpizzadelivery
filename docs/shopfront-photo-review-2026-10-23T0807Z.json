@@ -1,0 +1,559 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T0807Z",
+  "reviewedAt": "2026-10-23T08:30:06.202807+00:00",
+  "method": "Three reviewers inspected original Mapillary API image thumbnails at original resolution. Root also checked the Avanthi, independent cropped view and GKB source pages in the user Chrome session. No synthetic imagery or automatic OCR output was treated as exact placement verification.",
+  "scope": {
+    "candidateBusinessesReviewed": 5,
+    "uniqueOriginalImagesInspected": 7,
+    "newPhotoNamesApplied": 0,
+    "exactPlacementsApplied": 0,
+    "exactShopOrderVerified": false
+  },
+  "reviews": [
+    {
+      "candidateBoardId": "b_9c7d0223-6594-43",
+      "candidateName": "Avanthi Degree and PG College",
+      "sources": [
+        {
+          "imageId": "1702421057095687",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1702421057095687",
+          "captureDate": "2025-10-13T09:15:47.574000+00:00",
+          "sequenceId": "IVhPxB0SH7KqTN6w4kjL95",
+          "license": "CC-BY-SA-4.0",
+          "rawCompassAngle": 107,
+          "computedCompassAngle": 106.87129414736,
+          "resolvedHeading": 106.87129414736
+        },
+        {
+          "imageId": "707856720667868",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=707856720667868",
+          "captureDate": "2022-05-09T13:06:37.381000+00:00",
+          "sequenceId": "2oijlEduh9fG5wg3sAbxrW",
+          "license": "CC-BY-SA-4.0",
+          "rawCompassAngle": 0,
+          "computedCompassAngle": 299.89587495341,
+          "resolvedHeading": 299.89587495341
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "1702421057095687",
+          "identitySupport": true,
+          "readableSignText": [
+            "AVANTHI",
+            "B.COM / B.SC / BBA / BCA / MBA / MCA"
+          ],
+          "context": "AVANTHI appears on a green roof sign and a higher facade band of the pale building on image-left. The row includes a Headway Toyota frontage in the foreground and a tan/red building with BOYS HOSTEL lettering between the foreground frontage and Avanthi. Ground-level fronts are partly hidden by traffic and trees.",
+          "floor": "Elevated college signage; precise business entrance and floor extent are not resolved."
+        },
+        {
+          "imageId": "707856720667868",
+          "identitySupport": false,
+          "context": "Independent 2022 sequence, but the relevant facade is cropped at image-right; only partial A lettering is visible. The tan/red hostel building and a blue HDFC bank sign are visible. This view does not independently corroborate the full Avanthi identity or exact facade."
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-1_0",
+        "buildingId": "0cd6abe4-6ee",
+        "slot": {
+          "floor": 1,
+          "index": 0,
+          "of": 1
+        },
+        "facadeFraction": 0.088,
+        "facadeLatLon": [
+          [
+            17.40027599094867,
+            78.49065479791398
+          ],
+          [
+            17.400482001757688,
+            78.49076208824764
+          ]
+        ],
+        "placementStatus": "mapped_board_candidate_inferred_facade"
+      },
+      "decision": "historical_name_reading_supported; exact_facade_and_order_pending",
+      "independentPhotoSequencesInspected": 2,
+      "independentPhotoSequencesWithReadableDistinctiveIdentity": 1,
+      "unresolved": [
+        "Bind the photographed facade and entrance to mapped building and segment.",
+        "Do not infer a complete row of shops from partly hidden ground floors.",
+        "Current operation and exact neighboring shop order are not established."
+      ],
+      "applied": false
+    },
+    {
+      "candidateBoardId": "b_128ac004-8519-4b",
+      "candidateName": "GKB Opticals - Himayatnagar",
+      "sources": [
+        {
+          "imageId": "1343806934091297",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1343806934091297",
+          "captureDate": "2025-10-13T09:14:18.534000+00:00",
+          "sequenceId": "IVhPxB0SH7KqTN6w4kjL95",
+          "license": "CC-BY-SA-4.0",
+          "rawCompassAngle": 108,
+          "computedCompassAngle": 106.18792428976,
+          "resolvedHeading": 106.18792428976
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "1343806934091297",
+          "identitySupport": true,
+          "readableSignText": [
+            "GKB Opticals"
+          ],
+          "context": "Clear blue GKB Opticals fascia at image-left, over a glass storefront raised above the road and reached by stairs with handrails. BODYCARE is readable on the horizontal band above. RingMe signage and a small kiosk appear near image-right of the fascia; VINTAGE SPA signage is farther along on an upper facade.",
+          "floor": "The photo appears to show a raised ground-level entrance. Exact floor numbering and mapped facade binding need checking.",
+          "neighborOrder": "These signs occupy different heights and unresolved frontage boundaries; no complete linear shop order is inferred."
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "85365754-d4c",
+        "slot": {
+          "floor": 1,
+          "index": 0,
+          "of": 1,
+          "overflow": true
+        },
+        "facadeFraction": 0.869,
+        "facadeLatLon": [
+          [
+            17.401647589229746,
+            78.48526863493497
+          ],
+          [
+            17.40161777187581,
+            78.48535522011653
+          ]
+        ],
+        "placementStatus": "mapped_board_candidate_inferred_facade"
+      },
+      "decision": "historical_name_reading_supported; possible_floor_mismatch_requires_binding_review",
+      "independentPhotoSequencesInspected": 1,
+      "independentPhotoSequencesWithReadableDistinctiveIdentity": 1,
+      "unresolved": [
+        "Mapped floor=1 may conflict with the raised street-level entrance in the photo; do not change it until the exact building/facade association is resolved.",
+        "Ground-level neighbors, exact slot and current operation are unverified."
+      ],
+      "applied": false
+    },
+    {
+      "schemaVersion": 1,
+      "reviewer": "playtest_old_city",
+      "reviewType": "manual_review_of_original_mapillary_api_thumbnail",
+      "candidateId": "b_n6219939385",
+      "candidateName": "Maanya Suzuki",
+      "source": {
+        "provider": "Mapillary",
+        "imageId": "710062453471066",
+        "url": "https://www.mapillary.com/app/?pKey=710062453471066",
+        "captureDate": "2022-05-09T13:07:49.354000+00:00",
+        "sequenceId": "2oijlEduh9fG5wg3sAbxrW",
+        "reviewedImageCount": 1,
+        "independentSequenceCount": 1,
+        "license": "CC-BY-SA-4.0",
+        "cameraLocation": {
+          "lat": 17.400626899998,
+          "lon": 78.488048300002
+        },
+        "originalThumbnail": "pipeline/build/review/710062453471066.jpg",
+        "metadataFile": "pipeline/build/review/710062453471066.metadata.json",
+        "inspection": "Opened the original local API thumbnail with view_image, including original-resolution inspection. No generated or edited imagery used.",
+        "rawCompassAngle": 0,
+        "computedCompassAngle": 278.46453452489,
+        "resolvedHeading": 278.46453452489
+      },
+      "observedText": [
+        {
+          "text": "SUZUKI",
+          "readability": "clear enough to identify brand",
+          "location": "Illuminated blue lettering beside a red Suzuki S emblem on the left-side ground-floor fascia.",
+          "confidence": "high",
+          "note": "The visible brand resolves the automated OCR token SZUKI as SUZUKI."
+        },
+        {
+          "text": "Maanya Su…",
+          "readability": "partial",
+          "location": "Smaller pale lettering on the adjacent dark fascia immediately to the right of the Suzuki brand panel.",
+          "confidence": "medium",
+          "note": "Maanya and the beginning of the next word are consistent with the mapped Maanya Suzuki name. The right end is soft/partly obscured by foliage; do not claim a complete independently legible transcription."
+        }
+      ],
+      "facadeObservation": {
+        "floor": "Ground-floor shop/showroom frontage; signs are on the fascia directly above the glass display/entrance area.",
+        "appearance": "Gray horizontal fascia, illuminated brand panel, glass frontage and bright ceiling/display lights. Several two-wheelers are parked in front. Multiple upper storeys of the pale building are visible.",
+        "streetSide": "Image-left frontage beside the left edge of the road as viewed by this camera.",
+        "cardinalSide": "Unverified; no north/east/west road-side assertion is made from the compass value alone.",
+        "occlusion": "A foreground auto-rickshaw covers much of the lower/right showroom area; foliage and perspective obscure the far-right end of the fascia.",
+        "exactEntrance": "Not isolated confidently from this view.",
+        "exactFacadeEndpoints": "Not verified against the game board segment."
+      },
+      "neighbors": {
+        "readableAdjacentShopNames": [],
+        "left": "Tree/edge occlusion and partial signage; no adjacent business name can be read reliably.",
+        "right": "Continuous frontage is partly hidden by foliage, the auto-rickshaw and perspective. No next-shop identity or boundary is reliable.",
+        "oppositeSide": "Several buildings/signs are visible across the roadway, but none is sufficiently legible here to establish a neighboring shop identity/order.",
+        "exactSequenceVerified": false
+      },
+      "mappedCandidate": {
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-1_0",
+        "buildingId": "491ab075-e62",
+        "roadLabel": "Himayath Nagar Road",
+        "boardText": "Maanya Suzuki",
+        "boardConfidence": 0.59,
+        "facadeWorldEndpoints": [
+          [
+            -945.3,
+            646.9
+          ],
+          [
+            -942.4,
+            634.8
+          ]
+        ],
+        "facadeFraction": 0.674,
+        "slot": {
+          "floor": 0,
+          "index": 2,
+          "of": 4
+        },
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "osmSource": {
+          "id": "node/6219939385",
+          "url": "https://www.openstreetmap.org/node/6219939385",
+          "name": "Maanya Suzuki",
+          "point": [
+            17.4005164,
+            78.4877364
+          ],
+          "version": 2,
+          "timestamp": "2020-12-19T03:52:09Z"
+        },
+        "legacySeenCounter": 8,
+        "legacyCounterCaution": "The shipped board seen=8 is not eight independently reviewed images. This review inspected exactly one image from one sequence."
+      },
+      "automatedCandidate": {
+        "matchedText": "SZUKI",
+        "matchScore": 0.4499,
+        "ocrConfidence": 0.742,
+        "distanceM": 36.23,
+        "bearingOffsetDeg": 3.0,
+        "status": "automated_photo_match_candidate",
+        "reviewCaution": "Distance and bearing are candidate-ranking evidence, not proof of the exact game facade or slot."
+      },
+      "decision": {
+        "status": "historical_partial_photo_corroboration_keep_for_review",
+        "brand": "SUZUKI historically visible at this photo location.",
+        "fullMappedBusinessName": "Plausibly corroborated by the adjacent partial Maanya Su… fascia, but not fully independently transcribed from this thumbnail.",
+        "floor": "Ground-floor placement is visually consistent with the photo.",
+        "exactBoardBinding": "Not approved: exact facade segment, entrance and slot index2/of4 remain unverified.",
+        "currentOperation": "Not established. Capture is from2022-05-09; a fresh source retrieval does not make the business observation current.",
+        "exactShopOrder": "Not established from this one occluded view.",
+        "applyAction": "None. Review draft only; no game packs, OCR matches or application status changed."
+      },
+      "unresolvedPoints": [
+        "Obtain another original view with the complete dealer-name fascia unobscured.",
+        "Identify storefront boundary and entrance and bind those to the mapped building/facade endpoints.",
+        "Read immediate left/right business names from adjacent frames before asserting shop order.",
+        "Verify whether the depicted dealer still operates at this location using dated recent evidence.",
+        "Keep this single sequence separate from any future independent evidence; do not promote the legacy seen counter to review count."
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "reviewedAt": "2026-10-23T08:25:14.855862+00:00",
+      "reviewer": "playtest_west",
+      "candidateBoardId": "b_d0b373f6-2190-46",
+      "candidateName": "Chandu's Wow Dance Studio",
+      "method": "Visually inspected both provided Mapillary-source JPEGs with view_image, including original-resolution rendering of the 2025 photo. Read corresponding metadata. No browser action, OCR rerun, game mutation or board application.",
+      "decision": "historical_business_identity_supported_in_2025; 2020_identity_ambiguous; placement_review_pending",
+      "falseBusinessMatchConfirmed": false,
+      "automatedEvidenceProblemConfirmed": true,
+      "automatedEvidenceAssessment": "Both automated matches use only the generic token STUDIO. Two different sequences containing that descriptor must not be treated as two independent confirmations of Chandu/Wow. The 2025 photo independently supports the distinctive identity when visually inspected, while the 2020 photo does not reliably expose it.",
+      "observations": [
+        {
+          "imageId": "3306315619521904",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=3306315619521904",
+          "captureDate": "2025-10-13T09:14:21.583000+00:00",
+          "capturedAt": 1760346861583,
+          "sequenceId": "IVhPxB0SH7KqTN6w4kjL95",
+          "license": "CC-BY-SA-4.0",
+          "localImage": "pipeline/build/review/3306315619521904.jpg",
+          "decision": "accept_historical_name_reading_only",
+          "identitySupport": true,
+          "readableSignText": [
+            "CHANDU'S",
+            "stacked W O W mark",
+            "DANCE & ZUMBA",
+            "FITNESS STUDIO"
+          ],
+          "otherReadableBusinessSigns": [
+            "PLANIT",
+            "flydubai"
+          ],
+          "context": "Red studio sign on the elevated front of the near-left glass building. PLANIT / flydubai is above and to its right. A yellow sign with Telugu lettering is above; exact Telugu wording not transcribed. The neighboring building to the right is covered in scaffolding. Ground-level shopfronts are partly obscured by trees and a truck.",
+          "unresolved": [
+            "Exact building ID and facade-to-shipped-board association were not checked.",
+            "The sign is elevated; precise floor and business entrance are unverified.",
+            "Complete neighboring shop order and current operation in 2026 are unverified."
+          ]
+        },
+        {
+          "imageId": "1847886998726160",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1847886998726160",
+          "captureDate": "2020-06-30T11:46:58.017000+00:00",
+          "capturedAt": 1593517618017,
+          "sequenceId": "FOZmQFL9kcaHNVuF3tdbzo",
+          "license": "CC-BY-SA-4.0",
+          "localImage": "pipeline/build/review/1847886998726160.jpg",
+          "decision": "descriptor_only_identity_ambiguous",
+          "identitySupport": false,
+          "readableSignText": [
+            "DANCE STUDIO",
+            "ZUMBA"
+          ],
+          "otherReadableBusinessSigns": [
+            "ARROW",
+            "USA · 1851",
+            "PLANIT",
+            "flydubai",
+            "HOTEL SRI KUBERA"
+          ],
+          "context": "A pale elevated dance-studio sign appears above the ARROW storefront on the near left, beneath the PLANIT / flydubai sign. The readable part says DANCE STUDIO with ZUMBA below; the distinctive Chandu/Wow wording cannot be read reliably in this view. HOTEL SRI KUBERA signage is farther along the same left roadside.",
+          "unresolved": [
+            "Cannot establish the studio operator identity from this photo alone.",
+            "Cannot infer continuity, closure or rename between 2020 and 2025 solely from descriptor signage.",
+            "Not a complete ordered inventory of every frontage."
+          ]
+        }
+      ],
+      "independentPhotoSequencesInspected": 2,
+      "independentPhotoSequencesWithReadableDistinctiveIdentity": 1,
+      "exactPlacementOrShopOrderVerified": false,
+      "applied": false,
+      "matchingRuleSuggestion": {
+        "classification": "Generic-token evidence weakness, not a confirmed wrong-business visual match.",
+        "owner": "root",
+        "minimalChange": "Add STUDIO and DANCE to GENERIC in pipeline/ocr_match.py so descriptor-only readings cannot satisfy distinctive_match. Consider ZUMBA as a category/program descriptor as well; FITNESS is already generic. Preserve this manual 2025 name-reading evidence even if weak automated matches disappear.",
+        "focusedRegressionCases": [
+          {
+            "business": "Chandu's Wow Dance Studio",
+            "reading": "ANCE STUDIO",
+            "expected": "no distinctive match"
+          },
+          {
+            "business": "Chandu's Wow Dance Studio",
+            "reading": "NESS STUDIO",
+            "expected": "no distinctive match"
+          },
+          {
+            "business": "Chandu's Wow Dance Studio",
+            "reading": "DANCE STUDIO",
+            "expected": "no distinctive match"
+          },
+          {
+            "business": "Chandu's Wow Dance Studio",
+            "reading": "CHANDU'S WOW DANCE & ZUMBA FITNESS STUDIO",
+            "expected": "distinctive match anchored by CHANDU or exact WOW, not STUDIO"
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "reviewer": "playtest_old_city",
+      "reviewType": "manual_review_of_original_mapillary_api_thumbnail",
+      "candidateId": "b_7353915d-3eb9-46",
+      "candidateName": "Sree Vidya book centre",
+      "source": {
+        "provider": "Mapillary",
+        "imageId": "598357719500392",
+        "url": "https://www.mapillary.com/app/?pKey=598357719500392",
+        "captureDate": "2025-01-27T10:48:29.488000+00:00",
+        "sequenceId": "PTeJNnSEhwDHasfmIBOcMK",
+        "reviewedImageCount": 1,
+        "independentSequenceCount": 1,
+        "license": "CC-BY-SA-4.0",
+        "cameraLocation": {
+          "lat": 17.396316700631,
+          "lon": 78.503077514543
+        },
+        "resolvedHeading": 85.740051074268,
+        "originalThumbnail": "pipeline/build/review/598357719500392.jpg",
+        "metadataFile": "pipeline/build/review/598357719500392.metadata.json",
+        "inspection": "Original-resolution thumbnail inspected using view_image. No generated, edited or browser-derived substitute imagery."
+      },
+      "observedText": [
+        {
+          "text": "SREE VIDYA BOOK CENTR…",
+          "confidence": "high for distinctive name and visible prefix",
+          "location": "Large pale lettering on dark shop fascia, across the junction toward image-right.",
+          "readabilityNote": "SREE VIDYA BOOK is clearly readable. The final end of CENTR… is near the right obstruction; spelling completion to CENTRE is not claimed as an independent exact transcription."
+        },
+        {
+          "text": "BOOK SELLERS & STATIONERS",
+          "confidence": "high",
+          "location": "Second English line of the same fascia."
+        },
+        {
+          "text": "DEALERS IN : ALL KINDS OF BOOKS, PAPER & STATIONER…",
+          "confidence": "medium",
+          "location": "Lower small English line on the same fascia.",
+          "readabilityNote": "Trailing text is clipped/soft. Do not complete missing letters."
+        },
+        {
+          "text": "…BOOK CENTER",
+          "confidence": "medium",
+          "location": "Lower awning/front edge under the main sign.",
+          "readabilityNote": "People/vehicles and awning folds obscure parts of the preceding business name. CENTER is the visible spelling on this secondary panel; no automatic spelling change proposed."
+        }
+      ],
+      "facadeObservation": {
+        "floor": "Ground-floor commercial frontage. The principal sign sits above the shop awning; street-level activity and entrance/display area are below it.",
+        "appearance": "Wide dark sign with English white lettering and a green Telugu text strip, beige/gray awning below, book/stationery brand advertisements above including CASIO and a dark MATRiX-style panel.",
+        "streetSide": "Far/opposite side of the junction relative to the camera, in the right half of the image.",
+        "cardinalSide": "Not independently established; do not convert screen-right into a cardinal road side without map alignment.",
+        "occlusion": "Utility wires cross the fascia; a pole/edge and vehicles/people obscure the extreme right and ground-level frontage.",
+        "exactDoor": "Not isolated with confidence because of vehicles and people.",
+        "exactFacadeEndpoints": "Unverified against the game segment.",
+        "mappedFloorComparison": "Photo is consistent with mapped floor0, but does not verify slot0/of2."
+      },
+      "neighbors": {
+        "readableNearbyFrontages": [
+          {
+            "name": "NEW TRENDS MEN’S WEAR",
+            "relativePosition": "Image-left of Sree Vidya, across the junction.",
+            "evidence": "Blue rectangular fascia reads NEW TRENDS with MENS WEAR below; the awning repeats the name.",
+            "adjacencyLimit": "A narrow intervening frontage/gap with unclear signage is visible. Do not assert immediate adjacency."
+          },
+          {
+            "name": "OM SRI XEROX / PRINT OUT",
+            "relativePosition": "Image-right of Sree Vidya, across the junction.",
+            "evidence": "Yellow print/copy-service sign with OM SRI, large XEROX and PRINT OUT lettering; repeated related yellow signage extends farther right.",
+            "adjacencyLimit": "Exact shop boundary and any narrow intervening entrance are not resolved."
+          }
+        ],
+        "partialImageOrder": "NEW TRENDS MEN’S WEAR appears left of SREE VIDYA; OM SRI XEROX/PRINT OUT appears right of SREE VIDYA in this view.",
+        "exactContinuousShopSequenceVerified": false,
+        "reason": "Visible relative placement is useful, but one oblique frame does not identify every intervening bay or map the fronts to game slots."
+      },
+      "mappedCandidate": {
+        "pack": "p0_0.pack.wasm",
+        "tile": "0_1",
+        "buildingId": "25f00810-ba8",
+        "roadLabel": "Nallakunta Main Road",
+        "boardText": "Sree Vidya book centre",
+        "boardConfidence": 0.8,
+        "tier": "A",
+        "facadeWorldEndpoints": [
+          [
+            720.7,
+            1117.6
+          ],
+          [
+            716.7,
+            1125.3
+          ]
+        ],
+        "facadeFraction": 0.08,
+        "slot": {
+          "floor": 0,
+          "index": 0,
+          "of": 2
+        },
+        "placementStatus": "mapped_board_candidate_inferred_facade",
+        "legacySeenCounter": 2,
+        "legacyCounterCaution": "Two OCR readings from the SAME image and SAME sequence; not two independent photos or corroborating visits."
+      },
+      "automatedCandidate": {
+        "topMatchedText": "BOOK CENTER",
+        "matchScore": 0.421,
+        "readings": [
+          {
+            "text": "BOOK CENTER",
+            "ocrConfidence": 0.959
+          },
+          {
+            "text": "ISREEVIDYA BOOK CENTR",
+            "ocrConfidence": 0.917
+          }
+        ],
+        "distanceM": 34.76,
+        "bearingOffsetDegrees": [
+          12.48,
+          13.71
+        ],
+        "reviewCaution": "The distinctive name is visually readable, so manual support is stronger than the generic BOOK token match. Geometry scores still do not establish the exact rendered facade slot."
+      },
+      "decision": {
+        "status": "accept_historical_name_corroboration_keep_binding_unverified",
+        "nameEvidenceAccepted": true,
+        "acceptedScope": "The image supports a Sree Vidya book/stationery business frontage at this photographed location on2025-01-27.",
+        "fullExactTypography": "Do not automatically change centre/center spelling from this partial fascia/awning comparison.",
+        "floor": "Ground-floor observation supported.",
+        "exactBoardBindingApproved": false,
+        "exactShopOrderApproved": false,
+        "currentOperationVerified": false,
+        "applyAction": "None. Review draft only; no packs, OCR records or game files changed."
+      },
+      "unresolvedPoints": [
+        "Bind the photographed storefront to the mapped building25f00810-ba8 and facade endpoints rather than accepting nearby-name distance alone.",
+        "Resolve slot0/of2 and the actual entrance with an adjacent clearer original image.",
+        "Identify the narrow bays/gaps between the readable neighboring labels before claiming exact contiguous shop order.",
+        "Obtain another frame showing the full end of the main name and compare centre/center typography without normalizing it silently.",
+        "Use recent dated evidence before claiming the business still operates there in2026.",
+        "Keep one image/one sequence as the evidence count despite seen=2."
+      ]
+    }
+  ],
+  "additionalQueueNotes": [
+    {
+      "candidate": "WINES",
+      "imageIds": [
+        "291605622581135",
+        "944922029596048"
+      ],
+      "sequenceId": "kj7skpryfgp4rujyaz0kej",
+      "captureDate": "2020-01-07",
+      "originalImagesManuallyInspected": false,
+      "decision": "Do not apply: generic category does not identify a business and both rays use the same sequence. Preserve generated candidate for further review."
+    },
+    {
+      "candidate": "Home Cleaning Services",
+      "imageIds": [
+        "518601855834410"
+      ],
+      "originalImagesManuallyInspected": false,
+      "decision": "Review priority: e-Filing Service versus Home Cleaning Services may be a generic-service token mismatch; not a confirmed visual rejection."
+    },
+    {
+      "candidate": "ANALOG IAS",
+      "imageIds": [
+        "285967769835428"
+      ],
+      "originalImagesManuallyInspected": false,
+      "decision": "Review priority: REER IAS is insufficient distinctive brand evidence without inspecting the original; not a confirmed visual rejection."
+    }
+  ],
+  "attribution": "Mapillary contributors; source image IDs, capture dates, sequence IDs and public links retained per observation; CC-BY-SA-4.0.",
+  "limitations": "Historical name readings are distinct from current operation, exact facade, floor, entrance and complete shop-order verification. No reviewed photo placement was applied in this round.",
+  "matchingFollowup": {
+    "implemented": true,
+    "genericTokensAdded": [
+      "STUDIO",
+      "DANCE",
+      "ZUMBA"
+    ],
+    "automatedCandidateRemoved": "b_d0b373f6-2190-46",
+    "manual2025IdentityEvidenceRetained": true,
+    "pipelineTests": "51 passed"
+  }
+}
