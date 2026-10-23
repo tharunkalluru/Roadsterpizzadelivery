@@ -1,232 +1,221 @@
-import type { Session } from '../missions/session';
-import type { App } from '../app/app';
-import { SIM_HZ } from '../config/gameplay';
-import { predictAscentTicks, predictTicksToTouchdown } from '../player/player';
-import { FLIGHT } from '../config/gameplay';
-
-const ARROWS: Record<string, string> = { left: '↰', right: '↱', straight: '↑', uturn: '↶', arrive: '◎' };
-
-function el<K extends keyof HTMLElementTagNameMap>(tag: K, cls?: string, html?: string): HTMLElementTagNameMap[K] {
-  const e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (html !== undefined) e.innerHTML = html;
-  return e;
+// DOM heads-up display. Plain DOM keeps it crisp on phones and easy to restyle.
+const CSS = `
+:root{--ink:#17132B;--panel:rgba(23,19,43,.88);--line:#3A3160;--cream:#F6EEDC;--muted:#CFC6E4;--saffron:#FFB627;--teal:#45E3D3;--heat:#FF7A3D;--pink:#FF8FB1;--display:'Bungee','Arial Black',system-ui,sans-serif;--body:'Baloo 2','Noto Sans Telugu','Trebuchet MS',system-ui,sans-serif}
+#hud{position:fixed;inset:0;pointer-events:none;z-index:5;color:var(--cream);font-family:var(--body);-webkit-user-select:none;user-select:none}
+#hud .pe{pointer-events:auto}
+.h-tl{position:absolute;left:max(12px,env(safe-area-inset-left,0px));top:max(10px,env(safe-area-inset-top,0px));width:min(320px,42vw);display:flex;flex-direction:column;gap:8px}
+.card{background:var(--panel);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.card .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.k{font-family:var(--display);font-size:12px;letter-spacing:.04em;color:var(--saffron)}
+.big{font-weight:800;font-size:15px;line-height:1.15}
+.sm{font-size:12px;color:var(--muted);line-height:1.25}
+.bar{height:9px;border-radius:5px;background:#2E2550;overflow:hidden}.bar>i{display:block;height:100%}
+.slices{display:flex;gap:3px}.slices i{flex:1;height:9px;border-radius:3px;background:var(--saffron)}.slices i.off{background:var(--line)}
+.h-tc{position:fixed;left:50%;transform:translateX(-50%);top:max(10px,env(safe-area-inset-top,0px));display:flex;gap:8px;align-items:center}
+@media (max-width:860px){.h-tc{position:static;transform:none;flex-wrap:wrap}}
+.dev{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(96px,calc(env(safe-area-inset-bottom,0px) + 96px));background:rgba(0,0,0,.72);color:#9ff5c8;font:12px/1.35 ui-monospace,Menlo,monospace;padding:6px 9px;border-radius:8px;white-space:pre;pointer-events:none}
+.dev[hidden]{display:none}
+.pill{height:36px;padding:0 12px;border-radius:18px;background:var(--panel);display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:14px;white-space:nowrap}
+.h-tr{position:absolute;right:max(12px,env(safe-area-inset-right,0px));top:max(10px,env(safe-area-inset-top,0px));display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.btnrow{display:flex;gap:6px}
+.ib{height:38px;min-width:38px;padding:0 10px;border:0;border-radius:11px;background:var(--panel);color:var(--cream);font-family:var(--display);font-size:12px;cursor:pointer}
+.ib:focus-visible,.btn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+#minimap{width:168px;height:168px;border-radius:50%;border:3px solid var(--cream);background:#1B1633}
+.toast{position:absolute;left:50%;top:max(78px,17%);transform:translate(-50%,-50%) rotate(-3deg);font-family:var(--display);font-size:clamp(20px,3.6vw,34px);color:var(--saffron);text-shadow:0 3px 0 #0C0A1A;opacity:0;transition:opacity .25s,transform .25s;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,-62%) rotate(-3deg)}.toast.teal{color:var(--teal)}.toast.pink{color:var(--pink)}
+.prompt{position:absolute;left:50%;bottom:max(120px,calc(env(safe-area-inset-bottom,0px) + 110px));transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:var(--panel);border-radius:16px;padding:10px 16px;font-weight:800;font-size:16px}
+.prompt[hidden],.offer[hidden],.modal[hidden]{display:none}
+.ring{width:30px;height:30px;border-radius:50%;background:conic-gradient(var(--saffron) var(--p,0%),#2E2550 0)}
+.offer{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%);max-height:calc(100% - 150px);overflow:auto;width:min(420px,88vw);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.btn{height:46px;border:0;border-radius:13px;font-family:var(--display);font-size:15px;cursor:pointer;padding:0 14px}
+.btn.go{background:var(--saffron);color:var(--ink);box-shadow:0 4px 0 #B8780A}.btn.alt{background:#2E2550;color:var(--cream)}
+.modal{position:absolute;inset:0;z-index:9;background:rgba(12,10,26,.78);display:grid;place-items:center;pointer-events:auto;padding:16px}
+.sheet{box-sizing:border-box;width:min(720px,100%);max-height:86vh;overflow:auto;background:#1E1937;border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.sheet h2{margin:0;font-family:var(--display);font-weight:400;font-size:24px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px}
+.opt{background:#2A2347;border:2px solid transparent;border-radius:12px;padding:10px;color:var(--cream);text-align:left;font-family:var(--body);cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.opt[aria-pressed=true]{border-color:var(--saffron)}.opt:disabled{opacity:.45;cursor:not-allowed}
+.seg{display:flex;gap:6px;flex-wrap:wrap}.seg .opt{flex-direction:row;align-items:center;justify-content:center;min-width:64px;font-weight:800}
+.touch{display:none}.is-touch .touch{display:block}.is-touch .keys{display:none}
+/* the browser must not turn a thumb on the controls (or the scene) into a scroll / zoom / long-press menu */
+.touch,.touch *,.stick,.tb,#game canvas,#hud .pe{touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.tb.on{filter:brightness(1.15);transform:translateY(3px)}
+.stick{position:absolute;left:max(18px,env(safe-area-inset-left,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:140px;height:140px;border-radius:50%;border:3px solid rgba(246,238,220,.4);background:rgba(23,19,43,.3)}
+.stick i{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:rgba(246,238,220,.85)}
+.tb{position:absolute;border:0;border-radius:50%;font-family:var(--display);color:var(--ink);cursor:pointer}
+.keys{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));background:var(--panel);border-radius:12px;padding:7px 11px;font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;max-width:62vw}
+.keys b{font-family:var(--display);font-size:10px;color:var(--cream);background:var(--line);border-radius:4px;padding:1px 5px;font-weight:400}
+.speed{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));font-family:var(--display);font-size:28px;text-shadow:0 3px 0 #0C0A1A}
+.is-touch .speed{bottom:auto;top:250px}
+.attr{position:absolute;right:8px;bottom:2px;font-size:9px;color:rgba(246,238,220,.55)}
+@media (max-width:760px){.h-tl{width:200px}#minimap{width:120px;height:120px}.pill{font-size:12px;height:32px}.toast{top:44%;white-space:normal;text-align:center;width:min(92vw,520px);font-size:clamp(18px,5vw,26px)}}
+@media (max-width:700px){.keys{display:none}}
+/* phones in landscape and other short screens: everything smaller and out of the middle */
+@media (max-height:520px){
+  .h-tl{width:min(230px,34vw);gap:5px}.card{padding:7px 9px;gap:3px}.big{font-size:13px}.sm{font-size:11px}.k{font-size:10px}
+  .pill{height:28px;font-size:11px;padding:0 9px}.ib{height:32px;font-size:11px}.h-tr{gap:5px}
+  #minimap{width:96px;height:96px}.keys{display:none}.speed{font-size:20px}.is-touch .speed{top:auto;bottom:max(8px,env(safe-area-inset-bottom,0px));right:50%;transform:translateX(50%)}
+  .offer{top:50%;width:min(420px,60vw);padding:10px;gap:5px;max-height:calc(100% - 16px)}.offer .hint{display:none}.offer .btn{height:38px;font-size:13px}
+  .toast{top:30%;font-size:clamp(16px,3.4vw,24px)}
+  .prompt{bottom:max(14px,env(safe-area-inset-bottom,0px));font-size:13px;padding:7px 12px}
+  .stick{width:112px;height:112px}.stick i{width:46px;height:46px;margin:-23px 0 0 -23px}
+  #t-gas{width:76px!important;height:76px!important}#t-brake{width:58px!important;height:58px!important;right:calc(max(18px,env(safe-area-inset-right,0px)) + 86px)!important}
+  #t-fly{width:54px!important;height:54px!important;right:calc(max(18px,env(safe-area-inset-right,0px)) + 152px)!important;bottom:max(18px,env(safe-area-inset-bottom,0px))!important}
+  #t-act{width:52px!important;height:52px!important;right:calc(max(18px,env(safe-area-inset-right,0px)) + 12px)!important;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 84px)!important}
+  #minimap{width:76px;height:76px}.h-tr .card{padding:5px 8px!important;width:130px!important}
 }
+/* narrow portrait phones */
+@media (max-width:440px){.h-tl{width:47vw}.h-tr .card{width:38vw!important}#minimap{width:104px;height:104px}.is-touch .speed{top:auto;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 190px);right:22px;font-size:22px}}
+.rotate{position:fixed;inset:0;z-index:20;background:#17132B;display:none;place-items:center;text-align:center;padding:24px;pointer-events:auto}
+.rotate>div{display:flex;flex-direction:column;gap:12px;align-items:center;max-width:320px}
+.rotate b{font-family:var(--display);font-weight:400;font-size:22px;color:var(--saffron)}.rotate span{color:var(--muted);font-size:15px}
+.rotate svg{width:84px;height:84px;animation:rot 2.4s ease-in-out infinite}
+@keyframes rot{0%,25%{transform:rotate(0)}55%,100%{transform:rotate(-90deg)}}
+@media (orientation:portrait) and (pointer:coarse){.rotate{display:grid}}
+.rotate.ok{display:none!important}
+.tip{position:absolute;left:50%;transform:translateX(-50%);top:max(56px,calc(env(safe-area-inset-top,0px) + 52px));width:min(460px,70vw);background:rgba(23,19,43,.94);border:2px solid var(--teal);border-radius:14px;padding:9px 12px;display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.25}
+.tip[hidden]{display:none}.tip>b{font-family:var(--display);font-weight:400;font-size:12px;color:var(--teal)}.tip>span{flex:1}
+.tip>button{border:0;background:transparent;color:var(--muted);font-size:18px;cursor:pointer;min-width:32px;min-height:32px}
+.ib svg{width:16px;height:16px;display:block}
+.area-chip{position:absolute;left:50%;top:max(54px,calc(env(safe-area-inset-top,0px) + 50px));transform:translateX(-50%) translateY(-6px);background:#17703f;color:#fff;border:2px solid #fff;border-radius:8px;padding:5px 14px;font-family:var(--display);font-size:15px;letter-spacing:.03em;opacity:0;transition:opacity .4s,transform .4s;white-space:nowrap;pointer-events:none}
+.area-chip small{display:block;font-family:var(--body);font-weight:700;font-size:11px;opacity:.85;letter-spacing:0}
+.area-chip.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (max-height:520px){.area-chip{top:auto;bottom:max(10px,env(safe-area-inset-bottom,0px));font-size:12px}}
+.rescue{position:absolute;left:50%;transform:translateX(-50%);bottom:max(64px,calc(env(safe-area-inset-bottom,0px) + 60px));height:46px;padding:0 18px;border:0;border-radius:23px;background:var(--teal);color:var(--ink);font-family:var(--display);font-size:14px;box-shadow:0 4px 0 #1E8F85;cursor:pointer;white-space:nowrap}
+.rescue[hidden]{display:none}
+@media (max-height:520px){.rescue{bottom:auto;top:44%;height:40px;font-size:12px}}.ib[hidden]{display:none}
+@media (max-width:860px){.tip{top:auto;bottom:max(64px,calc(env(safe-area-inset-bottom,0px) + 60px));width:min(440px,86vw)}}
+@media (max-width:860px) and (pointer:coarse){.tip{bottom:auto;top:max(10px,env(safe-area-inset-top,0px));width:min(400px,46vw)}}
+@media (max-height:520px){.tip{top:max(46px,calc(env(safe-area-inset-top,0px) + 42px));width:min(380px,44vw);font-size:12px;padding:6px 9px}}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}.rotate svg{animation:none}}
+`;
 
-/**
- * Driving HUD + touch controls (MASTER §20, PLAYER_EXPERIENCE §5–8). Text updates at ~10 Hz;
- * the Fly/Land control and landing feedback update every frame. Critical states use text and
- * shape as well as colour (U04).
- */
 export class Hud {
-  root: HTMLElement;
-  private timer!: HTMLElement; private timerLbl!: HTMLElement; private dest!: HTMLElement; private cargo!: HTMLElement;
-  private man!: HTMLElement; private manArrow!: HTMLElement; private manD!: HTMLElement; private manN!: HTMLElement;
-  private toasts!: HTMLElement; private banner!: HTMLElement; private hold!: HTMLElement; private holdBar!: HTMLElement; private holdTxt!: HTMLElement;
-  private speedV!: HTMLElement; private gear!: HTMLElement;
-  private fly!: HTMLElement; private flyLabel!: HTMLElement; private flySec!: HTMLElement;
-  private meterFill!: HTMLElement; private meterRes!: HTMLElement; private meterLbl!: HTMLElement; private meterWhy!: HTMLElement;
-  private minimap!: HTMLCanvasElement;
-  private dbg!: HTMLElement;
-  private cd!: HTMLElement;
-  private rec!: HTMLElement;
-  private acc = 0;
-  private seenNotices = 0;
-  private bound = false;
-
-  constructor(private ui: HTMLElement, private app: App) {
-    this.root = el('div', 'hud hidden');
+  root: HTMLElement; el: Record<string, HTMLElement> = {}; toastT = 0;
+  onButton: (id: string) => void = () => {};
+  touchSteer = 0; touchGas = false; touchBrake = false; touchBoost = false;
+  constructor(touch: boolean) {
+    const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    if (touch) document.documentElement.classList.add('is-touch');
+    this.root = document.getElementById('hud')!;
     this.root.innerHTML = `
-      <div class="tl">
-        <div class="chip"><div class="timer-label">Time left</div><div class="timer" data-t>0:00</div></div>
-        <div class="chip dest" data-dest></div>
-        <div class="chip cargo hidden" data-cargo></div>
+      <div class="h-tl">
+        <div class="h-tc"><div class="pill" id="clock">Day 1 · 8:00 AM</div><div class="pill" id="level">Level 1</div></div>
+        <section class="card" id="order"><div class="k" id="o-state">Finding an order…</div><div class="big" id="o-title"></div><div class="sm" id="o-sub"></div>
+          <div class="row"><span class="sm" id="o-dist"></span><span class="sm" id="o-time"></span></div>
+          <div id="o-meters"><div class="row sm"><span id="o-heatl">Heat</span><span id="o-heatv"></span></div><div class="bar"><i id="o-heat" style="background:var(--heat)"></i></div>
+          <div class="slices" id="o-slices" style="margin-top:6px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        </section>
       </div>
-      <div class="chip maneuver" data-man><span class="arrow" data-ma>↑</span><div><div class="d" data-md>—</div><div class="n" data-mn></div></div></div>
-      <div class="tr">
-        <canvas class="minimap" width="256" height="256" data-mini aria-label="Compact route map"></canvas>
-        <button class="iconbtn" data-map aria-label="Open map (pauses)">🗺</button>
-        <button class="iconbtn" data-pause aria-label="Pause">❚❚</button>
+      <div class="dev" id="dev" hidden></div>
+      <div class="h-tr">
+        <div class="btnrow pe"><button class="ib" id="b-theatre" type="button">Theatres</button><button class="ib" id="b-full" type="button" aria-label="Full screen" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button><button class="ib" id="b-help" type="button" aria-label="Pause, settings and help">II</button></div>
+        <div class="pill"><span style="color:var(--saffron)">●</span><span id="coins">0</span> coins</div>
+        <div class="card" style="width:160px;padding:7px 10px"><div class="row sm"><span style="color:var(--teal)">Flight boost</span><span id="fly-v">2.5 s</span></div><div class="bar"><i id="fly" style="background:var(--teal)"></i></div></div>
+        <canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas>
       </div>
-      <div class="toast-wrap" data-toasts></div>
-      <div class="banner hidden" data-banner></div>
-      <div class="hold hidden" data-hold><div class="chip" data-holdtxt>Stop here to deliver</div><div class="bar"><div data-holdbar></div></div></div>
-      <div class="speed"><div class="v" data-speed>0</div><div class="u">km/h</div><div class="gear" data-gear></div></div>
-      <div class="flightmeter chip" aria-live="polite">
-        <div class="lbl"><span data-mlbl>Flight 25.0 s</span><span class="small" data-mres></span></div>
-        <div class="bar"><div class="fill" data-mfill></div><div class="reserve" data-mreserve></div></div>
-        <div class="why" data-why></div>
+      <div class="toast" id="toast" aria-live="polite"></div>
+      <div class="prompt" id="prompt" hidden><div class="ring" id="ring"></div><span id="prompt-t"></span></div>
+      <div class="offer pe" id="offer" hidden></div>
+      <div class="keys"><span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>S</b> brake/reverse</span><span><b>Space</b> fly</span><span><b>E</b> collect / hand over / accept</span><span><b>T</b> theatres</span><span><b>M</b> map</span><span><b>H</b> horn</span><span><b>N</b> sound</span><span><b>Drag</b> look around when stopped</span><span><b>P</b> pause</span></div>
+      <div class="speed"><span id="spd">0</span><small style="font-size:12px"> km/h</small></div>
+      <div class="touch pe">
+        <div class="stick" id="stick"><i id="knob"></i></div>
+        <button class="tb" id="t-gas" type="button" style="right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:92px;height:92px;background:var(--saffron);box-shadow:0 5px 0 #B8780A">GO</button>
+        <button class="tb" id="t-brake" type="button" style="right:calc(max(18px,env(safe-area-inset-right,0px)) + 104px);bottom:max(18px,env(safe-area-inset-bottom,0px));width:70px;height:70px;background:#E9E4F2;box-shadow:0 4px 0 #9A93AE">BRAKE</button>
+        <button class="tb" id="t-fly" type="button" style="right:calc(max(18px,env(safe-area-inset-right,0px)) + 14px);bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 106px);width:66px;height:66px;background:var(--teal);box-shadow:0 4px 0 #1E8F85">FLY</button>
+        <button class="tb" id="t-act" type="button" style="right:calc(max(18px,env(safe-area-inset-right,0px)) + 96px);bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 92px);width:62px;height:62px;background:var(--pink);box-shadow:0 4px 0 #B85A78;font-size:12px">ACT</button>
       </div>
-      <div class="controls">
-        <div class="steer" data-steer aria-label="Steering pad"><div class="steer-knob"></div></div>
-        <div class="rbtns">
-          <button class="cbtn fly" data-fly aria-label="Fly"><span data-flylbl>FLY</span><span class="fs" data-flysec>25.0s</span></button>
-          <button class="cbtn accel" data-accel aria-label="Accelerate">▲</button>
-          <button class="cbtn brake" data-brake aria-label="Brake, hold to reverse">▼</button>
-        </div>
-      </div>
-      <div class="countdown hidden" data-cd></div>
-      <div class="banner hidden" data-rec style="border-color: var(--bad)"></div>
-      <div class="rotate"><div class="card"><h2>Rotate to landscape</h2><p>Your delivery is paused. Turn your phone sideways, then press Resume.</p></div></div>
-      <div class="debug hidden" data-debug></div>`;
-    ui.appendChild(this.root);
-    const q = <T extends HTMLElement>(s: string) => this.root.querySelector(`[data-${s}]`) as T;
-    this.timer = q('t'); this.dest = q('dest'); this.cargo = q('cargo');
-    this.man = q('man'); this.manArrow = q('ma'); this.manD = q('md'); this.manN = q('mn');
-    this.toasts = q('toasts'); this.banner = q('banner'); this.hold = q('hold'); this.holdBar = q('holdbar'); this.holdTxt = q('holdtxt');
-    this.speedV = q('speed'); this.gear = q('gear');
-    this.fly = q('fly'); this.flyLabel = q('flylbl'); this.flySec = q('flysec');
-    this.meterFill = q('mfill'); this.meterRes = q('mreserve'); this.meterLbl = q('mlbl'); this.meterWhy = q('why');
-    this.minimap = q('mini'); this.dbg = q('debug'); this.cd = q('cd'); this.rec = q('rec');
-    this.timerLbl = this.root.querySelector('.timer-label') as HTMLElement;
-    q('pause').addEventListener('click', () => { this.app.audio.click(); this.app.pause('user'); });
-    q('map').addEventListener('click', () => { this.app.audio.click(); this.app.openMap(); });
-    void this.timerLbl;
+      <button type="button" class="rescue pe" id="rescue" hidden>Stuck? Get back on the road</button>
+      <div class="area-chip" id="area-chip" aria-live="polite"></div>
+      <div class="tip pe" id="tip" hidden><b>TIP</b><span id="tip-t"></span><button type="button" id="tip-x" aria-label="Hide tip">✕</button></div>
+      <div class="modal" id="modal" hidden><div class="sheet" id="sheet"></div></div>
+      <div class="rotate" id="rotate"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b>Turn your phone sideways</b><span>Pizza to Picture Hall is made for landscape: the controls sit under your thumbs.</span><button type="button" class="btn alt" id="rot-ok">Play like this anyway</button></div></div>
+      <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary</div>`;
+    for (const n of this.root.querySelectorAll('[id]')) this.el[n.id] = n as HTMLElement;
+    this.el['b-theatre'].addEventListener('click', () => this.onButton('theatres'));
+    this.el['b-help'].addEventListener('click', () => this.onButton('pause'));
+    this.el['b-full'].addEventListener('click', () => this.onButton('fullscreen'));
+    this.el.rescue.addEventListener('click', () => this.onButton('rescue'));
+    this.el['tip-x'].addEventListener('click', () => { this.tip(null); this.onButton('tip-close'); });
+    this.el['rot-ok'].addEventListener('click', () => this.el.rotate.classList.add('ok'));
+    // touch
+    // steering stick: the finger keeps steering wherever it slides (pointer capture), the knob follows horizontally
+    const stick = this.el.stick, knob = this.el.knob; let sid = -1, sx = 0;
+    const R = () => stick.clientWidth * 0.4;
+    stick.addEventListener('pointerdown', (e) => { e.preventDefault(); sid = e.pointerId; sx = e.clientX; try { stick.setPointerCapture(sid); } catch { /* ignore */ } });
+    stick.addEventListener('pointermove', (e) => { if (e.pointerId !== sid) return; e.preventDefault(); const r = R(), dx = Math.max(-r, Math.min(r, e.clientX - sx)); knob.style.transform = `translateX(${dx}px)`; this.touchSteer = dx / r; this.stickT = performance.now(); });
+    const end = (e: PointerEvent) => { if (e.pointerId !== sid) return; sid = -1; knob.style.transform = ''; this.touchSteer = 0; };
+    stick.addEventListener('pointerup', end); stick.addEventListener('pointercancel', end); stick.addEventListener('lostpointercapture', end);
+    // held buttons stay held while the thumb wobbles off them; only lifting the finger releases
+    const hold = (id: string, f: (v: boolean) => void) => {
+      const b = this.el[id]; let pid = -1;
+      b.addEventListener('pointerdown', (e) => { e.preventDefault(); pid = e.pointerId; try { b.setPointerCapture(pid); } catch { /* ignore */ } f(true); b.classList.add('on'); });
+      const up = (e: PointerEvent) => { if (e.pointerId !== pid) return; pid = -1; f(false); b.classList.remove('on'); };
+      b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
+    };
+    hold('t-gas', (v) => (this.touchGas = v)); hold('t-brake', (v) => (this.touchBrake = v));
+    this.el['t-fly'].addEventListener('pointerdown', (e) => { e.preventDefault(); this.onButton('fly'); });
+    this.el['t-act'].addEventListener('pointerdown', (e) => { e.preventDefault(); this.onButton('act'); });
+    for (const n of this.root.querySelectorAll('.touch, .touch *')) n.addEventListener('contextmenu', (e) => e.preventDefault());
   }
-
-  setHandedness(h: 'left' | 'right') { this.root.classList.toggle('left-handed', h === 'left'); }
-
-  show(s: Session) {
-    this.root.classList.remove('hidden');
-    document.body.classList.add('playing');
-    if (!this.bound) {
-      const q = (k: string) => this.root.querySelector(`[data-${k}]`) as HTMLElement;
-      this.app.input.bindTouch({ steer: q('steer'), steerKnob: this.root.querySelector('.steer-knob') as HTMLElement, brake: q('brake'), accel: q('accel'), fly: this.fly });
-      this.bound = true;
+  // optional tilt-to-steer (phone held in landscape like a steering wheel); the stick wins while it is being used
+  stickT = 0; tilt = 0; tiltOn = false;
+  async enableTilt(on: boolean) {
+    this.tiltOn = on; this.tilt = 0;
+    if (!on) return true;
+    const D = (window as any).DeviceOrientationEvent;
+    if (D && typeof D.requestPermission === 'function') { try { if ((await D.requestPermission()) !== 'granted') { this.tiltOn = false; return false; } } catch { this.tiltOn = false; return false; } }
+    if (!this.tiltBound) {
+      this.tiltBound = true;
+      addEventListener('deviceorientation', (e) => {
+        if (!this.tiltOn || e.beta == null || e.gamma == null) return;
+        const ang = (screen.orientation?.angle ?? (window as any).orientation ?? 0) as number;
+        const roll = ang === 90 ? e.beta : ang === -90 || ang === 270 ? -e.beta : e.gamma;     // tilting the phone like a wheel
+        this.tilt = Math.max(-1, Math.min(1, roll / 22));
+      });
     }
-    this.seenNotices = s.notices.length;
-    this.toasts.innerHTML = '';
-    this.update(s, 1, this.app);
+    return true;
   }
-  hide() { this.root.classList.add('hidden'); document.body.classList.remove('playing'); this.cd.classList.add('hidden'); this.rec.classList.add('hidden'); }
-
-  countdown(n: number) {
-    this.cd.classList.toggle('hidden', n <= 0);
-    this.cd.textContent = n > 0 ? String(n) : '';
+  tiltBound = false;
+  get steer() { return this.tiltOn && performance.now() - this.stickT > 400 && this.touchSteer === 0 ? (Math.abs(this.tilt) < 0.08 ? 0 : this.tilt) : this.touchSteer; }
+  set(id: string, text: string) { const e = this.el[id]; if (e && e.textContent !== text) e.textContent = text; }
+  toast(text: string, cls = '') {
+    const t = this.el.toast; t.textContent = text; t.className = 'toast show ' + cls;
+    clearTimeout(this.toastT); this.toastT = window.setTimeout(() => (t.className = 'toast ' + cls), 1900);
   }
-  recovering(on: boolean, reason = '') {
-    this.rec.classList.toggle('hidden', !on);
-    this.rec.textContent = on ? `Recovering — ${reason} (+3 s)` : '';
+  prompt(text: string | null, progress = 0) {
+    const p = this.el.prompt; p.hidden = !text; if (!text) return;
+    this.set('prompt-t', text); this.el.ring.style.setProperty('--p', `${Math.round(progress * 100)}%`);
   }
-
-  toast(text: string, kind: 'info' | 'warn' | 'bad' | 'good' = 'info') {
-    const t = el('div', `toast ${kind}`);
-    t.textContent = text;
-    this.toasts.appendChild(t);
-    while (this.toasts.children.length > 3) this.toasts.firstChild!.remove();
-    setTimeout(() => t.remove(), 2600);
+  order(o: { state: string; title: string; sub: string; dist: string; time: string; heat?: number; slices?: number; meters: boolean }) {
+    this.set('o-state', o.state); this.set('o-title', o.title); this.set('o-sub', o.sub); this.set('o-dist', o.dist); this.set('o-time', o.time);
+    this.el['o-meters'].style.display = o.meters ? '' : 'none';
+    if (o.meters && o.heat !== undefined) {
+      this.el['o-heat'].style.width = `${Math.max(0, o.heat)}%`;
+      this.set('o-heatv', `${Math.round(o.heat)}°`);
+      this.set('o-heatl', `Heat · ${o.heat >= 70 ? 'GARAM' : o.heat >= 40 ? 'THEEK' : 'THANDA'}`);
+      [...this.el['o-slices'].children].forEach((c, i) => c.classList.toggle('off', i >= (o.slices ?? 8)));
+    }
   }
-
-  debugText(s: string) { this.dbg.classList.remove('hidden'); this.dbg.textContent = s; }
-
-  update(s: Session, dt: number, app: App) {
-    const p = s.player;
-    const l = p.ledger;
-    // ---- every frame: fly control + meter (urgent feedback)
-    const air = p.isAirborne;
-    const remainS = l.remainingTicks / SIM_HZ;
-    this.fly.classList.toggle('land', air);
-    let unavailable: string | null = null;
-    if (!air) {
-      if (p.move === 'GROUNDED' && s.phase === 'PLAYING') {
-        if (this.acc === 0) { const ev = p.evaluateLaunch(); unavailable = ev.ok ? null : ev.reason; (this as any)._why = unavailable; }
-        else unavailable = (this as any)._why ?? null;
-      } else unavailable = p.move === 'LANDING_CONFIRM' ? 'Landing not confirmed yet' : null;
-    }
-    this.fly.classList.toggle('unavail', !!unavailable);
-    this.flyLabel.textContent = air ? (p.move === 'DESCENDING' ? 'LANDING' : 'LAND') : 'FLY';
-    this.flySec.textContent = `${remainS.toFixed(1)}s`;
-    this.fly.setAttribute('aria-label', air ? 'Land' : `Fly, ${remainS.toFixed(1)} seconds left${unavailable ? ', unavailable: ' + unavailable : ''}`);
-    const frac = l.remainingTicks / l.initialTicks;
-    this.meterFill.style.width = `${(frac * 100).toFixed(1)}%`;
-    const reserve = air ? Math.min(l.remainingTicks, p.reserveTicks) : (l.remainingTicks > 0 ? Math.min(l.remainingTicks, predictAscentTicks() + predictTicksToTouchdown(FLIGHT.minFlightAltitude, FLIGHT.maxClimbRate) + FLIGHT.uncertaintyMarginTicks) : 0);
-    this.meterRes.style.left = `${(((l.remainingTicks - reserve) / l.initialTicks) * 100).toFixed(1)}%`;
-    this.meterRes.style.width = `${((reserve / l.initialTicks) * 100).toFixed(1)}%`;
-    this.meterLbl.textContent = `Flight ${remainS.toFixed(1)} s`;
-    this.meterWhy.textContent = air ? (p.landingSoon || p.move === 'DESCENDING' ? (p.landingSoon ? 'Landing soon — reserve in use' : 'Descending') : `Landing reserve ${(reserve / SIM_HZ).toFixed(1)} s · ${forecastText(p.forecast.state, p.forecast.reason)}`) : unavailable ? (unavailable === 'Flight power used' ? 'Flight power used. Keep driving.' : unavailable) : '';
-    (this.root.querySelector('[data-mres]') as HTMLElement).textContent = air ? `▨ reserve` : '';
-    this.banner.classList.toggle('hidden', !(air && p.landingSoon));
-    this.banner.textContent = 'Landing soon';
-    // hold
-    const showHold = !!s.holdHint || s.holdActive;
-    this.hold.classList.toggle('hidden', !showHold);
-    if (showHold) {
-      this.holdTxt.textContent = s.holdActive ? 'Delivering… press ▲ to cancel' : s.holdHint!;
-      this.holdBar.style.width = `${Math.min(100, (s.holdTicks / 60) * 100)}%`;
-    }
-    // ---- notices
-    if (s.notices.length !== this.seenNotices) {
-      for (const n of s.notices.slice(Math.max(0, s.notices.length - (s.notices.length - this.seenNotices)))) this.toast(n.text, n.kind);
-      this.seenNotices = s.notices.length;
-    }
-    if (s.notices.length < this.seenNotices) this.seenNotices = s.notices.length;
-    // ---- 10 Hz text
-    this.acc += dt;
-    if (this.acc < 0.1) return;
-    this.acc = 0;
-    const left = s.remainingTicks / SIM_HZ;
-    this.timer.textContent = fmt(Math.max(0, left));
-    this.timer.classList.toggle('low', left < 20);
-    const stop = s.currentStop;
-    this.dest.textContent = stop ? `${s.mission.stops.length > 1 ? `Stop ${s.stopIndex + 1}/${s.mission.stops.length}: ` : ''}${stop.label} · ${fmtDist(s.routeRemainingM())}` : '';
-    const showCargo = s.mission.cargo.fragility > 1 || s.cargo < 100;
-    this.cargo.classList.toggle('hidden', !showCargo);
-    this.cargo.textContent = `Cargo ${s.cargo.toFixed(0)}%${s.mission.cargo.failThreshold > 0 ? ` (fails < ${s.mission.cargo.failThreshold}%)` : ''}`;
-    const m = s.maneuver;
-    if (s.wrongWay) { this.manArrow.textContent = '⛔'; this.manD.textContent = 'Wrong way'; this.manN.textContent = 'Turn around where permitted'; }
-    else if (s.outOfArea === 'warn') { this.manArrow.textContent = '⚠'; this.manD.textContent = 'Outside delivery area'; this.manN.textContent = 'Follow the marked return'; }
-    else if (m) { this.manArrow.textContent = ARROWS[m.kind]; this.manD.textContent = fmtDist(m.distanceM); this.manN.textContent = m.kind === 'arrive' ? (stop?.label ?? '') : (m.roadName ?? 'unnamed road'); }
-    this.speedV.textContent = String(Math.round(Math.abs(p.speed) * 3.6));
-    this.gear.textContent = p.reverseEngaged ? 'R' : air ? p.move : '';
-    this.drawMinimap(s);
+  offer(html: string | null, buttons: { label: string; cls: string; fn: () => void }[] = []) {
+    const o = this.el.offer; o.hidden = !html; if (!html) return;
+    o.innerHTML = html + `<div style="display:flex;gap:8px">${buttons.map((b, i) => `<button type="button" class="btn ${b.cls}" data-i="${i}" style="flex:1">${b.label}</button>`).join('')}</div>`;
+    o.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => buttons[+b.dataset.i!].fn()));
   }
-
-  private drawMinimap(s: Session) {
-    const c = this.minimap, g = c.getContext('2d')!;
-    const W = c.width, H = c.height, p = s.player;
-    const scale = 0.9; // px per metre (256 px ≈ 280 m)
-    g.setTransform(1, 0, 0, 1, 0, 0);
-    g.clearRect(0, 0, W, H);
-    g.translate(W / 2, H / 2);
-    g.rotate(p.heading); // heading-up
-    const tx = (x: number) => (x - p.x) * scale, tz = (z: number) => (z - p.z) * scale;
-    const world = this.app.world!;
-    g.lineCap = 'round';
-    for (const seg of world.roads.segmentsNear(p.x, p.z).concat(world.roads.segmentsNear(p.x + 120, p.z), world.roads.segmentsNear(p.x - 120, p.z), world.roads.segmentsNear(p.x, p.z + 120), world.roads.segmentsNear(p.x, p.z - 120))) {
-      g.strokeStyle = seg.road.level > 0 ? '#8a96a3' : '#5b6672';
-      g.lineWidth = Math.max(2, seg.road.widthM * scale);
-      g.beginPath(); g.moveTo(tx(seg.ax), tz(seg.az)); g.lineTo(tx(seg.bx), tz(seg.bz)); g.stroke();
-    }
-    for (const line of world.core.metroLines) {
-      g.strokeStyle = line.color; g.lineWidth = 2; g.setLineDash([4, 3]);
-      for (const pl of line.local) { g.beginPath(); pl.forEach(([x, z], i) => (i ? g.lineTo(tx(x), tz(z)) : g.moveTo(tx(x), tz(z)))); g.stroke(); }
-      g.setLineDash([]);
-    }
-    if (s.route.length) {
-      g.strokeStyle = '#35d0ff'; g.lineWidth = 4; g.beginPath();
-      let first = true;
-      for (const id of s.route.slice(s.routeIdx, s.routeIdx + 12)) {
-        const e = world.nav.edges.get(id)!; const r = world.roads.roads.get(e.roadId)!;
-        const pts = e.forward ? r.points : r.points.slice().reverse();
-        for (const [x, z] of pts) { if (first) { g.moveTo(tx(x), tz(z)); first = false; } else g.lineTo(tx(x), tz(z)); }
-      }
-      g.stroke();
-    }
-    const stop = s.currentStop;
-    if (stop) { g.fillStyle = '#ffb020'; g.beginPath(); g.arc(tx(stop.entrance[0]), tz(stop.entrance[1]), 6, 0, Math.PI * 2); g.fill(); }
-    g.setTransform(1, 0, 0, 1, 0, 0);
-    g.fillStyle = '#fff'; g.beginPath(); g.moveTo(W / 2, H / 2 - 9); g.lineTo(W / 2 + 6, H / 2 + 6); g.lineTo(W / 2 - 6, H / 2 + 6); g.closePath(); g.fill();
+  modal(html: string | null, bind?: (sheet: HTMLElement) => void) {
+    this.el.modal.hidden = !html; if (!html) return;
+    this.el.sheet.innerHTML = html; bind?.(this.el.sheet);
   }
+  get modalOpen() { return !this.el.modal.hidden; }
+  rescue(show: boolean, text = '') {
+    const b = this.el.rescue; if (b.hidden === !show && (!show || b.dataset.t === text)) return;
+    b.hidden = !show; if (show) { b.dataset.t = text; b.textContent = text + (document.documentElement.classList.contains('is-touch') ? '' : ' (R)'); }
+  }
+  areaT = 0;
+  areaChip(name: string) {
+    const c = this.el['area-chip']; c.innerHTML = `<small>Entering</small>${name.replace(/[<>&]/g, '')}`; c.classList.add('show');
+    clearTimeout(this.areaT); this.areaT = window.setTimeout(() => c.classList.remove('show'), 4200);
+  }
+  tip(text: string | null) { this.el.tip.hidden = !text; if (text) this.set('tip-t', text); }
 }
-
-function forecastText(state: string, reason: string | null): string {
-  if (state === 'clear') return '✓ landing clear';
-  if (state === 'uncertain') return `? landing uncertain${reason ? ` (${reason.toLowerCase()})` : ''}`;
-  if (state === 'blocked') return `✕ landing blocked${reason ? ` (${reason.toLowerCase()})` : ''}`;
-  return '';
-}
-export function fmt(sec: number): string {
-  const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
-  return `${m}:${s.toString().padStart(2, '0')}`;
-}
-export function fmtDist(m: number): string { return m >= 1000 ? `${(m / 1000).toFixed(1)} km` : `${Math.round(m / 10) * 10} m`; }
