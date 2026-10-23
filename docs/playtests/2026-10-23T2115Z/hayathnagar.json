@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2115Z",
+  "tester": "Codex east agent using visible Chrome controls; no human participant",
+  "browserLeaseGrantedAtUTC": "2026-10-23T21:24:46Z",
+  "browserReleasedAtUTC": "2026-10-23T21:30:55Z",
+  "reportWrittenAtUTC": "2026-10-23T21:32:05.456743+00:00",
+  "url": "http://127.0.0.1:4189/",
+  "tabId": "1933378284",
+  "continuationOf": "2026-10-23T2037Z/hayathnagar.json",
+  "area": "Hayathnagar",
+  "build": {
+    "scriptAsset": "./assets/index-DXgUfY_A.js",
+    "runtimeSourceCommitFromIndex": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "verification": "Read script[src] from retained tab DOM during cleanup; no reload or hidden game-state access."
+  },
+  "viewport": {
+    "default": {
+      "width": 594,
+      "height": 466
+    },
+    "temporaryOverride": {
+      "width": 390,
+      "height": 844
+    },
+    "overrideResetBeforeRelease": true
+  },
+  "route": {
+    "pickup": "Sri Balaji Sunil Kumar Sweets & Bakery",
+    "customer": "Home in Veerabhadra Nagar",
+    "acceptedBeforeThisRound": true,
+    "newOffersAccepted": 0,
+    "rerolls": 0,
+    "initialRoutedPickupMetresFromPreservedHandoff": 464,
+    "lowestObservedRoutedPickupMetres": 415,
+    "lowestObservedApproximateDirectPickupMetres": 186,
+    "finalRoutedPickupMetres": 901,
+    "offerDeliveryMetresFromPriorRound": 1172,
+    "offerDeliverySecondsAfterCollectionFromPriorRound": 212,
+    "offerBaseCoinsFromPriorRound": 117
+  },
+  "initialVisibleState": {
+    "overlay": "Paused",
+    "resumeAvailable": true,
+    "priorHandoffHud": "464 m pickup, 0 km/h, 2.5 s boost, 802 coins, Level 2 · 1/4",
+    "verification": "Paused overlay verified first; the map and subsequent active HUD confirmed the same accepted pickup. Initial 464 m value is from the preserved prior report, not separately recaptured before movement."
+  },
+  "steps": [
+    "Resumed existing accepted order, opened M map and inspected the westbound route. Actual Close map returned to the driving scene.",
+    "Drove into the left curve with bounded W/A input. An unheld interval and subsequent turn ended against a building frontage with return-to-road guidance. This is an unsuccessful driver navigation attempt, not a confirmed geometry bug.",
+    "Used Paused → Back to the road. Waited through unheld tool time; a later fresh frame showed settled 0 km/h, 415 m route, and a clear lane.",
+    "Attempted a slow left departure, then inspected the map again and clicked actual Close map. Reversed briefly, used W to brake, and paused. Another short turn encountered an auto and showed Arre! Watch the auto! at 504 m / approximately stopped.",
+    "Clicked the driving scene before normal Space activation, avoiding the already-known minimap focus/Space conflict. Used one earned 5 s flight boost. Powered flight showed direct-beacon wording and ~273 m (the following screenshot read ~268 m); no ground ribbon was visible.",
+    "A brief right correction, forward input and braking depleted boost. The next frame still showed airborne guidance at ~186 m, 0.0 s boost and about 1 km/h. Paused briefly, then resumed with the requested 390×844 viewport.",
+    "Allowed automatic descent without input. Opened the portrait map; visible Close map and zoom controls fit the viewport. Clicked actual Close map and observed a roof landing at ~186 m / 0 km/h with the explicit roof recovery prompt. HUD order card, boost and minimap remained readable and separated.",
+    "Pressed P: portrait pause sheet and all action buttons were visible. Saved two unedited original screenshots via the local form. The first submission returned HTTP 400 because uppercase characters were used in the tag; retrying the same bytes with lowercase tags saved both successfully.",
+    "Closed helper, reset viewport, selected normal Back to the road from the paused menu and waited for the glide to settle. Final screenshot showed 0 km/h on a clear road with 901 m routed pickup distance. No further drive was attempted.",
+    "Paused, marked the accepted order as a handoff, read empty warn/error logs and script asset, and released the input lock. Other game tabs were untouched."
+  ],
+  "input": {
+    "heldDrivingInputSecondsApprox": 14.08,
+    "heldDrivingLedgerMs": [
+      {
+        "W": 1500,
+        "W+A": 300
+      },
+      {
+        "W+A": 500,
+        "W": 1000,
+        "S": 400
+      },
+      {
+        "W+A": 1000,
+        "S": 600
+      },
+      {
+        "S": 1000,
+        "W": 400
+      },
+      {
+        "W+A": 400,
+        "W": 600,
+        "S": 400
+      },
+      {
+        "W+A": 800,
+        "W": 2200
+      },
+      {
+        "W+D": 180,
+        "W": 1400,
+        "S": 1400
+      }
+    ],
+    "flightActivations": 1,
+    "recoveryActivations": 2,
+    "normalMapOpenCloseCycles": 3,
+    "heldCollectionInputSeconds": 0,
+    "heldHandoverInputSeconds": 0,
+    "method": "Visible UI and bounded W/A/D/S/Space/M/P controls only. No hidden state, teleport, engine stepping, autopilot, area change or reroll.",
+    "timingLimit": "14.08 s counts explicit held directional keys only. It excludes key taps, UI clicks, unheld coasting, descent/recovery animation and tool time. Routed/direct distance changes are not measured driven distance."
+  },
+  "counts": {
+    "offersAccepted": 0,
+    "pickupsCompleted": 0,
+    "completedDeliveries": 0,
+    "activeGameplayHeldInputSeconds": 14.08,
+    "explicitHeldInputSeconds": 14.08,
+    "recoveryActivations": 2,
+    "flightActivations": 1,
+    "actualCloseMapButtonClicks": 3,
+    "originalScreenshotsSaved": 2
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Sri Balaji Sunil Kumar Sweets & Bakery",
+    "distanceMetres": 901,
+    "speedKmh": 0,
+    "boostSeconds": 0.0,
+    "coins": 802,
+    "level": "Level 2 · 1/4",
+    "gameClock": "Day 8 · 12:20 PM",
+    "areaChip": "Entering RTC Supervisors Colony",
+    "deliveryTimer": "Not started; pickup has not been collected.",
+    "finalOverlay": "Paused; Resume focused"
+  },
+  "evidence": [
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2115Z-hayathnagar-portrait-map-9f5483.jpg",
+      "kind": "Original unmodified CUA screenshot saved through the local browser form",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "9f5483a764f2032238ad271925cf228a47c68b1730c12a53ce30280401c6af42",
+      "bytes": 83206,
+      "shows": "390×844 map with visible Close map, zoom controls, player and pickup marker; target label partly outside the left viewport."
+    },
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2115Z-hayathnagar-portrait-roof-hud-53af76.jpg",
+      "kind": "Original unmodified CUA screenshot saved through the local browser form",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "53af76bdd41ad218276887cd89eee9198f015a4bcc6bac63257997ac2afef0d0",
+      "bytes": 50771,
+      "shows": "390×844 HUD after normal descent onto a roof: readable order and minimap, ~186 m pickup, 0 km/h, 0.0 s boost, explicit On a roof? Glide down to the street (R) button."
+    }
+  ],
+  "findings": [
+    {
+      "issueId": "map-close",
+      "status": "passed_three_button_cycles",
+      "confidence": "confirmed visible",
+      "actual": "Actual Close map dismissed three sampled full-map openings, including 390×844 portrait."
+    },
+    {
+      "issueId": "responsive-portrait-hud-map-pause",
+      "status": "passed_sample",
+      "confidence": "confirmed visible",
+      "actual": "At 390×844 the accepted-order HUD, minimap and boost were separated; map Close/zoom and portrait pause actions were visible and usable. No offer/tutorial layout was exercised."
+    },
+    {
+      "issueId": "roof-landing-recovery",
+      "status": "observed_normal_prompt_and_settled_recovery",
+      "confidence": "confirmed visible for sampled location",
+      "actual": "Automatic depletion ended on a roof, surfaced the explicit R recovery prompt, and normal menu recovery settled at 0 km/h on a clear street. Post-recovery forward departure was not tested."
+    },
+    {
+      "issueId": "airborne-ground-guidance",
+      "status": "passed_sample",
+      "confidence": "confirmed visible for sampled states",
+      "actual": "Powered and depleted airborne states showed direct-beacon guidance; after roof landing, return-to-road guidance and a recovery prompt appeared."
+    },
+    {
+      "issueId": "route-distance-after-roof-recovery",
+      "status": "observation_not_confirmed_bug",
+      "confidence": "observed route change; cause unverified",
+      "actual": "Approximate direct distance on roof was 186 m; settled street recovery yielded 901 m routed distance. These are different distance types, and no controlled route optimality/heading test was completed."
+    },
+    {
+      "issueId": "PT-013",
+      "status": "not_reproduced_in_this_segment",
+      "confidence": "coverage limitation",
+      "actual": "Known focus/Space conflict was avoided by clicking the driving scene before flight; this segment does not independently confirm or refute it."
+    }
+  ],
+  "newConfirmedIssueGroups": 0,
+  "console": {
+    "levels": [
+      "warn",
+      "error"
+    ],
+    "entries": []
+  },
+  "coverageLimitations": [
+    "No explicit collection, handover, award or next-offer state reached.",
+    "The driving/curve failures were uncontrolled navigation attempts and are not claimed as geometry defects.",
+    "Distance changes include flight, coasting, recovery and route recalculation, not measured travel.",
+    "No controlled median, bridge parapet, curb or bus/truck camera crossing test.",
+    "Portrait testing covers an accepted-order HUD, map and pause sheet; new-offer/tutorial/keyboard-focus regressions are not broadly verified.",
+    "No real-world shop identity, storefront order or entire-area accuracy is certified."
+  ],
+  "handoff": {
+    "owner": "playtest_east",
+    "tabId": "1933378284",
+    "browserId": "1",
+    "area": "Hayathnagar / RTC Supervisors Colony",
+    "paused": true,
+    "markedHandoff": true,
+    "heldInputsReleased": true,
+    "inputLockReleased": true,
+    "helperTabClosed": true,
+    "viewportOverrideReset": true,
+    "acceptedOrderRemaining": true,
+    "instruction": "Resume the existing Sri Balaji Sunil Kumar Sweets & Bakery pickup from settled clear road, 901 m route, 0 km/h, 0.0 s boost, 802 coins and Level 2 · 1/4. Inspect map/heading first. Keep other orders paused; do not reload or reroll."
+  }
+}

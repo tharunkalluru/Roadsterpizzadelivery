@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2115Z",
+  "preparedAt": "2026-10-23T21:18:40.352715+00:00",
+  "analyst": "playtest_old_city",
+  "method": "Read-only current source, issue registry, latest report history and localhost HTTP artifact verification. No browser control, focus, hidden runtime state, gameplay simulation, source edits, rebuild, tests, index edits or commit. Only this report written.",
+  "provenance": {
+    "checkoutCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+    "gameplaySourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "gameSourceUnchangedSinceRuntimeSourceCommit": true,
+    "baseUrl": "http://127.0.0.1:4189/",
+    "httpStatus": 200,
+    "runtimeScript": "./assets/index-DXgUfY_A.js",
+    "servedScriptBytes": 979835,
+    "servedScriptSha256": "a1d8708902c729c6ca7ccb0d3834467895abda1317f216ef7a6a7708f19f2637",
+    "servedScriptMatchesDist": true,
+    "servedHtmlMatchesDist": true,
+    "checkedChangedCityData": [
+      {
+        "path": "city/core.pack.wasm",
+        "bytes": 4137152,
+        "sha256": "eedb6ed06ca007499ea71eb69eba61203a63c10693777beddd5da4f309441780",
+        "sourceMatchesDist": true,
+        "servedMatchesSource": true
+      },
+      {
+        "path": "city/packs/p-1_-1.pack.wasm",
+        "bytes": 860732,
+        "sha256": "f1c48a7ba20754120193e919ea53db935278cf4e0069c949494f20f17da52665",
+        "sourceMatchesDist": true,
+        "servedMatchesSource": true
+      },
+      {
+        "path": "city/packs/p-1_0.pack.wasm",
+        "bytes": 1593651,
+        "sha256": "4453d15dbb3af7980604a77459f243ac1e74f20b85a1ffcdc05e74f392616ef7",
+        "sourceMatchesDist": true,
+        "servedMatchesSource": true
+      },
+      {
+        "path": "city/packs/p0_-1.pack.wasm",
+        "bytes": 1469815,
+        "sha256": "4413c8308be5c45561eda6244815dfec44f73a6f8d62df88b67c01656aae09a8",
+        "sourceMatchesDist": true,
+        "servedMatchesSource": true
+      },
+      {
+        "path": "city/packs/p0_0.pack.wasm",
+        "bytes": 1269572,
+        "sha256": "1d1c89054aa00998e5e3d86831306fabe97e24b9baffad71a93fe258f84ede42",
+        "sourceMatchesDist": true,
+        "servedMatchesSource": true
+      }
+    ],
+    "browserCacheLimit": "HTTP verifies what a new request serves. It does not establish which city packs are already retained in any existing paused browser tab. The gameplay JavaScript is unchanged.",
+    "buildAction": "None required; server available and served artifacts match local dist."
+  },
+  "registrySnapshot": {
+    "path": "docs/playtests/index.json",
+    "updatedAt": "2026-10-23T20:55:48.027750+00:00",
+    "currentBuild": "d022f412a7d1c0852dd1ccd3cae22dd9623b6a85",
+    "note": "Index is a historical pre-round snapshot; naming commit 013bf3f is newer. This report does not update the shared index.",
+    "issues": [
+      {
+        "id": "PT-001",
+        "priority": "P2",
+        "status": "fixed_targeted_browser_retest_passed",
+        "title": "Tutorial obstructs the driving view on short desktop windows",
+        "nextStep": "Keep covered in rotating regression rounds; tested desktop sizes 594x466 and 594x522, not all devices."
+      },
+      {
+        "id": "PT-002",
+        "priority": "P3",
+        "status": "fixed_targeted_browser_retest_passed",
+        "title": "Offer distance excludes the pickup approach without labeling the legs",
+        "nextStep": "Keep covered in rotating regression rounds; tested desktop sizes 594x466 and 594x522, not all devices."
+      },
+      {
+        "id": "PT-003",
+        "priority": "P2",
+        "status": "confirmed_visual_failure_cause_unproven",
+        "title": "Landmark geometry obscures driving after recovery near Mecca Masjid",
+        "nextStep": "Repeat the specific landmark or Sudarshan camera/recovery scenario on the repaired build; a nearby recovery and departure passed."
+      },
+      {
+        "id": "PT-004",
+        "priority": "P2",
+        "status": "observed_multiple_areas_controlled_reproduction_pending",
+        "title": "Large traffic vehicle obscures the chase view",
+        "nextStep": "Capture a controlled natural bus/truck camera crossing before, during and after; full vehicle OBB regressions already pass."
+      },
+      {
+        "id": "PT-005",
+        "priority": "P2",
+        "status": "suspected",
+        "title": "Route ribbon appears to cross a blocking median",
+        "nextStep": "Repeat a documented ground-level median approach on the repaired build; lane-offset and collision clipping tests pass."
+      },
+      {
+        "id": "PT-006",
+        "priority": "P2",
+        "status": "fixed_targeted_browser_retest_passed_once",
+        "title": "Uppal spawn may face a nearby building",
+        "nextStep": "Keep sampled spawn/departure or off-road guidance behavior in rotating regression coverage; this does not establish whole-area correctness."
+      },
+      {
+        "id": "PT-007",
+        "priority": "P3",
+        "status": "fixed_targeted_browser_retest_passed",
+        "title": "Pending offer overlaps and blocks part of the minimap at 594x522",
+        "nextStep": "Keep covered in rotating regression rounds; tested desktop sizes 594x466 and 594x522, not all devices."
+      },
+      {
+        "id": "PT-008",
+        "priority": "P3",
+        "status": "fixed_targeted_browser_retest_passed_once",
+        "title": "Off-road route connector points toward compound wall",
+        "nextStep": "Keep sampled spawn/departure or off-road guidance behavior in rotating regression coverage; this does not establish whole-area correctness."
+      },
+      {
+        "id": "PT-009",
+        "priority": "P2",
+        "status": "fixed_targeted_browser_retest_passed",
+        "title": "Map keyboard focus escapes to background controls and opens stacked pause overlay",
+        "nextStep": "Keep covered in rotating regression rounds; tested desktop sizes 594x466 and 594x522, not all devices."
+      },
+      {
+        "id": "PT-010",
+        "priority": "P2",
+        "status": "observed_once_repeat_cleared",
+        "title": "Recovery near Sudarshan cinema ended facing a wall once",
+        "nextStep": "Repeat the specific landmark or Sudarshan camera/recovery scenario on the repaired build; a nearby recovery and departure passed."
+      },
+      {
+        "id": "PT-011",
+        "priority": "P2",
+        "status": "fixed_targeted_browser_retest_passed",
+        "title": "Pausing immediately after handover can leave the next offer missing",
+        "nextStep": "Keep immediate-pause and no-pause post-handover controls in delivery regression rotation."
+      },
+      {
+        "id": "PT-012",
+        "priority": "P2",
+        "status": "reopened_post_repair_browser_recurrence",
+        "title": "Police-station or police-institute-named location offered as a pizza pickup kitchen",
+        "nextStep": "Repair the missing-category legacy name/board eligibility gap conservatively, retain legitimate explicitly categorized food businesses, and add focused regressions before another fresh visible offer check. Preserve map names and source data."
+      }
+    ],
+    "openOrControlledRetestPendingIds": [
+      "PT-003",
+      "PT-004",
+      "PT-005",
+      "PT-010",
+      "PT-012"
+    ],
+    "targetedRepairPassedIds": [
+      "PT-001",
+      "PT-002",
+      "PT-006",
+      "PT-007",
+      "PT-008",
+      "PT-009",
+      "PT-011"
+    ],
+    "historicalTextCaution": "Some historical comparison/latestAttempt strings still say an issue remains open, notably PT-007 and PT-011. Read them in their dated pre-repair context; the top-level status and repair evidence record their later targeted passes. Do not reopen them based on stale prose alone."
+  },
+  "preservedWorkflows": [
+    {
+      "tabId": "1933378266",
+      "browserId": "1",
+      "owner": "root",
+      "area": "RTC X Roads",
+      "paused": true,
+      "heldKeys": false,
+      "instruction": "Resume the explicitly collected Pista House order to Home in Jawahar Nagar:415m,11s remaining,27°heat,0km/h,0boost,802coins,Level2 1/4. No handover or reward. Keep other sessions paused.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
+    },
+    {
+      "tabId": "1933378273",
+      "browserId": "1",
+      "owner": "playtest_west",
+      "area": "Narsingi",
+      "paused": true,
+      "heldKeys": false,
+      "instruction": "Resume accepted Balaji Santosh Dhaba pickup1948m,0km/h,10.0sboost,802coins,Level2 1/4. No collection or handover. Keep other sessions paused.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
+    },
+    {
+      "tabId": "1933378284",
+      "browserId": "1",
+      "owner": "playtest_east",
+      "area": "Hayathnagar",
+      "paused": true,
+      "heldKeys": false,
+      "instruction": "Resume accepted Sri Balaji Sunil Kumar Sweets & Bakery pickup464m,0km/h,2.5sboost,802coins,Level2 1/4. No collection or handover. Keep other sessions paused.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
+    }
+  ],
+  "rtcOperationalSourceNotes": {
+    "references": [
+      "game/src/game/player.ts:108-118",
+      "game/src/game/game.ts:342-369",
+      "game/src/game/game.ts:749-767",
+      "game/src/game/game.ts:861-888",
+      "game/src/ui/map.ts:226"
+    ],
+    "direction": "Forward A turns left and D turns right; reverse reverses the yaw response. S is brake then reverse, not a parking brake. At very low speed steering is weaker and zero speed gives no turn.",
+    "steeringTimingLimit": "At a steady 10 km/h, full settled steering is about 49.5 degrees/s; at 20 km/h about 89.1 degrees/s. W accelerates and steering ramps, so these source rates are not fixed-duration navigation guarantees. Use short visible steering corrections and re-check the actual map/road.",
+    "stopping": "With W/S released, speed decays at 4 m/s². Long S holds reverse the car; HUD speed magnitude alone does not establish travel direction.",
+    "fullMapArrow": "North-up map; the single front apex is opposite the inward V notch between the rear wings. Do not select a farthest vertex by eye as the front. The minimap rotates so the car front remains up.",
+    "ribbon": "The local strip has no directional chevrons. It refreshes about every 1.5 s for short routes and may leave a tail behind the moving car between refreshes. Legal heading/carriageway routing may initially lead away from the beacon to a junction; distance growth alone is not a new navigation bug.",
+    "flight": "Airborne and descent guidance use the beacon distance with ground ribbon hidden. A second Space begins descent; landing is not immediate. Source requires grounded, non-descending, non-gliding state for handover.",
+    "recovery": "Wait until recovery glide settles before judging the camera, heading or forward controls. A safer road placement can increase route distance; this alone is not a failure.",
+    "simultaneousArrowInput": "The global keydown handler tracks event.code values. If ArrowUp and ArrowLeft states overlap, input() produces throttle 1 and steer -1, equivalent to W+A. Focus restored to the minimap after closing does not exclude these keys. Game source cannot verify whether the native wrapper delivered overlapping events; no browser/input inspection was performed.",
+    "highSpeedSteering": "At 77 km/h, full settled steering is approximately 61 degrees/s; a 1.7–1.8 s hold could rotate about 100 degrees before ramp/collision effects. At a collision stop, zero speed yields no steering rotation. Observed handling difficulty alone is not a confirmed key-chord defect."
+  },
+  "explicitHandover": {
+    "normalHorizontalRadiusMetresStrictlyLessThan": 8,
+    "speedMetresPerSecondStrictlyLessThan": 2.5,
+    "speedKmhEquivalent": 9,
+    "verticalDifferenceMetresStrictlyLessThan": 3,
+    "groundedRequired": true,
+    "flightDescentAndGlideDisallowed": true,
+    "conditionalAcrossRoadRadiusMetres": 24,
+    "acrossRoadCondition": "Horizontal distance <24 m and a route exists with route length > distance*4+60; otherwise normal <8 m gate.",
+    "holdProgressSeconds": 0.9,
+    "visibleProtocol": [
+      "Approach the customer beacon using the current road route, coast or briefly brake to a stop and wait for the actual Hold E / ACT to hand over prompt.",
+      "Hold E about 1.0–1.2 s while the prompt remains valid.",
+      "Capture reward toast, wallet/progress change and delivery-state clearance. Distance zero, proximity or a held key alone is not completion."
+    ],
+    "lateOrders": "No time or heat threshold blocks interaction or completion in source. Heat affects tip; zero remaining time is not a failed/expired order. Surviving slices and heat determine payout, so do not predict the exact reward from distance alone.",
+    "nextOffer": "Completion queues an offer after 2500 ms. Pausing/modal/map ownership defers it; the queue is checked again after resume. A controlled immediate-pause/resume post-handover check is useful regression coverage, not evidence that PT-011 has reopened.",
+    "zeroSlices": "Zero slices/Pizza ruined does not block handover. completeDelivery awards round(base fare * 0.3) when no slices remain, and still advances completed-delivery progress. Capture the actual result rather than inferring it from this formula."
+  },
+  "mapControlsAndTimer": {
+    "references": [
+      "game/src/ui/map.ts:60-70",
+      "game/src/ui/map.ts:156-175",
+      "game/src/game/game.ts:491",
+      "game/src/game/game.ts:535-539",
+      "game/src/game/game.ts:717-721"
+    ],
+    "expectedFromSource": [
+      "Actual Close map button dismisses the map; Escape, M and P close it as well. P inside the map closes that overlay rather than stacking Pause.",
+      "Focus is managed within the map and restores to the minimap after closing. Picker Cancel and map Close have distinct behaviors.",
+      "openMap sets paused; frame returns while map.open before advancing the order timer. The close callback resets the clock delta. This is source intent, not a newly observed browser result."
+    ],
+    "highValueVisibleCheck": "After explicit map Close, separately press P and verify Paused before lengthy analysis. If verifying timer suspension, take immediate before/open/wait/close/after HUD samples without driving; tool/inspection time outside the overlay must not be confused with held-input time.",
+    "priorEvidence": "Three actual Close map clicks passed in the preceding RTC collection round; no current close-button failure is established by source inspection."
+  },
+  "pt012": {
+    "status": "remains_open_post_repair_recurrence",
+    "evidenceReferences": [
+      "docs/playtests/2026-10-23T2007Z/narsingi.json",
+      "docs/playtests/2026-10-23T2007Z/pickup-source-followup.json"
+    ],
+    "currentSourceReferences": [
+      "game/src/game/pickups.ts:13-19",
+      "game/src/game/pickup-policy.json",
+      "game/src/game/game.ts:145-150"
+    ],
+    "currentDataAudit": {
+      "exactPoliceStationBoardRecords": 33,
+      "missingOrEmptyCategoryRecords": 33,
+      "exactPoliceStationInPlaceNameFilter": false,
+      "matchingRecordsExplicitlyIneligibleOrIdExcluded": 0,
+      "quarantinedIds": [
+        "b_6d4468aa-c5da-40",
+        "b_d6fc7fdd-c2c9-4f"
+      ],
+      "nearbyNarsingiCandidate": {
+        "coreFoodIndex": 9233,
+        "id": "b_2a604a61-6240-4b",
+        "name": "Narsingi Police Station",
+        "board": "Police Station",
+        "category": null
+      }
+    },
+    "sourceConclusion": "The unchanged function only applies category checks when category is truthy, and legacy missing-category records pass unless another guard rejects them. Current 33 exact Police Station records still meet those guards. The original two exact quarantines remain present. This is source/data corroboration of the existing issue, not a fresh browser reproduction.",
+    "limits": [
+      "No new offer generated or accepted by this analyst.",
+      "The generic Police Station UI label does not uniquely bind the observed Narsingi offer to one source ID.",
+      "Original importer cause, current real-world business identity and recurrence frequency are not proved here."
+    ],
+    "nextRepair": "Conservative missing-category name/board exclusion with focused tests retaining explicitly categorized legitimate food premises; preserve source/map names. No repair performed this round."
+  },
+  "remainingVisibleScenarios": [
+    {
+      "priority": 1,
+      "scenario": "Finish the preserved RTC customer handover",
+      "issueIds": [
+        "PT-011"
+      ],
+      "protocol": "Resume the collected Pista House order, navigate with small corrections, stop at the visible prompt and hold E. Preserve any late-order reward and then check one clearly documented next-offer path.",
+      "limit": "The 415 m/11 s index handoff and 415 m/12 s saved report are adjacent historical snapshots; obtain the actual current visible starting state."
+    },
+    {
+      "priority": 2,
+      "scenario": "Advance Narsingi and Hayathnagar accepted pickups",
+      "issueIds": [
+        "PT-012"
+      ],
+      "protocol": "Prioritize actual collection and handover in the preserved accepted legitimate orders. Record any naturally encountered non-kitchen offer without claiming source-ID binding or deliberate reproduction.",
+      "limit": "No need to discard accepted work merely to search randomly for PT-012."
+    },
+    {
+      "priority": 3,
+      "scenario": "Controlled bus/truck camera crossing",
+      "issueIds": [
+        "PT-004"
+      ],
+      "protocol": "When naturally safe and nearby, capture before/during/after a vehicle passes between camera and car, while keeping car motion and camera changes clear in the log.",
+      "limit": "A nearby gray car or a slice-loss toast is not a controlled large-vehicle camera case."
+    },
+    {
+      "priority": 4,
+      "scenario": "One grounded median/curb/bridge check",
+      "issueIds": [
+        "PT-005"
+      ],
+      "protocol": "Document the actual map segment and before/contact/after view; distinguish route strip alignment, soft curb motion and solid barrier collision.",
+      "limit": "Flight over a wall, wrong-lane turning, unlocated bridge ramps or an uncontrolled facade collision do not prove the historical median issue."
+    },
+    {
+      "priority": 5,
+      "scenario": "Specific landmark/Sudarshan recovery",
+      "issueIds": [
+        "PT-003",
+        "PT-010"
+      ],
+      "protocol": "If the actual historical location can be reached, capture pre-recovery obstruction, fully settled R outcome and a short forward departure.",
+      "limit": "Nearby clear recovery samples are useful but do not close an unrecreated historical trajectory."
+    }
+  ],
+  "newConfirmedIssues": [],
+  "overallLimit": "This analyst performed no gameplay this round. Source, HTTP, prior screenshots and build equality do not establish current route completion, entire-area coverage or exact real-world storefront order.",
+  "postCloseSpaceFollowUp": {
+    "recordedAt": "2026-10-23T21:24:51.139430+00:00",
+    "sourceOnly": true,
+    "analyst": "playtest_old_city",
+    "relatedIssue": "PT-009",
+    "candidateDistinctIssue": "Post-close flight shortcut conflicts with restored minimap focus",
+    "sourceReferences": [
+      "game/src/ui/map.ts:60",
+      "game/src/ui/dialog.ts:59",
+      "game/src/game.ts:504"
+    ],
+    "sourceFinding": "Map Close invokes DialogFocus.hide, which restores prior focus or falls back to minimap. Focused minimap Space handler prevents default, stops propagation and opens the map; the window flight handler does not receive that event.",
+    "browserStatusAtAnalysis": "One Narsingi observation; controlled repeat requested separately. Source does not itself confirm a browser defect.",
+    "proposedControlledComparison": "Click minimap, click actual Close, press Space; compare with same sequence followed by clicking the visible driving scene before Space. Observe charge, open map and actual flight HUD separately.",
+    "behaviorEdited": false
+  }
+}

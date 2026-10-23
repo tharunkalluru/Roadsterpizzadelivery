@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2115Z",
+  "tester": "Codex west agent using visible Chrome controls; no human participant",
+  "status": "pickup_continuation_unfinished_with_confirmed_shortcut_conflict",
+  "startedAtUTC": "2026-10-23T21:19:29Z",
+  "browserReleasedAtUTC": "2026-10-23T21:24:46Z",
+  "reportedAtUTC": "2026-10-23T21:26:35.056558+00:00",
+  "url": "http://127.0.0.1:4189/",
+  "tabId": "1933378273",
+  "area": "Narsingi",
+  "build": {
+    "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "bundle": "./assets/index-DXgUfY_A.js",
+    "verification": "Continued the preserved tab created in the 2007 round and whose script attribute was last directly read in the 2037 round. No reload, new build test or repeated metadata check was performed this round.",
+    "priorReport": "docs/playtests/2026-10-23T2037Z/narsingi.json"
+  },
+  "viewport": {
+    "width": 594,
+    "height": 466,
+    "overrideApplied": false,
+    "source": "Original screenshot dimensions"
+  },
+  "route": {
+    "pickup": "Balaji Santosh Dhaba",
+    "pickupRoad": null,
+    "customer": "Home in Narsingi",
+    "acceptedInRound": "2026-10-23T2007Z",
+    "originalOfferDeliveryMetres": 777,
+    "originalDeliveryWindowAfterCollectionSeconds": 156,
+    "newOffersAccepted": 0,
+    "newAreaSelections": 0
+  },
+  "baseline": {
+    "state": "Paused; pickup unfinished",
+    "roadRouteMetres": 1948,
+    "speedKmh": 0,
+    "boostSeconds": 10,
+    "coins": 802,
+    "level": "Level 2 · 1/4"
+  },
+  "counts": {
+    "offersAccepted": 0,
+    "pickupsCompleted": 0,
+    "completedDeliveries": 0,
+    "recoveryActivations": 2,
+    "flightActivations": 1,
+    "groundedPostFlightStateObserved": 1,
+    "mapOpens": 5,
+    "actualCloseMapButtonClicks": 5,
+    "mapZoomOutButtonClicks": 1,
+    "pauseKeyOpens": 2,
+    "resumeButtonClicks": 2,
+    "spaceKeyTaps": 3,
+    "spaceTapsThatOpenedMap": 2,
+    "originalScreenshotsSaved": 2,
+    "activeGameplayHeldInputSeconds": 20.47,
+    "heldInputSecondsWhileMapOpen": 0.7,
+    "explicitHeldInputSeconds": 21.17
+  },
+  "input": {
+    "heldDrivingInputSeconds": 20.47,
+    "heldInputSecondsIncludingIgnoredMapAttempt": 21.17,
+    "heldInputLedger": [
+      {
+        "keys": "W+A",
+        "seconds": 0.7,
+        "context": "Map reopened after Space; this movement hold was attempted while the map was open, and is not counted as active driving."
+      },
+      {
+        "keys": "W+A",
+        "seconds": 0.7,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W+A",
+        "seconds": 0.4,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W",
+        "seconds": 4,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W",
+        "seconds": 1.5,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "S",
+        "seconds": 0.6,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W+A",
+        "seconds": 0.22,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W",
+        "seconds": 1.6,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "S",
+        "seconds": 0.65,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W",
+        "seconds": 1.2,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "S",
+        "seconds": 0.6,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W+D",
+        "seconds": 0.2,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W",
+        "seconds": 1,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "S",
+        "seconds": 0.45,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W+A",
+        "seconds": 0.8,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "S",
+        "seconds": 0.35,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W+A",
+        "seconds": 0.5,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W",
+        "seconds": 1.6,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "S",
+        "seconds": 0.65,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W+A",
+        "seconds": 0.15,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "W",
+        "seconds": 2.5,
+        "context": "Visible active gameplay"
+      },
+      {
+        "keys": "S",
+        "seconds": 0.8,
+        "context": "Visible active gameplay"
+      }
+    ],
+    "collectionHoldSeconds": 0,
+    "handoverHoldSeconds": 0,
+    "method": "Supported visible CUA button clicks, native bounded key holds, AX text, screenshots and console logs. No hidden state, game-logic evaluation, teleporting, autopilot, engine stepping or source changes.",
+    "timingLimit": "Active input sums explicit movement-key holds while gameplay was visible; the separate 0.7 s attempt occurred with the map open. Neither figure includes key taps, UI clicks, coasting, pauses, recovery animation or tool latency."
+  },
+  "steps": [
+    "Read the existing Paused UI, click Resume, press M and click Zoom out once to inspect the pickup to the south of the current area. Click Close map, then Space and W+A 0.7 s. Fresh state still shows City map, focused Close; the Space tap has reopened the map and the movement hold occurred while map was open.",
+    "Click Close again. Fresh AX and screenshot show grounded 0 km/h, pickup 1,948 m, boost 10.0 s and focus on Minimap. Click the visible game scene at (300,220), tap Space, then W+A 0.7 s. This produces actual visible flight, approximately 760 m direct distance, 9.3 s boost in AX (9.1 s in the following live screenshot) and 30 km/h in AX.",
+    "W+A 0.4 s and W 4.0 s continue flight movement; press P. By this pause the car is near building geometry at 0 km/h. Resume, press M and inspect location, then click Close. The off-road post-flight HUD is approximately 733 m with 0.0 s boost. Press R once and allow the visible glide to settle without movement input; the recovered road HUD is 1,879 m at 0 km/h.",
+    "W 1.5 s/S 0.6 s follows the narrow route to 1,865 m. W+A 0.22 s/W 1.6 s/S 0.65 s corrects lane position and reaches 1,841 m. W 1.2 s/S 0.6 s reaches 1,835 m at 0 km/h near a facade. W+D 0.2 s/W 1.0 s/S 0.45 s moves toward the T junction, reaching 1,818 m.",
+    "W+A 0.8 s/S 0.35 s begins the marked left turn (1,820 m). W+A 0.5 s/W 1.6 s/S 0.65 s completes most of the turn and reaches 1,806 m, with 2.5 s boost earned. W+A 0.15 s/W 2.5 s/S 0.8 s overshoots the following junction into a frontage; HUD changes to Return to a road for GPS and approximately 673 m direct distance. No unreachable-road or collision defect is inferred from this steering attempt.",
+    "Press R a second time and wait for settlement. An intermediate HUD reads 1,782 m; the settled street view reads 1,770 m, 0 km/h and 2.5 s boost on a broad clear street. Perform the controlled focus/Space check described below while keeping the same order.",
+    "After the controlled repeat, capture the final original HUD, press P and verify Paused/Resume focus. Read warning/error logs (empty), mark the tab as handoff, save two original screenshot byte arrays through the supported local 4198 HTML form, verify receipts, close both helper tabs and re-mark the old ECIL/LB/Kompally tabs without inputs. Release owned lock and notify root at 21:24:46 UTC."
+  ],
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Balaji Santosh Dhaba",
+    "roadRouteMetres": 1770,
+    "speedKmh": 0,
+    "boostSeconds": 2.5,
+    "coins": 802,
+    "level": "Level 2 · 1/4",
+    "gameClockInSavedOriginal": "Day 8 · 5:24 PM",
+    "finalOverlay": "Paused",
+    "collectionPromptObserved": false
+  },
+  "findings": [
+    {
+      "issueId": "PT-013",
+      "priority": "P3",
+      "status": "confirmed_incidental_and_controlled_repeat",
+      "relatedIssueId": "PT-009",
+      "title": "Space reopens the focused minimap after closing the map instead of starting flight",
+      "confidence": "High for directly observed focus and input behavior. Parent is recording source corroboration separately.",
+      "expected": "After closing the map and returning to driving, the advertised Space flight shortcut can start flight without an extra click in the scene. Preserve accessible focus behavior while avoiding the gameplay shortcut conflict.",
+      "actual": "Close map returns focus to the Minimap button. A subsequent Space tap activates that focused button and reopens City map. Actual Close works; the conflict is the following flight shortcut, not failure to dismiss the map.",
+      "incidentalCase": {
+        "steps": "M → Zoom out → Close map → Space → W+A 0.7 s → inspect map → Close again.",
+        "boostBefore": 10,
+        "boostAfter": 10,
+        "speedAfterKmh": 0,
+        "flightObserved": false,
+        "limit": "The first close and Space were in one CUA call; the later grounded state and unchanged boost were observed after closing again."
+      },
+      "controlledRepeat": {
+        "steps": [
+          "At settled grounded pickup 1,770 m, 0 km/h, 2.5 s boost, click actual Minimap button.",
+          "Read City map with Close map focused.",
+          "Click actual Close map; read grounded driving HUD and explicit focus on Minimap.",
+          "Tap Space once. Read City map with Close map focused and capture original screenshot.",
+          "Click Close again. Grounded car, 0 km/h and 2.5 s boost remain; capture final original HUD."
+        ],
+        "boostBefore": 2.5,
+        "boostAfter": 2.5,
+        "speedBeforeKmh": 0,
+        "speedAfterKmh": 0,
+        "flightObserved": false,
+        "simultaneousFlightLimit": "No concurrent flight, aerial HUD or boost depletion was observed in the repeat; the grounded before/after scenes and unchanged boost support that conclusion without hidden engine reads."
+      },
+      "positiveControl": "Earlier in this pass, clicking the game scene before Space produced visible Flying guidance, lift above roofs and boost depletion.",
+      "sourceScope": "This worker did not inspect or alter source in this round. Visible AX focus restoration and Space button activation establish the behavior; parent owns implementation/source references.",
+      "evidence": [
+        "docs/playtests/evidence/2026-10-23T2115Z-narsingi-space-reopens-map-370065.jpg",
+        "docs/playtests/evidence/2026-10-23T2115Z-narsingi-ending-06ed50.jpg"
+      ]
+    },
+    {
+      "issueId": "map-close",
+      "status": "close_button_itself_passed",
+      "actual": "Five actual Close map clicks were made. The map was dismissed; the two subsequent Space activations reopened it. No stacked pause overlay was observed."
+    },
+    {
+      "issueId": "pickup-approach",
+      "status": "partial_progress_only",
+      "actual": "Same accepted pickup continued from 1,948 m to a final 1,770 m road-route display, with flight and two recoveries. No collection prompt, collection result, customer handover or reward occurred."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2115Z-narsingi-space-reopens-map-370065.jpg",
+      "sha256": "3700659bda59261956ba22cee0c8b2ea1e3d1428332744893b09e09708a22d4a",
+      "bytes": 78360,
+      "kind": "Original unmodified screenshot saved via supported local HTML form",
+      "shows": "Full map after the controlled grounded Close → Space sequence; Close map focused."
+    },
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2115Z-narsingi-ending-06ed50.jpg",
+      "sha256": "06ed50f3da12826fd4a85af3eed4c6ce7b34af221cd6a072415acc21955fce5b",
+      "bytes": 51495,
+      "kind": "Original unmodified screenshot saved via supported local HTML form",
+      "shows": "Grounded final state after closing the reopened map: pickup 1,770 m, 0 km/h, boost unchanged at 2.5 s, 802 coins, Level 2 1/4."
+    }
+  ],
+  "console": {
+    "capturedLevels": [
+      "warn",
+      "error"
+    ],
+    "entries": [],
+    "limitation": "Captured browser entries only; empty output does not prove absence of gameplay issues."
+  },
+  "newConfirmedIssueIds": [
+    "PT-013"
+  ],
+  "limitations": [
+    "No pickup or customer handover completed; no new area or offer selected.",
+    "Flight and subsequent grounded/off-road states were observed, but a continuous touchdown animation was not saved as an original; the final evidence is after normal recovery.",
+    "Road-route and approximate direct off-road/aerial distances are different modes; their changes are not proof of route defects.",
+    "The 178 m net road-route reduction is not measured travel distance.",
+    "Manual narrow-street alignment and junction overshoot affected progress; no road blockage or unreachable pickup was established.",
+    "No controlled bus/truck sightline, median, curb or bridge-barrier test, and no real-world street/shop-order verification.",
+    "The focus conflict was reproduced with native Space input on the current desktop viewport; touch/controller behavior was not tested."
+  ],
+  "handoff": {
+    "tabId": "1933378273",
+    "browserId": "1",
+    "owner": "playtest_west",
+    "paused": true,
+    "markedHandoff": true,
+    "heldInputsReleased": true,
+    "inputLockReleased": true,
+    "helperTabsClosed": [
+      "1933378315",
+      "1933378319"
+    ],
+    "historicalHandoffsRemarkedWithoutInput": [
+      "1933378100",
+      "1933378139",
+      "1933378162"
+    ],
+    "otherAgentsTabsOperated": false,
+    "instruction": "Resume the same uncollected Balaji Santosh Dhaba order from the broad clear street, pickup 1,770 m, 0 km/h, 2.5 s boost, 802 coins and Level 2 1/4. Keep other orders paused."
+  }
+}

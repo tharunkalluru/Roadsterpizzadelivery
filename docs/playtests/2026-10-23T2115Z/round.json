@@ -1,0 +1,58 @@
+{
+  "id": "2026-10-23T2115Z",
+  "startedAt": "2026-10-23T21:15:48.067Z",
+  "endedAt": "2026-10-23T21:33:29.461148+00:00",
+  "status": "completed_partial_coverage_one_new_keyboard_issue",
+  "areas": [
+    "RTC X Roads",
+    "Narsingi",
+    "Hayathnagar"
+  ],
+  "checkoutCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+  "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "servedGameDataCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+  "testedAssets": [
+    "index-DXgUfY_A.js"
+  ],
+  "retainedTabDataLimit": "Existing orders were resumed without reload. Their initial city data came from the earlier 882cb50-era build; subsequent lazy city-pack loads were not fully audited. HTTP source/dist checks establish currently served data, not complete retained-tab cache identity. Gameplay JavaScript is unchanged.",
+  "reports": [
+    "2026-10-23T2115Z/rtc-x-roads.json",
+    "2026-10-23T2115Z/narsingi.json",
+    "2026-10-23T2115Z/hayathnagar.json"
+  ],
+  "sourceTriage": "2026-10-23T2115Z/source-triage.json",
+  "evidenceManifest": "2026-10-23T2115Z/evidence-manifest.json",
+  "participantType": "Root and two AI subagents used actual visible Chrome controls in exclusive sequential turns; a third subagent audited source and reports. No human participants, hidden game-state mutation, teleport, simulation stepping or developer autopilot.",
+  "offersAccepted": 0,
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "heldDrivingInputSecondsApprox": 60.25,
+  "explicitHeldInputSecondsIncludingMapAttempt": 60.95,
+  "heldInputSecondsWhileMapOpen": 0.7,
+  "recoveryActivations": 5,
+  "flightActivations": 3,
+  "landingCoverage": "RTC and Narsingi later showed grounded HUD states; Hayathnagar showed an explicit roof-landing/glide prompt followed by normal recovery. Controlled street touchdown was not captured.",
+  "actualMapCloseClicks": 12,
+  "savedScreenshots": 7,
+  "uniqueScreenshots": 7,
+  "newConfirmedIssueGroups": 1,
+  "newConfirmedIssueIds": [
+    "PT-013"
+  ],
+  "existingIssueGroupsReopened": [],
+  "portraitViewport": {
+    "width": 390,
+    "height": 844,
+    "mapCloseAndPauseSample": "passed",
+    "hudAndMinimapSeparated": "observed",
+    "overrideReset": true,
+    "physicalPhoneTested": false
+  },
+  "summary": "PT-013 reproduced: closing the map with focus restored to minimap causes Space to reopen it rather than fly; boost unchanged in incidental and controlled cases. All12 actual Close clicks dismissed the map. No new collection or handover. RTC paused off-road~403m with0heat/slices/boost,13km/h; Narsingi pickup1770m; Hayathnagar pickup901m. Portrait map/HUD/pause sampled.",
+  "roundLimit": "Bounded about20minute round including actual UI controls, source analysis, exclusive handoffs, evidence saving and documentation. Held inputs are not uninterrupted human play.",
+  "behaviorEdited": false,
+  "published": false,
+  "pushed": false,
+  "browserOwnershipReleased": true,
+  "helperServerStopped": true
+}

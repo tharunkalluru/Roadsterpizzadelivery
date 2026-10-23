@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2115Z",
+  "savedAt": "2026-10-23T21:32:09.876164+00:00",
+  "screenshots": [
+    {
+      "path": "evidence/2026-10-23T2115Z-hayathnagar-portrait-map-9f5483.jpg",
+      "sha256": "9f5483a764f2032238ad271925cf228a47c68b1730c12a53ce30280401c6af42",
+      "bytes": 83206,
+      "width": 390,
+      "height": 844,
+      "savedAt": "2026-10-23T21:30:12.631312+00:00",
+      "savedAtLimit": "Filesystem save timestamp; not a claim of precise capture time.",
+      "origin": "Unmodified CUA browser JPEG screenshot bytes; no crop, resize, enhancement or re-encoding."
+    },
+    {
+      "path": "evidence/2026-10-23T2115Z-hayathnagar-portrait-roof-hud-53af76.jpg",
+      "sha256": "53af76bdd41ad218276887cd89eee9198f015a4bcc6bac63257997ac2afef0d0",
+      "bytes": 50771,
+      "width": 390,
+      "height": 844,
+      "savedAt": "2026-10-23T21:30:23.126633+00:00",
+      "savedAtLimit": "Filesystem save timestamp; not a claim of precise capture time.",
+      "origin": "Unmodified CUA browser JPEG screenshot bytes; no crop, resize, enhancement or re-encoding."
+    },
+    {
+      "path": "evidence/2026-10-23T2115Z-narsingi-ending-06ed50.jpg",
+      "sha256": "06ed50f3da12826fd4a85af3eed4c6ce7b34af221cd6a072415acc21955fce5b",
+      "bytes": 51495,
+      "width": 594,
+      "height": 466,
+      "savedAt": "2026-10-23T21:24:36.644058+00:00",
+      "savedAtLimit": "Filesystem save timestamp; not a claim of precise capture time.",
+      "origin": "Unmodified CUA browser JPEG screenshot bytes; no crop, resize, enhancement or re-encoding."
+    },
+    {
+      "path": "evidence/2026-10-23T2115Z-narsingi-space-reopens-map-370065.jpg",
+      "sha256": "3700659bda59261956ba22cee0c8b2ea1e3d1428332744893b09e09708a22d4a",
+      "bytes": 78360,
+      "width": 594,
+      "height": 466,
+      "savedAt": "2026-10-23T21:24:27.066691+00:00",
+      "savedAtLimit": "Filesystem save timestamp; not a claim of precise capture time.",
+      "origin": "Unmodified CUA browser JPEG screenshot bytes; no crop, resize, enhancement or re-encoding."
+    },
+    {
+      "path": "evidence/2026-10-23T2115Z-rtc-map-after-flight-09096b.jpg",
+      "sha256": "09096b40d98281f445d3a6d3957c250309470f1da669b1cb4506ec88379e4da6",
+      "bytes": 95806,
+      "width": 594,
+      "height": 522,
+      "savedAt": "2026-10-23T21:18:49.483916+00:00",
+      "savedAtLimit": "Filesystem save timestamp; not a claim of precise capture time.",
+      "origin": "Unmodified CUA browser JPEG screenshot bytes; no crop, resize, enhancement or re-encoding."
+    },
+    {
+      "path": "evidence/2026-10-23T2115Z-rtc-paused-b9998e.jpg",
+      "sha256": "b9998ef5b7c62951a9b5f50892d70e3c9f1ce744dd0719f8181c113e83b25d2d",
+      "bytes": 48957,
+      "width": 594,
+      "height": 522,
+      "savedAt": "2026-10-23T21:19:12.498223+00:00",
+      "savedAtLimit": "Filesystem save timestamp; not a claim of precise capture time.",
+      "origin": "Unmodified CUA browser JPEG screenshot bytes; no crop, resize, enhancement or re-encoding."
+    },
+    {
+      "path": "evidence/2026-10-23T2115Z-rtc-route-map-b71113.jpg",
+      "sha256": "b711136ae598385899c127b3955193e82bc99267ce45e5445defc3976415b05d",
+      "bytes": 95510,
+      "width": 594,
+      "height": 522,
+      "savedAt": "2026-10-23T21:17:45.684372+00:00",
+      "savedAtLimit": "Filesystem save timestamp; not a claim of precise capture time.",
+      "origin": "Unmodified CUA browser JPEG screenshot bytes; no crop, resize, enhancement or re-encoding."
+    }
+  ],
+  "originalScreenshots": 7,
+  "uniqueImageHashes": 7,
+  "screenshotSource": "Supported CUA getScreenshot; local receiver/form persisted exact bytes.",
+  "helperServersStopped": true,
+  "helperPorts": [
+    4197,
+    4198
+  ],
+  "note": "One Hayathnagar evidence-form submission used an uppercase tag and was rejected with HTTP400; the already captured original bytes were subsequently saved with a lowercase tag. This was an evidence-helper error, not a game failure."
+}

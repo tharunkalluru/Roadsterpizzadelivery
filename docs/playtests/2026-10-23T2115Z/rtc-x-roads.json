@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2115Z",
+  "area": "RTC X Roads",
+  "driver": "root",
+  "reportAuthor": "playtest_old_city",
+  "authoredAt": "2026-10-23T21:21:17.606757+00:00",
+  "status": "collected_order_customer_navigation_unfinished",
+  "checkoutCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+  "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "runtimeScript": "./assets/index-DXgUfY_A.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "runtimeVerification": {
+    "page": "Continued existing RTC tab 1933378266; no reload or fresh area selection this round.",
+    "script": "Previously verified index-DXgUfY_A.js retained; source-only HTTP check in source-triage.json confirms the same current served JavaScript.",
+    "retainedCityDataBaselineCommit": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+    "retainedDataBasis": "Root identified the retained RTC session as originating from the 882cb50 data baseline. This round did not refresh its in-memory city data.",
+    "currentDiskAndHttpDataCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+    "limit": "HTTP source/dist equality is not evidence that the existing tab reloaded the latest packs. Do not call this a fresh 013bf3f data session."
+  },
+  "method": "Root used the visible game, actual Resume/Back to the road/Close map controls and native held arrow keys. The author transcribed supplied observations and inspected the three original JPGs with view_image. No browser control by the author, hidden game state, teleporting, autopilot or engine stepping.",
+  "viewport": {
+    "width": 594,
+    "height": 522,
+    "source": "Original screenshot dimensions; no viewport override reported."
+  },
+  "route": "Pista House on Chikkadapally Road → Home in Jawahar Nagar",
+  "initialState": {
+    "state": "Deliver",
+    "customer": "Home in Jawahar Nagar",
+    "routeMetres": 415,
+    "timeRemainingSeconds": 11,
+    "heat": 27,
+    "speedKmh": 0,
+    "flightSeconds": 0,
+    "coins": 802,
+    "level": "2 · 1/4",
+    "alreadyCollectedInPreviousRound": true
+  },
+  "counts": {
+    "offersAccepted": 0,
+    "pickupsCompleted": 0,
+    "customerHandovers": 0,
+    "completedDeliveries": 0,
+    "collectionOrHandoverHoldSeconds": 0,
+    "heldMovementActions": 17,
+    "explicitHeldDrivingInputSeconds": 25.7,
+    "recoveryActivations": 1,
+    "recoveryViaPauseMenuButton": 1,
+    "flightActivations": 1,
+    "directlyObservedLandings": 0,
+    "postFlightGroundedHudObservations": 1,
+    "mapOpens": 4,
+    "actualCloseMapButtonClicks": 4,
+    "pauseMenuOpensViaEscape": 2,
+    "initialResumeButtonClicks": 1,
+    "originalScreenshotsSaved": 3
+  },
+  "heldInputLedger": [
+    {
+      "keys": "ArrowUp",
+      "seconds": 2.6,
+      "purpose": "Forward departure"
+    },
+    {
+      "keys": "ArrowUp",
+      "seconds": 3.6,
+      "purpose": "Continue forward"
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 1.2,
+      "purpose": "Brake/reverse before recovery menu"
+    },
+    {
+      "keys": "ArrowUp+ArrowLeft",
+      "seconds": 1.7,
+      "purpose": "Turn after map close"
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 0.65,
+      "purpose": "Back away from traffic"
+    },
+    {
+      "keys": "ArrowUp+ArrowLeft",
+      "seconds": 0.8,
+      "purpose": "Steering attempt"
+    },
+    {
+      "keys": "ArrowUp+ArrowLeft",
+      "seconds": 1.8,
+      "purpose": "Further steering attempt"
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 0.65,
+      "purpose": "Brake before map"
+    },
+    {
+      "keys": "ArrowUp+ArrowLeft",
+      "seconds": 0.75,
+      "purpose": "Heading adjustment"
+    },
+    {
+      "keys": "ArrowUp",
+      "seconds": 2.5,
+      "purpose": "Advance"
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 0.65,
+      "purpose": "Brake before map"
+    },
+    {
+      "keys": "ArrowUp+ArrowLeft",
+      "seconds": 1.5,
+      "purpose": "Flight steering attempt"
+    },
+    {
+      "keys": "ArrowUp",
+      "seconds": 2.2,
+      "purpose": "Continue after flight observation"
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 0.9,
+      "purpose": "Brake before map"
+    },
+    {
+      "keys": "ArrowUp+ArrowLeft",
+      "seconds": 1.3,
+      "purpose": "Final steering attempt"
+    },
+    {
+      "keys": "ArrowUp",
+      "seconds": 2.1,
+      "purpose": "Final forward attempt"
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 0.8,
+      "purpose": "Brake before final pause"
+    }
+  ],
+  "heldInputLimit": "The 17 supplied holds sum to 25.7 seconds. Taps, clicks, coasting, screenshots, map/menu inspection, recovery motion and wall-clock latency are excluded. Do not substitute an estimated 27.1-second total.",
+  "steps": [
+    "Resume the existing collected Pista House order at 415 m, 11 s, 27° heat, 0 km/h and no boost. Hold ArrowUp for 2.6 s: 382 m, 77 km/h, 4 s remaining. Hold ArrowUp for 3.6 s: off-road approximately 420 m, Late, 11° heat and 77 km/h.",
+    "Hold ArrowDown for 1.2 s, press Escape and click the actual Back to the road button. Open M. The first saved map shows the car near pixel (298,262), the customer near (335,51), and the car apex roughly south-southeast. This is a rendered-map observation, not a measured world heading. A fully settled recovery HUD was not separately captured.",
+    "Click actual Close map. ArrowUp+ArrowLeft for 1.7 s ends at 501 m and 0 km/h behind a blue car. ArrowDown for 0.65 s and ArrowUp+ArrowLeft for 0.8 s then reach 576 m, 18 km/h and 0° heat, with a Baigan! −1 slice toast.",
+    "ArrowUp+ArrowLeft for 1.8 s and ArrowDown for 0.65 s, then open M. Root observed the map arrow pointing roughly east-northeast near the route; this intermediate map was not saved independently. Click actual Close map.",
+    "ArrowUp+ArrowLeft for 0.75 s, ArrowUp for 2.5 s and ArrowDown for 0.65 s, then open M. Root judged the map position nearly unchanged; no precise position measurement or standalone original was captured. Click actual Close map.",
+    "Tap Space and hold ArrowUp+ArrowLeft for 1.5 s. Root observed Flying / approximately 416 m, 58 km/h and about 0.8 s boost, with Pizza ruined indicating no slices remaining. An earlier live note estimated 0.9 s; the final supplied observation was 0.8 s. No standalone airborne original was saved.",
+    "Hold ArrowUp for 2.2 s and ArrowDown for 0.9 s, then open M a fourth time. Save rtc-map-after-flight-09096b.jpg. No driving HUD was captured while this map was open, so the map alone cannot establish touchdown or a controlled landing.",
+    "Click actual Close map a fourth time. Hold ArrowUp+ArrowLeft for 1.3 s, ArrowUp for 2.1 s and ArrowDown for 0.8 s. Final live HUD: off-road approximately 403 m, Late, 0° heat, 0 boost, 13 km/h, 802 coins and Level 2 1/4. The grounded/off-road HUD after flight was observed; the descent transition itself was not directly captured.",
+    "Press Escape to open Paused. Save rtc-paused-b9998e.jpg, mark the tab as a handoff and release all input. Warning/error console query returned no entries (limit 50). No E hold, handover or reward occurred."
+  ],
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Jawahar Nagar",
+    "distanceMode": "off-road approximate beacon/navigation display",
+    "distanceMetresApprox": 403,
+    "timer": "Late",
+    "heat": 0,
+    "speedKmh": 13,
+    "flightSeconds": 0,
+    "slicesReported": 0,
+    "coins": 802,
+    "level": "2 · 1/4",
+    "paused": true,
+    "dayClockInPausedOriginal": "Day 8 · 11:32 PM",
+    "sourceLimit": "Distance, heat and order state come from root’s live HUD observation before pause. The paused original independently shows Paused, 13 km/h, 802 coins, Level 2 1/4 and the day/time; the modal covers the delivery HUD."
+  },
+  "observations": [
+    {
+      "finding": "Navigation and turning attempts did not complete the customer leg.",
+      "classification": "workflow_unfinished_not_new_confirmed_bug",
+      "detail": "Forward/reverse steering, nearby traffic and off-road movement confound direction and distance changes. Source treats overlapping ArrowUp+ArrowLeft as throttle plus left steering, but the native wrapper’s exact event overlap was not instrumented."
+    },
+    {
+      "finding": "Slice loss and Pizza ruined appeared during the route.",
+      "classification": "observed_gameplay_penalty",
+      "detail": "Traffic/contact timing was not isolated. Zero slices still permits handover in current source, but no handover was attempted or completed here."
+    },
+    {
+      "finding": "The customer distance increased and guidance modes changed during attempts.",
+      "classification": "observed_navigation_difficulty",
+      "detail": "Ground-route distances and off-road/flying approximate distances are different modes. Their numerical changes do not prove route corruption or a bad recovery."
+    },
+    {
+      "finding": "Four actual Close map button actions dismissed the map.",
+      "classification": "passed_current_visible_control_sample",
+      "detail": "This is actual button evidence in this session; it does not establish every modal/picker/device case."
+    }
+  ],
+  "repairChecks": [
+    {
+      "issueId": "PT-009",
+      "status": "four_actual_map_close_actions_passed_no_controlled_focus_trap_retest",
+      "detail": "Repeated normal map close worked. A full Tab/Shift+Tab/Enter focus-cycle regression was not performed."
+    },
+    {
+      "issueId": "PT-010",
+      "status": "one_menu_recovery_activated_exact_reproduction_not_completed",
+      "detail": "No independent fully settled HUD plus short clear departure proof was saved for this recovery. The historical Sudarshan case was not reproduced."
+    },
+    {
+      "issueId": "PT-005",
+      "status": "controlled_median_reproduction_not_completed",
+      "detail": "No controlled, identified median contact sequence in this round."
+    },
+    {
+      "issueId": "PT-004",
+      "status": "controlled_large_vehicle_camera_reproduction_not_completed",
+      "detail": "A blue car and traffic penalties were encountered; no controlled bus/truck camera crossing was exercised."
+    },
+    {
+      "issueId": "PT-011",
+      "status": "not_exercised_no_handover",
+      "detail": "No completion occurred, so next-offer scheduling could not be tested."
+    }
+  ],
+  "console": {
+    "queriedLevels": [
+      "warn",
+      "error"
+    ],
+    "limit": 50,
+    "entries": [],
+    "scope": "Visible tab console entries returned by the browser tool only; not a complete network or engine audit."
+  },
+  "evidence": [
+    {
+      "path": "evidence/2026-10-23T2115Z-rtc-route-map-b71113.jpg",
+      "sha256": "b711136ae598385899c127b3955193e82bc99267ce45e5445defc3976415b05d",
+      "width": 594,
+      "height": 522
+    },
+    {
+      "path": "evidence/2026-10-23T2115Z-rtc-map-after-flight-09096b.jpg",
+      "sha256": "09096b40d98281f445d3a6d3957c250309470f1da669b1cb4506ec88379e4da6",
+      "width": 594,
+      "height": 522
+    },
+    {
+      "path": "evidence/2026-10-23T2115Z-rtc-paused-b9998e.jpg",
+      "sha256": "b9998ef5b7c62951a9b5f50892d70e3c9f1ce744dd0719f8181c113e83b25d2d",
+      "width": 594,
+      "height": 522
+    }
+  ],
+  "originalsInspectedByAuthor": true,
+  "notPersisted": [
+    "Intermediate second and third full-map views",
+    "Airborne HUD and immediate descent/landing transition",
+    "Final unpaused delivery HUD"
+  ],
+  "newConfirmedIssues": [],
+  "notCovered": [
+    "Explicit customer handover and reward",
+    "Controlled landing/descent sequence",
+    "Controlled bus/truck camera crossing",
+    "Controlled median, curb or bridge collision",
+    "Exact historical Mecca/Sudarshan recovery",
+    "Whole RTC street network or real shop-order fidelity"
+  ],
+  "handoff": {
+    "tabId": "1933378266",
+    "browserId": "1",
+    "owner": "root",
+    "area": "RTC X Roads",
+    "paused": true,
+    "heldKeys": false,
+    "markedHandoffByDriver": true,
+    "instruction": "Resume the already-collected Pista House order to Home in Jawahar Nagar. Final live state: off-road approximately 403 m, Late, 0 heat, 0 slices, 0 boost, 13 km/h, 802 coins, Level 2 1/4. The car is paused with nonzero speed: be ready to slow it safely immediately after Resume. No handover or reward yet. Keep other sessions paused."
+  }
+}
