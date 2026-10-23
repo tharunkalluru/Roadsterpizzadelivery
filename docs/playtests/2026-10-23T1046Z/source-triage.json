@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1046Z",
+  "method": "Three subagents reviewed source/data and evidence. Findings below are source review, not additional gameplay interactions. Root and one subagent exercised the browser sequentially.",
+  "build": {
+    "checkoutCommit": "2f49b7da64edfae0a2fd5dbf6abecc74f1fcad78",
+    "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+    "latestGameDataCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
+    "runtimeAsset": "index-TazYPRJa.js",
+    "servedHtmlJsAndCoreMatchDist": true,
+    "publicCityFilesMatchingDist": 306,
+    "rebuilt": false
+  },
+  "PT-011": {
+    "reviewer": "playtest_east",
+    "visibleEvidence": "Root completed Kukatpally handover and repeated missing-card failure after immediate pause. This adds a second area to Ameerpet.",
+    "sourceSupport": "game.ts:336-337 schedules one offer callback after2.5s and skips it with a HUD modal; Resume does not retry. Stay here calls showOffer.",
+    "confidence": "High for visible failure and workaround. Source strongly supports callback mechanism, but no runtime callback instrumentation was used.",
+    "outstandingControl": "Completed handover with no intervening pause."
+  },
+  "PT-012": {
+    "reviewer": "playtest_old_city",
+    "name": "Kushaiguda Traffic PS",
+    "boardId": "b_6d4468aa-c5da-40",
+    "coreRecord": "game/public/city/core.pack.wasm food[7677]",
+    "packedBoard": "game/public/city/packs/p2_-3.pack.wasm tile7_-8",
+    "storedGroup": "food",
+    "confidenceField": 0.72,
+    "pizzaField": false,
+    "stop": [
+      7871.0,
+      -7419.0,
+      0,
+      "Moula-ali - SP Nagar - ECIL Road"
+    ],
+    "buildingId": "b41bcda8-237",
+    "slot": {
+      "floor": 0,
+      "index": 1,
+      "of": 6
+    },
+    "offerEligibility": "export_city.py:234 accepts group food, floor0 and confidence>=0.5 without a police-name exclusion; make_core.py:64-73 aggregates. game.ts:142-144 filters short/place-only names;270-278 selects eligible food.",
+    "visibleEvidence": "ECIL worker reported two offers with distinct customer destinations. Root inspected saved original first-offer screenshot.",
+    "possibleCause": "conflate.py:40,55-57 checks food-category regex first; bare pub could match public.",
+    "causeStatus": "Unverified for this record: original raw categories/businesses.parquet unavailable. No real-world category research in this playtest batch."
+  },
+  "reportingNotes": [
+    "PT-007 already has two controlled covered/exposed comparisons; further work is regression coverage, not initial confirmation.",
+    "Delivery progress and rewards must be measured per live tab. Saved progress is loaded at start; multiple paused tabs retain separate in-memory baselines.",
+    "A flight workaround does not prove ground route unreachable. A kerb can be traversable by design; bridge parapets require separate controlled testing.",
+    "Recovery can choose a different legal heading and change GPS distance. Wait for glide/camera settling before judging forward clearance."
+  ]
+}

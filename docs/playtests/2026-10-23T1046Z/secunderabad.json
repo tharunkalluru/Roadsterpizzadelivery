@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1046Z",
+  "area": "Secunderabad",
+  "route": "Cafe Kaadhale on S.D. Road → Home in Nehru Nagar",
+  "startedAt": "2026-10-23T10:59:37Z",
+  "endedAt": "2026-10-23T11:03:12Z",
+  "checkoutCommit": "2f49b7da64edfae0a2fd5dbf6abecc74f1fcad78",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": {
+    "width": 594,
+    "height": 466
+  },
+  "method": "Root used visible Chrome keyboard/buttons while all other game tabs were paused. No hidden-state mutation, teleport, simulation stepping or autopilot.",
+  "continuedPriorPickup": true,
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "customerHandoverAttempted": false,
+  "input": {
+    "heldDrivingInputSecondsApprox": 24.84,
+    "heldDurationsSeconds": [
+      5.6,
+      0.8,
+      0.6,
+      1.7,
+      0.65,
+      2.6,
+      0.75,
+      0.22,
+      4,
+      0.75,
+      0.12,
+      2.6,
+      0.65,
+      0.65,
+      2.5,
+      0.65
+    ],
+    "recoveryTaps": 1,
+    "flightTaps": 0,
+    "caveat": "Chord time counted once; excludes coasting, tool latency, UI and recovery glide. Not continuous driving."
+  },
+  "completedInteractions": [
+    "Resume preserved customer leg",
+    "Ground main-road/junction driving, braking and turning",
+    "Visible recovery after frontage contact",
+    "Actual Close map",
+    "Pause/Resume and final pause"
+  ],
+  "steps": [
+    "Resumed collected order at881m,157s,100heat,521coins,Level1 1/3,7.5sboost and0km/h. This tab retained its older baseline; no aggregate cross-tab wallet comparison.",
+    "W5.6s/S0.8s brought HUD to495m after leaving the curve onto open ground. A right correction reached458m, the closest observed customer route. Further driving in the wrong lane/direction increased route distance to695m. Operator heading was a confound; no GPS defect inferred.",
+    "Further turning caused frontage contact near Jawahar Nagar Colony,638m,71heat. R produced visible jets/glide. Opened map during the glide, inspected route and actual Close succeeded. Recovery resumed after map close, settled on a clear road at923m. Changed road heading/route distance is not treated as failed recovery.",
+    "Followed junction branches with short steering and acceleration. Route became906m then882m; another median/kerb contact and wrong heading limited progress. No handover prompt or E attempt occurred.",
+    "Final pause at883m,23s,31heat,521coins,Level1 1/3,10sboost and0km/h. Saved original unpaused stopping view immediately before final pause. Ground driving increased boost7.5→10s; no flight attempted this leg."
+  ],
+  "findings": [],
+  "observations": [
+    {
+      "category": "navigation_attempt",
+      "status": "operator_confounded",
+      "note": "458m closest,883m final after wrong turns/recovery. No new route obstruction or inaccessible-customer claim."
+    },
+    {
+      "category": "recovery",
+      "status": "visible_recovery_succeeded",
+      "note": "R settled on a usable road after map-close allowed the glide to continue; subsequent forward inputs worked. PT-010 wall-facing outcome not reproduced."
+    }
+  ],
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Nehru Nagar",
+    "routeMetres": 883,
+    "timeSeconds": 23,
+    "heat": 31,
+    "coins": 521,
+    "level": "1 · 1/3",
+    "flightSeconds": 10,
+    "speedKmh": 0,
+    "areaChip": "Jawahar Nagar Colony",
+    "paused": true
+  },
+  "console": {
+    "levels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Captured logs only; empty output is not evidence of no gameplay bugs."
+  },
+  "evidence": [
+    "evidence/2026-10-23T1046Z-secunderabad-customer883m-ed7934.jpg"
+  ],
+  "limitations": [
+    "No new collection or handover; no no-pause handover control.",
+    "No controlled curb-animation or bridge-parapet collision test.",
+    "Partial customer approach with steering errors, not a whole-area or real-street fidelity verification."
+  ],
+  "handoff": {
+    "tabId": "1933378088",
+    "browserId": "1",
+    "owner": "root",
+    "paused": true,
+    "heldKeys": false,
+    "area": "Secunderabad",
+    "instruction": "Continue collected Cafe Kaadhale customer leg883m/23s/31heat/10sflight. Keep ECIL tab paused. This older live tab retains521coins/Level1 1/3; do not compare reward against the separate580coin tab baseline."
+  }
+}

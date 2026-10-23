@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1046Z",
+  "area": "ECIL",
+  "route": "Hotel Anand Vihar → Home in Green Hills Colony",
+  "startedAt": "2026-10-23T10:53:02Z",
+  "browserInputEndedAt": "2026-10-23T10:58:44Z",
+  "status": "completed_partial_coverage",
+  "checkoutCommit": "2f49b7da64edfae0a2fd5dbf6abecc74f1fcad78",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "buildNote": "Root supplied runtime provenance and reported all 306 public packs matching dist. This worker inspected visible gameplay and captured browser console logs; it did not rebuild or alter the runtime.",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": { "width": 594, "height": 466 },
+  "method": "playtest_west alone controlled its newly created Chrome tab during an exclusive input turn. Normal Play and Popular ECIL picker, visible keyboard/buttons, screenshots and AX state only. No hidden state, teleport, engine stepping or autopilot. Root's Kukatpally and Secunderabad tabs were not touched.",
+  "input": {
+    "heldDrivingInputSecondsApprox": 28.95,
+    "ledger": [
+      [["w", 3], ["s", 0.7]],
+      [["w+a", 1.1], ["s", 0.45]],
+      [["s+d", 1.4], ["w+a", 0.6], ["w", 1.6], ["s", 0.55]],
+      [["w+d", 1.1], ["s", 0.5]],
+      [["w", 4], ["s", 1.1]],
+      [["w", 2.3], ["s", 0.9]],
+      [["w+a", 2], ["s", 0.7]],
+      [["w+a", 0.65], ["w", 2.5], ["s", 0.9]],
+      [["w", 2], ["s", 0.9]]
+    ],
+    "flightTaps": 2,
+    "recoveryKeyTaps": 2,
+    "collectionHoldSeconds": 0,
+    "caveat": "Chord durations count once. Held-input time includes acceleration/braking/reversing and 2 seconds of W during flight; it is not continuous driving. Tool latency, passive coasting, map/pause time, recovery glides and Space/R taps are excluded."
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "pickupInteractionAttempted": false,
+  "customerHandoverAttempted": false,
+  "offerSequence": [
+    { "pickup": "Saanvi's Goodlands Banquets and Restaurant", "road": "Moula-ali - SP Nagar - ECIL Road", "customer": "Home in Green Hills Colony", "routeMetres": 1410, "timeSeconds": 246, "baseCoins": 134 },
+    { "pickup": "Hotel Anand Vihar", "customer": "Home in DAE Colony", "routeMetres": 989, "timeSeconds": 186, "baseCoins": 104 },
+    { "pickup": "Kushaiguda Traffic PS", "road": "Moula-ali - SP Nagar - ECIL Road", "customer": "Home in Bhavani Nagar", "routeMetres": 578, "timeSeconds": 128, "baseCoins": 75 },
+    { "pickup": "Kushaiguda Traffic PS", "road": "Moula-ali - SP Nagar - ECIL Road", "customer": "Home in DAE Colony", "routeMetres": 390, "timeSeconds": 101, "baseCoins": 62 },
+    { "pickup": "Hotel Anand Vihar", "customer": "Home in Green Hills Colony", "routeMetres": 404, "timeSeconds": 103, "baseCoins": 63, "accepted": true }
+  ],
+  "steps": [
+    "Created own tab1933378100 at base URL. Play > Popular ECIL loaded an open street with buildings, traffic and580coins/Level1 2/3. No explicit viewport override or fullscreen change.",
+    "Used Another four times. Two successive distinct offers named Kushaiguda Traffic PS as the pickup, with different customers/distances. Captured the first offer before pausing to save its original screenshot. Neither police-named offer was accepted.",
+    "Accepted Hotel Anand Vihar > Home in Green Hills Colony, advertised404m/about103s/base63coins. Initial pickup HUD after map close showed985m. The advertised distance is the delivery leg; this is consistent with existing PT-002 wording ambiguity, not a new routing defect.",
+    "Opened M and inspected the north-up map. Clicked the actual Close map button. Ground driving reduced pickup985→934→875m, then a left turn contacted a frontage. Reversing and another turn changed approach distance to1055m. Operator steering and heading were confounds.",
+    "A straight attempt alongside buildings reached1020m and showed Stuck? Get back on the road (R). Attempted semantic click was rejected because the transient button had lost its layout before activation. Fresh screenshot showed the car stopped by the facade; keyboard R produced Back to the street! and a glide to a street, settling at964m.",
+    "Further road driving reached931m and increased flight boost2.5→5.0s. A second M map inspection showed the intended route behind the car. Actual Close worked again. U-turn attempts and facade contacts changed the pickup route958→890m; no unreachable-pickup or navigation defect established.",
+    "Space initiated flight with5.0s charge. Held W2s, tapped Space to cut flight, and braked. Charge remained3.0s. View showed an elevated flight followed by a rooftop landing at0km/h, approximately950m pickup distance. This was not a successful street landing.",
+    "Used R from the rooftop. Back to the street! and thruster glide were visible; subsequent screenshot showed the car settled on a usable street at930m and0km/h. Captured original stopping-state screenshot, pressed P, verified Paused, and marked own tab for handoff.",
+    "Closed both temporary evidence-form tabs. Released exclusive input and the owned lock at10:58:44UTC. No keys held; root may resume its own independent route."
+  ],
+  "completedInteractions": [
+    "Normal ECIL selection, offer cycling and explicit acceptance",
+    "Ground acceleration, steering, braking/reversing, frontage contact and visible recovery",
+    "Flight charge increase2.5→5.0s through road driving",
+    "Space flight, second-Space cutoff with3.0s remaining, rooftop landing and road recovery",
+    "M and actual Close map twice",
+    "Pause and Resume around evidence capture; final Pause verified"
+  ],
+  "pickupProgress": {
+    "initialRouteMetres": 985,
+    "closestObservedRouteMetres": 875,
+    "lastObservedRouteMetres": 930,
+    "holdToCollectPromptObserved": false,
+    "limitation": "Partial route attempt with wrong turns and facade contacts; no claim pickup is unreachable."
+  },
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Hotel Anand Vihar",
+    "routeMetres": 930,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 3.0,
+    "speedKmh": 0,
+    "clock": "Day 6 · 5:22 AM",
+    "paused": true,
+    "heldKeys": false
+  },
+  "findings": [
+    {
+      "issueId": "PT-012",
+      "severity": "P2",
+      "status": "confirmed_repeated_police_station_named_pickup_source_cause_unverified",
+      "confidence": "high for repeated displayed offer; source classification cause and real-world listing identity not verified by this playtest",
+      "title": "Police-station-named location offered as a pizza pickup kitchen",
+      "expected": "Pizza pickup offers identify an appropriate food business or explicitly explain an alternative pickup location.",
+      "actual": "Two successive offers displayed Pick up at Kushaiguda Traffic PS on Moula-ali - SP Nagar - ECIL Road: first Home in Bhavani Nagar578m, then Home in DAE Colony390m.",
+      "reproductions": 2,
+      "steps": [
+        "Normal Play > Popular ECIL.",
+        "Use Another twice after initial Saanvi's offer; police-named pickup appears with Bhavani Nagar customer.",
+        "Save screenshot, Pause/Resume, then Another once; same pickup appears with DAE Colony customer."
+      ],
+      "evidence": ["evidence/2026-10-23T1046Z-ecil-police-pickup-offer-918b81.jpg"],
+      "limitations": [
+        "First offer has a saved screenshot; the second is recorded in the CUA AX trace and this offer ledger.",
+        "Neither police-named offer was accepted or collected.",
+        "No street imagery or external business verification was performed in this gameplay pass.",
+        "Root separately reported the exact police-named source record is food-classified and eligible at runtime; this report does not identify the upstream classification cause."
+      ],
+      "nextStep": "Inspect the exact source record/category and kitchen eligibility rule, then verify corrected visible offer selection without removing unrelated legitimate businesses."
+    }
+  ],
+  "console": {
+    "queriedLevels": ["error", "warn"],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Captured own-tab logs only. Empty logs do not exclude visual or gameplay defects."
+  },
+  "toolLimitations": [
+    "One transient rescue-button click failed with no layout object; current UI was re-read and documented keyboard R used successfully. This is not classified as a game button bug.",
+    "Shared-profile progress loaded from earlier runs. Root's other games stayed paused; this worker made no progress-saving delivery."
+  ],
+  "evidence": [
+    "evidence/2026-10-23T1046Z-ecil-police-pickup-offer-918b81.jpg",
+    "evidence/2026-10-23T1046Z-ecil-stopping-state-2acc51.jpg"
+  ],
+  "untested": [
+    "Explicit ECIL collection and customer handover",
+    "Flight descent directly onto street followed by collection",
+    "Controlled traffic signal/queue behavior",
+    "Bridge parapet collision",
+    "Every ECIL street and real shop order",
+    "Physical phone/touch controls"
+  ],
+  "handoff": {
+    "tabId": "1933378100",
+    "browserId": "1",
+    "owner": "playtest_west",
+    "paused": true,
+    "heldKeys": false,
+    "area": "ECIL",
+    "instruction": "Own tab is marked handoff with accepted Hotel Anand Vihar pickup930m away,3.0s boost,580coins/Level1 2/3. Continue via visible Resume only. Cross-session tab claims previously failed; ask this worker to continue if root cannot bind it. Keep other game tabs paused."
+  }
+}

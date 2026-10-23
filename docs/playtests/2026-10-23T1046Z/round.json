@@ -1,0 +1,27 @@
+{
+  "id": "2026-10-23T1046Z",
+  "startedAt": "2026-10-23T10:46:45.854Z",
+  "endedAt": "2026-10-23T11:04:42.541339+00:00",
+  "status": "completed_partial_coverage",
+  "areas": [
+    "Kukatpally",
+    "ECIL",
+    "Secunderabad"
+  ],
+  "checkoutCommit": "2f49b7da64edfae0a2fd5dbf6abecc74f1fcad78",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeGameDataCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
+  "reports": [
+    "2026-10-23T1046Z/kukatpally.json",
+    "2026-10-23T1046Z/ecil.json",
+    "2026-10-23T1046Z/secunderabad.json"
+  ],
+  "sourceTriage": "2026-10-23T1046Z/source-triage.json",
+  "participantType": "Root and playtest_west used visible controls in sequential exclusive browser turns; two other subagents reviewed source/provenance and reporting. No teleport, hidden-state mutation, stepping or autopilot.",
+  "pickupsCompleted": 0,
+  "completedDeliveries": 1,
+  "heldDrivingInputSecondsApprox": 74.24,
+  "savedScreenshots": 6,
+  "uniqueScreenshots": 6,
+  "summary": "Kukatpally handover +59coins completed. PT-011 reproduced after immediate post-handover pause, now confirmed in two areas. New PT-012: police-station-named ECIL pickup offered twice. ECIL pickup and Secunderabad handover remain unfinished. Actual map Close worked."
+}

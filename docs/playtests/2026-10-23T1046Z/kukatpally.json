@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1046Z",
+  "startedAt": "2026-10-23T10:46:45.854Z",
+  "drivingTurnEndedAt": "2026-10-23T10:52:40Z",
+  "checkoutCommit": "2f49b7da64edfae0a2fd5dbf6abecc74f1fcad78",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeGameDataCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "buildNote": "HTTP200; served index/JS/core match dist. All306 public city files match dist; no source/data edits or rebuild. Runtime source and game-data commit distinguished from checkout HEAD.",
+  "method": "Root drove with visible Chrome controls. Browser ownership serialized with ECIL worker; two other agents reviewed source/provenance and deduplication read-only. No teleport, hidden state mutation, stepping or autopilot.",
+  "area": "Kukatpally",
+  "route": "Bakers Way → Home in Balaji Nagar",
+  "viewport": {
+    "width": 594,
+    "height": 522
+  },
+  "continuedPriorPickup": true,
+  "pickupsCompleted": 0,
+  "completedDeliveries": 1,
+  "customerHandoverAttempted": true,
+  "input": {
+    "heldDrivingInputSecondsApprox": 20.45,
+    "heldDurationsSeconds": [
+      3.3,
+      0.8,
+      3.3,
+      0.85,
+      0.65,
+      0.9,
+      1,
+      0.65,
+      2,
+      0.4,
+      1.4,
+      0.6,
+      2.5,
+      0.7,
+      0.9,
+      0.5
+    ],
+    "handoverHoldSeconds": 1.4,
+    "recoveryTaps": 1,
+    "flightTaps": 0,
+    "caveat": "Counts held driving chords once. Excludes handover hold, recovery glide, coasting, menu actions and tool/analysis latency. Not continuous driving."
+  },
+  "completedInteractions": [
+    "Resume preserved collected order",
+    "Ground residential customer approach",
+    "Actual map Close",
+    "Recovery R after frontage contact and resumed clear forward drive",
+    "Explicit Hold E handover",
+    "Immediate post-handover pause/resume reproduction",
+    "Change area → Stay here offer recovery",
+    "Final pause"
+  ],
+  "steps": [
+    "Resumed the preserved175m customer leg: Late,11heat,5slices,521coins,Level1 1/3,0flight,0km/h. No new pickup counted.",
+    "W3.3s/S0.8s reached133m with a slice-loss toast; W3.3s/S0.85s reached85m. Further low-speed turn/reverse inputs reached55m. Map opened through minimap; actual Close worked. Route-distance fluctuation and wrong-turn manoeuvres are not reported as GPS defects.",
+    "A left turn contacted a building frontage. R triggered visible recovery jets/glide. After settling, road and route were clear at57m; subsequent forward driving worked. This is a successful recovery sample, not a reproduction of PT-010.",
+    "W2.5s/S0.7s approached25m; S0.9s then W0.5s and natural coasting settled at6m/0km/h. Explicit Hold E / ACT to hand over appeared.",
+    "Held E1.4s: +59 coins with Kya re, pizza thanda hai! toast. Wallet521→580 and Level1 progress1/3→2/3 establish completed handover. Captured DOM and original screenshot.",
+    "In the same supported browser call, pressed P immediately after reward capture, before any New order card appeared. Paused was visible. Waited an explicit4.5s, clicked Resume, then waited an explicit5.5s without other menus. DOM and original screenshot showed no New order, Accept or Another controls. Waiting for an order alone was not used as the failure criterion.",
+    "Pressed P → Change area → Stay here. A New order card appeared for Stone Magic → Home in Balaji Nagar,845m/about166s/base94coins. Captured original restoration screenshot and paused. Offer was not accepted."
+  ],
+  "findings": [
+    {
+      "issueId": "PT-011",
+      "severity": "P2",
+      "status": "confirmed",
+      "confidence": "High for repeated visible failure and workaround; callback cause supported by source but not instrumented.",
+      "expected": "Following explicit handover, an offer should appear after resuming from a pause that spans the delayed offer callback.",
+      "actual": "No next-order card or offer controls after resume and a timed5.5s observation. Stay here restored a new card without relocating.",
+      "reproductionsThisRound": 1,
+      "reproductionsAcrossReports": 2,
+      "areas": [
+        "Ameerpet",
+        "Kukatpally"
+      ],
+      "source": "game/src/game/game.ts:336-337",
+      "evidence": [
+        "evidence/2026-10-23T1046Z-kukatpally-delivered-a33631.jpg",
+        "evidence/2026-10-23T1046Z-kukatpally-missing-next-offer-16d514.jpg",
+        "evidence/2026-10-23T1046Z-kukatpally-offer-restored-32cd8d.jpg"
+      ],
+      "remainingControl": "No-pause completed-handover comparison still not executed."
+    }
+  ],
+  "lastVisibleHud": {
+    "orderState": "Waiting for an order",
+    "pendingOffer": "Stone Magic → Home in Balaji Nagar",
+    "pendingOfferAccepted": false,
+    "pendingOfferRouteMetres": 845,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 5,
+    "speedKmh": 0,
+    "paused": true
+  },
+  "evidence": [
+    "evidence/2026-10-23T1046Z-kukatpally-delivered-a33631.jpg",
+    "evidence/2026-10-23T1046Z-kukatpally-missing-next-offer-16d514.jpg",
+    "evidence/2026-10-23T1046Z-kukatpally-offer-restored-32cd8d.jpg"
+  ],
+  "console": {
+    "levels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Captured logs only; empty output does not exclude gameplay bugs."
+  },
+  "limitations": [
+    "No new pickup: customer leg continued prior confirmed collection.",
+    "No no-pause handover control, bridge-barrier controlled test, flight/landing or physical touch test this driving turn.",
+    "Partial area coverage; no street/shop fidelity verification.",
+    "Wallet and progress measured against this tab baseline only. Separate paused game tabs retain their own in-memory progress."
+  ],
+  "endedAt": "2026-10-23T11:04:42.541339+00:00",
+  "cleanup": "Completed-delivery tab1933378078 closed after console capture. Restored Stone Magic offer was not accepted. Original result screenshots retained."
+}
