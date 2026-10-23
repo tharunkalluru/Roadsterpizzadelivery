@@ -154,6 +154,70 @@ class MatchingProvenanceTests(unittest.TestCase):
             with self.subTest(reading=reading):
                 self.assertEqual(distinctive_match(reading, core)['businessToken'], 'IAEC')
 
+    def test_shared_palace_jeweller_or_school_descriptors_do_not_identify_an_operator(self):
+        from ocr_match import core_business_name, distinctive_match
+        # Original-image review found different operators behind these readings.
+        # A nearby mapped board must not borrow their shared business descriptors.
+        cases = [
+            ('Omkaar Palace Shop', ['RESS PALACE', 'DRESS PALACE', 'PALACE']),
+            ('Changalal Jewellers', ['VINEETH JEWELLERS', 'JEWELLERS', 'JEWELLER', 'JEWELLERY']),
+            ('Rosary convent high school', ["JOHN'S HIGH SCHOOL", 'HIGH SCHOOL', 'CONVENT SCHOOL']),
+        ]
+        for name, readings in cases:
+            core = core_business_name(name)
+            for reading in readings:
+                with self.subTest(name=name, reading=reading):
+                    self.assertIsNone(distinctive_match(reading, core))
+
+    def test_distinctive_palace_jeweller_and_school_names_are_retained(self):
+        from ocr_match import core_business_name, distinctive_match
+        cases = [
+            ('Omkaar Palace Shop', 'OMKAAR'),
+            ('Changalal Jewellers', 'CHANGALAL'),
+            ('Rosary convent high school', 'ROSARY'),
+            ('Jagdamba Jewellers', 'JAGDAMBA'),
+            ('Vineeth Jeweller', 'VINEETH'),
+            ('Vineeth Jeweler', 'VINEETH'),
+            ('Vineeth Jewelers', 'VINEETH'),
+            ('Vineeth Jewellery', 'VINEETH'),
+            ('Vineeth Jewelry', 'VINEETH'),
+        ]
+        for name, brand in cases:
+            core = core_business_name(name)
+            for reading in [brand, name]:
+                with self.subTest(name=name, reading=reading):
+                    self.assertEqual(distinctive_match(reading, core)['businessToken'], brand)
+            with self.subTest(name=name, reading='different operator'):
+                self.assertIsNone(distinctive_match(name.replace(name.split()[0], 'Unrelated'), core))
+
+    def test_descriptor_only_readings_do_not_inflate_pipeline_photo_matches(self):
+        import ocr_match
+        cases = [
+            ('Omkaar Palace Shop', 'OMKAAR', ['RESS PALACE', 'DRESS PALACE']),
+            ('Changalal Jewellers', 'CHANGALAL', ['VINEETH JEWELLERS']),
+            ('Rosary convent high school', 'ROSARY', ["JOHN'S HIGH SCHOOL"]),
+        ]
+        for name, brand, other_signs in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as tmp:
+                board = dict(uid='business', status='placed', flags=[], name=name, board=name,
+                             facade_ll=[[17.40648, 78.49655], [17.40648, 78.49665]], facade=dict(t=.5))
+                record = dict(image='fixture', captured_at=1700000000000, sequence='fixture-sequence',
+                              lat=17.4063, lon=78.4966, compass=0, w=100, h=100, texts=[
+                                  dict(text=text, conf=.99, box=[[40, 30], [60, 30], [60, 40], [40, 40]])
+                                  for text in [*other_signs, name]])
+                with patch.object(ocr_match, 'BUILD', tmp), \
+                     patch.object(ocr_match, 'load_records', return_value={'fixture': record}), \
+                     patch.object(ocr_match, 'mapped_candidates', return_value=[board]), redirect_stdout(io.StringIO()):
+                    ocr_match.main()
+                matches = json.loads((Path(tmp) / 'ocr_matches.json').read_text())
+                self.assertEqual(set(matches), {'business'})
+                match = matches['business']
+                self.assertEqual(match['seen'], 1)
+                self.assertEqual(match['matchedText'], name)
+                reading, = match['matchedReadings']
+                self.assertEqual(reading['businessToken'], brand)
+                self.assertEqual(match['verification'], 'automated_photo_match_candidate')
+
     def test_estate_or_state_alone_cannot_identify_state_bank_of_india(self):
         from ocr_match import core_business_name, distinctive_match
         core = core_business_name('State Bank of India', 'State Bank of India - Parishrama Bhavan')

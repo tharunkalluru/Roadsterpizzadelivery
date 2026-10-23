@@ -1,0 +1,407 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1742Z",
+  "automationId": "hyderabad-citywide-shopfront-naming",
+  "branch": "codex/shopfronts-map-roadster",
+  "baseCommit": "20b8678d3fe164c30ee77089f646d8eed1ea7a64",
+  "receiptRecordedAt": "2026-10-23T17:54:55.371234+00:00",
+  "validationProvenance": "This receipt was reconstructed from local shard summaries, source/metadata snapshots and parent-reported manual review/validation. It does not claim any queued heartbeat executed.",
+  "startedAt": "2026-10-23T17:42:50.984281Z",
+  "completedAt": "2026-10-23T17:56:41.834864+00:00",
+  "status": "completed_bounded_batch",
+  "scope": "Resumed interrupted visual review, bounded metadata/OCR, source enrichment and conservative false-match removal. No new shop name, photo placement, street verification, push or deployment.",
+  "timeEvidence": {
+    "sourceCellProcessedAt": "2026-10-23T17:43:26.285221Z",
+    "nextSourceFailureAt": "2026-10-23T17:43:40.346140Z",
+    "metadataStatusWrittenAt": "2026-10-23T17:44:59.412741+00:00",
+    "manifestWrittenAt": "2026-10-23T17:45:08.226637+00:00",
+    "lastOcrCompletedAt": "2026-10-23T17:49:42.737272+00:00",
+    "limitation": "Metadata cells do not retain per-cell timestamps; round completion recorded after root validation."
+  },
+  "source": {
+    "maxCells": 8,
+    "processedCellsTotal": 4,
+    "playableCellsTotal": 2527,
+    "pendingPhotoReviewOutcomesTotal": 37,
+    "newNamesTotal": 1,
+    "sourceLinksTotal": 54,
+    "streetVerifiedCellsTotal": 0,
+    "newNamesActuallyAdded": [],
+    "tls": "Certificate verification retained; no insecure fallback reported.",
+    "attemptedCells": 2,
+    "attemptedCellIds": [
+      "tile_0_0",
+      "tile_-1_-2"
+    ],
+    "processedCellIds": [
+      "tile_0_0"
+    ],
+    "retryCellIds": [
+      "tile_-1_-2"
+    ],
+    "sourceRecordsFetchedThisRun": 10,
+    "sourceLinksAdded": 5,
+    "newNamesAdded": 0,
+    "packsChanged": 1,
+    "successfulCell": {
+      "cellId": "tile_0_0",
+      "attempt": 5,
+      "sourceRecords": 10,
+      "sourceLinksAdded": 5,
+      "newNamesAdded": 0,
+      "processedAt": "2026-10-23T17:43:26.285221Z"
+    },
+    "blocker": "The next cell tile_-1_-2 returned Overpass HTTP502; processing stopped at the first failure.",
+    "failedAt": "2026-10-23T17:43:40.346140Z",
+    "cooldownUntil": "2026-10-23T17:44:40.346136+00:00"
+  },
+  "mapillary": {
+    "fullPlayableBbox": [
+      17.18944651682626,
+      78.18602271831716,
+      17.623153483173745,
+      78.72247438667843
+    ],
+    "cellsVisited": 4,
+    "newCompletedCellIds": [
+      "17.395,78.515",
+      "17.425,78.495",
+      "17.425,78.485",
+      "17.405,78.465"
+    ],
+    "newCells": [
+      {
+        "cellId": "17.395,78.515",
+        "cachedImageCount": 8,
+        "completedSubcells": 4
+      },
+      {
+        "cellId": "17.425,78.495",
+        "cachedImageCount": 249,
+        "completedSubcells": 4
+      },
+      {
+        "cellId": "17.425,78.485",
+        "cachedImageCount": 665,
+        "completedSubcells": 4
+      },
+      {
+        "cellId": "17.405,78.465",
+        "cachedImageCount": 1670,
+        "completedSubcells": 4
+      }
+    ],
+    "requests": 16,
+    "maxPagesPerSubcell": 1,
+    "completedCellsBefore": 17,
+    "completedCellsTotal": 21,
+    "cellsTotal": 2376,
+    "cachedImagesBefore": 8591,
+    "cachedImages": 11183,
+    "newMetadataImages": 2592,
+    "preparedManifestImages": 1162,
+    "metadataErrors": [],
+    "cellTimestampNote": "Cache records contain cell/image/box data but no per-cell timestamps. Cell identity and completion come from the preserved cell order and before/after snapshots; no exact fetch timestamps are asserted.",
+    "shards": [
+      {
+        "index": 0,
+        "newImages": 40,
+        "startingRows": 180,
+        "endingRows": 220,
+        "imagesWithText": 22,
+        "textItems": 136,
+        "newImageIds": [
+          "455861575509201",
+          "2028568584593899",
+          "737723950979667",
+          "1047955777328958",
+          "552746132474584",
+          "1110784061265931",
+          "3204018876414483",
+          "782735094646822",
+          "759251076860559",
+          "1914036222763625",
+          "835979882285963",
+          "782406668287729",
+          "490564648813571",
+          "1865339497368236",
+          "2036040410261576",
+          "1232465415293700",
+          "2571662553170334",
+          "505164867301636",
+          "2115204692281232",
+          "4455890617776850",
+          "520714642614235",
+          "588355735415999",
+          "288400332949910",
+          "479397030011086",
+          "824699991801749",
+          "2614695342164734",
+          "462370108161876",
+          "478422106763554",
+          "476544936888849",
+          "828138344453269",
+          "508767713806669",
+          "1186755118404375",
+          "762371834433656",
+          "314314210229498",
+          "227622205375040",
+          "741433826533000",
+          "120834570048517",
+          "1179541949179382",
+          "386899032491562",
+          "2975525852768555"
+        ],
+        "failures": [],
+        "exitCode": 0,
+        "timing": {
+          "startedAt": "2026-10-23T17:48:43Z",
+          "completedAt": "2026-10-23T17:49:07Z"
+        },
+        "summary": "pipeline/build/round-2026-10-23T1742Z/shard0-summary.json"
+      },
+      {
+        "index": 1,
+        "newImages": 40,
+        "startingRows": 175,
+        "endingRows": 215,
+        "imagesWithText": 25,
+        "textItems": 92,
+        "newImageIds": [
+          "373384580716006",
+          "1276332460590499",
+          "1162570144478798",
+          "1090938351502019",
+          "1329754988944962",
+          "2218024695336448",
+          "199820661975003",
+          "1148536780114404",
+          "498554787960337",
+          "2166610040504015",
+          "955161028613975",
+          "1867774374150039",
+          "790864553289958",
+          "1740670927325562",
+          "1066822775021908",
+          "302228294900848",
+          "501497124380591",
+          "5758674530815562",
+          "492187158501241",
+          "5703728859699039",
+          "469253767473219",
+          "1210985916001019",
+          "174544477915544",
+          "325046365894551",
+          "515033506618737",
+          "490036629110622",
+          "507010810662929",
+          "338868194324016",
+          "4099748153382022",
+          "370681457718809",
+          "114149544070585",
+          "206887991084235",
+          "322682709220995",
+          "1702387513277675",
+          "520540165625059",
+          "167041428593890",
+          "1014677442611263",
+          "2648733848758379",
+          "893517861213188",
+          "758599361477536"
+        ],
+        "failures": [],
+        "exitCode": 0,
+        "timing": {
+          "startedAt": "2026-10-23T17:49:20.192407+00:00",
+          "completedAt": "2026-10-23T17:49:42.737272+00:00"
+        },
+        "summary": "pipeline/build/round-2026-10-23T1742Z/shard1-summary.json"
+      }
+    ],
+    "newOcrPhotos": 80,
+    "ocrPhotosBefore": 355,
+    "ocrPhotosTotal": 435,
+    "newPhotosWithText": 47,
+    "newTextReadings": 228,
+    "shardOverlap": 0,
+    "candidateReportsGeneratedWithoutApply": true,
+    "matchReport": {
+      "images": 435,
+      "readings": 913,
+      "matched_readings": 38,
+      "boards_with_automated_photo_matches": 31,
+      "spelling_candidates": 7,
+      "photo_only_boards": 8,
+      "placed_boards_in_zone": 178615
+    },
+    "photoBoardReport": {
+      "photos": 269,
+      "readings": 1219,
+      "shop_like": 537,
+      "hit_a_front": 368,
+      "new_boards": 3,
+      "buildings": 2,
+      "packs": 2
+    },
+    "currentAutomatedNameCandidates": 31,
+    "currentPhotoOnlyBoardCandidates": 3,
+    "photoOnlyCountNote": "ocr_report.photo_only_boards=8 counts raw ray-match proposals; ocr_photo_report.new_boards=3 is the filtered board-candidate count used here.",
+    "falseIdentityMatchesRemovedThisRound": [
+      {
+        "boardId": "b_cc44c50d-06b2-45",
+        "name": "Omkaar Palace Shop"
+      },
+      {
+        "boardId": "b_be5ab38f-7936-45",
+        "name": "Changalal Jewellers"
+      },
+      {
+        "boardId": "b_4d3aac95687ca35d",
+        "name": "Rosary convent high school"
+      }
+    ],
+    "falseMatchRemovalScope": "Removed automated photo-evidence links only; no mapped business deletion or closure claim.",
+    "candidatesAwaitingInitialVisualReview": [
+      {
+        "boardId": "b_4e2a774cb61cd010",
+        "name": "Novelty Sports"
+      },
+      {
+        "boardId": "b_5747146d498e1b5c",
+        "name": "Sri Lakshmi Fruit Juice & Bakery Center"
+      },
+      {
+        "boardId": "b_69dde17f-be77-42",
+        "name": "Jockey Exclusive Store"
+      },
+      {
+        "boardId": "b_35ce584e-b609-49",
+        "name": "Sri Mou Gouri Shankar"
+      }
+    ],
+    "candidatesAwaitingInitialVisualReviewCount": 4,
+    "reviewDeduplication": {
+      "method": "Current 31 board IDs minus the union of prior tracked visual-review board IDs and the 10 current reviewed IDs supplied by root. Generic source-context notes do not count as image review.",
+      "priorReviewFiles": [
+        "docs/shopfront-photo-review-2026-10-23.json",
+        "docs/shopfront-photo-review-2026-10-23T0807Z.json",
+        "docs/shopfront-photo-review-2026-10-23T0924Z.json",
+        "docs/shopfront-photo-review-2026-10-23T1028Z.json"
+      ],
+      "currentReviewedBoardIds": [
+        "b_c75bd7b6-731e-45",
+        "b_bc9880bc-19e2-4b",
+        "b_cc44c50d-06b2-45",
+        "b_be5ab38f-7936-45",
+        "b_6245d60c-d38e-4a",
+        "b_4d3aac95687ca35d",
+        "b_c4a7ada4-cf33-4a",
+        "b_606e1a4d-38db-4d",
+        "b_dadf8554-ada4-43",
+        "b_5a867b0fdd84423b"
+      ]
+    },
+    "allCurrentCandidatesStillNeedExactPlacementReview": true,
+    "photoOnlyCandidatesApplied": 0
+  },
+  "manualReview": {
+    "evidence": "docs/shopfront-photo-review-2026-10-23T1742Z.json",
+    "evidenceFilePresentAtReceiptCreation": true,
+    "candidateBusinessesReviewed": 10,
+    "originalImagesInspected": 11,
+    "additionalIndependentViewsIncluded": 2,
+    "photoOnlyCandidatesReviewed": 3,
+    "reviewedCandidates": [
+      {
+        "boardId": "b_c75bd7b6-731e-45",
+        "name": "Cult Himayatnagar"
+      },
+      {
+        "boardId": "b_bc9880bc-19e2-4b",
+        "name": "Muthoot Finance Gold Loan"
+      },
+      {
+        "boardId": "b_cc44c50d-06b2-45",
+        "name": "Omkaar Palace Shop"
+      },
+      {
+        "boardId": "b_be5ab38f-7936-45",
+        "name": "Changalal Jewellers"
+      },
+      {
+        "boardId": "b_6245d60c-d38e-4a",
+        "name": "M Bajranglal Sons Jewellers"
+      },
+      {
+        "boardId": "b_4d3aac95687ca35d",
+        "name": "Rosary convent high school"
+      },
+      {
+        "boardId": "b_c4a7ada4-cf33-4a",
+        "name": "Muthoot FinCorp Gold Loan"
+      },
+      {
+        "boardId": "b_606e1a4d-38db-4d",
+        "name": "Rajlakshmi Jewellers- Gold jewellery shop"
+      },
+      {
+        "boardId": "b_dadf8554-ada4-43",
+        "name": "Sanjay's Gallery"
+      },
+      {
+        "boardId": "b_5a867b0fdd84423b",
+        "name": "Vineeth Jewellery"
+      }
+    ],
+    "reviewTiming": "The interrupted 1137 candidate review was actually performed in this 1742 round; it is counted here only.",
+    "summaryProvenance": "Counts and completed visual observations supplied by root and checked against its saved detailed review file; this documentation worker did not re-inspect the original images.",
+    "newNamesApplied": 0,
+    "exactPlacementsApplied": 0,
+    "streetVerifiedCells": 0,
+    "exactCitywideShopOrderComplete": false,
+    "uniqueOriginalPhotosReviewedCumulative": 35,
+    "originalPhotoInspectionEventsCumulative": 37,
+    "cumulativeCountNote": "Root deduplicated24 prior unique image IDs plus11 newly inspected unique images; earlier26 counted repeated inspection events."
+  },
+  "validation": {
+    "pipelineTests": "60 passed",
+    "testCommand": "pipeline/.venv/bin/python -m unittest discover -s pipeline/tests -v",
+    "pipelineTestProvenance": "Root executed complete pipeline suite; 60 tests passed.",
+    "gameProductionBuild": "passed",
+    "gameBuildProvenance": "Root executed npm run build; build passed and generated dist packs match source bytes.",
+    "existingBuildWarning": "fonts/fonts.css warning remains; not introduced by this receipt.",
+    "runtimeJavascriptAsset": "index-TazYPRJa.js",
+    "runtimeJavascriptChanged": false,
+    "gameDataChanged": true,
+    "gameDataChangeScope": "Five source links in one pack; zero new names or photo placements.",
+    "legacyApplyRun": false,
+    "gameplay": "Not tested in this naming batch.",
+    "shardIntegrity": "Two disjoint 40-image shards;355→435 unique OCR images; zero skips reported.",
+    "finalReceiptReview": "passed",
+    "receiptValidatedAt": "2026-10-23T17:56:41.834864+00:00",
+    "packAudit": [
+      {
+        "file": "game/public/city/packs/p0_0.pack.wasm",
+        "semanticChanges": 5,
+        "distMatches": true
+      },
+      {
+        "file": "game/public/city/core.pack.wasm",
+        "semanticChanges": 1,
+        "distMatches": true
+      }
+    ],
+    "locks": "Source, importer, metadata and both OCR locks released; nonblocking lock probes passed.",
+    "reviewIntegrity": "10 matched candidates and 3 photo-only reviews; 11 original image hashes match; rejected IDs absent from refreshed31-match report."
+  },
+  "outcome": {
+    "namesActuallyAdded": 0,
+    "sourceLinksAdded": 5,
+    "photoPlacementsApplied": 0,
+    "streetVerifiedCellsAdded": 0,
+    "exactCitywideShopOrderComplete": false,
+    "needsUserAction": false,
+    "published": false
+  },
+  "nextWork": "Review the four remaining initial candidates, then obtain useful independent views and exact facade/floor/side/order registration for all retained candidates. Resume bounded source and metadata queues; source links and OCR matches are not verified shop placement."
+}

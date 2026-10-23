@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1137Z",
+  "automationId": "hyderabad-citywide-shopfront-naming",
+  "branch": "codex/shopfronts-map-roadster",
+  "baseCommit": "20b8678d3fe164c30ee77089f646d8eed1ea7a64",
+  "receiptRecordedAt": "2026-10-23T17:54:55.371234+00:00",
+  "validationProvenance": "This receipt was reconstructed from local shard summaries, source/metadata snapshots and parent-reported manual review/validation. It does not claim any queued heartbeat executed.",
+  "startedAt": "2026-10-23T11:37:49.123491Z",
+  "completedAt": null,
+  "status": "interrupted_after_metadata_and_ocr_before_visual_review",
+  "scope": "Recovered record of the actual 11:37 source attempt and metadata/OCR work. The visual review was interrupted and completed later in the 17:42 round.",
+  "timeEvidence": {
+    "sourceFailureAt": "2026-10-23T11:37:49.749939Z",
+    "metadataBaselineSnapshotAt": "2026-10-23T11:38:01.670057+00:00",
+    "firstOcrRunningObservedAt": "2026-10-23T11:39:26Z",
+    "lastOcrCompletedAt": "2026-10-23T11:40:35.256236+00:00",
+    "limitation": "The exact original interruption time was not recorded. completedAt is null instead of the later receipt creation time."
+  },
+  "source": {
+    "maxCells": 8,
+    "processedCellsTotal": 3,
+    "playableCellsTotal": 2527,
+    "pendingPhotoReviewOutcomesTotal": 37,
+    "newNamesTotal": 1,
+    "sourceLinksTotal": 49,
+    "streetVerifiedCellsTotal": 0,
+    "newNamesActuallyAdded": [],
+    "tls": "Certificate verification retained; no insecure fallback reported.",
+    "attemptedCells": 1,
+    "attemptedCellIds": [
+      "tile_0_0"
+    ],
+    "processedCellIds": [],
+    "retryCellIds": [
+      "tile_0_0"
+    ],
+    "sourceLinksAdded": 0,
+    "sourceRecordsFetchedThisRun": 0,
+    "failureNumber": 4,
+    "blocker": "Fourth Overpass HTTP502 for tile_0_0; the bounded source batch stopped with zero game-pack edits.",
+    "failedAt": "2026-10-23T11:37:49.749939Z",
+    "cooldownUntil": "2026-10-23T11:45:49.749925+00:00",
+    "snapshotNote": "The 1137 status.json.before copy was taken after this source attempt; the 1742 baseline independently preserves the same failure."
+  },
+  "mapillary": {
+    "fullPlayableBbox": [
+      17.18944651682626,
+      78.18602271831716,
+      17.623153483173745,
+      78.72247438667843
+    ],
+    "cellsVisited": 4,
+    "newCompletedCellIds": [
+      "17.385,78.505",
+      "17.415,78.475",
+      "17.405,78.515",
+      "17.385,78.475"
+    ],
+    "newCells": [
+      {
+        "cellId": "17.385,78.505",
+        "cachedImageCount": 488,
+        "completedSubcells": 4
+      },
+      {
+        "cellId": "17.415,78.475",
+        "cachedImageCount": 478,
+        "completedSubcells": 4
+      },
+      {
+        "cellId": "17.405,78.515",
+        "cachedImageCount": 8,
+        "completedSubcells": 4
+      },
+      {
+        "cellId": "17.385,78.475",
+        "cachedImageCount": 608,
+        "completedSubcells": 4
+      }
+    ],
+    "requests": 16,
+    "maxPagesPerSubcell": 1,
+    "completedCellsBefore": 13,
+    "completedCellsTotal": 17,
+    "cellsTotal": 2376,
+    "cachedImagesBefore": 7009,
+    "cachedImages": 8591,
+    "newMetadataImages": 1582,
+    "preparedManifestImages": 953,
+    "metadataErrors": [],
+    "cellTimestampNote": "Cache records contain cell/image/box data but no per-cell timestamps. Cell identity and completion come from the preserved cell order and before/after snapshots; no exact fetch timestamps are asserted.",
+    "shards": [
+      {
+        "index": 0,
+        "newImages": 40,
+        "startingRows": 140,
+        "endingRows": 180,
+        "imagesWithText": 29,
+        "textItems": 141,
+        "newImageIds": [
+          "2289117374864898",
+          "543094644088451",
+          "1235080448654640",
+          "1491963991952026",
+          "530394758329944",
+          "1429122274881434",
+          "768199478938645",
+          "556646215319309",
+          "2190836411763895",
+          "485804653320034",
+          "526236538784435",
+          "1284460775283522",
+          "470709650671702",
+          "326308868862293",
+          "3590838717688502",
+          "3898111756939992",
+          "915946765631506",
+          "136641228405268",
+          "462243658210635",
+          "549743883101893",
+          "810890692878497",
+          "213914136962256",
+          "909485496566016",
+          "881048576094390",
+          "2570108589961779",
+          "508097083660577",
+          "300440061671255",
+          "380029279982397",
+          "526901415625278",
+          "2118630724976970",
+          "1319777613028068",
+          "304462261397671",
+          "508063113678081",
+          "808547243427609",
+          "1447759213066987",
+          "2275228999613881",
+          "1673504906642044",
+          "857953575079472",
+          "310828813854355",
+          "300853728290082"
+        ],
+        "failures": [],
+        "exitCode": 0,
+        "timing": {
+          "firstRecordedRunningAt": "2026-10-23T11:39:26Z",
+          "completionVerifiedAt": "2026-10-23T11:40:07.424331+00:00",
+          "timingNote": "Process started shortly before the first clock observation; no exact launch timestamp was logged. These are observation times, not an asserted processing duration."
+        },
+        "summary": "pipeline/build/round-2026-10-23T1137Z/shard0-summary.json"
+      },
+      {
+        "index": 1,
+        "newImages": 40,
+        "startingRows": 135,
+        "endingRows": 175,
+        "imagesWithText": 27,
+        "textItems": 104,
+        "newImageIds": [
+          "1128169554347272",
+          "5221218708102230",
+          "209586607455948",
+          "558613502318415",
+          "811868788051624",
+          "1320415139542739",
+          "3057943087771027",
+          "924471771457879",
+          "790366750527309",
+          "802515630393435",
+          "3140192176137471",
+          "294452202147720",
+          "750529734097044",
+          "1425544451872750",
+          "1273513767713779",
+          "4020408394840038",
+          "204899468132086",
+          "1423344668022218",
+          "304340577855017",
+          "1616916225391746",
+          "698207654831297",
+          "763776584307381",
+          "1320850901706441",
+          "156074666569686",
+          "177593990820088",
+          "179428640629496",
+          "2934028820256923",
+          "371504010917956",
+          "299437328437047",
+          "481740913074336",
+          "1182452055560862",
+          "666238630864258",
+          "515644656473105",
+          "533205187671750",
+          "522041758967048",
+          "4065308540158119",
+          "203734204765976",
+          "254730633064710",
+          "1285626985189447",
+          "1587966848065460"
+        ],
+        "failures": [],
+        "exitCode": 0,
+        "timing": {
+          "startedAt": "2026-10-23T11:40:17.479058+00:00",
+          "completedAt": "2026-10-23T11:40:35.256236+00:00"
+        },
+        "summary": "pipeline/build/round-2026-10-23T1137Z/shard1-summary.json"
+      }
+    ],
+    "newOcrPhotos": 80,
+    "ocrPhotosBefore": 275,
+    "ocrPhotosTotal": 355,
+    "newPhotosWithText": 56,
+    "newTextReadings": 245,
+    "shardOverlap": 0,
+    "uniqueOriginalPhotosManuallyInspectedThisRound": 0,
+    "candidateReportsGeneratedThisRound": false,
+    "lastAvailableAutomatedNameCandidates": 23,
+    "candidateSnapshotNote": "The 1742 pre-run candidate snapshot remains the same 23 candidates as the 1137 baseline; it is not a match report refreshed over the 355-image OCR corpus.",
+    "candidatesAwaitingInitialVisualReview": [
+      {
+        "boardId": "b_c75bd7b6-731e-45",
+        "name": "Cult Himayatnagar, Hyderabad | Gyms in Himayatnagar"
+      },
+      {
+        "boardId": "b_cc44c50d-06b2-45",
+        "name": "Omkaar Palace Shop"
+      },
+      {
+        "boardId": "b_bc9880bc-19e2-4b",
+        "name": "Muthoot Finance Gold Loan"
+      }
+    ],
+    "allCurrentCandidatesStillNeedExactPlacementReview": true,
+    "photoOnlyCandidatesLastAvailable": 2,
+    "photoOnlyCandidatesApplied": 0
+  },
+  "manualReview": {
+    "status": "interrupted_not_completed_in_this_round",
+    "candidateBusinessesReviewed": 0,
+    "originalImagesInspected": 0,
+    "contextPreparedFor": [
+      "Cult Himayatnagar",
+      "Muthoot Finance Gold Loan",
+      "Omkaar Palace Shop"
+    ],
+    "continuedInRound": "2026-10-23T1742Z",
+    "laterReview": "docs/shopfront-photo-review-2026-10-23T1742Z.json",
+    "noBackdating": "Do not count the later 17:42 visual review as completed during 11:37, or infer that intervening queued heartbeats ran."
+  },
+  "validation": {
+    "shardIntegrity": "Two disjoint 40-image shards;275→355 unique OCR images; zero skips reported.",
+    "pipelineTests": "Not rerun as part of this interrupted round. Later60-test validation belongs to1742.",
+    "gameDataChanged": false,
+    "gameBuild": "Not run in this interrupted round.",
+    "gameplay": "Not tested in this naming batch.",
+    "finalReceiptReview": "passed",
+    "receiptValidatedAt": "2026-10-23T17:56:41.834864+00:00"
+  },
+  "outcome": {
+    "namesActuallyAdded": 0,
+    "sourceLinksAdded": 0,
+    "photoPlacementsApplied": 0,
+    "streetVerifiedCellsAdded": 0,
+    "exactCitywideShopOrderComplete": false,
+    "needsUserAction": false,
+    "published": false
+  },
+  "nextWork": "Continue the interrupted candidate review in the 1742 round and retry the saved source queue without treating source/OCR coverage as verified frontage."
+}
