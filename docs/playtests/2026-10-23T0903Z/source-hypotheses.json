@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T0903Z",
+  "author": "playtest_west",
+  "method": "Read-only source review. No browser interaction or gameplay reproduction performed by this reviewer in this round.",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "isGameplayEvidence": false,
+  "hypotheses": [
+    {
+      "id": "SOURCE-0903-001",
+      "status": "unconfirmed_source_hypothesis",
+      "title": "Pausing immediately after handover may discard the next-order callback",
+      "observedInGameplay": false,
+      "reproductions": 0,
+      "sourceRefs": [
+        {
+          "path": "game/src/game/game.ts",
+          "lines": "336-337",
+          "finding": "completeDelivery clears the order and schedules a single callback after 2500ms. The callback only calls showOffer when there is no order and no HUD modal. It does not retry if the modal condition fails."
+        },
+        {
+          "path": "game/src/game/game.ts",
+          "lines": "623-628",
+          "finding": "Pause opens the HUD modal. Resume clears pause/modal state and resets the clock delta, without requesting another offer."
+        },
+        {
+          "path": "game/src/game/game.ts",
+          "lines": "456-457",
+          "finding": "The keyboard modal-dismissal path also clears pause/modal state without requesting another offer."
+        },
+        {
+          "path": "game/src/game/game.ts",
+          "lines": "903-905",
+          "finding": "An empty order with no route target renders Waiting for an order / Orders appear here. This is an expected visible indicator for the proposed reproduction, not an observed failure."
+        },
+        {
+          "path": "game/src/game/game.ts",
+          "lines": "524-525",
+          "finding": "Cancelling the area picker requests an offer if no order exists, suggesting a visible recovery path without relocating. That recovery is untested for this hypothesis."
+        }
+      ],
+      "reproductionPlan": [
+        "Finish an accepted delivery using normal driving and the visible hold-to-hand-over interaction. Record the explicit reward/result before beginning this check.",
+        "Immediately after handover, before the 2500ms next-offer delay elapses, press P or click Pause. Record the timing and verify Paused is visible. If the next offer is already visible, the race window was missed and this attempt is inconclusive.",
+        "Keep the pause sheet open for at least 4 seconds of wall time, then click Resume.",
+        "Observe for at least 4 seconds after resuming without moving or opening another menu. Record the HUD, whether an offer appears, and a screenshot.",
+        "If the offer is missing, optionally test the bounded recovery path P > Change area > Stay here. Do not select a different area, reset progress, or create state with hidden controls.",
+        "Repeat after a later normal handover before describing the failure as reproducible. A normal handover followed by no pause provides the comparison case."
+      ],
+      "expected": "After resuming, a new order should become available without an unrelated menu action.",
+      "predictedFailure": "The paused modal suppresses the one-shot callback, leaving Waiting for an order / Orders appear here and no offer after Resume.",
+      "deduplication": "Distinct from confirmed PT-009 map-focus escape, map Close behavior, and G10 cancellation of an already-present pending offer. Do not assign a confirmed PT issue based on this source review alone.",
+      "limitations": [
+        "Root reported customer handover remained unfinished when this note was requested; the prerequisite was not reached in this review.",
+        "This file contains no screenshots, console captures, or observed gameplay outcome.",
+        "Source reasoning does not establish how often the timing window occurs during ordinary play.",
+        "No game source, playtest index, save state, or browser state was changed."
+      ]
+    }
+  ]
+}

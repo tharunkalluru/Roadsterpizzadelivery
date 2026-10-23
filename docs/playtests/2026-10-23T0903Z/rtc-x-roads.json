@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T0903Z",
+  "area": "RTC X Roads",
+  "route": "Taco Bell on Chikkadapally Road \u2192 Home in Jawahar Nagar",
+  "startedAt": "2026-10-23T09:03:59Z",
+  "endedAt": "2026-10-23T09:22:45.591122+00:00",
+  "checkoutCommit": "c0ab0c8f78e45082f69fb04aaea912ce1dc6cfc3",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "buildNote": "Existing preview returned200; served HTML/bundle matched dist, and relevant current source packs matched dist. Build08:14:56UTC was reused. No game-source changes or rebuild.",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": {
+    "width": 594,
+    "height": 522
+  },
+  "method": "Root used visible Chrome keyboard and button controls; three subagents reviewed controls, build provenance and source hypotheses in parallel without browser input. No teleport, hidden-state mutation, simulation stepping or autopilot.",
+  "input": {
+    "heldDrivingInputSecondsApprox": 52.1,
+    "caveat": "Held key durations only; excludes pauses, recovery glide, inspection, tool latency and source review. Not uninterrupted driving."
+  },
+  "continuedPriorPickup": true,
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "customerHandoverAttempted": false,
+  "completedInteractions": [
+    "Resumed prior collected order via visible controls",
+    "Repeatedly opened map and clicked actual Close map button; game view returned",
+    "Drove residential segments and used braking and steering",
+    "Road driving replenished flight charge to5.0s",
+    "Two visible flight starts; one exhausted charge, one cut with a second Space press leaving1.8s",
+    "Repeated recovery glides settled to street-level0km/h states",
+    "Pause and Resume worked; final route paused for continuation"
+  ],
+  "steps": [
+    "Started with preserved paused Deliver order562m and roof recovery prompt. Back to the road settled at811m on a ground street.",
+    "Followed teal route with W/A/D/S through narrow streets. HUD distances fell through765,703,650,575,511,473,430,388,350,342 and319m across successful segments, interspersed with wrong turns, facade contacts and recoveries. Distance increases alone are not a GPS defect.",
+    "Full map used to inspect direction and repeatedly closed via its actual button. No new failure of actual Close map. Known PT-009 focus defect was not repeated this round.",
+    "First short flight ended near559m; R later settled at511m. Subsequent road driving raised charge to5.0s.",
+    "After further facade contacts, recovery placed car near369m. Space, W+A0.9s, W2.2s, second Space and S0.7s produced an airborne/descent state448m with1.8s charge retained.",
+    "R after that flight settled at528m facing a cinema wall. Captured original image, paused/resumed, then W1.2s and S0.35s; nose remained against wall at527m.",
+    "Pause > Back to the road repeated recovery from the nearby post-contact position. After settling with no driving input, car was552m,0km/h on a clear narrow street. Captured result and paused.",
+    "No Hold E customer prompt, customer E attempt, reward or completed delivery was observed. Next area was not started."
+  ],
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Jawahar Nagar",
+    "routeMetres": 552,
+    "time": "Late!",
+    "heat": 0,
+    "slices": 0,
+    "coins": 500,
+    "level": "1 \u00b7 0/3",
+    "flightSeconds": 1.8,
+    "speedKmh": 0,
+    "pausedAfterCapture": true
+  },
+  "findings": [
+    {
+      "issueId": "PT-010",
+      "severity": "P2",
+      "status": "observed_once_repeat_cleared",
+      "confidence": "medium for the observed wall-facing result; low for reproducibility or cause",
+      "title": "Recovery near Sudarshan cinema ended facing a wall once",
+      "expected": "After recovery settles, the car has useful forward road clearance.",
+      "actual": "After flight was cut and R completed, car rested facing the cinema wall at528m. W1.2s then S0.35s changed route distance to527m and left the nose against the wall. A second recovery through Pause > Back to the road instead settled at552m with a clear forward street.",
+      "reproductions": 1,
+      "repeatAttempts": 1,
+      "repeatReproduced": false,
+      "evidence": [
+        "evidence/2026-10-23T0903Z-rtc-recovery-end-84d26c.jpg",
+        "evidence/2026-10-23T0903Z-rtc-recovery-forward-9b8614.jpg",
+        "evidence/2026-10-23T0903Z-rtc-repeat-recovery-clear-6d4beb.jpg"
+      ],
+      "limitation": "No claim that the delivery is unreachable, that collisions are missing, or that every recovery fails. Exact first recovery starting position was not preserved; repeat used the nearby post-contact position."
+    }
+  ],
+  "sourceHypotheses": "source-hypotheses.json",
+  "console": {
+    "queriedLevels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Only captured tab logs; an empty result does not exclude gameplay defects."
+  },
+  "evidence": [
+    "evidence/2026-10-23T0903Z-rtc-recovery-end-84d26c.jpg",
+    "evidence/2026-10-23T0903Z-rtc-recovery-forward-9b8614.jpg",
+    "evidence/2026-10-23T0903Z-rtc-repeat-recovery-clear-6d4beb.jpg",
+    "evidence/2026-10-23T0903Z-rtc-flight-2baade.jpg"
+  ],
+  "untested": [
+    "Explicit customer handover and reward",
+    "Post-handover pause/next-offer source hypothesis",
+    "Bridge wall controlled collision",
+    "Traffic signal queue behaviour",
+    "Ameerpet and remaining area rotation",
+    "All playable regions",
+    "Phone/touch input",
+    "Real street and shop placement accuracy"
+  ],
+  "handoff": {
+    "tabId": "1933378062",
+    "browserId": "1",
+    "owner": "root",
+    "paused": true,
+    "heldKeys": false,
+    "instruction": "Continue the same already-collected Taco Bell order. Resume via visible button or Escape. Final recovery has settled on a clear street near Sudarshan cinema. HUD552m, Late,0heat,0slices,500coins,1.8sflight,0km/h. No customer handover yet. Root exclusively owns input only during the next test turn; lock released at end of this round."
+  }
+}
