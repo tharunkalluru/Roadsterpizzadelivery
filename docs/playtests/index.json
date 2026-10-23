@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-23T09:22:45.591122+00:00",
+  "updatedAt": "2026-10-23T10:01:20.940890+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -9,9 +9,9 @@
     "requires": "Mac awake and Codex running"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "c0ab0c8f78e45082f69fb04aaea912ce1dc6cfc3",
+  "currentBuild": "615e9d869b58b79cf3b78f8ad764a6f41a5f98e3",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
-  "nextAreaCursor": 7,
+  "nextAreaCursor": 8,
   "targetAreas": [
     "Charminar",
     "HITEC City",
@@ -90,11 +90,17 @@
       "lastRoute": "Taco Bell on Chikkadapally Road \u2192 Home in Jawahar Nagar",
       "heldDrivingInputSeconds": 94.55,
       "lastObservedDeliveryMetres": 552,
-      "closestObservedDeliveryMetres": 319
+      "closestObservedDeliveryMetres": 319,
+      "sessionStatus": "Prior handoff tab1933378062 unavailable at09:37 round; collected order was not handed over."
     },
     "Ameerpet": {
-      "status": "not_tested",
-      "completedDeliveries": 0
+      "status": "tested_partial",
+      "completedDeliveries": 1,
+      "pickupsCompleted": 1,
+      "report": "2026-10-23T0937Z/ameerpet.json",
+      "lastRoute": "AAAFoodCourt on Balkampet road \u2192 Home in Ameerpet",
+      "heldDrivingInputSeconds": 86.25,
+      "lastResult": "Explicit handover +21 coins; wallet521 and Level1 1/3"
     },
     "Kukatpally": {
       "status": "not_tested",
@@ -145,27 +151,25 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-23T0903Z",
-    "startedAt": "2026-10-23T09:03:59Z",
-    "endedAt": "2026-10-23T09:22:45.591122+00:00",
+    "startedAt": "2026-10-23T09:37:58Z",
+    "endedAt": "2026-10-23T10:01:20.940890+00:00",
+    "checkoutCommit": "615e9d869b58b79cf3b78f8ad764a6f41a5f98e3",
+    "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+    "pickupsCompleted": 1,
+    "completedDeliveries": 1,
+    "id": "2026-10-23T0937Z",
     "status": "completed_partial_coverage",
     "areas": [
-      "RTC X Roads"
+      "Ameerpet"
     ],
-    "checkoutCommit": "c0ab0c8f78e45082f69fb04aaea912ce1dc6cfc3",
-    "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
     "reports": [
-      "2026-10-23T0903Z/rtc-x-roads.json",
-      "2026-10-23T0903Z/source-hypotheses.json"
+      "2026-10-23T0937Z/ameerpet.json"
     ],
     "participantType": "AI using visible browser controls with parallel analysis",
-    "completedDeliveries": 0,
-    "pickupsCompleted": 0,
-    "continuedPriorPickup": true,
-    "heldDrivingInputSecondsApprox": 52.1,
+    "heldDrivingInputSecondsApprox": 86.25,
     "savedScreenshots": 4,
     "uniqueScreenshots": 4,
-    "summary": "Continued collected order; handover still incomplete. Recovery faced a wall once; nearby repeat cleared it. Actual map Close and pause/resume passed. Post-handover source hypothesis remains untested."
+    "summary": "Ameerpet pickup and explicit customer handover completed;21 coins awarded for ruined/late order. Immediate post-handover pause left next offer missing once; Stay here restored it. PT-007 overlap has saved evidence. Prior RTC session lost without handover."
   },
   "issueRegistry": [
     {
@@ -319,16 +323,20 @@
       "status": "confirmed_visual_overlap_pointer_impact_untested",
       "title": "Pending offer overlaps minimap at 594x522",
       "areas": [
-        "Nagaram"
+        "Nagaram",
+        "Ameerpet"
       ],
       "confidence": "high for visual overlap; pointer failure untested",
-      "evidence": [],
-      "evidenceLimit": "Nagaram overlap exists in CUA trace only. Saved Mehdipatnam images show a different 594x466 layout without overlap.",
+      "evidence": [
+        "evidence/2026-10-23T0937Z-ameerpet-restored-offer-c4d54c.jpg"
+      ],
+      "evidenceLimit": "Saved Ameerpet original screenshot confirms594x522 overlap. Covered minimap pointer behavior still untested.",
       "reports": [
         "2026-10-23T0747Z/nagaram.json",
-        "2026-10-23T0747Z/mehdipatnam.json"
+        "2026-10-23T0747Z/mehdipatnam.json",
+        "2026-10-23T0937Z/ameerpet.json"
       ],
-      "nextStep": "Reproduce at594x522 and save evidence; verify covered and exposed minimap click targets separately. At594x466 exposed minimap click passed."
+      "nextStep": "Test covered and exposed minimap targets at594x522; visual overlap is established, pointer failure is not."
     },
     {
       "id": "PT-008",
@@ -392,24 +400,48 @@
         "2026-10-23T0903Z/rtc-x-roads.json"
       ],
       "nextStep": "Reproduce from a documented ground or post-flight approach near Sudarshan cinema. Wait for recovery to settle; capture before/after and test forward clearance. A second nearby recovery cleared the observed wall-facing state, so do not label a confirmed blocker."
+    },
+    {
+      "id": "PT-011",
+      "aliases": [
+        "SOURCE-0903-001"
+      ],
+      "priority": "P2",
+      "status": "observed_once_repeat_required",
+      "title": "Pausing immediately after handover can leave the next offer missing",
+      "areas": [
+        "Ameerpet"
+      ],
+      "confidence": "medium; one completed-delivery observation and visible recovery, no second handover reproduction",
+      "evidence": [
+        "evidence/2026-10-23T0937Z-ameerpet-delivered-5d3ff3.jpg",
+        "evidence/2026-10-23T0937Z-ameerpet-missing-next-offer-1b9342.jpg",
+        "evidence/2026-10-23T0937Z-ameerpet-restored-offer-c4d54c.jpg"
+      ],
+      "reports": [
+        "2026-10-23T0937Z/ameerpet.json"
+      ],
+      "source": "game/src/game/game.ts:336-337",
+      "nextStep": "Repeat after a normal completed delivery, then compare with a handover without pausing. Keep this observed once until reproduced.",
+      "workaround": "Pause > Change area > Stay here restored the offer in the observed case without relocating."
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
   "browserCoordination": "Parent grants each worker a short exclusive driving turn. Use /tmp/roadster-playtest-input.lock around each CUA call; only its acquiring worker may release it. Other workers inspect code/evidence while waiting. Pause own game before ceding input. Do not modify another agent or user tab.",
   "evidenceCapture": "Use screenshots supported by the browser tool. tools/playtest-evidence-server.py provides a localhost-only browser form to save screenshot bytes when no file-save API exists. Read its random form URL from its startup output; do not reuse a stale URL.",
   "coverageLimitations": [
-    "No completed customer handover/reward yet; one pickup explicitly confirmed",
+    "One explicit customer handover/reward in Ameerpet; two pickups total including unfinished RTC route. This is partial coverage, not citywide verification.",
     "No physical phone/touch input tested",
     "Popular-area rotation is not every-tile coverage",
     "Performance observations with multiple open WebGL tabs are not standalone performance benchmarks",
     "Street and shop accuracy is not established by gameplay testing"
   ],
   "followUpPriorities": [
-    "Continue paused RTC Taco Bell order through explicit handover; pickup is already confirmed.",
-    "Repeat Charminar recovery near Mecca Masjid and preserve before/after screenshots.",
-    "Reproduce the three lower-confidence issues before treating them as confirmed defects.",
-    "After the paused route, rotate to Ameerpet, Kukatpally and Secunderabad, then continue remaining popular areas.",
-    "Test at a larger desktop viewport and later actual touch input; small desktop viewport coverage is not a phone test."
+    "Repeat PT-011 after another visible completed delivery and compare against no-pause handover; do not call it confirmed yet.",
+    "Rotate to Kukatpally, Secunderabad, ECIL, Dilsukh Nagar, LB Nagar, Banjara Hills, Kompally and Miyapur.",
+    "Repeat Charminar recovery near Mecca Masjid and lower-confidence collision/route observations with before/after evidence.",
+    "Verify covered versus exposed minimap clicks for PT-007 and retest keyboard focus escape PT-009.",
+    "Test larger desktop viewport and physical touch separately; small desktop coverage is not a phone test."
   ],
   "interpretationRules": [
     "A completed bounded test pass is partial area coverage, not proof of a whole region.",
@@ -438,7 +470,11 @@
     "evidence/2026-10-23T0903Z-rtc-recovery-end-84d26c.jpg",
     "evidence/2026-10-23T0903Z-rtc-recovery-forward-9b8614.jpg",
     "evidence/2026-10-23T0903Z-rtc-repeat-recovery-clear-6d4beb.jpg",
-    "evidence/2026-10-23T0903Z-rtc-flight-2baade.jpg"
+    "evidence/2026-10-23T0903Z-rtc-flight-2baade.jpg",
+    "evidence/2026-10-23T0937Z-ameerpet-pickup-04b931.jpg",
+    "evidence/2026-10-23T0937Z-ameerpet-delivered-5d3ff3.jpg",
+    "evidence/2026-10-23T0937Z-ameerpet-missing-next-offer-1b9342.jpg",
+    "evidence/2026-10-23T0937Z-ameerpet-restored-offer-c4d54c.jpg"
   ],
   "roundHistory": [
     {
@@ -504,16 +540,39 @@
       "savedScreenshots": 6,
       "uniqueScreenshots": 5,
       "summary": "First confirmed pickup; handover unfinished. Map keyboard focus escape reproduced twice. Additional camera and median observations retained without overclaiming causes. Same order paused for continuation."
+    },
+    {
+      "id": "2026-10-23T0903Z",
+      "startedAt": "2026-10-23T09:03:59Z",
+      "endedAt": "2026-10-23T09:22:45.591122+00:00",
+      "status": "completed_partial_coverage",
+      "areas": [
+        "RTC X Roads"
+      ],
+      "checkoutCommit": "c0ab0c8f78e45082f69fb04aaea912ce1dc6cfc3",
+      "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+      "reports": [
+        "2026-10-23T0903Z/rtc-x-roads.json",
+        "2026-10-23T0903Z/source-hypotheses.json"
+      ],
+      "participantType": "AI using visible browser controls with parallel analysis",
+      "completedDeliveries": 0,
+      "pickupsCompleted": 0,
+      "continuedPriorPickup": true,
+      "heldDrivingInputSecondsApprox": 52.1,
+      "savedScreenshots": 4,
+      "uniqueScreenshots": 4,
+      "summary": "Continued collected order; handover still incomplete. Recovery faced a wall once; nearby repeat cleared it. Actual map Close and pause/resume passed. Post-handover source hypothesis remains untested."
     }
   ],
-  "nextRoundPlan": "Resume preserved tab1933378062 and continue the collected Taco Bell order from552m on a clear narrow street. Prioritize explicit handover and reward. Then test source-hypotheses.json pause-after-handover race and rotate Ameerpet/Kukatpally/Secunderabad. If tab is lost, choose a short route through normal UI; never reconstruct hidden state.",
+  "nextRoundPlan": "Ameerpet handover completed. Continue next popular area Kukatpally, then Secunderabad, using normal UI. Prioritize a short complete pickup/handover route and PT-011 repeat after completion. Preserved tab1933378078 is paused with an unaccepted Royal Pizza House offer. If missing, start normally; never reconstruct hidden state. Prior RTC tab was lost and that handover remains incomplete.",
   "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
   "liveHandoff": {
-    "tabId": "1933378062",
+    "tabId": "1933378078",
     "browserId": "1",
     "owner": "root",
     "paused": true,
     "heldKeys": false,
-    "instruction": "Continue the same already-collected Taco Bell order. Resume via visible button or Escape. Final recovery has settled on a clear street near Sudarshan cinema. HUD552m, Late,0heat,0slices,500coins,1.8sflight,0km/h. No customer handover yet. Root exclusively owns input only during the next test turn; lock released at end of this round."
+    "instruction": "Ameerpet route completed. Pending Royal Pizza House offer is unaccepted; wallet521 and Level1 1/3. Resume only if continuing PT-011; otherwise choose Kukatpally through normal Change area UI. Preserve or close this agent-owned tab only. Input lock released."
   }
 }
