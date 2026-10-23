@@ -65,41 +65,51 @@ left-to-right order of neighboring stores.
 
 ## Resumable Mapillary OCR workers
 
-Use a local Python environment containing `numpy`, `opencv-python`,
-`rapidocr-onnxruntime`, `rapidfuzz`, and `wordninja` for OCR/matching. Set your own
-`MAPILLARY_TOKEN` in the environment. It is never committed or printed by the
-worker. `PIPELINE_BUILD` and `CITY_PACKS` can override the repository-relative data
-paths.
+Use `pipeline/.venv/bin/python` for OCR/matching; the tested versions are pinned
+in `pipeline/requirements-ocr.txt`. Credentials come from `MAPILLARY_TOKEN` first,
+then the configured macOS Keychain entry. They are never printed or committed.
+`MAPILLARY_TOKEN=''` forces cache-only operation. `PIPELINE_BUILD` and `CITY_PACKS`
+can override the repository-relative data paths.
 
-Prepare photo metadata once before starting workers:
-
-```bash
-ZONE=spots python3 pipeline/mapillary_ocr_fast.py \
-  --manifest pipeline/build/spots-images.json --prepare
-```
-
-Shipped named boards provide photo-sampling density when original placement files
-are absent. This prioritization does not promote those placements to verified
-observations. Reading photos from a prepared manifest is resumable:
+Prepare a bounded photo metadata batch before starting workers:
 
 ```bash
-ZONE=spots python3 pipeline/mapillary_ocr_fast.py \
-  --manifest pipeline/build/spots-images.json \
-  --shards 4 --shard-index 0 --max-new 250
+ZONE=city pipeline/.venv/bin/python pipeline/mapillary_ocr_fast.py \
+  --manifest pipeline/build/city-images.json --prepare \
+  --max-cells 4 --max-pages 2
 ```
 
-Run the other shard indices in separate workers. The same shard cannot be run
-twice concurrently. Completed images are skipped across all OCR shard files;
+This makes at most 32 serialized requests, checkpoints partial pagination, and
+refreshes the manifest. It starts near the core origin and expands across the
+full playable extent. Add `--bbox south,west,north,east` to target a corridor.
+The metadata report states credential and dependency readiness explicitly.
+Shipped named boards prioritize photo sampling, and streets without mapped names
+remain eligible so missing businesses can be discovered.
+
+```bash
+ZONE=city pipeline/.venv/bin/python pipeline/mapillary_ocr_fast.py \
+  --manifest pipeline/build/city-images.json \
+  --shards 2 --shard-index 0 --max-new 40
+```
+
+Run shard 1 separately. The same shard cannot run twice concurrently. Completed
+images are skipped across all OCR shard files, including before selection caps;
 interrupted final JSON lines are repaired, while interior corruption is rejected.
-`ocr_match.py` and `ocr_boards.py` read all completed shards and retain original
-image IDs/sequence IDs. The application pass preserves photo attribution and
-existing source-backed additions. North-facing zero-degree camera headings are
-preserved correctly. Missing sequence IDs do not count as independent photo runs.
 
-`ocr_match.py` still needs the original `placements.json`; `ocr_boards.py` needs it
-for its conservative business-name vocabulary. Restore that build input before
-running either final matching stage. OCR alone does not certify a shop's current
-name or exact order; candidates remain attributable automated photo observations.
+`ocr_match.py` and `ocr_boards.py` read all completed shards, retaining original
+image/sequence IDs, URLs, capture dates and licenses. When `placements.json` is
+absent, `ocr_candidates.py` derives compatible mapped-name candidates from shipped
+board coordinates using the core origin and the exporter's exact inverse
+projection. It also supplies the local business-name vocabulary. Recovered facades
+remain explicitly inferred. North-facing zero-degree camera headings are valid;
+missing sequence IDs do not count as independent photo runs.
+
+OCR outputs are `automated_photo_match_candidate` records, never a claim of exact
+current shop order. The legacy `ocr_boards.py --apply` must not run unattended:
+it guesses shared-front slots and lacks the source-backed coordinator's atomic
+write safeguards. Keep photo candidates for visual evidence and placement review.
+See [the bounded Mapillary workflow](../docs/mapillary-background.md) for exact
+commands, credential behavior, cache recovery, and the review procedure.
 
 ## Verification
 
@@ -110,3 +120,61 @@ python3 -m unittest discover -s pipeline/tests -v
 Tests cover disjoint shards, interrupted resume, lock exclusion, zero headings,
 exact versus shifted outlines, shared-frontage refusal, source provenance,
 idempotent apply, and an intervening frontage update by another worker.
+
+## Bounded citywide naming queue
+
+The citywide coordinator derives one stable research cell per shipped tile from
+`core.pack.wasm`, its origin and playable bounds. The current map contains 2,527
+one-kilometre cells. It starts near the city origin and expands outward; absent
+tiles outside the playable map are not fetched. It refuses to import against a
+different projection or silently replace a changed map's saved audit.
+
+These commands inspect the queue without network requests or file changes:
+
+```bash
+python3 pipeline/citywide_shopfronts.py status
+python3 pipeline/citywide_shopfronts.py run --dry-run
+```
+
+Use the bundled Python 3.12 runtime for live OpenStreetMap requests on this
+Mac; the system Python 3.9/LibreSSL runtime failed the TLS handshake with Overpass.
+The newer runtime succeeds with certificate verification enabled:
+
+```bash
+ROADSTER_SOURCE_PYTHON=/Users/tharun/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3
+```
+
+Advance a bounded batch, applying only the existing conservative naming rules:
+
+```bash
+"$ROADSTER_SOURCE_PYTHON" pipeline/citywide_shopfronts.py run --max-cells 2
+```
+
+`--max-cells` defaults to 2 and is capped at 10. All Overpass requests are serial,
+with at least 15 seconds between requests by default (`--interval` accepts 10–60).
+Queries preserve original OSM metadata and full geometries (`out meta geom`),
+including businesses that have only an English `name:en`. The worker stops the
+current batch on failure, saves exponential retry cooldowns, and honors numeric
+HTTP `Retry-After` values. Long cooldowns do not keep a process sleeping; the next
+scheduled invocation resumes when due. Exit 1 means retry items remain; exit 2
+means a configuration, layout, or locking error that needs attention.
+
+Progress lives in ignored `pipeline/build/citywide-shopfronts/status.json`; each
+cell's original source evidence and reconciliation report live in `evidence/`
+and `reports/` below that directory. Preserve this directory between runs. A lock
+prevents overlapping coordinators, JSON replacements are atomic, successful cells
+are skipped, and interrupted applications reuse cached evidence/reports rather
+than requesting the same data again. Reapplying a pack update is idempotent.
+`--state-dir PATH` selects another audit directory; `--core PATH` selects another
+city core and its adjacent `packs/` directory. Use a new audit directory after a
+full city export that replaces the board population, or reapply retained reports.
+
+`processedCells` measures source processing coverage, **not street reconstruction
+completeness**. The coordinator's `streetVerifiedCells` remains zero: a mapped
+business name does not verify its facade, current operation, floor, or neighboring
+shop order. Ambiguous candidates stay in the reports for photo review. Summary
+record counts can include the same source crossing more than one tile boundary;
+successful importer writes still deduplicate original source IDs. Recorded write
+counts are conservative after an interruption between a pack write and state save.
+Keep this queue independent of Mapillary metadata/OCR progress, and use the
+Mapillary workflow above when imagery access and dependencies are available.

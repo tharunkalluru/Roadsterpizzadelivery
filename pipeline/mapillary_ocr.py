@@ -8,10 +8,11 @@ with the image id so every reading stays attributable to its Mapillary photo.
 import json, math, os, sys, time, urllib.request, urllib.parse
 from collections import defaultdict
 from ocr_state import BUILD as BUILD_PATH, heading, placement_density
+from mapillary_access import load_token
 
 HERE = os.path.dirname(__file__)
 BUILD = str(BUILD_PATH); os.makedirs(BUILD, exist_ok=True)
-TOKEN = os.environ.get('MAPILLARY_TOKEN')
+TOKEN = load_token()
 HERO = (17.388, 78.478, 17.416, 78.508)
 MAX_IMAGES = int(os.environ.get('MAX_IMAGES', '1200'))
 FIELDS = 'id,captured_at,compass_angle,computed_compass_angle,geometry,computed_geometry,camera_parameters,camera_type,sequence,thumb_1024_url,thumb_2048_url,width,height,is_pano'

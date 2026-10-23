@@ -13,10 +13,12 @@ import argparse, json, math, os, sys, time, urllib.request, urllib.parse, thread
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from ocr_state import BUILD as BUILD_PATH, heading, output_path, placement_density, read_jsonl, record_paths, shard_for, worker_lock
+from mapillary_metadata import prepare_metadata, parse_bbox
+from mapillary_access import load_token, dependency_status
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BUILD = str(BUILD_PATH)
-TOKEN = os.environ.get('MAPILLARY_TOKEN')
+TOKEN = load_token()
 ZONE = os.environ.get('ZONE', 'hero')
 CITY = (17.235, 78.245, 17.625, 78.665)          # lat0, lon0, lat1, lon1: the ORR and a little beyond
 MAX_CITY = int(os.environ.get('MAX_IMAGES', '6000'))
@@ -34,45 +36,10 @@ def get(url, tries=4):
 
 def geo(im): return (im.get('computed_geometry') or im['geometry'])['coordinates']
 
-def list_city():
-    """photo metadata for the whole map, cell by cell (resumable: one JSON line per 0.01 deg cell)"""
-    path = os.path.join(BUILD, 'mly_images_city.jsonl')
-    done = {}
-    if os.path.exists(path):
-        for line in open(path): r = json.loads(line); done[r['cell']] = r['imgs']
-    cells = []
-    y = CITY[0]
-    while y < CITY[2] - 1e-9:
-        x = CITY[1]
-        while x < CITY[3] - 1e-9:
-            cells.append((round(y, 3), round(x, 3))); x += 0.01
-        y += 0.01
-    todo = [c for c in cells if f'{c[0]},{c[1]}' not in done]
-    print('cells', len(cells), 'to list', len(todo), flush=True)
-    lock = threading.Lock()
-    def one(c):
-        out = {}
-        # four sub-boxes per cell so dense cells are not cut off at the 2000-result page limit
-        for dy in (0, 0.005):
-            for dx in (0, 0.005):
-                bbox = f'{c[1] + dx},{c[0] + dy},{c[1] + dx + 0.005},{c[0] + dy + 0.005}'
-                url = f'https://graph.mapillary.com/images?access_token={urllib.parse.quote(TOKEN)}&fields={FIELDS}&bbox={bbox}&limit=2000'
-                try: data = json.loads(get(url)).get('data', [])
-                except Exception as e: print('list fail', c, str(e)[:60], flush=True); return
-                for im in data:
-                    if im.get('is_pano') or not (im.get('thumb_2048_url') or im.get('thumb_1024_url')): continue
-                    if im['captured_at'] < 1546300800000: continue          # 2019 or later
-                    out[im['id']] = im
-        with lock:
-            with open(path, 'a') as f: f.write(json.dumps(dict(cell=f'{c[0]},{c[1]}', imgs=list(out.values()))) + '\n')
-            done[f'{c[0]},{c[1]}'] = list(out.values())
-    with ThreadPoolExecutor(6) as ex:
-        for k, _ in enumerate(ex.map(one, todo)):
-            if k % 100 == 0: print('listed', k, '/', len(todo), flush=True)
-    imgs = {}
-    for l in done.values():
-        for im in l: imgs[im['id']] = im
-    return list(imgs.values())
+def list_city(bounds=None, max_cells=4, max_pages=2):
+    result = prepare_metadata(bounds, max_cells=max_cells, max_pages=max_pages, build=BUILD, token=TOKEN)
+    print('metadata', json.dumps(result['metadata']), flush=True)
+    return result['images']
 
 def pick_city(imgs):
     """recent photos on shop streets, at most PER_CELL per 500 m cell, interleaved across cells"""
@@ -85,7 +52,9 @@ def pick_city(imgs):
         last[seq].append(g)
         k = (round(g[1] / 0.00036), round(g[0] / 0.00038))
         d = sum(dens.get((k[0] + a, k[1] + b), 0) for a in (-1, 0, 1) for b in (-1, 0, 1))
-        if d < 6: continue
+        # Keep coverage on streets with no mapped names; those are the places
+        # where photographs can reveal missing businesses. Density ranks only.
+        d = max(1, d)
         year = 1970 + im['captured_at'] / 1000 / 31557600
         kept.append((d * (1.6 if year >= 2022 else 1.0), im))
     cells = defaultdict(list)
@@ -156,27 +125,36 @@ def pick_spots(imgs):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', help='Shared selected-image JSON manifest; prepare it once before starting workers')
-    parser.add_argument('--prepare', action='store_true', help='Only create the manifest; do not run OCR')
+    parser.add_argument('--prepare', action='store_true', help='Refresh a bounded metadata batch and its manifest; do not run OCR')
+    parser.add_argument('--bbox', type=parse_bbox, help='Restrict selected images: south,west,north,east')
+    parser.add_argument('--max-cells', type=int, default=4, help='Maximum new/partial metadata cells per run (default: 4)')
+    parser.add_argument('--max-pages', type=int, default=2, help='Maximum pages per cell sub-box per run (default: 2)')
     parser.add_argument('--shards', type=int, default=1)
     parser.add_argument('--shard-index', type=int, default=0)
     parser.add_argument('--max-new', type=int, default=0, help='Bound this run; 0 processes all pending images')
     args = parser.parse_args()
+    if args.max_cells < 1 or args.max_pages < 1:
+        parser.error('max-cells and max-pages must be positive')
     if args.shards < 1 or not 0 <= args.shard_index < args.shards or args.max_new < 0:
         parser.error('Use shards >= 1, 0 <= shard-index < shards, max-new >= 0')
     if args.shards > 1 and (not args.manifest or not os.path.exists(args.manifest)):
         parser.error('Parallel workers require a prepared --manifest; list metadata once before sharding')
     os.makedirs(BUILD, exist_ok=True)
-    if args.manifest and os.path.exists(args.manifest):
+    if args.manifest and os.path.exists(args.manifest) and not args.prepare:
         sel = json.load(open(args.manifest))['images']
     else:
-        if not TOKEN:
-            parser.error('MAPILLARY_TOKEN is missing; restore cached inputs or configure your own token')
-        sel = select_images()
+        sel = select_images(bounds=args.bbox, max_cells=args.max_cells, max_pages=args.max_pages)
     if args.prepare:
         if not args.manifest:
             parser.error('--prepare needs --manifest')
-        with open(args.manifest, 'w') as f:
-            json.dump(dict(zone=ZONE, images=sel), f)
+        from pathlib import Path
+        manifest = Path(args.manifest)
+        manifest.parent.mkdir(parents=True, exist_ok=True)
+        status_path = Path(BUILD) / 'mly_prepare_status.json'
+        metadata = json.loads(status_path.read_text()) if status_path.exists() else {}
+        temporary = manifest.with_suffix(manifest.suffix + '.tmp')
+        temporary.write_text(json.dumps(dict(zone=ZONE, images=sel, metadata=metadata)))
+        temporary.replace(manifest)
         print('prepared', len(sel), 'images', flush=True)
         return
     out = output_path(ZONE, args.shard_index, args.shards)
@@ -189,18 +167,34 @@ def main():
         print('zone', ZONE, 'selected', len(sel), 'pending in shard', len(todo), flush=True)
         if not todo:
             return
+        readiness = dependency_status()
+        if readiness['status'] != 'ready':
+            print('ocr_readiness', json.dumps(readiness), flush=True)
+            parser.error('OCR dependencies missing: ' + ', '.join(readiness['missingPackages']))
         process(todo, out)
 
-def select_images():
+def pending_images(images):
+    """Do not let the selection cap repeatedly select already processed photos."""
+    done = {str(r['image']) for path in record_paths(BUILD) for r in read_jsonl(path)}
+    return [im for im in images if str(im['id']) not in done]
+
+
+def select_images(bounds=None, max_cells=4, max_pages=2):
     if ZONE == 'hero':
         sys.path.insert(0, HERE)
         import mapillary_ocr as old
-        sel = old.pick(old.list_images())
-    elif ZONE == 'spots':
-        sel = pick_spots(list_city())
-    else:
-        sel = pick_city(list_city())
-    return sel
+        imgs = list_city(bounds or old.HERO, max_cells, max_pages)
+        # Retain support for the original hero cache, including offline runs.
+        hero_path = os.path.join(BUILD, 'mly_images.json')
+        if not imgs and os.path.exists(hero_path):
+            from mapillary_metadata import in_bounds
+            imgs = [im for im in json.load(open(hero_path)) if in_bounds(im, bounds or old.HERO)]
+        imgs = pending_images(imgs)
+        return old.pick(imgs) if imgs else []
+    imgs = pending_images(list_city(bounds, max_cells, max_pages))
+    if not imgs:
+        return []
+    return pick_spots(imgs) if ZONE == 'spots' else pick_city(imgs)
 
 def process(todo, out):
     import numpy as np, cv2

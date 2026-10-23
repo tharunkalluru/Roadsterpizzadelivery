@@ -2,7 +2,7 @@
 
 Every board text read in a Mapillary photo (CC-BY-SA 4.0) is a ray from the camera along its viewing direction. The ray
 is followed to the first building front it hits (within 45 m, facing the camera). When two or more different photos
-read the same name on the same building, that name becomes a real ground-floor board of that building.
+read the same name on the same building, that name becomes an unreviewed board candidate.
 Names already placed from Overture/Foursquare are left alone, and street furniture text (traffic signs, plates, phone
 numbers, road names) is ignored.
 
@@ -13,14 +13,13 @@ import gzip, hashlib, json, math, os, re, shutil, sys
 from collections import defaultdict
 from rapidfuzz import fuzz
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from ocr_match import load_records, norm, informative, BUILD
+from ocr_match import load_records, norm, informative, image_sources, BUILD
 from ocr_state import PACKS as PACKS_PATH
+from ocr_candidates import mapped_candidates, read_origin, to_xz as project_to_xz
 
 PACKS = str(PACKS_PATH)
-LAT0, LON0, NR, MR = 17.4063, 78.4966, 6380050.094, 6341141.900
-KX = math.cos(math.radians(LAT0)) * NR * math.pi / 180
-KZ = MR * math.pi / 180
-def to_xz(lat, lon): return ((lon - LON0) * KX, -(lat - LAT0) * KZ)
+ORIGIN = read_origin(PACKS_PATH)
+def to_xz(lat, lon): return project_to_xz(lat, lon, ORIGIN)
 
 NOT_SHOP = re.compile(r'\b(TRAFFIC|POLICE|STOP|SPEED|LIMIT|KMPH|GHMC|METRO|STATION|EXIT|ENTRY|PARKING|ONE ?WAY|U ?TURN|DIVERSION|'
                       r'ROAD|STREET|LANE|COLONY|NAGAR|CROSS|JUNCTION|FLYOVER|SIGNAL|DANGER|CAUTION|SLOW|SCHOOL ZONE|NO ENTRY|'
@@ -52,7 +51,7 @@ COMMON = set(_RANKED[:30000]); KNOWN_WORDS = set(_RANKED[:60000])
 
 # words Hyderabad businesses actually use in their names (Overture + Foursquare), e.g. DHABA, BAWARCHI, SAGAR, PATEL
 _V = defaultdict(int)
-for _p in json.load(open(os.path.join(BUILD, 'placements.json'))):
+for _p in mapped_candidates(build=BUILD, packs=PACKS_PATH):
     for _w in set(norm(_p.get('name') or '').split()): _V[_w.lower()] += 1
 VOCAB = {w for w, c in _V.items() if c >= 3}
 COMMON5K = set(_RANKED[:5000])
@@ -91,7 +90,8 @@ def good_text(t, conf):
     return True
 
 def main(apply=False):
-    recs = [r for r in load_records().values() if r.get('compass') is not None and r['texts']]
+    records_by_id = load_records()
+    recs = [r for r in records_by_id.values() if r.get('compass') is not None and r['texts']]
     cams = {}
     for r in recs: cams[r['image']] = to_xz(r['lat'], r['lon'])
     near_cells = set()
@@ -228,7 +228,10 @@ def main(apply=False):
             uid = 'm_' + hashlib.sha1(f"{bid}|{o['text']}".encode()).hexdigest()[:12]
             boards.append(dict(pack=fn, tile=key, board=dict(id=uid, text=o['text'], full=o['text'], group=o['group'], tier='P', conf=0.6,
                                a=[round(a[0], 1), round(a[1], 1)], b=[round(c[0], 1), round(c[1], 1)], t=round(o['u'], 3),
-                               slot=dict(floor=0, index=k, of=min(4, len(l))), building=bid, road=None, seen=o['seen'], seen_year=o['year'], photos=o['images'])))
+                               slot=dict(floor=0, index=k, of=min(4, len(l))), building=bid, road=None, seen=o['seen'], seen_year=o['year'], photos=o['images'], source='mapillary_ocr',
+                               verification='automated_photo_match_candidate',
+                               placement_verification='ray_cast_facade_candidate_unreviewed',
+                               sources=image_sources(o['images'], records_by_id))))
     json.dump(boards, open(os.path.join(BUILD, 'ocr_photo_boards.json'), 'w'), indent=0)
     rep = dict(photos=len(recs), readings=n_read, shop_like=n_good, hit_a_front=n_hit, new_boards=len(boards), buildings=len({b['board']['building'] for b in boards}),
                packs=len({b['pack'] for b in boards}))

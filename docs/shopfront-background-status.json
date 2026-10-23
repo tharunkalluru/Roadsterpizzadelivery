@@ -1,0 +1,53 @@
+{
+  "updatedAt": "2026-10-23T06:58:22.561274+00:00",
+  "automation": {
+    "id": "hyderabad-citywide-shopfront-naming",
+    "kind": "heartbeat",
+    "status": "ACTIVE",
+    "cadence": "hourly",
+    "requires": "This Mac awake and Codex app running"
+  },
+  "credentials": {
+    "store": "macOS Keychain",
+    "service": "codex-roadster-mapillary",
+    "account": "thisistharun",
+    "liveMetadataAccessVerified": true
+  },
+  "runtimes": {
+    "osm": "/Users/tharun/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "ocr": "pipeline/.venv/bin/python",
+    "resolvedIssue": "System Python 3.9 LibreSSL TLS handshake failure to Overpass; bundled Python 3.12 OpenSSL succeeds with normal certificate verification"
+  },
+  "sourceCoverage": {
+    "processedCells": 1,
+    "totalPlayableCells": 2527,
+    "firstCell": "tile_-1_-1",
+    "sourceRecords": 104,
+    "sourceLinksAdded": 38,
+    "newNamesAdded": 1,
+    "newName": "Sudarshan 35mm",
+    "pendingPhotoReview": 19,
+    "placementStatus": "mapped_name_inferred_facade",
+    "sourceTimestampRetained": true
+  },
+  "mapillary": {
+    "metadataImagesFound": 619,
+    "photosReadThisSetup": 35,
+    "independentOcrWorkers": 2,
+    "photosManuallyInspected": 2,
+    "newPhotoNamesApplied": 0,
+    "reviewEvidence": "docs/shopfront-photo-review-2026-10-23.json",
+    "automatedPhotoCandidatesAwaitingReview": 4,
+    "falseMatchesRemoved": 2
+  },
+  "verification": {
+    "streetVerifiedCells": 0,
+    "exactCitywideShopOrderComplete": false,
+    "gameTypecheck": "passed",
+    "mapAndGameplayRegressions": "passed",
+    "productionBuild": "passed",
+    "existingBuildWarning": "fonts/fonts.css missing at build time",
+    "pipelineTests": "49 passed, including live-review false-match regressions"
+  },
+  "nextWork": "Resume both coverage queues; review individual photo candidates and neighboring order before changing frontage placements. Never run the legacy wholesale OCR apply."
+}
