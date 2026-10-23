@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T0833Z",
+  "area": "RTC X Roads",
+  "route": "Taco Bell on Chikkadapally Road \u2192 Home in Jawahar Nagar",
+  "startedAt": "2026-10-23T08:34:07Z",
+  "endedAt": "2026-10-23T08:54:20.039691+00:00",
+  "checkoutCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "buildNote": "Preview already available; dist built08:14:56UTC. Current core and three changed source packs match dist. No rebuild needed in this gameplay round.",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": {
+    "width": 594,
+    "height": 522
+  },
+  "method": "Root drove visible Chrome controls. Three subagents reviewed route/controls, UI hypotheses and build/evidence provenance in parallel. West attempted an exclusive UI turn but supported browser tools rejected cross-session tab ownership before any input; root reproduced its hypothesis. No teleport, hidden state mutation, simulation stepping or autopilot.",
+  "input": {
+    "heldDrivingInputSecondsApprox": 42.45,
+    "collectionHoldSeconds": 1.4,
+    "additionalHeldInputWhilePausedIgnoredSeconds": 2.65,
+    "caveat": "Held-input duration is not uninterrupted driving. Recovery can ignore controls during its glide; 2.45s of listed input followed R and may have been ignored. Pauses, source review, screenshot capture and tool latency are excluded."
+  },
+  "completedInteractions": [
+    "Started RTC X Roads through normal area picker",
+    "Used Another twice; accepted Taco Bell order",
+    "Drove to kitchen and held E1.4s after Hold E / ACT prompt",
+    "Explicit Pizza collected! Garam garam. and Deliver state observed",
+    "Opened map and clicked actual Close map button repeatedly",
+    "Visible pause and Resume button worked",
+    "Flight charge increased2.5\u21925.0s during road driving",
+    "Space initiated flight; boost exhausted and car reached elevated guideway/rooftop states",
+    "Second Space cut flight consumption with1.2s remaining",
+    "R recovery produced Back to the street toast and glide; inputs during glide not counted as movement"
+  ],
+  "pickupsCompleted": 1,
+  "completedDeliveries": 0,
+  "customerHandoverAttempted": false,
+  "steps": [
+    "Play \u2192 RTC X Roads. Offered Vintage Restaurant & Bar843m; Another \u2192 Pizza Hut2001m; Another \u2192 Taco Bell641m/about137s/base80coins.",
+    "Accept \u2192 pickup78m. W2s then braking; near pickup HUD transiently1135m, then8m and Hold E / ACT prompt. Held E1.4s.",
+    "Explicit collection at Day2 4:00AM: Deliver Home in Jawahar Nagar649m,137s,Heat100\u00b0,500coins,Level1 0/3.",
+    "Used W/A/D/S in short batches through junction and side streets. Several turns overshot; overlong S input entered reverse. These are operator confounds, not confirmed steering bugs.",
+    "Collisions showed Baigan! \u22121 slice. Later all slice segments emptied and Pizza ruined! appeared; order remained Deliver/Late with0\u00b0 heat. No handover/reward claim.",
+    "R was used after off-road/facade and elevated landings. Camera settling and recovery glide complicated immediate heading assessment; no new recovery defect confirmed.",
+    "At main-road median, route connector visibly crossed divider and car stopped against it. Wrong-lane/off-route approach remains a confound; no claim destination unreachable.",
+    "Brief flight crossed buildings/median; automatic descent left car on elevated surfaces and exposed On a roof? Glide down to the street (R). Ground landing followed by interaction was not completed.",
+    "Map focus test twice: Resume \u2192 M (Close focused) \u2192 Shift+Tab (background roof recovery button) \u2192 Shift+Tab (background Minimap) \u2192 Shift+Tab (background Pause) \u2192 Enter. Pause sheet opened while City map remained visible.",
+    "Restored overlays via Resume and actual Close map. Braked850ms and paused. Same unfinished order preserved in agent-owned tab1933378062."
+  ],
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Jawahar Nagar",
+    "routeMetres": 562,
+    "time": "Late!",
+    "heat": 0,
+    "slices": 0,
+    "coins": 500,
+    "level": "1 \u00b7 0/3",
+    "flightSeconds": 0,
+    "speedKmh": 2,
+    "roofRecoveryPrompt": true,
+    "pausedAfterCapture": true
+  },
+  "findings": [
+    {
+      "issueId": "PT-009",
+      "severity": "P2",
+      "status": "confirmed",
+      "confidence": "high",
+      "reproductions": 2,
+      "title": "Map keyboard focus escapes to background controls and opens stacked pause overlay",
+      "expected": "Modal map keeps keyboard navigation inside its controls; background actions cannot activate.",
+      "actual": "Reverse-tab reached rescue, Minimap and Pause behind map. Enter opened Pause over City map twice.",
+      "evidence": "evidence/2026-10-23T0833Z-map-focus-escape-82e99b.jpg"
+    },
+    {
+      "issueId": "PT-004",
+      "severity": "P2",
+      "status": "additional_visual_observation_cause_unproven",
+      "confidence": "medium",
+      "title": "Large traffic vehicle obscures chase view",
+      "actual": "Bus body filled much of view during low-speed junction manoeuvre; subsequent view cleared after movement. Adds RTC observation to prior HITEC report; controlled before/during/after reproduction remains pending.",
+      "evidence": "evidence/2026-10-23T0833Z-rtc-large-vehicle-camera-2b8aec.jpg"
+    },
+    {
+      "issueId": "PT-005",
+      "severity": "P2",
+      "status": "suspected",
+      "confidence": "medium for visible connector; low for legal-route defect",
+      "title": "Route connector crosses blocking median",
+      "actual": "Teal ribbon crossed solid divider while car stopped at it. Approach was off-route/wrong-lane; legal ground continuation has not been disproved.",
+      "evidence": "evidence/2026-10-23T0833Z-rtc-median-connector-45b850.jpg"
+    }
+  ],
+  "console": {
+    "queriedLevels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Captured browser logs only; an empty result does not exclude gameplay defects."
+  },
+  "evidence": [
+    "evidence/2026-10-23T0833Z-map-focus-escape-82e99b.jpg",
+    "evidence/2026-10-23T0833Z-rtc-large-vehicle-camera-2b8aec.jpg",
+    "evidence/2026-10-23T0833Z-rtc-median-connector-45b850.jpg",
+    "evidence/2026-10-23T0833Z-rtc-paused-route-end-a92d33.jpg",
+    "evidence/2026-10-23T0833Z-rtc-pickup-afa33f.jpg",
+    "evidence/2026-10-23T0833Z-rtc-pickup-be54bb.jpg"
+  ],
+  "duplicateEvidenceNote": "Pickup-be54bb is an identical original screenshot resubmitted accidentally by reloading the POST success page. Retained; count unique images separately.",
+  "untested": [
+    "Explicit customer handover/reward",
+    "Successful ground landing followed by handover",
+    "Controlled bridge wall collision",
+    "Traffic signals and sustained queue behaviour",
+    "Ameerpet and later popular-area rotation",
+    "Every playable map region",
+    "Phone/touch input"
+  ],
+  "handoff": {
+    "tabId": "1933378062",
+    "browserId": "1",
+    "owner": "root",
+    "paused": true,
+    "heldKeys": false,
+    "instruction": "Continue same order if tab persists. Resume via button or Escape (P ignored while pause modal is open). Use visible R to leave roof; wait for glide and camera to settle before steering. Keep late damaged delivery active through explicit handover."
+  }
+}

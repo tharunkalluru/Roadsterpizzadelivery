@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-23T08:07:07.069065+00:00",
+  "updatedAt": "2026-10-23T08:54:20.039691+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -9,9 +9,9 @@
     "requires": "Mac awake and Codex running"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "currentBuild": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
-  "nextAreaCursor": 6,
+  "nextAreaCursor": 7,
   "targetAreas": [
     "Charminar",
     "HITEC City",
@@ -83,8 +83,13 @@
       "closestObservedPickupMetres": 75
     },
     "RTC X Roads": {
-      "status": "not_tested",
-      "completedDeliveries": 0
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "pickupsCompleted": 1,
+      "report": "2026-10-23T0833Z/rtc-x-roads.json",
+      "lastRoute": "Taco Bell on Chikkadapally Road \u2192 Home in Jawahar Nagar",
+      "heldDrivingInputSeconds": 42.45,
+      "lastObservedDeliveryMetres": 562
     },
     "Ameerpet": {
       "status": "not_tested",
@@ -139,29 +144,25 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-23T0747Z",
-    "date": "2026-10-23",
-    "startedAt": "2026-10-23T07:47:15Z",
+    "id": "2026-10-23T0833Z",
+    "startedAt": "2026-10-23T08:34:07Z",
+    "endedAt": "2026-10-23T08:54:20.039691+00:00",
     "status": "completed_partial_coverage",
     "areas": [
-      "Nagaram",
-      "Gachibowli",
-      "Mehdipatnam"
+      "RTC X Roads"
     ],
-    "checkoutCommit": "5c291ae",
+    "checkoutCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
     "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
-    "participantType": "AI agents using visible browser controls",
     "reports": [
-      "2026-10-23T0747Z/nagaram.json",
-      "2026-10-23T0747Z/gachibowli.json",
-      "2026-10-23T0747Z/mehdipatnam.json"
+      "2026-10-23T0833Z/rtc-x-roads.json"
     ],
+    "participantType": "AI using visible browser controls with parallel analysis",
     "completedDeliveries": 0,
-    "endedAt": "2026-10-23T08:07:07.069065+00:00",
-    "savedScreenshots": 5,
-    "heldDrivingInputSecondsApprox": 81.52,
-    "pickupsCompleted": 0,
-    "summary": "Nagaram, Gachibowli and Mehdipatnam partially tested; Close map passed and both G10 pending-offer cancellation paths restored the offer. Responsive offer/minimap overlap repeated; off-road connector/wall issue remains suspected. No new hard blocker, collection or delivery established."
+    "pickupsCompleted": 1,
+    "heldDrivingInputSecondsApprox": 42.45,
+    "savedScreenshots": 6,
+    "uniqueScreenshots": 5,
+    "summary": "First confirmed pickup; handover unfinished. Map keyboard focus escape reproduced twice. Additional camera and median observations retained without overclaiming causes. Same order paused for continuation."
   },
   "issueRegistry": [
     {
@@ -247,18 +248,22 @@
         "WEST-CAMERA-001"
       ],
       "priority": "P2",
-      "status": "observed_once_needs_repeat",
+      "status": "observed_multiple_areas_controlled_reproduction_pending",
       "title": "Large traffic vehicle obscures the chase view",
       "areas": [
-        "HITEC City"
+        "HITEC City",
+        "RTC X Roads"
       ],
       "confidence": "medium",
-      "evidence": [],
-      "evidenceLimit": "Transient screenshot in CUA trace only; no saved standalone image.",
+      "evidence": [
+        "evidence/2026-10-23T0833Z-rtc-large-vehicle-camera-2b8aec.jpg"
+      ],
       "nextStep": "Repeat a slow approach/reverse alongside large traffic and save before/during/after frames.",
       "reports": [
-        "2026-10-23-west.json"
-      ]
+        "2026-10-23-west.json",
+        "2026-10-23T0833Z/rtc-x-roads.json"
+      ],
+      "followUp": "Bus body filled much of view during low-speed junction manoeuvre; subsequent view cleared after movement. Adds RTC observation to prior HITEC report; controlled before/during/after reproduction remains pending."
     },
     {
       "id": "PT-005",
@@ -269,16 +274,20 @@
       "status": "suspected",
       "title": "Route ribbon appears to cross a blocking median",
       "areas": [
-        "HITEC City"
+        "HITEC City",
+        "RTC X Roads"
       ],
       "confidence": "low; steering is a confound",
-      "evidence": [],
+      "evidence": [
+        "evidence/2026-10-23T0833Z-rtc-median-connector-45b850.jpg"
+      ],
       "nextStep": "Follow intended ground-level turn; compare actual drivable lane and ribbon. Pickup reachability is not disproven.",
       "reports": [
         "2026-10-23-west.json",
-        "2026-10-23T0747Z/gachibowli.json"
+        "2026-10-23T0747Z/gachibowli.json",
+        "2026-10-23T0833Z/rtc-x-roads.json"
       ],
-      "followUp": "Not reproduced in Gachibowli: observed on-road ribbon remained in a drivable carriageway next to divider. Keep suspected; source hypothesis alone does not prove it."
+      "followUp": "Teal ribbon crossed solid divider while car stopped at it. Approach was off-route/wrong-lane; legal ground continuation has not been disproved."
     },
     {
       "id": "PT-006",
@@ -337,23 +346,44 @@
         "2026-10-23T0747Z/gachibowli.json"
       ],
       "nextStep": "Repeat after a controlled departure from road; check accessible openings and guidance. Do not infer an unreachable pickup."
+    },
+    {
+      "id": "PT-009",
+      "aliases": [
+        "RTC-MAP-FOCUS-001"
+      ],
+      "priority": "P2",
+      "status": "confirmed",
+      "title": "Map keyboard focus escapes to background controls and opens stacked pause overlay",
+      "areas": [
+        "RTC X Roads"
+      ],
+      "confidence": "high; reproduced twice",
+      "evidence": [
+        "evidence/2026-10-23T0833Z-map-focus-escape-82e99b.jpg"
+      ],
+      "reports": [
+        "2026-10-23T0833Z/rtc-x-roads.json"
+      ],
+      "source": "game/src/ui/map.ts:138",
+      "nextStep": "Trap focus within map and make background controls inert while it is open; retest Shift+Tab, Tab, Escape and actual Close."
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
   "browserCoordination": "Parent grants each worker a short exclusive driving turn. Use /tmp/roadster-playtest-input.lock around each CUA call; only its acquiring worker may release it. Other workers inspect code/evidence while waiting. Pause own game before ceding input. Do not modify another agent or user tab.",
   "evidenceCapture": "Use screenshots supported by the browser tool. tools/playtest-evidence-server.py provides a localhost-only browser form to save screenshot bytes when no file-save API exists. Read its random form URL from its startup output; do not reuse a stale URL.",
   "coverageLimitations": [
-    "No completed pickup-to-handover loop yet",
+    "No completed customer handover/reward yet; one pickup explicitly confirmed",
     "No physical phone/touch input tested",
     "Popular-area rotation is not every-tile coverage",
     "Performance observations with multiple open WebGL tabs are not standalone performance benchmarks",
     "Street and shop accuracy is not established by gameplay testing"
   ],
   "followUpPriorities": [
-    "Complete a visible pickup-to-handover loop; use explicit result states as evidence.",
+    "Continue paused RTC Taco Bell order through explicit handover; pickup is already confirmed.",
     "Repeat Charminar recovery near Mecca Masjid and preserve before/after screenshots.",
     "Reproduce the three lower-confidence issues before treating them as confirmed defects.",
-    "Rotate to Nagaram, Gachibowli and Mehdipatnam, then continue the remaining area list.",
+    "After the paused route, rotate to Ameerpet, Kukatpally and Secunderabad, then continue remaining popular areas.",
     "Test at a larger desktop viewport and later actual touch input; small desktop viewport coverage is not a phone test."
   ],
   "interpretationRules": [
@@ -373,7 +403,13 @@
     "evidence/2026-10-23T0747Z-mehdipatnam-pending-offer-dbeee3.jpg",
     "evidence/2026-10-23T0747Z-mehdipatnam-restored-offer-b56c04.jpg",
     "evidence/2026-10-23T0747Z-mehdipatnam-stopping-state-da3f18.jpg",
-    "evidence/2026-10-23T0747Z-nagaram-after-flight-ddd0bb.jpg"
+    "evidence/2026-10-23T0747Z-nagaram-after-flight-ddd0bb.jpg",
+    "evidence/2026-10-23T0833Z-map-focus-escape-82e99b.jpg",
+    "evidence/2026-10-23T0833Z-rtc-large-vehicle-camera-2b8aec.jpg",
+    "evidence/2026-10-23T0833Z-rtc-median-connector-45b850.jpg",
+    "evidence/2026-10-23T0833Z-rtc-paused-route-end-a92d33.jpg",
+    "evidence/2026-10-23T0833Z-rtc-pickup-afa33f.jpg",
+    "evidence/2026-10-23T0833Z-rtc-pickup-be54bb.jpg"
   ],
   "roundHistory": [
     {
@@ -393,7 +429,41 @@
       "pickupsCompleted": 0,
       "summary": "Three areas exercised through actual browser controls; map Close passed in all three. Three deduplicated confirmed issue groups, one transient observation needing repeat and two suspected issues. No pickup or handover completed.",
       "id": "2026-10-23-initial"
+    },
+    {
+      "id": "2026-10-23T0747Z",
+      "date": "2026-10-23",
+      "startedAt": "2026-10-23T07:47:15Z",
+      "status": "completed_partial_coverage",
+      "areas": [
+        "Nagaram",
+        "Gachibowli",
+        "Mehdipatnam"
+      ],
+      "checkoutCommit": "5c291ae",
+      "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+      "participantType": "AI agents using visible browser controls",
+      "reports": [
+        "2026-10-23T0747Z/nagaram.json",
+        "2026-10-23T0747Z/gachibowli.json",
+        "2026-10-23T0747Z/mehdipatnam.json"
+      ],
+      "completedDeliveries": 0,
+      "endedAt": "2026-10-23T08:07:07.069065+00:00",
+      "savedScreenshots": 5,
+      "heldDrivingInputSecondsApprox": 81.52,
+      "pickupsCompleted": 0,
+      "summary": "Nagaram, Gachibowli and Mehdipatnam partially tested; Close map passed and both G10 pending-offer cancellation paths restored the offer. Responsive offer/minimap overlap repeated; off-road connector/wall issue remains suspected. No new hard blocker, collection or delivery established."
     }
   ],
-  "nextRoundPlan": "Prioritize a single explicit pickup-to-handover loop. Give one driver up to12-15minutes on the same order/tab while other agents inspect evidence; rotate another area only after meaningful route progress or a documented blocker. Preserve the agent-owned paused tab when supported for later continuation. Do not reset or replace long pickup attempts merely to increase area count."
+  "nextRoundPlan": "Resume preserved tab1933378062 and finish the already-collected Taco Bell order. If tab is unavailable, report that loss and select a short route normally; do not recreate state with hidden controls. Then rotate Ameerpet/Kukatpally/Secunderabad.",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "liveHandoff": {
+    "tabId": "1933378062",
+    "browserId": "1",
+    "owner": "root",
+    "paused": true,
+    "heldKeys": false,
+    "instruction": "Continue same order if tab persists. Resume via button or Escape (P ignored while pause modal is open). Use visible R to leave roof; wait for glide and camera to settle before steering. Keep late damaged delivery active through explicit handover."
+  }
 }
