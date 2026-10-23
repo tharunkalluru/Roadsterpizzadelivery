@@ -9,13 +9,14 @@ Appends to build/ocr_rapid.jsonl (hero) or build/ocr_rapid_city.jsonl (city) (sa
 Images are processed in memory and discarded; only text + geometry + the image id (for attribution) are kept.
 Needs MAPILLARY_TOKEN in the environment.
 """
-import json, math, os, sys, time, urllib.request, urllib.parse, threading, queue
+import argparse, json, math, os, sys, time, urllib.request, urllib.parse, threading, queue
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
+from ocr_state import BUILD as BUILD_PATH, heading, output_path, placement_density, read_jsonl, record_paths, shard_for, worker_lock
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-BUILD = os.path.join(HERE, 'build')
-TOKEN = os.environ['MAPILLARY_TOKEN']
+BUILD = str(BUILD_PATH)
+TOKEN = os.environ.get('MAPILLARY_TOKEN')
 ZONE = os.environ.get('ZONE', 'hero')
 CITY = (17.235, 78.245, 17.625, 78.665)          # lat0, lon0, lat1, lon1: the ORR and a little beyond
 MAX_CITY = int(os.environ.get('MAX_IMAGES', '6000'))
@@ -75,10 +76,7 @@ def list_city():
 
 def pick_city(imgs):
     """recent photos on shop streets, at most PER_CELL per 500 m cell, interleaved across cells"""
-    P = json.load(open(os.path.join(BUILD, 'placements.json')))
-    dens = defaultdict(int)
-    for p in P:
-        if p.get('status') == 'placed' and not p.get('flags'): dens[(round(p['lat'] / 0.00036), round(p['lon'] / 0.00038))] += 1
+    dens = placement_density()
     imgs.sort(key=lambda i: -i['captured_at'])
     last = defaultdict(list); kept = []
     for im in imgs:
@@ -107,10 +105,7 @@ def pick_spots(imgs):
     """clusters of photos around the busiest shop spots: up to SPOT_N photos within 40 m of each spot, drawn from as many
     different photo runs as possible, so a board is seen independently twice. Spots: the densest ~36 m cells of named
     shops, SPOTS_PER_CELL per 500 m cell, interleaved across the city."""
-    P = json.load(open(os.path.join(BUILD, 'placements.json')))
-    dens = defaultdict(int)
-    for p in P:
-        if p.get('status') == 'placed' and not p.get('flags'): dens[(round(p['lat'] / 0.00036), round(p['lon'] / 0.00038))] += 1
+    dens = placement_density()
     per = int(os.environ.get('SPOTS_PER_CELL', '3')); spot_n = int(os.environ.get('SPOT_N', '14'))
     cells = defaultdict(list)
     for k, d in dens.items():
@@ -159,6 +154,44 @@ def pick_spots(imgs):
     return order[:MAX_CITY]
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--manifest', help='Shared selected-image JSON manifest; prepare it once before starting workers')
+    parser.add_argument('--prepare', action='store_true', help='Only create the manifest; do not run OCR')
+    parser.add_argument('--shards', type=int, default=1)
+    parser.add_argument('--shard-index', type=int, default=0)
+    parser.add_argument('--max-new', type=int, default=0, help='Bound this run; 0 processes all pending images')
+    args = parser.parse_args()
+    if args.shards < 1 or not 0 <= args.shard_index < args.shards or args.max_new < 0:
+        parser.error('Use shards >= 1, 0 <= shard-index < shards, max-new >= 0')
+    if args.shards > 1 and (not args.manifest or not os.path.exists(args.manifest)):
+        parser.error('Parallel workers require a prepared --manifest; list metadata once before sharding')
+    os.makedirs(BUILD, exist_ok=True)
+    if args.manifest and os.path.exists(args.manifest):
+        sel = json.load(open(args.manifest))['images']
+    else:
+        if not TOKEN:
+            parser.error('MAPILLARY_TOKEN is missing; restore cached inputs or configure your own token')
+        sel = select_images()
+    if args.prepare:
+        if not args.manifest:
+            parser.error('--prepare needs --manifest')
+        with open(args.manifest, 'w') as f:
+            json.dump(dict(zone=ZONE, images=sel), f)
+        print('prepared', len(sel), 'images', flush=True)
+        return
+    out = output_path(ZONE, args.shard_index, args.shards)
+    with worker_lock(out):
+        read_jsonl(out, repair_tail=True)
+        done = {str(r['image']) for path in record_paths() for r in read_jsonl(path)}
+        todo = [im for im in sel if str(im['id']) not in done and shard_for(im['id'], args.shards) == args.shard_index]
+        if args.max_new:
+            todo = todo[:args.max_new]
+        print('zone', ZONE, 'selected', len(sel), 'pending in shard', len(todo), flush=True)
+        if not todo:
+            return
+        process(todo, out)
+
+def select_images():
     if ZONE == 'hero':
         sys.path.insert(0, HERE)
         import mapillary_ocr as old
@@ -167,11 +200,9 @@ def main():
         sel = pick_spots(list_city())
     else:
         sel = pick_city(list_city())
-    done = set()
-    if os.path.exists(OUT):
-        for line in open(OUT): done.add(json.loads(line)['image'])
-    todo = [im for im in sel if im['id'] not in done]
-    print('zone', ZONE, 'selected', len(sel), 'to read', len(todo), flush=True)
+    return sel
+
+def process(todo, out):
     import numpy as np, cv2
     from rapidocr_onnxruntime import RapidOCR
     eng = RapidOCR()
@@ -185,7 +216,7 @@ def main():
         q.put(None)
     threading.Thread(target=producer, daemon=True).start()
     t0 = time.time(); n = 0
-    with open(OUT, 'a') as f:
+    with open(out, 'a') as f:
         while True:
             item = q.get()
             if item is None: break
@@ -201,8 +232,9 @@ def main():
             h, w = full.shape[:2]
             texts = [dict(text=t, conf=round(float(c), 3), box=[[int(p[0]), int(p[1]) + y0] for p in b]) for b, t, c in (res or []) if float(c) >= 0.25 and len(t.strip()) >= 2]
             g = geo(im)
-            rec = dict(image=im['id'], captured_at=im['captured_at'], lon=g[0], lat=g[1], compass=im.get('computed_compass_angle') or im.get('compass_angle'),
-                       camera=im.get('camera_parameters'), camera_type=im.get('camera_type'), w=w, h=h, texts=texts, engine='rapidocr')
+            rec = dict(image=str(im['id']), captured_at=im['captured_at'], lon=g[0], lat=g[1], compass=heading(im),
+                       camera=im.get('camera_parameters'), camera_type=im.get('camera_type'), w=w, h=h, texts=texts, engine='rapidocr',
+                       sequence=im.get('sequence'), source_url=f"https://www.mapillary.com/app/?pKey={im['id']}", license='CC-BY-SA-4.0')
             f.write(json.dumps(rec, ensure_ascii=False) + '\n'); f.flush()
             n += 1
             if n % 100 == 0: print(f'{n}/{len(todo)} images, {round((time.time() - t0) / n, 2)} s/img', flush=True)

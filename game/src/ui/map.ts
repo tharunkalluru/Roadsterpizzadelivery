@@ -15,10 +15,10 @@ export interface MapState {
 
 const CSS = `
 .fmap{position:absolute;inset:0;background:#120f22;pointer-events:auto;touch-action:none;z-index:8}
-.fmap[hidden]{display:none}
+.fmap[hidden],.fmap [hidden]{display:none!important}
 .fmap canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab}
 .fmap canvas:active{cursor:grabbing}
-.fmap .mbar{position:absolute;top:max(12px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;gap:8px;pointer-events:none}
+.fmap .mbar{position:absolute;top:max(12px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;gap:8px;pointer-events:none;z-index:1}
 .fmap .title{background:rgba(23,19,43,.9);border-radius:14px;padding:8px 14px;font-family:var(--display);font-size:15px;color:var(--cream)}
 .fmap .title small{display:block;font-family:var(--body);font-size:12px;color:var(--muted);font-weight:500}
 .fmap .zoom{position:absolute;right:max(14px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
@@ -45,7 +45,7 @@ export class FullMap {
   constructor(host: HTMLElement, public zone: CoreData, public state: () => MapState, public onClose: () => void, public src: { mapUrl: string; buildings: () => Building[] }) {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
     this.root = document.createElement('div'); this.root.className = 'fmap'; this.root.hidden = true;
-    this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-label', 'City map');
+    this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-modal', 'true'); this.root.setAttribute('aria-label', 'City map');
     this.root.innerHTML = `<canvas aria-label="Map of Hyderabad"></canvas>
       <div class="mbar"><div class="title">Hyderabad<small>Drag to move · scroll or pinch to zoom</small></div><button type="button" class="ib close" id="map-close">Close map ✕</button></div>
       <div class="zoom"><button type="button" class="zb" id="map-in" aria-label="Zoom in">+</button><button type="button" class="zb" id="map-out" aria-label="Zoom out">−</button><button type="button" class="zb" id="map-me" aria-label="Centre on my car" style="font-size:15px">◎</button></div>
@@ -56,7 +56,7 @@ export class FullMap {
       <div class="legend"><span><i style="background:#FFB627"></i>You</span><span><i style="background:#45E3D3"></i>Route</span><span><i style="background:#FF8FB1"></i>Cinemas</span><span><i style="background:#F2994A"></i>Pizza pickups</span><span><i style="background:#22B573"></i>Metro</span></div>`;
     host.appendChild(this.root);
     this.cv = this.root.querySelector('canvas')!;
-    (this.root.querySelector('#map-close') as HTMLElement).addEventListener('click', () => { if (this.pick) this.cancelPick(); else this.hide(); });
+    (this.root.querySelector('#map-close') as HTMLElement).addEventListener('click', () => this.close());
     (this.root.querySelector('#map-move') as HTMLElement).addEventListener('click', () => this.beginPick({ onPick: (x, z) => this.onMove(x, z), onCancel: () => this.endPick() }));
     (this.root.querySelector('#map-pick-cancel') as HTMLElement).addEventListener('click', () => this.cancelPick());
     (this.root.querySelector('#map-pick-ok') as HTMLElement).addEventListener('click', () => { const p = this.pick; if (!p) return; const x = this.cx, z = this.cz; this.endPick(); p.onPick(x, z); });
@@ -101,10 +101,16 @@ export class FullMap {
     this.beginPick(p);
   }
   // city-wide roads, parks, lakes and metro come from map.pack.wasm (fetched the first time the map opens)
-  buildP: Promise<void> | null = null;
-  build() { if (!this.buildP) this.buildP = this.load(); return this.buildP; }
+  buildP: Promise<void> | null = null; loadError = false;
+  build() {
+    if (!this.buildP) this.buildP = this.load().catch((error) => {
+      this.loading = false; this.loadError = true; this.buildP = null; this.dirty = true;
+      throw error; // a transient network error must be retryable next time the map opens
+    });
+    return this.buildP;
+  }
   async load() {
-    this.loading = true;
+    this.loading = true; this.loadError = false;
     const mp = await fetchPack<MapPack>(this.src.mapUrl);
     const park = new Path2D(), water = new Path2D();
     for (const a of mp.areas) { const P = a.k === 'water' ? water : park, r = a.r; P.moveTo(r[0], r[1]); for (let i = 2; i < r.length; i += 2) P.lineTo(r[i], r[i + 1]); P.closePath(); }
@@ -140,7 +146,28 @@ export class FullMap {
     this.root.hidden = false; this.open = true; this.dirty = true;
     (this.root.querySelector('#map-close') as HTMLElement).focus();
   }
-  hide() { this.root.hidden = true; this.open = false; this.onClose(); }
+  // Close always dismisses the map; Cancel only backs out of the current picker.
+  close() {
+    const pick = this.pick;
+    this.hide();
+    pick?.onCancel();
+  }
+  hide() {
+    if (!this.open) return;
+    this.endPick();
+    for (const id of this.pointers.keys()) if (this.cv.hasPointerCapture(id)) this.cv.releasePointerCapture(id);
+    this.pointers.clear(); this.pinch0 = 0;
+    this.root.hidden = true; this.open = false; this.onClose();
+  }
+  handleKey(e: KeyboardEvent) {
+    if (['Escape', 'KeyM', 'KeyP'].includes(e.code)) {
+      if (!e.repeat) this.close();
+      e.preventDefault();
+    } else if (['+', '='].includes(e.key)) { this.zoomAt(1.4); e.preventDefault(); }
+    else if (['-', '_'].includes(e.key)) { this.zoomAt(1 / 1.4); e.preventDefault(); }
+    else if (e.code.startsWith('Arrow') || (e.code === 'Space' &&
+      !(e.target as HTMLElement | null)?.closest?.('button,input,select,textarea,[role="button"]'))) e.preventDefault();
+  }
   zoomTo(s: number, ox?: number, oy?: number) {
     const W = this.cv.clientWidth, H = this.cv.clientHeight; ox ??= W / 2; oy ??= H / 2;
     const ns = Math.max(0.012, Math.min(6, s));
@@ -160,7 +187,7 @@ export class FullMap {
     if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
     const g = cv.getContext('2d')!, L = this.layers, s = this.scale, st = this.state();
     g.setTransform(dpr, 0, 0, dpr, 0, 0); g.fillStyle = '#1B1633'; g.fillRect(0, 0, W, H);
-    if (!L) { g.fillStyle = '#F6EEDC'; g.font = '800 18px "Baloo 2", sans-serif'; g.textAlign = 'center'; g.fillText('Loading the city map…', W / 2, H / 2); return; }
+    if (!L) { g.fillStyle = '#F6EEDC'; g.font = '800 18px "Baloo 2", sans-serif'; g.textAlign = 'center'; g.fillText(this.loadError ? 'Map unavailable. Close and reopen to retry.' : 'Loading the city map…', W / 2, H / 2); return; }
     g.setTransform(dpr * s, 0, 0, dpr * s, dpr * (W / 2 - this.cx * s), dpr * (H / 2 - this.cz * s));
     g.fillStyle = '#2f5a3a'; g.fill(L.park); g.fillStyle = '#2d4f73'; g.fill(L.water);
     if (s > 0.12) { g.fillStyle = '#3a3160'; g.fill(this.bld); }

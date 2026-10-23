@@ -6,8 +6,9 @@ to put the street-photo boards back on top. Run: python3 patch_boards.py
 import gzip, json, math, os
 from collections import defaultdict
 from shapely.geometry import Polygon, Point, LineString
-HERE = os.path.dirname(os.path.abspath(__file__)); BUILD = os.path.join(HERE, 'build')
-PACKS = '/home/claude/p2ph/game/public/city/packs'; BAK = os.path.join(BUILD, 'prev_pack_photo')
+from ocr_state import BUILD as BUILD_PATH, PACKS as PACKS_PATH
+HERE = os.path.dirname(os.path.abspath(__file__)); BUILD = str(BUILD_PATH)
+PACKS = str(PACKS_PATH); BAK = os.path.join(BUILD, 'prev_pack_photo')
 LAT0, LON0, NR, MR = 17.4063, 78.4966, 6380050.094, 6341141.900
 KX = math.cos(math.radians(LAT0)) * NR * math.pi / 180; KZ = MR * math.pi / 180
 def to_xz(lat, lon): return (round((lon - LON0) * KX, 1), round(-(lat - LAT0) * KZ, 1))

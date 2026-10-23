@@ -1,0 +1,1267 @@
+{
+  "schemaVersion": 1,
+  "source": "OpenStreetMap",
+  "sourceUrl": "https://overpass-api.de/api/interpreter",
+  "retrievedAt": "2026-10-23T06:22:03.637885+00:00",
+  "bounds": [
+    17.398,
+    78.488,
+    17.412,
+    78.502
+  ],
+  "sourceTimestamp": "2026-10-23T06:15:41Z",
+  "query": "[out:json][timeout:40];(nwr[\"name\"][\"shop\"](17.398,78.488,17.412,78.502);nwr[\"name\"][\"amenity\"~\"^(restaurant|cafe|fast_food|pharmacy|bank)$\"](17.398,78.488,17.412,78.502););out center tags;",
+  "geometrySourceUrl": "https://api.openstreetmap.org/api/0.6/way/1465001200/full.json",
+  "license": "ODbL-1.0",
+  "limitation": "Names and mapped points; no street-photo confirmation of current opening status or shop order.",
+  "elements": [
+    {
+      "type": "node",
+      "id": 487802460,
+      "lat": 17.4005731,
+      "lon": 78.4897936,
+      "tags": {
+        "amenity": "bank",
+        "brand": "IDBI",
+        "brand:wikidata": "Q3633485",
+        "brand:wikipedia": "en:IDBI Bank",
+        "name": "IDBI Bank",
+        "name:en": "IDBI Bank",
+        "old_name": "Industrial Development Bank of India",
+        "short_name": "IDBI",
+        "website": "https://www.idbi.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 635573665,
+      "lat": 17.4083957,
+      "lon": 78.4977836,
+      "tags": {
+        "amenity": "bank",
+        "name": "HDFC BANK ATM",
+        "operator": "HDFC BANK"
+      }
+    },
+    {
+      "type": "node",
+      "id": 675642470,
+      "lat": 17.4092213,
+      "lon": 78.4890195,
+      "tags": {
+        "amenity": "pharmacy",
+        "name": "Apollo Pharmacy"
+      }
+    },
+    {
+      "type": "node",
+      "id": 675642472,
+      "lat": 17.4090882,
+      "lon": 78.4893816,
+      "tags": {
+        "name": "Heritage Fresh",
+        "shop": "convenience"
+      }
+    },
+    {
+      "type": "node",
+      "id": 675646780,
+      "lat": 17.4062114,
+      "lon": 78.496159,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Swagath"
+      }
+    },
+    {
+      "type": "node",
+      "id": 675646783,
+      "lat": 17.4064861,
+      "lon": 78.4969807,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:state": "Telangana",
+        "alt_name": "Astoria Cafe & Restaurant",
+        "amenity": "restaurant",
+        "contact:phone": "+91 96429 48658",
+        "cuisine": "indian;kebab;steak_house;ice_cream;barbecue;regional;chicken;coffee_shop",
+        "name": "Astoria",
+        "opening_hours": "06:00-24:00",
+        "outdoor_seating": "no",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 675646784,
+      "lat": 17.4063098,
+      "lon": 78.4974141,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:state": "Telangana",
+        "amenity": "restaurant",
+        "contact:phone": "+91 40 27634490",
+        "cuisine": "indian;kebab;steak_house;ice_cream;barbecue;regional;chicken;coffee_shop",
+        "name": "Bawarchi",
+        "opening_hours": "Mo-Su 06:00-24:00",
+        "outdoor_seating": "no",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 726706999,
+      "lat": 17.4006107,
+      "lon": 78.4884142,
+      "tags": {
+        "amenity": "fast_food",
+        "name": "King & Cardinal"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1595858048,
+      "lat": 17.4009494,
+      "lon": 78.4889983,
+      "tags": {
+        "name": "Shanti TVS Showroom",
+        "shop": "motorcycle"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1693981449,
+      "lat": 17.4085145,
+      "lon": 78.4895355,
+      "tags": {
+        "amenity": "bank",
+        "atm": "no",
+        "brand:wikidata": "Q2003476",
+        "brand:wikipedia": "en:Andhra Bank",
+        "name": "Andhra Bank",
+        "name:en": "Andhra Bank",
+        "website": "https://www.andhrabank.in"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2702448242,
+      "lat": 17.4110955,
+      "lon": 78.4978605,
+      "tags": {
+        "amenity": "bank",
+        "branch": "RTC X Roads",
+        "brand": "HDFC",
+        "brand:wikidata": "Q631047",
+        "brand:wikipedia": "en:HDFC Bank",
+        "name": "HDFC Bank",
+        "short_name": "HDFC",
+        "website": "https://www.hdfcbank.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712508333,
+      "lat": 17.4013517,
+      "lon": 78.4950818,
+      "tags": {
+        "amenity": "bank",
+        "name": "sigma corporation"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712512661,
+      "lat": 17.4047155,
+      "lon": 78.4895389,
+      "tags": {
+        "amenity": "bank",
+        "brand:wikidata": "Q2004088",
+        "name": "Syndicate Bank",
+        "name:en": "Syndicate Bank",
+        "website": "https://www.syndicatebank.in",
+        "wikidata": "Q2004088",
+        "wikimedia_commons": "Category:Syndicate Bank",
+        "wikipedia": "en:Syndicate Bank"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712521002,
+      "lat": 17.4076112,
+      "lon": 78.4883641,
+      "tags": {
+        "name": "RK security system",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712530087,
+      "lat": 17.4048989,
+      "lon": 78.4892536,
+      "tags": {
+        "name": "CMS info",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712531940,
+      "lat": 17.4056657,
+      "lon": 78.4886072,
+      "tags": {
+        "name": "RF tech india",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712622481,
+      "lat": 17.4085044,
+      "lon": 78.4900057,
+      "tags": {
+        "name": "diamond steels",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712622742,
+      "lat": 17.4088715,
+      "lon": 78.4897084,
+      "tags": {
+        "name": "Pramukha Parlour",
+        "shop": "beauty"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712627410,
+      "lat": 17.4090551,
+      "lon": 78.4894985,
+      "tags": {
+        "amenity": "bank",
+        "name": "icici securities"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712628199,
+      "lat": 17.4097122,
+      "lon": 78.4892768,
+      "tags": {
+        "name": "gopala krishna computer center",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712636666,
+      "lat": 17.4099351,
+      "lon": 78.4891777,
+      "tags": {
+        "name": "times books and stationery",
+        "shop": "books"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712643248,
+      "lat": 17.4098338,
+      "lon": 78.4894749,
+      "tags": {
+        "name": "GVNR publishing house",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712645531,
+      "lat": 17.4096413,
+      "lon": 78.48853,
+      "tags": {
+        "name": "insto hot-chimney extension",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712652205,
+      "lat": 17.4102559,
+      "lon": 78.4883955,
+      "tags": {
+        "name": "shiva travel",
+        "shop": "travel_agency"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712653340,
+      "lat": 17.4107794,
+      "lon": 78.4888025,
+      "tags": {
+        "name": "ashwitha xerox",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712656881,
+      "lat": 17.4108165,
+      "lon": 78.4890573,
+      "tags": {
+        "name": "Sai Teja Xerox Center",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712657371,
+      "lat": 17.4109516,
+      "lon": 78.489029,
+      "tags": {
+        "name": "Vikas Grand Bazar",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712658461,
+      "lat": 17.4114784,
+      "lon": 78.4885654,
+      "tags": {
+        "name": "Xerox and Typing",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2712660827,
+      "lat": 17.4117167,
+      "lon": 78.4889559,
+      "tags": {
+        "name": "Sri Ayyappa Book Stall",
+        "shop": "books"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2729405556,
+      "lat": 17.4090672,
+      "lon": 78.4904321,
+      "tags": {
+        "name": "Bangalore Bakery",
+        "shop": "bakery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2729406949,
+      "lat": 17.4091667,
+      "lon": 78.4900649,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Cafe",
+        "name:en": "Victoria cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3259919571,
+      "lat": 17.4049199,
+      "lon": 78.5000197,
+      "tags": {
+        "name": "maruti suzuki service center",
+        "shop": "car_repair"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4415250601,
+      "lat": 17.4092288,
+      "lon": 78.4898063,
+      "tags": {
+        "name": "vikas book store",
+        "name:en": "vikas book store",
+        "shop": "books"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4415288806,
+      "lat": 17.4098406,
+      "lon": 78.4925972,
+      "tags": {
+        "name": "heritage fresh",
+        "name:en": "heritage fresh",
+        "shop": "convenience"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4415311591,
+      "lat": 17.4049835,
+      "lon": 78.4895863,
+      "tags": {
+        "amenity": "bank",
+        "brand:wikidata": "Q1340361",
+        "brand:wikipedia": "en:State Bank of India",
+        "name": "State Bank of India",
+        "name:en": "sbh bank,atm",
+        "short_name": "SBI",
+        "website": "https://www.sbi.co.in"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4415334993,
+      "lat": 17.4093204,
+      "lon": 78.4897955,
+      "tags": {
+        "name": "dhanalakshmi book store",
+        "name:en": "dhanalakshmi book store",
+        "shop": "books"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4415336191,
+      "lat": 17.4111893,
+      "lon": 78.4926794,
+      "tags": {
+        "amenity": "cafe",
+        "name": "andhra cafe",
+        "name:en": "andhra cafe"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4416374790,
+      "lat": 17.4012459,
+      "lon": 78.4887819,
+      "tags": {
+        "name": "kirana ghar",
+        "name:en": "kirana ghar",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4417125693,
+      "lat": 17.4059666,
+      "lon": 78.4894267,
+      "tags": {
+        "amenity": "bank",
+        "brand:wikidata": "Q1340361",
+        "brand:wikipedia": "en:State Bank of India",
+        "name": "State Bank of India",
+        "short_name": "SBI",
+        "website": "https://www.sbi.co.in"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4417155890,
+      "lat": 17.4012891,
+      "lon": 78.4885841,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Kabab restaurant",
+        "name:en": "Kabab restaurant"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4418621799,
+      "lat": 17.4009963,
+      "lon": 78.4882133,
+      "tags": {
+        "amenity": "bank",
+        "name": "Telangana Grameena Bank",
+        "name:en": "Telangana Grameena Bank"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4418622011,
+      "lat": 17.4004709,
+      "lon": 78.489172,
+      "tags": {
+        "name": "Agarwala sweets",
+        "name:en": "Agarwala sweets",
+        "shop": "confectionery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4422081997,
+      "lat": 17.4045441,
+      "lon": 78.4895186,
+      "tags": {
+        "amenity": "bank",
+        "name": "Indian bank, atm",
+        "name:en": "Indian bank, atm"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4422081998,
+      "lat": 17.4083807,
+      "lon": 78.4897828,
+      "tags": {
+        "amenity": "bank",
+        "name": "Corporation bank, atm",
+        "name:en": "Corporation bank, atm"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4422089890,
+      "lat": 17.4007326,
+      "lon": 78.4895539,
+      "tags": {
+        "name": "pet needs",
+        "name:en": "pet needs",
+        "shop": "pet"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4422093191,
+      "lat": 17.4077867,
+      "lon": 78.4895232,
+      "tags": {
+        "name": "Bramary foods",
+        "name:en": "Bramary foods",
+        "shop": "bakery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4425032194,
+      "lat": 17.4058163,
+      "lon": 78.4932532,
+      "tags": {
+        "amenity": "bank",
+        "name": "Bank of Baroda bank, atm",
+        "name:en": "Bank of Baroda bank, atm"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4425035290,
+      "lat": 17.4046464,
+      "lon": 78.4892372,
+      "tags": {
+        "name": "saloon",
+        "name:en": "saloon",
+        "shop": "hairdresser"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4428976091,
+      "lat": 17.4011413,
+      "lon": 78.4887277,
+      "tags": {
+        "name": "Kirana ghar",
+        "name:en": "Kirana ghar",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4431207291,
+      "lat": 17.4012906,
+      "lon": 78.4885491,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Kabab",
+        "name:en": "Kabab"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4431245490,
+      "lat": 17.4010068,
+      "lon": 78.4881937,
+      "tags": {
+        "amenity": "bank",
+        "name": "Telangana Grameena Bank",
+        "name:en": "Telangana Grameena Bank"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4431912293,
+      "lat": 17.4011249,
+      "lon": 78.4887156,
+      "tags": {
+        "name": "Kirana ghar",
+        "name:en": "Kirana ghar",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4432270596,
+      "lat": 17.4044775,
+      "lon": 78.4895371,
+      "tags": {
+        "amenity": "bank",
+        "name": "Indian bank, atm",
+        "name:en": "Indian bank, atm"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4432327795,
+      "lat": 17.4057852,
+      "lon": 78.4932602,
+      "tags": {
+        "amenity": "bank",
+        "name": "Bank of Baroda bank, atm",
+        "name:en": "Bank of Baroda bank, atm"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4433014293,
+      "lat": 17.4083614,
+      "lon": 78.4897461,
+      "tags": {
+        "amenity": "bank",
+        "name": "Corporation bank, atm",
+        "name:en": "Corporation bank, atm"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4433084090,
+      "lat": 17.4093435,
+      "lon": 78.4898074,
+      "tags": {
+        "name": "Dhanalakshmi",
+        "name:en": "Dhanalakshmi",
+        "shop": "books"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4433084989,
+      "lat": 17.4091919,
+      "lon": 78.4898151,
+      "tags": {
+        "name": "Vikas",
+        "name:en": "Vikas",
+        "shop": "books"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4433085089,
+      "lat": 17.4097113,
+      "lon": 78.4926128,
+      "tags": {
+        "name": "Heritage fresh",
+        "name:en": "Heritage fresh",
+        "shop": "department_store"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4436525399,
+      "lat": 17.4113396,
+      "lon": 78.493329,
+      "tags": {
+        "name": "Hair dresser",
+        "name:en": "Hair dresser",
+        "shop": "hairdresser"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4436560090,
+      "lat": 17.4083572,
+      "lon": 78.4923778,
+      "tags": {
+        "name": "China bazar",
+        "name:en": "China bazar",
+        "shop": "department_store"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4508429695,
+      "lat": 17.4087261,
+      "lon": 78.4904922,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Balaji darshan",
+        "name:en": "Balaji darshan"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5518037581,
+      "lat": 17.3986952,
+      "lon": 78.4935837,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Mehfil hotel"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6219937085,
+      "lat": 17.4017706,
+      "lon": 78.4881726,
+      "tags": {
+        "name": "Rex",
+        "shop": "hairdresser"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6219937185,
+      "lat": 17.4017841,
+      "lon": 78.4882318,
+      "tags": {
+        "name": "A 1 Dry Cleaners",
+        "shop": "dry_cleaning"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6219939386,
+      "lat": 17.4005149,
+      "lon": 78.4882514,
+      "tags": {
+        "name": "King & Cardinal",
+        "shop": "bakery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6308262616,
+      "lat": 17.4084959,
+      "lon": 78.492001,
+      "tags": {
+        "name": "Shiva wines",
+        "shop": "wine"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6308262617,
+      "lat": 17.4084627,
+      "lon": 78.492225,
+      "tags": {
+        "amenity": "cafe",
+        "name": "AM PM Hotel"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6308262618,
+      "lat": 17.4102126,
+      "lon": 78.4923966,
+      "tags": {
+        "amenity": "pharmacy",
+        "name": "Sai medical shop"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6308262622,
+      "lat": 17.4096368,
+      "lon": 78.4926005,
+      "tags": {
+        "name": "Naturals",
+        "shop": "beauty"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6308262630,
+      "lat": 17.4109292,
+      "lon": 78.4920473,
+      "tags": {
+        "name": "Elegance tailor",
+        "shop": "tailor"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6308262631,
+      "lat": 17.4114001,
+      "lon": 78.4921539,
+      "tags": {
+        "amenity": "pharmacy",
+        "name": "Surya Medical & General Stores"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6308262635,
+      "lat": 17.4108729,
+      "lon": 78.4926729,
+      "tags": {
+        "name": "Padamvathi saree shop",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6308262637,
+      "lat": 17.4098159,
+      "lon": 78.4926179,
+      "tags": {
+        "name": "ratnadeep",
+        "shop": "department_store"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244238200,
+      "lat": 17.4066547,
+      "lon": 78.497651,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:state": "Telangana",
+        "amenity": "restaurant",
+        "contact:phone": "+91 40 27634490",
+        "cuisine": "indian;kebab;steak_house;ice_cream;barbecue;regional;chicken;coffee_shop",
+        "name": "Bawarchi",
+        "opening_hours": "06:00-24:00",
+        "outdoor_seating": "no",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7788168896,
+      "lat": 17.4114641,
+      "lon": 78.4909496,
+      "tags": {
+        "amenity": "bank",
+        "name": "State Bank of India"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7794758708,
+      "lat": 17.4090164,
+      "lon": 78.4925411,
+      "tags": {
+        "name": "Sai Sahasra Beauty Parlour",
+        "shop": "beauty"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7917719787,
+      "lat": 17.4112363,
+      "lon": 78.4919158,
+      "tags": {
+        "name": "SKS Traders",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8111098692,
+      "lat": 17.4052349,
+      "lon": 78.4961186,
+      "tags": {
+        "addr:city": "hyderabad",
+        "addr:postcode": "500020",
+        "addr:street": "Chikkadapally Road",
+        "amenity": "bank",
+        "brand": "Union Bank of India",
+        "brand:wikidata": "Q2004078",
+        "brand:wikipedia": "en:Union Bank of India",
+        "name": "Union Bank of India"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8111098697,
+      "lat": 17.4057061,
+      "lon": 78.4955046,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:postcode": "500020",
+        "addr:street": "Chikkadapally Road",
+        "brand": "More",
+        "brand:wikidata": "Q6910891",
+        "brand:wikipedia": "en:More (store)",
+        "name": "More",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8386123123,
+      "lat": 17.4062387,
+      "lon": 78.4935284,
+      "tags": {
+        "amenity": "bank",
+        "brand": "Andhra Bank",
+        "brand:wikidata": "Q2003476",
+        "brand:wikipedia": "en:Andhra Bank",
+        "name": "Andhra Bank labour commissioner office branch"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8386127464,
+      "lat": 17.4073432,
+      "lon": 78.495438,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:postcode": "500020",
+        "addr:street": "jawahar nagar",
+        "amenity": "bank",
+        "name": "syndicate bank chikkadpally"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8386145059,
+      "lat": 17.4076052,
+      "lon": 78.4953484,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:postcode": "500020",
+        "addr:street": "jawahar nagar",
+        "name": "3 Kaal coffee & Tea",
+        "shop": "tea"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8386154012,
+      "lat": 17.4074387,
+      "lon": 78.4950043,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:housenumber": "TRT 52",
+        "addr:postcode": "500020",
+        "addr:street": "jawahar nagar",
+        "name": "Decent flowers merchant",
+        "shop": "florist"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8386156598,
+      "lat": 17.4074954,
+      "lon": 78.4947911,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:housenumber": "TRT 45",
+        "addr:postcode": "500020",
+        "addr:street": "Jawahar nagar",
+        "name": "Max Homecare Products",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8386939112,
+      "lat": 17.4074821,
+      "lon": 78.4948408,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:postcode": "500020",
+        "clothes": "men",
+        "name": "Fllow me",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8386939113,
+      "lat": 17.4074908,
+      "lon": 78.494816,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:postcode": "500020",
+        "brand": "Samsung",
+        "brand:wikidata": "Q20718",
+        "brand:wikipedia": "en:Samsung Electronics",
+        "name": "Samsung",
+        "shop": "electronics"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8386939114,
+      "lat": 17.4075159,
+      "lon": 78.4947364,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:postcode": "500020",
+        "addr:street": "jawahar nagar",
+        "name": "Venkateswara medical store",
+        "shop": "medical_supply"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8386939116,
+      "lat": 17.4075382,
+      "lon": 78.4946309,
+      "tags": {
+        "name": "Ganesh traveller",
+        "shop": "car"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8387021470,
+      "lat": 17.4076073,
+      "lon": 78.4944575,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:postcode": "500020",
+        "name": "Arihant jewellers",
+        "shop": "jewelry"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8387021483,
+      "lat": 17.4071903,
+      "lon": 78.4950178,
+      "tags": {
+        "name": "World of titan",
+        "shop": "watches"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9838656985,
+      "lat": 17.4036684,
+      "lon": 78.495143,
+      "tags": {
+        "clothes": "wedding;children;fashion;underwear",
+        "name": "chandana brothers",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9838656986,
+      "lat": 17.4037885,
+      "lon": 78.4952309,
+      "tags": {
+        "brand": "Bata",
+        "brand:wikidata": "Q688082",
+        "name": "Bata",
+        "shop": "shoes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9840434897,
+      "lat": 17.4023603,
+      "lon": 78.4953064,
+      "tags": {
+        "clothes": "women",
+        "name": "trends",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9840434898,
+      "lat": 17.4024226,
+      "lon": 78.4953217,
+      "tags": {
+        "name": "ramraj",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 12023041753,
+      "lat": 17.4100492,
+      "lon": 78.4981354,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:district": "Telangana",
+        "addr:housenumber": "1-7-9/A 2nd Floor 205 Surabhi Saphire Appartments",
+        "addr:postcode": "500020",
+        "addr:street": "RTC cross road",
+        "email": "contact@newwill.in",
+        "level": "2",
+        "name": "Newwill Visa Tech Pvt Ltd",
+        "opening_hours": "Mo-Su 10:00-19:00",
+        "operator": "Visa Consultant",
+        "payment:american_express": "yes",
+        "payment:cash": "yes",
+        "payment:cheque": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "payment:maestro": "yes",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "phone": "8008009034",
+        "shop": "travel_agency"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13436948447,
+      "lat": 17.3988158,
+      "lon": 78.4997957,
+      "tags": {
+        "amenity": "cafe",
+        "name": "tea time"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13436948468,
+      "lat": 17.4011087,
+      "lon": 78.5013142,
+      "tags": {
+        "name": "Genaral Store",
+        "shop": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 14065837228,
+      "lat": 17.4062451,
+      "lon": 78.4976285,
+      "tags": {
+        "amenity": "restaurant",
+        "cuisine": "indian",
+        "name": "Bawarchi"
+      }
+    },
+    {
+      "type": "way",
+      "id": 357102666,
+      "center": {
+        "lat": 17.3986834,
+        "lon": 78.4934755
+      },
+      "tags": {
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "building": "commercial",
+        "cuisine": "indian",
+        "diet:non-vegetarian": "yes",
+        "name": "Mehfil",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 357588055,
+      "center": {
+        "lat": 17.4067303,
+        "lon": 78.4977159
+      },
+      "tags": {
+        "amenity": "restaurant",
+        "building": "yes",
+        "name": "Bawarchi Ac"
+      }
+    },
+    {
+      "type": "way",
+      "id": 357609036,
+      "center": {
+        "lat": 17.4115768,
+        "lon": 78.4972901
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Vasavi Medicals",
+        "shop": "medical_supply"
+      }
+    },
+    {
+      "type": "way",
+      "id": 385367743,
+      "center": {
+        "lat": 17.4113118,
+        "lon": 78.4970293
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Studio",
+        "shop": "photo"
+      }
+    },
+    {
+      "type": "way",
+      "id": 413791769,
+      "center": {
+        "lat": 17.4022317,
+        "lon": 78.4949283
+      },
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:postcode": "500016",
+        "addr:street": "Chikkadapally Road",
+        "building": "yes",
+        "clothes": "women",
+        "name": "Kallepally Brothers",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1465001200,
+      "center": {
+        "lat": 17.4031028,
+        "lon": 78.4964113
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "yes",
+        "name": "coffee centre"
+      },
+      "version": 1,
+      "timestamp": "2026-01-07T05:07:40Z",
+      "geometry": [
+        {
+          "lat": 17.4031657,
+          "lon": 78.4963043
+        },
+        {
+          "lat": 17.40309,
+          "lon": 78.4964017
+        },
+        {
+          "lat": 17.4030398,
+          "lon": 78.4965183
+        },
+        {
+          "lat": 17.4031657,
+          "lon": 78.4963043
+        }
+      ]
+    },
+    {
+      "type": "way",
+      "id": 1465001201,
+      "center": {
+        "lat": 17.4059448,
+        "lon": 78.5015847
+      },
+      "tags": {
+        "building": "yes",
+        "name": "mini D mart",
+        "shop": "supermarket"
+      }
+    }
+  ]
+}

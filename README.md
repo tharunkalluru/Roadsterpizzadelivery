@@ -89,3 +89,11 @@ The raw downloads run to several GB and are not committed.
 - Street-level imagery readings from [Mapillary](https://www.mapillary.com/) (CC BY-SA)
 
 The films, orders and customers in the game are made up.
+
+## Checks and research workflow
+
+Run `cd game && npm run check` for TypeScript, focused map/gameplay regressions and the production build. Run `python3 -m unittest discover -s pipeline/tests -p 'test_*.py'` from the repository root for naming/import checks.
+
+- [Gameplay audit](docs/gameplay-audit.md) and [map control audit](docs/map-controls-audit.md) record fixes and remaining verification gaps.
+- [Shopfront workflow](pipeline/README.md) explains evidence batches, parallel OCR workers and serialized imports. Mapped names and inferred facades are kept distinct from street-photo verification.
+- [Roadster visual references](docs/roadster-visual.md) record the procedural car's sources and limitations.

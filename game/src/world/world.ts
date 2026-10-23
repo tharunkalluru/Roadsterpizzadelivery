@@ -22,6 +22,7 @@ export class World implements CityData {
   theatreFacades = new Map<string, { c: THREE.Vector3; n: THREE.Vector3; w: number; top: number; building: Building }>();
   bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
   tiles = new Map<string, LoadedTile>(); pending = new Map<string, number>(); empty = new Set<string>();
+  failures = new Map<string, { attempts: number; retryAt: number; error: string }>();
   packOf = new Map<string, string>(); worker: Worker; groundGeo = new THREE.PlaneGeometry(1000, 1000);
   onTileAdded: (t: LoadedTile) => void = () => {}; onTileRemoved: (t: LoadedTile) => void = () => {};
   activity = new Map<string, number>();          // shop units per 100 m cell across the loaded tiles
@@ -68,26 +69,48 @@ export class World implements CityData {
       if (Math.hypot(dx, dz) > this.radius + 450) this.unload(t);
     }
   }
-  request(k: string) { this.pending.set(k, performance.now()); this.worker.postMessage({ type: 'build', key: k, url: this.packOf.get(k) }); }
+  request(k: string) {
+    if (this.pending.has(k) || (this.failures.get(k)?.retryAt || 0) > performance.now()) return;
+    this.pending.set(k, performance.now()); this.worker.postMessage({ type: 'build', key: k, url: this.packOf.get(k) });
+  }
   // resolve once every tile within r of (x, z) is built (start-up, teleports, test scenes)
   ensure(x: number, z: number, r = 700): Promise<void> {
     this.focus = [x, z];                       // we are going there: don't unload what we're about to need
-    return new Promise((resolve) => {
+    // A new explicit area selection can retry an area which previously failed to load.
+    for (const k of this.wanted(x, z, r)) this.failures.delete(k);
+    return new Promise((resolve, reject) => {
+      const started = performance.now();
+      let timer: ReturnType<typeof setInterval> | undefined;
+      const finish = (error?: Error) => {
+        if (timer) clearInterval(timer);
+        this.waiters = this.waiters.filter((f) => f !== check);
+        if (error) reject(error); else resolve();
+      };
       const check = () => {
         const want = this.wanted(x, z, r);
         const missing = want.filter((k) => !this.tiles.has(k) && !this.empty.has(k));
-        if (!missing.length) { resolve(); return true; }
+        if (!missing.length) { finish(); return true; }
+        const failed = missing.find((k) => (this.failures.get(k)?.attempts || 0) >= 3);
+        if (failed || performance.now() - started > 90000) {
+          finish(new Error(failed ? `Could not load tile ${failed}: ${this.failures.get(failed)!.error}` : 'Loading this area timed out. Please try again.'));
+          return true;
+        }
+        for (const k of missing) if (this.pending.has(k) && performance.now() - this.pending.get(k)! > 25000) this.pending.delete(k);
         for (const k of missing) if (!this.pending.has(k)) this.request(k);
         return false;
       };
-      if (!check()) { const w = () => { if (check()) this.waiters = this.waiters.filter((f) => f !== w); }; this.waiters.push(w); }
+      if (!check()) { this.waiters.push(check); timer = setInterval(check, 250); }
     });
   }
   onMessage(m: any) {
     const t0 = this.pending.get(m.key); this.pending.delete(m.key);
-    if (m.type === 'built') { const a0 = performance.now(); this.add(m.built); this.addMs.push(Math.round(performance.now() - a0)); this.buildMs.push(m.ms); if (t0) this.buildMs.push(Math.round(performance.now() - t0)); }
-    else if (m.type === 'empty') this.empty.add(m.key);
-    else if (m.type === 'error') { console.error('tile', m.key, m.error); this.empty.add(m.key); }
+    if (m.type === 'built') { this.failures.delete(m.key); const a0 = performance.now(); this.add(m.built); this.addMs.push(Math.round(performance.now() - a0)); this.buildMs.push(m.ms); if (t0) this.buildMs.push(Math.round(performance.now() - t0)); }
+    else if (m.type === 'empty') { this.failures.delete(m.key); this.empty.add(m.key); }
+    else if (m.type === 'error') {
+      console.error('tile', m.key, m.error);
+      const attempts = (this.failures.get(m.key)?.attempts || 0) + 1;
+      this.failures.set(m.key, { attempts, retryAt: performance.now() + Math.min(30000, 1000 * 2 ** Math.min(attempts - 1, 5)), error: String(m.error) });
+    }
     for (const w of this.waiters.slice()) w();
     this.update(this.focus[0], this.focus[1], 0, true);
   }
@@ -132,6 +155,15 @@ export class World implements CityData {
       for (const [k, a] of src) { const gone = new Set(a); const d = dst.get(k); if (!d) continue; const f = d.filter((x) => !gone.has(x)); if (f.length) dst.set(k, f); else dst.delete(k); }
     };
     const b = t.built;
+    for (const rail of b.rails || []) {
+      if (this.rails.get(rail.id) !== rail) continue;
+      this.rails.delete(rail.id);
+      // Border rails may be shared by neighboring tiles. Retain a still-loaded copy.
+      for (const other of this.tiles.values()) {
+        const retained = other.built.rails?.find((r) => r.id === rail.id);
+        if (retained) { this.rails.set(retained.id, retained); break; }
+      }
+    }
     strip(this.buildingGrid, b.buildingGrid); strip(this.surfaceGrid, b.surfaceGrid); strip(this.walls, b.walls); strip(this.obstacles, b.obstacles);
     for (const x of t.buildings) this.byBuilding.delete(x.id);
     for (const [k, n] of b.activity || []) { const v = (this.activity.get(k) || 0) - n; if (v > 0.5) this.activity.set(k, v); else this.activity.delete(k); }

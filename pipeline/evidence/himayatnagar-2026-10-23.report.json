@@ -1,0 +1,918 @@
+{
+  "schemaVersion": 1,
+  "evidenceSha256": "4797e636a98d0942d843598245bf148ac5ac99fddfc0ce7dd9287b8a9c15e6f8",
+  "shardIndex": 0,
+  "shards": 1,
+  "summary": {
+    "needs_street_photo_review": 12,
+    "existing_name_matched": 30
+  },
+  "records": [
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/613410619",
+        "url": "https://www.openstreetmap.org/node/613410619",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Minerva Coffee House",
+        "point": [
+          17.4013136,
+          78.4853821
+        ],
+        "version": 5,
+        "timestamp": "2020-12-26T04:48:38Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/726163806",
+        "url": "https://www.openstreetmap.org/node/726163806",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Lakshmi Hyundai Car Showroom",
+        "point": [
+          17.4033202,
+          78.4829037
+        ],
+        "version": 6,
+        "timestamp": "2020-12-26T04:48:38Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n726163806",
+      "name": "Lakshmi Hyundai Car Showroom",
+      "distanceM": 3.01
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/726258388",
+        "url": "https://www.openstreetmap.org/node/726258388",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Mitra Maruti Suzuki Car Showroom",
+        "point": [
+          17.4023159,
+          78.4839313
+        ],
+        "version": 5,
+        "timestamp": "2020-12-26T04:48:38Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n726258388",
+      "name": "Mitra Maruti Suzuki Car Showroom",
+      "distanceM": 15.67
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/726707787",
+        "url": "https://www.openstreetmap.org/node/726707787",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Almond House",
+        "point": [
+          17.4011328,
+          78.4858071
+        ],
+        "version": 3,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n726707787",
+      "name": "Almond House",
+      "distanceM": 1.41
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/726709518",
+        "url": "https://www.openstreetmap.org/node/726709518",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Blue Fox Restaurant",
+        "point": [
+          17.4009655,
+          78.4853499
+        ],
+        "version": 3,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/726711488",
+        "url": "https://www.openstreetmap.org/node/726711488",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "More",
+        "point": [
+          17.4021361,
+          78.4842358
+        ],
+        "version": 4,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n726711488",
+      "name": "More",
+      "distanceM": 1.17
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/726712215",
+        "url": "https://www.openstreetmap.org/node/726712215",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Food World",
+        "point": [
+          17.4031461,
+          78.482496
+        ],
+        "version": 2,
+        "timestamp": "2010-05-09T07:53:42Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n726712215",
+      "name": "Food World",
+      "distanceM": 9.78
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/726716833",
+        "url": "https://www.openstreetmap.org/node/726716833",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Nike Showroom",
+        "point": [
+          17.4025481,
+          78.4835044
+        ],
+        "version": 2,
+        "timestamp": "2016-04-27T09:58:10Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n726716833",
+      "name": "Nike Showroom",
+      "distanceM": 0.95
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/726720120",
+        "url": "https://www.openstreetmap.org/node/726720120",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Vasu Medical Store",
+        "point": [
+          17.402194,
+          78.4833865
+        ],
+        "version": 3,
+        "timestamp": "2020-12-26T04:48:38Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/727282352",
+        "url": "https://www.openstreetmap.org/node/727282352",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Medical Store",
+        "point": [
+          17.4026538,
+          78.4845254
+        ],
+        "version": 1,
+        "timestamp": "2010-05-09T09:35:30Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/1447172214",
+        "url": "https://www.openstreetmap.org/node/1447172214",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Cafe Coffee Day",
+        "point": [
+          17.3984645,
+          78.4820951
+        ],
+        "version": 2,
+        "timestamp": "2011-10-10T18:22:06Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_f0b20010-4a19-47",
+      "name": "Cafe Coffee Day",
+      "distanceM": 19.04
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/1447172235",
+        "url": "https://www.openstreetmap.org/node/1447172235",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Canara Bank",
+        "point": [
+          17.3968226,
+          78.4845047
+        ],
+        "version": 7,
+        "timestamp": "2022-05-26T12:27:17Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_1",
+      "boardId": "b_aea963aa-563b-44",
+      "name": "Canara Bank",
+      "distanceM": 1.36
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/1932925761",
+        "url": "https://www.openstreetmap.org/node/1932925761",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Cafe Bahar",
+        "point": [
+          17.399719,
+          78.4785769
+        ],
+        "version": 3,
+        "timestamp": "2023-09-08T15:48:18Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_a9b242cc-e323-4e",
+      "name": "Cafe Bahar",
+      "distanceM": 19.45
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/3244256004",
+        "url": "https://www.openstreetmap.org/node/3244256004",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "State Bank of India",
+        "point": [
+          17.3937267,
+          78.4812179
+        ],
+        "version": 7,
+        "timestamp": "2019-10-28T12:26:10Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_1",
+      "boardId": "b_n3244256004",
+      "name": "State Bank of India",
+      "distanceM": 11.02
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/4369845292",
+        "url": "https://www.openstreetmap.org/node/4369845292",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "paradise",
+        "point": [
+          17.4009802,
+          78.4856317
+        ],
+        "version": 2,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/4415331904",
+        "url": "https://www.openstreetmap.org/node/4415331904",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Brand Factory",
+        "point": [
+          17.4015469,
+          78.4858527
+        ],
+        "version": 3,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/4415335990",
+        "url": "https://www.openstreetmap.org/node/4415335990",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "telugu academy",
+        "point": [
+          17.3985426,
+          78.4855068
+        ],
+        "version": 1,
+        "timestamp": "2016-09-23T18:59:20Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n4415335990",
+      "name": "telugu academy",
+      "distanceM": 11.16
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/4431132190",
+        "url": "https://www.openstreetmap.org/node/4431132190",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Telugu academy",
+        "point": [
+          17.3986766,
+          78.485669
+        ],
+        "version": 1,
+        "timestamp": "2016-10-04T17:56:59Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/4589352191",
+        "url": "https://www.openstreetmap.org/node/4589352191",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "German Bakers",
+        "point": [
+          17.3947027,
+          78.4798736
+        ],
+        "version": 1,
+        "timestamp": "2017-01-04T16:47:42Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_1",
+      "boardId": "b_834fbb42-4942-4e",
+      "name": "German Bakers",
+      "distanceM": 3.14
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/4592526390",
+        "url": "https://www.openstreetmap.org/node/4592526390",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Neeru's",
+        "point": [
+          17.3945627,
+          78.4801573
+        ],
+        "version": 1,
+        "timestamp": "2017-01-06T12:56:16Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_1",
+      "boardId": "b_n4592526390",
+      "name": "Neeru's",
+      "distanceM": 4.16
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/4920193221",
+        "url": "https://www.openstreetmap.org/node/4920193221",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Heavenz",
+        "point": [
+          17.396742,
+          78.4847267
+        ],
+        "version": 1,
+        "timestamp": "2017-06-17T08:27:42Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_1",
+      "boardId": "b_d98903e5-c231-44",
+      "name": "Heavenz",
+      "distanceM": 9.22
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6219939385",
+        "url": "https://www.openstreetmap.org/node/6219939385",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Maanya Suzuki",
+        "point": [
+          17.4005164,
+          78.4877364
+        ],
+        "version": 2,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-1_0",
+      "boardId": "b_n6219939385",
+      "name": "Maanya Suzuki",
+      "distanceM": 2.06
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6289177285",
+        "url": "https://www.openstreetmap.org/node/6289177285",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "HDFC Bank",
+        "point": [
+          17.4025407,
+          78.4835531
+        ],
+        "version": 1,
+        "timestamp": "2019-02-19T16:20:11Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_ad927f85-1df4-4c",
+      "name": "HDFC Bank",
+      "distanceM": 1.85
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6822126586",
+        "url": "https://www.openstreetmap.org/node/6822126586",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Oberoi",
+        "point": [
+          17.3948616,
+          78.4800941
+        ],
+        "version": 1,
+        "timestamp": "2019-09-25T08:53:14Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_1",
+      "boardId": "b_n6822126586",
+      "name": "Oberoi",
+      "distanceM": 4.66
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/6850830382",
+        "url": "https://www.openstreetmap.org/node/6850830382",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Welcome Car Decors",
+        "point": [
+          17.3948674,
+          78.4802443
+        ],
+        "version": 1,
+        "timestamp": "2019-10-04T09:13:19Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_1",
+      "boardId": "b_n6850830382",
+      "name": "Welcome Car Decors",
+      "distanceM": 11.33
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264220",
+        "url": "https://www.openstreetmap.org/node/7244264220",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "brown bear",
+        "point": [
+          17.3988067,
+          78.4852629
+        ],
+        "version": 1,
+        "timestamp": "2020-02-26T07:37:08Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264221",
+        "url": "https://www.openstreetmap.org/node/7244264221",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "shiva medicals",
+        "point": [
+          17.3989778,
+          78.4852733
+        ],
+        "version": 1,
+        "timestamp": "2020-02-26T07:37:08Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n7244264221",
+      "name": "shiva medicals",
+      "distanceM": 5.63
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264222",
+        "url": "https://www.openstreetmap.org/node/7244264222",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Domino's",
+        "point": [
+          17.3992032,
+          78.4857694
+        ],
+        "version": 2,
+        "timestamp": "2022-02-20T02:28:22Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264228",
+        "url": "https://www.openstreetmap.org/node/7244264228",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "ashok rentals",
+        "point": [
+          17.3972408,
+          78.4864053
+        ],
+        "version": 1,
+        "timestamp": "2020-02-26T07:37:08Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_1",
+      "boardId": "b_n7244264228",
+      "name": "ashok rentals",
+      "distanceM": 2.0
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264230",
+        "url": "https://www.openstreetmap.org/node/7244264230",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Ratnadeep supermarket",
+        "point": [
+          17.3995968,
+          78.4862354
+        ],
+        "version": 2,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n7244264230",
+      "name": "Ratnadeep supermarket",
+      "distanceM": 6.04
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264231",
+        "url": "https://www.openstreetmap.org/node/7244264231",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Max clothing store",
+        "point": [
+          17.4006549,
+          78.4867299
+        ],
+        "version": 2,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_606d608ad1bc953b",
+      "name": "Max clothing store",
+      "distanceM": 8.46
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264232",
+        "url": "https://www.openstreetmap.org/node/7244264232",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "westside",
+        "point": [
+          17.40093,
+          78.486148
+        ],
+        "version": 2,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264233",
+        "url": "https://www.openstreetmap.org/node/7244264233",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Malabar Gold and Daimonds",
+        "point": [
+          17.4015869,
+          78.4845944
+        ],
+        "version": 1,
+        "timestamp": "2020-02-26T07:37:08Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264235",
+        "url": "https://www.openstreetmap.org/node/7244264235",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "vijetha supermarket",
+        "point": [
+          17.3993051,
+          78.4867394
+        ],
+        "version": 2,
+        "timestamp": "2020-12-19T03:52:09Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n7244264235",
+      "name": "vijetha supermarket",
+      "distanceM": 6.33
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/7244264241",
+        "url": "https://www.openstreetmap.org/node/7244264241",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "State Bank of India",
+        "point": [
+          17.4002791,
+          78.4879081
+        ],
+        "version": 1,
+        "timestamp": "2020-02-26T07:37:08Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-1_0",
+      "boardId": "b_n7244264241",
+      "name": "State Bank of India",
+      "distanceM": 8.82
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/8093205737",
+        "url": "https://www.openstreetmap.org/node/8093205737",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Classique Communication",
+        "point": [
+          17.394847,
+          78.4784451
+        ],
+        "version": 2,
+        "timestamp": "2020-11-08T09:04:30Z"
+      },
+      "status": "needs_street_photo_review",
+      "reason": "No unambiguous existing name or exact empty building outline"
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/10181926246",
+        "url": "https://www.openstreetmap.org/node/10181926246",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "La Milano Pizzeria",
+        "point": [
+          17.4039279,
+          78.4821265
+        ],
+        "version": 2,
+        "timestamp": "2022-11-15T13:09:49Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_6346905eea764306",
+      "name": "La Milano Pizzeria",
+      "distanceM": 6.35
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13673574376",
+        "url": "https://www.openstreetmap.org/node/13673574376",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Tea house",
+        "point": [
+          17.4033357,
+          78.4834177
+        ],
+        "version": 1,
+        "timestamp": "2026-03-24T06:23:44Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n13673574376",
+      "name": "Tea house",
+      "distanceM": 20.01
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "node/13673574378",
+        "url": "https://www.openstreetmap.org/node/13673574378",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Fresh juice centre",
+        "point": [
+          17.4029452,
+          78.4832037
+        ],
+        "version": 1,
+        "timestamp": "2026-03-24T06:23:44Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_n13673574378",
+      "name": "Fresh juice centre",
+      "distanceM": 8.66
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/417231451",
+        "url": "https://www.openstreetmap.org/way/417231451",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Naveen's pet shop",
+        "point": [
+          17.39784826,
+          78.48374034
+        ],
+        "version": 3,
+        "timestamp": "2020-02-26T07:37:08Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_w417231451",
+      "name": "Naveen's pet shop",
+      "distanceM": 7.92
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/596737026",
+        "url": "https://www.openstreetmap.org/way/596737026",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Pai",
+        "point": [
+          17.398979200000003,
+          78.48158102
+        ],
+        "version": 2,
+        "timestamp": "2020-02-26T09:31:58Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_w596737026",
+      "name": "Pai",
+      "distanceM": 19.23
+    },
+    {
+      "source": {
+        "provider": "OpenStreetMap",
+        "id": "way/596737027",
+        "url": "https://www.openstreetmap.org/way/596737027",
+        "license": "ODbL-1.0",
+        "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+        "name": "Dmart",
+        "point": [
+          17.39878238,
+          78.48191566
+        ],
+        "version": 3,
+        "timestamp": "2020-12-17T16:39:45Z"
+      },
+      "status": "existing_name_matched",
+      "reason": "Same OSM ID or exact name within 25 m; facade/order remain unverified",
+      "pack": "p-1_0.pack.wasm",
+      "tile": "-2_0",
+      "boardId": "b_w596737027",
+      "name": "Dmart",
+      "distanceM": 12.3
+    }
+  ]
+}

@@ -8,8 +8,9 @@ Strong readings that match nothing, seen from two or more cameras whose rays cro
 import json, math, os, re
 from collections import defaultdict
 from rapidfuzz import fuzz
+from ocr_state import BUILD as BUILD_PATH, record_paths, read_jsonl
 
-HERE = os.path.dirname(__file__); BUILD = os.path.join(HERE, 'build')
+HERE = os.path.dirname(__file__); BUILD = str(BUILD_PATH)
 GENERIC = set('''OPEN SALE SHOP STORE STORES HOTEL RESTAURANT RESTAURANTS COLLECTION COLLECTIONS PVT LTD ROAD HYDERABAD TELANGANA PHONE
 CELL WWW COM FASHION FASHIONS MEN WOMEN KIDS NEW SRI SREE SHREE THE AND FOR CENTRE CENTER MOBILE MOBILES MART BAZAR BAZAAR TRADERS
 ENTERPRISES AGENCIES ELECTRICALS MEDICAL MEDICALS CLINIC HOSPITAL BANK ATM NO PARKING STOP BUS EXIT ENTRY WAY IN OUT ONLY
@@ -26,12 +27,12 @@ def informative(t):
 def load_records():
     # readings from every engine/run, merged per photo (a text read by both engines counts once, best confidence kept)
     recs = {}
-    for name in ('ocr_raw.jsonl', 'ocr_raw_v2.jsonl', 'ocr_rapid.jsonl', 'ocr_rapid_city.jsonl'):
-        path = os.path.join(BUILD, name)
-        if not os.path.exists(path): continue
-        for line in open(path):
-            r = json.loads(line); cur = recs.get(r['image'])
+    for path in record_paths(BUILD):
+        for r in read_jsonl(path):
+            r['image'] = str(r['image']); cur = recs.get(r['image'])
             if not cur: recs[r['image']] = r; continue
+            for key in ('sequence', 'source_url', 'license'):
+                if not cur.get(key) and r.get(key): cur[key] = r[key]
             have = {norm(t['text']): t for t in cur['texts']}
             for t in r['texts']:
                 k = norm(t['text'])

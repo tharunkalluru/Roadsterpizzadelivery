@@ -14,8 +14,9 @@ from collections import defaultdict
 from rapidfuzz import fuzz
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ocr_match import load_records, norm, informative, BUILD
+from ocr_state import PACKS as PACKS_PATH
 
-PACKS = '/home/claude/p2ph/game/public/city/packs'
+PACKS = str(PACKS_PATH)
 LAT0, LON0, NR, MR = 17.4063, 78.4966, 6380050.094, 6341141.900
 KX = math.cos(math.radians(LAT0)) * NR * math.pi / 180
 KZ = MR * math.pi / 180
@@ -101,8 +102,9 @@ def main(apply=False):
     # buildings (and their existing boards) around the cameras
     edges = defaultdict(list); bld = {}; known = defaultdict(list); where = {}
     for fn in sorted(os.listdir(PACKS)):
-        bak = os.path.join(BUILD, 'prev_pack_photo', fn)        # read the original pack, never one already given photo boards
-        d = json.loads(gzip.decompress(open(bak if os.path.exists(bak) else os.path.join(PACKS, fn), 'rb').read()))
+        if not fn.endswith('.pack.wasm'): continue
+        # Current packs may include later source-backed work by another naming worker.
+        d = json.loads(gzip.decompress(open(os.path.join(PACKS, fn), 'rb').read()))
         for key, t in d['tiles'].items():
             for bd in t['boards']: known[bd['building']].append(norm(bd['text']))
             for b in t['buildings']:
@@ -127,7 +129,7 @@ def main(apply=False):
     kgrid = defaultdict(list)
     for bid, c in cen.items():
         for k in known.get(bid, []): kgrid[(int(c[0] // 50), int(c[1] // 50))].append((c, k))
-    seq = {}
+    seq = {r['image']: r['sequence'] for r in recs if r.get('sequence')}
     for path in ('mly_images.json',):
         fp = os.path.join(BUILD, path)
         if os.path.exists(fp):
@@ -194,7 +196,7 @@ def main(apply=False):
             if len(imgs) < 2: continue
             spread = max(math.hypot(a['cam'][0] - b2['cam'][0], a['cam'][1] - b2['cam'][1]) for a in c for b2 in c)
             if spread < 2: continue                                     # same spot twice is not a second sighting
-            runs = {seq.get(q['image']) for q in c}
+            runs = {seq.get(q['image']) for q in c if seq.get(q['image']) is not None}
             mconf = sum(q['conf'] for q in c) / len(c)
             # independent evidence: two separate photo runs, or three photos read confidently
             if not (len(runs) >= 2 or (len(imgs) >= 3 and mconf >= 0.85)): continue
@@ -240,11 +242,14 @@ def main(apply=False):
         for fn, l in byp.items():
             src = os.path.join(PACKS, fn); bak = os.path.join(BUILD, 'prev_pack_photo', fn)
             if not os.path.exists(bak): shutil.copy2(src, bak)
-            d = json.loads(gzip.decompress(open(bak, 'rb').read()))         # always start from the original pack
+            d = json.loads(gzip.decompress(open(src, 'rb').read()))
             added = 0
             for b in l:
-                bd = dict(b['board']); bd.pop('photos', None)
+                bd = dict(b['board'])
+                bd['source'] = 'mapillary_ocr'
+                bd['verification'] = 'automated_photo_candidate'
                 tb = d['tiles'][b['tile']]['boards']
+                if any(x['id'] == bd['id'] for x in tb): continue
                 # share the shop front with the named shops already on it, left to right; a full front gets nothing more
                 same = lambda x: x['building'] == bd['building'] and (x.get('slot') or {}).get('floor', 0) == 0 and (
                     (math.dist(x['a'], bd['a']) < 1.5 and math.dist(x['b'], bd['b']) < 1.5) or (math.dist(x['a'], bd['b']) < 1.5 and math.dist(x['b'], bd['a']) < 1.5))

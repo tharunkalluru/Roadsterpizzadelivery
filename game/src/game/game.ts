@@ -274,7 +274,8 @@ export class Game {
     for (const R of [380, 800, 1600, 3200, 8000]) { near = this.food.filter((f) => { const d = Math.hypot(f.s.x - px, f.s.z - pz); return d > 40 && d < R; }); if (near.length >= 3) break; }
     const pool = near.length ? near : this.food;
     const pizzaFirst = pool.filter((f) => f.pizza);
-    const pick = (pizzaFirst.length && this.r() < 0.45 ? pizzaFirst : pool)[Math.floor(this.r() * (pizzaFirst.length && this.r() < 0.45 ? pizzaFirst.length : pool.length))] || pool[0];
+    const choices = pizzaFirst.length && this.r() < 0.45 ? pizzaFirst : pool;
+    const pick = choices[Math.floor(this.r() * choices.length)];
     if (!pick) return null;
     const p = pick.s;
     const drops = this.residences.filter((d) => { const dd = Math.hypot(d.x - p.x, d.z - p.z); return dd > L.dmin && dd < L.dmax; });
@@ -287,7 +288,10 @@ export class Game {
     return { pickup, drop, pickupName: pick.name, dist, limit: dist / 7 + 45, t: 0, state: 'offer', heat: 100, slices: 8 };
   }
   showOffer() {
-    let o: Order | null = null;
+    // A delayed offer callback must not replace an accepted delivery or appear over area selection.
+    if (this.choosing || this.relocating || (this.order && this.order.state !== 'offer')) return;
+    // Reopening a cancelled area picker restores the same offer, including its route and pay.
+    let o: Order | null = this.order;
     for (let k = 0; k < 6 && !o; k++) o = this.makeOffer();
     if (!o) return;
     this.order = o;
@@ -335,8 +339,17 @@ export class Game {
 
   // ---------- cinema ----------
   currentTheatreNear() {
-    for (const s of this.theatres) if (Math.hypot(s.stop.x - this.player.pos.x, s.stop.z - this.player.pos.z) < 9) return s;
+    for (const s of this.theatres) if (this.canInteractAt(s.stop, 9)) return s;
     return null;
+  }
+  canInteractAt(stop: Stop, radius: number) {
+    const p = this.player;
+    return !p.flying && !p.descending && !p.glide && Math.abs(p.speed) < 2.5 &&
+      Math.abs(p.pos.y - stop.y) < 3 && Math.hypot(stop.x - p.pos.x, stop.z - p.pos.z) < radius;
+  }
+  resetInput() {
+    this.keys.clear(); this.flyQueued = false; this.actHeld = false; this.actTap = 0; this.actProgress = 0; this.dragging = false;
+    if (this.hud) { this.hud.touchGas = false; this.hud.touchBrake = false; this.hud.touchSteer = 0; }
   }
   openTheatres() {
     const leased = this.lease && !this.lease.done ? this.lease : null;
@@ -425,6 +438,7 @@ export class Game {
       else if (id === 'act') { this.actTap = 1.2; if (this.order?.state === 'offer') this.acceptOffer(); }
     };
     addEventListener('keydown', (e) => {
+      if (this.map?.open) { this.map.handleKey(e); return; }
       if (this.choosing) return;                       // the area picker / pick-on-map screen has the keyboard
       if (this.hud.modalOpen && e.code !== 'Escape') return;
       this.keys.add(e.code);
@@ -432,16 +446,17 @@ export class Game {
       if (e.code.startsWith('Arrow')) e.preventDefault();
       if (e.code === 'KeyE') { this.actHeld = true; if (this.order?.state === 'offer') this.acceptOffer(); }
       if (e.code === 'KeyT') this.openTheatres();
-      if (e.code === 'KeyM') { if (this.map?.open) this.map.hide(); else this.openMap(); }
+      if (e.code === 'KeyM' && !e.repeat) { this.openMap(); return; }
       if (e.code === 'KeyH' && !e.repeat) this.sound.horn('car', 4, 0, true);
       if (e.code === 'KeyR' && !e.repeat) this.rescue();
       // developer toggles for play-testing on real devices: ` stats overlay, \ test autopilot (drives the GPS route)
       if (e.code === 'Backquote' || e.key === '`') { this.devOn = !this.devOn; this.hud.el.dev.hidden = !this.devOn; }
       if (e.code === 'Backslash' || e.key === '\\') { this.autopilot = !this.autopilot; this.hud.toast(this.autopilot ? 'Test autopilot ON' : 'Test autopilot off', 'teal'); }
       if (e.code === 'KeyN') { this.sound.setMuted(!this.sound.muted); this.settings.sound = !this.sound.muted; try { localStorage.setItem('p2ph-settings-v1', JSON.stringify(this.settings)); } catch { /* ignore */ } this.hud.toast(this.sound.muted ? 'Sound off' : 'Sound on', 'teal'); }
-      if (e.code === 'KeyP' || e.code === 'Escape') { if (this.map?.open) this.map.hide(); else if (this.hud.modalOpen) this.hud.modal(null); else this.openPause(); }
-      if (this.map?.open && (e.key === '+' || e.key === '=')) this.map.zoomAt(1.4);
-      if (this.map?.open && (e.key === '-' || e.key === '_')) this.map.zoomAt(1 / 1.4);
+      if ((e.code === 'KeyP' || e.code === 'Escape') && !e.repeat) {
+        if (this.hud.modalOpen) { this.hud.modal(null); this.paused = false; this.clock.getDelta(); }
+        else this.openPause();
+      }
     });
     // full map from the minimap
     this.map = new FullMap(this.hud.root, this.zone, () => ({
@@ -463,6 +478,9 @@ export class Game {
         this.area ? { x: this.area.x, z: this.area.z, scale: 0.12 } : { x: 0, z: 0, scale: 0.035 });
     };
     this.hud.el.minimap.addEventListener('click', () => this.openMap());
+    this.hud.el.minimap.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.code === 'Space') { e.preventDefault(); e.stopPropagation(); this.openMap(); }
+    });
     // look around: drag on the scene while the car is stopped; scroll to move the camera in or out
     const cv = this.engine.renderer.domElement;
     let last: { x: number; y: number } | null = null;
@@ -477,6 +495,8 @@ export class Game {
     });
     cv.addEventListener('wheel', (e) => { if (Math.abs(this.player.speed) < 2) { e.preventDefault(); this.orbitDist = Math.max(-4, Math.min(22, this.orbitDist + e.deltaY * 0.01)); } }, { passive: false });
     addEventListener('keyup', (e) => { this.keys.delete(e.code); if (e.code === 'KeyE') this.actHeld = false; });
+    addEventListener('blur', () => this.resetInput());
+    document.addEventListener('visibilitychange', () => { if (document.hidden) this.resetInput(); });
     this.player.chargeCap = 20 + this.level * 2.5;
     this.engine.camera.far = 900; this.engine.camera.updateProjectionMatrix();
     this.applyClockMood(true);
@@ -492,6 +512,7 @@ export class Game {
   }
   openMap() {
     if (!this.map || this.hud.modalOpen || this.choosing) return;
+    this.resetInput();
     this.paused = true; this.map.show();
   }
 
@@ -501,7 +522,7 @@ export class Game {
   chooseArea(first: boolean) {
     if (!first && this.order && this.order.state !== 'offer') { this.hud.modal(null); this.paused = false; this.hud.toast('Finish this delivery first!', 'pink'); return; }
     this.choosing = true; this.paused = true; this.hud.modal(null); this.hud.offer(null);
-    this.picker.onClose = first ? null : () => { this.choosing = false; this.paused = false; this.clock.getDelta(); if (!this.order) this.showOffer(); };
+    this.picker.onClose = first ? null : () => { this.choosing = false; this.paused = false; this.clock.getDelta(); if (!this.order || this.order.state === 'offer') this.showOffer(); };
     this.picker.show({ first, last: first ? this.savedArea() : null, current: this.area?.name });
   }
   async relocate(c: AreaChoice) {
@@ -511,7 +532,14 @@ export class Game {
     this.picker.hide(); this.hud.offer(null); this.hud.modal(null);
     this.order = null; this.setTarget(null);
     setLoading(`Loading ${c.name}…`);
-    try { this.city.focus = [c.x, c.z]; await this.city.ensure(c.x, c.z, 650); } catch (e) { console.error('relocate', e); }
+    try { this.city.focus = [c.x, c.z]; await this.city.ensure(c.x, c.z, 650); }
+    catch (e) {
+      console.error('relocate', e); setLoading(''); this.relocating = false;
+      this.city.focus = [this.player.pos.x, this.player.pos.z];
+      this.hud.toast('This area could not load. Check the connection and try again.', 'pink');
+      this.chooseArea(!this.area);
+      return;
+    }
     this.placeNear(c.x, c.z);
     // the old neighbourhood's traffic and people stay behind
     for (const car of this.traffic.cars) this.engine.scene.remove(car.g); this.traffic.cars.length = 0;
@@ -727,7 +755,7 @@ export class Game {
       const d = Math.hypot(tgt.x - P.x, tgt.z - P.z);
       // right at the ring, or stopped just across a divided road from it (the rider walks over instead of a long U-turn)
       const across = d < 24 && !!this.route && this.route.len > d * 4 + 60;
-      if ((d < 8 || across) && Math.abs(this.player.speed) < 2.5 && !this.player.flying && P.y - tgt.y < 3) {
+      if (this.canInteractAt(tgt, across ? 24 : 8)) {
         const holding = this.actHeld || this.actTap > 0;
         this.actProgress = holding ? Math.min(1, this.actProgress + dt / 0.9) : Math.max(0, this.actProgress - dt);
         promptText = o.state === 'toPickup' ? (holding ? 'Collecting the pizza…' : `Hold E / ACT to collect the pizza${across ? ' (walk across the road)' : ''}`) : (holding ? 'Handing over…' : `Hold E / ACT to hand over${across ? ' (walk across the road)' : ''}`);
@@ -745,7 +773,9 @@ export class Game {
       const holding = this.actHeld || this.actTap > 0;
       promptText = `Hold E / ACT: talk to the ${th.def.name} manager`;
       if (holding) { this.actProgress += dt / 0.6; if (this.actProgress >= 1) { this.actProgress = 0; this.actHeld = false; this.actTap = 0; this.openLease(th); } }
+      else this.actProgress = 0;
     }
+    else if (!promptText) this.actProgress = 0;
     this.hud.prompt(promptText, this.actProgress);
     // gps
     this.updateRoute(dt);

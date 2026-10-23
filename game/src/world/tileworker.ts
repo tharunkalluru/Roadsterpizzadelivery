@@ -13,7 +13,14 @@ const order: string[] = [];
 function getPack(url: string) {
   let p = packs.get(url);
   if (!p) {
-    p = fetchPack<{ tiles: Record<string, TileZone> }>(url).then((d) => d.tiles);
+    p = fetchPack<{ tiles: Record<string, TileZone> }>(url).then((d) => d.tiles).catch((error) => {
+      // A transient network error must not poison every tile in this pack until a reload.
+      if (packs.get(url) === p) {
+        packs.delete(url);
+        const i = order.indexOf(url); if (i >= 0) order.splice(i, 1);
+      }
+      throw error;
+    });
     packs.set(url, p); order.push(url);
     while (order.length > 6) packs.delete(order.shift()!);   // keep a few packs decoded for neighbouring tiles
   }

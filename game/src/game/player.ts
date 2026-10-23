@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { roadster } from '../world/vehicles';
+import { roadster, type RoadsterNozzle } from '../world/vehicles';
 import { labelTexture } from '../world/signs';
 import type { CityData } from '../world/city';
 import { supportAt, collideBuildings, collideWalls, roofUnder, SupportKind } from './physics';
@@ -16,30 +16,31 @@ export class Player {
     const logo = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'PIZZA TO PICTURE HALL', font: '{s}px "Bungee", sans-serif', color: '#FFB627', size: 44 }], 512, 128, '#17132B') });
     const plate = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'TG 09 P2P 01', font: '800 {s}px "Baloo 2", sans-serif', color: '#17132B', size: 70 }], 512, 128, '#F6EEDC', '#17132B') });
     const R = roadster({
-      paint: new THREE.MeshPhysicalMaterial({ color: '#2A5BD7', metalness: 0.55, roughness: 0.26, clearcoat: 1, clearcoatRoughness: 0.06 }),
-      canopy: new THREE.MeshPhysicalMaterial({ color: '#9FE7F5', metalness: 0.2, roughness: 0.04, transparent: true, opacity: 0.5, side: THREE.DoubleSide }),
+      paint: new THREE.MeshPhysicalMaterial({ color: '#d5d9dc', metalness: 0.48, roughness: 0.23, clearcoat: 1, clearcoatRoughness: 0.06 }),
+      canopy: new THREE.MeshPhysicalMaterial({ color: '#29221c', metalness: 0.38, roughness: 0.13, transparent: true, opacity: 0.94, side: THREE.DoubleSide }),
       helmet: new THREE.MeshStandardMaterial({ color: '#FFB627', roughness: 0.35 }),
       trim: new THREE.MeshStandardMaterial({ color: '#16151b', roughness: 0.4, metalness: 0.6 }),
-      accent: new THREE.MeshStandardMaterial({ color: '#FFB627' }),
+      accent: new THREE.MeshStandardMaterial({ color: '#a69377', metalness: 0.86, roughness: 0.27 }),
       pizzaBox: new THREE.MeshStandardMaterial({ color: '#FFB627', roughness: 0.55 }),
       red: new THREE.MeshStandardMaterial({ color: '#E8413A', roughness: 0.5 }),
       heatLed: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ff7a2a').multiplyScalar(2.5), toneMapped: false }),
-      tail: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ff2a55').multiplyScalar(2.2), toneMapped: false }),
+      tail: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ff210c').multiplyScalar(1.5), toneMapped: false }),
       head: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffffff').multiplyScalar(2.5), toneMapped: false }),
-      pod: new THREE.MeshStandardMaterial({ color: '#2b2a33', roughness: 0.3, metalness: 0.7 }),
+      pod: new THREE.MeshStandardMaterial({ color: '#64686b', roughness: 0.28, metalness: 0.85 }),
       podGlow: new THREE.MeshBasicMaterial({ color: new THREE.Color('#bfeaff').multiplyScalar(1.6), toneMapped: false }),
       tyre: new THREE.MeshStandardMaterial({ color: '#1b1b1f', roughness: 0.92 }),
       rim: new THREE.MeshStandardMaterial({ color: '#c9ccd3', roughness: 0.25, metalness: 0.9 }),
-      seat: new THREE.MeshStandardMaterial({ color: '#3a2a24', roughness: 0.7 }),
-      jet: new THREE.MeshBasicMaterial({ color: '#e6f6ff', alphaMap: jetFade(), transparent: true, opacity: 0.42, depthWrite: false, side: THREE.DoubleSide }),
-      jetCore: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffffff').multiplyScalar(1.4), alphaMap: jetFade(), transparent: true, opacity: 0.7, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }),
+      seat: new THREE.MeshStandardMaterial({ color: '#e4e0d8', roughness: 0.7 }),
+      jet: new THREE.MeshBasicMaterial({ color: '#eef1f2', alphaMap: jetFade(), transparent: true, opacity: 0.28, depthWrite: false, side: THREE.DoubleSide }),
+      jetCore: new THREE.MeshBasicMaterial({ color: '#ffffff', alphaMap: jetFade(), transparent: true, opacity: 0.45, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }),
     }, { logo, plate });
-    this.group = R.group; this.pods = R.pods; this.wheels = R.wheels; this.nozzles = R.nozzles;
+    this.group = R.group; this.pods = R.pods; this.wheels = R.wheels; this.wheelRollers = R.wheelRollers; this.nozzles = R.nozzles; this.setDeployment = R.setDeployment;
     this.gas = new GasPuffs(mats.radial);
     this.glow = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 5.6), new THREE.MeshBasicMaterial({ map: mats.radial, color: new THREE.Color('#45E3D3'), transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false }));
     this.glow.rotation.x = -Math.PI / 2;
   }
-  wheels: THREE.Group[]; nozzles: { node: THREE.Object3D; dir: THREE.Vector3; jet: THREE.Object3D | null }[]; gas: GasPuffs; wasFlying = false; puffAcc = 0; burst = 0;
+  wheels: THREE.Group[]; wheelRollers: THREE.Group[]; nozzles: RoadsterNozzle[]; gas: GasPuffs; wasFlying = false; puffAcc = 0; burst = 0;
+  setDeployment: (amount: number) => void; thrusterDeployment = 0;
   addTo(scene: THREE.Scene) { scene.add(this.group, this.glow, this.light, this.gas.group); }
   // place on the road surface nearest to height `y` (a ground street under a flyover stays on the ground)
   place(x: number, z: number, yaw: number, y = 0) {
@@ -75,9 +76,7 @@ export class Player {
     P.y += (wantY - P.y) * Math.min(1, dt * (d > 6 ? 2.5 : 3.5));
     this.group.position.set(P.x, P.y, P.z); this.group.rotation.set(-0.04, this.yaw, 0, 'YXZ');
     this.glow.position.set(P.x, P.y - 0.5, P.z); this.light.position.set(P.x, P.y - 0.2, P.z);
-    this.group.updateMatrixWorld();
-    this.puffAcc += dt * 26; while (this.puffAcc >= 1) { this.puffAcc -= 1; this.puff(0.7, Math.floor(Math.random() * 4)); }
-    this.pods.forEach((p) => p.scale.setScalar(1.3)); this.gas.update(dt);
+    this.animateThrusters(dt, t, 0.7);
     if ((d < 0.3 && Math.abs(P.y - g.y) < 0.15) || g.t > 8) {
       P.set(g.x, g.y, g.z); this.yaw = g.yaw; this.glide = null; this.vy = 0; this.speed = 0;
       this.lastSupport = g.y - 0.55; this.lastKind = 'road'; this.lastElevRoad = g.y - 0.55 > 1.2; this.lastEdge = null;
@@ -164,23 +163,32 @@ export class Player {
     this.glow.visible = this.pos.y - sup.y < 6;
     this.light.position.set(this.pos.x, this.pos.y - 0.2, this.pos.z);
     // wheels roll with the road speed, the front pair steers
-    const spin = (this.speed * dt) / 0.34;
-    this.wheels.forEach((w, i) => { w.rotation.order = 'YXZ'; w.rotation.x -= air ? spin * 0.2 : spin; w.rotation.y = i < 2 ? this.steerVis * 0.38 : 0; });
-    // cold-gas thrusters: a big burst on take-off, steady puffs while flying, a few soft ones while settling down
+    const spin = (this.speed * dt) / 0.36;
+    this.wheels.forEach((w, i) => { w.rotation.y = i < 2 ? this.steerVis * 0.38 : 0; });
+    this.wheelRollers.forEach((w) => { w.rotation.x -= air ? spin * 0.2 : spin; });
+    this.animateThrusters(dt, t, this.flying ? 1 : this.descending ? 0.35 : 0);
+  }
+  // One visual path for normal flight and rescue: deployment, plume and stow stay in sync.
+  animateThrusters(dt: number, t: number, firing: number) {
+    this.thrusterDeployment += ((firing > 0 ? 1 : 0) - this.thrusterDeployment) * Math.min(1, dt * 7);
+    this.setDeployment(this.thrusterDeployment);
     this.group.updateMatrixWorld();
-    const firing = this.flying ? 1 : this.descending ? 0.35 : 0;
-    if (this.flying && !this.wasFlying) { for (let k = 0; k < 14; k++) this.puff(1.8, k); this.burst = 1; }
+    if (firing > 0.7 && !this.wasFlying) { for (let k = 0; k < this.nozzles.length * 2; k++) this.puff(1.5, k); this.burst = 1; }
     this.burst = Math.max(0, this.burst - dt * 1.4);
     this.nozzles.forEach((nz, i) => {
-      if (!nz.jet) return; nz.jet.visible = firing > 0;
+      if (!nz.jet) return;
+      nz.jet.visible = firing > 0;
       if (!firing) return;
-      const fl = 0.85 + Math.sin(t * 53 + i * 1.7) * 0.1 + Math.random() * 0.12, len = (0.7 + 0.9 * firing + 1.4 * this.burst) * fl;
-      nz.jet.scale.set(0.8 + this.burst * 0.6, len, 0.8 + this.burst * 0.6);
+      // Downward lift jets have the longest plume; rear outlets supply a shorter push.
+      const lift = nz.dir.y < -0.5 ? 1 : 0.55;
+      const flutter = 0.88 + Math.sin(t * 53 + i * 1.7) * 0.08 + Math.sin(t * 31 + i) * 0.04;
+      const length = (0.65 + firing * 1.2 + this.burst) * lift * flutter;
+      nz.jet.scale.set(0.8 + this.burst * 0.35, length, 0.8 + this.burst * 0.35);
     });
-    this.wasFlying = this.flying;
+    this.wasFlying = firing > 0.7;
     this.puffAcc += dt * firing * 38;
-    while (this.puffAcc >= 1) { this.puffAcc -= 1; this.puff(firing > 0.5 ? 1 : 0.6, Math.floor(Math.random() * 4)); }
-    this.pods.forEach((p, i) => { p.scale.setScalar(firing ? 1.3 + Math.sin(t * 40 + i) * 0.25 : 1); (p.material as THREE.MeshBasicMaterial).color.setScalar(firing ? 2.4 : 0.6); });
+    while (this.puffAcc >= 1) { this.puffAcc -= 1; this.puff(firing > 0.5 ? 1 : 0.6, Math.floor(Math.random() * this.nozzles.length)); }
+    this.pods.forEach((p) => { p.visible = firing > 0; p.scale.setScalar(0.75 + firing * 0.25); (p.material as THREE.MeshBasicMaterial).color.setScalar(0.7 + firing * 0.5); });
     this.gas.update(dt);
   }
 }

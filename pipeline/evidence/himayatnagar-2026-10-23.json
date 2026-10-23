@@ -1,0 +1,828 @@
+{
+  "schemaVersion": 1,
+  "source": "OpenStreetMap",
+  "sourceUrl": "https://api.openstreetmap.org/api/0.6/map.json?bbox=78.478,17.393,78.488,17.405",
+  "retrievedAt": "2026-10-23T06:25:31.252718+00:00",
+  "bounds": [
+    17.393,
+    78.478,
+    17.405,
+    78.488
+  ],
+  "license": "ODbL-1.0",
+  "query": "Named shop=* or amenity in restaurant,cafe,fast_food,pharmacy,bank; node positions and way centroid within bounds.",
+  "geometryNote": "Way geometry is the exact ordered node coordinates from this same OSM map response; all original tags, IDs, versions, timestamps and node references are retained.",
+  "limitation": "Mapped business names and points/outlines; current opening status, road-facing frontage and shop order require street-photo review.",
+  "elements": [
+    {
+      "type": "node",
+      "id": 613410619,
+      "lat": 17.4013136,
+      "lon": 78.4853821,
+      "timestamp": "2020-12-26T04:48:38Z",
+      "version": 5,
+      "changeset": 96440074,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Minerva Coffee House",
+        "name:te": "మినర్వ కాఫీ హౌస్"
+      }
+    },
+    {
+      "type": "node",
+      "id": 726163806,
+      "lat": 17.4033202,
+      "lon": 78.4829037,
+      "timestamp": "2020-12-26T04:48:38Z",
+      "version": 6,
+      "changeset": 96440074,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "Lakshmi Hyundai Car Showroom",
+        "name:te": "లక్ష్మి హ్యుండై కార్ షో రూమ్",
+        "operator": "Hyundai",
+        "shop": "car"
+      }
+    },
+    {
+      "type": "node",
+      "id": 726258388,
+      "lat": 17.4023159,
+      "lon": 78.4839313,
+      "timestamp": "2020-12-26T04:48:38Z",
+      "version": 5,
+      "changeset": 96440074,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "Mitra Maruti Suzuki Car Showroom",
+        "name:te": "మిత్ర మారుతి సుజుకి కార్ షో రూమ్",
+        "operator": "Maruti Suzuki",
+        "shop": "car"
+      }
+    },
+    {
+      "type": "node",
+      "id": 726707787,
+      "lat": 17.4011328,
+      "lon": 78.4858071,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 3,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "Almond House",
+        "name:te": "ఆల్మండ్ హౌస్",
+        "shop": "confectionery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 726709518,
+      "lat": 17.4009655,
+      "lon": 78.4853499,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 3,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "amenity": "restaurant",
+        "name": "Blue Fox Restaurant",
+        "name:te": "బ్లు ఫాక్స్ రెస్టారంట్"
+      }
+    },
+    {
+      "type": "node",
+      "id": 726711488,
+      "lat": 17.4021361,
+      "lon": 78.4842358,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 4,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "More",
+        "name:te": "మోర్ సూపర్ మార్కెట్",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 726712215,
+      "lat": 17.4031461,
+      "lon": 78.482496,
+      "timestamp": "2010-05-09T07:53:42Z",
+      "version": 2,
+      "changeset": 4645399,
+      "user": "FlankerH",
+      "uid": 282938,
+      "tags": {
+        "name": "Food World",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 726716833,
+      "lat": 17.4025481,
+      "lon": 78.4835044,
+      "timestamp": "2016-04-27T09:58:10Z",
+      "version": 2,
+      "changeset": 38915245,
+      "user": "kharsha93",
+      "uid": 3813444,
+      "tags": {
+        "name": "Nike Showroom",
+        "operator": "Nike",
+        "shop": "department_store"
+      }
+    },
+    {
+      "type": "node",
+      "id": 726720120,
+      "lat": 17.402194,
+      "lon": 78.4833865,
+      "timestamp": "2020-12-26T04:48:38Z",
+      "version": 3,
+      "changeset": 96440074,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "amenity": "pharmacy",
+        "name": "Vasu Medical Store",
+        "name:te": "వాసు మెడికల్ స్టోర్"
+      }
+    },
+    {
+      "type": "node",
+      "id": 727282352,
+      "lat": 17.4026538,
+      "lon": 78.4845254,
+      "timestamp": "2010-05-09T09:35:30Z",
+      "version": 1,
+      "changeset": 4645618,
+      "user": "FlankerH",
+      "uid": 282938,
+      "tags": {
+        "amenity": "pharmacy",
+        "name": "Medical Store"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1447172214,
+      "lat": 17.3984645,
+      "lon": 78.4820951,
+      "timestamp": "2011-10-10T18:22:06Z",
+      "version": 2,
+      "changeset": 9524228,
+      "user": "indigomc",
+      "uid": 136860,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Cafe Coffee Day"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1447172235,
+      "lat": 17.3968226,
+      "lon": 78.4845047,
+      "timestamp": "2022-05-26T12:27:17Z",
+      "version": 7,
+      "changeset": 121522695,
+      "user": "b-jazz-bot",
+      "uid": 9451067,
+      "tags": {
+        "amenity": "bank",
+        "brand": "Canara Bank",
+        "brand:pa": "ਕੇਨਰਾ ਬੈਂਕ",
+        "brand:ur": "کینرا بینک",
+        "brand:wikidata": "Q2003777",
+        "brand:wikipedia": "en:Canara Bank",
+        "brand:wikipedia:pa": "ਕੇਨਰਾ ਬੈਂਕ",
+        "name": "Canara Bank",
+        "name:pa": "ਕੇਨਰਾ ਬੈਂਕ",
+        "name:ur": "کینرا بینک",
+        "website": "https://www.canarabank.com/"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1932925761,
+      "lat": 17.399719,
+      "lon": 78.4785769,
+      "timestamp": "2023-09-08T15:48:18Z",
+      "version": 3,
+      "changeset": 140992936,
+      "user": "tg4567",
+      "uid": 12500589,
+      "tags": {
+        "amenity": "restaurant",
+        "cuisine": "indian",
+        "designation": "Hyderabadi",
+        "name": "Cafe Bahar",
+        "wikidata": "Q5017090",
+        "wikipedia": "en:Cafe Bahar"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3244256004,
+      "lat": 17.3937267,
+      "lon": 78.4812179,
+      "timestamp": "2019-10-28T12:26:10Z",
+      "version": 7,
+      "changeset": 76297520,
+      "user": "Janjko",
+      "uid": 244754,
+      "tags": {
+        "addr:housenumber": "D.No:3-5-784/A/2",
+        "addr:postcode": "500029",
+        "addr:street": "Opp Parda Gate King Koti Road",
+        "amenity": "bank",
+        "atm": "yes",
+        "brand": "SBI",
+        "brand:wikidata": "Q1340361",
+        "brand:wikipedia": "en:State Bank of India",
+        "name": "State Bank of India",
+        "operator": "State Bank of India",
+        "phone": "040 2323 4848",
+        "short_name": "SBI"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4369845292,
+      "lat": 17.4009802,
+      "lon": 78.4856317,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 2,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "paradise",
+        "name:te": "పారడైజ్",
+        "shop": "beverages"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4415331904,
+      "lat": 17.4015469,
+      "lon": 78.4858527,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 3,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "Brand Factory",
+        "name:te": "బ్రాండ్ ఫ్యాక్టరీ",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4415335990,
+      "lat": 17.3985426,
+      "lon": 78.4855068,
+      "timestamp": "2016-09-23T18:59:20Z",
+      "version": 1,
+      "changeset": 42383951,
+      "user": "accuracy maps",
+      "uid": 4611961,
+      "tags": {
+        "name": "telugu academy",
+        "name:en": "telugu academy",
+        "shop": "books"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4431132190,
+      "lat": 17.3986766,
+      "lon": 78.485669,
+      "timestamp": "2016-10-04T17:56:59Z",
+      "version": 1,
+      "changeset": 42637699,
+      "user": "accuracy maps",
+      "uid": 4611961,
+      "tags": {
+        "name": "Telugu academy",
+        "name:en": "Telugu academy",
+        "shop": "books"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4589352191,
+      "lat": 17.3947027,
+      "lon": 78.4798736,
+      "timestamp": "2017-01-04T16:47:42Z",
+      "version": 1,
+      "changeset": 44903016,
+      "user": "Leo Basil George",
+      "uid": 5075980,
+      "tags": {
+        "name": "German Bakers",
+        "name:en": "German Bakers",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "shop": "bakery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4592526390,
+      "lat": 17.3945627,
+      "lon": 78.4801573,
+      "timestamp": "2017-01-06T12:56:16Z",
+      "version": 1,
+      "changeset": 44952236,
+      "user": "Leo Basil George",
+      "uid": 5075980,
+      "tags": {
+        "name": "Neeru's",
+        "name:en": "Neeru's",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4920193221,
+      "lat": 17.396742,
+      "lon": 78.4847267,
+      "timestamp": "2017-06-17T08:27:42Z",
+      "version": 1,
+      "changeset": 49609376,
+      "user": "Yogesh gajula",
+      "uid": 3470585,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Heavenz",
+        "name:en": "Heavenz"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6219939385,
+      "lat": 17.4005164,
+      "lon": 78.4877364,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 2,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "Suzuki",
+        "name:en": "Maanya Suzuki",
+        "name:te": "మాన్య సుజుకి",
+        "shop": "motorcycle"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6289177285,
+      "lat": 17.4025407,
+      "lon": 78.4835531,
+      "timestamp": "2019-02-19T16:20:11Z",
+      "version": 1,
+      "changeset": 67358978,
+      "user": "gunmac",
+      "uid": 8048185,
+      "tags": {
+        "amenity": "bank",
+        "name": "HDFC Bank"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6822126586,
+      "lat": 17.3948616,
+      "lon": 78.4800941,
+      "timestamp": "2019-09-25T08:53:14Z",
+      "version": 1,
+      "changeset": 74896319,
+      "user": "R4_shubham",
+      "uid": 10142759,
+      "tags": {
+        "name": "Oberoi",
+        "shop": "beauty",
+        "source": "survey"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6850830382,
+      "lat": 17.3948674,
+      "lon": 78.4802443,
+      "timestamp": "2019-10-04T09:13:19Z",
+      "version": 1,
+      "changeset": 75270256,
+      "user": "R3_anusha",
+      "uid": 10142756,
+      "tags": {
+        "name": "Welcome Car Decors",
+        "shop": "car",
+        "source": "survey"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264220,
+      "lat": 17.3988067,
+      "lon": 78.4852629,
+      "timestamp": "2020-02-26T07:37:08Z",
+      "version": 1,
+      "changeset": 81489474,
+      "user": "Jangum",
+      "uid": 10823011,
+      "tags": {
+        "name": "brown bear",
+        "shop": "bakery"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264221,
+      "lat": 17.3989778,
+      "lon": 78.4852733,
+      "timestamp": "2020-02-26T07:37:08Z",
+      "version": 1,
+      "changeset": 81489474,
+      "user": "Jangum",
+      "uid": 10823011,
+      "tags": {
+        "name": "shiva medicals",
+        "shop": "medical_supply"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264222,
+      "lat": 17.3992032,
+      "lon": 78.4857694,
+      "timestamp": "2022-02-20T02:28:22Z",
+      "version": 2,
+      "changeset": 117624336,
+      "user": "user_11332999",
+      "uid": 11332999,
+      "tags": {
+        "amenity": "fast_food",
+        "brand": "Domino's",
+        "brand:ks": "ڈومینوز",
+        "brand:pa": "ਡੋਮੀਨੋਜ਼",
+        "brand:ur": "ڈومینوز",
+        "brand:wikidata": "Q839466",
+        "brand:wikipedia": "en:Domino's Pizza",
+        "cuisine": "pizza",
+        "name": "Domino's",
+        "name:ks": "ڈومینوز",
+        "name:pa": "ਡੋਮੀਨੋਜ਼",
+        "name:ur": "ڈومینوز",
+        "takeaway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264228,
+      "lat": 17.3972408,
+      "lon": 78.4864053,
+      "timestamp": "2020-02-26T07:37:08Z",
+      "version": 1,
+      "changeset": 81489474,
+      "user": "Jangum",
+      "uid": 10823011,
+      "tags": {
+        "name": "ashok rentals",
+        "shop": "rental"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264230,
+      "lat": 17.3995968,
+      "lon": 78.4862354,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 2,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "Ratnadeep supermarket",
+        "name:te": "రత్నదీప్ సూపర్ మార్కెట్",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264231,
+      "lat": 17.4006549,
+      "lon": 78.4867299,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 2,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "Max clothing store",
+        "name:te": "మాక్స్ క్లోథింగ్ స్టోర్",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264232,
+      "lat": 17.40093,
+      "lon": 78.486148,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 2,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "westside",
+        "name:te": "వెస్ట్ సైడ్",
+        "shop": "clothes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264233,
+      "lat": 17.4015869,
+      "lon": 78.4845944,
+      "timestamp": "2020-02-26T07:37:08Z",
+      "version": 1,
+      "changeset": 81489474,
+      "user": "Jangum",
+      "uid": 10823011,
+      "tags": {
+        "name": "Malabar Gold and Daimonds",
+        "shop": "fashion_accessories"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264235,
+      "lat": 17.3993051,
+      "lon": 78.4867394,
+      "timestamp": "2020-12-19T03:52:09Z",
+      "version": 2,
+      "changeset": 96096883,
+      "user": "thoughtisdead",
+      "uid": 1589731,
+      "tags": {
+        "name": "vijetha supermarket",
+        "name:te": "విజేత సూపర్ మార్కెట్",
+        "shop": "supermarket"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7244264241,
+      "lat": 17.4002791,
+      "lon": 78.4879081,
+      "timestamp": "2020-02-26T07:37:08Z",
+      "version": 1,
+      "changeset": 81489474,
+      "user": "Jangum",
+      "uid": 10823011,
+      "tags": {
+        "amenity": "bank",
+        "brand": "State Bank of India",
+        "brand:wikidata": "Q1340361",
+        "brand:wikipedia": "en:State Bank of India",
+        "name": "State Bank of India"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8093205737,
+      "lat": 17.394847,
+      "lon": 78.4784451,
+      "timestamp": "2020-11-08T09:04:30Z",
+      "version": 2,
+      "changeset": 93731500,
+      "user": "SAMI ZAMAN",
+      "uid": 9574221,
+      "tags": {
+        "addr:city": "Hyderbad",
+        "addr:state": "Telangana",
+        "addr:street": "Gun Foundry Street No.3",
+        "contact:phone": "+91 40 2323 3878",
+        "name:en": "Classique Communication",
+        "opening_hours": "Mo-Sa 11:00-20:00",
+        "shop": "electronics"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10181926246,
+      "lat": 17.4039279,
+      "lon": 78.4821265,
+      "timestamp": "2022-11-15T13:09:49Z",
+      "version": 2,
+      "changeset": 128941359,
+      "user": "La Milano Pizzeria",
+      "uid": 17653386,
+      "tags": {
+        "addr:city": "Hyderabad",
+        "addr:housenumber": "2A, Jamuna Plaza",
+        "addr:postcode": "500029",
+        "addr:street": "Himayath Nagar Main Road",
+        "air_conditioning": "yes",
+        "amenity": "fast_food",
+        "cuisine": "pizza;mexican;italian",
+        "delivery": "yes",
+        "email": "lamilanohyderabad@gmail.com",
+        "name": "La Milano Pizzeria",
+        "opening_hours": "Mo-Su 10:00-00:00",
+        "payment:american_express": "yes",
+        "payment:cash": "yes",
+        "payment:coins": "yes",
+        "payment:contactless": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "payment:mastercard": "yes",
+        "payment:upi": "yes",
+        "payment:visa": "yes",
+        "phone": "+919985645001",
+        "takeaway": "yes",
+        "website": "https://www.lamilano.pizza"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13673574376,
+      "lat": 17.4033357,
+      "lon": 78.4834177,
+      "timestamp": "2026-03-24T06:23:44Z",
+      "version": 1,
+      "changeset": 180336624,
+      "user": "Amberpet Laxmiprasanna",
+      "uid": 23966662,
+      "tags": {
+        "amenity": "cafe",
+        "cuisine": "tea",
+        "name": "Tea house"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13673574378,
+      "lat": 17.4029452,
+      "lon": 78.4832037,
+      "timestamp": "2026-03-24T06:23:44Z",
+      "version": 1,
+      "changeset": 180336624,
+      "user": "Amberpet Laxmiprasanna",
+      "uid": 23966662,
+      "tags": {
+        "amenity": "fast_food",
+        "cuisine": "juice",
+        "name": "Fresh juice centre"
+      }
+    },
+    {
+      "type": "way",
+      "id": 417231451,
+      "timestamp": "2020-02-26T07:37:08Z",
+      "version": 3,
+      "changeset": 81489474,
+      "user": "Jangum",
+      "uid": 10823011,
+      "nodes": [
+        4178186993,
+        4178186991,
+        4178186686,
+        4178186990,
+        4178186993
+      ],
+      "tags": {
+        "building": "yes",
+        "name": "Naveen's pet shop",
+        "shop": "pet"
+      },
+      "geometry": [
+        {
+          "lat": 17.3979012,
+          "lon": 78.4837149
+        },
+        {
+          "lat": 17.3978366,
+          "lon": 78.483833
+        },
+        {
+          "lat": 17.3977733,
+          "lon": 78.4837674
+        },
+        {
+          "lat": 17.397829,
+          "lon": 78.4836715
+        },
+        {
+          "lat": 17.3979012,
+          "lon": 78.4837149
+        }
+      ]
+    },
+    {
+      "type": "way",
+      "id": 596737026,
+      "timestamp": "2020-02-26T09:31:58Z",
+      "version": 2,
+      "changeset": 81494945,
+      "user": "Jangum",
+      "uid": 10823011,
+      "nodes": [
+        5683882919,
+        5683882920,
+        5683883321,
+        5683883322,
+        5683882919
+      ],
+      "tags": {
+        "building": "yes",
+        "name": "Pai",
+        "shop": "electronics"
+      },
+      "geometry": [
+        {
+          "lat": 17.3991081,
+          "lon": 78.481517
+        },
+        {
+          "lat": 17.3989743,
+          "lon": 78.4817817
+        },
+        {
+          "lat": 17.3987858,
+          "lon": 78.481677
+        },
+        {
+          "lat": 17.3989197,
+          "lon": 78.4814124
+        },
+        {
+          "lat": 17.3991081,
+          "lon": 78.481517
+        }
+      ]
+    },
+    {
+      "type": "way",
+      "id": 596737027,
+      "timestamp": "2020-12-17T16:39:45Z",
+      "version": 3,
+      "changeset": 96018457,
+      "user": "dalip123",
+      "uid": 5717498,
+      "nodes": [
+        5683883323,
+        5683883324,
+        5683883325,
+        5683883326,
+        5683883323
+      ],
+      "tags": {
+        "addr:postcode": "500029",
+        "addr:street": "Hyderguda Main Road",
+        "building": "yes",
+        "name": "Dmart",
+        "organic": "yes",
+        "payment:credit_cards": "yes",
+        "shop": "supermarket",
+        "website": "https://www.dmart.in/"
+      },
+      "geometry": [
+        {
+          "lat": 17.3987323,
+          "lon": 78.4817832
+        },
+        {
+          "lat": 17.3989614,
+          "lon": 78.4819357
+        },
+        {
+          "lat": 17.39886,
+          "lon": 78.4821138
+        },
+        {
+          "lat": 17.3986259,
+          "lon": 78.4819624
+        },
+        {
+          "lat": 17.3987323,
+          "lon": 78.4817832
+        }
+      ]
+    }
+  ]
+}
