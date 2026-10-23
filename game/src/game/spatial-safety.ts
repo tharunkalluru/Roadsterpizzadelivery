@@ -67,7 +67,49 @@ export function segmentHitsVehicle(from: Point, to: Point, c: VehicleBounds, pad
   return true;
 }
 
+function cameraEscape(city: CityData, from: Point, wanted: Point): Point {
+  const dx = wanted.x - from.x, dy = wanted.y - from.y, dz = wanted.z - from.z;
+  const length = Math.hypot(dx, dy, dz);
+  const directions: Point[] = [{ x: 0, y: 1, z: 0 }, { x: 0, y: -1, z: 0 }];
+  if (length > 0.001) directions.push({ x: dx / length, y: dy / length, z: dz / length });
+  for (let i = 0; i < 8; i++) directions.push({ x: Math.cos(i * Math.PI / 4), y: 0, z: Math.sin(i * Math.PI / 4) });
+  const at = (dir: Point, distance: number) => ({ x: from.x + dir.x * distance, y: from.y + dir.y * distance, z: from.z + dir.z * distance });
+  // Exceptional path only: expand rings, stopping at the first clear exits.
+  // At most 32 rings x 11 probes; refining only clear exits keeps the result
+  // close to the obstruction without ever accepting an occupied camera volume.
+  for (let radius = 0.5; radius <= 16; radius += 0.5) {
+    let best: Point | null = null, bestDistance = Infinity;
+    for (const dir of directions) {
+      if (staticSolidAt(city, at(dir, radius))) continue;
+      let lo = radius - 0.5, hi = radius;
+      for (let i = 0; i < 7; i++) {
+        const mid = (lo + hi) / 2;
+        if (staticSolidAt(city, at(dir, mid))) lo = mid; else hi = mid;
+      }
+      if (hi < bestDistance) { bestDistance = hi; best = at(dir, hi); }
+    }
+    if (best) return best;
+  }
+  // Deep inside a large footprint (or below ground), a short radial search may
+  // find no exit. Every collider tested at this XZ is finite and in these same
+  // local grids, so a point above their highest extent is a clear last resort.
+  let ceiling = Math.max(0, from.y);
+  for (const b of nearbyBuildings(city, from.x, from.z)) ceiling = Math.max(ceiling, b.h);
+  const cx = Math.floor(from.x / 50), cz = Math.floor(from.z / 50);
+  const sx = Math.floor(from.x / 30), sz = Math.floor(from.z / 30);
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) {
+    for (const o of city.obstacles.get(`${cx + i},${cz + j}`) || []) ceiling = Math.max(ceiling, o.top);
+    for (const w of city.walls.get(`${sx + i},${sz + j}`) || []) ceiling = Math.max(ceiling, w.y1a, w.y1b);
+    for (const s of city.surfaceGrid.get(`${sx + i},${sz + j}`) || []) ceiling = Math.max(ceiling, s.ya, s.yb);
+  }
+  return { x: from.x, y: ceiling + 1, z: from.z };
+}
+
 export function clearCameraPosition(city: CityData, from: Point, wanted: Point): Point {
+  // There is no unobstructed sightline to a target already inside a wall. Keep
+  // the camera outside it while recovery/physics resolves the target position.
+  // The normal branch below still checks the entire pivot-to-camera sightline.
+  if (staticSolidAt(city, from)) return cameraEscape(city, from, wanted);
   const distance = (p: Point) => Math.hypot(p.x - from.x, p.y - from.y, p.z - from.z);
   const trace = (to: Point): Point => {
     const steps = Math.max(1, Math.ceil(distance(to) / 0.25)); let clear = { ...from };

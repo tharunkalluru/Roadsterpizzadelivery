@@ -9,8 +9,8 @@ const out = await mkdtemp(join(tmpdir(), 'roadster-navigation-'));
 let checks = 0;
 const test = (name, fn) => { fn(); checks++; console.log(`PASS ${name}`); };
 try {
-  await build({ stdin: { contents: "export { RoadGraph } from './game/src/game/roadgraph'; export { clearRoadGuidance, remainingRouteDistance } from './game/src/game/route-guidance';", resolveDir: root, loader: 'ts' }, outfile: join(out, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
-  const { RoadGraph, clearRoadGuidance, remainingRouteDistance } = await import(pathToFileURL(join(out, 'test.mjs')));
+  await build({ stdin: { contents: "export { RoadGraph } from './game/src/game/roadgraph'; export { clearRoadGuidance, remainingRouteDistance, navigationReadout } from './game/src/game/route-guidance';", resolveDir: root, loader: 'ts' }, outfile: join(out, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
+  const { RoadGraph, clearRoadGuidance, remainingRouteDistance, navigationReadout } = await import(pathToFileURL(join(out, 'test.mjs')));
   const arterial = { id: 'arterial', seg: 'arterial', from: 'a', to: 'b', pts: [[0, 0], [200, 0]], cls: 'primary', w: 14, lanes: 4, oneway: null, elev: null, name: 'Test Road', maxspeed: null };
   const graph = new RoadGraph([arterial]);
   test('median route stays in the left carriageway instead of following divider', () => {
@@ -81,6 +81,14 @@ try {
     assert.equal(remainingRouteDistance([[0, 0, 0], [0, 0, 100]], 100, 0, 20), 80);
     assert.equal(remainingRouteDistance([[0, 0, 0], [-100, 0, 0]], 100, -20, 0), 80);
     assert.equal(remainingRouteDistance([[0, 0, 0], [100, 0, 0]], 100, 0, 0), 100);
+  });
+  test('flight and descent show beacon distance without ground-route obstruction warnings', () => {
+    const route = { pts: [[0, 0, 0], [100, 0, 0]], len: 300, complete: false };
+    assert.deepEqual(navigationReadout(route, true, { x: 0, z: 0 }, { x: 30, z: 40 }, true), {
+      metres: 50, approximate: true, note: 'Flying · follow the destination beacon',
+    });
+    assert.equal(navigationReadout(null, false, { x: 0, z: 0 }, { x: 30, z: 40 }, false).note, 'Return to a road for GPS · use Back to the road if stuck');
+    assert.equal(navigationReadout(route, true, { x: 0, z: 0 }, { x: 30, z: 40 }, false).note, 'Road ahead blocked · check the map');
   });
   console.log(`${checks} navigation regressions passed`);
 } finally { await rm(out, { recursive: true, force: true }); }

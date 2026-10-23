@@ -108,6 +108,37 @@ try {
     assert.equal(staticSolidAt(c, p), false); assert.ok(p.y < 3.4);
     for (let t = 0; t <= 1; t += 0.05) assert.equal(staticSolidAt(c, { x: p.x * t, y: from.y + (p.y - from.y) * t, z: p.z * t }), false);
   });
+  test('embedded camera pivot exits a facade even when the desired camera is also embedded', () => {
+    const c = city(); rect(c, -2, -2, 2, 2, 12);
+    const from = { x: 0, y: 2, z: 0 };
+    for (const wanted of [{ x: 0, y: 4, z: 8 }, { x: 0, y: 3, z: 1 }, from]) {
+      const p = clearCameraPosition(c, from, wanted);
+      assert.equal(staticSolidAt(c, p), false);
+      assert.ok(Math.hypot(p.x, p.y - 2, p.z) < 2.36, 'choose a nearby exterior instead of jumping above the building');
+    }
+  });
+  test('an embedded camera under a slab exits below it, with full camera-volume clearance', () => {
+    const c = city();
+    const slab = { ax: -10, az: 0, bx: 10, bz: 0, ya: 8, yb: 8, hw: 10, kind: 'deck', e: null, i: 0 };
+    gridAdd(c.surfaceGrid, slab, [-10, 10], [-10, 10], 30);
+    const from = { x: 0, y: 7.75, z: 0 }, p = clearCameraPosition(c, from, { x: 0, y: 8, z: 4 });
+    assert.equal(staticSolidAt(c, from), true); assert.equal(staticSolidAt(c, p), false);
+    assert.ok(p.y < 7.36 && p.y > 7.3);
+  });
+  test('deeply embedded and below-ground camera pivots still return outside every local solid', () => {
+    const c = city(); rect(c, -100, -100, 100, 100, 100);
+    c.obstacles.set('0,0', [{ x: 0, z: 0, r: 0.8, top: 130 }]);
+    const p = clearCameraPosition(c, { x: 0, y: 2, z: 0 }, { x: 0, y: 4, z: 8 });
+    assert.equal(staticSolidAt(c, p), false); assert.ok(p.y > 130);
+    const empty = city(), below = clearCameraPosition(empty, { x: 0, y: -40, z: 0 }, { x: 0, y: -39, z: 8 });
+    assert.equal(staticSolidAt(empty, below), false); assert.ok(below.y > 0.35);
+  });
+  test('clear pivot with embedded desired camera retains a fully checked ordinary sightline', () => {
+    const c = city(); rect(c, -2, 4, 2, 12, 10);
+    const from = { x: 0, y: 2, z: 0 }, p = clearCameraPosition(c, from, { x: 0, y: 3, z: 8 });
+    assert.ok(p.z < 3.65); assert.equal(staticSolidAt(c, p), false);
+    for (let t = 0; t <= 1; t += 0.05) assert.equal(staticSolidAt(c, { x: p.x * t, y: from.y + (p.y - from.y) * t, z: p.z * t }), false);
+  });
   test('full bus length occludes the chase camera and visibility restores after it leaves', () => {
     const car = { x: 5, z: 0, y: 0, hx: 1, hz: 0, size: [2.6, 3.2, 12], g: { visible: true, rotation: { y: -Math.PI / 2 } } };
     const cam = new Vector3(0, 2.5, -10), target = { x: 0, y: 0.55, z: 10 };

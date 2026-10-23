@@ -8,7 +8,7 @@ import { rng, hash } from '../core/util';
 import { labelTexture } from '../world/signs';
 import { Player, Input } from './player';
 import { RoadGraph, GEdge, RoadRoute } from './roadgraph';
-import { clearRoadGuidance, remainingRouteDistance } from './route-guidance';
+import { clearRoadGuidance, navigationReadout } from './route-guidance';
 import { Traffic } from './traffic';
 import { Hud, orderOfferHtml } from '../ui/hud';
 import { eligiblePickup } from './pickups';
@@ -885,7 +885,7 @@ export class Game {
       this.gps.geometry.dispose(); this.gps.geometry = g;
       const mat = this.gps.material as THREE.MeshBasicMaterial; mat.side = THREE.DoubleSide;
     }
-    this.gps.visible = !!this.route && !this.player.flying;
+    this.gps.visible = !!this.route && !this.player.flying && !this.player.descending;
   }
   areaNow = ''; areaCand = ''; areaCandT = 0;
   updateHud() {
@@ -898,10 +898,9 @@ export class Game {
     h.set('spd', String(Math.round(Math.abs(this.player.speed) * 3.6)));
     h.set('fly-v', `${this.player.charge.toFixed(1)} s`);
     (h.el.fly as HTMLElement).style.width = `${(this.player.charge / this.player.chargeCap) * 100}%`;
-    const distTo = (s: Stop) => this.route ? Math.round(remainingRouteDistance(this.route.pts, this.route.len, P.x, P.z)) : Math.round(Math.hypot(s.x - P.x, s.z - P.z));
-    const distanceLabel = (s: Stop) => `${!this.route || this.route.complete === false ? '~' : ''}${distTo(s)} m`;
-    const guidanceNote = this.routeGuidanceBlocked ? 'Road ahead blocked · check the map' : !this.route && !this.player.flying ? 'Return to a road for GPS · use Back to the road if stuck' : this.route?.complete === false ? 'Route continues as nearby streets load' : '';
-    const sub = (s: Stop) => [s.sub, guidanceNote].filter(Boolean).join(' · ');
+    const navigation = (s: Stop) => navigationReadout(this.route, this.routeGuidanceBlocked, P, s, this.player.flying || this.player.descending);
+    const distanceLabel = (s: Stop) => { const n = navigation(s); return `${n.approximate ? '~' : ''}${n.metres} m`; };
+    const sub = (s: Stop) => [s.sub, navigation(s).note].filter(Boolean).join(' · ');
     if (!o || o.state === 'offer') {
       const t = this.routeTarget;
       h.order({ state: t ? 'GPS' : 'Waiting for an order', title: t ? t.label : 'Orders appear here', sub: t ? sub(t) : (document.documentElement.classList.contains('is-touch') ? 'Tap Theatres to lease a picture hall' : 'Press T to see theatres'), dist: t ? distanceLabel(t) : '', time: '', meters: false });

@@ -1,7 +1,20 @@
 import type { CityData } from '../world/city';
 import { collideBuildings, collideWalls } from './physics';
+import type { RoadRoute } from './roadgraph';
 
 export type RoutePoint = [number, number, number];
+
+export function navigationReadout(route: RoadRoute | null, blocked: boolean, position: { x: number; z: number }, target: { x: number; z: number }, airborne: boolean) {
+  if (airborne) return {
+    metres: Math.round(Math.hypot(target.x - position.x, target.z - position.z)),
+    approximate: true, note: 'Flying · follow the destination beacon',
+  };
+  return {
+    metres: Math.round(route ? remainingRouteDistance(route.pts, route.len, position.x, position.z) : Math.hypot(target.x - position.x, target.z - position.z)),
+    approximate: !route || route.complete === false,
+    note: blocked ? 'Road ahead blocked · check the map' : !route ? 'Return to a road for GPS · use Back to the road if stuck' : route.complete === false ? 'Route continues as nearby streets load' : '',
+  };
+}
 
 // Only draw the locally checked portion of the road route. A straight connector
 // between two graph edges is not permission to drive through a divider or facade.
