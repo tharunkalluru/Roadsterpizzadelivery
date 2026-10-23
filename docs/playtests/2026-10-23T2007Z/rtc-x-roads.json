@@ -1,0 +1,341 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2007Z",
+  "area": "RTC X Roads",
+  "driver": "root",
+  "reportAuthor": "playtest_old_city",
+  "authoredAt": "2026-10-23T20:15:08.869318+00:00",
+  "status": "completed_partial_coverage_pickup_unfinished",
+  "timingLimit": "Exact session start/end timestamps were not supplied to the report author; the round ID is not a measured start timestamp.",
+  "checkoutCommit": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+  "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "runtimeScript": "./assets/index-DXgUfY_A.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "buildVerification": "Root reported the script attribute from a fresh normal-URL tab. Current game/src is unchanged since40e24d7. No assumption that an old preserved tab was refreshed.",
+  "method": "Root exercised actual rendered Chrome UI with normal Play/RTC X Roads picker, buttons and native keyboard holds. Report author used only the supplied action ledger and inspected the four saved originals. No hidden state, teleporting, autopilot or engine stepping.",
+  "viewport": {
+    "width": 594,
+    "height": 522,
+    "overriddenByDriver": false
+  },
+  "initialSave": {
+    "day": 8,
+    "level": "2 · 1/4",
+    "coins": 802,
+    "flightSeconds": 2.5
+  },
+  "offer": {
+    "pickup": "Pista House",
+    "road": "Chikkadapally Road",
+    "pickupApproachMetres": 199,
+    "customer": "Home in Jawahar Nagar",
+    "pickupToCustomerMetres": 560,
+    "deliveryWindowSecondsAfterCollection": 125,
+    "baseCoins": 74
+  },
+  "counts": {
+    "freshAreaSelections": 1,
+    "offersAccepted": 1,
+    "pickupsCompleted": 0,
+    "completedDeliveries": 0,
+    "recoveryActivations": 3,
+    "settledRecoveryDepartures": 1,
+    "flightActivations": 1,
+    "boostExhaustions": 1,
+    "observedLandings": 1,
+    "mapOpens": 2,
+    "actualCloseMapButtonClicks": 2,
+    "pauseMenuOpens": 3,
+    "originalScreenshotsSaved": 5,
+    "explicitHeldInputSeconds": 46.8,
+    "explicitResumeButtonClicks": 1
+  },
+  "heldInputLedger": [
+    {
+      "keys": "W",
+      "seconds": 6,
+      "purpose": "Initial pickup approach"
+    },
+    {
+      "keys": "S",
+      "seconds": 1.6,
+      "purpose": "Brake on approach"
+    },
+    {
+      "keys": "W",
+      "seconds": 4,
+      "purpose": "Continue pickup approach"
+    },
+    {
+      "keys": "S",
+      "seconds": 1.5,
+      "purpose": "Brake near pickup"
+    },
+    {
+      "keys": "W+A",
+      "seconds": 0.85,
+      "purpose": "Turn toward pickup frontage"
+    },
+    {
+      "keys": "W",
+      "seconds": 1,
+      "purpose": "Continue toward frontage"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.7,
+      "purpose": "Brake near Sri Krishna Electronics"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.4,
+      "purpose": "Further low-speed maneuver near frontage"
+    },
+    {
+      "keys": "W",
+      "seconds": 0.5,
+      "purpose": "Attempted input immediately after recovery started; glide still active"
+    },
+    {
+      "keys": "W",
+      "seconds": 0.75,
+      "purpose": "Straight departure after recovery visibly settled"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.35,
+      "purpose": "Stop after departure"
+    },
+    {
+      "keys": "W",
+      "seconds": 3.5,
+      "purpose": "Continue along street before map inspection"
+    },
+    {
+      "keys": "S",
+      "seconds": 1,
+      "purpose": "Brake before map inspection"
+    },
+    {
+      "keys": "S",
+      "seconds": 3,
+      "purpose": "Reverse after closing map"
+    },
+    {
+      "keys": "S",
+      "seconds": 6.5,
+      "purpose": "Further reverse maneuver"
+    },
+    {
+      "keys": "W",
+      "seconds": 0.5,
+      "purpose": "Counter reverse movement"
+    },
+    {
+      "keys": "S",
+      "seconds": 4,
+      "purpose": "Reverse input after one Space takeoff"
+    },
+    {
+      "keys": "W",
+      "seconds": 0.6,
+      "purpose": "Counter reverse input while airborne"
+    },
+    {
+      "keys": "S",
+      "seconds": 2.6,
+      "purpose": "Continue reverse/descent maneuver"
+    },
+    {
+      "keys": "W",
+      "seconds": 0.4,
+      "purpose": "Counter reverse before landed observation"
+    },
+    {
+      "keys": "W",
+      "seconds": 3,
+      "purpose": "Straight movement after the first continuation recovery settled",
+      "segment": "RTC continuation"
+    },
+    {
+      "keys": "S",
+      "seconds": 1,
+      "purpose": "Brake after straight movement",
+      "segment": "RTC continuation"
+    },
+    {
+      "keys": "W+A",
+      "seconds": 0.7,
+      "purpose": "First turn attempt",
+      "segment": "RTC continuation"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.4,
+      "purpose": "Stop after first turn",
+      "segment": "RTC continuation"
+    },
+    {
+      "keys": "W+A",
+      "seconds": 0.65,
+      "purpose": "Second turn attempt toward frontage",
+      "segment": "RTC continuation"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.35,
+      "purpose": "Stop facing facade",
+      "segment": "RTC continuation"
+    },
+    {
+      "keys": "W+A",
+      "seconds": 0.65,
+      "purpose": "Third turn attempt",
+      "segment": "RTC continuation"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.3,
+      "purpose": "Brake after off-road movement",
+      "segment": "RTC continuation"
+    }
+  ],
+  "inputLedgerLimit": "46.8 seconds sums28 explicit held inputs: initial39.75 seconds plus continuation7.05 seconds. It includes0.5 seconds attempted during the initial recovery glide and excludes taps, clicks, coasting, animation and tool latency; it is not uninterrupted driving or measured travel distance.",
+  "steps": [
+    "Open a fresh normal local URL in tab1933378266, click Play and the actual RTC X Roads picker button, then accept the Pista House offer. The script src attribute was read after the final Pause, before evidence upload; the tab was not reloaded during this attempt.",
+    "W6s then S1.6s: pickup HUD199→102m and9km/h. W4s then S1.5s:31m,7km/h and5.0s boost.",
+    "W+A0.85s, W1s and S0.7s: an off-road approach around16m and6km/h faces the Sri Krishna Electronics facade; no pickup prompt appears. S0.4s leaves a17m/6km/h observation. This is an unsuccessful frontage approach, not a collected order.",
+    "Open Pause with P and click Back to the road. An immediate W0.5s input occurs during the recovery animation and is not treated as evidence of settled placement or departure.",
+    "After the glide visibly settles, save the recovery original:127m,0km/h,5.0s boost on a clear narrow lane. W0.75s then S0.35s produces the saved forward original at123m,0km/h with visible forward displacement and a usable camera. The4m figure is the HUD route-distance change, not independently measured odometry.",
+    "W3.5s then S1s, open M and save the full-map original. The saved map places the player east of the Pista House marker and south of the named Sudarshan/Devi/Sandhya junction. Click the actual Close map button.",
+    "S3s yields89m and20km/h while reversing. S6.5s then W0.5s yields95m and3km/h near a facade with a Stuck control. Driver reports difficulty steering the approach; this alone is not a new collision or route defect.",
+    "Tap Space once. S4s then W0.6s yields an aerial/rooftop view with Flying/beacon wording, about47m,3km/h and2.8s boost. Continue S2.6s then W0.4s; boost reaches0.0s and the car is observed back at street level with normal ground guidance and100m pickup distance.",
+    "Save the landed original, open Pause with P, read warning/error logs and mark the unfinished tab as a handoff with no keys held. No collection prompt was used, no parcel collected, no customer handover and no reward.",
+    "Continuation: click the actual Resume button, open M, then click the actual Close map button. This adds one map open and one Close click.",
+    "Press R and observe the recovery settle at93m,0km/h and0.0s boost on a clear lane. W3s then S1s yields166m,4km/h and2.5s boost.",
+    "W+A0.7s then S0.4s yields165m,0km/h. W+A0.65s then S0.35s yields167m,0km/h facing a facade. W+A0.65s then S0.3s yields an off-road state about100m and3km/h. These steering attempts did not achieve the pickup and do not establish a new bug.",
+    "Press R again and observe the glide settle on a clean street at128m,0km/h and2.5s boost. Warning/error logs were queried again with no entries before the final settled screenshot was saved.",
+    "Save the continuation-ending original at Day8,12:15PM,802coins andLevel2 1/4. Open Pause with P and re-mark tab1933378266 as a handoff with no keys held. Pickup and delivery remain uncompleted."
+  ],
+  "repairChecks": [
+    {
+      "issueId": "PT-010",
+      "status": "nearby_settled_recovery_and_short_departure_pass_only",
+      "detail": "One RTC-area recovery settled on a clear narrow lane and a short straight departure advanced without immediate facade blockage. This was not the exact historical Sudarshan recovery start or trajectory."
+    },
+    {
+      "issueId": "PT-004",
+      "status": "not_exercised",
+      "detail": "No controlled natural bus/truck sightline crossing with before/during/after evidence."
+    },
+    {
+      "issueId": "PT-005",
+      "status": "not_exercised",
+      "detail": "No controlled grounded approach to a documented continuous median segment."
+    },
+    {
+      "issueId": "flightHud",
+      "status": "bounded_boost_exhaustion_landing_observed",
+      "detail": "Root observed Flying/beacon guidance during flight, then0.0s boost and normal ground guidance after landing. Only the landed state has a saved original in this round; this does not add a saved continuous descent sequence."
+    }
+  ],
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Pista House",
+    "road": "Chikkadapally Road",
+    "routeMetres": 128,
+    "speedKmh": 0,
+    "flightSeconds": 2.5,
+    "coins": 802,
+    "level": "2 · 1/4",
+    "dayClockInSavedOriginal": "Day 8 · 12:15 PM",
+    "pausedAfterCapture": true
+  },
+  "closestObservedPickup": {
+    "displayedMetresApprox": 16,
+    "context": "Off-road near a facade; no collection prompt or successful pickup. Approximate approach distance is not an achieved kitchen interaction."
+  },
+  "evidence": [
+    "evidence/2026-10-23T2007Z-rtc-recovery-161114.jpg",
+    "evidence/2026-10-23T2007Z-rtc-forward-67fc9c.jpg",
+    "evidence/2026-10-23T2007Z-rtc-map-89cedb.jpg",
+    "evidence/2026-10-23T2007Z-rtc-landed-a0c510.jpg",
+    "evidence/2026-10-23T2007Z-rtc-continuation-ending-4740eb.jpg"
+  ],
+  "console": {
+    "queriedLevels": [
+      "warn",
+      "error"
+    ],
+    "entries": [],
+    "limitation": "Root reported captured tab log entries only; an empty result does not exclude gameplay defects.",
+    "continuationEntries": [],
+    "continuationSampling": "Queried again before the final settled recovery capture."
+  },
+  "newConfirmedIssues": [],
+  "limitations": [
+    "No pickup, customer handover or reward.",
+    "No controlled bus/truck occlusion, median, kerb or elevated bridge collision.",
+    "No exact original Mecca or Sudarshan recovery reproduction.",
+    "Long reverse inputs and frontage steering difficulty limit conclusions about route approach; distance increases alone are not new bugs.",
+    "Saved landed screenshot shows5km/h after the preceding reported7km/h observation; the report preserves both sampling moments.",
+    "The landed original has a foreground object partly covering the lower-left view, but no controlled identity/crossing sequence establishes a camera defect.",
+    "No claim of exact street/shop order or area-wide correctness."
+  ],
+  "handoff": {
+    "tabId": "1933378266",
+    "browserId": "1",
+    "owner": "root",
+    "area": "RTC X Roads",
+    "paused": true,
+    "heldKeys": false,
+    "markedHandoffByDriver": true,
+    "instruction": "Continue the accepted, uncollected Pista House pickup via visible Resume. Final settled128m,0km/h,2.5s boost,802coins,Level2 1/4; paused and handoff marked. No pickup or delivery completed. Keep other preserved sessions paused."
+  },
+  "segmentHistory": [
+    {
+      "segment": "initial RTC pass",
+      "lastVisibleHud": {
+        "state": "Pick up",
+        "pickup": "Pista House",
+        "road": "Chikkadapally Road",
+        "routeMetres": 100,
+        "speedKmhReportedBeforeSavedFrame": 7,
+        "speedKmhInSavedOriginal": 5,
+        "flightSeconds": 0,
+        "coins": 802,
+        "level": "2 · 1/4",
+        "dayClockInSavedOriginal": "Day 8 · 9:15 AM",
+        "pausedAfterCapture": true
+      },
+      "heldInputSeconds": 39.75,
+      "recoveryActivations": 1,
+      "mapOpens": 1,
+      "actualCloseMapButtonClicks": 1,
+      "originalScreenshotsSaved": 4,
+      "pickupCompleted": false,
+      "handoverCompleted": false
+    }
+  ],
+  "continuation": {
+    "explicitHeldInputSeconds": 7.05,
+    "recoveryActivations": 2,
+    "mapOpens": 1,
+    "actualCloseMapButtonClicks": 1,
+    "explicitResumeButtonClicks": 1,
+    "pauseKeyOpens": 1,
+    "newPickups": 0,
+    "customerHandovers": 0,
+    "result": "Two further recoveries settled on clear streets. Steering attempts did not reach collection. Final paused pickup128m; no new confirmed bug."
+  },
+  "preservedHistoricalSession": {
+    "tabId": "1933378088",
+    "owner": "root",
+    "area": "Secunderabad",
+    "observedState": "Paused, customer739m, Late!,0heat,521coins and20km/h HUD",
+    "action": "Root claimed/read the paused page and marked handoff without gameplay inputs.",
+    "inputSeconds": 0,
+    "runtimeLimit": "Historical pre-repair session; not evidence of current-build fixes and not part of RTC route completion."
+  },
+  "updatedAt": "2026-10-23T20:23:35.523809+00:00"
+}

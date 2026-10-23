@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2007Z",
+  "createdAtUTC": "2026-10-23T20:09:56.920591+00:00",
+  "owner": "playtest_east",
+  "status": "prepared_waiting_for_explicit_browser_lease",
+  "browserUsed": false,
+  "area": "Hayathnagar",
+  "fallbackArea": "Ghatkesar",
+  "url": "http://127.0.0.1:4189/",
+  "buildReference": {
+    "indexCurrentBuild": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "indexFinalAsset": "index-DXgUfY_A.js",
+    "limit": "Read from existing index, not independent verification of the current served build. Record root-confirmed runtime and fresh tab asset when the lease starts."
+  },
+  "sourcesRead": [
+    "docs/playtests/index.json",
+    "docs/playtests/2026-10-23-repairs/spatial-retest.json",
+    "docs/playtests/2026-10-23-repairs/flight-hud-retest.json",
+    "game/src/ui/areapicker.ts",
+    "game/public/city/core.pack.wasm"
+  ],
+  "selectionEvidence": {
+    "Hayathnagar": "Named macrohood in current core places; selectable through Search an area, not a Popular button. Anmagal Hayathnagar is a separate locality and must not be selected accidentally.",
+    "Ghatkesar": "Named locality in current core places; fallback via exact visible area search result only.",
+    "sourceLimit": "These are source-derived UI label expectations; verify actual search results before clicking."
+  },
+  "leasePolicy": {
+    "start": "Only after root grants an exclusive Chrome turn.",
+    "serialization": "Acquire /tmp/roadster-playtest-input.lock atomically before every CUA call; release after each call. Never remove another owner’s lock.",
+    "scope": "Own new game tab only; do not resume, reload, replace or close the existing paused order tabs.",
+    "input": "Only supported CUA visible controls. No hidden game state, teleport, engine stepping or autopilot."
+  },
+  "sequence": [
+    "Create a fresh game tab after the explicit lease; ordinary Play then Search an area for Hayathnagar and choose the exact visible result. If unavailable, use exact Ghatkesar search result; do not invent a location or inject coordinates.",
+    "Record initial spawn screenshot, area, HUD, viewport and offer. Compare approach versus pickup-to-customer distances and after-collection timer wording. Dismiss an obstructing tutorial using its visible close button.",
+    "Before acceptance, open the full map using the visible minimap; press actual Close map and verify return to gameplay. Record failure state rather than assuming a successful click.",
+    "Prefer a short plausible offer. Use Another at most three times if approach exceeds roughly 500 m, then take the practical visible offer or record the long approach limitation. Accept explicitly and record the exact route.",
+    "Drive with short W/A/D/S holds, typically 0.3–3 s, taking fresh visible state after each maneuver. Follow roads and document actual named areas/streets, route changes, moving traffic and any naturally encountered median. Do not convert incidental curb contact into a confirmed geometry defect.",
+    "If explicit collection prompt is reached, stop and hold E, capture collection toast and Deliver HUD. Continue customer leg only while lease permits; explicit award is required to count a completed delivery.",
+    "If handover completes, observe a normal unpaused next offer as the control to the prior immediate-pause success. If flight becomes useful, use earned boost and record flight/descent guidance separately from ground route distance.",
+    "If stuck, use the normal visible recovery control once and record before/after clearance and departure. Pause/resume once to verify the accepted order remains. Do not pursue a repeated blocker without reporting it.",
+    "Save original screenshots through the provided local helper, capture warn/error console, and record explicit held-input ledger and counts. Pause and mark an unfinished order as handoff; close completed/no-order test tab. Reset any viewport override, release input/lock, close helper and announce browser free."
+  ],
+  "deduplication": [
+    {
+      "issues": [
+        "PT-001",
+        "PT-002",
+        "PT-007",
+        "PT-009"
+      ],
+      "currentEvidence": "Targeted short-window UI and map focus tests passed after repairs.",
+      "newRoundRule": "Only report a regression with exact visible new-area conditions; offer wording and a normal Close cycle are brief regression samples."
+    },
+    {
+      "issues": [
+        "PT-005",
+        "PT-008"
+      ],
+      "currentEvidence": "Median scenario remains browser-unverified; off-road guidance had one passing browser sample.",
+      "newRoundRule": "If a divided road is encountered naturally, record ribbon/median relation and actual stopping behavior. Approximate off-road distance is expected and distinct from a navigable route."
+    },
+    {
+      "issues": [
+        "PT-003",
+        "PT-004",
+        "PT-010"
+      ],
+      "currentEvidence": "Exact Mecca/Sudarshan recovery and controlled bus/truck occlusion remain incomplete.",
+      "newRoundRule": "An outer-east recovery cannot close those exact-location issues. Capture any natural camera occlusion before/during/after without manufacturing traffic."
+    },
+    {
+      "issues": [
+        "PT-011"
+      ],
+      "currentEvidence": "Explicit repaired Kukatpally handover followed by immediate pause, 5 s wait and next offer on Resume passed.",
+      "newRoundRule": "Prefer normal no-pause handover control if reached; do not redo the prior pickup or claim completion from distance alone."
+    },
+    {
+      "issues": [
+        "PT-012"
+      ],
+      "currentEvidence": "Source/runtime eligibility policy excludes two known bad public-safety records; category tests passed.",
+      "newRoundRule": "Record exact suspicious offer identity and source-review need, not a guessed business category based on a name."
+    },
+    {
+      "issues": [
+        "airborne-ground-guidance"
+      ],
+      "currentEvidence": "Final fresh-build flight/descent/landing HUD sample passed; minimap route line remains visible by design.",
+      "newRoundRule": "Expected airborne HUD is direct beacon guidance with no 3D ground ribbon. Aerial and ground-route distances need not match."
+    }
+  ],
+  "requiredReportFields": [
+    "area",
+    "route",
+    "input.heldDrivingInputSecondsApprox",
+    "input.heldDrivingLedgerMs",
+    "pickupsCompleted",
+    "completedDeliveries",
+    "lastVisibleHud",
+    "evidence",
+    "findings",
+    "handoff"
+  ],
+  "limits": [
+    "Plan only: no new area was played or verified yet.",
+    "An anchor drive does not certify the entire area, tile or map.",
+    "No claim of exact real-world storefront identity/order or street geometry can be based on this gameplay pass."
+  ]
+}

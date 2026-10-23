@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2007Z",
+  "tester": "Codex west agent using visible Chrome controls; no human participant",
+  "startedAtUTC": "2026-10-23T20:13:04Z",
+  "browserReleasedAtUTC": "2026-10-23T20:15:18Z",
+  "reportedAtUTC": "2026-10-23T20:16:28.577163+00:00",
+  "status": "completed_bounded_spawn_ui_pass_with_one_post_repair_issue_recurrence",
+  "url": "http://127.0.0.1:4189/",
+  "tabId": "1933378273",
+  "area": "Narsingi",
+  "build": {
+    "checkoutCommit": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+    "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "bundle": "./assets/index-DXgUfY_A.js",
+    "verification": "Read the new document script[src] attribute through the supported browser DOM API before Play. Source-only diff from runtime commit to current HEAD contained no game/src changes."
+  },
+  "viewport": {
+    "width": 594,
+    "height": 466,
+    "source": "Original saved browser screenshot dimensions",
+    "overrideApplied": false
+  },
+  "route": {
+    "pickup": "Balaji Santosh Dhaba",
+    "pickupRoad": null,
+    "customer": "Home in Narsingi",
+    "offerApproachMetres": 1984,
+    "offerDeliveryMetres": 777,
+    "offerDeliverySecondsAfterCollection": 156,
+    "offerBaseCoins": 89,
+    "selection": "Accepted the fourth displayed offer after three ordinary Another clicks. The final offer was long; this bounded pass focused on spawn departure and UI, not reaching it."
+  },
+  "offersObserved": [
+    {
+      "sequence": 1,
+      "pickup": "SKYHY Live Sports Brewery",
+      "approachMetres": 1976,
+      "customer": "Home in Narsingi",
+      "deliveryMetres": 1202,
+      "deliverySecondsAfterCollection": 217,
+      "baseCoins": 119
+    },
+    {
+      "sequence": 2,
+      "pickup": "Balaji Santosh Dhaba",
+      "approachMetres": 1984,
+      "customer": "Home in Greenlands",
+      "deliveryMetres": 1665,
+      "deliverySecondsAfterCollection": 283,
+      "baseCoins": 152
+    },
+    {
+      "sequence": 3,
+      "pickup": "Police Station",
+      "approachMetres": 865,
+      "customer": "Home in Narsingi",
+      "deliveryMetres": 873,
+      "deliverySecondsAfterCollection": 170,
+      "baseCoins": 96,
+      "accepted": false,
+      "finding": "PT-012 post-repair recurrence"
+    },
+    {
+      "sequence": 4,
+      "pickup": "Balaji Santosh Dhaba",
+      "approachMetres": 1984,
+      "customer": "Home in Narsingi",
+      "deliveryMetres": 777,
+      "deliverySecondsAfterCollection": 156,
+      "baseCoins": 89,
+      "accepted": true
+    }
+  ],
+  "steps": [
+    "Acquire the released shared input lock. Open one new tab at the normal base URL. Read script src, click Play, fill the visible Search an area field with Narsingi, and click the exact Narsingi Start here result. No query-string area selection or runtime location change was used.",
+    "After Loading Narsingi cleared, inspect the rendered night-time street, 802 coins, Level 2 1/4 and the first offer. Use Another three times, reading each displayed offer. The third offer is exactly Police Station; capture original screenshot bytes before dismissing it with Another.",
+    "Accept the fourth offer, Balaji Santosh Dhaba. Press M. The actual city map opens, centered on the car near the visible Narsingi label, with Close map focused. Click the actual Close map button.",
+    "Hold W 1.2 s and S 0.5 s. The car visibly moves along the clear street; HUD shows pickup 1,993 m and 1 km/h. No building contact or recovery was required to depart.",
+    "Hold W 2.2 s and S 0.65 s, then P. Pause opens normally; the visible background speed is 25 km/h. No collision toast is observed. The car remains in a clear rendered street corridor.",
+    "Click Resume, then hold S 1.0 s. The same Balaji Santosh Dhaba order returns, showing 2,059 m and 11 km/h. Hold S 0.4 s; capture the final original gameplay frame and fresh accessibility state: 2,060 m, 8 km/h, 2.5 s boost, 802 coins, Level 2 1/4, Day 8 4:20 AM.",
+    "Press P, verify Paused and Resume focus, inspect captured warning/error logs (empty), and mark the new tab as a handoff. Upload the two original screenshot byte arrays through the parent-provided local form; verify saved file paths, then close both temporary form tabs.",
+    "Re-mark existing ECIL, LB Nagar and Kompally handoffs without resuming or sending gameplay input to them. Do not touch the parent RTC tab or other sessions. Release the owned input lock and notify parent."
+  ],
+  "input": {
+    "heldDrivingInputSeconds": 5.95,
+    "heldDrivingLedger": [
+      {
+        "key": "W",
+        "seconds": 1.2
+      },
+      {
+        "key": "S",
+        "seconds": 0.5
+      },
+      {
+        "key": "W",
+        "seconds": 2.2
+      },
+      {
+        "key": "S",
+        "seconds": 0.65
+      },
+      {
+        "key": "S",
+        "seconds": 1.0
+      },
+      {
+        "key": "S",
+        "seconds": 0.4
+      }
+    ],
+    "nativeKeyTaps": {
+      "M": 1,
+      "P": 2
+    },
+    "normalMapCloseButtonClicks": 1,
+    "pauseResumeButtonClicks": 1,
+    "anotherButtonClicks": 3,
+    "offersAccepted": 1,
+    "flightActivations": 0,
+    "recoveryActivations": 0,
+    "collectionHolds": 0,
+    "handoverHolds": 0,
+    "method": "Supported CUA native visible-input controls, semantic UI buttons, AX state, original screenshots, read-only script attribute and captured console logs. No hidden engine state, teleporting, game-logic evaluation or autopilot.",
+    "timingLimit": "Held-input total excludes coasting, UI actions, screenshots, pause time and tool latency. It is not continuous driving time or elapsed gameplay time."
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Balaji Santosh Dhaba",
+    "routeMetres": 2060,
+    "speedKmh": 8,
+    "boostSeconds": 2.5,
+    "coins": 802,
+    "level": "Level 2 · 1/4",
+    "gameClock": "Day 8 · 4:20 AM",
+    "finalOverlay": "Paused",
+    "customerTimerPresent": false
+  },
+  "findings": [
+    {
+      "issueId": "PT-012",
+      "severity": "medium",
+      "status": "observed_once_after_repair",
+      "confidence": "confirmed visible offer; recurrence frequency unmeasured",
+      "area": "Narsingi",
+      "buildBundle": "index-DXgUfY_A.js",
+      "reproSteps": "Fresh normal Play → search Narsingi → Narsingi Start here → Another twice. The third displayed offer in this run was Police Station. Offer selection is variable; this sequence is the actual observation, not a guaranteed deterministic reproduction.",
+      "expected": "A delivery pickup name should represent an eligible food business; police-station-named listings were intended to be excluded by the prior repair.",
+      "actual": "The fresh repaired-build UI offered Pick up at Police Station, Drive to pickup 865 m, Deliver to Home in Narsingi, Pickup → customer 873 m, 170 s after collection, base pay 96 coins.",
+      "evidence": "docs/playtests/evidence/2026-10-23T2007Z-narsingi-police-station-offer-e8bca0.jpg",
+      "deduplication": "Recurrence of existing PT-012, not a new issue ID. This exact generic name differs from the earlier ECIL police-named offers.",
+      "sourceLimit": "This report does not identify the source record, business category, real-world premises or geographic binding. Parent owns source triage.",
+      "repeatabilityLimit": "Observed once. After capturing the original, Another selected a different food offer which was accepted. Parent explicitly requested preserving that accepted route instead of cancelling solely to reproduce."
+    },
+    {
+      "issueId": "map-close",
+      "status": "pass_once",
+      "confidence": "confirmed visible",
+      "expected": "The actual Close map button dismisses the full map and returns to driving without an extra pause overlay.",
+      "actual": "Clicked Close map after M; the driving view returned and W input moved the car."
+    },
+    {
+      "issueId": "spawn-departure",
+      "status": "pass_this_sample",
+      "confidence": "confirmed visible",
+      "expected": "Fresh area placement permits ordinary forward movement on a clear street.",
+      "actual": "Two short straight W inputs moved along the street without a visible collision or recovery. No claim about all Narsingi spawns is made."
+    },
+    {
+      "issueId": "pause-resume",
+      "status": "pass_once",
+      "confidence": "confirmed visible",
+      "expected": "Pause and Resume preserve the active pickup order.",
+      "actual": "P opened Paused and Resume restored the same Balaji Santosh Dhaba pickup; the final P left it safely paused."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2007Z-narsingi-police-station-offer-e8bca0.jpg",
+      "kind": "Original unmodified browser screenshot",
+      "shows": "Exact Police Station pickup offer at 865 m approach, 873 m customer leg and 170 s after collection; 802 coins and Level 2 1/4."
+    },
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2007Z-narsingi-departure-ending-02e16f.jpg",
+      "kind": "Original unmodified browser screenshot",
+      "shows": "Rendered clear street endpoint after forward departure; accepted Balaji Santosh Dhaba pickup 2,060 m, 8 km/h, 2.5 s boost, 802 coins, Level 2 1/4. Captured before final Pause."
+    }
+  ],
+  "console": {
+    "capturedLevels": [
+      "warn",
+      "error"
+    ],
+    "entries": [],
+    "limitation": "Captured browser log entries only; an empty result is not proof of absence of gameplay bugs."
+  },
+  "observations": [
+    "The initial offer UI and minimap remained separate at the current 594×466 viewport, with Accept and Another visible.",
+    "The initial pickup route pointed back along the street while the spawn-departure check drove forward. Distance grew from 1,984 m to 2,060 m. This is not evidence of a routing defect or an unreachable pickup.",
+    "No visible road name was shown for this pickup. The only area identity verified is the normal Narsingi selection and map label; exact road identity was not established.",
+    "The game was paused with last displayed speed 8 km/h; it was not claimed to have reached a zero-speed state. No keys remained held."
+  ],
+  "coverageLimitations": [
+    "This was a roughly two-minute bounded UI/spawn pass with 5.95 s explicit driving input, not a full outer-area route or continuous human session.",
+    "No pickup or customer handover was reached. No flight, recovery, controlled curb, median, bridge barrier or bus/truck sightline scenario was exercised.",
+    "No repeat of Police Station was attempted after accepting the next offer, so recurrence frequency is unmeasured.",
+    "No real-world street, shop name, frontage sequence or geographic accuracy was verified.",
+    "Viewport dimensions came from screenshots; no physical touch device or new responsive override was tested."
+  ],
+  "handoff": {
+    "tabId": "1933378273",
+    "paused": true,
+    "markedHandoff": true,
+    "heldInputsReleased": true,
+    "inputLockReleased": true,
+    "helperTabsClosed": [
+      "1933378276",
+      "1933378280"
+    ],
+    "historicalHandoffsRemarkedWithoutInput": [
+      "1933378100",
+      "1933378139",
+      "1933378162"
+    ],
+    "parentTab1933378266Operated": false,
+    "unfinishedWorkflow": "Accepted Balaji Santosh Dhaba pickup remains 2,060 m away; do not count a collection or delivery."
+  },
+  "newConfirmedIssueIds": [],
+  "existingIssueRecurrences": [
+    "PT-012"
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2007Z",
+  "tester": "Codex east agent using real visible Chrome controls; no human participant",
+  "startedAtUTC": "2026-10-23T20:15:53Z",
+  "browserReleasedAtUTC": "2026-10-23T20:20:55Z",
+  "url": "http://127.0.0.1:4189/",
+  "tabId": "1933378284",
+  "build": {
+    "scriptAsset": "./assets/index-DXgUfY_A.js",
+    "assetEvidence": "Read the existing script[src] DOM attribute in the freshly opened page.",
+    "sourceCommitFromIndex": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "limit": "Source commit is the indexed final gameplay build; actual browser asset was independently observed. Older paused orders were not resumed."
+  },
+  "area": "Hayathnagar",
+  "selection": "Ordinary Play → Search an area → Hayathnagar Start here. Anmagal Hayathnagar was a separate visible result and was not selected.",
+  "viewport": {
+    "width": 594,
+    "height": 466,
+    "overrideUsed": false
+  },
+  "route": {
+    "pickup": "Sri Balaji Sunil Kumar Sweets & Bakery",
+    "customer": "Home in Veerabhadra Nagar",
+    "offerApproachMetres": 1142,
+    "offerDeliveryMetres": 1172,
+    "offerDeliverySecondsAfterCollection": 212,
+    "offerBaseCoins": 117,
+    "accepted": true,
+    "anotherActivations": 3,
+    "selectionLimit": "Four observed offers all exceeded 500 m pickup approach, so the fourth was accepted for a bounded road sample, not a promised completed delivery."
+  },
+  "offersObserved": [
+    {
+      "pickup": "Sri Ayyappa Milk Centre",
+      "customer": "Home in Pochamma Basthi",
+      "approachMetres": 816,
+      "customerLegMetres": 656,
+      "deliverySecondsAfterCollection": 139,
+      "baseCoins": 81
+    },
+    {
+      "pickup": "Domino's",
+      "pickupRoad": "Vijaywada Highway",
+      "customer": "Home in Sai Nagar Phase-II",
+      "approachMetres": 676,
+      "customerLegMetres": 824,
+      "deliverySecondsAfterCollection": 163,
+      "baseCoins": 93
+    },
+    {
+      "pickup": "Mahesh Kirana and General Store",
+      "customer": "Home in Anand Colony",
+      "approachMetres": 1115,
+      "customerLegMetres": 868,
+      "deliverySecondsAfterCollection": 169,
+      "baseCoins": 96
+    },
+    {
+      "pickup": "Sri Balaji Sunil Kumar Sweets & Bakery",
+      "customer": "Home in Veerabhadra Nagar",
+      "approachMetres": 1142,
+      "customerLegMetres": 1172,
+      "deliverySecondsAfterCollection": 212,
+      "baseCoins": 117
+    }
+  ],
+  "steps": [
+    "Fresh page loaded and visible area search selected Hayathnagar. Loading overlay cleared into a visible clear local road and offer. Saved progress restored to 802 coins and Level 2 1/4.",
+    "Read four offers using Another three times. Separate pickup approach, pickup-to-customer leg and after-collection delivery window were visible.",
+    "With a pending offer, clicked visible minimap and then actual Close map. Offer controls remained usable; Accept explicitly began the selected pickup.",
+    "W 3 s then S 0.9 s moved forward from the spawn without facade obstruction. Pickup route increased to 1195 m because this departure was away from the route direction.",
+    "An attempted left turn moved onto open ground beside a small building. HUD correctly changed to Return to a road for GPS with approximately 368 m direct distance; the road ribbon disappeared. This driver turn is not a confirmed spawn or geometry defect.",
+    "Used visible Paused → Back to the road once. Later forward input and a settled screenshot showed a clear street approach to a divided main road. Recovery animation settling was not separately captured before W, so this is not a precise initial-placement proof.",
+    "A left turn onto the main road aligned the car and yellow route on the same side of a black/yellow median. A 3 s straight drive reached 78 km/h and route 1199 m; braking at the next signal showed 1157 m. Traffic vehicles and pedestrians were visible; no close bus/truck camera crossing was tested.",
+    "Attempted the next marked side-road turn. Car stopped at 0 km/h with 1416 m routed distance and a visible clear street ahead. Route increased after the turn; wrong-lane/heading or route selection was not independently diagnosed, so no route bug is asserted.",
+    "Repeated Resume/P retained the pickup. Captured final original screenshot and empty warn/error console; paused and marked the accepted unfinished order as handoff. Closed helper, released shared input lock and left other tabs untouched."
+  ],
+  "input": {
+    "heldDrivingInputSecondsApprox": 19.85,
+    "heldDrivingLedgerMs": [
+      {
+        "W": 3000,
+        "S": 900
+      },
+      {
+        "W+A": 2000,
+        "S": 700
+      },
+      {
+        "W": 3000,
+        "S": 950
+      },
+      {
+        "W+A": 1250,
+        "S": 550
+      },
+      {
+        "W": 3000
+      },
+      {
+        "W": 1500,
+        "S": 1300
+      },
+      {
+        "W+A": 1150,
+        "S": 550
+      }
+    ],
+    "recoveryActivations": 1,
+    "recoveryMethod": "Visible Paused menu Back to the road button.",
+    "flightActivations": 0,
+    "normalMapOpenCloseCycles": 1,
+    "heldCollectionInputSeconds": 0,
+    "method": "Visible page controls and bounded W/A/D/S key holds, P pause/resume. No hidden game state, teleport, autopilot, engine stepping or query-based area selection.",
+    "timingLimit": "Explicit key-hold total excludes native taps, UI actions, unheld coasting, recovery animation and elapsed wall time."
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "closestObservedRoutedPickupMetresAfterAcceptance": 1157,
+  "closestObservedApproximateDirectPickupMetres": 368,
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Sri Balaji Sunil Kumar Sweets & Bakery",
+    "distanceMetres": 1416,
+    "coins": 802,
+    "level": "Level 2 · 1/4",
+    "boostSeconds": 5,
+    "speedKmh": 0,
+    "gameClock": "Day 8 · 4:46 AM",
+    "finalOverlay": "Paused; Resume focused",
+    "deliveryTimer": "Not started because collection has not occurred."
+  },
+  "evidence": [
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2007Z-hayathnagar-offer-bfa805.jpg",
+      "kind": "Original unmodified CUA screenshot saved through local helper form",
+      "viewport": "594x466",
+      "shows": "Fourth offer: pickup approach 1142 m, customer leg 1172 m, 212 s after collection, visible Accept/Another and separated minimap."
+    },
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2007Z-hayathnagar-stopping-state-875a96.jpg",
+      "kind": "Original unmodified CUA screenshot saved through local helper form",
+      "viewport": "594x466",
+      "shows": "Accepted pickup stopping state, 1416 m, 0 km/h, 802 coins, Level 2 1/4, 5 s boost and visible roadside scene."
+    }
+  ],
+  "findings": [
+    {
+      "issueId": "PT-002",
+      "status": "passed_bounded_regression_sample",
+      "confidence": "confirmed visible",
+      "actual": "All four offer states separated approach and customer-leg distance, and described the window as after collection."
+    },
+    {
+      "issueId": "PT-007",
+      "status": "passed_bounded_regression_sample",
+      "confidence": "confirmed visible",
+      "actual": "Offer and minimap were separated at 594x466; minimap opened through its visible button while offer pending."
+    },
+    {
+      "issueId": "map-close",
+      "status": "passed_normal_close_sample",
+      "confidence": "confirmed visible",
+      "actual": "Actual Close map dismissed the full map and subsequent Accept worked."
+    },
+    {
+      "issueId": "PT-008",
+      "status": "passed_this_offroad_sample",
+      "confidence": "confirmed visible",
+      "actual": "Off-road turn produced explicit return-to-road text and approximate direct distance. No fabricated navigable ribbon remained."
+    },
+    {
+      "issueId": "PT-005",
+      "status": "partial_observation_not_controlled_retest",
+      "confidence": "limited",
+      "actual": "On the observed divided-road segment, ribbon stayed on the car’s side of the median. No deliberate median crossing, barrier collision or controlled original reproduction was attempted."
+    }
+  ],
+  "newConfirmedIssueGroups": 0,
+  "console": {
+    "levels": [
+      "warn",
+      "error"
+    ],
+    "entries": []
+  },
+  "coverageLimitations": [
+    "No explicit collection, handover, award or subsequent offer occurred.",
+    "Actual travelled streets were not individually labelled in the HUD; only area selection and one rejected offer’s Vijaywada Highway label were observed. Do not assert an exact street traversal from that label.",
+    "No flight, natural landing, bridge barrier or controlled curb test.",
+    "No controlled bus/truck camera occlusion or exact Mecca/Sudarshan recovery scenario.",
+    "This bounded anchor sample does not certify the full area or exact real-world shop identities, order, facades or street geometry."
+  ],
+  "handoff": {
+    "owner": "playtest_east",
+    "tabId": "1933378284",
+    "browserId": "1",
+    "paused": true,
+    "markedHandoff": true,
+    "heldInputsReleased": true,
+    "inputLockReleased": true,
+    "helperTabClosed": true,
+    "viewportOverrideUsed": false,
+    "acceptedOrderRemaining": true,
+    "instruction": "After an exclusive lease, Resume this fresh repaired-build tab to continue Sri Balaji Sunil Kumar Sweets & Bakery pickup at 1416 m, 0 km/h, 5.0 s boost, 802 coins and Level 2 1/4. Keep all other orders paused."
+  }
+}

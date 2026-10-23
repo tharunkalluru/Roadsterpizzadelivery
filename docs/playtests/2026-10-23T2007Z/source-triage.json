@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2007Z",
+  "analyst": "playtest_old_city",
+  "method": "Read-only issue registry, repair reports, historical reproductions and current source inspection. No browser controls, hidden runtime state, simulation, tests, game edits, index edits or commit.",
+  "provenance": {
+    "checkoutCommit": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+    "lastGameplayAmendmentCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "gameSourceDiffSinceAmendment": "git diff --name-only 40e24d7 HEAD -- game/src returned no changed paths.",
+    "localDistScript": "./assets/index-DXgUfY_A.js",
+    "verificationLimit": "Local dist HTML and source history only. The driver must verify the script tag in a fresh live tab; old preserved tabs retain pre-repair code.",
+    "workingTreeAtStart": "clean"
+  },
+  "reportsRead": [
+    "index.json",
+    "2026-10-23-repairs/implementation.json",
+    "2026-10-23-repairs/spatial-retest.json",
+    "2026-10-23-repairs/flight-hud-retest.json",
+    "2026-10-23-old-city.json",
+    "2026-10-23T0903Z/rtc-x-roads.json"
+  ],
+  "coverageAssessment": {
+    "PT-003": "Historical landmark obstruction is observed, causal chain remains unproven. Nearby Mecca recovery passed once on 8c24575. Embedded-pivot source amendment has deterministic regression coverage; no exact original landmark trajectory was repeated in a browser.",
+    "PT-004": "Large vehicle obstruction was observed in multiple areas. Repaired full-body occlusion logic has static tests; no controlled browser before/during/after crossing is recorded.",
+    "PT-005": "Historical median-ribbon concern remains suspected, with wrong-lane/steering confounds. Source fixes and local-road alignment are not a controlled median reproduction.",
+    "PT-006": "Fresh Uppal spawn/departure passed once; no reason to downgrade that bounded result or generalize it to every spawn.",
+    "PT-008": "Grounded off-road guidance suppression passed in one Charminar landing scenario. It does not prove every wall or road connector.",
+    "PT-010": "A historical Sudarshan recovery faced a wall once and a repeat cleared it. Nearby general recovery passed after repair; original start location was not preserved.",
+    "flightHud": "Final 40e24d7 browser pass covered takeoff, second-Space descent with remaining boost, absent 3D ribbon and restored ground guidance after landing. Automatic descent on boost exhaustion was not covered by that final pass.",
+    "curbBridge": "Controlled curb and bridge parapet browser samples remain missing. Treat these as requested physics coverage, not newly confirmed issue groups."
+  },
+  "sourceFindings": [
+    {
+      "topic": "Large traffic camera occlusion",
+      "references": ["game/src/game/traffic.ts:216", "game/src/game/spatial-safety.ts:47", "game/src/game/game.ts:812"],
+      "sourceFact": "hideNear tests the full oriented vehicle bounds using rendered yaw, both the camera position and camera-to-player segment. It temporarily hides the vehicle when those tests intersect, and recomputes visibility each frame. Vertical slabs exclude an elevated vehicle whose body is above the sightline.",
+      "browserImplication": "A bus disappearing while crossing the chase sightline, then returning when clear, is the intended occlusion remedy. Record lingering opaque obstruction or failure to reappear as a new observation only after a controlled crossing."
+    },
+    {
+      "topic": "Median and route clipping",
+      "references": ["game/src/game/route-guidance.ts:19", "game/src/game/physics.ts:90", "game/src/world/city.ts:337", "game/src/world/city.ts:403"],
+      "sourceFact": "Local guidance probes walls/buildings at at most 1.5m intervals over a maximum 700m prefix, using wall radius1.05 and building radius1.15. It clips at the first obstruction and reports blocked guidance. Rendered medians intentionally have junction and periodic U-turn gaps.",
+      "browserImplication": "Do not classify a legitimate visible gap as missing collision, or infer a full-route failure from a locally blocked prefix. A useful test must show the same solid segment, current carriageway, ground-level car and ribbon in one documented approach."
+    },
+    {
+      "topic": "Kerb contact",
+      "references": ["game/src/game/physics.ts:105", "game/src/game/player.ts:133", "game/src/game/game.ts:809"],
+      "sourceFact": "Kerb segments are soft and report a bump only when the movement step crosses the line. Player adds bump0.18 with 0.35s cooldown and reduces speed by15% only above6m/s (21.6km/h). Bump affects chase-camera shake. A kerb is not a hard blocking wall.",
+      "browserImplication": "At lower speed, no large speed drop is expected; transient shake can be missed by a screenshot taken long after crossing. Record a short before/contact/after sequence and avoid claiming lack of physical response from a settled frame alone."
+    },
+    {
+      "topic": "Bridge parapet and flight height",
+      "references": ["game/src/world/city.ts:440", "game/src/world/city.ts:458", "game/src/game/physics.ts:90", "game/src/game/player.ts:122", "game/src/game/player.ts:149"],
+      "sourceFact": "Parapet collision is vertically gated, covers elevated deck sides, and deliberately leaves ramp/merge openings. Deck edges below1.7m do not receive parapet walls. The player also resists an unsupported drop off a previously elevated road. Space does not immediately disable wall collision; an airborne body may pass above the wall after sufficient ascent.",
+      "browserImplication": "Test a visibly elevated solid deck section while grounded. Passing through a ramp opening, along a merge, or above the parapet in flight does not prove a missing barrier."
+    },
+    {
+      "topic": "Recovery placement and camera",
+      "references": ["game/src/game/spatial-safety.ts:152", "game/src/game/player.ts:72", "game/src/game/game.ts:589", "game/src/game/game.ts:782", "game/src/world/landmarks.ts:237"],
+      "sourceFact": "Recovery searches loaded supported ground streets and legal directions, checks the car footprint plus forward offsets0,2,4,6,8m, and avoids current vehicle bounds. It returns no candidate rather than an unchecked point. Glide completion resets speed/yaw and increments placementRevision; the camera resets its orbit and smoothing state. Mecca collision includes the plinth, arch side piers, gate piers and minarets.",
+      "browserImplication": "Wait until the visible glide has settled before judging heading or pressing W. Recovery may choose a different nearby street and increase route distance. Dynamic traffic can subsequently enter the selected clearance; distance increase or one blocked frame alone does not establish bad placement."
+    },
+    {
+      "topic": "Embedded camera pivot limit",
+      "references": ["game/src/game/spatial-safety.ts:70", "game/src/game/spatial-safety.ts:108"],
+      "sourceFact": "An embedded pivot uses bounded clear-volume escape probes, with a final point above local solid extents. Ordinary nonembedded pivots still use checked sightlines.",
+      "browserImplication": "The camera should escape solids, but an already buried target cannot have guaranteed unobstructed visibility; the emergency view may be close, lateral or overhead. A camera angle change alone is not a new bug."
+    }
+  ],
+  "suggestedVisibleControlScenarios": [
+    {
+      "priority": 1,
+      "name": "Natural bus or truck sightline crossing",
+      "issueIds": ["PT-004"],
+      "area": "RTC X Roads; HITEC City as an alternative only if a large vehicle is naturally nearby",
+      "budgetSeconds": 90,
+      "steps": [
+        "Start a fresh verified build via the normal Play/area picker. Use only visible controls to approach a naturally visible bus or truck on a broad junction; do not spawn traffic or manipulate game time.",
+        "Stop at a safe visible position, release all keys and capture the large vehicle before it enters the camera-to-car sightline.",
+        "If it naturally crosses the sightline, capture during and after. Keep car/camera input unchanged during the crossing so disappearance and restoration are comparable.",
+        "Save a full-map location image and exact HUD/heading context. If no crossing occurs within the bounded opportunity, mark the scenario unexercised rather than pass or fail."
+      ],
+      "passEvidence": "Usable player view through the crossing, with traffic restored once outside the sightline.",
+      "failureEvidence": "A reproducible opaque vehicle body blocks the chase view while crossing, or a visually tracked vehicle remains absent after the sightline has cleared."
+    },
+    {
+      "priority": 2,
+      "name": "Grounded median guidance and collision",
+      "issueIds": ["PT-005"],
+      "area": "RTC X Roads or another actually reached divided road",
+      "budgetSeconds": 120,
+      "steps": [
+        "Accept an offer if needed for guidance. Open M and save the exact map location; close using the actual Close map button.",
+        "Identify a continuous visible median segment away from a junction or U-turn gap, and save the initial grounded car/ribbon/median relationship.",
+        "Approach slowly with short W pulses and steering pulses around0.1–0.2s, re-reading the view between corrections. Do not press Space or R during the collision attempt.",
+        "Capture contact, the route ribbon endpoint and any blocked-road wording; then release throttle and back away if necessary. Do not force several seconds of throttle against the barrier."
+      ],
+      "passEvidence": "Grounded car remains on its side of the solid divider and route does not draw through the blocking segment. A clipped ribbon/blocked message is acceptable evidence of conservative guidance, not proof that every legal onward route is found.",
+      "failureEvidence": "Save the exact continuous solid segment if the grounded car visibly crosses it, or if a continuous 3D route ribbon still directs through it despite physical blocking. Preserve wrong-lane and steering context."
+    },
+    {
+      "priority": 3,
+      "name": "One deliberate kerb crossing",
+      "issueIds": [],
+      "area": "Any reached straight street with a visible white/black footpath kerb and open space behind it",
+      "budgetSeconds": 60,
+      "steps": [
+        "Record the visible kerb and HUD speed. Select an empty frontage so building contact and traffic do not confound the response.",
+        "Cross the kerb at a shallow angle with a short controlled input, capturing the crossing promptly. Release throttle and inspect the post-crossing position.",
+        "Describe observed bump/shake and speed; if crossing below21.6km/h, do not require the source's high-speed speed reduction."
+      ],
+      "passEvidence": "The car can cross the soft kerb, with a visible transient response when captured; remaining on a footpath afterward is not evidence of a solid-wall failure.",
+      "failureEvidence": "A repeated, clearly captured crossing shows no expected response; keep as suspected if timing misses the transient contact."
+    },
+    {
+      "priority": 4,
+      "name": "Elevated bridge side barrier",
+      "issueIds": [],
+      "area": "Only a bridge reached by ordinary driving during the current route",
+      "budgetSeconds": 90,
+      "steps": [
+        "Document map position and a visibly elevated continuous parapet, away from the ramp foot and merges. Do not claim this scenario if only a ground divider is reached.",
+        "At low speed, make one shallow grounded contact with the parapet using a brief input; retain an escape path back along the lane.",
+        "Capture before/contact/after and verify the car stays on the deck. Keep flight and recovery out of this barrier check."
+      ],
+      "passEvidence": "Car is held or redirected along the elevated solid wall and remains on the deck.",
+      "failureEvidence": "A documented grounded car crosses a continuous elevated parapet or drops through the protected deck edge."
+    },
+    {
+      "priority": 5,
+      "name": "Map-documented landmark or cinema recovery",
+      "issueIds": ["PT-003", "PT-010"],
+      "area": "Mecca Masjid from Charminar, or Sudarshan frontage from RTC X Roads",
+      "budgetSeconds": 180,
+      "steps": [
+        "Reach the actual visible landmark/cinema surroundings through controls. Save a pre-recovery map plus scene with the car position, building and heading. Do not guess a hidden coordinate from the old report.",
+        "If naturally off road or against the documented frontage, press R once. Release inputs while the glide completes; capture the settled ground-level0km/h scene and map.",
+        "From the settled result, hold W for0.5–1.0s without steering, release it and inspect forward clearance and chase view. Brake only enough to stop; a long S hold can enter reverse.",
+        "If blocked, preserve evidence before trying another recovery. A second attempt from a moved position is a separate sample, not an identical repeat."
+      ],
+      "passEvidence": "Recovery settles on a visible usable street and a short straight departure advances without facade contact or persistent camera burial.",
+      "failureEvidence": "Saved pre/post location demonstrates that a settled recovery leaves the car facing an immediate solid obstruction, or the camera remains inside geometry during the short departure.",
+      "historicalReproductionLimit": "Neither the original Mecca nor first Sudarshan recovery start was precisely preserved. New controlled samples can test the repair at those landmarks, but cannot be called an exact replay of the historical trajectory."
+    }
+  ],
+  "reportingGuards": [
+    "These are proposed controls and source expectations, not browser results from this analyst.",
+    "Preserved pre-repair tabs may continue orders but cannot verify the repaired runtime.",
+    "Record original screenshots, actual area/landmark and full-map location before any recovery changes position.",
+    "Do not count reached distance, a toast or a queued offer as collection/handover; require the explicit interaction/result.",
+    "Keep a missing controlled opportunity unexercised. Do not turn an untested scenario into a confirmed defect or a passed repair.",
+    "Full-map street/shop fidelity is outside these gameplay samples."
+  ],
+  "newConfirmedIssues": []
+}

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2007Z",
+  "issueId": "PT-012",
+  "preparedAt": "2026-10-23T20:16:54.919062+00:00",
+  "analyst": "playtest_old_city",
+  "status": "post_repair_browser_recurrence_corroborated_by_confirmed_legacy_eligibility_gap",
+  "checkoutCommit": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+  "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "method": "Read current policy, eligiblePickup, offer-selection source and core gzip JSON; bundle only pickups.ts with esbuild write:false and import that generated code in memory to call the pure eligibility function on actual records and controls. No browser, hidden gameplay state, source/test changes, candidate generation or city-data apply.",
+  "browserObservationFromDriver": {
+    "area": "Narsingi",
+    "freshBuild": true,
+    "action": "Another offer",
+    "displayedPickup": "Police Station",
+    "driveToPickupMetres": 865,
+    "customer": "Home in Narsingi",
+    "pickupToCustomerMetres": 873,
+    "deliveryWindowSeconds": 170,
+    "repeatStatus": "Observed once in the current Narsingi session. The driver had accepted the subsequent food offer before the repeat request and preserved that active route rather than cancelling solely to repeat. Selection frequency is unmeasured.",
+    "evidenceLimit": "The source analyst did not operate the tab or independently inspect the offered screenshot in this task; use the driver report for original evidence and repeat counts."
+  },
+  "sourceReferences": [
+    "game/src/game/pickups.ts:13",
+    "game/src/game/pickup-policy.json",
+    "game/src/game/game.ts:149",
+    "game/src/game/game.ts:280",
+    "game/src/game/game.ts:293",
+    "tools/delivery-regressions.mjs:107"
+  ],
+  "confirmedSourceBehavior": {
+    "explanation": "The runtime rejects known excluded IDs and pickupEligible=false, then board/locality checks. Category exclusions apply only when poi.category is truthy. A legacy record without category passes unless another check rejects it. The policy quarantines only the two originally documented IDs.",
+    "narsingiCandidate": {
+      "coreArray": "food",
+      "zeroBasedIndex": 9233,
+      "record": {
+        "id": "b_2a604a61-6240-4b",
+        "name": "Narsingi Police Station",
+        "board": "Police Station",
+        "stop": [
+          -15090.8,
+          2010.5,
+          0,
+          ""
+        ],
+        "pizza": false,
+        "tile": [
+          -16,
+          2
+        ]
+      },
+      "eligiblePickupResult": true,
+      "missingFields": [
+        "category",
+        "pickupEligible"
+      ],
+      "directMappedDistanceFromNarsingiAreaPointMetres": 677.98
+    },
+    "exactGenericBoardSweep": {
+      "comparison": "board.trim().toLowerCase() === police station",
+      "records": 33,
+      "eligibleRecords": 33,
+      "genericBoardInExcludedPlaceNames": false,
+      "interpretation": "Thirty-three shipped records with this exact generic board label currently pass eligibility. This count is not proof of thirty-three real operating police stations or thirty-three browser offers."
+    },
+    "controls": [
+      {
+        "case": "Actual Narsingi legacy record with category absent",
+        "expectedByCurrentImplementation": true,
+        "actual": true
+      },
+      {
+        "case": "Same Narsingi record with category police_station/public_safety_service supplied",
+        "actual": false
+      },
+      {
+        "case": "Synthetic Police Canteen with explicit restaurant category",
+        "actual": true
+      },
+      {
+        "case": "Actual Kushaiguda Traffic PS b_6d4468aa-c5da-40",
+        "actual": false
+      },
+      {
+        "case": "Actual Bhagyanagar Institute of Police b_d6fc7fdd-c2c9-4f",
+        "actual": false
+      }
+    ],
+    "offerPath": "prepareStops accepts eligiblePickup records into food. makeOffer samples that pool, and displayed pickup.label is pick.board. Therefore a legacy record named Narsingi Police Station can display Police Station as an offer."
+  },
+  "bindingAndCausalityLimits": [
+    "The exact visible Police Station label is shared by33 eligible records. The nearby Narsingi record is a concrete plausible source candidate, but the UI label and865m routed approach alone do not prove that specific ID was selected.",
+    "The direct mapped distance from the area point is not the observed route distance from the actual spawn.",
+    "This corroborates a current runtime eligibility gap for missing-category legacy records, and a post-repair recurrence of the existing PT-012 symptom. It is not failure of the two exact-ID quarantines, which still reject their targets.",
+    "No claim about the original importer cause, source category before export, pub/public substring classification, or real-world identity was established in this task.",
+    "The existing regression explicitly checks that exactly two legacy records are removed. That narrow test does not cover other police-station labels with missing categories."
+  ],
+  "proposedNextRepair": {
+    "scope": "Add a narrowly scoped non-kitchen name/board exclusion for legacy records whose category is missing, while retaining explicitly categorized legitimate food businesses such as Police Canteen restaurant. Preserve map identity and storefront data.",
+    "regressionCases": [
+      "Actual Narsingi Police Station legacy record and exact Police Station board are rejected as kitchens without altering the record.",
+      "Original two quarantines stay rejected.",
+      "A missing-category ordinary restaurant remains eligible according to the chosen compatibility policy.",
+      "Explicit restaurant-category Police Canteen remains eligible.",
+      "A genuine pub category still works; no substring pub/public match is introduced.",
+      "Replace the old exactly-two-exclusions assertion with an explicit policy expectation covering the new bounded scope."
+    ],
+    "implementationStatus": "Suggestion only; no fix or source/test file change performed by this analyst."
+  },
+  "newIssueGroup": false
+}

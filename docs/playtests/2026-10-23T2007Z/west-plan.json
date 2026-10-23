@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2007Z",
+  "preparedAtUTC": "2026-10-23T20:11:06.869876+00:00",
+  "tester": "playtest_west",
+  "status": "awaiting_explicit_exclusive_browser_lease",
+  "url": "http://127.0.0.1:4189/",
+  "targetArea": "Narsingi",
+  "fallbackArea": "Patancheru",
+  "selectionReason": "Both are proposed outer anchors in the current coverage index and neither has recorded gameplay coverage there. Narsingi is the first visible-search target; no road, bridge or pickup geometry is assumed before viewing it.",
+  "provenance": {
+    "checkoutCommitAtPlanning": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+    "indexRuntimeCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "sourceComparison": "git diff --stat 40e24d79f1c63c50c86e976037590d2e0f8c6f6b..HEAD -- game/src returned no changes.",
+    "expectedPreviousBundle": "index-DXgUfY_A.js",
+    "requiredBeforeTest": "Confirm parent build provenance and inspect the fresh document script src through the supported read-only DOM API. Do not treat the planned bundle name as runtime evidence."
+  },
+  "entryPlan": [
+    "After explicit parent lease, acquire the shared input lock if not already held by the parent on this turn.",
+    "Create one new Chrome tab at the normal base URL. Do not operate or reload older order tabs.",
+    "Click Play. In the actual area picker, fill Search an area with Narsingi and choose the matching visible Start here result.",
+    "If that exact name is unavailable, record the visible search result and try Patancheru. Do not enter coordinates, use a query-string area override, or choose an unlabeled guessed map point."
+  ],
+  "boundedScenario": [
+    {
+      "step": 1,
+      "action": "Record the actual area name, initial rendered street, offer name, road, customer, approach distance, delivery distance and time after collection. Dismiss the visible tutorial tip before driving.",
+      "evidence": "Accessibility text and initial screenshot; record any mismatch as an observation, not an inferred shop or geometry defect."
+    },
+    {
+      "step": 2,
+      "action": "Prefer an offer with an approach no more than about 500 m and a short customer leg if one is available; use at most three ordinary Another clicks. Accept the selected offer and preserve its identity.",
+      "evidence": "Record every displayed offer used to make the selection. Longer available routes are valid partial attempts, not blockers."
+    },
+    {
+      "step": 3,
+      "action": "Open M and inspect the actual visible route before departure. Identify the next junction and intended lane. Click the actual Close map button, then verify the driving view returns without a stacked pause overlay.",
+      "evidence": "Record visible road names or landmarks only; save the map if it is needed to interpret a later defect."
+    },
+    {
+      "step": 4,
+      "action": "Drive at low speed using short W/A/D/S inputs, at most 6 s straight only with a visibly clear road. Recheck screenshots after turns. Follow the intended lane and slow near the pickup.",
+      "evidence": "Maintain an exact held-key duration ledger, route-distance observations, and actual road names shown by HUD."
+    },
+    {
+      "step": 5,
+      "action": "When a visible Hold E / ACT collection prompt appears, stop and hold E for approximately 1.4 s. Count pickup only if explicit collection feedback and Deliver state appear. Follow the customer route if lease time allows.",
+      "evidence": "Save original pickup success and, if reached, explicit handover/coin award evidence. Distance or an E key press alone does not count."
+    },
+    {
+      "step": 6,
+      "action": "If a divided road or bridge is naturally on the route, document before/during/after a low-speed legal junction turn or brief curb/barrier contact. If a large bus or truck naturally crosses the camera sightline, capture it without pursuing traffic.",
+      "evidence": "PT-005 median, PT-004 camera and physical curb/bridge checks remain untested unless the relevant geometry and controlled action are actually observed. Do not promote a driver error or missed turn to a route defect."
+    },
+    {
+      "step": 7,
+      "action": "If useful open road and boost are available, perform one short flight followed by explicit descent and observed landing; avoid flying during an intended ground median check.",
+      "evidence": "Record aerial beacon wording, absence of the 3D ground ribbon while airborne, and restoration after landing. Do not infer grounded state from boost alone."
+    },
+    {
+      "step": 8,
+      "action": "If handover occurs, capture the explicit result and allow the next offer to appear; if incomplete, capture exact stopping HUD. Pause, release all held inputs, inspect warning/error logs, save originals, and hand off or close only the new tab as directed.",
+      "evidence": "Report elapsed lease separately from held driving input, collections and handovers separately, and exact tab/paused state."
+    }
+  ],
+  "quickUiChecks": [
+    "Actual Close map button once during the active order.",
+    "Pause and Resume restore the same order; leave paused before release.",
+    "Only if available before accepting an order: Change area followed by Escape or Stay here preserves the same visible offer. Do not relocate an accepted order for this check."
+  ],
+  "existingIssueScope": {
+    "PT-004": "Controlled bus or truck camera sightline still needs browser evidence; opportunistic only in this outer-area pass.",
+    "PT-005": "A documented ground route at a real visible median junction remains useful; distinguish route instruction from steering execution.",
+    "PT-001/PT-002/PT-007/PT-009": "Narrow viewport layout, offer labels and focus isolation already passed targeted repaired-build tests; this pass only catches incidental regression.",
+    "PT-011": "Explicit repaired-build pickup/handover plus immediate pause and next-offer resume already passed in Kukatpally; a new route broadens coverage but is not required to reconfirm the earlier pass.",
+    "curb/bridge": "Physical browser checks remain limited; do not claim either from an ordinary residential drive."
+  },
+  "evidenceRules": [
+    "Use supported CUA visible UI controls, read-only page DOM for script provenance, screenshots, AX state and tab console logs only.",
+    "Save unmodified original screenshots through the parent-provided local evidence form; use a fresh helper URL supplied for this round.",
+    "No hidden game state, engine evaluation, teleporting, scripted path following or autonomous driving.",
+    "Gameplay does not verify real-world street accuracy, actual shop names or shop order."
+  ],
+  "oldPausedHandoffsToPreserve": [
+    {
+      "area": "ECIL",
+      "tabId": "1933378100",
+      "runtime": "pre-fix",
+      "instruction": "Do not resume, reload or change inputs."
+    },
+    {
+      "area": "LB Nagar",
+      "tabId": "1933378139",
+      "runtime": "pre-fix",
+      "instruction": "Do not resume, reload or change inputs."
+    },
+    {
+      "area": "Kompally",
+      "tabId": "1933378162",
+      "runtime": "pre-fix",
+      "instruction": "Do not resume, reload or change inputs; collected order unfinished."
+    }
+  ],
+  "planningSources": [
+    "docs/playtests/index.json",
+    "docs/playtests/2026-10-23-repairs/spatial-retest.json",
+    "docs/playtests/2026-10-23-repairs/flight-hud-retest.json",
+    "docs/playtests/2026-10-23-repairs/delivery-retest.json",
+    "game/src/ui/areapicker.ts"
+  ],
+  "limitations": "This file is a plan only. No browser action, new area visit, pickup, delivery, collision reproduction or real-world street verification has occurred in this round at preparation time."
+}
