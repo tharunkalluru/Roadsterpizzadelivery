@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2056Z",
+  "completedAt": "2026-10-23T21:12:47.188578+00:00",
+  "baselineCommit": "dc72e140ebac0e27db8c1cd6b9d61f2eb7b7bf55",
+  "sourceBatch": {
+    "maximumCells": 8,
+    "attemptedCells": 2,
+    "processedCells": 1,
+    "processedCellIds": [
+      "tile_1_0"
+    ],
+    "processedCellEvidence": {
+      "attempts": 2,
+      "startedAt": "2026-10-23T20:57:25.346015Z",
+      "status": "processed",
+      "fetchedAt": "2026-10-23T20:57:25.346795Z",
+      "sourceRecords": 55,
+      "processedAt": "2026-10-23T20:57:58.555364Z",
+      "summary": {
+        "needs_street_photo_review": 17,
+        "existing_name_matched": 38
+      },
+      "applied": {
+        "source_links_added": 37,
+        "packs_changed": 1
+      }
+    },
+    "retry": {
+      "cell": "tile_-1_1",
+      "reason": "Overpass HTTP 502",
+      "retryAt": "2026-10-23T20:59:12.474845+00:00",
+      "statePreserved": true,
+      "stopOnFailureHonored": true
+    },
+    "sourceLinksAdded": 37,
+    "newNamesAdded": 0,
+    "sourceRecordsThisBatch": 55,
+    "processedCellsCumulative": 10,
+    "totalPlayableCells": 2527,
+    "sourceRecordsCumulative": 345,
+    "sourceRecordsMayRepeatAcrossCells": true,
+    "sourceLinksCumulative": 155,
+    "newNamesCumulative": 2,
+    "pendingPhotoReview": 78
+  },
+  "mapillary": {
+    "metadataCellsVisited": 4,
+    "metadataRequests": 16,
+    "metadataErrors": 0,
+    "metadataCellsCompleted": 29,
+    "metadataCellsTotal": 2376,
+    "cachedImages": 14266,
+    "newMetadataImages": 1178,
+    "manifestImages": 1508,
+    "ocrShards": [
+      {
+        "index": 0,
+        "newImageIds": [
+          "1021829339777237",
+          "1065361828383558",
+          "1072424314434531",
+          "1226949722511692",
+          "1285087866744623",
+          "144806647660726",
+          "1529846561330907",
+          "1583750809534045",
+          "1743059242711623",
+          "175860884440361",
+          "1761239861185847",
+          "1855136369219045",
+          "187818183093145",
+          "196685768843944",
+          "223901372461562",
+          "226766548781810",
+          "231402245176180",
+          "24333331992929187",
+          "2567678330203968",
+          "25826328637028978",
+          "2907444559498421",
+          "2910793629209399",
+          "297175228548427",
+          "299900531766735",
+          "3020365974850119",
+          "321390519365640",
+          "471201433964019",
+          "473679930580627",
+          "489622768849740",
+          "506062294090055",
+          "550183845967698",
+          "734713666052370",
+          "773255851955397",
+          "775718884964819",
+          "792384340353536",
+          "816822442276378",
+          "827439173130858",
+          "860330226324989",
+          "926597914820442",
+          "979443572813248"
+        ],
+        "newImages": 40,
+        "imagesWithText": 26,
+        "textReadings": 132,
+        "exitCode": 0
+      },
+      {
+        "index": 1,
+        "newImageIds": [
+          "1061082598097829",
+          "1083226878830050",
+          "1098163815537011",
+          "1120028698492353",
+          "1168609205453861",
+          "1220235743552639",
+          "1240986063931389",
+          "1318772246513506",
+          "1328426815397813",
+          "140301169052338",
+          "1545546866578839",
+          "1568257570732113",
+          "159199146157200",
+          "1724258461813926",
+          "177082474311579",
+          "179675630703811",
+          "195783222318974",
+          "2264305344018697",
+          "2324225504742329",
+          "23982917041363634",
+          "241982931032181",
+          "2520146831465151",
+          "255663376356298",
+          "301554798248825",
+          "3391975924295444",
+          "390328752321326",
+          "4106970616265772",
+          "413652003937375",
+          "471021837304577",
+          "473883617057920",
+          "482219413021843",
+          "512990656543882",
+          "5345679315466001",
+          "618160564187226",
+          "732838292666125",
+          "750264381393075",
+          "771683403522223",
+          "794090543795294",
+          "862197229712374",
+          "916100697558618"
+        ],
+        "newImages": 40,
+        "imagesWithText": 22,
+        "textReadings": 81,
+        "exitCode": 0
+      }
+    ],
+    "shardOverlap": 0,
+    "newOcrImages": 80,
+    "newRawTextReadings": 213,
+    "ocrImagesCumulative": 595,
+    "automatedCandidateReport": {
+      "images": 595,
+      "readings": 1191,
+      "matched_readings": 50,
+      "boards_with_automated_photo_matches": 36,
+      "spelling_candidates": 9,
+      "photo_only_boards": 21,
+      "placed_boards_in_zone": 178616
+    },
+    "photoOnlyCandidateReport": {
+      "photos": 366,
+      "readings": 1624,
+      "shop_like": 708,
+      "hit_a_front": 483,
+      "new_boards": 3,
+      "buildings": 2,
+      "packs": 2
+    }
+  },
+  "manualReview": {
+    "evidence": "docs/shopfront-photo-review-2026-10-23T2056Z.json",
+    "candidateBusinesses": 7,
+    "originalImagesInspected": 12,
+    "newUniqueOriginalImages": 12,
+    "repeatedOriginalImageIds": [],
+    "uniqueOriginalImagesCumulative": 57,
+    "inspectionEventsCumulative": 60,
+    "photoNamesApplied": 0,
+    "exactPlacementsApplied": 0,
+    "exactShopOrderVerified": false,
+    "originalImageIds": [
+      "1052981830312483",
+      "1060928456143691",
+      "119574847404311",
+      "1220235743552639",
+      "1328426815397813",
+      "1724258461813926",
+      "255663376356298",
+      "299900531766735",
+      "324707789247181",
+      "3801425310160803",
+      "469559111015467",
+      "829804834584478"
+    ]
+  },
+  "packAudit": [
+    {
+      "file": "game/public/city/core.pack.wasm",
+      "changedTopLevelFields": [
+        "packs"
+      ]
+    },
+    {
+      "file": "game/public/city/packs/p0_0.pack.wasm",
+      "existingBoardsWithSourceChanges": 37,
+      "newBoards": [],
+      "geometryNamesFloorsAndOrderUnchanged": true
+    }
+  ],
+  "verification": {
+    "pipelineTests": {
+      "passed": 68,
+      "failed": 0
+    },
+    "npmRunCheck": "passed",
+    "sourceAndDistPacksIdentical": true,
+    "gameJavaScriptAsset": "index-DXgUfY_A.js",
+    "gameJavaScriptChangedByThisBatch": false,
+    "existingBuildWarning": "fonts/fonts.css missing at build time",
+    "gameplayTestedThisBatch": false,
+    "locksReleased": true,
+    "locksChecked": [
+      "pipeline/build/shopfront-apply.lock",
+      "pipeline/build/ocr_rapid_city.shard-001-of-002.jsonl.lock",
+      "pipeline/build/ocr_rapid_city.shard-000-of-002.jsonl.lock",
+      "pipeline/build/mly_images_city.jsonl.lock",
+      "pipeline/build/citywide-shopfronts/runner.lock"
+    ],
+    "streetVerifiedCells": 0,
+    "exactCitywideShopOrderComplete": false
+  },
+  "nextWork": "Retry tile_-1_1 under recorded runner cooldown policy; then continue bounded citywide source, metadata and OCR coverage. Bind visible identities to exact facade, entrance, floor, road side and fixed neighboring order using independent views before photo placement.",
+  "needsUserAction": false,
+  "pushed": false,
+  "deployed": false
+}

@@ -1,0 +1,3153 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2056Z",
+  "reviewedAt": "2026-10-23T21:14:11.503429+00:00",
+  "consolidatedBy": "playtest_old_city",
+  "mappedDataBaselineCommit": "dc72e140ebac0e27db8c1cd6b9d61f2eb7b7bf55",
+  "method": "Consolidates twelve actual original-image inspection receipts: root inspected eight images, playtest_west inspected two and playtest_east inspected two. The consolidator read their metadata/observations, checked saved file hashes and decoded mapped context; it did not perform another image inspection. Sources are unmodified provider 2048-pixel derivatives, not full-resolution camera uploads. No names, boards, floors, slots or game packs are applied by this review.",
+  "sourceReviewFiles": [
+    "pipeline/build/round-2026-10-23T2056Z/original-images.json",
+    "pipeline/build/round-2026-10-23T2056Z/independent-images.json",
+    "pipeline/build/round-2026-10-23T2056Z/muthoot-review.json",
+    "pipeline/build/round-2026-10-23T2056Z/medplus-review.json",
+    "pipeline/build/round-2026-10-23T2056Z/new-match-placement.json",
+    "pipeline/build/round-2026-10-23T2056Z/pako-review.json"
+  ],
+  "scope": {
+    "newAutomatedMatchCandidatesReviewed": 3,
+    "newCandidateBoardIds": [
+      "b_6037b4ea-20db-40",
+      "b_45506ff6-efbb-49",
+      "b_526d7b07-49bf-47"
+    ],
+    "followupCandidateBoardIds": [
+      "b_5b3fd674-a9a6-4c",
+      "b_bc9880bc-19e2-4b",
+      "b_d161506a-8365-43"
+    ],
+    "originalImagesInspectedThisRound": 12,
+    "uniqueImageIdsThisRound": 12,
+    "rootImages": 8,
+    "westImages": 2,
+    "eastImages": 2,
+    "distinctSequencesAcrossThisRound": 8,
+    "currentRetainedMatchesBeforeAnyLaterSafeguard": 36,
+    "namesApplied": 0,
+    "photoPlacementsApplied": 0,
+    "exactPlacementApprovals": 0,
+    "exactShopOrderApprovals": 0,
+    "businessesReviewed": 7,
+    "rawPhotoOnlyBusinessFollowUps": 1
+  },
+  "inspectionEvents": [
+    {
+      "imageId": "299900531766735",
+      "reviewer": "root",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "299900531766735",
+        "path": "pipeline/build/review/299900531766735.jpg",
+        "sha256": "b2364d006c7bbc46f98c8bb7f5890a67234a5b487797d8b59c39b42e883160c1",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1593518922054,
+        "captureDate": "2020-06-30T12:08:42.054000+00:00",
+        "sequenceId": "bSaMgrbqRBcPWNp597T3ga",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.484611712726,
+            17.394298334258
+          ]
+        },
+        "compass": 69.847482504033,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=299900531766735",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "1328426815397813",
+      "reviewer": "root",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "1328426815397813",
+        "path": "pipeline/build/review/1328426815397813.jpg",
+        "sha256": "5ac5b7c7a46f2fc66867e9ce486632f069b4850168182dc6f1a93c7842bb2b1d",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1760341859535,
+        "captureDate": "2025-10-13T07:50:59.535000+00:00",
+        "sequenceId": "3mQ7rBzdqfoWL1YiwuMtPN",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.467424809164,
+            17.404605176433
+          ]
+        },
+        "compass": 356.68899818907,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=1328426815397813",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "1724258461813926",
+      "reviewer": "root",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "1724258461813926",
+        "path": "pipeline/build/review/1724258461813926.jpg",
+        "sha256": "b249418d31885b9cbb10e0c0263f5d08bb840ce75fedeaa71e118118ac1b9898",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1752470988844,
+        "captureDate": "2025-07-14T05:29:48.844000+00:00",
+        "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.476232181884,
+            17.393724830183
+          ]
+        },
+        "compass": 61.656352707964,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=1724258461813926",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "829804834584478",
+      "reviewer": "root",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "829804834584478",
+        "path": "pipeline/build/review/829804834584478.jpg",
+        "sha256": "05e3096c7f7ab144711e9eeff072c9ff9c33d3d1e00587e7193492db08344868",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1593518675011,
+        "captureDate": "2020-06-30T12:04:35.011000+00:00",
+        "sequenceId": "5wHYaqvKKgCFFPxvoiDdYE",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.484899304013,
+            17.394377003281
+          ]
+        },
+        "compass": 247.46498637712,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=829804834584478",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "1060928456143691",
+      "reviewer": "root",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "1060928456143691",
+        "path": "pipeline/build/review/1060928456143691.jpg",
+        "sha256": "38b2630487878be89e7c652e01a87c462fc5f53b01b8d383a3346aad3c02dd27",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1752470776846,
+        "captureDate": "2025-07-14T05:26:16.846000+00:00",
+        "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.467472393163,
+            17.404886041768
+          ]
+        },
+        "compass": 77.028492758377,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=1060928456143691",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "1052981830312483",
+      "reviewer": "root",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "1052981830312483",
+        "path": "pipeline/build/review/1052981830312483.jpg",
+        "sha256": "63ca4811996542b5082cd40d278c8c3d4421731159ade10524414cb3257b9ace",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1752470777849,
+        "captureDate": "2025-07-14T05:26:17.849000+00:00",
+        "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.467492688186,
+            17.404801840079
+          ]
+        },
+        "compass": 74.003806601984,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=1052981830312483",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "119574847404311",
+      "reviewer": "playtest_west",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "119574847404311",
+        "path": "pipeline/build/round-2026-10-23T2056Z/muthoot-images/119574847404311.jpg",
+        "sha256": "893c24dc27d81389d9251eb6c6dc40461e03c5de279f489d19e72681983d3193",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1652100532507,
+        "captureDate": "2022-05-09T12:48:52.507000+00:00",
+        "sequenceId": "hZbqcRkNXte2miPGDa3CsS",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.498979964029,
+            17.394678252134
+          ]
+        },
+        "compass": 83.142628225224,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=119574847404311",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "469559111015467",
+      "reviewer": "playtest_west",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "469559111015467",
+        "path": "pipeline/build/round-2026-10-23T2056Z/muthoot-images/469559111015467.jpg",
+        "sha256": "990a5fce0026597dfba0938af68585076d36f06495b1a4c9f79afdfe4d10f51e",
+        "dimensions": [
+          2048,
+          1152
+        ],
+        "capturedAt": 1606096248728,
+        "captureDate": "2020-11-23T01:50:48.728000+00:00",
+        "sequenceId": "24mq1yjy7thsxg5lllpge2",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.499830300845,
+            17.394665908763
+          ]
+        },
+        "compass": 272.91283094051,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=469559111015467",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "324707789247181",
+      "reviewer": "playtest_east",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "324707789247181",
+        "path": "pipeline/build/round-2026-10-23T2056Z/review/324707789247181.jpg",
+        "sha256": "178f6d1c5f22933afa38be5df8f834f93aa109751a798d263839fff8e105c0af",
+        "dimensions": [
+          2048,
+          1152
+        ],
+        "capturedAt": 1612749699318,
+        "captureDate": "2021-02-08T02:01:39.318000+00:00",
+        "sequenceId": "613oshak1jhgpyh718b0h9",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.508047014914,
+            17.410037179535
+          ]
+        },
+        "compass": 322.30393337227,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=324707789247181",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "255663376356298",
+      "reviewer": "playtest_east",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by the reviewing agent",
+      "source": {
+        "imageId": "255663376356298",
+        "path": "pipeline/build/round-2026-10-23T2056Z/review/255663376356298.jpg",
+        "sha256": "fbe7ade6c066582cc17cdd724d7d77a6e99c8b2852ca44a8aa3de5d42fa947e0",
+        "dimensions": [
+          2048,
+          1152
+        ],
+        "capturedAt": 1612749697166,
+        "captureDate": "2021-02-08T02:01:37.166000+00:00",
+        "sequenceId": "613oshak1jhgpyh718b0h9",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.508126940344,
+            17.409929236209
+          ]
+        },
+        "compass": 323.67560691104,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=255663376356298",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "3801425310160803",
+      "reviewer": "root",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by root",
+      "source": {
+        "imageId": "3801425310160803",
+        "path": "pipeline/build/review/3801425310160803.jpg",
+        "sha256": "6c8a0f2eb6ca02f559ce15f129c07026cac9cebac330f00bcad13f4d22cd4b51",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1770428589521,
+        "captureDate": "2026-02-07T01:43:09.521000+00:00",
+        "sequenceId": "DthWTOoix64PFKrUCRpJky",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.496238911887,
+            17.376083714394
+          ]
+        },
+        "compass": 240.09147330917,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=3801425310160803",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    },
+    {
+      "imageId": "1220235743552639",
+      "reviewer": "root",
+      "inspectionMethod": "view_image of unmodified original-provider 2048 derivative, as recorded by root",
+      "source": {
+        "imageId": "1220235743552639",
+        "path": "pipeline/build/review/1220235743552639.jpg",
+        "sha256": "fd7abc7ba0de493e4a81fdbd189a35b9958e00868232164d45b6c1117fbe1819",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1770428590528,
+        "captureDate": "2026-02-07T01:43:10.528000+00:00",
+        "sequenceId": "DthWTOoix64PFKrUCRpJky",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.496195603858,
+            17.376169493585
+          ]
+        },
+        "compass": 242.11554082439,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=1220235743552639",
+        "license": "CC-BY-SA-4.0"
+      },
+      "previousTrackedReviewMentions": [],
+      "newUniqueImageAgainstPriorTrackedReviews": true
+    }
+  ],
+  "inspectionAccounting": {
+    "priorStatusPath": "docs/shopfront-background-status.json",
+    "priorStatusTimestamp": "2026-10-23T19:57:38.916809+00:00",
+    "priorUniqueOriginalImages": 45,
+    "priorManualInspectionEvents": 48,
+    "newUniqueOriginalImages": 12,
+    "repeatImageInspectionsThisRound": 0,
+    "newManualInspectionEvents": 12,
+    "cumulativeUniqueOriginalImages": 57,
+    "cumulativeManualInspectionEvents": 60,
+    "dedupCheckedAgainst": [
+      "docs/shopfront-photo-review-2026-10-23.json",
+      "docs/shopfront-photo-review-2026-10-23T0807Z.json",
+      "docs/shopfront-photo-review-2026-10-23T0924Z.json",
+      "docs/shopfront-photo-review-2026-10-23T1028Z.json",
+      "docs/shopfront-photo-review-2026-10-23T1742Z.json",
+      "docs/shopfront-photo-review-2026-10-23T1938Z.json"
+    ],
+    "dedupMethod": "Each of the twelve inspected image IDs is absent from all prior tracked photo-review JSONs; root also verified no overlap with prior run receipts’ actual originalImageIds. The same source reused across candidate reviews is counted once. All twelve saved-byte hashes match their inspection receipts.",
+    "excludedFromThisRoundCount": [
+      "Historical October Asian image 1835010847222599",
+      "Historical July Vineeth image 768199478938645",
+      "Historical Muthoot images 983186122396949 and 288567309599364",
+      "Historical MedPlus image 196037872417648",
+      "Metadata-only nearby images, including rejected MedPlus independent frame 3751889588254208"
+    ]
+  },
+  "reviews": [
+    {
+      "candidateBoardId": "b_6037b4ea-20db-40",
+      "candidateName": "Al Saud Mandi",
+      "reviewer": "root",
+      "sources": [
+        {
+          "imageId": "299900531766735",
+          "path": "pipeline/build/review/299900531766735.jpg",
+          "sha256": "b2364d006c7bbc46f98c8bb7f5890a67234a5b487797d8b59c39b42e883160c1",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1593518922054,
+          "captureDate": "2020-06-30T12:08:42.054000+00:00",
+          "sequenceId": "bSaMgrbqRBcPWNp597T3ga",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.484611712726,
+              17.394298334258
+            ]
+          },
+          "compass": 69.847482504033,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=299900531766735",
+          "license": "CC-BY-SA-4.0"
+        },
+        {
+          "imageId": "829804834584478",
+          "path": "pipeline/build/review/829804834584478.jpg",
+          "sha256": "05e3096c7f7ab144711e9eeff072c9ff9c33d3d1e00587e7193492db08344868",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1593518675011,
+          "captureDate": "2020-06-30T12:04:35.011000+00:00",
+          "sequenceId": "5wHYaqvKKgCFFPxvoiDdYE",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.484899304013,
+              17.394377003281
+            ]
+          },
+          "compass": 247.46498637712,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=829804834584478",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_0.pack.wasm",
+        "packSha256": "4453d15dbb3af7980604a77459f243ac1e74f20b85a1ffcdc05e74f392616ef7",
+        "tile": "-2_1",
+        "boardRecord": {
+          "id": "b_6037b4ea-20db-40",
+          "text": "Al Saud Mandi",
+          "full": "Al Saud Mandi",
+          "group": "food",
+          "tier": "A",
+          "conf": 0.8,
+          "a": [
+            -1259.0,
+            1317.4
+          ],
+          "b": [
+            -1245.9,
+            1311.9
+          ],
+          "t": 0.08,
+          "slot": {
+            "floor": 0,
+            "index": 0,
+            "of": 2
+          },
+          "building": "481e1378-da8",
+          "road": "King koti road",
+          "seen": null,
+          "seen_year": null
+        },
+        "buildingGeometry": {
+          "id": "481e1378-da8",
+          "h": 15.1,
+          "ring": [
+            [
+              -1263.9,
+              1306.1
+            ],
+            [
+              -1259.0,
+              1317.4
+            ],
+            [
+              -1245.9,
+              1311.9
+            ],
+            [
+              -1250.4,
+              1300.3
+            ]
+          ]
+        },
+        "renderGeometry": {
+          "facadeXZ": [
+            [
+              -1259.0,
+              1317.4
+            ],
+            [
+              -1245.9,
+              1311.9
+            ]
+          ],
+          "facadeLatLon": [
+            [
+              17.39439655088612,
+              78.48475100613216
+            ],
+            [
+              17.39444624647602,
+              78.48487429590156
+            ]
+          ],
+          "facadeLengthM": 14.207744367069587,
+          "mappedFraction": 0.08,
+          "rendererFraction": 0.25,
+          "facadeAnchorXZ": [
+            -1255.725,
+            1316.025
+          ],
+          "signTextAnchorXYZ": [
+            -1255.6243506665762,
+            3.55,
+            1316.2647284123366
+          ],
+          "signTextAnchorLatLon": [
+            17.394406808702712,
+            78.48478277582895
+          ],
+          "facadeOutwardNormalXZ": [
+            0.38711282086041643,
+            0.9220323551402583
+          ],
+          "renderedSignWidthM": 6.4,
+          "renderedSignHeightM": 0.95,
+          "rendererHeightCull": false,
+          "facadeTooShortCull": false
+        },
+        "sameFacadeNeighborsInFloorThenIncreasingRendererFraction": [
+          {
+            "boardId": "b_6037b4ea-20db-40",
+            "name": "Al Saud Mandi",
+            "text": "Al Saud Mandi",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "road": "King koti road",
+            "facadeXZ": [
+              [
+                -1259.0,
+                1317.4
+              ],
+              [
+                -1245.9,
+                1311.9
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -1255.6243506665762,
+              3.55,
+              1316.2647284123366
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_39b59779-7aa7-41",
+            "name": "Fancy Auto Sales",
+            "text": "Fancy Auto Sales",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 2
+            },
+            "road": "King koti road",
+            "facadeXZ": [
+              [
+                -1259.0,
+                1317.4
+              ],
+              [
+                -1245.9,
+                1311.9
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.75,
+            "signTextAnchorXYZ": [
+              -1249.0743506665765,
+              3.55,
+              1313.5147284123366
+            ],
+            "rendererHeightCull": false
+          }
+        ],
+        "otherSameBuildingBoards": [
+          {
+            "boardId": "b_20866cc3-9856-48",
+            "name": "King Koti Police Station",
+            "text": "King Police Station",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -1245.9,
+                1311.9
+              ],
+              [
+                -1250.4,
+                1300.3
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.302,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -1246.7826004373726,
+              3.55,
+              1308.9059656869117
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_d30e4a7f-4967-49",
+            "name": "Al-Noor Motors",
+            "text": "Al-Noor Motors",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 2
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -1245.9,
+                1311.9
+              ],
+              [
+                -1250.4,
+                1300.3
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.75,
+            "signTextAnchorXYZ": [
+              -1249.0326004373726,
+              3.55,
+              1303.1059656869118
+            ],
+            "rendererHeightCull": false
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "299900531766735",
+          "readableSignText": [
+            "Al Saud",
+            "Al Saud Pan Mahal"
+          ],
+          "identitySupport": true,
+          "context": "Root observed historical Al Saud restaurant signage and a separate Al Saud Pan Mahal ground canopy.",
+          "floorAndEntrance": "Restaurant entrance and operating floor remain unbound; the pan-shop canopy is not proof of the restaurant entrance.",
+          "neighborOrder": "The separate restaurant and pan-shop signs cannot be collapsed to one frontage or used to certify the mapped Fancy Auto Sales neighbor."
+        },
+        {
+          "imageId": "829804834584478",
+          "readableSignText": [
+            "Al Saud",
+            "Pan Mahal",
+            "Rider’z"
+          ],
+          "identitySupport": true,
+          "context": "Opposite approach: Al Saud branding on image-right pink building with arched windows. Pan Mahal is on a small canopy toward image-left of the restaurant; Rider’z accessories is farther image-right.",
+          "floorAndEntrance": "Historical identity and relative sign context only; restaurant floor, doorway and exact building-edge registration remain unresolved.",
+          "neighborOrder": "Image-left/right sign relationships are reported as seen, not an approved row of adjacent operating premises."
+        }
+      ],
+      "decision": "historical_brand_supported_two_same_day_sequences_restaurant_pan_shop_binding_pending",
+      "independentPhotoSequencesInspected": 2,
+      "independentPhotoSequencesWithReadableDistinctiveIdentity": 2,
+      "unresolved": [
+        "Both views date to 2020-06-30; a different sequence on that day is not current-operation evidence.",
+        "Al Saud restaurant and Al Saud Pan Mahal canopy must not be merged based on shared brand words.",
+        "Mapped floor 0/index 0 of 2 with Fancy Auto Sales remains inferred; actual restaurant entrance, facade and neighbor order need binding."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_45506ff6-efbb-49",
+      "candidateName": "Astoria Restaurant",
+      "reviewer": "root",
+      "sources": [
+        {
+          "imageId": "1328426815397813",
+          "path": "pipeline/build/review/1328426815397813.jpg",
+          "sha256": "5ac5b7c7a46f2fc66867e9ce486632f069b4850168182dc6f1a93c7842bb2b1d",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1760341859535,
+          "captureDate": "2025-10-13T07:50:59.535000+00:00",
+          "sequenceId": "3mQ7rBzdqfoWL1YiwuMtPN",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.467424809164,
+              17.404605176433
+            ]
+          },
+          "compass": 356.68899818907,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1328426815397813",
+          "license": "CC-BY-SA-4.0"
+        },
+        {
+          "imageId": "1060928456143691",
+          "path": "pipeline/build/review/1060928456143691.jpg",
+          "sha256": "38b2630487878be89e7c652e01a87c462fc5f53b01b8d383a3346aad3c02dd27",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1752470776846,
+          "captureDate": "2025-07-14T05:26:16.846000+00:00",
+          "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.467472393163,
+              17.404886041768
+            ]
+          },
+          "compass": 77.028492758377,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1060928456143691",
+          "license": "CC-BY-SA-4.0"
+        },
+        {
+          "imageId": "1052981830312483",
+          "path": "pipeline/build/review/1052981830312483.jpg",
+          "sha256": "63ca4811996542b5082cd40d278c8c3d4421731159ade10524414cb3257b9ace",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1752470777849,
+          "captureDate": "2025-07-14T05:26:17.849000+00:00",
+          "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.467492688186,
+              17.404801840079
+            ]
+          },
+          "compass": 74.003806601984,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1052981830312483",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-2_0.pack.wasm",
+        "packSha256": "31c36ff63090e26e49e193c149424f0074376b21c57af5b94dcca67fef20db96",
+        "tile": "-4_0",
+        "boardRecord": {
+          "id": "b_45506ff6-efbb-49",
+          "text": "Astoria Restaurant",
+          "full": "Astoria Restaurant",
+          "group": "food",
+          "tier": "B",
+          "conf": 0.56,
+          "a": [
+            -3080.1,
+            155.1
+          ],
+          "b": [
+            -3082.9,
+            170.6
+          ],
+          "t": 0.08,
+          "slot": {
+            "floor": 0,
+            "index": 0,
+            "of": 4
+          },
+          "building": "c27edef8-98c",
+          "road": "AG Office Road",
+          "seen": null,
+          "seen_year": null
+        },
+        "buildingGeometry": {
+          "id": "c27edef8-98c",
+          "h": 13.4,
+          "ring": [
+            [
+              -3080.1,
+              155.1
+            ],
+            [
+              -3082.9,
+              170.6
+            ],
+            [
+              -3082.3,
+              174.1
+            ],
+            [
+              -3075.8,
+              175.3
+            ],
+            [
+              -3072.4,
+              156.5
+            ]
+          ]
+        },
+        "renderGeometry": {
+          "facadeXZ": [
+            [
+              -3080.1,
+              155.1
+            ],
+            [
+              -3082.9,
+              170.6
+            ]
+          ],
+          "facadeLatLon": [
+            [
+              17.404898584364993,
+              78.46761184589965
+            ],
+            [
+              17.404758533157107,
+              78.46758549388788
+            ]
+          ],
+          "facadeLengthM": 15.750872991678936,
+          "mappedFraction": 0.08,
+          "rendererFraction": 0.125,
+          "facadeAnchorXZ": [
+            -3080.45,
+            157.0375
+          ],
+          "signTextAnchorXYZ": [
+            -3080.7058588341183,
+            3.55,
+            156.99128033964308
+          ],
+          "signTextAnchorLatLon": [
+            17.404881495584604,
+            78.46760614389997
+          ],
+          "facadeOutwardNormalXZ": [
+            -0.9840724389174194,
+            -0.1777679244496099
+          ],
+          "renderedSignWidthM": 3.587718247919734,
+          "renderedSignHeightM": 0.95,
+          "rendererHeightCull": false,
+          "facadeTooShortCull": false
+        },
+        "sameFacadeNeighborsInFloorThenIncreasingRendererFraction": [
+          {
+            "boardId": "b_45506ff6-efbb-49",
+            "name": "Astoria Restaurant",
+            "text": "Astoria Restaurant",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "road": "AG Office Road",
+            "facadeXZ": [
+              [
+                -3080.1,
+                155.1
+              ],
+              [
+                -3082.9,
+                170.6
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.125,
+            "signTextAnchorXYZ": [
+              -3080.7058588341183,
+              3.55,
+              156.99128033964308
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_5b3fd674-a9a6-4c",
+            "name": "Asian Tours and Travels",
+            "text": "Asian Tours and Travels",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 4
+            },
+            "road": "AG Office Road",
+            "facadeXZ": [
+              [
+                -3080.1,
+                155.1
+              ],
+              [
+                -3082.9,
+                170.6
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.375,
+            "signTextAnchorXYZ": [
+              -3081.4058588341186,
+              3.55,
+              160.86628033964308
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_n1309296596",
+            "name": "Hotel Astoria",
+            "text": "Hotel Astoria",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "road": "AG Office Road",
+            "facadeXZ": [
+              [
+                -3080.1,
+                155.1
+              ],
+              [
+                -3082.9,
+                170.6
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.145,
+            "rendererFraction": 0.625,
+            "signTextAnchorXYZ": [
+              -3082.1058588341184,
+              3.55,
+              164.74128033964308
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_3a78d1cc-ac09-4a",
+            "name": "Areenz Travels",
+            "text": "Areenz Travels",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 4
+            },
+            "road": "AG Office Road",
+            "facadeXZ": [
+              [
+                -3080.1,
+                155.1
+              ],
+              [
+                -3082.9,
+                170.6
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.477,
+            "rendererFraction": 0.875,
+            "signTextAnchorXYZ": [
+              -3082.8058588341187,
+              3.55,
+              168.61628033964308
+            ],
+            "rendererHeightCull": false
+          }
+        ],
+        "otherSameBuildingBoards": []
+      },
+      "observations": [
+        {
+          "imageId": "1328426815397813",
+          "readableSignText": [
+            "ASTORIA RESTAURANT",
+            "Asian Tours & Travels"
+          ],
+          "identitySupport": true,
+          "context": "Root observed a clear pink ground-level ASTORIA RESTAURANT sign and Asian Tours & Travels to its image-right.",
+          "floorAndEntrance": "Ground-level restaurant signage is visible; exact entrance boundaries and the separate mapped Hotel Astoria listing remain unregistered.",
+          "neighborOrder": "Astoria then Asian from image-left to right in this frame. This is a local observed relationship, not certification of the whole inferred four-slot facade."
+        },
+        {
+          "imageId": "1060928456143691",
+          "readableSignText": [
+            "Asian Tours & Travels",
+            "Ground Floor & 1st Floor",
+            "FAMILY SECTION & TAKE AWAY",
+            "TALENT SOURCE CONSULTANCY"
+          ],
+          "identitySupportForAsian": true,
+          "identitySupportForAstoria": false,
+          "context": "Close Asian Tours & Travels board and glazed ground door near image center. Cropped restaurant frontage at image-left says FAMILY SECTION & TAKE AWAY. An upper TALENT SOURCE CONSULTANCY address says third floor above Astoria Restaurant.",
+          "floorAndEntrance": "Asian signage claims Ground Floor & 1st Floor; retain that as a photographed address claim, not a surveyed floor allocation. A ground door is visible, but exact mapped facade endpoints are not registered. The consultancy address is contextual text, not a visible full Astoria fascia.",
+          "neighborOrder": "Supports a travel-office/restaurant adjacency in this view; full named frontage order and individual unit boundaries remain unresolved."
+        },
+        {
+          "imageId": "1052981830312483",
+          "readableSignText": [],
+          "identitySupport": false,
+          "context": "Same July sequence 1.003 seconds later: neighboring cream/yellow mosque complex and gate, with the blue facade tail at image-left. No readable Asian or Astoria branding.",
+          "floorAndEntrance": "Boundary context only; no target operating-floor or entrance confirmation.",
+          "neighborOrder": "The adjoining complex boundary is visible, but this frame supplies no additional readable business identity."
+        }
+      ],
+      "decision": "historical_restaurant_name_and_local_asian_relation_supported_binding_pending",
+      "independentPhotoSequencesInspected": 2,
+      "independentPhotoSequencesWithReadableDistinctiveIdentity": 1,
+      "unresolved": [
+        "Astoria Restaurant, Asian Tours, Hotel Astoria and Areenz Travels share four inferred ground-floor slots on the same AG Office Road facade. Photo-local order does not validate all four entries or separate the hotel and restaurant entrances.",
+        "The July consultancy address refers to Astoria, but no full direct Astoria fascia is visible in that frame.",
+        "The two July originals are in one sequence and are 1.003 seconds apart. The second is boundary context only.",
+        "The October image previously reviewed for Asian (1835010847222599) is in the same sequence as the new October image (1328426815397813), 1.907 seconds earlier; it is not independent evidence.",
+        "Asian Ground Floor & 1st Floor wording is a historical photo address claim, not an approved slot assignment."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_5b3fd674-a9a6-4c",
+      "candidateName": "Asian Tours and Travels",
+      "reviewer": "root",
+      "sources": [
+        {
+          "imageId": "1328426815397813",
+          "path": "pipeline/build/review/1328426815397813.jpg",
+          "sha256": "5ac5b7c7a46f2fc66867e9ce486632f069b4850168182dc6f1a93c7842bb2b1d",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1760341859535,
+          "captureDate": "2025-10-13T07:50:59.535000+00:00",
+          "sequenceId": "3mQ7rBzdqfoWL1YiwuMtPN",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.467424809164,
+              17.404605176433
+            ]
+          },
+          "compass": 356.68899818907,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1328426815397813",
+          "license": "CC-BY-SA-4.0"
+        },
+        {
+          "imageId": "1060928456143691",
+          "path": "pipeline/build/review/1060928456143691.jpg",
+          "sha256": "38b2630487878be89e7c652e01a87c462fc5f53b01b8d383a3346aad3c02dd27",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1752470776846,
+          "captureDate": "2025-07-14T05:26:16.846000+00:00",
+          "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.467472393163,
+              17.404886041768
+            ]
+          },
+          "compass": 77.028492758377,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1060928456143691",
+          "license": "CC-BY-SA-4.0"
+        },
+        {
+          "imageId": "1052981830312483",
+          "path": "pipeline/build/review/1052981830312483.jpg",
+          "sha256": "63ca4811996542b5082cd40d278c8c3d4421731159ade10524414cb3257b9ace",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1752470777849,
+          "captureDate": "2025-07-14T05:26:17.849000+00:00",
+          "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.467492688186,
+              17.404801840079
+            ]
+          },
+          "compass": 74.003806601984,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1052981830312483",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-2_0.pack.wasm",
+        "packSha256": "31c36ff63090e26e49e193c149424f0074376b21c57af5b94dcca67fef20db96",
+        "tile": "-4_0",
+        "boardRecord": {
+          "id": "b_5b3fd674-a9a6-4c",
+          "text": "Asian Tours and Travels",
+          "full": "Asian Tours and Travels",
+          "group": "shop",
+          "tier": "A",
+          "conf": 0.75,
+          "a": [
+            -3080.1,
+            155.1
+          ],
+          "b": [
+            -3082.9,
+            170.6
+          ],
+          "t": 0.08,
+          "slot": {
+            "floor": 0,
+            "index": 1,
+            "of": 4
+          },
+          "building": "c27edef8-98c",
+          "road": "AG Office Road",
+          "seen": 4,
+          "seen_year": 2025
+        },
+        "buildingGeometry": {
+          "id": "c27edef8-98c",
+          "h": 13.4,
+          "ring": [
+            [
+              -3080.1,
+              155.1
+            ],
+            [
+              -3082.9,
+              170.6
+            ],
+            [
+              -3082.3,
+              174.1
+            ],
+            [
+              -3075.8,
+              175.3
+            ],
+            [
+              -3072.4,
+              156.5
+            ]
+          ]
+        },
+        "renderGeometry": {
+          "facadeXZ": [
+            [
+              -3080.1,
+              155.1
+            ],
+            [
+              -3082.9,
+              170.6
+            ]
+          ],
+          "facadeLatLon": [
+            [
+              17.404898584364993,
+              78.46761184589965
+            ],
+            [
+              17.404758533157107,
+              78.46758549388788
+            ]
+          ],
+          "facadeLengthM": 15.750872991678936,
+          "mappedFraction": 0.08,
+          "rendererFraction": 0.375,
+          "facadeAnchorXZ": [
+            -3081.15,
+            160.9125
+          ],
+          "signTextAnchorXYZ": [
+            -3081.4058588341186,
+            3.55,
+            160.86628033964308
+          ],
+          "signTextAnchorLatLon": [
+            17.404846482782634,
+            78.46759955589702
+          ],
+          "facadeOutwardNormalXZ": [
+            -0.9840724389174194,
+            -0.1777679244496099
+          ],
+          "renderedSignWidthM": 3.587718247919734,
+          "renderedSignHeightM": 0.95,
+          "rendererHeightCull": false,
+          "facadeTooShortCull": false
+        },
+        "sameFacadeNeighborsInFloorThenIncreasingRendererFraction": [
+          {
+            "boardId": "b_45506ff6-efbb-49",
+            "name": "Astoria Restaurant",
+            "text": "Astoria Restaurant",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "road": "AG Office Road",
+            "facadeXZ": [
+              [
+                -3080.1,
+                155.1
+              ],
+              [
+                -3082.9,
+                170.6
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.125,
+            "signTextAnchorXYZ": [
+              -3080.7058588341183,
+              3.55,
+              156.99128033964308
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_5b3fd674-a9a6-4c",
+            "name": "Asian Tours and Travels",
+            "text": "Asian Tours and Travels",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 4
+            },
+            "road": "AG Office Road",
+            "facadeXZ": [
+              [
+                -3080.1,
+                155.1
+              ],
+              [
+                -3082.9,
+                170.6
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.375,
+            "signTextAnchorXYZ": [
+              -3081.4058588341186,
+              3.55,
+              160.86628033964308
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_n1309296596",
+            "name": "Hotel Astoria",
+            "text": "Hotel Astoria",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "road": "AG Office Road",
+            "facadeXZ": [
+              [
+                -3080.1,
+                155.1
+              ],
+              [
+                -3082.9,
+                170.6
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.145,
+            "rendererFraction": 0.625,
+            "signTextAnchorXYZ": [
+              -3082.1058588341184,
+              3.55,
+              164.74128033964308
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_3a78d1cc-ac09-4a",
+            "name": "Areenz Travels",
+            "text": "Areenz Travels",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 4
+            },
+            "road": "AG Office Road",
+            "facadeXZ": [
+              [
+                -3080.1,
+                155.1
+              ],
+              [
+                -3082.9,
+                170.6
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.477,
+            "rendererFraction": 0.875,
+            "signTextAnchorXYZ": [
+              -3082.8058588341187,
+              3.55,
+              168.61628033964308
+            ],
+            "rendererHeightCull": false
+          }
+        ],
+        "otherSameBuildingBoards": []
+      },
+      "observations": [
+        {
+          "imageId": "1328426815397813",
+          "readableSignText": [
+            "ASTORIA RESTAURANT",
+            "Asian Tours & Travels"
+          ],
+          "identitySupport": true,
+          "context": "Root observed a clear pink ground-level ASTORIA RESTAURANT sign and Asian Tours & Travels to its image-right.",
+          "floorAndEntrance": "Ground-level restaurant signage is visible; exact entrance boundaries and the separate mapped Hotel Astoria listing remain unregistered.",
+          "neighborOrder": "Astoria then Asian from image-left to right in this frame. This is a local observed relationship, not certification of the whole inferred four-slot facade."
+        },
+        {
+          "imageId": "1060928456143691",
+          "readableSignText": [
+            "Asian Tours & Travels",
+            "Ground Floor & 1st Floor",
+            "FAMILY SECTION & TAKE AWAY",
+            "TALENT SOURCE CONSULTANCY"
+          ],
+          "identitySupportForAsian": true,
+          "identitySupportForAstoria": false,
+          "context": "Close Asian Tours & Travels board and glazed ground door near image center. Cropped restaurant frontage at image-left says FAMILY SECTION & TAKE AWAY. An upper TALENT SOURCE CONSULTANCY address says third floor above Astoria Restaurant.",
+          "floorAndEntrance": "Asian signage claims Ground Floor & 1st Floor; retain that as a photographed address claim, not a surveyed floor allocation. A ground door is visible, but exact mapped facade endpoints are not registered. The consultancy address is contextual text, not a visible full Astoria fascia.",
+          "neighborOrder": "Supports a travel-office/restaurant adjacency in this view; full named frontage order and individual unit boundaries remain unresolved."
+        },
+        {
+          "imageId": "1052981830312483",
+          "readableSignText": [],
+          "identitySupport": false,
+          "context": "Same July sequence 1.003 seconds later: neighboring cream/yellow mosque complex and gate, with the blue facade tail at image-left. No readable Asian or Astoria branding.",
+          "floorAndEntrance": "Boundary context only; no target operating-floor or entrance confirmation.",
+          "neighborOrder": "The adjoining complex boundary is visible, but this frame supplies no additional readable business identity."
+        }
+      ],
+      "decision": "historical_travel_name_supported_across_two_sequences_floor_address_and_binding_pending",
+      "independentPhotoSequencesInspected": 2,
+      "independentPhotoSequencesWithReadableDistinctiveIdentity": 2,
+      "unresolved": [
+        "Astoria Restaurant, Asian Tours, Hotel Astoria and Areenz Travels share four inferred ground-floor slots on the same AG Office Road facade. Photo-local order does not validate all four entries or separate the hotel and restaurant entrances.",
+        "The July consultancy address refers to Astoria, but no full direct Astoria fascia is visible in that frame.",
+        "The two July originals are in one sequence and are 1.003 seconds apart. The second is boundary context only.",
+        "The October image previously reviewed for Asian (1835010847222599) is in the same sequence as the new October image (1328426815397813), 1.907 seconds earlier; it is not independent evidence.",
+        "Asian Ground Floor & 1st Floor wording is a historical photo address claim, not an approved slot assignment."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_526d7b07-49bf-47",
+      "candidateName": "Ghanshyamdas Gems and Jewels",
+      "reviewer": "root",
+      "sources": [
+        {
+          "imageId": "1724258461813926",
+          "path": "pipeline/build/review/1724258461813926.jpg",
+          "sha256": "b249418d31885b9cbb10e0c0263f5d08bb840ce75fedeaa71e118118ac1b9898",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1752470988844,
+          "captureDate": "2025-07-14T05:29:48.844000+00:00",
+          "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.476232181884,
+              17.393724830183
+            ]
+          },
+          "compass": 61.656352707964,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1724258461813926",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_0.pack.wasm",
+        "packSha256": "4453d15dbb3af7980604a77459f243ac1e74f20b85a1ffcdc05e74f392616ef7",
+        "tile": "-3_1",
+        "boardRecord": {
+          "id": "b_526d7b07-49bf-47",
+          "text": "Ghanshyamdas Gems and Jewels",
+          "full": "Ghanshyamdas Gems and Jewels",
+          "group": "shop",
+          "tier": "A",
+          "conf": 0.9,
+          "a": [
+            -2155.8,
+            1370.4
+          ],
+          "b": [
+            -2152.6,
+            1386.2
+          ],
+          "t": 0.727,
+          "slot": {
+            "floor": 0,
+            "index": 3,
+            "of": 5
+          },
+          "building": "1aac961f-43c",
+          "road": "Abids Road",
+          "seen": null,
+          "seen_year": null
+        },
+        "buildingGeometry": {
+          "id": "1aac961f-43c",
+          "h": 18.2,
+          "ring": [
+            [
+              -2152.6,
+              1386.2
+            ],
+            [
+              -2110.0,
+              1377.3
+            ],
+            [
+              -2112.6,
+              1361.9
+            ],
+            [
+              -2155.8,
+              1370.4
+            ]
+          ]
+        },
+        "renderGeometry": {
+          "facadeXZ": [
+            [
+              -2155.8,
+              1370.4
+            ],
+            [
+              -2152.6,
+              1386.2
+            ]
+          ],
+          "facadeLatLon": [
+            [
+              17.39391766611078,
+              78.47631083321662
+            ],
+            [
+              17.39377490423436,
+              78.4763409498015
+            ]
+          ],
+          "facadeLengthM": 16.12079402510932,
+          "mappedFraction": 0.727,
+          "rendererFraction": 0.7,
+          "facadeAnchorXZ": [
+            -2153.56,
+            1381.46
+          ],
+          "signTextAnchorXYZ": [
+            -2153.8148261576694,
+            3.55,
+            1381.5116103610471
+          ],
+          "signTextAnchorLatLon": [
+            17.393817266468677,
+            78.47632951654678
+          ],
+          "facadeOutwardNormalXZ": [
+            -0.9801006064211413,
+            0.19850138864227396
+          ],
+          "renderedSignWidthM": 2.874158805021864,
+          "renderedSignHeightM": 0.95,
+          "rendererHeightCull": false,
+          "facadeTooShortCull": false
+        },
+        "sameFacadeNeighborsInFloorThenIncreasingRendererFraction": [
+          {
+            "boardId": "b_4df3a8c818a88611",
+            "name": "softy pub",
+            "text": "softy pub",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 5
+            },
+            "road": "Abids Road",
+            "facadeXZ": [
+              [
+                -2155.8,
+                1370.4
+              ],
+              [
+                -2152.6,
+                1386.2
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.122,
+            "rendererFraction": 0.1,
+            "signTextAnchorXYZ": [
+              -2155.7348261576694,
+              3.55,
+              1372.0316103610471
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_43520a32-c786-43",
+            "name": "IGL International Gemological Laboratory",
+            "text": "IGL International Gemological Laboratory",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 5
+            },
+            "road": "Abids Road",
+            "facadeXZ": [
+              [
+                -2155.8,
+                1370.4
+              ],
+              [
+                -2152.6,
+                1386.2
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.311,
+            "rendererFraction": 0.3,
+            "signTextAnchorXYZ": [
+              -2155.0948261576696,
+              3.55,
+              1375.1916103610472
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_2783e811-72af-49",
+            "name": "GIL Gemtech International Laboratories",
+            "text": "GIL Gemtech International Laboratories",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 5
+            },
+            "road": "Abids Road",
+            "facadeXZ": [
+              [
+                -2155.8,
+                1370.4
+              ],
+              [
+                -2152.6,
+                1386.2
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.598,
+            "rendererFraction": 0.5,
+            "signTextAnchorXYZ": [
+              -2154.4548261576692,
+              3.55,
+              1378.3516103610473
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_526d7b07-49bf-47",
+            "name": "Ghanshyamdas Gems and Jewels",
+            "text": "Ghanshyamdas Gems and Jewels",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 5
+            },
+            "road": "Abids Road",
+            "facadeXZ": [
+              [
+                -2155.8,
+                1370.4
+              ],
+              [
+                -2152.6,
+                1386.2
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.727,
+            "rendererFraction": 0.7,
+            "signTextAnchorXYZ": [
+              -2153.8148261576694,
+              3.55,
+              1381.5116103610471
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_1e4b242307ad4755",
+            "name": "John and Company Bakery and Confectionery",
+            "text": "John and Company Bakery and Confectionery",
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 5
+            },
+            "road": "Abids Road",
+            "facadeXZ": [
+              [
+                -2155.8,
+                1370.4
+              ],
+              [
+                -2152.6,
+                1386.2
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.727,
+            "rendererFraction": 0.9,
+            "signTextAnchorXYZ": [
+              -2153.1748261576695,
+              3.55,
+              1384.6716103610472
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_45d5ebd1-6090-45",
+            "name": "Sri Ram Jewellers",
+            "text": "Sri Ram Jewellers",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "road": "Abids Road",
+            "facadeXZ": [
+              [
+                -2155.8,
+                1370.4
+              ],
+              [
+                -2152.6,
+                1386.2
+              ]
+            ],
+            "sameDirectedFacade": true,
+            "mappedFraction": 0.773,
+            "rendererFraction": 0.773,
+            "signTextAnchorXYZ": [
+              -2153.424410060642,
+              6.95,
+              1382.6332501388642
+            ],
+            "rendererHeightCull": false
+          }
+        ],
+        "otherSameBuildingBoards": [
+          {
+            "boardId": "b_626ae5b1-9866-42",
+            "name": "My Choice Sarees",
+            "text": "My Choice Sarees",
+            "slot": {
+              "floor": 0,
+              "index": 6,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.684,
+            "rendererFraction": 0.5,
+            "signTextAnchorXYZ": [
+              -2134.2501950037713,
+              3.55,
+              1365.8948912749506
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_ec4ef4e6-50bb-4f",
+            "name": "Olympias Lazeez Tea and Snacks",
+            "text": "Olympias Lazeez Tea and Snacks",
+            "slot": {
+              "floor": 0,
+              "index": 8,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.83,
+            "rendererFraction": 0.6538461538461539,
+            "signTextAnchorXYZ": [
+              -2140.8963488499253,
+              3.55,
+              1367.202583582643
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_df53825f-0dcf-4e",
+            "name": "Swad Tiffins",
+            "text": "Swad Tiffins",
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.443,
+            "rendererFraction": 0.34615384615384615,
+            "signTextAnchorXYZ": [
+              -2127.6040411576178,
+              3.55,
+              1364.5871989672582
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_5ba8a2b8-fe69-45",
+            "name": "Mayur Khushal Complex",
+            "text": "Mayur Khushal Complex",
+            "slot": {
+              "floor": 0,
+              "index": 5,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.653,
+            "rendererFraction": 0.4230769230769231,
+            "signTextAnchorXYZ": [
+              -2130.9271180806945,
+              3.55,
+              1365.2410451211044
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_967a041b-0532-49",
+            "name": "Swaroop Jewellers",
+            "text": "Swaroop Jewellers",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.437,
+            "rendererFraction": 0.2692307692307692,
+            "signTextAnchorXYZ": [
+              -2124.2809642345405,
+              3.55,
+              1363.933352813412
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_9acf95c8-1294-48",
+            "name": "Sales Tax Office",
+            "text": "Sales Tax Office",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.69,
+            "rendererFraction": 0.69,
+            "signTextAnchorXYZ": [
+              -2142.427305770681,
+              6.95,
+              1367.6668812595965
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_be5ab38f-7936-45",
+            "name": "Changalal Jewellers",
+            "text": "Changalal Jewellers",
+            "slot": {
+              "floor": 0,
+              "index": 10,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.8076923076923077,
+            "signTextAnchorXYZ": [
+              -2147.5425026960793,
+              3.55,
+              1368.5102758903352
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_85b5325b-36f9-47",
+            "name": "Payal jewellers",
+            "text": "Payal jewellers",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.373,
+            "rendererFraction": 0.11538461538461539,
+            "signTextAnchorXYZ": [
+              -2117.634810388387,
+              3.55,
+              1362.62566050572
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_6245d60c-d38e-4a",
+            "name": "M Bajranglal Sons Jewellers",
+            "text": "M Bajranglal Sons Jewellers",
+            "slot": {
+              "floor": 0,
+              "index": 11,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.8846153846153846,
+            "signTextAnchorXYZ": [
+              -2150.865579619156,
+              3.55,
+              1369.1641220441813
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_d118c53b-ee1e-4d",
+            "name": "Pusaram Shyam Sundar Jewellers",
+            "text": "Pusaram Shyam Sundar Jewellers",
+            "slot": {
+              "floor": 0,
+              "index": 12,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.9615384615384616,
+            "signTextAnchorXYZ": [
+              -2154.1886565422333,
+              3.55,
+              1369.8179681980275
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_512600fae4b0c104",
+            "name": "hubli bubli",
+            "text": "hubli bubli",
+            "slot": {
+              "floor": 0,
+              "index": 9,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.905,
+            "rendererFraction": 0.7307692307692307,
+            "signTextAnchorXYZ": [
+              -2144.2194257730025,
+              3.55,
+              1367.8564297364892
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_d119c40e47a24c41",
+            "name": "Book Den",
+            "text": "Book Den",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.92,
+            "signTextAnchorXYZ": [
+              -2152.363305770681,
+              10.15,
+              1369.6218812595964
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_f9991f0a3e5e4ef2",
+            "name": "Royal Choice",
+            "text": "Royal Choice",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.424,
+            "rendererFraction": 0.19230769230769232,
+            "signTextAnchorXYZ": [
+              -2120.9578873114638,
+              3.55,
+              1363.279506659566
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_5a867b0fdd84423b",
+            "name": "Vineeth Jewellery",
+            "text": "Vineeth Jewellery",
+            "slot": {
+              "floor": 0,
+              "index": 7,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.685,
+            "rendererFraction": 0.5769230769230769,
+            "signTextAnchorXYZ": [
+              -2137.5732719268485,
+              3.55,
+              1366.5487374287968
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "boardId": "b_53636961498ea8a7",
+            "name": "Rajdeep jewellers",
+            "text": "Rajdeep jewellers",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 13
+            },
+            "road": null,
+            "facadeXZ": [
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ],
+            "sameDirectedFacade": false,
+            "mappedFraction": 0.24,
+            "rendererFraction": 0.038461538461538464,
+            "signTextAnchorXYZ": [
+              -2114.3117334653098,
+              3.55,
+              1361.9718143518737
+            ],
+            "rendererHeightCull": false
+          }
+        ]
+      },
+      "nearbyNamedMappedContext": [
+        {
+          "pack": "p-1_0.pack.wasm",
+          "tile": "-3_1",
+          "boardRecord": {
+            "id": "b_ea45996d-d25a-40",
+            "text": "Chermas",
+            "full": "Chermas",
+            "group": "fashion",
+            "tier": "A",
+            "conf": 0.9,
+            "a": [
+              -2158.8,
+              1403.4
+            ],
+            "b": [
+              -2156.9,
+              1418.3
+            ],
+            "t": 0.819,
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 5
+            },
+            "building": "dcaf1fb3-33f",
+            "road": "Abids Road",
+            "seen": null,
+            "seen_year": null
+          },
+          "buildingGeometry": {
+            "id": "dcaf1fb3-33f",
+            "h": 12.4,
+            "ring": [
+              [
+                -2156.9,
+                1418.3
+              ],
+              [
+                -2123.2,
+                1414.0
+              ],
+              [
+                -2125.2,
+                1398.5
+              ],
+              [
+                -2158.8,
+                1403.4
+              ]
+            ]
+          },
+          "rendererFraction": 0.9,
+          "facadeAnchorXZ": [
+            -2157.09,
+            1416.81
+          ],
+          "rendererSignCentreYM": 3.55,
+          "sameBuildingAsGhanshyamdas": false,
+          "sameDirectedFacadeAsGhanshyamdas": false,
+          "contextLimit": "Mapped relationship only; no entrance, operating floor or neighbor sequence is certified."
+        },
+        {
+          "pack": "p-1_0.pack.wasm",
+          "tile": "-3_1",
+          "boardRecord": {
+            "id": "b_w357311125",
+            "text": "Cherma's",
+            "full": "Cherma's",
+            "group": "shop",
+            "tier": "B",
+            "conf": 0.7,
+            "a": [
+              -2158.8,
+              1403.4
+            ],
+            "b": [
+              -2156.9,
+              1418.3
+            ],
+            "t": 0.501,
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 5
+            },
+            "building": "dcaf1fb3-33f",
+            "road": null,
+            "seen": null,
+            "seen_year": null
+          },
+          "buildingGeometry": {
+            "id": "dcaf1fb3-33f",
+            "h": 12.4,
+            "ring": [
+              [
+                -2156.9,
+                1418.3
+              ],
+              [
+                -2123.2,
+                1414.0
+              ],
+              [
+                -2125.2,
+                1398.5
+              ],
+              [
+                -2158.8,
+                1403.4
+              ]
+            ]
+          },
+          "rendererFraction": 0.5,
+          "facadeAnchorXZ": [
+            -2157.8500000000004,
+            1410.85
+          ],
+          "rendererSignCentreYM": 3.55,
+          "sameBuildingAsGhanshyamdas": false,
+          "sameDirectedFacadeAsGhanshyamdas": false,
+          "contextLimit": "Mapped relationship only; no entrance, operating floor or neighbor sequence is certified."
+        },
+        {
+          "pack": "p-1_0.pack.wasm",
+          "tile": "-3_1",
+          "boardRecord": {
+            "id": "b_5a867b0fdd84423b",
+            "text": "Vineeth Jewellery",
+            "full": "Vineeth Jewellery",
+            "group": "fashion",
+            "tier": "B",
+            "conf": 0.57,
+            "a": [
+              -2112.6,
+              1361.9
+            ],
+            "b": [
+              -2155.8,
+              1370.4
+            ],
+            "t": 0.685,
+            "slot": {
+              "floor": 0,
+              "index": 7,
+              "of": 13
+            },
+            "building": "1aac961f-43c",
+            "road": null,
+            "seen": 1,
+            "seen_year": 2025
+          },
+          "buildingGeometry": {
+            "id": "1aac961f-43c",
+            "h": 18.2,
+            "ring": [
+              [
+                -2152.6,
+                1386.2
+              ],
+              [
+                -2110.0,
+                1377.3
+              ],
+              [
+                -2112.6,
+                1361.9
+              ],
+              [
+                -2155.8,
+                1370.4
+              ]
+            ]
+          },
+          "rendererFraction": 0.5769230769230769,
+          "facadeAnchorXZ": [
+            -2137.523076923077,
+            1366.8038461538463
+          ],
+          "rendererSignCentreYM": 3.55,
+          "sameBuildingAsGhanshyamdas": true,
+          "sameDirectedFacadeAsGhanshyamdas": false,
+          "contextLimit": "Mapped relationship only; no entrance, operating floor or neighbor sequence is certified."
+        },
+        {
+          "pack": "p-1_0.pack.wasm",
+          "tile": "-3_1",
+          "boardRecord": {
+            "id": "b_9025a1d5-ef92-44",
+            "text": "Vineeth Jewellers",
+            "full": "Vineeth Jewellers",
+            "group": "shop",
+            "tier": "A",
+            "conf": 0.9,
+            "a": [
+              -2116.1,
+              1338.8
+            ],
+            "b": [
+              -2159.4,
+              1347.8
+            ],
+            "t": 0.92,
+            "slot": {
+              "floor": 0,
+              "index": 5,
+              "of": 10
+            },
+            "building": "89685a24-1c5",
+            "road": null,
+            "seen": null,
+            "seen_year": null
+          },
+          "buildingGeometry": {
+            "id": "89685a24-1c5",
+            "h": 16.2,
+            "ring": [
+              [
+                -2156.2,
+                1364.1
+              ],
+              [
+                -2113.4,
+                1355.7
+              ],
+              [
+                -2116.1,
+                1338.8
+              ],
+              [
+                -2159.4,
+                1347.8
+              ]
+            ]
+          },
+          "rendererFraction": 0.55,
+          "facadeAnchorXZ": [
+            -2139.915,
+            1343.75
+          ],
+          "rendererSignCentreYM": 3.55,
+          "sameBuildingAsGhanshyamdas": false,
+          "sameDirectedFacadeAsGhanshyamdas": false,
+          "contextLimit": "Mapped relationship only; no entrance, operating floor or neighbor sequence is certified."
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "1724258461813926",
+          "readableSignText": [
+            "Ghanshyamdas Gems & Jewels",
+            "VINEETH JEWELLERS",
+            "CHERMA’S"
+          ],
+          "identitySupport": true,
+          "context": "Root observed Ghanshyamdas ground corner shop, the VINEETH JEWELLERS fascia above it and CHERMA’S to image-right across a narrow gap.",
+          "floorAndEntrance": "Ghanshyamdas ground corner context is supported. The elevated Vineeth sign does not itself establish its operating floor or stair entrance.",
+          "neighborOrder": "Signs span multiple floors and a separate neighboring footprint; the visible relationship does not approve mapped slot order or merge duplicate listings."
+        }
+      ],
+      "decision": "historical_name_and_ground_corner_context_supported_vineeth_floor_and_cherma_duplicates_pending",
+      "independentPhotoSequencesInspected": 1,
+      "independentPhotoSequencesWithReadableDistinctiveIdentity": 1,
+      "priorVineethContext": {
+        "path": "docs/shopfront-photo-review-2026-10-23T1742Z.json#/reviews/9",
+        "imageId": "768199478938645",
+        "captureDate": "2025-07-14T05:29:47.876000+00:00",
+        "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+        "newGhanshyamdasPhotoCaptureDate": "2025-07-14T05:29:48.844000+00:00",
+        "captureSeparationSeconds": 0.968,
+        "sameSequenceAsNewPhoto": true,
+        "priorObservation": "VINEETH JEWELLERS on upper fascia above Ghanshyamdas; alley/Chermas image-right.",
+        "unresolved": "Mapped Vineeth Jewellery is floor 0 slot 7/13 on another facade of the Ghanshyamdas building. Another Vineeth Jewellers listing is on a separate nearby footprint. Upper signage must not be equated automatically with operating floor. Two near-adjacent same-run frames are not independent confirmation."
+      },
+      "unresolved": [
+        "Mapped Vineeth Jewellery b_5a867b0fdd84423b shares the Ghanshyamdas footprint but is assigned another facade at ground-floor slot 7/13; the upper sign cannot certify its operating floor.",
+        "Another Vineeth Jewellers record b_9025a1d5-ef92-44 belongs to a separate nearby building and remains unbound.",
+        "Chermas b_ea45996d-d25a-40 and Cherma’s b_w357311125 share a separate footprint and directed facade but occupy inferred slots 4/5 and 2/5. One visible brand does not establish two entrances or authorize merging.",
+        "Prior Vineeth image 768199478938645 and this Ghanshyamdas image are only 0.968 seconds apart in the same July sequence. They are not independent runs.",
+        "Distinctive Ghanshyamdas evidence must be distinguished from generic Gems & Jewels wording."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_bc9880bc-19e2-4b",
+      "candidateName": "Muthoot Finance Gold Loan",
+      "reviewer": "playtest_west",
+      "reviewSource": "pipeline/build/round-2026-10-23T2056Z/muthoot-review.json",
+      "sources": [
+        {
+          "imageId": "119574847404311",
+          "path": "pipeline/build/round-2026-10-23T2056Z/muthoot-images/119574847404311.jpg",
+          "sha256": "893c24dc27d81389d9251eb6c6dc40461e03c5de279f489d19e72681983d3193",
+          "dimensions": [
+            2048,
+            1536
+          ],
+          "capturedAt": 1652100532507,
+          "captureDate": "2022-05-09T12:48:52.507000+00:00",
+          "sequenceId": "hZbqcRkNXte2miPGDa3CsS",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.498979964029,
+              17.394678252134
+            ]
+          },
+          "compass": 83.142628225224,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=119574847404311",
+          "license": "CC-BY-SA-4.0"
+        },
+        {
+          "imageId": "469559111015467",
+          "path": "pipeline/build/round-2026-10-23T2056Z/muthoot-images/469559111015467.jpg",
+          "sha256": "990a5fce0026597dfba0938af68585076d36f06495b1a4c9f79afdfe4d10f51e",
+          "dimensions": [
+            2048,
+            1152
+          ],
+          "capturedAt": 1606096248728,
+          "captureDate": "2020-11-23T01:50:48.728000+00:00",
+          "sequenceId": "24mq1yjy7thsxg5lllpge2",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.499830300845,
+              17.394665908763
+            ]
+          },
+          "compass": 272.91283094051,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=469559111015467",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p0_0.pack.wasm",
+        "packSha256": "1d1c89054aa00998e5e3d86831306fabe97e24b9baffad71a93fe258f84ede42",
+        "tile": "0_1",
+        "boardRecord": {
+          "id": "b_bc9880bc-19e2-4b",
+          "text": "Muthoot Finance Gold Loan",
+          "full": "Muthoot Finance Gold Loan",
+          "group": "finance",
+          "tier": "B",
+          "conf": 0.59,
+          "a": [
+            307.0,
+            1250.9
+          ],
+          "b": [
+            301.6,
+            1268.0
+          ],
+          "t": 0.92,
+          "slot": {
+            "floor": 0,
+            "index": 2,
+            "of": 4
+          },
+          "building": "fb58fc1c-ce0",
+          "road": null,
+          "seen": 4,
+          "seen_year": 2022
+        },
+        "buildingGeometry": {
+          "id": "fb58fc1c-ce0",
+          "h": 15.8,
+          "ring": [
+            [
+              312.4,
+              1267.1
+            ],
+            [
+              323.2,
+              1270.5
+            ],
+            [
+              327.7,
+              1256.4
+            ],
+            [
+              305.8,
+              1249.6
+            ],
+            [
+              305.5,
+              1250.4
+            ],
+            [
+              307.0,
+              1250.9
+            ],
+            [
+              301.6,
+              1268.0
+            ],
+            [
+              311.2,
+              1271.0
+            ]
+          ]
+        },
+        "sameBuildingBoardRecords": [
+          {
+            "id": "b_bc9880bc-19e2-4b",
+            "text": "Muthoot Finance Gold Loan",
+            "full": "Muthoot Finance Gold Loan",
+            "group": "finance",
+            "tier": "B",
+            "conf": 0.59,
+            "a": [
+              307.0,
+              1250.9
+            ],
+            "b": [
+              301.6,
+              1268.0
+            ],
+            "t": 0.92,
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "building": "fb58fc1c-ce0",
+            "road": null,
+            "seen": 4,
+            "seen_year": 2022
+          },
+          {
+            "id": "b_8121055f-e580-42",
+            "text": "The Tasty Arabian Mandi House",
+            "full": "The Tasty Arabian Mandi House",
+            "group": "food",
+            "tier": "B",
+            "conf": 0.7,
+            "a": [
+              307.0,
+              1250.9
+            ],
+            "b": [
+              301.6,
+              1268.0
+            ],
+            "t": 0.92,
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 4
+            },
+            "building": "fb58fc1c-ce0",
+            "road": null,
+            "seen": null,
+            "seen_year": null
+          },
+          {
+            "id": "b_bfd3553b-8942-4c",
+            "text": "Akshaya Medical Hall",
+            "full": "Akshaya Medical Hall",
+            "group": "pharmacy",
+            "tier": "C",
+            "conf": 0.5,
+            "a": [
+              307.0,
+              1250.9
+            ],
+            "b": [
+              301.6,
+              1268.0
+            ],
+            "t": 0.864,
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "building": "fb58fc1c-ce0",
+            "road": null,
+            "seen": null,
+            "seen_year": null
+          },
+          {
+            "id": "b_a0e611ba-65d7-44",
+            "text": "Pulse 8 Elite Gym Cardio",
+            "full": "Pulse 8 Elite Gym Cardio",
+            "group": "shop",
+            "tier": "B",
+            "conf": 0.7,
+            "a": [
+              307.0,
+              1250.9
+            ],
+            "b": [
+              301.6,
+              1268.0
+            ],
+            "t": 0.898,
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 4
+            },
+            "building": "fb58fc1c-ce0",
+            "road": null,
+            "seen": 1,
+            "seen_year": 2020
+          }
+        ],
+        "contextStatus": "Current mapped source records; facade, floor and shop order are inferred and not photo-certified."
+      },
+      "observations": [
+        {
+          "imageId": "119574847404311",
+          "imageSidePosition": "The relevant multi-storey blue-glazed building and elevated PULSE8 sign are in the left half of this eastbound view, approximately x 600–900 of 2048. A small red panel sits lower/right within that frontage cluster.",
+          "readableVisibleText": [
+            "PULSE8",
+            "GYM"
+          ],
+          "muthootFinanceReadable": false,
+          "muthootTextLimit": "The small red panel is too oblique/distant and partly obstructed to transcribe Muthoot Finance confidently. Prior label association is not a new brand reading.",
+          "floorAndEntrance": "PULSE8/GYM is clearly on an upper facade. The Muthoot entrance, staircase route and exact operating floor are not identifiable. Low frontage roofs, poles/wires, traffic and other signs obscure the lower facade.",
+          "neighborOrder": "The image shows low street-front shops and a produce cart before the elevated Pulse8/gym building as the left-hand frontage recedes. The cart is mobile and unnamed; it is not a fixed shop-order anchor. Small XEROX-related lettering is present on a yellow lower-frontage sign, but a full business name and precise entrance boundary are not readable.",
+          "placementImpact": "Adds opposite-approach context but no reliable Muthoot entrance or ground-floor slot confirmation. No candidate or neighbor reassignment is justified."
+        },
+        {
+          "imageId": "469559111015467",
+          "imageSidePosition": "The candidate-associated Pulse8/bar building cluster is on image-right, partly behind a tree and close to the right crop. On the opposite side of the street at image-left, a large elevated gold-loan fascia is visible.",
+          "readableVisibleText": [
+            "MANAPPURAM GOLD LOAN",
+            "S. Cube RESTAURANT & BAR",
+            "PULSE8 ELITE GYM",
+            "GOLDEN FOOTWEAR"
+          ],
+          "partialVisibleText": [
+            "RUKKUS D…"
+          ],
+          "muthootFinanceReadable": false,
+          "identityCaution": "The clear image-left gold-loan fascia reads Manappuram, a different brand on the opposite roadside. It must not be treated as Muthoot identity evidence simply because GOLD LOAN is readable.",
+          "floorAndEntrance": "Restaurant/bar and gym signs are elevated above street-level shutters/hoarding. The possible Muthoot red frontage sign near the right edge is oblique, partly hidden by the tree and insufficiently legible. No Muthoot door or stair entrance can be assigned.",
+          "neighborOrder": "Within image-right only, the projected left-to-right sign order is distant RUKKUS dental-related signs, a small GOLDEN FOOTWEAR fascia, S. Cube restaurant/bar above and behind that lower frontage, then repeated PULSE8 ELITE GYM signs and the tree/right-edge area. This mixes floors and perspective; it is not an exact row of adjacent ground-floor entrances. The image-left Manappuram fascia belongs to the opposite side of the road.",
+          "placementImpact": "Improves separation of opposite-side gold-loan branding and nearby elevated signs, but does not resolve Muthoot operating floor or entrance order."
+        }
+      ],
+      "decision": "no_new_readable_muthoot_brand_or_entrance_from_two_context_views_keep_binding_pending",
+      "independentPhotoSequencesInspected": 2,
+      "newIndependentSequencesBeyondPriorReview": 1,
+      "cumulativeIndependentSequencesInspectedForCandidate": 3,
+      "independentPhotoSequencesWithReadableDistinctiveIdentityThisRound": 0,
+      "sequenceAccounting": "Two distinct sequences in this pass. The 2020 sequence 24mq1yjy7thsxg5lllpge2 was already inspected in the prior round; only 2022 hZbqcRkNXte2miPGDa3CsS is newly represented for this candidate. Neither new frame supports a confident Muthoot Finance reading.",
+      "previousReview": {
+        "path": "docs/shopfront-photo-review-2026-10-23T1742Z.json",
+        "decision": "historical_brand_supported_floor_and_entrance_pending",
+        "imagesPreviouslyInspectedForCandidate": [
+          "983186122396949",
+          "288567309599364"
+        ],
+        "sequencesPreviouslyInspectedForCandidate": [
+          "2oijlEduh9fG5wg3sAbxrW",
+          "24mq1yjy7thsxg5lllpge2"
+        ],
+        "reportedBinding": {
+          "pack": "p0_0.pack.wasm",
+          "tile": "0_1",
+          "buildingId": "fb58fc1c-ce0",
+          "slot": {
+            "floor": 0,
+            "index": 2,
+            "of": 4
+          },
+          "exactPlacementApproved": false
+        },
+        "priorNeighbors": "Akshaya Medical Hall, Pulse 8 Elite Gym Cardio and The Tasty Arabian Mandi House were allocated to the same mapped ground-floor facade; that allocation was not established as observed entrance order."
+      },
+      "unresolved": [
+        "A clearer view of the same Muthoot facade showing a readable brand sign and its actual door/stair entrance.",
+        "At least one independent view tying that entrance to fixed adjacent premises on the same road side, with floor distinction.",
+        "Newer dated evidence before claiming current operation or current shop order.",
+        "Clear MANAPPURAM GOLD LOAN branding in the opposite-side 2020 frontage must not be attributed to Muthoot.",
+        "The inferred ground-floor slot 2/4 and Akshaya/Pulse8/Tasty Arabian neighbors remain unregistered."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    },
+    {
+      "candidateBoardId": "b_d161506a-8365-43",
+      "candidateName": "Medplus Ram Nagar X Roads",
+      "reviewer": "playtest_east",
+      "reviewSource": "pipeline/build/round-2026-10-23T2056Z/medplus-review.json",
+      "sources": [
+        {
+          "imageId": "324707789247181",
+          "path": "pipeline/build/round-2026-10-23T2056Z/review/324707789247181.jpg",
+          "sha256": "178f6d1c5f22933afa38be5df8f834f93aa109751a798d263839fff8e105c0af",
+          "dimensions": [
+            2048,
+            1152
+          ],
+          "capturedAt": 1612749699318,
+          "captureDate": "2021-02-08T02:01:39.318000+00:00",
+          "sequenceId": "613oshak1jhgpyh718b0h9",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.508047014914,
+              17.410037179535
+            ]
+          },
+          "compass": 322.30393337227,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=324707789247181",
+          "license": "CC-BY-SA-4.0"
+        },
+        {
+          "imageId": "255663376356298",
+          "path": "pipeline/build/round-2026-10-23T2056Z/review/255663376356298.jpg",
+          "sha256": "fbe7ade6c066582cc17cdd724d7d77a6e99c8b2852ca44a8aa3de5d42fa947e0",
+          "dimensions": [
+            2048,
+            1152
+          ],
+          "capturedAt": 1612749697166,
+          "captureDate": "2021-02-08T02:01:37.166000+00:00",
+          "sequenceId": "613oshak1jhgpyh718b0h9",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.508126940344,
+              17.409929236209
+            ]
+          },
+          "compass": 323.67560691104,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=255663376356298",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p0_-1.pack.wasm",
+        "packSha256": "4413c8308be5c45561eda6244815dfec44f73a6f8d62df88b67c01656aae09a8",
+        "tile": "1_-1",
+        "boardRecord": {
+          "id": "b_d161506a-8365-43",
+          "text": "Medplus Ram Nagar X Roads",
+          "full": "Medplus Ram Nagar X Roads",
+          "group": "health",
+          "tier": "B",
+          "conf": 0.57,
+          "a": [
+            1213.5,
+            -434.9
+          ],
+          "b": [
+            1215.9,
+            -438.0
+          ],
+          "t": 0.426,
+          "slot": {
+            "floor": 1,
+            "index": 0,
+            "of": 1
+          },
+          "building": "c76548f7-ca2",
+          "road": null,
+          "seen": null,
+          "seen_year": null
+        },
+        "buildingGeometry": {
+          "id": "c76548f7-ca2",
+          "h": 6.2,
+          "ring": [
+            [
+              1212.6,
+              -443.0
+            ],
+            [
+              1209.6,
+              -441.0
+            ],
+            [
+              1213.5,
+              -434.9
+            ],
+            [
+              1215.9,
+              -438.0
+            ]
+          ]
+        },
+        "sameBuildingBoardRecords": [
+          {
+            "id": "b_d161506a-8365-43",
+            "text": "Medplus Ram Nagar X Roads",
+            "full": "Medplus Ram Nagar X Roads",
+            "group": "health",
+            "tier": "B",
+            "conf": 0.57,
+            "a": [
+              1213.5,
+              -434.9
+            ],
+            "b": [
+              1215.9,
+              -438.0
+            ],
+            "t": 0.426,
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1
+            },
+            "building": "c76548f7-ca2",
+            "road": null,
+            "seen": null,
+            "seen_year": null
+          },
+          {
+            "id": "b_960bac44-ce8e-4e",
+            "text": "Raunaq Fitness Studio",
+            "full": "Raunaq Fitness Studio",
+            "group": "shop",
+            "tier": "A",
+            "conf": 0.78,
+            "a": [
+              1213.5,
+              -434.9
+            ],
+            "b": [
+              1215.9,
+              -438.0
+            ],
+            "t": 0.446,
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "building": "c76548f7-ca2",
+            "road": null,
+            "seen": null,
+            "seen_year": null
+          }
+        ],
+        "contextStatus": "Current mapped source records; facade, floor and shop order are inferred and not photo-certified."
+      },
+      "observations": [
+        {
+          "imageId": "324707789247181",
+          "readableName": "No MedPlus fascia is visible in this frame.",
+          "facade": "Street continues past shuttered roadside commercial frontages; target entrance cannot be identified from this frame.",
+          "imageSidePosition": "MedPlus is outside or obscured at the image-right edge; the exact reason is not verifiable from this frame alone.",
+          "floorEntrance": "Target floor and entrance not visible.",
+          "neighbors": [
+            "Image-right: BABA ELECTRICALS fascia and a red WINES sign farther down the street.",
+            "Image-left: a ZUMBA board beside shuttered shops."
+          ],
+          "usefulness": "Context only; does not add pharmacy identity or exact facade-binding evidence.",
+          "confidence": "High for absence of a readable target fascia; no target-placement claim."
+        },
+        {
+          "imageId": "255663376356298",
+          "readableName": "MedPlus in English and Telugu on red fascia; Quality Chemists & Druggists is readable. The Ram Nagar X Roads branch wording is not visible.",
+          "facade": "Image-right white frontage has a pharmacy fascia above a glazed entry/shopfront. An upstairs sign contains FITNESS; its full name is cropped or obscured.",
+          "imageSidePosition": "Right foreground, partly cropped by the right image boundary.",
+          "floorEntrance": "Raised street-level entrance served by short white steps and black metal handrails. Parked motorcycles and an awning obscure portions of the access; it is not an upper-storey pharmacy entrance.",
+          "neighbors": [
+            "Above pharmacy: partial FITNESS sign; complete business identity is not independently established by this frame.",
+            "Image-left across the road: FOOT WEAR wording, blue Jio sign, and TENT HOUSE / SOUND & DECORATION sign.",
+            "Farther along image-right: shuttered storefronts and a red WINES sign; exact adjacent business order is not resolved."
+          ],
+          "usefulness": "Reinforces historical MedPlus brand and raised ground-floor pharmacy with fitness premises above. Does not identify the exact mapped branch, building polygon, frontage endpoints or current operation.",
+          "confidence": "High for readable brand and relative vertical arrangement; low for mapped facade/branch binding."
+        }
+      ],
+      "decision": "keep_queued_historical_brand_supported_floor_binding_conflict_pending",
+      "independentPhotoSequencesInspected": 1,
+      "newIndependentSequencesBeyondPriorReview": 0,
+      "independentPhotoSequencesWithReadableDistinctiveIdentityThisRound": 1,
+      "sequenceAccounting": "Both new frames are from the same 2021 sequence as the prior MedPlus original. One adds readable brand/raised-entry context; the other does not show a readable target fascia. No independent run was added.",
+      "previousReview": {
+        "path": "docs/shopfront-photo-review-2026-10-23T1028Z.json",
+        "imageId": "196037872417648",
+        "sequence": "613oshak1jhgpyh718b0h9",
+        "decision": "historical_brand_supported_floor_binding_conflict_pending",
+        "relevantConflict": "Mapped pharmacy slot is floor 1; photo shows raised street-level pharmacy below fitness signage. Same mapped facade has Raunaq Fitness Studio on floor 0. No automatic swap is justified."
+      },
+      "cacheSearchLimit": {
+        "scope": "Existing local metadata only; no external API search or coverage completeness claim.",
+        "uniqueCachedImageCount": 14266,
+        "radiusM": 400,
+        "sequencesWithinRadius": [
+          {
+            "sequence": "613oshak1jhgpyh718b0h9",
+            "imageCount": 127,
+            "nearest": {
+              "imageId": "156074666569686",
+              "distanceM": 12.34,
+              "bearingOffsetDegrees": 80.35
+            }
+          },
+          {
+            "sequence": "ho5onvi2qlhkj5v9iuuiwn",
+            "imageCount": 8,
+            "nearest": {
+              "imageId": "3751889588254208",
+              "distanceM": 323.3,
+              "bearingOffsetDegrees": -174.55
+            }
+          }
+        ],
+        "usefulIndependentSequencesWithin250m": 0,
+        "nearestIndependentFrame": {
+          "imageId": "3751889588254208",
+          "sequence": "ho5onvi2qlhkj5v9iuuiwn",
+          "distanceM": 321.64,
+          "bearingOffsetDegrees": -174.7,
+          "decision": "Not downloaded or visually counted; target approximately behind camera. Already rejected by prior review."
+        }
+      },
+      "unresolved": [
+        "The two new frames belong to the same 2021 sequence as the earlier reviewed frame. They are not independent corroboration.",
+        "The historical pharmacy brand and raised ground-level entrance are supported; the exact mapped branch, polygon, facade endpoints and shop order are not resolved.",
+        "Nearby same-brand listings and the pharmacy/fitness mapped floor conflict require independent facade evidence before any binding or floor change.",
+        "The 2021 photos do not establish present-day operation."
+      ],
+      "applied": false,
+      "exactPlacementApproved": false,
+      "exactShopOrderApproved": false,
+      "currentOperationVerified": false
+    }
+  ],
+  "sequenceAudits": {
+    "asianOctober": {
+      "checkedSources": [
+        "docs/shopfront-photo-review-2026-10-23T1938Z.json#/reviews/7/sources",
+        "pipeline/build/mly_images_city.jsonl",
+        "pipeline/build/mly_metadata_progress.jsonl",
+        "pipeline/build/ocr_matches.json"
+      ],
+      "photos": [
+        {
+          "imageId": "1835010847222599",
+          "captureDate": "2025-10-13T07:50:57.628000+00:00",
+          "capturedAt": 1760341857628,
+          "sequenceId": "3mQ7rBzdqfoWL1YiwuMtPN",
+          "computedHeadingDegrees": 355.11880380512
+        },
+        {
+          "imageId": "1328426815397813",
+          "captureDate": "2025-10-13T07:50:59.535000+00:00",
+          "capturedAt": 1760341859535,
+          "sequenceId": "3mQ7rBzdqfoWL1YiwuMtPN",
+          "computedHeadingDegrees": 356.68899818907
+        }
+      ],
+      "captureSeparationSeconds": 1.907,
+      "independentSequenceCount": 1,
+      "conclusion": "The old tracked review and both metadata caches agree. These are nearby frames in the same sequence, not independent runs. Any earlier prose summary calling them different sequences was incorrect; no tracked metadata discrepancy found."
+    },
+    "astoriaAsianJuly": {
+      "imageIds": [
+        "1060928456143691",
+        "1052981830312483"
+      ],
+      "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+      "captureSeparationSeconds": 1.003,
+      "independentSequenceCount": 1,
+      "limit": "Only the first has readable Asian branding; the second is neighboring boundary context."
+    },
+    "vineethGhanshyamdas": {
+      "path": "docs/shopfront-photo-review-2026-10-23T1742Z.json#/reviews/9",
+      "imageId": "768199478938645",
+      "captureDate": "2025-07-14T05:29:47.876000+00:00",
+      "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+      "newGhanshyamdasPhotoCaptureDate": "2025-07-14T05:29:48.844000+00:00",
+      "captureSeparationSeconds": 0.968,
+      "sameSequenceAsNewPhoto": true,
+      "priorObservation": "VINEETH JEWELLERS on upper fascia above Ghanshyamdas; alley/Chermas image-right.",
+      "unresolved": "Mapped Vineeth Jewellery is floor 0 slot 7/13 on another facade of the Ghanshyamdas building. Another Vineeth Jewellers listing is on a separate nearby footprint. Upper signage must not be equated automatically with operating floor. Two near-adjacent same-run frames are not independent confirmation."
+    },
+    "pako": {
+      "imageIds": [
+        "3801425310160803",
+        "1220235743552639"
+      ],
+      "sequenceId": "DthWTOoix64PFKrUCRpJky",
+      "captureSeparationSeconds": 1.007,
+      "independentSequenceCount": 1,
+      "limit": "Two same-run 2026-02-07 frames support historical readable identity but not current October operation or registered floor/order."
+    }
+  },
+  "remainingWork": [
+    "Register actual building corners, facade endpoints, operating-floor access and fixed neighboring entrances before any photo-driven placement change.",
+    "Resolve the restaurant/pan-shop relationship at Al Saud and the restaurant/hotel/travel-office relationships along Astoria’s shared frontage.",
+    "Keep Vineeth elevation and duplicate Chermas source bindings unresolved; sign position is not equivalent to operating floor.",
+    "Seek clear independent MedPlus and Muthoot entrance views. Both remain historically identified but incompletely bound.",
+    "Historical 2020–2026 captures, including February 2026 PAKO imagery, do not establish current October 2026 operation or citywide shop order.",
+    "Keep PAKO as a raw photo-only candidate until exact facade, operating floor, entrance and fixed neighbors are registered; no import approved."
+  ],
+  "applied": false,
+  "exactCurrentStreetOrderVerified": false,
+  "rawPhotoOnlyFollowUp": {
+    "candidateName": "PAKO MARTIAL ARTS & SELF DEFENCE ACADEMY",
+    "candidateKind": "raw_photo_only_candidate_not_in_conservative_filtered_apply_set",
+    "rawReportText": "PAKO MARTIAL ARTS",
+    "reviewer": "root",
+    "imagesInspected": [
+      {
+        "imageId": "3801425310160803",
+        "path": "pipeline/build/review/3801425310160803.jpg",
+        "sha256": "6c8a0f2eb6ca02f559ce15f129c07026cac9cebac330f00bcad13f4d22cd4b51",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1770428589521,
+        "captureDate": "2026-02-07T01:43:09.521000+00:00",
+        "sequenceId": "DthWTOoix64PFKrUCRpJky",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.496238911887,
+            17.376083714394
+          ]
+        },
+        "compass": 240.09147330917,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=3801425310160803",
+        "license": "CC-BY-SA-4.0",
+        "observations": "Image-right yellow/red/blue-glazed SK PLAZA facade shows PAKO MARTIAL ARTS & SELF DEFENCE ACADEMY red fascia plus upper photo-banner signs. Rahmath Motors Parts boards and shuttered units are below/left; narrow central gridded entrance and steps are partly visible. Classic Stitchers and China Town signage are image-left. Royal Advertising Agency upper board belongs to this facade cluster. Display height alone does not establish the academy operating floor or correct entrance."
+      },
+      {
+        "imageId": "1220235743552639",
+        "path": "pipeline/build/review/1220235743552639.jpg",
+        "sha256": "fd7abc7ba0de493e4a81fdbd189a35b9958e00868232164d45b6c1117fbe1819",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "capturedAt": 1770428590528,
+        "captureDate": "2026-02-07T01:43:10.528000+00:00",
+        "sequenceId": "DthWTOoix64PFKrUCRpJky",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            78.496195603858,
+            17.376169493585
+          ]
+        },
+        "compass": 242.11554082439,
+        "sourceUrl": "https://www.mapillary.com/app/?pKey=1220235743552639",
+        "license": "CC-BY-SA-4.0",
+        "observations": "PAKO MARTIAL ARTS & SELF DEFENCE ACADEMY clearly readable near center of SK PLAZA facade; Rahmath Motors Parts lower-left. Narrow gridded entrance and steps below/near academy sign, with a TO-LET 3rd Floor board, do not establish the academy floor. Same-side projected image-left-to-right context: Classic Stitchers/China Town/Hi-Tech signage, Rahmath Motors frontage, academy signage with central entry, TARA JUICE WORLD in next building, Majesty Sweets & Namkeen farther right. Mixed elevations, perspective and shutters prevent treating this as registered unit order."
+      }
+    ],
+    "sourceIndependence": "Two frames from sequence DthWTOoix64PFKrUCRpJky, 1.007 seconds apart; one source sequence. Capture date 2026-02-07 does not prove current operation on 2026-10-23.",
+    "decision": "Readable historical identity supported; exact building/facade binding, operating floor, entrance and registered neighbor order remain unresolved. Preserve raw candidate for review without importing.",
+    "exactPlacementApproved": false,
+    "namesApplied": 0,
+    "placementsApplied": 0,
+    "mappedCoordinatesApproved": false
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-23T19:57:38.916809+00:00",
+  "updatedAt": "2026-10-23T21:12:47.188578+00:00",
   "automation": {
     "id": "hyderabad-citywide-shopfront-naming",
     "kind": "heartbeat",
@@ -19,31 +19,31 @@
     "resolvedIssue": "System Python 3.9 LibreSSL TLS handshake failure to Overpass; bundled Python 3.12 OpenSSL succeeds with normal certificate verification"
   },
   "sourceCoverage": {
-    "processedCells": 9,
+    "processedCells": 10,
     "totalPlayableCells": 2527,
     "firstCell": "tile_-1_-1",
-    "sourceRecords": 290,
-    "sourceLinksAdded": 118,
+    "sourceRecords": 345,
+    "sourceLinksAdded": 155,
     "newNamesAdded": 2,
     "newName": "Vivekananda Institute Of Languages",
-    "pendingPhotoReview": 61,
+    "pendingPhotoReview": 78,
     "placementStatus": "mapped_name_exact_building_inferred_facade",
     "sourceTimestampRetained": true,
     "sourceRecordsMayRepeatAcrossCells": true
   },
   "mapillary": {
-    "metadataImagesFound": 13088,
+    "metadataImagesFound": 14266,
     "photosReadThisSetup": 35,
     "independentOcrWorkers": 2,
-    "photosManuallyInspected": 45,
+    "photosManuallyInspected": 57,
     "newPhotoNamesApplied": 0,
-    "reviewEvidence": "docs/shopfront-photo-review-2026-10-23T1938Z.json",
-    "automatedPhotoCandidatesAwaitingReview": 33,
+    "reviewEvidence": "docs/shopfront-photo-review-2026-10-23T2056Z.json",
+    "automatedPhotoCandidatesAwaitingReview": 36,
     "falseMatchesRemoved": 9,
-    "photosReadTotal": 515,
+    "photosReadTotal": 595,
     "photosReadLatestBatch": 80,
-    "photosManuallyInspectedLatestBatch": 11,
-    "metadataCellsCompleted": 25,
+    "photosManuallyInspectedLatestBatch": 12,
+    "metadataCellsCompleted": 29,
     "metadataCellsTotal": 2376,
     "candidatesAwaitingInitialVisualReview": 0,
     "reviewEvidenceFiles": [
@@ -52,14 +52,15 @@
       "docs/shopfront-photo-review-2026-10-23T0924Z.json",
       "docs/shopfront-photo-review-2026-10-23T1028Z.json",
       "docs/shopfront-photo-review-2026-10-23T1742Z.json",
-      "docs/shopfront-photo-review-2026-10-23T1938Z.json"
+      "docs/shopfront-photo-review-2026-10-23T1938Z.json",
+      "docs/shopfront-photo-review-2026-10-23T2056Z.json"
     ],
-    "reviewCountNote": "All 33 retained automatic name candidates have an initial manual identity review in tracked evidence; exact facade, floor, road side and neighboring order remain unresolved. Three photo-only candidates were reviewed without application. Weak generic identity links were suppressed without deleting mapped businesses.",
+    "reviewCountNote": "All 36 retained automatic name candidates have an initial visual identity review; exact facade, floor, road side and neighboring order remain unresolved. Three filtered photo-only proposals remain unapplied. Raw PAKO Martial Arts candidate reviewed in this batch also remains unapplied.",
     "photosReadRecoveredEarlierBatch": 80,
-    "manualInspectionEvents": 48,
+    "manualInspectionEvents": 60,
     "photoOnlyCandidates": 3,
-    "manualCountNote": "45 unique original image IDs and 48 inspection events cumulatively. This batch inspected 11 originals, including ten new unique images and one repeat (849840628934709).",
-    "latestWeakAutomaticIdentityLinksSuppressed": 3
+    "manualCountNote": "57 unique original image IDs and 60 inspection events cumulatively. This batch inspected 12 new unique unmodified provider derivatives; adjacent frames are not independent sequences.",
+    "latestWeakAutomaticIdentityLinksSuppressed": 0
   },
   "verification": {
     "streetVerifiedCells": 0,
@@ -68,16 +69,16 @@
     "mapAndGameplayRegressions": "Automated suites passed in npm run check; real browser gameplay was not performed in this naming round.",
     "productionBuild": "passed",
     "existingBuildWarning": "fonts/fonts.css missing at build time",
-    "pipelineTests": "68 passed, including generic trade descriptor and distinctive name matching regressions.",
-    "latestBatchBuild": "npm run check passed after source data changes. Source and dist packs are identical. JavaScript index-DXgUfY_A.js unchanged by this naming batch; existing fonts/fonts.css warning remains."
+    "pipelineTests": "68 passed in this batch.",
+    "latestBatchBuild": "npm run check passed after source-link data changes. Source and dist packs identical. JavaScript index-DXgUfY_A.js unchanged; existing fonts/fonts.css warning remains."
   },
-  "nextWork": "Retry tile_1_0 under recorded runner policy; continue bounded citywide metadata and OCR. Resolve facade, floor, road side and neighboring order using registered independent images before photo placement.",
+  "nextWork": "Retry tile_-1_1 under recorded runner cooldown policy; then continue bounded citywide source, metadata and OCR coverage. Bind visible identities to exact facade, entrance, floor, road side and fixed neighboring order using independent views before photo placement.",
   "latestBatch": {
-    "record": "docs/shopfront-runs/2026-10-23T1938Z.json",
-    "sourceLinksAdded": 64,
-    "newNamesAdded": 1,
+    "record": "docs/shopfront-runs/2026-10-23T2056Z.json",
+    "sourceLinksAdded": 37,
+    "newNamesAdded": 0,
     "photoPlacementsApplied": 0,
-    "recoverableBlocker": "Overpass HTTP 502 on tile_1_0; retry state saved after five processed cells.",
+    "recoverableBlocker": "Overpass HTTP 502 on tile_-1_1; retry state saved after one processed cell.",
     "needsUserAction": false
   },
   "recoveredBatch": "docs/shopfront-runs/2026-10-23T1137Z.json"
