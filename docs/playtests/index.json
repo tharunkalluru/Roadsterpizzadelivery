@@ -1,0 +1,302 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-23T07:42:51.862143+00:00",
+  "automation": {
+    "id": "hyderabad-gameplay-testing",
+    "status": "ACTIVE",
+    "cadenceMinutes": 30,
+    "maxRoundMinutes": 20,
+    "requires": "Mac awake and Codex running"
+  },
+  "baseUrl": "http://127.0.0.1:4189/",
+  "currentBuild": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
+  "nextAreaCursor": 3,
+  "targetAreas": [
+    "Charminar",
+    "HITEC City",
+    "Uppal",
+    "Nagaram",
+    "Gachibowli",
+    "Mehdipatnam",
+    "RTC X Roads",
+    "Ameerpet",
+    "Kukatpally",
+    "Secunderabad",
+    "ECIL",
+    "Dilsukh Nagar",
+    "LB Nagar",
+    "Banjara Hills",
+    "Kompally",
+    "Miyapur"
+  ],
+  "areaCoverage": {
+    "Charminar": {
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "report": "2026-10-23-old-city.json",
+      "heldDrivingInputSeconds": 48,
+      "pickupsCompleted": 0,
+      "lastRoute": "(ABC) Absolutely Broasted Chicken \u2192 Home in Panjeshah"
+    },
+    "HITEC City": {
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "report": "2026-10-23-west.json",
+      "heldDrivingInputSeconds": 72.9,
+      "pickupsCompleted": 0,
+      "lastRoute": "Stop n Go pizza @Dell Campus \u2192 Home in Kondapur"
+    },
+    "Uppal": {
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "report": "2026-10-23-east.json",
+      "heldDrivingInputSeconds": 30.4,
+      "pickupsCompleted": 0,
+      "lastRoute": "Vishnu Kirana Shop \u2192 Home in Prashanth Nagar"
+    },
+    "Nagaram": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "Gachibowli": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "Mehdipatnam": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "RTC X Roads": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "Ameerpet": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "Kukatpally": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "Secunderabad": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "ECIL": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "Dilsukh Nagar": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "LB Nagar": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "Banjara Hills": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "Kompally": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    },
+    "Miyapur": {
+      "status": "not_tested",
+      "completedDeliveries": 0
+    }
+  },
+  "scenarios": [
+    "load and spawn",
+    "order offer and acceptance",
+    "drive to pickup",
+    "hold to collect",
+    "drive to destination",
+    "explicit handover result",
+    "traffic and GPS",
+    "curbs and bridge barriers",
+    "flight and landing",
+    "recovery",
+    "map and location selection",
+    "pause and resume",
+    "short viewport layout"
+  ],
+  "currentRound": {
+    "date": "2026-10-23",
+    "status": "completed_partial_coverage",
+    "reports": [
+      "2026-10-23-old-city.json",
+      "2026-10-23-west.json",
+      "2026-10-23-east.json"
+    ],
+    "participantType": "AI agents using visible browser controls",
+    "completedDeliveries": 0,
+    "confirmedIssueGroups": 3,
+    "issuesNeedingReproduction": 3,
+    "savedScreenshots": 5,
+    "heldDrivingInputSecondsApprox": 151.3,
+    "pickupsCompleted": 0,
+    "summary": "Three areas exercised through actual browser controls; map Close passed in all three. Three deduplicated confirmed issue groups, one transient observation needing repeat and two suspected issues. No pickup or handover completed."
+  },
+  "issueRegistry": [
+    {
+      "id": "PT-001",
+      "aliases": [
+        "OLD-CITY-001",
+        "WEST-UI-001"
+      ],
+      "priority": "P2",
+      "status": "confirmed",
+      "title": "Tutorial obstructs the driving view on short desktop windows",
+      "areas": [
+        "Charminar",
+        "Uppal",
+        "HITEC City"
+      ],
+      "confidence": "high",
+      "evidence": [
+        "evidence/2026-10-23-charminar-overlay-8c5d49.jpg",
+        "evidence/2026-10-23-uppal-tip-obstruction-f898cd.jpg",
+        "evidence/2026-10-23-hitec-stopping-state-716fc8.jpg"
+      ],
+      "source": "game/src/ui/hud.ts:87-89",
+      "nextStep": "Clear conflicting tip vertical inset; verify short-window fix and remaining compact-tip overlap above the 520px breakpoint.",
+      "reports": [
+        "2026-10-23-old-city.json",
+        "2026-10-23-east.json",
+        "2026-10-23-west.json"
+      ]
+    },
+    {
+      "id": "PT-002",
+      "aliases": [
+        "OLD-CITY-002",
+        "WEST-OFFER-001"
+      ],
+      "priority": "P3",
+      "status": "confirmed_ux_ambiguity",
+      "title": "Offer distance excludes the pickup approach without labeling the legs",
+      "areas": [
+        "Charminar",
+        "HITEC City"
+      ],
+      "confidence": "high",
+      "evidence": [],
+      "source": "game/src/game/game.ts:284-301",
+      "nextStep": "Label pickup-to-customer distance and post-pickup window; show approach distance separately.",
+      "reports": [
+        "2026-10-23-old-city.json",
+        "2026-10-23-west.json"
+      ],
+      "triageNote": "Consolidated as P3 wording ambiguity: the source confirms a delivery-leg estimate, not a proven distance/deadline calculation failure."
+    },
+    {
+      "id": "PT-003",
+      "aliases": [
+        "OLD-CITY-003"
+      ],
+      "priority": "P2",
+      "status": "confirmed_visual_failure_cause_unproven",
+      "title": "Landmark geometry obscures driving after recovery near Mecca Masjid",
+      "areas": [
+        "Charminar"
+      ],
+      "confidence": "high for observed obstruction; causal chain unproven",
+      "evidence": [
+        "evidence/2026-10-23-charminar-landmark-recovery-6847a8.jpg"
+      ],
+      "nextStep": "Repeat using visible controls; test recovery destination clearance, facade-pier collision coverage, and camera fallback. Do not assume all landmark colliders are absent.",
+      "reports": [
+        "2026-10-23-old-city.json"
+      ]
+    },
+    {
+      "id": "PT-004",
+      "aliases": [
+        "WEST-CAMERA-001"
+      ],
+      "priority": "P2",
+      "status": "observed_once_needs_repeat",
+      "title": "Large traffic vehicle obscures the chase view",
+      "areas": [
+        "HITEC City"
+      ],
+      "confidence": "medium",
+      "evidence": [],
+      "evidenceLimit": "Transient screenshot in CUA trace only; no saved standalone image.",
+      "nextStep": "Repeat a slow approach/reverse alongside large traffic and save before/during/after frames.",
+      "reports": [
+        "2026-10-23-west.json"
+      ]
+    },
+    {
+      "id": "PT-005",
+      "aliases": [
+        "WEST-ROUTE-001"
+      ],
+      "priority": "P2",
+      "status": "suspected",
+      "title": "Route ribbon appears to cross a blocking median",
+      "areas": [
+        "HITEC City"
+      ],
+      "confidence": "low; steering is a confound",
+      "evidence": [],
+      "nextStep": "Follow intended ground-level turn; compare actual drivable lane and ribbon. Pickup reachability is not disproven.",
+      "reports": [
+        "2026-10-23-west.json"
+      ]
+    },
+    {
+      "id": "PT-006",
+      "aliases": [
+        "PT-E02"
+      ],
+      "priority": "P2",
+      "status": "suspected",
+      "title": "Uppal spawn may face a nearby building",
+      "areas": [
+        "Uppal"
+      ],
+      "confidence": "low; nearby bend may explain the observation",
+      "evidence": [],
+      "nextStep": "Capture unobstructed fresh-start view, then move in short controlled inputs.",
+      "reports": [
+        "2026-10-23-east.json"
+      ]
+    }
+  ],
+  "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
+  "browserCoordination": "Parent grants each worker a short exclusive driving turn. Use /tmp/roadster-playtest-input.lock around each CUA call; only its acquiring worker may release it. Other workers inspect code/evidence while waiting. Pause own game before ceding input. Do not modify another agent or user tab.",
+  "evidenceCapture": "Use screenshots supported by the browser tool. tools/playtest-evidence-server.py provides a localhost-only browser form to save screenshot bytes when no file-save API exists. Read its random form URL from its startup output; do not reuse a stale URL.",
+  "coverageLimitations": [
+    "No completed pickup-to-handover loop yet",
+    "No physical phone/touch input tested",
+    "Popular-area rotation is not every-tile coverage",
+    "Performance observations with multiple open WebGL tabs are not standalone performance benchmarks",
+    "Street and shop accuracy is not established by gameplay testing"
+  ],
+  "followUpPriorities": [
+    "Complete a visible pickup-to-handover loop; use explicit result states as evidence.",
+    "Repeat Charminar recovery near Mecca Masjid and preserve before/after screenshots.",
+    "Reproduce the three lower-confidence issues before treating them as confirmed defects.",
+    "Rotate to Nagaram, Gachibowli and Mehdipatnam, then continue the remaining area list.",
+    "Test at a larger desktop viewport and later actual touch input; small desktop viewport coverage is not a phone test."
+  ],
+  "interpretationRules": [
+    "A completed bounded test pass is partial area coverage, not proof of a whole region.",
+    "Observed-once and suspected findings need another controlled attempt before promotion.",
+    "Report actual held-input time and wall time separately; neither paused time nor tool latency is uninterrupted gameplay.",
+    "Record route-distance increases after wrong turns without labeling the GPS broken unless a legal-route mismatch is reproduced.",
+    "An empty console log does not exclude visual or gameplay bugs."
+  ],
+  "evidenceFiles": [
+    "evidence/2026-10-23-charminar-landmark-recovery-6847a8.jpg",
+    "evidence/2026-10-23-charminar-overlay-8c5d49.jpg",
+    "evidence/2026-10-23-hitec-extended-stop-0836f5.jpg",
+    "evidence/2026-10-23-hitec-stopping-state-716fc8.jpg",
+    "evidence/2026-10-23-uppal-tip-obstruction-f898cd.jpg"
+  ]
+}

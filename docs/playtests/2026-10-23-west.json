@@ -1,0 +1,385 @@
+{
+  "date": "2026-10-23",
+  "tester": "playtest_west",
+  "status": "completed_bounded_pass",
+  "area": "HITEC City",
+  "url": "http://127.0.0.1:4189/?area=HITEC%20City",
+  "buildCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "method": "Actual Chrome UI via CUA; no hidden game state, teleporting, simulation stepping or source-derived outcome assertions.",
+  "observations": [
+    {
+      "id": "WEST-LOAD",
+      "confirmed": true,
+      "result": "pass",
+      "steps": [
+        "Open dedicated HITEC City URL",
+        "Wait for rendered game and order offer"
+      ],
+      "evidence": [
+        "Welcome to HITEC City!",
+        "KB Spicy Kitchen on HITEC City Road → Home in Vittal Rao Nagar",
+        "1413 m route · about247s · base pay134 coins + tip"
+      ],
+      "visual": "Rendered roads, buildings, sidewalks, car, pedestrians and minimap visible."
+    },
+    {
+      "id": "WEST-ACCEPT",
+      "confirmed": true,
+      "result": "pass",
+      "steps": [
+        "Click Accept (E) in offered delivery"
+      ],
+      "evidence": [
+        "Order accepted!",
+        "Pick up / KB Spicy Kitchen / on HITEC City Road /395m"
+      ]
+    },
+    {
+      "id": "WEST-DRIVE-INITIAL",
+      "confirmed": true,
+      "result": "pass",
+      "steps": [
+        "Hold W3seconds then release"
+      ],
+      "evidence": [
+        "Pickup distance395m→354m",
+        "Speed79km/h",
+        "Rendered car advanced along yellow route toward intersection"
+      ]
+    },
+    {
+      "id": "WEST-BUILDING-COLLISION",
+      "confirmed": true,
+      "result": "pass",
+      "steps": [
+        "Continue W through main junction without turning",
+        "Car reaches the opposite building",
+        "Hold S for 2.5 seconds"
+      ],
+      "evidence": [
+        "Speed fell to 5 km/h at facade, pickup 249 m",
+        "Reverse moved vehicle away, speed 17 km/h; no visible pass-through"
+      ],
+      "limitation": "Only this frontal building approach tested."
+    },
+    {
+      "id": "WEST-MEDIAN-COLLISION",
+      "confirmed": true,
+      "result": "pass",
+      "steps": [
+        "Turn into black/yellow median on HITEC City Road"
+      ],
+      "evidence": [
+        "Car stopped at median; speed 0 km/h; pickup 235 m",
+        "Later second median approach stopped at 2–3 km/h"
+      ],
+      "limitation": "Bridge protection walls were not tested."
+    },
+    {
+      "id": "WEST-FLIGHT",
+      "confirmed": true,
+      "result": "pass_with_limited_landing_observation",
+      "steps": [
+        "Press Space at median with 5.0 s flight",
+        "Apply W+A for 0.8 seconds",
+        "Observe elevated vehicle and exhaust plumes",
+        "Continue driving after boost depletes",
+        "Later press Space with 2.5 s boost and continue steering/drive"
+      ],
+      "evidence": [
+        "First flight: visible above metro viaduct; boost 4.1 s; speed 33 km/h; pickup 152 m",
+        "Next observation: ground beside median, boost 0.0 s, speed 2 km/h",
+        "Second flight: visible above roofs with 0.0 s boost while descending",
+        "Final screenshot: car stopped on a ground-level side street, boost 0.0 s, pickup 400 m"
+      ],
+      "limitation": "Complete landing animations were not recorded continuously. No assertion about all flight collision edge cases."
+    },
+    {
+      "id": "WEST-MAP-CLOSE",
+      "confirmed": true,
+      "result": "pass",
+      "steps": [
+        "Press M",
+        "Observe City map and Close map ✕",
+        "Click Close map ✕ with actual browser UI locator"
+      ],
+      "evidence": [
+        "City map visible before click",
+        "City map absent after click and driving HUD restored"
+      ]
+    },
+    {
+      "id": "WEST-PAUSE",
+      "confirmed": true,
+      "result": "pass",
+      "steps": [
+        "Press P after closing map"
+      ],
+      "evidence": [
+        "Paused heading with Resume / Change area / Back to the road / Settings / Replay tips / Reset progress"
+      ],
+      "limitation": "Resume not tested in this pass; left paused for next tester."
+    },
+    {
+      "id": "WEST-CONSOLE",
+      "confirmed": true,
+      "result": "pass",
+      "steps": [
+        "Read Chrome tab console warning/error logs after the driving pass"
+      ],
+      "evidence": [
+        "Empty warning/error log list"
+      ],
+      "limitation": "Only logs captured for this browser tab; does not exclude visual/gameplay issues."
+    }
+  ],
+  "issues": [
+    {
+      "id": "WEST-CAMERA-001",
+      "severity": "P2",
+      "area": "HITEC City Road near initial pickup route",
+      "status": "confirmed_visual_observation_needs_repeat",
+      "title": "Nearby large traffic vehicle can obscure almost the entire chase view",
+      "steps": [
+        "Accept KB Spicy Kitchen order",
+        "Drive from spawn to main road",
+        "Reach black/yellow median",
+        "Reverse and steer away while adjacent traffic passes"
+      ],
+      "expected": "Chase camera should preserve usable view of the player and direction of travel around large traffic.",
+      "actual": "At displayed Day 2 · 6:02 AM, pickup166m, speed0km/h, a blue vehicle surface filled the scene from about y250 to the bottom, hiding the player and road. HUD remained visible.",
+      "evidence": {
+        "capture": "CUA screenshot in this task at Day 2 · 6:02 AM; not persisted to file",
+        "visibleText": [
+          "Pick up / KB Spicy Kitchen / on HITEC City Road /166m",
+          "0km/h",
+          "Flight boost2.5s"
+        ]
+      },
+      "limitations": [
+        "One transient visual observation; not reproduced under a controlled second approach.",
+        "Exact responsible traffic model and camera collision mechanism not established."
+      ]
+    },
+    {
+      "id": "WEST-UI-001",
+      "severity": "P3",
+      "area": "HITEC City,594×522 viewport",
+      "status": "confirmed",
+      "title": "Undismissed first-driving tip overlaps the car and lower driving scene",
+      "steps": [
+        "Open HITEC City at current Chrome viewport",
+        "Accept first order",
+        "Drive and steer without pressing Hide tip"
+      ],
+      "expected": "Onboarding guidance should remain readable while keeping the player car and useful road view unobstructed.",
+      "actual": "The persistent tip spans nearly the full viewport width around y400–460 and covers a substantial part of the car during close approaches and flight. It still appears after roughly33seconds of active input and2flights.",
+      "evidence": {
+        "file": "docs/playtests/evidence/2026-10-23-hitec-stopping-state-716fc8.jpg",
+        "visibleText": [
+          "Drive with W and steer with A / D. Follow the orange line on the road and the minimap to the kitchen."
+        ]
+      },
+      "limitations": [
+        "Hide tip button exists and was intentionally not used.",
+        "Large-monitor layouts were not tested; severity is limited to small viewport usability."
+      ]
+    },
+    {
+      "id": "WEST-ROUTE-001",
+      "severity": "P2",
+      "area": "HITEC City Road central median",
+      "status": "suspected_needs_reproduction",
+      "title": "Route ribbon appears to meet/cross blocking median rather than guide a usable lane transition",
+      "steps": [
+        "Follow initial yellow route from HITEC City spawn toward KB Spicy Kitchen",
+        "Reach main-road junction and turn toward target",
+        "Observe ribbon and median when the car stops"
+      ],
+      "expected": "Route guidance should make a drivable way to enter the correct lane clear.",
+      "actual": "Several screenshots show the yellow ribbon at or across the black/yellow divider while the car is stopped by it. I needed flight/reverse to recover but did not complete pickup.",
+      "evidence": {
+        "capture": "CUA screenshots at Day2 1:57AM (235m,0km/h) and5:07AM (158m,3km/h)",
+        "relatedPassedCheck": "Median collision did correctly stop the car."
+      },
+      "limitations": [
+        "Steering error contributed and routing geometry was not inspected.",
+        "This is a suspected guidance problem, not proof that the offered pickup is unreachable.",
+        "A second player should attempt the intended ground-level turn before a code change."
+      ]
+    },
+    {
+      "id": "WEST-OFFER-001",
+      "severity": "P2",
+      "area": "HITEC City offer UI",
+      "status": "confirmed_ui_discrepancy",
+      "title": "Offer route estimate is shorter than the initial pickup journey without explaining the excluded leg",
+      "steps": [
+        "Open new HITEC City session",
+        "Observe Stop n Go pizza @Dell Campus → Home in Kondapur offer",
+        "Read636m route/about136s",
+        "Accept without moving",
+        "Read1082m pickup distance and open map"
+      ],
+      "expected": "Offer should describe the complete accepted travel requirement or label a delivery-only estimate clearly.",
+      "actual": "Offer said636m route/about136s, while the first required pickup leg alone showed1082m immediately after accepting.",
+      "evidence": {
+        "capture": "CUA offer screenshot Day2 12:56AM and post-accept map screenshot Day2 1:27AM; not persisted separately",
+        "visibleText": [
+          "636 m route · about 136 s · base pay 80 coins + tip",
+          "Pick up Stop n Go pizza @Dell Campus",
+          "on HITEC City–Madhapur Road",
+          "1082 m"
+        ]
+      },
+      "limitations": [
+        "No source inspection to determine whether displayed estimate intentionally excludes pickup; wording is ambiguous either way.",
+        "Does not establish deadline calculation or payment logic bug."
+      ]
+    }
+  ],
+  "limitations": [
+    "No pickup or handoff completed. Lowest visible pickup distance was152m; final paused state400m.",
+    "Only about32.95seconds of directional-key holding plus2flight activations; not a long-session soak test.",
+    "Shared browser scheduling and background-tab throttling make performance measurements nonrepresentative.",
+    "Exact real-world shop order was not independently checked against imagery.",
+    "No bridge-wall, delivery reward, handover, or Gachibowli coverage in this pass.",
+    "Some transient observations exist only in CUA screenshots in the task trace; only final stopping-state screenshot persisted."
+  ],
+  "session": {
+    "tabId": "1933377994",
+    "finalState": "Paused at Day 2 · 7:13 AM; Pick up KB Spicy Kitchen; on HITEC City Road; 400 m; 0 km/h; flight boost 0.0 s; 500 coins; Level 1 · 0/3",
+    "actualDirectionalKeyHoldSeconds": 32.95,
+    "flightActivations": 2,
+    "pickupCompleted": false,
+    "handoffCompleted": false,
+    "nearestObservedPickupDistanceMetres": 152,
+    "finalPickupDistanceMetres": 400,
+    "scope": "HITEC City only. Gachibowli was not visited.",
+    "inputScheduling": "Exclusive Chrome turns with an atomic lock around every CUA call. Wall time included waiting for other agents and model/tool round trips; it is not continuous held-input gameplay time."
+  },
+  "evidenceFiles": [
+    "docs/playtests/evidence/2026-10-23-hitec-stopping-state-716fc8.jpg",
+    "docs/playtests/evidence/2026-10-23-hitec-extended-stop-0836f5.jpg"
+  ],
+  "extendedPass": {
+    "status": "completed_bounded_pass",
+    "url": "http://127.0.0.1:4189/?area=HITEC%20City",
+    "tabId": "1933378026",
+    "sessionContinuity": "Previous tab1933377994 was automatically closed after the first pass ended. New own tab was opened. It displayed a new offer, so this is a second session, not a continuation of the first delivery.",
+    "approximateWallMinutes": 8,
+    "actualDirectionalKeyHoldSeconds": 39.95,
+    "flightActivations": 1,
+    "activeInputSecondsTotalBothPasses": 72.9,
+    "offer": {
+      "pickup": "Stop n Go pizza @Dell Campus",
+      "pickupRoad": "HITEC City–Madhapur Road",
+      "destination": "Home in Kondapur",
+      "displayedRouteMetres": 636,
+      "displayedApproximateSeconds": 136,
+      "baseCoins": 80,
+      "pickupDistanceImmediatelyAfterAcceptMetres": 1082
+    },
+    "pickupCompleted": false,
+    "handoffCompleted": false,
+    "finalState": "Paused; Day2 12:54PM; Pick up Stop n Go pizza @Dell Campus; on HITEC City–Madhapur Road;764m;0km/h;0.0s flight;500coins;Level1 ·0/3",
+    "nearestObservedPickupDistanceMetres": 764,
+    "finalScreenshot": "docs/playtests/evidence/2026-10-23-hitec-extended-stop-0836f5.jpg",
+    "viewport": {
+      "width": 594,
+      "height": 522,
+      "fullscreenAtEnd": false,
+      "note": "Clicked visible Full screen button once, but no larger viewport was observed. Final DOM inspection confirmed fullscreen:false; therefore no fullscreen mode remained to exit."
+    },
+    "observations": [
+      {
+        "id": "WEST-EXT-HIDE-TIP",
+        "result": "pass",
+        "steps": [
+          "Accept new offer",
+          "Click Hide tip"
+        ],
+        "evidence": [
+          "Driving tutorial no longer obscured car in subsequent captures."
+        ]
+      },
+      {
+        "id": "WEST-EXT-RECOVERY",
+        "result": "pass",
+        "steps": [
+          "Reach main road and turn right toward route",
+          "Become blocked by divider/traffic",
+          "Click visible Stuck? Get back on the road (R)"
+        ],
+        "evidence": [
+          "Back to the street! displayed",
+          "Car moved to a street surface with0km/h",
+          "Continued W driving worked afterward"
+        ],
+        "limitation": "Did not verify ideal recovery orientation relative to target."
+      },
+      {
+        "id": "WEST-EXT-ROUTE-CHANGES",
+        "result": "observed_not_proven_bug",
+        "steps": [
+          "Accept offer",
+          "Drive to main road",
+          "Use recovery",
+          "Continue driving",
+          "Inspect map"
+        ],
+        "evidence": [
+          "Pickup distance1082→1002→949→946→885→867→880→882m",
+          "After recovery, continuing W showed1981m",
+          "Later after traffic collision/off-road driving showed1065m then1085m",
+          "Map showed goal west of car and a route requiring driving back south"
+        ],
+        "limitation": "Rerouting, one-way lanes and off-road route projection may explain these changes. Does not prove unreachable pickup."
+      },
+      {
+        "id": "WEST-EXT-ROOF-RECOVERY",
+        "result": "pass",
+        "steps": [
+          "Use7.5s earned flight toward western side",
+          "Boost depleted on rooftop",
+          "Open map to check route",
+          "Close map",
+          "Click On a roof? Glide down to the street (R)"
+        ],
+        "evidence": [
+          "Roof recovery control appeared at881m and0.0s boost",
+          "Back to the street! displayed; thruster-assisted glide animation visible at877m",
+          "Later screenshot showed ground-level side street,764m,0km/h"
+        ],
+        "limitation": "Could not establish optimal recovered heading for completing delivery."
+      },
+      {
+        "id": "WEST-EXT-MAP-PAUSE",
+        "result": "pass",
+        "steps": [
+          "Open/close map several times",
+          "Click Close map each time",
+          "Press P at end"
+        ],
+        "evidence": [
+          "Actual Close map click restored driving view each time",
+          "Paused sheet visible at end"
+        ]
+      },
+      {
+        "id": "WEST-EXT-CONSOLE",
+        "result": "pass",
+        "evidence": [
+          "Warn/error log list remained empty after extended session."
+        ]
+      }
+    ],
+    "limitations": [
+      "No collection or delivery state reached; no reward or completion assertion.",
+      "Route following and steering were difficult under discrete short input bursts; human continuous steering may differ.",
+      "No pickup was shown unreachable and no reproducible hard blocker was established.",
+      "Directional key time excludes coasting, flight after key release, waiting and observation time.",
+      "No additional real-world street/shop order comparison."
+    ]
+  }
+}

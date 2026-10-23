@@ -26,3 +26,40 @@ Inspected current `main` (`14671a5`) before changes. This is a code-driven audit
 - Manual long-distance delivery, intentional curb / bridge impact, flight-to-roof landing, touch controls and recovery checks in the rendered game.
 - Routes to distant residential streets that are not streamed yet still use the permanent main-road network plus an approximate final link. Once the destination tile is loaded, partial-road routing replaces that approximation.
 - Exact street and shop sequence remains a data/evidence task; passing these gameplay tests does not establish real-world frontage accuracy.
+
+## Browser playtesting — 2026-10-23
+
+Three AI testers exercised the rendered game in Chrome in Charminar, HITEC City and Uppal, using visible buttons and native driving controls. This is browser interaction testing, not a study with human participants. The tested game commit is `7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5`, served at `http://127.0.0.1:4189/`. Shared Chrome input was serialized: one agent drove while the others inspected evidence. No hidden game-state injection, teleporting or simulation stepping was used to obtain gameplay results.
+
+The resumable [coverage index](playtests/index.json) tracks areas, incomplete scenarios and deduplicated findings. Native recurring playtest rounds are enabled every 30 minutes, with a target duration of about 20 minutes per round. They require the Mac to be awake and Codex running. The first round is limited coverage, not a full-map or continuous soak-test certification.
+
+| Area | Observed interactions | Delivery coverage | Detailed record |
+| --- | --- | --- | --- |
+| Charminar | Accept order; accelerate, brake and steer; divider and auto contact; earn/use flight; recover near Mecca Masjid; map Close; pause | Pickup and handover not reached. Closest visible pickup distance 838 m. | [Old City report](playtests/2026-10-23-old-city.json) |
+| HITEC City | Two separate order sessions; drive/reverse; building/median contact; flight and return to ground level; ground and roof recovery; map Close; pause | Neither session reached pickup. Closest pickup distance was 152 m in the first; the second ended at 764 m. | [West report](playtests/2026-10-23-west.json) |
+| Uppal | Accept order; drive; earn/use flight; recover twice; map zoom and Close; pause/Escape resume; active-delivery area-change guard | Pickup and handover not reached. Closest visible pickup distance 208 m. | [East report](playtests/2026-10-23-east.json) |
+
+The actual **Close map button worked in all three areas**. The captured warning/error queries were empty. Those results do not establish that delivery, every collision, or every map control is correct.
+
+### Findings from visible play
+
+| ID | Priority | Confidence | Finding and evidence | Next action |
+| --- | --- | --- | --- | --- |
+| PT-001 | P2 | Confirmed in two areas; related compact-layout overlap in HITEC City | At 594×466 with a non-coarse pointer, the tutorial becomes an approximately 355 px tall panel over the road and offer. [Charminar screenshot](playtests/evidence/2026-10-23-charminar-overlay-8c5d49.jpg), [Uppal screenshot](playtests/evidence/2026-10-23-uppal-tip-obstruction-f898cd.jpg). At 594×522, a compact persistent tip still overlaps the car: [HITEC City screenshot](playtests/evidence/2026-10-23-hitec-stopping-state-716fc8.jpg). | Clear the conflicting vertical CSS inset, then check both sides of the 520 px height breakpoint and verify that the compact tip leaves the car visible. |
+| PT-002 | P3 | Confirmed wording ambiguity in two areas | A Charminar offer advertised a 285 m route; accepting it showed 917 m just to reach the kitchen. A second HITEC City session advertised 636 m but required 1,082 m to reach pickup. Source inspection confirms the offer distance is pickup → customer, and the delivery timer resets at collection. This does not prove an incorrect GPS distance. | Label the delivery leg and post-pickup time explicitly; show the approach to the pickup separately. |
+| PT-003 | P2 | Unusable view confirmed; underlying cause unproven | Flying near Mecca Masjid, pressing R, then driving left the car/camera apparently within landmark geometry. The scene became a gray wall/floor while the HUD reported movement. [Saved stopping-state screenshot](playtests/evidence/2026-10-23-charminar-landmark-recovery-6847a8.jpg). | Reproduce from a fresh visible start; check recovery destination clearance, front-arch pier coverage and camera fallback. Hall/minaret collision footprints do exist, but source review found front arch piers extending beyond them. The captured car position is not known precisely enough to attribute this failure to that gap. |
+| PT-004 | P2 | Observed once; repeat needed | A nearby large blue traffic vehicle obscured nearly the entire chase view in HITEC City. The transient frame exists in the test trace, but no standalone screenshot was saved. | Repeat a slow approach/reverse alongside large traffic and save the occlusion sequence before choosing a fix. |
+| PT-005 | P2 | Suspected | The route ribbon appeared to meet/cross the HITEC City median during repeated blocked approaches. Steering errors were a confounding factor; the test does not prove an unreachable pickup. | Follow the intended ground-level turn carefully and compare the visible ribbon to the legal lane transition. |
+| PT-006 | P2 | Suspected, low confidence | The first 3-second forward input in Uppal ended against a yellow building. A nearby bend/intersection may explain it; incorrect starting yaw is not established. | Capture a fresh, unobstructed pre-drive view and repeat with short inputs. |
+
+These IDs group agent-local aliases in the coverage index. No game behavior was changed in this playtest round; the older G01–G10 entries above describe earlier fixes.
+
+### Remaining acceptance work
+
+- Capture an explicit collected state and an explicit delivered result on a complete route. Distance, pressing E, or an order state alone is insufficient proof.
+- Repeat landmark recovery, traffic camera occlusion and the suspected median/spawn issues before attributing precise causes.
+- Continue into Nagaram, Gachibowli, Mehdipatnam and the remaining areas in the index. Expand from area starts to actual street coverage; selecting an area does not test its whole region.
+- Exercise longer traffic-heavy routes, bridge barriers, curbs, settled flight landings, picker cancellation, and physical touch controls. The short desktop windows in this round are not phone tests.
+- Keep street/shop accuracy separate: these gameplay sessions did not compare frontage order against street imagery.
+
+Each agent report records held-input duration separately from wall time and coasting. The first round totals approximately 151.3 seconds of held driving input across the three areas, including the additional eight-minute HITEC City observation session; it is not 151.3 seconds of uninterrupted driving. Model/tool round trips, paused inspections and browser ownership waits must not be reported as uninterrupted driving. Five original local-game screenshots are stored in `docs/playtests/evidence/`, including the [extended HITEC City stopping state](playtests/evidence/2026-10-23-hitec-extended-stop-0836f5.jpg). `tools/playtest-evidence-server.py` provides a localhost-only upload form when the browser tool has no direct file-save API; start it only when needed and stop it after the evidence is saved.

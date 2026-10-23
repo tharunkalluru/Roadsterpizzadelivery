@@ -1,0 +1,211 @@
+{
+  "date": "2026-10-23",
+  "tester": "playtest_east",
+  "area": "Uppal",
+  "url": "http://127.0.0.1:4189/?area=Uppal",
+  "build": "7723f8c",
+  "status": "completed_with_coverage_limits",
+  "method": "Real Chrome tab, rendered UI, native keyboard holds <=3 seconds and actual pointer clicks. No game-state injection, teleport, engine stepping or hidden __game access.",
+  "viewport": {
+    "width": 594,
+    "height": 466,
+    "source": "rendered screenshot"
+  },
+  "coverage": {
+    "loading": "passed",
+    "accept_offer": "passed",
+    "pickup": "not reached",
+    "handoff": "not reached",
+    "road_driving": "partial",
+    "flight": "earned and consumed boost; explicit settled landing still unverified",
+    "map_close": "passed actual Close button click",
+    "map_zoom": "zoom in and out clicked",
+    "picker_cancel": "not reached: active order prevents area change; guard passed with Finish this delivery first toast",
+    "recovery": "passed twice through Pause > Back to the road; subsequent driving reached53km/h",
+    "pause": "passed",
+    "resume": "passed Escape then W, visible clock advanced and speed7km/h",
+    "console": "no warning or error entries returned"
+  },
+  "route": {
+    "pickup": "Vishnu Kirana Shop",
+    "pickup_road": "SBH Colony Main Road",
+    "destination": "Home in Prashanth Nagar",
+    "offer_route_m": 321,
+    "pickup_distance_start_m": 361,
+    "pickup_distance_end_m": 359,
+    "coins_unchanged": 500,
+    "order_state_at_end": "Pick up; game paused then test tab closed",
+    "complete_delivery": false,
+    "pickup_distance_closest_m": 208
+  },
+  "findings": [
+    {
+      "id": "PT-001",
+      "severity": "medium",
+      "status": "confirmed",
+      "area": "Uppal",
+      "title": "Onboarding tip grows into a tall panel over the driving viewport at short/narrow window size",
+      "steps": [
+        "Open ?area=Uppal at 594 x 466 viewport with introductory tips enabled.",
+        "Observe initial new-order tip.",
+        "Hide it, accept an order, observe drive instructions tip."
+      ],
+      "expected": "Compact instructional panel leaves car, road and primary order controls visible.",
+      "actual": "Tip stretches from roughly y46 to y401 (355 px high), covering the central car/road and most of the offer card. Clicking Hide tip is required to see the road clearly.",
+      "evidence_text": [
+        "Screenshot at Day1 8:38 AM: tall outlined panel with TIP A new order Press E.",
+        "Screenshot at Day1 9:00 AM: same tall panel with drive/steer instructions.",
+        "Source corroboration: game/src/ui/hud.ts max-width860 sets bottom64 and top:auto; later max-height520 sets top46 but does not clear bottom.",
+        "Replayed tips from pause in second pass; same tall panel reproduced at Day1 4:29 PM while car was stillmoving53km/h. Original screenshot bytes saved via localhost evidence form."
+      ],
+      "evidence_files": [
+        "docs/playtests/evidence/2026-10-23-uppal-tip-obstruction-f898cd.jpg"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "PT-E02",
+      "severity": "medium",
+      "status": "suspected",
+      "area": "Uppal",
+      "title": "Initial placement appears aimed toward roadside building",
+      "steps": [
+        "Start ?area=Uppal.",
+        "Accept first order and dismiss driving tip.",
+        "Hold W for3 seconds."
+      ],
+      "expected": "Starting car is aligned with an immediately drivable lane.",
+      "actual": "Car finishes against a yellow building facing its facade, speed10 km/h, pickup distance361 to352 m. Reverse and steering were required to join the route.",
+      "evidence_text": [
+        "Rendered first driving screenshot Day1 9:26 AM shows facade filling view and route passing horizontally ahead.",
+        "Could be a bend or intersection very near spawn, not confirmed wrong yaw. Needs repeat with fresh launch and pre-drive unobstructed view."
+      ],
+      "evidence_files": [],
+      "confidence": "low"
+    }
+  ],
+  "observations": [
+    "Moving cars, scooter riders and pedestrians rendered on residential streets. No claim about real-world placement/order.",
+    "Road route line rerouted as car turned; pickup distance eventually decreased361 to209m.",
+    "Driving earned flight boost2.5 to5.0seconds. Space then3secondsW showed flying car,108km/h and2.3secondsremaining; later0.0seconds.",
+    "Full map showed Vishnu Kirana Shop label, player arrow and cyan route; zoom in/out and Close click returned to game.",
+    "P opened Paused modal after map close. Tab left paused.",
+    "Back to the road recovered the car twice; visible toast confirmed and following W reached53km/h.",
+    "Active delivery area-change attempt was rejected with Finish this delivery first toast; no picker cancellation path was available.",
+    "Escape dismissed pause and actual W input advanced visible time4:51 to4:54PM and speed0 to7km/h; re-paused and closed test tab.",
+    "Second pass included navigation errors and repeated turns into buildings. These are not classified as confirmed game defects without repeat reproduction."
+  ],
+  "limitations": [
+    "Only one local residential route in Uppal; Nagaram not tested.",
+    "30.4seconds total held driving/braking keys across two turns, plus visible coasting; not a90second continuous driving run.",
+    "No pickup or handoff reached, so delivery completion remains unverified. Closest visible pickup distance208m.",
+    "No Street View or source-map comparison, so exact shop names/order and geometry accuracy remain unverified.",
+    "Shared Chrome requires serialized input; paused between agents.",
+    "Initial spawn-heading concern remains suspected and has not been reproduced from a fresh unobstructed start.",
+    "Only tip obstruction has a persisted screenshot; other observations are visible in CUA trace screenshots and AX logs."
+  ],
+  "active_held_input_seconds": 30.4,
+  "wall_time_minutes_approx": 8,
+  "participant_type": "AI agent using real browser controls, not a human participant",
+  "input_holds_seconds": [
+    3,
+    1.5,
+    3,
+    0.5,
+    1.2,
+    3,
+    3,
+    2,
+    3,
+    1.5,
+    1.5,
+    1.2,
+    1,
+    1,
+    3,
+    1
+  ],
+  "wall_time_note": "Two bounded browser turns, excluding intervening serialized Chrome wait; approximate only.",
+  "cleanup": {
+    "test_tab_closed": true,
+    "evidence_form_tab_closed": true,
+    "input_lock_released": true,
+    "game_source_edits": false
+  },
+  "source_investigation": {
+    "method": "Read-only source review after browser testing. No Chrome calls or game source changes in this follow-up.",
+    "tip_overlap": {
+      "status": "confirmed_source_cause_for_observed_layout",
+      "selectors": [
+        "#tip.tip.pe",
+        ".tip",
+        "@media (max-width:860px) .tip",
+        "@media (max-width:860px) and (pointer:coarse) .tip",
+        "@media (max-height:520px) .tip"
+      ],
+      "references": [
+        "game/src/ui/hud.ts:76",
+        "game/src/ui/hud.ts:87",
+        "game/src/ui/hud.ts:88",
+        "game/src/ui/hud.ts:89"
+      ],
+      "conditions": "Viewport width <=860px and height <=520px, with a pointer that does not match pointer:coarse. Reproduced at594x466 desktop fine pointer. Coarse-pointer rule at88 clears bottom and therefore does not have this exact stretch.",
+      "cause": "Width breakpoint sets top:auto and bottom:max(64px,safe-area-bottom+60px). Later short-height rule sets top:max(46px,safe-area-top+42px) but leaves the earlier bottom. Absolutely positioned auto-height panel stretches between both insets; at466px height with no safe-area inset its border box is356px high.",
+      "minimal_fix": "Add bottom:auto to the final @media(max-height:520px) .tip rule at89. Keep the compact top anchor and existing responsive text/width rules.",
+      "verification_cases": [
+        "594x466 fine pointer: replay new-order and driving tips; panel height follows content, car/road visible, Hide tip and Accept clickable.",
+        "860x520 and861x520 fine pointer: check both breakpoint edges and ensure only one vertical anchor is active.",
+        "594x700 fine pointer: preserve bottom placement and intrinsic height.",
+        "844x390 coarse pointer: preserve top placement; Hide tip remains reachable and controls work.",
+        "Open map and pause while tip is visible; Close/Resume remain clickable; then dismiss/replay tips and verify hidden panels stay hidden."
+      ]
+    },
+    "offer_distance_wording": {
+      "related_finding": "OLD-CITY-002",
+      "status": "confirmed_wording_ambiguity_not_proof_of_broken_routing",
+      "references": [
+        "game/src/game/game.ts:284",
+        "game/src/game/game.ts:285",
+        "game/src/game/game.ts:288",
+        "game/src/game/game.ts:301",
+        "game/src/game/game.ts:764",
+        "game/src/game/game.ts:907"
+      ],
+      "cause": "makeOffer calculates o.dist only from pickup to customer. showOffer labels it generically m route. Once accepted, HUD shows player-to-pickup distance. The delivery clock resets to0 on actual collection, so the advertised limit applies after pickup.",
+      "minimal_fix": "Replace m route with an explicit Pickup to customer distance label and label the time as the delivery window after pickup. This changes no economy or route logic.",
+      "recommended_small_addition": "Show a separately labeled estimated distance to pickup before Accept, using the current player-to-pickup graph route where available. If graph route is unavailable, label any straight-line fallback as an estimate; do not present it as a measured road route.",
+      "suggested_copy": [
+        "Pickup: about X m away",
+        "Pickup to customer: Y m",
+        "Delivery window: Z s after pickup \u00b7 base pay N coins + tip"
+      ],
+      "verification_cases": [
+        "Offer with pickup much farther away than delivery leg (old-city observed285m delivery vs917m pickup): both legs remain clearly distinguished.",
+        "Accept offer without moving: pickup HUD corresponds to the approach estimate within route-refresh/heading differences; do not require exact equality if approximated.",
+        "Complete actual collection: timer starts at the advertised delivery window and destination switches to customer.",
+        "Cancel area selection with pending offer: same order, delivery distance and pay restored; approach distance may refresh from current position.",
+        "Long storefront names at594x466: added text fits scrollable offer, both Accept and Another remain reachable."
+      ]
+    },
+    "adjacent_overlay_review": {
+      "status": "no_additional_confirmed_conflict_in_reviewed_source",
+      "references": [
+        "game/src/ui/hud.ts:27",
+        "game/src/ui/hud.ts:32",
+        "game/src/ui/map.ts:17",
+        "game/src/ui/map.ts:18",
+        "game/src/ui/map.ts:21",
+        "game/src/ui/map.ts:22",
+        "game/src/ui/map.ts:27",
+        "game/src/game/game.ts:513"
+      ],
+      "notes": [
+        "Pause modal z-index9 and full map z-index8 sit above unlayered tip; map open is refused while a modal is open. This avoids the tip intercepting those controls.",
+        "Map title is scoped as .fmap .map-title with pointer-events:none; Close has pointer-events:auto in z-index1 bar. Earlier title collision remains fixed in reviewed source and actual Close test passed.",
+        "Hidden offer/modal/tip and map controls have explicit display:none rules.",
+        "No matching top-plus-bottom stretch identified in immediately adjacent pause/map overlays. This was a limited review, not a full responsive overlay audit."
+      ]
+    },
+    "spawn_heading": "PT-E02 remains suspected. No fresh-start reproduction or proven source cause was obtained; do not promote to confirmed based on this UI source review."
+  }
+}

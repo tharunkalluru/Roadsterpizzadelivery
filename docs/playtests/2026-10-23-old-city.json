@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-23",
+  "tester": "playtest_old_city",
+  "build": "7723f8c",
+  "url": "http://127.0.0.1:4189/?area=Charminar",
+  "area": [
+    "Charminar",
+    "Panjeshah",
+    "Moghalpura"
+  ],
+  "method": "Actual Chrome tab driven through CUA native keyboard and visible UI. No hidden engine access, teleportation or automatic simulation.",
+  "status": "completed_bounded_session",
+  "active_driving_input_seconds_approx": 48,
+  "ending_tab_state": "Paused, tab 1933377997",
+  "viewport": {
+    "width": 594,
+    "height": 466,
+    "override": false
+  },
+  "findings": [
+    {
+      "id": "OLD-CITY-001",
+      "severity": "P2",
+      "status": "confirmed",
+      "title": "Tutorial tip stretches vertically and obstructs the road and order on a short desktop window",
+      "steps": [
+        "Load the Charminar game in a 594 by 466 content viewport with fine pointer",
+        "Wait for the first order and its tutorial tip",
+        "Observe the tutorial panel before dismissing it"
+      ],
+      "expected": "A compact readable tip leaves the offer and driving scene visible.",
+      "actual": "The tip occupied approximately x156 to438 and y47 to402. Most of its roughly 355px height was empty dark overlay, obscuring the offer and the car.",
+      "evidence": [
+        "evidence/2026-10-23-charminar-overlay-8c5d49.jpg",
+        "Repeated in a fresh Charminar tab: Day 2, 12:15 AM; offer from Rasa Pan Palace",
+        "CSS inspected read-only: hud.ts:87 sets bottom 64px at width<=860, then line 89 sets top 46px at height<=520 without clearing bottom."
+      ],
+      "source": "game/src/ui/hud.ts:87-89"
+    },
+    {
+      "id": "OLD-CITY-002",
+      "severity": "P3",
+      "status": "confirmed_ux_ambiguity",
+      "title": "Offer route length omits the trip to the kitchen without explaining it",
+      "steps": [
+        "Read the initial Charminar offer: 285m route, about 86s, 55 coins",
+        "Accept it",
+        "Read pickup distance 917m"
+      ],
+      "expected": "The offer distinguishes distance to pickup from the delivery distance, allowing an informed accept decision.",
+      "actual": "The offer says 285m route but the first leg alone initially shows 917m. Source review confirms 285m is only kitchen-to-home distance, so this is unclear wording rather than demonstrated incorrect routing.",
+      "evidence": [
+        "CUA visible offer and accepted pickup HUD",
+        "makeOffer computes graph.route(pickup,drop), game.ts284–288; showOffer labels this m route at301."
+      ],
+      "source": "game/src/game/game.ts:284-301"
+    },
+    {
+      "id": "OLD-CITY-003",
+      "severity": "P2",
+      "status": "confirmed_visual_failure_cause_suspected",
+      "title": "Road recovery near Mecca Masjid leaves the car and camera within landmark geometry",
+      "steps": [
+        "Drive around the Charminar south-side divider with the Mecca Masjid model visible",
+        "Earn 5.0 seconds of flight boost",
+        "Press Space and hold W for 3 seconds toward the mosque",
+        "After boost expires, brake and press R",
+        "Observe the Back to the street toast and car pressed against the mosque wall/pillar",
+        "Hold W for 3 seconds"
+      ],
+      "expected": "Recovery places the car on a visibly navigable road outside solid landmark geometry, with a usable chase-camera view.",
+      "actual": "After R, the car appeared against or within the mosque pillar/wall. After W for 3 seconds, the HUD reached 78km/h and the scene became almost entirely a gray landmark wall and floor. Braking preserved the obstructed scene. The pickup HUD moved from 900m to 838m, then 865m. No pickup was completed.",
+      "evidence": [
+        "evidence/2026-10-23-charminar-landmark-recovery-6847a8.jpg",
+        "CUA screenshot immediately after recovery: Day 2, 12:55 PM, Back to the street, 900m, 0km/h, car against mosque geometry",
+        "CUA screenshot after W: Day 2, 1:27 PM, 838m, 78km/h, gray wall fills the upper scene"
+      ],
+      "suspected_cause": "Recovery chooses a road graph point without validating landmark clearance; landmark geometry may differ from the collision and camera building footprint data. Source review is a lead, not a proven full cause.",
+      "source": "game/src/game/game.ts:558-584"
+    }
+  ],
+  "passed": [
+    "Charminar loaded and displayed the landmark, street buildings, storefront signs, pedestrians, buses and autos",
+    "Offer acceptance switched HUD to Pick up",
+    "Full map opened and Close map button closed it",
+    "W acceleration reached 78km/h and S braked to 1km/h",
+    "A/D steering changed direction and GPS rerouted",
+    "Black/yellow divider physically stopped the car at 1-4km/h",
+    "Auto contact produced the collision toast",
+    "Road driving raised flight boost from 2.5s to 5.0s",
+    "Space launched the car with visible thruster exhaust; flight reached 129km/h and drained boost to zero",
+    "P opened the pause menu",
+    "No captured console errors or warnings in the tab's final log query"
+  ],
+  "delivery": {
+    "pickup": "(ABC) Absolutely Broasted Chicken",
+    "dropoff": "Home in Panjeshah",
+    "state": "to_pickup_paused",
+    "closest_visible_distance_m": 838,
+    "last_visible_distance_m": 865,
+    "pickup_completed": false,
+    "handoff_completed": false
+  },
+  "limitations": [
+    "Multiple agents shared Chrome; all input was serialized with an atomic lock and exclusive turns",
+    "About 48 seconds of held driving inputs spread across a longer session with inspections and waits; this was not uninterrupted driving",
+    "No claim of exact shop name/order accuracy from this gameplay test",
+    "No completed pickup or handoff",
+    "Natural flight landing not fully verified because R recovery was used",
+    "Theatre leasing, settings changes and Mehdipatnam were not tested",
+    "No claim that the route itself is impossible; the attempt ended after the landmark recovery issue"
+  ],
+  "source_investigation": {
+    "scope": "Read-only source and shipped map data inspection after browser playtest. No browser actions, engine stepping, source edits or additional gameplay claims.",
+    "finding_id": "OLD-CITY-003",
+    "conclusions": [
+      {
+        "status": "confirmed_in_source",
+        "detail": "Mecca Masjid is not wholly missing collision: the main hall has solidRect(0,-3,64,46,22), facade minarets have solidCircle, and the courtyard arcade has its own solidRect. City builder inserts these model footprints into the same buildingGrid used by physics and camera.",
+        "sources": [
+          "game/src/world/landmarks.ts:235-258",
+          "game/src/world/city.ts:1125-1135",
+          "game/src/game/physics.ts:43-86"
+        ]
+      },
+      {
+        "status": "confirmed_in_source",
+        "detail": "A specific facade gap exists: the five rendered front arch panels sit at local v=23 with depth4, spanning roughly v=21..25. The main hall collider ends at v=20. The inner arch piers have no matching solid calls; only outer minarets receive circles. Therefore some visible front-pier geometry lies outside the footprints queried by car collision and camera. Whether the captured bad recovery position coincided with one of these piers is not known.",
+        "sources": [
+          "game/src/world/landmarks.ts:240-253",
+          "game/src/world/landmarks.ts:98-104",
+          "game/src/core/util.ts:52-62"
+        ]
+      },
+      {
+        "status": "confirmed_in_source",
+        "detail": "streetSpotNear selects the nearest allowed road segment, clamps along it, and applies a lane offset. It never validates the resulting car radius against buildings, landmark footprints, walls or obstacles. supportAt(...,true) supplies height but sup.onRoad is not checked, so ground fallback can also be accepted.",
+        "sources": [
+          "game/src/game/game.ts:559-577",
+          "game/src/game/physics.ts:13-39"
+        ]
+      },
+      {
+        "status": "confirmed_in_source",
+        "detail": "Rescue glide skips the ordinary collision update and directly snaps to its destination when close or after8seconds. There is no final clearance check in that path.",
+        "sources": [
+          "game/src/game/player.ts:68-90"
+        ]
+      },
+      {
+        "status": "confirmed_in_source",
+        "detail": "Camera obstruction uses road support and buildingGrid footprints. When an obstacle is within2.5m of its starting pivot, clearCamera returns pivot+(0,2.2,0) without checking whether that fallback is itself solid or visible. This is a second failure path if rescue starts in geometry.",
+        "sources": [
+          "game/src/game/game.ts:842-856"
+        ]
+      }
+    ],
+    "static_data_check": {
+      "data": "game/public/city/core.pack.wasm and packs/p-1_1.pack.wasm",
+      "method": "Decoded shipped gzip JSON, projected Mecca Masjid at the same exporter radii, sampled accepted recovery-road centerlines at <=1m intervals against the modeled main hall rectangle.",
+      "mecca_model_center_world": [
+        -2493.7754487497614,
+        5082.141102234747
+      ],
+      "tile": [
+        -3,
+        5
+      ],
+      "result": "No accepted core-road centerline samples inside the main hall rectangle.",
+      "limit": "This does not test all streamed local streets, lateral lane offsets, other solids, actual playtest coordinates or recovery trajectory. It does not prove the nearest selected road was safe."
+    },
+    "likely_gap": "Recovery has no final safe-placement validation, and front arch-pier meshes are not fully represented by the collision/camera solids. These are stronger leads than an entirely absent landmark collider; the exact observed cause remains suspected.",
+    "smallest_next_reproduction": [
+      "Replay the normal UI route toward Mecca Masjid. Capture a full-map screenshot immediately before pressing R and after recovery, plus a side/front scene screenshot, to locate the car relative to the mosque facade and nearby road.",
+      "Separately add a focused deterministic recovery test with a road candidate that overlaps a known landmark footprint after lane offset; assert that a nearby clear candidate is chosen or recovery refuses safely.",
+      "Add a geometry test using a known rendered front-pier point at local v=23 and a pier u coordinate: check whether the building/camera obstacle query recognizes the point. Keep open arch space traversable according to intended design.",
+      "Test clearCamera with its pivot inside or within2.5m of a tall solid: the returned position must be outside solids and retain a usable view."
+    ],
+    "smallest_fix_plan": [
+      "Validate candidate car clearance and loaded road support before selecting the recovery destination; search nearby along-road samples if the nearest lane point is obstructed. Do not just choose a more distant arbitrary coordinate.",
+      "Revalidate the destination before glide completion so the8second timeout cannot snap into a newly loaded obstacle.",
+      "Add explicit collision/camera footprints for the rendered mosque arch piers where missing, using the model dimensions rather than filling every arch opening with one bounding box.",
+      "Replace the unchecked camera fallback with a bounded search for a clear position, then repeat the same UI flight/recovery and short pickup approach."
+    ],
+    "causal_status": "Not upgraded to confirmed root cause: actual playtest world coordinates and selected recovery edge were not captured."
+  }
+}
