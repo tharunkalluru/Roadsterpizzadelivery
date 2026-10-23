@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1116Z",
+  "method": "Two read-only subagents reviewed build provenance, delivery timer behavior, prior evidence and coverage. This is not additional browser play.",
+  "checkoutCommit": "ae8522aa80e2d99bece12d5e8d127f835932fa04",
+  "build": {
+    "httpStatus": 200,
+    "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+    "runtimeGameDataCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
+    "runtimeAsset": "index-TazYPRJa.js",
+    "verified": "Served HTML, runtime asset and core match dist; all 306 public city files match dist. No runtime game changes since previous round."
+  },
+  "timer": {
+    "source": "game/src/game/game.ts:752-765,909-910",
+    "finding": "Collected order remains deliverable after deadline; HUD becomes Late!, heat reaches20 at deadline and0 at1.25 times the limit. No cancellation solely from lateness. Paused/map/modal time does not advance simulation timer.",
+    "verification": "Source review corroborated by visible Secunderabad Late! and0heat with delivery still active."
+  },
+  "PT-011": {
+    "status": "confirmed in prior rounds; no new reproduction yet",
+    "controlProcedure": "After explicit handover reward and wallet/progress change, remain foreground and unpaused at least5.5 seconds with no menus. Capture actual New order/Accept/Another; waiting HUD alone is inconclusive."
+  },
+  "PT-012": {
+    "status": "Prior repeated ECIL offers plus one new Dilsukh Nagar police-institute-named offer; no acceptance of any police-named offer.",
+    "evidenceLimit": "Two distinct police-station-named offers, neither accepted. First original screenshot, second accessibility/interaction ledger. This does not prove two independent sessions, real-world identity, upstream category cause, successful pickup or facade fidelity.",
+    "additionalSourceRecord": {
+      "name": "Bhagyanagar Institute of Police",
+      "foodIndex": 6620,
+      "id": "b_d6fc7fdd-c2c9-4f",
+      "stop": [
+        3223.3,
+        4061.9,
+        0,
+        ""
+      ],
+      "pizza": false,
+      "tile": [
+        3,
+        4
+      ],
+      "limits": "List membership confirmed, cause/real-world identity unverified."
+    }
+  },
+  "priorRoundAudit": {
+    "pickupsCompleted": 0,
+    "completedDeliveries": 1,
+    "heldDrivingInputSeconds": 74.24,
+    "uniqueScreenshots": 6,
+    "popularAreasPartiallyVisited": 11,
+    "cumulativePickups": 4,
+    "cumulativeHandovers": 2,
+    "checks": "Previous three reports and index totals agree; all six cited screenshots exist."
+  }
+}

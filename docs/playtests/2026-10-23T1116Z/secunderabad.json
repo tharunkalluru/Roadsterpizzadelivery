@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1116Z",
+  "checkoutCommit": "ae8522aa80e2d99bece12d5e8d127f835932fa04",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeGameDataCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": {
+    "width": 594,
+    "height": 466
+  },
+  "method": "Visible Chrome controls only, root after ECIL worker released exclusive input ownership. No teleport, hidden-state mutation, stepping or autopilot. Held driving time excludes coasting/tool latency and menus.",
+  "completedDeliveries": 0,
+  "customerHandoverAttempted": false,
+  "console": {
+    "levels": [
+      "warn",
+      "error"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Captured own-tab logs only; absence does not establish bug-free gameplay."
+  },
+  "area": "Secunderabad",
+  "route": "Cafe Kaadhale on S.D. Road → Home in Nehru Nagar",
+  "startedAt": "2026-10-23T11:23:36Z",
+  "browserInputEndedAt": "2026-10-23T11:26:15Z",
+  "continuedPriorPickup": true,
+  "pickupsCompleted": 0,
+  "input": {
+    "heldDrivingInputSecondsApprox": 42.65,
+    "heldDurationBatchesSeconds": [
+      [
+        2.5,
+        0.7
+      ],
+      [
+        4,
+        0.7
+      ],
+      [
+        0.65,
+        1.8,
+        1.2
+      ],
+      [
+        3.5,
+        0.85
+      ],
+      [
+        0.9,
+        3.6,
+        0.8
+      ],
+      [
+        1.3,
+        0.45,
+        2.4,
+        0.65
+      ],
+      [
+        0.25,
+        5.5,
+        0.85
+      ],
+      [
+        2.5,
+        0.7
+      ],
+      [
+        1.8,
+        0.75,
+        3,
+        0.7
+      ],
+      [
+        0.6
+      ]
+    ],
+    "flightTaps": 1,
+    "recoveryTaps": 2
+  },
+  "baselineHud": {
+    "routeMetres": 883,
+    "timeSeconds": 23,
+    "heat": 31,
+    "coins": 521,
+    "level": "1 · 1/3",
+    "flightSeconds": 10,
+    "speedKmh": 0
+  },
+  "completedInteractions": [
+    "Resume saved collected order",
+    "Actual Close map three times",
+    "Flight until boost depletion, landing near buildings, two recoveries",
+    "Observe Late! and heat0 while same order remains active",
+    "Pause/Resume and final pause"
+  ],
+  "steps": [
+    "Opened map and inspected route; initial acceleration met median. Space and forward inputs lifted over it, charge10→5.2→0; route briefly748m, then1006m on landing near buildings.",
+    "HUD changed from23s to Late! while Deliver remained active. Heat later reached0; no cancellation observed. No E prompt or handover attempt.",
+    "Two R recoveries followed by forward input during/after glide. Subsequent facade contacts and wrong heading confound recovery/route conclusions. Route791→747→751→754→727→741m.",
+    "Final short S input produced739m and20km/h (reverse/braking direction not encoded by HUD), then paused immediately. Saved unpaused HUD before pause."
+  ],
+  "findings": [],
+  "observations": [
+    {
+      "status": "observed_expected_behavior",
+      "note": "Late/heat0 order persisted; source corroborates soft deadline."
+    },
+    {
+      "status": "operator_confounded",
+      "note": "Navigation and collision difficulties do not prove inaccessible customer or bad recovery. Two R glides had concurrent forward input; no controlled PT010 repeat."
+    }
+  ],
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Nehru Nagar",
+    "routeMetres": 739,
+    "time": "Late!",
+    "heat": 0,
+    "coins": 521,
+    "level": "1 · 1/3",
+    "flightSeconds": 2.5,
+    "speedKmh": 20,
+    "areaChip": "Jawahar Nagar Colony",
+    "paused": true
+  },
+  "evidence": [
+    "evidence/2026-10-23T1116Z-secunderabad-late-9f1eda.jpg"
+  ],
+  "limitations": [
+    "No new pickup or completed handover; no PT011 no-pause control.",
+    "No controlled bridge-parapet test; input/navigation confounds remain."
+  ],
+  "handoff": {
+    "tabId": "1933378088",
+    "browserId": "1",
+    "owner": "root",
+    "area": "Secunderabad",
+    "paused": true,
+    "heldKeys": false,
+    "instruction": "Continue collected customer leg739m, Late!,heat0,521coins,Level1 1/3,2.5sboost. Paused with20km/h HUD; brake carefully on Resume. Keep other tabs paused."
+  }
+}

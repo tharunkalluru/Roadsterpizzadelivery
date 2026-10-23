@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1116Z",
+  "checkoutCommit": "ae8522aa80e2d99bece12d5e8d127f835932fa04",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeGameDataCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": {
+    "width": 594,
+    "height": 466
+  },
+  "method": "Visible Chrome controls only, root after ECIL worker released exclusive input ownership. No teleport, hidden-state mutation, stepping or autopilot. Held driving time excludes coasting/tool latency and menus.",
+  "completedDeliveries": 0,
+  "customerHandoverAttempted": false,
+  "console": {
+    "levels": [
+      "warn",
+      "error"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Captured own-tab logs only; absence does not establish bug-free gameplay."
+  },
+  "area": "Dilsukh Nagar",
+  "route": "Balaji Ram Ratan Mithai Bhandar on Konark Theatre Road → Home in Salivahana Nagar",
+  "startedAt": "2026-10-23T11:26:25Z",
+  "browserInputEndedAt": "2026-10-23T11:33:45Z",
+  "pickupsCompleted": 1,
+  "pickupInteractionAttempted": true,
+  "input": {
+    "heldDrivingInputSecondsApprox": 76.8,
+    "heldDurationBatchesSeconds": [
+      [
+        4.3,
+        0.9
+      ],
+      [
+        4.5,
+        0.65
+      ],
+      [
+        3.5,
+        0.8
+      ],
+      [
+        1.5,
+        0.6,
+        0.55
+      ],
+      [
+        0.45,
+        2,
+        0.55
+      ],
+      [
+        1.6,
+        0.9,
+        0.6
+      ],
+      [
+        1.3,
+        1.5,
+        0.95
+      ],
+      [
+        1.2,
+        2.4,
+        0.7
+      ],
+      [
+        4.5,
+        0.35
+      ],
+      [
+        0.3
+      ],
+      [
+        1.1,
+        0.3
+      ],
+      [
+        1.05,
+        2.3,
+        0.4
+      ],
+      [
+        3,
+        0.5
+      ],
+      [
+        0.2,
+        2.2,
+        0.7
+      ],
+      [
+        1.4,
+        0.65,
+        2,
+        0.35
+      ],
+      [
+        0.6,
+        0.65,
+        0.7,
+        2,
+        0.35
+      ],
+      [
+        1,
+        0.4
+      ],
+      [
+        0.8,
+        1.5,
+        0.5
+      ],
+      [
+        0.7,
+        2,
+        0.4
+      ],
+      [
+        1.5,
+        0.95,
+        1.8,
+        0.5
+      ],
+      [
+        1.8,
+        0.6
+      ],
+      [
+        0.35,
+        1.2,
+        0.5
+      ],
+      [
+        0.5,
+        0.65,
+        0.65,
+        1,
+        0.45
+      ]
+    ],
+    "collectionHoldSeconds": 1.4,
+    "flightTaps": 5,
+    "recoveryTaps": 4,
+    "caveat": "Driving ledger includes flight/fall inputs. Later captures were followed immediately by P to reduce passive coasting. Held time is not continuous play duration."
+  },
+  "baselineHud": {
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 2.5,
+    "speedKmh": 0
+  },
+  "offerSequence": [
+    {
+      "pickup": "Bhagyanagar Institute of Police",
+      "customer": "Home in Lalitha Nagar",
+      "routeMetres": 658,
+      "aboutSeconds": 139,
+      "baseCoins": 81,
+      "accepted": false,
+      "evidence": "original screenshot"
+    },
+    {
+      "pickup": "Balaji Ram Ratan Mithai Bhandar",
+      "road": "Konark Theatre Road",
+      "customer": "Home in Salivahana Nagar",
+      "routeMetres": 735,
+      "aboutSeconds": 150,
+      "baseCoins": 86,
+      "accepted": true
+    }
+  ],
+  "completedInteractions": [
+    "Normal Play → Popular Dilsukh Nagar spawn",
+    "Another once, explicit Accept click for sweet-shop order",
+    "Actual Close map three times",
+    "Drive under metro and through local streets; traffic contact feedback",
+    "Earn flight, use cutoff, resume flight and exhaust charge",
+    "Rooftop landing and four R recoveries; three settled glides observed without driving during glide",
+    "Explicit Hold E collection and delivery HUD confirmation",
+    "Repeated pause/resume and final pause"
+  ],
+  "steps": [
+    "First offer was Bhagyanagar Institute of Police→Home Lalitha Nagar658m. Saved screenshot, did not accept. Another offered sweet shop→Salivahana Nagar735m,150s,base86coins; accepted via visible button.",
+    "Map showed pickup south of the metro arterial via a U-turn. First measured pickup HUD after driving632m, then537,493,444,425,411. Failed turns/median contacts and passive coasting before later pause protocol confound any routing allegation.",
+    "Space flight/cutoff crossed median but landed beside frontage; R followed by an explicit1.8s wait restored a clear lane. Another ground approach reached400m before a mistimed turn increased route741m.",
+    "Further earned flight/cutoff/resume brought route380→262→179m; roof prompt appeared. R with no input during glide settled on a narrow street at243m. Ground turns and recovery progressed226→198→164→152→146m.",
+    "Another settled R restored a usable arterial lane; left turn encountered an auto with visible Arre! Watch the auto! feedback. Pickup approach89→61→33→21/22m; facade contact prompted a fourth R.",
+    "After settled fourth recovery, Hold E / ACT to collect appeared at0km/h while route HUD read38m. Held E1.4s. Explicit Pizza collected! Garam garam. toast and Deliver/Home in Salivahana Nagar/732m/150s/100heat verified one collection. No customer driving or handover this round."
+  ],
+  "findings": [
+    {
+      "issueId": "PT-012",
+      "status": "additional_named_location_observed_once",
+      "severity": "P2",
+      "confidence": "high for displayed name only",
+      "actual": "Bhagyanagar Institute of Police offered as a pickup kitchen",
+      "expected": "Pickup kitchen eligibility should exclude non-food institutions",
+      "source": "core.pack.wasm food[6620], b_d6fc7fdd-c2c9-4f, stop[3223.3,4061.9,0,empty], pizza:false,tile[3,4]",
+      "limits": "Not accepted; source confirms list membership only. Underlying category, real-world identity and upstream cause unverified."
+    }
+  ],
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Salivahana Nagar",
+    "routeMetres": 732,
+    "timeSeconds": 150,
+    "heat": 100,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 5,
+    "speedKmh": 0,
+    "areaChip": "Lalitha Nagar",
+    "paused": true
+  },
+  "evidence": [
+    "evidence/2026-10-23T1116Z-dilsukh-police-institute-offer-0a44c5.jpg",
+    "evidence/2026-10-23T1116Z-dilsukh-collected-0afc96.jpg"
+  ],
+  "limitations": [
+    "No completed handover or PT011 no-pause control.",
+    "No real street/shop fidelity verification; no physical phone test or new viewport override.",
+    "Collection prompt at38m noted without diagnosing a route-distance bug; route and direct proximity may differ."
+  ],
+  "handoff": {
+    "tabId": "1933378124",
+    "browserId": "1",
+    "owner": "root",
+    "area": "Dilsukh Nagar",
+    "paused": true,
+    "heldKeys": false,
+    "instruction": "Continue collected sweet-shop order to Home Salivahana Nagar732m,150s,100heat,580coins,Level1 2/3,5sboost,0km/h. Prefer this fresh customer leg for handover/no-pause control. Keep other tabs paused."
+  }
+}

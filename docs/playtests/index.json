@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-23T11:04:42.541339+00:00",
+  "updatedAt": "2026-10-23T11:36:08.756891+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -9,9 +9,9 @@
     "requires": "Mac awake and Codex running"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "2f49b7da64edfae0a2fd5dbf6abecc74f1fcad78",
+  "currentBuild": "ae8522aa80e2d99bece12d5e8d127f835932fa04",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
-  "nextAreaCursor": 11,
+  "nextAreaCursor": 12,
   "targetAreas": [
     "Charminar",
     "HITEC City",
@@ -118,24 +118,32 @@
       "pickupsCompleted": 1,
       "completedDeliveries": 0,
       "lastRoute": "Cafe Kaadhale on S.D. Road → Home in Nehru Nagar",
-      "report": "2026-10-23T1046Z/secunderabad.json",
-      "heldDrivingInputSeconds": 49.6,
-      "lastObservedDeliveryMetres": 883,
+      "report": "2026-10-23T1116Z/secunderabad.json",
+      "heldDrivingInputSeconds": 92.25,
+      "lastObservedDeliveryMetres": 739,
       "closestObservedDeliveryMetres": 458
     },
     "ECIL": {
       "status": "tested_partial",
       "completedDeliveries": 0,
-      "report": "2026-10-23T1046Z/ecil.json",
+      "report": "2026-10-23T1116Z/ecil.json",
       "lastRoute": "Hotel Anand Vihar → Home in Green Hills Colony",
       "pickupsCompleted": 0,
-      "heldDrivingInputSeconds": 28.95,
-      "closestObservedPickupMetres": 875,
-      "lastObservedPickupMetres": 930
+      "heldDrivingInputSeconds": 78.2,
+      "closestObservedPickupMetres": 636,
+      "lastObservedPickupMetres": 682
     },
     "Dilsukh Nagar": {
-      "status": "not_tested",
-      "completedDeliveries": 0
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "report": "2026-10-23T1116Z/dilsukh-nagar.json",
+      "lastRoute": "Balaji Ram Ratan Mithai Bhandar on Konark Theatre Road → Home in Salivahana Nagar",
+      "pickupsCompleted": 1,
+      "heldDrivingInputSeconds": 76.8,
+      "lastObservedDeliveryMetres": 732,
+      "lastObservedPickupMetres": 38,
+      "closestObservedPickupMetres": 20,
+      "pickupState": "collected_explicitly_at_visible_prompt"
     },
     "LB Nagar": {
       "status": "not_tested",
@@ -170,31 +178,31 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-23T1046Z",
-    "startedAt": "2026-10-23T10:46:45.854Z",
-    "endedAt": "2026-10-23T11:04:42.541339+00:00",
+    "id": "2026-10-23T1116Z",
+    "startedAt": "2026-10-23T11:16:45.958Z",
+    "endedAt": "2026-10-23T11:36:08.756891+00:00",
     "status": "completed_partial_coverage",
     "areas": [
-      "Kukatpally",
       "ECIL",
-      "Secunderabad"
+      "Secunderabad",
+      "Dilsukh Nagar"
     ],
-    "checkoutCommit": "2f49b7da64edfae0a2fd5dbf6abecc74f1fcad78",
+    "checkoutCommit": "ae8522aa80e2d99bece12d5e8d127f835932fa04",
     "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
     "runtimeGameDataCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
     "reports": [
-      "2026-10-23T1046Z/kukatpally.json",
-      "2026-10-23T1046Z/ecil.json",
-      "2026-10-23T1046Z/secunderabad.json"
+      "2026-10-23T1116Z/ecil.json",
+      "2026-10-23T1116Z/secunderabad.json",
+      "2026-10-23T1116Z/dilsukh-nagar.json"
     ],
-    "sourceTriage": "2026-10-23T1046Z/source-triage.json",
-    "participantType": "Root and playtest_west used visible controls in sequential exclusive browser turns; two other subagents reviewed source/provenance and reporting. No teleport, hidden-state mutation, stepping or autopilot.",
-    "pickupsCompleted": 0,
-    "completedDeliveries": 1,
-    "heldDrivingInputSecondsApprox": 74.24,
-    "savedScreenshots": 6,
-    "uniqueScreenshots": 6,
-    "summary": "Kukatpally handover +59coins completed. PT-011 reproduced after immediate post-handover pause, now confirmed in two areas. New PT-012: police-station-named ECIL pickup offered twice. ECIL pickup and Secunderabad handover remain unfinished. Actual map Close worked."
+    "sourceTriage": "2026-10-23T1116Z/source-triage.json",
+    "participantType": "Root and one subagent drove sequentially; two subagents performed read-only provenance/coverage analysis.",
+    "pickupsCompleted": 1,
+    "completedDeliveries": 0,
+    "heldDrivingInputSecondsApprox": 168.7,
+    "savedScreenshots": 4,
+    "uniqueScreenshots": 4,
+    "summary": "Dilsukh Nagar pickup explicitly collected; customer leg preserved732m. ECIL pickup682m and Secunderabad late customer leg739m unfinished. PT012 extended by one police-institute-named offer. Actual map Close worked; captured warn/error logs empty."
   },
   "issueRegistry": [
     {
@@ -466,40 +474,55 @@
       ],
       "priority": "P2",
       "status": "confirmed_repeated_police_station_named_pickup_source_cause_unverified",
-      "title": "Police-station-named location offered as a pizza pickup kitchen",
+      "title": "Police-station or police-institute-named location offered as a pizza pickup kitchen",
       "areas": [
-        "ECIL"
+        "ECIL",
+        "Dilsukh Nagar"
       ],
       "confidence": "high for repeated displayed offer; source classification cause and real-world listing identity not verified by this playtest",
       "reproductions": 2,
       "evidence": [
-        "evidence/2026-10-23T1046Z-ecil-police-pickup-offer-918b81.jpg"
+        "evidence/2026-10-23T1046Z-ecil-police-pickup-offer-918b81.jpg",
+        "evidence/2026-10-23T1116Z-dilsukh-police-institute-offer-0a44c5.jpg"
       ],
       "reports": [
         "2026-10-23T1046Z/ecil.json",
-        "2026-10-23T1046Z/source-triage.json"
+        "2026-10-23T1046Z/source-triage.json",
+        "2026-10-23T1116Z/dilsukh-nagar.json"
       ],
       "source": "core.pack.wasm food[7677], board b_6d4468aa-c5da-40; game.ts:142-144,270-278",
       "nextStep": "Inspect the exact source record/category and kitchen eligibility rule, then verify corrected visible offer selection without removing unrelated legitimate businesses.",
-      "sourceCause": "Exact record is group food and eligible for offers. Upstream pub/public regex explanation and real-world identity remain unverified."
+      "sourceCause": "Exact record is group food and eligible for offers. Upstream pub/public regex explanation and real-world identity remain unverified.",
+      "additionalObservations": [
+        {
+          "area": "Dilsukh Nagar",
+          "pickup": "Bhagyanagar Institute of Police",
+          "displayedOffers": 1,
+          "accepted": false,
+          "coreFoodIndex": 6620,
+          "boardId": "b_d6fc7fdd-c2c9-4f",
+          "sourceCauseVerified": false
+        }
+      ],
+      "reproductionScope": "Two Kushaiguda Traffic PS offers in one prior ECIL session; one different police-institute-named Dilsukh Nagar offer this round. No police-named pickup accepted."
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
   "browserCoordination": "Parent grants each worker a short exclusive driving turn. Use /tmp/roadster-playtest-input.lock around each CUA call; only its acquiring worker may release it. Other workers inspect code/evidence while waiting. Pause own game before ceding input. Do not modify another agent or user tab.",
   "evidenceCapture": "Use screenshots supported by the browser tool. tools/playtest-evidence-server.py provides a localhost-only browser form to save screenshot bytes when no file-save API exists. Read its random form URL from its startup output; do not reuse a stale URL.",
   "coverageLimitations": [
-    "Two explicit handovers total: Ameerpet and Kukatpally. Four prior collections total: RTC, Ameerpet, Kukatpally and Secunderabad; no new pickup this round.",
-    "RTC live session was lost without handover; Secunderabad customer leg and ECIL pickup remain unfinished.",
-    "No physical phone/touch input tested;594px desktop widths are not phone testing.",
-    "Eleven popular areas partially visited; not every playable region or tile.",
+    "Two explicit handovers total: Ameerpet and Kukatpally. Five collections total: RTC,Ameerpet,Kukatpally,Secunderabad,Dilsukh Nagar; one new pickup this round.",
+    "RTC live session was lost without handover; Secunderabad and Dilsukh Nagar customer legs and ECIL pickup remain unfinished.",
+    "Twelve popular areas partially visited; not every playable region or tile.",
     "No controlled no-pause handover comparison yet.",
-    "Multiple paused WebGL tabs and tool latency prevent standalone performance/continuous-driving conclusions.",
-    "Street and shop fidelity is not established by gameplay testing."
+    "594px desktop width is not physical phone/touch testing; no new viewport override this round.",
+    "Tool latency, passive coasting and steering errors prevent continuous-driving/performance or inaccessible-route conclusions.",
+    "Street/shop fidelity not established by gameplay testing."
   ],
   "followUpPriorities": [
-    "Complete a handover without pausing for PT-011 control; missing-offer failure itself is confirmed twice.",
-    "Continue Secunderabad883m collected order and ECIL930m pickup via preserved paused tabs.",
-    "Rotate Dilsukh Nagar, LB Nagar, Banjara Hills, Kompally and Miyapur, then broaden to remaining playable regions.",
+    "Complete Dilsukh Nagar732m handover and leave foreground unpaused≥5.5s to observe actual next offer; PT011 failure remains confirmed twice.",
+    "Preserve/resume Secunderabad739m late customer leg and ECIL682m pickup after the fresh Dilsukh Nagar customer leg.",
+    "Rotate LB Nagar, Banjara Hills, Kompally and Miyapur, then broaden to remaining playable regions.",
     "Investigate PT-012 pickup eligibility with original source categories before altering unrelated businesses.",
     "Repeat lower-confidence Charminar/RTC recovery and collision/route cases with controlled before/after evidence.",
     "Regression-test confirmed PT-007 overlap/PT-009 map focus; actual map Close continues to work.",
@@ -546,7 +569,11 @@
     "evidence/2026-10-23T1046Z-kukatpally-offer-restored-32cd8d.jpg",
     "evidence/2026-10-23T1046Z-ecil-police-pickup-offer-918b81.jpg",
     "evidence/2026-10-23T1046Z-ecil-stopping-state-2acc51.jpg",
-    "evidence/2026-10-23T1046Z-secunderabad-customer883m-ed7934.jpg"
+    "evidence/2026-10-23T1046Z-secunderabad-customer883m-ed7934.jpg",
+    "evidence/2026-10-23T1116Z-ecil-paused-9059e5.jpg",
+    "evidence/2026-10-23T1116Z-secunderabad-late-9f1eda.jpg",
+    "evidence/2026-10-23T1116Z-dilsukh-police-institute-offer-0a44c5.jpg",
+    "evidence/2026-10-23T1116Z-dilsukh-collected-0afc96.jpg"
   ],
   "roundHistory": [
     {
@@ -679,28 +706,64 @@
       "savedScreenshots": 4,
       "uniqueScreenshots": 4,
       "summary": "Two explicit collections; customer handovers unfinished. PT-007 covered minimap click obstruction reproduced twice while exposed edge, M and actual Close worked. No new confirmed issue group. PT-011 repeat not reached."
+    },
+    {
+      "id": "2026-10-23T1046Z",
+      "startedAt": "2026-10-23T10:46:45.854Z",
+      "endedAt": "2026-10-23T11:04:42.541339+00:00",
+      "status": "completed_partial_coverage",
+      "areas": [
+        "Kukatpally",
+        "ECIL",
+        "Secunderabad"
+      ],
+      "checkoutCommit": "2f49b7da64edfae0a2fd5dbf6abecc74f1fcad78",
+      "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+      "runtimeGameDataCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
+      "reports": [
+        "2026-10-23T1046Z/kukatpally.json",
+        "2026-10-23T1046Z/ecil.json",
+        "2026-10-23T1046Z/secunderabad.json"
+      ],
+      "sourceTriage": "2026-10-23T1046Z/source-triage.json",
+      "participantType": "Root and playtest_west used visible controls in sequential exclusive browser turns; two other subagents reviewed source/provenance and reporting. No teleport, hidden-state mutation, stepping or autopilot.",
+      "pickupsCompleted": 0,
+      "completedDeliveries": 1,
+      "heldDrivingInputSecondsApprox": 74.24,
+      "savedScreenshots": 6,
+      "uniqueScreenshots": 6,
+      "summary": "Kukatpally handover +59coins completed. PT-011 reproduced after immediate post-handover pause, now confirmed in two areas. New PT-012: police-station-named ECIL pickup offered twice. ECIL pickup and Secunderabad handover remain unfinished. Actual map Close worked."
     }
   ],
-  "nextRoundPlan": "Kukatpally completed tab closed. Resume preserved Secunderabad tab1933378088 at883m/23s/31heat, or ask playtest_west to continue its paused ECIL tab1933378100 at930m pickup. Keep all other game tabs paused and re-mark handoffs each browser turn. Next new area: Dilsukh Nagar (cursor11).",
+  "nextRoundPlan": "Resume Dilsukh Nagar collected order732m/150s/100heat for explicit handover and no-pause next-offer control. Secunderabad739m/Late!/heat0 and ECIL682m pickup remain paused. Next new area LB Nagar(cursor12), then Banjara Hills,Kompally,Miyapur. Keep all non-driving tabs paused.",
   "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
   "liveHandoff": {
-    "tabId": "1933378088",
+    "tabId": "1933378124",
     "browserId": "1",
     "owner": "root",
+    "area": "Dilsukh Nagar",
     "paused": true,
     "heldKeys": false,
-    "area": "Secunderabad",
-    "instruction": "Continue collected Cafe Kaadhale customer leg883m/23s/31heat/10sflight. Keep ECIL tab paused. This older live tab retains521coins/Level1 1/3; do not compare reward against the separate580coin tab baseline."
+    "instruction": "Continue collected sweet-shop order to Home Salivahana Nagar732m,150s,100heat,580coins,Level1 2/3,5sboost,0km/h. Prefer this fresh customer leg for handover/no-pause control. Keep other tabs paused."
   },
   "liveHandoffs": [
+    {
+      "tabId": "1933378124",
+      "browserId": "1",
+      "owner": "root",
+      "area": "Dilsukh Nagar",
+      "paused": true,
+      "heldKeys": false,
+      "instruction": "Continue collected sweet-shop order to Home Salivahana Nagar732m,150s,100heat,580coins,Level1 2/3,5sboost,0km/h. Prefer this fresh customer leg for handover/no-pause control. Keep other tabs paused."
+    },
     {
       "tabId": "1933378088",
       "browserId": "1",
       "owner": "root",
+      "area": "Secunderabad",
       "paused": true,
       "heldKeys": false,
-      "area": "Secunderabad",
-      "instruction": "Continue collected Cafe Kaadhale customer leg883m/23s/31heat/10sflight. Keep ECIL tab paused. This older live tab retains521coins/Level1 1/3; do not compare reward against the separate580coin tab baseline."
+      "instruction": "Continue collected customer leg739m, Late!,heat0,521coins,Level1 1/3,2.5sboost. Paused with20km/h HUD; brake carefully on Resume. Keep other tabs paused."
     },
     {
       "tabId": "1933378100",
@@ -709,7 +772,7 @@
       "paused": true,
       "heldKeys": false,
       "area": "ECIL",
-      "instruction": "Own tab is marked handoff with accepted Hotel Anand Vihar pickup930m away,3.0s boost,580coins/Level1 2/3. Continue via visible Resume only. Cross-session tab claims previously failed; ask this worker to continue if root cannot bind it. Keep other game tabs paused."
+      "instruction": "Continue via visible Resume from Hotel Anand Vihar pickup682m.580coins/Level1 2/3/8.0sboost. Other tabs must stay paused. Root may ask this worker to resume if cross-session ownership blocks access."
     }
   ]
 }

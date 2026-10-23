@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1116Z",
+  "area": "ECIL",
+  "route": "Hotel Anand Vihar → Home in Green Hills Colony",
+  "previousReport": "2026-10-23T1046Z/ecil.json",
+  "startedAt": "2026-10-23T11:17:17Z",
+  "browserInputEndedAt": "2026-10-23T11:23:27Z",
+  "status": "completed_partial_coverage",
+  "checkoutCommit": "2f49b7da64edfae0a2fd5dbf6abecc74f1fcad78",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "buildNote": "Current index and parent supplied build provenance; this worker did not rebuild, reload, alter game behavior or inspect hidden runtime state.",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": {
+    "width": 594,
+    "height": 466
+  },
+  "method": "Resumed own preserved Chrome tab1933378100 with an exclusive input turn and owned input lock. Visible Resume, M/Close, driving keys and P only; fresh AX/screenshot after each short action batch. No hidden state, teleport, engine stepping, autopilot, game edits or other-tab interaction.",
+  "baselineHud": {
+    "state": "Pick up",
+    "pickup": "Hotel Anand Vihar",
+    "routeMetres": 930,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 3.0,
+    "speedKmh": 0,
+    "clock": "Day 6 · 5:22 AM",
+    "paused": true
+  },
+  "input": {
+    "heldDrivingInputSecondsApprox": 49.25,
+    "ledger": [
+      [
+        [
+          "w",
+          2.2
+        ],
+        [
+          "s",
+          0.7
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.9
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.35
+        ],
+        [
+          "w",
+          1.7
+        ],
+        [
+          "s",
+          0.75
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.25
+        ],
+        [
+          "w",
+          0.85
+        ],
+        [
+          "s",
+          0.45
+        ]
+      ],
+      [
+        [
+          "w",
+          0.6
+        ],
+        [
+          "w+d",
+          1.1
+        ],
+        [
+          "s",
+          0.6
+        ]
+      ],
+      [
+        [
+          "w",
+          2.2
+        ],
+        [
+          "s",
+          0.85
+        ]
+      ],
+      [
+        [
+          "w",
+          1.1
+        ],
+        [
+          "s",
+          0.45
+        ]
+      ],
+      [
+        [
+          "w",
+          0.85
+        ],
+        [
+          "w+a",
+          1.2
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w+d",
+          0.65
+        ],
+        [
+          "w",
+          1.6
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.8
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.2
+        ],
+        [
+          "w",
+          3.2
+        ],
+        [
+          "s",
+          1.1
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.8
+        ],
+        [
+          "s",
+          0.55
+        ]
+      ],
+      [
+        [
+          "w+d",
+          0.4
+        ],
+        [
+          "w",
+          1.7
+        ],
+        [
+          "s",
+          0.85
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.45
+        ],
+        [
+          "w",
+          1.8
+        ],
+        [
+          "s",
+          0.8
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.3
+        ],
+        [
+          "w",
+          1.3
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w",
+          3
+        ],
+        [
+          "s",
+          0.9
+        ]
+      ],
+      [
+        [
+          "w",
+          5
+        ],
+        [
+          "s",
+          1.1
+        ]
+      ],
+      [
+        [
+          "w+d",
+          0.25
+        ],
+        [
+          "w",
+          1.5
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ]
+    ],
+    "mapOpenTaps": 2,
+    "actualCloseMapClicks": 2,
+    "pauseKeyTaps": 1,
+    "flightTaps": 0,
+    "recoveryKeyTaps": 0,
+    "collectionHoldSeconds": 0,
+    "caveat": "Chord durations count once; this is requested held-input time, not distance or continuous-driving time. Passive coasting, tool latency, screenshot observations, map time and pause time are excluded. Browser actions ended slightly after the11:23 boundary to save and close the original evidence screenshot form; driving stopped by11:23:04."
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "pickupInteractionAttempted": false,
+  "customerHandoverAttempted": false,
+  "steps": [
+    "Resumed the preserved paused Hotel Anand Vihar pickup930m away. Opened M and inspected the north-up map; actual Close map returned to gameplay.",
+    "Followed the yellow ribbon through a left turn and then a right turn, reducing the displayed pickup route930→879→864→839→825→800→784m. Ground-driving charge increased3.0→5.5s.",
+    "Approached a main-road left turn, reducing the route762→754m. An auto was visibly ahead before the turn; contact produced Arre! Watch the auto! and a temporary speed stop. Operator steering then left the lane. No claim of a traffic-AI defect.",
+    "Corrections through curbs/open paved ground changed the route790→773→819m. Opened M and observed a recalculated approach around the block; actual Close map worked again. This does not establish a navigation defect because the car had left its intended lane.",
+    "Attempted to rejoin the ribbon with short steering, throttle and braking inputs. Route814→781→787m, followed by AX807m and a subsequent screenshot741m from the same state call. This demonstrates that AX and screenshot were sampled at different moments while route calculation continued; it is not treated as a separate defect.",
+    "Followed the next straight side-street segment. Route703→650→636m was observed. Flight charge reached8.0s. Stuck? Get back on the road (R) appeared once near a curb, but no recovery was invoked; driving continued and the button disappeared.",
+    "At the bounded turn end, pressed P. Verified Paused and0km/h, Hotel Anand Vihar pickup682m,580coins/Level1 2/3/8.0s charge, Day6 12:41PM. Route changed636→682m while the car coasted and the approach recalculated between observations. No collection prompt, E hold or pickup state was reached.",
+    "Marked own game tab handoff. Saved the original paused screenshot through the local evidence form and closed only that temporary form tab. Released owned input lock at11:23:27UTC and notified root before drafting this report."
+  ],
+  "completedInteractions": [
+    "Resume preserved order",
+    "M and actual Close map twice",
+    "Ground driving, steering, braking and facade/curb avoidance attempts",
+    "Visible auto-contact feedback",
+    "Ground-driving charge3.0→5.5→8.0s",
+    "Final Pause and handoff"
+  ],
+  "pickupProgress": {
+    "initialRouteMetres": 930,
+    "closestObservedRouteMetres": 636,
+    "lastObservedRouteMetres": 682,
+    "netDisplayedRouteReductionMetres": 248,
+    "holdToCollectPromptObserved": false,
+    "limitation": "Partial approach with steering corrections, road departures and route recalculations. No claim that pickup is unreachable or that navigation was defective."
+  },
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Hotel Anand Vihar",
+    "routeMetres": 682,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 8.0,
+    "speedKmh": 0,
+    "clock": "Day 6 · 12:41 PM",
+    "paused": true,
+    "heldKeys": false
+  },
+  "findings": [],
+  "nonDefectObservations": [
+    {
+      "status": "observed",
+      "topic": "Traffic contact",
+      "actual": "Visible auto followed by Arre! Watch the auto! and speed stop. No controlled repeat or right-of-way analysis performed."
+    },
+    {
+      "status": "passed_in_this_turn",
+      "topic": "Map Close",
+      "actual": "Actual Close map button worked on both map inspections."
+    },
+    {
+      "status": "observed",
+      "topic": "Ground charge",
+      "actual": "HUD charge increased3.0→5.5→8.0s without flight use."
+    },
+    {
+      "status": "not_retested",
+      "issueId": "PT-012",
+      "topic": "Police-station-named pickup offer",
+      "actual": "Retained prior Hotel Anand Vihar order; no new offer cycling or source classification check."
+    }
+  ],
+  "console": {
+    "queriedLevels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Own-tab captured logs only; empty console does not exclude visual or gameplay defects."
+  },
+  "evidence": [
+    "evidence/2026-10-23T1116Z-ecil-paused-9059e5.jpg"
+  ],
+  "evidenceLimitations": [
+    "Saved original screenshot proves the paused state but its modal obscures part of the order HUD. Exact682m stopping distance is in the contemporaneous AX state. Earlier route scenes remain in the CUA trace, not separately saved image files.",
+    "No street imagery or real-world shop-order verification in this gameplay pass."
+  ],
+  "untested": [
+    "Explicit ECIL pickup and customer handover",
+    "Post-handover normal next-offer control",
+    "Flight or recovery in this turn",
+    "Controlled signal/queue behavior",
+    "Bridge parapet collision",
+    "Physical mobile/touch controls",
+    "Every ECIL street and exact shop order"
+  ],
+  "handoff": {
+    "tabId": "1933378100",
+    "browserId": "1",
+    "owner": "playtest_west",
+    "paused": true,
+    "heldKeys": false,
+    "area": "ECIL",
+    "instruction": "Continue via visible Resume from Hotel Anand Vihar pickup682m.580coins/Level1 2/3/8.0sboost. Other tabs must stay paused. Root may ask this worker to resume if cross-session ownership blocks access."
+  },
+  "evidenceHelper": {
+    "sessionId": 87409,
+    "url": "http://127.0.0.1:4191/5o3j0kakKM4bzB2UXFIlMw11L387-teg",
+    "leftRunningForParent": true
+  },
+  "endOfRoundCleanup": "Evidence helper stopped by owning worker after root saved screenshots; ECIL paused state and handoff mark rechecked without Resume."
+}

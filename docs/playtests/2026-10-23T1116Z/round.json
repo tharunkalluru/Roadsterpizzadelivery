@@ -1,0 +1,27 @@
+{
+  "id": "2026-10-23T1116Z",
+  "startedAt": "2026-10-23T11:16:45.958Z",
+  "endedAt": "2026-10-23T11:36:08.756891+00:00",
+  "status": "completed_partial_coverage",
+  "areas": [
+    "ECIL",
+    "Secunderabad",
+    "Dilsukh Nagar"
+  ],
+  "checkoutCommit": "ae8522aa80e2d99bece12d5e8d127f835932fa04",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeGameDataCommit": "fc7c9ff10d4a8be48c771b30379b546023d6f6d8",
+  "reports": [
+    "2026-10-23T1116Z/ecil.json",
+    "2026-10-23T1116Z/secunderabad.json",
+    "2026-10-23T1116Z/dilsukh-nagar.json"
+  ],
+  "sourceTriage": "2026-10-23T1116Z/source-triage.json",
+  "participantType": "Root and one subagent drove sequentially; two subagents performed read-only provenance/coverage analysis.",
+  "pickupsCompleted": 1,
+  "completedDeliveries": 0,
+  "heldDrivingInputSecondsApprox": 168.7,
+  "savedScreenshots": 4,
+  "uniqueScreenshots": 4,
+  "summary": "Dilsukh Nagar pickup explicitly collected; customer leg preserved732m. ECIL pickup682m and Secunderabad late customer leg739m unfinished. PT012 extended by one police-institute-named offer. Actual map Close worked; captured warn/error logs empty."
+}
