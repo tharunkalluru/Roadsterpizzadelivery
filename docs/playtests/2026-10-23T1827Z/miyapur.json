@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1827Z",
+  "area": "Miyapur",
+  "status": "stopped_at_user_request_before_completion",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "actualUrl": "http://127.0.0.1:4189/",
+  "startedAtApprox": "2026-10-23T18:38:45Z",
+  "browserInputEndedAt": "2026-10-23T18:40:43Z",
+  "method": "Automated visible Chrome controls during an exclusive lease. Ordinary Play and Popular Miyapur selection. No hidden state, teleport, stepping, autopilot or human participants. On user stop instruction, performed only pause/handoff cleanup.",
+  "viewport": {
+    "width": 1465,
+    "height": 921,
+    "basis": "Rendered screenshot dimensions",
+    "overrideAppliedThisRound": false,
+    "physicalDeviceTest": false
+  },
+  "route": "Hotel Sankranti → Home in Madhava Nagar",
+  "offer": {
+    "pickup": "Hotel Sankranti",
+    "customer": "Home in Madhava Nagar",
+    "displayedRouteMetres": 400,
+    "displayedSeconds": 102,
+    "basePayCoins": 63,
+    "accepted": true
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "pickupInteractionAttempted": false,
+  "customerHandoverAttempted": false,
+  "input": {
+    "heldDrivingInputSecondsApprox": 2.95,
+    "heldDurationBatchesSeconds": [
+      [
+        0.5,
+        1.6,
+        0.85
+      ]
+    ],
+    "chords": [
+      "W+A",
+      "W",
+      "S"
+    ],
+    "recoveryTaps": 0,
+    "flightTaps": 0,
+    "caveat": "Held chords counted once. Excludes passive coasting, menus and tool latency."
+  },
+  "completedInteractions": [
+    "Re-marked prior Banjara Hills handoff without resuming it",
+    "Ordinary Play and Popular Miyapur selection",
+    "Explicit Hotel Sankranti order acceptance",
+    "Opened map using M and closed it with actual Close map button",
+    "One short steering/forward/braking sequence",
+    "Final pause and handoff after user requested testing stop"
+  ],
+  "steps": [
+    "Preserved Banjara Hills tab 1933378150, visibly still paused at its prior 1,026 m pickup. Created new Miyapur tab 1933378173.",
+    "Play → Popular Miyapur loaded an offer for Hotel Sankranti → Home in Madhava Nagar, 400 m route, about 102 s, base pay 63 coins. Fresh visible progress was 704 coins and Level 2 · 0/4.",
+    "Accepted, opened map with M, and inspected the nearby Hotel Sankranti marker and road-loop route. Actual Close map button returned to the driving view.",
+    "Held W+A for 0.5 s, W for 1.6 s, and S for 0.85 s. The resulting pickup HUD showed 761 m. The rendered vehicle was near a median with the pickup beacon across the roadway; this brief approach does not establish an inaccessible pickup or routing defect.",
+    "User instructed testing to stop before the next maneuver. Pressed P only for cleanup. Paused appeared at 0 km/h with the same active pickup; marked Miyapur and Banjara handoffs, released the input lock and browser ownership."
+  ],
+  "findings": [],
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Hotel Sankranti",
+    "customer": "Home in Madhava Nagar",
+    "routeMetres": 761,
+    "coins": 704,
+    "level": "2 · 0/4",
+    "flightSeconds": 2.5,
+    "speedKmh": 0,
+    "paused": true,
+    "gameClock": "Day 7 · 1:29 AM"
+  },
+  "console": {
+    "queried": false,
+    "limitation": "Stopped testing on user instruction before querying own-tab logs."
+  },
+  "evidence": [],
+  "toolObservations": [
+    "Visible offer AX and screenshot",
+    "Full map AX and screenshot",
+    "Post-drive pickup AX and screenshot",
+    "Final Paused AX state"
+  ],
+  "evidenceLimit": "Screenshots appeared in tool observations but no persistent screenshot files were saved before the stop request. No evidence helper tab was opened.",
+  "limitations": [
+    "Very short partial approach only; no collection or handover.",
+    "No recovery, flight, handover control, signal-queue, bridge/curb or physical touch test.",
+    "No new issue confirmed.",
+    "Street/shop identity, order and real-world accuracy were not verified."
+  ],
+  "handoff": {
+    "tabId": "1933378173",
+    "browserId": "1",
+    "owner": "playtest_east",
+    "paused": true,
+    "heldKeys": false,
+    "area": "Miyapur",
+    "instruction": "Testing stopped at user request. Accepted Hotel Sankranti pickup remains 761 m away; 704 coins, Level 2 · 0/4, 2.5 s boost. Do not resume testing until appropriate after the requested fixes. Banjara tab 1933378150 is separately paused and re-marked."
+  }
+}

@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-23T18:18:07.327347+00:00",
+  "updatedAt": "2026-10-23T18:43:11.283800+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
-    "status": "ACTIVE",
+    "status": "PAUSED",
     "cadenceMinutes": 30,
     "maxRoundMinutes": 20,
     "requires": "Mac awake and Codex running"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "7fa261668a222c575942b8157c22101664ca8a91",
+  "currentBuild": "75069d7038d9b7c8ccce263590f98356885b324f",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
-  "nextAreaCursor": 14,
+  "nextAreaCursor": 16,
   "targetAreas": [
     "Charminar",
     "HITEC City",
@@ -135,17 +135,18 @@
     },
     "Dilsukh Nagar": {
       "status": "tested_partial",
-      "completedDeliveries": 0,
-      "report": "2026-10-23T1757Z/dilsukh-nagar.json",
+      "completedDeliveries": 1,
+      "report": "2026-10-23T1827Z/dilsukh-nagar.json",
       "lastRoute": "Balaji Ram Ratan Mithai Bhandar on Konark Theatre Road → Home in Salivahana Nagar",
       "pickupsCompleted": 1,
-      "heldDrivingInputSeconds": 149.3,
-      "lastObservedDeliveryMetres": 120,
+      "heldDrivingInputSeconds": 156.0,
+      "lastObservedDeliveryMetres": 11,
       "lastObservedPickupMetres": 38,
       "closestObservedPickupMetres": 20,
       "pickupState": "collected_explicitly_at_visible_prompt",
-      "closestObservedDeliveryMetres": 114,
-      "sessionStatus": "Collected order paused at customer120m; no handover reached in this round."
+      "closestObservedDeliveryMetres": 11,
+      "sessionStatus": "Completed delivery; no active order retained.",
+      "lastResult": "Explicit handover +124 coins; wallet 580→704; Level 1 2/3→Level 2 0/4. Next offer appeared without pause. Completed tab closed."
     },
     "LB Nagar": {
       "status": "tested_partial",
@@ -170,12 +171,27 @@
       "sessionStatus": "Pickup approach unfinished; own game tab paused for continuation."
     },
     "Kompally": {
-      "status": "not_tested",
-      "completedDeliveries": 0
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "report": "2026-10-23T1827Z/kompally.json",
+      "lastRoute": "Tasty Baite Bakers → Home in Doolapally",
+      "heldDrivingInputSeconds": 51.23,
+      "pickupsCompleted": 1,
+      "sessionStatus": "Unfinished order preserved in paused agent-created tab.",
+      "lastObservedDeliveryMetres": 767,
+      "closestObservedDeliveryMetres": 767,
+      "closestObservedPickupMetres": 15
     },
     "Miyapur": {
-      "status": "not_tested",
-      "completedDeliveries": 0
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "report": "2026-10-23T1827Z/miyapur.json",
+      "lastRoute": "Hotel Sankranti → Home in Madhava Nagar",
+      "heldDrivingInputSeconds": 2.95,
+      "pickupsCompleted": 0,
+      "sessionStatus": "Unfinished order preserved in paused agent-created tab.",
+      "lastObservedPickupMetres": 761,
+      "closestObservedPickupMetres": 761
     }
   },
   "scenarios": [
@@ -194,33 +210,34 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-23T1757Z",
-    "startedAt": "2026-10-23T17:57:47.352Z",
-    "endedAt": "2026-10-23T18:18:07.327347+00:00",
-    "status": "completed_partial_coverage",
+    "id": "2026-10-23T1827Z",
+    "startedAt": "2026-10-23T18:27:47.502Z",
+    "endedAt": "2026-10-23T18:43:11.283800+00:00",
+    "status": "stopped_at_user_request_for_fixes",
     "areas": [
       "Dilsukh Nagar",
-      "LB Nagar",
-      "Banjara Hills"
+      "Kompally",
+      "Miyapur"
     ],
-    "checkoutCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+    "checkoutCommit": "75069d7038d9b7c8ccce263590f98356885b324f",
     "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
     "servedGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
-    "runtimeCacheLimit": "Dilsukh preserved tab may retain earlier packs; fresh LB/Banjara tabs used the current served build. Data changes since earlier playtest are source attribution only.",
+    "runtimeCacheLimit": "Dilsukh preserved tab may retain earlier packs; fresh Kompally/Miyapur sessions used current served assets. Source provenance is distinct from browser verification.",
     "reports": [
-      "2026-10-23T1757Z/dilsukh-nagar.json",
-      "2026-10-23T1757Z/lb-nagar.json",
-      "2026-10-23T1757Z/banjara-hills.json"
+      "2026-10-23T1827Z/dilsukh-nagar.json",
+      "2026-10-23T1827Z/kompally.json",
+      "2026-10-23T1827Z/miyapur.json"
     ],
-    "sourceTriage": "2026-10-23T1757Z/source-triage.json",
-    "participantType": "Root, west and east agents used visible controls in exclusive sequential browser turns; another agent verified source/provenance without browser input.",
-    "pickupsCompleted": 0,
-    "completedDeliveries": 0,
-    "heldDrivingInputSecondsApprox": 134.05,
-    "savedScreenshots": 5,
-    "uniqueScreenshots": 5,
+    "sourceTriage": "2026-10-23T1827Z/source-triage.json",
+    "participantType": "Root, west and east used real visible controls in sequential exclusive Chrome turns; a third subagent audited source and reporting without browser input.",
+    "pickupsCompleted": 1,
+    "completedDeliveries": 1,
+    "heldDrivingInputSecondsApprox": 60.88,
+    "savedScreenshots": 4,
+    "uniqueScreenshots": 4,
     "newConfirmedIssueGroups": 0,
-    "summary": "Dilsukh collected order progressed732→120m without handover. LB Nagar and Banjara Hills newly visited with accepted orders but pickups unfinished. Map Close worked; LB picker cancellation restored its offer. Wider1280×800 offer/minimap separation provides a comparison to the existing narrow-layout issue, not a fix."
+    "sourceFollowup": "2026-10-23T1827Z/pickup-source-followup.json",
+    "summary": "Stopped testing on user request before Miyapur completion; fixes authorized. Dilsukh customer handover explicitly completed for +124 coins and Level 2; next offer appeared while unpaused. Kompally and Miyapur received partial visible-control tests; see their reports for exact order states. No new confirmed issue group."
   },
   "issueRegistry": [
     {
@@ -495,10 +512,23 @@
         "2026-10-23T1046Z/kukatpally.json"
       ],
       "source": "game/src/game/game.ts:336-337",
-      "nextStep": "Run completed-handover no-pause control, then regression-test the immediate-pause case after an authorized fix. No gameplay behavior changed in this audit.",
+      "nextStep": "Authorized fix should preserve the successful no-pause flow and restore offer scheduling after immediate post-handover pause; retest both with explicit handovers.",
       "workaround": "Pause → Change area → Stay here restored offers in both observed areas without relocating.",
       "reproductions": 2,
-      "latestAttempt": "Dilsukh resumed collected order but stopped120m before handover; no-pause control remains untested."
+      "latestAttempt": "Dilsukh no-pause control passed: explicit +124 coin handover followed by a Hans Bakery offer while the game remained foreground and unpaused. Exact delay not instrumented. Existing immediate-pause failure remains open.",
+      "comparisons": [
+        {
+          "round": "2026-10-23T1827Z",
+          "area": "Dilsukh Nagar",
+          "status": "no_pause_control_passed",
+          "levelTransition": true,
+          "report": "2026-10-23T1827Z/dilsukh-nagar.json",
+          "evidence": [
+            "evidence/2026-10-23T1827Z-dilsukh-delivered-15a2b0.jpg",
+            "evidence/2026-10-23T1827Z-dilsukh-next-offer-unpaused-8d72ee.jpg"
+          ]
+        }
+      ]
     },
     {
       "id": "PT-012",
@@ -525,7 +555,7 @@
       ],
       "source": "core.pack.wasm food[7677], board b_6d4468aa-c5da-40; game.ts:142-144,270-278",
       "nextStep": "Inspect the exact source record/category and kitchen eligibility rule, then verify corrected visible offer selection without removing unrelated legitimate businesses.",
-      "sourceCause": "Exact record is group food and eligible for offers. Upstream pub/public regex explanation and real-world identity remain unverified.",
+      "sourceCause": "Both shipped food records are eligible. An exact-ID September Bhagyanagar record demonstrates the current pub substring matching public_safety_service and returning food. October merged inputs are missing; exact shipped cause and Kushaiguda original category remain untraced.",
       "additionalObservations": [
         {
           "area": "Dilsukh Nagar",
@@ -537,28 +567,29 @@
           "sourceCauseVerified": false
         }
       ],
-      "reproductionScope": "Two Kushaiguda Traffic PS offers in one prior ECIL session; one different police-institute-named Dilsukh Nagar offer this round. No police-named pickup accepted."
+      "reproductionScope": "Two Kushaiguda Traffic PS offers in one prior ECIL session; one different police-institute-named Dilsukh Nagar offer this round. No police-named pickup accepted.",
+      "sourceFollowup": "2026-10-23T1827Z/pickup-source-followup.json"
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
   "browserCoordination": "Parent grants exclusive browser turns; only the active owner sends input. Workers used per-call input locks; root used its explicit exclusive lease. Pause and release all held input before handoff; never interact with another owner’s game tab.",
   "evidenceCapture": "Use screenshots supported by the browser tool. tools/playtest-evidence-server.py provides a localhost-only browser form to save screenshot bytes when no file-save API exists. Read its random form URL from its startup output; do not reuse a stale URL.",
   "coverageLimitations": [
-    "Two explicit handovers total: Ameerpet and Kukatpally. Five collections total; no new collection or handover in this round.",
-    "Fourteen popular areas partially visited; Kompally and Miyapur remain untested, as do many other playable regions.",
-    "No controlled no-pause post-handover comparison yet; Dilsukh customer approach is preserved120m away.",
-    "Dilsukh and Secunderabad customer legs plus ECIL,LB Nagar and Banjara Hills pickups remain unfinished.",
-    "Desktop tests at594×466 and1280×800 do not establish physical phone/touch behavior.",
-    "Held-input time excludes tool latency, coasting, recovery animations and menus; it is not uninterrupted human play.",
-    "Street/shop fidelity and complete area coverage are not established by gameplay testing."
+    "3 explicit handovers and 6 collections recorded cumulatively. This round: 1 handovers and 1 collections.",
+    "All 16 popular areas have partial visits only; entire areas, every map tile and all playable regions are not covered.",
+    "Dilsukh no-pause post-handover comparison passed once at a level transition; prior immediate-pause failures remain open.",
+    "Saved unfinished orders are listed in liveHandoffs; do not count them as completed deliveries.",
+    "Desktop narrow and wide viewport checks do not establish physical phone/touch behavior.",
+    "Held-input time excludes coasting, recovery animation, menus and tool latency; not uninterrupted human play.",
+    "Gameplay testing does not verify real-world street accuracy, facade binding or shop order."
   ],
   "followUpPriorities": [
-    "Complete Dilsukh handover, capture explicit reward/wallet change, then remain foreground and unpaused≥5.5s for the actual next offer.",
-    "Continue saved delivery/pickup sessions with exclusive browser ownership.",
-    "Rotate Kompally and Miyapur, then broaden beyond the popular list to remaining playable regions.",
-    "PT-012: inspect source category and kitchen eligibility before changing named institutions.",
-    "Repeat lower-confidence recovery, camera and route/barrier findings under controlled approaches.",
-    "PT-007/PT-009 remain open; successful Close and larger-layout separation do not resolve pointer overlap or map focus escape."
+    "Complete saved customer and pickup legs with explicit result evidence; keep one browser input owner at a time.",
+    "Expand beyond popular shortcuts to Patancheru, Shamirpet, Ghatkesar, Hayathnagar, Shamshabad and Narsingi; record route segments rather than treating each anchor as full coverage.",
+    "PT-011 immediate-pause failure remains open despite successful no-pause control; only fix when authorized for behavior changes.",
+    "Repeat camera, curb/bridge-barrier, recovery and navigation suspicions with controlled approaches before confirming.",
+    "PT-007 narrow overlap, PT-009 focus escape and PT-012 pickup categories remain unresolved.",
+    "No gameplay run establishes street/shop reconstruction accuracy."
   ],
   "interpretationRules": [
     "A completed bounded test pass is partial area coverage, not proof of a whole region.",
@@ -610,7 +641,11 @@
     "evidence/2026-10-23T1757Z-lb-nagar-route-map-280079.jpg",
     "evidence/2026-10-23T1757Z-lb-nagar-recovered-stop-e8a561.jpg",
     "evidence/2026-10-23T1757Z-banjara-wide-offer-2e7f26.jpg",
-    "evidence/2026-10-23T1757Z-banjara-stopping-f3457c.jpg"
+    "evidence/2026-10-23T1757Z-banjara-stopping-f3457c.jpg",
+    "evidence/2026-10-23T1827Z-dilsukh-delivered-15a2b0.jpg",
+    "evidence/2026-10-23T1827Z-dilsukh-next-offer-unpaused-8d72ee.jpg",
+    "evidence/2026-10-23T1827Z-kompally-pickup-prompt-4fc330.jpg",
+    "evidence/2026-10-23T1827Z-kompally-collected-2cf59f.jpg"
   ],
   "roundHistory": [
     {
@@ -797,29 +832,49 @@
       "savedScreenshots": 4,
       "uniqueScreenshots": 4,
       "summary": "Dilsukh Nagar pickup explicitly collected; customer leg preserved732m. ECIL pickup682m and Secunderabad late customer leg739m unfinished. PT012 extended by one police-institute-named offer. Actual map Close worked; captured warn/error logs empty."
+    },
+    {
+      "id": "2026-10-23T1757Z",
+      "startedAt": "2026-10-23T17:57:47.352Z",
+      "endedAt": "2026-10-23T18:18:07.327347+00:00",
+      "status": "completed_partial_coverage",
+      "areas": [
+        "Dilsukh Nagar",
+        "LB Nagar",
+        "Banjara Hills"
+      ],
+      "checkoutCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+      "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+      "servedGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+      "runtimeCacheLimit": "Dilsukh preserved tab may retain earlier packs; fresh LB/Banjara tabs used the current served build. Data changes since earlier playtest are source attribution only.",
+      "reports": [
+        "2026-10-23T1757Z/dilsukh-nagar.json",
+        "2026-10-23T1757Z/lb-nagar.json",
+        "2026-10-23T1757Z/banjara-hills.json"
+      ],
+      "sourceTriage": "2026-10-23T1757Z/source-triage.json",
+      "participantType": "Root, west and east agents used visible controls in exclusive sequential browser turns; another agent verified source/provenance without browser input.",
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "heldDrivingInputSecondsApprox": 134.05,
+      "savedScreenshots": 5,
+      "uniqueScreenshots": 5,
+      "newConfirmedIssueGroups": 0,
+      "summary": "Dilsukh collected order progressed732→120m without handover. LB Nagar and Banjara Hills newly visited with accepted orders but pickups unfinished. Map Close worked; LB picker cancellation restored its offer. Wider1280×800 offer/minimap separation provides a comparison to the existing narrow-layout issue, not a fix."
     }
   ],
-  "nextRoundPlan": "Prioritize Dilsukh Nagar collected order120m/32s/37heat for explicit handover and the unpaused next-offer control. Continue paused Secunderabad739m customer leg, ECIL682m pickup, LB Nagar1072m pickup and Banjara Hills saved pickup. Rotate new areas Kompally and Miyapur next (cursor14), then expand beyond the popular-area list using visible map controls. Keep non-driving tabs paused.",
+  "nextRoundPlan": "User requested repair of all recorded issues before any more browser playtesting; resume regression testing only after fixes are integrated. Then continue the collected Secunderabad customer leg, then a nearby saved pickup. Begin expansion with Patancheru and Shamirpet through visible area search/map controls. Rotate outer sectors in subsequent rounds and fill interior gaps; preserve other live orders paused. The first 16 popular areas are partially sampled, not completely verified.",
   "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
   "liveHandoff": {
-    "tabId": "1933378124",
+    "tabId": "1933378088",
     "browserId": "1",
     "owner": "root",
-    "area": "Dilsukh Nagar",
+    "area": "Secunderabad",
     "paused": true,
     "heldKeys": false,
-    "instruction": "Collected order to Home Salivahana Nagar 120 m / 32 s / 37 heat, 580 coins, Level 1 2/3, 2.5 s boost, paused 9 km/h after reverse/brake. Resume carefully from frontage; follow visible street to customer. Handover and no-pause new-offer control still untested."
+    "instruction": "Continue collected customer leg739m, Late!,heat0,521coins,Level1 1/3,2.5sboost. Paused with20km/h HUD; brake carefully on Resume. Keep other tabs paused."
   },
   "liveHandoffs": [
-    {
-      "tabId": "1933378124",
-      "browserId": "1",
-      "owner": "root",
-      "area": "Dilsukh Nagar",
-      "paused": true,
-      "heldKeys": false,
-      "instruction": "Collected order to Home Salivahana Nagar 120 m / 32 s / 37 heat, 580 coins, Level 1 2/3, 2.5 s boost, paused 9 km/h after reverse/brake. Resume carefully from frontage; follow visible street to customer. Handover and no-pause new-offer control still untested."
-    },
     {
       "tabId": "1933378088",
       "browserId": "1",
@@ -856,6 +911,46 @@
       "area": "Banjara Hills",
       "viewportOverrideReset": true,
       "instruction": "Continue the accepted Aster Cafe And Kitchen pickup at1026m with580coins,Level1 2/3,5.0sboost. Collection has not occurred. Keep other live orders paused; re-mark this unfinished workflow if retaining it."
+    },
+    {
+      "tabId": "1933378162",
+      "browserId": "1",
+      "owner": "playtest_west",
+      "area": "Kompally",
+      "paused": true,
+      "heldKeys": false,
+      "instruction": "Visible Resume continues the collected Tasty Baite Bakers order to Home in Doolapally at 767 m, 140 s, 96° heat, 7.9 s boost, 704 coins and Level 2 0/4. Keep other game tabs paused."
+    },
+    {
+      "tabId": "1933378173",
+      "browserId": "1",
+      "owner": "playtest_east",
+      "paused": true,
+      "heldKeys": false,
+      "area": "Miyapur",
+      "instruction": "Testing stopped at user request. Accepted Hotel Sankranti pickup remains 761 m away; 704 coins, Level 2 · 0/4, 2.5 s boost. Do not resume testing until appropriate after the requested fixes. Banjara tab 1933378150 is separately paused and re-marked."
     }
-  ]
+  ],
+  "expandedAreaPlan": {
+    "status": "proposed_not_tested",
+    "sourceReport": "2026-10-23T1827Z/source-triage.json",
+    "nextOuterAnchors": [
+      "Patancheru",
+      "Shamirpet",
+      "Ghatkesar",
+      "Hayathnagar",
+      "Shamshabad",
+      "Narsingi"
+    ],
+    "nextInteriorConnectors": [
+      "Bachupally",
+      "Sainikpuri",
+      "Nacharam",
+      "Malakpet",
+      "Falaknuma",
+      "Attapur"
+    ],
+    "selection": "Use visible area search or map picker only; select area before beginning an order. Preserve existing accepted orders in paused tabs.",
+    "coverageLimit": "An anchor drive does not certify a whole tile, pack or region. Record actual road segments and explicit interaction evidence."
+  }
 }

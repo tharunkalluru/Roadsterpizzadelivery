@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1827Z",
+  "createdAtUTC": "2026-10-23T18:30:41.224417+00:00",
+  "method": "Read-only source/coverage audit and local HTTP/artifact byte comparison. No browser input, hidden state, new gameplay, build, tests, game edits, index edits, commit or push.",
+  "checkoutCommit": "75069d7038d9b7c8ccce263590f98356885b324f",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "servedGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "build": {
+    "baseUrl": "http://127.0.0.1:4189/",
+    "htmlStatus": 200,
+    "servedHtmlMatchesDist": true,
+    "servedHtmlSha256": "d1a1a9598e875d81156a153626d830b9d8178891a0b0e712e6b8a19691aa9d43",
+    "httpAssets": [
+      {
+        "path": "fonts/fonts.css",
+        "status": 200,
+        "bytes": 749,
+        "sha256": "3147c298b229b7ab034666887164e6d5e38aaf6f51c98ec3b30f7d799a6a65aa",
+        "matchesDist": true
+      },
+      {
+        "path": "assets/index-TazYPRJa.js",
+        "status": 200,
+        "bytes": 967213,
+        "sha256": "591f31a764b1fb1b7a6664e55ded2387d05f6c4c5616ba4dcedef1dcf0a63f77",
+        "matchesDist": true
+      },
+      {
+        "path": "city/core.pack.wasm",
+        "status": 200,
+        "bytes": 4137158,
+        "sha256": "1aa268671de487e74fd641af03153b12e0d929132b12f82ec149dd91bc89f1d1",
+        "matchesDist": true
+      },
+      {
+        "path": "city/packs/p0_0.pack.wasm",
+        "status": 200,
+        "bytes": 1267479,
+        "sha256": "0fb7556f19d8c00292237538b0fbf2a2e036577c58048f30808c5445b10b52a3",
+        "matchesDist": true
+      }
+    ],
+    "publicCityFilesCompared": 306,
+    "allPublicCityFilesMatchDist": true,
+    "mismatches": [],
+    "gameFilesChangedSince7fa2616": [],
+    "rebuildNeeded": false,
+    "distIndexModifiedAtUTC": "2026-10-23T17:49:49.402742+00:00",
+    "limit": "Fresh HTTP identity verified. Preserved Chrome tabs were not inspected or reloaded and may retain earlier packs. Gameplay JS remains index-TazYPRJa.js; latest data changes are source attribution only."
+  },
+  "coverageAtAudit": {
+    "indexUpdatedAt": "2026-10-23T18:18:07.327347+00:00",
+    "indexCurrentBuild": "7fa261668a222c575942b8157c22101664ca8a91",
+    "note": "Index describes prior 1757 round; current 1827 browser outcomes are not yet included.",
+    "partiallyVisitedPopularAreas": 14,
+    "popularAreaCount": 16,
+    "explicitPickups": 5,
+    "explicitHandovers": 2,
+    "unvisitedPopularAreas": [
+      "Kompally",
+      "Miyapur"
+    ],
+    "allPlayableMapCovered": false,
+    "currentRoundPlan": "Root continues Dilsukh collected customer leg at previously recorded 120 m; west Kompally and east Miyapur receive sequential exclusive turns. Plan is not evidence of completion."
+  },
+  "PT011": {
+    "status": "Confirmed immediate-pause failure in two prior areas; no-pause control still absent in index at audit.",
+    "source": "game/src/game/game.ts:322-337,623-632; source unchanged since 7723f8c.",
+    "hypothesis": "The single 2500 ms post-handover callback skips showOffer while pause modal is open. Resume does not retry. Strongly source-supported explanation, not instrumented event timing.",
+    "visibleNoPauseProtocol": [
+      "After stopping at a visible Hold E handover prompt, hold E at least 0.9 s.",
+      "Capture an explicit delivery reward plus wallet/progress change; proximity or zero distance is insufficient.",
+      "Keep the game foreground and unpaused for at least 5.5 s after actual completion. Do not open map, pause, settings, theatre or area picker, and do not switch tabs.",
+      "Capture the actual New order card with Accept/Another, or document absence with elapsed time. Waiting-for-order HUD and a level-up toast do not establish a new offer."
+    ],
+    "laterComparison": "On a separate completed order, pause before 2500 ms, remain paused past that callback, then resume. Deduplicate against PT011; Change area→Stay here previously restored offers.",
+    "noNewOutcomeClaimed": true
+  },
+  "fullMapCoverageProposal": {
+    "source": "game/public/city/core.pack.wasm; game/src/ui/areapicker.ts:35-83; game/src/ui/map.ts:53-62",
+    "manifestBoundsXZ": {
+      "minX": -33000,
+      "maxX": 24000,
+      "minZ": -24000,
+      "maxZ": 24000
+    },
+    "tileMetres": 1000,
+    "packTilesPerAxis": 3,
+    "declaredPacks": 304,
+    "declaredUniqueTiles": 2527,
+    "interpretation": "The 16 popular buttons are navigation shortcuts. Their completion cannot establish coverage of the full 57 km × 48 km declared extent, and one sample cannot certify an entire pack or tile.",
+    "nextOuterMapAnchors": [
+      {
+        "name": "Patancheru",
+        "sourceKind": "macrohood",
+        "sourceXZ": [
+          -24350.7,
+          -13536.4
+        ],
+        "sourceTile": [
+          -25,
+          -14
+        ],
+        "foodRecordsWithin800m": 6,
+        "nearestFoodRecordMetres": 287,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Shamirpet",
+        "sourceKind": "locality",
+        "sourceXZ": [
+          8265.2,
+          -20803.0
+        ],
+        "sourceTile": [
+          8,
+          -21
+        ],
+        "foodRecordsWithin800m": 1,
+        "nearestFoodRecordMetres": 504,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Ghatkesar",
+        "sourceKind": "locality",
+        "sourceXZ": [
+          19944.1,
+          -4956.4
+        ],
+        "sourceTile": [
+          19,
+          -5
+        ],
+        "foodRecordsWithin800m": 11,
+        "nearestFoodRecordMetres": 236,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Hayathnagar",
+        "sourceKind": "macrohood",
+        "sourceXZ": [
+          11469.0,
+          8653.1
+        ],
+        "sourceTile": [
+          11,
+          8
+        ],
+        "foodRecordsWithin800m": 16,
+        "nearestFoodRecordMetres": 93,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Shamshabad",
+        "sourceKind": "locality",
+        "sourceXZ": [
+          -10987.2,
+          16064.9
+        ],
+        "sourceTile": [
+          -11,
+          16
+        ],
+        "foodRecordsWithin800m": 19,
+        "nearestFoodRecordMetres": 291,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Narsingi",
+        "sourceKind": "macrohood",
+        "sourceXZ": [
+          -14525.7,
+          1635.9
+        ],
+        "sourceTile": [
+          -15,
+          1
+        ],
+        "foodRecordsWithin800m": 11,
+        "nearestFoodRecordMetres": 163,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      }
+    ],
+    "nextInteriorConnectors": [
+      {
+        "name": "Bachupally",
+        "sourceKind": "macrohood",
+        "sourceXZ": [
+          -14137.2,
+          -14913.8
+        ],
+        "sourceTile": [
+          -15,
+          -15
+        ],
+        "foodRecordsWithin800m": 14,
+        "nearestFoodRecordMetres": 132,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Sainikpuri",
+        "sourceKind": "macrohood",
+        "sourceXZ": [
+          4875.9,
+          -9176.6
+        ],
+        "sourceTile": [
+          4,
+          -10
+        ],
+        "foodRecordsWithin800m": 125,
+        "nearestFoodRecordMetres": 125,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Nacharam",
+        "sourceKind": "macrohood",
+        "sourceXZ": [
+          5972.5,
+          -2456.3
+        ],
+        "sourceTile": [
+          5,
+          -3
+        ],
+        "foodRecordsWithin800m": 42,
+        "nearestFoodRecordMetres": 15,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Malakpet",
+        "sourceKind": "macrohood",
+        "sourceXZ": [
+          323.9,
+          3611.2
+        ],
+        "sourceTile": [
+          0,
+          3
+        ],
+        "foodRecordsWithin800m": 64,
+        "nearestFoodRecordMetres": 48,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Falaknuma",
+        "sourceKind": "macrohood",
+        "sourceXZ": [
+          -3065.6,
+          8040.1
+        ],
+        "sourceTile": [
+          -4,
+          8
+        ],
+        "foodRecordsWithin800m": 12,
+        "nearestFoodRecordMetres": 145,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      },
+      {
+        "name": "Attapur",
+        "sourceKind": "macrohood",
+        "sourceXZ": [
+          -6999.2,
+          4324.6
+        ],
+        "sourceTile": [
+          -7,
+          4
+        ],
+        "foodRecordsWithin800m": 47,
+        "nearestFoodRecordMetres": 22,
+        "status": "proposed_not_tested",
+        "access": "Use visible Search an area and choose exact label, then inspect the full map before accepting an order."
+      }
+    ],
+    "foodCountLimit": "These are raw shipped food-list counts used to anticipate short vs sparse routes, not verified restaurants, guaranteed order eligibility or real-world business accuracy. Shamirpet has only 1 such entry within 800 m, so expect a wider offer search.",
+    "visibleMapSequence": [
+      "Finish an active accepted order before relocating; use a fresh test session if preserving an unfinished order.",
+      "Use Pause→Change area→Search an area for an exact source-backed anchor, or Pick a spot on the map.",
+      "For map picking, drag/zoom the rendered map until the pin and visible area label identify the desired next road; click Start delivering here. Record selected label and before/after screenshot.",
+      "While an offer is pending, test picker Cancel, actual Close and Stay here restoration before accepting.",
+      "Drive a short named arterial-to-side-street segment; capture junction/traffic/curb behavior and an actual pickup/handover if reached. Retain exact stopping state if unfinished."
+    ],
+    "boundedRoundAllocation": "Continue one incomplete delivery plus at most two new anchors per bounded round; choose a different outer sector next time, then fill gaps between tested anchors.",
+    "suggestedCoverageEvidence": [
+      "Record anchor, visible road/area names, selected map position, viewport, before/after screenshots and explicit interactions.",
+      "Separate not_visited, loaded_only, driven_partial and interaction_completed; mark only the actual observed route segment.",
+      "Use manifest tile/pack grid for planning, not as proof that a driven path or entire tile was verified.",
+      "Keep street/shop reconstruction evidence separate: no gameplay drive certifies real facade binding, shop order or current operation."
+    ],
+    "sourceOnlySearchCaution": "AreaPicker sorts localities before macrohoods and deduplicates identical names. Two Kondapur records map to different positions; the eastern locality is selected first. Bolarum also duplicates across kinds. Avoid those ambiguous labels in the first expansion pass; inspect visible map position. This is a source finding, not a newly reproduced UI issue."
+  },
+  "knownIssueDedup": [
+    "PT009 map keyboard focus escape is confirmed; actual map Close remains a separate passed control.",
+    "PT011 next-offer missing after immediate pause is confirmed twice; prioritize the no-pause control.",
+    "PT012 police-named kitchen offers are confirmed in prior UI; upstream classification/real-world identity remains unresolved.",
+    "PT007 narrow offer/minimap overlap is confirmed; wider 1280 × 800 separation is a comparison, not a fix."
+  ]
+}

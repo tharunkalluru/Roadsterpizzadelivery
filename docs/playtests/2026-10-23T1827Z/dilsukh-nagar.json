@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1827Z",
+  "area": "Dilsukh Nagar",
+  "checkoutCommit": "75069d7038d9b7c8ccce263590f98356885b324f",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "servedGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeCacheLimit": "Continued preserved tab without reload; its previously loaded packs may predate the current served attribution update.",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "startedAtApprox": "2026-10-23T18:28:00Z",
+  "browserInputEndedAtApprox": "2026-10-23T18:30:40Z",
+  "method": "Root used visible Chrome controls with exclusive browser ownership. No teleport, hidden-state mutation, simulation stepping or autopilot. AI-operated testing, not human-participant testing.",
+  "viewport": {"width": 594, "height": 466},
+  "route": "Balaji Ram Ratan Mithai Bhandar on Konark Theatre Road → Home in Salivahana Nagar",
+  "continuedPriorPickup": true,
+  "pickupsCompleted": 0,
+  "completedDeliveries": 1,
+  "customerHandoverAttempted": true,
+  "input": {
+    "heldDrivingInputSecondsApprox": 6.7,
+    "heldDurationBatchesSeconds": [[0.7, 0.4], [1.6, 0.65], [2.2, 0.65], [0.5]],
+    "handoverHeldSeconds": 1.2,
+    "successfulRecoveryTaps": 1,
+    "flightTaps": 0,
+    "caveat": "Held driving time excludes passive coasting, recovery animation, tool latency, menus and handover input. S brakes then reverses."
+  },
+  "baselineHud": {
+    "state": "Deliver", "customer": "Home in Salivahana Nagar", "routeMetres": 120,
+    "timeSeconds": 32, "heat": 37, "coins": 580, "level": "1 · 2/3",
+    "flightSeconds": 2.5, "speedKmh": 9, "paused": true
+  },
+  "completedInteractions": [
+    "Resumed previously collected order",
+    "Opened full map with M and clicked actual Close map button",
+    "Reversed clear of frontage and used normal R recovery",
+    "Drove along visible route to customer",
+    "Held E at the visible handover prompt and observed explicit reward",
+    "Remained foreground and unpaused until next offer appeared",
+    "Paused, saved original screenshots and closed completed agent-created tab"
+  ],
+  "steps": [
+    "Baseline remained paused at 120 m / 32 s / 37 heat / 580 coins / Level 1 2/3. Resume then M opened the map, showing the nearby customer and street direction.",
+    "Actual Close returned to driving. W+D for 0.7 s then S for 0.4 s left the car beside frontage at 120 m. S+A for 1.6 s then W for 0.65 s backed clear but camera view was temporarily close to the building at 124 m. This was not a controlled collision test.",
+    "R displayed Back to the street and a recovery glide. A subsequent observation showed it settled on a usable straight street at 81 m, 0 km/h, with the customer ribbon ahead.",
+    "W for 2.2 s then S for 0.65 s reached 32 m / 6 s / 23 heat / 22 km/h. Passive coasting and another S for 0.5 s reached 11 m / Late! / 19 heat / 10 km/h, with Hold E / ACT to hand over visibly present.",
+    "Held E for 1.2 s. HUD changed to Waiting for an order; +124 coins and Kya re, pizza thanda hai appeared. Wallet changed 580→704, Level 1 2/3→Level 2 0/4, speed 0 km/h. Saved original result screenshot.",
+    "Kept this same tab foreground and did not pause or open a menu between handover and the next observation. Roughly 9 seconds later, the visible New order · Level 2 card offered Hans Bakery on Santhoshi Maatha Temple Road → Home in Vivekananda Nagar, 908 m / about 175 s / base pay 99 coins. Exact delay was not instrumented; game clock progressed 3:52 PM→4:13 PM. Saved original next-offer screenshot.",
+    "Only after the next offer was visibly present, P paused the game. Captured own-tab warn/error logs, saved both originals through the local evidence form, closed the form and completed test tab. Secunderabad was re-marked for handoff without resuming it."
+  ],
+  "deliveryResult": {
+    "confirmed": true, "customerRouteMetresBeforeHandover": 11,
+    "rewardCoins": 124, "walletBefore": 580, "walletAfter": 704,
+    "levelBefore": "1 · 2/3", "levelAfter": "2 · 0/4",
+    "feedback": "+124 coins · Kya re, pizza thanda hai!",
+    "late": true, "heatLastObservedBeforeHandover": 19
+  },
+  "findings": [{
+    "issueId": "PT-011", "severity": "P2", "status": "no_pause_control_passed_existing_issue_remains_open",
+    "confidence": "high for explicit handover and subsequent visible offer; exact offer delay was not instrumented",
+    "title": "Next offer appeared when the game stayed unpaused after handover",
+    "expected": "A new offer follows an explicit handover while the game remains foreground and unpaused.",
+    "actual": "After +124 coins and Level 2, a Hans Bakery offer appeared without pause or menu intervention.",
+    "limitation": "One no-pause control at a level transition. This does not resolve the two prior immediate-pause failures or prove every post-handover path.",
+    "evidence": ["evidence/2026-10-23T1827Z-dilsukh-delivered-15a2b0.jpg", "evidence/2026-10-23T1827Z-dilsukh-next-offer-unpaused-8d72ee.jpg"]
+  }],
+  "checks": {
+    "actualMapClose": "passed one click", "pauseResume": "passed",
+    "recovery": "settled on usable street and subsequent forward drive reached customer",
+    "noPausePostHandoverControl": "passed once",
+    "bridgeBarrier": "not tested", "trafficSignalCompliance": "not controlled",
+    "physicalTouch": "not tested", "streetShopAccuracy": "not established"
+  },
+  "console": {"levels": ["warn", "error"], "limit": 30, "returnedEntries": [], "limitation": "Own-tab captured log buffer only; does not establish bug-free behavior."},
+  "lastVisibleHud": {
+    "state": "Waiting for an order", "offerPickup": "Hans Bakery on Santhoshi Maatha Temple Road",
+    "offerCustomer": "Home in Vivekananda Nagar", "offerRouteMetres": 908,
+    "coins": 704, "level": "2 · 0/4", "flightSeconds": 5.0, "speedKmh": 0,
+    "gameClock": "Day 6 · 4:54 PM", "paused": true
+  },
+  "evidence": ["evidence/2026-10-23T1827Z-dilsukh-delivered-15a2b0.jpg", "evidence/2026-10-23T1827Z-dilsukh-next-offer-unpaused-8d72ee.jpg"],
+  "handoff": {"tabId": "1933378124", "browserId": "1", "owner": "root", "area": "Dilsukh Nagar", "closed": true, "pausedBeforeClose": true, "heldKeys": false, "reason": "Prior collected order explicitly delivered; next offer observed but not accepted. Completed test tab closed."},
+  "limitations": ["Only the final customer approach completed this round; collection occurred in an earlier recorded round.", "No new confirmed issue group; prior immediate-pause bug remains open.", "Partial street route, not full Dilsukh Nagar or real-world shop reconstruction verification."]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "2026-10-23T1827Z",
+  "startedAt": "2026-10-23T18:27:47.502Z",
+  "endedAt": "2026-10-23T18:43:11.283800+00:00",
+  "status": "stopped_at_user_request_for_fixes",
+  "areas": [
+    "Dilsukh Nagar",
+    "Kompally",
+    "Miyapur"
+  ],
+  "checkoutCommit": "75069d7038d9b7c8ccce263590f98356885b324f",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "servedGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeCacheLimit": "Dilsukh preserved tab may retain earlier packs; fresh Kompally/Miyapur sessions used current served assets. Source provenance is distinct from browser verification.",
+  "reports": [
+    "2026-10-23T1827Z/dilsukh-nagar.json",
+    "2026-10-23T1827Z/kompally.json",
+    "2026-10-23T1827Z/miyapur.json"
+  ],
+  "sourceTriage": "2026-10-23T1827Z/source-triage.json",
+  "participantType": "Root, west and east used real visible controls in sequential exclusive Chrome turns; a third subagent audited source and reporting without browser input.",
+  "pickupsCompleted": 1,
+  "completedDeliveries": 1,
+  "heldDrivingInputSecondsApprox": 60.88,
+  "savedScreenshots": 4,
+  "uniqueScreenshots": 4,
+  "newConfirmedIssueGroups": 0,
+  "sourceFollowup": "2026-10-23T1827Z/pickup-source-followup.json",
+  "summary": "Stopped testing on user request before Miyapur completion; fixes authorized. Dilsukh customer handover explicitly completed for +124 coins and Level 2; next offer appeared while unpaused. Kompally and Miyapur received partial visible-control tests; see their reports for exact order states. No new confirmed issue group.",
+  "validation": {
+    "gameBehaviorChanged": false,
+    "gameplayVerification": "Only explicit visible-control interactions count; source/build checks alone do not establish gameplay success.",
+    "reportJson": "passed",
+    "evidenceFiles": "All referenced originals exist."
+  },
+  "coverage": {
+    "partiallyVisitedPopularAreas": 16,
+    "totalPopularAreas": 16,
+    "allPlayableRegionsCovered": false,
+    "cumulativePickups": 6,
+    "cumulativeHandovers": 3
+  },
+  "nextWork": "User requested repair of all recorded issues before any more browser playtesting; resume regression testing only after fixes are integrated. Then continue the collected Secunderabad customer leg, then a nearby saved pickup. Begin expansion with Patancheru and Shamirpet through visible area search/map controls. Rotate outer sectors in subsequent rounds and fill interior gaps; preserve other live orders paused. The first 16 popular areas are partially sampled, not completely verified."
+}

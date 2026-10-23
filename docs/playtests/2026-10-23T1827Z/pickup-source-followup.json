@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1827Z",
+  "createdAtUTC": "2026-10-23T18:37:40.815227+00:00",
+  "issueId": "PT-012",
+  "checkoutCommit": "75069d7038d9b7c8ccce263590f98356885b324f",
+  "method": "Read-only local pack, source and historical parquet inspection. Isolated group_of function evaluated from AST without importing the side-effecting pipeline module. No network, browser, game/data changes or pipeline generation.",
+  "conclusion": {
+    "currentShippedEligibilityTraced": true,
+    "exactCurrentImportCauseTraced": false,
+    "historicalSameIdMechanismTraced": true,
+    "summary": "Both exact shipped boards are already classified food and pass the downstream kitchen rules. For Bhagyanagar Institute of Police, an exact-ID September Overture record carries public_safety_service; the current bare-pub rule demonstrably classifies that historical input as food. Missing October/raw merged inputs prevent conclusive attribution of the shipped classification. Kushaiguda original classification remains untraced."
+  },
+  "shippedRecords": [
+    {
+      "id": "b_6d4468aa-c5da-40",
+      "pack": "p2_-3.pack.wasm",
+      "tile": "7_-8",
+      "board": {
+        "id": "b_6d4468aa-c5da-40",
+        "text": "Kushaiguda Traffic PS",
+        "full": "Kushaiguda Traffic PS",
+        "group": "food",
+        "tier": "A",
+        "conf": 0.72,
+        "a": [
+          7867.9,
+          -7424.4
+        ],
+        "b": [
+          7856.8,
+          -7432.7
+        ],
+        "t": 0.08,
+        "slot": {
+          "floor": 0,
+          "index": 1,
+          "of": 6
+        },
+        "building": "b41bcda8-237",
+        "road": "Sainikpuri-ECIL Main Road",
+        "seen": null,
+        "seen_year": null
+      },
+      "coreFoodIndex": 7677,
+      "coreFoodRecord": {
+        "id": "b_6d4468aa-c5da-40",
+        "name": "Kushaiguda Traffic PS",
+        "board": "Kushaiguda Traffic PS",
+        "stop": [
+          7871.0,
+          -7419.0,
+          0,
+          "Moula-ali - SP Nagar - ECIL Road"
+        ],
+        "pizza": false,
+        "tile": [
+          7,
+          -8
+        ]
+      },
+      "categoryOrSourceIdsPreservedInBoard": false,
+      "downstreamEligibility": "group food, ground floor, confidence≥0.5 and absent export denylist matches; core food entry survives runtime locality-only exclusion. pizza=false is not an exclusion."
+    },
+    {
+      "id": "b_d6fc7fdd-c2c9-4f",
+      "pack": "p1_1.pack.wasm",
+      "tile": "3_4",
+      "board": {
+        "id": "b_d6fc7fdd-c2c9-4f",
+        "text": "Bhagyanagar Institute of Police",
+        "full": "Bhagyanagar Institute of Police",
+        "group": "food",
+        "tier": "B",
+        "conf": 0.7,
+        "a": [
+          3230.4,
+          4065.1
+        ],
+        "b": [
+          3212.5,
+          4064.2
+        ],
+        "t": 0.408,
+        "slot": {
+          "floor": 0,
+          "index": 0,
+          "of": 1
+        },
+        "building": "a6dd6263-648",
+        "road": null,
+        "seen": null,
+        "seen_year": null
+      },
+      "coreFoodIndex": 6620,
+      "coreFoodRecord": {
+        "id": "b_d6fc7fdd-c2c9-4f",
+        "name": "Bhagyanagar Institute of Police",
+        "board": "Bhagyanagar Institute of Police",
+        "stop": [
+          3223.3,
+          4061.9,
+          0,
+          ""
+        ],
+        "pizza": false,
+        "tile": [
+          3,
+          4
+        ]
+      },
+      "categoryOrSourceIdsPreservedInBoard": false,
+      "downstreamEligibility": "group food, ground floor, confidence≥0.5 and absent export denylist matches; core food entry survives runtime locality-only exclusion. pizza=false is not an exclusion."
+    }
+  ],
+  "sourceChain": [
+    {
+      "path": "pipeline/download_overture.py:7,25-27",
+      "finding": "Configured import release is 2026-10-21.0 and reads basic_category, taxonomy.primary and hierarchy."
+    },
+    {
+      "path": "pipeline/conflate.py:34-56,66-69",
+      "finding": "group_of checks category text first. The food rule appears first and contains unbounded pub; Overture text includes basic category, primary category and hierarchy."
+    },
+    {
+      "path": "pipeline/conflate.py:145-157",
+      "finding": "Merged group is selected from grouped source records; UID uses first 16 characters of an Overture source ID when present. businesses.json preserves category and complete source_ids."
+    },
+    {
+      "path": "pipeline/place.py:127-128",
+      "finding": "Placement copies group and provider names but drops complete source_ids/category from this record."
+    },
+    {
+      "path": "pipeline/export_city.py:60-62,189-193,234-236",
+      "finding": "Shipped board retains group, confidence, slot and name; ground-floor food boards with confidence≥0.5 become kitchen candidates unless named bus stop/station, paan shop, beeda, ATM or parking. Police/institute names are not excluded."
+    },
+    {
+      "path": "pipeline/make_core.py:64-67",
+      "finding": "Core aggregates exported city_pois food records."
+    },
+    {
+      "path": "game/src/game/game.ts:140-144,270-278",
+      "finding": "Runtime food eligibility removes short/locality-only labels; makeOffer prefers pizza only some of the time and otherwise uses the food pool."
+    }
+  ],
+  "historicalSourceSearch": {
+    "snapshot": "2026-09-23.1, older than configured October import",
+    "files": [
+      {
+        "path": "/Users/tharun/Documents/Codex/2026-10-17/referenced-chatgpt-conversation-this-is-an/Roadsterpizzadelivery/game/data/raw/overture/2026-09-23.1/places-place-blue.parquet",
+        "rows": 22996,
+        "bytes": 2390707,
+        "sha256": "15f35e186778b82dc1907e3971bd3106fb0fe8096596d9dd56f9c0e08cd14557"
+      },
+      {
+        "path": "/Users/tharun/Documents/Codex/2026-10-17/referenced-chatgpt-conversation-this-is-an/Roadsterpizzadelivery/game/data/raw/overture/2026-09-23.1/places-place-green.parquet",
+        "rows": 17625,
+        "bytes": 1790701,
+        "sha256": "e0ded163724595476383242e6cc143ce2c8026d85313e5c2de01c54d57a5f292"
+      },
+      {
+        "path": "/Users/tharun/Documents/Codex/2026-10-17/referenced-chatgpt-conversation-this-is-an/Roadsterpizzadelivery/game/data/raw/overture/2026-09-23.1/places-place-red.parquet",
+        "rows": 27608,
+        "bytes": 2834675,
+        "sha256": "c123769207f8890ce526a48035d78be307aaa080bfda841a5f8e0097e3943074"
+      }
+    ],
+    "rowsScanned": 68229,
+    "exactMatches": [
+      {
+        "path": "/Users/tharun/Documents/Codex/2026-10-17/referenced-chatgpt-conversation-this-is-an/Roadsterpizzadelivery/game/data/raw/overture/2026-09-23.1/places-place-red.parquet",
+        "datasetRelease": "2026-09-23.1",
+        "record": {
+          "id": "d6fc7fdd-c2c9-4f1e-9f8e-608d59208f2c",
+          "names": {
+            "primary": "Bhagyanagar Institute of Police",
+            "common": null,
+            "rules": null
+          },
+          "basic_category": "police_station",
+          "taxonomy": {
+            "primary": "police_station",
+            "hierarchy": [
+              "community_and_government",
+              "public_safety_service",
+              "police_station"
+            ],
+            "alternates": null
+          },
+          "confidence": 0.7006289958953857,
+          "sources": [
+            {
+              "property": "",
+              "dataset": "meta",
+              "license": "CDLA-Permissive-2.0",
+              "record_id": "234588023417403",
+              "update_time": "2026-09-14T00:00:00.000Z",
+              "confidence": 0.7006289958953857,
+              "between": null,
+              "provider": "meta",
+              "resource": "meta",
+              "version": "2026-09-14"
+            },
+            {
+              "property": "/properties/confidence",
+              "dataset": "Overture",
+              "license": "CDLA-Permissive-2.0",
+              "record_id": null,
+              "update_time": "2026-09-17T22:52:12Z",
+              "confidence": null,
+              "between": null,
+              "provider": "overture",
+              "resource": "confidence_calculation",
+              "version": "2026-09-17"
+            }
+          ],
+          "operating_status": null,
+          "bbox": {
+            "xmin": 78.52757263183594,
+            "xmax": 78.52758026123047,
+            "ymin": 17.368709564208984,
+            "ymax": 17.368711471557617
+          }
+        },
+        "reconstructedBoardId": "b_d6fc7fdd-c2c9-4f",
+        "classificationInput": "police_station police_station community_and_government public_safety_service police_station",
+        "currentRuleResult": "food",
+        "firstCategoryRuleMatch": {
+          "group": "food",
+          "pattern": "restaurant|eatery|cafe|café|bakery|sweet|dessert|food|juice|tea|biryani|dining|bar\\b|pub|ice cream|fast_food|tiffin|dhaba|mandi|pizza|burger|chicken|bistro|canteen|snack",
+          "matchedSubstring": "pub"
+        },
+        "withoutHierarchyControl": {
+          "input": "police_station police_station",
+          "result": "education"
+        },
+        "interpretation": "Exact historical source UUID and name reconstruct the shipped board ID. The current classifier demonstrably matches pub inside public_safety_service and returns food. This establishes a concrete mechanism for this older source record; the shipped 2026-10-21 input has not been recovered."
+      }
+    ],
+    "kushaigudaMatchFound": false,
+    "limits": "These are three older corridor extracts, not a complete current Hyderabad source dump. A missing Kushaiguda record here does not establish absence upstream."
+  },
+  "missingCurrentProvenance": [
+    "pipeline/raw/overture_places.parquet",
+    "pipeline/raw/fsq_places.parquet",
+    "pipeline/build/businesses.json",
+    "pipeline/build/businesses.parquet",
+    "pipeline/build/placements.json",
+    "pipeline/build/city_pois"
+  ],
+  "nextEvidenceNeeded": [
+    "Recover original current businesses.json row for each exact UID, including source_ids, category and merged group.",
+    "Retrieve the exact recorded Overture/Foursquare input release and source IDs, then replay only classification/merge inputs to verify the source of food.",
+    "After tracing cause, scope a classifier/category fix with positive pub/restaurant cases and negative public-safety cases; independently verify kitchen eligibility through visible offers."
+  ],
+  "limits": [
+    "Historical dataset labels do not certify current real-world operation, address, facade or identity.",
+    "Do not describe pub/public as the confirmed shipped cause for both records.",
+    "No new UI reproduction, acceptance or pickup occurred in this audit.",
+    "No game or classification rule was modified."
+  ]
+}

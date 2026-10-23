@@ -1,0 +1,421 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1827Z",
+  "area": "Kompally",
+  "startedAt": "2026-10-23T18:30:44Z",
+  "browserInputEndedAt": "2026-10-23T18:38:41Z",
+  "status": "completed_partial_coverage",
+  "route": "Tasty Baite Bakers → Home in Doolapally",
+  "checkoutCommit": "75069d7038d9b7c8ccce263590f98356885b324f",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "buildNote": "Checkout was verified read-only; runtime and data provenance supplied by root from the existing served build. No rebuild or game edits in this pass.",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": {
+    "width": 594,
+    "height": 466
+  },
+  "method": "New own Chrome tab through Play → Popular Kompally. Exclusive browser lease and owned input lock. Visible controls, AX, screenshots and own-tab console only; no hidden runtime state, teleport, engine stepping, autopilot or browser backchannels. No fullscreen or viewport override.",
+  "baselineHud": {
+    "clock": "Day 6 · 4:01 PM",
+    "level": "2 · 0/4",
+    "coins": 704,
+    "flightSeconds": 2.5,
+    "speedKmh": 0,
+    "state": "Waiting for an order"
+  },
+  "input": {
+    "heldDrivingInputSecondsApprox": 51.23,
+    "ledger": [
+      [
+        [
+          "w+d",
+          1.6
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w+d",
+          0.7
+        ],
+        [
+          "s",
+          0.55
+        ]
+      ],
+      [
+        [
+          "s",
+          3
+        ],
+        [
+          "w",
+          0.3
+        ]
+      ],
+      [
+        [
+          "w+d",
+          2.1
+        ],
+        [
+          "s",
+          0.5
+        ]
+      ],
+      [
+        [
+          "s",
+          1.2
+        ]
+      ],
+      [
+        [
+          "w+d",
+          1
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w",
+          1.7
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w",
+          1.2
+        ],
+        [
+          "s",
+          0.5
+        ]
+      ],
+      [
+        [
+          "w",
+          0.5
+        ],
+        [
+          "w+d",
+          0.75
+        ],
+        [
+          "s",
+          0.55
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.15
+        ],
+        [
+          "w",
+          2.5
+        ],
+        [
+          "s",
+          0.9
+        ]
+      ],
+      [
+        [
+          "w",
+          3
+        ],
+        [
+          "s",
+          0.95
+        ]
+      ],
+      [
+        [
+          "w",
+          2.8
+        ],
+        [
+          "s",
+          0.9
+        ]
+      ],
+      [
+        [
+          "w",
+          1.4
+        ],
+        [
+          "s",
+          0.8
+        ]
+      ],
+      [
+        [
+          "w",
+          1.5
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w",
+          0.7
+        ],
+        [
+          "w+d",
+          0.9
+        ],
+        [
+          "s",
+          0.55
+        ]
+      ],
+      [
+        [
+          "w",
+          2.6
+        ],
+        [
+          "s",
+          0.9
+        ]
+      ],
+      [
+        [
+          "w+d",
+          0.25
+        ],
+        [
+          "w",
+          1.7
+        ],
+        [
+          "s",
+          0.7
+        ]
+      ],
+      [
+        [
+          "w",
+          2.2
+        ],
+        [
+          "s",
+          0.85
+        ]
+      ],
+      [
+        [
+          "w",
+          1.6
+        ],
+        [
+          "s",
+          0.75
+        ]
+      ],
+      [
+        [
+          "w",
+          1.6
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w+a",
+          0.18
+        ],
+        [
+          "w",
+          0.95
+        ],
+        [
+          "s",
+          0.5
+        ]
+      ]
+    ],
+    "flightTaps": 2,
+    "recoveryKeyTaps": 2,
+    "collectionHoldSeconds": 1.4,
+    "mapOpenKeyTaps": 3,
+    "actualMapCloseClicks": 3,
+    "finalPauseKeyTaps": 1,
+    "caveat": "Chord duration counts once. Driving total includes 2.1 s of W+D during flight, braking and reverse. Collection E hold is separately recorded. Tool latency, coasting, recovery glide, map inspection, screenshots and key taps are excluded; this is not uninterrupted driving time."
+  },
+  "pickupsCompleted": 1,
+  "completedDeliveries": 0,
+  "pickupInteractionAttempted": true,
+  "customerHandoverAttempted": false,
+  "offerSequence": [
+    {
+      "pickup": "Mehfil Family Dhaba",
+      "customer": "Home in Turkapalli",
+      "routeMetres": 1450,
+      "timeSeconds": 252,
+      "baseCoins": 136
+    },
+    {
+      "pickup": "Tasty Baite Bakers",
+      "customer": "Home in Brindavan Colony",
+      "routeMetres": 1323,
+      "timeSeconds": 234,
+      "baseCoins": 128
+    },
+    {
+      "pickup": "Tasty Baite Bakers",
+      "customer": "Home in Doolapally",
+      "routeMetres": 718,
+      "timeSeconds": 148,
+      "baseCoins": 85,
+      "accepted": true
+    }
+  ],
+  "steps": [
+    "Created own tab 1933378162 at the base URL, clicked Play and the visible Popular Kompally area. Loaded with 704 coins, Level 2 0/4, 2.5 s boost and 0 km/h. The initial loading placeholder wallet was not treated as a progress change.",
+    "Used Another twice and accepted Tasty Baite Bakers → Home in Doolapally, advertised 718 m, about 148 s and base 85 coins. Opened the map and clicked actual Close. The pickup approach HUD showed 374 m.",
+    "The initial route lay behind the vehicle. Short W+D steering moved off the lane toward building geometry and increased distance to 464–471 m. A second map inspection showed a westward then northward approach. Actual Close worked; R displayed Back to the street! and settled on a road around 371 m. This was an operator navigation correction, not an unreachable-pickup finding.",
+    "After a reverse attempt near another vehicle, pressed Space, held W+D for 2.1 s, then pressed Space again to cut flight. Visible elevated views included nearby buildings and lake; remaining charge was 0.4 s. Subsequent braking and reverse showed a street-level descent and distance near 340 m. Third map Close returned to gameplay.",
+    "Followed the visible route through narrow streets, with observed pickup distances 333, 308, 291, 278, 236, 201, 152, 148, 122, 121 and 83 m. An auto contact displayed Arre! Watch the auto! before collection. Ground travel recharged boost from 0.4 to 2.9 to 5.4 s.",
+    "Further short steering near 83 m departed the lane beside a purple facade and increased route distance to about 120 m. A second R displayed Back to the street! and glided to a usable street position, settling at 81 m and 0 km/h. This does not establish a facade-placement or navigation defect.",
+    "Continued the ground approach through 71, 43 and 28 m. Final short W+A steering and acceleration/braking reached 15 m and 0 km/h with Hold E / ACT to collect the pizza visible. Saved the original prompt screenshot.",
+    "Held E for 1.4 s. The explicit Pizza collected! Garam garam. toast appeared and the HUD changed to Deliver, Home in Doolapally, 767 m, 147 s and 100° heat. Saved the original collection screenshot. This confirms one actual pickup.",
+    "Pressed P and verified the final paused HUD: Home in Doolapally, 767 m, 140 s, 96° heat, 704 coins, Level 2 0/4, 7.9 s boost and 0 km/h. Marked the Kompally tab for handoff. No customer-leg driving or handover was attempted after collection.",
+    "Saved both originals through the local evidence form, closed both own temporary form tabs, and cleared screenshot byte variables. Own input lock was released at 18:38:41 UTC, 41 s after the nominal lease boundary while completing evidence saving. Parent was notified explicitly. ECIL and LB Nagar handoffs were re-marked earlier without resuming either game."
+  ],
+  "completedInteractions": [
+    "Normal Kompally area load",
+    "Another twice and explicit offer acceptance",
+    "M and actual Close map three times",
+    "Ground acceleration, braking, steering and reverse in visible traffic",
+    "Two documented R recoveries",
+    "Space flight and second-Space cutoff with visible descent",
+    "Ground boost recharge up to 7.9 s",
+    "Explicit Hold E collection prompt and successful collection",
+    "Final Pause and handoff"
+  ],
+  "pickupProgress": {
+    "initialRouteMetres": 374,
+    "closestObservedRouteMetres": 15,
+    "holdToCollectPromptObserved": true,
+    "collectionToast": "Pizza collected! Garam garam.",
+    "collectionConfirmed": true,
+    "customerRouteMetresAfterCollection": 767,
+    "limitation": "Several early steering corrections and two road recoveries were part of this bounded route attempt. No unreachable-pickup or broken-navigation claim."
+  },
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Doolapally",
+    "routeMetres": 767,
+    "timeSeconds": 140,
+    "heatDegrees": 96,
+    "heatLabel": "GARAM",
+    "coins": 704,
+    "level": "2 · 0/4",
+    "flightSeconds": 7.9,
+    "speedKmh": 0,
+    "clock": "Day 7 · 3:32 AM",
+    "paused": true,
+    "heldKeys": false
+  },
+  "findings": [],
+  "existingIssueObservations": [
+    {
+      "issueId": "PT-002",
+      "status": "consistent_with_existing_ux_ambiguity",
+      "actual": "Accepted offer advertised 718 m; the initial pickup approach showed 374 m, then the collected customer leg showed 767 m. These are observed different leg distances, not a new calculation-failure claim."
+    }
+  ],
+  "nonDefectObservations": [
+    {
+      "topic": "Map close",
+      "status": "passed_in_this_turn",
+      "actual": "Three actual Close map clicks returned to gameplay."
+    },
+    {
+      "topic": "Pickup interaction",
+      "status": "passed_in_this_turn",
+      "actual": "Hold E prompt at 15 m and E held 1.4 s produced an explicit collection toast and customer delivery HUD."
+    },
+    {
+      "topic": "Road recovery",
+      "status": "observed_pass",
+      "actual": "Both R controls returned the car from off-lane navigation attempts to visible usable streets."
+    }
+  ],
+  "console": {
+    "queriedLevels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Own-tab captured console only. Empty logs do not establish absence of gameplay or rendering bugs."
+  },
+  "evidence": [
+    "evidence/2026-10-23T1827Z-kompally-pickup-prompt-4fc330.jpg",
+    "evidence/2026-10-23T1827Z-kompally-collected-2cf59f.jpg"
+  ],
+  "evidenceLimitations": [
+    "Both saved files are original browser screenshots. The final paused 140 s / 96° state was verified through AX after the collection screenshot at 147 s / 100°; no separate final paused image was saved.",
+    "Flight, descent, map and recovery observations are present in the UI trace but were not separately persisted as images.",
+    "No Street View, Mapillary or exact shop-order verification was performed.",
+    "Small desktop viewport is not physical touch-device testing."
+  ],
+  "untested": [
+    "Customer route and explicit handover",
+    "Post-handover no-pause next offer",
+    "Pending-offer or accepted-order area-picker cancellation in Kompally",
+    "Controlled traffic signals or queue behavior",
+    "Bridge parapet collision",
+    "Full Kompally coverage or real shop order",
+    "Physical phone/touch controls"
+  ],
+  "handoff": {
+    "tabId": "1933378162",
+    "browserId": "1",
+    "owner": "playtest_west",
+    "area": "Kompally",
+    "paused": true,
+    "heldKeys": false,
+    "instruction": "Visible Resume continues the collected Tasty Baite Bakers order to Home in Doolapally at 767 m, 140 s, 96° heat, 7.9 s boost, 704 coins and Level 2 0/4. Keep other game tabs paused."
+  },
+  "preservedOtherHandoffs": [
+    {
+      "tabId": "1933378100",
+      "area": "ECIL",
+      "owner": "playtest_west",
+      "reMarked": true,
+      "resumed": false,
+      "lastPreviouslyVerifiedState": "Paused Hotel Anand Vihar pickup at 682 m, 580 coins, Level 1 2/3 and 8.0 s boost. No new ECIL gameplay."
+    },
+    {
+      "tabId": "1933378139",
+      "area": "LB Nagar",
+      "owner": "playtest_west",
+      "reMarked": true,
+      "resumed": false,
+      "lastPreviouslyVerifiedState": "Paused Pizza Hut pickup at 1072 m, 580 coins, Level 1 2/3 and 6.1 s boost. No new LB Nagar gameplay."
+    }
+  ]
+}
