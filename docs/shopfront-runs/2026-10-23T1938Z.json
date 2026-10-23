@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1938Z",
+  "completedAt": "2026-10-23T19:57:38.916809+00:00",
+  "baselineCommit": "d8e389ed6b9d444de466c967219156e0f4d7fe38",
+  "sourceBatch": {
+    "maximumCells": 8,
+    "attemptedCells": 6,
+    "processedCells": 5,
+    "processedCellIds": [
+      "tile_-1_-2",
+      "tile_0_-2",
+      "tile_-2_-1",
+      "tile_1_-1",
+      "tile_-2_0"
+    ],
+    "retry": {
+      "cell": "tile_1_0",
+      "reason": "Overpass HTTP 502",
+      "retryAt": "2026-10-23T19:44:47.432801+00:00",
+      "statePreserved": true,
+      "stopOnFailureHonored": true
+    },
+    "sourceLinksAdded": 64,
+    "newNamesAdded": 1,
+    "sourceRecordsThisBatch": 109,
+    "processedCellsCumulative": 9,
+    "totalPlayableCells": 2527,
+    "sourceRecordsCumulative": 290,
+    "sourceLinksCumulative": 118,
+    "newNamesCumulative": 2,
+    "pendingPhotoReview": 61
+  },
+  "newMappedName": {
+    "name": "Vivekananda Institute Of Languages",
+    "boardId": "b_w413843449",
+    "buildingId": "494b696f-615",
+    "sourceUrl": "https://www.openstreetmap.org/way/413843449",
+    "sourceVersion": 2,
+    "sourceTimestamp": "2018-09-21T07:22:23Z",
+    "retrievedAt": "2026-10-23T19:41:14.857039Z",
+    "pack": "p-1_-1",
+    "verification": "mapped_name_exact_building_inferred_facade",
+    "photoVerified": false,
+    "currentOperationVerified": false,
+    "exactShopOrderVerified": false
+  },
+  "mapillary": {
+    "metadataCellsVisited": 4,
+    "metadataRequests": 16,
+    "metadataErrors": 0,
+    "metadataCellsCompleted": 25,
+    "metadataCellsTotal": 2376,
+    "cachedImages": 13088,
+    "newMetadataImages": 1905,
+    "manifestImages": 1311,
+    "ocrShards": [
+      {
+        "index": 0,
+        "newImageIds": [
+          "501595937926953",
+          "1597981431240637",
+          "3801425310160803",
+          "975294649944485",
+          "1333417711673264",
+          "1422916722142498",
+          "467429261806489",
+          "1281522779040027",
+          "1078120562713161",
+          "712663107788763",
+          "2600083466999100",
+          "1997260821127431",
+          "1176468390908660",
+          "1462987698208748",
+          "1132705622086314",
+          "1406745410603706",
+          "1742262943033360",
+          "935029291104913",
+          "224899799029218",
+          "505896230545016",
+          "910942846130521",
+          "318602576289982",
+          "150294677065574",
+          "178465764187423",
+          "922557251873445",
+          "533688188011318",
+          "782100599176224",
+          "766299987419340",
+          "2868001466751583",
+          "2399086733557705",
+          "310820087162616",
+          "804499850271319",
+          "2941835872740625",
+          "309844400674599",
+          "272032938004538",
+          "481112156439632",
+          "209068967489509",
+          "858070328115173",
+          "855365215403953",
+          "1835010847222599"
+        ],
+        "newImages": 40,
+        "imagesWithText": 22,
+        "textReadings": 95,
+        "exitCode": 0
+      },
+      {
+        "index": 1,
+        "newImageIds": [
+          "1495760218743227",
+          "1103303458682929",
+          "1509432880037743",
+          "1433937218099037",
+          "2072967923518289",
+          "1321803966011174",
+          "517716753167180",
+          "2578143005822191",
+          "490558072095035",
+          "476639753435534",
+          "1286228523300948",
+          "1746668292658990",
+          "664993236349341",
+          "1289719416221142",
+          "821399515126625",
+          "714731454866594",
+          "751838217422609",
+          "719575154027701",
+          "1419705372696640",
+          "164364175538807",
+          "772296776747919",
+          "204882384625887",
+          "3925803020866030",
+          "265552668646454",
+          "1732150670459425",
+          "987053332105465",
+          "1148654425615125",
+          "1070140026848398",
+          "3999410766804616",
+          "1641931219329342",
+          "945226322972262",
+          "3021572658062224",
+          "808463626444448",
+          "804551467139115",
+          "481882239686319",
+          "381459133174821",
+          "1112686579225750",
+          "3945757092207966",
+          "854121861849660",
+          "295630032283892"
+        ],
+        "newImages": 40,
+        "imagesWithText": 27,
+        "textReadings": 97,
+        "exitCode": 0
+      }
+    ],
+    "shardOverlap": 0,
+    "newOcrImages": 80,
+    "ocrImagesCumulative": 515,
+    "automatedCandidateReport": {
+      "images": 515,
+      "readings": 1041,
+      "matched_readings": 40,
+      "boards_with_automated_photo_matches": 33,
+      "spelling_candidates": 9,
+      "photo_only_boards": 14,
+      "placed_boards_in_zone": 178616
+    },
+    "photoOnlyCandidateReport": {
+      "photos": 318,
+      "readings": 1411,
+      "shop_like": 612,
+      "hit_a_front": 423,
+      "new_boards": 3,
+      "buildings": 2,
+      "packs": 2
+    }
+  },
+  "manualReview": {
+    "evidence": "docs/shopfront-photo-review-2026-10-23T1938Z.json",
+    "candidateBusinesses": 9,
+    "originalImagesInspected": 11,
+    "newUniqueOriginalImages": 10,
+    "repeatedOriginalImageIds": [
+      "849840628934709"
+    ],
+    "uniqueOriginalImagesCumulative": 45,
+    "inspectionEventsCumulative": 48,
+    "photoNamesApplied": 0,
+    "exactPlacementsApplied": 0,
+    "exactShopOrderVerified": false,
+    "originalImageIds": [
+      "1289719416221142",
+      "1329754988944962",
+      "1732150670459425",
+      "1835010847222599",
+      "2036040410261576",
+      "224899799029218",
+      "310820087162616",
+      "370681457718809",
+      "467429261806489",
+      "520714642614235",
+      "849840628934709"
+    ]
+  },
+  "matcherSafeguard": {
+    "genericTradeDescriptorsExcluded": [
+      "SPORT",
+      "SPORTS",
+      "FRUIT",
+      "FRUITS",
+      "BAKER",
+      "BAKERS",
+      "CONFECTIONER",
+      "CONFECTIONERS",
+      "CARDIO",
+      "STRENGTH"
+    ],
+    "weakAutomaticIdentityLinksSuppressed": 3,
+    "mappedNamesDeletedOrRenamed": 0,
+    "rawOcrEvidencePreserved": true
+  },
+  "packAudit": [
+    {
+      "file": "game/public/city/core.pack.wasm",
+      "changedTopLevelFields": [
+        "packs"
+      ]
+    },
+    {
+      "file": "game/public/city/packs/p-1_-1.pack.wasm",
+      "existingBoardsWithSourceChanges": 30,
+      "newBoards": [
+        {
+          "board": "b_w413843449",
+          "name": "Vivekananda Institute Of Languages",
+          "verification": "mapped_name_exact_building_inferred_facade"
+        }
+      ]
+    },
+    {
+      "file": "game/public/city/packs/p-1_0.pack.wasm",
+      "existingBoardsWithSourceChanges": 9,
+      "newBoards": []
+    },
+    {
+      "file": "game/public/city/packs/p0_-1.pack.wasm",
+      "existingBoardsWithSourceChanges": 23,
+      "newBoards": []
+    },
+    {
+      "file": "game/public/city/packs/p0_0.pack.wasm",
+      "existingBoardsWithSourceChanges": 1,
+      "newBoards": []
+    }
+  ],
+  "verification": {
+    "pipelineTests": {
+      "passed": 68,
+      "failed": 0
+    },
+    "npmRunCheck": "passed",
+    "sourceAndDistPacksIdentical": true,
+    "gameJavaScriptAsset": "index-DXgUfY_A.js",
+    "gameJavaScriptChangedByThisBatch": false,
+    "gameplayTestedThisBatch": false,
+    "locksReleased": true,
+    "streetVerifiedCells": 0,
+    "exactCitywideShopOrderComplete": false
+  },
+  "nextWork": "Retry tile_1_0 under recorded runner policy; continue bounded citywide metadata and OCR. Resolve facade, floor, road side and neighboring order using registered independent images before photo placement.",
+  "needsUserAction": false,
+  "pushed": false,
+  "deployed": false
+}

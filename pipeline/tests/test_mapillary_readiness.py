@@ -190,12 +190,66 @@ class MatchingProvenanceTests(unittest.TestCase):
             with self.subTest(name=name, reading='different operator'):
                 self.assertIsNone(distinctive_match(name.replace(name.split()[0], 'Unrelated'), core))
 
+    def test_trade_and_fitness_descriptors_do_not_identify_a_different_operator(self):
+        from ocr_match import core_business_name, distinctive_match
+        # Photo 2036040410261576 names METRO, not the nearby mapped Novelty.
+        # Photo 520714642614235 has a separate SRI LAXMI name line: its generic
+        # FRUIT line alone must not count as corroboration of Sri Lakshmi.
+        cases = [
+            ('Novelty Sports', ['METRO SPORTS', 'METRO SPORTS & FITNESS', 'SPORTS', 'SPORT']),
+            ('Novelty Sport', ['METRO SPORT', 'SPORT']),
+            ('Sri Lakshmi Fruit Juice & Bakery Center',
+             ['FRUIT JUICE & BAKERY CENTRE', 'FRUITS JUICE', 'RAVI FRUIT JUICE', 'FRUIT']),
+            ('Sri Lakshmi Fruits', ['RAVI FRUITS', 'FRUITS']),
+            # Original-image review supports the AMERICAN and PULSE identities,
+            # but their separate service lines cannot be independent anchors.
+            ('American bakers', ['BAKERS & CONFECTIONERS', 'FRENCH BAKERS', 'BAKERS']),
+            ('American Baker', ['FRENCH BAKER', 'BAKER']),
+            ('American Confectioners', ['FRENCH CONFECTIONERS', 'CONFECTIONERS']),
+            ('American Confectioner', ['FRENCH CONFECTIONER', 'CONFECTIONER']),
+            ('Pulse 8 Elite Gym Cardio', ['CARDIO & STRENGTH', 'RAVI CARDIO', 'CARDIO']),
+            ('Pulse Strength Gym', ['RAVI STRENGTH', 'STRENGTH']),
+        ]
+        for name, readings in cases:
+            core = core_business_name(name)
+            for reading in readings:
+                with self.subTest(name=name, reading=reading):
+                    self.assertIsNone(distinctive_match(reading, core))
+
+    def test_distinctive_trade_and_fitness_business_names_are_retained(self):
+        from ocr_match import core_business_name, distinctive_match
+        for name, brand in [
+            ('Novelty Sports', 'NOVELTY'),
+            ('Novelty Sport', 'NOVELTY'),
+            ('Sri Lakshmi Fruit Juice & Bakery Center', 'LAKSHMI'),
+            ('Sri Lakshmi Fruits', 'LAKSHMI'),
+            ('Metro Sports & Fitness', 'METRO'),
+            ('American bakers', 'AMERICAN'),
+            ('American Baker', 'AMERICAN'),
+            ('American Confectioners', 'AMERICAN'),
+            ('American Confectioner', 'AMERICAN'),
+            ('Pulse 8 Elite Gym Cardio', 'PULSE'),
+            ('Pulse Strength Gym', 'PULSE'),
+        ]:
+            core = core_business_name(name)
+            for reading in [brand, name]:
+                with self.subTest(name=name, reading=reading):
+                    self.assertEqual(distinctive_match(reading, core)['businessToken'], brand)
+        # Preserve the actual distinctive partial reading from photo
+        # 224899799029218 after its generic BAKERS line is excluded.
+        match = distinctive_match("MERICAN BAKER'S", core_business_name('American bakers'))
+        self.assertEqual(match['businessToken'], 'AMERICAN')
+
     def test_descriptor_only_readings_do_not_inflate_pipeline_photo_matches(self):
         import ocr_match
         cases = [
             ('Omkaar Palace Shop', 'OMKAAR', ['RESS PALACE', 'DRESS PALACE']),
             ('Changalal Jewellers', 'CHANGALAL', ['VINEETH JEWELLERS']),
             ('Rosary convent high school', 'ROSARY', ["JOHN'S HIGH SCHOOL"]),
+            ('Novelty Sports', 'NOVELTY', ['METRO SPORTS', 'METRO SPORTS & FITNESS']),
+            ('Sri Lakshmi Fruit Juice & Bakery Center', 'LAKSHMI', ['FRUIT JUICE & BAKERY CENTRE']),
+            ('American bakers', 'AMERICAN', ['BAKERS & CONFECTIONERS', 'FRENCH BAKERS']),
+            ('Pulse 8 Elite Gym Cardio', 'PULSE', ['CARDIO & STRENGTH']),
         ]
         for name, brand, other_signs in cases:
             with self.subTest(name=name), tempfile.TemporaryDirectory() as tmp:

@@ -1,0 +1,2581 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1938Z",
+  "reviewedAt": "2026-10-23T19:53:48.919041+00:00",
+  "mappedDataBaselineCommit": "d8e389ed6b9d444de466c967219156e0f4d7fe38",
+  "method": "Root inspected 11 unedited original Mapillary 2048 derivatives using view_image: four existing candidates, two independent context views, and five newly generated matches. IDs, capture dates, sequences, source URLs, licenses and hashes retained. Read-only agents extracted mapped geometry, floor and order context. No photo placement applied.",
+  "scope": {
+    "candidateBusinessesReviewed": 9,
+    "uniqueOriginalImagesInspected": 11,
+    "newPhotoNamesApplied": 0,
+    "exactPlacementsApplied": 0,
+    "exactShopOrderVerified": false
+  },
+  "reviews": [
+    {
+      "candidateBoardId": "b_69dde17f-be77-42",
+      "candidateName": "Jockey Exclusive Store",
+      "sources": [
+        {
+          "imageId": "1329754988944962",
+          "path": "pipeline/build/review/1329754988944962.jpg",
+          "sha256": "340c99251a785878fce4ecaad1fbdab75e2da062aec3c02540a89255efbc194d",
+          "capturedAt": 1760346789612,
+          "sequenceId": "IVhPxB0SH7KqTN6w4kjL95",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.480477214342,
+              17.405047335615
+            ]
+          },
+          "compass": 132.36656276479,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1329754988944962",
+          "license": "CC-BY-SA-4.0",
+          "captureDate": "2025-10-13T09:13:09.612000+00:00"
+        },
+        {
+          "imageId": "467429261806489",
+          "path": "pipeline/build/review/467429261806489.jpg",
+          "sha256": "22a6c0d516adc9f0d6d477aa38df0fae2dcfcb5411b9ac3e4367b895f1084b5c",
+          "capturedAt": 1652099117622,
+          "sequenceId": "BvtMLiY74OFrDuZoHl0g1m",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.480455108763,
+              17.405051929693
+            ]
+          },
+          "compass": 137.14033829398,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=467429261806489",
+          "license": "CC-BY-SA-4.0",
+          "captureDate": "2022-05-09T12:25:17.622000+00:00"
+        },
+        {
+          "imageId": "849840628934709",
+          "path": "pipeline/build/review/849840628934709.jpg",
+          "sha256": "0434da3a17905876ab0832fae9140eb2be12b2b9bd29575558776838e05fb3f2",
+          "capturedAt": 1593517543017,
+          "sequenceId": "FOZmQFL9kcaHNVuF3tdbzo",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.480478190353,
+              17.405030634939
+            ]
+          },
+          "compass": 132.76558272189,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=849840628934709",
+          "license": "CC-BY-SA-4.0",
+          "captureDate": "2020-06-30T11:45:43.017000+00:00"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "545a781f-cf7",
+        "text": "Jockey Exclusive Store",
+        "fullName": "Jockey Exclusive Store",
+        "group": "fashion",
+        "slot": {
+          "floor": 2,
+          "index": 0,
+          "of": 1,
+          "overflow": true
+        },
+        "facadeXZ": [
+          [
+            -1695.7,
+            136.3
+          ],
+          [
+            -1689.3,
+            145.0
+          ]
+        ],
+        "mappedFraction": 0.454,
+        "rendererFraction": 0.454,
+        "rendererAnchorXZ": [
+          -1692.7944,
+          140.2498
+        ],
+        "rendererAnchorLatLon": [
+          17.405032764264817,
+          78.48066837929697
+        ],
+        "buildingHeightM": 14.2,
+        "rendererSignCentreYM": 10.15,
+        "rendererHeightCull": false,
+        "immediateSameFacadeNeighbors": [
+          {
+            "id": "b_92bd69b9-7cb5-40",
+            "name": "Kalpataru The Designer's Boutique",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.263,
+            "distanceFromRenderedAnchorM": 2.06,
+            "building": "545a781f-cf7",
+            "rendererFraction": 0.263
+          },
+          {
+            "id": "b_22f7f590-ce35-44",
+            "name": "Holiday Bazaar",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.92,
+            "distanceFromRenderedAnchorM": 5.03,
+            "building": "545a781f-cf7",
+            "rendererFraction": 0.92
+          }
+        ],
+        "otherBuildingFacadeOrFloorBoards": [
+          {
+            "id": "b_e6ae3d04-ab06-49",
+            "name": "Go Fashion India Limited",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 3
+            },
+            "mappedFraction": 0.08,
+            "distanceFromRenderedAnchorM": 0.5,
+            "building": "545a781f-cf7"
+          },
+          {
+            "id": "b_064f68a3-e8ea-45",
+            "name": "India Law",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 3
+            },
+            "mappedFraction": 0.08,
+            "distanceFromRenderedAnchorM": 3.1,
+            "building": "545a781f-cf7"
+          },
+          {
+            "id": "b_n13673574375",
+            "name": "Go colours Pants store",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 3
+            },
+            "mappedFraction": 0.08,
+            "distanceFromRenderedAnchorM": 4.1,
+            "building": "545a781f-cf7"
+          },
+          {
+            "id": "b_cd4b1d6f-2573-41",
+            "name": "I Studentz Study and Abroad",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.92,
+            "distanceFromRenderedAnchorM": 5.03,
+            "building": "545a781f-cf7"
+          },
+          {
+            "id": "b_fcc5442e-197d-46",
+            "name": "Pupil Abroad",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.612,
+            "distanceFromRenderedAnchorM": 22.72,
+            "building": "545a781f-cf7"
+          }
+        ],
+        "nearbyOtherBuildingBoards": [
+          {
+            "id": "b_2dcd55d0-f5b6-43",
+            "name": "Rang Mahal",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "mappedFraction": 0.08,
+            "distanceFromRenderedAnchorM": 13.08,
+            "building": "d764b443-10d"
+          },
+          {
+            "id": "b_9d0df76cc8a14997",
+            "name": "M G Associates",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 4
+            },
+            "mappedFraction": 0.096,
+            "distanceFromRenderedAnchorM": 16.53,
+            "building": "d764b443-10d"
+          },
+          {
+            "id": "b_4e82f33f8b817f24",
+            "name": "Game Square",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.539,
+            "distanceFromRenderedAnchorM": 18.8,
+            "building": "d764b443-10d"
+          },
+          {
+            "id": "b_6769ae78-dabb-4c",
+            "name": "Holiday Gateway",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.543,
+            "distanceFromRenderedAnchorM": 18.85,
+            "building": "d764b443-10d"
+          },
+          {
+            "id": "b_79262f4e-a1f1-4c",
+            "name": "Waves Organisations",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.585,
+            "distanceFromRenderedAnchorM": 19.43,
+            "building": "d764b443-10d"
+          },
+          {
+            "id": "b_da79b522-8d2e-4b",
+            "name": "NIKE",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "mappedFraction": 0.112,
+            "distanceFromRenderedAnchorM": 19.98,
+            "building": "d764b443-10d"
+          }
+        ],
+        "sameFacadeSameFloorOrderByIncreasingRendererFraction": [
+          {
+            "id": "b_a8377db3-b54e-4a",
+            "name": "Advit Software and Business Solutions",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.095,
+            "distanceFromRenderedAnchorM": 3.88,
+            "building": "545a781f-cf7",
+            "rendererFraction": 0.095
+          },
+          {
+            "id": "b_92bd69b9-7cb5-40",
+            "name": "Kalpataru The Designer's Boutique",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.263,
+            "distanceFromRenderedAnchorM": 2.06,
+            "building": "545a781f-cf7",
+            "rendererFraction": 0.263
+          },
+          {
+            "id": "b_69dde17f-be77-42",
+            "name": "Jockey Exclusive Store",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.454,
+            "rendererFraction": 0.454
+          },
+          {
+            "id": "b_22f7f590-ce35-44",
+            "name": "Holiday Bazaar",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.92,
+            "distanceFromRenderedAnchorM": 5.03,
+            "building": "545a781f-cf7",
+            "rendererFraction": 0.92
+          },
+          {
+            "id": "b_c4a7ada4-cf33-4a",
+            "name": "Muthoot FinCorp Gold Loan",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.92,
+            "distanceFromRenderedAnchorM": 5.03,
+            "building": "545a781f-cf7",
+            "rendererFraction": 0.92
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "1329754988944962",
+          "readableSignText": [
+            "JOCKEY",
+            "EXCLUSIVE STORE",
+            "DIAMOND",
+            "JUST NAILS",
+            "CALS",
+            "MUTHOOT FINCORP"
+          ],
+          "identitySupport": true,
+          "facadeAndFloor": "Jockey entrance/sign is visibly at the street-level raised frontage. Nike is immediately image-right; clinic/finance/nail signs occupy upper bands. Mapped floor2/Y10.15m is inconsistent with this observation.",
+          "roadSide": "Image-left beside the camera carriageway, heading132.37degrees. Exact building-edge registration still pending.",
+          "neighborOrder": "Jockey then Nike from image-left to right at street level. Upper Diamond clinic and Muthoot FinCorp signs do not establish a row of separate ground-floor shops."
+        },
+        {
+          "imageId": "467429261806489",
+          "readableSignText": [
+            "NIKE logo",
+            "DIAMOND",
+            "CALS",
+            "JUST NAILS"
+          ],
+          "identitySupport": false,
+          "context": "Independent2022 view confirms recognizable building/Nike context, but the Jockey-position black sign is cropped or unreadable; do not count it as Jockey corroboration."
+        },
+        {
+          "imageId": "849840628934709",
+          "readableSignText": [
+            "Holiday Bazaar",
+            "DIAMOND",
+            "NIKE logo",
+            "GO COLORS"
+          ],
+          "identitySupport": false,
+          "context": "Independent2020 view shows the same block context with a dark/unreadable neighboring street sign. It does not establish Jockey identity or current shared-front order."
+        }
+      ],
+      "decision": "2025_brand_visible_ground_floor_conflicts_with_mapped_overflow_slot_placement_pending",
+      "unresolved": [
+        "Three sequences inspected but only the2025 view visibly supports Jockey branding.",
+        "Current inferred facade includes overlapping t fractions and floor2 overflow; moving the board requires individual geometry/order registration.",
+        "No new name or slot change applied."
+      ],
+      "independentPhotoSequencesInspected": 3,
+      "applied": false
+    },
+    {
+      "candidateBoardId": "b_35ce584e-b609-49",
+      "candidateName": "Sri Mou Gouri Shankar",
+      "sources": [
+        {
+          "imageId": "370681457718809",
+          "path": "pipeline/build/review/370681457718809.jpg",
+          "sha256": "6a5a76f444d9d720fafe9f4acdce889e72dcfbc8fd0fba0150ca20f262aa2c9e",
+          "capturedAt": 1605665362637,
+          "sequenceId": "58hdyziq221rgrxseira4e",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.497122852196,
+              17.421691985803
+            ]
+          },
+          "compass": 286.91710331773,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=370681457718809",
+          "license": "CC-BY-SA-4.0",
+          "captureDate": "2020-11-18T02:09:22.637000+00:00"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p0_-1.pack.wasm",
+        "tile": "0_-2",
+        "buildingId": "9c44dbcf-30d",
+        "text": "Sri Mou Gouri Shankar",
+        "fullName": "Sri Mou Gouri Shankar",
+        "group": "shop",
+        "slot": {
+          "floor": 0,
+          "index": 0,
+          "of": 1
+        },
+        "facadeXZ": [
+          [
+            31.1,
+            -1725.7
+          ],
+          [
+            36.0,
+            -1724.0
+          ]
+        ],
+        "mappedFraction": 0.205,
+        "rendererFraction": 0.205,
+        "rendererAnchorXZ": [
+          32.1045,
+          -1725.3515
+        ],
+        "rendererAnchorLatLon": [
+          17.421889520103086,
+          78.49690214934363
+        ],
+        "buildingHeightM": 10.2,
+        "rendererSignCentreYM": 3.55,
+        "rendererHeightCull": false,
+        "immediateSameFacadeNeighbors": [],
+        "otherBuildingFacadeOrFloorBoards": [
+          {
+            "id": "b_60429d7e-3697-4a",
+            "name": "ARM Scaffolding",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.282,
+            "distanceFromRenderedAnchorM": 0.4,
+            "building": "9c44dbcf-30d"
+          }
+        ],
+        "nearbyOtherBuildingBoards": [
+          {
+            "id": "b_4f4480ebe4b027c5",
+            "name": "Praveen Medicals",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.92,
+            "distanceFromRenderedAnchorM": 16.54,
+            "building": "d33d2182-f24"
+          }
+        ],
+        "sameFacadeSameFloorOrderByIncreasingRendererFraction": [
+          {
+            "id": "b_35ce584e-b609-49",
+            "name": "Sri Mou Gouri Shankar",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.205,
+            "rendererFraction": 0.205
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "370681457718809",
+          "readableSignText": [
+            "SRI MOU.GOURI SHAN…",
+            "SHEET CUTTING & FABRICATION WO…",
+            "BHOLAKPUR, SECUNDERABAD"
+          ],
+          "identitySupport": "Distinctive partial name supports the mapped candidate historically; the last portion is cropped at the right image edge.",
+          "facadeAndFloor": "Single street-level blue shutter beneath a low corrugated roof; frontage continues outside the frame.",
+          "roadSide": "Image-right while camera faces286.92degrees; full mapped frontage/side not registered.",
+          "neighborOrder": "Adjacent right unit is outside the frame; vehicles/trees obscure neighboring units. No exact shop sequence established."
+        }
+      ],
+      "decision": "partial_historical_name_and_trade_visible_one_sequence_placement_pending",
+      "unresolved": [
+        "2020 capture and only one available cached sequence within45m.",
+        "Last name portion and right neighbor are cropped; full unit/facade binding remains uncertain."
+      ],
+      "independentPhotoSequencesInspected": 1,
+      "applied": false
+    },
+    {
+      "candidateBoardId": "b_4e2a774cb61cd010",
+      "candidateName": "Novelty Sports",
+      "sources": [
+        {
+          "imageId": "2036040410261576",
+          "path": "pipeline/build/review/2036040410261576.jpg",
+          "sha256": "b5020530fe872cb85fe598e51b741152e9143066dda6129f1b473a578697b6ec",
+          "capturedAt": 1752471175926,
+          "sequenceId": "JoSFR10pmO4EQNjCcnABge",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.479690889311,
+              17.385833157736
+            ]
+          },
+          "compass": 9.1468931711728,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=2036040410261576",
+          "license": "CC-BY-SA-4.0",
+          "captureDate": "2025-07-14T05:32:55.926000+00:00"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_2",
+        "buildingId": "d6c01f02-2ab",
+        "text": "Novelty Sports",
+        "fullName": "Novelty Sports",
+        "group": "shop",
+        "slot": {
+          "floor": 0,
+          "index": 1,
+          "of": 2
+        },
+        "facadeXZ": [
+          [
+            -1803.6,
+            2256.3
+          ],
+          [
+            -1793.0,
+            2260.5
+          ]
+        ],
+        "mappedFraction": 0.435,
+        "rendererFraction": 0.75,
+        "rendererAnchorXZ": [
+          -1795.65,
+          2259.45
+        ],
+        "rendererAnchorLatLon": [
+          17.385884599893462,
+          78.4797003607317
+        ],
+        "buildingHeightM": 8.9,
+        "rendererSignCentreYM": 3.55,
+        "rendererHeightCull": false,
+        "immediateSameFacadeNeighbors": [
+          {
+            "id": "b_c2bdbaaa-7d8f-48",
+            "name": "M.B Electronics",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.08,
+            "distanceFromRenderedAnchorM": 5.7,
+            "building": "d6c01f02-2ab",
+            "rendererFraction": 0.25
+          }
+        ],
+        "otherBuildingFacadeOrFloorBoards": [],
+        "nearbyOtherBuildingBoards": [
+          {
+            "id": "b_47cab1d3-87e2-46",
+            "name": "Basix Municipal Waste Ventures Ltd BMWv",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.618,
+            "distanceFromRenderedAnchorM": 15.49,
+            "building": "a2adbf12-bef"
+          },
+          {
+            "id": "b_526a20035c5b47da",
+            "name": "Dena Bank",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 2
+            },
+            "mappedFraction": 0.92,
+            "distanceFromRenderedAnchorM": 19.79,
+            "building": "a2adbf12-bef"
+          },
+          {
+            "id": "b_1c75d2c3-4459-47",
+            "name": "B.Srinivas Rao",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.318,
+            "distanceFromRenderedAnchorM": 20.88,
+            "building": "b9700f54-624"
+          },
+          {
+            "id": "b_50fa281de4b0fb41",
+            "name": "Stanley College Of Engineering and Technology",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.08,
+            "distanceFromRenderedAnchorM": 23.61,
+            "building": "12b4b4f3-d41"
+          },
+          {
+            "id": "b_d68b9f85-25ea-4f",
+            "name": "HDFC Bank ATM",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.333,
+            "distanceFromRenderedAnchorM": 23.81,
+            "building": "0b965c20-98e"
+          }
+        ],
+        "sameFacadeSameFloorOrderByIncreasingRendererFraction": [
+          {
+            "id": "b_c2bdbaaa-7d8f-48",
+            "name": "M.B Electronics",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.08,
+            "distanceFromRenderedAnchorM": 5.7,
+            "building": "d6c01f02-2ab",
+            "rendererFraction": 0.25
+          },
+          {
+            "id": "b_4e2a774cb61cd010",
+            "name": "Novelty Sports",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 2
+            },
+            "mappedFraction": 0.435,
+            "rendererFraction": 0.75
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "2036040410261576",
+          "readableSignText": [
+            "METRO SPORTS & FITNESS",
+            "WHOLESALE & RETAIL",
+            "Aerofit"
+          ],
+          "identitySupport": false,
+          "facadeAndFloor": "Raised street entrance with exterior steps; glass upper levels and a lower opening. No registered match to the Novelty facade.",
+          "roadSide": "Image-facing frontage, camera compass9.15degrees; precise mapped facade/side pending.",
+          "neighborOrder": "Kidsfly sign on image-right; image-left cycle-related sign partly cropped. This does not identify Novelty or a complete street sequence."
+        }
+      ],
+      "decision": "reject_automated_identity_match_keep_mapped_business",
+      "unresolved": [
+        "SPORTS is a trade descriptor and cannot identify Novelty.",
+        "Do not rename or delete Novelty from this photograph; Metro may occupy a different mapped unit.",
+        "One2025 sequence only."
+      ],
+      "independentPhotoSequencesInspected": 1,
+      "applied": false
+    },
+    {
+      "candidateBoardId": "b_5747146d498e1b5c",
+      "candidateName": "Sri Lakshmi Fruit Juice & Bakery Center",
+      "sources": [
+        {
+          "imageId": "520714642614235",
+          "path": "pipeline/build/review/520714642614235.jpg",
+          "sha256": "cf41f65e6e15758fc697a43d2a283ad2b64b3f136aa36f8de1d29ce475c46e0c",
+          "capturedAt": 1593525170048,
+          "sequenceId": "LkcYscvorK8LkQskBqtGI8",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.4807818914,
+              17.398988562324
+            ]
+          },
+          "compass": 295.54207281351,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=520714642614235",
+          "license": "CC-BY-SA-4.0",
+          "captureDate": "2020-06-30T13:52:50.048000+00:00"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "7edfd0f2-373",
+        "text": "Sri Lakshmi Fruit Juice & Bakery Center",
+        "fullName": "Sri Lakshmi Fruit Juice & Bakery Center",
+        "group": "food",
+        "slot": {
+          "floor": 0,
+          "index": 0,
+          "of": 6
+        },
+        "facadeXZ": [
+          [
+            -1695.5,
+            811.8
+          ],
+          [
+            -1723.1,
+            810.0
+          ]
+        ],
+        "mappedFraction": 0.08,
+        "rendererFraction": 0.08333333333333333,
+        "rendererAnchorXZ": [
+          -1697.8,
+          811.65
+        ],
+        "rendererAnchorLatLon": [
+          17.39896628626592,
+          78.48062126942905
+        ],
+        "buildingHeightM": 14.5,
+        "rendererSignCentreYM": 3.55,
+        "rendererHeightCull": false,
+        "immediateSameFacadeNeighbors": [
+          {
+            "id": "b_6a4840c83107bc01",
+            "name": "Global MyTrip Travel of India",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 6
+            },
+            "mappedFraction": 0.12,
+            "distanceFromRenderedAnchorM": 4.61,
+            "building": "7edfd0f2-373",
+            "rendererFraction": 0.25
+          }
+        ],
+        "otherBuildingFacadeOrFloorBoards": [],
+        "nearbyOtherBuildingBoards": [
+          {
+            "id": "b_b26a7a81-123e-4e",
+            "name": "Swathi Coffee Shoppe",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 4
+            },
+            "mappedFraction": 0.521,
+            "distanceFromRenderedAnchorM": 14.32,
+            "building": "a0534948-afe"
+          },
+          {
+            "id": "b_5304dc47498e2d0a",
+            "name": "Hair & care",
+            "slot": {
+              "floor": 1,
+              "index": 1,
+              "of": 2
+            },
+            "mappedFraction": 0.2,
+            "distanceFromRenderedAnchorM": 16.82,
+            "building": "a0534948-afe"
+          },
+          {
+            "id": "b_8db00642-e154-44",
+            "name": "Swathi Vegetarian Restaurant",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "mappedFraction": 0.244,
+            "distanceFromRenderedAnchorM": 19.32,
+            "building": "a0534948-afe"
+          },
+          {
+            "id": "b_0c08495b-e9ad-43",
+            "name": "American bakers",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 4
+            },
+            "mappedFraction": 0.222,
+            "distanceFromRenderedAnchorM": 24.32,
+            "building": "a0534948-afe"
+          }
+        ],
+        "sameFacadeSameFloorOrderByIncreasingRendererFraction": [
+          {
+            "id": "b_5747146d498e1b5c",
+            "name": "Sri Lakshmi Fruit Juice & Bakery Center",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 6
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.08333333333333333
+          },
+          {
+            "id": "b_6a4840c83107bc01",
+            "name": "Global MyTrip Travel of India",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 6
+            },
+            "mappedFraction": 0.12,
+            "distanceFromRenderedAnchorM": 4.61,
+            "building": "7edfd0f2-373",
+            "rendererFraction": 0.25
+          },
+          {
+            "id": "b_d6b57bee-bf6f-46",
+            "name": "Black Pearl",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 6
+            },
+            "mappedFraction": 0.213,
+            "distanceFromRenderedAnchorM": 9.22,
+            "building": "7edfd0f2-373",
+            "rendererFraction": 0.4166666666666667
+          },
+          {
+            "id": "b_e2b0f20d-823d-4a",
+            "name": "Hotel Central Park",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 6
+            },
+            "mappedFraction": 0.273,
+            "distanceFromRenderedAnchorM": 13.83,
+            "building": "7edfd0f2-373",
+            "rendererFraction": 0.5833333333333334
+          },
+          {
+            "id": "b_22daf84b-b343-4b",
+            "name": "Richie Rich Customers Notified Shop",
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 6
+            },
+            "mappedFraction": 0.438,
+            "distanceFromRenderedAnchorM": 18.44,
+            "building": "7edfd0f2-373",
+            "rendererFraction": 0.75
+          },
+          {
+            "id": "b_cc8ca8b9-72ad-46",
+            "name": "Crown Footwear",
+            "slot": {
+              "floor": 0,
+              "index": 5,
+              "of": 6
+            },
+            "mappedFraction": 0.444,
+            "distanceFromRenderedAnchorM": 23.05,
+            "building": "7edfd0f2-373",
+            "rendererFraction": 0.9166666666666666
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "520714642614235",
+          "readableSignText": [
+            "SRI LAXMI",
+            "FRUIT JUICE & BAKERY CENTRE",
+            "HOTEL CENTRAL PARK"
+          ],
+          "identitySupport": "Historical SRI LAXMI sign is compatible with the mapped Sri Lakshmi name variant; the OCR matched only generic FRUIT and did not establish operator identity.",
+          "facadeAndFloor": "Street-level juice/bakery frontage under a multi-storey corner building; entrance partially shuttered/occluded by equipment.",
+          "roadSide": "Image-left while camera faces295.54degrees; exact mapped facade orientation remains unregistered.",
+          "neighborOrder": "Hotel Central Park lettering on the same photographed building extends to image-right. Other mapped slot0/6 neighbors are not all visible or registered."
+        }
+      ],
+      "decision": "historical_name_variant_visible_generic_ocr_match_rejected_placement_pending",
+      "unresolved": [
+        "2020 photo does not establish current operation.",
+        "Mapped six-shop order is not proven by this one view.",
+        "Keep alternate spelling as observed evidence; no automatic rename."
+      ],
+      "independentPhotoSequencesInspected": 1,
+      "applied": false
+    },
+    {
+      "candidateBoardId": "b_9afd3b66-cc12-46",
+      "candidateName": "ICICI Bank",
+      "sources": [
+        {
+          "imageId": "1289719416221142",
+          "path": "pipeline/build/review/1289719416221142.jpg",
+          "sha256": "eda2ed32ffadd4356e87032a9b8e0280b390ebdfe84037643e7ed067f08577d5",
+          "capturedAt": 1755854153063,
+          "captureDate": "2025-08-22T09:15:53.063000+00:00",
+          "sequenceId": "5e7XPikohQym0np2W4ABHc",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.490866988613,
+              17.429276890744
+            ]
+          },
+          "compass": 225.29826612813,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1289719416221142",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_-1.pack.wasm",
+        "tile": "-1_-3",
+        "buildingId": "7d25f808-533",
+        "boardText": "ICICI Bank",
+        "fullName": "ICICI Bank",
+        "group": "finance",
+        "facadeXZ": [
+          [
+            -629.1,
+            -2539.9
+          ],
+          [
+            -635.2,
+            -2535.5
+          ]
+        ],
+        "slot": {
+          "floor": 1,
+          "index": 0,
+          "of": 1,
+          "overflow": true
+        },
+        "mappedFraction": 0.528,
+        "rendererFraction": 0.528,
+        "facadeAnchorXZ": [
+          -632.3208000000001,
+          -2537.5768
+        ],
+        "signTextAnchorXYZ": [
+          -632.3793005012301,
+          6.95,
+          -2537.657902967614
+        ],
+        "signTextAnchorLatLon": [
+          17.42922916480675,
+          78.49064840472296
+        ],
+        "facadeOutwardNormalXZ": [
+          -0.5850050122997029,
+          -0.8110296761427563
+        ],
+        "buildingHeightM": 9.7,
+        "renderedSignWidthM": 3.6,
+        "renderedSignHeightM": 0.7,
+        "rendererHeightCull": false,
+        "facadeTooShortCull": false,
+        "sameFacadeSameFloorOrderByIncreasingRendererFraction": [
+          {
+            "id": "b_n13536912470",
+            "name": "DBS Bank India",
+            "buildingId": "7d25f808-533",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.265,
+            "rendererFraction": 0.265,
+            "signTextAnchorXYZ": [
+              -630.77500050123,
+              6.95,
+              -2538.815102967614
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 1.98
+          },
+          {
+            "id": "b_9afd3b66-cc12-46",
+            "name": "ICICI Bank",
+            "buildingId": "7d25f808-533",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.528,
+            "rendererFraction": 0.528,
+            "signTextAnchorXYZ": [
+              -632.3793005012301,
+              6.95,
+              -2537.657902967614
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "id": "b_5696a4ff81984889",
+            "name": "Sarala and Company",
+            "buildingId": "7d25f808-533",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.92,
+            "signTextAnchorXYZ": [
+              -634.77050050123,
+              6.95,
+              -2535.933102967614
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 2.95
+          }
+        ],
+        "immediateSameFacadeNeighbors": [
+          {
+            "id": "b_n13536912470",
+            "name": "DBS Bank India",
+            "buildingId": "7d25f808-533",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.265,
+            "rendererFraction": 0.265,
+            "signTextAnchorXYZ": [
+              -630.77500050123,
+              6.95,
+              -2538.815102967614
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 1.98
+          },
+          {
+            "id": "b_5696a4ff81984889",
+            "name": "Sarala and Company",
+            "buildingId": "7d25f808-533",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.92,
+            "signTextAnchorXYZ": [
+              -634.77050050123,
+              6.95,
+              -2535.933102967614
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 2.95
+          }
+        ],
+        "otherSameBuildingBoards": [
+          {
+            "id": "b_9041e145-9702-4c",
+            "name": "Lakshmi Vilas Bank e Lounge",
+            "buildingId": "7d25f808-533",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 2
+            },
+            "mappedFraction": 0.202,
+            "rendererFraction": 0.75,
+            "signTextAnchorXYZ": [
+              -633.827101303198,
+              3.55,
+              -2536.810867715797
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 1.68
+          },
+          {
+            "id": "b_91b33a2f35504be4",
+            "name": "Galaxy Rubber Products",
+            "buildingId": "7d25f808-533",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -630.7771013031979,
+              3.55,
+              -2539.0108677157973
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 2.1
+          },
+          {
+            "id": "b_4d766f65-a07e-44",
+            "name": "Time Kids",
+            "buildingId": "7d25f808-533",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.246,
+            "rendererFraction": 0.246,
+            "signTextAnchorXYZ": [
+              -620.34089949877,
+              6.95,
+              -2518.401297032386
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 22.71
+          }
+        ],
+        "nearbyOtherBuildingBoards": [
+          {
+            "id": "b_4cbd4314aa0048a8",
+            "name": "Millson Tools and Hardware",
+            "buildingId": "1b819e0a-2e1",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.245,
+            "rendererFraction": 0.245,
+            "signTextAnchorXYZ": [
+              -639.702888026048,
+              3.55,
+              -2533.312497057885
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 8.52
+          },
+          {
+            "id": "b_e5054f9b-34d6-45",
+            "name": "Andhra Pradesh Gujarati Samaj",
+            "buildingId": "1b819e0a-2e1",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 2
+            },
+            "mappedFraction": 0.631,
+            "rendererFraction": 0.75,
+            "signTextAnchorXYZ": [
+              -628.5649955361284,
+              3.55,
+              -2517.4173671459052
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 20.6
+          },
+          {
+            "id": "b_3e8487a6-171f-4f",
+            "name": "Laxmi Agencies",
+            "buildingId": "1b819e0a-2e1",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -637.7649955361284,
+              3.55,
+              -2516.1673671459052
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 22.16
+          },
+          {
+            "id": "b_00d86d6544e041c4",
+            "name": "Boorugu Diamonds",
+            "buildingId": "22cf43bd-48a",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 3
+            },
+            "mappedFraction": 0.306,
+            "rendererFraction": 0.16666666666666666,
+            "signTextAnchorXYZ": [
+              -613.0514619424242,
+              3.55,
+              -2522.6699406309003
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.46
+          },
+          {
+            "id": "b_1b1ada4d5b2841e4",
+            "name": "R M Trivedi and Sons",
+            "buildingId": "22cf43bd-48a",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.306,
+            "rendererFraction": 0.306,
+            "signTextAnchorXYZ": [
+              -611.7216699778555,
+              6.95,
+              -2523.79052588368
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.88
+          },
+          {
+            "id": "b_f253c90cc9f34ddf",
+            "name": "Asian Film",
+            "buildingId": "22cf43bd-48a",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.306,
+            "rendererFraction": 0.306,
+            "signTextAnchorXYZ": [
+              -611.7216699778555,
+              6.95,
+              -2523.79052588368
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.88
+          },
+          {
+            "id": "b_5786753333854bcb",
+            "name": "Bhoorathnom Construction Company P. Ltd.",
+            "buildingId": "22cf43bd-48a",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.306,
+            "rendererFraction": 0.306,
+            "signTextAnchorXYZ": [
+              -611.7216699778555,
+              6.95,
+              -2523.79052588368
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.88
+          },
+          {
+            "id": "b_8ac161e1e7404b9e",
+            "name": "R K Engineers",
+            "buildingId": "22cf43bd-48a",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            },
+            "mappedFraction": 0.306,
+            "rendererFraction": 0.306,
+            "signTextAnchorXYZ": [
+              -611.7216699778555,
+              6.95,
+              -2523.79052588368
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.88
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "1289719416221142",
+          "readableSignText": [
+            "ICICI Bank",
+            "Canara Bank",
+            "Secunderabad Branch"
+          ],
+          "identitySupport": true,
+          "context": "ICICI branding appears on image-right lower windows and a higher tree-obscured sign. Canara Bank is above; the red adjacent premises carry a separate Secunderabad Branch label. Do not assign that label to ICICI.",
+          "floorRoadSideAndOrder": "Image-facing building frontage, multiple banks and tree occlusion. Mapped floor1 overflow and shared facade need individual registration."
+        }
+      ],
+      "decision": "historical_brand_visible_floor_and_branch_registration_pending",
+      "unresolved": [
+        "OCR has IICICI BANK with a fuzzy IICICI→ICICI token. Do not adopt the extra leading I as a spelling correction. Brand text alone does not establish this exact branch entrance or floor.",
+        "Current facade/floor and neighboring order are inferred, not photographically certified. Increasing renderer fraction follows facade a→b, not necessarily photo-left→right.",
+        "No original image was visually inspected in this read-only extraction.",
+        "Image-facing building frontage, multiple banks and tree occlusion. Mapped floor1 overflow and shared facade need individual registration."
+      ],
+      "independentPhotoSequencesInspected": 1,
+      "applied": false
+    },
+    {
+      "candidateBoardId": "b_0c08495b-e9ad-43",
+      "candidateName": "American bakers",
+      "sources": [
+        {
+          "imageId": "224899799029218",
+          "path": "pipeline/build/review/224899799029218.jpg",
+          "sha256": "ff4aa55594c6d3660a5d60debfc8b1d715325a5c29d5712cc5fe8269a4f5783e",
+          "capturedAt": 1593525166048,
+          "captureDate": "2020-06-30T13:52:46.048000+00:00",
+          "sequenceId": "LkcYscvorK8LkQskBqtGI8",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.481050377628,
+              17.398884660529
+            ]
+          },
+          "compass": 293.81852315436,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=224899799029218",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "a0534948-afe",
+        "boardText": "American bakers",
+        "fullName": "American bakers",
+        "group": "food",
+        "facadeXZ": [
+          [
+            -1668.3,
+            823.6
+          ],
+          [
+            -1686.7,
+            815.7
+          ]
+        ],
+        "slot": {
+          "floor": 0,
+          "index": 1,
+          "of": 4
+        },
+        "mappedFraction": 0.222,
+        "rendererFraction": 0.375,
+        "facadeAnchorXZ": [
+          -1675.2,
+          820.6375
+        ],
+        "signTextAnchorXYZ": [
+          -1675.0974242977293,
+          3.55,
+          820.3985895035717
+        ],
+        "signTextAnchorLatLon": [
+          17.398887237844807,
+          78.48083493319417
+        ],
+        "facadeOutwardNormalXZ": [
+          0.39452193181102013,
+          -0.9188865247244085
+        ],
+        "buildingHeightM": 16.5,
+        "renderedSignWidthM": 4.656058829059062,
+        "renderedSignHeightM": 0.95,
+        "rendererHeightCull": false,
+        "facadeTooShortCull": false,
+        "sameFacadeSameFloorOrderByIncreasingRendererFraction": [
+          {
+            "id": "b_b58128ac-72a8-49",
+            "name": "Green Basket",
+            "buildingId": "a0534948-afe",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.125,
+            "signTextAnchorXYZ": [
+              -1670.4974242977291,
+              3.55,
+              822.3735895035717
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 5.01
+          },
+          {
+            "id": "b_0c08495b-e9ad-43",
+            "name": "American bakers",
+            "buildingId": "a0534948-afe",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 4
+            },
+            "mappedFraction": 0.222,
+            "rendererFraction": 0.375,
+            "signTextAnchorXYZ": [
+              -1675.0974242977293,
+              3.55,
+              820.3985895035717
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "id": "b_8db00642-e154-44",
+            "name": "Swathi Vegetarian Restaurant",
+            "buildingId": "a0534948-afe",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "mappedFraction": 0.244,
+            "rendererFraction": 0.625,
+            "signTextAnchorXYZ": [
+              -1679.6974242977292,
+              3.55,
+              818.4235895035716
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 5.01
+          },
+          {
+            "id": "b_b26a7a81-123e-4e",
+            "name": "Swathi Coffee Shoppe",
+            "buildingId": "a0534948-afe",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 4
+            },
+            "mappedFraction": 0.521,
+            "rendererFraction": 0.875,
+            "signTextAnchorXYZ": [
+              -1684.2974242977293,
+              3.55,
+              816.4485895035716
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 10.01
+          }
+        ],
+        "immediateSameFacadeNeighbors": [
+          {
+            "id": "b_b58128ac-72a8-49",
+            "name": "Green Basket",
+            "buildingId": "a0534948-afe",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.125,
+            "signTextAnchorXYZ": [
+              -1670.4974242977291,
+              3.55,
+              822.3735895035717
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 5.01
+          },
+          {
+            "id": "b_8db00642-e154-44",
+            "name": "Swathi Vegetarian Restaurant",
+            "buildingId": "a0534948-afe",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "mappedFraction": 0.244,
+            "rendererFraction": 0.625,
+            "signTextAnchorXYZ": [
+              -1679.6974242977292,
+              3.55,
+              818.4235895035716
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 5.01
+          }
+        ],
+        "otherSameBuildingBoards": [
+          {
+            "id": "b_ecb7f863-6b9f-47",
+            "name": "Viva Dental",
+            "buildingId": "a0534948-afe",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -1672.8605478068189,
+              6.95,
+              821.5331113475276
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 2.51
+          },
+          {
+            "id": "b_5304dc47498e2d0a",
+            "name": "Hair & care",
+            "buildingId": "a0534948-afe",
+            "slot": {
+              "floor": 1,
+              "index": 1,
+              "of": 2
+            },
+            "mappedFraction": 0.2,
+            "rendererFraction": 0.75,
+            "signTextAnchorXYZ": [
+              -1682.0605478068187,
+              6.95,
+              817.5831113475276
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 7.51
+          }
+        ],
+        "nearbyOtherBuildingBoards": [
+          {
+            "id": "b_553b667e-1453-4d",
+            "name": "Green Hills Gold Farms",
+            "buildingId": "cf7a214d-79e",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 8
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.3125,
+            "signTextAnchorXYZ": [
+              -1665.1135505764603,
+              3.55,
+              798.5895595562633
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 23.99
+          },
+          {
+            "id": "b_5747146d498e1b5c",
+            "name": "Sri Lakshmi Fruit Juice & Bakery Center",
+            "buildingId": "7edfd0f2-373",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 6
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.08333333333333333,
+            "signTextAnchorXYZ": [
+              -1697.78307942429,
+              3.55,
+              811.3905511724489
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.41
+          },
+          {
+            "id": "b_fc161a28-ed23-47",
+            "name": "Royal Kingdom Group",
+            "buildingId": "cf7a214d-79e",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 8
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.1875,
+            "signTextAnchorXYZ": [
+              -1671.9885505764603,
+              3.55,
+              795.6895595562634
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.9
+          },
+          {
+            "id": "b_2cc7a63f-5cc8-4b",
+            "name": "Dreams Apparel",
+            "buildingId": "cf7a214d-79e",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 8
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.4375,
+            "signTextAnchorXYZ": [
+              -1658.2385505764603,
+              3.55,
+              801.4895595562633
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 25.33
+          },
+          {
+            "id": "b_37c46c67-5b77-4a",
+            "name": "FM General Hardware and Electricals",
+            "buildingId": "cf7a214d-79e",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 8
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.0625,
+            "signTextAnchorXYZ": [
+              -1678.8635505764603,
+              3.55,
+              792.7895595562634
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 27.86
+          },
+          {
+            "id": "b_a5d82636-7327-4c",
+            "name": "Lakshmi Nissan",
+            "buildingId": "30bebfd5-d29",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.585,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -1682.794579573263,
+              3.55,
+              847.6367909735773
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 28.3
+          },
+          {
+            "id": "b_505b4842-215d-49",
+            "name": "Jai Bhagwathi Boiler and Garments",
+            "buildingId": "cf7a214d-79e",
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 8
+            },
+            "mappedFraction": 0.092,
+            "rendererFraction": 0.5625,
+            "signTextAnchorXYZ": [
+              -1651.3635505764603,
+              3.55,
+              804.3895595562633
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 28.63
+          },
+          {
+            "id": "b_6a4840c83107bc01",
+            "name": "Global MyTrip Travel of India",
+            "buildingId": "7edfd0f2-373",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 6
+            },
+            "mappedFraction": 0.12,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -1702.3830794242901,
+              3.55,
+              811.0905511724488
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 28.83
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "224899799029218",
+          "readableSignText": [
+            "AMERICAN BAKER’S",
+            "BAKERS & CONFECTIONERS",
+            "VEG RESTAURANT"
+          ],
+          "identitySupport": true,
+          "context": "American bakery is image-left at street level; an adjacent shutter carries VEG RESTAURANT. Other mapped neighbors are cropped or unreadable.",
+          "floorRoadSideAndOrder": "Two OCR readings in this single2020 image are not two independent photos. Keep only the distinctive MERICAN→AMERICAN match; generic bakery terms cannot establish identity."
+        }
+      ],
+      "decision": "historical_distinctive_name_supported_one_photo_placement_pending",
+      "unresolved": [
+        "seen=2 counts two OCR readings of ONE image and ONE sequence, not independent sightings.",
+        "The highest-score reading is generic BAKERS & CONFECTIONERS; the lower-score MERICAN BAKER'S reading contains the distinctive AMERICAN candidate token.",
+        "Current facade/floor and neighboring order are inferred, not photographically certified. Increasing renderer fraction follows facade a→b, not necessarily photo-left→right.",
+        "No original image was visually inspected in this read-only extraction.",
+        "Two OCR readings in this single2020 image are not two independent photos. Keep only the distinctive MERICAN→AMERICAN match; generic bakery terms cannot establish identity."
+      ],
+      "independentPhotoSequencesInspected": 1,
+      "applied": false
+    },
+    {
+      "candidateBoardId": "b_a0e611ba-65d7-44",
+      "candidateName": "Pulse 8 Elite Gym Cardio",
+      "sources": [
+        {
+          "imageId": "1732150670459425",
+          "path": "pipeline/build/review/1732150670459425.jpg",
+          "sha256": "dcd8b01f26a1403d10a900f40b4b08e7837b8e63ad3c73cae27091864053e2b3",
+          "capturedAt": 1652101467528,
+          "captureDate": "2022-05-09T13:04:27.528000+00:00",
+          "sequenceId": "2oijlEduh9fG5wg3sAbxrW",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.499608693004,
+              17.394699548846
+            ]
+          },
+          "compass": 280.03762016437,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1732150670459425",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p0_0.pack.wasm",
+        "tile": "0_1",
+        "buildingId": "fb58fc1c-ce0",
+        "boardText": "Pulse 8 Elite Gym Cardio",
+        "fullName": "Pulse 8 Elite Gym Cardio",
+        "group": "shop",
+        "facadeXZ": [
+          [
+            307.0,
+            1250.9
+          ],
+          [
+            301.6,
+            1268.0
+          ]
+        ],
+        "slot": {
+          "floor": 0,
+          "index": 1,
+          "of": 4
+        },
+        "mappedFraction": 0.898,
+        "rendererFraction": 0.375,
+        "facadeAnchorXZ": [
+          304.975,
+          1257.3125
+        ],
+        "signTextAnchorXYZ": [
+          304.72706850706516,
+          3.55,
+          1257.2342058443364
+        ],
+        "signTextAnchorLatLon": [
+          17.394940182637395,
+          78.49946791832097
+        ],
+        "facadeOutwardNormalXZ": [
+          -0.9535826651341414,
+          -0.3011313679370976
+        ],
+        "buildingHeightM": 15.8,
+        "renderedSignWidthM": 4.1330932401635145,
+        "renderedSignHeightM": 0.95,
+        "rendererHeightCull": false,
+        "facadeTooShortCull": false,
+        "sameFacadeSameFloorOrderByIncreasingRendererFraction": [
+          {
+            "id": "b_bfd3553b-8942-4c",
+            "name": "Akshaya Medical Hall",
+            "buildingId": "fb58fc1c-ce0",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "mappedFraction": 0.864,
+            "rendererFraction": 0.125,
+            "signTextAnchorXYZ": [
+              306.0770685070651,
+              3.55,
+              1252.9592058443366
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 4.48
+          },
+          {
+            "id": "b_a0e611ba-65d7-44",
+            "name": "Pulse 8 Elite Gym Cardio",
+            "buildingId": "fb58fc1c-ce0",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 4
+            },
+            "mappedFraction": 0.898,
+            "rendererFraction": 0.375,
+            "signTextAnchorXYZ": [
+              304.72706850706516,
+              3.55,
+              1257.2342058443364
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "id": "b_bc9880bc-19e2-4b",
+            "name": "Muthoot Finance Gold Loan",
+            "buildingId": "fb58fc1c-ce0",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.625,
+            "signTextAnchorXYZ": [
+              303.37706850706513,
+              3.55,
+              1261.5092058443365
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 4.48
+          },
+          {
+            "id": "b_8121055f-e580-42",
+            "name": "The Tasty Arabian Mandi House",
+            "buildingId": "fb58fc1c-ce0",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 4
+            },
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.875,
+            "signTextAnchorXYZ": [
+              302.02706850706517,
+              3.55,
+              1265.7842058443364
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 8.97
+          }
+        ],
+        "immediateSameFacadeNeighbors": [
+          {
+            "id": "b_bfd3553b-8942-4c",
+            "name": "Akshaya Medical Hall",
+            "buildingId": "fb58fc1c-ce0",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "mappedFraction": 0.864,
+            "rendererFraction": 0.125,
+            "signTextAnchorXYZ": [
+              306.0770685070651,
+              3.55,
+              1252.9592058443366
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 4.48
+          },
+          {
+            "id": "b_bc9880bc-19e2-4b",
+            "name": "Muthoot Finance Gold Loan",
+            "buildingId": "fb58fc1c-ce0",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.625,
+            "signTextAnchorXYZ": [
+              303.37706850706513,
+              3.55,
+              1261.5092058443365
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 4.48
+          }
+        ],
+        "otherSameBuildingBoards": [],
+        "nearbyOtherBuildingBoards": [
+          {
+            "id": "b_2a4bc644-f16b-4c",
+            "name": "Golden Footwear",
+            "buildingId": "90c8d6b0-d3b",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.158,
+            "rendererFraction": 0.158,
+            "signTextAnchorXYZ": [
+              292.25915106966,
+              3.55,
+              1264.36307553483
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 14.36
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "1732150670459425",
+          "readableSignText": [
+            "PULSE 8",
+            "GYM",
+            "CARDIO & STRENGTH",
+            "S.Cube RESTAURANT & BAR"
+          ],
+          "identitySupport": true,
+          "context": "Illuminated gym board is on image-right across the junction, below larger restaurant/bar advertising. The exact entrance and operating floor are not established.",
+          "floorRoadSideAndOrder": "The photograph visibly supports PULSE8 branding historically, but CARDIO alone is a generic descriptor. Preserve the manual observation while removing that weak automated match."
+        }
+      ],
+      "decision": "historical_brand_visible_generic_automated_anchor_rejected_placement_pending",
+      "unresolved": [
+        "Only CARDIO anchors the current OCR match. CARDIO & STRENGTH is a generic gym descriptor and does not establish PULSE 8 or ELITE identity.",
+        "Current facade/floor and neighboring order are inferred, not photographically certified. Increasing renderer fraction follows facade a→b, not necessarily photo-left→right.",
+        "No original image was visually inspected in this read-only extraction.",
+        "The photograph visibly supports PULSE8 branding historically, but CARDIO alone is a generic descriptor. Preserve the manual observation while removing that weak automated match."
+      ],
+      "independentPhotoSequencesInspected": 1,
+      "applied": false
+    },
+    {
+      "candidateBoardId": "b_5b3fd674-a9a6-4c",
+      "candidateName": "Asian Tours and Travels",
+      "sources": [
+        {
+          "imageId": "1835010847222599",
+          "path": "pipeline/build/review/1835010847222599.jpg",
+          "sha256": "b6499b58994905cb4decd815844ad4c97ac26c4b2b0d3b9f336d5e34c5f73c62",
+          "capturedAt": 1760341857628,
+          "captureDate": "2025-10-13T07:50:57.628000+00:00",
+          "sequenceId": "3mQ7rBzdqfoWL1YiwuMtPN",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.467454252263,
+              17.404459628858
+            ]
+          },
+          "compass": 355.11880380512,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=1835010847222599",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-2_0.pack.wasm",
+        "tile": "-4_0",
+        "buildingId": "c27edef8-98c",
+        "boardText": "Asian Tours and Travels",
+        "fullName": "Asian Tours and Travels",
+        "group": "shop",
+        "facadeXZ": [
+          [
+            -3080.1,
+            155.1
+          ],
+          [
+            -3082.9,
+            170.6
+          ]
+        ],
+        "slot": {
+          "floor": 0,
+          "index": 1,
+          "of": 4
+        },
+        "mappedFraction": 0.08,
+        "rendererFraction": 0.375,
+        "facadeAnchorXZ": [
+          -3081.15,
+          160.9125
+        ],
+        "signTextAnchorXYZ": [
+          -3081.4058588341186,
+          3.55,
+          160.86628033964308
+        ],
+        "signTextAnchorLatLon": [
+          17.404846482782634,
+          78.46759955589702
+        ],
+        "facadeOutwardNormalXZ": [
+          -0.9840724389174194,
+          -0.1777679244496099
+        ],
+        "buildingHeightM": 13.4,
+        "renderedSignWidthM": 3.587718247919734,
+        "renderedSignHeightM": 0.95,
+        "rendererHeightCull": false,
+        "facadeTooShortCull": false,
+        "sameFacadeSameFloorOrderByIncreasingRendererFraction": [
+          {
+            "id": "b_45506ff6-efbb-49",
+            "name": "Astoria Restaurant",
+            "buildingId": "c27edef8-98c",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.125,
+            "signTextAnchorXYZ": [
+              -3080.7058588341183,
+              3.55,
+              156.99128033964308
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 3.94
+          },
+          {
+            "id": "b_5b3fd674-a9a6-4c",
+            "name": "Asian Tours and Travels",
+            "buildingId": "c27edef8-98c",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 4
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.375,
+            "signTextAnchorXYZ": [
+              -3081.4058588341186,
+              3.55,
+              160.86628033964308
+            ],
+            "rendererHeightCull": false
+          },
+          {
+            "id": "b_n1309296596",
+            "name": "Hotel Astoria",
+            "buildingId": "c27edef8-98c",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "mappedFraction": 0.145,
+            "rendererFraction": 0.625,
+            "signTextAnchorXYZ": [
+              -3082.1058588341184,
+              3.55,
+              164.74128033964308
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 3.94
+          },
+          {
+            "id": "b_3a78d1cc-ac09-4a",
+            "name": "Areenz Travels",
+            "buildingId": "c27edef8-98c",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 4
+            },
+            "mappedFraction": 0.477,
+            "rendererFraction": 0.875,
+            "signTextAnchorXYZ": [
+              -3082.8058588341187,
+              3.55,
+              168.61628033964308
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 7.88
+          }
+        ],
+        "immediateSameFacadeNeighbors": [
+          {
+            "id": "b_45506ff6-efbb-49",
+            "name": "Astoria Restaurant",
+            "buildingId": "c27edef8-98c",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 4
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.125,
+            "signTextAnchorXYZ": [
+              -3080.7058588341183,
+              3.55,
+              156.99128033964308
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 3.94
+          },
+          {
+            "id": "b_n1309296596",
+            "name": "Hotel Astoria",
+            "buildingId": "c27edef8-98c",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 4
+            },
+            "mappedFraction": 0.145,
+            "rendererFraction": 0.625,
+            "signTextAnchorXYZ": [
+              -3082.1058588341184,
+              3.55,
+              164.74128033964308
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 3.94
+          }
+        ],
+        "otherSameBuildingBoards": [],
+        "nearbyOtherBuildingBoards": [
+          {
+            "id": "b_4ff55efde4b09751",
+            "name": "ICCR",
+            "buildingId": "e8f69b43-ae2",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.92,
+            "signTextAnchorXYZ": [
+              -3058.6318036473544,
+              3.55,
+              155.28953343408193
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 23.45
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "1835010847222599",
+          "readableSignText": [
+            "Asian",
+            "Tours & Travels",
+            "ASTORIA RESTAURANT",
+            "ARANYA BHAVAN"
+          ],
+          "identitySupport": true,
+          "context": "Asian Tours & Travels branding appears on the opposite image-right commercial frontage, with upper-level Astoria signage and Aranya Bhavan behind.",
+          "floorRoadSideAndOrder": "Upper signage and trees/vehicles do not establish the exact walk-in floor or inferred ground-floor slot between Astoria Restaurant and Hotel Astoria."
+        }
+      ],
+      "decision": "historical_travel_business_sign_visible_exact_floor_order_pending",
+      "unresolved": [
+        "OCR reads only ASIAN, a brand fragment compatible with many businesses. The TOURS AND TRAVELS category and exact operator need original-image inspection.",
+        "Photo ray distance is approximately 50m; nearest projected facade does not independently bind the sign to this board.",
+        "Current facade/floor and neighboring order are inferred, not photographically certified. Increasing renderer fraction follows facade a→b, not necessarily photo-left→right.",
+        "No original image was visually inspected in this read-only extraction.",
+        "Upper signage and trees/vehicles do not establish the exact walk-in floor or inferred ground-floor slot between Astoria Restaurant and Hotel Astoria."
+      ],
+      "independentPhotoSequencesInspected": 1,
+      "applied": false
+    },
+    {
+      "candidateBoardId": "b_n2729406949",
+      "candidateName": "Victoria cafe",
+      "sources": [
+        {
+          "imageId": "310820087162616",
+          "path": "pipeline/build/review/310820087162616.jpg",
+          "sha256": "bed76028390893f7ac30cbdcc3398e5a5fde7595fcc5de0eec59b67911de2429",
+          "capturedAt": 1562459699946,
+          "captureDate": "2019-07-07T00:34:59.946000+00:00",
+          "sequenceId": "b2tqormbqpnerb21srn31p",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              78.490295871774,
+              17.408905464272
+            ]
+          },
+          "compass": 303.11753813727,
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=310820087162616",
+          "license": "CC-BY-SA-4.0"
+        }
+      ],
+      "mappedCandidate": {
+        "pack": "p-1_-1.pack.wasm",
+        "tile": "-1_-1",
+        "buildingId": "6681aa6f-c1a",
+        "boardText": "Victoria cafe",
+        "fullName": "Victoria cafe",
+        "group": "food",
+        "facadeXZ": [
+          [
+            -702.2,
+            -317.4
+          ],
+          [
+            -686.9,
+            -312.2
+          ]
+        ],
+        "slot": {
+          "floor": 0,
+          "index": 1,
+          "of": 2
+        },
+        "mappedFraction": 0.466,
+        "rendererFraction": 0.75,
+        "facadeAnchorXZ": [
+          -690.725,
+          -313.5
+        ],
+        "signTextAnchorXYZ": [
+          -690.8086658653391,
+          3.55,
+          -313.2538292808292
+        ],
+        "signTextAnchorLatLon": [
+          17.409130424333213,
+          78.49009850067857
+        ],
+        "facadeOutwardNormalXZ": [
+          -0.32179178976572936,
+          0.9468104583491715
+        ],
+        "buildingHeightM": 9.4,
+        "renderedSignWidthM": 6.4,
+        "renderedSignHeightM": 0.95,
+        "rendererHeightCull": false,
+        "facadeTooShortCull": false,
+        "sameFacadeSameFloorOrderByIncreasingRendererFraction": [
+          {
+            "id": "b_3010673c-ec17-45",
+            "name": "SV Digitals",
+            "buildingId": "6681aa6f-c1a",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.28,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -698.4586658653391,
+              3.55,
+              -315.8538292808292
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 8.08
+          },
+          {
+            "id": "b_n2729406949",
+            "name": "Victoria cafe",
+            "buildingId": "6681aa6f-c1a",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 2
+            },
+            "mappedFraction": 0.466,
+            "rendererFraction": 0.75,
+            "signTextAnchorXYZ": [
+              -690.8086658653391,
+              3.55,
+              -313.2538292808292
+            ],
+            "rendererHeightCull": false
+          }
+        ],
+        "immediateSameFacadeNeighbors": [
+          {
+            "id": "b_3010673c-ec17-45",
+            "name": "SV Digitals",
+            "buildingId": "6681aa6f-c1a",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.28,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -698.4586658653391,
+              3.55,
+              -315.8538292808292
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": true,
+            "horizontalDistanceM": 8.08
+          }
+        ],
+        "otherSameBuildingBoards": [],
+        "nearbyOtherBuildingBoards": [
+          {
+            "id": "b_6b8a456d-7e34-4f",
+            "name": "Software Solutions Company",
+            "buildingId": "97eb5caa-6d9",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.909,
+            "rendererFraction": 0.909,
+            "signTextAnchorXYZ": [
+              -679.6489808623189,
+              3.55,
+              -324.25952657281726
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 15.67
+          },
+          {
+            "id": "b_cb8260f623ae4069",
+            "name": "Aashray Lodge",
+            "buildingId": "77a09eaf-08a",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 2
+            },
+            "mappedFraction": 0.92,
+            "rendererFraction": 0.75,
+            "signTextAnchorXYZ": [
+              -706.2832171511579,
+              3.55,
+              -318.6036772325725
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 16.37
+          },
+          {
+            "id": "b_b9449f05-3f6e-48",
+            "name": "Prof Jayashankar IAS Study Circle",
+            "buildingId": "77a09eaf-08a",
+            "slot": {
+              "floor": 1,
+              "index": 1,
+              "of": 2
+            },
+            "mappedFraction": 0.08,
+            "rendererFraction": 0.75,
+            "signTextAnchorXYZ": [
+              -706.2320065965993,
+              6.95,
+              -318.75526047406635
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 16.38
+          },
+          {
+            "id": "b_a288ff2e-2117-4b",
+            "name": "Vijay Brothers",
+            "buildingId": "51b592fd-682",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.617,
+            "rendererFraction": 0.617,
+            "signTextAnchorXYZ": [
+              -688.2140887534304,
+              3.55,
+              -331.89297592414624
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 18.82
+          },
+          {
+            "id": "b_8bdfc782-ef9b-44",
+            "name": "Western Union",
+            "buildingId": "51b592fd-682",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.317,
+            "rendererFraction": 0.317,
+            "signTextAnchorXYZ": [
+              -678.9141473948284,
+              3.55,
+              -332.4080224089304
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 22.55
+          },
+          {
+            "id": "b_bf3889a1-4d58-48",
+            "name": "Suzuki Clinic",
+            "buildingId": "afc00ca0-c69",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            },
+            "mappedFraction": 0.513,
+            "rendererFraction": 0.513,
+            "signTextAnchorXYZ": [
+              -666.9668461113458,
+              3.55,
+              -316.1021849553805
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.01
+          },
+          {
+            "id": "b_ed05d343-f503-47",
+            "name": "Exam Point Books and Stationery",
+            "buildingId": "77a09eaf-08a",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.723,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -713.6832171511578,
+              3.55,
+              -321.1036772325725
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.18
+          },
+          {
+            "id": "b_7fd1f31dee114923",
+            "name": "Expert Motor Driving School",
+            "buildingId": "77a09eaf-08a",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 2
+            },
+            "mappedFraction": 0.525,
+            "rendererFraction": 0.25,
+            "signTextAnchorXYZ": [
+              -713.6320065965991,
+              6.95,
+              -321.25526047406635
+            ],
+            "rendererHeightCull": false,
+            "sameFacadeEndpoints": false,
+            "horizontalDistanceM": 24.19
+          }
+        ]
+      },
+      "observations": [
+        {
+          "imageId": "310820087162616",
+          "readableSignText": [
+            "VICTORIA",
+            "New Cafe VICTORIA"
+          ],
+          "identitySupport": true,
+          "context": "Several Victoria signs appear at the image-right street corner; the photo is soft and neighboring lettering is mostly unreadable.",
+          "floorRoadSideAndOrder": "2019 observation does not establish current operation. Exact facade/entry and the mapped SV Digitals→Victoria ordering remain unregistered."
+        }
+      ],
+      "decision": "historical_cafe_brand_visible_stale_single_sequence_placement_pending",
+      "unresolved": [
+        "OCR reads VICTORIA only, not the full cafe name or entrance. The 2019 capture cannot establish current operation.",
+        "Current facade/floor and neighboring order are inferred, not photographically certified. Increasing renderer fraction follows facade a→b, not necessarily photo-left→right.",
+        "No original image was visually inspected in this read-only extraction.",
+        "2019 observation does not establish current operation. Exact facade/entry and the mapped SV Digitals→Victoria ordering remain unregistered."
+      ],
+      "independentPhotoSequencesInspected": 1,
+      "applied": false
+    }
+  ],
+  "matcherSafeguard": "SPORT/SPORTS, FRUIT/FRUITS, BAKER/BAKERS, CONFECTIONER/CONFECTIONERS and CARDIO/STRENGTH cannot alone identify an operator. Distinctive NOVELTY/LAKSHMI/AMERICAN/PULSE readings remain covered by tests.",
+  "remainingWork": "Register actual facade/floor/side/order with independent readable views before individual placement changes."
+}
