@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-23",
+  "startedAt": "2026-10-23T19:13:03Z",
+  "browserReleasedAt": "2026-10-23T19:18:04Z",
+  "tester": "playtest_old_city",
+  "status": "completed_with_coverage_limits",
+  "checkoutCommit": "8c245754f939fecee8d51853a8ffac6829bc4aae",
+  "runtimeScript": "./assets/index-BXXU57b3.js",
+  "runtimeVerification": "Read the document script[src] attribute through the supported read-only DOM API in both fresh tabs.",
+  "url": "http://127.0.0.1:4189/",
+  "method": "Actual Chrome rendered UI, area-picker buttons, native bounded keyboard holds, screenshots, accessibility text and captured warning/error logs. No query-string area selection, autopilot, game-state reads, teleporting or engine stepping.",
+  "viewport": { "width": 1465, "height": 913, "source": "original screenshot dimensions", "overridden": false },
+  "saveContext": "Existing progress was preserved: Level 2, 0/4, 704 coins. Both fresh sessions inherited a night-time Day 7 save. No progress reset or completed-delivery save was made.",
+  "tabs": {
+    "uppal": "1933378207",
+    "charminar": "1933378221",
+    "cleanup": "Both test game tabs and every evidence-upload tab were closed. Shared input lock was released. East's preserved customer tab 1933378200 was not claimed or operated."
+  },
+  "counts": {
+    "freshAreaSelections": 2,
+    "offersAccepted": 2,
+    "newPickups": 0,
+    "customerHandovers": 0,
+    "flightActivations": 1,
+    "observedLandings": 1,
+    "recoveryActivations": 1,
+    "settledRecoveriesWithForwardDeparture": 1,
+    "mapOpens": 2,
+    "actualCloseMapButtonClicks": 1,
+    "pauseKeyOpens": 1,
+    "originalScreenshotsSaved": 7,
+    "explicitHeldInputSeconds": 11.3
+  },
+  "heldInputLedger": [
+    { "area": "Uppal", "keys": "W", "seconds": 1.0, "purpose": "First controlled spawn departure" },
+    { "area": "Uppal", "keys": "W", "seconds": 1.5, "purpose": "Continue straight on visible open lane" },
+    { "area": "Uppal", "keys": "S", "seconds": 0.65, "purpose": "Stop after departure" },
+    { "area": "Charminar", "keys": "W", "seconds": 2.2, "purpose": "Approach south-side junction" },
+    { "area": "Charminar", "keys": "S", "seconds": 0.5, "purpose": "Slow approach" },
+    { "area": "Charminar", "keys": "W+D", "seconds": 0.7, "purpose": "Turn toward the visible mosque area" },
+    { "area": "Charminar", "keys": "W", "seconds": 2.2, "purpose": "Move during flight after one Space tap" },
+    { "area": "Charminar", "keys": "S", "seconds": 0.75, "purpose": "Slow at end of flight" },
+    { "area": "Charminar", "keys": "S", "seconds": 0.45, "purpose": "Brake after descent; later HUD showed 9 km/h" },
+    { "area": "Charminar", "keys": "W", "seconds": 1.0, "purpose": "Check forward clearance after settled recovery" },
+    { "area": "Charminar", "keys": "S", "seconds": 0.35, "purpose": "Slow after recovery departure" }
+  ],
+  "inputLedgerLimit": "Explicit hold durations exclude native key taps, UI clicks, coasting, animation and simulation time between tool calls. They are not total elapsed gameplay time or measured driving distance.",
+  "uppal": {
+    "steps": [
+      "Open the normal local URL, click Play and then the actual Uppal picker button.",
+      "Observe a straight residential lane ahead, with the car clear of the neighboring building facades.",
+      "Accept Wow Dry Fruits & More on Prashanthinagar Main Road: 539 m drive to pickup, 597 m pickup-to-customer route, 130 s delivery window after collection, 77 base coins. Save the pre-drive screenshot.",
+      "Hold W for 1.0 s without steering. HUD shows 31 km/h and 533 m; street remains unobstructed.",
+      "Dismiss the tip, hold W for 1.5 s, then S for 0.65 s. Car visibly advances along the street and stops at 0 km/h, with an open lane and no facade contact. HUD shows 579 m after rerouting.",
+      "Save forward-departure evidence, open Pause with P, read warning/error logs and close only this test tab."
+    ],
+    "result": "PT-006 fresh-spawn forward-clearance check passed once. No turn or reverse was required to leave the initial placement.",
+    "routeLimit": "The pickup was behind the chosen driving direction; distance increased after the route refreshed. This spatial check does not establish delivery-route completion or a new distance defect.",
+    "lastVisibleState": { "state": "Pick up", "pickup": "Wow Dry Fruits & More", "routeMetres": 579, "speedKmh": 0, "flightSeconds": 2.5, "coins": 704, "closedWhilePaused": true },
+    "evidence": [
+      "evidence/2026-10-23-repairs-uppal-spawn-363e04.jpg",
+      "evidence/2026-10-23-repairs-uppal-forward-e387d2.jpg"
+    ]
+  },
+  "charminar": {
+    "steps": [
+      "Open another normal local URL, click Play and then the actual Charminar picker button. Mecca Masjid, divided road, traffic and roadside buildings are visible.",
+      "Accept Domino's Pizza: 198 m drive to pickup, 1,116 m pickup-to-customer route, 204 s after collection, 113 base coins.",
+      "Drive W 2.2 s and brake S 0.5 s toward the south-side junction. HUD shows 185 m and 25 km/h.",
+      "Dismiss the tip, turn W+D 0.7 s, tap Space once, hold W 2.2 s and S 0.75 s. Car is visibly above buildings with Mecca Masjid to the left; 2.5 s flight charge is depleted to 0.0 s. HUD shows Road ahead blocked · check the map, about 265 m and 41 km/h during the aerial/descent state.",
+      "After descent and S 0.45 s, car is visibly at ground level beside the buildings near Mecca. HUD shows Return to a road for GPS · use Back to the road if stuck, about 155 m and 9 km/h. The ground route ribbon is absent. Save the landed scene and open M to save the exact visible map location.",
+      "Click the actual Close map button and press R once. Back to the street appears. After the glide completes without driving input, car is at 0 km/h on an open local street; HUD initially shows 319 m and a road ribbon. Later saved pre-departure screenshot shows 313 m at 0 km/h; do not attribute that intervening distance change to the subsequent W hold.",
+      "Hold W 1.0 s and S 0.35 s. The car visibly advances along the clear street, the chase view remains usable, and the orange ribbon stays on the visible street surface ahead. HUD shows 307 m and 6 km/h. Save the departure scene and open M for a post-recovery map screenshot.",
+      "Read warning/error logs, save the remaining original screenshots and close only the test tab while its map is open."
+    ],
+    "result": "One off-road flight landing and subsequent road recovery produced a clear street placement, usable camera and successful short forward departure.",
+    "baselineLimit": "The new starting location is preserved in the before-recovery map. It is a nearby Mecca-area sample, not a recreation of the old unrecorded exact mosque-pier approach. The recovered street is outside the monument. No direct facade-pier sweep or flight into the mosque was performed.",
+    "lastVisibleState": { "state": "Pick up", "pickup": "Domino's Pizza", "routeMetres": 307, "speedKmh": 6, "flightSeconds": 0, "coins": 704, "mapOpenBeforeClose": true },
+    "evidence": [
+      "evidence/2026-10-23-repairs-charminar-landed-offroad-ee7437.jpg",
+      "evidence/2026-10-23-repairs-charminar-prerecovery-map-5e6b6f.jpg",
+      "evidence/2026-10-23-repairs-charminar-recovery-settled-5ac431.jpg",
+      "evidence/2026-10-23-repairs-charminar-recovery-forward-fd0c94.jpg",
+      "evidence/2026-10-23-repairs-charminar-postrecovery-map-ee60d4.jpg"
+    ]
+  },
+  "repairChecks": [
+    { "issueId": "PT-006", "status": "browser_pass_once", "detail": "Fresh Uppal placement and two short forward inputs left the car on a clear street without facade contact." },
+    { "issueId": "PT-003", "status": "nearby_recovery_pass_exact_landmark_reproduction_not_completed", "detail": "Post-flight recovery near Mecca produced a clear local-street view and forward departure. Direct mosque-pier camera clearance remains unexercised in this browser pass." },
+    { "issueId": "PT-004", "status": "not_exercised", "detail": "Large traffic was visible at the divided road, but no bus/truck crossed the close camera-car sightline during this pass. Do not count the deterministic OBB tests as browser confirmation." },
+    { "issueId": "PT-010", "status": "general_recovery_pass_original_location_not_tested", "detail": "One recovered local street had useful forward clearance. RTC X Roads/Sudarshan was not visited." },
+    { "issueId": "PT-008", "status": "browser_pass_this_offroad_scenario", "detail": "Grounded off-road state hid the ribbon and displayed return-to-road instructions. After recovery, guidance returned on the visible local street." },
+    { "issueId": "PT-005", "status": "controlled_median_reproduction_not_completed", "detail": "After recovery the ribbon followed the visible local street. No controlled median approach or complete route was tested; nearby road alignment alone does not verify the original median scenario." }
+  ],
+  "console": {
+    "levels": ["warn", "error"],
+    "uppal": [],
+    "charminar": [],
+    "limitation": "Only entries captured by the browser tab log API; empty results do not rule out gameplay defects."
+  },
+  "newConfirmedIssues": [],
+  "incidentalObservation": "A pedestrian briefly visually overlapped the car in the first post-recovery live screenshot. It cleared before the saved settled screenshot and was not deliberately reproduced. No new confirmed collision issue is claimed.",
+  "notCovered": [
+    "Controlled bus/truck camera occlusion before/during/after sequence",
+    "Exact original mosque-pier recovery trajectory or direct decorative-geometry sweep",
+    "Sudarshan/RTC recovery scenario",
+    "Deliberate curb bump and bridge-parapet crossing in the browser",
+    "Explicit pickup or customer handover",
+    "Full-map street/shop accuracy or citywide visual fidelity"
+  ]
+}

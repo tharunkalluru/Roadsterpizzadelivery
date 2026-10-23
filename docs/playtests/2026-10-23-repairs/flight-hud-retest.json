@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-23",
+  "startedAt": "2026-10-23T19:33:10Z",
+  "browserReleasedAt": "2026-10-23T19:34:30Z",
+  "tester": "playtest_old_city",
+  "status": "passed_bounded_flight_descent_landing_scenario",
+  "checkoutCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "runtimeScript": "./assets/index-DXgUfY_A.js",
+  "runtimeVerification": "Read the fresh document's script[src] attribute through the supported read-only DOM API before clicking Play.",
+  "url": "http://127.0.0.1:4189/",
+  "area": "Uppal",
+  "method": "Actual Chrome rendered UI, normal Play and Uppal picker buttons, native Space/W/P inputs, accessibility text, original screenshots and captured warning/error logs. No query-string area selection, game-state reads, autopilot, teleporting or engine stepping.",
+  "viewport": { "width": 594, "height": 522, "source": "original screenshot dimensions", "overridden": false },
+  "saveContext": "Loaded existing Level 2, 1/4, 802 coins, Day 8 night-time progress. No progress reset was performed; this pass completed no pickup or delivery and earned no coins.",
+  "offer": {
+    "pickup": "Pista House",
+    "road": "Meher Garden Road",
+    "pickupApproachMetres": 901,
+    "customer": "Home in Prashanth Nagar",
+    "pickupToCustomerMetres": 398,
+    "deliveryWindowSecondsAfterCollection": 102,
+    "baseCoins": 63
+  },
+  "steps": [
+    "Open a fresh normal local URL, verify index-DXgUfY_A.js, click Play, and select the actual Uppal area button. Wait for the loading screen to clear.",
+    "Observe the car on a straight residential street, then accept Pista House. Ground HUD shows 901 m and 2.5 s flight boost.",
+    "Tap Space once and hold W for 0.4 s. The car visibly lifts above the neighboring roofs. HUD reads Flying · follow the destination beacon, approximately 325 m, 1.9 s boost and 16 km/h. Save the original flying screenshot.",
+    "Tap Space again immediately, while boost remains. The next screenshot shows the car lower in the view with continued Flying · follow the destination beacon wording, approximately 326 m, 1.8 s boost and 12 km/h. The 3D ground ribbon is absent in both aerial screenshots. Save the original descent screenshot.",
+    "Without further driving input, let the car settle. It is visibly back on the street at 0 km/h. The Flying/beacon note disappears, the road-route distance is 897 m, and the 3D road ribbon is visible again. Boost remains 1.8 s. Save the original landed screenshot.",
+    "Open Pause with P, inspect captured warning/error logs, save the three originals through the local evidence form, then close the test tab and all temporary helper tabs. Release the shared input lock."
+  ],
+  "observations": {
+    "flying": {
+      "wording": "on Meher Garden Road · Flying · follow the destination beacon",
+      "displayedDistance": "~325 m",
+      "boostSeconds": 1.9,
+      "speedKmh": 16,
+      "groundRibbonVisible": false
+    },
+    "afterExplicitDescentInput": {
+      "wording": "on Meher Garden Road · Flying · follow the destination beacon",
+      "displayedDistanceInSavedScreenshot": "~326 m",
+      "boostSeconds": 1.8,
+      "speedKmhInSavedScreenshot": 12,
+      "groundRibbonVisible": false,
+      "evidenceLimit": "The immediate accessibility snapshot still read ~325 m and 14 km/h; the later original screenshot captured ~326 m and 12 km/h. Descent was identified from the explicit second Space input, the lower rendered car and subsequent landing, without reading hidden engine state."
+    },
+    "landed": {
+      "wording": "on Meher Garden Road",
+      "displayedDistance": "897 m",
+      "boostSeconds": 1.8,
+      "speedKmh": 0,
+      "groundRibbonVisible": true
+    }
+  },
+  "counts": {
+    "freshAreaSelections": 1,
+    "offersAccepted": 1,
+    "flightActivations": 1,
+    "explicitDescentInputs": 1,
+    "observedLandings": 1,
+    "recoveryActivations": 0,
+    "newPickups": 0,
+    "customerHandovers": 0,
+    "pauseKeyOpens": 1,
+    "originalScreenshotsSaved": 3,
+    "explicitHeldInputSeconds": 0.4
+  },
+  "heldInputLedger": [
+    { "keys": "W", "seconds": 0.4, "purpose": "Short straight flight movement after takeoff" }
+  ],
+  "inputLedgerLimit": "Hold time excludes native key taps, UI clicks, coasting, descent animation and time between tool calls; it is not total elapsed gameplay time.",
+  "repairCheck": {
+    "status": "browser_pass_this_scenario",
+    "scope": "Final flight HUD amendment: aerial beacon wording and approximate distance remain through manual descent, 3D ground guidance is hidden while airborne, and normal guidance returns after landing.",
+    "distanceInterpretation": "The switch from a roughly 325 m aerial beacon distance to an 897 m road-route distance is expected for these different distance modes; no new distance defect is claimed.",
+    "minimapLimit": "The small minimap continued displaying its route line in both aerial screenshots. The verified suppression concerns the 3D ground ribbon."
+  },
+  "evidence": [
+    "evidence/2026-10-23-repairs-final-flight-flying-dca37f.jpg",
+    "evidence/2026-10-23-repairs-final-flight-descent-ae92ae.jpg",
+    "evidence/2026-10-23-repairs-final-flight-landed-667232.jpg"
+  ],
+  "console": {
+    "levels": ["warn", "error"],
+    "entries": [],
+    "limitation": "Only entries captured by this tab's browser log API; an empty result does not rule out gameplay defects."
+  },
+  "cleanup": {
+    "gameTab": "1933378250",
+    "helperTabs": ["1933378253", "1933378257", "1933378261"],
+    "allOwnTabsClosed": true,
+    "viewportOverrideApplied": false,
+    "inputLockReleased": true,
+    "otherAgentsTabsOperated": false
+  },
+  "newConfirmedIssues": [],
+  "notCovered": [
+    "Embedded-camera fallback browser reproduction",
+    "Bus/truck camera occlusion",
+    "Exact earlier landmark or Sudarshan recovery scenario",
+    "Controlled median, curb or bridge-parapet collision",
+    "Boost-depletion automatic descent",
+    "Pickup or customer handover",
+    "Full-map street/shop accuracy"
+  ]
+}

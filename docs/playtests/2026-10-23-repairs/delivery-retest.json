@@ -1,0 +1,656 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23-repairs",
+  "tester": "Codex east agent using visible Chrome controls; no human participant",
+  "startedAtUTC": "2026-10-23T19:00:41Z",
+  "browserReleasedAtUTC": "2026-10-23T19:31:01Z",
+  "url": "http://127.0.0.1:4189/",
+  "tabId": "1933378200",
+  "build": {
+    "commit": "8c245754f939fecee8d51853a8ffac6829bc4aae",
+    "bundle": "index-BXXU57b3.js",
+    "provenance": "Parent verified final preview build before exclusive browser lease. Opened a new tab after that build; did not reload or modify older paused runs."
+  },
+  "area": "Kukatpally; approach crossed Ramayya Nagar and Sangeet Nagar; delivery completed in Sumitra Nagar",
+  "route": {
+    "pickup": "Me'rā.ki",
+    "customer": "Home in Sumitra Nagar",
+    "offerApproachMetres": 289,
+    "offerDeliveryMetres": 424,
+    "offerDeliverySeconds": 106,
+    "offerBaseCoins": 65,
+    "offerSelection": "Accepted the first visible offer because its 289 m approach and 424 m customer leg were plausibly short. No Another rerolls."
+  },
+  "input": {
+    "heldDrivingInputSecondsApprox": 97.02,
+    "heldDrivingLedgerMs": [
+      {
+        "W": 1200,
+        "S": 450
+      },
+      {
+        "W+D": 1050,
+        "S": 500
+      },
+      {
+        "W": 1400,
+        "S": 450
+      },
+      {
+        "W+A": 1050,
+        "S": 500
+      },
+      {
+        "W": 3000,
+        "S": 750
+      },
+      {
+        "W": 1200,
+        "S": 750
+      },
+      {
+        "W": 900,
+        "W+A": 900,
+        "S": 650
+      },
+      {
+        "W+A": 220,
+        "W": 2600,
+        "S": 800
+      },
+      {
+        "W": 3000,
+        "S": 1100
+      },
+      {
+        "W+A": 1000,
+        "S": 450
+      },
+      {
+        "W": 1050,
+        "W+D": 950,
+        "S": 650
+      },
+      {
+        "W+D": 200,
+        "W": 3000,
+        "S": 900
+      },
+      {
+        "W": 1800,
+        "S": 600
+      },
+      {
+        "W": 700,
+        "W+A": 1000,
+        "S": 600
+      },
+      {
+        "W": 2800,
+        "S": 1000
+      },
+      {
+        "W+A": 1250,
+        "S": 650
+      },
+      {
+        "W": 1400,
+        "W+D": 850,
+        "S": 650
+      },
+      {
+        "W": 2600,
+        "S": 1000
+      },
+      {
+        "W": 650,
+        "W+A": 1100,
+        "S": 650
+      },
+      {
+        "W+A": 350,
+        "W": 1500,
+        "S": 650
+      },
+      {
+        "W": 500,
+        "W+D": 1150,
+        "S": 650
+      },
+      {
+        "W": 1200,
+        "S": 500
+      },
+      {
+        "W": 1000,
+        "S": 450
+      },
+      {
+        "W+A": 1500
+      },
+      {
+        "W+A": 850,
+        "W": 3000
+      },
+      {
+        "W+D": 250,
+        "W": 3000
+      },
+      {
+        "W+D": 600,
+        "S": 1600
+      },
+      {
+        "S": 400
+      },
+      {
+        "S": 3000
+      },
+      {
+        "S": 3000,
+        "W": 450
+      },
+      {
+        "S": 3000,
+        "W": 450
+      },
+      {
+        "W+D": 1400,
+        "S": 600
+      },
+      {
+        "W": 2000,
+        "W+D": 1000,
+        "S": 800
+      },
+      {
+        "S+A": 1500,
+        "W": 500
+      },
+      {
+        "W": 2000,
+        "S": 700
+      },
+      {
+        "W+A": 400,
+        "W": 1500,
+        "S": 650
+      },
+      {
+        "W+A": 1000,
+        "S": 800
+      },
+      {
+        "W+A": 450,
+        "W": 1500,
+        "S": 650
+      },
+      {
+        "S": 550
+      }
+    ],
+    "heldCollectionInputSeconds": 1.4,
+    "recoveryActivations": 8,
+    "recoveryMethods": "Pickup segment: five R presses and one visible recovery button. Customer segment: two R roof recoveries.",
+    "flightActivations": 2,
+    "normalMapOpenCloseCycles": 3,
+    "viewportSequence": [
+      "594x466",
+      "1280x800",
+      "reset at first handoff",
+      "1280x800 for customer continuation",
+      "reset before completed tab closed"
+    ],
+    "method": "Visible offer buttons, keyboard W/A/D/S for driving, R or recovery button, M to open map, Close map button, held E for pickup, P to pause. No hidden game state, teleport, autopilot or engine stepping.",
+    "heldHandoverInputSeconds": 1.4,
+    "timingNote": "Held-driving duration is the sum of explicit bounded key holds; it excludes unheld coasting, recovery animation, screenshots, pauses and wall-clock time."
+  },
+  "pickupsCompleted": 1,
+  "completedDeliveries": 1,
+  "lastVisibleHud": {
+    "state": "New delivery offer",
+    "pickup": "Cafe Its Yours",
+    "customer": "Home in Shanti Nagar",
+    "approachMetres": 377,
+    "deliveryMetres": 728,
+    "deliveryWindowSeconds": 149,
+    "baseCoins": 86,
+    "coins": 802,
+    "level": "Level 2 · 1/4",
+    "boostSeconds": 0,
+    "speedKmh": 0,
+    "gameClock": "Day 8 · 1:33 AM",
+    "finalOverlay": "Paused before completed test tab was closed; next offer not accepted"
+  },
+  "evidence": [
+    {
+      "path": "docs/playtests/evidence/2026-10-23-repairs-kukatpally-collected-d4af4c.jpg",
+      "kind": "Original unmodified CUA browser screenshot saved through local evidence form",
+      "viewport": "1280x800",
+      "shows": "Explicit pickup success toast, Deliver state, 460 m customer leg, 105 s, 100° heat, all eight slices, 704 coins, 12.5 s boost."
+    },
+    {
+      "kind": "Visible accessibility state",
+      "shows": "At pickup, 8 m and 0 km/h with Hold E / ACT to collect the pizza. Held E 1.4 s changed state to Deliver and produced collection toast. P then opened Paused in the same CUA call."
+    },
+    {
+      "path": "docs/playtests/evidence/2026-10-23-repairs-kukatpally-handover-41abd6.jpg",
+      "kind": "Original unmodified CUA browser screenshot saved through local evidence form",
+      "viewport": "1280x800",
+      "shows": "Explicit +98 coin award, 802 coins, Level 2 1/4 and Waiting for an order before immediate P."
+    },
+    {
+      "path": "docs/playtests/evidence/2026-10-23-repairs-kukatpally-next-offer-after-pause-a93891.jpg",
+      "kind": "Original unmodified CUA browser screenshot saved through local evidence form",
+      "viewport": "1280x800",
+      "shows": "New Cafe Its Yours offer on the first Resume state after immediate award pause and explicit 5 s paused wait. Accept and Another are visible."
+    },
+    {
+      "path": "docs/playtests/evidence/2026-10-23-repairs-kukatpally-flight-warning-d1e91b.jpg",
+      "kind": "Original unmodified CUA browser screenshot saved through local evidence form",
+      "viewport": "1280x800",
+      "shows": "Original airborne frame from the first flight showing the ground-road blockage warning on loaded bundle index-BXXU57b3.js."
+    }
+  ],
+  "findings": [
+    {
+      "issueId": "PT-002",
+      "status": "pass_for_observed_offer",
+      "confidence": "confirmed visible",
+      "expected": "Separate current pickup approach from customer leg and timer start.",
+      "actual": "Offer displayed Drive to pickup 289 m, Pickup → customer 424 m, and 106 s after collection. Accepted HUD began at 289 m; customer timer only appeared after collection."
+    },
+    {
+      "issueId": "map-close",
+      "status": "pass_for_normal_map",
+      "confidence": "confirmed visible",
+      "expected": "Normal full-map Close dismisses the overlay and returns to gameplay.",
+      "actual": "M opened full city map; Close map dismissed it, returned focus to minimap, and ordinary driving continued."
+    },
+    {
+      "issueId": "PT-011",
+      "status": "pass_end_to_end_on_repaired_queue",
+      "confidence": "confirmed visible",
+      "expected": "After explicit customer award, immediate pause and resume must preserve the next offer.",
+      "actual": "Explicit handover awarded 98 coins (704 to 802) and Level 2 progressed 0/4 to 1/4. P was pressed in the same CUA call after award capture before any offer existed. After an explicit 5 s paused wait, Resume immediately displayed Cafe Its Yours to Home in Shanti Nagar with Accept and Another. The preserved tab ran build 8c24575; parent confirmed queue logic is unchanged in subsequent camera/flight-HUD amendments."
+    },
+    {
+      "issueId": "flight-ground-guidance",
+      "status": "reproduced_on_8c24575_followup_amended_by_parent",
+      "confidence": "confirmed visible for old loaded bundle",
+      "expected": "Airborne guidance uses the visible destination beacon and appropriate flight instructions.",
+      "actual": "During flight, Road ahead blocked / check the map and changing road-route distances appeared despite a nearby beacon. Reproduced on multiple airborne frames. Parent amended the source afterward; this preserved delivery tab did not reload and does not verify that amendment."
+    }
+  ],
+  "observations": [
+    "Offer controls were visible and separated from minimap at 594x466. Tutorial tip could be dismissed before driving.",
+    "Several tight residential turns overshot or clipped a curb/storefront edge. Recovery returned the car to a visible clear street and forward driving continued. These interactions are recorded as manual handling difficulty, not a confirmed new geometry defect.",
+    "Following road segments reduced route distance, while missed turns caused rerouting. Off-road states displayed an explicit Return to a road for GPS message with approximate direct distance rather than drawing a fabricated connector.",
+    "Normal driving charged boost from 2.5 s to 12.5 s. Flight was not activated in this segment.",
+    "Traffic collision toasts for bike/auto appeared during approach. No delivery cargo was carried at those times.",
+    "First flight used the earned 12.5 s boost. Visible thrusters, travel above roofs, exhausted charge and natural descent onto a roof were observed. Normal R roof recovery returned the car to a clear street at 130 m / 78 s with all eight slices.",
+    "Reverse movement briefly remained near the same point; a three-point turn and forward driving resumed movement. Driver alignment and curb contact were visible, so no geometry blocker is claimed from that attempt.",
+    "Road driving earned another 5 s boost. A second short flight crossed toward the visible teal beacon, exhausted charge and landed on a roof approximately 10 m from the destination. The normal R roof recovery reached the roadside ring at 5 m / 0 km/h with the explicit handover prompt.",
+    "No cargo slices were lost during the observed flights, roof landings or recovery. Heat cooled with active time. These are two roof landings, not proof of a controlled natural street landing.",
+    "Original airborne screenshot and repeated live states on build 8c24575 showed Road ahead blocked / check the map and road-derived distances while flying. Parent subsequently amended flight guidance in source; that later build was not loaded in this preserved tab."
+  ],
+  "console": {
+    "capturedLevels": [
+      "warn",
+      "error"
+    ],
+    "entries": [],
+    "checkedAgainAtCleanup": true
+  },
+  "coverageLimitations": [
+    "This is one completed visible pickup-to-handover route, with normal flight and two roof recoveries. It does not prove every city route or natural street landing.",
+    "This preserved tab does not verify later camera and airborne-HUD amendments; those require a fresh-build check.",
+    "This run does not verify exact real-world shop names, shop order, facade geometry or citywide accuracy.",
+    "No other paused game tabs were resumed or changed."
+  ],
+  "handoff": {
+    "completedTabClosed": true,
+    "tabId": "1933378200",
+    "pausedBeforeClose": true,
+    "heldInputsReleased": true,
+    "viewportOverrideReset": true,
+    "inputLockReleased": true,
+    "helperTabClosed": true,
+    "acceptedOrderRemaining": false
+  },
+  "segments": [
+    {
+      "segment": "pickup_approach",
+      "startedAtUTC": "2026-10-23T19:00:41Z",
+      "browserReleasedAtUTC": "2026-10-23T19:12:35Z",
+      "input": {
+        "heldDrivingInputSecondsApprox": 57.92,
+        "heldDrivingLedgerMs": [
+          {
+            "W": 1200,
+            "S": 450
+          },
+          {
+            "W+D": 1050,
+            "S": 500
+          },
+          {
+            "W": 1400,
+            "S": 450
+          },
+          {
+            "W+A": 1050,
+            "S": 500
+          },
+          {
+            "W": 3000,
+            "S": 750
+          },
+          {
+            "W": 1200,
+            "S": 750
+          },
+          {
+            "W": 900,
+            "W+A": 900,
+            "S": 650
+          },
+          {
+            "W+A": 220,
+            "W": 2600,
+            "S": 800
+          },
+          {
+            "W": 3000,
+            "S": 1100
+          },
+          {
+            "W+A": 1000,
+            "S": 450
+          },
+          {
+            "W": 1050,
+            "W+D": 950,
+            "S": 650
+          },
+          {
+            "W+D": 200,
+            "W": 3000,
+            "S": 900
+          },
+          {
+            "W": 1800,
+            "S": 600
+          },
+          {
+            "W": 700,
+            "W+A": 1000,
+            "S": 600
+          },
+          {
+            "W": 2800,
+            "S": 1000
+          },
+          {
+            "W+A": 1250,
+            "S": 650
+          },
+          {
+            "W": 1400,
+            "W+D": 850,
+            "S": 650
+          },
+          {
+            "W": 2600,
+            "S": 1000
+          },
+          {
+            "W": 650,
+            "W+A": 1100,
+            "S": 650
+          },
+          {
+            "W+A": 350,
+            "W": 1500,
+            "S": 650
+          },
+          {
+            "W": 500,
+            "W+D": 1150,
+            "S": 650
+          },
+          {
+            "W": 1200,
+            "S": 500
+          },
+          {
+            "W": 1000,
+            "S": 450
+          }
+        ],
+        "heldCollectionInputSeconds": 1.4,
+        "recoveryActivations": 6,
+        "recoveryMethods": "Five R key presses and one visible Stuck? Get back on the road button click",
+        "flightActivations": 0,
+        "normalMapOpenCloseCycles": 1,
+        "viewportSequence": [
+          "594x466",
+          "1280x800",
+          "override reset to default at handoff"
+        ],
+        "method": "Visible offer buttons, keyboard W/A/D/S for driving, R or recovery button, M to open map, Close map button, held E for pickup, P to pause. No hidden game state, teleport, autopilot or engine stepping."
+      },
+      "pickupsCompleted": 1,
+      "completedDeliveries": 0,
+      "lastVisibleHud": {
+        "state": "Deliver",
+        "destination": "Home in Sumitra Nagar",
+        "distanceMetres": 460,
+        "remainingSeconds": 105,
+        "heat": "100° / GARAM",
+        "slices": 8,
+        "coins": 704,
+        "level": "Level 2 · 0/4",
+        "boostSeconds": 12.5,
+        "speedKmh": 0,
+        "gameClock": "Day 7 · 10:21 PM",
+        "collectionToast": "Pizza collected! Garam garam.",
+        "finalOverlay": "Paused; Resume button focused"
+      },
+      "findings": [
+        {
+          "issueId": "PT-002",
+          "status": "pass_for_observed_offer",
+          "confidence": "confirmed visible",
+          "expected": "Separate current pickup approach from customer leg and timer start.",
+          "actual": "Offer displayed Drive to pickup 289 m, Pickup → customer 424 m, and 106 s after collection. Accepted HUD began at 289 m; customer timer only appeared after collection."
+        },
+        {
+          "issueId": "map-close",
+          "status": "pass_for_normal_map",
+          "confidence": "confirmed visible",
+          "expected": "Normal full-map Close dismisses the overlay and returns to gameplay.",
+          "actual": "M opened full city map; Close map dismissed it, returned focus to minimap, and ordinary driving continued."
+        },
+        {
+          "issueId": "PT-011",
+          "status": "not_yet_retested_end_to_end",
+          "confidence": "coverage limitation",
+          "expected": "After explicit customer award, immediate pause and resume must preserve the next offer.",
+          "actual": "This segment reached explicit pickup only. No customer handover, reward or subsequent offer was reached; its fix remains supported by static regression tests, not this browser segment."
+        }
+      ],
+      "observations": [
+        "Offer controls were visible and separated from minimap at 594x466. Tutorial tip could be dismissed before driving.",
+        "Several tight residential turns overshot or clipped a curb/storefront edge. Recovery returned the car to a visible clear street and forward driving continued. These interactions are recorded as manual handling difficulty, not a confirmed new geometry defect.",
+        "Following road segments reduced route distance, while missed turns caused rerouting. Off-road states displayed an explicit Return to a road for GPS message with approximate direct distance rather than drawing a fabricated connector.",
+        "Normal driving charged boost from 2.5 s to 12.5 s. Flight was not activated in this segment.",
+        "Traffic collision toasts for bike/auto appeared during approach. No delivery cargo was carried at those times."
+      ],
+      "coverageLimitations": [
+        "The customer leg, explicit handover award and immediate post-handover pause/resume remain pending.",
+        "This run does not verify exact real-world shop names, shop order, facade geometry or citywide accuracy.",
+        "No other paused game tabs were resumed or changed."
+      ],
+      "handoff": {
+        "primaryFreshBuildContinuation": true,
+        "tabId": "1933378200",
+        "paused": true,
+        "markedHandoff": true,
+        "viewportOverrideReset": true,
+        "heldInputsReleased": true,
+        "inputLockReleased": true,
+        "helperTabClosed": true,
+        "nextAction": "Resume this same tab after explicit browser lease. Follow teal route to Home in Sumitra Nagar; earned 12.5 s boost is available. Capture explicit delivery award, pause before 2.5 s next-offer delay, wait, resume and verify the next offer."
+      }
+    },
+    {
+      "segment": "customer_leg_and_post_handover_pause",
+      "startedAtUTC": "2026-10-23T19:18:51Z",
+      "resumedAfterModelSwitchAtUTC": "2026-10-23T19:23:04Z",
+      "browserReleasedAtUTC": "2026-10-23T19:31:01Z",
+      "input": {
+        "heldDrivingInputSecondsApprox": 39.1,
+        "heldDrivingLedgerMs": [
+          {
+            "W+A": 1500
+          },
+          {
+            "W+A": 850,
+            "W": 3000
+          },
+          {
+            "W+D": 250,
+            "W": 3000
+          },
+          {
+            "W+D": 600,
+            "S": 1600
+          },
+          {
+            "S": 400
+          },
+          {
+            "S": 3000
+          },
+          {
+            "S": 3000,
+            "W": 450
+          },
+          {
+            "S": 3000,
+            "W": 450
+          },
+          {
+            "W+D": 1400,
+            "S": 600
+          },
+          {
+            "W": 2000,
+            "W+D": 1000,
+            "S": 800
+          },
+          {
+            "S+A": 1500,
+            "W": 500
+          },
+          {
+            "W": 2000,
+            "S": 700
+          },
+          {
+            "W+A": 400,
+            "W": 1500,
+            "S": 650
+          },
+          {
+            "W+A": 1000,
+            "S": 800
+          },
+          {
+            "W+A": 450,
+            "W": 1500,
+            "S": 650
+          },
+          {
+            "S": 550
+          }
+        ],
+        "heldHandoverInputSeconds": 1.4,
+        "recoveryActivations": 2,
+        "recoveryMethods": "Two normal R activations after visible roof recovery prompts.",
+        "flightActivations": 2,
+        "normalMapOpenCloseCycles": 2,
+        "viewport": "1280x800; reset before completed tab closed",
+        "method": "Normal visible W/A/D/S and Space controls. Frequent P pauses between bounded maneuvers preserved the delivery state while screenshots were inspected. No hidden game state, teleport, autopilot or engine stepping."
+      },
+      "interruptionPreservedHud": {
+        "state": "Deliver",
+        "customer": "Home in Sumitra Nagar",
+        "distanceText": "~326 m",
+        "remainingSeconds": 95,
+        "heat": 91,
+        "slices": 8,
+        "boostSeconds": 2.5,
+        "coins": 704,
+        "paused": true
+      },
+      "observations": [
+        "First flight used the earned 12.5 s boost. Visible thrusters, travel above roofs, exhausted charge and natural descent onto a roof were observed. Normal R roof recovery returned the car to a clear street at 130 m / 78 s with all eight slices.",
+        "Reverse movement briefly remained near the same point; a three-point turn and forward driving resumed movement. Driver alignment and curb contact were visible, so no geometry blocker is claimed from that attempt.",
+        "Road driving earned another 5 s boost. A second short flight crossed toward the visible teal beacon, exhausted charge and landed on a roof approximately 10 m from the destination. The normal R roof recovery reached the roadside ring at 5 m / 0 km/h with the explicit handover prompt.",
+        "No cargo slices were lost during the observed flights, roof landings or recovery. Heat cooled with active time. These are two roof landings, not proof of a controlled natural street landing.",
+        "Original airborne screenshot and repeated live states on build 8c24575 showed Road ahead blocked / check the map and road-derived distances while flying. Parent subsequently amended flight guidance in source; that later build was not loaded in this preserved tab."
+      ],
+      "handover": {
+        "prompt": "Hold E / ACT to hand over",
+        "distanceMetres": 5,
+        "speedKmh": 0,
+        "remainingSecondsBefore": 27,
+        "heatBefore": 40,
+        "slicesBefore": 8,
+        "heldESeconds": 1.4,
+        "awardCoins": 98,
+        "coinsBefore": 704,
+        "coinsAfter": 802,
+        "levelBefore": "Level 2 · 0/4",
+        "levelAfter": "Level 2 · 1/4",
+        "toast": "+98 coins · \"Kya re, pizza thanda hai!\"",
+        "gameClock": "Day 8 · 1:33 AM"
+      },
+      "immediatePauseRetest": {
+        "result": "pass",
+        "sequence": [
+          "Resume at the visible roadside handover prompt.",
+          "Hold E for 1400 ms.",
+          "In the same CUA call, read explicit award state, capture original screenshot, then press P. No offer existed before P.",
+          "Keep Paused for an explicit 5000 ms clock wait, in addition to surrounding tool time.",
+          "Click Resume. The first resulting AX state and screenshot show New delivery offer with Accept (E) and Another.",
+          "Capture original next-offer screenshot and pause again."
+        ],
+        "pausedWaitMillisecondsExplicit": 5000,
+        "nextOffer": {
+          "pickup": "Cafe Its Yours",
+          "customer": "Home in Shanti Nagar",
+          "approachMetres": 377,
+          "deliveryMetres": 728,
+          "deliverySecondsAfterCollection": 149,
+          "baseCoins": 86,
+          "accepted": false
+        }
+      },
+      "pickupsCompleted": 0,
+      "completedDeliveries": 1,
+      "handoff": {
+        "completedTabClosed": true,
+        "tabId": "1933378200",
+        "pausedBeforeClose": true,
+        "heldInputsReleased": true,
+        "viewportOverrideReset": true,
+        "inputLockReleased": true,
+        "helperTabClosed": true,
+        "acceptedOrderRemaining": false
+      }
+    }
+  ]
+}

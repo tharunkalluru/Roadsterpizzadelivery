@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23-repairs",
+  "area": "Kukatpally",
+  "scope": [
+    "PT-001",
+    "PT-002",
+    "PT-007",
+    "PT-009"
+  ],
+  "startedAt": "2026-10-23T18:57:12Z",
+  "browserInputEndedAt": "2026-10-23T19:00:15Z",
+  "status": "passed_targeted_ui_acceptance",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "build": {
+    "testedAsset": "index-Biv4v8wm.js",
+    "label": "Repair candidate build 1",
+    "finalCommit": "8c245754f939fecee8d51853a8ffac6829bc4aae",
+    "finalAsset": "index-BXXU57b3.js",
+    "provenance": "Root confirmed the tested UI files are identical to the final commit/build. Final spatial/pickup-policy amendments were not tested in this fresh UI tab. No mid-session reload."
+  },
+  "method": "Fresh own Chrome tab through Play → Popular Kukatpally. Only visible controls, native key presses, AX and original browser screenshots; no hidden state, teleport, engine stepping or automation of driving. Exclusive browser lease and owned input lock. Explicit desktop viewport overrides used for the two reported failure sizes, then reset.",
+  "viewports": [
+    {
+      "width": 594,
+      "height": 466
+    },
+    {
+      "width": 594,
+      "height": 522
+    }
+  ],
+  "route": "BhookmarK → Home in Balaji Nagar",
+  "input": {
+    "heldDrivingInputSeconds": 0,
+    "collectionHoldSeconds": 0
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "offer": {
+    "pickup": "BhookmarK",
+    "customer": "Home in Balaji Nagar",
+    "approachMetres": 262,
+    "deliveryMetres": 986,
+    "deliveryWindowSeconds": 186,
+    "baseCoins": 104,
+    "visibleLabels": [
+      "Drive to pickup: 262 m",
+      "Pickup → customer: 986 m",
+      "Delivery window: 186 s after collection",
+      "Base pay 104 coins + tip · Pickup approach is untimed."
+    ]
+  },
+  "checks": [
+    {
+      "issueId": "PT-007",
+      "result": "pass",
+      "steps": [
+        "Set 594×466 before selecting Kukatpally. Inspect offer and full minimap, then click minimap lower-left at viewport coordinate 521,181.",
+        "Resize same pending offer to 594×522. Inspect separation and click minimap lower-left at 478,241."
+      ],
+      "observed": "Offer lies in the left lower region at both sizes; the complete minimap remains visible to the right. Both coordinate clicks open City map. Accept and Another remain visible below offer details."
+    },
+    {
+      "issueId": "PT-002",
+      "result": "pass",
+      "steps": [
+        "Read the same pending offer at both viewport sizes.",
+        "Cancel area selection via Escape and later map-picker Cancel → Stay here."
+      ],
+      "observed": "Approach, pickup-to-customer distance and post-collection window are separately labeled. Both cancellation paths restore BhookmarK → Home in Balaji Nagar with the same 262 m approach, 986 m delivery route, 186 s delivery window, 104 base coins and Accept/Another actions."
+    },
+    {
+      "issueId": "PT-001",
+      "result": "pass",
+      "steps": [
+        "Accept the offer normally, open Pause and click Replay tips.",
+        "Inspect tutorial at 594×522, then resize to 594×466."
+      ],
+      "observed": "Tutorial appears as a compact bottom-left banner at both sizes. It does not stretch from top to bottom; the roadster, nearby driving scene, route and minimap remain visible. Screenshot text: Drive with W and steer with A / D. Follow the orange line on the road and the minimap to the kitchen."
+    },
+    {
+      "issueId": "PT-009",
+      "result": "pass",
+      "steps": [
+        "From open map and initial Close map focus, press Shift+Tab; focus becomes Deliver from here. Press Tab; focus returns to Close map.",
+        "Press Tab to Zoom in, Return, Tab to Zoom out, Space. Map remains active and no background controls appear in AX.",
+        "Escape closes map and restores minimap focus. Reopen with M; P closes map and restores minimap focus without a Paused dialog.",
+        "At 594×522, minimap click opens map and actual Close map button closes it.",
+        "After accepting the order, M opens map. Shift+Tab wraps from Close to Centre on my car, excluding the unavailable Deliver from here action. Tab returns to Close. M closes map and restores the previous Pause/help button focus."
+      ],
+      "observed": "Keyboard focus stayed inside the map in both pending and accepted order states. Background HUD controls are absent from the open-map accessibility tree. Escape, P, M and actual Close each dismissed map without stacking Pause. Focus returned to the appropriate previous control."
+    },
+    {
+      "name": "Area-picker cancellation and keyboard ownership",
+      "result": "pass",
+      "steps": [
+        "Pending offer: P → Change area → Escape while search field focused.",
+        "Repeat P → Change area → Pick a spot on the map → Cancel → Stay here."
+      ],
+      "observed": "Escape returned to the exact offer. Map Cancel returned to the area picker with search focused; Stay here restored the same offer without relocation."
+    },
+    {
+      "name": "Pause and cleanup",
+      "result": "pass",
+      "steps": [
+        "After tutorial/map checks, press P and verify Paused dialog.",
+        "Read own-tab warn/error console; reset viewport; close completed fresh UI tab and all five temporary evidence form tabs."
+      ],
+      "observed": "Paused dialog showed Resume, Change area, Back to the road, Settings, Replay tips and Reset progress. No warn/error entries. No driving input was held. Previous ECIL/LB Nagar/Kompally handoffs were re-marked without resuming."
+    }
+  ],
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "BhookmarK",
+    "routeMetres": 262,
+    "coins": 704,
+    "level": "2 · 0/4",
+    "flightSeconds": 2.5,
+    "speedKmh": 0,
+    "clock": "Day 7 · 2:19 AM",
+    "pausedAfterHud": true,
+    "tabClosedAfterEvidence": true
+  },
+  "findings": [],
+  "console": {
+    "queriedLevels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": []
+  },
+  "evidence": [
+    "evidence/2026-10-23-repairs-offer-594x466-96ccc0.jpg",
+    "evidence/2026-10-23-repairs-offer-594x522-1be6b9.jpg",
+    "evidence/2026-10-23-repairs-tip-594x466-1b443e.jpg",
+    "evidence/2026-10-23-repairs-tip-594x522-f7bb9f.jpg",
+    "evidence/2026-10-23-repairs-map-keyboard-focus-507ba5.jpg"
+  ],
+  "limitations": [
+    "This is desktop UI acceptance at two explicitly tested sizes, not physical touch-device or screen-reader testing.",
+    "Return and Space were exercised on the zoom controls and remained inside the map; exact numeric zoom changes were not instrumented.",
+    "No driving, collection, handover, final spatial amendments, traffic behavior or exact shop-order reconstruction was validated.",
+    "Replay tips was invoked through the visible menu; it restarts the game tutorial.",
+    "No claim of complete gameplay acceptance follows from these UI checks."
+  ],
+  "cleanup": {
+    "freshTabId": "1933378176",
+    "freshTabClosed": true,
+    "temporaryFormTabsClosed": 5,
+    "viewportReset": true,
+    "ownedInputLockReleased": true,
+    "browserLeaseReleasedAt": "2026-10-23T19:00:15Z",
+    "evidenceHelperLeftRunning": true,
+    "preservedHandoffs": [
+      "1933378100",
+      "1933378139",
+      "1933378162"
+    ],
+    "previousHandoffsResumed": false
+  }
+}

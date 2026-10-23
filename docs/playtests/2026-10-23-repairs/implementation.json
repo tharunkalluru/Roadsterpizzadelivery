@@ -1,0 +1,127 @@
+{
+  "startedAt": "2026-10-23T18:40:00Z",
+  "updatedAt": "2026-10-23T19:37:25.906108+00:00",
+  "request": "Stop testing, fix recorded issues, then resume testing.",
+  "baselineCommit": "20d3549",
+  "status": "repairs_committed_targeted_browser_retests_recorded",
+  "fixes": [
+    {
+      "issue": "PT-001",
+      "implementation": "Measured HUD bounds, capped scrolling tutorial and removal of conflicting vertical anchors.",
+      "regression": "tools/ui-regressions.mjs",
+      "browserStatus": "passed_targeted_ui_retest",
+      "browserReport": "ui-retest.json"
+    },
+    {
+      "issue": "PT-002",
+      "implementation": "Offer labels distinguish pickup approach, customer route and timer start after collection.",
+      "regression": "tools/ui-regressions.mjs",
+      "browserStatus": "passed_targeted_ui_retest",
+      "browserReport": "ui-retest.json"
+    },
+    {
+      "issue": "PT-003",
+      "implementation": "Mecca facade/plinth collider coverage; camera volume checks poles, walls, slabs and checked fallback views.",
+      "regression": "tools/spatial-safety-regressions.mjs",
+      "browserStatus": "nearby_recovery_pass_original_scenario_not_repeated",
+      "browserReport": "spatial-retest.json"
+    },
+    {
+      "issue": "PT-004",
+      "implementation": "Traffic camera occlusion uses full oriented vehicle length and rendered turning orientation.",
+      "regression": "tools/spatial-safety-regressions.mjs",
+      "browserStatus": "specific_browser_scenario_not_exercised",
+      "browserReport": "spatial-retest.json"
+    },
+    {
+      "issue": "PT-005",
+      "implementation": "Left-carriageway GPS geometry, endpoint detours across divided roads, local hard-obstacle clipping.",
+      "regression": "tools/navigation-regressions.mjs",
+      "browserStatus": "specific_browser_scenario_not_exercised",
+      "browserReport": "spatial-retest.json"
+    },
+    {
+      "issue": "PT-006",
+      "implementation": "Spawn requires loaded street geometry, whole-car clearance and 8 m forward departure.",
+      "regression": "tools/spatial-safety-regressions.mjs",
+      "browserStatus": "passed_targeted_spatial_sample",
+      "browserReport": "spatial-retest.json"
+    },
+    {
+      "issue": "PT-007",
+      "implementation": "Offer panel excludes minimap and measured HUD rails; actions remain outside scrollable detail.",
+      "regression": "tools/ui-regressions.mjs",
+      "browserStatus": "passed_targeted_ui_retest",
+      "browserReport": "ui-retest.json"
+    },
+    {
+      "issue": "PT-008",
+      "implementation": "No live off-road nearest-node connector; missing streamed streets marked approximate without invented straight spur.",
+      "regression": "tools/navigation-regressions.mjs",
+      "browserStatus": "passed_targeted_spatial_sample",
+      "browserReport": "spatial-retest.json"
+    },
+    {
+      "issue": "PT-009",
+      "implementation": "Shared dialog focus containment, background inert state, opener restoration and map/picker overlay guards.",
+      "regression": "tools/ui-regressions.mjs",
+      "browserStatus": "passed_targeted_ui_retest",
+      "browserReport": "ui-retest.json"
+    },
+    {
+      "issue": "PT-010",
+      "implementation": "Recovery checks body footprint, forward departure, traffic, legal heading and immediate model/camera alignment.",
+      "regression": "tools/spatial-safety-regressions.mjs",
+      "browserStatus": "nearby_recovery_pass_original_scenario_not_repeated",
+      "browserReport": "spatial-retest.json"
+    },
+    {
+      "issue": "PT-011",
+      "implementation": "Persistent next-offer queue defers while paused or under overlays, then retries after resume.",
+      "regression": "tools/delivery-regressions.mjs",
+      "browserStatus": "passed_explicit_handover_immediate_pause_resume_next_offer",
+      "browserReport": "delivery-retest.json"
+    },
+    {
+      "issue": "PT-012",
+      "implementation": "Shared source-category policy, metadata preservation and exact-ID quarantine of two documented police pickup POIs.",
+      "regression": "tools/delivery-regressions.mjs",
+      "browserStatus": "current_core_eligibility_deterministically_verified_exact_two_exclusions"
+    }
+  ],
+  "additionalSourceDefects": [
+    "HUD distance previously double-counted first segment X component and ignored Z; now uses geometry-consistent route progress.",
+    "Initial flight ascent formerly bypassed parapets before the car body cleared their height; wall collision now remains active.",
+    "Camera ray fallback could remain inside geometry when its pivot was already embedded; bounded escape and local-ceiling fallback now return a clear camera volume, with four focused regressions.",
+    "Flight/descent HUD incorrectly displayed ground-road obstruction warnings and road-route distance; it now shows direct beacon distance, and the ground ribbon stays hidden throughout descent."
+  ],
+  "preservation": "Existing city packs, shop names and source evidence are unchanged. No publishing or pushing.",
+  "limits": [
+    "Local guidance clips known blocked segments; it does not promise a reroute around every obstacle.",
+    "Historical suspected observations retain their original confidence; fixes and source tests do not retroactively prove their cause.",
+    "Actual map geometry tests are deterministic source fixtures, not visible browser gameplay.",
+    "Full-map photographic shop order remains a separate unfinished evidence task.",
+    "An exterior camera cannot guarantee visibility of a target still embedded in geometry; deeply embedded cases may require an overhead fallback."
+  ],
+  "implementationCommit": "8c245754f939fecee8d51853a8ffac6829bc4aae",
+  "finalAsset": "index-DXgUfY_A.js",
+  "checks": {
+    "npmRunCheck": "passed: TypeScript, map, gameplay, UI, navigation, delivery, spatial fixtures, Vite build",
+    "pipelineUnittest": "66 passed",
+    "shippedGeometry": "3 actual tile-builder placement scenarios passed (agent-run --shipped)",
+    "whitespace": "passed",
+    "finalAmendments": "npm run check passed after camera and flight amendments:12 navigation and19 spatial fixture groups; all other game suites still pass."
+  },
+  "buildWarning": "Existing fonts/fonts.css build-time warning; actual runtime resource responds 200 text/css.",
+  "finalAmendmentCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "browserReports": [
+    "2026-10-23-repairs/ui-retest.json",
+    "2026-10-23-repairs/delivery-retest.json",
+    "2026-10-23-repairs/spatial-retest.json",
+    "2026-10-23-repairs/flight-hud-retest.json"
+  ],
+  "finalFlightHudStatus": "passed_fresh_final_build_takeoff_manual_descent_landing",
+  "savedOriginalScreenshots": 19,
+  "uniqueOriginalScreenshots": 19,
+  "repairStartApproximate": true
+}
