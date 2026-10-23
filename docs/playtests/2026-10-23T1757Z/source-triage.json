@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1757Z",
+  "createdAtUTC": "2026-10-23T18:00:15.104709+00:00",
+  "method": "Read-only source/report review, HTTP byte comparisons to local dist, and public-city/dist checksum comparisons. No browser/input, hidden state, engine steps, test execution or game modifications.",
+  "checkoutCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "build": {
+    "baseUrl": "http://127.0.0.1:4189/",
+    "htmlStatus": 200,
+    "servedHtmlSha256": "d1a1a9598e875d81156a153626d830b9d8178891a0b0e712e6b8a19691aa9d43",
+    "distHtmlSha256": "d1a1a9598e875d81156a153626d830b9d8178891a0b0e712e6b8a19691aa9d43",
+    "servedHtmlMatchesDist": true,
+    "distIndexModifiedAtUTC": "2026-10-23T17:49:49.402742+00:00",
+    "httpAssetChecks": [
+      {
+        "url": "http://127.0.0.1:4189/./fonts/fonts.css",
+        "status": 200,
+        "bytes": 749,
+        "sha256": "3147c298b229b7ab034666887164e6d5e38aaf6f51c98ec3b30f7d799a6a65aa",
+        "matchesDist": true,
+        "distSha256": "3147c298b229b7ab034666887164e6d5e38aaf6f51c98ec3b30f7d799a6a65aa"
+      },
+      {
+        "url": "http://127.0.0.1:4189/./assets/index-TazYPRJa.js",
+        "status": 200,
+        "bytes": 967213,
+        "sha256": "591f31a764b1fb1b7a6664e55ded2387d05f6c4c5616ba4dcedef1dcf0a63f77",
+        "matchesDist": true,
+        "distSha256": "591f31a764b1fb1b7a6664e55ded2387d05f6c4c5616ba4dcedef1dcf0a63f77"
+      },
+      {
+        "url": "http://127.0.0.1:4189/city/core.pack.wasm",
+        "status": 200,
+        "bytes": 4137158,
+        "sha256": "1aa268671de487e74fd641af03153b12e0d929132b12f82ec149dd91bc89f1d1",
+        "matchesDist": true,
+        "distSha256": "1aa268671de487e74fd641af03153b12e0d929132b12f82ec149dd91bc89f1d1"
+      },
+      {
+        "url": "http://127.0.0.1:4189/city/packs/p0_0.pack.wasm",
+        "status": 200,
+        "bytes": 1267479,
+        "sha256": "0fb7556f19d8c00292237538b0fbf2a2e036577c58048f30808c5445b10b52a3",
+        "matchesDist": true,
+        "distSha256": "0fb7556f19d8c00292237538b0fbf2a2e036577c58048f30808c5445b10b52a3"
+      }
+    ],
+    "publicCityFilesCompared": 306,
+    "allPublicCityFilesMatchDist": true,
+    "mismatches": [],
+    "gameSourceAndBuildConfigUnchangedSince7723": true,
+    "dataChangeScope": "Latest 7fa2616 adds five existing-board OSM source records to p0_0 and updates its byte count in core; semantic audit found no name/facade/order/gameplay changes.",
+    "limits": "HTTP results verify what fresh requests receive, not resources already cached inside preserved Chrome tabs. No browser refresh performed; active sessions may retain earlier loaded data. Same served JS asset/source and unchanged gameplay geometry support continuing preserved orders."
+  },
+  "priorCoverage": {
+    "report": "docs/playtests/index.json",
+    "indexCurrentBuildAtRead": "ae8522aa80e2d99bece12d5e8d127f835932fa04",
+    "note": "Index records previous1116 round, not latest rebuilt checkout. This file does not alter index.",
+    "partiallyVisitedAreas": 12,
+    "explicitCollections": 5,
+    "explicitHandovers": 2,
+    "noPausePostHandoverControlCompleted": false
+  },
+  "preservedDilsukh": {
+    "report": "docs/playtests/2026-10-23T1116Z/dilsukh-nagar.json",
+    "state": "Deliver",
+    "customer": "Home in Salivahana Nagar",
+    "routeMetres": 732,
+    "timeSeconds": 150,
+    "heat": 100,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 5,
+    "speedKmh": 0,
+    "paused": true,
+    "newObservation": false
+  },
+  "issues": [
+    {
+      "id": "PT-009",
+      "status": "confirmed in prior RTC round; no new reproduction here",
+      "observed": "Twice, reverse-tab escaped map controls to background recovery/minimap/pause controls and Enter opened Pause over the map. Actual Close map worked.",
+      "sourceFinding": "map.show focuses Close; map.handleKey handles Escape/M/P/zoom/arrows but does not trap Tab; background HUD buttons remain keyboard reachable.",
+      "source": [
+        "game/src/ui/map.ts:138-169",
+        "game/src/game/game.ts:440-443"
+      ],
+      "nextVisibleProtocol": [
+        "Stop safely, open M; confirm Close is focused.",
+        "Use Shift+Tab one step at a time, noting visible focus; prior exact sequence was rescue → Minimap → Pause, but rescue presence changes tab count.",
+        "If focus reaches background Pause, Enter once and capture whether both overlays remain.",
+        "Restore with visible Resume and actual Close; verify Escape, M and actual Close separately."
+      ],
+      "limits": "Do not assume fixed three-Tab count in every area, or conflate the focus failure with the previously repaired map-close click bug."
+    },
+    {
+      "id": "PT-011",
+      "status": "confirmed in prior Ameerpet and Kukatpally rounds; missing no-pause control prioritized",
+      "observed": "Immediate pause after explicit handover left next offer absent after resume in two areas. Pause → Change area → Stay here restored it.",
+      "sourceFinding": "completeDelivery uses a single2500ms timeout guarded by !order && !hud.modalOpen; openPause sets a modal; Resume clears modal but does not retry showOffer. This strongly supports the lost-callback explanation; event timing was not instrumented.",
+      "source": [
+        "game/src/game/game.ts:322-337",
+        "game/src/game/game.ts:623-632",
+        "game/src/game/game.ts:523-525"
+      ],
+      "nextVisibleProtocol": [
+        "Complete Dilsukh customer leg by stopping at the visible handover prompt and holding E for at least0.9s.",
+        "Capture explicit reward/wallet or delivery-progress change.",
+        "Keep foreground and unpaused for at least5.5s: no map, pause, settings, area picker or inactive tab.",
+        "Capture actual New order/Accept/Another card, or absence with timestamps. Waiting-for-order HUD alone does not prove a next offer.",
+        "Only on a later completed order repeat immediate pause before2.5s, hold pause past the callback, resume and compare. Use Change area → Stay here for recovery if needed."
+      ],
+      "limits": "No new delivery completion or UI observation claimed. Level-up toast can overlap the2s period and is not a new order."
+    },
+    {
+      "id": "PT-012",
+      "status": "confirmed repeated police-station-named offers; institute extension observed once",
+      "observed": "ECIL offered Kushaiguda Traffic PS twice with different customers; Dilsukh offered Bhagyanagar Institute of Police once, not accepted.",
+      "sourceFinding": "Both records remain in current core.food. prepareStops accepts food entries with board length≥3 unless matching a locality; makeOffer uses food pool with optional pizza preference, not an exclusive pizza requirement.",
+      "source": [
+        "game/src/game/game.ts:140-144",
+        "game/src/game/game.ts:270-278"
+      ],
+      "currentFoodRecords": [
+        {
+          "foodIndex": 6620,
+          "record": {
+            "id": "b_d6fc7fdd-c2c9-4f",
+            "name": "Bhagyanagar Institute of Police",
+            "board": "Bhagyanagar Institute of Police",
+            "stop": [
+              3223.3,
+              4061.9,
+              0,
+              ""
+            ],
+            "pizza": false,
+            "tile": [
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "foodIndex": 7677,
+          "record": {
+            "id": "b_6d4468aa-c5da-40",
+            "name": "Kushaiguda Traffic PS",
+            "board": "Kushaiguda Traffic PS",
+            "stop": [
+              7871.0,
+              -7419.0,
+              0,
+              "Moula-ali - SP Nagar - ECIL Road"
+            ],
+            "pizza": false,
+            "tile": [
+              7,
+              -8
+            ]
+          }
+        }
+      ],
+      "nextVisibleProtocol": [
+        "Before accepting an offer in LB Nagar/Banjara Hills, capture exact kitchen, customer, route, time and pay.",
+        "If a suspicious non-food name appears, save the original offer screenshot and use Another once; record whether it recurs with a different customer.",
+        "Use a plausible kitchen for the actual pickup route; exact upstream category needs separate original-source audit."
+      ],
+      "limits": "Name and eligibility are confirmed; original classification, real-world operation and pub/public-regex cause remain unverified. Ordinary grocery or non-pizza food names alone are not this bug."
+    }
+  ],
+  "avoidFalsePositives": [
+    "Lateness and0heat do not cancel an order; explicit handover can still complete. Simulation timer is paused by map/pause/modal.",
+    "Pickup/handover proximity uses direct distance8m, or24m across a divided road when route detour is large. Route HUD distance alone cannot disprove the visible interaction prompt.",
+    "Recovery glide ignores driving input until settled; wait for stable landing/camera before judging clearance or heading.",
+    "Route distance increases after wrong turns, flight or recovery are not independently proof of broken routing or inaccessible destinations.",
+    "PT-007 pending-offer/minimap overlap is already confirmed at594x522: covered-click versus exposed-edge and keyboardM must be assessed separately.",
+    "No new street/shop fidelity, full-area completion, continuous driving or browser-console evidence is supplied by this source audit."
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "2026-10-23T1757Z",
+  "startedAt": "2026-10-23T17:57:47.352Z",
+  "endedAt": "2026-10-23T18:18:07.327347+00:00",
+  "status": "completed_partial_coverage",
+  "areas": [
+    "Dilsukh Nagar",
+    "LB Nagar",
+    "Banjara Hills"
+  ],
+  "checkoutCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "servedGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeCacheLimit": "Dilsukh preserved tab may retain earlier packs; fresh LB/Banjara tabs used the current served build. Data changes since earlier playtest are source attribution only.",
+  "reports": [
+    "2026-10-23T1757Z/dilsukh-nagar.json",
+    "2026-10-23T1757Z/lb-nagar.json",
+    "2026-10-23T1757Z/banjara-hills.json"
+  ],
+  "sourceTriage": "2026-10-23T1757Z/source-triage.json",
+  "participantType": "Root, west and east agents used visible controls in exclusive sequential browser turns; another agent verified source/provenance without browser input.",
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "heldDrivingInputSecondsApprox": 134.05,
+  "savedScreenshots": 5,
+  "uniqueScreenshots": 5,
+  "newConfirmedIssueGroups": 0,
+  "summary": "Dilsukh collected order progressed732→120m without handover. LB Nagar and Banjara Hills newly visited with accepted orders but pickups unfinished. Map Close worked; LB picker cancellation restored its offer. Wider1280×800 offer/minimap separation provides a comparison to the existing narrow-layout issue, not a fix.",
+  "validation": {
+    "gameBehaviorChanged": false,
+    "gameplayVerification": "Visible interaction reports only; source/build identity does not prove gameplay success.",
+    "reportJson": "passed",
+    "evidenceFiles": "All referenced files exist; original screenshots retained.",
+    "console": "Each driver records captured own-tab logs in its report."
+  },
+  "coverage": {
+    "partiallyVisitedPopularAreas": 14,
+    "totalPopularAreas": 16,
+    "allPlayableRegionsCovered": false
+  },
+  "nextWork": "Prioritize Dilsukh Nagar collected order120m/32s/37heat for explicit handover and the unpaused next-offer control. Continue paused Secunderabad739m customer leg, ECIL682m pickup, LB Nagar1072m pickup and Banjara Hills saved pickup. Rotate new areas Kompally and Miyapur next (cursor14), then expand beyond the popular-area list using visible map controls. Keep non-driving tabs paused."
+}

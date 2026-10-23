@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1757Z",
+  "checkoutCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "servedGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeGameDataLimit": "Preserved browser tab was not reloaded. Its earlier loaded packs may predate the current served attribution-only update; per-tab pack cache was not inspected.",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": {
+    "width": 594,
+    "height": 466
+  },
+  "method": "Root used visible Chrome controls in real time with exclusive input ownership. No hidden state mutation, teleport, simulation stepping or autopilot. Menu recovery R is an ordinary visible game control. Pauses between input batches separate driving from analysis/tool latency.",
+  "startedAt": "2026-10-23T17:58:00Z",
+  "browserInputEndedAt": "2026-10-23T18:06:30Z",
+  "timestampsApproximate": true,
+  "area": "Dilsukh Nagar",
+  "route": "Balaji Ram Ratan Mithai Bhandar on Konark Theatre Road → Home in Salivahana Nagar",
+  "continuedPriorPickup": true,
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "customerHandoverAttempted": false,
+  "input": {
+    "heldDrivingInputSecondsApprox": 72.5,
+    "heldDurationBatchesSeconds": [
+      [
+        3,
+        0.55
+      ],
+      [
+        4,
+        0.8
+      ],
+      [
+        0.45,
+        1.2,
+        1.05,
+        0.65
+      ],
+      [
+        1,
+        2.2,
+        0.7
+      ],
+      [
+        1.15,
+        2.5,
+        0.6
+      ],
+      [
+        0.25,
+        2.8,
+        0.7
+      ],
+      [
+        6,
+        1.1
+      ],
+      [
+        4,
+        0.9
+      ],
+      [
+        1.3,
+        0.7
+      ],
+      [
+        3.3,
+        0.8
+      ],
+      [
+        0.85,
+        1.3,
+        0.65
+      ],
+      [
+        0.85,
+        1.4,
+        0.6
+      ],
+      [
+        1.5,
+        0.65
+      ],
+      [
+        1,
+        1.5,
+        0.65
+      ],
+      [
+        0.9,
+        1.8,
+        0.7
+      ],
+      [
+        0.9,
+        0.75
+      ],
+      [
+        2,
+        0.65
+      ],
+      [
+        0.85,
+        1.6,
+        0.6
+      ],
+      [
+        0.45,
+        3.3,
+        0.85
+      ],
+      [
+        0.6,
+        0.9,
+        1.8,
+        0.7
+      ],
+      [
+        0.5
+      ]
+    ],
+    "flightTaps": 2,
+    "successfulRecoveryTaps": 4,
+    "recoveryAttemptWhilePaused": 1,
+    "recoverySettlingWaitSecondsEach": 1.8,
+    "caveat": "Held-input time includes braking/reversing and flight. It excludes passive coasting, real-time tool latency, menus, and four recovery animations. S can reverse once braking finishes; speed HUD alone does not establish travel direction."
+  },
+  "baselineHud": {
+    "routeMetres": 732,
+    "timeSeconds": 150,
+    "heat": 100,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 5,
+    "speedKmh": 0,
+    "paused": true
+  },
+  "completedInteractions": [
+    "Resume preserved collected order",
+    "Full map opened and actual Close button worked four times",
+    "Ground driving under metro and through residential streets",
+    "Two visible flight boosts, charge exhaustion, rooftop arrival and normal recovery",
+    "Four road recovery glides followed by inspection; no driving during glide",
+    "Repeated Resume clicks and P pauses",
+    "Final pause and original screenshot saved"
+  ],
+  "steps": [
+    "Initial paused order remained Deliver / Home in Salivahana Nagar / 732 m / 150 s. Map showed northward approach then west under metro and north into customer neighborhood.",
+    "First acceleration left the road toward a frontage. P did not resume from pause; after clicking Resume, R recovered to a lane at 690 m. Four-second acceleration reached 648 m and junction traffic.",
+    "Junction steering contacted traffic/divider with Baigan! −1 slice feedback; route 634 m then 1009 m after wrong alignment. Steering and lane errors confound route/collision diagnosis.",
+    "Flight used 7.5 s earned charge, showing 100 km/h and 582 m, then exhausted above a rooftop at 515 m. R settled on a narrow street at 474 m.",
+    "Ground driving progressed 358 → 261 m. Map and actual Close worked; northbound turn crossed an open junction, then approached 218 → 176 m. A mistimed turn and second 2.5 s flight moved the car above buildings; third R settled 129 m from customer.",
+    "Low-speed turns and frontage contact produced 139 → 135 → 114 → 129 m. Map showed customer east of the car. Fourth R returned to a street at 126 m, with ribbon leading forward then left.",
+    "Further missed turns and corner contact left route 116 → 121 → 120 → 119 m. Final S input and pause showed 120 m / 32 s / 37 heat / 580 coins / 2.5 s boost / 9 km/h. No Hold E handover prompt or result was reached."
+  ],
+  "findings": [],
+  "observationsNotPromotedToBugs": [
+    {
+      "observation": "Repeated steering mistakes put the car beside a facade and divider; route distance changed sharply after wrong-lane/off-road movement.",
+      "reason": "No controlled legal-route contradiction or wall pass-through reproduced. Do not label navigation broken or customer unreachable."
+    },
+    {
+      "observation": "Recovery returned the car to usable streets but did not necessarily face the customer.",
+      "reason": "Successful recovery is established; ideal heading and route continuation require further controlled comparison."
+    }
+  ],
+  "checks": {
+    "actualMapClose": "passed four visible clicks",
+    "pauseResume": "passed with Resume button and P to pause",
+    "noPausePostHandoverControl": "not reached",
+    "bridgeBarrier": "not tested",
+    "trafficSignalCompliance": "not controlled",
+    "physicalTouch": "not tested",
+    "streetShopAccuracy": "not established"
+  },
+  "console": {
+    "levels": [
+      "warn",
+      "error"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Own-tab captured log buffer only; empty logs do not establish bug-free gameplay."
+  },
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Salivahana Nagar",
+    "routeMetres": 120,
+    "timeSeconds": 32,
+    "heat": 37,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 2.5,
+    "speedKmh": 9,
+    "areaChip": "Salivahana Nagar",
+    "paused": true
+  },
+  "evidence": [
+    "evidence/2026-10-23T1757Z-dilsukh-customer120m-79090f.jpg"
+  ],
+  "handoff": {
+    "tabId": "1933378124",
+    "browserId": "1",
+    "owner": "root",
+    "area": "Dilsukh Nagar",
+    "paused": true,
+    "heldKeys": false,
+    "instruction": "Collected order to Home Salivahana Nagar 120 m / 32 s / 37 heat, 580 coins, Level 1 2/3, 2.5 s boost, paused 9 km/h after reverse/brake. Resume carefully from frontage; follow visible street to customer. Handover and no-pause new-offer control still untested."
+  },
+  "limitations": [
+    "No new pickup or handover completed; one previously collected order continued.",
+    "Only held key durations are quantified; wall time and tool latency are not continuous gameplay.",
+    "No controlled collision, bridge-barrier or signal reproduction in this segment."
+  ]
+}

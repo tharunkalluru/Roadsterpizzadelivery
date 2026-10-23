@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1757Z",
+  "area": "Banjara Hills",
+  "checkoutCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "actualUrl": "http://127.0.0.1:4189/",
+  "startedAtApprox": "2026-10-23T18:11:00Z",
+  "browserInputEndedAt": "2026-10-23T18:15:54Z",
+  "method": "Automated testing through visible Chrome controls in an exclusive browser lease. New agent-owned tab, normal Play and Popular Banjara Hills picker. No hidden state, teleport, engine stepping or autopilot; not human-participant testing.",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "purpose": "Desktop responsive comparison against prior narrow-window PT-007 observations",
+    "temporaryOverride": true,
+    "overrideResetBeforeHandoff": true,
+    "physicalDeviceTest": false
+  },
+  "route": "Aster Cafe And Kitchen → Home in NBT Nagar",
+  "offer": {
+    "pickup": "Aster Cafe And Kitchen",
+    "customer": "Home in NBT Nagar",
+    "displayedRouteMetres": 617,
+    "displayedSeconds": 133,
+    "basePayCoins": 78,
+    "accepted": true
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "pickupInteractionAttempted": false,
+  "customerHandoverAttempted": false,
+  "input": {
+    "heldDrivingInputSecondsApprox": 28.9,
+    "heldDurationBatchesSeconds": [
+      [
+        2.5,
+        0.7
+      ],
+      [
+        2,
+        0.9
+      ],
+      [
+        1.8,
+        1.6,
+        0.8
+      ],
+      [
+        3,
+        0.6
+      ],
+      [
+        3,
+        0.7
+      ],
+      [
+        0.25,
+        3,
+        0.7
+      ],
+      [
+        0.35,
+        3,
+        0.8
+      ],
+      [
+        2.2,
+        1
+      ]
+    ],
+    "recoveryTaps": 1,
+    "flightTaps": 0,
+    "caveat": "Each held chord counted once; excludes passive coasting, recovery glide, tool/analysis latency and menus. Not continuous driving."
+  },
+  "completedInteractions": [
+    "Normal Play and Popular Banjara Hills selection",
+    "Explicit order acceptance",
+    "Reverse/steering U-turn and ground driving",
+    "One auto-contact warning",
+    "Road-driving recharge from2.5 to5.0 seconds",
+    "Open map with M and click actual Close map button",
+    "R recovery with visible jets/glide, then forward driving",
+    "Pause, Resume and final pause",
+    "Desktop viewport comparison and restoration"
+  ],
+  "steps": [
+    "Loaded a fresh tab through Play then Popular Banjara Hills at1280x800. Persistent progress was580coins,Level1 2/3. Aster Cafe And Kitchen offer showed617m/about133s/base78coins; offer and minimap were visually separated. Saved original offer screenshot.",
+    "Accepted and drove W2.5s/S0.7s. First observed pickup approach was1216m,27km/h. This is after driving, not a measured acceptance-time distance.",
+    "Further W2s/S0.9s then M opened the full map. Map showed the pickup behind the current heading. Actual Close map button returned to gameplay. Used reverse and steering to turn toward the route.",
+    "Followed the visible route through local traffic. Pickup distance1211→1168→1141→1100m. Auto contact produced Arre! Watch the auto! and a low-speed state. Earned flight charge2.5→5.0s. Traffic and facade approaches were not controlled collision experiments.",
+    "A steering adjustment and continued forward input ended near building frontage with route1352m, then1354m. Steering errors, coasting and rerouting prevent a GPS-defect claim.",
+    "R showed Back to the street! and visible recovery jets/glide. After settling, W2.2s/S1s moved on a usable street and the HUD showed1026m. No wall-facing recovery failure was reproduced.",
+    "P opened Paused. Resume returned to the same accepted pickup. Captured an original stopping screenshot at1026m/0km/h/580coins/5.0sboost. P paused again; restored default viewport, captured own-tab logs, marked handoff, saved original images through local form, and closed the evidence tab. No keys held at release."
+  ],
+  "findings": [
+    {
+      "issueId": "PT-007",
+      "severity": "P3",
+      "status": "wider_layout_comparison_not_reproduced",
+      "confidence": "high for visible separation in this1280x800 sample",
+      "title": "Offer and minimap are separated at1280x800",
+      "expected": "Pending offer leaves the minimap visible and unobstructed.",
+      "actual": "The central offer card and upper-right minimap did not overlap in the saved desktop screenshot. This does not fix or contradict confirmed overlap at594x522.",
+      "evidence": [
+        "evidence/2026-10-23T1757Z-banjara-wide-offer-2e7f26.jpg"
+      ],
+      "limitation": "No covered-target pointer test applies to this separated arrangement; not phone/touch validation."
+    },
+    {
+      "issueId": "PT-002",
+      "severity": "P3",
+      "status": "existing_wording_ambiguity_observed",
+      "confidence": "high for displayed wording; pickup approach measured only after initial drive",
+      "title": "Offer route label still omits the pickup approach distinction",
+      "expected": "Offer makes clear which leg its617m route and133s window describe.",
+      "actual": "Card displayed617m route without the leg distinction. After accepting and driving3.2 seconds of held input, pickup HUD showed1216m.",
+      "evidence": [
+        "evidence/2026-10-23T1757Z-banjara-wide-offer-2e7f26.jpg"
+      ],
+      "limitation": "Not a claim that the customer route or approach routing is numerically incorrect."
+    }
+  ],
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Aster Cafe And Kitchen",
+    "customer": "Home in NBT Nagar",
+    "routeMetres": 1026,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 5.0,
+    "speedKmh": 0,
+    "paused": true,
+    "gameClock": "Day6 ·7:05AM"
+  },
+  "console": {
+    "levels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Own-tab captured logs only; no entries does not establish bug-free behavior."
+  },
+  "evidence": [
+    "evidence/2026-10-23T1757Z-banjara-wide-offer-2e7f26.jpg",
+    "evidence/2026-10-23T1757Z-banjara-stopping-f3457c.jpg"
+  ],
+  "limitations": [
+    "Partial Banjara Hills approach, not whole-area or full-map coverage.",
+    "No collection or handover reached; PT-011 no-pause comparison not attempted.",
+    "No deliberate Space flight, controlled curb/bridge collision, signal queues, metro or bus-stop behavior tested.",
+    "Recovery and route-distance changes included steering errors and passive coasting; no new defect inferred from them.",
+    "No real-world street, shop identity/order or building-accuracy verification.",
+    "Tutorial not shown in this persistent-progress session.",
+    "No physical phone or touch input tested."
+  ],
+  "handoff": {
+    "tabId": "1933378150",
+    "browserId": "1",
+    "owner": "playtest_east",
+    "paused": true,
+    "heldKeys": false,
+    "area": "Banjara Hills",
+    "viewportOverrideReset": true,
+    "instruction": "Continue the accepted Aster Cafe And Kitchen pickup at1026m with580coins,Level1 2/3,5.0sboost. Collection has not occurred. Keep other live orders paused; re-mark this unfinished workflow if retaining it."
+  }
+}

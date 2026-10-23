@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1757Z",
+  "area": "LB Nagar",
+  "startedAt": "2026-10-23T18:06:55Z",
+  "browserInputEndedAt": "2026-10-23T18:10:56Z",
+  "status": "completed_partial_coverage",
+  "route": "Pizza Hut on Road No 4 → Home in Saraswati Nagar Colony",
+  "checkoutCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeGameDataCommit": "7fa261668a222c575942b8157c22101664ca8a91",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "buildNote": "Read-only git diff7723f8c..HEAD -- game/src was empty and local dist index referenced index-TazYPRJa.js. Root supplied current runtime/data provenance. No rebuild, browser hidden-state inspection or game edits by this worker.",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "viewport": {
+    "width": 594,
+    "height": 466
+  },
+  "method": "Created own Chrome tab and used Play → Popular LB Nagar. All controls, route interpretation and result checks used visible UI/AX/screenshots. Exclusive input lease; no teleport, engine stepping, hidden state, browser backchannels or autopilot. Existing ECIL tab was only re-marked for handoff without resuming.",
+  "baselineHud": {
+    "clock": "Day 6 · 12:11 AM",
+    "level": "1 · 2/3",
+    "coins": 580,
+    "flightSeconds": 2.5,
+    "speedKmh": 0,
+    "state": "Waiting for an order"
+  },
+  "input": {
+    "heldDrivingInputSecondsApprox": 32.65,
+    "ledger": [
+      [
+        [
+          "w",
+          6
+        ],
+        [
+          "s",
+          1
+        ]
+      ],
+      [
+        [
+          "w",
+          6
+        ],
+        [
+          "s",
+          1
+        ]
+      ],
+      [
+        [
+          "w",
+          6
+        ],
+        [
+          "s",
+          1
+        ]
+      ],
+      [
+        [
+          "w",
+          4
+        ],
+        [
+          "s",
+          1
+        ]
+      ],
+      [
+        [
+          "w+a",
+          1.4
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "s",
+          0.4
+        ]
+      ],
+      [
+        [
+          "w+d",
+          0.9
+        ],
+        [
+          "s",
+          0.65
+        ]
+      ],
+      [
+        [
+          "w+d",
+          0.45
+        ],
+        [
+          "w",
+          1.5
+        ],
+        [
+          "s",
+          0.7
+        ]
+      ]
+    ],
+    "flightTaps": 2,
+    "recoveryKeyTaps": 1,
+    "collectionHoldSeconds": 0,
+    "caveat": "Chord duration counts once. Total includes1.4s W+A during flight and acceleration/braking after descent. Tool latency, coasting, flight descent/recovery animation time, map/pause and key taps are excluded. It is not uninterrupted driving time."
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "pickupInteractionAttempted": false,
+  "customerHandoverAttempted": false,
+  "offerSequence": [
+    {
+      "pickup": "Frozen Bottle",
+      "road": "Inner Ring Road",
+      "customer": "Home in Vivekananda Nagar",
+      "routeMetres": 1401,
+      "timeSeconds": 245,
+      "baseCoins": 133,
+      "restoredIdenticallyAfterPickerCancel": true
+    },
+    {
+      "pickup": "Pizza Hut",
+      "road": "Road No 4",
+      "customer": "Home in Omkar Nagar",
+      "routeMetres": 1581,
+      "timeSeconds": 271,
+      "baseCoins": 146
+    },
+    {
+      "pickup": "Pizza Hut",
+      "road": "Road No 4",
+      "customer": "Home in Saraswati Nagar Colony",
+      "routeMetres": 456,
+      "timeSeconds": 110,
+      "baseCoins": 67,
+      "accepted": true
+    }
+  ],
+  "steps": [
+    "Created own tab1933378139 at the base URL. Play opened the area picker; chose the visible Popular LB Nagar button. Loading LB Nagar completed to a rendered divided road beneath elevated road geometry, with the Frozen Bottle offer and580coins/Level1 2/3. Initial loading-placeholder wallet0 was not treated as a progress change.",
+    "With the Frozen Bottle offer still pending, P opened Pause, Change area opened the picker, and Stay here returned to the identical pickup/customer/1401m/245s/133coins offer. No relocation occurred.",
+    "Used Another twice, then accepted Pizza Hut on Road No4 → Home in Saraswati Nagar Colony,456m/about110s/base67coins. Opened M and clicked actual Close map. After close the pickup HUD showed1969m; the offer distance describes the delivery leg, consistent with existing PT002 wording ambiguity.",
+    "Drove the visible straight lane in four bounded input batches, reducing pickup1969→1816→1746→1606→1522m. Traffic, pedestrians and a bus stop were visible. Ground-driving charge increased2.5→5.0→7.5s. No controlled signal/traffic-collision assertion was established.",
+    "Opened M again at1567m after passive coasting/recalculation. The map placed Pizza Hut behind across the divided road and drew a large approach loop through side streets. Saved the original map screenshot. This was route-planning evidence only; legal access and lane graph correctness were not independently established. Actual Close worked again.",
+    "Pressed Space, held W+A1.4s, then pressed Space to cut flight and braked. The car visibly rose above nearby buildings, with6.1s charge remaining. Subsequent screenshot after S0.4s showed the car at a street-level junction, pickup1065m. This provides a visible flight/descent sequence without claiming precise landing physics or collider coverage.",
+    "A short right turn reached1059m, then further steering departed the lane and brought the car beside building geometry at1130→1133m. Used the visible documented R control; Back to the street! and a thruster glide appeared. A later fresh frame showed the car settled in a usable street lane at1072m and0km/h.",
+    "Saved an original stopping-state screenshot before the pause overlay, then pressed P and verified Paused,1072m,580coins/Level1 2/3,6.1s boost and0km/h at Day6 6:14AM. Marked new LB Nagar tab for handoff. The prior ECIL tab was also marked handoff and never resumed.",
+    "Saved both original images through root’s local evidence form and closed only the two temporary upload tabs. Own input lock was released at18:10:56UTC, before the18:11:30 lease boundary. No E prompt, collection or handover was reached."
+  ],
+  "completedInteractions": [
+    "Normal area load and initial offer",
+    "Pause → Change area → Stay here restores pending offer",
+    "Another and explicit acceptance",
+    "M and actual Close map twice",
+    "Ground acceleration/braking in visible traffic",
+    "Ground charge2.5→5.0→7.5s",
+    "Space flight and second-Space cutoff with6.1s remaining",
+    "Visible street-level descent and subsequent recovery",
+    "Final Pause and handoff"
+  ],
+  "pickupProgress": {
+    "initialRouteMetres": 1969,
+    "closestObservedRouteMetres": 1059,
+    "lastObservedRouteMetres": 1072,
+    "holdToCollectPromptObserved": false,
+    "limitation": "The route was long and the bounded pass included steering corrections, a flight and one road recovery. No unreachable-pickup or broken-navigation claim."
+  },
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Pizza Hut",
+    "road": "Road No 4",
+    "routeMetres": 1072,
+    "coins": 580,
+    "level": "1 · 2/3",
+    "flightSeconds": 6.1,
+    "speedKmh": 0,
+    "clock": "Day 6 · 6:14 AM",
+    "paused": true,
+    "heldKeys": false
+  },
+  "findings": [],
+  "existingIssueObservations": [
+    {
+      "issueId": "PT-002",
+      "status": "consistent_with_existing_ux_ambiguity",
+      "actual": "Accepted offer456m, followed by1969m pickup approach. No new calculation failure claimed."
+    }
+  ],
+  "nonDefectObservations": [
+    {
+      "topic": "Map close",
+      "status": "passed_in_this_turn",
+      "actual": "Two actual Close map clicks returned to gameplay."
+    },
+    {
+      "topic": "Pending-offer picker cancellation",
+      "status": "passed_in_this_turn",
+      "actual": "Stay here restored the same Frozen Bottle pickup/customer/distance/time/pay."
+    },
+    {
+      "topic": "Long divided-road approach",
+      "status": "observed_not_classified_as_defect",
+      "actual": "Map shows nearby pickup across divided road with a longer side-street route. No controlled legal-route comparison performed."
+    },
+    {
+      "topic": "Road recovery",
+      "status": "observed_pass",
+      "actual": "One R use after off-lane steering glided back into a visible street lane at0km/h."
+    }
+  ],
+  "console": {
+    "queriedLevels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Captured own-tab console only; empty logs do not establish absence of gameplay or rendering bugs."
+  },
+  "evidence": [
+    "evidence/2026-10-23T1757Z-lb-nagar-route-map-280079.jpg",
+    "evidence/2026-10-23T1757Z-lb-nagar-recovered-stop-e8a561.jpg"
+  ],
+  "evidenceLimitations": [
+    "Saved map and pre-pause stopping frames are original browser screenshots. Flight/descent sequence is visible in the CUA trace but was not separately persisted as an image.",
+    "No Street View, Mapillary or exact shop-order verification was performed in this gameplay pass.",
+    "Small desktop viewport is not physical touch-device testing."
+  ],
+  "untested": [
+    "Explicit LB Nagar pickup and handover",
+    "Post-handover no-pause next-offer control",
+    "Accepted-order Change area guard",
+    "Controlled traffic lights or queue behavior",
+    "Bridge parapet collision",
+    "Full LB Nagar coverage or real shop order",
+    "Physical phone/touch controls"
+  ],
+  "handoff": {
+    "tabId": "1933378139",
+    "browserId": "1",
+    "owner": "playtest_west",
+    "area": "LB Nagar",
+    "paused": true,
+    "heldKeys": false,
+    "instruction": "Visible Resume continues Pizza Hut on Road No4 pickup1072m,6.1s boost,580coins/Level1 2/3 at0km/h. Keep all other game tabs paused."
+  },
+  "preservedOtherHandoff": {
+    "tabId": "1933378100",
+    "area": "ECIL",
+    "owner": "playtest_west",
+    "reMarked": true,
+    "resumed": false,
+    "lastPreviouslyVerifiedState": "Paused Hotel Anand Vihar pickup682m,580coins/Level1 2/3,8.0sboost; no new ECIL gameplay this turn."
+  }
+}
