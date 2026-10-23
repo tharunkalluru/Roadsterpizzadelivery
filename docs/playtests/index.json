@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-23T20:25:00.343093+00:00",
+  "updatedAt": "2026-10-23T20:55:48.027750+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+  "currentBuild": "d022f412a7d1c0852dd1ccd3cae22dd9623b6a85",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -89,16 +89,18 @@
     "RTC X Roads": {
       "status": "tested_partial",
       "completedDeliveries": 0,
-      "pickupsCompleted": 1,
-      "report": "2026-10-23T2007Z/rtc-x-roads.json",
+      "pickupsCompleted": 2,
+      "report": "2026-10-23T2037Z/rtc-x-roads.json",
       "lastRoute": "Pista House on Chikkadapally Road → Home in Jawahar Nagar",
-      "heldDrivingInputSeconds": 141.35,
-      "lastObservedDeliveryMetres": 552,
-      "closestObservedDeliveryMetres": 319,
-      "sessionStatus": "Current repaired-build accepted pickup remains uncollected in paused tab1933378266; final128m,0km/h,2.5sboost,802coins. Prior pickup count is historical, not this order.",
-      "lastObservedPickupMetres": 128,
-      "closestObservedPickupMetres": 16,
-      "closestPickupDistanceLimit": "16 m was approximate off-road distance at a wrong frontage; no collection prompt used."
+      "heldDrivingInputSeconds": 169.5,
+      "lastObservedDeliveryMetres": 415,
+      "closestObservedDeliveryMetres": 415,
+      "sessionStatus": "Collected order paused in current-build tab1933378266 at415m,11s,27°heat,0km/h,0boost. No handover or reward.",
+      "lastObservedPickupMetres": 7,
+      "closestObservedPickupMetres": 7,
+      "closestPickupDistanceLimit": "Visible7m prompt followed by1.2s E hold and explicit collection result; source normal pickup radius is strictly under8m.",
+      "pickupState": "collected_explicitly_at_visible_prompt",
+      "lastResult": "Pizza collected; Deliver Home in Jawahar Nagar560m125s100°heat. Customer handover not reached; wallet802 and Level2 1/4 unchanged."
     },
     "Ameerpet": {
       "status": "tested_partial",
@@ -205,23 +207,23 @@
       "status": "tested_partial",
       "completedDeliveries": 0,
       "pickupsCompleted": 0,
-      "report": "2026-10-23T2007Z/narsingi.json",
+      "report": "2026-10-23T2037Z/narsingi.json",
       "lastRoute": "Balaji Santosh Dhaba → Home in Narsingi",
-      "heldDrivingInputSeconds": 5.95,
-      "lastObservedPickupMetres": 2060,
-      "lastFlightSeconds": 2.5,
-      "sessionStatus": "Accepted pickup unfinished; own current-build tab paused and marked handoff. This anchor sample does not certify the whole area."
+      "heldDrivingInputSeconds": 41.55,
+      "lastObservedPickupMetres": 1948,
+      "lastFlightSeconds": 10,
+      "sessionStatus": "Same accepted pickup remains unfinished and paused in its current-build tab; no collection or handover. The HUD route-distance change is not measured travel distance."
     },
     "Hayathnagar": {
       "status": "tested_partial",
       "completedDeliveries": 0,
       "pickupsCompleted": 0,
-      "report": "2026-10-23T2007Z/hayathnagar.json",
+      "report": "2026-10-23T2037Z/hayathnagar.json",
       "lastRoute": "Sri Balaji Sunil Kumar Sweets & Bakery → Home in Veerabhadra Nagar",
-      "heldDrivingInputSeconds": 19.85,
-      "lastObservedPickupMetres": 1416,
-      "lastFlightSeconds": 5.0,
-      "sessionStatus": "Accepted pickup unfinished; own current-build tab paused and marked handoff. This anchor sample does not certify the whole area."
+      "heldDrivingInputSeconds": 35.58,
+      "lastObservedPickupMetres": 464,
+      "lastFlightSeconds": 2.5,
+      "sessionStatus": "Same accepted pickup remains unfinished and paused in its current-build tab; no collection or handover. The HUD route-distance change is not measured travel distance."
     }
   },
   "scenarios": [
@@ -240,48 +242,48 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-23T2007Z",
-    "startedAt": "2026-10-23T20:07:47.820Z",
-    "endedAt": "2026-10-23T20:25:00.343093+00:00",
-    "status": "completed_partial_coverage_existing_issue_reopened",
+    "id": "2026-10-23T2037Z",
+    "startedAt": "2026-10-23T20:37:47.931Z",
+    "endedAt": "2026-10-23T20:55:48.027750+00:00",
+    "status": "completed_partial_coverage_one_explicit_collection",
     "areas": [
       "RTC X Roads",
       "Narsingi",
       "Hayathnagar"
     ],
-    "checkoutCommit": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+    "checkoutCommit": "d022f412a7d1c0852dd1ccd3cae22dd9623b6a85",
     "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
     "servedGameDataCommit": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
     "testedAssets": [
       "index-DXgUfY_A.js"
     ],
     "reports": [
-      "2026-10-23T2007Z/rtc-x-roads.json",
-      "2026-10-23T2007Z/narsingi.json",
-      "2026-10-23T2007Z/hayathnagar.json"
+      "2026-10-23T2037Z/rtc-x-roads.json",
+      "2026-10-23T2037Z/narsingi.json",
+      "2026-10-23T2037Z/hayathnagar.json"
     ],
-    "sourceTriage": "2026-10-23T2007Z/source-triage.json",
-    "sourceFollowup": "2026-10-23T2007Z/pickup-source-followup.json",
-    "evidenceManifest": "2026-10-23T2007Z/evidence-manifest.json",
-    "participantType": "Root and two AI subagents exercised visible Chrome controls in exclusive sequential turns; one further subagent audited source and reports. No human participants, teleporting, hidden-state mutation, stepping or autopilot.",
-    "offersAccepted": 3,
-    "pickupsCompleted": 0,
+    "sourceTriage": "2026-10-23T2037Z/source-triage.json",
+    "evidenceManifest": "2026-10-23T2037Z/evidence-manifest.json",
+    "participantType": "Root and two AI subagents continued preserved orders with exclusive sequential visible Chrome controls; a third subagent audited controls and authored evidence reports. No human participants, hidden state mutation, teleport, stepping or autopilot.",
+    "offersAccepted": 0,
+    "pickupsCompleted": 1,
     "completedDeliveries": 0,
-    "explicitHeldInputSeconds": 72.6,
-    "heldDrivingInputSecondsApprox": 72.6,
-    "recoveryActivations": 4,
-    "flightActivations": 1,
-    "actualMapCloseClicks": 4,
-    "savedScreenshots": 9,
-    "uniqueScreenshots": 9,
+    "heldDrivingInputSecondsApprox": 79.48,
+    "explicitHeldInputSecondsIncludingInteraction": 80.68,
+    "collectionHoldSeconds": 1.2,
+    "recoveryActivations": 7,
+    "flightActivations": 2,
+    "observedLandings": 2,
+    "actualMapCloseClicks": 7,
+    "savedScreenshots": 7,
+    "uniqueScreenshots": 7,
     "newConfirmedIssueGroups": 0,
-    "existingIssueGroupsReopened": [
-      "PT-012"
-    ],
-    "summary": "PT-012 recurred in a fresh Narsingi Police Station offer; pure eligibility checks corroborated a missing-category legacy record gap. Actual map Close passed in all three areas. Narrow offers, pause/resume, RTC settled recovery/departure and bounded flight/landing were sampled. All three pickup approaches remain unfinished; no new collection or handover.",
-    "roundLimit": "Round includes setup, sequential browser samples, source triage, evidence saving and reporting. Held-input seconds are explicit key durations, not continuous elapsed driving.",
+    "existingIssueGroupsReopened": [],
+    "summary": "RTC Pista House pickup explicitly collected through Hold E and Pizza collected/Deliver transition. Customer leg paused415m with11s,27°heat and0km/h after a controlled map-timer check. Narsingi pickup remains1948m and Hayathnagar464m. Seven actual Map Close clicks; timer held at11s over at least34s map-open sample. No handover or new confirmed bug. PT-012 remains open from the prior round.",
+    "roundLimit": "Bounded round includes route inspection, actual UI driving, exclusive handoffs, source analysis, screenshot saving, timer check and documentation. Explicit hold totals are not continuous elapsed driving.",
     "behaviorEdited": false,
     "published": false,
+    "pushed": false,
     "browserOwnershipReleased": true,
     "helperServerStopped": true
   },
@@ -832,7 +834,14 @@
     "evidence/2026-10-23T2007Z-rtc-forward-67fc9c.jpg",
     "evidence/2026-10-23T2007Z-rtc-landed-a0c510.jpg",
     "evidence/2026-10-23T2007Z-rtc-map-89cedb.jpg",
-    "evidence/2026-10-23T2007Z-rtc-recovery-161114.jpg"
+    "evidence/2026-10-23T2007Z-rtc-recovery-161114.jpg",
+    "evidence/2026-10-23T2037Z-hayathnagar-464m-recovery-settled-0d2f8d.jpg",
+    "evidence/2026-10-23T2037Z-narsingi-ending-cb7407.jpg",
+    "evidence/2026-10-23T2037Z-narsingi-route-map-fe73d5.jpg",
+    "evidence/2026-10-23T2037Z-rtc-collected-ce5ef1.jpg",
+    "evidence/2026-10-23T2037Z-rtc-collection-prompt-4bc5f8.jpg",
+    "evidence/2026-10-23T2037Z-rtc-customer415m-7ddb18.jpg",
+    "evidence/2026-10-23T2037Z-rtc-map-timer-held-fdc29d.jpg"
   ],
   "roundHistory": [
     {
@@ -1116,9 +1125,55 @@
       "uniqueScreenshots": 19,
       "summary": "Implemented all12 recorded repair groups plus follow-up camera and flight-HUD defects. Narrow UI/map focus/Close passed; Uppal departure, off-road suppression and nearby Mecca recovery passed. Explicit Kukatpally collection and handover +98coins completed; immediate pause5s then Resume presented next offer. Final flight/descent/landing HUD passed. Bus occlusion, controlled median/curb/bridge and exact original landmark/RTC scenarios remain limited.",
       "roundLimit": "Repair work and several bounded sequential verification segments, interrupted by a user model switch; not one uninterrupted20minute human play session."
+    },
+    {
+      "id": "2026-10-23T2007Z",
+      "startedAt": "2026-10-23T20:07:47.820Z",
+      "endedAt": "2026-10-23T20:25:00.343093+00:00",
+      "status": "completed_partial_coverage_existing_issue_reopened",
+      "areas": [
+        "RTC X Roads",
+        "Narsingi",
+        "Hayathnagar"
+      ],
+      "checkoutCommit": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+      "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+      "servedGameDataCommit": "882cb5012f5c31d7947ccc0d64732e7a0ad1fffd",
+      "testedAssets": [
+        "index-DXgUfY_A.js"
+      ],
+      "reports": [
+        "2026-10-23T2007Z/rtc-x-roads.json",
+        "2026-10-23T2007Z/narsingi.json",
+        "2026-10-23T2007Z/hayathnagar.json"
+      ],
+      "sourceTriage": "2026-10-23T2007Z/source-triage.json",
+      "sourceFollowup": "2026-10-23T2007Z/pickup-source-followup.json",
+      "evidenceManifest": "2026-10-23T2007Z/evidence-manifest.json",
+      "participantType": "Root and two AI subagents exercised visible Chrome controls in exclusive sequential turns; one further subagent audited source and reports. No human participants, teleporting, hidden-state mutation, stepping or autopilot.",
+      "offersAccepted": 3,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "explicitHeldInputSeconds": 72.6,
+      "heldDrivingInputSecondsApprox": 72.6,
+      "recoveryActivations": 4,
+      "flightActivations": 1,
+      "actualMapCloseClicks": 4,
+      "savedScreenshots": 9,
+      "uniqueScreenshots": 9,
+      "newConfirmedIssueGroups": 0,
+      "existingIssueGroupsReopened": [
+        "PT-012"
+      ],
+      "summary": "PT-012 recurred in a fresh Narsingi Police Station offer; pure eligibility checks corroborated a missing-category legacy record gap. Actual map Close passed in all three areas. Narrow offers, pause/resume, RTC settled recovery/departure and bounded flight/landing were sampled. All three pickup approaches remain unfinished; no new collection or handover.",
+      "roundLimit": "Round includes setup, sequential browser samples, source triage, evidence saving and reporting. Held-input seconds are explicit key durations, not continuous elapsed driving.",
+      "behaviorEdited": false,
+      "published": false,
+      "browserOwnershipReleased": true,
+      "helperServerStopped": true
     }
   ],
-  "nextRoundPlan": "Continue the three paused current-build pickup workflows toward explicit collection and handover, especially RTC128m; inspect last speed before resuming. Keep bus/truck occlusion, controlled median/curb/bridge and exact landmark samples open. PT-012 needs a subsequent conservative legacy eligibility repair and fresh visible offer check. Further unvisited outer anchors: Patancheru, Shamirpet, Ghatkesar and Shamshabad. Every popular/outer area remains partially sampled.",
+  "nextRoundPlan": "Prioritize explicit customer handover for the collected RTC Pista House order at415m; it has11s and27°heat, so lateness may occur. Continue Hayathnagar pickup464m and Narsingi1948m through actual collection and handover. Preserve all paused workflows. Keep controlled bus/truck occlusion, median/curb/bridge checks and exact landmark reproduction open. PT-012 legacy pickup eligibility remains open for a subsequent repair. Rotate further unvisited outer/interior areas after these routes.",
   "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
   "liveHandoff": null,
   "liveHandoffs": [
@@ -1132,7 +1187,8 @@
       "instruction": "Continue collected customer leg739m, Late!,heat0,521coins,Level1 1/3,2.5sboost. Paused with20km/h HUD; brake carefully on Resume. Keep other tabs paused.",
       "handoffReconfirmedAt": "2026-10-23T20:23:04Z",
       "runtimeLimit": "Historical paused tab retains pre-repair code; do not count it as current-build repair verification.",
-      "timestampBasis": "Clock recorded immediately after the no-input paused AX check and handoff mark."
+      "timestampBasis": "Clock recorded immediately after the no-input paused AX check and handoff mark.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
     },
     {
       "tabId": "1933378100",
@@ -1143,7 +1199,8 @@
       "area": "ECIL",
       "instruction": "Continue via visible Resume from Hotel Anand Vihar pickup682m.580coins/Level1 2/3/8.0sboost. Other tabs must stay paused. Root may ask this worker to resume if cross-session ownership blocks access.",
       "handoffReconfirmedAt": "2026-10-23T20:15:18Z",
-      "runtimeLimit": "Historical paused tab retains pre-repair code; do not count it as current-build repair verification."
+      "runtimeLimit": "Historical paused tab retains pre-repair code; do not count it as current-build repair verification.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
     },
     {
       "tabId": "1933378139",
@@ -1154,7 +1211,8 @@
       "heldKeys": false,
       "instruction": "Visible Resume continues Pizza Hut on Road No4 pickup1072m,6.1s boost,580coins/Level1 2/3 at0km/h. Keep all other game tabs paused.",
       "handoffReconfirmedAt": "2026-10-23T20:15:18Z",
-      "runtimeLimit": "Historical paused tab retains pre-repair code; do not count it as current-build repair verification."
+      "runtimeLimit": "Historical paused tab retains pre-repair code; do not count it as current-build repair verification.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
     },
     {
       "tabId": "1933378162",
@@ -1165,7 +1223,8 @@
       "heldKeys": false,
       "instruction": "Visible Resume continues the collected Tasty Baite Bakers order to Home in Doolapally at 767 m, 140 s, 96° heat, 7.9 s boost, 704 coins and Level 2 0/4. Keep other game tabs paused.",
       "handoffReconfirmedAt": "2026-10-23T20:15:18Z",
-      "runtimeLimit": "Historical paused tab retains pre-repair code; do not count it as current-build repair verification."
+      "runtimeLimit": "Historical paused tab retains pre-repair code; do not count it as current-build repair verification.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
     },
     {
       "tabId": "1933378266",
@@ -1174,7 +1233,8 @@
       "area": "RTC X Roads",
       "paused": true,
       "heldKeys": false,
-      "instruction": "Resume accepted uncollected Pista House pickup128m,0km/h,2.5sboost,802coins,Level2 1/4. Current repaired build. Keep other sessions paused."
+      "instruction": "Resume the explicitly collected Pista House order to Home in Jawahar Nagar:415m,11s remaining,27°heat,0km/h,0boost,802coins,Level2 1/4. No handover or reward. Keep other sessions paused.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
     },
     {
       "tabId": "1933378273",
@@ -1183,7 +1243,8 @@
       "area": "Narsingi",
       "paused": true,
       "heldKeys": false,
-      "instruction": "Resume accepted Balaji Santosh Dhaba pickup2060m,8km/h before Pause,2.5sboost,802coins,Level2 1/4. Inspect and brake after Resume. Current repaired build."
+      "instruction": "Resume accepted Balaji Santosh Dhaba pickup1948m,0km/h,10.0sboost,802coins,Level2 1/4. No collection or handover. Keep other sessions paused.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
     },
     {
       "tabId": "1933378284",
@@ -1192,7 +1253,8 @@
       "area": "Hayathnagar",
       "paused": true,
       "heldKeys": false,
-      "instruction": "Resume accepted Sri Balaji Sunil Kumar Sweets & Bakery pickup1416m,0km/h,5.0sboost,802coins,Level2 1/4. Current repaired build."
+      "instruction": "Resume accepted Sri Balaji Sunil Kumar Sweets & Bakery pickup464m,0km/h,2.5sboost,802coins,Level2 1/4. No collection or handover. Keep other sessions paused.",
+      "handoffReconfirmationRound": "2026-10-23T2037Z"
     }
   ],
   "expandedAreaPlan": {
@@ -1217,8 +1279,8 @@
     "selection": "Use visible area search or map picker only; select area before beginning an order. Preserve existing accepted orders in paused tabs.",
     "coverageLimit": "Two bounded outer-anchor samples; no full-area, tile, region or real-shop-order verification.",
     "latestReports": [
-      "2026-10-23T2007Z/narsingi.json",
-      "2026-10-23T2007Z/hayathnagar.json"
+      "2026-10-23T2037Z/narsingi.json",
+      "2026-10-23T2037Z/hayathnagar.json"
     ],
     "sampledOuterAnchors": [
       "Narsingi",
@@ -1259,7 +1321,8 @@
     "postRepairRecurrences": [
       "PT-012"
     ],
-    "latestRegressionReport": "2026-10-23T2007Z/pickup-source-followup.json"
+    "latestRegressionReport": "2026-10-23T2007Z/pickup-source-followup.json",
+    "latestGameplayRegressionRound": "2026-10-23T2037Z"
   },
   "unavailableHistoricalHandoffs": [
     {
@@ -1288,5 +1351,5 @@
       "note": "Absent from current Chrome inventory; not recreated. Prior pending order was never completed."
     }
   ],
-  "latestCoverageLimit": "Zero new collections or handovers. No controlled bus sightline crossing, curb/bridge impact, exact historical landmark recovery reproduction or citywide street/shop accuracy verification. No behavior changes, push or deployment."
+  "latestCoverageLimit": "One explicit collection, zero customer handovers. No new confirmed issue group. Recovery/traffic slice loss and post-flight foreground obstruction were observations without controlled reproduction. No deliberate bridge, curb or bus sightline test, exact old landmark reproduction, whole-region coverage or real shop-order verification."
 }

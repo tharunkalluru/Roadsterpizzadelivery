@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2037Z",
+  "tester": "Codex east agent using visible Chrome controls; no human participant",
+  "startedAtUTC": "2026-10-23T20:48:31Z",
+  "browserReleasedAtUTC": "2026-10-23T20:52:36Z",
+  "url": "http://127.0.0.1:4189/",
+  "tabId": "1933378284",
+  "continuationOf": "2026-10-23T2007Z/hayathnagar.json",
+  "area": "Hayathnagar",
+  "build": {
+    "scriptAsset": "./assets/index-DXgUfY_A.js",
+    "runtimeSourceCommitFromIndex": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "verification": "Read script[src] from the retained tab DOM during cleanup; tab was not reloaded. No runtime state was inspected."
+  },
+  "viewport": {
+    "width": 594,
+    "height": 466,
+    "overrideUsed": false
+  },
+  "route": {
+    "pickup": "Sri Balaji Sunil Kumar Sweets & Bakery",
+    "customer": "Home in Veerabhadra Nagar",
+    "acceptedBeforeThisRound": true,
+    "newOffersAccepted": 0,
+    "rerolls": 0,
+    "initialRoutedPickupMetres": 1416,
+    "finalRoutedPickupMetres": 464,
+    "offerDeliveryMetresFromPriorRound": 1172,
+    "offerDeliverySecondsAfterCollectionFromPriorRound": 212,
+    "offerBaseCoinsFromPriorRound": 117
+  },
+  "initialVisibleHud": {
+    "state": "Pick up",
+    "distanceMetres": 1416,
+    "speedKmh": 0,
+    "boostSeconds": 5,
+    "coins": 802,
+    "level": "Level 2 · 1/4",
+    "gameClock": "Day 8 · 4:46 AM",
+    "paused": true
+  },
+  "steps": [
+    "Inspected the preserved Paused tab, then Resume → M. Full map showed the player near Veerabhadra Nagar and an indirect road route to the pickup west of the car. Actual Close map returned to gameplay.",
+    "Focused the visible canvas, pressed Space and steered with W+A for 1 s, then W for 3 s. Earned boost fell from 5 s to 0.8 s. The live HUD showed Flying · follow the destination beacon and approximately 380 m; no 3D ground ribbon was visible during flight.",
+    "A small left correction, forward input and braking exhausted the remaining boost. The next live screenshot showed the car grounded between buildings, 0 boost, approximately 310 m and Return to a road for GPS. It was an off-road ground landing, not a roof landing or clean planned street landing.",
+    "Used visible Paused → Back to the road. Waited an explicit 2 s plus tool time without driving input. Fresh screenshot showed a settled car at 0 km/h on a clear road, 586 m route, before further W input.",
+    "A 3 s forward hold reduced road distance to 545 m and reached 78 km/h. Another 2.2 s forward hold with braking reached 481 m. A vehicle ahead was visible earlier, but no controlled close bus/truck camera occlusion was captured.",
+    "Attempted the upcoming left curve with W 1 s and W+A 0.65 s. This cut inside the curve toward a building; off-road guidance replaced the route. No collision/placement bug is asserted from the driver turn.",
+    "Used Back to the road a second time, waited an explicit 2 s plus tool time, and observed settled 464 m / 0 km/h on the clear road before the curve. Captured the original ending screenshot, paused and marked handoff.",
+    "Captured empty warn/error console. Closed evidence helper, cleared screenshot byte variables and released the shared input lock. All other paused game tabs were left untouched."
+  ],
+  "input": {
+    "heldDrivingInputSecondsApprox": 15.73,
+    "heldDrivingLedgerMs": [
+      {
+        "W+A": 1000,
+        "W": 3000
+      },
+      {
+        "W+A": 180,
+        "W": 2000,
+        "S": 1200
+      },
+      {
+        "W": 3000
+      },
+      {
+        "W": 2200,
+        "S": 950
+      },
+      {
+        "W": 1000,
+        "W+A": 650,
+        "S": 550
+      }
+    ],
+    "flightActivations": 1,
+    "flightMethod": "One normal Space activation using previously earned 5 s boost; depletion triggered automatic descent.",
+    "recoveryActivations": 2,
+    "recoveryMethod": "Visible Paused menu Back to the road twice. Each was followed by an explicit 2 s wait and a settled screenshot before evaluation; surrounding tool time added further unheld wait.",
+    "normalMapOpenCloseCycles": 1,
+    "heldCollectionInputSeconds": 0,
+    "heldHandoverInputSeconds": 0,
+    "method": "Visible UI and bounded W/A/D/S/Space/M/P controls only. No hidden game state, teleport, engine stepping, autopilot or new area selection.",
+    "timingLimit": "Hold time excludes key taps, UI clicks, unheld coasting, descent/recovery animation and tool/wall time. It is not a measured driven distance."
+  },
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "closestObservedRoutedPickupMetres": 464,
+  "closestObservedApproximateDirectPickupMetres": 310,
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Sri Balaji Sunil Kumar Sweets & Bakery",
+    "distanceMetres": 464,
+    "speedKmh": 0,
+    "boostSeconds": 2.5,
+    "coins": 802,
+    "level": "Level 2 · 1/4",
+    "gameClock": "Day 8 · 7:17 AM",
+    "deliveryTimer": "Not started; collection not reached.",
+    "finalOverlay": "Paused; Resume focused"
+  },
+  "evidence": [
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2037Z-hayathnagar-464m-recovery-settled-0d2f8d.jpg",
+      "kind": "Original unmodified CUA screenshot saved through local helper form",
+      "viewport": "594x466",
+      "shows": "Settled car on a clear road before a left curve; accepted pickup at 464 m, 0 km/h, 2.5 s boost, 802 coins and Level 2 1/4."
+    }
+  ],
+  "findings": [
+    {
+      "issueId": "map-close",
+      "status": "passed_normal_close_sample",
+      "confidence": "confirmed visible",
+      "actual": "Actual Close map dismissed full map and flight controls subsequently worked."
+    },
+    {
+      "issueId": "airborne-ground-guidance",
+      "status": "passed_flight_sample_with_automatic_depletion_coverage",
+      "confidence": "confirmed visible for sampled states",
+      "actual": "Powered flight showed direct-beacon wording/approximate distance and suppressed the 3D ground ribbon. Charge depleted and a later live frame was grounded off-road with return-to-road guidance. Intermediate automatic descent frames were not separately recorded, so continuous descent-HUD correctness is not claimed."
+    },
+    {
+      "issueId": "PT-008",
+      "status": "passed_this_offroad_sample",
+      "confidence": "confirmed visible",
+      "actual": "After off-road landing and an inside-curve turn, the HUD gave explicit return-to-road instructions with approximate direct distance; normal routed distance returned after recovery."
+    },
+    {
+      "issueId": "recovery",
+      "status": "passed_two_settled_samples",
+      "confidence": "confirmed visible for sampled locations",
+      "actual": "Two normal recoveries settled at 0 km/h on a clear road. The first was followed by successful forward driving; second was preserved before additional driving. These do not verify the original Mecca/Sudarshan trajectories."
+    }
+  ],
+  "newConfirmedIssueGroups": 0,
+  "console": {
+    "levels": [
+      "warn",
+      "error"
+    ],
+    "entries": []
+  },
+  "coverageLimitations": [
+    "No explicit collection, customer handover, award or next-offer state was reached.",
+    "Route reduction includes flight, recovery and route recalculation; do not report 952 m as measured driven distance.",
+    "Powered flight and final ground states were observed, but no separate automatic-descent intermediate screenshot was saved. Landing was off-road beside buildings.",
+    "No controlled median/curb/bridge collision or close bus/truck camera crossing.",
+    "No real-world shopfront identity/order or entire-area accuracy is certified by this partial route."
+  ],
+  "handoff": {
+    "owner": "playtest_east",
+    "tabId": "1933378284",
+    "browserId": "1",
+    "area": "Hayathnagar",
+    "paused": true,
+    "markedHandoff": true,
+    "heldInputsReleased": true,
+    "inputLockReleased": true,
+    "helperTabClosed": true,
+    "viewportOverrideUsed": false,
+    "acceptedOrderRemaining": true,
+    "instruction": "With an exclusive Chrome lease, Resume Sri Balaji Sunil Kumar Sweets & Bakery pickup at 464 m, 0 km/h, 2.5 s boost, 802 coins and Level 2 1/4. Car faces a clear road with a left curve ahead; travel farther before turning to avoid cutting inside toward the building. Do not reload or change area before finishing this order."
+  }
+}

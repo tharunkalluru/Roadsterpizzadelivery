@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2037Z",
+  "tester": "Codex west agent using visible Chrome controls; no human participant",
+  "status": "bounded_existing_pickup_continuation_unfinished",
+  "startedAtUTC": "2026-10-23T20:44:14Z",
+  "browserReleasedAtUTC": "2026-10-23T20:47:47Z",
+  "reportedAtUTC": "2026-10-23T20:49:16.080238+00:00",
+  "url": "http://127.0.0.1:4189/",
+  "tabId": "1933378273",
+  "area": "Narsingi",
+  "build": {
+    "checkoutCommitAtReporting": "d022f412a7d1c0852dd1ccd3cae22dd9623b6a85",
+    "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "bundle": "./assets/index-DXgUfY_A.js",
+    "verification": "Read script[src] through the supported read-only DOM API on the preserved tab before Resume. git diff --stat from runtime source commit to current HEAD -- game/src was empty. Tab was created fresh for this repaired asset in the previous round and was not reloaded here."
+  },
+  "viewport": {
+    "width": 594,
+    "height": 466,
+    "source": "Original screenshot dimensions",
+    "overrideApplied": false
+  },
+  "route": {
+    "pickup": "Balaji Santosh Dhaba",
+    "pickupRoad": null,
+    "customer": "Home in Narsingi",
+    "acceptedInPreviousRound": "2026-10-23T2007Z",
+    "originalOfferApproachMetres": 1984,
+    "originalOfferDeliveryMetres": 777,
+    "originalOfferDeliverySecondsAfterCollection": 156,
+    "originalBaseCoins": 89,
+    "newOffersAccepted": 0,
+    "rerolls": 0,
+    "newAreaSelections": 0
+  },
+  "baseline": {
+    "state": "Paused, accepted pickup unfinished",
+    "pickupMetresFromPreviousHandoff": 2060,
+    "lastSpeedKmhFromPreviousHandoff": 8,
+    "boostSeconds": 2.5,
+    "coins": 802,
+    "level": "Level 2 · 1/4",
+    "provenance": "Previous original screenshot and paused handoff report; current tab visibly showed Paused before Resume."
+  },
+  "input": {
+    "heldDrivingInputSeconds": 35.6,
+    "heldDrivingLedger": [
+      {
+        "keys": "W",
+        "seconds": 0.25
+      },
+      {
+        "keys": "S",
+        "seconds": 2
+      },
+      {
+        "keys": "W",
+        "seconds": 0.4
+      },
+      {
+        "keys": "W+A",
+        "seconds": 1.4
+      },
+      {
+        "keys": "S",
+        "seconds": 0.5
+      },
+      {
+        "keys": "W+A",
+        "seconds": 1.4
+      },
+      {
+        "keys": "S",
+        "seconds": 0.45
+      },
+      {
+        "keys": "W",
+        "seconds": 2.6
+      },
+      {
+        "keys": "S",
+        "seconds": 0.65
+      },
+      {
+        "keys": "W+A",
+        "seconds": 0.4
+      },
+      {
+        "keys": "W",
+        "seconds": 1.6
+      },
+      {
+        "keys": "S",
+        "seconds": 0.9
+      },
+      {
+        "keys": "W+D",
+        "seconds": 0.35
+      },
+      {
+        "keys": "W",
+        "seconds": 3
+      },
+      {
+        "keys": "S",
+        "seconds": 0.9
+      },
+      {
+        "keys": "W",
+        "seconds": 6
+      },
+      {
+        "keys": "S",
+        "seconds": 1.2
+      },
+      {
+        "keys": "W",
+        "seconds": 2.5
+      },
+      {
+        "keys": "S",
+        "seconds": 0.7
+      },
+      {
+        "keys": "S",
+        "seconds": 3
+      },
+      {
+        "keys": "W",
+        "seconds": 0.45
+      },
+      {
+        "keys": "S",
+        "seconds": 4.5
+      },
+      {
+        "keys": "W",
+        "seconds": 0.45
+      }
+    ],
+    "nativeKeyTaps": {
+      "M": 2,
+      "R": 3,
+      "P": 1
+    },
+    "resumeButtonClicks": 1,
+    "actualCloseMapButtonClicks": 2,
+    "recoveryActivations": 3,
+    "flightActivations": 0,
+    "collectionHolds": 0,
+    "handoverHolds": 0,
+    "method": "Supported visible CUA button clicks and native bounded keyboard holds, AX state, original screenshots, script-src DOM attribute and captured console logs. No hidden runtime state, teleporting, autopilot, engine stepping or game-logic evaluation.",
+    "timingLimit": "35.6 s is explicit held input only. It includes throttle, brake/reverse and steering chords, and excludes taps, coasting, menus, recovery glides, screenshots and tool latency. It is not continuous driving time."
+  },
+  "steps": [
+    "Acquire shared input lock under parent lease. Read Paused state and script asset. Click Resume; W 0.25 s counters the previous low-speed movement. Press M. The full map shows the local route heading from the car toward the broad road west of the Narsingi label and then south. Click actual Close map.",
+    "S 2.0 s, W 0.4 s, W+A 1.4 s and S 0.5 s attempt a low-speed turn. HUD shows 2,068 m and 0 km/h. W+A 1.4 s then S 0.45 s moves onto open gray ground beside the street; HUD changes to Return to a road for GPS and approximately 793 m direct distance. No collection occurred.",
+    "W 2.6 s then S 0.65 s moves across the open frontage, with approximately 779 m and 30 km/h. W+A 0.4 s, W 1.6 s, S 0.9 s approaches the street edge and stops at approximately 761 m and 0 km/h. W+D 0.35 s, W 3.0 s, S 0.9 s misses the alignment and reaches a pink facade, approximately 753 m, 13 km/h, 5.0 s boost.",
+    "Press R once. Observe Back to the street and wait for the visible glide to settle without driving input. The settled car is on a clear narrow street at 1,906 m and 0 km/h; normal route guidance returns.",
+    "W 6.0 s then S 1.2 s advances through the narrow street but leaves the road alignment at a bend/facade. HUD again shows Return to a road for GPS, approximately 759 m and 20 km/h. This is recorded as a long straight input followed by manual alignment difficulty, not a demonstrated recovery or road defect.",
+    "Press R a second time and wait for the visible glide. An intermediate HUD reads 1,976 m; the later settled view reads 1,881 m and 0 km/h on a street beside a generic SUPERMARKET sign. W 2.5 s then S 0.7 s advances between facades, ending at 1,938 m, 27 km/h and 7.5 s boost.",
+    "S 3.0 s then W 0.45 s, followed by M, inspects the full map again. Save the original map showing the car west of the broad route junction and the route continuing south. Click actual Close map, then S 4.5 s and W 0.45 s. The car is near a facade with Stuck? Get back on the road, 1,954 m, 5 km/h and 10.0 s boost.",
+    "Press R a third time. With no driving input during the glide, wait for a settled clear street at 1,948 m, 0 km/h and 10.0 s boost. Save the original endpoint screenshot, then P opens Paused. Inspect warning/error logs (empty) and mark this unfinished order as handoff.",
+    "Save both original screenshot byte arrays using the parent local evidence form. Verify saved paths and close both helper tabs. Re-mark existing ECIL, LB Nagar and Kompally tabs without input or resuming. Release the owned input lock and notify parent at 20:47:47 UTC."
+  ],
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "offersAcceptedThisRound": 0,
+  "closestObservedRoadRouteMetres": 1881,
+  "distanceModeLimit": "Approximately 753–793 m observations are direct off-road estimates and are not comparable to the 1,881–2,068 m road-route distances. The net handoff change 2,060→1,948 m is a route-distance difference, not measured travel distance.",
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "pickup": "Balaji Santosh Dhaba",
+    "routeMetres": 1948,
+    "speedKmh": 0,
+    "boostSeconds": 10,
+    "coins": 802,
+    "level": "Level 2 · 1/4",
+    "gameClockInSavedOriginal": "Day 8 · 10:32 AM",
+    "earlierSettledAxClock": "Day 8 · 10:13 AM",
+    "finalOverlay": "Paused",
+    "collectionPromptObserved": false,
+    "customerTimerPresent": false
+  },
+  "findings": [
+    {
+      "issueId": "map-close",
+      "status": "pass_two_cycles",
+      "confidence": "confirmed visible",
+      "actual": "Both full maps opened with M, focused Close map, and the actual Close map button returned to the same active pickup."
+    },
+    {
+      "issueId": "offroad-guidance",
+      "status": "pass_observed_mode_switches",
+      "confidence": "confirmed visible",
+      "actual": "Off-road attempts displayed Return to a road for GPS with approximate direct distance and no ground route ribbon. Settled recoveries returned the road-route distance and visible ribbon."
+    },
+    {
+      "issueId": "recovery",
+      "status": "three_recoveries_observed_without_new_confirmed_defect",
+      "confidence": "confirmed visible placement; broader route-following limitations remain",
+      "actual": "Three R inputs produced recovery feedback and subsequently visible 0 km/h street placements. Later missed bends or steering inputs do not establish that those placements were blocked."
+    },
+    {
+      "issueId": "pickup-approach",
+      "status": "attempted_unfinished",
+      "confidence": "confirmed visible",
+      "actual": "Same order preserved; no Hold E collection prompt, collection feedback, Deliver transition, customer handover or reward occurred."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2037Z-narsingi-route-map-fe73d5.jpg",
+      "kind": "Original unmodified CUA screenshot saved through local UI form",
+      "shows": "Second full-map planning state, route and car west of broad road near Narsingi. This is before the final reverse/recovery, not the final handoff location."
+    },
+    {
+      "path": "docs/playtests/evidence/2026-10-23T2037Z-narsingi-ending-cb7407.jpg",
+      "kind": "Original unmodified CUA screenshot saved through local UI form",
+      "shows": "Settled final clear street, pickup 1,948 m, 0 km/h, 10.0 s boost, 802 coins and Level 2 1/4. Captured immediately before final Pause; saved game clock is Day 8 10:32 AM."
+    }
+  ],
+  "console": {
+    "capturedLevels": [
+      "warn",
+      "error"
+    ],
+    "entries": [],
+    "limitation": "Only captured tab entries; does not prove absence of gameplay issues."
+  },
+  "newConfirmedIssues": [],
+  "limitations": [
+    "The route remains unfinished. This bounded pass contains substantial turning and narrow-street alignment difficulty; it does not show the pickup is unreachable.",
+    "No new area or offer was selected, and no Police Station offer was displayed or tested again. This pass does not repair or recheck PT-012.",
+    "No controlled bus/truck occlusion, median, curb or bridge barrier test was performed.",
+    "No flight or customer interaction occurred. Road driving increased displayed boost, but this sample is not an independent timing calibration of recharge.",
+    "Map interpretation and driver steering were imperfect. Changing route distances and off-road estimates alone are not new navigation defects.",
+    "No real-world road identity, business identity, shop order or citywide accuracy was verified."
+  ],
+  "handoff": {
+    "tabId": "1933378273",
+    "browserId": "1",
+    "owner": "playtest_west",
+    "area": "Narsingi",
+    "paused": true,
+    "markedHandoff": true,
+    "heldInputsReleased": true,
+    "inputLockReleased": true,
+    "helperTabsClosed": [
+      "1933378299",
+      "1933378303"
+    ],
+    "historicalHandoffsRemarkedWithoutInput": [
+      "1933378100",
+      "1933378139",
+      "1933378162"
+    ],
+    "otherAgentsTabsOperated": false,
+    "instruction": "Resume the same accepted Balaji Santosh Dhaba pickup from the settled 1,948 m / 0 km/h / 10.0 s boost state. 802 coins and Level 2 1/4. Order uncollected; preserve other paused sessions."
+  }
+}

@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2037Z",
+  "area": "RTC X Roads",
+  "driver": "root",
+  "reportAuthor": "playtest_old_city",
+  "authoredAt": "2026-10-23T20:45:53.883330+00:00",
+  "status": "pickup_completed_customer_handover_unfinished",
+  "checkoutCommit": "d022f412a7d1c0852dd1ccd3cae22dd9623b6a85",
+  "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "runtimeScript": "./assets/index-DXgUfY_A.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "runtimeVerification": "Continued existing tab 1933378266 whose script was verified in the previous round. The page was retained, not reloaded or described as a fresh current-checkout load. Root also read script[src] during this round cleanup: ./assets/index-DXgUfY_A.js.",
+  "timingLimit": "Root released Chrome at approximately 20:44 UTC; exact start/end timestamps were not supplied to the author.",
+  "method": "Root used actual rendered UI, Resume/Close buttons and native held keys. Author transcribed the root action ledger and inspected the three saved originals without browser control. No hidden state, autopilot, teleporting or engine stepping.",
+  "viewport": {
+    "width": 594,
+    "height": 522,
+    "source": "original screenshot dimensions"
+  },
+  "route": "Pista House on Chikkadapally Road → Home in Jawahar Nagar",
+  "initialState": {
+    "state": "Pick up",
+    "pickupMetres": 128,
+    "speedKmh": 0,
+    "flightSeconds": 2.5,
+    "coins": 802,
+    "level": "2 · 1/4",
+    "continuedAcceptedOrder": true
+  },
+  "counts": {
+    "offersAccepted": 0,
+    "pickupsCompleted": 1,
+    "customerHandovers": 0,
+    "completedDeliveries": 0,
+    "recoveryActivations": 2,
+    "flightActivations": 1,
+    "observedLandings": 1,
+    "mapOpens": 4,
+    "actualCloseMapButtonClicks": 4,
+    "pauseKeyOpens": 3,
+    "resumeButtonClicks": 3,
+    "collectionHoldSeconds": 1.2,
+    "explicitHeldDrivingInputSeconds": 28.15,
+    "explicitHeldInputSecondsIncludingInteraction": 29.35,
+    "originalScreenshotsSaved": 4
+  },
+  "heldInputLedger": [
+    {
+      "keys": "W",
+      "seconds": 3.3,
+      "stage": "pickup",
+      "purpose": "Initial resumed approach"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.65,
+      "stage": "pickup",
+      "purpose": "Brake on approach"
+    },
+    {
+      "keys": "W",
+      "seconds": 2.5,
+      "stage": "pickup",
+      "purpose": "Continue approach"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.7,
+      "stage": "pickup",
+      "purpose": "Brake near pickup road"
+    },
+    {
+      "keys": "W+A",
+      "seconds": 0.8,
+      "stage": "pickup",
+      "purpose": "Turn near median"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.25,
+      "stage": "pickup",
+      "purpose": "Brake after turn"
+    },
+    {
+      "keys": "S+D",
+      "seconds": 1.3,
+      "stage": "pickup",
+      "purpose": "Reverse and steer near traffic"
+    },
+    {
+      "keys": "W",
+      "seconds": 1.7,
+      "stage": "pickup",
+      "purpose": "Advance after reversing"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.35,
+      "stage": "pickup",
+      "purpose": "Brake"
+    },
+    {
+      "keys": "W+A",
+      "seconds": 0.5,
+      "stage": "pickup",
+      "purpose": "Adjust heading"
+    },
+    {
+      "keys": "W",
+      "seconds": 0.9,
+      "stage": "pickup",
+      "purpose": "Advance toward target"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.45,
+      "stage": "pickup",
+      "purpose": "Brake near target"
+    },
+    {
+      "keys": "W+A",
+      "seconds": 1,
+      "stage": "pickup",
+      "purpose": "Final target approach"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.35,
+      "stage": "pickup",
+      "purpose": "Slow inside collection range"
+    },
+    {
+      "keys": "E",
+      "seconds": 1.2,
+      "stage": "interaction",
+      "purpose": "Explicit collection with visible prompt"
+    },
+    {
+      "keys": "S+A",
+      "seconds": 1.1,
+      "stage": "customer",
+      "purpose": "Reverse and steer for departure"
+    },
+    {
+      "keys": "W+D",
+      "seconds": 0.9,
+      "stage": "customer",
+      "purpose": "Forward steering departure"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.25,
+      "stage": "customer",
+      "purpose": "Brake"
+    },
+    {
+      "keys": "W",
+      "seconds": 3.3,
+      "stage": "customer",
+      "purpose": "Follow road toward customer"
+    },
+    {
+      "keys": "S",
+      "seconds": 0.65,
+      "stage": "customer",
+      "purpose": "Brake near curb/facade"
+    },
+    {
+      "keys": "W+D",
+      "seconds": 1,
+      "stage": "flight",
+      "purpose": "Steer during takeoff"
+    },
+    {
+      "keys": "W",
+      "seconds": 4.5,
+      "stage": "flight",
+      "purpose": "Fly toward destination"
+    },
+    {
+      "keys": "S",
+      "seconds": 1.7,
+      "stage": "flight",
+      "purpose": "Brake before interim pause"
+    }
+  ],
+  "inputLedgerLimit": "28.15 seconds of movement-key holds plus 1.2 seconds of E collection equals 29.35 seconds total explicit holds. Excludes taps, map/menu clicks, coasting, recovery animation and tool latency. The session included an interim pause during flight/descent; this was not uninterrupted driving.",
+  "steps": [
+    "Resume the existing paused tab, open M and click the actual Close map button. W 3.3 s then S 0.65 s yields 72 m and 31 km/h. W 2.5 s then S 0.7 s yields 27 m, 16 km/h and 5.0 s boost.",
+    "Open M again and close using the actual button. W+A 0.8 s then S 0.25 s yields approximately 22 m and 3 km/h in front of a median. S+D 1.3 s yields 27 m and 18 km/h with an Arre! Watch the traffic toast. The maneuver was not a controlled median collision or traffic reproduction.",
+    "W 1.7 s then S 0.35 s yields 21 m and 4 km/h. W+A 0.5 s, W 0.9 s and S 0.45 s yields 16 m and 1 km/h. W+A 1.0 s then S 0.35 s reaches 7 m and 6 km/h, and the actual Hold E / ACT to collect the pizza prompt appears.",
+    "Save the collection-prompt original; by the saved frame the car reads 0 km/h at 7 m with 5.0 s boost. Hold E for 1.2 s. The explicit Pizza collected! Garam garam. toast and Deliver state appear, with Home in Jawahar Nagar 560 m, 125 s, 100° heat and 0 km/h. Save the collected original.",
+    "Open M and click actual Close a third time to inspect the northwest customer route. This map view was observed but not persisted as a standalone screenshot.",
+    "S+A 1.1 s, W+D 0.9 s and S 0.25 s yields 567 m, 102 s, 85° heat, 0 km/h and 7.5 s boost. W 3.3 s then S 0.65 s yields 531 m, 93 s, 79° heat and 0 km/h near a curb/facade.",
+    "Press R and wait for the recovery to settle on a usable road at 516 m, 71 s, 65° heat and 0 km/h. A Baigan! −1 slice toast appears with a gray car passing nearby. This was not a controlled traffic-camera or collision reproduction and is not recorded as a new bug.",
+    "Tap Space. W+D 1.0 s then W 4.5 s yields an airborne rooftop view with Flying/beacon guidance, approximately 290 m, 35 s, 42° heat, 142 km/h and 1.8 s boost. Hold S 1.7 s and pause with P.",
+    "Resume. The car is observed grounded/off road at approximately 275 m, 23 s, 35° heat, 20 km/h and 0.0 s boost. It is partly below the frame near a building; this camera observation was not deliberately repeated or saved independently.",
+    "Press R again and wait for the glide to settle. The final original shows a clear local street, Deliver Home in Jawahar Nagar 415 m, 12 s, 27° heat, 0 km/h, 0.0 s boost, 802 coins andLevel 2 1/4. Query warning/error logs, which return no entries. Pause with P and mark the unfinished customer workflow as a handoff with no held keys.",
+    "Cleanup: Resume showed 415 m, 11 s, 27° heat, 0 km/h and 0.0 s boost. Open M; UTC was read after opening at20:53:16 and again before closing at20:53:50. After at least34s with the map open, click actual Close map:415m,11s,27°heat,0km/h and Day8 8:41PM were unchanged. Save original timer evidence, P to pause, and re-mark the handoff. No further driving or interaction hold occurred."
+  ],
+  "collection": {
+    "status": "completed_explicitly",
+    "promptEvidence": "evidence/2026-10-23T2037Z-rtc-collection-prompt-4bc5f8.jpg",
+    "resultEvidence": "evidence/2026-10-23T2037Z-rtc-collected-ce5ef1.jpg",
+    "promptDistanceMetres": 7,
+    "speedKmhAtInitialPromptObservation": 6,
+    "speedKmhInSavedPromptOriginal": 0,
+    "holdESeconds": 1.2,
+    "resultToast": "Pizza collected! Garam garam.",
+    "resultState": "Deliver",
+    "customer": "Home in Jawahar Nagar",
+    "customerMetres": 560,
+    "deliverySeconds": 125,
+    "heat": 100,
+    "walletUnchanged": 802
+  },
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Jawahar Nagar",
+    "routeMetres": 415,
+    "timeRemainingSeconds": 11,
+    "heat": 27,
+    "speedKmh": 0,
+    "flightSeconds": 0,
+    "coins": 802,
+    "level": "2 · 1/4",
+    "dayClockInSavedOriginal": "Day 8 · 8:41 PM",
+    "pausedAfterCapture": true
+  },
+  "distanceLimits": "The closest approximately 275 m observation occurred after flight/off-road movement and is not a confirmed shortest road-route distance or completed arrival. The final 415 m is a settled ground-route display after recovery. These distance modes and changed positions must not be compared as proof of a new navigation bug.",
+  "repairChecks": [
+    {
+      "issueId": "PT-010",
+      "status": "two_nearby_recoveries_settled_with_usable_road_views",
+      "detail": "Both recovery outcomes were visibly usable; the second has a saved original. No exact historical Sudarshan starting trajectory was recreated."
+    },
+    {
+      "issueId": "PT-005",
+      "status": "controlled_reproduction_not_completed",
+      "detail": "A median was approached during pickup maneuvering, but no controlled before/contact/after test or saved map of the exact segment was recorded."
+    },
+    {
+      "issueId": "PT-004",
+      "status": "controlled_reproduction_not_completed",
+      "detail": "Passing traffic and one slice-loss toast are observations, not a controlled bus/truck sightline crossing."
+    },
+    {
+      "issueId": "pickup_flow",
+      "status": "explicit_collection_passed",
+      "detail": "Visible prompt, E hold and collected/Deliver result all observed; customer handover remains unfinished."
+    }
+  ],
+  "incidentalObservations": [
+    {
+      "observation": "One slice-loss toast accompanied nearby gray-car traffic after the first recovery.",
+      "status": "observed_not_a_new_confirmed_defect",
+      "limit": "No isolated contact timing or controlled repeat establishes an unintended collision."
+    },
+    {
+      "observation": "After flight and Resume, the car was partly below the frame near a building.",
+      "status": "unconfirmed_camera_observation",
+      "limit": "Not deliberately repeated and no original standalone screenshot saved; subsequent recovery produced the clear final view."
+    }
+  ],
+  "console": {
+    "queriedLevels": [
+      "warn",
+      "error"
+    ],
+    "entries": [],
+    "samplePoint": "After second recovery",
+    "limitation": "Captured tab entries only; no claim that empty logs prove absence of gameplay defects."
+  },
+  "evidence": [
+    "evidence/2026-10-23T2037Z-rtc-collection-prompt-4bc5f8.jpg",
+    "evidence/2026-10-23T2037Z-rtc-collected-ce5ef1.jpg",
+    "evidence/2026-10-23T2037Z-rtc-customer415m-7ddb18.jpg",
+    "evidence/2026-10-23T2037Z-rtc-map-timer-held-fdc29d.jpg"
+  ],
+  "notPersisted": [
+    "Initial full-map view",
+    "Second pickup-approach map view",
+    "Collected-order customer-route map view",
+    "Flight and immediate post-flight camera observation"
+  ],
+  "newConfirmedIssues": [],
+  "notCovered": [
+    "Customer handover and reward",
+    "Controlled median/kerb/bridge collision",
+    "Controlled bus/truck camera occlusion",
+    "Exact original Mecca/Sudarshan recovery trajectory",
+    "Entire RTC street network or shop-order accuracy"
+  ],
+  "handoff": {
+    "tabId": "1933378266",
+    "browserId": "1",
+    "owner": "root",
+    "area": "RTC X Roads",
+    "paused": true,
+    "heldKeys": false,
+    "markedHandoffByDriver": true,
+    "instruction": "Continue the explicitly collected Pista House order to Home in Jawahar Nagar via visible Resume. Final settled 415 m, 11 s remaining, 27° heat, 0 km/h, 0.0 s boost, 802 coins, Level 2 1/4. No customer handover or reward yet. Keep other sessions paused."
+  },
+  "timerObservation": {
+    "reportedSequence": "125 s after collection; map opened/inspected/closed; 2.25 s of movement holds; 102 s at next observation.",
+    "conclusion": "Earlier125→102s interval was not isolated. A later controlled map-open sample held the visible timer at11s for at least34s, with heat, distance and clock also unchanged.",
+    "sourceTriage": "source-triage.json#timerAndMap",
+    "explicitPauses": "Two P pauses and two visible Resume actions are recorded separately.",
+    "controlledCleanupCheck": {
+      "status": "passed_once_visible_before_after_check",
+      "minimumMapOpenSeconds": 34,
+      "clockAfterOpenUTC": "2026-10-23T20:53:16Z",
+      "clockBeforeCloseUTC": "2026-10-23T20:53:50Z",
+      "beforeVisibleHud": {
+        "customerMetres": 415,
+        "timerSeconds": 11,
+        "heat": 27,
+        "speedKmh": 0,
+        "boostSeconds": 0,
+        "clock": "Day 8 · 8:41 PM"
+      },
+      "afterVisibleHud": {
+        "customerMetres": 415,
+        "timerSeconds": 11,
+        "heat": 27,
+        "speedKmh": 0,
+        "boostSeconds": 0,
+        "clock": "Day 8 · 8:41 PM"
+      },
+      "beforeProof": "Live visible AX state before opening; not saved as a separate image.",
+      "afterEvidence": "evidence/2026-10-23T2037Z-rtc-map-timer-held-fdc29d.jpg",
+      "limitation": "One controlled sample; no assertion about every overlay or route."
+    }
+  }
+}

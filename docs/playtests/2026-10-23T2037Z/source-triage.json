@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2037Z",
+  "preparedAt": "2026-10-23T20:40:58.405505+00:00",
+  "analyst": "playtest_old_city",
+  "checkoutCommit": "d022f412a7d1c0852dd1ccd3cae22dd9623b6a85",
+  "method": "Read-only current steering, input, route, map, interaction and coverage source. Numerical rates are direct arithmetic from the source formula at constant speed; no game simulation, hidden runtime access, browser, source changes, tests or commit.",
+  "activeWorkflowContext": {
+    "source": "2026-10-23T2007Z/rtc-x-roads.json and index.json",
+    "tabId": "1933378266",
+    "driver": "root",
+    "stateAtHandoff": "Accepted Pista House pickup on Chikkadapally Road,128m,0km/h,2.5s flight,802coins,Level2 1/4; no pickup collected.",
+    "coverageCaution": "RTC cumulative pickup count1 belongs to an earlier Taco Bell session. It is not completion of the current Pista House order."
+  },
+  "keyboardControls": {
+    "forward": "W or ArrowUp",
+    "brakeThenReverse": "S or ArrowDown",
+    "left": "A or ArrowLeft",
+    "right": "D or ArrowRight",
+    "mappingSource": "game/src/game/game.ts:705-714",
+    "direction": "A turns the car left and D right while moving forward. Steering yaw changes sign when the car reverses. A/D alone cannot rotate a stationary car because steering factor is zero at zero speed.",
+    "toolLimit": "These describe game input semantics, not an assertion about browser-tool chord/hold reliability."
+  },
+  "longitudinal": {
+    "source": "game/src/game/player.ts:108-114",
+    "units": "speed is metres/second internally; HUD kilometres/hour is3.6 times absolute speed.",
+    "forwardAccelerationMetresPerSecondSquared": 9,
+    "forwardBrakingMetresPerSecondSquared": 20,
+    "reverseAccelerationBelowForwardThresholdMetresPerSecondSquared": 6,
+    "coastingDecelerationMetresPerSecondSquared": 4,
+    "reverseSpeedCapMetresPerSecond": 6,
+    "importantThreshold": "S brakes at20m/s² while speed>0.5m/s, then continues subtracting speed at6m/s². Keeping S held after reaching zero starts reverse, up to21.6km/h.",
+    "brakeEstimate": "From positive speed v>0.5m/s, time to near zero is approximately(v-0.5)/20+0.5/6 seconds, with frame discretization. At10km/h this is about0.20s; at20km/h about0.34s. Releasing all movement keys instead coasts down at4m/s²: approximately0.69s and1.39s respectively.",
+    "operationalHint": "Near the pickup, release W/S and let the car settle to zero rather than issuing long S holds. The HUD shows speed magnitude, so a nonzero number alone does not tell forward from reverse."
+  },
+  "steering": {
+    "source": "game/src/game/player.ts:115-118",
+    "formula": "rate=steerVis * min(1,abs(v)/6)/(1+abs(v)*0.045) *2.1 radians/second; sign reverses with speed. steerVis approaches requested steer with factor min(1,dt*8).",
+    "constantSpeedExamples": [
+      {
+        "speedKmh": 5,
+        "fullSteerSettledDegreesPerSecond": 26.2,
+        "constantSpeed90DegreeSeconds": 3.43,
+        "approxTurnRadiusMetres": 3.04,
+        "releaseAllCoastStopSeconds": 0.35
+      },
+      {
+        "speedKmh": 7,
+        "fullSteerSettledDegreesPerSecond": 35.9,
+        "constantSpeed90DegreeSeconds": 2.51,
+        "approxTurnRadiusMetres": 3.11,
+        "releaseAllCoastStopSeconds": 0.49
+      },
+      {
+        "speedKmh": 10,
+        "fullSteerSettledDegreesPerSecond": 49.5,
+        "constantSpeed90DegreeSeconds": 1.82,
+        "approxTurnRadiusMetres": 3.21,
+        "releaseAllCoastStopSeconds": 0.69
+      },
+      {
+        "speedKmh": 15,
+        "fullSteerSettledDegreesPerSecond": 70.4,
+        "constantSpeed90DegreeSeconds": 1.28,
+        "approxTurnRadiusMetres": 3.39,
+        "releaseAllCoastStopSeconds": 1.04
+      },
+      {
+        "speedKmh": 20,
+        "fullSteerSettledDegreesPerSecond": 89.1,
+        "constantSpeed90DegreeSeconds": 1.01,
+        "approxTurnRadiusMetres": 3.57,
+        "releaseAllCoastStopSeconds": 1.39
+      },
+      {
+        "speedKmh": 22,
+        "fullSteerSettledDegreesPerSecond": 94.4,
+        "constantSpeed90DegreeSeconds": 0.95,
+        "approxTurnRadiusMetres": 3.71,
+        "releaseAllCoastStopSeconds": 1.53
+      },
+      {
+        "speedKmh": 30,
+        "fullSteerSettledDegreesPerSecond": 87.5,
+        "constantSpeed90DegreeSeconds": 1.03,
+        "approxTurnRadiusMetres": 5.46,
+        "releaseAllCoastStopSeconds": 2.08
+      }
+    ],
+    "timingLimit": "These are steady-speed, fully settled-steer estimates without contact. Starting from rest, accelerating under W, braking, steering interpolation and collisions alter the actual turn. No fixed-duration hold guarantees90degrees.",
+    "operationalHint": "At a visible open junction, make short0.15–0.25s steering pulses with fresh scene/map observations between them. At10–20km/h the full-lock turning radius is roughly3.2–3.6m, before adding car width; a90degree turn beside a close facade may need more room than a narrow lane provides. Stop and reposition into a visible opening rather than repeatedly steering against a wall."
+  },
+  "ribbon": {
+    "references": [
+      "game/src/game/game.ts:326-334",
+      "game/src/game/game.ts:861-888",
+      "game/src/game/roadgraph.ts:133-245",
+      "game/src/game/route-guidance.ts:19-40"
+    ],
+    "geometry": "The 3D pickup ribbon is a plain yellow/orange strip,1.4m wide, with no arrows or chevrons. Its color follows the pickup target; delivery switches it to teal. It is built along the checked local route prefix up to700m.",
+    "updates": "For this short route the geometry refresh interval is1.5s of game time; long routes above3000m refresh every4s. Between refreshes the car can travel beyond the strip start, leaving a stale near tail behind it.",
+    "directionLimit": "The strip itself has no visual directional markers. Looking at a long visible portion in front or behind does not establish which end reaches the pickup. Use full-map player orientation, target circle and connected road path.",
+    "routeChoice": "Ground routing uses current forward heading/carriageway. The opposite direction is forbidden across a centre median; on undivided roads an allowed reverse-direction route gets a90 cost penalty. Routing can therefore lead toward a junction away from the beacon before returning, or choose a legal turn-back route. Neither eastward movement nor increasing distance alone proves a bug.",
+    "lastApproach": "The route ends on the target road segment and deliberately omits an unverified straight driveway line through a shop/compound. The glowing target ring, visible interaction prompt and map stop identify the final pickup.",
+    "airborne": "Flying and descent hide the3D ground ribbon. Flight HUD uses approximate straight-line beacon distance; ground HUD returns to routed distance after landing."
+  },
+  "mapOrientation": {
+    "references": [
+      "game/src/ui/map.ts:209-230",
+      "game/src/game/game.ts:915-933",
+      "game/src/game/player.ts:91"
+    ],
+    "fullMap": "Full map stays north-up. The player shape starts with its single front apex at(0,-14), has rear corners(10,11)/(-10,11) and an inward rear V-notch(0,5), then rotates by-yaw. The single apex opposite the notch indicates forward; do not choose a vertex solely by apparent length from the centre.",
+    "minimap": "The minimap rotates the world by+yaw and keeps the player apex pointing screen-up. A target appearing behind the player on this minimap is behind the car, not necessarily south on the full map.",
+    "identity": "The solid orange circle is the target marker; the pointed/notched marker is the car. Actual car forward is(-sin(yaw),-cos(yaw)) in world X/Z."
+  },
+  "pickupAndHandover": {
+    "references": [
+      "game/src/game/game.ts:364-368",
+      "game/src/game/game.ts:749-766",
+      "game/src/game/game.ts:345-357"
+    ],
+    "normalRadiusMetresExclusive": 8,
+    "speedKmhExclusive": 9,
+    "verticalDifferenceMetresExclusive": 3,
+    "flightDescentOrRecoveryAllowed": false,
+    "holdSeconds": 0.9,
+    "acrossRoadException": "The radius becomes24m only when direct horizontal distance d<24m, a route exists, and route.len>d*4+60. This is a walk-across convenience for a long road detour, not permission to collect from every point within24m.",
+    "prompt": "When conditions pass, the visible prompt says Hold E / ACT to collect the pizza or to hand over; the across-road case adds walk across the road. Hold E for at least0.9s while remaining in range and under speed; about1.0–1.1s gives practical margin if the prompt stays visible.",
+    "collectionProof": "Verify Pizza collected! Garam garam., state changing to Deliver, a new customer target and the post-collection timer/heat. The timer is reset at collection. Do not infer collection from acceptance or proximity.",
+    "handoverProof": "The same interaction gates and0.9s hold apply at the customer. Verify the explicit coin reward, changed wallet/progress and order completion. A low distance alone is not handover.",
+    "prior16MetreAttempt": "The earlier approximate16m/6km/h approach was outside the normal8m radius; speed alone was low enough. Across-road, vertical and exact target range were not established, so absent prompt there was not proof of a pickup defect."
+  },
+  "suggestedBoundedApproach": [
+    "Resume and inspect the actual current scene. Open the full map once to distinguish the notched player arrow from the target circle and identify the open street connection; do not infer direction from the unarrowed ribbon alone.",
+    "Close the map using the actual button. Use short forward inputs and observe the resulting displacement. Reposition at a visible junction if the required turn cannot fit beside the facade; use brief steering pulses while moving.",
+    "Near the orange ring, release all movement keys and let the car stop. Read the visible prompt before attempting E; a displayed routed distance around16m is not the normal interaction radius.",
+    "When the prompt appears, hold E about1.0–1.1s without driving, then record the explicit collection result. Continue the customer leg only after that result.",
+    "If the route or turn remains unclear, preserve map and scene evidence before R. A recovery changes street, heading and route distance and must not be treated as completing the pickup."
+  ],
+  "newConfirmedIssues": [],
+  "conclusion": "Current source supports clear operational guidance but does not prove the previous east/west approach was a navigation bug. No browser result was produced by this analyst in this round.",
+  "timerAndMap": {
+    "references": [
+      "game/src/game/game.ts:535-539",
+      "game/src/game/game.ts:491",
+      "game/src/game/game.ts:717-721",
+      "game/src/game/game.ts:751"
+    ],
+    "sourceBehavior": "openMap sets paused=true. frame returns when map.open before advancing order.t; the map-close callback clears paused and resets the clock delta. Source therefore intends the map overlay to suspend delivery simulation/timer. P also explicitly pauses.",
+    "browserEvidenceLimit": "The root observation 125 s after collection to 102 s after a map-open/analysis/close sequence and 2.25 s of held driving is not a timer sample taken immediately before and after a known map-open interval. Unpaused tool/inspection time may be included. Do not label map pause browser-verified or infer a timer defect from that interval.",
+    "operationalHint": "For longer analysis after closing the map, explicitly pause with P and verify the Paused modal. Future timer verification should capture the timer immediately before opening and after closing one controlled map interval, with no driving."
+  },
+  "controlledBrowserTimerFollowup": {
+    "status": "passed_once_visible_before_after_check",
+    "minimumMapOpenSeconds": 34,
+    "clockAfterOpenUTC": "2026-10-23T20:53:16Z",
+    "clockBeforeCloseUTC": "2026-10-23T20:53:50Z",
+    "beforeVisibleHud": {
+      "customerMetres": 415,
+      "timerSeconds": 11,
+      "heat": 27,
+      "speedKmh": 0,
+      "boostSeconds": 0,
+      "clock": "Day 8 · 8:41 PM"
+    },
+    "afterVisibleHud": {
+      "customerMetres": 415,
+      "timerSeconds": 11,
+      "heat": 27,
+      "speedKmh": 0,
+      "boostSeconds": 0,
+      "clock": "Day 8 · 8:41 PM"
+    },
+    "beforeProof": "Live visible AX state before opening; not saved as a separate image.",
+    "afterEvidence": "evidence/2026-10-23T2037Z-rtc-map-timer-held-fdc29d.jpg",
+    "limitation": "One controlled sample; no assertion about every overlay or route."
+  }
+}
