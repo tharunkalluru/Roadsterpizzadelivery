@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1007Z",
+  "startedAt": "2026-10-23T10:07:56Z",
+  "endedAt": "2026-10-23T10:27:40.036447+00:00",
+  "checkoutCommit": "9783b98a53d97a5162aaff8aa25d8503aa5ae38b",
+  "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "runtimeAsset": "index-TazYPRJa.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "buildNote": "HTTP200; served index and JS match dist; all306 public citypack files match dist. No rebuild or game edit.",
+  "method": "Root alone used visible Chrome controls; three subagents reviewed source, routing caveats and build provenance without browser input. No teleport, hidden state mutation, simulation stepping or autopilot.",
+  "pickupsCompleted": 1,
+  "completedDeliveries": 0,
+  "customerHandoverAttempted": false,
+  "console": {
+    "levels": [
+      "error",
+      "warn"
+    ],
+    "limit": 30,
+    "returnedEntries": [],
+    "limitation": "Captured logs only, not proof of absence of gameplay bugs."
+  },
+  "limitations": [
+    "Partial area coverage only.",
+    "No new handover; PT-011 repeat and no-pause control not reached.",
+    "No bridge-wall controlled test, full signal-queue test or phone/touch input.",
+    "No real-street/shop fidelity verification.",
+    "Secunderabad used a second WebGL tab while Kukatpally was paused; not standalone performance measurement."
+  ],
+  "area": "Secunderabad",
+  "route": "Cafe Kaadhale on S.D. Road \u2192 Home in Nehru Nagar",
+  "viewport": {
+    "width": 594,
+    "height": 466
+  },
+  "input": {
+    "heldDrivingInputSecondsApprox": 24.76,
+    "heldDurationsSeconds": [
+      1.8,
+      0.65,
+      1.4,
+      0.5,
+      2.2,
+      0.7,
+      3.6,
+      0.85,
+      1.15,
+      0.55,
+      0.18,
+      3.1,
+      0.8,
+      0.4,
+      1.4,
+      0.6,
+      0.18,
+      1.9,
+      0.7,
+      0.8,
+      0.7,
+      0.6
+    ],
+    "collectHoldSeconds": 1.4,
+    "caveat": "Ground driving only. No flight or recovery used here. Excludes UI, coasting, E hold and tool latency."
+  },
+  "completedInteractions": [
+    "Play \u2192 Popular Secunderabad",
+    "Accepted Cafe Kaadhale offer",
+    "M opens full map and actual Close works",
+    "Ground driving, braking, three-point turn and S.D. Road bend",
+    "Hold E collection explicitly confirmed",
+    "Final pause"
+  ],
+  "steps": [
+    "Created agent-owned second tab while Kukatpally stayed paused. Chose Play \u2192 Secunderabad. Existing progress loaded521coins/Level1 1/3. Actual new-tab viewport594x466; no explicit resize. Spawn had an open street, with parked/traffic vehicles and shops.",
+    "Accepted Cafe Kaadhale on S.D. Road \u2192 Home in Nehru Nagar, advertised785m/about157s/base90coins. Actual pickup approach193m. Opened M, inspected route, clicked Close successfully.",
+    "Initial left turn contacted frontage. S+D1.4s then W+A0.5s/W2.2s/S0.7s completed a three-point turn. Followed street to T-junction and turned left onto S.D. Road. Ground approach decreased197\u2192140\u2192134\u219257\u219253\u219239\u219219m. No flight/recovery used.",
+    "At19m HUD, Hold E / ACT to collect appeared. E1.4s explicitly produced Pizza collected! Garam garam. and Deliver Home in Nehru Nagar881m,157s,100heat,8slices. Saved original screenshot and paused immediately. No customer driving or handover attempted."
+  ],
+  "findings": [],
+  "lastVisibleHud": {
+    "state": "Deliver",
+    "customer": "Home in Nehru Nagar",
+    "routeMetres": 881,
+    "timeSeconds": 157,
+    "heat": 100,
+    "slices": 8,
+    "coins": 521,
+    "level": "1 \u00b7 1/3",
+    "flightSeconds": 7.5,
+    "speedKmh": 0,
+    "paused": true
+  },
+  "evidence": [
+    "evidence/2026-10-23T1007Z-secunderabad-pickup-9d86ce.jpg"
+  ],
+  "handoff": {
+    "tabId": "1933378088",
+    "browserId": "1",
+    "owner": "root",
+    "paused": true,
+    "heldKeys": false,
+    "area": "Secunderabad",
+    "instruction": "Continue collected Cafe Kaadhale order881m/157s/100heat/8slices/7.5sflight. Keep other preserved Kukatpally tab paused. Same browser profile shares saved progress; avoid concurrent play."
+  }
+}
