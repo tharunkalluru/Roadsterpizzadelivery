@@ -1,19 +1,19 @@
 // Title screen with how-to-play, shown once per visit before choosing an area.
 const CSS = `
-.title{position:absolute;inset:0;z-index:8;pointer-events:auto;background:radial-gradient(130% 100% at 50% 0%,#33285F 0%,#17132B 60%);display:flex;justify-content:center;overflow:auto;padding:max(16px,env(safe-area-inset-top,0px)) 14px max(16px,env(safe-area-inset-bottom,0px))}
-.title[hidden]{display:none}
-.title .in{width:min(860px,100%);display:flex;flex-direction:column;gap:14px;margin:auto 0}
-.title h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(30px,6.4vw,58px);line-height:1;color:var(--saffron);text-shadow:0 4px 0 #0C0A1A}
-.title .tag{font-size:clamp(15px,2.2vw,19px);color:var(--cream);margin:0;font-weight:700}
-.title .how{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:10px}
-.title .how div{background:#241E42;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:4px}
-.title .how b{font-family:var(--display);font-weight:400;font-size:15px}
-.title .how span{font-size:14px;color:var(--muted);line-height:1.3}
-.title .ctl{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 12px}
-.title .ctl b{font-family:var(--display);font-weight:400;font-size:11px;color:var(--cream);background:var(--line);border-radius:4px;padding:1px 6px}
-.title .acts{display:flex;gap:8px;flex-wrap:wrap}.title .acts .btn{flex:1;min-width:180px;height:52px;font-size:17px}
-.title .src{font-size:11px;color:rgba(246,238,220,.55)}
-@media (max-height:520px){.title h1{font-size:30px}.title .br{display:none}.title .tag{font-size:14px}.title .in{gap:8px}.title .how div{padding:8px}.title .how span{font-size:12px}.title .acts .btn{height:44px}}
+.title-screen{position:absolute;inset:0;z-index:8;pointer-events:auto;background:radial-gradient(130% 100% at 50% 0%,#33285F 0%,#17132B 60%);display:flex;justify-content:center;overflow:auto;padding:max(16px,env(safe-area-inset-top,0px)) 14px max(16px,env(safe-area-inset-bottom,0px))}
+.title-screen[hidden]{display:none}
+.title-screen .in{width:min(860px,100%);display:flex;flex-direction:column;gap:14px;margin:auto 0}
+.title-screen h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(30px,6.4vw,58px);line-height:1;color:var(--saffron);text-shadow:0 4px 0 #0C0A1A}
+.title-screen .tag{font-size:clamp(15px,2.2vw,19px);color:var(--cream);margin:0;font-weight:700}
+.title-screen .how{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:10px}
+.title-screen .how div{background:#241E42;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.title-screen .how b{font-family:var(--display);font-weight:400;font-size:15px}
+.title-screen .how span{font-size:14px;color:var(--muted);line-height:1.3}
+.title-screen .ctl{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 12px}
+.title-screen .ctl b{font-family:var(--display);font-weight:400;font-size:11px;color:var(--cream);background:var(--line);border-radius:4px;padding:1px 6px}
+.title-screen .acts{display:flex;gap:8px;flex-wrap:wrap}.title-screen .acts .btn{flex:1;min-width:180px;height:52px;font-size:17px}
+.title-screen .src{font-size:11px;color:rgba(246,238,220,.55)}
+@media (max-height:520px){.title-screen h1{font-size:30px}.title-screen .br{display:none}.title-screen .tag{font-size:14px}.title-screen .in{gap:8px}.title-screen .how div{padding:8px}.title-screen .how span{font-size:12px}.title-screen .acts .btn{height:44px}}
 `;
 
 export class TitleScreen {
@@ -22,7 +22,7 @@ export class TitleScreen {
   onSettings: () => void = () => {};
   constructor(host: HTMLElement, touch: boolean) {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
-    this.root = document.createElement('div'); this.root.className = 'title'; this.root.hidden = true;
+    this.root = document.createElement('div'); this.root.className = 'title-screen'; this.root.hidden = true;
     this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-label', 'Pizza to Picture Hall');
     const keys = touch
       ? '<span><b>STICK</b> steer</span><span><b>GO</b> drive</span><span><b>BRAKE</b> brake / reverse</span><span><b>FLY</b> thrusters</span><span><b>ACT</b> hold to collect / hand over</span><span><b>MAP</b> tap the minimap</span>'

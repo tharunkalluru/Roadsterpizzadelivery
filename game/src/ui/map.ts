@@ -19,8 +19,8 @@ const CSS = `
 .fmap canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab}
 .fmap canvas:active{cursor:grabbing}
 .fmap .mbar{position:absolute;top:max(12px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;gap:8px;pointer-events:none;z-index:1}
-.fmap .title{background:rgba(23,19,43,.9);border-radius:14px;padding:8px 14px;font-family:var(--display);font-size:15px;color:var(--cream)}
-.fmap .title small{display:block;font-family:var(--body);font-size:12px;color:var(--muted);font-weight:500}
+.fmap .map-title{background:rgba(23,19,43,.9);border-radius:14px;padding:8px 14px;font-family:var(--display);font-size:15px;color:var(--cream);pointer-events:none}
+.fmap .map-title small{display:block;font-family:var(--body);font-size:12px;color:var(--muted);font-weight:500}
 .fmap .zoom{position:absolute;right:max(14px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
 .fmap .zb{width:48px;height:48px;border:0;border-radius:14px;background:rgba(23,19,43,.92);color:var(--cream);font-family:var(--display);font-size:22px;cursor:pointer;pointer-events:auto}
 .fmap .zb:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
@@ -47,7 +47,7 @@ export class FullMap {
     this.root = document.createElement('div'); this.root.className = 'fmap'; this.root.hidden = true;
     this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-modal', 'true'); this.root.setAttribute('aria-label', 'City map');
     this.root.innerHTML = `<canvas aria-label="Map of Hyderabad"></canvas>
-      <div class="mbar"><div class="title">Hyderabad<small>Drag to move · scroll or pinch to zoom</small></div><button type="button" class="ib close" id="map-close">Close map ✕</button></div>
+      <div class="mbar"><div class="map-title">Hyderabad<small>Drag to move · scroll or pinch to zoom</small></div><button type="button" class="ib close" id="map-close">Close map ✕</button></div>
       <div class="zoom"><button type="button" class="zb" id="map-in" aria-label="Zoom in">+</button><button type="button" class="zb" id="map-out" aria-label="Zoom out">−</button><button type="button" class="zb" id="map-me" aria-label="Centre on my car" style="font-size:15px">◎</button></div>
       <svg class="pin" viewBox="0 0 34 46" aria-hidden="true"><path d="M17 45C17 45 3 27 3 17a14 14 0 0 1 28 0c0 10-14 28-14 28z" fill="#FF8FB1" stroke="#17132B" stroke-width="3"/><circle cx="17" cy="17" r="5.5" fill="#17132B"/></svg>
       <button type="button" class="btn go movebtn" id="map-move" hidden>Deliver from here…</button>
