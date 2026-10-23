@@ -1,5 +1,6 @@
 import type { CoreData, Building } from '../world/types';
 import { fetchPack } from '../world/packs';
+import { DialogFocus } from './dialog';
 
 interface MapPack { roads: Record<string, number[][]>; areas: { k: 'park' | 'water'; r: number[] }[]; metro: number[][] }
 
@@ -39,6 +40,7 @@ const CSS = `
 
 export class FullMap {
   root: HTMLElement; cv: HTMLCanvasElement; open = false; dirty = true;
+  private focus?: DialogFocus;
   cx = 0; cz = 0; scale = 0.5;                       // pixels per metre
   layers: { park: Path2D; water: Path2D; roads: { p: Path2D; w: number; col: string; min: number }[]; minor: Map<string, Path2D>; metro: Path2D[] } | null = null; bld = new Path2D(); loading = false;
   pointers = new Map<number, { x: number; y: number }>(); pinch0 = 0; scale0 = 0;
@@ -55,6 +57,11 @@ export class FullMap {
         <div class="row"><button type="button" class="btn alt" id="map-pick-cancel">Cancel</button><button type="button" class="btn go" id="map-pick-ok">Start delivering here</button></div></div>
       <div class="legend"><span><i style="background:#FFB627"></i>You</span><span><i style="background:#45E3D3"></i>Route</span><span><i style="background:#FF8FB1"></i>Cinemas</span><span><i style="background:#F2994A"></i>Pizza pickups</span><span><i style="background:#22B573"></i>Metro</span></div>`;
     host.appendChild(this.root);
+    this.focus = new DialogFocus(this.root, {
+      initial: () => this.root.querySelector('#map-close'),
+      restore: () => host.querySelector('#minimap'),
+      key: (event) => this.handleKey(event), captureKeys: true,
+    });
     this.cv = this.root.querySelector('canvas')!;
     (this.root.querySelector('#map-close') as HTMLElement).addEventListener('click', () => this.close());
     (this.root.querySelector('#map-move') as HTMLElement).addEventListener('click', () => this.beginPick({ onPick: (x, z) => this.onMove(x, z), onCancel: () => this.endPick() }));
@@ -144,7 +151,7 @@ export class FullMap {
     this.cx = p.x; this.cz = p.z; if (at?.scale) this.scale = at.scale;
     (this.root.querySelector('#map-move') as HTMLElement).hidden = !st.canMove;
     this.root.hidden = false; this.open = true; this.dirty = true;
-    (this.root.querySelector('#map-close') as HTMLElement).focus();
+    this.focus?.show();
   }
   // Close always dismisses the map; Cancel only backs out of the current picker.
   close() {
@@ -157,7 +164,7 @@ export class FullMap {
     this.endPick();
     for (const id of this.pointers.keys()) if (this.cv.hasPointerCapture(id)) this.cv.releasePointerCapture(id);
     this.pointers.clear(); this.pinch0 = 0;
-    this.root.hidden = true; this.open = false; this.onClose();
+    this.root.hidden = true; this.open = false; this.focus?.hide(); this.onClose();
   }
   handleKey(e: KeyboardEvent) {
     if (['Escape', 'KeyM', 'KeyP'].includes(e.code)) {

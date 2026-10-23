@@ -12,6 +12,7 @@ export class Player {
   pos = new THREE.Vector3(); yaw = 0; speed = 0; vy = 0; steerVis = 0;
   flying = false; descending = false; charge = 2.5; chargeCap = 20; earnT = 0; onRoad = true; lastSupport = 0;
   hitCooldown = 0; bump = 0; lastKind: SupportKind = 'road'; lastElevRoad = false; flyAlt = 24; altT = 0; kerbT = 0;
+  placementRevision = 0;
   constructor(public city: CityData, mats: Record<string, any>) {
     const logo = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'PIZZA TO PICTURE HALL', font: '{s}px "Bungee", sans-serif', color: '#FFB627', size: 44 }], 512, 128, '#17132B') });
     const plate = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'TG 09 P2P 01', font: '800 {s}px "Baloo 2", sans-serif', color: '#17132B', size: 70 }], 512, 128, '#F6EEDC', '#17132B') });
@@ -46,7 +47,9 @@ export class Player {
   place(x: number, z: number, yaw: number, y = 0) {
     this.pos.set(x, 0, z); this.yaw = yaw; this.speed = 0; this.vy = 0; this.flying = false; this.descending = false;
     const s = supportAt(this.city, x, z, y + 0.5, true); this.pos.y = s.y + 0.55;
-    this.lastSupport = s.y; this.lastKind = s.kind; this.lastElevRoad = s.elevatedRoad;
+    this.lastSupport = s.y; this.lastKind = s.kind; this.lastElevRoad = s.elevatedRoad; this.onRoad = s.onRoad;
+    this.glide = null; this.lastEdge = null; this.placementRevision++;
+    this.group.position.copy(this.pos); this.group.rotation.set(0, yaw, 0, 'YXZ');
   }
   // one puff of vented gas from a nozzle (k), blown along the nozzle direction plus a share of the car's motion
   puff(power: number, k: number) {
@@ -80,6 +83,9 @@ export class Player {
     if ((d < 0.3 && Math.abs(P.y - g.y) < 0.15) || g.t > 8) {
       P.set(g.x, g.y, g.z); this.yaw = g.yaw; this.glide = null; this.vy = 0; this.speed = 0;
       this.lastSupport = g.y - 0.55; this.lastKind = 'road'; this.lastElevRoad = g.y - 0.55 > 1.2; this.lastEdge = null;
+      this.onRoad = true; this.placementRevision++;
+      this.group.position.copy(P); this.group.rotation.set(0, this.yaw, 0, 'YXZ');
+      this.glow.position.set(P.x, P.y - 0.5, P.z); this.light.position.set(P.x, P.y - 0.2, P.z);
     }
   }
   get forward() { return new THREE.Vector3(-Math.sin(this.yaw), 0, -Math.cos(this.yaw)); }
@@ -113,8 +119,9 @@ export class Player {
     const prev = this.pos.clone();
     const f = this.forward;
     this.pos.x += f.x * this.speed * dt; this.pos.z += f.z * this.speed * dt;
-    // --- dividers, kerbs, parapets (only while on the ground or a deck; flying goes over them) ---
-    if (!this.flying) {
+    // Flight clears a barrier only after the body is above it; pressing Space
+    // beside a parapet must not disable collision during the initial ascent.
+    {
       const w = collideWalls(this.city, prev, this.pos, 1.05, this.pos.y - 0.55, this.pos.y + 0.6);
       if (w.hit > 0.02) {
         // scrape along the barrier: keep the part of the speed parallel to it

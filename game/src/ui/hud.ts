@@ -1,4 +1,27 @@
 // DOM heads-up display. Plain DOM keeps it crisp on phones and easy to restyle.
+import { DialogFocus } from './dialog';
+
+// Reserve the measured HUD rails rather than guessing where the minimap ends.
+// On portrait screens there is no usable column beside it, so use the space below both rails.
+export function guidanceBounds(width: number, height: number, leftBottom: number, rightLeft: number, rightBottom: number, touch: boolean) {
+  const gap = 12, bottom = height - (touch ? (height <= 520 ? 142 : 190) : width <= 700 || height <= 600 ? gap : 76);
+  let right = Math.max(gap, rightLeft - gap), top = leftBottom + gap;
+  if (right - gap < 260) { right = width - gap; top = Math.max(leftBottom, rightBottom) + gap; }
+  // Tiny/zoomed windows scroll the guidance panel, never expand it over the HUD rails.
+  return { left: gap, top, width: Math.max(0, right - gap), height: Math.max(0, bottom - top) };
+}
+
+export function orderOfferHtml(o: { level: number; pickupName: string; pickupRoad: string; customerName: string; approachMetres: number | null; approachEstimated?: boolean; deliveryMetres: number; deliverySeconds: number; basePay: number }) {
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+  const metres = (n: number) => `${Math.round(n).toLocaleString('en-IN')} m`;
+  return `<div class="k">New order · Level ${o.level}</div>
+    <div class="big">Pick up at ${esc(o.pickupName)}</div>${o.pickupRoad ? `<div class="sm">${esc(o.pickupRoad)}</div>` : ''}
+    <div class="sm offer-leg"><b>Drive to pickup:</b> ${o.approachMetres == null ? 'route unavailable' : `${o.approachEstimated ? 'about ' : ''}${metres(o.approachMetres)}`}</div>
+    <div class="big">Deliver to ${esc(o.customerName)}</div>
+    <div class="sm offer-leg"><b>Pickup → customer:</b> ${metres(o.deliveryMetres)}<br><b>Delivery window:</b> ${Math.round(o.deliverySeconds)} s after collection</div>
+    <div class="sm">Base pay ${o.basePay} coins + tip · Pickup approach is untimed.</div>`;
+}
+
 const CSS = `
 :root{--ink:#17132B;--panel:rgba(23,19,43,.88);--line:#3A3160;--cream:#F6EEDC;--muted:#CFC6E4;--saffron:#FFB627;--teal:#45E3D3;--heat:#FF7A3D;--pink:#FF8FB1;--display:'Bungee','Arial Black',system-ui,sans-serif;--body:'Baloo 2','Noto Sans Telugu','Trebuchet MS',system-ui,sans-serif}
 #hud{position:fixed;inset:0;pointer-events:none;z-index:5;color:var(--cream);font-family:var(--body);-webkit-user-select:none;user-select:none}
@@ -26,7 +49,10 @@ const CSS = `
 .prompt{position:absolute;left:50%;bottom:max(120px,calc(env(safe-area-inset-bottom,0px) + 110px));transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:var(--panel);border-radius:16px;padding:10px 16px;font-weight:800;font-size:16px}
 .prompt[hidden],.offer[hidden],.modal[hidden]{display:none}
 .ring{width:30px;height:30px;border-radius:50%;background:conic-gradient(var(--saffron) var(--p,0%),#2E2550 0)}
-.offer{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%);max-height:calc(100% - 150px);overflow:auto;width:min(420px,88vw);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.guidance{position:absolute;left:12px;top:210px;width:calc(100% - 220px);height:calc(100% - 286px);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;pointer-events:none;overflow:hidden}
+.offer{box-sizing:border-box;flex:0 1 auto;min-height:0;max-height:100%;overflow:hidden;width:min(420px,100%);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.offer-content{min-height:0;overflow:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:6px;touch-action:pan-y!important}.offer-content>*{flex-shrink:0}
+.offer-leg b{color:var(--cream)}.offer-actions{display:flex;flex-shrink:0;gap:8px;padding-top:6px}.offer-actions .btn{flex:1;flex-shrink:0}
 .btn{height:46px;border:0;border-radius:13px;font-family:var(--display);font-size:15px;cursor:pointer;padding:0 14px}
 .btn.go{background:var(--saffron);color:var(--ink);box-shadow:0 4px 0 #B8780A}.btn.alt{background:#2E2550;color:var(--cream)}
 .modal{position:absolute;inset:0;z-index:9;background:rgba(12,10,26,.78);display:grid;place-items:center;pointer-events:auto;padding:16px}
@@ -55,7 +81,7 @@ const CSS = `
   .h-tl{width:min(230px,34vw);gap:5px}.card{padding:7px 9px;gap:3px}.big{font-size:13px}.sm{font-size:11px}.k{font-size:10px}
   .pill{height:28px;font-size:11px;padding:0 9px}.ib{height:32px;font-size:11px}.h-tr{gap:5px}
   #minimap{width:96px;height:96px}.keys{display:none}.speed{font-size:20px}.is-touch .speed{top:auto;bottom:max(8px,env(safe-area-inset-bottom,0px));right:50%;transform:translateX(50%)}
-  .offer{top:50%;width:min(420px,60vw);padding:10px;gap:5px;max-height:calc(100% - 16px)}.offer .hint{display:none}.offer .btn{height:38px;font-size:13px}
+  .offer{padding:10px;gap:5px}.offer .hint{display:none}.offer .btn{height:38px;font-size:13px}
   .toast{top:30%;font-size:clamp(16px,3.4vw,24px)}
   .prompt{bottom:max(14px,env(safe-area-inset-bottom,0px));font-size:13px;padding:7px 12px}
   .stick{width:112px;height:112px}.stick i{width:46px;height:46px;margin:-23px 0 0 -23px}
@@ -73,7 +99,9 @@ const CSS = `
 @keyframes rot{0%,25%{transform:rotate(0)}55%,100%{transform:rotate(-90deg)}}
 @media (orientation:portrait) and (pointer:coarse){.rotate{display:grid}}
 .rotate.ok{display:none!important}
-.tip{position:absolute;left:50%;transform:translateX(-50%);top:max(56px,calc(env(safe-area-inset-top,0px) + 52px));width:min(460px,70vw);background:rgba(23,19,43,.94);border:2px solid var(--teal);border-radius:14px;padding:9px 12px;display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.25}
+.tip{box-sizing:border-box;flex:0 1 auto;min-height:0;max-height:min(88px,100%);overflow:auto;width:min(460px,100%);background:rgba(23,19,43,.94);border:2px solid var(--teal);border-radius:14px;padding:9px 12px;display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.25;touch-action:pan-y!important}
+.has-offer .tip,.has-offer #order{display:none}
+.is-touch #hud.has-offer .touch{display:none}
 .tip[hidden]{display:none}.tip>b{font-family:var(--display);font-weight:400;font-size:12px;color:var(--teal)}.tip>span{flex:1}
 .tip>button{border:0;background:transparent;color:var(--muted);font-size:18px;cursor:pointer;min-width:32px;min-height:32px}
 .ib svg{width:16px;height:16px;display:block}
@@ -84,14 +112,14 @@ const CSS = `
 .rescue{position:absolute;left:50%;transform:translateX(-50%);bottom:max(64px,calc(env(safe-area-inset-bottom,0px) + 60px));height:46px;padding:0 18px;border:0;border-radius:23px;background:var(--teal);color:var(--ink);font-family:var(--display);font-size:14px;box-shadow:0 4px 0 #1E8F85;cursor:pointer;white-space:nowrap}
 .rescue[hidden]{display:none}
 @media (max-height:520px){.rescue{bottom:auto;top:44%;height:40px;font-size:12px}}.ib[hidden]{display:none}
-@media (max-width:860px){.tip{top:auto;bottom:max(64px,calc(env(safe-area-inset-bottom,0px) + 60px));width:min(440px,86vw)}}
-@media (max-width:860px) and (pointer:coarse){.tip{bottom:auto;top:max(10px,env(safe-area-inset-top,0px));width:min(400px,46vw)}}
-@media (max-height:520px){.tip{top:max(46px,calc(env(safe-area-inset-top,0px) + 42px));width:min(380px,44vw);font-size:12px;padding:6px 9px}}
+@media (max-height:600px){.tip{font-size:12px;padding:6px 9px;max-height:min(68px,100%)}}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}.rotate svg{animation:none}}
 `;
 
 export class Hud {
   root: HTMLElement; el: Record<string, HTMLElement> = {}; toastT = 0;
+  private modalFocus: DialogFocus;
+  private updateLayout = () => {};
   onButton: (id: string) => void = () => {};
   touchSteer = 0; touchGas = false; touchBrake = false; touchBoost = false;
   constructor(touch: boolean) {
@@ -116,7 +144,10 @@ export class Hud {
       </div>
       <div class="toast" id="toast" aria-live="polite"></div>
       <div class="prompt" id="prompt" hidden><div class="ring" id="ring"></div><span id="prompt-t"></span></div>
-      <div class="offer pe" id="offer" hidden></div>
+      <div class="guidance" id="guidance">
+        <div class="offer pe" id="offer" role="region" aria-label="New delivery offer" hidden></div>
+        <div class="tip pe" id="tip" hidden><b>TIP</b><span id="tip-t"></span><button type="button" id="tip-x" aria-label="Hide tip">✕</button></div>
+      </div>
       <div class="keys"><span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>S</b> brake/reverse</span><span><b>Space</b> fly</span><span><b>E</b> collect / hand over / accept</span><span><b>T</b> theatres</span><span><b>M</b> map</span><span><b>H</b> horn</span><span><b>N</b> sound</span><span><b>Drag</b> look around when stopped</span><span><b>P</b> pause</span></div>
       <div class="speed"><span id="spd">0</span><small style="font-size:12px"> km/h</small></div>
       <div class="touch pe">
@@ -128,11 +159,20 @@ export class Hud {
       </div>
       <button type="button" class="rescue pe" id="rescue" hidden>Stuck? Get back on the road</button>
       <div class="area-chip" id="area-chip" aria-live="polite"></div>
-      <div class="tip pe" id="tip" hidden><b>TIP</b><span id="tip-t"></span><button type="button" id="tip-x" aria-label="Hide tip">✕</button></div>
-      <div class="modal" id="modal" hidden><div class="sheet" id="sheet"></div></div>
+      <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Game menu" hidden><div class="sheet" id="sheet"></div></div>
       <div class="rotate" id="rotate"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b>Turn your phone sideways</b><span>Pizza to Picture Hall is made for landscape: the controls sit under your thumbs.</span><button type="button" class="btn alt" id="rot-ok">Play like this anyway</button></div></div>
       <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary</div>`;
     for (const n of this.root.querySelectorAll('[id]')) this.el[n.id] = n as HTMLElement;
+    this.modalFocus = new DialogFocus(this.el.modal, { restore: () => this.el['b-help'] });
+    const left = this.root.querySelector('.h-tl')!, right = this.root.querySelector('.h-tr')!;
+    const layout = () => {
+      const root = this.root.getBoundingClientRect(), l = left.getBoundingClientRect(), r = right.getBoundingClientRect();
+      const bounds = guidanceBounds(root.width, root.height, l.bottom - root.top, r.left - root.left, r.bottom - root.top, touch && !this.root.classList.contains('has-offer'));
+      Object.assign(this.el.guidance.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
+    };
+    const resize = new ResizeObserver(layout);
+    this.updateLayout = layout;
+    resize.observe(this.root); resize.observe(left); resize.observe(right); layout();
     this.el['b-theatre'].addEventListener('click', () => this.onButton('theatres'));
     this.el['b-help'].addEventListener('click', () => this.onButton('pause'));
     this.el['b-full'].addEventListener('click', () => this.onButton('fullscreen'));
@@ -199,13 +239,14 @@ export class Hud {
     }
   }
   offer(html: string | null, buttons: { label: string; cls: string; fn: () => void }[] = []) {
-    const o = this.el.offer; o.hidden = !html; if (!html) return;
-    o.innerHTML = html + `<div style="display:flex;gap:8px">${buttons.map((b, i) => `<button type="button" class="btn ${b.cls}" data-i="${i}" style="flex:1">${b.label}</button>`).join('')}</div>`;
+    const o = this.el.offer; o.hidden = !html; this.root.classList.toggle('has-offer', !!html); this.updateLayout(); if (!html) return;
+    o.innerHTML = `<div class="offer-content">${html}</div><div class="offer-actions">${buttons.map((b, i) => `<button type="button" class="btn ${b.cls}" data-i="${i}">${b.label}</button>`).join('')}</div>`;
     o.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => buttons[+b.dataset.i!].fn()));
   }
   modal(html: string | null, bind?: (sheet: HTMLElement) => void) {
-    this.el.modal.hidden = !html; if (!html) return;
+    this.el.modal.hidden = !html; if (!html) { this.modalFocus.hide(); return; }
     this.el.sheet.innerHTML = html; bind?.(this.el.sheet);
+    this.modalFocus.show();
   }
   get modalOpen() { return !this.el.modal.hidden; }
   rescue(show: boolean, text = '') {

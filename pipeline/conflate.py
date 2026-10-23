@@ -7,6 +7,7 @@ import json, math, os, re, time
 from collections import defaultdict
 import duckdb
 from rapidfuzz import fuzz
+from pickup_policy import food_category, normalized
 
 HERE = os.path.dirname(__file__)
 RAW, BUILD = os.path.join(HERE, 'raw'), os.path.join(HERE, 'build')
@@ -33,11 +34,13 @@ def norm(s):
 
 def group_of(text, name):
     t = (text or '').lower(); n = name.lower()
+    # Taxonomy labels such as public_safety_service are not pubs. Explicit
+    # civic categories take priority over restaurant-like words in a name.
+    if re.search(r'\b(police|public safety|fire station|government office)\b', normalized(t)): return 'office'
     if re.search(r'movie|cinema|theat|multiplex|\b\d+ ?mm\b', t + ' ' + n) and not re.search(r'private theat|ott|pod|party', n): return 'cinema'
     if re.search(r'\b(dr\.?|advocate|agent:|insurance agent|ca )\b', n) or re.search(r'^dr ', n): return 'person'
     if re.search(r'nilayam|residency|apartment|enclave|heights|towers|mansion|complex|plaza|arcade|villa|nivas|sadan', n) and re.search(r'historic|real_estate|residential|landmark|none|building', t + ' none'): return 'building_name'
     rules = [
-        ('food', r'restaurant|eatery|cafe|café|bakery|sweet|dessert|food|juice|tea|biryani|dining|bar\b|pub|ice cream|fast_food|tiffin|dhaba|mandi|pizza|burger|chicken|bistro|canteen|snack'),
         ('pharmacy', r'pharmac|drug|chemist|medical store|medplus|apollo pharmacy'),
         ('health', r'hospital|clinic|dental|diagnost|lab\b|health|doctor|physio|eye|medical|nursing|ayurved|homeo'),
         ('finance', r'\bbank|atm|financ|insurance|credit|loan|exchange'),
@@ -51,8 +54,10 @@ def group_of(text, name):
         ('office', r'office|professional|b2b|real_estate|consult|government|corporate|agency|business|manufactur|media|design'),
         ('venue', r'park|event|hall|venue|function|banquet|club|stadium|ground'),
     ]
+    if food_category(t): return 'food'
     for g, rx in rules:
         if re.search(rx, t): return g
+    if food_category(n): return 'food'
     for g, rx in rules:
         if re.search(rx, n): return g
     return 'other'

@@ -15,7 +15,7 @@ export interface Zone {
 
 // ---- whole-city data (core.pack.wasm) ----
 export type StopTuple = [number, number, number, string];        // x, z, y, road name (kerb point already snapped)
-export interface CityPoi { id: string; name: string; board: string; stop: StopTuple; tile: [number, number]; pizza?: boolean; a?: XZ; b?: XZ; t?: number }
+export interface CityPoi { id: string; name: string; board: string; stop: StopTuple; tile: [number, number]; pizza?: boolean; a?: XZ; b?: XZ; t?: number; category?: string | null; source_ids?: string[]; sources?: string[]; pickupEligible?: boolean }
 export interface PackInfo { p: [number, number]; file: string; bytes: number; tiles: [number, number][] }
 export interface CoreData {
   origin: { lat: number; lon: number }; tile: number; pack: number; packs: PackInfo[];

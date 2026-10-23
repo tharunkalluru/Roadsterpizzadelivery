@@ -1,4 +1,5 @@
 import type { CoreData } from '../world/types';
+import { DialogFocus } from './dialog';
 
 // "Where do you want to deliver?" — the first screen, and the "Change area" sheet later on.
 // Popular areas as big buttons, a search over every neighbourhood and metro station, or pick a spot on the city map.
@@ -33,6 +34,7 @@ const POPULAR: [string, number, number][] = [
 
 export class AreaPicker {
   root: HTMLElement; list: AreaChoice[] = []; popular: AreaChoice[] = [];
+  private focus: DialogFocus;
   onPick: (c: AreaChoice) => void = () => {};
   onMap: () => void = () => {};
   onClose: (() => void) | null = null;
@@ -52,8 +54,18 @@ export class AreaPicker {
     for (const s of core.metro.stations) { const k = (s.name + ' metro').toLowerCase(); if (seen.has(k)) continue; seen.add(k); this.list.push({ name: `${s.name} Metro`, x: s.p[0], z: s.p[1] }); }
     for (const p of this.popular) if (!seen.has(p.name.toLowerCase())) { seen.add(p.name.toLowerCase()); this.list.push(p); }
     this.root = document.createElement('div'); this.root.className = 'apick'; this.root.hidden = true;
-    this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-label', 'Choose where to deliver');
+    this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-modal', 'true'); this.root.setAttribute('aria-label', 'Choose where to deliver');
     host.appendChild(this.root);
+    this.focus = new DialogFocus(this.root, {
+      initial: () => this.root.querySelector(matchMedia('(pointer: coarse)').matches ? 'button' : '#ap-q'),
+      restore: () => host.querySelector('#minimap'),
+      key: (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          if (!event.repeat && this.onClose) { this.hide(); this.onClose(); }
+        }
+      }, captureKeys: true,
+    });
   }
   show(opts: { first: boolean; last?: AreaChoice | null; current?: string }) {
     const last = opts.last;
@@ -76,16 +88,16 @@ export class AreaPicker {
       res.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => this.choose(hits[+(b as HTMLElement).dataset.h!])));
     };
     q.addEventListener('input', render);
-    q.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const b = res.querySelector('button') as HTMLButtonElement | null; b?.click(); } e.stopPropagation(); });
+    q.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const b = res.querySelector('button') as HTMLButtonElement | null; b?.click(); } });
     this.root.querySelectorAll('.chips button').forEach((b) => b.addEventListener('click', () => this.choose(this.popular[+(b as HTMLElement).dataset.i!])));
     this.root.querySelector('#ap-map')!.addEventListener('click', () => { this.hide(); this.onMap(); });
     this.root.querySelector('#ap-last')?.addEventListener('click', () => this.choose(last!));
     this.root.querySelector('#ap-close')?.addEventListener('click', () => { this.hide(); this.onClose?.(); });
     // phones: don't pop the keyboard over the list; desktops: type straight away
-    if (!matchMedia('(pointer: coarse)').matches) q.focus();
+    this.focus.show();
   }
   choose(c: AreaChoice) { this.hide(); this.onPick(c); }
-  hide() { this.root.hidden = true; }
+  hide() { this.root.hidden = true; this.focus.hide(); }
   get open() { return !this.root.hidden; }
 }
 

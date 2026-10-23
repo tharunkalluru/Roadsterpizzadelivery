@@ -237,8 +237,13 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
     const G = '#7D766C', Gd = '#5A544C', P = '#A59C8E', Wt = '#E8E1D0';
     K.box(52, -8, 0, 118, 0.12, 100, P);                                       // forecourt paving (in front = +v)
     K.box(0, 0, 0, 65, 1.0, 52, Gd);                                            // plinth
+    K.solidRect(0, 0, 65, 52, 1.0);
     K.box(0, -3, 1.0, 64, 21, 46, G);                                           // hall body
     K.arcade('arch', -30, 23.0, 30, 23.0, 5, 1.0, 19.5, 4, G);                  // the five great arches
+    // The facade projects beyond the hall footprint. Match the solid side piers
+    // of TPL.arch (62% opening) while keeping each arch's opening traversable.
+    const bay = 60 / 5 + 0.02, pier = bay * 0.19;
+    for (let i = 0; i < 5; i++) for (const side of [-1, 1]) K.solidRect(-24 + i * 12 + side * (bay - pier) / 2, 23, pier, 4, 20.5);
     K.box(0, 22.5, 1.0, 60, 0.3, 3.2, '#3d3934');                               // shadowed interior behind them
     K.box(0, 23.2, 20.5, 62, 2.6, 2.2, G);                                      // cornice band
     for (let i = -30; i <= 30; i += 2.6) K.box(i, 23.4, 23.1, 1.1, 1.2, 1.0, G); // conch-shaped crenellations
@@ -249,6 +254,7 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
       K.cyl(u, v, 26.7, 2.5, 3.2, G, 'cyl8'); K.shape('dome', u, v, 29.9, 4.4, 3.6, 4.4, G); K.cyl(u, v, 33.4, 0.15, 2.2, '#6b6458');
       K.solidCircle(u, v, 3.0, 26, 8);
       K.cyl(su * 31.5, -26, 0, 1.6, 23, G, 'cyl8'); K.shape('dome', su * 31.5, -26, 23, 2.6, 2.2, 2.6, G);   // rear corner minarets
+      K.solidCircle(su * 31.5, -26, 1.6, 23, 8);
     }
     K.solidRect(0, -3, 64, 46, 22);
     // Asaf Jahi tombs: a long low white arcade in the courtyard south-east of the hall, little minarets at its ends
@@ -259,6 +265,7 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
     // east gate with two minarets in the compound wall (Charminar Road side)
     const gv = 140, gu = -7;
     K.shape('arch', gu, gv, 0, 14, 12, 4, G); for (const s of [-1, 1]) { K.cyl(gu + s * 8, gv, 0, 1.6, 17, G, 'cyl8'); K.shape('dome', gu + s * 8, gv, 17, 2.4, 2.0, 2.4, G); K.ob(gu + s * 8, gv, 1.8, 17); }
+    for (const side of [-1, 1]) K.solidRect(gu + side * 14 * 0.405, gv, 14 * 0.19, 4, 12);
     K.wall(gu - 9.6, gv, -58, gv, 0, 6, 1.2, G); K.wall(gu + 9.6, gv, 52, gv, 0, 6, 1.2, G);
   },
   // Chowmahalla Palace: long N-S walled complex; north court with pool framed by long ranges and the Khilwat

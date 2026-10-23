@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
-    "test": "node ../tools/map-regressions.mjs && node ../tools/gameplay-regressions.mjs",
+    "test": "node ../tools/map-regressions.mjs && node ../tools/gameplay-regressions.mjs && node ../tools/ui-regressions.mjs && node ../tools/navigation-regressions.mjs && node ../tools/delivery-regressions.mjs && node ../tools/spatial-safety-regressions.mjs",
     "check": "npm run typecheck && npm test && npm run build"
   },
   "dependencies": {

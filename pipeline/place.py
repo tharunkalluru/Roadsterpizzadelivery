@@ -125,7 +125,8 @@ for ti, (s, w, n, e) in enumerate(tiles()):
     for pi, b in enumerate(biz):
         stats['seen'] += 1
         rec = dict(uid=b['uid'], name=b['name'], board=board_name(b['name']), group=b['group'], tier=b['tier'], floor=b['floor'],
-                   lat=b['lat'], lon=b['lon'], sources=b['sources'], confidence=b['confidence'])
+                   lat=b['lat'], lon=b['lon'], sources=b['sources'], confidence=b['confidence'],
+                   category=b.get('category'), source_ids=b.get('source_ids', []))
         # locality sanity check: a name that says "Begumpet" but sits 3+ km from Begumpet is probably a mis-placed listing
         flags = []
         for m in LOC_RX.findall(b['name']):

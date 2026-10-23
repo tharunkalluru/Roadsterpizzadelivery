@@ -15,6 +15,7 @@ import duckdb, numpy as np, shapely
 from shapely.geometry import LineString, Polygon, Point, box
 from shapely.strtree import STRtree
 from shapely.ops import unary_union
+from pickup_policy import pickup_eligible
 
 HERE = os.path.dirname(__file__)
 RAW, BUILD = os.path.join(HERE, 'raw'), os.path.join(HERE, 'build')
@@ -58,7 +59,8 @@ pl_by_bld = defaultdict(list)
 for p in json.load(open(os.path.join(BUILD, 'placements.json'))):
     if p.get('status') != 'placed' or p.get('flags') or 'slot' not in p or p['place_conf'] < 0.35: continue
     pl_by_bld[p['building'][:12]].append(dict(uid=p['uid'], name=p['name'], board=p['board'], group=p['group'], tier=p['tier'], conf=p['place_conf'],
-                                              fll=p['facade_ll'], t=p['facade']['t'], slot=p['slot'], road=p.get('road_name')))
+                                              fll=p['facade_ll'], t=p['facade']['t'], slot=p['slot'], road=p.get('road_name'),
+                                              category=p.get('category'), source_ids=p.get('source_ids', []), sources=p.get('sources', [])))
 ocr = json.load(open(os.path.join(BUILD, 'ocr_matches.json'))) if os.path.exists(os.path.join(BUILD, 'ocr_matches.json')) else {}
 log('placed boards', sum(len(v) for v in pl_by_bld.values()), 'ocr', len(ocr))
 
@@ -188,7 +190,8 @@ def do_pack(pk):
                     o = ocr.get(p['uid']) or {}
                     boards.append(dict(id=p['uid'], text=p['board'], full=p['name'], group=p['group'], tier=p['tier'], conf=p['conf'],
                                        a=[ax, az], b=[bx, bz], t=p['t'], slot=p['slot'], building=b['id'], road=p['road'],
-                                       seen=o.get('seen'), seen_year=o.get('year')))
+                                       seen=o.get('seen'), seen_year=o.get('year'), category=p['category'],
+                                       source_ids=p['source_ids'], sources=p['sources']))
             buildings = []
             for b in kept:
                 ring = [[round(x, 1), round(z, 1)] for x, z in list(b['poly'].exterior.coords)[:-1]]
@@ -231,9 +234,10 @@ def do_pack(pk):
                 return [round(px, 1), round(pz, 1), 0, e['name'] or '']
             for bd in boards:
                 ax, az = bd['a']; bx, bz = bd['b']; fx, fz = ax + (bx - ax) * bd['t'], az + (bz - az) * bd['t']
-                if bd['group'] == 'food' and bd['slot'].get('floor', 0) == 0 and bd['conf'] >= 0.5 and not re.search(r'\b(bus stop|bus station|pa+n shop|beeda|atm|parking)\b', bd['full'], re.I):
+                if pickup_eligible(bd):
                     st = stop_near(fx, fz, (fx, fz))
-                    if st: pois['food'].append(dict(id=bd['id'], name=bd['full'], board=bd['text'], stop=st, pizza=('pizza' in bd['full'].lower()), tile=[ti[0], ti[1]]))
+                    if st: pois['food'].append(dict(id=bd['id'], name=bd['full'], board=bd['text'], stop=st, pizza=('pizza' in bd['full'].lower()), tile=[ti[0], ti[1]],
+                                                   category=bd['category'], source_ids=bd['source_ids'], sources=bd['sources'], pickupEligible=True))
                 if bd['group'] == 'cinema' and bd['conf'] >= 0.45:
                     st = stop_near(fx, fz, (fx, fz))
                     if st: pois['theatres'].append(dict(id=bd['id'], name=bd['full'], board=bd['text'], a=bd['a'], b=bd['b'], t=bd['t'], stop=st, tile=[ti[0], ti[1]]))

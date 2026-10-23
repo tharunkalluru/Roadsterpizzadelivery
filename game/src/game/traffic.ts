@@ -3,6 +3,7 @@ import * as M from '../world/traffic_models';
 import { rng } from '../core/util';
 import type { RoadGraph, GEdge, GNode } from './roadgraph';
 import { hasCentreMedian, BusStop } from '../world/city';
+import { segmentHitsVehicle } from './spatial-safety';
 
 type Group = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
 interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
@@ -210,23 +211,13 @@ export class Traffic {
       c.g.rotation.y = Math.atan2(-p.hx, -p.hz) + (c.laneT - c.lane) * 0.12;
     }
   }
-  // hide any vehicle the camera is inside or almost touching (stops the screen going black when traffic brushes past)
-  // ... and any small vehicle sitting between the camera and the player's car, so a bike queued right behind the car
-  // never fills the view
+  // Hide the whole vehicle whenever its oriented body crosses the camera-car
+  // sightline. A bus nose can obstruct the view while its centre is far to one side.
   hideNear(cam: THREE.Vector3, tgt?: { x: number; y: number; z: number }) {
-    const sx = tgt ? tgt.x - cam.x : 0, sz = tgt ? tgt.z - cam.z : 0, sl2 = sx * sx + sz * sz || 1;
     for (const c of this.cars) {
-      const dx = cam.x - c.x, dz = cam.z - c.z;
-      const a = Math.abs(dx * c.hx + dz * c.hz), l = Math.abs(dx * c.hz - dz * c.hx);
-      let hide = a < c.size[2] / 2 + 1.2 && l < c.size[0] / 2 + 1.2 && cam.y < c.y + c.size[1] + 1.2;
-      if (!hide && tgt) {
-        const t = ((c.x - cam.x) * sx + (c.z - cam.z) * sz) / sl2;
-        if (t > 0.05 && t < 0.92) {
-          const d = Math.hypot(cam.x + sx * t - c.x, cam.z + sz * t - c.z), ly = cam.y + (tgt.y - cam.y) * t;
-          hide = d < c.size[0] / 2 + 0.6 && ly < c.y + c.size[1] + 0.3;
-        }
-      }
-      c.g.visible = !hide;
+      // Lane-changing adds a visual yaw on top of the road tangent.
+      const body = { x: c.x, y: c.y, z: c.z, size: c.size, hx: -Math.sin(c.g.rotation.y), hz: -Math.cos(c.g.rotation.y) };
+      c.g.visible = !segmentHitsVehicle(cam, cam, body, 1.2) && !(tgt && segmentHitsVehicle(cam, tgt, body, 0.6));
     }
   }
   // keep the player's car out of other vehicles: push it out along the shallowest side of the overlap

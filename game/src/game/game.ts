@@ -7,9 +7,11 @@ import { moodAt } from '../core/sky';
 import { rng, hash } from '../core/util';
 import { labelTexture } from '../world/signs';
 import { Player, Input } from './player';
-import { RoadGraph, GEdge } from './roadgraph';
+import { RoadGraph, GEdge, RoadRoute } from './roadgraph';
+import { clearRoadGuidance, remainingRouteDistance } from './route-guidance';
 import { Traffic } from './traffic';
-import { Hud } from '../ui/hud';
+import { Hud, orderOfferHtml } from '../ui/hud';
+import { eligiblePickup } from './pickups';
 import { FullMap } from '../ui/map';
 import { AreaPicker, AreaChoice } from '../ui/areapicker';
 import { TitleScreen, goFullscreen, exitFullscreen, isFullscreen, canFullscreen } from '../ui/title';
@@ -18,8 +20,8 @@ import { Walkers } from './walkers';
 import { MetroTrains } from './metro';
 import { RailTrains } from './rail';
 import { Sound } from './audio';
-import { supportAt, nearbyBuildings } from './physics';
-import { pointInRing } from '../world/city';
+import { supportAt } from './physics';
+import { findClearStreetSpot, staticSolidAt, clearCameraPosition } from './spatial-safety';
 import { LADDER, TheatreDef, Lease, Film, makeSlate, simulateDay, PRICES, CAMPAIGNS, projection, CINEMA_CONST } from './cinema';
 
 // the city opens up as you level: early orders stay in the neighbourhood, later ones cross Hyderabad
@@ -57,10 +59,14 @@ export class Game {
   coins = 500; level = 0; doneInLevel = 0; streak = 1; totalDelivered = 0;
   day = 1; minutes = 8 * 60; paused = false;
   order: Order | null = null; actProgress = 0;
-  route: { pts: [number, number, number][]; len: number } | null = null; routeT = 0; routeTarget: Stop | null = null;
+  nextOfferAt: number | null = null;
+  route: RoadRoute | null = null; routeT = 0; routeTarget: Stop | null = null;
+  routeGuidanceBlocked = false;
+  routeGuide: [number, number, number][] = [];
   gps = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: new THREE.Color('#45E3D3').multiplyScalar(1.4), transparent: true, opacity: 0.6, depthWrite: false, toneMapped: false }));
   beacon!: THREE.Group; theatres: TheatreSite[] = []; lease: Lease | null = null; slate: Film[] = [];
   camPos = new THREE.Vector3(); camLook = new THREE.Vector3(); clock = new THREE.Clock(); t = 0; moodT = 0;
+  cameraPlacementRevision = -1;
   r = rng(Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];
   constructor(public engine: Engine, public zone: CoreData, public city: World, public opts: { lowQ: boolean; still?: boolean }) {
     this.graph = new RoadGraph(zone.roads, []);
@@ -141,7 +147,7 @@ export class Game {
     const toStop = (st: [number, number, number, string], label: string, sub: string): Stop => ({ x: st[0], z: st[1], y: st[2], label, sub });
     // a "shop" whose board is only a place name ("RTC X Roads") is a mis-tagged listing, not a kitchen
     const placeNames = new Set(this.zone.places.map((p) => p.name.toLowerCase()).concat(['rtc x roads', 'rtc cross roads', 'hyderabad', 'secunderabad']));
-    for (const f of this.zone.food) if (f.board.length >= 3 && !placeNames.has(f.board.toLowerCase().trim())) this.food.push({ ...f, s: toStop(f.stop, f.board, f.stop[3] ? `on ${f.stop[3]}` : '') });
+    for (const f of this.zone.food) if (eligiblePickup(f, placeNames)) this.food.push({ ...f, s: toStop(f.stop, f.board, f.stop[3] ? `on ${f.stop[3]}` : '') });
     for (const d of this.zone.drops) this.residences.push(toStop(d, '', d[3]));
   }
   // the lease ladder: each rung is a real single screen, found among the city's cinema listings near its known location
@@ -287,19 +293,32 @@ export class Game {
     const pickup: Stop = { ...p, label: pick.board, sub: p.sub };
     return { pickup, drop, pickupName: pick.name, dist, limit: dist / 7 + 45, t: 0, state: 'offer', heat: 100, slices: 8 };
   }
+  queueOffer(delayMs: number, now = performance.now()) {
+    this.nextOfferAt = now + delayMs;
+  }
+  tickOfferQueue(now = performance.now()) {
+    if (this.nextOfferAt == null) return;
+    if (this.order) { this.nextOfferAt = null; return; }
+    // Keep a due offer pending while any overlay owns input. Resume/map close
+    // will service it on the next frame rather than discard a one-shot timer.
+    if (now < this.nextOfferAt || this.paused || this.hud.modalOpen || this.map?.open || this.choosing || this.relocating) return;
+    this.showOffer();
+    if (!this.order) this.nextOfferAt = now + 1000; // bounded retry if no valid route could be generated
+  }
   showOffer() {
     // A delayed offer callback must not replace an accepted delivery or appear over area selection.
-    if (this.choosing || this.relocating || (this.order && this.order.state !== 'offer')) return;
+    if (this.paused || this.hud.modalOpen || this.map?.open || this.choosing || this.relocating || (this.order && this.order.state !== 'offer')) return;
     // Reopening a cancelled area picker restores the same offer, including its route and pay.
     let o: Order | null = this.order;
     for (let k = 0; k < 6 && !o; k++) o = this.makeOffer();
     if (!o) return;
-    this.order = o;
+    this.order = o; this.nextOfferAt = null;
     const pay = Math.round(35 + o.dist * 0.07);
-    this.hud.offer(`<div class="k">New order · Level ${this.level + 1}</div>
-      <div class="big">Pick up at ${esc(o.pickup.label)}</div><div class="sm">${esc(o.pickup.sub || '')}</div>
-      <div class="big">Deliver to ${esc(o.drop.label)}</div><div class="sm">${Math.round(o.dist)} m route · about ${Math.round(o.limit)} s · base pay ${pay} coins + tip</div>
-      <div class="sm hint">Want another part of the city? Open the map and choose “Deliver from here”.</div>`,
+    const P = this.player.pos, f = this.player.forward;
+    const approach = this.graph.route(P.x, P.z, o.pickup.x, o.pickup.z, this.player.flying ? undefined : { hx: f.x, hz: f.z, y: P.y });
+    this.hud.offer(orderOfferHtml({ level: this.level + 1, pickupName: o.pickup.label, pickupRoad: o.pickup.sub || '',
+      customerName: o.drop.label, approachMetres: approach?.len ?? null, approachEstimated: approach?.complete === false,
+      deliveryMetres: o.dist, deliverySeconds: o.limit, basePay: pay }),
       [{ label: document.documentElement.classList.contains('is-touch') ? 'Accept' : 'Accept (E)', cls: 'go', fn: () => this.acceptOffer() }, { label: 'Another', cls: 'alt', fn: () => { this.order = null; this.hud.offer(null); this.showOffer(); } }]);
   }
   acceptOffer() {
@@ -310,6 +329,7 @@ export class Game {
   routeColor = '#FFB627';
   setTarget(s: Stop | null, color = '#FFB627') {
     this.routeTarget = s; this.routeT = 0; this.route = null;
+    this.routeGuide = []; this.routeGuidanceBlocked = false;
     this.beacon.visible = !!s; this.routeColor = color;
     (this.gps.material as THREE.MeshBasicMaterial).color.set(color).multiplyScalar(1.4);       // the road line matches the marker
     if (s) {
@@ -334,7 +354,7 @@ export class Game {
     if (this.doneInLevel >= L.n && this.level < LEVELS.length - 1) { this.level++; this.doneInLevel = 0; setTimeout(() => this.hud.toast(`Level ${this.level + 1} unlocked!`, 'teal'), 2000); }
     this.player.chargeCap = 20 + this.level * 2.5;
     this.order = null; this.setTarget(null); this.save();
-    setTimeout(() => { if (!this.order && !this.hud.modalOpen) this.showOffer(); }, 2500);
+    this.queueOffer(2500);
   }
 
   // ---------- cinema ----------
@@ -352,6 +372,8 @@ export class Game {
     if (this.hud) { this.hud.touchGas = false; this.hud.touchBrake = false; this.hud.touchSteer = 0; }
   }
   openTheatres() {
+    if (this.map?.open || this.choosing) return;
+    this.resetInput();
     const leased = this.lease && !this.lease.done ? this.lease : null;
     const rows = this.theatres.map((s, i) => {
       const status = leased?.theatre === s.def.key ? `Running “${esc(leased.film.title)}” · day ${leased.days.length}/7` : leased ? 'One lease at a time' : this.coins >= s.def.lease ? 'Affordable now' : `Need ${(s.def.lease - this.coins).toLocaleString('en-IN')} more coins`;
@@ -462,7 +484,7 @@ export class Game {
     this.map = new FullMap(this.hud.root, this.zone, () => ({
       player: this.area ? { x: this.player.pos.x, z: this.player.pos.z, yaw: this.player.yaw } : null,
       canMove: !!this.area && (!this.order || this.order.state === 'offer'),
-      route: this.route ? this.route.pts : null,
+      route: this.route ? (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts) : null,
       target: this.routeTarget ? { x: this.routeTarget.x, z: this.routeTarget.z, label: this.routeTarget.label } : null,
       theatres: this.theatres.map((t) => ({ x: t.stop.x, z: t.stop.z, name: t.def.name, leased: !!this.lease && !this.lease.done && this.lease.theatre === t.def.key })),
       pickups: this.food.map((f) => ({ x: f.s.x, z: f.s.z, pizza: !!f.pizza })),
@@ -530,7 +552,7 @@ export class Game {
     this.relocating = true; this.choosing = true; this.paused = true;
     if (this.map?.open) this.map.hide();
     this.picker.hide(); this.hud.offer(null); this.hud.modal(null);
-    this.order = null; this.setTarget(null);
+    this.order = null; this.nextOfferAt = null; this.setTarget(null);
     setLoading(`Loading ${c.name}…`);
     try { this.city.focus = [c.x, c.z]; await this.city.ensure(c.x, c.z, 650); }
     catch (e) {
@@ -540,7 +562,13 @@ export class Game {
       this.chooseArea(!this.area);
       return;
     }
-    this.placeNear(c.x, c.z);
+    if (!this.placeNear(c.x, c.z)) {
+      setLoading(''); this.relocating = false;
+      this.city.focus = [this.player.pos.x, this.player.pos.z];
+      this.hud.toast('No clear street loaded here. Choose a nearby area.', 'pink');
+      this.chooseArea(!this.area);
+      return;
+    }
     // the old neighbourhood's traffic and people stay behind
     for (const car of this.traffic.cars) this.engine.scene.remove(car.g); this.traffic.cars.length = 0;
     for (const w of this.walkers.list) this.walkers.group.remove(w.g); this.walkers.list.length = 0;
@@ -552,33 +580,16 @@ export class Game {
     this.hud.toast(`Welcome to ${c.name}!`, 'teal');
     (window as any).__game = this;                 // tests start once the first area is ready
     setTimeout(() => this.map?.build().catch(() => {}), 4000);   // the city map is ready before anyone opens it
-    setTimeout(() => { if (!this.order && !this.hud.modalOpen && !this.choosing) this.showOffer(); }, 2200);
+    this.queueOffer(2200);
   }
-  // put the car on a proper street near (x, z): ground level, not a slip road or driveway, facing a legal way
-  // a proper street spot near (x, z), facing a legal way (null if no road is loaded there)
+  // A loaded ground street with room for the whole car and a clear forward exit.
   streetSpotNear(x: number, z: number): { x: number; z: number; y: number; yaw: number } | null {
-    const OK = new Set(['trunk', 'primary', 'secondary', 'tertiary', 'unclassified', 'residential', 'unknown', 'primary_link', 'secondary_link', 'tertiary_link', 'living_street', 'service']);
-    let best: { g: GEdge; s: number; d: number } | null = null;
-    for (const g of this.graph.nearestEdges(x, z, 4)) {
-      if (!OK.has(g.e.cls) || g.len < 12 || (g.e.elev && Math.max(...g.e.elev) > 1)) continue;
-      const P = g.e.pts;
-      for (let i = 0; i < P.length - 1; i++) {
-        const dx = P[i + 1][0] - P[i][0], dz = P[i + 1][1] - P[i][1], L2 = dx * dx + dz * dz || 1;
-        const u = Math.max(0, Math.min(1, ((x - P[i][0]) * dx + (z - P[i][1]) * dz) / L2));
-        const d = Math.hypot(P[i][0] + dx * u - x, P[i][1] + dz * u - z);
-        if (!best || d < best.d) best = { g, s: g.cum[i] + Math.sqrt(L2) * u, d };
-      }
-    }
-    if (!best) return null;
-    const g = best.g, dir: 1 | -1 = g.e.oneway === 'forward' ? -1 : 1;
-    const sF = Math.max(4, Math.min(g.len - 4, best.s));
-    const p = this.graph.pointAt(g, dir === 1 ? sF : g.len - sF, dir, g.e.oneway ? 0 : Math.max(2.2, g.e.w / 4 + 0.8));
-    const sup = supportAt(this.city, p.x, p.z, p.y + 0.5, true);
-    return { x: p.x, z: p.z, y: sup.y, yaw: Math.atan2(-p.hx, -p.hz) };
+    return findClearStreetSpot(this.graph, this.city, x, z, { heading: this.player.forward, vehicles: this.traffic.cars });
   }
   rescue() {
+    if (this.player.glide) return;
     const P = this.player.pos, s = this.streetSpotNear(P.x, P.z);
-    if (!s || this.player.glide) return;
+    if (!s) { this.hud.toast('No clear street nearby yet. Try again once the area loads.', 'pink'); return; }
     this.player.glideTo(s.x, s.y, s.z, s.yaw); this.stuckT = 0; this.hud.rescue(false);
     this.hud.toast('Back to the street!', 'teal');
   }
@@ -600,27 +611,14 @@ export class Game {
     if (!onRoof && (this.stuckT > 9 || this.slowT > 26)) { this.slowT = 0; this.rescue(); }   // still wedged after a while: help without being asked
   }
   placeNear(x: number, z: number) {
-    const OK = new Set(['trunk', 'primary', 'secondary', 'tertiary', 'unclassified', 'residential', 'unknown', 'primary_link', 'secondary_link', 'tertiary_link']);
-    let best: { g: GEdge; s: number; sc: number } | null = null;
-    for (const g of this.graph.nearestEdges(x, z, 4)) {
-      if (!OK.has(g.e.cls) || g.len < 30 || (g.e.elev && Math.max(...g.e.elev) > 1)) continue;
-      const P = g.e.pts;
-      for (let i = 0; i < P.length - 1; i++) {
-        const dx = P[i + 1][0] - P[i][0], dz = P[i + 1][1] - P[i][1], L2 = dx * dx + dz * dz || 1;
-        const u = Math.max(0, Math.min(1, ((x - P[i][0]) * dx + (z - P[i][1]) * dz) / L2));
-        const d = Math.hypot(P[i][0] + dx * u - x, P[i][1] + dz * u - z);
-        const sc = d + (['residential', 'unclassified', 'unknown'].includes(g.e.cls) ? 40 : 0);
-        if (!best || sc < best.sc) best = { g, s: g.cum[i] + Math.sqrt(L2) * u, sc };
-      }
-    }
-    if (!best) { this.player.place(x, z, 0, 0); return false; }
-    const g = best.g, dir: 1 | -1 = g.e.oneway === 'forward' ? -1 : 1;     // oneway names the denied heading
-    const sF = Math.max(8, Math.min(g.len - 8, best.s));
-    const p = this.graph.pointAt(g, dir === 1 ? sF : g.len - sF, dir, g.e.oneway ? 0 : Math.max(2.2, g.e.w / 4 + 0.8));
-    this.player.place(p.x, p.z, Math.atan2(-p.hx, -p.hz), p.y);
+    const p = findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true });
+    if (!p) return false;
+    this.player.place(p.x, p.z, p.yaw, p.y);
     return true;
   }
   openPause() {
+    if (this.map?.open || this.choosing) return;
+    this.resetInput();
     this.paused = true;
     this.hud.modal(`<h2>Paused</h2><div class="sm">Deliver pizzas around your area to earn coins; move anywhere in Hyderabad after a delivery (map → Deliver from here, or Change area below). Lease a theatre (T), pick a fictional film and watch the collections come in each night. Every 10 seconds of road driving earns 2.5 seconds of flight (Space / FLY).</div>
       <div class="sm">Map and building data: © OpenStreetMap contributors (ODbL) via Overture Maps; business listings from Overture Maps Places (CDLA-Permissive 2.0) and Foursquare OS Places (Apache 2.0); building heights from Google Open Buildings / the Roadster repository. Shop names are shown as text only and remain the property of their owners.</div>
@@ -718,6 +716,7 @@ export class Game {
   }
   frame() {
     const dt = Math.min(this.clock.getDelta(), 0.05);
+    this.tickOfferQueue();
     if (this.map?.open) { this.map.tick(dt); return; }
     if (this.paused || this.hud.modalOpen) { this.engine.render(); return; }
     this.t += dt;
@@ -780,6 +779,11 @@ export class Game {
     // gps
     this.updateRoute(dt);
     // camera: chase cam that the player can swing around while stopped; it never ends up inside a building or vehicle
+    if (this.cameraPlacementRevision !== this.player.placementRevision) {
+      this.cameraPlacementRevision = this.player.placementRevision;
+      this.camPos.set(0, 0, 0); this.camLook.set(0, 0, 0);
+      this.orbitYaw = 0; this.orbitPitch = 0.38; this.orbitDist = 0;
+    }
     const f = this.player.forward;
     const air = this.player.pos.y - (this.player.lastSupport + 0.55) > 2;
     const moving = Math.abs(this.player.speed) > 2 || air;
@@ -838,22 +842,14 @@ export class Game {
     this.traffic.max = Math.round((low ? 16 : 26) + (low ? 18 : 38) * Math.max(shops, road));
     this.walkers.max = Math.round((low ? 6 : 12) + (low ? 22 : 70) * shops + (low ? 4 : 8) * road);
   }
-  // is this point inside a building, a deck, or below the ground surface?
+  // Camera volume against buildings, landmark piers, poles, walls and decks.
   insideSolid(p: THREE.Vector3) {
-    if (p.y < supportAt(this.city, p.x, p.z, p.y, true).y + 0.35) return true;
-    for (const b of nearbyBuildings(this.city, p.x, p.z)) if (b.h > p.y - 0.3 && pointInRing(p.x, p.z, b.ring)) return true;
-    return false;
+    return staticSolidAt(this.city, p);
   }
   // walk from the car toward the wanted camera spot and stop before the first solid thing
   clearCamera(from: THREE.Vector3, to: THREE.Vector3) {
-    const d = to.clone().sub(from), L = d.length(); if (L < 0.01) return to;
-    const steps = Math.ceil(L / 0.7); let ok = from.clone();
-    for (let i = 1; i <= steps; i++) {
-      const p = from.clone().addScaledVector(d, i / steps);
-      if (this.insideSolid(p)) { const back = ok.clone().sub(from); return back.length() < 2.5 ? from.clone().add(new THREE.Vector3(0, 2.2, 0)) : ok; }
-      ok = p;
-    }
-    return to;
+    const p = clearCameraPosition(this.city, from, to);
+    return new THREE.Vector3(p.x, p.y, p.z);
   }
   lampT = 0;
   placeLampLights() {
@@ -871,10 +867,13 @@ export class Game {
       this.routeT = this.route && this.route.len > 3000 ? 4 : 1.5;
       const f = this.player.forward;
       this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, this.player.flying ? undefined : { hx: f.x, hz: f.z, y: P.y });
+      const guidance = clearRoadGuidance(this.city, this.route?.pts || []);
+      this.routeGuidanceBlocked = guidance.blocked;
+      this.routeGuide = guidance.pts;
       // ribbon geometry along the first ~700 m
       const pos: number[] = [];
       if (this.route) {
-        let acc = 0; const pts = this.route.pts;
+        let acc = 0; const pts = guidance.pts;
         for (let i = 0; i < pts.length - 1 && acc < 700; i++) {
           const a = pts[i], b = pts[i + 1]; const L = Math.hypot(b[0] - a[0], b[2] - a[2]); if (L < 0.1) continue; acc += L;
           const nx = -(b[2] - a[2]) / L * 0.7, nz = (b[0] - a[0]) / L * 0.7;
@@ -886,7 +885,7 @@ export class Game {
       this.gps.geometry.dispose(); this.gps.geometry = g;
       const mat = this.gps.material as THREE.MeshBasicMaterial; mat.side = THREE.DoubleSide;
     }
-    this.gps.visible = true;
+    this.gps.visible = !!this.route && !this.player.flying;
   }
   areaNow = ''; areaCand = ''; areaCandT = 0;
   updateHud() {
@@ -899,15 +898,18 @@ export class Game {
     h.set('spd', String(Math.round(Math.abs(this.player.speed) * 3.6)));
     h.set('fly-v', `${this.player.charge.toFixed(1)} s`);
     (h.el.fly as HTMLElement).style.width = `${(this.player.charge / this.player.chargeCap) * 100}%`;
-    const distTo = (s: Stop) => this.route ? Math.round(this.route.len + Math.hypot(this.route.pts[1]?.[0] - P.x || 0, 0)) : Math.round(Math.hypot(s.x - P.x, s.z - P.z));
+    const distTo = (s: Stop) => this.route ? Math.round(remainingRouteDistance(this.route.pts, this.route.len, P.x, P.z)) : Math.round(Math.hypot(s.x - P.x, s.z - P.z));
+    const distanceLabel = (s: Stop) => `${!this.route || this.route.complete === false ? '~' : ''}${distTo(s)} m`;
+    const guidanceNote = this.routeGuidanceBlocked ? 'Road ahead blocked · check the map' : !this.route && !this.player.flying ? 'Return to a road for GPS · use Back to the road if stuck' : this.route?.complete === false ? 'Route continues as nearby streets load' : '';
+    const sub = (s: Stop) => [s.sub, guidanceNote].filter(Boolean).join(' · ');
     if (!o || o.state === 'offer') {
       const t = this.routeTarget;
-      h.order({ state: t ? 'GPS' : 'Waiting for an order', title: t ? t.label : 'Orders appear here', sub: t ? t.sub : (document.documentElement.classList.contains('is-touch') ? 'Tap Theatres to lease a picture hall' : 'Press T to see theatres'), dist: t ? `${distTo(t)} m` : '', time: '', meters: false });
+      h.order({ state: t ? 'GPS' : 'Waiting for an order', title: t ? t.label : 'Orders appear here', sub: t ? sub(t) : (document.documentElement.classList.contains('is-touch') ? 'Tap Theatres to lease a picture hall' : 'Press T to see theatres'), dist: t ? distanceLabel(t) : '', time: '', meters: false });
     } else if (o.state === 'toPickup') {
-      h.order({ state: 'Pick up', title: o.pickup.label, sub: o.pickup.sub, dist: `${distTo(o.pickup)} m`, time: '', meters: false });
+      h.order({ state: 'Pick up', title: o.pickup.label, sub: sub(o.pickup), dist: distanceLabel(o.pickup), time: '', meters: false });
     } else {
       const left = Math.max(0, o.limit - o.t);
-      h.order({ state: 'Deliver', title: o.drop.label, sub: o.drop.sub, dist: `${distTo(o.drop)} m`, time: left > 0 ? `${Math.ceil(left)} s` : 'Late!', heat: o.heat, slices: o.slices, meters: true });
+      h.order({ state: 'Deliver', title: o.drop.label, sub: sub(o.drop), dist: distanceLabel(o.drop), time: left > 0 ? `${Math.ceil(left)} s` : 'Late!', heat: o.heat, slices: o.slices, meters: true });
     }
     this.drawMinimap();
   }
@@ -925,7 +927,7 @@ export class Game {
       g.beginPath(); e.e.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke();
     }
     for (const l of this.zone.metro.lines) { g.strokeStyle = '#22B573'; g.lineWidth = 3; g.setLineDash([10, 8]); g.beginPath(); l.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke(); g.setLineDash([]); }
-    if (this.route) { g.strokeStyle = this.routeColor; g.lineWidth = 7; g.beginPath(); this.route.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
+    if (this.route) { g.strokeStyle = this.routeColor; g.lineWidth = 7; g.beginPath(); (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts).forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
     for (const s of this.theatres) { g.fillStyle = '#FF8FB1'; g.beginPath(); g.arc(s.stop.x, s.stop.z, 9, 0, 7); g.fill(); }
     if (this.routeTarget) { g.fillStyle = '#FFB627'; g.beginPath(); g.arc(this.routeTarget.x, this.routeTarget.z, 14, 0, 7); g.fill(); }
     g.restore();

@@ -40,7 +40,7 @@ try {
   await test('GPS does not U-turn through a divided same-edge road', () => {
     const g = new RoadGraph([road('divided', 'a', 'b', [[0, 0], [200, 0]], { cls: 'primary', w: 14 })]);
     const r = g.route(120, 0, 80, 0, { hx: 1, hz: 0, y: 0 });
-    assert.ok(r); assert.equal(r.len, 200); // 80 to junction + 120 back
+    assert.ok(r); assert.equal(r.len, 214); // 200 along the road plus 14 across lane offsets
     assert.ok(r.pts.some(([x]) => x === 200));
   });
   await test('GPS distance works for an order with no car heading', () => {
@@ -57,10 +57,11 @@ try {
   await test('cancelling area selection restores the exact pending offer and its controls', () => {
     const savedDocument = globalThis.document;
     globalThis.document = { documentElement: { classList: { contains: () => false } } };
-    const original = { state: 'offer', pickup: { label: 'Original kitchen', sub: 'Original road' }, drop: { label: 'Original customer' }, dist: 700, limit: 145 };
+    const original = { state: 'offer', pickup: { x: 400, z: 300, label: 'Original kitchen', sub: 'Original road' }, drop: { label: 'Original customer' }, dist: 700, limit: 145 };
     let displayed = 'initial', buttons = [], generated = 0;
     const g = Object.assign(Object.create(Game.prototype), {
       order: original, area: { name: 'RTC X Roads' }, level: 0, choosing: false, relocating: false,
+      player: { pos: { x: 10, y: .57, z: 20 }, forward: { x: 1, z: 0 }, flying: false }, graph: { route(x, z, px, pz, car) { assert.deepEqual([x, z, px, pz], [10, 20, 400, 300]); assert.deepEqual(car, { hx: 1, hz: 0, y: .57 }); return { len: 900 }; } },
       hud: { modal() {}, offer(html, actions = []) { displayed = html; buttons = actions; } },
       picker: { show() {} }, clock: { getDelta() {} }, makeOffer() { generated++; throw Error('must reuse pending offer'); },
     });
@@ -69,7 +70,9 @@ try {
       g.picker.onClose();
       assert.equal(g.order, original); assert.equal(generated, 0);
       assert.match(displayed, /Original kitchen/); assert.match(displayed, /Original customer/);
-      assert.match(displayed, /700 m route/); assert.match(displayed, /84 coins/);
+      assert.match(displayed, /Drive to pickup:<\/b> 900 m/);
+      assert.match(displayed, /Pickup → customer:<\/b> 700 m/);
+      assert.match(displayed, /145 s after collection/); assert.match(displayed, /84 coins/);
       assert.deepEqual(buttons.map((b) => b.label), ['Accept (E)', 'Another']);
       assert.equal(g.paused, false); assert.equal(g.choosing, false);
     } finally { globalThis.document = savedDocument; }
