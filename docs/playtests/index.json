@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-23T07:42:51.862143+00:00",
+  "updatedAt": "2026-10-23T08:07:07.069065+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -11,7 +11,7 @@
   "baseUrl": "http://127.0.0.1:4189/",
   "currentBuild": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
-  "nextAreaCursor": 3,
+  "nextAreaCursor": 6,
   "targetAreas": [
     "Charminar",
     "HITEC City",
@@ -56,16 +56,31 @@
       "lastRoute": "Vishnu Kirana Shop \u2192 Home in Prashanth Nagar"
     },
     "Nagaram": {
-      "status": "not_tested",
-      "completedDeliveries": 0
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "report": "2026-10-23T0747Z/nagaram.json",
+      "heldDrivingInputSeconds": 32.45,
+      "pickupsCompleted": 0,
+      "lastRoute": "Pista House Nagaram \u2192 Home in Nagaram",
+      "closestObservedPickupMetres": 1523
     },
     "Gachibowli": {
-      "status": "not_tested",
-      "completedDeliveries": 0
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "report": "2026-10-23T0747Z/gachibowli.json",
+      "heldDrivingInputSeconds": 28.27,
+      "pickupsCompleted": 0,
+      "lastRoute": "Yellow Deli \u2192 Home in Mourya Ranga Prasad Avenue",
+      "closestObservedPickupMetres": 760
     },
     "Mehdipatnam": {
-      "status": "not_tested",
-      "completedDeliveries": 0
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "report": "2026-10-23T0747Z/mehdipatnam.json",
+      "heldDrivingInputSeconds": 20.8,
+      "pickupsCompleted": 0,
+      "lastRoute": "Mak's Kitchen \u2192 Home in Venkatadri Colony",
+      "closestObservedPickupMetres": 75
     },
     "RTC X Roads": {
       "status": "not_tested",
@@ -124,28 +139,37 @@
     "short viewport layout"
   ],
   "currentRound": {
+    "id": "2026-10-23T0747Z",
     "date": "2026-10-23",
+    "startedAt": "2026-10-23T07:47:15Z",
     "status": "completed_partial_coverage",
-    "reports": [
-      "2026-10-23-old-city.json",
-      "2026-10-23-west.json",
-      "2026-10-23-east.json"
+    "areas": [
+      "Nagaram",
+      "Gachibowli",
+      "Mehdipatnam"
     ],
+    "checkoutCommit": "5c291ae",
+    "runtimeSourceCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
     "participantType": "AI agents using visible browser controls",
+    "reports": [
+      "2026-10-23T0747Z/nagaram.json",
+      "2026-10-23T0747Z/gachibowli.json",
+      "2026-10-23T0747Z/mehdipatnam.json"
+    ],
     "completedDeliveries": 0,
-    "confirmedIssueGroups": 3,
-    "issuesNeedingReproduction": 3,
+    "endedAt": "2026-10-23T08:07:07.069065+00:00",
     "savedScreenshots": 5,
-    "heldDrivingInputSecondsApprox": 151.3,
+    "heldDrivingInputSecondsApprox": 81.52,
     "pickupsCompleted": 0,
-    "summary": "Three areas exercised through actual browser controls; map Close passed in all three. Three deduplicated confirmed issue groups, one transient observation needing repeat and two suspected issues. No pickup or handover completed."
+    "summary": "Nagaram, Gachibowli and Mehdipatnam partially tested; Close map passed and both G10 pending-offer cancellation paths restored the offer. Responsive offer/minimap overlap repeated; off-road connector/wall issue remains suspected. No new hard blocker, collection or delivery established."
   },
   "issueRegistry": [
     {
       "id": "PT-001",
       "aliases": [
         "OLD-CITY-001",
-        "WEST-UI-001"
+        "WEST-UI-001",
+        "MEHDI-001"
       ],
       "priority": "P2",
       "status": "confirmed",
@@ -153,7 +177,8 @@
       "areas": [
         "Charminar",
         "Uppal",
-        "HITEC City"
+        "HITEC City",
+        "Mehdipatnam"
       ],
       "confidence": "high",
       "evidence": [
@@ -166,21 +191,24 @@
       "reports": [
         "2026-10-23-old-city.json",
         "2026-10-23-east.json",
-        "2026-10-23-west.json"
+        "2026-10-23-west.json",
+        "2026-10-23T0747Z/mehdipatnam.json"
       ]
     },
     {
       "id": "PT-002",
       "aliases": [
         "OLD-CITY-002",
-        "WEST-OFFER-001"
+        "WEST-OFFER-001",
+        "PT-N01"
       ],
       "priority": "P3",
       "status": "confirmed_ux_ambiguity",
       "title": "Offer distance excludes the pickup approach without labeling the legs",
       "areas": [
         "Charminar",
-        "HITEC City"
+        "HITEC City",
+        "Nagaram"
       ],
       "confidence": "high",
       "evidence": [],
@@ -188,7 +216,8 @@
       "nextStep": "Label pickup-to-customer distance and post-pickup window; show approach distance separately.",
       "reports": [
         "2026-10-23-old-city.json",
-        "2026-10-23-west.json"
+        "2026-10-23-west.json",
+        "2026-10-23T0747Z/nagaram.json"
       ],
       "triageNote": "Consolidated as P3 wording ambiguity: the source confirms a delivery-leg estimate, not a proven distance/deadline calculation failure."
     },
@@ -246,8 +275,10 @@
       "evidence": [],
       "nextStep": "Follow intended ground-level turn; compare actual drivable lane and ribbon. Pickup reachability is not disproven.",
       "reports": [
-        "2026-10-23-west.json"
-      ]
+        "2026-10-23-west.json",
+        "2026-10-23T0747Z/gachibowli.json"
+      ],
+      "followUp": "Not reproduced in Gachibowli: observed on-road ribbon remained in a drivable carriageway next to divider. Keep suspected; source hypothesis alone does not prove it."
     },
     {
       "id": "PT-006",
@@ -266,6 +297,46 @@
       "reports": [
         "2026-10-23-east.json"
       ]
+    },
+    {
+      "id": "PT-007",
+      "aliases": [
+        "PT-N02"
+      ],
+      "priority": "P3",
+      "status": "confirmed_visual_overlap_pointer_impact_untested",
+      "title": "Pending offer overlaps minimap at 594x522",
+      "areas": [
+        "Nagaram"
+      ],
+      "confidence": "high for visual overlap; pointer failure untested",
+      "evidence": [],
+      "evidenceLimit": "Nagaram overlap exists in CUA trace only. Saved Mehdipatnam images show a different 594x466 layout without overlap.",
+      "reports": [
+        "2026-10-23T0747Z/nagaram.json",
+        "2026-10-23T0747Z/mehdipatnam.json"
+      ],
+      "nextStep": "Reproduce at594x522 and save evidence; verify covered and exposed minimap click targets separately. At594x466 exposed minimap click passed."
+    },
+    {
+      "id": "PT-008",
+      "aliases": [
+        "GACH-ROUTE-001"
+      ],
+      "priority": "P3",
+      "status": "suspected",
+      "title": "Off-road route connector points toward compound wall",
+      "areas": [
+        "Gachibowli"
+      ],
+      "confidence": "low; single off-road attempt",
+      "evidence": [
+        "evidence/2026-10-23T0747Z-gachibowli-stop-65fbca.jpg"
+      ],
+      "reports": [
+        "2026-10-23T0747Z/gachibowli.json"
+      ],
+      "nextStep": "Repeat after a controlled departure from road; check accessible openings and guidance. Do not infer an unreachable pickup."
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
@@ -297,6 +368,32 @@
     "evidence/2026-10-23-charminar-overlay-8c5d49.jpg",
     "evidence/2026-10-23-hitec-extended-stop-0836f5.jpg",
     "evidence/2026-10-23-hitec-stopping-state-716fc8.jpg",
-    "evidence/2026-10-23-uppal-tip-obstruction-f898cd.jpg"
-  ]
+    "evidence/2026-10-23-uppal-tip-obstruction-f898cd.jpg",
+    "evidence/2026-10-23T0747Z-gachibowli-stop-65fbca.jpg",
+    "evidence/2026-10-23T0747Z-mehdipatnam-pending-offer-dbeee3.jpg",
+    "evidence/2026-10-23T0747Z-mehdipatnam-restored-offer-b56c04.jpg",
+    "evidence/2026-10-23T0747Z-mehdipatnam-stopping-state-da3f18.jpg",
+    "evidence/2026-10-23T0747Z-nagaram-after-flight-ddd0bb.jpg"
+  ],
+  "roundHistory": [
+    {
+      "date": "2026-10-23",
+      "status": "completed_partial_coverage",
+      "reports": [
+        "2026-10-23-old-city.json",
+        "2026-10-23-west.json",
+        "2026-10-23-east.json"
+      ],
+      "participantType": "AI agents using visible browser controls",
+      "completedDeliveries": 0,
+      "confirmedIssueGroups": 3,
+      "issuesNeedingReproduction": 3,
+      "savedScreenshots": 5,
+      "heldDrivingInputSecondsApprox": 151.3,
+      "pickupsCompleted": 0,
+      "summary": "Three areas exercised through actual browser controls; map Close passed in all three. Three deduplicated confirmed issue groups, one transient observation needing repeat and two suspected issues. No pickup or handover completed.",
+      "id": "2026-10-23-initial"
+    }
+  ],
+  "nextRoundPlan": "Prioritize a single explicit pickup-to-handover loop. Give one driver up to12-15minutes on the same order/tab while other agents inspect evidence; rotate another area only after meaningful route progress or a documented blocker. Preserve the agent-owned paused tab when supported for later continuation. Do not reset or replace long pickup attempts merely to increase area count."
 }

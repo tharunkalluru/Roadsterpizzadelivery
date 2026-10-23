@@ -1,0 +1,250 @@
+{
+  "roundId": "2026-10-23T0747Z",
+  "area": "Gachibowli",
+  "status": "completed_bounded_pass",
+  "participantType": "AI agent using real visible browser controls",
+  "repoCommit": "5c291aec75efe5dcb9a11f63b0b1bce951c31774",
+  "buildCommit": "7723f8cf66a4bc5ba1a81f2e74224b3f6693f1c5",
+  "url": "http://127.0.0.1:4189/?area=Gachibowli",
+  "plan": [
+    "Load Gachibowli in a dedicated tab and dismiss tutorial after reading it.",
+    "Inspect offer, accept and use map to interpret first pickup turn.",
+    "Drive with short steering inputs and real brake/flight/recovery controls where needed.",
+    "Capture explicit collected/delivered states if reached; distance alone is not completion.",
+    "Observe map Close and pause; save final or blocking screenshot and exact stopping state."
+  ],
+  "priorIssueFollowUp": {
+    "issueId": "PT-005",
+    "status": "source_hypothesis_only",
+    "hypothesis": "On qualifying two-way main roads, route ribbon uses road centerline vertices while the generated solid median lies on that same centerline.",
+    "sources": [
+      "game/src/game/roadgraph.ts:route vertex/lead/chain points and target pointAt with lateral=0",
+      "game/src/world/city.ts:hasCentreMedian and curb(e.pts,...,median,true)",
+      "game/src/game/game.ts:updateRoute ribbon construction"
+    ],
+    "narrowReproduction": "Stay in a valid left lane on a visibly divided two-way main road. Compare ribbon to the central divider before attempting a slow legal junction turn. Do not claim destination unreachable from one bad turn.",
+    "actualReproductionOutcome": "In the760m on-road frame, ribbon lay in a drivable carriageway alongside the divider. Earlier suspected center-median mismatch was not reproduced here. Subsequent off-road guidance reached a compound wall; that is a different, low-confidence case. PT-005 remains suspected."
+  },
+  "observations": [
+    {
+      "id": "GACH-LOAD",
+      "result": "pass",
+      "steps": [
+        "Open dedicated Gachibowli tab",
+        "Wait for rendered scene and offer"
+      ],
+      "evidence": [
+        "Welcome to Gachibowli!",
+        "Rendered road, car, roadside buildings, trees, streetlights and traffic",
+        "Yellow Deli → Home in Mourya Ranga Prasad Avenue offer"
+      ]
+    },
+    {
+      "id": "GACH-ACCEPT",
+      "result": "pass",
+      "steps": [
+        "Click Accept (E)",
+        "Click Hide tip"
+      ],
+      "evidence": [
+        "Order accepted!",
+        "Pick up Yellow Deli1143m",
+        "Tutorial disappeared and driving view was unobstructed"
+      ]
+    },
+    {
+      "id": "GACH-MAP",
+      "result": "pass",
+      "steps": [
+        "Press M",
+        "Inspect full map route running up main road before bending",
+        "Click Close map ✕"
+      ],
+      "evidence": [
+        "City map shown with route and car arrow",
+        "Actual Close map click restored driving HUD"
+      ]
+    },
+    {
+      "id": "GACH-DRIVE",
+      "result": "partial",
+      "steps": [
+        "Drive initial straight at up to6s per hold",
+        "Use short D corrections to return toward roadway",
+        "Brake near central divider",
+        "Turn left to align with yellow ribbon",
+        "Continue driving and stop after leaving roadway"
+      ],
+      "evidence": [
+        "Pickup distance1143→1066→974→802→760m",
+        "Roadside/sidewalk/flat ground traversal visible",
+        "On-road frame at760m showed yellow ribbon in left carriageway next to central divider",
+        "Later frame showed1840m and a route leading through building compounds",
+        "Final1811m after braking near compound wall"
+      ],
+      "limitations": [
+        "Discrete steering inputs and wrong turns are a confound.",
+        "Distance increase is recorded as rerouting, not proven GPS failure.",
+        "No pickup interaction prompt observed."
+      ]
+    },
+    {
+      "id": "GACH-FLIGHT-EARNING",
+      "result": "observed",
+      "steps": [
+        "Drive across road and ground sections"
+      ],
+      "evidence": [
+        "Boost increased from2.5s to5.0s"
+      ],
+      "limitations": [
+        "Flight was not activated; exact recharge duration not measured."
+      ]
+    },
+    {
+      "id": "GACH-PAUSE",
+      "result": "pass",
+      "steps": [
+        "Press P at stopping state"
+      ],
+      "evidence": [
+        "Paused sheet with Resume/Change area/Back to the road/Settings/Replay tips/Reset progress"
+      ],
+      "cleanup": "Own tab closed after screenshot upload."
+    },
+    {
+      "id": "GACH-CONSOLE",
+      "result": "pass",
+      "steps": [
+        "Read tab warning/error logs after session"
+      ],
+      "evidence": [
+        "Empty warning/error array"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "id": "GACH-ROUTE-001",
+      "severity": "P3",
+      "status": "suspected_needs_reproduction",
+      "area": "Gachibowli side compound reached after leaving main road",
+      "title": "Off-road route connector appears to lead into a compound wall",
+      "steps": [
+        "Accept Yellow Deli pickup",
+        "Drive up the main road",
+        "Leave roadway during steering correction",
+        "Follow recalculated yellow ribbon toward nearby compound",
+        "Brake at the wall"
+      ],
+      "expected": "An off-road recovery route should direct the player through an accessible opening or clearly indicate return to road.",
+      "actual": "After leaving road, ribbon led toward compound wall; saved stopping frame shows yellow arrow beyond/at wall with pickup1811m.",
+      "evidence": {
+        "file": "docs/playtests/evidence/2026-10-23T0747Z-gachibowli-stop-65fbca.jpg",
+        "visibleText": [
+          "Pick up Yellow Deli",
+          "1811m",
+          "5.0s flight",
+          "Day2 7:19AM"
+        ]
+      },
+      "limitations": [
+        "One off-road attempt; steering errors put car there.",
+        "No controlled attempt around the wall or independent route legality analysis.",
+        "Does not prove pickup is unreachable, nor confirm PT-005 center-median issue."
+      ]
+    }
+  ],
+  "evidenceFiles": [
+    "docs/playtests/evidence/2026-10-23T0747Z-gachibowli-stop-65fbca.jpg"
+  ],
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "limitations": [
+    "No collected/delivered state reached; no pickup or handover completed.",
+    "Approximately4.5-minute browser slot contained28.27seconds of held driving input; observations/tool time and coasting are separate.",
+    "Did not activate flight or use recovery this round.",
+    "No bridge-wall test or touch-input test.",
+    "No large-viewport or independent performance measurement.",
+    "Gameplay observations do not verify real-world street/shop order.",
+    "No hard blocker or destination unreachability established."
+  ],
+  "session": {
+    "tabId": "1933378041",
+    "browserUseWindowUTC": "approximately07:54–07:58:30",
+    "heldDrivingInputSeconds": 28.27,
+    "flightActivations": 0,
+    "actualPickupMetresInitial": 1143,
+    "actualPickupMetresNearestObserved": 760,
+    "actualPickupMetresFinal": 1811,
+    "pickupCompleted": false,
+    "handoverCompleted": false,
+    "finalState": "Paused then own tab closed; Pick up Yellow Deli;1811m;Level1 ·0/3;500coins;5.0s flight;Day2 7:19AM. Speed displayed12km/h at pause immediately after braking/reversing.",
+    "viewport": {
+      "width": 594,
+      "height": 522
+    },
+    "offer": {
+      "pickup": "Yellow Deli",
+      "destination": "Home in Mourya Ranga Prasad Avenue",
+      "displayedRouteMetres": 1642,
+      "displayedApproximateSeconds": 280,
+      "baseCoins": 150
+    },
+    "method": "Real Chrome UI input only. No debug autopilot, hidden state reads/mutations, engine stepping or teleporting. Holding W and W+A/D in short turns; S braking; full map inspected.",
+    "inputSequenceSeconds": [
+      {
+        "keys": "W",
+        "seconds": 6
+      },
+      {
+        "keys": "W+D",
+        "seconds": 0.12
+      },
+      {
+        "keys": "W",
+        "seconds": 6
+      },
+      {
+        "keys": "W+D",
+        "seconds": 0.4
+      },
+      {
+        "keys": "W",
+        "seconds": 2.5
+      },
+      {
+        "keys": "S",
+        "seconds": 0.9
+      },
+      {
+        "keys": "W+D",
+        "seconds": 0.6
+      },
+      {
+        "keys": "W",
+        "seconds": 3
+      },
+      {
+        "keys": "S",
+        "seconds": 0.8
+      },
+      {
+        "keys": "W+A",
+        "seconds": 1.1
+      },
+      {
+        "keys": "W+D",
+        "seconds": 0.15
+      },
+      {
+        "keys": "W",
+        "seconds": 6
+      },
+      {
+        "keys": "S",
+        "seconds": 0.7
+      }
+    ]
+  }
+}

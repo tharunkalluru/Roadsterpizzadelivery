@@ -1,0 +1,144 @@
+{
+  "round": "2026-10-23T0747Z",
+  "tester": "playtest_east",
+  "area": "Nagaram",
+  "url": "http://127.0.0.1:4189/?area=Nagaram",
+  "source_head": "5c291ae",
+  "runtime_build": "7723f8c",
+  "status": "completed_bounded_session_with_coverage_limits",
+  "participant_type": "AI agent operating real Chrome controls, not a human participant",
+  "method": "Visible rendered UI and native keyboard/pointer inputs through CUA only. No hidden game state, engine stepping or programmatic teleport. Used normal recovery controls twice.",
+  "viewport": {
+    "width": 594,
+    "height": 522,
+    "override": false
+  },
+  "start_utc": "2026-10-23T07:48:41Z",
+  "end_utc": "2026-10-23T07:53:39Z",
+  "wall_seconds": 298,
+  "held_input_seconds": 32.45,
+  "held_input_durations_seconds": [
+    2.2,
+    1.2,
+    0.9,
+    3,
+    2.6,
+    1,
+    0.9,
+    0.7,
+    0.7,
+    0.3,
+    3,
+    0.15,
+    5,
+    2,
+    1.2,
+    2.2,
+    0.9,
+    3,
+    1.5
+  ],
+  "input_note": "Durations count driving/brake/steering holds. Instant map, pause and flight presses excluded. Coasting also occurred between inspections; total simulation driving time was not instrumented.",
+  "initial_state": {
+    "visible_clock": "Day 2 12:16 AM",
+    "coins": 500,
+    "level": "Level1 0/3",
+    "save_reset": false,
+    "offer_pickup": "Pista House Nagaram",
+    "pickup_road": "ECIL-Keesara Road",
+    "dropoff": "Home in Nagaram",
+    "offer_route_m": 487,
+    "offer_time_s": 115,
+    "offer_base_pay": 69,
+    "accepted_pickup_m": 1607
+  },
+  "findings": [
+    {
+      "id": "PT-N01",
+      "related_finding": "OLD-CITY-002",
+      "severity": "P3",
+      "status": "confirmed_repeated_ux_ambiguity",
+      "confidence": "high",
+      "title": "Offer route wording again hides a substantially longer pickup approach",
+      "steps": [
+        "Open Nagaram and read the Pista House Nagaram offer:487m route, about115s,69coins.",
+        "Accept using the visible button.",
+        "Read the immediate pickup HUD:1607m, Pista House Nagaram on ECIL-Keesara Road."
+      ],
+      "expected": "Offer clearly separates current-position-to-pickup from pickup-to-customer distance and delivery window.",
+      "actual": "487m route sounds like the trip being accepted, yet the first leg alone is1607m. This repeats the earlier source-confirmed wording ambiguity; it is not proof of broken routing.",
+      "evidence": [
+        "CUA offer AX and screenshot Day2 12:16AM",
+        "CUA accepted-order AX and screenshot Day2 12:42AM,1607m"
+      ],
+      "reproduction_count_this_round": 1
+    },
+    {
+      "id": "PT-N02",
+      "related_finding": "previous map-controls audit responsive offer/minimap overlap",
+      "severity": "P3",
+      "status": "confirmed_visual_overlap_pointer_failure_not_tested",
+      "confidence": "high for visual overlap; unknown for pointer impact",
+      "title": "Pending offer visually covers part of minimap at594x522",
+      "steps": [
+        "Load Nagaram at native594x522 viewport.",
+        "Observe initial offer before acceptance."
+      ],
+      "expected": "Map affordance remains visually distinct from offer card.",
+      "actual": "Offer card approximatelyx70..524,y176..400 overlaps minimap approximatelyx457..582,y149..275, obscuring much of its lower-left portion.",
+      "evidence": [
+        "Initial Nagaram CUA screenshot Day2 12:16AM"
+      ],
+      "limitations": [
+        "Did not click the overlapped minimap region, so no claim that map opening fails. Normal M and map Close worked later."
+      ],
+      "reproduction_count_this_round": 1
+    }
+  ],
+  "passed": [
+    "Nagaram loaded with roads, buildings, map and named Pista House offer.",
+    "At594x522 the introductory tip was compact and Hide tip worked. The known <=520px-height stretch condition was not exercised; this is not evidence that PT-001 is fixed.",
+    "Accept switched HUD from waiting to Pick up; no automatic pickup or delivery acceptance occurred.",
+    "W acceleration reached78km/h in observed road driving; steering and brake inputs changed direction/speed.",
+    "Auto collision produced Arre! Watch the auto! toast.",
+    "Building impact reduced speed to5km/h and exposed Stuck? Get back on the road (R).",
+    "Pause > Back to the road and later the visible Stuck recovery button both returned a Back to the street toast and enabled movement.",
+    "M opened full map. Actual Close map button click dismissed it and driving resumed.",
+    "Road driving raised flight boost2.5s to5.0s; Space flight reached142km/h with1.9sremaining.",
+    "After boost depleted0.0s, rendered car was back on ground over grass,20km/h; then P paused it.",
+    "Final captured console warning/error query returned an empty list."
+  ],
+  "delivery": {
+    "state_at_end": "to_pickup_paused_then_tab_closed",
+    "pickup": "Pista House Nagaram",
+    "dropoff": "Home in Nagaram",
+    "initial_pickup_m": 1607,
+    "closest_visible_pickup_m": 1523,
+    "final_visible_pickup_m": 2365,
+    "pickup_completed": false,
+    "handoff_completed": false,
+    "reason_unfinished": "Route was not completed within the bounded turn. Steering corrections, recovery and an off-route flight moved away from the destination. The observations do not establish an impassable or incorrect route."
+  },
+  "evidence_files": [
+    "docs/playtests/evidence/2026-10-23T0747Z-nagaram-after-flight-ddd0bb.jpg"
+  ],
+  "evidence_note": "Persistent screenshot records final post-flight ground state, still Pick up,2365m,0.0s boost. Offer-overlap and487m/1607m observations remain in CUA screenshots/AX transcript; no fabricated persisted screenshots.",
+  "new_suspected_issues": [],
+  "limitations": [
+    "One Nagaram start and one attempted Pista House route only.",
+    "No explicit pickup, package collection or customer handover reached.",
+    "Actual held input duration is separate from298s wall time and coasting; this was not five minutes of uninterrupted driving.",
+    "Shared origin retained existing game progress; no save reset.",
+    "No real-world street or shop-order comparison; names seen are game data, not independently verified businesses.",
+    "Pointer clicking on the visually overlapped pending-order minimap was not tested.",
+    "Park landing was visibly on ground but surface contact/physics was not instrumented.",
+    "No claimed new map/GPS impossibility from navigation mistakes."
+  ],
+  "cleanup": {
+    "game_tab_closed": true,
+    "evidence_tab_closed": true,
+    "input_lock_released": true,
+    "game_source_changed": false,
+    "previous_reports_changed": false
+  }
+}

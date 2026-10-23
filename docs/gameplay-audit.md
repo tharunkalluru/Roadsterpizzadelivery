@@ -63,3 +63,18 @@ These IDs group agent-local aliases in the coverage index. No game behavior was 
 - Keep street/shop accuracy separate: these gameplay sessions did not compare frontage order against street imagery.
 
 Each agent report records held-input duration separately from wall time and coasting. The first round totals approximately 151.3 seconds of held driving input across the three areas, including the additional eight-minute HITEC City observation session; it is not 151.3 seconds of uninterrupted driving. Model/tool round trips, paused inspections and browser ownership waits must not be reported as uninterrupted driving. Five original local-game screenshots are stored in `docs/playtests/evidence/`, including the [extended HITEC City stopping state](playtests/evidence/2026-10-23-hitec-extended-stop-0836f5.jpg). `tools/playtest-evidence-server.py` provides a localhost-only upload form when the browser tool has no direct file-save API; start it only when needed and stop it after the evidence is saved.
+
+## Recurring round — 2026-10-23 07:47 UTC
+
+The next three bounded browser sessions covered Nagaram, Gachibowli and Mehdipatnam on the same gameplay revision. Checkout `5c291ae` added documentation only; its game source is unchanged from the served `7723f8c` build. Five more screenshots were saved. No collection or handover was completed; these are partial route attempts.
+
+| Area | Evidence and outcome | Report |
+| --- | --- | --- |
+| Nagaram | Pista House offer repeated PT-002: 487 m advertised versus 1,607 m pickup. Closest approach 1,523 m. Map Close, recovery, flight exhaustion and a visible return to ground passed. | [Nagaram](playtests/2026-10-23T0747Z/nagaram.json) |
+| Gachibowli | Yellow Deli pickup decreased from 1,143 m to 760 m before an off-road turn. Map Close passed. PT-005 was not reproduced: the observed on-road ribbon lay in a drivable carriageway beside the divider. | [Gachibowli](playtests/2026-10-23T0747Z/gachibowli.json) |
+| Mehdipatnam | Both G10 cancellation paths restored the same Mak's Kitchen offer: 731 m, 149 s and 86 coins. The exposed minimap opened normally. Pickup approach reached 75 m, but collection was not completed. | [Mehdipatnam](playtests/2026-10-23T0747Z/mehdipatnam.json) |
+
+- **PT-007, P3, confirmed visual overlap:** the pending offer covers part of the minimap at 594×522 in Nagaram. Pointer failure in the covered region was not tested. This repeats a previously noted responsive-layout concern. At 594×466 in Mehdipatnam the offer and minimap did not overlap; the exposed minimap click worked. [Initial offer](playtests/evidence/2026-10-23T0747Z-mehdipatnam-pending-offer-dbeee3.jpg) and [restored offer](playtests/evidence/2026-10-23T0747Z-mehdipatnam-restored-offer-b56c04.jpg) document the smaller-height layout and G10 pass, not the Nagaram overlap.
+- **PT-008, P3, suspected:** after leaving the main road in Gachibowli, the route connector appeared to point into a compound wall. [Stopping frame](playtests/evidence/2026-10-23T0747Z-gachibowli-stop-65fbca.jpg). This is a separate off-road guidance observation, not confirmation of the median issue or an unreachable pickup.
+
+No captured console warning/error query returned entries. No new hard gameplay blocker was established. The next round should give one driver a longer uninterrupted turn on a single order while other agents review evidence, rather than repeatedly restarting long pickup approaches to maximize the area count. Other areas and every-tile coverage remain outstanding.

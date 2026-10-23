@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T0747Z",
+  "area": "Mehdipatnam",
+  "tester": "playtest_old_city",
+  "url": "http://127.0.0.1:4189/?area=Mehdipatnam",
+  "checkoutCommit": "5c291ae",
+  "runtimeSourceCommit": "7723f8c",
+  "buildNote": "Root confirmed that checkout commit 5c291ae adds reports only; preview still serves gameplay built from 7723f8c.",
+  "method": "AI agent uses actual Chrome visible controls. No hidden state access, engine stepping or teleporting.",
+  "status": "completed_bounded_visible_controls_session",
+  "plannedChecks": [
+    "Capture initial pending offer fields before accepting",
+    "Pause > Change area > Stay here restores the same pending offer",
+    "Pause > Change area > Pick a spot on the map > Close map > Stay here restores the same pending offer",
+    "Accept offer and attempt pickup through visible driving and GPS",
+    "Capture explicit ending state; do not claim collection or handoff without the UI result"
+  ],
+  "sourcePreflight": {
+    "offerRestore": "chooseArea hides the offer while retaining this.order. onClose resumes and calls showOffer, which reuses an existing offer object.",
+    "mapPickerCancel": "Closing the picker map calls onCancel, which returns to the area picker. Stay here then restores the original offer.",
+    "sources": [
+      "game/src/game/game.ts:477",
+      "game/src/game/game.ts:522-527",
+      "game/src/game/game.ts:290-303",
+      "game/src/ui/areapicker.ts:67-84",
+      "game/src/ui/map.ts:149-154"
+    ]
+  },
+  "findings": [
+    {
+      "id": "MEHDI-001",
+      "registryId": "PT-001",
+      "severity": "P2",
+      "status": "reproduced_existing",
+      "title": "Tall tutorial overlay obstructs short desktop view",
+      "steps": [
+        "Open Mehdipatnam at the natural 594 by 466 viewport",
+        "Wait for the pending-offer tutorial; later accept the order and observe the driving tutorial"
+      ],
+      "expected": "Compact tutorial leaves the offer and driving scene visible.",
+      "actual": "The dark tutorial panel again stretched approximately y47..402; same issue seen in the prior Charminar round. Dismissing it restored the view.",
+      "evidence": [
+        "CUA screenshots before dismissing the initial tutorial and immediately after accepting the order; no new standalone tutorial image saved."
+      ],
+      "limitations": [
+        "Existing issue reproduced, not a new issue group."
+      ]
+    }
+  ],
+  "passed": [
+    {
+      "check": "G10 direct area-picker cancellation",
+      "steps": [
+        "Capture pending offer",
+        "P to pause",
+        "Click Change area",
+        "Click Stay here"
+      ],
+      "result": "The exact same Mak's Kitchen, Home in Venkatadri Colony, 731m,149s,86coins offer returned with Accept(E) and Another controls."
+    },
+    {
+      "check": "G10 map-picker Close cancellation",
+      "steps": [
+        "P to pause",
+        "Click Change area",
+        "Click Pick a spot on the map",
+        "Click Close map",
+        "Observe area picker with current area Mehdipatnam",
+        "Click Stay here"
+      ],
+      "result": "The exact same offer returned again; no new offer or involuntary relocation. The map pin preview labeled Humayun Nagar but cancel preserved Mehdipatnam."
+    },
+    {
+      "check": "Pending-offer pointer access to minimap",
+      "steps": [
+        "Dismiss tutorial",
+        "Click visibly exposed minimap at screenshot coordinates550,148"
+      ],
+      "result": "Full City map opened and showed Close map, zoom buttons and Deliver from here. Close map returned to the pending offer."
+    },
+    {
+      "check": "Offer acceptance",
+      "result": "Clicking Accept(E) changed HUD to Pick up, Mak's Kitchen,442m."
+    },
+    {
+      "check": "Driving and feedback",
+      "result": "W reached78km/h. GPS distance reduced442→383→171→141→106→75m. Divider contact reduced speed and traffic contact displayed Arre! Watch the traffic! Boost rose2.5→5.0→7.5s."
+    },
+    {
+      "check": "Recovery and pause",
+      "result": "R displayed Back to the street and settled the car on a visibly clear road. P opened Paused. No gray-wall landmark obstruction occurred in this recovery."
+    },
+    {
+      "check": "Console",
+      "result": "Final CUA dev.logs query for error/warn returned an empty array."
+    }
+  ],
+  "delivery": {
+    "pickup": "Mak's Kitchen",
+    "dropoff": "Home in Venkatadri Colony",
+    "initialPickupRouteM": 442,
+    "closestVisiblePickupRouteM": 75,
+    "finalVisiblePickupRouteM": 1592,
+    "state": "to_pickup_paused_then_tab_closed",
+    "pickupCompleted": false,
+    "handoffCompleted": false,
+    "collectionPromptSeen": false,
+    "endingSpeedKmh": 0
+  },
+  "limitations": [
+    "This five-minute browser turn prioritized pending-offer regression paths;20.8seconds of held driving inputs were spread across screenshots and checks.",
+    "No pickup or handoff completed and no collection prompt was reached. The closest visible route readout was75m, not proof of arrival.",
+    "No new unique issue group confirmed; the tall tutorial overlay is a recurrence of PT-001.",
+    "No flight, natural landing, theatre leasing, settings changes, phone controls or exact storefront ordering tested.",
+    "No claim of continuous uninterrupted driving or human-participant testing.",
+    "KeyboardM and a covered minimap portion were not tested. The pointer-access pass applies to this594×466 viewport."
+  ],
+  "browserEndedAt": "2026-10-23T08:03:33Z",
+  "viewport": {
+    "width": 594,
+    "height": 466,
+    "override": false
+  },
+  "activeDrivingInputSeconds": 20.8,
+  "participantType": "AI agent, not a human participant",
+  "endingTabState": "Game paused, then agent-created game and evidence tabs closed; shared input lock released.",
+  "offer": {
+    "pickup": "Mak's Kitchen",
+    "dropoff": "Home in Venkatadri Colony",
+    "deliveryRouteM": 731,
+    "displayedAboutSeconds": 149,
+    "basePayCoins": 86
+  },
+  "minimapOverlapFollowup": {
+    "relatedObservation": "East reported pending-offer overlap at594×522 in Nagaram.",
+    "testedViewport": "594×466",
+    "result": "Not reproduced at this shorter breakpoint. Offer right edge was approximately x485; minimap left edge approximately x500, leaving visible separation.",
+    "exposedClick": "Passed: click550,148 opened City map.",
+    "coveredPortionClick": "Not tested because no covered minimap portion existed in this viewport.",
+    "keyboardM": "Not tested in this session; do not infer pointer failure or keyboard behavior from this result."
+  },
+  "observations": [
+    {
+      "status": "observation_not_confirmed_bug",
+      "title": "Pickup GPS distance increased sharply after roadside recovery",
+      "actual": "After reaching a75m pickup readout, the car was on the open shoulder. R recovery first showed1614m while gliding and settled at1592m on the road.",
+      "interpretation": "A heading-sensitive legal road route may explain the longer distance after recovery, but the exact edge and route were not inspected. This is not evidence that recovery physically moved the car1.5km, that the route is impossible, or that the pickup is broken.",
+      "nextCheck": "If investigated later, compare full-map route before/after roadside recovery at the same spot and attempt the next legal turn."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "../evidence/2026-10-23T0747Z-mehdipatnam-pending-offer-dbeee3.jpg",
+      "shows": "Initial offer after tutorial dismissal; minimap fully exposed at594×466."
+    },
+    {
+      "path": "../evidence/2026-10-23T0747Z-mehdipatnam-restored-offer-b56c04.jpg",
+      "shows": "Same offer after map-picker Close and Stay here."
+    },
+    {
+      "path": "../evidence/2026-10-23T0747Z-mehdipatnam-stopping-state-da3f18.jpg",
+      "shows": "Recovered car at0km/h on road; Mak's Kitchen pickup1592m,500coins,7.5s boost."
+    }
+  ]
+}
