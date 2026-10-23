@@ -19,7 +19,10 @@ ENTERPRISES AGENCIES ELECTRICALS MEDICAL MEDICALS CLINIC HOSPITAL BANK ATM NO PA
 FREE OFFER BEST QUALITY BRANDED SHOWROOM TEXTILES SAREES TAILORS BAKERY SWEETS CAFE TEA COFFEE JUICE CHICKEN BIRYANI MUTTON VEG NONVEG
 DIAL CALL CONTACT MOB TEL INDIA PRIVATE LIMITED ROADS CROSS X RTC GOVT GOVERNMENT POLICE TRAFFIC SCHOOL COLLEGE ACADEMY
 CINEMA THEATRE THEATER INSTITUTE COACHING CLASSES DEGREE PG COMPANY CORPORATION UNISEX FITNESS GYM SALON PARLOUR STUDIO DANCE ZUMBA
-IAS SERVICE SERVICES'''.split())
+IAS SERVICE SERVICES CONSULTANT CONSULTANTS CONSULTANCY'''.split())
+# This identity has no distinctive single word: STATE alone also matches ESTATE.
+# Only these explicit equivalents are accepted; never infer arbitrary acronyms.
+SBI_IDENTITIES = ('STATE BANK OF INDIA', 'SBI')
 M_LAT = 110574.0
 
 def norm(s): return re.sub(r'[^A-Z0-9 ]+', ' ', s.upper()).strip()
@@ -37,6 +40,9 @@ def core_business_name(board_name, full_name=None, road_name=None):
         value = re.split(r',|\s+[-|@]\s+', value or '', maxsplit=1)[0]
         return re.sub(r'\s*\([^)]*\)\s*$', '', value).strip()
     name = core(board_name or full_name)
+    if ' '.join(norm(name).split()) in SBI_IDENTITIES:
+        aliases = SBI_IDENTITIES if not full_name or ' '.join(norm(core(full_name)).split()) in SBI_IDENTITIES else ()
+        return dict(name=name, tokens=[], exactAliases=aliases)
     words = informative(name)
     if full_name:
         full_words = set(informative(core(full_name)))
@@ -54,6 +60,11 @@ def distinctive_match(text, core):
     Long tokens allow one small OCR error; short brand tokens must match exactly.
     This remains a review candidate, not confirmation of a particular branch.
     """
+    normalized = ' ' + ' '.join(norm(text).split()) + ' '
+    for alias in core.get('exactAliases', ()):
+        if f' {alias} ' in normalized:
+            return dict(similarity=100, ocrToken=alias, businessToken=alias,
+                        coreBusinessName=core['name'], rule='exact_business_identity_match')
     candidates = []
     for read_word in informative(text):
         for business_word in core['tokens']:
@@ -126,7 +137,7 @@ def main():
         for tx in r['texts']:
             if tx['conf'] < 0.35: continue
             text = tx['text'].strip(); info = informative(text)
-            if not info or sum(c.isalpha() for c in text) < 4: continue
+            if not info or (sum(c.isalpha() for c in text) < 4 and norm(text) != 'SBI'): continue
             n_txt += 1
             cx = sum(p[0] for p in tx['box']) / 4
             bearing = (r['compass'] + math.degrees(math.atan((cx - w / 2) / f))) % 360

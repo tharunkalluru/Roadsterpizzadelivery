@@ -143,6 +143,58 @@ class MatchingProvenanceTests(unittest.TestCase):
         branded = core_business_name('Sparkle Home Cleaning Services')
         self.assertEqual(distinctive_match('SPARKLE HOME CLEANING SERVICES', branded)['businessToken'], 'SPARKLE')
 
+    def test_consultancy_descriptor_cannot_identify_iaec(self):
+        from ocr_match import core_business_name, distinctive_match
+        core = core_business_name('IAEC Consultants Private Limited', 'IAEC Consultants Private Limited (Head Office )')
+        # Photo 908926379957946 shows an automobile Fincorp business, not IAEC.
+        for reading in ['Certified Automabile Consultants)', 'CONSULTANTS', 'CONSULTANT', 'CONSULTANCY']:
+            with self.subTest(reading=reading):
+                self.assertIsNone(distinctive_match(reading, core))
+        for reading in ['IAEC', 'IAEC Consultants Private Limited']:
+            with self.subTest(reading=reading):
+                self.assertEqual(distinctive_match(reading, core)['businessToken'], 'IAEC')
+
+    def test_estate_or_state_alone_cannot_identify_state_bank_of_india(self):
+        from ocr_match import core_business_name, distinctive_match
+        core = core_business_name('State Bank of India', 'State Bank of India - Parishrama Bhavan')
+        # Photo 491136119004032 shows GUPTA ESTATE beside Jagdamba Jewellers.
+        for reading in ['ESTATE', 'GUPTA ESTATE', 'STATE', 'STATE BANK', 'STATE BANK OF HYDERABAD',
+                        'ESTATE BANK OF INDIA', 'STATE BANK OF INDIANA', 'XSBI', 'SBIS']:
+            with self.subTest(reading=reading):
+                self.assertIsNone(distinctive_match(reading, core))
+
+    def test_exact_sbi_and_full_bank_identity_are_retained(self):
+        from ocr_match import core_business_name, distinctive_match
+        for board, full in [('State Bank of India', 'State Bank of India - Parishrama Bhavan'),
+                            ('SBI', 'State Bank of India - Parishrama Bhavan')]:
+            core = core_business_name(board, full)
+            for reading in ['SBI', 'SBI ATM', 'State Bank of India', 'STATE  BANK OF INDIA Parishrama Bhavan']:
+                with self.subTest(board=board, reading=reading):
+                    match = distinctive_match(reading, core)
+                    self.assertIsNotNone(match)
+                    self.assertEqual(match['similarity'], 100)
+        # Do not infer an acronym or override contradictory mapped identity.
+        unrelated = core_business_name('SBI', 'Some Business Institute')
+        self.assertIsNone(distinctive_match('State Bank of India', unrelated))
+
+    def test_short_sbi_reading_survives_pipeline_filter_without_estate_match(self):
+        import ocr_match
+        with tempfile.TemporaryDirectory() as tmp:
+            board = dict(uid='bank', status='placed', flags=[], name='State Bank of India - Parishrama Bhavan',
+                         board='State Bank of India', facade_ll=[[17.40648, 78.49655], [17.40648, 78.49665]],
+                         facade=dict(t=.5))
+            record = dict(image='fixture', captured_at=1700000000000, lat=17.4063, lon=78.4966,
+                          compass=0, w=100, h=100, texts=[dict(text=text, conf=.99,
+                          box=[[40, 30], [60, 30], [60, 40], [40, 40]]) for text in ['ESTATE', 'SBI']])
+            with patch.object(ocr_match, 'BUILD', tmp), patch.object(ocr_match, 'load_records', return_value={'fixture': record}), \
+                 patch.object(ocr_match, 'mapped_candidates', return_value=[board]), redirect_stdout(io.StringIO()):
+                ocr_match.main()
+            match = json.loads((Path(tmp) / 'ocr_matches.json').read_text())['bank']
+            self.assertEqual(match['matchedText'], 'SBI')
+            self.assertEqual(match['seen'], 1)
+            self.assertEqual(match['verification'], 'automated_photo_match_candidate')
+            self.assertEqual(match['sources'][0]['url'], 'https://www.mapillary.com/app/?pKey=fixture')
+
     def test_fallback_match_remains_candidate_with_original_photo_source(self):
         import ocr_match
         with tempfile.TemporaryDirectory() as tmp:

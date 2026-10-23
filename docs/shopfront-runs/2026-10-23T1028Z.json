@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1028Z",
+  "automationId": "hyderabad-citywide-shopfront-naming",
+  "startedAt": "2026-10-23T10:28:15.781Z",
+  "completedAt": "2026-10-23T10:45:15.157234+00:00",
+  "branch": "codex/shopfronts-map-roadster",
+  "baseCommit": "0396f085c4df89be90c47804dae08c29f72fbdb4",
+  "scope": "Bounded citywide source and photo collection, manual evidence review and conservative matcher corrections. No game-pack changes, push or deployment.",
+  "source": {
+    "maxCells": 8,
+    "attemptedCells": 1,
+    "attemptedCellIds": [
+      "tile_0_0"
+    ],
+    "processedCellIds": [],
+    "retryCellIds": [
+      "tile_0_0"
+    ],
+    "newNamesActuallyAdded": [],
+    "sourceLinksAdded": 0,
+    "processedCellsTotal": 3,
+    "playableCellsTotal": 2527,
+    "pendingPhotoReviewOutcomesTotal": 37,
+    "newNamesTotal": 1,
+    "sourceLinksTotal": 49,
+    "blocker": "Overpass HTTP502 on tile_0_0. Coordinator stopped on first failure, saved third-failure backoff and advanced its resumable cursor. No cooldown bypass or extra batch.",
+    "cooldownUntil": "2026-10-23T10:32:48.333881Z",
+    "tls": "Bundled Python 3.12 runtime; certificate verification retained."
+  },
+  "mapillary": {
+    "fullPlayableBbox": [
+      17.18944651682626,
+      78.18602271831716,
+      17.623153483173745,
+      78.72247438667843
+    ],
+    "cellsVisited": 4,
+    "newCompletedCellIds": [
+      "17.385,78.495",
+      "17.395,78.475",
+      "17.385,78.485",
+      "17.415,78.505"
+    ],
+    "requests": 16,
+    "maxPagesPerSubcell": 1,
+    "completedCellsTotal": 13,
+    "cellsTotal": 2376,
+    "cachedImages": 7009,
+    "newMetadataImages": 2058,
+    "preparedManifestImages": 794,
+    "metadataErrors": [],
+    "shards": [
+      {
+        "index": 0,
+        "newImages": 40,
+        "startingRows": 100,
+        "endingRows": 140,
+        "imagesWithText": 25,
+        "textItems": 157,
+        "newImageIds": [
+          "152961406783397",
+          "1439809480682263",
+          "908926379957946",
+          "1435107576922345",
+          "1471969177403476",
+          "1877999802786633",
+          "682226781593444",
+          "814907294410056",
+          "175964027764434",
+          "4181621788718359",
+          "1737716706839011",
+          "2240415939736920",
+          "1918810058296595",
+          "317515553056200",
+          "153184443439835",
+          "476431950078374",
+          "514707666377208",
+          "146512640874450",
+          "913595312751858",
+          "770558917166520",
+          "3728809577225803",
+          "1098210680701359",
+          "762750181277101",
+          "472082657230622",
+          "381212549801685",
+          "3907467845974677",
+          "134495065387571",
+          "1679926902395792",
+          "195291492421359",
+          "310388704070098",
+          "217209869911738",
+          "183277673666835",
+          "147333254033238",
+          "2819851361548827",
+          "519396696225399",
+          "398007062219784",
+          "801365217934032",
+          "2937694716486241",
+          "160992809358753",
+          "1619932415512797"
+        ],
+        "failures": [],
+        "exitCode": 0
+      },
+      {
+        "index": 1,
+        "newImages": 40,
+        "startingRows": 95,
+        "endingRows": 135,
+        "imagesWithText": 27,
+        "textItems": 113,
+        "newImageIds": [
+          "1034358577156954",
+          "1085791646809903",
+          "1113041915874566",
+          "1113154549750719",
+          "1172915263169937",
+          "1285069819824844",
+          "1302193031231886",
+          "133961782098640",
+          "1356426654877030",
+          "159142359550936",
+          "161333069361398",
+          "161464043145418",
+          "1770837077155978",
+          "185120843469665",
+          "220496426199987",
+          "222187929364850",
+          "2601189426845024",
+          "2658363917790098",
+          "2846337722272097",
+          "2876810452593719",
+          "292001275950117",
+          "297857431722518",
+          "299967968342322",
+          "313006740285335",
+          "3155277841387364",
+          "352974837567760",
+          "414904867576824",
+          "418897536440647",
+          "459911868638733",
+          "491136119004032",
+          "521005323034829",
+          "523403108820300",
+          "530860801413238",
+          "5483434885064789",
+          "548543979474530",
+          "572822997015545",
+          "602982393998444",
+          "807966541642751",
+          "983186122396949",
+          "998077459548781"
+        ],
+        "failures": [],
+        "exitCode": 0
+      }
+    ],
+    "newOcrPhotos": 80,
+    "ocrPhotosTotal": 275,
+    "uniqueOriginalPhotosManuallyInspected": 9,
+    "manualPhotosCumulative": 26,
+    "candidateBusinessesReviewed": 10,
+    "newAutomatedCandidatesBeforeReview": 9,
+    "newAutomatedCandidatesRetained": 7,
+    "falseIdentityMatchesRemovedThisRound": [
+      "b_baf1ef02-39e5-43",
+      "b_541d07c5498ebd85"
+    ],
+    "currentAutomatedNameCandidates": 23,
+    "candidatesAwaitingInitialVisualReview": [
+      {
+        "boardId": "b_bc9880bc-19e2-4b",
+        "name": "Muthoot Finance Gold Loan"
+      },
+      {
+        "boardId": "b_c75bd7b6-731e-45",
+        "name": "Cult , Hyderabad"
+      },
+      {
+        "boardId": "b_cc44c50d-06b2-45",
+        "name": "Omkaar Palace Shop"
+      }
+    ],
+    "allCurrentCandidatesStillNeedExactPlacementReview": true,
+    "photoOnlyCandidates": 2,
+    "photoOnlyCandidatesApplied": 0,
+    "manualReview": "docs/shopfront-photo-review-2026-10-23T1028Z.json"
+  },
+  "findings": [
+    "Medplus floor 1 sign exceeds its mapped building height and is skipped; fitness is assigned floor 0 on the same facade. Photograph supports the opposite relative arrangement, but a nearby Medplus listing prevents automatic rebinding.",
+    "Two identical Balaji names share one facade. The photograph does not establish two businesses.",
+    "Hotel Central Park and Crown have adjacent readable fascias in one 2020 view. Their mapped slots include an intervening business and shift the anchors by 8.58 m and 13.07 m; exact registration remains unresolved.",
+    "Kotak brand is visible but nearby ATM sign belongs to ICICI; do not infer Kotak ATM identity.",
+    "WINES is a directional sign on a tree; CFMETRO365 is a column-advertisement label. Neither inspected sign establishes a storefront location."
+  ],
+  "matcherChanges": [
+    "Generic CONSULTANT/CONSULTANTS/CONSULTANCY cannot identify IAEC.",
+    "State Bank of India requires its complete name or exact SBI alias; ESTATE/STATE and partial names cannot establish that identity.",
+    "Exact three-letter SBI readings pass the input-length gate; four regression tests cover positive and negative cases plus provenance."
+  ],
+  "validation": {
+    "pipelineTests": "57 passed",
+    "testCommand": "pipeline/.venv/bin/python -m unittest discover -s pipeline/tests -v",
+    "reportCommands": [
+      "pipeline/.venv/bin/python pipeline/ocr_match.py",
+      "pipeline/.venv/bin/python pipeline/ocr_boards.py"
+    ],
+    "legacyApplyRun": false,
+    "reviewIntegrity": "10 unique mapped candidate snapshots, 9 original images with IDs/dates/creators/sequences/hashes; no applied entries.",
+    "shardIntegrity": "Two disjoint 40-image shards; 195 to 275 unique OCR images.",
+    "gameDataChanged": false,
+    "gameBuild": "Not run; no game source or data changed.",
+    "gameplay": "Not tested in this naming batch."
+  },
+  "outcome": {
+    "namesActuallyAdded": 0,
+    "photoPlacementsApplied": 0,
+    "streetVerifiedCellsAdded": 0,
+    "exactCitywideShopOrderComplete": false,
+    "needsUserAction": false,
+    "published": false
+  },
+  "nextWork": "Resume bounded citywide metadata/OCR. Initial visual review remains for Cult Himayatnagar, Muthoot Finance and Omkaar Palace. Resolve the recorded duplicate/floor/slot conflicts with useful independent views before any placement update; source coverage is not street verification."
+}

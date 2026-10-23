@@ -1,0 +1,1758 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T1028Z",
+  "reviewedAt": "2026-10-23T10:40:00.744730+00:00",
+  "method": "Root inspected nine original Mapillary API image derivatives without image editing; Medplus and Balaji source pages also checked in user Chrome. Two OCR workers processed disjoint manifests; candidates remain separate from verified placements.",
+  "scope": {
+    "candidateBusinessesReviewed": 10,
+    "uniqueOriginalImagesInspected": 9,
+    "newOcrCandidateBusinessesReviewed": 6,
+    "newPhotoNamesApplied": 0,
+    "exactPlacementsApplied": 0,
+    "exactShopOrderVerified": false
+  },
+  "reviews": [
+    {
+      "candidateBoardId": "b_d161506a-8365-43",
+      "candidateName": "Medplus Ram Nagar X Roads",
+      "sources": [
+        {
+          "imageId": "196037872417648",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=196037872417648",
+          "captureDate": "2021-02-08T02:01:36.232000+00:00",
+          "capturedAt": 1612749696232,
+          "sequenceId": "613oshak1jhgpyh718b0h9",
+          "creator": "victor8686",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.409883269195,
+            78.508160025883
+          ],
+          "rawCompassAngle": 323.26876831055,
+          "computedCompassAngle": 323.53136423307,
+          "originalImage": "pipeline/build/review/196037872417648.jpg",
+          "originalSha256": "f79e8b1cb7a826df7688f11cfe0064f24e9c89c6a30b5f19285c3b51f93c00fc"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "196037872417648",
+          "readableSignText": [
+            "MedPlus",
+            "Quality Chemists & Druggists"
+          ],
+          "identitySupport": true,
+          "context": "Red bilingual pharmacy fascia on image-right; raised street-level entrance and steps, parked motorcycles and an awning obscure part of entrance. Brand is clear; Ram Nagar branch suffix is not printed in the readable sign.",
+          "floor": "Street-level pharmacy below an upstairs fitness sign. Mapped floor 1 is not a raised ground-floor convention: it renders at 6.95 m versus 3.55 m for floor 0.",
+          "neighbors": "A fitness sign is above; other adjacent retail signs are partly cropped. Across the road, Pradeep Foot Wear is readable. This does not establish a full shop sequence."
+        }
+      ],
+      "decision": "historical_brand_supported_floor_binding_conflict_pending",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "Mapped building c76548f7-ca2 height 6.2 m causes floor 1 pharmacy sign to be skipped by renderer; Raunaq Fitness is mapped floor 0 on same facade. Do not swap automatically.",
+        "Another nearby Medplus listing requires branch/building disambiguation.",
+        "No useful independent cached sequence within 250 m; exact facade, entrance and current operation unverified."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_d161506a-8365-43",
+        "pack": "p0_-1.pack.wasm",
+        "tile": "1_-1",
+        "buildingId": "c76548f7-ca2",
+        "text": "Medplus Ram Nagar X Roads",
+        "fullName": "Medplus Ram Nagar X Roads",
+        "slot": {
+          "floor": 1,
+          "index": 0,
+          "of": 1
+        },
+        "road": null,
+        "facadeWorldEndpoints": [
+          [
+            1213.5,
+            -434.9
+          ],
+          [
+            1215.9,
+            -438.0
+          ]
+        ],
+        "storedFraction": 0.426,
+        "renderedFraction": 0.426,
+        "buildingGeometry": {
+          "id": "c76548f7-ca2",
+          "h": 6.2,
+          "ring": [
+            [
+              1212.6,
+              -443.0
+            ],
+            [
+              1209.6,
+              -441.0
+            ],
+            [
+              1213.5,
+              -434.9
+            ],
+            [
+              1215.9,
+              -438.0
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": [
+          {
+            "boardId": "b_960bac44-ce8e-4e",
+            "text": "Raunaq Fitness Studio",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "candidateBoardId": "b_221813be-5472-4c",
+      "candidateName": "Balaji Papalal Mithai Bhandar",
+      "sources": [
+        {
+          "imageId": "2162552137218632",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=2162552137218632",
+          "captureDate": "2021-02-08T02:01:45.180000+00:00",
+          "capturedAt": 1612749705180,
+          "sequenceId": "613oshak1jhgpyh718b0h9",
+          "creator": "victor8686",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.410294211244,
+            78.507852303916
+          ],
+          "rawCompassAngle": 323.79913330078,
+          "computedCompassAngle": 322.36652551129,
+          "originalImage": "pipeline/build/review/2162552137218632.jpg",
+          "originalSha256": "fa0497b166c0afdf541fe7d4deb1d816740642021257017db8199265db06a18b"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "2162552137218632",
+          "readableSignText": [
+            "BALAJI PAPALAL MITHAI BHANDAR",
+            "CHATS & JUICE"
+          ],
+          "identitySupport": true,
+          "context": "Yellow business name spans the street-level fascia of a large glass-fronted multistorey building on image-right. Entry steps/handrails and banana cart are visible.",
+          "floor": "Raised street-level shop, with multiple glass-fronted floors above; exact ground-floor facade endpoints remain unbound.",
+          "neighbors": "CHATS & JUICE sits along the same frontage and may describe the same establishment. A banana cart stands near its right. Nearby hospital/gym signs do not establish entrance boundaries."
+        }
+      ],
+      "decision": "historical_name_supported_duplicate_slot_conflict_pending",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "Two identical-name mapped boards b_221813be-5472-4c and b_n7244174314 split the same facade into slots 0/2 and 1/2. Photo does not establish two separate shops.",
+        "No useful independent cached viewpoint within 250 m. Exact boundaries and slot allocation need review."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_221813be-5472-4c",
+        "pack": "p0_-1.pack.wasm",
+        "tile": "1_-1",
+        "buildingId": "e03cbe5a-308",
+        "text": "Balaji Papalal Mithai Bhandar",
+        "fullName": "Balaji Papalal Mithai Bhandar",
+        "slot": {
+          "floor": 0,
+          "index": 0,
+          "of": 2
+        },
+        "road": "Parsigutta Road",
+        "facadeWorldEndpoints": [
+          [
+            1188.0,
+            -473.2
+          ],
+          [
+            1200.1,
+            -496.2
+          ]
+        ],
+        "storedFraction": 0.08,
+        "renderedFraction": 0.25,
+        "buildingGeometry": {
+          "id": "e03cbe5a-308",
+          "h": 15.4,
+          "ring": [
+            [
+              1176.6,
+              -479.7
+            ],
+            [
+              1188.0,
+              -473.2
+            ],
+            [
+              1200.1,
+              -496.2
+            ],
+            [
+              1189.6,
+              -502.2
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": [
+          {
+            "boardId": "b_n7244174314",
+            "text": "Balaji Papalal Mithai Bhandar",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "candidateBoardId": "b_c9c5ed07-7946-40",
+      "candidateName": "Ramesh Lasik Centre",
+      "sources": [
+        {
+          "imageId": "748368985851024",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=748368985851024",
+          "captureDate": "2020-06-30T12:11:13.054000+00:00",
+          "capturedAt": 1593519073054,
+          "sequenceId": "bSaMgrbqRBcPWNp597T3ga",
+          "creator": "pra1985",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.398457110008,
+            78.484996532603
+          ],
+          "rawCompassAngle": -1,
+          "computedCompassAngle": 237.05323621206,
+          "originalImage": "pipeline/build/review/748368985851024.jpg",
+          "originalSha256": "88dfefa3211c59090c87c33d6d9c6b50477c496e2158a3ad79f14e11d07525b5"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "748368985851024",
+          "readableSignText": [
+            "RAMESH",
+            "LASIK & LASER CENTRE"
+          ],
+          "identitySupport": true,
+          "context": "Name is readable high on a blue-glazed building at image-right across the divided street; shared premises carry several other business signs.",
+          "floor": "High-level facade sign; entrance and operating floor cannot be determined from its sign height. Current floor 1 binding is not confirmed.",
+          "neighbors": "Kiran and skin-clinic signage occupy lower parts of the same building; an unfinished concrete building with RC Reddy IAS Study Circle sign lies image-left of it."
+        }
+      ],
+      "decision": "historical_name_supported_exact_binding_pending",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "Only one sequence inspected; no mapped entrance/facade registration or sign height measured."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_c9c5ed07-7946-40",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "f24623b4-195",
+        "text": "Ramesh Lasik Centre",
+        "fullName": "Ramesh Lasik Centre",
+        "slot": {
+          "floor": 1,
+          "index": 0,
+          "of": 1
+        },
+        "road": null,
+        "facadeWorldEndpoints": [
+          [
+            -1280.8,
+            840.5
+          ],
+          [
+            -1264.3,
+            865.1
+          ]
+        ],
+        "storedFraction": 0.9,
+        "renderedFraction": 0.9,
+        "buildingGeometry": {
+          "id": "f24623b4-195",
+          "h": 12.5,
+          "ring": [
+            [
+              -1273.9,
+              828.6
+            ],
+            [
+              -1280.8,
+              840.5
+            ],
+            [
+              -1264.3,
+              865.1
+            ],
+            [
+              -1254.1,
+              857.8
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": [
+          {
+            "boardId": "b_2e066b7a-9202-40",
+            "text": "Keerthi Apartment",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 5
+            }
+          },
+          {
+            "boardId": "b_14345a91-f9a0-4c",
+            "text": "Hair and Skin Clinic",
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 5
+            }
+          },
+          {
+            "boardId": "b_9b4fdbb3-0293-4d",
+            "text": "Ignite Restro Lounge",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 5
+            }
+          },
+          {
+            "boardId": "b_241e41d7-3611-46",
+            "text": "SOTC Holidays",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 5
+            }
+          },
+          {
+            "boardId": "b_bddfcf2d-0ff3-4e",
+            "text": "IndusInd Bank",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "candidateBoardId": "b_c4bb9614-2fd8-40",
+      "candidateName": "Kotak Mahindra Bank ATM",
+      "sources": [
+        {
+          "imageId": "944922029596048",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=944922029596048",
+          "captureDate": "2020-01-07T08:15:21.858000+00:00",
+          "capturedAt": 1578384921858,
+          "sequenceId": "kj7skpryfgp4rujyaz0kej",
+          "creator": "priyaosm",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.410588263568,
+            78.485023457132
+          ],
+          "rawCompassAngle": 265.0173034668,
+          "computedCompassAngle": 284.82157393985,
+          "originalImage": "pipeline/build/review/944922029596048.jpg",
+          "originalSha256": "a94b1c873a415fd42150f2568e035135ef855fea051fe9b2c57021f4e1157b0c"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "944922029596048",
+          "readableSignText": [
+            "kotak",
+            "BOMBAY IRANI",
+            "ICICI BANK ATM",
+            "VASU WINES"
+          ],
+          "identitySupport": true,
+          "context": "Kotak branding is readable on image-left in a salmon-coloured commercial building near traffic signals. A separate projecting red ATM board farther right carries ICICI branding.",
+          "floor": "Street-level Kotak fascia; photograph does not establish that the Kotak unit is an ATM rather than bank service.",
+          "neighbors": "Image-left-to-right: Kotak fascia, Bombay Irani sign, projecting ICICI ATM sign. Entrances are partly occluded by traffic; projection depth means this is not a certified parcel order. Vasu Wines is a directional arrow sign on a tree, not a storefront."
+        }
+      ],
+      "decision": "historical_brand_only_atm_identity_and_slot_pending",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "Do not use neighboring ICICI ATM signage as evidence of a Kotak ATM.",
+        "Shared facade slot 2/3 and exact entrance remain unverified."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_c4bb9614-2fd8-40",
+        "pack": "p-1_-1.pack.wasm",
+        "tile": "-2_-1",
+        "buildingId": "344cc66e-498",
+        "text": "Kotak Mahindra Bank ATM",
+        "fullName": "Kotak Mahindra Bank ATM",
+        "slot": {
+          "floor": 0,
+          "index": 2,
+          "of": 3
+        },
+        "road": "Indira Park Road",
+        "facadeWorldEndpoints": [
+          [
+            -1260.3,
+            -478.5
+          ],
+          [
+            -1269.5,
+            -481.8
+          ]
+        ],
+        "storedFraction": 0.08,
+        "renderedFraction": 0.8333333333333334,
+        "buildingGeometry": {
+          "id": "344cc66e-498",
+          "h": 10.2,
+          "ring": [
+            [
+              -1271.5,
+              -476.5
+            ],
+            [
+              -1262.4,
+              -473.1
+            ],
+            [
+              -1260.3,
+              -478.5
+            ],
+            [
+              -1269.5,
+              -481.8
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": [
+          {
+            "boardId": "b_9b0bbfb6-c73f-44",
+            "text": "DTDC",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 3
+            }
+          },
+          {
+            "boardId": "b_ea704515-fd61-4d",
+            "text": "Star Sports",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 3
+            }
+          },
+          {
+            "boardId": "b_91e44530-cb42-48",
+            "text": "BalaLatha Connects",
+            "slot": {
+              "floor": 1,
+              "index": 2,
+              "of": 3
+            }
+          },
+          {
+            "boardId": "b_f91e1314-9ae0-44",
+            "text": "Analog IAS Academy",
+            "slot": {
+              "floor": 1,
+              "index": 1,
+              "of": 3
+            }
+          },
+          {
+            "boardId": "b_65ec266306d86823",
+            "text": "ANALOG IAS",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 3
+            }
+          },
+          {
+            "boardId": "b_w273087600",
+            "text": "Gilma",
+            "slot": {
+              "floor": 2,
+              "index": 0,
+              "of": 1,
+              "overflow": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "candidateBoardId": "b_e2b0f20d-823d-4a",
+      "candidateName": "Hotel Central Park",
+      "sources": [
+        {
+          "imageId": "153184443439835",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=153184443439835",
+          "captureDate": "2020-06-30T13:52:51.048000+00:00",
+          "capturedAt": 1593525171048,
+          "sequenceId": "LkcYscvorK8LkQskBqtGI8",
+          "creator": "pra1985",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.399020763244,
+            78.480704304574
+          ],
+          "rawCompassAngle": -1,
+          "computedCompassAngle": 294.43538807319,
+          "originalImage": "pipeline/build/review/153184443439835.jpg",
+          "originalSha256": "c7df391d23aae72b639e8fc31bad59f4aeb660c79c4d2bdd85376bd73bc25113"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "153184443439835",
+          "readableSignText": [
+            "HOTEL CENTRAL PARK",
+            "MULTI CUISINE RESTAURANT",
+            "Central Park"
+          ],
+          "identitySupport": true,
+          "context": "Readable white/red restaurant fascia on image-left beneath a tall grey-and-glass building that also bears Central Park lettering.",
+          "floor": "Restaurant fascia/entrance is street level; upper hotel lettering is a separate high-level sign.",
+          "neighbors": "Crown Footwear is visibly immediately to image-right along the street-level frontage. That local pair is observed in this single 2020 view; full street order and mapped facade registration remain pending."
+        }
+      ],
+      "decision": "historical_name_and_local_neighbor_relation_supported_binding_pending",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "Only one sequence; facade endpoints and present-day operation not established.",
+        "Renderer slots put Richie Rich Customers Notified Shop between Hotel Central Park and Crown, while the 2020 photograph shows the two readable fascias next to each other. Shared-building allocation remains provisional; do not infer a replacement complete sequence."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_e2b0f20d-823d-4a",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "7edfd0f2-373",
+        "text": "Hotel Central Park",
+        "fullName": "Hotel Central Park",
+        "slot": {
+          "floor": 0,
+          "index": 3,
+          "of": 6
+        },
+        "road": "Hyderguda Main Road",
+        "facadeWorldEndpoints": [
+          [
+            -1695.5,
+            811.8
+          ],
+          [
+            -1723.1,
+            810.0
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.398964931,
+            78.480642916
+          ],
+          [
+            17.398981195,
+            78.48038316
+          ]
+        ],
+        "anchors": {
+          "facadeLengthMetres": 27.658633,
+          "storedFraction": 0.273,
+          "storedAnchorWorld": [
+            -1703.0348,
+            811.3086
+          ],
+          "storedAnchorLatLon": [
+            17.398969371,
+            78.480572002
+          ],
+          "renderedFraction": 0.5833333333333334,
+          "renderedFacadeAnchorWorld": [
+            -1711.6,
+            810.75
+          ],
+          "renderedFacadeAnchorLatLon": [
+            17.398974418,
+            78.480491392
+          ],
+          "renderedBoardCenterWorld": [
+            -1711.584381,
+            3.55,
+            810.510509
+          ],
+          "signTextCenterWorld": [
+            -1711.583079,
+            3.55,
+            810.490551
+          ],
+          "boardWidthMetres": 4.259772,
+          "boardHeightMetres": 0.95,
+          "renderedFloor": 0,
+          "renderSkippedBySourceRules": false,
+          "anchorShiftAlongFacadeMetres": 8.583396
+        },
+        "buildingGeometry": {
+          "id": "7edfd0f2-373",
+          "name": null,
+          "cls": null,
+          "h": 14.5,
+          "hs": null,
+          "ring": [
+            [
+              -1723.1,
+              810.0
+            ],
+            [
+              -1724.1,
+              825.9
+            ],
+            [
+              -1696.4,
+              827.5
+            ],
+            [
+              -1695.5,
+              811.8
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": [
+          {
+            "boardId": "b_5747146d498e1b5c",
+            "text": "Sri Lakshmi Fruit Juice & Bakery Center",
+            "fullName": "Sri Lakshmi Fruit Juice & Bakery Center",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 6
+            },
+            "facadeFraction": 0.08,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.08333333333333333,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_6a4840c83107bc01",
+            "text": "Global MyTrip Travel of India",
+            "fullName": "Global MyTrip Travel of India",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 6
+            },
+            "facadeFraction": 0.12,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.25,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_d6b57bee-bf6f-46",
+            "text": "Black Pearl",
+            "fullName": "Black Pearl",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 6
+            },
+            "facadeFraction": 0.213,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.4166666666666667,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_22daf84b-b343-4b",
+            "text": "Richie Rich Customers Notified Shop",
+            "fullName": "Richie Rich Customers Notified Shop",
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 6
+            },
+            "facadeFraction": 0.438,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.75,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_cc8ca8b9-72ad-46",
+            "text": "Crown Footwear",
+            "fullName": "Crown Footwear",
+            "slot": {
+              "floor": 0,
+              "index": 5,
+              "of": 6
+            },
+            "facadeFraction": 0.444,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.9166666666666666,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          }
+        ]
+      }
+    },
+    {
+      "candidateBoardId": "b_cc8ca8b9-72ad-46",
+      "candidateName": "Crown Footwear",
+      "sources": [
+        {
+          "imageId": "153184443439835",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=153184443439835",
+          "captureDate": "2020-06-30T13:52:51.048000+00:00",
+          "capturedAt": 1593525171048,
+          "sequenceId": "LkcYscvorK8LkQskBqtGI8",
+          "creator": "pra1985",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.399020763244,
+            78.480704304574
+          ],
+          "rawCompassAngle": -1,
+          "computedCompassAngle": 294.43538807319,
+          "originalImage": "pipeline/build/review/153184443439835.jpg",
+          "originalSha256": "c7df391d23aae72b639e8fc31bad59f4aeb660c79c4d2bdd85376bd73bc25113"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "153184443439835",
+          "readableSignText": [
+            "CROWN",
+            "FOOTWEAR"
+          ],
+          "identitySupport": true,
+          "context": "Brown Crown Footwear fascia is readable on image-left under the Central Park building, partly obscured below by parked cars.",
+          "floor": "Street-level retail fascia; entrance bottom hidden by vehicles.",
+          "neighbors": "Hotel Central Park restaurant fascia immediately image-left. A small dark sign appears farther right but cannot be confidently named from this image."
+        }
+      ],
+      "decision": "historical_name_and_local_neighbor_relation_supported_binding_pending",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "Two OCR readings from one image are not two independent photos.",
+        "Exact mapped slot/entrance and current operation remain unverified.",
+        "Renderer slots put Richie Rich Customers Notified Shop between Hotel Central Park and Crown, while the 2020 photograph shows the two readable fascias next to each other. Shared-building allocation remains provisional; do not infer a replacement complete sequence."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_cc8ca8b9-72ad-46",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-2_0",
+        "buildingId": "7edfd0f2-373",
+        "text": "Crown Footwear",
+        "fullName": "Crown Footwear",
+        "slot": {
+          "floor": 0,
+          "index": 5,
+          "of": 6
+        },
+        "road": "Hyderguda Main Road",
+        "facadeWorldEndpoints": [
+          [
+            -1695.5,
+            811.8
+          ],
+          [
+            -1723.1,
+            810.0
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.398964931,
+            78.480642916
+          ],
+          [
+            17.398981195,
+            78.48038316
+          ]
+        ],
+        "anchors": {
+          "facadeLengthMetres": 27.658633,
+          "storedFraction": 0.444,
+          "storedAnchorWorld": [
+            -1707.7544,
+            811.0008
+          ],
+          "storedAnchorLatLon": [
+            17.398972152,
+            78.480527584
+          ],
+          "renderedFraction": 0.9166666666666666,
+          "renderedFacadeAnchorWorld": [
+            -1720.8,
+            810.15
+          ],
+          "renderedFacadeAnchorLatLon": [
+            17.39897984,
+            78.480404806
+          ],
+          "renderedBoardCenterWorld": [
+            -1720.784381,
+            3.55,
+            809.910509
+          ],
+          "signTextCenterWorld": [
+            -1720.783079,
+            3.55,
+            809.890551
+          ],
+          "boardWidthMetres": 4.259772,
+          "boardHeightMetres": 0.95,
+          "renderedFloor": 0,
+          "renderSkippedBySourceRules": false,
+          "anchorShiftAlongFacadeMetres": 13.073314
+        },
+        "buildingGeometry": {
+          "id": "7edfd0f2-373",
+          "name": null,
+          "cls": null,
+          "h": 14.5,
+          "hs": null,
+          "ring": [
+            [
+              -1723.1,
+              810.0
+            ],
+            [
+              -1724.1,
+              825.9
+            ],
+            [
+              -1696.4,
+              827.5
+            ],
+            [
+              -1695.5,
+              811.8
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": [
+          {
+            "boardId": "b_5747146d498e1b5c",
+            "text": "Sri Lakshmi Fruit Juice & Bakery Center",
+            "fullName": "Sri Lakshmi Fruit Juice & Bakery Center",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 6
+            },
+            "facadeFraction": 0.08,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.08333333333333333,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_6a4840c83107bc01",
+            "text": "Global MyTrip Travel of India",
+            "fullName": "Global MyTrip Travel of India",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 6
+            },
+            "facadeFraction": 0.12,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.25,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_d6b57bee-bf6f-46",
+            "text": "Black Pearl",
+            "fullName": "Black Pearl",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 6
+            },
+            "facadeFraction": 0.213,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.4166666666666667,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_e2b0f20d-823d-4a",
+            "text": "Hotel Central Park",
+            "fullName": "Hotel Central Park",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 6
+            },
+            "facadeFraction": 0.273,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.5833333333333334,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_22daf84b-b343-4b",
+            "text": "Richie Rich Customers Notified Shop",
+            "fullName": "Richie Rich Customers Notified Shop",
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 6
+            },
+            "facadeFraction": 0.438,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.75,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          }
+        ]
+      }
+    },
+    {
+      "candidateBoardId": "b_7deddce8d61a4ddf",
+      "candidateName": "Rukkus Dental Hospital & Implant Center",
+      "sources": [
+        {
+          "imageId": "398007062219784",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=398007062219784",
+          "captureDate": "2022-05-09T12:48:43.560000+00:00",
+          "capturedAt": 1652100523560,
+          "sequenceId": "hZbqcRkNXte2miPGDa3CsS",
+          "creator": "naren_28",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.394603277373,
+            78.498787513107
+          ],
+          "rawCompassAngle": 0,
+          "computedCompassAngle": 87.499361660995,
+          "originalImage": "pipeline/build/review/398007062219784.jpg",
+          "originalSha256": "d765593a88b33a288eaaf486d8b4c8f7ccd14b69d50bca766df8eac452f66915"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "398007062219784",
+          "readableSignText": [
+            "RUKKUS",
+            "DENTAL",
+            "HOSPITAL & IMPLANT CENTER"
+          ],
+          "identitySupport": true,
+          "context": "Blue dental signage wraps the building corner at far image-left. Main face is edge-cropped; the side repeats RUKKUS but a utility pole and dense traffic obscure portions.",
+          "floor": "Elevated sign above traffic; doorway and operating floor cannot be established.",
+          "neighbors": "Poly Clinic signage is visible farther image-right on same side, then Pulse8 Gym. Occlusion and sign mounting do not establish exact shop boundaries/order."
+        }
+      ],
+      "decision": "historical_partial_name_supported_exact_binding_pending",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "One image/sequence despite two OCR readings.",
+        "Need unobstructed facade and entrance views before assigning floor or slot."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_7deddce8d61a4ddf",
+        "pack": "p0_0.pack.wasm",
+        "tile": "0_1",
+        "buildingId": "072205f2-838",
+        "text": "Rukkus Dental Hospital & Implant Center",
+        "fullName": "Rukkus Dental Hospital & Implant Center",
+        "slot": {
+          "floor": 1,
+          "index": 0,
+          "of": 1
+        },
+        "road": null,
+        "facadeWorldEndpoints": [
+          [
+            263.3,
+            1257.8
+          ],
+          [
+            253.6,
+            1272.3
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.39493507,
+            78.49907803
+          ],
+          [
+            17.394804055,
+            78.498986739
+          ]
+        ],
+        "anchors": {
+          "facadeLengthMetres": 17.445343,
+          "storedFraction": 0.857,
+          "storedAnchorWorld": [
+            254.9871,
+            1270.2265
+          ],
+          "storedAnchorLatLon": [
+            17.39482279,
+            78.498999794
+          ],
+          "renderedFraction": 0.857,
+          "renderedFacadeAnchorWorld": [
+            254.9871,
+            1270.2265
+          ],
+          "renderedFacadeAnchorLatLon": [
+            17.39482279,
+            78.498999794
+          ],
+          "renderedBoardCenterWorld": [
+            254.920607,
+            6.95,
+            1270.182018
+          ],
+          "signTextCenterWorld": [
+            254.903983,
+            6.95,
+            1270.170898
+          ],
+          "boardWidthMetres": 3.6,
+          "boardHeightMetres": 0.7,
+          "renderedFloor": 1,
+          "renderSkippedBySourceRules": false,
+          "anchorShiftAlongFacadeMetres": 0.0
+        },
+        "buildingGeometry": {
+          "id": "072205f2-838",
+          "name": null,
+          "cls": null,
+          "h": 11.8,
+          "hs": null,
+          "ring": [
+            [
+              260.2,
+              1276.7
+            ],
+            [
+              270.1,
+              1262.3
+            ],
+            [
+              263.3,
+              1257.8
+            ],
+            [
+              253.6,
+              1272.3
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": []
+      }
+    },
+    {
+      "candidateBoardId": "b_0560072b-ddf7-42",
+      "candidateName": "Headgear Complete Riding Solution",
+      "sources": [
+        {
+          "imageId": "2819851361548827",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=2819851361548827",
+          "captureDate": "2025-10-13T09:16:21.564000+00:00",
+          "capturedAt": 1760346981564,
+          "sequenceId": "IVhPxB0SH7KqTN6w4kjL95",
+          "creator": "ph4ni",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.399907582863,
+            78.491057530927
+          ],
+          "rawCompassAngle": 129,
+          "computedCompassAngle": 127.01535617357,
+          "originalImage": "pipeline/build/review/2819851361548827.jpg",
+          "originalSha256": "8d4059b44e10bef810cf797eaa89d557ebbc213c7173c429ecedfbd1ac55f1cf"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "2819851361548827",
+          "readableSignText": [
+            "HEAD GEAR",
+            "COMPLETE RIDING SOLUTION"
+          ],
+          "identitySupport": true,
+          "context": "Full black-and-white Head Gear fascia clearly readable on image-left; helmets and merchandise occupy the open street-level storefront.",
+          "floor": "Street-level shop; upstairs Vega-branded signs appear above. Operating floor and sign are visually distinct.",
+          "neighbors": "Yellow key silhouettes mark the next visible frontage to image-right. Kubera Towers is visible across the divided street, but neither is independently registered to mapped shop slots."
+        }
+      ],
+      "decision": "historical_name_supported_exact_binding_pending",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "2025-10-13 photograph supports identity at capture, not confirmed operation in 2026.",
+        "Only one sequence, exact building/facade/neighbor slots unbound."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_0560072b-ddf7-42",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-1_0",
+        "buildingId": "240a3285-442",
+        "text": "Headgear Complete Riding Solution",
+        "fullName": "Headgear Complete Riding Solution",
+        "slot": {
+          "floor": 0,
+          "index": 0,
+          "of": 7
+        },
+        "road": "Himayat Nagar Road",
+        "facadeWorldEndpoints": [
+          [
+            -547.8,
+            721.0
+          ],
+          [
+            -527.0,
+            730.8
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.39978536,
+            78.491444417
+          ],
+          [
+            17.399696811,
+            78.491640175
+          ]
+        ],
+        "anchors": {
+          "facadeLengthMetres": 22.993042,
+          "storedFraction": 0.08,
+          "storedAnchorWorld": [
+            -546.136,
+            721.784
+          ],
+          "storedAnchorLatLon": [
+            17.399778276,
+            78.491460078
+          ],
+          "renderedFraction": 0.07142857142857142,
+          "renderedFacadeAnchorWorld": [
+            -546.314286,
+            721.7
+          ],
+          "renderedFacadeAnchorLatLon": [
+            17.399779035,
+            78.4914584
+          ],
+          "renderedBoardCenterWorld": [
+            -546.416578,
+            3.55,
+            721.917109
+          ],
+          "signTextCenterWorld": [
+            -546.425102,
+            3.55,
+            721.935202
+          ],
+          "boardWidthMetres": 2.93472,
+          "boardHeightMetres": 0.95,
+          "renderedFloor": 0,
+          "renderSkippedBySourceRules": false,
+          "anchorShiftAlongFacadeMetres": 0.197083
+        },
+        "buildingGeometry": {
+          "id": "240a3285-442",
+          "name": null,
+          "cls": null,
+          "h": 10.2,
+          "hs": null,
+          "ring": [
+            [
+              -542.1,
+              709.1
+            ],
+            [
+              -547.8,
+              721.0
+            ],
+            [
+              -527.0,
+              730.8
+            ],
+            [
+              -521.3,
+              719.0
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": [
+          {
+            "boardId": "b_4e00557318a8abfb",
+            "text": "Moghuls petrol pump",
+            "fullName": "Moghuls petrol pump",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 7
+            },
+            "facadeFraction": 0.135,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.35714285714285715,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_ce27ad62-bf43-41",
+            "text": "Arabica Coffee Shopee",
+            "fullName": "Arabica Coffee Shopee",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 7
+            },
+            "facadeFraction": 0.645,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.5,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_f31e70244a074e51",
+            "text": "Sujatha Associates",
+            "fullName": "Sujatha Associates",
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 7
+            },
+            "facadeFraction": 0.693,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.6428571428571429,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_3795f9aac9e14f6f",
+            "text": "JVR Educational Consultants",
+            "fullName": "JVR Educational Consultants",
+            "slot": {
+              "floor": 0,
+              "index": 5,
+              "of": 7
+            },
+            "facadeFraction": 0.693,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.7857142857142857,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_4c343c9fac0ab713",
+            "text": "RICOM",
+            "fullName": "RICOM",
+            "slot": {
+              "floor": 0,
+              "index": 6,
+              "of": 7
+            },
+            "facadeFraction": 0.795,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.9285714285714286,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          }
+        ]
+      }
+    },
+    {
+      "candidateBoardId": "b_baf1ef02-39e5-43",
+      "candidateName": "IAEC Consultants Private Limited",
+      "sources": [
+        {
+          "imageId": "908926379957946",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=908926379957946",
+          "captureDate": "2020-09-20T07:45:54.222000+00:00",
+          "capturedAt": 1600587954222,
+          "sequenceId": "lobiwdlbnr4uozbp874ras",
+          "creator": "rashmi07",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.396402631583,
+            78.491345355972
+          ],
+          "rawCompassAngle": 225.33184283426,
+          "computedCompassAngle": 227.57733727014,
+          "originalImage": "pipeline/build/review/908926379957946.jpg",
+          "originalSha256": "a641215bcc52f546610d97901cb50415b517ce8f1080a37376aff1263f701554"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "908926379957946",
+          "readableSignText": [
+            "Fincorp",
+            "Certified Automobile Consultants"
+          ],
+          "identitySupport": false,
+          "context": "OCR candidate comes from an automobile-finance/consultant billboard at far image-left beneath Dental Paradise; IAEC is not visible in the matched sign.",
+          "floor": "Elevated billboard beside flyover; not evidence of an IAEC shop floor.",
+          "neighbors": "Dental Paradise above and gym signage below. Flyover-column advertisements are distinct from shopfronts."
+        }
+      ],
+      "decision": "rejected_false_identity_generic_consultants",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "Candidate matched the generic word CONSULTANTS; photo does not support IAEC. Original evidence retained."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_baf1ef02-39e5-43",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-1_1",
+        "buildingId": "091dd064-f55",
+        "text": "IAEC Consultants Private Limited",
+        "fullName": "IAEC Consultants Private Limited (Head Office )",
+        "slot": {
+          "floor": 0,
+          "index": 2,
+          "of": 3
+        },
+        "road": "Narayanaguda Road",
+        "facadeWorldEndpoints": [
+          [
+            -565.0,
+            1115.4
+          ],
+          [
+            -570.6,
+            1129.1
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.396221734,
+            78.49128254
+          ],
+          [
+            17.396097947,
+            78.491229836
+          ]
+        ],
+        "anchors": {
+          "facadeLengthMetres": 14.800338,
+          "storedFraction": 0.626,
+          "storedAnchorWorld": [
+            -568.5056,
+            1123.9762
+          ],
+          "storedAnchorLatLon": [
+            17.396144244,
+            78.491249548
+          ],
+          "renderedFraction": 0.8333333333333334,
+          "renderedFacadeAnchorWorld": [
+            -569.666667,
+            1126.816667
+          ],
+          "renderedFacadeAnchorLatLon": [
+            17.396118578,
+            78.49123862
+          ],
+          "renderedBoardCenterWorld": [
+            -569.888824,
+            3.55,
+            1126.725858
+          ],
+          "signTextCenterWorld": [
+            -569.907337,
+            3.55,
+            1126.718291
+          ],
+          "boardWidthMetres": 4.583446,
+          "boardHeightMetres": 0.95,
+          "renderedFloor": 0,
+          "renderSkippedBySourceRules": false,
+          "anchorShiftAlongFacadeMetres": 3.068603
+        },
+        "buildingGeometry": {
+          "id": "091dd064-f55",
+          "name": null,
+          "cls": null,
+          "h": 16.6,
+          "hs": null,
+          "ring": [
+            [
+              -565.0,
+              1115.4
+            ],
+            [
+              -570.6,
+              1129.1
+            ],
+            [
+              -552.8,
+              1135.9
+            ],
+            [
+              -547.3,
+              1122.5
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": [
+          {
+            "boardId": "b_ba79493bcbf940b6",
+            "text": "Sudharma",
+            "fullName": "Sudharma",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 3
+            },
+            "facadeFraction": 0.08,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.16666666666666666,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_65089bf8-451b-40",
+            "text": "Freedom Fitness",
+            "fullName": "Freedom Fitness",
+            "slot": {
+              "floor": 0,
+              "index": 1,
+              "of": 3
+            },
+            "facadeFraction": 0.403,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.5,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          }
+        ]
+      }
+    },
+    {
+      "candidateBoardId": "b_541d07c5498ebd85",
+      "candidateName": "State Bank of India - Parishrama Bhavan",
+      "sources": [
+        {
+          "imageId": "491136119004032",
+          "sourceUrl": "https://www.mapillary.com/app/?pKey=491136119004032",
+          "captureDate": "2020-06-30T13:54:54.099000+00:00",
+          "capturedAt": 1593525294099,
+          "sequenceId": "LkcYscvorK8LkQskBqtGI8",
+          "creator": "pra1985",
+          "license": "CC-BY-SA-4.0",
+          "cameraLatLon": [
+            17.401083796596,
+            78.475336172845
+          ],
+          "rawCompassAngle": -1,
+          "computedCompassAngle": 282.25140287181,
+          "originalImage": "pipeline/build/review/491136119004032.jpg",
+          "originalSha256": "1e05e23c12b6f5c45dcae531733167584fcfe05c4a1c2081debb60176301214f"
+        }
+      ],
+      "observations": [
+        {
+          "imageId": "491136119004032",
+          "readableSignText": [
+            "GUPTA ESTATE",
+            "JAGDAMBA JEWELLERS & PEARLS"
+          ],
+          "identitySupport": false,
+          "context": "Matched ESTATE is part of GUPTA ESTATE on image-right above Jagdamba Jewellers. It is not a State Bank of India sign.",
+          "floor": "ESTATE belongs to building/business signage, not a verified bank unit.",
+          "neighbors": "Jagdamba Jewellers occupies the readable frontage beneath; Sri Avanthi Silks appears across the street. No bank identity is established by this reading."
+        }
+      ],
+      "decision": "rejected_false_identity_estate_state_fuzzy_match",
+      "independentPhotoSequencesInspected": 1,
+      "unresolved": [
+        "ESTATE was fuzzily accepted as STATE. Retain photograph and reject this evidence link."
+      ],
+      "applied": false,
+      "mappedCandidate": {
+        "boardId": "b_541d07c5498ebd85",
+        "pack": "p-1_0.pack.wasm",
+        "tile": "-3_0",
+        "buildingId": "754a0783-351",
+        "text": "State Bank of India",
+        "fullName": "State Bank of India - Parishrama Bhavan",
+        "slot": {
+          "floor": 0,
+          "index": 1,
+          "of": 5
+        },
+        "road": null,
+        "facadeWorldEndpoints": [
+          [
+            -2286.7,
+            541.4
+          ],
+          [
+            -2285.2,
+            522.8
+          ]
+        ],
+        "facadeLatLon": [
+          [
+            17.401408147,
+            78.475078877
+          ],
+          [
+            17.401576208,
+            78.475092994
+          ]
+        ],
+        "anchors": {
+          "facadeLengthMetres": 18.660386,
+          "storedFraction": 0.083,
+          "storedAnchorWorld": [
+            -2286.5755,
+            539.8562
+          ],
+          "storedAnchorLatLon": [
+            17.401422096,
+            78.475080048
+          ],
+          "renderedFraction": 0.3,
+          "renderedFacadeAnchorWorld": [
+            -2286.25,
+            535.82
+          ],
+          "renderedFacadeAnchorLatLon": [
+            17.401458565,
+            78.475083112
+          ],
+          "renderedBoardCenterWorld": [
+            -2286.010777,
+            3.55,
+            535.839292
+          ],
+          "signTextCenterWorld": [
+            -2285.990841,
+            3.55,
+            535.8409
+          ],
+          "boardWidthMetres": 3.382077,
+          "boardHeightMetres": 0.95,
+          "renderedFloor": 0,
+          "renderSkippedBySourceRules": false,
+          "anchorShiftAlongFacadeMetres": 4.049304
+        },
+        "buildingGeometry": {
+          "id": "754a0783-351",
+          "name": null,
+          "cls": null,
+          "h": 17.2,
+          "hs": null,
+          "ring": [
+            [
+              -2331.8,
+              520.1
+            ],
+            [
+              -2331.2,
+              542.5
+            ],
+            [
+              -2286.7,
+              541.4
+            ],
+            [
+              -2285.2,
+              522.8
+            ],
+            [
+              -2283.6,
+              510.1
+            ],
+            [
+              -2309.1,
+              510.8
+            ],
+            [
+              -2308.9,
+              519.5
+            ]
+          ]
+        },
+        "sameFacadeNeighbors": [
+          {
+            "boardId": "b_0931d1d8-782f-4e",
+            "text": "Nataraj sports innovation.co",
+            "fullName": "Nataraj sports innovation.co",
+            "slot": {
+              "floor": 0,
+              "index": 0,
+              "of": 5
+            },
+            "facadeFraction": 0.08,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.1,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_4701ef9c-1025-47",
+            "text": "Bhagyanagar Gas Limited",
+            "fullName": "Bhagyanagar Gas Limited",
+            "slot": {
+              "floor": 0,
+              "index": 2,
+              "of": 5
+            },
+            "facadeFraction": 0.258,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.5,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_069f8701-184c-4d",
+            "text": "TSIIC",
+            "fullName": "TSIIC",
+            "slot": {
+              "floor": 0,
+              "index": 3,
+              "of": 5
+            },
+            "facadeFraction": 0.37,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.7,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_d3ea0653-a938-46",
+            "text": "Bank of Baroda",
+            "fullName": "Bank of Baroda",
+            "slot": {
+              "floor": 0,
+              "index": 4,
+              "of": 5
+            },
+            "facadeFraction": 0.719,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.9,
+            "renderedFloor": 0,
+            "renderedHeightMetres": 3.55,
+            "renderSkippedBySourceRules": false
+          },
+          {
+            "boardId": "b_65c024d9-38a9-4f",
+            "text": "Vishakapatnam Special Economic Zone",
+            "fullName": "Vishakapatnam Special Economic Zone",
+            "slot": {
+              "floor": 1,
+              "index": 0,
+              "of": 1
+            },
+            "facadeFraction": 0.08,
+            "endpointOrientation": "same",
+            "renderedFractionAlongTargetAToB": 0.08,
+            "renderedFloor": 1,
+            "renderedHeightMetres": 6.95,
+            "renderSkippedBySourceRules": false
+          }
+        ]
+      }
+    }
+  ],
+  "photoOnlyReviews": [
+    {
+      "text": "WINES",
+      "inspectedImageId": "944922029596048",
+      "decision": "do_not_place_directional_sign",
+      "observation": "Visible VASU WINES arrow is attached to a tree and points left. This is not the storefront location. Other group photos not manually inspected in this round."
+    },
+    {
+      "text": "CFMETRO365",
+      "inspectedImageId": "908926379957946",
+      "decision": "do_not_place_advertising_label",
+      "observation": "Label belongs to an advertising display on a flyover/metro column, not a shopfront. The other sequence frame was not inspected in this round."
+    }
+  ],
+  "limitations": [
+    "All ten candidates have only one inspected sequence each. A shared sequence and multiple OCR lines do not establish independent corroboration.",
+    "Photos date from 2020 through 2025; current operation and complete citywide shop order are not verified.",
+    "Raw image files are local ignored cache; sourceURLs, imageIDs, creators, capture dates and hashes are retained here for resumption."
+  ],
+  "mappedDataCommit": "0396f085c4df89be90c47804dae08c29f72fbdb4",
+  "independentViewSearch": {
+    "candidates": [
+      "b_d161506a-8365-43",
+      "b_221813be-5472-4c"
+    ],
+    "scope": "Current local metadata cache only, not a proof of absent Mapillary coverage",
+    "usefulIndependentSequencesWithin250m": 0,
+    "rejectedAlternativeImage": "3751889588254208",
+    "alternativeCaptureDate": "2020-06-20",
+    "alternativeSequence": "ho5onvi2qlhkj5v9iuuiwn",
+    "alternativeComputedHeading": 319.06,
+    "distancesToMappedBoardsM": [
+      321.8,
+      275.5
+    ],
+    "reason": "Both targets approximately 175 degrees behind camera direction; image not downloaded or visually counted."
+  },
+  "matcherOutcome": {
+    "falseIdentityMatchesRemoved": [
+      "b_baf1ef02-39e5-43",
+      "b_541d07c5498ebd85"
+    ],
+    "remainingAutomatedNameCandidates": 23,
+    "pipelineTestsPassed": 57,
+    "newNamesApplied": 0
+  }
+}

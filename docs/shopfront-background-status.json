@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-23T09:35:10.446635+00:00",
+  "updatedAt": "2026-10-23T10:45:15.157234+00:00",
   "automation": {
     "id": "hyderabad-citywide-shopfront-naming",
     "kind": "heartbeat",
@@ -32,26 +32,27 @@
     "sourceRecordsMayRepeatAcrossCells": true
   },
   "mapillary": {
-    "metadataImagesFound": 4951,
+    "metadataImagesFound": 7009,
     "photosReadThisSetup": 35,
     "independentOcrWorkers": 2,
-    "photosManuallyInspected": 17,
+    "photosManuallyInspected": 26,
     "newPhotoNamesApplied": 0,
-    "reviewEvidence": "docs/shopfront-photo-review-2026-10-23T0924Z.json",
-    "automatedPhotoCandidatesAwaitingReview": 16,
-    "falseMatchesRemoved": 4,
-    "photosReadTotal": 195,
+    "reviewEvidence": "docs/shopfront-photo-review-2026-10-23T1028Z.json",
+    "automatedPhotoCandidatesAwaitingReview": 23,
+    "falseMatchesRemoved": 6,
+    "photosReadTotal": 275,
     "photosReadLatestBatch": 80,
-    "photosManuallyInspectedLatestBatch": 8,
-    "metadataCellsCompleted": 9,
+    "photosManuallyInspectedLatestBatch": 9,
+    "metadataCellsCompleted": 13,
     "metadataCellsTotal": 2376,
-    "candidatesAwaitingInitialVisualReview": 4,
+    "candidatesAwaitingInitialVisualReview": 3,
     "reviewEvidenceFiles": [
       "docs/shopfront-photo-review-2026-10-23.json",
       "docs/shopfront-photo-review-2026-10-23T0807Z.json",
-      "docs/shopfront-photo-review-2026-10-23T0924Z.json"
+      "docs/shopfront-photo-review-2026-10-23T0924Z.json",
+      "docs/shopfront-photo-review-2026-10-23T1028Z.json"
     ],
-    "reviewCountNote": "16 current automated name candidates still need exact placement review;4 lack an initial manual identity review. Historical/manual evidence is retained separately for filtered candidates."
+    "reviewCountNote": "23 retained automated name candidates still require exact facade/floor/order review;3 lack initial manual identity review. Rejected evidence is preserved separately."
   },
   "verification": {
     "streetVerifiedCells": 0,
@@ -60,16 +61,16 @@
     "mapAndGameplayRegressions": "Passed during initial setup; not rerun or claimed as gameplay verification in this source-data batch.",
     "productionBuild": "passed",
     "existingBuildWarning": "fonts/fonts.css missing at build time",
-    "pipelineTests": "53 passed, including IAS/service false-identity rejection and distinctive-brand positive regressions",
+    "pipelineTests": "57 passed, including consultant/IAEC and ESTATE/SBI false-match rejection, exact SBI positives and source-provenance regression.",
     "latestBatchBuild": "Not run; no game source or data changed. Earlier productionBuild/gameTypecheck values are historical."
   },
-  "nextWork": "Continue bounded metadata/OCR across full extent. Remaining uninspected current matches: Balaji Papalal Mithai Bhandar, Medplus Ram Nagar, Kotak ATM, Ramesh Lasik. Resolve flagged shared-building floor/facade bindings before any placement update.",
+  "nextWork": "Resume bounded citywide metadata/OCR. Initial visual review remains for Cult Himayatnagar, Muthoot Finance and Omkaar Palace. Resolve the recorded duplicate/floor/slot conflicts with useful independent views before any placement update; source coverage is not street verification.",
   "latestBatch": {
-    "record": "docs/shopfront-runs/2026-10-23T0924Z.json",
+    "record": "docs/shopfront-runs/2026-10-23T1028Z.json",
     "sourceLinksAdded": 0,
     "newNamesAdded": 0,
     "photoPlacementsApplied": 0,
-    "recoverableBlocker": "Overpass HTTP502 on tile_0_0; retry checkpoint and backoff saved.",
+    "recoverableBlocker": "Overpass HTTP502 on tile_0_0; third-failure retry checkpoint and backoff saved.",
     "needsUserAction": false
   }
 }
