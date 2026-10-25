@@ -64,10 +64,14 @@ const CSS = `
 .seg{display:flex;gap:6px;flex-wrap:wrap}.seg .opt{flex-direction:row;align-items:center;justify-content:center;min-width:64px;font-weight:800}
 .touch{display:none}.is-touch .touch{display:block}.is-touch .keys{display:none}
 /* the browser must not turn a thumb on the controls (or the scene) into a scroll / zoom / long-press menu */
-.touch,.touch *,.stick,.tb,#game canvas,#hud .pe{touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.touch,.touch *,.tb,#game canvas,#hud .pe{touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 .tb.on{filter:brightness(1.15);transform:translateY(3px)}
-.stick{position:absolute;left:max(18px,env(safe-area-inset-left,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:140px;height:140px;border-radius:50%;border:3px solid rgba(246,238,220,.4);background:rgba(23,19,43,.3)}
-.stick i{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:rgba(246,238,220,.85)}
+.steering{position:absolute;left:max(18px,env(safe-area-inset-left,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));display:flex;gap:10px}
+.steering[hidden]{display:none!important}
+.steering .tb{position:relative;width:64px;height:74px;border-radius:18px;background:var(--panel);color:var(--cream);border:2px solid rgba(246,238,220,.5);box-shadow:0 4px 0 #0C0A1A;display:grid;place-items:center}
+.steering .tb svg{width:34px;height:34px;pointer-events:none}
+.steering .tb:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.steering .tb.on{background:var(--saffron);color:var(--ink);border-color:var(--saffron)}
 .tb{position:absolute;border:0;border-radius:50%;font-family:var(--display);color:var(--ink);cursor:pointer}
 .keys{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));background:var(--panel);border-radius:12px;padding:7px 11px;font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;max-width:62vw}
 .keys b{font-family:var(--display);font-size:10px;color:var(--cream);background:var(--line);border-radius:4px;padding:1px 5px;font-weight:400}
@@ -84,7 +88,7 @@ const CSS = `
   .offer{padding:10px;gap:5px}.offer .hint{display:none}.offer .btn{height:38px;font-size:13px}
   .toast{top:30%;font-size:clamp(16px,3.4vw,24px)}
   .prompt{bottom:max(14px,env(safe-area-inset-bottom,0px));font-size:13px;padding:7px 12px}
-  .stick{width:112px;height:112px}.stick i{width:46px;height:46px;margin:-23px 0 0 -23px}
+  .steering{gap:8px}.steering .tb{width:60px;height:64px}.steering .tb svg{width:30px;height:30px}
   #t-gas{width:76px!important;height:76px!important}#t-brake{width:58px!important;height:58px!important;right:calc(max(18px,env(safe-area-inset-right,0px)) + 86px)!important}
   #t-fly{width:54px!important;height:54px!important;right:calc(max(18px,env(safe-area-inset-right,0px)) + 152px)!important;bottom:max(18px,env(safe-area-inset-bottom,0px))!important}
   #t-act{width:52px!important;height:52px!important;right:calc(max(18px,env(safe-area-inset-right,0px)) + 12px)!important;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 84px)!important}
@@ -92,6 +96,7 @@ const CSS = `
 }
 /* narrow portrait phones */
 @media (max-width:440px){.h-tl{width:47vw}.h-tr .card{width:38vw!important}#minimap{width:104px;height:104px}.is-touch .speed{top:auto;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 190px);right:22px;font-size:22px}}
+@media (max-width:360px){.steering{left:max(12px,env(safe-area-inset-left,0px));gap:8px}.steering .tb{width:50px;height:64px}.steering .tb svg{width:28px;height:28px}}
 .rotate{position:fixed;inset:0;z-index:20;background:#17132B;display:none;place-items:center;text-align:center;padding:24px;pointer-events:auto}
 .rotate>div{display:flex;flex-direction:column;gap:12px;align-items:center;max-width:320px}
 .rotate b{font-family:var(--display);font-weight:400;font-size:22px;color:var(--saffron)}.rotate span{color:var(--muted);font-size:15px}
@@ -99,6 +104,8 @@ const CSS = `
 @keyframes rot{0%,25%{transform:rotate(0)}55%,100%{transform:rotate(-90deg)}}
 @media (orientation:portrait) and (pointer:coarse){.rotate{display:grid}}
 .rotate.ok{display:none!important}
+/* Let an already-open menu finish before presenting the portrait rotation prompt. */
+.modal:not([hidden])~.rotate{display:none}
 .tip{box-sizing:border-box;flex:0 1 auto;min-height:0;max-height:min(88px,100%);overflow:auto;width:min(460px,100%);background:rgba(23,19,43,.94);border:2px solid var(--teal);border-radius:14px;padding:9px 12px;display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.25;touch-action:pan-y!important}
 .has-offer .tip,.has-offer #order{display:none}
 .is-touch #hud.has-offer .touch{display:none}
@@ -124,7 +131,7 @@ export class Hud {
   onButton: (id: string) => void = () => {};
   onInputReset: () => void = () => {};
   rotationBlocked = false;
-  touchSteer = 0; touchGas = false; touchBrake = false; touchBoost = false;
+  touchLeft = false; touchRight = false; touchSteer = 0; touchGas = false; touchBrake = false; touchBoost = false;
   private resetInput = () => { this.resetControls(); this.onInputReset(); };
   constructor(touch: boolean) {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
@@ -155,7 +162,10 @@ export class Hud {
       <div class="keys"><span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>S</b> brake/reverse</span><span><b>Space</b> fly</span><span><b>E</b> collect / hand over / accept</span><span><b>T</b> theatres</span><span><b>M</b> map</span><span><b>H</b> horn</span><span><b>N</b> sound</span><span><b>Drag</b> look around when stopped</span><span><b>P</b> pause</span></div>
       <div class="speed"><span id="spd">0</span><small style="font-size:12px"> km/h</small></div>
       <div class="touch pe">
-        <div class="stick" id="stick"><i id="knob"></i></div>
+        <div class="steering" id="steering" role="group" aria-label="Arrow steering">
+          <button class="tb" id="t-left" type="button" aria-label="Steer left" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M26 16H6M15 6 5 16l10 10"/></svg></button>
+          <button class="tb" id="t-right" type="button" aria-label="Steer right" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16h20M17 6l10 10-10 10"/></svg></button>
+        </div>
         <button class="tb" id="t-gas" type="button" style="right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:92px;height:92px;background:var(--saffron);box-shadow:0 5px 0 #B8780A">GO</button>
         <button class="tb" id="t-brake" type="button" style="right:calc(max(18px,env(safe-area-inset-right,0px)) + 104px);bottom:max(18px,env(safe-area-inset-bottom,0px));width:70px;height:70px;background:#E9E4F2;box-shadow:0 4px 0 #9A93AE">BRAKE</button>
         <button class="tb" id="t-fly" type="button" style="right:calc(max(18px,env(safe-area-inset-right,0px)) + 14px);bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 106px);width:66px;height:66px;background:var(--teal);box-shadow:0 4px 0 #1E8F85">FLY</button>
@@ -183,31 +193,39 @@ export class Hud {
     this.el.rescue.addEventListener('click', () => this.onButton('rescue'));
     this.el['tip-x'].addEventListener('click', () => { this.tip(null); this.onButton('tip-close'); });
     this.el['rot-ok'].addEventListener('click', () => { this.el.rotate.classList.add('ok'); this.rotationBlocked = false; });
-    // touch
-    // steering stick: the finger keeps steering wherever it slides (pointer capture), the knob follows horizontally
-    const stick = this.el.stick, knob = this.el.knob; let sid = -1, sx = 0;
-    const R = () => stick.clientWidth * 0.4;
-    stick.addEventListener('pointerdown', (e) => { e.preventDefault(); if (sid !== -1) return; sid = e.pointerId; sx = e.clientX; try { stick.setPointerCapture(sid); } catch { /* ignore */ } });
-    stick.addEventListener('pointermove', (e) => { if (e.pointerId !== sid) return; e.preventDefault(); const r = R(), dx = Math.max(-r, Math.min(r, e.clientX - sx)); knob.style.transform = `translateX(${dx}px)`; this.touchSteer = dx / r; this.stickT = performance.now(); });
-    const releaseStick = () => {
-      const id = sid; sid = -1; knob.style.transform = ''; this.touchSteer = 0;
-      try { if (id !== -1 && stick.hasPointerCapture(id)) stick.releasePointerCapture(id); } catch { /* already released */ }
-    };
-    this.controlReleases.push(releaseStick);
-    const end = (e: PointerEvent) => { if (e.pointerId === sid) releaseStick(); };
-    stick.addEventListener('pointerup', end); stick.addEventListener('pointercancel', end); stick.addEventListener('lostpointercapture', end);
-    // held buttons stay held while the thumb wobbles off them; only lifting the finger releases
-    const hold = (id: string, f: (v: boolean) => void) => {
-      const b = this.el[id]; let pid = -1;
-      b.addEventListener('pointerdown', (e) => { e.preventDefault(); if (pid !== -1) return; pid = e.pointerId; try { b.setPointerCapture(pid); } catch { /* ignore */ } f(true); b.classList.add('on'); });
-      const release = () => {
-        const id = pid; pid = -1; f(false); b.classList.remove('on');
-        try { if (id !== -1 && b.hasPointerCapture(id)) b.releasePointerCapture(id); } catch { /* already released */ }
+    // Each held control owns its pointer, so steering and pedals can be used together.
+    const hold = (id: string, f: (v: boolean) => void, enabled = () => true) => {
+      const b = this.el[id]; let pid = -1; const keys = new Set<string>();
+      const paint = () => {
+        const active = pid !== -1 || keys.size > 0;
+        f(active); b.classList.toggle('on', active); b.setAttribute('aria-pressed', String(active));
       };
-      this.controlReleases.push(release);
-      const up = (e: PointerEvent) => { if (e.pointerId === pid) release(); };
+      b.addEventListener('pointerdown', (e) => {
+        e.preventDefault(); if (pid !== -1 || !enabled()) return;
+        pid = e.pointerId; try { b.setPointerCapture(pid); } catch { /* pointer already ended */ } paint();
+      });
+      const releasePointer = () => {
+        const id = pid; pid = -1;
+        try { if (id !== -1 && b.hasPointerCapture(id)) b.releasePointerCapture(id); } catch { /* already released */ }
+        paint();
+      };
+      this.controlReleases.push(() => { keys.clear(); releasePointer(); });
+      const up = (e: PointerEvent) => { if (e.pointerId === pid) releasePointer(); };
       b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
+      b.addEventListener('keydown', (e) => {
+        if (e.code !== 'Space' && e.code !== 'Enter') return;
+        e.preventDefault(); e.stopPropagation(); if (!enabled()) return;
+        keys.add(e.code); paint();
+      });
+      b.addEventListener('keyup', (e) => {
+        if (e.code !== 'Space' && e.code !== 'Enter') return;
+        e.preventDefault(); e.stopPropagation(); keys.delete(e.code); paint();
+      });
+      b.addEventListener('blur', () => { keys.clear(); paint(); });
     };
+    const steer = () => { this.touchSteer = Number(this.touchRight) - Number(this.touchLeft); };
+    hold('t-left', (v) => { this.touchLeft = v; steer(); }, () => !this.tiltOn);
+    hold('t-right', (v) => { this.touchRight = v; steer(); }, () => !this.tiltOn);
     hold('t-gas', (v) => (this.touchGas = v)); hold('t-brake', (v) => (this.touchBrake = v));
     this.el['t-fly'].addEventListener('pointerdown', (e) => { e.preventDefault(); this.onButton('fly'); });
     this.el['t-act'].addEventListener('pointerdown', (e) => { e.preventDefault(); this.onButton('act'); });
@@ -225,28 +243,38 @@ export class Hud {
   // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
   resetControls() {
     for (const release of this.controlReleases) release();
-    this.touchGas = false; this.touchBrake = false; this.touchBoost = false; this.touchSteer = 0; this.tilt = 0;
+    this.touchGas = false; this.touchBrake = false; this.touchBoost = false; this.touchLeft = false; this.touchRight = false; this.touchSteer = 0; this.tilt = 0;
   }
-  // optional tilt-to-steer (phone held in landscape like a steering wheel); the stick wins while it is being used
-  stickT = 0; tilt = 0; tiltOn = false;
-  async enableTilt(on: boolean) {
-    this.tiltOn = on; this.tilt = 0;
+  // Motion permission comes from a gesture; arrows remain usable until it succeeds.
+  tilt = 0; tiltOn = false;
+  private tiltRequest = 0;
+  async enableTilt(on: boolean, requestPermission = true) {
+    const request = ++this.tiltRequest;
+    this.tiltOn = false; this.el.steering.hidden = false; this.resetInput();
     if (!on) return true;
     const D = (window as any).DeviceOrientationEvent;
-    if (D && typeof D.requestPermission === 'function') { try { if ((await D.requestPermission()) !== 'granted') { this.tiltOn = false; return false; } } catch { this.tiltOn = false; return false; } }
+    if (!D) return false;
+    if (typeof D.requestPermission === 'function') {
+      if (!requestPermission) return false;
+      try { if ((await D.requestPermission()) !== 'granted') return false; } catch { return false; }
+    }
+    if (request !== this.tiltRequest) return false;
+    this.resetInput(); // A thumb may have pressed an arrow while permission was pending.
     if (!this.tiltBound) {
       this.tiltBound = true;
       addEventListener('deviceorientation', (e) => {
-        if (!this.tiltOn || e.beta == null || e.gamma == null) return;
+        if (!this.tiltOn) return;
+        if (typeof e.beta !== 'number' || !Number.isFinite(e.beta) || typeof e.gamma !== 'number' || !Number.isFinite(e.gamma)) { this.tilt = 0; return; }
         const ang = (screen.orientation?.angle ?? (window as any).orientation ?? 0) as number;
-        const roll = ang === 90 ? e.beta : ang === -90 || ang === 270 ? -e.beta : e.gamma;     // tilting the phone like a wheel
+        const roll = ang === 90 ? e.beta : ang === -90 || ang === 270 ? -e.beta : e.gamma;
         this.tilt = Math.max(-1, Math.min(1, roll / 22));
       });
     }
+    this.tiltOn = true; this.el.steering.hidden = true;
     return true;
   }
   tiltBound = false;
-  get steer() { return this.tiltOn && performance.now() - this.stickT > 400 && this.touchSteer === 0 ? (Math.abs(this.tilt) < 0.08 ? 0 : this.tilt) : this.touchSteer; }
+  get steer() { return this.tiltOn ? (Math.abs(this.tilt) < 0.08 ? 0 : this.tilt) : this.touchSteer; }
   set(id: string, text: string) { const e = this.el[id]; if (e && e.textContent !== text) e.textContent = text; }
   toast(text: string, cls = '') {
     const t = this.el.toast; t.textContent = text; t.className = 'toast show ' + cls;

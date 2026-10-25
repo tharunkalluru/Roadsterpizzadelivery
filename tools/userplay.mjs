@@ -1,5 +1,5 @@
 // Real-user play-through: plays the game in real time through its own controls only (keyboard on desktop, multi-touch on
-// the on-screen stick / GO / BRAKE / ACT on a phone), following the GPS line like a person would. The page is only read
+// the on-screen arrows / GO / BRAKE / ACT on a phone), following the GPS line like a person would. The page is only read
 // to know where the car is relative to the route (what a player sees on screen) — nothing is teleported or stepped.
 // Logs what a player would hit: load times, frame rate, stuck moments, crashes, collisions, UI states; screenshots throughout.
 // node tools/userplay.mjs <outdir> [desktop|phone] [baseUrl]
@@ -56,12 +56,9 @@ const tp = (id, x, y) => ({ id, x, y, radiusX: 8, radiusY: 8, force: 1 });
 let touchActive = new Map();
 const sendTouches = async (type) => { await cdp.send('Input.dispatchTouchEvent', { type, touchPoints: [...touchActive.values()] }); };
 const setTouch = async (want) => {
-  if (!rects) rects = await page.evaluate(() => Object.fromEntries(['stick', 't-gas', 't-brake', 't-act', 't-fly'].map((id) => { const r = document.getElementById(id).getBoundingClientRect(); return [id, { x: r.x + r.width / 2, y: r.y + r.height / 2 }]; })));
-  // stick: finger 1, gas: finger 2, brake: finger 3
-  const s = rects.stick;
-  if (!touchActive.has(1)) { touchActive.set(1, tp(1, s.x, s.y)); await sendTouches('touchStart'); }
-  touchActive.set(1, tp(1, s.x + want.steer * 50, s.y)); await sendTouches('touchMove');
-  for (const [id, fid, on] of [['t-gas', 2, want.gas], ['t-brake', 3, want.brake]]) {
+  if (!rects) rects = await page.evaluate(() => Object.fromEntries(['t-left', 't-right', 't-gas', 't-brake', 't-act', 't-fly'].map((id) => { const r = document.getElementById(id).getBoundingClientRect(); return [id, { x: r.x + r.width / 2, y: r.y + r.height / 2 }]; })));
+  // Independent arrow holds use the same visible controls as the mobile HUD.
+  for (const [id, fid, on] of [['t-left', 1, want.steer < -0.3], ['t-right', 4, want.steer > 0.3], ['t-gas', 2, want.gas], ['t-brake', 3, want.brake]]) {
     if (on && !touchActive.has(fid)) { touchActive.set(fid, tp(fid, rects[id].x, rects[id].y)); await sendTouches('touchStart'); }
     if (!on && touchActive.has(fid)) { const pt = touchActive.get(fid); touchActive.delete(fid); await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [...touchActive.values()] }); void pt; }
   }

@@ -1,0 +1,48 @@
+{
+  "recordedAt": "2026-10-25T21:27:54.113518+00:00",
+  "request": "Replace mobile thumb stick with left and right arrows; hide arrows in tilt mode; retain other controls.",
+  "changes": [
+    "Two independent, holdable SVG arrow buttons with accessible labels and pressed feedback.",
+    "Opposite arrows cancel, and releasing either restores the remaining held direction. Pointer capture, keyboard ownership and blur/menu resets release correctly.",
+    "Tilt hides only the steering group after motion access succeeds. Pending, denied, rejected or unsupported access retains arrow controls.",
+    "Out-of-order permission results cannot change a newer mode. Saved settings and visible selection revert consistently on permission failure.",
+    "Startup defers iOS motion permission until a user gesture; the legacy saved mode ID remains compatible.",
+    "Steering labels/help updated; GO, BRAKE, FLY and ACT preserved.",
+    "An open menu remains usable before portrait rotation guidance appears."
+  ],
+  "validation": {
+    "command": "npm --prefix game run check",
+    "result": "PASS: TypeScript, ten regression suites, production build; UI suite expanded to20 groups.",
+    "legacyTool": "node --check tools/userplay.mjs passed after updating its arrow selectors; it was not run as a playtest.",
+    "preservation": {
+      "filesCompared": 351,
+      "changed": 0
+    },
+    "bundle": "index-B_MhyOkn.js",
+    "browser": {
+      "environment": "Chrome native DevTools mobile emulation; visible controls only; no hidden game-state mutation or autopilot.",
+      "viewports": [
+        "844x390 landscape",
+        "320x844 portrait"
+      ],
+      "completed": [
+        "Loaded area and accepted a test order to expose controls.",
+        "Focused left and right arrow buttons held with Space plus W throttle, then released and braked.",
+        "Enabled Tilt the phone in Settings: arrows disappeared; GO/BRAKE/FLY/ACT stayed visible.",
+        "Switched to Arrow buttons: both arrows returned.",
+        "Measured landscape targets60x64,portrait50x64;8px gaps and no overlap with pedals at320px width."
+      ],
+      "limitations": [
+        "This was device emulation, not physical phone motion. Permission denial, multi-pointer ownership and sensor values were exercised in offline production-code regressions.",
+        "Pointer dispatch in device emulation timed out on the first Play attempt; visible buttons were subsequently activated with focused keyboard controls."
+      ],
+      "consoleErrors": [],
+      "consoleWarnings": []
+    }
+  },
+  "evidence": [
+    "evidence/2026-10-25-arrow-controls-gyro-b583fc.jpg",
+    "evidence/2026-10-25-arrow-controls-landscape-485ba9.jpg",
+    "evidence/2026-10-25-arrow-controls-portrait-9a9532.jpg"
+  ]
+}
