@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-25T19:09:04.843470+00:00",
+  "updatedAt": "2026-10-25T20:37:28.473429+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "13b831dc0b97e041103380dd310825c496e8651e",
+  "currentBuild": "fc275091d8214759ca0f0750bcf479ab628cec38",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -789,7 +789,7 @@
         "NARSINGI-MAP-SPACE-001"
       ],
       "priority": "P3",
-      "status": "confirmed_incidental_and_controlled_repeat",
+      "status": "fixed_and_browser_retested",
       "title": "Space reopens the focused minimap after closing the map instead of starting flight",
       "areas": [
         "Narsingi",
@@ -824,9 +824,12 @@
       "sourceCorroboration": "2026-10-23T2115Z/source-triage.json",
       "sourceFinding": "DialogFocus.hide restores earlier focus or minimap. The focused minimap Space handler prevents default, stops propagation and opens the map before the window flight handler.",
       "deduplication": "Related to PT-009 focus handling, but distinct from that repaired issue: this happens after map dismissal, rather than focus escaping while the map is open.",
-      "nextStep": "Resolve the post-close gameplay shortcut conflict without losing keyboard accessibility; then repeat minimap-pointer/Close/Space and keyboard map focus regression checks.",
-      "behaviorFixed": false,
-      "latestRecurrenceRound": "2026-10-23T2145Z"
+      "nextStep": "Retain explicit keyboard opener focus and repeat phone hardware checks during future coverage.",
+      "behaviorFixed": true,
+      "latestRecurrenceRound": "2026-10-23T2145Z",
+      "fixCommit": "fc275091d8214759ca0f0750bcf479ab628cec38",
+      "fixValidationReport": "2026-10-25-v2-integration.json",
+      "fixSummary": "Pointer/M map closure returns scene focus; explicit keyboard opener retains focus. Pointer/Close/Space observed actual flight; offline Game.start tests cover both focus modes."
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
@@ -951,7 +954,13 @@
     "2026-10-23T2145Z/ghatkesar.json",
     "2026-10-23T2145Z/source-triage.json",
     "2026-10-23T2145Z/evidence-manifest.json",
-    "2026-10-23T2145Z/round.json"
+    "2026-10-23T2145Z/round.json",
+    "evidence/2026-10-25-v2-collection-7d68b6.jpg",
+    "evidence/2026-10-25-v2-final-phone-menu-a81324.jpg",
+    "evidence/2026-10-25-v2-handover-360c00.jpg",
+    "evidence/2026-10-25-v2-phone-map-305a22.jpg",
+    "evidence/2026-10-25-v2-phone-menu-b0f73f.jpg",
+    "evidence/2026-10-25-v2-sustained-flight-6edd10.jpg"
   ],
   "roundHistory": [
     {
@@ -1385,10 +1394,39 @@
       "pushed": false,
       "browserOwnershipReleased": true,
       "helperServerStopped": true
+    },
+    {
+      "id": "2026-10-25-v2-integration",
+      "endedAt": "2026-10-25T20:37:28.473429+00:00",
+      "status": "completed_integration_acceptance",
+      "areas": [
+        "RTC X Roads",
+        "Chikkadpally",
+        "Jawahar Nagar"
+      ],
+      "runtimeSourceCommit": "fc275091d8214759ca0f0750bcf479ab628cec38",
+      "reports": [
+        "2026-10-25-v2-integration.json"
+      ],
+      "offersAccepted": 1,
+      "pickupsCompleted": 1,
+      "completedDeliveries": 1,
+      "rewardCoins": 165,
+      "evidence": [
+        "evidence/2026-10-25-v2-collection-7d68b6.jpg",
+        "evidence/2026-10-25-v2-final-phone-menu-a81324.jpg",
+        "evidence/2026-10-25-v2-handover-360c00.jpg",
+        "evidence/2026-10-25-v2-phone-map-305a22.jpg",
+        "evidence/2026-10-25-v2-phone-menu-b0f73f.jpg",
+        "evidence/2026-10-25-v2-sustained-flight-6edd10.jpg"
+      ],
+      "physicalPhoneTested": false,
+      "browserOwnershipReleased": true,
+      "helperServerStopped": true
     }
   ],
-  "nextRoundPlan": "Inspect actual browser state and recover the interrupted Ghatkesar checkpoint before sending input. Preserve existing orders; continue a short explicit pickup/handover. Rotate remaining Shamirpet and interior connectors after bounded attempts. PT-012 and PT-013 remain open; source/map opportunities do not establish bridge, camera or median correctness.",
-  "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "nextRoundPlan": "Resume saved city coverage and unresolved routes, rotating popular areas and interior connectors. Version 2 integration is recorded in 2026-10-25-v2-integration.json; PT-013 is fixed and browser-retested. PT-012 remains open. Continue real-device input/audio coverage; do not infer full-city verification from this one completed delivery.",
+  "runtimeSourceCommit": "fc275091d8214759ca0f0750bcf479ab628cec38",
   "liveHandoff": null,
   "liveHandoffs": [
     {
@@ -1604,5 +1642,18 @@
       "pausedConfirmed": false,
       "instruction": "Inspect current browser inventory and actual visible state before any resume or control input; do not assume this order survived or is paused."
     }
-  ]
+  ],
+  "version2Integration": {
+    "report": "2026-10-25-v2-integration.json",
+    "implementationCommit": "fc275091d8214759ca0f0750bcf479ab628cec38",
+    "testedAssets": [
+      "index-DBaHTMZn.js",
+      "tileworker-CsasSxH7.js"
+    ],
+    "accepted": 1,
+    "collected": 1,
+    "completedDeliveries": 1,
+    "rewardCoins": 165,
+    "physicalPhoneTested": false
+  }
 }
