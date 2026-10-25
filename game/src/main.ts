@@ -13,9 +13,31 @@ const q = new URLSearchParams(location.search);
 
 async function loadFonts() {
   if (!document.fonts) return;
+  let timeout: ReturnType<typeof setTimeout> | undefined;
   try {
-    await Promise.race([Promise.all(['64px "Bungee"', '800 30px "Baloo 2"', '700 30px "Baloo 2"', '700 40px "Noto Sans Telugu"'].map((f) => document.fonts.load(f, 'Aఅ'))), new Promise((r) => setTimeout(r, 4000))]);
+    await Promise.race([Promise.all(['64px "Bungee"', '800 30px "Baloo 2"', '700 30px "Baloo 2"', '700 40px "Noto Sans Telugu"'].map((f) => document.fonts.load(f, 'Aఅ'))), new Promise((r) => { timeout = setTimeout(r, 4000); })]);
   } catch { /* system fallback */ }
+  finally { if (timeout !== undefined) clearTimeout(timeout); }
+}
+
+// Retry only the download: no WebGL engine, worker or game listeners exist yet.
+export async function loadCore(base: string): Promise<CoreData> {
+  for (;;) {
+    setStatus('Loading Hyderabad…');
+    try { return await fetchPack<CoreData>(base + 'core.pack.wasm'); }
+    catch (error) {
+      const el = document.getElementById('loading');
+      if (!el) throw error;
+      setStatus((error as Error).message + ' ');
+      await new Promise<void>((resolve) => {
+        const retry = document.createElement('button');
+        retry.type = 'button'; retry.textContent = 'Retry loading Hyderabad';
+        retry.style.cssText = 'display:block;margin:12px auto 0;padding:10px 16px;font:inherit;cursor:pointer;pointer-events:auto';
+        retry.addEventListener('click', () => { retry.remove(); resolve(); }, { once: true });
+        el.append(retry);
+      });
+    }
+  }
 }
 
 export async function boot() {
@@ -25,9 +47,8 @@ export async function boot() {
   setStatus('Loading fonts…');
   await loadFonts();
   initTemplates({ rbox: new RoundedBoxGeometry(1, 1, 1, 3, 0.12), ring: new THREE.RingGeometry(1.0, 1.35, 40) });
-  setStatus('Loading Hyderabad…');
   const base = new URL('city/', location.href).href;
-  const core = await fetchPack<CoreData>(base + 'core.pack.wasm');
+  const core = await loadCore(base);
   const container = document.getElementById('game')!;
   const engine = new Engine(container, { lowQ, still });
   const world = new World(core, engine.mats, { lowQ, base });

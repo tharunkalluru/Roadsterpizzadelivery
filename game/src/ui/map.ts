@@ -19,13 +19,13 @@ const CSS = `
 .fmap[hidden],.fmap [hidden]{display:none!important}
 .fmap canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab}
 .fmap canvas:active{cursor:grabbing}
-.fmap .mbar{position:absolute;top:max(12px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;gap:8px;pointer-events:none;z-index:1}
-.fmap .map-title{background:rgba(23,19,43,.9);border-radius:14px;padding:8px 14px;font-family:var(--display);font-size:15px;color:var(--cream);pointer-events:none}
+.fmap .mbar{position:absolute;top:max(12px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;gap:8px;pointer-events:none;z-index:3}
+.fmap .map-title{background:rgba(23,19,43,.9);border-radius:14px;padding:8px 14px;font-family:var(--display);font-size:15px;color:var(--cream);min-width:0;pointer-events:none}
 .fmap .map-title small{display:block;font-family:var(--body);font-size:12px;color:var(--muted);font-weight:500}
 .fmap .zoom{position:absolute;right:max(14px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
 .fmap .zb{width:48px;height:48px;border:0;border-radius:14px;background:rgba(23,19,43,.92);color:var(--cream);font-family:var(--display);font-size:22px;cursor:pointer;pointer-events:auto}
 .fmap .zb:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
-.fmap .close{pointer-events:auto}
+.fmap .close{pointer-events:auto;flex:0 0 auto;min-width:44px;min-height:44px;touch-action:manipulation;white-space:nowrap}
 .fmap .legend{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));background:rgba(23,19,43,.9);border-radius:12px;padding:8px 12px;font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;max-width:min(560px,70vw)}
 .fmap .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
 .fmap .movebtn{position:absolute;left:50%;transform:translateX(-50%);bottom:max(64px,calc(env(safe-area-inset-bottom,0px) + 56px));pointer-events:auto}
@@ -73,7 +73,8 @@ export class FullMap {
     const cv = this.cv;
     cv.addEventListener('wheel', (e) => { e.preventDefault(); this.zoomAt(Math.exp(-e.deltaY * 0.0015), e.offsetX, e.offsetY); }, { passive: false });
     cv.addEventListener('pointerdown', (e) => {
-      cv.setPointerCapture(e.pointerId); this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      try { cv.setPointerCapture(e.pointerId); } catch { /* pointer already ended */ }
+      this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (this.pointers.size === 2) { const [a, b] = [...this.pointers.values()]; this.pinch0 = Math.hypot(a.x - b.x, a.y - b.y); this.scale0 = this.scale; }
     });
     cv.addEventListener('pointermove', (e) => {
@@ -87,7 +88,7 @@ export class FullMap {
       }
     });
     const up = (e: PointerEvent) => { this.pointers.delete(e.pointerId); if (this.pointers.size < 2) this.pinch0 = 0; };
-    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up); cv.addEventListener('lostpointercapture', up);
     addEventListener('resize', () => (this.dirty = true));
   }
   // ---------- choosing a place: the map moves under a fixed pin ----------
@@ -162,7 +163,9 @@ export class FullMap {
   hide() {
     if (!this.open) return;
     this.endPick();
-    for (const id of this.pointers.keys()) if (this.cv.hasPointerCapture(id)) this.cv.releasePointerCapture(id);
+    for (const id of this.pointers.keys()) {
+      try { if (this.cv.hasPointerCapture(id)) this.cv.releasePointerCapture(id); } catch { /* already released */ }
+    }
     this.pointers.clear(); this.pinch0 = 0;
     this.root.hidden = true; this.open = false; this.focus?.hide(); this.onClose();
   }

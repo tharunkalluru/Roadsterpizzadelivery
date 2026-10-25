@@ -6,6 +6,8 @@ import { placeLandmarks } from './landmarks';
 
 export interface LoadedTile { key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[] }
 
+const TILE_ATTEMPTS = 3, TILE_TIMEOUT = 20000, ENSURE_TIMEOUT = 75000, STREAM_RETRY_DELAY = 30000, MAX_PENDING = 2;
+
 const RENDER: Record<string, { cast: boolean; receive: boolean; order?: number }> = {
   park: { cast: false, receive: true }, water: { cast: false, receive: true }, road: { cast: false, receive: true }, marks: { cast: false, receive: true },
   foot: { cast: true, receive: true }, kerb: { cast: false, receive: true }, st: { cast: true, receive: true }, wall: { cast: true, receive: true }, shop: { cast: true, receive: true },
@@ -22,26 +24,63 @@ export class World implements CityData {
   theatreFacades = new Map<string, { c: THREE.Vector3; n: THREE.Vector3; w: number; top: number; building: Building }>();
   bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
   tiles = new Map<string, LoadedTile>(); pending = new Map<string, number>(); empty = new Set<string>();
-  failures = new Map<string, { attempts: number; retryAt: number; error: string }>();
-  packOf = new Map<string, string>(); worker: Worker; groundGeo = new THREE.PlaneGeometry(1000, 1000);
+  failures = new Map<string, { attempts: number; retryAt: number; message: string }>();
+  private requestIds = new Map<string, number>(); private nextRequestId = 0;
+  private workerUnavailable = false; private workerRestarts = 0; private workerFailed = false;
+  private workerTimer: ReturnType<typeof setTimeout> | null = null;
+  packOf = new Map<string, string>(); worker: Worker | null = null; groundGeo = new THREE.PlaneGeometry(1000, 1000);
   onTileAdded: (t: LoadedTile) => void = () => {}; onTileRemoved: (t: LoadedTile) => void = () => {};
   activity = new Map<string, number>();          // shop units per 100 m cell across the loaded tiles
-  radius: number; waiters: (() => void)[] = []; buildMs: number[] = []; addMs: number[] = []; t = 0; focus: [number, number] = [0, 0];
+  radius: number; waiters: (() => void)[] = []; buildMs: number[] = []; addMs: number[] = []; t = 0; focus: [number, number] | null = null;
   constructor(public core: CoreData, public mats: Record<string, any>, public opts: { lowQ: boolean; base: string }) {
     this.bounds = core.bounds;
     this.radius = opts.lowQ ? 900 : 1150;
     for (const p of core.packs) for (const [i, j] of p.tiles) this.packOf.set(`${i}_${j}`, new URL(p.file, opts.base).href);
     this.signs = new SignSystem(opts.lowQ ? 2 : 3, opts.lowQ ? 170 : 230);
     this.group.add(this.signs.group);
-    this.worker = this.makeWorker();
+    try { this.worker = this.makeWorker(); }
+    catch { this.workerError(); }
+    addEventListener('online', () => this.retryStreaming());
   }
   makeWorker() {
     const w = new Worker(new URL('./tileworker.ts', import.meta.url), { type: 'module' });
-    w.onmessage = (ev) => this.onMessage(ev.data);
-    // a crashed worker (out of memory on a small phone, say) is replaced and its tiles asked for again
-    w.onerror = (e) => { console.error('tile worker', e.message); w.terminate(); this.worker = this.makeWorker(); const keys = [...this.pending.keys()]; this.pending.clear(); for (const k of keys) this.request(k); };
-    w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin) });
+    w.onmessage = (ev) => { if (this.worker === w) this.onMessage(ev.data); };
+    w.onerror = (e) => { if (this.worker === w) { e.preventDefault(); this.workerError(); } };
+    w.onmessageerror = () => { if (this.worker === w) this.workerError(); };
+    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin) }); }
+    catch (error) { w.terminate(); throw error; }
     return w;
+  }
+  private workerError() {
+    console.error('The city loader stopped unexpectedly.');
+    this.worker?.terminate(); this.worker = null; this.workerUnavailable = true;
+    if (this.workerTimer !== null) clearTimeout(this.workerTimer);
+    this.workerTimer = null;
+    for (const k of [...this.pending.keys()]) this.fail(k, 'The city loader stopped unexpectedly.');
+    if (this.workerRestarts >= 2) { this.workerFailed = true; this.notify(); return; }
+    const delay = 500 * 2 ** this.workerRestarts++;
+    this.workerTimer = setTimeout(() => {
+      this.workerTimer = null;
+      try { this.worker = this.makeWorker(); this.workerUnavailable = false; this.notify(); }
+      catch { this.workerError(); }
+    }, delay);
+    this.notify();
+  }
+  private notify() { for (const w of this.waiters.slice()) w(); }
+  private retryStreaming() {
+    // Connectivity recovery must not extend an in-progress ensure indefinitely.
+    if (!this.focus || this.waiters.length) return;
+    for (const k of this.wanted(this.focus[0], this.focus[1], this.radius)) this.failures.delete(k);
+    this.update(this.focus[0], this.focus[1], 0, true);
+  }
+  private fail(k: string, message: string) {
+    this.pending.delete(k); this.requestIds.delete(k);
+    const attempts = (this.failures.get(k)?.attempts || 0) + 1;
+    this.failures.set(k, { attempts, retryAt: performance.now() + (attempts >= TILE_ATTEMPTS ? STREAM_RETRY_DELAY : 500 * 2 ** (attempts - 1)), message });
+  }
+  private expireRequests() {
+    const now = performance.now();
+    for (const [k, at] of this.pending) if (now - at >= TILE_TIMEOUT) this.fail(k, 'Loading this part of the city timed out.');
   }
   centroid = (b: Building): XZ => { let x = 0, z = 0; for (const p of b.ring) { x += p[0]; z += p[1]; } return [x / b.ring.length, z / b.ring.length]; };
   // tiles whose square comes within `r` of (x, z), nearest first
@@ -59,60 +98,82 @@ export class World implements CityData {
   update(x: number, z: number, dt = 0.016, force = false) {
     this.focus = [x, z];
     if (!force && (this.t += dt) < 0.4) return; this.t = 0;
-    const now = performance.now();
-    for (const [k, t] of this.pending) if (now - t > 25000) { this.pending.delete(k); this.request(k); }   // lost request: ask again
+    this.expireRequests();
     const want = this.wanted(x, z, this.radius);
-    for (const k of want) if (!this.tiles.has(k) && !this.pending.has(k) && !this.empty.has(k) && this.pending.size < 2) this.request(k);
+    for (const k of want) this.request(k);
     for (const [k, t] of this.tiles) {
+      if (this.waiters.length) break;           // retain the old playable area until a relocation succeeds
       const [i, j] = k.split('_').map(Number);
       const dx = Math.max(i * 1000 - x, 0, x - (i + 1) * 1000), dz = Math.max(j * 1000 - z, 0, z - (j + 1) * 1000);
       if (Math.hypot(dx, dz) > this.radius + 450) this.unload(t);
     }
   }
   request(k: string) {
-    if (this.pending.has(k) || (this.failures.get(k)?.retryAt || 0) > performance.now()) return;
-    this.pending.set(k, performance.now()); this.worker.postMessage({ type: 'build', key: k, url: this.packOf.get(k) });
+    const f = this.failures.get(k), now = performance.now();
+    if (this.workerUnavailable || this.workerFailed || !this.worker || !this.packOf.has(k) || this.tiles.has(k) || this.empty.has(k) || this.pending.has(k) || this.pending.size >= MAX_PENDING) return;
+    if (f) {
+      if (now < f.retryAt || (f.attempts >= TILE_ATTEMPTS && this.waiters.length)) return;
+      if (f.attempts >= TILE_ATTEMPTS) this.failures.delete(k);   // bounded background retry window
+    }
+    const requestId = ++this.nextRequestId;
+    this.pending.set(k, now); this.requestIds.set(k, requestId);
+    try { this.worker.postMessage({ type: 'build', key: k, url: this.packOf.get(k), requestId }); }
+    catch { this.fail(k, 'Could not send this part of the city to the loader.'); }
   }
   // resolve once every tile within r of (x, z) is built (start-up, teleports, test scenes)
   ensure(x: number, z: number, r = 700): Promise<void> {
-    this.focus = [x, z];                       // we are going there: don't unload what we're about to need
-    // A new explicit area selection can retry an area which previously failed to load.
-    for (const k of this.wanted(x, z, r)) this.failures.delete(k);
+    const previousFocus = this.focus, targetFocus: [number, number] = [x, z];
+    this.focus = targetFocus;
+    const want = this.wanted(x, z, r);
+    // A new area choice is an explicit retry; previous failures are not permanent empty streets.
+    for (const k of want) if (!this.pending.has(k)) this.failures.delete(k);
+    if (this.workerFailed) {
+      this.workerFailed = false; this.workerRestarts = 0;
+      try { this.worker = this.makeWorker(); this.workerUnavailable = false; }
+      catch { this.workerFailed = true; }
+    }
     return new Promise((resolve, reject) => {
-      const started = performance.now();
-      let timer: ReturnType<typeof setInterval> | undefined;
+      const deadline = performance.now() + ENSURE_TIMEOUT;
+      let done = false, timer: ReturnType<typeof setInterval> | undefined;
       const finish = (error?: Error) => {
-        if (timer) clearInterval(timer);
+        if (done) return;
+        done = true; if (timer !== undefined) clearInterval(timer);
         this.waiters = this.waiters.filter((f) => f !== check);
+        if (error && this.focus?.[0] === x && this.focus?.[1] === z) this.focus = previousFocus;
         if (error) reject(error); else resolve();
       };
       const check = () => {
-        const want = this.wanted(x, z, r);
+        if (done) return;
+        this.expireRequests();
         const missing = want.filter((k) => !this.tiles.has(k) && !this.empty.has(k));
-        if (!missing.length) { finish(); return true; }
-        const failed = missing.find((k) => (this.failures.get(k)?.attempts || 0) >= 3);
-        if (failed || performance.now() - started > 90000) {
-          finish(new Error(failed ? `Could not load tile ${failed}: ${this.failures.get(failed)!.error}` : 'Loading this area timed out. Please try again.'));
-          return true;
+        if (!missing.length) { finish(); return; }
+        if (this.workerFailed) { finish(new Error('The city loader could not restart. Please choose the area again.')); return; }
+        if (missing.some((k) => (this.failures.get(k)?.attempts || 0) >= TILE_ATTEMPTS)) {
+          finish(new Error('Could not load the streets in this area. Check your connection and choose the area again.')); return;
         }
-        for (const k of missing) if (this.pending.has(k) && performance.now() - this.pending.get(k)! > 25000) this.pending.delete(k);
-        for (const k of missing) if (!this.pending.has(k)) this.request(k);
-        return false;
+        if (performance.now() >= deadline) { finish(new Error('Loading this area took too long. Check your connection and try again.')); return; }
+        for (const k of missing) this.request(k);
       };
-      if (!check()) { this.waiters.push(check); timer = setInterval(check, 250); }
+      this.waiters.push(check); check();
+      if (!done) timer = setInterval(check, 200);
     });
   }
   onMessage(m: any) {
+    if (!this.pending.has(m.key) || m.requestId !== this.requestIds.get(m.key)) return;
     const t0 = this.pending.get(m.key); this.pending.delete(m.key);
-    if (m.type === 'built') { this.failures.delete(m.key); const a0 = performance.now(); this.add(m.built); this.addMs.push(Math.round(performance.now() - a0)); this.buildMs.push(m.ms); if (t0) this.buildMs.push(Math.round(performance.now() - t0)); }
-    else if (m.type === 'empty') { this.failures.delete(m.key); this.empty.add(m.key); }
-    else if (m.type === 'error') {
-      console.error('tile', m.key, m.error);
-      const attempts = (this.failures.get(m.key)?.attempts || 0) + 1;
-      this.failures.set(m.key, { attempts, retryAt: performance.now() + Math.min(30000, 1000 * 2 ** Math.min(attempts - 1, 5)), error: String(m.error) });
+    this.requestIds.delete(m.key);
+    if (m.type === 'built') {
+      try {
+        if (m.built?.key !== m.key) throw new Error('Mismatched city tile');
+        const a0 = performance.now(); this.add(m.built); this.addMs.push(Math.round(performance.now() - a0)); this.buildMs.push(m.ms); if (t0 !== undefined) this.buildMs.push(Math.round(performance.now() - t0)); this.failures.delete(m.key);
+      }
+      catch { this.fail(m.key, 'Could not display this part of the city. Please try again.'); }
     }
-    for (const w of this.waiters.slice()) w();
-    this.update(this.focus[0], this.focus[1], 0, true);
+    else if (m.type === 'empty') { this.empty.add(m.key); this.failures.delete(m.key); }
+    else if (m.type === 'error') { console.error('City tile loading failed.', m.key); this.fail(m.key, 'Could not load this part of the city. Please try again.'); }
+    else this.fail(m.key, 'The city loader returned an invalid response.');
+    this.notify();
+    if (this.focus) this.update(this.focus[0], this.focus[1], 0, true);
   }
   add(b: TileBuilt) {
     if (this.tiles.has(b.key)) return;

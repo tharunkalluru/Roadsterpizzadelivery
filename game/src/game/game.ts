@@ -22,7 +22,7 @@ import { RailTrains } from './rail';
 import { Sound } from './audio';
 import { supportAt } from './physics';
 import { findClearStreetSpot, staticSolidAt, clearCameraPosition } from './spatial-safety';
-import { LADDER, TheatreDef, Lease, Film, makeSlate, simulateDay, PRICES, CAMPAIGNS, projection, CINEMA_CONST } from './cinema';
+import { LADDER, TheatreDef, Lease, Film, FILMS, makeSlate, simulateDay, PRICES, CAMPAIGNS, projection, CINEMA_CONST } from './cinema';
 
 // the city opens up as you level: early orders stay in the neighbourhood, later ones cross Hyderabad
 const LEVELS = [
@@ -60,6 +60,9 @@ export class Game {
   day = 1; minutes = 8 * 60; paused = false;
   order: Order | null = null; actProgress = 0;
   nextOfferAt: number | null = null;
+  rotationWasBlocked = false;
+  private mapKeyboardOpener = false;
+  cinemaReport: { readyAt: number; html: string } | null = null;
   route: RoadRoute | null = null; routeT = 0; routeTarget: Stop | null = null;
   routeGuidanceBlocked = false;
   routeGuide: [number, number, number][] = [];
@@ -267,8 +270,17 @@ export class Game {
   }
   load() {
     try {
-      const s = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (!s) return;
-      Object.assign(this, { coins: s.coins ?? 500, level: s.level ?? 0, doneInLevel: s.doneInLevel ?? 0, day: s.day ?? 1, minutes: s.minutes ?? 480, lease: s.lease ?? null, totalDelivered: s.total ?? 0 });
+      const s = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (!s || typeof s !== 'object' || Array.isArray(s)) return;
+      const num = (v: unknown, fallback: number, min: number, max: number, integer = true) =>
+        typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max && (!integer || Number.isInteger(v)) ? v : fallback;
+      this.coins = num(s.coins, 500, -Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+      this.level = num(s.level, 0, 0, LEVELS.length - 1);
+      this.doneInLevel = num(s.doneInLevel, 0, 0, this.level === LEVELS.length - 1 ? Number.MAX_SAFE_INTEGER : LEVELS[this.level].n - 1);
+      this.day = num(s.day, 1, 1, Number.MAX_SAFE_INTEGER);
+      this.minutes = num(s.minutes, 480, 0, 1439.999999, false);
+      this.totalDelivered = num(s.total, 0, 0, Number.MAX_SAFE_INTEGER);
+      this.lease = validSavedLease(s.lease, this.theatres.map((t) => t.def.key)) ? s.lease : null;
+      if (this.lease?.days.length === 7) this.lease.done = true;
     } catch { /* corrupt or blocked storage: start fresh */ }
   }
 
@@ -301,18 +313,20 @@ export class Game {
     if (this.order) { this.nextOfferAt = null; return; }
     // Keep a due offer pending while any overlay owns input. Resume/map close
     // will service it on the next frame rather than discard a one-shot timer.
-    if (now < this.nextOfferAt || this.paused || this.hud.modalOpen || this.map?.open || this.choosing || this.relocating) return;
+    if (now < this.nextOfferAt || this.paused || this.hud.modalOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating) return;
     this.showOffer();
     if (!this.order) this.nextOfferAt = now + 1000; // bounded retry if no valid route could be generated
   }
   showOffer() {
     // A delayed offer callback must not replace an accepted delivery or appear over area selection.
-    if (this.paused || this.hud.modalOpen || this.map?.open || this.choosing || this.relocating || (this.order && this.order.state !== 'offer')) return;
+    if (this.paused || this.hud.modalOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating || (this.order && this.order.state !== 'offer')) return;
     // Reopening a cancelled area picker restores the same offer, including its route and pay.
     let o: Order | null = this.order;
+    const restored = !!o;
     for (let k = 0; k < 6 && !o; k++) o = this.makeOffer();
     if (!o) return;
     this.order = o; this.nextOfferAt = null;
+    if (!restored) this.sound.cue('offer');
     const pay = Math.round(35 + o.dist * 0.07);
     const P = this.player.pos, f = this.player.forward;
     const approach = this.graph.route(P.x, P.z, o.pickup.x, o.pickup.z, this.player.flying ? undefined : { hx: f.x, hz: f.z, y: P.y });
@@ -324,6 +338,7 @@ export class Game {
   acceptOffer() {
     if (!this.order || this.order.state !== 'offer') return;
     this.order.state = 'toPickup'; this.hud.offer(null); this.setTarget(this.order.pickup, '#FFB627');
+    this.sound.cue('accept');
     this.hud.toast('Order accepted!', 'teal');
   }
   routeColor = '#FFB627';
@@ -340,12 +355,13 @@ export class Game {
     }
   }
   completeDelivery() {
-    const o = this.order!;
+    const o = this.order; if (!o || o.state !== 'toDrop') return;
     const tier = o.heat >= 70 ? 1.5 : o.heat >= 40 ? 1.0 : o.heat > 0 ? 0.5 : 0;
     const fare = Math.round(35 + o.dist * 0.07);
     const tip = Math.round(fare * tier * (o.slices / 8) * this.streak);
     const total = o.slices > 0 ? fare + tip : Math.round(fare * 0.3);
     this.coins += total; this.totalDelivered++;
+    this.sound.cue('delivery');
     this.streak = tier >= 1.5 && o.slices >= 6 ? Math.min(2, +(this.streak + 0.2).toFixed(1)) : 1;
     const line = tier >= 1.5 ? 'Ekdum garam! Mast hai bhai.' : tier >= 1 ? 'Hau, theek hai. Thanks!' : 'Kya re, pizza thanda hai!';
     this.hud.toast(`+${total} coins · "${line}"`, tier >= 1 ? '' : 'pink');
@@ -369,7 +385,12 @@ export class Game {
   }
   resetInput() {
     this.keys.clear(); this.flyQueued = false; this.actHeld = false; this.actTap = 0; this.actProgress = 0; this.dragging = false;
-    if (this.hud) { this.hud.touchGas = false; this.hud.touchBrake = false; this.hud.touchSteer = 0; }
+    this.hud?.resetControls();
+    this.sound.vehicle({ speed: 0, throttle: 0, flying: false, active: false });
+  }
+  resume() {
+    this.resetInput(); this.paused = false; this.hud.modal(null); this.clock.getDelta();
+    this.engine.renderer.domElement.focus({ preventScroll: true });
   }
   openTheatres() {
     if (this.map?.open || this.choosing) return;
@@ -384,11 +405,18 @@ export class Game {
     this.hud.modal(`<h2>Theatres</h2><div class="sm">You have <b>${this.coins.toLocaleString('en-IN')}</b> coins. Lease a single screen for a week, release a film, and earn your share every night. Seat counts and prices are game values; all films are fictional.</div>
       ${leased ? `<div class="card"><div class="k">This week</div>${hist || '<div class="sm">Your film releases at midnight. Collections arrive every night.</div>'}</div>` : ''}
       <div class="grid2">${rows}</div><button type="button" class="btn alt" id="close">Close</button>`, (sh) => {
-      sh.querySelectorAll('.opt').forEach((b) => b.addEventListener('click', () => { const s = this.theatres[+(b as HTMLElement).dataset.i!]; if (!this.order || this.order.state === 'offer') { this.hud.offer(null); this.order = null; this.setTarget(s.stop, '#FF8FB1'); } this.hud.modal(null); this.hud.toast(`GPS set: ${s.def.name}`, 'teal'); }));
-      sh.querySelector('#close')!.addEventListener('click', () => this.hud.modal(null));
+      sh.querySelectorAll('.opt').forEach((b) => b.addEventListener('click', () => {
+        if (this.order && this.order.state !== 'offer') { this.hud.toast('Finish this delivery before setting theatre GPS.', 'pink'); return; }
+        const s = this.theatres[+(b as HTMLElement).dataset.i!];
+        this.hud.offer(null); this.order = null; this.nextOfferAt = null; this.setTarget(s.stop, '#FF8FB1');
+        this.resume(); this.hud.toast(`GPS set: ${s.def.name}`, 'teal');
+      }));
+      sh.querySelector('#close')!.addEventListener('click', () => this.resume());
     });
   }
   openLease(site: TheatreSite) {
+    this.resetInput();
+    if (!this.order) { this.setTarget(null); this.queueOffer(2500); }
     if (this.lease && !this.lease.done) { this.openTheatres(); return; }
     this.slate = makeSlate(this.day * 97 + hash(site.def.key));
     let fi = 0, price = 150, shows = 4, camp = 0;
@@ -409,10 +437,10 @@ export class Game {
         sh.querySelectorAll('[data-c]').forEach((b) => b.addEventListener('click', () => { camp = +(b as HTMLElement).dataset.c!; render(); }));
         sh.querySelector('#close')!.addEventListener('click', () => this.hud.modal(null));
         sh.querySelector('#sign')!.addEventListener('click', () => {
-          if (this.coins < cost) return;
+          if (this.coins < cost || (this.lease && !this.lease.done)) return;
           this.coins -= cost;
           this.lease = { theatre: site.def.key, film: f, price, shows, campaign: c.id, startDay: this.day + 1, days: [], hype: 0.85 + f.star * 0.07 + c.hype, wom: 1, done: false };
-          this.paintPoster(site); this.save(); this.hud.modal(null);
+          this.paintPoster(site); this.save(); this.hud.modal(null); this.sound.cue('lease');
           this.hud.toast(`${f.title} releases at midnight!`, 'teal');
         });
       });
@@ -421,8 +449,8 @@ export class Game {
   }
   settleDay() {
     const l = this.lease; if (!l || l.done) return;
-    const idx = this.day - l.startDay; if (idx < 0 || idx > 6) return;
-    const site = this.theatres.find((s) => s.def.key === l.theatre)!;
+    const idx = this.day - l.startDay; if (idx < 0 || idx > 6 || l.days.length > idx) return;
+    const site = this.theatres.find((s) => s.def.key === l.theatre); if (!site) return;
     const rep = simulateDay(l, site.def, idx, rng(hash(l.film.id) + this.day * 31));
     this.coins += rep.coins;
     this.hud.toast(`${site.def.name}: ${rep.tickets.toLocaleString('en-IN')} tickets, ${rep.coins >= 0 ? '+' : ''}${rep.coins} coins`, rep.coins >= 0 ? 'teal' : 'pink');
@@ -431,26 +459,35 @@ export class Game {
       const total = l.days.reduce((a, d) => a + d.coins, 0);
       const cost = site.def.lease + (CAMPAIGNS.find((c) => c.id === l.campaign)?.cost || 0);
       const verdict = total - cost > cost * 0.6 ? 'BLOCKBUSTER' : total - cost > 0 ? 'HIT' : total - cost > -cost * 0.4 ? 'AVERAGE' : 'FLOP';
-      setTimeout(() => this.hud.modal(`<h2>${verdict}!</h2><div class="big">${esc(l.film.title)} at ${esc(site.def.name)}</div>
+      this.cinemaReport = { readyAt: performance.now() + 2200, html: `<h2>${verdict}!</h2><div class="big">${esc(l.film.title)} at ${esc(site.def.name)}</div>
         <div class="sm">Week total ${total.toLocaleString('en-IN')} coins against ${cost.toLocaleString('en-IN')} spent: <b>${total - cost >= 0 ? 'profit' : 'loss'} of ${Math.abs(total - cost).toLocaleString('en-IN')} coins</b>.</div>
         ${l.days.map((r) => `<div class="sm">Day ${r.day}: ${r.tickets.toLocaleString('en-IN')} tickets · ${r.coins} coins · ${esc(r.note)}</div>`).join('')}
-        <button type="button" class="btn go" id="close">Back to deliveries</button>`, (sh) => sh.querySelector('#close')!.addEventListener('click', () => this.hud.modal(null))), 2200);
+        <button type="button" class="btn go" id="close">Back to deliveries</button>` };
       this.paintPoster(site);
     }
     this.save();
+  }
+  tickCinemaReport(now = performance.now()) {
+    const report = this.cinemaReport;
+    if (!report || now < report.readyAt || document.hidden || this.paused || this.hud.modalOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating) return;
+    this.cinemaReport = null;
+    this.hud.modal(report.html, (sh) => sh.querySelector('#close')!.addEventListener('click', () => this.resume()));
   }
 
   // ---------- loop ----------
   start() {
     this.load();
+    if (this.lease) { const site = this.theatres.find((s) => s.def.key === this.lease!.theatre); if (site) this.paintPoster(site); }
     const touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
     this.hud = new Hud(touch);
+    this.hud.onInputReset = () => this.resetInput();
     this.settings = loadSettings();
     this.sound.setMuted(!this.settings.sound);
     if (touch && this.settings.steer === 'tilt') this.hud.enableTilt(true);
     this.hud.el['b-full'].hidden = !canFullscreen();
     try { this.tutStep = localStorage.getItem(TUT_KEY) ? -1 : 0; } catch { this.tutStep = -1; }
     this.hud.onButton = (id) => {
+      if (this.hud.rotationBlocked) return;
       if (id === 'theatres') this.openTheatres();
       else if (id === 'pause') this.openPause();
       else if (id === 'rescue') this.rescue();
@@ -459,27 +496,7 @@ export class Game {
       else if (id === 'fly') this.flyQueued = true;
       else if (id === 'act') { this.actTap = 1.2; if (this.order?.state === 'offer') this.acceptOffer(); }
     };
-    addEventListener('keydown', (e) => {
-      if (this.map?.open) { this.map.handleKey(e); return; }
-      if (this.choosing) return;                       // the area picker / pick-on-map screen has the keyboard
-      if (this.hud.modalOpen && e.code !== 'Escape') return;
-      this.keys.add(e.code);
-      if (e.code === 'Space') { this.flyQueued = true; e.preventDefault(); }
-      if (e.code.startsWith('Arrow')) e.preventDefault();
-      if (e.code === 'KeyE') { this.actHeld = true; if (this.order?.state === 'offer') this.acceptOffer(); }
-      if (e.code === 'KeyT') this.openTheatres();
-      if (e.code === 'KeyM' && !e.repeat) { this.openMap(); return; }
-      if (e.code === 'KeyH' && !e.repeat) this.sound.horn('car', 4, 0, true);
-      if (e.code === 'KeyR' && !e.repeat) this.rescue();
-      // developer toggles for play-testing on real devices: ` stats overlay, \ test autopilot (drives the GPS route)
-      if (e.code === 'Backquote' || e.key === '`') { this.devOn = !this.devOn; this.hud.el.dev.hidden = !this.devOn; }
-      if (e.code === 'Backslash' || e.key === '\\') { this.autopilot = !this.autopilot; this.hud.toast(this.autopilot ? 'Test autopilot ON' : 'Test autopilot off', 'teal'); }
-      if (e.code === 'KeyN') { this.sound.setMuted(!this.sound.muted); this.settings.sound = !this.sound.muted; try { localStorage.setItem('p2ph-settings-v1', JSON.stringify(this.settings)); } catch { /* ignore */ } this.hud.toast(this.sound.muted ? 'Sound off' : 'Sound on', 'teal'); }
-      if ((e.code === 'KeyP' || e.code === 'Escape') && !e.repeat) {
-        if (this.hud.modalOpen) { this.hud.modal(null); this.paused = false; this.clock.getDelta(); }
-        else this.openPause();
-      }
-    });
+    addEventListener('keydown', (e) => this.handleKeyDown(e));
     // full map from the minimap
     this.map = new FullMap(this.hud.root, this.zone, () => ({
       player: this.area ? { x: this.player.pos.x, z: this.player.pos.z, yaw: this.player.yaw } : null,
@@ -488,7 +505,14 @@ export class Game {
       target: this.routeTarget ? { x: this.routeTarget.x, z: this.routeTarget.z, label: this.routeTarget.label } : null,
       theatres: this.theatres.map((t) => ({ x: t.stop.x, z: t.stop.z, name: t.def.name, leased: !!this.lease && !this.lease.done && this.lease.theatre === t.def.key })),
       pickups: this.food.map((f) => ({ x: f.s.x, z: f.s.z, pizza: !!f.pizza })),
-    }), () => { if (!this.choosing) { this.paused = false; this.clock.getDelta(); } }, { mapUrl: new URL('city/map.pack.wasm', location.href).href, buildings: () => this.city.loadedBuildings() });
+    }), () => {
+      this.resetInput();
+      if (!this.choosing) {
+        this.paused = false; this.clock.getDelta();
+        // Pointer/map-shortcut players return to driving; explicit keyboard openers keep their navigation focus.
+        if (!this.mapKeyboardOpener) this.engine.renderer.domElement.focus({ preventScroll: true });
+      }
+    }, { mapUrl: new URL('city/map.pack.wasm', location.href).href, buildings: () => this.city.loadedBuildings() });
     this.map.areaName = (x, z) => this.areaName(x, z);
     this.map.onMove = (x, z) => this.relocate({ name: this.areaName(x, z) || 'Hyderabad', x, z });
     // where to deliver: chosen at the start, changeable after any delivery
@@ -501,24 +525,26 @@ export class Game {
     };
     this.hud.el.minimap.addEventListener('click', () => this.openMap());
     this.hud.el.minimap.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.code === 'Space') { e.preventDefault(); e.stopPropagation(); this.openMap(); }
+      if (e.key === 'Enter' || e.code === 'Space') { e.preventDefault(); e.stopPropagation(); this.openMap(true); }
     });
     // look around: drag on the scene while the car is stopped; scroll to move the camera in or out
     const cv = this.engine.renderer.domElement;
+    cv.tabIndex = -1;
     let last: { x: number; y: number } | null = null;
-    cv.addEventListener('pointerdown', (e) => { last = { x: e.clientX, y: e.clientY }; this.dragging = true; });
+    cv.addEventListener('pointerdown', (e) => { if (this.paused || this.choosing || this.map?.open || this.hud.modalOpen || this.hud.rotationBlocked) return; last = { x: e.clientX, y: e.clientY }; this.dragging = true; });
     addEventListener('pointerup', () => { last = null; this.dragging = false; });
     addEventListener('pointercancel', () => { last = null; this.dragging = false; });
     cv.addEventListener('pointermove', (e) => {
-      if (!last || this.hud.modalOpen) return;
+      if (!last || !this.dragging || this.hud.modalOpen) return;
       const dx = e.clientX - last.x, dy = e.clientY - last.y; last = { x: e.clientX, y: e.clientY };
       if (Math.abs(this.player.speed) > 2 && !this.player.flying) return;
       this.orbitYaw -= dx * 0.008; this.orbitPitch = Math.max(0.05, Math.min(1.25, this.orbitPitch + dy * 0.005));
     });
     cv.addEventListener('wheel', (e) => { if (Math.abs(this.player.speed) < 2) { e.preventDefault(); this.orbitDist = Math.max(-4, Math.min(22, this.orbitDist + e.deltaY * 0.01)); } }, { passive: false });
     addEventListener('keyup', (e) => { this.keys.delete(e.code); if (e.code === 'KeyE') this.actHeld = false; });
-    addEventListener('blur', () => this.resetInput());
-    document.addEventListener('visibilitychange', () => { if (document.hidden) this.resetInput(); });
+    addEventListener('blur', () => this.background());
+    document.addEventListener('visibilitychange', () => { if (document.hidden) this.background(); });
+    addEventListener('pagehide', () => { this.resetInput(); this.save(); });
     this.player.chargeCap = 20 + this.level * 2.5;
     this.engine.camera.far = 900; this.engine.camera.updateProjectionMatrix();
     this.applyClockMood(true);
@@ -526,38 +552,76 @@ export class Game {
     const want = new URLSearchParams(location.search).get('area');
     const hit = want ? [...this.picker.popular, ...this.picker.list].find((c) => c.name.toLowerCase() === want.toLowerCase()) : null;
     this.title = new TitleScreen(this.hud.root, touch);
-    this.title.onPlay = () => { if (touch && this.settings.steer === 'tilt') this.hud.enableTilt(true); this.chooseArea(true); };
+    this.title.onPlay = () => { this.sound.unlock(); this.sound.cue('start'); if (touch && this.settings.steer === 'tilt') this.hud.enableTilt(true); this.chooseArea(true); };
     this.title.onSettings = () => this.openSettings(() => { this.hud.modal(null); this.title!.show(); });
     if (hit) this.relocate(hit); else { this.choosing = true; this.paused = true; this.title.show(); }
     const loop = () => { if (!this.halted) this.frame(); requestAnimationFrame(loop); };   // tests set halted and step frames themselves
     requestAnimationFrame(loop);
   }
-  openMap() {
-    if (!this.map || this.hud.modalOpen || this.choosing) return;
+  handleKeyDown(e: KeyboardEvent) {
+    if (this.hud.rotationBlocked) return;
+    if (e.repeat && ['Space', 'KeyT', 'KeyM', 'KeyN', 'KeyP', 'Escape', 'Backquote', 'Backslash'].includes(e.code)) return;
+    if (this.map?.open) { this.map.handleKey(e); return; }
+    if (this.choosing) return;
+    if (this.hud.modalOpen && !['Escape', 'KeyP'].includes(e.code)) return;
+    this.keys.add(e.code);
+    if (e.code === 'Space') { this.flyQueued = true; e.preventDefault(); }
+    if (e.code.startsWith('Arrow')) e.preventDefault();
+    if (e.code === 'KeyE') { this.actHeld = true; if (this.order?.state === 'offer') this.acceptOffer(); }
+    if (e.code === 'KeyT') this.openTheatres();
+    if (e.code === 'KeyM') { this.openMap(); return; }
+    if (e.code === 'KeyH' && !e.repeat) this.sound.horn('car', 4, 0, true);
+    if (e.code === 'KeyR' && !e.repeat) this.rescue();
+    if (e.code === 'Backquote' || e.key === '`') { this.devOn = !this.devOn; this.hud.el.dev.hidden = !this.devOn; }
+    if (e.code === 'Backslash' || e.key === '\\') { this.autopilot = !this.autopilot; this.hud.toast(this.autopilot ? 'Test autopilot ON' : 'Test autopilot off', 'teal'); }
+    if (e.code === 'KeyN') {
+      this.sound.setMuted(!this.sound.muted); this.settings.sound = !this.sound.muted;
+      try { localStorage.setItem('p2ph-settings-v1', JSON.stringify(this.settings)); } catch { /* unavailable */ }
+      this.hud.toast(this.sound.muted ? 'Sound off' : 'Sound on', 'teal');
+    }
+    if (e.code === 'KeyP' || e.code === 'Escape') {
+      if (this.hud.modalOpen) this.resume(); else this.openPause();
+    }
+  }
+  background() {
+    this.resetInput();
+    if (this.area && !this.choosing && !this.paused && !this.hud.modalOpen && !this.map?.open) this.openPause();
+  }
+  openMap(keyboardOpener = false) {
+    if (!this.map || this.hud.modalOpen || this.hud.rotationBlocked || this.choosing) return;
+    this.mapKeyboardOpener = keyboardOpener;
     this.resetInput();
     this.paused = true; this.map.show();
   }
 
   // ---------- where to deliver ----------
   picker!: AreaPicker; area: AreaChoice | null = null; choosing = false; relocating = false;
-  savedArea(): AreaChoice | null { try { return JSON.parse(localStorage.getItem(AREA_KEY) || 'null'); } catch { return null; } }
+  savedArea(): AreaChoice | null {
+    try {
+      const c = JSON.parse(localStorage.getItem(AREA_KEY) || 'null'), b = this.zone.bounds;
+      return c && typeof c.name === 'string' && c.name.trim() && typeof c.x === 'number' && Number.isFinite(c.x) &&
+        typeof c.z === 'number' && Number.isFinite(c.z) && c.x >= b[0] && c.x <= b[2] && c.z >= b[1] && c.z <= b[3] ? c : null;
+    } catch { return null; }
+  }
   chooseArea(first: boolean) {
-    if (!first && this.order && this.order.state !== 'offer') { this.hud.modal(null); this.paused = false; this.hud.toast('Finish this delivery first!', 'pink'); return; }
+    this.resetInput();
+    if (!first && this.order && this.order.state !== 'offer') { this.resume(); this.hud.toast('Finish this delivery first!', 'pink'); return; }
     this.choosing = true; this.paused = true; this.hud.modal(null); this.hud.offer(null);
-    this.picker.onClose = first ? null : () => { this.choosing = false; this.paused = false; this.clock.getDelta(); if (!this.order || this.order.state === 'offer') this.showOffer(); };
+    this.picker.onClose = first ? null : () => { this.choosing = false; this.resume(); if (!this.order || this.order.state === 'offer') this.showOffer(); };
     this.picker.show({ first, last: first ? this.savedArea() : null, current: this.area?.name });
   }
   async relocate(c: AreaChoice) {
     if (this.relocating) return;
+    this.resetInput();
     this.relocating = true; this.choosing = true; this.paused = true;
     if (this.map?.open) this.map.hide();
     this.picker.hide(); this.hud.offer(null); this.hud.modal(null);
-    this.order = null; this.nextOfferAt = null; this.setTarget(null);
     setLoading(`Loading ${c.name}…`);
-    try { this.city.focus = [c.x, c.z]; await this.city.ensure(c.x, c.z, 650); }
+    try { await this.city.ensure(c.x, c.z, 650); }
     catch (e) {
       console.error('relocate', e); setLoading(''); this.relocating = false;
       this.city.focus = [this.player.pos.x, this.player.pos.z];
+      this.sound.cue('error');
       this.hud.toast('This area could not load. Check the connection and try again.', 'pink');
       this.chooseArea(!this.area);
       return;
@@ -569,6 +633,7 @@ export class Game {
       this.chooseArea(!this.area);
       return;
     }
+    this.order = null; this.nextOfferAt = null; this.setTarget(null);
     // the old neighbourhood's traffic and people stay behind
     for (const car of this.traffic.cars) this.engine.scene.remove(car.g); this.traffic.cars.length = 0;
     for (const w of this.walkers.list) this.walkers.group.remove(w.g); this.walkers.list.length = 0;
@@ -593,13 +658,13 @@ export class Game {
     this.player.glideTo(s.x, s.y, s.z, s.yaw); this.stuckT = 0; this.hud.rescue(false);
     this.hud.toast('Back to the street!', 'teal');
   }
-  // stuck watch: pressing on without getting anywhere, or parked on a roof with no boost left
+  // stuck watch: pressing on without getting anywhere, or parked on a roof
   stuckT = 0; stuckRef: [number, number] = [0, 0];
   slowRef: [number, number] = [0, 0]; slowT = 0;
   watchStuck(dt: number, inp: Input) {
     const pl = this.player, P = pl.pos;
     if (pl.glide || pl.flying || this.paused) { this.stuckT = 0; this.hud.rescue(false); return; }
-    const onRoof = pl.lastKind === 'roof' && pl.charge < 0.5;
+    const onRoof = pl.lastKind === 'roof';
     const trying = inp.throttle > 0 || inp.brake > 0 || Math.abs(inp.steer) > 0.3;
     if (Math.hypot(P.x - this.stuckRef[0], P.z - this.stuckRef[1]) > 4) { this.stuckRef = [P.x, P.z]; if (!onRoof) this.stuckT = 0; }
     else if (trying || onRoof) this.stuckT += dt;
@@ -620,10 +685,10 @@ export class Game {
     if (this.map?.open || this.choosing) return;
     this.resetInput();
     this.paused = true;
-    this.hud.modal(`<h2>Paused</h2><div class="sm">Deliver pizzas around your area to earn coins; move anywhere in Hyderabad after a delivery (map → Deliver from here, or Change area below). Lease a theatre (T), pick a fictional film and watch the collections come in each night. Every 10 seconds of road driving earns 2.5 seconds of flight (Space / FLY).</div>
+    this.hud.modal(`<h2>Paused</h2><div class="sm">Deliver pizzas around your area to earn coins; move anywhere in Hyderabad after a delivery (map → Deliver from here, or Change area below). Lease a theatre (T), pick a fictional film and watch the collections come in each night. Flight is unlimited: press Space / FLY to lift off, then press it again to land.</div>
       <div class="sm">Map and building data: © OpenStreetMap contributors (ODbL) via Overture Maps; business listings from Overture Maps Places (CDLA-Permissive 2.0) and Foursquare OS Places (Apache 2.0); building heights from Google Open Buildings / the Roadster repository. Shop names are shown as text only and remain the property of their owners.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn go" id="resume">Resume</button><button type="button" class="btn alt" id="area">Change area</button><button type="button" class="btn alt" id="unstick">Back to the road</button><button type="button" class="btn alt" id="settings">Settings</button><button type="button" class="btn alt" id="tut">Replay tips</button><button type="button" class="btn alt" id="reset">Reset progress</button></div>`, (sh) => {
-      sh.querySelector('#resume')!.addEventListener('click', () => { this.paused = false; this.hud.modal(null); this.clock.getDelta(); });
+      sh.querySelector('#resume')!.addEventListener('click', () => this.resume());
       sh.querySelector('#settings')!.addEventListener('click', () => this.openSettings(() => this.openPause()));
       sh.querySelector('#tut')!.addEventListener('click', () => { try { localStorage.removeItem(TUT_KEY); } catch { /* ignore */ } this.tutStep = 0; this.tipDismissed = -2; this.settings.tips = true; this.paused = false; this.hud.modal(null); this.clock.getDelta(); });
       sh.querySelector('#area')!.addEventListener('click', () => this.chooseArea(false));
@@ -633,6 +698,7 @@ export class Game {
   }
   settings!: Settings; title: TitleScreen | null = null;
   openSettings(back: () => void) {
+    this.resetInput();
     const touch = document.documentElement.classList.contains('is-touch');
     this.hud.modal(settingsHtml(this.settings, touch) + '<div style="display:flex;gap:8px"><button type="button" class="btn go" id="set-done">Done</button></div>', (sh) => {
       bindSettings(sh, this.settings, (st, k) => {
@@ -660,7 +726,7 @@ export class Game {
       const d = Math.hypot(o.drop.x - P.x, o.drop.z - P.z);
       if (this.player.flying) this.flewOnce = true;
       if (d < 45) { step = 6; text = `Pull up in the teal ring and hold ${act} to hand the pizza over.`; }
-      else if (!this.flewOnce && this.player.charge >= 4) { step = 5; text = `Thrusters charged! Press ${fly} to lift off and fly over the traffic. Driving on the road recharges them.`; }
+      else if (!this.flewOnce) { step = 5; text = `Press ${fly} to lift off and fly over the traffic. Flight is unlimited; press it again to land.`; }
       else { step = 4; text = 'Now take it to the customer (teal). It cools down as time passes, and every bump costs a slice.'; }
     } else if (step >= 4 && !o) {
       step = -1; text = null;
@@ -716,9 +782,15 @@ export class Game {
   }
   frame() {
     const dt = Math.min(this.clock.getDelta(), 0.05);
+    if (this.hud.rotationBlocked && !this.rotationWasBlocked) this.resetInput();
+    this.rotationWasBlocked = this.hud.rotationBlocked;
+    this.tickCinemaReport();
+    const active = !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.rotationBlocked && !this.map?.open && !this.choosing && !!this.area;
+    this.sound.vehicle({ speed: this.player.speed, throttle: this.keys.has('KeyW') || this.keys.has('ArrowUp') || this.hud.touchGas ? 1 : 0,
+      flying: this.player.flying, descending: this.player.descending, active });
     this.tickOfferQueue();
     if (this.map?.open) { this.map.tick(dt); return; }
-    if (this.paused || this.hud.modalOpen) { this.engine.render(); return; }
+    if (!active) { this.engine.render(); return; }
     this.t += dt;
     // clock
     const before = this.minutes;
@@ -727,7 +799,9 @@ export class Game {
     if ((this.moodT -= dt) <= 0) { this.moodT = 0.5; this.applyClockMood(); }
     // player + traffic
     const inp = this.input();
+    const wasFlying = this.player.flying;
     this.player.update(dt, inp, this.t);
+    if (!wasFlying && this.player.flying) this.sound.cue('flight');
     this.watchStuck(dt, inp);
     const P = this.player.pos;
     this.city.update(P.x, P.z, dt);
@@ -740,6 +814,7 @@ export class Game {
     const hit = this.player.flying ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1);
     if (!this.player.flying) this.traffic.pushOut(P, 0.75, 1.6);
     if (hit && this.player.hitCooldown <= 0) {
+      this.sound.cue('bump');
       this.player.hitCooldown = 1.5; this.player.speed *= 0.35; this.player.bump = 0.6;
       if (this.order && this.order.state === 'toDrop') { this.order.slices = Math.max(0, this.order.slices - 1); this.streak = 1; this.hud.toast(this.order.slices ? 'Baigan! −1 slice' : 'Pizza ruined!', 'pink'); }
       else this.hud.toast('Arre! Watch the ' + (hit.kind.startsWith('bike') ? 'bike' : hit.kind === 'auto' ? 'auto' : 'traffic') + '!', 'pink');
@@ -760,7 +835,7 @@ export class Game {
         promptText = o.state === 'toPickup' ? (holding ? 'Collecting the pizza…' : `Hold E / ACT to collect the pizza${across ? ' (walk across the road)' : ''}`) : (holding ? 'Handing over…' : `Hold E / ACT to hand over${across ? ' (walk across the road)' : ''}`);
         if (this.actProgress >= 1) {
           this.actProgress = 0;
-          if (o.state === 'toPickup') { o.state = 'toDrop'; o.t = 0; o.heat = 100; this.setTarget(o.drop, '#45E3D3'); this.hud.toast('Pizza collected! Garam garam.', ''); }
+          if (o.state === 'toPickup') { o.state = 'toDrop'; o.t = 0; o.heat = 100; this.setTarget(o.drop, '#45E3D3'); this.hud.toast('Pizza collected! Garam garam.', ''); this.sound.cue('pickup'); }
           else this.completeDelivery();
         }
       } else this.actProgress = 0;
@@ -896,8 +971,8 @@ export class Game {
     const L = LEVELS[Math.min(this.level, LEVELS.length - 1)];
     h.set('level', `Level ${this.level + 1} · ${this.doneInLevel}/${L.n}`);
     h.set('spd', String(Math.round(Math.abs(this.player.speed) * 3.6)));
-    h.set('fly-v', `${this.player.charge.toFixed(1)} s`);
-    (h.el.fly as HTMLElement).style.width = `${(this.player.charge / this.player.chargeCap) * 100}%`;
+    h.set('fly-v', 'Unlimited');
+    (h.el.fly as HTMLElement).style.width = '100%';
     const navigation = (s: Stop) => navigationReadout(this.route, this.routeGuidanceBlocked, P, s, this.player.flying || this.player.descending);
     const distanceLabel = (s: Stop) => { const n = navigation(s); return `${n.approximate ? '~' : ''}${n.metres} m`; };
     const sub = (s: Stop) => [s.sub, navigation(s).note].filter(Boolean).join(' · ');
@@ -959,6 +1034,21 @@ export class Game {
     const p = (q.get('player') || '').split(',').map(Number);
     if (p.length >= 3) { this.player.place(p[0], p[1], p[2]); this.player.update(0.016, { throttle: 0, brake: 0, steer: 0, flyPressed: false, boost: false }, 0.4); }
   }
+}
+function validSavedLease(value: any, theatres: string[]): value is Lease {
+  if (!value || typeof value !== 'object' || !theatres.includes(value.theatre)) return false;
+  const f = value.film;
+  const finite = (v: unknown, min: number, max: number) => typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max;
+  const integer = (v: unknown, min: number, max: number) => finite(v, min, max) && Number.isInteger(v);
+  if (!f || !FILMS.some((film) => film.id === f.id) || !finite(f.quality, 0, 1) || !integer(f.star, 1, 5) ||
+    !['title', 'te', 'genre', 'tagline'].every((key) => typeof f[key] === 'string') ||
+    !Array.isArray(f.colors) || f.colors.length !== 2 || !f.colors.every((c: unknown) => typeof c === 'string')) return false;
+  if (!PRICES.includes(value.price) || ![3, 4, 5].includes(value.shows) || !CAMPAIGNS.some((c) => c.id === value.campaign) ||
+    !integer(value.startDay, 1, Number.MAX_SAFE_INTEGER) || !finite(value.hype, 0, 3) || !finite(value.wom, 0, 3) ||
+    typeof value.done !== 'boolean' || !Array.isArray(value.days) || value.days.length > 7) return false;
+  return value.days.every((r: any, i: number) => r && r.day === i + 1 && integer(r.tickets, 0, Number.MAX_SAFE_INTEGER) &&
+    finite(r.occupancy, 0, 1) && finite(r.gross, 0, Number.MAX_SAFE_INTEGER) &&
+    integer(r.coins, -Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER) && typeof r.note === 'string');
 }
 function esc(s: string) { return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!)); }
 

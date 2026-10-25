@@ -60,10 +60,10 @@ try {
     const original = { state: 'offer', pickup: { x: 400, z: 300, label: 'Original kitchen', sub: 'Original road' }, drop: { label: 'Original customer' }, dist: 700, limit: 145 };
     let displayed = 'initial', buttons = [], generated = 0;
     const g = Object.assign(Object.create(Game.prototype), {
-      order: original, area: { name: 'RTC X Roads' }, level: 0, choosing: false, relocating: false,
+      order: original, keys: new Set(), sound: { vehicle() {} }, area: { name: 'RTC X Roads' }, level: 0, choosing: false, relocating: false,
       player: { pos: { x: 10, y: .57, z: 20 }, forward: { x: 1, z: 0 }, flying: false }, graph: { route(x, z, px, pz, car) { assert.deepEqual([x, z, px, pz], [10, 20, 400, 300]); assert.deepEqual(car, { hx: 1, hz: 0, y: .57 }); return { len: 900 }; } },
-      hud: { modal() {}, offer(html, actions = []) { displayed = html; buttons = actions; } },
-      picker: { show() {} }, clock: { getDelta() {} }, makeOffer() { generated++; throw Error('must reuse pending offer'); },
+      hud: { resetControls() {}, modal() {}, offer(html, actions = []) { displayed = html; buttons = actions; } },
+      picker: { show() {} }, clock: { getDelta() {} }, engine: { renderer: { domElement: { focus() {} } } }, makeOffer() { generated++; throw Error('must reuse pending offer'); },
     });
     try {
       g.chooseArea(false); assert.equal(displayed, null); assert.equal(g.choosing, true);
@@ -99,32 +99,40 @@ try {
     g.player.flying = false; g.player.glide = {}; assert.equal(g.canInteractAt(stop, 8), false);
   });
   await test('focus loss clears all held controls and pending interactions', () => {
-    const g = Object.assign(Object.create(Game.prototype), { keys: new Set(['KeyW', 'KeyE']), flyQueued: true, actHeld: true, actTap: 1, actProgress: 0.5, dragging: true, hud: { touchGas: true, touchBrake: true, touchSteer: 1 } });
+    let muted = false, controlsReset = false;
+    const g = Object.assign(Object.create(Game.prototype), { keys: new Set(['KeyW', 'KeyE']), flyQueued: true, actHeld: true, actTap: 1, actProgress: 0.5, dragging: true,
+      sound: { vehicle(state) { muted = !state.active && state.speed === 0 && state.throttle === 0; } },
+      hud: { resetControls() { controlsReset = true; } } });
     g.resetInput();
     assert.equal(g.keys.size, 0); assert.equal(g.flyQueued, false); assert.equal(g.actHeld, false);
     assert.equal(g.actTap, 0); assert.equal(g.actProgress, 0); assert.equal(g.dragging, false);
-    assert.deepEqual(g.hud, { touchGas: false, touchBrake: false, touchSteer: 0 });
+    assert.equal(controlsReset, true); assert.equal(muted, true);
   });
   const fakeWorld = () => Object.assign(Object.create(World.prototype), {
-    tiles: new Map(), pending: new Map(), empty: new Set(), failures: new Map(), waiters: [], focus: [0, 0], buildMs: [], addMs: [],
+    tiles: new Map(), pending: new Map(), requestIds: new Map(), nextRequestId: 0, workerTimer: null,
+    empty: new Set(), failures: new Map(), waiters: [], focus: [0, 0], buildMs: [], addMs: [],
     worker: { postMessage() {} }, wanted: () => ['0_0'], packOf: new Map([['0_0', 'test.pack.wasm']]), update() {},
   });
   await test('a transient tile error is retryable and never counts as an empty street', async () => {
     const w = fakeWorld(), messages = []; w.worker.postMessage = (m) => messages.push(m);
     const oldError = console.error; console.error = () => {};
-    try { w.onMessage({ type: 'error', key: '0_0', error: '503' }); } finally { console.error = oldError; }
+    w.request('0_0');
+    try { w.onMessage({ type: 'error', key: '0_0', requestId: messages.at(-1).requestId, error: '503' }); } finally { console.error = oldError; }
     assert.equal(w.empty.has('0_0'), false); assert.equal(w.failures.get('0_0').attempts, 1);
-    w.failures.get('0_0').retryAt = 0; w.request('0_0'); assert.equal(messages.length, 1);
+    w.failures.get('0_0').retryAt = 0; w.request('0_0'); assert.equal(messages.length, 2);
     const ready = w.ensure(0, 0);
     w.add = (built) => w.tiles.set(built.key, built);
-    w.onMessage({ type: 'built', key: '0_0', built: { key: '0_0' }, ms: 1 });
+    w.onMessage({ type: 'built', key: '0_0', requestId: messages.at(-1).requestId, built: { key: '0_0' }, ms: 1 });
     await ready; assert.equal(w.failures.has('0_0'), false); assert.equal(w.waiters.length, 0);
   });
   await test('three failed tile attempts reject area loading instead of silently succeeding', async () => {
     const w = fakeWorld(), ready = w.ensure(0, 0);
-    const rejected = assert.rejects(ready, /Could not load tile 0_0/);
+    const rejected = assert.rejects(ready, /Could not load the streets/);
     const oldError = console.error; console.error = () => {};
-    try { for (let i = 0; i < 3; i++) w.onMessage({ type: 'error', key: '0_0', error: 'offline' }); }
+    try { for (let i = 0; i < 3; i++) {
+      if (w.failures.has('0_0')) w.failures.get('0_0').retryAt = 0;
+      w.request('0_0'); w.onMessage({ type: 'error', key: '0_0', requestId: w.requestIds.get('0_0'), error: 'offline' });
+    } }
     finally { console.error = oldError; }
     await rejected; assert.equal(w.waiters.length, 0); assert.equal(w.empty.size, 0);
   });
@@ -133,8 +141,8 @@ try {
     globalThis.document = { getElementById: () => null }; console.error = () => {};
     let placed = false, picked = false;
     const g = Object.assign(Object.create(Game.prototype), {
-      relocating: false, area: { name: 'Original' }, player: { pos: { x: 20, z: 30 } },
-      picker: { hide() {} }, hud: { offer() {}, modal() {}, toast() {} }, setTarget() {},
+      relocating: false, keys: new Set(), area: { name: 'Original' }, player: { pos: { x: 20, z: 30 } },
+      picker: { hide() {} }, hud: { offer() {}, modal() {}, toast() {}, resetControls() {} }, sound: { vehicle() {}, cue() {} }, setTarget() {},
       city: { ensure: async () => { throw new Error('offline'); }, focus: [0, 0] },
       placeNear() { placed = true; }, chooseArea(first) { assert.equal(first, false); picked = true; },
     });

@@ -32,7 +32,7 @@ export class TitleScreen {
       <p class="tag">Fly a pizza roadster across Hyderabad. Deliver it hot, earn coins, run a picture hall.</p>
       <div class="how">
         <div><b style="color:var(--saffron)">1 · Deliver</b><span>Accept an order, collect the pizza at the kitchen (orange marker) and race it to the customer (teal marker) before it goes cold. Bumping into traffic costs slices.</span></div>
-        <div><b style="color:var(--teal)">2 · Fly</b><span>Driving on the road charges the cold-gas thrusters. Press FLY to lift off over traffic, flyovers and rooftops while the boost lasts.</span></div>
+        <div><b style="color:var(--teal)">2 · Fly</b><span>Press ${touch ? 'FLY' : 'Space'} to lift off over traffic, flyovers and rooftops. Flight is unlimited. Press again to land.</span></div>
         <div><b style="color:var(--pink)">3 · Run a picture hall</b><span>Spend your coins to lease a single-screen theatre, choose a film and a campaign, and watch the collections come in each night.</span></div>
       </div>
       <div class="ctl">${keys}</div>

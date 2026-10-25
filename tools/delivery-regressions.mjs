@@ -21,7 +21,7 @@ try {
     let generated = 0, shown = 0;
     const g = Object.assign(Object.create(Game.prototype), {
       order: null, nextOfferAt: null, paused: false, choosing: false, relocating: false,
-      map: { open: false }, level: 0, doneInLevel: 0, streak: 1, coins: 500, totalDelivered: 0,
+      sound: { cue() {}, vehicle() {} }, map: { open: false }, level: 0, doneInLevel: 0, streak: 1, coins: 500, totalDelivered: 0,
       player: { pos: { x: 0, y: .57, z: 0 }, forward: { x: 1, z: 0 }, flying: false }, graph: { route: () => ({ len: 100 }) },
       hud: { modalOpen: false, offer(html) { if (html) shown++; }, toast() {} },
       makeOffer() { generated++; return makeOrder(); }, setTarget() {}, save() {},

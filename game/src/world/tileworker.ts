@@ -13,12 +13,12 @@ const order: string[] = [];
 function getPack(url: string) {
   let p = packs.get(url);
   if (!p) {
-    p = fetchPack<{ tiles: Record<string, TileZone> }>(url).then((d) => d.tiles).catch((error) => {
-      // A transient network error must not poison every tile in this pack until a reload.
-      if (packs.get(url) === p) {
-        packs.delete(url);
-        const i = order.indexOf(url); if (i >= 0) order.splice(i, 1);
-      }
+    p = fetchPack<{ tiles: Record<string, TileZone> }>(url).then((d) => {
+      if (!d?.tiles || typeof d.tiles !== 'object' || Array.isArray(d.tiles)) throw new Error('Invalid city tile pack');
+      return d.tiles;
+    }).catch((error) => {
+      // A temporary connection failure must not poison this pack for the rest of the visit.
+      if (packs.get(url) === p) { packs.delete(url); const at = order.indexOf(url); if (at >= 0) order.splice(at, 1); }
       throw error;
     });
     packs.set(url, p); order.push(url);
@@ -38,14 +38,14 @@ self.onmessage = async (ev: MessageEvent) => {
     try {
       const tiles = await getPack(m.url);
       const z = tiles[m.key];
-      if (!z) { (self as any).postMessage({ type: 'empty', key: m.key }); return; }
+      if (!z) { (self as any).postMessage({ type: 'empty', key: m.key, requestId: m.requestId }); return; }
       const t0 = performance.now();
       const built = buildTile(z, { lowQ, metro, landmarks });
       const transfer: ArrayBuffer[] = [];
       for (const b of built.buffers) transfer.push(b.pos.buffer, b.nor.buffer, b.uv.buffer, b.col.buffer);
-      (self as any).postMessage({ type: 'built', key: m.key, built, ms: Math.round(performance.now() - t0) }, transfer);
+      (self as any).postMessage({ type: 'built', key: m.key, requestId: m.requestId, built, ms: Math.round(performance.now() - t0) }, transfer);
     } catch (e: any) {
-      (self as any).postMessage({ type: 'error', key: m.key, error: String(e?.stack || e) });
+      (self as any).postMessage({ type: 'error', key: m.key, requestId: m.requestId, error: String(e?.message || e) });
     }
   }
 };

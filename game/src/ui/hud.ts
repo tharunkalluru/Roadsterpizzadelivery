@@ -120,8 +120,12 @@ export class Hud {
   root: HTMLElement; el: Record<string, HTMLElement> = {}; toastT = 0;
   private modalFocus: DialogFocus;
   private updateLayout = () => {};
+  private controlReleases: (() => void)[] = [];
   onButton: (id: string) => void = () => {};
+  onInputReset: () => void = () => {};
+  rotationBlocked = false;
   touchSteer = 0; touchGas = false; touchBrake = false; touchBoost = false;
+  private resetInput = () => { this.resetControls(); this.onInputReset(); };
   constructor(touch: boolean) {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
     if (touch) document.documentElement.classList.add('is-touch');
@@ -139,7 +143,7 @@ export class Hud {
       <div class="h-tr">
         <div class="btnrow pe"><button class="ib" id="b-theatre" type="button">Theatres</button><button class="ib" id="b-full" type="button" aria-label="Full screen" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button><button class="ib" id="b-help" type="button" aria-label="Pause, settings and help">II</button></div>
         <div class="pill"><span style="color:var(--saffron)">●</span><span id="coins">0</span> coins</div>
-        <div class="card" style="width:160px;padding:7px 10px"><div class="row sm"><span style="color:var(--teal)">Flight boost</span><span id="fly-v">2.5 s</span></div><div class="bar"><i id="fly" style="background:var(--teal)"></i></div></div>
+        <div class="card" style="width:160px;padding:7px 10px"><div class="row sm"><span style="color:var(--teal)">Flight</span><span id="fly-v">Unlimited</span></div><div class="bar"><i id="fly" style="background:var(--teal);width:100%"></i></div></div>
         <canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas>
       </div>
       <div class="toast" id="toast" aria-live="polite"></div>
@@ -178,26 +182,50 @@ export class Hud {
     this.el['b-full'].addEventListener('click', () => this.onButton('fullscreen'));
     this.el.rescue.addEventListener('click', () => this.onButton('rescue'));
     this.el['tip-x'].addEventListener('click', () => { this.tip(null); this.onButton('tip-close'); });
-    this.el['rot-ok'].addEventListener('click', () => this.el.rotate.classList.add('ok'));
+    this.el['rot-ok'].addEventListener('click', () => { this.el.rotate.classList.add('ok'); this.rotationBlocked = false; });
     // touch
     // steering stick: the finger keeps steering wherever it slides (pointer capture), the knob follows horizontally
     const stick = this.el.stick, knob = this.el.knob; let sid = -1, sx = 0;
     const R = () => stick.clientWidth * 0.4;
-    stick.addEventListener('pointerdown', (e) => { e.preventDefault(); sid = e.pointerId; sx = e.clientX; try { stick.setPointerCapture(sid); } catch { /* ignore */ } });
+    stick.addEventListener('pointerdown', (e) => { e.preventDefault(); if (sid !== -1) return; sid = e.pointerId; sx = e.clientX; try { stick.setPointerCapture(sid); } catch { /* ignore */ } });
     stick.addEventListener('pointermove', (e) => { if (e.pointerId !== sid) return; e.preventDefault(); const r = R(), dx = Math.max(-r, Math.min(r, e.clientX - sx)); knob.style.transform = `translateX(${dx}px)`; this.touchSteer = dx / r; this.stickT = performance.now(); });
-    const end = (e: PointerEvent) => { if (e.pointerId !== sid) return; sid = -1; knob.style.transform = ''; this.touchSteer = 0; };
+    const releaseStick = () => {
+      const id = sid; sid = -1; knob.style.transform = ''; this.touchSteer = 0;
+      try { if (id !== -1 && stick.hasPointerCapture(id)) stick.releasePointerCapture(id); } catch { /* already released */ }
+    };
+    this.controlReleases.push(releaseStick);
+    const end = (e: PointerEvent) => { if (e.pointerId === sid) releaseStick(); };
     stick.addEventListener('pointerup', end); stick.addEventListener('pointercancel', end); stick.addEventListener('lostpointercapture', end);
     // held buttons stay held while the thumb wobbles off them; only lifting the finger releases
     const hold = (id: string, f: (v: boolean) => void) => {
       const b = this.el[id]; let pid = -1;
-      b.addEventListener('pointerdown', (e) => { e.preventDefault(); pid = e.pointerId; try { b.setPointerCapture(pid); } catch { /* ignore */ } f(true); b.classList.add('on'); });
-      const up = (e: PointerEvent) => { if (e.pointerId !== pid) return; pid = -1; f(false); b.classList.remove('on'); };
+      b.addEventListener('pointerdown', (e) => { e.preventDefault(); if (pid !== -1) return; pid = e.pointerId; try { b.setPointerCapture(pid); } catch { /* ignore */ } f(true); b.classList.add('on'); });
+      const release = () => {
+        const id = pid; pid = -1; f(false); b.classList.remove('on');
+        try { if (id !== -1 && b.hasPointerCapture(id)) b.releasePointerCapture(id); } catch { /* already released */ }
+      };
+      this.controlReleases.push(release);
+      const up = (e: PointerEvent) => { if (e.pointerId === pid) release(); };
       b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
     };
     hold('t-gas', (v) => (this.touchGas = v)); hold('t-brake', (v) => (this.touchBrake = v));
     this.el['t-fly'].addEventListener('pointerdown', (e) => { e.preventDefault(); this.onButton('fly'); });
     this.el['t-act'].addEventListener('pointerdown', (e) => { e.preventDefault(); this.onButton('act'); });
     for (const n of this.root.querySelectorAll('.touch, .touch *')) n.addEventListener('contextmenu', (e) => e.preventDefault());
+    addEventListener('blur', this.resetInput);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) this.resetInput(); });
+    const portraitTouch = matchMedia('(orientation: portrait) and (pointer: coarse)');
+    const updateRotation = () => {
+      this.rotationBlocked = portraitTouch.matches && !this.el.rotate.classList.contains('ok');
+      if (this.rotationBlocked) this.resetInput();
+    };
+    portraitTouch.addEventListener('change', updateRotation);
+    updateRotation();
+  }
+  // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
+  resetControls() {
+    for (const release of this.controlReleases) release();
+    this.touchGas = false; this.touchBrake = false; this.touchBoost = false; this.touchSteer = 0; this.tilt = 0;
   }
   // optional tilt-to-steer (phone held in landscape like a steering wheel); the stick wins while it is being used
   stickT = 0; tilt = 0; tiltOn = false;
@@ -245,6 +273,7 @@ export class Hud {
   }
   modal(html: string | null, bind?: (sheet: HTMLElement) => void) {
     this.el.modal.hidden = !html; if (!html) { this.modalFocus.hide(); return; }
+    this.resetInput();
     this.el.sheet.innerHTML = html; bind?.(this.el.sheet);
     this.modalFocus.show();
   }

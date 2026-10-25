@@ -4,7 +4,16 @@ const KEY = 'p2ph-settings-v1';
 const DEF: Settings = { quality: 'auto', sound: true, steer: 'stick', tips: true };
 
 export function loadSettings(): Settings {
-  try { return { ...DEF, ...(JSON.parse(localStorage.getItem(KEY) || '{}') || {}) }; } catch { return { ...DEF }; }
+  try {
+    const value = JSON.parse(localStorage.getItem(KEY) || '{}');
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return { ...DEF };
+    return {
+      quality: ['auto', 'high', 'low'].includes(value.quality) ? value.quality : DEF.quality,
+      sound: typeof value.sound === 'boolean' ? value.sound : DEF.sound,
+      steer: ['stick', 'tilt'].includes(value.steer) ? value.steer : DEF.steer,
+      tips: typeof value.tips === 'boolean' ? value.tips : DEF.tips,
+    };
+  } catch { return { ...DEF }; }
 }
 export function saveSettings(s: Settings) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch { /* storage unavailable */ } }
 
@@ -18,6 +27,7 @@ export function settingsHtml(s: Settings, touch: boolean) {
     <div class="k">Graphics</div>${seg('quality', s.quality, [['auto', 'Auto'], ['high', 'High'], ['low', 'Low (faster)']])}
     <div class="sm">Auto uses Low on phones and tablets and High on computers. Changing it reloads the game; your progress is kept.</div>
     <div class="k">Sound</div>${seg('sound', s.sound ? 'on' : 'off', [['on', 'On'], ['off', 'Off']])}
+    <div class="sm">Engine, thrusters, traffic and delivery sounds. Starts after your first tap or key press.</div>
     ${touch ? `<div class="k">Steering</div>${seg('steer', s.steer, [['stick', 'Thumb stick'], ['tilt', 'Tilt the phone']])}
     <div class="sm">Tilt: hold the phone sideways like a steering wheel. The thumb stick still works and takes over while you use it.</div>` : ''}
     <div class="k">Tips while playing</div>${seg('tips', s.tips ? 'on' : 'off', [['on', 'Show'], ['off', 'Hide']])}`;

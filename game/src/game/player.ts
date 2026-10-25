@@ -6,7 +6,7 @@ import { supportAt, collideBuildings, collideWalls, roofUnder, SupportKind } fro
 
 export interface Input { throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean }
 
-// Roadster: arcade car with real surfaces (flyovers/steel bridge are drivable) and an earned flight boost.
+// Roadster: arcade car with real surfaces (flyovers/steel bridge are drivable) and unlimited flight.
 export class Player {
   group: THREE.Group; pods: THREE.Mesh[]; glow: THREE.Mesh; light = new THREE.PointLight('#45E3D3', 0, 9, 1.8);
   pos = new THREE.Vector3(); yaw = 0; speed = 0; vy = 0; steerVis = 0;
@@ -95,16 +95,11 @@ export class Player {
   update(dt: number, inp: Input, t: number) {
     if (this.glide) { this.updateGlide(dt, t); return; }
     const air = this.flying || this.descending;
-    // --- flight boost: earned while driving on the road ---
-    if (!air && this.onRoad && Math.abs(this.speed) > 2) {
-      this.earnT += dt;
-      if (this.earnT >= 10) { this.earnT -= 10; this.charge = Math.min(this.chargeCap, this.charge + 2.5); }
-    }
+    // Flight has no fuel requirement or time limit. The same control toggles a safe landing.
     if (inp.flyPressed) {
       if (this.flying) { this.flying = false; this.descending = true; }
-      else if (this.charge > 0.4) { this.flying = true; this.descending = false; }
+      else { this.flying = true; this.descending = false; }
     }
-    if (this.flying) { this.charge -= dt; if (this.charge <= 0) { this.charge = 0; this.flying = false; this.descending = true; } }
     // --- longitudinal ---
     const maxF = this.flying ? 40 : inp.boost ? 27 : 22;
     if (inp.throttle > 0) this.speed += (this.flying ? 12 : 9) * inp.throttle * dt;

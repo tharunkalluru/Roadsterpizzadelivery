@@ -88,7 +88,11 @@ export class AreaPicker {
       res.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => this.choose(hits[+(b as HTMLElement).dataset.h!])));
     };
     q.addEventListener('input', render);
-    q.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const b = res.querySelector('button') as HTMLButtonElement | null; b?.click(); } });
+    q.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); const b = res.querySelector('button') as HTMLButtonElement | null; b?.click(); }
+      // Escape and Tab must reach the dialog's close/focus handler.
+      if (e.key !== 'Escape' && e.key !== 'Tab') e.stopPropagation();
+    });
     this.root.querySelectorAll('.chips button').forEach((b) => b.addEventListener('click', () => this.choose(this.popular[+(b as HTMLElement).dataset.i!])));
     this.root.querySelector('#ap-map')!.addEventListener('click', () => { this.hide(); this.onMap(); });
     this.root.querySelector('#ap-last')?.addEventListener('click', () => this.choose(last!));
