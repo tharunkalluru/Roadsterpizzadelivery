@@ -1,0 +1,55 @@
+{
+  "id": "2026-10-23T2145Z",
+  "startedAt": "2026-10-23T21:45:48.174Z",
+  "endedAt": null,
+  "recoveredAtUTC": "2026-10-25T19:09:04.843470+00:00",
+  "status": "interrupted_round_completed_reports_preserved",
+  "areas": [
+    "Patancheru",
+    "Shamshabad",
+    "Ghatkesar"
+  ],
+  "checkoutCommit": "13b831dc0b97e041103380dd310825c496e8651e",
+  "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "servedGameDataCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+  "testedAssets": [
+    "index-DXgUfY_A.js"
+  ],
+  "reports": [
+    "2026-10-23T2145Z/patancheru.json",
+    "2026-10-23T2145Z/shamshabad.json",
+    "2026-10-23T2145Z/ghatkesar.json"
+  ],
+  "sourceTriage": "2026-10-23T2145Z/source-triage.json",
+  "evidenceManifest": "2026-10-23T2145Z/evidence-manifest.json",
+  "participantType": "AI agents using visible Chrome controls in sequential exclusive turns, with separate source analysis. No human participants, hidden state mutation, simulation stepping or developer autopilot.",
+  "offersAccepted": 3,
+  "fullyDocumentedOfferAcceptances": 2,
+  "checkpointOnlyOfferAcceptances": 1,
+  "pickupsCompleted": 0,
+  "completedDeliveries": 0,
+  "heldDrivingInputSecondsApprox": 60.3,
+  "additionalCheckpointHeldInputSecondsWithoutFullLedger": 2.9,
+  "recoveryActivations": 3,
+  "flightActivations": 1,
+  "actualMapCloseClicks": 6,
+  "additionalPickerCloseReportedWithoutOriginal": 1,
+  "savedScreenshots": 5,
+  "uniqueScreenshots": 5,
+  "newConfirmedIssueGroups": 0,
+  "existingIssueGroupsObserved": [
+    "PT-013"
+  ],
+  "existingIssueGroupsReopened": [],
+  "summary": "Patancheru median contact and normal recovery sampled; Swiss Cafe Hyd pickup remained969m. Fresh Shamshabad PT-013 recurrence recorded; Airport Bawarchi remained~395m direct/off-road at16km/h and0.1sboost. No pickup or handover. Ghatkesar picker dismissal and accepted346m offer were reported, then worker interrupted at320m with final state and cleanup unknown.",
+  "landingCoverage": "Shamshabad showed post-flight ground guidance with0.1sboost. Exact zero/exhaustion and controlled touchdown were not established.",
+  "roundLimit": "Interrupted before final integration. This is recovery of that historical round, not a claim of continuous testing through later heartbeat timestamps.",
+  "behaviorEdited": false,
+  "published": false,
+  "pushed": false,
+  "browserOwnershipReleased": "Confirmed for root and west at their handoffs; interrupted east worker final state unknown.",
+  "helperCleanupAtInterruptionConfirmed": false,
+  "documentationCorrections": [
+    "PT-013 source reference corrected to game/src/game/game.ts:504."
+  ]
+}

@@ -1,0 +1,541 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2145Z",
+  "preparedAt": "2026-10-23T21:49:30.966621+00:00",
+  "analyst": "playtest_old_city",
+  "method": "Read-only source/registry/map data analysis and localhost HTTP artifact checks. No browser, focus/input, game simulation, code/index edit, build or commit; only this report written.",
+  "runtime": {
+    "checkoutCommit": "13b831dc0b97e041103380dd310825c496e8651e",
+    "gameplaySourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+    "latestGameDataCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+    "sourceUnchangedSince40e24d7": true,
+    "gamePublicUnchangedSince013bf3f": true,
+    "baseUrl": "http://127.0.0.1:4189/",
+    "httpStatus": 200,
+    "runtimeScript": "./assets/index-DXgUfY_A.js",
+    "scriptBytes": 979835,
+    "scriptSha256": "a1d8708902c729c6ca7ccb0d3834467895abda1317f216ef7a6a7708f19f2637",
+    "servedHtmlMatchesDist": true,
+    "servedScriptMatchesDist": true,
+    "checkedCoreAndAreaPacks": [
+      {
+        "path": "city/core.pack.wasm",
+        "sha256": "eedb6ed06ca007499ea71eb69eba61203a63c10693777beddd5da4f309441780",
+        "sourceMatchesDist": true,
+        "servedMatchesSource": true
+      },
+      {
+        "path": "city/packs/p-9_-5.pack.wasm",
+        "sha256": "419dbc855321dad59084c4aa9c89d983f481d64c996f2bfe3d7b094808cdef0b",
+        "sourceMatchesDist": true,
+        "servedMatchesSource": true
+      },
+      {
+        "path": "city/packs/p-4_5.pack.wasm",
+        "sha256": "2a31303f3d886f3b9f8af380be3a06ce5f04f1af49b641bb71f5e863a50b86f6",
+        "sourceMatchesDist": true,
+        "servedMatchesSource": true
+      },
+      {
+        "path": "city/packs/p6_-2.pack.wasm",
+        "sha256": "f2053ad9c7a2fe93210d02aa9872c53f295b70c22048ed8238e6fa3760b4ba7d",
+        "sourceMatchesDist": true,
+        "servedMatchesSource": true
+      }
+    ],
+    "limit": "This verifies server artifacts, not which files an existing browser tab has loaded. Drivers must identify their own fresh/retained tab state."
+  },
+  "registrySnapshot": {
+    "path": "docs/playtests/index.json",
+    "updatedAt": "2026-10-23T21:33:29.461148+00:00",
+    "latestCompletedRound": "2026-10-23T2115Z",
+    "openOrControlledRetestPending": [
+      {
+        "id": "PT-003",
+        "status": "confirmed_visual_failure_cause_unproven",
+        "title": "Landmark geometry obscures driving after recovery near Mecca Masjid",
+        "confidence": "high for observed obstruction; causal chain unproven",
+        "nextStep": "Repeat the specific landmark or Sudarshan camera/recovery scenario on the repaired build; a nearby recovery and departure passed.",
+        "reports": [
+          "2026-10-23-old-city.json"
+        ]
+      },
+      {
+        "id": "PT-004",
+        "status": "observed_multiple_areas_controlled_reproduction_pending",
+        "title": "Large traffic vehicle obscures the chase view",
+        "confidence": "medium",
+        "nextStep": "Capture a controlled natural bus/truck camera crossing before, during and after; full vehicle OBB regressions already pass.",
+        "reports": [
+          "2026-10-23-west.json",
+          "2026-10-23T0833Z/rtc-x-roads.json"
+        ]
+      },
+      {
+        "id": "PT-005",
+        "status": "suspected",
+        "title": "Route ribbon appears to cross a blocking median",
+        "confidence": "low; steering is a confound",
+        "nextStep": "Repeat a documented ground-level median approach on the repaired build; lane-offset and collision clipping tests pass.",
+        "reports": [
+          "2026-10-23-west.json",
+          "2026-10-23T0747Z/gachibowli.json",
+          "2026-10-23T0833Z/rtc-x-roads.json"
+        ]
+      },
+      {
+        "id": "PT-010",
+        "status": "observed_once_repeat_cleared",
+        "title": "Recovery near Sudarshan cinema ended facing a wall once",
+        "confidence": "medium for the observed wall-facing result; low for reproducibility or cause",
+        "nextStep": "Repeat the specific landmark or Sudarshan camera/recovery scenario on the repaired build; a nearby recovery and departure passed.",
+        "reports": [
+          "2026-10-23T0903Z/rtc-x-roads.json"
+        ]
+      },
+      {
+        "id": "PT-012",
+        "status": "reopened_post_repair_browser_recurrence",
+        "title": "Police-station or police-institute-named location offered as a pizza pickup kitchen",
+        "confidence": "High for directly observed fresh-build Police Station offer and pure-function legacy eligibility gap; exact offered record binding and current recurrence frequency remain unmeasured.",
+        "nextStep": "Repair the missing-category legacy name/board eligibility gap conservatively, retain legitimate explicitly categorized food businesses, and add focused regressions before another fresh visible offer check. Preserve map names and source data.",
+        "reports": [
+          "2026-10-23T1046Z/ecil.json",
+          "2026-10-23T1046Z/source-triage.json",
+          "2026-10-23T1116Z/dilsukh-nagar.json",
+          "2026-10-23T2007Z/narsingi.json",
+          "2026-10-23T2007Z/pickup-source-followup.json"
+        ]
+      },
+      {
+        "id": "PT-013",
+        "status": "confirmed_incidental_and_controlled_repeat",
+        "title": "Space reopens the focused minimap after closing the map instead of starting flight",
+        "confidence": "high; incidental case plus controlled repeat and scene-click flight positive control",
+        "nextStep": "Resolve the post-close gameplay shortcut conflict without losing keyboard accessibility; then repeat minimap-pointer/Close/Space and keyboard map focus regression checks.",
+        "reports": [
+          "2026-10-23T2115Z/narsingi.json"
+        ]
+      }
+    ],
+    "knownVerifiedTargetedRepairs": [
+      "PT-001",
+      "PT-002",
+      "PT-006",
+      "PT-007",
+      "PT-008",
+      "PT-009",
+      "PT-011"
+    ],
+    "coverageBeforeThisRound": {
+      "explicitCollections": 8,
+      "explicitHandovers": 4
+    },
+    "reportingCorrection": "PT-013 source path in the index is shortened to game/src/game.ts:504; the actual handler is game/src/game/game.ts:504. No index edit performed."
+  },
+  "pt013OperationalNote": {
+    "observedPriorRound": "West recorded an incidental case plus controlled minimap→Close→Space repeat; clicking the visible game scene before Space allowed flight.",
+    "sourceChain": "DialogFocus restores prior valid focus or the minimap fallback. Focused minimap consumes Space with preventDefault and stopPropagation and calls openMap, before window flight handling.",
+    "dedup": "Distinct post-close gameplay shortcut conflict linked to PT-009; the original map-open focus escape remains a separate repaired behavior.",
+    "safeVisibleWorkaround": "After actual map Close, click the visible driving scene before Space. Check charge and resulting Flying HUD; do not mistake a reopened map for a takeoff or count ignored held input as driving.",
+    "references": [
+      "game/src/ui/map.ts:60-63",
+      "game/src/ui/dialog.ts:59-69",
+      "game/src/game/game.ts:504-506"
+    ]
+  },
+  "mappedScenarioOpportunities": [
+    {
+      "area": "Patancheru",
+      "mappedAreaKind": "macrohood",
+      "mappedAreaAnchorXZ": [
+        -24350.7,
+        -13536.4
+      ],
+      "anchorTile": [
+        -25,
+        -14
+      ],
+      "namedMainRoadCandidate": {
+        "roadId": "9aebca87-86c_0",
+        "name": "patancheru shankar palli road",
+        "class": "secondary",
+        "widthMetres": 7.6,
+        "onewayCode": "backward",
+        "maximumRoadElevationMetres": 0,
+        "distanceFromMappedAreaAnchorMetres": 1386.2,
+        "pointXZ": [
+          -25693.0,
+          -13882.6
+        ],
+        "segmentIndex": 0,
+        "segmentEndpointsXZ": [
+          [
+            -25693.0,
+            -13882.6
+          ],
+          [
+            -25699.8,
+            -13868.5
+          ]
+        ],
+        "segmentElevationsMetres": [
+          0,
+          0
+        ],
+        "centreMedianRule": false
+      },
+      "centreMedianRuleCandidate": {
+        "roadId": "be63bbfb-a0e_0",
+        "name": null,
+        "class": "secondary",
+        "widthMetres": 10.5,
+        "onewayCode": null,
+        "maximumRoadElevationMetres": 0,
+        "distanceFromMappedAreaAnchorMetres": 1582.9,
+        "pointXZ": [
+          -25922.6,
+          -13349.8
+        ],
+        "segmentIndex": 0,
+        "segmentEndpointsXZ": [
+          [
+            -25922.6,
+            -13349.8
+          ],
+          [
+            -25967.7,
+            -13324.7
+          ]
+        ],
+        "segmentElevationsMetres": [
+          0,
+          0
+        ],
+        "centreMedianRule": true
+      },
+      "elevatedBarrierCandidate": {
+        "roadId": "e626f74a-79b_0",
+        "name": null,
+        "class": "secondary",
+        "widthMetres": 10.5,
+        "onewayCode": null,
+        "maximumRoadElevationMetres": 3.32,
+        "distanceFromMappedAreaAnchorMetres": 2722.7,
+        "pointXZ": [
+          -25051.4,
+          -16167.4
+        ],
+        "segmentIndex": 5,
+        "segmentEndpointsXZ": [
+          [
+            -25054.6,
+            -16180.8
+          ],
+          [
+            -25051.4,
+            -16167.4
+          ]
+        ],
+        "segmentElevationsMetres": [
+          3.32,
+          1.97
+        ]
+      },
+      "sourceOnlyLimit": "Distances are geometric distance from a mapped area label, not road-route distance or actual spawn position. Core road IDs and elevations are inferred game data. No browser visit, physical-road identity, barrier visibility, collision or access route has been verified.",
+      "testHint": "Use a naturally encountered visible segment and record before/contact/after; do not drive by coordinates or force a detour just to meet this suggestion.",
+      "areaSpecificLimit": "The nearest qualifying elevated segment is about 2.7 km from the Patancheru label; preserve route work rather than forcing an outer-road detour."
+    },
+    {
+      "area": "Shamshabad",
+      "mappedAreaKind": "locality",
+      "mappedAreaAnchorXZ": [
+        -10987.2,
+        16064.9
+      ],
+      "anchorTile": [
+        -11,
+        16
+      ],
+      "namedMainRoadCandidate": {
+        "roadId": "e30ef8c2-9be_0",
+        "name": "Rallaguda road",
+        "class": "secondary",
+        "widthMetres": 10.5,
+        "onewayCode": null,
+        "maximumRoadElevationMetres": 0,
+        "distanceFromMappedAreaAnchorMetres": 578.3,
+        "pointXZ": [
+          -11556.4,
+          15962.6
+        ],
+        "segmentIndex": 0,
+        "segmentEndpointsXZ": [
+          [
+            -11556.4,
+            15962.6
+          ],
+          [
+            -11587.7,
+            15943.2
+          ]
+        ],
+        "segmentElevationsMetres": [
+          0,
+          0
+        ],
+        "centreMedianRule": true
+      },
+      "centreMedianRuleCandidate": {
+        "roadId": "d04a528b-423_0",
+        "name": null,
+        "class": "secondary",
+        "widthMetres": 10.5,
+        "onewayCode": null,
+        "maximumRoadElevationMetres": 0,
+        "distanceFromMappedAreaAnchorMetres": 120.5,
+        "pointXZ": [
+          -11015.6,
+          16181.96
+        ],
+        "segmentIndex": 0,
+        "segmentEndpointsXZ": [
+          [
+            -11007.2,
+            16184.0
+          ],
+          [
+            -11047.6,
+            16174.2
+          ]
+        ],
+        "segmentElevationsMetres": [
+          0,
+          0
+        ],
+        "centreMedianRule": true
+      },
+      "elevatedBarrierCandidate": {
+        "roadId": "a09a05a4-091_0",
+        "name": null,
+        "class": "trunk",
+        "widthMetres": 10.8,
+        "onewayCode": "backward",
+        "maximumRoadElevationMetres": 6.8,
+        "distanceFromMappedAreaAnchorMetres": 431.8,
+        "pointXZ": [
+          -11259.37,
+          15729.66
+        ],
+        "segmentIndex": 29,
+        "segmentEndpointsXZ": [
+          [
+            -11254.0,
+            15725.3
+          ],
+          [
+            -11264.1,
+            15733.5
+          ]
+        ],
+        "segmentElevationsMetres": [
+          6.8,
+          6.8
+        ]
+      },
+      "sourceOnlyLimit": "Distances are geometric distance from a mapped area label, not road-route distance or actual spawn position. Core road IDs and elevations are inferred game data. No browser visit, physical-road identity, barrier visibility, collision or access route has been verified.",
+      "testHint": "Use a naturally encountered visible segment and record before/contact/after; do not drive by coordinates or force a detour just to meet this suggestion.",
+      "areaSpecificLimit": "Nearby elevation suggests a possible deck/bridge scene, but ramp joins and parapet gaps need visible confirmation."
+    },
+    {
+      "area": "Ghatkesar",
+      "mappedAreaKind": "locality",
+      "mappedAreaAnchorXZ": [
+        19944.1,
+        -4956.4
+      ],
+      "anchorTile": [
+        19,
+        -5
+      ],
+      "namedMainRoadCandidate": {
+        "roadId": "1cb2ed2f-c21_0",
+        "name": "Ghatkesar Main Road",
+        "class": "secondary",
+        "widthMetres": 7.6,
+        "onewayCode": "backward",
+        "maximumRoadElevationMetres": 0,
+        "distanceFromMappedAreaAnchorMetres": 190.0,
+        "pointXZ": [
+          19944.69,
+          -5146.38
+        ],
+        "segmentIndex": 0,
+        "segmentEndpointsXZ": [
+          [
+            19969.6,
+            -5146.3
+          ],
+          [
+            19905.2,
+            -5146.5
+          ]
+        ],
+        "segmentElevationsMetres": [
+          0,
+          0
+        ],
+        "centreMedianRule": false
+      },
+      "centreMedianRuleCandidate": {
+        "roadId": "91474064-e38_0",
+        "name": "Ghatkesar Main Road",
+        "class": "secondary",
+        "widthMetres": 10.5,
+        "onewayCode": null,
+        "maximumRoadElevationMetres": 0,
+        "distanceFromMappedAreaAnchorMetres": 202.7,
+        "pointXZ": [
+          20006.3,
+          -5149.3
+        ],
+        "segmentIndex": 0,
+        "segmentEndpointsXZ": [
+          [
+            20006.3,
+            -5149.3
+          ],
+          [
+            20023.6,
+            -5149.4
+          ]
+        ],
+        "segmentElevationsMetres": [
+          0,
+          0
+        ],
+        "centreMedianRule": true
+      },
+      "elevatedBarrierCandidate": {
+        "roadId": "b7411a55-f9b_0",
+        "name": null,
+        "class": "tertiary",
+        "widthMetres": 8.5,
+        "onewayCode": null,
+        "maximumRoadElevationMetres": 6.8,
+        "distanceFromMappedAreaAnchorMetres": 288.7,
+        "pointXZ": [
+          20069.8,
+          -5216.3
+        ],
+        "segmentIndex": 4,
+        "segmentEndpointsXZ": [
+          [
+            20069.8,
+            -5216.3
+          ],
+          [
+            20075.6,
+            -5228.9
+          ]
+        ],
+        "segmentElevationsMetres": [
+          4.19,
+          5.24
+        ]
+      },
+      "sourceOnlyLimit": "Distances are geometric distance from a mapped area label, not road-route distance or actual spawn position. Core road IDs and elevations are inferred game data. No browser visit, physical-road identity, barrier visibility, collision or access route has been verified.",
+      "testHint": "Use a naturally encountered visible segment and record before/contact/after; do not drive by coordinates or force a detour just to meet this suggestion.",
+      "areaSpecificLimit": "Nearby elevation suggests a possible deck/bridge scene, but ramp joins and parapet gaps need visible confirmation."
+    }
+  ],
+  "geometryRulesAndLimits": {
+    "references": [
+      "game/src/world/city.ts:67-70",
+      "game/src/world/city.ts:210-220",
+      "game/src/world/city.ts:332-418",
+      "game/src/world/city.ts:438-460"
+    ],
+    "median": "Two-way non-elevated trunk/primary/secondary roads of at least 10.5 m width receive inferred center medians, with junction and periodic U-turn gaps. One-way major carriageways use a side median rule instead. These rules do not prove a continuous wall at the suggested point.",
+    "curb": "Non-elevated major-road footpaths/curbs depend on road class, width, quality setting and junction trimming. Soft curb behavior must be distinguished from a hard median/parapet.",
+    "parapet": "Elevated segments generate deck geometry; solid parapets skip joins and ramp-foot sections below 1.7 m. Suggestions prefer a segment at least 4 m high within 1 km when available; otherwise the nearest segment with both endpoints at least 1.7 m.",
+    "camera": "Only a natural bus/truck sightline crossing with before/during/after captures can exercise PT-004. A static source bounding box or ordinary traffic encounter is not a completed camera retest.",
+    "landmark": "Patancheru/Shamshabad/Ghatkesar do not reproduce the historical Mecca or Sudarshan starting trajectory. General recovery may be sampled without claiming PT-003/PT-010 exact reproduction."
+  },
+  "pickupEligibilityCoverage": {
+    "method": "Invoked current eligiblePickup as a pure function after an in-memory esbuild bundle; write:false. No browser/game state, output files or test/source mutation.",
+    "foodRecords": 11350,
+    "eligibleRecords": 11328,
+    "eligibleRecordsWithoutCategory": 11328,
+    "exactPoliceStationBoardRecords": 33,
+    "eligibleExactPoliceStationBoardRecords": 33,
+    "localRadiusMetres": 2000,
+    "areaResults": [
+      {
+        "area": "Patancheru",
+        "eligibleWithinRadius": 11,
+        "missingCategoryWithinRadius": 11,
+        "policeNamedWithinRadius": [],
+        "nearestEligibleNameExamples": [
+          "S.K Bakery",
+          "Balaji Teja Ram Mithai Bhandar",
+          "Sree LV Bangalore Iyengar Bakery"
+        ]
+      },
+      {
+        "area": "Shamshabad",
+        "eligibleWithinRadius": 30,
+        "missingCategoryWithinRadius": 30,
+        "policeNamedWithinRadius": [
+          {
+            "id": "b_55d5b14c-64be-41",
+            "name": "Police Station-Shamshabad",
+            "board": "Police Station",
+            "distanceFromAreaAnchorMetres": 292
+          },
+          {
+            "id": "b_f5c2878e-f54f-42",
+            "name": "RGI Airport Police Station",
+            "board": "RGI Airport Police Station",
+            "distanceFromAreaAnchorMetres": 463
+          }
+        ],
+        "otherNameOnlyReviewCandidates": [
+          "Hanuman Grand Bazar",
+          "Vegetables Market"
+        ]
+      },
+      {
+        "area": "Ghatkesar",
+        "eligibleWithinRadius": 15,
+        "missingCategoryWithinRadius": 15,
+        "policeNamedWithinRadius": [
+          {
+            "id": "b_29d1f902-3be1-41",
+            "name": "Ghatkesar Police Station",
+            "board": "Ghatkesar Police Station",
+            "distanceFromAreaAnchorMetres": 1307
+          }
+        ],
+        "otherNameOnlyReviewCandidates": [
+          "Ghatkesar Bus Stand"
+        ]
+      }
+    ],
+    "interpretation": "Missing category means the category filter does not establish that these legacy records are actual kitchens. Police-named records expose the known PT-012 coverage gap; other market/bus-stand names are review candidates, not newly confirmed non-food businesses. Nearest source records do not predict the next randomized offer.",
+    "browserLimit": "No new offer observed by this analyst. Do not count source eligibility as a fresh PT-012 reproduction or bind a generic offer label to a source ID without evidence.",
+    "sourceReferences": [
+      "game/src/game/pickups.ts:13-19",
+      "game/src/game/pickup-policy.json",
+      "game/src/game/game.ts:145-150"
+    ]
+  },
+  "highValueScenarios": [
+    "A bounded complete legitimate pickup and handover through visible E prompts takes priority over forced scenario hunting. Late/zero-heat/zero-slice orders still allow handover; record actual reward/progress.",
+    "Sample map Close and, if using flight, distinguish the known focused-minimap Space conflict from vehicle flight handling.",
+    "If a median or elevated barrier occurs naturally along the accepted route, save segment/location and before/contact/after views while grounded.",
+    "Count only actual new collections/handovers this round; preserve prior paused workflows and do not aggregate resumed orders again."
+  ],
+  "newConfirmedIssues": [],
+  "claimLimit": "No real-world street/shop accuracy, current business operation or entire-area coverage is established by these mapped opportunities or source-only checks."
+}

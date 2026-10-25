@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2145Z",
+  "area": "Patancheru",
+  "driver": "root",
+  "reportAuthor": "playtest_old_city",
+  "authoredAt": "2026-10-23T21:54:03.329052+00:00",
+  "status": "accepted_pickup_approach_unfinished",
+  "checkoutCommit": "13b831dc0b97e041103380dd310825c496e8651e",
+  "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+  "cityDataCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+  "runtimeScript": "./assets/index-DXgUfY_A.js",
+  "baseUrl": "http://127.0.0.1:4189/",
+  "runtimeVerification": {
+    "session": "Fresh normal-URL tab 1933378327; Play, visible Patancheru search and Start here.",
+    "source": "Current HTTP/dist/source identity was checked in source-triage.json without changing or rebuilding the game.",
+    "data": "Fresh session used currently served city data at 013bf3f; checkout 13b831d contains later documentation only.",
+    "limit": "No hidden runtime state or complete asset-network inspection was used."
+  },
+  "method": "Root drove through visible controls and native held arrow keys, accepted the offer and used actual Close map controls. The author transcribed root’s ledger and inspected the three original JPGs with view_image. No browser control by the author, hidden game state, teleporting, autopilot or engine stepping.",
+  "viewport": {
+    "width": 594,
+    "height": 522,
+    "source": "Dimensions of all three original screenshots."
+  },
+  "route": "Swiss Cafe Hyd → Home in Patancheru",
+  "initialOffer": {
+    "restaurant": "Swiss Cafe Hyd",
+    "driveToPickupMetres": 893,
+    "customer": "Home in Patancheru",
+    "pickupToCustomerMetres": 1302,
+    "deliveryWindowSecondsAfterCollection": 231,
+    "basePayCoins": 126,
+    "pickupApproachUntimed": true,
+    "coins": 802,
+    "level": "2 · 1/4",
+    "flightSeconds": 2.5,
+    "speedKmh": 0,
+    "dayClockInOriginal": "Day 8 · 2:15 AM"
+  },
+  "counts": {
+    "offersAccepted": 1,
+    "pickupsCompleted": 0,
+    "customerHandovers": 0,
+    "completedDeliveries": 0,
+    "collectionOrHandoverHoldSeconds": 0,
+    "heldMovementActions": 14,
+    "explicitHeldDrivingInputSeconds": 21.6,
+    "recoveryActivations": 1,
+    "flightActivations": 0,
+    "mapOpens": 2,
+    "actualCloseMapButtonClicks": 2,
+    "pauseMenuOpensViaEscape": 1,
+    "originalScreenshotsSaved": 3
+  },
+  "heldInputLedger": [
+    {
+      "keys": "ArrowUp",
+      "seconds": 1.5
+    },
+    {
+      "keys": "ArrowUp+ArrowRight",
+      "seconds": 0.45
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 0.5
+    },
+    {
+      "keys": "ArrowUp",
+      "seconds": 0.8
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 0.65
+    },
+    {
+      "keys": "ArrowUp+ArrowLeft",
+      "seconds": 0.6
+    },
+    {
+      "keys": "ArrowUp",
+      "seconds": 3.5
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 0.65
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 1
+    },
+    {
+      "keys": "ArrowUp+ArrowLeft",
+      "seconds": 1.1
+    },
+    {
+      "keys": "ArrowUp",
+      "seconds": 3.5
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 0.75
+    },
+    {
+      "keys": "ArrowUp",
+      "seconds": 5.5
+    },
+    {
+      "keys": "ArrowDown",
+      "seconds": 1.1
+    }
+  ],
+  "heldInputLimit": "The 14 holds sum to 21.6 seconds. Taps, clicks, coasting, screenshots, menu inspection, recovery motion and wall-clock latency are excluded. ArrowDown can brake or reverse depending on speed.",
+  "steps": [
+    "Open a fresh normal URL, click Play, search Patancheru visibly and choose Start here. First offer: Swiss Cafe Hyd, 893 m to pickup, then 1,302 m to Home in Patancheru, with 231 s after collection and 126 base coins. Save the offer original and click the actual Accept button.",
+    "Open M and click actual Close map. Root observed focus returning to the minimap. ArrowUp 1.5 s, ArrowUp+ArrowRight 0.45 s and ArrowDown 0.5 s: approximately 875 m, 0–1 km/h, at a median.",
+    "ArrowUp 0.8 s: 874 m and 4 km/h during repeated grounded contact on the same median side; no crossing observed. The later saved median-contact original shows 874 m and 0 km/h.",
+    "ArrowDown 0.65 s, ArrowUp+ArrowLeft 0.6 s, ArrowUp 3.5 s and ArrowDown 0.65 s. Open M and click actual Close map again: 871 m, 11 km/h, with the car roughly perpendicular to the median.",
+    "Click the visible game scene at pixel (290,360). ArrowDown 1 s, ArrowUp+ArrowLeft 1.1 s, ArrowUp 3.5 s and ArrowDown 0.75 s: 870 m and 13 km/h, still on the same median side.",
+    "Press R for normal recovery and observe the settled result: 868 m and 0 km/h, parallel to a clear road. No transient recovery-animation frame was treated as a settled result.",
+    "ArrowUp 5.5 s and ArrowDown 1.1 s. Final unpaused HUD: 969 m to Swiss Cafe Hyd, 0 km/h, 5.0 s boost, 802 coins, Level 2 1/4, Day 8 5:49 AM. Save the ending original.",
+    "Press Escape to open Paused, mark tab 1933378327 as a handoff and release all input. Warning/error console query returned no entries (limit 50). No flight, E hold, collection, handover or reward occurred. Root released the browser at approximately 21:50 UTC; all evidence-helper tabs were closed."
+  ],
+  "lastVisibleHud": {
+    "state": "Pick up",
+    "restaurant": "Swiss Cafe Hyd",
+    "distanceMetres": 969,
+    "speedKmh": 0,
+    "flightSeconds": 5.0,
+    "coins": 802,
+    "level": "2 · 1/4",
+    "dayClock": "Day 8 · 5:49 AM",
+    "pausedAfterCapture": true,
+    "sourceLimit": "The ending original independently shows the unpaused final HUD. Root reports Escape and marking a handoff afterward; the paused modal was not separately saved."
+  },
+  "observations": [
+    {
+      "finding": "Repeated grounded contact did not cross the median.",
+      "classification": "bounded_contact_sample_not_full_barrier_verification",
+      "detail": "Root observed the car remain on the same side during the short attempts. This does not validate every median segment, gap, angle or speed, and does not reproduce the historical PT-005 route-ribbon crossing."
+    },
+    {
+      "finding": "A settled recovery produced a parallel road placement and forward departure.",
+      "classification": "passed_nearby_recovery_sample",
+      "detail": "Settled HUD: 868 m and 0 km/h. Following driving input reached 969 m and 0 km/h on a clear road. Increased pickup distance alone does not establish a bad recovery or corrupted route."
+    },
+    {
+      "finding": "Both actual Close map clicks dismissed the map.",
+      "classification": "passed_current_visible_control_sample",
+      "detail": "Minimap focus was observed after the first close. Space was never pressed, so this does not retest or clear PT-013. Root clicked the scene later before further driving."
+    },
+    {
+      "finding": "The pickup approach remains unfinished.",
+      "classification": "workflow_unfinished_not_new_confirmed_bug",
+      "detail": "No pickup prompt, collection, handover or reward was recorded. Steering attempts and median contact did not isolate a new defect."
+    }
+  ],
+  "repairChecks": [
+    {
+      "issueId": "PT-005",
+      "status": "controlled_route_ribbon_median_reproduction_not_completed",
+      "detail": "Grounded median contact blocked crossing in this bounded sample. The prior GPS/ribbon-through-median scenario was not reproduced or ruled out."
+    },
+    {
+      "issueId": "PT-010",
+      "status": "one_nearby_settled_recovery_and_departure_passed",
+      "detail": "Patancheru placement and forward departure were observed once, not the exact historical RTC/Sudarshan reproduction."
+    },
+    {
+      "issueId": "PT-009",
+      "status": "two_actual_map_close_actions_passed",
+      "detail": "No full keyboard focus-cycle or picker cancellation regression was performed."
+    },
+    {
+      "issueId": "PT-013",
+      "status": "not_exercised",
+      "detail": "No Space after map close; focus restoration alone does not demonstrate the shortcut conflict."
+    },
+    {
+      "issueId": "PT-004",
+      "status": "not_exercised",
+      "detail": "No controlled bus/truck camera crossing."
+    },
+    {
+      "issueId": "PT-011",
+      "status": "not_exercised_no_handover",
+      "detail": "No completed delivery, so next-offer scheduling was not tested."
+    }
+  ],
+  "console": {
+    "queriedLevels": [
+      "warn",
+      "error"
+    ],
+    "limit": 50,
+    "entries": [],
+    "scope": "Visible tab console entries returned by the browser tool only; not a complete network or engine audit."
+  },
+  "evidence": [
+    {
+      "path": "evidence/2026-10-23T2145Z-patancheru-offer-ab10bd.jpg",
+      "sha256": "93a6cb75d21ed232a20193fe18f1de7f4e39fb090339cbb06ebd3c313cae1072",
+      "width": 594,
+      "height": 522,
+      "caption": "Initial Swiss Cafe Hyd offer before acceptance."
+    },
+    {
+      "path": "evidence/2026-10-23T2145Z-patancheru-median-contact-72e007.jpg",
+      "sha256": "3124e0a36c7e2a1baf0bea951dc747f45e744c5e919b90b53836205fe2d9c266",
+      "width": 594,
+      "height": 522,
+      "caption": "Car adjacent to the black/yellow median; saved HUD shows 874 m and 0 km/h."
+    },
+    {
+      "path": "evidence/2026-10-23T2145Z-patancheru-ending-6dff9e.jpg",
+      "sha256": "ec69fc4560611aec5e9c7c27510cf5cdca62d73ad839b0cd1726cdf1a8a7fc39",
+      "width": 594,
+      "height": 522,
+      "caption": "Final unpaused pickup HUD: 969 m, 0 km/h, 5.0 s boost and 802 coins, Day 8 5:49 AM."
+    }
+  ],
+  "originalsInspectedByAuthor": true,
+  "newConfirmedIssues": [],
+  "notPersisted": [
+    "Full-map views",
+    "A separate settled-recovery original",
+    "Paused modal after the ending original"
+  ],
+  "notCovered": [
+    "Explicit pickup and customer handover",
+    "Controlled bus/truck camera occlusion",
+    "Full median geometry or PT-005 route-ribbon reproduction",
+    "Bridge parapets and controlled curb traversal",
+    "Flight and landing",
+    "Exact historical Mecca or RTC/Sudarshan recovery",
+    "Space/minimap focus conflict PT-013",
+    "Whole Patancheru street network or real shop-order fidelity"
+  ],
+  "unrelatedSessionCheck": "Root rechecked already-paused Secunderabad and RTC tabs and marked them as handoffs without gameplay input. Their historical states are not changed or counted here.",
+  "handoff": {
+    "tabId": "1933378327",
+    "owner": "root",
+    "area": "Patancheru",
+    "paused": true,
+    "heldKeys": false,
+    "markedHandoffByDriver": true,
+    "instruction": "Resume the accepted Swiss Cafe Hyd pickup approach: 969 m to pickup, 0 km/h, 5.0 s boost, 802 coins, Level 2 1/4. Parcel not collected; no handover or reward. Keep other unfinished sessions paused."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "round": "2026-10-23T2145Z",
+  "area": "Ghatkesar",
+  "status": "interrupted_checkpoint_only",
+  "recordRecoveredAtUTC": "2026-10-25T19:09:04.843470+00:00",
+  "provenance": "Reconstructed from the worker messages received in the parent task. No completed standalone worker report or original screenshot is available.",
+  "reportedActions": [
+    "Fresh base-URL session opened.",
+    "Area chooser map picker opened; actual Close returned to the chooser.",
+    "Ghatkesar selected through visible area search.",
+    "First offer accepted: Hamara Drive-In, 346 m approach; Home in Ghatkesar, 533 m customer leg, 121 s after collection, 72 base coins.",
+    "Worker reported 2.9 seconds of ground input, pickup distance 320 m, stopped, and Road ahead blocked guidance."
+  ],
+  "lastReportedCheckpoint": {
+    "pickup": "Hamara Drive-In",
+    "customer": "Home in Ghatkesar",
+    "pickupDistanceMetres": 320,
+    "stoppedReported": true,
+    "boostSeconds": null,
+    "coins": null,
+    "finalOverlay": null
+  },
+  "reportedOfferAcceptances": 1,
+  "reportedHeldInputSeconds": 2.9,
+  "verifiedPickupsCompleted": 0,
+  "verifiedCompletedDeliveries": 0,
+  "originalScreenshots": [],
+  "interruption": "Worker stopped before final reporting; final state and cleanup were not confirmed.",
+  "newConfirmedIssues": [],
+  "finalStateKnown": false,
+  "browserPausedConfirmed": false,
+  "heldInputsReleasedConfirmed": false,
+  "tabId": null,
+  "limits": [
+    "The blocked-road message alone does not confirm a route defect.",
+    "No collection, handover, reward, recovery, flight, bridge or final pause is established by this checkpoint.",
+    "No intervening automated heartbeat is counted as an executed test round."
+  ]
+}

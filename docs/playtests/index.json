@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-23T21:33:29.461148+00:00",
+  "updatedAt": "2026-10-25T19:09:04.843470+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "013bf3f4821904dad03609345b02d84d772726b2",
+  "currentBuild": "13b831dc0b97e041103380dd310825c496e8651e",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -227,6 +227,43 @@
       "lastFlightSeconds": 0.0,
       "sessionStatus": "Accepted pickup remains unfinished and paused after roof recovery at901m road route,0km/h,0boost,802coins. Earlier~186m was a direct flight/roof estimate, not the remaining road route.",
       "closestObservedDirectPickupMetres": 186
+    },
+    "Patancheru": {
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "pickupsCompleted": 0,
+      "report": "2026-10-23T2145Z/patancheru.json",
+      "lastRoute": "Swiss Cafe Hyd → Home in Patancheru",
+      "heldDrivingInputSeconds": 21.6,
+      "lastObservedPickupMetres": 969,
+      "closestObservedPickupMetres": 868,
+      "lastFlightSeconds": 5.0,
+      "sessionStatus": "Historically paused and marked at969m,0km/h,5.0sboost,802coins; current live state not rechecked during publication.",
+      "lastResult": "First offer accepted; no collection or handover. Bounded median contact prevented observed crossing; normal recovery returned to a clear road."
+    },
+    "Shamshabad": {
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "pickupsCompleted": 0,
+      "report": "2026-10-23T2145Z/shamshabad.json",
+      "lastRoute": "Airport Bawarchi → Home in Madhura Nagar",
+      "heldDrivingInputSeconds": 38.7,
+      "lastObservedPickupMetres": 395,
+      "lastObservedDistanceMode": "approximate_direct_off_road",
+      "lastFlightSeconds": 0.1,
+      "sessionStatus": "Historically paused off-road at~395m direct estimate,16km/h,0.1sboost,802coins. Brake cautiously on Resume; current live state not rechecked.",
+      "lastResult": "First offer accepted; no collection or handover. Existing PT-013 recurred on fresh tab."
+    },
+    "Ghatkesar": {
+      "status": "interrupted_checkpoint_only",
+      "completedDeliveries": 0,
+      "pickupsCompleted": 0,
+      "report": "2026-10-23T2145Z/ghatkesar.json",
+      "lastRoute": "Hamara Drive-In → Home in Ghatkesar",
+      "lastReportedPickupMetres": 320,
+      "heldInputSecondsReportedWithoutFullLedger": 2.9,
+      "sessionStatus": "Worker reported accepted offer and stopped checkpoint, then interrupted. Final state, tab ID, pause and cleanup unknown.",
+      "coverageLimit": "Parent-received worker message only; no standalone worker ledger or original image."
     }
   },
   "scenarios": [
@@ -245,62 +282,59 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-23T2115Z",
-    "startedAt": "2026-10-23T21:15:48.067Z",
-    "endedAt": "2026-10-23T21:33:29.461148+00:00",
-    "status": "completed_partial_coverage_one_new_keyboard_issue",
+    "id": "2026-10-23T2145Z",
+    "startedAt": "2026-10-23T21:45:48.174Z",
+    "endedAt": null,
+    "recoveredAtUTC": "2026-10-25T19:09:04.843470+00:00",
+    "status": "interrupted_round_completed_reports_preserved",
     "areas": [
-      "RTC X Roads",
-      "Narsingi",
-      "Hayathnagar"
+      "Patancheru",
+      "Shamshabad",
+      "Ghatkesar"
     ],
-    "checkoutCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+    "checkoutCommit": "13b831dc0b97e041103380dd310825c496e8651e",
     "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
     "servedGameDataCommit": "013bf3f4821904dad03609345b02d84d772726b2",
     "testedAssets": [
       "index-DXgUfY_A.js"
     ],
-    "retainedTabDataLimit": "Existing orders were resumed without reload. Their initial city data came from the earlier 882cb50-era build; subsequent lazy city-pack loads were not fully audited. HTTP source/dist checks establish currently served data, not complete retained-tab cache identity. Gameplay JavaScript is unchanged.",
     "reports": [
-      "2026-10-23T2115Z/rtc-x-roads.json",
-      "2026-10-23T2115Z/narsingi.json",
-      "2026-10-23T2115Z/hayathnagar.json"
+      "2026-10-23T2145Z/patancheru.json",
+      "2026-10-23T2145Z/shamshabad.json",
+      "2026-10-23T2145Z/ghatkesar.json"
     ],
-    "sourceTriage": "2026-10-23T2115Z/source-triage.json",
-    "evidenceManifest": "2026-10-23T2115Z/evidence-manifest.json",
-    "participantType": "Root and two AI subagents used actual visible Chrome controls in exclusive sequential turns; a third subagent audited source and reports. No human participants, hidden game-state mutation, teleport, simulation stepping or developer autopilot.",
-    "offersAccepted": 0,
+    "sourceTriage": "2026-10-23T2145Z/source-triage.json",
+    "evidenceManifest": "2026-10-23T2145Z/evidence-manifest.json",
+    "participantType": "AI agents using visible Chrome controls in sequential exclusive turns, with separate source analysis. No human participants, hidden state mutation, simulation stepping or developer autopilot.",
+    "offersAccepted": 3,
+    "fullyDocumentedOfferAcceptances": 2,
+    "checkpointOnlyOfferAcceptances": 1,
     "pickupsCompleted": 0,
     "completedDeliveries": 0,
-    "heldDrivingInputSecondsApprox": 60.25,
-    "explicitHeldInputSecondsIncludingMapAttempt": 60.95,
-    "heldInputSecondsWhileMapOpen": 0.7,
-    "recoveryActivations": 5,
-    "flightActivations": 3,
-    "landingCoverage": "RTC and Narsingi later showed grounded HUD states; Hayathnagar showed an explicit roof-landing/glide prompt followed by normal recovery. Controlled street touchdown was not captured.",
-    "actualMapCloseClicks": 12,
-    "savedScreenshots": 7,
-    "uniqueScreenshots": 7,
-    "newConfirmedIssueGroups": 1,
-    "newConfirmedIssueIds": [
+    "heldDrivingInputSecondsApprox": 60.3,
+    "additionalCheckpointHeldInputSecondsWithoutFullLedger": 2.9,
+    "recoveryActivations": 3,
+    "flightActivations": 1,
+    "actualMapCloseClicks": 6,
+    "additionalPickerCloseReportedWithoutOriginal": 1,
+    "savedScreenshots": 5,
+    "uniqueScreenshots": 5,
+    "newConfirmedIssueGroups": 0,
+    "existingIssueGroupsObserved": [
       "PT-013"
     ],
     "existingIssueGroupsReopened": [],
-    "portraitViewport": {
-      "width": 390,
-      "height": 844,
-      "mapCloseAndPauseSample": "passed",
-      "hudAndMinimapSeparated": "observed",
-      "overrideReset": true,
-      "physicalPhoneTested": false
-    },
-    "summary": "PT-013 reproduced: closing the map with focus restored to minimap causes Space to reopen it rather than fly; boost unchanged in incidental and controlled cases. All12 actual Close clicks dismissed the map. No new collection or handover. RTC paused off-road~403m with0heat/slices/boost,13km/h; Narsingi pickup1770m; Hayathnagar pickup901m. Portrait map/HUD/pause sampled.",
-    "roundLimit": "Bounded about20minute round including actual UI controls, source analysis, exclusive handoffs, evidence saving and documentation. Held inputs are not uninterrupted human play.",
+    "summary": "Patancheru median contact and normal recovery sampled; Swiss Cafe Hyd pickup remained969m. Fresh Shamshabad PT-013 recurrence recorded; Airport Bawarchi remained~395m direct/off-road at16km/h and0.1sboost. No pickup or handover. Ghatkesar picker dismissal and accepted346m offer were reported, then worker interrupted at320m with final state and cleanup unknown.",
+    "landingCoverage": "Shamshabad showed post-flight ground guidance with0.1sboost. Exact zero/exhaustion and controlled touchdown were not established.",
+    "roundLimit": "Interrupted before final integration. This is recovery of that historical round, not a claim of continuous testing through later heartbeat timestamps.",
     "behaviorEdited": false,
     "published": false,
     "pushed": false,
-    "browserOwnershipReleased": true,
-    "helperServerStopped": true
+    "browserOwnershipReleased": "Confirmed for root and west at their handoffs; interrupted east worker final state unknown.",
+    "helperCleanupAtInterruptionConfirmed": false,
+    "documentationCorrections": [
+      "PT-013 source reference corrected to game/src/game/game.ts:504."
+    ]
   },
   "issueRegistry": [
     {
@@ -758,7 +792,8 @@
       "status": "confirmed_incidental_and_controlled_repeat",
       "title": "Space reopens the focused minimap after closing the map instead of starting flight",
       "areas": [
-        "Narsingi"
+        "Narsingi",
+        "Shamshabad"
       ],
       "confidence": "high; incidental case plus controlled repeat and scene-click flight positive control",
       "relatedIssues": [
@@ -766,11 +801,14 @@
       ],
       "firstObservedRound": "2026-10-23T2115Z",
       "reports": [
-        "2026-10-23T2115Z/narsingi.json"
+        "2026-10-23T2115Z/narsingi.json",
+        "2026-10-23T2145Z/shamshabad.json"
       ],
       "evidence": [
         "evidence/2026-10-23T2115Z-narsingi-space-reopens-map-370065.jpg",
-        "evidence/2026-10-23T2115Z-narsingi-ending-06ed50.jpg"
+        "evidence/2026-10-23T2115Z-narsingi-ending-06ed50.jpg",
+        "evidence/2026-10-23T2145Z-shamshabad-space-reopens-map-8cab6f.jpg",
+        "evidence/2026-10-23T2145Z-shamshabad-ending-186bce.jpg"
       ],
       "reproductionSteps": [
         "From a stopped grounded car with2.5s flight charge, click Minimap.",
@@ -782,12 +820,13 @@
       "actual": "Minimap focus intercepts Space and opens the map. The Close button itself dismisses the map. No concurrent flight or charge depletion observed.",
       "incidentalCase": "Earlier M/zoom/Close/Space sequence also reopened the map; charge stayed10.0s.",
       "workaround": "Click the visible driving scene before pressing Space; this produced actual flight in the same pass.",
-      "source": "game/src/game.ts:504",
+      "source": "game/src/game/game.ts:504",
       "sourceCorroboration": "2026-10-23T2115Z/source-triage.json",
       "sourceFinding": "DialogFocus.hide restores earlier focus or minimap. The focused minimap Space handler prevents default, stops propagation and opens the map before the window flight handler.",
       "deduplication": "Related to PT-009 focus handling, but distinct from that repaired issue: this happens after map dismissal, rather than focus escaping while the map is open.",
       "nextStep": "Resolve the post-close gameplay shortcut conflict without losing keyboard accessibility; then repeat minimap-pointer/Close/Space and keyboard map focus regression checks.",
-      "behaviorFixed": false
+      "behaviorFixed": false,
+      "latestRecurrenceRound": "2026-10-23T2145Z"
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
@@ -906,7 +945,13 @@
     "2026-10-23T2115Z/narsingi.json",
     "2026-10-23T2115Z/hayathnagar.json",
     "2026-10-23T2115Z/source-triage.json",
-    "2026-10-23T2115Z/evidence-manifest.json"
+    "2026-10-23T2115Z/evidence-manifest.json",
+    "2026-10-23T2145Z/patancheru.json",
+    "2026-10-23T2145Z/shamshabad.json",
+    "2026-10-23T2145Z/ghatkesar.json",
+    "2026-10-23T2145Z/source-triage.json",
+    "2026-10-23T2145Z/evidence-manifest.json",
+    "2026-10-23T2145Z/round.json"
   ],
   "roundHistory": [
     {
@@ -1282,9 +1327,67 @@
       "pushed": false,
       "browserOwnershipReleased": true,
       "helperServerStopped": true
+    },
+    {
+      "id": "2026-10-23T2115Z",
+      "startedAt": "2026-10-23T21:15:48.067Z",
+      "endedAt": "2026-10-23T21:33:29.461148+00:00",
+      "status": "completed_partial_coverage_one_new_keyboard_issue",
+      "areas": [
+        "RTC X Roads",
+        "Narsingi",
+        "Hayathnagar"
+      ],
+      "checkoutCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+      "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+      "servedGameDataCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+      "testedAssets": [
+        "index-DXgUfY_A.js"
+      ],
+      "retainedTabDataLimit": "Existing orders were resumed without reload. Their initial city data came from the earlier 882cb50-era build; subsequent lazy city-pack loads were not fully audited. HTTP source/dist checks establish currently served data, not complete retained-tab cache identity. Gameplay JavaScript is unchanged.",
+      "reports": [
+        "2026-10-23T2115Z/rtc-x-roads.json",
+        "2026-10-23T2115Z/narsingi.json",
+        "2026-10-23T2115Z/hayathnagar.json"
+      ],
+      "sourceTriage": "2026-10-23T2115Z/source-triage.json",
+      "evidenceManifest": "2026-10-23T2115Z/evidence-manifest.json",
+      "participantType": "Root and two AI subagents used actual visible Chrome controls in exclusive sequential turns; a third subagent audited source and reports. No human participants, hidden game-state mutation, teleport, simulation stepping or developer autopilot.",
+      "offersAccepted": 0,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "heldDrivingInputSecondsApprox": 60.25,
+      "explicitHeldInputSecondsIncludingMapAttempt": 60.95,
+      "heldInputSecondsWhileMapOpen": 0.7,
+      "recoveryActivations": 5,
+      "flightActivations": 3,
+      "landingCoverage": "RTC and Narsingi later showed grounded HUD states; Hayathnagar showed an explicit roof-landing/glide prompt followed by normal recovery. Controlled street touchdown was not captured.",
+      "actualMapCloseClicks": 12,
+      "savedScreenshots": 7,
+      "uniqueScreenshots": 7,
+      "newConfirmedIssueGroups": 1,
+      "newConfirmedIssueIds": [
+        "PT-013"
+      ],
+      "existingIssueGroupsReopened": [],
+      "portraitViewport": {
+        "width": 390,
+        "height": 844,
+        "mapCloseAndPauseSample": "passed",
+        "hudAndMinimapSeparated": "observed",
+        "overrideReset": true,
+        "physicalPhoneTested": false
+      },
+      "summary": "PT-013 reproduced: closing the map with focus restored to minimap causes Space to reopen it rather than fly; boost unchanged in incidental and controlled cases. All12 actual Close clicks dismissed the map. No new collection or handover. RTC paused off-road~403m with0heat/slices/boost,13km/h; Narsingi pickup1770m; Hayathnagar pickup901m. Portrait map/HUD/pause sampled.",
+      "roundLimit": "Bounded about20minute round including actual UI controls, source analysis, exclusive handoffs, evidence saving and documentation. Held inputs are not uninterrupted human play.",
+      "behaviorEdited": false,
+      "published": false,
+      "pushed": false,
+      "browserOwnershipReleased": true,
+      "helperServerStopped": true
     }
   ],
-  "nextRoundPlan": "Preserve all paused orders and continue an explicit collection/handover using visible map and short steering corrections. Avoid repeated long stalls: rotate a fresh outer-anchor or interior route from the expanded plan while retaining pending workflows. PT-013 needs a subsequent repair and focus/Space regression; PT-012 remains open. Controlled bus, median, curb/bridge, exact landmark recovery and broad region coverage are still pending.",
+  "nextRoundPlan": "Inspect actual browser state and recover the interrupted Ghatkesar checkpoint before sending input. Preserve existing orders; continue a short explicit pickup/handover. Rotate remaining Shamirpet and interior connectors after bounded attempts. PT-012 and PT-013 remain open; source/map opportunities do not establish bridge, camera or median correctness.",
   "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
   "liveHandoff": null,
   "liveHandoffs": [
@@ -1368,6 +1471,28 @@
       "instruction": "Resume the existing Sri Balaji Sunil Kumar Sweets & Bakery pickup from settled clear road, 901 m route, 0 km/h, 0.0 s boost, 802 coins and Level 2 · 1/4. Inspect map/heading first. Keep other orders paused; do not reload or reroll.",
       "handoffReconfirmationRound": "2026-10-23T2115Z",
       "viewportOverrideReset": true
+    },
+    {
+      "tabId": "1933378327",
+      "browserId": "1",
+      "owner": "root",
+      "area": "Patancheru",
+      "paused": true,
+      "heldKeys": false,
+      "instruction": "Resume the accepted Swiss Cafe Hyd pickup approach: 969 m to pickup, 0 km/h, 5.0 s boost, 802 coins, Level 2 1/4. Parcel not collected; no handover or reward. Keep other unfinished sessions paused.",
+      "handoffReconfirmationRound": "2026-10-23T2145Z",
+      "liveStateLimit": "Historical confirmation in this round; not rechecked during publication."
+    },
+    {
+      "tabId": "1933378342",
+      "browserId": "1",
+      "owner": "playtest_west",
+      "area": "Shamshabad",
+      "paused": true,
+      "heldKeys": false,
+      "instruction": "Continue the same uncollected Airport Bawarchi order. Paused off-road near rail geometry at ~395 m direct estimate and 16 km/h displayed speed, 0.1 s boost, 802 coins, Level 2 1/4. Expect movement on Resume and brake cautiously; do not assume the car is stopped. Click the visible scene after closing the map before using Space. Keep other accepted orders paused.",
+      "handoffReconfirmationRound": "2026-10-23T2145Z",
+      "liveStateLimit": "Historical confirmation in this round; not rechecked during publication."
     }
   ],
   "expandedAreaPlan": {
@@ -1390,20 +1515,21 @@
       "Attapur"
     ],
     "selection": "Use visible area search or map picker only; select area before beginning an order. Preserve existing accepted orders in paused tabs.",
-    "coverageLimit": "Two bounded outer-anchor samples; no full-area, tile, region or real-shop-order verification.",
+    "coverageLimit": "Five outer anchors have partial samples, including an interrupted Ghatkesar checkpoint. No full-region, tile or real-shop-order verification.",
     "latestReports": [
-      "2026-10-23T2115Z/narsingi.json",
-      "2026-10-23T2115Z/hayathnagar.json"
+      "2026-10-23T2145Z/patancheru.json",
+      "2026-10-23T2145Z/shamshabad.json",
+      "2026-10-23T2145Z/ghatkesar.json"
     ],
     "sampledOuterAnchors": [
       "Narsingi",
-      "Hayathnagar"
+      "Hayathnagar",
+      "Patancheru",
+      "Shamshabad",
+      "Ghatkesar"
     ],
     "remainingUnvisitedOuterAnchors": [
-      "Patancheru",
-      "Shamirpet",
-      "Ghatkesar",
-      "Shamshabad"
+      "Shamirpet"
     ]
   },
   "repairPass": {
@@ -1467,5 +1593,16 @@
       "note": "Absent from current Chrome inventory; not recreated. Prior pending order was never completed."
     }
   ],
-  "latestCoverageLimit": "Three partial route continuations, zero new pickups or handovers. One new reproduced post-close Space shortcut conflict (PT-013);12 actual map Close clicks worked. Portrait390x844 map/HUD/pause sampled; no physical phone. No deliberate bridge/curb/median/bus test, exact old landmark reproduction, whole-region coverage or real shop-order verification."
+  "latestCoverageLimit": "Two complete bounded reports plus one interrupted worker checkpoint. No new collection or handover; known PT-013 recurrence only. Five originals saved. Ghatkesar final state and cleanup unknown; no later heartbeat is treated as proof of work.",
+  "interruptedHandoffs": [
+    {
+      "round": "2026-10-23T2145Z",
+      "area": "Ghatkesar",
+      "report": "2026-10-23T2145Z/ghatkesar.json",
+      "tabId": null,
+      "finalStateKnown": false,
+      "pausedConfirmed": false,
+      "instruction": "Inspect current browser inventory and actual visible state before any resume or control input; do not assume this order survived or is paused."
+    }
+  ]
 }
