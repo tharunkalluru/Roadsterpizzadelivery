@@ -11,8 +11,8 @@ const root = fileURLToPath(new URL('../', import.meta.url)), temp = await mkdtem
 let count = 0;
 const test = async (name, fn) => { await fn(); count++; console.log(`PASS ${name}`); };
 try {
-  await build({ stdin: { contents: "export * from './game/src/world/structure-clearance'; export * from './game/src/world/metro-geometry'; export { buildTile } from './game/src/world/city'; export { prepareRoadGrades, roadGradePatches, applyRoadGradePatches } from './game/src/world/road-grades'; export { auxiliaryLane, isORR } from './game/src/world/expressway'; export { hash, initTemplates } from './game/src/core/util'; export { BoxGeometry, RingGeometry } from './game/node_modules/three/build/three.module.js';", resolveDir: root, loader: 'ts' }, outfile: join(temp, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
-  const { bridgeSupportSites, roadStructureClearance, metroCorridors, metroStationFrame, buildTile, prepareRoadGrades, roadGradePatches, applyRoadGradePatches, auxiliaryLane, isORR, hash, initTemplates, BoxGeometry, RingGeometry } = await import(pathToFileURL(join(temp, 'test.mjs')));
+  await build({ stdin: { contents: "export * from './game/src/world/structure-clearance'; export * from './game/src/world/metro-geometry'; export { buildTile } from './game/src/world/city'; export { prepareRoadGrades, roadGradePatches, applyRoadGradePatches } from './game/src/world/road-grades'; export { auxiliaryLane, isORR } from './game/src/world/expressway'; export { hash, initTemplates, TiledBatch, TPL } from './game/src/core/util'; export { placeLandmarks } from './game/src/world/landmarks'; export { BoxGeometry, RingGeometry } from './game/node_modules/three/build/three.module.js';", resolveDir: root, loader: 'ts' }, outfile: join(temp, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
+  const { bridgeSupportSites, bridgeSupportPlan, roadStructureClearance, metroCorridors, metroStationFrame, buildTile, prepareRoadGrades, roadGradePatches, applyRoadGradePatches, auxiliaryLane, isORR, hash, initTemplates, TiledBatch, TPL, placeLandmarks, BoxGeometry, RingGeometry } = await import(pathToFileURL(join(temp, 'test.mjs')));
   initTemplates({ rbox: new BoxGeometry(1, 1, 1), ring: new RingGeometry(1, 1.35, 12) });
   const road = (id, pts, extra = {}) => ({ id, seg: id, name: null, cls: 'primary', w: 9.4, lanes: 2, oneway: null, from: `${id}_a`, to: `${id}_b`, pts, elev: null, maxspeed: 50, ...extra });
   const zone = (roads, i = 0, j = 0) => ({ i, j, roads, nodes: {}, buildings: [], boards: [], furniture: [], areas: [], osm: [] });
@@ -35,6 +35,15 @@ try {
     assert.equal(unique(built[0].surfaceGrid).filter(s => s.kind === 'road').length, 240, 'all driveable deck segments remain');
     safeSupports(built[0], [dense]);
   });
+  await test('split source edges share one equal-height physical pier independent of context order', () => {
+    const a = road('a', [[100, 500], [124.5, 500]], { elev: [6.8, 6.8] }), b = road('b', [[124.5, 500], [300, 500]], { elev: [6.8, 6.8], from: a.to });
+    const first = buildTile(zone([a, b]), { lowQ: true }), reversed = buildTile(zone([b, a]), { lowQ: true });
+    const sites = built => built.structureSupports.filter(s => s.part === 'bridge').map(s => [s.source, s.footprint.x, s.footprint.z, s.sourceIds]).sort((a, b) => a[1] - b[1]);
+    assert.deepEqual(sites(first), sites(reversed));
+    const shared = first.structureSupports.find(s => s.sourceIds?.length > 1); assert.ok(shared); assert.deepEqual(shared.sourceIds, ['a', 'b']);
+    const points = first.structureSupports.filter(s => s.part === 'bridge').map(s => s.footprint);
+    for (let i = 0; i < points.length; i++) for (let j = i + 1; j < points.length; j++) assert.ok(Math.hypot(points[i].x - points[j].x, points[i].z - points[j].z) >= 1.7);
+  });
   await test('clearance checks body width, intermediate road heights, sloping intervals and safe overhead caps', () => {
     const cross = road('cross', [[300, 100], [300, 900]], { w: 12 }), body = { x: 300, z: 500, r: 1 };
     assert.equal(roadStructureClearance([cross]).clear(body, 0, 9.8), false);
@@ -51,6 +60,12 @@ try {
     const p = { x: 510, z: 510.8, r: .4 };
     assert.equal(roadStructureClearance([main]).clear(p, 0, 6), true);
     assert.equal(roadStructureClearance([main, ramp]).clear(p, 0, 6), false);
+  });
+  await test('a widened bridge edge retains its real approach width when the local span reaches ground', () => {
+    const narrow = road('narrow_bridge', [[100,500],[150,500],[200,500]], { w: 3, elev: [0,0,6.8] });
+    const p = { x:125,z:503.7,r:.75 };
+    assert.equal(roadStructureClearance([{ ...narrow,elev:null }]).clear(p,0,5.9),true);
+    assert.equal(roadStructureClearance([narrow]).clear(p,0,5.9),false,'the rendered8.4m approach, rather than3m source width, excludes this support');
   });
   await test('a stair endpoint being clear cannot permit its full run to cut through a road', () => {
     const e = road('stair_crossing', [[550, 510], [550, 525]], { w: 3 }), clear = roadStructureClearance([e]);
@@ -133,13 +148,15 @@ try {
       nearBridgeSourceIds: [...new Set(before.map(p => p.source))], allTileStructurePieces: built.structureSupports.length,
       stationColumns: built.structureSupports.filter(s => s.source === rtc.id && s.part === 'station_column').length,
       stationStairs: built.structureSupports.filter(s => s.source === rtc.id && s.part === 'station_stairs').length,
-      sourceBuildings: z.buildings.length, retainedSourceBuildingColliders: unique(built.buildingGrid).filter(b => !b.id.startsWith('ms_') && z.buildings.some(s => s.id === b.id)).length,
+      sourceBuildings: z.buildings.length, retainedSourceBuildingIdentities: new Set(unique(built.buildingGrid).map(b => b.sourceId || b.id).filter(id => z.buildings.some(s => s.id === id))).size, renderedSourceBuildingFragments: unique(built.buildingGrid).filter(b => z.buildings.some(s => s.id === (b.sourceId || b.id))).length,
       roadConflictsAfter: 0, validation: 'offline sourced tile geometry and colliders; not browser driving' }));
   });
   await test('all shipped metro pillar sites and elevated bridge candidates use full 3D road clearance', () => {
-    let bridgeCandidates = 0, bridgeRetained = 0, bridgeOmitted = 0, metroRetained = 0, metroOmitted = 0;
-    for (const e of prepared) for (const p of bridgeSupportSites(e)) {
-      bridgeCandidates++;
+    let bridgeCandidates = 0, uniqueBridgeCandidates = 0, bridgeRetained = 0, bridgeOmitted = 0, metroRetained = 0, metroOmitted = 0;
+    const bridgePlan = bridgeSupportPlan(prepared);
+    for (const e of prepared) bridgeCandidates += bridgeSupportSites(e).length;
+    for (const e of prepared) for (const p of bridgePlan.get(e) || []) {
+      uniqueBridgeCandidates++;
       const body = { x: p.x, z: p.z, r: .8 }, cap = { x: p.x, z: p.z, hx: p.hx, hz: p.hz, hw: Math.min(e.w, 9) / 2, hl: .8 };
       if (globalClear.clear(body, 0, p.h) && globalClear.clear(cap, p.h - .7, p.h)) bridgeRetained++; else bridgeOmitted++;
     }
@@ -148,7 +165,7 @@ try {
       if (globalClear.clear({ x, z, r: 1.05 }, 0, dh - 1.2) && globalClear.clear(cap, dh - 2.2, dh - 1)) metroRetained++; else metroOmitted++;
     }
     assert.ok(bridgeCandidates > 100 && bridgeRetained > 0 && bridgeOmitted > 0); assert.equal(metroRetained + metroOmitted, core.metro.pillars.length);
-    console.log('CITY_STRUCTURE_AUDIT', JSON.stringify({ sourceRoads: prepared.length, bridgeCandidates, bridgeRetained, bridgeOmitted, sourceMetroPillars: core.metro.pillars.length, metroRetained, metroOmitted, modelHeadroomMetres: 4.8, sourceDataRewritten: false }));
+    console.log('CITY_STRUCTURE_AUDIT', JSON.stringify({ sourceRoads: prepared.length, bridgeCandidates, overlappingBridgeSitesMerged: bridgeCandidates - uniqueBridgeCandidates, uniqueBridgeCandidates, bridgeRetained, bridgeOmitted, sourceMetroPillars: core.metro.pillars.length, metroRetained, metroOmitted, modelHeadroomMetres: 4.8, sourceDataRewritten: false }));
   });
   await test('all sourced stations keep rideable platforms and bidirectional above-canopy names with safe modeled supports', async () => {
     let stations = 0, pieces = 0, columns = 0, stairs = 0;
@@ -171,6 +188,106 @@ try {
     }
     assert.equal(stations, core.metro.stations.length);
     console.log('STATION_STRUCTURE_AUDIT', JSON.stringify({ sourceStations: stations, sourceStationTiles: new Set(core.metro.stations.map(s => `${Math.floor(s.p[0] / 1000)}_${Math.floor(s.p[1] / 1000)}`)).size, retainedStationStructurePieces: pieces, retainedColumns: columns, retainedStairs: stairs, aboveCanopyNameFaces: stations * 10, platformNameFaces: stations * 8, roadConflictsAfter: 0, validation: 'offline source road/building station neighborhoods; not citywide browser verification' }));
+  });
+
+  // Observe actual production draw calls rather than trusting support metadata.
+  const capture = (z, opts) => {
+    const bodies = [], caps = [], add = TiledBatch.prototype.add, box = TiledBatch.prototype.box;
+    TiledBatch.prototype.add = function(t, x, y, z, sx, sy, sz, ...rest) {
+      if (t === TPL.cyl && Math.abs(sx - .75) < 1e-8 && Math.abs(sz - .75) < 1e-8 && sy >= 2.5) bodies.push({ x, z, r: sx, bottom: y - sy / 2, top: y + sy / 2 });
+      return add.call(this, t, x, y, z, sx, sy, sz, ...rest);
+    };
+    TiledBatch.prototype.box = function(x, y, z, sx, sy, sz, color, opts) {
+      if (Math.abs(sy - .7) < 1e-8 && Math.abs(sz - 1.6) < 1e-8 && sx <= 9) {
+        const a = opts?.ry || 0, hx = Math.sin(a), hz = Math.cos(a);
+        caps.push({ x, z, bottom: y - sy / 2, top: y + sy / 2, ring: [[-1,-1],[-1,1],[1,1],[1,-1]].map(([u,v]) => [x + hz * u * sx / 2 + hx * v * sz / 2, z - hx * u * sx / 2 + hz * v * sz / 2]) });
+      }
+      return box.call(this, x, y, z, sx, sy, sz, color, opts);
+    };
+    try { return { built: buildTile(z, opts), bodies, caps }; }
+    finally { TiledBatch.prototype.add = add; TiledBatch.prototype.box = box; }
+  };
+  const landmarks = placeLandmarks(core.origin, core.packs.flatMap(p => p.tiles)), ikea = landmarks.find(l => l.id === 'ikea');
+  const crossing = [-12720.799447513811, -3690.6832412523017]; // Derived intersection of shipped road IDs below, not a placement patch.
+  await test('four independently reproduced source pier/approach intersections stay clear without removing their roads', async () => {
+    const cases = [
+      { tile:[-10,-21], road:'3aa90226-25e_0', points:[[-9189.147893429536,-20756.17335994058],[-9195.88367176249,-20765.74061740962]] },
+      { tile:[-13,17], road:'b19a94b6-4a5_0', points:[[-12700.577298421751,17373.794355929112]] },
+      { tile:[-20,-9], road:'d99323ba-b75_0', points:[[-19726.85870127643,-8116.333397178416]] },
+    ];
+    for(const c of cases){const raw=await sourceTile(...c.tile),roads=applyRoadGradePatches(raw.roads,patches),observed=capture(zone(roads,...c.tile),{lowQ:true});
+      assert.ok(unique(observed.built.surfaceGrid).some(s=>s.e?.id===c.road&&s.roadQuad),`${c.road}: original road surface retained`);
+      for(const[x,z]of c.points)assert.ok(observed.bodies.every(p=>Math.hypot(p.x-x,p.z-z)>.2),`${c.road}: actual obstructing cylinder removed`);
+    }
+  });
+  await test('actual IKEA/Mindspace draw calls keep the sourced junction open in raw and prepared tile geometry', async () => {
+    assert.ok(ikea); const z = await sourceTile(-13, -4), results = [];
+    for (const [label, roads] of [['shipped', z.roads], ['prepared', applyRoadGradePatches(z.roads, patches)]]) {
+      assert.equal(new Set(roads.map(e => e.id)).size, roads.length, 'no duplicate context road IDs');
+      const observed = capture({ ...z, roads }, { lowQ: true, metro: core.metro, landmarks });
+      const named = observed.built.structureSupports.filter(s => s.part === 'bridge');
+      assert.equal(observed.bodies.length, named.length, 'every tall bridge cylinder must have audited source metadata');
+      const near = observed.bodies.filter(p => Math.hypot(p.x - crossing[0], p.z - crossing[1]) < 150);
+      const blocked = near.filter(p => Math.hypot(p.x - crossing[0], p.z - crossing[1]) < 18);
+      assert.equal(blocked.length, 0, 'the actual cross-junction driving corridor is open');
+      for (const e of roads.filter(e => e.name === 'Mindspace Junction Flyover')) {
+        const own = named.filter(s => s.source === e.id);
+        for (let i = 0; i < own.length; i++) for (let j = i + 1; j < own.length; j++) assert.ok(Math.hypot(own[i].footprint.x - own[j].footprint.x, own[i].footprint.z - own[j].footprint.z) > 20, `${e.id}: no short-span pier wall`);
+      }
+      safeSupports(observed.built, roads);
+      results.push({ geometry: label, actualBridgeCylinderDraws: observed.bodies.length, bridgeCylindersWithin150m: near.length, bridgeCylindersWithin18mOfCrossing: blocked.length });
+    }
+    console.log('IKEA_RENDER_AUDIT', JSON.stringify({ sourceLandmark: { id: ikea.id, x: ikea.x, z: ikea.z }, tile: '-13_-4', bridgeSourceIds: ['740da8ae-7e2_0','881121ae-ac7_0'], groundSourceId: 'a4395de0-7c4_0', crossing, results, screenshotDenseWallReproducedInCurrentBuilder: false }));
+  });
+
+  if (process.argv.includes('--full-bridge-audit')) await test('all playable bridge tiles have unique actual piers and independent rendered-road clearance', async () => {
+    const wanted = new Set(), available = new Set(core.packs.flatMap(p => p.tiles.map(t => t.join('_')))), elevated = prepared.filter(e => e.elev?.some(y => y > 1.2));
+    for (const e of elevated) for (let i = 1; i < e.pts.length; i++) {
+      if (Math.max(e.elev[i - 1], e.elev[i]) <= 1.2) continue;
+      const a=e.pts[i-1],b=e.pts[i],n=Math.max(1,Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])/250));
+      for(let k=0;k<=n;k++){const key=`${Math.floor((a[0]+(b[0]-a[0])*k/n)/1000)}_${Math.floor((a[1]+(b[1]-a[1])*k/n)/1000)}`;if(available.has(key))wanted.add(key);}
+    }
+    // Tile packs retain additional source roads absent from the navigation
+    // core. Scan every shipped pack so a tile-only bridge cannot evade audit.
+    const patchById=new Map(patches.map(p=>[p.id,p]));let scannedSourceTiles=0;
+    for(const pack of core.packs){
+      const decoded=JSON.parse(gunzipSync(await readFile(join(root,'game/public/city',pack.file)))).tiles;
+      for(const[key,z]of Object.entries(decoded)){
+        scannedSourceTiles++;const raised=z.roads.some(e=>{const p=patchById.get(e.id),pts=p?.pts||e.pts,ys=p?p.elev:e.elev;if(!ys?.some(y=>y>1.2))return false;for(let n=1;n<pts.length;n++){if(Math.max(ys[n-1],ys[n])<=1.2)continue;const x=(pts[n-1][0]+pts[n][0])/2,v=(pts[n-1][1]+pts[n][1])/2;if(Math.floor(x/1000)===z.i&&Math.floor(v/1000)===z.j)return true;}return false;});if(raised)wanted.add(key);
+      }
+    }
+    const actualBodies=[],actualCaps=[],roadGrid=new Map(),seen=new Set(),sourceIds=new Set(),sourceById=new Map(prepared.map(e=>[e.id,e]));let tiles=0,mismatchedCopies=0,renderedRoadSegments=0;const mismatches=[],tileOnlyElevatedIds=new Set();
+    const index = quad => {
+      const xs=quad.map(p=>p[0]),zs=quad.map(p=>p[2]);for(let i=Math.floor(Math.min(...xs)/50);i<=Math.floor(Math.max(...xs)/50);i++)for(let j=Math.floor(Math.min(...zs)/50);j<=Math.floor(Math.max(...zs)/50);j++){const k=`${i},${j}`;(roadGrid.get(k)||roadGrid.set(k,[]).get(k)).push(quad);}
+    };
+    for(const key of [...wanted].sort()){
+      const[i,j]=key.split('_').map(Number),raw=await sourceTile(i,j),roads=applyRoadGradePatches(raw.roads,patches);
+      for(const e of roads.filter(e=>e.elev?.some(y=>y>1.2))){const original=sourceById.get(e.id);if(!original){tileOnlyElevatedIds.add(e.id);continue;}if(JSON.stringify(e.pts)!==JSON.stringify(original.pts)||JSON.stringify(e.elev)!==JSON.stringify(original.elev)){mismatchedCopies++;mismatches.push({tile:key,id:e.id,name:e.name,points:e.pts.length,corePoints:original?.pts.length,elev:e.elev?.slice(0,4),coreElev:original?.elev?.slice(0,4)});}}
+      const result=capture({ ...zone(roads,i,j) },{lowQ:true});
+      assert.equal(result.bodies.length,result.built.structureSupports.filter(s=>s.part==='bridge').length,`${key}: unaccounted cylinder extrusion`);
+      for(const p of result.bodies){const id=`${p.x.toFixed(3)},${p.z.toFixed(3)},${p.top.toFixed(3)}`;assert.ok(!seen.has(id),`${key}: repeated actual support across source or tile boundary ${id}`);seen.add(id);p.source=result.built.structureSupports.find(s=>s.part==='bridge'&&Math.hypot(s.footprint.x-p.x,s.footprint.z-p.z)<.0001)?.source;p.tile=key;actualBodies.push(p);}
+      actualCaps.push(...result.caps);for(const p of result.built.structureSupports.filter(s=>s.part==='bridge'))sourceIds.add(p.source);
+      for(const s of unique(result.built.surfaceGrid)){if(s.kind==='road'&&s.roadQuad){const q=s.roadQuad.map(p=>p.slice());q.roadId=s.e?.id;q.tile=key;index(q);renderedRoadSegments++;}}
+      tiles++;
+    }
+    // Barycentric height on the actual rendered road triangles, independently
+    // of roadStructureClearance's capsule/interval implementation.
+    const height=(q,x,z)=>{for(const [ia,ib,ic]of[[0,1,2],[0,2,3]]){const a=q[ia],b=q[ib],c=q[ic],d=(b[2]-c[2])*(a[0]-c[0])+(c[0]-b[0])*(a[2]-c[2]);if(Math.abs(d)<1e-9)continue;const u=((b[2]-c[2])*(x-c[0])+(c[0]-b[0])*(z-c[2]))/d,v=((c[2]-a[2])*(x-c[0])+(a[0]-c[0])*(z-c[2]))/d,w=1-u-v;if(Math.min(u,v,w)>=-1e-7)return u*a[1]+v*b[1]+w*c[1];}return null;};
+    const inside=(ring,x,z)=>{let v=false;for(let i=0,j=ring.length-1;i<ring.length;j=i++){const a=ring[i],b=ring[j];if(((a[1]>z)!==(b[1]>z))&&(x<(b[0]-a[0])*(z-a[1])/(b[1]-a[1])+a[0]))v=!v;}return v;};
+    const near=(x,z)=>{const out=new Set(),i=Math.floor(x/50),j=Math.floor(z/50);for(let a=i-1;a<=i+1;a++)for(let b=j-1;b<=j+1;b++)for(const q of roadGrid.get(`${a},${b}`)||[])out.add(q);return out;};
+    const conflicts=[];
+    for(const p of actualBodies)for(const q of near(p.x,p.z)){
+      const points=[[p.x,p.z],...Array.from({length:16},(_,i)=>[p.x+p.r*Math.cos(i*Math.PI/8),p.z+p.r*Math.sin(i*Math.PI/8)])];
+      for(let i=0;i<4;i++){const a=q[i],b=q[(i+1)%4],dx=b[0]-a[0],dz=b[2]-a[2],t=Math.max(0,Math.min(1,((p.x-a[0])*dx+(p.z-a[2])*dz)/(dx*dx+dz*dz||1))),x=a[0]+dx*t,z=a[2]+dz*t;if(Math.hypot(x-p.x,z-p.z)<=p.r)points.push([x,z]);}
+      if(points.some(([x,z])=>{const y=height(q,x,z);return y!==null&&p.top>y+.08&&p.bottom<y+4.8;}))conflicts.push({part:'body',p:[p.x,p.z],source:p.source,supportTile:p.tile,roadId:q.roadId,roadTile:q.tile,roadQuad:q});
+    }
+    for(const p of actualCaps)for(const q of near(p.x,p.z)){
+      const points=[...p.ring,...q.filter(v=>inside(p.ring,v[0],v[2])).map(v=>[v[0],v[2]])];
+      for(let i=0;i<4;i++)for(let j=0;j<4;j++){const a=p.ring[i],b=p.ring[(i+1)%4],c=q[j],d=q[(j+1)%4],ax=b[0]-a[0],az=b[1]-a[1],bx=d[0]-c[0],bz=d[2]-c[2],det=ax*bz-az*bx;if(Math.abs(det)<1e-8)continue;const t=((c[0]-a[0])*bz-(c[2]-a[1])*bx)/det,u=((c[0]-a[0])*az-(c[2]-a[1])*ax)/det;if(t>=0&&t<=1&&u>=0&&u<=1)points.push([a[0]+ax*t,a[1]+az*t]);}
+      if(points.some(([x,z])=>{const y=height(q,x,z);return y!==null&&p.top>y+.08&&p.bottom<y+4.8;}))conflicts.push({part:'cap',p:[p.x,p.z]});
+    }
+    console.log('ALL_BRIDGE_RENDER_AUDIT',JSON.stringify({sourceElevatedEdges:elevated.length,scannedSourcePacks:core.packs.length,scannedSourceTiles,playableSourceTiles:tiles,retainedBridgeSourceEdges:sourceIds.size,actualPierBodies:actualBodies.length,actualPierCaps:actualCaps.length,renderedRoadSegments,mismatchedKnownCoreTileCopies:mismatchedCopies,tileOnlyElevatedSourceEdges:tileOnlyElevatedIds.size,actualRoadTriangleConflicts:conflicts.length,firstMismatches:mismatches.slice(0,12),firstConflicts:conflicts.slice(0,8),validation:'offline production draw calls and independently intersected rendered road triangles; not citywide browser driving'}));
+    assert.equal(mismatchedCopies,0);assert.deepEqual(conflicts,[]);
   });
   console.log(`${count} metro/bridge clearance regression groups passed (offline production code and shipped city data).`);
 } finally { await rm(temp, { recursive: true, force: true }); }

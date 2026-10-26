@@ -2,7 +2,7 @@ export type XZ = [number, number];
 export interface RoadEdge { id: string; seg: string; name: string | null; cls: string; w: number; lanes: number; oneway: 'forward' | 'backward' | null; from: string | null; to: string | null; pts: XZ[]; elev: number[] | null; maxspeed: number | null;
   expressway?: { controlled: boolean; ramp: boolean; throughLanes: number; laneWidth?: number; shoulders?: [number, number]; sources: string[]; sourceDate: string; uncertainty: string };
 }
-export interface Building { id: string; name: string | null; cls: string | null; h: number; hs: string; ring: XZ[]; fc: string | null; rc: string | null }
+export interface Building { id: string; name: string | null; cls: string | null; h: number; hs: string; ring: XZ[]; fc: string | null; rc: string | null; sourceId?: string }
 export interface Board { id: string; text: string; full: string; group: string; tier: string; conf: number; a: XZ; b: XZ; t: number; slot: { floor: number; index: number; of: number; overflow?: boolean }; building: string; road: string | null; seen?: number | null; seen_year?: number | null }
 export interface Furniture {
   kind: string; name: string | null; p: XZ; id?: string; synth?: number;

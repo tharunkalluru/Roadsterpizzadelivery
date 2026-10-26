@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-26T21:04:21.828Z",
+  "status": "pass",
+  "scope": "Offline production elevated-road bridge geometry, pier bodies/caps, source tile copies and model road clearance across the playable map.",
+  "execution": {
+    "command": "node tools/metro-clearance-regressions.mjs --full-bridge-audit",
+    "working_directory": "/Users/tharun/Documents/Codex/2026-10-17/referenced-chatgpt-conversation-this-is-an/roadster-current",
+    "started_at": "2026-10-26T21:03:03.891Z",
+    "exit_code": 0,
+    "regression_groups_passed": 14,
+    "base_commit": "722113f1ba050bdcbec67e20b942794aa2b911c5",
+    "log": "docs/playtests/2026-10-26-full-bridge-audit.log",
+    "log_sha256": "f3eb1cd7486a30da5931197297dfe0ba65c93448722786d749dbe6f05ebb1269"
+  },
+  "source_snapshot": {
+    "hash_algorithm": "SHA-256",
+    "unchanged_during_run": true,
+    "files": {
+      "game/src/world/city.ts": "09ef12f1061e93aeda7fb3e6a620b0bac958f131911e0e7995851600a85eb904",
+      "game/src/world/structure-clearance.ts": "ba0f25f7bde12ac8102465d0cec9e8d8f7ed8d4ab27483822178311475a0e511",
+      "game/src/world/metro-geometry.ts": "48b1b3539accf58c8f8de512e8c8e6ae7a92f496bdbdceb1365ef87c83e13861",
+      "game/src/world/road-grades.ts": "aaf1f32cd02f20aa57b0f1f0f92b854b618d2d986fa37b4d8775c1e3a89ef091",
+      "game/src/world/tileworker.ts": "3796782b4231726aea156f57864fff49c31e9fe7190951446b6fd0758573aca9",
+      "game/src/world/world.ts": "b47e872a68655eea8d215f5191f8bdfcde7c355a5014461cc64c1758dc1705ad",
+      "game/src/world/types.ts": "c7222d67136047e88fce5bc902382fa1069e4627b5ffce893871d2286f4f19ee",
+      "game/src/world/building-clearance.ts": "e83f62eec62624fbc71176fcf9dc6515be121e36358581ea63fad01acf3504b0",
+      "game/src/world/expressway.ts": "882a1ffc0dc682f3ef8c6452aa697bc5480a3f3e638f056e809d7335c9eb6025",
+      "game/src/core/util.ts": "e31b629c78c6b8211ce23d6d4a91f6a6940d2bac374e25929dda699c23b1ebc0",
+      "game/public/city/core.pack.wasm": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+      "tools/metro-clearance-regressions.mjs": "1b330abf8100867d54ea38d8c4a2031a3b4e14dd013c18f03acb0404e7a29d15"
+    },
+    "city_pack_files": 304,
+    "city_pack_set_sha256": "96960da26cc4f6179c6c0a59405abf90f0b5e3d1a411f9bbf100159af9f9fd30",
+    "city_pack_set_hash_format": "SHA-256 of sorted repository-relative pack path, TAB, individual file SHA-256, newline for every pack"
+  },
+  "results": {
+    "full_rendered_geometry": {
+      "sourceElevatedEdges": 794,
+      "scannedSourcePacks": 304,
+      "scannedSourceTiles": 2527,
+      "playableSourceTiles": 391,
+      "retainedBridgeSourceEdges": 548,
+      "actualPierBodies": 7928,
+      "actualPierCaps": 7928,
+      "renderedRoadSegments": 881146,
+      "mismatchedKnownCoreTileCopies": 0,
+      "tileOnlyElevatedSourceEdges": 188,
+      "actualRoadTriangleConflicts": 0,
+      "firstMismatches": [],
+      "firstConflicts": [],
+      "validation": "offline production draw calls and independently intersected rendered road triangles; not citywide browser driving"
+    },
+    "core_support_plan": {
+      "sourceRoads": 52412,
+      "bridgeCandidates": 9724,
+      "overlappingBridgeSitesMerged": 70,
+      "uniqueBridgeCandidates": 9654,
+      "bridgeRetained": 7882,
+      "bridgeOmitted": 1772,
+      "sourceMetroPillars": 1258,
+      "metroRetained": 636,
+      "metroOmitted": 622,
+      "modelHeadroomMetres": 4.8,
+      "sourceDataRewritten": false
+    },
+    "ikea_source_reproduction": {
+      "sourceLandmark": {
+        "id": "ikea",
+        "x": -12884.435649374247,
+        "z": -3633.531675249355
+      },
+      "tile": "-13_-4",
+      "bridgeSourceIds": [
+        "740da8ae-7e2_0",
+        "881121ae-ac7_0"
+      ],
+      "groundSourceId": "a4395de0-7c4_0",
+      "crossing": [
+        -12720.799447513811,
+        -3690.6832412523017
+      ],
+      "results": [
+        {
+          "geometry": "shipped",
+          "actualBridgeCylinderDraws": 55,
+          "bridgeCylindersWithin150m": 18,
+          "bridgeCylindersWithin18mOfCrossing": 0
+        },
+        {
+          "geometry": "prepared",
+          "actualBridgeCylinderDraws": 57,
+          "bridgeCylindersWithin150m": 20,
+          "bridgeCylindersWithin18mOfCrossing": 0
+        }
+      ],
+      "screenshotDenseWallReproducedInCurrentBuilder": false
+    },
+    "rtc_source_regression": {
+      "stationId": "st_rtc_cross_roads",
+      "sourcePoint": [
+        21.5,
+        -81
+      ],
+      "sourceLines": [
+        "green"
+      ],
+      "tile": "0_-1",
+      "oldOrdinaryBridgePiersWithin150m": 153,
+      "oldPiersBlockingRoad": 83,
+      "newBridgePiersWithin150m": 6,
+      "nearBridgeSourceIds": [
+        "427107ff-fee_0",
+        "5dbaa15e-212_0"
+      ],
+      "allTileStructurePieces": 65,
+      "stationColumns": 4,
+      "stationStairs": 0,
+      "sourceBuildings": 2482,
+      "retainedSourceBuildingIdentities": 2482,
+      "renderedSourceBuildingFragments": 2799,
+      "roadConflictsAfter": 0,
+      "validation": "offline sourced tile geometry and colliders; not browser driving"
+    },
+    "station_geometry": {
+      "sourceStations": 57,
+      "sourceStationTiles": 52,
+      "retainedStationStructurePieces": 562,
+      "retainedColumns": 293,
+      "retainedStairs": 62,
+      "aboveCanopyNameFaces": 570,
+      "platformNameFaces": 456,
+      "roadConflictsAfter": 0,
+      "validation": "offline source road/building station neighborhoods; not citywide browser verification"
+    }
+  },
+  "independent_checks": {
+    "draw_call_observation": "Production TiledBatch cylinder and cap draw calls intercepted; compared with source support metadata.",
+    "road_clearance": "Captured physical pier/cap footprints intersected with actual rendered road triangles using independent barycentric and polygon calculations; model traffic headroom 4.8 m.",
+    "duplicate_supports": "Actual pier centre/top positions checked across all built tiles at 1 mm precision; duplicate positions fail the command.",
+    "preserved_sources": "Original source roads and city packs retained; split-edge physical supports retain all contributing source IDs.",
+    "duplicate_actual_pier_positions": 0
+  },
+  "limitations": [
+    "This is an offline component/geometry audit, not completed gameplay or citywide browser-driving coverage.",
+    "The scope is road bridge/elevated-road support bodies and caps; separate building, roadside-extra and station audits cover other structure classes.",
+    "The IKEA screenshot dense pillar wall was not reproduced by the current builder in either shipped or prepared geometry. This does not prove which older asset or session produced that screenshot.",
+    "The 4.8 m headroom and road elevation profiles are gameplay model clearances, not surveyed engineering certification.",
+    "188 elevated source edges occur only in tile packs; they were included in the rendered audit and preserved, but this audit does not add them to navigation routing."
+  ]
+}

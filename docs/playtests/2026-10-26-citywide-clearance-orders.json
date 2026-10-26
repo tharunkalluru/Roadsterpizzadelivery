@@ -1,0 +1,96 @@
+{
+  "generatedAt": "2026-10-26T21:06:24.309769+00:00",
+  "baseCommit": "722113f1ba050bdcbec67e20b942794aa2b911c5",
+  "sourceSha256": {
+    "game/src/game/game.ts": "b0daa786d0afe125e8fb4b9b625a249c8aec2d937130e99dc473d07213e27b99",
+    "game/src/ui/hud.ts": "e87990272c41c969354e7bae192b0132792f4cc3e92f706e1340d34c1e75b79d",
+    "game/src/world/city.ts": "09ef12f1061e93aeda7fb3e6a620b0bac958f131911e0e7995851600a85eb904",
+    "game/src/world/extras.ts": "5408dc171ae563a3ff5df57b33faf56421a09807e8640b2d34523fdc9a045531",
+    "game/src/world/structure-clearance.ts": "ba0f25f7bde12ac8102465d0cec9e8d8f7ed8d4ab27483822178311475a0e511",
+    "game/src/world/building-clearance.ts": "e83f62eec62624fbc71176fcf9dc6515be121e36358581ea63fad01acf3504b0"
+  },
+  "scope": "User reports: IKEA/RTC flyover supports, accept-orders availability, buildings intersecting transport structures, roadside blocks.",
+  "changes": {
+    "bridgeSupports": "Deduplicate coincident supports across split source edges; preserve source IDs. Use actual whole-edge widened road footprint for support clearance.",
+    "buildingSolids": "Clip generated building walls, roofs and matching colliders around actual joined car-road surfaces and major elevated metro/station envelopes. Retain raw building records and shopfront evidence. Guard roof additions by their own drawn footprints.",
+    "roadsideFixtures": "Check full 3D footprints of fuel forecourts, kiosks, supports, station entrances, roadside shelters and other solid props. Use a clear opposite side where supported; omit conflicting generated props if neither side is safe.",
+    "orderAvailability": "Accept orders ON/OFF unlocks only after first completed handover. OFF retracts pending requests and prevents new offers while preserving accepted delivery and reward. Saved across reload. ON resumes offers through normal modal/area guards.",
+    "responsiveUi": "44px availability toggle, Stop requests on unlocked offers, compact landscape and portrait spacing, context action anchored beneath measured order card."
+  },
+  "verification": {
+    "fullCheck": {
+      "command": "npm --prefix game run check",
+      "status": "PASS",
+      "passLabelledChecksOrGroups": 362,
+      "typescript": "PASS",
+      "productionBuild": "PASS",
+      "mainAsset": "assets/index-oiTsEjF-.js",
+      "workerAsset": "assets/tileworker-mh77b1eq.js"
+    },
+    "bridgeGeometry": {
+      "report": "2026-10-26-full-bridge-audit.json",
+      "packs": 304,
+      "sourceTiles": 2527,
+      "builtBridgeTiles": 391,
+      "actualPierBodies": 7928,
+      "actualPierCaps": 7928,
+      "roadSegments": 881146,
+      "remainingIntersections": 0,
+      "duplicateSupports": 0
+    },
+    "buildingGeometry": {
+      "report": "2026-10-26-building-render-audit.json",
+      "affectedTiles": 464,
+      "sourceBuildings": 420182,
+      "sourceBoards": 97212,
+      "correctedSources": 7456,
+      "generatedFragments": 41258,
+      "fullyOmittedModels": 3,
+      "actualCarRoadTriangles": 1375966,
+      "majorMetroBoxes": 10169,
+      "remainingRoadOrMetroSolidIntersections": 0,
+      "normalQualityRooftopProbes": {
+        "rooms": 405,
+        "tanks": 1042,
+        "rebar": 549,
+        "overlaps": 0
+      }
+    },
+    "focusedTests": {
+      "buildingGeometryGroups": 9,
+      "roadsideClearanceGroups": 9,
+      "gameAvailabilityAndV2Groups": 33,
+      "hudAndV2Groups": 38
+    },
+    "browser": {
+      "baseUrl": "http://127.0.0.1:4195/",
+      "controlledComponentViews": [
+        "IKEA/Mindspace actual World geometry: open crossing and no continuous pillar wall",
+        "Production HUD after-first-delivery preview: ON/OFF and Stop requests retracting offer while preserving existing task",
+        "Six viewport sizes: 800x360, 900x400, 844x390, 640x360, 390x844, 320x568;44px toggle and no measured control overlaps"
+      ],
+      "realGameInteractions": [
+        "Play",
+        "RTC X Roads area selection",
+        "First offer PZ-0001 Pizza Hut79m to Home in Chikkadpally953m; no unlocked order switch or Stop requests before first handover",
+        "Accept via Enter on visible offer",
+        "Blocking driving tip dismissed via Got it",
+        "Map open and Close map",
+        "Paused and test tab closed"
+      ],
+      "newCompletedPickups": 0,
+      "newCompletedDeliveries": 0,
+      "heldDrivingInputSeconds": 0,
+      "physicalPhoneTested": false,
+      "errors": "One QA-console MutationObserver.observe non-Node error at20:51:05 with no URL/stack. App and fixture source use ResizeObserver, not MutationObserver; attribution unconfirmed. No new errors during later real-game startup/accept/map-close checks."
+    }
+  },
+  "evidenceDirectory": "evidence/2026-10-26-city-clearance",
+  "limits": [
+    "The screenshot continuous IKEA pillar wall was not reproduced in the current V8 baseline or final builder; no claim about its original session/assets. Concrete duplicate and widened-approach defects were independently fixed.",
+    "Offline geometry audits are not a citywide driving pass or real-world street verification.",
+    "Building audit covers conservative elevated-road/metro/station affected tiles. Canopies, columns, moving trains and bespoke landmarks are outside its building-solid oracle; roadside and support tests cover separate cases.",
+    "Conflicting generated building shapes are conservative visual/collision corrections, not architectural surveys. Three fully conflicting generated models are omitted; source records and shopfront evidence remain.",
+    "No physical Nothing Phone test or new end-to-end browser delivery this round. Availability lifecycle is covered by real Game method regression tests."
+  ]
+}

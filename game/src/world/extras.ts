@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { TPL, rng, hash } from '../core/util';
 import type { XZ } from './types';
 import { isORR } from './expressway';
+import type { StructureFootprint } from './structure-clearance';
 
 // OpenStreetMap extras drawn into a tile: petrol bunks, toll plazas, motorway exit signs, skywalks and foot
 // overbridges, pedestrian subways, railway lines and stations, bus terminals, bus-stop names.
@@ -14,6 +15,7 @@ export interface ExtrasCtx {
   nearestRoad: (x: number, z: number, maxD: number, ground?: boolean) => RoadHit | null;
   onRoad: (x: number, z: number, pad?: number) => boolean;
   inBuilding: (x: number, z: number) => boolean;
+  structureClear?: (footprint: StructureFootprint, bottom: number, top: number) => boolean;
   obstacle: (x: number, z: number, r: number, top: number) => void;
   wall: (ax: number, az: number, bx: number, bz: number, top: number) => void;
   solid: (ring: XZ[], h: number) => void;
@@ -28,6 +30,26 @@ const mid = (f: OsmFeature): XZ => {
   if (f.p) return f.p;
   const pts = f.l || (f.r ? f.r[0] : []); let x = 0, z = 0; for (const p of pts) { x += p[0]; z += p[1]; } return [x / pts.length, z / pts.length];
 };
+
+// Decorative structures must clear the whole road ribbon, including junctions
+// and ramps, before either their mesh or their matching collider is emitted.
+// The tile uses exact segment/footprint clipping; the sampled fallback keeps
+// older contexts conservative instead of reverting to a centre-only check.
+export function extrasFootprintClear(C: ExtrasCtx, footprint: StructureFootprint, bottom: number, top: number, buildings = true) {
+  if (C.structureClear && !C.structureClear(footprint, bottom, top)) return false;
+  if (C.structureClear && !buildings) return true;
+  const circle = 'r' in footprint, hw = circle ? footprint.r : footprint.hw, hl = circle ? footprint.r : footprint.hl;
+  const hx = circle ? 0 : footprint.hx, hz = circle ? 1 : footprint.hz;
+  const nu = Math.max(1, Math.ceil(hl * 2)), nv = Math.max(1, Math.ceil(hw * 2));
+  for (let i = 0; i <= nu; i++) for (let j = 0; j <= nv; j++) {
+    const u = -hl + hl * 2 * i / nu, v = -hw + hw * 2 * j / nv;
+    if (circle && u * u + v * v > (hw + .71) ** 2) continue;
+    const x = footprint.x + hx * u + hz * v, z = footprint.z + hz * u - hx * v;
+    if ((!C.structureClear && C.onRoad(x, z, .8)) || (buildings && C.inBuilding(x, z))) return false;
+  }
+  return true;
+}
+const boxFootprint = (x: number, z: number, angle: number, width: number, length: number): StructureFootprint => ({ x, z, hx: Math.sin(angle), hz: Math.cos(angle), hw: width / 2, hl: length / 2 });
 
 // Match pipeline/osm_path_kind.py. Roof cover is independent of vertical level.
 export function osmPathKind(tags: Record<string, string>): 'footbridge' | 'subway' | 'covered_path' | null {
@@ -101,7 +123,7 @@ function coveredPath(f: OsmFeature, C: ExtrasCtx) {
     }
     for (let d = (8 - acc % 8) % 8; d < len - .001; d += 8) for (const side of [-1, 1]) {
       const x = a[0] + hx * d + nx * side * (wd / 2 + .2), z = a[1] + hz * d + nz * side * (wd / 2 + .2);
-      if (!C.inTile(x, z) || C.onRoad(x, z, .15) || C.inBuilding(x, z)) continue;
+      if (!C.inTile(x, z) || !extrasFootprintClear(C, { x, z, r: .11 }, 0, roof + .06)) continue;
       B.st.box(x, roof / 2, z, .12, roof, .12, '#c4ccd2'); C.obstacle(x, z, .11, roof + .06);
     }
     acc += len;
@@ -113,14 +135,20 @@ function fuel(f: OsmFeature, C: ExtrasCtx, placed: XZ[]) {
   const [px, pz] = mid(f); if (!C.inTile(px, pz)) return;
   if (placed.some((q) => Math.hypot(q[0] - px, q[1] - pz) < 45)) return;
   const r = C.nearestRoad(px, pz, 60, true); if (!r) return;
-  placed.push([px, pz]);
   // forecourt sits beside the carriageway on the side of the mapped point, long side along the road
   let side = (px - r.cx) * -r.hz + (pz - r.cz) * r.hx >= 0 ? 1 : -1;      // left of the road direction = (-hz, hx)
   const off = r.w / 2 + 2.5 + 8;                                           // kerb gap, then half the forecourt depth
-  const free = (sd: number) => { const x = r.cx - r.hz * sd * off, z = r.cz + r.hx * sd * off; return !C.onRoad(x, z, 1) && !C.inBuilding(x, z) && !C.inBuilding(x - r.hz * sd * 6, z + r.hx * sd * 6); };
+  const ang = Math.atan2(r.hx, r.hz);
+  const free = (sd: number) => {
+    // Include the entire rear kiosk and near kerb, not merely the forecourt
+    // centre. A side street may cross either end even when that centre is clear.
+    const x = r.cx - r.hz * sd * (off + 1), z = r.cz + r.hx * sd * (off + 1);
+    return extrasFootprintClear(C, boxFootprint(x, z, ang, 18, 25), 0, 7.3);
+  };
   if (!free(side)) { if (free(-side)) side = -side; else return; }
+  placed.push([px, pz]);
   const nx = -r.hz * side, nz = r.hx * side;
-  const cx = r.cx + nx * off, cz = r.cz + nz * off, ang = Math.atan2(r.hx, r.hz);
+  const cx = r.cx + nx * off, cz = r.cz + nz * off;
   const P = (u: number, v: number): XZ => [cx + r.hx * u + nx * v, cz + r.hz * u + nz * v];   // u along the road, v away from it
   const name = nm(f) || (f.t.brand ? `${f.t.brand} Petrol Bunk` : 'Petrol Bunk');
   const B = C.B, rr = rng(hash(f.id));
@@ -187,6 +215,7 @@ function exitSign(f: OsmFeature, C: ExtrasCtx) {
   const rb = C.nearestRoad(ax, az, 12) || r;
   const nx = -rb.hz, nz = rb.hx, x = rb.cx, z = rb.cz, y = rb.y, ang = Math.atan2(rb.hx, rb.hz);
   const B = C.B, span = rb.w + 3;
+  if ([-1, 1].some(s => !extrasFootprintClear(C, { x: x + nx * s * span / 2, z: z + nz * s * span / 2, r: .3 }, y, y + 7.6))) return;
   for (const s of [-1, 1]) { const qx = x + nx * s * span / 2, qz = z + nz * s * span / 2; B.st.box(qx, y + 3.8, qz, 0.35, 7.6, 0.35, '#9aa0a8'); C.obstacle(qx, qz, 0.3, y + 7); }
   B.st.box(x, y + 7.5, z, span, 0.25, 0.25, '#9aa0a8', { ry: ang });
   const ref = f.t.ref ? `EXIT ${f.t.ref}` : 'EXIT', to = f.t.exit_to || f.t.destination || nm(f) || '';
@@ -216,15 +245,17 @@ function footbridge(f: OsmFeature, C: ExtrasCtx) {
     // pillars where they don't stand in the traffic
     for (let d = 8; d < len; d += 16) {
       const x = ax + (bx - ax) * d / len, z = az + (bz - az) * d / len;
-      if (C.onRoad(x, z, 0.8)) continue;
+      if (!extrasFootprintClear(C, { x, z, r: .5 }, 0, y)) continue;
       B.st.add(TPL.cyl, x, y / 2, z, 0.45, y, 0.45, '#bdb8c8'); C.obstacle(x, z, 0.5, y);
     }
     C.pad(ax, az, bx, bz, y + 0.23, wd / 2);
   }
   // stair towers at the free ends (off the carriageway)
   for (const [p, q] of [[L[0], L[1]], [L[L.length - 1], L[L.length - 2]]] as [XZ, XZ][]) {
-    if (!C.inTile(p[0], p[1]) || C.onRoad(p[0], p[1], 0.5)) continue;
+    if (!C.inTile(p[0], p[1])) continue;
     const ang = Math.atan2(p[0] - q[0], p[1] - q[1]);
+    // Include both the stair body and its collision radius.
+    if (!extrasFootprintClear(C, boxFootprint(p[0], p[1], ang, wd + .9, Math.max(3.2, wd + .6)), 0, y)) continue;
     B.st.box(p[0], y / 2, p[1], wd + 0.6, y, 3.2, '#bfb9c6', { ry: ang, ao: true, aoH: 3 });
     for (let k = 0; k < 8; k++) B.st.box(p[0], 0.4 + k * 0.8, p[1], wd + 0.9, 0.12, 0.5, '#9e98a6', { ry: ang + Math.PI / 2 });
     C.obstacle(p[0], p[1], Math.max(1.6, wd / 2 + 0.3), y);
@@ -238,8 +269,9 @@ function footbridge(f: OsmFeature, C: ExtrasCtx) {
 function subway(f: OsmFeature, C: ExtrasCtx) {
   const L = f.l; if (!L || L.length < 2) return;
   for (const [p, q] of [[L[0], L[1]], [L[L.length - 1], L[L.length - 2]]] as [XZ, XZ][]) {
-    if (!C.inTile(p[0], p[1]) || C.onRoad(p[0], p[1], 0.3)) continue;
+    if (!C.inTile(p[0], p[1])) continue;
     const ang = Math.atan2(q[0] - p[0], q[1] - p[1]), B = C.B;
+    if (!extrasFootprintClear(C, boxFootprint(p[0], p[1], ang, 3.8, 5.7), 0, 2.7)) continue;
     for (const s of [-1, 1]) B.st.box(p[0] + Math.cos(ang) * s * 1.6, 0.6, p[1] - Math.sin(ang) * s * 1.6, 0.25, 1.2, 5, '#c7c1cd', { ry: ang });
     B.st.box(p[0], 0.02, p[1], 3, 0.04, 5, '#2b2833', { ry: ang });
     B.st.box(p[0], 2.6, p[1], 3.8, 0.2, 5.6, '#e9eef2', { ry: ang });
@@ -271,7 +303,7 @@ function rail(f: OsmFeature, C: ExtrasCtx) {
       // overhead line masts on electrified main lines
       if (!siding && !C.lowQ) for (let d = (60 - (acc % 60)) % 60; d < len; d += 60) {
         const x = ax + (bx - ax) * d / len + nx * 2.6, z = az + (bz - az) * d / len + nz * 2.6;
-        if (C.onRoad(x, z, 0.5)) continue;
+        if (!extrasFootprintClear(C, { x, z, r: .25 }, y, y + 7)) continue;
         B.st.box(x, y + 3.5, z, 0.22, 7, 0.22, '#7c7f86'); B.st.box(x - nx * 1.4, y + 6.8, z - nz * 1.4, 0.12, 0.12, 3, '#7c7f86', { ry: ang + Math.PI / 2 });
         C.obstacle(x, z, 0.25, y + 7);
       }
@@ -310,7 +342,7 @@ function station(f: OsmFeature, C: ExtrasCtx) {
   const B = C.B, te = f.t['name:te'] || '', hi = f.t['name:hi'] || '';
   const r = C.nearestRoad(px, pz, 80, true);
   const ang = r ? Math.atan2(r.hx, r.hz) : 0, hx = r ? r.hx : 0, hz = r ? r.hz : 1;
-  if (!C.inBuilding(px, pz) && !C.onRoad(px, pz, 2)) {
+  if (extrasFootprintClear(C, boxFootprint(px, pz, ang, 16, 36), 0, 8.6)) {
     B.st.box(px, 4, pz, 14, 8, 34, '#e4d7c3', { ry: ang, ao: true, aoH: 4 });
     B.st.box(px, 8.3, pz, 16, 0.6, 36, '#a8442f', { ry: ang });
     const a = (u: number, v: number): XZ => [px + hx * u - hz * v, pz + hz * u + hx * v];
@@ -318,6 +350,7 @@ function station(f: OsmFeature, C: ExtrasCtx) {
   }
   // big yellow board on two legs by the road, three languages
   const bx = r ? r.cx + (-hz) * (r.w / 2 + 3) : px + 12, bz = r ? r.cz + hx * (r.w / 2 + 3) : pz;
+  if (!extrasFootprintClear(C, boxFootprint(bx, bz, ang, 1.2, 6.2), 0, 4.8)) return;
   for (const s of [-1, 1]) B.st.box(bx + hx * s * 2.6, 1.6, bz + hz * s * 2.6, 0.18, 3.2, 0.18, '#2b2a30');
   B.st.box(bx, 3.6, bz, 0.14, 2.4, 6.2, '#1b1a20', { ry: ang });
   const lines = [te, hi, name.replace(/ (railway )?station$/i, '')].filter(Boolean).slice(-3);
@@ -336,7 +369,7 @@ function busStation(f: OsmFeature, C: ExtrasCtx) {
   const rows = area ? Math.min(8, Math.max(3, Math.round(span / 22))) : 2, len = area ? Math.min(110, Math.max(50, span)) : 40;
   for (let k = 0; k < rows; k++) {
     const v = (k - (rows - 1) / 2) * 13, cx = px - hz * v, cz = pz + hx * v;
-    if (C.onRoad(cx, cz, 1) || C.inBuilding(cx, cz)) continue;
+    if (!extrasFootprintClear(C, boxFootprint(cx, cz, ang, 9.6, len), 0, 5.4)) continue;
     B.st.box(cx, 5.2, cz, 8, 0.35, len, '#e7e3dd', { ry: ang });
     B.st.box(cx, 0.15, cz, 2.2, 0.3, len - 4, '#d9cfbf', { ry: ang });
     for (let u = -len / 2 + 3; u <= len / 2 - 3; u += 8) { const x = cx + hx * u, z = cz + hz * u; B.st.box(x, 2.6, z, 0.3, 5.2, 0.3, '#8f949c'); C.obstacle(x, z, 0.3, 5.2); }
@@ -352,6 +385,7 @@ function busStation(f: OsmFeature, C: ExtrasCtx) {
   }
   const t = upper(name.replace(/^T[GS]S?RTC\s*/i, '').replace(/^,\s*/, '')) || 'BUS STATION';
   const bx = r ? r.cx + (-hz) * (r.w / 2 + 2.5) : px, bz = r ? r.cz + hx * (r.w / 2 + 2.5) : pz;
+  if (!extrasFootprintClear(C, boxFootprint(bx, bz, ang, 1, 7.4), 0, 5.4)) return;
   for (const s of [-1, 1]) B.st.box(bx + hx * s * 3.2, 2.2, bz + hz * s * 3.2, 0.2, 4.4, 0.2, '#2b2a30');
   B.st.box(bx, 4.6, bz, 0.14, 1.6, 7.4, '#b8322b', { ry: ang });
   C.sign(f.id, t.slice(0, 26), '#b8322b', '#ffffff', [bx + hz * 0.09, 4.6, bz - hx * 0.09], [hz, 0, -hx], 7, 1.2);

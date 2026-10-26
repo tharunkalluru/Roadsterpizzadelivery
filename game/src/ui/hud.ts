@@ -352,6 +352,27 @@ const CSS = `
 .tip-heading{display:flex;gap:10px;align-items:center;color:#61ffe8;font-family:var(--display);font-size:17px}.tip-heading .ui-icon{width:26px;height:26px}#hud .tip-overlay #tip-t{font-size:19px;line-height:1.35;font-weight:700;color:var(--cream)}#hud .tip-overlay #tip-x{height:48px;min-height:48px;align-self:stretch;font-family:var(--display);font-size:15px}
 .has-tip .touch,.has-tip .touch *, .has-tip .h-tr,.has-tip .prompt,.has-tip .rescue{pointer-events:none!important}
 .has-tip .touch{opacity:.3}
+.orders-availability{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px;flex-shrink:0}
+.orders-availability[hidden]{display:none}
+#hud .orders-toggle{box-sizing:border-box;min-height:44px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 9px;border:1px solid #7c608e;border-radius:12px;background:linear-gradient(135deg,#382447,#21172f);color:#e9dff2;font:700 12px/1.15 var(--body,system-ui,sans-serif);cursor:pointer;pointer-events:auto;touch-action:manipulation}
+.orders-toggle>span{display:flex;flex-direction:column;gap:2px;min-width:0;text-align:left}.orders-toggle small{font:600 9px/1.15 var(--body,system-ui,sans-serif);color:#c7b4d2}.orders-toggle small[hidden]{display:none}
+.orders-switch{display:flex;align-items:center;gap:5px;flex:none;font:700 10px/1 var(--body,system-ui,sans-serif);color:#baa9c9}.orders-switch:before{content:'';width:8px;height:8px;border-radius:50%;background:#81718f;box-shadow:0 0 0 3px #89769d19}
+.orders-toggle[aria-pressed=true]{border-color:#3d9b93}.orders-toggle[aria-pressed=true] .orders-switch{color:#77ffe5}.orders-toggle[aria-pressed=true] .orders-switch:before{background:#4ce8cc;box-shadow:0 0 8px #35e5c477}
+.orders-toggle:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.has-offer .orders-availability{display:none}
+#hud .offer-actions.has-orders-toggle{flex-wrap:wrap;gap:7px}.offer-actions.has-orders-toggle .offer-slide{flex-basis:100%}
+#hud .offer-actions.has-orders-toggle .btn.alt{flex:1;max-width:none}
+#hud .offer-actions .offer-orders-toggle{flex:1;min-width:0;min-height:44px;border:1px solid #665076;border-radius:12px;background:#271b37;color:#d7cae3;font:700 11px/1.15 var(--body,system-ui,sans-serif);cursor:pointer}
+.offer-orders-toggle:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+@media (max-height:520px) and (min-width:601px){
+  #hud.orders-unlocked #o-sub,#hud.orders-unlocked #order .order-note{display:none}
+}
+@media (max-width:600px) and (max-height:650px) and (orientation:portrait){
+  #hud .orders-toggle>span{font-size:11px;white-space:nowrap}
+  #hud .orders-toggle small{display:none}
+  #hud.orders-unlocked #o-sub{display:none}
+  .is-touch #hud.orders-unlocked.has-context-action .prompt.has-action{top:max(192px,calc(var(--task-bottom,180px) + 12px));bottom:auto;transform:none}
+}
 #hud.has-offer .h-tr #minimap{position:static;margin:0}
 @media (max-height:520px) and (min-width:601px){
   #hud .h-tr{gap:5px}#hud .h-tr #minimap{position:absolute;top:70px;right:calc(var(--go-width) + 12px);width:clamp(96px,28vh,120px);height:clamp(96px,28vh,120px);margin:0}
@@ -389,6 +410,8 @@ export class Hud {
   private releaseAction = () => {};
   private contextAction: ContextAction | null = null;
   cruiseOn = false;
+  private ordersUnlocked = false;
+  private ordersAccepting = true;
   private flightMode: 'ground' | 'air' | 'descending' = 'ground';
   onButton: (id: string) => void = () => {};
   onInputReset: () => void = () => {};
@@ -403,7 +426,7 @@ export class Hud {
     this.root.innerHTML = `
       <div class="h-tl">
         <div class="h-tc"><div class="pill" id="clock">Day 1 · 8:00 AM</div><div class="pill" id="level">Level 1</div></div>
-        <section class="card" id="order" data-stage="idle"><div class="order-id" id="o-id" hidden></div><div class="k" id="o-state">Finding an order…</div><div class="big" id="o-title"></div><div class="sm" id="o-sub"></div>
+        <section class="card" id="order" data-stage="idle"><div class="orders-availability" id="orders-availability" hidden><button type="button" class="orders-toggle" id="orders-toggle" aria-pressed="true" aria-label="Accept orders: on"><span>Accept orders<small id="orders-hint" hidden></small></span><b class="orders-switch" id="orders-status">ON</b></button></div><div class="order-id" id="o-id" hidden></div><div class="k" id="o-state">Finding an order…</div><div class="big" id="o-title"></div><div class="sm" id="o-sub"></div>
           <div class="row"><span class="order-distance" id="o-dist"></span><span class="order-time" id="o-time"></span></div>
           <div class="order-steps" aria-label="Delivery progress"><span class="order-step step-pickup">Pickup</span><i class="order-step-line"></i><span class="order-step step-collect">Collect</span><i class="order-step-line"></i><span class="order-step step-deliver">Deliver</span></div>
           <div class="order-next" id="o-next" hidden></div>
@@ -447,7 +470,7 @@ export class Hud {
       <div class="rotate" id="rotate"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b>Turn your phone sideways</b><span>Pizza to Picture Hall is made for landscape: the controls sit under your thumbs.</span><button type="button" class="btn alt" id="rot-ok">Play like this anyway</button></div></div>
       <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary · Contains data provided by TGSRTC</div>`;
     for (const n of this.root.querySelectorAll('[id]')) this.el[n.id] = n as HTMLElement;
-    this.el['tip-layer'].hidden = true; this.el.tip.hidden = true; this.el.offer.hidden = true; this.el.modal.hidden = true; this.el.prompt.hidden = true;
+    this.el['tip-layer'].hidden = true; this.el.tip.hidden = true; this.el.offer.hidden = true; this.el.modal.hidden = true; this.el.prompt.hidden = true; this.el['orders-availability'].hidden = true;
     this.modalFocus = new DialogFocus(this.el.modal, { restore: () => this.el['b-help'] });
     this.offerFocus = new DialogFocus(this.el.offer, { initial: () => this.el.offer.querySelector('#offer-slide'), restore: () => this.el.minimap, captureKeys: true, key: (event) => {
       if (event.code === 'KeyE' && !event.repeat) { event.preventDefault(); this.acceptPendingOffer?.(); }
@@ -459,6 +482,7 @@ export class Hud {
     const left = this.root.querySelector('.h-tl')!, right = this.root.querySelector('.h-tr')!;
     const layout = () => {
       const root = this.root.getBoundingClientRect(), l = left.getBoundingClientRect(), r = right.getBoundingClientRect();
+      this.root.style.setProperty('--task-bottom', `${Math.max(0, l.bottom - root.top)}px`);
       const offered = this.root.classList.contains('has-offer');
       const bounds = guidanceBounds(root.width, root.height, l.bottom - root.top, r.left - root.left, r.bottom - root.top, touch && !offered);
       if (offered) {
@@ -475,6 +499,11 @@ export class Hud {
     this.el['b-full'].addEventListener('click', () => this.onButton('fullscreen'));
     this.el.rescue.addEventListener('click', () => this.onButton('rescue'));
     this.el['tip-x'].addEventListener('click', () => this.acknowledgeTip());
+    this.el['orders-toggle'].addEventListener('click', () => {
+      if (this.ordersUnlocked && this.controlsAvailable) { this.resetInput(); this.onButton('orders'); }
+    });
+    // Keep native button activation without letting Space reach the flight shortcut.
+    for (const type of ['keydown', 'keyup']) this.el['orders-toggle'].addEventListener(type, event => event.stopPropagation());
     this.el['rot-ok'].addEventListener('click', () => { this.el.rotate.classList.add('ok'); this.rotationBlocked = false; });
     // Each held control owns its pointer, so steering and pedals can be used together.
     const hold = (id: string, f: (v: boolean) => void, enabled = () => true) => {
@@ -579,6 +608,19 @@ export class Hud {
   get steer() { return this.tiltOn ? (Math.abs(this.tilt) < 0.08 ? 0 : this.tilt) : this.touchSteer; }
   get activeAction() { return this.contextAction; }
   private get controlsAvailable() { return !this.root.classList.contains('has-offer') && !this.tipOpen && !this.modalOpen && !this.rotationBlocked; }
+  orderAvailability({ unlocked, accepting, activeOrder = false }: { unlocked: boolean; accepting: boolean; activeOrder?: boolean }) {
+    this.ordersUnlocked = unlocked; this.ordersAccepting = accepting;
+    const button = this.el['orders-toggle'];
+    this.el['orders-availability'].hidden = !unlocked;
+    this.root.classList.toggle('orders-unlocked', unlocked);
+    button.setAttribute('aria-pressed', String(accepting));
+    button.setAttribute('aria-label', `Accept orders: ${accepting ? 'on' : 'off'}.${!accepting && activeOrder ? ' Current delivery continues.' : ''}`);
+    this.set('orders-status', accepting ? 'ON' : 'OFF');
+    const hint = this.el['orders-hint']; hint.hidden = accepting || !activeOrder;
+    this.set('orders-hint', !accepting && activeOrder ? 'After this delivery' : '');
+    const offerToggle = this.el.offer.querySelector<HTMLButtonElement>('#offer-orders-toggle');
+    if (offerToggle) { offerToggle.hidden = !unlocked; offerToggle.textContent = accepting ? 'Stop requests' : 'Accept orders'; }
+  }
   setCruise(on: boolean) {
     this.cruiseOn = on;
     const button = this.el['t-cruise']; if (!button) return;
@@ -641,9 +683,9 @@ export class Hud {
     else this.offerFocus.hide();
     const o = this.el.offer; o.hidden = !html; this.root.classList.toggle('has-offer', !!html); this.updateLayout(); if (!html) return;
     const primary = buttons.findIndex((button) => button.cls.split(/\s+/).includes('go'));
-    o.innerHTML = `<div class="offer-content">${html}</div><div class="offer-actions">${buttons.map((b, i) => i === primary
+    o.innerHTML = `<div class="offer-content">${html}</div><div class="offer-actions${this.ordersUnlocked ? ' has-orders-toggle' : ''}">${buttons.map((b, i) => i === primary
       ? `<button type="button" class="offer-slide" id="offer-slide" aria-label="Accept delivery" aria-describedby="swipe-help"><span class="swipe-thumb">${controlIcon('right')}</span><span class="swipe-chevrons">${controlIcon('right')}${controlIcon('right')}</span><span class="swipe-label">SLIDE TO ACCEPT</span></button><span id="swipe-help" class="swipe-instructions">Swipe right to accept. Keyboard: press Enter, Space or E.</span>`
-      : `<button type="button" class="btn ${b.cls}" id="offer-action-${i}">${b.label}</button>`).join('')}</div>`;
+      : `<button type="button" class="btn ${b.cls}" id="offer-action-${i}">${b.label}</button>`).join('')}${this.ordersUnlocked ? `<button type="button" class="offer-orders-toggle" id="offer-orders-toggle">${this.ordersAccepting ? 'Stop requests' : 'Accept orders'}</button>` : ''}</div>`;
     let decided = false;
     const available = () => !o.hidden && !decided && !this.modalOpen && !this.tipOpen && !this.rotationBlocked;
     const decide = (index: number) => { if (available()) { decided = true; this.cancelOfferSwipe(); buttons[index].fn(); } };
@@ -656,6 +698,9 @@ export class Hud {
       const decline = () => decide(i);
       this.declinePendingOffer ??= decline;
       o.querySelector(`#offer-action-${i}`)!.addEventListener('click', decline);
+    });
+    o.querySelector('#offer-orders-toggle')?.addEventListener('click', () => {
+      if (available() && this.ordersUnlocked) { decided = true; this.cancelOfferSwipe(); this.resetInput(); this.onButton('orders'); }
     });
     if (!this.modalOpen) this.offerFocus.show();
   }

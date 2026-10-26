@@ -64,6 +64,7 @@ export class Game {
   orbitYaw = 0; orbitPitch = 0.38; orbitDist = 0; dragging = false; halted = false;
   keys = new Set<string>(); flyQueued = false; actHeld = false; actTap = 0;
   coins = 500; level = 0; doneInLevel = 0; streak = 1; totalDelivered = 0;
+  acceptingOrders = true;
   day = 1; minutes = 8 * 60; paused = false;
   order: Order | null = null; actProgress = 0;
   private offerSequence = 0;
@@ -283,7 +284,7 @@ export class Game {
 
   // ---------- persistence ----------
   save() {
-    try { localStorage.setItem(SAVE_KEY, JSON.stringify({ coins: this.coins, level: this.level, doneInLevel: this.doneInLevel, day: this.day, minutes: this.minutes, lease: this.lease, total: this.totalDelivered })); } catch { /* storage unavailable */ }
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify({ coins: this.coins, level: this.level, doneInLevel: this.doneInLevel, day: this.day, minutes: this.minutes, lease: this.lease, total: this.totalDelivered, acceptingOrders: this.orderOffersEnabled })); } catch { /* storage unavailable */ }
   }
   load() {
     try {
@@ -296,12 +297,30 @@ export class Game {
       this.day = num(s.day, 1, 1, Number.MAX_SAFE_INTEGER);
       this.minutes = num(s.minutes, 480, 0, 1439.999999, false);
       this.totalDelivered = num(s.total, 0, 0, Number.MAX_SAFE_INTEGER);
+      this.acceptingOrders = this.totalDelivered < 1 || s.acceptingOrders !== false;
       this.lease = validSavedLease(s.lease, this.theatres.map((t) => t.def.key)) ? s.lease : null;
       if (this.lease?.days.length === 7) this.lease.done = true;
     } catch { /* corrupt or blocked storage: start fresh */ }
   }
 
   // ---------- orders ----------
+  get ordersUnlocked() { return this.totalDelivered >= 1; }
+  private get orderOffersEnabled() { return !this.ordersUnlocked || this.acceptingOrders; }
+  private updateOrderAvailability() {
+    this.hud?.orderAvailability({ unlocked: this.ordersUnlocked, accepting: this.orderOffersEnabled, activeOrder: !!this.order && this.order.state !== 'offer' });
+  }
+  setAcceptingOrders(accepting: boolean) {
+    if (!this.ordersUnlocked || typeof accepting !== 'boolean' || accepting === this.acceptingOrders) return;
+    this.acceptingOrders = accepting;
+    if (!accepting) {
+      this.nextOfferAt = null;
+      if (this.order?.state === 'offer') {
+        this.order = null; this.hud.offer(null); this.resetInput();
+        this.engine.renderer.domElement.focus({ preventScroll: true });
+      }
+    } else if (!this.order) this.queueOffer(0);
+    this.save(); this.updateHud();
+  }
   makeOffer(): Order | null {
     const L = LEVELS[Math.min(this.level, LEVELS.length - 1)];
     const px = this.player.pos.x, pz = this.player.pos.z;
@@ -324,20 +343,22 @@ export class Game {
     return { id, pickup, drop, pickupName: pick.name, dist, limit: dist / 7 + 45, t: 0, state: 'offer', heat: 100, slices: 8 };
   }
   queueOffer(delayMs: number, now = performance.now()) {
+    if (!this.orderOffersEnabled) { this.nextOfferAt = null; return; }
     this.nextOfferAt = now + delayMs;
   }
   tickOfferQueue(now = performance.now()) {
+    if (!this.orderOffersEnabled) { this.nextOfferAt = null; return; }
     if (this.nextOfferAt == null) return;
     if (this.order) { this.nextOfferAt = null; return; }
     // Keep a due offer pending while any overlay owns input. Resume/map close
     // will service it on the next frame rather than discard a one-shot timer.
-    if (now < this.nextOfferAt || this.paused || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating) return;
+    if (now < this.nextOfferAt || document.hidden || this.paused || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating) return;
     this.showOffer();
     if (!this.order) this.nextOfferAt = now + 1000; // bounded retry if no valid route could be generated
   }
   showOffer() {
     // A delayed offer callback must not replace an accepted delivery or appear over area selection.
-    if (this.paused || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating || (this.order && this.order.state !== 'offer')) return;
+    if (!this.orderOffersEnabled || document.hidden || this.paused || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating || (this.order && this.order.state !== 'offer')) return;
     // Reopening a cancelled area picker restores the same offer, including its route and pay.
     let o: Order | null = this.order;
     const restored = !!o;
@@ -355,7 +376,7 @@ export class Game {
       [{ label: document.documentElement.classList.contains('is-touch') ? 'Accept order' : 'Accept order (E)', cls: 'go', fn: () => this.acceptOffer() }, { label: 'Decline', cls: 'alt', fn: () => { this.order = null; this.hud.offer(null); this.showOffer(); } }]);
   }
   acceptOffer() {
-    if (!this.order || this.order.state !== 'offer') return;
+    if (!this.orderOffersEnabled || !this.order || this.order.state !== 'offer') return;
     this.resetInput();
     this.order.state = 'toPickup'; this.hud.offer(null); this.setTarget(this.order.pickup, '#FFB627');
     this.engine.renderer.domElement.focus({ preventScroll: true });
@@ -393,6 +414,7 @@ export class Game {
     this.player.chargeCap = 20 + this.level * 2.5;
     this.order = null; this.setTarget(null); this.save();
     this.hud.setCruise?.(false);
+    this.updateOrderAvailability();
     this.queueOffer(2500);
   }
 
@@ -531,6 +553,7 @@ export class Game {
     const touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
     this.hud = new Hud(touch);
     this.hud.onInputReset = () => this.resetInput();
+    this.updateOrderAvailability();
     this.settings = loadSettings();
     this.sound.setMuted(!this.settings.sound);
     if (touch && this.settings.steer === 'tilt') void this.applySteering(false, false);
@@ -551,6 +574,10 @@ export class Game {
       else if (id === 'fullscreen') { if (isFullscreen()) exitFullscreen(); else goFullscreen(); }
       else if (id === 'fly') this.queueFlight();
       else if (id === 'cruise') this.toggleCruise();
+      else if (id === 'orders') {
+        this.setAcceptingOrders(!this.acceptingOrders);
+        this.engine.renderer.domElement.focus({ preventScroll: true });
+      }
     };
     addEventListener('keydown', (e) => this.handleKeyDown(e));
     // full map from the minimap
@@ -753,6 +780,7 @@ export class Game {
     this.paused = true;
     this.hud.modal(`<h2>Paused</h2><div class="sm">Deliver pizzas around your area to earn coins; move anywhere in Hyderabad after a delivery (map → Deliver from here, or Change area below). Lease a theatre (T), pick a fictional film and watch the collections come in each night. Flight is unlimited: press Space / FLY to lift off, then press it again to land.</div>
       <div class="sm">Road speed is capped at 100 km/h and flight at 160 km/h. CRUISE holds your current speed. Hold GO to accelerate, then release it to cruise at the new speed. BRAKE cancels cruise.</div>
+      <div class="sm">After your first delivery, switch Accept orders off to explore without new requests. Any accepted delivery still finishes normally.</div>
       <div class="sm">Map and building data: © OpenStreetMap contributors (ODbL) via Overture Maps; business listings from Overture Maps Places (CDLA-Permissive 2.0) and Foursquare OS Places (Apache 2.0); building heights from Google Open Buildings / the Roadster repository. Shop names are shown as text only and remain the property of their owners.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn go" id="resume">Resume</button><button type="button" class="btn alt" id="area">Change area</button><button type="button" class="btn alt" id="unstick">Back to the road</button><button type="button" class="btn alt" id="settings">Settings</button><button type="button" class="btn alt" id="tut">Replay tips</button><button type="button" class="btn alt" id="reset">Reset progress</button></div>`, (sh) => {
       sh.querySelector('#resume')!.addEventListener('click', () => this.resume());
@@ -1117,6 +1145,7 @@ export class Game {
   areaNow = ''; areaCand = ''; areaCandT = 0;
   updateHud() {
     const h = this.hud, o = this.order, P = this.player.pos;
+    this.updateOrderAvailability();
     { const a = this.areaName(P.x, P.z) || ''; if (a !== this.areaCand) { this.areaCand = a; this.areaCandT = this.t; } else if (a && a !== this.areaNow && this.t - this.areaCandT > 1.5) { if (this.areaNow) h.areaChip(a); this.areaNow = a; } }
     h.set('coins', this.coins.toLocaleString('en-IN'));
     h.set('clock', `Day ${this.day} · ${fmtTime(this.minutes)}`);
@@ -1131,7 +1160,7 @@ export class Game {
     const sub = (s: Stop) => [s.sub, navigation(s).note].filter(Boolean).join(' · ');
     if (!o || o.state === 'offer') {
       const t = this.routeTarget;
-      h.order({ state: t ? 'GPS' : o ? 'New request' : 'Available for orders', title: t ? t.label : o ? 'Review delivery details' : 'Waiting for a delivery', sub: t ? sub(t) : (document.documentElement.classList.contains('is-touch') ? 'Tap Theatres to lease a picture hall' : 'Press T to see theatres'), dist: t ? distanceLabel(t) : '', time: '', meters: false, stage: 'idle' });
+      h.order({ state: t ? 'GPS' : o ? 'New request' : this.orderOffersEnabled ? 'Available for orders' : 'Free roam', title: t ? t.label : o ? 'Review delivery details' : this.orderOffersEnabled ? 'Waiting for a delivery' : 'Explore Hyderabad', sub: t ? sub(t) : (document.documentElement.classList.contains('is-touch') ? 'Tap Theatres to lease a picture hall' : 'Press T to see theatres'), dist: t ? distanceLabel(t) : '', time: '', meters: false, stage: 'idle' });
     } else if (o.state === 'toPickup') {
       h.order({ state: 'Head to pickup', title: o.pickup.label, sub: sub(o.pickup) || 'Follow the orange route.', dist: distanceLabel(o.pickup), time: '', meters: false,
         stage: h.activeAction === 'collect' ? 'collect' : 'pickup', next: o.drop.label, orderId: o.id });

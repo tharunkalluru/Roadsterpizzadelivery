@@ -1,0 +1,20 @@
+PASS ordinary densified flyovers retain 24 m pier spacing instead of a pier at each 2 m vertex
+PASS split source edges share one equal-height physical pier independent of context order
+PASS clearance checks body width, intermediate road heights, sloping intervals and safe overhead caps
+PASS acceleration and merge lane envelopes also exclude a support beyond the main ORR shoulder
+PASS a widened bridge edge retains its real approach width when the local span reaches ground
+PASS a stair endpoint being clear cannot permit its full run to cut through a road
+PASS station concourses and source metro columns clear a road between ground and platforms
+PASS track names are readable above the canopy in both directions and on both platform faces
+RTC_CLEARANCE_AUDIT {"stationId":"st_rtc_cross_roads","sourcePoint":[21.5,-81],"sourceLines":["green"],"tile":"0_-1","oldOrdinaryBridgePiersWithin150m":153,"oldPiersBlockingRoad":83,"newBridgePiersWithin150m":6,"nearBridgeSourceIds":["427107ff-fee_0","5dbaa15e-212_0"],"allTileStructurePieces":65,"stationColumns":4,"stationStairs":0,"sourceBuildings":2482,"retainedSourceBuildingIdentities":2482,"renderedSourceBuildingFragments":2799,"roadConflictsAfter":0,"validation":"offline sourced tile geometry and colliders; not browser driving"}
+PASS actual RTC Cross Roads source tile has sparse safe supports and unchanged station identity/platforms
+CITY_STRUCTURE_AUDIT {"sourceRoads":52412,"bridgeCandidates":9724,"overlappingBridgeSitesMerged":70,"uniqueBridgeCandidates":9654,"bridgeRetained":7882,"bridgeOmitted":1772,"sourceMetroPillars":1258,"metroRetained":636,"metroOmitted":622,"modelHeadroomMetres":4.8,"sourceDataRewritten":false}
+PASS all shipped metro pillar sites and elevated bridge candidates use full 3D road clearance
+STATION_STRUCTURE_AUDIT {"sourceStations":57,"sourceStationTiles":52,"retainedStationStructurePieces":562,"retainedColumns":293,"retainedStairs":62,"aboveCanopyNameFaces":570,"platformNameFaces":456,"roadConflictsAfter":0,"validation":"offline source road/building station neighborhoods; not citywide browser verification"}
+PASS all sourced stations keep rideable platforms and bidirectional above-canopy names with safe modeled supports
+PASS four independently reproduced source pier/approach intersections stay clear without removing their roads
+IKEA_RENDER_AUDIT {"sourceLandmark":{"id":"ikea","x":-12884.435649374247,"z":-3633.531675249355},"tile":"-13_-4","bridgeSourceIds":["740da8ae-7e2_0","881121ae-ac7_0"],"groundSourceId":"a4395de0-7c4_0","crossing":[-12720.799447513811,-3690.6832412523017],"results":[{"geometry":"shipped","actualBridgeCylinderDraws":55,"bridgeCylindersWithin150m":18,"bridgeCylindersWithin18mOfCrossing":0},{"geometry":"prepared","actualBridgeCylinderDraws":57,"bridgeCylindersWithin150m":20,"bridgeCylindersWithin18mOfCrossing":0}],"screenshotDenseWallReproducedInCurrentBuilder":false}
+PASS actual IKEA/Mindspace draw calls keep the sourced junction open in raw and prepared tile geometry
+ALL_BRIDGE_RENDER_AUDIT {"sourceElevatedEdges":794,"scannedSourcePacks":304,"scannedSourceTiles":2527,"playableSourceTiles":391,"retainedBridgeSourceEdges":548,"actualPierBodies":7928,"actualPierCaps":7928,"renderedRoadSegments":881146,"mismatchedKnownCoreTileCopies":0,"tileOnlyElevatedSourceEdges":188,"actualRoadTriangleConflicts":0,"firstMismatches":[],"firstConflicts":[],"validation":"offline production draw calls and independently intersected rendered road triangles; not citywide browser driving"}
+PASS all playable bridge tiles have unique actual piers and independent rendered-road clearance
+14 metro/bridge clearance regression groups passed (offline production code and shipped city data).

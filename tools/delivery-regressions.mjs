@@ -15,15 +15,15 @@ const test = async (label, fn) => { await fn(); checks++; console.log(`PASS ${la
 try {
   await build({ stdin: { contents: "export { Game } from './game/src/game/game'; export { RoadGraph } from './game/src/game/roadgraph'; export { eligiblePickup } from './game/src/game/pickups';", resolveDir: root, loader: 'ts' }, outfile: join(out, 'delivery.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
   const { Game, RoadGraph, eligiblePickup } = await import(pathToFileURL(join(out, 'delivery.mjs')));
-  globalThis.document = { documentElement: { classList: { contains: () => false } } };
+  globalThis.document = { hidden: false, documentElement: { classList: { contains: () => false } } };
   const makeOrder = () => ({ state: 'offer', pickup: { x: 100, z: 0, y: 0, label: 'Kitchen', sub: 'Test road' }, drop: { x: 600, z: 0, y: 0, label: 'Customer' }, dist: 500, limit: 120, heat: 80, slices: 8 });
   const fixture = () => {
     let generated = 0, shown = 0;
     const g = Object.assign(Object.create(Game.prototype), {
       order: null, nextOfferAt: null, paused: false, choosing: false, relocating: false, keys: new Set(),
-      sound: { cue() {}, vehicle() {} }, map: { open: false }, level: 0, doneInLevel: 0, streak: 1, coins: 500, totalDelivered: 0,
+      sound: { cue() {}, vehicle() {} }, map: { open: false }, level: 0, doneInLevel: 0, streak: 1, coins: 500, totalDelivered: 0, acceptingOrders: true,
       player: { pos: { x: 0, y: .57, z: 0 }, forward: { x: 1, z: 0 }, flying: false }, graph: { route: () => ({ len: 100 }) },
-      hud: { modalOpen: false, resetControls() {}, setCruise() {}, offer(html) { if (html) shown++; }, toast() {} },
+      hud: { modalOpen: false, tipOpen: false, rotationBlocked: false, resetControls() {}, setCruise() {}, orderAvailability() {}, offer(html) { if (html) shown++; }, toast() {} },
       makeOffer() { generated++; return makeOrder(); }, setTarget() {}, save() {},
     });
     return { g, generated: () => generated, shown: () => shown };

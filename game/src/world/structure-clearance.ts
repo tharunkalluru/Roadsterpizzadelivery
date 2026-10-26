@@ -12,6 +12,7 @@ export interface StructureSupport {
   source: string; part: 'bridge' | 'metro_pillar' | 'station_column' | 'station_stairs' | 'station_concourse';
   footprint: StructureFootprint; bottom: number; top: number;
   cap?: { footprint: StructureFootprint; bottom: number; top: number };
+  sourceIds?: string[];
 }
 interface Span { id: string; ax: number; az: number; dx: number; dz: number; ya: number; yb: number; hw: number }
 const CELL = 50, MARGIN = .45;
@@ -51,12 +52,16 @@ export function roadStructureClearance(roads: RoadEdge[]) {
   for (const e of roads) {
     if (/^(footway|path|steps|pedestrian|cycleway|bridleway)$/.test(e.cls)) continue;
     const extra = auxiliaryLane(e, roads);
+    // city.ts widens the entire bridge edge, including its ground-level ends.
+    // The minimum cannot depend on only this span's height: a support can hit
+    // a widened approach while remaining outside the narrower source width.
+    const width = Math.max(e.w / 2, e.elev?.some(y => y > 1.2) ? 4.2 : 0);
     for (let i = 1; i < e.pts.length; i++) {
       const a = e.pts[i - 1], b = e.pts[i], ya = e.elev?.[i - 1] || 0, yb = e.elev?.[i] || 0;
       const s: Span = { id: e.id, ax: a[0], az: a[1], dx: b[0] - a[0], dz: b[1] - a[1], ya, yb,
         // An ORR merge/acceleration lane widens only one side in the renderer;
         // expanding both sides here conservatively contains that entire ribbon.
-        hw: Math.max(e.w / 2, Math.max(ya, yb) > 1.2 ? 4.2 : 0) + Math.max(extra[i - 1], extra[i]) + MARGIN };
+        hw: width + Math.max(extra[i - 1], extra[i]) + MARGIN };
       for (let x = Math.floor((Math.min(a[0], b[0]) - s.hw) / CELL); x <= Math.floor((Math.max(a[0], b[0]) + s.hw) / CELL); x++) {
         for (let z = Math.floor((Math.min(a[1], b[1]) - s.hw) / CELL); z <= Math.floor((Math.max(a[1], b[1]) + s.hw) / CELL); z++) {
           const k = `${x},${z}`; (grid.get(k) || grid.set(k, []).get(k)!).push(s);
@@ -97,4 +102,29 @@ export function bridgeSupportSites(e: RoadEdge, spacing = 24) {
     acc += length;
   }
   return sites;
+}
+
+export type BridgeSupportSite = ReturnType<typeof bridgeSupportSites>[number] & { sources: string[] };
+const supportPlans = new WeakMap<RoadEdge[], Map<RoadEdge, BridgeSupportSite[]>>();
+// Source edges often split a continuous deck at a junction. Their first sites
+// can coincide even with correct per-edge spacing. Select one deterministic
+// physical support for overlapping same-height sites; retain every source ID.
+// Tile context contains incident edges, so a neighbouring tile makes the same
+// selection regardless of source order or which edge it owns.
+export function bridgeSupportPlan(roads: RoadEdge[]) {
+  const cached = supportPlans.get(roads); if (cached) return cached;
+  const plan = new Map<RoadEdge, BridgeSupportSite[]>(), grid = new Map<string, BridgeSupportSite[]>(), cell = 2;
+  for (const e of [...roads].sort((a, b) => a.id.localeCompare(b.id))) {
+    const kept: BridgeSupportSite[] = []; plan.set(e, kept);
+    for (const site of bridgeSupportSites(e)) {
+      const i = Math.floor(site.x / cell), j = Math.floor(site.z / cell); let existing: BridgeSupportSite | undefined;
+      for (let x = i - 1; x <= i + 1 && !existing; x++) for (let z = j - 1; z <= j + 1 && !existing; z++) {
+        existing = (grid.get(`${x},${z}`) || []).find(p => Math.abs(p.h - site.h) < .15 && Math.hypot(p.x - site.x, p.z - site.z) < 1.7);
+      }
+      if (existing) { if (!existing.sources.includes(e.id)) existing.sources.push(e.id); continue; }
+      const p: BridgeSupportSite = { ...site, sources: [e.id] }; kept.push(p);
+      const k = `${i},${j}`; (grid.get(k) || grid.set(k, []).get(k)!).push(p);
+    }
+  }
+  supportPlans.set(roads, plan); return plan;
 }

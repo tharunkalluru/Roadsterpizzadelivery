@@ -338,6 +338,45 @@ try {
     hud.order({ state: 'Deliver', title: 'Home', sub: '', dist: '670 m', time: '141 s', meters: false, stage: 'delivery' });
     assert.equal(el.order.dataset.stage, 'delivery'); assert.equal(el['o-note'].hidden, true); assert.equal(el['o-next'].hidden, true);
   });
+  await test('order availability stays locked before the first completion and exposes accessible on/off state after it', () => {
+    const events = []; hud.onButton = id => events.push(id);
+    hud.orderAvailability({ unlocked: false, accepting: true });
+    assert.equal(el['orders-availability'].hidden, true);
+    el['orders-toggle'].emit('click'); assert.deepEqual(events, []);
+    hud.orderAvailability({ unlocked: true, accepting: true });
+    assert.equal(el['orders-availability'].hidden, false); assert.equal(el['orders-status'].textContent, 'ON');
+    assert.equal(el['orders-toggle'].getAttribute('aria-pressed'), 'true');
+    down('t-gas', 74); assert.equal(hud.touchGas, true);
+    el['orders-toggle'].emit('click'); assert.deepEqual(events, ['orders']); assert.equal(hud.touchGas, false);
+    hud.orderAvailability({ unlocked: true, accepting: false, activeOrder: true });
+    assert.equal(el['orders-status'].textContent, 'OFF'); assert.equal(el['orders-toggle'].getAttribute('aria-pressed'), 'false');
+    assert.match(el['orders-toggle'].getAttribute('aria-label'), /Current delivery continues/);
+    assert.equal(el['orders-hint'].hidden, false); assert.equal(el['orders-hint'].textContent, 'After this delivery');
+    assert.equal(el.order.dataset.stage, 'delivery', 'availability never replaces accepted work');
+    hud.orderAvailability({ unlocked: true, accepting: false }); assert.equal(el['orders-hint'].hidden, true);
+    assert.equal(el['orders-toggle'].emit('keydown', { code: 'Space', key: ' ' }).stopped, true);
+    hud.orderAvailability({ unlocked: false, accepting: true });
+  });
+  await test('an unlocked pending request can turn off offers from inside its focus-trapped panel', () => {
+    const events = []; hud.onButton = id => { events.push(id); hud.offer(null); };
+    const buttons = [{ label: 'Accept', cls: 'go', fn: () => events.push('accept') }, { label: 'Decline', cls: 'alt', fn: () => events.push('decline') }];
+    hud.orderAvailability({ unlocked: false, accepting: true }); hud.offer('<p>Delivery</p>', buttons);
+    assert.equal(el.offer.querySelector('#offer-orders-toggle'), null);
+    hud.offer(null); hud.orderAvailability({ unlocked: true, accepting: true }); hud.offer('<p>Delivery</p>', buttons);
+    assert.ok(el.offer.querySelector('#offer-orders-toggle'));
+    el['orders-toggle'].emit('click'); assert.deepEqual(events, [], 'isolated offer cannot use controls behind it');
+    el.offer.querySelector('#offer-orders-toggle').emit('click');
+    assert.deepEqual(events, ['orders']); assert.equal(el.offer.hidden, true);
+    hud.orderAvailability({ unlocked: false, accepting: true });
+  });
+  await test('availability cannot toggle behind acknowledged tips, pause or rotation warning', () => {
+    const events = []; hud.onButton = id => events.push(id);
+    hud.orderAvailability({ unlocked: true, accepting: true });
+    hud.tipAcknowledgement('Wait for acknowledgment'); el['orders-toggle'].emit('click'); assert.deepEqual(events, []); hud.tipAcknowledgement(null);
+    hud.modal('<h2>Paused</h2>'); el['orders-toggle'].emit('click'); assert.deepEqual(events, []); hud.modal(null);
+    hud.rotationBlocked = true; el['orders-toggle'].emit('click'); assert.deepEqual(events, []); hud.rotationBlocked = false;
+    hud.orderAvailability({ unlocked: false, accepting: true });
+  });
   const swipeFixture = () => {
     const button = new Element('swipe'); let accepted = 0, available = true;
     button.getBoundingClientRect = () => ({ left: 20, top: 0, width: 300, height: 48 });

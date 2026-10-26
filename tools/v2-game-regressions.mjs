@@ -47,6 +47,7 @@ function makeHud() {
     modal(html, bind) { if (html) this.tip(null); this.modalOpen = !!html; this.modals.push(html); this.sheet = html ? sheetFrom(html) : null; if (bind) bind(this.sheet); },
     toast(...args) { this.toasts.push(args); }, offer(html, buttons = []) { this.offerValue = html; this.offerButtons = buttons; },
     set(id, value) { this.values.set(id, value); }, order(value) { this.orderValue = value; },
+    orderAvailability(value) { this.orderAvailabilityValue = value; },
     setCruise(on) { this.cruiseOn = on; }, flightState(flying, descending) { this.flightStates.push({ flying, descending }); },
     prompt(text, progress = 0, action = null) { if (action !== this.activeAction) this.touchAct = false; this.activeAction = action; this.promptValue = { text, progress, action }; },
     tip(text) { this.tipOpen = !!text; this.tipValue = text; }, rescue() {},
@@ -102,7 +103,7 @@ try {
     const canvas = new Control('scene'), beacon = new Group(); beacon.visible = false; beacon.col = { material: new MeshBasicMaterial() }; beacon.ring = { material: new MeshBasicMaterial(), scale: { setScalar() {} } };
     const g = Object.assign(Object.create(Game.prototype), {
       keys: new Set(), flyQueued: false, actHeld: false, actTap: 0, actProgress: 0, dragging: false, rotationWasBlocked: false, offerSequence: 0, cruiseSetSpeed: null, cruiseManualOverride: false, tipWasOpen: false, acknowledgedTips: new Set(),
-      coins: 500, level: 0, doneInLevel: 0, day: 1, minutes: 480, totalDelivered: 0, streak: 1,
+      coins: 500, level: 0, doneInLevel: 0, day: 1, minutes: 480, totalDelivered: 0, streak: 1, acceptingOrders: true,
       order: null, nextOfferAt: null, cinemaReport: null, paused: false, choosing: false, relocating: false,
       area: { name: 'Test area', x: 0, z: 0 }, map: { open: false, ticks: 0, tick() { this.ticks++; }, show() { this.open = true; }, handleKey() {} },
       route: null, routeTarget: null, routeT: 0, routeGuide: [], routeGuidanceBlocked: false,
@@ -123,6 +124,14 @@ try {
     return { g, environment, hud, sound, counts, canvas };
   };
   const key = (code, repeat = false, value = code) => ({ code, key: value, repeat, prevented: false, preventDefault() { this.prevented = true; }, stopPropagation() {} });
+  const requestFixture = () => {
+    const f = fixture(); f.requests = { generated: 0 };
+    f.g.makeOffer = () => { f.requests.generated++; return order('offer'); };
+    f.g.graph = { route: () => ({ len: 250, complete: true, pts: [[0, 0, 0], [100, 0, 0]] }) };
+    f.g.areaName = () => ''; f.g.drawMinimap = () => {};
+    f.g.updateHud = Game.prototype.updateHud.bind(f.g);
+    return f;
+  };
 
   await test('valid saves round-trip zero values, final-level progress, negative balances and fractional time', () => {
     const { g, environment } = fixture();
@@ -153,6 +162,111 @@ try {
       l => l.days = [{ ...report(1), occupancy: 2 }], l => l.days = Array.from({ length: 8 }, (_, i) => report(i + 1))];
     for (const mutate of mutations) { const { g } = fixture(), candidate = clone(good); mutate(candidate); localStorage.setItem('p2ph-save-v1', JSON.stringify({ ...validSave(), lease: candidate })); g.load(); assert.equal(g.lease, null); assert.equal(g.coins, 700); }
     const { g } = fixture(); localStorage.setItem('p2ph-save-v1', JSON.stringify({ ...validSave(), lease: { ...good, days: Array.from({ length: 7 }, (_, i) => report(i + 1)), done: false } })); g.load(); assert.equal(g.lease.done, true, 'completed weeks cannot settle again after reload');
+  });
+
+  await test('new players receive an offer and unlock order availability only after completed handover', () => {
+    const { g, hud, requests } = requestFixture();
+    g.setAcceptingOrders(false); assert.equal(g.acceptingOrders, true); assert.equal(g.ordersUnlocked, false);
+    g.queueOffer(0, 0); g.tickOfferQueue(0); assert.equal(requests.generated, 1); assert.equal(g.order.state, 'offer');
+    g.acceptOffer(); assert.equal(g.ordersUnlocked, false); assert.equal(g.coins, 500); assert.equal(hud.orderAvailabilityValue.unlocked, false);
+    g.player.pos.set(100, .55, 0); g.frame(); hud.touchAct = true;
+    for (let i = 0; i < 19; i++) g.frame();
+    assert.equal(g.order.state, 'toDrop'); assert.equal(g.ordersUnlocked, false); assert.equal(g.coins, 500);
+    g.player.pos.set(500, .55, 0); g.frame(); hud.touchAct = true;
+    for (let i = 0; i < 19; i++) g.frame();
+    assert.equal(g.order, null); assert.equal(g.totalDelivered, 1); assert.equal(g.ordersUnlocked, true); assert.equal(g.coins, 675);
+    assert.deepEqual(hud.orderAvailabilityValue, { unlocked: true, accepting: true, activeOrder: false });
+    assert.ok(Number.isFinite(g.nextOfferAt), 'normal offers continue until the player switches them off');
+  });
+
+  await test('orders OFF retracts an unaccepted request and queue without changing money, progress or theatre GPS', () => {
+    const { g, hud, requests, canvas } = requestFixture(); g.totalDelivered = 1; g.setTarget(theatre.stop);
+    g.queueOffer(0, 0); g.tickOfferQueue(0); const staleAccept = hud.offerButtons[0].fn;
+    const progress = [g.coins, g.totalDelivered, g.level, g.doneInLevel];
+    g.setAcceptingOrders(false);
+    assert.equal(g.order, null); assert.equal(g.nextOfferAt, null); assert.equal(hud.offerValue, null); assert.equal(g.routeTarget, theatre.stop);
+    assert.equal(hud.orderValue.state, 'GPS'); assert.equal(document.activeElement, canvas);
+    staleAccept(); g.showOffer(); g.queueOffer(0, 0); g.tickOfferQueue(10000);
+    assert.equal(requests.generated, 1); assert.equal(g.order, null); assert.equal(g.nextOfferAt, null);
+    assert.deepEqual([g.coins, g.totalDelivered, g.level, g.doneInLevel], progress);
+    g.setTarget(null); g.updateHud(); assert.equal(hud.orderValue.state, 'Free roam'); assert.equal(hud.orderValue.title, 'Explore Hyderabad');
+    g.keys.add('KeyW'); assert.equal(g.input().throttle, 1, 'free roam still drives normally');
+  });
+
+  await test('orders OFF preserves accepted pickup and customer legs through paid handover and suppresses the next offer', () => {
+    for (const state of ['toPickup', 'toDrop']) {
+      const { g, hud, requests } = requestFixture(); g.totalDelivered = 1; const current = order(state); g.order = current;
+      g.setTarget(state === 'toPickup' ? current.pickup : current.drop); const target = g.routeTarget;
+      const untouched = clone(current); g.setAcceptingOrders(false);
+      assert.equal(g.order, current); assert.equal(g.routeTarget, target); assert.deepEqual(g.order, untouched); assert.equal(g.coins, 500);
+      assert.deepEqual(hud.orderAvailabilityValue, { unlocked: true, accepting: false, activeOrder: true });
+      assert.equal(hud.orderValue.stage, state === 'toPickup' ? 'pickup' : 'delivery');
+      g.showOffer(); g.tickOfferQueue(Number.MAX_SAFE_INTEGER); assert.equal(g.order, current); assert.equal(requests.generated, 0);
+      if (state === 'toPickup') {
+        g.player.pos.set(100, .55, 0); g.frame(); hud.touchAct = true;
+        for (let i = 0; i < 19; i++) g.frame();
+        assert.equal(current.state, 'toDrop'); assert.equal(g.coins, 500);
+      }
+      g.player.pos.set(500, .55, 0); g.frame(); hud.touchAct = true;
+      for (let i = 0; i < 19; i++) g.frame();
+      assert.equal(g.order, null); assert.equal(g.totalDelivered, 2); assert.equal(g.coins, 675); assert.equal(g.nextOfferAt, null);
+      assert.deepEqual(hud.orderAvailabilityValue, { unlocked: true, accepting: false, activeOrder: false });
+      g.completeDelivery(); g.tickOfferQueue(Number.MAX_SAFE_INTEGER); assert.equal(g.coins, 675); assert.equal(requests.generated, 0);
+      assert.equal(JSON.parse(localStorage.getItem('p2ph-save-v1')).acceptingOrders, false);
+    }
+  });
+
+  await test('orders ON queues one request and waits for each overlay or hidden state before presenting it', () => {
+    for (const blocker of ['paused', 'modal', 'tip', 'map', 'rotation', 'choosing', 'relocating', 'hidden']) {
+      const { g, hud, environment, requests } = requestFixture(); g.totalDelivered = 1; g.setAcceptingOrders(false);
+      const block = value => {
+        if (blocker === 'modal') hud.modalOpen = value; else if (blocker === 'tip') hud.tip(value ? 'Read this' : null);
+        else if (blocker === 'map') g.map.open = value; else if (blocker === 'rotation') hud.rotationBlocked = value;
+        else if (blocker === 'hidden') environment.document.hidden = value; else g[blocker] = value;
+      };
+      block(true); g.setAcceptingOrders(true); const due = g.nextOfferAt; assert.ok(Number.isFinite(due));
+      g.setAcceptingOrders(true); assert.equal(g.nextOfferAt, due, 'repeated ON does not replace the pending request');
+      g.tickOfferQueue(due + 100); assert.equal(requests.generated, 0, blocker); assert.equal(g.nextOfferAt, due);
+      block(false); g.tickOfferQueue(due + 101); assert.equal(requests.generated, 1, blocker); assert.equal(g.order.state, 'offer'); assert.equal(g.nextOfferAt, null);
+      g.setAcceptingOrders(true); g.tickOfferQueue(due + 1000); assert.equal(requests.generated, 1, 'no duplicate while a request is already visible');
+    }
+  });
+
+  await test('order availability saves are backward compatible, boolean validated and locked ON before the first delivery', () => {
+    for (const value of [undefined, true, false, 'false', null, 0, {}, []]) {
+      for (const total of [0, 1]) {
+        const { g } = requestFixture(); localStorage.setItem('p2ph-save-v1', JSON.stringify({ ...validSave(), total, acceptingOrders: value })); g.load();
+        assert.equal(g.acceptingOrders, total === 0 || value !== false); assert.equal(g.ordersUnlocked, total > 0);
+        g.save(); assert.equal(JSON.parse(localStorage.getItem('p2ph-save-v1')).acceptingOrders, total === 0 || value !== false);
+      }
+    }
+    const { g } = requestFixture(); g.totalDelivered = 1; g.setAcceptingOrders(false); const raw = localStorage.getItem('p2ph-save-v1');
+    const restored = requestFixture(); localStorage.setItem('p2ph-save-v1', raw); restored.g.load();
+    assert.equal(restored.g.acceptingOrders, false); restored.g.setAcceptingOrders(true);
+    assert.equal(JSON.parse(localStorage.getItem('p2ph-save-v1')).acceptingOrders, true);
+  });
+
+  await test('restored OFF remains free roaming through a real area relocation without scheduling offers', async () => {
+    const { g, hud, requests } = requestFixture(); localStorage.setItem('p2ph-save-v1', JSON.stringify({ ...validSave(), acceptingOrders: false })); g.load();
+    g.picker = { hide() {} }; g.city.ensure = async () => {}; g.placeNear = () => true; g.traffic.clear = () => {}; g.walkers.group = new Group();
+    const oldTimeout = globalThis.setTimeout;
+    globalThis.setTimeout = () => 1;
+    try { await g.relocate({ name: 'Free roam area', x: 40, z: 80 }); }
+    finally { globalThis.setTimeout = oldTimeout; }
+    assert.equal(g.acceptingOrders, false); assert.equal(g.nextOfferAt, null); assert.equal(g.order, null); assert.equal(g.paused, false);
+    g.showOffer(); g.tickOfferQueue(Number.MAX_SAFE_INTEGER); assert.equal(requests.generated, 0);
+    g.updateHud(); assert.equal(hud.orderValue.state, 'Free roam');
+  });
+
+  await test('the HUD order switch invokes the lifecycle and blocked storage cannot disable free roam', () => {
+    const { g, hud, canvas } = requestFixture();
+    globalThis.__roadsterV2Ui = { hud: () => hud, map: () => ({ open: false, tick() {}, handleKey() {} }) };
+    g.start(); g.choosing = false; g.paused = false; g.totalDelivered = 1;
+    localStorage.setItem = () => { throw Error('storage blocked'); };
+    assert.doesNotThrow(() => hud.onButton('orders')); assert.equal(g.acceptingOrders, false);
+    assert.equal(document.activeElement, canvas, 'switching availability returns keyboard input to the car');
+    assert.equal(hud.orderValue.state, 'Free roam'); assert.equal(g.nextOfferAt, null);
+    hud.onButton('orders'); assert.equal(g.acceptingOrders, true); assert.ok(Number.isFinite(g.nextOfferAt));
   });
 
   await test('saved areas accept playable bounds and reject malformed or off-map coordinates', () => {

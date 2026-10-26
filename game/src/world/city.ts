@@ -7,8 +7,9 @@ import { drawExtras, OsmFeature, RoadHit } from './extras';
 import { isORR, auxiliaryLane, expresswayBarrierClipper, travelDirection } from './expressway';
 import { drawExpresswaySigns, drawRampChevrons } from './expressway-signs';
 import { roadQuadHeight, type RoadQuad } from './road-surface';
+import { buildingTransportClearance, type BuildingCorrection } from './building-clearance';
 import { metroCorridors, metroLineColor, metroStationFrame } from './metro-geometry';
-import { bridgeSupportSites, roadStructureClearance, type StructureSupport } from './structure-clearance';
+import { bridgeSupportPlan, roadStructureClearance, type BridgeSupportSite, type StructureSupport } from './structure-clearance';
 import { captureLandmarkBatches } from './landmark-support-capture';
 import type { LandmarkSurfaceGrid } from './landmark-support';
 import { drawAirfieldTile, airfieldClearAt, type Airfield } from './airfields';
@@ -43,6 +44,7 @@ export interface TileBuilt {
   rails: { id: string; pts: XZ[] }[];  // railway main lines touching this tile (for running trains)
   counts: { buildings: number; boards: number; roads: number; verts: number; fillShops: number; inferredSignals: number };
   structureSupports?: StructureSupport[];
+  buildingCorrections?: BuildingCorrection[];
 }
 
 // Generic shop signs for street frontages where open data names no business: the kind of shop only, never an invented name.
@@ -227,8 +229,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       return [p[0] - (b[1] - a[1]) / len * off, p[1] + (b[0] - a[0]) / len * off];
     });
     const L = boundary(1), R = boundary(-1);
-    const pierSites = new Map<number, ReturnType<typeof bridgeSupportSites>>();
-    for (const site of bridgeSupportSites(e)) (pierSites.get(site.i) || pierSites.set(site.i, []).get(site.i)!).push(site);
+    const pierSites = new Map<number, BridgeSupportSite[]>();
+    for (const site of bridgeSupportPlan(zone.roads).get(e) || []) (pierSites.get(site.i) || pierSites.set(site.i, []).get(site.i)!).push(site);
     const roadQuads: RoadQuad[] = e.pts.slice(1).map((_, i) => [[R[i][0], elevAt(i), R[i][1]], [R[i + 1][0], elevAt(i + 1), R[i + 1][1]], [L[i + 1][0], elevAt(i + 1), L[i + 1][1]], [L[i][0], elevAt(i), L[i][1]]]);
     let v = 0;
     for (let i = 0; i < e.pts.length - 1; i++) {
@@ -256,13 +258,14 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         // Spacing is shared by every bridge class and is independent of source
         // densification. A centre pier is omitted where its body or cap would
         // intersect traffic below, including traffic on another elevated road.
-        for (const { x, z, h, hx, hz } of pierSites.get(i) || []) {
+        for (const site of pierSites.get(i) || []) {
+          const { x, z, h, hx, hz } = site;
           if (!ownsRoadPoint(e, x, z)) continue;
           const footprint = { x, z, r: .8 }, cap = { x, z, hx, hz, hw: Math.min(e.w, 9) / 2, hl: .8 };
           if (!structureClearance.clear(footprint, 0, h) || !structureClearance.clear(cap, h - .7, h)) continue;
           B.st.add(TPL.cyl, x, h / 2, z, 0.75, h, 0.75, '#bdb8c8', { ao: true, aoH: 3 }); addObstacle(x, z, 0.8, h);
           B.st.box(x, h - 0.35, z, Math.min(e.w, 9), 0.7, 1.6, '#c4bfcf', { ry: Math.atan2(hx, hz) });
-          structureSupports.push({ source: e.id, part: 'bridge', footprint, bottom: 0, top: h, cap: { footprint: cap, bottom: h - .7, top: h } });
+          structureSupports.push({ source: e.id, sourceIds: site.sources, part: 'bridge', footprint, bottom: 0, top: h, cap: { footprint: cap, bottom: h - .7, top: h } });
         }
       }
     }
@@ -658,6 +661,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   const signs: SignEntry[] = [];
   // a ground-floor board with its frame and awning, centred at (x, z) on a face with outward normal (nx, nz)
   const groundBoard = (id: string, text: string, group: string, x: number, z: number, ex: number, ez: number, nx: number, nz: number, w: number, h: number) => {
+    const boardFoot: XZ[] = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([u, v]) => [x + ex * (w / 2 + .1) * u + nx * .9 * v, z + ez * (w / 2 + .1) * u + nz * .9 * v]);
+    if (!modelClearance.clear(boardFoot, 2.8, 4.15)) return;
     const n = new THREE.Vector3(nx, 0, nz), right = new THREE.Vector3(ex, 0, ez);
     if (new THREE.Vector3().crossVectors(right, up0).dot(n) < 0) right.negate();
     const hh = 0.95, y = Math.min(3.55, h - 0.6), ry = Math.atan2(nx, nz);
@@ -672,6 +677,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   };
   // a parked two-wheeler, nose towards heading ang (atan2(dx, dz))
   const bike = (x: number, z: number, ang: number, s: Rng) => {
+    if (!structureClearance.clear({ x, z, hx: Math.sin(ang), hz: Math.cos(ang), hw: .45, hl: 1 }, 0, 1.25)) return;
     const col = s.pick(BIKE_COLS), fx = Math.sin(ang), fz = Math.cos(ang);
     for (const k of [0.62, -0.62]) B.st.add(TPL.cyl6, x + fx * k, 0.3, z + fz * k, 0.3, 0.09, 0.3, '#18171c', { rz: Math.PI / 2, ry: ang });
     B.st.box(x, 0.6, z, 0.3, 0.36, 1.05, col, { ry: ang });
@@ -696,6 +702,17 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     for (const f of footGrid.get(`${Math.floor(x / 30)},${Math.floor(z / 30)}`) || []) if (f.id !== self && x >= f.minx - pad && x <= f.maxx + pad && z >= f.minz - pad && z <= f.maxz + pad && (pad > 0 || pointInRing(x, z, f.ring))) return true;
     return false;
   };
+  // Include room/tank/awning overhangs and unbound source boards too, rather
+  // than indexing only roads that cross an original building's base footprint.
+  const buildingExtent = zone.buildings.reduce((a, b) => { for (const p of b.ring) { a[0] = Math.min(a[0], p[0] - 8); a[1] = Math.max(a[1], p[0] + 8); a[2] = Math.min(a[2], p[1] - 8); a[3] = Math.max(a[3], p[1] + 8); } return a; }, [TX0 - 16, TX0 + 1016, TZ0 - 16, TZ0 + 1016]);
+  const roadPatches = [...new Set([...surfaceGrid.values()].flat())].filter(s => s.kind === 'road' && s.e && !/^(footway|path|steps|pedestrian|cycleway|bridleway|track)$/.test(s.e.cls) && s.roadQuad && s.roadQuad[2][0] === s.roadQuad[3][0] && s.roadQuad[2][2] === s.roadQuad[3][2]).map(s => ({ id: s.e!.id, ring: s.roadQuad!.slice(0, 3).map(p => [p[0], p[2]] as XZ), y: s.ya }));
+  const modelClearance = buildingTransportClearance(zone.roads, opts.metro, buildingExtent, roadPatches), buildingCorrections: BuildingCorrection[] = [];
+  const indexBuilding = (b: Building) => {
+    const xs = b.ring.map(p => p[0]), zs = b.ring.map(p => p[1]);
+    for (let x = Math.floor(Math.min(...xs) / 50); x <= Math.floor(Math.max(...xs) / 50); x++) for (let z = Math.floor(Math.min(...zs) / 50); z <= Math.floor(Math.max(...zs) / 50); z++) {
+      const k = `${x},${z}`; (buildingGrid.get(k) || buildingGrid.set(k, []).get(k)!).push(b);
+    }
+  };
   for (const b of zone.buildings) {
     if (marks.length) { const [mx, mz] = centroid(b.ring); if (marks.some((l) => inClear(l, mx, mz))) continue; }
     {const[mx,mz]=centroid(b.ring);if(airClear(mx,mz))continue;}
@@ -703,10 +720,29 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     if (ring.length < 3) continue;
     if (signedArea(ring) > 0) ring = ring.reverse();     // consistent winding (clockwise in x/z) => outward normals below
     const [cx, cz] = centroid(ring);
-    for (const k of new Set(ring.map((p) => key(p[0], p[1])))) (buildingGrid.get(k) || buildingGrid.set(k, []).get(k)!).push(b);
     const br = rng(hash(b.id));
     const col = new THREE.Color(b.fc && /^#/.test(b.fc) ? b.fc : br.pick(PALETTE)).multiplyScalar(br.range(0.86, 1.04));
     const h = b.h;
+    const correction = modelClearance.correct(b);
+    if (correction) {
+      buildingCorrections.push(correction.correction);
+      // A conflicting generic extrusion must not remain an invisible collider.
+      // Render and index the same conservative fragments; keep source boards
+      // and source building records untouched for attribution and later review.
+      const rc = b.rc && /^#/.test(b.rc) ? b.rc : '#9c968f';
+      for (const piece of correction.pieces) {
+        indexBuilding(piece);
+        const r = signedArea(piece.ring) > 0 ? piece.ring.slice().reverse() : piece.ring;
+        for (let i = 0; i < r.length; i++) {
+          const p = r[i], q = r[(i + 1) % r.length], len = Math.hypot(q[0] - p[0], q[1] - p[1]);
+          B.wall.quad([p[0], 0, p[1]], [q[0], 0, q[1]], [q[0], h, q[1]], [p[0], h, p[1]], col, [[0, .02], [len / 12, .02], [len / 12, h / (FLOOR_H * 4)], [0, h / (FLOOR_H * 4)]]);
+        }
+        const tris = THREE.ShapeUtils.triangulateShape(r.map(p => new THREE.Vector2(...p)), []);
+        for (const t of tris) { const a = r[t[0]], c = r[t[1]], d = r[t[2]]; B.roof.tri([a[0], h + .02, a[1]], [d[0], h + .02, d[1]], [c[0], h + .02, c[1]], rc); }
+      }
+      continue;
+    }
+    indexBuilding(b);
     const shop = shopBuildings.has(b.id) && h > GROUND_H + 1;
     // frontages: real shops get forecourt life; other buildings on shop streets get generic shop units
     const area0 = Math.abs(signedArea(ring));
@@ -733,7 +769,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     for (const p of ring) { const u = (p[0] - cx) * ox + (p[1] - cz) * oz, v = -(p[0] - cx) * oz + (p[1] - cz) * ox; u0 = Math.min(u0, u); u1 = Math.max(u1, u); v0 = Math.min(v0, v); v1 = Math.max(v1, v); }
     const OB = (u: number, v: number): XZ => [cx + u * ox - v * oz, cz + u * oz + v * ox];
     const boxFill = area0 / Math.max(1, (u1 - u0) * (v1 - v0));
-    const sheet = !opts.lowQ && suburb && h < 5 && area0 >= 18 && area0 <= 220 && boxFill > 0.85 && !shop && !fill.size && br.chance(village ? 0.38 : 0.18);
+    const sheet = !opts.lowQ && suburb && h < 5 && area0 >= 18 && area0 <= 220 && boxFill > 0.85 && !shop && !fill.size && br.chance(village ? 0.38 : 0.18) && modelClearance.clear([OB(u0 - .35, v0 - .35), OB(u1 + .35, v0 - .35), OB(u1 + .35, v1 + .35), OB(u0 - .35, v1 + .35)], h - .1, h + 1.5);
     for (let i = 0; i < ring.length; i++) {
       const p = ring[i], q = ring[(i + 1) % ring.length];
       const len = Math.hypot(q[0] - p[0], q[1] - p[1]); if (len < 0.05) continue;
@@ -785,6 +821,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         } else if (yard >= 3.0 && cartsLeft > 0 && fr.chance(0.06)) {
           cartsLeft--;
           const x = ux + f.nx * 1.6, z = uz + f.nz * 1.6;
+          if (!structureClearance.clear({ x, z, hx: ex, hz: ez, hw: 1.4, hl: 1.8 }, 0, 3.2)) continue;
           bandi(B.st, B.lit, x, z, Math.atan2(ex, ez), rng(hash(b.id + 'c' + u)));
           addObstacle(x, z, 1.1, 3);
         }
@@ -823,6 +860,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
           if (run < 0) return;
           const A = OB(ua + (ub - ua) * run / n, va + (vb - va) * run / n), Bq = OB(ua + (ub - ua) * k / n, va + (vb - va) * k / n), ll = Math.hypot(Bq[0] - A[0], Bq[1] - A[1]);
           if (ll > 0.6) {
+            if (!structureClearance.clear({ x: (A[0] + Bq[0]) / 2, z: (A[1] + Bq[1]) / 2, hx: (Bq[0] - A[0]) / ll, hz: (Bq[1] - A[1]) / ll, hw: .11, hl: ll / 2 + .11 }, 0, wallH)) { run = -1; return; }
             B.st.box((A[0] + Bq[0]) / 2, wallH / 2, (A[1] + Bq[1]) / 2, 0.22, wallH, ll + 0.22, wc, { ry: Math.atan2(Bq[0] - A[0], Bq[1] - A[1]) });
             addWall({ ax: A[0], az: A[1], bx: Bq[0], bz: Bq[1], y0a: -1, y0b: -1, y1a: wallH, y1b: wallH, kind: 'median' });
           }
@@ -836,16 +874,23 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         flush(n);
       }
     }
-    if (!opts.lowQ && area > 50 && !sheet) {
+    if (!opts.lowQ && area > 50 && !sheet && modelClearance.clear(ring, h, h + 3.5)) {
       if (br.chance(0.5)) {
         const n = br.int(1, area > 300 ? 2 : 1);
         for (let k = 0; k < n; k++) {
           const tx = cx + br.range(-2, 2), tz = cz + br.range(-2, 2);
+          if (!modelClearance.clear([[tx - .7, tz - .7], [tx + .7, tz - .7], [tx + .7, tz + .7], [tx - .7, tz + .7]], h + .3, h + 1.6)) continue;
           B.st.add(TPL.cyl6, tx, h + 0.95, tz, 0.62, 1.3, 0.62, '#1d1d22');      // black Sintex tank on the roof
         }
       }
-      if (area > 120 && br.chance(0.45)) B.st.box(cx + br.range(-3, 3), h + 1.3, cz + br.range(-3, 3), 2.6, 2.6, 2.8, col.clone().multiplyScalar(0.9), { ao: true, aoBase: h, aoH: 1.5 });
-      if (br.chance(0.08)) for (let k = 0; k < 3; k++) B.st.box(cx + br.range(-3, 3), h + 0.8, cz + br.range(-3, 3), 0.06, 1.6, 0.06, '#6b3d2a');
+      if (area > 120 && br.chance(0.45)) {
+        const x = cx + br.range(-3, 3), z = cz + br.range(-3, 3);
+        if (modelClearance.clear([[x - 1.3, z - 1.4], [x + 1.3, z - 1.4], [x + 1.3, z + 1.4], [x - 1.3, z + 1.4]], h, h + 2.6)) B.st.box(x, h + 1.3, z, 2.6, 2.6, 2.8, col.clone().multiplyScalar(0.9), { ao: true, aoBase: h, aoH: 1.5 });
+      }
+      if (br.chance(0.08)) for (let k = 0; k < 3; k++) {
+        const x = cx + br.range(-3, 3), z = cz + br.range(-3, 3);
+        if (modelClearance.clear([[x - .04, z - .04], [x + .04, z - .04], [x + .04, z + .04], [x - .04, z + .04]], h, h + 1.6)) B.st.box(x, h + .8, z, .06, 1.6, .06, '#6b3d2a');
+      }
     }
     void cz; void theatreIds;
   }
@@ -870,6 +915,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     if (y + hh / 2 > h - 0.2) { if (floor) continue; y = Math.min(y, h - 0.6); }
     const c = new THREE.Vector3(ax + (bx - ax) * u, y, az + (bz - az) * u).addScaledVector(n, floor ? 0.08 : 0.24);
     const right = dir.clone(); if (new THREE.Vector3().crossVectors(right, up).dot(n) < 0) right.negate();
+    const boardRing: XZ[] = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([u, v]) => [c.x + right.x * (w / 2 + .1) * u + n.x * .65 * v, c.z + right.z * (w / 2 + .1) * u + n.z * .65 * v]);
+    if (!modelClearance.clear(boardRing, c.y - .7, c.y + hh / 2 + .1)) continue;
     const [bg, fg] = boardScheme(bd.id, bd.group);
     // frame / backing visible from any distance
     B.st.box(c.x - n.x * 0.06, c.y, c.z - n.z * 0.06, w + 0.12, hh + 0.12, 0.1, '#1a1820', { ry: Math.atan2(n.x, n.z) });
@@ -887,7 +934,10 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         const pr = rng(hh2);
         for (let k = 0; k < 1; k++) person(B.st, c.x + n.x * pr.range(1.2, 2.8) + right.x * pr.range(-1.5, 1.5), c.z + n.z * pr.range(1.2, 2.8) + right.z * pr.range(-1.5, 1.5), pr);
       }
-      if (bd.group === 'food' && hh2 % 7 === 1) bandi(B.st, B.lit, c.x + n.x * 4.2, c.z + n.z * 4.2, Math.atan2(right.x, right.z), rng(hh2 + 1));
+      if (bd.group === 'food' && hh2 % 7 === 1) {
+        const x = c.x + n.x * 4.2, z = c.z + n.z * 4.2;
+        if (structureClearance.clear({ x, z, hx: right.x, hz: right.z, hw: 1.4, hl: 1.8 }, 0, 3.2)) bandi(B.st, B.lit, x, z, Math.atan2(right.x, right.z), rng(hh2 + 1));
+      }
     }
     if (bd.group === 'cinema' && bld) facades.push({ id: bd.id, c: [ax + (bx - ax) * 0.5, 0, az + (bz - az) * 0.5], n: [n.x, n.y, n.z], w: Math.min(len * 0.9, 24), top: h, building: bld.id });
   }
@@ -933,6 +983,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       const lx = hz * side, lz = -hx * side;
       const off = e.w / 2 + 1.7, sx = cx + lx * off, sz = cz + lz * off, ang = Math.atan2(hx, hz);
       if (busStops.some((q) => Math.hypot(q.x - sx, q.z - sz) < 12)) continue;
+      if (!structureClearance.clear({ x: sx, z: sz, hx, hz, hw: 1.25, hl: 3.2 }, 0, 3.4)) continue;
       let along = 0; for (let k = 0; k < best.i; k++) along += Math.hypot(e.pts[k + 1][0] - e.pts[k][0], e.pts[k + 1][1] - e.pts[k][1]);
       along += L * best.t;
       busStops.push({ edge: e.id, s: along, side, x: cx + lx * (e.w / 2 - 1.5), z: cz + lz * (e.w / 2 - 1.5), hx, hz });
@@ -980,12 +1031,14 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       }
       B.st.add(TPL.cyl6, lx, 4.5, lz, 0.09, 9, 0.09, '#8d8899'); B.lit.box(lx, 8.9, lz, 0.5, 0.06, 0.5, '#fff0cc'); lamps.push(new THREE.Vector3(lx, 8.6, lz));
     } else if (f.kind === 'atm' || f.kind === 'bench') {
-      if (f.kind === 'bench') B.st.box(x, 0.45, z, 1.6, 0.1, 0.5, '#7a5235');
+      if (f.kind === 'bench' && structureClearance.clear({ x, z, hx: 0, hz: 1, hw: .8, hl: .25 }, 0, .6)) B.st.box(x, 0.45, z, 1.6, 0.1, 0.5, '#7a5235');
     } else if (f.kind === 'water_tower') {
       if (over) continue;
+      if (!structureClearance.clear({ x, z, r: .65 }, 0, 18) || !structureClearance.clear({ x, z, r: 4 }, 17.5, 20.5)) continue;
       B.st.add(TPL.cyl, x, 9, z, 0.6, 18, 0.6, '#b4afbf'); B.st.add(TPL.cyl, x, 19, z, 4, 3, 4, '#c9c4d3');
     } else if (f.kind === 'artwork') {
       if (road || over) continue;
+      if (!structureClearance.clear({ x, z, r: 1.3 }, 0, 4.5)) continue;
       B.st.add(TPL.cyl, x, 0.6, z, 1.2, 1.2, 1.2, '#9c968f'); B.st.add(TPL.capsule, x, 2.6, z, 0.8, 1.6, 0.8, '#b08d57');
     }
   }
@@ -1128,6 +1181,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const NOTCAR = /footway|path|steps|cycleway|pedestrian|track/;
     drawExtras(zone.osm, {
       B, inTile, lowQ: !!opts.lowQ,
+      structureClear: structureClearance.clear,
       nearestRoad: (x, z, maxD, ground = false) => {
         let best: RoadHit | null = null;
         for (const s of roadsAround(x, z, maxD)) {
@@ -1422,7 +1476,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   void r; void theatreIds; void byBuilding;
   return {
     key: `${zone.i}_${zone.j}`, i: zone.i, j: zone.j, buffers, roads: ownRoads,
-    buildingGrid, surfaceGrid, landmarkSurfaceGrid, walls, obstacles, structureSupports, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, facades, signs,
+    buildingGrid, surfaceGrid, landmarkSurfaceGrid, walls, obstacles, structureSupports, buildingCorrections, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, facades, signs,
     activity: [...activity],
     rails: (zone.osm || []).filter((f) => f.k === 'rail' && f.l && f.t.railway === 'rail' && !f.t.service && !(f.t.tunnel && f.t.tunnel !== 'no')).map((f) => ({ id: f.id, pts: f.l!, bridge: !!f.t.bridge && f.t.bridge !== 'no' } as any)),
     counts: { buildings: zone.buildings.length, boards: zone.boards.length, roads: ownRoads.length, verts, fillShops, inferredSignals },

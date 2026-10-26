@@ -9,9 +9,11 @@ import { build } from '../game/node_modules/esbuild/lib/main.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const out = await mkdtemp(join(tmpdir(), 'roadster-gameplay-'));
+const originalDocument = globalThis.document;
 let checks = 0;
 const test = async (label, fn) => { await fn(); checks++; console.log(`PASS ${label}`); };
 try {
+  globalThis.document = { hidden: false, documentElement: { classList: { contains: () => false } } };
   await build({
     stdin: { contents: "export { Game } from './game/src/game/game'; export { RoadGraph } from './game/src/game/roadgraph'; export { World } from './game/src/world/world';", resolveDir: root, loader: 'ts' },
     outfile: join(out, 'game.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error',
@@ -51,16 +53,16 @@ try {
   await test('pickup selection uses the chosen restaurant pool consistently', () => {
     const values = [0.1, 0.9, 0.9, 0.1];
     const food = Array.from({ length: 10 }, (_, i) => ({ pizza: i === 9, board: `shop ${i}`, name: `shop ${i}`, s: { x: 100, z: 0, y: 0, sub: '', label: `shop ${i}` } }));
-    const g = Object.assign(Object.create(Game.prototype), { level: 0, player: { pos: { x: 0, z: 0 } }, food, residences: [{ x: 350, z: 0, y: 0, label: '' }], r: () => values.shift() ?? 0.1, graph: { route: () => ({ len: 250 }) }, areaName: () => 'Hyderabad' });
+    const g = Object.assign(Object.create(Game.prototype), { level: 0, totalDelivered: 0, offerSequence: 0, acceptingOrders: true, player: { pos: { x: 0, z: 0 } }, food, residences: [{ x: 350, z: 0, y: 0, label: '' }], r: () => values.shift() ?? 0.1, graph: { route: () => ({ len: 250 }) }, areaName: () => 'Hyderabad' });
     assert.equal(g.makeOffer().pickupName, 'shop 9');
   });
   await test('cancelling area selection restores the exact pending offer and its controls', () => {
     const savedDocument = globalThis.document;
-    globalThis.document = { documentElement: { classList: { contains: () => false } } };
+    globalThis.document = { hidden: false, documentElement: { classList: { contains: () => false } } };
     const original = { state: 'offer', pickup: { x: 400, z: 300, label: 'Original kitchen', sub: 'Original road' }, drop: { label: 'Original customer' }, dist: 700, limit: 145 };
     let displayed = 'initial', buttons = [], generated = 0;
     const g = Object.assign(Object.create(Game.prototype), {
-      order: original, keys: new Set(), sound: { vehicle() {} }, area: { name: 'RTC X Roads' }, level: 0, choosing: false, relocating: false,
+      order: original, totalDelivered: 0, acceptingOrders: true, keys: new Set(), sound: { vehicle() {} }, area: { name: 'RTC X Roads' }, level: 0, choosing: false, relocating: false,
       player: { pos: { x: 10, y: .57, z: 20 }, forward: { x: 1, z: 0 }, flying: false }, graph: { route(x, z, px, pz, car) { assert.deepEqual([x, z, px, pz], [10, 20, 400, 300]); assert.deepEqual(car, { hx: 1, hz: 0, y: .57 }); return { len: 900 }; } },
       hud: { tip() {}, resetControls() {}, modal() {}, offer(html, actions = []) { displayed = html; buttons = actions; } },
       picker: { show() {} }, clock: { getDelta() {} }, engine: { renderer: { domElement: { focus() {} } } }, makeOffer() { generated++; throw Error('must reuse pending offer'); },
@@ -80,7 +82,7 @@ try {
   await test('delayed offers never replace active deliveries or interrupt area selection', () => {
     let generated = 0, displayed = 0;
     const g = Object.assign(Object.create(Game.prototype), {
-      order: null, choosing: true, relocating: false,
+      order: null, totalDelivered: 0, acceptingOrders: true, choosing: true, relocating: false,
       makeOffer() { generated++; return null; }, hud: { offer() { displayed++; } },
     });
     g.showOffer();
@@ -178,4 +180,4 @@ try {
     } finally { globalThis.fetch = savedFetch; globalThis.self = savedSelf; }
   });
   console.log(`${checks} gameplay/streaming regression groups passed.`);
-} finally { await rm(out, { recursive: true, force: true }); }
+} finally { globalThis.document = originalDocument; await rm(out, { recursive: true, force: true }); }

@@ -73,5 +73,15 @@
   "standalone": {
     "url": "http://127.0.0.1:4195/mobile-ui-playtest.html",
     "logs": []
+  },
+  "additionalHudComponentOccurrence": {
+    "timestamp": "2026-10-26T20:51:05Z",
+    "level": "error",
+    "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+    "sourceUrl": null,
+    "stack": null,
+    "classification": "Unassigned QA console occurrence; exact origin remains unconfirmed.",
+    "sourceInspection": "Neither review HTML entry nor game/src constructs MutationObserver. HUD layout uses ResizeObserver. The production Vite preload fallback observes document; the unused Three HTMLMesh helper is not imported by the game. No production change or new instrumentation was added.",
+    "followUpBrowserObservation": "Parent browser review reported no new console errors during the real Game iframe launch, offer and map-close interactions after 2026-10-26T21:05:00Z."
   }
 }
