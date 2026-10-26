@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T14:00:53Z",
+  "scope": "Every user requirement starting with the opposite-direction metro request, through the current citywide signal request.",
+  "implementationCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+  "branch": "main",
+  "statusMeaning": {
+    "implemented": "Code/data change exists; verification column states what actually passed. This alone is not exhaustive gameplay acceptance.",
+    "partial": "Requested breadth, physical accuracy or source evidence is still incomplete."
+  },
+  "release": {
+    "localOnly": true,
+    "pushed": false,
+    "deployed": false,
+    "remoteMainVerified": "1f3d1a0d1c488488312f2fb1845fa95cb456f349",
+    "remoteCheckAt": "2026-10-26T14:00:53Z",
+    "localCodeCommitsSinceRemote": [
+      "a2a90e6",
+      "8ff6423",
+      "2ef7c14",
+      "d461bf2",
+      "a49ca97"
+    ],
+    "acceptanceCommitsSinceRemote": [
+      "f9a1734",
+      "c6aa1c1",
+      "8d388fe"
+    ],
+    "note": "No new push or deployment was performed for the present implementation/report task. The running 4189 preview is local."
+  },
+  "preserved": [
+    "Upgraded Roadster geometry",
+    "Existing real shopfront data and original source evidence",
+    "Unlimited flight",
+    "Sound",
+    "Version 2 menus and mobile map-close/input fixes"
+  ],
+  "latestValidation": {
+    "gameSuites": 23,
+    "pipelineTests": 83,
+    "typecheck": "PASS",
+    "productionBuild": "PASS",
+    "newSignalGroups": 15,
+    "physicalPhoneTested": false,
+    "freshCompletedDeliveryOnCurrentBuild": false
+  },
+  "requirements": [
+    {
+      "id": "R01",
+      "requirement": "Metro trains use opposite directions on paired tracks",
+      "status": "implemented_broader_playtest_pending",
+      "implemented": "Six source paths form three paired corridors with six fixed directional tracks; shared rail/train poses, spacing, platform occupancy, articulation and terminal handling.",
+      "verification": "13 offline metro regression groups. Paired rails seen in Ameerpet; recorded direction verdict is UNKNOWN.",
+      "remaining": "Repeat a clear normal-world opposite-motion observation and corridor sweep.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-improvements.json",
+        "tools/metro-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R02",
+      "requirement": "All NPC vehicles turn smoothly",
+      "status": "implemented_broader_playtest_pending",
+      "implemented": "Continuous vehicle-specific corner paths, curvature speed limits and lane changes/U-turns; full oriented vehicle footprint and wider bus-turn clearance.",
+      "verification": "15 traffic regression groups; bounded appearance checks.",
+      "remaining": "Busy-junction browser sweep and normal-world test of the final bus-clearance patch.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-improvements.json",
+        "tools/traffic-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R03",
+      "requirement": "Autos change lanes and make quick U-turns like local traffic",
+      "status": "implemented_broader_playtest_pending",
+      "implemented": "A subset of autos uses more frequent quicker lane changes and supported U-turns, with gap checks.",
+      "verification": "Production movement regressions.",
+      "remaining": "Natural city traffic behavior review across junction types.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-improvements.json",
+        "tools/traffic-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R04",
+      "requirement": "All important places have recognizable map icons",
+      "status": "implemented_bounded_browser_verified",
+      "implemented": "191 catalogue places have stable map/model IDs, architectural/category silhouettes, search, filters, clustering and touch targets.",
+      "verification": "191/191 discovery; Charminar selection/map close preserved order and car. Responsive 390×844 browser component checked.",
+      "remaining": "Physical-phone touch and visibility at more map scales.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-improvements.json",
+        "docs/landmark-audit.json"
+      ]
+    },
+    {
+      "id": "R05",
+      "requirement": "All 150–200 landmark buildings become accurate",
+      "status": "partial",
+      "implemented": "Identity/bounds/render ownership audited for 191; bounded feature corrections to Charminar, Jagannath Temple, Central Gurudwara, Telangana Thalli and Buddha; airport work below.",
+      "verification": "191 finite in-bounds anchors; audit records 4 models with photo-reviewed features and 0 fully photo-verified reconstructions.",
+      "remaining": "Many inherited/generic anchors, facades, dimensions and fine architectural details still need references and reconstruction.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-improvements.json",
+        "docs/landmark-audit.json"
+      ]
+    },
+    {
+      "id": "R06",
+      "requirement": "Indian flag has correct proportions and Ashoka Chakra",
+      "status": "implemented_component_verified",
+      "implemented": "Shared 3:2 flag, equal saffron/white/green stripes, navy 24-spoke Chakra rendered on both cloth faces.",
+      "verification": "Front/reverse geometry browser fixture passed after correcting triangle winding.",
+      "remaining": "Site-by-site visual inspection; cloth remains stylized.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-improvements.json",
+        "docs/landmark-audit.json"
+      ]
+    },
+    {
+      "id": "R07",
+      "requirement": "Find and fix similar cultural-symbol inaccuracies",
+      "status": "partial",
+      "implemented": "Corrected Jagannath eight-spoke Nilachakra, Telangana Thalli clothing/handedness/crop and Buddha pose/lotus features.",
+      "verification": "Bounded original-photo feature reviews and geometry checks.",
+      "remaining": "Secretariat lion-capital model, furled Gurdwara flag and other portraits/inscriptions require evidence review.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-improvements.json",
+        "docs/landmark-audit.json"
+      ]
+    },
+    {
+      "id": "R08",
+      "requirement": "ORR feels continuous, smooth and has correct exits/markings/area boards",
+      "status": "partial",
+      "implemented": "Retained 28,054 source vertices; modeled four through lanes per carriageway, shoulders, tapers, eased approaches, curved advance/exit signs and verified interchange labels; same-carriageway recovery.",
+      "verification": "Offline geometry/recovery checks and bounded Kokapet mainline driving.",
+      "remaining": "Every interchange, full ring, toll lanes and natural exit maneuvers remain untested. Heights, widths and many sign faces are approximations.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-improvements.json",
+        "docs/playtests/2026-10-26-transport-followup.json"
+      ]
+    },
+    {
+      "id": "R09",
+      "requirement": "Remove diagonal barriers blocking the ORR through road at every exit",
+      "status": "implemented_city_model_audited_bounded_browser",
+      "implemented": "Shared clipping of rendered and collidable barrier intervals at connected ramp joins.",
+      "verification": "307 ORR edges, 104 joins and 198 tiles audited with 0 model intrusions; bounded Kokapet scene checked.",
+      "remaining": "Drive every exit and complete natural exit/merge maneuvers; model audit is not every-exit street verification.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "tools/orr-exit-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R10",
+      "requirement": "Airports have real runway geometry and recognizable facilities",
+      "status": "partial",
+      "implemented": "Mapped RGIA/Begumpet runway endpoints/designators, displaced thresholds, taxiways/aprons, terminal/hangar outlines and local tile ownership. AAI dimensions used: RGIA 4260×60 m and 3707×45 m, Begumpet 3230×45 m.",
+      "verification": "Airport source/model fixture and regression checks.",
+      "remaining": "Normal-world runway drive/flight and facility review. Facade heights, stand details, widths and terrain remain illustrative.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "docs/airport-landmark-followup.md"
+      ]
+    },
+    {
+      "id": "R11",
+      "requirement": "Aircraft are present and operate at airports",
+      "status": "implemented_component_verified",
+      "implemented": "Bounded unbranded parked aircraft plus one animated taxi/departure per airport; connected taxi graph, valid runway intersection, roll and climb.",
+      "verification": "Component/route checks; low quality uses two parked aircraft, normal quality four.",
+      "remaining": "Normal-world browser observation; no live airlines, stands, ATC or exact operations simulated.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "docs/airport-landmark-followup.md"
+      ]
+    },
+    {
+      "id": "R12",
+      "requirement": "Metro Red, Blue and Green lines use actual colors",
+      "status": "implemented_broader_playtest_pending",
+      "implemented": "Shared semantic Red/Blue/Green palette on corridors, station identity, full map and minimap.",
+      "verification": "Regressions and map/component checks.",
+      "remaining": "All-corridor normal-world color sweep.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-improvements.json",
+        "docs/playtests/2026-10-26-flyover-guidance-mobile.json"
+      ]
+    },
+    {
+      "id": "R13",
+      "requirement": "Metro station names are readable from both road directions",
+      "status": "implemented_broader_playtest_pending",
+      "implemented": "Two approach-facing station boards with station name and line identity.",
+      "verification": "Both board instances and facing verified in regressions.",
+      "remaining": "Station-by-station road approach and phone readability.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "tools/moving-rail-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R14",
+      "requirement": "Train and metro collision pushes the car",
+      "status": "implemented_component_verified",
+      "implemented": "Swept height-aware moving-rail contacts and corrected update order.",
+      "verification": "Actual production component showed front push, x≈3→351 m, HUD 75 km/h and 181 contacts.",
+      "remaining": "Normal-world rail/metro encounter.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "tools/moving-rail-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R15",
+      "requirement": "Car can land on train/metro and move with it",
+      "status": "implemented_component_verified",
+      "implemented": "Actual coach roof support in a moving/rotating frame, with drive-off, takeoff and recovery detachment.",
+      "verification": "Production component displayed roof carry YES, car 0 km/h and no collision contacts.",
+      "remaining": "Normal-world landing and ride on both rail classes.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "tools/moving-rail-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R16",
+      "requirement": "10–15 researched Telugu quotes, one on each auto",
+      "status": "implemented_component_verified",
+      "implemented": "Ten curated sourced Telugu sayings; one stable quote per auto, with Telugu font and plate retained.",
+      "verification": "Quote layout fixture and regressions.",
+      "remaining": "Broader readability review; this is a curated list, not an empirical popularity ranking.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "docs/street-life-sources.md"
+      ]
+    },
+    {
+      "id": "R17",
+      "requirement": "Correct Durgam Cheruvu lake and bridge",
+      "status": "partial",
+      "implemented": "Mapped lake shoreline, removed artificial central concrete slabs, imported OSM-aligned bridge, 233.85 m modeled main span, 25.8 m width, 52 stays and three lanes per direction.",
+      "verification": "Five canonical road records and 17 context copies updated; repeated import byte-idempotent; fixture checks.",
+      "remaining": "Normal-world lake/bridge drive and survey-level water, deck and approach details.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "docs/airport-landmark-followup.md"
+      ]
+    },
+    {
+      "id": "R18",
+      "requirement": "Drive and park on Charminar at the correct height",
+      "status": "implemented_bounded_browser_verified",
+      "implemented": "Support uses the actual emitted terrace triangles.",
+      "verification": "Normal-game flight, rooftop landing, 0 km/h, short rooftop movement and parking captured.",
+      "remaining": "Broader arch/side collision remains approximate.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "docs/playtests/evidence/2026-10-26-followup-charminar-roof-park-86237f.jpg"
+      ]
+    },
+    {
+      "id": "R19",
+      "requirement": "Drive and park on Golconda and similar elevated landmarks",
+      "status": "partial",
+      "implemented": "Visible facet/slope support and arch/roof collision regression work.",
+      "verification": "Offline geometry/support checks.",
+      "remaining": "Normal-game Golconda landing, drive and park not completed; not all landmark surfaces covered.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json"
+      ]
+    },
+    {
+      "id": "R20",
+      "requirement": "Pedestrian clothing is more locally recognizable",
+      "status": "implemented_component_verified",
+      "implemented": "Shared walking/static garment builder with wrapped garments, pallu/dupatta, tunics, collars, cuffs, pleats and accessories.",
+      "verification": "Component inspection caught and repaired buried pallu/bell-shaped geometry.",
+      "remaining": "Still stylized; no demographic or citywide clothing-survey claim.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "docs/street-life-sources.md"
+      ]
+    },
+    {
+      "id": "R21",
+      "requirement": "150 km/h maximum ground speed and 240 km/h in flight",
+      "status": "implemented_regression_verified",
+      "implemented": "Both limits applied through boost and flight-to-ground transition.",
+      "verification": "Production regressions; 149 km/h ground fixture readout.",
+      "remaining": "Physical-phone control feel and further real-time top-speed runs.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "tools/audio-flight-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R22",
+      "requirement": "Front wheels steer in the actual turning direction",
+      "status": "implemented_regression_verified",
+      "implemented": "Corrected front-wheel yaw sign without replacing the upgraded Roadster model.",
+      "verification": "Wheel/turn regression checks.",
+      "remaining": "Additional normal-world visual turning capture.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json"
+      ]
+    },
+    {
+      "id": "R23",
+      "requirement": "TGSRTC buses follow their allocated route and number",
+      "status": "partial",
+      "implemented": "Published February 8 GTFS data retained: 897 route IDs, 1,511 patterns and 4,098 stops. Buses use ordered stops and legal inferred road connections; unsupported routes wait.",
+      "verification": "27/27 eligible offline route probes and 278 legal joins with no gap.",
+      "remaining": "GTFS has no shapes: exact road alignment, current service/diversions and all 897 route drives remain unverified.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "docs/street-life-sources.md",
+        "tools/bus-service-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R24",
+      "requirement": "Bus route number and destination are clear on front and back",
+      "status": "implemented_component_verified",
+      "implemented": "Consistent large front/rear route-number and destination boards.",
+      "verification": "8A Secunderabad→Chandrayangutta component and board regressions.",
+      "remaining": "Not all 897 routes visually reviewed; phone distance readability pending.",
+      "evidence": [
+        "docs/playtests/2026-10-26-transport-followup.json"
+      ]
+    },
+    {
+      "id": "R25",
+      "requirement": "Flyovers must not look or drive like steps",
+      "status": "implemented_city_model_audited_bounded_component",
+      "implemented": "Eased continuous model profiles, finite asphalt triangle support, continuous tire contact/pitch, slope-following thin paint and matching worker/graph/stop heights.",
+      "verification": "52,412 roads audited: 1,398 segments above 10% before, 0 after; maximum modeled grade 9.71%; 307 protected ORR profiles unchanged. Visible component climb/descent had continuous contact.",
+      "remaining": "Normal Nallagandla/Telugu Talli ascents and all flyovers remain untested; gradients are estimates, not survey elevations.",
+      "evidence": [
+        "docs/playtests/2026-10-26-flyover-guidance-mobile.json",
+        "docs/playtests/flyover-grades-audit-2026-10-26.json"
+      ]
+    },
+    {
+      "id": "R26",
+      "requirement": "Accurate, half-width and smoothly changing route guideline",
+      "status": "implemented_broader_playtest_pending",
+      "implemented": "Retained route/progress, lane continuity and actual-height graph nodes; checked corner fillets, route fade and GPU buffer reuse. Ribbon 1.4→0.7 m; minimap 7→3.5 px; map 6→3 px.",
+      "verification": "Route-motion/clearance regressions and bounded Kokapet thin-guide/map inspection.",
+      "remaining": "Long correct-road route needed: Kokapet distance rose 276→330 m after recovery/movement then fell 330→319 m; cause not isolated. Historical PT-005 remains suspected.",
+      "evidence": [
+        "docs/playtests/2026-10-26-flyover-guidance-mobile.json",
+        "tools/route-motion-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R27",
+      "requirement": "Four equal rounded arrow buttons replace GO/BRAKE and steering",
+      "status": "implemented_responsive_component_verified",
+      "implemented": "Four circular arrows, 70 px portrait/58 px short-landscape; FLY/ACT retained and repositioned; safe areas, prompt spacing, accessible names and pointer ownership retained.",
+      "verification": "390×844, 320×568 and 844×390 bounds/radii and holds/releases/menu reset checked.",
+      "remaining": "Physical multi-touch/phone landscape driving pending.",
+      "evidence": [
+        "docs/playtests/2026-10-26-flyover-guidance-mobile.json"
+      ]
+    },
+    {
+      "id": "R28",
+      "requirement": "Steering arrows disappear with gyro and restore when disabled",
+      "status": "implemented_component_verified",
+      "implemented": "Gyro UI hides left/right and restores them when disabled; FLY/ACT stay available.",
+      "verification": "Simulated gyro UI and control counters checked.",
+      "remaining": "Real sensor/permission behavior on an actual phone remains untested.",
+      "evidence": [
+        "docs/playtests/2026-10-26-flyover-guidance-mobile.json"
+      ]
+    },
+    {
+      "id": "R29",
+      "requirement": "Traffic signals are accurate across the city",
+      "status": "partial_source_backed_runtime_implemented",
+      "implemented": "268 public mapped nodes replace invented controls; 266 resolve to 173 coordinated controllers and 368 approaches, including five raised approaches. Lamps/NPCs share directional phases, stop bars and clock; two unresolved source nodes queued.",
+      "verification": "23 game suites, 83 pipeline tests; zero buried poles in all-source model audit. Component red stop at 0.35 m, all-red wait, green release and night lens passed. RTC driving/map smoke passed.",
+      "remaining": "Normal-world junction cycle still unverified; current city inventory is incomplete, placements estimated and timings simulated, not actual live Hyderabad plans.",
+      "evidence": [
+        "docs/playtests/2026-10-26-city-signals.json",
+        "pipeline/evidence/citywide-signal-runtime-audit-2026-10-26.json"
+      ]
+    }
+  ],
+  "openHistoricalIssues": [
+    {
+      "id": "PT-003",
+      "status": "confirmed_visual_failure_cause_unproven"
+    },
+    {
+      "id": "PT-004",
+      "status": "observed_multiple_areas_controlled_reproduction_pending"
+    },
+    {
+      "id": "PT-005",
+      "status": "suspected"
+    },
+    {
+      "id": "PT-010",
+      "status": "observed_once_repeat_cleared"
+    },
+    {
+      "id": "PT-012",
+      "status": "reopened_post_repair_browser_recurrence"
+    }
+  ],
+  "openIssueNote": "These historical observations were preserved without silently claiming closure from unrelated code or component checks.",
+  "nextAcceptance": [
+    "Physical-phone touch/gyro, steering, map close and audible sound",
+    "Normal-world metro opposite-motion, rail push and roof ride",
+    "Full ORR/interchange exit/merge coverage",
+    "Normal flyover ascent/descent and longer correct-road GPS leg",
+    "Golconda landing/drive/park",
+    "Normal-world traffic-signal cycles and source review for two unresolved nodes",
+    "Fresh complete pickup→hold collect→customer→explicit handover on current build",
+    "Photo/source verification of remaining landmark architecture and cultural details"
+  ]
+}

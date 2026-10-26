@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T14:00:53Z",
+  "task": "Citywide source-mapped traffic signals and status of all user requirements since the opposite-direction metro request",
+  "baselineCommit": "8d388fe",
+  "implementationCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+  "branch": "main",
+  "pushed": false,
+  "deployed": false,
+  "testedAssets": [
+    "index-B6U1Qll3.js",
+    "tileworker-Da1aGs3F.js"
+  ],
+  "causes": [
+    "The previous geometry baked all three lamp colours as permanently bright meshes; no runtime aspect consumer updated them.",
+    "NPC controls used a separate world-cardinal timing rule. Grade-agnostic nearest-junction binding and stale flags could disagree with the visible road.",
+    "The baseline contained 94 exported synthetic signal sites and 1,148 additional runtime-inferred logical controls without mapped signal evidence. These are logical-site counts, not a count of visible poles."
+  ],
+  "repairs": [
+    "Authoritative source metadata replaces only traffic-signal furniture in streamed tile workers. No invented citywide signal sites are added.",
+    "One resolved controller supplies directional phases, offset and timing to both visible lamps and NPC traffic. Compatible opposite approaches share a phase; conflicting rotated/multi-arm approaches receive separate phases.",
+    "Nearby source-backed divided-junction nodes merge only through eligible same-level road connections, never proximity alone.",
+    "Source one-way, node-order and forward/backward directions constrain approaches. Elevated sources must match the actual elevated road; unmatched locations stay queued.",
+    "Car, bus, auto, bike and truck noses stop before the shared stop bar, including a swept-frame cap. Committed turning vehicles may clear the junction.",
+    "Only the active lens is illuminated, oriented toward incoming traffic. Sloping stop bars follow the road surface; grade-aware poles do not block an unrelated underpass.",
+    "Signal references are owned by streamed tiles, deduplicated and removed without deleting other live owners. Still-frame warmup and live traffic share the same signal clock."
+  ],
+  "data": {
+    "snapshot": "../../pipeline/evidence/citywide-traffic-signals-2026-10-26.json",
+    "sourceDataTimestamp": "2026-10-26T13:23:20Z",
+    "retrievedAt": "2026-10-26T13:23:48.341656Z",
+    "license": "OpenStreetMap contributors, ODbL 1.0",
+    "boundsLatLon": [
+      17.18944651682626,
+      78.18602271831716,
+      17.623153483173745,
+      78.72247438667843
+    ],
+    "sourceSignalNodes": 269,
+    "excludedPrivateNodes": 1,
+    "canonicalPublicNodes": 268,
+    "nodesWithIncidentWays": 267,
+    "mappedDirectionRecords": 576,
+    "resolvedSourceNodes": 266,
+    "coordinatedControllers": 173,
+    "approaches": 368,
+    "raisedApproaches": 5,
+    "unresolvedSourceNodes": 2,
+    "buriedHeadPolesInModelAudit": 0,
+    "unresolved": [
+      {
+        "sourceId": "osm:n4322167205",
+        "url": "https://www.openstreetmap.org/node/4322167205",
+        "reason": "no-matching-ground-road-within-14m"
+      },
+      {
+        "sourceId": "osm:n701208131",
+        "url": "https://www.openstreetmap.org/node/701208131",
+        "reason": "no-matching-ground-road-within-14m"
+      }
+    ],
+    "runtimeAudit": "../../pipeline/evidence/citywide-signal-runtime-audit-2026-10-26.json",
+    "importAudit": "../../pipeline/evidence/citywide-signals-import-2026-10-26.json",
+    "idempotenceAudit": "../../pipeline/evidence/citywide-signals-idempotence-2026-10-26.json",
+    "limit": "A source-coverage and runtime-model audit, not an exhaustive current city inventory or street survey. OSM edit timestamps are not capture/survey dates. Pole/stop-line placement remains estimated."
+  },
+  "simulation": {
+    "greenSeconds": 18,
+    "amberSeconds": 3,
+    "allRedSeconds": 2,
+    "offset": "Stable per-controller hash",
+    "currentHyderabadControllerPlans": false,
+    "playerRedLightPenaltyAdded": false
+  },
+  "preservation": {
+    "all304StreetPackBytesUnchanged": true,
+    "allExistingCoreFieldsUnchanged": true,
+    "onlyCoreMetadataFieldsAdded": [
+      "trafficSignals",
+      "trafficSignalSource"
+    ],
+    "repeatedImportByteIdempotent": true,
+    "upgradedRoadsterGeometryRetained": true,
+    "shopfrontBoardsAndEvidenceRetained": true,
+    "unlimitedFlightSoundMenusMobileFixesRetained": true,
+    "groundFlightSpeedCaps": "150/240 km/h",
+    "componentReviewPageExcludedFromProductionBuild": true
+  },
+  "automatedValidation": {
+    "game": {
+      "command": "npm --prefix game run check",
+      "result": "PASS",
+      "suites": 23,
+      "signalGroups": 15,
+      "includes": [
+        "TypeScript",
+        "existing game regressions",
+        "flyover regression suite",
+        "route-motion regression suite",
+        "Vite production build"
+      ]
+    },
+    "pipeline": {
+      "command": "pipeline/.venv/bin/python -m unittest discover -s pipeline/tests",
+      "result": "PASS",
+      "tests": 83,
+      "newSignalImporterTests": 5
+    },
+    "signalCoverage": [
+      "Rotated and multi-arm phases",
+      "Compatible opposite approaches",
+      "Forward/backward source directions and one-way filters",
+      "Amber/all-red sequence",
+      "Raised-road source matching",
+      "Divided-junction merging",
+      "Pole height and no underpass leakage",
+      "Vehicle nose stop and green release for five vehicle classes",
+      "Committed junction clearance",
+      "Lamp/controller agreement",
+      "Streaming ownership/refcounts",
+      "No permanently lit lenses or synthetic controls"
+    ],
+    "diffCheck": "PASS",
+    "buildWarnings": "Existing fonts/fonts.css build-time resolution warning; application console checks below were clear."
+  },
+  "browserMethod": {
+    "operator": "AI operating visible browser controls in real time, not a human participant",
+    "forbiddenMethodsUsed": false,
+    "details": "No production teleport, hidden-state mutation, simulation stepping or developer autopilot. Component Reset starts an isolated test fixture and is not map coverage."
+  },
+  "componentBrowser": {
+    "fixture": "game/signal-review.html",
+    "engine": "Actual production Engine/buildTile/SignalLights/Traffic, rotated test intersection",
+    "timeScale": 1,
+    "steps": [
+      "Reset the fixture using its visible control",
+      "Choose Waiting approach camera",
+      "Observe and pause the amber/red state",
+      "Resume through all-red and pause",
+      "Resume through green release and pause",
+      "Switch to Night while paused"
+    ],
+    "observations": [
+      {
+        "seconds": 0.2,
+        "phase1": "GREEN",
+        "phase2": "RED",
+        "waitingCarKmh": 31.5,
+        "noseMetresBeforeStopBar": 28.28
+      },
+      {
+        "seconds": 20.7,
+        "phase1": "AMBER",
+        "phase2": "RED",
+        "waitingCarKmh": 0.0,
+        "noseMetresBeforeStopBar": 0.35,
+        "expected": "Waiting approach stays behind the bar on red",
+        "actual": "PASS",
+        "evidence": "evidence/2026-10-26-signal-red-stop-component-4dd4e6.jpg"
+      },
+      {
+        "seconds": 21.9,
+        "phase1": "RED",
+        "phase2": "RED",
+        "waitingCarKmh": 0.0,
+        "noseMetresBeforeStopBar": 0.35,
+        "expected": "No release during all-red clearance",
+        "actual": "PASS",
+        "evidence": "evidence/2026-10-26-signal-all-red-component-5b56cf.jpg"
+      },
+      {
+        "seconds": 25.4,
+        "phase1": "RED",
+        "phase2": "GREEN",
+        "waitingCarKmh": 27.3,
+        "noseMetresBeforeStopBar": -8.69,
+        "expected": "Waiting approach releases when its own lamp becomes green",
+        "actual": "PASS",
+        "evidence": "evidence/2026-10-26-signal-green-release-component-c79393.jpg"
+      }
+    ],
+    "night": "At the same paused 25.4-second state, the active green lens remained clearly visible. Clock, speed and nose position did not change while paused.",
+    "nightEvidence": "evidence/2026-10-26-signal-night-component-a196cb.jpg",
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "verdict": "PASS for this isolated component; not a normal-city signal-cycle pass"
+  },
+  "normalGameBrowser": {
+    "url": "http://127.0.0.1:4189/",
+    "area": "RTC X Roads",
+    "buildVerifiedFromScriptAsset": "index-B6U1Qll3.js",
+    "steps": [
+      "Play, normal area picker, RTC X Roads",
+      "Accept Sri Murugan Ghee Store to Home in Chikkadpally offer at 349 m pickup distance",
+      "Focus the real canvas, hold W for 2.2 s",
+      "Hold S for 1.2 s, pause; resume, hold S for 0.85 s",
+      "Release inputs and coast to 0 km/h; drag the camera while stopped",
+      "Open the normal map and close it with Close map",
+      "Pause and close the owned test tab"
+    ],
+    "heldDrivingInputSeconds": 4.25,
+    "offerAccepted": true,
+    "pickupDistanceReadoutsMetres": [
+      349,
+      324,
+      287,
+      291
+    ],
+    "maximumObservedKmh": 71,
+    "endingHud": {
+      "speedKmh": 0,
+      "pickup": "Sri Murugan Ghee Store",
+      "pickupDistanceMetres": 291,
+      "level": "2 · 2/4",
+      "coins": 982,
+      "flight": "Unlimited"
+    },
+    "mapCloseOrderAndStopPreserved": true,
+    "pauseResumePassed": true,
+    "signalCycleClearlyObserved": false,
+    "verdict": "PASS for loading, offer, driving, pause/resume and map-close smoke; normal-world signal cycle remains unverified",
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "evidence": "evidence/2026-10-26-signals-rtc-normal-smoke-cd7cb1.jpg",
+    "ordersAccepted": 1,
+    "pickupsCompleted": 0,
+    "handoversCompleted": 0,
+    "rewardsEarned": 0,
+    "limit": "No full junction-cycle or NPC queue comparison in this street scene; no citywide drive, physical phone or delivery completion claimed."
+  },
+  "evidence": [
+    "evidence/2026-10-26-signal-red-stop-component-4dd4e6.jpg",
+    "evidence/2026-10-26-signal-all-red-component-5b56cf.jpg",
+    "evidence/2026-10-26-signal-green-release-component-c79393.jpg",
+    "evidence/2026-10-26-signal-night-component-a196cb.jpg",
+    "evidence/2026-10-26-signals-rtc-normal-smoke-cd7cb1.jpg"
+  ],
+  "cleanup": {
+    "ownedGameTabsPausedAndClosed": true,
+    "ownedComponentTabPausedAndClosed": true,
+    "ownedEvidenceTabClosed": true,
+    "allInputReleased": true,
+    "viewportOverrideUsedThisRound": false,
+    "temporary4191And4193ServersStopped": true,
+    "preexisting4189PreviewLeftRunning": true
+  },
+  "remaining": [
+    "Resolve the two mapped source points after verifying missing road context",
+    "Sample normal-world rotated, divided, elevated and pedestrian junctions in daylight and darkness",
+    "Review actual controller plans and additional current source evidence before claiming real-world timing or exhaustive city accuracy",
+    "Finish the older end-to-end route, ORR, rail/landmark and physical-phone coverage listed in the requirements report"
+  ]
+}

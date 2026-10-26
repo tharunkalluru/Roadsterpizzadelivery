@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T12:22:03Z",
+  "updatedAt": "2026-10-26T14:00:53Z",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "d461bf2c852521b6a2c2511b12faea62044dca05",
+  "currentBuild": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -104,7 +104,8 @@
       "pickupState": "collected_explicitly_at_visible_prompt",
       "lastResult": "No new collection or handover; wallet802 and Level2 1/4 unchanged.",
       "lastObservedDistanceMode": "off_road_direct_estimate",
-      "closestObservedDeliveryDistanceLimit": "382m was a road route display; final~403m was a direct off-road estimate. These are not measured travel distances."
+      "closestObservedDeliveryDistanceLimit": "382m was a road route display; final~403m was a direct off-road estimate. These are not measured travel distances.",
+      "latestSignalSmokeReport": "2026-10-26-city-signals.json"
     },
     "Ameerpet": {
       "status": "tested_partial",
@@ -293,24 +294,22 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-26-flyover-guidance-mobile",
-    "endedAt": "2026-10-26T12:22:03Z",
-    "status": "implemented_checks_passed_bounded_browser_coverage",
+    "id": "2026-10-26-city-signals",
+    "endedAt": "2026-10-26T14:00:53Z",
+    "status": "implemented_checks_passed_component_and_normal_smoke_broader_coverage_pending",
     "reports": [
-      "2026-10-26-flyover-guidance-mobile.json"
+      "2026-10-26-city-signals.json"
     ],
-    "runtimeSourceCommit": "d461bf2c852521b6a2c2511b12faea62044dca05",
+    "runtimeSourceCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
     "testedAssets": [
-      "index-BDLXanWl.js",
-      "tileworker-BDp9Em3X.js"
+      "index-B6U1Qll3.js",
+      "tileworker-Da1aGs3F.js"
     ],
     "areas": [
-      "Kokapet"
+      "RTC X Roads"
     ],
     "componentOnly": [
-      "Mobile controls",
-      "Synthetic flyover",
-      "Nallagandla approach attempt"
+      "Rotated signal junction red/all-red/green and night"
     ],
     "offersAccepted": 1,
     "pickupsCompleted": 0,
@@ -321,13 +320,13 @@
     "browserOwnershipReleased": true,
     "helperServerStopped": true,
     "evidence": [
-      "evidence/2026-10-26-user-flyover-steps.jpg",
-      "evidence/2026-10-26-mobile-arrow-controls-component-f13813.jpg",
-      "evidence/2026-10-26-flyover-downhill-contact-component-898e54.jpg",
-      "evidence/2026-10-26-flyover-paint-uphill-component-24cf9e.jpg",
-      "evidence/2026-10-26-final-kokapet-guide-BDLXanWl-c79159.jpg"
+      "evidence/2026-10-26-signal-red-stop-component-4dd4e6.jpg",
+      "evidence/2026-10-26-signal-all-red-component-5b56cf.jpg",
+      "evidence/2026-10-26-signal-green-release-component-c79393.jpg",
+      "evidence/2026-10-26-signal-night-component-a196cb.jpg",
+      "evidence/2026-10-26-signals-rtc-normal-smoke-cd7cb1.jpg"
     ],
-    "summary": "Shared flyover grade/support/paint repair, retained accurate half-width guidance and equal circular mobile arrows.22 suites pass. Visible climb/descent contact, responsive component controls and bounded normal Kokapet drive checked. No every-flyover, physical-phone or delivery-completion claim."
+    "summary": "Source-backed shared traffic-signal controllers replace unverified inferred sites.23 game suites and83 pipeline tests pass; component red/all-red/green/night passed. RTC loading/driving/pause/map smoke passed, but normal-world signal-cycle behavior was not clearly observed. No delivery completion or exhaustive city signal accuracy claimed."
   },
   "issueRegistry": [
     {
@@ -862,6 +861,28 @@
       "sourceCause": "covered=yes alone was treated as footbridge, creating a 6.6m deck.",
       "fixCommit": "a2a90e66a405e65118fb468c9b43462691e9415e",
       "nextStep": "Sample the other Healthway stretch and an explicit covered bridge/tunnel in the browser."
+    },
+    {
+      "id": "PT-016",
+      "priority": "P1",
+      "status": "fixed_regressions_and_component_verified_city_coverage_partial",
+      "title": "Traffic-signal lamps and NPC stopping used separate controls and unsupported citywide inferred sites",
+      "areas": [
+        "Citywide source model",
+        "RTC X Roads smoke"
+      ],
+      "reports": [
+        "2026-10-26-city-signals.json"
+      ],
+      "evidence": [
+        "evidence/2026-10-26-signal-red-stop-component-4dd4e6.jpg",
+        "evidence/2026-10-26-signal-all-red-component-5b56cf.jpg",
+        "evidence/2026-10-26-signal-green-release-component-c79393.jpg",
+        "evidence/2026-10-26-signal-night-component-a196cb.jpg"
+      ],
+      "confidence": "High for reproduced source/runtime defects and isolated production-component stop/release; no normal-world junction-cycle pass claimed.",
+      "fixCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+      "nextStep": "Observe live normal-world junction cycles, resolve two source points after verifying road context and review additional current signal evidence."
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
@@ -1008,7 +1029,12 @@
     "evidence/2026-10-26-mobile-arrow-controls-component-f13813.jpg",
     "evidence/2026-10-26-flyover-downhill-contact-component-898e54.jpg",
     "evidence/2026-10-26-flyover-paint-uphill-component-24cf9e.jpg",
-    "evidence/2026-10-26-final-kokapet-guide-BDLXanWl-c79159.jpg"
+    "evidence/2026-10-26-final-kokapet-guide-BDLXanWl-c79159.jpg",
+    "evidence/2026-10-26-signal-red-stop-component-4dd4e6.jpg",
+    "evidence/2026-10-26-signal-all-red-component-5b56cf.jpg",
+    "evidence/2026-10-26-signal-green-release-component-c79393.jpg",
+    "evidence/2026-10-26-signal-night-component-a196cb.jpg",
+    "evidence/2026-10-26-signals-rtc-normal-smoke-cd7cb1.jpg"
   ],
   "roundHistory": [
     {
@@ -1639,10 +1665,45 @@
         "evidence/2026-10-26-final-kokapet-guide-BDLXanWl-c79159.jpg"
       ],
       "summary": "Shared flyover grade/support/paint repair, retained accurate half-width guidance and equal circular mobile arrows.22 suites pass. Visible climb/descent contact, responsive component controls and bounded normal Kokapet drive checked. No every-flyover, physical-phone or delivery-completion claim."
+    },
+    {
+      "id": "2026-10-26-city-signals",
+      "endedAt": "2026-10-26T14:00:53Z",
+      "status": "implemented_checks_passed_component_and_normal_smoke_broader_coverage_pending",
+      "reports": [
+        "2026-10-26-city-signals.json"
+      ],
+      "runtimeSourceCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+      "testedAssets": [
+        "index-B6U1Qll3.js",
+        "tileworker-Da1aGs3F.js"
+      ],
+      "areas": [
+        "RTC X Roads"
+      ],
+      "componentOnly": [
+        "Rotated signal junction red/all-red/green and night"
+      ],
+      "offersAccepted": 1,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "physicalPhoneTested": false,
+      "pushed": false,
+      "published": false,
+      "browserOwnershipReleased": true,
+      "helperServerStopped": true,
+      "evidence": [
+        "evidence/2026-10-26-signal-red-stop-component-4dd4e6.jpg",
+        "evidence/2026-10-26-signal-all-red-component-5b56cf.jpg",
+        "evidence/2026-10-26-signal-green-release-component-c79393.jpg",
+        "evidence/2026-10-26-signal-night-component-a196cb.jpg",
+        "evidence/2026-10-26-signals-rtc-normal-smoke-cd7cb1.jpg"
+      ],
+      "summary": "Source-backed shared traffic-signal controllers replace unverified inferred sites.23 game suites and83 pipeline tests pass; component red/all-red/green/night passed. RTC loading/driving/pause/map smoke passed, but normal-world signal-cycle behavior was not clearly observed. No delivery completion or exhaustive city signal accuracy claimed."
     }
   ],
-  "nextRoundPlan": "Prioritize a normal-map flyover ascent/descent near Nallagandla or Telugu Talli with clear camera/road identity, then verify route choice and progress over a longer correct-road leg after recovery. Retest full touch driving/gyro on a physical phone when available. Continue full ORR exit coverage, main-world train roof ride, Golconda landing and a fresh complete delivery. Preserve historical issue statuses and unfinished-order records; do not treat component presets as area coverage.",
-  "runtimeSourceCommit": "d461bf2c852521b6a2c2511b12faea62044dca05",
+  "nextRoundPlan": "Observe normal-world source-mapped signal cycles at rotated, divided and elevated junctions and resolve two queued source nodes conservatively. Also finish normal-map flyover climb/descent, longer correct-road GPS, full ORR exit coverage, main-world metro direction and train roof ride, Golconda landing, physical-phone touch/gyro and a fresh complete delivery. Preserve historical issue statuses.",
+  "runtimeSourceCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
   "liveHandoff": null,
   "liveHandoffs": [
     {
@@ -1847,7 +1908,7 @@
       "note": "Absent from current Chrome inventory; not recreated. Prior pending order was never completed."
     }
   ],
-  "latestCoverageLimit": "Current city-improvement pass: 21 seconds of held ORR ground drive following manual recovery, no collections/handovers, separate 390x844 landmark map check and model fixtures. Every exit, full ring, current metro visual behavior, busy-junction sweep and phone hardware remain unverified.",
+  "latestCoverageLimit": "Current signal pass: isolated production-component red/all-red/green/night check and bounded normal RTC X Roads loading, accepted offer, driving, pause/resume and map-close smoke. No clear normal-world signal cycle, pickup, handover, full-city signal inventory, actual live timings or phone hardware test. Prior broader coverage limits remain in their reports.",
   "interruptedHandoffs": [
     {
       "round": "2026-10-23T2145Z",
@@ -1887,8 +1948,8 @@
     "finalBundleSmokePassed": true
   },
   "latestBuiltAssets": [
-    "index-BDLXanWl.js",
-    "tileworker-BDp9Em3X.js"
+    "index-B6U1Qll3.js",
+    "tileworker-Da1aGs3F.js"
   ],
   "transportFollowup": {
     "report": "2026-10-26-transport-followup.json",
@@ -1906,5 +1967,18 @@
     "remainingModelSteepSegments": 0,
     "protectedORRProfilesUnchanged": 307,
     "physicalPhoneTested": false
-  }
+  },
+  "citySignals": {
+    "report": "2026-10-26-city-signals.json",
+    "implementationCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+    "canonicalPublicNodes": 268,
+    "resolvedSourceNodes": 266,
+    "controllers": 173,
+    "unresolvedSourceNodes": 2,
+    "normalWorldSignalCycleVerdict": "not_verified",
+    "realControllerTimings": false,
+    "gameSuites": 23,
+    "pipelineTests": 83
+  },
+  "requirementsStatusReport": "../requirements-status-2026-10-26.json"
 }

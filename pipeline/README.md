@@ -183,3 +183,27 @@ successful importer writes still deduplicate original source IDs. Recorded write
 counts are conservative after an interruption between a pack write and state save.
 Keep this queue independent of Mapillary metadata/OCR progress, and use the
 Mapillary workflow above when imagery access and dependencies are available.
+
+## Source-mapped traffic signals
+
+`traffic_signals.py` imports the cached whole-bounds OSM signal snapshot and
+original incident-way directions into optional authoritative core metadata:
+
+```sh
+pipeline/.venv/bin/python pipeline/traffic_signals.py --report pipeline/build/signals-review.json
+pipeline/.venv/bin/python pipeline/traffic_signals.py --apply
+```
+
+The importer shares the storefront apply lock, atomically replaces only the
+core's signal/source fields and refuses partial bounds or an unexpected large
+source-population drop. A repeated apply is byte-idempotent. It preserves all
+street-pack bytes, roads, boards, buildings and the pack manifest. Original source
+IDs, tags, versions and edit timestamps remain in evidence. Private-access nodes
+are excluded. Reapply this metadata after any deliberately approved full legacy
+city export; do not use the legacy export to update an existing city.
+
+The runtime replaces legacy/synthetic signal furniture using this source list.
+Unmatched points remain in the review queue. Mapped points are not surveyed pole
+or stop-line placements, and OSM is not an exhaustive current city inventory.
+Light phases/timings are an explicit game simulation shared by NPCs and lamps;
+no live Hyderabad signal-controller timings are claimed.
