@@ -1,0 +1,32 @@
+{
+  "nativeOwnerDatabaseRead": true,
+  "projectId": "appgprj_6adaefe0993481918802134463afcaab",
+  "binding": "DB",
+  "table": "bug_reports",
+  "row": {
+    "id": "f3a12eb5-4165-4f11-82d4-39b44f9a3bdc",
+    "received_at": "2026-10-26T23:32:32.666Z",
+    "session_id": "7d1d632b-bc59-45c7-9da8-675d8d3eec51",
+    "build_id": "5800481fe3b2689c2da310ae8593779bdcc9c2b3e35633ec5dd1592c3dd97f53",
+    "area": "Jawahar Nagar",
+    "tile": "-1_-1",
+    "world_x": -13.13522282480547,
+    "world_y": 0.55,
+    "world_z": -5.587370903088896,
+    "game_latitude": 17.40635048503509,
+    "game_longitude": 78.49647637873336,
+    "road_id": "73c61068-2f9_0",
+    "road_name": "Chikkadapally Road",
+    "observations": "Player reported this spot; inspect the scene and recent movement."
+  },
+  "screenshotStored": true,
+  "returnedScreenshotPrefix": "data:image/jpeg;base64,/9j/4AAQSkZJRgABA",
+  "projection": {
+    "truncated": true,
+    "truncated_values": 2,
+    "omitted_columns": 0,
+    "omitted_rows": 0,
+    "next_offset": null
+  },
+  "limits": "Native owner table viewer truncates context and screenshot values. This proves screenshot presence and exact scalar fields; full live JPEG bytes were not independently decoded. Local full stored JPEG was decoded and inspected."
+}

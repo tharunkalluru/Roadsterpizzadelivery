@@ -29,7 +29,16 @@ controls, map, task, top area chip and contextual-action rectangles are in
 bounds and do not overlap. Safe-inset tests are separate geometry checks.
 These component scenarios are not completed deliveries or physical-phone
 tests. The local report workflow was also exercised in the real game and the
-stored row and scene screenshot were inspected.
+stored row and scene screenshot were inspected. A live Version11 report
+matched the final build fingerprint and exact source-road/game coordinates
+in the owner-only database, with screenshot presence confirmed. The native
+viewer truncates large cells, so full live JPEG bytes were not decoded.
+
+A live Pizza Hut to Jawahar Nagar delivery also completed its collection and
+explicit handover:500 to631 coins and0/3 to1/3 progress. It used flight and
+four visible road-recovery actions and arrived cold; it is not a clean-road
+route certificate. Stopping the subsequent offer leaves the compact OFF
+toggle and no idle delivery card.
 
 Exact photo-matched replicas of every campus/mall/office, every current city
 construction site and all unresolved bus route legs remain outside verified

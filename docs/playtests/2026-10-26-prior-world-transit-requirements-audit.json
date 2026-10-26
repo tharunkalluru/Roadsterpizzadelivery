@@ -22,7 +22,7 @@
       "id": "prior-3",
       "requirement": "Buildings intersecting metro/flyovers",
       "implemented": "Generated source solids/colliders and rooftop additions are clipped together against road/metro envelopes; now follows local metro profiles and all59 assemblies.",
-      "limits": "Prior630-tile renderer audit used flat metro. Requires refreshed pitched-profile audit; no claim every real building/façade is reconstructed.",
+      "limits": "Prior630-tile renderer audit used flat metro. Requires refreshed pitched-profile audit; no claim every real building/fa\u00e7ade is reconstructed.",
       "evidence": "game/src/world/building-clearance.ts"
     },
     {
@@ -55,7 +55,7 @@
     },
     {
       "id": "ten-4",
-      "requirement": "RTC buses stop5–6sec with entering/exiting people",
+      "requirement": "RTC buses stop5\u20136sec with entering/exiting people",
       "implemented": "Stop pose freezes while people transfer; buses continue assigned service after dwell.",
       "limits": "Previously documented unbound bus route legs are separate remaining service coverage; root/traffic agent owns current resolution.",
       "evidence": "docs/playtests/2026-10-26-construction-transit-validation.json"
@@ -71,13 +71,13 @@
       "id": "ten-6",
       "requirement": "Road-facing hoardings/gantries",
       "implemented": "Road-facing gantries/exit boards require whole footprint/headroom clearance; cinema feature groups gated coherently with collision.",
-      "limits": "Individual real façade directions still inherit source uncertainty; unsafe groups are deliberately omitted.",
+      "limits": "Individual real fa\u00e7ade directions still inherit source uncertainty; unsafe groups are deliberately omitted.",
       "evidence": "docs/playtests/2026-10-26-cinema-front-validation.json"
     },
     {
       "id": "ten-7",
       "requirement": "Real current construction works",
-      "implemented": "Bounded Uppal–Narapally149 fragments/148 unfinished piers and IIIT shoulder works, open4.5m lane25km/h, guidance/traffic follow open lane.",
+      "implemented": "Bounded Uppal\u2013Narapally149 fragments/148 unfinished piers and IIIT shoulder works, open4.5m lane25km/h, guidance/traffic follow open lane.",
       "limits": "Not exhaustive all-Hyderabad project reconstruction; exact barricades are estimates and current DLF gate closure remains unmodeled.",
       "evidence": "docs/playtests/2026-10-26-construction-transit-validation.json"
     },
@@ -92,13 +92,13 @@
       "id": "ten-9",
       "requirement": "Malls/cinemas/offices including named heroes",
       "implemented": "Source-bound classified identities and safe recognition; exact retained hero polygons for Inorbit/Nexus/LuLu/Asian-Sarath; shared mall body deduplicated.",
-      "limits": "Partial exact scope: not every real destination façade/interior is reproduced. Small/uncertain listings are map-only; fresh exhaustive inventory failed.",
+      "limits": "Partial exact scope: not every real destination fa\u00e7ade/interior is reproduced. Small/uncertain listings are map-only; fresh exhaustive inventory failed.",
       "evidence": "docs/destination-recognition-2026-10-26.md"
     },
     {
       "id": "ten-10",
       "requirement": "Uppal Stadium cricket layout",
-      "implemented": "Source-bound open tiered bowl, outfield, standard20.12×3.05m pitch/stumps, canopy and6 floodlight towers.",
+      "implemented": "Source-bound open tiered bowl, outfield, standard20.12\u00d73.05m pitch/stumps, canopy and6 floodlight towers.",
       "limits": "Stylized exact row counts/heights/canopy/pitch bearing remain illustrative, not a surveyed replica.",
       "evidence": "game/src/world/destination-hero-models.ts"
     }
@@ -184,5 +184,12 @@
     "unresolvedPlayableStopLegs": 3720,
     "fullyResolvedPatterns": 180,
     "limitation": "Retained prior audit, not refreshed current execution. Agency feed has no shapes.txt; admitted paths remain inferred legal streets rather than exact published vehicle shapes."
+  },
+  "finalReleaseValidation": {
+    "report": "2026-10-26-hud-reports-bridges.json",
+    "version": 11,
+    "livePaidDeliveries": 1,
+    "privateLiveReportStored": true,
+    "priorScopeLimitsStillApply": true
   }
 }

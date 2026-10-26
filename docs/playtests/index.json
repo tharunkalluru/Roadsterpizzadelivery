@@ -2339,10 +2339,30 @@
     "report": "2026-10-26-hud-reports-bridges.json",
     "buildFingerprint": "5800481fe3b2689c2da310ae8593779bdcc9c2b3e35633ec5dd1592c3dd97f53",
     "fullGameCheck": "PASS",
-    "newBrowserDeliveries": 0,
+    "newBrowserDeliveries": 1,
     "physicalPhoneTested": false,
     "barrierIntrusionsInSourceSweep": 0,
     "potentialSlabPairsAwaitingReview": 2706,
-    "priorRequirementsAudit": "../prior-world-transit-requirements-audit-2026-10-26.md"
+    "priorRequirementsAudit": "../prior-world-transit-requirements-audit-2026-10-26.md",
+    "liveBugReportPersisted": true,
+    "implementationCommit": "9a00776767cd1bbb77d4d63dea87c75ca8dbb324",
+    "publication": {
+      "version": 11,
+      "status": "succeeded",
+      "siteSourceCommit": "7c83a0fe18e977888c5b7fa945ab044a391d1365",
+      "savedVersionId": "appgprj_6adaefe0993481918802134463afcaab~appgver_49d1c96b879081919b4287001656f07f",
+      "deploymentId": "appgdep_6adfe27edf3481919555381ed75b71c7",
+      "url": "https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site",
+      "allProductionFilesByteIdentical": true,
+      "databaseProvisioned": true,
+      "liveReportVerification": {
+        "status": "PASS",
+        "reportId": "f3a12eb5-4165-4f11-82d4-39b44f9a3bdc",
+        "buildFingerprintMatched": true,
+        "screenshotPresent": true,
+        "privateOwnerDatabaseRead": true,
+        "nativeValueTruncation": true
+      }
+    }
   }
 }

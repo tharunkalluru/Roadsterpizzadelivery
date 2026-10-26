@@ -2,7 +2,7 @@
   "generatedAt": "2026-10-26T23:26:21.927136+00:00",
   "baselineCommit": "0eff345306ab8b3cef671e8fd84b5839bffa197d",
   "buildFingerprint": "5800481fe3b2689c2da310ae8593779bdcc9c2b3e35633ec5dd1592c3dd97f53",
-  "status": "Final frozen sources pass full game check; Version11 saved, deployment pending",
+  "status": "Version11 deployed; final-source checks, live private report persistence and one paid delivery verified; older scope gaps remain explicit",
   "requirementsAudit": "../prior-world-transit-requirements-audit-2026-10-26.md",
   "newRequirements": {
     "flight": "Separate panel removed; full unlimited reserve is the FLY/LAND button fill",
@@ -65,23 +65,48 @@
   "browser": {
     "controls": "Six production-HUD component viewports measured in actual browser; zero overlaps/out-of-bounds, fixed map visible. Two safe-inset scenarios are geometry-only.",
     "sourceScenes": "Actual streamed World PJR road/opposite/overview, circle and approach views; static car/bus for scale. Ameerpet lower-level dwell/transfers and platform names; final compact JBS/MGBS window names. Component simulation only.",
-    "actualGame": "Fresh Gachibowli offer accepted by Enter; driving to46km/h, braking, full map open/explicit close, flight/landing and pause. No pickup or paid handover performed.",
-    "actualPaidDeliveries": 0,
-    "reportFlow": "Local real-game Bug\u2192Report receipt and actual local D1 row/screenshot inspected; final live persistence pending.",
+    "actualGame": "Local Gachibowli smoke: offer acceptance, driving to46km/h, braking, map open/explicit close, flight/landing and pause. Live RTCXRoads: accepted PZ-0001 PizzaHut\u2192HomeinJawaharNagar, held collection, drove/flew, used four visible Backtotheroad recoveries, explicitly held handover and received131coins (500\u2192631), progress0/3\u21921/3. This was a cold delivery and not a clean road-only route.",
+    "actualPaidDeliveries": 1,
+    "reportFlow": "Live Bug\u2192Report receipt f3a12eb5 matches owner-only DB/bug_reports row, exact final build fingerprint, ChikkadapallyRoad sourceID and world/game coordinates, screenshot stored. Native owner viewer truncates large context/JPEG cells, so full live JPEG bytes were not independently decoded; full local stored JPEG was inspected.",
     "console": "No captured warnings/errors on actual game, bridge or metro reviews. HUD wrapper captured three historic unattributed MutationObserver errors during source reloads; no matching application MutationObserver implementation found.",
     "existingWarning": "ISB Road pickup displayed Road ahead blocked; cause not diagnosed or cleared by this smoke test.",
-    "evidenceDirectory": "evidence/2026-10-26-hud-reports-bridges/"
+    "evidenceDirectory": "evidence/2026-10-26-hud-reports-bridges/",
+    "ordersOff": "After paid handover, next offer exposed Stoprequests. Clicking it retracted offer, showed small AcceptordersOFF toggle and no idle task card; OFF remained visible during final check. Confirmed still OFF with no offer after independent metadata/evidence work; live tab then paused and input released.",
+    "liveConsoleWarningsOrErrors": []
   },
   "remaining": [
     "2706 conservative slab-overlap pairs require topology/source review; they are neither confirmed bugs nor a citywide slab-clearance pass.",
     "Exact photo-current campus/mall/office architecture and interiors, exhaustive missing institutions and current city construction inventories remain incomplete.",
     "Prior3720 unresolved playable bus legs are not certified as routed by this change.",
-    "No physical Nothing Phone/gyro or new completed delivery is claimed."
+    "No physical NothingPhone/gyro check. One paid live delivery is verified with flight and four normal UI recoveries; this does not certify clean-road route coverage."
   ],
   "publication": {
     "version": 11,
-    "status": "saved",
+    "status": "succeeded",
     "siteSourceCommit": "7c83a0fe18e977888c5b7fa945ab044a391d1365",
-    "allProductionFilesByteIdentical": true
+    "savedVersionId": "appgprj_6adaefe0993481918802134463afcaab~appgver_49d1c96b879081919b4287001656f07f",
+    "deploymentId": "appgdep_6adfe27edf3481919555381ed75b71c7",
+    "url": "https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site",
+    "allProductionFilesByteIdentical": true,
+    "databaseProvisioned": true,
+    "liveReportVerification": {
+      "status": "PASS",
+      "reportId": "f3a12eb5-4165-4f11-82d4-39b44f9a3bdc",
+      "buildFingerprintMatched": true,
+      "screenshotPresent": true,
+      "privateOwnerDatabaseRead": true,
+      "nativeValueTruncation": true
+    },
+    "publicReportGetStatus": 405
+  },
+  "implementationCommit": "9a00776767cd1bbb77d4d63dea87c75ca8dbb324",
+  "cleanup": {
+    "localReviewTabs": "closed",
+    "ownedLocalServers": [
+      4195,
+      4196
+    ],
+    "liveDeliverableTab": "left paused with requests OFF",
+    "userExistingTabs": "untouched"
   }
 }
