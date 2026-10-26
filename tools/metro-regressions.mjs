@@ -157,3 +157,4 @@ try {
   });
   console.log(`${count} metro regression groups passed (offline production code).`);
 } finally { await rm(temp, { recursive: true, force: true }); }
+await import('./metro-clearance-regressions.mjs');

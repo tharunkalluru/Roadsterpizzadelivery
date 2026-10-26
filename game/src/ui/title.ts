@@ -32,7 +32,7 @@ export class TitleScreen {
     this.root = document.createElement('div'); this.root.className = 'title-screen'; this.root.hidden = true;
     this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-label', 'Pizza to Picture Hall');
     const keys = touch
-      ? '<span><b>← →</b> steer</span><span><b>GO</b> hold to accelerate</span><span><b>BRAKE</b> brake / reverse</span><span><b>CRUISE</b> optional steady drive</span><span><b>FLY / LAND</b> take off / descend</span><span><b>Collect / Hand over</b> hold the button that appears in the middle</span><span><b>MAP</b> tap the minimap</span>'
+      ? '<span><b>← →</b> steer</span><span><b>GO</b> hold to accelerate</span><span><b>BRAKE</b> brake / reverse</span><span><b>CRUISE</b> hold your current speed</span><span><b>FLY / LAND</b> take off / descend</span><span><b>Collect / Hand over</b> hold the button that appears in the middle</span><span><b>MAP</b> tap the minimap</span>'
       : '<span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>S</b> brake / reverse</span><span><b>SPACE</b> fly</span><span><b>E</b> accept, hold to collect / hand over</span><span><b>M</b> map</span><span><b>T</b> theatres</span><span><b>P</b> pause</span>';
     this.root.innerHTML = `<div class="in">
       <div class="eyebrow"><i aria-hidden="true"></i>Hyderabad · Delivery & cinema</div>

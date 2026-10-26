@@ -5,9 +5,9 @@ import type { CityData } from '../world/city';
 import { supportAt, collideBuildings, collideWalls, roofUnder, SupportKind } from './physics';
 import { landmarkCarContact } from './landmark-contact';
 
-export interface Input { throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean }
-export const ROAD_SPEED_LIMIT = 150 / 3.6;
-export const FLIGHT_SPEED_LIMIT = 240 / 3.6;
+export interface Input { throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean; cruiseSpeed?: number }
+export const ROAD_SPEED_LIMIT = 100 / 3.6;
+export const FLIGHT_SPEED_LIMIT = 160 / 3.6;
 
 // Roadster: arcade car with real surfaces (flyovers/steel bridge are drivable) and unlimited flight.
 export class Player {
@@ -99,6 +99,9 @@ export class Player {
     }
   }
   get forward() { return new THREE.Vector3(-Math.sin(this.yaw), 0, -Math.cos(this.yaw)); }
+  enforceSpeedLimit() {
+    this.speed = Math.max(-6, Math.min(this.speed, this.flying || this.descending ? FLIGHT_SPEED_LIMIT : ROAD_SPEED_LIMIT));
+  }
   // rescue: glide on the cold-gas jets to a street spot (off a roof, out of a gap between buildings); needs no boost
   glide: { x: number; y: number; z: number; yaw: number; t: number } | null = null;
   glideTo(x: number, y: number, z: number, yaw: number) { this.glide = { x, y: y + 0.55, z, yaw, t: 0 }; this.flying = false; this.descending = false; this.speed = 0; this.vy = 0; }
@@ -111,11 +114,19 @@ export class Player {
       else { this.flying = true; this.descending = false; }
     }
     // --- longitudinal ---
-    const maxF = this.flying ? FLIGHT_SPEED_LIMIT : ROAD_SPEED_LIMIT;
-    if (inp.throttle > 0) this.speed += (this.flying ? 12 : 9) * inp.throttle * dt;
-    if (inp.brake > 0) this.speed -= (this.speed > 0.5 ? 20 : 6) * inp.brake * dt;
-    if (inp.throttle <= 0 && inp.brake <= 0) this.speed -= Math.sign(this.speed) * Math.min(Math.abs(this.speed), 4 * dt);
-    this.speed = Math.max(-6, Math.min(this.speed, maxF));
+    const maxF = this.flying || this.descending ? FLIGHT_SPEED_LIMIT : ROAD_SPEED_LIMIT;
+    const acceleration = this.flying ? 12 : 9;
+    if (inp.brake <= 0 && inp.throttle <= 0 && typeof inp.cruiseSpeed === 'number' && Number.isFinite(inp.cruiseSpeed)) {
+      // Cruise owns a speed, not a held accelerator. Approach it at normal engine/brake rates,
+      // then compensate coasting drag exactly rather than oscillating around the target.
+      const target = Math.max(0, Math.min(inp.cruiseSpeed, maxF));
+      this.speed += Math.max(-20 * dt, Math.min(acceleration * dt, target - this.speed));
+    } else {
+      if (inp.throttle > 0) this.speed += acceleration * inp.throttle * dt;
+      if (inp.brake > 0) this.speed -= (this.speed > 0.5 ? 20 : 6) * inp.brake * dt;
+      if (inp.throttle <= 0 && inp.brake <= 0) this.speed -= Math.sign(this.speed) * Math.min(Math.abs(this.speed), 4 * dt);
+    }
+    this.enforceSpeedLimit();
     // --- steering (sharper at low speed, reversed when reversing) ---
     const sf = Math.min(1, Math.abs(this.speed) / 6) * (1 / (1 + Math.abs(this.speed) * 0.045));
     this.steerVis += (inp.steer - this.steerVis) * Math.min(1, dt * 8);
@@ -170,6 +181,8 @@ export class Player {
     } else { this.pos.y = ground; this.vy = 0; }
     const sup2 = this.flying || this.descending ? sup : supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55);
     const grounded = !this.flying && !this.descending && this.pos.y - ground < 0.1;
+    // Descent can retain airborne speed, but the same touchdown frame obeys the road cap.
+    if (grounded) this.enforceSpeedLimit();
     if (grounded) { this.lastSupport = sup2.y; this.lastKind = sup2.kind; this.lastElevRoad = sup2.elevatedRoad; this.lastEdge = sup2.s?.e || null; }
     this.onRoad = grounded && sup2.onRoad;
     // --- buildings ---

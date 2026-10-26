@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T20:16:34.107732+00:00",
+  "baseCommit": "018a81c941e8d7130f722a678cb463ab4444b10a",
+  "scope": "Eight Nothing Phone playtest corrections; no source map/shopfront evidence rewritten.",
+  "requirements": [
+    {
+      "id": 1,
+      "requirement": "RTC Cross Roads bridge supports block the road; find similar support conflicts",
+      "implemented": "All bridge classes use 24 m arc-length spacing independent of densified source vertices. Shared 3 D clearance accounts for full road widths, ORR auxiliary lanes and 4.8 m traffic envelopes; body/cap/stair/concourse geometry checked.",
+      "validation": "RTC source audit 153 old piers/83 road conflicts ->6 retained/0 conflicts; all 2482 source building colliders retained. Real browser driving from RTC into Chikkadpally without the former pillar wall. Source-wide audit is separate from browser coverage."
+    },
+    {
+      "id": 2,
+      "requirement": "Smaller centered orange delivery request and swipe acceptance",
+      "implemented": "Orange heading/rim, reward and total in two columns, compact route details, teal captured swipe and Decline. Pointer taps and incomplete/cancelled drags do not accept; keyboard and screenreader paths remain.",
+      "validation": "At 800 x 360 card 368 x 246.77 centered at 400,180; previously 336 x 324.53. Full real-game swipe accepted Domino's Pizza RTC order. Tap and short swipe remained pending in component QA;35 handler groups cover cancellation and focus ownership."
+    },
+    {
+      "id": 3,
+      "requirement": "Brake button match the prototype",
+      "implemented": "Lavender soft rounded-square face with a proper brake-disc rotor icon; smaller than GO.",
+      "validation": "Visible browser inspection; border radius 38% rather than 50% circle."
+    },
+    {
+      "id": 4,
+      "requirement": "Larger adaptive minimap with no overlapping controls",
+      "implemented": "96-120 px landscape map beside the flight stack;112-144 px portrait with compact fallback. Pending offer keeps map clear by hiding disabled flight controls; context target has a safe compact-portrait placement.",
+      "validation": "Six browser CSS sizes 800 x 360,900 x 400,844 x 390,640 x 360,390 x 844,320 x 568: zero map/control overlaps. Measured map outer diameter 106.8-123 px. Compact Collect x 12..178, map x 190..308 and FLY top 306."
+    },
+    {
+      "id": 5,
+      "requirement": "100 km/h road cap and 160 km/h flight cap",
+      "implemented": "Forward engine/boost/cruise speed capped at 100 on ground,160 in flight/descent; touchdown and external train-contact impulse clamped immediately. Train carrier displacement preserved.",
+      "validation": "Production Player tests exercise caps with boost on/off, cruise, landing and train impulses. Actual browser flight reached 157 km/h after accelerator release/coasting; not claimed as exact live cap measurement."
+    },
+    {
+      "id": 6,
+      "requirement": "Cruise hold current speed instead of max speed",
+      "implemented": "Capture forward speed setpoint, including 0 at rest; GO overrides and release captures the new speed; BRAKE cancels and retains reverse.",
+      "validation": "Production updates hold 0,40,45 km/h for 30 simulated seconds; real browser 41 km/h remained 41 across later observations, BRAKE cancelled it."
+    },
+    {
+      "id": 7,
+      "requirement": "Station names readable from trains/roof riders",
+      "implemented": "Both-facing entrance and repeated intermediate station banners above the canopy at deck + 11.2 m, plus both-facing platform signs. Source station names and line identities retained.",
+      "validation": "All 57 station neighborhoods: 570 above-canopy English name faces and 456 platform faces, with sourced Telugu names. Rendered RTC inside-station train-roof component views in both directions show clearly readable names. A full moving-train traversal was not newly completed."
+    },
+    {
+      "id": 8,
+      "requirement": "Tips stop play until closed",
+      "implemented": "Focus-trapped Driving tip panel with Got it; stop world and order clocks, release held input/cruise, block driving and flight until acknowledgment. Acknowledged steps do not reopen when crossing distance thresholds; Replay tips resets them.",
+      "validation": "Actual accepted-order tip kept clock 12:39 PM, speed 0 and displayed distance unchanged through 1.6 s heldW. Got it restored gameplay. Automated frame/timer/replay/threshold regressions pass."
+    }
+  ],
+  "automated": {
+    "command": "npm --prefix game run check",
+    "result": "PASS",
+    "topLevelSuites": 24,
+    "additionalNestedClearanceGroups": 9,
+    "uiHandlerGroups": 35,
+    "gameGroups": 26,
+    "audioFlightGroups": 11,
+    "movingRailGroups": 13,
+    "typecheck": "PASS",
+    "build": "PASS",
+    "mainAsset": "index-DJJt-rQ9.js",
+    "workerAsset": "tileworker-DUWNy5P3.js",
+    "finalSignageFollowup": "TypeScript, 13 metro plus 9 clearance/source-audit groups, and production build PASS after repeated roof signage refinement."
+  },
+  "sourceAudits": {
+    "RTC_CLEARANCE_AUDIT": {
+      "stationId": "st_rtc_cross_roads",
+      "sourcePoint": [
+        21.5,
+        -81
+      ],
+      "sourceLines": [
+        "green"
+      ],
+      "tile": "0_-1",
+      "oldOrdinaryBridgePiersWithin150m": 153,
+      "oldPiersBlockingRoad": 83,
+      "newBridgePiersWithin150m": 6,
+      "nearBridgeSourceIds": [
+        "427107ff-fee_0",
+        "5dbaa15e-212_0"
+      ],
+      "allTileStructurePieces": 65,
+      "stationColumns": 4,
+      "stationStairs": 0,
+      "sourceBuildings": 2482,
+      "retainedSourceBuildingColliders": 2482,
+      "roadConflictsAfter": 0,
+      "validation": "offline sourced tile geometry and colliders; not browser driving"
+    },
+    "CITY_STRUCTURE_AUDIT": {
+      "sourceRoads": 52412,
+      "bridgeCandidates": 9724,
+      "bridgeRetained": 7947,
+      "bridgeOmitted": 1777,
+      "sourceMetroPillars": 1258,
+      "metroRetained": 636,
+      "metroOmitted": 622,
+      "modelHeadroomMetres": 4.8,
+      "sourceDataRewritten": false
+    },
+    "STATION_STRUCTURE_AUDIT": {
+      "sourceStations": 57,
+      "sourceStationTiles": 52,
+      "retainedStationStructurePieces": 562,
+      "retainedColumns": 293,
+      "retainedStairs": 62,
+      "aboveCanopyNameFaces": 570,
+      "platformNameFaces": 456,
+      "roadConflictsAfter": 0,
+      "validation": "offline source road/building station neighborhoods; not citywide browser verification"
+    }
+  },
+  "browser": {
+    "method": "Real visible controls through supported browser APIs. Production HUD and Game in a labelled iframe fixture at actual CSS sizes. No teleport, hidden Game state mutation, stepping or developer autopilot.",
+    "baseUrl": "http://127.0.0.1:4195/phone-feedback-review.html",
+    "area": "RTC X Roads -> Chikkadpally",
+    "order": "PZ-0001 Domino's Pizza -> Home in Zamistanpur; approach1032m, customer1335m",
+    "completed": [
+      "Play/RTC selection",
+      "Real full swipe acceptance",
+      "Tip acknowledgment",
+      "Held accelerator",
+      "Cruise41km/h",
+      "Brake cancels cruise",
+      "Normal road passage through station area",
+      "Flight and landing initiation",
+      "Enlarged map open and close",
+      "Pause"
+    ],
+    "newPickups": 0,
+    "newDeliveries": 0,
+    "physicalPhoneTested": false,
+    "physicalGyroscopeTested": false,
+    "consoleReport": "2026-10-26-phone-console-observations.json",
+    "layoutReport": "2026-10-26-phone-layout-measurements.json",
+    "componentModelViews": [
+      "RTC road approach with sparse supports",
+      "RTC inside station roof-riding camera in both directions; names readable, native screenshots",
+      "Station component console: 0 warnings/errors"
+    ]
+  },
+  "limits": [
+    "Source support clearance is not whole-city browser driving or surveyed civil engineering verification.",
+    "Existing 6.8 m flyover/11 m metro-deck crossings preserve their deck/track support profiles and have about 3 m underside clearance; tall-bus clearance at those stacked crossings is not verified.",
+    "Above-canopy labels were checked in rendered production-model component views; a fresh full moving metro-roof station ride has not been completed.",
+    "QA iframe produced 13 unlocated MutationObserver errors during reload/DOM inspection; clean standalone game boot produced 0 errors/warnings. Cause not confirmed."
+  ],
+  "evidence": [
+    "evidence/2026-10-26-phone-blocking-tip.png",
+    "evidence/2026-10-26-phone-context-small-portrait.png",
+    "evidence/2026-10-26-phone-offer-small-portrait.png",
+    "evidence/2026-10-26-phone-real-cruise-41.png",
+    "evidence/2026-10-26-phone-real-rtc-offer.png",
+    "evidence/2026-10-26-phone-real-tip.png",
+    "evidence/2026-10-26-phone-reported-offer.png",
+    "evidence/2026-10-26-phone-reported-rtc-blockage.png",
+    "evidence/2026-10-26-phone-rtc-road-component.png",
+    "evidence/2026-10-26-phone-rtc-road-pass.png",
+    "evidence/2026-10-26-phone-station-roof-inside-minus.png",
+    "evidence/2026-10-26-phone-station-roof-inside-plus.png"
+  ]
+}

@@ -51,6 +51,18 @@ export function projectMetroPath(path: MetroPath, point: XZ) {
   return best;
 }
 
+// A source station can only attach to a nearby corridor with matching line
+// tags. The same frame is used for geometry, signs and offline clearance audits.
+export function metroStationFrame(station: { p: XZ; lines?: string[] }, corridors: readonly MetroCorridor[]) {
+  let best: { d: number; hx: number; hz: number; cx: number; cz: number; lineId: string } | null = null;
+  for (const corridor of corridors) {
+    if (station.lines?.length && !station.lines.includes(corridor.lineId)) continue;
+    const p = projectMetroPath(corridor.center, station.p);
+    if (!best || p.d < best.d) best = { d: p.d, hx: p.hx, hz: p.hz, cx: p.x, cz: p.z, lineId: corridor.lineId };
+  }
+  return best && best.d <= 60 ? best : null;
+}
+
 function densify(points: readonly XZ[]) {
   const out: XZ[] = [];
   for (let i = 1; i < points.length; i++) {

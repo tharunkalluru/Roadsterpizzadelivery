@@ -62,7 +62,7 @@ try {
     const g = Object.assign(Object.create(Game.prototype), {
       order: original, keys: new Set(), sound: { vehicle() {} }, area: { name: 'RTC X Roads' }, level: 0, choosing: false, relocating: false,
       player: { pos: { x: 10, y: .57, z: 20 }, forward: { x: 1, z: 0 }, flying: false }, graph: { route(x, z, px, pz, car) { assert.deepEqual([x, z, px, pz], [10, 20, 400, 300]); assert.deepEqual(car, { hx: 1, hz: 0, y: .57 }); return { len: 900 }; } },
-      hud: { resetControls() {}, modal() {}, offer(html, actions = []) { displayed = html; buttons = actions; } },
+      hud: { tip() {}, resetControls() {}, modal() {}, offer(html, actions = []) { displayed = html; buttons = actions; } },
       picker: { show() {} }, clock: { getDelta() {} }, engine: { renderer: { domElement: { focus() {} } } }, makeOffer() { generated++; throw Error('must reuse pending offer'); },
     });
     try {
@@ -142,7 +142,7 @@ try {
     let placed = false, picked = false;
     const g = Object.assign(Object.create(Game.prototype), {
       relocating: false, keys: new Set(), area: { name: 'Original' }, player: { pos: { x: 20, z: 30 } },
-      picker: { hide() {} }, hud: { offer() {}, modal() {}, toast() {}, resetControls() {} }, sound: { vehicle() {}, cue() {} }, setTarget() {},
+      picker: { hide() {} }, hud: { tip() {}, offer() {}, modal() {}, toast() {}, resetControls() {} }, sound: { vehicle() {}, cue() {} }, setTarget() {},
       city: { ensure: async () => { throw new Error('offline'); }, focus: [0, 0] },
       placeNear() { placed = true; }, chooseArea(first) { assert.equal(first, false); picked = true; },
     });

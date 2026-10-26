@@ -5,6 +5,50 @@ import { installPrototypeTheme } from './theme';
 
 export type ContextAction = 'collect' | 'handover' | 'theatre';
 
+// A pointer must begin on the thumb and finish near the far end. A tap never accepts.
+// Keyboard and assistive activation use the native button semantics separately.
+export function bindDeliverySwipe(button: HTMLElement, accept: () => void, available: () => boolean) {
+  let pointer = -1, startX = 0, startY = 0, travel = 1, progress = 0, cancelled = false, complete = false, lastPointer = -Infinity;
+  const paint = (value: number) => { progress = value; button.style.setProperty('--swipe-x', `${Math.round(value * travel)}px`); button.style.setProperty('--swipe-progress', String(value)); };
+  const release = () => {
+    const id = pointer; pointer = -1;
+    try { if (id !== -1 && button.hasPointerCapture(id)) button.releasePointerCapture(id); } catch { /* capture already gone */ }
+    paint(0); button.classList.remove('dragging');
+  };
+  const confirm = () => { if (!complete && available()) { complete = true; release(); accept(); } };
+  const move = (event: PointerEvent) => {
+    if (event.pointerId !== pointer) return;
+    if (Math.abs(event.clientY - startY) > Math.max(50, button.getBoundingClientRect().height)) cancelled = true;
+    paint(cancelled ? 0 : Math.max(0, Math.min(1, (event.clientX - startX) / travel)));
+  };
+  button.addEventListener('pointerdown', (event) => {
+    event.preventDefault(); event.stopPropagation();
+    lastPointer = Date.now();
+    if (complete || pointer !== -1 || !available() || event.isPrimary === false || (event.button !== undefined && event.button !== 0)) return;
+    const bounds = button.getBoundingClientRect(), thumb = Math.min(56, bounds.height - 10);
+    if (event.clientX < bounds.left || event.clientX > bounds.left + thumb + 16) return;
+    pointer = event.pointerId; startX = event.clientX; startY = event.clientY; travel = Math.max(1, bounds.width - thumb - 14); cancelled = false;
+    try { button.setPointerCapture(pointer); } catch { release(); return; }
+    paint(0); button.classList.add('dragging');
+  });
+  button.addEventListener('pointermove', (event) => { if (event.pointerId === pointer) { event.preventDefault(); event.stopPropagation(); move(event); } });
+  button.addEventListener('pointerup', (event) => {
+    if (event.pointerId !== pointer) return;
+    event.preventDefault(); event.stopPropagation(); move(event);
+    const accepted = progress >= .86 && !cancelled; release(); if (accepted) confirm();
+  });
+  for (const type of ['pointercancel', 'lostpointercapture']) button.addEventListener(type, (event) => { if ((event as PointerEvent).pointerId === pointer) release(); });
+  button.addEventListener('keydown', (event) => {
+    if (event.code !== 'Space' && event.code !== 'Enter') return;
+    event.preventDefault(); event.stopPropagation(); if (!event.repeat) confirm();
+  });
+  button.addEventListener('keyup', (event) => { if (event.code === 'Space' || event.code === 'Enter') { event.preventDefault(); event.stopPropagation(); } });
+  button.addEventListener('click', (event) => { event.preventDefault(); event.stopPropagation(); if (event.detail === 0 && Date.now() - lastPointer > 400) confirm(); });
+  button.addEventListener('blur', release);
+  button.addEventListener('contextmenu', (event) => event.preventDefault());
+  return release;
+}
+
 // Reserve the measured HUD rails rather than guessing where the minimap ends.
 // On portrait screens there is no usable column beside it, so use the space below both rails.
 export function guidanceBounds(width: number, height: number, leftBottom: number, rightLeft: number, rightBottom: number, touch: boolean) {
@@ -20,13 +64,12 @@ export function orderOfferHtml(o: { level: number; pickupName: string; pickupRoa
   const metres = (n: number) => `${Math.round(n).toLocaleString('en-IN')} m`;
   const approach = o.approachMetres == null ? 'Route unavailable' : `${o.approachEstimated ? 'About ' : ''}${metres(o.approachMetres)} to pickup`;
   const total = o.approachMetres == null ? 'Unavailable' : `${o.approachEstimated ? 'About ' : ''}${((o.approachMetres + o.deliveryMetres) / 1000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} km`;
-  return `<header class="dispatch-heading"><span class="dispatch-dot"></span><h2>New delivery</h2><span class="dispatch-id">${o.orderId ? esc(o.orderId) : `Level ${o.level}`}</span></header>
-    <div class="dispatch-reward">${controlIcon('coin')}<div><strong>${o.basePay.toLocaleString('en-IN')} coins</strong><span>Base reward</span></div></div>
+  return `<header class="dispatch-heading"><span class="dispatch-bag">${controlIcon('bag')}</span><h2>New delivery</h2><span class="dispatch-id">${o.orderId ? esc(o.orderId) : `Level ${o.level}`}</span></header>
+    <div class="dispatch-overview"><div class="dispatch-reward">${controlIcon('coin')}<div><strong>${o.basePay.toLocaleString('en-IN')} coins</strong><span>Base reward</span></div></div><div class="dispatch-total"><span>Total route</span><strong>${total}</strong><small>Tips may add extra</small></div></div>
     <div class="dispatch-stops">
       <div class="dispatch-stop pickup"><span class="stop-pin">${controlIcon('pin')}</span><div><span class="stop-label">Pickup</span><strong>${esc(o.pickupName)}</strong><span>${approach}</span>${o.pickupRoad ? `<small>${esc(o.pickupRoad)}</small>` : ''}</div></div>
       <div class="dispatch-stop dropoff"><span class="stop-pin">${controlIcon('pin')}</span><div><span class="stop-label">Drop-off</span><strong>${esc(o.customerName)}</strong><span>${metres(o.deliveryMetres)} after pickup</span></div></div>
     </div>
-    <div class="dispatch-summary"><div>${controlIcon('route')}<span>Total route<strong>${total}</strong></span></div><span class="dispatch-tip">${controlIcon('coin')}Tips may add extra</span></div>
     <div class="dispatch-note">${controlIcon('info')}<span>Delivery timer starts after collection<small>Delivery window: ${Math.round(o.deliverySeconds)} s · Pickup approach is untimed.</small></span></div>`;
 }
 
@@ -246,6 +289,7 @@ const CSS = `
 .is-touch #hud.has-offer .touch{display:block;opacity:.38}
 .has-offer .touch,.has-offer .touch *{pointer-events:none!important}
 .has-offer .speed{display:none}
+.has-offer .touch-actions{visibility:hidden}
 @media (max-height:520px){
   #hud{--steer-size:76px;--brake-size:66px;--go-width:152px;--go-height:72px;--flight-height:44px;--cruise-height:32px;--stack-gap:6px}
   .steering{gap:12px}.pedals{gap:10px}.touch-actions{bottom:calc(var(--touch-bottom) + var(--go-height) + 10px)}
@@ -275,11 +319,71 @@ const CSS = `
   #hud.has-context-action .context-action{box-sizing:border-box;height:64px;min-height:64px;padding:6px 12px 11px}
 }
 @media (prefers-reduced-motion:reduce){.tb{transition:none}}
+
+/* Centered dispatch and acknowledged coaching use their own blocking surfaces. */
+#t-brake{border-radius:38%;padding:8px;gap:4px;box-shadow:inset 0 0 0 2px #ffffff80,0 0 0 2px #b9a2d37a,0 4px 0 #241432}
+#t-brake .ui-icon{width:36%;height:36%;overflow:visible}
+.has-offer .guidance{z-index:7;align-items:center;justify-content:center;pointer-events:auto;overflow:visible;background:#120a221c;border-radius:0}
+#hud .offer{width:clamp(310px,36vw,570px);max-width:100%;max-height:100%;border:2px solid #ff9b39;border-radius:22px;padding:12px;gap:8px;background:linear-gradient(140deg,#2a1938f7,#170d27fa);box-shadow:inset 0 0 0 2px #773b344d,0 0 0 1px #ffd28b55,0 0 18px #ff8a274d,0 6px 22px #0e071e80}
+.dispatch-heading{gap:9px}
+.dispatch-heading h2{color:#ff9b31;font-size:clamp(16px,2.1vw,27px)}
+.dispatch-bag{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none;color:#ff9d29}
+.dispatch-bag .ui-icon{width:30px;height:30px}
+.dispatch-overview{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:center;gap:10px;padding:10px 12px;background:#35233d55;border:1px solid #78529480;border-radius:14px}
+.dispatch-reward{border:0;background:none;padding:0;gap:9px;min-width:0}
+.dispatch-reward>.ui-icon{width:34px;height:34px}
+.dispatch-reward strong{font-size:clamp(20px,2.6vw,33px);white-space:nowrap}
+.dispatch-reward span{font-size:12px}
+.dispatch-total{display:flex;flex-direction:column;gap:1px;padding-left:10px;border-left:1px solid #70537d;min-width:0;line-height:1.2;color:#d9c6e8}
+.dispatch-total>span{font-size:12px}.dispatch-total>strong{font-family:var(--display);font-size:clamp(20px,2.5vw,31px);color:var(--cream);font-weight:400;overflow-wrap:anywhere}.dispatch-total>small{font-size:10px}
+.dispatch-stops{gap:10px;border:1px solid #78529466;border-radius:13px;padding:9px 10px}
+.dispatch-stops:before{left:22px;top:34px;bottom:34px}
+.dispatch-stop strong{font-size:clamp(16px,1.9vw,22px)}
+.dispatch-note{font-size:11px}.dispatch-note small{font-size:10px}
+.offer-actions{width:100%;min-width:0;display:flex;align-items:stretch;gap:9px;flex-shrink:0}
+.offer-slide{box-sizing:border-box;position:relative;isolation:isolate;display:grid;place-items:center;flex:1;min-width:0;height:54px;padding:0 12px 0 43px;border:2px solid #a3fff5;border-radius:999px;background:linear-gradient(135deg,#35ffee,#15e8d5);box-shadow:inset 0 0 0 2px #2abbcb,0 0 0 2px #0c5663,0 0 14px #1ff5ed59,0 3px 0 #10132c;color:#11162b;font-family:var(--display);font-size:clamp(11px,1.6vw,17px);line-height:1.15;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;overflow:hidden}
+.offer-slide:focus-visible{outline:3px solid #fff1b3;outline-offset:4px}.offer-slide.dragging{cursor:grabbing}
+.swipe-thumb{position:absolute;inset:4px auto 4px 4px;width:42px;display:grid;place-items:center;transform:translateX(var(--swipe-x,0px));border:1px solid #a0e6e5;border-radius:50%;background:linear-gradient(135deg,#ffffff,#e9fff9);box-shadow:0 1px 5px #12536466;color:#0b3343;pointer-events:none;z-index:2}
+.swipe-thumb .ui-icon{width:28px;height:28px}.swipe-label{position:relative;z-index:1;pointer-events:none;text-align:center}.swipe-chevrons{position:absolute;left:52px;display:flex;gap:0;opacity:.17;pointer-events:none}.swipe-chevrons .ui-icon{width:18px;height:18px}
+.swipe-instructions{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#hud .offer-actions .btn.alt{flex:0 0 auto;max-width:28%;height:54px;padding:0 13px;border-color:#8e3d59;background:linear-gradient(145deg,#452338,#29172b);font-size:clamp(11px,1.5vw,15px)}
+.tip-overlay{position:absolute;inset:0;z-index:8;display:grid;place-items:center;box-sizing:border-box;padding:18px;pointer-events:auto;background:#10091cc9;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+#hud .tip-overlay .tip{display:flex;flex-direction:column;align-items:stretch;gap:14px;width:min(430px,100%);max-height:calc(100dvh - 36px);padding:20px;border:2px solid #44e9d8;border-radius:23px;background:linear-gradient(145deg,#332044,#190f2e);box-shadow:inset 0 0 0 2px #79ddda13,0 0 22px #35dfc32d,0 8px 35px #09051180;overflow:auto}
+.tip-heading{display:flex;gap:10px;align-items:center;color:#61ffe8;font-family:var(--display);font-size:17px}.tip-heading .ui-icon{width:26px;height:26px}#hud .tip-overlay #tip-t{font-size:19px;line-height:1.35;font-weight:700;color:var(--cream)}#hud .tip-overlay #tip-x{height:48px;min-height:48px;align-self:stretch;font-family:var(--display);font-size:15px}
+.has-tip .touch,.has-tip .touch *, .has-tip .h-tr,.has-tip .prompt,.has-tip .rescue{pointer-events:none!important}
+.has-tip .touch{opacity:.3}
+#hud.has-offer .h-tr #minimap{position:static;margin:0}
+@media (max-height:520px) and (min-width:601px){
+  #hud .h-tr{gap:5px}#hud .h-tr #minimap{position:absolute;top:70px;right:calc(var(--go-width) + 12px);width:clamp(96px,28vh,120px);height:clamp(96px,28vh,120px);margin:0}
+  #hud.has-offer .h-tr #minimap{position:static;width:clamp(96px,28vh,120px);height:clamp(96px,28vh,120px)}
+  #hud .offer{width:clamp(310px,42vw,460px);padding:9px;border-radius:17px;gap:6px}.offer-content{gap:6px}.dispatch-heading h2{font-size:16px}.dispatch-bag{width:26px;height:26px}.dispatch-bag .ui-icon{width:25px;height:25px}.dispatch-id{font-size:9px}.dispatch-overview{padding:7px 8px;gap:7px}.dispatch-reward>.ui-icon{width:27px;height:27px}.dispatch-reward strong{font-size:22px}.dispatch-total{padding-left:8px}.dispatch-total>strong{font-size:21px}.dispatch-total>span,.dispatch-reward span{font-size:10px}.dispatch-total>small{font-size:9px}.dispatch-stops{gap:7px;padding:7px 8px}.dispatch-stops:before{left:20px;top:30px;bottom:28px}.dispatch-stop strong{font-size:15px}.dispatch-stop .stop-label,.dispatch-stop span:not(.stop-pin):not(.stop-label){font-size:11px}.dispatch-stop small{font-size:9px}.stop-pin,.stop-pin .ui-icon{width:20px;height:24px}.dispatch-note{font-size:10px}.dispatch-note small{display:none}.offer-slide,#hud .offer-actions .btn.alt{height:46px}.offer-slide{font-size:12px;padding-left:39px;padding-right:7px}.swipe-thumb{width:34px}.swipe-thumb .ui-icon{width:23px;height:23px}.swipe-chevrons{left:42px}#hud .offer-actions .btn.alt{font-size:11px;padding:0 10px}
+  #hud .tip-overlay .tip{padding:16px;gap:11px}#hud .tip-overlay #tip-t{font-size:17px}
+  /* Keep the complete normal offer compact on 800x360-class phone screens. */
+  #hud .offer{width:clamp(350px,46vw,430px);max-height:min(260px,calc(100dvh - 24px));padding:8px;gap:5px}
+  .offer-content{gap:4px}.dispatch-heading{gap:7px}.dispatch-heading h2{font-size:16px}.dispatch-bag{width:22px;height:22px}.dispatch-bag .ui-icon{width:22px;height:22px}
+  .dispatch-overview{padding:4px 7px;gap:7px}.dispatch-reward{gap:7px}.dispatch-reward>.ui-icon{width:25px;height:25px}.dispatch-reward strong{font-size:20px}.dispatch-reward span{font-size:10px}.dispatch-total>strong{font-size:20px}.dispatch-total>span{font-size:10px}.dispatch-total>small{font-size:9px}
+  .dispatch-stops{gap:5px;padding:5px 7px}.dispatch-stops:before{left:18px;top:25px;bottom:24px}.dispatch-stop{gap:8px}.dispatch-stop>div{flex:1;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;row-gap:0;align-items:center}.dispatch-stop .stop-label{grid-column:1;grid-row:1;font-size:9px;line-height:1.1}.dispatch-stop strong{grid-column:1;grid-row:2;font-size:14px;line-height:1.15}.dispatch-stop span:not(.stop-pin):not(.stop-label){grid-column:2;grid-row:1 / span 2;font-size:10px;line-height:1.1;white-space:nowrap}.dispatch-stop small{display:none}.stop-pin,.stop-pin .ui-icon{width:18px;height:22px}
+  .dispatch-note{font-size:10px;line-height:1.1;gap:5px}.dispatch-note>.ui-icon{width:12px;height:12px}.offer-actions{padding-top:2px}.offer-slide,#hud .offer-actions .btn.alt{height:46px}
+}
+@media (max-width:600px) and (orientation:portrait){
+  #hud .h-tr #minimap{width:clamp(112px,30vw,144px);height:clamp(112px,30vw,144px)}
+  #hud .offer{width:min(400px,100%);padding:11px}.dispatch-heading h2{font-size:18px}.dispatch-overview{gap:8px;padding:9px}.dispatch-reward strong{font-size:23px}.dispatch-reward>.ui-icon{width:27px;height:27px}.dispatch-total>strong{font-size:23px}.dispatch-total>span{font-size:11px}.dispatch-reward span{font-size:11px}.dispatch-total>small{font-size:9px}.offer-slide{font-size:12px}.dispatch-note{font-size:10px}
+}
+@media (max-width:600px) and (max-height:650px) and (orientation:portrait){
+  #hud .h-tr{gap:5px}#hud .h-tr .pill{height:30px}#hud .h-tr .card{padding:5px 8px!important}#hud .h-tr #minimap,#hud.has-context-action .h-tr #minimap{position:absolute;top:132px;right:0;width:112px;height:112px}
+  .is-touch #hud.has-context-action .prompt.has-action{left:var(--touch-left);width:calc(100% - var(--go-width) - var(--touch-left) - var(--touch-right) - 12px);max-width:none;transform:none;top:192px;bottom:auto}#hud.has-context-action .context-action{width:100%;min-width:0;height:auto;min-height:64px;padding:8px 8px 13px}#hud.has-context-action .context-action strong{font-size:12px}#hud.has-context-action .context-action small{font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){.offer-slide,.swipe-thumb{transition:none}}
 `;
 
 export class Hud {
   root: HTMLElement; el: Record<string, HTMLElement> = {}; toastT = 0;
   private modalFocus: DialogFocus;
+  private offerFocus: DialogFocus;
+  private tipFocus: DialogFocus;
+  private cancelOfferSwipe = () => {};
+  private acceptPendingOffer: (() => void) | null = null;
+  private declinePendingOffer: (() => void) | null = null;
   private updateLayout = () => {};
   private controlReleases: (() => void)[] = [];
   private releaseAction = () => {};
@@ -318,9 +422,9 @@ export class Hud {
       <div class="toast" id="toast" aria-live="polite"></div>
       <div class="prompt" id="prompt" hidden><div class="prompt-copy"><div class="ring" id="ring"></div><span id="prompt-t"></span></div><button class="context-action pe" id="t-act" type="button" aria-pressed="false" hidden><strong id="action-title"></strong><small id="action-hint"></small><span class="action-progress" aria-hidden="true"></span></button></div>
       <div class="guidance" id="guidance">
-        <div class="offer pe" id="offer" role="region" aria-label="New delivery offer" hidden></div>
-        <div class="tip pe" id="tip" hidden><b>TIP</b><span id="tip-t"></span><button type="button" id="tip-x" aria-label="Hide tip">✕</button></div>
+        <div class="offer pe" id="offer" role="dialog" aria-modal="true" aria-label="New delivery offer" hidden></div>
       </div>
+      <div class="tip-overlay" id="tip-layer" role="dialog" aria-modal="true" aria-label="Driving tip" hidden><section class="tip pe" id="tip" hidden><div class="tip-heading">${controlIcon('info')}<span>Driving tip</span></div><span id="tip-t"></span><button type="button" class="btn go" id="tip-x">Got it</button></section></div>
       <div class="keys"><span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>S</b> brake/reverse</span><span><b>Space</b> fly</span><span><b>E</b> collect / hand over / accept</span><span><b>T</b> theatres</span><span><b>M</b> map</span><span><b>H</b> horn</span><span><b>N</b> sound</span><span><b>Drag</b> look around when stopped</span><span><b>P</b> pause</span></div>
       <div class="speed"><span id="spd">0</span><small style="font-size:12px"> km/h</small></div>
       <div class="touch pe">
@@ -343,23 +447,23 @@ export class Hud {
       <div class="rotate" id="rotate"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b>Turn your phone sideways</b><span>Pizza to Picture Hall is made for landscape: the controls sit under your thumbs.</span><button type="button" class="btn alt" id="rot-ok">Play like this anyway</button></div></div>
       <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary · Contains data provided by TGSRTC</div>`;
     for (const n of this.root.querySelectorAll('[id]')) this.el[n.id] = n as HTMLElement;
+    this.el['tip-layer'].hidden = true; this.el.tip.hidden = true; this.el.offer.hidden = true; this.el.modal.hidden = true; this.el.prompt.hidden = true;
     this.modalFocus = new DialogFocus(this.el.modal, { restore: () => this.el['b-help'] });
+    this.offerFocus = new DialogFocus(this.el.offer, { initial: () => this.el.offer.querySelector('#offer-slide'), restore: () => this.el.minimap, captureKeys: true, key: (event) => {
+      if (event.code === 'KeyE' && !event.repeat) { event.preventDefault(); this.acceptPendingOffer?.(); }
+      if (event.key === 'Escape' && !event.repeat) { event.preventDefault(); this.declinePendingOffer?.(); }
+    } });
+    this.tipFocus = new DialogFocus(this.el['tip-layer'], { initial: () => this.el['tip-x'], restore: () => this.el.minimap, captureKeys: true, key: (event) => {
+      if (event.key === 'Escape' && !event.repeat) { event.preventDefault(); this.acknowledgeTip(); }
+    } });
     const left = this.root.querySelector('.h-tl')!, right = this.root.querySelector('.h-tr')!;
     const layout = () => {
       const root = this.root.getBoundingClientRect(), l = left.getBoundingClientRect(), r = right.getBoundingClientRect();
       const offered = this.root.classList.contains('has-offer');
       const bounds = guidanceBounds(root.width, root.height, l.bottom - root.top, r.left - root.left, r.bottom - root.top, touch && !offered);
       if (offered) {
-        // Landscape offers sit in the free column between the two thumb clusters.
-        const steering = this.el.steering.getBoundingClientRect(), pedals = this.el['t-brake'].getBoundingClientRect();
-        const safeLeft = steering.right - root.left + 12, safeRight = pedals.left - root.left - 12;
-        if (touch && root.height <= 520 && safeRight - safeLeft >= 260) {
-          bounds.left = safeLeft; bounds.width = safeRight - safeLeft;
-        } else {
-          bounds.top = Math.max(bounds.top, root.height > 600 ? root.height * .14 : bounds.top);
-          const bottom = touch && Number.isFinite(steering.top) && steering.top > bounds.top ? steering.top - root.top - 12 : root.height - 14;
-          bounds.height = Math.max(0, bottom - bounds.top);
-        }
+        // A request is a centered, isolated decision surface, independent of HUD rails.
+        bounds.left = 12; bounds.top = 12; bounds.width = Math.max(0, root.width - 24); bounds.height = Math.max(0, root.height - 24);
       }
       Object.assign(this.el.guidance.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
     };
@@ -370,7 +474,7 @@ export class Hud {
     this.el['b-help'].addEventListener('click', () => this.onButton('pause'));
     this.el['b-full'].addEventListener('click', () => this.onButton('fullscreen'));
     this.el.rescue.addEventListener('click', () => this.onButton('rescue'));
-    this.el['tip-x'].addEventListener('click', () => { this.tip(null); this.onButton('tip-close'); });
+    this.el['tip-x'].addEventListener('click', () => this.acknowledgeTip());
     this.el['rot-ok'].addEventListener('click', () => { this.el.rotate.classList.add('ok'); this.rotationBlocked = false; });
     // Each held control owns its pointer, so steering and pedals can be used together.
     const hold = (id: string, f: (v: boolean) => void, enabled = () => true) => {
@@ -380,7 +484,7 @@ export class Hud {
         f(active); b.classList.toggle('on', active); b.setAttribute('aria-pressed', String(active));
       };
       b.addEventListener('pointerdown', (e) => {
-        e.preventDefault(); if (pid !== -1 || !enabled()) return;
+        e.preventDefault(); if (pid !== -1 || !enabled() || !this.controlsAvailable) return;
         pid = e.pointerId; try { b.setPointerCapture(pid); } catch { /* pointer already ended */ } paint();
       });
       const releasePointer = () => {
@@ -394,7 +498,7 @@ export class Hud {
       b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
       b.addEventListener('keydown', (e) => {
         if (e.code !== 'Space' && e.code !== 'Enter') return;
-        e.preventDefault(); e.stopPropagation(); if (!enabled()) return;
+        e.preventDefault(); e.stopPropagation(); if (!enabled() || !this.controlsAvailable) return;
         keys.add(e.code); paint();
       });
       b.addEventListener('keyup', (e) => {
@@ -411,7 +515,7 @@ export class Hud {
     hold('t-brake', (v) => { this.touchBrake = v; if (v) this.setCruise(false); });
     const tap = (id: string, action: string) => {
       const button = this.el[id] as HTMLButtonElement;
-      const activate = () => { if (!button.disabled && !this.rotationBlocked && !this.modalOpen) this.onButton(action); };
+      const activate = () => { if (!button.disabled && this.controlsAvailable) this.onButton(action); };
       button.addEventListener('pointerdown', (e) => { e.preventDefault(); activate(); });
       button.addEventListener('keydown', (e) => {
         if (e.code !== 'Space' && e.code !== 'Enter') return;
@@ -425,6 +529,7 @@ export class Hud {
     this.el['t-act'].addEventListener('contextmenu', (e) => e.preventDefault());
     for (const n of this.root.querySelectorAll('.touch, .touch *')) n.addEventListener('contextmenu', (e) => e.preventDefault());
     addEventListener('blur', this.resetInput);
+    addEventListener('resize', () => this.cancelOfferSwipe());
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.resetInput(); });
     const portraitTouch = matchMedia('(orientation: portrait) and (pointer: coarse)');
     const updateRotation = () => {
@@ -436,6 +541,7 @@ export class Hud {
   }
   // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
   resetControls() {
+    this.cancelOfferSwipe();
     for (const release of this.controlReleases) release();
     this.setCruise(false);
     this.prompt(null);
@@ -472,6 +578,7 @@ export class Hud {
   tiltBound = false;
   get steer() { return this.tiltOn ? (Math.abs(this.tilt) < 0.08 ? 0 : this.tilt) : this.touchSteer; }
   get activeAction() { return this.contextAction; }
+  private get controlsAvailable() { return !this.root.classList.contains('has-offer') && !this.tipOpen && !this.modalOpen && !this.rotationBlocked; }
   setCruise(on: boolean) {
     this.cruiseOn = on;
     const button = this.el['t-cruise']; if (!button) return;
@@ -528,13 +635,33 @@ export class Hud {
     }
   }
   offer(html: string | null, buttons: { label: string; cls: string; fn: () => void }[] = []) {
-    if (html) this.resetControls();
+    this.cancelOfferSwipe(); this.cancelOfferSwipe = () => {};
+    this.acceptPendingOffer = null; this.declinePendingOffer = null;
+    if (html) { this.tipAcknowledgement(null); this.resetInput(); }
+    else this.offerFocus.hide();
     const o = this.el.offer; o.hidden = !html; this.root.classList.toggle('has-offer', !!html); this.updateLayout(); if (!html) return;
-    o.innerHTML = `<div class="offer-content">${html}</div><div class="offer-actions">${buttons.map((b, i) => `<button type="button" class="btn ${b.cls}" data-i="${i}">${b.label}</button>`).join('')}</div>`;
-    o.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => buttons[+b.dataset.i!].fn()));
+    const primary = buttons.findIndex((button) => button.cls.split(/\s+/).includes('go'));
+    o.innerHTML = `<div class="offer-content">${html}</div><div class="offer-actions">${buttons.map((b, i) => i === primary
+      ? `<button type="button" class="offer-slide" id="offer-slide" aria-label="Accept delivery" aria-describedby="swipe-help"><span class="swipe-thumb">${controlIcon('right')}</span><span class="swipe-chevrons">${controlIcon('right')}${controlIcon('right')}</span><span class="swipe-label">SLIDE TO ACCEPT</span></button><span id="swipe-help" class="swipe-instructions">Swipe right to accept. Keyboard: press Enter, Space or E.</span>`
+      : `<button type="button" class="btn ${b.cls}" id="offer-action-${i}">${b.label}</button>`).join('')}</div>`;
+    let decided = false;
+    const available = () => !o.hidden && !decided && !this.modalOpen && !this.tipOpen && !this.rotationBlocked;
+    const decide = (index: number) => { if (available()) { decided = true; this.cancelOfferSwipe(); buttons[index].fn(); } };
+    if (primary >= 0) {
+      const accept = () => decide(primary); this.acceptPendingOffer = accept;
+      this.cancelOfferSwipe = bindDeliverySwipe(o.querySelector('#offer-slide')!, accept, available);
+    }
+    buttons.forEach((button, i) => {
+      if (i === primary) return;
+      const decline = () => decide(i);
+      this.declinePendingOffer ??= decline;
+      o.querySelector(`#offer-action-${i}`)!.addEventListener('click', decline);
+    });
+    if (!this.modalOpen) this.offerFocus.show();
   }
   modal(html: string | null, bind?: (sheet: HTMLElement) => void) {
-    this.el.modal.hidden = !html; if (!html) { this.modalFocus.hide(); return; }
+    this.el.modal.hidden = !html; if (!html) { this.modalFocus.hide(); if (!this.el.offer.hidden) this.offerFocus.show(); return; }
+    this.tipAcknowledgement(null); this.offerFocus.hide();
     this.resetInput();
     this.el.sheet.innerHTML = html; bind?.(this.el.sheet);
     this.modalFocus.show();
@@ -549,5 +676,15 @@ export class Hud {
     const c = this.el['area-chip']; c.innerHTML = `<small>Entering</small>${name.replace(/[<>&]/g, '')}`; c.classList.add('show');
     clearTimeout(this.areaT); this.areaT = window.setTimeout(() => c.classList.remove('show'), 4200);
   }
-  tip(text: string | null) { this.el.tip.hidden = !text; if (text) this.set('tip-t', text); }
+  get tipOpen() { return !this.el['tip-layer'].hidden; }
+  private acknowledgeTip() { if (!this.tipOpen) return; this.tipAcknowledgement(null); this.onButton('tip-close'); }
+  tipAcknowledgement(text: string | null) {
+    if (text && (this.modalOpen || this.root.classList.contains('has-offer'))) return;
+    const wasOpen = this.tipOpen;
+    this.el['tip-layer'].hidden = !text; this.el.tip.hidden = !text; this.root.classList.toggle('has-tip', !!text);
+    if (!text) { this.tipFocus.hide(); return; }
+    this.set('tip-t', text);
+    if (!wasOpen) { this.resetInput(); this.tipFocus.show(); }
+  }
+  tip(text: string | null) { this.tipAcknowledgement(text); }
 }

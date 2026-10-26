@@ -102,17 +102,42 @@ try {
     group: new Group(), glow: new Group(), light: new Group(), wheels: [], wheelRollers: [], animateThrusters() {},
   });
 
-  await test('road speed is capped at 150 km/h with either boost setting; flight caps at 240 km/h', () => {
+  await test('road speed is capped at 100 km/h with either boost setting; flight and descent never exceed 160 km/h', () => {
     for (const boost of [false, true]) {
       const player = playerFixture();
       for (let n = 0; n < 1800; n++) player.update(1 / 60, { ...input, throttle: 1, boost }, n / 60);
-      assert.ok(Math.abs(player.speed * 3.6 - 150) < 1e-8);
+      assert.ok(Math.abs(player.speed * 3.6 - 100) < 1e-8);
     }
-    const player = playerFixture(); player.flying = true;
-    for (let n = 0; n < 1800; n++) player.update(1 / 60, { ...input, throttle: 1 }, n / 60);
-    assert.ok(Math.abs(player.speed * 3.6 - 240) < 1e-8);
-    player.update(1 / 60, { ...input, throttle: 1, flyPressed: true }, 31);
-    assert.ok(player.speed * 3.6 <= 150 + 1e-8, 'landing never carries flight-only speed onto the road');
+    for (const boost of [false, true]) {
+      const player = playerFixture(); player.flying = true;
+      for (let n = 0; n < 1800; n++) player.update(1 / 60, { ...input, throttle: 1, boost }, n / 60);
+      assert.ok(Math.abs(player.speed * 3.6 - 160) < 1e-8);
+      player.update(1 / 60, { ...input, throttle: 1, boost, flyPressed: true }, 31);
+      assert.equal(player.descending, true); assert.ok(player.speed * 3.6 <= 160 + 1e-8);
+      for (let n = 0; n < 900 && player.descending; n++) {
+        player.update(1 / 60, { ...input, throttle: 1, boost }, 31 + n / 60);
+        assert.ok(player.speed * 3.6 <= (player.descending ? 160 : 100) + 1e-8, 'touchdown itself obeys the road cap');
+      }
+      assert.equal(player.descending, false); assert.ok(player.speed * 3.6 <= 100 + 1e-8);
+    }
+  });
+
+  await test('cruise holds actual 40 and 45 km/h setpoints instead of a latched accelerator, including a stationary hold', () => {
+    for (const kph of [0, 40, 45]) {
+      const player = playerFixture(); player.speed = kph / 3.6;
+      for (let n = 0; n < 1800; n++) player.update(1 / 60, { ...input, cruiseSpeed: kph / 3.6 }, n / 60);
+      assert.ok(Math.abs(player.speed * 3.6 - kph) < 1e-8, `${kph} km/h stays stable`);
+    }
+    const player = playerFixture(); player.speed = 40 / 3.6;
+    player.update(1 / 60, { ...input, cruiseSpeed: 45 / 3.6 }, 0);
+    assert.ok(player.speed * 3.6 > 40 && player.speed * 3.6 < 45, 'engine approaches a faster setpoint smoothly');
+    for (let n = 0; n < 180; n++) player.update(1 / 60, { ...input, cruiseSpeed: 45 / 3.6 }, n / 60);
+    assert.ok(Math.abs(player.speed * 3.6 - 45) < 1e-8);
+    player.update(1 / 60, { ...input, cruiseSpeed: 45 / 3.6, brake: 1 }, 4);
+    assert.ok(player.speed * 3.6 < 45, 'brake has priority over cruise control');
+    player.speed = 0;
+    for (let n = 0; n < 1800; n++) player.update(1 / 60, { ...input, cruiseSpeed: 999, boost: true }, 5 + n / 60);
+    assert.ok(Math.abs(player.speed * 3.6 - 100) < 1e-8, 'even an oversized cruise target respects road cap');
   });
 
   await test('both front wheels steer toward the actual forward turn; rear wheels stay straight', () => {

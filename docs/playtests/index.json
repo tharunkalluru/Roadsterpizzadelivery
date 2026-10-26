@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T19:18:54.652025+00:00",
+  "updatedAt": "2026-10-26T20:16:34.107732+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -2294,6 +2294,14 @@
     "baseCommit": "4ba6cf0efd6ba4676a5836b4da8687a718d92096",
     "automated": "PASS:24 suites, typecheck and production build",
     "browser": "Real offer acceptance, cruise cancellation, flight/landing, map close and pause; component layouts and contextual hold",
+    "newBrowserDeliveries": 0,
+    "physicalPhoneTested": false
+  },
+  "latestPhoneFeedbackValidation": {
+    "report": "2026-10-26-phone-feedback-fixes.json",
+    "baseCommit": "018a81c941e8d7130f722a678cb463ab4444b10a",
+    "automated": "PASS: 24 suites plus 9 clearance groups, TypeScript and build",
+    "browser": "RTC real swipe, blocking tip, cruise at 41 km/h, braking, road passage, flight, map close; 6 viewport layouts",
     "newBrowserDeliveries": 0,
     "physicalPhoneTested": false
   }

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RTC metro clearance component review</title><link rel="stylesheet" href="./fonts/fonts.css">
+<style>
+html,body,#view{margin:0;width:100%;height:100%;overflow:hidden;font:14px/1.35 system-ui,sans-serif;background:#17132b;color:#fff8e6}canvas{display:block}aside{position:fixed;z-index:2;top:10px;left:10px;right:10px;max-width:430px;background:#21182eea;border:1px solid #a98acb;border-radius:12px;padding:10px;box-sizing:border-box}h1{font-size:16px;margin:0 0 4px}.notice{color:#ffcf60;font-weight:700}p{margin:4px 0}.buttons{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}button{font:700 13px system-ui;min-height:38px;padding:6px 10px;border:1px solid #a98acb;border-radius:9px;background:#372743;color:#fff8e6;cursor:pointer}button[aria-pressed=true]{background:#ffbf25;color:#21172d;border-color:#ffdf83}button:focus-visible{outline:3px solid #45e3d3;outline-offset:2px}output{display:block;white-space:pre-wrap;font:12px/1.35 ui-monospace,monospace;margin-top:6px}details{margin-top:5px}#error{color:#ff9ba6}#loading{position:fixed;inset:0;display:grid;place-items:center;font-weight:800;background:#17132bdb;z-index:3}#loading[hidden]{display:none}@media(max-height:500px){aside{max-width:430px;padding:6px 10px}h1{font-size:14px}button{min-height:32px}.buttons{margin-top:5px}output{font-size:10px}}
+#panel-toggle{position:fixed;right:10px;top:10px;z-index:4}#component-label{position:fixed;bottom:8px;left:10px;z-index:3;background:#21182edb;border:1px solid #a98acb;border-radius:8px;padding:4px 8px;color:#ffcf60;font-size:12px}aside[hidden]{display:none}</style></head><body><div id="view"></div><aside><h1>RTC Cross Roads · component geometry review</h1><p class="notice">Controlled component view — not gameplay or delivery verification.</p><details><summary>Source and camera details</summary><p>Actual shipped city tiles, shared road grade preparation, station geometry, signs, MetroTrains and Roadster models. Buttons change only this isolated camera/model view. One stationary production metro is positioned for the roof-riding perspective; traffic, orders and player driving are absent. Save data is untouched.</p></details><div class="buttons"><button data-view="road-plus">Road approach +</button><button data-view="road-minus">Road approach −</button><button data-view="rail-plus">Rail approach +</button><button data-view="rail-minus">Rail approach −</button><button data-view="inside-plus">Inside station +</button><button data-view="inside-minus">Inside station −</button></div><output id="status">Loading actual RTC city tiles…</output><output id="error"></output></aside><div id="loading">Building actual RTC Cross Roads…</div>
+<button id="panel-toggle" type="button" aria-expanded="true">Hide review panel</button><div id="component-label">Component geometry review — not gameplay</div>
+<script type="module">
+import * as THREE from 'three';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+import {Engine} from './src/core/engine.ts';
+import {moodAt} from './src/core/sky.ts';
+import {initTemplates} from './src/core/util.ts';
+import {fetchPack} from './src/world/packs.ts';
+import {World} from './src/world/world.ts';
+import {prepareRoadGrades,roadHeightAlong} from './src/world/road-grades.ts';
+import {metroCorridors,metroStationFrame,metroPath,projectMetroPath,sampleMetroPath} from './src/world/metro-geometry.ts';
+import {MetroTrains,METRO_TRAIN_LENGTH} from './src/game/metro.ts';
+import {Player} from './src/game/player.ts';
+
+const status=document.querySelector('#status'),loading=document.querySelector('#loading');
+const panel=document.querySelector('aside'),toggle=document.querySelector('#panel-toggle');toggle.onclick=()=>{panel.hidden=!panel.hidden;toggle.textContent=panel.hidden?'Show review panel':'Hide review panel';toggle.setAttribute('aria-expanded',String(!panel.hidden));};
+try{
+ await Promise.allSettled(['700 32px "Noto Sans Telugu"','800 32px "Baloo 2"','32px "Bungee"'].map(f=>document.fonts.load(f)));
+ initTemplates({rbox:new RoundedBoxGeometry(1,1,1,3,.12),ring:new THREE.RingGeometry(1,1.35,40)});
+ const core=await fetchPack('./city/core.pack.wasm');core.roads=prepareRoadGrades(core.roads);
+ const station=core.metro.stations.find(s=>s.id==='st_rtc_cross_roads');
+ if(!station)throw new Error('RTC Cross Roads station is missing from the shipped source.');
+ const corridors=metroCorridors(core.metro.lines),frame=metroStationFrame(station,corridors);
+ if(!frame)throw new Error('RTC station has no matching sourced metro corridor.');
+ const corridor=corridors.find(c=>c.lineId===frame.lineId),engine=new Engine(document.querySelector('#view'),{lowQ:true});
+ const world=new World(core,engine.mats,{lowQ:true,base:new URL('./city/',location.href).href});
+ engine.scene.add(world.group);world.signs.init(.6);engine.applyMood(moodAt(15),{signs:v=>world.signs.setEmissive(v)});
+ world.focus=station.p;await world.ensure(station.p[0],station.p[1],360);
+ const player=new Player(world,engine.mats);player.addTo(engine.scene);
+ const metro=new MetroTrains(core.metro,{body:engine.mats.vBody,lights:engine.mats.vLight}),allTrains=metro.trains.slice();engine.scene.add(metro.group);
+ const candidates=core.roads.filter(e=>['primary','secondary','tertiary','trunk'].includes(e.cls)&&!e.elev?.some(y=>y>1.2)&&e.pts.some(p=>Math.hypot(p[0]-frame.cx,p[1]-frame.cz)<250)).map(e=>({e,path:metroPath(e.pts)}));
+ const P=(u,v=0)=>({x:frame.cx+frame.hx*u-frame.hz*v,z:frame.cz+frame.hz*u+frame.hx*v});
+ const roofY=core.metro.deckHeight+.95+3.775,viewInfo={ready:false,sourceStationId:station.id,sourceStationPoint:station.p,world,engine,view:null};
+ window.__metroClearanceReview=viewInfo;
+ function poseTrain(direction,centreS){
+  metro.update(0,1e6,1e6);
+  const train=allTrains.find(t=>t.run.corridor.lineId===frame.lineId&&t.run.dir===direction);
+  if(!train)throw new Error('No production metro run matches this station direction.');
+  metro.trains=[train];train.s=Math.max(train.run.min,Math.min(train.run.max,centreS+direction*METRO_TRAIN_LENGTH/2));train.v=0;train.dwell=1;train.terminal=false;train.next=metro.nextStop(train.run,train.s);
+  return train;
+ }
+ function show(mode){
+  const direction=mode.endsWith('minus')?-1:1,track=corridor.tracks.find(t=>t.dir===direction),atStation=projectMetroPath(track.path,station.p);
+  const centreS=atStation.s-(mode.startsWith('rail')?direction*115:0),train=poseTrain(direction,centreS);
+  const rail=sampleMetroPath(track.path,train.s-direction*METRO_TRAIN_LENGTH/2);let x=rail.x,z=rail.z,y=roofY+.55,hx=rail.hx*direction,hz=rail.hz*direction,sourceRoad='metro roof component pose';
+  if(mode.startsWith('road')){
+   const target=P(-direction*105);let best=null;
+   for(const c of candidates){const p=projectMetroPath(c.path,[target.x,target.z]);if(Math.abs(p.hx*frame.hx+p.hz*frame.hz)<.7)continue;if(!best||p.d<best.p.d)best={...c,p};}
+   if(!best)throw new Error('No nearby sourced road matches the road approach.');
+   const sign=best.p.hx*frame.hx*direction+best.p.hz*frame.hz*direction>=0?1:-1;hx=best.p.hx*sign;hz=best.p.hz*sign;
+   x=best.p.x+hz*Math.min(2,best.e.w*.22);z=best.p.z-hx*Math.min(2,best.e.w*.22);y=roadHeightAlong(best.e,best.p.s)+.55;
+   sourceRoad=`${best.e.name||best.e.cls} [${best.e.id}]`;
+  }
+  player.group.position.set(x,y,z);player.group.rotation.set(0,Math.atan2(-hx,-hz),0,'YXZ');player.pos.set(x,y,z);
+  player.glow.position.set(x,.06,z);player.glow.visible=mode.startsWith('road');
+  engine.camera.position.set(x-hx*18,y+5.5,z-hz*18);engine.camera.lookAt(x+hx*20,y+1.25,z+hz*20);engine.camera.fov=60;engine.camera.updateProjectionMatrix();
+  metro.update(0,x,z);world.signs.update(engine.camera.position.x,engine.camera.position.z,true);engine.placeSun(new THREE.Vector3(x,0,z));engine.render();
+  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===mode)));
+  const pieces=[...world.tiles.values()].flatMap(t=>t.built.structureSupports||[]),near=pieces.filter(s=>Math.hypot(s.footprint.x-station.p[0],s.footprint.z-station.p[1])<150);
+  status.textContent=`${document.querySelector(`[data-view="${mode}"]`).textContent} · static component camera\n${station.name} · ${frame.lineId} line · source ${station.id} [${station.p.join(', ')}]\n${sourceRoad}\nCamera Y ${engine.camera.position.y.toFixed(2)} m · car base Y ${y.toFixed(2)} m · loaded source tiles ${world.tiles.size}\nNearby safe bridge supports ${near.filter(s=>s.part==='bridge').length} · fixture is not a collision-driving result`;
+  Object.assign(viewInfo,{ready:true,view:mode,sourceRoad,camera:engine.camera.position.toArray(),car:player.pos.toArray()});
+ }
+ document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));
+ const requested=new URLSearchParams(location.search).get('view'),initial=document.querySelector(`[data-view="${requested}"]`)?requested:'road-plus';show(initial);loading.hidden=true;
+ let last=0;function render(now){requestAnimationFrame(render);if(now-last<40)return;last=now;engine.render();}requestAnimationFrame(render);
+}catch(error){console.error(error);document.querySelector('#error').textContent=String(error);loading.hidden=true;}
+</script></body></html>

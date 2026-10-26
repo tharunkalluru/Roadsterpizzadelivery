@@ -14,14 +14,14 @@ class Events {
   events = new Map();
   addEventListener(type, fn) { if (!this.events.has(type)) this.events.set(type, []); this.events.get(type).push(fn); }
   emit(type, values = {}) {
-    const event = { pointerId: 1, clientX: 0, prevented: false, stopped: false, preventDefault() { this.prevented = true; }, stopPropagation() { this.stopped = true; }, ...values };
+    const event = { pointerId: 1, clientX: 0, clientY: 0, button: 0, isPrimary: true, prevented: false, stopped: false, preventDefault() { this.prevented = true; }, stopPropagation() { this.stopped = true; }, ...values };
     for (const fn of [...this.events.get(type) || []]) fn(event);
     return event;
   }
 }
 class Element extends Events {
   constructor(id = '') {
-    super(); this.id = id; this.nodes = new Map(); this.attributes = new Map(); this.hidden = false; this.dataset = {}; this.style = { setProperty() {} }; this.captures = new Set(); this.clientWidth = 100;
+    super(); this.id = id; this.nodes = new Map(); this.attributes = new Map(); this.hidden = false; this.dataset = {}; this.style = { values: new Map(), setProperty(key, value) { this.values.set(key, value); } }; this.captures = new Set(); this.clientWidth = 100;
     const classes = new Set(); this.classList = { add: (value) => classes.add(value), remove: (value) => classes.delete(value), contains: (value) => classes.has(value), toggle(value, on) { if (on) classes.add(value); else classes.delete(value); } };
   }
   set innerHTML(html) { this.html = html; this.nodes.clear(); for (const [, id] of html.matchAll(/\bid="([^"]+)"/g)) this.nodes.set(id, new Element(id)); }
@@ -38,8 +38,8 @@ class Element extends Events {
 }
 try {
   const entry = path.join(temp, 'ui.mjs');
-  await build({ stdin: { contents: "export { Hud } from './game/src/ui/hud'; export { Game } from './game/src/game/game'; export { AreaPicker } from './game/src/ui/areapicker'; export { loadSettings, settingsHtml } from './game/src/ui/settings';", resolveDir: new URL('../', import.meta.url).pathname, loader: 'ts' }, outfile: entry, bundle: true, platform: 'node', format: 'esm' });
-  const { Hud, Game, AreaPicker, loadSettings, settingsHtml } = await import(pathToFileURL(entry));
+  await build({ stdin: { contents: "export { Hud, bindDeliverySwipe } from './game/src/ui/hud'; export { Game } from './game/src/game/game'; export { AreaPicker } from './game/src/ui/areapicker'; export { loadSettings, settingsHtml } from './game/src/ui/settings';", resolveDir: new URL('../', import.meta.url).pathname, loader: 'ts' }, outfile: entry, bundle: true, platform: 'node', format: 'esm' });
+  const { Hud, bindDeliverySwipe, Game, AreaPicker, loadSettings, settingsHtml } = await import(pathToFileURL(entry));
   const globalEvents = new Events(), docEvents = new Events(), portrait = new Events(), root = new Element('hud');
   portrait.matches = false;
   globalThis.addEventListener = globalEvents.addEventListener.bind(globalEvents);
@@ -49,6 +49,9 @@ try {
   globalThis.window = { DeviceOrientationEvent: class {} };
   globalThis.screen = { orientation: { angle: 90 } };
   const hud = new Hud(true), el = hud.el;
+  // DialogFocus's native isolation is tested independently in ui-regressions.
+  // This seam exercises dispatch/tip handlers without pretending to render DOM geometry.
+  hud.offerFocus = { show() {}, hide() {} }; hud.tipFocus = { show() {}, hide() {} };
   let resets = 0;
   hud.onInputReset = () => { resets++; hud.resetControls(); }; // mirrors the game callback without recursion
   const down = (id, pointerId) => el[id].emit('pointerdown', { pointerId });
@@ -335,6 +338,79 @@ try {
     hud.order({ state: 'Deliver', title: 'Home', sub: '', dist: '670 m', time: '141 s', meters: false, stage: 'delivery' });
     assert.equal(el.order.dataset.stage, 'delivery'); assert.equal(el['o-note'].hidden, true); assert.equal(el['o-next'].hidden, true);
   });
+  const swipeFixture = () => {
+    const button = new Element('swipe'); let accepted = 0, available = true;
+    button.getBoundingClientRect = () => ({ left: 20, top: 0, width: 300, height: 48 });
+    const release = bindDeliverySwipe(button, () => accepted++, () => available);
+    return { button, release, accepted: () => accepted, unavailable: () => { available = false; } };
+  };
+  await test('delivery slider requires a captured horizontal swipe and never accepts a tap or short drag', () => {
+    const { button, accepted } = swipeFixture();
+    button.emit('pointerdown', { clientX: 30, clientY: 20 }); button.emit('pointerup', { clientX: 30, clientY: 20 });
+    button.emit('click', { detail: 1 }); button.emit('click', { detail: 0 });
+    assert.equal(accepted(), 0, 'compatibility clicks after a physical tap cannot bypass the swipe');
+    button.emit('pointerdown', { clientX: 30, clientY: 20 }); button.emit('pointermove', { clientX: 100, clientY: 20 });
+    assert.equal(button.hasPointerCapture(1), true); assert.notEqual(button.style.values.get('--swipe-x'), '0px');
+    button.emit('pointerup', { clientX: 100, clientY: 20 });
+    assert.equal(accepted(), 0); assert.equal(button.style.values.get('--swipe-x'), '0px'); assert.equal(button.captures.size, 0);
+    button.emit('pointerdown', { clientX: 30, clientY: 20 }); button.emit('pointermove', { clientX: 275, clientY: 20 }); button.emit('pointerup', { clientX: 275, clientY: 20 });
+    assert.equal(accepted(), 1); assert.equal(button.captures.size, 0);
+    button.emit('pointerup', { clientX: 300, clientY: 20 }); button.emit('click', { detail: 1 }); assert.equal(accepted(), 1);
+  });
+  await test('slider owns one thumb, rejects starts away from its handle, and cancels vertical movement', () => {
+    const { button, accepted } = swipeFixture();
+    button.emit('pointerdown', { clientX: 180, clientY: 20 }); button.emit('pointerup', { clientX: 310, clientY: 20 }); assert.equal(accepted(), 0);
+    button.emit('pointerdown', { pointerId: 5, clientX: 30, clientY: 20 });
+    button.emit('pointerdown', { pointerId: 6, clientX: 30, clientY: 20 }); button.emit('pointerup', { pointerId: 6, clientX: 310, clientY: 20 });
+    assert.equal(accepted(), 0); assert.equal(button.hasPointerCapture(5), true);
+    button.emit('pointermove', { pointerId: 5, clientX: 300, clientY: 120 }); button.emit('pointerup', { pointerId: 5, clientX: 300, clientY: 20 });
+    assert.equal(accepted(), 0, 'vertical cancellation remains cancelled even when the finger returns');
+  });
+  await test('slider cancellation, lost capture, blur and external reset never commit a partial gesture', () => {
+    for (const cancel of [(b) => b.emit('pointercancel'), (b) => b.releasePointerCapture(1), (b) => b.emit('blur'), (_b, release) => release()]) {
+      const { button, release, accepted } = swipeFixture();
+      button.emit('pointerdown', { clientX: 30, clientY: 20 }); button.emit('pointermove', { clientX: 250, clientY: 20 }); cancel(button, release);
+      button.emit('pointerup', { clientX: 300, clientY: 20 }); assert.equal(accepted(), 0); assert.equal(button.captures.size, 0); assert.equal(button.style.values.get('--swipe-x'), '0px');
+    }
+    const { button, unavailable, accepted } = swipeFixture();
+    button.emit('pointerdown', { clientX: 30, clientY: 20 }); button.emit('pointermove', { clientX: 280, clientY: 20 }); unavailable(); button.emit('pointerup', { clientX: 280, clientY: 20 }); assert.equal(accepted(), 0);
+  });
+  await test('delivery acceptance remains accessible to keyboard and screen readers without duplicate activation', () => {
+    for (const code of ['Enter', 'Space']) {
+      const { button, accepted } = swipeFixture();
+      const event = button.emit('keydown', { code, repeat: false }); button.emit('keydown', { code, repeat: true }); button.emit('keyup', { code });
+      assert.equal(accepted(), 1); assert.ok(event.prevented && event.stopped);
+    }
+    const { button, accepted } = swipeFixture(); button.emit('click', { detail: 1 }); assert.equal(accepted(), 0);
+    button.emit('click', { detail: 0 }); button.emit('click', { detail: 0 }); assert.equal(accepted(), 1);
+  });
+  await test('pending delivery isolates its controls, preserves explicit decline and releases swipes on blur', () => {
+    let accepted = 0, declined = 0; const events = []; hud.onButton = id => events.push(id);
+    const show = () => hud.offer('<p>Request</p>', [{ label: 'Accept', cls: 'go', fn: () => { accepted++; hud.offer(null); } }, { label: 'Decline', cls: 'alt', fn: () => { declined++; hud.offer(null); } }]);
+    show();
+    down('t-gas', 77); down('t-left', 78); el['t-cruise'].emit('pointerdown'); el['t-fly'].emit('pointerdown');
+    assert.equal(hud.touchGas, false); assert.equal(hud.steer, 0); assert.deepEqual(events, []);
+    assert.match(el.offer.innerHTML, /SLIDE TO ACCEPT/); assert.match(el.offer.innerHTML, /aria-describedby="swipe-help"/);
+    const slide = el.offer.querySelector('#offer-slide'); slide.getBoundingClientRect = () => ({ left: 20, top: 0, width: 300, height: 48 });
+    slide.emit('pointerdown', { clientX: 30, clientY: 20 }); slide.emit('pointermove', { clientX: 250, clientY: 20 }); globalEvents.emit('blur');
+    slide.emit('pointerup', { clientX: 300, clientY: 20 }); assert.equal(accepted, 0);
+    el.offer.querySelector('#offer-action-1').emit('click', { detail: 1 }); assert.equal(declined, 1); assert.equal(el.offer.hidden, true);
+    show(); const keyboard = el.offer.querySelector('#offer-slide'); keyboard.emit('keydown', { code: 'Enter', repeat: false });
+    assert.equal(accepted, 1); assert.equal(el.offer.hidden, true);
+  });
+  await test('driving tips block held input and remain until an acknowledged dismissal', () => {
+    const events = []; hud.onButton = id => events.push(id); const before = resets;
+    down('t-gas', 80); hud.setCruise(true); hud.tipAcknowledgement('Hold GO to accelerate.');
+    assert.equal(hud.tipOpen, true); assert.equal(el['tip-layer'].hidden, false); assert.equal(el['tip-t'].textContent, 'Hold GO to accelerate.'); released();
+    assert.equal(hud.cruiseOn, false); assert.equal(resets, before + 1);
+    hud.tipAcknowledgement('Hold GO to accelerate.'); assert.equal(resets, before + 1, 'same open tip does not repeatedly reset or refocus');
+    down('t-gas', 81); el['t-fly'].emit('pointerdown'); el['t-cruise'].emit('pointerdown'); assert.equal(hud.touchGas, false); assert.deepEqual(events, []);
+    hud.resetControls(); assert.equal(hud.tipOpen, true, 'input reset alone does not dismiss coaching');
+    el['tip-x'].emit('click'); assert.equal(hud.tipOpen, false); assert.deepEqual(events, ['tip-close']);
+    el['tip-x'].emit('click'); assert.deepEqual(events, ['tip-close']);
+    hud.tip('Another tip'); hud.modal('<h2>Paused</h2>'); assert.equal(hud.tipOpen, false); hud.modal(null);
+    hud.tip('Another tip'); hud.offer('<p>Offer</p>'); assert.equal(hud.tipOpen, false); hud.offer(null);
+  });
   await test('unlimited-flight wording and accessible map close rules survive integration', () => {
     assert.match(root.innerHTML, /id="fly-v">Unlimited/);
     assert.match(root.innerHTML, /id="t-left"[^>]*aria-label="Steer left"/);
@@ -348,7 +424,7 @@ try {
     const title = readFileSync(new URL('../game/src/ui/title.ts', import.meta.url), 'utf8'), map = readFileSync(new URL('../game/src/ui/map.ts', import.meta.url), 'utf8');
     assert.match(title, /Flight is unlimited\. Press again to land/); assert.match(title, /title-screen/);
     assert.match(title, /<b>GO<\/b> hold to accelerate/); assert.match(title, /<b>BRAKE<\/b> brake \/ reverse/);
-    assert.match(title, /<b>CRUISE<\/b> optional steady drive/);
+    assert.match(title, /<b>CRUISE<\/b> hold your current speed/);
     assert.match(title, /hold the button that appears in the middle/);
     assert.match(map, /\.fmap \.close\{[^}]*min-width:44px;min-height:44px;touch-action:manipulation/);
     assert.match(map, /\.fmap \.map-title\{[^}]*min-width:0;pointer-events:none/);

@@ -4,7 +4,7 @@ const paths = {
   right: '<path d="M10.2 3.5a4 4 0 0 0 0 5.7L17 16l-6.8 6.8a4 4 0 1 0 5.6 5.7l9.7-9.7a4 4 0 0 0 0-5.6l-9.7-9.7a4 4 0 0 0-5.6 0Z"/>',
   up: '<path d="M3.5 21.8a4 4 0 0 1 0-5.6l9.7-9.7a4 4 0 0 1 5.6 0l9.7 9.7a4 4 0 0 1-5.7 5.6L16 15l-6.8 6.8a4 4 0 0 1-5.7 0Z"/>',
   down: '<path d="M13.2 27.5a4 4 0 0 0 5.6 0l9.7-9.7a4 4 0 0 0-5.7-5.6L20 15V6a4 4 0 0 0-8 0v9l-2.8-2.8a4 4 0 0 0-5.7 5.6l9.7 9.7Z"/>',
-  brake: '<circle cx="16" cy="17" r="10"/><circle cx="16" cy="17" r="4" fill="var(--brake-face,#e5d6ff)"/><path d="M14 1h5v7h-5zM3.5 7.5l4-3 4 5.5-4 3zM24 6l4 3-4 5.5-4-3z"/><circle cx="16" cy="17" r="2"/>',
+  brake: '<path d="M21 2a15 15 0 0 1 10 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="15" cy="18" r="11"/><circle cx="15" cy="18" r="5" fill="var(--brake-face,#e5d6ff)"/><circle cx="15" cy="18" r="2.2"/><g fill="var(--brake-face,#e5d6ff)"><circle cx="15" cy="10" r="1.2"/><circle cx="22.6" cy="15.5" r="1.2"/><circle cx="19.7" cy="24.5" r="1.2"/><circle cx="10.3" cy="24.5" r="1.2"/><circle cx="7.4" cy="15.5" r="1.2"/></g>',
   coin: '<circle cx="16" cy="16" r="14"/><circle cx="16" cy="16" r="10" fill="none" stroke="var(--coin-rim,#ffe68a)" stroke-width="2"/>',
   pin: '<path d="M16 1A12 12 0 0 0 4 13c0 8 12 18 12 18s12-10 12-18A12 12 0 0 0 16 1Zm0 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>',
   bag: '<path d="M9 9V7a7 7 0 0 1 14 0v2h4l3 20H2L5 9h4Zm4 0h6V7a3 3 0 0 0-6 0v2Z"/>',
