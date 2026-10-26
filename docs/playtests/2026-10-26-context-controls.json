@@ -1,0 +1,57 @@
+{
+  "recordedAt": "2026-10-26T18:03:31.257379+00:00",
+  "baseCommit": "8f77939da307803c849459be41ee128a8274ca86",
+  "request": "Restore larger GO and smaller BRAKE with FLY, enlarge round steering arrows, replace permanent ACT with a centered action only when usable.",
+  "implemented": [
+    "GO is 26px larger in diameter than BRAKE; FLY keeps the smaller diameter.",
+    "Left and right steering circles are 12px larger than the previous circles and contain larger arrow artwork.",
+    "Centered Collect pizza, Hand over pizza, and Talk to manager controls appear only at an eligible stopped, grounded, correct-height interaction.",
+    "Touch actions require a real hold; releasing, losing capture, changing action, opening an overlay, completing an action or leaving eligibility releases the action.",
+    "Manager hold progress now works during an active pickup or customer leg.",
+    "Portrait controls use a separate stacked pedal layout; gyro still hides only steering arrows.",
+    "Mobile title and tutorial wording matches GO, BRAKE and centered actions."
+  ],
+  "automated": {
+    "command": "npm --prefix game run check",
+    "result": "PASS: typecheck, all24 top-level regression suites, production build",
+    "focusedUiChecks": 26,
+    "focusedGameGroups": 16,
+    "newGameChecks": [
+      "touch pickup then explicit customer handover through production Game.frame",
+      "early release and speed/height/flight eligibility",
+      "theatre interaction cannot inherit pickup hold or bypass an offer",
+      "theatre hold completes while an accepted pickup/customer leg remains intact"
+    ],
+    "note": "Offline fixture checks are not browser delivery completions."
+  },
+  "browser": {
+    "method": "Supported CUA native browser controls against a clearly labeled component harness mounting the actual production Hud; fixed-size iframe viewports. No game hidden-state mutation or autopilot.",
+    "viewports": [
+      "844x390 landscape",
+      "390x844 portrait",
+      "320x568 portrait"
+    ],
+    "completedUiInteractions": [
+      "Show pickup action from visible QA scenario button",
+      "250ms Collect hold released without completion",
+      "1200ms Collect hold completed UI scenario and removed button",
+      "Show customer action and1200ms Hand over hold removed button",
+      "Simulated gyro UI hides arrows and preserves pedals/FLY",
+      "Open menu clears centered action",
+      "Inspect larger GO, smaller BRAKE, FLY and larger round steering controls at all three sizes"
+    ],
+    "completedUiHolds": 2,
+    "completedGameplayDeliveries": 0,
+    "consoleErrors": "Not collected in this bounded component pass.",
+    "limitations": [
+      "This pass does not claim a new end-to-end browser delivery.",
+      "Physical phone touch and gyro sensors require device acceptance; sensor-mode preview is simulated.",
+      "Portrait preview is scaled to fit the desktop screenshot; its internal CSS viewport remains390x844."
+    ]
+  },
+  "evidence": [
+    "evidence/2026-10-26-context-controls-landscape.png",
+    "evidence/2026-10-26-context-controls-portrait.png",
+    "evidence/2026-10-26-context-controls-small-phone.png"
+  ]
+}

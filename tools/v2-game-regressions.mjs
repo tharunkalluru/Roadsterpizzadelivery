@@ -42,11 +42,12 @@ function sheetFrom(html) {
 function makeHud() {
   return {
     root: new Control('hud'), el: { minimap: new Control('minimap'), 'b-full': new Control('fullscreen'), dev: new Control('dev') },
-    modalOpen: false, rotationBlocked: false, touchGas: false, touchBrake: false, touchSteer: 0, steer: 0,
+    modalOpen: false, rotationBlocked: false, touchGas: false, touchBrake: false, touchSteer: 0, steer: 0, touchAct: false, activeAction: null,
     toasts: [], modals: [], sheet: null, offerValue: null,
     modal(html, bind) { this.modalOpen = !!html; this.modals.push(html); this.sheet = html ? sheetFrom(html) : null; if (bind) bind(this.sheet); },
-    toast(...args) { this.toasts.push(args); }, offer(html) { this.offerValue = html; }, prompt() {}, tip() {}, rescue() {},
-    resetControls() { this.touchGas = false; this.touchBrake = false; this.touchSteer = 0; this.steer = 0; },
+    toast(...args) { this.toasts.push(args); }, offer(html) { this.offerValue = html; },
+    prompt(text, progress = 0, action = null) { if (action !== this.activeAction) this.touchAct = false; this.activeAction = action; this.promptValue = { text, progress, action }; }, tip() {}, rescue() {},
+    resetControls() { this.touchGas = false; this.touchBrake = false; this.touchSteer = 0; this.steer = 0; this.touchAct = false; this.prompt(null); },
     async enableTilt() { return true; },
   };
 }
@@ -156,6 +157,49 @@ try {
     for (const area of [{ name: 'RTC X Roads', x: 0, z: 0 }, { name: 'Edge', x: -1000, z: 1000 }]) { localStorage.setItem('p2ph-area-v1', JSON.stringify(area)); assert.deepEqual(g.savedArea(), area); }
     for (const area of [null, { name: ' ', x: 0, z: 0 }, { name: 'Bad', x: '0', z: 0 }, { name: 'Bad', x: 1001, z: 0 }, { name: 'Bad', x: 0, z: -1001 }, { name: 1, x: 0, z: 0 }]) { localStorage.setItem('p2ph-area-v1', JSON.stringify(area)); assert.equal(g.savedArea(), null); }
     localStorage.setItem('p2ph-area-v1', '{'); assert.equal(g.savedArea(), null);
+  });
+
+  await test('context actions follow real eligibility and require a sustained touch hold through pickup and handover', () => {
+    const { g, hud } = fixture(); g.order = order('toPickup');
+    g.frame(); assert.equal(hud.activeAction, null, 'no action while driving toward the kitchen');
+    g.player.pos.set(100, .55, 0); g.frame(); assert.equal(hud.activeAction, 'collect');
+    hud.touchAct = true; for (let i = 0; i < 5; i++) g.frame();
+    assert.equal(g.order.state, 'toPickup'); const partial = g.actProgress; assert.ok(partial > 0 && partial < 1);
+    hud.touchAct = false; g.frame(); assert.ok(g.actProgress < partial, 'early release stops collection');
+    hud.touchAct = true; g.player.flying = true; g.frame();
+    assert.equal(hud.activeAction, null); assert.equal(hud.touchAct, false); assert.equal(g.actProgress, 0);
+    g.player.flying = false; g.player.speed = 3; g.frame(); assert.equal(hud.activeAction, null, 'must stop');
+    g.player.speed = 0; g.player.pos.y = 12; g.frame(); assert.equal(hud.activeAction, null, 'must be on the correct level');
+    g.player.pos.y = .55; g.frame(); hud.touchAct = true;
+    for (let i = 0; i < 19; i++) g.frame();
+    assert.equal(g.order.state, 'toDrop'); assert.equal(hud.activeAction, null); assert.equal(hud.touchAct, false, 'completion releases collection');
+    assert.equal(g.totalDelivered, 0, 'collection does not count as handover');
+    g.player.pos.set(500, .55, 0); g.frame(); assert.equal(hud.activeAction, 'handover');
+    hud.touchAct = true; for (let i = 0; i < 19; i++) g.frame();
+    assert.equal(g.order, null); assert.equal(g.totalDelivered, 1); assert.ok(g.coins > 500);
+    assert.equal(hud.activeAction, null); assert.equal(hud.touchAct, false);
+  });
+
+  await test('theatre action appears at its entrance and cannot inherit a collection hold or bypass an offer', () => {
+    const { g, hud } = fixture(); let opened = 0; g.openLease = () => { opened++; g.resetInput(); g.paused = true; };
+    g.player.pos.set(theatre.stop.x, .55, theatre.stop.z);
+    hud.activeAction = 'collect'; hud.touchAct = true; g.frame();
+    assert.equal(hud.activeAction, 'theatre'); assert.equal(g.actProgress, 0); assert.equal(hud.touchAct, false);
+    hud.touchAct = true; for (let i = 0; i < 13; i++) g.frame();
+    assert.equal(opened, 1); assert.equal(hud.activeAction, null); assert.equal(hud.touchAct, false);
+    g.paused = false; g.order = order('offer'); g.frame(); assert.equal(hud.activeAction, null);
+  });
+
+  await test('a theatre manager hold completes during an accepted pickup or customer leg', () => {
+    for (const state of ['toPickup', 'toDrop']) {
+      const { g, hud } = fixture(); let opened = 0;
+      g.order = order(state); g.player.pos.set(theatre.stop.x, .55, theatre.stop.z);
+      g.openLease = () => { opened++; g.resetInput(); g.paused = true; };
+      g.frame(); assert.equal(hud.activeAction, 'theatre'); hud.touchAct = true;
+      for (let i = 0; i < 14; i++) g.frame();
+      assert.equal(opened, 1, state); assert.equal(g.order.state, state, 'manager interaction preserves delivery');
+      assert.equal(hud.touchAct, false); assert.equal(hud.activeAction, null);
+    }
   });
 
   await test('handover pays a collected order once and ignores offers, pickups and duplicate calls', () => {

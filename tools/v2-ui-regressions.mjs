@@ -54,8 +54,8 @@ try {
   const down = (id, pointerId) => el[id].emit('pointerdown', { pointerId });
   const pressed = () => { down('t-left', 1); down('t-gas', 2); down('t-brake', 3); hud.tilt = 0.7; hud.touchBoost = true; };
   const released = () => {
-    assert.equal(hud.touchGas, false); assert.equal(hud.touchBrake, false); assert.equal(hud.touchSteer, 0); assert.equal(hud.touchBoost, false); assert.equal(hud.tilt, 0);
-    for (const id of ['t-left', 't-right', 't-gas', 't-brake']) { assert.equal(el[id].captures.size, 0); assert.equal(el[id].classList.contains('on'), false); }
+    assert.equal(hud.touchGas, false); assert.equal(hud.touchBrake, false); assert.equal(hud.touchSteer, 0); assert.equal(hud.touchBoost, false); assert.equal(hud.tilt, 0); assert.equal(hud.touchAct, false);
+    for (const id of ['t-left', 't-right', 't-gas', 't-brake', 't-act']) { assert.equal(el[id].captures.size, 0); assert.equal(el[id].classList.contains('on'), false); }
     assert.equal(hud.touchLeft, false); assert.equal(hud.touchRight, false);
   };
   await test('second fingers cannot steal held steering or throttle input', () => {
@@ -231,17 +231,94 @@ try {
     const failed = game.applySteering(); pending[2](false); await failed;
     assert.equal(game.settings.steer, 'stick'); assert.equal(writes.length, 1); assert.equal(notices.length, 1);
   });
+  const actionReleased = () => {
+    assert.equal(hud.touchAct, false); assert.equal(el['t-act'].captures.size, 0);
+    assert.equal(el['t-act'].classList.contains('on'), false); assert.equal(el['t-act'].getAttribute('aria-pressed'), 'false');
+  };
+  await test('contextual actions appear only with an available action and use specific labels', () => {
+    hud.resetControls();
+    assert.equal(el.prompt.hidden, true); assert.equal(el['t-act'].hidden, true);
+    down('t-act', 40); assert.equal(hud.touchAct, false); assert.equal(el['t-act'].captures.size, 0);
+    hud.prompt('Drive to the kitchen');
+    assert.equal(el.prompt.hidden, false); assert.equal(el['t-act'].hidden, true);
+    down('t-act', 40); assert.equal(hud.touchAct, false);
+    for (const [kind, title, hint] of [['collect', 'Collect pizza', 'Hold to collect'], ['handover', 'Hand over pizza', 'Hold to deliver'], ['theatre', 'Talk to manager', 'Hold to talk']]) {
+      hud.prompt('Available now', 0, kind);
+      assert.equal(el.prompt.hidden, false); assert.equal(el['t-act'].hidden, false);
+      assert.equal(el['action-title'].textContent, title); assert.equal(el['action-hint'].textContent, hint);
+      assert.equal(el['t-act'].getAttribute('aria-label'), `${title}. ${hint}.`);
+    }
+    hud.prompt(null, 0, 'collect'); assert.equal(el.prompt.hidden, true); assert.equal(el['t-act'].hidden, true); actionReleased();
+  });
+  await test('context action is held only for its captured finger and releases immediately', () => {
+    const events = []; hud.onButton = (id) => events.push(id);
+    hud.prompt('Hold to collect the pizza', 0, 'collect'); down('t-act', 41);
+    assert.equal(hud.touchAct, true); assert.equal(el['t-act'].hasPointerCapture(41), true); assert.equal(el['t-act'].getAttribute('aria-pressed'), 'true');
+    down('t-act', 42); el['t-act'].emit('pointerup', { pointerId: 42 }); assert.equal(hud.touchAct, true);
+    el['t-act'].emit('pointerup', { pointerId: 41 }); actionReleased();
+    assert.deepEqual(events, [], 'Holding does not create an automatic action pulse');
+    for (const event of ['pointercancel', 'lostpointercapture']) {
+      down('t-act', 43); assert.equal(hud.touchAct, true);
+      if (event === 'lostpointercapture') el['t-act'].releasePointerCapture(43); else el['t-act'].emit(event, { pointerId: 43 });
+      actionReleased();
+    }
+    hud.resetControls();
+  });
+  await test('context action keyboard holds release on keyup or focus loss without triggering flight', () => {
+    hud.prompt('Hold to collect', 0, 'collect');
+    for (const [key, code] of [[' ', 'Space'], ['Enter', 'Enter']]) {
+      const press = el['t-act'].emit('keydown', { key, code, repeat: false });
+      assert.ok(press.prevented && press.stopped); assert.equal(hud.touchAct, true);
+      const up = el['t-act'].emit('keyup', { key, code }); assert.ok(up.prevented && up.stopped); actionReleased();
+      el['t-act'].emit('keydown', { key, code, repeat: false }); el['t-act'].emit('blur'); actionReleased();
+    }
+    hud.resetControls();
+  });
+  await test('action progress updates preserve a hold but changing or removing the action releases it', () => {
+    hud.prompt('Collect the pizza', 0, 'collect'); down('t-act', 44);
+    hud.prompt('Collecting the pizza…', .4, 'collect'); assert.equal(hud.touchAct, true); assert.equal(el['t-act'].hasPointerCapture(44), true);
+    hud.prompt('Hand over the pizza', 0, 'handover'); actionReleased(); assert.equal(el['t-act'].hidden, false);
+    down('t-act', 45); hud.prompt('Talk to the manager', 0, 'theatre'); actionReleased();
+    down('t-act', 46); hud.prompt(null); actionReleased(); assert.equal(el['t-act'].hidden, true);
+    hud.prompt('Collect the pizza', 0, 'collect'); down('t-act', 47); hud.prompt('Drive closer'); actionReleased(); assert.equal(el['t-act'].hidden, true);
+    hud.resetControls();
+  });
+  await test('steering, throttle and contextual action fingers remain independent', () => {
+    hud.prompt('Hold to collect', 0, 'collect'); down('t-left', 48); down('t-gas', 49); down('t-act', 50);
+    assert.equal(hud.steer, -1); assert.equal(hud.touchGas, true); assert.equal(hud.touchAct, true);
+    el['t-act'].emit('pointercancel', { pointerId: 50 }); actionReleased(); assert.equal(hud.steer, -1); assert.equal(hud.touchGas, true);
+    down('t-act', 51); hud.prompt(null); actionReleased(); assert.equal(hud.steer, -1); assert.equal(hud.touchGas, true);
+    hud.resetControls(); released();
+  });
+  await test('reset, modal, new offer, page blur and visibility loss hide and release the context action', () => {
+    const cleanup = [
+      () => hud.resetControls(),
+      () => { hud.modal('<h2>Paused</h2>'); assert.equal(hud.modalOpen, true); hud.modal(null); },
+      () => { hud.offer('<p>New order</p>'); assert.equal(root.classList.contains('has-offer'), true); hud.offer(null); },
+      () => globalEvents.emit('blur'),
+      () => { document.hidden = true; docEvents.emit('visibilitychange'); document.hidden = false; },
+    ];
+    for (const reset of cleanup) {
+      hud.prompt('Hold to collect', .5, 'collect'); down('t-act', 52); assert.equal(hud.touchAct, true);
+      reset(); actionReleased(); assert.equal(el.prompt.hidden, true); assert.equal(el['t-act'].hidden, true);
+    }
+    hud.prompt('Collect the pizza', 0, 'collect'); hud.rotationBlocked = true; down('t-act', 53); assert.equal(hud.touchAct, false);
+    hud.rotationBlocked = false; hud.resetControls();
+  });
   await test('unlimited-flight wording and accessible map close rules survive integration', () => {
     assert.match(root.innerHTML, /id="fly-v">Unlimited/);
     assert.match(root.innerHTML, /id="t-left"[^>]*aria-label="Steer left"/);
     assert.match(root.innerHTML, /id="t-right"[^>]*aria-label="Steer right"/);
-    assert.match(root.innerHTML, /id="t-gas"[^>]*aria-label="Accelerate"[^>]*>[\s\S]*?<svg[^>]*aria-hidden="true"/);
-    assert.match(root.innerHTML, /id="t-brake"[^>]*aria-label="Brake and reverse"[^>]*>[\s\S]*?<svg[^>]*aria-hidden="true"/);
-    assert.doesNotMatch(root.innerHTML, />GO<|>BRAKE</,'Arrow-only pedals retain semantic accessible names');
+    assert.match(root.innerHTML, /id="t-gas"[^>]*aria-label="Accelerate"[^>]*>GO<\/button>/);
+    assert.match(root.innerHTML, /id="t-brake"[^>]*aria-label="Brake and reverse"[^>]*>BRAKE<\/button>/);
+    assert.doesNotMatch(root.innerHTML, />ACT<|aria-label="Accept order or hold/);
+    const controls = root.innerHTML.slice(root.innerHTML.indexOf('<div class="touch pe">'), root.innerHTML.indexOf('<button type="button" class="rescue pe"'));
+    assert.doesNotMatch(controls, /id="t-act"/, 'The action button is contextual, outside the permanent driving controls');
     assert.doesNotMatch(root.innerHTML, /id="stick"|id="knob"/);
     const title = readFileSync(new URL('../game/src/ui/title.ts', import.meta.url), 'utf8'), map = readFileSync(new URL('../game/src/ui/map.ts', import.meta.url), 'utf8');
     assert.match(title, /Flight is unlimited\. Press again to land/); assert.match(title, /title-screen/);
-    assert.match(title, /<b>↑<\/b> drive/); assert.match(title, /<b>↓<\/b> brake \/ reverse/);
+    assert.match(title, /<b>GO<\/b> drive/); assert.match(title, /<b>BRAKE<\/b> brake \/ reverse/);
+    assert.match(title, /hold the button that appears in the middle/);
     assert.match(map, /\.fmap \.close\{[^}]*min-width:44px;min-height:44px;touch-action:manipulation/);
     assert.match(map, /\.fmap \.map-title\{[^}]*min-width:0;pointer-events:none/);
     assert.match(map, /\.fmap\[hidden\],\.fmap \[hidden\]\{display:none!important/);

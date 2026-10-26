@@ -1,6 +1,8 @@
 // DOM heads-up display. Plain DOM keeps it crisp on phones and easy to restyle.
 import { DialogFocus } from './dialog';
 
+export type ContextAction = 'collect' | 'handover' | 'theatre';
+
 // Reserve the measured HUD rails rather than guessing where the minimap ends.
 // On portrait screens there is no usable column beside it, so use the space below both rails.
 export function guidanceBounds(width: number, height: number, leftBottom: number, rightLeft: number, rightBottom: number, touch: boolean) {
@@ -68,18 +70,30 @@ const CSS = `
 .tb.on,.tb:active{filter:brightness(1.15);transform:translateY(3px) scale(.97)}
 .steering{position:absolute;left:var(--touch-left);bottom:var(--touch-bottom);display:flex;gap:var(--touch-gap)}
 .steering[hidden]{display:none!important}
-.steering .tb{background:var(--panel);color:var(--cream);border:2px solid rgba(246,238,220,.5);box-shadow:0 4px 0 #0C0A1A}
-.tb svg{width:34px;height:34px;pointer-events:none}
+.steering .tb{width:calc(var(--touch-size) + 12px);height:calc(var(--touch-size) + 12px);background:var(--panel);color:var(--cream);border:2px solid rgba(246,238,220,.5);box-shadow:0 4px 0 #0C0A1A}
+.tb svg{width:40px;height:40px;pointer-events:none}
 .tb:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
 .steering .tb.on{background:var(--saffron);color:var(--ink);border-color:var(--saffron)}
 .tb{box-sizing:border-box;position:relative;flex:none;width:var(--touch-size);height:var(--touch-size);display:grid;place-items:center;padding:0;border:0;border-radius:50%;font-family:var(--display);color:var(--ink);cursor:pointer}
-.pedals{position:absolute;right:var(--touch-right);bottom:var(--touch-bottom);display:flex;flex-direction:column;gap:var(--touch-gap)}
-.touch-actions{position:absolute;left:var(--touch-left);bottom:calc(var(--touch-bottom) + var(--touch-size) + var(--touch-gap));display:flex;gap:var(--touch-gap)}
-#t-gas{background:var(--saffron);box-shadow:0 4px 0 #B8780A}
-#t-brake{background:#E9E4F2;box-shadow:0 4px 0 #9A93AE}
-#t-fly{background:var(--teal);box-shadow:0 4px 0 #1E8F85}
-#t-act{background:var(--pink);box-shadow:0 4px 0 #B85A78;font-size:12px}
+.pedals{position:absolute;right:var(--touch-right);bottom:var(--touch-bottom);display:flex;align-items:flex-end;gap:var(--touch-gap)}
+.touch-actions{position:absolute;right:calc(var(--touch-right) + var(--touch-size) + var(--touch-size) + 26px + var(--touch-gap) + var(--touch-gap));bottom:var(--touch-bottom);display:flex}
+#t-gas{width:calc(var(--touch-size) + 26px);height:calc(var(--touch-size) + 26px);background:var(--saffron);box-shadow:0 4px 0 #B8780A;font-size:21px}
+#t-brake{background:#E9E4F2;box-shadow:0 4px 0 #9A93AE;font-size:13px}
+#t-fly{background:var(--teal);box-shadow:0 4px 0 #1E8F85;font-size:16px}
+.prompt-copy{display:flex;align-items:center;gap:10px}
+.context-action{display:none;position:relative;overflow:hidden;min-height:72px;min-width:220px;max-width:100%;padding:12px 24px 17px;border:2px solid var(--cream);border-radius:22px;background:var(--pink);color:var(--ink);font-family:var(--body);cursor:pointer;box-shadow:0 4px 0 #B85A78;touch-action:none}
+.context-action[hidden]{display:none!important}
+.context-action strong{font-family:var(--display);font-size:17px;font-weight:400}
+.context-action small{font-size:13px;font-weight:800}
+.context-action.on,.context-action:active{transform:scale(.97);filter:brightness(1.08)}
+.context-action:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.action-progress{position:absolute;inset:auto 0 0;height:6px;background:#B85A78}
+.action-progress:after{content:'';display:block;height:100%;width:var(--p,0%);background:var(--cream)}
 .is-touch .prompt{bottom:calc(var(--touch-bottom) + var(--touch-size) + var(--touch-size) + var(--touch-gap) + 12px);max-width:calc(100% - 32px);box-sizing:border-box;text-align:center}
+.is-touch .prompt.has-action{top:54%;bottom:auto;transform:translate(-50%,-50%);padding:0;background:transparent}
+.is-touch .prompt.has-action .prompt-copy{display:none}
+.is-touch .prompt.has-action .context-action{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+@media (max-width:600px) and (orientation:portrait){.pedals{flex-direction:column;align-items:center}.touch-actions{left:var(--touch-left);right:auto;bottom:calc(var(--touch-bottom) + var(--touch-size) + 12px + var(--touch-gap))}}
 .keys{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));background:var(--panel);border-radius:12px;padding:7px 11px;font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;max-width:62vw}
 .keys b{font-family:var(--display);font-size:10px;color:var(--cream);background:var(--line);border-radius:4px;padding:1px 5px;font-weight:400}
 .speed{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));font-family:var(--display);font-size:28px;text-shadow:0 3px 0 #0C0A1A}
@@ -96,12 +110,12 @@ const CSS = `
   .offer{padding:10px;gap:5px}.offer .hint{display:none}.offer .btn{height:38px;font-size:13px}
   .toast{top:30%;font-size:clamp(16px,3.4vw,24px)}
   .prompt{bottom:max(14px,env(safe-area-inset-bottom,0px));font-size:13px;padding:7px 12px}
-  .tb svg{width:30px;height:30px}
+  .tb svg{width:36px;height:36px}
   #minimap{width:76px;height:76px}.h-tr .card{padding:5px 8px!important;width:130px!important}
 }
 /* narrow portrait phones */
 @media (max-width:440px){.h-tl{width:47vw}.h-tr .card{width:38vw!important}#minimap{width:104px;height:104px}.is-touch .speed{top:auto;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 190px);right:22px;font-size:22px}}
-@media (max-width:360px){#hud{--touch-left:max(12px,env(safe-area-inset-left,0px));--touch-right:max(12px,env(safe-area-inset-right,0px));--touch-gap:8px}.tb svg{width:30px;height:30px}}
+@media (max-width:360px){#hud{--touch-left:max(12px,env(safe-area-inset-left,0px));--touch-right:max(12px,env(safe-area-inset-right,0px));--touch-gap:8px}.tb svg{width:36px;height:36px}}
 .rotate{position:fixed;inset:0;z-index:20;background:#17132B;display:none;place-items:center;text-align:center;padding:24px;pointer-events:auto}
 .rotate>div{display:flex;flex-direction:column;gap:12px;align-items:center;max-width:320px}
 .rotate b{font-family:var(--display);font-weight:400;font-size:22px;color:var(--saffron)}.rotate span{color:var(--muted);font-size:15px}
@@ -114,6 +128,7 @@ const CSS = `
 .tip{box-sizing:border-box;flex:0 1 auto;min-height:0;max-height:min(88px,100%);overflow:auto;width:min(460px,100%);background:rgba(23,19,43,.94);border:2px solid var(--teal);border-radius:14px;padding:9px 12px;display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.25;touch-action:pan-y!important}
 .has-offer .tip,.has-offer #order{display:none}
 .is-touch #hud.has-offer .touch{display:none}
+.has-offer .prompt{display:none}
 .tip[hidden]{display:none}.tip>b{font-family:var(--display);font-weight:400;font-size:12px;color:var(--teal)}.tip>span{flex:1}
 .tip>button{border:0;background:transparent;color:var(--muted);font-size:18px;cursor:pointer;min-width:32px;min-height:32px}
 .ib svg{width:16px;height:16px;display:block}
@@ -134,10 +149,12 @@ export class Hud {
   private modalFocus: DialogFocus;
   private updateLayout = () => {};
   private controlReleases: (() => void)[] = [];
+  private releaseAction = () => {};
+  private contextAction: ContextAction | null = null;
   onButton: (id: string) => void = () => {};
   onInputReset: () => void = () => {};
   rotationBlocked = false;
-  touchLeft = false; touchRight = false; touchSteer = 0; touchGas = false; touchBrake = false; touchBoost = false;
+  touchLeft = false; touchRight = false; touchSteer = 0; touchGas = false; touchBrake = false; touchBoost = false; touchAct = false;
   private resetInput = () => { this.resetControls(); this.onInputReset(); };
   constructor(touch: boolean) {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
@@ -160,7 +177,7 @@ export class Hud {
         <canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas>
       </div>
       <div class="toast" id="toast" aria-live="polite"></div>
-      <div class="prompt" id="prompt" hidden><div class="ring" id="ring"></div><span id="prompt-t"></span></div>
+      <div class="prompt" id="prompt" hidden><div class="prompt-copy"><div class="ring" id="ring"></div><span id="prompt-t"></span></div><button class="context-action pe" id="t-act" type="button" aria-pressed="false" hidden><strong id="action-title"></strong><small id="action-hint"></small><span class="action-progress" aria-hidden="true"></span></button></div>
       <div class="guidance" id="guidance">
         <div class="offer pe" id="offer" role="region" aria-label="New delivery offer" hidden></div>
         <div class="tip pe" id="tip" hidden><b>TIP</b><span id="tip-t"></span><button type="button" id="tip-x" aria-label="Hide tip">✕</button></div>
@@ -173,12 +190,11 @@ export class Hud {
           <button class="tb" id="t-right" type="button" aria-label="Steer right" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16h20M17 6l10 10-10 10"/></svg></button>
         </div>
         <div class="pedals" role="group" aria-label="Drive and brake">
-          <button class="tb" id="t-gas" type="button" aria-label="Accelerate" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 26V6M6 15 16 5l10 10"/></svg></button>
-          <button class="tb" id="t-brake" type="button" aria-label="Brake and reverse" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6v20M6 17l10 10 10-10"/></svg></button>
+          <button class="tb" id="t-brake" type="button" aria-label="Brake and reverse" aria-pressed="false">BRAKE</button>
+          <button class="tb" id="t-gas" type="button" aria-label="Accelerate" aria-pressed="false">GO</button>
         </div>
-        <div class="touch-actions" role="group" aria-label="Flight and delivery actions">
+        <div class="touch-actions" role="group" aria-label="Flight">
           <button class="tb" id="t-fly" type="button" aria-label="Toggle flight">FLY</button>
-          <button class="tb" id="t-act" type="button" aria-label="Accept order or hold to collect and hand over">ACT</button>
         </div>
       </div>
       <button type="button" class="rescue pe" id="rescue" hidden>Stuck? Get back on the road</button>
@@ -219,7 +235,8 @@ export class Hud {
         try { if (id !== -1 && b.hasPointerCapture(id)) b.releasePointerCapture(id); } catch { /* already released */ }
         paint();
       };
-      this.controlReleases.push(() => { keys.clear(); releasePointer(); });
+      const release = () => { keys.clear(); releasePointer(); };
+      this.controlReleases.push(release);
       const up = (e: PointerEvent) => { if (e.pointerId === pid) releasePointer(); };
       b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
       b.addEventListener('keydown', (e) => {
@@ -232,13 +249,15 @@ export class Hud {
         e.preventDefault(); e.stopPropagation(); keys.delete(e.code); paint();
       });
       b.addEventListener('blur', () => { keys.clear(); paint(); });
+      return release;
     };
     const steer = () => { this.touchSteer = Number(this.touchRight) - Number(this.touchLeft); };
     hold('t-left', (v) => { this.touchLeft = v; steer(); }, () => !this.tiltOn);
     hold('t-right', (v) => { this.touchRight = v; steer(); }, () => !this.tiltOn);
     hold('t-gas', (v) => (this.touchGas = v)); hold('t-brake', (v) => (this.touchBrake = v));
     this.el['t-fly'].addEventListener('pointerdown', (e) => { e.preventDefault(); this.onButton('fly'); });
-    this.el['t-act'].addEventListener('pointerdown', (e) => { e.preventDefault(); this.onButton('act'); });
+    this.releaseAction = hold('t-act', (v) => (this.touchAct = v), () => this.contextAction !== null && !this.el.prompt.hidden && !this.modalOpen && !this.rotationBlocked);
+    this.el['t-act'].addEventListener('contextmenu', (e) => e.preventDefault());
     for (const n of this.root.querySelectorAll('.touch, .touch *')) n.addEventListener('contextmenu', (e) => e.preventDefault());
     addEventListener('blur', this.resetInput);
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.resetInput(); });
@@ -253,6 +272,7 @@ export class Hud {
   // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
   resetControls() {
     for (const release of this.controlReleases) release();
+    this.prompt(null);
     this.touchGas = false; this.touchBrake = false; this.touchBoost = false; this.touchLeft = false; this.touchRight = false; this.touchSteer = 0; this.tilt = 0;
   }
   // Motion permission comes from a gesture; arrows remain usable until it succeeds.
@@ -285,13 +305,26 @@ export class Hud {
   }
   tiltBound = false;
   get steer() { return this.tiltOn ? (Math.abs(this.tilt) < 0.08 ? 0 : this.tilt) : this.touchSteer; }
+  get activeAction() { return this.contextAction; }
   set(id: string, text: string) { const e = this.el[id]; if (e && e.textContent !== text) e.textContent = text; }
   toast(text: string, cls = '') {
     const t = this.el.toast; t.textContent = text; t.className = 'toast show ' + cls;
     clearTimeout(this.toastT); this.toastT = window.setTimeout(() => (t.className = 'toast ' + cls), 1900);
   }
-  prompt(text: string | null, progress = 0) {
-    const p = this.el.prompt; p.hidden = !text; if (!text) return;
+  prompt(text: string | null, progress = 0, action: ContextAction | null = null) {
+    const p = this.el.prompt, button = this.el['t-act'];
+    const visible = !!text && !this.root.classList.contains('has-offer');
+    const next = visible ? action : null;
+    if (next !== this.contextAction) this.releaseAction();
+    this.contextAction = next; p.hidden = !visible;
+    p.classList.toggle('has-action', next !== null); button.hidden = next === null;
+    if (!text) return;
+    if (next) {
+      const [title, hint] = { collect: ['Collect pizza', 'Hold to collect'], handover: ['Hand over pizza', 'Hold to deliver'], theatre: ['Talk to manager', 'Hold to talk'] }[next];
+      this.set('action-title', title); this.set('action-hint', hint);
+      button.setAttribute('aria-label', `${title}. ${hint}.`);
+      button.style.setProperty('--p', `${Math.round(progress * 100)}%`);
+    }
     this.set('prompt-t', text); this.el.ring.style.setProperty('--p', `${Math.round(progress * 100)}%`);
   }
   order(o: { state: string; title: string; sub: string; dist: string; time: string; heat?: number; slices?: number; meters: boolean }) {
@@ -305,6 +338,7 @@ export class Hud {
     }
   }
   offer(html: string | null, buttons: { label: string; cls: string; fn: () => void }[] = []) {
+    if (html) this.prompt(null);
     const o = this.el.offer; o.hidden = !html; this.root.classList.toggle('has-offer', !!html); this.updateLayout(); if (!html) return;
     o.innerHTML = `<div class="offer-content">${html}</div><div class="offer-actions">${buttons.map((b, i) => `<button type="button" class="btn ${b.cls}" data-i="${i}">${b.label}</button>`).join('')}</div>`;
     o.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => buttons[+b.dataset.i!].fn()));

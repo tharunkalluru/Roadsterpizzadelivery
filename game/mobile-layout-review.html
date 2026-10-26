@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mobile control layout review</title>
+<style>body{margin:0;background:#17132b;color:#f6eedc;font:14px system-ui,sans-serif}header{display:flex;align-items:center;gap:10px;padding:10px;flex-wrap:wrap}button{min-height:36px;padding:0 12px;border:0;border-radius:10px;cursor:pointer}iframe{display:block;border:2px solid #f6eedc;margin:0 10px 10px;max-width:calc(100vw - 24px)}p{margin:0}</style>
+<header><p>Production controls in a phone-sized component frame.</p><button data-size="844,390">Phone landscape</button><button data-size="390,844">Phone portrait</button><button data-size="320,568">Small phone</button><output id="size">844 × 390</output></header>
+<iframe title="Mobile controls" src="./mobile-control-review.html" width="844" height="390"></iframe>
+<script>const frame=document.querySelector('iframe');document.querySelectorAll('[data-size]').forEach(button=>button.addEventListener('click',()=>{const[w,h]=button.dataset.size.split(',');frame.width=w;frame.height=h;frame.style.transformOrigin='top left';frame.style.transform=`scale(${Math.min(1,600/Number(h))})`;document.querySelector('#size').textContent=`${w} × ${h}`;}));</script>
+</html>

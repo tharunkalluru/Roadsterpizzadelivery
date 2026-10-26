@@ -507,7 +507,6 @@ export class Game {
       else if (id === 'fullscreen') { if (isFullscreen()) exitFullscreen(); else goFullscreen(); }
       else if (id === 'tip-close') this.tipDismissed = this.tutStep;
       else if (id === 'fly') this.flyQueued = true;
-      else if (id === 'act') { this.actTap = 1.2; if (this.order?.state === 'offer') this.acceptOffer(); }
     };
     addEventListener('keydown', (e) => this.handleKeyDown(e));
     // full map from the minimap
@@ -745,12 +744,12 @@ export class Game {
   tutorialTick() {
     if (this.tutStep < 0 || !this.settings.tips || this.choosing) { if (this.tutStep >= 0 || !this.settings.tips) this.hud.tip(null); return; }
     const touch = document.documentElement.classList.contains('is-touch'), o = this.order, P = this.player.pos;
-    const act = touch ? 'ACT' : 'E', fly = touch ? 'FLY' : 'Space';
+    const act = touch ? 'the button in the middle of the screen' : 'E', fly = touch ? 'FLY' : 'Space';
     let step = this.tutStep, text: string | null = null;
     if (step <= 1 && o?.state === 'offer') { step = 1; text = touch ? 'A new order! Tap Accept to take it.' : 'A new order! Press E (or click Accept) to take it.'; }
     else if (o && o.state === 'toPickup') {
       const d = Math.hypot(o.pickup.x - P.x, o.pickup.z - P.z);
-      if (d > 45) { step = 2; text = touch ? `Hold the up arrow and ${this.hud.tiltOn ? 'tilt your phone' : 'hold the left or right arrow'} to steer. Follow the orange line on the road and the minimap to the kitchen.` : 'Drive with W and steer with A / D. Follow the orange line on the road and the minimap to the kitchen.'; }
+      if (d > 45) { step = 2; text = touch ? `Hold GO and ${this.hud.tiltOn ? 'tilt your phone' : 'hold the left or right arrow'} to steer. Follow the orange line on the road and the minimap to the kitchen.` : 'Drive with W and steer with A / D. Follow the orange line on the road and the minimap to the kitchen.'; }
       else { step = 3; text = `Stop inside the glowing ring and hold ${act} to collect the pizza.`; }
     } else if (o && o.state === 'toDrop') {
       const d = Math.hypot(o.drop.x - P.x, o.drop.z - P.z);
@@ -862,6 +861,8 @@ export class Game {
     // order flow
     const o = this.order;
     let promptText: string | null = null;
+    let promptAction: 'collect' | 'handover' | 'theatre' | null = null;
+    let actionCompleted = false;
     if (o && o.state !== 'offer') {
       o.t += dt;
       if (o.state === 'toDrop') o.heat = Math.max(0, 100 - (o.t / (o.limit * 1.25)) * 100);
@@ -870,27 +871,29 @@ export class Game {
       // right at the ring, or stopped just across a divided road from it (the rider walks over instead of a long U-turn)
       const across = d < 24 && !!this.route && this.route.len > d * 4 + 60;
       if (this.canInteractAt(tgt, across ? 24 : 8)) {
-        const holding = this.actHeld || this.actTap > 0;
+        promptAction = o.state === 'toPickup' ? 'collect' : 'handover';
+        const holding = this.actHeld || (this.hud.touchAct && this.hud.activeAction === promptAction) || this.actTap > 0;
         this.actProgress = holding ? Math.min(1, this.actProgress + dt / 0.9) : Math.max(0, this.actProgress - dt);
-        promptText = o.state === 'toPickup' ? (holding ? 'Collecting the pizza…' : `Hold E / ACT to collect the pizza${across ? ' (walk across the road)' : ''}`) : (holding ? 'Handing over…' : `Hold E / ACT to hand over${across ? ' (walk across the road)' : ''}`);
+        promptText = o.state === 'toPickup' ? (holding ? 'Collecting the pizza…' : `Hold E to collect the pizza${across ? ' (walk across the road)' : ''}`) : (holding ? 'Handing over…' : `Hold E to hand over${across ? ' (walk across the road)' : ''}`);
         if (this.actProgress >= 1) {
           this.actProgress = 0;
           if (o.state === 'toPickup') { o.state = 'toDrop'; o.t = 0; o.heat = 100; this.setTarget(o.drop, '#45E3D3'); this.hud.toast('Pizza collected! Garam garam.', ''); this.sound.cue('pickup'); }
           else this.completeDelivery();
+          promptText = null; promptAction = null; actionCompleted = true;
         }
-      } else this.actProgress = 0;
+      }
     }
     this.actTap = Math.max(0, this.actTap - dt);
     // theatre gate
     const th = this.currentTheatreNear();
-    if (!promptText && th && Math.abs(this.player.speed) < 2.5) {
-      const holding = this.actHeld || this.actTap > 0;
-      promptText = `Hold E / ACT: talk to the ${th.def.name} manager`;
-      if (holding) { this.actProgress += dt / 0.6; if (this.actProgress >= 1) { this.actProgress = 0; this.actHeld = false; this.actTap = 0; this.openLease(th); } }
+    if (!promptText && !actionCompleted && o?.state !== 'offer' && th && Math.abs(this.player.speed) < 2.5) {
+      const holding = this.actHeld || (this.hud.touchAct && this.hud.activeAction === 'theatre') || this.actTap > 0;
+      promptAction = 'theatre'; promptText = `Hold E: talk to the ${th.def.name} manager`;
+      if (holding) { this.actProgress += dt / 0.6; if (this.actProgress >= 1) { this.actProgress = 0; this.actHeld = false; this.actTap = 0; promptText = null; promptAction = null; this.openLease(th); } }
       else this.actProgress = 0;
     }
     else if (!promptText) this.actProgress = 0;
-    this.hud.prompt(promptText, this.actProgress);
+    this.hud.prompt(promptText, this.actProgress, promptAction);
     // gps
     this.updateRoute(dt);
     // camera: chase cam that the player can swing around while stopped; it never ends up inside a building or vehicle

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T16:34:22.612536+00:00",
+  "updatedAt": "2026-10-26T18:03:31.257379+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -2282,5 +2282,11 @@
       "PT-017",
       "PT-018"
     ]
+  },
+  "latestMobileControlsValidation": {
+    "report": "2026-10-26-context-controls.json",
+    "baseCommit": "8f77939da307803c849459be41ee128a8274ca86",
+    "automated": "PASS",
+    "browser": "Production HUD component interactions; no new gameplay delivery or physical phone claim"
   }
 }
