@@ -2,8 +2,8 @@ import type { RoadEdge, XZ } from '../world/types';
 import { hasCentreMedian } from '../world/city';
 
 export interface GEdge { e: RoadEdge; len: number; cum: number[]; from: string; to: string }
-export interface GNode { id: string; x: number; z: number; out: { edge: GEdge; dir: 1 | -1 }[]; signal: boolean }
-export interface RoadRoute { pts: [number, number, number][]; len: number; complete?: boolean }
+export interface GNode { id: string; x: number; y: number; z: number; out: { edge: GEdge; dir: 1 | -1 }[]; signal: boolean }
+export interface RoadRoute { pts: [number, number, number][]; len: number; complete?: boolean; edgeIds?: string[] }
 
 const DRIVE = new Set(['motorway', 'motorway_link', 'trunk', 'primary', 'secondary', 'tertiary', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link', 'unclassified', 'residential', 'living_street', 'service', 'unknown']);
 const COST: Record<string, number> = { motorway: 0.7, motorway_link: 0.8, trunk: 0.8, primary: 0.85, secondary: 0.9, tertiary: 0.95, service: 1.4, living_street: 1.3 };
@@ -20,24 +20,31 @@ class Heap { a: [number, string][] = [];
 export class RoadGraph {
   nodes = new Map<string, GNode>(); edges: GEdge[] = []; byId = new Map<string, GEdge>();
   grid = new Map<string, GEdge[]>(); permanent = new Set<string>();
+  revision = 0;
+  private levelNodes = new Map<string, { id: string; y: number }[]>();
+  private nodeAtLevel(id: string, y: number) {
+    const levels = this.levelNodes.get(id) || [];
+    let level = levels.find(l => Math.abs(l.y - y) <= .75);
+    if (!level) { level = { id: !levels.length && Math.abs(y) <= 1.5 ? id : `${id}^${Math.round(y * 10)}`, y }; levels.push(level); this.levelNodes.set(id, levels); }
+    return level.id;
+  }
   constructor(roads: RoadEdge[], signals: XZ[] = []) {
     this.addRoads(roads, signals, true);
   }
   addRoads(roads: RoadEdge[], signals: XZ[] = [], permanent = false) {
-    let anon = this.edges.length;
+    let anon = this.edges.length, added = false;
     for (const e of roads) {
       if (!DRIVE.has(e.cls) || this.byId.has(e.id) || (e as any).ctx) continue;
       const cum = [0];
       for (let i = 1; i < e.pts.length; i++) cum.push(cum[i - 1] + Math.hypot(e.pts[i][0] - e.pts[i - 1][0], e.pts[i][1] - e.pts[i - 1][1]));
       // a deck end and a ground road can share a node in the data (a street ending under a flyover); keep them apart
-      const lv = (i: number) => (e.elev && e.elev[i] > 1.5 ? '^' : '');
-      const from = e.from ? e.from + lv(0) : `x${anon++}`, to = e.to ? e.to + lv(e.pts.length - 1) : `x${anon++}`;
+      const from = e.from ? this.nodeAtLevel(e.from, e.elev?.[0] || 0) : `x${anon++}`, to = e.to ? this.nodeAtLevel(e.to, e.elev?.[e.pts.length - 1] || 0) : `x${anon++}`;
       const g: GEdge = { e, len: cum[cum.length - 1], cum, from, to };
       if (g.len < 1) continue;
-      this.edges.push(g); this.byId.set(e.id, g);
+      this.edges.push(g); this.byId.set(e.id, g); added = true;
       if (permanent) this.permanent.add(e.id);
-      for (const [id, p] of [[from, e.pts[0]], [to, e.pts[e.pts.length - 1]]] as [string, XZ][]) {
-        if (!this.nodes.has(id)) this.nodes.set(id, { id, x: p[0], z: p[1], out: [], signal: false });
+      for (const [id, p, y] of [[from, e.pts[0], e.elev?.[0] || 0], [to, e.pts[e.pts.length - 1], e.elev?.[e.pts.length - 1] || 0]] as [string, XZ, number][]) {
+        if (!this.nodes.has(id)) this.nodes.set(id, { id, x: p[0], y, z: p[1], out: [], signal: false });
       }
       const fwdOk = e.oneway !== 'forward', backOk = e.oneway !== 'backward';   // `oneway` names the DENIED heading
       if (fwdOk) this.nodes.get(from)!.out.push({ edge: g, dir: 1 });
@@ -45,6 +52,7 @@ export class RoadGraph {
       for (const k of this.cellsOf(e.pts)) { const l = this.grid.get(k) || this.grid.set(k, []).get(k)!; l.push(g); }
     }
     this.markSignals(signals);
+    if (added) this.revision++;
   }
   cellsOf(pts: XZ[]) {
     const ks = new Set<string>();
@@ -76,6 +84,7 @@ export class RoadGraph {
     const gone = new Set<GEdge>();
     for (const id of ids) { const g = this.byId.get(id); if (!g || this.permanent.has(id)) continue; gone.add(g); this.byId.delete(id); }
     if (!gone.size) return gone;
+    this.revision++;
     this.edges = this.edges.filter((g) => !gone.has(g));
     for (const g of gone) {
       for (const id of [g.from, g.to]) {
@@ -102,12 +111,12 @@ export class RoadGraph {
     for (let i = -r; i <= r; i++) for (let j = -r; j <= r; j++) for (const g of this.grid.get(`${cx + i},${cz + j}`) || []) out.add(g);
     return [...out];
   }
-  nearestNode(x: number, z: number, maxR = 8): GNode | null {
+  nearestNode(x: number, z: number, maxR = 8, y?: number, terminal = false): GNode | null {
     for (let r = 2; r <= maxR; r += 2) {
       let best: GNode | null = null, bd = 1e9;
       for (const g of this.nearestEdges(x, z, r)) for (const id of [g.from, g.to]) {
-        const n = this.nodes.get(id); if (!n) continue; const d = Math.hypot(n.x - x, n.z - z);
-        if (d < bd && n.out.length) { bd = d; best = n; }
+        const n = this.nodes.get(id); if (!n || y !== undefined && Math.abs(n.y - y) > 1.6) continue; const d = Math.hypot(n.x - x, n.z - z);
+        if (d < bd && (n.out.length || terminal)) { bd = d; best = n; }
       }
       if (best) return best;
     }
@@ -115,37 +124,53 @@ export class RoadGraph {
   }
   // A* over directed edges (binary heap); returns a polyline for the GPS ribbon and its length
   // the road the car is on: nearest segment at the car's height
-  edgeAt(x: number, z: number, y = 0): { g: GEdge; s: number; i: number; d: number } | null {
+  edgeAt(x: number, z: number, y = 0, prefer?: { hx?: number; hz?: number; edgeId?: string }): { g: GEdge; s: number; i: number; d: number } | null {
     let best: { g: GEdge; s: number; i: number; d: number } | null = null;
+    let bestScore = Infinity;
     for (const g of this.nearestEdges(x, z, 1)) {
       const P = g.e.pts, E = g.e.elev;
       for (let i = 0; i < P.length - 1; i++) {
         const dx = P[i + 1][0] - P[i][0], dz = P[i + 1][1] - P[i][1], L2 = dx * dx + dz * dz || 1;
         const u = Math.max(0, Math.min(1, ((x - P[i][0]) * dx + (z - P[i][1]) * dz) / L2));
         const ey = E ? E[i] + (E[i + 1] - E[i]) * u : 0;
-        if (Math.abs(ey - y) > 3.5) continue;
+        if (Math.abs(ey - y) > 1.6) continue;
         const d = Math.hypot(P[i][0] + dx * u - x, P[i][1] + dz * u - z);
-        if (d < g.e.w / 2 + 4 && (!best || d < best.d)) best = { g, s: g.cum[i] + Math.sqrt(L2) * u, i, d };
+        const align = prefer?.hx !== undefined ? Math.abs((dx * prefer.hx + dz * (prefer.hz || 0)) / Math.sqrt(L2)) : 1;
+        const score = d + Math.abs(ey - y) * 4 + (1 - align) * 1.5 - (prefer?.edgeId === g.e.id ? 1.25 : 0);
+        if (d < g.e.w / 2 + 4 && score < bestScore) { bestScore = score; best = { g, s: g.cum[i] + Math.sqrt(L2) * u, i, d }; }
       }
     }
     return best;
   }
   // GPS route. With the car's heading, it starts along the car's own road towards the junction ahead; turning back is
   // only offered where the road has no divider and it is legal, and costs a U-turn penalty.
-  route(fromX: number, fromZ: number, toX: number, toZ: number, car?: { hx: number; hz: number; y: number }): RoadRoute | null {
+  route(fromX: number, fromZ: number, toX: number, toZ: number, car?: { hx: number; hz: number; y: number; edgeId?: string }, targetY = 0, sourceY = car?.y || 0): RoadRoute | null {
     type Point = [number, number, number];
+    const on = this.edgeAt(fromX, fromZ, sourceY, car);
+    let sourceOffset = 0;
+    if (on && car && on.g.e.oneway) {
+      const p = this.pointAt(on.g, on.s, 1);
+      const half = Math.max(0, on.g.e.w / 2 - 1.25);
+      sourceOffset = Math.max(-half, Math.min(half, (fromX - p.x) * p.hz - (fromZ - p.z) * p.hx));
+    }
+    const sourceDir = on?.g.e.oneway === 'forward' ? -1 : 1;
+    const laneFraction = on && car && on.g.e.oneway ? sourceOffset * sourceDir / Math.max(.01, on.g.e.w / 2 - 1.25) : 0;
     // HUD progress is measured along these lane-offset points, so its total must
     // use the same geometry. The final approach remains a distance estimate.
-    const result = (pts: Point[], complete: boolean): RoadRoute => {
+    const result = (pts: Point[], complete: boolean, edgeIds: string[] = []): RoadRoute => {
       let len = 0;
       for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][2] - pts[i - 1][2]);
       const last = pts[pts.length - 1];
       if (last) len += Math.hypot(toX - last[0], toZ - last[2]);
-      return { pts, len, complete };
+      if (!on && pts.length) len += Math.hypot(fromX - pts[0][0], fromZ - pts[0][2]);
+      return { pts, len, complete, edgeIds };
     };
     // A centreline is inside the raised divider on a two-way arterial. Keep guidance
     // on the left carriageway of the actual traversal, including the destination leg.
-    const lane = (g: GEdge) => hasCentreMedian(g.e) ? Math.min(3.5, g.e.w / 4) : 0;
+    // A one-way carriageway can hold several lanes. Preserve the car's travel-
+    // relative lane fraction through split edges (and reversed source geometry),
+    // rather than jumping back to the centre at each OSM segment boundary.
+    const lane = (g: GEdge) => g.e.oneway && car ? laneFraction * Math.max(0, g.e.w / 2 - 1.25) : hasCentreMedian(g.e) ? Math.min(3.5, g.e.w / 4) : 0;
     const at = (g: GEdge, s: number, dir: 1 | -1): Point => {
       const p = this.pointAt(g, dir === 1 ? s : g.len - s, dir, lane(g));
       return [p.x, p.y, p.z];
@@ -163,7 +188,7 @@ export class RoadGraph {
     const legal = (g: GEdge, d: 1 | -1) => d === 1 ? g.e.oneway !== 'forward' : g.e.oneway !== 'backward';
     // A delivery lies on a road segment, not necessarily at a junction. Route to either legal
     // entrance of that segment, then follow its actual bends to the stop.
-    const target = this.edgeAt(toX, toZ, 0);
+    const target = this.edgeAt(toX, toZ, targetY);
     const ends = new Map<string, { pts: Point[]; len: number; cost: number }>();
     if (target) {
       const g = target.g, foot = this.pointAt(g, target.s, 1);
@@ -184,16 +209,16 @@ export class RoadGraph {
       }
     } else {
       // Distant streets may not yet be streamed; use the permanent road network as an overview.
-      const b = this.nearestNode(toX, toZ, 40); if (!b) return null;
+      const b = this.nearestNode(toX, toZ, 40, targetY, true); if (!b) return null;
       const len = Math.hypot(toX - b.x, toZ - b.z);
-      ends.set(b.id, { pts: [[b.x, 0, b.z]], len, cost: len });
+      ends.set(b.id, { pts: [[b.x, b.y, b.z]], len, cost: len });
     }
     const dist = new Map<string, number>(), prev = new Map<string, { node: string; edge: GEdge; dir: 1 | -1 }>();
     const open = new Heap();
     const lead = new Map<string, [number, number, number][]>();      // seed node -> points from the car to it
     const leadLen = new Map<string, number>();
+    const leadEdge = new Map<string, string>();
     let direct: RoadRoute | null = null, bestCost = Infinity, endNode: string | null = null;
-    const on = this.edgeAt(fromX, fromZ, car?.y || 0);
     // Nearest-node fallback is an overview estimate, not a drivable connection from
     // a courtyard or rooftop. Require a road surface for live grounded guidance.
     if (car && (!on || on.d > on.g.e.w / 2 + 0.25)) return null;
@@ -208,14 +233,14 @@ export class RoadGraph {
         if (back && hasCentreMedian(g.e)) continue;
         const targetSide = target?.g === g ? side(g, target.s, toX, toZ) : 0;
         if (target?.g === g && (!targetSide || targetSide === d) && (target.s - on.s) * d >= 0) {
-          const foot = this.pointAt(g, target.s, 1), pts: Point[] = [[fromX, car?.y || 0, fromZ]];
+          const foot = this.pointAt(g, target.s, 1), pts: Point[] = [];
           pts.push(at(g, on.s, d));
           if (d === 1) for (let i = on.i + 1; i <= target.i; i++) pts.push(vertex(g, i, d));
           else for (let i = on.i; i > target.i; i--) pts.push(vertex(g, i, d));
           pts.push(at(g, target.s, d));
           const along = Math.abs(target.s - on.s), offset = Math.hypot(toX - foot.x, toZ - foot.z);
           const cost = along * (COST[g.e.cls] || 1) + offset + (back ? 90 : 0);
-          if (cost < bestCost) { bestCost = cost; direct = result(pts, on.d <= g.e.w / 2 + 0.25); }
+          if (cost < bestCost) { bestCost = cost; direct = result(pts, on.d <= g.e.w / 2 + 0.25, [g.e.id]); }
         }
         const node = d === 1 ? g.to : g.from, n = this.nodes.get(node); if (!n) continue;
         const along = d === 1 ? g.len - on.s : on.s;
@@ -225,11 +250,11 @@ export class RoadGraph {
           const pts: Point[] = [at(g, on.s, d)];
           if (d === 1) for (let i = on.i + 1; i < P.length; i++) pts.push(vertex(g, i, d));
           else for (let i = on.i; i >= 0; i--) pts.push(vertex(g, i, d));
-          lead.set(node, pts); leadLen.set(node, along);
+          lead.set(node, pts); leadLen.set(node, along); leadEdge.set(node, g.e.id);
         }
       }
     }
-    if (!open.size) { const a = this.nearestNode(fromX, fromZ); if (!a) return null; open.push([0, a.id]); dist.set(a.id, 0); lead.set(a.id, []); leadLen.set(a.id, Math.hypot(a.x - fromX, a.z - fromZ)); }
+    if (!open.size) { const a = this.nearestNode(fromX, fromZ, 8, sourceY); if (!a) return null; open.push([0, a.id]); dist.set(a.id, 0); lead.set(a.id, []); leadLen.set(a.id, Math.hypot(a.x - fromX, a.z - fromZ)); }
     const heur = (n: GNode) => Math.hypot(n.x - toX, n.z - toZ) * 0.7;
     const closed = new Set<string>();
     let it = 0;
@@ -252,7 +277,7 @@ export class RoadGraph {
     const chain: { edge: GEdge; dir: 1 | -1 }[] = [];
     let cur = endNode; while (prev.has(cur)) { const p = prev.get(cur)!; chain.unshift({ edge: p.edge, dir: p.dir }); cur = p.node; }
     if (!lead.has(cur)) return null;
-    const pts: [number, number, number][] = [[fromX, car?.y ?? 0, fromZ], ...lead.get(cur)!]; let len = leadLen.get(cur) || 0;
+    const pts: [number, number, number][] = [...lead.get(cur)!]; let len = leadLen.get(cur) || 0;
     for (const c of chain) {
       const P = c.edge.e.pts, E = c.edge.e.elev;
       const idx = c.dir === 1 ? P.map((_, i) => i) : P.map((_, i) => P.length - 1 - i);
@@ -261,6 +286,6 @@ export class RoadGraph {
     }
     const end = ends.get(endNode)!;
     pts.push(...end.pts);
-    return result(pts, !!target && !!on && on.d <= on.g.e.w / 2 + 0.25);
+    return result(pts, !!target && !!on && on.d <= on.g.e.w / 2 + 0.25, [leadEdge.get(cur), ...chain.map(c => c.edge.e.id), target?.g.e.id].filter((id): id is string => !!id));
   }
 }

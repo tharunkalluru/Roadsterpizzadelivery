@@ -235,9 +235,13 @@ try {
     assert.match(root.innerHTML, /id="fly-v">Unlimited/);
     assert.match(root.innerHTML, /id="t-left"[^>]*aria-label="Steer left"/);
     assert.match(root.innerHTML, /id="t-right"[^>]*aria-label="Steer right"/);
+    assert.match(root.innerHTML, /id="t-gas"[^>]*aria-label="Accelerate"[^>]*>[\s\S]*?<svg[^>]*aria-hidden="true"/);
+    assert.match(root.innerHTML, /id="t-brake"[^>]*aria-label="Brake and reverse"[^>]*>[\s\S]*?<svg[^>]*aria-hidden="true"/);
+    assert.doesNotMatch(root.innerHTML, />GO<|>BRAKE</,'Arrow-only pedals retain semantic accessible names');
     assert.doesNotMatch(root.innerHTML, /id="stick"|id="knob"/);
     const title = readFileSync(new URL('../game/src/ui/title.ts', import.meta.url), 'utf8'), map = readFileSync(new URL('../game/src/ui/map.ts', import.meta.url), 'utf8');
     assert.match(title, /Flight is unlimited\. Press again to land/); assert.match(title, /title-screen/);
+    assert.match(title, /<b>↑<\/b> drive/); assert.match(title, /<b>↓<\/b> brake \/ reverse/);
     assert.match(map, /\.fmap \.close\{[^}]*min-width:44px;min-height:44px;touch-action:manipulation/);
     assert.match(map, /\.fmap \.map-title\{[^}]*min-width:0;pointer-events:none/);
     assert.match(map, /\.fmap\[hidden\],\.fmap \[hidden\]\{display:none!important/);

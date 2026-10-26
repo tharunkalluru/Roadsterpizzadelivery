@@ -3,6 +3,7 @@ import { pointInRing } from '../world/city';
 import type { Building } from '../world/types';
 import { movingRailSupport, railRoofAt } from './moving-rail';
 import { landmarkHeightAt, landmarkRoofUnder } from '../world/landmark-support';
+import { roadQuadHeight } from '../world/road-surface';
 
 const k30 = (x: number, z: number) => `${Math.floor(x / 30)},${Math.floor(z / 30)}`;
 const k50 = (x: number, z: number) => `${Math.floor(x / 50)},${Math.floor(z / 50)}`;
@@ -20,15 +21,17 @@ export function supportAt(city: CityData, x: number, z: number, fromY: number, r
     for (const s of cell) {
       if (roadsOnly && s.kind !== 'road') continue;
       const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1;
-      const t = Math.max(0, Math.min(1, ((x - s.ax) * dx + (z - s.az) * dz) / L2));
+      const rawT = ((x - s.ax) * dx + (z - s.az) * dz) / L2;
+      const t = Math.max(0, Math.min(1, rawT));
       const px = s.ax + dx * t, pz = s.az + dz * t;
       const d = Math.hypot(x - px, z - pz);
-      if (d > s.hw) continue;
-      const y = s.ya + (s.yb - s.ya) * t;
+      const exact = s.kind === 'road' && s.roadQuad ? roadQuadHeight(s.roadQuad, x, z) : undefined;
+      if (exact === null || (exact === undefined && d > s.hw)) continue;
+      const y = exact ?? s.ya + (s.yb - s.ya) * t;
       if (y > fromY + 1.6) continue;
       // where surfaces overlap (an up-ramp beside a down-ramp, a deck edge over a slip road) the car stays on the one
       // it is driving on: the surface nearest its own height wins, and the margin strip only counts when nothing else does
-      const core = s.kind !== 'road' || !s.e || d <= s.e.w / 2 + 0.15;
+      const core = exact !== undefined || s.kind !== 'road' || ((!s.e || d <= s.e.w / 2 + 0.15) && rawT >= -1e-6 && rawT <= 1.000001);
       const score = Math.abs(y - fromY) + (core ? 0 : 3);
       if (!found || score < bestScore - 0.01 || (Math.abs(score - bestScore) <= 0.01 && y > best.y)) {
         found = true; bestScore = score; best = { y, s, onRoad: s.kind === 'road', kind: s.kind, elevatedRoad: s.kind === 'road' && y > 1.2 };

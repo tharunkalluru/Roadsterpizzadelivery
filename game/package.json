@@ -9,7 +9,9 @@
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "test": "node ../tools/map-regressions.mjs && node ../tools/gameplay-regressions.mjs && node ../tools/ui-regressions.mjs && node ../tools/navigation-regressions.mjs && node ../tools/delivery-regressions.mjs && node ../tools/spatial-safety-regressions.mjs && node ../tools/audio-flight-regressions.mjs && node ../tools/v2-ui-regressions.mjs && node ../tools/v2-loading-regressions.mjs && node ../tools/v2-game-regressions.mjs && node ../tools/metro-regressions.mjs && node ../tools/traffic-regressions.mjs && node ../tools/landmark-regressions.mjs && node ../tools/expressway-regressions.mjs && node ../tools/covered-path-regressions.mjs && node ../tools/orr-recovery-regressions.mjs && node ../tools/orr-exit-regressions.mjs && node ../tools/moving-rail-regressions.mjs && node ../tools/airport-landmark-regressions.mjs && node ../tools/bus-service-regressions.mjs",
-    "check": "npm run typecheck && npm test && npm run build"
+    "test:flyovers": "node ../tools/flyover-regressions.mjs",
+    "check": "npm run typecheck && npm test && npm run test:flyovers && npm run test:route-motion && npm run build",
+    "test:route-motion": "node ../tools/route-motion-regressions.mjs"
   },
   "dependencies": {
     "three": "0.170.0"

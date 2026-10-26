@@ -282,7 +282,7 @@ export class FullMap {
     }
     for (const r of L.roads) { if (s < r.min) continue; g.strokeStyle = r.col; g.lineWidth = Math.max(r.w, 2.2 / s); g.stroke(r.p); }
     g.lineWidth = Math.max(3, 3 / s); g.setLineDash([12 / Math.max(0.5, s), 8 / Math.max(0.5, s)]); for (const m of L.metro) { g.strokeStyle = m.color; g.stroke(m.p); } g.setLineDash([]);
-    if (st.route) { g.strokeStyle = '#45E3D3'; g.lineWidth = Math.max(6, 6 / s); g.beginPath(); st.route.forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
+    if (st.route) { g.strokeStyle = '#45E3D3'; g.lineWidth = Math.max(3, 3 / s); g.beginPath(); st.route.forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
     // markers in screen space
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
     const toS = (x: number, z: number) => [W / 2 + (x - this.cx) * s, H / 2 + (z - this.cz) * s];

@@ -5,6 +5,7 @@ import type { Building, CoreData, XZ } from './types';
 import { placeLandmarks } from './landmarks';
 import type { LandmarkSurfaceGrid } from './landmark-support';
 import { placeAirfields } from './airfields';
+import { roadGradePatches } from './road-grades';
 
 export interface LoadedTile { key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[] }
 
@@ -51,7 +52,7 @@ export class World implements CityData {
     w.onmessage = (ev) => { if (this.worker === w) this.onMessage(ev.data); };
     w.onerror = (e) => { if (this.worker === w) { e.preventDefault(); this.workerError(); } };
     w.onmessageerror = () => { if (this.worker === w) this.workerError(); };
-    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin) }); }
+    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin), roadGrades: roadGradePatches(this.core.roads) }); }
     catch (error) { w.terminate(); throw error; }
     return w;
   }

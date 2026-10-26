@@ -42,7 +42,7 @@ export class Engine {
       park: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, side: DS }),
       water: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.15, metalness: 0.3, side: DS }),
       road: new THREE.MeshStandardMaterial({ map: asphaltTexture(), roughness: 0.85, side: DS, polygonOffset: true, polygonOffsetFactor: -1 }),
-      marks: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.7 }),
+      marks: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.7, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }),
       foot: new THREE.MeshStandardMaterial({ map: tileTexture(), roughness: 0.9 }),
       st: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.82, side: DS }),
       kerb: new THREE.MeshStandardMaterial({ vertexColors: true, map: kerbTexture(), roughness: 0.8, side: DS }),

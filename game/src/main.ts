@@ -6,6 +6,7 @@ import { MOODS, moodAt } from './core/sky';
 import { World } from './world/world';
 import { fetchPack } from './world/packs';
 import type { CoreData } from './world/types';
+import { prepareRoadGrades, rebaseRoadStops } from './world/road-grades';
 import { Game } from './game/game';
 import { loadSettings } from './ui/settings';
 
@@ -49,6 +50,10 @@ export async function boot() {
   initTemplates({ rbox: new RoundedBoxGeometry(1, 1, 1, 3, 0.12), ring: new THREE.RingGeometry(1.0, 1.35, 40) });
   const base = new URL('city/', location.href).href;
   const core = await loadCore(base);
+  setStatus('Preparing Hyderabad streets…');
+  const originalRoads = core.roads;
+  core.roads = prepareRoadGrades(originalRoads);
+  rebaseRoadStops(core, originalRoads, core.roads);
   const container = document.getElementById('game')!;
   const engine = new Engine(container, { lowQ, still });
   const world = new World(core, engine.mats, { lowQ, base });

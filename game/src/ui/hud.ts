@@ -4,7 +4,7 @@ import { DialogFocus } from './dialog';
 // Reserve the measured HUD rails rather than guessing where the minimap ends.
 // On portrait screens there is no usable column beside it, so use the space below both rails.
 export function guidanceBounds(width: number, height: number, leftBottom: number, rightLeft: number, rightBottom: number, touch: boolean) {
-  const gap = 12, bottom = height - (touch ? (height <= 520 ? 142 : 190) : width <= 700 || height <= 600 ? gap : 76);
+  const gap = 12, bottom = height - (touch ? (height <= 520 ? 154 : 190) : width <= 700 || height <= 600 ? gap : 76);
   let right = Math.max(gap, rightLeft - gap), top = leftBottom + gap;
   if (right - gap < 260) { right = width - gap; top = Math.max(leftBottom, rightBottom) + gap; }
   // Tiny/zoomed windows scroll the guidance panel, never expand it over the HUD rails.
@@ -24,7 +24,7 @@ export function orderOfferHtml(o: { level: number; pickupName: string; pickupRoa
 
 const CSS = `
 :root{--ink:#17132B;--panel:rgba(23,19,43,.88);--line:#3A3160;--cream:#F6EEDC;--muted:#CFC6E4;--saffron:#FFB627;--teal:#45E3D3;--heat:#FF7A3D;--pink:#FF8FB1;--display:'Bungee','Arial Black',system-ui,sans-serif;--body:'Baloo 2','Noto Sans Telugu','Trebuchet MS',system-ui,sans-serif}
-#hud{position:fixed;inset:0;pointer-events:none;z-index:5;color:var(--cream);font-family:var(--body);-webkit-user-select:none;user-select:none}
+#hud{--touch-size:70px;--touch-gap:10px;--touch-left:max(18px,env(safe-area-inset-left,0px));--touch-right:max(18px,env(safe-area-inset-right,0px));--touch-bottom:max(18px,env(safe-area-inset-bottom,0px));position:fixed;inset:0;pointer-events:none;z-index:5;color:var(--cream);font-family:var(--body);-webkit-user-select:none;user-select:none}
 #hud .pe{pointer-events:auto}
 .h-tl{position:absolute;left:max(12px,env(safe-area-inset-left,0px));top:max(10px,env(safe-area-inset-top,0px));width:min(320px,42vw);display:flex;flex-direction:column;gap:8px}
 .card{background:var(--panel);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
@@ -65,14 +65,21 @@ const CSS = `
 .touch{display:none}.is-touch .touch{display:block}.is-touch .keys{display:none}
 /* the browser must not turn a thumb on the controls (or the scene) into a scroll / zoom / long-press menu */
 .touch,.touch *,.tb,#game canvas,#hud .pe{touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
-.tb.on{filter:brightness(1.15);transform:translateY(3px)}
-.steering{position:absolute;left:max(18px,env(safe-area-inset-left,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));display:flex;gap:10px}
+.tb.on,.tb:active{filter:brightness(1.15);transform:translateY(3px) scale(.97)}
+.steering{position:absolute;left:var(--touch-left);bottom:var(--touch-bottom);display:flex;gap:var(--touch-gap)}
 .steering[hidden]{display:none!important}
-.steering .tb{position:relative;width:64px;height:74px;border-radius:18px;background:var(--panel);color:var(--cream);border:2px solid rgba(246,238,220,.5);box-shadow:0 4px 0 #0C0A1A;display:grid;place-items:center}
-.steering .tb svg{width:34px;height:34px;pointer-events:none}
-.steering .tb:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.steering .tb{background:var(--panel);color:var(--cream);border:2px solid rgba(246,238,220,.5);box-shadow:0 4px 0 #0C0A1A}
+.tb svg{width:34px;height:34px;pointer-events:none}
+.tb:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
 .steering .tb.on{background:var(--saffron);color:var(--ink);border-color:var(--saffron)}
-.tb{position:absolute;border:0;border-radius:50%;font-family:var(--display);color:var(--ink);cursor:pointer}
+.tb{box-sizing:border-box;position:relative;flex:none;width:var(--touch-size);height:var(--touch-size);display:grid;place-items:center;padding:0;border:0;border-radius:50%;font-family:var(--display);color:var(--ink);cursor:pointer}
+.pedals{position:absolute;right:var(--touch-right);bottom:var(--touch-bottom);display:flex;flex-direction:column;gap:var(--touch-gap)}
+.touch-actions{position:absolute;left:var(--touch-left);bottom:calc(var(--touch-bottom) + var(--touch-size) + var(--touch-gap));display:flex;gap:var(--touch-gap)}
+#t-gas{background:var(--saffron);box-shadow:0 4px 0 #B8780A}
+#t-brake{background:#E9E4F2;box-shadow:0 4px 0 #9A93AE}
+#t-fly{background:var(--teal);box-shadow:0 4px 0 #1E8F85}
+#t-act{background:var(--pink);box-shadow:0 4px 0 #B85A78;font-size:12px}
+.is-touch .prompt{bottom:calc(var(--touch-bottom) + var(--touch-size) + var(--touch-size) + var(--touch-gap) + 12px);max-width:calc(100% - 32px);box-sizing:border-box;text-align:center}
 .keys{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));background:var(--panel);border-radius:12px;padding:7px 11px;font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;max-width:62vw}
 .keys b{font-family:var(--display);font-size:10px;color:var(--cream);background:var(--line);border-radius:4px;padding:1px 5px;font-weight:400}
 .speed{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));font-family:var(--display);font-size:28px;text-shadow:0 3px 0 #0C0A1A}
@@ -82,21 +89,19 @@ const CSS = `
 @media (max-width:700px){.keys{display:none}}
 /* phones in landscape and other short screens: everything smaller and out of the middle */
 @media (max-height:520px){
+  #hud{--touch-size:58px;--touch-gap:8px}
   .h-tl{width:min(230px,34vw);gap:5px}.card{padding:7px 9px;gap:3px}.big{font-size:13px}.sm{font-size:11px}.k{font-size:10px}
   .pill{height:28px;font-size:11px;padding:0 9px}.ib{height:32px;font-size:11px}.h-tr{gap:5px}
   #minimap{width:96px;height:96px}.keys{display:none}.speed{font-size:20px}.is-touch .speed{top:auto;bottom:max(8px,env(safe-area-inset-bottom,0px));right:50%;transform:translateX(50%)}
   .offer{padding:10px;gap:5px}.offer .hint{display:none}.offer .btn{height:38px;font-size:13px}
   .toast{top:30%;font-size:clamp(16px,3.4vw,24px)}
   .prompt{bottom:max(14px,env(safe-area-inset-bottom,0px));font-size:13px;padding:7px 12px}
-  .steering{gap:8px}.steering .tb{width:60px;height:64px}.steering .tb svg{width:30px;height:30px}
-  #t-gas{width:76px!important;height:76px!important}#t-brake{width:58px!important;height:58px!important;right:calc(max(18px,env(safe-area-inset-right,0px)) + 86px)!important}
-  #t-fly{width:54px!important;height:54px!important;right:calc(max(18px,env(safe-area-inset-right,0px)) + 152px)!important;bottom:max(18px,env(safe-area-inset-bottom,0px))!important}
-  #t-act{width:52px!important;height:52px!important;right:calc(max(18px,env(safe-area-inset-right,0px)) + 12px)!important;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 84px)!important}
+  .tb svg{width:30px;height:30px}
   #minimap{width:76px;height:76px}.h-tr .card{padding:5px 8px!important;width:130px!important}
 }
 /* narrow portrait phones */
 @media (max-width:440px){.h-tl{width:47vw}.h-tr .card{width:38vw!important}#minimap{width:104px;height:104px}.is-touch .speed{top:auto;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 190px);right:22px;font-size:22px}}
-@media (max-width:360px){.steering{left:max(12px,env(safe-area-inset-left,0px));gap:8px}.steering .tb{width:50px;height:64px}.steering .tb svg{width:28px;height:28px}}
+@media (max-width:360px){#hud{--touch-left:max(12px,env(safe-area-inset-left,0px));--touch-right:max(12px,env(safe-area-inset-right,0px));--touch-gap:8px}.tb svg{width:30px;height:30px}}
 .rotate{position:fixed;inset:0;z-index:20;background:#17132B;display:none;place-items:center;text-align:center;padding:24px;pointer-events:auto}
 .rotate>div{display:flex;flex-direction:column;gap:12px;align-items:center;max-width:320px}
 .rotate b{font-family:var(--display);font-weight:400;font-size:22px;color:var(--saffron)}.rotate span{color:var(--muted);font-size:15px}
@@ -119,6 +124,7 @@ const CSS = `
 .rescue{position:absolute;left:50%;transform:translateX(-50%);bottom:max(64px,calc(env(safe-area-inset-bottom,0px) + 60px));height:46px;padding:0 18px;border:0;border-radius:23px;background:var(--teal);color:var(--ink);font-family:var(--display);font-size:14px;box-shadow:0 4px 0 #1E8F85;cursor:pointer;white-space:nowrap}
 .rescue[hidden]{display:none}
 @media (max-height:520px){.rescue{bottom:auto;top:44%;height:40px;font-size:12px}}.ib[hidden]{display:none}
+.is-touch .rescue{top:auto;bottom:calc(var(--touch-bottom) + var(--touch-size) + var(--touch-size) + var(--touch-gap) + 12px);max-width:calc(100% - 24px);font-size:12px}
 @media (max-height:600px){.tip{font-size:12px;padding:6px 9px;max-height:min(68px,100%)}}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}.rotate svg{animation:none}}
 `;
@@ -166,10 +172,14 @@ export class Hud {
           <button class="tb" id="t-left" type="button" aria-label="Steer left" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M26 16H6M15 6 5 16l10 10"/></svg></button>
           <button class="tb" id="t-right" type="button" aria-label="Steer right" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16h20M17 6l10 10-10 10"/></svg></button>
         </div>
-        <button class="tb" id="t-gas" type="button" style="right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:92px;height:92px;background:var(--saffron);box-shadow:0 5px 0 #B8780A">GO</button>
-        <button class="tb" id="t-brake" type="button" style="right:calc(max(18px,env(safe-area-inset-right,0px)) + 104px);bottom:max(18px,env(safe-area-inset-bottom,0px));width:70px;height:70px;background:#E9E4F2;box-shadow:0 4px 0 #9A93AE">BRAKE</button>
-        <button class="tb" id="t-fly" type="button" style="right:calc(max(18px,env(safe-area-inset-right,0px)) + 14px);bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 106px);width:66px;height:66px;background:var(--teal);box-shadow:0 4px 0 #1E8F85">FLY</button>
-        <button class="tb" id="t-act" type="button" style="right:calc(max(18px,env(safe-area-inset-right,0px)) + 96px);bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 92px);width:62px;height:62px;background:var(--pink);box-shadow:0 4px 0 #B85A78;font-size:12px">ACT</button>
+        <div class="pedals" role="group" aria-label="Drive and brake">
+          <button class="tb" id="t-gas" type="button" aria-label="Accelerate" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 26V6M6 15 16 5l10 10"/></svg></button>
+          <button class="tb" id="t-brake" type="button" aria-label="Brake and reverse" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6v20M6 17l10 10 10-10"/></svg></button>
+        </div>
+        <div class="touch-actions" role="group" aria-label="Flight and delivery actions">
+          <button class="tb" id="t-fly" type="button" aria-label="Toggle flight">FLY</button>
+          <button class="tb" id="t-act" type="button" aria-label="Accept order or hold to collect and hand over">ACT</button>
+        </div>
       </div>
       <button type="button" class="rescue pe" id="rescue" hidden>Stuck? Get back on the road</button>
       <div class="area-chip" id="area-chip" aria-live="polite"></div>

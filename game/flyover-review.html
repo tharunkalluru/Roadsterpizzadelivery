@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flyover component QA</title>
+<style>html,body,#view{margin:0;width:100%;height:100%;overflow:hidden;font:14px/1.4 system-ui,sans-serif}#panel{position:fixed;z-index:2;left:12px;top:12px;box-sizing:border-box;max-width:min(600px,calc(100vw - 24px));padding:8px 12px;border-radius:12px;background:#fff5e4ee;color:#17132b}h1{font-size:15px;margin:0 0 5px}p{margin:5px 0}button,select{font:inherit;padding:6px;margin:4px 6px 4px 0}output{display:block;white-space:pre-wrap;font:12px/1.3 ui-monospace,monospace}#error{color:#a12020}</style>
+<div id="view"></div><main id="panel"><h1>Flyover · manually drivable component QA</h1><details><summary>Isolated QA · controls and limits</summary><p>Actual road builder, grade model, support and Roadster physics. This isolated scene omits traffic, buildings and delivery; it is not normal-map route coverage.</p><p>W/S accelerate/brake · A/D steer · Space toggle flight · R reset. Only visible user input drives the car.</p></details><select id="scenario"><option value="synthetic">Former6.8m rise in9m · extended approach</option><option value="94e381ed-cb6_0">Shipped Nallagandla Flyover</option><option value="b2bbd573-347_0">Shipped Telugu Talli Flyover</option></select><button id="reset">Reset approach (R)</button><button id="pause">Pause</button><output id="readout">Loading…</output><output id="error"></output></main>
+<script type="module">
+import * as THREE from 'three';
+import {Engine} from '/src/core/engine.ts';
+import {moodAt} from '/src/core/sky.ts';
+import {initTemplates} from '/src/core/util.ts';
+import {buildTile} from '/src/world/city.ts';
+import {fetchPack} from '/src/world/packs.ts';
+import {prepareRoadGrades,roadHeightAlong} from '/src/world/road-grades.ts';
+import {supportAt} from '/src/game/physics.ts';
+import {Player} from '/src/game/player.ts';
+initTemplates({rbox:new THREE.BoxGeometry(1,1,1),ring:new THREE.RingGeometry(1,1.35,12)});
+const engine=new Engine(document.querySelector('#view'),{lowQ:true});engine.applyMood(moodAt(15));
+const city={group:new THREE.Group(),surfaceGrid:new Map(),buildingGrid:new Map(),walls:new Map(),obstacles:new Map(),movingRail:[]};engine.scene.add(city.group);
+const player=new Player(city,engine.mats);player.addTo(engine.scene);
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(2400,2400),new THREE.MeshStandardMaterial({color:'#7f9876',roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.y=-.02;engine.scene.add(ground);
+let start,roads=[],sourceCore,sourceModel,paused=false,last=performance.now(),clock=0,flight=false,loading=false;
+const keys=new Set(),readout=document.querySelector('#readout'),select=document.querySelector('#scenario'),error=document.querySelector('#error');
+function release(){keys.clear();flight=false;}addEventListener('blur',release);document.addEventListener('visibilitychange',()=>{if(document.hidden)release();});
+addEventListener('keydown',e=>{if(['KeyW','KeyA','KeyS','KeyD','Space','KeyR'].includes(e.code)){e.preventDefault();if(e.code==='Space'&&!e.repeat)flight=true;if(e.code==='KeyR'&&!e.repeat)reset();keys.add(e.code);}});addEventListener('keyup',e=>keys.delete(e.code));
+function reset(){release();if(start)player.place(start.x,start.z,start.yaw,start.y);}
+document.querySelector('#reset').onclick=reset;document.querySelector('#pause').onclick=()=>{paused=!paused;release();document.querySelector('#pause').textContent=paused?'Resume':'Pause';};
+const length=e=>e.pts.slice(1).reduce((n,p,i)=>n+Math.hypot(p[0]-e.pts[i][0],p[1]-e.pts[i][1]),0);
+function sample(e,d){let acc=0;for(let i=1;i<e.pts.length;i++){const a=e.pts[i-1],b=e.pts[i],dx=b[0]-a[0],dz=b[1]-a[1],L=Math.hypot(dx,dz);if(acc+L>=d||i===e.pts.length-1){const u=Math.max(0,Math.min(1,(d-acc)/(L||1)));return{x:a[0]+dx*u,z:a[1]+dz*u,y:roadHeightAlong(e,d),yaw:Math.atan2(-dx,-dz)};}acc+=L;}}
+function merge(target,source){for(const[k,v]of source)target.set(k,[...(target.get(k)||[]),...v]);}
+async function setup(){
+ loading=true;release();error.textContent='';try{
+  for(const mesh of [...city.group.children]){mesh.geometry?.dispose();city.group.remove(mesh);}for(const key of ['surfaceGrid','buildingGrid','walls','obstacles'])city[key].clear();
+  let target;
+  if(select.value==='synthetic'){
+   const edge=(id,pts,elev,from,to)=>({id,seg:id,name:'QA estimated flyover',cls:'primary',w:14,lanes:4,oneway:'backward',from,to,pts,elev});
+   roads=prepareRoadGrades([edge('approach',[[100,500],[300,500]],null,'a','b'),edge('deck',[[300,500],[309,500],[600,500],[609,500]],[0,6.8,6.8,0],'b','c'),edge('exit',[[609,500],[950,500]],null,'c','d')]);
+   target=roads[0];start=sample(target,100);
+  }else{
+   if(!sourceCore){readout.textContent='Loading shipped core and shared grade model…';sourceCore=await fetchPack('/city/core.pack.wasm');sourceModel=prepareRoadGrades(sourceCore.roads);}
+   target=sourceModel.find(e=>e.id===select.value);const c=target.pts[0];
+   roads=sourceModel.filter(e=>e.pts.some(p=>Math.hypot(p[0]-c[0],p[1]-c[1])<450));
+   const a=target.pts[0],b=target.pts[1],dx=b[0]-a[0],dz=b[1]-a[1],L=Math.hypot(dx,dz);
+   const approach=roads.filter(e=>e.id!==target.id&&e.to===target.from).map(e=>{const p=e.pts.at(-2),q=e.pts.at(-1),ex=q[0]-p[0],ez=q[1]-p[1];return{e,dot:(ex*dx+ez*dz)/(Math.hypot(ex,ez)*L||1)};}).sort((a,b)=>b.dot-a.dot)[0];
+   start=approach?.dot>.7?sample(approach.e,Math.max(2,length(approach.e)-70)):sample(target,Math.min(1,length(target)/4));
+  }
+  const tiles=new Set(),ci=Math.floor(start.x/1000),cj=Math.floor(start.z/1000);for(let i=ci-1;i<=ci+1;i++)for(let j=cj-1;j<=cj+1;j++)tiles.add(`${i},${j}`);
+  const nodes=Object.fromEntries(roads.flatMap(e=>[[e.from,e.pts[0]],[e.to,e.pts.at(-1)]]));
+  for(const tile of tiles){const[i,j]=tile.split(',').map(Number),local=roads.map(e=>{const p=e.pts[Math.floor(e.pts.length/2)];return{...e,ctx:Math.floor(p[0]/1000)===i&&Math.floor(p[1]/1000)===j?0:1};}),built=buildTile({i,j,roads:local,nodes,buildings:[],boards:[],furniture:[],areas:[],osm:[]},{lowQ:true});for(const key of ['surfaceGrid','buildingGrid','walls','obstacles'])merge(city[key],built[key]);
+   for(const b of built.buffers){const g=new THREE.BufferGeometry();for(const[name,data,size]of [['position',b.pos,3],['normal',b.nor,3],['uv',b.uv,2],['color',b.col,3]])g.setAttribute(name,new THREE.BufferAttribute(data,size));const mesh=new THREE.Mesh(g,engine.mats[b.mat]);mesh.receiveShadow=true;mesh.castShadow=b.mat!=='road'&&b.mat!=='marks';city.group.add(mesh);}
+  }
+  ground.position.x=start.x;ground.position.z=start.z;reset();engine.camera.position.set(start.x+20,start.y+15,start.z+20);
+ }catch(e){error.textContent=String(e);console.error(e);}finally{loading=false;last=performance.now();}}
+select.onchange=setup;await setup();
+function frame(now){const dt=Math.min(.035,Math.max(0,(now-last)/1000));last=now;if(!paused&&!loading){clock+=dt;player.update(dt,{throttle:keys.has('KeyW')?1:0,brake:keys.has('KeyS')?1:0,steer:(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0),flyPressed:flight,boost:false},clock);flight=false;}
+ const p=player.pos,f=player.forward;engine.camera.position.lerp(new THREE.Vector3(p.x-f.x*15,p.y+7,p.z-f.z*15),Math.min(1,dt*6));engine.camera.lookAt(p.x+f.x*7,p.y+1,p.z+f.z*7);engine.placeSun(p);engine.render();
+ if(!loading){const s=supportAt(city,p.x,p.z,p.y-.55,true);readout.textContent=`${select.selectedOptions[0].text}\nSpeed ${(Math.abs(player.speed)*3.6).toFixed(1)} km/h · ${paused?'PAUSED':player.flying?'FLYING':player.descending?'DESCENDING':player.onRoad?'TYRES ON ROAD':'OFF ROAD'}\nRoad height ${s.y.toFixed(3)} m · car contact gap ${(p.y-.55-s.y).toFixed(4)} m · pitch ${(player.roadPitch*180/Math.PI).toFixed(2)}°\nWorld ${p.x.toFixed(1)}, ${p.z.toFixed(1)} · road ${s.s?.e?.id||'none'}`;}requestAnimationFrame(frame);}
+requestAnimationFrame(frame);
+</script></html>

@@ -6,6 +6,7 @@ import { drawLandmark, inClear, Landmark } from './landmarks';
 import { drawExtras, OsmFeature, RoadHit } from './extras';
 import { isORR, auxiliaryLane, expresswayBarrierClipper, travelDirection, expresswayPierClear } from './expressway';
 import { drawExpresswaySigns, drawRampChevrons } from './expressway-signs';
+import { roadQuadHeight, type RoadQuad } from './road-surface';
 import { metroCorridors, metroLineColor } from './metro-geometry';
 import { captureLandmarkBatches } from './landmark-support-capture';
 import type { LandmarkSurfaceGrid } from './landmark-support';
@@ -20,7 +21,7 @@ const MAJOR = new Set(['trunk', 'primary', 'secondary', 'tertiary', 'trunk_link'
 const MOTORWAY = new Set(['motorway', 'motorway_link']);
 export const GROUND_H = 4.2, FLOOR_H = 3.2;
 
-export interface Surface { e: RoadEdge | null; i: number; ax: number; az: number; bx: number; bz: number; ya: number; yb: number; hw: number; kind: 'road' | 'deck' | 'pad' }
+export interface Surface { e: RoadEdge | null; i: number; ax: number; az: number; bx: number; bz: number; ya: number; yb: number; hw: number; kind: 'road' | 'deck' | 'pad'; roadQuad?: RoadQuad; paintLift?: number }
 // vertical barrier along a line: bottom/top heights at each end. 'kerb' is a soft bump, the rest are solid.
 export interface Wall { ax: number; az: number; bx: number; bz: number; y0a: number; y0b: number; y1a: number; y1b: number; kind: 'median' | 'parapet' | 'kerb' | 'rail' }
 export interface BusStop { edge: string; s: number; side: 1 | -1; x: number; z: number; hx: number; hz: number }
@@ -96,8 +97,9 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   // local segments from the context copy instead, with unique midpoint ownership.
   const localExpressway = (e: RoadEdge) => isORR(e) || !!e.expressway?.ramp;
   const clipExpresswayBarrier = expresswayBarrierClipper(zone.roads);
-  const renderRoads = ownRoads.concat(ctxRoads.filter(localExpressway));
-  const ownsRoadPoint = (e: RoadEdge, x: number, z: number) => !localExpressway(e) || inTile(x, z);
+  const localGrades = new Set(zone.roads.filter(e => localExpressway(e) || e.elev?.some(y => y > .001)).map(e => e.id));
+  const renderRoads = ownRoads.concat(ctxRoads.filter(e => localGrades.has(e.id)));
+  const ownsRoadPoint = (e: RoadEdge, x: number, z: number) => !localGrades.has(e.id) || inTile(x, z);
   const ctxGrid = new Map<string, Surface[]>();
   const byBuilding = new Map<string, Building>();
   zone.buildings.forEach((b) => byBuilding.set(b.id, b));
@@ -221,6 +223,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       return [p[0] - (b[1] - a[1]) / len * off, p[1] + (b[0] - a[0]) / len * off];
     });
     const L = boundary(1), R = boundary(-1);
+    const roadQuads: RoadQuad[] = e.pts.slice(1).map((_, i) => [[R[i][0], elevAt(i), R[i][1]], [R[i + 1][0], elevAt(i + 1), R[i + 1][1]], [L[i + 1][0], elevAt(i + 1), L[i + 1][1]], [L[i][0], elevAt(i), L[i][1]]]);
     let v = 0;
     for (let i = 0; i < e.pts.length - 1; i++) {
       const seg = Math.hypot(e.pts[i + 1][0] - e.pts[i][0], e.pts[i + 1][1] - e.pts[i][1]);
@@ -231,7 +234,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         [[0, v], [0, v1], [e.w / 6, v1], [e.w / 6, v]]);
       v = v1;
       // collision/drive surface
-      const s: Surface = { e, i, ax: (L[i][0] + R[i][0]) / 2, az: (L[i][1] + R[i][1]) / 2, bx: (L[i + 1][0] + R[i + 1][0]) / 2, bz: (L[i + 1][1] + R[i + 1][1]) / 2, ya: elevAt(i), yb: elevAt(i + 1), hw: hw + (extra[i] + extra[i + 1]) / 4 + 0.6, kind: 'road' };
+      const s: Surface = { e, i, ax: (L[i][0] + R[i][0]) / 2, az: (L[i][1] + R[i][1]) / 2, bx: (L[i + 1][0] + R[i + 1][0]) / 2, bz: (L[i + 1][1] + R[i + 1][1]) / 2, ya: elevAt(i), yb: elevAt(i + 1), hw: hw + (extra[i] + extra[i + 1]) / 4 + 0.6, kind: 'road', roadQuad: roadQuads[i], paintLift: y0 };
       addSurface(surfaceGrid, s);
       // elevated deck: soffit, parapets, piers
       const ea = elevAt(i), eb = elevAt(i + 1);
@@ -270,13 +273,23 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
           const ax = pts[i][0], az = pts[i][1], bx = pts[i + 1][0], bz = pts[i + 1][1];
           const L2 = Math.hypot(bx - ax, bz - az); if (L2 < 0.01) continue;
           const dx = (bx - ax) / L2, dz = (bz - az) / L2, ang = Math.atan2(dx, dz);
-          let s = (on + off) - (acc % (on + off)); if (s > on + off) s = 0;
-          for (let d = s === on + off ? 0 : s; d < L2; d += on + off) {
-            const len = Math.min(on, L2 - d); if (len <= 0.3) continue;
+          for (let d = 0; d < L2 - 1e-6;) {
+            const phase = (acc + d) % (on + off);
+            if (off > 0 && phase >= on - 1e-6) { d += on + off - phase; continue; }
+            const len = Math.min(off === 0 ? L2 - d : on - phase, L2 - d);
+            if (len <= 1e-6) { d += .00001; continue; }
             const mx = ax + dx * (d + len / 2), mz = az + dz * (d + len / 2);
-            if (!ownsRoadPoint(e, mx, mz)) continue;
-            const yy = (e.elev ? e.elev[i] + (e.elev[i + 1] - e.elev[i]) * (d / L2) : 0) + y0 + 0.012;
-            B.marks.box(mx, yy, mz, wid, 0.01, len, col, { ry: ang });
+            if (!ownsRoadPoint(e, mx, mz)) { d += len; continue; }
+            const x0 = ax + dx * d, z0 = az + dz * d, x1 = ax + dx * (d + len), z1 = az + dz * (d + len), nx = -dz * wid / 2, nz = dx * wid / 2;
+            const vertex = (x: number, z: number) => {
+              const a = e.pts[i], b = e.pts[i + 1], ex = b[0] - a[0], ez = b[1] - a[1];
+              const u = Math.max(0, Math.min(1, ((x - a[0]) * ex + (z - a[1]) * ez) / (ex * ex + ez * ez || 1)));
+              return [x, (roadQuadHeight(roadQuads[i], x, z) ?? elevAt(i) + (elevAt(i + 1) - elevAt(i)) * u) + y0 + .012, z];
+            };
+            // Paint is a film following the asphalt triangles, never a row of
+            // horizontal boxes protruding from a descending flyover.
+            B.marks.quad(vertex(x0 + nx, z0 + nz), vertex(x1 + nx, z1 + nz), vertex(x1 - nx, z1 - nz), vertex(x0 - nx, z0 - nz), col);
+            d += len;
           }
           acc += L2;
         }
@@ -513,16 +526,33 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       }
     }
   }
-  // junction caps so intersections read as one surface
-  for (const [nid, d] of nodeDeg) {
-    if (d.n < 3 || d.elev > 0.5) continue;
-    const p = zone.nodes[nid]; if (!p) continue;
-    const rad = d.w * 0.55;
-    const N = 14;
-    for (let k = 0; k < N; k++) {
-      const a0 = (k / N) * Math.PI * 2, a1 = ((k + 1) / N) * Math.PI * 2;
-      B.road.tri([p[0], 0.08, p[1]], [p[0] + Math.cos(a1) * rad, 0.08, p[1] + Math.sin(a1) * rad], [p[0] + Math.cos(a0) * rad, 0.08, p[1] + Math.sin(a0) * rad], '#ffffff',
-        [[p[0] / 6, p[1] / 6], [(p[0] + Math.cos(a1) * rad) / 6, (p[1] + Math.sin(a1) * rad) / 6], [(p[0] + Math.cos(a0) * rad) / 6, (p[1] + Math.sin(a0) * rad) / 6]]);
+  // Shared-level road ends need one real pavement patch, including flyover
+  // bends. Rounded collision end-caps used to hide gaps that were never drawn.
+  const caps = new Map<string, { e: RoadEdge; i: number; y: number; pts: XZ[] }[]>();
+  for (const e of zone.roads) for (const [node, i, j] of [[e.from, 0, 1], [e.to, e.pts.length - 1, e.pts.length - 2]] as [string | null, number, number][]) {
+    if (!node || !e.pts[i] || !e.pts[j] || !inTile(...e.pts[i])) continue;
+    const p = e.pts[i], q = e.pts[j], length = Math.hypot(q[0] - p[0], q[1] - p[1]) || 1;
+    const width = e.elev?.some(y => y > 1.2) ? Math.max(e.w / 2, 4.2) : e.w / 2, extra = auxiliaryLane(e, zone.roads)[i] || 0, outer = -travelDirection(e);
+    const direction = i === 0 ? 1 : -1, dx = (q[0] - p[0]) / length * direction, dz = (q[1] - p[1]) / length * direction;
+    const edge = (side: number): XZ => [p[0] - dz * side * (width + (side === outer ? extra : 0)), p[1] + dx * side * (width + (side === outer ? extra : 0))];
+    (caps.get(node) || caps.set(node, []).get(node)!).push({ e, i: Math.min(i, e.pts.length - 2), y: e.elev?.[i] || 0, pts: [edge(1), edge(-1)] });
+  }
+  for (const entries of caps.values()) {
+    entries.sort((a, b) => a.y - b.y); const levels: typeof entries[] = [];
+    for (const entry of entries) { if (!levels.length || entry.y - levels[levels.length - 1][0].y > .25) levels.push([]); levels[levels.length - 1].push(entry); }
+    for (const group of levels) {
+      if (group.length < 2) continue;
+      const points = group.flatMap(e => e.pts).sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+      const cross = (a: XZ, b: XZ, c: XZ) => (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+      const half = (list: XZ[]) => { const out: XZ[] = []; for (const p of list) { while (out.length >= 2 && cross(out[out.length - 2], out[out.length - 1], p) <= 1e-6) out.pop(); out.push(p); } return out; };
+      const hull = half(points).slice(0, -1).concat(half(points.slice().reverse()).slice(0, -1)); if (hull.length < 3) continue;
+      const x = points.reduce((s, p) => s + p[0], 0) / points.length, z = points.reduce((s, p) => s + p[1], 0) / points.length, y = group.reduce((s, e) => s + e.y, 0) / group.length;
+      const lift = Math.max(...group.map(e => ROAD_Y[e.e.cls] || .04));
+      for (let i = 0; i < hull.length; i++) {
+        const a = hull[i], b = hull[(i + 1) % hull.length], center: [number, number, number] = [x, y, z];
+        B.road.tri([x, y + lift, z], [b[0], y + lift, b[1]], [a[0], y + lift, a[1]], '#ffffff');
+        addSurface(surfaceGrid, { e: group[0].e, i: group[0].i, ax: x, az: z, bx: (a[0] + b[0]) / 2, bz: (a[1] + b[1]) / 2, ya: y, yb: y, hw: Math.max(Math.hypot(a[0] - x, a[1] - z), Math.hypot(b[0] - x, b[1] - z)), kind: 'road', roadQuad: [center, [b[0], y, b[1]], [a[0], y, a[1]], [a[0], y, a[1]]], paintLift: lift });
+      }
     }
   }
 

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Mobile control component QA</title>
+<style>
+html,body{margin:0;min-height:100%;background:#4b665f;font:14px/1.35 system-ui,sans-serif}body:before{content:'';position:fixed;left:30%;right:30%;inset-block:0;background:#575962;border-inline:4px solid #eee2a2;pointer-events:none}
+#qa-panel{box-sizing:border-box;position:fixed;z-index:6;top:max(10px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));max-width:650px;max-height:calc(100dvh - 210px);overflow:auto;padding:10px 12px;border-radius:12px;background:#fff6e4;color:#17132b}#qa-panel h1{margin:0 0 4px;font-size:18px}#qa-panel p{margin:4px 0}#qa-panel button,#qa-panel label{display:inline-flex;align-items:center;gap:5px;min-height:32px;margin:4px 8px 4px 0}#qa-panel button{padding:4px 10px}#qa-readout{display:block;white-space:pre-wrap;font:13px/1.4 ui-monospace,monospace}
+#hud .h-tl,#hud .h-tr,#hud .keys,#hud .speed,#hud .attr,#hud .guidance{visibility:hidden}
+</style>
+<main id="qa-panel"><h1>Mobile controls · component QA</h1><p>Production Hud controls on an inert background. Gyro below is simulated UI state; this does not test physical sensors or gameplay.</p><label><input id="qa-gyro" type="checkbox">Simulate gyro steering</label><button id="qa-menu" type="button">Open test menu</button><button id="qa-reset" type="button">Release all controls</button><output id="qa-readout" aria-live="off"></output></main><div id="hud"></div>
+<script type="module">
+import{Hud}from'/src/ui/hud.ts';
+const hud=new Hud(true);let flights=0,actions=0,resets=0;
+hud.onButton=id=>{if(id==='fly')flights++;if(id==='act')actions++;};
+hud.onInputReset=()=>{resets++;};
+document.querySelector('#qa-gyro').addEventListener('change',event=>{hud.resetControls();hud.tiltOn=event.target.checked;hud.el.steering.hidden=hud.tiltOn;});
+document.querySelector('#qa-reset').addEventListener('click',()=>hud.resetControls());
+document.querySelector('#qa-menu').addEventListener('click',()=>hud.modal('<h2>Test menu</h2><p>Opening this production HUD dialog releases held controls.</p><button type="button" class="btn go" id="qa-close">Close menu</button>',sheet=>sheet.querySelector('#qa-close').addEventListener('click',()=>hud.modal(null))));
+const output=document.querySelector('#qa-readout');function read(){output.textContent=`Throttle: ${hud.touchGas?'HELD':'released'} · Brake: ${hud.touchBrake?'HELD':'released'} · Steer: ${hud.steer}\nFLY presses: ${flights} · ACT presses: ${actions} · Input resets: ${resets}\nSteering: ${hud.tiltOn?'simulated gyro; arrows hidden':'arrow buttons'}`;requestAnimationFrame(read);}read();
+</script></html>

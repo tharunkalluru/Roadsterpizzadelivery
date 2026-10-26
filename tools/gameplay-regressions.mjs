@@ -40,7 +40,7 @@ try {
   await test('GPS does not U-turn through a divided same-edge road', () => {
     const g = new RoadGraph([road('divided', 'a', 'b', [[0, 0], [200, 0]], { cls: 'primary', w: 14 })]);
     const r = g.route(120, 0, 80, 0, { hx: 1, hz: 0, y: 0 });
-    assert.ok(r); assert.equal(r.len, 214); // 200 along the road plus 14 across lane offsets
+    assert.ok(r); assert.equal(r.len, 210.5); // 200 along road + 7 at junction + 3.5 final approach; no car-to-lane spur
     assert.ok(r.pts.some(([x]) => x === 200));
   });
   await test('GPS distance works for an order with no car heading', () => {

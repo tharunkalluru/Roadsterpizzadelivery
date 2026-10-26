@@ -2,13 +2,14 @@ import * as THREE from 'three';
 import type { Engine } from '../core/engine';
 import type { CoreData, CityPoi, XZ } from '../world/types';
 import type { World, LoadedTile } from '../world/world';
-import type { CityData } from '../world/city';
+import { hasCentreMedian, type CityData } from '../world/city';
 import { moodAt } from '../core/sky';
 import { rng, hash } from '../core/util';
 import { labelTexture } from '../world/signs';
 import { Player, Input } from './player';
 import { RoadGraph, GEdge, RoadRoute } from './roadgraph';
-import { clearRoadGuidance, navigationReadout } from './route-guidance';
+import { advanceRoadRoute, clearRoadGuidance, guidanceRibbon, navigationReadout, softenRoadCorners } from './route-guidance';
+import { metroCorridors } from '../world/metro-geometry';
 import { Traffic } from './traffic';
 import { Hud, orderOfferHtml } from '../ui/hud';
 import { eligiblePickup } from './pickups';
@@ -71,6 +72,7 @@ export class Game {
   cinemaReport: { readyAt: number; html: string } | null = null;
   route: RoadRoute | null = null; routeT = 0; routeTarget: Stop | null = null;
   routeGuidanceBlocked = false;
+  routeGraphRevision = -1; routeGuideT = 0; routeAlpha = 0; routeWasAirborne = false; routePlacementRevision = -1;
   routeGuide: [number, number, number][] = [];
   gps = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: new THREE.Color('#45E3D3').multiplyScalar(1.4), transparent: true, opacity: 0.6, depthWrite: false, toneMapped: false }));
   beacon!: THREE.Group; theatres: TheatreSite[] = []; lease: Lease | null = null; slate: Film[] = [];
@@ -310,7 +312,7 @@ export class Game {
     const drops = this.residences.filter((d) => { const dd = Math.hypot(d.x - p.x, d.z - p.z); return dd > L.dmin && dd < L.dmax; });
     if (!drops.length) return null;
     const d = drops[Math.floor(this.r() * drops.length)];
-    const rt = this.graph.route(p.x, p.z, d.x, d.z);
+    const rt = this.graph.route(p.x, p.z, d.x, d.z, undefined, d.y, p.y);
     const dist = rt ? rt.len : Math.hypot(d.x - p.x, d.z - p.z) * 1.3;
     const drop: Stop = { ...d, label: `Home in ${this.areaName(d.x, d.z)}`, sub: d.label ? `off ${d.label}` : '' };
     const pickup: Stop = { ...p, label: pick.board, sub: p.sub };
@@ -340,7 +342,7 @@ export class Game {
     if (!restored) this.sound.cue('offer');
     const pay = Math.round(35 + o.dist * 0.07);
     const P = this.player.pos, f = this.player.forward;
-    const approach = this.graph.route(P.x, P.z, o.pickup.x, o.pickup.z, this.player.flying ? undefined : { hx: f.x, hz: f.z, y: P.y });
+    const approach = this.graph.route(P.x, P.z, o.pickup.x, o.pickup.z, this.player.flying ? undefined : { hx: f.x, hz: f.z, y: P.y }, o.pickup.y);
     this.hud.offer(orderOfferHtml({ level: this.level + 1, pickupName: o.pickup.label, pickupRoad: o.pickup.sub || '',
       customerName: o.drop.label, approachMetres: approach?.len ?? null, approachEstimated: approach?.complete === false,
       deliveryMetres: o.dist, deliverySeconds: o.limit, basePay: pay }),
@@ -355,7 +357,7 @@ export class Game {
   routeColor = '#FFB627';
   setTarget(s: Stop | null, color = '#FFB627') {
     this.routeTarget = s; this.routeT = 0; this.route = null;
-    this.routeGuide = []; this.routeGuidanceBlocked = false;
+    this.routeGuide = []; this.routeGuidanceBlocked = false; this.routeGuideT = 0; this.routeAlpha = 0;
     this.beacon.visible = !!s; this.routeColor = color;
     (this.gps.material as THREE.MeshBasicMaterial).color.set(color).multiplyScalar(1.4);       // the road line matches the marker
     if (s) {
@@ -748,7 +750,7 @@ export class Game {
     if (step <= 1 && o?.state === 'offer') { step = 1; text = touch ? 'A new order! Tap Accept to take it.' : 'A new order! Press E (or click Accept) to take it.'; }
     else if (o && o.state === 'toPickup') {
       const d = Math.hypot(o.pickup.x - P.x, o.pickup.z - P.z);
-      if (d > 45) { step = 2; text = touch ? `Hold GO and ${this.hud.tiltOn ? 'tilt your phone' : 'hold the left or right arrow'} to steer. Follow the orange line on the road and the minimap to the kitchen.` : 'Drive with W and steer with A / D. Follow the orange line on the road and the minimap to the kitchen.'; }
+      if (d > 45) { step = 2; text = touch ? `Hold the up arrow and ${this.hud.tiltOn ? 'tilt your phone' : 'hold the left or right arrow'} to steer. Follow the orange line on the road and the minimap to the kitchen.` : 'Drive with W and steer with A / D. Follow the orange line on the road and the minimap to the kitchen.'; }
       else { step = 3; text = `Stop inside the glowing ring and hold ${act} to collect the pizza.`; }
     } else if (o && o.state === 'toDrop') {
       const d = Math.hypot(o.drop.x - P.x, o.drop.z - P.z);
@@ -971,33 +973,62 @@ export class Game {
     this.engine.lampLights.forEach((L, i) => { const p = near[i]; if (p) L.position.copy(p); else L.position.set(0, -200, 0); });
   }
   updateRoute(dt: number) {
-    const tgt = this.routeTarget; const P = this.player.pos;
+    const tgt = this.routeTarget, P = this.player.pos, f = this.player.forward;
     if (!tgt) { this.gps.visible = false; return; }
-    this.routeT -= dt;
-    if (this.routeT <= 0) {
-      // long cross-city routes are refreshed less often (A* over the whole main-road network)
-      this.routeT = this.route && this.route.len > 3000 ? 4 : 1.5;
-      const f = this.player.forward;
-      this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, this.player.flying ? undefined : { hx: f.x, hz: f.z, y: P.y });
-      const guidance = clearRoadGuidance(this.city, this.route?.pts || []);
-      this.routeGuidanceBlocked = guidance.blocked;
-      this.routeGuide = guidance.pts;
-      // ribbon geometry along the first ~700 m
-      const pos: number[] = [];
-      if (this.route) {
-        let acc = 0; const pts = guidance.pts;
-        for (let i = 0; i < pts.length - 1 && acc < 700; i++) {
-          const a = pts[i], b = pts[i + 1]; const L = Math.hypot(b[0] - a[0], b[2] - a[2]); if (L < 0.1) continue; acc += L;
-          const nx = -(b[2] - a[2]) / L * 0.7, nz = (b[0] - a[0]) / L * 0.7;
-          const ya = a[1] + 0.25, yb = b[1] + 0.25;
-          pos.push(a[0] + nx, ya, a[2] + nz, b[0] + nx, yb, b[2] + nz, b[0] - nx, yb, b[2] - nz, a[0] + nx, ya, a[2] + nz, b[0] - nx, yb, b[2] - nz, a[0] - nx, ya, a[2] - nz);
-        }
-      }
-      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
-      this.gps.geometry.dispose(); this.gps.geometry = g;
-      const mat = this.gps.material as THREE.MeshBasicMaterial; mat.side = THREE.DoubleSide;
+    this.routeT -= dt; this.routeGuideT = (this.routeGuideT || 0) - dt;
+    const airborne = this.player.flying || this.player.descending;
+    if (airborne) {
+      // Flight uses the beacon. The map may retain a coarse road overview, but
+      // landing always creates a new route from the actual road and height.
+      if (this.routeT <= 0) { this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, undefined, tgt.y); this.routeT = 4; }
+      this.routeWasAirborne = true; this.gps.visible = false; return;
     }
-    this.gps.visible = !!this.route && !this.player.flying && !this.player.descending;
+    const revision = this.graph.revision || 0, changed = revision !== this.routeGraphRevision;
+    const on = this.graph.edgeAt(P.x, P.z, P.y, { hx: f.x, hz: f.z, edgeId: this.player.lastEdge?.id || this.route?.edgeIds?.[0] });
+    // Drop consumed edge identities so streamed tiles behind the car do not
+    // invalidate an otherwise unchanged route ahead.
+    if (this.route?.edgeIds && on) {
+      const i = this.route.edgeIds.indexOf(on.g.e.id);
+      if (i > 0) this.route.edgeIds = this.route.edgeIds.slice(i);
+    }
+    const feet = { x: P.x, y: P.y - .55, z: P.z };
+    const advanced = this.route && advanceRoadRoute(this.route, feet, 6 + Math.abs(this.player.speed) * Math.max(dt, .001) * 2);
+    let oppositeSide = false;
+    if (on && advanced && hasCentreMedian(on.g.e) && advanced.route.pts.length) {
+      const centre = this.graph.pointAt(on.g, on.s, 1), head = advanced.route.pts[0];
+      const side = (x: number, z: number) => (x - centre.x) * centre.hz - (z - centre.z) * centre.hx;
+      const carSide = side(P.x, P.z), lineSide = side(head[0], head[2]);
+      oppositeSide = Math.abs(carSide) > .9 && Math.abs(lineSide) > .9 && carSide * lineSide < 0;
+    }
+    const offRoute = !!this.route && (oppositeSide || (!advanced || advanced.distance > Math.max(7, (on?.g.e.w || 10) * .6) || advanced.heightError > 1.6 || !on || (this.route.edgeIds?.length && !this.route.edgeIds.includes(on.g.e.id))));
+    const missingRoad = changed && this.route?.edgeIds?.some(id => !this.graph.byId.has(id));
+    const replan = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || offRoute || missingRoad || (changed && this.route?.complete === false) || (!this.route && this.routeT <= 0);
+    if (replan) {
+      this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, tgt.y);
+      this.routeT = .6; this.routeGuideT = 0; this.routeAlpha = 0; this.routeGuide = [];
+    } else if (advanced) this.route = advanced.route;
+    this.routeWasAirborne = false; this.routeGraphRevision = revision; this.routePlacementRevision = this.player.placementRevision;
+    if (changed || this.routeGuideT <= 0) {
+      this.routeGuideT = .75;
+      const guidance = clearRoadGuidance(this.city, softenRoadCorners(this.city, this.route?.pts || []));
+      this.routeGuidanceBlocked = guidance.blocked; this.routeGuide = guidance.pts;
+    } else if (this.routeGuide.length > 1) {
+      const advancedGuide = advanceRoadRoute({ pts: this.routeGuide, len: 700 }, feet, 6 + Math.abs(this.player.speed) * Math.max(dt, .001) * 2);
+      if (advancedGuide) this.routeGuide = advancedGuide.route.pts;
+    }
+    const vertices = guidanceRibbon(this.routeGuide), geometry = this.gps.geometry;
+    let attribute = geometry.getAttribute('position') as THREE.BufferAttribute | undefined;
+    if (!attribute || attribute.array.length < vertices.length) {
+      // Reuse the allocation during motion rather than dispose/upload a new
+      // geometry at every frame or route refresh.
+      attribute = new THREE.BufferAttribute(new Float32Array(3 * Math.max(256, 2 ** Math.ceil(Math.log2(vertices.length / 3 || 1)))), 3);
+      attribute.setUsage(THREE.DynamicDrawUsage); geometry.setAttribute('position', attribute);
+    }
+    (attribute.array as Float32Array).set(vertices); attribute.needsUpdate = true; geometry.setDrawRange(0, vertices.length / 3);
+    this.routeAlpha = (this.routeAlpha || 0) + (1 - (this.routeAlpha || 0)) * (1 - Math.exp(-dt * 12));
+    const material = this.gps.material as THREE.MeshBasicMaterial;
+    material.side = THREE.DoubleSide; material.opacity = .6 * this.routeAlpha;
+    this.gps.visible = !!this.route && vertices.length > 0;
   }
   areaNow = ''; areaCand = ''; areaCandT = 0;
   updateHud() {
@@ -1037,8 +1068,8 @@ export class Game {
       g.lineWidth = Math.max(2.5, e.e.w * 0.9);
       g.beginPath(); e.e.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke();
     }
-    for (const l of this.zone.metro.lines) { g.strokeStyle = '#22B573'; g.lineWidth = 3; g.setLineDash([10, 8]); g.beginPath(); l.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke(); g.setLineDash([]); }
-    if (this.route) { g.strokeStyle = this.routeColor; g.lineWidth = 7; g.beginPath(); (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts).forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
+    for (const l of metroCorridors(this.zone.metro.lines)) { g.strokeStyle = l.color; g.lineWidth = 3; g.setLineDash([10, 8]); g.beginPath(); l.center.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke(); g.setLineDash([]); }
+    if (this.route) { g.strokeStyle = this.routeColor; g.lineWidth = 3.5; g.lineJoin = 'round'; g.beginPath(); (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts).forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
     for (const s of this.theatres) { g.fillStyle = '#FF8FB1'; g.beginPath(); g.arc(s.stop.x, s.stop.z, 9, 0, 7); g.fill(); }
     if (this.routeTarget) { g.fillStyle = '#FFB627'; g.beginPath(); g.arc(this.routeTarget.x, this.routeTarget.z, 14, 0, 7); g.fill(); }
     g.restore();

@@ -50,7 +50,7 @@ export class Player {
     this.pos.set(x, 0, z); this.yaw = yaw; this.speed = 0; this.vy = 0; this.flying = false; this.descending = false;
     const s = supportAt(this.city, x, z, y + 0.5, true); this.pos.y = s.y + 0.55;
     this.lastSupport = s.y; this.lastKind = s.kind; this.lastElevRoad = s.elevatedRoad; this.onRoad = s.onRoad;
-    this.glide = null; this.lastEdge = null; this.placementRevision++;
+    this.glide = null; this.lastEdge = null; this.roadPitch = 0; this.placementRevision++;
     this.group.position.copy(this.pos); this.group.rotation.set(0, yaw, 0, 'YXZ');
   }
   // one puff of vented gas from a nozzle (k), blown along the nozzle direction plus a share of the car's motion
@@ -65,6 +65,7 @@ export class Player {
   // the road under the car carries on from the one it was on (same piece, or the next piece at a shared junction):
   // a sudden drop there is a step in the data, not the edge of a flyover, so the car must not be held back
   lastEdge: any = null;
+  roadPitch = 0;
   continues(sup: { s: any; kind: string }) {
     const e = sup.s?.e, l = this.lastEdge;
     if (!e || !l || sup.kind !== 'road') return false;
@@ -85,7 +86,7 @@ export class Player {
     if ((d < 0.3 && Math.abs(P.y - g.y) < 0.15) || g.t > 8) {
       P.set(g.x, g.y, g.z); this.yaw = g.yaw; this.glide = null; this.vy = 0; this.speed = 0;
       this.lastSupport = g.y - 0.55; this.lastKind = 'road'; this.lastElevRoad = g.y - 0.55 > 1.2; this.lastEdge = null;
-      this.onRoad = true; this.placementRevision++;
+      this.onRoad = true; this.roadPitch = 0; this.placementRevision++;
       this.group.position.copy(P); this.group.rotation.set(0, this.yaw, 0, 'YXZ');
       this.glow.position.set(P.x, P.y - 0.5, P.z); this.light.position.set(P.x, P.y - 0.2, P.z);
     }
@@ -142,6 +143,10 @@ export class Player {
         this.flyAlt = Math.max(24, roof + 6);
       }
       this.pos.y += (this.flyAlt - this.pos.y) * Math.min(1, dt * 1.6);
+    } else if (!air && this.onRoad && sup.onRoad && Math.abs(sup.y - this.lastSupport) <= Math.max(.2, Math.hypot(this.pos.x - prev.x, this.pos.z - prev.z) * .14 + .03)) {
+      // Tyres follow a continuous grade in both directions. Applying free fall
+      // on every small downhill step makes a descending car repeatedly detach.
+      this.pos.y = ground; this.vy = 0;
     } else if (!air && this.lastElevRoad && sup.y < this.lastSupport - 1.5 && !this.continues(sup)) {
       // never roll off the side of a flyover deck: the parapet holds the car
       this.pos.x = prev.x; this.pos.z = prev.z; this.speed *= 0.5; this.bump = 0.3;
@@ -161,7 +166,13 @@ export class Player {
     this.hitCooldown -= dt; this.bump = Math.max(0, this.bump - dt);
     // --- visuals ---
     this.group.position.set(this.pos.x, this.pos.y + (air ? Math.sin(t * 2.6) * 0.06 : 0), this.pos.z);
-    this.group.rotation.set(air ? -0.06 : 0, this.yaw, -this.steerVis * Math.min(1, Math.abs(this.speed) / 15) * 0.06, 'YXZ');
+    let pitch = 0;
+    if (!air && this.onRoad) {
+      const nose = supportAt(this.city, this.pos.x + f.x * 1.6, this.pos.z + f.z * 1.6, this.pos.y - .55, true), tail = supportAt(this.city, this.pos.x - f.x * 1.6, this.pos.z - f.z * 1.6, this.pos.y - .55, true);
+      if (nose.onRoad && tail.onRoad && Math.abs(nose.y - tail.y) < 1) pitch = Math.atan2(nose.y - tail.y, 3.2);
+    }
+    this.roadPitch = (this.roadPitch || 0) + (pitch - (this.roadPitch || 0)) * Math.min(1, dt * 12);
+    this.group.rotation.set(air ? -0.06 : this.roadPitch, this.yaw, -this.steerVis * Math.min(1, Math.abs(this.speed) / 15) * 0.06, 'YXZ');
     this.glow.position.set(this.pos.x, (air ? sup.y : this.pos.y - 0.55) + 0.06, this.pos.z);
     this.glow.visible = this.pos.y - sup.y < 6;
     this.light.position.set(this.pos.x, this.pos.y - 0.2, this.pos.z);
