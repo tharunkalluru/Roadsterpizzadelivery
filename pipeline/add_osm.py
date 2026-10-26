@@ -9,11 +9,11 @@ DIRS = ['/home/claude/p2ph/game/public/city/packs', os.path.join(BUILD, 'prev_pa
 LAT0, LON0, NR, MR = 17.4063, 78.4966, 6380050.094, 6341141.900
 KX = math.cos(math.radians(LAT0)) * NR * math.pi / 180; KZ = MR * math.pi / 180
 def xz(p): return [round((p[1] - LON0) * KX, 1), round(-(p[0] - LAT0) * KZ, 1)]
-KINDS = {'exit', 'footbridge', 'subway', 'underpass', 'rail', 'station', 'platform', 'entrance', 'bus_station', 'bus_stop', 'fuel', 'toll',
+KINDS = {'exit', 'footbridge', 'covered_path', 'subway', 'underpass', 'rail', 'station', 'platform', 'entrance', 'bus_station', 'bus_stop', 'fuel', 'toll',
          'water', 'waterway', 'park', 'landmark', 'worship', 'institution', 'bridge_area'}
 TAGS = ('name', 'name:en', 'name:te', 'name:hi', 'brand', 'operator', 'ref', 'layer', 'bridge', 'tunnel', 'covered', 'railway', 'highway',
         'public_transport', 'station', 'subway', 'amenity', 'tourism', 'historic', 'leisure', 'natural', 'water', 'waterway', 'religion',
-        'building', 'shop', 'wikidata', 'height', 'building:levels', 'usage', 'service', 'network', 'man_made', 'landuse', 'exit_to', 'destination')
+        'building', 'shop', 'wikidata', 'height', 'width', 'building:levels', 'usage', 'service', 'network', 'man_made', 'landuse', 'exit_to', 'destination')
 feats = json.load(open(os.path.join(BUILD, 'osm_city.json')))
 by_tile = {}
 # petrol bunks from the business listings too (Overture / Foursquare / OSM shops), unless OSM already has one within 60 m

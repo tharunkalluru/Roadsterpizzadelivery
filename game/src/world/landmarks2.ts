@@ -1,13 +1,15 @@
 import { TPL } from '../core/util';
+import { drawIndianFlag } from './indian_flag';
+import { drawNilaChakra, drawTemplePennant, JAGANNATH_HEIGHT } from './landmark_symbols';
 import type { Kit, Landmark } from './landmarks';
 import { LM_DATA, LmData } from './landmarks_data';
 
-// The next 159 of Hyderabad's best-known places, each modelled from its own description: temples, mosques and dargahs,
+// 159 additional stylised Hyderabad places; dimensions and decorative details require per-place verification: temples, mosques and dargahs,
 // churches, palaces, heritage buildings, stations and bus terminals, civic buildings, hospitals, campuses, IT parks,
 // malls and cinemas, parks and lakes, stadiums, the airport, statues and memorials.
-// Position and main footprint come from OpenStreetMap / Overture (landmarks_data.ts); proportions, colours and the
-// features that make each place recognisable are set per place below (sources: OSM tags, Wikipedia, state tourism
-// pages, photographs). rot is the bearing of the front; v points out of the front, u to its right.
+// Existing anchors/footprint estimates came from OSM / Overture resolution; that is not street/photo verification.
+// Per-place gaps, source confidence and review needs are recorded in docs/landmark-audit.json.
+// rot is the bearing of the front; v points out of the front, u to its right.
 
 type R = (K: Kit, D: LmData) => void;
 interface Recipe { draw: R; rot?: number; clear?: number | [number, number] | [number, number, number, number]; keepBuildings?: boolean }
@@ -194,19 +196,35 @@ const front = (D: LmData, def: number) => Dp(D, def) / 2;
 const STONE = '#d8c8a8', WHITE = '#f1eee6', CREAM = '#ecdcb8', SAND = '#d9b98c', GRANITE = '#8f877c';
 const R_: Record<string, Recipe> = {
   // ---- temples ----
-  // Jagannath Temple, Banjara Hills (2009): Kalinga-style rekha deul of pink Odisha sandstone, about 21 m, with the
-  // jagamohana porch in front and the Nila Chakra and flags on top
+  // Owner reference:72 ft, east-facing; dated2017/2021 photos show a ribbed rekha deul, stepped pidha roofs
+  // and separate eight-spoke Nilachakra finials. Fine carvings and festive flag details remain approximate.
   jagannath: { draw: (K) => {
-    const S = '#c9876a';
+    const S = '#c58f69', trim = '#b47e59';
     K.box(0, 0, 0, 26, 1.2, 40, '#b9a38a');
-    K.shape('shikhara', 0, -6, 1.2, 12, 21, 12, S); K.shape('melon', 0, -6, 21.9, 5.5, 1.8, 5.5, S);
-    K.cyl(0, -6, 23.6, 0.8, 1.4, '#d6a93a'); K.shape('cyl', 0, -6, 25.4, 1.4, 0.15, 1.4, '#d6a93a', 0, 'st', Math.PI / 2);
-    K.box(0.6, -6, 25.8, 0.06, 4, 0.06, '#5b5a63'); K.box(1.4, -6, 28.6, 1.6, 0.8, 0.03, '#e2382d');
-    K.box(0, 6, 1.2, 11, 7, 11, S); K.shape('shikhara', 0, 6, 8.2, 10, 7, 10, S);              // jagamohana with its stepped (pidha) roof
-    for (const z of [10, 13.5, 17]) K.box(0, z, 1.2, 5, 0.5, 2.5, '#b9a38a');
-    for (const s of [-1, 1]) { K.shape('shikhara', s * 9, -10, 1.2, 4, 7, 4, S); }             // the smaller deuls
-    K.solidRect(0, -6, 12, 12, 21); K.solidRect(0, 6, 11, 11, 8); nameAt(K, { name: 'Sri Jagannath Temple' } as any, 19.5, 3);
-  }, clear: [34, 46] },
+    K.shape('shikhara', 0, -6, 1.2, 12, 16.4, 12, S);
+    // Horizontal stone courses follow the existing curved tower rather than a smooth generic cone.
+    for (let i = 0; i < 24; i++) {
+      const t = (i + .5) / 24, f = t < .32 ? 1 - .05 * t / .32 : t < .56 ? .95 - .15 * (t-.32)/.24 : t < .78 ? .8 - .36*(t-.56)/.22 : .44 - .24*(t-.78)/.22;
+      K.box(0, -6, 1.3 + t * 16.2, 12 * f + .18, .16, 12 * f + .18, trim);
+    }
+    K.shape('melon', 0, -6, 17.5, 5.5, 1.4, 5.5, S);
+    K.shape('bulb', 0, -6, 18.9, 1.6, 1.35, 1.6, S);
+    K.box(0, -6, 20.1, .11, JAGANNATH_HEIGHT - 20.1, .11, '#76634b');
+    drawNilaChakra(K, 0, -6, JAGANNATH_HEIGHT - .85, .85);
+    K.box(0,-6,JAGANNATH_HEIGHT-.1,.06,1.5,.06,'#76634b');
+    drawTemplePennant(K,0,-6,JAGANNATH_HEIGHT+1.3,1.5,.6,'#b94d40');
+    drawTemplePennant(K,0,-6,JAGANNATH_HEIGHT+.65,1.2,.5,'#d4b839');
+    // Jagamohana: layered pidha roof, as documented by the temple trust and visible in both photographs.
+    K.box(0, 6, 1.2, 11, 7, 11, S);
+    K.box(0,11.56,1.2,3.2,4.4,.06,'#493d33'); K.box(0,11.62,5.6,3.8,.3,.12,trim);
+    for(const side of [-1,1]) K.box(side*1.85,11.6,1.2,.3,4.7,.18,trim);
+    for (let i=0;i<8;i++) { const w=12-i*1.08, y=8.2+i*.72; K.box(0,6,y,w,.6,w,S); K.box(0,6,y+.6,w+.3,.12,w+.3,trim); }
+    K.shape('melon',0,6,14,4.1,1.1,4.1,S); K.shape('bulb',0,6,15.1,1.3,1.0,1.3,S);
+    drawNilaChakra(K,0,6,16.7,.6); K.box(0,6,17,.06,1.5,.06,'#76634b'); drawTemplePennant(K,0,6,18.4,1.1,.5,'#b94d40');
+    for (const z of [10, 13.5, 17]) K.box(0, z, 1.2, 5, .5, 2.5, '#b9a38a');
+    for (const side of [-1, 1]) { K.shape('shikhara', side * 9, -10, 1.2, 4, 7, 4, S); }
+    K.solidRect(0, -6, 12, 12, 17.6); K.solidRect(0, 6, 11, 11, 8.2); nameAt(K, { name: 'Sri Jagannath Temple' } as any, 19.5, 3);
+  }, rot: 90, clear: [34, 46] },
   // Peddamma Temple, Jubilee Hills: big painted rajagopuram on Road No. 36 and the shrine behind
   peddamma: { draw: (K, D) => { gopuram(K, 0, front(D, 27) - 4, 0, 14, 9, 26, 7, WHITE, '#d8a34a', true); mandapa(K, 0, -4, 0, 18, 16, 4.5, WHITE, '#c98b3a'); vimana(K, 0, -10, 0, 6, 11, 4, '#e7c66b'); K.solidRect(0, front(D, 27) - 4, 14, 9, 26); nameAt(K, { name: 'Sri Peddamma Thalli Temple' } as any, front(D, 27) + 2, 3); }, clear: [64, 34] },
   balkampet: { draw: (K) => { gopuram(K, 0, 6, 0, 9, 6, 15, 5, WHITE, '#c8432b', true); mandapa(K, 0, -2, 0, 14, 10, 4, '#f3e3b6', '#c8432b'); vimana(K, 0, -8, 0, 5, 8, 3, '#e9c24e'); nameAt(K, { name: 'Balkampet Yellamma Temple' } as any, 9.5, 3); }, clear: [30, 26] },
@@ -250,7 +268,27 @@ const R_: Record<string, Recipe> = {
   }, clear: 75 },
   akkanna: { draw: (K) => { K.box(0, 0, 0, 10, 6, 8, '#f2e6c8'); K.box(0, 4.2, 0, 10.5, 4.5, 0.4, '#d34a2c'); vimana(K, 0, -1, 6, 4, 6, 2, '#e9c24e'); }, clear: [12, 10] },
   jain_mandir: { draw: (K, D) => { K.box(0, 0, 0, W(D, 18), 8, Dp(D, 10), '#f5efe3'); shikhara(K, 0, -1, 8, 2.8, 9, '#f5efe3', '#e2382d'); for (const s of [-1, 1]) K.shape('dome', s * 6, 2, 8, 3, 2.2, 3, '#f5efe3'); K.arcade('arch', -6, front(D, 10) + 0.02, 6, front(D, 10) + 0.02, 3, 0, 5.5, 0.3, '#8a6a4a'); nameAt(K, { name: 'Jain Mandir' } as any, front(D, 10) + 1.5, 7); }, clear: [22, 16] },
-  gurudwara: { draw: (K) => { K.box(0, 0, 0, 20, 8, 16, WHITE); K.shape('onion', 0, 0, 8, 7, 8, 7, '#e6c25a'); for (const [a, b] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) K.chhatri(a * 8.5, b * 6.5, 8, 2.6, WHITE); K.box(13, 6, 0, 0.3, 18, 0.3, '#b0b0b8'); K.box(14, 6, 15.5, 2, 1.4, 0.04, '#ef8a1f'); nameAt(K, { name: 'Gurudwara Sahib' } as any, 9.5, 6.5); K.solidRect(0, 0, 20, 16, 8); }, clear: [26, 20] },
+  // Dated exterior photograph2025-10-14: entrance stairs, stacked three-arch white pavilions, shallow gold domes.
+  // Flag cloth is furled in this view, so its specific emblem/color is not inferred from the photograph.
+  gurudwara: { draw: (K) => {
+    const gold='#d4b44b', W=WHITE;
+    K.box(0,0,0,20,8,16,'#ab9480'); K.shape('archRound',0,8.05,2.0,9,5.5,.3,'#453d36');
+    for(let i=0;i<9;i++) K.box(0,12.5-i*.5,i*.23,7,.23,.6,'#c3b5a1');
+    // Open gallery bays must stay visibly open; a solid core behind the arcade would fill every arch.
+    K.box(0,-6.5,8,17,6,1.5,W); for(const side of [-1,1]) K.box(side*8,-1,8,1,6,13,W);
+    K.box(0,-4,14,11,3,6,W);
+    for (const [y,w,v] of [[8,13,6.0],[17,11,-1.8]]) {
+      K.arcade('archRound',-w/2,v,w/2,v,3,y,4.2,.55,W);
+      K.box(0,v-1,y+4.2,w+1,.6,3,W); K.shape('melon',0,v-1,y+4.8,w*.94,2.7,w*.68,gold);
+      K.cyl(0,v-1,y+7.4,.09,1.3,'#b0a58a');
+    }
+    for (const [u,v,y] of [[-8,6.5,8],[8,6.5,8],[-7,-2,18],[7,-2,18]]) {
+      for(const a of [-1,1]) for(const b of [-1,1]) K.box(u+a*.8,v+b*.8,y,.22,3,.22,W);
+      K.box(u,v,y+3,2.5,.4,2.5,W); K.shape('melon',u,v,y+3.4,2.6,1.8,2.6,gold); K.cyl(u,v,y+5.2,.06,.9,'#b0a58a');
+    }
+    K.box(13,6,0,.3,18,.3,'#b0b0b8'); K.box(14,6,15.5,2,1.4,.04,'#ef8a1f');
+    nameAt(K,{name:'Central Gurudwara Saheb'} as any,9.5,6.5); K.solidRect(0,0,20,16,8); K.solidRect(0,-1,17,13,14);
+  }, clear: [26,20] },
   // ---- mosques and dargahs ----
   // Spanish Mosque (Masjid Iqbal ud-Daula), Begumpet, 1906: Moorish, grey, a cluster of octagonal spires over the hall
   spanish: { draw: (K, D) => {
@@ -412,8 +450,8 @@ const R_: Record<string, Recipe> = {
   ntr_gardens: { draw: (K) => { gate(K, 0, 0, 16, 9, '#d6b26a', '#f2e6c8', 'NTR GARDENS'); for (let k = 0; k < 6; k++) K.shape('dome', -40 + k * 16, -40, 0, 8, 6, 8, '#c95a8a'); }, clear: 0, keepBuildings: true },
   lumbini: { draw: (K) => { gate(K, 0, 0, 14, 8, '#c9a77c', '#efe3c9', 'LUMBINI PARK'); clockTower(K, 20, -30, 4, 14, '#efe3c9', '#c9a77c', 'cone'); }, clear: 0, keepBuildings: true },
   indira_park: { draw: (K) => { gate(K, 0, 0, 16, 8, '#c9a77c', '#efe3c9', 'INDIRA PARK'); }, clear: 0, keepBuildings: true },
-  // Sanjeevaiah Park: home of India's tallest national flag (88 m mast) on the Hussain Sagar shore
-  sanjeevaiah: { draw: (K) => { K.box(0, 0, 0, 12, 1.5, 12, '#cfc7b8'); K.cyl(0, 0, 1.5, 0.9, 88, '#c9ced4', 'cyl8'); for (const [c, y] of [['#ff9933', 82], ['#ffffff', 77], ['#138808', 72]] as [string, number][]) K.box(16, 0, y, 30, 5, 0.3, c); K.cyl(16, 0.2, 76.5, 1.6, 0.4, '#0a3a8a', 'cyl24'); K.ob(0, 0, 1, 90); K.board('SANJEEVAIAH PARK', 0, 8, 3, 10); }, clear: 0, keepBuildings: true },
+  // Sanjeevaiah Park flag: retained 88 m mast; national flag proportions and Chakra follow the Flag Code.
+  sanjeevaiah: { draw: (K) => { K.box(0, 0, 0, 12, 1.5, 12, '#cfc7b8'); K.cyl(0, 0, 1.5, 0.9, 88, '#c9ced4', 'cyl8'); drawIndianFlag(K, 1, 0, 88, 30); K.ob(0, 0, 1, 90); K.board('SANJEEVAIAH PARK', 0, 8, 3, 10); }, clear: 0, keepBuildings: true },
   kbr: { draw: (K) => { gate(K, 0, 0, 16, 8, '#8a6a4a', '#d9c6a6', 'KBR NATIONAL PARK'); }, clear: 0, keepBuildings: true },
   zoo: { draw: (K) => { gate(K, 0, 0, 20, 10, '#7a5a3a', '#d6b26a', 'NEHRU ZOOLOGICAL PARK'); for (const s of [-1, 1]) statue(K, s * 16, 4, 6, 1.5, '#8a8a86'); }, clear: 0, keepBuildings: true },
   botanical: { draw: (K) => { gate(K, 0, 0, 16, 8, '#6a8a4a', '#d9e6c6', 'BOTANICAL GARDENS'); }, clear: 0, keepBuildings: true },
@@ -450,7 +488,23 @@ const R_: Record<string, Recipe> = {
   // ---- statues and memorials ----
   ntr_ghat: { draw: (K) => { K.box(0, 0, 0, 30, 1, 30, '#d6cdbd'); for (let k = 0; k < 12; k++) { const a = (k / 12) * Math.PI * 2; K.box(Math.cos(a) * 11, Math.sin(a) * 11, 1, 1.4, 12, 1.4, '#f2efe8'); } K.shape('dome', 0, 0, 13, 26, 6, 26, '#f2efe8'); K.board('NTR GHAT', 0, 16, 3, 7); K.solidCircle(0, 0, 12, 1); }, clear: 18 },
   pv_ghat: { draw: (K) => { K.box(0, 0, 0, 24, 1, 24, '#d6cdbd'); statue(K, 0, 0, 6, 2, '#5a5a58'); K.board('PV GYAN BHOOMI', 0, 13, 3, 9); }, clear: 14 },
-  thalli: { draw: (K) => { statue(K, 0, 0, 14, 3, '#d6a93a'); K.board('TELANGANA THALLI', 0, 3.5, 2.4, 8); }, clear: 8 },
+  // Official Secretariat unveiling photographs,2024-12-09: green sari/red blouse, raised right palm,
+  // left hand holding crops. Keep inherited scale/anchor; this changes the generic gold figure's visible identity.
+  thalli: { draw: (K) => {
+    const green='#287540',red='#ac3038',gold='#d6b34b',skin='#c99472',hair='#282022';
+    K.box(0,0,0,4.8,3,4.8,'#cfc7b8'); K.box(0,0,3,3.3,1.5,3.3,'#cfc7b8');
+    K.shape('robe',0,0,4.5,4.5,7.3,3.3,green); K.box(0,.05,11.5,3.3,1.35,2.0,red);
+    K.shape('robe',-.25,.4,10.0,3.0,2.7,2.2,green); K.cyl(0,0,12.8,.38,.6,skin,'cyl8');
+    K.sph(0,0,14.25,1.05,skin,0,1.2); K.sph(0,-.5,14.45,1.09,hair,0,1.16); K.sph(0,1.02,14.7,.10,red);
+    // Diagonal sari border, waist band and necklace are coloured garment details, not invented inscriptions.
+    addRaw(K,'box',.1,1.12,9.1,.16,6.9,.09,gold,0,0,-.35); K.box(0,.95,9.5,3.25,.17,.12,gold);
+    for(let i=0;i<11;i++){const a=i*Math.PI/10;K.sph(Math.cos(a)*1.1,1.08,12.3-Math.sin(a)*.75,.09,gold);}
+    // Positive u is the figure's own right (viewer-left from the front).
+    K.box(1.9,.2,10.7,.65,1.9,.7,red); K.box(2.05,.85,11.8,.55,1.4,.6,skin); K.box(2.0,1.18,13.0,.6,1.25,.25,skin);
+    K.box(-1.9,.2,10.7,.65,1.9,.7,red); K.box(-1.95,.85,12.1,.55,1.2,.55,skin); K.sph(-1.9,1.2,13.15,.43,skin);
+    for(let i=0;i<5;i++){const u=-1.8+(i-2)*.17;K.box(u,1.1,12.7,.06,2.5+(i%2)*.3,.06,green);K.shape('bulb',u,1.1,15.1+(i%2)*.3,.22,.7,.22,gold);}
+    K.solidRect(0,0,4.8,4.8,4.5); K.ob(0,0,2.4,15.8); K.board('TELANGANA THALLI',0,3.5,2.4,8);
+  }, clear: 8 },
   gandhi_statue: { draw: (K) => { statue(K, 0, 0, 6, 2, '#5a5a58'); }, clear: 0, keepBuildings: true },
   victory_mahakali: { draw: (K) => { K.box(0, 0, 0, 10, 1.4, 10, '#cfc7b8'); K.cyl(0, 0, 1.4, 1.3, 16, '#e8e1d2', 'cyl8'); K.shape('dome', 0, 0, 17.4, 3, 2.4, 3, '#d6a93a'); K.board('VICTORY WAR MEMORIAL', 0, 5.2, 2.4, 8); K.solidRect(0, 0, 4, 4, 17); }, clear: 9 },
   sardar_patel: { draw: (K) => { statue(K, 0, 0, 8, 2.5, '#4a4a48'); K.board('SARDAR PATEL', 0, 3, 2.4, 7); }, clear: 0, keepBuildings: true },

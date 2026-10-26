@@ -2,59 +2,25 @@ import { TPL, TiledBatch, rng } from '../core/util';
 import type { LmData } from './landmarks_data';
 import { EXTRA_LANDMARKS, EXTRA_MODELS } from './landmarks2';
 
-// Hand-modelled monuments: real positions, orientations and proportions (sources: OSM footprints, Wikipedia,
-// Britannica, state tourism pages, survey photos). Plain map footprints inside each monument's clear zone are removed.
+// Stylised monument models with inherited anchors and proportions. Per-feature evidence and unresolved accuracy
+// gaps are recorded in docs/landmark-audit.json; source coverage alone is not street verification.
+// Plain map footprints inside each monument's clear zone are removed.
 // rot = compass bearing (deg, clockwise from north) of the monument's front; the local frame has v towards the front
 // and u to the right of someone looking out of the front.
-export type LmKind = 'charminar' | 'charkaman' | 'mecca' | 'chowmahalla' | 'falaknuma' | 'golconda' | 'balahisar' | 'fateh' | 'qstomb' | 'qsmosque' | 'taramati'
-  | 'buddha' | 'secretariat' | 'ambedkar' | 'martyrs' | 'birla' | 'assembly' | 'highcourt' | 'osmania'
-  | 'cybertowers' | 'cablebridge' | 'thub' | 'stadium' | 'clocktower' | 'salarjung' | 'ouarts' | 'paigah' | `x_${string}`;
-export interface Landmark { kind: LmKind; name: string; lat: number; lon: number; rot: number; clear: number | [number, number] | [number, number, number, number]; p?: Record<string, number>; x?: number; z?: number; d?: LmData }
+export type { LmKind } from './landmark_catalog';
+import { BASE_LANDMARKS, landmarkId, placeCatalogue, assignRenderTiles } from './landmark_catalog';
+import type { LmKind } from './landmark_catalog';
+export { BASE_LANDMARKS as LANDMARKS } from './landmark_catalog';
+export interface Landmark { id?: string; renderTile?: [number, number]; kind: LmKind; name: string; lat: number; lon: number; rot: number; clear: number | [number, number] | [number, number, number, number]; p?: Record<string, number>; x?: number; z?: number; d?: LmData }
 
-const QT = (name: string, lat: number, lon: number, terrace: number, cube: number, dome: number, h: number, arches: number): Landmark =>
-  ({ kind: 'qstomb', name, lat, lon, rot: 0, clear: [terrace + 6, terrace + 6], p: { terrace, cube, dome, h, arches } });
 
-export const LANDMARKS: Landmark[] = [
-  // ---- Old City ----
-  { kind: 'charminar', name: 'Charminar', lat: 17.36160, lon: 78.47463, rot: 11.5, clear: 27 },
-  { kind: 'charkaman', name: 'Char Kaman', lat: 17.363451, lon: 78.474999, rot: 11.5, clear: 0 },   // centred on the Gulzar Houz fountain (OSM); arches ~105 m out (Char Kaman south, Machli Kaman north)
-  { kind: 'mecca', name: 'Mecca Masjid', lat: 17.36038, lon: 78.47313, rot: 95, clear: [120, 172, -5, 55] },
-  { kind: 'chowmahalla', name: 'Chowmahalla Palace', lat: 17.35739, lon: 78.47161, rot: 6, clear: [116, 418] },
-  { kind: 'falaknuma', name: 'Falaknuma Palace', lat: 17.33070, lon: 78.46700, rot: 0, clear: [190, 230] },
-  { kind: 'golconda', name: 'Golconda Fort', lat: 17.38298, lon: 78.39906, rot: 75, clear: 215 },
-  { kind: 'balahisar', name: 'Bala Hisar Darwaza', lat: 17.38429, lon: 78.40262, rot: 90, clear: 14 },
-  { kind: 'fateh', name: 'Fateh Darwaza', lat: 17.37930, lon: 78.41280, rot: 110, clear: 10 },
-  QT('Tomb of Muhammad Quli Qutb Shah', 17.39423, 78.39493, 60, 22, 17, 45, 5),
-  QT('Tomb of Sultan Muhammad Qutb Shah', 17.39590, 78.39611, 44, 30, 18, 40, 5),
-  QT('Tomb of Hayat Bakshi Begum', 17.39668, 78.39699, 42, 30, 17, 38, 5),
-  QT('Tomb of Abdullah Qutb Shah', 17.39709, 78.39880, 74, 32, 18, 40, 5),
-  QT('Tomb of Ibrahim Quli Qutb Shah', 17.39353, 78.39441, 26, 16, 11, 26, 3),
-  QT('Tomb of Sultan Quli Qutb Shah', 17.39458, 78.39396, 30, 12, 9, 22, 3),
-  { kind: 'qsmosque', name: 'Great Mosque, Qutb Shahi Tombs', lat: 17.39690, lon: 78.39660, rot: 90, clear: [40, 30] },
-  { kind: 'taramati', name: 'Taramati Baradari', lat: 17.37610, lon: 78.37811, rot: 183, clear: 30 },
-  { kind: 'paigah', name: 'Paigah Tombs', lat: 17.34415, lon: 78.50415, rot: 90, clear: [24, 90] },
-  // ---- Hussain Sagar & centre ----
-  { kind: 'buddha', name: 'Buddha Statue', lat: 17.41557, lon: 78.47500, rot: 90, clear: [40, 80, 0, 12] },
-  { kind: 'secretariat', name: 'Telangana Secretariat', lat: 17.40978, lon: 78.46922, rot: 90, clear: [196, 112] },
-  { kind: 'ambedkar', name: 'Dr B.R. Ambedkar Statue', lat: 17.41326, lon: 78.46741, rot: 72, clear: 46 },
-  { kind: 'martyrs', name: "Telangana Martyrs' Memorial", lat: 17.40866, lon: 78.47298, rot: 15, clear: [42, 58] },
-  { kind: 'birla', name: 'Birla Mandir', lat: 17.40607, lon: 78.46914, rot: 90, clear: [118, 200] },
-  { kind: 'assembly', name: 'Telangana Assembly', lat: 17.40135, lon: 78.46774, rot: 45, clear: [70, 132] },
-  { kind: 'highcourt', name: 'Telangana High Court', lat: 17.36909, lon: 78.47199, rot: 347, clear: [120, 54] },
-  { kind: 'osmania', name: 'Osmania General Hospital', lat: 17.37256, lon: 78.47353, rot: 163, clear: [186, 64] },
-  { kind: 'salarjung', name: 'Salar Jung Museum', lat: 17.37136, lon: 78.48043, rot: 340, clear: [126, 82] },
-  { kind: 'ouarts', name: 'Osmania University Arts College', lat: 17.41921, lon: 78.52625, rot: 155, clear: [114, 120] },
-  // ---- Modern Hyderabad ----
-  { kind: 'cybertowers', name: 'Cyber Towers', lat: 17.45048, lon: 78.38112, rot: 56, clear: 49 },
-  { kind: 'cablebridge', name: 'Durgam Cheruvu Cable Bridge', lat: 17.43177, lon: 78.38994, rot: 76, clear: 0 },
-  { kind: 'thub', name: 'T-Hub', lat: 17.43400, lon: 78.37918, rot: 40, clear: [50, 100] },
-  { kind: 'stadium', name: 'G.M.C. Balayogi Stadium', lat: 17.44618, lon: 78.34416, rot: 0, clear: [196, 275] },
-  { kind: 'clocktower', name: 'Secunderabad Clock Tower', lat: 17.44090, lon: 78.49855, rot: 0, clear: 9 },
-];
-
-export function placeLandmarks(origin: { lat: number; lon: number }) {
-  const KX = Math.cos((origin.lat * Math.PI) / 180) * 6380050.094 * Math.PI / 180, KZ = 6341141.9 * Math.PI / 180;
-  return [...LANDMARKS, ...EXTRA_LANDMARKS()].map((l) => ({ ...l, x: (l.lon - origin.lon) * KX, z: -(l.lat - origin.lat) * KZ }));
+export function placeLandmarks(origin: { lat: number; lon: number }, availableTiles?: readonly (readonly number[])[]) {
+  const catalogue = new Map(placeCatalogue(origin).map((p) => [p.id, p]));
+  const models = [...BASE_LANDMARKS, ...EXTRA_LANDMARKS()].map((l) => {
+    const id = landmarkId(l), p = catalogue.get(id)!;
+    return { ...l, id, x: p.x, z: p.z };
+  });
+  return availableTiles ? assignRenderTiles(models, availableTiles) : models;
 }
 // does a landmark's clear zone cover (x, z)? (plain map buildings there are replaced by the model)
 export function inClear(l: Landmark, x: number, z: number) {
@@ -174,8 +140,8 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
     for (const ry of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
       const fu = Math.sin(ry), fv = Math.cos(ry);                                // face normal in (u, v)
       const at = (along: number, out: number): [number, number] => [fu * out + fv * along, fv * out - fu * along];
-      // great arch face
-      let [u, v] = at(0, 9.1); K.shape('archBig', u, v, 0.9, 18.4, 21, 1.8, C, ry);
+      // District architecture reference: 11 m opening; archBig's opening is 55% of its panel width.
+      let [u, v] = at(0, 9.1); K.shape('archBig', u, v, 0.9, 20, 21, 1.8, C, ry);
       // clock band, clock, balcony
       [u, v] = at(0, 9.9); K.box(u, v, 21.9, 18.4, 2.2, 0.6, C, ry);
       [u, v] = at(0, 10.25); { const [x, z] = K.P(u, v); K.k.B.st.add(TPL.cyl, x, 23.0, z, 1.05, 0.12, 1.05, W, { ry: K.ry0 + ry, rx: Math.PI / 2 }); K.k.B.st.box(x, 23.15, z, 0.08, 0.8, 0.08, '#1a1a1a', { ry: K.ry0 + ry }); }
@@ -192,20 +158,21 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
     K.box(0, 0, 31.1, 18.6, 0.6, 18.6, D);                                      // roof terrace
     // roof mosque at the west end: low hall with three small domes
     K.box(-6.5, 0, 31.7, 3.4, 2.6, 12, C); for (const vv of [-3.6, 0, 3.6]) K.shape('onion', -6.5, vv, 34.3, 1.9, 2.3, 1.9, C);
-    // minarets
+    // Hyderabad District and Telangana Tourism both specify48.7m minarets. Retain the lower gallery,
+    // shorten the unsupported legacy upper tiers to that reference instead of scaling the11m arch opening.
+    const upperScale = (48.7 - 24.3) / (55.8 - 24.3), top = (y: number) => 24.3 + (y - 24.3) * upperScale;
     for (const [su, sv] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) {
       const u = su * 10, v = sv * 10;
-      K.cyl(u, v, 0.9, 2.55, 23.4, C, 'cyl10');
-      K.cyl(u, v, 24.3, 3.15, 0.55, D, 'cyl10'); K.cyl(u, v, 24.85, 2.95, 0.9, C, 'cyl10');           // gallery ring at roof
-      K.cyl(u, v, 25.7, 2.05, 9.3, C, 'cyl10');
-      K.cyl(u, v, 35.0, 2.85, 0.5, D, 'cyl10'); K.cyl(u, v, 35.5, 2.65, 1.0, C, 'cyl10');             // first balcony
-      K.cyl(u, v, 36.5, 1.85, 7.0, C, 'cyl10');
-      K.cyl(u, v, 43.5, 2.6, 0.45, D, 'cyl10'); K.cyl(u, v, 43.95, 2.4, 0.9, C, 'cyl10');             // second balcony
-      K.cyl(u, v, 44.85, 1.7, 2.6, C, 'cyl10');
-      K.shape('melon', u, v, 47.4, 4.0, 1.0, 4.0, D);                                                   // petal (lotus) base
-      K.shape('onion', u, v, 48.3, 3.7, 5.0, 3.7, C);
-      K.cyl(u, v, 53.2, 0.14, 2.6, '#9c8a64');
-      K.ob(u, v, 2.7, 56);
+      K.cyl(u, v, .9, 2.55, 23.4, C, 'cyl10');
+      K.cyl(u, v, top(24.3), 3.15, .55*upperScale, D, 'cyl10'); K.cyl(u, v, top(24.85), 2.95, .9*upperScale, C, 'cyl10');
+      K.cyl(u, v, top(25.7), 2.05, 9.3*upperScale, C, 'cyl10');
+      K.cyl(u, v, top(35), 2.85, .5*upperScale, D, 'cyl10'); K.cyl(u, v, top(35.5), 2.65, 1*upperScale, C, 'cyl10');
+      K.cyl(u, v, top(36.5), 1.85, 7*upperScale, C, 'cyl10');
+      K.cyl(u, v, top(43.5), 2.6, .45*upperScale, D, 'cyl10'); K.cyl(u, v, top(43.95), 2.4, .9*upperScale, C, 'cyl10');
+      K.cyl(u, v, top(44.85), 1.7, 2.6*upperScale, C, 'cyl10');
+      K.shape('melon', u, v, top(47.4), 4, 1*upperScale, 4, D);
+      K.shape('onion', u, v, top(48.3), 3.7, 5*upperScale, 3.7, C);
+      K.cyl(u, v, top(53.2), .14, 2.6*upperScale, '#9c8a64'); K.ob(u, v, 2.7, 49);
     }
     // the four piers are solid; the crossing under the arches is open (walk/drive through is not possible: the
     // real monument is on a raised plinth)
@@ -439,21 +406,24 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
     K.solidRect(0, -45, 16, 12, 7.5);
   },
   // ---------------- Hussain Sagar & centre ----------------
-  // Buddha: 18 m white granite standing figure, right palm raised (abhaya), on a red lotus pedestal on the island
+  // Buddha: standing granite figure with right palm raised (abhaya), left hand at robe collar and stone lotus.
+  // Visible pose/pedestal corrected from original frontal photograph captured2025-10-14; fine carvings remain stylised.
   buddha(K) {
-    const W = '#E9E6DF', Wd = '#CFCAC0', Rd = '#B0362C', Pl = '#A8A49C';
+    const W = '#E9E6DF', Wd = '#CFCAC0', Rd = '#C7C2B3', Pl = '#A8A49C';
     K.box(0, 12, -0.5, 29, 1.5, 66, Pl);                                         // island deck (long E-W = along v)
     K.box(0, 33, 1.0, 13, 0.3, 13, '#5f8f45', 0, 'park'); K.solidRect(0, 12, 29, 66, 1.0);
     K.box(0, 0, 1.0, 9, 3, 9, Pl); K.box(0, 0, 4.0, 7.5, 0.6, 7.5, '#bcb6aa');
     K.shape('melon', 0, 0, 4.6, 11, 1.6, 11, Rd); K.cyl(0, 0, 6.0, 3.6, 0.6, Rd, 'cyl24');
-    // figure, facing +v (east): robe, shoulders, head, ushnisha, raised right hand, left hand holding the hem
+    // figure, facing +v (east): robe, shoulders, head, ushnisha, raised right hand, left hand at the collar
     const y = 6.6;
     K.shape('robe', 0, 0, y, 4.6, 11.5, 3.6, W);
     K.box(0, 0.2, y + 11.3, 4.2, 2.0, 2.6, W); K.sph(0, 0.1, y + 13.4, 1.35, W, 0, 1.6);
     K.sph(0, 0.1, y + 15.1, 0.75, Wd); K.sph(0, -0.1, y + 13.5, 1.38, Wd, 0, 1.5);       // curls
-    K.box(-2.2, 0.4, y + 9.0, 0.9, 3.2, 1.0, W, 0); K.box(-2.0, 1.6, y + 11.0, 0.8, 3.4, 0.9, W, 0);   // right arm up (u<0 is the figure's right when facing +v)
-    K.box(-2.0, 2.0, y + 14.3, 0.5, 1.5, 1.2, W, 0);                           // raised palm
-    K.box(2.3, 0.3, y + 6.0, 0.9, 5.2, 1.0, W); K.box(2.1, 0.9, y + 5.4, 0.8, 0.8, 0.8, W);   // left arm holding the robe
+    K.box(2.2, 0.4, y + 9.0, 0.9, 3.2, 1.0, W, 0); K.box(2.0, 1.6, y + 11.0, 0.8, 3.4, 0.9, W, 0);   // positive u is the figure's right, viewer-left
+    K.box(2.0, 2.0, y + 14.3, 0.5, 1.5, 1.2, W, 0);                           // raised palm
+    K.box(-2.3, 0.3, y + 9.0, 0.9, 2.8, 1.0, W);
+    { const [x,z]=K.P(-1.7,1.3); K.k.B.st.add(TPL.box,x,K.y0+y+10.95,z,.8,Math.hypot(1.2,3.7),.8,W,{ry:K.ry0,rz:-Math.atan2(1.2,3.7)}); }
+    K.box(-1.1, 1.55, y + 12.5, 0.8, 1.1, 0.8, W);   // bent left forearm holds robe at the collar
     for (let i = -1.6; i <= 1.6; i += 0.8) K.box(i, 1.7, y + 0.4, 0.12, 9, 0.2, Wd);     // pleats
     K.solidRect(0, 0, 9, 9, 6.6); K.ob(0, 0, 2.2, y + 16);
   },

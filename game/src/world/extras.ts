@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { TPL, rng, hash } from '../core/util';
 import type { XZ } from './types';
+import { isORR } from './expressway';
 
 // OpenStreetMap extras drawn into a tile: petrol bunks, toll plazas, motorway exit signs, skywalks and foot
 // overbridges, pedestrian subways, railway lines and stations, bus terminals, bus-stop names.
@@ -28,6 +29,16 @@ const mid = (f: OsmFeature): XZ => {
   const pts = f.l || (f.r ? f.r[0] : []); let x = 0, z = 0; for (const p of pts) { x += p[0]; z += p[1]; } return [x / pts.length, z / pts.length];
 };
 
+// Match pipeline/osm_path_kind.py. Roof cover is independent of vertical level.
+export function osmPathKind(tags: Record<string, string>): 'footbridge' | 'subway' | 'covered_path' | null {
+  if (!['footway', 'path', 'steps', 'pedestrian', 'cycleway', 'corridor'].includes(tags.highway)) return null;
+  const parsed = Number(tags.layer || 0), layer = Number.isFinite(parsed) ? parsed : 0;
+  const active = (value?: string) => !!value && !['no', 'false', '0'].includes(value.toLowerCase());
+  if (active(tags.tunnel) || layer < 0) return 'subway';
+  if (active(tags.bridge) || layer > 0) return 'footbridge';
+  return tags.covered === 'yes' ? 'covered_path' : null;
+}
+
 export function drawExtras(list: OsmFeature[], C: ExtrasCtx) {
   const placedFuel: XZ[] = [], placedToll: XZ[] = [];
   for (const f of list) {
@@ -35,13 +46,55 @@ export function drawExtras(list: OsmFeature[], C: ExtrasCtx) {
       if (f.k === 'fuel') fuel(f, C, placedFuel);
       else if (f.k === 'toll') { const q = mid(f); if (!placedToll.some((t) => Math.hypot(t[0] - q[0], t[1] - q[1]) < 70)) { placedToll.push(q); toll(f, C); } }
       else if (f.k === 'exit') exitSign(f, C);
-      else if (f.k === 'footbridge') footbridge(f, C);
-      else if (f.k === 'subway') subway(f, C);
+      else if (f.k === 'footbridge' || f.k === 'covered_path' || f.k === 'subway') {
+        // Existing packs predate covered_path. Read their original tags without rewriting source evidence.
+        const kind = osmPathKind(f.t) || f.k;
+        if (kind === 'covered_path') coveredPath(f, C);
+        else if (kind === 'subway') subway(f, C);
+        else footbridge(f, C);
+      }
       else if (f.k === 'rail') rail(f, C);
       else if (f.k === 'platform') platform(f, C);
       else if (f.k === 'station') station(f, C);
       else if (f.k === 'bus_station') busStation(f, C);
     } catch { /* one odd feature never breaks the tile */ }
+  }
+}
+
+// ---------- covered paths at ground level; Healthway has the verified solar roof ----------
+function coveredPath(f: OsmFeature, C: ExtrasCtx) {
+  const line = f.l; if (!line || line.length < 2) return;
+  const solar = f.t.highway === 'cycleway' && /^healthway$/i.test(nm(f));
+  const mappedWidth = Number(f.t.width), wd = Number.isFinite(mappedWidth) && mappedWidth >= 1 && mappedWidth <= 8 ? mappedWidth : solar ? 4.5 : f.t.highway === 'cycleway' ? 3 : 2.4;
+  // Source: Akashvani, 2 Oct 2023: Healthway is 4.5m/three lanes with solar roofing
+  // between ORR and its service road. Roofheight/column spacing below are a model approximation.
+  // https://newsonair.gov.in/indias-first-solar-roof-cycling-track-inaugurated-in-hyderabad/
+  const B = C.B, deck = .055, roof = 3.2; let acc = 0;
+  for (let i = 1; i < line.length; i++) {
+    const a = line[i - 1], b = line[i], len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    if (len < .05) continue;
+    const hx = (b[0] - a[0]) / len, hz = (b[1] - a[1]) / len, nx = hz, nz = -hx, ang = Math.atan2(hx, hz);
+    // Short pieces give long source ways local tile ownership instead of a distant midpoint owner.
+    const n = Math.max(1, Math.ceil(len / 12));
+    for (let k = 0; k < n; k++) {
+      const u = (k + .5) / n, x = a[0] + (b[0] - a[0]) * u, z = a[1] + (b[1] - a[1]) * u, span = len / n;
+      if (!C.inTile(x, z)) continue;
+      const ax = a[0] + (b[0] - a[0]) * k / n, az = a[1] + (b[1] - a[1]) * k / n, bx = a[0] + (b[0] - a[0]) * (k + 1) / n, bz = a[1] + (b[1] - a[1]) * (k + 1) / n;
+      B.foot.box(x, deck / 2, z, wd, deck, span + .05, solar ? '#a75464' : '#c9c4bb', { ry: ang });
+      C.pad(ax, az, bx, bz, deck, wd / 2);
+      B.st.box(x, roof, z, wd + .65, .12, span + .08, '#d6dce1', { ry: ang });
+      if (solar) {
+        B.st.box(x, roof + .08, z, wd + .45, .035, Math.max(.05, span - .12), '#24405e', { ry: ang });
+        if (!C.lowQ) for (const off of [-wd / 6, wd / 6]) B.st.box(x + nx * off, roof + .105, z + nz * off, .025, .012, span, '#9eaebc', { ry: ang });
+        for (const off of [-wd / 6, wd / 6]) B.marks.box(x + nx * off, deck + .008, z + nz * off, .055, .012, span, '#f1e9d7', { ry: ang });
+      }
+    }
+    for (let d = (8 - acc % 8) % 8; d < len - .001; d += 8) for (const side of [-1, 1]) {
+      const x = a[0] + hx * d + nx * side * (wd / 2 + .2), z = a[1] + hz * d + nz * side * (wd / 2 + .2);
+      if (!C.inTile(x, z) || C.onRoad(x, z, .15) || C.inBuilding(x, z)) continue;
+      B.st.box(x, roof / 2, z, .12, roof, .12, '#c4ccd2'); C.obstacle(x, z, .11, roof + .06);
+    }
+    acc += len;
   }
 }
 
@@ -111,6 +164,7 @@ function toll(f: OsmFeature, C: ExtrasCtx) {
 function exitSign(f: OsmFeature, C: ExtrasCtx) {
   const [px, pz] = mid(f); if (!C.inTile(px, pz)) return;
   const r = C.nearestRoad(px, pz, 20); if (!r) return;
+  if (isORR(r.e)) return; // the ORR uses directed, curve-following advance gantries
   const dir = r.e.oneway === 'forward' ? -1 : 1;             // traffic heading along (hx, hz) * dir
   const ax = r.cx - r.hx * dir * 120, az = r.cz - r.hz * dir * 120;      // 120 m before the exit
   const rb = C.nearestRoad(ax, az, 12) || r;

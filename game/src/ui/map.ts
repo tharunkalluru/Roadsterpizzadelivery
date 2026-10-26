@@ -1,6 +1,8 @@
 import type { CoreData, Building } from '../world/types';
 import { fetchPack } from '../world/packs';
 import { DialogFocus } from './dialog';
+import { placeCatalogue, PLACE_CATEGORIES, type LandmarkPlace, type PlaceCategory } from '../world/landmark_catalog';
+import { layoutPlaceMarkers, hitPlaceMarker, placeIcon, type PlaceMarker } from './landmark-icons';
 
 interface MapPack { roads: Record<string, number[][]>; areas: { k: 'park' | 'water'; r: number[] }[]; metro: number[][] }
 
@@ -28,10 +30,21 @@ const CSS = `
 .fmap .close{pointer-events:auto;flex:0 0 auto;min-width:44px;min-height:44px;touch-action:manipulation;white-space:nowrap}
 .fmap .legend{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));background:rgba(23,19,43,.9);border-radius:12px;padding:8px 12px;font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;max-width:min(560px,70vw)}
 .fmap .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
-.fmap .movebtn{position:absolute;left:50%;transform:translateX(-50%);bottom:max(64px,calc(env(safe-area-inset-bottom,0px) + 56px));pointer-events:auto}
+.fmap .movebtn{position:absolute;left:50%;transform:translateX(-50%);bottom:max(100px,calc(env(safe-area-inset-bottom,0px) + 88px));pointer-events:auto}
 .fmap .pickbar{position:absolute;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom,0px));width:min(460px,calc(100vw - 24px));background:rgba(23,19,43,.95);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;pointer-events:auto;z-index:2}
 .fmap .pickbar .where{font-weight:800;font-size:17px;color:var(--cream)}
 .fmap .pickbar .row{display:flex;gap:8px}.fmap .pickbar .btn{flex:1}
+.fmap .places{position:absolute;top:max(80px,calc(env(safe-area-inset-top,0px) + 68px));left:max(12px,env(safe-area-inset-left,0px));width:min(330px,calc(100% - 84px));z-index:2;color:var(--cream);pointer-events:auto;touch-action:pan-y}
+.fmap .places-toggle{min-height:44px;padding:8px 14px;border:1px solid #cfbb8b;border-radius:12px;background:#25213d;color:var(--cream);font:800 14px var(--body);cursor:pointer}
+.fmap .places-panel,.fmap .place-detail{margin-top:8px;padding:12px;background:rgba(23,19,43,.97);border:1px solid var(--line);border-radius:14px}
+.fmap .place-tools{display:flex;flex-direction:column;gap:8px}.fmap .place-tools input,.fmap .place-tools select{min-height:44px;width:100%;box-sizing:border-box;font:14px var(--body);background:#332b4b;color:var(--cream);border:1px solid #81728f;border-radius:8px;padding:8px}
+.fmap .place-results{max-height:min(38vh,330px);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;margin-top:8px}
+.fmap .place-results button{min-height:48px;text-align:left;flex:0 0 auto;background:transparent;color:var(--cream);border:0;border-bottom:1px solid var(--line);padding:8px;font:700 14px var(--body);cursor:pointer}
+.fmap .place-results small{display:block;color:var(--muted);font-weight:400}.fmap .place-summary{color:var(--muted);font-size:12px;margin:6px 0}
+.fmap .place-detail{font-size:14px}.fmap .place-detail small{display:block;margin-top:5px;color:var(--muted)}.fmap .place-dismiss{min-height:44px;margin-top:8px;border:1px solid var(--line);border-radius:8px;background:#332b4b;color:var(--cream);padding:6px 12px}
+.fmap .places button:focus-visible,.fmap .places input:focus-visible,.fmap .places select:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.fmap[data-pick] .places{display:none}
+@media(max-height:500px){.fmap .places{top:max(66px,calc(env(safe-area-inset-top,0px) + 54px))}.fmap .place-results{max-height:22vh}.fmap .places-panel{padding:8px}.fmap .place-tools{flex-direction:row}}
 .fmap[data-pick] .legend,.fmap[data-pick] .movebtn{display:none}
 .fmap[data-pick] .zoom{bottom:max(150px,calc(env(safe-area-inset-bottom,0px) + 140px))}
 .fmap .pin{position:absolute;left:50%;top:50%;width:34px;height:46px;margin:-46px 0 0 -17px;pointer-events:none;display:none}
@@ -41,21 +54,32 @@ const CSS = `
 export class FullMap {
   root: HTMLElement; cv: HTMLCanvasElement; open = false; dirty = true;
   private focus?: DialogFocus;
+  places: LandmarkPlace[];
+  markers: PlaceMarker[] = [];
+  selectedPlace: LandmarkPlace | null = null;
+  placeCategory: PlaceCategory | '' = '';
+  placeQuery = '';
+  private gesture: { id: number; x: number; y: number; moved: boolean } | null = null;
   cx = 0; cz = 0; scale = 0.5;                       // pixels per metre
   layers: { park: Path2D; water: Path2D; roads: { p: Path2D; w: number; col: string; min: number }[]; minor: Map<string, Path2D>; metro: Path2D[] } | null = null; bld = new Path2D(); loading = false;
   pointers = new Map<number, { x: number; y: number }>(); pinch0 = 0; scale0 = 0;
   constructor(host: HTMLElement, public zone: CoreData, public state: () => MapState, public onClose: () => void, public src: { mapUrl: string; buildings: () => Building[] }) {
+    this.places = placeCatalogue(zone.origin);
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
     this.root = document.createElement('div'); this.root.className = 'fmap'; this.root.hidden = true;
     this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-modal', 'true'); this.root.setAttribute('aria-label', 'City map');
     this.root.innerHTML = `<canvas aria-label="Map of Hyderabad"></canvas>
       <div class="mbar"><div class="map-title">Hyderabad<small>Drag to move · scroll or pinch to zoom</small></div><button type="button" class="ib close" id="map-close">Close map ✕</button></div>
+      <div class="places"><button type="button" class="places-toggle" id="map-places" aria-expanded="false" aria-controls="map-places-panel">Explore ${this.places.length} places</button>
+        <section class="places-panel" id="map-places-panel" aria-label="Hyderabad places" hidden><div class="place-tools"><input id="map-place-search" type="search" placeholder="Search Hyderabad places" aria-label="Search Hyderabad places" autocomplete="off"><select id="map-place-category" aria-label="Place category"><option value="">All places</option>${PLACE_CATEGORIES.map((c) => `<option value="${c}">${c}</option>`).join('')}</select></div><div class="place-summary" id="map-place-summary" aria-live="polite"></div><div class="place-results" id="map-place-results"></div></section>
+        <section class="place-detail" id="map-place-detail" aria-label="Selected place" hidden><strong id="map-place-name"></strong><small id="map-place-kind"></small><small>Stylised landmark · appearance and location may be approximate.</small><button type="button" class="place-dismiss" id="map-place-dismiss">Dismiss place</button></section>
+      </div>
       <div class="zoom"><button type="button" class="zb" id="map-in" aria-label="Zoom in">+</button><button type="button" class="zb" id="map-out" aria-label="Zoom out">−</button><button type="button" class="zb" id="map-me" aria-label="Centre on my car" style="font-size:15px">◎</button></div>
       <svg class="pin" viewBox="0 0 34 46" aria-hidden="true"><path d="M17 45C17 45 3 27 3 17a14 14 0 0 1 28 0c0 10-14 28-14 28z" fill="#FF8FB1" stroke="#17132B" stroke-width="3"/><circle cx="17" cy="17" r="5.5" fill="#17132B"/></svg>
       <button type="button" class="btn go movebtn" id="map-move" hidden>Deliver from here…</button>
       <div class="pickbar" id="map-pickbar" hidden><div class="sm">Drag the map to put the pin where you want to start</div><div class="where" id="map-where">…</div>
         <div class="row"><button type="button" class="btn alt" id="map-pick-cancel">Cancel</button><button type="button" class="btn go" id="map-pick-ok">Start delivering here</button></div></div>
-      <div class="legend"><span><i style="background:#FFB627"></i>You</span><span><i style="background:#45E3D3"></i>Route</span><span><i style="background:#FF8FB1"></i>Cinemas</span><span><i style="background:#F2994A"></i>Pizza pickups</span><span><i style="background:#22B573"></i>Metro</span></div>`;
+      <div class="legend"><span><i style="background:#FFB627"></i>You</span><span><i style="background:#45E3D3"></i>Route</span><span><i style="background:#FF8FB1"></i>Cinemas</span><span><i style="background:#F2994A"></i>Pizza pickups</span><span><i style="background:#22B573"></i>Metro</span><span><i style="background:#cfbb8b"></i>Places · tap icons</span></div>`;
     host.appendChild(this.root);
     this.focus = new DialogFocus(this.root, {
       initial: () => this.root.querySelector('#map-close'),
@@ -70,15 +94,28 @@ export class FullMap {
     (this.root.querySelector('#map-in') as HTMLElement).addEventListener('click', () => this.zoomAt(1.5));
     (this.root.querySelector('#map-out') as HTMLElement).addEventListener('click', () => this.zoomAt(1 / 1.5));
     (this.root.querySelector('#map-me') as HTMLElement).addEventListener('click', () => { const p = this.state().player; if (!p) return; this.cx = p.x; this.cz = p.z; this.dirty = true; });
+    const placesToggle = this.root.querySelector<HTMLButtonElement>('#map-places')!;
+    placesToggle.addEventListener('click', () => {
+      const panel = this.root.querySelector<HTMLElement>('#map-places-panel')!;
+      panel.hidden = !panel.hidden; placesToggle.setAttribute('aria-expanded', String(!panel.hidden));
+      if (!panel.hidden) { this.root.querySelector<HTMLElement>('#map-place-detail')!.hidden = true; this.renderPlaceResults(); this.root.querySelector<HTMLInputElement>('#map-place-search')!.focus(); }
+    });
+    this.root.querySelector<HTMLInputElement>('#map-place-search')!.addEventListener('input', (e) => { this.placeQuery = (e.target as HTMLInputElement).value; this.renderPlaceResults(); });
+    this.root.querySelector<HTMLSelectElement>('#map-place-category')!.addEventListener('change', (e) => { this.placeCategory = (e.target as HTMLSelectElement).value as PlaceCategory | ''; this.renderPlaceResults(); this.dirty = true; });
+    this.root.querySelector<HTMLElement>('#map-place-dismiss')!.addEventListener('click', () => { this.selectedPlace = null; this.root.querySelector<HTMLElement>('#map-place-detail')!.hidden = true; this.dirty = true; placesToggle.focus(); });
+    this.renderPlaceResults();
     const cv = this.cv;
     cv.addEventListener('wheel', (e) => { e.preventDefault(); this.zoomAt(Math.exp(-e.deltaY * 0.0015), e.offsetX, e.offsetY); }, { passive: false });
     cv.addEventListener('pointerdown', (e) => {
       try { cv.setPointerCapture(e.pointerId); } catch { /* pointer already ended */ }
       this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (this.pointers.size === 1) this.gesture = { id: e.pointerId, x: e.clientX, y: e.clientY, moved: false };
+      else this.gesture = null;
       if (this.pointers.size === 2) { const [a, b] = [...this.pointers.values()]; this.pinch0 = Math.hypot(a.x - b.x, a.y - b.y); this.scale0 = this.scale; }
     });
     cv.addEventListener('pointermove', (e) => {
       const p = this.pointers.get(e.pointerId); if (!p) return;
+      if (this.gesture && Math.hypot(e.clientX - this.gesture.x, e.clientY - this.gesture.y) > 8) this.gesture.moved = true;
       if (this.pointers.size === 1) { this.cx -= (e.clientX - p.x) / this.scale; this.cz -= (e.clientY - p.y) / this.scale; this.dirty = true; }
       p.x = e.clientX; p.y = e.clientY;
       if (this.pointers.size === 2 && this.pinch0 > 0) {
@@ -87,9 +124,42 @@ export class FullMap {
         this.zoomTo(this.scale0 * (d / this.pinch0), (a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top);
       }
     });
-    const up = (e: PointerEvent) => { this.pointers.delete(e.pointerId); if (this.pointers.size < 2) this.pinch0 = 0; };
+    const up = (e: PointerEvent) => {
+      const tap = e.type === 'pointerup' && this.gesture?.id === e.pointerId && !this.gesture.moved && this.pointers.size === 1 && !this.pick;
+      this.pointers.delete(e.pointerId); if (this.pointers.size < 2) this.pinch0 = 0; this.gesture = null;
+      if (tap) {
+        const r = cv.getBoundingClientRect(), hit = hitPlaceMarker(this.markers, e.clientX - r.left, e.clientY - r.top);
+        if (hit) {
+          if (hit.members.length > 1) { this.cx = hit.place.x; this.cz = hit.place.z; this.zoomAt(2); }
+          this.selectPlace(hit.place, false);
+        }
+      }
+    };
     cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up); cv.addEventListener('lostpointercapture', up);
     addEventListener('resize', () => (this.dirty = true));
+  }
+  filteredPlaces() { return this.places.filter((p) => !this.placeCategory || p.category === this.placeCategory); }
+  renderPlaceResults() {
+    const q = this.placeQuery.trim().toLocaleLowerCase(), matches = this.filteredPlaces().filter((p) => p.name.toLocaleLowerCase().includes(q)).sort((a, b) => a.name.localeCompare(b.name));
+    const list = this.root.querySelector<HTMLElement>('#map-place-results')!; list.replaceChildren();
+    this.root.querySelector<HTMLElement>('#map-place-summary')!.textContent = `${matches.length} of ${this.places.length} places · tap to find on map`;
+    for (const p of matches) {
+      const button = document.createElement('button'); button.type = 'button'; button.textContent = p.name;
+      const category = document.createElement('small'); category.textContent = p.category; button.appendChild(category);
+      button.addEventListener('click', () => this.selectPlace(p, true)); list.appendChild(button);
+    }
+    if (!matches.length) list.textContent = 'No matching places. Try a different name or category.';
+  }
+  selectPlace(place: LandmarkPlace, centre: boolean) {
+    this.selectedPlace = place;
+    if (centre) { this.cx = place.x; this.cz = place.z; this.scale = Math.max(this.scale, 0.3); }
+    this.root.querySelector<HTMLElement>('#map-place-name')!.textContent = place.name;
+    this.root.querySelector<HTMLElement>('#map-place-kind')!.textContent = place.category;
+    this.root.querySelector<HTMLElement>('#map-places-panel')!.hidden = true;
+    this.root.querySelector<HTMLElement>('#map-place-detail')!.hidden = false;
+    this.root.querySelector<HTMLElement>('#map-places')!.setAttribute('aria-expanded', 'false');
+    this.root.querySelector<HTMLElement>('#map-place-dismiss')!.focus({ preventScroll: true });
+    this.dirty = true;
   }
   // ---------- choosing a place: the map moves under a fixed pin ----------
   pick: { onPick: (x: number, z: number) => void; onCancel: () => void } | null = null;
@@ -166,10 +236,12 @@ export class FullMap {
     for (const id of this.pointers.keys()) {
       try { if (this.cv.hasPointerCapture(id)) this.cv.releasePointerCapture(id); } catch { /* already released */ }
     }
-    this.pointers.clear(); this.pinch0 = 0;
+    this.pointers.clear(); this.pinch0 = 0; this.gesture = null;
     this.root.hidden = true; this.open = false; this.focus?.hide(); this.onClose();
   }
   handleKey(e: KeyboardEvent) {
+    // Typing a place name must not trigger M/P close or +/- zoom shortcuts. Escape still dismisses the map.
+    if ((e.target as HTMLElement | null)?.closest?.('input,select,textarea') && e.code !== 'Escape') return;
     if (['Escape', 'KeyM', 'KeyP'].includes(e.code)) {
       if (!e.repeat) this.close();
       e.preventDefault();
@@ -218,6 +290,21 @@ export class FullMap {
     // neighbourhood names
     g.font = `700 ${s > 0.6 ? 14 : 12}px "Baloo 2", sans-serif`; g.fillStyle = 'rgba(246,238,220,.55)';
     for (const p of this.zone.places || []) { if (/^Ward \d+/.test(p.name)) continue; if ((p.kind === 'neighborhood' || p.kind === 'microhood') && s < 0.15) continue; if (p.kind !== 'locality' && s < 0.04) continue; const [x, y] = toS(p.p[0], p.p[1]); if (x > 0 && y > 0 && x < W && y < H) g.fillText(p.name, x, y); }
+    this.markers = layoutPlaceMarkers(this.filteredPlaces(), { cx: this.cx, cz: this.cz, scale: s, width: W, height: H }, this.selectedPlace?.id);
+    // Cached screen-space icons keep the full catalogue inexpensive; groups expand as you zoom.
+    const labels: { x: number; y: number; w: number }[] = [];
+    for (const marker of this.markers) {
+      const { x, y, place, members } = marker, selected = place.id === this.selectedPlace?.id;
+      g.drawImage(placeIcon(place.icon), x - 15, y - 15, 30, 30);
+      if (selected) { g.strokeStyle = '#45E3D3'; g.lineWidth = 3; g.strokeRect(x - 17, y - 17, 34, 34); }
+      if (members.length > 1) { g.fillStyle = '#cfbb8b'; g.beginPath(); g.arc(x + 13, y - 12, 9, 0, Math.PI * 2); g.fill(); g.fillStyle = '#17132b'; g.font = '800 10px sans-serif'; g.fillText(String(members.length), x + 13, y - 12); }
+      if (s >= 0.2 || selected || (place.priority === 2 && s >= 0.055)) {
+        g.font = '800 12px "Baloo 2", sans-serif'; const w = g.measureText(place.name).width + 8, ly = y + 25;
+        if (selected || !labels.some((b) => Math.abs(ly - b.y) < 16 && Math.abs(x - b.x) < (w + b.w) / 2)) {
+          g.strokeStyle = '#17132b'; g.lineWidth = 4; g.strokeText(place.name, x, ly); g.fillStyle = '#f6eedc'; g.fillText(place.name, x, ly); labels.push({ x, y: ly, w });
+        }
+      }
+    }
     for (const t of st.theatres) {
       const [x, y] = toS(t.x, t.z);
       g.fillStyle = t.leased ? '#FFB627' : '#FF8FB1'; g.beginPath(); g.arc(x, y, 8, 0, 7); g.fill();

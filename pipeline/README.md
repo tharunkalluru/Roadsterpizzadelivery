@@ -1,5 +1,10 @@
 # Continuing storefront naming
 
+ORR road geometry maintenance is documented in [the ORR repair record](../docs/orr-redesign.md).
+It uses a separate cached geometry importer, shares the shopfront apply lock and
+preserves business evidence. Do not rebuild the city from legacy raw-data scripts
+to apply that repair.
+
 The shipped city contains mapped business names placed on inferred building fronts.
 That is not evidence of exact current shop order. Original pipeline inputs and
 Mapillary image lists/OCR are not included in this repository.

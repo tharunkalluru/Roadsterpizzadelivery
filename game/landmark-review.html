@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Landmark geometry review fixture</title>
+<style>body{margin:0;padding:20px;background:#eee9df;color:#17132b;font:16px system-ui}h1{font-size:22px}main{display:flex;flex-wrap:wrap;gap:16px}figure{margin:0;width:min(500px,100%);min-width:0}canvas{display:block;width:100%;aspect-ratio:3/2;background:#cbd4d9}figcaption{font-weight:700;padding:10px 0}p{max-width:900px;line-height:1.5}</style>
+<h1>Indian flag geometry review</h1><p>Development fixture rendering the actual shared model from both faces. This is a geometry inspection, not an in-game flight or phone playtest. Equal stripes, 3:2 cloth and a centred 24-spoke Chakra.</p><main></main>
+<script type="module">
+import * as THREE from 'three';
+import { initTemplates, TiledBatch } from '/src/core/util.ts';
+import { Kit, placeLandmarks, drawLandmark } from '/src/world/landmarks.ts';
+import { drawIndianFlag } from '/src/world/indian_flag.ts';
+initTemplates();
+const st = new TiledBatch();
+drawIndianFlag(new Kit(0,0,0,{B:{st},obstacle(){},solid(){},road(){return false},roadY(){return null}}),1,0,20,30);
+const scene = new THREE.Scene(); scene.background = new THREE.Color('#cbd4d9');
+const mat = new THREE.MeshBasicMaterial({vertexColors:true,side:THREE.FrontSide});
+for(const mesh of st.meshes(mat)) scene.add(mesh);
+for(const [label,z] of [['Front face',55],['Reverse face',-55]]) {
+ const figure=document.createElement('figure'),caption=document.createElement('figcaption'); caption.textContent=label;document.querySelector('main').append(figure);figure.append(caption);
+ const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(500,334);renderer.setPixelRatio(1);figure.append(renderer.domElement);
+ const camera=new THREE.OrthographicCamera(-19,19,12.692,-12.692,.1,100);camera.position.set(16,10,z);camera.lookAt(16,10,0);renderer.render(scene,camera);
+}
+const catalogue=placeLandmarks({lat:17.4063,lon:78.4966});
+for(const id of ['charminar','jagannath','gurudwara','thalli','buddha']) {
+ const model=catalogue.find(p=>p.id===id),B=Object.fromEntries(['st','wall','park','water','roof','lit','glow','road','marks','foot','kerb','shop'].map(k=>[k,new TiledBatch()]));
+ drawLandmark({...model,x:0,z:0,rot:0},{B,obstacle(){},solid(){},road(){return false},roadY(){return null},sign(){}});
+ const scene=new THREE.Scene();scene.background=new THREE.Color('#cbd4d9');
+ const modelMat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.85});
+ scene.add(new THREE.AmbientLight('#ffffff',1.8));const light=new THREE.DirectionalLight('#ffffff',2.3);light.position.set(-30,60,-50);scene.add(light);
+ for(const batch of Object.values(B)) for(const mesh of batch.meshes(modelMat)) scene.add(mesh);
+ const figure=document.createElement('figure'),caption=document.createElement('figcaption');caption.textContent=model.name+(id==='buddha'?' — pose and stone lotus closeup':' — stylised geometry inspection');document.querySelector('main').append(figure);figure.append(caption);
+ const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(500,334);renderer.setPixelRatio(1);figure.append(renderer.domElement);
+ const span=id==='charminar'?44:id==='thalli'?13:id==='buddha'?15:29,cy=id==='charminar'?24:id==='thalli'?8:id==='buddha'?13:10;
+ const camera=new THREE.OrthographicCamera(-span,span,span*334/500,-span*334/500,.1,250);if(id==='buddha') camera.position.set(0,cy,-85); else camera.position.set(65,cy+32,-85);camera.lookAt(0,cy,0);renderer.render(scene,camera);
+}
+
+</script></html>

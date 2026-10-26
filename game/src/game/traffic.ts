@@ -2,19 +2,26 @@ import * as THREE from 'three';
 import * as M from '../world/traffic_models';
 import { rng } from '../core/util';
 import type { RoadGraph, GEdge, GNode } from './roadgraph';
-import { hasCentreMedian, BusStop } from '../world/city';
+import { hasCentreMedian, type BusStop, type CityData } from '../world/city';
 import { segmentHitsVehicle } from './spatial-safety';
+import { TrafficCurve, roundedTrafficCorner, trafficCurveClear, trafficPoseClear, trafficOverlap, turnProfile, turnSpeed } from './traffic-path';
+import { isORR } from '../world/expressway';
 
 type Group = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
 interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
+interface Motion {
+  kind: 'bend' | 'junction' | 'lane' | 'uturn'; curve: TrafficCurve; startS: number; endS: number;
+  edge: GEdge; dir: 1 | -1; lane: number; progress: number; cap: number; node?: string;
+}
 export interface Car {
   g: THREE.Group; kind: string; group: Group; size: number[]; edge: GEdge; dir: 1 | -1; s: number; speed: number; want: number;
   lane: number; laneT: number; base: number; x: number; y: number; z: number; hx: number; hz: number; wob: number;
   blockedT: number; stuckT: number; passS: number; honkT: number; filtering: boolean; dwell: number; served: Set<BusStop>;
+  motion?: Motion; stopS?: number; planAfter?: number; assertive?: boolean; laneChangeAt?: number; uturnAt?: number;
 }
 export interface Walker { x: number; z: number; crossing: boolean }
 
-const WEIGHT: Record<string, number> = { trunk: 6, primary: 6, secondary: 4, tertiary: 3, primary_link: 2, secondary_link: 2, residential: 0.6, unclassified: 0.8, service: 0.15, living_street: 0.3, unknown: 0.4 };
+const WEIGHT: Record<string, number> = { motorway: 6, motorway_link: 2, trunk: 6, primary: 6, secondary: 4, tertiary: 3, trunk_link: 2, primary_link: 2, secondary_link: 2, residential: 0.6, unclassified: 0.8, service: 0.15, living_street: 0.3, unknown: 0.4 };
 const MAJOR = new Set(['trunk', 'primary', 'secondary', 'motorway', 'motorway_link', 'trunk_link']);
 
 export class Traffic {
@@ -22,7 +29,7 @@ export class Traffic {
   r = rng(77); t = 0; phaseLen = 22;
   stopsByEdge = new Map<string, BusStop[]>();
   onHorn: (kind: string, x: number, z: number) => void = () => {};
-  constructor(public graph: RoadGraph, public scene: THREE.Scene, public mats: Record<string, any>, public max = 55, busStops: BusStop[] = []) {
+  constructor(public graph: RoadGraph, public scene: THREE.Scene, public mats: Record<string, any>, public max = 55, busStops: BusStop[] = [], public city?: CityData) {
     const R = rng(4049);
     const add = (m: M.Model) => {
       const p: Proto = { body: m.body.geometry(), lights: m.lights.geometry(), decals: m.decals || [], size: m.size, group: m.kind as Group };
@@ -44,7 +51,7 @@ export class Traffic {
   }
   // vehicles on roads of an unloaded tile leave with it
   dropEdges(gone: Set<GEdge>) {
-    for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge)) { this.scene.remove(this.cars[i].g); this.cars.splice(i, 1); }
+    for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge) || (this.cars[i].motion && gone.has(this.cars[i].motion!.edge))) { this.scene.remove(this.cars[i].g); this.cars.splice(i, 1); }
   }
   // signal phase for an approach heading at a node: two groups by axis, 22 s each with 3 s amber
   green(node: GNode, hx: number, hz: number) {
@@ -56,12 +63,18 @@ export class Traffic {
   signalState(node: GNode, axis: number) { const ph = Math.floor(this.t / this.phaseLen) % 2, w = this.t % this.phaseLen; return ph !== axis ? 'red' : w < this.phaseLen - 3 ? 'green' : 'amber'; }
   laneRange(edge: GEdge, w: number): [number, number] {
     const e = edge.e, half = e.w / 2;
+    if (isORR(e) && e.expressway?.shoulders) return [-half + e.expressway.shoulders[1] + w / 2 + 0.15, half - e.expressway.shoulders[0] - w / 2 - 0.15];
     if (e.oneway) return [-half + w / 2 + 0.3, half - w / 2 - 0.3];
     const inner = hasCentreMedian(e) ? 0.95 : 0.35;                     // keep clear of the centre median
     return [inner + w / 2, Math.max(inner + w / 2, half - w / 2 - 0.3)];
   }
   pickLane(edge: GEdge, w: number, group: Group) {
     const e = edge.e, half = e.oneway ? e.w : e.w / 2;
+    if (isORR(e) && e.expressway?.throughLanes) {
+      const lw = e.expressway.laneWidth || 3.5, left = e.w / 2 - (e.expressway.shoulders?.[0] || 0);
+      const [lo, hi] = this.laneRange(edge, w);
+      return Math.max(lo, Math.min(hi, left - (Math.floor(this.r() * e.expressway.throughLanes) + 0.5) * lw));
+    }
     const lanes = Math.max(1, Math.floor(half / 3.2)), lw = Math.min(3.4, half / lanes);
     // k counts lanes from the left kerb (slow traffic keeps left in India)
     let k = Math.floor(this.r() * lanes);
@@ -86,17 +99,19 @@ export class Traffic {
     const big = MAJOR.has(edge.e.cls);
     // Hyderabad mix: two-wheelers dominate, then autos and cars; buses and lorries on main roads
     const roll = this.r();
-    const fast = /^motorway/.test(edge.e.cls);            // ORR / expressways: cars, buses and lorries, few bikes, no autos
-    const group: Group = fast ? (roll < 0.08 ? 'bike' : roll < 0.62 ? 'car' : roll < 0.78 ? 'bus' : 'truck') : big ? (roll < 0.36 ? 'bike' : roll < 0.58 ? 'auto' : roll < 0.86 ? 'car' : roll < 0.95 ? 'bus' : 'truck') : (roll < 0.5 ? 'bike' : roll < 0.78 ? 'auto' : 'car');
+    const fast = /^motorway/.test(edge.e.cls);
+    const group: Group = fast ? (roll < 0.66 ? 'car' : roll < 0.82 ? 'bus' : 'truck') : big ? (roll < 0.36 ? 'bike' : roll < 0.58 ? 'auto' : roll < 0.86 ? 'car' : roll < 0.95 ? 'bus' : 'truck') : (roll < 0.5 ? 'bike' : roll < 0.78 ? 'auto' : 'car');
     const pr = this.r.pick(this.byGroup[group]);
     const g = new THREE.Group();
     const b = new THREE.Mesh(pr.body, this.mats.vBody); b.castShadow = true; b.receiveShadow = true;
     g.add(b, new THREE.Mesh(pr.lights, this.mats.vLight));
     for (const dc of pr.decals) g.add(new THREE.Mesh(dc.geo, dc.mat));
-    this.scene.add(g);
     const lane = this.pickLane(edge, pr.size[0], group);
+    const pose = this.graph.pointAt(edge, s, dir, lane);
+    if ((this.city && !trafficPoseClear(this.city, pose, pr.size)) || this.cars.some(c => trafficOverlap({ ...pose, size: pr.size }, c, 2))) return;
+    this.scene.add(g); g.position.set(pose.x, pose.y + 0.02, pose.z); g.rotation.y = Math.atan2(-pose.hx, -pose.hz);
     const want = group === 'bike' ? this.r.range(9, 13) : group === 'bus' || group === 'truck' ? this.r.range(6.5, 9) : group === 'auto' ? this.r.range(7, 10) : this.r.range(8, 12);
-    this.cars.push({ g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.6, want, lane, laneT: lane, base: lane, x: p.x, y: p.y, z: p.z, hx: p.hx, hz: p.hz, wob: this.r() * 10, blockedT: 0, stuckT: 0, passS: 0, honkT: this.r.range(0.6, 2), filtering: false, dwell: 0, served: new Set() });
+    this.cars.push({ g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.6, want, lane, laneT: lane, base: lane, ...pose, wob: this.r() * 10, blockedT: 0, stuckT: 0, passS: 0, honkT: this.r.range(0.6, 2), filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55) });
   }
   // place a specific vehicle (used by tests and scripted scenes)
   spawnAt(group: Group, edge: GEdge, dir: 1 | -1, s: number, lane?: number): Car {
@@ -107,12 +122,164 @@ export class Traffic {
     this.scene.add(g);
     const ln = lane ?? this.pickLane(edge, pr.size[0], group);
     const p = this.graph.pointAt(edge, s, dir, ln);
+    g.position.set(p.x, p.y + 0.02, p.z); g.rotation.y = Math.atan2(-p.hx, -p.hz);
     const want = group === 'bike' ? 11 : group === 'bus' ? 8 : 10;
-    const c: Car = { g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.8, want, lane: ln, laneT: ln, base: ln, x: p.x, y: p.y, z: p.z, hx: p.hx, hz: p.hz, wob: 0, blockedT: 0, stuckT: 0, passS: 0, honkT: 0.5, filtering: false, dwell: 0, served: new Set() };
+    const c: Car = { g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.8, want, lane: ln, laneT: ln, base: ln, ...p, wob: 0, blockedT: 0, stuckT: 0, passS: 0, honkT: 0.5, filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55) };
     this.cars.push(c);
     return c;
   }
-  update(dt: number, px: number, pz: number, player: { x: number; z: number; y: number; speed: number }, walkers: Walker[] = []) {
+  private plans = 0;
+  private allowed(c: Car, edge: GEdge) { return !((c.group === 'auto' || c.group === 'bike') && /^motorway/.test(edge.e.cls)); }
+  private curveOK(c: Car, curve: TrafficCurve) {
+    return Number.isFinite(curve.length) && curve.length > 0.05 && curve.minRadius >= turnProfile(c.group, c.assertive).minRadius &&
+      Math.abs(curve.a.y - curve.b.y) < 3 && (!this.city || trafficCurveClear(curve, this.city, c.size));
+  }
+  private remember(c: Car, motion: Omit<Motion, 'progress' | 'cap'>) {
+    c.motion = { ...motion, progress: -1, cap: turnSpeed(motion.curve, c.group, c.assertive) };
+    c.stopS = undefined;
+  }
+  private segmentRoom(edge: GEdge, dir: 1 | -1, end: boolean) {
+    const index = (dir === 1) === end ? edge.cum.length - 1 : 1;
+    return edge.cum[index] - edge.cum[index - 1];
+  }
+  // Prepare before braking distance. Pending paths remain fixed, so a new random
+  // exit/lane is never selected while a vehicle is already turning.
+  private prepare(c: Car) {
+    if (c.motion || (c.planAfter || 0) > this.t) return;
+    const profile = turnProfile(c.group, c.assertive), edge = c.edge;
+    let vertex = Infinity, prev = 0, next = edge.len;
+    for (let i = 1; i < edge.cum.length - 1; i++) {
+      const s = c.dir === 1 ? edge.cum[i] : edge.len - edge.cum[i];
+      if (s < c.s + 0.015 || s >= vertex) continue;
+      const a = this.graph.pointAt(edge, s - 0.001, c.dir), b = this.graph.pointAt(edge, s + 0.001, c.dir);
+      if (a.hx * b.hx + a.hz * b.hz > 0.9999999) continue;
+      vertex = s;
+      prev = c.dir === 1 ? edge.cum[i - 1] : edge.len - edge.cum[i + 1];
+      next = c.dir === 1 ? edge.cum[i + 1] : edge.len - edge.cum[i - 1];
+    }
+    const at = Number.isFinite(vertex) ? vertex : edge.len;
+    if (at - c.s > 75) return;
+    // An unplanned corner is a stop, never permission to snap to another heading.
+    c.stopS = Math.max(c.s, at - Math.min(16, c.size[2] + 3));
+    if (this.plans >= 3) return;
+    this.plans++; c.planAfter = this.t + 1.1;
+    if (Number.isFinite(vertex)) {
+      const before = this.graph.pointAt(edge, vertex - 0.001, c.dir), after = this.graph.pointAt(edge, vertex + 0.001, c.dir);
+      const angle = Math.acos(Math.max(-1, Math.min(1, before.hx * after.hx + before.hz * after.hz)));
+      if (angle > Math.PI * 0.94) return;
+      const wanted = Math.max(0.2, profile.radius * Math.tan(angle / 2));
+      for (const factor of [1, 1.45, 0.7]) {
+        const trim = Math.min(wanted * factor, (vertex - prev) * 0.46, (next - vertex) * 0.46);
+        const startS = Math.max(c.s, vertex - trim), endS = vertex + trim;
+        const a = this.graph.pointAt(edge, startS, c.dir, c.lane), b = this.graph.pointAt(edge, endS, c.dir, c.lane);
+        const curve = roundedTrafficCorner(a, b);
+        if (!this.curveOK(c, curve)) continue;
+        this.remember(c, { kind: 'bend', curve, startS, endS, edge, dir: c.dir, lane: c.lane }); return;
+      }
+      return;
+    }
+    const node = this.graph.nodes.get(c.dir === 1 ? edge.to : edge.from);
+    if (!node) return;
+    const opts = node.out.filter(o => o.edge !== edge && (WEIGHT[o.edge.e.cls] || 0) > 0.1 && this.allowed(c, o.edge));
+    // Only some autos take opportunistic U-turns; all drivers can return at a
+    // sufficiently large dead end. A one-way edge has no reverse graph exit.
+    const reverse = node.out.find(o => o.edge === edge && o.dir !== c.dir);
+    const opportunistic = c.assertive && this.t >= (c.uturnAt || 0) && this.r() < 0.14;
+    if (reverse && (!opts.length || opportunistic) && !isORR(edge.e) && (!hasCentreMedian(edge.e) || this.city)) {
+      const trim = Math.min(Math.max(3, c.size[2] * 0.65), this.segmentRoom(edge, c.dir, true) * 0.45);
+      const startS = Math.max(c.s, edge.len - trim), endS = edge.len - startS;
+      const a = this.graph.pointAt(edge, startS, c.dir, c.lane), b = this.graph.pointAt(edge, endS, reverse.dir, c.lane);
+      const curve = new TrafficCurve(a, b, Math.abs(c.lane) * 4 / 3);
+      if (this.curveOK(c, curve)) {
+        this.remember(c, { kind: 'uturn', curve, startS, endS, edge, dir: reverse.dir, lane: c.lane, node: node.id }); return;
+      }
+    }
+    const shuffled = [...opts];
+    for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(this.r() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
+    for (const out of shuffled) {
+      const entry = this.graph.pointAt(edge, edge.len - 0.001, c.dir), exit = this.graph.pointAt(out.edge, 0.001, out.dir);
+      const angle = Math.acos(Math.max(-1, Math.min(1, entry.hx * exit.hx + entry.hz * exit.hz)));
+      if (angle > Math.PI * 0.88) continue;
+      const [lo, hi] = this.laneRange(out.edge, c.size[0]), lane = Math.max(lo, Math.min(hi, c.lane));
+      const wanted = Math.max(3, profile.radius * Math.tan(angle / 2));
+      for (const factor of [1, 1.45, 0.7]) {
+        const trimIn = Math.min(wanted * factor, this.segmentRoom(edge, c.dir, true) * 0.46);
+        const trimOut = Math.min(wanted * factor, this.segmentRoom(out.edge, out.dir, false) * 0.46);
+        const startS = Math.max(c.s, edge.len - trimIn), endS = trimOut;
+        const a = this.graph.pointAt(edge, startS, c.dir, c.lane), b = this.graph.pointAt(out.edge, endS, out.dir, lane);
+        const curve = roundedTrafficCorner(a, b);
+        if (!this.curveOK(c, curve)) continue;
+        this.remember(c, { kind: 'junction', curve, startS, endS, edge: out.edge, dir: out.dir, lane, node: node.id }); return;
+      }
+    }
+  }
+  private canEnter(c: Car, m: Motion, player: { x: number; z: number; y: number; hx?: number; hz?: number }) {
+    const other = this.cars.filter(o => o !== c && Math.abs(o.y - c.y) < 4);
+    const body = { x: player.x, z: player.z, y: player.y - 0.55, size: [2, 1.6, 4.8], hx: player.hx ?? c.hx, hz: player.hz ?? c.hz };
+    for (let s = 0; s <= m.curve.length + 0.01; s += 1.1) {
+      const p = { ...m.curve.sample(Math.min(s, m.curve.length)), size: c.size };
+      if (trafficOverlap(p, body, 0.5) || other.some(o => trafficOverlap(p, o, 0.5))) return false;
+    }
+    if (m.node && other.some(o => o.motion?.node === m.node && o.motion.progress >= 0)) return false;
+    return true;
+  }
+  private tryLane(c: Car, player: { x: number; z: number; y: number; hx?: number; hz?: number }) {
+    if (Math.abs(c.laneT - c.lane) < 0.1 || (c.motion && c.motion.progress >= 0) || this.t < (c.laneChangeAt || 0)) return false;
+    const distance = c.group === 'bus' ? 28 : c.assertive ? 6.5 : c.group === 'bike' ? 8 : 14;
+    const endS = c.s + Math.max(distance, c.speed * (c.assertive ? 1.4 : 2.5));
+    if (endS >= (c.motion?.startS ?? c.stopS ?? c.edge.len) - 2) return false;
+    const a = this.graph.pointAt(c.edge, c.s, c.dir, c.lane), b = this.graph.pointAt(c.edge, endS, c.dir, c.laneT);
+    // A lane change must stay on a straight section; intervening bends are planned first.
+    if (a.hx * b.hx + a.hz * b.hz < 0.99999) return false;
+    const curve = new TrafficCurve(a, b, (endS - c.s) / 3);
+    if (!this.curveOK(c, curve)) { c.laneChangeAt = this.t + 2; return false; }
+    const m: Motion = { kind: 'lane', curve, startS: c.s, endS, edge: c.edge, dir: c.dir, lane: c.laneT, progress: -1, cap: Math.min(c.want, turnSpeed(curve, c.group, c.assertive)) };
+    if (!this.canEnter(c, m, player)) { c.laneChangeAt = this.t + 1.5; return false; }
+    c.motion = m; c.stopS = undefined; c.laneChangeAt = this.t + this.r.range(c.assertive ? 8 : 14, c.assertive ? 17 : 25); return true;
+  }
+  private advance(c: Car, distance: number, player: { x: number; z: number; y: number; hx?: number; hz?: number }, walkers: Walker[]) {
+    const body = { x: player.x, z: player.z, y: player.y - 0.55, hx: player.hx ?? c.hx, hz: player.hz ?? c.hz, size: [2, 1.6, 4.8] };
+    // Small swept steps prevent a long bus or a fast auto tunnelling through a
+    // crossing vehicle between frames. This is simulation collision, not a test driver.
+    for (let guard = 0; distance > 1e-6 && guard < 32; guard++) {
+      let m = c.motion;
+      if (m && m.progress < 0 && c.s >= m.startS - 1e-6) {
+        const node = m.node && this.graph.nodes.get(m.node);
+        if ((node && !this.green(node, c.hx, c.hz)) || !this.canEnter(c, m, player)) { c.speed = 0; break; }
+        m.progress = 0;
+        if (m.kind === 'uturn') c.uturnAt = this.t + this.r.range(45, 85);
+      }
+      const active = m && m.progress >= 0;
+      const available = active ? m!.curve.length - m!.progress : Math.max(0, (m?.startS ?? c.stopS ?? c.edge.len - 0.02) - c.s);
+      const step = Math.min(distance, 0.4, available);
+      if (step < 1e-7) { c.speed = 0; break; }
+      const p = active ? m!.curve.sample(m!.progress + step) : this.graph.pointAt(c.edge, c.s + step, c.dir, c.lane);
+      const bounds = { ...p, size: c.size };
+      const overlaps = (o: Parameters<typeof trafficOverlap>[1]) => trafficOverlap(bounds, o, 0.18) &&
+        (!trafficOverlap(c, o, 0.18) || Math.hypot(p.x - o.x, p.z - o.z) <= Math.hypot(c.x - o.x, c.z - o.z));
+      const walkerHit = walkers.some(w => w.crossing && trafficOverlap(bounds, { ...w, y: p.y, hx: 1, hz: 0, size: [0.7, 1.8, 0.7] }, 0.5));
+      if (overlaps(body) || this.cars.some(o => o !== c && overlaps(o)) || walkerHit || (this.city && !trafficPoseClear(this.city, p, c.size))) { c.speed = 0; break; }
+      distance -= step;
+      if (active) {
+        m!.progress += step;
+        const u = m!.progress / m!.curve.length;
+        c.s = m!.startS + ((m!.kind === 'junction' || m!.kind === 'uturn' ? c.edge.len : m!.endS) - m!.startS) * u;
+        if (m!.kind === 'lane') c.lane = c.lane + (m!.lane - c.lane) * step / Math.max(step, m!.curve.length - m!.progress + step);
+        if (m!.progress >= m!.curve.length - 1e-6) {
+          c.edge = m!.edge; c.dir = m!.dir; c.s = m!.endS; c.lane = m!.lane;
+          if (m!.kind === 'junction' || m!.kind === 'uturn') { c.base = c.laneT = c.lane; c.filtering = false; c.dwell = 0; }
+          c.motion = undefined; c.planAfter = 0;
+          // Plan the next corner before consuming any remaining frame distance.
+          this.prepare(c); m = c.motion;
+        }
+      } else c.s += step;
+      c.x = p.x; c.y = p.y; c.z = p.z; c.hx = p.hx; c.hz = p.hz;
+    }
+    c.g.position.set(c.x, c.y + 0.02, c.z);
+    c.g.rotation.y = Math.atan2(-c.hx, -c.hz);
+  }
+  update(dt: number, px: number, pz: number, player: { x: number; z: number; y: number; speed: number; hx?: number; hz?: number }, walkers: Walker[] = []) {
+    this.plans = 0;
     this.t += dt;
     for (let k = 0; k < 6 && this.cars.length < this.max; k++) this.spawn(px, pz);
     // over budget (moved somewhere quieter): retire the farthest vehicle once it is well out of the way
@@ -127,6 +294,7 @@ export class Traffic {
       const c = this.cars[i];
       if (Math.hypot(c.x - px, c.z - pz) > 340) { this.scene.remove(c.g); this.cars.splice(i, 1); continue; }
       const halfL = c.size[2] / 2, halfW = c.size[0] / 2;
+      this.prepare(c);
       let target = c.want;
       // follow whatever is ahead in an overlapping lane on the same edge; remember a stopped one as an obstacle
       let obs: { lane: number; halfW: number; s: number; halfL: number } | null = null;
@@ -135,7 +303,7 @@ export class Traffic {
         const gap = o.s - c.s - (o.size[2] + c.size[2]) / 2;
         if (gap > -0.5 && gap < 5 + c.speed * 1.1) {
           target = Math.min(target, o.speed * 0.9, Math.max(0, (gap - 1.6) * 0.9));
-          if (gap < 7 && o.speed < 1 && (!obs || o.s < obs.s)) obs = { lane: o.lane, halfW: o.size[0] / 2, s: o.s, halfL: o.size[2] / 2 };
+          if (gap < (c.assertive ? 17 : 7) && o.speed < (c.assertive ? c.want * 0.6 : 1) && (!obs || o.s < obs.s)) obs = { lane: o.lane, halfW: o.size[0] / 2, s: o.s, halfL: o.size[2] / 2 };
         }
       }
       // the player's car is a vehicle like any other: queue behind it, honk, and squeeze past when there is room
@@ -150,9 +318,9 @@ export class Traffic {
         if (blocked && (!obs || c.s + along < obs.s)) obs = { lane: c.lane + lat, halfW: 1.0, s: c.s + along, halfL: 2.3 };
       }
       c.blockedT = blocked ? c.blockedT + dt : Math.max(0, c.blockedT - dt * 2);
-      c.stuckT = obs && target < 0.8 ? c.stuckT + dt : Math.max(0, c.stuckT - dt);
+      c.stuckT = obs && target < (c.assertive ? c.want * 0.7 : 0.8) ? c.stuckT + dt : Math.max(0, c.stuckT - dt);
       const canFilter = c.group === 'bike' || c.group === 'auto' || (c.group === 'car' && this.r() < 0.03);
-      if (obs && c.stuckT > 0.6 && !c.filtering && canFilter) {
+      if (obs && c.stuckT > (c.assertive ? 0.25 : 0.6) && !c.filtering && canFilter && this.t >= (c.laneChangeAt || 0) && (!c.motion || c.motion.progress < 0)) {
         // look for a gap beside whatever is stopped ahead (the player's car or a queue), inside this carriageway
         const [lo, hi] = this.laneRange(c.edge, c.size[0]);
         const need = obs.halfW + halfW + 0.65;
@@ -161,7 +329,7 @@ export class Traffic {
         if (free !== undefined) { c.laneT = free; c.filtering = true; c.passS = obs.s + obs.halfL + halfL + 3; }
       }
       if (c.filtering) {
-        if (Math.abs(c.lane - c.laneT) > 0.25) target = Math.min(target, 1.6);          // creep while edging sideways
+        if (c.motion?.kind === 'lane') target = Math.max(target, c.assertive ? 3 : 1.6);
         if (c.s > c.passS) { c.filtering = false; c.laneT = c.base; }
       }
       if (blocked && !c.filtering && c.blockedT > 1.2) {
@@ -176,7 +344,8 @@ export class Traffic {
           if (leftSign < 0 && !c.edge.e.oneway) continue;
           const sd = c.dir === 1 ? st.s : c.edge.len - st.s, ahead = sd - c.s;
           if (ahead < -2 || ahead > 45) continue;
-          c.laneT = leftSign * (c.edge.e.w / 2 - halfW - 0.25);
+          // Leave room for the long body's nose/tail sweep during pull-in.
+          c.laneT = leftSign * (c.edge.e.w / 2 - halfW - 0.7);
           target = Math.min(target, Math.max(0, ahead * 0.55));
           if (ahead < 1.5 && c.speed < 0.6) { c.dwell = this.r.range(4, 7); c.served.add(st); }
           break;
@@ -192,30 +361,25 @@ export class Traffic {
       const endNode = this.graph.nodes.get(c.dir === 1 ? c.edge.to : c.edge.from);
       if (!endNode) { this.scene.remove(c.g); this.cars.splice(i, 1); continue; }
       const left = c.edge.len - c.s;
-      if (endNode.signal && left < 16 && left > 3 && !this.green(endNode, c.hx, c.hz)) target = Math.min(target, Math.max(0, (left - 5) * 0.7));
+      const committed = c.motion?.node && c.motion.progress >= 0;
+      if (!committed && endNode.signal && left < 16 && left > 3 && !this.green(endNode, c.hx, c.hz)) target = Math.min(target, Math.max(0, (left - 5) * 0.7));
+      this.tryLane(c, player);
+      if (c.motion) {
+        const m = c.motion;
+        // Braking starts on the approach, rather than after the vehicle yaws.
+        const approach = m.progress < 0 ? Math.max(0, m.startS - c.s) : 0;
+        target = Math.min(target, Math.sqrt(m.cap * m.cap + 2 * (c.group === 'bus' || c.group === 'truck' ? 2 : 3) * approach));
+        if (m.progress < 0 && m.node && !this.green(endNode, c.hx, c.hz)) target = Math.min(target, Math.max(0, (approach - 0.2) * 0.8));
+      } else if (c.stopS !== undefined) target = Math.min(target, Math.sqrt(4 * Math.max(0, c.stopS - c.s)));
       c.speed += Math.max(-9 * dt, Math.min(3.2 * dt, target - c.speed));
-      c.s += c.speed * dt;
-      c.lane += Math.max(-1.4 * dt, Math.min(1.4 * dt, c.laneT - c.lane));
-      if (c.s >= c.edge.len) {
-        const opts = endNode.out.filter((o) => o.edge !== c.edge && (WEIGHT[o.edge.e.cls] || 0) > 0.1);
-        const nxt = opts.length ? opts[Math.floor(this.r() * opts.length)] : endNode.out.find((o) => o.edge === c.edge) || null;
-        if (!nxt) { this.scene.remove(c.g); this.cars.splice(i, 1); continue; }
-        c.s -= c.edge.len; c.edge = nxt.edge; c.dir = nxt.dir;
-        c.base = c.laneT = c.lane = this.pickLane(c.edge, c.size[0], c.group); c.filtering = false; c.dwell = 0;
-      }
-      const wob = c.group === 'bike' && !c.filtering ? Math.sin(this.t * 1.1 + c.wob) * 0.3 : 0;
-      const p = this.graph.pointAt(c.edge, Math.min(c.s, c.edge.len), c.dir, c.lane + wob);
-      c.x += (p.x - c.x) * Math.min(1, dt * 10); c.z += (p.z - c.z) * Math.min(1, dt * 10); c.y = p.y;
-      c.hx = p.hx; c.hz = p.hz;
-      c.g.position.set(c.x, c.y + 0.02, c.z);
-      c.g.rotation.y = Math.atan2(-p.hx, -p.hz) + (c.laneT - c.lane) * 0.12;
+      this.advance(c, c.speed * dt, player, walkers);
     }
   }
   // Hide the whole vehicle whenever its oriented body crosses the camera-car
   // sightline. A bus nose can obstruct the view while its centre is far to one side.
   hideNear(cam: THREE.Vector3, tgt?: { x: number; y: number; z: number }) {
     for (const c of this.cars) {
-      // Lane-changing adds a visual yaw on top of the road tangent.
+      // The rendered body and collision body share the path tangent.
       const body = { x: c.x, y: c.y, z: c.z, size: c.size, hx: -Math.sin(c.g.rotation.y), hz: -Math.cos(c.g.rotation.y) };
       c.g.visible = !segmentHitsVehicle(cam, cam, body, 1.2) && !(tgt && segmentHitsVehicle(cam, tgt, body, 0.6));
     }

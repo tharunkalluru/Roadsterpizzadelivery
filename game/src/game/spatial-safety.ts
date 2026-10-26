@@ -1,11 +1,14 @@
 import type { CityData, Wall } from '../world/city';
 import { pointInRing } from '../world/city';
-import type { RoadGraph } from './roadgraph';
+import type { RoadGraph, GEdge } from './roadgraph';
 import { nearbyBuildings, supportAt } from './physics';
+import { isORR, isRamp, travelDirection } from '../world/expressway';
+import type { RoadEdge } from '../world/types';
 
 interface Point { x: number; y: number; z: number }
 export interface VehicleBounds extends Point { hx: number; hz: number; size: number[] }
 export interface StreetSpot extends Point { yaw: number }
+export interface StreetSpotOptions { preferMajor?: boolean; heading?: { x: number; z: number }; vehicles?: VehicleBounds[] }
 
 function segmentDistance(x: number, z: number, ax: number, az: number, bx: number, bz: number) {
   const dx = bx - ax, dz = bz - az;
@@ -150,7 +153,7 @@ export function streetFootprintClear(city: CityData, p: Point, hx: number, hz: n
 }
 
 export function findClearStreetSpot(graph: RoadGraph, city: CityData, x: number, z: number,
-  options: { preferMajor?: boolean; heading?: { x: number; z: number }; vehicles?: VehicleBounds[] } = {}): StreetSpot | null {
+  options: StreetSpotOptions = {}): StreetSpot | null {
   const allowed = new Set(['trunk', 'primary', 'secondary', 'tertiary', 'unclassified', 'residential', 'unknown', 'primary_link', 'secondary_link', 'tertiary_link', 'living_street', 'service']);
   const projections: { g: ReturnType<RoadGraph['nearestEdges']>[number]; s: number; d: number }[] = [];
   for (const g of graph.nearestEdges(x, z, 10)) {
@@ -185,6 +188,120 @@ export function findClearStreetSpot(graph: RoadGraph, city: CityData, x: number,
         }
         if (clear) best = { x: p.x, y: p.y, z: p.z, yaw: Math.atan2(-p.hx, -p.hz), score };
       }
+    }
+  }
+  if (!best) return null;
+  const { score: _, ...spot } = best; return spot;
+}
+
+interface RecoveryRoadPoint { g: GEdge; s: number; dir: 1 | -1 }
+const recoveryExpressway = (e: RoadEdge) => isORR(e) || e.expressway?.ramp === true;
+
+// Follow only an unambiguous directed continuation of this carriageway. Nearby
+// service roads, the opposite carriageway and an exit ramp are not continuations.
+function recoveryRoadPoint(graph: RoadGraph, start: RecoveryRoadPoint, distance: number, allowed?: Set<string>): RecoveryRoadPoint | null {
+  let { g, dir } = start, s = (dir === 1 ? start.s : g.len - start.s) + distance;
+  const seen = new Set<GEdge>();
+  for (let tries = 0; tries < 12; tries++) {
+    allowed?.add(g.e.id);
+    if (s >= 0 && s <= g.len) return { g, s: dir === 1 ? s : g.len - s, dir };
+    seen.add(g);
+    const forward = s > g.len, nodeId = (dir === 1) === forward ? g.to : g.from;
+    const end = graph.pointAt(g, forward ? g.len : 0, dir), node = graph.nodes.get(nodeId);
+    if (!node) return null;
+    const candidates: RecoveryRoadPoint[] = [];
+    for (const candidate of graph.nearestEdges(node.x, node.z, 1)) {
+      if (seen.has(candidate) || !recoveryExpressway(candidate.e) || !candidate.e.oneway || isRamp(candidate.e) !== isRamp(g.e)) continue;
+      const nd = travelDirection(candidate.e);
+      const join = (nd === 1) === forward ? candidate.from : candidate.to;
+      if (join !== nodeId) continue;
+      const p = graph.pointAt(candidate, forward ? 0 : candidate.len, nd);
+      if (Math.hypot(p.x - end.x, p.z - end.z) > 1.5 || Math.abs(p.y - end.y) > 0.55 || p.hx * end.hx + p.hz * end.hz < 0.75) continue;
+      candidates.push({ g: candidate, dir: nd, s: 0 });
+    }
+    if (candidates.length !== 1) return null;
+    const oldLen = g.len; ({ g, dir } = candidates[0]); s = forward ? s - oldLen : g.len + s;
+  }
+  return null;
+}
+
+function recoveryLane(g: GEdge, index: number) {
+  const e = g.e, lanes = Math.max(1, Math.min(4, e.expressway?.throughLanes || e.lanes || 4));
+  const left = e.w / 2 - (e.expressway?.shoulders?.[0] ?? 2.5);
+  const right = -e.w / 2 + (e.expressway?.shoulders?.[1] ?? 1);
+  const width = e.expressway?.laneWidth || (left - right) / lanes;
+  if (index >= lanes || width < 2.5) return null;
+  const lane = left - (index + 0.5) * width;
+  return lane - 1.15 >= right && lane + 1.15 <= left ? lane : null;
+}
+
+function recoveryFootprintClear(city: CityData, p: Point, hx: number, hz: number, allowed: Set<string>, vehicles: VehicleBounds[]) {
+  const loadedRoad = (x: number, z: number) => {
+    const sup = supportAt(city, x, z, p.y + 0.3, true), s = sup.s;
+    if (!s?.e || !sup.onRoad || !allowed.has(s.e.id) || Math.abs(sup.y - p.y) > 1) return null;
+    // An auxiliary lane shifts the rendered Surface centre outward. Through
+    // lanes remain referenced to the original mapped carriageway centreline.
+    const a = s.e.pts[s.i], b = s.e.pts[s.i + 1]; if (!a || !b) return null;
+    const d = segmentDistance(x, z, ...a, ...b);
+    const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, dir = travelDirection(s.e);
+    const tx = (b[0] - a[0]) / len * dir, tz = (b[1] - a[1]) / len * dir;
+    const lateral = (x - a[0] - (b[0] - a[0]) * d.t) * tz - (z - a[1] - (b[1] - a[1]) * d.t) * tx;
+    const left = s.e.w / 2 - (s.e.expressway?.shoulders?.[0] ?? 2.5), right = -s.e.w / 2 + (s.e.expressway?.shoulders?.[1] ?? 1);
+    if (lateral < right + 0.05 || lateral > left - 0.05) return null;
+    return sup.y;
+  };
+  // Support the entire car inside the through carriageway, not a shoulder or
+  // the ground road beneath it. Road height is local to each point on a grade.
+  for (const along of [-2.4, 0, 2.4]) for (const side of [-1.1, 0, 1.1]) {
+    if (loadedRoad(p.x + hx * along + hz * side, p.z + hz * along - hx * side) === null) return false;
+  }
+  for (const along of [-1.25, 0, 1.25]) {
+    const x = p.x + hx * along, z = p.z + hz * along, y = loadedRoad(x, z);
+    if (y === null) return false;
+    const at = { x, z, y: y + 0.75 };
+    if (staticSolidAt(city, at, 1.15, 0.6) || vehicles.some(c => segmentHitsVehicle(at, at, c, 1.15))) return false;
+  }
+  return true;
+}
+
+// Recovery is different from choosing a new starting area: a barrier scrape on
+// the ORR must never be answered by gliding to a ground-level service road.
+// `roadY` is the car's contact height (player.pos.y - 0.55), not its roof height.
+export function findClearRecoverySpot(graph: RoadGraph, city: CityData, x: number, z: number, roadY: number,
+  options: StreetSpotOptions = {}): StreetSpot | null {
+  let current: (RecoveryRoadPoint & { score: number }) | null = null;
+  for (const g of graph.nearestEdges(x, z, 1)) {
+    if (!recoveryExpressway(g.e)) continue;
+    for (let i = 1; i < g.e.pts.length; i++) {
+      const a = g.e.pts[i - 1], b = g.e.pts[i], q = segmentDistance(x, z, ...a, ...b);
+      const s = g.cum[i - 1] + (g.cum[i] - g.cum[i - 1]) * q.t;
+      const dir = travelDirection(g.e), p = graph.pointAt(g, dir === 1 ? s : g.len - s, dir);
+      const height = Math.abs(p.y - roadY);
+      if (height > 1.05 || q.d > g.e.w / 2 + 1.5) continue;
+      const score = q.d + height * 5;
+      if (!current || score < current.score) current = { g, s, dir, score };
+    }
+  }
+  if (!current) return findClearStreetSpot(graph, city, x, z, options);
+  if (!current.g.e.oneway) return null; // unknown expressway direction cannot authorize a ground-road fallback
+  const allowed = new Set<string>([current.g.e.id]);
+  recoveryRoadPoint(graph, current, -60, allowed); recoveryRoadPoint(graph, current, 60, allowed);
+  let best: (StreetSpot & { score: number }) | null = null;
+  for (const shift of [0, 6, -6, 12, -12, 24, -24, 36, -36, 48, -48]) {
+    const at = recoveryRoadPoint(graph, current, shift); if (!at) continue;
+    for (let laneIndex = 0; laneIndex < 4; laneIndex++) {
+      const lane = recoveryLane(at.g, laneIndex); if (lane === null) continue;
+      const p = graph.pointAt(at.g, at.dir === 1 ? at.s : at.g.len - at.s, at.dir, lane);
+      const score = Math.hypot(p.x - x, p.z - z);
+      if (best && score >= best.score) continue;
+      let clear = true;
+      for (const ahead of [0, 2, 4, 6, 8]) {
+        const exit = recoveryRoadPoint(graph, at, ahead); if (!exit) { clear = false; break; }
+        const offset = recoveryLane(exit.g, laneIndex); if (offset === null) { clear = false; break; }
+        const step = graph.pointAt(exit.g, exit.dir === 1 ? exit.s : exit.g.len - exit.s, exit.dir, offset);
+        if (!recoveryFootprintClear(city, step, step.hx, step.hz, allowed, options.vehicles || [])) { clear = false; break; }
+      }
+      if (clear) best = { x: p.x, y: p.y, z: p.z, yaw: Math.atan2(-p.hx, -p.hz), score };
     }
   }
   if (!best) return null;

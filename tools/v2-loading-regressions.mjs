@@ -159,7 +159,7 @@ try {
       terminate() { this.terminated = true; }
     };
     try {
-      const w = fakeWorld(); w.opts = { lowQ: true }; w.core = { origin: { lat: 17.4, lon: 78.5 } };
+      const w = fakeWorld(); w.opts = { lowQ: true }; w.core = { origin: { lat: 17.4, lon: 78.5 }, packs: [] };
       const retired = w.makeWorker(), current = w.makeWorker(); w.worker = current;
       retired.onmessage({ data: { type: 'empty', key: '0_0', requestId: 1 } });
       retired.onerror({ preventDefault() { throw new Error('retired event was not ignored'); } });

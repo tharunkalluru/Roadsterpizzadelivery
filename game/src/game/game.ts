@@ -21,7 +21,7 @@ import { MetroTrains } from './metro';
 import { RailTrains } from './rail';
 import { Sound } from './audio';
 import { supportAt } from './physics';
-import { findClearStreetSpot, staticSolidAt, clearCameraPosition } from './spatial-safety';
+import { findClearStreetSpot, findClearRecoverySpot, staticSolidAt, clearCameraPosition } from './spatial-safety';
 import { LADDER, TheatreDef, Lease, Film, FILMS, makeSlate, simulateDay, PRICES, CAMPAIGNS, projection, CINEMA_CONST } from './cinema';
 
 // the city opens up as you level: early orders stay in the neighbourhood, later ones cross Hyderabad
@@ -75,7 +75,7 @@ export class Game {
     this.graph = new RoadGraph(zone.roads, []);
     this.player = new Player(city, engine.mats);
     this.player.addTo(engine.scene);
-    this.traffic = new Traffic(this.graph, engine.scene, engine.mats, opts.lowQ ? 32 : 55, city.busStops);
+    this.traffic = new Traffic(this.graph, engine.scene, engine.mats, opts.lowQ ? 32 : 55, city.busStops, city);
     this.metro = new MetroTrains(zone.metro as any, { body: engine.mats.vBody, lights: engine.mats.vLight }); engine.scene.add(this.metro.group);
     this.rail = new RailTrains(engine.mats.vBody); engine.scene.add(this.rail.group);
     this.traffic.onHorn = (kind, x, z) => {
@@ -647,15 +647,20 @@ export class Game {
     setTimeout(() => this.map?.build().catch(() => {}), 4000);   // the city map is ready before anyone opens it
     this.queueOffer(2200);
   }
-  // A loaded ground street with room for the whole car and a clear forward exit.
+  // Recover on the current expressway carriageway, or on a loaded ground street.
   streetSpotNear(x: number, z: number): { x: number; z: number; y: number; yaw: number } | null {
-    return findClearStreetSpot(this.graph, this.city, x, z, { heading: this.player.forward, vehicles: this.traffic.cars });
+    return findClearRecoverySpot(this.graph, this.city, x, z, this.player.pos.y - .55, { heading: this.player.forward, vehicles: this.traffic.cars });
   }
+  recoveryRetryUntil = 0;
   rescue() {
-    if (this.player.glide) return;
+    if (this.player.glide || this.t < this.recoveryRetryUntil) return;
     const P = this.player.pos, s = this.streetSpotNear(P.x, P.z);
-    if (!s) { this.hud.toast('No clear street nearby yet. Try again once the area loads.', 'pink'); return; }
-    this.player.glideTo(s.x, s.y, s.z, s.yaw); this.stuckT = 0; this.hud.rescue(false);
+    if (!s) {
+      this.recoveryRetryUntil = this.t + 3; this.stuckT = 0; this.slowT = 0;
+      this.hud.toast('No clear road space yet. Wait for traffic or this area to load, then try again.', 'pink'); return;
+    }
+    this.recoveryRetryUntil = 0; this.stuckT = 0; this.slowT = 0;
+    this.player.glideTo(s.x, s.y, s.z, s.yaw); this.hud.rescue(false);
     this.hud.toast('Back to the street!', 'teal');
   }
   // stuck watch: pressing on without getting anywhere, or parked on a roof
@@ -818,7 +823,7 @@ export class Game {
     const P = this.player.pos;
     this.city.update(P.x, P.z, dt);
     if ((this.busyT -= dt) <= 0) { this.busyT = 1; this.setStreetLife(P.x, P.z); }
-    this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed }, this.walkers.list);
+    this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, hx: this.player.forward.x, hz: this.player.forward.z }, this.walkers.list);
     this.metro.update(dt, P.x, P.z);
     this.rail.update(dt, P.x, P.z, this.city.rails);
     const fw = this.player.forward;

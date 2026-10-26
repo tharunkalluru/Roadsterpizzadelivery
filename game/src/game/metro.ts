@@ -1,86 +1,155 @@
 import * as THREE from 'three';
 import { metroTrain } from '../world/vehicles';
+import { metroCorridors, projectMetroPath, sampleMetroPath, MetroPath, MetroTrack, MetroCorridor, MetroLineInput } from '../world/metro-geometry';
 import type { XZ } from '../world/types';
 
-// Metro trains running on the viaducts: each line part carries trains both ways on its own track, braking into every
-// station, dwelling with doors open, then pulling away. Only the trains near the player get a mesh.
-interface Run { pts: XZ[]; cum: number[]; len: number; stops: number[]; color: string }
-interface Train { run: Run; s: number; dir: 1 | -1; v: number; dwell: number; next: number; mesh: THREE.Group | null }
-const VMAX = 22, ACC = 1.0, DWELL = 18, TRACK = 1.95, NEAR = 1300;
+interface Run {
+  corridor: MetroCorridor; track: MetroTrack; path: MetroPath; dir: 1 | -1;
+  min: number; max: number; stops: number[]; peer: Run;
+}
+interface Train { run: Run; s: number; v: number; dwell: number; next: number; terminal: boolean; mesh: THREE.Group | null }
+interface CoachGeometry { body: THREE.BufferGeometry; lights: THREE.BufferGeometry }
+const VMAX = 22, ACC = 1, BRAKE = 1.5, DWELL = 18, NEAR = 1300;
+export const METRO_TRAIN_LENGTH = 69, METRO_HEADWAY_GAP = 28;
+const COACH_SPACING = 22.1, FRONT = (METRO_TRAIN_LENGTH - COACH_SPACING * 2) / 2, END_CLEARANCE = 5;
+
+// Split the existing three-coach model at its coach centres, retaining its cabs, colours and lights.
+// Each coach can then follow the same curved rail geometry instead of rotating the entire rake at once.
+function coachGeometries(source: THREE.BufferGeometry) {
+  const attrs = ['position', 'normal', 'uv', 'color'];
+  const parts = Array.from({ length: 3 }, () => Object.fromEntries(attrs.map((name) => [name, [] as number[]])));
+  const pos = source.getAttribute('position');
+  for (let i = 0; i < pos.count; i += 3) {
+    const z = (pos.getZ(i) + pos.getZ(i + 1) + pos.getZ(i + 2)) / 3;
+    const coach = Math.max(0, Math.min(2, Math.round(z / COACH_SPACING)));
+    for (const name of attrs) {
+      const attr = source.getAttribute(name), values = parts[coach][name];
+      for (let j = i; j < i + 3; j++) for (let c = 0; c < attr.itemSize; c++)
+        values.push(attr.array[j * attr.itemSize + c] - (name === 'position' && c === 2 ? coach * COACH_SPACING : 0));
+    }
+  }
+  source.dispose();
+  return parts.map((part) => {
+    const geometry = new THREE.BufferGeometry();
+    for (const name of attrs) geometry.setAttribute(name, new THREE.Float32BufferAttribute(part[name], name === 'uv' ? 2 : 3));
+    geometry.computeBoundingBox(); geometry.computeBoundingSphere(); return geometry;
+  });
+}
 
 export class MetroTrains {
-  group = new THREE.Group(); trains: Train[] = []; pool: THREE.Group[] = []; geo: { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; length: number } | null = null;
-  constructor(metro: { lines: { id: string; color?: string; pts: XZ[] }[]; stations: { p: XZ }[]; deckHeight: number }, public mats: { body: THREE.Material; lights: THREE.Material }) {
+  group = new THREE.Group(); trains: Train[] = []; runs: Run[] = []; pool: THREE.Group[] = [];
+  geo: { coaches: CoachGeometry[]; length: number } | null = null;
+  dh: number;
+  constructor(metro: { lines: MetroLineInput[]; stations: { p: XZ; lines?: string[] }[]; deckHeight: number }, public mats: { body: THREE.Material; lights: THREE.Material }) {
     this.dh = metro.deckHeight || 11;
-    for (const line of metro.lines) {
-      if (line.pts.length < 2) continue;
-      const cum = [0]; for (let i = 1; i < line.pts.length; i++) cum.push(cum[i - 1] + Math.hypot(line.pts[i][0] - line.pts[i - 1][0], line.pts[i][1] - line.pts[i - 1][1]));
-      const len = cum[cum.length - 1]; if (len < 400) continue;
-      // stations along this run, by distance along it
-      const stops: number[] = [];
-      for (const st of metro.stations) {
-        let bd = 1e9, bs = 0;
-        for (let i = 0; i < line.pts.length - 1; i++) {
-          const [ax, az] = line.pts[i], [bx, bz] = line.pts[i + 1], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1;
-          const t = Math.max(0, Math.min(1, ((st.p[0] - ax) * dx + (st.p[1] - az) * dz) / L2)), d = Math.hypot(st.p[0] - ax - dx * t, st.p[1] - az - dz * t);
-          if (d < bd) { bd = d; bs = cum[i] + Math.sqrt(L2) * t; }
+    for (const corridor of metroCorridors(metro.lines)) {
+      if (corridor.center.len < 400) continue;
+      const pair = corridor.tracks.map((track): Run => {
+        const dir = track.dir, path = track.path;
+        // s is the leading nose. Keep all three coaches within the finite track.
+        const min = dir > 0 ? METRO_TRAIN_LENGTH + END_CLEARANCE : END_CLEARANCE;
+        const max = dir > 0 ? path.len - END_CLEARANCE : path.len - METRO_TRAIN_LENGTH - END_CLEARANCE;
+        const stops = [min, max];
+        for (const station of metro.stations) {
+          if (station.lines?.length && !station.lines.includes(corridor.lineId)) continue;
+          const projection = projectMetroPath(path, station.p);
+          if (projection.d < 60) stops.push(Math.max(min, Math.min(max, projection.s + dir * METRO_TRAIN_LENGTH / 2)));
         }
-        if (bd < 60) stops.push(bs);
-      }
-      stops.sort((a, b) => a - b);
-      if (!stops.length || stops[0] > 30) stops.unshift(0);
-      if (stops[stops.length - 1] < len - 30) stops.push(len);
-      const run: Run = { pts: line.pts, cum, len, stops, color: line.color || '#3B7BF0' };
-      // one train every ~2.4 km each way, spread along the run
-      const n = Math.max(1, Math.round(len / 2400));
-      for (let k = 0; k < n; k++) for (const dir of [1, -1] as const) {
-        const s = ((k + (dir > 0 ? 0.25 : 0.75)) / n) * len;
-        this.trains.push({ run, s, dir, v: VMAX * 0.8, dwell: 0, next: this.nextStop(run, s, dir), mesh: null });
+        stops.sort((a, b) => a - b);
+        return { corridor, track, path, dir, min, max, stops: stops.filter((s, i) => !i || s - stops[i - 1] > 2), peer: null! };
+      });
+      pair[0].peer = pair[1]; pair[1].peer = pair[0]; this.runs.push(...pair);
+      for (const run of pair) {
+        const n = Math.max(1, Math.round(run.path.len / 2400));
+        for (let k = 0; k < n; k++) {
+          const s = run.min + (k + (run.dir > 0 ? 0.25 : 0.75)) / n * (run.max - run.min);
+          this.trains.push({ run, s, v: 0, dwell: 0, next: this.nextStop(run, s), terminal: false, mesh: null });
+        }
       }
     }
   }
-  dh: number;
-  nextStop(run: Run, s: number, dir: 1 | -1) {
-    if (dir > 0) { for (const x of run.stops) if (x > s + 1) return x; return run.len; }
-    for (let i = run.stops.length - 1; i >= 0; i--) if (run.stops[i] < s - 1) return run.stops[i];
-    return 0;
+  nextStop(run: Run, s: number) {
+    if (run.dir > 0) { for (const stop of run.stops) if (stop > s + 0.2) return stop; return run.max; }
+    for (let i = run.stops.length - 1; i >= 0; i--) if (run.stops[i] < s - 0.2) return run.stops[i];
+    return run.min;
   }
-  at(run: Run, s: number) {
-    let i = 1; while (i < run.pts.length - 1 && run.cum[i] < s) i++;
-    const a = run.pts[i - 1], b = run.pts[i], seg = run.cum[i] - run.cum[i - 1] || 1, u = Math.max(0, Math.min(1, (s - run.cum[i - 1]) / seg));
-    return { x: a[0] + (b[0] - a[0]) * u, z: a[1] + (b[1] - a[1]) * u, hx: (b[0] - a[0]) / seg, hz: (b[1] - a[1]) / seg };
+  at(run: Run, s: number) { return sampleMetroPath(run.path, s); }
+  private releaseMesh(train: Train) {
+    if (train.mesh) { this.group.remove(train.mesh); this.pool.push(train.mesh); train.mesh = null; }
   }
-  mesh(color: string) {
-    if (!this.geo) { const t = metroTrain(3); this.geo = { body: t.body.geometry(), lights: t.lights.geometry(), length: t.length }; }
-    const g = this.pool.pop() || (() => { const m = new THREE.Group(); const b = new THREE.Mesh(this.geo!.body, this.mats.body); b.castShadow = true; m.add(b, new THREE.Mesh(this.geo!.lights, this.mats.lights)); return m; })();
-    void color; this.group.add(g); return g;
+  mesh() {
+    if (!this.geo) {
+      const model = metroTrain(3), body = coachGeometries(model.body.geometry()), lights = coachGeometries(model.lights.geometry());
+      this.geo = { coaches: body.map((geometry, i) => ({ body: geometry, lights: lights[i] })), length: METRO_TRAIN_LENGTH };
+    }
+    const group = this.pool.pop() || (() => {
+      const root = new THREE.Group();
+      for (const geometry of this.geo!.coaches) {
+        const coach = new THREE.Group(), body = new THREE.Mesh(geometry.body, this.mats.body);
+        body.castShadow = true; coach.add(body, new THREE.Mesh(geometry.lights, this.mats.lights)); root.add(coach);
+      }
+      return root;
+    })();
+    this.group.add(group); return group;
+  }
+  private turnback(train: Train, px: number, pz: number) {
+    const peer = train.run.peer, entry = peer.dir > 0 ? peer.min : peer.max;
+    const before = this.at(train.run, train.s - train.run.dir * METRO_TRAIN_LENGTH / 2);
+    const after = this.at(peer, entry - peer.dir * METRO_TRAIN_LENGTH / 2);
+    // The source has no verified crossover geometry. Never invent an on-screen lateral jump or reverse in a live track.
+    // A watched terminal train waits; its opposite-direction service resumes only outside the visible area.
+    if (Math.hypot(before.x - px, before.z - pz) < NEAR + 100 || Math.hypot(after.x - px, after.z - pz) < NEAR + 100) return;
+    if (this.trains.some((other) => other !== train && other.run === peer && Math.abs(other.s - entry) < METRO_TRAIN_LENGTH + METRO_HEADWAY_GAP)) return;
+    this.releaseMesh(train);
+    train.run = peer; train.s = entry; train.v = 0; train.terminal = false; train.next = this.nextStop(peer, entry);
   }
   update(dt: number, px: number, pz: number) {
-    for (const t of this.trains) {
-      const run = t.run;
-      if (t.dwell > 0) {
-        t.dwell -= dt;
-        if (t.dwell <= 0) {
-          if ((t.dir > 0 && t.s >= run.len - 1) || (t.dir < 0 && t.s <= 1)) t.dir = (t.dir > 0 ? -1 : 1) as 1 | -1;   // end of the line: reverse
-          t.next = this.nextStop(run, t.s, t.dir);
+    dt = Math.max(0, Math.min(0.1, dt));
+    for (const train of this.trains) if (train.terminal) {
+      train.dwell = Math.max(0, train.dwell - dt);
+      if (!train.dwell) this.turnback(train, px, pz);
+    }
+    for (const run of this.runs) {
+      // Leading trains update first; followers cannot overtake or enter an occupied platform.
+      const queue = this.trains.filter((train) => train.run === run).sort((a, b) => (b.s - a.s) * run.dir);
+      let leader: Train | null = null;
+      for (const train of queue) {
+        if (!train.terminal) {
+          if (train.dwell > 0) {
+            train.dwell = Math.max(0, train.dwell - dt);
+            if (!train.dwell) train.next = this.nextStop(run, train.s);
+          } else {
+            const stationDistance = Math.max(0, (train.next - train.s) * run.dir);
+            const clearDistance = leader ? Math.max(0, (leader.s - train.s) * run.dir - METRO_TRAIN_LENGTH - METRO_HEADWAY_GAP) : Infinity;
+            const brakingDistance = Math.min(stationDistance, clearDistance);
+            const want = Math.min(VMAX, Math.sqrt(2 * BRAKE * Math.max(0, brakingDistance - 0.1)));
+            train.v += Math.max(-BRAKE * dt, Math.min(ACC * dt, want - train.v));
+            const step = Math.min(stationDistance, clearDistance, Math.max(0, train.v) * dt);
+            train.s += run.dir * step;
+            if (step < train.v * dt) train.v = dt ? step / dt : 0;
+            if (stationDistance - step < 0.15 && stationDistance <= clearDistance) {
+              train.s = train.next; train.v = 0; train.dwell = DWELL;
+              train.terminal = Math.abs(train.s - (run.dir > 0 ? run.max : run.min)) < 0.2;
+            }
+          }
         }
-      } else {
-        const d = Math.abs(t.next - t.s), want = Math.min(VMAX, Math.sqrt(2 * ACC * Math.max(0, d - 0.5)));
-        t.v += Math.max(-ACC * 1.5 * dt, Math.min(ACC * dt, want - t.v));
-        t.s += t.dir * Math.min(d, Math.max(0.4, t.v) * dt);
-        if (d < 0.6) { t.s = t.next; t.v = 0; t.dwell = DWELL; }
+        leader = train;
       }
-      // meshes for trains near the player only
-      const p = this.at(run, t.s), near = Math.hypot(p.x - px, p.z - pz) < NEAR;
-      if (near && !t.mesh) t.mesh = this.mesh(run.color);
-      if (!near && t.mesh) { this.group.remove(t.mesh); this.pool.push(t.mesh); t.mesh = null; }
-      if (t.mesh) {
-        // the train's middle sits at s; it runs on the left track of its direction (Indian practice)
-        const off = TRACK * (t.dir > 0 ? -1 : 1), nx = -p.hz, nz = p.hx;
-        const L = this.geo!.length, mid = this.at(run, t.s - t.dir * L * 0.0);
-        const yaw = Math.atan2(p.hx * t.dir, p.hz * t.dir);
-        t.mesh.position.set(mid.x + nx * off - Math.sin(yaw) * (L / 2 - 11), this.dh + 0.95, mid.z + nz * off - Math.cos(yaw) * (L / 2 - 11));
-        t.mesh.rotation.set(0, yaw, 0);
+    }
+    for (const train of this.trains) {
+      const run = train.run, center = this.at(run, train.s - run.dir * METRO_TRAIN_LENGTH / 2);
+      const near = Math.hypot(center.x - px, center.z - pz) < NEAR;
+      if (near && !train.mesh) train.mesh = this.mesh();
+      if (!near) this.releaseMesh(train);
+      if (train.mesh) {
+        train.mesh.position.set(center.x, this.dh + 0.95, center.z);
+        for (let k = 0; k < 3; k++) {
+          const p = sampleMetroPath(run.path, train.s - run.dir * (FRONT + k * COACH_SPACING), 8);
+          const coach = train.mesh.children[k];
+          coach.position.set(p.x - center.x, 0, p.z - center.z);
+          // The existing model's cab faces local -z.
+          coach.rotation.set(0, Math.atan2(-p.hx * run.dir, -p.hz * run.dir), 0);
+        }
       }
     }
   }

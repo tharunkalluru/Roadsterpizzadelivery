@@ -7,6 +7,7 @@ Run: python3 osm_extract.py
 """
 import json, os, re
 import osmium
+from osm_path_kind import path_kind
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PBF = os.path.join(HERE, 'raw', 'osm_pbf', 'telangana-latest.osm.pbf')
@@ -22,8 +23,8 @@ def inside(lat, lon): return S <= lat <= N and W <= lon <= E
 
 def kind_of(t):
     h = t.get('highway'); r = t.get('railway'); a = t.get('amenity'); pt = t.get('public_transport')
-    if h in ('footway', 'path', 'steps', 'pedestrian', 'cycleway', 'corridor') and (t.get('bridge') not in (None, 'no') or t.get('tunnel') not in (None, 'no') or t.get('covered') == 'yes' or (t.get('layer') or '0') not in ('0', '')):
-        return 'footbridge' if t.get('tunnel') in (None, 'no') else 'subway'
+    path = path_kind(t)
+    if path: return path
     if h and t.get('tunnel') not in (None, 'no'): return 'underpass'
     if r in ('rail', 'subway', 'light_rail', 'narrow_gauge', 'monorail'): return 'rail'
     if r in ('station', 'halt') or (pt == 'station' and (t.get('train') == 'yes' or t.get('subway') == 'yes' or t.get('light_rail') == 'yes' or r)) or t.get('building') == 'train_station':
@@ -54,7 +55,7 @@ class H(osmium.SimpleHandler):
     def node(self, n):
         if not n.tags or not n.location.valid() or not inside(n.location.lat, n.location.lon): return
         t = {x.k: x.v for x in n.tags}; k = kind_of(t)
-        if not k or k in ('rail', 'footbridge', 'subway', 'underpass', 'water', 'waterway', 'park', 'bridge_area', 'platform'): return
+        if not k or k in ('rail', 'footbridge', 'covered_path', 'subway', 'underpass', 'water', 'waterway', 'park', 'bridge_area', 'platform'): return
         self.out.append(dict(id=f'n{n.id}', kind=k, tags=self.tags(n), pt=[round(n.location.lat, 7), round(n.location.lon, 7)]))
     def way(self, w):
         if not w.tags: return
@@ -64,13 +65,13 @@ class H(osmium.SimpleHandler):
         except osmium.InvalidLocationError: return
         if not pts or not any(inside(a, b) for a, b in pts): return
         closed = w.is_closed() and len(pts) > 3
-        line_kinds = ('rail', 'footbridge', 'subway', 'underpass', 'waterway')
+        line_kinds = ('rail', 'footbridge', 'covered_path', 'subway', 'underpass', 'waterway')
         if k in line_kinds or not closed:
             self.out.append(dict(id=f'w{w.id}', kind=k, tags=self.tags(w), line=pts))
         # closed ways that are areas are taken from the area callback instead
     def area(self, a):
         t = {x.k: x.v for x in a.tags}; k = kind_of(t)
-        if not k or k in ('rail', 'footbridge', 'subway', 'underpass', 'bus_stop', 'entrance', 'toll'): return
+        if not k or k in ('rail', 'footbridge', 'covered_path', 'subway', 'underpass', 'bus_stop', 'entrance', 'toll'): return
         if k == 'waterway' and t.get('waterway') not in ('riverbank',): return
         rings = []
         for outer in a.outer_rings():

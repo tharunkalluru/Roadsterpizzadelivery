@@ -1,0 +1,101 @@
+{
+  "sources": [
+    {
+      "id": "jagannath-owner",
+      "sourceUrl": "https://www.shrijagannathtemplehyderabad.com/architecture-devalayams.html",
+      "capturedOn": null,
+      "reviewedOn": "2026-10-26",
+      "attribution": "Kalinga Cultural Trust",
+      "license": "Linked owner website; not embedded in game",
+      "originalImageSha256": "fa187a482f201d3adadb7cd97f4a5bfb62cf9a76a2bc878fe5e3e6928c8d4f86",
+      "observations": "Primary owner text:72ft, east facing, eight-spoke Nilachakra; consulted alongside two original photographs.",
+      "confidence": "high for published descriptors; no new survey"
+    },
+    {
+      "id": "jagannath-2017",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jagannath_Temple_Hyderabad.jpg",
+      "capturedOn": "2017-09-10",
+      "reviewedOn": "2026-10-26",
+      "attribution": "Sujeetkumartsr / Sujeet Kumar",
+      "license": "CC BY-SA 4.0 for original Commons photos; owner text remains linked",
+      "originalImageSha256": "971cb5367c65334a0c5e7d94216af12dcdc4cca8b258a634ddf368d7d2101bc4",
+      "observations": "Open eight-spoke finials, red/yellow pennants, stepped pidha roofs, layered tower courses, sandstone appearance.",
+      "confidence": "high for visible silhouette; low for inferred measurements"
+    },
+    {
+      "id": "jagannath-2021",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jagannath_Temple_Hyderabad_India.jpg",
+      "capturedOn": "2021-07-20",
+      "reviewedOn": "2026-10-26",
+      "attribution": "Muralikrishna m / మురళీకృష్ణ ముసునూరి",
+      "license": "CC BY-SA 4.0 for original Commons photos; owner text remains linked",
+      "originalImageSha256": "05970104bde302a03ab73b84e7f32a9caa7d0e12aed920ad543a379f160e1f8f",
+      "observations": "Independent angle confirms open wheel and layered porch roof.",
+      "confidence": "high for visible features; capture date from uploader metadata"
+    },
+    {
+      "id": "gurudwara-2025",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Central_Gurdwara_Saheb,_Hyderabad.jpg",
+      "capturedOn": "2025-10-14",
+      "reviewedOn": "2026-10-26",
+      "attribution": "Kuldeepburjbhalaike; perspective corrections by Gower and Pierre André Leclercq",
+      "license": "CC BY-SA 4.0 for original Commons photos; owner text remains linked",
+      "originalImageSha256": "63fdd8f5e3e8357513cf638ff9e493668a08d3fbbf03d02dc6b7a687321b8e23",
+      "observations": "Raised stairs, stacked three-arch white pavilions, shallow gold domes. Flagcloth is furled; emblem not read.",
+      "confidence": "high for visible facade silhouette; dimensions/bearing unverified"
+    },
+    {
+      "id": "telangana-thalli-official-2024",
+      "sourceUrl": "https://www.telangana.gov.in/gallery/2024/12/chief-minister-sri-a-revanth-reddy-unveiled-telangana-thalli-statue-in-the-secretariat/",
+      "imageUrl": "https://www.telangana.gov.in/wp-content/uploads/2024/12/Telangana-Talli-Statue.jpg",
+      "capturedOn": null,
+      "publishedOn": "2024-12-09",
+      "reviewedOn": "2026-10-26",
+      "attribution": "TG Digital Media / Government of Telangana",
+      "license": "Official source linked for reference; image not packaged into the game",
+      "downloadedImageSha256": "0ed3468a59a66bea3336032a29a0208ee5ad1e5a6f84840d9e03f2e94333989d",
+      "observations": "Upper body visibly confirms green sari/red blouse, raised right palm, left crop bundle; lower portion of downloaded image is grey so no pedestal/height inference is made. Companion official image Telangana-Talli-Statue2.jpg shows the full illustrated pose at the unveiling event.",
+      "confidence": "high for visible garment/pose; no full likeness or metric claim"
+    },
+    {
+      "id": "buddha-2025",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Buddha_Statue_at_the_Hussain_Sagar.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Buddha_Statue_at_the_Hussain_Sagar.jpg",
+      "capturedOn": "2025-10-14",
+      "reviewedOn": "2026-10-26",
+      "attribution": "Kuldeepburjbhalaike",
+      "license": "CC BY-SA 4.0; linked reference photo not packaged into game",
+      "originalImageSha256": "f06d69b9ed05ba895e9728b2b909955020335579f6c26be24028b90d6d25c544",
+      "observations": "Frontal photo clearly shows raised right palm (viewer-left), left hand holding robe near shoulder and pale stone lotus/pedestal, rather than red painted lotus.",
+      "confidence": "high for visible pose and stone colour; precise sculptural details and measurements remain unverified"
+    }
+  ],
+  "blockedOrInsufficient": [
+    {
+      "place": "Secretariat lion-capital ornament",
+      "sources": [
+        "https://hyderabad.telangana.gov.in/",
+        "https://cdn.s3waas.gov.in/s36c524f9d5d7027454a783c841250ba71/uploads/2023/06/2023062710.jpg",
+        "https://www.irc.nic.in/admnis/admin/showimg.aspx?ID=1220",
+        "https://www.ociarchitects.com/secretariat-assembly-buildings/"
+      ],
+      "result": "District exterior photo and IRC presentation downloads time out. Architect project images available but depict the2020 design render; insufficient for actual installed lion-capital detail. Existing gold ornament retained pending usable close-up."
+    },
+    {
+      "place": "Gurdwara flag",
+      "sources": [
+        "https://www.youtube.com/watch?v=pTfZHURC3h4",
+        "https://commons.wikimedia.org/wiki/File:Central_Gurdwara_Saheb,_Hyderabad.jpg"
+      ],
+      "result": "Owner video thumbnail is a street procession, not flag detail. Dated exterior photo has furled cloth. No Khanda or changed colour invented."
+    },
+    {
+      "place": "Taramati Baradari door count",
+      "sources": [
+        "https://www.tourism.telangana.gov.in/customized-taramati-baradari-detailed-view",
+        "https://tgarch.telangana.gov.in/photogallery.aspx"
+      ],
+      "result": "Tourism text describes12 doorways; inspected model has20 implied arch bays and a solid inner block. Official photo links/gallery unavailable in this session, so held for source-photo confirmation."
+    }
+  ]
+}
