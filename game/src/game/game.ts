@@ -7,6 +7,7 @@ import { moodAt } from '../core/sky';
 import { rng, hash } from '../core/util';
 import { labelTexture } from '../world/signs';
 import { Player, Input, ROAD_SPEED_LIMIT, FLIGHT_SPEED_LIMIT } from './player';
+import { planCinemaFront, registerCinemaGroundParts } from './cinema-front';
 import { RoadGraph, GEdge, RoadRoute } from './roadgraph';
 import { advanceRoadRoute, clearRoadGuidance, guidanceRibbon, navigationReadout, softenRoadCorners } from './route-guidance';
 import { metroCorridors } from '../world/metro-geometry';
@@ -19,6 +20,9 @@ import { TitleScreen, goFullscreen, exitFullscreen, isFullscreen, canFullscreen 
 import { loadSettings, saveSettings, settingsHtml, bindSettings, Settings } from '../ui/settings';
 import { Walkers } from './walkers';
 import { MetroTrains } from './metro';
+import { MetroStationLife } from './station-life';
+import { CampusProximity } from '../world/destination-proximity';
+import { DESTINATION_IDENTITIES } from '../world/destination-data';
 import { RailTrains } from './rail';
 import { MovingRailInteraction } from './moving-rail';
 import { fetchPack } from '../world/packs';
@@ -60,6 +64,7 @@ function fmtTime(min: number) { const h = Math.floor(min / 60) % 24, m = Math.fl
 export class Game {
   railContacts = new MovingRailInteraction();
   aircraft!: AirportAircraft;
+  stationLife!: MetroStationLife;
   metro!: MetroTrains; rail!: RailTrains; player!: Player; graph!: RoadGraph; traffic!: Traffic; hud!: Hud; walkers!: Walkers; map: FullMap | null = null; sound = new Sound();
   orbitYaw = 0; orbitPitch = 0.38; orbitDist = 0; dragging = false; halted = false;
   keys = new Set<string>(); flyQueued = false; actHeld = false; actTap = 0;
@@ -94,6 +99,7 @@ export class Game {
       else console.warn('Bus route coordinates do not match this city.');
     }).catch(error => console.warn('Published bus routes could not load; city buses remain unavailable.', error));
     this.metro = new MetroTrains(zone.metro as any, { body: engine.mats.vBody, lights: engine.mats.vLight }); engine.scene.add(this.metro.group);
+    this.stationLife = new MetroStationLife(zone.metro, engine.mats.vBody, { lowQ: opts.lowQ, isStationLoaded: station => city.tiles.has(`${Math.floor(station.p[0] / 1000)}_${Math.floor(station.p[1] / 1000)}`) }); engine.scene.add(this.stationLife.group);
     this.rail = new RailTrains(engine.mats.vBody); engine.scene.add(this.rail.group);
     this.aircraft = new AirportAircraft(zone.origin, { lowQ: opts.lowQ }); engine.scene.add(this.aircraft.group);
     this.traffic.onHorn = (kind, x, z) => {
@@ -207,34 +213,47 @@ export class Game {
     }
   }
   buildCinemaFront(site: TheatreSite, fac: { c: THREE.Vector3; n: THREE.Vector3; w: number; top: number }) {
+    const owner = [...this.city.tiles.values()].find(tile => tile.built.facades.some(f => f.id === site.poi.id));
+    const roads = [...new Map([...this.graph.nearestEdges(fac.c.x, fac.c.z, 2).map(g => g.e), ...(owner?.built.roads || [])].map(e => [e.id, e])).values()];
+    const plan = planCinemaFront(fac, roads, this.zone.metro);
     const grp = new THREE.Group();
     const W = Math.max(7.5, Math.min(fac.w, 17)), n = fac.n.clone().setY(0).normalize();
     grp.position.copy(fac.c).setY(0); grp.lookAt(grp.position.clone().add(n));   // local +z = out of the facade
     const steel = new THREE.MeshStandardMaterial({ color: '#4a4652', roughness: 0.6, metalness: 0.5 });
     const box = (w: number, h: number, d: number, x: number, y: number, z: number, m: THREE.Material) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); o.castShadow = true; grp.add(o); return o; };
     // canopy over the gate with a light strip under it
-    box(W * 0.9, 0.35, 3.2, 0, 3.7, 1.6, new THREE.MeshStandardMaterial({ color: '#7a1d2a', roughness: 0.5 }));
-    box(W * 0.86, 0.05, 0.25, 0, 3.5, 3.05, new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffe6b0').multiplyScalar(1.6), toneMapped: false }));
-    for (const sx of [-1, 1]) box(0.35, 3.6, 0.35, sx * W * 0.42, 1.8, 3.0, steel);
+    if (plan.groups.canopy) {
+      box(W * 0.9, 0.35, 3.2, 0, 3.7, 1.6, new THREE.MeshStandardMaterial({ color: '#7a1d2a', roughness: 0.5 }));
+      box(W * 0.86, 0.05, 0.25, 0, 3.5, 3.05, new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffe6b0').multiplyScalar(1.6), toneMapped: false }));
+      for (const sx of [-1, 1]) box(0.35, 3.6, 0.35, sx * W * 0.42, 1.8, 3.0, steel);
+    }
     // name board with bulbs
     const name = site.def.name.toUpperCase();
-    const nb = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.92, 1.9), new THREE.MeshBasicMaterial({ toneMapped: false, map: marqueeTexture(name) }));
-    nb.position.set(0, 4.95, 0.42); grp.add(nb);
+    if (plan.groups.name) {
+      const nb = new THREE.Mesh(new THREE.PlaneGeometry(W * 0.92, 1.9), new THREE.MeshBasicMaterial({ toneMapped: false, map: marqueeTexture(name) }));
+      nb.position.set(0, 4.95, 0.42); grp.add(nb);
+    }
     // hoarding on a steel frame (rises above low roofs, as cinema cut-outs do)
     const HW = W, HH = W * 0.5, y0 = 6.1;
-    const pm = new THREE.Mesh(new THREE.PlaneGeometry(HW, HH), site.poster);
-    pm.position.set(0, y0 + HH / 2, 0.55); grp.add(pm);
-    box(HW + 0.4, 0.25, 0.3, 0, y0 - 0.1, 0.4, steel); box(HW + 0.4, 0.25, 0.3, 0, y0 + HH + 0.1, 0.4, steel);
-    for (const sx of [-0.5, -0.17, 0.17, 0.5]) box(0.2, HH + 0.5, 0.2, sx * HW, y0 + HH / 2, 0.3, steel);
+    if (plan.groups.poster) {
+      const pm = new THREE.Mesh(new THREE.PlaneGeometry(HW, HH), site.poster);
+      pm.position.set(0, y0 + HH / 2, 0.55); grp.add(pm);
+      box(HW + 0.4, 0.25, 0.3, 0, y0 - 0.1, 0.4, steel); box(HW + 0.4, 0.25, 0.3, 0, y0 + HH + 0.1, 0.4, steel);
+      for (const sx of [-0.5, -0.17, 0.17, 0.5]) box(0.2, HH + 0.5, 0.2, sx * HW, y0 + HH / 2, 0.3, steel);
     // floodlights on arms
-    for (const sx of [-0.33, 0, 0.33]) {
-      box(0.08, 0.08, 1.4, sx * HW, y0 + HH + 0.4, 1.0, steel);
-      box(0.5, 0.25, 0.3, sx * HW, y0 + HH + 0.35, 1.7, new THREE.MeshBasicMaterial({ color: new THREE.Color('#fff4d8').multiplyScalar(2), toneMapped: false }));
+      for (const sx of [-0.33, 0, 0.33]) {
+        box(0.08, 0.08, 1.4, sx * HW, y0 + HH + 0.4, 1.0, steel);
+        box(0.5, 0.25, 0.3, sx * HW, y0 + HH + 0.35, 1.7, new THREE.MeshBasicMaterial({ color: new THREE.Color('#fff4d8').multiplyScalar(2), toneMapped: false }));
+      }
     }
     // ticket counter by the gate
-    box(2.4, 2.2, 1.2, -W * 0.3, 1.1, 0.9, new THREE.MeshStandardMaterial({ color: '#d9cdb5', roughness: 0.8 }));
-    const tk = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 0.55), new THREE.MeshBasicMaterial({ toneMapped: false, map: labelTexture([{ text: 'TICKETS', font: '{s}px "Bungee", sans-serif', color: '#ffffff', size: 70 }], 512, 128, '#B3202A', '#FFB627') }));
-    tk.position.set(-W * 0.3, 2.45, 1.52); grp.add(tk);
+    if (plan.groups.counter) {
+      box(2.4, 2.2, 1.2, -W * 0.3, 1.1, 0.9, new THREE.MeshStandardMaterial({ color: '#d9cdb5', roughness: 0.8 }));
+      const tk = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 0.55), new THREE.MeshBasicMaterial({ toneMapped: false, map: labelTexture([{ text: 'TICKETS', font: '{s}px "Bungee", sans-serif', color: '#ffffff', size: 70 }], 512, 128, '#B3202A', '#FFB627') }));
+      tk.position.set(-W * 0.3, 2.45, 1.52); grp.add(tk);
+    }
+    if (owner) registerCinemaGroundParts(fac, plan, this.city, owner);
+    grp.userData.cinemaClearance = { source: site.poi.id, groups: plan.groups, omitted: plan.parts.filter(p => !p.clear).map(p => p.id) };
     this.engine.scene.add(grp);
     site.front = grp;
   }
@@ -933,6 +952,7 @@ export class Game {
     const inp = this.input();
     const wasFlying = this.player.flying;
     this.metro.update(dt, this.player.pos.x, this.player.pos.z);
+    this.stationLife?.update(dt, this.minutes, this.metro.stationDwells, this.player.pos.x, this.player.pos.z);
     this.rail.update(dt, this.player.pos.x, this.player.pos.z, this.city.rails);
     this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies];
     this.railContacts.beforePlayer(this.player, this.city.movingRail, inp.flyPressed, dt);
@@ -1143,10 +1163,13 @@ export class Game {
     this.gps.visible = !!this.route && vertices.length > 0;
   }
   areaNow = ''; areaCand = ''; areaCandT = 0;
+  campusProximity = new CampusProximity(DESTINATION_IDENTITIES);
   updateHud() {
     const h = this.hud, o = this.order, P = this.player.pos;
     this.updateOrderAvailability();
     { const a = this.areaName(P.x, P.z) || ''; if (a !== this.areaCand) { this.areaCand = a; this.areaCandT = this.t; } else if (a && a !== this.areaNow && this.t - this.areaCandT > 1.5) { if (this.areaNow) h.areaChip(a); this.areaNow = a; } }
+    const campus = this.campusProximity?.update(P.x, P.z, P.y, this.t);
+    if (campus) h.areaChip(campus, 'Nearby');
     h.set('coins', this.coins.toLocaleString('en-IN'));
     h.set('clock', `Day ${this.day} · ${fmtTime(this.minutes)}`);
     const L = LEVELS[Math.min(this.level, LEVELS.length - 1)];

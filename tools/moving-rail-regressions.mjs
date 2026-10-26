@@ -8,8 +8,8 @@ const root=fileURLToPath(new URL('../',import.meta.url)),out=await mkdtemp(join(
 let checks=0; const test=async(name,run)=>{await run();checks++;console.log(`PASS ${name}`);};
 const near=(a,b,eps=1e-6)=>assert.ok(Math.abs(a-b)<eps,`${a} differs from ${b}`);
 try {
- await build({stdin:{contents:"export * from './game/src/game/moving-rail';export{supportAt,roofUnder,collideBuildings}from'./game/src/game/physics';export{addLandmarkSurface}from'./game/src/world/landmark-support';export{Player}from'./game/src/game/player';export{MetroTrains}from'./game/src/game/metro';export{RailTrains}from'./game/src/game/rail';export{buildTile}from'./game/src/world/city';export{FullMap}from'./game/src/ui/map';export*from'./game/src/world/metro-geometry';export{initTemplates}from'./game/src/core/util';export{Group,Mesh,MeshBasicMaterial,Vector3,BoxGeometry,RingGeometry}from'./game/node_modules/three/build/three.module.js';",resolveDir:root,loader:'ts'},outfile:join(out,'production.mjs'),bundle:true,platform:'node',format:'esm',logLevel:'error'});
- const {MovingRailFrames,MovingRailInteraction,railLocal,railRoofAt,movingRailSupport,supportAt,roofUnder,collideBuildings,addLandmarkSurface,Player,MetroTrains,RailTrains,buildTile,FullMap,metroCorridors,METRO_LINE_COLORS,metroLineColor,initTemplates,Group,Mesh,MeshBasicMaterial,Vector3,BoxGeometry,RingGeometry}=await import(pathToFileURL(join(out,'production.mjs')));
+ await build({stdin:{contents:"export * from './game/src/game/moving-rail';export{supportAt,roofUnder,collideBuildings}from'./game/src/game/physics';export{addLandmarkSurface}from'./game/src/world/landmark-support';export{Player}from'./game/src/game/player';export{MetroTrains}from'./game/src/game/metro';export{RailTrains}from'./game/src/game/rail';export{buildTile}from'./game/src/world/city';export{FullMap}from'./game/src/ui/map';export*from'./game/src/world/metro-geometry';export{initTemplates,TiledBatch}from'./game/src/core/util';export{Group,Mesh,MeshBasicMaterial,Vector3,BoxGeometry,RingGeometry}from'./game/node_modules/three/build/three.module.js';",resolveDir:root,loader:'ts'},outfile:join(out,'production.mjs'),bundle:true,platform:'node',format:'esm',logLevel:'error'});
+ const {MovingRailFrames,MovingRailInteraction,railLocal,railRoofAt,movingRailSupport,supportAt,roofUnder,collideBuildings,addLandmarkSurface,Player,MetroTrains,RailTrains,buildTile,FullMap,metroCorridors,METRO_LINE_COLORS,metroLineColor,initTemplates,TiledBatch,Group,Mesh,MeshBasicMaterial,Vector3,BoxGeometry,RingGeometry}=await import(pathToFileURL(join(out,'production.mjs')));
  initTemplates({rbox:new BoxGeometry(1,1,1),ring:new RingGeometry(1,1.35,12)});
  const shape=(extra={})=>({id:'coach',x:0,y:0,z:0,hx:1,hz:0,halfWidth:1.5,halfLength:11,bottom:.15,roof:4.2,...extra});
  const city=()=>({surfaceGrid:new Map(),buildingGrid:new Map(),walls:new Map(),obstacles:new Map(),movingRail:[]});
@@ -21,12 +21,19 @@ try {
    for(const id of ['red','blue','green']) assert.equal(metroCorridors([{id,color:'#ffffff',pts:[[0,0],[800,0]]}])[0].color,METRO_LINE_COLORS[id]);
    assert.equal(metroLineColor('RED'),METRO_LINE_COLORS.red);assert.equal(metroLineColor('unknown'),'#697587');
  });
- await test('station name boards face both road approaches and carry the shared route identity',()=>{
-   const built=buildTile({i:0,j:0,roads:[],nodes:{},buildings:[],boards:[],furniture:[],areas:[]},{lowQ:true,metro:{lines:[{id:'red',pts:[[100,500],[900,500]]}],stations:[{id:'test',name:'Ameerpet',te:'అమీర్‌పేట్',lines:['red','blue'],p:[500,500]}],pillars:[],deckHeight:11}});
-   const signs=built.signs.filter(s=>/^mst_road_test_-?1$/.test(s.id));assert.equal(signs.length,2);
-   for(const sign of signs){assert.equal(sign.text,'AMEERPET');const f=[-sign.right[2],sign.right[0]];assert.ok(Math.abs(f[0])>.999&&Math.abs(f[1])<1e-8);assert.ok((sign.c[0]-500)*f[0]>0,'board faces the approaching road direction');assert.ok(sign.c[1]>7&&sign.c[1]<12);}
-   assert.ok(signs[0].right[2]*signs[1].right[2]<0);
-   assert.ok(built.signs.filter(s=>s.id.startsWith('mst_road_test_')&&s.id.endsWith('_te')).length===2);
+ await test('only two exterior station boards face approaches and two interior boards face train windows with correct line strips',()=>{
+   const boxes=[],original=TiledBatch.prototype.box;let built;
+   TiledBatch.prototype.box=function(...args){boxes.push(args);return original.apply(this,args);};
+   try{built=buildTile({i:0,j:0,roads:[],nodes:{},buildings:[],boards:[],furniture:[],areas:[]},{lowQ:true,metro:{lines:[{id:'red',pts:[[100,500],[900,500]]}],stations:[{id:'test',name:'Ameerpet',te:'అమీర్‌పేట్',lines:['red','blue'],p:[500,500]}],pillars:[],deckHeight:11}});}finally{TiledBatch.prototype.box=original;}
+   const exterior=built.signs.filter(s=>s.id.startsWith('mst_exterior_test_')),interior=built.signs.filter(s=>s.id.startsWith('mst_interior_test_'));
+   assert.equal(exterior.length,2);assert.equal(interior.length,2);assert.equal(built.signs.filter(s=>s.id.startsWith('mst_')).length,4,'legacy duplicated name entries are removed');
+   const physical=boxes.filter(b=>b[3]===16&&b[4]===2.25&&b[5]===.16||b[3]===.14&&b[4]===1.35&&b[5]===7);assert.equal(physical.length,4,'every name has one physical backing');
+   for(const sign of exterior){assert.equal(sign.text,'AMEERPET');const f=[-sign.right[2],sign.right[0]];assert.ok(Math.abs(f[0])>.999&&Math.abs(f[1])<1e-8);assert.ok((sign.c[0]-500)*f[0]>0,'end board faces its road approach');assert.ok(sign.c[1]+sign.h/2<9.8,'road name sits below the viaduct soffit and train/roof-riding envelope');
+     const strips=boxes.filter(b=>Math.abs(b[0]-(sign.c[0]-f[0]*.1))<1e-6&&Math.abs(b[1]-7.56)<1e-6&&b[4]===.13&&b[5]===.18);assert.equal(strips.length,2);
+     for(const[id,expectedSide]of[['red',-1],['blue',1]]){const strip=strips.find(b=>b[6]===METRO_LINE_COLORS[id]);assert.ok(strip);assert.ok(((strip[0]-sign.c[0])*sign.right[0]+(strip[2]-sign.c[2])*sign.right[2])*expectedSide>0,'route strip ordering follows the readable board face');}
+   }
+   assert.ok(exterior[0].right[2]*exterior[1].right[2]<0);
+   for(const sign of interior){assert.equal(sign.text,'AMEERPET');const normal=[-sign.right[2],sign.right[0]];near(normal[0],0);assert.ok(normal[1]*(500-sign.c[2])>0,'platform wall name faces train windows');assert.ok(sign.c[1]>13.5&&sign.c[1]<14.5);}
  });
  await test('map loading assigns each normalized route its own shared color rather than painting all lines green',async()=>{
    const priorFetch=globalThis.fetch,priorPath=globalThis.Path2D;

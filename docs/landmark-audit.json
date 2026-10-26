@@ -1,16 +1,17 @@
 {
   "schema": 1,
   "auditedOn": "2026-10-26",
-  "scope": "All 191 catalogue/model IDs checked for uniqueness, finite anchors, playable bounds, source/render tile ownership and missing dimension metadata. This is not 191 photo-verified reconstructions.",
+  "scope": "All 192 place IDs checked for uniqueness, finite anchors, playable bounds and source/render tile ownership. One shared-site alias refers to the canonical mall model, leaving 191 independent model owners. These are not 192 distinct physical or photo-verified reconstructions.",
   "summary": {
-    "total": 191,
-    "inBounds": 191,
-    "sourceTilesIndexed": 191,
+    "total": 192,
+    "inBounds": 192,
+    "sourceTilesIndexed": 192,
     "renderOwnersIndexed": 191,
-    "reviewedMapSourceIdentities": 148,
+    "sharedSiteAliases": 1,
+    "reviewedMapSourceIdentities": 149,
     "noSafeMapSourceBinding": 43,
-    "sourceBackedApplicationCorrections": 7,
-    "exactMappedBuildingPlans": 2,
+    "sourceBackedApplicationCorrections": 12,
+    "exactMappedBuildingPlans": 6,
     "photoVerifiedReconstructions": 0,
     "modelsWithPhotoReviewedFeatures": 7,
     "photoFeatureIds": [
@@ -3040,6 +3041,62 @@
         "refusals": [],
         "sourceSnapshot": "pipeline/evidence/landmark-osm-source-2026-10-26.json",
         "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710"
+      }
+    },
+    {
+      "id": "asian_amb",
+      "name": "Asian AMB Cinemas · Sarath City Capital Mall",
+      "category": "Culture",
+      "icon": "building",
+      "anchor": {
+        "lat": 17.457838799999998,
+        "lon": 78.36362944999999,
+        "confidence": "explicit named source polygon; no entrance or survey claim"
+      },
+      "inPlayableBounds": true,
+      "sourceTile": [
+        -15,
+        -6
+      ],
+      "sourceTileIndexed": true,
+      "renderTile": [
+        -15,
+        -6
+      ],
+      "model": {
+        "recipe": "x_asian_amb",
+        "status": "exact-source-outline-stylized-retail-exterior",
+        "dimensions": "recipe-values-not-surveyed",
+        "gaps": [
+          "measured-footprint",
+          "measured-height",
+          "verified-front-bearing",
+          "dated-facade-photo",
+          "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Named source outline retained, with layered retail facade, glazing and entrance recognition vocabulary."
+        ],
+        "unresolved": [
+          "Current facade, entrance assignment, vertical dimensions and interiors are not surveyed or certified replicas. Source map geometry is not street/photo verification."
+        ]
+      },
+      "provenance": {
+        "inherited": [
+          "Legacy hand-authored coordinates; no per-anchor evidence ID"
+        ],
+        "sourceUrls": [
+          "https://www.openstreetmap.org/way/574673965",
+          "https://sarathcitycapitalmall.com/amb-cinemas/"
+        ],
+        "reviewedOn": "2026-10-26",
+        "confidence": "provisional",
+        "destinationSource": {
+          "sourceId": "w574673965",
+          "version": 7,
+          "timestamp": "2026-02-06T16:21:58Z",
+          "retrievedAt": "2026-10-26"
+        }
       }
     },
     {
@@ -12987,9 +13044,9 @@
       "category": "City life",
       "icon": "building",
       "anchor": {
-        "lat": 17.433948,
-        "lon": 78.386625,
-        "confidence": "inherited-unverified"
+        "lat": 17.43396483333333,
+        "lon": 78.38663213888888,
+        "confidence": "explicit named source polygon; no entrance or survey claim"
       },
       "inPlayableBounds": true,
       "sourceTile": [
@@ -13003,16 +13060,22 @@
       ],
       "model": {
         "recipe": "x_inorbit",
-        "status": "stylised-needs-photo-review",
+        "status": "exact-source-outline-stylized-retail-exterior",
         "dimensions": {
           "width": 231.7,
           "depth": 87.1,
           "height": 13.4,
-          "rotation": 107
+          "rotation": 0
         },
         "gaps": [
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Named source outline retained, with layered retail facade, glazing and entrance recognition vocabulary."
+        ],
+        "unresolved": [
+          "Current facade, entrance assignment, vertical dimensions and interiors are not surveyed or certified replicas. Source map geometry is not street/photo verification."
         ]
       },
       "provenance": {
@@ -13020,7 +13083,8 @@
           "OSM / Overture resolver; original source IDs were not retained in flattened data"
         ],
         "sourceUrls": [
-          "https://www.openstreetmap.org/way/68871414"
+          "https://www.openstreetmap.org/way/68871414",
+          "https://www.inorbit.in/inorbit-mall-cyberabad"
         ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional",
@@ -13142,7 +13206,13 @@
           }
         ],
         "sourceSnapshot": "pipeline/evidence/landmark-osm-source-2026-10-26.json",
-        "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710"
+        "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710",
+        "destinationSource": {
+          "sourceId": "w68871414",
+          "version": 15,
+          "timestamp": "2025-12-11T11:08:15Z",
+          "retrievedAt": "2026-10-26"
+        }
       }
     },
     {
@@ -13246,9 +13316,9 @@
       "category": "City life",
       "icon": "building",
       "anchor": {
-        "lat": 17.457839,
-        "lon": 78.363629,
-        "confidence": "inherited-unverified"
+        "lat": 17.457838799999998,
+        "lon": 78.36362944999999,
+        "confidence": "explicit named source polygon; no entrance or survey claim"
       },
       "inPlayableBounds": true,
       "sourceTile": [
@@ -13262,62 +13332,36 @@
       ],
       "model": {
         "recipe": "x_sarath_city",
-        "status": "stylised-needs-photo-review",
-        "dimensions": {
-          "width": 173,
-          "depth": 153.6,
-          "height": 19.8,
-          "rotation": 204
-        },
+        "aliasOf": "asian_amb",
+        "status": "shared-site-map-identity",
+        "dimensions": "No separate body: Asian AMB / Sarath City share exact source w574673965.",
         "gaps": [
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Retains original sarath_city place ID and name; canonical asian_amb owns the only mall body, roof support and exact source clear zone. Legacy rectangle and cube removed."
+        ],
+        "unresolved": [
+          "Current facade, entrance assignment, vertical dimensions and interiors are not surveyed or certified replicas. Source map geometry is not street/photo verification."
         ]
       },
       "provenance": {
         "inherited": [
-          "OSM / Overture resolver; original source IDs were not retained in flattened data"
+          "Legacy hand-authored coordinates; no per-anchor evidence ID"
         ],
         "sourceUrls": [
-          "https://www.openstreetmap.org/way/574673965"
+          "https://www.openstreetmap.org/way/574673965",
+          "https://sarathcitycapitalmall.com/amb-cinemas/"
         ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional",
-        "mapIdentityDecision": "reviewed-map-identity",
-        "mapSourceRefs": [
-          {
-            "id": "w574673965",
-            "url": "https://www.openstreetmap.org/way/574673965",
-            "version": 7,
-            "timestamp": "2026-02-06T16:21:58Z",
-            "name": "Sarat City Capital Mall",
-            "tags": {
-              "air_conditioning": "yes",
-              "building": "yes",
-              "building:levels": "6",
-              "name": "Sarat City Capital Mall",
-              "name:te": "శరత్ సిటీ కాపిటల్ మాల్",
-              "opening_hours": "Mo-Fr 11:00-21:30; Sa-Su,PH 11:00-22:00",
-              "shop": "mall",
-              "website": "https://sarathcitycapitalmall.com/"
-            },
-            "position": [
-              17.45769357796724,
-              78.3639056647361
-            ],
-            "footprint": {
-              "w": 172.9,
-              "d": 153.53,
-              "rot": 24.06
-            },
-            "footprintBasis": "named building outline",
-            "axisBearingBasis": "minimum-area rectangle, undirected modulo180; not a verified facade/front bearing"
-          }
-        ],
-        "contextSourceRefs": [],
-        "refusals": [],
-        "sourceSnapshot": "pipeline/evidence/landmark-osm-source-2026-10-26.json",
-        "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710"
+        "destinationSource": {
+          "sourceId": "w574673965",
+          "version": 7,
+          "timestamp": "2026-02-06T16:21:58Z",
+          "retrievedAt": "2026-10-26"
+        }
       }
     },
     {
@@ -13425,9 +13469,9 @@
       "category": "City life",
       "icon": "building",
       "anchor": {
-        "lat": 17.483957,
-        "lon": 78.389123,
-        "confidence": "inherited-unverified"
+        "lat": 17.48402373529412,
+        "lon": 78.38914719411765,
+        "confidence": "explicit named source polygon; no entrance or survey claim"
       },
       "inPlayableBounds": true,
       "sourceTile": [
@@ -13441,16 +13485,22 @@
       ],
       "model": {
         "recipe": "x_forum",
-        "status": "stylised-needs-photo-review",
+        "status": "exact-source-outline-stylized-retail-exterior",
         "dimensions": {
           "width": 175.2,
           "depth": 97,
           "height": 16.6,
-          "rotation": 267.6
+          "rotation": 0
         },
         "gaps": [
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Named source outline retained, with layered retail facade, glazing and entrance recognition vocabulary."
+        ],
+        "unresolved": [
+          "Current facade, entrance assignment, vertical dimensions and interiors are not surveyed or certified replicas. Source map geometry is not street/photo verification."
         ]
       },
       "provenance": {
@@ -13458,7 +13508,8 @@
           "OSM / Overture resolver; original source IDs were not retained in flattened data"
         ],
         "sourceUrls": [
-          "https://www.openstreetmap.org/way/311388388"
+          "https://www.openstreetmap.org/way/311388388",
+          "https://hyderabad.nexusmalls.com/"
         ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional",
@@ -13532,7 +13583,13 @@
           }
         ],
         "sourceSnapshot": "pipeline/evidence/landmark-osm-source-2026-10-26.json",
-        "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710"
+        "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710",
+        "destinationSource": {
+          "sourceId": "w311388388",
+          "version": 11,
+          "timestamp": "2025-11-11T21:20:19Z",
+          "retrievedAt": "2026-10-26"
+        }
       }
     },
     {
@@ -14069,9 +14126,9 @@
       "category": "City life",
       "icon": "building",
       "anchor": {
-        "lat": 17.489959,
-        "lon": 78.393116,
-        "confidence": "inherited-unverified"
+        "lat": 17.489959150000004,
+        "lon": 78.393115875,
+        "confidence": "explicit named source polygon; no entrance or survey claim"
       },
       "inPlayableBounds": true,
       "sourceTile": [
@@ -14085,16 +14142,22 @@
       ],
       "model": {
         "recipe": "x_lulu",
-        "status": "stylised-needs-photo-review",
+        "status": "exact-source-outline-stylized-retail-exterior",
         "dimensions": {
           "width": 85.8,
           "depth": 78.3,
           "height": 15.5,
-          "rotation": 202
+          "rotation": 0
         },
         "gaps": [
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Named source outline retained, with layered retail facade, glazing and entrance recognition vocabulary."
+        ],
+        "unresolved": [
+          "Current facade, entrance assignment, vertical dimensions and interiors are not surveyed or certified replicas. Source map geometry is not street/photo verification."
         ]
       },
       "provenance": {
@@ -14102,7 +14165,8 @@
           "OSM / Overture resolver; original source IDs were not retained in flattened data"
         ],
         "sourceUrls": [
-          "https://www.openstreetmap.org/way/880054935"
+          "https://www.openstreetmap.org/way/880054935",
+          "https://www.hyderabad.lulumall.in/about-us/"
         ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional",
@@ -14147,7 +14211,13 @@
           }
         ],
         "sourceSnapshot": "pipeline/evidence/landmark-osm-source-2026-10-26.json",
-        "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710"
+        "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710",
+        "destinationSource": {
+          "sourceId": "w880054935",
+          "version": 5,
+          "timestamp": "2024-10-29T05:09:03Z",
+          "retrievedAt": "2026-10-26"
+        }
       }
     },
     {
@@ -16317,32 +16387,38 @@
       "category": "Sport",
       "icon": "stadium",
       "anchor": {
-        "lat": 17.406576,
-        "lon": 78.550475,
-        "confidence": "inherited-unverified"
+        "lat": 17.40617410487805,
+        "lon": 78.55046686341466,
+        "confidence": "explicit named source polygon; no entrance or survey claim"
       },
       "inPlayableBounds": true,
       "sourceTile": [
         5,
-        -1
+        0
       ],
       "sourceTileIndexed": true,
       "renderTile": [
         5,
-        -1
+        0
       ],
       "model": {
         "recipe": "x_uppal_stadium",
-        "status": "stylised-needs-photo-review",
+        "status": "source-bound-stylized-cricket-bowl",
         "dimensions": {
           "width": 235.2,
           "depth": 235,
           "height": 19.8,
-          "rotation": 218
+          "rotation": 0
         },
         "gaps": [
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "HCA identifies six floodlight towers and cricket field; playable open bowl/rows are illustrative."
+        ],
+        "unresolved": [
+          "Current facade, entrance assignment, vertical dimensions and interiors are not surveyed or certified replicas. Source map geometry is not street/photo verification."
         ]
       },
       "provenance": {
@@ -16350,7 +16426,8 @@
           "OSM / Overture resolver; original source IDs were not retained in flattened data"
         ],
         "sourceUrls": [
-          "https://www.openstreetmap.org/way/839364278"
+          "https://www.openstreetmap.org/way/839364278",
+          "https://hycricket.org/stadium.html"
         ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional",
@@ -16393,7 +16470,13 @@
         "contextSourceRefs": [],
         "refusals": [],
         "sourceSnapshot": "pipeline/evidence/landmark-osm-source-2026-10-26.json",
-        "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710"
+        "sourceSnapshotSha256": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710",
+        "destinationSource": {
+          "sourceId": "w839364278",
+          "version": 5,
+          "timestamp": "2023-09-08T15:48:18Z",
+          "retrievedAt": "2026-10-26"
+        }
       }
     },
     {

@@ -33,11 +33,40 @@ export function advanceRoadRoute(route: RoadRoute, position: { x: number; y: num
   return { route: { ...route, pts, len: Math.max(0, route.len - best.along) }, distance: best.distance, heightError: best.heightError };
 }
 
+// Offset endpoints at a source split can differ by a few centimetres. Keep the
+// source route, but do not draw an out-and-back ribbon around that tiny join.
+// Every replacement still needs loaded, same-grade pavement and car clearance.
+function compactRoadJoins(city: CityData, pts: RoutePoint[]): RoutePoint[] {
+  const out: RoutePoint[] = [pts[0]]; let travelled = 0;
+  for (let i = 1; i < pts.length - 1; i++) {
+    const a = out[out.length - 1], b = pts[i], c = pts[i + 1];
+    const ab = Math.hypot(b[0] - a[0], b[2] - a[2]), bc = Math.hypot(c[0] - b[0], c[2] - b[2]);
+    travelled += bc;
+    if (travelled > 720) return [...out, ...pts.slice(i)];
+    if (Math.min(ab, bc) >= .75) { out.push(b); continue; }
+    const dx = c[0] - a[0], dz = c[2] - a[2], length = Math.hypot(dx, dz);
+    if (length < .1 || length > 720) { out.push(b); continue; }
+    const u = Math.max(0, Math.min(1, ((b[0] - a[0]) * dx + (b[2] - a[2]) * dz) / (length * length)));
+    if (Math.hypot(b[0] - a[0] - dx * u, b[2] - a[2] - dz * u) > .5 || Math.abs(b[1] - a[1] - (c[1] - a[1]) * u) > .1) { out.push(b); continue; }
+    let clear = true, previous = { x: a[0], z: a[2] };
+    const steps = Math.max(2, Math.ceil(length / .75));
+    for (let j = 1; j <= steps; j++) {
+      const t = j / steps, p = { x: a[0] + dx * t, z: a[2] + dz * t }, y = a[1] + (c[1] - a[1]) * t;
+      const support = supportAt(city, p.x, p.z, y + .1, true);
+      if (!support.onRoad || Math.abs(support.y - y) > .35 || collideWalls(city, previous, p, 1.05, y + .08, y + 1.3).hit || collideBuildings(city, p, 1.15, y + .2)) { clear = false; break; }
+      previous = p;
+    }
+    if (!clear) out.push(b);
+  }
+  out.push(pts[pts.length - 1]); return out;
+}
+
 // Small corner fillets are accepted only on loaded pavement at the same height
 // and with the player's wall/facade clearance. Tight or unverified turns keep
 // their legal polyline; a cosmetic spline must never invent a shortcut.
 export function softenRoadCorners(city: CityData, pts: RoutePoint[]): RoutePoint[] {
   if (pts.length < 3 || !city.surfaceGrid) return pts;
+  pts = compactRoadJoins(city, pts);
   const out: RoutePoint[] = [pts[0]]; let traversed = 0;
   for (let i = 1; i < pts.length - 1; i++) {
     const a = pts[i - 1], b = pts[i], c = pts[i + 1];

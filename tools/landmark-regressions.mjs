@@ -12,8 +12,8 @@ try {
   const core = JSON.parse(gunzipSync(readFileSync(new URL('../game/public/city/core.pack.wasm', import.meta.url))));
   const tiles = core.packs.flatMap((p) => p.tiles), keys = new Set(tiles.map(([i,j]) => `${i}_${j}`));
   const places = placeCatalogue(core.origin), models = placeLandmarks(core.origin, tiles);
-  assert.equal(places.length, 191); assert.equal(new Set(places.map((p) => p.id)).size, 191);
-  assert.equal(models.length, 191); assert.deepEqual(new Set(models.map((p) => p.id)), new Set(places.map((p) => p.id)));
+  assert.equal(places.length, 192); assert.equal(new Set(places.map((p) => p.id)).size, 192);
+  assert.equal(models.length, 192); assert.deepEqual(new Set(models.map((p) => p.id)), new Set(places.map((p) => p.id)));
   for (const p of places) { assert.ok([p.lat,p.lon,p.x,p.z].every(Number.isFinite), p.name); assert.ok(p.icon && p.category); assert.ok(p.x >= core.bounds.minX && p.x <= core.bounds.maxX && p.z >= core.bounds.minZ && p.z <= core.bounds.maxZ, p.name); }
   const byId = new Map(models.map((p) => [p.id,p]));
   for (const p of places) { const m=byId.get(p.id); assert.equal(p.x,m.x); assert.equal(p.z,m.z); assert.ok(keys.has(m.renderTile.join('_')),p.name); }
@@ -23,8 +23,8 @@ try {
   // City-wide clustering never drops a catalogue ID; selected landmarks lead their cluster at any zoom.
   const view = {cx:-4500,cz:0,scale:0.012,width:1200,height:1000};
   const markers=layoutPlaceMarkers(places,view,'charminar');
-  assert.equal(markers.flatMap((p)=>p.members).length,191); assert.equal(new Set(markers.flatMap((p)=>p.members.map((x)=>x.id))).size,191);
-  assert.ok(markers.length<191); assert.ok(markers.some((p)=>p.place.id==='charminar'));
+  assert.equal(markers.flatMap((p)=>p.members).length,192); assert.equal(new Set(markers.flatMap((p)=>p.members.map((x)=>x.id))).size,192);
+  assert.ok(markers.length<192); assert.ok(markers.some((p)=>p.place.id==='charminar'));
   for (const p of places) assert.ok(layoutPlaceMarkers([p],{cx:p.x,cz:p.z,scale:1,width:390,height:844})[0].place.id===p.id);
   const marker=markers[0]; assert.equal(hitPlaceMarker([marker],marker.x+21,marker.y+21),marker); assert.equal(hitPlaceMarker([marker],marker.x+23,marker.y),undefined);
   // Specification and actual emitted model geometry, including both outward-facing normals and arbitrary Kit frame.
@@ -44,14 +44,16 @@ try {
   assert.equal(nila.length,(32+8+16)*2);
   for(const q of nila) {const[a,b,c]=q;const nz=(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);assert.ok(nz*a[2]>0,'Nilachakra faces must point outward');}
   assert.equal(byId.get('jagannath').rot,90,'Temple trust documents east-facing front');
-  // Every registered recipe emits finite actual geometry. This is a rendering guard, not visual/source verification.
+  // Each physical owner emits finite geometry. Explicit shared-site aliases
+  // retain map identity without stacking a second body/clear zone.
   initTemplates();
   for (const m of models) {
     const B=Object.fromEntries(['st','wall','park','water','roof','lit','glow','road','marks','foot','kerb','shop'].map((k)=>[k,new TiledBatch()]));
     const solids=[]; drawLandmark(m,{B,obstacle(){},solid:(ring,h)=>solids.push([ring,h]),road:()=>false,roadY:()=>null,roadNear:()=>null,sign(){}});
     let emitted=0;
     for (const batch of Object.values(B)) for (const part of batch.tiles.values()) { assert.ok(part.pos.every(Number.isFinite),m.name); emitted+=part.pos.length; }
-    assert.ok(emitted>0||m.id==='durgam_lake',m.name); // Lake uses its existing mapped water polygon, not a duplicate invented model.
+    if (m.modelAliasOf) { assert.equal(emitted,0,m.name); assert.equal(solids.length,0,m.name); assert.ok(byId.has(m.modelAliasOf)); assert.ok(!byId.get(m.modelAliasOf).modelAliasOf); }
+    else assert.ok(emitted>0||m.id==='durgam_lake',m.name); // Lake uses its mapped water polygon.
     if(m.id==='charminar') {let top=-Infinity; for(const batch of Object.values(B)) for(const part of batch.tiles.values()) for(let i=1;i<part.pos.length;i+=3) top=Math.max(top,part.pos[i]); assert.ok(Math.abs(top-48.7)<1e-4,'Charminar max rendered tower height follows both official references');}
     assert.ok(solids.every(([ring,h])=>Number.isFinite(h)&&ring.flat().every(Number.isFinite)),m.name);
   }
@@ -73,8 +75,8 @@ try {
   assert.ok(buddhaAdds.some((a)=>a[0]===TPL.box&&a[1]<0&&a[5]>3.5&&a[8]?.rz<0),'Buddha left forearm must bend towards the collar');
   const m=Object.assign(Object.create(FullMap.prototype),{close:()=>{throw Error('typing must not close');}});
   for (const code of ['KeyM','KeyP','Equal','Minus']) m.handleKey({code,key:code==='Equal'?'+':'m',target:{closest:()=>({})}});
-  const audit=JSON.parse(readFileSync(new URL('../docs/landmark-audit.json',import.meta.url))); assert.deepEqual(new Set(audit.entries.map((p)=>p.id)),new Set(places.map((p)=>p.id))); assert.equal(audit.summary.renderOwnersIndexed,191);
-  console.log('Landmark regressions: all 191 catalogue/model identities, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite 191-model geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.');
+  const audit=JSON.parse(readFileSync(new URL('../docs/landmark-audit.json',import.meta.url))); assert.deepEqual(new Set(audit.entries.map((p)=>p.id)),new Set(places.map((p)=>p.id))); assert.equal(audit.summary.renderOwnersIndexed,191); assert.equal(audit.summary.sharedSiteAliases,1);
+  console.log('Landmark regressions: all 192 place identities / 191 physical owners, explicit shared-mall alias, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite owner geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.');
 } finally { rmSync(temp,{recursive:true,force:true}); }
 await import('./landmark-cultural-regressions.mjs');
 await import('./ambedkar-model-regressions.mjs');

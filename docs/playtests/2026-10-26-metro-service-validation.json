@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-26T22:07:57.282143+00:00",
+  "status": "automated_pass_browser_review_pending",
+  "base_commit": "5ef2908d04bb5a5f8da52209ac4b8dfca84851de",
+  "execution": {
+    "working_directory": "/Users/tharun/Documents/Codex/2026-10-17/referenced-chatgpt-conversation-this-is-an/roadster-current",
+    "started_at": "2026-10-26T22:06:17.373242+00:00",
+    "commands": [
+      {
+        "command": "npm --prefix game run typecheck",
+        "exit_code": 0,
+        "passing_groups": null
+      },
+      {
+        "command": "node tools/metro-station-life-regressions.mjs",
+        "exit_code": 0,
+        "passing_groups": 10
+      },
+      {
+        "command": "node tools/metro-regressions.mjs",
+        "exit_code": 0,
+        "passing_groups": 27
+      },
+      {
+        "command": "node tools/moving-rail-regressions.mjs",
+        "exit_code": 0,
+        "passing_groups": 13
+      },
+      {
+        "command": "node tools/metro-clearance-regressions.mjs --full-bridge-audit",
+        "exit_code": 0,
+        "passing_groups": 15
+      }
+    ],
+    "log": "docs/playtests/2026-10-26-metro-service-validation.log",
+    "log_sha256": "9448ec05d3f65a4ffeb04a75b9f63ad92a8b22f41fbd3bb78bf78042536554c3"
+  },
+  "sources": {
+    "checked_on": "2026-10-26",
+    "official_references": [
+      "https://hmrl.co.in/train-timings/",
+      "https://hmrl.co.in/services/",
+      "https://ltmetro.com/wp-content/uploads/2025/01/HMRRouteMap_new.pdf"
+    ],
+    "directed_terminal_pairs": {
+      "red": [
+        "Miyapur",
+        "L B Nagar"
+      ],
+      "blue": [
+        "Nagole",
+        "Raidurg"
+      ],
+      "green": [
+        "JBS Parade Ground",
+        "MG Bus Station"
+      ]
+    },
+    "peak_windows_local": [
+      "08:00–11:00",
+      "17:00–20:00"
+    ],
+    "crowd_counts": "Heuristic artistic simulation choices; not measured passenger usage."
+  },
+  "implementation": {
+    "nameboards_per_modeled_station": {
+      "exterior": 2,
+      "interior": 2,
+      "exterior_orientation": "One outward-facing end board at each longitudinal end, hung below the continuous viaduct soffit and offset toward a road-clear kerb; no roadside posts.",
+      "interior_orientation": "One inward-facing railing board per platform, normal perpendicular to travel, above waiting heads at train-window height.",
+      "exterior_dimensions_metres": {
+        "width": 16,
+        "height": 2.25,
+        "default_lateral_offset": -5,
+        "board_top_below_deck": 1.475
+      }
+    },
+    "total_exterior_nameboards": 114,
+    "total_interior_nameboards": 114,
+    "total_benches": 228,
+    "train_side_displays": "Every visible coach has a directed origin → destination panel on each side; long text scrolls and pooled trains rebind their current service.",
+    "passenger_activity": "Stationary seated/standing waiting figures; actual stopped-train dwell snapshots drive outward-side door opening, alighting, boarding and departure cleanup.",
+    "mobile_bounds": {
+      "stationary_waiting_meshes_per_active_station": 1,
+      "maximum_active_stations_low_quality": 2,
+      "maximum_active_stations_high_quality": 3,
+      "waiting_per_platform_peak_low_quality": 8,
+      "waiting_per_platform_peak_high_quality": 12,
+      "waiting_per_platform_off_peak": 4
+    },
+    "platform_coverage": {
+      "sourceStations": 57,
+      "modeledPlatformDirections": 114,
+      "unmodeledInterchangeDirections": 6,
+      "unmodeledServices": [
+        {
+          "stationId": "st_ameerpet",
+          "modeledLineId": "red",
+          "lineId": "blue",
+          "directions": [
+            1,
+            -1
+          ],
+          "reason": "Source interchange has another service, but the current station model contains only the nearest corridor platform pair. No additional stacked geometry is assumed."
+        },
+        {
+          "stationId": "st_mahatma_gandhi_bus_station",
+          "modeledLineId": "red",
+          "lineId": "green",
+          "directions": [
+            1,
+            -1
+          ],
+          "reason": "Source interchange has another service, but the current station model contains only the nearest corridor platform pair. No additional stacked geometry is assumed."
+        },
+        {
+          "stationId": "st_parade_grounds",
+          "modeledLineId": "green",
+          "lineId": "blue",
+          "directions": [
+            1,
+            -1
+          ],
+          "reason": "Source interchange has another service, but the current station model contains only the nearest corridor platform pair. No additional stacked geometry is assumed."
+        }
+      ],
+      "crowdModel": "Heuristic game crowd simulation; not measured passenger usage."
+    }
+  },
+  "full_bridge_audit": {
+    "sourceElevatedEdges": 794,
+    "scannedSourcePacks": 304,
+    "scannedSourceTiles": 2527,
+    "playableSourceTiles": 391,
+    "retainedBridgeSourceEdges": 548,
+    "actualPierBodies": 7928,
+    "actualPierCaps": 7928,
+    "renderedRoadSegments": 881146,
+    "mismatchedKnownCoreTileCopies": 0,
+    "tileOnlyElevatedSourceEdges": 188,
+    "actualRoadTriangleConflicts": 0,
+    "firstMismatches": [],
+    "firstConflicts": [],
+    "validation": "offline production draw calls and independently intersected rendered road triangles; not citywide browser driving"
+  },
+  "source_snapshot": {
+    "algorithm": "SHA-256",
+    "files": {
+      "game/src/game/metro.ts": "ed183143f0dc03acb27e63f90abae9495904002ced301a8743d1f0b7bfbffb58",
+      "game/src/game/metro-display.ts": "19cc6cfdf25bc593e246482c44b827039a5a907368852febd797101436905550",
+      "game/src/game/station-life.ts": "31be6fa34f970ef86afc822794a077f31e23b0a4074227da7daaec8c28a672f2",
+      "game/src/world/metro-service.ts": "a3d3f0626bc9ab14062923416b1a909239926ce01f99c28b043225235ef21a5c",
+      "game/src/world/metro-station-visuals.ts": "beae8f43a38456de92f9c986ad2d9b83aab27007e8594771746a537763041854",
+      "game/src/world/metro-geometry.ts": "48b1b3539accf58c8f8de512e8c8e6ae7a92f496bdbdceb1365ef87c83e13861",
+      "game/src/world/city.ts": "74dbdcddac87ae1bec329b9ef093337ffbe50ad71b76b06bca4bdbba7861dd77",
+      "game/src/game/game.ts": "f7f00879e67d5367430c22955703ea5f05c1430002f77333715442bf6dbfd02d",
+      "game/src/world/structure-clearance.ts": "ba0f25f7bde12ac8102465d0cec9e8d8f7ed8d4ab27483822178311475a0e511",
+      "game/src/world/road-grades.ts": "aaf1f32cd02f20aa57b0f1f0f92b854b618d2d986fa37b4d8775c1e3a89ef091",
+      "game/src/world/people.ts": "80564a9cb775e5417fcc8c3dc98a1a8ad630458a0a0ec9317623693de2a3e68e",
+      "game/src/world/vehicles.ts": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+      "game/src/world/signs.ts": "3201e51e710b782f789039e507ba041dd155fa00a5534b4a0bb9e52a8421998a",
+      "game/public/city/core.pack.wasm": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+      "tools/metro-station-life-regressions.mjs": "499819a3a41959e87fcfb2a1f2372a15ef6310ff761fdf1147d8c1a72f88e93c",
+      "tools/metro-clearance-regressions.mjs": "e314ef5ef52cd38d4c01f4279c973d945c1561607cc9a31235faee780acc836b",
+      "tools/moving-rail-regressions.mjs": "8f8d4fd043b83468e052d2651e6c4d34afb6155a89709e23ab2636f7398b0090",
+      "tools/metro-regressions.mjs": "11ca206aee0713bc9082296f3d7fca10ecd3c3bbaec34f06be99c02c804ba73a",
+      "game/metro-experience-review.html": "4c0b948f9898c42e030e8e7a9b0633d43c28bfe57b5da305ea7d6fac07cada5b"
+    },
+    "changed_during_collection": [],
+    "city_pack_count": 304,
+    "city_pack_set_sha256": "96960da26cc4f6179c6c0a59405abf90f0b5e3d1a411f9bbf100159af9f9fd30",
+    "city_pack_set_hash_format": "SHA-256 of sorted repository-relative pack path, TAB, individual file SHA-256, newline for every source tile pack",
+    "unchanged_during_collection": true
+  },
+  "browser_component_review": {
+    "url": "http://127.0.0.1:4195/metro-experience-review.html",
+    "views": [
+      "platform/train side",
+      "train-window level",
+      "both exterior approaches",
+      "roof-riding chase"
+    ],
+    "visible_controls": [
+      "all three lines",
+      "both directed services",
+      "peak/off-peak heuristic profile",
+      "pause/resume",
+      "replay real-time arrival/dwell/departure"
+    ],
+    "status": "Root agent repeated the initial review, reproduced the former girder/pillar occlusion, and owns the final visual observations after the correction; automated evidence below is current."
+  },
+  "limitations": [
+    "The source game contains 57 station anchors and one nearest-corridor platform pair per anchor. Stationary crowds and two matched real train directions are validated for all 57 modeled pairs.",
+    "Three interchange services, six directions total, are deliberately guarded because their additional physical platform pairs are not modeled: Blue at Ameerpet, Green at MG Bus Station, Blue at Parade Grounds. Their trains and directed destination displays continue operating.",
+    "The legacy source uses a shared Parade Grounds anchor for the interchange; official Green service text uses JBS Parade Ground. No new stack heights or station positions were invented.",
+    "Crowd counts, per-dwell transfer numbers and appearance diversity are heuristic. Official peak windows inform timing, not measured ridership.",
+    "Component simulations and automated geometry checks are not completed main-game driving/delivery or physical-phone readability verification.",
+    "The complete rendered-triangle station-name visibility regression covers both RTC Cross Roads approaches, not a visual tour of every station. All 57 station plate footprints are independently checked against actual road headroom envelopes."
+  ],
+  "station_structure_audit": {
+    "sourceStations": 57,
+    "sourceStationTiles": 52,
+    "retainedStationStructurePieces": 562,
+    "retainedColumns": 293,
+    "retainedStairs": 62,
+    "exteriorNameBoards": 114,
+    "interiorNameBoards": 114,
+    "kerbOffsetExteriorBoards": 114,
+    "exteriorBoardHeadroomConflicts": 0,
+    "roadConflictsAfter": 0,
+    "validation": "offline source road/building station neighborhoods; not citywide browser verification"
+  },
+  "rtc_exterior_visibility": {
+    "regression": "Both road-level approaches raycast to six caption samples per name against actual rendered production road/station/metro/support meshes, including all source pillars.",
+    "station_id": "st_rtc_cross_roads",
+    "approach_count": 2,
+    "caption_samples_per_approach": 6,
+    "caption_sample_occlusions": 0,
+    "centres": [
+      {
+        "end": -1,
+        "oldHighBlocked": true,
+        "newCentreBlocked": false,
+        "camera": [
+          -26.308929152342152,
+          5.8,
+          37.736290256026564
+        ],
+        "name": [
+          -8.880837958314798,
+          10.05,
+          -18.956492682656055
+        ]
+      },
+      {
+        "end": 1,
+        "oldHighBlocked": false,
+        "newCentreBlocked": false,
+        "camera": [
+          69.27520151152828,
+          5.8,
+          -199.7498650567213
+        ],
+        "name": [
+          42.570307375596705,
+          10.05,
+          -146.7908372220961
+        ]
+      }
+    ],
+    "previous_high_board_negative_approach_occluded": true,
+    "source_tiles": [
+      "-1_-1",
+      "-1_0",
+      "0_-1",
+      "0_0"
+    ],
+    "generic_buildings_included_in_sightline_test": false,
+    "validation": "Offline rendered triangle visibility test; browser observations recorded independently by the root agent."
+  }
+}

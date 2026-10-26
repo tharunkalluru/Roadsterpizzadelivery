@@ -11,8 +11,8 @@ const root = fileURLToPath(new URL('../', import.meta.url)), temp = await mkdtem
 let count = 0;
 const test = async (name, fn) => { await fn(); count++; console.log(`PASS ${name}`); };
 try {
-  await build({ stdin: { contents: "export * from './game/src/world/structure-clearance'; export * from './game/src/world/metro-geometry'; export { buildTile } from './game/src/world/city'; export { prepareRoadGrades, roadGradePatches, applyRoadGradePatches } from './game/src/world/road-grades'; export { auxiliaryLane, isORR } from './game/src/world/expressway'; export { hash, initTemplates, TiledBatch, TPL } from './game/src/core/util'; export { placeLandmarks } from './game/src/world/landmarks'; export { BoxGeometry, RingGeometry } from './game/node_modules/three/build/three.module.js';", resolveDir: root, loader: 'ts' }, outfile: join(temp, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
-  const { bridgeSupportSites, bridgeSupportPlan, roadStructureClearance, metroCorridors, metroStationFrame, buildTile, prepareRoadGrades, roadGradePatches, applyRoadGradePatches, auxiliaryLane, isORR, hash, initTemplates, TiledBatch, TPL, placeLandmarks, BoxGeometry, RingGeometry } = await import(pathToFileURL(join(temp, 'test.mjs')));
+  await build({ stdin: { contents: "export * from './game/src/world/structure-clearance'; export * from './game/src/world/metro-geometry'; export { buildTile } from './game/src/world/city'; export { prepareRoadGrades, roadGradePatches, applyRoadGradePatches } from './game/src/world/road-grades'; export { auxiliaryLane, isORR } from './game/src/world/expressway'; export { hash, initTemplates, TiledBatch, TPL } from './game/src/core/util'; export { placeLandmarks } from './game/src/world/landmarks'; export { BoxGeometry, RingGeometry, BufferGeometry, Float32BufferAttribute, Mesh, MeshBasicMaterial, Raycaster, Vector3, DoubleSide } from './game/node_modules/three/build/three.module.js';", resolveDir: root, loader: 'ts' }, outfile: join(temp, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
+  const { bridgeSupportSites, bridgeSupportPlan, roadStructureClearance, metroCorridors, metroStationFrame, buildTile, prepareRoadGrades, roadGradePatches, applyRoadGradePatches, auxiliaryLane, isORR, hash, initTemplates, TiledBatch, TPL, placeLandmarks, BoxGeometry, RingGeometry, BufferGeometry, Float32BufferAttribute, Mesh, MeshBasicMaterial, Raycaster, Vector3, DoubleSide } = await import(pathToFileURL(join(temp, 'test.mjs')));
   initTemplates({ rbox: new BoxGeometry(1, 1, 1), ring: new RingGeometry(1, 1.35, 12) });
   const road = (id, pts, extra = {}) => ({ id, seg: id, name: null, cls: 'primary', w: 9.4, lanes: 2, oneway: null, from: `${id}_a`, to: `${id}_b`, pts, elev: null, maxspeed: 50, ...extra });
   const zone = (roads, i = 0, j = 0) => ({ i, j, roads, nodes: {}, buildings: [], boards: [], furniture: [], areas: [], osm: [] });
@@ -87,23 +87,28 @@ try {
     assert.equal(unique(built.surfaceGrid).filter(s => s.kind === 'pad').length, 2, 'both platforms remain rideable');
     assert.ok(unique(built.surfaceGrid).some(s => s.kind === 'deck' && s.ya === 11.8));
   });
-  await test('track names are readable above the canopy in both directions and on both platform faces', () => {
+  await test('stations have exactly two exterior ends and two inward wall names without track or roof obstructions', () => {
     const built = buildTile(zone([]), { lowQ: true, metro });
-    const high = built.signs.filter(s => s.id.startsWith('mst_track_') && !s.id.endsWith('_te'));
-    assert.equal(high.length, 4); assert.ok(high.every(s => s.c[1] - s.h / 2 > metro.deckHeight + 9.2));
-    for (const d of [-1, 1]) {
-      const faces = high.filter(s => s.id.includes(`_${d}_`));
-      assert.ok(faces.some(s => s.right[2] > .99) && faces.some(s => s.right[2] < -.99));
+    const exterior = built.signs.filter(s => s.id.startsWith('mst_exterior_'));
+    const interior = built.signs.filter(s => s.id.startsWith('mst_interior_'));
+    assert.equal(exterior.length, 2); assert.equal(interior.length, 2);
+    assert.equal(built.signs.filter(s => s.id.startsWith('mst_')).length, 4, 'all legacy duplicate boards are removed');
+    for (const s of exterior) {
+      const nx = -s.right[2], nz = s.right[0];
+      assert.ok(Math.abs(s.c[0] - 500) > 68, 'one board is mounted at each longitudinal end');
+      assert.ok(nx * (s.c[0] - 500) + nz * (s.c[2] - 500) > 0, 'end face addresses its approaching road');
+      assert.ok(s.c[1] + s.h / 2 < metro.deckHeight - 1.2, 'road-level name sits below the continuous viaduct soffit');
     }
-    const platform = built.signs.filter(s => s.id.startsWith('mst_platform_'));
-    assert.equal(platform.length, 8); assert.ok(platform.every(s => Math.abs(s.c[2] - 500) - s.w / 2 > 4.2));
-    const roof = built.signs.filter(s => s.id.startsWith('mst_roof_') && !s.id.endsWith('_te'));
-    assert.equal(roof.length, 6); assert.ok(roof.every(s => s.c[1] - s.h / 2 > metro.deckHeight + 9.2));
-    assert.deepEqual([...new Set(roof.map(s => Math.round(s.c[0])))].sort((a, b) => a - b), [476, 500, 524]);
-    for (const side of [-1, 1]) {
-      const ahead = roof.filter(s => (s.c[0] - 500) * side > 0 && s.right[2] * side < 0);
-      assert.ok(ahead.some(s => Math.abs(s.c[0] - 500) <= 24.2), 'inside either direction has a readable name within25m');
+    for (const s of interior) {
+      const nx = -s.right[2], nz = s.right[0];
+      assert.ok(Math.abs(s.c[2] - 500) > 7, 'platform board stays on outer railing');
+      assert.ok(Math.abs(nx) < 1e-9 && nz * (500 - s.c[2]) > 0, 'board faces train windows perpendicular to travel');
+      assert.ok(s.c[1] > metro.deckHeight + 2.5 && s.c[1] < metro.deckHeight + 3.5);
+      assert.ok(s.w <= 7, 'complete name fits a side-window-scale field of view');
     }
+    const benches = unique(built.walls).filter(w => Math.abs(w.y0a - (metro.deckHeight + 1.2)) < 1e-8 && Math.abs(w.y1a - (metro.deckHeight + 2.4)) < 1e-8);
+    assert.equal(benches.length, 16, 'four bench footprints have elevated-only collision edges');
+    assert.ok(benches.every(w => Math.min(Math.abs(w.az - 500), Math.abs(w.bz - 500)) > 6), 'benches stay outside tracks');
   });
 
   const core = JSON.parse(gunzipSync(await readFile(join(root, 'game/public/city/core.pack.wasm'))));
@@ -118,6 +123,24 @@ try {
     }
     return packs.get(p.file)[`${i}_${j}`];
   };
+  await test('both actual RTC road approaches see the end names below the rendered viaduct rather than behind its girder', async () => {
+    const station=core.metro.stations.find(s=>s.id==='st_rtc_cross_roads'),frame=metroStationFrame(station,corridors),meshes=[],signs=[],material=new MeshBasicMaterial({side:DoubleSide});
+    const p=(u,v=0)=>new Vector3(frame.cx+frame.hx*u-frame.hz*v,0,frame.cz+frame.hz*u+frame.hx*v);
+    // Both approach cameras lie across tile boundaries. Build every touched
+    // tile with the actual sourced metro paths and production station builder.
+    for(let i=-1;i<=0;i++)for(let j=-1;j<=0;j++){
+      const raw=await sourceTile(i,j),roads=applyRoadGradePatches(raw.roads,patches),built=buildTile({...zone(roads,i,j)},{lowQ:true,metro:{...core.metro,stations:[station]}});signs.push(...built.signs);
+      for(const b of built.buffers.filter(b=>!['glow','water'].includes(b.mat))){const g=new BufferGeometry();g.setAttribute('position',new Float32BufferAttribute(b.pos,3));const mesh=new Mesh(g,material);mesh.updateMatrixWorld();meshes.push(mesh);}
+    }
+    const blocked=(origin,target)=>{const delta=target.clone().sub(origin),distance=delta.length(),ray=new Raycaster(origin,delta.normalize(),.01,distance-.015);return ray.intersectObjects(meshes,false).length>0;};
+    for(const end of[-1,1]){
+      const sign=signs.find(s=>s.id===`mst_exterior_${station.id}_${end}`);assert.ok(sign);
+      const camera=p(end*128);camera.y=5.8;const centre=new Vector3(...sign.c),right=new Vector3(...sign.right);
+      const old=p(end*68.8);old.y=core.metro.deckHeight+8.25;console.log('RTC_NAME_SIGHTLINE',JSON.stringify({end,oldHighBlocked:blocked(camera,old),newCentreBlocked:blocked(camera,centre),camera:camera.toArray(),name:centre.toArray()}));if(end===-1)assert.equal(blocked(camera,old),true,'observed old high name really is occluded by rendered geometry');
+      for(const x of[-.38,0,.38])for(const y of[-.18,.18]){const target=centre.clone().addScaledVector(right,sign.w*x);target.y+=sign.h*y;assert.equal(blocked(camera,target),false,`RTC end${end}: road-level caption is not hidden by the actual viaduct`);}
+    }
+    for(const mesh of meshes)mesh.geometry.dispose();material.dispose();
+  });
   const oldBridgeSites = roads => {
     const out = [];
     for (const e of roads) {
@@ -142,7 +165,8 @@ try {
     assert.ok(before.length > after.length * 3, 'dense short-span pier wall is removed');
     const originalUnsafe = before.filter(p => !roadStructureClearance(roads).clear({ x: p.x, z: p.z, r: .8 }, 0, p.h));
     assert.ok(originalUnsafe.length > 0); assert.equal(after.some(s => !globalClear.clear(s.footprint, s.bottom, s.top)), false);
-    assert.equal(built.signs.filter(s => s.id.startsWith(`mst_track_${rtc.id}_`) && !s.id.endsWith('_te')).length, 4);
+    assert.equal(built.signs.filter(s => s.id.startsWith(`mst_exterior_${rtc.id}_`)).length, 2);
+    assert.equal(built.signs.filter(s => s.id.startsWith(`mst_interior_${rtc.id}_`)).length, 2);
     console.log('RTC_CLEARANCE_AUDIT', JSON.stringify({ stationId: rtc.id, sourcePoint: rtc.p, sourceLines: rtc.lines, tile: `${i}_${j}`,
       oldOrdinaryBridgePiersWithin150m: before.length, oldPiersBlockingRoad: originalUnsafe.length, newBridgePiersWithin150m: after.length,
       nearBridgeSourceIds: [...new Set(before.map(p => p.source))], allTileStructurePieces: built.structureSupports.length,
@@ -167,8 +191,8 @@ try {
     assert.ok(bridgeCandidates > 100 && bridgeRetained > 0 && bridgeOmitted > 0); assert.equal(metroRetained + metroOmitted, core.metro.pillars.length);
     console.log('CITY_STRUCTURE_AUDIT', JSON.stringify({ sourceRoads: prepared.length, bridgeCandidates, overlappingBridgeSitesMerged: bridgeCandidates - uniqueBridgeCandidates, uniqueBridgeCandidates, bridgeRetained, bridgeOmitted, sourceMetroPillars: core.metro.pillars.length, metroRetained, metroOmitted, modelHeadroomMetres: 4.8, sourceDataRewritten: false }));
   });
-  await test('all sourced stations keep rideable platforms and bidirectional above-canopy names with safe modeled supports', async () => {
-    let stations = 0, pieces = 0, columns = 0, stairs = 0;
+  await test('all sourced stations keep rideable platforms and exactly two exterior plus two interior names with safe modeled supports', async () => {
+    let stations = 0, pieces = 0, columns = 0, stairs = 0, offsetNameBoards = 0;
     for (const st of core.metro.stations) {
       assert.ok(metroStationFrame(st, corridors), `${st.id}: source line association`);
       const i = Math.floor(st.p[0] / 1000), j = Math.floor(st.p[1] / 1000), raw = await sourceTile(i, j);
@@ -177,17 +201,22 @@ try {
       const local = { ...zone(roads, i, j), buildings: raw.buildings.filter(b => b.ring.some(near)) };
       const built = buildTile(local, { lowQ: true, metro: { ...core.metro, stations: [st], pillars: [] } });
       safeSupports(built, roads);
-      const signs = built.signs.filter(s => s.id.startsWith(`mst_track_${st.id}_`) && !s.id.endsWith('_te'));
-      assert.equal(signs.length, 4, `${st.id}: approaching and departing names`);
-      assert.ok(signs.every(s => s.c[1] - s.h / 2 > core.metro.deckHeight + 9.2));
-      const roof = built.signs.filter(s => s.id.startsWith(`mst_roof_${st.id}_`) && !s.id.endsWith('_te'));
-      assert.equal(roof.length, 6, `${st.id}: repeated inside-station roof names`);
-      assert.ok(roof.every(s => s.c[1] - s.h / 2 > core.metro.deckHeight + 9.2));
+      const exterior = built.signs.filter(s => s.id.startsWith(`mst_exterior_${st.id}_`));
+      const interior = built.signs.filter(s => s.id.startsWith(`mst_interior_${st.id}_`));
+      assert.equal(exterior.length, 2, `${st.id}: only two exterior end names`);
+      assert.equal(interior.length, 2, `${st.id}: only two interior platform names`);
+      assert.equal(built.signs.filter(s => s.id.startsWith('mst_')).length, 4, `${st.id}: no duplicate legacy signs`);
+      const frame=metroStationFrame(st,corridors),clear=roadStructureClearance(roads);
+      for(const s of exterior){const fx=-s.right[2],fz=s.right[0],x=s.c[0]-fx*.1,z=s.c[2]-fz*.1,y=s.c[1]-.15;
+        assert.deepEqual(clear.conflicts({x,z,hx:frame.hx,hz:frame.hz,hw:8,hl:.12},y-1.125,y+1.125),[],`${st.id}: hanging name plate leaves actual road headroom`);
+        assert.ok(y+1.125<core.metro.deckHeight-1.2,'backing remains below the rendered soffit');
+        if(Math.abs(-(x-frame.cx)*frame.hz+(z-frame.cz)*frame.hx)>.1)offsetNameBoards++;
+      }
       assert.equal(unique(built.surfaceGrid).filter(s => s.kind === 'pad').length, 2, `${st.id}: both platform drive surfaces`);
       const own = built.structureSupports.filter(s => s.source === st.id); pieces += own.length; columns += own.filter(s => s.part === 'station_column').length; stairs += own.filter(s => s.part === 'station_stairs').length; stations++;
     }
     assert.equal(stations, core.metro.stations.length);
-    console.log('STATION_STRUCTURE_AUDIT', JSON.stringify({ sourceStations: stations, sourceStationTiles: new Set(core.metro.stations.map(s => `${Math.floor(s.p[0] / 1000)}_${Math.floor(s.p[1] / 1000)}`)).size, retainedStationStructurePieces: pieces, retainedColumns: columns, retainedStairs: stairs, aboveCanopyNameFaces: stations * 10, platformNameFaces: stations * 8, roadConflictsAfter: 0, validation: 'offline source road/building station neighborhoods; not citywide browser verification' }));
+    console.log('STATION_STRUCTURE_AUDIT', JSON.stringify({ sourceStations: stations, sourceStationTiles: new Set(core.metro.stations.map(s => `${Math.floor(s.p[0] / 1000)}_${Math.floor(s.p[1] / 1000)}`)).size, retainedStationStructurePieces: pieces, retainedColumns: columns, retainedStairs: stairs, exteriorNameBoards: stations * 2, interiorNameBoards: stations * 2, kerbOffsetExteriorBoards:offsetNameBoards, exteriorBoardHeadroomConflicts:0, roadConflictsAfter: 0, validation: 'offline source road/building station neighborhoods; not citywide browser verification' }));
   });
 
   // Observe actual production draw calls rather than trusting support metadata.

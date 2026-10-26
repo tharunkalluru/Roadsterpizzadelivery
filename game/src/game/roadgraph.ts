@@ -1,6 +1,7 @@
 import type { RoadEdge, XZ } from '../world/types';
 import { hasCentreMedian } from '../world/city';
 import type { SignalApproach, SignalSite } from '../world/signals';
+import { constructionLane } from '../world/construction';
 
 export interface GEdge { e: RoadEdge; len: number; cum: number[]; from: string; to: string }
 export interface SignalControl { site: SignalSite; approach: SignalApproach }
@@ -9,6 +10,18 @@ export interface RoadRoute { pts: [number, number, number][]; len: number; compl
 
 const DRIVE = new Set(['motorway', 'motorway_link', 'trunk', 'primary', 'secondary', 'tertiary', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link', 'unclassified', 'residential', 'living_street', 'service', 'unknown']);
 const COST: Record<string, number> = { motorway: 0.7, motorway_link: 0.8, trunk: 0.8, primary: 0.85, secondary: 0.9, tertiary: 0.95, service: 1.4, living_street: 1.3 };
+
+// Sub-metre source chords can encode a surveying kink at an otherwise straight
+// road split. They must not swing a lane offset several metres sideways. Keep
+// every source coordinate, but use a usable neighbouring chord for its normal.
+function offsetHeading(pts: XZ[], low: number, high: number): XZ {
+  while (Math.hypot(pts[high][0] - pts[low][0], pts[high][1] - pts[low][1]) < 1 && (low > 0 || high < pts.length - 1)) {
+    if (high < pts.length - 1) high++;
+    if (low > 0) low--;
+  }
+  const dx = pts[high][0] - pts[low][0], dz = pts[high][1] - pts[low][1], length = Math.hypot(dx, dz) || 1;
+  return [dx / length, dz / length];
+}
 
 // small binary heap for Dijkstra / A*
 class Heap { a: [number, string][] = [];
@@ -130,7 +143,8 @@ export class RoadGraph {
     if (dir === -1) { hx = -hx; hz = -hz; }
     const ya = g.e.elev ? g.e.elev[i - 1] : 0, yb = g.e.elev ? g.e.elev[i] : 0;
     // drive on the left: left of heading (hx,hz) is (hz,-hx)
-    return { x: a[0] + (b[0] - a[0]) * u + hz * lateral, y: ya + (yb - ya) * u, z: a[1] + (b[1] - a[1]) * u - hx * lateral, hx, hz };
+    const [offsetX, offsetZ] = lateral ? offsetHeading(g.e.pts, i - 1, i) : [hx * dir, hz * dir];
+    return { x: a[0] + (b[0] - a[0]) * u + offsetZ * dir * lateral, y: ya + (yb - ya) * u, z: a[1] + (b[1] - a[1]) * u - offsetX * dir * lateral, hx, hz };
   }
   nearestEdges(x: number, z: number, r = 1): GEdge[] {
     const cx = Math.floor(x / 60), cz = Math.floor(z / 60), out = new Set<GEdge>();
@@ -196,15 +210,14 @@ export class RoadGraph {
     // A one-way carriageway can hold several lanes. Preserve the car's travel-
     // relative lane fraction through split edges (and reversed source geometry),
     // rather than jumping back to the centre at each OSM segment boundary.
-    const lane = (g: GEdge) => g.e.oneway && car ? laneFraction * Math.max(0, g.e.w / 2 - 1.25) : hasCentreMedian(g.e) ? Math.min(3.5, g.e.w / 4) : 0;
+    const lane = (g: GEdge, dir: 1 | -1) => constructionLane(g.e, dir) ?? (g.e.oneway && car ? laneFraction * Math.max(0, g.e.w / 2 - 1.25) : hasCentreMedian(g.e) ? Math.min(3.5, g.e.w / 4) : 0);
     const at = (g: GEdge, s: number, dir: 1 | -1): Point => {
-      const p = this.pointAt(g, dir === 1 ? s : g.len - s, dir, lane(g));
+      const p = this.pointAt(g, dir === 1 ? s : g.len - s, dir, lane(g, dir));
       return [p.x, p.y, p.z];
     };
     const vertex = (g: GEdge, i: number, dir: 1 | -1): Point => {
-      const p = g.e.pts[i], a = g.e.pts[Math.max(0, i - 1)], b = g.e.pts[Math.min(g.e.pts.length - 1, i + 1)];
-      const L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, off = lane(g) * dir;
-      return [p[0] + (b[1] - a[1]) / L * off, g.e.elev?.[i] || 0, p[1] - (b[0] - a[0]) / L * off];
+      const p = g.e.pts[i], [hx, hz] = offsetHeading(g.e.pts, Math.max(0, i - 1), Math.min(g.e.pts.length - 1, i + 1)), off = lane(g, dir) * dir;
+      return [p[0] + hz * off, g.e.elev?.[i] || 0, p[1] - hx * off];
     };
     const side = (g: GEdge, s: number, x: number, z: number): 1 | -1 | 0 => {
       if (!hasCentreMedian(g.e)) return 0;

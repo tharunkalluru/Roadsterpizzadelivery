@@ -16,6 +16,11 @@ import { drawAirfieldTile, airfieldClearAt, type Airfield } from './airfields';
 import type { RoadEdge, Building, XZ, Board, Furniture, Area } from './types';
 import type { SignSystem } from './signs';
 import { resolveSignalSites, type SignalSite } from './signals';
+import { drawStreetLamp, type LampFixture } from './street-lamps';
+import { drawConstruction, type ConstructionPlan } from './construction';
+import { drawMetroStationVisuals } from './metro-station-visuals';
+import { destinationIndex, type DestinationIdentity } from './destination-identity';
+import { decorateDestinationBuilding } from './destination-recognition';
 
 const PALETTE = ['#E8A87C', '#F2D49B', '#9FC7C1', '#C9B6E4', '#F4B6C2', '#E7D7C1', '#B5C99A', '#F1C27D', '#D9CAB3', '#8FB9C9',
   '#E3A6A1', '#F3EFE6', '#C8D6A3', '#E9C46A', '#BFD7EA', '#F0B78F', '#EDE6DA', '#D8CFC0'];
@@ -45,6 +50,8 @@ export interface TileBuilt {
   counts: { buildings: number; boards: number; roads: number; verts: number; fillShops: number; inferredSignals: number };
   structureSupports?: StructureSupport[];
   buildingCorrections?: BuildingCorrection[];
+  workZoneFeatures?: { barriers: number; piers: number; excavationSites: number };
+  lampFixtures?: LampFixture[];
 }
 
 // Generic shop signs for street frontages where open data names no business: the kind of shop only, never an invented name.
@@ -89,7 +96,7 @@ function signedArea(ring: XZ[]) { let a = 0; for (let i = 0; i < ring.length; i+
 const key = (x: number, z: number, s = 50) => `${Math.floor(x / s)},${Math.floor(z / s)}`;
 
 // Build the geometry and gameplay data of one map tile. Pure data in, plain data out, so it runs in a worker.
-export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroData; landmarks?: Landmark[]; airfields?:Airfield[] }): TileBuilt {
+export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroData; landmarks?: Landmark[]; airfields?:Airfield[]; construction?: ConstructionPlan; destinations?: readonly DestinationIdentity[] }): TileBuilt {
   const r = rng(20261021 + zone.i * 7919 + zone.j * 104729);
   const T = () => new TiledBatch(500);
   const B = { st: T(), wall: T(), shop: T(), roof: T(), road: T(), foot: T(), lit: T(), glow: T(), park: T(), water: T(), marks: T(), kerb: T() };
@@ -112,6 +119,12 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   const surfaceGrid = new Map<string, Surface[]>();
   const landmarkSurfaceGrid: LandmarkSurfaceGrid = new Map();
   const lamps: THREE.Vector3[] = [];
+  const lampFixtures: LampFixture[] = [];
+  const streetLamp = (site: Parameters<typeof drawStreetLamp>[1]) => {
+    const base = site.base || 0;
+    if (structureClearance.conflicts({ x: site.x, z: site.z, r: .2 }, base, base + (site.height || 9)).some(id => id !== site.road)) return;
+    const fixture = drawStreetLamp(B, site); lampFixtures.push(fixture); lamps.push(new THREE.Vector3(...fixture.head)); return fixture;
+  };
   const obstacles = new Map<string, { x: number; z: number; r: number; top: number }[]>();
   const structureSupports: StructureSupport[] = [], structureClearance = roadStructureClearance(zone.roads);
   const addObstacle = (x: number, z: number, r: number, top: number) => { const k = key(x, z); (obstacles.get(k) || obstacles.set(k, []).get(k)!).push({ x, z, r, top }); };
@@ -301,7 +314,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         }
       };
       if (e.w >= 7.5 && !e.oneway && !centreMedian) dash(e.pts, '#ecebf0', 0.14);
-      if (e.oneway && e.w >= 7) {
+      if (e.oneway && e.w >= 7 && !e.workZone) {
         // one dashed line between each pair of lanes (ORR and the expressways run four lanes a side)
         const nl = e.expressway?.controlled ? e.expressway.throughLanes : Math.max(2, Math.round(e.w / 3.3));
         for (let k = 1; k < nl; k++) {
@@ -359,13 +372,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
               const x = ax + (bx - ax) * d / L2, z = az + (bz - az) * d / L2;
               if (!ownsRoadPoint(e, x, z) || elevAt(i) > .1) continue;
               if (blocked(x, z, e, 0.8)) continue;
-              const ox = -Math.cos(ang) * 1.9 * side, oz = Math.sin(ang) * 1.9 * side;       // arm back over this carriageway
-              B.st.add(TPL.cyl6, x, 5, z, 0.11, 10, 0.11, '#8d8899');
-              B.st.box(x + ox / 2, 9.95, z + oz / 2, 0.08, 0.08, 1.9, '#8d8899', { ry: ang + Math.PI / 2 });
-              B.st.box(x + ox, 9.85, z + oz, 0.75, 0.14, 0.3, '#3c3946', { ry: ang + Math.PI / 2 });
-              B.lit.box(x + ox, 9.77, z + oz, 0.6, 0.02, 0.22, '#fff0cc', { ry: ang + Math.PI / 2 });
-              B.glow.add(TPL.plane, x + ox * 1.8, y0 + 0.03, z + oz * 1.8, 9, 9, 1, '#ffb066', { rx: -Math.PI / 2 });
-              lamps.push(new THREE.Vector3(x + ox, 9.6, z + oz)); addObstacle(x, z, 0.2, 10);
+              if (streetLamp({ road: e.id, kind: 'median', x, z, inwardX: Math.cos(ang) * side, inwardZ: -Math.sin(ang) * side, height: 10, reach: 2.6, surfaceY: y0 })) addObstacle(x, z, 0.2, 10);
             }
             acc = (acc + L2) % 40;
           }
@@ -384,13 +391,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
           if (el < 3) continue;
           const x = ax + (bx - ax) * u, z = az + (bz - az) * u, y = el + y0 + 0.95, ang = Math.atan2(bx - ax, bz - az);
           if (lamps.some((l) => Math.abs(l.x - x) < 10 && Math.abs(l.z - z) < 10)) continue;
-          const ox = Math.cos(ang) * 1.6 * sd, oz = -Math.sin(ang) * 1.6 * sd;     // arm reaches in over the deck
-          B.st.add(TPL.cyl6, x, y + 4, z, 0.09, 8, 0.09, '#8d8899');
-          B.st.box(x + ox / 2, y + 7.95, z + oz / 2, 0.08, 0.08, 1.6, '#8d8899', { ry: ang + Math.PI / 2 });
-          B.st.box(x + ox, y + 7.85, z + oz, 0.7, 0.14, 0.3, '#3c3946', { ry: ang + Math.PI / 2 });
-          B.lit.box(x + ox, y + 7.77, z + oz, 0.55, 0.02, 0.22, '#fff0cc', { ry: ang + Math.PI / 2 });
-          B.glow.add(TPL.plane, x + ox * 1.6, y - 0.9 + 0.03, z + oz * 1.6, 8, 8, 1, '#ffb066', { rx: -Math.PI / 2 });
-          lamps.push(new THREE.Vector3(x + ox, y + 7.6, z + oz));
+          streetLamp({ road: e.id, kind: 'deck', x, z, base: y, inwardX: Math.cos(ang) * sd, inwardZ: -Math.sin(ang) * sd, height: 8, surfaceY: el + y0 });
         }
         acc = (acc + L2) % 35;
       }
@@ -490,13 +491,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
           const x = ax + (bx - ax) * d / L2, z = az + (bz - az) * d / L2;
           if (blocked(x, z, e, 0.8) || deckOver(x, z, 2)) continue;     // no poles punching up through a flyover
           const ang = Math.atan2(bx - ax, bz - az);
-          const ox = Math.cos(ang) * 1.6 * (e.oneway ? -sideRight : -1), oz = -Math.sin(ang) * 1.6 * (e.oneway ? -sideRight : -1);
-          B.st.add(TPL.cyl6, x, 4.5, z, 0.09, 9, 0.09, '#8d8899');
-          B.st.box(x + ox / 2, 8.95, z + oz / 2, 0.08, 0.08, 1.6, '#8d8899', { ry: ang + Math.PI / 2 });
-          B.st.box(x + ox, 8.85, z + oz, 0.7, 0.14, 0.3, '#3c3946', { ry: ang + Math.PI / 2 });
-          B.lit.box(x + ox, 8.77, z + oz, 0.55, 0.02, 0.22, '#fff0cc', { ry: ang + Math.PI / 2 });
-          B.glow.add(TPL.plane, x + ox * 1.6, y0 + 0.03, z + oz * 1.6, 8, 8, 1, '#ffb066', { rx: -Math.PI / 2 });
-          lamps.push(new THREE.Vector3(x + ox, 8.6, z + oz));
+          const side = e.oneway ? sideRight : 1;
+          streetLamp({ road: e.id, kind: 'road', x, z, inwardX: Math.cos(ang) * side, inwardZ: -Math.sin(ang) * side, surfaceY: y0 });
         }
         acc = (acc + L2) % 30;
       }
@@ -895,6 +891,21 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     void cz; void theatreIds;
   }
 
+  // Source-bound campus, retail, cinema and office architecture. Decorate the
+  // same surviving fragments that own collision, never an erased source solid.
+  const destinations = destinationIndex(opts.destinations || []);
+  let destinationSolid = 0;
+  for (const building of new Set([...buildingGrid.values()].flat())) {
+    const sourceId = building.sourceId || building.id, records = destinations.get(sourceId);
+    if (!records) continue;
+    decorateDestinationBuilding(building, records, {
+      B: captureLandmarkBatches(B, landmarkSurfaceGrid, `destination_${sourceId}`), clear: modelClearance.clear,
+      inOtherBuilding: (x, z, selfId) => inFoot(x, z, selfId),
+      solid: (ring, h) => indexBuilding({ id: `destination_${sourceId}_${destinationSolid++}`, name: building.name, cls: 'structure', h, hs: 'model', ring, fc: null, rc: null }),
+      sign: (id, text, bg, fg, c, facing, w, h) => { const len = Math.hypot(facing[0], facing[2]) || 1; signs.push({ id, text, bg, fg, c, right: [facing[2] / len, 0, -facing[0] / len], up: [0, 1, 0], w, h }); },
+    });
+  }
+
   // ---------- boards ----------
   const up = up0;
   for (const bd of zone.boards) {
@@ -1012,24 +1023,35 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         const sf = over.s, dx = sf.bx - sf.ax, dz = sf.bz - sf.az, L2 = Math.hypot(dx, dz) || 1;
         const t = Math.max(0, Math.min(1, ((x - sf.ax) * dx + (z - sf.az) * dz) / (L2 * L2)));
         const cx = sf.ax + dx * t, cz = sf.az + dz * t, nx = -dz / L2, nz = dx / L2, side = (x - cx) * nx + (z - cz) * nz >= 0 ? 1 : -1;
-        const off = sf.e!.w / 2 + 0.15, lx = cx + nx * off * side, lz = cz + nz * off * side, y = over.y + 0.95, ang = Math.atan2(dx, dz);
+        const off = Math.max(sf.e!.w / 2, 4.2) + 0.15, lx = cx + nx * off * side, lz = cz + nz * off * side, y = over.y + 0.95;
         const ox = -nx * side * 1.6, oz = -nz * side * 1.6;
         if (lamps.some((l) => Math.hypot(l.x - lx - ox, l.z - lz - oz) < 12)) continue;
-        B.st.add(TPL.cyl6, lx, y + 4, lz, 0.09, 8, 0.09, '#8d8899');
-        B.st.box(lx + ox / 2, y + 7.95, lz + oz / 2, 0.08, 0.08, 1.6, '#8d8899', { ry: ang + Math.PI / 2 });
-        B.st.box(lx + ox, y + 7.85, lz + oz, 0.7, 0.14, 0.3, '#3c3946', { ry: ang + Math.PI / 2 });
-        B.lit.box(lx + ox, y + 7.77, lz + oz, 0.55, 0.02, 0.22, '#fff0cc', { ry: ang + Math.PI / 2 });
-        lamps.push(new THREE.Vector3(lx + ox, y + 7.6, lz + oz));
+        streetLamp({ road: sf.e!.id, kind: 'mapped', x: lx, z: lz, base: y, inwardX: -nx * side, inwardZ: -nz * side, height: 8, surfaceY: over.y });
         continue;
       }
-      let lx = x, lz = z;
-      if (road && !(hasCentreMedian(road.e) && road.d < 0.8)) {     // a lamp in the traffic lane moves to the kerb (median lamps stay)
-        const k = road.d > 0.01 ? (road.e.w / 2 + 0.5) / road.d : 0;
-        if (!k) continue;
-        lx = road.cx + (x - road.cx) * k; lz = road.cz + (z - road.cz) * k;
-        if (blocked(lx, lz, road.e, 0.3)) continue;
+      let nearest: { e: RoadEdge; d: number; cx: number; cz: number; nx: number; nz: number } | null = null;
+      for (const sf of near(x, z)) {
+        if (sf.kind !== 'road' || !sf.e || sf.ya > 1.2 || sf.yb > 1.2 || /footway|path|steps|cycleway|pedestrian/.test(sf.e.cls)) continue;
+        const dx = sf.bx - sf.ax, dz = sf.bz - sf.az, len = Math.hypot(dx, dz) || 1;
+        const u = Math.max(0, Math.min(1, ((x - sf.ax) * dx + (z - sf.az) * dz) / (len * len)));
+        const cx = sf.ax + dx * u, cz = sf.az + dz * u, d = Math.hypot(x - cx, z - cz);
+        if (d < 25 && (!nearest || d < nearest.d)) nearest = { e: sf.e, d, cx, cz, nx: -dz / len, nz: dx / len };
       }
-      B.st.add(TPL.cyl6, lx, 4.5, lz, 0.09, 9, 0.09, '#8d8899'); B.lit.box(lx, 8.9, lz, 0.5, 0.06, 0.5, '#fff0cc'); lamps.push(new THREE.Vector3(lx, 8.6, lz));
+      if (nearest) {
+        const { e, cx, cz, nx, nz } = nearest;
+        if (hasCentreMedian(e) && nearest.d < .8) {
+          // A mapped median mast serves both carriageways with separate heads.
+          for (const side of [-1, 1]) streetLamp({ road: e.id, kind: 'median', x: cx, z: cz, inwardX: nx * side, inwardZ: nz * side, reach: 2.4, surfaceY: ROAD_Y[e.cls] ?? .04 });
+        } else {
+          const side = (x - cx) * nx + (z - cz) * nz >= 0 ? 1 : -1, off = e.w / 2 + .6;
+          const lx = cx + nx * off * side, lz = cz + nz * off * side;
+          if (lamps.some(l => Math.hypot(l.x - lx + nx * side * 1.9, l.z - lz + nz * side * 1.9) < 7)) continue;
+          streetLamp({ road: e.id, kind: 'mapped', x: lx, z: lz, inwardX: -nx * side, inwardZ: -nz * side, reach: 1.9, surfaceY: ROAD_Y[e.cls] ?? .04 });
+        }
+      } else if (structureClearance.clear({ x, z, r: .2 }, 0, 9)) {
+        // Park/path lamps without a nearby motor road retain their mapped site.
+        B.st.add(TPL.cyl6, x, 4.5, z, .09, 9, .09, '#8d8899'); B.lit.box(x, 8.9, z, .5, .06, .5, '#fff0cc'); lamps.push(new THREE.Vector3(x, 8.6, z));
+      }
     } else if (f.kind === 'atm' || f.kind === 'bench') {
       if (f.kind === 'bench' && structureClearance.clear({ x, z, hx: 0, hz: 1, hw: .8, hl: .25 }, 0, .6)) B.st.box(x, 0.45, z, 1.6, 0.1, 0.5, '#7a5235');
     } else if (f.kind === 'water_tower') {
@@ -1163,7 +1185,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   }
   // ---------- access-controlled ORR: curved approach gantries and ramp markers ----------
   {
-    const C = { B, inTile, obstacle: addObstacle,
+    const C = { B, inTile, obstacle: addObstacle, structureClear: structureClearance.clear,
       post: (x: number, z: number, bottom: number, top: number) => addWall({ ax: x - .16, az: z, bx: x + .16, bz: z, y0a: bottom, y0b: bottom, y1a: top, y1b: top, kind: 'parapet' }),
       sign: (id: string, text: string, c: number[], f: number[], w: number, h: number, bg = '#17703f', fg = '#ffffff') => {
         signs.push({ id, text, bg, fg, c, right: [f[2], 0, -f[0]], up: [0, 1, 0], w, h });
@@ -1247,6 +1269,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     let solidN = 0;
     drawLandmark(l, {
       B: captureLandmarkBatches(B, landmarkSurfaceGrid, l.id || l.kind), obstacle: addObstacle,
+      clear: modelClearance.clear,
+      trim: (ring, h) => modelClearance.correct({ id: `hero_${l.id || l.kind}`, name: l.name, cls: 'landmark', h, hs: 'model', ring, fc: null, rc: null })?.pieces.map(piece => piece.ring) || [ring],
       solid: (ring, h) => {
         const bld: Building = { id: `lm_${l.kind}_${l.x!.toFixed(0)}_${solidN++}`, name: l.name, cls: 'landmark', h, hs: 'model', ring, fc: null, rc: null };
         let minx = 1e9, maxx = -1e9, minz = 1e9, maxz = -1e9; for (const p of ring) { minx = Math.min(minx, p[0]); maxx = Math.max(maxx, p[0]); minz = Math.min(minz, p[1]); maxz = Math.max(maxz, p[1]); }
@@ -1393,66 +1417,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       if (!opts.lowQ && bikesLeft > 0) for (let k = 0; k < 3; k++) { const b2 = P(ue + Math.sign(ue) * (len + 6 + k * 1.1), v + s * 1.5); bike(b2[0], b2[1], ang + Math.PI / 2, pr); bikesLeft--; }
       addActivity(foot[0], foot[1], 6);
     }
-    // name boards on both long sides at concourse level, and a sign at each stair
-    const nameEn = st.name.toUpperCase(), nameTe = st.te || '';
-    for (const s of [-1, 1]) {
-      const q = P(0, s * (Ws / 2 - 1.9));
-      B.st.box(q[0], cY + 4.3, q[1], 0.2, 1.8, 26, '#ffffff', { ry: ang });
-      signs.push({ id: `mst_${st.id}_${s}`, text: `${nameEn} METRO`, bg: '#ffffff', fg: '#1f3046', c: [q[0] + nx * s * 0.12, cY + 4.55, q[1] + nz * s * 0.12], right: [hx * s, 0, hz * s], up: [0, 1, 0], w: 18, h: 1.1 });
-      if (nameTe) signs.push({ id: `mst_${st.id}_${s}t`, text: nameTe, bg: '#ffffff', fg: '#1f3a68', c: [q[0] + nx * s * 0.12, cY + 3.75, q[1] + nz * s * 0.12], right: [hx * s, 0, hz * s], up: [0, 1, 0], w: 9, h: 0.7 });
-    }
-    // End-face boards meet drivers approaching along either road direction.
-    // Known line identities come from station source tags; no route is guessed at interchanges.
-    const lineIds = (stationLines || []).filter(id => ['red', 'blue', 'green'].includes(id));
-    // Roof-riding chase cameras sit above the canopy: a distant end board alone
-    // becomes too small during the pass. Repeat the source name on light roof
-    // frames, with a nearby readable face in either direction through the station.
-    for (const u of [-24, 0, 24]) {
-      const q = P(u, 0), boardY = DH + 11.2;
-      B.st.box(q[0], boardY - .2, q[1], 18, 2.25, .14, '#f7f8fa', { ry: ang });
-      B.st.box(q[0], DH + 9.8, q[1], 18.3, .14, .18, '#a9a4b5', { ry: ang });
-      for (const side of [-1, 1]) {
-        const post = P(u, side * 8.7);
-        B.st.box(post[0], DH + 9.6, post[1], .14, 3.2, .14, '#a9a4b5', { ry: ang });
-      }
-      for (const face of [-1, 1]) {
-        signs.push({ id: `mst_roof_${st.id}_${u}_${face}`, text: nameEn, bg: '#f7f8fa', fg: '#17304d',
-          c: [q[0] + hx * face * .1, boardY + .15, q[1] + hz * face * .1], right: [hz * face, 0, -hx * face], up: [0, 1, 0], w: 17.4, h: 1.15 });
-        if (nameTe) signs.push({ id: `mst_roof_${st.id}_${u}_${face}_te`, text: nameTe, bg: '#f7f8fa', fg: '#17304d',
-          c: [q[0] + hx * face * .1, boardY - .7, q[1] + hz * face * .1], right: [hz * face, 0, -hx * face], up: [0, 1, 0], w: 12, h: .55 });
-      }
-    }
-    for (const direction of [-1, 1]) {
-      const q = P(direction * (Ls * .33 + .35), 0), fx = hx * direction, fz = hz * direction, w = 19;
-      B.st.box(q[0], cY + 2, q[1], w + .4, 2.7, .18, '#f7f8fa', { ry: ang });
-      signs.push({ id: `mst_road_${st.id}_${direction}`, text: nameEn, bg: '#f7f8fa', fg: '#17304d', c: [q[0] + fx * .11, cY + 2.5, q[1] + fz * .11], right: [fz, 0, -fx], up: [0, 1, 0], w, h: .95 });
-      if (nameTe) signs.push({ id: `mst_road_${st.id}_${direction}_te`, text: nameTe, bg: '#f7f8fa', fg: '#17304d', c: [q[0] + fx * .11, cY + 1.65, q[1] + fz * .11], right: [fz, 0, -fx], up: [0, 1, 0], w: 13, h: .55 });
-      for (let k = 0; k < lineIds.length; k++) {
-        const id = lineIds[k], width = w / lineIds.length, off = -w / 2 + width * (k + .5);
-        B.st.box(q[0] + fz * off, cY + .9, q[1] - fx * off, width, .32, .21, metroLineColor(id), { ry: ang });
-      }
-      // High end boards sit beyond and above the canopy, above the train/roof-
-      // riding car envelope. The roof cannot mask them during the station pass.
-      // Both faces remain readable when entering or leaving a station.
-      const entry = P(direction * (Ls / 2 + 4), 0), boardY = DH + 11.2;
-      B.st.box(entry[0], boardY - .2, entry[1], 18, 2.25, .18, '#f7f8fa', { ry: ang });
-      for (const face of [-1, 1]) {
-        signs.push({ id: `mst_track_${st.id}_${direction}_${face}`, text: nameEn, bg: '#f7f8fa', fg: '#17304d',
-          c: [entry[0] + fx * face * .12, boardY + .15, entry[1] + fz * face * .12], right: [fz * face, 0, -fx * face], up: [0, 1, 0], w: 17.4, h: 1.15 });
-        if (nameTe) signs.push({ id: `mst_track_${st.id}_${direction}_${face}_te`, text: nameTe, bg: '#f7f8fa', fg: '#17304d',
-          c: [entry[0] + fx * face * .12, boardY - .7, entry[1] + fz * face * .12], right: [fz * face, 0, -fx * face], up: [0, 1, 0], w: 12, h: .55 });
-      }
-      for (const side of [-1, 1]) {
-        const post = P(direction * (Ls / 2 + 4), side * 8.7);
-        B.st.box(post[0], DH + 5.9, post[1], .18, 10.2, .18, '#a9a4b5', { ry: ang });
-        // Smaller platform boards face both directions at passenger eye height;
-        // their entire width stays outside the moving train's track corridor.
-        const platform = P(direction * 27, side * 6);
-        B.st.box(platform[0], DH + 3, platform[1], 3.2, 1.1, .12, '#f7f8fa', { ry: ang });
-        for (const face of [-1, 1]) signs.push({ id: `mst_platform_${st.id}_${direction}_${side}_${face}`, text: nameEn, bg: '#f7f8fa', fg: '#17304d',
-          c: [platform[0] + hx * face * .08, DH + 3, platform[1] + hz * face * .08], right: [hz * face, 0, -hx * face], up: [0, 1, 0], w: 3.1, h: .95 });
-      }
-    }
+    drawMetroStationVisuals(st, best, DH, { B, signs, wall: addWall, clearance: structureClearance.clear });
   }
   for (const p of M?.pillars || []) {
     const [x, z] = p.p;
@@ -1465,6 +1430,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       cap: { footprint: cap, bottom: DH - 2.2, top: DH - 1 } });
   }
 
+  const workZoneFeatures = opts.construction ? drawConstruction(opts.construction, zone.roads, [zone.i, zone.j], { B, signs, wall: addWall, obstacle: addObstacle, clear: structureClearance, occupied: (x, z, pad) => inFoot(x, z, null, pad) }) : undefined;
+
   // ---------- hand back plain buffers ----------
   const buffers: BuiltBuffers[] = [];
   let verts = 0;
@@ -1476,7 +1443,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   void r; void theatreIds; void byBuilding;
   return {
     key: `${zone.i}_${zone.j}`, i: zone.i, j: zone.j, buffers, roads: ownRoads,
-    buildingGrid, surfaceGrid, landmarkSurfaceGrid, walls, obstacles, structureSupports, buildingCorrections, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, facades, signs,
+    buildingGrid, surfaceGrid, landmarkSurfaceGrid, walls, obstacles, structureSupports, buildingCorrections, workZoneFeatures, lampFixtures, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, facades, signs,
     activity: [...activity],
     rails: (zone.osm || []).filter((f) => f.k === 'rail' && f.l && f.t.railway === 'rail' && !f.t.service && !(f.t.tunnel && f.t.tunnel !== 'no')).map((f) => ({ id: f.id, pts: f.l!, bridge: !!f.t.bridge && f.t.bridge !== 'no' } as any)),
     counts: { buildings: zone.buildings.length, boards: zone.boards.length, roads: ownRoads.length, verts, fillShops, inferredSignals },

@@ -3,15 +3,22 @@ import { metroTrain } from '../world/vehicles';
 import { metroCorridors, projectMetroPath, sampleMetroPath, MetroPath, MetroTrack, MetroCorridor, MetroLineInput } from '../world/metro-geometry';
 import type { XZ } from '../world/types';
 import { MovingRailFrames, type MovingRailShape } from './moving-rail';
+import { metroServiceForRun, type MetroStationSource, type MetroService } from '../world/metro-service';
+import { MetroTrainDisplays } from './metro-display';
 
 interface Run {
   corridor: MetroCorridor; track: MetroTrack; path: MetroPath; dir: 1 | -1;
   min: number; max: number; stops: number[]; peer: Run;
+  stationStops: { s: number; source: MetroStationSource; id: string }[];
 }
 interface Train { id: string; run: Run; s: number; v: number; dwell: number; next: number; terminal: boolean; mesh: THREE.Group | null }
 interface CoachGeometry { body: THREE.BufferGeometry; lights: THREE.BufferGeometry }
 const VMAX = 22, ACC = 1, BRAKE = 1.5, DWELL = 18, NEAR = 1300;
 export const METRO_TRAIN_LENGTH = 69, METRO_HEADWAY_GAP = 28;
+export interface MetroStationDwell {
+  trainId: string; stationId: string; lineId: string; direction: 1 | -1; platformSide: 1 | -1;
+  elapsed: number; remaining: number; doors: { x: number; z: number; y: number; hx: number; hz: number }[];
+}
 const COACH_SPACING = 22.1, FRONT = (METRO_TRAIN_LENGTH - COACH_SPACING * 2) / 2, END_CLEARANCE = 5;
 
 // Split the existing three-coach model at its coach centres, retaining its cabs, colours and lights.
@@ -42,8 +49,10 @@ export class MetroTrains {
   geo: { coaches: CoachGeometry[]; length: number } | null = null;
   dh: number;
   private frames = new MovingRailFrames();
+  private displays = new MetroTrainDisplays();
+  stationDwells: MetroStationDwell[] = [];
   get bodies() { return this.frames.bodies; }
-  constructor(metro: { lines: MetroLineInput[]; stations: { p: XZ; lines?: string[] }[]; deckHeight: number }, public mats: { body: THREE.Material; lights: THREE.Material }) {
+  constructor(public metro: { lines: MetroLineInput[]; stations: MetroStationSource[]; deckHeight: number }, public mats: { body: THREE.Material; lights: THREE.Material }) {
     this.dh = metro.deckHeight || 11;
     for (const corridor of metroCorridors(metro.lines)) {
       if (corridor.center.len < 400) continue;
@@ -53,13 +62,17 @@ export class MetroTrains {
         const min = dir > 0 ? METRO_TRAIN_LENGTH + END_CLEARANCE : END_CLEARANCE;
         const max = dir > 0 ? path.len - END_CLEARANCE : path.len - METRO_TRAIN_LENGTH - END_CLEARANCE;
         const stops = [min, max];
-        for (const station of metro.stations) {
+        const stationStops: Run['stationStops'] = [];
+        for (const [index, station] of metro.stations.entries()) {
           if (station.lines?.length && !station.lines.includes(corridor.lineId)) continue;
           const projection = projectMetroPath(path, station.p);
-          if (projection.d < 60) stops.push(Math.max(min, Math.min(max, projection.s + dir * METRO_TRAIN_LENGTH / 2)));
+          if (projection.d < 60) {
+            const s = Math.max(min, Math.min(max, projection.s + dir * METRO_TRAIN_LENGTH / 2)); stops.push(s);
+            stationStops.push({ s, source: station, id: station.id || `source-station:${index}` });
+          }
         }
         stops.sort((a, b) => a - b);
-        return { corridor, track, path, dir, min, max, stops: stops.filter((s, i) => !i || s - stops[i - 1] > 2), peer: null! };
+        return { corridor, track, path, dir, min, max, stops: stops.filter((s, i) => !i || s - stops[i - 1] > 2), stationStops, peer: null! };
       });
       pair[0].peer = pair[1]; pair[1].peer = pair[0]; this.runs.push(...pair);
       for (const run of pair) {
@@ -77,6 +90,7 @@ export class MetroTrains {
     return run.min;
   }
   at(run: Run, s: number) { return sampleMetroPath(run.path, s); }
+  serviceForRun(run: Run) { return metroServiceForRun(run.corridor, run.dir, this.metro.stations); }
   private releaseMesh(train: Train) {
     if (train.mesh) { this.group.remove(train.mesh); this.pool.push(train.mesh); train.mesh = null; }
   }
@@ -139,13 +153,20 @@ export class MetroTrains {
         leader = train;
       }
     }
-    const bodies: MovingRailShape[] = [];
+    const bodies: MovingRailShape[] = [], visibleServices: MetroService[] = []; this.stationDwells = [];
     for (const train of this.trains) {
       const run = train.run, center = this.at(run, train.s - run.dir * METRO_TRAIN_LENGTH / 2);
       const near = Math.hypot(center.x - px, center.z - pz) < NEAR;
       if (near && !train.mesh) train.mesh = this.mesh();
       if (!near) this.releaseMesh(train);
       if (train.mesh) train.mesh.position.set(center.x, this.dh + 0.95, center.z);
+      if (train.mesh) {
+        const service = this.serviceForRun(run); this.displays.assign(train.mesh, service);
+        if (service && !visibleServices.some(s => s.lineId === service.lineId && s.text === service.text)) visibleServices.push(service);
+      }
+      const stopped = near && train.v < .05 && train.dwell > 0 ? run.stationStops.find(stop => Math.abs(stop.s - train.s) < .25) : undefined;
+      const dwell: MetroStationDwell | null = stopped ? { trainId: train.id, stationId: stopped.id, lineId: run.corridor.lineId, direction: run.dir,
+        platformSide: -run.dir as 1 | -1, elapsed: Math.max(0, DWELL - train.dwell), remaining: train.dwell, doors: [] } : null;
       for (let k = 0; k < 3; k++) {
         const p = sampleMetroPath(run.path, train.s - run.dir * (FRONT + k * COACH_SPACING), 8), y = this.dh + .95;
         if (near) bodies.push({ id: `${train.id}:${k}`, x: p.x, y, z: p.z, hx: p.hx * run.dir, hz: p.hz * run.dir,
@@ -156,8 +177,16 @@ export class MetroTrains {
           // The existing model's cab faces local -z.
           coach.rotation.set(0, Math.atan2(-p.hx * run.dir, -p.hz * run.dir), 0);
         }
+        if (dwell) for (const offset of [-6.5, 0, 6.5]) {
+          const door = sampleMetroPath(run.path, train.s - run.dir * (FRONT + k * COACH_SPACING + offset), 8), side = dwell.platformSide;
+          dwell.doors.push({ x: door.x - door.hz * side * 1.5, z: door.z + door.hx * side * 1.5, y: this.dh + 1.2, hx: door.hx, hz: door.hz });
+        }
       }
+      if (dwell) this.stationDwells.push(dwell);
+      if (train.mesh) this.displays.setDoors(train.mesh, dwell ? dwell.platformSide * run.dir : null,
+        dwell ? Math.min(1, dwell.elapsed / .8, dwell.remaining / .8) : 0);
     }
+    this.displays.update(dt, visibleServices);
     this.frames.set(bodies);
   }
 }

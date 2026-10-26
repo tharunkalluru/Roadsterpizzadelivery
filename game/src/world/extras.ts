@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { TPL, rng, hash } from '../core/util';
 import type { XZ } from './types';
-import { isORR } from './expressway';
+import { isORR, roadPose, roadLength, travelDirection } from './expressway';
 import type { StructureFootprint } from './structure-clearance';
 
 // OpenStreetMap extras drawn into a tile: petrol bunks, toll plazas, motorway exit signs, skywalks and foot
@@ -210,19 +210,29 @@ function exitSign(f: OsmFeature, C: ExtrasCtx) {
   const [px, pz] = mid(f); if (!C.inTile(px, pz)) return;
   const r = C.nearestRoad(px, pz, 20); if (!r) return;
   if (isORR(r.e)) return; // the ORR uses directed, curve-following advance gantries
-  const dir = r.e.oneway === 'forward' ? -1 : 1;             // traffic heading along (hx, hz) * dir
-  const ax = r.cx - r.hx * dir * 120, az = r.cz - r.hz * dir * 120;      // 120 m before the exit
-  const rb = C.nearestRoad(ax, az, 12) || r;
-  const nx = -rb.hz, nz = rb.hx, x = rb.cx, z = rb.cz, y = rb.y, ang = Math.atan2(rb.hx, rb.hz);
-  const B = C.B, span = rb.w + 3;
+  const dir = travelDirection(r.e); let length = 0, nearest = { distance: Infinity, s: 0 };
+  for (let i = 1; i < r.e.pts.length; i++) {
+    const a = r.e.pts[i - 1], b = r.e.pts[i], dx = b[0] - a[0], dz = b[1] - a[1], len = Math.hypot(dx, dz) || 1;
+    const u = Math.max(0, Math.min(1, ((r.cx - a[0]) * dx + (r.cz - a[1]) * dz) / (len * len)));
+    const distance = Math.hypot(r.cx - a[0] - dx * u, r.cz - a[1] - dz * u);
+    if (distance < nearest.distance) nearest = { distance, s: length + len * u }; length += len;
+  }
+  // Follow source road arc length, never a straight extrapolation across a bend.
+  const pose = roadPose(r.e, Math.max(0, Math.min(roadLength(r.e), nearest.s - dir * 120)));
+  const hx = pose.hx * dir, hz = pose.hz * dir, nx = -hz, nz = hx, x = pose.x, z = pose.z;
+  const y = pose.y + r.y - roadPose(r.e, nearest.s).y, ang = Math.atan2(hx, hz), B = C.B, span = r.w + 3;
+  const panelWidth = Math.max(2.6, Math.min(r.e.oneway ? r.w - 1.4 : r.w / 2 - 1.4, 11.4));
+  const sideOffset = r.e.oneway ? 0 : r.w / 4, bx = x - nx * sideOffset, bz = z - nz * sideOffset;
   if ([-1, 1].some(s => !extrasFootprintClear(C, { x: x + nx * s * span / 2, z: z + nz * s * span / 2, r: .3 }, y, y + 7.6))) return;
-  for (const s of [-1, 1]) { const qx = x + nx * s * span / 2, qz = z + nz * s * span / 2; B.st.box(qx, y + 3.8, qz, 0.35, 7.6, 0.35, '#9aa0a8'); C.obstacle(qx, qz, 0.3, y + 7); }
+  if (!extrasFootprintClear(C, { x, z, hx, hz, hw: span / 2, hl: .2 }, y + 7.35, y + 7.65)
+      || !extrasFootprintClear(C, { x: bx + hx * .1, z: bz + hz * .1, hx, hz, hw: (panelWidth + .4) / 2, hl: .08 }, y + 5.35, y + 7.45)) return;
+  for (const s of [-1, 1]) { const qx = x + nx * s * span / 2, qz = z + nz * s * span / 2; B.st.box(qx, y + 3.8, qz, 0.35, 7.6, 0.35, '#9aa0a8'); C.obstacle(qx, qz, .3, y + 7.6); }
   B.st.box(x, y + 7.5, z, span, 0.25, 0.25, '#9aa0a8', { ry: ang });
   const ref = f.t.ref ? `EXIT ${f.t.ref}` : 'EXIT', to = f.t.exit_to || f.t.destination || nm(f) || '';
   const text = to ? `${ref} · ${to}` : ref;
-  const fx = -rb.hx * dir, fz = -rb.hz * dir;                 // the board faces oncoming traffic
-  B.st.box(x - fx * 0.1, y + 6.4, z - fz * 0.1, Math.min(span - 1, 12), 1.9, 0.12, '#17703f', { ry: ang });
-  C.sign(f.id, upper(text).slice(0, 32), '#17703f', '#ffffff', [x + fx * 0.02, y + 6.4, z + fz * 0.02], [fx, 0, fz], Math.min(span - 1.4, 11.4), 1.4);
+  const fx = -hx, fz = -hz;
+  B.st.box(bx - fx * .1, y + 6.4, bz - fz * .1, panelWidth + .4, 1.9, .12, '#17703f', { ry: ang });
+  C.sign(f.id, upper(text).slice(0, 32), '#17703f', '#ffffff', [bx + fx * .02, y + 6.4, bz + fz * .02], [fx, 0, fz], panelWidth, 1.4);
 }
 
 // ---------- skywalks and foot overbridges (decks over roads); low path bridges over drains are left alone ----------

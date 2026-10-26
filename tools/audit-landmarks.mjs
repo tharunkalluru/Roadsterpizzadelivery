@@ -7,8 +7,8 @@ import path from 'node:path';
 const temp = mkdtempSync(path.join(tmpdir(), 'roadster-landmark-audit-'));
 try {
   const entry = path.join(temp, 'landmarks.mjs');
-  await build({ stdin: { contents: "export * from './game/src/world/landmarks.ts'; export * from './game/src/world/landmark_catalog.ts';", resolveDir: new URL('..', import.meta.url).pathname }, outfile: entry, bundle: true, platform: 'node', format: 'esm' });
-  const { placeLandmarks, placeCatalogue } = await import(entry);
+  await build({ stdin: { contents: "export * from './game/src/world/landmarks.ts'; export * from './game/src/world/landmark_catalog.ts'; export * from './game/src/world/destination-hero-data.ts';", resolveDir: new URL('..', import.meta.url).pathname }, outfile: entry, bundle: true, platform: 'node', format: 'esm' });
+  const { placeLandmarks, placeCatalogue, DESTINATION_HERO_PLANS } = await import(entry);
   const root = new URL('..', import.meta.url), core = JSON.parse(gunzipSync(readFileSync(new URL('game/public/city/core.pack.wasm', root))));
   const tiles = core.packs.flatMap((p) => p.tiles), indexed = new Set(tiles.map(([i,j]) => `${i}_${j}`));
   const model = new Map(placeLandmarks(core.origin, tiles).map((p) => [p.id, p]));
@@ -17,7 +17,7 @@ try {
     return { id: p.id, name: p.name, category: p.category, icon: p.icon, anchor: { lat: p.lat, lon: p.lon, confidence: 'inherited-unverified' },
       inPlayableBounds: p.x >= b.minX && p.x <= b.maxX && p.z >= b.minZ && p.z <= b.maxZ,
       sourceTile: tile, sourceTileIndexed: indexed.has(tile.join('_')), renderTile: l.renderTile,
-      model: { recipe: l.kind, status: 'stylised-needs-photo-review', dimensions: d ? { width: d.w, depth: d.d, height: d.h, rotation: d.rot } : 'recipe-values-not-surveyed',
+      model: { recipe: l.kind, ...(l.modelAliasOf ? { aliasOf: l.modelAliasOf } : {}), status: 'stylised-needs-photo-review', dimensions: d ? { width: d.w, depth: d.d, height: d.h, rotation: d.rot } : 'recipe-values-not-surveyed',
         gaps: [...(!d || d.w == null || d.d == null ? ['measured-footprint'] : []), ...(!d || d.h == null ? ['measured-height'] : []), ...(!d || d.rot == null ? ['verified-front-bearing'] : []), 'dated-facade-photo', 'symbol-and-inscription-review'] },
       provenance: { inherited: d ? ['OSM / Overture resolver; original source IDs were not retained in flattened data'] : ['Legacy hand-authored coordinates; no per-anchor evidence ID'], sourceUrls: [], reviewedOn: '2026-10-26', confidence: 'provisional' } };
   });
@@ -95,9 +95,24 @@ try {
   ambedkar.model.reviewedFeatures=ambedkarEvidence.observedAndImplemented;
   ambedkar.model.unresolved=ambedkarEvidence.limits;
   ambedkar.model.dimensions={statueMetres:38.1,pedestalMetres:15.24,basis:ambedkarEvidence.dimensions.basis};
+  for(const[id,plan]of Object.entries(DESTINATION_HERO_PLANS)){
+    const entry=entries.find(e=>e.id===id);if(!entry)throw Error('Missing destination hero '+id);
+    entry.anchor={...plan.anchor,confidence:'explicit named source polygon; no entrance or survey claim'};
+    entry.provenance.sourceUrls=[...new Set([...entry.provenance.sourceUrls,plan.source,plan.official])];
+    entry.provenance.destinationSource={sourceId:plan.sourceId,version:plan.version,timestamp:plan.timestamp,retrievedAt:'2026-10-26'};
+    entry.model.status=id==='uppal_stadium'?'source-bound-stylized-cricket-bowl':'exact-source-outline-stylized-retail-exterior';
+    entry.model.reviewedFeatures=[...(entry.model.reviewedFeatures||[]),id==='uppal_stadium'?'HCA identifies six floodlight towers and cricket field; playable open bowl/rows are illustrative.':'Named source outline retained, with layered retail facade, glazing and entrance recognition vocabulary.'];
+    entry.model.unresolved=['Current facade, entrance assignment, vertical dimensions and interiors are not surveyed or certified replicas. Source map geometry is not street/photo verification.'];
+  }
+  const sarath=entries.find(e=>e.id==='sarath_city'),asian=entries.find(e=>e.id==='asian_amb');
+  sarath.anchor={...asian.anchor};sarath.provenance={...asian.provenance};
+  sarath.model.status='shared-site-map-identity';sarath.model.aliasOf='asian_amb';
+  sarath.model.dimensions='No separate body: Asian AMB / Sarath City share exact source w574673965.';
+  sarath.model.reviewedFeatures=['Retains original sarath_city place ID and name; canonical asian_amb owns the only mall body, roof support and exact source clear zone. Legacy rectangle and cube removed.'];
+  sarath.model.unresolved=[...asian.model.unresolved];
   const photoFeatureIds=['charminar','golconda','jagannath','gurudwara','thalli','buddha','ambedkar'];
-  const audit = { schema: 1, auditedOn: '2026-10-26', scope: 'All 191 catalogue/model IDs checked for uniqueness, finite anchors, playable bounds, source/render tile ownership and missing dimension metadata. This is not 191 photo-verified reconstructions.',
-    summary: { total: entries.length, inBounds: entries.filter((p) => p.inPlayableBounds).length, sourceTilesIndexed: entries.filter((p) => p.sourceTileIndexed).length, renderOwnersIndexed: entries.filter((p) => indexed.has(p.renderTile.join('_'))).length, reviewedMapSourceIdentities:sourceLedger.summary.reviewedSourceIdentities, noSafeMapSourceBinding:sourceLedger.summary.noSafeSourceBinding, sourceBackedApplicationCorrections:sourceLedger.summary.applicationCorrections, exactMappedBuildingPlans:sourceLedger.summary.exactMappedBuildingPlans, photoVerifiedReconstructions: 0, modelsWithPhotoReviewedFeatures: photoFeatureIds.length, photoFeatureIds },
+  const audit = { schema: 1, auditedOn: '2026-10-26', scope: 'All 192 place IDs checked for uniqueness, finite anchors, playable bounds and source/render tile ownership. One shared-site alias refers to the canonical mall model, leaving 191 independent model owners. These are not 192 distinct physical or photo-verified reconstructions.',
+    summary: { total: entries.length, inBounds: entries.filter((p) => p.inPlayableBounds).length, sourceTilesIndexed: entries.filter((p) => p.sourceTileIndexed).length, renderOwnersIndexed: entries.filter((p) => !p.model.aliasOf && indexed.has(p.renderTile.join('_'))).length, sharedSiteAliases: entries.filter(p=>p.model.aliasOf).length, reviewedMapSourceIdentities:sourceLedger.summary.reviewedSourceIdentities+1, noSafeMapSourceBinding:sourceLedger.summary.noSafeSourceBinding, sourceBackedApplicationCorrections:sourceLedger.summary.applicationCorrections+5, exactMappedBuildingPlans:sourceLedger.summary.exactMappedBuildingPlans+4, photoVerifiedReconstructions: 0, modelsWithPhotoReviewedFeatures: photoFeatureIds.length, photoFeatureIds },
     symbolAudit: [
       { id: 'sanjeevaiah-national-flag', status: 'corrected', confidence: 'high-for-construction', notes: 'One national-flag recipe found; uses shared official-specification geometry.' },
       { id: 'secretariat-lion-capital', status: 'corrected-source-backed-basic-form', confidence: 'high-for-four-lions-and-abacus-low-for-exact-sculpture', notes: 'Four articulated back-to-back lions and four outward24-spoke wheels replace gold boxes; primary government description supports the basic form. Exact reliefs, motto and site sculpture details remain open.' },

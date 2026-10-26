@@ -95,3 +95,4 @@ try {
   });
   console.log(`${checks} route-motion regression groups passed`);
 } finally { await rm(temp, { recursive: true, force: true }); }
+await import('./construction-guidance-regressions.mjs');

@@ -5,9 +5,10 @@ import type { Building, CoreData, XZ } from './types';
 import { placeLandmarks } from './landmarks';
 import type { LandmarkSurfaceGrid } from './landmark-support';
 import { placeAirfields } from './airfields';
-import { roadGradePatches } from './road-grades';
+import { roadGradePatches, type RoadGradePatch } from './road-grades';
 import { SignalLights } from './signal-lights';
 import type { SignalSite } from './signals';
+import { planConstruction, applyConstructionRoads, type ConstructionPlan } from './construction';
 
 export interface LoadedTile { key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[]; signalLights?: SignalLights }
 
@@ -29,6 +30,8 @@ export class World implements CityData {
   obstacles = new Map<string, { x: number; z: number; r: number; top: number }[]>(); byBuilding = new Map<string, Building>();
   signals: SignalSite[] = []; lamps: THREE.Vector3[] = []; busStops: BusStop[] = []; walkPaths: WalkPath[] = []; rails = new Map<string, { id: string; pts: XZ[]; bridge?: boolean }>();
   private signalSeconds = 0;
+  construction: ConstructionPlan;
+  private preparedGrades: RoadGradePatch[];
   theatreFacades = new Map<string, { c: THREE.Vector3; n: THREE.Vector3; w: number; top: number; building: Building }>();
   bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
   tiles = new Map<string, LoadedTile>(); pending = new Map<string, number>(); empty = new Set<string>();
@@ -41,6 +44,9 @@ export class World implements CityData {
   activity = new Map<string, number>();          // shop units per 100 m cell across the loaded tiles
   radius: number; waiters: (() => void)[] = []; buildMs: number[] = []; addMs: number[] = []; t = 0; focus: [number, number] | null = null;
   constructor(public core: CoreData, public mats: Record<string, any>, public opts: { lowQ: boolean; base: string }) {
+    this.preparedGrades = roadGradePatches(core.roads);
+    this.construction = planConstruction(core.roads, core.origin);
+    core.roads = applyConstructionRoads(core.roads, this.construction);
     this.bounds = core.bounds;
     this.radius = opts.lowQ ? 900 : 1150;
     for (const p of core.packs) for (const [i, j] of p.tiles) this.packOf.set(`${i}_${j}`, new URL(p.file, opts.base).href);
@@ -55,7 +61,7 @@ export class World implements CityData {
     w.onmessage = (ev) => { if (this.worker === w) this.onMessage(ev.data); };
     w.onerror = (e) => { if (this.worker === w) { e.preventDefault(); this.workerError(); } };
     w.onmessageerror = () => { if (this.worker === w) this.workerError(); };
-    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin), roadGrades: roadGradePatches(this.core.roads), trafficSignals: this.core.trafficSignals }); }
+    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin), roadGrades: this.preparedGrades, trafficSignals: this.core.trafficSignals, construction: this.construction }); }
     catch (error) { w.terminate(); throw error; }
     return w;
   }

@@ -1,5 +1,6 @@
 export type XZ = [number, number];
 export interface RoadEdge { id: string; seg: string; name: string | null; cls: string; w: number; lanes: number; oneway: 'forward' | 'backward' | null; from: string | null; to: string | null; pts: XZ[]; elev: number[] | null; maxspeed: number | null;
+  workZone?: import('./construction').WorkZone;
   expressway?: { controlled: boolean; ramp: boolean; throughLanes: number; laneWidth?: number; shoulders?: [number, number]; sources: string[]; sourceDate: string; uncertainty: string };
 }
 export interface Building { id: string; name: string | null; cls: string | null; h: number; hs: string; ring: XZ[]; fc: string | null; rc: string | null; sourceId?: string }

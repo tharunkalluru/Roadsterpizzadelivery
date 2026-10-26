@@ -6,6 +6,7 @@ import { drawLionCapital } from './landmark_symbols';
 import { drawGolcondaSummit } from './golconda-summit';
 import { drawAmbedkarMonument } from './ambedkar-monument';
 import { mappedLandmarkClearAt } from './landmark-source-plans';
+import { destinationHeroClearAt } from './destination-hero-models';
 
 // Stylised monument models with inherited anchors and proportions. Per-feature evidence and unresolved accuracy
 // gaps are recorded in docs/landmark-audit.json; source coverage alone is not street verification.
@@ -16,19 +17,21 @@ export type { LmKind } from './landmark_catalog';
 import { BASE_LANDMARKS, landmarkId, placeCatalogue, assignRenderTiles } from './landmark_catalog';
 import type { LmKind } from './landmark_catalog';
 export { BASE_LANDMARKS as LANDMARKS } from './landmark_catalog';
-export interface Landmark { id?: string; renderTile?: [number, number]; kind: LmKind; name: string; lat: number; lon: number; rot: number; clear: number | [number, number] | [number, number, number, number]; p?: Record<string, number>; x?: number; z?: number; d?: LmData }
+export interface Landmark { id?: string; modelAliasOf?: string; renderTile?: [number, number]; kind: LmKind; name: string; lat: number; lon: number; rot: number; clear: number | [number, number] | [number, number, number, number]; p?: Record<string, number>; x?: number; z?: number; d?: LmData }
 
 
 export function placeLandmarks(origin: { lat: number; lon: number }, availableTiles?: readonly (readonly number[])[]) {
   const catalogue = new Map(placeCatalogue(origin).map((p) => [p.id, p]));
   const models = [...BASE_LANDMARKS, ...EXTRA_LANDMARKS()].map((l) => {
     const id = landmarkId(l), p = catalogue.get(id)!;
-    return { ...l, id, x: p.x, z: p.z };
+    return { ...l, id, x: p.x, z: p.z, ...(p.modelAliasOf ? { modelAliasOf: p.modelAliasOf } : {}) };
   });
   return availableTiles ? assignRenderTiles(models, availableTiles) : models;
 }
 // does a landmark's clear zone cover (x, z)? (plain map buildings there are replaced by the model)
 export function inClear(l: Landmark, x: number, z: number) {
+  if (l.modelAliasOf) return false;
+  const destination = destinationHeroClearAt(l, x, z); if (destination != null) return destination;
   const mapped = mappedLandmarkClearAt(l, x, z);
   if (mapped != null) return mapped;
   const dx = x - l.x!, dz = z - l.z!;
@@ -47,6 +50,8 @@ export interface LmCtx {
   roadY: (x: number, z: number) => number | null;  // deck height of a road here
   roadNear?: (x: number, z: number, R: number) => { d: number; cx: number; cz: number; hx: number; hz: number; w: number } | null;   // nearest street centreline
   sign?: (id: string, text: string, bg: string, fg: string, c: number[], facing: number[], w: number, h: number) => void;   // a name board (front normal)
+  clear?: (ring: XZ[], bottom: number, top: number) => boolean;
+  trim?: (ring: XZ[], height: number) => XZ[][];
 }
 
 // local modelling frame of one monument
@@ -123,6 +128,7 @@ export class Kit {
 
 // ===================================================================================================================
 export function drawLandmark(l: Landmark, ctx: LmCtx) {
+  if (l.modelAliasOf) return; // Shared-site identity; the canonical owner emits the only body/supports.
   let rot = l.rot;
   // the mapped footprint gives the front only up to a half turn: face whichever long side has the nearer street
   if (l.kind.startsWith('x_') && ctx.roadNear && !(Array.isArray(l.clear) && l.clear.length === 4)) {

@@ -13,11 +13,13 @@ const test = (name, fn) => { fn(); checks++; console.log(`PASS ${name}`); };
 try {
   await build({ stdin: { contents: `export * from './src/game/traffic-path';
     export { Traffic } from './src/game/traffic'; export { RoadGraph } from './src/game/roadgraph';
+    export { busLane } from './src/game/bus-path';
     export { resolveSignalSites } from './src/world/signals';
-    export { rng } from './src/core/util'; export { Group, Scene, BufferGeometry, MeshBasicMaterial } from 'three';`,
+    export { rng, initTemplates } from './src/core/util'; export { Group, Scene, BufferGeometry, MeshBasicMaterial } from 'three';`,
     resolveDir: join(root, 'game'), loader: 'ts' }, outfile: join(out, 'traffic.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
-  const { Traffic, TrafficCurve, RoadGraph, Scene, BufferGeometry, MeshBasicMaterial, rng, resolveSignalSites,
+  const { Traffic, TrafficCurve, RoadGraph, Scene, BufferGeometry, MeshBasicMaterial, rng, initTemplates, resolveSignalSites, busLane,
     turnProfile, turnSpeed, trafficOverlap, trafficPoseClear, trafficCurveClear } = await import(pathToFileURL(join(out, 'traffic.mjs')));
+  initTemplates();
   const road = (id, pts, extra = {}) => ({ id, seg: id, from: id + '-a', to: id + '-b', pts, cls: 'residential', w: 16, lanes: 4, oneway: null, elev: null, name: id, maxspeed: null, ...extra });
   const gridAdd = (grid, item, x0, z0, x1, z1, size) => {
     for (let x = Math.floor(x0 / size); x <= Math.floor(x1 / size); x++) for (let z = Math.floor(z0 / size); z <= Math.floor(z1 / size); z++) {
@@ -42,6 +44,21 @@ try {
   const farPlayer = { x: 250, y: .55, z: 250, speed: 0, hx: 1, hz: 0 };
   const tick = (traffic, dt = 1 / 60, player = farPlayer, walkers = []) => traffic.update(dt, 0, 0, player, walkers);
   const angle = (a, b) => Math.acos(Math.max(-1, Math.min(1, a.hx * b.hx + a.hz * b.hz)));
+  test('construction corridors keep every vehicle in the open lane at25km/h without filtering or opportunistic U-turns', () => {
+    for (const dir of [1, -1]) for (const group of Object.keys(sizes)) {
+      const workZone = { site: 'fixture', laneOffset: 3.2, width: 4.5, speed: 25, sources: ['fixture'], checkedAt: '2026-10-26' };
+      const e = road('work-zone', [[-150, 0], [150, 0]], { w: 14, oneway: dir === 1 ? 'backward' : 'forward', workZone }), traffic = fixture([e]);
+      const edge = traffic.graph.edges[0], c = traffic.spawnAt(group, edge, dir, 30, -100);
+      assert.equal(c.lane, workZone.laneOffset * dir); assert.equal(busLane(edge, dir), workZone.laneOffset * dir);
+      c.assertive = true; c.uturnAt = 0; c.laneChangeAt = 0; c.speed = 20;
+      for (let frame = 0; frame < 600; frame++) {
+        tick(traffic); assert.ok(c.speed <= 25 / 3.6 + 1e-9); assert.equal(c.filtering, false);
+        assert.notEqual(c.motion?.kind, 'lane'); assert.notEqual(c.motion?.kind, 'uturn');
+        assert.ok(Math.abs(c.lane - workZone.laneOffset * dir) + c.size[0] / 2 < workZone.width / 2);
+      }
+      assert.ok(c.s > 70, `${group} progresses through the open road rather than remaining stuck`);
+    }
+  });
   const junction = (group, sign = 1, dt = 1 / 60) => {
     const traffic = fixture([road('in', [[-80, 0], [0, 0]], { to: 'j' }), road('out', [[0, 0], [0, sign * 100]], { from: 'j' })]);
     const c = traffic.spawnAt(group, traffic.graph.byId.get('in'), 1, 35, 2.8);

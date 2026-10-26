@@ -1,0 +1,2978 @@
+{
+  "reviewedOn": "2026-10-26",
+  "scope": "Bounded correction of confirmed academic/office category errors caused by amenity and address-reference names. Original source packs/boards are unchanged.",
+  "previousSummary": {
+    "sourceBackedInventory": 2732,
+    "withoutFootprint": 0,
+    "byKind": {
+      "college": 1454,
+      "university": 199,
+      "mall": 442,
+      "cinema": 360,
+      "office": 277
+    },
+    "decoratedBuildingRecords": 707,
+    "decoratedByKind": {
+      "university": 34,
+      "college": 250,
+      "cinema": 164,
+      "mall": 163,
+      "office": 96
+    },
+    "existingBoardAssociation": "preserved; not independent street verification",
+    "distinctEligibleBuildingIds": 565,
+    "mapOnlyReviewRecords": 2025
+  },
+  "excludedRecords": [
+    {
+      "id": "dst_d7086c288a0f4ff4",
+      "name": "gowtham jr college office room",
+      "kind": "college",
+      "tile": [
+        -1,
+        -1
+      ],
+      "buildingId": "b6cf4dd3-b4a",
+      "boardIds": [
+        "b_4f446c8ce4b00b32"
+      ],
+      "confidence": 0.39,
+      "sourcePack": "packs/p-1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -3.375,
+        -150.525
+      ],
+      "sourceHeight": 26.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "retail-internal-room-or-street-reference-not-destination"
+    },
+    {
+      "id": "dst_adfad34ccf733302",
+      "name": "Loyola Academy Degree And P.G.College Canteen",
+      "kind": "college",
+      "tile": [
+        -2,
+        -12
+      ],
+      "buildingId": "9d8da85a-898",
+      "boardIds": [
+        "b_4e96a1ff2c5be852"
+      ],
+      "confidence": 0.56,
+      "sourcePack": "packs/p-1_-4.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -1059.688,
+        -11019.275
+      ],
+      "sourceHeight": 7.3,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_c063925909c8e1ff",
+      "name": "Wipro SEZ cafeteria",
+      "kind": "office",
+      "tile": [
+        -2,
+        -13
+      ],
+      "buildingId": "d8c92564-64f",
+      "boardIds": [
+        "b_4e74567845ddd432"
+      ],
+      "confidence": 0.38,
+      "sourcePack": "packs/p-1_-5.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -1728.533,
+        -12702.233
+      ],
+      "sourceHeight": 8.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_c19b9eac7e4f1d1e",
+      "name": "CMR College Bus Stop",
+      "kind": "college",
+      "tile": [
+        -1,
+        -22
+      ],
+      "buildingId": "ca37f1b5-aa3",
+      "boardIds": [
+        "b_a240976c-782c-40"
+      ],
+      "confidence": 0.37,
+      "sourcePack": "packs/p-1_-8.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -558.05,
+        -21803.475
+      ],
+      "sourceHeight": 3.5,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "police-or-transit-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_2da1f72e16346078",
+      "name": "Nizam College Canteen",
+      "kind": "college",
+      "tile": [
+        -3,
+        0
+      ],
+      "buildingId": "4bbcf56e-c69",
+      "boardIds": [
+        "b_546317b8498e5529"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-1_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -2252.125,
+        844.563
+      ],
+      "sourceHeight": 23.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_3ddc015406400c21",
+      "name": "Nizam College Hostel",
+      "kind": "college",
+      "tile": [
+        -3,
+        0
+      ],
+      "buildingId": "fd6733d9-ca0",
+      "boardIds": [
+        "b_w281501993"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-1_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -2396.9,
+        607.1
+      ],
+      "sourceHeight": 26.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_ce52ca3fe32942e1",
+      "name": "Government Social Welfare College Boys Hostel",
+      "kind": "college",
+      "tile": [
+        -3,
+        2
+      ],
+      "buildingId": "af10caba-7de",
+      "boardIds": [
+        "b_299fda10-e961-4c"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-1_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -2351.475,
+        2764.05
+      ],
+      "sourceHeight": 10.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_d15e0e661a915ffa",
+      "name": "Jawaharlal Nehru Architecture and Fine Arts University Boys Hostel",
+      "kind": "university",
+      "tile": [
+        -2,
+        1
+      ],
+      "buildingId": "b87bc7ba-244",
+      "boardIds": [
+        "b_44a11b8d-a0bb-4f"
+      ],
+      "confidence": 0.38,
+      "sourcePack": "packs/p-1_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -1928.25,
+        1355.275
+      ],
+      "sourceHeight": 14.9,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_3af0624327522cae",
+      "name": "College Canteen,OMC",
+      "kind": "college",
+      "tile": [
+        -2,
+        2
+      ],
+      "buildingId": "a9d6e4c3-eef",
+      "boardIds": [
+        "b_5003b4d8e4b0382b"
+      ],
+      "confidence": 0.39,
+      "sourcePack": "packs/p-1_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -1425.6,
+        2664.45
+      ],
+      "sourceHeight": 16.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_c3e23537ae03b4b3",
+      "name": "Osmania Medical College Metro",
+      "kind": "college",
+      "tile": [
+        -2,
+        2
+      ],
+      "buildingId": "d68b27ef-e5b",
+      "boardIds": [
+        "b_5c767e2a7b385f00"
+      ],
+      "confidence": 0.54,
+      "sourcePack": "packs/p-1_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -1628.82,
+        2638.52
+      ],
+      "sourceHeight": 8.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "police-or-transit-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_1ee3b9f4c28315d4",
+      "name": "Reddy College Bus Stop Towards Narayanguda",
+      "kind": "college",
+      "tile": [
+        -1,
+        1
+      ],
+      "buildingId": "d5cbb456-687",
+      "boardIds": [
+        "b_f98d8aa1-0cd0-4d"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-1_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -250.667,
+        1298.367
+      ],
+      "sourceHeight": 10.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "police-or-transit-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_9a37a2b22fd0ccee",
+      "name": "Government Social Welfare College Boys Hostel",
+      "kind": "college",
+      "tile": [
+        -1,
+        2
+      ],
+      "buildingId": "070ad08b-c75",
+      "boardIds": [
+        "b_faa5e608-421b-4d"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-1_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -17.633,
+        2400.033
+      ],
+      "sourceHeight": 14.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_3d22983e47e6a35d",
+      "name": "City College Old Boys Association",
+      "kind": "college",
+      "tile": [
+        -3,
+        4
+      ],
+      "buildingId": "66597cc0-15d",
+      "boardIds": [
+        "b_e1dd15b8-e84f-42"
+      ],
+      "confidence": 0.38,
+      "sourcePack": "packs/p-1_1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -2554.375,
+        4280.575
+      ],
+      "sourceHeight": 10.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "retail-internal-room-or-street-reference-not-destination"
+    },
+    {
+      "id": "dst_36dc9fda3e7eade4",
+      "name": "Amazon Rose School",
+      "kind": "office",
+      "tile": [
+        -2,
+        5
+      ],
+      "buildingId": "be02c412-04c",
+      "boardIds": [
+        "b_0b67ddc7-3d5d-44"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-1_1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -1423.875,
+        5656.225
+      ],
+      "sourceHeight": 14.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "school-or-nursery-is-not-a-university-or-company-office"
+    },
+    {
+      "id": "dst_e488ac0df276a151",
+      "name": "Hyderabad - Osmania Medical College Offsite ATM",
+      "kind": "college",
+      "tile": [
+        -1,
+        4
+      ],
+      "buildingId": "f2e998f9-e38",
+      "boardIds": [
+        "b_9fcd5ee9-c443-4c"
+      ],
+      "confidence": 0.57,
+      "sourcePack": "packs/p-1_1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -346.425,
+        4937.35
+      ],
+      "sourceHeight": 12.4,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "financial-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_810cd82cd8cbf742",
+      "name": "Yasoda College of Nursing Hostel",
+      "kind": "college",
+      "tile": [
+        -4,
+        -3
+      ],
+      "buildingId": "1f75855f-f91",
+      "boardIds": [
+        "b_905522af-5693-4a"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-2_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -3973.167,
+        -2453.3
+      ],
+      "sourceHeight": 14.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_333342daa4fdb226",
+      "name": "State Bank of India State Bank Staff College Branch",
+      "kind": "college",
+      "tile": [
+        -5,
+        -4
+      ],
+      "buildingId": "af4454b8-cbe",
+      "boardIds": [
+        "b_8ce651b5-c4a0-47"
+      ],
+      "confidence": 0.6,
+      "sourcePack": "packs/p-2_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -4226.275,
+        -3015.175
+      ],
+      "sourceHeight": 10.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "bank-branch-referencing-institution-or-office-address"
+    },
+    {
+      "id": "dst_f1c84c90d5ab2e87",
+      "name": "Gandhi Naturopathic Medical College Boys Hostel",
+      "kind": "college",
+      "tile": [
+        -5,
+        -4
+      ],
+      "buildingId": "d49b5921-cfb",
+      "boardIds": [
+        "b_90a10ef0-8d35-45"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-2_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -4822.75,
+        -3837.375
+      ],
+      "sourceHeight": 10.3,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_fe65906078d7aaa6",
+      "name": "Fellow bags - manufacturers corporate gifts tote jute school and college bags",
+      "kind": "college",
+      "tile": [
+        -6,
+        1
+      ],
+      "buildingId": "e6a16116-93c",
+      "boardIds": [
+        "b_1639aa5d-2747-48"
+      ],
+      "confidence": 0.39,
+      "sourcePack": "packs/p-2_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -5401.85,
+        1636.05
+      ],
+      "sourceHeight": 11.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "retail-internal-room-or-street-reference-not-destination"
+    },
+    {
+      "id": "dst_1f5caa6a0bebd332",
+      "name": "Loyola Academy Degrree And P.G College  Canteen",
+      "kind": "college",
+      "tile": [
+        -7,
+        -15
+      ],
+      "buildingId": "e23810b8-fa2",
+      "boardIds": [
+        "b_4ebb8128b8f7074b"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-3_-5.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -6881.85,
+        -14863.375
+      ],
+      "sourceHeight": 15.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_e5131943832386f5",
+      "name": "St Anns College Canteen",
+      "kind": "college",
+      "tile": [
+        -7,
+        1
+      ],
+      "buildingId": "77697960-fc3",
+      "boardIds": [
+        "b_b81089a4-c6a7-49"
+      ],
+      "confidence": 0.74,
+      "sourcePack": "packs/p-3_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -6286.35,
+        1288.8
+      ],
+      "sourceHeight": 14.5,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_bbc9b9a6de33fe4c",
+      "name": "State Bank of India Doctor BR Ambedkar Open University Branch",
+      "kind": "university",
+      "tile": [
+        -11,
+        -3
+      ],
+      "buildingId": "6456db26-84a",
+      "boardIds": [
+        "b_0a40f7a24c424876"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-4_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -10847.512,
+        -2818.19
+      ],
+      "sourceHeight": 19.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "bank-branch-referencing-institution-or-office-address"
+    },
+    {
+      "id": "dst_eb0134855e284e2e",
+      "name": "MANUU Polytechnic - Hyderabad Alumni Association",
+      "kind": "college",
+      "tile": [
+        -10,
+        -2
+      ],
+      "buildingId": "1a0e8305-641",
+      "boardIds": [
+        "b_e347b3e7-afca-47"
+      ],
+      "confidence": 0.4,
+      "sourcePack": "packs/p-4_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -9837.5,
+        -1959.075
+      ],
+      "sourceHeight": 14.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_58daab4372495d51",
+      "name": "Amelio Early Education - V Ascendas IT Park",
+      "kind": "office",
+      "tile": [
+        -12,
+        -4
+      ],
+      "buildingId": "8f18e612-b51",
+      "boardIds": [
+        "b_d011485c-2a7f-48"
+      ],
+      "confidence": 0.9,
+      "sourcePack": "packs/p-4_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -11766.31,
+        -3195.28
+      ],
+      "sourceHeight": 15.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "school-or-nursery-is-not-a-university-or-company-office"
+    },
+    {
+      "id": "dst_e96fa0419638b22e",
+      "name": "Sofa Area @accenture",
+      "kind": "office",
+      "tile": [
+        -12,
+        -4
+      ],
+      "buildingId": "29c56a1d-52c",
+      "boardIds": [
+        "b_503c7b94e4b04f05"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-4_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -11114.5,
+        -3952.8
+      ],
+      "sourceHeight": 13.4,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "internal-service-amenity-not-office-or-institution"
+    },
+    {
+      "id": "dst_ee52cf3db3d3d191",
+      "name": "Super OYO JNTU college Near LULU mall, KPHB Colony",
+      "kind": "college",
+      "tile": [
+        -11,
+        -11
+      ],
+      "buildingId": "8626b02e-fbb",
+      "boardIds": [
+        "b_6a1e01c9976a5553"
+      ],
+      "confidence": 0.57,
+      "sourcePack": "packs/p-4_-4.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -10807.625,
+        -10180.15
+      ],
+      "sourceHeight": 16.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "hotel-address-is-not-an-institution-or-office"
+    },
+    {
+      "id": "dst_4385d8141421009e",
+      "name": "Super OYO Anuguna Tulasi Grand Near JNTU University Hyderabad",
+      "kind": "university",
+      "tile": [
+        -11,
+        -11
+      ],
+      "buildingId": "5e336c93-e16",
+      "boardIds": [
+        "b_1c90b5f3-7917-4a"
+      ],
+      "confidence": 0.59,
+      "sourcePack": "packs/p-4_-4.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -10495.325,
+        -10004.55
+      ],
+      "sourceHeight": 10.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "hotel-address-is-not-an-institution-or-office"
+    },
+    {
+      "id": "dst_1ea5a0faaf881f41",
+      "name": "University of Hyderabad Campus School",
+      "kind": "university",
+      "tile": [
+        -15,
+        -3
+      ],
+      "buildingId": "4cefd88d-7d2",
+      "boardIds": [
+        "b_ad6e9dc3-2143-43"
+      ],
+      "confidence": 0.58,
+      "sourcePack": "packs/p-5_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -14033.6,
+        -2942.75
+      ],
+      "sourceHeight": 10.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "school-or-nursery-is-not-a-university-or-company-office"
+    },
+    {
+      "id": "dst_906aee516de7c6c8",
+      "name": "7th hell cafeteria - accenture",
+      "kind": "office",
+      "tile": [
+        -13,
+        -2
+      ],
+      "buildingId": "e0ea45cc-2f4",
+      "boardIds": [
+        "b_51c010e2498ecc58"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-5_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12941.175,
+        -1619.65
+      ],
+      "sourceHeight": 11.4,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_523b124ec4a6cff2",
+      "name": "Chai Point - Orion Tech Park",
+      "kind": "office",
+      "tile": [
+        -13,
+        -2
+      ],
+      "buildingId": "61278e11-c3d",
+      "boardIds": [
+        "b_daea279f-78d0-40"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-5_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12861.478,
+        -1711.733
+      ],
+      "sourceHeight": 14.5,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_1b79827f70258fc7",
+      "name": "Cognizant Cafeteria",
+      "kind": "office",
+      "tile": [
+        -15,
+        -5
+      ],
+      "buildingId": "7bccaad5-4f8",
+      "boardIds": [
+        "b_5034889fe4b0eca9"
+      ],
+      "confidence": 0.38,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -14469.5,
+        -4492.45
+      ],
+      "sourceHeight": 6.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_a4675f178ec3a92f",
+      "name": "Google Yoga Room",
+      "kind": "office",
+      "tile": [
+        -14,
+        -6
+      ],
+      "buildingId": "cb1ecff4-929",
+      "boardIds": [
+        "b_54ad2129498e954c"
+      ],
+      "confidence": 0.35,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -13180.5,
+        -5760.456
+      ],
+      "sourceHeight": 19.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_87bd10dc3be397a4",
+      "name": "Google Amphitheatre",
+      "kind": "office",
+      "tile": [
+        -14,
+        -6
+      ],
+      "buildingId": "cb1ecff4-929",
+      "boardIds": [
+        "b_4d92ee52b189721e"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -13180.5,
+        -5760.456
+      ],
+      "sourceHeight": 19.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_762e64ec93aeb544",
+      "name": "Google Gym",
+      "kind": "office",
+      "tile": [
+        -14,
+        -6
+      ],
+      "buildingId": "cb1ecff4-929",
+      "boardIds": [
+        "b_4c3b36495810a593"
+      ],
+      "confidence": 0.36,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -13180.5,
+        -5760.456
+      ],
+      "sourceHeight": 19.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_39ee6fa7b02e4e62",
+      "name": "Hyderabad Deloitte worksite ATM",
+      "kind": "office",
+      "tile": [
+        -14,
+        -5
+      ],
+      "buildingId": "37d5e78c-f92",
+      "boardIds": [
+        "b_a5c78968-d733-48"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -13378.175,
+        -4382.9
+      ],
+      "sourceHeight": 17.5,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "financial-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_cebf8a8f4ac02db0",
+      "name": "Deloitte Cafetaria - Block G",
+      "kind": "office",
+      "tile": [
+        -14,
+        -5
+      ],
+      "buildingId": "5c88ad67-c1d",
+      "boardIds": [
+        "b_5b6838d5e97dfb00"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -13476.617,
+        -4137.008
+      ],
+      "sourceHeight": 7.9,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_89adc6ffc34f05a3",
+      "name": "Accenture Hdc1a breakout area 2 nd floor",
+      "kind": "office",
+      "tile": [
+        -14,
+        -5
+      ],
+      "buildingId": "184a65c4-60f",
+      "boardIds": [
+        "b_50572388e4b09ebc"
+      ],
+      "confidence": 0.37,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -13058.7,
+        -4828.5
+      ],
+      "sourceHeight": 19.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "internal-service-amenity-not-office-or-institution"
+    },
+    {
+      "id": "dst_094f857a20149097",
+      "name": "Super Townhouse Mindspace Road Gachibowli",
+      "kind": "office",
+      "tile": [
+        -14,
+        -4
+      ],
+      "buildingId": "02f01dfa-db3",
+      "boardIds": [
+        "b_e99c728f-78f0-4e"
+      ],
+      "confidence": 0.59,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -13882.525,
+        -3970.1
+      ],
+      "sourceHeight": 15.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "hotel-address-is-not-an-institution-or-office"
+    },
+    {
+      "id": "dst_6fe5873d9be8606e",
+      "name": "Hyderabad - Madhapur Tech Mahindra Sez Worksite ATM",
+      "kind": "office",
+      "tile": [
+        -13,
+        -5
+      ],
+      "buildingId": "8cccf701-d81",
+      "boardIds": [
+        "b_b7384b93-80a9-4f"
+      ],
+      "confidence": 0.58,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12707.583,
+        -4203.067
+      ],
+      "sourceHeight": 8.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "financial-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_3a5fed0cccc13496",
+      "name": "google canteen 4th Floor",
+      "kind": "office",
+      "tile": [
+        -13,
+        -5
+      ],
+      "buildingId": "268bd7f3-ac3",
+      "boardIds": [
+        "b_52cb6d9011d24978"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12691.517,
+        -4600.25
+      ],
+      "sourceHeight": 16.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_2994fbaefdd558b6",
+      "name": "Deloitte Cafeteria",
+      "kind": "office",
+      "tile": [
+        -13,
+        -5
+      ],
+      "buildingId": "7a659483-1eb",
+      "boardIds": [
+        "b_4e73250e7d8b0518"
+      ],
+      "confidence": 0.54,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12828.963,
+        -4625.887
+      ],
+      "sourceHeight": 23.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_f8dfb237cd0fee70",
+      "name": "Deloitte GYM C Block",
+      "kind": "office",
+      "tile": [
+        -13,
+        -5
+      ],
+      "buildingId": "7a659483-1eb",
+      "boardIds": [
+        "b_514a76dfe4b06366"
+      ],
+      "confidence": 0.35,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12828.963,
+        -4625.887
+      ],
+      "sourceHeight": 23.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_8097de3f90c9f5ee",
+      "name": "OYO Apartments Cyber Towers",
+      "kind": "office",
+      "tile": [
+        -13,
+        -5
+      ],
+      "buildingId": "bf06abc7-1be",
+      "boardIds": [
+        "b_697ff967-f9f3-45"
+      ],
+      "confidence": 0.4,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12330.75,
+        -4548.7
+      ],
+      "sourceHeight": 16.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "hotel-address-is-not-an-institution-or-office"
+    },
+    {
+      "id": "dst_49167e936720d595",
+      "name": "Townhouse Cyber Gateway Bus Stand",
+      "kind": "office",
+      "tile": [
+        -13,
+        -5
+      ],
+      "buildingId": "00bf428c-bd1",
+      "boardIds": [
+        "b_86a398d4-ef73-46"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12423.8,
+        -4565.45
+      ],
+      "sourceHeight": 16.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "hotel-address-is-not-an-institution-or-office"
+    },
+    {
+      "id": "dst_adacf7f7c6c48082",
+      "name": "Bistro Near Cyber Gateway",
+      "kind": "office",
+      "tile": [
+        -13,
+        -5
+      ],
+      "buildingId": "197ffa0d-100",
+      "boardIds": [
+        "b_53a4ffff498e65f0"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12508.627,
+        -4567.236
+      ],
+      "sourceHeight": 23.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_e52554f7d3f03e0c",
+      "name": "Accenture Gym",
+      "kind": "office",
+      "tile": [
+        -13,
+        -5
+      ],
+      "buildingId": "577483dd-b81",
+      "boardIds": [
+        "b_4fee8c15e4b0a516"
+      ],
+      "confidence": 0.56,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12460.7,
+        -4368.35
+      ],
+      "sourceHeight": 8.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_744797fcff52b48c",
+      "name": "IBM Cafeteria, 2A, Mindspace",
+      "kind": "office",
+      "tile": [
+        -13,
+        -5
+      ],
+      "buildingId": "2572b15a-b4f",
+      "boardIds": [
+        "b_4cee29538604a1cd"
+      ],
+      "confidence": 0.58,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12415.084,
+        -4129.096
+      ],
+      "sourceHeight": 15.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_300a28eaa28f2725",
+      "name": "Chai Point - Raheja Mindspace",
+      "kind": "office",
+      "tile": [
+        -13,
+        -4
+      ],
+      "buildingId": "e72ed53b-439",
+      "boardIds": [
+        "b_180fb9d5-9cd4-42"
+      ],
+      "confidence": 0.53,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12259.25,
+        -3620.7
+      ],
+      "sourceHeight": 26.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_8d7dc5c9e4022234",
+      "name": "Cognizant Gym",
+      "kind": "office",
+      "tile": [
+        -13,
+        -4
+      ],
+      "buildingId": "8d9ca5bb-d88",
+      "boardIds": [
+        "b_5a9e7fd28b98fd4d"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12027.986,
+        -3525.857
+      ],
+      "sourceHeight": 7.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_232052f2c38847d6",
+      "name": "Amelio Early Education - V Ascendas IT Park",
+      "kind": "office",
+      "tile": [
+        -13,
+        -4
+      ],
+      "buildingId": "fc4ce7ca-dce",
+      "boardIds": [
+        "b_6aa37e56-2dc5-41"
+      ],
+      "confidence": 0.55,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12147.1,
+        -3282.72
+      ],
+      "sourceHeight": 6.9,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "school-or-nursery-is-not-a-university-or-company-office"
+    },
+    {
+      "id": "dst_19e863747c39fbc2",
+      "name": "Accenture hdc1A cafeteria",
+      "kind": "office",
+      "tile": [
+        -13,
+        -4
+      ],
+      "buildingId": "b7ea400b-8f8",
+      "boardIds": [
+        "b_5056e767e4b021c8"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12260.275,
+        -3996.65
+      ],
+      "sourceHeight": 8.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_478cf393c7423d4b",
+      "name": "Pool Room@accenture",
+      "kind": "office",
+      "tile": [
+        -13,
+        -4
+      ],
+      "buildingId": "a8a28d9e-100",
+      "boardIds": [
+        "b_503f9c34e4b02a07"
+      ],
+      "confidence": 0.54,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12185.433,
+        -3845.65
+      ],
+      "sourceHeight": 12.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "internal-service-amenity-not-office-or-institution"
+    },
+    {
+      "id": "dst_3041b39ccfd0603a",
+      "name": "Deloitte Cafetaria - Block F",
+      "kind": "office",
+      "tile": [
+        -13,
+        -4
+      ],
+      "buildingId": "a6c04d9a-b95",
+      "boardIds": [
+        "b_528dbb2f11d22ed4"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12282.1,
+        -3886.889
+      ],
+      "sourceHeight": 13.4,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_0a10a0683315aec9",
+      "name": "Chaayos Cafe at Rahejha Mindspace",
+      "kind": "office",
+      "tile": [
+        -13,
+        -4
+      ],
+      "buildingId": "5f0a2253-c6c",
+      "boardIds": [
+        "b_6167c43f-6c84-4c"
+      ],
+      "confidence": 0.54,
+      "sourcePack": "packs/p-5_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12418.6,
+        -3853.625
+      ],
+      "sourceHeight": 7.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_1ab893b2925f29cf",
+      "name": "Townhouse Oak Bachupally Medical College Formerly SV Hotels",
+      "kind": "college",
+      "tile": [
+        -15,
+        -15
+      ],
+      "buildingId": "ae7e598d-c8c",
+      "boardIds": [
+        "b_bd1d6143-ad90-49"
+      ],
+      "confidence": 0.58,
+      "sourcePack": "packs/p-5_-5.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -14772.425,
+        -14034.1
+      ],
+      "sourceHeight": 8.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "hotel-address-is-not-an-institution-or-office"
+    },
+    {
+      "id": "dst_bd8ad20037fa75e1",
+      "name": "GRIET College Canteen",
+      "kind": "college",
+      "tile": [
+        -14,
+        -13
+      ],
+      "buildingId": "8f35b0e3-543",
+      "boardIds": [
+        "b_3d587cdf-ad0d-4e"
+      ],
+      "confidence": 0.9,
+      "sourcePack": "packs/p-5_-5.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -13806.6,
+        -12621.75
+      ],
+      "sourceHeight": 10.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_571cf907fbe6ff56",
+      "name": "Hyderabad - Wipro Ltd Manikonda Worksite ATM",
+      "kind": "office",
+      "tile": [
+        -13,
+        0
+      ],
+      "buildingId": "ac65d1ee-365",
+      "boardIds": [
+        "b_70864218-5454-49"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-5_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -12698.65,
+        227.825
+      ],
+      "sourceHeight": 7.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "financial-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_6f6e7cd9f7bf412a",
+      "name": "Wipro Amphitheatre",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "24a2496d-b8e",
+      "boardIds": [
+        "b_559a3f5a498eba0a"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16258.54,
+        -2264.422
+      ],
+      "sourceHeight": 18.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_597e909ba9a0c353",
+      "name": "Wipro s6 tower Canteen",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "24a2496d-b8e",
+      "boardIds": [
+        "b_54b01a8f498e150e"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16258.54,
+        -2264.422
+      ],
+      "sourceHeight": 18.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_b96345c4efa783eb",
+      "name": "Wipro S9 First Floor Cafeteria",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "24a2496d-b8e",
+      "boardIds": [
+        "b_565c3d18498efa94"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16258.54,
+        -2264.422
+      ],
+      "sourceHeight": 18.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_449db706a557bd4e",
+      "name": "Wipro STPI Cafeteria",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "e121b273-8ae",
+      "boardIds": [
+        "b_4f0d8969e4b0dd89"
+      ],
+      "confidence": 0.37,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16382.816,
+        -2224.784
+      ],
+      "sourceHeight": 15.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_5d3aec060190fe49",
+      "name": "Toilet @accenture",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "d7c4b489-cff",
+      "boardIds": [
+        "b_503c4f06e4b02959"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16900.775,
+        -2020.581
+      ],
+      "sourceHeight": 8.5,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "internal-service-amenity-not-office-or-institution"
+    },
+    {
+      "id": "dst_bb5c165c6aa98837",
+      "name": "Microsoft Bus Stop Gate No.5",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "ba42b6d7-baa",
+      "boardIds": [
+        "b_51cc4c96498e667b"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16575.383,
+        -2369.128
+      ],
+      "sourceHeight": 7.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "police-or-transit-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_8d9d25f6649b9422",
+      "name": "Microsoft Bus Stop Gate No.5",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "1c5dcad9-d47",
+      "boardIds": [
+        "b_98977226-2b9e-42"
+      ],
+      "confidence": 0.36,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16469.75,
+        -2402.1
+      ],
+      "sourceHeight": 3.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "police-or-transit-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_d0fcfadd8066a1c9",
+      "name": "ICICI Bank Microsoft, Hyderabad-Branch & ATM",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "327349fa-c31",
+      "boardIds": [
+        "b_c438ec21-6c26-48"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16545.692,
+        -2574.1
+      ],
+      "sourceHeight": 15.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "bank-branch-referencing-institution-or-office-address"
+    },
+    {
+      "id": "dst_e0c1c8c4403bafc6",
+      "name": "Microsoft Building 3 Cafeteria",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "327349fa-c31",
+      "boardIds": [
+        "b_56136a4d498ea9f0"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16545.692,
+        -2574.1
+      ],
+      "sourceHeight": 15.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_4c4ff4744d1edb52",
+      "name": "Wipro Sez Cafeteria",
+      "kind": "office",
+      "tile": [
+        -17,
+        -3
+      ],
+      "buildingId": "faa8eabb-20d",
+      "boardIds": [
+        "b_4ecdf6c0f790d070"
+      ],
+      "confidence": 0.35,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16241.365,
+        -2301.991
+      ],
+      "sourceHeight": 17.5,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_d4e2adad3197d56b",
+      "name": "ICICI Bank Limited, Hyderabad - BSR Tech Park",
+      "kind": "office",
+      "tile": [
+        -17,
+        -2
+      ],
+      "buildingId": "d70abb9f-e58",
+      "boardIds": [
+        "b_da135a86-d886-41"
+      ],
+      "confidence": 0.9,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16097.6,
+        -1896.1
+      ],
+      "sourceHeight": 71.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "bank-branch-referencing-institution-or-office-address"
+    },
+    {
+      "id": "dst_098b1d4a84be4027",
+      "name": "Wipro X Road",
+      "kind": "office",
+      "tile": [
+        -17,
+        -2
+      ],
+      "buildingId": "d73106a2-0ce",
+      "boardIds": [
+        "b_4fff9ad7e4b01430"
+      ],
+      "confidence": 0.59,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16105.283,
+        -1855.533
+      ],
+      "sourceHeight": 10.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "retail-internal-room-or-street-reference-not-destination"
+    },
+    {
+      "id": "dst_dd73ac39629daa97",
+      "name": "Deloitte Cafetaria - Block E",
+      "kind": "office",
+      "tile": [
+        -16,
+        -3
+      ],
+      "buildingId": "7679b21c-498",
+      "boardIds": [
+        "b_5332b439498ed2c4"
+      ],
+      "confidence": 0.37,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15948.725,
+        -2159.787
+      ],
+      "sourceHeight": 7.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_a0c2c3e907e9a4bb",
+      "name": "accenture bus",
+      "kind": "office",
+      "tile": [
+        -16,
+        -2
+      ],
+      "buildingId": "e6c1cf64-aea",
+      "boardIds": [
+        "b_5049f092e4b0831d"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15858.37,
+        -1705.148
+      ],
+      "sourceHeight": 14.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "police-or-transit-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_d482528b5e376c95",
+      "name": "Accenture - rest room",
+      "kind": "office",
+      "tile": [
+        -16,
+        -2
+      ],
+      "buildingId": "de8659d7-343",
+      "boardIds": [
+        "b_5052f057e4b0b914"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15554.3,
+        -1594.4
+      ],
+      "sourceHeight": 8.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "internal-service-amenity-not-office-or-institution"
+    },
+    {
+      "id": "dst_b9e3dfc1f2d368f4",
+      "name": "breakout area,Accenture",
+      "kind": "office",
+      "tile": [
+        -16,
+        -2
+      ],
+      "buildingId": "11137d18-c4a",
+      "boardIds": [
+        "b_4fe1689ae4b09e45"
+      ],
+      "confidence": 0.39,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15469.85,
+        -1606.075
+      ],
+      "sourceHeight": 10.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "internal-service-amenity-not-office-or-institution"
+    },
+    {
+      "id": "dst_aea51a881811e07f",
+      "name": "Accenture Cafetaria",
+      "kind": "office",
+      "tile": [
+        -16,
+        -2
+      ],
+      "buildingId": "11137d18-c4a",
+      "boardIds": [
+        "b_5003c532e4b042c5"
+      ],
+      "confidence": 0.59,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15469.85,
+        -1606.075
+      ],
+      "sourceHeight": 10.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_e9f08b9f145326a6",
+      "name": "accenture lift",
+      "kind": "office",
+      "tile": [
+        -16,
+        -2
+      ],
+      "buildingId": "e019ff75-53a",
+      "boardIds": [
+        "b_506d1906e4b0b039"
+      ],
+      "confidence": 0.39,
+      "sourcePack": "packs/p-6_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15430.05,
+        -1609.2
+      ],
+      "sourceHeight": 9.5,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "internal-service-amenity-not-office-or-institution"
+    },
+    {
+      "id": "dst_500f95a4514b38df",
+      "name": "University of Hyderabad Men's Hostel - D",
+      "kind": "university",
+      "tile": [
+        -18,
+        -6
+      ],
+      "buildingId": "b5e8ec13-251",
+      "boardIds": [
+        "b_c5f0bb1c-7ff3-49"
+      ],
+      "confidence": 0.59,
+      "sourcePack": "packs/p-6_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -17783.05,
+        -5849.575
+      ],
+      "sourceHeight": 8.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_461ec4a101e33b4a",
+      "name": "Sports Complex, University of Hyderabad",
+      "kind": "university",
+      "tile": [
+        -17,
+        -6
+      ],
+      "buildingId": "4df30414-48d",
+      "boardIds": [
+        "b_8c04ea7f-18c5-45"
+      ],
+      "confidence": 0.52,
+      "sourcePack": "packs/p-6_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -16948.7,
+        -5281.675
+      ],
+      "sourceHeight": 7.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_2fd60322ca51f0ea",
+      "name": "Cognizant Cafeteria",
+      "kind": "office",
+      "tile": [
+        -16,
+        -5
+      ],
+      "buildingId": "0bd8cb3a-db9",
+      "boardIds": [
+        "b_51bebd76498ebcce"
+      ],
+      "confidence": 0.38,
+      "sourcePack": "packs/p-6_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15355.45,
+        -4431.075
+      ],
+      "sourceHeight": 3.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_0f92170a3e52edd6",
+      "name": "Apollo Pharmacy Infosys--Gachibowli",
+      "kind": "office",
+      "tile": [
+        -16,
+        -4
+      ],
+      "buildingId": "dd309c4b-ad7",
+      "boardIds": [
+        "b_6c059007-2fbf-41"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-6_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15611.545,
+        -3238.686
+      ],
+      "sourceHeight": 14.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "health-service-referencing-campus-or-address"
+    },
+    {
+      "id": "dst_d4cc73d78df61835",
+      "name": "amphitheatre, Infosys",
+      "kind": "office",
+      "tile": [
+        -16,
+        -4
+      ],
+      "buildingId": "dd309c4b-ad7",
+      "boardIds": [
+        "b_5465f8ce498e0cb2"
+      ],
+      "confidence": 0.38,
+      "sourcePack": "packs/p-6_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15611.545,
+        -3238.686
+      ],
+      "sourceHeight": 14.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_ccf2100272832c6b",
+      "name": "Cafe Coffee Day - Infosys Outlet 1",
+      "kind": "office",
+      "tile": [
+        -16,
+        -4
+      ],
+      "buildingId": "f964d1c4-653",
+      "boardIds": [
+        "b_bc1eb49a-ea1a-4b"
+      ],
+      "confidence": 0.37,
+      "sourcePack": "packs/p-6_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15552.938,
+        -3117.598
+      ],
+      "sourceHeight": 14.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_7ad4ad3a9e87a6da",
+      "name": "Infosys Gym",
+      "kind": "office",
+      "tile": [
+        -16,
+        -4
+      ],
+      "buildingId": "a1eb0c10-061",
+      "boardIds": [
+        "b_4fbf9d3fe4b03477"
+      ],
+      "confidence": 0.38,
+      "sourcePack": "packs/p-6_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -15068.269,
+        -3828.481
+      ],
+      "sourceHeight": 6.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_48c273023f564a69",
+      "name": "Super Townhouse Oak Hyderabad Central University",
+      "kind": "university",
+      "tile": [
+        -18,
+        -9
+      ],
+      "buildingId": "405482f5-9ce",
+      "boardIds": [
+        "b_b1a1c481-e908-47"
+      ],
+      "confidence": 0.59,
+      "sourcePack": "packs/p-6_-3.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -17237.35,
+        -8358.5
+      ],
+      "sourceHeight": 3.9,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "hotel-address-is-not-an-institution-or-office"
+    },
+    {
+      "id": "dst_9775fcf6ba8f7ed7",
+      "name": "Aziznagar village,vjit college,chilkuribalaji temple road\".",
+      "kind": "college",
+      "tile": [
+        -18,
+        7
+      ],
+      "buildingId": "db6cb8ea-d3a",
+      "boardIds": [
+        "b_62631b26-4e3b-45"
+      ],
+      "confidence": 0.4,
+      "sourcePack": "packs/p-6_2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -17952.375,
+        7780.35
+      ],
+      "sourceHeight": 7.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "worship-amenity-referencing-campus-or-address"
+    },
+    {
+      "id": "dst_79421f466242fe4d",
+      "name": "Apollo Dental Clinic - Wipro Circle",
+      "kind": "office",
+      "tile": [
+        -19,
+        -3
+      ],
+      "buildingId": "5b86d90b-01e",
+      "boardIds": [
+        "b_89a7f325-9124-43"
+      ],
+      "confidence": 0.6,
+      "sourcePack": "packs/p-7_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -18270.65,
+        -2565.5
+      ],
+      "sourceHeight": 7.4,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "health-service-referencing-campus-or-address"
+    },
+    {
+      "id": "dst_32a6177bce670792",
+      "name": "J Hostel, University of Hyderabad",
+      "kind": "university",
+      "tile": [
+        -20,
+        -5
+      ],
+      "buildingId": "d20b911e-ddd",
+      "boardIds": [
+        "b_7f54548a-028b-4d"
+      ],
+      "confidence": 0.51,
+      "sourcePack": "packs/p-7_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -19126.663,
+        -4575.628
+      ],
+      "sourceHeight": 6.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_e0b96c4538f33a31",
+      "name": "Sports Complex, University of Hyderabad",
+      "kind": "university",
+      "tile": [
+        -20,
+        -5
+      ],
+      "buildingId": "630eb5e3-686",
+      "boardIds": [
+        "b_06eb114e-f364-4a"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p-7_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -19159.486,
+        -4759.967
+      ],
+      "sourceHeight": 7.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_7b273229d98f373f",
+      "name": "University of Hyderabad Campus School",
+      "kind": "university",
+      "tile": [
+        -19,
+        -6
+      ],
+      "buildingId": "eb0acdc8-bdf",
+      "boardIds": [
+        "b_16956054-6f1d-4e"
+      ],
+      "confidence": 0.54,
+      "sourcePack": "packs/p-7_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -18142.6,
+        -5674.2
+      ],
+      "sourceHeight": 3.9,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "school-or-nursery-is-not-a-university-or-company-office"
+    },
+    {
+      "id": "dst_3e4029b14e53061a",
+      "name": "ICICI Bank Infosys Technology, Hyderabad-Branch & ATM",
+      "kind": "office",
+      "tile": [
+        -20,
+        -8
+      ],
+      "buildingId": "51e2c834-2d4",
+      "boardIds": [
+        "b_2fb81833-9d65-43"
+      ],
+      "confidence": 0.6,
+      "sourcePack": "packs/p-7_-3.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -19872.95,
+        -7267.6
+      ],
+      "sourceHeight": 5.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "bank-branch-referencing-institution-or-office-address"
+    },
+    {
+      "id": "dst_872c334ddf35e3e9",
+      "name": "college girls hostel",
+      "kind": "college",
+      "tile": [
+        -21,
+        17
+      ],
+      "buildingId": "838ab418-a58",
+      "boardIds": [
+        "b_n5877747601"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-7_5.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -20301.475,
+        17143.45
+      ],
+      "sourceHeight": 8.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_92cea1ebb4a19dac",
+      "name": "Wipro Gopanpally Canteen",
+      "kind": "office",
+      "tile": [
+        -22,
+        -4
+      ],
+      "buildingId": "8362a724-248",
+      "boardIds": [
+        "b_5304a1da498ea476"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p-8_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        -21020.2,
+        -3519.438
+      ],
+      "sourceHeight": 15.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_f0bb294376d3c76d",
+      "name": "Government College of Nursing Hostel",
+      "kind": "college",
+      "tile": [
+        0,
+        -3
+      ],
+      "buildingId": "aff3c89f-2a0",
+      "boardIds": [
+        "b_db4482e4-adcf-4c"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p0_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        51.417,
+        -2769.35
+      ],
+      "sourceHeight": 19.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_8c07c611c75ca911",
+      "name": "gandhi medical college canteen",
+      "kind": "college",
+      "tile": [
+        0,
+        -3
+      ],
+      "buildingId": "5ffe7b1f-795",
+      "boardIds": [
+        "b_505705e7e4b06562"
+      ],
+      "confidence": 0.38,
+      "sourcePack": "packs/p0_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        824.694,
+        -2054.053
+      ],
+      "sourceHeight": 17.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_f1486c11da37ecec",
+      "name": "Jamai Masjid Himayath Ali Khan Bagh Osmania University Road",
+      "kind": "university",
+      "tile": [
+        2,
+        -2
+      ],
+      "buildingId": "e4a7f159-b25",
+      "boardIds": [
+        "b_bcb8121c-af68-45"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p0_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        2881.125,
+        -1506.1
+      ],
+      "sourceHeight": 9.4,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "worship-amenity-referencing-campus-or-address"
+    },
+    {
+      "id": "dst_a2e0b7711b7b8704",
+      "name": "Model High School Osmania University O.U.",
+      "kind": "university",
+      "tile": [
+        2,
+        -2
+      ],
+      "buildingId": "ac6bc217-4cf",
+      "boardIds": [
+        "b_a21a6e96-c5af-49"
+      ],
+      "confidence": 0.37,
+      "sourcePack": "packs/p0_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        2924.473,
+        -1648.045
+      ],
+      "sourceHeight": 15.5,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "school-address-is-not-a-university-or-college"
+    },
+    {
+      "id": "dst_fe23004a7e5a08ea",
+      "name": "Osmania University College of Engineering Alumni Association",
+      "kind": "university",
+      "tile": [
+        2,
+        -1
+      ],
+      "buildingId": "320e381f-23b",
+      "boardIds": [
+        "b_0faa4fe3-8c48-4d"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p0_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        2947.433,
+        -809.222
+      ],
+      "sourceHeight": 7.9,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_3a276e94dd94fa99",
+      "name": "Osmania University Girls Hostel",
+      "kind": "university",
+      "tile": [
+        2,
+        -1
+      ],
+      "buildingId": "58472ddc-ddb",
+      "boardIds": [
+        "b_02911de4-570f-44"
+      ],
+      "confidence": 0.39,
+      "sourcePack": "packs/p0_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        2585.35,
+        -476.125
+      ],
+      "sourceHeight": 3.5,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_5ff2bc10f3ac94af",
+      "name": "Juice Stall Outside Osmania University",
+      "kind": "university",
+      "tile": [
+        1,
+        0
+      ],
+      "buildingId": "6039c4fb-4a3",
+      "boardIds": [
+        "b_4de0bd6722713271"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p0_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        1090.25,
+        906.8
+      ],
+      "sourceHeight": 10.3,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "food-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_35a2a7ce38939e9e",
+      "name": "Apollo 247 Diagnostics in Vidya Nagar, Osmania University Rd",
+      "kind": "university",
+      "tile": [
+        1,
+        0
+      ],
+      "buildingId": "a3ad5733-191",
+      "boardIds": [
+        "b_fb7d5900-a6cc-42"
+      ],
+      "confidence": 0.78,
+      "sourcePack": "packs/p0_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        1391.775,
+        418.525
+      ],
+      "sourceHeight": 11.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "health-service-referencing-campus-or-address"
+    },
+    {
+      "id": "dst_d48167f20246ccd9",
+      "name": "Kinnera Hostel, Osmania university",
+      "kind": "university",
+      "tile": [
+        2,
+        0
+      ],
+      "buildingId": "a1631f3b-c70",
+      "boardIds": [
+        "b_4f92d4a3e4b04d6c"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p0_0.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        2609.641,
+        233.812
+      ],
+      "sourceHeight": 17.0,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_8c7259452cf4cf39",
+      "name": "Bojjam Narasimhulu Pharmacy College Hostel",
+      "kind": "college",
+      "tile": [
+        1,
+        5
+      ],
+      "buildingId": "47a81178-a63",
+      "boardIds": [
+        "b_83ff950c-7972-46"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p0_1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        1541.775,
+        5813.75
+      ],
+      "sourceHeight": 14.9,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_6d542e9d16676282",
+      "name": "University Filling Station",
+      "kind": "university",
+      "tile": [
+        3,
+        -3
+      ],
+      "buildingId": "48b48bd8-e03",
+      "boardIds": [
+        "b_50139d40e4b0ad6a"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        3639.057,
+        -2328.471
+      ],
+      "sourceHeight": 26.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_78b2866f24a10116",
+      "name": "Osmania University Police Station",
+      "kind": "university",
+      "tile": [
+        3,
+        -2
+      ],
+      "buildingId": "81c4bc39-df1",
+      "boardIds": [
+        "b_c167197a-e943-4c"
+      ],
+      "confidence": 0.75,
+      "sourcePack": "packs/p1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        3106.2,
+        -1673.55
+      ],
+      "sourceHeight": 3.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "police-or-transit-amenity-not-institution-or-office"
+    },
+    {
+      "id": "dst_a2d534f1d58a8c2a",
+      "name": "Osmania University Model United Nations -OU MUN",
+      "kind": "university",
+      "tile": [
+        3,
+        -2
+      ],
+      "buildingId": "6a269ddc-d5f",
+      "boardIds": [
+        "b_df3c3177-0dfd-4b"
+      ],
+      "confidence": 0.4,
+      "sourcePack": "packs/p1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        3310.839,
+        -1560.044
+      ],
+      "sourceHeight": 6.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_61c7f02cd59736da",
+      "name": "Osmania University College Area",
+      "kind": "university",
+      "tile": [
+        3,
+        -2
+      ],
+      "buildingId": "6a269ddc-d5f",
+      "boardIds": [
+        "b_e9f7cfe3-f89e-4a"
+      ],
+      "confidence": 0.4,
+      "sourcePack": "packs/p1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        3310.839,
+        -1560.044
+      ],
+      "sourceHeight": 6.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_02d6a4a937514b59",
+      "name": "Faculty Club Osmania University",
+      "kind": "university",
+      "tile": [
+        3,
+        -2
+      ],
+      "buildingId": "aa5bd60f-055",
+      "boardIds": [
+        "b_98db8cf0-1bb9-44"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        3951.25,
+        -1732.825
+      ],
+      "sourceHeight": 3.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_1334a8048e2ad632",
+      "name": "Osmania university Gym",
+      "kind": "university",
+      "tile": [
+        3,
+        -2
+      ],
+      "buildingId": "089c576e-8b0",
+      "boardIds": [
+        "b_602ff687-57c9-48"
+      ],
+      "confidence": 0.4,
+      "sourcePack": "packs/p1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        3855.1,
+        -1930.35
+      ],
+      "sourceHeight": 8.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_ad3fe9217045507a",
+      "name": "Osmania University Sports Complex",
+      "kind": "university",
+      "tile": [
+        3,
+        -2
+      ],
+      "buildingId": "95b74adb-115",
+      "boardIds": [
+        "b_b840379a-6fd7-4d"
+      ],
+      "confidence": 0.4,
+      "sourcePack": "packs/p1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        3583.7,
+        -1847.125
+      ],
+      "sourceHeight": 10.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_cf6c5e24f4b6e5b5",
+      "name": "Osmania University Landscape Garden",
+      "kind": "university",
+      "tile": [
+        3,
+        -1
+      ],
+      "buildingId": "a5540921-f99",
+      "boardIds": [
+        "b_056f2ec2-77e5-48"
+      ],
+      "confidence": 0.5,
+      "sourcePack": "packs/p1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        3280.6,
+        -732.533
+      ],
+      "sourceHeight": 18.3,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_c499ec7edd6cf075",
+      "name": "Osmania University College Area",
+      "kind": "university",
+      "tile": [
+        4,
+        -1
+      ],
+      "buildingId": "a4a0a1c5-f56",
+      "boardIds": [
+        "b_4d85cce8-adfb-4c"
+      ],
+      "confidence": 0.39,
+      "sourcePack": "packs/p1_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        4088.475,
+        -350.85
+      ],
+      "sourceHeight": 6.8,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_db53bebf836558de",
+      "name": "Amazon Gym and Fitness Centre",
+      "kind": "office",
+      "tile": [
+        3,
+        -4
+      ],
+      "buildingId": "b9fbf291-517",
+      "boardIds": [
+        "b_af148f44-c5c2-4a"
+      ],
+      "confidence": 0.38,
+      "sourcePack": "packs/p1_-2.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        3753.2,
+        -3985.15
+      ],
+      "sourceHeight": 9.9,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "campus-recreation-amenity"
+    },
+    {
+      "id": "dst_790c0e1d46f741fb",
+      "name": "Narayana Junior College Hostel",
+      "kind": "college",
+      "tile": [
+        4,
+        3
+      ],
+      "buildingId": "212a1472-77b",
+      "boardIds": [
+        "b_n2412757404"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p1_1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        4684.25,
+        3819.75
+      ],
+      "sourceHeight": 13.4,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "residential-amenity-not-institution"
+    },
+    {
+      "id": "dst_1ec2214091d55095",
+      "name": "Apollo 247 Diagnostics in Hanuman Nagar, TKR College Rd",
+      "kind": "college",
+      "tile": [
+        4,
+        9
+      ],
+      "buildingId": "0f1876ac-bbf",
+      "boardIds": [
+        "b_b27c9eaa-7fd7-47"
+      ],
+      "confidence": 0.7,
+      "sourcePack": "packs/p1_3.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        4438.975,
+        9163.9
+      ],
+      "sourceHeight": 12.6,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "health-service-referencing-campus-or-address"
+    },
+    {
+      "id": "dst_af3159d1c4df7ae0",
+      "name": "Apollo Pharmacy Madikeri College Road",
+      "kind": "college",
+      "tile": [
+        6,
+        -1
+      ],
+      "buildingId": "2cf0861f-570",
+      "boardIds": [
+        "b_ac3679b5-8410-46"
+      ],
+      "confidence": 0.79,
+      "sourcePack": "packs/p2_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        6534.3,
+        -726.7
+      ],
+      "sourceHeight": 11.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "health-service-referencing-campus-or-address"
+    },
+    {
+      "id": "dst_880bbbea1256c13e",
+      "name": "OYO Flagship 39517 Near Sri Chaitanya Junior College",
+      "kind": "college",
+      "tile": [
+        7,
+        -8
+      ],
+      "buildingId": "da82ba8f-2e2",
+      "boardIds": [
+        "b_bd65b92b-4a68-4b"
+      ],
+      "confidence": 0.6,
+      "sourcePack": "packs/p2_-3.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        7284.45,
+        -7275.625
+      ],
+      "sourceHeight": 16.2,
+      "status": "shipped-footprint-bound",
+      "recognition": "bounded-typology-decoration",
+      "exclusionReason": "hotel-address-is-not-an-institution-or-office"
+    },
+    {
+      "id": "dst_c0b93f630f21c0e2",
+      "name": "Vishwa Vishwani & Accenture CS Program",
+      "kind": "office",
+      "tile": [
+        6,
+        -19
+      ],
+      "buildingId": "0fdcff34-603",
+      "boardIds": [
+        "b_298eff78-316d-4a"
+      ],
+      "confidence": 0.39,
+      "sourcePack": "packs/p2_-7.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        6381.45,
+        -18732.783
+      ],
+      "sourceHeight": 7.1,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "training-program-is-not-a-company-office"
+    },
+    {
+      "id": "dst_83a67366bfeff622",
+      "name": "ICICI Bank Infosys, Pocharam-Branch & ATM",
+      "kind": "office",
+      "tile": [
+        15,
+        -3
+      ],
+      "buildingId": "2d6cef95-f4f",
+      "boardIds": [
+        "b_acd06cec-cf0d-4c"
+      ],
+      "confidence": 0.57,
+      "sourcePack": "packs/p5_-1.pack.wasm",
+      "sourceUrls": [],
+      "uncertainty": "Shipped source identity/building association and inferred facade; current occupancy, entrance and architecture are not photo verified.",
+      "anchor": [
+        15740.875,
+        -2093.5
+      ],
+      "sourceHeight": 3.7,
+      "status": "shipped-footprint-bound",
+      "recognition": "review-small-or-low-confidence-building",
+      "exclusionReason": "bank-branch-referencing-institution-or-office-address"
+    }
+  ],
+  "architectureRecordsRemoved": 28,
+  "eligibleBuildingIdsRemoved": [
+    "212a1472-77b",
+    "268bd7f3-ac3",
+    "37d5e78c-f92",
+    "5e336c93-e16",
+    "61278e11-c3d",
+    "630eb5e3-686",
+    "77697960-fc3",
+    "8626b02e-fbb",
+    "8d9ca5bb-d88",
+    "8f18e612-b51",
+    "8f35b0e3-543",
+    "9d8da85a-898",
+    "ae7e598d-c8c",
+    "af4454b8-cbe",
+    "b5e8ec13-251",
+    "ba42b6d7-baa",
+    "d70abb9f-e58",
+    "da82ba8f-2e2",
+    "e6c1cf64-aea",
+    "f2e998f9-e38",
+    "fd6733d9-ca0"
+  ],
+  "limits": "Source listings remain in the explicit review queue. No institution, facade, footprint, or source association is fabricated or reassigned."
+}

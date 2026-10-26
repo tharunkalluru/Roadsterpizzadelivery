@@ -6,6 +6,7 @@ import { LM_DATA, LmData } from './landmarks_data';
 import { drawAirportTerminal } from './airfields';
 import { correctedLandmarkData } from './landmark-corrections';
 import { drawMappedLandmarkPlan } from './landmark-source-plans';
+import { drawDestinationMall, drawUppalStadium } from './destination-hero-models';
 
 // 159 additional stylised Hyderabad places; dimensions and decorative details require per-place verification: temples, mosques and dargahs,
 // churches, palaces, heritage buildings, stations and bus terminals, civic buildings, hospitals, campuses, IT parks,
@@ -433,11 +434,14 @@ const R_: Record<string, Recipe> = {
   lodha_bellezza: { draw: (K) => { for (const [u, v] of [[-36, 0], [-12, 8], [12, 0], [36, 8], [0, -30]]) tower(K, u, v, 18, 22, 104, '#ece8e0', '#9a958c', { crown: true }); }, clear: [110, 80] },
   my_home_bhooja: { draw: (K) => { for (const [u, v] of [[-30, 0], [0, -10], [30, 0]]) tower(K, u, v, 22, 24, 112, '#f0ece4', '#a8a297', { crown: true }); }, clear: [100, 60] },
   // ---- shopping and cinema ----
-  inorbit: { draw: (K, D) => { tower(K, 0, 0, W(D, 232) * 0.85, Dp(D, 87) * 0.85, 24, '#e5e2dc', '#c4372d'); K.board('INORBIT MALL', 0, Dp(D, 87) * 0.43 + 0.2, 18, 16, 2.4, '#c4372d', '#ffffff'); }, clear: [220, 84] },
+  inorbit: { draw: K => drawDestinationMall(K, 'inorbit'), rot: 0, clear: 0 },
   gvk: { draw: (K, D) => { tower(K, 0, 0, W(D, 143) * 0.85, Dp(D, 62) * 0.85, 26, '#2f3a48', '#c9a24a'); K.board('GVK ONE', 0, Dp(D, 62) * 0.43 + 0.2, 20, 12, 2.4, '#2f3a48', '#e8c46a'); }, clear: [130, 60] },
-  sarath_city: { draw: (K, D) => { tower(K, 0, 0, W(D, 173) * 0.9, Dp(D, 154) * 0.9, 30, '#e8e5df', '#7a2e5a'); K.board('SARATH CITY CAPITAL MALL', 0, Dp(D, 154) * 0.45 + 0.2, 24, 16, 2.4, '#7a2e5a', '#ffffff'); }, clear: [170, 150] },
+  // Stable map identity for the same physical site as asian_amb. Its source-
+  // bound owner draws the mall once; no inherited cube or rectangular clearing.
+  sarath_city: { draw: () => {}, rot: 0, clear: 0, keepBuildings: true },
   ikea: { draw: (K, D) => { K.box(0, 0, 0, W(D, 206) * 0.85, 22, Dp(D, 156) * 0.85, '#3f5a78'); K.board('IKEA HYDERABAD', 0, Dp(D, 156) * 0.43 + 0.2, 17, 16, 2.6, '#3f5a78', '#ffffff'); K.solidRect(0, 0, W(D, 206) * 0.85, Dp(D, 156) * 0.85, 22); }, clear: [190, 140] },
-  forum: { draw: (K, D) => { tower(K, 0, 0, W(D, 175) * 0.85, Dp(D, 97) * 0.85, 26, '#e7e3dc', '#2a5e8c'); K.board('NEXUS HYDERABAD', 0, Dp(D, 97) * 0.43 + 0.2, 20, 14, 2.4, '#2a5e8c', '#ffffff'); }, clear: [160, 90] },
+  forum: { draw: K => drawDestinationMall(K, 'forum'), rot: 0, clear: 0 },
+  asian_amb: { draw: K => drawDestinationMall(K, 'asian_amb'), rot: 0, clear: 0 },
   city_center: { draw: (K, D) => { tower(K, 0, 0, W(D, 87) * 0.85, Dp(D, 77) * 0.85, 24, '#e6e1d8', '#b83a2e'); K.board('CITY CENTER MALL', 0, Dp(D, 77) * 0.43 + 0.2, 18, 12, 2, '#b83a2e', '#ffffff'); }, clear: [80, 72] },
   hyderabad_central: { draw: (K, D) => { tower(K, 0, 0, W(D, 101) * 0.85, Dp(D, 48) * 0.85, 22, '#e9e6df', '#2a6a5a'); K.board('HYDERABAD CENTRAL', 0, Dp(D, 48) * 0.43 + 0.2, 16, 14, 2, '#2a6a5a', '#ffffff'); }, clear: [92, 46] },
   // Prasads IMAX (2003): the drum of the IMAX screen beside the multiplex block, at NTR Gardens
@@ -447,7 +451,7 @@ const R_: Record<string, Recipe> = {
   // Shilparamam: crafts village, its entrance arch and thatched pavilions
   shilparamam: { draw: (K) => { gate(K, 0, 0, 14, 8, '#b9763e', '#e2c48a', 'SHILPARAMAM'); for (let k = 0; k < 8; k++) { const u = -40 + (k % 4) * 26, v = -30 - Math.floor(k / 4) * 26; K.box(u, v, 0, 8, 3, 8, '#c9a77c'); K.shape('cone', u, v, 3, 12, 4, 12, '#8a6a3a'); } }, clear: [110, 80, 0, -30] },
   shilpakala: { draw: (K, D) => { K.box(0, 0, 0, W(D, 80) * 0.8, 14, Dp(D, 73) * 0.8, '#d9c6a6'); K.arcade('archBig', -24, Dp(D, 73) * 0.4 + 0.05, 24, Dp(D, 73) * 0.4 + 0.05, 5, 0, 10, 0.4, '#5a4636'); K.board('SHILPAKALA VEDIKA', 0, Dp(D, 73) * 0.4 + 0.3, 12.8, 14); K.solidRect(0, 0, W(D, 80) * 0.8, Dp(D, 73) * 0.8, 14); }, clear: [76, 70] },
-  lulu: { draw: (K, D) => { tower(K, 0, 0, W(D, 86) * 0.9, Dp(D, 78) * 0.9, 26, '#e7e3dc', '#2a7a4a'); K.board('LULU MALL', 0, Dp(D, 78) * 0.45 + 0.2, 20, 12, 2.2, '#2a7a4a', '#ffffff'); }, clear: [84, 76] },
+  lulu: { draw: K => drawDestinationMall(K, 'lulu'), rot: 0, clear: 0 },
   ameerpet_metro_mall: { draw: (K, D) => { tower(K, 0, 0, W(D, 182) * 0.85, Dp(D, 63) * 0.85, 24, '#e5e1da', '#3b5f9a'); K.board('NEXT GALLERIA MALL', 0, Dp(D, 63) * 0.43 + 0.2, 18, 14, 2, '#3b5f9a', '#ffffff'); }, clear: [170, 60] },
   // ---- parks, lakes, leisure ----
   ntr_gardens: { draw: (K) => { gate(K, 0, 0, 16, 9, '#d6b26a', '#f2e6c8', 'NTR GARDENS'); for (let k = 0; k < 6; k++) K.shape('dome', -40 + k * 16, -40, 0, 8, 6, 8, '#c95a8a'); }, clear: 0, keepBuildings: true },
@@ -477,7 +481,7 @@ const R_: Record<string, Recipe> = {
   biodiversity: { draw: (K) => { gate(K, 0, 0, 14, 7, '#5f8a45', '#d9e6c6', 'BIODIVERSITY PARK'); }, clear: 0, keepBuildings: true },
   nizam_sagar_chowk: { draw: (K, D) => { colonial(K, W(D, 80) * 0.8, Dp(D, 35) * 0.8, 9, '#f2efe8', '#ffffff', { storeys: 1, portico: 16, cols: 6 }); K.board('THE NIZAM CLUB', 0, Dp(D, 35) * 0.4 + 6, 3.5, 9); }, clear: [70, 34] },
   // ---- sport ----
-  uppal_stadium: { draw: (K) => { stadiumBowl(K, 95, 85, 22, '#d6d2ca', '#5d6d8a', '#e8ecef', 0.55); K.board('RAJIV GANDHI INTERNATIONAL CRICKET STADIUM', 0, 92, 6, 16); }, clear: [200, 180] },
+  uppal_stadium: { draw: drawUppalStadium, rot: 0, clear: 0 },
   lb_stadium: { draw: (K) => { stadiumBowl(K, 95, 75, 16, '#d9d1c0', '#a8442f', '#eceae4', 0.3); K.board('LAL BAHADUR SHASTRI STADIUM', 0, 82, 6, 14); }, clear: [196, 160] },
   gachibowli_indoor: { draw: (K, D) => { K.cyl(0, 0, 0, W(D, 98) * 0.45, 14, '#d9dde3', 'cyl24'); K.shape('dome', 0, 0, 14, W(D, 98) * 0.9, 10, W(D, 98) * 0.9, '#c9ced4'); K.board('GACHIBOWLI INDOOR STADIUM', 0, W(D, 98) * 0.45 + 0.4, 6, 14); K.solidCircle(0, 0, W(D, 98) * 0.45, 14); }, clear: [100, 100] },
   saroornagar_indoor: { draw: (K) => { K.cyl(0, 0, 0, 40, 14, '#d9dde3', 'cyl24'); K.shape('dome', 0, 0, 14, 80, 9, 80, '#c9ced4'); K.board('SAROORNAGAR INDOOR STADIUM', 0, 40.4, 6, 14); K.solidCircle(0, 0, 40, 14); }, clear: 84 },

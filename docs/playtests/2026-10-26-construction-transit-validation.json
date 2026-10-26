@@ -1,0 +1,233 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-10-26T21:50:34.322Z",
+  "branch": "main",
+  "baseCommit": "5ef2908d04bb5a5f8da52209ac4b8dfca84851de",
+  "workingTreeChangesIncluded": true,
+  "scope": "Independent offline review of actual shipped construction tiles, graph annotation, grade propagation, bus movement and guidance. Browser acceptance is recorded separately by the parent task.",
+  "commands": [
+    "node tools/construction-regressions.mjs",
+    "node tools/construction-guidance-regressions.mjs",
+    "node tools/route-motion-regressions.mjs",
+    "node tools/navigation-regressions.mjs",
+    "node tools/bus-execution-regressions.mjs",
+    "npm run typecheck (from game/)"
+  ],
+  "independentMethods": [
+    "Applied prepareRoadGrades before capturing roadGradePatches; applied the construction plan to copied source roads with unchanged IDs/coordinates/elevations.",
+    "Built shipped tile10_-1 with actual furniture, buildings, metro and canonical grade patches; sampled bus bodies every2m on its matching work-zone edges.",
+    "Rebuilt the same tile without construction geometry and without solid colliders, then repeated failed poses using the actual3x3 neighboring source tiles.",
+    "Forced every road in the actual source tile to ctx=1 to verify that context-only construction barriers are still emitted.",
+    "Checked every unfinished pier cap and scaffolding post footprint against the open-road clearance plan.",
+    "Executed production Traffic/BusServices across the actual f731 source micro-join at60Hz, using an explicitly synthetic declared test leg; compared with/without work structures."
+  ],
+  "gradePropagation": {
+    "preparedPatchCount": 1170,
+    "arrayLookupAfterClone": 0,
+    "worldCaptureBeforeClone": true,
+    "workerUsesCapturedPatches": true,
+    "workerAppliesGradesBeforeConstruction": true,
+    "sourceGeometryPreserved": true
+  },
+  "actualTile": {
+    "key": "10_-1",
+    "pack": "packs/p3_-1.pack.wasm",
+    "packSha256": "68fc7153e323ba6c4c6e1928cb7b57ace6e93c0a6b574b54ec3321e35ad85b60",
+    "sourceRoads": 560,
+    "sourceContextRoads": 113,
+    "matchingWorkZoneRoadIds": [
+      "002e6653-5cc_0",
+      "0a5fbe19-3ba_0",
+      "0ac69d3c-c41_0",
+      "0c35a374-e3c_0",
+      "2645cbcf-8b2_0",
+      "2bf493bc-246_0",
+      "31bd7f40-b78_0",
+      "31bd7f40-b78_1",
+      "46d17ad1-100_0",
+      "5062c5a7-965_0",
+      "5df56be5-cbf_0",
+      "69077cf7-608_0",
+      "7162248c-c04_0",
+      "746f64cb-291_0",
+      "7560e150-ed5_0",
+      "7560e150-ed5_1",
+      "7560e150-ed5_2",
+      "7f5c93e1-412_0",
+      "8e5710cf-b8e_0",
+      "97825706-978_0",
+      "9f5a4e83-bcc_0",
+      "9f5a4e83-bcc_1",
+      "a6b2165a-94e_0",
+      "b0cb8a15-e9a_0",
+      "c50e7cea-240_0",
+      "c50e7cea-240_1",
+      "c73aa2c2-4cd_0",
+      "e5889e99-751_0",
+      "f47ed9e1-413_0",
+      "f7dc5073-001_0"
+    ],
+    "annotationMismatches": 0,
+    "features": {
+      "barriers": 389,
+      "piers": 26,
+      "excavationSites": 0
+    },
+    "allContextVariant": {
+      "roads": 560,
+      "matchingWorkZoneRoads": 30,
+      "barriers": 389,
+      "piers": 26,
+      "graphRoadOutput": 0,
+      "explanation": "The permanently loaded annotated core graph owns these roads; context-only tile output does not add graph roads."
+    }
+  },
+  "boundarySupportAudit": {
+    "isolatedTileFailedPoses": 18,
+    "bodyMetres": {
+      "width": 2.6,
+      "height": 3.4,
+      "length": 10
+    },
+    "samplingMetres": 2,
+    "sourceIntervals": [
+      {
+        "id": "c50e7cea-240_0",
+        "samples": [
+          40,
+          42
+        ],
+        "minimum": 40,
+        "maximum": 42
+      },
+      {
+        "id": "5062c5a7-965_0",
+        "samples": [
+          2
+        ],
+        "minimum": 2,
+        "maximum": 2
+      },
+      {
+        "id": "c50e7cea-240_1",
+        "samples": [
+          2,
+          4,
+          6
+        ],
+        "minimum": 2,
+        "maximum": 6
+      },
+      {
+        "id": "7f5c93e1-412_0",
+        "samples": [
+          20,
+          22,
+          24,
+          26,
+          28,
+          30,
+          32,
+          34,
+          36,
+          38,
+          40,
+          42
+        ],
+        "minimum": 20,
+        "maximum": 42
+      }
+    ],
+    "failsWithoutConstruction": 18,
+    "failsWithoutAnySolidCollider": 18,
+    "constructionOnlyFailures": 0,
+    "loadedNeighborTiles": [
+      "9_-2",
+      "9_-1",
+      "9_0",
+      "10_-2",
+      "10_-1",
+      "10_0",
+      "11_-2",
+      "11_-1",
+      "11_0"
+    ],
+    "remainingFailuresWithNeighbors": 0,
+    "remainingBaselineFailuresWithNeighbors": 0,
+    "classification": "Support ownership at tile boundaries, not a barricade, building or prop collision. All18 clear once adjacent source-owner tiles are included."
+  },
+  "constructionStructures": {
+    "boundRoadFragments": 149,
+    "unfinishedPiers": 148,
+    "scaffoldingOpenLaneConflicts": [],
+    "capOpenLaneConflicts": [],
+    "finishedDrivableConstructionDeckAdded": false
+  },
+  "gpsMicroJoin": {
+    "sourceIds": [
+      "f731633c-8b8_1",
+      "f731633c-8b8_2"
+    ],
+    "tile": [
+      11,
+      -1
+    ],
+    "pack": "packs/p3_-1.pack.wasm",
+    "packSha256": "68fc7153e323ba6c4c6e1928cb7b57ace6e93c0a6b574b54ec3321e35ad85b60",
+    "coreSha256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+    "sourceSegmentMetres": 0.1,
+    "rawLaneEndpointGapMetres": 3.4318076200604875,
+    "reproduce": "Route from f731633c-8b8_1@s2 to f731633c-8b8_2@(length-8), using the open-lane offset, then pass route.pts through softenRoadCorners and clearRoadGuidance on shipped tile11_-1.",
+    "before": {
+      "displayPoints": 71,
+      "backwardSegments": 5,
+      "maxTurnRadians": 3.1023004830941834,
+      "maxTurnDegrees": 177.7487244626931,
+      "blocked": false
+    },
+    "correction": [
+      "Use a neighbouring metre-scale chord for lateral offset normals at sub-metre source segments.",
+      "Before corner fillets, remove tiny join reversals only when the direct replacement stays on loaded same-grade pavement with full wall/facade clearance."
+    ],
+    "after": {
+      "points": 43,
+      "maxTurnRadians": 0.06741307497206185,
+      "backwardSegments": 0,
+      "blocked": false,
+      "maxTurnDegrees": 3.8624846798981443
+    },
+    "normalRoadAfter": {
+      "points": 43,
+      "maxTurnRadians": 0.06741307497198881,
+      "backwardSegments": 0,
+      "blocked": false,
+      "maxTurnDegrees": 3.8624846798939596
+    },
+    "sourceCoordinatesAndElevationsChanged": false,
+    "actualBusRuns": [
+      {
+        "mode": "construction",
+        "ended": true,
+        "dwelled": true,
+        "simulationSeconds": 11.433333333333334,
+        "maxYawRadiansPerFrame": 0.0006850067481844025,
+        "maxStepMetres": 0.11574138236033457,
+        "invalidPoses": 0
+      },
+      {
+        "mode": "withoutWorkStructures",
+        "ended": true,
+        "dwelled": true,
+        "simulationSeconds": 11.433333333333334,
+        "maxYawRadiansPerFrame": 0.0006850067481844025,
+        "maxStepMetres": 0.11574138236033457,
+        "invalidPoses": 0
+      }
+    ]
+  },
+  "limitations": [
+    "The baseline boundary audit covers the stated source tiles and sampled poses; it is not a full city driving tour.",
+    "The bus join uses real shipped road geometry but a synthetic declared test alignment, not a newly verified published agency route.",
+    "These checks do not replace browser pickup, handover, phone controls or citywide source verification."
+  ]
+}

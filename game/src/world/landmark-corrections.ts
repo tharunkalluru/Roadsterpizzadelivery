@@ -1,10 +1,16 @@
 import type { LmData } from './landmarks_data';
+import { DESTINATION_HERO_PLANS } from './destination-hero-data';
 
 // Explicit reviewed changes, shared by map and model placement. OSM is evidence
 // of identity/plan location; it does not establish facade appearance or height.
 // Exact source versions, rejected alternatives and previous values are retained
 // in pipeline/evidence/landmark-source-decisions-2026-10-26.json.
 export const LANDMARK_CORRECTIONS: Record<string, Partial<LmData>> = {
+  inorbit: { ...DESTINATION_HERO_PLANS.inorbit.anchor, rot: 0 },
+  forum: { ...DESTINATION_HERO_PLANS.forum.anchor, rot: 0 },
+  lulu: { ...DESTINATION_HERO_PLANS.lulu.anchor, rot: 0 },
+  uppal_stadium: { ...DESTINATION_HERO_PLANS.uppal_stadium.anchor, rot: 0 },
+  sarath_city: { ...DESTINATION_HERO_PLANS.asian_amb.anchor, rot: 0 }, // stable map alias of the same named mall footprint
   nalsar: { lat: 17.6026889, lon: 78.54669785, rot: 203 }, // midpoint of the two mapped vehicle gates
   osman_sagar: { lat: 17.3759728, lon: 78.3169135, rot: 0, sw: null, sd: null, srot: null },
   purana_pul: { name: 'Purana Pul Darwaza', type: 'city_gate' },

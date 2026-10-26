@@ -717,8 +717,8 @@ export class Hud {
     b.hidden = !show; if (show) { b.dataset.t = text; b.textContent = text + (document.documentElement.classList.contains('is-touch') ? '' : ' (R)'); }
   }
   areaT = 0;
-  areaChip(name: string) {
-    const c = this.el['area-chip']; c.innerHTML = `<small>Entering</small>${name.replace(/[<>&]/g, '')}`; c.classList.add('show');
+  areaChip(name: string, label = 'Entering') {
+    const c = this.el['area-chip']; c.innerHTML = `<small>${label.replace(/[<>&]/g, '')}</small>${name.replace(/[<>&]/g, '')}`; c.classList.add('show');
     clearTimeout(this.areaT); this.areaT = window.setTimeout(() => c.classList.remove('show'), 4200);
   }
   get tipOpen() { return !this.el['tip-layer'].hidden; }

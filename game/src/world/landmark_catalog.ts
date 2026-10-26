@@ -2,10 +2,14 @@
 // Existing coordinates and unmeasured model dimensions are retained as provisional; see docs/landmark-audit.json.
 import { LM_DATA } from './landmarks_data';
 import { correctedLandmarkData } from './landmark-corrections';
+import { DESTINATION_HERO_PLANS } from './destination-hero-data';
 export type LmKind = 'charminar' | 'charkaman' | 'mecca' | 'chowmahalla' | 'falaknuma' | 'golconda' | 'balahisar' | 'fateh' | 'qstomb' | 'qsmosque' | 'taramati'
   | 'buddha' | 'secretariat' | 'ambedkar' | 'martyrs' | 'birla' | 'assembly' | 'highcourt' | 'osmania'
   | 'cybertowers' | 'cablebridge' | 'thub' | 'stadium' | 'clocktower' | 'salarjung' | 'ouarts' | 'paigah' | `x_${string}`;
 export interface LandmarkDefinition { kind: LmKind; name: string; lat: number; lon: number; rot: number; clear: number | [number, number] | [number, number, number, number]; p?: Record<string, number> }
+// Distinct map identities can refer to one physical site. Keep stable place
+// IDs while assigning one body/clear-zone owner, instead of stacking models.
+export const LANDMARK_MODEL_ALIASES: Readonly<Record<string, string>> = { sarath_city: 'asian_amb' };
 
 const QT = (name: string, lat: number, lon: number, terrace: number, cube: number, dome: number, h: number, arches: number): LandmarkDefinition =>
   ({ kind: 'qstomb', name, lat, lon, rot: 0, clear: [terrace + 6, terrace + 6], p: { terrace, cube, dome, h, arches } });
@@ -46,16 +50,17 @@ export const BASE_LANDMARKS: LandmarkDefinition[] = [
   { kind: 'thub', name: 'T-Hub', lat: 17.43400, lon: 78.37918, rot: 40, clear: [50, 100] },
   { kind: 'stadium', name: 'G.M.C. Balayogi Stadium', lat: 17.44618, lon: 78.34416, rot: 0, clear: [196, 275] },
   { kind: 'clocktower', name: 'Secunderabad Clock Tower', lat: 17.44090, lon: 78.49855, rot: 0, clear: 9 },
+  { kind: 'x_asian_amb', name: 'Asian AMB Cinemas · Sarath City Capital Mall', ...DESTINATION_HERO_PLANS.asian_amb.anchor, rot: 0, clear: 0 },
 ];
 
 
-export type PlaceCategory = 'Heritage' | 'Worship' | 'Parks & lakes' | 'Culture' | 'Transport' | 'Sport' | 'City life';
+export type PlaceCategory = 'Heritage' | 'Worship' | 'Parks & lakes' | 'Culture' | 'Transport' | 'Sport' | 'City life' | 'Education';
 export type PlaceIcon = 'charminar' | 'fort' | 'palace' | 'dome' | 'temple' | 'church' | 'statue' | 'bridge' | 'tower' | 'tree' | 'water' | 'museum' | 'train' | 'plane' | 'stadium' | 'building';
 export interface LandmarkPlace {
   id: string; name: string; lat: number; lon: number; x: number; z: number;
-  category: PlaceCategory; icon: PlaceIcon; priority: number;
+  category: PlaceCategory; icon: PlaceIcon; priority: number; modelAliasOf?: string;
 }
-export const PLACE_CATEGORIES: PlaceCategory[] = ['Heritage', 'Worship', 'Parks & lakes', 'Culture', 'Transport', 'Sport', 'City life'];
+export const PLACE_CATEGORIES: PlaceCategory[] = ['Heritage', 'Worship', 'Parks & lakes', 'Culture', 'Transport', 'Sport', 'City life', 'Education'];
 // Identity never depends on array position, translated labels, or a shared model recipe (e.g. the six tombs).
 export function landmarkId(l: { kind: string; name: string; d?: { key: string } }) {
   if (l.d?.key) return l.d.key;
@@ -72,6 +77,7 @@ const BASE_STYLE: Record<string, [PlaceCategory, PlaceIcon]> = {
   osmania: ['Heritage', 'dome'], salarjung: ['Culture', 'museum'], ouarts: ['Heritage', 'palace'],
   cybertowers: ['City life', 'tower'], cablebridge: ['City life', 'bridge'], thub: ['City life', 'building'],
   stadium: ['Sport', 'stadium'], clocktower: ['Heritage', 'tower'],
+  x_asian_amb: ['Culture', 'building'],
 };
 function extraStyle(type: string): [PlaceCategory, PlaceIcon] {
   if (/^temple|gurudwara/.test(type)) return ['Worship', 'temple'];
@@ -98,7 +104,8 @@ export function placeCatalogue(origin: { lat: number; lon: number }): LandmarkPl
   ];
   return entries.map((p) => ({ id: p.id, name: p.name, lat: p.lat, lon: p.lon,
     x: (p.lon - origin.lon) * kx, z: -(p.lat - origin.lat) * kz,
-    category: p.style[0], icon: p.style[1], priority: PROMINENT.has(p.id) ? 2 : 1 }));
+    category: p.style[0], icon: p.style[1], priority: PROMINENT.has(p.id) ? 2 : 1,
+    ...(LANDMARK_MODEL_ALIASES[p.id] ? { modelAliasOf: LANDMARK_MODEL_ALIASES[p.id] } : {}) }));
 }
 
 // A source tile may be absent under a large lake. Keep the recorded world anchor; only the owning streamed

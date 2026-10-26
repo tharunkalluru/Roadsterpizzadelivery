@@ -9,6 +9,8 @@ import { isORR } from '../world/expressway';
 import { BusServices, type BusRun, type BusFeed } from './bus-services';
 import { signalAspect } from '../world/signals';
 import { busLane, busTurn, busRoundedCorner } from './bus-path';
+import { BusPassengerExchange } from './bus-passengers';
+import { constructionLane } from '../world/construction';
 
 type Group = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
 interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
@@ -28,6 +30,7 @@ export interface Car {
   blockedT: number; stuckT: number; passS: number; honkT: number; filtering: boolean; dwell: number; served: Set<BusStop>;
   motion?: Motion; stopS?: number; planAfter?: number; assertive?: boolean; laneChangeAt?: number; uturnAt?: number;
   busRun?: BusRun; routeDecals?: ReturnType<typeof M.busRouteBoards>;
+  passengerExchange?: BusPassengerExchange;
 }
 export interface Walker { x: number; z: number; crossing: boolean }
 
@@ -39,6 +42,7 @@ export class Traffic {
   r = rng(77); t = 0;
   stopsByEdge = new Map<string, BusStop[]>();
   services: BusServices | null = null;
+  passengerExchanges: BusPassengerExchange[] = [];
   onHorn: (kind: string, x: number, z: number) => void = () => {};
   constructor(public graph: RoadGraph, public scene: THREE.Scene, public mats: Record<string, any>, public max = 55, busStops: BusStop[] = [], public city?: CityData) {
     const R = rng(4049);
@@ -63,11 +67,16 @@ export class Traffic {
   setBusFeed(feed: BusFeed) { this.services = new BusServices(this.graph, feed); }
   private release(c: Car) {
     this.scene.remove(c.g);
+    if (c.passengerExchange) {
+      this.scene.remove(c.passengerExchange.group);
+      this.passengerExchanges = this.passengerExchanges?.filter(exchange => exchange !== c.passengerExchange) || [];
+      c.passengerExchange = undefined;
+    }
     const materials = new Set<THREE.Material>();
     for (const decal of c.routeDecals || []) { decal.geo.dispose(); materials.add(decal.mat); }
     for (const material of materials) { (material as THREE.MeshBasicMaterial).map?.dispose(); material.dispose(); }
   }
-  clear() { for (const c of this.cars) this.release(c); this.cars.length = 0; }
+  clear() { for (const c of this.cars) this.release(c); this.cars.length = 0; for (const exchange of this.passengerExchanges || []) this.scene.remove(exchange.group); this.passengerExchanges = []; }
   // vehicles on roads of an unloaded tile leave with it
   dropEdges(gone: Set<GEdge>) {
     for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge) || (this.cars[i].motion && (gone.has(this.cars[i].motion!.edge)
@@ -93,15 +102,18 @@ export class Traffic {
     const control = this.signalAhead(c);
     return control && signalAspect(control.site, control.approach.phase, this.t) !== 'green' ? control.approach.stopS - c.size[2] / 2 - .35 : undefined;
   }
-  laneRange(edge: GEdge, w: number): [number, number] {
+  laneRange(edge: GEdge, w: number, dir: 1 | -1 = 1): [number, number] {
+    const work = edge.e.workZone, centre = constructionLane(edge.e, dir);
+    if (work && centre !== undefined) { const room = Math.max(0, (work.width - w) / 2 - .3); return [centre - room, centre + room]; }
     const e = edge.e, half = e.w / 2;
     if (isORR(e) && e.expressway?.shoulders) return [-half + e.expressway.shoulders[1] + w / 2 + 0.15, half - e.expressway.shoulders[0] - w / 2 - 0.15];
     if (e.oneway) return [-half + w / 2 + 0.3, half - w / 2 - 0.3];
     const inner = hasCentreMedian(e) ? 0.95 : 0.35;                     // keep clear of the centre median
     return [inner + w / 2, Math.max(inner + w / 2, half - w / 2 - 0.3)];
   }
-  pickLane(edge: GEdge, w: number, group: Group) {
-    if (group === 'bus') return busLane(edge);
+  pickLane(edge: GEdge, w: number, group: Group, dir: 1 | -1 = 1) {
+    const workLane = constructionLane(edge.e, dir); if (workLane !== undefined) return workLane;
+    if (group === 'bus') return busLane(edge, dir);
     const e = edge.e, half = e.oneway ? e.w : e.w / 2;
     if (isORR(e) && e.expressway?.throughLanes) {
       const lw = e.expressway.laneWidth || 3.5, left = e.w / 2 - (e.expressway.shoulders?.[0] || 0);
@@ -141,7 +153,7 @@ export class Traffic {
     const b = new THREE.Mesh(pr.body, this.mats.vBody); b.castShadow = true; b.receiveShadow = true;
     g.add(b, new THREE.Mesh(pr.lights, this.mats.vLight));
     for (const dc of pr.decals) g.add(new THREE.Mesh(dc.geo, dc.mat));
-    const lane = this.pickLane(edge, pr.size[0], group);
+    const lane = this.pickLane(edge, pr.size[0], group, dir);
     const pose = this.graph.pointAt(edge, s, dir, lane);
     if ((this.city && !trafficPoseClear(this.city, pose, pr.size)) || this.cars.some(c => trafficOverlap({ ...pose, size: pr.size }, c, 2))) return;
     this.scene.add(g); g.position.set(pose.x, pose.y + 0.02, pose.z); g.rotation.y = Math.atan2(-pose.hx, -pose.hz);
@@ -157,7 +169,7 @@ export class Traffic {
     g.add(new THREE.Mesh(pr.body, this.mats.vBody), new THREE.Mesh(pr.lights, this.mats.vLight));
     for (const dc of pr.decals) g.add(new THREE.Mesh(dc.geo, dc.mat));
     this.scene.add(g);
-    const ln = lane ?? this.pickLane(edge, pr.size[0], group);
+    const ln = constructionLane(edge.e, dir) ?? lane ?? this.pickLane(edge, pr.size[0], group, dir);
     const p = this.graph.pointAt(edge, s, dir, ln);
     g.position.set(p.x, p.y + 0.02, p.z); g.rotation.y = Math.atan2(-p.hx, -p.hz);
     const want = group === 'bike' ? 11 : group === 'bus' ? 8 : 10;
@@ -210,7 +222,7 @@ export class Traffic {
     const point = (distance: number) => {
       const span = spans.find(s => distance < s.base + s.end - s.start - 1e-6) || spans[spans.length - 1];
       const at = Math.min(span.end, span.start + Math.max(0, distance - span.base));
-      return { span, at, pose: this.graph.pointAt(span.edge, at, span.dir, busLane(span.edge)) };
+      return { span, at, pose: this.graph.pointAt(span.edge, at, span.dir, busLane(span.edge, span.dir)) };
     };
     const corners: { at:number; trim:number }[] = [];
     const addCorner = (at:number, dot:number) => {
@@ -251,8 +263,8 @@ export class Traffic {
     for (const distance of targetDistances) {
       if (distance < .2 || distance < Math.min(length, minimumEnd) - .001 || distance <= startDistance + .05) continue;
       if (!waitForNextEdge && corners.some(corner => corner.at > distance + .01 && corner.at - distance < corner.trim)) continue;
-      const end = point(distance), [lowLane, highLane] = this.laneRange(end.span.edge, c.size[0]);
-      for (const lane of [...new Set([busLane(end.span.edge), Math.max(lowLane, Math.min(highLane, 0)), lowLane, highLane])]) {
+      const end = point(distance), [lowLane, highLane] = this.laneRange(end.span.edge, c.size[0], end.span.dir);
+      for (const lane of [...new Set([busLane(end.span.edge, end.span.dir), Math.max(lowLane, Math.min(highLane, 0)), lowLane, highLane])]) {
       const endpoint = this.graph.pointAt(end.span.edge, end.at, end.span.dir, lane), baseCurve = busRoundedCorner(a, endpoint);
       for (const [incoming, outgoing] of [[1,1],[1.25,.8],[1.5,.65],[.8,1.25],[.65,1.5]]) {
       const curve = incoming === 1 && outgoing === 1 ? baseCurve : new TrafficCurve(a, endpoint, baseCurve.handleA * incoming, baseCurve.handleB * outgoing);
@@ -337,7 +349,7 @@ export class Traffic {
     // sufficiently large dead end. A one-way edge has no reverse graph exit.
     const reverse = node.out.find(o => o.edge === edge && o.dir !== c.dir);
     const opportunistic = c.assertive && this.t >= (c.uturnAt || 0) && this.r() < 0.14;
-    if (!c.busRun && reverse && (!opts.length || opportunistic) && !isORR(edge.e) && (!hasCentreMedian(edge.e) || this.city)) {
+    if (!c.busRun && reverse && (!opts.length || opportunistic) && !edge.e.workZone && !isORR(edge.e) && (!hasCentreMedian(edge.e) || this.city)) {
       const trim = Math.min(Math.max(3, c.size[2] * 0.65), this.segmentRoom(edge, c.dir, true) * 0.45);
       const startS = Math.max(c.s, edge.len - trim), endS = edge.len - startS;
       const a = this.graph.pointAt(edge, startS, c.dir, c.lane), b = this.graph.pointAt(edge, endS, reverse.dir, c.lane);
@@ -359,7 +371,7 @@ export class Traffic {
       const entry = this.graph.pointAt(edge, edge.len - 0.001, c.dir), exit = this.graph.pointAt(out.edge, 0.001, out.dir);
       const angle = Math.acos(Math.max(-1, Math.min(1, entry.hx * exit.hx + entry.hz * exit.hz)));
       if (angle > Math.PI * 0.88) continue;
-      const [lo, hi] = this.laneRange(out.edge, c.size[0]), lane = Math.max(lo, Math.min(hi, c.lane));
+      const [lo, hi] = this.laneRange(out.edge, c.size[0], out.dir), lane = constructionLane(out.edge.e, out.dir) ?? Math.max(lo, Math.min(hi, c.lane));
       const wanted = Math.max(3, profile.radius * Math.tan(angle / 2));
       for (const factor of [1, 1.45, 0.7]) {
         const trimIn = Math.min(wanted * factor, this.segmentRoom(edge, c.dir, true) * 0.46);
@@ -383,6 +395,7 @@ export class Traffic {
     return true;
   }
   private tryLane(c: Car, player: { x: number; z: number; y: number; hx?: number; hz?: number }) {
+    if (c.edge.e.workZone) return false;
     if (Math.abs(c.laneT - c.lane) < 0.1 || (c.motion && c.motion.progress >= 0) || this.t < (c.laneChangeAt || 0)) return false;
     const distance = c.group === 'bus' ? 28 : c.assertive ? 6.5 : c.group === 'bike' ? 8 : 14;
     const endS = c.s + Math.max(distance, c.speed * (c.assertive ? 1.4 : 2.5));
@@ -450,12 +463,18 @@ export class Traffic {
   update(dt: number, px: number, pz: number, player: { x: number; z: number; y: number; speed: number; hx?: number; hz?: number }, walkers: Walker[] = []) {
     this.plans = 0;
     this.t += dt;
+    for (let i = (this.passengerExchanges?.length || 0) - 1; i >= 0; i--) {
+      const exchange = this.passengerExchanges[i]; exchange.update(dt);
+      if (exchange.finished || Math.hypot(exchange.group.position.x - px, exchange.group.position.z - pz) > 200) {
+        this.scene.remove(exchange.group); this.passengerExchanges.splice(i, 1);
+      }
+    }
     for (let k = 0; k < 6 && this.cars.length < this.max; k++) this.spawn(px, pz);
     // over budget (moved somewhere quieter): retire the farthest vehicle once it is well out of the way
     if (this.cars.length > this.max) {
       let far = -1, fd = 160;
       for (let i = 0; i < this.cars.length; i++) { const d = Math.hypot(this.cars[i].x - px, this.cars[i].z - pz); if (d > fd) { fd = d; far = i; } }
-      if (far >= 0) { this.scene.remove(this.cars[far].g); this.cars.splice(far, 1); }
+      if (far >= 0) { this.release(this.cars[far]); this.cars.splice(far, 1); }
     }
     const byEdge = new Map<GEdge, Car[]>();
     for (const c of this.cars) (byEdge.get(c.edge) || byEdge.set(c.edge, []).get(c.edge)!).push(c);
@@ -463,8 +482,14 @@ export class Traffic {
       const c = this.cars[i];
       if (Math.hypot(c.x - px, c.z - pz) > 340) { this.release(c); this.cars.splice(i, 1); continue; }
       const halfL = c.size[2] / 2, halfW = c.size[0] / 2;
+      if (c.dwell > 0) {
+        c.speed = 0; c.dwell = Math.max(0, c.dwell - dt);
+        if (c.dwell <= 0) { c.laneT = c.base; c.passengerExchange = undefined; c.planAfter = 0; }
+        // No path replanning, yaw, creep or lane changes while passengers use the doors.
+        continue;
+      }
       this.prepare(c);
-      let target = c.want;
+      let target = Math.min(c.want, c.edge.e.workZone ? c.edge.e.workZone.speed / 3.6 : Infinity);
       // follow whatever is ahead in an overlapping lane on the same edge; remember a stopped one as an obstacle
       let obs: { lane: number; halfW: number; s: number; halfL: number } | null = null;
       for (const o of byEdge.get(c.edge) || []) {
@@ -488,7 +513,7 @@ export class Traffic {
       }
       c.blockedT = blocked ? c.blockedT + dt : Math.max(0, c.blockedT - dt * 2);
       c.stuckT = obs && target < (c.assertive ? c.want * 0.7 : 0.8) ? c.stuckT + dt : Math.max(0, c.stuckT - dt);
-      const canFilter = c.group === 'bike' || c.group === 'auto' || (c.group === 'car' && this.r() < 0.03);
+      const canFilter = !c.edge.e.workZone && (c.group === 'bike' || c.group === 'auto' || (c.group === 'car' && this.r() < 0.03));
       if (obs && c.stuckT > (c.assertive ? 0.25 : 0.6) && !c.filtering && canFilter && this.t >= (c.laneChangeAt || 0) && (!c.motion || c.motion.progress < 0)) {
         // look for a gap beside whatever is stopped ahead (the player's car or a queue), inside this carriageway
         const [lo, hi] = this.laneRange(c.edge, c.size[0]);
@@ -507,8 +532,7 @@ export class Traffic {
       // buses pull in at their stops for a few seconds
       if (c.group === 'bus') {
         if (c.busRun?.ended) target = 0;
-        if (c.dwell > 0) { target = 0; c.dwell -= dt; if (c.dwell <= 0) c.laneT = c.base; }
-        else for (const st of (c.busRun ? c.busRun.stopPosition.edge === c.edge && c.busRun.stopPosition.dir === c.dir && !c.busRun.ended ? [c.busRun.stopPosition.stop] : [] : this.stopsByEdge.get(c.edge.e.id) || [])) {
+        for (const st of (c.busRun ? c.busRun.stopPosition.edge === c.edge && c.busRun.stopPosition.dir === c.dir && !c.busRun.ended ? [c.busRun.stopPosition.stop] : [] : this.stopsByEdge.get(c.edge.e.id) || [])) {
           if (c.served.has(st)) continue;
           const leftSign = c.dir === 1 ? st.side : -st.side;
           if (leftSign < 0 && !c.edge.e.oneway) continue;
@@ -517,7 +541,13 @@ export class Traffic {
           // Leave room for the long body's nose/tail sweep during pull-in.
           c.laneT = c.busRun ? c.base : leftSign * (c.edge.e.w / 2 - halfW - 0.7);
           target = Math.min(target, Math.max(0, ahead * 0.55));
-          if (ahead < 1.5 && c.speed < 0.6) { c.dwell = this.r.range(4, 7); c.served.add(st); if (c.busRun) { this.services?.served(c.busRun, c.edge, c.dir, c.s); if (!c.motion || c.motion.progress < 0) { c.motion = undefined; c.planAfter = 0; } } }
+          if (ahead < 1.5 && c.speed < 0.6) {
+            c.dwell = this.r.range(5, 6); c.speed = 0; target = 0; c.served.add(st);
+            const exchange = new BusPassengerExchange(c, c.dwell, this.mats.vBody);
+            exchange.group.userData = { route: c.busRun?.pattern.number || '', stopId: c.busRun?.pattern.stops[c.busRun.target] || '' };
+            c.passengerExchange = exchange; (this.passengerExchanges ||= []).push(exchange); this.scene.add(exchange.group);
+            if (c.busRun) { this.services?.served(c.busRun, c.edge, c.dir, c.s); if (!c.motion || c.motion.progress < 0) { c.motion = undefined; c.planAfter = 0; } }
+          }
           break;
         }
       }
@@ -547,7 +577,9 @@ export class Traffic {
         if (m.progress < 0 && m.node && redStop !== undefined) target = Math.min(target, Math.max(0, (approach - 0.2) * 0.8));
       } else if (c.stopS !== undefined) target = Math.min(target, Math.sqrt(4 * Math.max(0, c.stopS - c.s)));
       c.speed += Math.max(-9 * dt, Math.min(3.2 * dt, target - c.speed));
+      if (c.edge.e.workZone) c.speed = Math.min(c.speed, c.edge.e.workZone.speed / 3.6);
       this.advance(c, c.speed * dt, player, walkers);
+      if (c.edge.e.workZone) c.speed = Math.min(c.speed, c.edge.e.workZone.speed / 3.6);
     }
   }
   // Hide the whole vehicle whenever its oriented body crosses the camera-car

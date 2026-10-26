@@ -5,6 +5,8 @@ import { placeCatalogue, PLACE_CATEGORIES, type LandmarkPlace, type PlaceCategor
 import { layoutPlaceMarkers, hitPlaceMarker, placeIcon, type PlaceMarker } from './landmark-icons';
 import { metroCorridors, METRO_LINE_COLORS } from '../world/metro-geometry';
 import { installPrototypeTheme } from './theme';
+import { DESTINATION_MAP_IDENTITIES } from '../world/destination-data';
+import { destinationPlaceCatalogue } from '../world/destination-identity';
 
 interface MapPack { roads: Record<string, number[][]>; areas: { k: 'park' | 'water'; r: number[] }[]; metro: number[][] }
 
@@ -71,6 +73,15 @@ export class FullMap {
   pointers = new Map<number, { x: number; y: number }>(); pinch0 = 0; scale0 = 0;
   constructor(host: HTMLElement, public zone: CoreData, public state: () => MapState, public onClose: () => void, public src: { mapUrl: string; buildings: () => Building[] }) {
     this.places = placeCatalogue(zone.origin);
+    const normalizedName = (name: string) => name.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+    const placeNames = new Map<string, LandmarkPlace[]>();
+    for (const place of this.places) { const key = normalizedName(place.name); (placeNames.get(key) || placeNames.set(key, []).get(key)!).push(place); }
+    for (const place of destinationPlaceCatalogue(DESTINATION_MAP_IDENTITIES, zone.origin)) {
+      const key = normalizedName(place.name), matches = placeNames.get(key) || [];
+      if (matches.some(p => Math.hypot(p.x - place.x, p.z - place.z) < 180)) continue;
+      this.places.push(place);
+      matches.push(place); placeNames.set(key, matches);
+    }
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
     installPrototypeTheme();
     this.root = document.createElement('div'); this.root.className = 'fmap'; this.root.hidden = true;
@@ -146,14 +157,20 @@ export class FullMap {
     addEventListener('resize', () => (this.dirty = true));
   }
   filteredPlaces() { return this.places.filter((p) => !this.placeCategory || p.category === this.placeCategory); }
-  renderPlaceResults() {
+  private placeResultLimit = 80;
+  renderPlaceResults(reset = true) {
+    if (reset) this.placeResultLimit = 80;
     const q = this.placeQuery.trim().toLocaleLowerCase(), matches = this.filteredPlaces().filter((p) => p.name.toLocaleLowerCase().includes(q)).sort((a, b) => a.name.localeCompare(b.name));
     const list = this.root.querySelector<HTMLElement>('#map-place-results')!; list.replaceChildren();
     this.root.querySelector<HTMLElement>('#map-place-summary')!.textContent = `${matches.length} of ${this.places.length} places · tap to find on map`;
-    for (const p of matches) {
+    for (const p of matches.slice(0, this.placeResultLimit)) {
       const button = document.createElement('button'); button.type = 'button'; button.textContent = p.name;
       const category = document.createElement('small'); category.textContent = p.category; button.appendChild(category);
       button.addEventListener('click', () => this.selectPlace(p, true)); list.appendChild(button);
+    }
+    if (matches.length > this.placeResultLimit) {
+      const more = document.createElement('button'); more.type = 'button'; more.textContent = `Show more places · ${this.placeResultLimit} of ${matches.length}`;
+      more.addEventListener('click', () => { this.placeResultLimit += 80; this.renderPlaceResults(false); }); list.appendChild(more);
     }
     if (!matches.length) list.textContent = 'No matching places. Try a different name or category.';
   }

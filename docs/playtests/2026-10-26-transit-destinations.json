@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "testedAt": "2026-10-26T22:19:09.467239+00:00",
+  "branch": "main",
+  "baseCommit": "5ef2908d04bb5a5f8da52209ac4b8dfca84851de",
+  "includesWorkingTree": true,
+  "report": "../transit-city-release-2026-10-26.md",
+  "sourceSha256": {
+    "game/src/core/engine.ts": "be871d8928bebab36e41817781396c14cf1912cf554cfb6244f189fdd71514e0",
+    "game/src/core/sky.ts": "d10421013fbfb5eecb45690b9b9cd53f220ab93e711aac6ba5c0dabc03050d93",
+    "game/src/core/util.ts": "e31b629c78c6b8211ce23d6d4a91f6a6940d2bac374e25929dda699c23b1ebc0",
+    "game/src/game/audio.ts": "a9dda39c35378c69cdd7c4a63df0c7ea0886320bb605ac972a1a7057969e0dd6",
+    "game/src/game/bus-passengers.ts": "29a1bdc1f159147a2253c7212ffe70e0abab503bd92468c502a38c51722a9973",
+    "game/src/game/bus-path.ts": "e0bb71c891807f7e7d0511448ef3fdaf539f1e721e0694f1b9f884e37c7a0d5d",
+    "game/src/game/bus-services.ts": "336c6ac05552688c284d27036d2a7c572f0114969892ed26522005924bfe8b05",
+    "game/src/game/cinema-front.ts": "6277f332c7bc30b2685ee73e44f11a339bfd0f664b407080968ea506f648f2cf",
+    "game/src/game/cinema.ts": "56d542680828421364a5b47e830c2a397698984a1ad9beaec40bb152468cf7d7",
+    "game/src/game/game.ts": "f7f00879e67d5367430c22955703ea5f05c1430002f77333715442bf6dbfd02d",
+    "game/src/game/landmark-contact.ts": "125e1f2ed0194a0adad84e482b3c8a655a8d917dbea82e93676945e260acd395",
+    "game/src/game/metro-display.ts": "19cc6cfdf25bc593e246482c44b827039a5a907368852febd797101436905550",
+    "game/src/game/metro.ts": "ed183143f0dc03acb27e63f90abae9495904002ced301a8743d1f0b7bfbffb58",
+    "game/src/game/moving-rail.ts": "37485de3f899bcb8fdfe6cc51df76060e7eec674519eb19c88dce556b54e1786",
+    "game/src/game/physics.ts": "c52d0571cbc5afea54a774b39fdaa6beb86c569d35cb474160691e4298ef6e43",
+    "game/src/game/pickups.ts": "af1f9bab85900a2345c99091bd12a77914428a98855d528566f8354b213b5aff",
+    "game/src/game/player.ts": "42012593b718cd38403db470d02bc4a8ee4a0c987ccb11a92b47c45cde399203",
+    "game/src/game/rail.ts": "868b8d23605258c888907f304ca7ed63190d95e0c0921d97db43bfcfc463d748",
+    "game/src/game/roadgraph.ts": "5456992cb7da51c4dc9c8c26e9ed0899e3f52f7626049d0a47cfe6f52e70cdce",
+    "game/src/game/route-guidance.ts": "36d5f6e5a35204e365be84995ac8a87ed170206616aa279a86ce149045a449d6",
+    "game/src/game/spatial-safety.ts": "2534e5548e3760aa083b60f2fa92089a17d0953c7a80db34be5bff90865ff18f",
+    "game/src/game/station-life.ts": "31be6fa34f970ef86afc822794a077f31e23b0a4074227da7daaec8c28a672f2",
+    "game/src/game/traffic-path.ts": "04906734c66c59badc4d4219173be5fcfb83869e72848f5f43e06f40c3b48520",
+    "game/src/game/traffic.ts": "b7a88547cca6f8ec588ccd5a8f408571e80053e87fcc78a2213970c037e8ccf9",
+    "game/src/game/walkers.ts": "886f17a249a356da4aba152a8efcc7420b213d19e0392b544953fae5e63b2bc9",
+    "game/src/main.ts": "012cb89f1e1701dbdcd5e6352a91a117d2d19032043431ebfef901d289bcb84f",
+    "game/src/ui/areapicker.ts": "ec533a57b130686046dd23c7f7ca639c592731ce990315df154fa495760b753a",
+    "game/src/ui/control-icons.ts": "18a5ba24c10fc0e992408a6ccc7b17bd3aa8915fea7252620114da1cb24b04c1",
+    "game/src/ui/dialog.ts": "71bedd7f5adb25abc91259f9fb580846ce3f0ab141d6705069fd87a0ff22be37",
+    "game/src/ui/hud.ts": "9443fa8a12bdcc21f95060ef64895df6e49c8b22295dd42082c2fb85582abb3c",
+    "game/src/ui/landmark-icons.ts": "bf6958376db280c5ca38020ac276932ed1481f718818f0364e7db2d0ba39d6c6",
+    "game/src/ui/map.ts": "f6878662780bf0b81998c4f12d8c062d92487da0c781f95a01d5e9d6a4f44792",
+    "game/src/ui/settings.ts": "48e4e150305a57ba8cbfd4bce54da9dcb3ef46e4f35bfb4c8dc626e5f8093ff0",
+    "game/src/ui/theme.ts": "2145a38972d95d5c0dd20e0ddfa939a9093804d656aa848c652798dab4979033",
+    "game/src/ui/title.ts": "641dd261f62859ea5d471f70b3f9ee91273f30a133a4a5a7e0e80418e5500deb",
+    "game/src/world/airfield-data.ts": "9237c55685983349612bb0044c8abc42fb852e4ed42f671865e8bf9a26a67d75",
+    "game/src/world/airfields.ts": "745eead44a2db7731a3770937857fdce1e9631783e950174d30ce9eb3748cb48",
+    "game/src/world/airport-aircraft.ts": "d56fc76907eea6478fadcf7c7238edfe5400233e8165cdd9da1b16642a46deb8",
+    "game/src/world/ambedkar-monument.ts": "eafeeead046f62f925efcf685f765bfacbd839c77d22674afba08229f2e66d67",
+    "game/src/world/auto-quotes.ts": "36d7b8508409339c39a71c0ecd2e17bdc134ee5b853fcc2b6f5998f580431624",
+    "game/src/world/building-clearance.ts": "e83f62eec62624fbc71176fcf9dc6515be121e36358581ea63fad01acf3504b0",
+    "game/src/world/city.ts": "74dbdcddac87ae1bec329b9ef093337ffbe50ad71b76b06bca4bdbba7861dd77",
+    "game/src/world/construction-data.ts": "534547f28c6a86df648132acfc31c6d9c37db18e6ff2582258e73f5babd30bda",
+    "game/src/world/construction.ts": "386f02ddfd63065e8ab2096f35291b0f9dd14c86e7b04cc6545ed07b3a668a70",
+    "game/src/world/destination-data.ts": "971568d5df2e387cdf64ea4426156f071334930725a03ce3de755a2f1da36755",
+    "game/src/world/destination-hero-data.ts": "ea0e4eb00efbd8408a614557e2892da51f0366961b073cc788462c7f88a6e7ba",
+    "game/src/world/destination-hero-models.ts": "e517e89cec0d09c0f1ec59087c1a744147e08203a9bc1fa0d9eb3e2858b4d035",
+    "game/src/world/destination-identity.ts": "20041b4917a01779a009c3361fcdc3e8d93d79a9214d789f89fc332e23c8f3a7",
+    "game/src/world/destination-proximity.ts": "4d4f8942395bfac98b6977c344bc6516c03750d79dea9781b235b6c12f0f5e08",
+    "game/src/world/destination-recognition.ts": "5d2437401636eb4d71c6d20c9958d04532fec46f5a68578607fdd31ab2b6cda5",
+    "game/src/world/durgam-bridge.ts": "a33d5b1210044bcbdd814f026d2142af9d3376e3cf867fd3a48c9ee83c1813a3",
+    "game/src/world/expressway-signs.ts": "24589ff5e6ce7f5155bbf7264f808517c8f16b4f89b5f23f5343878c3a4da084",
+    "game/src/world/expressway.ts": "882a1ffc0dc682f3ef8c6452aa697bc5480a3f3e638f056e809d7335c9eb6025",
+    "game/src/world/extras.ts": "61c648dde5a8065687b4ae476e845837241a70058d23833e2631847ca5578cdb",
+    "game/src/world/golconda-summit.ts": "4bd40122e9571f9cdb56079cb64f6cd0f7c8155b1897289a8f1a48cd01993160",
+    "game/src/world/indian_flag.ts": "edd5dc69c12259ca5d608051995ff35cefa2e5a06d04b2a8852692ae6c9863dd",
+    "game/src/world/landmark-corrections.ts": "f575eb043f507588d287e980c835bad0d61ca5e790dc90a63b6b558b709abbe7",
+    "game/src/world/landmark-source-plans.ts": "be62e84d72f10374573efe269503121ad2e31a7416d7316b58d529f63de53199",
+    "game/src/world/landmark-support-capture.ts": "a8214c73fc7cc906b220d23b1936a2bde01332a30a773aca116380ae3c1f74ca",
+    "game/src/world/landmark-support.ts": "71f79b3cec16525104ba70cec1338fc3c6ae28b1e931726028ac867f4dbcb5a5",
+    "game/src/world/landmark_catalog.ts": "fb22a6aa1da682eaeb8a706bc1dbea28ecd120069ce76658369c7b58c53bc0d2",
+    "game/src/world/landmark_symbols.ts": "80ed2c2c31672b4a946f8b5e3d371018763850cfb5b9f2ab9f47123e6b63a2e9",
+    "game/src/world/landmarks.ts": "78ed25fe3cba5e65db19a7eeb08955748692bd416f5d1b39cdb3e5c78dc2a4c1",
+    "game/src/world/landmarks2.ts": "ad54712ca19163894b1431b8a5bc0a982c71ad5c3f2dc81c733a2025e58346d1",
+    "game/src/world/landmarks_data.ts": "b338702e930ce61b54a09304add3a13c2f96b9a605c445ffbb9dcc113cc88c65",
+    "game/src/world/metro-geometry.ts": "48b1b3539accf58c8f8de512e8c8e6ae7a92f496bdbdceb1365ef87c83e13861",
+    "game/src/world/metro-service.ts": "a3d3f0626bc9ab14062923416b1a909239926ce01f99c28b043225235ef21a5c",
+    "game/src/world/metro-station-visuals.ts": "beae8f43a38456de92f9c986ad2d9b83aab27007e8594771746a537763041854",
+    "game/src/world/packs.ts": "aecfda5b39559c089915a9d476c242aa3b6031c92c60e84218aa7705ec9da8a1",
+    "game/src/world/people.ts": "80564a9cb775e5417fcc8c3dc98a1a8ad630458a0a0ec9317623693de2a3e68e",
+    "game/src/world/road-grades.ts": "aaf1f32cd02f20aa57b0f1f0f92b854b618d2d986fa37b4d8775c1e3a89ef091",
+    "game/src/world/road-surface.ts": "c1635f81070f8efa968497aa044a057a51ad1124db15eacdac4296e6c3d9faa3",
+    "game/src/world/signal-lights.ts": "6d62c03e94306000685c3b7a73a4bb747a6389552d1b379bda9a7d01523c57e9",
+    "game/src/world/signals.ts": "a51cdd4424111c292b0ef92151ded8969a648d391421bfbfd459c4e1e227b441",
+    "game/src/world/signs.ts": "3201e51e710b782f789039e507ba041dd155fa00a5534b4a0bb9e52a8421998a",
+    "game/src/world/street-lamps.ts": "93c3c94a12c2584902733cff40d53f24c6be88b5d6cfa649899386b44fd85f9f",
+    "game/src/world/structure-clearance.ts": "ba0f25f7bde12ac8102465d0cec9e8d8f7ed8d4ab27483822178311475a0e511",
+    "game/src/world/tileworker.ts": "bff0fe02fe082c6ebadce3c56a4073105f682a015454a5827c80cb579126d5b7",
+    "game/src/world/traffic_models.ts": "26441a3cb5f541a7475683f2cc22806c902cfa4b4422b342873d68e06471ffd5",
+    "game/src/world/types.ts": "c5b69b3c7a3f3f04f91cce34a66fa682995a2c18130c3546d3e67da065f8b255",
+    "game/src/world/vehicles.ts": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+    "game/src/world/world.ts": "ed5d49c6b76e65add5edf2113c794ca3a3171ad072e78d2227d802b14e1cccad"
+  },
+  "builtAssets": [
+    "assets/index-DrNHNtuR.js",
+    "assets/tileworker-B5gevr2d.js"
+  ],
+  "method": "Visible browser controls in real time plus separately labelled production component fixtures and independent offline geometry/regression checks. No hidden game state mutation, teleport or developer autopilot.",
+  "requirements": {
+    "1_stationNames": {
+      "implemented": "Exactly2 exterior end plates and2 inward platform boards per57 modeled stations; duplicate repeated signs removed. Both RTC road approach captions visibly readable after pillar/deck correction.",
+      "scope": "All57 station counts/headroom verified; actual-mesh visibility rays and browser views bounded to RTC."
+    },
+    "2_metroServiceText": {
+      "implemented": "Directed origin-to-destination scrolling side display on every coach for all3 source lines. Both service directions have distinct text.",
+      "source": "https://hmrl.co.in/train-timings/"
+    },
+    "3_metroStationLife": {
+      "implemented": "228 benches; bounded waiting passengers and door-linked boarding/alighting. Heuristic peak/off-peak population.",
+      "remaining": "Missing secondary interchange platforms: Ameerpet Blue, MG Bus Station Green, Parade Grounds Blue. Boarding guarded on these6 direction/platform pairs; no live ridership data."
+    },
+    "4_rtcDwell": {
+      "implemented": "5–6sec fixed-pose stop, visible passenger transfer then assigned-route continuation.",
+      "browser": "Fixture bus visibly stopped with4 actors, then resumed and served its terminal in real time; no actual agency service or main-game trip claim."
+    },
+    "5_lamps": {
+      "implemented": "Shared inward-pointing kerb/median/deck/mapped/ORR fixtures with aligned heads, light pools and dynamic light positions."
+    },
+    "6_hoardings": {
+      "implemented": "Road-facing, clearance-tested gantries and side cantilevers; dynamic cinema parts gated by coherent group and registered with tile-owned collision.",
+      "cinemaAudit": "2026-10-26-cinema-front-validation.json"
+    },
+    "7_construction": {
+      "implemented": "Uppal–Narapally149 source road fragments,148 unfinished piers, actual barrier geometry, one4.5m open lane per carriageway at25km/h; bounded IIIT shoulder works. Traffic and navigation follow open lane.",
+      "remaining": "Dated26Oct2026 status; exact barricade placement and lane geometry are estimated. Current DLF gate closure not reconstructed. Not all Hyderabad projects exhaustively surveyed."
+    },
+    "8_education": {
+      "implemented": "Source-bound campus/college identities, Education map category, nearby academic label and safe architecture.",
+      "remaining": "Shipped inventory only. Fresh Overpass502/timeout; not an exhaustive list of all real institutions. Interiors/campus plans not recreated."
+    },
+    "9_destinations": {
+      "implemented": "Source-bound academic, retail, cinema and office recognition; Inorbit/Nexus/Lulu/Asian-Sarath hero polygons; duplicate Sarath body removed.",
+      "inventory": {
+        "sourceBackedInventory": 2615,
+        "withoutFootprint": 0,
+        "excludedAmenityOrAddressRecords": 117,
+        "byKind": {
+          "college": 1423,
+          "university": 173,
+          "mall": 442,
+          "cinema": 360,
+          "office": 217
+        },
+        "decoratedBuildingRecords": 679,
+        "decoratedByKind": {
+          "university": 31,
+          "college": 240,
+          "cinema": 164,
+          "mall": 163,
+          "office": 81
+        },
+        "existingBoardAssociation": "preserved; not independent street verification",
+        "distinctEligibleBuildingIds": 544,
+        "mapOnlyReviewRecords": 1936
+      },
+      "renderAudit": "2026-10-26-destination-render-audit.json",
+      "remaining": "Stylized exteriors rather than individually photo-matched buildings. Uncertain and small sources remain review/map-only as documented. Exact facade, entrance, interior and missing-place verification remains open."
+    },
+    "10_uppalStadium": {
+      "implemented": "Open oval tiered bowl, outfield, standard20.12×3.05m pitch, stumps, partial canopies and6 floodlight towers.",
+      "remaining": "Mapped site extent retained; height, seating, canopy and pitch bearing illustrative."
+    }
+  },
+  "verification": {
+    "fullGameCheck": "PASS npm run check including registered cinema, destination, construction, station-life and lighting tests, typecheck, flyover, route-motion and build.",
+    "log": "evidence/2026-10-26-transit-destinations/production-check.log",
+    "bridgeAudit": "2026-10-26-metro-service-validation.json",
+    "constructionAudit": "2026-10-26-construction-transit-validation.json",
+    "destinationAudit": {
+      "tiles": 630,
+      "checkedRoadIntersections": 0,
+      "checkedMetroIntersections": 0
+    },
+    "physicalPhoneTested": false
+  },
+  "browser": {
+    "productionUrl": "http://127.0.0.1:4196/",
+    "acceptedOrders": 2,
+    "collectedOrders": 0,
+    "completedDeliveries": 0,
+    "area": "RTC X Roads",
+    "route": "Domino's Pizza → Home in Jawahar Nagar",
+    "steps": [
+      "Play; choose RTC X Roads; accept first96coin/1.91km offer using documented Enter input.",
+      "Dismiss blocking Driving tip using Got it.",
+      "Hold W3sec then S1sec. Pickup distance1032→970m; wallet500; Level1 0/3.",
+      "Open minimap/full map; Expand2891place list (preclassification build); choose Education; search Osmania; select College of Engineering.",
+      "Close map returns to actual Roadster scene. Open Pause menu and confirm Paused. Close only owned test tab."
+    ],
+    "limits": "Two accepted first offers across two isolated test sessions; zero pickups or handovers. Brief driving used the pre-classification production bundle; final category retest used the final production bundle. No full-city or physical-phone claim.",
+    "console": {
+      "freshProductionWarnings": 0,
+      "freshProductionErrors": 0,
+      "developmentComponentWarnings": "Multiple instances of Three.js warning after Vite dependency optimization/HMR in metro/destination review. No component errors captured."
+    },
+    "initialSmokeAssets": [
+      "index-DQD-l1jD.js",
+      "tileworker-RzCKS_ID.js"
+    ],
+    "finalCategoryRetest": {
+      "builtAssets": [
+        "assets/index-DrNHNtuR.js",
+        "assets/tileworker-B5gevr2d.js"
+      ],
+      "acceptedOrders": 1,
+      "route": "Sri Venkateswara Bangalore Iyengars Bakery → Home in Jawahar Nagar",
+      "offerRewardCoins": 75,
+      "offerRouteKm": 1.1,
+      "pickupMetres": 521,
+      "drivingInput": false,
+      "mapResults": {
+        "totalDisplayedPlaces": 2775,
+        "OsmaniaEducation": 18,
+        "AccentureAllPlaces": 6
+      },
+      "observed": "Genuine academic results retained; diagnostic/ATM/food/police/metro address matches absent. Office list excludes restroom/lift/cafeteria/bus amenities. Map closed to real Roadster scene, then Pause confirmed.",
+      "consoleWarnings": 0,
+      "consoleErrors": 0
+    }
+  },
+  "componentInteractions": {
+    "metro": [
+      "RTC actual timed arrival atelapsed21.0sec; doors open,dwell8.5sec,speed0,waiting16,transfer10.",
+      "Opposite service selected; offpeak profile showswaiting8,transfer6 atelapsed13.2sec.",
+      "Both exterior road directions show completeRTC CROSS ROADS caption after final correction.",
+      "Window-level interior caption and waiting people visible. Blue coach routeRAIDURG→NAGOLE visibly observed."
+    ],
+    "traffic": [
+      "Bus paused by explicit QA review control during natural dwell atelapsed11.5sec; dwell3.99sec,4passengers.",
+      "Resume; terminalserved seen atelapsed106/240.9sec.",
+      "Night/approach sign views show road-facing gantry withclear ground posts and inward lamps."
+    ],
+    "construction": [
+      "Production source geometry ofUppal open-lane barriers/piers andIIIT shoulderworks reviewed through visible scene selectors."
+    ],
+    "destinations": [
+      "Inorbit,Asian/Sarath,Lulu andUppal stadium rendered using production models. Stadiumpitch visible after native camera zoom."
+    ]
+  },
+  "foundAndFixed": [
+    {
+      "finding": "RTC exterior caption hidden by deck/pillar",
+      "severity": "P2",
+      "confidence": "reproduced in browser and actual-mesh rays",
+      "expected": "Readable end board fromroadapproach",
+      "actualBefore": "Girder thenpillar occluded caption",
+      "fix": "Lowered hangingplate and5m lateraloffset;2endboards retained.",
+      "retest": "Both finalbrowserapproaches readable;12captionraysclear."
+    },
+    {
+      "finding": "Sarath andAsian duplicate physicalmall",
+      "severity": "P2",
+      "confidence": "confirmed actualgeometry",
+      "fix": "StableSarathplaceIDaliasescanonicalAsian owner;0aliasbodies,9canonicalsolidpieces."
+    },
+    {
+      "finding": "Microsourcejoin guidance reversal",
+      "severity": "P2",
+      "confidence": "actualshippedsource reproduction",
+      "fix": "Submeter heading andclearance-gated tinyreversejoin cleanup;177.75°→3.86°maximumturn atproblemjoin."
+    },
+    {
+      "finding": "Cinemacanopy/counter roadintrusion",
+      "severity": "P1",
+      "confidence": "actualmountedsource meshes",
+      "fix": "Omitunsafe coherentgroups at6mountedfronts,preserve13posters,registerretainedgroundcolliders."
+    },
+    {
+      "finding": "Campus-address amenity classifiedasEducation/office",
+      "severity": "P2",
+      "confidence": "reproduced visibleproductionmapandretainedsourceinventory",
+      "expected": "Genuinecampusorofficeidentities,notATMs/foodstalls/policestations referencinganaddress",
+      "fix": "Boundedamenityclassification exclusions;originalevidenceretainedinreviewqueue.",
+      "retest": "Final production map: Osmania Education18 genuine results and Accenture6 office results; confirmed bad amenities absent. Focused source exclusions and positive preservation tests pass."
+    }
+  ],
+  "evidenceFiles": [
+    "evidence/2026-10-26-transit-destinations/asian-sarath-source-model.png",
+    "evidence/2026-10-26-transit-destinations/bus-dwell-passengers-component.png",
+    "evidence/2026-10-26-transit-destinations/gantry-night-component.png",
+    "evidence/2026-10-26-transit-destinations/iiit-shoulder-works-component.png",
+    "evidence/2026-10-26-transit-destinations/inorbit-source-model.png",
+    "evidence/2026-10-26-transit-destinations/lulu-source-model.png",
+    "evidence/2026-10-26-transit-destinations/metro-doors-transfer-component.png",
+    "evidence/2026-10-26-transit-destinations/metro-platform-waiting-component.png",
+    "evidence/2026-10-26-transit-destinations/metro-road-name-first-direction.png",
+    "evidence/2026-10-26-transit-destinations/metro-road-name-opposite-direction.png",
+    "evidence/2026-10-26-transit-destinations/metro-window-name-component.png",
+    "evidence/2026-10-26-transit-destinations/production-check.log",
+    "evidence/2026-10-26-transit-destinations/production-education-map-before-classification-review.png",
+    "evidence/2026-10-26-transit-destinations/production-education-map-corrected.png",
+    "evidence/2026-10-26-transit-destinations/production-game-paused.png",
+    "evidence/2026-10-26-transit-destinations/production-office-map-corrected.png",
+    "evidence/2026-10-26-transit-destinations/production-rtc-driving.png",
+    "evidence/2026-10-26-transit-destinations/uppal-narapally-component.png",
+    "evidence/2026-10-26-transit-destinations/uppal-stadium-source-model.png",
+    "evidence/2026-10-26-transit-destinations/user-hoarding-angle.png",
+    "evidence/2026-10-26-transit-destinations/user-lamp-directions.png"
+  ],
+  "coverageLimits": [
+    "No new delivery completion.",
+    "No physical-phone acceptance or performance claim.",
+    "Static component views and geometry sweeps are not human-style city driving.",
+    "No exhaustive architectural/street verification of every institution,mall,office or construction project."
+  ],
+  "cleanup": {
+    "onlyAgentTabsClosed": true,
+    "heldInputs": false,
+    "inputOwner": null,
+    "userGameTabsUntouched": true,
+    "userPreview4189Untouched": true
+  }
+}

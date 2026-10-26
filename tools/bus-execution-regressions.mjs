@@ -21,15 +21,16 @@ try {
   await build({
     stdin: {
       contents: `export { Traffic } from './src/game/traffic'; export { BusServices } from './src/game/bus-services';
-        export { RoadGraph } from './src/game/roadgraph'; export { rng } from './src/core/util';
+        export { RoadGraph } from './src/game/roadgraph'; export { rng, initTemplates } from './src/core/util';
         export { signalAspect } from './src/world/signals';
         export { Scene, BufferGeometry, MeshBasicMaterial } from 'three';`,
       resolveDir: join(root, 'game'), loader: 'ts',
     },
     outfile: join(temporary, 'execution.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error',
   });
-  const { Traffic, BusServices, RoadGraph, rng, signalAspect, Scene, BufferGeometry, MeshBasicMaterial } =
+  const { Traffic, BusServices, RoadGraph, rng, initTemplates, signalAspect, Scene, BufferGeometry, MeshBasicMaterial } =
     await import(pathToFileURL(join(temporary, 'execution.mjs')));
+  initTemplates();
   const road = (id, pts, from, to, extra = {}) => ({
     id, seg: id, pts, from, to, cls: 'primary', name: id, w: 22, lanes: 4,
     oneway: null, elev: null, maxspeed: null, ...extra,
@@ -236,6 +237,33 @@ try {
       assertDestination(c, result, ['midway', 'terminal']);
       assert.ok(firstDwellSeconds >= 3.9, 'a stop cannot be acknowledged and immediately skipped');
       assert.deepEqual(feed.patterns[0], originalPattern, 'execution must not rewrite published route identity or stop order');
+    }
+  });
+  test('every assigned stop holds five to six seconds, exchanges visible passengers and resumes without creep or spin', () => {
+    for (const dt of [1 / 30, 1 / 60]) {
+      const roads = [road('corridor', [[0, 0], [300, 0]], 'a', 'b')];
+      const feed = feedFor(roads, { start: ['START', 20, 0], midway: ['MIDWAY', 100, 0], terminal: ['TERMINAL', 240, 0] },
+        [[['corridor', 20, 100]], [['corridor', 100, 240]]]);
+      const f = fixture(roads, feed), c = spawn(f, 'corridor', 20); let exchange, fixed, duration = 0, pausedSeconds = 0, resumed = false;
+      const modes = new Set(), snapshots = [];
+      for (let i = 0; i < 2400; i++) {
+        const wasDwelling = c.dwell > 0; tick(f, c, dt);
+        if (!exchange && c.dwell > 0) { exchange = c.passengerExchange; fixed = { x: c.x, z: c.z, yaw: c.g.rotation.y }; duration = c.dwell; }
+        if (!exchange) continue;
+        assert.ok(duration >= 5 && duration <= 6, `exact randomized interval: ${duration}`);
+        if (wasDwelling) {
+          pausedSeconds += dt; assert.equal(c.speed, 0); assert.equal(c.x, fixed.x); assert.equal(c.z, fixed.z); assert.equal(c.g.rotation.y, fixed.yaw);
+        }
+        for (const person of exchange.people) if (person.group.visible && person.progress > 0 && person.progress < 1) {
+          modes.add(person.mode); snapshots.push(person.group.position.x);
+          assert.ok(person.group.children.some(child => child.geometry?.getAttribute('position')?.count > 0), 'visible real pedestrian geometry');
+        }
+        if (c.dwell === 0 && c.speed > .1) { resumed = true; break; }
+      }
+      assert.ok(resumed); assert.ok(pausedSeconds >= 5 && pausedSeconds <= 6 + dt);
+      assert.deepEqual([...modes].sort(), ['alight', 'board']); assert.ok(Math.max(...snapshots) - Math.min(...snapshots) > 1.2);
+      assert.equal(c.busRun.target, 2); assert.equal(c.busRun.pattern.number, 'FIXTURE 8A'); assert.ok(c.s > 98);
+      f.traffic.clear(); assert.equal(f.traffic.passengerExchanges.length, 0); assert.equal(f.traffic.scene.children.length, 0);
     }
   });
   console.log(`Bus execution: ${passed} independent production movement/stop/signal/streaming groups passed.`);

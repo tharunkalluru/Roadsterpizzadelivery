@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-10-26T22:10:45.744Z",
+  "branch": "main",
+  "baseCommit": "5ef2908d04bb5a5f8da52209ac4b8dfca84851de",
+  "workingTreeChangesIncluded": true,
+  "scope": "Bounded independent offline audit and correction of dynamic Game.buildCinemaFront decorations. This does not claim browser gameplay or surveyed facade placement.",
+  "source": {
+    "core": "game/public/city/core.pack.wasm",
+    "sha256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+    "catalogueListings": 521,
+    "catalogueTilesVisited": 219,
+    "packsRead": 75,
+    "worldEligibleFacadeRecords": 480,
+    "sourceFacadeTemplatesWithAtLeastOnePotentialConflict": 247,
+    "matchedLeaseTheatres": 22,
+    "mountedLeaseFronts": 13
+  },
+  "methods": [
+    "Built actual source cinema buildings with canonical prepared road grades, complete source road contexts, metro clearance, placed landmark suppression and placed airport suppression. Furniture, unrelated source buildings, areas and unrelated OSM props were omitted to bound this audit.",
+    "Applied the same surviving building ID rule as World.onMessage when selecting theatre facades; raw board facade records from clipped source buildings were not counted as mounted.",
+    "Executed production prepareTheatres and buildFronts, including original shared-frontage subdivision and facade orientation. Pickup-stop tile ownership alone was insufficient; a facade from a neighbouring catalogue tile was retained by scanning all catalogue source tiles.",
+    "Compared all 20 original box/plane parts with oriented full footprints and actual vertical intervals against road carriageway/headroom and metro deck/station envelopes. A coherent group is omitted if any part intersects.",
+    "Executed actual production buildCinemaFront with an offline canvas stub, independently transformed emitted mesh bounding boxes into world coordinates, checked complete road/metro clearance, unchanged original facade normal, and original per-site poster material.",
+    "Registered retained canopy posts and ticket counter perimeter with both the loaded owner tile and global collision grids. Executed actual World.unload and confirmed these dynamic collider objects were removed."
+  ],
+  "applied": {
+    "affectedMountedFronts": [
+      {
+        "key": "saptagiri",
+        "name": "Saptagiri 70MM",
+        "sourceBoardId": "b_5eac7886-3bd4-41",
+        "facadePosition": {
+          "x": 14.350000000000001,
+          "z": -209.35
+        },
+        "facadeWidth": 24,
+        "sourceStopTile": [
+          0,
+          -1
+        ],
+        "retainedGroups": [
+          "name",
+          "poster"
+        ],
+        "omittedGroups": [
+          "canopy",
+          "counter"
+        ],
+        "conflictingRoadIds": [
+          "c92e1cef-1c1_0"
+        ]
+      },
+      {
+        "key": "mayuri",
+        "name": "Sri Mayuri 70MM",
+        "sourceBoardId": "b_d950607a-716e-4b",
+        "facadePosition": {
+          "x": 60.45,
+          "z": -210.8
+        },
+        "facadeWidth": 13.163711482708834,
+        "sourceStopTile": [
+          0,
+          -1
+        ],
+        "retainedGroups": [
+          "name",
+          "poster"
+        ],
+        "omittedGroups": [
+          "canopy",
+          "counter"
+        ],
+        "conflictingRoadIds": [
+          "11ef221a-1c3_1"
+        ]
+      },
+      {
+        "key": "shanti",
+        "name": "Shanti 70mm",
+        "sourceBoardId": "b_ff5b3519-e8c2-4a",
+        "facadePosition": {
+          "x": -679.6500000000001,
+          "z": 1136.75
+        },
+        "facadeWidth": 9.336605378830228,
+        "sourceStopTile": [
+          -1,
+          1
+        ],
+        "retainedGroups": [
+          "name",
+          "poster"
+        ],
+        "omittedGroups": [
+          "canopy",
+          "counter"
+        ],
+        "conflictingRoadIds": [
+          "bc639fad-637_0"
+        ]
+      },
+      {
+        "key": "tarakarama",
+        "name": "Tarakarama",
+        "sourceBoardId": "b_1219c812-454a-40",
+        "facadePosition": {
+          "x": -934.05,
+          "z": 1747.7
+        },
+        "facadeWidth": 24,
+        "sourceStopTile": [
+          -1,
+          1
+        ],
+        "retainedGroups": [
+          "name",
+          "poster"
+        ],
+        "omittedGroups": [
+          "canopy",
+          "counter"
+        ],
+        "conflictingRoadIds": [
+          "53831914-cc3_0"
+        ]
+      },
+      {
+        "key": "ramakrishna",
+        "name": "Ramakrishna 70MM",
+        "sourceBoardId": "b_92364b72-74e7-43",
+        "facadePosition": {
+          "x": -2052.15,
+          "z": 2285.2
+        },
+        "facadeWidth": 24,
+        "sourceStopTile": [
+          -3,
+          2
+        ],
+        "retainedGroups": [
+          "poster"
+        ],
+        "omittedGroups": [
+          "canopy",
+          "name",
+          "counter"
+        ],
+        "conflictingRoadIds": [
+          "e64f3a98-650_0"
+        ]
+      },
+      {
+        "key": "sriramana",
+        "name": "Sri Ramana",
+        "sourceBoardId": "b_1985eeb1-c80b-45",
+        "facadePosition": {
+          "x": 2046.5500000000002,
+          "z": 1567.55
+        },
+        "facadeWidth": 24,
+        "sourceStopTile": [
+          2,
+          1
+        ],
+        "retainedGroups": [
+          "name",
+          "poster",
+          "counter"
+        ],
+        "omittedGroups": [
+          "canopy"
+        ],
+        "conflictingRoadIds": [
+          "7875a7fd-ffa_2",
+          "18fa68ce-2cb_0",
+          "7875a7fd-ffa_1"
+        ]
+      }
+    ],
+    "retainedGroupCounts": {
+      "canopy": 7,
+      "name": 12,
+      "poster": 13,
+      "counter": 8
+    },
+    "omittedGroupCounts": {
+      "canopy": 6,
+      "name": 1,
+      "poster": 0,
+      "counter": 5
+    },
+    "retainedLegacyMeshParts": 225,
+    "omittedLegacyMeshParts": 35,
+    "preserved": "All 13 mounted lease posters and their materials remain. Original facades, frontage order, colours, lease economy, source shopfront records and source road coordinates were not changed."
+  },
+  "checks": [
+    {
+      "command": "node tools/cinema-front-regressions.mjs",
+      "result": "PASS",
+      "groups": 4,
+      "coverage": [
+        "off-centre full canopy footprint",
+        "elevated road and metro height envelopes",
+        "global and owner collider identity; actual World unload",
+        "actual lease source production meshes, poster identity and facade orientation"
+      ]
+    },
+    {
+      "command": "npm run check (from game/; run by parent)",
+      "result": "PASS after production changes; before final test fixture addition",
+      "build": "DQD-l1jD / RzCKS_ID",
+      "note": "Parent is responsible for the final registered full check."
+    }
+  ],
+  "limits": [
+    "The 247 potential source-template conflicts describe an audit of the full template at source facades, not 247 decorations previously mounted by the game. Only 13 current lease fronts are eligible; six have unsafe groups omitted.",
+    "This report contains no manual/browser drive-through verification.",
+    "No source evidence, theatre listing, facade assignment, road path, lease balance or poster content was deleted or changed."
+  ]
+}
