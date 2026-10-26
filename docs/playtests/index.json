@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T06:09:10Z",
+  "updatedAt": "2026-10-26T07:20:34Z",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "8ff64235efeed6f05b101901d667ead52764797e",
+  "currentBuild": "2ef7c143366b072d050ba72d059bd607e7f07a87",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -40,7 +40,8 @@
       "pickupsCompleted": 0,
       "lastRoute": "(ABC) Absolutely Broasted Chicken → Home in Panjeshah",
       "repairCoverage": "Bounded spawn/recovery/flight samples; not area completion.",
-      "latestMapReport": "2026-10-26-city-improvements.json"
+      "latestMapReport": "2026-10-26-city-improvements.json",
+      "latestLandingReport": "2026-10-26-transport-followup.json"
     },
     "HITEC City": {
       "status": "tested_partial",
@@ -292,49 +293,35 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-26-city-improvements",
-    "endedAt": "2026-10-26T06:09:10Z",
-    "status": "implemented_local_checks_passed_bounded_browser_retests",
-    "areas": [
-      "Kokapet",
-      "Charminar",
-      "Ameerpet"
-    ],
-    "runtimeSourceCommit": "8ff64235efeed6f05b101901d667ead52764797e",
+    "id": "2026-10-26-transport-followup",
+    "endedAt": "2026-10-26T07:20:34Z",
+    "status": "implemented_local_checks_and_bounded_browser_retests",
+    "runtimeSourceCommit": "2ef7c143366b072d050ba72d059bd607e7f07a87",
     "reports": [
-      "2026-10-26-city-improvements.json"
+      "2026-10-26-transport-followup.json"
     ],
-    "testedAssets": [
-      "index-Da4kAS59.js",
-      "index-DvbZLP2v.js",
-      "tileworker-D7bauNji.js"
+    "areas": [
+      "Charminar",
+      "Kokapet"
     ],
-    "offersAccepted": 3,
+    "offersAccepted": 2,
     "pickupsCompleted": 0,
     "completedDeliveries": 0,
-    "groundDrivingAfterFinalRecoveryHeldSeconds": 21,
-    "newConfirmedIssueIds": [
-      "PT-014",
-      "PT-015"
-    ],
-    "evidence": [
-      "evidence/2026-10-26-orr-recovery-ground-drive-ff3bde.jpg",
-      "evidence/2026-10-26-metro-ameerpet-incomplete-Da4kAS59-b5bcfb.jpg",
-      "evidence/2026-10-26-final-191-place-map-DvbZLP2v-27a300.jpg"
-    ],
     "physicalPhoneTested": false,
-    "browserOwnershipReleased": true,
-    "helperServerStopped": true,
-    "published": false,
     "pushed": false,
-    "summary": "ORR rendering/grade/ramp/sign/recovery, metro directions, curved traffic, 191-place map, five bounded landmark corrections and the national flag implemented. Final manual recovery stayed on mainline; 21 s held ground driving followed. Zero pickups or handovers. Portrait map and actual model fixtures checked separately; full ring/every exit/metro visual and phone hardware remain unverified.",
-    "checkoutCommit": "8ff64235efeed6f05b101901d667ead52764797e",
-    "metroDirectionBrowserVerdict": "UNKNOWN; paired rails observed but opposite train movement not resolved.",
-    "runtimeSourceCommits": [
-      "a2a90e66a405e65118fb468c9b43462691e9415e",
-      "8ff64235efeed6f05b101901d667ead52764797e"
+    "published": false,
+    "evidence": [
+      "evidence/2026-10-26-followup-auto-quote-component-bac8c7.jpg",
+      "evidence/2026-10-26-followup-bus-boards-component-2ab7e9.jpg",
+      "evidence/2026-10-26-followup-charminar-roof-park-86237f.jpg",
+      "evidence/2026-10-26-followup-clothing-component-2ac63d.jpg",
+      "evidence/2026-10-26-followup-metro-roof-carry-component-7ae603.jpg",
+      "evidence/2026-10-26-followup-orr-ground-before-guide-1a4596.jpg",
+      "evidence/2026-10-26-followup-rail-front-push-component-7e4f2e.jpg"
     ],
-    "finalBundleSmoke": "DvbZLP2v startup,191-place discovery/search/select,unchanged pending offer on map Close and pause passed; no route completion."
+    "browserOwnershipReleased": true,
+    "helperServerStopped": false,
+    "summary": "All-source ORR barrier audit0intrusions; actual Charminar rooftop park and bounded ORR ground passage. Rail push/roof carry, bus/auto/clothing/airport/bridge separately inspected in component fixtures. No delivery, whole-ring or exact route-operation claim. Flyover/guidance/mobile follow-up in progress."
   },
   "issueRegistry": [
     {
@@ -1002,7 +989,14 @@
     "evidence/2026-10-25-v2-sustained-flight-6edd10.jpg",
     "evidence/2026-10-26-orr-recovery-ground-drive-ff3bde.jpg",
     "evidence/2026-10-26-metro-ameerpet-incomplete-Da4kAS59-b5bcfb.jpg",
-    "evidence/2026-10-26-final-191-place-map-DvbZLP2v-27a300.jpg"
+    "evidence/2026-10-26-final-191-place-map-DvbZLP2v-27a300.jpg",
+    "evidence/2026-10-26-followup-auto-quote-component-bac8c7.jpg",
+    "evidence/2026-10-26-followup-bus-boards-component-2ab7e9.jpg",
+    "evidence/2026-10-26-followup-charminar-roof-park-86237f.jpg",
+    "evidence/2026-10-26-followup-clothing-component-2ac63d.jpg",
+    "evidence/2026-10-26-followup-metro-roof-carry-component-7ae603.jpg",
+    "evidence/2026-10-26-followup-orr-ground-before-guide-1a4596.jpg",
+    "evidence/2026-10-26-followup-rail-front-push-component-7e4f2e.jpg"
   ],
   "roundHistory": [
     {
@@ -1565,10 +1559,41 @@
         "8ff64235efeed6f05b101901d667ead52764797e"
       ],
       "finalBundleSmoke": "DvbZLP2v startup,191-place discovery/search/select,unchanged pending offer on map Close and pause passed; no route completion."
+    },
+    {
+      "id": "2026-10-26-transport-followup",
+      "endedAt": "2026-10-26T07:20:34Z",
+      "status": "implemented_local_checks_and_bounded_browser_retests",
+      "runtimeSourceCommit": "2ef7c143366b072d050ba72d059bd607e7f07a87",
+      "reports": [
+        "2026-10-26-transport-followup.json"
+      ],
+      "areas": [
+        "Charminar",
+        "Kokapet"
+      ],
+      "offersAccepted": 2,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "physicalPhoneTested": false,
+      "pushed": false,
+      "published": false,
+      "evidence": [
+        "evidence/2026-10-26-followup-auto-quote-component-bac8c7.jpg",
+        "evidence/2026-10-26-followup-bus-boards-component-2ab7e9.jpg",
+        "evidence/2026-10-26-followup-charminar-roof-park-86237f.jpg",
+        "evidence/2026-10-26-followup-clothing-component-2ac63d.jpg",
+        "evidence/2026-10-26-followup-metro-roof-carry-component-7ae603.jpg",
+        "evidence/2026-10-26-followup-orr-ground-before-guide-1a4596.jpg",
+        "evidence/2026-10-26-followup-rail-front-push-component-7e4f2e.jpg"
+      ],
+      "browserOwnershipReleased": true,
+      "helperServerStopped": false,
+      "summary": "All-source ORR barrier audit0intrusions; actual Charminar rooftop park and bounded ORR ground passage. Rail push/roof carry, bus/auto/clothing/airport/bridge separately inspected in component fixtures. No delivery, whole-ring or exact route-operation claim. Flyover/guidance/mobile follow-up in progress."
     }
   ],
-  "nextRoundPlan": "Retain historical coverage and unfinished-order records. Prioritize ORR natural ramp entry/exit and automatic blocked recovery, graded bridges, paired metro directions and a busy junction with buses/autos; then resume a complete pickup-to-handover route and outer/interior rotation. Inspect actual tab state before resuming historical handoffs. Do not infer full-city or real-world shop accuracy from source data or builds.",
-  "runtimeSourceCommit": "8ff64235efeed6f05b101901d667ead52764797e",
+  "nextRoundPlan": "Finish the newly authorized flyover/guidance/mobile repairs, then repeat bounded actual-browser tests on the matching build. Preserve unfinished historical orders and issue IDs. Full ORR/every exit, physical phone, main-world rail roof ride, Golconda landing and fresh completed delivery remain unverified.",
+  "runtimeSourceCommit": "2ef7c143366b072d050ba72d059bd607e7f07a87",
   "liveHandoff": null,
   "liveHandoffs": [
     {
@@ -1813,7 +1838,15 @@
     "finalBundleSmokePassed": true
   },
   "latestBuiltAssets": [
-    "index-DvbZLP2v.js",
-    "tileworker-D7bauNji.js"
-  ]
+    "index-DmAAklWa.js",
+    "tileworker-PQ3IBYSc.js"
+  ],
+  "transportFollowup": {
+    "report": "2026-10-26-transport-followup.json",
+    "implementationCommit": "2ef7c143366b072d050ba72d059bd607e7f07a87",
+    "codeChecks": "20game suites+78pipeline tests",
+    "ordersCompleted": 0,
+    "golcondaBrowserLanding": "not_completed",
+    "mainWorldRailRide": "not_completed"
+  }
 }

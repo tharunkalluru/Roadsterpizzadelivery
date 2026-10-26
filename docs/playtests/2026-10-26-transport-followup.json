@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T07:20:34Z",
+  "task": "Approved city transport, airports, road exits and street-life follow-up",
+  "baselineCommit": "f9a1734",
+  "implementationCommit": "2ef7c143366b072d050ba72d059bd607e7f07a87",
+  "branch": "main",
+  "pushed": false,
+  "deployed": false,
+  "testedAssets": [
+    "index-DmAAklWa.js",
+    "tileworker-PQ3IBYSc.js"
+  ],
+  "changes": {
+    "orr": "One indexed geometric interval clipper now trims both visible and collision ramp/mainline parapets against connected same-grade pavement. Long shallow merges, split edges and foreign parapets use identical openings. Source XY/connectivity and all shopfronts retained.",
+    "airports": "AAI-aligned RGIA and Begumpet runway dimensions/designators/displaced thresholds with mapped OSM aprons, taxiways and terminal anchors; markings and bounded unbranded aircraft. Taxi paths follow connected mapped taxiways, rollout/climb uses a valid runway intersection.",
+    "metro": "Shared semantic Red/Blue/Green full-map/corridor/station palette and approach-facing station boards. Minimap hardcoded-green omission discovered during next guidance review and queued for that patch.",
+    "railInteraction": "Swept height-aware train impacts push the car. Actual coach roof support carries parked cars in a moving/rotating frame; driving off, takeoff and recovery detach correctly. Game frame order integrates current train poses before Player support/contact.",
+    "landmarkLanding": "Upward-facing triangles from actual emitted landmark geometry support parking/landing, including curved/sloped surfaces; arches/undersides are not blanket-filled. Charminar terrace was tested in the normal game.",
+    "durgam": "Mapped lake preserved, false centre slabs removed, bridge/pylon axis aligned to actual OSM footprint. L&T as-built main span/width/cables inform geometry. Five canonical bridge edges and17 context copies now retain source-supported three lanes via serialized atomic idempotent importer.",
+    "streetLife": "Ten curated Telugu rear-auto sayings with per-entry source evidence and one fixed quote per auto. Wrapped sari/lungi, visible pallu/dupatta, tunics, collars, cuffs and varied accessories improve pedestrians without claiming a demographic reconstruction.",
+    "vehicle": "150km/h ground cap and240km/h flight cap, including boost and landing transition. Front-wheel yaw matches the actual turn direction; upgraded Roadster geometry is unchanged.",
+    "buses": "Published TGSRTC GTFS route IDs/ordered stops select services; buses stay on legal inferred paths between their own stops and stop if an eligible connection is unavailable. Large front/back boards share the route number/destination. No arbitrary random service labels."
+  },
+  "dataEvidence": {
+    "orrAudit": {
+      "report": "../../pipeline/evidence/orr-exit-barriers-audit-2026-10-26.json",
+      "edges": 307,
+      "joins": 104,
+      "tiles": 198,
+      "intrusions": 0,
+      "limit": "Full shipped geometry audit, not every exit manually driven."
+    },
+    "airportsAndDurgam": "../airport-landmark-followup.md",
+    "quotesAndBuses": "../street-life-sources.md",
+    "tgsrtc": {
+      "sourceRouteIds": 1031,
+      "retainedRouteIds": 897,
+      "directionPatterns": 1511,
+      "retainedStops": 4098,
+      "hasShapes": false,
+      "feedDate": "2026-02-08",
+      "roadPathLimit": "Between-stop paths inferred on the game road graph. Published stop order is evidence; current daily operation/timetables and exact driven alignment are not verified.",
+      "offlineRealDataSample": "27/27 eligible probes bound,278 legal joins,max endpoint gap0."
+    },
+    "durgamImporter": "Five canonical edges plus17 context copies across two packs; source coordinates, connectivity, names and boards preserved. Repeat changed0files."
+  },
+  "automatedValidation": {
+    "game": "PASS npm --prefix game run check: TypeScript,20 regression suites,Vite build.",
+    "pipeline": "PASS78unittests.",
+    "diff": "PASS git diff --check.",
+    "codeFrozen": "Checks and production assets match2ef7c14.",
+    "buildWarning": "Existing fonts/fonts.css build-time resolution warning remains; runtime font styles load from public assets."
+  },
+  "normalGameBrowser": {
+    "method": "AI-operated visible real-time browser UI, serialized ownership; no teleport, hidden game-state changes, simulation stepping or autopilot.",
+    "baseUrl": "http://127.0.0.1:4189/",
+    "physicalPhoneTested": false,
+    "charminar": {
+      "completed": [
+        "Play and select Charminar through the normal picker.",
+        "Use Space flight and W/A/D/S with map checkpoints to approach Charminar.",
+        "Explicit Space landing onto the visible terrace; accept the pending offer to compact the HUD.",
+        "Observe grounded0km/h on the terrace; hold W600ms and S350ms for a short rooftop movement and park again at0km/h.",
+        "Drag camera to show the parked car above the actual terrace beside domes/parapet; pause and close owned tab."
+      ],
+      "offer": "Al Nashwa Perfumes; accepted only, not collected. This remains a legacy pickup-eligibility issue outside this repair scope.",
+      "evidence": "evidence/2026-10-26-followup-charminar-roof-park-86237f.jpg"
+    },
+    "kokapet": {
+      "completed": [
+        "Play and select Kokapet, accept Sri mahalaxmi family dhaba pickup.",
+        "Use normal Space flight, W/A/S and repeated map checkpoints to approach ORR. Reverse flight correction25s+10s+2.2s with braking checkpoints, explicit landing, R for legal road alignment.",
+        "First14s W ground sample became poorly aligned around the ramp/mainline merge; inspect map and use R again. This is not an exit-completion pass.",
+        "After secondR, hold W12s then S2s; HUD9536→9294m. Hold W8s then S1.8s; HUD9294→9022m. Remain grounded on the ORR amid cars/trucks, with traffic-contact toast.",
+        "Visible mainline has no diagonal concrete closure in this bounded sample. This is not every exit or the full ring.",
+        "Gold route still forms a harsh lateral entry kink on this straight road; original screenshot saved and issue passed into the next guidance repair.",
+        "Pause via menu; all timed inputs released."
+      ],
+      "evidence": "evidence/2026-10-26-followup-orr-ground-before-guide-1a4596.jpg",
+      "limit": "R was used as explicit setup. No natural ramp exit or full automatic recovery sequence completed in this segment."
+    },
+    "orders": {
+      "accepted": 2,
+      "collected": 0,
+      "handedOver": 0,
+      "rewardObserved": 0
+    },
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "cleanupAtRecord": "Charminar owned tab closed. Kokapet owned tab paused for next patch retest; no keys held. Temporary evidence helper retained during ongoing work."
+  },
+  "componentBrowser": {
+    "countsAsMainWorldGameplay": false,
+    "rail": [
+      "Actual production Player/Metro/contact modules in development-only rail-qa fixture. Front push moved carX3→351m,HUD75km/h,181contacts,peak14.9m/s.",
+      "Roof preset dropped the car onto moving coach; laterX392.8,Y16.27,speed0,roofcarryYES,contacts0. Screenshot visibly shows parked car carried on coach roof."
+    ],
+    "streetLife": [
+      "Ten auto prototypes rendered; short/long Telugu quotes inspected with one rear quote panel and separate plate.",
+      "Bus8A Secunderabad→Chandrayangutta front/back number and destination visible.",
+      "Clothing front/back review caught oversized bell shape and buried pallu; corrected wrap/tunic and visible pallu inspected."
+    ],
+    "airportBridge": "Development-only airport-landmark-review fixture displays both airfields and Durgam bridge geometry; no normal-world airport drive/flight claimed.",
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "ownedFixtureTabsClosed": true,
+    "evidence": [
+      "evidence/2026-10-26-followup-auto-quote-component-bac8c7.jpg",
+      "evidence/2026-10-26-followup-bus-boards-component-2ab7e9.jpg",
+      "evidence/2026-10-26-followup-clothing-component-2ac63d.jpg",
+      "evidence/2026-10-26-followup-metro-roof-carry-component-7ae603.jpg",
+      "evidence/2026-10-26-followup-rail-front-push-component-7e4f2e.jpg",
+      "../landmark-evidence/airport-bridge-component-review.png"
+    ]
+  },
+  "accuracyAndCoverageLimits": [
+    "All307ORR edges and104joins passed the shared visible/physical geometry audit. This does not prove every exit via real browser controls.",
+    "Normal-game Charminar rooftop landing/short drive/park passed. Golconda slopes have production-code regression coverage, no completed main-world landing in this batch.",
+    "Main-world moving train encounter and roof ride, airport runway drive/takeoff sequence, Durgam road crossing and every bus service remain untested in browser.",
+    "Airport terminal facades, aircraft stand activity and local terrain datum are illustrative; runway/footprint evidence is more precise. No live airline timetable or surveyed terrain claim.",
+    "GTFS lacks shapes. Buses follow legal inferred game-road paths between published stops;897routes are source coverage, not897manually verified services.",
+    "Ten auto quotes are a bounded sourced selection, not an empirical popularity ranking. No publisher images are embedded in game assets.",
+    "Physical phone touch/gyro/audio and a new full delivery loop remain acceptance work. Zero deliveries in this follow-up."
+  ],
+  "nextWork": "User subsequently requested smooth flyover surfaces/motion, narrower accurate smooth guidance and equal circular directional mobile controls; those changes continue separately."
+}
