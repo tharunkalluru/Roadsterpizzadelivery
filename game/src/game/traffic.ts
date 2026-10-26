@@ -7,6 +7,7 @@ import { segmentHitsVehicle } from './spatial-safety';
 import { TrafficCurve, roundedTrafficCorner, trafficCurveClear, trafficPoseClear, trafficOverlap, turnProfile, turnSpeed } from './traffic-path';
 import { isORR } from '../world/expressway';
 import { BusServices, type BusRun, type BusFeed } from './bus-services';
+import { signalAspect } from '../world/signals';
 
 type Group = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
 interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
@@ -28,7 +29,7 @@ const MAJOR = new Set(['trunk', 'primary', 'secondary', 'motorway', 'motorway_li
 
 export class Traffic {
   cars: Car[] = []; protos: Proto[] = []; byGroup: Record<Group, Proto[]> = { car: [], auto: [], bike: [], bus: [], truck: [] };
-  r = rng(77); t = 0; phaseLen = 22;
+  r = rng(77); t = 0;
   stopsByEdge = new Map<string, BusStop[]>();
   services: BusServices | null = null;
   onHorn: (kind: string, x: number, z: number) => void = () => {};
@@ -64,14 +65,26 @@ export class Traffic {
   dropEdges(gone: Set<GEdge>) {
     for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge) || (this.cars[i].motion && gone.has(this.cars[i].motion!.edge))) { this.release(this.cars[i]); this.cars.splice(i, 1); }
   }
-  // signal phase for an approach heading at a node: two groups by axis, 22 s each with 3 s amber
+  // Pedestrians and callers use the same mapped approach plan as the lamps.
+  // An unbound/manual node flag cannot invent a traffic controller.
   green(node: GNode, hx: number, hz: number) {
-    if (!node.signal) return true;
-    const axis = Math.abs(hx) > Math.abs(hz) ? 0 : 1;
-    const ph = Math.floor(this.t / this.phaseLen) % 2, within = this.t % this.phaseLen;
-    return ph === axis && within < this.phaseLen - 3;
+    const controls = node.signalControls || [];
+    const matched = controls.slice().sort((a, b) => (b.approach.hx * hx + b.approach.hz * hz) - (a.approach.hx * hx + a.approach.hz * hz))[0];
+    return !matched || matched.approach.hx * hx + matched.approach.hz * hz < .8 || signalAspect(matched.site, matched.approach.phase, this.t) === 'green';
   }
-  signalState(node: GNode, axis: number) { const ph = Math.floor(this.t / this.phaseLen) % 2, w = this.t % this.phaseLen; return ph !== axis ? 'red' : w < this.phaseLen - 3 ? 'green' : 'amber'; }
+  signalState(node: GNode, phase: number) {
+    const control = node.signalControls?.find(c => c.approach.phase === phase);
+    return control ? signalAspect(control.site, phase, this.t) : 'green';
+  }
+  private signalAhead(c: Car) {
+    // Once the nose has crossed its stop bar on green, finish clearing it.
+    if ((c.motion?.kind === 'junction' || c.motion?.kind === 'uturn') && c.motion.progress >= 0) return undefined;
+    return this.graph.signalsFor(c.edge, c.dir).find(control => control.approach.stopS >= c.s + c.size[2] / 2 - .1);
+  }
+  private redStop(c: Car) {
+    const control = this.signalAhead(c);
+    return control && signalAspect(control.site, control.approach.phase, this.t) !== 'green' ? control.approach.stopS - c.size[2] / 2 - .35 : undefined;
+  }
   laneRange(edge: GEdge, w: number): [number, number] {
     const e = edge.e, half = e.w / 2;
     if (isORR(e) && e.expressway?.shoulders) return [-half + e.expressway.shoulders[1] + w / 2 + 0.15, half - e.expressway.shoulders[0] - w / 2 - 0.15];
@@ -267,13 +280,17 @@ export class Traffic {
     for (let guard = 0; distance > 1e-6 && guard < 32; guard++) {
       let m = c.motion;
       if (m && m.progress < 0 && c.s >= m.startS - 1e-6) {
-        const node = m.node && this.graph.nodes.get(m.node);
-        if ((node && !this.green(node, c.hx, c.hz)) || !this.canEnter(c, m, player)) { c.speed = 0; break; }
+        if ((m.node && this.redStop(c) !== undefined) || !this.canEnter(c, m, player)) { c.speed = 0; break; }
         m.progress = 0;
         if (m.kind === 'uturn') c.uturnAt = this.t + this.r.range(45, 85);
       }
       const active = m && m.progress >= 0;
-      const available = active ? m!.curve.length - m!.progress : Math.max(0, (m?.startS ?? c.stopS ?? c.edge.len - 0.02) - c.s);
+      let available = active ? m!.curve.length - m!.progress : Math.max(0, (m?.startS ?? c.stopS ?? c.edge.len - 0.02) - c.s);
+      const redStop = this.redStop(c);
+      if (redStop !== undefined) {
+        const roadPerCurve = active ? (m!.endS - m!.startS) / m!.curve.length : 1;
+        if (roadPerCurve > 0) available = Math.min(available, Math.max(0, redStop - c.s) / roadPerCurve);
+      }
       const step = Math.min(distance, 0.4, available);
       if (step < 1e-7) { c.speed = 0; break; }
       const p = active ? m!.curve.sample(m!.progress + step) : this.graph.pointAt(c.edge, c.s + step, c.dir, c.lane);
@@ -381,19 +398,20 @@ export class Traffic {
         const wx = w.x - c.x, wz = w.z - c.z, a2 = wx * c.hx + wz * c.hz, l2 = wx * c.hz - wz * c.hx;
         if (a2 > 0 && a2 < 7 + c.speed && Math.abs(l2) < halfW + 0.8) target = Math.min(target, Math.max(0, (a2 - halfL - 1.5) * 0.8));
       }
-      // signals at the end of the edge
+      // Mapped controls may be at a junction or midway along an edge. Braking
+      // and the swept movement cap share the rendered stop bar, with room for
+      // the whole vehicle nose (including an eleven-metre bus).
       const endNode = this.graph.nodes.get(c.dir === 1 ? c.edge.to : c.edge.from);
       if (!endNode) { this.release(c); this.cars.splice(i, 1); continue; }
-      const left = c.edge.len - c.s;
-      const committed = c.motion?.node && c.motion.progress >= 0;
-      if (!committed && endNode.signal && left < 16 && left > 3 && !this.green(endNode, c.hx, c.hz)) target = Math.min(target, Math.max(0, (left - 5) * 0.7));
+      const redStop = this.redStop(c);
+      if (redStop !== undefined) target = Math.min(target, Math.sqrt(8 * Math.max(0, redStop - c.s)));
       this.tryLane(c, player);
       if (c.motion) {
         const m = c.motion;
         // Braking starts on the approach, rather than after the vehicle yaws.
         const approach = m.progress < 0 ? Math.max(0, m.startS - c.s) : 0;
         target = Math.min(target, Math.sqrt(m.cap * m.cap + 2 * (c.group === 'bus' || c.group === 'truck' ? 2 : 3) * approach));
-        if (m.progress < 0 && m.node && !this.green(endNode, c.hx, c.hz)) target = Math.min(target, Math.max(0, (approach - 0.2) * 0.8));
+        if (m.progress < 0 && m.node && redStop !== undefined) target = Math.min(target, Math.max(0, (approach - 0.2) * 0.8));
       } else if (c.stopS !== undefined) target = Math.min(target, Math.sqrt(4 * Math.max(0, c.stopS - c.s)));
       c.speed += Math.max(-9 * dt, Math.min(3.2 * dt, target - c.speed));
       this.advance(c, c.speed * dt, player, walkers);

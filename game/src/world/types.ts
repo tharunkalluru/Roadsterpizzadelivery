@@ -4,7 +4,12 @@ export interface RoadEdge { id: string; seg: string; name: string | null; cls: s
 }
 export interface Building { id: string; name: string | null; cls: string | null; h: number; hs: string; ring: XZ[]; fc: string | null; rc: string | null }
 export interface Board { id: string; text: string; full: string; group: string; tier: string; conf: number; a: XZ; b: XZ; t: number; slot: { floor: number; index: number; of: number; overflow?: boolean }; building: string; road: string | null; seen?: number | null; seen_year?: number | null }
-export interface Furniture { kind: string; name: string | null; p: XZ }
+export interface Furniture {
+  kind: string; name: string | null; p: XZ; id?: string; synth?: number;
+  source?: string; sourceURL?: string; retrievedAt?: string; sourceTimestamp?: string; sourceVersion?: number;
+  tags?: Record<string, string>; sourceWayIds?: string[];
+  mappedDirections?: { wayId: string; forwardHeading: XZ; backwardHeading?: XZ; nodeRole?: 'start' | 'end' | 'interior'; tags?: Record<string, string> }[];
+}
 export interface Area { kind: 'landuse' | 'water'; sub: string; cls: string; name: string | null; ring: XZ[] }
 export interface Station { id: string; name: string; te: string | null; lines: string[]; p: XZ }
 export interface Poi { id: string; name: string; board: string; a: XZ; b: XZ; t: number; conf: number; pizza?: boolean }
@@ -23,6 +28,7 @@ export interface CoreData {
   origin: { lat: number; lon: number }; tile: number; pack: number; packs: PackInfo[];
   bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
   roads: RoadEdge[]; nodes: Record<string, XZ>;
+  trafficSignals?: Furniture[];
   metro: { lines: { id: string; color: string; name?: string; pts: XZ[] }[]; stations: Station[]; pillars: { p: XZ; h: number; line: string }[]; deckHeight: number };
   places: { name: string; kind: string; p: XZ }[];
   theatres: CityPoi[]; food: CityPoi[]; drops: StopTuple[]; attribution: string[];

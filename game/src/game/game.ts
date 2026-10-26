@@ -113,7 +113,7 @@ export class Game {
     city.onTileRemoved = (t) => this.tileRemoved(t);
   }
   tileAdded(t: LoadedTile, paths: boolean) {
-    this.graph.addRoads(t.built.roads, t.built.signals.map((s) => s.p));
+    this.graph.addRoads(t.built.roads, t.built.signals);
     this.traffic.setBusStops(this.city.busStops);
     if (paths) this.walkers.addPaths(t.built.walkPaths);
     this.buildFronts();
@@ -121,7 +121,7 @@ export class Game {
   tileRemoved(t: LoadedTile) {
     const gone = this.graph.removeRoads(t.built.roads.map((e) => e.id));
     this.traffic.dropEdges(gone);
-    this.graph.forgetSignals(t.built.signals.map((s) => s.p));
+    this.graph.forgetSignals(t.built.signals);
     this.traffic.setBusStops(this.city.busStops);
     this.walkers.removePaths(t.built.walkPaths);
     for (const site of this.theatres) if (site.front && !this.city.theatreFacades.has(site.poi.id)) { this.engine.scene.remove(site.front); site.front = undefined; }
@@ -848,6 +848,7 @@ export class Game {
     this.city.update(P.x, P.z, dt);
     if ((this.busyT -= dt) <= 0) { this.busyT = 1; this.setStreetLife(P.x, P.z); }
     this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, hx: this.player.forward.x, hz: this.player.forward.z }, this.walkers.list);
+    this.city.updateSignals(this.traffic.t);
     const fw = this.player.forward;
     this.walkers.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, fx: fw.x, fz: fw.z });
     const hit = this.player.flying ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1);
@@ -1099,6 +1100,7 @@ export class Game {
       const P = this.player.pos;
       for (let i = 0; i < n; i++) { this.traffic.update(0.05, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: 0 }, this.walkers.list); this.walkers.update(0.05, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: 0, fx: 0, fz: 1 }); }
     }
+    this.city.updateSignals(this.traffic.t);
     const p = (q.get('player') || '').split(',').map(Number);
     if (p.length >= 3) { this.player.place(p[0], p[1], p[2]); this.player.update(0.016, { throttle: 0, brake: 0, steer: 0, flyPressed: false, boost: false }, 0.4); }
   }

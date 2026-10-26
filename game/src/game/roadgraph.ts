@@ -1,8 +1,10 @@
 import type { RoadEdge, XZ } from '../world/types';
 import { hasCentreMedian } from '../world/city';
+import type { SignalApproach, SignalSite } from '../world/signals';
 
 export interface GEdge { e: RoadEdge; len: number; cum: number[]; from: string; to: string }
-export interface GNode { id: string; x: number; y: number; z: number; out: { edge: GEdge; dir: 1 | -1 }[]; signal: boolean }
+export interface SignalControl { site: SignalSite; approach: SignalApproach }
+export interface GNode { id: string; x: number; y: number; z: number; out: { edge: GEdge; dir: 1 | -1 }[]; signal: boolean; signalControls?: SignalControl[] }
 export interface RoadRoute { pts: [number, number, number][]; len: number; complete?: boolean; edgeIds?: string[] }
 
 const DRIVE = new Set(['motorway', 'motorway_link', 'trunk', 'primary', 'secondary', 'tertiary', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link', 'unclassified', 'residential', 'living_street', 'service', 'unknown']);
@@ -28,10 +30,10 @@ export class RoadGraph {
     if (!level) { level = { id: !levels.length && Math.abs(y) <= 1.5 ? id : `${id}^${Math.round(y * 10)}`, y }; levels.push(level); this.levelNodes.set(id, levels); }
     return level.id;
   }
-  constructor(roads: RoadEdge[], signals: XZ[] = []) {
+  constructor(roads: RoadEdge[], signals: SignalSite[] = []) {
     this.addRoads(roads, signals, true);
   }
-  addRoads(roads: RoadEdge[], signals: XZ[] = [], permanent = false) {
+  addRoads(roads: RoadEdge[], signals: SignalSite[] = [], permanent = false) {
     let anon = this.edges.length, added = false;
     for (const e of roads) {
       if (!DRIVE.has(e.cls) || this.byId.has(e.id) || (e as any).ctx) continue;
@@ -62,24 +64,47 @@ export class RoadGraph {
     }
     return ks;
   }
-  // Signals are remembered by position and re-applied whenever roads arrive: a junction on a tile border only
-  // has all its arms once the neighbouring tile is in, and a divided road's crossing has one node per carriageway.
-  signalPts = new Set<XZ>();
-  markSignals(signals: XZ[]) {
-    for (const s of signals) this.signalPts.add(s);
-    for (const s of this.signalPts) {
-      const cand: [GNode, number][] = [];
-      for (const g of this.nearestEdges(s[0], s[1], 0)) for (const id of [g.from, g.to]) {
-        const n = this.nodes.get(id); if (!n) continue;
-        const d = Math.hypot(n.x - s[0], n.z - s[1]); if (d >= 22) continue;
-        if (!cand.some((c) => c[0] === n)) cand.push([n, d]);
-      }
-      const deg = (n: GNode) => { let k = 0; for (const g of this.nearestEdges(n.x, n.z, 0)) { if (g.from === n.id) k++; if (g.to === n.id) k++; } return k; };
-      const junctions = cand.filter((c) => deg(c[0]) >= 3).sort((a, b) => a[1] - b[1]);
-      junctions.forEach(([n, d], i) => { if (i === 0 || d < 16) n.signal = true; });
+  // Keep the complete mapped controller while neighboring roads stream in.
+  // Bind exact approach edge + legal direction; XY proximity never controls a
+  // flyover or an unrelated parallel road. Rebuilding also clears stale flags.
+  signalSites = new Map<string, SignalSite>();
+  private signalOwners = new Map<string, Set<SignalSite>>();
+  private edgeSignals = new Map<string, SignalControl[]>();
+  markSignals(signals: SignalSite[]) {
+    for (const site of signals) {
+      const owners = this.signalOwners.get(site.id) || new Set<SignalSite>(); owners.add(site); this.signalOwners.set(site.id, owners);
+      // A tile-border copy is one controller, never a second phase source.
+      this.signalSites.set(site.id, [...owners].sort((a, b) => b.approaches.length - a.approaches.length)[0]);
     }
+    this.edgeSignals.clear();
+    for (const node of this.nodes.values()) { node.signal = false; node.signalControls = []; }
+    for (const site of this.signalSites.values()) for (const approach of site.approaches) {
+      const edge = this.byId.get(approach.edge);
+      if (!edge || (approach.dir === 1 ? edge.e.oneway === 'forward' : edge.e.oneway === 'backward')) continue;
+      const point = this.pointAt(edge, approach.stopS, approach.dir);
+      if (Math.abs(point.y - approach.y) > .75) continue;
+      const control = { site, approach }, key = `${approach.edge}:${approach.dir}`;
+      const controls = this.edgeSignals.get(key) || []; controls.push(control); this.edgeSignals.set(key, controls);
+      if (approach.node) {
+        const node = this.nodes.get(approach.dir === 1 ? edge.to : edge.from);
+        const rawNode = approach.dir === 1 ? edge.e.to : edge.e.from;
+        if (node && rawNode === approach.node && Math.abs(node.y - approach.y) <= 1.5) {
+          node.signal = true; node.signalControls!.push(control);
+        }
+      }
+    }
+    for (const controls of this.edgeSignals.values()) controls.sort((a, b) => a.approach.stopS - b.approach.stopS);
   }
-  forgetSignals(signals: XZ[]) { for (const s of signals) this.signalPts.delete(s); }
+  signalsFor(edge: GEdge, dir: 1 | -1) { return this.edgeSignals.get(`${edge.e.id}:${dir}`) || []; }
+  forgetSignals(signals: SignalSite[]) {
+    for (const site of signals) {
+      const owners = this.signalOwners.get(site.id); if (!owners) continue;
+      owners.delete(site);
+      if (!owners.size) { this.signalOwners.delete(site.id); this.signalSites.delete(site.id); }
+      else this.signalSites.set(site.id, [...owners].sort((a, b) => b.approaches.length - a.approaches.length)[0]);
+    }
+    this.markSignals([]);
+  }
   removeRoads(ids: string[]) {
     const gone = new Set<GEdge>();
     for (const id of ids) { const g = this.byId.get(id); if (!g || this.permanent.has(id)) continue; gone.add(g); this.byId.delete(id); }
@@ -94,6 +119,7 @@ export class RoadGraph {
       }
       for (const k of this.cellsOf(g.e.pts)) { const l = this.grid.get(k); if (!l) continue; const f = l.filter((x) => !gone.has(x)); if (f.length) this.grid.set(k, f); else this.grid.delete(k); }
     }
+    this.markSignals([]);
     return gone;
   }
   pointAt(g: GEdge, s: number, dir: 1 | -1, lateral = 0): { x: number; y: number; z: number; hx: number; hz: number } {

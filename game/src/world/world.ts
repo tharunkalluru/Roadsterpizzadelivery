@@ -6,8 +6,10 @@ import { placeLandmarks } from './landmarks';
 import type { LandmarkSurfaceGrid } from './landmark-support';
 import { placeAirfields } from './airfields';
 import { roadGradePatches } from './road-grades';
+import { SignalLights } from './signal-lights';
+import type { SignalSite } from './signals';
 
-export interface LoadedTile { key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[] }
+export interface LoadedTile { key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[]; signalLights?: SignalLights }
 
 const TILE_ATTEMPTS = 3, TILE_TIMEOUT = 20000, ENSURE_TIMEOUT = 75000, STREAM_RETRY_DELAY = 30000, MAX_PENDING = 2;
 
@@ -25,7 +27,8 @@ export class World implements CityData {
   buildingGrid = new Map<string, Building[]>(); surfaceGrid = new Map<string, Surface[]>(); walls = new Map<string, Wall[]>();
   landmarkSurfaceGrid: LandmarkSurfaceGrid = new Map();
   obstacles = new Map<string, { x: number; z: number; r: number; top: number }[]>(); byBuilding = new Map<string, Building>();
-  signals: { p: XZ; node: string | null }[] = []; lamps: THREE.Vector3[] = []; busStops: BusStop[] = []; walkPaths: WalkPath[] = []; rails = new Map<string, { id: string; pts: XZ[]; bridge?: boolean }>();
+  signals: SignalSite[] = []; lamps: THREE.Vector3[] = []; busStops: BusStop[] = []; walkPaths: WalkPath[] = []; rails = new Map<string, { id: string; pts: XZ[]; bridge?: boolean }>();
+  private signalSeconds = 0;
   theatreFacades = new Map<string, { c: THREE.Vector3; n: THREE.Vector3; w: number; top: number; building: Building }>();
   bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
   tiles = new Map<string, LoadedTile>(); pending = new Map<string, number>(); empty = new Set<string>();
@@ -52,7 +55,7 @@ export class World implements CityData {
     w.onmessage = (ev) => { if (this.worker === w) this.onMessage(ev.data); };
     w.onerror = (e) => { if (this.worker === w) { e.preventDefault(); this.workerError(); } };
     w.onmessageerror = () => { if (this.worker === w) this.workerError(); };
-    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin), roadGrades: roadGradePatches(this.core.roads) }); }
+    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin), roadGrades: roadGradePatches(this.core.roads), trafficSignals: this.core.trafficSignals }); }
     catch (error) { w.terminate(); throw error; }
     return w;
   }
@@ -195,6 +198,8 @@ export class World implements CityData {
       const m = new THREE.Mesh(geo, this.mats[buf.mat]); m.castShadow = r.cast; m.receiveShadow = r.receive; m.renderOrder = r.order || 0;
       g.add(m);
     }
+    const signalLights = b.signals.length ? new SignalLights(b.signals) : undefined;
+    if (signalLights) { signalLights.update(this.signalSeconds); g.add(signalLights.mesh); }
     this.group.add(g);
     const merge = <T>(dst: Map<string, T[]>, src: Map<string, T[]>) => { for (const [k, a] of src) { const d = dst.get(k); if (d) d.push(...a); else dst.set(k, a.slice()); } };
     merge(this.buildingGrid, b.buildingGrid); merge(this.surfaceGrid, b.surfaceGrid); merge(this.walls, b.walls); merge(this.obstacles, b.obstacles);
@@ -210,14 +215,15 @@ export class World implements CityData {
       const bld = this.byBuilding.get(f.building); if (!bld) continue;
       this.theatreFacades.set(f.id, { c: new THREE.Vector3(...f.c), n: new THREE.Vector3(...f.n), w: f.w, top: f.top, building: bld });
     }
-    const t: LoadedTile = { key: b.key, built: b, group: g, signs, lamps, buildings: [...buildings] };
+    const t: LoadedTile = { key: b.key, built: b, group: g, signs, lamps, buildings: [...buildings], signalLights };
     this.tiles.set(b.key, t);
     this.onTileAdded(t);           // boards get atlas slots on the next regular sign update (spreads the work)
   }
   unload(t: LoadedTile) {
     this.tiles.delete(t.key);
     this.group.remove(t.group);
-    t.group.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh && m.geometry !== this.groundGeo) m.geometry.dispose(); });
+    t.group.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh && m.geometry !== this.groundGeo && m.geometry !== t.signalLights?.geometry) m.geometry.dispose(); });
+    t.signalLights?.dispose();
     const strip = <T>(dst: Map<string, T[]>, src: Map<string, T[]>) => {
       for (const [k, a] of src) { const gone = new Set(a); const d = dst.get(k); if (!d) continue; const f = d.filter((x) => !gone.has(x)); if (f.length) dst.set(k, f); else dst.delete(k); }
     };
@@ -242,6 +248,10 @@ export class World implements CityData {
     const ws = new Set(b.walkPaths); this.walkPaths = this.walkPaths.filter((s) => !ws.has(s));
     for (const f of b.facades) this.theatreFacades.delete(f.id);
     this.onTileRemoved(t);
+  }
+  updateSignals(seconds: number) {
+    this.signalSeconds = seconds;
+    for (const tile of this.tiles.values()) tile.signalLights?.update(seconds);
   }
   // how lively the streets around (x, z) are: 0 = quiet colony, 1 = RTC X Roads / Dilsukhnagar busy
   busyAt(x: number, z: number) {

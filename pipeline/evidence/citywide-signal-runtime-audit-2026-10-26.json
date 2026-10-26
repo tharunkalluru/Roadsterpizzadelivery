@@ -1,0 +1,5307 @@
+{
+  "schemaVersion": 1,
+  "method": "All canonical public source nodes resolved against their shipped tile plus80m context and the exact runtime road-grade patches; not a road survey or browser test.",
+  "sourceDataTimestamp": "2026-10-26T13:23:20Z",
+  "canonicalSourceNodes": 268,
+  "tilesVisited": 110,
+  "packsVisited": 43,
+  "controllers": 173,
+  "resolvedSourceNodes": 266,
+  "unresolvedSourceNodes": 2,
+  "approaches": 368,
+  "raisedApproaches": 5,
+  "buriedHeadPoles": 0,
+  "buried": [],
+  "unresolved": [
+    {
+      "id": "osm:n4322167205",
+      "p": [
+        -14714.752,
+        -1408.944
+      ],
+      "name": null,
+      "reasons": [
+        "no-matching-ground-road-within-14m"
+      ],
+      "sourceURL": "https://www.openstreetmap.org/node/4322167205"
+    },
+    {
+      "id": "osm:n701208131",
+      "p": [
+        -14147.601,
+        -3561.848
+      ],
+      "name": null,
+      "reasons": [
+        "no-matching-ground-road-within-14m"
+      ],
+      "sourceURL": "https://www.openstreetmap.org/node/701208131"
+    }
+  ],
+  "controllersByTile": [
+    {
+      "id": "signal:6eb7354b-43d",
+      "tile": "-14_-6",
+      "p": [
+        -13380.9,
+        -5728.4
+      ],
+      "sourceIds": [
+        "osm:n2582234636"
+      ],
+      "phaseCount": 2,
+      "offset": 1.67,
+      "approaches": [
+        {
+          "edge": "63d29705-cef_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 54.430848622031206,
+          "phase": 0
+        },
+        {
+          "edge": "d036e0fd-7ac_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 33.83856715353185,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:7429616d-4ec+f8a60259-9ad",
+      "tile": "-14_-6",
+      "p": [
+        -13055.9,
+        -5660.65
+      ],
+      "sourceIds": [
+        "osm:n1042219300",
+        "osm:n6132320778"
+      ],
+      "phaseCount": 2,
+      "offset": 97.36,
+      "approaches": [
+        {
+          "edge": "183036cb-858_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 57.498577668011094,
+          "phase": 1
+        },
+        {
+          "edge": "4840a9a6-abe_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 7.730692077685978,
+          "phase": 1
+        },
+        {
+          "edge": "beab56d8-76c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 242.76419511406954,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:b12fd251-46d",
+      "tile": "-14_-6",
+      "p": [
+        -13878.3,
+        -5828.8
+      ],
+      "sourceIds": [
+        "osm:n6132294957"
+      ],
+      "phaseCount": 2,
+      "offset": 81.43,
+      "approaches": [
+        {
+          "edge": "6d7fa041-da0_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 20.34641503068785,
+          "phase": 0
+        },
+        {
+          "edge": "38dab4b1-971_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 4.696300660871684,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:1a2dedff-f3b",
+      "tile": "-13_-6",
+      "p": [
+        -12318,
+        -5067.6
+      ],
+      "sourceIds": [
+        "osm:n4331884701"
+      ],
+      "phaseCount": 2,
+      "offset": 88.86,
+      "approaches": [
+        {
+          "edge": "8743e2b0-bc2_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 120.25290980133964,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:9eb7bb3d-419",
+      "tile": "-13_-6",
+      "p": [
+        -12217.6,
+        -5044.4
+      ],
+      "sourceIds": [
+        "osm:n1310963249"
+      ],
+      "phaseCount": 2,
+      "offset": 68.64,
+      "approaches": [
+        {
+          "edge": "eb1e9b0e-bcd_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 63.56853787542673,
+          "phase": 1
+        },
+        {
+          "edge": "cd977c9a-51b_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 155.36575458835074,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n4331878184",
+      "tile": "-13_-6",
+      "p": [
+        -12230.242,
+        -5011.841
+      ],
+      "sourceIds": [
+        "osm:n4331878184"
+      ],
+      "phaseCount": 2,
+      "offset": 60.41,
+      "approaches": [
+        {
+          "edge": "4e2b4a60-9b3_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 33.14083172509305,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n4331884704",
+      "tile": "-13_-6",
+      "p": [
+        -12281.052,
+        -5053.919
+      ],
+      "sourceIds": [
+        "osm:n4331884704"
+      ],
+      "phaseCount": 2,
+      "offset": 39.38,
+      "approaches": [
+        {
+          "edge": "bdccd522-129_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 37.75640749645241,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:48013ab4-95a+54c3858a-39c",
+      "tile": "-14_-4",
+      "p": [
+        -13259.900000000001,
+        -3970.1000000000004
+      ],
+      "sourceIds": [
+        "osm:n1302011992",
+        "osm:n6152008128"
+      ],
+      "phaseCount": 2,
+      "offset": 50.18,
+      "approaches": [
+        {
+          "edge": "e2f4ae80-f0c_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 69.31946036907075,
+          "phase": 0
+        },
+        {
+          "edge": "e8057b73-b32_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 103.88560282674061,
+          "phase": 1
+        },
+        {
+          "edge": "a7f55934-01b_5",
+          "dir": 1,
+          "y": 0,
+          "stopS": 149.04225852091383,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:3bef0208-bdb",
+      "tile": "-13_-5",
+      "p": [
+        -12324.6,
+        -4983.3
+      ],
+      "sourceIds": [
+        "osm:n4331878172",
+        "osm:n4331878177"
+      ],
+      "phaseCount": 2,
+      "offset": 29.72,
+      "approaches": [
+        {
+          "edge": "65dd19f2-938_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 14.366480297357501,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:f65c2f9a-80a",
+      "tile": "-13_-5",
+      "p": [
+        -12233.1,
+        -4954.7
+      ],
+      "sourceIds": [
+        "osm:n4331878160",
+        "osm:n4331878163"
+      ],
+      "phaseCount": 2,
+      "offset": 87.21,
+      "approaches": [
+        {
+          "edge": "566c2075-f52_8",
+          "dir": 1,
+          "y": 0,
+          "stopS": 91.92690557205077,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:4026b5ee-537",
+      "tile": "-15_-4",
+      "p": [
+        -14159.8,
+        -3633.4
+      ],
+      "sourceIds": [
+        "osm:n2233905588"
+      ],
+      "phaseCount": 2,
+      "offset": 68.26,
+      "approaches": [
+        {
+          "edge": "4814962d-106_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 37.570988071919004,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n2233905584",
+      "tile": "-15_-4",
+      "p": [
+        -14095.983,
+        -3605.93
+      ],
+      "sourceIds": [
+        "osm:n2233905584"
+      ],
+      "phaseCount": 2,
+      "offset": 15.63,
+      "approaches": [
+        {
+          "edge": "10c3a2cb-010_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 61.856941640713615,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n701228140",
+      "tile": "-15_-4",
+      "p": [
+        -14101.02,
+        -3550.571
+      ],
+      "sourceIds": [
+        "osm:n701228140"
+      ],
+      "phaseCount": 2,
+      "offset": 67.35,
+      "approaches": [
+        {
+          "edge": "2a9ef84f-08d_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 26.959703059297446,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:6a6f28b4-197",
+      "tile": "-2_0",
+      "p": [
+        -1397.7,
+        992.2
+      ],
+      "sourceIds": [
+        "osm:n10727855887"
+      ],
+      "phaseCount": 2,
+      "offset": 22.3,
+      "approaches": [
+        {
+          "edge": "876a9568-c1f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 4.226061996705714,
+          "phase": 0
+        },
+        {
+          "edge": "a5ededf6-268_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 7.98653148458037,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:7df67123-8f9",
+      "tile": "-2_0",
+      "p": [
+        -1447.6,
+        938.4
+      ],
+      "sourceIds": [
+        "osm:n3158978743"
+      ],
+      "phaseCount": 2,
+      "offset": 64.73,
+      "approaches": [
+        {
+          "edge": "fcc4c1c0-934_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 157.49347270743877,
+          "phase": 0
+        },
+        {
+          "edge": "799709a2-341_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 16.48098729676743,
+          "phase": 1
+        },
+        {
+          "edge": "de56be8c-4c4_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.252967295612527,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:f52fd316-367",
+      "tile": "-2_0",
+      "p": [
+        -1394,
+        974.6
+      ],
+      "sourceIds": [
+        "osm:n3158978741",
+        "osm:n3158978742"
+      ],
+      "phaseCount": 2,
+      "offset": 45.89,
+      "approaches": [
+        {
+          "edge": "545b8225-8a8_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 91.24000282822996,
+          "phase": 0
+        },
+        {
+          "edge": "799709a2-341_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 59.10614586355748,
+          "phase": 1
+        },
+        {
+          "edge": "04946f34-6eb_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.007495318350183,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:276088ef-f0f+4aaa7dc3-38e+e94425e6-a43",
+      "tile": "-1_2",
+      "p": [
+        -953.9666666666666,
+        2371.6
+      ],
+      "sourceIds": [
+        "osm:n11142776850",
+        "osm:n2857520122",
+        "osm:n3155747482"
+      ],
+      "phaseCount": 4,
+      "offset": 48.26,
+      "approaches": [
+        {
+          "edge": "c0daa999-338_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 40.71453080576957,
+          "phase": 1
+        },
+        {
+          "edge": "59996b36-d8b_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 4.947726750741193,
+          "phase": 0
+        },
+        {
+          "edge": "ca00c67d-538_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 113.40838169202341,
+          "phase": 3
+        },
+        {
+          "edge": "85919686-1b4_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 75.76405076702727,
+          "phase": 2
+        }
+      ]
+    },
+    {
+      "id": "signal:0cb188db-c3d+6205483d-a65",
+      "tile": "-1_0",
+      "p": [
+        -340.55,
+        879.8
+      ],
+      "sourceIds": [
+        "osm:n308783191",
+        "osm:n3180193628"
+      ],
+      "phaseCount": 2,
+      "offset": 38.82,
+      "approaches": [
+        {
+          "edge": "2909cb86-16c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 134.2842320716351,
+          "phase": 0
+        },
+        {
+          "edge": "8d99f86a-a0b_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 7.532330316708073,
+          "phase": 0
+        },
+        {
+          "edge": "b6e12593-136_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 47.66866078120181,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:0d9aa345-952",
+      "tile": "-1_0",
+      "p": [
+        -289.9,
+        838.7
+      ],
+      "sourceIds": [
+        "osm:n3159005261"
+      ],
+      "phaseCount": 2,
+      "offset": 14.21,
+      "approaches": [
+        {
+          "edge": "8f1f881a-900_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 109.27946097723009,
+          "phase": 1
+        },
+        {
+          "edge": "7c84cbfb-bb9_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 41.151990499836785,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:48896f61-063",
+      "tile": "-1_0",
+      "p": [
+        -907.2,
+        625.6
+      ],
+      "sourceIds": [
+        "osm:n308783170"
+      ],
+      "phaseCount": 2,
+      "offset": 13.21,
+      "approaches": [
+        {
+          "edge": "cc639bc8-c66_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 57.745553029122874,
+          "phase": 1
+        },
+        {
+          "edge": "01ee5cc4-601_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.9909655985421555,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:50017f89-190+8393192d-1b1+aec6b6d3-4d5+b022f1e7-8b0",
+      "tile": "-3_0",
+      "p": [
+        -2230.975,
+        570.6
+      ],
+      "sourceIds": [
+        "osm:n3100002631",
+        "osm:n3180189263",
+        "osm:n3180189264",
+        "osm:n3180189266",
+        "osm:n3224357972"
+      ],
+      "phaseCount": 3,
+      "offset": 30.23,
+      "approaches": [
+        {
+          "edge": "20f987a7-452_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 41.877363027026014,
+          "phase": 2
+        },
+        {
+          "edge": "fd821a82-dc7_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 34.56777315211789,
+          "phase": 1
+        },
+        {
+          "edge": "22216740-b65_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 41.23289442261722,
+          "phase": 1
+        },
+        {
+          "edge": "5229bc6b-b2f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 30.610948001402207,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:303afccb-9a8",
+      "tile": "-3_2",
+      "p": [
+        -2559.4,
+        2134.5
+      ],
+      "sourceIds": [
+        "osm:n3204264648"
+      ],
+      "phaseCount": 2,
+      "offset": 48.47,
+      "approaches": [
+        {
+          "edge": "a26a97c7-0bd_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 52.82043759470034,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:1a79776c-214+55ee63ed-649",
+      "tile": "-3_-1",
+      "p": [
+        -2497.75,
+        -181.9
+      ],
+      "sourceIds": [
+        "osm:n3158888596",
+        "osm:n3158888597"
+      ],
+      "phaseCount": 3,
+      "offset": 80.59,
+      "approaches": [
+        {
+          "edge": "1890cdfc-2ff_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 49.099289515943276,
+          "phase": 0
+        },
+        {
+          "edge": "3fbcc494-2b2_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 242.152393311711,
+          "phase": 2
+        },
+        {
+          "edge": "5d2c058b-ffa_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 33.52591312665653,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:232b2ac2-a5d",
+      "tile": "-3_-1",
+      "p": [
+        -2490.2,
+        -211.1
+      ],
+      "sourceIds": [
+        "osm:n3098505687"
+      ],
+      "phaseCount": 2,
+      "offset": 20.57,
+      "approaches": [
+        {
+          "edge": "903db5d8-fdf_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 80.76524654024752,
+          "phase": 1
+        },
+        {
+          "edge": "d8c9ece8-817_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 28.77068250673039,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:3c0602a1-685+7c10df81-d63+cfdadd12-c57",
+      "tile": "-2_-1",
+      "p": [
+        -1278.8333333333333,
+        -501.2333333333333
+      ],
+      "sourceIds": [
+        "osm:n14017707612",
+        "osm:n5486709296",
+        "osm:n682850555"
+      ],
+      "phaseCount": 4,
+      "offset": 69.86,
+      "approaches": [
+        {
+          "edge": "c222aa15-e39_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 4.412754241967281,
+          "phase": 1
+        },
+        {
+          "edge": "8cd63408-b12_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 4.827297380522544,
+          "phase": 2
+        },
+        {
+          "edge": "10880150-717_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 33.894182749499954,
+          "phase": 0
+        },
+        {
+          "edge": "041673bb-875_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 24.89000638958754,
+          "phase": 3
+        },
+        {
+          "edge": "527313f3-c3f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 5.559316504751379,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:de311ef3-c10+feac7685-13b",
+      "tile": "-2_-1",
+      "p": [
+        -1939.6999999999998,
+        -718.3499999999999
+      ],
+      "sourceIds": [
+        "osm:n6372012805",
+        "osm:n6372012809"
+      ],
+      "phaseCount": 2,
+      "offset": 60.11,
+      "approaches": [
+        {
+          "edge": "138aa68b-ef3_3",
+          "dir": 1,
+          "y": 1.0160246755967577,
+          "stopS": 46.14776966685813,
+          "phase": 0
+        },
+        {
+          "edge": "262739dc-c1d_0",
+          "dir": 1,
+          "y": 1.2256949265470825,
+          "stopS": 7.058611761529391,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n11178319334",
+      "tile": "-2_-1",
+      "p": [
+        -1977.627,
+        -740.253
+      ],
+      "sourceIds": [
+        "osm:n11178319334"
+      ],
+      "phaseCount": 2,
+      "offset": 14.35,
+      "approaches": [
+        {
+          "edge": "81a45cc1-38a_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 266.0342015780665,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n12294255231",
+      "tile": "-2_-1",
+      "p": [
+        -1971.475,
+        -736.291
+      ],
+      "sourceIds": [
+        "osm:n12294255231"
+      ],
+      "phaseCount": 2,
+      "offset": 75.14,
+      "approaches": [
+        {
+          "edge": "eec6f2b7-e6a_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 0,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:946b9a7a-f01",
+      "tile": "-2_-2",
+      "p": [
+        -1294.2,
+        -1673.6
+      ],
+      "sourceIds": [
+        "osm:n289895020"
+      ],
+      "phaseCount": 2,
+      "offset": 73.74,
+      "approaches": [
+        {
+          "edge": "db2e088a-b7f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.24057689640946,
+          "phase": 0
+        },
+        {
+          "edge": "81a45cc1-38a_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 59.040031856676265,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:c86f664e-eb7",
+      "tile": "-1_-1",
+      "p": [
+        -747.1,
+        -325.6
+      ],
+      "sourceIds": [
+        "osm:n308795901"
+      ],
+      "phaseCount": 2,
+      "offset": 40.32,
+      "approaches": [
+        {
+          "edge": "aaa4a699-1cd_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 154.32141211115174,
+          "phase": 0
+        },
+        {
+          "edge": "dec01a04-42b_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 90.51895552270894,
+          "phase": 1
+        },
+        {
+          "edge": "6638f164-db5_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 15.52188516717202,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:0c98b7d7-099+80cec4b9-8be",
+      "tile": "-1_-3",
+      "p": [
+        -872.55,
+        -2947.25
+      ],
+      "sourceIds": [
+        "osm:n3191273363",
+        "osm:n6432129578"
+      ],
+      "phaseCount": 2,
+      "offset": 4.63,
+      "approaches": [
+        {
+          "edge": "885b96a5-af0_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 209.67152449521745,
+          "phase": 0
+        },
+        {
+          "edge": "6fdb5a39-01f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 5.882754456885008,
+          "phase": 0
+        },
+        {
+          "edge": "4c5f6856-b6e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 105.30467607985516,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:43322a93-5d1",
+      "tile": "-1_-3",
+      "p": [
+        -932.4,
+        -2462
+      ],
+      "sourceIds": [
+        "osm:n364672163"
+      ],
+      "phaseCount": 2,
+      "offset": 56.25,
+      "approaches": [
+        {
+          "edge": "08d18877-9a5_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 98.9947267994037,
+          "phase": 1
+        },
+        {
+          "edge": "8c7b2722-060_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.226138450114889,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:3789f467-8b8",
+      "tile": "-18_-1",
+      "p": [
+        -17402,
+        -829.8
+      ],
+      "sourceIds": [
+        "osm:n11448947662"
+      ],
+      "phaseCount": 2,
+      "offset": 96.62,
+      "approaches": [
+        {
+          "edge": "ee6e46e0-29a_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 181.01279827262286,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:3b0d31c9-9f8",
+      "tile": "-18_-1",
+      "p": [
+        -17400.9,
+        -870.6
+      ],
+      "sourceIds": [
+        "osm:n11448947664"
+      ],
+      "phaseCount": 2,
+      "offset": 41.32,
+      "approaches": [
+        {
+          "edge": "1dd3733d-a32_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 327.40517399162377,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:81bc2b2d-a01",
+      "tile": "-18_-1",
+      "p": [
+        -17361.1,
+        -878.4
+      ],
+      "sourceIds": [
+        "osm:n11448947665"
+      ],
+      "phaseCount": 2,
+      "offset": 72.3,
+      "approaches": [
+        {
+          "edge": "c730c28c-b7b_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 184.42719195973174,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:c5d71b92-64b",
+      "tile": "-18_-1",
+      "p": [
+        -17357.4,
+        -836.7
+      ],
+      "sourceIds": [
+        "osm:n11448947663"
+      ],
+      "phaseCount": 2,
+      "offset": 35.13,
+      "approaches": [
+        {
+          "edge": "2296e153-c05_8",
+          "dir": 1,
+          "y": 0,
+          "stopS": 257.62857412255846,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:755d5413-b85+8ba2afa6-958",
+      "tile": "-18_-3",
+      "p": [
+        -17104.75,
+        -2273.45
+      ],
+      "sourceIds": [
+        "osm:n11463460330",
+        "osm:n1311044366"
+      ],
+      "phaseCount": 2,
+      "offset": 42.76,
+      "approaches": [
+        {
+          "edge": "751b20e8-968_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.005397572184097,
+          "phase": 0
+        },
+        {
+          "edge": "520cb318-977_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 79.94682876948427,
+          "phase": 1
+        },
+        {
+          "edge": "d1821a50-7b6_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 36.46685498494983,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:951d7ea9-ff1+a0e96cc9-d99+de29b96e-63a",
+      "tile": "-18_-3",
+      "p": [
+        -17275.133333333335,
+        -2286.2999999999997
+      ],
+      "sourceIds": [
+        "osm:n11463460329",
+        "osm:n3670021761",
+        "osm:n6497393421"
+      ],
+      "phaseCount": 2,
+      "offset": 22.36,
+      "approaches": [
+        {
+          "edge": "47ee62d6-41b_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 45.09147759172227,
+          "phase": 1
+        },
+        {
+          "edge": "70413503-eb3_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 8.97737973711325,
+          "phase": 0
+        },
+        {
+          "edge": "d38076aa-ecb_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 149.72473854220414,
+          "phase": 1
+        },
+        {
+          "edge": "8a2c3cbc-814_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 282.789870923638,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:b46c1e88-26b",
+      "tile": "-18_-3",
+      "p": [
+        -17068.6,
+        -2253.3
+      ],
+      "sourceIds": [
+        "osm:n2817731874"
+      ],
+      "phaseCount": 2,
+      "offset": 87.37,
+      "approaches": [
+        {
+          "edge": "9d71f50c-957_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 9.0165422880216,
+          "phase": 0
+        },
+        {
+          "edge": "af677e5a-ab1_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 35.729892329885814,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:33aae0c4-31a+7cf2278d-195+e76d6aab-355+edeb9e27-dc2",
+      "tile": "-17_-2",
+      "p": [
+        -16854.1,
+        -1711.95
+      ],
+      "sourceIds": [
+        "osm:n11463460331",
+        "osm:n11463460332",
+        "osm:n11463460333",
+        "osm:n3372041270"
+      ],
+      "phaseCount": 2,
+      "offset": 59.64,
+      "approaches": [
+        {
+          "edge": "012a9f8d-36d_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 339.70841505036975,
+          "phase": 0
+        },
+        {
+          "edge": "295a5b4f-f03_9",
+          "dir": 1,
+          "y": 0,
+          "stopS": 38.91883785771118,
+          "phase": 1
+        },
+        {
+          "edge": "554d58f8-1fc_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 56.879197936385005,
+          "phase": 1
+        },
+        {
+          "edge": "63c0e325-ac8_7",
+          "dir": 1,
+          "y": 0,
+          "stopS": 154.2741753598651,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:3ca170ce-49a+6fc7e638-c86",
+      "tile": "-17_-2",
+      "p": [
+        -16976.800000000003,
+        -1516.75
+      ],
+      "sourceIds": [
+        "osm:n11463460334",
+        "osm:n11463460335",
+        "osm:n11463460362",
+        "osm:n12290581375"
+      ],
+      "phaseCount": 2,
+      "offset": 21.86,
+      "approaches": [
+        {
+          "edge": "41d0e123-125_10",
+          "dir": 1,
+          "y": 0,
+          "stopS": 38.731997478278046,
+          "phase": 0
+        },
+        {
+          "edge": "78f4c92e-857_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 165.56698663167464,
+          "phase": 1
+        },
+        {
+          "edge": "7c022c9a-674_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 160.37447290114207,
+          "phase": 1
+        },
+        {
+          "edge": "be8d465b-ca9_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 98.17338460300262,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:94c8dfe1-d18+b6315db2-1a5",
+      "tile": "-17_-2",
+      "p": [
+        -16275.65,
+        -1358.55
+      ],
+      "sourceIds": [
+        "osm:n3372041211",
+        "osm:n701248984"
+      ],
+      "phaseCount": 2,
+      "offset": 98.13,
+      "approaches": [
+        {
+          "edge": "8850079e-f56_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 363.08767676409724,
+          "phase": 0
+        },
+        {
+          "edge": "b6ad386e-fea_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 34.35792001575879,
+          "phase": 1
+        },
+        {
+          "edge": "8e69807e-f66_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 168.57351710044318,
+          "phase": 0
+        },
+        {
+          "edge": "a0374084-c63_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 204.10040745554699,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:9660fbac-fac",
+      "tile": "-17_-3",
+      "p": [
+        -16526.5,
+        -2157.1
+      ],
+      "sourceIds": [
+        "osm:n12290589102"
+      ],
+      "phaseCount": 2,
+      "offset": 99.63,
+      "approaches": [
+        {
+          "edge": "14aeb739-681_8",
+          "dir": 1,
+          "y": 0,
+          "stopS": 100.51243484434404,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:a9e978c2-5fc",
+      "tile": "-17_-3",
+      "p": [
+        -16661,
+        -2146.9
+      ],
+      "sourceIds": [
+        "osm:n12290589103"
+      ],
+      "phaseCount": 2,
+      "offset": 7.62,
+      "approaches": [
+        {
+          "edge": "766c1b12-992_7",
+          "dir": 1,
+          "y": 0,
+          "stopS": 12.404443895883043,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n12290589101",
+      "tile": "-17_-3",
+      "p": [
+        -16557.011,
+        -2185.653
+      ],
+      "sourceIds": [
+        "osm:n12290589101"
+      ],
+      "phaseCount": 2,
+      "offset": 61.08,
+      "approaches": [
+        {
+          "edge": "ed3d6680-50c_5",
+          "dir": 1,
+          "y": 0,
+          "stopS": 154.3227039598449,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n2212440900",
+      "tile": "-17_-3",
+      "p": [
+        -16605.994,
+        -2135.219
+      ],
+      "sourceIds": [
+        "osm:n2212440900"
+      ],
+      "phaseCount": 2,
+      "offset": 74.82,
+      "approaches": [
+        {
+          "edge": "4d92ff42-02c_7",
+          "dir": 1,
+          "y": 0,
+          "stopS": 156.2632780877034,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:95fff3ee-2d8",
+      "tile": "-16_-2",
+      "p": [
+        -15008.7,
+        -1425.3
+      ],
+      "sourceIds": [
+        "osm:n1700616746",
+        "osm:n4322167214"
+      ],
+      "phaseCount": 2,
+      "offset": 57.49,
+      "approaches": [
+        {
+          "edge": "8a6f2e9e-a14_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 18.928213807544147,
+          "phase": 0
+        },
+        {
+          "edge": "e0f1b463-577_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 286.63706351426856,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:a60118e6-d0f",
+      "tile": "-4_1",
+      "p": [
+        -3569.2,
+        1293.1
+      ],
+      "sourceIds": [
+        "osm:n11644692878"
+      ],
+      "phaseCount": 2,
+      "offset": 10.04,
+      "approaches": [
+        {
+          "edge": "14744d52-141_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 65.5443123150265,
+          "phase": 1
+        },
+        {
+          "edge": "7c381ca6-24a_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 16.408409562599104,
+          "phase": 0
+        },
+        {
+          "edge": "89315bd0-ed2_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 28.715278435747933,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:0ebad085-f9a+291bcaae-024+9d8b5cef-efc",
+      "tile": "-5_0",
+      "p": [
+        -4634.233333333333,
+        321.33333333333337
+      ],
+      "sourceIds": [
+        "osm:n5598656539",
+        "osm:n5598656540",
+        "osm:n671153303"
+      ],
+      "phaseCount": 2,
+      "offset": 99.91,
+      "approaches": [
+        {
+          "edge": "1a819143-ccb_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 45.88808963240129,
+          "phase": 0
+        },
+        {
+          "edge": "7131adeb-ea9_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 39.47589508864685,
+          "phase": 1
+        },
+        {
+          "edge": "4fe16eb5-41a_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 36.47743477614851,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:0426c3cc-0d6+2a9c69d6-56e+57f2ed50-791+8df9e8f0-7fe",
+      "tile": "1_1",
+      "p": [
+        1526.1750000000002,
+        1666.775
+      ],
+      "sourceIds": [
+        "osm:n11947648126",
+        "osm:n11947648127",
+        "osm:n4333720132",
+        "osm:n4333720153"
+      ],
+      "phaseCount": 3,
+      "offset": 27.53,
+      "approaches": [
+        {
+          "edge": "4f49cafc-d55_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 18.546561383819377,
+          "phase": 0
+        },
+        {
+          "edge": "b06919d6-e7c_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 77.77769574448504,
+          "phase": 1
+        },
+        {
+          "edge": "8d99f730-6ce_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 46.56174614821941,
+          "phase": 1
+        },
+        {
+          "edge": "90934736-d48_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 60.956446793251274,
+          "phase": 2
+        }
+      ]
+    },
+    {
+      "id": "signal:14fe55b0-7a9",
+      "tile": "1_1",
+      "p": [
+        1012.2,
+        1758.2
+      ],
+      "sourceIds": [
+        "osm:n4333720086",
+        "osm:n4333720092"
+      ],
+      "phaseCount": 2,
+      "offset": 57.07,
+      "approaches": [
+        {
+          "edge": "bae7e753-56c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 4.632062175748503,
+          "phase": 1
+        },
+        {
+          "edge": "878ede9c-8ec_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 125.70465065818478,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:e48759a7-e2c",
+      "tile": "1_1",
+      "p": [
+        1032,
+        1744.7
+      ],
+      "sourceIds": [
+        "osm:n307055835"
+      ],
+      "phaseCount": 2,
+      "offset": 87.14,
+      "approaches": [
+        {
+          "edge": "1176f39e-b28_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 16.11372986032055,
+          "phase": 0
+        },
+        {
+          "edge": "b90ddcc7-ed5_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 4.579301256742072,
+          "phase": 0
+        },
+        {
+          "edge": "5f63b3af-97f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 109.65158475102798,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:2e129fb6-e93+7ce4029b-f87+a92793e7-7fd",
+      "tile": "0_4",
+      "p": [
+        509.73333333333335,
+        4651.366666666666
+      ],
+      "sourceIds": [
+        "osm:n11993534330",
+        "osm:n306605263",
+        "osm:n3894159568"
+      ],
+      "phaseCount": 3,
+      "offset": 99.15,
+      "approaches": [
+        {
+          "edge": "35bc3227-7c8_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 55.53153900417173,
+          "phase": 1
+        },
+        {
+          "edge": "5bf2633f-67c_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 72.17895952134207,
+          "phase": 2
+        },
+        {
+          "edge": "2e1312ee-dca_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 9.540754687130079,
+          "phase": 1
+        },
+        {
+          "edge": "e2e87a30-5ef_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 24.367411371763176,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:7a7ca505-f6f+be6326e9-b25",
+      "tile": "1_5",
+      "p": [
+        1073.1,
+        5982.95
+      ],
+      "sourceIds": [
+        "osm:n3224370213",
+        "osm:n3224370215"
+      ],
+      "phaseCount": 2,
+      "offset": 87.16,
+      "approaches": [
+        {
+          "edge": "472578bf-6b4_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 19.842740935597256,
+          "phase": 1
+        },
+        {
+          "edge": "83cb5605-673_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 99.74847748167893,
+          "phase": 0
+        },
+        {
+          "edge": "c6a84949-118_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 8.223556830525371,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:1ab038e3-631+cfdccd3d-a06",
+      "tile": "-14_-7",
+      "p": [
+        -13753.3,
+        -6381.95
+      ],
+      "sourceIds": [
+        "osm:n12290566789",
+        "osm:n12290566790",
+        "osm:n12290566791"
+      ],
+      "phaseCount": 2,
+      "offset": 57.14,
+      "approaches": [
+        {
+          "edge": "5d5abbdb-e10_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 174.06144592647811,
+          "phase": 0
+        },
+        {
+          "edge": "946bf4a7-4df_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 15.305741484454828,
+          "phase": 1
+        },
+        {
+          "edge": "b9a1f6a8-1a5_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 33.72900031795228,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:31956257-4ee",
+      "tile": "-16_-5",
+      "p": [
+        -15330.7,
+        -4337.4
+      ],
+      "sourceIds": [
+        "osm:n1692848738"
+      ],
+      "phaseCount": 2,
+      "offset": 0.8,
+      "approaches": [
+        {
+          "edge": "ff795def-0e1_6",
+          "dir": 1,
+          "y": 0,
+          "stopS": 50.61731184010796,
+          "phase": 1
+        },
+        {
+          "edge": "f171c6b2-cc3_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.777656833569852,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:ace17fbd-9bf",
+      "tile": "-16_-5",
+      "p": [
+        -15326.9,
+        -4260.8
+      ],
+      "sourceIds": [
+        "osm:n12290574119"
+      ],
+      "phaseCount": 2,
+      "offset": 48.22,
+      "approaches": [
+        {
+          "edge": "b78e1f3e-145_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 278.5017911620673,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n12290574118",
+      "tile": "-16_-5",
+      "p": [
+        -15294.377,
+        -4307.889
+      ],
+      "sourceIds": [
+        "osm:n12290574118"
+      ],
+      "phaseCount": 2,
+      "offset": 99.34,
+      "approaches": [
+        {
+          "edge": "f171c6b2-cc3_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 44.80022967289284,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n12290574120",
+      "tile": "-16_-5",
+      "p": [
+        -15265.593,
+        -4266.187
+      ],
+      "sourceIds": [
+        "osm:n12290574120"
+      ],
+      "phaseCount": 2,
+      "offset": 20.45,
+      "approaches": [
+        {
+          "edge": "a1a9820b-b0e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 106.08843739650499,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:2ee47132-9e3",
+      "tile": "1_6",
+      "p": [
+        1104.7,
+        6929.5
+      ],
+      "sourceIds": [
+        "osm:n12319493479"
+      ],
+      "phaseCount": 2,
+      "offset": 62.74,
+      "approaches": [
+        {
+          "edge": "17e5e7b9-113_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 4.256195484232551,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:df3456f5-902",
+      "tile": "1_6",
+      "p": [
+        1111.8,
+        6956.3
+      ],
+      "sourceIds": [
+        "osm:n3157569988"
+      ],
+      "phaseCount": 2,
+      "offset": 29.3,
+      "approaches": [
+        {
+          "edge": "36912ed7-299_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 11.091254740996316,
+          "phase": 0
+        },
+        {
+          "edge": "b0c08a57-888_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 101.80752829832876,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:14ed76f1-521",
+      "tile": "-4_-16",
+      "p": [
+        -3148.7,
+        -15531.2
+      ],
+      "sourceIds": [
+        "osm:n1242824457"
+      ],
+      "phaseCount": 2,
+      "offset": 77.58,
+      "approaches": [
+        {
+          "edge": "c5f524b2-740_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 9.723339259879088,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:aa881f74-03d",
+      "tile": "-3_5",
+      "p": [
+        -2482.2,
+        5690.4
+      ],
+      "sourceIds": [
+        "osm:n12565821431"
+      ],
+      "phaseCount": 2,
+      "offset": 97.21,
+      "approaches": [
+        {
+          "edge": "26c28897-a36_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 8.204437823519994,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:df51d345-028",
+      "tile": "-1_4",
+      "p": [
+        -570.7,
+        4951.3
+      ],
+      "sourceIds": [
+        "osm:n1813453230"
+      ],
+      "phaseCount": 2,
+      "offset": 5.6,
+      "approaches": [
+        {
+          "edge": "ba269413-eb1_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 39.70009291311442,
+          "phase": 1
+        },
+        {
+          "edge": "51d70e8b-536_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.2633218023665505,
+          "phase": 0
+        },
+        {
+          "edge": "a647a4ed-edd_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 23.22002834867461,
+          "phase": 0
+        },
+        {
+          "edge": "54f71bec-fbe_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 24.67305174733466,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:6801725a-a79",
+      "tile": "-3_4",
+      "p": [
+        -2176.9,
+        4152.2
+      ],
+      "sourceIds": [
+        "osm:n3218416041"
+      ],
+      "phaseCount": 2,
+      "offset": 56.53,
+      "approaches": [
+        {
+          "edge": "c3c18e23-488_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 11.163550854886246,
+          "phase": 1
+        },
+        {
+          "edge": "f04cf639-d9f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 27.030851734028982,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:923549ac-3a3+a265bb49-682",
+      "tile": "-2_3",
+      "p": [
+        -1723.25,
+        3439.1
+      ],
+      "sourceIds": [
+        "osm:n4342672717",
+        "osm:n4342672720"
+      ],
+      "phaseCount": 2,
+      "offset": 81.5,
+      "approaches": [
+        {
+          "edge": "3d0dfc36-3fd_0",
+          "dir": 1,
+          "y": 1.2947664649139419,
+          "stopS": 4.5793012567421245,
+          "phase": 1
+        },
+        {
+          "edge": "2d278927-9c4_0",
+          "dir": 1,
+          "y": 0.5976148095783091,
+          "stopS": 21.565405029411505,
+          "phase": 0
+        },
+        {
+          "edge": "cae282f6-1d0_1",
+          "dir": 1,
+          "y": 0.29968316255254296,
+          "stopS": 21.29172414630729,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:3a1b5e5d-9d8",
+      "tile": "7_7",
+      "p": [
+        7785.1,
+        7576.6
+      ],
+      "sourceIds": [
+        "osm:n1324659264"
+      ],
+      "phaseCount": 2,
+      "offset": 8.67,
+      "approaches": [
+        {
+          "edge": "e13902e3-44c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 26.227084826528884,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:44ae7200-6d2+ff14d4ff-7cd",
+      "tile": "6_8",
+      "p": [
+        6132.1,
+        8546.849999999999
+      ],
+      "sourceIds": [
+        "osm:n2249699280",
+        "osm:n3169858322"
+      ],
+      "phaseCount": 2,
+      "offset": 73.66,
+      "approaches": [
+        {
+          "edge": "3b177734-739_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 126.08404881432887,
+          "phase": 0
+        },
+        {
+          "edge": "91c0043c-4b2_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 154.81729854701456,
+          "phase": 1
+        },
+        {
+          "edge": "8634001e-851_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 225.35606679626093,
+          "phase": 0
+        },
+        {
+          "edge": "a8845f68-743_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 20.671533879790168,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:1507500e-799",
+      "tile": "8_7",
+      "p": [
+        8210,
+        7709.2
+      ],
+      "sourceIds": [
+        "osm:n307061321"
+      ],
+      "phaseCount": 2,
+      "offset": 29.62,
+      "approaches": [
+        {
+          "edge": "dd04a9e6-dc3_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 17.495343690663677,
+          "phase": 0
+        },
+        {
+          "edge": "9225e93e-dbc_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 9.449199963794687,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:5c93b7c4-d0a",
+      "tile": "8_7",
+      "p": [
+        8811.7,
+        7769.2
+      ],
+      "sourceIds": [
+        "osm:n3207327888"
+      ],
+      "phaseCount": 2,
+      "offset": 55.55,
+      "approaches": [
+        {
+          "edge": "54fb8cc2-692_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 8.071292030627422,
+          "phase": 0
+        },
+        {
+          "edge": "10d481c0-ebc_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.400624969485607,
+          "phase": 1
+        },
+        {
+          "edge": "b1fd675d-fd2_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 9.502946911353463,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:0157f359-ce3+b4e934b9-444+bf0818f6-f4a+e8665e39-f20",
+      "tile": "4_-9",
+      "p": [
+        4248.325,
+        -8359.6
+      ],
+      "sourceIds": [
+        "osm:n13371439861",
+        "osm:n13371439862",
+        "osm:n245640873",
+        "osm:n2697144011"
+      ],
+      "phaseCount": 2,
+      "offset": 62.16,
+      "approaches": [
+        {
+          "edge": "74f6823f-d26_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 16.577691493932278,
+          "phase": 0
+        },
+        {
+          "edge": "7bdd7294-6e0_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 106.61662196157258,
+          "phase": 1
+        },
+        {
+          "edge": "ba0630f0-d5c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 36.04336681873854,
+          "phase": 1
+        },
+        {
+          "edge": "4572c4bc-084_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 34.26610131056418,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:a5368f14-dbd+e0758e86-68c",
+      "tile": "5_-9",
+      "p": [
+        5574,
+        -8611.15
+      ],
+      "sourceIds": [
+        "osm:n2697143957",
+        "osm:n2697143964"
+      ],
+      "phaseCount": 2,
+      "offset": 92.13,
+      "approaches": [
+        {
+          "edge": "886256d0-7bf_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 31.49043003255708,
+          "phase": 0
+        },
+        {
+          "edge": "5c1004b6-e57_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 13.65123372669924,
+          "phase": 1
+        },
+        {
+          "edge": "2e520aa7-9ed_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 9.8012986465424,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:4b546df6-ae2+b457446a-a00+d82eb1bd-e2b",
+      "tile": "-15_-11",
+      "p": [
+        -14339.666666666666,
+        -10005.2
+      ],
+      "sourceIds": [
+        "osm:n1344080569",
+        "osm:n3164269170",
+        "osm:n7867739883"
+      ],
+      "phaseCount": 2,
+      "offset": 33.4,
+      "approaches": [
+        {
+          "edge": "24fe818d-4c7_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 64.359988295392,
+          "phase": 0
+        },
+        {
+          "edge": "a853259b-c91_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 96.13286053872659,
+          "phase": 0
+        },
+        {
+          "edge": "31d7d6e7-21d_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 105.79876812448627,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:28a351a1-0ae",
+      "tile": "-15_-2",
+      "p": [
+        -14631,
+        -1340.7
+      ],
+      "sourceIds": [
+        "osm:n1700617401"
+      ],
+      "phaseCount": 2,
+      "offset": 11.16,
+      "approaches": [
+        {
+          "edge": "aeeaa674-b5d_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 53.52672830454976,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:8a3fda1e-487",
+      "tile": "-15_-2",
+      "p": [
+        -14727.6,
+        -1385.8
+      ],
+      "sourceIds": [
+        "osm:n1700616740"
+      ],
+      "phaseCount": 2,
+      "offset": 64.46,
+      "approaches": [
+        {
+          "edge": "dbd45b22-714_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 77.38078682992061,
+          "phase": 1
+        },
+        {
+          "edge": "93a15b49-a8d_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 29.364665074902376,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:62663d96-c90",
+      "tile": "-13_-3",
+      "p": [
+        -12952.2,
+        -2526.6
+      ],
+      "sourceIds": [
+        "osm:n9684884112"
+      ],
+      "phaseCount": 2,
+      "offset": 47.44,
+      "approaches": [
+        {
+          "edge": "1ee85ed3-404_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 25.790762134037607,
+          "phase": 1
+        },
+        {
+          "edge": "9225ac72-749_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 37.92994485704511,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:4a5baf39-5db+7f7fdfda-3e9",
+      "tile": "-6_-4",
+      "p": [
+        -5590.1,
+        -3361.8
+      ],
+      "sourceIds": [
+        "osm:n1752932125",
+        "osm:n3204089052",
+        "osm:n332444631"
+      ],
+      "phaseCount": 2,
+      "offset": 24.72,
+      "approaches": [
+        {
+          "edge": "e9d33beb-c10_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 56.12541311541803,
+          "phase": 0
+        },
+        {
+          "edge": "b0b1e178-264_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 75.21480449530848,
+          "phase": 0
+        },
+        {
+          "edge": "cf32a7af-9b3_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 16.868444071024474,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:61112260-d80",
+      "tile": "-6_-4",
+      "p": [
+        -5126.1,
+        -3894.7
+      ],
+      "sourceIds": [
+        "osm:n2403853099"
+      ],
+      "phaseCount": 2,
+      "offset": 86.41,
+      "approaches": [
+        {
+          "edge": "f03c2515-038_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 23.70723870312252,
+          "phase": 1
+        },
+        {
+          "edge": "412fb11b-214_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 2.8359125515430454,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:655b68a8-071+dea04d72-9c9",
+      "tile": "-6_-4",
+      "p": [
+        -5892.1,
+        -3996.6000000000004
+      ],
+      "sourceIds": [
+        "osm:n1752932126",
+        "osm:n3195149162"
+      ],
+      "phaseCount": 2,
+      "offset": 29.43,
+      "approaches": [
+        {
+          "edge": "29ab6b6c-812_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 12.179370474811925,
+          "phase": 1
+        },
+        {
+          "edge": "e8804d88-1e5_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 299.3501785033501,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:d71d970d-13f",
+      "tile": "-6_-4",
+      "p": [
+        -5407.1,
+        -3940.2
+      ],
+      "sourceIds": [
+        "osm:n2400182812"
+      ],
+      "phaseCount": 2,
+      "offset": 72.02,
+      "approaches": [
+        {
+          "edge": "74c6a2ce-71a_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 3.085773808949954,
+          "phase": 1
+        },
+        {
+          "edge": "f89f6b84-b6a_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 183.9315427333199,
+          "phase": 0
+        },
+        {
+          "edge": "49e5c06b-e3b_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 58.17227028064306,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:44cc7065-20e+5c3db355-099+ad97cb25-854",
+      "tile": "-6_-5",
+      "p": [
+        -5882.333333333333,
+        -4012.7333333333336
+      ],
+      "sourceIds": [
+        "osm:n3195143524",
+        "osm:n3208546295",
+        "osm:n3208546296"
+      ],
+      "phaseCount": 2,
+      "offset": 69.81,
+      "approaches": [
+        {
+          "edge": "a4766a79-95d_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 15.740139493908924,
+          "phase": 1
+        },
+        {
+          "edge": "a2114000-27f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 76.89403026320343,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:ba9b7ec0-3b9",
+      "tile": "-5_-4",
+      "p": [
+        -4354.5,
+        -3197.6
+      ],
+      "sourceIds": [
+        "osm:n3202801375"
+      ],
+      "phaseCount": 2,
+      "offset": 66.97,
+      "approaches": [
+        {
+          "edge": "e29d311d-5db_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 5.259505680194767,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n3202801374",
+      "tile": "-5_-4",
+      "p": [
+        -4371.917,
+        -3196.005
+      ],
+      "sourceIds": [
+        "osm:n3202801374"
+      ],
+      "phaseCount": 2,
+      "offset": 49.14,
+      "approaches": [
+        {
+          "edge": "d813bc28-5e4_0",
+          "dir": 1,
+          "y": 6.8,
+          "stopS": 326.952831422899,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:3b6c6f27-e96",
+      "tile": "-4_-1",
+      "p": [
+        -3842.1,
+        -790.2
+      ],
+      "sourceIds": [
+        "osm:n1762349856"
+      ],
+      "phaseCount": 2,
+      "offset": 57.53,
+      "approaches": [
+        {
+          "edge": "42d430a6-55f_0",
+          "dir": 1,
+          "y": 0.6860080914780231,
+          "stopS": 58.30700600370916,
+          "phase": 1
+        },
+        {
+          "edge": "f40aa38a-d87_0",
+          "dir": 1,
+          "y": 0.923133840922265,
+          "stopS": 28.59065852721959,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:fdcecf95-58a",
+      "tile": "-4_-1",
+      "p": [
+        -3901.6,
+        -781.9
+      ],
+      "sourceIds": [
+        "osm:n2195239132"
+      ],
+      "phaseCount": 2,
+      "offset": 10.09,
+      "approaches": [
+        {
+          "edge": "6f0bb040-74e_0",
+          "dir": 1,
+          "y": 1.0915874382830035,
+          "stopS": 15.822814771439091,
+          "phase": 1
+        },
+        {
+          "edge": "f0bcf56f-2d6_0",
+          "dir": 1,
+          "y": 1.0719230034669545,
+          "stopS": 3.649657518178847,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n1762335427",
+      "tile": "-4_-1",
+      "p": [
+        -3877.444,
+        -808.826
+      ],
+      "sourceIds": [
+        "osm:n1762335427"
+      ],
+      "phaseCount": 2,
+      "offset": 28.82,
+      "approaches": [
+        {
+          "edge": "0c1385c9-91e_0",
+          "dir": 1,
+          "y": 0.6107984704702082,
+          "stopS": 39.397414228468115,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:05dcb4c4-b3a",
+      "tile": "-5_-3",
+      "p": [
+        -4358.1,
+        -2519.6
+      ],
+      "sourceIds": [
+        "osm:n4315742808"
+      ],
+      "phaseCount": 2,
+      "offset": 77.53,
+      "approaches": [
+        {
+          "edge": "cf72c019-5de_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 20.595339504785848,
+          "phase": 0
+        },
+        {
+          "edge": "74aadcc2-448_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 18.933637159100655,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:0fb31a78-1bc+59b7eb08-0b2+d5346766-7fa",
+      "tile": "-5_-3",
+      "p": [
+        -4694.833333333333,
+        -2266.2
+      ],
+      "sourceIds": [
+        "osm:n2590027226",
+        "osm:n2590027230",
+        "osm:n2590027233"
+      ],
+      "phaseCount": 2,
+      "offset": 43.65,
+      "approaches": [
+        {
+          "edge": "0c2d8eff-55e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 32.851320076405514,
+          "phase": 0
+        },
+        {
+          "edge": "b1f83ae0-727_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 49.73452785495191,
+          "phase": 1
+        },
+        {
+          "edge": "5229e9e8-6da_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 18.76497641054181,
+          "phase": 0
+        },
+        {
+          "edge": "20728a87-cad_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 10.609146996813774,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:3180a8da-1a0",
+      "tile": "-5_-3",
+      "p": [
+        -4371.2,
+        -2486.5
+      ],
+      "sourceIds": [
+        "osm:n4315742797"
+      ],
+      "phaseCount": 2,
+      "offset": 71.52,
+      "approaches": [
+        {
+          "edge": "c1c510fc-37b_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 3.966256034233231,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:d876a7f1-c64",
+      "tile": "-5_-3",
+      "p": [
+        -4707.8,
+        -2302.4
+      ],
+      "sourceIds": [
+        "osm:n289510346"
+      ],
+      "phaseCount": 2,
+      "offset": 2.91,
+      "approaches": [
+        {
+          "edge": "74ef204b-a45_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 59.17078168015756,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n4314329429",
+      "tile": "-2_-5",
+      "p": [
+        -1002.791,
+        -4116.512
+      ],
+      "sourceIds": [
+        "osm:n4314329429"
+      ],
+      "phaseCount": 2,
+      "offset": 66.83,
+      "approaches": [
+        {
+          "edge": "a65fd0b9-2bf_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 33.401197938859134,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:159b609e-499+6e3bb1ec-fd4+7eb559bf-3f7+8576322e-197",
+      "tile": "-1_-5",
+      "p": [
+        -48.425,
+        -4378.65
+      ],
+      "sourceIds": [
+        "osm:n3531319885",
+        "osm:n3531319886",
+        "osm:n3531319887",
+        "osm:n3531319889"
+      ],
+      "phaseCount": 2,
+      "offset": 98.16,
+      "approaches": [
+        {
+          "edge": "c3e3f8cf-f95_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 330.71936507230396,
+          "phase": 0
+        },
+        {
+          "edge": "9333f3cc-84a_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 120.99554156931981,
+          "phase": 1
+        },
+        {
+          "edge": "4be651f2-ced_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 256.86769953338046,
+          "phase": 0
+        },
+        {
+          "edge": "5826dc9e-836_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 39.201726576594936,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:38408705-641+bdca26a1-b7d",
+      "tile": "-1_-5",
+      "p": [
+        -95.15,
+        -4072
+      ],
+      "sourceIds": [
+        "osm:n1779488041",
+        "osm:n1779488045"
+      ],
+      "phaseCount": 2,
+      "offset": 24.01,
+      "approaches": [
+        {
+          "edge": "7feb53d3-23e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.362546659946794,
+          "phase": 0
+        },
+        {
+          "edge": "3d4471db-471_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 164.45226085906845,
+          "phase": 1
+        },
+        {
+          "edge": "df017ddc-a11_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 36.619352905437,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:3e1fbf07-6b4",
+      "tile": "-1_-5",
+      "p": [
+        -965.3,
+        -4119.3
+      ],
+      "sourceIds": [
+        "osm:n1947738024"
+      ],
+      "phaseCount": 2,
+      "offset": 16.02,
+      "approaches": [
+        {
+          "edge": "b0e01beb-bf3_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 199.32480934717393,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:46a94f1c-ff2+53ebd6a2-94c+b97afcdb-5c4",
+      "tile": "-1_-5",
+      "p": [
+        -972.2000000000002,
+        -4091.533333333333
+      ],
+      "sourceIds": [
+        "osm:n1779485068",
+        "osm:n1779485069",
+        "osm:n2257794896"
+      ],
+      "phaseCount": 2,
+      "offset": 83.88,
+      "approaches": [
+        {
+          "edge": "c73f90a1-e3e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 14.511287386978971,
+          "phase": 1
+        },
+        {
+          "edge": "56d1f9d5-891_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 74.6130664505442,
+          "phase": 0
+        },
+        {
+          "edge": "be1f5a1d-85f_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 81.44365214298242,
+          "phase": 1
+        },
+        {
+          "edge": "9ecdbfae-b24_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 52.50422115839959,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:8e686875-557",
+      "tile": "-1_-5",
+      "p": [
+        -33.3,
+        -4426.8
+      ],
+      "sourceIds": [
+        "osm:n3531319888"
+      ],
+      "phaseCount": 2,
+      "offset": 40.28,
+      "approaches": [
+        {
+          "edge": "4e1831b9-2a4_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 93.37482214381511,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:a58da327-093+ad919d16-ae6",
+      "tile": "-1_-4",
+      "p": [
+        -129.75,
+        -3775.45
+      ],
+      "sourceIds": [
+        "osm:n308796014",
+        "osm:n3147096431"
+      ],
+      "phaseCount": 2,
+      "offset": 34.14,
+      "approaches": [
+        {
+          "edge": "e9da2a80-48e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 20.47987868892026,
+          "phase": 1
+        },
+        {
+          "edge": "c5d813b6-abc_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.402312082365243,
+          "phase": 0
+        },
+        {
+          "edge": "7c2e5125-ecc_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 19.031353273964758,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:cacf7eaf-441+e26032f4-823",
+      "tile": "-1_-4",
+      "p": [
+        -964.2,
+        -3936.3
+      ],
+      "sourceIds": [
+        "osm:n289907074",
+        "osm:n3154080390"
+      ],
+      "phaseCount": 2,
+      "offset": 95.7,
+      "approaches": [
+        {
+          "edge": "b81d6f02-a4c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.3670715403551235,
+          "phase": 1
+        },
+        {
+          "edge": "1ae628c8-5bd_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 22.23637205907023,
+          "phase": 0
+        },
+        {
+          "edge": "f38e5e71-c38_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 69.90415034224824,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:0c5dba17-e2e+e39a6af2-abc",
+      "tile": "-2_-6",
+      "p": [
+        -1231.15,
+        -5591.75
+      ],
+      "sourceIds": [
+        "osm:n289908642",
+        "osm:n3148642284"
+      ],
+      "phaseCount": 2,
+      "offset": 68.26,
+      "approaches": [
+        {
+          "edge": "c449f659-e0b_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 21.456587375330816,
+          "phase": 0
+        },
+        {
+          "edge": "a41a6d95-34e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 78.69584701987638,
+          "phase": 1
+        },
+        {
+          "edge": "33837c17-fb8_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 8.401928350087257,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:d73f45ff-143",
+      "tile": "-3_-5",
+      "p": [
+        -2030.4,
+        -4109
+      ],
+      "sourceIds": [
+        "osm:n308960233"
+      ],
+      "phaseCount": 2,
+      "offset": 63.97,
+      "approaches": [
+        {
+          "edge": "6cbe8538-ae3_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 17.035929979501564,
+          "phase": 0
+        },
+        {
+          "edge": "0bfc5ceb-b4d_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 113.47233480338589,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:2782c3c6-042",
+      "tile": "0_-5",
+      "p": [
+        178.1,
+        -4072
+      ],
+      "sourceIds": [
+        "osm:n4317346501"
+      ],
+      "phaseCount": 2,
+      "offset": 60.16,
+      "approaches": [
+        {
+          "edge": "16eb2ea3-1ed_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 50.42038299238681,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:734ddf2b-f8b",
+      "tile": "0_-5",
+      "p": [
+        990.4,
+        -4022.4
+      ],
+      "sourceIds": [
+        "osm:n1779502570"
+      ],
+      "phaseCount": 2,
+      "offset": 93.52,
+      "approaches": [
+        {
+          "edge": "53978ae7-b79_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 8.469356528095751,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:c8481d96-18a",
+      "tile": "0_-5",
+      "p": [
+        221.7,
+        -4050.4
+      ],
+      "sourceIds": [
+        "osm:n1779495929"
+      ],
+      "phaseCount": 2,
+      "offset": 99.65,
+      "approaches": [
+        {
+          "edge": "8bf9bc68-649_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 60.344969893029344,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:fa764278-e97",
+      "tile": "0_-5",
+      "p": [
+        206.8,
+        -4089.4
+      ],
+      "sourceIds": [
+        "osm:n308960178",
+        "osm:n4317346502"
+      ],
+      "phaseCount": 2,
+      "offset": 98.34,
+      "approaches": [
+        {
+          "edge": "9a95429d-cb7_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 116.03225021867712,
+          "phase": 0
+        },
+        {
+          "edge": "12959dac-3cf_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 77.31949552566445,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n4317346500",
+      "tile": "0_-5",
+      "p": [
+        190.672,
+        -4036.484
+      ],
+      "sourceIds": [
+        "osm:n4317346500"
+      ],
+      "phaseCount": 2,
+      "offset": 71.05,
+      "approaches": [
+        {
+          "edge": "b56c0366-b9c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 37.20115269303469,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:325b12ce-ead",
+      "tile": "0_-4",
+      "p": [
+        953.6,
+        -3809
+      ],
+      "sourceIds": [
+        "osm:n3207187875"
+      ],
+      "phaseCount": 2,
+      "offset": 66.03,
+      "approaches": [
+        {
+          "edge": "573aa30a-f6c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 161.14554451918679,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:5a1247fc-3de",
+      "tile": "0_-4",
+      "p": [
+        926.3,
+        -3824.2
+      ],
+      "sourceIds": [
+        "osm:n1779503704"
+      ],
+      "phaseCount": 2,
+      "offset": 58.45,
+      "approaches": [
+        {
+          "edge": "6cfac316-aaa_4",
+          "dir": 1,
+          "y": 0,
+          "stopS": 69.46780624231009,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:71574796-50c",
+      "tile": "0_-4",
+      "p": [
+        930.4,
+        -3804.8
+      ],
+      "sourceIds": [
+        "osm:n3205654235"
+      ],
+      "phaseCount": 2,
+      "offset": 80.56,
+      "approaches": [
+        {
+          "edge": "71cf1210-09e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 8.062381198051586,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:88a0ee19-c7c",
+      "tile": "0_-4",
+      "p": [
+        946.2,
+        -3821.4
+      ],
+      "sourceIds": [
+        "osm:n3166108201"
+      ],
+      "phaseCount": 2,
+      "offset": 43.22,
+      "approaches": [
+        {
+          "edge": "519fba95-e3d_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 47.92831183679512,
+          "phase": 1
+        },
+        {
+          "edge": "61aed8e0-198_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.84762732630803,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:1825edde-bbf",
+      "tile": "1_-4",
+      "p": [
+        1674.5,
+        -3141.3
+      ],
+      "sourceIds": [
+        "osm:n1779544554"
+      ],
+      "phaseCount": 2,
+      "offset": 33.76,
+      "approaches": [
+        {
+          "edge": "d46acb9c-8b5_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 8.827343881372329,
+          "phase": 0
+        },
+        {
+          "edge": "8c1a8114-76e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 231.26121141713193,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:aa8ee2bc-5d6",
+      "tile": "1_-4",
+      "p": [
+        1696.5,
+        -3132.6
+      ],
+      "sourceIds": [
+        "osm:n2241238497"
+      ],
+      "phaseCount": 2,
+      "offset": 19.2,
+      "approaches": [
+        {
+          "edge": "fc2c430b-b68_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 143.87165776198927,
+          "phase": 1
+        },
+        {
+          "edge": "c469ea5c-eab_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 124.85795162251588,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:79496a85-09b",
+      "tile": "2_-4",
+      "p": [
+        2351.2,
+        -3302.4
+      ],
+      "sourceIds": [
+        "osm:n1779552093"
+      ],
+      "phaseCount": 2,
+      "offset": 48.98,
+      "approaches": [
+        {
+          "edge": "40c0df94-a57_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 18.468980756130648,
+          "phase": 0
+        },
+        {
+          "edge": "1066601f-fb9_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 46.8671247117547,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:ca001b36-cde",
+      "tile": "2_-4",
+      "p": [
+        2370.4,
+        -3304.2
+      ],
+      "sourceIds": [
+        "osm:n1779552095"
+      ],
+      "phaseCount": 2,
+      "offset": 34.6,
+      "approaches": [
+        {
+          "edge": "3d81e0b4-391_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 43.853152830781255,
+          "phase": 1
+        },
+        {
+          "edge": "f39902c5-f21_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 14.883090953620439,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:75689362-d0d",
+      "tile": "4_-2",
+      "p": [
+        4778.9,
+        -1410.8
+      ],
+      "sourceIds": [
+        "osm:n1779592744"
+      ],
+      "phaseCount": 2,
+      "offset": 46.46,
+      "approaches": [
+        {
+          "edge": "751fe095-4cb_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 16.1808289090151,
+          "phase": 1
+        },
+        {
+          "edge": "39391ff4-202_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.620694827584242,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:0b91b2dd-256+b77179a2-740+c4ad50b9-cbd",
+      "tile": "3_-3",
+      "p": [
+        3653.7666666666664,
+        -2266.9666666666667
+      ],
+      "sourceIds": [
+        "osm:n308613838",
+        "osm:n308613843",
+        "osm:n7732806133"
+      ],
+      "phaseCount": 2,
+      "offset": 93.15,
+      "approaches": [
+        {
+          "edge": "410a170c-94e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 17.411440765579187,
+          "phase": 1
+        },
+        {
+          "edge": "8edaf9bc-40f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 24.33180176376307,
+          "phase": 0
+        },
+        {
+          "edge": "f69156c3-650_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 18.928330656965876,
+          "phase": 1
+        },
+        {
+          "edge": "f7b22e11-c5e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 18.961539623518668,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:11b42a62-46f+3190bed5-038+ae9ea2ed-f3e",
+      "tile": "-7_-3",
+      "p": [
+        -6711.766666666666,
+        -2074.2000000000003
+      ],
+      "sourceIds": [
+        "osm:n3146872997",
+        "osm:n3146872998",
+        "osm:n5985024322"
+      ],
+      "phaseCount": 2,
+      "offset": 27.69,
+      "approaches": [
+        {
+          "edge": "e10aa9f8-1da_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 109.6955760086943,
+          "phase": 0
+        },
+        {
+          "edge": "91359485-093_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 56.692562853550676,
+          "phase": 1
+        },
+        {
+          "edge": "ca5f5cc2-c78_10",
+          "dir": 1,
+          "y": 0,
+          "stopS": 125.87310489688397,
+          "phase": 0
+        },
+        {
+          "edge": "6204bf6f-f40_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 56.27141068989913,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:71575957-dc0+b0921697-f1b+bec39dcb-5e4+d1f636c8-4bf",
+      "tile": "-7_-3",
+      "p": [
+        -6050.475,
+        -2309.55
+      ],
+      "sourceIds": [
+        "osm:n1883413885",
+        "osm:n1883413896",
+        "osm:n1948596012",
+        "osm:n5985024326"
+      ],
+      "phaseCount": 2,
+      "offset": 4.58,
+      "approaches": [
+        {
+          "edge": "f7a8e92c-6fa_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 7.399729724794101,
+          "phase": 0
+        },
+        {
+          "edge": "fe7b0eaa-b51_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 166.91151957797308,
+          "phase": 1
+        },
+        {
+          "edge": "63e14560-cc7_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 154.88700872577652,
+          "phase": 0
+        },
+        {
+          "edge": "b8ac07c7-21b_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 187.1884372230538,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:509cbec9-b96+7d8b85f1-841+cc273786-0e1+f502c045-1e2",
+      "tile": "-9_-3",
+      "p": [
+        -8616.2,
+        -2249.475
+      ],
+      "sourceIds": [
+        "osm:n3146873008",
+        "osm:n3167945963",
+        "osm:n3178328693",
+        "osm:n3178328694"
+      ],
+      "phaseCount": 2,
+      "offset": 92.81,
+      "approaches": [
+        {
+          "edge": "e758db81-c7f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 104.01160612384746,
+          "phase": 0
+        },
+        {
+          "edge": "fb133b76-a69_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 259.4890789374161,
+          "phase": 0
+        },
+        {
+          "edge": "beee93e9-877_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 39.90539179577407,
+          "phase": 0
+        },
+        {
+          "edge": "fdb83f8e-dea_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 339.23262083933764,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:30fc8823-937+3841a9e3-748",
+      "tile": "-9_-2",
+      "p": [
+        -8925.9,
+        -1422.9499999999998
+      ],
+      "sourceIds": [
+        "osm:n3195069213",
+        "osm:n3216931270"
+      ],
+      "phaseCount": 2,
+      "offset": 48.05,
+      "approaches": [
+        {
+          "edge": "8afd4f3f-117_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 367.8946497845528,
+          "phase": 0
+        },
+        {
+          "edge": "93536340-528_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 7.4757207010429125,
+          "phase": 0
+        },
+        {
+          "edge": "9389150d-388_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 111.2083691779822,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:67c61acb-4b5+9cf5a28a-20b",
+      "tile": "-8_-2",
+      "p": [
+        -7451.4,
+        -1850.35
+      ],
+      "sourceIds": [
+        "osm:n5985024306",
+        "osm:n5985024312",
+        "osm:n817353935"
+      ],
+      "phaseCount": 2,
+      "offset": 68.25,
+      "approaches": [
+        {
+          "edge": "e8cb393c-f5e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 12.670811146115113,
+          "phase": 0
+        },
+        {
+          "edge": "69c31e14-983_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 25.403519159768845,
+          "phase": 1
+        },
+        {
+          "edge": "c80b24ef-839_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 12.059364213247743,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:591f701e-2bc+bbb9bcb8-49e",
+      "tile": "1_-10",
+      "p": [
+        1701,
+        -9672
+      ],
+      "sourceIds": [
+        "osm:n1947502723",
+        "osm:n5491724545"
+      ],
+      "phaseCount": 2,
+      "offset": 32.73,
+      "approaches": [
+        {
+          "edge": "c7e48f65-ce2_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 19.739923478801856,
+          "phase": 0
+        },
+        {
+          "edge": "6b329a35-e7e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 19.75335799857959,
+          "phase": 0
+        },
+        {
+          "edge": "22854a75-284_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 23.090863343133883,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:67d91e31-a32",
+      "tile": "2_-11",
+      "p": [
+        2717.7,
+        -10256
+      ],
+      "sourceIds": [
+        "osm:n662740753"
+      ],
+      "phaseCount": 2,
+      "offset": 57.8,
+      "approaches": [
+        {
+          "edge": "d044aac1-c54_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 145.2352769351333,
+          "phase": 1
+        },
+        {
+          "edge": "b1e2e439-f8d_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 103.62632989939688,
+          "phase": 1
+        },
+        {
+          "edge": "aa0ccf05-9d2_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 408.0325591606736,
+          "phase": 0
+        },
+        {
+          "edge": "32f1c772-9c6_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 256.14762947639343,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:5735d54c-91c+f820bb82-1d4",
+      "tile": "1_-9",
+      "p": [
+        1580.05,
+        -8672.3
+      ],
+      "sourceIds": [
+        "osm:n1947511967",
+        "osm:n976475914"
+      ],
+      "phaseCount": 2,
+      "offset": 51.82,
+      "approaches": [
+        {
+          "edge": "a53cb5c4-0f9_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 44.38949222687128,
+          "phase": 1
+        },
+        {
+          "edge": "509dce67-45b_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 7.153097231269393,
+          "phase": 0
+        },
+        {
+          "edge": "a9daeca1-f2d_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 388.35021694665755,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:827a3bb9-e0e+c487ed71-4c2",
+      "tile": "-11_-1",
+      "p": [
+        -10865.5,
+        -856.95
+      ],
+      "sourceIds": [
+        "osm:n2177264397",
+        "osm:n3224407314"
+      ],
+      "phaseCount": 3,
+      "offset": 43.88,
+      "approaches": [
+        {
+          "edge": "bded152d-352_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 93.98283056903261,
+          "phase": 1
+        },
+        {
+          "edge": "a2ed42a0-9b5_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 149.62328996173287,
+          "phase": 0
+        },
+        {
+          "edge": "c5a3a886-d6b_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 18.9268751121101,
+          "phase": 2
+        },
+        {
+          "edge": "da280868-aa2_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 9.664471015011472,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:d1159acf-a9b+dc02f3bb-8ac",
+      "tile": "-10_-2",
+      "p": [
+        -9057.05,
+        -1846.25
+      ],
+      "sourceIds": [
+        "osm:n3167945583",
+        "osm:n3167945584"
+      ],
+      "phaseCount": 2,
+      "offset": 43.58,
+      "approaches": [
+        {
+          "edge": "09050c20-ca3_7",
+          "dir": 1,
+          "y": 0,
+          "stopS": 8.092099531559473,
+          "phase": 1
+        },
+        {
+          "edge": "d7931888-874_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 6.391901125643307,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:53806b55-a44",
+      "tile": "-8_1",
+      "p": [
+        -7305.9,
+        1124.3
+      ],
+      "sourceIds": [
+        "osm:n308528048"
+      ],
+      "phaseCount": 2,
+      "offset": 94.01,
+      "approaches": [
+        {
+          "edge": "49c3d8ff-c2f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 8.054662413030563,
+          "phase": 1
+        },
+        {
+          "edge": "9a6f4989-c80_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 23.53632399820322,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:15ffc532-ca4",
+      "tile": "-7_1",
+      "p": [
+        -6931.8,
+        1166.9
+      ],
+      "sourceIds": [
+        "osm:n2177264461"
+      ],
+      "phaseCount": 2,
+      "offset": 44.03,
+      "approaches": [
+        {
+          "edge": "2a612304-95f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 88.05091083054137,
+          "phase": 0
+        },
+        {
+          "edge": "366ab210-d53_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 43.1859377392892,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n3663143094",
+      "tile": "-7_1",
+      "p": [
+        -6948.251,
+        1142.098
+      ],
+      "sourceIds": [
+        "osm:n3663143094"
+      ],
+      "phaseCount": 2,
+      "offset": 2.99,
+      "approaches": [
+        {
+          "edge": "e48faeaf-68a_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 290.2924507516674,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:06e6032d-264",
+      "tile": "-8_2",
+      "p": [
+        -7106.7,
+        2077.8
+      ],
+      "sourceIds": [
+        "osm:n3191024317"
+      ],
+      "phaseCount": 2,
+      "offset": 49.74,
+      "approaches": [
+        {
+          "edge": "e0a52212-788_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 26.24706093682302,
+          "phase": 1
+        },
+        {
+          "edge": "82eb3a97-a05_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 15.167025638051868,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:6eb613ae-678",
+      "tile": "-8_2",
+      "p": [
+        -7119.1,
+        2036.4
+      ],
+      "sourceIds": [
+        "osm:n3191035769"
+      ],
+      "phaseCount": 2,
+      "offset": 57.5,
+      "approaches": [
+        {
+          "edge": "afa09255-dc0_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 12.283195631509358,
+          "phase": 1
+        },
+        {
+          "edge": "90e7730a-074_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 17.440424698763916,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:3c0b5121-e6d",
+      "tile": "-9_0",
+      "p": [
+        -8570.7,
+        823.6
+      ],
+      "sourceIds": [
+        "osm:n6829353270"
+      ],
+      "phaseCount": 2,
+      "offset": 20.46,
+      "approaches": [
+        {
+          "edge": "774ae870-5f7_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 21.87546991212321,
+          "phase": 1
+        },
+        {
+          "edge": "a5558ab1-8c5_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 94.99897443079075,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:26cef4d5-aba",
+      "tile": "-7_9",
+      "p": [
+        -6886.4,
+        9330.7
+      ],
+      "sourceIds": [
+        "osm:n2478095323"
+      ],
+      "phaseCount": 2,
+      "offset": 27.03,
+      "approaches": [
+        {
+          "edge": "2113bac3-d6a_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 3.4456929636874283,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:4676ac23-fb4",
+      "tile": "-7_9",
+      "p": [
+        -6821.2,
+        9376.9
+      ],
+      "sourceIds": [
+        "osm:n3790371478"
+      ],
+      "phaseCount": 2,
+      "offset": 23.44,
+      "approaches": [
+        {
+          "edge": "f3508a7c-e37_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 67.44457157728657,
+          "phase": 0
+        },
+        {
+          "edge": "13b1214d-165_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 59.16233601490799,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:c238571c-4a0",
+      "tile": "-7_9",
+      "p": [
+        -6852.8,
+        9357
+      ],
+      "sourceIds": [
+        "osm:n4312194294"
+      ],
+      "phaseCount": 2,
+      "offset": 35.99,
+      "approaches": [
+        {
+          "edge": "31669536-8dc_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 91.50752294124129,
+          "phase": 1
+        },
+        {
+          "edge": "0fe81d80-747_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 7.515085002789085,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:fcc1c881-af2",
+      "tile": "-7_9",
+      "p": [
+        -6922.9,
+        9341.6
+      ],
+      "sourceIds": [
+        "osm:n2478095316"
+      ],
+      "phaseCount": 2,
+      "offset": 98.12,
+      "approaches": [
+        {
+          "edge": "e91081d7-52a_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 33.976489169044925,
+          "phase": 0
+        },
+        {
+          "edge": "c398213e-4f4_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 62.301632231452814,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:c7027eb4-162",
+      "tile": "-9_11",
+      "p": [
+        -8145.6,
+        11504.2
+      ],
+      "sourceIds": [
+        "osm:n3168087497"
+      ],
+      "phaseCount": 2,
+      "offset": 12.77,
+      "approaches": [
+        {
+          "edge": "1a79bf66-833_5",
+          "dir": 1,
+          "y": 0,
+          "stopS": 82.58115313513902,
+          "phase": 1
+        },
+        {
+          "edge": "b1cb8db6-dd8_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 98.94212606510936,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:c33b4a2c-e8a",
+      "tile": "6_3",
+      "p": [
+        6527.3,
+        3313.5
+      ],
+      "sourceIds": [
+        "osm:n2591794820",
+        "osm:n2591794831"
+      ],
+      "phaseCount": 2,
+      "offset": 24.79,
+      "approaches": [
+        {
+          "edge": "7b10e6af-193_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 86.40782822454766,
+          "phase": 0
+        },
+        {
+          "edge": "6e854f17-6d5_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 49.70283356463339,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:f393c5b8-548",
+      "tile": "6_3",
+      "p": [
+        6492.7,
+        3314.7
+      ],
+      "sourceIds": [
+        "osm:n2591794829"
+      ],
+      "phaseCount": 2,
+      "offset": 57.9,
+      "approaches": [
+        {
+          "edge": "2b1835f8-df1_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 77.99908200218671,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:8077c95e-db1",
+      "tile": "0_-1",
+      "p": [
+        10.4,
+        -57.2
+      ],
+      "sourceIds": [
+        "osm:n308783133"
+      ],
+      "phaseCount": 2,
+      "offset": 27.41,
+      "approaches": [
+        {
+          "edge": "23a58429-792_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 14.96741717114567,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:d6e6717d-6d7",
+      "tile": "0_-3",
+      "p": [
+        990.3,
+        -2924.4
+      ],
+      "sourceIds": [
+        "osm:n6965064841"
+      ],
+      "phaseCount": 2,
+      "offset": 76.85,
+      "approaches": [
+        {
+          "edge": "aa0713e8-820_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 42.774787147455854,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:ad4c7dbc-0c9",
+      "tile": "1_-3",
+      "p": [
+        1030.8,
+        -2950.2
+      ],
+      "sourceIds": [
+        "osm:n7644477003"
+      ],
+      "phaseCount": 3,
+      "offset": 68.76,
+      "approaches": [
+        {
+          "edge": "d309e20a-71d_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 5.108815909778117,
+          "phase": 2
+        },
+        {
+          "edge": "1fa8c282-9af_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 8.011706296262673,
+          "phase": 1
+        },
+        {
+          "edge": "f38ef145-5c6_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 163.25799690718108,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:fd4eb255-e5c",
+      "tile": "1_-3",
+      "p": [
+        1037.1,
+        -2961.3
+      ],
+      "sourceIds": [
+        "osm:n308795980"
+      ],
+      "phaseCount": 3,
+      "offset": 4.76,
+      "approaches": [
+        {
+          "edge": "7d3b8dd5-20a_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 134.4878381946474,
+          "phase": 2
+        },
+        {
+          "edge": "4c57a6c3-8b6_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 11.107812610657993,
+          "phase": 1
+        },
+        {
+          "edge": "c9c2ce99-8e6_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 2.584879107424541,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:c8cd1d9c-ebd",
+      "tile": "7_-8",
+      "p": [
+        7886.3,
+        -7444.7
+      ],
+      "sourceIds": [
+        "osm:n308933180"
+      ],
+      "phaseCount": 2,
+      "offset": 13.04,
+      "approaches": [
+        {
+          "edge": "21fc13bf-9d1_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 50.20670154399791,
+          "phase": 1
+        },
+        {
+          "edge": "6492354d-311_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.764126221524125,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:e6632633-bcf",
+      "tile": "7_-8",
+      "p": [
+        7115.8,
+        -7836.9
+      ],
+      "sourceIds": [
+        "osm:n3164348352"
+      ],
+      "phaseCount": 2,
+      "offset": 59.57,
+      "approaches": [
+        {
+          "edge": "f862fe70-5fc_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.118823416311343,
+          "phase": 1
+        },
+        {
+          "edge": "c56d4e38-e27_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 7.1982497872746185,
+          "phase": 0
+        },
+        {
+          "edge": "2e6e0a4e-fb8_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 21.704180747809158,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:5c78c9c7-83e",
+      "tile": "-7_-15",
+      "p": [
+        -6669.4,
+        -14941.3
+      ],
+      "sourceIds": [
+        "osm:n3153692871"
+      ],
+      "phaseCount": 2,
+      "offset": 32.37,
+      "approaches": [
+        {
+          "edge": "6cd0ab69-cd0_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 53.85180196150013,
+          "phase": 1
+        },
+        {
+          "edge": "a6d02dc0-736_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 3.4094574348422966,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:a6445a7c-7e4",
+      "tile": "-3_8",
+      "p": [
+        -2162,
+        8806.2
+      ],
+      "sourceIds": [
+        "osm:n3157570037"
+      ],
+      "phaseCount": 2,
+      "offset": 61.87,
+      "approaches": [
+        {
+          "edge": "b41aace1-67f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 24.902828638264662,
+          "phase": 0
+        },
+        {
+          "edge": "1a9515db-24f_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 50.89595961022391,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:f39970c9-6fa",
+      "tile": "-3_8",
+      "p": [
+        -2171.9,
+        8790.9
+      ],
+      "sourceIds": [
+        "osm:n4313223630"
+      ],
+      "phaseCount": 2,
+      "offset": 61.61,
+      "approaches": [
+        {
+          "edge": "e75ccdf8-a5c_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 38.83545278058569,
+          "phase": 1
+        },
+        {
+          "edge": "acbca879-659_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 4.593039390574294,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:f81cf6ce-49f",
+      "tile": "-3_8",
+      "p": [
+        -2100.5,
+        8809.3
+      ],
+      "sourceIds": [
+        "osm:n4313223610"
+      ],
+      "phaseCount": 2,
+      "offset": 26.41,
+      "approaches": [
+        {
+          "edge": "c384f856-7bf_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 94.47331330604133,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:22b0dee9-b00",
+      "tile": "-6_10",
+      "p": [
+        -5572.1,
+        10180
+      ],
+      "sourceIds": [
+        "osm:n3158868847"
+      ],
+      "phaseCount": 2,
+      "offset": 22.61,
+      "approaches": [
+        {
+          "edge": "661e2193-f8a_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 11.18477631085024,
+          "phase": 1
+        },
+        {
+          "edge": "0db38d86-b5c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 56.96835398234764,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:4d39bf0d-ad8",
+      "tile": "-20_-10",
+      "p": [
+        -19096.1,
+        -9824.9
+      ],
+      "sourceIds": [
+        "osm:n4328527380"
+      ],
+      "phaseCount": 2,
+      "offset": 6.79,
+      "approaches": [
+        {
+          "edge": "ab3c42b1-747_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 59.72374543648934,
+          "phase": 0
+        },
+        {
+          "edge": "ff51ed35-757_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 13.311360377318252,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n3164250083",
+      "tile": "-20_-10",
+      "p": [
+        -19081.93,
+        -9842.731
+      ],
+      "sourceIds": [
+        "osm:n3164250083"
+      ],
+      "phaseCount": 2,
+      "offset": 38.28,
+      "approaches": [
+        {
+          "edge": "274e5a18-ca4_1",
+          "dir": 1,
+          "y": 6.8,
+          "stopS": 43.81561243616877,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n4328527382",
+      "tile": "-20_-10",
+      "p": [
+        -19050.213,
+        -9826.605
+      ],
+      "sourceIds": [
+        "osm:n4328527382"
+      ],
+      "phaseCount": 2,
+      "offset": 21.78,
+      "approaches": [
+        {
+          "edge": "6aa48023-462_1",
+          "dir": 1,
+          "y": 6.8,
+          "stopS": 364.1401562573433,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:34325f25-c6c+832db25c-511+d55af594-242+e81cdcc2-912",
+      "tile": "-7_-5",
+      "p": [
+        -6804.5,
+        -4220.125
+      ],
+      "sourceIds": [
+        "osm:n3164291754",
+        "osm:n3195196217",
+        "osm:n3195196244",
+        "osm:n3218358874"
+      ],
+      "phaseCount": 2,
+      "offset": 35.22,
+      "approaches": [
+        {
+          "edge": "3e3da0d4-409_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 34.8797314811504,
+          "phase": 1
+        },
+        {
+          "edge": "9e160b32-dc7_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 90.72860837286065,
+          "phase": 1
+        },
+        {
+          "edge": "27b8490b-4a6_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 71.37077367416805,
+          "phase": 0
+        },
+        {
+          "edge": "1d40ea67-498_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 118.48839591194712,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:5b2ec359-9bf+691ff56f-4e1+9ed7ecdf-e32+ae2093e0-28a",
+      "tile": "-8_-6",
+      "p": [
+        -7866.474999999999,
+        -5303.475
+      ],
+      "sourceIds": [
+        "osm:n3166227196",
+        "osm:n3166227197",
+        "osm:n6297948159",
+        "osm:n6297948162"
+      ],
+      "phaseCount": 2,
+      "offset": 99.39,
+      "approaches": [
+        {
+          "edge": "827d6d85-927_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 34.550840588959,
+          "phase": 1
+        },
+        {
+          "edge": "0ce7ba5f-bce_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 85.93824337401301,
+          "phase": 0
+        },
+        {
+          "edge": "c7d77f6c-0e5_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 68.08106948192287,
+          "phase": 1
+        },
+        {
+          "edge": "82e24920-503_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 62.43888594032094,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:fba47a8b-41a",
+      "tile": "-15_-15",
+      "p": [
+        -14123.5,
+        -14907.1
+      ],
+      "sourceIds": [
+        "osm:n3204330739"
+      ],
+      "phaseCount": 2,
+      "offset": 16.05,
+      "approaches": [
+        {
+          "edge": "db219389-239_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 91.71743577983759,
+          "phase": 1
+        },
+        {
+          "edge": "89b33ac6-8a5_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 10.647886167105433,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:0ba7edb2-5b9+7876e44b-a98",
+      "tile": "6_0",
+      "p": [
+        6330.05,
+        118.80000000000001
+      ],
+      "sourceIds": [
+        "osm:n3381806324",
+        "osm:n3381806325",
+        "osm:n3381806326"
+      ],
+      "phaseCount": 2,
+      "offset": 90.08,
+      "approaches": [
+        {
+          "edge": "fc1dc08f-6ba_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 41.16244005698993,
+          "phase": 0
+        },
+        {
+          "edge": "9dce3811-360_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 93.52963604122986,
+          "phase": 0
+        },
+        {
+          "edge": "ad215c7f-fbe_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 39.06904840139403,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:2c5384ed-19b",
+      "tile": "6_0",
+      "p": [
+        6680.4,
+        525.1
+      ],
+      "sourceIds": [
+        "osm:n3806982412"
+      ],
+      "phaseCount": 2,
+      "offset": 41.42,
+      "approaches": [
+        {
+          "edge": "17ed1068-863_3",
+          "dir": 1,
+          "y": 0,
+          "stopS": 2.7244323973409026,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:4b5bd03e-935",
+      "tile": "6_0",
+      "p": [
+        6774,
+        585.2
+      ],
+      "sourceIds": [
+        "osm:n3806982396"
+      ],
+      "phaseCount": 2,
+      "offset": 18.06,
+      "approaches": [
+        {
+          "edge": "0ee8c3ae-635_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 83.08866701979383,
+          "phase": 0
+        },
+        {
+          "edge": "bb1fab18-4dc_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 20.39298022189396,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:8be8b196-dc0",
+      "tile": "6_0",
+      "p": [
+        6735.8,
+        472.6
+      ],
+      "sourceIds": [
+        "osm:n3381803959"
+      ],
+      "phaseCount": 2,
+      "offset": 82.3,
+      "approaches": [
+        {
+          "edge": "497c2c30-90c_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 199.40913243777842,
+          "phase": 1
+        },
+        {
+          "edge": "64e2fc82-741_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 260.1428681169392,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:8caf06c2-953",
+      "tile": "6_0",
+      "p": [
+        6748.5,
+        571.4
+      ],
+      "sourceIds": [
+        "osm:n3678481778",
+        "osm:n3806982393"
+      ],
+      "phaseCount": 2,
+      "offset": 38.94,
+      "approaches": [
+        {
+          "edge": "3e6863a2-71a_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 197.85083650512112,
+          "phase": 1
+        },
+        {
+          "edge": "82a59717-60e_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 189.63840414350648,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:8d9ec8ec-9d6",
+      "tile": "6_0",
+      "p": [
+        6827.3,
+        537.9
+      ],
+      "sourceIds": [
+        "osm:n3806982405"
+      ],
+      "phaseCount": 2,
+      "offset": 77.52,
+      "approaches": [
+        {
+          "edge": "851f066f-ee1_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 87.48469470585597,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n3817631808",
+      "tile": "-20_-9",
+      "p": [
+        -19707.711,
+        -8169.819
+      ],
+      "sourceIds": [
+        "osm:n3817631808"
+      ],
+      "phaseCount": 2,
+      "offset": 29.51,
+      "approaches": [
+        {
+          "edge": "6aabf5da-236_0",
+          "dir": 1,
+          "y": 6.8,
+          "stopS": 11.39987084155797,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n5800700856",
+      "tile": "-20_-9",
+      "p": [
+        -19718.114,
+        -8183.763
+      ],
+      "sourceIds": [
+        "osm:n5800700856"
+      ],
+      "phaseCount": 2,
+      "offset": 52.51,
+      "approaches": [
+        {
+          "edge": "75e1d7e6-d79_0",
+          "dir": 1,
+          "y": 6.8,
+          "stopS": 11.485919548662132,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:67dffb3a-2bb",
+      "tile": "9_0",
+      "p": [
+        9603.4,
+        168.4
+      ],
+      "sourceIds": [
+        "osm:n4410324044"
+      ],
+      "phaseCount": 2,
+      "offset": 4.47,
+      "approaches": [
+        {
+          "edge": "0a863746-d6b_1",
+          "dir": 1,
+          "y": 0,
+          "stopS": 71.41508519830356,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n4410324043",
+      "tile": "9_0",
+      "p": [
+        9614.689,
+        175.85
+      ],
+      "sourceIds": [
+        "osm:n4410324043"
+      ],
+      "phaseCount": 2,
+      "offset": 57.95,
+      "approaches": [
+        {
+          "edge": "09d4d572-49c_2",
+          "dir": 1,
+          "y": 0,
+          "stopS": 150.33781699066722,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:17218148-de2+da753673-646",
+      "tile": "18_-5",
+      "p": [
+        18684.15,
+        -4049.55
+      ],
+      "sourceIds": [
+        "osm:n5134983136",
+        "osm:n5134983186"
+      ],
+      "phaseCount": 2,
+      "offset": 58.55,
+      "approaches": [
+        {
+          "edge": "e39430c3-0b2_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 4.596563934069339,
+          "phase": 1
+        },
+        {
+          "edge": "aa2f1822-30c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 7.3425880995736215,
+          "phase": 0
+        },
+        {
+          "edge": "f503164c-dac_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.546602172119088,
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": "signal:83e7dfc3-157+a2fa2ec6-2cf",
+      "tile": "18_-5",
+      "p": [
+        18641.800000000003,
+        -4033.8
+      ],
+      "sourceIds": [
+        "osm:n5134983156",
+        "osm:n5134983185"
+      ],
+      "phaseCount": 2,
+      "offset": 22.99,
+      "approaches": [
+        {
+          "edge": "5ccb98e1-a60_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 254.5954736953505,
+          "phase": 0
+        },
+        {
+          "edge": "802cdc39-720_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 217.72326364483223,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:cba456cc-cae",
+      "tile": "18_-5",
+      "p": [
+        18703.5,
+        -4011.2
+      ],
+      "sourceIds": [
+        "osm:n5134983141"
+      ],
+      "phaseCount": 2,
+      "offset": 75.06,
+      "approaches": [
+        {
+          "edge": "0c80deac-e2c_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 6.214563540587993,
+          "phase": 1
+        },
+        {
+          "edge": "39edf10e-ca9_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 41.69952326534584,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:d2150d51-000",
+      "tile": "18_-5",
+      "p": [
+        18746.1,
+        -4014.5
+      ],
+      "sourceIds": [
+        "osm:n5134983150"
+      ],
+      "phaseCount": 2,
+      "offset": 10.9,
+      "approaches": [
+        {
+          "edge": "4c2d2caf-09e_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 40.320566853487094,
+          "phase": 1
+        },
+        {
+          "edge": "80f1c619-6f2_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 45.920428120748305,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n5134983184",
+      "tile": "18_-5",
+      "p": [
+        18720.348,
+        -4024.288
+      ],
+      "sourceIds": [
+        "osm:n5134983184"
+      ],
+      "phaseCount": 2,
+      "offset": 68.42,
+      "approaches": [
+        {
+          "edge": "dfe4fb1d-7bb_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 67.37089762994795,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:osm:n5134983163",
+      "tile": "18_-4",
+      "p": [
+        18696.122,
+        -3996.066
+      ],
+      "sourceIds": [
+        "osm:n5134983163"
+      ],
+      "phaseCount": 2,
+      "offset": 11.77,
+      "approaches": [
+        {
+          "edge": "08268b54-56d_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 37.92108694234942,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:bea4113d-8c4",
+      "tile": "-3_-7",
+      "p": [
+        -2545.7,
+        -6389.7
+      ],
+      "sourceIds": [
+        "osm:n7694096025"
+      ],
+      "phaseCount": 2,
+      "offset": 58.86,
+      "approaches": [
+        {
+          "edge": "a4f7c5a2-7ae_0",
+          "dir": -1,
+          "y": 0,
+          "stopS": 11.035434398864268,
+          "phase": 1
+        },
+        {
+          "edge": "ceae5008-2db_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 12.691200180580678,
+          "phase": 0
+        }
+      ]
+    },
+    {
+      "id": "signal:712a6895-274",
+      "tile": "6_-6",
+      "p": [
+        6215.9,
+        -5397.5
+      ],
+      "sourceIds": [
+        "osm:n7701752874"
+      ],
+      "phaseCount": 2,
+      "offset": 35.48,
+      "approaches": [
+        {
+          "edge": "18086f29-515_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 5.526843583818934,
+          "phase": 0
+        },
+        {
+          "edge": "248cb577-634_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 472.32539267293623,
+          "phase": 1
+        }
+      ]
+    }
+  ]
+}

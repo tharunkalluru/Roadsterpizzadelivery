@@ -13,6 +13,7 @@ import type { LandmarkSurfaceGrid } from './landmark-support';
 import { drawAirfieldTile, airfieldClearAt, type Airfield } from './airfields';
 import type { RoadEdge, Building, XZ, Board, Furniture, Area } from './types';
 import type { SignSystem } from './signs';
+import { resolveSignalSites, type SignalSite } from './signals';
 
 const PALETTE = ['#E8A87C', '#F2D49B', '#9FC7C1', '#C9B6E4', '#F4B6C2', '#E7D7C1', '#B5C99A', '#F1C27D', '#D9CAB3', '#8FB9C9',
   '#E3A6A1', '#F3EFE6', '#C8D6A3', '#E9C46A', '#BFD7EA', '#F0B78F', '#EDE6DA', '#D8CFC0'];
@@ -36,7 +37,7 @@ export interface TileBuilt {
   key: string; i: number; j: number; buffers: BuiltBuffers[]; roads: RoadEdge[];
   buildingGrid: Map<string, Building[]>; surfaceGrid: Map<string, Surface[]>; walls: Map<string, Wall[]>; obstacles: Map<string, { x: number; z: number; r: number; top: number }[]>;
   landmarkSurfaceGrid?: LandmarkSurfaceGrid;
-  signals: { p: XZ; node: string | null }[]; lamps: number[][]; busStops: BusStop[]; walkPaths: WalkPath[]; facades: Facade[]; signs: SignEntry[];
+  signals: SignalSite[]; lamps: number[][]; busStops: BusStop[]; walkPaths: WalkPath[]; facades: Facade[]; signs: SignEntry[];
   activity: [string, number][];       // shop units per 100 m cell: how busy the street life around a spot should be
   rails: { id: string; pts: XZ[] }[];  // railway main lines touching this tile (for running trains)
   counts: { buildings: number; boards: number; roads: number; verts: number; fillShops: number; inferredSignals: number };
@@ -68,7 +69,7 @@ export interface CityData {
   group: THREE.Group; signs: SignSystem; lit: THREE.Mesh | null; glow: THREE.Mesh | null;
   buildingGrid: Map<string, Building[]>; surfaceGrid: Map<string, Surface[]>; byBuilding: Map<string, Building>;
   landmarkSurfaceGrid?: LandmarkSurfaceGrid;
-  signals: { p: XZ; node: string | null }[]; lamps: THREE.Vector3[]; bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
+  signals: SignalSite[]; lamps: THREE.Vector3[]; bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
   obstacles: Map<string, { x: number; z: number; r: number; top: number }[]>;
   centroid: (b: Building) => XZ; theatreFacades: Map<string, { c: THREE.Vector3; n: THREE.Vector3; w: number; top: number; building: Building }>;
   walls: Map<string, Wall[]>; busStops: BusStop[]; walkPaths: { pts: XZ[]; edge: string; side: 1 | -1 }[];
@@ -556,7 +557,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     }
   }
 
-  // ---------- junction arms (shop corners, inferred signals) ----------
+  // ---------- junction arms (shop corners) ----------
   const RANK: Record<string, number> = { trunk: 3, primary: 3, secondary: 2, tertiary: 1, trunk_link: 1, primary_link: 1, secondary_link: 1, tertiary_link: 1 };
   const STREETS = new Set(['residential', 'unclassified', 'unknown', 'living_street']);
   const arms = new Map<string, { p: XZ; ranks: number[]; sig: number[]; ow: boolean[]; dirs: number[]; elev: number }>();
@@ -890,46 +891,19 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   }
 
   // ---------- street furniture ----------
-  const signals: { p: XZ; node: string | null }[] = [];
-  const signalPole = (x: number, z: number, face = 0) => {
-    const fx = Math.sin(face) * 0.21, fz = Math.cos(face) * 0.21;
-    B.st.box(x, 2.9, z, 0.18, 5.8, 0.18, '#2f2d36');
-    B.st.box(x, 5.3, z, 0.45, 1.2, 0.4, '#141317', { ry: face });
-    B.lit.add(TPL.sph, x + fx, 5.65, z + fz, 0.12, 0.12, 0.05, '#ff2a2a', { ry: face });
-    B.lit.add(TPL.sph, x + fx, 5.25, z + fz, 0.12, 0.12, 0.05, '#ffb02a', { ry: face });
-    B.lit.add(TPL.sph, x + fx, 4.85, z + fz, 0.12, 0.12, 0.05, '#2aff6a', { ry: face });
-  };
-  // inferred signals: junctions of main roads that the open data has no signal for (one cluster per junction,
-  // decided identically by neighbouring tiles because candidates include the context roads across the border)
-  let inferredSignals = 0;
-  {
-    const known = zone.furniture.filter((f) => f.kind === 'traffic_signals').map((f) => f.p);
-    const cands: { id: string; p: XZ; score: number; dirs: number[] }[] = [];
-    for (const [nid, a] of arms) {
-      // a main road meeting or crossing another main road (slip roads don't count); a divided road splitting
-      // into its two carriageways is not a junction. Uses only fields context roads carry, so tiles agree.
-      const n = a.sig.length; if (n < 3 || a.elev > 0.5) continue;
-      const rk = a.sig.slice().sort((x, y) => y - x), top = rk[0] + rk[1] + rk[2];
-      if (rk[2] < 1 || !((n >= 4 && top >= 6) || (n === 3 && top >= 7))) continue;
-      if (n === 3 && a.ow.filter(Boolean).length === 2 && a.sig[a.ow.indexOf(false)] === rk[0]) continue;
-      if (known.some((k) => Math.hypot(k[0] - a.p[0], k[1] - a.p[1]) < 150)) continue;
-      cands.push({ id: nid, p: a.p, score: top * 10 + n, dirs: a.dirs });
-    }
-    const winners = cands.filter((c) => !cands.some((o) => o !== c && Math.hypot(o.p[0] - c.p[0], o.p[1] - c.p[1]) < 150 && (o.score > c.score || (o.score === c.score && o.id < c.id))));
-    for (const c of cands) {
-      if (!inTile(c.p[0], c.p[1]) || !winners.some((w) => Math.hypot(w.p[0] - c.p[0], w.p[1] - c.p[1]) < 40)) continue;
-      signals.push({ p: c.p, node: c.id }); inferredSignals++;
-      // pole on the widest corner between two arms, off the carriageway, lamps facing the junction
-      const angs = c.dirs.slice().sort((a, b) => a - b), R = (nodeDeg.get(c.id)?.w || 10) * 0.6 + 1.8;
-      const gaps = angs.map((a0, k) => { const a1 = k + 1 < angs.length ? angs[k + 1] : angs[0] + Math.PI * 2; return [a1 - a0, (a0 + a1) / 2]; }).sort((a, b) => b[0] - a[0]);
-      for (const [gap, mid] of gaps) {
-        if (gap < 0.5) continue;
-        const x = c.p[0] + Math.cos(mid) * R, z = c.p[1] + Math.sin(mid) * R;
-        if (blocked(x, z, null, 0.5)) continue;
-        signalPole(x, z, Math.atan2(c.p[0] - x, c.p[1] - z));
-        break;
-      }
-    }
+  // Only mapped controls become signals. Geometry estimates where to place
+  // heads/stop bars, while the original source point and IDs remain attached.
+  const signals = resolveSignalSites(zone.roads, zone.furniture).sites.filter(s => inTile(...s.p));
+  const inferredSignals = 0;
+  for (const site of signals) for (const a of site.approaches) {
+    const [x, y, z] = a.pole, face = Math.atan2(-a.hx, -a.hz);
+    B.st.box(x, y + 2.9, z, .18, 5.8, .18, '#2f2d36');
+    B.st.box(x, y + 5.3, z, .5, 1.25, .4, '#141317', { ry: face });
+    if (y <= 1.5) addObstacle(x, z, .12, y + 5.8);
+    else addWall({ ax: x - .12, az: z, bx: x + .12, bz: z, y0a: y, y0b: y, y1a: y + 5.8, y1b: y + 5.8, kind: 'rail' });
+    // The white stop bar and NPC nose use this same approach stop position.
+    const paint = a.paint.map(p => [p[0], p[1] + .11, p[2]]);
+    B.marks.quad(paint[0], paint[3], paint[2], paint[1], '#f4f1db');
   }
   // market streets (side streets lined with shops) get walking strips along their edges for the crowds
   if (!opts.lowQ) for (const e of ownRoads) {
@@ -939,16 +913,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   for (const f of zone.furniture) {
     const [x, z] = f.p;
     const over = deckOver(x, z, 1.5), road = onCarriageway(x, z);
-    if (f.kind === 'traffic_signals') {
-      signals.push({ p: f.p, node: null });
-      // mapped on the junction itself: stand the pole on the nearest clear corner instead of in the traffic
-      let px = x, pz = z, ok = !road;
-      if (road) {
-        const R = road.w / 2 + 1.8;
-        for (let k = 0; k < 16 && !ok; k++) { const a = Math.PI / 4 + (k * Math.PI) / 8, cx = x + Math.cos(a) * R, cz = z + Math.sin(a) * R; if (!blocked(cx, cz, null, 0.5)) { px = cx; pz = cz; ok = true; } }
-      }
-      if (ok && (!over || over.y - 0.9 > 6.4)) signalPole(px, pz, Math.atan2(x - px, z - pz));
-    } else if (f.kind === 'bus_stop' || f.kind === 'bus_station') {
+    if (f.kind === 'bus_stop' || f.kind === 'bus_station') {
       // snap the shelter to the kerb of the nearest street, facing the road
       let best: { d: number; e: RoadEdge; i: number; t: number } | null = null;
       for (const sf of near(x, z)) {

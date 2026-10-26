@@ -93,7 +93,7 @@ try {
   const report = day => ({ day, tickets: 100, occupancy: 0.5, gross: 15000, coins: 4, note: 'Test day' });
   const validSave = () => ({ coins: 700, level: 2, doneInLevel: 1, day: 4, minutes: 725.5, total: 10, lease: null });
   const fixture = () => {
-    const environment = installEnvironment(), hud = makeHud(), counts = { player: 0, traffic: 0, city: 0, render: 0, clock: 0, poster: 0, save: 0 };
+    const environment = installEnvironment(), hud = makeHud(), counts = { player: 0, traffic: 0, city: 0, signals: 0, signalSeconds: 0, render: 0, clock: 0, poster: 0, save: 0 };
     const sound = { muted: false, vehicles: [], cues: [], horns: [], vehicle(value) { this.vehicles.push(value); }, cue(value) { this.cues.push(value); }, horn(...args) { this.horns.push(args); }, setMuted(value) { this.muted = value; }, unlock() {} };
     const canvas = new Control('scene'), beacon = new Group(); beacon.visible = false; beacon.col = { material: new MeshBasicMaterial() }; beacon.ring = { material: new MeshBasicMaterial(), scale: { setScalar() {} } };
     const g = Object.assign(Object.create(Game.prototype), {
@@ -108,8 +108,8 @@ try {
       settings: { quality: 'auto', sound: true, steer: 'stick', tips: true },
       engine: { renderer: { domElement: canvas }, camera: new PerspectiveCamera(), render() { counts.render++; }, placeSun() {} },
       clock: { getDelta() { counts.clock++; return 0.05; } },
-      city: { rails: new Map(), update() { counts.city++; }, signs: { update() {} }, loadedBuildings: () => [] },
-      traffic: { update() { counts.traffic++; }, hitTest: () => null, pushOut() {}, hideNear() {} }, walkers: { list: [], update() {} }, metro: { bodies: [], update() {} }, rail: { bodies: [], update() {} },
+      city: { rails: new Map(), update() { counts.city++; }, updateSignals(seconds) { counts.signals++; counts.signalSeconds = seconds; }, signs: { update() {} }, loadedBuildings: () => [] },
+      traffic: { t: 0, update(dt) { this.t += dt; counts.traffic++; }, hitTest: () => null, pushOut() {}, hideNear() {} }, walkers: { list: [], update() {} }, metro: { bodies: [], update() {} }, rail: { bodies: [], update() {} },
       railContacts: { beforePlayer() {}, afterPlayer: () => ({ hit: false, impact: 0, carried: false }) }, aircraft: { update() {} },
       t: 0, moodT: 1, busyT: 1, fpsN: 0, fpsT: performance.now(), fps: 60, devOn: false, autopilot: false,
       camPos: new Vector3(), camLook: new Vector3(), cameraPlacementRevision: 0, orbitYaw: 0, orbitPitch: 0.38, orbitDist: 0,
@@ -230,12 +230,12 @@ try {
       else if (blocker === 'map') g.map.open = true; else if (blocker === 'modal') hud.modalOpen = true;
       else if (blocker === 'area') g.area = null; else g[blocker] = true;
       g.keys.add('KeyW'); g.frame();
-      assert.deepEqual([g.t, g.minutes, g.order.t, g.order.heat, counts.player, counts.traffic, counts.city], [0, 480, 12, 100, 0, 0, 0], blocker);
+      assert.deepEqual([g.t, g.minutes, g.order.t, g.order.heat, counts.player, counts.traffic, counts.city, counts.signals], [0, 480, 12, 100, 0, 0, 0, 0], blocker);
       assert.equal(sound.vehicles.at(-1).active, false, blocker);
       if (blocker === 'rotation') { assert.equal(g.keys.size, 0); assert.equal(g.actProgress, 0); }
     }
     const { g, counts, sound } = fixture(); g.order = order('toDrop'); g.frame();
-    assert.ok(g.t > 0 && g.minutes > 480 && g.order.t > 12); assert.equal(counts.player, 1); assert.equal(counts.traffic, 1); assert.equal(counts.city, 1); assert.equal(sound.vehicles.at(-1).active, true);
+    assert.ok(g.t > 0 && g.minutes > 480 && g.order.t > 12); assert.equal(counts.player, 1); assert.equal(counts.traffic, 1); assert.equal(counts.city, 1); assert.equal(counts.signals, 1); assert.equal(counts.signalSeconds, g.traffic.t); assert.equal(sound.vehicles.at(-1).active, true);
   });
 
   await test('moving trains update before player physics and rail impact reaches gameplay and traffic', () => {

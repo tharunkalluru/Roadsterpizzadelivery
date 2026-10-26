@@ -13,9 +13,10 @@ const test = (name, fn) => { fn(); checks++; console.log(`PASS ${name}`); };
 try {
   await build({ stdin: { contents: `export * from './src/game/traffic-path';
     export { Traffic } from './src/game/traffic'; export { RoadGraph } from './src/game/roadgraph';
+    export { resolveSignalSites } from './src/world/signals';
     export { rng } from './src/core/util'; export { Group, Scene, BufferGeometry, MeshBasicMaterial } from 'three';`,
     resolveDir: join(root, 'game'), loader: 'ts' }, outfile: join(out, 'traffic.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
-  const { Traffic, TrafficCurve, RoadGraph, Scene, BufferGeometry, MeshBasicMaterial, rng,
+  const { Traffic, TrafficCurve, RoadGraph, Scene, BufferGeometry, MeshBasicMaterial, rng, resolveSignalSites,
     turnProfile, turnSpeed, trafficOverlap, trafficPoseClear, trafficCurveClear } = await import(pathToFileURL(join(out, 'traffic.mjs')));
   const road = (id, pts, extra = {}) => ({ id, seg: id, from: id + '-a', to: id + '-b', pts, cls: 'residential', w: 16, lanes: 4, oneway: null, elev: null, name: id, maxspeed: null, ...extra });
   const gridAdd = (grid, item, x0, z0, x1, z1, size) => {
@@ -183,16 +184,19 @@ try {
     const x = c.x, z = c.z;
     for (let i = 0; i < 120; i++) tick(t);
     assert.equal(c.x, x); assert.equal(c.z, z);
-    c.want = 10; t.graph.nodes.get('j').signal = true; t.t = 23;
+    c.want = 10; const sites = resolveSignalSites(t.graph.edges.map(g => g.e), [{ kind: 'traffic_signals', name: null, p: [0, 0] }]).sites;
+    t.graph.markSignals(sites); t.t = 483 - sites[0].offset;
     const start = c.motion?.startS;
     for (let i = 0; i < 180; i++) tick(t);
     assert.ok(c.s <= (start ?? c.motion?.startS) + .001); assert.equal(c.motion?.progress, -1);
   });
   test('a committed junction turn finishes when its approach signal changes', () => {
     const t = fixture([road('in', [[-80, 0], [0, 0]], { to: 'j' }), road('out', [[0, 0], [0, 100]], { from: 'j' })]);
-    const c = t.spawnAt('bus', t.graph.byId.get('in'), 1, 55, 2.8); t.graph.nodes.get('j').signal = true;
+    const c = t.spawnAt('bus', t.graph.byId.get('in'), 1, 55, 2.8);
+    const sites = resolveSignalSites(t.graph.edges.map(g => g.e), [{ kind: 'traffic_signals', name: null, p: [0, 0] }]).sites;
+    t.graph.markSignals(sites); t.t = 460 - sites[0].offset;
     for (let i = 0; i < 1200 && !(c.motion?.progress >= 0); i++) tick(t);
-    assert.ok(c.motion?.progress >= 0); t.t = 23;
+    assert.ok(c.motion?.progress >= 0); t.t = 483 - sites[0].offset;
     for (let i = 0; i < 1200 && c.edge.e.id !== 'out'; i++) tick(t);
     assert.equal(c.edge.e.id, 'out'); assert.ok(c.speed > 1, 'does not stop in the intersection for its old approach red');
   });

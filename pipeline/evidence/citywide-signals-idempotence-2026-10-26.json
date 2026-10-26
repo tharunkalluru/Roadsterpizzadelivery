@@ -1,0 +1,53 @@
+{
+  "sourceSignalNodes": 269,
+  "retainedPublicSignalNodes": 268,
+  "excluded": [
+    {
+      "id": 11052428863,
+      "reason": "Not a public-access mapped signal",
+      "tags": {
+        "access": "private",
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "name": "ooo"
+      }
+    }
+  ],
+  "withIncidentWays": 267,
+  "mappedDirectionRecords": 576,
+  "directionTaggedNodes": 17,
+  "metadataOnlyCorePatch": true,
+  "streetPacksRewritten": 0,
+  "source": {
+    "schemaVersion": 1,
+    "source": "OpenStreetMap",
+    "sourceURL": "https://overpass-api.de/api/interpreter",
+    "retrievedAt": "2026-10-26T13:23:48.341656Z",
+    "sourceDataTimestamp": "2026-10-26T13:23:20Z",
+    "bounds": [
+      17.18944651682626,
+      78.18602271831716,
+      17.623153483173745,
+      78.72247438667843
+    ],
+    "license": "OpenStreetMap contributors, ODbL 1.0",
+    "querySha256": "d7ed91d0480e39b289f1a037f1c8bc40d50c896bedaa1a7cec2b7d7bc88b05fa",
+    "sourceSignalNodes": 269,
+    "retainedPublicSignalNodes": 268,
+    "excluded": [
+      {
+        "id": 11052428863,
+        "reason": "Not a public-access mapped signal",
+        "tags": {
+          "access": "private",
+          "crossing": "traffic_signals",
+          "highway": "crossing",
+          "name": "ooo"
+        }
+      }
+    ],
+    "uncertainty": "Mapped signal nodes, not an exhaustive current city inventory or surveyed pole/stop-line placement. Controller phases and timings are simulated; original source way directions/levels remain available."
+  },
+  "coreChanged": false,
+  "applied": true
+}

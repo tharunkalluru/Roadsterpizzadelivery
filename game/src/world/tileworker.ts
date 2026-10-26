@@ -8,10 +8,12 @@ import type { Landmark } from './landmarks';
 import { fetchPack } from './packs';
 import type { Airfield } from './airfields';
 import { applyRoadGradePatches, type RoadGradePatch } from './road-grades';
+import type { Furniture } from './types';
 
 let metro: MetroData | undefined; let lowQ = false; let ready = false; let landmarks: Landmark[] = [];
 let airfields:Airfield[]=[];
 let roadGrades: RoadGradePatch[] = [];
+let trafficSignals: Furniture[] | undefined;
 const packs = new Map<string, Promise<Record<string, TileZone>>>();
 const order: string[] = [];
 function getPack(url: string) {
@@ -36,7 +38,7 @@ self.onmessage = async (ev: MessageEvent) => {
   if (m.type === 'init') {
     if (!ready) { initTemplates({ rbox: new RoundedBoxGeometry(1, 1, 1, 3, 0.12), ring: new THREE.RingGeometry(1.0, 1.35, 40) }); ready = true; }
     metro = m.metro; lowQ = m.lowQ; landmarks = m.landmarks || [];
-    airfields=m.airfields||[]; roadGrades = m.roadGrades || [];
+    airfields=m.airfields||[]; roadGrades = m.roadGrades || []; trafficSignals = m.trafficSignals;
     return;
   }
   if (m.type === 'build') {
@@ -45,7 +47,11 @@ self.onmessage = async (ev: MessageEvent) => {
       const z = tiles[m.key];
       if (!z) { (self as any).postMessage({ type: 'empty', key: m.key, requestId: m.requestId }); return; }
       const t0 = performance.now();
-      const built = buildTile({ ...z, roads: applyRoadGradePatches(z.roads, roadGrades) }, { lowQ, metro, landmarks,airfields });
+      // The canonical source snapshot replaces only legacy signal furniture.
+      // Include border context so a junction has one owner and a stable plan.
+      const furniture = trafficSignals === undefined ? z.furniture.filter(f => f.kind !== 'traffic_signals' || !f.synth) :
+        [...z.furniture.filter(f => f.kind !== 'traffic_signals'), ...trafficSignals.filter(f => f.p[0] >= z.i * 1000 - 80 && f.p[0] < (z.i + 1) * 1000 + 80 && f.p[1] >= z.j * 1000 - 80 && f.p[1] < (z.j + 1) * 1000 + 80)];
+      const built = buildTile({ ...z, furniture, roads: applyRoadGradePatches(z.roads, roadGrades) }, { lowQ, metro, landmarks,airfields });
       const transfer: ArrayBuffer[] = [];
       for (const b of built.buffers) transfer.push(b.pos.buffer, b.nor.buffer, b.uv.buffer, b.col.buffer);
       (self as any).postMessage({ type: 'built', key: m.key, requestId: m.requestId, built, ms: Math.round(performance.now() - t0) }, transfer);

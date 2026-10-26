@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-10-26",
+  "baseCommit": "8d388fe",
+  "baseline": {
+    "auditedAt": "2026-10-26",
+    "baseCommit": "8d388fe",
+    "origin": {
+      "lat": 17.4063,
+      "lon": 78.4966
+    },
+    "bounds": {
+      "minX": -33000,
+      "maxX": 24000,
+      "minZ": -24000,
+      "maxZ": 24000
+    },
+    "boundsLatLon": [
+      17.18944651682626,
+      78.18602271831716,
+      17.623153483173745,
+      78.72247438667843
+    ],
+    "packs": 304,
+    "tiles": 2527,
+    "ownedRoads": 479853,
+    "coreRoads": 52412,
+    "buildings": 1637364,
+    "boards": 178700,
+    "osmFeatures": 13556,
+    "furnitureCounts": {
+      "bus_stop": 626,
+      "street_lamp": 5602,
+      "water_tower": 119,
+      "artwork": 97,
+      "traffic_signals": 355,
+      "atm": 573,
+      "crossing": 349,
+      "bench": 84,
+      "bus_station": 49
+    },
+    "signals": {
+      "total": 355,
+      "exportSynth": 94,
+      "nonSynth": 261,
+      "withSourceId": 0,
+      "fieldCounts": {
+        "kind": 355,
+        "name": 355,
+        "p": 355,
+        "synth": 94
+      }
+    },
+    "seconds": 12.31
+  },
+  "baselineRuntime": {
+    "inferredSignals": 1148,
+    "uniqueInferredNodes": 1148,
+    "tilesWithInferredSignals": 388,
+    "allTileCandidatesIncludingContext": 1810,
+    "packedSignals": 355,
+    "totalLogicalSignals": 1503,
+    "seconds": 11.57,
+    "method": "Reproduction of base8d388fe city.ts arms/candidate/winner/inTile before signal-pole collision/visibility suppression; not literal visible lamp count"
+  },
+  "freshOSM": {
+    "sourceDataTimestamp": "2026-10-26T13:23:20Z",
+    "retrievedAt": "2026-10-26T13:23:48.341656Z",
+    "sourceResponseBytes": 615120,
+    "sourceElements": 764,
+    "currentNodeCount": 269,
+    "currentWayCount": 495,
+    "currentNodesInTiles": 269,
+    "highwayCounts": {
+      "traffic_signals": 261,
+      "crossing": 7,
+      "missing": 1
+    },
+    "crossingCounts": {
+      "missing": 252,
+      "traffic_signals": 14,
+      "uncontrolled": 3
+    },
+    "directionCounts": {
+      "missing": 252,
+      "forward": 17
+    },
+    "gradeCounts": {
+      "ground_or_unknown": 264,
+      "elevated_only": 5
+    },
+    "tagCounts": {
+      "highway": 268,
+      "name": 45,
+      "source": 3,
+      "traffic_signals": 83,
+      "crossing": 17,
+      "traffic_signals:direction": 17,
+      "junction": 1,
+      "traffic_signals:countdown": 3,
+      "access": 1,
+      "button_operated": 2,
+      "crossing:markings": 2,
+      "crossing:signals": 2,
+      "tactile_paving": 2,
+      "traffic_signals:sound": 2,
+      "traffic_signals:vibration": 2
+    },
+    "currentNodesByLegacyDistance": {
+      "1": 261,
+      "5": 261,
+      "10": 262,
+      "30": 264,
+      "100": 266
+    },
+    "currentNodesWithoutLegacyWithin10m": 7,
+    "legacyNonSynthByCurrentDistance": {
+      "1": 261,
+      "5": 261,
+      "10": 261,
+      "30": 261,
+      "100": 261
+    },
+    "legacySynthByCurrentDistance": {
+      "1": 0,
+      "5": 0,
+      "10": 0,
+      "30": 0,
+      "100": 1
+    }
+  },
+  "evidenceFile": "pipeline/evidence/citywide-traffic-signals-2026-10-26.json",
+  "derivedDirectionsFile": "pipeline/build/citywide-traffic-signal-directions-2026-10-26.json",
+  "primarySourcesReviewed": [
+    {
+      "url": "https://echallan.tspolice.gov.in/htp/road_sense.html",
+      "publisher": "Hyderabad Traffic Police",
+      "retrievedAt": "2026-10-26",
+      "dateStatus": "Current website copyright 2026; no section publication date",
+      "supports": "Traffic-light colour, arrow and flashing semantics; stopping before stop line and pedestrian crossing.",
+      "doesNotSupport": "No complete city signal coordinates, approach geometries, current operational status or exact phase schedule."
+    },
+    {
+      "url": "https://echallan.tspolice.gov.in/htp/road_smart.html",
+      "publisher": "Hyderabad Traffic Police",
+      "retrievedAt": "2026-10-26",
+      "dateStatus": "Current website, no section publication date",
+      "supports": "Categories for flyovers, road restrictions and named junction references.",
+      "doesNotSupport": "No complete traffic-signal coordinate or timing inventory exposed in retrieved page."
+    },
+    {
+      "url": "https://www.ghmc.gov.in/Awards/HTRIM%20award.pdf",
+      "publisher": "Greater Hyderabad Municipal Corporation",
+      "retrievedAt": "2026-10-26",
+      "dateStatus": "Historical undated award notice referencing 10th Urban Mobility India conference; not a 2026 inventory",
+      "supports": "HTRIMS signal system has used camera-based adaptive and synchronized control managed from traffic control centre.",
+      "doesNotSupport": "Historical 221-junction project count is not current city coverage, per-junction lamp type, live timing, or current operations."
+    },
+    {
+      "url": "https://telangana.gov.in/wp-content/uploads/2023/05/Telangana-Socio-Economic-Outlook-2023.pdf",
+      "publisher": "Government of Telangana",
+      "retrievedAt": "2026-10-26",
+      "dateStatus": "2023 historical report, search index excerpt available; full PDF fetch timed out",
+      "supports": "Historical distinction between automatic/adaptive traffic signal control and pedestrian signal systems.",
+      "doesNotSupport": "No 2026 signal inventory or timing. Do not transplant historical installation/online counts into game coverage claim."
+    }
+  ],
+  "placementFindings": {
+    "mappedLegacySourceMatch": "All 261 legacy non-synth packed highway=traffic_signals points match fresh OSM highway=traffic_signals within 1 metre. They were not absent, but provenance was missing.",
+    "exportGuessSourceGap": "All 94 explicitly synthesized packed signals lack a current mapped signal node within 30m. This is absence of support, not photo proof of physical absence.",
+    "runtimeGuessSourceGap": "1,148 logical runtime-inferred sites add signals on topology alone. A busy junction is insufficient evidence of actual traffic-light equipment.",
+    "additionalCrossingNodes": 8,
+    "privateCrossingNodeExcluded": "node/11052428863 access=private and name=ooo",
+    "additionalPublicCrossingNodes": 7,
+    "elevatedSourceReviewNodes": [
+      "node/3164250083",
+      "node/3202801374",
+      "node/3817631808",
+      "node/4328527382",
+      "node/5800700856"
+    ],
+    "elevatedReviewPolicy": "Each has only bridge/layer-positive incident source road ways. Preserve evidence; require matching native road grade or leave inactive for review. Never bind these points to nearest ground road.",
+    "noDirectionNodes": 252,
+    "forwardDirectionNodes": 17,
+    "nodeEditDateRange": [
+      "2012-06-07T18:07:44Z",
+      "2026-10-15T05:27:19Z"
+    ]
+  },
+  "coverageLimits": [
+    "269 OSM nodes are a source snapshot, not complete inventory of all real signals across Hyderabad. A junction can contain multiple mapped heads or crossings.",
+    "A recently retrieved OSM record may have old underlying edits. Edit timestamp is not a survey/inspection date.",
+    "No current authoritative full-coordinate junction inventory or per-junction phase/timing dataset was found in the bounded primary-source review. No live state or countdown is verified.",
+    "Fresh OSM gives source-way membership and tangent, not exact pole/facing/stop-line coordinates. Rendered approach positions and game phase cycles must stay explicitly simulated."
+  ],
+  "recommendedIntegration": [
+    "Use a separate source-backed signal importer against existing compressed packs/core; do not rerun full legacy city export.",
+    "Replace only signal records. Remove packed synth and runtime topology-generated signals; retain all non-signal furniture, shopfronts, buildings, roads, landmarks, source evidence and map geometry.",
+    "Preserve source node IDs, source URLs, version/timestamp, retrieval time, original tags, incident way IDs and source-way-forward normalized headings in the exact core east/south projection.",
+    "Filter private/no access points and source ways; retain public crossing signal distinctions and button-operated tags. Do not turn pedestrian-only footway heads into vehicle control.",
+    "Use same-grade road association and source direction; unresolved grade/direction or remote geometry stays reviewable. Exact source ways and XY must not be overwritten by inferred junction names.",
+    "Serialize imports with the shopfront apply lock, use atomic gzip pack/core replacement and refresh compressed manifest bytes. Verify idempotence and unchanged unrelated asset hashes/counts."
+  ],
+  "unsupportedSignalRoadReview": {
+    "auditFile": "pipeline/build/signals-unsupported-review-2026-10-26.json",
+    "counts": {
+      "packed_synth": 94,
+      "packed_synth_currentMappedWithin100m": 1,
+      "packed_synth_currentMappedWithin150m": 1,
+      "packed_synth_within20mElevatedRoad": 5,
+      "runtime_inferred": 1148,
+      "runtime_inferred_within20mElevatedRoad": 98,
+      "runtime_inferred_currentMappedWithin150m": 7,
+      "runtime_inferred_currentMappedWithin30m": 2,
+      "runtime_inferred_currentMappedWithin100m": 5
+    },
+    "method": "Current OSM source-node nearest XY comparison; shipped road local interpolated height at nearest segment within20m; top20 nearby roads considered. This is a review list, not independent photo confirmation of signal absence or flyover control."
+  }
+}
