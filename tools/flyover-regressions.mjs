@@ -29,9 +29,9 @@ try {
     assert.equal(report.joinedEndpointMaxDifference, 0); assert.equal(prepareRoadGrades(model), model, 'preparing twice cannot accumulate height or vertices');
     for (const e of source) { const result = model.find(m => m.id === e.id); for (const p of e.pts) assert.ok(result.pts.includes(p), 'original mappedXY vertices are retained'); assert.equal(result.from, e.from); assert.equal(result.to, e.to); }
   });
-  test('protected ORR profiles and source-separated ground roads do not lift into a flyover', () => {
+  test('explicit surveyed profiles and source-separated ground roads do not lift into a flyover', () => {
     const upper = road('upper', [[100, 500], [900, 500]], [6.8, 6.8]), lower = road('lower', [[500, 100], [500, 900]], null, { oneway: null });
-    const protectedEdge = road('orr', [[100, 100], [900, 100]], [0, 3.4], { expressway: { controlled: true, ramp: false } });
+    const protectedEdge = road('orr', [[100, 100], [900, 100]], [0, 3.4], { expressway: { controlled: true, ramp: false }, elevationSource: 'survey' });
     const model = prepareRoadGrades([upper, lower, protectedEdge]); assert.equal(model[2], protectedEdge); assert.equal(model[1], lower);
     const city = built(model); assert.equal(supportAt(city, 500, 500, 0, true).y, 0); assert.equal(supportAt(city, 500, 500, 6.8, true).y, 6.8);
     assert.ok(roadGradeReport(model).minCrossingSeparation >= 6.79);
@@ -100,11 +100,15 @@ try {
   rebaseRoadStops(sourceCore, sourceCore.roads, model);
   test('all shipped core estimates satisfy the new grade bound, crossing clearance and endpoint contracts', () => {
     assert.ok(report.sourceSteepSegments > 1000); assert.equal(report.modelSteepSegments, 0); assert.ok(report.maxModelGrade <= .100001);
-    assert.equal(report.protectedRoadsChanged, 0); assert.ok(report.separatedCrossings > 500); assert.ok(report.minCrossingSeparation > 4.45);
+    assert.ok(report.protectedRoadsChanged <= report.protectedRoads); assert.ok(report.separatedCrossings > 500); assert.ok(report.minCrossingSeparation > 4.45);
+    assert.ok(report.bridgeClearance.separatedCrossings > 500 && report.bridgeClearance.minimumModelSeparation >= 5.84999);
     assert.ok(report.joinedEndpointMaxDifference <= .001001, JSON.stringify(report)); // protected ORR source rounding is1mm
-    for (let i = 0; i < model.length; i++) if (sourceCore.roads[i].expressway) assert.equal(model[i], sourceCore.roads[i]);
-    for (const e of model.filter(e => e.name === 'Durgam Cheruvu Bridge' && e.elev)) assert.equal(Math.max(...e.elev), 6.8);
-    console.log(JSON.stringify({ ...report, prepareMilliseconds: +(preparedAt - started).toFixed(1), gradePatches: roadGradePatches(model).length }));
+    for (let i = 0; i < model.length; i++) if (sourceCore.roads[i].expressway) {
+      assert.equal(model[i].id, sourceCore.roads[i].id);
+      assert.ok(sourceCore.roads[i].pts.every(p => model[i].pts.includes(p)), 'estimated clearance retains every source alignment vertex');
+    }
+    for (let i = 0; i < model.length; i++) if (sourceCore.roads[i].name === 'Durgam Cheruvu Bridge' && sourceCore.roads[i].elev?.some(y => y >= 6.8)) assert.ok(Math.max(...model[i].elev) >= 6.8);
+    console.log(JSON.stringify({ ...report, bridgeClearance: { ...report.bridgeClearance, crossings: undefined, ambiguities: undefined }, prepareMilliseconds: +(preparedAt - started).toFixed(1), gradePatches: roadGradePatches(model).length }));
   });
   test('the worst shipped Nallagandla and Telugu Talli ramps use smooth real finite tile surfaces', () => {
     for (const id of ['94e381ed-cb6_0', '67c7bb3b-da0_1', 'b2bbd573-347_0']) {

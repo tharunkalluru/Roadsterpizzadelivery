@@ -493,9 +493,9 @@ const R_: Record<string, Recipe> = {
   // RGIA terminal: long glass terminal under a wave roof, the elevated departures road in front
   rgia: { draw: (K) => drawAirportTerminal(K,'vohs'), rot:0, clear: [360, 170, 0, 0] },
   begumpet_airport: { draw: (K) => drawAirportTerminal(K,'vohy'), rot:0, clear: [280, 80, 0, 0] },
-  parade_metro: { draw: (K) => { K.board('PARADE GROUND · METRO INTERCHANGE', 0, 0, 3.5, 14, 1, '#ffffff', '#c4282d'); }, clear: 0, keepBuildings: true },
-  ameerpet_interchange: { draw: (K) => { K.board('AMEERPET · METRO INTERCHANGE', 0, 0, 3.5, 13, 1, '#ffffff', '#c4282d'); }, clear: 0, keepBuildings: true },
-  mgbs_metro: { draw: (K) => { K.board('MG BUS STATION · METRO INTERCHANGE', 0, 0, 3.5, 14, 1, '#ffffff', '#c4282d'); }, clear: 0, keepBuildings: true },
+  parade_metro: { draw: () => { /* The sourced station assembly owns the two exterior names. */ }, clear: 0, keepBuildings: true },
+  ameerpet_interchange: { draw: () => { /* The sourced station assembly owns the two exterior names. */ }, clear: 0, keepBuildings: true },
+  mgbs_metro: { draw: () => { /* The sourced station assembly owns the two exterior names. */ }, clear: 0, keepBuildings: true },
   // ---- statues and memorials ----
   ntr_ghat: { draw: (K) => { K.box(0, 0, 0, 30, 1, 30, '#d6cdbd'); for (let k = 0; k < 12; k++) { const a = (k / 12) * Math.PI * 2; K.box(Math.cos(a) * 11, Math.sin(a) * 11, 1, 1.4, 12, 1.4, '#f2efe8'); } K.shape('dome', 0, 0, 13, 26, 6, 26, '#f2efe8'); K.board('NTR GHAT', 0, 16, 3, 7); K.solidCircle(0, 0, 12, 1); }, clear: 18 },
   pv_ghat: { draw: (K) => { K.box(0, 0, 0, 24, 1, 24, '#d6cdbd'); statue(K, 0, 0, 6, 2, '#5a5a58'); K.board('PV GYAN BHOOMI', 0, 13, 3, 9); }, clear: 14 },

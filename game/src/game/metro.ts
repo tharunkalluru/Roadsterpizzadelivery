@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { metroTrain } from '../world/vehicles';
-import { metroCorridors, projectMetroPath, sampleMetroPath, MetroPath, MetroTrack, MetroCorridor, MetroLineInput } from '../world/metro-geometry';
+import { metroCorridors, projectMetroPath, sampleMetroPath, metroPlatformAssemblies, metroTrackDeckHeight, metroTrackDeckGrade, MetroPath, MetroTrack, MetroCorridor, MetroLineInput } from '../world/metro-geometry';
 import type { XZ } from '../world/types';
 import { MovingRailFrames, type MovingRailShape } from './moving-rail';
 import { metroServiceForRun, type MetroStationSource, type MetroService } from '../world/metro-service';
@@ -54,21 +54,29 @@ export class MetroTrains {
   get bodies() { return this.frames.bodies; }
   constructor(public metro: { lines: MetroLineInput[]; stations: MetroStationSource[]; deckHeight: number }, public mats: { body: THREE.Material; lights: THREE.Material }) {
     this.dh = metro.deckHeight || 11;
-    for (const corridor of metroCorridors(metro.lines)) {
+    const corridors = metroCorridors(metro.lines), platforms = metroPlatformAssemblies(metro.stations, corridors, this.dh);
+    for (const corridor of corridors) {
       if (corridor.center.len < 400) continue;
       const pair = corridor.tracks.map((track): Run => {
         const dir = track.dir, path = track.path;
         // s is the leading nose. Keep all three coaches within the finite track.
-        const min = dir > 0 ? METRO_TRAIN_LENGTH + END_CLEARANCE : END_CLEARANCE;
-        const max = dir > 0 ? path.len - END_CLEARANCE : path.len - METRO_TRAIN_LENGTH - END_CLEARANCE;
+        let min = dir > 0 ? METRO_TRAIN_LENGTH + END_CLEARANCE : END_CLEARANCE;
+        let max = dir > 0 ? path.len - END_CLEARANCE : path.len - METRO_TRAIN_LENGTH - END_CLEARANCE;
+        // The retained legacy Green shape continues beyond its actual nine-
+        // station service. Bound trains to the verified JBS/MGBS assemblies;
+        // keep the raw extension as source evidence without serving a ghost stop.
+        if (corridor.lineId === 'green') {
+          const termini = platforms.filter(p => p.corridor === corridor && ['st_parade_grounds', 'st_mahatma_gandhi_bus_station'].includes(p.stationId));
+          if (termini.length === 2) { const ends = termini.map(p => projectMetroPath(path, [p.frame.cx, p.frame.cz]).s + dir * METRO_TRAIN_LENGTH / 2).sort((a, b) => a - b); min = Math.max(min, ends[0]); max = Math.min(max, ends[1]); }
+        }
         const stops = [min, max];
         const stationStops: Run['stationStops'] = [];
-        for (const [index, station] of metro.stations.entries()) {
-          if (station.lines?.length && !station.lines.includes(corridor.lineId)) continue;
-          const projection = projectMetroPath(path, station.p);
+        for (const platform of platforms) {
+          if (platform.corridor !== corridor) continue;
+          const station = platform.source, projection = projectMetroPath(path, [platform.frame.cx, platform.frame.cz]);
           if (projection.d < 60) {
             const s = Math.max(min, Math.min(max, projection.s + dir * METRO_TRAIN_LENGTH / 2)); stops.push(s);
-            stationStops.push({ s, source: station, id: station.id || `source-station:${index}` });
+            stationStops.push({ s, source: station, id: platform.stationId });
           }
         }
         stops.sort((a, b) => a - b);
@@ -159,7 +167,8 @@ export class MetroTrains {
       const near = Math.hypot(center.x - px, center.z - pz) < NEAR;
       if (near && !train.mesh) train.mesh = this.mesh();
       if (!near) this.releaseMesh(train);
-      if (train.mesh) train.mesh.position.set(center.x, this.dh + 0.95, center.z);
+      const centerHeight = metroTrackDeckHeight(run.corridor, run.path, train.s - run.dir * METRO_TRAIN_LENGTH / 2, this.dh);
+      if (train.mesh) train.mesh.position.set(center.x, centerHeight + 0.95, center.z);
       if (train.mesh) {
         const service = this.serviceForRun(run); this.displays.assign(train.mesh, service);
         if (service && !visibleServices.some(s => s.lineId === service.lineId && s.text === service.text)) visibleServices.push(service);
@@ -168,18 +177,19 @@ export class MetroTrains {
       const dwell: MetroStationDwell | null = stopped ? { trainId: train.id, stationId: stopped.id, lineId: run.corridor.lineId, direction: run.dir,
         platformSide: -run.dir as 1 | -1, elapsed: Math.max(0, DWELL - train.dwell), remaining: train.dwell, doors: [] } : null;
       for (let k = 0; k < 3; k++) {
-        const p = sampleMetroPath(run.path, train.s - run.dir * (FRONT + k * COACH_SPACING), 8), y = this.dh + .95;
+        const s = train.s - run.dir * (FRONT + k * COACH_SPACING), p = sampleMetroPath(run.path, s, 8), y = metroTrackDeckHeight(run.corridor, run.path, s, this.dh) + .95, grade = metroTrackDeckGrade(run.corridor, run.path, s, this.dh) * run.dir;
         if (near) bodies.push({ id: `${train.id}:${k}`, x: p.x, y, z: p.z, hx: p.hx * run.dir, hz: p.hz * run.dir,
-          halfWidth: 1.5, halfLength: k === 1 ? 10.75 : 12.2, bottom: y + .15, roof: y + 3.775 });
+          halfWidth: 1.5, halfLength: k === 1 ? 10.75 : 12.2, bottom: y + .15, roof: y + 3.775, grade });
         if (train.mesh) {
           const coach = train.mesh.children[k];
-          coach.position.set(p.x - center.x, 0, p.z - center.z);
+          coach.position.set(p.x - center.x, y - centerHeight - .95, p.z - center.z);
           // The existing model's cab faces local -z.
-          coach.rotation.set(0, Math.atan2(-p.hx * run.dir, -p.hz * run.dir), 0);
+          coach.rotation.set(Math.atan(grade), Math.atan2(-p.hx * run.dir, -p.hz * run.dir), 0, 'YXZ');
         }
         if (dwell) for (const offset of [-6.5, 0, 6.5]) {
           const door = sampleMetroPath(run.path, train.s - run.dir * (FRONT + k * COACH_SPACING + offset), 8), side = dwell.platformSide;
-          dwell.doors.push({ x: door.x - door.hz * side * 1.5, z: door.z + door.hx * side * 1.5, y: this.dh + 1.2, hx: door.hx, hz: door.hz });
+          const doorS = train.s - run.dir * (FRONT + k * COACH_SPACING + offset);
+          dwell.doors.push({ x: door.x - door.hz * side * 1.5, z: door.z + door.hx * side * 1.5, y: metroTrackDeckHeight(run.corridor, run.path, doorS, this.dh) + 1.2, hx: door.hx, hz: door.hz });
         }
       }
       if (dwell) this.stationDwells.push(dwell);

@@ -1,12 +1,12 @@
 import type { TiledBatch } from '../core/util';
-import { metroLineColor } from './metro-geometry';
+import { metroLineColor, sampleMetroPath, type MetroPath } from './metro-geometry';
 import type { SignEntry, Wall } from './city';
 import type { XZ } from './types';
 import type { StructureFootprint } from './structure-clearance';
 
 export interface StationVisualSource { id: string; name: string; te?: string | null; lines?: string[]; p: XZ }
-export interface StationVisualFrame { cx: number; cz: number; hx: number; hz: number }
-interface StationVisualContext { B: { st: TiledBatch; lit?: TiledBatch }; signs: SignEntry[]; wall?: (wall: Wall) => void; clearance?: (footprint: StructureFootprint, bottom: number, top: number) => boolean }
+export interface StationVisualFrame { cx: number; cz: number; hx: number; hz: number; path?: MetroPath; s?: number }
+interface StationVisualContext { B: { st: TiledBatch; lit?: TiledBatch }; signs: SignEntry[]; wall?: (wall: Wall) => void; clearance?: (footprint: StructureFootprint, bottom: number, top: number) => boolean; exterior?: boolean }
 
 // Exactly four physical nameboards: two exterior end faces and one inward-
 // facing board per platform. No roof-repeat or duplicate side/end names.
@@ -14,7 +14,7 @@ export function drawMetroStationVisuals(station: StationVisualSource, frame: Sta
   const { cx, cz, hx, hz } = frame, nx = -hz, nz = hx, angle = Math.atan2(hx, hz), name = station.name.toUpperCase();
   const P = (u: number, v: number): XZ => [cx + hx * u + nx * v, cz + hz * u + nz * v];
   const exterior: string[] = [], interior: string[] = [];
-  for (const end of [-1, 1]) {
+  for (const end of C.exterior === false ? [] : [-1, 1]) {
     const y = deckHeight - 2.6, fx = hx * end, fz = hz * end, id = `mst_exterior_${station.id}_${end}`;
     // A name above the roof is hidden by the continuous viaduct from street
     // level. Hang the end face below its soffit, toward the kerb so the
@@ -38,16 +38,19 @@ export function drawMetroStationVisuals(station: StationVisualSource, frame: Sta
   }
   for (const side of [-1, 1]) {
     const p = P(0, side * 7.24), y = deckHeight + 3.35, id = `mst_interior_${station.id}_${side}`;
-    C.B.st.box(p[0], y, p[1], .14, 1.35, 7, '#f8fafb', { ry: angle });
-    C.signs.push({ id, text: name, bg: '#f8fafb', fg: '#17304d', c: [p[0] - nx * side * .09, y, p[1] - nz * side * .09], right: [-hx * side, 0, -hz * side], up: [0, 1, 0], w: 6.6, h: 1.15 });
+    // A compact railing board fits across the opposite train-window view;
+    // a 7m backing forced long station names outside even a square viewport.
+    C.B.st.box(p[0], y, p[1], .14, 1.35, 4.6, '#f8fafb', { ry: angle });
+    C.signs.push({ id, text: name, bg: '#f8fafb', fg: '#17304d', c: [p[0] - nx * side * .09, y, p[1] - nz * side * .09], right: [-hx * side, 0, -hz * side], up: [0, 1, 0], w: 4.2, h: 1.15 });
     interior.push(id);
     // Benches stay against the outer railing, leaving the platform edge clear.
     for (const u of [-32, 32]) {
-      const q = P(u, side * 6.6), floor = deckHeight + 1.2;
+      const Q = (u: number, v: number): XZ => { if (!frame.path || frame.s === undefined) return P(u, v); const p = sampleMetroPath(frame.path, frame.s + u); return [p.x - p.hz * v, p.z + p.hx * v]; };
+      const q = Q(u, side * 6.6), floor = deckHeight + 1.2;
       C.B.st.box(q[0], floor + .47, q[1], .66, .14, 4.2, '#626b76', { ry: angle });
-      const back = P(u, side * 6.88); C.B.st.box(back[0], floor + .86, back[1], .1, .65, 4.2, '#7d8791', { ry: angle });
-      for (const leg of [-1.5, 1.5]) { const a = P(u + leg, side * 6.6); C.B.st.box(a[0], floor + .22, a[1], .46, .44, .14, '#aeb5bf', { ry: angle }); }
-      const ring = [P(u - 2.1, side * 6.6 - .35), P(u + 2.1, side * 6.6 - .35), P(u + 2.1, side * 6.6 + .35), P(u - 2.1, side * 6.6 + .35)];
+      const back = Q(u, side * 6.88); C.B.st.box(back[0], floor + .86, back[1], .1, .65, 4.2, '#7d8791', { ry: angle });
+      for (const leg of [-1.5, 1.5]) { const a = Q(u + leg, side * 6.6); C.B.st.box(a[0], floor + .22, a[1], .46, .44, .14, '#aeb5bf', { ry: angle }); }
+      const ring = [Q(u - 2.1, side * 6.6 - .35), Q(u + 2.1, side * 6.6 - .35), Q(u + 2.1, side * 6.6 + .35), Q(u - 2.1, side * 6.6 + .35)];
       for (let i = 0; i < ring.length; i++) { const a = ring[i], b = ring[(i + 1) % ring.length]; C.wall?.({ ax: a[0], az: a[1], bx: b[0], bz: b[1], y0a: floor, y0b: floor, y1a: floor + 1.2, y1b: floor + 1.2, kind: 'parapet' }); }
     }
   }

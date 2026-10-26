@@ -12,7 +12,7 @@ let count = 0;
 const test = async (name, fn) => { await fn(); count++; console.log(`PASS ${name}`); };
 try {
   await build({ stdin: { contents: "export * from './game/src/world/structure-clearance'; export * from './game/src/world/metro-geometry'; export { buildTile } from './game/src/world/city'; export { prepareRoadGrades, roadGradePatches, applyRoadGradePatches } from './game/src/world/road-grades'; export { auxiliaryLane, isORR } from './game/src/world/expressway'; export { hash, initTemplates, TiledBatch, TPL } from './game/src/core/util'; export { placeLandmarks } from './game/src/world/landmarks'; export { BoxGeometry, RingGeometry, BufferGeometry, Float32BufferAttribute, Mesh, MeshBasicMaterial, Raycaster, Vector3, DoubleSide } from './game/node_modules/three/build/three.module.js';", resolveDir: root, loader: 'ts' }, outfile: join(temp, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
-  const { bridgeSupportSites, bridgeSupportPlan, roadStructureClearance, metroCorridors, metroStationFrame, buildTile, prepareRoadGrades, roadGradePatches, applyRoadGradePatches, auxiliaryLane, isORR, hash, initTemplates, TiledBatch, TPL, placeLandmarks, BoxGeometry, RingGeometry, BufferGeometry, Float32BufferAttribute, Mesh, MeshBasicMaterial, Raycaster, Vector3, DoubleSide } = await import(pathToFileURL(join(temp, 'test.mjs')));
+  const { bridgeSupportSites, bridgeSupportPlan, roadStructureClearance, metroCorridors, metroStationFrame, metroPlatformAssemblies, metroRuntimeStations, buildTile, prepareRoadGrades, roadGradePatches, applyRoadGradePatches, auxiliaryLane, isORR, hash, initTemplates, TiledBatch, TPL, placeLandmarks, BoxGeometry, RingGeometry, BufferGeometry, Float32BufferAttribute, Mesh, MeshBasicMaterial, Raycaster, Vector3, DoubleSide } = await import(pathToFileURL(join(temp, 'test.mjs')));
   initTemplates({ rbox: new BoxGeometry(1, 1, 1), ring: new RingGeometry(1, 1.35, 12) });
   const road = (id, pts, extra = {}) => ({ id, seg: id, name: null, cls: 'primary', w: 9.4, lanes: 2, oneway: null, from: `${id}_a`, to: `${id}_b`, pts, elev: null, maxspeed: 50, ...extra });
   const zone = (roads, i = 0, j = 0) => ({ i, j, roads, nodes: {}, buildings: [], boards: [], furniture: [], areas: [], osm: [] });
@@ -84,7 +84,7 @@ try {
     safeSupports(built, [e]);
     assert.equal(built.structureSupports.some(s => s.part === 'metro_pillar'), false);
     assert.ok(built.structureSupports.filter(s => s.part === 'station_concourse').length > 0);
-    assert.equal(unique(built.surfaceGrid).filter(s => s.kind === 'pad').length, 2, 'both platforms remain rideable');
+    assert.equal(unique(built.surfaceGrid).filter(s => s.kind === 'pad').length, 26, 'both curved platforms remain rideable');
     assert.ok(unique(built.surfaceGrid).some(s => s.kind === 'deck' && s.ya === 11.8));
   });
   await test('stations have exactly two exterior ends and two inward wall names without track or roof obstructions', () => {
@@ -191,9 +191,9 @@ try {
     assert.ok(bridgeCandidates > 100 && bridgeRetained > 0 && bridgeOmitted > 0); assert.equal(metroRetained + metroOmitted, core.metro.pillars.length);
     console.log('CITY_STRUCTURE_AUDIT', JSON.stringify({ sourceRoads: prepared.length, bridgeCandidates, overlappingBridgeSitesMerged: bridgeCandidates - uniqueBridgeCandidates, uniqueBridgeCandidates, bridgeRetained, bridgeOmitted, sourceMetroPillars: core.metro.pillars.length, metroRetained, metroOmitted, modelHeadroomMetres: 4.8, sourceDataRewritten: false }));
   });
-  await test('all sourced stations keep rideable platforms and exactly two exterior plus two interior names with safe modeled supports', async () => {
-    let stations = 0, pieces = 0, columns = 0, stairs = 0, offsetNameBoards = 0;
-    for (const st of core.metro.stations) {
+  await test('all sourced stations keep curved platforms, two exterior names per site and one interior name per physical platform', async () => {
+    let stations = 0, pieces = 0, columns = 0, stairs = 0, offsetNameBoards = 0, physicalAssemblies = 0;
+    for (const st of metroRuntimeStations(core.metro.stations)) {
       assert.ok(metroStationFrame(st, corridors), `${st.id}: source line association`);
       const i = Math.floor(st.p[0] / 1000), j = Math.floor(st.p[1] / 1000), raw = await sourceTile(i, j);
       const near = p => Math.abs(p[0] - st.p[0]) < 170 && Math.abs(p[1] - st.p[1]) < 170;
@@ -202,21 +202,22 @@ try {
       const built = buildTile(local, { lowQ: true, metro: { ...core.metro, stations: [st], pillars: [] } });
       safeSupports(built, roads);
       const exterior = built.signs.filter(s => s.id.startsWith(`mst_exterior_${st.id}_`));
-      const interior = built.signs.filter(s => s.id.startsWith(`mst_interior_${st.id}_`));
+      const assemblies=metroPlatformAssemblies([st],corridors,core.metro.deckHeight);physicalAssemblies+=assemblies.length;
+      const interior = built.signs.filter(s => assemblies.some(a=>s.id.startsWith(`mst_interior_${a.key}_`)));
       assert.equal(exterior.length, 2, `${st.id}: only two exterior end names`);
-      assert.equal(interior.length, 2, `${st.id}: only two interior platform names`);
-      assert.equal(built.signs.filter(s => s.id.startsWith('mst_')).length, 4, `${st.id}: no duplicate legacy signs`);
-      const frame=metroStationFrame(st,corridors),clear=roadStructureClearance(roads);
+      assert.equal(interior.length, assemblies.length*2, `${st.id}: one interior name per actual platform`);
+      assert.equal(built.signs.filter(s => s.id.startsWith('mst_')).length, 2+assemblies.length*2, `${st.id}: no duplicate legacy signs`);
+      const primary=assemblies.find(a=>!a.secondary),frame=primary.frame,clear=roadStructureClearance(roads);
       for(const s of exterior){const fx=-s.right[2],fz=s.right[0],x=s.c[0]-fx*.1,z=s.c[2]-fz*.1,y=s.c[1]-.15;
         assert.deepEqual(clear.conflicts({x,z,hx:frame.hx,hz:frame.hz,hw:8,hl:.12},y-1.125,y+1.125),[],`${st.id}: hanging name plate leaves actual road headroom`);
-        assert.ok(y+1.125<core.metro.deckHeight-1.2,'backing remains below the rendered soffit');
+        assert.ok(y+1.125<primary.deckHeight-1.2,'backing remains below the rendered soffit');
         if(Math.abs(-(x-frame.cx)*frame.hz+(z-frame.cz)*frame.hx)>.1)offsetNameBoards++;
       }
-      assert.equal(unique(built.surfaceGrid).filter(s => s.kind === 'pad').length, 2, `${st.id}: both platform drive surfaces`);
+      assert.equal(unique(built.surfaceGrid).filter(s => s.kind === 'pad').length, assemblies.length*26, `${st.id}: all physical platform drive surfaces`);
       const own = built.structureSupports.filter(s => s.source === st.id); pieces += own.length; columns += own.filter(s => s.part === 'station_column').length; stairs += own.filter(s => s.part === 'station_stairs').length; stations++;
     }
-    assert.equal(stations, core.metro.stations.length);
-    console.log('STATION_STRUCTURE_AUDIT', JSON.stringify({ sourceStations: stations, sourceStationTiles: new Set(core.metro.stations.map(s => `${Math.floor(s.p[0] / 1000)}_${Math.floor(s.p[1] / 1000)}`)).size, retainedStationStructurePieces: pieces, retainedColumns: columns, retainedStairs: stairs, exteriorNameBoards: stations * 2, interiorNameBoards: stations * 2, kerbOffsetExteriorBoards:offsetNameBoards, exteriorBoardHeadroomConflicts:0, roadConflictsAfter: 0, validation: 'offline source road/building station neighborhoods; not citywide browser verification' }));
+    assert.equal(stations, 56);
+    console.log('STATION_STRUCTURE_AUDIT', JSON.stringify({ sourceStations: core.metro.stations.length, activeStationSites: stations, retainedAliases: 1, sourceStationTiles: new Set(core.metro.stations.map(s => `${Math.floor(s.p[0] / 1000)}_${Math.floor(s.p[1] / 1000)}`)).size, retainedStationStructurePieces: pieces, retainedColumns: columns, retainedStairs: stairs, exteriorNameBoards: stations * 2, interiorNameBoards: physicalAssemblies * 2, physicalCorridorAssemblies: physicalAssemblies, kerbOffsetExteriorBoards:offsetNameBoards, exteriorBoardHeadroomConflicts:0, roadConflictsAfter: 0, validation: 'offline source road/building station neighborhoods; not citywide browser verification' }));
   });
 
   // Observe actual production draw calls rather than trusting support metadata.

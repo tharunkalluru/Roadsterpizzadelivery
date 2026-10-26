@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-10-26T23:26:21.927136+00:00",
+  "baselineCommit": "0eff345306ab8b3cef671e8fd84b5839bffa197d",
+  "buildFingerprint": "5800481fe3b2689c2da310ae8593779bdcc9c2b3e35633ec5dd1592c3dd97f53",
+  "status": "Final frozen sources pass full game check; Version11 saved, deployment pending",
+  "requirementsAudit": "../prior-world-transit-requirements-audit-2026-10-26.md",
+  "newRequirements": {
+    "flight": "Separate panel removed; full unlimited reserve is the FLY/LAND button fill",
+    "map": "Responsive fixed top/right bounds with safe-area spacing",
+    "areaNotification": "Dedicated top lane",
+    "acceptOrders": "Small toggle, no redundant idle panel; GPS tasks preserved",
+    "bugReport": "Bug icon \u2192 Report; automatic game coordinates/source road/screenshot/build/recent diagnostics; private-read D1 storage, offline retry",
+    "brake": "150 percent previous width and height, same shape",
+    "crossings": "Shared finite-road clipping for rendered and collidable barriers; bounded grade-separated crossing repair, explicit uncertain topology"
+  },
+  "checks": {
+    "fullGameCheck": "PASS",
+    "reportStorageGroups": 16,
+    "gameLifecycleGroups": 33,
+    "bridgeVehicleGroups": 6,
+    "classificationGroups": 5,
+    "metroInterchangeGroups": 3,
+    "stationLifeGroups": 13,
+    "physicalPhoneTested": false,
+    "finalProductionBuild": "PASS",
+    "sourcePacksModified": false
+  },
+  "bridge": {
+    "sourceSweep": {
+      "tiles": 839,
+      "walls": 148863,
+      "roadSurfaces": 1358676,
+      "tests": 16019233
+    },
+    "confirmedBarrierIntrusions": 0,
+    "potentialSlabPairsAwaitingReview": 2706,
+    "minimumPjrPhysicalSoffitHeadroomM": 4.95,
+    "renderedBusRoofM": 3.3399999141693115,
+    "busRoofMarginM": 1.6100000858306887,
+    "scope": "Finite independent source geometry and actual production collider/mesh tests; not a drive through every city road",
+    "report": "2026-10-26-bridge-deck-source-sweep.json",
+    "uncertainSegmentClassifications": 8431,
+    "validationReport": "2026-10-26-bridge-crossing-validation.json"
+  },
+  "buildings": {
+    "visitedTiles": 631,
+    "roadSolidConflicts": 0,
+    "metroSolidConflicts": 0,
+    "report": "2026-10-26-interchange-building-audit.json",
+    "finalGeometryChanges": "Exact contained volume shrinks and final affected-tile recheck; original compiled hashes preserved"
+  },
+  "metro": {
+    "rawStationRecords": 57,
+    "activeStationSites": 56,
+    "physicalAssemblies": 59,
+    "interiorNames": 118,
+    "exteriorNames": 112,
+    "benches": 236,
+    "secondaryServiceDirectionsRepaired": 6,
+    "greenStopsPerRun": 9,
+    "renderedInterchangeTrainAndRoofRiderDirectionsClear": 12,
+    "compactInteriorBoardBackingM": 4.6,
+    "compactInteriorTextWidthM": 4.2
+  },
+  "browser": {
+    "controls": "Six production-HUD component viewports measured in actual browser; zero overlaps/out-of-bounds, fixed map visible. Two safe-inset scenarios are geometry-only.",
+    "sourceScenes": "Actual streamed World PJR road/opposite/overview, circle and approach views; static car/bus for scale. Ameerpet lower-level dwell/transfers and platform names; final compact JBS/MGBS window names. Component simulation only.",
+    "actualGame": "Fresh Gachibowli offer accepted by Enter; driving to46km/h, braking, full map open/explicit close, flight/landing and pause. No pickup or paid handover performed.",
+    "actualPaidDeliveries": 0,
+    "reportFlow": "Local real-game Bug\u2192Report receipt and actual local D1 row/screenshot inspected; final live persistence pending.",
+    "console": "No captured warnings/errors on actual game, bridge or metro reviews. HUD wrapper captured three historic unattributed MutationObserver errors during source reloads; no matching application MutationObserver implementation found.",
+    "existingWarning": "ISB Road pickup displayed Road ahead blocked; cause not diagnosed or cleared by this smoke test.",
+    "evidenceDirectory": "evidence/2026-10-26-hud-reports-bridges/"
+  },
+  "remaining": [
+    "2706 conservative slab-overlap pairs require topology/source review; they are neither confirmed bugs nor a citywide slab-clearance pass.",
+    "Exact photo-current campus/mall/office architecture and interiors, exhaustive missing institutions and current city construction inventories remain incomplete.",
+    "Prior3720 unresolved playable bus legs are not certified as routed by this change.",
+    "No physical Nothing Phone/gyro or new completed delivery is claimed."
+  ],
+  "publication": {
+    "version": 11,
+    "status": "saved",
+    "siteSourceCommit": "7c83a0fe18e977888c5b7fa945ab044a391d1365",
+    "allProductionFilesByteIdentical": true
+  }
+}

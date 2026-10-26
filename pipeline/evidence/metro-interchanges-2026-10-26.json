@@ -1,0 +1,1232 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-10-26T22:51:21.123879+00:00",
+  "scope": "Retained station identities plus current official corridor/platform references; no source city pack edits.",
+  "retainedSourceFiles": {
+    "pipeline/evidence/landmark-osm-source-2026-10-26.json": "7c3fb9f2cea6edd50ffd8dd96106ee74fc340a85881277d611b3bac40f4c2710",
+    "pipeline/evidence/landmark-osm-shipped-source-2026-10-26.json": "da696d66014f4afba67849260fa9fd177323147280e7a83e62d7df5cb1d9aab7"
+  },
+  "sourceNodes": [
+    {
+      "type": "node",
+      "id": 7208768626,
+      "lat": 17.3798572,
+      "lon": 78.4862022,
+      "version": 8,
+      "timestamp": "2025-10-11T15:40:57Z",
+      "tags": {
+        "alt_name": "M. G. Bus Station (Red Line)",
+        "name": "Mahatma Gandhi Bus Station (Red Line)",
+        "name:fa": "ایستگاه اتوبوس مهاتما گاندی (خط قرمز)",
+        "name:ml": "മഹാത്മാഗാന്ധി ബസ് സ്റ്റേഷൻ",
+        "name:te": "ఎం.జి. బస్. స్టేషన్",
+        "name:ur": "مہاتما گاندھی بس اسٹیشن (ریڈ لائن)",
+        "network": "Hyderabad Metro",
+        "note": "Contributors are requested to not edit the \"network\" and the \"operator\" tags. (2023/11/08)",
+        "operator": "Hyderabad Metro Rail Limited",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7208768627,
+      "lat": 17.3796948,
+      "lon": 78.4858635,
+      "version": 10,
+      "timestamp": "2025-10-11T15:40:57Z",
+      "tags": {
+        "alt_name": "M. G. Bus Station (Green Line)",
+        "name": "Mahatma Gandhi Bus Station (Green Line)",
+        "name:fa": "ایستگاه اتوبوس مهاتما گاندی (خط سبز)",
+        "name:ml": "മഹാത്മാഗാന്ധി ബസ് സ്റ്റേഷൻ",
+        "name:te": "ఎం.జి. బస్. స్టేషన్",
+        "name:ur": "مہاتما گاندھی بس اسٹیشن (گرین لائن",
+        "network": "Hyderabad Metro",
+        "note": "Contributors are requested to not edit the \"network\" and the \"operator\" tags. (2023/11/08)",
+        "operator": "Hyderabad Metro Rail Limited",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6447191882,
+      "lat": 17.4357214,
+      "lon": 78.4447933,
+      "version": 10,
+      "timestamp": "2025-10-11T15:40:57Z",
+      "tags": {
+        "name": "Ameerpet (Red Line)",
+        "name:fa": "امیرپیت (خط قرمز)",
+        "name:ml": "അമീർപേട്ട്",
+        "name:te": "అమీర్‌పేట్",
+        "network": "Hyderabad Metro",
+        "note": "Contributors are requested to not edit the \"network\" and the \"operator\" tags. (2023/11/08)",
+        "operator": "Hyderabad Metro Rail Limited",
+        "public_transport": "station",
+        "public_transport:version": "2",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q56701862",
+        "wikipedia": "en:Ameerpet metro station"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6700511122,
+      "lat": 17.4352864,
+      "lon": 78.4447834,
+      "version": 7,
+      "timestamp": "2025-10-11T15:40:57Z",
+      "tags": {
+        "name": "Ameerpet (Blue Line)",
+        "name:fa": "امیرپیت (خط آبی)",
+        "name:ml": "അമീർപേട്ട്",
+        "name:te": "అమీర్‌పేట్",
+        "network": "Hyderabad Metro",
+        "note": "Contributors are requested to not edit the \"network\" and the \"operator\" tags. (2023/11/08)",
+        "operator": "Hyderabad Metro Rail Limited",
+        "public_transport": "station",
+        "public_transport:version": "2",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes",
+        "wikidata": "Q56701862",
+        "wikipedia": "en:Ameerpet metro station"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7052069758,
+      "lat": 17.4431943,
+      "lon": 78.4974687,
+      "version": 7,
+      "timestamp": "2025-10-11T15:40:57Z",
+      "tags": {
+        "name": "Parade Grounds (Blue Line)",
+        "name:fa": "میدان رژه (خط آبی)",
+        "name:ml": "പരേഡ് ഗ്രൗണ്ട്സ്",
+        "name:te": "పెరేడ్ గ్రౌండ్స్",
+        "network": "Hyderabad Metro",
+        "note": "Contributors are requested to not edit the \"network\" and the \"operator\" tags. (2023/11/08)",
+        "operator": "Hyderabad Metro Rail Limited",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7195061310,
+      "lat": 17.4444775,
+      "lon": 78.497584,
+      "version": 6,
+      "timestamp": "2025-10-11T15:40:57Z",
+      "tags": {
+        "name": "Parade Grounds (Green Line)",
+        "name:fa": "میدان رژه (خط سبز)",
+        "name:ml": "പരേഡ് ഗ്രൗണ്ട്സ്",
+        "name:te": "పెరేడ్ గ్రౌండ్స్",
+        "network": "Hyderabad Metro",
+        "note": "Contributors are requested to not edit the \"network\" and the \"operator\" tags. (2023/11/08)",
+        "operator": "Hyderabad Metro Rail Limited",
+        "public_transport": "station",
+        "railway": "station",
+        "station": "subway",
+        "subway": "yes"
+      }
+    }
+  ],
+  "primaryReferences": [
+    "https://ltmetro.com/wp-content/uploads/2025/01/press-release-13th-november-2017-1.pdf",
+    "https://hmrl.co.in/wp-content/uploads/2025/06/2020-02-06-MGBS-Interchange-Station-Write-up.pdf",
+    "https://www.ltmetro.in/about-us/project-highlights/stations",
+    "https://ltmetro.com/stations/ameerpet/",
+    "https://ltmetro.com/stations/jbs-parade-ground/"
+  ],
+  "publishedReferenceLevels": [
+    {
+      "station": "Ameerpet",
+      "line": "red",
+      "platformMetresAboveGround": 30,
+      "source": "https://ltmetro.com/wp-content/uploads/2025/01/press-release-13th-november-2017-1.pdf",
+      "pdfSha256": "2d99135c177216a17ac53b6d2bac866b2c1641dd1ec229acbad088b2153450af"
+    },
+    {
+      "station": "MGBS",
+      "line": "green",
+      "platformFeetAboveGround": 75,
+      "platformMetresAboveGround": 22.86,
+      "source": "https://hmrl.co.in/wp-content/uploads/2025/06/2020-02-06-MGBS-Interchange-Station-Write-up.pdf"
+    }
+  ],
+  "officialServiceCounts": {
+    "red": 27,
+    "blue": 23,
+    "green": 9,
+    "source": "https://www.ltmetro.in/about-us/project-highlights/stations"
+  },
+  "runtimeAlias": {
+    "st_jbs": {
+      "stationId": "st_parade_grounds",
+      "lineId": "green",
+      "sourceId": "n7195061310",
+      "reason": "Legacy extra Green anchor; official service has nine stations and the retained separate Green station node supplies the actual JBS/Parade platform."
+    }
+  },
+  "gameGeometry": {
+    "plateauHalfLengthMetres": 80,
+    "smoothApproachMetres": 800,
+    "profile": "Quintic transition with zero first/second derivatives at both ends; not surveyed rail gradients.",
+    "unmeasuredFloors": "Baseline floor13.7m for Ameerpet Blue/MGBS Red/Parade Blue; illustrative JBS Green floor24.9m.",
+    "overhead": "Game catenary and arms raised to leave a train-roof-riding car clear; not surveyed dimensions.",
+    "terminalAdjustment": "Finite-track 130m game platform is kept within retained track endpoints. Raw source anchors are unchanged.",
+    "adjustedTerminalAssemblies": [
+      {
+        "key": "st_l_b_nagar",
+        "stationId": "st_l_b_nagar",
+        "lineId": "red",
+        "sourcePoint": [
+          5452.3,
+          6250.1
+        ],
+        "modelPoint": [
+          5413.084015734649,
+          6198.350555218484
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": -64.92994966996412
+      },
+      {
+        "key": "st_miyapur",
+        "stationId": "st_miyapur",
+        "lineId": "red",
+        "sourcePoint": [
+          -13130.3,
+          -9987
+        ],
+        "modelPoint": [
+          -13065.304222828667,
+          -9986.209088470465
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 65
+      },
+      {
+        "key": "st_nagole",
+        "stationId": "st_nagole",
+        "lineId": "blue",
+        "sourcePoint": [
+          6611.2,
+          1718.5
+        ],
+        "modelPoint": [
+          6611.618171424316,
+          1712.9901636784102
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": -5.525318601066829
+      }
+    ]
+  },
+  "runtimeSnapshot": {
+    "retainedSourceRecords": 57,
+    "activeSites": 56,
+    "assemblies": [
+      {
+        "key": "st_ameerpet:blue",
+        "stationId": "st_ameerpet",
+        "lineId": "blue",
+        "sourceId": "n6700511122",
+        "sourcePoint": [
+          -5505.7,
+          -3208
+        ],
+        "modelPoint": [
+          -5515.546658009987,
+          -3201.9316001205984
+        ],
+        "floor": 13.7,
+        "secondary": true,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_ameerpet",
+        "stationId": "st_ameerpet",
+        "lineId": "red",
+        "sourceId": "n6447191882",
+        "sourcePoint": [
+          -5504.7,
+          -3256.2
+        ],
+        "modelPoint": [
+          -5521.71446088727,
+          -3246.2215998971083
+        ],
+        "floor": 30,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_assembly",
+        "stationId": "st_assembly",
+        "lineId": "red",
+        "sourcePoint": [
+          -2738.5,
+          904.2
+        ],
+        "modelPoint": [
+          -2738.6145245159796,
+          904.214369756379
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_balanagar",
+        "stationId": "st_balanagar",
+        "lineId": "red",
+        "sourcePoint": [
+          -7941.4,
+          -7813
+        ],
+        "modelPoint": [
+          -7941.356965669481,
+          -7813.063229264793
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_begumpet",
+        "stationId": "st_begumpet",
+        "lineId": "blue",
+        "sourcePoint": [
+          -4214.9,
+          -3461.1
+        ],
+        "modelPoint": [
+          -4214.800508089042,
+          -3461.054152724675
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_bharat_nagar",
+        "stationId": "st_bharat_nagar",
+        "lineId": "red",
+        "sourcePoint": [
+          -7079,
+          -6412.3
+        ],
+        "modelPoint": [
+          -7078.95473500874,
+          -6412.319960319553
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_chaitanyapuri",
+        "stationId": "st_chaitanyapuri",
+        "lineId": "red",
+        "sourcePoint": [
+          4171.8,
+          4207.3
+        ],
+        "modelPoint": [
+          4171.804809282553,
+          4207.118371051351
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_chikkadpally",
+        "stationId": "st_chikkadpally",
+        "lineId": "green",
+        "sourcePoint": [
+          -180.8,
+          657.1
+        ],
+        "modelPoint": [
+          -180.84523987186188,
+          657.0932531227487
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_dilsukh_nagar",
+        "stationId": "st_dilsukh_nagar",
+        "lineId": "red",
+        "sourcePoint": [
+          3093.9,
+          4178.7
+        ],
+        "modelPoint": [
+          3093.899968701392,
+          4178.701250580214
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_durgam_cheruvu",
+        "stationId": "st_durgam_cheruvu",
+        "lineId": "blue",
+        "sourcePoint": [
+          -11584.3,
+          -4051.7
+        ],
+        "modelPoint": [
+          -11584.343494119603,
+          -4051.683169376316
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_erragadda",
+        "stationId": "st_erragadda",
+        "lineId": "red",
+        "sourcePoint": [
+          -6712,
+          -5655
+        ],
+        "modelPoint": [
+          -6711.925215069906,
+          -5655.03131827884
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_esi_hospital",
+        "stationId": "st_esi_hospital",
+        "lineId": "red",
+        "sourcePoint": [
+          -6189.3,
+          -4545.6
+        ],
+        "modelPoint": [
+          -6189.246721226061,
+          -4545.627671662013
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_gandhi_bhavan",
+        "stationId": "st_gandhi_bhavan",
+        "lineId": "red",
+        "sourcePoint": [
+          -2496.4,
+          2236.2
+        ],
+        "modelPoint": [
+          -2496.389860465585,
+          2236.1931648439204
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_gandhi_hospital",
+        "stationId": "st_gandhi_hospital",
+        "lineId": "green",
+        "sourcePoint": [
+          563.1,
+          -2127.2
+        ],
+        "modelPoint": [
+          563.2002110593917,
+          -2127.197930593352
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_habsiguda",
+        "stationId": "st_habsiguda",
+        "lineId": "blue",
+        "sourcePoint": [
+          4669.9,
+          -1536.2
+        ],
+        "modelPoint": [
+          4669.828853571675,
+          -1536.1470266914832
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_hitec_city",
+        "stationId": "st_hitec_city",
+        "lineId": "blue",
+        "sourcePoint": [
+          -12055.9,
+          -4726
+        ],
+        "modelPoint": [
+          -12055.832156258599,
+          -4726.050309452534
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_irrum_manzil",
+        "stationId": "st_irrum_manzil",
+        "lineId": "red",
+        "sourcePoint": [
+          -4305.9,
+          -1582.3
+        ],
+        "modelPoint": [
+          -4305.912742566557,
+          -1582.2922083924784
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_jntu_college",
+        "stationId": "st_jntu_college",
+        "lineId": "red",
+        "sourcePoint": [
+          -11447.1,
+          -10221.3
+        ],
+        "modelPoint": [
+          -11447.108694087716,
+          -10221.237303435812
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_jubilee_hills_checkpost",
+        "stationId": "st_jubilee_hills_checkpost",
+        "lineId": "blue",
+        "sourcePoint": [
+          -8809.1,
+          -2426.2
+        ],
+        "modelPoint": [
+          -8809.049656533209,
+          -2426.2478841725188
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_khairatabad",
+        "stationId": "st_khairatabad",
+        "lineId": "red",
+        "sourcePoint": [
+          -3799,
+          -582.6
+        ],
+        "modelPoint": [
+          -3799.01522058186,
+          -582.5973467947512
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_kphb_colony",
+        "stationId": "st_kphb_colony",
+        "lineId": "red",
+        "sourcePoint": [
+          -10076.6,
+          -9684.2
+        ],
+        "modelPoint": [
+          -10076.610225242895,
+          -9684.178434388974
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_kukatpally",
+        "stationId": "st_kukatpally",
+        "lineId": "red",
+        "sourcePoint": [
+          -9037.8,
+          -8735.2
+        ],
+        "modelPoint": [
+          -9037.853977243025,
+          -8735.162409667153
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_l_b_nagar",
+        "stationId": "st_l_b_nagar",
+        "lineId": "red",
+        "sourcePoint": [
+          5452.3,
+          6250.1
+        ],
+        "modelPoint": [
+          5413.084015734649,
+          6198.350555218484
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": -64.92994966996412
+      },
+      {
+        "key": "st_lakdi_ka_pul",
+        "stationId": "st_lakdi_ka_pul",
+        "lineId": "red",
+        "sourcePoint": [
+          -3357.1,
+          261.9
+        ],
+        "modelPoint": [
+          -3357.043046321697,
+          261.8497060064414
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_madhapur",
+        "stationId": "st_madhapur",
+        "lineId": "blue",
+        "sourcePoint": [
+          -10218.8,
+          -3426.5
+        ],
+        "modelPoint": [
+          -10218.8,
+          -3426.5
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_madhura_nagar",
+        "stationId": "st_madhura_nagar",
+        "lineId": "blue",
+        "sourcePoint": [
+          -6109.7,
+          -3393.8
+        ],
+        "modelPoint": [
+          -6109.724539929889,
+          -3393.8298886303874
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_mahatma_gandhi_bus_station:green",
+        "stationId": "st_mahatma_gandhi_bus_station",
+        "lineId": "green",
+        "sourceId": "n7208768627",
+        "sourcePoint": [
+          -1140.8,
+          2944.5
+        ],
+        "modelPoint": [
+          -1146.8847325934614,
+          2947.5894087530214
+        ],
+        "floor": 22.86,
+        "secondary": true,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_mahatma_gandhi_bus_station",
+        "stationId": "st_mahatma_gandhi_bus_station",
+        "lineId": "red",
+        "sourceId": "n7208768626",
+        "sourcePoint": [
+          -1104.8,
+          2926.5
+        ],
+        "modelPoint": [
+          -1108.4787331593345,
+          2929.566065149746
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_malakpet",
+        "stationId": "st_malakpet",
+        "lineId": "red",
+        "sourcePoint": [
+          -286.6,
+          3221.9
+        ],
+        "modelPoint": [
+          -286.60392907571446,
+          3221.9497461140845
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_mettuguda",
+        "stationId": "st_mettuguda",
+        "lineId": "blue",
+        "sourcePoint": [
+          2441.4,
+          -3234.3
+        ],
+        "modelPoint": [
+          2441.3770675594624,
+          -3234.275084138786
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_miyapur",
+        "stationId": "st_miyapur",
+        "lineId": "red",
+        "sourcePoint": [
+          -13130.3,
+          -9987
+        ],
+        "modelPoint": [
+          -13065.304222828667,
+          -9986.209088470465
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 65
+      },
+      {
+        "key": "st_moosapet",
+        "stationId": "st_moosapet",
+        "lineId": "red",
+        "sourcePoint": [
+          -7509.6,
+          -7286.2
+        ],
+        "modelPoint": [
+          -7509.566017630005,
+          -7286.222152802447
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_musarambagh",
+        "stationId": "st_musarambagh",
+        "lineId": "red",
+        "sourcePoint": [
+          1630.6,
+          3898.9
+        ],
+        "modelPoint": [
+          1630.578170339462,
+          3898.937072990509
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_musheerabad",
+        "stationId": "st_musheerabad",
+        "lineId": "green",
+        "sourcePoint": [
+          308.3,
+          -1281.2
+        ],
+        "modelPoint": [
+          308.4042703261739,
+          -1281.1621945515708
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_nagole",
+        "stationId": "st_nagole",
+        "lineId": "blue",
+        "sourcePoint": [
+          6611.2,
+          1718.5
+        ],
+        "modelPoint": [
+          6611.618171424316,
+          1712.9901636784102
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": -5.525318601066829
+      },
+      {
+        "key": "st_nampally",
+        "stationId": "st_nampally",
+        "lineId": "red",
+        "sourcePoint": [
+          -2809.2,
+          1529.6
+        ],
+        "modelPoint": [
+          -2809.187689852024,
+          1529.6015743026187
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_narayanaguda",
+        "stationId": "st_narayanaguda",
+        "lineId": "green",
+        "sourcePoint": [
+          -705.8,
+          1320.8
+        ],
+        "modelPoint": [
+          -705.8141872024424,
+          1320.7957225208672
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_new_market",
+        "stationId": "st_new_market",
+        "lineId": "red",
+        "sourcePoint": [
+          698.9,
+          3638.2
+        ],
+        "modelPoint": [
+          698.899989629984,
+          3638.2000761960635
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_ngri",
+        "stationId": "st_ngri",
+        "lineId": "blue",
+        "sourcePoint": [
+          5284.4,
+          -943.5
+        ],
+        "modelPoint": [
+          5284.424575748117,
+          -943.5261912322005
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_osmania_medical_college",
+        "stationId": "st_osmania_medical_college",
+        "lineId": "red",
+        "sourcePoint": [
+          -1640,
+          2655.3
+        ],
+        "modelPoint": [
+          -1640.085169806484,
+          2655.4650666622842
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_panjagutta",
+        "stationId": "st_panjagutta",
+        "lineId": "red",
+        "sourcePoint": [
+          -4834.1,
+          -2476.1
+        ],
+        "modelPoint": [
+          -4833.581974154065,
+          -2476.446764458601
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_parade_grounds:blue",
+        "stationId": "st_parade_grounds",
+        "lineId": "blue",
+        "sourceId": "n7052069758",
+        "sourcePoint": [
+          92.3,
+          -4083.2
+        ],
+        "modelPoint": [
+          92.30614859882056,
+          -4083.3537504628985
+        ],
+        "floor": 13.7,
+        "secondary": true,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_parade_grounds",
+        "stationId": "st_parade_grounds",
+        "lineId": "green",
+        "sourceId": "n7195061310",
+        "sourcePoint": [
+          104.6,
+          -4225.2
+        ],
+        "modelPoint": [
+          104.97686149077259,
+          -4225.544884957691
+        ],
+        "floor": 24.9,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_paradise",
+        "stationId": "st_paradise",
+        "lineId": "blue",
+        "sourcePoint": [
+          -1100.3,
+          -4113.2
+        ],
+        "modelPoint": [
+          -1100.2992474133998,
+          -4113.250730583814
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_peddamma_gudi",
+        "stationId": "st_peddamma_gudi",
+        "lineId": "blue",
+        "sourcePoint": [
+          -9374.3,
+          -2695.1
+        ],
+        "modelPoint": [
+          -9374.28370356632,
+          -2695.1254392964615
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_prakash_nagar",
+        "stationId": "st_prakash_nagar",
+        "lineId": "blue",
+        "sourcePoint": [
+          -3264.5,
+          -4270.6
+        ],
+        "modelPoint": [
+          -3264.508778470207,
+          -4270.551254932983
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_raidurg",
+        "stationId": "st_raidurg",
+        "lineId": "blue",
+        "sourcePoint": [
+          -12688.4,
+          -3971.2
+        ],
+        "modelPoint": [
+          -12688.400797588525,
+          -3971.199986115283
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_rasoolpura",
+        "stationId": "st_rasoolpura",
+        "lineId": "blue",
+        "sourcePoint": [
+          -2145.5,
+          -4129.8
+        ],
+        "modelPoint": [
+          -2145.5027330672115,
+          -4129.750369046072
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_road_no_5_jubilee_hills",
+        "stationId": "st_road_no_5_jubilee_hills",
+        "lineId": "blue",
+        "sourcePoint": [
+          -7798.3,
+          -2628.4
+        ],
+        "modelPoint": [
+          -7798.310020409847,
+          -2628.370119909381
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_rtc_cross_roads",
+        "stationId": "st_rtc_cross_roads",
+        "lineId": "green",
+        "sourcePoint": [
+          21.5,
+          -81
+        ],
+        "modelPoint": [
+          21.48313617959291,
+          -81.00678740034698
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_s_r_nagar",
+        "stationId": "st_s_r_nagar",
+        "lineId": "red",
+        "sourcePoint": [
+          -5843.3,
+          -3918.5
+        ],
+        "modelPoint": [
+          -5843.241631339912,
+          -3918.5318434454466
+        ],
+        "floor": 14.27772482650284,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_secunderabad_east",
+        "stationId": "st_secunderabad_east",
+        "lineId": "blue",
+        "sourcePoint": [
+          941.5,
+          -3255.8
+        ],
+        "modelPoint": [
+          941.513337789006,
+          -3255.8038107721045
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_secunderabad_west",
+        "stationId": "st_secunderabad_west",
+        "lineId": "green",
+        "sourcePoint": [
+          310,
+          -3044.3
+        ],
+        "modelPoint": [
+          309.98244805091235,
+          -3044.3268843454944
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_stadium",
+        "stationId": "st_stadium",
+        "lineId": "blue",
+        "sourcePoint": [
+          6125.5,
+          -121.4
+        ],
+        "modelPoint": [
+          6125.580981598109,
+          -121.4707623782783
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_sultan_bazar",
+        "stationId": "st_sultan_bazar",
+        "lineId": "green",
+        "sourcePoint": [
+          -1336,
+          2418.8
+        ],
+        "modelPoint": [
+          -1336.0565793540002,
+          2418.7517178961366
+        ],
+        "floor": 13.892745947579852,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_tarnaka",
+        "stationId": "st_tarnaka",
+        "lineId": "blue",
+        "sourcePoint": [
+          3383.3,
+          -2434.4
+        ],
+        "modelPoint": [
+          3383.2795470900573,
+          -2434.357690825416
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_uppal",
+        "stationId": "st_uppal",
+        "lineId": "blue",
+        "sourcePoint": [
+          6760.7,
+          690.5
+        ],
+        "modelPoint": [
+          6760.700000000001,
+          690.5
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_victoria_memorial",
+        "stationId": "st_victoria_memorial",
+        "lineId": "red",
+        "sourcePoint": [
+          5028.9,
+          4919.6
+        ],
+        "modelPoint": [
+          5028.958812384389,
+          4919.5853701945325
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      },
+      {
+        "key": "st_yusufguda",
+        "stationId": "st_yusufguda",
+        "lineId": "blue",
+        "sourcePoint": [
+          -7361.4,
+          -3188.7
+        ],
+        "modelPoint": [
+          -7361.415123826073,
+          -3188.7059405192763
+        ],
+        "floor": 13.7,
+        "secondary": false,
+        "terminalModelAdjustment": 0
+      }
+    ],
+    "aliases": {
+      "st_jbs": {
+        "stationId": "st_parade_grounds",
+        "lineId": "green",
+        "sourceId": "n7195061310",
+        "reason": "Legacy extra Green anchor; official service has nine stations and the retained separate Green station node supplies the actual JBS/Parade platform."
+      }
+    },
+    "evidence": {
+      "retrievedOn": "2026-10-26",
+      "planarSource": "pipeline/evidence/landmark-osm-shipped-source-2026-10-26.json",
+      "primary": [
+        "https://ltmetro.com/wp-content/uploads/2025/01/press-release-13th-november-2017-1.pdf",
+        "https://hmrl.co.in/wp-content/uploads/2025/06/2020-02-06-MGBS-Interchange-Station-Write-up.pdf",
+        "https://www.ltmetro.in/about-us/project-highlights/stations",
+        "https://ltmetro.com/stations/ameerpet/",
+        "https://ltmetro.com/stations/jbs-parade-ground/"
+      ],
+      "uncertainty": "Ameerpet Red platform 30m and MGBS Green platform 75ft above ground are published reference levels. Other levels retain the baseline game deck; JBS Green uses an illustrative 11.2m lift. Flat 160m station reaches and 800m smooth approaches are game transitions, not surveyed rail gradients or complete architectural replicas."
+    }
+  },
+  "retainedAliasRecords": [
+    {
+      "id": "st_jbs",
+      "name": "JBS",
+      "te": null,
+      "lines": [
+        "green"
+      ],
+      "p": [
+        -12.5,
+        -4705.6
+      ]
+    }
+  ]
+}

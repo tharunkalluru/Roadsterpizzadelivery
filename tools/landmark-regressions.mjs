@@ -53,7 +53,10 @@ try {
     let emitted=0;
     for (const batch of Object.values(B)) for (const part of batch.tiles.values()) { assert.ok(part.pos.every(Number.isFinite),m.name); emitted+=part.pos.length; }
     if (m.modelAliasOf) { assert.equal(emitted,0,m.name); assert.equal(solids.length,0,m.name); assert.ok(byId.has(m.modelAliasOf)); assert.ok(!byId.get(m.modelAliasOf).modelAliasOf); }
-    else assert.ok(emitted>0||m.id==='durgam_lake',m.name); // Lake uses its mapped water polygon.
+    else if (['parade_metro','ameerpet_interchange','mgbs_metro'].includes(m.id)) {
+      const owner = { parade_metro:'st_parade_grounds', ameerpet_interchange:'st_ameerpet', mgbs_metro:'st_mahatma_gandhi_bus_station' }[m.id];
+      assert.ok(core.metro.stations.some(s=>s.id===owner)); assert.equal(emitted,0,'the production metro assembly owns its station names'); assert.equal(solids.length,0,'no duplicate standalone metro landmark body');
+    } else assert.ok(emitted>0||m.id==='durgam_lake',m.name); // Lake uses its mapped water polygon.
     if(m.id==='charminar') {let top=-Infinity; for(const batch of Object.values(B)) for(const part of batch.tiles.values()) for(let i=1;i<part.pos.length;i+=3) top=Math.max(top,part.pos[i]); assert.ok(Math.abs(top-48.7)<1e-4,'Charminar max rendered tower height follows both official references');}
     assert.ok(solids.every(([ring,h])=>Number.isFinite(h)&&ring.flat().every(Number.isFinite)),m.name);
   }
@@ -76,7 +79,7 @@ try {
   const m=Object.assign(Object.create(FullMap.prototype),{close:()=>{throw Error('typing must not close');}});
   for (const code of ['KeyM','KeyP','Equal','Minus']) m.handleKey({code,key:code==='Equal'?'+':'m',target:{closest:()=>({})}});
   const audit=JSON.parse(readFileSync(new URL('../docs/landmark-audit.json',import.meta.url))); assert.deepEqual(new Set(audit.entries.map((p)=>p.id)),new Set(places.map((p)=>p.id))); assert.equal(audit.summary.renderOwnersIndexed,191); assert.equal(audit.summary.sharedSiteAliases,1);
-  console.log('Landmark regressions: all 192 place identities / 191 physical owners, explicit shared-mall alias, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite owner geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.');
+  console.log('Landmark regressions: all 192 place identities, explicit shared-mall alias and three externally owned metro assemblies, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite owner geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.');
 } finally { rmSync(temp,{recursive:true,force:true}); }
 await import('./landmark-cultural-regressions.mjs');
 await import('./ambedkar-model-regressions.mjs');

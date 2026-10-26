@@ -1,4 +1,5 @@
 import type { CoreData, RoadEdge, StopTuple, XZ } from './types';
+import { mappedRoadLevels, repairRoadCrossingLevels, type CrossingLevelReport } from './road-crossing-levels';
 
 // These are gameplay estimates, not surveyed elevations. The legacy exporter
 // generated6.8m decks with45m ramps; copied point profiles can be still steeper.
@@ -11,6 +12,9 @@ export interface RoadGradeReport {
   protectedRoads: number; protectedRoadsChanged: number; separatedCrossings: number; minCrossingSeparation: number;
   joinedEndpointMaxDifference: number; rebasedStops?: number; ambiguousStops?: number;
   uncertainty: string;
+  bridgeClearance?: CrossingLevelReport;
+  mappedLevelRoads?: number;
+  mappedLevelPoints?: number;
 }
 const reports = new WeakMap<RoadEdge[], RoadGradeReport>(), patches = new WeakMap<RoadEdge[], RoadGradePatch[]>(), prepared = new WeakMap<RoadEdge[], RoadEdge[]>();
 class Heap {
@@ -38,11 +42,13 @@ export function applyRoadGradePatches(roads: RoadEdge[], changes: RoadGradePatch
 }
 export function prepareRoadGrades(roads: RoadEdge[]): RoadEdge[] {
   if (prepared.has(roads)) return prepared.get(roads)!;
+  const originalRoads = roads, mapped = mappedRoadLevels(roads);
+  roads = mapped.roads;
   const offsets: number[] = [], edges: [number, number][][] = [], raw: number[] = [], immutable: boolean[] = [], ends = new Map<string, number[]>(), groups: number[][] = [], endNeighbor = new Map<number, [number, number]>();
   for (const e of roads) {
     const offset = raw.length; offsets.push(offset);
     for (let i = 0; i < e.pts.length; i++) {
-      const k = raw.length; raw.push(gradeOf(e, i)); immutable.push(protectedRoad(e)); edges.push([]);
+      const k = raw.length; raw.push(gradeOf(e, i)); immutable.push(protectedRoad(e) && !mapped.changed.has(e.id)); edges.push([]);
       if (i) { const d = Math.hypot(e.pts[i][0] - e.pts[i - 1][0], e.pts[i][1] - e.pts[i - 1][1]); edges[k].push([k - 1, d]); edges[k - 1].push([k, d]); }
     }
     if (e.pts.length < 2) continue;
@@ -101,13 +107,18 @@ export function prepareRoadGrades(roads: RoadEdge[]): RoadEdge[] {
     for (const [n, length] of edges[k]) { const limit = value + BASE_GRADE * length; if (limit < ceiling[n] - 1e-7) { ceiling[n] = limit; low.push([limit, n]); } }
   }
   for (let i = 0; i < heights.length; i++) heights[i] = immutable[i] ? raw[i] : Math.max(0, Math.min(heights[i], ceiling[i]));
+  // Surveyed/explicit altitudes stay fixed. Inherited expressway game estimates
+  // can be extended where an independently classified crossing needs headroom.
+  const fixed = roads.flatMap(e => e.pts.map(() => /survey|explicit/.test(String((e as RoadEdge & { elevationSource?: string }).elevationSource || ''))));
+  const bridgeClearance = repairRoadCrossingLevels(roads, offsets, edges, heights, fixed);
   const report: RoadGradeReport = { roads: roads.length, repairedRoads: 0, sourceSteepSegments: 0, modelSteepSegments: 0, maxModelGrade: 0, protectedRoads: roads.filter(protectedRoad).length, protectedRoadsChanged: 0, separatedCrossings: crossings.length, minCrossingSeparation: Infinity, joinedEndpointMaxDifference: 0,
-    uncertainty: 'Estimated game road heights and eased approaches, not a survey. OriginalXY/alignment, road IDs and connectivity retained. Existing ORR profiles and source grade-separated lower roads are protected.' };
+    uncertainty: 'Estimated game road heights and eased approaches, not a survey. OriginalXY/alignment, road IDs and connectivity retained. Verified relative source layers and classified finite-envelope headroom can extend inherited game elevation estimates; explicit surveyed profiles remain fixed.', bridgeClearance, mappedLevelRoads: mapped.changed.size, mappedLevelPoints: mapped.points };
   for (const group of groups) report.joinedEndpointMaxDifference = Math.max(report.joinedEndpointMaxDifference, Math.max(...group.map(k => heights[k])) - Math.min(...group.map(k => heights[k])));
   const result = roads.map((e, r) => {
     const off = offsets[r], h = e.pts.map((_, i) => heights[off + i]), lengths = e.pts.slice(1).map((p, i) => Math.hypot(p[0] - e.pts[i][0], p[1] - e.pts[i][1]));
     for (let i = 0; i < lengths.length; i++) if (lengths[i] > .001 && Math.abs(gradeOf(e, i + 1) - gradeOf(e, i)) / lengths[i] > .1) report.sourceSteepSegments++;
-    if (protectedRoad(e) || !h.some(y => y > .0001)) return e;
+    if ((protectedRoad(e) && !mapped.changed.has(e.id) && h.every((y, i) => Math.abs(y - raw[off + i]) < .00001)) || !h.some(y => y > .0001)) return e;
+    if (protectedRoad(e)) report.protectedRoadsChanged++;
     const d = lengths.map((length, i) => (h[i + 1] - h[i]) / (length || 1)), m = h.map((_, i) => !i ? d[0] : i === h.length - 1 ? d[d.length - 1] : harmonic(d[i - 1], d[i]));
     for (const end of [0, h.length - 1]) {
       const k = off + end, own = endNeighbor.get(k), others = (joined.get(k) || []).filter(n => n !== k);
@@ -134,8 +145,8 @@ export function prepareRoadGrades(roads: RoadEdge[]): RoadEdge[] {
     const grade = Math.abs(gradeOf(e, i) - gradeOf(e, i - 1)) / length; report.maxModelGrade = Math.max(report.maxModelGrade, grade); if (grade > .1) report.modelSteepSegments++;
   }
   for (const c of crossings) report.minCrossingSeparation = Math.min(report.minCrossingSeparation, roadHeightAlong(result[c.upper], c.upperS) - roadHeightAlong(result[c.lower], c.lowerS));
-  const changes = result.flatMap((e, i) => e === roads[i] ? [] : [{ id: e.id, pts: e.pts, elev: e.elev }]);
-  prepared.set(roads, result); prepared.set(result, result); reports.set(result, report); patches.set(result, changes); return result;
+  const changes = result.flatMap((e, i) => e === originalRoads[i] ? [] : [{ id: e.id, pts: e.pts, elev: e.elev }]);
+  prepared.set(originalRoads, result); prepared.set(roads, result); prepared.set(result, result); reports.set(result, report); patches.set(result, changes); return result;
 }
 
 export function rebaseRoadStops(core: CoreData, original: RoadEdge[], model: RoadEdge[]) {

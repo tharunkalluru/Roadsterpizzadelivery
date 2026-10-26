@@ -10,8 +10,8 @@ import { build } from '../game/node_modules/esbuild/lib/main.js';
 const root = fileURLToPath(new URL('../', import.meta.url)), temp = await mkdtemp(join(tmpdir(), 'roadster-station-life-'));
 let count = 0; const test = async (name, run) => { await run(); count++; console.log(`PASS ${name}`); };
 try {
-  await build({ stdin: { contents: "export * from './game/src/world/metro-service';export * from './game/src/world/metro-geometry';export * from './game/src/world/metro-station-visuals';export * from './game/src/game/station-life';export * from './game/src/game/metro';export {initTemplates} from './game/src/core/util';export {BoxGeometry,RingGeometry,MeshBasicMaterial} from './game/node_modules/three/build/three.module.js';", resolveDir: root, loader: 'ts' }, outfile: join(temp, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
-  const { MetroTrains, MetroStationLife, metroCrowdDemand, STATION_CROWD_MODEL, METRO_SERVICE_SOURCE, metroMarqueeOffset, metroCorridors, metroServiceForRun, drawMetroStationVisuals, stationPassengerPose, initTemplates, BoxGeometry, RingGeometry, MeshBasicMaterial } = await import(pathToFileURL(join(temp, 'test.mjs')));
+  await build({ stdin: { contents: "export * from './game/src/world/metro-service';export * from './game/src/world/metro-geometry';export * from './game/src/world/metro-station-visuals';export * from './game/src/game/station-life';export * from './game/src/game/metro';export {SignSystem} from './game/src/world/signs';export {initTemplates} from './game/src/core/util';export {BoxGeometry,RingGeometry,MeshBasicMaterial,PerspectiveCamera,Vector3} from './game/node_modules/three/build/three.module.js';", resolveDir: root, loader: 'ts' }, outfile: join(temp, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
+  const { MetroTrains, MetroStationLife, metroCrowdDemand, STATION_CROWD_MODEL, METRO_SERVICE_SOURCE, metroMarqueeOffset, metroCorridors, metroPlatformAssemblies, metroDeckHeight, metroDeckGrade, metroTrackDeckHeight, metroServiceForRun, drawMetroStationVisuals, stationPassengerPose, initTemplates, SignSystem, BoxGeometry, RingGeometry, MeshBasicMaterial, PerspectiveCamera, Vector3 } = await import(pathToFileURL(join(temp, 'test.mjs')));
   initTemplates({ rbox: new BoxGeometry(1, 1, 1), ring: new RingGeometry(1, 1.35, 12) });
   const material = new MeshBasicMaterial({ vertexColors: true }), mats = { body: material, lights: material };
   const source = { lines: [{ id: 'red', pts: [[100,500],[900,500]] }], stations: [{ id:'fixture_station',name:'Fixture Station',p:[500,500],lines:['red'] }], deckHeight:11 };
@@ -34,9 +34,30 @@ try {
     const result=drawMetroStationVisuals(source.stations[0],frame,11,{B:{st:{box:(...a)=>boxes.push(a)}},signs,wall:w=>walls.push(w)});
     assert.equal(signs.length,4);assert.equal(result.exterior.length,2);assert.equal(result.interior.length,2);assert.equal(result.benches,4);
     assert.equal(boxes.filter(b=>b[3]===16&&b[4]===2.25||b[3]===.14&&b[4]===1.35).length,4,'one physical backing per named board');
-    for(const s of signs.filter(s=>s.id.startsWith('mst_interior_'))){const normal=[-s.right[2],s.right[0]];assert.ok(Math.abs(normal[0])<1e-9);assert.ok(normal[1]*(500-s.c[2])>0);assert.ok(s.w<=7);}
+    for(const s of signs.filter(s=>s.id.startsWith('mst_interior_'))){const normal=[-s.right[2],s.right[0]];assert.ok(Math.abs(normal[0])<1e-9);assert.ok(normal[1]*(500-s.c[2])>0);assert.equal(s.w,4.2);}
     for(const s of signs.filter(s=>s.id.startsWith('mst_exterior_')))assert.ok(Math.abs(s.c[0]-500)>68&&s.c[1]+s.h/2<9.8);
     assert.equal(walls.length,16);assert.ok(walls.every(w=>Math.abs(w.y0a-12.2)<1e-8&&Math.abs(w.y1a-13.4)<1e-8&&Math.abs(w.az-500)>6));
+  });
+  await test('compact platform names fit both train-window directions at square and narrow review aspect ratios',()=>{
+    const names=['JBS Parade Ground','Mahatma Gandhi Bus Station','Dr. B. R. Ambedkar Balanagar'];
+    for(const name of names){
+      const signs=[],boxes=[];drawMetroStationVisuals({...source.stations[0],name},{cx:500,cz:500,hx:1,hz:0},11,{B:{st:{box:(...b)=>boxes.push(b)}},signs});
+      const interiors=signs.filter(s=>s.id.startsWith('mst_interior_'));assert.equal(interiors.length,2);assert.equal(boxes.filter(b=>b[3]===.14&&b[4]===1.35&&b[5]===4.6).length,2);
+      for(const sign of interiors)for(const [width,height]of[[1205,1221],[1280,720],[320,568]]){
+        const side=Math.sign(sign.c[2]-500),aspect=width/height,fov=Math.max(70,Math.min(100,2*Math.atan((4.2*.5*1.12)/(3.53*aspect))*180/Math.PI));
+        const camera=new PerspectiveCamera(fov,aspect,.1,100);camera.position.set(500,14.05,500+side*3.62);camera.lookAt(...sign.c);camera.updateMatrixWorld();
+        for(const a of [-.5,.5])for(const b of [-.5,.5]){const corner=new Vector3(...sign.c).addScaledVector(new Vector3(...sign.right),sign.w*a).addScaledVector(new Vector3(...sign.up),sign.h*b).project(camera);assert.ok(Math.abs(corner.x)<.92&&Math.abs(corner.y)<.92,`${name}: ${width}x${height} clips a name corner`);}
+      }
+    }
+  });
+  await test('long official platform names keep every word and a readable atlas font on the same physical board',()=>{
+    const previous=globalThis.document,draws=[];
+    globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>({font:'',fillRect(){},measureText(text){const size=Number(this.font.match(/(\d+)px/)[1]);return{width:text.length*size*.65};},fillText(text,x,y){draws.push({text,x,y,size:Number(this.font.match(/(\d+)px/)[1])});}})})};
+    try{
+      const names=['JBS PARADE GROUND','MAHATMA GANDHI BUS STATION','DR. B. R. AMBEDKAR BALANAGAR'],system=new SignSystem(1);system.init(.6);
+      for(const[id,text]of names.entries())system.add({id:String(id),text,bg:'#fff',fg:'#17304d',c:new Vector3(id*5,14,0),right:new Vector3(1,0,0),up:new Vector3(0,1,0),w:4.2,h:1.15});
+      system.update(0,0,true);assert.deepEqual(draws.map(d=>d.text),names);assert.ok(draws.every(d=>d.size/64*1.15>=.2),'even conservative wide-glyph metrics keep complete letters at least20cm high on the physical board');
+    }finally{if(previous===undefined)delete globalThis.document;else globalThis.document=previous;}
   });
   await test('marquee keeps short routes still, pauses at both complete ends and never scrolls beyond the text', () => {
     assert.equal(metroMarqueeOffset(600,988,100),0);assert.equal(metroMarqueeOffset(1400,988,0),0);
@@ -97,19 +118,31 @@ try {
     loaded=true;life.update(0,9*60,undefined,500,500);assert.equal(life.active.size,1);const batch=life.active.get('fixture_station').waitingBatch;let disposed=false;batch.geometry.addEventListener('dispose',()=>disposed=true);
     loaded=false;life.update(.1,9*60,undefined,500,500);assert.equal(life.active.size,0);assert.equal(life.group.children.length,0);assert.equal(disposed,true);
   });
-  await test('all 57 modeled stations have waiting crowds and matched real services, while unmodeled interchange services are guarded', () => {
-    const metro=new MetroTrains(core.metro,mats),life=new MetroStationLife(core.metro,material,{lowQ:true});assert.equal(life.stations.length,core.metro.stations.length);
+  await test('57 retained source records yield 56 active sites and 59 physical corridor assemblies have matched real services in both directions', () => {
+    const metro=new MetroTrains(core.metro,mats),life=new MetroStationLife(core.metro,material,{lowQ:true});assert.equal(life.stations.length,59);assert.equal(life.unmodeledServices.length,0);
+    assert.ok(metro.runs.filter(r=>r.corridor.lineId==='green').every(r=>r.stationStops.length===9&&!r.stationStops.some(s=>s.id==='st_jbs')),'no phantom tenth Green stop');
+    let secondaryDirections=0;
     for(const st of life.stations){
       life.update(0,12*60,undefined,st.frame.cx,st.frame.cz);assert.ok(life.active.has(st.id),`${st.id}: stationary crowds`);
-      const runs=metro.runs.filter(r=>r.corridor.lineId===st.lineId&&r.stationStops.some(s=>s.id===st.id));assert.equal(runs.length,2,`${st.id}: real train service both ways`);
+      const runs=metro.runs.filter(r=>r.corridor.lineId===st.lineId&&r.stationStops.some(s=>s.id===st.stationId));assert.equal(runs.length,2,`${st.id}: real train service both ways`);
+      if(st.id===st.stationId)continue;
+      for(const run of runs){
+        const train=metro.trains.find(t=>t.run===run),stop=run.stationStops.find(s=>s.id===st.stationId);const saved=metro.trains;metro.trains=[train];Object.assign(train,{s:stop.s,v:0,dwell:18,terminal:false,next:stop.s});
+        metro.update(0,st.frame.cx,st.frame.cz);const dwell=metro.stationDwells.find(d=>d.stationId===st.stationId&&d.lineId===st.lineId);assert.ok(dwell,`${st.id}: actual stop snapshot`);assert.equal(dwell.doors.length,9);
+        for(const d of dwell.doors)assert.ok(Math.abs(d.y-(st.deckHeight+1.2))<.001,`${st.id}: doors meet physical platform floor`);
+        life.update(0,9*60,metro.stationDwells,st.frame.cx,st.frame.cz);assert.ok(life.active.get(st.id).transfers.size>0,`${st.id}: real secondary boarding`);
+        assert.ok(metro.bodies.every(b=>Math.abs(b.y-(st.deckHeight+.95))<.001),`${st.id}: coach collision envelope meets the same floor`);
+        metro.trains=saved;secondaryDirections++;
+      }
     }
-    assert.equal(life.unmodeledServices.length,3);
-    for(const gap of life.unmodeledServices){
-      const st=life.stations.find(s=>s.id===gap.stationId),p={x:st.frame.cx,z:st.frame.cz,y:core.metro.deckHeight+1.2,hx:st.frame.hx,hz:st.frame.hz};
-      life.update(0,9*60,[{trainId:'unmodeled-test',stationId:st.id,lineId:gap.lineId,direction:1,platformSide:-1,elapsed:5,remaining:13,doors:[p]}],p.x,p.z);
-      assert.equal(life.active.get(st.id).transfers.size,0,'no people board a service with no modeled platform pair');
-    }
-    console.log('METRO_MODELED_PLATFORM_COVERAGE',JSON.stringify({sourceStations:life.stations.length,modeledPlatformDirections:life.stations.length*2,unmodeledInterchangeDirections:life.unmodeledServices.length*2,unmodeledServices:life.unmodeledServices,crowdModel:life.densityModel}));
+    assert.equal(secondaryDirections,6);
+    console.log('METRO_MODELED_PLATFORM_COVERAGE',JSON.stringify({sourceStations:core.metro.stations.length,activeStationSites:new Set(life.stations.map(s=>s.stationId)).size,retainedAliases:1,physicalCorridorAssemblies:life.stations.length,modeledPlatformDirections:life.stations.length*2,secondaryInterchangeDirections:secondaryDirections,unmodeledInterchangeDirections:life.unmodeledServices.length*2,unmodeledServices:life.unmodeledServices,crowdModel:life.densityModel}));
+  });
+  await test('published interchange floor heights and smooth game approaches are shared across each actual corridor', () => {
+    const corridors=metroCorridors(core.metro.lines),assemblies=metroPlatformAssemblies(core.metro.stations,corridors,core.metro.deckHeight);
+    assert.ok(Math.abs(assemblies.find(a=>a.stationId==='st_ameerpet'&&a.lineId==='red').deckHeight+1.2-30)<1e-9);
+    assert.ok(Math.abs(assemblies.find(a=>a.stationId==='st_mahatma_gandhi_bus_station'&&a.lineId==='green').deckHeight+1.2-22.86)<1e-9,'75ft is above ground, not above Red');
+    for(const c of corridors)for(let s=0;s<c.center.len;s+=5){const y=metroDeckHeight(c,s,core.metro.deckHeight),next=metroDeckHeight(c,s+.01,core.metro.deckHeight);assert.ok(Math.abs(next-y)<.001);assert.ok(Math.abs(metroDeckGrade(c,s,core.metro.deckHeight))<.045,'bounded smooth approach grade');}
   });
   console.log(`${count} metro station-life regression groups passed (offline production components).`);
 }finally{await rm(temp,{recursive:true,force:true});}

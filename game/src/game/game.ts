@@ -10,7 +10,7 @@ import { Player, Input, ROAD_SPEED_LIMIT, FLIGHT_SPEED_LIMIT } from './player';
 import { planCinemaFront, registerCinemaGroundParts } from './cinema-front';
 import { RoadGraph, GEdge, RoadRoute } from './roadgraph';
 import { advanceRoadRoute, clearRoadGuidance, guidanceRibbon, navigationReadout, softenRoadCorners } from './route-guidance';
-import { metroCorridors } from '../world/metro-geometry';
+import { metroCorridors, metroRuntimeStations } from '../world/metro-geometry';
 import { Traffic } from './traffic';
 import { Hud, orderOfferHtml } from '../ui/hud';
 import { eligiblePickup } from './pickups';
@@ -22,6 +22,7 @@ import { Walkers } from './walkers';
 import { MetroTrains } from './metro';
 import { MetroStationLife } from './station-life';
 import { CampusProximity } from '../world/destination-proximity';
+import { BugReporter, GAME_BUILD, gameCoordinates, gameScreenshot, reportObservations, type BugContext } from './bug-report';
 import { DESTINATION_IDENTITIES } from '../world/destination-data';
 import { RailTrains } from './rail';
 import { MovingRailInteraction } from './moving-rail';
@@ -65,6 +66,7 @@ export class Game {
   railContacts = new MovingRailInteraction();
   aircraft!: AirportAircraft;
   stationLife!: MetroStationLife;
+  bugReports: BugReporter | null = null;
   metro!: MetroTrains; rail!: RailTrains; player!: Player; graph!: RoadGraph; traffic!: Traffic; hud!: Hud; walkers!: Walkers; map: FullMap | null = null; sound = new Sound();
   orbitYaw = 0; orbitPitch = 0.38; orbitDist = 0; dragging = false; halted = false;
   keys = new Set<string>(); flyQueued = false; actHeld = false; actTap = 0;
@@ -167,7 +169,7 @@ export class Game {
       if (d < bd) { bd = d; best = p.name; }
     }
     if (best) return best;
-    for (const s of this.zone.metro.stations) { const d = Math.hypot(s.p[0] - x, s.p[1] - z); if (d < bd) { bd = d; best = s.name; } }
+    for (const s of metroRuntimeStations(this.zone.metro.stations)) { const d = Math.hypot(s.p[0] - x, s.p[1] - z); if (d < bd) { bd = d; best = s.name; } }
     return best;
   }
   prepareStops() {
@@ -571,6 +573,7 @@ export class Game {
     if (this.lease) { const site = this.theatres.find((s) => s.def.key === this.lease!.theatre); if (site) this.paintPoster(site); }
     const touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
     this.hud = new Hud(touch);
+    this.bugReports = new BugReporter();
     this.hud.onInputReset = () => this.resetInput();
     this.updateOrderAvailability();
     this.settings = loadSettings();
@@ -589,6 +592,7 @@ export class Game {
       if (this.hud.rotationBlocked) return;
       if (id === 'theatres') this.openTheatres();
       else if (id === 'pause') this.openPause();
+      else if (id === 'report') this.openBugReport();
       else if (id === 'rescue') this.rescue();
       else if (id === 'fullscreen') { if (isFullscreen()) exitFullscreen(); else goFullscreen(); }
       else if (id === 'fly') this.queueFlight();
@@ -810,6 +814,49 @@ export class Game {
       sh.querySelector('#reset')!.addEventListener('click', () => { try { localStorage.removeItem(SAVE_KEY); } catch { /* ignore */ } location.reload(); });
     });
   }
+  openBugReport() {
+    if (!this.area || !this.bugReports || this.choosing || this.relocating) return;
+    const reporter = this.bugReports, wasPaused = this.paused, P = this.player.pos, recent = reporter.freshRecent();
+    // Capture the actual clicked spot before resetting controls or resuming.
+    let road: BugContext['road'] = null, score = Infinity;
+    for (const edge of this.graph.nearestEdges(P.x, P.z, 2)) {
+      for (let i = 1; i < edge.e.pts.length; i++) {
+        const a = edge.e.pts[i - 1], b = edge.e.pts[i], dx = b[0] - a[0], dz = b[1] - a[1], l2 = dx * dx + dz * dz;
+        const u = l2 ? Math.max(0, Math.min(1, ((P.x - a[0]) * dx + (P.z - a[1]) * dz) / l2)) : 0;
+        const point = this.graph.pointAt(edge, edge.cum[i - 1] + Math.sqrt(l2) * u, 1), distance = Math.hypot(point.x - P.x, point.z - P.z), candidate = distance + Math.abs(P.y - .55 - point.y) * 3;
+        if (candidate < score) { score = candidate; road = { id: edge.e.id, name: edge.e.name || '', distance, elevation: point.y, sourceClass: edge.e.cls }; }
+      }
+    }
+    const context: BugContext = {
+      build: GAME_BUILD, capturedAt: new Date().toISOString(), area: this.areaName(P.x, P.z) || this.area.name,
+      location: { x: P.x, y: P.y, z: P.z, ...gameCoordinates(this.zone.origin, P.x, P.z), tile: `${Math.floor(P.x / 1000)}_${Math.floor(P.z / 1000)}`, yaw: this.player.yaw }, road,
+      player: { speedKmh: this.player.speed * 3.6, flying: this.player.flying, descending: this.player.descending, surface: this.player.lastKind, stuckSeconds: this.stuckT, slowSeconds: this.slowT },
+      order: this.order ? { id: this.order.id, state: this.order.state, pickup: this.order.pickup, drop: this.order.drop } : null,
+      route: this.routeTarget ? { target: this.routeTarget, edgeIds: this.route?.edgeIds?.slice(0, 80), blocked: this.routeGuidanceBlocked, graphRevision: this.graph.revision } : null,
+      world: { loadedTiles: [...this.city.tiles.keys()], pendingTiles: [...this.city.pending.keys()], day: this.day, minutes: this.minutes },
+      device: { viewport: { width: innerWidth, height: innerHeight, pixelRatio: devicePixelRatio }, touch: navigator.maxTouchPoints > 0, quality: this.opts.lowQ ? 'low' : 'high', renderer: this.engine.renderer.info.render },
+      observations: reportObservations(recent, this.player.lastKind, this.stuckT, this.slowT), recent, errors: [],
+    };
+    this.resetInput(); this.paused = true;
+    // An immediate render makes readback valid without preserveDrawingBuffer.
+    let screenshot: string | null = null; try { this.engine.render(); screenshot = gameScreenshot(this.engine.renderer.domElement); } catch { /* Context-loss reports still work. */ }
+    const report = reporter.envelope(context, screenshot, recent);
+    const restore = () => { if (wasPaused) this.openPause(); else this.resume(); };
+    this.hud.modal(`<h2>Report this spot?</h2><p class="sm">Send the game location, a small game screenshot and recent driving details. No typing needed.</p><div style="display:flex;gap:10px"><button type="button" class="btn go" id="bug-send">Report</button><button type="button" class="btn alt" id="bug-cancel">Cancel</button></div><p class="sm" id="bug-status" role="status"></p>`, sheet => {
+      sheet.querySelector('#bug-cancel')!.addEventListener('click', restore);
+      sheet.querySelector<HTMLButtonElement>('#bug-send')!.addEventListener('click', async event => {
+        const button = event.currentTarget as HTMLButtonElement; button.disabled = true;
+        const cancel = sheet.querySelector<HTMLButtonElement>('#bug-cancel')!; cancel.disabled = true;
+        const status = sheet.querySelector<HTMLElement>('#bug-status')!; status.textContent = 'Sending…';
+        const result = await reporter.submit(report);
+        // Escape, a browser transition or another dialog can close this sheet
+        // while the request is in flight. A receipt must not reopen gameplay.
+        if (!this.hud.modalOpen || sheet.querySelector('#bug-status') !== status) return;
+        if (result === 'failed') { status.textContent = 'Could not save the report. Please retry.'; button.disabled = false; cancel.disabled = false; return; }
+        restore(); this.hud.toast(result === 'sent' ? `Report sent · ${report.id.slice(0, 8)}` : 'Report saved on this device · will retry online', result === 'sent' ? 'teal' : '');
+      });
+    });
+  }
   settings!: Settings; title: TitleScreen | null = null;
   private steeringChange = 0;
   async applySteering(requestPermission = true, reportFailure = true) {
@@ -927,6 +974,7 @@ export class Game {
   }
   frame() {
     const dt = Math.min(this.clock.getDelta(), 0.05);
+    this.bugReports?.retryPending();
     this.tutorialTick();
     if (this.hud.tipOpen && !this.tipWasOpen) this.resetInput();
     this.tipWasOpen = !!this.hud.tipOpen;
@@ -971,6 +1019,7 @@ export class Game {
     if (!wasFlying && this.player.flying) this.sound.cue('flight');
     this.watchStuck(dt, inp);
     const P = this.player.pos;
+    this.bugReports?.record({ time: this.t, x: P.x, y: P.y, z: P.z, speed: this.player.speed, throttle: inp.throttle, brake: inp.brake, steer: inp.steer, flying: this.player.flying, surface: this.player.lastKind });
     this.aircraft.update(dt, P.x, P.z);
     this.city.update(P.x, P.z, dt);
     if ((this.busyT -= dt) <= 0) { this.busyT = 1; this.setStreetLife(P.x, P.z); }
@@ -1175,9 +1224,8 @@ export class Game {
     const L = LEVELS[Math.min(this.level, LEVELS.length - 1)];
     h.set('level', `Level ${this.level + 1} · ${this.doneInLevel}/${L.n}`);
     h.set('spd', String(Math.round(Math.abs(this.player.speed) * 3.6)));
-    h.set('fly-v', 'Unlimited');
+    h.flightReserve?.(1, true);
     h.flightState?.(this.player.flying, this.player.descending);
-    (h.el.fly as HTMLElement).style.width = '100%';
     const navigation = (s: Stop) => navigationReadout(this.route, this.routeGuidanceBlocked, P, s, this.player.flying || this.player.descending);
     const distanceLabel = (s: Stop) => { const n = navigation(s); return `${n.approximate ? '~' : ''}${n.metres} m`; };
     const sub = (s: Stop) => [s.sub, navigation(s).note].filter(Boolean).join(' · ');

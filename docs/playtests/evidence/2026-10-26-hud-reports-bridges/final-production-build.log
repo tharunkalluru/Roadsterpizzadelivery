@@ -1,0 +1,21 @@
+
+> pizza-to-picture-hall@0.1.0 build
+> node scripts/build.mjs
+
+vite v5.4.10 building for production...
+
+./fonts/fonts.css doesn't exist at build time, it will remain unchanged to be resolved at runtime
+transforming...
+✓ 104 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/index.html                         0.76 kB │ gzip:   0.50 kB
+dist/client/assets/tileworker-DW831ylO.js    586.25 kB
+dist/client/assets/index-5L8RM_-S.js       1,975.67 kB │ gzip: 587.13 kB
+
+(!) Some chunks are larger than 1500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.52s
+Built game assets + bounded bug-report Worker.

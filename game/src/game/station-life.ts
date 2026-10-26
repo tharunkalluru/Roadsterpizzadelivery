@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { Batch, hash, rng } from '../core/util';
-import { metroCorridors, metroStationFrame, type MetroLineInput } from '../world/metro-geometry';
+import { metroCorridors, metroPlatformAssemblies, sampleMetroPath, projectMetroPath, type MetroLineInput } from '../world/metro-geometry';
 import { metroCrowdDemand, STATION_CROWD_MODEL, type MetroStationSource } from '../world/metro-service';
 import { randomPerson, walkerGeometry, type PersonSpec } from '../world/people';
 import type { StationVisualFrame } from '../world/metro-station-visuals';
@@ -9,16 +9,17 @@ import type { MetroStationDwell } from './metro';
 
 type Door = MetroStationDwell['doors'][number];
 interface Actor { group: THREE.Group; legs: THREE.Mesh[]; phase: number }
-interface ResolvedStation { id: string; frame: StationVisualFrame; lineId: string; source: MetroStationSource }
+interface ResolvedStation { id: string; stationId: string; frame: StationVisualFrame; lineId: string; source: MetroStationSource; deckHeight: number }
 interface Transfer { kind: 'boarding' | 'alighting'; door: Door; index: number; actor: Actor }
 interface LiveStation { source: ResolvedStation; group: THREE.Group; waiting: { actor: Actor; side: 1 | -1; index: number }[]; transfers: Map<string, Transfer[]>; waitingBatch: THREE.Mesh | null; waitingCount: number }
 const clamp = (v: number, lo = 0, hi = 1) => Math.max(lo, Math.min(hi, v));
-const point = (frame: StationVisualFrame, u: number, v: number) => ({ x: frame.cx + frame.hx * u - frame.hz * v, z: frame.cz + frame.hz * u + frame.hx * v });
+const point = (frame: StationVisualFrame, u: number, v: number) => { if (frame.path && frame.s !== undefined) { const p = sampleMetroPath(frame.path, frame.s + u); return { x: p.x - p.hz * v, z: p.z + p.hx * v }; } return { x: frame.cx + frame.hx * u - frame.hz * v, z: frame.cz + frame.hz * u + frame.hx * v }; };
 
 // Analytic movement follows actual stopped-train doors. No station timetable or
 // random free-running boarding loop can send people into a moving train.
 export function stationPassengerPose(frame: StationVisualFrame, door: Door, side: 1 | -1, kind: 'boarding' | 'alighting', index: number, elapsed: number) {
-  const dx = door.x - frame.cx, dz = door.z - frame.cz, u = dx * frame.hx + dz * frame.hz, v = -dx * frame.hz + dz * frame.hx;
+  const dx = door.x - frame.cx, dz = door.z - frame.cz, projected = frame.path && frame.s !== undefined ? projectMetroPath(frame.path, [door.x, door.z]) : null;
+  const u = projected ? projected.s - frame.s! : dx * frame.hx + dz * frame.hz, v = projected ? -(door.x - projected.x) * projected.hz + (door.z - projected.z) * projected.hx : -dx * frame.hz + dz * frame.hx;
   const waitV = side * (5.65 + index % 2 * .25), insideV = v - side * .6;
   let aU: number, aV: number, bU: number, bV: number, progress: number, visible: boolean;
   if (kind === 'boarding') {
@@ -46,12 +47,8 @@ export class MetroStationLife {
   constructor(metro: { lines: MetroLineInput[]; stations: MetroStationSource[]; deckHeight: number }, private material: THREE.Material, private options: { lowQ?: boolean; isStationLoaded?: (station: MetroStationSource) => boolean } = {}) {
     this.lowQ = !!options.lowQ; this.deckHeight = metro.deckHeight || 11;
     const corridors = metroCorridors(metro.lines);
-    for (const [index, source] of metro.stations.entries()) {
-      const frame = metroStationFrame(source, corridors); if (!frame) continue;
-      const id = source.id || `source-station:${index}`; this.stations.push({ id, frame, lineId: frame.lineId, source });
-      for (const lineId of source.lines || []) if (lineId !== frame.lineId) this.unmodeledServices.push({ stationId: id, modeledLineId: frame.lineId, lineId,
-        directions: [1, -1], reason: 'Source interchange has another service, but the current station model contains only the nearest corridor platform pair. No additional stacked geometry is assumed.' });
-    }
+    for (const a of metroPlatformAssemblies(metro.stations, corridors, this.deckHeight))
+      this.stations.push({ id: a.key, stationId: a.stationId, frame: a.frame, lineId: a.lineId, source: a.source, deckHeight: a.deckHeight });
     this.group.name = 'Metro station passengers · heuristic simulation';
   }
   private deckHeight: number;
@@ -87,7 +84,7 @@ export class MetroStationLife {
       const seated = index < 4, actor = this.actor(`${station.id}:wait:${side}:${index}`, seated);
       const u = seated ? (index < 2 ? -32 : 32) + (index % 2 ? .8 : -.8) : -48 + (index - 4) * 12;
       const v = side * (seated ? 6.6 : 5.45 + index % 2 * .25), p = point(station.frame, u, v);
-      actor.group.position.set(p.x, this.deckHeight + 1.2, p.z);
+      actor.group.position.set(p.x, station.deckHeight + 1.2, p.z);
       actor.group.rotation.y = Math.atan2(-side * station.frame.hz, side * station.frame.hx);
       state.waiting.push({ actor, side, index });
     }
@@ -102,7 +99,7 @@ export class MetroStationLife {
     for (const [id, state] of this.active) if (!wanted.has(id)) { this.group.remove(state.group); state.waitingBatch?.geometry.dispose(); this.active.delete(id); }
     for (const source of nearby) {
       const state = this.active.get(source.id) || this.create(source);
-      const stopped = dwells.filter(d => d.stationId === source.id && d.lineId === source.lineId && d.remaining > .05 && d.doors.length > 0);
+      const stopped = dwells.filter(d => d.stationId === source.stationId && d.lineId === source.lineId && d.remaining > .05 && d.doors.length > 0);
       const activeKeys = new Set(stopped.map(d => d.trainId));
       for (const [key, passengers] of state.transfers) if (!activeKeys.has(key)) {
         for (const passenger of passengers) state.group.remove(passenger.actor.group);

@@ -1,0 +1,188 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-10-26T22:51:21.123879+00:00",
+  "state": "focused_metro_geometry_pass_awaiting_shared_bridge_grade_freeze_and_root_browser_review",
+  "scope": "Previous citywide-clearance/orders message plus ten transit/destination requirements; no new7HUD/bridge scope claimed.",
+  "matrix": [
+    {
+      "id": "prior-1",
+      "requirement": "IKEA/other flyover pillar walls",
+      "implemented": "Implemented generic spacing, source-edge deduplication and whole-road/headroom checks.",
+      "limits": "Previous whole-map bridge sweep covered391 bridge tiles; new bridge grade solver is under separate repair and must be revalidated.",
+      "evidence": "docs/playtests/2026-10-26-full-bridge-audit.json"
+    },
+    {
+      "id": "prior-2",
+      "requirement": "Accept-orders ON/OFF after first delivery",
+      "implemented": "Implemented; unlock follows paid handover, OFF retracts pending offers and preserves accepted delivery, ON resumes through modal guards, persisted save.",
+      "limits": "Current Game methods inspected; lifecycle tests and current phone/browser acceptance belong to root. No new end-to-end delivery claimed.",
+      "evidence": "tools/v2-game-regressions.mjs"
+    },
+    {
+      "id": "prior-3",
+      "requirement": "Buildings intersecting metro/flyovers",
+      "implemented": "Generated source solids/colliders and rooftop additions are clipped together against road/metro envelopes; now follows local metro profiles and all59 assemblies.",
+      "limits": "Prior630-tile renderer audit used flat metro. Requires refreshed pitched-profile audit; no claim every real building/façade is reconstructed.",
+      "evidence": "game/src/world/building-clearance.ts"
+    },
+    {
+      "id": "prior-4",
+      "requirement": "Middle-road fuel kiosks/props/boards",
+      "implemented": "Full footprint/headroom checks for generated fixtures and matching colliders; unsafe props omitted or moved to clear supported side.",
+      "limits": "Global rule implemented; finite independent fixture/oracle coverage is not a literal drive through every road.",
+      "evidence": "tools/roadside-clearance-regressions.mjs"
+    },
+    {
+      "id": "ten-1",
+      "requirement": "Two exterior station names; interior names per platform",
+      "implemented": "112 exterior names at56 active legacy sites;118 interior names at59 physical corridor assemblies; extra standalone metro landmark names removed.",
+      "limits": "Primary pair2 + secondary pair2 interior names at interchanges. Road visibility proven atRTC; new interchange browser readability remains for root.",
+      "evidence": "tools/metro-clearance-regressions.mjs"
+    },
+    {
+      "id": "ten-2",
+      "requirement": "Direction-correct train origin/destination displays",
+      "implemented": "Every coach has both-side directed scrolling service text for Red/Blue/Green. Green is bounded to verified JBS/MGBS service, with9 station stops and no legacy tenthstop.",
+      "limits": "Animation is not a live transit feed; exact real timetable/dwell is not claimed.",
+      "evidence": "game/src/game/metro.ts"
+    },
+    {
+      "id": "ten-3",
+      "requirement": "Benches, waiting/boarding/alighting, peak density",
+      "implemented": "236 benches; every59 assembly has matched service both directions. All6 former secondary directions now have physical platforms, correct-floor doors and real-dwell transfers.",
+      "limits": "Crowd sizes remain explicit heuristics. Unmeasured levels/transitions are documented game approximations; all12 interchange train+roof-rider envelopes pass actual normal-quality metro meshes.",
+      "evidence": "tools/metro-interchange-regressions.mjs"
+    },
+    {
+      "id": "ten-4",
+      "requirement": "RTC buses stop5–6sec with entering/exiting people",
+      "implemented": "Stop pose freezes while people transfer; buses continue assigned service after dwell.",
+      "limits": "Previously documented unbound bus route legs are separate remaining service coverage; root/traffic agent owns current resolution.",
+      "evidence": "docs/playtests/2026-10-26-construction-transit-validation.json"
+    },
+    {
+      "id": "ten-5",
+      "requirement": "Street-lamp arm/head/light direction",
+      "implemented": "Shared inward-facing fixture planner used for kerb/median/deck/mapped/ORR lights; support clearance retained.",
+      "limits": "Correct model rule, not measured placement of every real Hyderabad lamp.",
+      "evidence": "game/src/world/street-lamps.ts"
+    },
+    {
+      "id": "ten-6",
+      "requirement": "Road-facing hoardings/gantries",
+      "implemented": "Road-facing gantries/exit boards require whole footprint/headroom clearance; cinema feature groups gated coherently with collision.",
+      "limits": "Individual real façade directions still inherit source uncertainty; unsafe groups are deliberately omitted.",
+      "evidence": "docs/playtests/2026-10-26-cinema-front-validation.json"
+    },
+    {
+      "id": "ten-7",
+      "requirement": "Real current construction works",
+      "implemented": "Bounded Uppal–Narapally149 fragments/148 unfinished piers and IIIT shoulder works, open4.5m lane25km/h, guidance/traffic follow open lane.",
+      "limits": "Not exhaustive all-Hyderabad project reconstruction; exact barricades are estimates and current DLF gate closure remains unmodeled.",
+      "evidence": "docs/playtests/2026-10-26-construction-transit-validation.json"
+    },
+    {
+      "id": "ten-8",
+      "requirement": "All universities/colleges and accurate campuses",
+      "implemented": "Shipped classified identities under Education;117 clear amenity/address false positives retained in review rather than mispublished; safe typology recognition.",
+      "limits": "Partial exact scope: missing real institutions not exhaustively enumerated; interiors/campus plans and individual photo matching remain undone.",
+      "evidence": "docs/destination-recognition-2026-10-26.md"
+    },
+    {
+      "id": "ten-9",
+      "requirement": "Malls/cinemas/offices including named heroes",
+      "implemented": "Source-bound classified identities and safe recognition; exact retained hero polygons for Inorbit/Nexus/LuLu/Asian-Sarath; shared mall body deduplicated.",
+      "limits": "Partial exact scope: not every real destination façade/interior is reproduced. Small/uncertain listings are map-only; fresh exhaustive inventory failed.",
+      "evidence": "docs/destination-recognition-2026-10-26.md"
+    },
+    {
+      "id": "ten-10",
+      "requirement": "Uppal Stadium cricket layout",
+      "implemented": "Source-bound open tiered bowl, outfield, standard20.12×3.05m pitch/stumps, canopy and6 floodlight towers.",
+      "limits": "Stylized exact row counts/heights/canopy/pitch bearing remain illustrative, not a surveyed replica.",
+      "evidence": "game/src/world/destination-hero-models.ts"
+    }
+  ],
+  "metroResult": {
+    "retainedSourceRecords": 57,
+    "activeLegacySites": 56,
+    "retainedAliases": 1,
+    "corridorAssemblies": 59,
+    "interiorNameboards": 118,
+    "exteriorNameboards": 112,
+    "benches": 236,
+    "greenStationStopsPerDirection": 9,
+    "formerlyUnmodeledDirectionsNowServed": 6,
+    "interchangeDirectionsWithActualRenderedMeshAndRoofRiderClearance": 12,
+    "sourceEvidence": "pipeline/evidence/metro-interchanges-2026-10-26.json"
+  },
+  "tests": {
+    "commands": [
+      "npm --prefix game run typecheck",
+      "node tools/metro-interchange-regressions.mjs",
+      "node tools/metro-station-life-regressions.mjs",
+      "node tools/moving-rail-regressions.mjs",
+      "node tools/building-clearance-regressions.mjs",
+      "node tools/map-regressions.mjs",
+      "node tools/landmark-regressions.mjs"
+    ],
+    "focusedGroupCounts": {
+      "interchange": 3,
+      "stationLife": 11,
+      "movingRail": 13,
+      "buildingClearance": 9
+    },
+    "actualMeshScope": "Normal-quality production metro meshes with all sourced metro lines/pillars in component neighborhoods; excludes generic buildings and car roads, which require refreshed root full-render audit.",
+    "log": "docs/playtests/2026-10-26-prior-world-transit-audit.log",
+    "sharedCoreClearance": "Metro groups pass; a retained d99323ba-b75_0 support assertion fails during the other agent experimental grade solve. Owner notified; do not weaken assertion."
+  },
+  "sourceSha256": {
+    "game/src/world/metro-interchanges.ts": "112062092bb774c0d548855875cd48afb67e83e04f191c1771ef0f77544b1fff",
+    "game/src/world/metro-geometry.ts": "1a03e5e1dbdc64cb487a56a904462b6fbd75a7e04301bef51cd3bb147106302f",
+    "game/src/world/metro-clearance.ts": "71a313851043bc3c3906ff573adef498154f8a5a362db6273c97081c0e58d5ae",
+    "game/src/world/metro-station-visuals.ts": "d7f56836828d6a13b98862e6ae9b2ac732b8ba6aab31744748248fc0c8cd43d5",
+    "game/src/game/metro.ts": "81cd79ee30ff0c37f03c7949f68faea5f8a71b0ae1f596d82c2671430c1cc166",
+    "game/src/game/station-life.ts": "72ef826d7ccf13f7bc87aef02bb77d5d4430bb6dedad3401619e582aa7317982",
+    "game/src/game/moving-rail.ts": "297c8eed7c1fec959d5b8e926689d44002513e37b01efd0c95d507cc482ee9d9",
+    "game/src/world/building-clearance.ts": "78218a7278d5d56832ee669e693bc2bd6a4a643cfe63030030b630be4a102a29",
+    "game/src/world/structure-clearance.ts": "573d3020d06bc47dd79fe8c6038bbe367174fa358d85982e08d2968b73df2628",
+    "game/src/world/city.ts": "4f5c6a79fd927067e9ce7e6b0f3793095231cb1e470bd51aa1482091f0b5699f",
+    "game/src/world/landmarks2.ts": "d6fdc6cedcba2fe875efca590f00717136ef6a29170b23cdd38c2b51e2f04a46",
+    "game/src/ui/map.ts": "6403b645fad9abe14f3af00db37a9ff66de8aac7b8ca1ad40b759198e4944f8c",
+    "game/src/ui/areapicker.ts": "0e78169d6cdf90a4231977ca901798de4612edabd9531222dc447c17743b2a12",
+    "game/metro-experience-review.html": "821c8cc9c7a3f200cd271116bf9817cc4492de99045db38ac69768c0c18cb5cd",
+    "tools/metro-interchange-regressions.mjs": "a67a10f4b627b7d3049da214185d3bbe34a1a48e3150c097a332f3e288eff67c",
+    "tools/metro-station-life-regressions.mjs": "90a03566c50e2e8a965f36baabf783b09ab3e2f64b5545654ee89140683811f1",
+    "tools/metro-clearance-regressions.mjs": "a9f47ce4aae6cee9a9767eda5679ad5764831d926d95f0bebf58e4daed024137",
+    "tools/landmark-regressions.mjs": "18770f7043a59dc7d5e1d1ddbc3702ac7b51d3375fdcfbb04b98bb6dfcec2cb9"
+  },
+  "notClaimed": [
+    "Complete current-city building/interior/photo reconstruction",
+    "Exhaustive missing-place source coverage",
+    "Physical-phone acceptance or a new completed delivery",
+    "Final full-city clearance after concurrent bridge solver changes",
+    "Published/deployed changes in this audit"
+  ],
+  "independentBridgeClassifierReview": {
+    "runtimeOwner": "prototype_behavior",
+    "command": "node tools/bridge-grade-classification-regressions.mjs",
+    "passingGroups": 5,
+    "scope": "Small independent synthetic finite-road counterexamples; no source-city completeness claim.",
+    "findings": [
+      "Short slip-ramp connectivity does not prove a local pavement join.",
+      "A shared road name and parallel tangents do not prove equal physical levels.",
+      "Independent coplanar crossings need explicit ambiguity when topology/source rank is absent.",
+      "Protected baseline ceilings must remain immutable and rejected candidates need original road IDs/reasons."
+    ],
+    "status": "Temporary helper passed independent fixtures; production integration and whole-map audits remain with runtime owner."
+  },
+  "retainedBusAlignmentEvidence": {
+    "source": "pipeline/evidence/tgsrtc-alignment-audit-2026-10-26.json",
+    "patterns": 1511,
+    "totalLegs": 39070,
+    "resolvedLegs": 32737,
+    "unresolvedPlayableStopLegs": 3720,
+    "fullyResolvedPatterns": 180,
+    "limitation": "Retained prior audit, not refreshed current execution. Agency feed has no shapes.txt; admitted paths remain inferred legal streets rather than exact published vehicle shapes."
+  }
+}

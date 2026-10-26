@@ -1,6 +1,7 @@
 import type { CoreData } from '../world/types';
 import { DialogFocus } from './dialog';
 import { installPrototypeTheme } from './theme';
+import { metroCorridors, metroPlatformAssemblies } from '../world/metro-geometry';
 
 // "Where do you want to deliver?" — the first screen, and the "Change area" sheet later on.
 // Popular areas as big buttons, a search over every neighbourhood and metro station, or pick a spot on the city map.
@@ -58,7 +59,7 @@ export class AreaPicker {
       const k = p.name.toLowerCase(); if (seen.has(k)) continue; seen.add(k);
       this.list.push({ name: p.name, x: p.p[0], z: p.p[1] });
     }
-    for (const s of core.metro.stations) { const k = (s.name + ' metro').toLowerCase(); if (seen.has(k)) continue; seen.add(k); this.list.push({ name: `${s.name} Metro`, x: s.p[0], z: s.p[1] }); }
+    for (const assembly of metroPlatformAssemblies(core.metro.stations, metroCorridors(core.metro.lines), core.metro.deckHeight)) { const s = assembly.source, name = s.name || assembly.stationId, k = (name + ' metro').toLowerCase(); if (seen.has(k)) continue; seen.add(k); this.list.push({ name: `${name} Metro`, x: s.p[0], z: s.p[1] }); }
     for (const p of this.popular) if (!seen.has(p.name.toLowerCase())) { seen.add(p.name.toLowerCase()); this.list.push(p); }
     this.root = document.createElement('div'); this.root.className = 'apick'; this.root.hidden = true;
     this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-modal', 'true'); this.root.setAttribute('aria-label', 'Choose where to deliver');

@@ -1,0 +1,34 @@
+PASS valid saves round-trip zero values, final-level progress, negative balances and fractional time
+PASS corrupt or out-of-range numeric saves fall back without poisoning other progress
+PASS saved leases validate films, prices, theatre identity and ordered day reports
+PASS new players receive an offer and unlock order availability only after completed handover
+PASS orders OFF retracts an unaccepted request and queue without changing money, progress or theatre GPS
+PASS orders OFF preserves accepted pickup and customer legs through paid handover and suppresses the next offer
+PASS orders ON queues one request and waits for each overlay or hidden state before presenting it
+PASS order availability saves are backward compatible, boolean validated and locked ON before the first delivery
+PASS restored OFF remains free roaming through a real area relocation without scheduling offers
+PASS the HUD order switch invokes the lifecycle and blocked storage cannot disable free roam
+PASS saved areas accept playable bounds and reject malformed or off-map coordinates
+PASS GO remains held acceleration while cruise captures current speed and retargets after manual override
+PASS every brake path immediately cancels cruise and overrides a held accelerator without removing reverse
+PASS inactive, offered, reversing, landing and recovery states cancel cruise rather than resuming it later
+PASS pending requests block vehicle controls and acceptance clears held input without awarding money
+PASS flight presentation follows actual airborne and landing state and landing cannot be retriggered
+PASS request identity and active pickup cards use real order data and change stage only after collection
+PASS context actions follow real eligibility and require a sustained touch hold through pickup and handover
+PASS theatre action appears at its entrance and cannot inherit a collection hold or bypass an offer
+PASS a theatre manager hold completes during an accepted pickup or customer leg
+PASS handover pays a collected order once and ignores offers, pickups and duplicate calls
+PASS cinema settlement credits each day once and closes a seven-day lease once
+PASS weekly report waits for all overlays and hidden state, then appears exactly once
+PASS theatre GPS cannot erase an accepted delivery but can replace a pending offer
+PASS held keys retain driving input while repeated toggles and action acceptance stay single-shot
+PASS P and Escape pause/resume clear held controls and restore canvas focus
+PASS paused, rotated, hidden and covered frames freeze gameplay and send inactive vehicle audio
+PASS an acknowledged tip freezes the world and order clock, clears held input and cannot enable flight or cruise
+PASS tutorial steps appear before simulation, remain dismissed, respect map/menu/offers and replay on request
+PASS the delivery-complete tip requires acknowledgement rather than an automatic hide timer
+PASS moving trains update before player physics and rail impact reaches gameplay and traffic
+PASS train impulses obey absolute road and airborne speed limits without changing carry or push separation
+PASS Game.start wires map close to gameplay focus or the explicit keyboard opener
+Version 2 Game integration: 33 regression groups passed (offline production code).

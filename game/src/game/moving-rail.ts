@@ -1,5 +1,5 @@
 // Shared kinematic train geometry. Gameplay consumes these same coach poses as rendering.
-export interface RailPose { x: number; y: number; z: number; hx: number; hz: number }
+export interface RailPose { x: number; y: number; z: number; hx: number; hz: number; grade?: number }
 export interface MovingRailShape extends RailPose { id: string; halfWidth: number; halfLength: number; bottom: number; roof: number }
 export interface MovingRailBody extends MovingRailShape { previous: RailPose }
 interface Point { x: number; y: number; z: number }
@@ -10,7 +10,7 @@ export interface RailPlayer {
   group?: { position: Point }; glow?: { position: Point }; light?: { position: Point };
 }
 const FOOT = .55, CAR_HALF_WIDTH = 1.05, CAR_HALF_LENGTH = 2.3, CAR_HEIGHT = 1.2;
-const pose = (body: RailPose): RailPose => ({ x: body.x, y: body.y, z: body.z, hx: body.hx, hz: body.hz });
+const pose = (body: RailPose): RailPose => ({ x: body.x, y: body.y, z: body.z, hx: body.hx, hz: body.hz, grade: body.grade });
 export class MovingRailFrames {
   private prior = new Map<string, RailPose>();
   bodies: MovingRailBody[] = [];
@@ -33,7 +33,7 @@ export function railWorld(body: RailPose, along: number, side: number) {
 }
 export function railRoofAt(body: MovingRailBody, x: number, z: number) {
   const p = railLocal(body, x, z);
-  return Math.abs(p.along) <= body.halfLength && Math.abs(p.side) <= body.halfWidth ? body.roof : null;
+  return Math.abs(p.along) <= body.halfLength && Math.abs(p.side) <= body.halfWidth ? body.roof + p.along * (body.grade || 0) : null;
 }
 export function movingRailSupport(bodies: readonly MovingRailBody[], x: number, z: number, fromY: number) {
   let best: { body: MovingRailBody; y: number } | null = null;
@@ -82,10 +82,10 @@ export class MovingRailInteraction {
       if (!body) this.attached = null;
       else {
         const local = railLocal(body.previous, player.pos.x, player.pos.z);
-        if (Math.abs(local.along) > body.halfLength || Math.abs(local.side) > body.halfWidth || Math.abs(player.pos.y - FOOT - (body.roof - body.y + body.previous.y)) > .4) this.attached = null;
+        if (Math.abs(local.along) > body.halfLength || Math.abs(local.side) > body.halfWidth || Math.abs(player.pos.y - FOOT - (body.roof - body.y + body.previous.y + local.along * (body.previous.grade || 0))) > .4) this.attached = null;
         else {
           const next = railWorld(body, local.along, local.side);
-          player.pos.x = next.x; player.pos.z = next.z; player.pos.y += body.y - body.previous.y;
+          player.pos.x = next.x; player.pos.z = next.z; player.pos.y += body.y - body.previous.y + local.along * ((body.grade || 0) - (body.previous.grade || 0));
           const turn = Math.atan2(body.hz, body.hx) - Math.atan2(body.previous.hz, body.previous.hx);
           player.yaw -= Math.atan2(Math.sin(turn), Math.cos(turn));
         }
@@ -102,10 +102,11 @@ export class MovingRailInteraction {
     for (let pass = 0; pass < 3; pass++) for (const body of this.bodies) {
       if (Math.hypot(player.pos.x - body.x, player.pos.z - body.z) > body.halfLength + 40) continue;
       const feet = player.pos.y - FOOT, oldFeet = this.previous.y - FOOT;
-      if (feet >= body.roof - .12 && oldFeet >= body.roof - body.y + body.previous.y - .12) continue;
-      if (feet + CAR_HEIGHT < body.bottom || oldFeet > body.roof + .2 && feet > body.roof + .2) continue;
-      const ex = extents(body, player.yaw), along = body.halfLength + ex.along, side = body.halfWidth + ex.side;
       const a = railLocal(body.previous, this.previous.x, this.previous.z), b = railLocal(body, player.pos.x, player.pos.z);
+      const currentRoof = body.roof + b.along * (body.grade || 0), previousRoof = body.roof - body.y + body.previous.y + a.along * (body.previous.grade || 0);
+      if (feet >= currentRoof - .12 && oldFeet >= previousRoof - .12) continue;
+      if (feet + CAR_HEIGHT < body.bottom + b.along * (body.grade || 0) || oldFeet > previousRoof + .2 && feet > currentRoof + .2) continue;
+      const ex = extents(body, player.yaw), along = body.halfLength + ex.along, side = body.halfWidth + ex.side;
       const inside = Math.abs(b.along) < along && Math.abs(b.side) < side;
       const contact = sweep(a, b, along, side);
       if (!inside && !contact) continue;
@@ -116,7 +117,8 @@ export class MovingRailInteraction {
       } else continue;
       // Check vertical overlap at the swept impact time, not only at the final XY.
       const t = contact?.t || 0, hitFeet = oldFeet + (feet - oldFeet) * t;
-      const base = body.bottom - (body.y - body.previous.y) * (1 - t), roof = body.roof - (body.y - body.previous.y) * (1 - t);
+      const gradeAt = (body.previous.grade || 0) + ((body.grade || 0) - (body.previous.grade || 0)) * t, alongAt = a.along + (b.along - a.along) * t;
+      const base = body.bottom - (body.y - body.previous.y) * (1 - t) + alongAt * gradeAt, roof = body.roof - (body.y - body.previous.y) * (1 - t) + alongAt * gradeAt;
       if (hitFeet >= roof - .12 || hitFeet + CAR_HEIGHT <= base) continue;
       const fixed = { ...b }; fixed[axis] = sign * ((axis === 'along' ? along : side) + .02);
       const p = railWorld(body, fixed.along, fixed.side);

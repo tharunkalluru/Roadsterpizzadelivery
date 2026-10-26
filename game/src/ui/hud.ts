@@ -2,6 +2,7 @@
 import { DialogFocus } from './dialog';
 import { controlIcon } from './control-icons';
 import { installPrototypeTheme } from './theme';
+import { mobileHudLayout, type HudRect } from './hud-layout';
 
 export type ContextAction = 'collect' | 'handover' | 'theatre';
 
@@ -395,6 +396,56 @@ const CSS = `
   .is-touch #hud.has-context-action .prompt.has-action{left:var(--touch-left);width:calc(100% - var(--go-width) - var(--touch-left) - var(--touch-right) - 12px);max-width:none;transform:none;top:192px;bottom:auto}#hud.has-context-action .context-action{width:100%;min-width:0;height:auto;min-height:64px;padding:8px 8px 13px}#hud.has-context-action .context-action strong{font-size:12px}#hud.has-context-action .context-action small{font-size:11px}
 }
 @media (prefers-reduced-motion:reduce){.offer-slide,.swipe-thumb{transition:none}}
+
+/* The top rails and driving controls have separate measured lanes. */
+#hud .h-tc{position:static;transform:none;flex-wrap:wrap}
+#hud .h-tasks{position:fixed;left:max(12px,env(safe-area-inset-left,0px));width:inherit;display:flex;flex-direction:column;gap:6px;overflow:auto;scrollbar-width:thin;pointer-events:auto;touch-action:pan-y}
+#hud .h-tasks #order{flex-shrink:0}#hud #order[hidden]{display:none!important}
+#hud .orders-availability{align-self:flex-start;margin:0;pointer-events:auto}
+#hud .orders-toggle{width:auto;min-width:142px;max-width:100%;height:44px;min-height:44px;padding:5px 9px;font-size:11px;gap:8px}
+#hud .orders-toggle small{display:none}
+#hud .toolbar-icon{width:44px;min-width:44px;padding:0}
+#hud .hud-insets{position:fixed;top:0;left:0;width:0;height:0;padding-bottom:max(18px,env(safe-area-inset-bottom,0px));visibility:hidden;pointer-events:none}
+#b-theatre .theatre-icon{display:none}
+#hud .wallet{flex:none}#hud .wallet .ui-icon{width:16px;height:16px}
+#hud .h-tr #minimap,#hud.has-context-action .h-tr #minimap,#hud.has-offer .h-tr #minimap{position:fixed!important;box-sizing:border-box;margin:0}
+#hud .area-chip{box-sizing:border-box;position:fixed;top:var(--area-top,10px);bottom:auto;left:var(--area-left,50%);width:var(--area-width,220px);max-width:calc(100% - 24px);height:42px;overflow:hidden;white-space:normal;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:4px 8px;border-radius:12px;font-size:12px;line-height:1.15;transform:translateY(-4px);transition:opacity 180ms ease-out,transform 180ms ease-out;z-index:2}
+#hud .area-chip.show{transform:translateY(0)}#hud .area-chip small{font-size:10px;line-height:1.1}
+#hud .area-chip .area-name{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:11px;line-height:12px}
+.is-touch #hud .steering,.is-touch #hud .pedals,.is-touch #hud .touch-actions{display:contents;position:static}
+.is-touch #hud .steering[hidden]{display:none!important}
+.is-touch #hud .touch .tb,.is-touch #hud #t-cruise{position:absolute}
+.is-touch #hud .speed{box-sizing:border-box;position:absolute;padding:0 5px;line-height:28px;font-size:22px;text-align:center;transform:none}
+.is-touch #hud .prompt.has-action{box-sizing:border-box;position:absolute;bottom:auto;max-width:none;transform:none;z-index:3}
+.is-touch #hud .context-action{box-sizing:border-box;width:100%;height:64px;min-width:0;min-height:64px;padding:8px 10px 13px}
+.is-touch #hud .context-action strong{font-size:13px}.is-touch #hud .context-action small{font-size:11px}
+#hud #t-fly{isolation:isolate;overflow:hidden;background:#241b37;color:var(--cream)}
+#hud #t-fly:before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,#5bfff1,#21e9dd);transform:scaleX(var(--flight-reserve,1));transform-origin:left center;transition:transform 160ms linear;z-index:-1;pointer-events:none;border-radius:inherit}
+#hud #t-fly[data-charged=true]{color:#1d1530}#hud #t-fly>span{position:relative;z-index:1}
+@media (max-width:600px) and (orientation:portrait){
+  #hud .h-tr{left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));flex-direction:row;align-items:center;justify-content:space-between;gap:6px}
+  #hud .h-tc{position:fixed;left:max(12px,env(safe-area-inset-left,0px));top:calc(max(10px,env(safe-area-inset-top,0px)) + 52px);right:max(12px,env(safe-area-inset-right,0px));flex-wrap:nowrap;gap:6px}
+  #hud .h-tc .pill{height:28px;font-size:10px;padding:0 8px}
+  #hud .btnrow{gap:6px}#hud .btnrow .ib{width:44px;min-width:44px;height:44px;padding:0}
+  #b-theatre .toolbar-label{display:none}#b-theatre .theatre-icon{display:block;width:22px;height:22px}
+  #hud .h-tr .wallet{width:80px;min-width:0;height:36px;padding:0 6px;gap:4px;font-size:10px;justify-content:center}
+  #hud .wallet-unit{display:none}#hud #coins{min-width:0;overflow:hidden;text-overflow:ellipsis}
+  #hud .h-tasks{width:47vw}
+}
+@media (min-width:361px) and (max-width:600px) and (orientation:portrait){
+  #hud #order .order-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;font-size:clamp(9px,2.3vw,11px);padding-top:5px;margin-top:3px}
+  #hud #order .order-step{min-width:0;justify-content:center;gap:2px}
+  #hud #order .order-step:before{width:8px;height:8px;flex-shrink:0}
+  #hud #order .order-step-line{display:none}
+}
+@media (max-width:600px) and (max-height:650px) and (orientation:portrait){
+  #hud #order{padding:8px 9px;gap:3px}
+  #hud #order .order-id,#hud #o-sub,#hud #order .order-next,#hud #order .order-note,#hud #order .order-steps{display:none}
+  #hud #o-title{font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  #hud #o-state{font-size:10px}#hud .order-distance{font-size:20px}
+  #hud #o-time{font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){#hud .area-chip,#hud #t-fly:before{transition:none}}
 `;
 
 export class Hud {
@@ -413,6 +464,7 @@ export class Hud {
   private ordersUnlocked = false;
   private ordersAccepting = true;
   private flightMode: 'ground' | 'air' | 'descending' = 'ground';
+  private reserve = -1;
   onButton: (id: string) => void = () => {};
   onInputReset: () => void = () => {};
   rotationBlocked = false;
@@ -424,22 +476,22 @@ export class Hud {
     if (touch) document.documentElement.classList.add('is-touch');
     this.root = document.getElementById('hud')!;
     this.root.innerHTML = `
+      <div class="hud-insets" id="hud-insets" aria-hidden="true"></div>
       <div class="h-tl">
         <div class="h-tc"><div class="pill" id="clock">Day 1 · 8:00 AM</div><div class="pill" id="level">Level 1</div></div>
-        <section class="card" id="order" data-stage="idle"><div class="orders-availability" id="orders-availability" hidden><button type="button" class="orders-toggle" id="orders-toggle" aria-pressed="true" aria-label="Accept orders: on"><span>Accept orders<small id="orders-hint" hidden></small></span><b class="orders-switch" id="orders-status">ON</b></button></div><div class="order-id" id="o-id" hidden></div><div class="k" id="o-state">Finding an order…</div><div class="big" id="o-title"></div><div class="sm" id="o-sub"></div>
+        <div class="h-tasks"><div class="orders-availability" id="orders-availability" hidden><button type="button" class="orders-toggle" id="orders-toggle" aria-pressed="true" aria-label="Accept orders: on"><span>Accept orders<small id="orders-hint" hidden></small></span><b class="orders-switch" id="orders-status">ON</b></button></div><section class="card" id="order" data-stage="idle" hidden><div class="order-id" id="o-id" hidden></div><div class="k" id="o-state"></div><div class="big" id="o-title"></div><div class="sm" id="o-sub"></div>
           <div class="row"><span class="order-distance" id="o-dist"></span><span class="order-time" id="o-time"></span></div>
           <div class="order-steps" aria-label="Delivery progress"><span class="order-step step-pickup">Pickup</span><i class="order-step-line"></i><span class="order-step step-collect">Collect</span><i class="order-step-line"></i><span class="order-step step-deliver">Deliver</span></div>
           <div class="order-next" id="o-next" hidden></div>
           <div class="order-note" id="o-note" hidden>${controlIcon('info')}<span>Delivery timer starts after collection</span></div>
           <div id="o-meters"><div class="row sm"><span id="o-heatl">Heat</span><span id="o-heatv"></span></div><div class="bar"><i id="o-heat" style="background:var(--heat)"></i></div>
           <div class="slices" id="o-slices" style="margin-top:6px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-        </section>
+        </section></div>
       </div>
       <div class="dev" id="dev" hidden></div>
       <div class="h-tr">
-        <div class="btnrow pe"><button class="ib" id="b-theatre" type="button">Theatres</button><button class="ib" id="b-full" type="button" aria-label="Full screen" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button><button class="ib" id="b-help" type="button" aria-label="Pause, settings and help">II</button></div>
-        <div class="pill wallet"><span style="color:var(--saffron)">${controlIcon('coin')}</span><span id="coins">0</span> coins</div>
-        <div class="card" style="width:160px;padding:7px 10px"><div class="row sm"><span style="color:var(--teal)">Flight</span><span id="fly-v">Unlimited</span></div><div class="bar"><i id="fly" style="background:var(--teal);width:100%"></i></div></div>
+        <div class="btnrow pe"><button class="ib" id="b-theatre" type="button" aria-label="Theatres"><svg class="theatre-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 4h18v16H3zM3 9h18M7 4l4 5m3-5 4 5"/><path d="m10 12 5 3-5 3z" fill="currentColor"/></svg><span class="toolbar-label">Theatres</span></button><button class="ib" id="b-full" type="button" aria-label="Full screen" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button><button class="ib toolbar-icon" id="b-report" type="button" aria-label="Report a bug"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m8 3 2 3m6-3-2 3M8 9h8v8a4 4 0 0 1-8 0V9ZM9 9V7a3 3 0 0 1 6 0v2M3 10h5m8 0h5M3 15h5m8 0h5m-6 4 3 3M9 19l-3 3M12 10v10"/></svg></button><button class="ib toolbar-icon" id="b-help" type="button" aria-label="Pause, settings and help">II</button></div>
+        <div class="pill wallet"><span style="color:var(--saffron)">${controlIcon('coin')}</span><span id="coins">0</span><span class="wallet-unit">coins</span></div>
         <canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas>
       </div>
       <div class="toast" id="toast" aria-live="polite"></div>
@@ -460,7 +512,7 @@ export class Hud {
           <button class="tb" id="t-gas" type="button" aria-label="Accelerate" aria-pressed="false">GO</button>
         </div>
         <div class="touch-actions" role="group" aria-label="Flight and cruise">
-          <button class="tb" id="t-fly" type="button" aria-label="Take off"><span id="fly-icon">${controlIcon('up')}</span><span id="fly-label">FLY</span></button>
+          <button class="tb" id="t-fly" type="button" aria-label="Take off" data-charged="true" style="--flight-reserve:1"><span id="fly-icon">${controlIcon('up')}</span><span id="fly-label">FLY</span></button>
           <button id="t-cruise" type="button" aria-label="Enable cruise" aria-pressed="false"><span class="cruise-switch" aria-hidden="true"></span><span id="cruise-label">CRUISE</span></button>
         </div>
       </div>
@@ -470,7 +522,8 @@ export class Hud {
       <div class="rotate" id="rotate"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b>Turn your phone sideways</b><span>Pizza to Picture Hall is made for landscape: the controls sit under your thumbs.</span><button type="button" class="btn alt" id="rot-ok">Play like this anyway</button></div></div>
       <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary · Contains data provided by TGSRTC</div>`;
     for (const n of this.root.querySelectorAll('[id]')) this.el[n.id] = n as HTMLElement;
-    this.el['tip-layer'].hidden = true; this.el.tip.hidden = true; this.el.offer.hidden = true; this.el.modal.hidden = true; this.el.prompt.hidden = true; this.el['orders-availability'].hidden = true;
+    this.el['tip-layer'].hidden = true; this.el.tip.hidden = true; this.el.offer.hidden = true; this.el.modal.hidden = true; this.el.prompt.hidden = true; this.el['orders-availability'].hidden = true; this.el.order.hidden = true;
+    this.flightReserve(1, true);
     this.modalFocus = new DialogFocus(this.el.modal, { restore: () => this.el['b-help'] });
     this.offerFocus = new DialogFocus(this.el.offer, { initial: () => this.el.offer.querySelector('#offer-slide'), restore: () => this.el.minimap, captureKeys: true, key: (event) => {
       if (event.code === 'KeyE' && !event.repeat) { event.preventDefault(); this.acceptPendingOffer?.(); }
@@ -479,12 +532,39 @@ export class Hud {
     this.tipFocus = new DialogFocus(this.el['tip-layer'], { initial: () => this.el['tip-x'], restore: () => this.el.minimap, captureKeys: true, key: (event) => {
       if (event.key === 'Escape' && !event.repeat) { event.preventDefault(); this.acknowledgeTip(); }
     } });
-    const left = this.root.querySelector('.h-tl')!, right = this.root.querySelector('.h-tr')!;
+    const left = this.root.querySelector('.h-tl')!, right = this.root.querySelector('.h-tr')!, tasks = this.root.querySelector<HTMLElement>('.h-tasks')!;
     const layout = () => {
       const root = this.root.getBoundingClientRect(), l = left.getBoundingClientRect(), r = right.getBoundingClientRect();
-      this.root.style.setProperty('--task-bottom', `${Math.max(0, l.bottom - root.top)}px`);
+      const clock = this.el.clock.getBoundingClientRect(), level = this.el.level.getBoundingClientRect(), toolbar = this.root.querySelector('.btnrow')!.getBoundingClientRect(), wallet = this.root.querySelector('.wallet')!.getBoundingClientRect();
+      const portrait = root.width <= 600 && root.height > root.width;
+      const headerBottom = Math.max(clock.bottom, level.bottom, toolbar.bottom, wallet.bottom) - root.top;
+      const clockBottom = Math.max(clock.bottom, level.bottom) - root.top;
+      const gapLeft = Math.max(clock.left + clock.width, level.left + level.width) - root.left + 12, gapRight = toolbar.left - root.left - 12;
+      const bannerRow = portrait || gapRight - gapLeft < 120;
+      const taskTop = bannerRow ? headerBottom + 58 : Math.max(clockBottom, clock.top - root.top + 42) + 8, mapTop = bannerRow ? headerBottom + 58 : headerBottom + 8;
+      const areaWidth = bannerRow ? root.width - 24 : Math.min(300, gapRight - gapLeft);
+      this.root.style.setProperty('--area-top', `${bannerRow ? headerBottom + 8 : Math.max(10, clock.top - root.top)}px`);
+      this.root.style.setProperty('--area-left', `${bannerRow ? 12 : (gapLeft + gapRight - areaWidth) / 2}px`);
+      this.root.style.setProperty('--area-width', `${areaWidth}px`);
+      tasks.style.top = `${taskTop}px`; tasks.style.width = `${l.width}px`;
+      const insetLeft = Math.max(18, l.left - root.left), insetRight = Math.max(18, root.left + root.width - (r.left + r.width));
+      const insetBottom = typeof getComputedStyle === 'function' ? Math.max(18, parseFloat(getComputedStyle(this.el['hud-insets']).paddingBottom) || 18) : 18;
+      const controls = mobileHudLayout(root.width, root.height, mapTop, tasks.getBoundingClientRect().bottom - root.top, insetLeft, insetRight, insetBottom);
+      const taskLimit = portrait ? (root.height <= 650 ? controls.speed.top : controls.fly.top) - 88 : controls.leftSteer.top - 12;
+      tasks.style.maxHeight = `${Math.max(44, taskLimit - taskTop)}px`;
+      const position = (element: HTMLElement, box: HudRect) => Object.assign(element.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, height: `${box.height}px`, right: 'auto', bottom: 'auto' });
+      const map = touch ? controls.map : { left: root.width - insetRight - 168, top: mapTop, width: 168, height: 168 };
+      position(this.el.minimap, map);
+      if (touch) {
+        for (const [id, box] of Object.entries({ 't-left': controls.leftSteer, 't-right': controls.rightSteer, 't-brake': controls.brake, 't-gas': controls.gas, 't-fly': controls.fly, 't-cruise': controls.cruise, speed: controls.speed })) {
+          position(id === 'speed' ? this.root.querySelector<HTMLElement>('.speed')! : this.el[id], box);
+        }
+        position(this.el.prompt, controls.context);
+      }
+      const taskBottom = tasks.getBoundingClientRect().bottom - root.top;
+      this.root.style.setProperty('--task-bottom', `${Math.max(0, taskBottom)}px`);
       const offered = this.root.classList.contains('has-offer');
-      const bounds = guidanceBounds(root.width, root.height, l.bottom - root.top, r.left - root.left, r.bottom - root.top, touch && !offered);
+      const bounds = guidanceBounds(root.width, root.height, taskBottom, map.left, map.top + map.height, touch && !offered);
       if (offered) {
         // A request is a centered, isolated decision surface, independent of HUD rails.
         bounds.left = 12; bounds.top = 12; bounds.width = Math.max(0, root.width - 24); bounds.height = Math.max(0, root.height - 24);
@@ -493,9 +573,11 @@ export class Hud {
     };
     const resize = new ResizeObserver(layout);
     this.updateLayout = layout;
-    resize.observe(this.root); resize.observe(left); resize.observe(right); layout();
+    resize.observe(this.root); resize.observe(left); resize.observe(right); resize.observe(tasks); layout();
     this.el['b-theatre'].addEventListener('click', () => this.onButton('theatres'));
     this.el['b-help'].addEventListener('click', () => this.onButton('pause'));
+    this.el['b-report'].addEventListener('click', () => { if (this.controlsAvailable) { this.resetInput(); this.onButton('report'); } });
+    for (const type of ['keydown', 'keyup']) this.el['b-report'].addEventListener(type, event => event.stopPropagation());
     this.el['b-full'].addEventListener('click', () => this.onButton('fullscreen'));
     this.el.rescue.addEventListener('click', () => this.onButton('rescue'));
     this.el['tip-x'].addEventListener('click', () => this.acknowledgeTip());
@@ -638,6 +720,15 @@ export class Hud {
     button.disabled = mode === 'descending';
     button.setAttribute('aria-label', mode === 'ground' ? 'Take off' : mode === 'air' ? 'Land' : 'Landing in progress');
   }
+  flightReserve(fraction: number, unlimited = false) {
+    const value = unlimited ? 1 : Math.max(0, Math.min(1, Number.isFinite(fraction) ? fraction : 0));
+    if (value === this.reserve) return;
+    this.reserve = value;
+    const button = this.el['t-fly'];
+    button.style.setProperty('--flight-reserve', String(value));
+    button.setAttribute('data-charged', String(value > .5));
+    button.setAttribute('aria-description', value === 1 ? 'Flight reserve full' : `Flight reserve ${Math.round(value * 100)}%`);
+  }
   set(id: string, text: string) { const e = this.el[id]; if (e && e.textContent !== text) e.textContent = text; }
   toast(text: string, cls = '') {
     const t = this.el.toast;
@@ -665,6 +756,7 @@ export class Hud {
   order(o: { state: string; title: string; sub: string; dist: string; time: string; heat?: number; slices?: number; meters: boolean; next?: string; stage?: 'pickup' | 'collect' | 'delivery' | 'idle'; orderId?: string }) {
     this.set('o-state', o.state); this.set('o-title', o.title); this.set('o-sub', o.sub); this.set('o-dist', o.dist); this.set('o-time', o.time);
     this.el.order.dataset.stage = o.stage ?? (o.meters ? 'delivery' : 'idle');
+    this.el.order.hidden = this.el.order.dataset.stage === 'idle' && !o.dist;
     this.el['o-next'].hidden = !o.next; if (o.next) this.set('o-next', `Next: ${o.next}`);
     this.el['o-note'].hidden = o.stage !== 'pickup' && o.stage !== 'collect';
     this.el['o-id'].hidden = !o.orderId; if (o.orderId) this.set('o-id', `#${o.orderId.replace(/^#/, '')}`);
@@ -718,7 +810,7 @@ export class Hud {
   }
   areaT = 0;
   areaChip(name: string, label = 'Entering') {
-    const c = this.el['area-chip']; c.innerHTML = `<small>${label.replace(/[<>&]/g, '')}</small>${name.replace(/[<>&]/g, '')}`; c.classList.add('show');
+    const c = this.el['area-chip']; c.innerHTML = `<small>${label.replace(/[<>&]/g, '')}</small><span class="area-name">${name.replace(/[<>&]/g, '')}</span>`; c.classList.add('show');
     clearTimeout(this.areaT); this.areaT = window.setTimeout(() => c.classList.remove('show'), 4200);
   }
   get tipOpen() { return !this.el['tip-layer'].hidden; }

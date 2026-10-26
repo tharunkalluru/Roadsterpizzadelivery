@@ -1,4 +1,6 @@
 import type { XZ } from './types';
+import { METRO_INTERCHANGES, metroRuntimeStations } from './metro-interchanges';
+export { metroRuntimeStations } from './metro-interchanges';
 
 export interface MetroLineInput { id: string; color?: string; name?: string; pts: XZ[] }
 export interface MetroPath { pts: XZ[]; cum: number[]; len: number }
@@ -61,6 +63,59 @@ export function metroStationFrame(station: { p: XZ; lines?: string[] }, corridor
     if (!best || p.d < best.d) best = { d: p.d, hx: p.hx, hz: p.hz, cx: p.x, cz: p.z, lineId: corridor.lineId };
   }
   return best && best.d <= 60 ? best : null;
+}
+
+export interface MetroPlatformAssembly {
+  key: string; stationId: string; lineId: string; sourceId?: string; secondary: boolean; terminalModelAdjustment: number;
+  source: { id?: string; name?: string; te?: string | null; p: XZ; lines?: string[] };
+  frame: NonNullable<ReturnType<typeof metroStationFrame>> & { path?: MetroPath; s?: number }; corridor: MetroCorridor; deckHeight: number;
+}
+const profileCache = new WeakMap<MetroCorridor, { s: number; height?: number; lift?: number }[]>();
+function profiles(c: MetroCorridor) {
+  let out = profileCache.get(c); if (out) return out;
+  out = [];
+  for (const site of Object.values(METRO_INTERCHANGES)) {
+    const a = site[c.lineId]; if (!a || a.platformHeight === undefined && a.gameLift === undefined) continue;
+    const p = projectMetroPath(c.center, a.p); if (p.d <= 60) out.push({ s: p.s, height: a.platformHeight, lift: a.gameLift });
+  }
+  profileCache.set(c, out); return out;
+}
+// Every geometry/collider/animation consumer samples this exact profile. The
+// quintic has zero slope and curvature at both ends; platforms stay flat.
+export function metroDeckHeight(c: MetroCorridor, s: number, baseline: number) {
+  let y = baseline;
+  for (const p of profiles(c)) {
+    const distance = Math.abs(s - p.s), u = Math.max(0, Math.min(1, (distance - 80) / 800));
+    const weight = 1 - u * u * u * (10 + u * (-15 + 6 * u));
+    y += ((p.height === undefined ? baseline + (p.lift || 0) : p.height - 1.2) - baseline) * weight;
+  }
+  return y;
+}
+export function metroDeckGrade(c: MetroCorridor, s: number, baseline: number) {
+  return (metroDeckHeight(c, s + .1, baseline) - metroDeckHeight(c, s - .1, baseline)) / .2;
+}
+export const metroTrackDeckHeight = (c: MetroCorridor, path: MetroPath, s: number, baseline: number) => metroDeckHeight(c, s * c.center.len / path.len, baseline);
+export const metroTrackDeckGrade = (c: MetroCorridor, path: MetroPath, s: number, baseline: number) => metroDeckGrade(c, s * c.center.len / path.len, baseline) * c.center.len / path.len;
+export function metroPlatformAssemblies(stations: readonly { id?: string; name?: string; te?: string | null; p: XZ; lines?: string[] }[], corridors: readonly MetroCorridor[], baseline: number): MetroPlatformAssembly[] {
+  const out: MetroPlatformAssembly[] = [];
+  for (const [index, source] of metroRuntimeStations(stations).entries()) {
+    const primary = metroStationFrame(source, corridors); if (!primary) continue;
+    const stationId = source.id || `source-station:${index}`, anchors = METRO_INTERCHANGES[stationId];
+    const lines = anchors ? source.lines || [primary.lineId] : [primary.lineId];
+    for (const lineId of lines) {
+      const anchor = anchors?.[lineId], point = anchor?.p || source.p, frame = metroStationFrame({ p: point, lines: [lineId] }, corridors);
+      const corridor = corridors.find(c => c.lineId === lineId && projectMetroPath(c.center, point).d <= 60);
+      if (!frame || !corridor) continue;
+      const secondary = lineId !== primary.lineId, key = secondary ? `${stationId}:${lineId}` : stationId;
+      const sourceS = projectMetroPath(corridor.center, [frame.cx, frame.cz]).s;
+      // Finite source tracks have no surveyed extension beyond their endpoint.
+      // Keep the full 130m game platform on the retained path instead of folding
+      // its outer half into one clamped point; source anchors stay unchanged.
+      const s = Math.max(65, Math.min(corridor.center.len - 65, sourceS)), p = sampleMetroPath(corridor.center, s);
+      out.push({ key, stationId, lineId, sourceId: anchor?.sourceId, secondary, terminalModelAdjustment: s - sourceS, source: { ...source, ...(anchor?.name ? { name: anchor.name } : {}), p: point }, frame: { ...frame, cx: p.x, cz: p.z, hx: p.hx, hz: p.hz, path: corridor.center, s }, corridor, deckHeight: metroDeckHeight(corridor, s, baseline) });
+    }
+  }
+  return out;
 }
 
 function densify(points: readonly XZ[]) {

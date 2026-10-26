@@ -3,7 +3,7 @@ import { fetchPack } from '../world/packs';
 import { DialogFocus } from './dialog';
 import { placeCatalogue, PLACE_CATEGORIES, type LandmarkPlace, type PlaceCategory } from '../world/landmark_catalog';
 import { layoutPlaceMarkers, hitPlaceMarker, placeIcon, type PlaceMarker } from './landmark-icons';
-import { metroCorridors, METRO_LINE_COLORS } from '../world/metro-geometry';
+import { metroCorridors, METRO_LINE_COLORS, metroPlatformAssemblies } from '../world/metro-geometry';
 import { installPrototypeTheme } from './theme';
 import { DESTINATION_MAP_IDENTITIES } from '../world/destination-data';
 import { destinationPlaceCatalogue } from '../world/destination-identity';
@@ -73,6 +73,10 @@ export class FullMap {
   pointers = new Map<number, { x: number; y: number }>(); pinch0 = 0; scale0 = 0;
   constructor(host: HTMLElement, public zone: CoreData, public state: () => MapState, public onClose: () => void, public src: { mapUrl: string; buildings: () => Building[] }) {
     this.places = placeCatalogue(zone.origin);
+    // Metro catalogue identities share the runtime's retained service anchors.
+    const metroPlaces = { ameerpet_interchange: ['st_ameerpet', 'red'], mgbs_metro: ['st_mahatma_gandhi_bus_station', 'red'], parade_metro: ['st_parade_grounds', 'green'] } as const;
+    const platforms = metroPlatformAssemblies(zone.metro.stations, metroCorridors(zone.metro.lines), zone.metro.deckHeight);
+    for (const place of this.places) { const target = metroPlaces[place.id as keyof typeof metroPlaces]; if (!target) continue; const platform = platforms.find(p => p.stationId === target[0] && p.lineId === target[1]); if (platform) { place.x = platform.source.p[0]; place.z = platform.source.p[1]; } }
     const normalizedName = (name: string) => name.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
     const placeNames = new Map<string, LandmarkPlace[]>();
     for (const place of this.places) { const key = normalizedName(place.name); (placeNames.get(key) || placeNames.set(key, []).get(key)!).push(place); }

@@ -1,0 +1,74 @@
+$ interchange
+PASS six retained source anchors produce fifty-nine physical assemblies and no duplicate JBS service with exactly two exterior names per source site
+INTERCHANGE_RENDERED_CLEARANCE [{"stationId":"st_ameerpet","lineId":"blue","direction":1,"sourceId":"n6700511122","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_ameerpet","lineId":"blue","direction":-1,"sourceId":"n6700511122","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_ameerpet","lineId":"red","direction":1,"sourceId":"n6447191882","floor":30,"triangleConflicts":0,"samples":[]},{"stationId":"st_ameerpet","lineId":"red","direction":-1,"sourceId":"n6447191882","floor":30,"triangleConflicts":0,"samples":[]},{"stationId":"st_mahatma_gandhi_bus_station","lineId":"green","direction":1,"sourceId":"n7208768627","floor":22.86,"triangleConflicts":0,"samples":[]},{"stationId":"st_mahatma_gandhi_bus_station","lineId":"green","direction":-1,"sourceId":"n7208768627","floor":22.86,"triangleConflicts":0,"samples":[]},{"stationId":"st_mahatma_gandhi_bus_station","lineId":"red","direction":1,"sourceId":"n7208768626","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_mahatma_gandhi_bus_station","lineId":"red","direction":-1,"sourceId":"n7208768626","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_parade_grounds","lineId":"blue","direction":1,"sourceId":"n7052069758","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_parade_grounds","lineId":"blue","direction":-1,"sourceId":"n7052069758","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_parade_grounds","lineId":"green","direction":1,"sourceId":"n7195061310","floor":24.9,"triangleConflicts":0,"samples":[]},{"stationId":"st_parade_grounds","lineId":"green","direction":-1,"sourceId":"n7195061310","floor":24.9,"triangleConflicts":0,"samples":[]}]
+PASS all twelve interchange service directions stop at actual platform floors and their train plus roof-riding envelopes clear rendered structures
+PASS a roof rider follows both height and slope changes without losing the same moving coach
+3 metro interchange regression groups passed (offline production geometry).
+
+$ stationLife
+PASS all three official services reverse origin and destination with the actual sourced run direction
+PASS station geometry draws exactly two end boards and two inward platform boards with elevated bench collisions
+PASS marquee keeps short routes still, pauses at both complete ends and never scrolls beyond the text
+PASS both sides of every visible coach receive the current directed service and long names scroll
+PASS actual station arrival emits correct-platform door positions only while the train is dwelling
+PASS peak and off-peak crowds are bounded explicitly heuristic choices, with stationary seated waiting figures
+PASS boarding and alighting use a real dwell, freeze with zero time and clear immediately when it ends
+PASS opposite runs expose opposite platform flows while leaving the physical roof/collision envelopes intact
+PASS station crowds cannot appear on an unloaded platform and disappear when that tile unloads
+METRO_MODELED_PLATFORM_COVERAGE {"sourceStations":57,"activeStationSites":56,"retainedAliases":1,"physicalCorridorAssemblies":59,"modeledPlatformDirections":118,"secondaryInterchangeDirections":6,"unmodeledInterchangeDirections":0,"unmodeledServices":[],"crowdModel":"Heuristic game crowd simulation; not measured passenger usage."}
+PASS 57 retained source records yield 56 active sites and 59 physical corridor assemblies have matched real services in both directions
+PASS published interchange floor heights and smooth game approaches are shared across each actual corridor
+11 metro station-life regression groups passed (offline production components).
+
+$ movingRail
+PASS shared corridor colors override mislabeled source colors without recoloring the physical train model
+PASS only two exterior station boards face approaches and two interior boards face train windows with correct line strips
+PASS map loading assigns each normalized route its own shared color rather than painting all lines green
+PASS moving roofs are height-gated and static streets below a train retain their own support
+PASS a car falling onto a train roof lands using production Player physics and rides without clipping
+PASS a parked car follows coach rotation in its moving local frame
+PASS a carried car can drive relative to the roof, leave the end and take off without staying glued
+PASS train front impact pushes the car forward rather than moving through it
+PASS a fast car cannot tunnel through a coach side and lateral train motion imparts a push
+PASS grade separation and roof clearance prevent ghost side impacts above or below trains
+PASS recovery placement invalidates carrier attachment and a removed train never drags the car away
+PASS metro and ordinary rail contact bodies use the exact rendered coach poses and disappear with hidden coaches
+PASS a lower landmark plinth cannot disable a taller facade collision while actual curved tops remain landable
+13 moving-rail and metro identity regression groups passed.
+
+$ buildingClearance
+PASS ground-road conflict trims only its swept footprint and preserves source identity and area
+PASS low buildings below an elevated deck remain while tall intersecting extrusions are corrected
+PASS metro deck and complete station envelope clear tall source buildings with source line identities
+PASS metro physical girder end overlap cannot leave a thin source-building remnant
+PASS concave buildings and dense duplicate road copies retain the same corridor opening
+PASS actual widened ramp ends and joined corner paint cannot leave a solid building in the road
+PASS generated render fragments and collision solids agree: road opens, remaining building still collides
+PASS junction fan between separate source edges opens the rendered turning pavement
+PASS normal-quality rooftop rooms cannot extend outside a safe thin footprint into a flyover
+9 building/transport clearance regression groups passed.
+
+$ typecheck
+
+> pizza-to-picture-hall@0.1.0 typecheck
+> tsc --noEmit
+
+
+$ map
+Map regressions: close/cancel, initial picker, repeated keys, pointer cleanup, zoom, and failed-load retry passed.
+
+$ landmarks
+Landmark regressions: all 192 place identities, explicit shared-mall alias and three externally owned metro assemblies, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite owner geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.
+Cultural/Golconda checks passed: four articulated lion heads and four outward24-spoke abacus wheels (32496vertices), folded Nishan cloth/spear, visible91.5m roof contacts and production Player landing/9m drive/brake/5s park. Offline simulation, not browser acceptance.
+PASS actual four-wheel posture follows compound slopes at eight headings without penetration or floating
+PASS driving uphill downhill and across a landmark keeps continuous contact at30and60Hz
+PASS a descent lands onto a slope with actual wheel contact and takeoff resets terrain suspension
+PASS upper roofs and an adjacent ledge cannot pull lower wheels through an overhead surface
+PASS a missing corner never invents contact on air or permits a separate landmark layer
+PASS ordinary road and moving-rail support do not inherit landmark roll or suspension
+PASS recovery placement clears old landmark posture and wheel travel
+PASS the real Golconda hillside uses four rendered wheel contacts across eight headings
+PASS the real Golconda hillside landing drive brake and parked contacts remain stable
+9 landmark contact regression groups passed, including compound slopes, real wheel suspension, layer gating, road/rail controls and actual Golconda.
+Ambedkar model: actual53.34m top, above-head subject-right pointing hand,15.24m terrace, finite rotated geometry and bounded vertex budget pass.
+Landmark sources: 191 explicit decisions; seven shared map/model corrections; two exact named outlines, bounded geometry and concavity-safe clearance passed.

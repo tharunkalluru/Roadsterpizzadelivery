@@ -8,14 +8,17 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { gunzipSync } from 'node:zlib';
+import { rendererBox, prismIntersectsBox } from './audit-obb-utils.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const argument = (key, fallback) => { const i = process.argv.indexOf(key); return i < 0 ? fallback : process.argv[i + 1]; };
-const reportPath = argument('--report', join(root, 'docs/playtests/2026-10-26-building-render-audit.json'));
+const reportPath = argument('--report', join(root, 'docs/playtests/2026-10-26-interchange-building-audit.json'));
 const deadlineMs = Number(argument('--max-ms', '240000'));
+const tileFilter = argument('--tiles', '').split(',').filter(Boolean);
 const temp = mkdtempSync(join(tmpdir(), 'roadster-render-audit-'));
 const digest = value => createHash('sha256').update(value).digest('hex');
 const codeFiles = ['game/src/world/city.ts', 'game/src/world/building-clearance.ts', 'game/src/world/extras.ts', 'game/src/world/destination-recognition.ts', 'game/src/world/destination-data.ts', 'game/src/world/destination-hero-models.ts', 'game/src/world/destination-hero-data.ts', 'game/src/world/landmarks.ts', 'game/src/world/landmarks2.ts', 'game/src/world/landmark_catalog.ts', 'game/src/world/landmark-corrections.ts', 'game/src/world/metro-geometry.ts', 'game/src/world/metro-service.ts', 'game/src/world/metro-station-visuals.ts', 'game/src/world/street-lamps.ts'];
+codeFiles.push('game/src/world/metro-interchanges.ts','game/src/world/metro-clearance.ts','game/src/world/bridge-clearance.ts','game/src/world/bridge-level-data.json','game/src/world/road-grades.ts','game/src/world/road-surface.ts','game/src/core/util.ts');
 const compiledSourceCodeSha256 = Object.fromEntries(codeFiles.map(file => [file, digest(readFileSync(join(root, file)))]));
 const signedArea = ring => ring.reduce((sum, p, i) => { const q = ring[(i + 1) % ring.length]; return sum + p[0] * q[1] - p[1] * q[0]; }, 0) / 2;
 const area = ring => Math.abs(signedArea(ring));
@@ -47,11 +50,12 @@ const nonCar = /^(footway|path|steps|pedestrian|cycleway|bridleway|track)$/;
 // concourse blocks and platform slabs. Canopies, trains and columns are outside
 // this specific building-solid intersection oracle.
 const metroColors = new Set(['#c2bdcc', '#c9c4d3', '#d4d0dc', '#d9d6de', '#cdc8d2']);
+const triangleHitsVolume = (triangle, bottom, top, object) => area(intersection(triangle, object.ring)) > .002 && (!object.obb || prismIntersectsBox(triangle, bottom, top, object.obb));
 let destinationCalls = [];
 globalThis.__destinationAudit = call => destinationCalls.push(call);
 
 try {
-  await build({ stdin: { contents: "export {buildTile} from './game/src/world/city';export {DESTINATION_IDENTITIES} from './game/src/world/destination-data';export {prepareRoadGrades,roadGradePatches,applyRoadGradePatches} from './game/src/world/road-grades';export {placeLandmarks} from './game/src/world/landmarks';export {metroCorridors,metroStationFrame} from './game/src/world/metro-geometry';export {initTemplates,TiledBatch,TPL} from './game/src/core/util';export {ShapeUtils,Vector2} from './game/node_modules/three/build/three.module.js';", resolveDir: root }, outfile: join(temp, 'audit.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error',
+  await build({ stdin: { contents: "export {buildTile} from './game/src/world/city';export {DESTINATION_IDENTITIES} from './game/src/world/destination-data';export {prepareRoadGrades,roadGradePatches,applyRoadGradePatches} from './game/src/world/road-grades';export {placeLandmarks} from './game/src/world/landmarks';export {metroCorridors,metroPlatformAssemblies} from './game/src/world/metro-geometry';export {initTemplates,TiledBatch,TPL} from './game/src/core/util';export {ShapeUtils,Vector2} from './game/node_modules/three/build/three.module.js';", resolveDir: root }, outfile: join(temp, 'audit.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error',
     // Observe production decorator calls in this temporary offline bundle only.
     // A transparent batch proxy records actual feature boxes; source files and
     // the renderer/clearance implementation remain untouched.
@@ -78,7 +82,7 @@ try {
   };
   // Conservative complete segment bounds also include long spans crossing
   // cells that contain neither endpoint. Pad roads for modeled merge lanes.
-  for (const road of core.roads) if (road.elev?.some(y => y > 1.2)) for (let i = 1; i < road.pts.length; i++) {
+  for (const road of m.applyRoadGradePatches(core.roads, changes)) if (road.elev?.some(y => y > 1.2)) for (let i = 1; i < road.pts.length; i++) {
     const b = bounds([road.pts[i - 1], road.pts[i]]), pad = Math.max(road.w / 2, 4.2) + 8;
     includeBounds([b[0] - pad, b[1] + pad, b[2] - pad, b[3] + pad]);
   }
@@ -86,13 +90,16 @@ try {
   for (const corridor of corridors) for (let i = 1; i < corridor.center.pts.length; i++) {
     const b = bounds([corridor.center.pts[i - 1], corridor.center.pts[i]]); includeBounds([b[0] - 5, b[1] + 5, b[2] - 5, b[3] + 5]);
   }
-  for (const station of core.metro.stations) {
-    const frame = m.metroStationFrame(station, corridors); if (!frame) continue;
+  const assemblies = m.metroPlatformAssemblies(core.metro.stations, corridors, core.metro.deckHeight || 11);
+  for (const {frame} of assemblies) {
     includeBounds(bounds(rectangle(frame.cx, frame.cz, 26.8, 138, Math.atan2(frame.hx, frame.hz))));
   }
   // Architecture coverage must include every eligible source tile, including
   // campuses or offices away from the elevated-transport audit envelope.
   for (const record of m.DESTINATION_IDENTITIES) wanted.add(record.tile.join('_'));
+  const fullEnvelopeTiles = wanted.size;
+  if(tileFilter.length){wanted.clear();for(const key of tileFilter){if(!available.has(key))throw Error(`Unknown requested tile ${key}`);wanted.add(key);}}
+  const sharedMallExpected = !tileFilter.length || landmarks.some(l=>l.id==='asian_amb'&&l.renderTile&&wanted.has(l.renderTile.join('_')));
 
   let draws = new Map(), metroBoxes = [], rooftopProps = [];
   const original = Object.fromEntries(['quad', 'tri', 'box', 'add'].map(method => [method, m.TiledBatch.prototype[method]]));
@@ -102,7 +109,10 @@ try {
   };
   m.TiledBatch.prototype.box = function (...args) {
     const [x, y, z, w, h, length, color, options = {}] = args;
-    if (metroColors.has(color)) metroBoxes.push({ ring: rectangle(x, z, w, length, options.ry || 0), bottom: y - h / 2, top: y + h / 2, kind: 'metro' });
+    if (metroColors.has(color)) {
+      const obb = rendererBox(x,y,z,w,h,length,options);
+      metroBoxes.push({ ring: obb.ring, bottom: obb.bottom, top: obb.top, obb, kind: 'metro', box:{x,y,z,w,h,length,rx:options.rx||0,ry:options.ry||0,rz:options.rz||0} });
+    }
     if ((w === 2.6 && h === 2.6 && length === 2.8) || (w === .06 && h === 1.6 && length === .06)) rooftopProps.push({ ring: rectangle(x, z, w, length, options.ry || 0), bottom: y - h / 2, top: y + h / 2, part: w === 2.6 ? 'room' : 'rebar' });
     return original.box.apply(this, args);
   };
@@ -115,9 +125,9 @@ try {
     visitedSourceTiles: 0, survivingSourceBuildings: new Set(), decoratedSourceBuildings: new Set(), correctedSourceBuildings: new Set(), missingSourceBuildings: [],
     survivingSourceFragments: 0, decoratorCalls: 0, decoratedFragments: 0, zeroFeatureFragments: 0, renderedFeatures: 0, rejectedFeatures: 0, renderedRooftopSolids: 0,
     residualRoadFeatureIntersections: 0, residualMetroFeatureIntersections: 0, examples: [], byKind: {} };
-  const stats = { wantedTiles: wanted.size, visitedTiles: [], sourceBuildings: 0, sourceBoards: 0, sourceDataUnchanged: true,
+  const stats = { fullEnvelopeTiles, tileFilter, wantedTiles: wanted.size, visitedTiles: [], sourceBuildings: 0, sourceBoards: 0, sourceDataUnchanged: true,
     retainedSourceSolids: 0, correctedSources: 0, correctedFragments: 0, fullyOmitted: [], maxFragmentsPerSource: 0,
-    actualCarRoadTriangles: 0, actualNonCarTrianglesExcluded: 0, unmatchedRoadTriangles: 0, majorMetroBoxes: 0,
+    actualCarRoadTriangles: 0, actualNonCarTrianglesExcluded: 0, unmatchedRoadTriangles: 0, unmatchedRoadExamples:[], majorMetroBoxes: 0, pitchedMetroBoxes:0, sourceStationRecords:core.metro.stations.length, runtimeStationSites:new Set(assemblies.map(a=>a.stationId)).size, stationAssemblyCount:assemblies.length, secondaryStationAssemblies:assemblies.filter(a=>a.secondary).length,
     residualRoadSolidIntersections: 0, residualMetroSolidIntersections: 0, residualExamples: [], maxTileBuildMs: 0, normalQualityRooftopProbes: [],
     sharedMall: { canonicalId: 'asian_amb', aliasId: 'sarath_city', sourceId: 'w574673965', canonicalSolidPieces: 0, aliasSolidPieces: 0,
       indexedSolidPlanAreaSumM2: 0, areaNote: 'Sum of indexed source-body pieces plus the clear arrival canopy, not a union or surveyed building area.', roadIntersections: 0, metroIntersections: 0 } };
@@ -209,24 +219,22 @@ try {
           const points = indices.map(i => call.points[i]), ring = points.map(p => [p[0], p[2]]);
           if (area(ring) < 1e-7) continue;
           const surface = surfaceByTriangle.get(triangleKey(points));
-          if (!surface) { stats.unmatchedRoadTriangles++; continue; }
+          if (!surface) { stats.unmatchedRoadTriangles++; if(stats.unmatchedRoadExamples.length<20)stats.unmatchedRoadExamples.push({tile:key,points}); continue; }
           if (nonCar.test(surface.e.cls)) { stats.actualNonCarTrianglesExcluded++; continue; }
           const elevations = surface.roadQuad.map(p => p[1]), low = Math.min(...elevations), high = Math.max(...elevations);
           add({ ring, bottom: low > 1.2 ? low - 1 : -.1, top: high + 4.8, kind: 'road', id: surface.e.id }); stats.actualCarRoadTriangles++;
         }
       }
-      for (const box of metroBoxes) { add(box); stats.majorMetroBoxes++; }
+      for (const box of metroBoxes) { add(box); stats.majorMetroBoxes++; if(box.obb.pitched)stats.pitchedMetroBoxes++; }
       for (const feature of destinationBoxes) {
         const b = bounds(feature.ring), nearby = new Set();
         for (let x = Math.floor(b[0] / 50); x <= Math.floor(b[1] / 50); x++) for (let z = Math.floor(b[2] / 50); z <= Math.floor(b[3] / 50); z++) for (const object of grid.get(`${x},${z}`) || []) {
           if (feature.top > object.bottom + .01 && feature.bottom < object.top - .01 && overlaps(b, object.bounds)) nearby.add(object);
         }
         const found = new Set();
-        for (const object of nearby) if (!found.has(object.kind) && area(intersection(feature.ring, object.ring)) > .002) {
+        const featureTriangles=m.ShapeUtils.triangulateShape(feature.ring.map(p=>new m.Vector2(...p)),[]).map(t=>t.map(i=>feature.ring[i]));
+        for (const object of nearby) if (!found.has(object.kind) && featureTriangles.some(t=>triangleHitsVolume(t,feature.bottom,feature.top,object))) {
           found.add(object.kind);
-          if (building.id.startsWith('lm_x_asian_amb_')) {
-            if (object.kind === 'road') stats.sharedMall.roadIntersections++; else stats.sharedMall.metroIntersections++;
-          }
           if (object.kind === 'road') destinationStats.residualRoadFeatureIntersections++; else destinationStats.residualMetroFeatureIntersections++;
           if (destinationStats.examples.length < 20) destinationStats.examples.push({tile:key,building:feature.id,kind:object.kind,sourceRoad:object.id});
         }
@@ -241,10 +249,13 @@ try {
         const found = new Set();
         for (const object of nearby) {
           if (found.has(object.kind)) continue;
-          if (!triangles.some(triangle => area(intersection(triangle, object.ring)) > .002)) continue;
+          if (!triangles.some(triangle => triangleHitsVolume(triangle,0,building.h,object))) continue;
           found.add(object.kind);
+          if (building.id.startsWith('lm_x_asian_amb_')) {
+            if (object.kind === 'road') stats.sharedMall.roadIntersections++; else stats.sharedMall.metroIntersections++;
+          }
           if (object.kind === 'road') stats.residualRoadSolidIntersections++; else stats.residualMetroSolidIntersections++;
-          if (stats.residualExamples.length < 20) stats.residualExamples.push({ tile: key, building: building.id, kind: object.kind, ...(object.id ? { sourceRoad: object.id } : {}) });
+          if (stats.residualExamples.length < 20) stats.residualExamples.push({ tile: key, building: building.id, kind: object.kind, ...(object.id ? { sourceRoad: object.id } : {}),...(object.box?{metroBox:object.box}:{}) });
         }
       }
       if (key === '0_-1' || key === '-13_-4') {
@@ -257,7 +268,8 @@ try {
           for (let x = Math.floor(b[0] / 50); x <= Math.floor(b[1] / 50); x++) for (let z = Math.floor(b[2] / 50); z <= Math.floor(b[3] / 50); z++) for (const object of grid.get(`${x},${z}`) || []) {
             if (prop.top > object.bottom + .01 && prop.bottom < object.top - .01 && overlaps(b, object.bounds)) nearby.add(object);
           }
-          if ([...nearby].some(object => area(intersection(prop.ring, object.ring)) > .002)) probe.residualRoadOrMetroIntersections++;
+          const triangles=m.ShapeUtils.triangulateShape(prop.ring.map(p=>new m.Vector2(...p)),[]).map(t=>t.map(i=>prop.ring[i]));
+          if ([...nearby].some(object => triangles.some(t=>triangleHitsVolume(t,prop.bottom,prop.top,object)))) probe.residualRoadOrMetroIntersections++;
         }
         stats.normalQualityRooftopProbes.push(probe);
       }
@@ -277,12 +289,13 @@ try {
     sourceCodeSha256: compiledSourceCodeSha256,
     sourceCodeUnchangedDuringAudit: codeFiles.every(file => digest(readFileSync(join(root, file))) === compiledSourceCodeSha256[file]),
     validation: 'Offline source and actual renderer geometry; not browser driving or delivery verification.',
-    scope: 'All shipped tiles within conservative elevated-road segment, normalized metro segment and full station bounds, including intermediate cells on long spans, plus every eligible destination source tile. Source building and destination rooftop solids versus actual car-road draw triangles and major metro girder/deck/parapet/concourse/platform draw boxes; destination feature boxes also tested independently at their actual vertical range. The shared Sarath City / Asian AMB mall body is additionally checked, with zero duplicate alias bodies required. Two source tiles additionally capture actual normal-quality rooftop rooms, tanks and rebar. Canopies, columns, trains, other hero landmarks and physical-phone controls are outside this oracle.',
-    tolerance: { minimumPlanarIntersectionAreaM2: .002, minimumVerticalOverlapM: .01 },
+    scope: (tileFilter.length ? 'Explicit bounded affected-tile recheck (' + tileFilter.join(', ') + '), not the complete citywide envelope. ' : 'All shipped tiles within conservative elevated-road segment, normalized metro segment and full station bounds, including intermediate cells on long spans, plus every eligible destination source tile. ') + 'Source building and destination rooftop solids versus actual car-road draw triangles and major metro girder/deck/parapet/concourse/platform draw boxes; destination feature boxes also tested independently at their actual vertical range. The shared Sarath City / Asian AMB mall body is additionally checked, with zero duplicate alias bodies required. Two source tiles additionally capture actual normal-quality rooftop rooms, tanks and rebar. Canopies, columns, trains, other hero landmarks and physical-phone controls are outside this oracle.',
+    tolerance: { minimumPlanarIntersectionAreaM2: .002, verticalBroadPhaseOverlapM: .01, orientedVolumeSeparationM:1e-5 },
+    metroVolumeOracle:`Exact renderer EulerYXZ box vertices with convex projected broad bounds, then independent oriented-box versus source-triangle prism separating-axis tests. All ${assemblies.length} runtime-normalized platform assemblies are inventoried, including ${assemblies.filter(a=>a.secondary).length} secondary interchange models. Pitched ends are not treated as flat y±height/2 slabs.`,
     elapsedMs: Math.round(performance.now() - start), deadlineStopped, ...stats, destinationCoverage };
   result.maxTileBuildMs = Math.round(result.maxTileBuildMs);
   writeFileSync(reportPath, JSON.stringify(result, null, 2) + '\n');
   console.log('AUDIT_RESULT', JSON.stringify({ ...result, visitedTiles: result.visitedTiles.length, sourceCodeSha256: undefined,
     destinationCoverage: {...destinationCoverage, survivingSourceBuildings: destinationCoverage.survivingSourceBuildings.length, decoratedSourceBuildings: destinationCoverage.decoratedSourceBuildings.length, correctedSourceBuildings:destinationCoverage.correctedSourceBuildings.length} }));
-  if (deadlineStopped || !result.sourceDataUnchanged || !result.sourceCodeUnchangedDuringAudit || result.unmatchedRoadTriangles || result.residualRoadSolidIntersections || result.residualMetroSolidIntersections || destinationStats.residualRoadFeatureIntersections || destinationStats.residualMetroFeatureIntersections || !stats.sharedMall.canonicalSolidPieces || stats.sharedMall.aliasSolidPieces || result.normalQualityRooftopProbes.some(p => p.residualRoadOrMetroIntersections)) process.exitCode = 1;
+  if (deadlineStopped || !result.sourceDataUnchanged || !result.sourceCodeUnchangedDuringAudit || result.unmatchedRoadTriangles || result.residualRoadSolidIntersections || result.residualMetroSolidIntersections || destinationStats.residualRoadFeatureIntersections || destinationStats.residualMetroFeatureIntersections || sharedMallExpected&&!stats.sharedMall.canonicalSolidPieces || stats.sharedMall.aliasSolidPieces || result.normalQualityRooftopProbes.some(p => p.residualRoadOrMetroIntersections)) process.exitCode = 1;
 } finally { delete globalThis.__destinationAudit; rmSync(temp, { recursive: true, force: true }); }

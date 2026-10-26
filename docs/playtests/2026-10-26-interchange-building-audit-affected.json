@@ -1,0 +1,112 @@
+{
+  "generatedAt": "2026-10-26T23:17:22.803Z",
+  "buildCommit": "0eff345306ab8b3cef671e8fd84b5839bffa197d",
+  "sourceCodeSha256": {
+    "game/src/world/city.ts": "4f5c6a79fd927067e9ce7e6b0f3793095231cb1e470bd51aa1482091f0b5699f",
+    "game/src/world/building-clearance.ts": "78218a7278d5d56832ee669e693bc2bd6a4a643cfe63030030b630be4a102a29",
+    "game/src/world/extras.ts": "61c648dde5a8065687b4ae476e845837241a70058d23833e2631847ca5578cdb",
+    "game/src/world/destination-recognition.ts": "5d2437401636eb4d71c6d20c9958d04532fec46f5a68578607fdd31ab2b6cda5",
+    "game/src/world/destination-data.ts": "971568d5df2e387cdf64ea4426156f071334930725a03ce3de755a2f1da36755",
+    "game/src/world/destination-hero-models.ts": "e517e89cec0d09c0f1ec59087c1a744147e08203a9bc1fa0d9eb3e2858b4d035",
+    "game/src/world/destination-hero-data.ts": "ea0e4eb00efbd8408a614557e2892da51f0366961b073cc788462c7f88a6e7ba",
+    "game/src/world/landmarks.ts": "78ed25fe3cba5e65db19a7eeb08955748692bd416f5d1b39cdb3e5c78dc2a4c1",
+    "game/src/world/landmarks2.ts": "d6fdc6cedcba2fe875efca590f00717136ef6a29170b23cdd38c2b51e2f04a46",
+    "game/src/world/landmark_catalog.ts": "fb22a6aa1da682eaeb8a706bc1dbea28ecd120069ce76658369c7b58c53bc0d2",
+    "game/src/world/landmark-corrections.ts": "f575eb043f507588d287e980c835bad0d61ca5e790dc90a63b6b558b709abbe7",
+    "game/src/world/metro-geometry.ts": "1a03e5e1dbdc64cb487a56a904462b6fbd75a7e04301bef51cd3bb147106302f",
+    "game/src/world/metro-service.ts": "a3d3f0626bc9ab14062923416b1a909239926ce01f99c28b043225235ef21a5c",
+    "game/src/world/metro-station-visuals.ts": "303a8a6068954a188f777b66d51a3b78d92e4a6eea6525f1c88709c09fc2341a",
+    "game/src/world/street-lamps.ts": "93c3c94a12c2584902733cff40d53f24c6be88b5d6cfa649899386b44fd85f9f",
+    "game/src/world/metro-interchanges.ts": "112062092bb774c0d548855875cd48afb67e83e04f191c1771ef0f77544b1fff",
+    "game/src/world/metro-clearance.ts": "71a313851043bc3c3906ff573adef498154f8a5a362db6273c97081c0e58d5ae",
+    "game/src/world/bridge-clearance.ts": "de28bebacf7c208fd9006926e9b35dc97e6d6d3a8e5edc1bfc83213099432564",
+    "game/src/world/bridge-level-data.json": "dfc144218071bd09d63b60363fdb5405e4c0d2291f974af476eb5d8b803e9eb5",
+    "game/src/world/road-grades.ts": "916796b6febc774d4b4816128320971c8064a51a93031eadcd1e1cc8abcea504",
+    "game/src/world/road-surface.ts": "c1635f81070f8efa968497aa044a057a51ad1124db15eacdac4296e6c3d9faa3",
+    "game/src/core/util.ts": "e31b629c78c6b8211ce23d6d4a91f6a6940d2bac374e25929dda699c23b1ebc0"
+  },
+  "sourceCodeUnchangedDuringAudit": true,
+  "validation": "Offline source and actual renderer geometry; not browser driving or delivery verification.",
+  "scope": "Explicit bounded affected-tile recheck (-4_-3), not the complete citywide envelope. Source building and destination rooftop solids versus actual car-road draw triangles and major metro girder/deck/parapet/concourse/platform draw boxes; destination feature boxes also tested independently at their actual vertical range. The shared Sarath City / Asian AMB mall body is additionally checked, with zero duplicate alias bodies required. Two source tiles additionally capture actual normal-quality rooftop rooms, tanks and rebar. Canopies, columns, trains, other hero landmarks and physical-phone controls are outside this oracle.",
+  "tolerance": {
+    "minimumPlanarIntersectionAreaM2": 0.002,
+    "verticalBroadPhaseOverlapM": 0.01,
+    "orientedVolumeSeparationM": 0.00001
+  },
+  "metroVolumeOracle": "Exact renderer EulerYXZ box vertices with convex projected broad bounds, then independent oriented-box versus source-triangle prism separating-axis tests. All 59 runtime-normalized platform assemblies are inventoried, including 3 secondary interchange models. Pitched ends are not treated as flat y±height/2 slabs.",
+  "elapsedMs": 260,
+  "deadlineStopped": false,
+  "fullEnvelopeTiles": 631,
+  "tileFilter": [
+    "-4_-3"
+  ],
+  "wantedTiles": 1,
+  "visitedTiles": [
+    "-4_-3"
+  ],
+  "sourceBuildings": 531,
+  "sourceBoards": 170,
+  "sourceDataUnchanged": true,
+  "retainedSourceSolids": 558,
+  "correctedSources": 7,
+  "correctedFragments": 34,
+  "fullyOmitted": [],
+  "maxFragmentsPerSource": 6,
+  "actualCarRoadTriangles": 3006,
+  "actualNonCarTrianglesExcluded": 40,
+  "unmatchedRoadTriangles": 0,
+  "unmatchedRoadExamples": [],
+  "majorMetroBoxes": 0,
+  "pitchedMetroBoxes": 0,
+  "sourceStationRecords": 57,
+  "runtimeStationSites": 56,
+  "stationAssemblyCount": 59,
+  "secondaryStationAssemblies": 3,
+  "residualRoadSolidIntersections": 0,
+  "residualMetroSolidIntersections": 0,
+  "residualExamples": [],
+  "maxTileBuildMs": 178,
+  "normalQualityRooftopProbes": [],
+  "sharedMall": {
+    "canonicalId": "asian_amb",
+    "aliasId": "sarath_city",
+    "sourceId": "w574673965",
+    "canonicalSolidPieces": 0,
+    "aliasSolidPieces": 0,
+    "indexedSolidPlanAreaSumM2": 0,
+    "areaNote": "Sum of indexed source-body pieces plus the clear arrival canopy, not a union or surveyed building area.",
+    "roadIntersections": 0,
+    "metroIntersections": 0
+  },
+  "destinationCoverage": {
+    "eligibleIdentityRecords": 679,
+    "eligibleSourceBuildings": 544,
+    "visitedSourceTiles": 1,
+    "survivingSourceBuildings": [
+      "393528df-6fb"
+    ],
+    "decoratedSourceBuildings": [
+      "393528df-6fb"
+    ],
+    "correctedSourceBuildings": [],
+    "missingSourceBuildings": [],
+    "survivingSourceFragments": 1,
+    "decoratorCalls": 1,
+    "decoratedFragments": 1,
+    "zeroFeatureFragments": 0,
+    "renderedFeatures": 6,
+    "rejectedFeatures": 0,
+    "renderedRooftopSolids": 1,
+    "residualRoadFeatureIntersections": 0,
+    "residualMetroFeatureIntersections": 0,
+    "examples": [],
+    "byKind": {
+      "cinema": 1
+    },
+    "survivingSourceBuildingCount": 1,
+    "decoratedSourceBuildingCount": 1,
+    "correctedSourceBuildingCount": 0,
+    "suppressedSourceBuildingCount": 0,
+    "survivingSourceBuildingsWithoutFeatures": []
+  }
+}

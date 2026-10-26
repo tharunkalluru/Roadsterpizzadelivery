@@ -1,7 +1,7 @@
 import { ShapeUtils, Vector2 } from 'three';
 import type { Building, RoadEdge, XZ } from './types';
 import { auxiliaryLane, travelDirection } from './expressway';
-import { metroCorridors, metroStationFrame, type MetroLineInput } from './metro-geometry';
+import { metroCorridors, metroPlatformAssemblies, metroDeckHeight, type MetroLineInput } from './metro-geometry';
 
 // Source footprints are retained in the packs. Only the generated, solid model
 // is trimmed where conflicting source layers otherwise close a transport route.
@@ -80,10 +80,13 @@ export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: M
   if (metro) {
     const corridors = metroCorridors(metro.lines), dh = metro.deckHeight || 11;
     // Physical girders/decks/parapets overlap their segment ends by 0.1 m.
-    for (const c of corridors) for (let i = 1; i < c.center.pts.length; i++) span(`metro:${c.id}`, c.center.pts[i - 1], c.center.pts[i], 4.8, 4.8, dh - 1.3, dh + 6.5, .2);
-    for (const station of metro.stations) {
-      const f = metroStationFrame(station, corridors); if (!f) continue;
-      span(`station:${station.id}`, [f.cx - f.hx * 69, f.cz - f.hz * 69], [f.cx + f.hx * 69, f.cz + f.hz * 69], 13.4, 13.4, dh - 4.2, dh + 12.5);
+    for (const c of corridors) for (let i = 1; i < c.center.pts.length; i++) {
+      const a = metroDeckHeight(c, c.center.cum[i - 1], dh), b = metroDeckHeight(c, c.center.cum[i], dh);
+      span(`metro:${c.id}`, c.center.pts[i - 1], c.center.pts[i], 4.8, 4.8, Math.min(a, b) - 1.3, Math.max(a, b) + 7.8, .2);
+    }
+    for (const assembly of metroPlatformAssemblies(metro.stations, corridors, dh)) {
+      const f = assembly.frame, height = assembly.deckHeight;
+      span(`station:${assembly.key}`, [f.cx - f.hx * 69, f.cz - f.hz * 69], [f.cx + f.hx * 69, f.cz + f.hz * 69], 13.4, 13.4, height - 4.2, height + 12.5);
     }
   }
   const nearby = (ring: XZ[], bottom: number, top: number) => {

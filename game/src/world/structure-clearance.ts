@@ -47,7 +47,7 @@ function boxInterval(s: Span, p: Exclude<StructureFootprint, { r: number }>, pad
   return [lo, hi];
 }
 
-export function roadStructureClearance(roads: RoadEdge[]) {
+export function roadStructureClearance(roads: RoadEdge[], headroom = ROAD_STRUCTURE_HEADROOM) {
   const grid = new Map<string, Span[]>();
   for (const e of roads) {
     if (/^(footway|path|steps|pedestrian|cycleway|bridleway)$/.test(e.cls)) continue;
@@ -77,7 +77,7 @@ export function roadStructureClearance(roads: RoadEdge[]) {
         const interval = 'r' in p ? circleInterval(s, p.x, p.z, s.hw + p.r) : boxInterval(s, p, s.hw);
         if (!interval) continue;
         const a = s.ya + (s.yb - s.ya) * interval[0], b = s.ya + (s.yb - s.ya) * interval[1];
-        if (top > Math.min(a, b) + .08 && bottom < Math.max(a, b) + ROAD_STRUCTURE_HEADROOM) ids.add(s.id);
+        if (top > Math.min(a, b) + .08 && bottom < Math.max(a, b) + headroom) ids.add(s.id);
       }
     }
     return [...ids];

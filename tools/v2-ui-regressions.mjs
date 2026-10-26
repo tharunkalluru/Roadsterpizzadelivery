@@ -450,8 +450,25 @@ try {
     hud.tip('Another tip'); hud.modal('<h2>Paused</h2>'); assert.equal(hud.tipOpen, false); hud.modal(null);
     hud.tip('Another tip'); hud.offer('<p>Offer</p>'); assert.equal(hud.tipOpen, false); hud.offer(null);
   });
-  await test('unlimited-flight wording and accessible map close rules survive integration', () => {
-    assert.match(root.innerHTML, /id="fly-v">Unlimited/);
+  await test('reserve is inside FLY/LAND and idle availability never creates an extra task card', () => {
+    assert.doesNotMatch(root.innerHTML, /id="fly-v"|id="fly"|>Unlimited</);
+    hud.flightReserve(0); assert.equal(el['t-fly'].style.values.get('--flight-reserve'), '0'); assert.equal(el['t-fly'].getAttribute('data-charged'), 'false');
+    hud.flightReserve(.35); assert.equal(el['t-fly'].style.values.get('--flight-reserve'), '0.35');
+    hud.flightReserve(0, true); assert.equal(el['t-fly'].style.values.get('--flight-reserve'), '1'); assert.equal(el['t-fly'].getAttribute('aria-description'), 'Flight reserve full');
+    hud.flightReserve(NaN); assert.equal(el['t-fly'].style.values.get('--flight-reserve'), '0');
+    hud.orderAvailability({ unlocked: true, accepting: false });
+    hud.order({ state:'Free roam',title:'Explore Hyderabad',sub:'',dist:'',time:'',meters:false,stage:'idle' }); assert.equal(el.order.hidden,true); assert.equal(el['orders-availability'].hidden,false);
+    hud.order({ state:'GPS',title:'Charminar',sub:'',dist:'400 m',time:'',meters:false,stage:'idle' }); assert.equal(el.order.hidden,false,'a real navigation target keeps its destination/distance card');
+    hud.order({ state:'Pickup',title:'Kitchen',sub:'',dist:'50 m',time:'',meters:false,stage:'pickup' }); assert.equal(el.order.hidden,false);
+    const events=[];hud.onButton=id=>events.push(id);down('t-gas',901);el['b-report'].emit('click');assert.deepEqual(events,['report']);assert.equal(hud.touchGas,false);
+    assert.equal(el['b-report'].emit('keydown',{code:'Space',key:' '}).stopped,true);
+  });
+  await test('repeated frame HUD updates leave measured layout to its resize observer', () => {
+    const layout=hud.updateLayout;let reads=0;hud.updateLayout=()=>reads++;
+    for(let i=0;i<120;i++){hud.orderAvailability({unlocked:true,accepting:true});hud.order({state:'Pickup',title:'Kitchen',sub:'',dist:'50 m',time:'',meters:false,stage:'pickup'});hud.flightReserve(1,true);}
+    assert.equal(reads,0,'a steady gameplay frame must not force DOM measurement');hud.updateLayout=layout;
+  });
+  await test('accessible arrow, brake and map close rules survive integration', () => {
     assert.match(root.innerHTML, /id="t-left"[^>]*aria-label="Steer left"/);
     assert.match(root.innerHTML, /id="t-right"[^>]*aria-label="Steer right"/);
     assert.match(root.innerHTML, /id="t-gas"[^>]*aria-label="Accelerate"[^>]*>GO<\/button>/);

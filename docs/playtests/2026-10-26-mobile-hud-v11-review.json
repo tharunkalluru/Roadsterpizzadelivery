@@ -1,0 +1,653 @@
+{
+  "generatedAt": "2026-10-26T23:04:43.863Z",
+  "validation": "Production DOM-handler and layout geometry checks, plus six visible-browser component viewport checks. Physical-phone input and completed delivery gameplay remain separate.",
+  "sourceCodeSha256": {
+    "game/src/ui/hud.ts": "2e767ead8516934ff908ca28895c13c9545217715dec2bd030f591f72b960efc",
+    "game/src/ui/hud-layout.ts": "6c453004c0f5f6798586f3a46ef17b1bd582e5b4f80383d0e91f47a4b58285f9",
+    "game/src/ui/theme.ts": "2145a38972d95d5c0dd20e0ddfa939a9093804d656aa848c652798dab4979033"
+  },
+  "reviewTableMarkdown": "| Before | After | Why |\n| --- | --- | --- |\n| Standalone Flight/Unlimited card | Reserve fill inside FLY/LAND | Frees top-right map space without duplicate status |\n| Bottom entering banner on short screens | Dedicated top lane | Keeps clock, task and map readable |\n| Toggle inside an idle Free roam card | Compact Accept orders toggle; idle task hidden | Removes redundant idle panel |\n| Small rounded-square brake | Same shape at 150% linear size | Gives braking a larger thumb target |\n| Fixed overlapping control columns | Measured map, pedals, flight, speed and action lanes | Keeps all six tested phone sizes usable |",
+  "checks": {
+    "geometryViewports": 6,
+    "safeAreaVariants": 2,
+    "domHandlers": 40,
+    "uiDialogAndDispatch": 9,
+    "audioUnlimitedFlightAndCruise": 11,
+    "typecheck": "pass",
+    "actualBrowserViewports": 6
+  },
+  "scenarios": [
+    {
+      "viewport": [
+        800,
+        360
+      ],
+      "rects": {
+        "leftSteer": {
+          "left": 18,
+          "top": 266,
+          "width": 76,
+          "height": 76
+        },
+        "rightSteer": {
+          "left": 106,
+          "top": 266,
+          "width": 76,
+          "height": 76
+        },
+        "brake": {
+          "left": 521,
+          "top": 243,
+          "width": 99,
+          "height": 99
+        },
+        "gas": {
+          "left": 630,
+          "top": 270,
+          "width": 152,
+          "height": 72
+        },
+        "fly": {
+          "left": 495,
+          "top": 143,
+          "width": 152,
+          "height": 44
+        },
+        "cruise": {
+          "left": 495,
+          "top": 193,
+          "width": 152,
+          "height": 32
+        },
+        "speed": {
+          "left": 630,
+          "top": 226,
+          "width": 152,
+          "height": 30
+        },
+        "map": {
+          "left": 669,
+          "top": 95,
+          "width": 119,
+          "height": 119
+        },
+        "context": {
+          "left": 242,
+          "top": 261,
+          "width": 220,
+          "height": 64
+        }
+      },
+      "oldBrakeLinearPx": 66,
+      "newBrakeLinearPx": 99,
+      "inBounds": true,
+      "controlMapContextOverlaps": 0
+    },
+    {
+      "viewport": [
+        900,
+        400
+      ],
+      "rects": {
+        "leftSteer": {
+          "left": 18,
+          "top": 306,
+          "width": 76,
+          "height": 76
+        },
+        "rightSteer": {
+          "left": 106,
+          "top": 306,
+          "width": 76,
+          "height": 76
+        },
+        "brake": {
+          "left": 621,
+          "top": 283,
+          "width": 99,
+          "height": 99
+        },
+        "gas": {
+          "left": 730,
+          "top": 310,
+          "width": 152,
+          "height": 72
+        },
+        "fly": {
+          "left": 595,
+          "top": 183,
+          "width": 152,
+          "height": 44
+        },
+        "cruise": {
+          "left": 595,
+          "top": 233,
+          "width": 152,
+          "height": 32
+        },
+        "speed": {
+          "left": 730,
+          "top": 266,
+          "width": 152,
+          "height": 30
+        },
+        "map": {
+          "left": 752,
+          "top": 95,
+          "width": 136,
+          "height": 136
+        },
+        "context": {
+          "left": 292,
+          "top": 301,
+          "width": 220,
+          "height": 64
+        }
+      },
+      "oldBrakeLinearPx": 66,
+      "newBrakeLinearPx": 99,
+      "inBounds": true,
+      "controlMapContextOverlaps": 0
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "rects": {
+        "leftSteer": {
+          "left": 18,
+          "top": 296,
+          "width": 76,
+          "height": 76
+        },
+        "rightSteer": {
+          "left": 106,
+          "top": 296,
+          "width": 76,
+          "height": 76
+        },
+        "brake": {
+          "left": 565,
+          "top": 273,
+          "width": 99,
+          "height": 99
+        },
+        "gas": {
+          "left": 674,
+          "top": 300,
+          "width": 152,
+          "height": 72
+        },
+        "fly": {
+          "left": 539,
+          "top": 173,
+          "width": 152,
+          "height": 44
+        },
+        "cruise": {
+          "left": 539,
+          "top": 223,
+          "width": 152,
+          "height": 32
+        },
+        "speed": {
+          "left": 674,
+          "top": 256,
+          "width": 152,
+          "height": 30
+        },
+        "map": {
+          "left": 699,
+          "top": 95,
+          "width": 133,
+          "height": 133
+        },
+        "context": {
+          "left": 264,
+          "top": 291,
+          "width": 220,
+          "height": 64
+        }
+      },
+      "oldBrakeLinearPx": 66,
+      "newBrakeLinearPx": 99,
+      "inBounds": true,
+      "controlMapContextOverlaps": 0
+    },
+    {
+      "viewport": [
+        640,
+        360
+      ],
+      "rects": {
+        "leftSteer": {
+          "left": 18,
+          "top": 266,
+          "width": 76,
+          "height": 76
+        },
+        "rightSteer": {
+          "left": 106,
+          "top": 266,
+          "width": 76,
+          "height": 76
+        },
+        "brake": {
+          "left": 361,
+          "top": 243,
+          "width": 99,
+          "height": 99
+        },
+        "gas": {
+          "left": 470,
+          "top": 270,
+          "width": 152,
+          "height": 72
+        },
+        "fly": {
+          "left": 335,
+          "top": 143,
+          "width": 152,
+          "height": 44
+        },
+        "cruise": {
+          "left": 335,
+          "top": 193,
+          "width": 152,
+          "height": 32
+        },
+        "speed": {
+          "left": 470,
+          "top": 226,
+          "width": 152,
+          "height": 30
+        },
+        "map": {
+          "left": 509,
+          "top": 95,
+          "width": 119,
+          "height": 119
+        },
+        "context": {
+          "left": 194,
+          "top": 261,
+          "width": 155,
+          "height": 64
+        }
+      },
+      "oldBrakeLinearPx": 66,
+      "newBrakeLinearPx": 99,
+      "inBounds": true,
+      "controlMapContextOverlaps": 0
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "rects": {
+        "leftSteer": {
+          "left": 18,
+          "top": 754,
+          "width": 72,
+          "height": 72
+        },
+        "rightSteer": {
+          "left": 100,
+          "top": 754,
+          "width": 72,
+          "height": 72
+        },
+        "brake": {
+          "left": 257,
+          "top": 641,
+          "width": 99,
+          "height": 99
+        },
+        "gas": {
+          "left": 240,
+          "top": 752,
+          "width": 132,
+          "height": 74
+        },
+        "fly": {
+          "left": 240,
+          "top": 541,
+          "width": 132,
+          "height": 44
+        },
+        "cruise": {
+          "left": 240,
+          "top": 591,
+          "width": 132,
+          "height": 32
+        },
+        "speed": {
+          "left": 18,
+          "top": 710,
+          "width": 154,
+          "height": 30
+        },
+        "map": {
+          "left": 234,
+          "top": 148,
+          "width": 144,
+          "height": 144
+        },
+        "context": {
+          "left": 95,
+          "top": 412,
+          "width": 200,
+          "height": 64
+        }
+      },
+      "oldBrakeLinearPx": 66,
+      "newBrakeLinearPx": 99,
+      "inBounds": true,
+      "controlMapContextOverlaps": 0
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "rects": {
+        "leftSteer": {
+          "left": 18,
+          "top": 484,
+          "width": 66,
+          "height": 66
+        },
+        "rightSteer": {
+          "left": 92,
+          "top": 484,
+          "width": 66,
+          "height": 66
+        },
+        "brake": {
+          "left": 197,
+          "top": 375,
+          "width": 93,
+          "height": 93
+        },
+        "gas": {
+          "left": 184,
+          "top": 480,
+          "width": 118,
+          "height": 70
+        },
+        "fly": {
+          "left": 184,
+          "top": 275,
+          "width": 118,
+          "height": 44
+        },
+        "cruise": {
+          "left": 184,
+          "top": 325,
+          "width": 118,
+          "height": 32
+        },
+        "speed": {
+          "left": 18,
+          "top": 440,
+          "width": 140,
+          "height": 30
+        },
+        "map": {
+          "left": 193,
+          "top": 148,
+          "width": 115,
+          "height": 115
+        },
+        "context": {
+          "left": 12,
+          "top": 342,
+          "width": 160,
+          "height": 64
+        }
+      },
+      "oldBrakeLinearPx": 62,
+      "newBrakeLinearPx": 93,
+      "inBounds": true,
+      "controlMapContextOverlaps": 0
+    }
+  ],
+  "safeAreaScenarios": [
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "safeInsets": {
+        "left": 59,
+        "right": 59,
+        "bottom": 21
+      },
+      "rects": {
+        "leftSteer": {
+          "left": 59,
+          "top": 293,
+          "width": 76,
+          "height": 76
+        },
+        "rightSteer": {
+          "left": 147,
+          "top": 293,
+          "width": 76,
+          "height": 76
+        },
+        "brake": {
+          "left": 524,
+          "top": 270,
+          "width": 99,
+          "height": 99
+        },
+        "gas": {
+          "left": 633,
+          "top": 297,
+          "width": 152,
+          "height": 72
+        },
+        "fly": {
+          "left": 498,
+          "top": 170,
+          "width": 152,
+          "height": 44
+        },
+        "cruise": {
+          "left": 498,
+          "top": 220,
+          "width": 152,
+          "height": 32
+        },
+        "speed": {
+          "left": 633,
+          "top": 253,
+          "width": 152,
+          "height": 30
+        },
+        "map": {
+          "left": 652,
+          "top": 95,
+          "width": 133,
+          "height": 133
+        },
+        "context": {
+          "left": 264,
+          "top": 288,
+          "width": 220,
+          "height": 64
+        }
+      },
+      "overlaps": 0
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "safeInsets": {
+        "left": 18,
+        "right": 18,
+        "bottom": 34
+      },
+      "rects": {
+        "leftSteer": {
+          "left": 18,
+          "top": 738,
+          "width": 72,
+          "height": 72
+        },
+        "rightSteer": {
+          "left": 100,
+          "top": 738,
+          "width": 72,
+          "height": 72
+        },
+        "brake": {
+          "left": 257,
+          "top": 625,
+          "width": 99,
+          "height": 99
+        },
+        "gas": {
+          "left": 240,
+          "top": 736,
+          "width": 132,
+          "height": 74
+        },
+        "fly": {
+          "left": 240,
+          "top": 525,
+          "width": 132,
+          "height": 44
+        },
+        "cruise": {
+          "left": 240,
+          "top": 575,
+          "width": 132,
+          "height": 32
+        },
+        "speed": {
+          "left": 18,
+          "top": 694,
+          "width": 154,
+          "height": 30
+        },
+        "map": {
+          "left": 234,
+          "top": 185,
+          "width": 144,
+          "height": 144
+        },
+        "context": {
+          "left": 95,
+          "top": 442,
+          "width": 200,
+          "height": 64
+        }
+      },
+      "overlaps": 0
+    }
+  ],
+  "browserReview": {
+    "status": "completed visible-browser component checks",
+    "fixture": "/phone-feedback-review.html",
+    "nativeActions": [
+      "After first delivery preview",
+      "At pickup",
+      "Enter area preview",
+      "Idle orders toggle preview",
+      "Empty flight reserve",
+      "Full flight reserve",
+      "Record layout rectangles",
+      "Clean screenshot"
+    ],
+    "rectOutput": "#qa-layout-results",
+    "evidenceDirectory": "docs/playtests/evidence/2026-10-26-hud-reports-bridges",
+    "summary": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/browser-dom-summary.json",
+    "viewports": [
+      {
+        "viewport": [
+          320,
+          568
+        ],
+        "dom": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-320x568.json",
+        "screenshot": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-320x568.png",
+        "minimapFixed": true,
+        "outsideViewport": [],
+        "overlaps": []
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "dom": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-390x844.json",
+        "screenshot": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-390x844.png",
+        "minimapFixed": true,
+        "outsideViewport": [],
+        "overlaps": []
+      },
+      {
+        "viewport": [
+          640,
+          360
+        ],
+        "dom": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-640x360.json",
+        "screenshot": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-640x360.png",
+        "minimapFixed": true,
+        "outsideViewport": [],
+        "overlaps": []
+      },
+      {
+        "viewport": [
+          800,
+          360
+        ],
+        "dom": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-800x360.json",
+        "screenshot": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-800x360.png",
+        "minimapFixed": true,
+        "outsideViewport": [],
+        "overlaps": []
+      },
+      {
+        "viewport": [
+          844,
+          390
+        ],
+        "dom": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-844x390.json",
+        "screenshot": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-844x390.png",
+        "minimapFixed": true,
+        "outsideViewport": [],
+        "overlaps": []
+      },
+      {
+        "viewport": [
+          900,
+          400
+        ],
+        "dom": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-900x400.json",
+        "screenshot": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-900x400.png",
+        "minimapFixed": true,
+        "outsideViewport": [],
+        "overlaps": []
+      }
+    ],
+    "finalPortraitProgress": {
+      "dom": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-390x844-final.json",
+      "screenshot": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/hud-390x844-final.png",
+      "result": "Root inspected the complete Pickup / Collect / Deliver labels after the compact grid correction."
+    },
+    "emptyFlightAndIdleToggle": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/idle-toggle-empty-flight.png",
+    "fullFlightAndIdleToggle": "docs/playtests/evidence/2026-10-26-hud-reports-bridges/idle-toggle-full-flight.png",
+    "reviewScope": "Root supported-browser UI component review; actual DOM rectangles and original screenshots. This is not physical-phone input, gyro, or completed delivery verification."
+  },
+  "limits": [
+    "Offline scenarios are computed geometry; browserReview links separate actual DOM/screenshot component evidence. Neither certifies physical-phone input or completed delivery gameplay.",
+    "Production bug-report submission is owned and validated separately by the root task."
+  ],
+  "safeAreaValidation": "Two theoretical inset geometry variants pass independently; the desktop browser captures have env0 and do not certify a physical iPhone."
+}

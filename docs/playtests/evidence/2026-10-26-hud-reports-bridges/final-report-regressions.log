@@ -1,0 +1,20 @@
+(node:40712) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS actual SQL migration stores precise game coordinates, source road and build; retries are idempotent
+PASS public API cannot read reports, rejects foreign origins, malformed coordinates and oversized bodies
+bug_report_store_failed
+PASS per-session burst limit is bounded and does not convert a failed insert into success
+PASS concurrent SQL admissions never exceed five reports; concurrent duplicate UUID retries remain idempotent
+PASS projection is city-data inverse and potential blockage is explicitly an inference
+PASS offline client retains frozen original report; truthful queued status and later retry use same ID
+PASS independent tab queues merge with exclusive Web Locks and the synchronous fallback
+PASS a delayed flush removes only its receipt and preserves another tab's newly queued report
+PASS invalid cached evidence is retained in quarantine and cannot starve a valid report
+PASS permanent server rejection quarantines the full original and continues later reports
+PASS full quarantine preserves rejected evidence while valid reports still flush; full pending queues never evict
+PASS queued acknowledgment requires durable verification and a receipt must match its report UUID
+PASS malformed stored JSON is preserved, invalid sessions are replaced and storage failure never claims queued
+PASS movement history uses wall-clock seconds, expires while paused, and rejects future samples after clock correction
+PASS a report opened after a long pause cannot infer blockage from expired throttle history
+PASS build fingerprint is deterministic, path-framed, and changes when only a public city pack changes
+16 bug-report storage, privacy and retry groups passed.

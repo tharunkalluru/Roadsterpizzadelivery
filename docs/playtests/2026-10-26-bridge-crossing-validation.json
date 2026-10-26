@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-10-26T23:25:14.714Z",
+  "baselineCommit": "0eff345306ab8b3cef671e8fd84b5839bffa197d",
+  "workingTreeChangesIncluded": true,
+  "status": "Confirmed bridge-panel and Gachibowli/PJR vehicle-clearance fixes pass; uncertain source configurations retained for review.",
+  "scope": "Independent offline source-mesh, collision and grade checks. Parent records source World camera views and normal gameplay separately. This does not certify surveyed citywide road elevations.",
+  "sourceEvidence": {
+    "core": "game/public/city/core.pack.wasm",
+    "coreSha256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+    "sourcePacksRead": 304,
+    "sourceTilesScanned": 2527,
+    "elevatedOrContextTilesBuilt": 839,
+    "currentGachibowliEvidence": "pipeline/evidence/gachibowli-bridge-layers-2026-10-26.json",
+    "rawOsmResponse": "pipeline/evidence/gachibowli-bridge-map-2026-10-26.osm",
+    "attribution": "OpenStreetMap contributors; ODbL1.0",
+    "matchingRule": "Mapped source points within2.2m of the OSM line with absolute tangent cosine>=0.98; runtime point guards require the original XY within0.15m. Way IDs/versions retained in bridge-level-data.json.",
+    "matchedRoads": 8,
+    "matchedPoints": 734,
+    "sourceOrder": "Gachibowli Flyover way158759348/158761178 layer1; Shilpa Layout ways824537727/1134048309/1203499925 layer2; PJR source ways span mapped layers1/2/3 including1310438745/1466377024 layer3.",
+    "uncertainty": "An OSM layer number establishes relative order, not an absolute altitude. Initial6.8m-per-layer seeds and final clearances are explicit game estimates. Original road XZ, IDs, connectors, widths, shopfront records and packed source evidence remain unchanged."
+  },
+  "implementation": {
+    "boundaries": "Visible and collidable parapets share one exact interval subtraction against physical finite road triangles and generated junction patches. Includes all rendered source classes, including tile-only pedestrian landing ramps; source densification does not create arbitrary gap/step rules.",
+    "profiles": "Strong mapped relative-layer constraints solve together first. Estimated independent crossings use fixed-lower conservative headroom constraints; nearby slip routes, same-name parallels and coplanar crossings alone do not establish a physical junction or safe ordering. Rejected candidates retain source IDs/reasons.",
+    "coherence": "Canonical prepared road profiles feed rendering, finite support surfaces, Player/Traffic physics, RoadGraph guidance and rebased road-bound stops; workers receive the same patches.",
+    "sourceAlignmentRewritten": false,
+    "surveyedProfilesRemainFixed": true,
+    "inheritedExpresswayGameProfilesAdjusted": 51,
+    "maximumGrade": 0.09723140495869986,
+    "steepModelSegments": 0,
+    "joinedEndpointMaximumDifference": 0,
+    "canonicalGradePatches": 1353,
+    "rebasedStops": 113
+  },
+  "confirmedChecks": {
+    "allSourcePanels": {
+      "command": "node tools/bridge-deck-audit.mjs --full --report docs/playtests/2026-10-26-bridge-deck-source-sweep.json",
+      "result": "PASS for parapet intrusion checks",
+      "tiles": 839,
+      "physicalRoadSurfaces": 1358676,
+      "retainedParapetPanels": 148863,
+      "independentInteriorChecks": 16019233,
+      "confirmedIntrusions": 0,
+      "report": "docs/playtests/2026-10-26-bridge-deck-source-sweep.json",
+      "log": "docs/playtests/2026-10-26-bridge-deck-source-sweep.log"
+    },
+    "pjrRenderedVehicleClearance": {
+      "tile": "-15_-4",
+      "pack": "packs/p-5_-2.pack.wasm",
+      "upperSourceId": "0929bcb7-462_0",
+      "lowerSourceIds": [
+        "c898d540-669_0",
+        "ac6bc470-258_0"
+      ],
+      "reproductionPoint": [
+        -14125.757,
+        -3592.763
+      ],
+      "originalSurfaceSeparationAtSourceCentreCrossing": 2.2465821801228865,
+      "measuredActualSoffitTrianglePairs": 16,
+      "minimumPhysicalSoffitHeadroom": 4.95,
+      "productionBusRoofHeight": 3.3399999141693115,
+      "productionBusFullMeshWidth": 2.940000057220459,
+      "minimumRoofMargin": 1.6100000858306887,
+      "method": "Actual #a9a4b5 deck-soffit draw triangles selected independently against source PJR surface triangles; polygon intersection and barycentric minima over both actual lower carriageways. Production bus mesh bounding boxes include body, lights, mirrors and decals. Actual bus/car collision footprints also clear ten source approach poses."
+    },
+    "residualPanelReproduction": {
+      "tile": "-4_-3",
+      "pack": "packs/p-2_-1.pack.wasm",
+      "sourceId": "eef067f9-d2b_0",
+      "sourceClass": "pedestrian",
+      "sourceLandingQuads": 16,
+      "previousConfirmedPanelIntersections": 2,
+      "previousPanelBounds": {
+        "x": [
+          -3552.3073568868053,
+          -3550.3295988868063
+        ],
+        "z": [
+          -2695.301903650144,
+          -2692.213045650145
+        ]
+      },
+      "afterConfirmedPanelIntersections": 0,
+      "correction": "The vehicle graph excludes this tile-only pedestrian source, but the renderer exposes it as a finite physical landing surface. The clearance subtraction now includes it."
+    }
+  },
+  "gradeClassification": {
+    "finiteSegmentOverlaps": 22547,
+    "confirmedLocalPavementJoins": 1898,
+    "independentSeparatedControls": 12218,
+    "minimumSeparatedControlDifference": 5.849999999999999,
+    "relaxationRounds": 3,
+    "unresolvedOrUnverifiedSegmentPairClassifications": 8431,
+    "reasons": {
+      "independent-coplanar-or-near-level": 7314,
+      "connected-profile-clearance-infeasible": 622,
+      "parallel-corridor-order-unverified": 146,
+      "mapped-same-level-crossing-topology-unverified": 143,
+      "contradictory-lower-road-ceilings": 206
+    },
+    "countsAreNotUniqueInterchangesOrConfirmedBugs": true
+  },
+  "reviewQueue": {
+    "potentialSlabRoadPairs": 2706,
+    "path": "docs/playtests/2026-10-26-bridge-deck-source-sweep.json",
+    "classification": "Conservative full-pavement source surface overlap candidates, not all confirmed blocked routes. Includes near joins, parallel approaches, thin junction patches treated conservatively as slabs, tile-only sources and volumes taller than the actual production bus. Every source pair/position is retained for independent follow-up.",
+    "allCitySlabsUnconditionallyCertified": false
+  },
+  "tests": [
+    {
+      "command": "node tools/bridge-deck-regressions.mjs",
+      "groups": 6,
+      "result": "PASS"
+    },
+    {
+      "command": "node tools/bridge-grade-classification-regressions.mjs",
+      "groups": 5,
+      "result": "PASS"
+    },
+    {
+      "command": "node tools/flyover-regressions.mjs",
+      "groups": 9,
+      "result": "PASS"
+    },
+    {
+      "command": "npm run typecheck (from game)",
+      "result": "PASS"
+    },
+    {
+      "command": "npm run check (from game; parent)",
+      "result": "PASS reported by parent after final bridge/board changes"
+    }
+  ],
+  "visibleReview": {
+    "path": "game/bridge-crossing-review.html",
+    "modes": [
+      "PJR/Gachibowli road/opposite/overview/neighbor",
+      "Gachibowl Circle road/opposite/overview",
+      "Gachibowli–Miyapur approach boundary"
+    ],
+    "staticProductionVehicleScale": true,
+    "notGameplayVerification": true,
+    "parentOwnsCaptures": true
+  },
+  "inputsSha256": {
+    "game/src/world/bridge-clearance.ts": "de28bebacf7c208fd9006926e9b35dc97e6d6d3a8e5edc1bfc83213099432564",
+    "game/src/world/road-crossing-levels.ts": "0fac3f4995fabe8ee5b094e5bb9a41014929f46be85df42c0a65857f49564d01",
+    "game/src/world/road-grades.ts": "916796b6febc774d4b4816128320971c8064a51a93031eadcd1e1cc8abcea504",
+    "game/src/world/bridge-level-data.json": "dfc144218071bd09d63b60363fdb5405e4c0d2291f974af476eb5d8b803e9eb5",
+    "game/src/world/city.ts": "4f5c6a79fd927067e9ce7e6b0f3793095231cb1e470bd51aa1482091f0b5699f",
+    "tools/bridge-deck-regressions.mjs": "23ff6ae830fe6486c8e1299bfe8306c60c2a844ccd3c087d910b5f2f24917f48",
+    "tools/bridge-grade-classification-regressions.mjs": "45c6e25a53a26f6202c85a7e1c4f7637f94de1ff93b91f622ec5342d670c5a4e",
+    "tools/bridge-deck-audit.mjs": "73ac8195fbddbfdd2ec8dec7ff09f9352f4f7e38a1112feded7795df59c3ebcd",
+    "pipeline/evidence/gachibowli-bridge-layers-2026-10-26.json": "c80aadd3318a145ba63679a89f74e12c15bd18b94d9c94ff3e3bd1a53d18b6cd",
+    "pipeline/evidence/gachibowli-bridge-map-2026-10-26.osm": "60b8045b2954d0f18532ba0e1b4eec055251721292fd61e2b56542d7c244cca9"
+  },
+  "limits": [
+    "The exact user screenshot has no coordinate HUD; Gachibowli/PJR is an independently confirmed source reproduction, not a claim that its exact camera location has been geolocated.",
+    "The all-source parapet sweep is clear. The2706 conservative potential slab road pairs and8431 uncertain segment classifications remain explicit review evidence; neither is represented as a citywide slab or street-survey PASS.",
+    "This child task performed no browser input, normal-world delivery completion, commit, push or deployment. Parent records browser evidence and release separately."
+  ]
+}
