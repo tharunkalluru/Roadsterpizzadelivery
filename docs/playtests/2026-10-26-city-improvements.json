@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T06:09:10Z",
+  "task": "Approved ORR, metro, traffic, landmark map and national-flag improvements",
+  "baselineCommit": "1f3d1a0d1c488488312f2fb1845fa95cb456f349",
+  "implementationCommit": "a2a90e66a405e65118fb468c9b43462691e9415e",
+  "branch": "main",
+  "pushed": false,
+  "deployed": false,
+  "changes": {
+    "orr": "Local rendering/support of long streamed roads, four through lanes per carriageway, shoulders and auxiliary tapers, ramp-connected barrier openings, gradual bridge approaches, curve-following advance/exit gantries with verified interchange labels, and same-carriageway recovery.",
+    "metro": "Normalize the six source paths into three paired corridors and six fixed directional tracks; share rail/train geometry, maintain following distance and platform occupancy, articulate coaches and avoid visible terminal jumps.",
+    "traffic": "Continuous vehicle-specific curves for road bends, junctions, lane changes and supported U-turns; curvature speed limits, wider bus turns, whole-body clearance and occupancy. A varied subset of autos makes quicker safe maneuvers; ORR traffic remains in through lanes. Final QA closes a rectangular bus nose/tail corner gap using the full oriented static footprint and height-aware barrier intersections.",
+    "map": "All 191 modeled places share stable map/model identities, searchable categories and architectural/category silhouettes, with zoom clustering and touch hit regions. Map selection preserves the car and delivery.",
+    "landmarks": "Bounded source-supported geometry/pose/color corrections to Charminar, Jagannath Temple, Central Gurudwara Saheb, Telangana Thalli and Buddha; all 191 models have geometry/metadata audits.",
+    "flag": "Equal stripes in a 3:2 rectangle and centered navy 24-spoke Ashoka Chakra visible on both cloth faces.",
+    "healthway": "Covered cycleway source features render at grade with a low solar canopy, rather than a false elevated skywalk. Explicit bridges and tunnels keep their separate treatment."
+  },
+  "preservation": {
+    "upgradedRoadsterModelUnchanged": true,
+    "mobileArrowAndGyroControlsUnchanged": true,
+    "soundAndUnlimitedFlightRetained": true,
+    "unrelatedRoadsCompared": 52105,
+    "unrelatedRoadChanges": 0,
+    "nonRoadCoreDataUnchanged": true,
+    "shopfrontsAndEvidencePreserved": true,
+    "orrAlignment": "All 28,054 original vertices retained in order. Added collinear vertices improve grade sampling without changing the source alignment.",
+    "importer": "Serialized shared shopfront lock, allowlisted fields, atomic replacement and byte-idempotent repeat. No credentials or TLS exceptions."
+  },
+  "automatedValidation": {
+    "gameCheck": "PASS: npm --prefix game run check; TypeScript, all 16 regression suites and Vite production build.",
+    "finalRecoveryAmendment": "PASS in the final complete check: 13 ORR recovery groups, including actual Game.watchStuck/rescue retry cooldown.",
+    "pipeline": "PASS: pipeline/.venv/bin/python -m unittest discover -s pipeline/tests; 72 tests.",
+    "expressway": "16 groups include distant context-tile support, connected directed exits, grade-separated barriers, continuous elevation, sign/pier placement and shipped pack consistency.",
+    "coveredPaths": "11 groups, including all 22 unique shipped Healthway ways with original tags retained.",
+    "metro": "13 offline groups; geometry, direction, spacing, dwell, occupancy and terminal behavior.",
+    "traffic": "15 offline groups; continuous paths, safety sweep, occupancy, signals, lane changes, U-turns, bus pull-in, ORR lane bounds, rotated nose/tail corners, poles/barriers and grade separation.",
+    "landmarks": "All 191 finite model recipes, stable identity, bounds/render ownership, clustering/discoverability, touch targets, flag face winding/spokes, measured Charminar features, Nilachakra and statue handedness.",
+    "diffCheck": "PASS",
+    "buildWarning": "Existing fonts/fonts.css build-time resolution warning remains. No browser warning/error messages were captured in the completed checks.",
+    "trafficTimingFixture": {
+      "description": "Identical 55-NPC loaded straight-road fixture, 3 runs of 400 updates per helper version on this Mac.",
+      "priorHelperMillisecondsPerUpdate": 0.658,
+      "fullFootprintHelperMillisecondsPerUpdate": 0.348,
+      "limit": "Offline simulation only, excluding rendering, dense real-map geometry and mobile hardware; not a general FPS claim."
+    },
+    "testedCommit": "8ff64235efeed6f05b101901d667ead52764797e",
+    "finalAssets": [
+      "index-DvbZLP2v.js",
+      "tileworker-D7bauNji.js"
+    ]
+  },
+  "browserValidation": {
+    "method": "AI-operated real visible browser controls, serialized ownership. No teleport, hidden game-state mutation, simulation stepping or developer autopilot. Flight and recovery below are ordinary advertised controls, explicitly identified as setup.",
+    "baseUrl": "http://127.0.0.1:4189/",
+    "testedAssets": [
+      "index-Da4kAS59.js",
+      "tileworker-D7bauNji.js"
+    ],
+    "participantType": "AI browser operator; no human participants or physical phone.",
+    "area": "Kokapet ORR and adjacent service-road corridor",
+    "intermediateBuildReproductions": [
+      {
+        "issue": "PT-014",
+        "buildLimit": "Intermediate working build before recovery repair; exact intermediate bundle was not saved. This is not a claim that the final commit reproduced the defect.",
+        "steps": [
+          "Play, select Kokapet and accept Sri mahalaxmi family dhaba pickup.",
+          "Use visible W/A/D/S, map checkpoints and Space flight/landing to reach the ORR near the Exit 1 Kokapet 250 m gantry.",
+          "Hold W for 8 s; scrape the median, then hold W for 11 s while blocked.",
+          "Observe automatic recovery, Back to the street toast and the car moved onto a service road."
+        ],
+        "sourceCause": "The old ground recovery helper excluded motorways. Game.watchStuck triggered it after the stuck interval, allowing a service-road destination.",
+        "confidence": "High for observed recovery escape plus source cause; no original file capture was saved for this intermediate reproduction."
+      },
+      {
+        "issue": "PT-015",
+        "observation": "The covered Healthway cycle track appeared as an elevated blue skywalk alongside the ORR.",
+        "sourceCause": "covered=yes alone had classified at-grade paths as footbridges; the renderer supplied a 6.6 m deck and stairs.",
+        "confidence": "High for rendered feature/source-classifier mismatch; all 22 unique Healthway ways lack explicit bridge/layer/tunnel elevation tags."
+      }
+    ],
+    "finalBuildCompletedInteractions": [
+      "Fresh reload, Play, Kokapet selection and acceptance of Vac's pickup (321 m offered; 729 m customer leg, 149 s after collection).",
+      "Visible Space takeoff, W/A/D/S steering and braking, repeated map checkpoints and actual Close map controls. No hidden placement was used.",
+      "Land on the ORR main carriageway; grounded HUD showed 8,956 m routed distance to the still-uncollected pickup and 0 km/h.",
+      "Press R on the game canvas. Back to the street appeared; recovery remained on the main carriageway and aligned with its legal direction, rather than selecting the nearby service road.",
+      "Hold W for 7 s. Ground HUD reached 77 km/h and pickup route decreased to 8,826 m, with continuous road support and barriers.",
+      "Hold W for another 14 s, then S for 1.4 s. Remained on the ORR among cars, a bus and a truck; HUD showed 8,522 m and 5 km/h behind traffic. The short sample traversed roughly 434 routed metres; this is not a surveyed distance or a full-ring test.",
+      "Observe the adjacent covered path at ground level with a low canopy rather than the former elevated skywalk in this bounded scene.",
+      "Capture original screenshot, pause through P, then close only the owned game and evidence tabs. No keys remained held."
+    ],
+    "orders": {
+      "accepted": 2,
+      "collected": 0,
+      "handedOver": 0,
+      "rewardObserved": 0,
+      "note": "The intermediate Sri mahalaxmi order was abandoned on intentional fresh-build reload. Vac's remained in pickup stage when the test tab was paused and closed. Neither approach counts as a completed delivery."
+    },
+    "recoveryLimit": "The final browser check directly exercised manual R on mainline. Automatic stuck recovery uses the same helper and is covered by the actual Game.watchStuck/rescue regression, but its full nine-second blocked sequence was not repeated in the final browser build.",
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "evidence": [
+      "evidence/2026-10-26-orr-recovery-ground-drive-ff3bde.jpg"
+    ],
+    "durationLimit": "Several bounded browser segments were interleaved with source repairs, build checks and model review. This is not one continuous twenty-minute drive.",
+    "cleanup": "Owned game tab paused then closed; owned evidence tab closed; input ownership released; localhost evidence helper stopped. Existing preview on 4189 remains available.",
+    "testedCommit": "a2a90e66a405e65118fb468c9b43462691e9415e",
+    "buildProvenance": "The ORR drive used a2a90e6/Da4kAS59. The later 8ff6423/DvbZLP2v patch changes only static NPC footprint clearance; ORR/recovery, metro, map and landmark code remain identical. No final-patch bus corner browser claim is made."
+  },
+  "mobileMapValidation": {
+    "baseUrl": "http://127.0.0.1:4193/",
+    "viewport": "390x844",
+    "completed": [
+      "Play, select Charminar area, open minimap and Explore 191 places.",
+      "Search Charminar, filter Heritage, select result, dismiss panel, tap Char Kaman icon and Close map back to HUD.",
+      "Typing M/P in search did not trigger game shortcuts; Close and Move controls remained unobstructed after the overlap correction."
+    ],
+    "physicalPhoneTested": false,
+    "deliveryCompleted": false,
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "evidence": "../landmark-evidence/mobile-charminar-map.png",
+    "cleanup": "Owned test tab closed and viewport override reset. Root game was not interrupted."
+  },
+  "modelFixtureValidation": {
+    "isGameplayEvidence": false,
+    "fixture": "game/landmark-review.html (development only)",
+    "checked": "Actual shared geometry for five revised models and both flag faces; caught and corrected initial flag winding, statue handedness and framing/entry defects.",
+    "evidence": [
+      "../landmark-evidence/flag-front-reverse.png",
+      "../landmark-evidence/model-grid-final-five.png"
+    ],
+    "sourceReview": "../landmark-evidence/source-reviews.json",
+    "consoleWarnings": [],
+    "consoleErrors": []
+  },
+  "accuracyAndCoverageLimits": [
+    "The mapped ORR alignment and existing ramps are preserved; current HMDA interchange names and the opened Neopolis Exit 1A are reconciled. The broad motorway evidence was retrieved October 26 but reports a July 28, 2026 snapshot. Source coverage is not current street verification.",
+    "Four-lane geometry is supported by the ORR reference. Exact shoulders/tapers, bridge heights/approach lengths, canopy dimensions and all sign faces are explicit game approximations, not surveyed engineering or a full visual replica.",
+    "Every ORR exit, toll-plaza layout, the full ring, bridge touchdown, automatic recovery while traffic is fully queued and busy-junction/mobile performance remain browser coverage work.",
+    "Metro directions and traffic curves pass offline production-code tests; no new actual browser metro train observation or complete busy-junction sweep is claimed in this batch.",
+    "All 191 places are discoverable and audited. Five have bounded source-supported model corrections; the other architectural details are not 191 photographic reconstructions. Osman Sagar's inherited anchor, Secretariat lion-capital detail, the furled Gurudwara flag and Taramati door count remain queued for stronger evidence.",
+    "Existing PT-012 legacy pickup eligibility remains open. It was not part of the newly approved ORR/metro/traffic/landmark repair scope.",
+    "Physical-phone gyro, touch driving, sound output and a fresh complete pickup-to-handover route remain untested in this batch. Earlier integration results are retained as historical results, not reused as this build's acceptance."
+  ],
+  "implementationCommits": [
+    "a2a90e66a405e65118fb468c9b43462691e9415e",
+    "8ff64235efeed6f05b101901d667ead52764797e"
+  ],
+  "finalCodeCommit": "8ff64235efeed6f05b101901d667ead52764797e",
+  "metroBrowserValidation": {
+    "baseUrl": "http://127.0.0.1:4189/",
+    "testedCommit": "a2a90e66a405e65118fb468c9b43462691e9415e",
+    "testedAsset": "index-Da4kAS59.js",
+    "area": "Ameerpet / Maitrivanam / Madhura Nagar",
+    "completed": [
+      "Play and select Ameerpet through visible picker.",
+      "Close map, Space flight, W/A/D/S steering/braking and drag look.",
+      "Observe one viaduct with paired rails.",
+      "Accept Blue Fox offer through E; land on a roof, observe 0 km/h and roof-rescue HUD; P produces Paused overlay."
+    ],
+    "trainDirectionVerdict": "UNKNOWN: could not reliably resolve passing trains or their opposite movement. Paired rails alone do not prove operational direction.",
+    "accepted": 1,
+    "collected": 0,
+    "handedOver": 0,
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "evidence": "evidence/2026-10-26-metro-ameerpet-incomplete-Da4kAS59-b5bcfb.jpg",
+    "cleanup": "Both owned tabs closed, helper stopped, keys released and input ownership returned to root."
+  },
+  "finalBundleSmoke": {
+    "baseUrl": "http://127.0.0.1:4189/",
+    "testedCommit": "8ff64235efeed6f05b101901d667ead52764797e",
+    "domAsset": "index-DvbZLP2v.js",
+    "completed": [
+      "Fresh load, Play, choose Ameerpet, wait for world and pending Royal Pizza House offer.",
+      "Open minimap, Explore 191 places; observe 191 of 191 results.",
+      "Search Charminar, choose Heritage and select Charminar: map pans to the marked landmark and nearby icons.",
+      "Actual Close map returns to Ameerpet HUD with identical pending Royal Pizza House offer, 1,369 m pickup and 1,608 m customer route; no car/offer relocation.",
+      "Open pause menu, confirm Paused, close only owned smoke/evidence tabs; input released and helper stopped."
+    ],
+    "accepted": 0,
+    "collected": 0,
+    "handedOver": 0,
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "evidence": "evidence/2026-10-26-final-191-place-map-DvbZLP2v-27a300.jpg",
+    "limit": "Startup/UI smoke only; does not repeat ORR driving, bus-corner passage, metro directions or physical-phone controls."
+  }
+}

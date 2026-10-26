@@ -14,13 +14,13 @@ Central Gurudwara Saheb now has a raised entrance stair flight, stacked three-ar
 
 Original source URLs, dates, photographers, licenses, hashes and visible observations are in [source-reviews.json](source-reviews.json). Source photographs were inspected in temporary local storage and are not packaged into the game.
 
-`../landmark-audit.json` inventories all 191 entries, their model recipes, icon/category, bound/tile coverage, missing dimensions, inherited provenance and unresolved source/appearance review. **This is a metadata and geometry audit, not 191 photo-verified reconstructions. Four models have bounded photo-reviewed silhouette features; their full accuracy is still provisional.** The Gurdwara flag design, other generic temple flags, Secretariat lion-capital ornament and named-statue likenesses remain flagged for primary-image review. The Jagannath wheel has been corrected using owner documentation and original photos. No invented religious symbols, sacred text, national-emblem inscriptions or portrait details were added.
+`../landmark-audit.json` inventories all 191 entries, their model recipes, icon/category, bound/tile coverage, missing dimensions, inherited provenance and unresolved source/appearance review. **This is a metadata and geometry audit, not 191 photo-verified reconstructions. Five models have bounded photo-reviewed silhouette features; their full accuracy is still provisional.** The Gurdwara flag design, other generic temple flags, Secretariat lion-capital ornament and named-statue likenesses remain flagged for primary-image review. The Jagannath wheel has been corrected using owner documentation and original photos. No invented religious symbols, sacred text, national-emblem inscriptions or portrait details were added.
 
 ## References checked
 
 - [Flag Code of India, Part I 1.1 and 1.3, Ministry of Home Affairs](https://www.mha.gov.in/sites/default/files/flagcodeofindia_070214.pdf): ratio, stripe layout, navy wheel, spoke count and both-face visibility. Checked 2026-10-26; high confidence for these construction rules.
 - [Indian Tricolor, National Portal of India](https://knowindia.india.gov.in/my-india-my-pride/indian-tricolor.php): centered wheel and approximate diameter relative to white band. Checked 2026-10-26; official indexed text available; direct fetch returned 502 during this session.
-- [Charminar, Hyderabad District](https://hyderabad.telangana.gov.in/tourist-place/charminar/): 20 m square and 11 m opening; four clocks/minarets. Checked 2026-10-26; high confidence for the opening change, unresolved height discrepancy documented above. Site reports page update 2022-03-14; this is not a new site survey.
+- [Charminar, Hyderabad District](https://hyderabad.telangana.gov.in/tourist-place/charminar/): 20 m square and 11 m opening; four clocks/minarets. Checked 2026-10-26; high confidence for the opening and published minaret-height changes. Site reports page update 2022-03-14; this is not a new site survey.
 
 ## Validation and original captures
 

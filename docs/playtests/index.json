@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-25T20:37:28.473429+00:00",
+  "updatedAt": "2026-10-26T06:09:10Z",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "fc275091d8214759ca0f0750bcf479ab628cec38",
+  "currentBuild": "8ff64235efeed6f05b101901d667ead52764797e",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -39,7 +39,8 @@
       "heldDrivingInputSeconds": 56.15,
       "pickupsCompleted": 0,
       "lastRoute": "(ABC) Absolutely Broasted Chicken → Home in Panjeshah",
-      "repairCoverage": "Bounded spawn/recovery/flight samples; not area completion."
+      "repairCoverage": "Bounded spawn/recovery/flight samples; not area completion.",
+      "latestMapReport": "2026-10-26-city-improvements.json"
     },
     "HITEC City": {
       "status": "tested_partial",
@@ -264,6 +265,15 @@
       "heldInputSecondsReportedWithoutFullLedger": 2.9,
       "sessionStatus": "Worker reported accepted offer and stopped checkpoint, then interrupted. Final state, tab ID, pause and cleanup unknown.",
       "coverageLimit": "Parent-received worker message only; no standalone worker ledger or original image."
+    },
+    "Kokapet": {
+      "status": "tested_partial",
+      "completedDeliveries": 0,
+      "pickupsCompleted": 0,
+      "report": "2026-10-26-city-improvements.json",
+      "lastRoute": "Vac's pickup remained uncollected",
+      "repairCoverage": "Manual recovery on ORR main carriageway, short ground drive among traffic, flight/landing setup and map Close. No full exit or ring traversal.",
+      "groundDrivingAfterFinalRecoveryHeldSeconds": 21
     }
   },
   "scenarios": [
@@ -282,59 +292,49 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-23T2145Z",
-    "startedAt": "2026-10-23T21:45:48.174Z",
-    "endedAt": null,
-    "recoveredAtUTC": "2026-10-25T19:09:04.843470+00:00",
-    "status": "interrupted_round_completed_reports_preserved",
+    "id": "2026-10-26-city-improvements",
+    "endedAt": "2026-10-26T06:09:10Z",
+    "status": "implemented_local_checks_passed_bounded_browser_retests",
     "areas": [
-      "Patancheru",
-      "Shamshabad",
-      "Ghatkesar"
+      "Kokapet",
+      "Charminar",
+      "Ameerpet"
     ],
-    "checkoutCommit": "13b831dc0b97e041103380dd310825c496e8651e",
-    "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
-    "servedGameDataCommit": "013bf3f4821904dad03609345b02d84d772726b2",
-    "testedAssets": [
-      "index-DXgUfY_A.js"
-    ],
+    "runtimeSourceCommit": "8ff64235efeed6f05b101901d667ead52764797e",
     "reports": [
-      "2026-10-23T2145Z/patancheru.json",
-      "2026-10-23T2145Z/shamshabad.json",
-      "2026-10-23T2145Z/ghatkesar.json"
+      "2026-10-26-city-improvements.json"
     ],
-    "sourceTriage": "2026-10-23T2145Z/source-triage.json",
-    "evidenceManifest": "2026-10-23T2145Z/evidence-manifest.json",
-    "participantType": "AI agents using visible Chrome controls in sequential exclusive turns, with separate source analysis. No human participants, hidden state mutation, simulation stepping or developer autopilot.",
+    "testedAssets": [
+      "index-Da4kAS59.js",
+      "index-DvbZLP2v.js",
+      "tileworker-D7bauNji.js"
+    ],
     "offersAccepted": 3,
-    "fullyDocumentedOfferAcceptances": 2,
-    "checkpointOnlyOfferAcceptances": 1,
     "pickupsCompleted": 0,
     "completedDeliveries": 0,
-    "heldDrivingInputSecondsApprox": 60.3,
-    "additionalCheckpointHeldInputSecondsWithoutFullLedger": 2.9,
-    "recoveryActivations": 3,
-    "flightActivations": 1,
-    "actualMapCloseClicks": 6,
-    "additionalPickerCloseReportedWithoutOriginal": 1,
-    "savedScreenshots": 5,
-    "uniqueScreenshots": 5,
-    "newConfirmedIssueGroups": 0,
-    "existingIssueGroupsObserved": [
-      "PT-013"
+    "groundDrivingAfterFinalRecoveryHeldSeconds": 21,
+    "newConfirmedIssueIds": [
+      "PT-014",
+      "PT-015"
     ],
-    "existingIssueGroupsReopened": [],
-    "summary": "Patancheru median contact and normal recovery sampled; Swiss Cafe Hyd pickup remained969m. Fresh Shamshabad PT-013 recurrence recorded; Airport Bawarchi remained~395m direct/off-road at16km/h and0.1sboost. No pickup or handover. Ghatkesar picker dismissal and accepted346m offer were reported, then worker interrupted at320m with final state and cleanup unknown.",
-    "landingCoverage": "Shamshabad showed post-flight ground guidance with0.1sboost. Exact zero/exhaustion and controlled touchdown were not established.",
-    "roundLimit": "Interrupted before final integration. This is recovery of that historical round, not a claim of continuous testing through later heartbeat timestamps.",
-    "behaviorEdited": false,
+    "evidence": [
+      "evidence/2026-10-26-orr-recovery-ground-drive-ff3bde.jpg",
+      "evidence/2026-10-26-metro-ameerpet-incomplete-Da4kAS59-b5bcfb.jpg",
+      "evidence/2026-10-26-final-191-place-map-DvbZLP2v-27a300.jpg"
+    ],
+    "physicalPhoneTested": false,
+    "browserOwnershipReleased": true,
+    "helperServerStopped": true,
     "published": false,
     "pushed": false,
-    "browserOwnershipReleased": "Confirmed for root and west at their handoffs; interrupted east worker final state unknown.",
-    "helperCleanupAtInterruptionConfirmed": false,
-    "documentationCorrections": [
-      "PT-013 source reference corrected to game/src/game/game.ts:504."
-    ]
+    "summary": "ORR rendering/grade/ramp/sign/recovery, metro directions, curved traffic, 191-place map, five bounded landmark corrections and the national flag implemented. Final manual recovery stayed on mainline; 21 s held ground driving followed. Zero pickups or handovers. Portrait map and actual model fixtures checked separately; full ring/every exit/metro visual and phone hardware remain unverified.",
+    "checkoutCommit": "8ff64235efeed6f05b101901d667ead52764797e",
+    "metroDirectionBrowserVerdict": "UNKNOWN; paired rails observed but opposite train movement not resolved.",
+    "runtimeSourceCommits": [
+      "a2a90e66a405e65118fb468c9b43462691e9415e",
+      "8ff64235efeed6f05b101901d667ead52764797e"
+    ],
+    "finalBundleSmoke": "DvbZLP2v startup,191-place discovery/search/select,unchanged pending offer on map Close and pause passed; no route completion."
   },
   "issueRegistry": [
     {
@@ -830,6 +830,44 @@
       "fixCommit": "fc275091d8214759ca0f0750bcf479ab628cec38",
       "fixValidationReport": "2026-10-25-v2-integration.json",
       "fixSummary": "Pointer/M map closure returns scene focus; explicit keyboard opener retains focus. Pointer/Close/Space observed actual flight; offline Game.start tests cover both focus modes."
+    },
+    {
+      "id": "PT-014",
+      "priority": "P1",
+      "status": "fixed_code_and_manual_recovery_browser_retested",
+      "title": "ORR stuck recovery can unexpectedly transfer the car onto a service road",
+      "areas": [
+        "Kokapet"
+      ],
+      "reports": [
+        "2026-10-26-city-improvements.json"
+      ],
+      "evidence": [
+        "evidence/2026-10-26-orr-recovery-ground-drive-ff3bde.jpg"
+      ],
+      "confidence": "High for intermediate browser escape plus source cause. Final R stayed on mainline; automatic full stuck sequence remains offline-tested only.",
+      "sourceCause": "Old recovery excluded motorways; automatic stuck recovery could choose a nearby service road.",
+      "fixCommit": "a2a90e66a405e65118fb468c9b43462691e9415e",
+      "nextStep": "Repeat the final automatic blocked interval at a graded ORR segment and near a real exit with traffic. Do not mark every exit verified."
+    },
+    {
+      "id": "PT-015",
+      "priority": "P2",
+      "status": "fixed_regressions_and_bounded_browser_appearance",
+      "title": "Healthway covered cycle track incorrectly appears as an elevated skywalk",
+      "areas": [
+        "Kokapet"
+      ],
+      "reports": [
+        "2026-10-26-city-improvements.json"
+      ],
+      "evidence": [
+        "evidence/2026-10-26-orr-recovery-ground-drive-ff3bde.jpg"
+      ],
+      "confidence": "High for source classifier and original covered-cycleway tags; bounded final scene shows the low canopy. Not a survey of all 22 ways.",
+      "sourceCause": "covered=yes alone was treated as footbridge, creating a 6.6m deck.",
+      "fixCommit": "a2a90e66a405e65118fb468c9b43462691e9415e",
+      "nextStep": "Sample the other Healthway stretch and an explicit covered bridge/tunnel in the browser."
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
@@ -842,11 +880,12 @@
     "Saved unfinished orders are listed in liveHandoffs; do not count them as completed deliveries.",
     "Portrait390x844 HUD/map/pause passed this bounded sample with viewport reset. No physical-phone or touch-driving verification.",
     "Held-input time excludes coasting, recovery animation, menus and tool latency; not uninterrupted human play.",
-    "Gameplay testing does not verify real-world street accuracy, facade binding or shop order."
+    "Gameplay testing does not verify real-world street accuracy, facade binding or shop order.",
+    "2026-10-26 pass adds ORR recovery/short ground-drive and 191-place portrait-map/model QA; no fresh completed delivery or full-ring/every-exit verification. See 2026-10-26-city-improvements.json."
   ],
   "followUpPriorities": [
+    "ORR/metro/traffic: natural ramp entry/exit, automatic blocked recovery, graded bridge and paired metro observation; preserve source uncertainty and measure busy-junction behavior.",
     "PT-012 reopened: legacy missing-category Police Station records still pass eligibility. See current source follow-up; no behavior fix was made in this issue-gathering round.",
-    "PT-013 new: Space reopens focused minimap after Close rather than flying. Reproduced twice with unchanged boost; scene-click workaround works. Keep separate from repaired PT-009.",
     "Keep both immediate-pause and no-pause post-handover checks in regression rotation; the repaired-build explicit handover plus immediate pause/resume passed.",
     "Retest natural bus/truck camera occlusion, a documented median turn, direct Mecca landmark clearance, and the RTC/Sudarshan recovery scenario. Source fixes and focused regressions are already recorded.",
     "Exercise a deliberate curb crossing and bridge parapet using visible controls; include flight/landing. Existing deterministic tests do not substitute for browser coverage.",
@@ -960,7 +999,10 @@
     "evidence/2026-10-25-v2-handover-360c00.jpg",
     "evidence/2026-10-25-v2-phone-map-305a22.jpg",
     "evidence/2026-10-25-v2-phone-menu-b0f73f.jpg",
-    "evidence/2026-10-25-v2-sustained-flight-6edd10.jpg"
+    "evidence/2026-10-25-v2-sustained-flight-6edd10.jpg",
+    "evidence/2026-10-26-orr-recovery-ground-drive-ff3bde.jpg",
+    "evidence/2026-10-26-metro-ameerpet-incomplete-Da4kAS59-b5bcfb.jpg",
+    "evidence/2026-10-26-final-191-place-map-DvbZLP2v-27a300.jpg"
   ],
   "roundHistory": [
     {
@@ -1423,10 +1465,110 @@
       "physicalPhoneTested": false,
       "browserOwnershipReleased": true,
       "helperServerStopped": true
+    },
+    {
+      "id": "2026-10-23T2145Z",
+      "startedAt": "2026-10-23T21:45:48.174Z",
+      "endedAt": null,
+      "recoveredAtUTC": "2026-10-25T19:09:04.843470+00:00",
+      "status": "interrupted_round_completed_reports_preserved",
+      "areas": [
+        "Patancheru",
+        "Shamshabad",
+        "Ghatkesar"
+      ],
+      "checkoutCommit": "13b831dc0b97e041103380dd310825c496e8651e",
+      "runtimeSourceCommit": "40e24d79f1c63c50c86e976037590d2e0f8c6f6b",
+      "servedGameDataCommit": "013bf3f4821904dad03609345b02d84d772726b2",
+      "testedAssets": [
+        "index-DXgUfY_A.js"
+      ],
+      "reports": [
+        "2026-10-23T2145Z/patancheru.json",
+        "2026-10-23T2145Z/shamshabad.json",
+        "2026-10-23T2145Z/ghatkesar.json"
+      ],
+      "sourceTriage": "2026-10-23T2145Z/source-triage.json",
+      "evidenceManifest": "2026-10-23T2145Z/evidence-manifest.json",
+      "participantType": "AI agents using visible Chrome controls in sequential exclusive turns, with separate source analysis. No human participants, hidden state mutation, simulation stepping or developer autopilot.",
+      "offersAccepted": 3,
+      "fullyDocumentedOfferAcceptances": 2,
+      "checkpointOnlyOfferAcceptances": 1,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "heldDrivingInputSecondsApprox": 60.3,
+      "additionalCheckpointHeldInputSecondsWithoutFullLedger": 2.9,
+      "recoveryActivations": 3,
+      "flightActivations": 1,
+      "actualMapCloseClicks": 6,
+      "additionalPickerCloseReportedWithoutOriginal": 1,
+      "savedScreenshots": 5,
+      "uniqueScreenshots": 5,
+      "newConfirmedIssueGroups": 0,
+      "existingIssueGroupsObserved": [
+        "PT-013"
+      ],
+      "existingIssueGroupsReopened": [],
+      "summary": "Patancheru median contact and normal recovery sampled; Swiss Cafe Hyd pickup remained969m. Fresh Shamshabad PT-013 recurrence recorded; Airport Bawarchi remained~395m direct/off-road at16km/h and0.1sboost. No pickup or handover. Ghatkesar picker dismissal and accepted346m offer were reported, then worker interrupted at320m with final state and cleanup unknown.",
+      "landingCoverage": "Shamshabad showed post-flight ground guidance with0.1sboost. Exact zero/exhaustion and controlled touchdown were not established.",
+      "roundLimit": "Interrupted before final integration. This is recovery of that historical round, not a claim of continuous testing through later heartbeat timestamps.",
+      "behaviorEdited": false,
+      "published": false,
+      "pushed": false,
+      "browserOwnershipReleased": "Confirmed for root and west at their handoffs; interrupted east worker final state unknown.",
+      "helperCleanupAtInterruptionConfirmed": false,
+      "documentationCorrections": [
+        "PT-013 source reference corrected to game/src/game/game.ts:504."
+      ]
+    },
+    {
+      "id": "2026-10-26-city-improvements",
+      "endedAt": "2026-10-26T06:09:10Z",
+      "status": "implemented_local_checks_passed_bounded_browser_retests",
+      "areas": [
+        "Kokapet",
+        "Charminar",
+        "Ameerpet"
+      ],
+      "runtimeSourceCommit": "8ff64235efeed6f05b101901d667ead52764797e",
+      "reports": [
+        "2026-10-26-city-improvements.json"
+      ],
+      "testedAssets": [
+        "index-Da4kAS59.js",
+        "index-DvbZLP2v.js",
+        "tileworker-D7bauNji.js"
+      ],
+      "offersAccepted": 3,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "groundDrivingAfterFinalRecoveryHeldSeconds": 21,
+      "newConfirmedIssueIds": [
+        "PT-014",
+        "PT-015"
+      ],
+      "evidence": [
+        "evidence/2026-10-26-orr-recovery-ground-drive-ff3bde.jpg",
+        "evidence/2026-10-26-metro-ameerpet-incomplete-Da4kAS59-b5bcfb.jpg",
+        "evidence/2026-10-26-final-191-place-map-DvbZLP2v-27a300.jpg"
+      ],
+      "physicalPhoneTested": false,
+      "browserOwnershipReleased": true,
+      "helperServerStopped": true,
+      "published": false,
+      "pushed": false,
+      "summary": "ORR rendering/grade/ramp/sign/recovery, metro directions, curved traffic, 191-place map, five bounded landmark corrections and the national flag implemented. Final manual recovery stayed on mainline; 21 s held ground driving followed. Zero pickups or handovers. Portrait map and actual model fixtures checked separately; full ring/every exit/metro visual and phone hardware remain unverified.",
+      "checkoutCommit": "8ff64235efeed6f05b101901d667ead52764797e",
+      "metroDirectionBrowserVerdict": "UNKNOWN; paired rails observed but opposite train movement not resolved.",
+      "runtimeSourceCommits": [
+        "a2a90e66a405e65118fb468c9b43462691e9415e",
+        "8ff64235efeed6f05b101901d667ead52764797e"
+      ],
+      "finalBundleSmoke": "DvbZLP2v startup,191-place discovery/search/select,unchanged pending offer on map Close and pause passed; no route completion."
     }
   ],
-  "nextRoundPlan": "Resume saved city coverage and unresolved routes, rotating popular areas and interior connectors. Version 2 integration is recorded in 2026-10-25-v2-integration.json; PT-013 is fixed and browser-retested. PT-012 remains open. Continue real-device input/audio coverage; do not infer full-city verification from this one completed delivery.",
-  "runtimeSourceCommit": "fc275091d8214759ca0f0750bcf479ab628cec38",
+  "nextRoundPlan": "Retain historical coverage and unfinished-order records. Prioritize ORR natural ramp entry/exit and automatic blocked recovery, graded bridges, paired metro directions and a busy junction with buses/autos; then resume a complete pickup-to-handover route and outer/interior rotation. Inspect actual tab state before resuming historical handoffs. Do not infer full-city or real-world shop accuracy from source data or builds.",
+  "runtimeSourceCommit": "8ff64235efeed6f05b101901d667ead52764797e",
   "liveHandoff": null,
   "liveHandoffs": [
     {
@@ -1631,7 +1773,7 @@
       "note": "Absent from current Chrome inventory; not recreated. Prior pending order was never completed."
     }
   ],
-  "latestCoverageLimit": "Two complete bounded reports plus one interrupted worker checkpoint. No new collection or handover; known PT-013 recurrence only. Five originals saved. Ghatkesar final state and cleanup unknown; no later heartbeat is treated as proof of work.",
+  "latestCoverageLimit": "Current city-improvement pass: 21 seconds of held ORR ground drive following manual recovery, no collections/handovers, separate 390x844 landmark map check and model fixtures. Every exit, full ring, current metro visual behavior, busy-junction sweep and phone hardware remain unverified.",
   "interruptedHandoffs": [
     {
       "round": "2026-10-23T2145Z",
@@ -1655,5 +1797,23 @@
     "completedDeliveries": 1,
     "rewardCoins": 165,
     "physicalPhoneTested": false
-  }
+  },
+  "cityImprovements": {
+    "report": "2026-10-26-city-improvements.json",
+    "implementationCommit": "a2a90e66a405e65118fb468c9b43462691e9415e",
+    "automatedGameSuites": 16,
+    "pipelineTests": 72,
+    "browserRecovery": "Manual R stayed on mainline; automatic retry covered offline, not repeated final browser blocked sequence.",
+    "placesDiscoverable": 191,
+    "photoReviewedModels": 5,
+    "fullRingTested": false,
+    "physicalPhoneTested": false,
+    "finalCodeCommit": "8ff64235efeed6f05b101901d667ead52764797e",
+    "metroDirectionBrowserVerdict": "UNKNOWN",
+    "finalBundleSmokePassed": true
+  },
+  "latestBuiltAssets": [
+    "index-DvbZLP2v.js",
+    "tileworker-D7bauNji.js"
+  ]
 }
