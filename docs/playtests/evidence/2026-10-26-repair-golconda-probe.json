@@ -1,0 +1,75 @@
+{
+  "flatRoofPositiveControl": "PASS: 91.5m landing, >8m drive, brake and 5s park",
+  "realSolids": 475,
+  "realObstacleCells": 0,
+  "slope": {
+    "local": [
+      -18,
+      182
+    ],
+    "world": [
+      -10192.85075248289,
+      2516.421389652397
+    ],
+    "centerSurface": 43.318369989324786,
+    "playerY": 43.89636586946332,
+    "pitch": 0.27638570420934,
+    "roll": -0.2278399115111282,
+    "lastKind": "landmark",
+    "contacts": [
+      {
+        "lateral": -0.945,
+        "longitudinal": -1.4,
+        "suspension": -0.006672223256534358,
+        "worldX": -10194.287352314695,
+        "worldZ": 2517.467705279072,
+        "terrainY": 43.96204308600732,
+        "wheelBottomY": 43.96204308600742,
+        "penetrationM": 0,
+        "floatingM": 9.947598300641403e-14
+      },
+      {
+        "lateral": -0.945,
+        "longitudinal": 1.4,
+        "suspension": 0.00667222261748424,
+        "worldX": -10191.590070613323,
+        "worldZ": 2517.4646911185378,
+        "terrainY": 43.21048443060283,
+        "wheelBottomY": 43.21048443060297,
+        "penetrationM": 0,
+        "floatingM": 1.3500311979441904e-13
+      },
+      {
+        "lateral": 0.945,
+        "longitudinal": -1.4,
+        "suspension": 0.006672222574469903,
+        "worldX": -10194.400297988814,
+        "worldZ": 2515.6235351923783,
+        "terrainY": 43.563849615096295,
+        "wheelBottomY": 43.56384961509662,
+        "penetrationM": 0,
+        "floatingM": 3.268496584496461e-13
+      },
+      {
+        "lateral": 0.945,
+        "longitudinal": 1.4,
+        "suspension": -0.006672221935399748,
+        "worldX": -10191.71011094581,
+        "worldZ": 2515.626549352605,
+        "terrainY": 42.78756013795371,
+        "wheelBottomY": 42.78727852195928,
+        "penetrationM": 0.00028161599443166097,
+        "floatingM": 0
+      }
+    ],
+    "maxPenetrationM": 0.00028161599443166097,
+    "maxFloatingM": 3.268496584496461e-13
+  },
+  "readiness": "PASS",
+  "correction": "Production Player fits pitch/roll and contact height to the real wheel footprint; bounded suspension follows facet seams.",
+  "source": [
+    "game/src/game/landmark-contact.ts",
+    "game/src/game/player.ts",
+    "game/src/world/vehicles.ts:143"
+  ]
+}

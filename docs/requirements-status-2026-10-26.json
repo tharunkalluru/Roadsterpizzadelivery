@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-26T14:54:38Z",
+  "recordedAt": "2026-10-26T16:34:22.612536+00:00",
   "scope": "Every user requirement starting with the opposite-direction metro request, through the current citywide signal request.",
-  "implementationCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
+  "implementationCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
   "branch": "main",
   "statusMeaning": {
     "implemented": "Code/data change exists; verification column states what actually passed. This alone is not exhaustive gameplay acceptance.",
@@ -20,14 +20,15 @@
       "2ef7c14",
       "d461bf2",
       "a49ca97",
-      "4dd5239"
+      "4dd5239",
+      "da1e9a035a5f9d033edf3350c44253dfdf26b8da"
     ],
     "acceptanceCommitsSinceRemote": [
       "f9a1734",
       "c6aa1c1",
       "8d388fe"
     ],
-    "note": "No new push or deployment was performed for the present implementation/report task. The running 4189 preview is local."
+    "note": "Repair code and evidence are committed locally; no push or deployment was performed. The 4189 preview serves the rebuilt local application."
   },
   "preserved": [
     "Upgraded Roadster geometry",
@@ -37,20 +38,27 @@
     "Version 2 menus and mobile map-close/input fixes"
   ],
   "latestValidation": {
-    "readiness": "NOT_READY_FOR_FULL_SIGNOFF",
-    "readinessReport": "docs/playtests/2026-10-26-partial-requirements-validation.json",
-    "confirmedBlockingDefects": ["PT-017", "PT-018"],
-    "independentBusReadiness": "FAIL: stored paths contain 628 turns rejected by production bus motion; route-1 stall reproduced",
-    "independentGolcondaReadiness": "FAIL: hillside wheels penetrate terrain by 0.610 m or float by 0.674 m; flat roof control passes",
+    "readiness": "CONFIRMED_GAMEPLAY_DEFECTS_REPAIRED_R05_EVIDENCE_REMAINS_INCOMPLETE",
+    "readinessReport": "docs/playtests/2026-10-26-readiness-repairs.json",
+    "confirmedBlockingDefects": [],
+    "independentBusReadiness": "PASS:8431 execution-admitted paths,137671 legal joins, fullroute1 completed15 destination dwells; original failed leg passed browser CityData",
+    "independentGolcondaReadiness": "PASS: original0.610m penetration reduced to0.000282m; flat summit and rendered wheel controls preserved",
     "gameSuites": 24,
-    "pipelineTests": 83,
+    "pipelineTests": 89,
     "typecheck": "PASS",
     "productionBuild": "PASS",
     "newSignalGroups": 17,
-    "newBusGroups": 14,
+    "newBusGroups": 18,
     "newOrrAirportBridgeGroups": 11,
     "physicalPhoneTested": false,
-    "freshCompletedDeliveryOnCurrentBuild": false
+    "freshCompletedDeliveryOnCurrentBuild": true,
+    "resolvedDefects": [
+      "PT-017",
+      "PT-018"
+    ],
+    "newBusExecutionGroups": 6,
+    "newLandmarkContactGroups": 9,
+    "normalDelivery": "Explicit late handover,+68coins,665→733,Level1 1/3→2/3"
   },
   "requirements": [
     {
@@ -103,16 +111,18 @@
     },
     {
       "id": "R05",
-      "validationVerdict": "NOT_READY_EVIDENCE_INCOMPLETE",
+      "validationVerdict": "INCOMPLETE_FULL_ARCHITECTURAL_EVIDENCE",
       "requirement": "All 150–200 landmark buildings become accurate",
       "status": "partial_source_review_queue_active",
-      "implemented": "Identity/bounds/render ownership remains audited for 191. Source-reviewed feature corrections now cover Charminar, Jagannath Temple, Central Gurudwara, Telangana Thalli, Buddha, the Secretariat lion capital and the Golconda summit; all other places retain explicit stylised/approximate disclosure.",
-      "verification": "191 finite in-bounds anchors; audit records 5 photo-feature-reviewed models and 0 fully verified architectural reconstructions. The controlled production-code gallery rendered the new summit and symbol work without console errors.",
-      "remaining": "Many inherited/generic anchors, facades, dimensions and fine architectural details still lack sufficient public reference evidence. They remain queued instead of being falsely labelled exact.",
+      "implemented": "Seven reviewed placement/identity corrections; two exact mapped office outlines with concavity-safe clearance; original-photo Ambedkar pose/proportion correction. All191 identities preserved.",
+      "verification": "189 source cells;148 safe map bindings,43 unbound/context-only. Seven bounded photo-feature-reviewed models;zero full reconstructions. Source/geometry/contact tests and browser renders pass.",
+      "remaining": "43 map identities lack a safe binding in this snapshot. Full current facades, height, entrances, floors and fine details across all 191 places are not independently verified; source coverage does not prove street accuracy.",
       "evidence": [
         "docs/playtests/2026-10-26-city-improvements.json",
         "docs/landmark-audit.json",
-        "docs/playtests/2026-10-26-partial-requirements-followup.json"
+        "docs/playtests/2026-10-26-partial-requirements-followup.json",
+        "docs/playtests/2026-10-26-readiness-repairs.json",
+        "docs/landmark-source-review-2026-10-26.md"
       ]
     },
     {
@@ -281,16 +291,18 @@
     },
     {
       "id": "R19",
-      "validationVerdict": "NOT_READY_CONFIRMED_GAMEPLAY_DEFECT",
+      "validationVerdict": "PASS_CONFIRMED_DEFECT_REPAIR",
       "requirement": "Drive and park on Golconda and similar elevated landmarks",
-      "status": "not_ready_landmark_slope_contact_failure",
-      "implemented": "Golconda now has a visible broad terrace, open arcades, setback upper hall, parapets/finials and explicit support geometry. The shared production Player uses visible upward-facing triangles for landing and driving instead of burying the car under a bounding surface.",
-      "verification": "The 91.5 m flat-roof landing/drive/brake/park positive control passes. Independent production Player and browser fixture reproduce hillside wheel penetration of 0.610 m and floating of 0.674 m because landmark slopes retain zero pitch/roll.",
-      "remaining": "Fix PT-018 wheel/contact-aware landmark slope support, then repeat both readiness probes and natural slope/rooftop acceptance. A flat-roof pass cannot establish sloped-surface readiness.",
+      "status": "implemented_production_and_browser_component_verified",
+      "implemented": "Fit pitch, roll and body height to all four actual tyre contacts on a reachable landmark layer, with bounded suspension over facet seams and continuous downhill support.",
+      "verification": "Original probe:0.000282m maximum penetration. Nine contact groups and road/flyover/rail controls pass. Browser component hillside driving/braking, summit flight/landing and parked controls pass; a fresh normal-game delivery also completes.",
+      "remaining": "A fresh normal-world flight to Golconda and rooftop drive remains separate from this deterministic component verification.",
       "evidence": [
         "docs/playtests/2026-10-26-transport-followup.json",
         "tools/landmark-cultural-regressions.mjs",
-        "docs/playtests/2026-10-26-partial-requirements-followup.json"
+        "docs/playtests/2026-10-26-partial-requirements-followup.json",
+        "docs/playtests/2026-10-26-readiness-repairs.json",
+        "tools/landmark-contact-regressions.mjs"
       ]
     },
     {
@@ -330,17 +342,19 @@
     },
     {
       "id": "R23",
-      "validationVerdict": "NOT_READY_CONFIRMED_ROUTE_EXECUTION_DEFECT",
+      "validationVerdict": "PASS_EXECUTION_SAFETY_WITH_SOURCE_COVERAGE_LIMITS",
       "requirement": "TGSRTC buses follow their allocated route and number",
-      "status": "not_ready_persisted_bus_turns_rejected_by_runtime",
-      "implemented": "Published GTFS identity/stop order is retained and each supported stop-to-stop leg now references a persistent directed road sequence. Runtime buses do not search for a convenient parallel road; a missing/unloaded required edge ends the service instead. Unsupported legs stay explicit unresolved records.",
-      "verification": "Existing 14 bus groups and 157,527 directed join checks pass, but independent readiness fails: 628 joins exceed the NPC turn limit across 609 alignments referenced by 782 patterns/573 route numbers. Shipped route 1 stalls for 60 simulated seconds before a 180-degree reversal, with no stop served.",
-      "remaining": "Fix PT-017 by rejecting/replanning unsupported turns or implementing safe bus U-turn paths, then rerun the complete readiness audit. GTFS still has no shapes.txt, 1,545 playable stop legs remain unresolved, and physical-phone hitch profiling is pending.",
+      "status": "implemented_execution_admitted_source_paths",
+      "implemented": "Directed incoming-edge route search rejects immediate reversals and impossible graph turns Prefer bus-width arterial alternatives; constrain physical detours during search Smooth source-chain spans reserve angle-dependent turn room beyond short split records, track intermediate ownership, brake for stops and retain signal/unload safety Execute every proposed leg offline through production Traffic; retry legal alternatives per leg and retain explicit failure evidence for unresolved paths",
+      "verification": "8431 admitted paths with current execution proofs;137671 legal joins. Former609:417served,192unresolved,0stalls/bind failures. Fullroute1:15destination dwells through Afzalgunj. Original750m leg passes browser source CityData collision/signals.",
+      "remaining": "Admission verifies clear-road execution, not all world obstacles or traffic conflicts across the city. The original failing leg additionally passed actual source-tile collision/signals in the browser. GTFS has no agency shapes and is not live operation; 3720 playable legs remain explicitly unsupported rather than falsely accepted.",
       "evidence": [
         "docs/playtests/2026-10-26-transport-followup.json",
         "docs/street-life-sources.md",
         "tools/bus-service-regressions.mjs",
-        "pipeline/evidence/tgsrtc-alignment-audit-2026-10-26.json"
+        "pipeline/evidence/tgsrtc-alignment-audit-2026-10-26.json",
+        "docs/playtests/2026-10-26-readiness-repairs.json",
+        "pipeline/evidence/bus-route1-execution-2026-10-26.json"
       ]
     },
     {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T14:54:38Z",
+  "updatedAt": "2026-10-26T16:34:22.612536+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
+  "currentBuild": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -276,6 +276,16 @@
       "lastRoute": "Vac's pickup remained uncollected",
       "repairCoverage": "Manual recovery on ORR main carriageway, short ground drive among traffic, flight/landing setup and map Close. No full exit or ring traversal.",
       "groundDrivingAfterFinalRecoveryHeldSeconds": 21
+    },
+    "Golconda": {
+      "status": "tested_partial",
+      "completedDeliveries": 1,
+      "pickupsCompleted": 1,
+      "report": "2026-10-26-readiness-repairs.json",
+      "lastRoute": "Imran Bakery → Home in Khair Complex",
+      "lastResult": "Explicit late handover,+68coins;665→733;Level1 1/3→2/3",
+      "sessionStatus": "Completed order, paused and closed own tab; no pending order retained.",
+      "repairCoverage": "Natural road/flight/recovery loop; fort slope/summit acceptance is separate component evidence."
     }
   },
   "scenarios": [
@@ -294,40 +304,53 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-26-partial-requirements-validation",
-    "endedAt": "2026-10-26T14:54:38Z",
-    "status": "not_ready_two_confirmed_gameplay_defects_and_source_acceptance_gaps",
+    "id": "2026-10-26-readiness-repairs",
+    "endedAt": "2026-10-26T16:34:22.612536+00:00",
+    "status": "confirmed_gameplay_defects_repaired_source_accuracy_limits_remain",
     "reports": [
-      "2026-10-26-partial-requirements-validation.json"
+      "2026-10-26-readiness-repairs.json"
     ],
-    "runtimeSourceCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
+    "runtimeSourceCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
     "testedAssets": [
-      "index-DGGugp0K.js",
-      "tileworker-DDJgFCnR.js"
+      "index-BDHkcd2y.js",
+      "tileworker-Djl2SZSz.js"
     ],
     "areas": [
-      "Golconda start",
-      "Durgam Cheruvu/CBI Colony"
+      "Golconda",
+      "Bada Bazaar",
+      "Khair Complex"
     ],
     "componentOnly": [
-      "Actual Golconda hillside wheel penetration",
-      "Flat Golconda summit positive control",
-      "Stored route-1 NPC bus turn stall",
-      "Signal fixture green release"
+      "Golconda hillside/summit wheel contacts",
+      "Route1 source-city collision/signals",
+      "Ambedkar original-photo model review",
+      "DLF/Deccan Park mapped outlines"
     ],
     "offersAccepted": 1,
-    "pickupsCompleted": 0,
-    "completedDeliveries": 0,
+    "pickupsCompleted": 1,
+    "completedDeliveries": 1,
+    "deliveryLate": true,
+    "rewardCoins": 68,
     "physicalPhoneTested": false,
     "pushed": false,
     "published": false,
     "browserOwnershipReleased": true,
     "helperServerStopped": true,
     "evidence": [
-      "evidence/2026-10-26-validation-golconda-slope-failure.png",
-      "evidence/2026-10-26-validation-golconda-flat-control.png"
+      "evidence/2026-10-26-repair-ambedkar-front.png",
+      "evidence/2026-10-26-repair-ambedkar-pedestal.png",
+      "evidence/2026-10-26-repair-bus-probe.json",
+      "evidence/2026-10-26-repair-bus-route1-city-destination.png",
+      "evidence/2026-10-26-repair-golconda-probe.json",
+      "evidence/2026-10-26-repair-golconda-roof-flight.png",
+      "evidence/2026-10-26-repair-golconda-roof-landed.png",
+      "evidence/2026-10-26-repair-golconda-slope-driven.png",
+      "evidence/2026-10-26-repair-golconda-slope.png",
+      "evidence/2026-10-26-repair-mapped-office-plans.png",
+      "evidence/2026-10-26-repair-normal-handover-completed.png",
+      "evidence/2026-10-26-repair-normal-pickup-collected.png"
     ],
-    "summary": "Existing full check and83pipeline tests pass, but independent production probes reproduce two blockers:628persisted bus turns rejected by NPC motion, and0.610m Golconda wheel embedding on slopes. R05 remains evidence-incomplete; R07/R08/R10/R17/R29 pass bounded implementation checks conditionally. Overall not ready for full sign-off."
+    "summary": "PT-017/PT-018 repaired and verified.8431 execution-admitted bus paths; fullroute1 completes15 actual destination dwells; original failing leg passes browser CityData. Golconda embedding reduced from0.610m to0.000282m. Full game check and89pipeline tests pass. Normal Golconda delivery handed over late,+68coins. R05 full architecture remains unverified;3720 bus legs remain explicitly unresolved."
   },
   "issueRegistry": [
     {
@@ -888,32 +911,83 @@
     {
       "id": "PT-017",
       "priority": "P1",
-      "status": "confirmed_production_simulation_readiness_failure",
+      "status": "fixed_production_and_browser_verified_broader_coverage_open",
       "title": "Persisted TGSRTC paths can require turns the bus controller rejects",
-      "areas": ["Shipped TGSRTC network", "Route1 Kachiguda X Roads to Koti Maternity Hospital"],
-      "requirements": ["R23"],
+      "areas": [
+        "Shipped TGSRTC network",
+        "Route1 Kachiguda X Roads to Koti Maternity Hospital"
+      ],
+      "requirements": [
+        "R23"
+      ],
       "confidence": "High: full-pack scan and isolated production Traffic stall reproduced independently.",
-      "reports": ["2026-10-26-partial-requirements-validation.json"],
-      "source": "game/src/game/traffic.ts:218-238; stored alignment754b5b9e50b5f96cc704",
-      "counts": {"rejectedTurns":628,"affectedAlignments":609,"referencedPatterns":782,"referencedRouteNumbers":573},
-      "actual": "Production route1 remains at0m/s for60simulated seconds before a stored180degree reversal; no stop is served and service remains active.",
-      "reproduction": "node tools/validation-bus-readiness-2026-10-26.mjs (exits1)",
-      "nextStep": "Reject/replan unsupported turns or implement safe allotted bus U-turn paths, then rerun full-pack readiness and natural route traversal."
+      "reports": [
+        "2026-10-26-partial-requirements-validation.json",
+        "2026-10-26-readiness-repairs.json"
+      ],
+      "source": "game/src/game/bus-services.ts; game/src/game/bus-path.ts; game/src/game/traffic.ts; pipeline/build_tgsrtc_alignments.mjs",
+      "counts": {
+        "rejectedTurns": 0,
+        "illegalJoins": 0,
+        "admittedPaths": 8431,
+        "former609Served": 417,
+        "former609Unresolved": 192,
+        "observedStalls": 0
+      },
+      "actual": "8431 admitted paths pass production destination-dwell admission; fullroute1 reaches Afzalgunj through15 destination dwells. Exact failing leg additionally passes source CityData collision/signals in browser.",
+      "reproduction": "node tools/validation-bus-readiness-2026-10-26.mjs (exits0); BUS_FULL_PATTERN=1:0 node tools/bus-pattern-readiness.mjs",
+      "nextStep": "Review remaining3720 source/path gaps and broader world traffic/obstacle clearance; do not treat unresolved legs as playable.",
+      "originalActual": "Production route1 remains at0m/s for60simulated seconds before a stored180degree reversal; no stop is served and service remains active.",
+      "fixCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
+      "retestCounts": {
+        "admittedPaths": 8431,
+        "illegalJoins": 0,
+        "rejectedTurns": 0,
+        "former609Served": 417,
+        "former609Unresolved": 192,
+        "observedStalls": 0,
+        "explicitUnresolvedPlayableLegs": 3720
+      },
+      "evidence": [
+        "evidence/2026-10-26-repair-bus-route1-city-destination.png",
+        "evidence/2026-10-26-repair-bus-probe.json"
+      ],
+      "originalCounts": {
+        "rejectedTurns": 628,
+        "affectedAlignments": 609,
+        "referencedPatterns": 782,
+        "referencedRouteNumbers": 573
+      }
     },
     {
       "id": "PT-018",
       "priority": "P2",
-      "status": "confirmed_production_and_browser_component_readiness_failure",
+      "status": "fixed_production_and_browser_verified_broader_coverage_open",
       "title": "Golconda slopes leave Roadster wheels embedded or floating",
-      "areas": ["Golconda"],
-      "requirements": ["R19"],
+      "areas": [
+        "Golconda"
+      ],
+      "requirements": [
+        "R19"
+      ],
       "confidence": "High: repeated production Player probe and visible browser diagnostic with all emitted solids.",
-      "reports": ["2026-10-26-partial-requirements-validation.json"],
-      "source": "game/src/game/player.ts:135,170-175",
-      "actual": "At local(-18,182), zero pitch/roll leaves wheels0.610m inside the hillside or0.674m above it. Flat91.5m roof positive control passes.",
-      "reproduction": "node tools/validation-golconda-readiness-2026-10-26.mjs (exits1)",
-      "evidence": ["evidence/2026-10-26-validation-golconda-slope-failure.png", "evidence/2026-10-26-validation-golconda-flat-control.png"],
-      "nextStep": "Align landmark support and body pitch/roll to wheel contacts, then rerun slope and flat-roof controls plus natural gameplay."
+      "reports": [
+        "2026-10-26-partial-requirements-validation.json",
+        "2026-10-26-readiness-repairs.json"
+      ],
+      "source": "game/src/game/landmark-contact.ts; game/src/game/player.ts",
+      "actual": "Original hillside reaches0.000282m maximum tyre embedding and effectively zero floating. Browser contacts, drive/brake, summit flight/landing and parked control pass.",
+      "reproduction": "node tools/validation-golconda-readiness-2026-10-26.mjs (exits0)",
+      "evidence": [
+        "evidence/2026-10-26-validation-golconda-slope-failure.png",
+        "evidence/2026-10-26-validation-golconda-flat-control.png",
+        "evidence/2026-10-26-repair-golconda-slope.png",
+        "evidence/2026-10-26-repair-golconda-roof-landed.png",
+        "evidence/2026-10-26-repair-golconda-probe.json"
+      ],
+      "nextStep": "Broaden natural fort/slope traversal; architectural detail remains R05 evidence work.",
+      "originalActual": "At local(-18,182), zero pitch/roll leaves wheels0.610m inside the hillside or0.674m above it. Flat91.5m roof positive control passes.",
+      "fixCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da"
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
@@ -930,7 +1004,7 @@
     "2026-10-26 pass adds ORR recovery/short ground-drive and 191-place portrait-map/model QA; no fresh completed delivery or full-ring/every-exit verification. See 2026-10-26-city-improvements.json."
   ],
   "followUpPriorities": [
-    "Readiness blockers: PT-017 persisted bus turns rejected by runtime and PT-018 landmark slope wheel contact. Both independent probes currently exit1; fix and repeat before full sign-off.",
+    "PT-017/PT-018 are repaired; both independent probes exit0. Continue R05 individual landmark references and unsupported bus-leg review; broaden source-city collision/traffic and natural Golconda roof/slope coverage.",
     "ORR/metro/traffic: natural ramp entry/exit, automatic blocked recovery, graded bridge and paired metro observation; preserve source uncertainty and measure busy-junction behavior.",
     "PT-012 reopened: legacy missing-category Police Station records still pass eligibility. See current source follow-up; no behavior fix was made in this issue-gathering round.",
     "Keep both immediate-pause and no-pause post-handover checks in regression rotation; the repaired-build explicit handover plus immediate pause/resume passed.",
@@ -1066,7 +1140,19 @@
     "evidence/2026-10-26-signal-all-red-component-5b56cf.jpg",
     "evidence/2026-10-26-signal-green-release-component-c79393.jpg",
     "evidence/2026-10-26-signal-night-component-a196cb.jpg",
-    "evidence/2026-10-26-signals-rtc-normal-smoke-cd7cb1.jpg"
+    "evidence/2026-10-26-signals-rtc-normal-smoke-cd7cb1.jpg",
+    "evidence/2026-10-26-repair-ambedkar-front.png",
+    "evidence/2026-10-26-repair-ambedkar-pedestal.png",
+    "evidence/2026-10-26-repair-bus-probe.json",
+    "evidence/2026-10-26-repair-bus-route1-city-destination.png",
+    "evidence/2026-10-26-repair-golconda-probe.json",
+    "evidence/2026-10-26-repair-golconda-roof-flight.png",
+    "evidence/2026-10-26-repair-golconda-roof-landed.png",
+    "evidence/2026-10-26-repair-golconda-slope-driven.png",
+    "evidence/2026-10-26-repair-golconda-slope.png",
+    "evidence/2026-10-26-repair-mapped-office-plans.png",
+    "evidence/2026-10-26-repair-normal-handover-completed.png",
+    "evidence/2026-10-26-repair-normal-pickup-collected.png"
   ],
   "roundHistory": [
     {
@@ -1773,10 +1859,95 @@
         "evidence/2026-10-26-partial-followup-signals.png"
       ],
       "summary": "Every previously partial requirement received a concrete follow-up: cultural symbols and Golconda summit, ORR toll ownership, airport widths/aircraft clearance, continuous Durgam deck elevation, persistent TGSRTC road sequences and 268/268 signal-node resolution. 24 game suites,83 pipeline tests,typecheck and production build pass. Visible Golconda/map-close/unlimited-flight, Durgam and RGIA inspection passed without console errors. No delivery completion, every-exit ORR drive, normal-world Golconda rooftop landing or physical-phone acceptance is claimed."
+    },
+    {
+      "id": "2026-10-26-partial-requirements-validation",
+      "endedAt": "2026-10-26T14:54:38Z",
+      "status": "not_ready_two_confirmed_gameplay_defects_and_source_acceptance_gaps",
+      "reports": [
+        "2026-10-26-partial-requirements-validation.json"
+      ],
+      "runtimeSourceCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
+      "testedAssets": [
+        "index-DGGugp0K.js",
+        "tileworker-DDJgFCnR.js"
+      ],
+      "areas": [
+        "Golconda start",
+        "Durgam Cheruvu/CBI Colony"
+      ],
+      "componentOnly": [
+        "Actual Golconda hillside wheel penetration",
+        "Flat Golconda summit positive control",
+        "Stored route-1 NPC bus turn stall",
+        "Signal fixture green release"
+      ],
+      "offersAccepted": 1,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "physicalPhoneTested": false,
+      "pushed": false,
+      "published": false,
+      "browserOwnershipReleased": true,
+      "helperServerStopped": true,
+      "evidence": [
+        "evidence/2026-10-26-validation-golconda-slope-failure.png",
+        "evidence/2026-10-26-validation-golconda-flat-control.png"
+      ],
+      "summary": "Existing full check and83pipeline tests pass, but independent production probes reproduce two blockers:628persisted bus turns rejected by NPC motion, and0.610m Golconda wheel embedding on slopes. R05 remains evidence-incomplete; R07/R08/R10/R17/R29 pass bounded implementation checks conditionally. Overall not ready for full sign-off."
+    },
+    {
+      "id": "2026-10-26-readiness-repairs",
+      "endedAt": "2026-10-26T16:34:22.612536+00:00",
+      "status": "confirmed_gameplay_defects_repaired_source_accuracy_limits_remain",
+      "reports": [
+        "2026-10-26-readiness-repairs.json"
+      ],
+      "runtimeSourceCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
+      "testedAssets": [
+        "index-BDHkcd2y.js",
+        "tileworker-Djl2SZSz.js"
+      ],
+      "areas": [
+        "Golconda",
+        "Bada Bazaar",
+        "Khair Complex"
+      ],
+      "componentOnly": [
+        "Golconda hillside/summit wheel contacts",
+        "Route1 source-city collision/signals",
+        "Ambedkar original-photo model review",
+        "DLF/Deccan Park mapped outlines"
+      ],
+      "offersAccepted": 1,
+      "pickupsCompleted": 1,
+      "completedDeliveries": 1,
+      "deliveryLate": true,
+      "rewardCoins": 68,
+      "physicalPhoneTested": false,
+      "pushed": false,
+      "published": false,
+      "browserOwnershipReleased": true,
+      "helperServerStopped": true,
+      "evidence": [
+        "evidence/2026-10-26-repair-ambedkar-front.png",
+        "evidence/2026-10-26-repair-ambedkar-pedestal.png",
+        "evidence/2026-10-26-repair-bus-probe.json",
+        "evidence/2026-10-26-repair-bus-route1-city-destination.png",
+        "evidence/2026-10-26-repair-golconda-probe.json",
+        "evidence/2026-10-26-repair-golconda-roof-flight.png",
+        "evidence/2026-10-26-repair-golconda-roof-landed.png",
+        "evidence/2026-10-26-repair-golconda-slope-driven.png",
+        "evidence/2026-10-26-repair-golconda-slope.png",
+        "evidence/2026-10-26-repair-mapped-office-plans.png",
+        "evidence/2026-10-26-repair-normal-handover-completed.png",
+        "evidence/2026-10-26-repair-normal-pickup-collected.png"
+      ],
+      "summary": "PT-017/PT-018 repaired and verified.8431 execution-admitted bus paths; fullroute1 completes15 actual destination dwells; original failing leg passes browser CityData. Golconda embedding reduced from0.610m to0.000282m. Full game check and89pipeline tests pass. Normal Golconda delivery handed over late,+68coins. R05 full architecture remains unverified;3720 bus legs remain explicitly unresolved."
     }
   ],
-  "nextRoundPlan": "Repair PT-017 bus paths that require unsupported turns and PT-018 landmark slope contact, then rerun both independent readiness probes. Continue R05 evidence-led landmark reconstruction. Retest natural ORR exits, airport/bridge traversal, city signal cycles and physical-phone performance before full sign-off.",
-  "runtimeSourceCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
+  "nextRoundPlan": "PT-017/PT-018 repaired. Continue R05 per-place references and unresolved bus-leg review. Broaden natural Golconda slopes/roofs, bus obstacle/traffic clearance, ORR exits, airport/bridge, signal cycles and physical-phone acceptance; source coverage is not street verification.",
+  "runtimeSourceCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
   "liveHandoff": null,
   "liveHandoffs": [
     {
@@ -1981,7 +2152,7 @@
       "note": "Absent from current Chrome inventory; not recreated. Prior pending order was never completed."
     }
   ],
-  "latestCoverageLimit": "Current signal pass: isolated production-component red/all-red/green/night check and bounded normal RTC X Roads loading, accepted offer, driving, pause/resume and map-close smoke. No clear normal-world signal cycle, pickup, handover, full-city signal inventory, actual live timings or phone hardware test. Prior broader coverage limits remain in their reports.",
+  "latestCoverageLimit": "Repair pass: confirmed PT-017/PT-018 failures pass production probes and labelled browser components. One normal Golconda delivery was explicitly collected and handed over late. Full 191-place architectural verification,43 unbound/context-only map identities,3720 unresolved playable bus legs, broader natural world scenarios and physical-phone acceptance remain open.",
   "interruptedHandoffs": [
     {
       "round": "2026-10-23T2145Z",
@@ -2021,8 +2192,8 @@
     "finalBundleSmokePassed": true
   },
   "latestBuiltAssets": [
-    "index-DGGugp0K.js",
-    "tileworker-DDJgFCnR.js"
+    "index-BDHkcd2y.js",
+    "tileworker-Djl2SZSz.js"
   ],
   "transportFollowup": {
     "report": "2026-10-26-transport-followup.json",
@@ -2059,7 +2230,16 @@
   "partialRequirementsFollowup": {
     "report": "2026-10-26-partial-requirements-followup.json",
     "implementationCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
-    "requirements": ["R05", "R07", "R08", "R10", "R17", "R19", "R23", "R29"],
+    "requirements": [
+      "R05",
+      "R07",
+      "R08",
+      "R10",
+      "R17",
+      "R19",
+      "R23",
+      "R29"
+    ],
     "gameSuites": 24,
     "pipelineTests": 83,
     "physicalPhoneTested": false,
@@ -2067,14 +2247,40 @@
     "deployed": false
   },
   "latestReadinessValidation": {
-    "report": "2026-10-26-partial-requirements-validation.json",
-    "testedCommit": "d157f4fc8a98e3ddcddcd7f0c34e74ebb41e456e",
-    "readiness": "NOT_READY_FOR_FULL_SIGNOFF",
-    "conditionalRequirements": ["R07", "R08", "R10", "R17", "R29"],
-    "notReadyRequirements": ["R05", "R19", "R23"],
-    "newConfirmedDefects": ["PT-017", "PT-018"],
+    "report": "2026-10-26-readiness-repairs.json",
+    "testedCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
+    "readiness": "CONFIRMED_GAMEPLAY_DEFECTS_REPAIRED_R05_EVIDENCE_REMAINS_INCOMPLETE",
+    "conditionalRequirements": [
+      "R07",
+      "R08",
+      "R10",
+      "R17",
+      "R29"
+    ],
+    "notReadyRequirements": [
+      "R05"
+    ],
+    "newConfirmedDefects": [],
+    "resolvedDefects": [
+      "PT-017",
+      "PT-018"
+    ],
     "existingGameCheck": "PASS",
-    "independentReadinessProbes": "FAIL"
+    "independentReadinessProbes": "PASS",
+    "sourceCoverageLimits": {
+      "unboundOrContextOnlyLandmarks": 43,
+      "unresolvedPlayableBusLegs": 3720
+    }
   },
-  "requirementsStatusReport": "../requirements-status-2026-10-26.json"
+  "requirementsStatusReport": "../requirements-status-2026-10-26.json",
+  "readinessRepairPass": {
+    "report": "2026-10-26-readiness-repairs.json",
+    "implementationCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
+    "checks": "Full game check and89 pipeline tests PASS; independent bus/Golconda probes PASS",
+    "completedFreshDelivery": true,
+    "supersedesBlockingDefects": [
+      "PT-017",
+      "PT-018"
+    ]
+  }
 }

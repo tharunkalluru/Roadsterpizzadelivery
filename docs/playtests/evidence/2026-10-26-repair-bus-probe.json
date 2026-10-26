@@ -1,0 +1,48 @@
+{
+  "ready": true,
+  "method": "Offline production Traffic and complete shipped directed network; no browser state changes",
+  "roadEdges": 405446,
+  "resolvedUniqueAlignments": 8431,
+  "joins": 137671,
+  "illegalOrGapJoins": 0,
+  "npcRejectedTurns": 0,
+  "missingExecutionProofs": 0,
+  "staleExecutionSources": [],
+  "affectedUniqueAlignments": 0,
+  "affectedPatterns": 0,
+  "affectedRouteNumbers": 0,
+  "examples": [],
+  "reproduction": {
+    "status": "PASS_destination_served",
+    "alignmentId": "754b5b9e50b5f96cc704",
+    "pattern": "1:0",
+    "route": "1",
+    "fromStop": "Kachiguda X Roads",
+    "toStop": "Koti Maternity Hospital",
+    "seconds": 109.53333333333333,
+    "initialEdge": "b5529da4-5a2_0",
+    "firstDirection": 1,
+    "assignedNext": {
+      "edge": "32118d97-726_0",
+      "dir": 1,
+      "from": 0,
+      "to": 20.764
+    },
+    "edgeLengthM": 112.79738472145529,
+    "finalEdge": "5942b8eb-757_0",
+    "finalDirection": 1,
+    "finalSM": 8.224601548259576,
+    "finalSpeed": 0.5913902255245409,
+    "dwelled": true,
+    "serviceEnded": true,
+    "runStep": 19,
+    "motion": {
+      "kind": "route",
+      "progress": 7.89236268163302,
+      "startS": 0.33223886662636914,
+      "endS": 8.33223886662637,
+      "length": 7.99999999999981,
+      "endEdge": "5942b8eb-757_0"
+    }
+  }
+}

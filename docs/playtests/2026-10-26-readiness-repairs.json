@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "recordedOn": "2026-10-26",
+  "baselineCommit": "0377573697cdd287035aa99bc130959e88971977",
+  "branch": "main",
+  "scope": "Repair the non-conditional results of the independent partial-requirements validation; retain the accepted conditional-pass work.",
+  "readiness": "CONFIRMED_GAMEPLAY_DEFECTS_REPAIRED_R05_EVIDENCE_REMAINS_INCOMPLETE",
+  "release": {
+    "localOnly": true,
+    "pushed": false,
+    "deployed": false
+  },
+  "requirements": {
+    "R19": {
+      "defect": "PT-018",
+      "status": "REPAIRED_PRODUCTION_PROBE_AND_VISIBLE_COMPONENT_VERIFIED",
+      "change": "Fit pitch, roll and body height to all four actual tyre contacts on a reachable landmark layer, with bounded suspension over facet seams and continuous downhill support.",
+      "originalProbe": {
+        "beforePenetrationM": 0.609881,
+        "beforeFloatingM": 0.673719,
+        "afterPenetrationM": 0.00028161599443166097,
+        "afterFloatingM": 3.268496584496461e-13,
+        "rawOutput": "evidence/2026-10-26-repair-golconda-probe.json"
+      },
+      "checks": [
+        "Original Golconda failure probe passes",
+        "Nine new contact groups: eight headings, compound slopes, 30/60 Hz movement, landing, recovery, missing corners and overhead layers",
+        "Road, flyover, moving-rail and spatial regressions pass",
+        "91.5 m summit control: landing, more than 8 m driving, braking and five-second parking passes offline"
+      ],
+      "browser": {
+        "method": "Real visible controls in an isolated fixture using actual Golconda, Roadster and production Player; prescribed placement. This is not a normal-world journey.",
+        "steps": [
+          "Open known hillside fixture and pause settled car",
+          "Resume, hold W 0.8 s, S 1 s, then pause; all displayed contacts remain within 0.001 m",
+          "Select flat summit, press Space to fly and press Space again to land",
+          "Verify grounded state, drive with W 0.7 s, brake S 0.5 s and coast to 0.00 km/h; pause after parked observation"
+        ],
+        "landing": "Explicit grounded state at 91.5 m with zero displayed tyre embedding/floating and 0.00 km/h",
+        "consoleWarningsOrErrors": [],
+        "evidence": [
+          "evidence/2026-10-26-repair-golconda-slope.png",
+          "evidence/2026-10-26-repair-golconda-slope-driven.png",
+          "evidence/2026-10-26-repair-golconda-roof-flight.png",
+          "evidence/2026-10-26-repair-golconda-roof-landed.png"
+        ]
+      },
+      "limit": "A fresh normal-world flight to Golconda and rooftop drive remains separate from this deterministic component verification."
+    },
+    "R05": {
+      "status": "KNOWN_SOURCE_AND_MODEL_ERRORS_REPAIRED_FULL_ARCHITECTURAL_VERIFICATION_OPEN",
+      "mapCorrections": [
+        "NALSAR mapped vehicle gates",
+        "Osman Sagar dam point and removal of invented reservoir-centre spillway",
+        "Purana Pul Darwaza gate identity and icon",
+        "TCS Deccan Park branch identity and mapped concave plan",
+        "DLF Cyber City named location and mapped outline",
+        "Gandhi Bhavan civic site instead of metro station",
+        "Sanjeevaiah Park instead of railway station"
+      ],
+      "modelCorrection": "Ambedkar above-head pointing hand, held book, separate spectacles, suit silhouette and project-reported statue/pedestal heights, compared with an original government photograph.",
+      "coverage": {
+        "catalogueIdsPreserved": 191,
+        "boundedOsmCellsRead": 189,
+        "sourceElementsRetained": 7368,
+        "reviewedMapIdentities": 148,
+        "unboundOrContextOnlyMapIdentities": 43,
+        "applicationMapCorrections": 7,
+        "exactMappedOfficePlans": 2,
+        "modelsWithBoundedPhotoReviewedFeatures": 7,
+        "fullyPhotoVerifiedReconstructions": 0
+      },
+      "checks": [
+        "Six conservative source resolution tests pass",
+        "All 191 emitted models remain finite and share map/model anchors",
+        "Office outlines preserve source vertices, orientation and concavities; neighbour clearance respects their actual polygons",
+        "Actual office plans and Ambedkar render without console warnings/errors"
+      ],
+      "evidence": [
+        "../landmark-source-review-2026-10-26.md",
+        "../landmark-audit.json",
+        "../../pipeline/evidence/landmark-source-decisions-2026-10-26.json",
+        "../../pipeline/evidence/ambedkar-feature-review-2026-10-26.json",
+        "evidence/2026-10-26-repair-mapped-office-plans.png",
+        "evidence/2026-10-26-repair-ambedkar-front.png",
+        "evidence/2026-10-26-repair-ambedkar-pedestal.png"
+      ],
+      "remaining": "43 map identities lack a safe binding in this snapshot. Full current facades, height, entrances, floors and fine details across all 191 places are not independently verified; source coverage does not prove street accuracy."
+    },
+    "R23": {
+      "defect": "PT-017",
+      "status": "REPAIRED_EXECUTION_ADMITTED_PATHS_WITH_SOURCE_COVERAGE_LIMITS",
+      "changes": [
+        "Directed incoming-edge route search rejects immediate reversals and impossible graph turns",
+        "Prefer bus-width arterial alternatives; constrain physical detours during search",
+        "Smooth source-chain spans reserve angle-dependent turn room beyond short split records, track intermediate ownership, brake for stops and retain signal/unload safety",
+        "Execute every proposed leg offline through production Traffic; retry legal alternatives per leg and retain explicit failure evidence for unresolved paths"
+      ],
+      "finalPackSha256": "47a9cea81007e14f05297d6b16131e358752a1e6e592b1b093533dd983b12724",
+      "coverage": {
+        "admittedUniquePaths": 8431,
+        "directedJoins": 137671,
+        "illegalOrRejectedJoins": 0,
+        "missingExecutionProofs": 0,
+        "staleExecutionSources": 0,
+        "playableStopLegs": 36457,
+        "admittedPlayableStopLegs": 32737,
+        "explicitlyUnresolvedPlayableStopLegs": 3720,
+        "netFewerClaimedLegsThanOldUnvalidatedPack": 2175
+      },
+      "independentFormer609Sweep": {
+        "destinationDwellAndEnded": 417,
+        "explicitlyUnresolved": 192,
+        "runtimeStalls": 0,
+        "bindFailures": 0
+      },
+      "fullRoute1": {
+        "publishedStopsIncludingOrigin": 16,
+        "observedDestinationDwells": 15,
+        "finalStop": "Afzalgunj",
+        "completedAfterSimulatedSeconds": 1619.6,
+        "prematureAbort": false,
+        "evidence": "../../pipeline/evidence/bus-route1-execution-2026-10-26.json"
+      },
+      "originalProbe": {
+        "status": "PASS_destination_served",
+        "alignmentId": "754b5b9e50b5f96cc704",
+        "simulatedSeconds": 109.53333333333333,
+        "before": "Stationary for 60 simulated seconds before a stored 180-degree reversal, without serving a stop",
+        "rawOutput": "evidence/2026-10-26-repair-bus-probe.json"
+      },
+      "browser": {
+        "method": "Real-time isolated production component with actual bus, assigned source roads, four source tiles, buildings, walls, obstacles and signals. Prescribed placement, no ambient traffic or player journey.",
+        "route": "1 · Kachiguda X Roads to Koti Maternity Hospital · 750 m",
+        "steps": [
+          "Open source-tile component with collision/signals checked",
+          "Start real-time NPC movement",
+          "Observe progression from step 1 to 17 and then 20 of 20",
+          "Observe explicit destination-served verdict, prior dwell=true, service ended=true and 0.0 km/h",
+          "Pause and close only the agent-created tab"
+        ],
+        "observedPassByElapsedSeconds": 147.9,
+        "capturedPausedAtSeconds": 155.5,
+        "inputPackSha256": "f3e9e62487c4f33f4b06e21e5064ed2aa1b055b2a8526653284a4d61a7e561f8",
+        "finalPackComparison": "All 8405 previously admitted candidate paths, published patterns and stops remain unchanged in the final pack; 26 additional admitted paths were added by the bounded detour search.",
+        "testedLegPathSha256": "d24c10307f8db15a45f8954779b5e1dd0b1cde01a28fcfb155ca316099559e56",
+        "newRuntimeWarningsOrErrors": [],
+        "resolvedFixtureSetupError": "The initial development fixture omitted the rounded-box template required by scooters. It was corrected before the successful run; this was not an application defect.",
+        "evidence": "evidence/2026-10-26-repair-bus-route1-city-destination.png"
+      },
+      "remaining": "Admission verifies clear-road execution, not all world obstacles or traffic conflicts across the city. The original failing leg additionally passed actual source-tile collision/signals in the browser. GTFS has no agency shapes and is not live operation; 3720 playable legs remain explicitly unsupported rather than falsely accepted."
+    }
+  },
+  "conditionalRequirementsRetained": [
+    "R07",
+    "R08",
+    "R10",
+    "R17",
+    "R29"
+  ],
+  "checks": {
+    "pipelineTests": "PASS 89",
+    "fullGameCheck": "PASS typecheck, 24 top-level game suites including expanded contact/source/bus execution groups, and production build",
+    "busServiceGroups": 18,
+    "newBusExecutionGroups": 6,
+    "newLandmarkContactGroups": 9,
+    "newSourceResolverTests": 6,
+    "originalIndependentReadinessProbes": "PASS bus and Golconda",
+    "gitDiffCheck": "PASS",
+    "existingBuildWarning": "fonts/fonts.css is resolved at runtime rather than build time"
+  },
+  "testedProductionAssets": [
+    "index-BDHkcd2y.js",
+    "tileworker-Djl2SZSz.js"
+  ],
+  "normalGameplayThisPass": {
+    "baseUrl": "http://127.0.0.1:4189/",
+    "productionScriptObservedInDom": "./assets/index-BDHkcd2y.js",
+    "method": "AI agent using only visible public browser controls in real time; no developer autoplay, hidden state mutation, simulation stepping or teleports.",
+    "area": "Golconda → Bada Bazaar → Khair Complex",
+    "route": "Imran Bakery → Home in Khair Complex",
+    "offersAccepted": 1,
+    "pickupsCompleted": 1,
+    "completedDeliveries": 1,
+    "flightTakeoffs": 3,
+    "explicitFlightLandingToggles": 2,
+    "visibleBackToTheRoadRecoveries": 3,
+    "physicalPhoneTested": false,
+    "steps": [
+      "Play, search Golconda, Start here",
+      "Accept Imran Bakery offer: 577 m pickup, 469 m customer leg, 112 s delivery window",
+      "Use map close/zoom and W/A/D/S with Space flight/landing; pause/resume and recover through visible Back to the road",
+      "At the visible Hold E to collect prompt (HUD route distance 9 m), hold E for 1.3 s",
+      "Verify PIZZA COLLECTED! GARAM GARAM!, Deliver to Home in Khair Complex, 474 m and heat 100",
+      "Drive/fly to Khair Complex with three visible recoveries total; the order becomes late during navigation",
+      "At visible Hold E to hand over prompt (HUD road distance 21 m), hold E for 1.3 s",
+      "Verify +68 coins, waiting for an order, wallet 665→733 and Level 1 progress 1/3→2/3",
+      "Pause and close only this agent-created test tab"
+    ],
+    "result": {
+      "explicitHandover": true,
+      "rewardCoins": 68,
+      "walletBefore": 665,
+      "walletAfter": 733,
+      "progressBefore": "Level 1 · 1/3",
+      "progressAfter": "Level 1 · 2/3",
+      "late": true,
+      "interpretation": "A completed interaction/regression loop; not a successful hot/on-time delivery performance test."
+    },
+    "distanceCaution": "9 m and 21 m were visible road-route estimates, not physical action radii. Actions were counted only after visible prompts and explicit collection/handover result states.",
+    "consoleWarningsOrErrors": [],
+    "evidence": [
+      "evidence/2026-10-26-repair-normal-pickup-collected.png",
+      "evidence/2026-10-26-repair-normal-handover-completed.png"
+    ],
+    "limits": [
+      "No natural Golconda summit landing was completed in this normal-world run; slope and summit contact acceptance are the separately labelled production component checks.",
+      "An earlier development-server attempt reloaded during source edits and returned to the title before area selection; no order or delivery was counted from that attempt."
+    ]
+  },
+  "browserInputOwner": "root; all agents used read-only/offline review",
+  "browserOwnershipReleased": true,
+  "helperServerStopped": true,
+  "recordedAt": "2026-10-26T16:34:22.612536+00:00",
+  "implementationCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
+  "workingTreeSourceMatchesTestedCommit": true
+}
