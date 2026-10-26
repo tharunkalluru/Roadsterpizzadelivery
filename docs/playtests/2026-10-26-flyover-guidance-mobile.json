@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T12:22:03Z",
+  "task": "Approved flyover step repair, accurate smooth half-width GPS and mobile arrow redesign",
+  "baselineCommit": "c6aa1c1",
+  "implementationCommit": "d461bf2c852521b6a2c2511b12faea62044dca05",
+  "branch": "main",
+  "pushed": false,
+  "deployed": false,
+  "testedAssets": [
+    "index-BDLXanWl.js",
+    "tileworker-BDp9Em3X.js"
+  ],
+  "userEvidence": "evidence/2026-10-26-user-flyover-steps.jpg",
+  "findingsAndRepairs": {
+    "flyoverSteps": {
+      "severity": "high",
+      "reproductionConfidence": "high: production geometry/support regressions reproduce both causes",
+      "cause": [
+        "Horizontal lane-marking boxes on slopes produced visible lips and intersections with the asphalt.",
+        "Clamped segment endpoints behaved as invisible flat ledges. Nearest-height selection could hold the old height until the car dropped to the next segment.",
+        "Legacy generated profiles included a 6.8 m climb in about 9 m; all-source audit found 1,398 segments above a 10% grade."
+      ],
+      "repair": [
+        "A shared runtime model extends eased estimated approaches along connected roads. Original XY vertices, IDs and connectivity remain; collinear samples improve vertical curves.",
+        "Actual finite asphalt triangles determine car support, including bend and elevated-junction patches. Continuous uphill/downhill contact does not repeatedly detach or trigger landing slowdowns. Body pitch follows the grade.",
+        "Lane paint is a thin upward-facing surface following asphalt triangles, with a stronger depth bias than the asphalt. Browser inspection caught the initial paint disappearing under the road bias and corrected it.",
+        "Canonical grade patches reach both RoadGraph and streamed tile workers; road-bound pickup/drop heights follow the same model. Same-level road candidates can agree on stop height without inventing a road identity."
+      ],
+      "audit": "flyover-grades-audit-2026-10-26.json",
+      "roadsAudited": 52412,
+      "roadsWithEasedRuntimeProfiles": 1170,
+      "steepSegmentsBefore": 1398,
+      "steepSegmentsAfter": 0,
+      "maximumModelGradePercent": 9.7098765432,
+      "protectedORRProfiles": 307,
+      "protectedORRChanges": 0,
+      "separatedCrossings": 802,
+      "minimumModelCrossingSeparationMetres": 4.5466379587,
+      "rebasedStops": 77,
+      "unresolvedStopHeightAmbiguities": 0,
+      "limit": "These are model heights, not surveyed real-world flyover gradients. Three small isolated estimated peaks were lowered to satisfy protected underpass constraints; major plateaus and Durgam deck height remain."
+    },
+    "guidance": {
+      "severity": "medium",
+      "reproductionConfidence": "high for lateral spur, timed rebuild and false grade transfer; broader city route quality remains partial coverage",
+      "cause": [
+        "Route points began at the actual car and jumped sideways to a fixed centreline/lane, especially on ORR outer lanes.",
+        "A full route/mesh rebuild every 1.5–4 seconds visibly moved the entry and could choose another route.",
+        "The old binary elevated-node suffix could connect source nodes at different elevated heights."
+      ],
+      "repair": [
+        "Retain valid route choice and advance its leading point every frame; recalculate after actual departure, recovery/landing, missing route edges or useful new incomplete-route connectivity.",
+        "Keep normalized one-way lane position across split/reversed road records. Prefer the actual supported road and verify physical side on divided roads.",
+        "Use actual source/target heights and distinct height levels at graph nodes.",
+        "Halve road ribbon width from 1.4 m to 0.7 m, minimap stroke 7 to 3.5 and full-map stroke 6 to 3.",
+        "Apply small sampled corner fillets only on loaded same-grade pavement with player-sized wall/facade clearance; retain legal corners where a fillet is unverified or blocked. New routes fade in, with no coordinate morph through obstacles.",
+        "Reuse dynamic GPU storage and share the same route choice with map displays. Minimap now uses the actual Red/Blue/Green metro palette too."
+      ],
+      "retainedOpenEvidence": "PT-005 remains suspected in the historical registry. This repair covers median/clearance and lane geometry regressions; it does not retroactively claim the original historical scene was reproduced and closed."
+    },
+    "mobile": {
+      "repair": "Four equal circular arrows replace GO/BRAKE and rectangular steering controls. Normal size 70×70 px; short landscape 58×58 px, matching the prior brake target size. Up/down at right; FLY/ACT above left/right. Safe areas, accessible names, pointer ownership, release/reset behavior and gyro hiding retained. Prompts reserve the two-row layout.",
+      "physicalPhoneTested": false
+    }
+  },
+  "preservation": {
+    "upgradedRoadsterGeometryUnchanged": true,
+    "publicCityAndShopfrontAssetsUnchangedFrom2ef7c14": true,
+    "shopfrontEvidencePreserved": true,
+    "soundAndUnlimitedFlightRetained": true,
+    "roadAndFlightCapsRetained": "150/240 km/h",
+    "noBulkSourcePackRewrite": true,
+    "qaFixturesExcludedFromProductionBuild": true
+  },
+  "automatedValidation": {
+    "command": "npm --prefix game run check",
+    "result": "PASS on final production source: TypeScript, 20 existing suites, 9 new flyover groups, 9 new route-motion groups, Vite production build. Total 22 suites.",
+    "navigation": "20 groups, including 12 shipped ORR outer-lane/source-height probes.",
+    "runtimeIntegration": "Actual production Game tests cover retained route across timers, progress, GPU buffer reuse, divided-side relocation, recovery revision, terminal wait, flight/landing and fresh obstruction clipping.",
+    "flyover": "Full 52,412-road source audit; finite mesh/support parity, slope paint, Player climb/descent contact, crossing clearance, Durgam and protected ORR invariants, worker context copies and stop rebasing.",
+    "pipeline": "Pipeline sources and published packs were unchanged in this patch; preceding transport batch passed 78 pipeline tests. This is not a fresh pipeline run claim.",
+    "diffCheck": "PASS",
+    "buildWarning": "Existing fonts/fonts.css build-time resolution warning remains; no captured application console errors or warnings in the completed browser checks."
+  },
+  "browserMethod": {
+    "operator": "AI operating visible browser controls in real time; not a human participant.",
+    "rules": "No hidden production game-state mutation, teleport, simulation stepping or developer autopilot. Component presets are explicitly isolated test scenes and are not counted as map coverage.",
+    "duration": "Several bounded segments interleaved with code review/repairs; no continuous twenty-minute session claimed."
+  },
+  "componentBrowser": {
+    "mobile": {
+      "fixture": "game/mobile-control-review.html",
+      "completed": [
+        "Measured all four circle bounds/radii at 390×844, 320×568 and 844×390. All four equal 70 px in portrait and 58 px in short landscape, with no group overlap or viewport clipping.",
+        "Held/clicked each arrow, then released; FLY and ACT counters each reached 1.",
+        "Opened and closed the production HUD menu; readout showed all controls released and one input reset.",
+        "Enabled simulated gyro UI and verified left/right disappeared; disabled it and verified they returned."
+      ],
+      "limit": "Browser component test with mouse/native input and simulated gyro state, not physical multi-touch or sensor behavior.",
+      "evidence": "evidence/2026-10-26-mobile-arrow-controls-component-f13813.jpg"
+    },
+    "syntheticFlyover": {
+      "fixture": "game/flyover-review.html",
+      "completed": [
+        "Actual Engine, Player, shared grade model and buildTile road geometry; no traffic, buildings or delivery.",
+        "From world(200,500), road height 2.833 m, drive W for 3.5 s and pause: world(258,500), 112.9 km/h, road height 4.623 m, contact gap 0.0000 m, pitch +1.95 degrees.",
+        "Resume and drive W for 10.5 s, then pause on the descending exit: world(698.6,500), 149.0 km/h, road height 4.083 m, contact gap 0.0000 m, pitch -1.15 degrees.",
+        "After the cosmetic paint-depth correction, repeat the 3.5 s climb: 112.5 km/h, road height 4.607 m, contact gap 0.0000 m. Original screenshot visibly shows continuous flat markings."
+      ],
+      "evidence": [
+        "evidence/2026-10-26-flyover-downhill-contact-component-898e54.jpg",
+        "evidence/2026-10-26-flyover-paint-uphill-component-24cf9e.jpg"
+      ],
+      "buildLimit": "The downhill screenshot precedes the paint depth-bias-only correction. The later uphill screenshot uses final production rendering; support/Player code is identical in both."
+    },
+    "nallagandlaAttempt": {
+      "completed": [
+        "Load shipped Nallagandla road records and the shared model in the component scene.",
+        "Drive a bounded approach with W; tyre readout stays on road with 0.0000 m contact gap.",
+        "A test-fixture-only A/D sign reversal was caught and corrected to match production inputs; this did not change production steering.",
+        "Repeat with W 2.8 s, W+A 0.18 s, W 1.6 s, then pause. World(-19905.7,-8085.9), road height 5.323 m, 28.4 km/h, contact gap 0.0000 m. Car was on adjacent branch5627dc75-64d_0, not the selected94e381ed flyover."
+      ],
+      "verdict": "Attempt only. Branch selection/camera occlusion prevented a completed visual crossing of the chosen flyover. This is not a confirmed main-game defect or a successful Nallagandla route pass."
+    },
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "protocolLimit": "Development hot reload briefly caused browser-tool frame-tree timeouts; the next observed state recovered. These are tool transport failures, not application console errors."
+  },
+  "normalGameBrowser": {
+    "baseUrl": "http://127.0.0.1:4189/",
+    "testedSourceCommit": "d461bf2c852521b6a2c2511b12faea62044dca05",
+    "verifiedRuntimeAsset": "index-BDLXanWl.js",
+    "area": "Kokapet",
+    "route": "Vac’s → Home in Kokapet",
+    "completed": [
+      "Fresh Play and normal Kokapet picker selection; final production core/worker assets loaded.",
+      "Accept Vac’s offer: 319 m offered, customer leg 758 m, window153 s after collection. Wallet982 and Level2 2/4.",
+      "Inspect the ground guide and full-map route, then use actual Close map.",
+      "Use ordinary Space flight, W+A3.2 s, S2.2 s and map checkpoint to turn around; explicitly land and press R as setup. Observe glide complete at road-level0 km/h and276 m route distance.",
+      "Ground W2.3 s and S1.1 s; open/close map and inspect guide. Later HUD330 m. This first distance increase is recorded rather than described as constant progress.",
+      "Ground W1.5 s and S0.8 s, immediately pause. HUD319 m; the later bounded forward leg decreased330→319 m.",
+      "Resume for original ground-guide screenshot, then pause and close the owned tab. Visible Roadster/shopfronts/guide remain intact."
+    ],
+    "guideObservations": "Thinner road/minimap/full-map guide visible on the same chosen streets. No continuous video/frame-by-frame proof or whole-city route-quality claim.",
+    "mapCloseInteractions": 3,
+    "orders": {
+      "accepted": 1,
+      "collected": 0,
+      "handedOver": 0,
+      "rewardObserved": 0
+    },
+    "evidence": "evidence/2026-10-26-final-kokapet-guide-BDLXanWl-c79159.jpg",
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "physicalPhoneTested": false
+  },
+  "coverageLimits": [
+    "The full-source grade audit is not a manual drive of every flyover or exit. Normal-world Nallagandla/Telugu Talli crossings remain unverified.",
+    "The Kokapet test contains a route-distance increase after recovery/first movement; its precise cause was not isolated. Longer route-choice/progress testing remains required. No new confirmed issue is inferred from this one observation.",
+    "No collection or customer handover completed in this patch. Historical delivery results are not reused as acceptance for this build.",
+    "Physical-phone multi-touch, gyro sensor permissions, sound output and device performance remain untested here.",
+    "Estimated heights/corner behavior improve the current stylized model and preserve mapped alignment; this is not an exact surveyed reconstruction of every Hyderabad flyover."
+  ],
+  "cleanup": {
+    "ownedGameAndComponentTabsClosed": true,
+    "inputOwnershipReleased": true,
+    "viewportOverrideReset": true,
+    "evidenceHelperStopped": true,
+    "agentCreatedDevServer4193Stopped": true,
+    "existingPreview4189LeftRunning": true
+  },
+  "evidence": [
+    "evidence/2026-10-26-user-flyover-steps.jpg",
+    "evidence/2026-10-26-mobile-arrow-controls-component-f13813.jpg",
+    "evidence/2026-10-26-flyover-downhill-contact-component-898e54.jpg",
+    "evidence/2026-10-26-flyover-paint-uphill-component-24cf9e.jpg",
+    "evidence/2026-10-26-final-kokapet-guide-BDLXanWl-c79159.jpg"
+  ]
+}

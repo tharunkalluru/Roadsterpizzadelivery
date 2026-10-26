@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T07:20:34Z",
+  "updatedAt": "2026-10-26T12:22:03Z",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "2ef7c143366b072d050ba72d059bd607e7f07a87",
+  "currentBuild": "d461bf2c852521b6a2c2511b12faea62044dca05",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -293,35 +293,41 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-26-transport-followup",
-    "endedAt": "2026-10-26T07:20:34Z",
-    "status": "implemented_local_checks_and_bounded_browser_retests",
-    "runtimeSourceCommit": "2ef7c143366b072d050ba72d059bd607e7f07a87",
+    "id": "2026-10-26-flyover-guidance-mobile",
+    "endedAt": "2026-10-26T12:22:03Z",
+    "status": "implemented_checks_passed_bounded_browser_coverage",
     "reports": [
-      "2026-10-26-transport-followup.json"
+      "2026-10-26-flyover-guidance-mobile.json"
+    ],
+    "runtimeSourceCommit": "d461bf2c852521b6a2c2511b12faea62044dca05",
+    "testedAssets": [
+      "index-BDLXanWl.js",
+      "tileworker-BDp9Em3X.js"
     ],
     "areas": [
-      "Charminar",
       "Kokapet"
     ],
-    "offersAccepted": 2,
+    "componentOnly": [
+      "Mobile controls",
+      "Synthetic flyover",
+      "Nallagandla approach attempt"
+    ],
+    "offersAccepted": 1,
     "pickupsCompleted": 0,
     "completedDeliveries": 0,
     "physicalPhoneTested": false,
     "pushed": false,
     "published": false,
-    "evidence": [
-      "evidence/2026-10-26-followup-auto-quote-component-bac8c7.jpg",
-      "evidence/2026-10-26-followup-bus-boards-component-2ab7e9.jpg",
-      "evidence/2026-10-26-followup-charminar-roof-park-86237f.jpg",
-      "evidence/2026-10-26-followup-clothing-component-2ac63d.jpg",
-      "evidence/2026-10-26-followup-metro-roof-carry-component-7ae603.jpg",
-      "evidence/2026-10-26-followup-orr-ground-before-guide-1a4596.jpg",
-      "evidence/2026-10-26-followup-rail-front-push-component-7e4f2e.jpg"
-    ],
     "browserOwnershipReleased": true,
-    "helperServerStopped": false,
-    "summary": "All-source ORR barrier audit0intrusions; actual Charminar rooftop park and bounded ORR ground passage. Rail push/roof carry, bus/auto/clothing/airport/bridge separately inspected in component fixtures. No delivery, whole-ring or exact route-operation claim. Flyover/guidance/mobile follow-up in progress."
+    "helperServerStopped": true,
+    "evidence": [
+      "evidence/2026-10-26-user-flyover-steps.jpg",
+      "evidence/2026-10-26-mobile-arrow-controls-component-f13813.jpg",
+      "evidence/2026-10-26-flyover-downhill-contact-component-898e54.jpg",
+      "evidence/2026-10-26-flyover-paint-uphill-component-24cf9e.jpg",
+      "evidence/2026-10-26-final-kokapet-guide-BDLXanWl-c79159.jpg"
+    ],
+    "summary": "Shared flyover grade/support/paint repair, retained accurate half-width guidance and equal circular mobile arrows.22 suites pass. Visible climb/descent contact, responsive component controls and bounded normal Kokapet drive checked. No every-flyover, physical-phone or delivery-completion claim."
   },
   "issueRegistry": [
     {
@@ -483,7 +489,8 @@
         "report": "2026-10-23-repairs/spatial-retest.json",
         "staticStatus": "passed_focused_regressions",
         "commit": "8c245754f939fecee8d51853a8ffac6829bc4aae"
-      }
+      },
+      "latestRelatedRepairReport": "2026-10-26-flyover-guidance-mobile.json"
     },
     {
       "id": "PT-006",
@@ -996,7 +1003,12 @@
     "evidence/2026-10-26-followup-clothing-component-2ac63d.jpg",
     "evidence/2026-10-26-followup-metro-roof-carry-component-7ae603.jpg",
     "evidence/2026-10-26-followup-orr-ground-before-guide-1a4596.jpg",
-    "evidence/2026-10-26-followup-rail-front-push-component-7e4f2e.jpg"
+    "evidence/2026-10-26-followup-rail-front-push-component-7e4f2e.jpg",
+    "evidence/2026-10-26-user-flyover-steps.jpg",
+    "evidence/2026-10-26-mobile-arrow-controls-component-f13813.jpg",
+    "evidence/2026-10-26-flyover-downhill-contact-component-898e54.jpg",
+    "evidence/2026-10-26-flyover-paint-uphill-component-24cf9e.jpg",
+    "evidence/2026-10-26-final-kokapet-guide-BDLXanWl-c79159.jpg"
   ],
   "roundHistory": [
     {
@@ -1590,10 +1602,47 @@
       "browserOwnershipReleased": true,
       "helperServerStopped": false,
       "summary": "All-source ORR barrier audit0intrusions; actual Charminar rooftop park and bounded ORR ground passage. Rail push/roof carry, bus/auto/clothing/airport/bridge separately inspected in component fixtures. No delivery, whole-ring or exact route-operation claim. Flyover/guidance/mobile follow-up in progress."
+    },
+    {
+      "id": "2026-10-26-flyover-guidance-mobile",
+      "endedAt": "2026-10-26T12:22:03Z",
+      "status": "implemented_checks_passed_bounded_browser_coverage",
+      "reports": [
+        "2026-10-26-flyover-guidance-mobile.json"
+      ],
+      "runtimeSourceCommit": "d461bf2c852521b6a2c2511b12faea62044dca05",
+      "testedAssets": [
+        "index-BDLXanWl.js",
+        "tileworker-BDp9Em3X.js"
+      ],
+      "areas": [
+        "Kokapet"
+      ],
+      "componentOnly": [
+        "Mobile controls",
+        "Synthetic flyover",
+        "Nallagandla approach attempt"
+      ],
+      "offersAccepted": 1,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "physicalPhoneTested": false,
+      "pushed": false,
+      "published": false,
+      "browserOwnershipReleased": true,
+      "helperServerStopped": true,
+      "evidence": [
+        "evidence/2026-10-26-user-flyover-steps.jpg",
+        "evidence/2026-10-26-mobile-arrow-controls-component-f13813.jpg",
+        "evidence/2026-10-26-flyover-downhill-contact-component-898e54.jpg",
+        "evidence/2026-10-26-flyover-paint-uphill-component-24cf9e.jpg",
+        "evidence/2026-10-26-final-kokapet-guide-BDLXanWl-c79159.jpg"
+      ],
+      "summary": "Shared flyover grade/support/paint repair, retained accurate half-width guidance and equal circular mobile arrows.22 suites pass. Visible climb/descent contact, responsive component controls and bounded normal Kokapet drive checked. No every-flyover, physical-phone or delivery-completion claim."
     }
   ],
-  "nextRoundPlan": "Finish the newly authorized flyover/guidance/mobile repairs, then repeat bounded actual-browser tests on the matching build. Preserve unfinished historical orders and issue IDs. Full ORR/every exit, physical phone, main-world rail roof ride, Golconda landing and fresh completed delivery remain unverified.",
-  "runtimeSourceCommit": "2ef7c143366b072d050ba72d059bd607e7f07a87",
+  "nextRoundPlan": "Prioritize a normal-map flyover ascent/descent near Nallagandla or Telugu Talli with clear camera/road identity, then verify route choice and progress over a longer correct-road leg after recovery. Retest full touch driving/gyro on a physical phone when available. Continue full ORR exit coverage, main-world train roof ride, Golconda landing and a fresh complete delivery. Preserve historical issue statuses and unfinished-order records; do not treat component presets as area coverage.",
+  "runtimeSourceCommit": "d461bf2c852521b6a2c2511b12faea62044dca05",
   "liveHandoff": null,
   "liveHandoffs": [
     {
@@ -1838,8 +1887,8 @@
     "finalBundleSmokePassed": true
   },
   "latestBuiltAssets": [
-    "index-DmAAklWa.js",
-    "tileworker-PQ3IBYSc.js"
+    "index-BDLXanWl.js",
+    "tileworker-BDp9Em3X.js"
   ],
   "transportFollowup": {
     "report": "2026-10-26-transport-followup.json",
@@ -1848,5 +1897,14 @@
     "ordersCompleted": 0,
     "golcondaBrowserLanding": "not_completed",
     "mainWorldRailRide": "not_completed"
+  },
+  "flyoverGuidanceMobile": {
+    "report": "2026-10-26-flyover-guidance-mobile.json",
+    "implementationCommit": "d461bf2c852521b6a2c2511b12faea62044dca05",
+    "gradeAudit": "flyover-grades-audit-2026-10-26.json",
+    "sourceSteepSegments": 1398,
+    "remainingModelSteepSegments": 0,
+    "protectedORRProfilesUnchanged": 307,
+    "physicalPhoneTested": false
   }
 }
