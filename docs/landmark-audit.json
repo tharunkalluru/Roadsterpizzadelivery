@@ -8,7 +8,7 @@
     "sourceTilesIndexed": 190,
     "renderOwnersIndexed": 191,
     "photoVerifiedReconstructions": 0,
-    "modelsWithPhotoReviewedFeatures": 4
+    "modelsWithPhotoReviewedFeatures": 5
   },
   "symbolAudit": [
     {
@@ -19,9 +19,9 @@
     },
     {
       "id": "secretariat-lion-capital",
-      "status": "pending-reference-review",
-      "confidence": "low",
-      "notes": "Inherited four gold box ornaments are not a faithful lion-capital reconstruction. No invented national-emblem detail or inscription added."
+      "status": "corrected-source-backed-basic-form",
+      "confidence": "high-for-four-lions-and-abacus-low-for-exact-sculpture",
+      "notes": "Four articulated back-to-back lions and four outward24-spoke wheels replace gold boxes; primary government description supports the basic form. Exact reliefs, motto and site sculpture details remain open."
     },
     {
       "id": "jagannath-nila-chakra",
@@ -31,9 +31,9 @@
     },
     {
       "id": "gurudwara-and-temple-flags",
-      "status": "pending-reference-review",
-      "confidence": "low",
-      "notes": "Plain Gurdwara flag retained because inspected cloth is furled. Jagannath red/yellow pennants retained from original photos without invented symbols; no blanket religious-flag replacement."
+      "status": "corrected-observed-fold-and-source-backed-finial",
+      "confidence": "medium-for-visible-fold-low-for-current-cloth",
+      "notes": "Gurdwara cloth now hangs folded near its mast and has a spearhead finial supported by Sikh Rehat Maryada. A hidden printed Khanda is not inferred. Current site colour and flag dimensions remain open. Jagannath pennants retain original-photo colours without invented symbols."
     },
     {
       "id": "telangana-thalli",
@@ -300,13 +300,26 @@
           "verified-front-bearing",
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "District photographs and ASI visitor map show an elevated rectangular pavilion, broad pointed openings, projecting terraces, flat roof and corner finials. Replaced three stacked solid blocks/tiny repeated arches with open broad arcades, setback hall and an unbroken rendered roof.",
+          "Visible upper terrace remains at inherited game height91.5m. Production Player regression toggles descent, lands, drives about9m, brakes and stays parked5s using the exact rendered support triangles; open arches have no invented blanket roof."
+        ],
+        "unresolved": [
+          "Summit/base dimensions, anchor/bearing, granite terrain, wall alignment and decorative proportions remain illustrative. District gallery publication dates are not new field surveys.",
+          "The inherited78m game hill datum is retained; published120m hill descriptions are not a surveyed game roof datum. Normal-game browser flight/landing remains a separate acceptance item."
         ]
       },
       "provenance": {
         "inherited": [
           "Legacy hand-authored coordinates; no per-anchor evidence ID"
         ],
-        "sourceUrls": [],
+        "sourceUrls": [
+          "https://hyderabad.telangana.gov.in/tourist-place/golconda-fort/",
+          "https://cdn.s3waas.gov.in/s36c524f9d5d7027454a783c841250ba71/uploads/2018/11/2018110292.jpg",
+          "https://cdn.s3waas.gov.in/s36c524f9d5d7027454a783c841250ba71/uploads/2018/11/2018110274.jpg",
+          "https://commons.wikimedia.org/wiki/File:Golconda_Fort_002_-_Baradari.jpg"
+        ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional"
       }
@@ -841,13 +854,23 @@
           "verified-front-bearing",
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Replaced four undifferentiated gold boxes on each dome with four outward-facing articulated lion figures on a circular abacus, including vertical24-spoke wheels. Government description supports four back-to-back lions and intervening abacus wheels."
+        ],
+        "unresolved": [
+          "This is a bounded symbol correction, not a surveyed portrait or certified national-emblem reproduction. Abacus animal reliefs and motto are not fabricated; exact rooftop sculpture dimensions, detail and current appearance remain unverified.",
+          "Inherited building scale, dome profile, courtyard and façade geometry remain provisional."
         ]
       },
       "provenance": {
         "inherited": [
           "Legacy hand-authored coordinates; no per-anchor evidence ID"
         ],
-        "sourceUrls": [],
+        "sourceUrls": [
+          "https://tribal.nic.in/writereaddata/News/201902141107219843646State_emblem.pdf",
+          "https://www.presentations.gov.in/logos/national-emblem/"
+        ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional"
       }
@@ -2290,10 +2313,11 @@
           "symbol-and-inscription-review"
         ],
         "reviewedFeatures": [
-          "Raised front entrance stair flight, stacked three-arch white pavilions and shallow gold domes from original photograph captured 2025-10-14."
+          "Raised front entrance stair flight, stacked three-arch white pavilions and shallow gold domes from original photograph captured 2025-10-14.",
+          "Nishan Sahib corrected from a broad plain rectangular panel to folded cloth close to its mast and a spearhead finial; no hidden printed Khanda or inscription inferred."
         ],
         "unresolved": [
-          "Flag cloth is furled in the inspected image; no Khanda or changed flag colour inferred.",
+          "Folded cloth uses an approximate ochre colour from the dated image; current site flag colour, exact cloth dimensions and hidden print remain unverified. SGPC specifies xanthic or greyish blue; no blanket colour substitution is claimed as an on-site observation.",
           "Facade dimensions and inherited front bearing remain approximate; no new coordinate placement or inscription added."
         ]
       },
@@ -2302,7 +2326,9 @@
           "OSM / Overture resolver; original source IDs were not retained in flattened data"
         ],
         "sourceUrls": [
-          "https://commons.wikimedia.org/wiki/File:Central_Gurdwara_Saheb,_Hyderabad.jpg"
+          "https://commons.wikimedia.org/wiki/File:Central_Gurdwara_Saheb,_Hyderabad.jpg",
+          "https://sgpc.net/wp-content/uploads/2025/06/Sikh-Rehat-Maryada-English-n.pdf",
+          "https://www.worldsikh.org/what_is_the_flag_outside_the_gurdwara"
         ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional"

@@ -1,12 +1,17 @@
 import type { GEdge, RoadGraph } from './roadgraph';
 import type { BusStop } from '../world/city';
 
-export interface BusPattern { id: string; number: string; direction: string; from: string; to: string; stops: string[]; tripId: string; publishedTrips: number }
-export interface BusFeed { schema: number; origin: { lat: number; lon: number }; stops: Record<string, [string, number, number]>; patterns: BusPattern[]; attribution: string; uncertainty: string }
+export interface BusPattern { id: string; number: string; direction: string; from: string; to: string; stops: string[]; tripId: string; publishedTrips: number; alignmentIds?: string[] }
+export interface BusAlignment {
+  status: 'inferred_legal_road_path' | 'unresolved'; fromStop: string; toStop: string; reason?: string;
+  steps?: { edge: string; dir: 1 | -1; from: number; to: number }[];
+  pts?: [number, number][]; lengthM?: number; maxStopSnapM?: number;
+}
+export interface BusFeed { schema: number; origin: { lat: number; lon: number }; stops: Record<string, [string, number, number]>; patterns: BusPattern[]; attribution: string; uncertainty: string; alignments?: Record<string, BusAlignment> }
 interface Step { edge: GEdge; dir: 1 | -1 }
 interface StopPosition extends Step { s: number; stop: BusStop }
 export interface BusRun { pattern: BusPattern; target: number; path: Step[]; step: number; stopPosition: StopPosition; ended: boolean }
-interface Leg { pattern: BusPattern; index: number; ax: number; az: number; bx: number; bz: number }
+interface Leg { pattern: BusPattern; index: number; ax: number; az: number; bx: number; bz: number; alignment?: BusAlignment }
 
 const segmentDistance = (x: number, z: number, ax: number, az: number, bx: number, bz: number) => {
   const dx = bx - ax, dz = bz - az, ll = dx * dx + dz * dz;
@@ -14,9 +19,10 @@ const segmentDistance = (x: number, z: number, ax: number, az: number, bx: numbe
   return { d: Math.hypot(x - ax - u * dx, z - az - u * dz), u };
 };
 
-// Static agency stop order determines service identity and destination. The feed
-// supplies no shapes: paths between adjacent stops are inferred on legal roads,
-// constrained to that stop corridor. Missing links never grant random turns.
+// Static agency stop order determines service identity and destination. Schema 2
+// carries reproducible directed road alignments: buses must use those exact edges,
+// including on bends, never a nearby parallel street. These are reconstructed
+// paths, not agency-supplied shapes or live route/diversion verification.
 export class BusServices {
   private cells = new Map<string, Leg[]>();
   private stopCache = new Map<string, StopPosition | null>();
@@ -29,9 +35,14 @@ export class BusServices {
       if (!a || !b) continue;
       const length = Math.hypot(b[1] - a[1], b[2] - a[2]);
       if (length < 12 || length > 7000) continue;
-      const leg = { pattern, index: i, ax: a[1], az: a[2], bx: b[1], bz: b[2] };
-      const keys = new Set<string>(), n = Math.max(1, Math.ceil(length / 200));
-      for (let k = 0; k <= n; k++) keys.add(`${Math.floor((a[1] + (b[1] - a[1]) * k / n) / 250)},${Math.floor((a[2] + (b[2] - a[2]) * k / n) / 250)}`);
+      const alignment = pattern.alignmentIds ? feed.alignments?.[pattern.alignmentIds[i]] : undefined;
+      if (feed.schema >= 2 && (!alignment || alignment.status !== 'inferred_legal_road_path')) continue;
+      const leg = { pattern, index: i, ax: a[1], az: a[2], bx: b[1], bz: b[2], alignment };
+      const pts = alignment?.pts || [[a[1], a[2]], [b[1], b[2]]], keys = new Set<string>();
+      for (let h = 1; h < pts.length; h++) {
+        const u = pts[h - 1], v = pts[h], n = Math.max(1, Math.ceil(Math.hypot(v[0] - u[0], v[1] - u[1]) / 200));
+        for (let k = 0; k <= n; k++) keys.add(`${Math.floor((u[0] + (v[0] - u[0]) * k / n) / 250)},${Math.floor((u[1] + (v[1] - u[1]) * k / n) / 250)}`);
+      }
       for (const key of keys) { const list = this.cells.get(key) || []; list.push(leg); this.cells.set(key, list); }
     }
   }
@@ -74,6 +85,7 @@ export class BusServices {
     return best;
   }
   private plan(edge: GEdge, dir: 1 | -1, s: number, target: StopPosition, leg: Leg): Step[] | null {
+    if (leg.alignment) return this.alignedPath(leg.alignment, edge, dir, s);
     const fits = (e: GEdge, heading: 1 | -1, from: number, to: number) => {
       const a = heading === 1 ? from : e.len - to, b = heading === 1 ? to : e.len - from;
       const points = [this.graph.pointAt(e, from, heading), this.graph.pointAt(e, to, heading)];
@@ -119,6 +131,64 @@ export class BusServices {
     if (this.paths.size > 1800) this.paths.clear();
     this.paths.set(key, result); return result;
   }
+  private leg(pattern: BusPattern, index: number): Leg | null {
+    const a = this.feed.stops[pattern.stops[index]], b = this.feed.stops[pattern.stops[index + 1]];
+    if (!a || !b) return null;
+    const alignment = pattern.alignmentIds ? this.feed.alignments?.[pattern.alignmentIds[index]] : undefined;
+    if (this.feed.schema >= 2 && (!alignment || alignment.status !== 'inferred_legal_road_path')) return null;
+    return { pattern, index, ax: a[1], az: a[2], bx: b[1], bz: b[2], alignment };
+  }
+  private alignedPath(alignment: BusAlignment, edge: GEdge, dir: 1 | -1, s: number): Step[] | null {
+    const steps = alignment.steps;
+    if (alignment.status !== 'inferred_legal_road_path' || !steps?.length) return null;
+    const start = steps.findIndex(v => v.edge === edge.e.id && v.dir === dir && s >= v.from - 2 && s <= v.to + .5);
+    if (start < 0) return null;
+    const path: Step[] = [];
+    for (const item of steps.slice(start)) {
+      const road = this.graph.byId.get(item.edge);
+      if (!road || road.e.w < 6 || road.e.cls === 'service' || road.e.oneway === (item.dir === 1 ? 'forward' : 'backward')
+          || item.from < 0 || item.to > road.len + .5 || item.to < item.from) return null;
+      const prev = path[path.length - 1];
+      if (prev && (prev.dir === 1 ? prev.edge.to : prev.edge.from) !== (item.dir === 1 ? road.from : road.to)) return null;
+      path.push({ edge: road, dir: item.dir });
+    }
+    return path;
+  }
+  private target(leg: Leg): StopPosition | null {
+    if (!leg.alignment) return this.locate(leg.pattern, leg.index + 1);
+    const item = leg.alignment.steps?.at(-1), edge = item && this.graph.byId.get(item.edge);
+    if (!item || !edge || item.to > edge.len + .5 || edge.e.oneway === (item.dir === 1 ? 'forward' : 'backward')) return null;
+    const p = this.graph.pointAt(edge, item.to, item.dir), s = item.dir === 1 ? item.to : edge.len - item.to;
+    return { edge, dir: item.dir, s: item.to, stop: { edge: edge.e.id, s, side: item.dir, x: p.x, z: p.z, hx: p.hx, hz: p.hz } };
+  }
+  // Used offline by the alignment builder against the complete shipped network.
+  // A failed/long/disconnected leg remains an explicit unresolved record.
+  reconstruct(pattern: BusPattern, index: number): BusAlignment {
+    const result: BusAlignment = { status: 'unresolved', fromStop: pattern.stops[index], toStop: pattern.stops[index + 1] };
+    const a = this.feed.stops[result.fromStop], b = this.feed.stops[result.toStop];
+    if (!a || !b) return { ...result, reason: 'missing_published_stop' };
+    const direct = Math.hypot(b[1] - a[1], b[2] - a[2]);
+    if (direct < 12 || direct > 7000) return { ...result, reason: 'stop_separation_outside_safe_range' };
+    const start = this.locate(pattern, index), target = this.locate(pattern, index + 1);
+    if (!start || !target) return { ...result, reason: 'no_ground_bus_width_road_within_100m' };
+    const path = this.plan(start.edge, start.dir, start.s, target, { pattern, index, ax: a[1], az: a[2], bx: b[1], bz: b[2] });
+    if (!path) return { ...result, reason: 'no_continuous_legal_path_in_stop_corridor' };
+    const steps = path.map((p, i) => ({ edge: p.edge.e.id, dir: p.dir, from: i ? 0 : start.s, to: i === path.length - 1 ? target.s : p.edge.len }));
+    const lengthM = steps.reduce((n, p) => n + p.to - p.from, 0);
+    if (lengthM < 1 || lengthM > direct * 3 + 300) return { ...result, reason: 'implausible_stop_to_stop_detour' };
+    const pts: [number, number][] = [];
+    const append = (x: number, z: number) => { if (!pts.length || Math.hypot(x - pts[pts.length - 1][0], z - pts[pts.length - 1][1]) > .1) pts.push([+x.toFixed(1), +z.toFixed(1)]); };
+    for (let i = 0; i < steps.length; i++) {
+      const step = steps[i], edge = path[i].edge, from = this.graph.pointAt(edge, step.from, step.dir), to = this.graph.pointAt(edge, step.to, step.dir);
+      append(from.x, from.z);
+      const indices = Array.from({ length: edge.cum.length }, (_, k) => k); if (step.dir === -1) indices.reverse();
+      for (const k of indices) { const distance = step.dir === 1 ? edge.cum[k] : edge.len - edge.cum[k]; if (distance > step.from && distance < step.to) append(...edge.e.pts[k]); }
+      append(to.x, to.z);
+    }
+    const first = pts[0], last = pts[pts.length - 1];
+    return { ...result, status: 'inferred_legal_road_path', steps: steps.map(p => ({ ...p, from: +p.from.toFixed(3), to: +p.to.toFixed(3) })), pts,
+      lengthM: +lengthM.toFixed(1), maxStopSnapM: +Math.max(Math.hypot(first[0] - a[1], first[1] - a[2]), Math.hypot(last[0] - b[1], last[1] - b[2])).toFixed(1) };
+  }
   bind(edge: GEdge, dir: 1 | -1, s: number, random = 0): BusRun | null {
     this.refreshGraph();
     if (this.graph.byId.get(edge.e.id) !== edge) return null;
@@ -126,8 +196,10 @@ export class BusServices {
     const choices: { leg: Leg; score: number }[] = [];
     for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const leg of this.cells.get(`${cx + i},${cz + j}`) || []) {
       if (seen.has(leg)) continue; seen.add(leg);
-      const q = segmentDistance(p.x, p.z, leg.ax, leg.az, leg.bx, leg.bz), length = Math.hypot(leg.bx - leg.ax, leg.bz - leg.az);
-      const dot = ((leg.bx - leg.ax) * p.hx + (leg.bz - leg.az) * p.hz) / length;
+      const item = leg.alignment?.steps?.find(v => v.edge === edge.e.id && v.dir === dir && s >= v.from - 2 && s < v.to - 1);
+      if (leg.alignment && !item) continue;
+      const q = item ? { d: 0, u: 0 } : segmentDistance(p.x, p.z, leg.ax, leg.az, leg.bx, leg.bz), length = Math.hypot(leg.bx - leg.ax, leg.bz - leg.az);
+      const dot = item ? 1 : ((leg.bx - leg.ax) * p.hx + (leg.bz - leg.az) * p.hz) / length;
       if (q.d > 90 || dot < 0.15 || q.u > 0.98) continue;
       choices.push({ leg, score: q.d + (1 - dot) * 25 });
     }
@@ -135,7 +207,7 @@ export class BusServices {
     const candidates = choices.filter(c => c.score <= (choices[0]?.score ?? 0) + 18).slice(0, 10);
     if (candidates.length) { const k = Math.floor(random * candidates.length) % candidates.length; candidates.push(...candidates.splice(0, k)); }
     for (const { leg } of candidates.slice(0, 4)) {
-      const stopPosition = this.locate(leg.pattern, leg.index + 1); if (!stopPosition) continue;
+      const stopPosition = this.target(leg); if (!stopPosition) continue;
       if (stopPosition.edge === edge && stopPosition.dir === dir && stopPosition.s < s + 8) continue;
       const path = this.plan(edge, dir, s, stopPosition, leg); if (!path) continue;
       return { pattern: leg.pattern, target: leg.index + 1, path, step: 0, stopPosition, ended: false };
@@ -146,9 +218,9 @@ export class BusServices {
     this.refreshGraph();
     if (run.ended) return null;
     if (run.path.slice(run.step).some(s => this.graph.byId.get(s.edge.e.id) !== s.edge)) {
-      const a = this.feed.stops[run.pattern.stops[run.target - 1]], b = this.feed.stops[run.pattern.stops[run.target]], target = this.locate(run.pattern, run.target);
-      if (!a || !b || !target || this.graph.byId.get(edge.e.id) !== edge) return null;
-      const path = this.plan(edge, dir, s, target, { pattern: run.pattern, index: run.target - 1, ax: a[1], az: a[2], bx: b[1], bz: b[2] });
+      const leg = this.leg(run.pattern, run.target - 1), target = leg && this.target(leg);
+      if (!leg || !target || this.graph.byId.get(edge.e.id) !== edge) return null;
+      const path = this.plan(edge, dir, s, target, leg);
       if (!path) return null;
       run.path = path; run.step = 0; run.stopPosition = target;
     }
@@ -161,10 +233,9 @@ export class BusServices {
   served(run: BusRun, edge: GEdge, dir: 1 | -1, s = 0) {
     this.refreshGraph();
     if (run.target >= run.pattern.stops.length - 1) { run.ended = true; return; }
-    const a = this.feed.stops[run.pattern.stops[run.target]], b = this.feed.stops[run.pattern.stops[run.target + 1]];
-    const target = this.locate(run.pattern, run.target + 1);
-    if (!a || !b || !target) { run.ended = true; return; }
-    const path = this.plan(edge, dir, s, target, { pattern: run.pattern, index: run.target, ax: a[1], az: a[2], bx: b[1], bz: b[2] });
+    const leg = this.leg(run.pattern, run.target), target = leg && this.target(leg);
+    if (!leg || !target) { run.ended = true; return; }
+    const path = this.plan(edge, dir, s, target, leg);
     if (!path) { run.ended = true; return; }
     run.target++; run.stopPosition = target; run.path = path; run.step = 0;
   }

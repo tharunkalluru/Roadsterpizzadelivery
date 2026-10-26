@@ -76,3 +76,4 @@ try {
   const audit=JSON.parse(readFileSync(new URL('../docs/landmark-audit.json',import.meta.url))); assert.deepEqual(new Set(audit.entries.map((p)=>p.id)),new Set(places.map((p)=>p.id))); assert.equal(audit.summary.renderOwnersIndexed,191);
   console.log('Landmark regressions: all 191 catalogue/model identities, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite 191-model geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.');
 } finally { rmSync(temp,{recursive:true,force:true}); }
+await import('./landmark-cultural-regressions.mjs');

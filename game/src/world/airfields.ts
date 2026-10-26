@@ -32,8 +32,15 @@ function inRing(x:number,z:number,p:AirPoint[]){let hit=false;for(let i=0,j=p.le
 export function airfieldClearAt(airfields:Airfield[],x:number,z:number):boolean{
   for(const a of airfields){if(x<a.bounds.minX-140||x>a.bounds.maxX+140||z<a.bounds.minZ-140||z>a.bounds.maxZ+140)continue;
     for(const r of a.runways){const[p,q]=r.ends,dx=q[0]-p[0],dz=q[1]-p[1],L2=dx*dx+dz*dz,u=((x-p[0])*dx+(z-p[1])*dz)/L2;if(u>=-.01&&u<=1.01&&Math.hypot(x-p[0]-u*dx,z-p[1]-u*dz)<(a.id==='vohs'?140:75))return true;}
-    for(const f of a.features){if(f.kind==='taxiway'){for(let i=1;i<f.pts.length;i++){const p=f.pts[i-1],q=f.pts[i],dx=q[0]-p[0],dz=q[1]-p[1],L2=dx*dx+dz*dz||1,u=Math.max(0,Math.min(1,((x-p[0])*dx+(z-p[1])*dz)/L2));if(Math.hypot(x-p[0]-dx*u,z-p[1]-dz*u)<18)return true;}}else if(inRing(x,z,f.pts))return true;}
+    for(const f of a.features){if(f.kind==='taxiway'){for(let i=1;i<f.pts.length;i++){const p=f.pts[i-1],q=f.pts[i],dx=q[0]-p[0],dz=q[1]-p[1],L2=dx*dx+dz*dz||1,u=Math.max(0,Math.min(1,((x-p[0])*dx+(z-p[1])*dz)/L2));if(Math.hypot(x-p[0]-dx*u,z-p[1]-dz*u)<Math.max(18,airportTaxiwayWidth(f)/2+1))return true;}}else if(inRing(x,z,f.pts))return true;}
   }return false;
+}
+// Explicit mapped widths include small6m service taxiways at Begumpet. The
+// former12m floor doubled those pavements; the23m fallback is only for missing
+// widths and is an illustrative default, not a survey of every taxiway.
+export function airportTaxiwayWidth(f: { width?: string }) {
+  const value = Number(f.width);
+  return Number.isFinite(value) && value >= 3 && value <= 80 ? value : 23;
 }
 function strip(batch:TiledBatch,a:AirPoint,b:AirPoint,width:number,y:number,col:string){const dx=b[0]-a[0],dz=b[1]-a[1],L=Math.hypot(dx,dz);if(L<.01)return;const nx=-dz/L*width/2,nz=dx/L*width/2;batch.quad([a[0]-nx,y,a[1]-nz],[a[0]+nx,y,a[1]+nz],[b[0]+nx,y,b[1]+nz],[b[0]-nx,y,b[1]-nz],col);}
 const DIGITS:Record<string,string[]>={'0':['a','b','c','d','e','f'],'2':['a','b','g','e','d'],'7':['a','b','c'],'9':['a','b','c','d','f','g'],'R':['a','b','e','f','g','h'],'L':['f','e','d']};
@@ -52,7 +59,7 @@ export function drawAirfieldTile(airfields:Airfield[],i:number,j:number,B:Record
         if(f.kind==='hangar')for(let k=1;k<f.pts.length;k++){const p=f.pts[k-1],q=f.pts[k];if(owns((p[0]+q[0])/2,(p[1]+q[1])/2))B.st.quad([p[0],0,p[1]],[q[0],0,q[1]],[q[0],top,q[1]],[p[0],top,p[1]],'#adb7bd');}
       }else if(f.kind==='taxiway')for(let k=1;k<f.pts.length;k++){
         const p=f.pts[k-1],q=f.pts[k],L=Math.hypot(q[0]-p[0],q[1]-p[1]),n=Math.max(1,Math.ceil(L/30));
-        for(let s=0;s<n;s++){const u=s/n,v=(s+1)/n,x:AirPoint=[p[0]+(q[0]-p[0])*u,p[1]+(q[1]-p[1])*u],z:AirPoint=[p[0]+(q[0]-p[0])*v,p[1]+(q[1]-p[1])*v];if(!owns((x[0]+z[0])/2,(x[1]+z[1])/2))continue;strip(B.road,x,z,Math.max(12,Math.min(35,parseFloat(f.width||'')||23)),.13,'#626369');strip(B.marks,x,z,.24,.145,'#e9c544');}
+        for(let s=0;s<n;s++){const u=s/n,v=(s+1)/n,x:AirPoint=[p[0]+(q[0]-p[0])*u,p[1]+(q[1]-p[1])*u],z:AirPoint=[p[0]+(q[0]-p[0])*v,p[1]+(q[1]-p[1])*v];if(!owns((x[0]+z[0])/2,(x[1]+z[1])/2))continue;strip(B.road,x,z,airportTaxiwayWidth(f),.13,'#626369');strip(B.marks,x,z,.24,.145,'#e9c544');}
       }
     }
     for(const r of a.runways){const[p,q]=r.ends,dx=q[0]-p[0],dz=q[1]-p[1],L=Math.hypot(dx,dz),hx=dx/L,hz=dz/L,n=Math.ceil(L/30);const point=(s:number,cross=0):AirPoint=>[p[0]+hx*s-hz*cross,p[1]+hz*s+hx*cross];

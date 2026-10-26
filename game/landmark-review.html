@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import { initTemplates, TiledBatch } from '/src/core/util.ts';
 import { Kit, placeLandmarks, drawLandmark } from '/src/world/landmarks.ts';
 import { drawIndianFlag } from '/src/world/indian_flag.ts';
+import { drawLionCapital, drawFurledNishanSahib } from '/src/world/landmark_symbols.ts';
 initTemplates();
 const st = new TiledBatch();
 drawIndianFlag(new Kit(0,0,0,{B:{st},obstacle(){},solid(){},road(){return false},roadY(){return null}}),1,0,20,30);
@@ -19,6 +20,20 @@ for(const [label,z] of [['Front face',55],['Reverse face',-55]]) {
  const camera=new THREE.OrthographicCamera(-19,19,12.692,-12.692,.1,100);camera.position.set(16,10,z);camera.lookAt(16,10,0);renderer.render(scene,camera);
 }
 const catalogue=placeLandmarks({lat:17.4063,lon:78.4966});
+for(const [label,draw,span,cy] of [
+ ['Secretariat lion capital — source-backed basic form',K=>drawLionCapital(K,0,0,0),3.2,2.3],
+ ['Central Gurdwara — observed folded cloth and spearhead',K=>drawFurledNishanSahib(K,0,0,18),2.3,16.7],
+ ['Golconda summit — visible terrace and open arcades',K=>drawLandmark({...catalogue.find(p=>p.id==='golconda'),x:0,z:0,rot:0},K.k),28,86]
+]) {
+ const B=Object.fromEntries(['st','wall','park','water','roof','lit','glow','road','marks','foot','kerb','shop'].map(k=>[k,new TiledBatch()]));
+ draw(new Kit(0,0,0,{B,obstacle(){},solid(){},road(){return false},roadY(){return null}}));
+ const scene=new THREE.Scene();scene.background=new THREE.Color('#cbd4d9');scene.add(new THREE.AmbientLight('#ffffff',1.8));
+ const light=new THREE.DirectionalLight('#ffffff',2.3);light.position.set(-30,60,-50);scene.add(light);
+ const material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.8});for(const batch of Object.values(B))for(const mesh of batch.meshes(material))scene.add(mesh);
+ const figure=document.createElement('figure'),caption=document.createElement('figcaption');caption.textContent=label;document.querySelector('main').append(figure);figure.append(caption);
+ const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(500,334);renderer.setPixelRatio(1);figure.append(renderer.domElement);
+ const camera=new THREE.OrthographicCamera(-span,span,span*334/500,-span*334/500,.1,400);camera.position.set(65,cy+32,-85);camera.lookAt(0,cy,0);renderer.render(scene,camera);
+}
 for(const id of ['charminar','jagannath','gurudwara','thalli','buddha']) {
  const model=catalogue.find(p=>p.id===id),B=Object.fromEntries(['st','wall','park','water','roof','lit','glow','road','marks','foot','kerb','shop'].map(k=>[k,new TiledBatch()]));
  drawLandmark({...model,x:0,z:0,rot:0},{B,obstacle(){},solid(){},road(){return false},roadY(){return null},sign(){}});

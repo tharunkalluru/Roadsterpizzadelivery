@@ -1,43 +1,18 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "method": "All canonical public source nodes resolved against their shipped tile plus80m context and the exact runtime road-grade patches; not a road survey or browser test.",
   "sourceDataTimestamp": "2026-10-26T13:23:20Z",
   "canonicalSourceNodes": 268,
   "tilesVisited": 110,
   "packsVisited": 43,
-  "controllers": 173,
-  "resolvedSourceNodes": 266,
-  "unresolvedSourceNodes": 2,
-  "approaches": 368,
+  "controllers": 175,
+  "resolvedSourceNodes": 268,
+  "unresolvedSourceNodes": 0,
+  "approaches": 376,
   "raisedApproaches": 5,
   "buriedHeadPoles": 0,
   "buried": [],
-  "unresolved": [
-    {
-      "id": "osm:n4322167205",
-      "p": [
-        -14714.752,
-        -1408.944
-      ],
-      "name": null,
-      "reasons": [
-        "no-matching-ground-road-within-14m"
-      ],
-      "sourceURL": "https://www.openstreetmap.org/node/4322167205"
-    },
-    {
-      "id": "osm:n701208131",
-      "p": [
-        -14147.601,
-        -3561.848
-      ],
-      "name": null,
-      "reasons": [
-        "no-matching-ground-road-within-14m"
-      ],
-      "sourceURL": "https://www.openstreetmap.org/node/701208131"
-    }
-  ],
+  "unresolved": [],
   "controllersByTile": [
     {
       "id": "signal:6eb7354b-43d",
@@ -49,22 +24,30 @@
       "sourceIds": [
         "osm:n2582234636"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 1.67,
+      "phaseGreens": [
+        20.4,
+        15.6
+      ],
+      "offset": 37.508980605998886,
       "approaches": [
         {
           "edge": "63d29705-cef_0",
           "dir": 1,
           "y": 0,
           "stopS": 54.430848622031206,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "d036e0fd-7ac_2",
           "dir": 1,
           "y": 0,
           "stopS": 33.83856715353185,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.65
         }
       ]
     },
@@ -79,29 +62,38 @@
         "osm:n1042219300",
         "osm:n6132320778"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 97.36,
+      "phaseGreens": [
+        18.6,
+        17.4
+      ],
+      "offset": 4.884787859093649,
       "approaches": [
         {
           "edge": "183036cb-858_0",
           "dir": 1,
           "y": 0,
           "stopS": 57.498577668011094,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "4840a9a6-abe_0",
           "dir": 1,
           "y": 0,
           "stopS": 7.730692077685978,
-          "phase": 1
+          "phase": 1,
+          "priority": 2.75
         },
         {
           "edge": "beab56d8-76c_0",
           "dir": 1,
           "y": 0,
           "stopS": 242.76419511406954,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -115,22 +107,30 @@
       "sourceIds": [
         "osm:n6132294957"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 81.43,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 4.11293879166351,
       "approaches": [
         {
           "edge": "6d7fa041-da0_0",
           "dir": 1,
           "y": 0,
           "stopS": 20.34641503068785,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "38dab4b1-971_1",
           "dir": 1,
           "y": 0,
           "stopS": 4.696300660871684,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -144,15 +144,22 @@
       "sourceIds": [
         "osm:n4331884701"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 88.86,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 29.06990348218187,
       "approaches": [
         {
           "edge": "8743e2b0-bc2_0",
           "dir": 1,
           "y": 0,
           "stopS": 120.25290980133964,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -166,22 +173,30 @@
       "sourceIds": [
         "osm:n1310963249"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 68.64,
+      "phaseGreens": [
+        12.9,
+        23.1
+      ],
+      "offset": 25.35917434912824,
       "approaches": [
         {
           "edge": "eb1e9b0e-bcd_0",
           "dir": 1,
           "y": 0,
           "stopS": 63.56853787542673,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "cd977c9a-51b_0",
           "dir": 1,
           "y": 0,
           "stopS": 155.36575458835074,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -195,15 +210,22 @@
       "sourceIds": [
         "osm:n4331878184"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 60.41,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 31.888592999516646,
       "approaches": [
         {
           "edge": "4e2b4a60-9b3_0",
           "dir": 1,
           "y": 0,
           "stopS": 33.14083172509305,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.199999999999999
         }
       ]
     },
@@ -217,15 +239,22 @@
       "sourceIds": [
         "osm:n4331884704"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 39.38,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 29.918230063120518,
       "approaches": [
         {
           "edge": "bdccd522-129_0",
           "dir": 1,
           "y": 0,
           "stopS": 37.75640749645241,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.199999999999999
         }
       ]
     },
@@ -240,29 +269,38 @@
         "osm:n1302011992",
         "osm:n6152008128"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 50.18,
+      "phaseGreens": [
+        21,
+        15
+      ],
+      "offset": 45.974756061368,
       "approaches": [
         {
           "edge": "e2f4ae80-f0c_1",
           "dir": 1,
           "y": 0,
           "stopS": 69.31946036907075,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "e8057b73-b32_1",
           "dir": 1,
           "y": 0,
           "stopS": 103.88560282674061,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "a7f55934-01b_5",
           "dir": 1,
           "y": 0,
           "stopS": 149.04225852091383,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -277,15 +315,22 @@
         "osm:n4331878172",
         "osm:n4331878177"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 29.72,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 19.08560164833432,
       "approaches": [
         {
           "edge": "65dd19f2-938_0",
           "dir": 1,
           "y": 0,
           "stopS": 14.366480297357501,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -300,81 +345,170 @@
         "osm:n4331878160",
         "osm:n4331878163"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 87.21,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 2.3805913616685075,
       "approaches": [
         {
           "edge": "566c2075-f52_8",
           "dir": 1,
           "y": 0,
           "stopS": 91.92690557205077,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
     {
-      "id": "signal:4026b5ee-537",
+      "id": "signal:11297acb-e5b",
       "tile": "-15_-4",
       "p": [
-        -14159.8,
-        -3633.4
+        -14111,
+        -3557.5
       ],
       "sourceIds": [
-        "osm:n2233905588"
+        "osm:n701228140"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 68.26,
+      "phaseGreens": [
+        15.5,
+        20.5
+      ],
+      "offset": 39.76178082194474,
       "approaches": [
         {
-          "edge": "4814962d-106_0",
+          "edge": "7f178bcb-da7_0",
           "dir": 1,
           "y": 0,
-          "stopS": 37.570988071919004,
-          "phase": 0
+          "stopS": 28.35274658366826,
+          "phase": 1,
+          "priority": 23.400000000000002
+        },
+        {
+          "edge": "2a9ef84f-08d_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 32.8103212091208,
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
     {
-      "id": "signal:osm:n2233905584",
+      "id": "signal:7209d408-668",
       "tile": "-15_-4",
       "p": [
-        -14095.983,
-        -3605.93
+        -14095.9,
+        -3592.3
       ],
       "sourceIds": [
         "osm:n2233905584"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 15.63,
+      "phaseGreens": [
+        20.5,
+        15.5
+      ],
+      "offset": 18.481756919427426,
       "approaches": [
         {
           "edge": "10c3a2cb-010_0",
           "dir": 1,
           "y": 0,
-          "stopS": 61.856941640713615,
-          "phase": 0
+          "stopS": 69.18549314276332,
+          "phase": 1,
+          "priority": 13.16
+        },
+        {
+          "edge": "c24387d4-f30_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 18.326846361563383,
+          "phase": 0,
+          "priority": 23.400000000000002
         }
       ]
     },
     {
-      "id": "signal:osm:n701228140",
+      "id": "signal:a6b5b84e-bf2",
       "tile": "-15_-4",
       "p": [
-        -14101.02,
-        -3550.571
+        -14124,
+        -3603.6
       ],
       "sourceIds": [
-        "osm:n701228140"
+        "osm:n2233905588"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 67.35,
+      "phaseGreens": [
+        20.5,
+        15.5
+      ],
+      "offset": 36.58285623609322,
       "approaches": [
         {
-          "edge": "2a9ef84f-08d_0",
+          "edge": "9eabfc9a-638_0",
           "dir": 1,
           "y": 0,
-          "stopS": 26.959703059297446,
-          "phase": 0
+          "stopS": 38.53642190565057,
+          "phase": 1,
+          "priority": 13.16
+        },
+        {
+          "edge": "c7848b8f-0e2_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 20.566850248747944,
+          "phase": 0,
+          "priority": 23.400000000000002
+        }
+      ]
+    },
+    {
+      "id": "signal:d2713194-a06",
+      "tile": "-15_-4",
+      "p": [
+        -14140.4,
+        -3575.2
+      ],
+      "sourceIds": [
+        "osm:n701208131"
+      ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
+      "phaseCount": 2,
+      "phaseGreens": [
+        16.7,
+        19.3
+      ],
+      "offset": 30.460283113643754,
+      "approaches": [
+        {
+          "edge": "17f6d107-d8a_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 15.26650899316639,
+          "phase": 0,
+          "priority": 23.400000000000002
+        },
+        {
+          "edge": "56d0c5fa-0aa_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 33.38087601262562,
+          "phase": 1,
+          "priority": 31.5
         }
       ]
     },
@@ -388,22 +522,30 @@
       "sourceIds": [
         "osm:n10727855887"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 22.3,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 39.8631440556959,
       "approaches": [
         {
           "edge": "876a9568-c1f_0",
           "dir": 1,
           "y": 0,
           "stopS": 4.226061996705714,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.3
         },
         {
           "edge": "a5ededf6-268_0",
           "dir": -1,
           "y": 0,
           "stopS": 7.98653148458037,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -417,29 +559,38 @@
       "sourceIds": [
         "osm:n3158978743"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 64.73,
+      "phaseGreens": [
+        13.8,
+        22.2
+      ],
+      "offset": 29.813099282955307,
       "approaches": [
         {
           "edge": "fcc4c1c0-934_0",
           "dir": 1,
           "y": 0,
           "stopS": 157.49347270743877,
-          "phase": 0
+          "phase": 0,
+          "priority": 1.575
         },
         {
           "edge": "799709a2-341_2",
           "dir": 1,
           "y": 0,
           "stopS": 16.48098729676743,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "de56be8c-4c4_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.252967295612527,
-          "phase": 0
+          "phase": 0,
+          "priority": 1.575
         }
       ]
     },
@@ -454,29 +605,38 @@
         "osm:n3158978741",
         "osm:n3158978742"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 45.89,
+      "phaseGreens": [
+        19.5,
+        16.5
+      ],
+      "offset": 14.483087867765335,
       "approaches": [
         {
           "edge": "545b8225-8a8_3",
           "dir": 1,
           "y": 0,
           "stopS": 91.24000282822996,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "799709a2-341_3",
           "dir": 1,
           "y": 0,
           "stopS": 59.10614586355748,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "04946f34-6eb_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.007495318350183,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -492,36 +652,48 @@
         "osm:n2857520122",
         "osm:n3155747482"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 4,
-      "offset": 48.26,
+      "phaseGreens": [
+        18.2,
+        22.8,
+        18.2,
+        12.8
+      ],
+      "offset": 5.427677387155114,
       "approaches": [
         {
           "edge": "c0daa999-338_0",
           "dir": 1,
           "y": 0,
           "stopS": 40.71453080576957,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "59996b36-d8b_0",
           "dir": 1,
           "y": 0,
           "stopS": 4.947726750741193,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "ca00c67d-538_3",
           "dir": 1,
           "y": 0,
           "stopS": 113.40838169202341,
-          "phase": 3
+          "phase": 3,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "85919686-1b4_0",
           "dir": 1,
           "y": 0,
           "stopS": 75.76405076702727,
-          "phase": 2
+          "phase": 2,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -536,29 +708,38 @@
         "osm:n308783191",
         "osm:n3180193628"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 38.82,
+      "phaseGreens": [
+        17.2,
+        18.8
+      ],
+      "offset": 43.06225649813,
       "approaches": [
         {
           "edge": "2909cb86-16c_0",
           "dir": 1,
           "y": 0,
           "stopS": 134.2842320716351,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "8d99f86a-a0b_0",
           "dir": 1,
           "y": 0,
           "stopS": 7.532330316708073,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "b6e12593-136_0",
           "dir": 1,
           "y": 0,
           "stopS": 47.66866078120181,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -572,22 +753,30 @@
       "sourceIds": [
         "osm:n3159005261"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 14.21,
+      "phaseGreens": [
+        12.9,
+        23.1
+      ],
+      "offset": 28.67609273789239,
       "approaches": [
         {
           "edge": "8f1f881a-900_0",
           "dir": 1,
           "y": 0,
           "stopS": 109.27946097723009,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "7c84cbfb-bb9_0",
           "dir": -1,
           "y": 0,
           "stopS": 41.151990499836785,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -601,22 +790,30 @@
       "sourceIds": [
         "osm:n308783170"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 13.21,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 40.415307110088506,
       "approaches": [
         {
           "edge": "cc639bc8-c66_0",
           "dir": 1,
           "y": 0,
           "stopS": 57.745553029122874,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "01ee5cc4-601_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.9909655985421555,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -634,36 +831,47 @@
         "osm:n3180189266",
         "osm:n3224357972"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 3,
-      "offset": 30.23,
+      "phaseGreens": [
+        15.7,
+        22.5,
+        15.7
+      ],
+      "offset": 64.77809388178412,
       "approaches": [
         {
           "edge": "20f987a7-452_1",
           "dir": 1,
           "y": 0,
           "stopS": 41.877363027026014,
-          "phase": 2
+          "phase": 2,
+          "priority": 8.739999999999998
         },
         {
           "edge": "fd821a82-dc7_0",
           "dir": 1,
           "y": 0,
           "stopS": 34.56777315211789,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "22216740-b65_0",
           "dir": 1,
           "y": 0,
           "stopS": 41.23289442261722,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "5229bc6b-b2f_0",
           "dir": 1,
           "y": 0,
           "stopS": 30.610948001402207,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -677,15 +885,22 @@
       "sourceIds": [
         "osm:n3204264648"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 48.47,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 16.844316633455946,
       "approaches": [
         {
           "edge": "a26a97c7-0bd_0",
           "dir": 1,
           "y": 0,
           "stopS": 52.82043759470034,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -700,29 +915,39 @@
         "osm:n3158888596",
         "osm:n3158888597"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 3,
-      "offset": 80.59,
+      "phaseGreens": [
+        15.9,
+        15.9,
+        22.2
+      ],
+      "offset": 29.24486565383728,
       "approaches": [
         {
           "edge": "1890cdfc-2ff_0",
           "dir": 1,
           "y": 0,
           "stopS": 49.099289515943276,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "3fbcc494-2b2_0",
           "dir": 1,
           "y": 0,
           "stopS": 242.152393311711,
-          "phase": 2
+          "phase": 2,
+          "priority": 16.740000000000002
         },
         {
           "edge": "5d2c058b-ffa_0",
           "dir": 1,
           "y": 0,
           "stopS": 33.52591312665653,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -736,22 +961,30 @@
       "sourceIds": [
         "osm:n3098505687"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 20.57,
+      "phaseGreens": [
+        19.1,
+        16.9
+      ],
+      "offset": 9.336162674146351,
       "approaches": [
         {
           "edge": "903db5d8-fdf_0",
           "dir": 1,
           "y": 0,
           "stopS": 80.76524654024752,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "d8c9ece8-817_0",
           "dir": 1,
           "y": 0,
           "stopS": 28.77068250673039,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -767,43 +1000,56 @@
         "osm:n5486709296",
         "osm:n682850555"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 4,
-      "offset": 69.86,
+      "phaseGreens": [
+        28,
+        12.1,
+        12.1,
+        14.1
+      ],
+      "offset": 24.25267448068601,
       "approaches": [
         {
           "edge": "c222aa15-e39_0",
           "dir": 1,
           "y": 0,
           "stopS": 4.412754241967281,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.3
         },
         {
           "edge": "8cd63408-b12_0",
           "dir": 1,
           "y": 0,
           "stopS": 4.827297380522544,
-          "phase": 2
+          "phase": 2,
+          "priority": 3.3
         },
         {
           "edge": "10880150-717_0",
           "dir": 1,
           "y": 0,
           "stopS": 33.894182749499954,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "041673bb-875_0",
           "dir": 1,
           "y": 0,
           "stopS": 24.89000638958754,
-          "phase": 3
+          "phase": 3,
+          "priority": 5.49
         },
         {
           "edge": "527313f3-c3f_0",
           "dir": 1,
           "y": 0,
           "stopS": 5.559316504751379,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -818,22 +1064,30 @@
         "osm:n6372012805",
         "osm:n6372012809"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 60.11,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 36.096652999577714,
       "approaches": [
         {
           "edge": "138aa68b-ef3_3",
           "dir": 1,
           "y": 1.0160246755967577,
           "stopS": 46.14776966685813,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "262739dc-c1d_0",
           "dir": 1,
           "y": 1.2256949265470825,
           "stopS": 7.058611761529391,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -847,15 +1101,22 @@
       "sourceIds": [
         "osm:n11178319334"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 14.35,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 33.88174174470565,
       "approaches": [
         {
           "edge": "81a45cc1-38a_1",
           "dir": 1,
           "y": 0,
           "stopS": 266.0342015780665,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -869,15 +1130,22 @@
       "sourceIds": [
         "osm:n12294255231"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 75.14,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 31.576095653242362,
       "approaches": [
         {
           "edge": "eec6f2b7-e6a_1",
           "dir": 1,
           "y": 0,
           "stopS": 0,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -891,22 +1159,30 @@
       "sourceIds": [
         "osm:n289895020"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 73.74,
+      "phaseGreens": [
+        15.2,
+        20.8
+      ],
+      "offset": 16.016025786585203,
       "approaches": [
         {
           "edge": "db2e088a-b7f_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.24057689640946,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "81a45cc1-38a_3",
           "dir": 1,
           "y": 0,
           "stopS": 59.040031856676265,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -920,29 +1196,38 @@
       "sourceIds": [
         "osm:n308795901"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 40.32,
+      "phaseGreens": [
+        20.7,
+        15.3
+      ],
+      "offset": 44.14340544238405,
       "approaches": [
         {
           "edge": "aaa4a699-1cd_0",
           "dir": -1,
           "y": 0,
           "stopS": 154.32141211115174,
-          "phase": 0
+          "phase": 0,
+          "priority": 12.075
         },
         {
           "edge": "dec01a04-42b_0",
           "dir": 1,
           "y": 0,
           "stopS": 90.51895552270894,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "6638f164-db5_0",
           "dir": 1,
           "y": 0,
           "stopS": 15.52188516717202,
-          "phase": 0
+          "phase": 0,
+          "priority": 12.075
         }
       ]
     },
@@ -957,29 +1242,38 @@
         "osm:n3191273363",
         "osm:n6432129578"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 4.63,
+      "phaseGreens": [
+        18.2,
+        17.8
+      ],
+      "offset": 36.31410427988396,
       "approaches": [
         {
           "edge": "885b96a5-af0_0",
           "dir": 1,
           "y": 0,
           "stopS": 209.67152449521745,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "6fdb5a39-01f_0",
           "dir": 1,
           "y": 0,
           "stopS": 5.882754456885008,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "4c5f6856-b6e_0",
           "dir": 1,
           "y": 0,
           "stopS": 105.30467607985516,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -993,22 +1287,30 @@
       "sourceIds": [
         "osm:n364672163"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 56.25,
+      "phaseGreens": [
+        20.8,
+        15.2
+      ],
+      "offset": 42.53197227064919,
       "approaches": [
         {
           "edge": "08d18877-9a5_0",
           "dir": 1,
           "y": 0,
           "stopS": 98.9947267994037,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "8c7b2722-060_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.226138450114889,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -1022,15 +1324,22 @@
       "sourceIds": [
         "osm:n11448947662"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 96.62,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 24.70121768101012,
       "approaches": [
         {
           "edge": "ee6e46e0-29a_0",
           "dir": 1,
           "y": 0,
           "stopS": 181.01279827262286,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -1044,15 +1353,22 @@
       "sourceIds": [
         "osm:n11448947664"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 41.32,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 15.473596050507922,
       "approaches": [
         {
           "edge": "1dd3733d-a32_0",
           "dir": 1,
           "y": 0,
           "stopS": 327.40517399162377,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         }
       ]
     },
@@ -1066,15 +1382,22 @@
       "sourceIds": [
         "osm:n11448947665"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 72.3,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 40.88916282643709,
       "approaches": [
         {
           "edge": "c730c28c-b7b_0",
           "dir": 1,
           "y": 0,
           "stopS": 184.42719195973174,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -1088,15 +1411,22 @@
       "sourceIds": [
         "osm:n11448947663"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 35.13,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 13.53527454644427,
       "approaches": [
         {
           "edge": "2296e153-c05_8",
           "dir": 1,
           "y": 0,
           "stopS": 257.62857412255846,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         }
       ]
     },
@@ -1111,29 +1441,38 @@
         "osm:n11463460330",
         "osm:n1311044366"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 42.76,
+      "phaseGreens": [
+        22.7,
+        13.3
+      ],
+      "offset": 3.5232467572282076,
       "approaches": [
         {
           "edge": "751b20e8-968_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.005397572184097,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "520cb318-977_3",
           "dir": 1,
           "y": 0,
           "stopS": 79.94682876948427,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         },
         {
           "edge": "d1821a50-7b6_2",
           "dir": 1,
           "y": 0,
           "stopS": 36.46685498494983,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -1149,36 +1488,46 @@
         "osm:n3670021761",
         "osm:n6497393421"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 22.36,
+      "phaseGreens": [
+        15.9,
+        20.1
+      ],
+      "offset": 2.748630610217333,
       "approaches": [
         {
           "edge": "47ee62d6-41b_1",
           "dir": 1,
           "y": 0,
           "stopS": 45.09147759172227,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "70413503-eb3_0",
           "dir": 1,
           "y": 0,
           "stopS": 8.97737973711325,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "d38076aa-ecb_2",
           "dir": 1,
           "y": 0,
           "stopS": 149.72473854220414,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "8a2c3cbc-814_0",
           "dir": 1,
           "y": 0,
           "stopS": 282.789870923638,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         }
       ]
     },
@@ -1192,22 +1541,30 @@
       "sourceIds": [
         "osm:n2817731874"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 87.37,
+      "phaseGreens": [
+        23.8,
+        12.2
+      ],
+      "offset": 15.136142227288019,
       "approaches": [
         {
           "edge": "9d71f50c-957_3",
           "dir": 1,
           "y": 0,
           "stopS": 9.0165422880216,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "af677e5a-ab1_2",
           "dir": 1,
           "y": 0,
           "stopS": 35.729892329885814,
-          "phase": 1
+          "phase": 1,
+          "priority": 1.9249999999999998
         }
       ]
     },
@@ -1224,36 +1581,46 @@
         "osm:n11463460333",
         "osm:n3372041270"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 59.64,
+      "phaseGreens": [
+        15.9,
+        20.1
+      ],
+      "offset": 2.147338082117244,
       "approaches": [
         {
           "edge": "012a9f8d-36d_2",
           "dir": 1,
           "y": 0,
           "stopS": 339.70841505036975,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "295a5b4f-f03_9",
           "dir": 1,
           "y": 0,
           "stopS": 38.91883785771118,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "554d58f8-1fc_1",
           "dir": 1,
           "y": 0,
           "stopS": 56.879197936385005,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "63c0e325-ac8_7",
           "dir": 1,
           "y": 0,
           "stopS": 154.2741753598651,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         }
       ]
     },
@@ -1270,36 +1637,46 @@
         "osm:n11463460362",
         "osm:n12290581375"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 21.86,
+      "phaseGreens": [
+        17.4,
+        18.6
+      ],
+      "offset": 40.43586243484094,
       "approaches": [
         {
           "edge": "41d0e123-125_10",
           "dir": 1,
           "y": 0,
           "stopS": 38.731997478278046,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.65
         },
         {
           "edge": "78f4c92e-857_2",
           "dir": 1,
           "y": 0,
           "stopS": 165.56698663167464,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "7c022c9a-674_1",
           "dir": 1,
           "y": 0,
           "stopS": 160.37447290114207,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "be8d465b-ca9_0",
           "dir": -1,
           "y": 0,
           "stopS": 98.17338460300262,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.65
         }
       ]
     },
@@ -1314,36 +1691,46 @@
         "osm:n3372041211",
         "osm:n701248984"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 98.13,
+      "phaseGreens": [
+        17.9,
+        18.1
+      ],
+      "offset": 16.476417501605738,
       "approaches": [
         {
           "edge": "8850079e-f56_0",
           "dir": 1,
           "y": 0,
           "stopS": 363.08767676409724,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "b6ad386e-fea_0",
           "dir": -1,
           "y": 0,
           "stopS": 34.35792001575879,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "8e69807e-f66_2",
           "dir": 1,
           "y": 0,
           "stopS": 168.57351710044318,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "a0374084-c63_0",
           "dir": 1,
           "y": 0,
           "stopS": 204.10040745554699,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.65
         }
       ]
     },
@@ -1357,15 +1744,22 @@
       "sourceIds": [
         "osm:n12290589102"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 99.63,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 44.93059502743631,
       "approaches": [
         {
           "edge": "14aeb739-681_8",
           "dir": 1,
           "y": 0,
           "stopS": 100.51243484434404,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -1379,15 +1773,22 @@
       "sourceIds": [
         "osm:n12290589103"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 7.62,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 41.315246605996435,
       "approaches": [
         {
           "edge": "766c1b12-992_7",
           "dir": 1,
           "y": 0,
           "stopS": 12.404443895883043,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -1401,15 +1802,22 @@
       "sourceIds": [
         "osm:n12290589101"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 61.08,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 40.226781202250436,
       "approaches": [
         {
           "edge": "ed3d6680-50c_5",
           "dir": 1,
           "y": 0,
           "stopS": 154.3227039598449,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -1423,45 +1831,69 @@
       "sourceIds": [
         "osm:n2212440900"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 74.82,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 45.61352755814397,
       "approaches": [
         {
           "edge": "4d92ff42-02c_7",
           "dir": 1,
           "y": 0,
           "stopS": 156.2632780877034,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
     {
-      "id": "signal:95fff3ee-2d8",
+      "id": "signal:95fff3ee-2d8+cd700d9b-2e2",
       "tile": "-16_-2",
       "p": [
-        -15008.7,
-        -1425.3
+        -15019.6,
+        -1421.6
       ],
       "sourceIds": [
         "osm:n1700616746",
         "osm:n4322167214"
       ],
-      "phaseCount": 2,
-      "offset": 57.49,
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
+      "phaseCount": 3,
+      "phaseGreens": [
+        18,
+        18,
+        18
+      ],
+      "offset": 46.241111934408195,
       "approaches": [
+        {
+          "edge": "83979083-4ff_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 109.77564111467467,
+          "phase": 0,
+          "priority": 8.775
+        },
         {
           "edge": "8a6f2e9e-a14_0",
           "dir": 1,
           "y": 0,
           "stopS": 18.928213807544147,
-          "phase": 0
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "e0f1b463-577_0",
           "dir": 1,
           "y": 0,
           "stopS": 286.63706351426856,
-          "phase": 1
+          "phase": 2,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -1475,29 +1907,38 @@
       "sourceIds": [
         "osm:n11644692878"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 10.04,
+      "phaseGreens": [
+        15,
+        21
+      ],
+      "offset": 41.19204909849918,
       "approaches": [
         {
           "edge": "14744d52-141_0",
           "dir": 1,
           "y": 0,
           "stopS": 65.5443123150265,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "7c381ca6-24a_0",
           "dir": -1,
           "y": 0,
           "stopS": 16.408409562599104,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "89315bd0-ed2_0",
           "dir": -1,
           "y": 0,
           "stopS": 28.715278435747933,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -1513,29 +1954,38 @@
         "osm:n5598656540",
         "osm:n671153303"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 99.91,
+      "phaseGreens": [
+        21,
+        15
+      ],
+      "offset": 13.056369830855715,
       "approaches": [
         {
           "edge": "1a819143-ccb_0",
           "dir": 1,
           "y": 0,
           "stopS": 45.88808963240129,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "7131adeb-ea9_0",
           "dir": 1,
           "y": 0,
           "stopS": 39.47589508864685,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "4fe16eb5-41a_0",
           "dir": 1,
           "y": 0,
           "stopS": 36.47743477614851,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -1552,36 +2002,47 @@
         "osm:n4333720132",
         "osm:n4333720153"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 3,
-      "offset": 27.53,
+      "phaseGreens": [
+        14,
+        19,
+        21
+      ],
+      "offset": 28.74736914711366,
       "approaches": [
         {
           "edge": "4f49cafc-d55_0",
           "dir": 1,
           "y": 0,
           "stopS": 18.546561383819377,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "b06919d6-e7c_1",
           "dir": 1,
           "y": 0,
           "stopS": 77.77769574448504,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         },
         {
           "edge": "8d99f730-6ce_0",
           "dir": 1,
           "y": 0,
           "stopS": 46.56174614821941,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         },
         {
           "edge": "90934736-d48_0",
           "dir": 1,
           "y": 0,
           "stopS": 60.956446793251274,
-          "phase": 2
+          "phase": 2,
+          "priority": 13.16
         }
       ]
     },
@@ -1596,22 +2057,30 @@
         "osm:n4333720086",
         "osm:n4333720092"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 57.07,
+      "phaseGreens": [
+        13.4,
+        22.6
+      ],
+      "offset": 26.984338041425463,
       "approaches": [
         {
           "edge": "bae7e753-56c_0",
           "dir": 1,
           "y": 0,
           "stopS": 4.632062175748503,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         },
         {
           "edge": "878ede9c-8ec_0",
           "dir": 1,
           "y": 0,
           "stopS": 125.70465065818478,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         }
       ]
     },
@@ -1625,29 +2094,38 @@
       "sourceIds": [
         "osm:n307055835"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 87.14,
+      "phaseGreens": [
+        14,
+        22
+      ],
+      "offset": 31.60009047800076,
       "approaches": [
         {
           "edge": "1176f39e-b28_0",
           "dir": -1,
           "y": 0,
           "stopS": 16.11372986032055,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "b90ddcc7-ed5_0",
           "dir": -1,
           "y": 0,
           "stopS": 4.579301256742072,
-          "phase": 0
+          "phase": 0,
+          "priority": 2.75
         },
         {
           "edge": "5f63b3af-97f_0",
           "dir": 1,
           "y": 0,
           "stopS": 109.65158475102798,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -1663,36 +2141,47 @@
         "osm:n306605263",
         "osm:n3894159568"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 3,
-      "offset": 99.15,
+      "phaseGreens": [
+        17.1,
+        19.8,
+        17.1
+      ],
+      "offset": 5.708895009959235,
       "approaches": [
         {
           "edge": "35bc3227-7c8_0",
           "dir": 1,
           "y": 0,
           "stopS": 55.53153900417173,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "5bf2633f-67c_1",
           "dir": 1,
           "y": 0,
           "stopS": 72.17895952134207,
-          "phase": 2
+          "phase": 2,
+          "priority": 13.16
         },
         {
           "edge": "2e1312ee-dca_0",
           "dir": 1,
           "y": 0,
           "stopS": 9.540754687130079,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "e2e87a30-5ef_0",
           "dir": 1,
           "y": 0,
           "stopS": 24.367411371763176,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -1707,29 +2196,38 @@
         "osm:n3224370213",
         "osm:n3224370215"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 87.16,
+      "phaseGreens": [
+        15,
+        21
+      ],
+      "offset": 10.884245266407106,
       "approaches": [
         {
           "edge": "472578bf-6b4_0",
           "dir": 1,
           "y": 0,
           "stopS": 19.842740935597256,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "83cb5605-673_0",
           "dir": 1,
           "y": 0,
           "stopS": 99.74847748167893,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "c6a84949-118_0",
           "dir": 1,
           "y": 0,
           "stopS": 8.223556830525371,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -1745,29 +2243,38 @@
         "osm:n12290566790",
         "osm:n12290566791"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 57.14,
+      "phaseGreens": [
+        24.8,
+        12
+      ],
+      "offset": 19.710336181298402,
       "approaches": [
         {
           "edge": "5d5abbdb-e10_0",
           "dir": 1,
           "y": 0,
           "stopS": 174.06144592647811,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "946bf4a7-4df_0",
           "dir": -1,
           "y": 0,
           "stopS": 15.305741484454828,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "b9a1f6a8-1a5_0",
           "dir": 1,
           "y": 0,
           "stopS": 33.72900031795228,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -1781,22 +2288,30 @@
       "sourceIds": [
         "osm:n1692848738"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 0.8,
+      "phaseGreens": [
+        23.9,
+        12.1
+      ],
+      "offset": 7.394215768772938,
       "approaches": [
         {
           "edge": "ff795def-0e1_6",
           "dir": 1,
           "y": 0,
           "stopS": 50.61731184010796,
-          "phase": 1
+          "phase": 1,
+          "priority": 2.75
         },
         {
           "edge": "f171c6b2-cc3_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.777656833569852,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -1810,15 +2325,22 @@
       "sourceIds": [
         "osm:n12290574119"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 48.22,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 25.84030284303458,
       "approaches": [
         {
           "edge": "b78e1f3e-145_2",
           "dir": 1,
           "y": 0,
           "stopS": 278.5017911620673,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -1832,15 +2354,22 @@
       "sourceIds": [
         "osm:n12290574118"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 99.34,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 17.92397030848224,
       "approaches": [
         {
           "edge": "f171c6b2-cc3_1",
           "dir": 1,
           "y": 0,
           "stopS": 44.80022967289284,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -1854,15 +2383,22 @@
       "sourceIds": [
         "osm:n12290574120"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 20.45,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 13.695320548057225,
       "approaches": [
         {
           "edge": "a1a9820b-b0e_0",
           "dir": 1,
           "y": 0,
           "stopS": 106.08843739650499,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -1876,15 +2412,22 @@
       "sourceIds": [
         "osm:n12319493479"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 62.74,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 17.548232588821293,
       "approaches": [
         {
           "edge": "17e5e7b9-113_0",
           "dir": 1,
           "y": 0,
           "stopS": 4.256195484232551,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -1898,22 +2441,30 @@
       "sourceIds": [
         "osm:n3157569988"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 29.3,
+      "phaseGreens": [
+        16.9,
+        19.1
+      ],
+      "offset": 23.854452585402175,
       "approaches": [
         {
           "edge": "36912ed7-299_0",
           "dir": 1,
           "y": 0,
           "stopS": 11.091254740996316,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "b0c08a57-888_0",
           "dir": 1,
           "y": 0,
           "stopS": 101.80752829832876,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -1927,15 +2478,22 @@
       "sourceIds": [
         "osm:n1242824457"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 77.58,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 0.16373120386344908,
       "approaches": [
         {
           "edge": "c5f524b2-740_0",
           "dir": 1,
           "y": 0,
           "stopS": 9.723339259879088,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -1949,15 +2507,22 @@
       "sourceIds": [
         "osm:n12565821431"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 97.21,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 7.445275374182245,
       "approaches": [
         {
           "edge": "26c28897-a36_0",
           "dir": -1,
           "y": 0,
           "stopS": 8.204437823519994,
-          "phase": 0
+          "phase": 0,
+          "priority": 18.2
         }
       ]
     },
@@ -1971,36 +2536,46 @@
       "sourceIds": [
         "osm:n1813453230"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 5.6,
+      "phaseGreens": [
+        18.6,
+        17.4
+      ],
+      "offset": 10.125403519110883,
       "approaches": [
         {
           "edge": "ba269413-eb1_0",
           "dir": -1,
           "y": 0,
           "stopS": 39.70009291311442,
-          "phase": 1
+          "phase": 1,
+          "priority": 2.75
         },
         {
           "edge": "51d70e8b-536_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.2633218023665505,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "a647a4ed-edd_0",
           "dir": -1,
           "y": 0,
           "stopS": 23.22002834867461,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "54f71bec-fbe_0",
           "dir": -1,
           "y": 0,
           "stopS": 24.67305174733466,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -2014,22 +2589,30 @@
       "sourceIds": [
         "osm:n3218416041"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 56.53,
+      "phaseGreens": [
+        16.5,
+        19.5
+      ],
+      "offset": 20.408113862416087,
       "approaches": [
         {
           "edge": "c3c18e23-488_0",
           "dir": 1,
           "y": 0,
           "stopS": 11.163550854886246,
-          "phase": 1
+          "phase": 1,
+          "priority": 23.25
         },
         {
           "edge": "f04cf639-d9f_0",
           "dir": 1,
           "y": 0,
           "stopS": 27.030851734028982,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -2044,29 +2627,38 @@
         "osm:n4342672717",
         "osm:n4342672720"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 81.5,
+      "phaseGreens": [
+        14.1,
+        21.9
+      ],
+      "offset": 4.017120460372951,
       "approaches": [
         {
           "edge": "3d0dfc36-3fd_0",
           "dir": 1,
           "y": 1.2947664649139419,
           "stopS": 4.5793012567421245,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         },
         {
           "edge": "2d278927-9c4_0",
           "dir": 1,
           "y": 0.5976148095783091,
           "stopS": 21.565405029411505,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "cae282f6-1d0_1",
           "dir": 1,
           "y": 0.29968316255254296,
           "stopS": 21.29172414630729,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -2080,15 +2672,22 @@
       "sourceIds": [
         "osm:n1324659264"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 8.67,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 40.35598464629629,
       "approaches": [
         {
           "edge": "e13902e3-44c_0",
           "dir": 1,
           "y": 0,
           "stopS": 26.227084826528884,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -2103,36 +2702,46 @@
         "osm:n2249699280",
         "osm:n3169858322"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 73.66,
+      "phaseGreens": [
+        23.1,
+        12.9
+      ],
+      "offset": 45.44842591356712,
       "approaches": [
         {
           "edge": "3b177734-739_0",
           "dir": 1,
           "y": 0,
           "stopS": 126.08404881432887,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "91c0043c-4b2_0",
           "dir": -1,
           "y": 0,
           "stopS": 154.81729854701456,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "8634001e-851_0",
           "dir": 1,
           "y": 0,
           "stopS": 225.35606679626093,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "a8845f68-743_0",
           "dir": 1,
           "y": 0,
           "stopS": 20.671533879790168,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -2146,22 +2755,30 @@
       "sourceIds": [
         "osm:n307061321"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 29.62,
+      "phaseGreens": [
+        21.4,
+        14.6
+      ],
+      "offset": 5.976673760300059,
       "approaches": [
         {
           "edge": "dd04a9e6-dc3_1",
           "dir": 1,
           "y": 0,
           "stopS": 17.495343690663677,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "9225e93e-dbc_0",
           "dir": 1,
           "y": 0,
           "stopS": 9.449199963794687,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.65
         }
       ]
     },
@@ -2175,29 +2792,38 @@
       "sourceIds": [
         "osm:n3207327888"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 55.55,
+      "phaseGreens": [
+        14.4,
+        21.6
+      ],
+      "offset": 31.872278526285413,
       "approaches": [
         {
           "edge": "54fb8cc2-692_2",
           "dir": 1,
           "y": 0,
           "stopS": 8.071292030627422,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "10d481c0-ebc_2",
           "dir": 1,
           "y": 0,
           "stopS": 6.400624969485607,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         },
         {
           "edge": "b1fd675d-fd2_0",
           "dir": -1,
           "y": 0,
           "stopS": 9.502946911353463,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -2214,36 +2840,46 @@
         "osm:n245640873",
         "osm:n2697144011"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 62.16,
+      "phaseGreens": [
+        16.1,
+        19.9
+      ],
+      "offset": 36.8941037646274,
       "approaches": [
         {
           "edge": "74f6823f-d26_0",
           "dir": -1,
           "y": 0,
           "stopS": 16.577691493932278,
-          "phase": 0
+          "phase": 0,
+          "priority": 2.75
         },
         {
           "edge": "7bdd7294-6e0_0",
           "dir": 1,
           "y": 0,
           "stopS": 106.61662196157258,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "ba0630f0-d5c_0",
           "dir": 1,
           "y": 0,
           "stopS": 36.04336681873854,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "4572c4bc-084_0",
           "dir": 1,
           "y": 0,
           "stopS": 34.26610131056418,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -2258,29 +2894,38 @@
         "osm:n2697143957",
         "osm:n2697143964"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 92.13,
+      "phaseGreens": [
+        21,
+        15
+      ],
+      "offset": 39.84433214765421,
       "approaches": [
         {
           "edge": "886256d0-7bf_0",
           "dir": 1,
           "y": 0,
           "stopS": 31.49043003255708,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "5c1004b6-e57_0",
           "dir": 1,
           "y": 0,
           "stopS": 13.65123372669924,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "2e520aa7-9ed_0",
           "dir": 1,
           "y": 0,
           "stopS": 9.8012986465424,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -2296,29 +2941,38 @@
         "osm:n3164269170",
         "osm:n7867739883"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 33.4,
+      "phaseGreens": [
+        20.7,
+        15.3
+      ],
+      "offset": 13.786422878509484,
       "approaches": [
         {
           "edge": "24fe818d-4c7_0",
           "dir": 1,
           "y": 0,
           "stopS": 64.359988295392,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "a853259b-c91_0",
           "dir": 1,
           "y": 0,
           "stopS": 96.13286053872659,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.800000000000001
         },
         {
           "edge": "31d7d6e7-21d_0",
           "dir": 1,
           "y": 0,
           "stopS": 105.79876812448627,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -2332,15 +2986,59 @@
       "sourceIds": [
         "osm:n1700617401"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 11.16,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 0.7400083190375426,
       "approaches": [
         {
           "edge": "aeeaa674-b5d_1",
           "dir": 1,
           "y": 0,
           "stopS": 53.52672830454976,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
+        }
+      ]
+    },
+    {
+      "id": "signal:74e94302-9f8",
+      "tile": "-15_-2",
+      "p": [
+        -14704.9,
+        -1398.3
+      ],
+      "sourceIds": [
+        "osm:n4322167205"
+      ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
+      "phaseCount": 2,
+      "phaseGreens": [
+        22.7,
+        13.3
+      ],
+      "offset": 10.873878024522355,
+      "approaches": [
+        {
+          "edge": "62e31cf5-259_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 554.5816442072226,
+          "phase": 0,
+          "priority": 8.775
+        },
+        {
+          "edge": "391492b9-5e8_0",
+          "dir": 1,
+          "y": 0,
+          "stopS": 14.821587757399278,
+          "phase": 1,
+          "priority": 2.75
         }
       ]
     },
@@ -2354,22 +3052,30 @@
       "sourceIds": [
         "osm:n1700616740"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 64.46,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 13.270837274417204,
       "approaches": [
         {
           "edge": "dbd45b22-714_2",
           "dir": 1,
           "y": 0,
           "stopS": 77.38078682992061,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "93a15b49-a8d_0",
           "dir": 1,
           "y": 0,
           "stopS": 29.364665074902376,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -2383,22 +3089,30 @@
       "sourceIds": [
         "osm:n9684884112"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 47.44,
+      "phaseGreens": [
+        23.9,
+        12.1
+      ],
+      "offset": 32.83066991143278,
       "approaches": [
         {
           "edge": "1ee85ed3-404_0",
           "dir": 1,
           "y": 0,
           "stopS": 25.790762134037607,
-          "phase": 1
+          "phase": 1,
+          "priority": 2.75
         },
         {
           "edge": "9225ac72-749_0",
           "dir": 1,
           "y": 0,
           "stopS": 37.92994485704511,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -2414,29 +3128,38 @@
         "osm:n3204089052",
         "osm:n332444631"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 24.72,
+      "phaseGreens": [
+        23.3,
+        12.7
+      ],
+      "offset": 2.139164234313796,
       "approaches": [
         {
           "edge": "e9d33beb-c10_0",
           "dir": 1,
           "y": 0,
           "stopS": 56.12541311541803,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "b0b1e178-264_3",
           "dir": 1,
           "y": 0,
           "stopS": 75.21480449530848,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "cf32a7af-9b3_0",
           "dir": 1,
           "y": 0,
           "stopS": 16.868444071024474,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -2450,22 +3173,30 @@
       "sourceIds": [
         "osm:n2403853099"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 86.41,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 9.153871543455239,
       "approaches": [
         {
           "edge": "f03c2515-038_0",
           "dir": 1,
           "y": 0,
           "stopS": 23.70723870312252,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "412fb11b-214_0",
           "dir": 1,
           "y": 0,
           "stopS": 2.8359125515430454,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -2480,22 +3211,30 @@
         "osm:n1752932126",
         "osm:n3195149162"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 29.43,
+      "phaseGreens": [
+        20.8,
+        15.2
+      ],
+      "offset": 3.261261772027922,
       "approaches": [
         {
           "edge": "29ab6b6c-812_1",
           "dir": 1,
           "y": 0,
           "stopS": 12.179370474811925,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "e8804d88-1e5_0",
           "dir": 1,
           "y": 0,
           "stopS": 299.3501785033501,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -2509,29 +3248,38 @@
       "sourceIds": [
         "osm:n2400182812"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 72.02,
+      "phaseGreens": [
+        15.5,
+        20.5
+      ],
+      "offset": 23.292529139996375,
       "approaches": [
         {
           "edge": "74c6a2ce-71a_0",
           "dir": -1,
           "y": 0,
           "stopS": 3.085773808949954,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.65
         },
         {
           "edge": "f89f6b84-b6a_0",
           "dir": 1,
           "y": 0,
           "stopS": 183.9315427333199,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "49e5c06b-e3b_0",
           "dir": 1,
           "y": 0,
           "stopS": 58.17227028064306,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.65
         }
       ]
     },
@@ -2547,22 +3295,30 @@
         "osm:n3208546295",
         "osm:n3208546296"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 69.81,
+      "phaseGreens": [
+        20.8,
+        15.2
+      ],
+      "offset": 0.06260298837878508,
       "approaches": [
         {
           "edge": "a4766a79-95d_0",
           "dir": 1,
           "y": 0,
           "stopS": 15.740139493908924,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "a2114000-27f_0",
           "dir": 1,
           "y": 0,
           "stopS": 76.89403026320343,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -2576,15 +3332,22 @@
       "sourceIds": [
         "osm:n3202801375"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 66.97,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 24.14004182943384,
       "approaches": [
         {
           "edge": "e29d311d-5db_0",
           "dir": 1,
           "y": 0,
           "stopS": 5.259505680194767,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -2598,15 +3361,22 @@
       "sourceIds": [
         "osm:n3202801374"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 49.14,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 24.013710257019483,
       "approaches": [
         {
           "edge": "d813bc28-5e4_0",
           "dir": 1,
           "y": 6.8,
           "stopS": 326.952831422899,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -2620,22 +3390,30 @@
       "sourceIds": [
         "osm:n1762349856"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 57.53,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 17.562238459120465,
       "approaches": [
         {
           "edge": "42d430a6-55f_0",
           "dir": 1,
           "y": 0.6860080914780231,
           "stopS": 58.30700600370916,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.199999999999999
         },
         {
           "edge": "f40aa38a-d87_0",
           "dir": 1,
           "y": 0.923133840922265,
           "stopS": 28.59065852721959,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -2649,22 +3427,30 @@
       "sourceIds": [
         "osm:n2195239132"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 10.09,
+      "phaseGreens": [
+        20.8,
+        15.2
+      ],
+      "offset": 31.75414985780759,
       "approaches": [
         {
           "edge": "6f0bb040-74e_0",
           "dir": 1,
           "y": 1.0915874382830035,
           "stopS": 15.822814771439091,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "f0bcf56f-2d6_0",
           "dir": 1,
           "y": 1.0719230034669545,
           "stopS": 3.649657518178847,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -2678,15 +3464,22 @@
       "sourceIds": [
         "osm:n1762335427"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 28.82,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 25.244940405704554,
       "approaches": [
         {
           "edge": "0c1385c9-91e_0",
           "dir": 1,
           "y": 0.6107984704702082,
           "stopS": 39.397414228468115,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -2700,22 +3493,30 @@
       "sourceIds": [
         "osm:n4315742808"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 77.53,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 25.75040028443415,
       "approaches": [
         {
           "edge": "cf72c019-5de_0",
           "dir": 1,
           "y": 0,
           "stopS": 20.595339504785848,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "74aadcc2-448_0",
           "dir": -1,
           "y": 0,
           "stopS": 18.933637159100655,
-          "phase": 0
+          "phase": 0,
+          "priority": 18.2
         }
       ]
     },
@@ -2731,36 +3532,46 @@
         "osm:n2590027230",
         "osm:n2590027233"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 43.65,
+      "phaseGreens": [
+        19.1,
+        16.9
+      ],
+      "offset": 21.87086658444332,
       "approaches": [
         {
           "edge": "0c2d8eff-55e_0",
           "dir": 1,
           "y": 0,
           "stopS": 32.851320076405514,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "b1f83ae0-727_0",
           "dir": 1,
           "y": 0,
           "stopS": 49.73452785495191,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "5229e9e8-6da_0",
           "dir": 1,
           "y": 0,
           "stopS": 18.76497641054181,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "20728a87-cad_0",
           "dir": 1,
           "y": 0,
           "stopS": 10.609146996813774,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -2774,15 +3585,22 @@
       "sourceIds": [
         "osm:n4315742797"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 71.52,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 18.580093867438904,
       "approaches": [
         {
           "edge": "c1c510fc-37b_3",
           "dir": 1,
           "y": 0,
           "stopS": 3.966256034233231,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -2796,15 +3614,22 @@
       "sourceIds": [
         "osm:n289510346"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 2.91,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 41.171051207604705,
       "approaches": [
         {
           "edge": "74ef204b-a45_0",
           "dir": 1,
           "y": 0,
           "stopS": 59.17078168015756,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -2818,15 +3643,22 @@
       "sourceIds": [
         "osm:n4314329429"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 66.83,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 40.04159892465911,
       "approaches": [
         {
           "edge": "a65fd0b9-2bf_0",
           "dir": 1,
           "y": 0,
           "stopS": 33.401197938859134,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.800000000000001
         }
       ]
     },
@@ -2843,36 +3675,46 @@
         "osm:n3531319887",
         "osm:n3531319889"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 98.16,
+      "phaseGreens": [
+        16.2,
+        19.8
+      ],
+      "offset": 45.691849126301065,
       "approaches": [
         {
           "edge": "c3e3f8cf-f95_1",
           "dir": 1,
           "y": 0,
           "stopS": 330.71936507230396,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "9333f3cc-84a_1",
           "dir": 1,
           "y": 0,
           "stopS": 120.99554156931981,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "4be651f2-ced_0",
           "dir": 1,
           "y": 0,
           "stopS": 256.86769953338046,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "5826dc9e-836_0",
           "dir": 1,
           "y": 0,
           "stopS": 39.201726576594936,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -2887,29 +3729,38 @@
         "osm:n1779488041",
         "osm:n1779488045"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 24.01,
+      "phaseGreens": [
+        21,
+        15
+      ],
+      "offset": 18.1348856505723,
       "approaches": [
         {
           "edge": "7feb53d3-23e_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.362546659946794,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "3d4471db-471_1",
           "dir": 1,
           "y": 0,
           "stopS": 164.45226085906845,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "df017ddc-a11_0",
           "dir": 1,
           "y": 0,
           "stopS": 36.619352905437,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -2923,15 +3774,22 @@
       "sourceIds": [
         "osm:n1947738024"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 16.02,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 13.46205682521844,
       "approaches": [
         {
           "edge": "b0e01beb-bf3_0",
           "dir": 1,
           "y": 0,
           "stopS": 199.32480934717393,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -2947,36 +3805,46 @@
         "osm:n1779485069",
         "osm:n2257794896"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 83.88,
+      "phaseGreens": [
+        16.9,
+        19.1
+      ],
+      "offset": 29.940095188971384,
       "approaches": [
         {
           "edge": "c73f90a1-e3e_0",
           "dir": 1,
           "y": 0,
           "stopS": 14.511287386978971,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         },
         {
           "edge": "56d1f9d5-891_0",
           "dir": 1,
           "y": 0,
           "stopS": 74.6130664505442,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "be1f5a1d-85f_1",
           "dir": 1,
           "y": 0,
           "stopS": 81.44365214298242,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         },
         {
           "edge": "9ecdbfae-b24_0",
           "dir": 1,
           "y": 0,
           "stopS": 52.50422115839959,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -2990,15 +3858,22 @@
       "sourceIds": [
         "osm:n3531319888"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 40.28,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 14.768510071044034,
       "approaches": [
         {
           "edge": "4e1831b9-2a4_2",
           "dir": 1,
           "y": 0,
           "stopS": 93.37482214381511,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3013,29 +3888,38 @@
         "osm:n308796014",
         "osm:n3147096431"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 34.14,
+      "phaseGreens": [
+        22.5,
+        13.5
+      ],
+      "offset": 25.78895297940562,
       "approaches": [
         {
           "edge": "e9da2a80-48e_0",
           "dir": 1,
           "y": 0,
           "stopS": 20.47987868892026,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "c5d813b6-abc_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.402312082365243,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "7c2e5125-ecc_0",
           "dir": 1,
           "y": 0,
           "stopS": 19.031353273964758,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3050,29 +3934,38 @@
         "osm:n289907074",
         "osm:n3154080390"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 95.7,
+      "phaseGreens": [
+        18.7,
+        17.3
+      ],
+      "offset": 1.2728313279540657,
       "approaches": [
         {
           "edge": "b81d6f02-a4c_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.3670715403551235,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "1ae628c8-5bd_0",
           "dir": 1,
           "y": 0,
           "stopS": 22.23637205907023,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "f38e5e71-c38_2",
           "dir": 1,
           "y": 0,
           "stopS": 69.90415034224824,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         }
       ]
     },
@@ -3087,29 +3980,38 @@
         "osm:n289908642",
         "osm:n3148642284"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 68.26,
+      "phaseGreens": [
+        24.5,
+        12
+      ],
+      "offset": 23.919906609157465,
       "approaches": [
         {
           "edge": "c449f659-e0b_0",
           "dir": 1,
           "y": 0,
           "stopS": 21.456587375330816,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "a41a6d95-34e_0",
           "dir": 1,
           "y": 0,
           "stopS": 78.69584701987638,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         },
         {
           "edge": "33837c17-fb8_0",
           "dir": 1,
           "y": 0,
           "stopS": 8.401928350087257,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -3123,22 +4025,30 @@
       "sourceIds": [
         "osm:n308960233"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 63.97,
+      "phaseGreens": [
+        17.6,
+        18.4
+      ],
+      "offset": 44.44061568843807,
       "approaches": [
         {
           "edge": "6cbe8538-ae3_0",
           "dir": -1,
           "y": 0,
           "stopS": 17.035929979501564,
-          "phase": 0
+          "phase": 0,
+          "priority": 12.075
         },
         {
           "edge": "0bfc5ceb-b4d_2",
           "dir": 1,
           "y": 0,
           "stopS": 113.47233480338589,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -3152,15 +4062,22 @@
       "sourceIds": [
         "osm:n4317346501"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 60.16,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 7.267535757496745,
       "approaches": [
         {
           "edge": "16eb2ea3-1ed_1",
           "dir": 1,
           "y": 0,
           "stopS": 50.42038299238681,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3174,15 +4091,22 @@
       "sourceIds": [
         "osm:n1779502570"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 93.52,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 16.243252344656526,
       "approaches": [
         {
           "edge": "53978ae7-b79_0",
           "dir": 1,
           "y": 0,
           "stopS": 8.469356528095751,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3196,15 +4120,22 @@
       "sourceIds": [
         "osm:n1779495929"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 99.65,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 2.781531293805614,
       "approaches": [
         {
           "edge": "8bf9bc68-649_1",
           "dir": 1,
           "y": 0,
           "stopS": 60.344969893029344,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3219,22 +4150,30 @@
         "osm:n308960178",
         "osm:n4317346502"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 98.34,
+      "phaseGreens": [
+        21.7,
+        14.3
+      ],
+      "offset": 30.525373476907703,
       "approaches": [
         {
           "edge": "9a95429d-cb7_0",
           "dir": 1,
           "y": 0,
           "stopS": 116.03225021867712,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "12959dac-3cf_0",
           "dir": -1,
           "y": 0,
           "stopS": 77.31949552566445,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -3248,15 +4187,22 @@
       "sourceIds": [
         "osm:n4317346500"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 71.05,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 9.420934193260166,
       "approaches": [
         {
           "edge": "b56c0366-b9c_0",
           "dir": 1,
           "y": 0,
           "stopS": 37.20115269303469,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -3270,15 +4216,22 @@
       "sourceIds": [
         "osm:n3207187875"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 66.03,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 12.203524165307329,
       "approaches": [
         {
           "edge": "573aa30a-f6c_0",
           "dir": 1,
           "y": 0,
           "stopS": 161.14554451918679,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3292,15 +4245,22 @@
       "sourceIds": [
         "osm:n1779503704"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 58.45,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 18.07431263595561,
       "approaches": [
         {
           "edge": "6cfac316-aaa_4",
           "dir": 1,
           "y": 0,
           "stopS": 69.46780624231009,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -3314,15 +4274,22 @@
       "sourceIds": [
         "osm:n3205654235"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 80.56,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 9.695076251253568,
       "approaches": [
         {
           "edge": "71cf1210-09e_0",
           "dir": 1,
           "y": 0,
           "stopS": 8.062381198051586,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3336,22 +4303,30 @@
       "sourceIds": [
         "osm:n3166108201"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 43.22,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 13.790730311532236,
       "approaches": [
         {
           "edge": "519fba95-e3d_0",
           "dir": 1,
           "y": 0,
           "stopS": 47.92831183679512,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "61aed8e0-198_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.84762732630803,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3365,22 +4340,30 @@
       "sourceIds": [
         "osm:n1779544554"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 33.76,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 4.2645166625902675,
       "approaches": [
         {
           "edge": "d46acb9c-8b5_0",
           "dir": 1,
           "y": 0,
           "stopS": 8.827343881372329,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "8c1a8114-76e_0",
           "dir": 1,
           "y": 0,
           "stopS": 231.26121141713193,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -3394,22 +4377,30 @@
       "sourceIds": [
         "osm:n2241238497"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 19.2,
+      "phaseGreens": [
+        12.9,
+        23.1
+      ],
+      "offset": 40.08091282222634,
       "approaches": [
         {
           "edge": "fc2c430b-b68_0",
           "dir": 1,
           "y": 0,
           "stopS": 143.87165776198927,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "c469ea5c-eab_0",
           "dir": -1,
           "y": 0,
           "stopS": 124.85795162251588,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -3423,22 +4414,30 @@
       "sourceIds": [
         "osm:n1779552093"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 48.98,
+      "phaseGreens": [
+        23.1,
+        12.9
+      ],
+      "offset": 45.77921976351422,
       "approaches": [
         {
           "edge": "40c0df94-a57_0",
           "dir": 1,
           "y": 0,
           "stopS": 18.468980756130648,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "1066601f-fb9_0",
           "dir": -1,
           "y": 0,
           "stopS": 46.8671247117547,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         }
       ]
     },
@@ -3452,22 +4451,30 @@
       "sourceIds": [
         "osm:n1779552095"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 34.6,
+      "phaseGreens": [
+        21.7,
+        14.3
+      ],
+      "offset": 26.26913055263563,
       "approaches": [
         {
           "edge": "3d81e0b4-391_0",
           "dir": 1,
           "y": 0,
           "stopS": 43.853152830781255,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         },
         {
           "edge": "f39902c5-f21_0",
           "dir": 1,
           "y": 0,
           "stopS": 14.883090953620439,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3481,22 +4488,30 @@
       "sourceIds": [
         "osm:n1779592744"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 46.46,
+      "phaseGreens": [
+        19.8,
+        16.2
+      ],
+      "offset": 30.72903581319551,
       "approaches": [
         {
           "edge": "751fe095-4cb_0",
           "dir": 1,
           "y": 0,
           "stopS": 16.1808289090151,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "39391ff4-202_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.620694827584242,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3512,36 +4527,46 @@
         "osm:n308613843",
         "osm:n7732806133"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 93.15,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 26.783935048371433,
       "approaches": [
         {
           "edge": "410a170c-94e_0",
           "dir": 1,
           "y": 0,
           "stopS": 17.411440765579187,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "8edaf9bc-40f_0",
           "dir": 1,
           "y": 0,
           "stopS": 24.33180176376307,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "f69156c3-650_0",
           "dir": 1,
           "y": 0,
           "stopS": 18.928330656965876,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "f7b22e11-c5e_0",
           "dir": 1,
           "y": 0,
           "stopS": 18.961539623518668,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3557,36 +4582,46 @@
         "osm:n3146872998",
         "osm:n5985024322"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 27.69,
+      "phaseGreens": [
+        22.3,
+        13.7
+      ],
+      "offset": 14.376009478280082,
       "approaches": [
         {
           "edge": "e10aa9f8-1da_0",
           "dir": 1,
           "y": 0,
           "stopS": 109.6955760086943,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "91359485-093_0",
           "dir": -1,
           "y": 0,
           "stopS": 56.692562853550676,
-          "phase": 1
+          "phase": 1,
+          "priority": 1.575
         },
         {
           "edge": "ca5f5cc2-c78_10",
           "dir": 1,
           "y": 0,
           "stopS": 125.87310489688397,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "6204bf6f-f40_1",
           "dir": 1,
           "y": 0,
           "stopS": 56.27141068989913,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.65
         }
       ]
     },
@@ -3603,36 +4638,46 @@
         "osm:n1948596012",
         "osm:n5985024326"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 4.58,
+      "phaseGreens": [
+        12.6,
+        23.4
+      ],
+      "offset": 24.215049891950457,
       "approaches": [
         {
           "edge": "f7a8e92c-6fa_0",
           "dir": 1,
           "y": 0,
           "stopS": 7.399729724794101,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.3
         },
         {
           "edge": "fe7b0eaa-b51_0",
           "dir": 1,
           "y": 0,
           "stopS": 166.91151957797308,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "63e14560-cc7_0",
           "dir": 1,
           "y": 0,
           "stopS": 154.88700872577652,
-          "phase": 0
+          "phase": 0,
+          "priority": 3.3
         },
         {
           "edge": "b8ac07c7-21b_2",
           "dir": 1,
           "y": 0,
           "stopS": 187.1884372230538,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -3649,36 +4694,46 @@
         "osm:n3178328693",
         "osm:n3178328694"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 92.81,
+      "phaseGreens": [
+        19.9,
+        16.1
+      ],
+      "offset": 25.460045840584826,
       "approaches": [
         {
           "edge": "e758db81-c7f_0",
           "dir": 1,
           "y": 0,
           "stopS": 104.01160612384746,
-          "phase": 0
+          "phase": 0,
+          "priority": 2.75
         },
         {
           "edge": "fb133b76-a69_0",
           "dir": 1,
           "y": 0,
           "stopS": 259.4890789374161,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "beee93e9-877_0",
           "dir": 1,
           "y": 0,
           "stopS": 39.90539179577407,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "fdb83f8e-dea_0",
           "dir": 1,
           "y": 0,
           "stopS": 339.23262083933764,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -3693,29 +4748,38 @@
         "osm:n3195069213",
         "osm:n3216931270"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 48.05,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 5.261464110377744,
       "approaches": [
         {
           "edge": "8afd4f3f-117_0",
           "dir": 1,
           "y": 0,
           "stopS": 367.8946497845528,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "93536340-528_0",
           "dir": 1,
           "y": 0,
           "stopS": 7.4757207010429125,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "9389150d-388_0",
           "dir": 1,
           "y": 0,
           "stopS": 111.2083691779822,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -3731,29 +4795,38 @@
         "osm:n5985024312",
         "osm:n817353935"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 68.25,
+      "phaseGreens": [
+        21,
+        15
+      ],
+      "offset": 7.821616311981529,
       "approaches": [
         {
           "edge": "e8cb393c-f5e_0",
           "dir": 1,
           "y": 0,
           "stopS": 12.670811146115113,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "69c31e14-983_0",
           "dir": 1,
           "y": 0,
           "stopS": 25.403519159768845,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "c80b24ef-839_0",
           "dir": 1,
           "y": 0,
           "stopS": 12.059364213247743,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3768,29 +4841,38 @@
         "osm:n1947502723",
         "osm:n5491724545"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 32.73,
+      "phaseGreens": [
+        21.3,
+        14.7
+      ],
+      "offset": 41.6546544017815,
       "approaches": [
         {
           "edge": "c7e48f65-ce2_0",
           "dir": 1,
           "y": 0,
           "stopS": 19.739923478801856,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "6b329a35-e7e_0",
           "dir": 1,
           "y": 0,
           "stopS": 19.75335799857959,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "22854a75-284_0",
           "dir": 1,
           "y": 0,
           "stopS": 23.090863343133883,
-          "phase": 1
+          "phase": 1,
+          "priority": 12.075
         }
       ]
     },
@@ -3804,36 +4886,46 @@
       "sourceIds": [
         "osm:n662740753"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 57.8,
+      "phaseGreens": [
+        18.9,
+        17.1
+      ],
+      "offset": 10.514346661267538,
       "approaches": [
         {
           "edge": "d044aac1-c54_0",
           "dir": -1,
           "y": 0,
           "stopS": 145.2352769351333,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.65
         },
         {
           "edge": "b1e2e439-f8d_1",
           "dir": 1,
           "y": 0,
           "stopS": 103.62632989939688,
-          "phase": 1
+          "phase": 1,
+          "priority": 12.075
         },
         {
           "edge": "aa0ccf05-9d2_0",
           "dir": -1,
           "y": 0,
           "stopS": 408.0325591606736,
-          "phase": 0
+          "phase": 0,
+          "priority": 12.075
         },
         {
           "edge": "32f1c772-9c6_0",
           "dir": 1,
           "y": 0,
           "stopS": 256.14762947639343,
-          "phase": 0
+          "phase": 0,
+          "priority": 12.075
         }
       ]
     },
@@ -3848,29 +4940,38 @@
         "osm:n1947511967",
         "osm:n976475914"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 51.82,
+      "phaseGreens": [
+        26,
+        12
+      ],
+      "offset": 14.201101735403768,
       "approaches": [
         {
           "edge": "a53cb5c4-0f9_2",
           "dir": 1,
           "y": 0,
           "stopS": 44.38949222687128,
-          "phase": 1
+          "phase": 1,
+          "priority": 1.575
         },
         {
           "edge": "509dce67-45b_0",
           "dir": 1,
           "y": 0,
           "stopS": 7.153097231269393,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "a9daeca1-f2d_0",
           "dir": 1,
           "y": 0,
           "stopS": 388.35021694665755,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3885,36 +4986,47 @@
         "osm:n2177264397",
         "osm:n3224407314"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 3,
-      "offset": 43.88,
+      "phaseGreens": [
+        27.4,
+        12,
+        15.1
+      ],
+      "offset": 49.700997622357136,
       "approaches": [
         {
           "edge": "bded152d-352_0",
           "dir": -1,
           "y": 0,
           "stopS": 93.98283056903261,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "a2ed42a0-9b5_0",
           "dir": 1,
           "y": 0,
           "stopS": 149.62328996173287,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "c5a3a886-d6b_0",
           "dir": 1,
           "y": 0,
           "stopS": 18.9268751121101,
-          "phase": 2
+          "phase": 2,
+          "priority": 8.739999999999998
         },
         {
           "edge": "da280868-aa2_0",
           "dir": 1,
           "y": 0,
           "stopS": 9.664471015011472,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -3929,22 +5041,30 @@
         "osm:n3167945583",
         "osm:n3167945584"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 43.58,
+      "phaseGreens": [
+        19.4,
+        16.6
+      ],
+      "offset": 27.79829626894457,
       "approaches": [
         {
           "edge": "09050c20-ca3_7",
           "dir": 1,
           "y": 0,
           "stopS": 8.092099531559473,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "d7931888-874_0",
           "dir": -1,
           "y": 0,
           "stopS": 6.391901125643307,
-          "phase": 0
+          "phase": 0,
+          "priority": 12.075
         }
       ]
     },
@@ -3958,22 +5078,30 @@
       "sourceIds": [
         "osm:n308528048"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 94.01,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 4.008000000008565,
       "approaches": [
         {
           "edge": "49c3d8ff-c2f_0",
           "dir": 1,
           "y": 0,
           "stopS": 8.054662413030563,
-          "phase": 1
+          "phase": 1,
+          "priority": 23.25
         },
         {
           "edge": "9a6f4989-c80_0",
           "dir": -1,
           "y": 0,
           "stopS": 23.53632399820322,
-          "phase": 0
+          "phase": 0,
+          "priority": 23.25
         }
       ]
     },
@@ -3987,22 +5115,30 @@
       "sourceIds": [
         "osm:n2177264461"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 44.03,
+      "phaseGreens": [
+        19.1,
+        16.9
+      ],
+      "offset": 40.4283911423521,
       "approaches": [
         {
           "edge": "2a612304-95f_0",
           "dir": 1,
           "y": 0,
           "stopS": 88.05091083054137,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "366ab210-d53_0",
           "dir": 1,
           "y": 0,
           "stopS": 43.1859377392892,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -4016,15 +5152,22 @@
       "sourceIds": [
         "osm:n3663143094"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 2.99,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 2.549706530282492,
       "approaches": [
         {
           "edge": "e48faeaf-68a_1",
           "dir": 1,
           "y": 0,
           "stopS": 290.2924507516674,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4038,22 +5181,30 @@
       "sourceIds": [
         "osm:n3191024317"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 49.74,
+      "phaseGreens": [
+        15.6,
+        20.4
+      ],
+      "offset": 35.32894659085093,
       "approaches": [
         {
           "edge": "e0a52212-788_0",
           "dir": 1,
           "y": 0,
           "stopS": 26.24706093682302,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "82eb3a97-a05_0",
           "dir": -1,
           "y": 0,
           "stopS": 15.167025638051868,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.65
         }
       ]
     },
@@ -4067,22 +5218,30 @@
       "sourceIds": [
         "osm:n3191035769"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 57.5,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 8.660614355382165,
       "approaches": [
         {
           "edge": "afa09255-dc0_0",
           "dir": 1,
           "y": 0,
           "stopS": 12.283195631509358,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "90e7730a-074_0",
           "dir": 1,
           "y": 0,
           "stopS": 17.440424698763916,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -4096,22 +5255,30 @@
       "sourceIds": [
         "osm:n6829353270"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 20.46,
+      "phaseGreens": [
+        19.5,
+        16.5
+      ],
+      "offset": 25.17624479422375,
       "approaches": [
         {
           "edge": "774ae870-5f7_0",
           "dir": 1,
           "y": 0,
           "stopS": 21.87546991212321,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         },
         {
           "edge": "a5558ab1-8c5_0",
           "dir": -1,
           "y": 0,
           "stopS": 94.99897443079075,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.65
         }
       ]
     },
@@ -4125,15 +5292,22 @@
       "sourceIds": [
         "osm:n2478095323"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 27.03,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 22.117230274533654,
       "approaches": [
         {
           "edge": "2113bac3-d6a_0",
           "dir": 1,
           "y": 0,
           "stopS": 3.4456929636874283,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -4147,22 +5321,30 @@
       "sourceIds": [
         "osm:n3790371478"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 23.44,
+      "phaseGreens": [
+        22.3,
+        13.7
+      ],
+      "offset": 31.852556072016,
       "approaches": [
         {
           "edge": "f3508a7c-e37_0",
           "dir": 1,
           "y": 0,
           "stopS": 67.44457157728657,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.800000000000001
         },
         {
           "edge": "13b1214d-165_1",
           "dir": 1,
           "y": 0,
           "stopS": 59.16233601490799,
-          "phase": 1
+          "phase": 1,
+          "priority": 2.75
         }
       ]
     },
@@ -4176,22 +5358,30 @@
       "sourceIds": [
         "osm:n4312194294"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 35.99,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 4.52607520358373,
       "approaches": [
         {
           "edge": "31669536-8dc_0",
           "dir": 1,
           "y": 0,
           "stopS": 91.50752294124129,
-          "phase": 1
+          "phase": 1,
+          "priority": 16.740000000000002
         },
         {
           "edge": "0fe81d80-747_0",
           "dir": 1,
           "y": 0,
           "stopS": 7.515085002789085,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4205,22 +5395,30 @@
       "sourceIds": [
         "osm:n2478095316"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 98.12,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 4.20933666866884,
       "approaches": [
         {
           "edge": "e91081d7-52a_0",
           "dir": 1,
           "y": 0,
           "stopS": 33.976489169044925,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "c398213e-4f4_0",
           "dir": 1,
           "y": 0,
           "stopS": 62.301632231452814,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         }
       ]
     },
@@ -4234,22 +5432,30 @@
       "sourceIds": [
         "osm:n3168087497"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 12.77,
+      "phaseGreens": [
+        19.9,
+        16.1
+      ],
+      "offset": 17.787183027900028,
       "approaches": [
         {
           "edge": "1a79bf66-833_5",
           "dir": 1,
           "y": 0,
           "stopS": 82.58115313513902,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "b1cb8db6-dd8_3",
           "dir": 1,
           "y": 0,
           "stopS": 98.94212606510936,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         }
       ]
     },
@@ -4264,22 +5470,30 @@
         "osm:n2591794820",
         "osm:n2591794831"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 24.79,
+      "phaseGreens": [
+        16.5,
+        19.5
+      ],
+      "offset": 45.77502069746919,
       "approaches": [
         {
           "edge": "7b10e6af-193_0",
           "dir": 1,
           "y": 0,
           "stopS": 86.40782822454766,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "6e854f17-6d5_0",
           "dir": 1,
           "y": 0,
           "stopS": 49.70283356463339,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.65
         }
       ]
     },
@@ -4293,15 +5507,22 @@
       "sourceIds": [
         "osm:n2591794829"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 57.9,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 44.7710938889243,
       "approaches": [
         {
           "edge": "2b1835f8-df1_1",
           "dir": 1,
           "y": 0,
           "stopS": 77.99908200218671,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         }
       ]
     },
@@ -4315,15 +5536,22 @@
       "sourceIds": [
         "osm:n308783133"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 27.41,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 41.35169694036512,
       "approaches": [
         {
           "edge": "23a58429-792_0",
           "dir": 1,
           "y": 0,
           "stopS": 14.96741717114567,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -4337,15 +5565,22 @@
       "sourceIds": [
         "osm:n6965064841"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 76.85,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 35.41313993265564,
       "approaches": [
         {
           "edge": "aa0713e8-820_0",
           "dir": 1,
           "y": 0,
           "stopS": 42.774787147455854,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -4359,29 +5594,39 @@
       "sourceIds": [
         "osm:n7644477003"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 3,
-      "offset": 68.76,
+      "phaseGreens": [
+        14.2,
+        19.9,
+        19.9
+      ],
+      "offset": 30.999412998210232,
       "approaches": [
         {
           "edge": "d309e20a-71d_0",
           "dir": 1,
           "y": 0,
           "stopS": 5.108815909778117,
-          "phase": 2
+          "phase": 2,
+          "priority": 18.2
         },
         {
           "edge": "1fa8c282-9af_0",
           "dir": -1,
           "y": 0,
           "stopS": 8.011706296262673,
-          "phase": 1
+          "phase": 1,
+          "priority": 18.2
         },
         {
           "edge": "f38ef145-5c6_0",
           "dir": 1,
           "y": 0,
           "stopS": 163.25799690718108,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -4395,29 +5640,39 @@
       "sourceIds": [
         "osm:n308795980"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 3,
-      "offset": 4.76,
+      "phaseGreens": [
+        18.9,
+        18.9,
+        16.2
+      ],
+      "offset": 25.006616386770986,
       "approaches": [
         {
           "edge": "7d3b8dd5-20a_0",
           "dir": 1,
           "y": 0,
           "stopS": 134.4878381946474,
-          "phase": 2
+          "phase": 2,
+          "priority": 13.16
         },
         {
           "edge": "4c57a6c3-8b6_0",
           "dir": 1,
           "y": 0,
           "stopS": 11.107812610657993,
-          "phase": 1
+          "phase": 1,
+          "priority": 18.2
         },
         {
           "edge": "c9c2ce99-8e6_0",
           "dir": -1,
           "y": 0,
           "stopS": 2.584879107424541,
-          "phase": 0
+          "phase": 0,
+          "priority": 18.2
         }
       ]
     },
@@ -4431,22 +5686,30 @@
       "sourceIds": [
         "osm:n308933180"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 13.04,
+      "phaseGreens": [
+        19.8,
+        16.2
+      ],
+      "offset": 15.637177528568714,
       "approaches": [
         {
           "edge": "21fc13bf-9d1_0",
           "dir": 1,
           "y": 0,
           "stopS": 50.20670154399791,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "6492354d-311_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.764126221524125,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -4460,29 +5723,38 @@
       "sourceIds": [
         "osm:n3164348352"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 59.57,
+      "phaseGreens": [
+        23.2,
+        12.8
+      ],
+      "offset": 16.18017188218124,
       "approaches": [
         {
           "edge": "f862fe70-5fc_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.118823416311343,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         },
         {
           "edge": "c56d4e38-e27_0",
           "dir": -1,
           "y": 0,
           "stopS": 7.1982497872746185,
-          "phase": 0
+          "phase": 0,
+          "priority": 12.075
         },
         {
           "edge": "2e6e0a4e-fb8_1",
           "dir": 1,
           "y": 0,
           "stopS": 21.704180747809158,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -4496,22 +5768,30 @@
       "sourceIds": [
         "osm:n3153692871"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 32.37,
+      "phaseGreens": [
+        16.2,
+        19.8
+      ],
+      "offset": 41.619773495938944,
       "approaches": [
         {
           "edge": "6cd0ab69-cd0_0",
           "dir": 1,
           "y": 0,
           "stopS": 53.85180196150013,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "a6d02dc0-736_0",
           "dir": 1,
           "y": 0,
           "stopS": 3.4094574348422966,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -4525,22 +5805,30 @@
       "sourceIds": [
         "osm:n3157570037"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 61.87,
+      "phaseGreens": [
+        19.1,
+        16.9
+      ],
+      "offset": 24.699937780007076,
       "approaches": [
         {
           "edge": "b41aace1-67f_0",
           "dir": 1,
           "y": 0,
           "stopS": 24.902828638264662,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "1a9515db-24f_0",
           "dir": 1,
           "y": 0,
           "stopS": 50.89595961022391,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         }
       ]
     },
@@ -4554,22 +5842,30 @@
       "sourceIds": [
         "osm:n4313223630"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 61.61,
+      "phaseGreens": [
+        25.5,
+        12
+      ],
+      "offset": 18.504067559214278,
       "approaches": [
         {
           "edge": "e75ccdf8-a5c_0",
           "dir": -1,
           "y": 0,
           "stopS": 38.83545278058569,
-          "phase": 1
+          "phase": 1,
+          "priority": 1.575
         },
         {
           "edge": "acbca879-659_1",
           "dir": 1,
           "y": 0,
           "stopS": 4.593039390574294,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4583,15 +5879,22 @@
       "sourceIds": [
         "osm:n4313223610"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 26.41,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 18.261715263110375,
       "approaches": [
         {
           "edge": "c384f856-7bf_0",
           "dir": 1,
           "y": 0,
           "stopS": 94.47331330604133,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -4605,22 +5908,30 @@
       "sourceIds": [
         "osm:n3158868847"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 22.61,
+      "phaseGreens": [
+        19.1,
+        16.9
+      ],
+      "offset": 40.888268500591266,
       "approaches": [
         {
           "edge": "661e2193-f8a_0",
           "dir": 1,
           "y": 0,
           "stopS": 11.18477631085024,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "0db38d86-b5c_0",
           "dir": 1,
           "y": 0,
           "stopS": 56.96835398234764,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4634,22 +5945,30 @@
       "sourceIds": [
         "osm:n4328527380"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 6.79,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 38.44897338120427,
       "approaches": [
         {
           "edge": "ab3c42b1-747_0",
           "dir": 1,
           "y": 0,
           "stopS": 59.72374543648934,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "ff51ed35-757_0",
           "dir": 1,
           "y": 0,
           "stopS": 13.311360377318252,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.199999999999999
         }
       ]
     },
@@ -4663,15 +5982,22 @@
       "sourceIds": [
         "osm:n3164250083"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 38.28,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 40.33676915933711,
       "approaches": [
         {
           "edge": "274e5a18-ca4_1",
           "dir": 1,
           "y": 6.8,
           "stopS": 43.81561243616877,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4685,15 +6011,22 @@
       "sourceIds": [
         "osm:n4328527382"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 21.78,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 17.58419898654506,
       "approaches": [
         {
           "edge": "6aa48023-462_1",
           "dir": 1,
           "y": 6.8,
           "stopS": 364.1401562573433,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4710,36 +6043,46 @@
         "osm:n3195196244",
         "osm:n3218358874"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 35.22,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 32.72606940647904,
       "approaches": [
         {
           "edge": "3e3da0d4-409_0",
           "dir": 1,
           "y": 0,
           "stopS": 34.8797314811504,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "9e160b32-dc7_0",
           "dir": 1,
           "y": 0,
           "stopS": 90.72860837286065,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "27b8490b-4a6_0",
           "dir": 1,
           "y": 0,
           "stopS": 71.37077367416805,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         },
         {
           "edge": "1d40ea67-498_0",
           "dir": 1,
           "y": 0,
           "stopS": 118.48839591194712,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -4756,36 +6099,46 @@
         "osm:n6297948159",
         "osm:n6297948162"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 99.39,
+      "phaseGreens": [
+        17.1,
+        18.9
+      ],
+      "offset": 11.733696933252077,
       "approaches": [
         {
           "edge": "827d6d85-927_1",
           "dir": 1,
           "y": 0,
           "stopS": 34.550840588959,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "0ce7ba5f-bce_0",
           "dir": 1,
           "y": 0,
           "stopS": 85.93824337401301,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "c7d77f6c-0e5_0",
           "dir": 1,
           "y": 0,
           "stopS": 68.08106948192287,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "82e24920-503_0",
           "dir": 1,
           "y": 0,
           "stopS": 62.43888594032094,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -4799,22 +6152,30 @@
       "sourceIds": [
         "osm:n3204330739"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 16.05,
+      "phaseGreens": [
+        12.1,
+        23.9
+      ],
+      "offset": 23.872834646644378,
       "approaches": [
         {
           "edge": "db219389-239_0",
           "dir": 1,
           "y": 0,
           "stopS": 91.71743577983759,
-          "phase": 1
+          "phase": 1,
+          "priority": 13.16
         },
         {
           "edge": "89b33ac6-8a5_0",
           "dir": 1,
           "y": 0,
           "stopS": 10.647886167105433,
-          "phase": 0
+          "phase": 0,
+          "priority": 2.75
         }
       ]
     },
@@ -4830,29 +6191,38 @@
         "osm:n3381806325",
         "osm:n3381806326"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 90.08,
+      "phaseGreens": [
+        21.3,
+        14.7
+      ],
+      "offset": 45.55294413619919,
       "approaches": [
         {
           "edge": "fc1dc08f-6ba_2",
           "dir": 1,
           "y": 0,
           "stopS": 41.16244005698993,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "9dce3811-360_0",
           "dir": 1,
           "y": 0,
           "stopS": 93.52963604122986,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "ad215c7f-fbe_0",
           "dir": 1,
           "y": 0,
           "stopS": 39.06904840139403,
-          "phase": 1
+          "phase": 1,
+          "priority": 12.075
         }
       ]
     },
@@ -4866,15 +6236,22 @@
       "sourceIds": [
         "osm:n3806982412"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 41.42,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 5.122365793714948,
       "approaches": [
         {
           "edge": "17ed1068-863_3",
           "dir": 1,
           "y": 0,
           "stopS": 2.7244323973409026,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4888,22 +6265,30 @@
       "sourceIds": [
         "osm:n3806982396"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 18.06,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 36.05475050380883,
       "approaches": [
         {
           "edge": "0ee8c3ae-635_0",
           "dir": 1,
           "y": 0,
           "stopS": 83.08866701979383,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         },
         {
           "edge": "bb1fab18-4dc_2",
           "dir": 1,
           "y": 0,
           "stopS": 20.39298022189396,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4917,22 +6302,30 @@
       "sourceIds": [
         "osm:n3381803959"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 82.3,
+      "phaseGreens": [
+        23.8,
+        12.2
+      ],
+      "offset": 39.27100333725258,
       "approaches": [
         {
           "edge": "497c2c30-90c_1",
           "dir": 1,
           "y": 0,
           "stopS": 199.40913243777842,
-          "phase": 1
+          "phase": 1,
+          "priority": 3.5999999999999996
         },
         {
           "edge": "64e2fc82-741_0",
           "dir": 1,
           "y": 0,
           "stopS": 260.1428681169392,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4947,22 +6340,30 @@
         "osm:n3678481778",
         "osm:n3806982393"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 38.94,
+      "phaseGreens": [
+        25.5,
+        12
+      ],
+      "offset": 13.42914631254878,
       "approaches": [
         {
           "edge": "3e6863a2-71a_0",
           "dir": 1,
           "y": 0,
           "stopS": 197.85083650512112,
-          "phase": 1
+          "phase": 1,
+          "priority": 1.575
         },
         {
           "edge": "82a59717-60e_1",
           "dir": 1,
           "y": 0,
           "stopS": 189.63840414350648,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4976,15 +6377,22 @@
       "sourceIds": [
         "osm:n3806982405"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 77.52,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 3.4960877446974337,
       "approaches": [
         {
           "edge": "851f066f-ee1_0",
           "dir": 1,
           "y": 0,
           "stopS": 87.48469470585597,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -4998,15 +6406,22 @@
       "sourceIds": [
         "osm:n3817631808"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 29.51,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 26.48287754068201,
       "approaches": [
         {
           "edge": "6aabf5da-236_0",
           "dir": 1,
           "y": 6.8,
           "stopS": 11.39987084155797,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -5020,15 +6435,22 @@
       "sourceIds": [
         "osm:n5800700856"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 52.51,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 36.62024999604091,
       "approaches": [
         {
           "edge": "75e1d7e6-d79_0",
           "dir": 1,
           "y": 6.8,
           "stopS": 11.485919548662132,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         }
       ]
     },
@@ -5042,15 +6464,22 @@
       "sourceIds": [
         "osm:n4410324044"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 4.47,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 0.19349249367428456,
       "approaches": [
         {
           "edge": "0a863746-d6b_1",
           "dir": 1,
           "y": 0,
           "stopS": 71.41508519830356,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -5064,15 +6493,22 @@
       "sourceIds": [
         "osm:n4410324043"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 57.95,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 0.7310328204694088,
       "approaches": [
         {
           "edge": "09d4d572-49c_2",
           "dir": 1,
           "y": 0,
           "stopS": 150.33781699066722,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -5087,29 +6523,38 @@
         "osm:n5134983136",
         "osm:n5134983186"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 58.55,
+      "phaseGreens": [
+        13.5,
+        22.5
+      ],
+      "offset": 11.66805697330119,
       "approaches": [
         {
           "edge": "e39430c3-0b2_0",
           "dir": 1,
           "y": 0,
           "stopS": 4.596563934069339,
-          "phase": 1
+          "phase": 1,
+          "priority": 8.739999999999998
         },
         {
           "edge": "aa2f1822-30c_0",
           "dir": 1,
           "y": 0,
           "stopS": 7.3425880995736215,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "f503164c-dac_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.546602172119088,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.800000000000001
         }
       ]
     },
@@ -5124,22 +6569,30 @@
         "osm:n5134983156",
         "osm:n5134983185"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 22.99,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 42.27745533186885,
       "approaches": [
         {
           "edge": "5ccb98e1-a60_0",
           "dir": 1,
           "y": 0,
           "stopS": 254.5954736953505,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         },
         {
           "edge": "802cdc39-720_0",
           "dir": 1,
           "y": 0,
           "stopS": 217.72326364483223,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -5153,22 +6606,30 @@
       "sourceIds": [
         "osm:n5134983141"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 75.06,
+      "phaseGreens": [
+        20.1,
+        15.9
+      ],
+      "offset": 0.9471801276638985,
       "approaches": [
         {
           "edge": "0c80deac-e2c_0",
           "dir": 1,
           "y": 0,
           "stopS": 6.214563540587993,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         },
         {
           "edge": "39edf10e-ca9_0",
           "dir": 1,
           "y": 0,
           "stopS": 41.69952326534584,
-          "phase": 0
+          "phase": 0,
+          "priority": 8.739999999999998
         }
       ]
     },
@@ -5182,22 +6643,30 @@
       "sourceIds": [
         "osm:n5134983150"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 10.9,
+      "phaseGreens": [
+        16.4,
+        19.6
+      ],
+      "offset": 33.631101544539206,
       "approaches": [
         {
           "edge": "4c2d2caf-09e_0",
           "dir": 1,
           "y": 0,
           "stopS": 40.320566853487094,
-          "phase": 1
+          "phase": 1,
+          "priority": 7.800000000000001
         },
         {
           "edge": "80f1c619-6f2_0",
           "dir": 1,
           "y": 0,
           "stopS": 45.920428120748305,
-          "phase": 0
+          "phase": 0,
+          "priority": 5.49
         }
       ]
     },
@@ -5211,15 +6680,22 @@
       "sourceIds": [
         "osm:n5134983184"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 68.42,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 41.62400152457917,
       "approaches": [
         {
           "edge": "dfe4fb1d-7bb_0",
           "dir": 1,
           "y": 0,
           "stopS": 67.37089762994795,
-          "phase": 0
+          "phase": 0,
+          "priority": 16.740000000000002
         }
       ]
     },
@@ -5233,15 +6709,22 @@
       "sourceIds": [
         "osm:n5134983163"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 11.77,
+      "phaseGreens": [
+        20.6,
+        15.4
+      ],
+      "offset": 14.504572755723757,
       "approaches": [
         {
           "edge": "08268b54-56d_0",
           "dir": 1,
           "y": 0,
           "stopS": 37.92108694234942,
-          "phase": 0
+          "phase": 0,
+          "priority": 7.800000000000001
         }
       ]
     },
@@ -5255,22 +6738,30 @@
       "sourceIds": [
         "osm:n7694096025"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 58.86,
+      "phaseGreens": [
+        18,
+        18
+      ],
+      "offset": 24.06410396047852,
       "approaches": [
         {
           "edge": "a4f7c5a2-7ae_0",
           "dir": -1,
           "y": 0,
           "stopS": 11.035434398864268,
-          "phase": 1
+          "phase": 1,
+          "priority": 23.25
         },
         {
           "edge": "ceae5008-2db_0",
           "dir": 1,
           "y": 0,
           "stopS": 12.691200180580678,
-          "phase": 0
+          "phase": 0,
+          "priority": 23.25
         }
       ]
     },
@@ -5284,22 +6775,30 @@
       "sourceIds": [
         "osm:n7701752874"
       ],
+      "timing": "simulated-coordinated",
+      "placement": "source-node-model-stopline",
       "phaseCount": 2,
-      "offset": 35.48,
+      "phaseGreens": [
+        21.7,
+        14.3
+      ],
+      "offset": 15.87223397641776,
       "approaches": [
         {
           "edge": "18086f29-515_0",
           "dir": 1,
           "y": 0,
           "stopS": 5.526843583818934,
-          "phase": 0
+          "phase": 0,
+          "priority": 13.16
         },
         {
           "edge": "248cb577-634_0",
           "dir": 1,
           "y": 0,
           "stopS": 472.32539267293623,
-          "phase": 1
+          "phase": 1,
+          "priority": 5.49
         }
       ]
     }

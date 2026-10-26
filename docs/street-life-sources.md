@@ -29,11 +29,20 @@ pipeline/.venv/bin/python pipeline/import_tgsrtc.py \
   --feed pipeline/build/transit/tgsrtc-2026-02-08.zip
 ```
 
-The feed has **no route shapes**. The game infers legal road connections between
-consecutive published stops, within a bounded corridor. This is an estimate of the
-road path between stops, not a surveyed turn-by-turn shape or live bus location.
-Temporary diversions after the feed date remain unverified. A service with no
-supported next connection waits instead of choosing a random street.
+The feed has **no route shapes**. A reproducible offline builder now constrains
+each consecutive published stop pair to a persistent sequence on the complete
+shipped directed road graph. It records the GTFS archive hash, all 305 road-source
+file hashes and a combined network hash. Of 36,457 legs whose two stops fall in
+the playable bounds, 34,912 have a continuous legal alignment and 1,545 remain
+explicitly unresolved. Across the complete published sequences, 34,912 of 39,070
+legs resolve and 649 of 1,511 representative patterns resolve end to end.
+
+These are inferred legal road paths, not agency-supplied or surveyed turn-by-turn
+shapes, live bus locations, or proof of current diversions. A bus follows the
+stored edge/direction sequence; if a required road is unavailable it stops the
+service rather than switching to a nearby parallel street. The complete per-leg
+status and hashes are in
+`pipeline/evidence/tgsrtc-alignment-audit-2026-10-26.json`.
 
 Naturally spawned buses acquire a published service before appearing. The same
 route number and actual destination are drawn on large front and rear boards.

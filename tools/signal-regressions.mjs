@@ -36,7 +36,7 @@ try {
     assert.equal(resolveSignalSites(arms(), [source(undefined, { synth: 1 })]).sites.length, 0);
     const result = resolveSignalSites(arms(), [source()]);
     assert.equal(result.sites.length, 1); assert.deepEqual(result.sites[0].sourceIds, ['osm:n1']);
-    assert.equal(result.sites[0].timing, 'simulated'); assert.equal(result.sites[0].placement, 'approximated');
+    assert.equal(result.sites[0].timing, 'simulated-coordinated'); assert.equal(result.sites[0].placement, 'source-node-model-stopline');
     assert.equal(result.sites[0].approaches.length, 4);
     const graph = new RoadGraph(arms()); graph.nodes.get('junction').signal = true;
     const t = Object.assign(Object.create(Traffic.prototype), { graph, t: 30 });
@@ -83,6 +83,18 @@ try {
     const crossing = [road('horizontal', [[400, 500], [600, 500]]), road('vertical', [[500, 400], [500, 600]], { elev: [8, 8] })];
     const site = resolveSignalSites(crossing, [source()]).sites[0]; assert.equal(site.node, null); assert.ok(site.approaches.every(a => a.edge === 'horizontal'));
   });
+  test('an exact low-speed mapped ORR approach resolves without signalling the high-speed mainline', () => {
+    const approach = road('orr-ramp', [[400, 500], [600, 500]], { cls: 'motorway_link', oneway: 'backward', expressway: { controlled: true } });
+    const mapped = source(undefined, { mappedDirections: [{ wayId: 'way/1203851399', nodeRole: 'interior', forwardHeading: [1, 0],
+      backwardHeading: [-1, 0], tags: { highway: 'motorway_link', maxspeed: '20', oneway: 'yes', toll: 'no' } }] });
+    const resolved = resolveSignalSites([approach], [mapped]);
+    assert.equal(resolved.unresolved.length, 0); assert.equal(resolved.sites.length, 1);
+    assert.ok(resolved.sites[0].approaches.every(a => a.edge === 'orr-ramp'));
+    const highSpeed = structuredClone(mapped); highSpeed.mappedDirections[0].tags.maxspeed = '100';
+    assert.equal(resolveSignalSites([approach], [highSpeed]).sites.length, 0);
+    const displaced = { ...approach, pts: [[400, 503], [600, 503]] };
+    assert.equal(resolveSignalSites([displaced], [mapped]).sites.length, 0, 'source-specific exception requires <=2m alignment');
+  });
   test('source controls bind after tile arrival, clear on unload, and never leak to another grade', () => {
     const roads = arms(), sites = resolveSignalSites(roads, [source()]).sites;
     const graph = new RoadGraph([]); graph.addRoads([roads[0]], sites); graph.addRoads(roads.slice(1));
@@ -110,6 +122,24 @@ try {
     assert.equal(a.offset, copy.offset);
     const other = resolveSignalSites([road('another', [[400, 500], [600, 500]])], [source(undefined, { id: 'osm:n2' })]).sites[0];
     assert.notEqual(a.offset, other.offset);
+  });
+  test('green splits favour the wider higher-class corridor while retaining clearance', () => {
+    const roads = [
+      road('major-west', [[400, 500], [500, 500]], { to: 'junction', cls: 'primary', w: 22 }),
+      road('major-east', [[600, 500], [500, 500]], { to: 'junction', cls: 'primary', w: 22 }),
+      road('minor-north', [[500, 400], [500, 500]], { to: 'junction', cls: 'residential', w: 8 }),
+      road('minor-south', [[500, 600], [500, 500]], { to: 'junction', cls: 'residential', w: 8 }),
+    ];
+    const site = resolveSignalSites(roads, [source()]).sites[0];
+    const majorPhase = site.approaches.find(a => a.edge === 'major-west').phase;
+    const minorPhase = site.approaches.find(a => a.edge === 'minor-north').phase;
+    assert.ok(site.phaseGreens[majorPhase] > site.phaseGreens[minorPhase]);
+    assert.ok(site.phaseGreens.every(seconds => seconds >= 12 && seconds <= 28));
+    const majorEnd = site.phaseGreens.slice(0, majorPhase).reduce((sum, green) => sum + green + 5, 0) + site.phaseGreens[majorPhase];
+    assert.equal(signalAspect(site, majorPhase, majorEnd - site.offset), 'amber');
+    for (let seconds = majorEnd + 3; seconds < majorEnd + 5; seconds += .1) {
+      for (const approach of site.approaches) assert.equal(signalAspect(site, approach.phase, seconds - site.offset), 'red');
+    }
   });
   test('divided-junction source nodes share one controller only across an actual short same-level link', () => {
     const roads = [road('west', [[400, 500], [492, 500]], { to: 'j-west' }), road('east', [[508, 500], [600, 500]], { from: 'j-east' }),

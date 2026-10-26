@@ -40,11 +40,21 @@ export function osmPathKind(tags: Record<string, string>): 'footbridge' | 'subwa
 }
 
 export function drawExtras(list: OsmFeature[], C: ExtrasCtx) {
-  const placedFuel: XZ[] = [], placedToll: XZ[] = [];
+  const placedFuel: XZ[] = [];
+  const placedToll: { x: number; z: number; road: RoadHit }[] = [];
   for (const f of list) {
     try {
       if (f.k === 'fuel') fuel(f, C, placedFuel);
-      else if (f.k === 'toll') { const q = mid(f); if (!placedToll.some((t) => Math.hypot(t[0] - q[0], t[1] - q[1]) < 70)) { placedToll.push(q); toll(f, C); } }
+      else if (f.k === 'toll') {
+        const q = mid(f); if (!C.inTile(...q)) continue;
+        const r = C.nearestRoad(q[0], q[1], 25); if (!r) continue;
+        // Lane nodes describe one canopy, but the opposite carriageway is a
+        // different plaza. An out-of-tile context node cannot suppress its owner.
+        const duplicate = placedToll.some(t => Math.hypot(t.x - q[0], t.z - q[1]) < 70 && Math.abs(t.road.y - r.y) < .8 &&
+          (t.road.e.id === r.e.id || (Math.abs(t.road.hx * r.hx + t.road.hz * r.hz) > .95 &&
+            Math.abs((t.road.cx - r.cx) * r.hz - (t.road.cz - r.cz) * r.hx) < 1.5)));
+        if (!duplicate) { placedToll.push({ x: q[0], z: q[1], road: r }); toll(f, C, r); }
+      }
       else if (f.k === 'exit') exitSign(f, C);
       else if (f.k === 'footbridge' || f.k === 'covered_path' || f.k === 'subway') {
         // Existing packs predate covered_path. Read their original tags without rewriting source evidence.
@@ -142,15 +152,22 @@ function fuel(f: OsmFeature, C: ExtrasCtx, placed: XZ[]) {
 }
 
 // ---------- toll plaza across the carriageway: canopy, booths between lanes, name fascia ----------
-function toll(f: OsmFeature, C: ExtrasCtx) {
-  const [px, pz] = mid(f); if (!C.inTile(px, pz)) return;
-  const r = C.nearestRoad(px, pz, 25); if (!r) return;
-  const nx = -r.hz, nz = r.hx, wid = r.w + 6, lanes = Math.max(2, Math.round(r.w / 3.4)), lw = r.w / lanes, y = r.y;
+export function tollLaneLayout(r: RoadHit) {
+  // HMDA's closed system has entry/exit ramp lanes. Do not split a narrow
+  // one-lane slip road into two impassable booth gaps. Island width is a model
+  // assumption; mapped lane count wins where whole vehicles still fit.
+  const width = Math.max(3.4, r.w), capacity = Math.max(1, Math.floor(width / 3.4));
+  const mapped = Number.isInteger(r.e.lanes) && r.e.lanes > 0 ? r.e.lanes : capacity;
+  const lanes = Math.min(mapped, capacity);
+  return { lanes, laneWidth: width / lanes, width };
+}
+function toll(f: OsmFeature, C: ExtrasCtx, r: RoadHit) {
+  const layout = tollLaneLayout(r), nx = -r.hz, nz = r.hx, wid = layout.width + 6, lanes = layout.lanes, lw = layout.laneWidth, y = r.y;
   const B = C.B, ang = Math.atan2(r.hx, r.hz);
   B.st.box(r.cx, y + 6.4, r.cz, wid, 1.0, 9, '#eeeeea', { ry: ang });
   B.lit.box(r.cx, y + 5.88, r.cz, wid - 1, 0.02, 8, '#fff3d6', { ry: ang });
   for (let k = 0; k <= lanes; k++) {
-    const v = -r.w / 2 + k * lw, x = r.cx + nx * v, z = r.cz + nz * v;
+    const v = -layout.width / 2 + k * lw, x = r.cx + nx * v, z = r.cz + nz * v;
     B.st.box(x, y + 0.2, z, 1.2, 0.4, 7, '#f4c21b', { ry: ang });                  // island with kerb paint
     B.st.box(x, y + 1.6, z, 1.0, 2.6, 2.2, '#dfe3e8', { ry: ang }); B.lit.box(x + r.hx * 1.11, y + 2.1, z + r.hz * 1.11, 0.8, 0.5, 0.02, '#bfffd0', { ry: ang });
     B.st.box(x, y + 3.6, z, 0.35, 5.6, 0.35, '#b9bec6');

@@ -30,6 +30,55 @@ try {
       for (const s of p.stops) assert.ok(Number.isFinite(data.stops[s][1] + data.stops[s][2]));
     }
   });
+  test('every published stop leg has a persistent alignment or an explicit unresolved reason', () => {
+    const data = publishedFeed;
+    assert.equal(data.schema, 2);
+    assert.equal(data.alignmentProvenance.status, 'inferred_legal_road_paths_not_agency_shapes');
+    assert.match(data.alignmentProvenance.feedSourceSha256, /^[a-f0-9]{64}$/);
+    assert.match(data.alignmentProvenance.networkSha256, /^[a-f0-9]{64}$/);
+    let resolved = 0, unresolved = 0;
+    for (const pattern of data.patterns) {
+      assert.equal(pattern.alignmentIds.length, pattern.stops.length - 1);
+      for (const [i, id] of pattern.alignmentIds.entries()) {
+        const alignment = data.alignments[id]; assert.ok(alignment);
+        assert.equal(alignment.fromStop, pattern.stops[i]); assert.equal(alignment.toStop, pattern.stops[i + 1]);
+        if (alignment.status === 'inferred_legal_road_path') {
+          resolved++; assert.ok(alignment.steps.length && alignment.pts.length >= 2); assert.ok(alignment.maxStopSnapM <= 100.1);
+          for (const step of alignment.steps) { assert.ok(step.edge); assert.ok(step.dir === 1 || step.dir === -1); assert.ok(step.from >= 0 && step.to >= step.from); }
+        } else { unresolved++; assert.equal(alignment.status, 'unresolved'); assert.ok(alignment.reason); assert.equal(alignment.steps, undefined); }
+      }
+    }
+    assert.equal(resolved + unresolved, 39070); assert.ok(resolved > 30000); assert.ok(unresolved > 0);
+  });
+  const persistedFeed = (graph, source = feed) => {
+    const builder = new BusServices(graph, source), alignments = {}, patterns = source.patterns.map(pattern => {
+      const alignmentIds = pattern.stops.slice(1).map((_, i) => { const id = `${pattern.id}:${i}`; alignments[id] = builder.reconstruct(pattern, i); return id; });
+      return { ...pattern, alignmentIds };
+    });
+    return { ...source, schema: 2, patterns, alignments };
+  };
+  test('persisted bus paths reject nearby parallel streets and retain the published identity', () => {
+    const parallel = road('parallel', [[0, 8], [100, 8]], 'other-a', 'other-j'), graph = new RoadGraph([...roads, parallel]);
+    const shaped = persistedFeed(graph), services = new BusServices(graph, shaped), approach = graph.byId.get('approach');
+    const run = services.bind(approach, 1, 30); assert.ok(run); assert.equal(run.pattern.number, '8A');
+    assert.equal(services.bind(graph.byId.get('parallel'), 1, 30), null, 'a route board cannot be attached to a parallel street outside its stored edge sequence');
+    services.served(run, approach, 1, 75); assert.equal(services.next(run, approach, 1, 75).edge.e.id, 'allotted');
+    assert.equal(services.bind(graph.byId.get('allotted'), 1, 60)?.pattern.number, '8A', 'binding follows a stored bend instead of only the straight stop chord');
+  });
+  test('unloaded or changed aligned roads never fall back to a competing legal road', () => {
+    const alternate = road('alternate', [[100, 0], [110, 70], [100, 120]], 'j', 'b'), graph = new RoadGraph([roads[0]]); graph.addRoads([roads[1]]);
+    const shaped = persistedFeed(graph); graph.addRoads([alternate]);
+    const services = new BusServices(graph, shaped), approach = graph.byId.get('approach');
+    const run = services.bind(approach, 1, 30); assert.ok(run); services.served(run, approach, 1, 75); assert.equal(run.ended, false);
+    graph.removeRoads(['allotted']); assert.equal(services.next(run, approach, 1, 75), null);
+    const fresh = services.bind(approach, 1, 30); assert.ok(fresh); services.served(fresh, approach, 1, 75); assert.equal(fresh.ended, true);
+    assert.equal(services.bind(graph.byId.get('alternate'), 1, 50), null);
+  });
+  test('unresolved stored legs never silently use the legacy inferred corridor', () => {
+    const graph = new RoadGraph(roads), shaped = persistedFeed(graph);
+    for (const alignment of Object.values(shaped.alignments)) { alignment.status = 'unresolved'; alignment.reason = 'fixture_missing_source_alignment'; delete alignment.steps; delete alignment.pts; }
+    assert.equal(new BusServices(graph, shaped).bind(graph.byId.get('approach'), 1, 30), null);
+  });
   test('a bound service stops in published order then chooses its allotted branch', () => {
     const graph = new RoadGraph(roads), services = new BusServices(graph, feed), edge = graph.byId.get('approach');
     const run = services.bind(edge, 1, 30, .1); assert.ok(run); assert.equal(run.pattern.number, '8A');

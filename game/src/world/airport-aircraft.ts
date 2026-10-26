@@ -1,10 +1,42 @@
 import * as THREE from 'three';
 import { Batch, TPL } from '../core/util';
-import { airfieldProjection, AIRPORT_LAYOUTS, placeAirfields, type AirPoint, type Airfield, type GeoOrigin } from './airfields';
+import { airfieldProjection, airportTaxiwayWidth, AIRPORT_LAYOUTS, placeAirfields, type AirPoint, type Airfield, type GeoOrigin } from './airfields';
 interface Route {pts:AirPoint[];cum:number[];taxi:number;runway:number;length:number}
 interface Aircraft {mesh:THREE.Mesh;route:Route;s:number;speed:number;wait:number;airport:Airfield}
 function distance(a:AirPoint,b:AirPoint){return Math.hypot(a[0]-b[0],a[1]-b[1]);}
 function ringContains(p:AirPoint,ring:AirPoint[]){let hit=false;for(let i=0,j=ring.length-1;i<ring.length;j=i++){const a=ring[i],b=ring[j];if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])hit=!hit;}return hit;}
+function segmentDistance(p: AirPoint, a: AirPoint, b: AirPoint) {
+  const dx = b[0] - a[0], dz = b[1] - a[1], u = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dz) / (dx * dx + dz * dz || 1)));
+  return Math.hypot(p[0] - a[0] - u * dx, p[1] - a[1] - u * dz);
+}
+function boundaryDistance(p: AirPoint, pts: AirPoint[]) {
+  let best = Infinity;
+  for (let i = 1; i < pts.length; i++) best = Math.min(best, segmentDistance(p, pts[i - 1], pts[i]));
+  if (pts.length > 2) best = Math.min(best, segmentDistance(p, pts[pts.length - 1], pts[0]));
+  return best;
+}
+// Candidate parking remains illustrative, but the entire aircraft envelope must
+// fit a mapped apron, stay clear of buildings/taxi lanes and avoid its neighbours.
+// A centre-only test previously let wings/tails cross grass, terminal walls or
+// active taxi routes near concave apron boundaries.
+export function airportParkingPositions(a: Airfield, terminal: AirPoint, scale: number, count: number): AirPoint[] {
+  const radius = Math.hypot(18, 16) * scale + 1.5;
+  const centre = (pts: AirPoint[]): AirPoint => [pts.reduce((s, p) => s + p[0], 0) / pts.length, pts.reduce((s, p) => s + p[1], 0) / pts.length];
+  const aprons = a.features.filter(f => f.kind === 'apron').slice().sort((p, q) => distance(centre(p.pts), terminal) - distance(centre(q.pts), terminal));
+  const occupied = a.features.filter(f => f.kind === 'terminal' || f.kind === 'hangar'), taxiways = a.features.filter(f => f.kind === 'taxiway');
+  const parked: AirPoint[] = [];
+  for (const apron of aprons) {
+    const minX = Math.min(...apron.pts.map(p => p[0])), maxX = Math.max(...apron.pts.map(p => p[0])), minZ = Math.min(...apron.pts.map(p => p[1])), maxZ = Math.max(...apron.pts.map(p => p[1]));
+    for (let x = minX + radius; x <= maxX - radius; x += Math.max(25, 65 * scale)) for (let z = minZ + radius; z <= maxZ - radius; z += Math.max(25, 70 * scale)) {
+      const p: AirPoint = [x, z];
+      if (!ringContains(p, apron.pts) || boundaryDistance(p, apron.pts) < radius || parked.some(q => distance(p, q) < radius * 2 + 3)) continue;
+      if (occupied.some(f => ringContains(p, f.pts) || boundaryDistance(p, f.pts) < radius)) continue;
+      if (taxiways.some(f => f.pts.some((q, i) => i > 0 && segmentDistance(p, f.pts[i - 1], q) < airportTaxiwayWidth(f) / 2 + radius))) continue;
+      parked.push(p); if (parked.length >= count) return parked;
+    }
+  }
+  return parked;
+}
 // Mapped taxiways supply the graph. Ground movement never invents a loop around
 // the apron, and one departure per airport avoids overlapping runway traffic.
 export function airportDepartureRoute(a:Airfield,terminal:AirPoint):Route|null{
@@ -43,8 +75,7 @@ export class AirportAircraft{
   group=new THREE.Group();private planes:Aircraft[]=[];private geo:THREE.BufferGeometry;private mat:THREE.Material;
   constructor(origin:GeoOrigin,opts:{lowQ?:boolean}={}){this.geo=planeGeometry();this.mat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.72});const project=airfieldProjection(origin);
     for(const a of placeAirfields(origin)){const layout=AIRPORT_LAYOUTS[a.id as keyof typeof AIRPORT_LAYOUTS],terminal=project(layout.terminal.lat,layout.terminal.lon),scale=a.id==='vohy'?.55:1;
-      const aprons=a.features.filter(f=>f.kind==='apron').sort((p,q)=>{const centre=(f:typeof p):AirPoint=>[f.pts.reduce((s,p)=>s+p[0],0)/f.pts.length,f.pts.reduce((s,p)=>s+p[1],0)/f.pts.length];return distance(centre(p),terminal)-distance(centre(q),terminal);});
-      const parked:AirPoint[]=[];for(const apron of aprons.slice(0,3)){const minX=Math.min(...apron.pts.map(p=>p[0])),maxX=Math.max(...apron.pts.map(p=>p[0])),minZ=Math.min(...apron.pts.map(p=>p[1])),maxZ=Math.max(...apron.pts.map(p=>p[1]));for(let x=minX+25;x<maxX-20;x+=65*scale)for(let z=minZ+25;z<maxZ-20;z+=70*scale){const p:AirPoint=[x,z];if(parked.length>=(opts.lowQ?2:4)||!ringContains(p,apron.pts)||parked.some(q=>distance(p,q)<60*scale))continue;parked.push(p);const m=this.mesh(scale);m.position.set(x,.16,z);m.rotation.y=Math.PI;this.group.add(m);}}
+      for (const [x, z] of airportParkingPositions(a, terminal, scale, opts.lowQ ? 2 : 4)) { const m = this.mesh(scale); m.position.set(x, .16, z); m.rotation.y = Math.PI; this.group.add(m); }
       const route=airportDepartureRoute(a,terminal);if(route){const mesh=this.mesh(scale),p=route.pts[0];mesh.position.set(p[0],.16,p[1]);mesh.visible=false;this.group.add(mesh);this.planes.push({mesh,route,s:0,speed:0,wait:a.id==='vohy'?14:6,airport:a});}
     }
   }

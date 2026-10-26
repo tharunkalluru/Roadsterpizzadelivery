@@ -1,6 +1,6 @@
 import { TPL } from '../core/util';
 import { drawIndianFlag } from './indian_flag';
-import { drawNilaChakra, drawTemplePennant, JAGANNATH_HEIGHT } from './landmark_symbols';
+import { drawNilaChakra, drawTemplePennant, drawFurledNishanSahib, JAGANNATH_HEIGHT } from './landmark_symbols';
 import type { Kit, Landmark } from './landmarks';
 import { LM_DATA, LmData } from './landmarks_data';
 import { drawAirportTerminal } from './airfields';
@@ -287,7 +287,7 @@ const R_: Record<string, Recipe> = {
       for(const a of [-1,1]) for(const b of [-1,1]) K.box(u+a*.8,v+b*.8,y,.22,3,.22,W);
       K.box(u,v,y+3,2.5,.4,2.5,W); K.shape('melon',u,v,y+3.4,2.6,1.8,2.6,gold); K.cyl(u,v,y+5.2,.06,.9,'#b0a58a');
     }
-    K.box(13,6,0,.3,18,.3,'#b0b0b8'); K.box(14,6,15.5,2,1.4,.04,'#ef8a1f');
+    drawFurledNishanSahib(K,13,6,18);
     nameAt(K,{name:'Central Gurudwara Saheb'} as any,9.5,6.5); K.solidRect(0,0,20,16,8); K.solidRect(0,-1,17,13,14);
   }, clear: [26,20] },
   // ---- mosques and dargahs ----

@@ -2,6 +2,8 @@ import { TPL, TiledBatch, rng } from '../core/util';
 import type { LmData } from './landmarks_data';
 import { EXTRA_LANDMARKS, EXTRA_MODELS } from './landmarks2';
 import { drawDurgamBridge } from './durgam-bridge';
+import { drawLionCapital } from './landmark_symbols';
+import { drawGolcondaSummit } from './golconda-summit';
 
 // Stylised monument models with inherited anchors and proportions. Per-feature evidence and unresolved accuracy
 // gaps are recorded in docs/landmark-audit.json; source coverage alone is not street verification.
@@ -309,13 +311,7 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
         if (i % 4 === 0) { K.cyl(u0, v0, y, 4, 9, R, 'cyl24'); }
       }
     }
-    // Baradari: three-tier stepped pavilion of pointed arches on the summit
-    K.y0 = H;
-    K.box(0, 0, 0, 37, 4.5, 28, R); K.arcade('arch', -18, 14.05, 18, 14.05, 12, 0, 4.4, 0.5, Pl);
-    K.box(0, -2, 4.5, 33, 4.5, 22, R); K.arcade('arch', -16, 9.05, 16, 9.05, 10, 4.5, 4.4, 0.5, Pl);
-    K.box(0, -4, 9.0, 26, 4.5, 15, R); K.arcade('arch', -12.5, 3.55, 12.5, 3.55, 7, 9.0, 4.4, 0.5, Pl);
-    for (let i = -12; i <= 12; i += 2) K.box(i, 3.4, 13.5, 1.0, 1.0, 0.8, R);
-    K.solidRect(0, 0, 37, 28, 4.5); K.solidRect(0, -2, 33, 22, 9); K.solidRect(0, -4, 26, 15, 13.5);
+    drawGolcondaSummit(K);
     K.y0 = 0;
     // citadel wall ring with round bastions around the base (gaps where roads cross)
     const ring = 64, cu = 262, cv = 300;
@@ -443,8 +439,9 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
       K.box(0, v, H, 30, 16, wing + 2, W, 0, 'wall'); K.arcade('archSlim', -15, v + sv * (wing / 2 + 1.1), 15, v + sv * (wing / 2 + 1.1), 5, H, 14, 0.6, W);
       K.box(0, v, H + 16, 31, 0.8, wing + 3, G); for (const a of [-1, 1]) for (const b of [-1, 1]) K.chhatri(a * 12.5, v + b * 8.5, H + 16.8, 4.4, W);
       K.cyl(0, v, H + 16.8, 8.6, 5, G, 'cyl24'); K.shape('onion', 0, v, H + 21.8, 15.8, 25, 15.8, W);
-      K.cyl(0, v, H + 46.6, 1.4, 1.5, Au); for (let k = 0; k < 4; k++) { const a = (k / 4) * Math.PI * 2; K.box(Math.cos(a) * 1.0, v + Math.sin(a) * 1.0, H + 48.1, 1.1, 2.6, 1.6, Au, a); }
-      K.cyl(0, v, H + 50.7, 0.9, 0.5, Au, 'cyl24'); K.solidCircle(0, v, 7.5, H + 30);
+      K.cyl(0, v, H + 46.6, 1.4, 1.5, Au);
+      drawLionCapital(K,0,v,H+48.1);
+      K.solidCircle(0, v, 7.5, H + 30);
     }
     // porte-cochere at the main (east) entrance
     K.box(0, hv + 9, 0, 26, 9, 14, W); K.arcade('archRound', -13, hv + 16.05, 13, hv + 16.05, 3, 0, 7.5, 0.6, W); K.shape('dome', 0, hv + 9, 9, 8, 5, 8, W); K.solidRect(0, hv + 9, 26, 14, 9);
