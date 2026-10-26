@@ -3,6 +3,7 @@ import { fetchPack } from '../world/packs';
 import { DialogFocus } from './dialog';
 import { placeCatalogue, PLACE_CATEGORIES, type LandmarkPlace, type PlaceCategory } from '../world/landmark_catalog';
 import { layoutPlaceMarkers, hitPlaceMarker, placeIcon, type PlaceMarker } from './landmark-icons';
+import { metroCorridors, METRO_LINE_COLORS } from '../world/metro-geometry';
 
 interface MapPack { roads: Record<string, number[][]>; areas: { k: 'park' | 'water'; r: number[] }[]; metro: number[][] }
 
@@ -61,7 +62,7 @@ export class FullMap {
   placeQuery = '';
   private gesture: { id: number; x: number; y: number; moved: boolean } | null = null;
   cx = 0; cz = 0; scale = 0.5;                       // pixels per metre
-  layers: { park: Path2D; water: Path2D; roads: { p: Path2D; w: number; col: string; min: number }[]; minor: Map<string, Path2D>; metro: Path2D[] } | null = null; bld = new Path2D(); loading = false;
+  layers: { park: Path2D; water: Path2D; roads: { p: Path2D; w: number; col: string; min: number }[]; minor: Map<string, Path2D>; metro: { p: Path2D; color: string }[] } | null = null; bld = new Path2D(); loading = false;
   pointers = new Map<number, { x: number; y: number }>(); pinch0 = 0; scale0 = 0;
   constructor(host: HTMLElement, public zone: CoreData, public state: () => MapState, public onClose: () => void, public src: { mapUrl: string; buildings: () => Building[] }) {
     this.places = placeCatalogue(zone.origin);
@@ -79,7 +80,7 @@ export class FullMap {
       <button type="button" class="btn go movebtn" id="map-move" hidden>Deliver from here…</button>
       <div class="pickbar" id="map-pickbar" hidden><div class="sm">Drag the map to put the pin where you want to start</div><div class="where" id="map-where">…</div>
         <div class="row"><button type="button" class="btn alt" id="map-pick-cancel">Cancel</button><button type="button" class="btn go" id="map-pick-ok">Start delivering here</button></div></div>
-      <div class="legend"><span><i style="background:#FFB627"></i>You</span><span><i style="background:#45E3D3"></i>Route</span><span><i style="background:#FF8FB1"></i>Cinemas</span><span><i style="background:#F2994A"></i>Pizza pickups</span><span><i style="background:#22B573"></i>Metro</span><span><i style="background:#cfbb8b"></i>Places · tap icons</span></div>`;
+      <div class="legend"><span><i style="background:#FFB627"></i>You</span><span><i style="background:#45E3D3"></i>Route</span><span><i style="background:#FF8FB1"></i>Cinemas</span><span><i style="background:#F2994A"></i>Pizza pickups</span><span>${Object.entries(METRO_LINE_COLORS).map(([id, color]) => '<i title="' + id + ' line" style="background:' + color + '"></i>').join('')}Metro</span><span><i style="background:#cfbb8b"></i>Places · tap icons</span></div>`;
     host.appendChild(this.root);
     this.focus = new DialogFocus(this.root, {
       initial: () => this.root.querySelector('#map-close'),
@@ -209,7 +210,7 @@ export class FullMap {
       p.moveTo(l[0], l[1]); for (let i = 2; i < l.length; i += 2) p.lineTo(l[i], l[i + 1]);
       if (n % 8000 === 7999) await new Promise((r) => setTimeout(r, 0));
     }
-    const metro = mp.metro.map((l) => { const p = new Path2D(); p.moveTo(l[0], l[1]); for (let i = 2; i < l.length; i += 2) p.lineTo(l[i], l[i + 1]); return p; });
+    const metro = metroCorridors(this.zone.metro.lines).map(c => { const p = new Path2D(), l = c.center.pts; p.moveTo(l[0][0], l[0][1]); for (let i = 1; i < l.length; i++) p.lineTo(l[i][0], l[i][1]); return { p, color: c.color }; });
     this.layers = { park, water, roads, minor, metro };
     this.loading = false; this.dirty = true;
   }
@@ -280,7 +281,7 @@ export class FullMap {
       for (let i = x0; i <= x1; i++) for (let j = z0; j <= z1; j++) { const p = L.minor.get(`${i},${j}`); if (p) g.stroke(p); }
     }
     for (const r of L.roads) { if (s < r.min) continue; g.strokeStyle = r.col; g.lineWidth = Math.max(r.w, 2.2 / s); g.stroke(r.p); }
-    g.strokeStyle = '#22B573'; g.lineWidth = Math.max(3, 3 / s); g.setLineDash([12 / Math.max(0.5, s), 8 / Math.max(0.5, s)]); for (const m of L.metro) g.stroke(m); g.setLineDash([]);
+    g.lineWidth = Math.max(3, 3 / s); g.setLineDash([12 / Math.max(0.5, s), 8 / Math.max(0.5, s)]); for (const m of L.metro) { g.strokeStyle = m.color; g.stroke(m.p); } g.setLineDash([]);
     if (st.route) { g.strokeStyle = '#45E3D3'; g.lineWidth = Math.max(6, 6 / s); g.beginPath(); st.route.forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
     // markers in screen space
     g.setTransform(dpr, 0, 0, dpr, 0, 0);

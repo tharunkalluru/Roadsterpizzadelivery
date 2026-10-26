@@ -1,11 +1,13 @@
 import type { CityData, Surface, Wall } from '../world/city';
 import { pointInRing } from '../world/city';
 import type { Building } from '../world/types';
+import { movingRailSupport, railRoofAt } from './moving-rail';
+import { landmarkHeightAt, landmarkRoofUnder } from '../world/landmark-support';
 
 const k30 = (x: number, z: number) => `${Math.floor(x / 30)},${Math.floor(z / 30)}`;
 const k50 = (x: number, z: number) => `${Math.floor(x / 50)},${Math.floor(z / 50)}`;
 
-export type SupportKind = 'ground' | 'road' | 'deck' | 'pad' | 'roof';
+export type SupportKind = 'ground' | 'road' | 'deck' | 'pad' | 'roof' | 'rail' | 'landmark';
 export interface Support { y: number; s: Surface | null; onRoad: boolean; kind: SupportKind; elevatedRoad: boolean }
 
 // Highest surface under (x,z) that the car can reach from height `fromY`: roads and flyovers, the metro deck,
@@ -34,8 +36,15 @@ export function supportAt(city: CityData, x: number, z: number, fromY: number, r
     }
   }
   if (!roadsOnly) for (const b of nearbyBuildings(city, x, z)) {
+    if (city.landmarkSurfaceGrid && b.cls === 'landmark') continue;
     if (b.h > fromY + 1.6 || b.h < best.y - 0.01) continue;
     if (pointInRing(x, z, b.ring)) best = { y: b.h + 0.02, s: null, onRoad: false, kind: 'roof', elevatedRoad: false };
+  }
+  if (!roadsOnly) {
+    const landmark = landmarkHeightAt(city.landmarkSurfaceGrid, x, z, fromY + 1.6);
+    if (landmark !== null && landmark >= best.y - .01) best = { y: landmark, s: null, onRoad: false, kind: 'landmark', elevatedRoad: false };
+    const rail = movingRailSupport(city.movingRail || [], x, z, fromY);
+    if (rail && (Math.abs(rail.y - fromY) < Math.abs(best.y - fromY) + .01)) best = { y: rail.y, s: null, onRoad: false, kind: 'rail', elevatedRoad: false };
   }
   return best;
 }
@@ -49,7 +58,11 @@ export function nearbyBuildings(city: CityData, x: number, z: number): Building[
 // tallest roof under any of the given points (used to lift the flight path over high-rises)
 export function roofUnder(city: CityData, pts: [number, number][]): number {
   let h = 0;
-  for (const [x, z] of pts) for (const b of nearbyBuildings(city, x, z)) if (b.h > h && pointInRing(x, z, b.ring)) h = b.h;
+  for (const [x, z] of pts) {
+    for (const b of nearbyBuildings(city, x, z)) if ((!city.landmarkSurfaceGrid || b.cls !== 'landmark') && b.h > h && pointInRing(x, z, b.ring)) h = b.h;
+    h = Math.max(h, landmarkRoofUnder(city.landmarkSurfaceGrid, x, z));
+    for (const body of city.movingRail || []) h = Math.max(h, railRoofAt(body, x, z) || 0);
+  }
   return h;
 }
 
@@ -57,6 +70,10 @@ export function roofUnder(city: CityData, pts: [number, number][]): number {
 export function collideBuildings(city: CityData, pos: { x: number; z: number }, r: number, y: number): number {
   let hit = 0;
   for (const b of nearbyBuildings(city, pos.x, pos.z)) {
+    if (city.landmarkSurfaceGrid && b.cls === 'landmark') {
+      const top = landmarkHeightAt(city.landmarkSurfaceGrid, pos.x, pos.z);
+      if (top !== null && Math.abs(top - y) < .8) continue;
+    }
     if (b.h < y + 0.5) continue;
     const ring = b.ring;
     let inside = false, bestD = 1e9, bx = 0, bz = 0;

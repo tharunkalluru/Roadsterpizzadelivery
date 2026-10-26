@@ -3,6 +3,8 @@ import { SignSystem, SignInst } from './signs';
 import type { CityData, TileBuilt, Surface, Wall, BusStop, WalkPath } from './city';
 import type { Building, CoreData, XZ } from './types';
 import { placeLandmarks } from './landmarks';
+import type { LandmarkSurfaceGrid } from './landmark-support';
+import { placeAirfields } from './airfields';
 
 export interface LoadedTile { key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[] }
 
@@ -17,8 +19,10 @@ const RENDER: Record<string, { cast: boolean; receive: boolean; order?: number }
 // The streamed city: keeps the 1 km tiles around the player built (in a worker) and exposes them to the game
 // through the same grids the single-zone city used, so physics, traffic and walkers don't care where a tile ends.
 export class World implements CityData {
+  movingRail: import('../game/moving-rail').MovingRailBody[] = [];
   group = new THREE.Group(); signs: SignSystem; lit = null; glow = null;
   buildingGrid = new Map<string, Building[]>(); surfaceGrid = new Map<string, Surface[]>(); walls = new Map<string, Wall[]>();
+  landmarkSurfaceGrid: LandmarkSurfaceGrid = new Map();
   obstacles = new Map<string, { x: number; z: number; r: number; top: number }[]>(); byBuilding = new Map<string, Building>();
   signals: { p: XZ; node: string | null }[] = []; lamps: THREE.Vector3[] = []; busStops: BusStop[] = []; walkPaths: WalkPath[] = []; rails = new Map<string, { id: string; pts: XZ[]; bridge?: boolean }>();
   theatreFacades = new Map<string, { c: THREE.Vector3; n: THREE.Vector3; w: number; top: number; building: Building }>();
@@ -47,7 +51,7 @@ export class World implements CityData {
     w.onmessage = (ev) => { if (this.worker === w) this.onMessage(ev.data); };
     w.onerror = (e) => { if (this.worker === w) { e.preventDefault(); this.workerError(); } };
     w.onmessageerror = () => { if (this.worker === w) this.workerError(); };
-    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)) }); }
+    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin) }); }
     catch (error) { w.terminate(); throw error; }
     return w;
   }
@@ -193,6 +197,7 @@ export class World implements CityData {
     this.group.add(g);
     const merge = <T>(dst: Map<string, T[]>, src: Map<string, T[]>) => { for (const [k, a] of src) { const d = dst.get(k); if (d) d.push(...a); else dst.set(k, a.slice()); } };
     merge(this.buildingGrid, b.buildingGrid); merge(this.surfaceGrid, b.surfaceGrid); merge(this.walls, b.walls); merge(this.obstacles, b.obstacles);
+    if (b.landmarkSurfaceGrid) merge(this.landmarkSurfaceGrid, b.landmarkSurfaceGrid);
     const buildings = new Set<Building>(); for (const a of b.buildingGrid.values()) for (const x of a) buildings.add(x);
     for (const x of buildings) this.byBuilding.set(x.id, x);
     const signs = b.signs.map((s) => this.signs.add({ id: s.id, text: s.text, bg: s.bg, fg: s.fg, c: new THREE.Vector3(...s.c), right: new THREE.Vector3(...s.right), up: new THREE.Vector3(0, 1, 0), w: s.w, h: s.h }));
@@ -226,6 +231,7 @@ export class World implements CityData {
       }
     }
     strip(this.buildingGrid, b.buildingGrid); strip(this.surfaceGrid, b.surfaceGrid); strip(this.walls, b.walls); strip(this.obstacles, b.obstacles);
+    if (b.landmarkSurfaceGrid) strip(this.landmarkSurfaceGrid, b.landmarkSurfaceGrid);
     for (const x of t.buildings) this.byBuilding.delete(x.id);
     for (const [k, n] of b.activity || []) { const v = (this.activity.get(k) || 0) - n; if (v > 0.5) this.activity.set(k, v); else this.activity.delete(k); }
     this.signs.remove(t.signs);

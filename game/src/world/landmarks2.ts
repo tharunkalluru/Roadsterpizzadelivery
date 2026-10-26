@@ -3,6 +3,7 @@ import { drawIndianFlag } from './indian_flag';
 import { drawNilaChakra, drawTemplePennant, JAGANNATH_HEIGHT } from './landmark_symbols';
 import type { Kit, Landmark } from './landmarks';
 import { LM_DATA, LmData } from './landmarks_data';
+import { drawAirportTerminal } from './airfields';
 
 // 159 additional stylised Hyderabad places; dimensions and decorative details require per-place verification: temples, mosques and dargahs,
 // churches, palaces, heritage buildings, stations and bus terminals, civic buildings, hospitals, campuses, IT parks,
@@ -466,7 +467,9 @@ const R_: Record<string, Recipe> = {
   himayat_sagar: { draw: (K) => { for (let k = -8; k <= 8; k++) { K.box(k * 12, 0, 0, 12.2, 9, 8, '#a59d90'); K.shape('arch', k * 12, 4.05, 0, 6, 6, 0.3, '#5a544c'); } K.box(0, 0, 9, 205, 1, 9, '#bdb3a2'); K.board('HIMAYAT SAGAR', 0, 5, 12, 10); K.solidRect(0, 0, 205, 8, 9); }, clear: 0, keepBuildings: true },
   ramoji: { draw: (K) => { gate(K, 0, 0, 26, 12, '#c9a77c', '#f2e6c8', 'RAMOJI FILM CITY'); for (const s of [-1, 1]) statue(K, s * 20, 6, 7, 2, '#d6b26a'); }, clear: 0, keepBuildings: true },
   wonderla: { draw: (K) => { gate(K, 0, 0, 20, 10, '#2f8ab8', '#e8c46a', 'WONDERLA'); K.box(30, -40, 0, 0.6, 40, 0.6, '#8a8f99'); K.cyl(30, -40, 40, 18, 1, '#e8762b', 'cyl24'); }, clear: 0, keepBuildings: true },
-  durgam_lake: { draw: (K) => { for (let k = 0; k < 6; k++) K.box(-30 + k * 12, 0, 0, 10, 1.2, 4, '#cfc7b8'); K.board('DURGAM CHERUVU', 0, 3, 3, 10); }, clear: 0, keepBuildings: true },
+  // The lake already renders from the actual OSM water polygon w28131043.
+  // A previous invented promenade at its centre put concrete slabs in the water.
+  durgam_lake: { draw: () => {}, clear: 0, keepBuildings: true },
   biodiversity: { draw: (K) => { gate(K, 0, 0, 14, 7, '#5f8a45', '#d9e6c6', 'BIODIVERSITY PARK'); }, clear: 0, keepBuildings: true },
   nizam_sagar_chowk: { draw: (K, D) => { colonial(K, W(D, 80) * 0.8, Dp(D, 35) * 0.8, 9, '#f2efe8', '#ffffff', { storeys: 1, portico: 16, cols: 6 }); K.board('THE NIZAM CLUB', 0, Dp(D, 35) * 0.4 + 6, 3.5, 9); }, clear: [70, 34] },
   // ---- sport ----
@@ -480,8 +483,8 @@ const R_: Record<string, Recipe> = {
   hca_fateh: { draw: (K) => { colonial(K, 40, 14, 9, '#efe8da', '#2f5d3f', { storeys: 2, portico: 16, cols: 6 }); K.board('FATEH MAIDAN CLUB', 0, 14.5, 3.5, 10); }, clear: [44, 26] },
   // ---- airport and transport hubs ----
   // RGIA terminal: long glass terminal under a wave roof, the elevated departures road in front
-  rgia: { draw: (K) => { K.box(0, 0, 0, 300, 22, 90, '#9fbccb'); for (let k = 0; k < 12; k++) addRaw(K, 'cyl', -138 + k * 25, 0, 22 + Math.sin((k / 11) * Math.PI) * 6, 2, 96, 2, '#d9dde3', 0, Math.PI / 2, Math.PI / 2); K.board('RAJIV GANDHI INTERNATIONAL AIRPORT', 0, 45.3, 18, 22, 2.6, '#ffffff', '#1f3a68'); K.solidRect(0, 0, 300, 90, 22); }, clear: [310, 100] },
-  begumpet_airport: { draw: (K) => { colonial(K, 80, 24, 10, '#efe8da', '#3a6ea5', { storeys: 2 }); K.box(0, -40, 0, 20, 30, 20, '#e9eef2'); K.box(0, -40, 30, 26, 6, 26, '#3a4a5e'); K.board('BEGUMPET AIRPORT', 0, 12.5, 4.5, 12); }, clear: [90, 70] },
+  rgia: { draw: (K) => drawAirportTerminal(K,'vohs'), rot:0, clear: [360, 170, 0, 0] },
+  begumpet_airport: { draw: (K) => drawAirportTerminal(K,'vohy'), rot:0, clear: [280, 80, 0, 0] },
   parade_metro: { draw: (K) => { K.board('PARADE GROUND · METRO INTERCHANGE', 0, 0, 3.5, 14, 1, '#ffffff', '#c4282d'); }, clear: 0, keepBuildings: true },
   ameerpet_interchange: { draw: (K) => { K.board('AMEERPET · METRO INTERCHANGE', 0, 0, 3.5, 13, 1, '#ffffff', '#c4282d'); }, clear: 0, keepBuildings: true },
   mgbs_metro: { draw: (K) => { K.board('MG BUS STATION · METRO INTERCHANGE', 0, 0, 3.5, 14, 1, '#ffffff', '#c4282d'); }, clear: 0, keepBuildings: true },

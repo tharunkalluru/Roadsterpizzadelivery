@@ -51,7 +51,7 @@ try {
     const solids=[]; drawLandmark(m,{B,obstacle(){},solid:(ring,h)=>solids.push([ring,h]),road:()=>false,roadY:()=>null,roadNear:()=>null,sign(){}});
     let emitted=0;
     for (const batch of Object.values(B)) for (const part of batch.tiles.values()) { assert.ok(part.pos.every(Number.isFinite),m.name); emitted+=part.pos.length; }
-    assert.ok(emitted>0,m.name);
+    assert.ok(emitted>0||m.id==='durgam_lake',m.name); // Lake uses its existing mapped water polygon, not a duplicate invented model.
     if(m.id==='charminar') {let top=-Infinity; for(const batch of Object.values(B)) for(const part of batch.tiles.values()) for(let i=1;i<part.pos.length;i+=3) top=Math.max(top,part.pos[i]); assert.ok(Math.abs(top-48.7)<1e-4,'Charminar max rendered tower height follows both official references');}
     assert.ok(solids.every(([ring,h])=>Number.isFinite(h)&&ring.flat().every(Number.isFinite)),m.name);
   }

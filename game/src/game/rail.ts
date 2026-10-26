@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import { Batch } from '../core/util';
 import type { XZ } from '../world/types';
+import { MovingRailFrames, type MovingRailShape } from './moving-rail';
 
 // Suburban and express trains on the railway lines around the player: a locomotive and a rake of coaches that
 // follow the curves of the track, spawned a little way off and running through.
 interface Run { pts: number[][]; cum: number[]; len: number }
-interface Train { run: Run; s: number; dir: 1 | -1; v: number; cars: THREE.Mesh[] }
+interface Train { id: string; run: Run; s: number; dir: 1 | -1; v: number; cars: THREE.Mesh[] }
 const CAR = 22.5, GAP = 0.9, MAXT = 2;
 
 function coachGeo(kind: 'loco' | 'coach', livery: string) {
@@ -23,6 +24,8 @@ function coachGeo(kind: 'loco' | 'coach', livery: string) {
 
 export class RailTrains {
   group = new THREE.Group(); trains: Train[] = []; t = 0; geos: Record<string, THREE.BufferGeometry> = {};
+  private nextTrain = 0; private frames = new MovingRailFrames();
+  get bodies() { return this.frames.bodies; }
   constructor(public mat: THREE.Material) {}
   geo(k: string) { return this.geos[k] || (this.geos[k] = k === 'loco' ? coachGeo('loco', '') : coachGeo('coach', k)); }
   // chain connected ways into one long run through the given way
@@ -54,10 +57,15 @@ export class RailTrains {
     const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][2] - pts[i - 1][2]));
     return { pts, cum, len: cum[cum.length - 1] };
   }
-  at(run: Run, s: number) {
+  private point(run: Run, s: number) {
     let i = 1; while (i < run.pts.length - 1 && run.cum[i] < s) i++;
     const a = run.pts[i - 1], b = run.pts[i], seg = run.cum[i] - run.cum[i - 1] || 1, u = Math.max(0, Math.min(1, (s - run.cum[i - 1]) / seg));
     return { x: a[0] + (b[0] - a[0]) * u, y: a[1] + (b[1] - a[1]) * u, z: a[2] + (b[2] - a[2]) * u, yaw: Math.atan2(b[0] - a[0], b[2] - a[2]) };
+  }
+  at(run: Run, s: number) {
+    const p = this.point(run, s), a = this.point(run, s - 7), b = this.point(run, s + 7);
+    if (Math.hypot(b.x - a.x, b.z - a.z) > .01) p.yaw = Math.atan2(b.x - a.x, b.z - a.z);
+    return p;
   }
   update(dt: number, px: number, pz: number, rails: Map<string, { pts: XZ[]; bridge?: boolean }>) {
     this.t += dt;
@@ -77,10 +85,11 @@ export class RailTrains {
           const livery = ['#2f5d9a', '#7b2d26', '#2f5d9a', '#3d6b4f'][Math.floor(Math.random() * 4)];
           const cars: THREE.Mesh[] = [];
           for (let k = 0; k < n; k++) { const m = new THREE.Mesh(this.geo(k === 0 ? 'loco' : livery), this.mat); m.castShadow = true; this.group.add(m); cars.push(m); }
-          this.trains.push({ run, s, dir, v: 12 + Math.random() * 8, cars });
+          this.trains.push({ id: `rail:${this.nextTrain++}`, run, s, dir, v: 12 + Math.random() * 8, cars });
         }
       }
     }
+    const bodies: MovingRailShape[] = [];
     for (const t of [...this.trains]) {
       t.s += t.dir * t.v * dt;
       const head = this.at(t.run, t.s);
@@ -90,8 +99,12 @@ export class RailTrains {
         const s = t.s - t.dir * (k * (CAR + GAP) + CAR / 2);
         if (s < 0 || s > t.run.len) { c.visible = false; return; }
         const p = this.at(t.run, s); c.visible = true;
-        c.position.set(p.x, p.y, p.z); c.rotation.set(0, p.yaw + (t.dir > 0 ? 0 : Math.PI), 0);
+        // The locomotive's cab is local-z negative; it faces the actual direction of travel.
+        c.position.set(p.x, p.y, p.z); c.rotation.set(0, p.yaw + (t.dir > 0 ? Math.PI : 0), 0);
+        bodies.push({ id: `${t.id}:${k}`, x: p.x, y: p.y, z: p.z, hx: -Math.sin(c.rotation.y), hz: -Math.cos(c.rotation.y),
+          halfWidth: 1.57, halfLength: k === 0 ? 10.05 : CAR / 2, bottom: p.y + .2, roof: p.y + (k === 0 ? 3.9 : 4.175) });
       });
     }
+    this.frames.set(bodies);
   }
 }

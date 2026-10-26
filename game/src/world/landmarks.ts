@@ -1,6 +1,7 @@
 import { TPL, TiledBatch, rng } from '../core/util';
 import type { LmData } from './landmarks_data';
 import { EXTRA_LANDMARKS, EXTRA_MODELS } from './landmarks2';
+import { drawDurgamBridge } from './durgam-bridge';
 
 // Stylised monument models with inherited anchors and proportions. Per-feature evidence and unresolved accuracy
 // gaps are recorded in docs/landmark-audit.json; source coverage alone is not street verification.
@@ -98,7 +99,8 @@ export class Kit {
       if (solid) { const a = this.P(u0 + (u1 - u0) * f0, v0 + (v1 - v0) * f0), b = this.P(u0 + (u1 - u0) * f1, v0 + (v1 - v0) * f1); const nx = (-(b[1] - a[1]) / (L / n)) * t / 2, nz = ((b[0] - a[0]) / (L / n)) * t / 2; this.k.solid([[a[0] - nx, a[1] - nz], [b[0] - nx, b[1] - nz], [b[0] + nx, b[1] + nz], [a[0] + nx, a[1] + nz]], this.y0 + y + h); }
     }
   }
-  // a rocky hill: a mound (stacked, flattened lathe) with granite boulders, standing surface by terraces
+  // A rocky hill. Wheel support is captured from these actual mound/rock faces;
+  // concentric flat collision terraces would put the car inside the visible hill.
   hill(u: number, v: number, ru: number, rv: number, h: number, rock: string, scrub: string, seed: number) {
     const [x, z] = this.P(u, v);
     this.k.B.st.add(TPL.mound, x, this.y0, z, ru * 2, h, rv * 2, scrub, { ry: this.ry0 });
@@ -109,11 +111,6 @@ export class Kit {
       const fy = Math.max(0, Math.min(1, 1 - Math.pow(f, 1.4)));      // height of the mound at this radius
       const bu = u + Math.cos(a) * ru * f, bv = v + Math.sin(a) * rv * f, s = r.range(2.5, 7);
       const [bx, bz] = this.P(bu, bv); this.k.B.st.add(TPL.ico0, bx, this.y0 + h * fy + s * 0.15, bz, s, s * 0.7, s * 0.9, r.pick([rock, '#6f675d', '#958b7c']), { ry: r() * 6 });
-    }
-    // standing surface: concentric terraces
-    for (const [fr, fh] of [[0.9, 0.14], [0.7, 0.4], [0.48, 0.64], [0.25, 0.88]]) {
-      const ring: XZ[] = []; for (let i = 0; i < 16; i++) ring.push(this.P(u + Math.cos((i / 16) * Math.PI * 2) * ru * fr, v + Math.sin((i / 16) * Math.PI * 2) * rv * fr));
-      this.k.solid(ring, this.y0 + h * fh);
     }
   }
 }
@@ -617,23 +614,7 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
     K.cyl(0, 0, H, Ro - 0.5, 0.6, '#C9C3B7', 'cyl24');
     K.solidCircle(0, 0, Ri, H);
   },
-  // Durgam Cheruvu cable bridge: two white spear-headed pylons in the median, single-plane fans of 13 cables a side
-  cablebridge(K) {
-    const Wp = '#DCDDDA', Cb = '#F2F2F2';
-    for (const pv of [-117, 117]) {
-      const [x, z] = K.P(0, pv); const deck = K.k.roadY(x, z) ?? 20;
-      K.box(0, pv, 0, 3.2, 50 - 9, 4.6, Wp); K.shape('bulb', 0, pv, 41, 5, 9, 6, Wp); K.box(0, pv, 0, 4.5, deck - 0.5, 8, '#A8A9A4');
-      K.ob(0, pv, 2.6, 50);
-      for (const dir of [-1, 1]) for (let i = 0; i < 13; i++) {
-        const top = 36.5 + i * 0.35, reach = 12 + i * 8.0 * (dir * pv > 0 ? 0.92 : 1);
-        const v1 = pv + dir * reach, [x1, z1] = K.P(0, v1); const dy = (K.k.roadY(x1, z1) ?? deck) + 1.0;
-        const L = Math.hypot(reach, top - dy), mv = (pv + v1) / 2, my = (top + dy) / 2;
-        const [mx, mz] = K.P(0, mv);
-        for (const cc of [-0.35, 0.35]) K.k.B.lit.add(TPL.box, mx + cc * K.c, my, mz + cc * K.s, 0.12, L, 0.12, i % 3 === 0 ? '#ff5fb0' : i % 3 === 1 ? '#ffffff' : '#7fd0ff', { ry: K.ry0, rx: dir * Math.atan2(reach, top - dy) });
-        void Cb;
-      }
-    }
-  },
+  cablebridge: drawDurgamBridge,
   // T-Hub 2.0: dark pixel-panelled "plank" floating over a recessed lower block, rooftop steel frame
   thub(K) {
     const P = ['#3A3D42', '#4A4D52', '#5C6066'], Gl = '#2B3A45', Fr = '#6E7378';

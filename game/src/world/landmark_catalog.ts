@@ -41,7 +41,7 @@ export const BASE_LANDMARKS: LandmarkDefinition[] = [
   { kind: 'ouarts', name: 'Osmania University Arts College', lat: 17.41921, lon: 78.52625, rot: 155, clear: [114, 120] },
   // ---- Modern Hyderabad ----
   { kind: 'cybertowers', name: 'Cyber Towers', lat: 17.45048, lon: 78.38112, rot: 56, clear: 49 },
-  { kind: 'cablebridge', name: 'Durgam Cheruvu Cable Bridge', lat: 17.43177, lon: 78.38994, rot: 76, clear: 0 },
+  { kind: 'cablebridge', name: 'Durgam Cheruvu Cable Bridge', lat: 17.431685637, lon: 78.389881881, rot: 75.842305, clear: 0 },
   { kind: 'thub', name: 'T-Hub', lat: 17.43400, lon: 78.37918, rot: 40, clear: [50, 100] },
   { kind: 'stadium', name: 'G.M.C. Balayogi Stadium', lat: 17.44618, lon: 78.34416, rot: 0, clear: [196, 275] },
   { kind: 'clocktower', name: 'Secunderabad Clock Tower', lat: 17.44090, lon: 78.49855, rot: 0, clear: 9 },

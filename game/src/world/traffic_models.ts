@@ -2,11 +2,12 @@ import * as THREE from 'three';
 import { Batch, TPL, toTpl, Tpl, Rng, AddOpts } from '../core/util';
 import { labelTexture } from './signs';
 import { PersonSpec } from './people';
+import { autoQuote } from './auto-quotes';
 
 // Hyderabad street traffic. Each builder returns a body batch, a lights batch (emissive at night),
 // optional text decals and its footprint size [width, height, length]. Local frame: ground y=0, front toward -z.
 const PI = Math.PI;
-export interface Model { body: Batch; lights: Batch; size: number[]; decals?: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; kind: string }
+export interface Model { body: Batch; lights: Batch; size: number[]; decals?: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; kind: string; quoteId?: string }
 
 // side profile (z, y pairs, front = +z in the list) extruded across the width -> template in local frame
 const profCache = new Map<string, Tpl>();
@@ -78,7 +79,7 @@ export function car(kind: CarKind, color: string, r: Rng): Model {
 }
 
 // ---------------- auto rickshaw (three-wheeler) ----------------
-export function auto(r: Rng): Model {
+export function auto(r: Rng, quoteIndex = r.int(0, 9)): Model {
   const b = new Batch(), l = new Batch();
   const Y = r.pick(['#F2C21B', '#F4C81F', '#E9B514']), K = '#17161b', G = r() < 0.55 ? '#1E8F4E' : Y;
   // floor pan + rear tub
@@ -110,7 +111,9 @@ export function auto(r: Rng): Model {
   l.add(TPL.cyl, 0, 1.0, -1.15, 0.1, 0.04, 0.1, '#fff6d8', { rx: PI / 2 });
   for (const s of [-1, 1]) { l.box(s * 0.5, 0.62, 1.31, 0.14, 0.1, 0.03, '#ff2a2a'); l.box(s * 0.36, 1.02, -1.15, 0.08, 0.06, 0.03, '#ffb030'); }
   const plate = plateMat(`TS 09 U${String.fromCharCode(65 + r.int(0, 25))} ${r.int(1000, 9999)}`, '#FFD600');
-  return { body: b, lights: l, size: [1.36, 1.85, 2.65], decals: [decal(0.42, 0.11, plate, 0, 0.62, 1.31)], kind: 'auto' };
+  const quote = autoQuote(quoteIndex);
+  const quoteMaterial = new THREE.MeshBasicMaterial({ toneMapped: false, map: labelTexture(quote.lines.map(text => ({ text, font: '700 {s}px "Noto Sans Telugu", sans-serif', color: '#FFF6DC', size: 52 })), 768, 224, K) });
+  return { body: b, lights: l, size: [1.36, 1.85, 2.65], decals: [decal(0.42, 0.11, plate, 0, 0.62, 1.31), decal(1.17, 0.5, quoteMaterial, 0, 1.34, 1.35)], kind: 'auto', quoteId: quote.id };
 }
 
 // ---------------- two-wheelers ----------------
@@ -199,8 +202,15 @@ export function rider(b: Batch, p: PersonSpec, x: number, y: number, z: number, 
 }
 
 // ---------------- buses, lorries, tankers ----------------
-const ROUTES = [['5K', 'SECUNDERABAD'], ['8C', 'AFZALGUNJ'], ['86', 'KOTI'], ['107V', 'VST'], ['49M', 'MEHDIPATNAM'], ['1Z', 'ZOO PARK'], ['2J', 'JAMAI OSMANIA'], ['47L', 'LB NAGAR'], ['113M', 'MUSHEERABAD']];
-const routeMats = new Map<string, THREE.Material>();
+export function busRouteBoards(number: string, destination: string) {
+  const texture = labelTexture([
+    { text: number.toUpperCase(), font: '{s}px "Bungee", sans-serif', color: '#FFB030', size: 102 },
+    { text: destination.toUpperCase(), font: '800 {s}px "Baloo 2", sans-serif', color: '#FFF5DB', size: 34 },
+  ], 768, 192, '#09090D', '#FFB030');
+  const material = new THREE.MeshBasicMaterial({ toneMapped: false, map: texture });
+  // One service identity, readable from either direction; no random prototype route.
+  return [decal(2.2, 0.55, material, 0, 2.96, -5.56, PI), decal(2.2, 0.55, material, 0, 2.96, 5.56)];
+}
 export function bus(r: Rng): Model {
   const b = new Batch(), l = new Batch();
   const L = 11, W = 2.5, red = r() < 0.75 ? '#B7322C' : '#2E6FB7';                // ordinary (red) or AC / Metro Luxury (blue)
@@ -220,11 +230,8 @@ export function bus(r: Rng): Model {
   for (const s of [-1, 1]) for (const z of [-3.4, 3.3]) wheel(b, s * (W / 2 - 0.2), 0.5, z, 0.5, 0.32, '#c9c6cf');
   for (let i = 0; i < 10; i++) b.add(TPL.sph, (i % 2 ? 0.75 : -0.75), 2.3, -4.2 + i * 0.95, 0.17, 0.2, 0.17, ['#6b4430', '#8d5a3b', '#a8704b', '#5b3a29'][i % 4]);
   for (const s of [-1, 1]) { l.box(s * 0.95, 0.85, L / 2 + 0.06, 0.3, 0.2, 0.03, '#ff2236'); l.box(s * 0.95, 0.8, -L / 2 - 0.06, 0.3, 0.18, 0.03, '#fff8e1'); }
-  const [no, to] = r.pick(ROUTES);
-  let m = routeMats.get(no);
-  if (!m) { m = new THREE.MeshBasicMaterial({ toneMapped: false, map: labelTexture([{ text: `${no}  ${to}`, font: '{s}px "Bungee", sans-serif', color: '#FFB030', size: 56 }], 512, 80, '#0b0a0d') }); routeMats.set(no, m); }
   const label = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: red === '#B7322C' ? 'TGSRTC  CITY ORDINARY' : 'TGSRTC  METRO LUXURY', font: '{s}px "Bungee", sans-serif', color: '#F3EEDF', size: 40 }], 512, 64, red) });
-  const decals = [decal(2.1, 0.32, m, 0, 2.78, -L / 2 - 0.04, PI), decal(4.2, 0.5, label, W / 2 + 0.02, 1.15, -0.5, PI / 2), decal(4.2, 0.5, label, -W / 2 - 0.02, 1.15, 1.6, -PI / 2)];
+  const decals = [decal(4.2, 0.5, label, W / 2 + 0.02, 1.15, -0.5, PI / 2), decal(4.2, 0.5, label, -W / 2 - 0.02, 1.15, 1.6, -PI / 2)];
   return { body: b, lights: l, size: [W, 3.3, L], decals, kind: 'bus' };
 }
 export function lorry(r: Rng): Model {

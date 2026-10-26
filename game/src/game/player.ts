@@ -5,6 +5,8 @@ import type { CityData } from '../world/city';
 import { supportAt, collideBuildings, collideWalls, roofUnder, SupportKind } from './physics';
 
 export interface Input { throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean }
+export const ROAD_SPEED_LIMIT = 150 / 3.6;
+export const FLIGHT_SPEED_LIMIT = 240 / 3.6;
 
 // Roadster: arcade car with real surfaces (flyovers/steel bridge are drivable) and unlimited flight.
 export class Player {
@@ -101,12 +103,11 @@ export class Player {
       else { this.flying = true; this.descending = false; }
     }
     // --- longitudinal ---
-    const maxF = this.flying ? 40 : inp.boost ? 27 : 22;
+    const maxF = this.flying ? FLIGHT_SPEED_LIMIT : ROAD_SPEED_LIMIT;
     if (inp.throttle > 0) this.speed += (this.flying ? 12 : 9) * inp.throttle * dt;
     if (inp.brake > 0) this.speed -= (this.speed > 0.5 ? 20 : 6) * inp.brake * dt;
     if (inp.throttle <= 0 && inp.brake <= 0) this.speed -= Math.sign(this.speed) * Math.min(Math.abs(this.speed), 4 * dt);
-    this.speed = Math.max(-6, Math.min(this.speed, maxF + (this.speed > maxF ? 0 : 0)));
-    if (this.speed > maxF) this.speed = Math.max(maxF, this.speed - 15 * dt);
+    this.speed = Math.max(-6, Math.min(this.speed, maxF));
     // --- steering (sharper at low speed, reversed when reversing) ---
     const sf = Math.min(1, Math.abs(this.speed) / 6) * (1 / (1 + Math.abs(this.speed) * 0.045));
     this.steerVis += (inp.steer - this.steerVis) * Math.min(1, dt * 8);
@@ -166,7 +167,9 @@ export class Player {
     this.light.position.set(this.pos.x, this.pos.y - 0.2, this.pos.z);
     // wheels roll with the road speed, the front pair steers
     const spin = (this.speed * dt) / 0.36;
-    this.wheels.forEach((w, i) => { w.rotation.y = i < 2 ? this.steerVis * 0.38 : 0; });
+    // The model faces -Z, so its front wheel yaw has the same negative sign
+    // as the actual change of vehicle yaw (including the visible reverse steer).
+    this.wheels.forEach((w, i) => { w.rotation.y = i < 2 ? -this.steerVis * 0.38 : 0; });
     this.wheelRollers.forEach((w) => { w.rotation.x -= air ? spin * 0.2 : spin; });
     this.animateThrusters(dt, t, this.flying ? 1 : this.descending ? 0.35 : 0);
   }

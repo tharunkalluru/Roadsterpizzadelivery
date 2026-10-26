@@ -5,6 +5,10 @@ export interface MetroPath { pts: XZ[]; cum: number[]; len: number }
 export interface MetroTrack { id: string; dir: 1 | -1; path: MetroPath }
 export interface MetroCorridor { id: string; lineId: string; color: string; center: MetroPath; tracks: [MetroTrack, MetroTrack]; sourceParts: number }
 export const METRO_TRACK_OFFSET = 1.95;
+// HMRL corridor identities: Red=Miyapur–LB Nagar, Blue=Nagole–Raidurg, Green=JBS–MGBS.
+// https://hmrl.co.in/about-hmrl/  These display colors are shared by map and world signage.
+export const METRO_LINE_COLORS: Readonly<Record<string, string>> = { red: '#d71920', blue: '#1f5fbf', green: '#1a9850' };
+export const metroLineColor = (id: string, fallback = '#697587') => METRO_LINE_COLORS[id.toLowerCase()] || fallback;
 const cache = new WeakMap<readonly MetroLineInput[], MetroCorridor[]>();
 
 export function metroPath(points: readonly XZ[]): MetroPath {
@@ -109,7 +113,7 @@ export function metroCorridors(lines: readonly MetroLineInput[]): MetroCorridor[
     if (first[0] > last[0] || (first[0] === last[0] && first[1] > last[1])) pts = pts.slice().reverse();
     const center = metroPath(densify(pts)), id = `${a.line.id}:${corridors.filter((c) => c.lineId === a.line.id).length}`;
     const tracks = ([1, -1] as const).map((dir): MetroTrack => ({ id: `${id}:${dir}`, dir, path: offsetMetroPath(center, -dir * METRO_TRACK_OFFSET) })) as [MetroTrack, MetroTrack];
-    corridors.push({ id, lineId: a.line.id, color: a.line.color || '#3B7BF0', center, tracks, sourceParts: peer === -1 ? 1 : 2 });
+    corridors.push({ id, lineId: a.line.id, color: metroLineColor(a.line.id, a.line.color), center, tracks, sourceParts: peer === -1 ? 1 : 2 });
   }
   cache.set(lines, corridors); return corridors;
 }

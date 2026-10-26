@@ -1227,9 +1227,9 @@
       "category": "City life",
       "icon": "bridge",
       "anchor": {
-        "lat": 17.43177,
-        "lon": 78.38994,
-        "confidence": "inherited-unverified"
+        "lat": 17.431685637,
+        "lon": 78.389881881,
+        "confidence": "mapped-bridge-polygon-centre"
       },
       "inPlayableBounds": true,
       "sourceTile": [
@@ -1251,13 +1251,25 @@
           "verified-front-bearing",
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Mapped axis/centre, continuous25.8m deck,233.85m pylon spacing,52single-plane structural cables and1.8m footpaths.",
+          "Pointed leaf/spear pylon head follows primary designer visualisations; unrelated bulb cap removed."
+        ],
+        "unresolved": [
+          "Designer images are renders, not dated as-built photographs; decorative proportions remain stylised.",
+          "Mapped game road altitude retained; absolute water/bed/deck survey and precise lane widths remain open; canonical/context lane fields now use source-supported3lanes per direction and explicit3.2m model lane-width assumption."
         ]
       },
       "provenance": {
         "inherited": [
           "Legacy hand-authored coordinates; no per-anchor evidence ID"
         ],
-        "sourceUrls": [],
+        "sourceUrls": [
+          "https://www.openstreetmap.org/way/761604461",
+          "https://www.larsentoubro.com/media/42542/2020-09-25-lt-built-iconic-durgam-cheruvu-cable-stay-bridge-dedicated-to-the-people-of-hyderbad.pdf",
+          "https://ateliervama.com/portfolio/durgam-cheravu-lake-bridge/"
+        ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional"
       }
@@ -7494,7 +7506,7 @@
       ],
       "model": {
         "recipe": "x_durgam_lake",
-        "status": "stylised-needs-photo-review",
+        "status": "existing-mapped-water-polygon",
         "dimensions": {
           "width": null,
           "depth": null,
@@ -7507,13 +7519,18 @@
           "verified-front-bearing",
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Removed invented concrete slabs at lake centre; retain existing mapped lake shoreline and water geometry."
         ]
       },
       "provenance": {
         "inherited": [
           "OSM / Overture resolver; original source IDs were not retained in flattened data"
         ],
-        "sourceUrls": [],
+        "sourceUrls": [
+          "https://www.openstreetmap.org/way/28131043"
+        ],
         "reviewedOn": "2026-10-26",
         "confidence": "provisional"
       }
@@ -7967,9 +7984,9 @@
       "category": "Transport",
       "icon": "plane",
       "anchor": {
-        "lat": 17.23743,
-        "lon": 78.42954,
-        "confidence": "inherited-unverified"
+        "lat": 17.235385669,
+        "lon": 78.425700476,
+        "confidence": "mapped-terminal-polygon"
       },
       "inPlayableBounds": true,
       "sourceTile": [
@@ -7983,25 +8000,36 @@
       ],
       "model": {
         "recipe": "x_rgia",
-        "status": "stylised-needs-photo-review",
+        "status": "mapped-plan-published-runways-stylised-facades",
         "dimensions": {
           "width": 56.5,
           "depth": 53.5,
           "height": 18.5,
-          "rotation": 269.4
+          "rotation": 0
         },
         "gaps": [
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Reanchored catalogue/model to mapped passenger terminal polygon; mapped terminal, apron, taxiway and hangar outlines replace generic airport block.",
+          "AAI physical runway endpoints, widths, designators and displaced thresholds; per-tile geometry remains visible independently of terminal owner."
+        ],
+        "unresolved": [
+          "Facade heights/materials and parked aircraft stand positions remain illustrative; no surveyed reconstruction or ATC simulation claimed.",
+          "Published airport AMSL elevations are not flat-game terrain height; current terrain datum retained."
         ]
       },
       "provenance": {
         "inherited": [
           "OSM / Overture resolver; original source IDs were not retained in flattened data"
         ],
-        "sourceUrls": [],
+        "sourceUrls": [
+          "https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/VOHS-ADC.pdf",
+          "https://www.openstreetmap.org/way/1016464108"
+        ],
         "reviewedOn": "2026-10-26",
-        "confidence": "provisional"
+        "confidence": "high-for-published-runway-dimensions-medium-for-map-outline"
       }
     },
     {
@@ -8010,44 +8038,54 @@
       "category": "Transport",
       "icon": "plane",
       "anchor": {
-        "lat": 17.452706,
-        "lon": 78.465539,
-        "confidence": "inherited-unverified"
+        "lat": 17.449502467,
+        "lon": 78.4712797,
+        "confidence": "mapped-terminal-polygon"
       },
       "inPlayableBounds": true,
       "sourceTile": [
-        -4,
-        -6
+        -3,
+        -5
       ],
       "sourceTileIndexed": true,
       "renderTile": [
-        -4,
-        -6
+        -3,
+        -5
       ],
       "model": {
         "recipe": "x_begumpet_airport",
-        "status": "stylised-needs-photo-review",
+        "status": "mapped-plan-published-runways-stylised-facades",
         "dimensions": {
           "width": null,
           "depth": null,
           "height": null,
-          "rotation": null
+          "rotation": 0
         },
         "gaps": [
           "measured-footprint",
           "measured-height",
-          "verified-front-bearing",
           "dated-facade-photo",
           "symbol-and-inscription-review"
+        ],
+        "reviewedFeatures": [
+          "Reanchored catalogue/model to mapped passenger terminal polygon; mapped terminal, apron, taxiway and hangar outlines replace generic airport block.",
+          "AAI physical runway endpoints, widths, designators and displaced thresholds; per-tile geometry remains visible independently of terminal owner."
+        ],
+        "unresolved": [
+          "Facade heights/materials and parked aircraft stand positions remain illustrative; no surveyed reconstruction or ATC simulation claimed.",
+          "Published airport AMSL elevations are not flat-game terrain height; current terrain datum retained."
         ]
       },
       "provenance": {
         "inherited": [
           "OSM / Overture resolver; original source IDs were not retained in flattened data"
         ],
-        "sourceUrls": [],
+        "sourceUrls": [
+          "https://aim-india.aai.aero/eaip-v2-05-2025/eAIP/VOHY-ADC.pdf",
+          "https://www.openstreetmap.org/way/251098384"
+        ],
         "reviewedOn": "2026-10-26",
-        "confidence": "provisional"
+        "confidence": "high-for-published-runway-dimensions-medium-for-map-outline"
       }
     },
     {

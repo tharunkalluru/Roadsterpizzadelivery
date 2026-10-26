@@ -102,6 +102,31 @@ try {
     group: new Group(), glow: new Group(), light: new Group(), wheels: [], wheelRollers: [], animateThrusters() {},
   });
 
+  await test('road speed is capped at 150 km/h with either boost setting; flight caps at 240 km/h', () => {
+    for (const boost of [false, true]) {
+      const player = playerFixture();
+      for (let n = 0; n < 1800; n++) player.update(1 / 60, { ...input, throttle: 1, boost }, n / 60);
+      assert.ok(Math.abs(player.speed * 3.6 - 150) < 1e-8);
+    }
+    const player = playerFixture(); player.flying = true;
+    for (let n = 0; n < 1800; n++) player.update(1 / 60, { ...input, throttle: 1 }, n / 60);
+    assert.ok(Math.abs(player.speed * 3.6 - 240) < 1e-8);
+    player.update(1 / 60, { ...input, throttle: 1, flyPressed: true }, 31);
+    assert.ok(player.speed * 3.6 <= 150 + 1e-8, 'landing never carries flight-only speed onto the road');
+  });
+
+  await test('both front wheels steer toward the actual forward turn; rear wheels stay straight', () => {
+    for (const steer of [-1, 1]) {
+      const player = playerFixture(); player.speed = 10; player.wheels = Array.from({ length: 4 }, () => new Group());
+      player.update(1 / 30, { ...input, throttle: 1, steer }, 0);
+      assert.equal(Math.sign(player.wheels[0].rotation.y), Math.sign(player.yaw));
+      assert.equal(player.wheels[0].rotation.y, player.wheels[1].rotation.y);
+      assert.equal(player.wheels[2].rotation.y, 0); assert.equal(player.wheels[3].rotation.y, 0);
+      const wheelForwardX = -Math.sin(player.wheels[0].rotation.y);
+      assert.equal(Math.sign(wheelForwardX), Math.sign(player.pos.x));
+    }
+  });
+
   await test('zero-charge takeoff and 20 simulated minutes of unlimited flight', () => {
     const player = playerFixture(), dt = 1 / 60;
     player.update(dt, { ...input, flyPressed: true }, 0);

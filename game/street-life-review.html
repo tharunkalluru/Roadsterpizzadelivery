@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Street-life component review</title><link rel="stylesheet" href="/fonts/fonts.css">
+<style>body{margin:0;padding:20px;background:#eae5d9;color:#171b24;font:16px system-ui}h1{margin:0 0 6px;font-size:23px}p{max-width:1000px}select,button{font:inherit;padding:10px;margin:4px}canvas{display:block;width:100%;height:570px;border-radius:10px}#status{font-weight:650}.note{color:#5c4738}</style>
+</head><body>
+<h1>Street-life component review</h1><p class="note">Actual production model geometry and text. Controlled component inspection, not main-world driving or real bus operation.</p>
+<label>View <select id="view"><option value="auto">Auto rear panel</option><option value="bus">Bus front and rear</option><option value="people">Pedestrian clothing</option></select></label>
+<label id="auto-label">Auto variant <select id="quote"></select></label><p id="status">Loading…</p><main></main>
+<script type="module">
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { initTemplates, rng, Batch } from '/src/core/util.ts';
+import { auto, bus, busRouteBoards } from '/src/world/traffic_models.ts';
+import { AUTO_QUOTES } from '/src/world/auto-quotes.ts';
+import { randomPerson, drawPerson } from '/src/world/people.ts';
+import { fetchPack } from '/src/world/packs.ts';
+await document.fonts.ready;
+await document.fonts.load('700 52px "Noto Sans Telugu"','అమ్మ');
+initTemplates({ rbox: new RoundedBoxGeometry(1,1,1,3,.12), ring: new THREE.RingGeometry(1,1.35,20) });
+const feed=await fetchPack('/transit/tgsrtc.pack.wasm'), pattern=feed.patterns.find(p=>p.number==='8A'&&/chandra/i.test(p.to))||feed.patterns.find(p=>p.number==='8A');
+const selector=document.querySelector('#quote');
+AUTO_QUOTES.forEach((q,i)=>selector.add(new Option(`${i+1} · ${q.id}`,String(i))));
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));document.querySelector('main').append(renderer.domElement);
+const camera=new THREE.PerspectiveCamera(38,1,.1,100), scene=new THREE.Scene();scene.background=new THREE.Color('#becbd2');
+scene.add(new THREE.HemisphereLight('#ffffff','#7f7464',2));const sun=new THREE.DirectionalLight('#fff6e4',3);sun.position.set(-5,12,8);scene.add(sun);
+const bodyMat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.65}), lightMat=new THREE.MeshBasicMaterial({vertexColors:true});let group=null;
+function model(m){const g=new THREE.Group();g.add(new THREE.Mesh(m.body.geometry(),bodyMat),new THREE.Mesh(m.lights.geometry(),lightMat));for(const d of m.decals||[])g.add(new THREE.Mesh(d.geo,d.mat));return g;}
+function render(){const host=document.querySelector('main'),w=host.clientWidth,h=570;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();renderer.render(scene,camera);}
+function draw(){if(group){scene.remove(group);group.traverse(o=>{if(o.isMesh){o.geometry.dispose();if(o.material!==bodyMat&&o.material!==lightMat){o.material.map?.dispose();o.material.dispose();}}});}group=new THREE.Group();scene.add(group);const kind=document.querySelector('#view').value;document.querySelector('#auto-label').hidden=kind!=='auto';
+if(kind==='auto'){const i=Number(selector.value),m=auto(rng(500+i),i);group.add(model(m));camera.position.set(0,1.65,5.6);camera.lookAt(0,1.05,.1);document.querySelector('#status').textContent=`Auto ${i+1} of 10 · one quote panel · rear registration plate retained`;}
+else if(kind==='bus'){for(const [i,x]of[-2,2].entries()){const m=bus(rng(42));m.decals.push(...busRouteBoards(pattern.number,pattern.to));const g=model(m);g.position.x=x;if(!i)g.rotation.y=Math.PI;group.add(g);}camera.position.set(0,4.9,16);camera.lookAt(0,1.6,0);document.querySelector('#status').textContent=`Published service ${pattern.number}: ${pattern.from} → ${pattern.to} · matching front/rear boards`;}
+else{const kinds=['sari','salwar','shirt','lungi','kurta_cap','western_f','burqa','schoolgirl','schoolboy','elder_m','elder_f','tee'],batch=new Batch();for(let i=0;i<kinds.length;i++){const r=rng(2000+i);let p=randomPerson(r);for(let n=0;n<1000&&p.kind!==kinds[i];n++)p=randomPerson(r);drawPerson(batch,p,(i%6-2.5)*1.05,-Math.floor(i/6)*2,Math.PI,true,0,false);}group.add(new THREE.Mesh(batch.geometry(),bodyMat));camera.position.set(0,3.9,10.2);camera.lookAt(0,.85,.6);document.querySelector('#status').textContent='Production clothing variants: sari/blouse/pallu, salwar-kameez/dupatta, shirts/trousers, lungi, kurta, casual wear, covered garments, schoolwear and elders';}
+render();document.body.dataset.review='ready';}
+document.querySelector('#view').addEventListener('change',draw);selector.addEventListener('change',draw);addEventListener('resize',render);draw();
+</script></body></html>

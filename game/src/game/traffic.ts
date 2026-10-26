@@ -6,6 +6,7 @@ import { hasCentreMedian, type BusStop, type CityData } from '../world/city';
 import { segmentHitsVehicle } from './spatial-safety';
 import { TrafficCurve, roundedTrafficCorner, trafficCurveClear, trafficPoseClear, trafficOverlap, turnProfile, turnSpeed } from './traffic-path';
 import { isORR } from '../world/expressway';
+import { BusServices, type BusRun, type BusFeed } from './bus-services';
 
 type Group = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
 interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
@@ -18,6 +19,7 @@ export interface Car {
   lane: number; laneT: number; base: number; x: number; y: number; z: number; hx: number; hz: number; wob: number;
   blockedT: number; stuckT: number; passS: number; honkT: number; filtering: boolean; dwell: number; served: Set<BusStop>;
   motion?: Motion; stopS?: number; planAfter?: number; assertive?: boolean; laneChangeAt?: number; uturnAt?: number;
+  busRun?: BusRun; routeDecals?: ReturnType<typeof M.busRouteBoards>;
 }
 export interface Walker { x: number; z: number; crossing: boolean }
 
@@ -28,6 +30,7 @@ export class Traffic {
   cars: Car[] = []; protos: Proto[] = []; byGroup: Record<Group, Proto[]> = { car: [], auto: [], bike: [], bus: [], truck: [] };
   r = rng(77); t = 0; phaseLen = 22;
   stopsByEdge = new Map<string, BusStop[]>();
+  services: BusServices | null = null;
   onHorn: (kind: string, x: number, z: number) => void = () => {};
   constructor(public graph: RoadGraph, public scene: THREE.Scene, public mats: Record<string, any>, public max = 55, busStops: BusStop[] = [], public city?: CityData) {
     const R = rng(4049);
@@ -37,7 +40,7 @@ export class Traffic {
     };
     const CAR = ['#F3F2EE', '#F3F2EE', '#F3F2EE', '#C9CCD2', '#9ea3ad', '#5b5f68', '#b3202a', '#23356b', '#6b1f2a', '#1b1a1f', '#7a5a3a', '#2a5bd7'];
     for (let i = 0; i < 12; i++) add(M.car(R.pick(['hatch', 'hatch', 'sedan', 'sedan', 'suv', 'cab'] as const), CAR[i % CAR.length], R));
-    for (let i = 0; i < 7; i++) add(M.auto(R));
+    for (let i = 0; i < 10; i++) add(M.auto(R, i));
     for (let i = 0; i < 6; i++) add(M.motorbike(R));
     for (let i = 0; i < 5; i++) add(M.scooter(R));
     for (let i = 0; i < 4; i++) add(M.bus(R));
@@ -49,9 +52,17 @@ export class Traffic {
     this.stopsByEdge.clear();
     for (const s of busStops) (this.stopsByEdge.get(s.edge) || this.stopsByEdge.set(s.edge, []).get(s.edge)!).push(s);
   }
+  setBusFeed(feed: BusFeed) { this.services = new BusServices(this.graph, feed); }
+  private release(c: Car) {
+    this.scene.remove(c.g);
+    const materials = new Set<THREE.Material>();
+    for (const decal of c.routeDecals || []) { decal.geo.dispose(); materials.add(decal.mat); }
+    for (const material of materials) { (material as THREE.MeshBasicMaterial).map?.dispose(); material.dispose(); }
+  }
+  clear() { for (const c of this.cars) this.release(c); this.cars.length = 0; }
   // vehicles on roads of an unloaded tile leave with it
   dropEdges(gone: Set<GEdge>) {
-    for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge) || (this.cars[i].motion && gone.has(this.cars[i].motion!.edge))) { this.scene.remove(this.cars[i].g); this.cars.splice(i, 1); }
+    for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge) || (this.cars[i].motion && gone.has(this.cars[i].motion!.edge))) { this.release(this.cars[i]); this.cars.splice(i, 1); }
   }
   // signal phase for an approach heading at a node: two groups by axis, 22 s each with 3 s amber
   green(node: GNode, hx: number, hz: number) {
@@ -100,7 +111,9 @@ export class Traffic {
     // Hyderabad mix: two-wheelers dominate, then autos and cars; buses and lorries on main roads
     const roll = this.r();
     const fast = /^motorway/.test(edge.e.cls);
-    const group: Group = fast ? (roll < 0.66 ? 'car' : roll < 0.82 ? 'bus' : 'truck') : big ? (roll < 0.36 ? 'bike' : roll < 0.58 ? 'auto' : roll < 0.86 ? 'car' : roll < 0.95 ? 'bus' : 'truck') : (roll < 0.5 ? 'bike' : roll < 0.78 ? 'auto' : 'car');
+    let group: Group = fast ? (roll < 0.66 ? 'car' : roll < 0.82 ? 'bus' : 'truck') : big ? (roll < 0.36 ? 'bike' : roll < 0.58 ? 'auto' : roll < 0.86 ? 'car' : roll < 0.95 ? 'bus' : 'truck') : (roll < 0.5 ? 'bike' : roll < 0.78 ? 'auto' : 'car');
+    const busRun = group === 'bus' ? this.services?.bind(edge, dir, s, this.r()) : null;
+    if (group === 'bus' && !busRun) group = fast ? 'truck' : 'car';
     const pr = this.r.pick(this.byGroup[group]);
     const g = new THREE.Group();
     const b = new THREE.Mesh(pr.body, this.mats.vBody); b.castShadow = true; b.receiveShadow = true;
@@ -111,7 +124,9 @@ export class Traffic {
     if ((this.city && !trafficPoseClear(this.city, pose, pr.size)) || this.cars.some(c => trafficOverlap({ ...pose, size: pr.size }, c, 2))) return;
     this.scene.add(g); g.position.set(pose.x, pose.y + 0.02, pose.z); g.rotation.y = Math.atan2(-pose.hx, -pose.hz);
     const want = group === 'bike' ? this.r.range(9, 13) : group === 'bus' || group === 'truck' ? this.r.range(6.5, 9) : group === 'auto' ? this.r.range(7, 10) : this.r.range(8, 12);
-    this.cars.push({ g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.6, want, lane, laneT: lane, base: lane, ...pose, wob: this.r() * 10, blockedT: 0, stuckT: 0, passS: 0, honkT: this.r.range(0.6, 2), filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55) });
+    const routeDecals = busRun ? M.busRouteBoards(busRun.pattern.number, busRun.pattern.to) : undefined;
+    for (const dc of routeDecals || []) g.add(new THREE.Mesh(dc.geo, dc.mat));
+    this.cars.push({ g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.6, want, lane, laneT: lane, base: lane, ...pose, wob: this.r() * 10, blockedT: 0, stuckT: 0, passS: 0, honkT: this.r.range(0.6, 2), filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55), busRun: busRun || undefined, routeDecals });
   }
   // place a specific vehicle (used by tests and scripted scenes)
   spawnAt(group: Group, edge: GEdge, dir: 1 | -1, s: number, lane?: number): Car {
@@ -159,6 +174,13 @@ export class Traffic {
     }
     const at = Number.isFinite(vertex) ? vertex : edge.len;
     if (at - c.s > 75) return;
+    // A same-edge published stop is the current destination, even when it sits
+    // close to the junction. The next service leg is selected after the dwell;
+    // the generic missing-exit buffer must not stop the bus before this stop.
+    if (!Number.isFinite(vertex) && c.busRun && !c.busRun.ended && c.busRun.stopPosition.edge === edge && c.busRun.stopPosition.dir === c.dir) {
+      c.stopS = Math.max(c.s, Math.min(edge.len - .02, c.busRun.stopPosition.s));
+      c.planAfter = this.t + .5; return;
+    }
     // An unplanned corner is a stop, never permission to snap to another heading.
     c.stopS = Math.max(c.s, at - Math.min(16, c.size[2] + 3));
     if (this.plans >= 3) return;
@@ -180,12 +202,13 @@ export class Traffic {
     }
     const node = this.graph.nodes.get(c.dir === 1 ? edge.to : edge.from);
     if (!node) return;
-    const opts = node.out.filter(o => o.edge !== edge && (WEIGHT[o.edge.e.cls] || 0) > 0.1 && this.allowed(c, o.edge));
+    const assigned = c.busRun && this.services?.next(c.busRun, edge, c.dir, c.s);
+    const opts = c.busRun ? (assigned ? [assigned] : []) : node.out.filter(o => o.edge !== edge && (WEIGHT[o.edge.e.cls] || 0) > 0.1 && this.allowed(c, o.edge));
     // Only some autos take opportunistic U-turns; all drivers can return at a
     // sufficiently large dead end. A one-way edge has no reverse graph exit.
     const reverse = node.out.find(o => o.edge === edge && o.dir !== c.dir);
     const opportunistic = c.assertive && this.t >= (c.uturnAt || 0) && this.r() < 0.14;
-    if (reverse && (!opts.length || opportunistic) && !isORR(edge.e) && (!hasCentreMedian(edge.e) || this.city)) {
+    if (!c.busRun && reverse && (!opts.length || opportunistic) && !isORR(edge.e) && (!hasCentreMedian(edge.e) || this.city)) {
       const trim = Math.min(Math.max(3, c.size[2] * 0.65), this.segmentRoom(edge, c.dir, true) * 0.45);
       const startS = Math.max(c.s, edge.len - trim), endS = edge.len - startS;
       const a = this.graph.pointAt(edge, startS, c.dir, c.lane), b = this.graph.pointAt(edge, endS, reverse.dir, c.lane);
@@ -292,7 +315,7 @@ export class Traffic {
     for (const c of this.cars) (byEdge.get(c.edge) || byEdge.set(c.edge, []).get(c.edge)!).push(c);
     for (let i = this.cars.length - 1; i >= 0; i--) {
       const c = this.cars[i];
-      if (Math.hypot(c.x - px, c.z - pz) > 340) { this.scene.remove(c.g); this.cars.splice(i, 1); continue; }
+      if (Math.hypot(c.x - px, c.z - pz) > 340) { this.release(c); this.cars.splice(i, 1); continue; }
       const halfL = c.size[2] / 2, halfW = c.size[0] / 2;
       this.prepare(c);
       let target = c.want;
@@ -337,8 +360,9 @@ export class Traffic {
       }
       // buses pull in at their stops for a few seconds
       if (c.group === 'bus') {
+        if (c.busRun?.ended) target = 0;
         if (c.dwell > 0) { target = 0; c.dwell -= dt; if (c.dwell <= 0) c.laneT = c.base; }
-        else for (const st of this.stopsByEdge.get(c.edge.e.id) || []) {
+        else for (const st of (c.busRun ? c.busRun.stopPosition.edge === c.edge && c.busRun.stopPosition.dir === c.dir && !c.busRun.ended ? [c.busRun.stopPosition.stop] : [] : this.stopsByEdge.get(c.edge.e.id) || [])) {
           if (c.served.has(st)) continue;
           const leftSign = c.dir === 1 ? st.side : -st.side;
           if (leftSign < 0 && !c.edge.e.oneway) continue;
@@ -347,7 +371,7 @@ export class Traffic {
           // Leave room for the long body's nose/tail sweep during pull-in.
           c.laneT = leftSign * (c.edge.e.w / 2 - halfW - 0.7);
           target = Math.min(target, Math.max(0, ahead * 0.55));
-          if (ahead < 1.5 && c.speed < 0.6) { c.dwell = this.r.range(4, 7); c.served.add(st); }
+          if (ahead < 1.5 && c.speed < 0.6) { c.dwell = this.r.range(4, 7); c.served.add(st); if (c.busRun) { this.services?.served(c.busRun, c.edge, c.dir, c.s); if (!c.motion || c.motion.progress < 0) { c.motion = undefined; c.planAfter = 0; } } }
           break;
         }
       }
@@ -359,7 +383,7 @@ export class Traffic {
       }
       // signals at the end of the edge
       const endNode = this.graph.nodes.get(c.dir === 1 ? c.edge.to : c.edge.from);
-      if (!endNode) { this.scene.remove(c.g); this.cars.splice(i, 1); continue; }
+      if (!endNode) { this.release(c); this.cars.splice(i, 1); continue; }
       const left = c.edge.len - c.s;
       const committed = c.motion?.node && c.motion.progress >= 0;
       if (!committed && endNode.signal && left < 16 && left > 3 && !this.green(endNode, c.hx, c.hz)) target = Math.min(target, Math.max(0, (left - 5) * 0.7));

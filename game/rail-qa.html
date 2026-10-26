@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Moving rail component QA</title><style>
+body{margin:0;background:#172331;font:15px system-ui;color:white}canvas{display:block}aside{position:fixed;top:12px;left:12px;right:12px;max-width:660px;background:#111b2bea;padding:12px;border:1px solid #90a6c3;border-radius:10px}h1{font-size:18px;margin:0 0 5px}p{margin:5px 0}.row{display:flex;gap:8px;flex-wrap:wrap}button{padding:10px;color:#142333;background:#e4eef7;border:0;border-radius:6px;font-weight:700}#status{font:14px ui-monospace;background:#07101f;padding:9px;border-radius:5px}.notice{color:#ffd277;font-weight:700}small{color:#c6d2e4}</style></head><body><aside><h1>Moving rail component QA</h1><p class="notice">Controlled component fixture, not main-world gameplay verification.</p><details open><summary>Fixture controls and instructions</summary><p>Production Player, MetroTrains, moving roof support and swept rail contacts. Preset buttons only reset this isolated scene.</p><div class="row"><button id="front">Front push</button><button id="side">Side impact</button><button id="roof">Land on moving roof</button><button id="pause">Pause fixture</button></div><p>W/S drive · A/D steer · Space fly/land · P pause. The train continues on its normal production update.</p></details><div id="status">Loading component scene…</div><small>Flat test deck; source map, orders, traffic, stations and save data are absent.</small></aside><script type="module">
+import * as THREE from 'three';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+import {initTemplates} from './src/core/util';
+import {Player} from './src/game/player';
+import {MetroTrains} from './src/game/metro';
+import {MovingRailInteraction} from './src/game/moving-rail';
+initTemplates({rbox:new RoundedBoxGeometry(1,1,1,2,.08),ring:new THREE.RingGeometry(1,1.35,20)});
+const scene=new THREE.Scene();scene.background=new THREE.Color('#9baec8');scene.add(new THREE.HemisphereLight('#e5f0ff','#75695b',2));
+const sun=new THREE.DirectionalLight('#fff0cf',3);sun.position.set(60,100,30);scene.add(sun);
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));document.body.appendChild(renderer.domElement);
+const camera=new THREE.PerspectiveCamera(52,innerWidth/innerHeight,.1,1500);const resize=()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();};resize();addEventListener('resize',resize);
+const deck=new THREE.Mesh(new THREE.BoxGeometry(1000,.3,45),new THREE.MeshStandardMaterial({color:'#b5bac2'}));deck.position.y=11.65;scene.add(deck);
+for(const z of [-1.95-.72,-1.95+.72,1.95-.72,1.95+.72]){const rail=new THREE.Mesh(new THREE.BoxGeometry(1000,.1,.08),new THREE.MeshStandardMaterial({color:'#465461',metalness:.5,roughness:.5}));rail.position.set(0,11.99,z);scene.add(rail);}
+for(let x=-500;x<=500;x+=10){const marker=new THREE.Mesh(new THREE.BoxGeometry(.12,.015,44),new THREE.MeshBasicMaterial({color:x%50===0?'#dfb95b':'#87919d'}));marker.position.set(x,11.81,0);scene.add(marker);}
+const city={surfaceGrid:new Map(),buildingGrid:new Map(),walls:new Map(),obstacles:new Map(),movingRail:[]};
+const floor={e:{id:'qa-deck',w:45,cls:'primary',from:'qa-a',to:'qa-b'},i:0,ax:-500,az:0,bx:500,bz:0,ya:11.8,yb:11.8,hw:22.5,kind:'road'};for(let x=-17;x<=17;x++)for(let z=-1;z<=1;z++)city.surfaceGrid.set(`${x},${z}`,[floor]);
+const cv=document.createElement('canvas');cv.width=cv.height=32;const ctx=cv.getContext('2d'),gr=ctx.createRadialGradient(16,16,0,16,16,16);gr.addColorStop(0,'white');gr.addColorStop(1,'transparent');ctx.fillStyle=gr;ctx.fillRect(0,0,32,32);
+const player=new Player(city,{radial:new THREE.CanvasTexture(cv)});player.addTo(scene);
+const bodyMat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.5,metalness:.15}),lights=new THREE.MeshBasicMaterial({vertexColors:true});
+let metro,contacts,paused=false,scenario='front',hits=0,carried=false,impact=0,time=0;const keys=new Set();let flyPressed=false;
+function reset(mode){scenario=mode;hits=0;impact=0;carried=false;paused=false;keys.clear();flyPressed=false;time=0;
+ if(metro)scene.remove(metro.group);metro=new MetroTrains({lines:[{id:'blue',pts:[[-500,0],[500,0]]}],stations:[],deckHeight:11},{body:bodyMat,lights});metro.trains=metro.trains.filter(t=>t.run.dir===1).slice(0,1);
+ const train=metro.trains[0];Object.assign(train,{s:488,v:mode==='roof'?7:14,next:train.run.max,dwell:0,terminal:false});scene.add(metro.group);contacts=new MovingRailInteraction();
+ if(mode==='roof'){player.place(-24.4,-1.95,-Math.PI/2,11.8);player.pos.y=20.275;player.descending=true;player.vy=0;}
+ else if(mode==='side'){player.place(-28,7,0,11.8);player.speed=8;}
+ else player.place(3,-1.95,-Math.PI/2,11.8);
+ document.querySelector('#pause').textContent='Pause fixture';}
+for(const id of ['front','side','roof'])document.querySelector('#'+id).onclick=()=>reset(id);
+const toggle=()=>{paused=!paused;keys.clear();document.querySelector('#pause').textContent=paused?'Resume fixture':'Pause fixture';};document.querySelector('#pause').onclick=toggle;
+addEventListener('keydown',e=>{if(['KeyW','KeyS','KeyA','KeyD','Space','KeyP'].includes(e.code)){e.preventDefault();if(e.code==='Space'&&!e.repeat)flyPressed=true;if(e.code==='KeyP'&&!e.repeat)toggle();else keys.add(e.code);}});addEventListener('keyup',e=>keys.delete(e.code));addEventListener('blur',()=>keys.clear());
+reset('front');let previous=performance.now(),hud=0;
+function frame(now){requestAnimationFrame(frame);const dt=Math.min(.035,(now-previous)/1000);previous=now;if(!paused){time+=dt;metro.update(dt,player.pos.x,player.pos.z);city.movingRail=metro.bodies;
+ const inp={throttle:keys.has('KeyW')?1:0,brake:keys.has('KeyS')?1:0,steer:(keys.has('KeyA')?1:0)-(keys.has('KeyD')?1:0),boost:false,flyPressed};flyPressed=false;
+ contacts.beforePlayer(player,city.movingRail,inp.flyPressed,dt);player.update(dt,inp,time);const result=contacts.afterPlayer(player,dt);carried=result.carried;if(result.hit){hits++;impact=Math.max(impact,result.impact);}}
+ const p=player.pos;camera.position.set(p.x-25,p.y+15,p.z+31);camera.lookAt(p.x-2,p.y+1,p.z-1);renderer.render(scene,camera);
+ if(now-hud>100){hud=now;document.querySelector('#status').textContent=`${paused?'PAUSED · ':''}${scenario.toUpperCase()} · car X ${p.x.toFixed(1)} / Y ${p.y.toFixed(2)} / Z ${p.z.toFixed(1)} · drive ${(player.speed*3.6).toFixed(0)}km/h · roof carry ${carried?'YES':'no'} · contacts ${hits} · peak impact ${impact.toFixed(1)}m/s · ${player.flying?'FLYING':player.descending?'DESCENDING':player.lastKind}`;}}
+requestAnimationFrame(frame);
+</script></body></html>

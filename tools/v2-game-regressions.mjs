@@ -109,7 +109,8 @@ try {
       engine: { renderer: { domElement: canvas }, camera: new PerspectiveCamera(), render() { counts.render++; }, placeSun() {} },
       clock: { getDelta() { counts.clock++; return 0.05; } },
       city: { rails: new Map(), update() { counts.city++; }, signs: { update() {} }, loadedBuildings: () => [] },
-      traffic: { update() { counts.traffic++; }, hitTest: () => null, pushOut() {}, hideNear() {} }, walkers: { list: [], update() {} }, metro: { update() {} }, rail: { update() {} },
+      traffic: { update() { counts.traffic++; }, hitTest: () => null, pushOut() {}, hideNear() {} }, walkers: { list: [], update() {} }, metro: { bodies: [], update() {} }, rail: { bodies: [], update() {} },
+      railContacts: { beforePlayer() {}, afterPlayer: () => ({ hit: false, impact: 0, carried: false }) }, aircraft: { update() {} },
       t: 0, moodT: 1, busyT: 1, fpsN: 0, fpsT: performance.now(), fps: 60, devOn: false, autopilot: false,
       camPos: new Vector3(), camLook: new Vector3(), cameraPlacementRevision: 0, orbitYaw: 0, orbitPitch: 0.38, orbitDist: 0,
       applyClockMood() {}, watchStuck() {}, setStreetLife() {}, updateRoute() {}, clearCamera: (_pivot, desired) => desired,
@@ -235,6 +236,23 @@ try {
     }
     const { g, counts, sound } = fixture(); g.order = order('toDrop'); g.frame();
     assert.ok(g.t > 0 && g.minutes > 480 && g.order.t > 12); assert.equal(counts.player, 1); assert.equal(counts.traffic, 1); assert.equal(counts.city, 1); assert.equal(sound.vehicles.at(-1).active, true);
+  });
+
+  await test('moving trains update before player physics and rail impact reaches gameplay and traffic', () => {
+    const { g, sound } = fixture(), calls = [], metroBody = { id: 'metro' }, railBody = { id: 'rail' };
+    g.order = order('toDrop'); const slices = g.order.slices;
+    g.metro.update = () => { calls.push('metro'); g.metro.bodies = [metroBody]; };
+    g.rail.update = () => { calls.push('rail'); g.rail.bodies = [railBody]; };
+    g.railContacts.beforePlayer = (_player, bodies) => { calls.push('carry'); assert.deepEqual(bodies, [metroBody, railBody]); };
+    g.player.update = () => { calls.push('player'); assert.deepEqual(g.city.movingRail, [metroBody, railBody]); };
+    g.railContacts.afterPlayer = player => { calls.push('contact'); player.pos.x = 4; return { hit: true, impact: 3, carried: false }; };
+    g.aircraft.update = (_dt, x) => { calls.push('aircraft'); assert.equal(x, 4); };
+    g.city.update = x => { calls.push('world'); assert.equal(x, 4); };
+    g.traffic.update = (_dt, x) => { calls.push('traffic'); assert.equal(x, 4); };
+    g.frame();
+    assert.deepEqual(calls, ['metro', 'rail', 'carry', 'player', 'contact', 'aircraft', 'world', 'traffic']);
+    assert.ok(sound.cues.includes('bump')); assert.equal(g.order.slices, slices - 1); assert.equal(g.player.hitCooldown, 1);
+    calls.length = 0; g.paused = true; g.frame(); assert.deepEqual(calls, [], 'pause freezes every moving system');
   });
 
   await test('Game.start wires map close to gameplay focus or the explicit keyboard opener', () => {

@@ -2,12 +2,13 @@ import * as THREE from 'three';
 import { metroTrain } from '../world/vehicles';
 import { metroCorridors, projectMetroPath, sampleMetroPath, MetroPath, MetroTrack, MetroCorridor, MetroLineInput } from '../world/metro-geometry';
 import type { XZ } from '../world/types';
+import { MovingRailFrames, type MovingRailShape } from './moving-rail';
 
 interface Run {
   corridor: MetroCorridor; track: MetroTrack; path: MetroPath; dir: 1 | -1;
   min: number; max: number; stops: number[]; peer: Run;
 }
-interface Train { run: Run; s: number; v: number; dwell: number; next: number; terminal: boolean; mesh: THREE.Group | null }
+interface Train { id: string; run: Run; s: number; v: number; dwell: number; next: number; terminal: boolean; mesh: THREE.Group | null }
 interface CoachGeometry { body: THREE.BufferGeometry; lights: THREE.BufferGeometry }
 const VMAX = 22, ACC = 1, BRAKE = 1.5, DWELL = 18, NEAR = 1300;
 export const METRO_TRAIN_LENGTH = 69, METRO_HEADWAY_GAP = 28;
@@ -40,6 +41,8 @@ export class MetroTrains {
   group = new THREE.Group(); trains: Train[] = []; runs: Run[] = []; pool: THREE.Group[] = [];
   geo: { coaches: CoachGeometry[]; length: number } | null = null;
   dh: number;
+  private frames = new MovingRailFrames();
+  get bodies() { return this.frames.bodies; }
   constructor(metro: { lines: MetroLineInput[]; stations: { p: XZ; lines?: string[] }[]; deckHeight: number }, public mats: { body: THREE.Material; lights: THREE.Material }) {
     this.dh = metro.deckHeight || 11;
     for (const corridor of metroCorridors(metro.lines)) {
@@ -63,7 +66,7 @@ export class MetroTrains {
         const n = Math.max(1, Math.round(run.path.len / 2400));
         for (let k = 0; k < n; k++) {
           const s = run.min + (k + (run.dir > 0 ? 0.25 : 0.75)) / n * (run.max - run.min);
-          this.trains.push({ run, s, v: 0, dwell: 0, next: this.nextStop(run, s), terminal: false, mesh: null });
+          this.trains.push({ id: `metro:${run.track.id}:${k}`, run, s, v: 0, dwell: 0, next: this.nextStop(run, s), terminal: false, mesh: null });
         }
       }
     }
@@ -136,15 +139,18 @@ export class MetroTrains {
         leader = train;
       }
     }
+    const bodies: MovingRailShape[] = [];
     for (const train of this.trains) {
       const run = train.run, center = this.at(run, train.s - run.dir * METRO_TRAIN_LENGTH / 2);
       const near = Math.hypot(center.x - px, center.z - pz) < NEAR;
       if (near && !train.mesh) train.mesh = this.mesh();
       if (!near) this.releaseMesh(train);
-      if (train.mesh) {
-        train.mesh.position.set(center.x, this.dh + 0.95, center.z);
-        for (let k = 0; k < 3; k++) {
-          const p = sampleMetroPath(run.path, train.s - run.dir * (FRONT + k * COACH_SPACING), 8);
+      if (train.mesh) train.mesh.position.set(center.x, this.dh + 0.95, center.z);
+      for (let k = 0; k < 3; k++) {
+        const p = sampleMetroPath(run.path, train.s - run.dir * (FRONT + k * COACH_SPACING), 8), y = this.dh + .95;
+        if (near) bodies.push({ id: `${train.id}:${k}`, x: p.x, y, z: p.z, hx: p.hx * run.dir, hz: p.hz * run.dir,
+          halfWidth: 1.5, halfLength: k === 1 ? 10.75 : 12.2, bottom: y + .15, roof: y + 3.775 });
+        if (train.mesh) {
           const coach = train.mesh.children[k];
           coach.position.set(p.x - center.x, 0, p.z - center.z);
           // The existing model's cab faces local -z.
@@ -152,5 +158,6 @@ export class MetroTrains {
         }
       }
     }
+    this.frames.set(bodies);
   }
 }

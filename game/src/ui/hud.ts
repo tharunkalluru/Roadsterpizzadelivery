@@ -175,7 +175,7 @@ export class Hud {
       <div class="area-chip" id="area-chip" aria-live="polite"></div>
       <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Game menu" hidden><div class="sheet" id="sheet"></div></div>
       <div class="rotate" id="rotate"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b>Turn your phone sideways</b><span>Pizza to Picture Hall is made for landscape: the controls sit under your thumbs.</span><button type="button" class="btn alt" id="rot-ok">Play like this anyway</button></div></div>
-      <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary</div>`;
+      <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary · Contains data provided by TGSRTC</div>`;
     for (const n of this.root.querySelectorAll('[id]')) this.el[n.id] = n as HTMLElement;
     this.modalFocus = new DialogFocus(this.el.modal, { restore: () => this.el['b-help'] });
     const left = this.root.querySelector('.h-tl')!, right = this.root.querySelector('.h-tr')!;

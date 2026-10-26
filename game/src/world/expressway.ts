@@ -55,6 +55,90 @@ export function auxiliaryLane(e: RoadEdge, roads: RoadEdge[]) {
   });
 }
 
+interface BoundarySegment { ax: number; az: number; bx: number; bz: number; ya: number; yb: number; segment?: number; bottom?: number; top?: number }
+export interface ExpresswayBarrierSegment extends BoundarySegment { road: string }
+
+// Rendering and collision share these intervals. A ramp centreline joins the
+// mainline centreline in the source data; its two edge barriers therefore begin
+// INSIDE the through carriageway and must stop until the road envelopes separate.
+export function expresswayBarrierClipper(roads: RoadEdge[]) {
+  const expressway = (e: RoadEdge) => isORR(e) || !!e.expressway?.ramp;
+  if (!roads.some(expressway)) return (own: RoadEdge, boundary: BoundarySegment): ExpresswayBarrierSegment[] => [{ ...boundary, road: own.id }];
+  const nodes = new Map<string, RoadEdge[]>(), related = new Map<string, RoadEdge[]>();
+  for (const e of roads) for (const node of [e.from, e.to]) if (node) (nodes.get(node) || nodes.set(node, []).get(node)!).push(e);
+  const others = (own: RoadEdge) => {
+    if (related.has(own.id)) return related.get(own.id)!;
+    const found = new Set<RoadEdge>(), best = new Map<string, number>(), queue: [string, number][] = [];
+    for (const node of [own.from, own.to]) if (node) { best.set(node, 0); queue.push([node, 0]); }
+    // Follow the local interchange component through short split source edges.
+    // Never traverse ordinary streets or turn a remote geometric crossing into
+    // an access opening. Full long edges are candidates, but not traversal jumps.
+    for (let i = 0; i < queue.length; i++) {
+      const [node, d] = queue[i]; if (d !== best.get(node)) continue;
+      for (const e of nodes.get(node) || []) {
+        if (e.id === own.id) continue;
+        if (!expressway(e)) { if (isRamp(own) && !/footway|path|steps|pedestrian|cycleway/.test(e.cls) && (nodes.get(node) || []).some(o => o.expressway?.ramp)) found.add(e); continue; }
+        found.add(e);
+        const next = e.from === node ? e.to : e.from, nd = d + roadLength(e);
+        if (next && nd <= 450 && nd < (best.get(next) ?? Infinity)) { best.set(next, nd); queue.push([next, nd]); }
+      }
+    }
+    const out = [...found]; related.set(own.id, out); return out;
+  };
+  const clip = (range: number[], value: number, delta: number, low: number, high: number) => {
+    if (Math.abs(delta) < 1e-10) return value >= low && value <= high;
+    const a = (low - value) / delta, b = (high - value) / delta;
+    range[0] = Math.max(range[0], Math.min(a, b)); range[1] = Math.min(range[1], Math.max(a, b));
+    return range[0] < range[1] - 1e-8;
+  };
+  interface Corridor { e: RoadEdge; i: number; a: XZ; b: XZ; dx: number; dz: number; len: number; hw: number; extra: number[]; outer: number }
+  const grid = new Map<string, Corridor[]>();
+  for (const e of roads) {
+    if (/footway|path|steps|pedestrian|cycleway/.test(e.cls)) continue;
+    const hw = e.elev?.some(y => y > 1.2) ? Math.max(e.w / 2, 4.2) : e.w / 2;
+    const extra = auxiliaryLane(e, roads);
+    for (let i = 1; i < e.pts.length; i++) {
+      const a = e.pts[i - 1], b = e.pts[i], dx = b[0] - a[0], dz = b[1] - a[1], len = Math.hypot(dx, dz); if (len < .001) continue;
+      const span = { e, i, a, b, dx, dz, len, hw, extra, outer: -travelDirection(e) }, margin = hw + 4;
+      for (let x = Math.floor((Math.min(a[0], b[0]) - margin) / 60); x <= Math.floor((Math.max(a[0], b[0]) + margin) / 60); x++)
+        for (let z = Math.floor((Math.min(a[1], b[1]) - margin) / 60); z <= Math.floor((Math.max(a[1], b[1]) + margin) / 60); z++) {
+          const key = `${x},${z}`; (grid.get(key) || grid.set(key, []).get(key)!).push(span);
+        }
+    }
+  }
+  return (own: RoadEdge, boundary: BoundarySegment): ExpresswayBarrierSegment[] => {
+    const { ax, az, bx, bz, ya, yb } = boundary, cuts: number[][] = [], connected = new Set(others(own)), near = new Set<Corridor>();
+    for (let x = Math.floor(Math.min(ax, bx) / 60); x <= Math.floor(Math.max(ax, bx) / 60); x++)
+      for (let z = Math.floor(Math.min(az, bz) / 60); z <= Math.floor(Math.max(az, bz) / 60); z++) for (const s of grid.get(`${x},${z}`) || []) near.add(s);
+    for (const { e: other, i, a, b, dx, dz, len, hw, extra, outer } of near) {
+        // Foreign parapets must never fence off the mainline. This removes an
+        // intruding wall, while the mainline's own access barrier still excludes
+        // unrelated service roads. Also trim folded ramp boundaries against their
+        // own non-current source strips, rather than cutting across a hairpin.
+        if (other.id === own.id ? boundary.segment === undefined || i - 1 === boundary.segment :
+          !isORR(other) && !connected.has(other) && !(!isORR(own) && expressway(other))) continue;
+        if (Math.max(ax, bx) < Math.min(a[0], b[0]) - hw - 4 || Math.min(ax, bx) > Math.max(a[0], b[0]) + hw + 4 ||
+          Math.max(az, bz) < Math.min(a[1], b[1]) - hw - 4 || Math.min(az, bz) > Math.max(a[1], b[1]) + hw + 4) continue;
+        const u = ((ax - a[0]) * dx + (az - a[1]) * dz) / (len * len), du = ((bx - ax) * dx + (bz - az) * dz) / (len * len);
+        const v = ((az - a[1]) * dx - (ax - a[0]) * dz) / len, dv = ((bz - az) * dx - (bx - ax) * dz) / len;
+        const left0 = -hw - (outer === -1 ? extra[i - 1] : 0), left1 = -hw - (outer === -1 ? extra[i] : 0);
+        const right0 = hw + (outer === 1 ? extra[i - 1] : 0), right1 = hw + (outer === 1 ? extra[i] : 0);
+        const oa = other.elev?.[i - 1] || 0, ob = other.elev?.[i] || 0, range = [0, 1];
+        if (!clip(range, u, du, -.025 / len, 1 + .025 / len) ||
+          !clip(range, v - left0 - (left1 - left0) * u, dv - (left1 - left0) * du, -.35, Infinity) ||
+          !clip(range, right0 + (right1 - right0) * u - v, (right1 - right0) * du - dv, -.35, Infinity) ||
+          !clip(range, ya - oa - (ob - oa) * u, yb - ya - (ob - oa) * du, .1 - (boundary.top ?? .85), 1.8 - (boundary.bottom ?? -1))) continue;
+        cuts.push(range);
+    }
+    cuts.sort((a, b) => a[0] - b[0]);
+    const keep: number[][] = []; let cursor = 0;
+    for (const [lo, hi] of cuts) { if (lo > cursor + 1e-7) keep.push([cursor, lo]); cursor = Math.max(cursor, hi); }
+    if (cursor < 1 - 1e-7) keep.push([cursor, 1]);
+    return keep.map(([lo, hi]) => ({ road: own.id, ax: ax + (bx - ax) * lo, az: az + (bz - az) * lo,
+      bx: ax + (bx - ax) * hi, bz: az + (bz - az) * hi, ya: ya + (yb - ya) * lo, yb: ya + (yb - ya) * hi }));
+  };
+}
+
 export function expresswayPierClear(own: RoadEdge, roads: RoadEdge[], x: number, z: number) {
   for (const e of roads) {
     if (e.id === own.id || /footway|path|steps|pedestrian|cycleway/.test(e.cls)) continue;

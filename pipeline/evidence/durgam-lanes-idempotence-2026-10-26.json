@@ -1,0 +1,63 @@
+{
+  "roads": 5,
+  "sourceWays": 6,
+  "matches": [
+    {
+      "id": "a0d993a1-f57_0",
+      "length": 1723.2,
+      "sampleCoverageWithin5m": 0.9773,
+      "p95Distance": 0.046,
+      "maximumDistance": 32.882,
+      "oldLanes": 3,
+      "oldWidth": 9.6
+    },
+    {
+      "id": "94d5fcfe-ee2_0",
+      "length": 1744.0,
+      "sampleCoverageWithin5m": 0.9775,
+      "p95Distance": 0.05,
+      "maximumDistance": 33.93,
+      "oldLanes": 3,
+      "oldWidth": 9.6
+    },
+    {
+      "id": "69501c65-aa6_0",
+      "length": 13.6,
+      "sampleCoverageWithin5m": 1.0,
+      "p95Distance": 0.035,
+      "maximumDistance": 0.035,
+      "oldLanes": 3,
+      "oldWidth": 9.6
+    },
+    {
+      "id": "807d83c3-5e9_0",
+      "length": 1038.5,
+      "sampleCoverageWithin5m": 1.0,
+      "p95Distance": 0.042,
+      "maximumDistance": 0.047,
+      "oldLanes": 3,
+      "oldWidth": 9.6
+    },
+    {
+      "id": "451a40c0-177_0",
+      "length": 971.4,
+      "sampleCoverageWithin5m": 1.0,
+      "p95Distance": 0.036,
+      "maximumDistance": 0.052,
+      "oldLanes": 3,
+      "oldWidth": 9.6
+    }
+  ],
+  "alignmentChanged": false,
+  "laneWidthAssumption": 3.2,
+  "carriagewayWidth": 9.6,
+  "overallBridgeWidth": 25.8,
+  "roadCopiesFound": 17,
+  "roadCopiesUpdated": 0,
+  "packsChanged": 0,
+  "applied": true,
+  "sources": [
+    "https://api.openstreetmap.org/api/0.6/map?bbox=78.385,17.429,78.392,17.434",
+    "https://www.larsentoubro.com/media/42542/2020-09-25-lt-built-iconic-durgam-cheruvu-cable-stay-bridge-dedicated-to-the-people-of-hyderbad.pdf"
+  ]
+}

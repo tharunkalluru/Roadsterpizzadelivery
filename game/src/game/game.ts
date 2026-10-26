@@ -19,6 +19,10 @@ import { loadSettings, saveSettings, settingsHtml, bindSettings, Settings } from
 import { Walkers } from './walkers';
 import { MetroTrains } from './metro';
 import { RailTrains } from './rail';
+import { MovingRailInteraction } from './moving-rail';
+import { fetchPack } from '../world/packs';
+import type { BusFeed } from './bus-services';
+import { AirportAircraft } from '../world/airport-aircraft';
 import { Sound } from './audio';
 import { supportAt } from './physics';
 import { findClearStreetSpot, findClearRecoverySpot, staticSolidAt, clearCameraPosition } from './spatial-safety';
@@ -53,6 +57,8 @@ function marqueeTexture(text: string) {
 function fmtTime(min: number) { const h = Math.floor(min / 60) % 24, m = Math.floor(min % 60); const ap = h >= 12 ? 'PM' : 'AM'; return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${ap}`; }
 
 export class Game {
+  railContacts = new MovingRailInteraction();
+  aircraft!: AirportAircraft;
   metro!: MetroTrains; rail!: RailTrains; player!: Player; graph!: RoadGraph; traffic!: Traffic; hud!: Hud; walkers!: Walkers; map: FullMap | null = null; sound = new Sound();
   orbitYaw = 0; orbitPitch = 0.38; orbitDist = 0; dragging = false; halted = false;
   keys = new Set<string>(); flyQueued = false; actHeld = false; actTap = 0;
@@ -76,8 +82,13 @@ export class Game {
     this.player = new Player(city, engine.mats);
     this.player.addTo(engine.scene);
     this.traffic = new Traffic(this.graph, engine.scene, engine.mats, opts.lowQ ? 32 : 55, city.busStops, city);
+    void fetchPack<BusFeed>('transit/tgsrtc.pack.wasm').then(feed => {
+      if (Math.abs(feed.origin.lat - zone.origin.lat) < 1e-7 && Math.abs(feed.origin.lon - zone.origin.lon) < 1e-7) this.traffic.setBusFeed(feed);
+      else console.warn('Bus route coordinates do not match this city.');
+    }).catch(error => console.warn('Published bus routes could not load; city buses remain unavailable.', error));
     this.metro = new MetroTrains(zone.metro as any, { body: engine.mats.vBody, lights: engine.mats.vLight }); engine.scene.add(this.metro.group);
     this.rail = new RailTrains(engine.mats.vBody); engine.scene.add(this.rail.group);
+    this.aircraft = new AirportAircraft(zone.origin, { lowQ: opts.lowQ }); engine.scene.add(this.aircraft.group);
     this.traffic.onHorn = (kind, x, z) => {
       const c = this.engine.camera, dx = x - c.position.x, dz = z - c.position.z;
       const right = new THREE.Vector3().setFromMatrixColumn(c.matrixWorld, 0);
@@ -635,7 +646,7 @@ export class Game {
     }
     this.order = null; this.nextOfferAt = null; this.setTarget(null);
     // the old neighbourhood's traffic and people stay behind
-    for (const car of this.traffic.cars) this.engine.scene.remove(car.g); this.traffic.cars.length = 0;
+    this.traffic.clear();
     for (const w of this.walkers.list) this.walkers.group.remove(w.g); this.walkers.list.length = 0;
     this.camPos.set(0, 0, 0); this.camLook.set(0, 0, 0); this.orbitYaw = 0; this.orbitDist = 0; this.busyT = 0;
     this.area = c;
@@ -817,15 +828,24 @@ export class Game {
     // player + traffic
     const inp = this.input();
     const wasFlying = this.player.flying;
+    this.metro.update(dt, this.player.pos.x, this.player.pos.z);
+    this.rail.update(dt, this.player.pos.x, this.player.pos.z, this.city.rails);
+    this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies];
+    this.railContacts.beforePlayer(this.player, this.city.movingRail, inp.flyPressed, dt);
     this.player.update(dt, inp, this.t);
+    const railContact = this.railContacts.afterPlayer(this.player, dt);
+    if (railContact.hit && this.player.hitCooldown <= 0) {
+      this.player.hitCooldown = 1; this.player.bump = Math.max(this.player.bump, 0.45);
+      this.sound.cue('bump'); this.hud.toast('Mind the train!', 'pink');
+      if (this.order?.state === 'toDrop') { this.order.slices = Math.max(0, this.order.slices - 1); this.streak = 1; }
+    }
     if (!wasFlying && this.player.flying) this.sound.cue('flight');
     this.watchStuck(dt, inp);
     const P = this.player.pos;
+    this.aircraft.update(dt, P.x, P.z);
     this.city.update(P.x, P.z, dt);
     if ((this.busyT -= dt) <= 0) { this.busyT = 1; this.setStreetLife(P.x, P.z); }
     this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, hx: this.player.forward.x, hz: this.player.forward.z }, this.walkers.list);
-    this.metro.update(dt, P.x, P.z);
-    this.rail.update(dt, P.x, P.z, this.city.rails);
     const fw = this.player.forward;
     this.walkers.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, fx: fw.x, fz: fw.z });
     const hit = this.player.flying ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1);
