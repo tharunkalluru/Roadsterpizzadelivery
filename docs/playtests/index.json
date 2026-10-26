@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T22:19:09.467239+00:00",
+  "updatedAt": "2026-10-26T22:23:23.560718+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
+  "currentBuild": "59e19a24a6c90a972c8d42d0a1e4b61230686973",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -1952,7 +1952,7 @@
     }
   ],
   "nextRoundPlan": "PT-017/PT-018 repaired. Continue R05 per-place references and unresolved bus-leg review. Broaden natural Golconda slopes/roofs, bus obstacle/traffic clearance, ORR exits, airport/bridge, signal cycles and physical-phone acceptance; source coverage is not street verification.",
-  "runtimeSourceCommit": "da1e9a035a5f9d033edf3350c44253dfdf26b8da",
+  "runtimeSourceCommit": "59e19a24a6c90a972c8d42d0a1e4b61230686973",
   "liveHandoff": null,
   "liveHandoffs": [
     {
@@ -2325,6 +2325,14 @@
     "newBrowserDeliveries": 0,
     "physicalPhoneTested": false,
     "browser": "Actual firstorderacceptance,briefRTCdriving,Educationmapsearch/selection/closeandpause;isolatedproductiontransit/construction/destinationcomponents recorded separately.",
-    "remaining": "Missing secondary interchange platforms; exactarchitecture/interiors/currentconstructionlayout andexhaustivemissingplaces remainopen."
+    "remaining": "Missing secondary interchange platforms; exactarchitecture/interiors/currentconstructionlayout andexhaustivemissingplaces remainopen.",
+    "implementationCommit": "59e19a24a6c90a972c8d42d0a1e4b61230686973",
+    "publication": {
+      "version": 10,
+      "status": "succeeded",
+      "url": "https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site",
+      "siteSourceCommit": "94bed1a75e08dca2aa21f2a663cceb09def3f237",
+      "allProductionFilesByteIdentical": true
+    }
   }
 }

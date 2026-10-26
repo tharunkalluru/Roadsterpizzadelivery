@@ -3,7 +3,7 @@
   "testedAt": "2026-10-26T22:19:09.467239+00:00",
   "branch": "main",
   "baseCommit": "5ef2908d04bb5a5f8da52209ac4b8dfca84851de",
-  "includesWorkingTree": true,
+  "includesWorkingTree": false,
   "report": "../transit-city-release-2026-10-26.md",
   "sourceSha256": {
     "game/src/core/engine.ts": "be871d8928bebab36e41817781396c14cf1912cf554cfb6244f189fdd71514e0",
@@ -278,6 +278,7 @@
     "evidence/2026-10-26-transit-destinations/gantry-night-component.png",
     "evidence/2026-10-26-transit-destinations/iiit-shoulder-works-component.png",
     "evidence/2026-10-26-transit-destinations/inorbit-source-model.png",
+    "evidence/2026-10-26-transit-destinations/live-version-10-title.png",
     "evidence/2026-10-26-transit-destinations/lulu-source-model.png",
     "evidence/2026-10-26-transit-destinations/metro-doors-transfer-component.png",
     "evidence/2026-10-26-transit-destinations/metro-platform-waiting-component.png",
@@ -302,10 +303,27 @@
     "No exhaustive architectural/street verification of every institution,mall,office or construction project."
   ],
   "cleanup": {
-    "onlyAgentTabsClosed": true,
+    "onlyAgentTabsClosed": "All test tabs closed; one fresh live title tab retained as deliverable. User game tabs untouched.",
     "heldInputs": false,
     "inputOwner": null,
     "userGameTabsUntouched": true,
     "userPreview4189Untouched": true
+  },
+  "implementationCommit": "59e19a24a6c90a972c8d42d0a1e4b61230686973",
+  "publication": {
+    "githubMainCodeCommit": "59e19a24a6c90a972c8d42d0a1e4b61230686973",
+    "siteVersion": 10,
+    "siteSourceCommit": "94bed1a75e08dca2aa21f2a663cceb09def3f237",
+    "projectId": "appgprj_6adaefe0993481918802134463afcaab",
+    "versionId": "appgprj_6adaefe0993481918802134463afcaab~appgver_2299082592a081918931c3c225f8bd80",
+    "deploymentId": "appgdep_6adfd29264448191b68e9fd2f931db6d",
+    "status": "succeeded",
+    "publishedAt": "2026-10-26T22:22:21.687590+00:00",
+    "url": "https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site",
+    "productionFilesCompared": 317,
+    "allProductionFilesByteIdentical": true,
+    "sourceAndPublicFilesCompared": 397,
+    "archiveSha256": "c2df755944bb1ce036c413b0973a748c3fab7d1e8317bb3be85397f594304d20",
+    "liveBrowser": "Fresh owned live tab shows title screen and exact script ./assets/index-DrNHNtuR.js; zero captured warnings/errors. User game tabs untouched; no live progress played or modified."
   }
 }

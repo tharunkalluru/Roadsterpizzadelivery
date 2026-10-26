@@ -49,3 +49,13 @@ Original screenshots are retained under `playtests/evidence/2026-10-26-transit-d
 Physical-phone acceptance, full city driving, exact current facades/interiors,
 all secondary interchange platforms and exhaustive missing-place discovery
 remain open. No new delivery completion is claimed by this release pass.
+
+Published result
+----------------
+
+Version10 is live at [Pizza to Picture Hall](https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site).
+GitHub application commit: `59e19a24a6c90a972c8d42d0a1e4b61230686973`. All317 production files match the
+tested main build byte-for-byte. A fresh live title screen loads
+`index-DrNHNtuR.js` with no captured console warnings or errors. The report
+contains the final630-tile audit, original screenshots, corrected category
+retest and exact Site source/deployment identifiers.
