@@ -103,6 +103,37 @@ try {
     assert.equal(trafficCurveClear(curve, bridge, sizes.auto), false);
     assert.equal(trafficPoseClear(city, { ...a, z: -7.6 }, sizes.car), false, 'whole body cannot use the pavement margin');
   });
+  test('the full bus nose and tail corners reject facade clips at straight and rotated headings', () => {
+    for (const yaw of [0, Math.PI / 4, Math.PI / 2]) for (const end of [-1, 1]) for (const side of [-1, 1]) {
+      const city = cityFor([road('wide', [[-100, 0], [100, 0]])]);
+      const p = { x: 0, y: 0, z: 0, hx: Math.cos(yaw), hz: Math.sin(yaw) };
+      const x = p.hx * end * 5.4 + p.hz * side * 1.15, z = p.hz * end * 5.4 - p.hx * side * 1.15;
+      const b = { ring: [[x - .1, z - .1], [x + .1, z - .1], [x + .1, z + .1], [x - .1, z + .1]], h: 12 };
+      gridAdd(city.buildingGrid, b, x - .1, z - .1, x + .1, z + .1, 50);
+      assert.equal(trafficPoseClear(city, p, sizes.bus), false, `rejects corner end=${end}, side=${side}, heading=${yaw}`);
+    }
+    const city = cityFor([road('wide', [[-100, 0], [100, 0]])]);
+    const b = { ring: [[5.3, 1.45], [5.7, 1.45], [5.7, 1.8], [5.3, 1.8]], h: 12 };
+    gridAdd(city.buildingGrid, b, 5.3, 1.45, 5.7, 1.8, 50);
+    assert.equal(trafficPoseClear(city, { x: 0, y: 0, z: 0, hx: 1, hz: 0 }, sizes.bus), true, 'a clear corner retains its normal small margin');
+  });
+  test('bus corner barrier and pole checks preserve separation from ground obstacles below a bridge', () => {
+    const city = cityFor([road('deck', [[-100, 0], [100, 0]], { elev: [8, 8] })]);
+    const p = { x: 0, y: 8, z: 0, hx: 1, hz: 0 };
+    const wall = { ax: 5.3, az: 1.15, bx: 5.7, bz: 1.15, y0a: 0, y0b: 0, y1a: .8, y1b: .8, kind: 'parapet' };
+    gridAdd(city.walls, wall, 5.3, 1.15, 5.7, 1.15, 30);
+    city.obstacles.set('0,0', [{ x: -5.4, z: -1.15, r: .1, top: 5 }]);
+    const building = { ring: [[5.3, -1.25], [5.7, -1.25], [5.7, -.95], [5.3, -.95]], h: 5 };
+    gridAdd(city.buildingGrid, building, 5.3, -1.25, 5.7, -.95, 50);
+    assert.equal(trafficPoseClear(city, p, sizes.bus), true, 'ground geometry cannot block a bus on the deck');
+    wall.y0a = wall.y0b = 8; wall.y1a = wall.y1b = 8.8;
+    assert.equal(trafficPoseClear(city, p, sizes.bus), false, 'a deck-height barrier clips the front corner');
+    city.walls.clear(); city.obstacles.get('0,0')[0].top = 10;
+    assert.equal(trafficPoseClear(city, p, sizes.bus), false, 'a deck-height pole clips the tail corner');
+    city.obstacles.clear();
+    gridAdd(city.walls, { ax: -100, az: 1.15, bx: 100, bz: 1.15, y0a: 0, y0b: 10, y1a: .8, y1b: 10.8, kind: 'parapet' }, -100, 1.15, 100, 1.15, 30);
+    assert.equal(trafficPoseClear(city, p, sizes.bus), true, 'wall height is evaluated only where its segment crosses the bus');
+  });
   test('cross-edge oriented bodies block entry; crossing grade-separated vehicles do not', () => {
     const a = { x: 0, y: 0, z: 0, hx: 1, hz: 0, size: sizes.bus }, b = { x: 4, y: 0, z: 1.2, hx: 0, hz: 1, size: sizes.car };
     assert.equal(trafficOverlap(a, b), true); assert.equal(trafficOverlap(a, { ...b, y: 8 }), false);

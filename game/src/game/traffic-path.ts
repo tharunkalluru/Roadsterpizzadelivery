@@ -1,6 +1,6 @@
-import type { CityData } from '../world/city';
-import { supportAt } from './physics';
-import { staticSolidAt, type VehicleBounds } from './spatial-safety';
+import { pointInRing, type CityData } from '../world/city';
+import { nearbyBuildings, supportAt } from './physics';
+import type { VehicleBounds } from './spatial-safety';
 
 export interface TrafficPose { x: number; y: number; z: number; hx: number; hz: number }
 export type TrafficGroup = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
@@ -88,6 +88,58 @@ export function trafficOverlap(a: VehicleBounds, b: VehicleBounds, margin = 0.25
   return true;
 }
 
+// Clip a static segment against the complete oriented footprint. Centreline
+// circles leave gaps at rectangular noses/tails and along their outer corners.
+function bodySegment(p: TrafficPose, size: number[], ax: number, az: number, bx: number, bz: number, padding = 0) {
+  const local = (x: number, z: number) => [(x - p.x) * p.hx + (z - p.z) * p.hz, (x - p.x) * p.hz - (z - p.z) * p.hx];
+  const a = local(ax, az), b = local(bx, bz), half = [size[2] / 2 + 0.12 + padding, size[0] / 2 + 0.08 + padding];
+  let lo = 0, hi = 1;
+  for (let i = 0; i < 2; i++) {
+    const d = b[i] - a[i];
+    if (Math.abs(d) < 1e-8) { if (Math.abs(a[i]) > half[i]) return null; continue; }
+    const t0 = (-half[i] - a[i]) / d, t1 = (half[i] - a[i]) / d;
+    lo = Math.max(lo, Math.min(t0, t1)); hi = Math.min(hi, Math.max(t0, t1));
+    if (lo > hi) return null;
+  }
+  return [lo, hi];
+}
+
+function trafficStaticClear(city: CityData, p: TrafficPose, size: number[]) {
+  const low = p.y + 0.15, high = p.y + size[1] + 0.04;
+  for (const b of nearbyBuildings(city, p.x, p.z)) {
+    if (b.h < low) continue;
+    if (pointInRing(p.x, p.z, b.ring)) return false;
+    for (let i = 0, j = b.ring.length - 1; i < b.ring.length; j = i++) {
+      if (bodySegment(p, size, ...b.ring[j], ...b.ring[i])) return false;
+    }
+  }
+  const cx = Math.floor(p.x / 50), cz = Math.floor(p.z / 50);
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const o of city.obstacles.get(`${cx + i},${cz + j}`) || []) {
+    if (o.top < low) continue;
+    const dx = o.x - p.x, dz = o.z - p.z;
+    const along = Math.max(0, Math.abs(dx * p.hx + dz * p.hz) - size[2] / 2 - 0.12);
+    const side = Math.max(0, Math.abs(dx * p.hz - dz * p.hx) - size[0] / 2 - 0.08);
+    if (Math.hypot(along, side) < o.r) return false;
+  }
+  const sx = Math.floor(p.x / 30), sz = Math.floor(p.z / 30), seen = new Set<object>();
+  const overlapsHeight = (ys: number[], bottom: number, top: number) => Math.min(...ys) + bottom <= high && Math.max(...ys) + top >= low;
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) {
+    const key = `${sx + i},${sz + j}`;
+    for (const w of city.walls.get(key) || []) {
+      if (seen.has(w) || w.kind === 'kerb') continue; seen.add(w);
+      const interval = bodySegment(p, size, w.ax, w.az, w.bx, w.bz); if (!interval) continue;
+      const bottom = interval.map(t => w.y0a + (w.y0b - w.y0a) * t), top = interval.map(t => w.y1a + (w.y1b - w.y1a) * t);
+      if (Math.min(...bottom) <= high && Math.max(...top) >= low) return false;
+    }
+    for (const s of city.surfaceGrid.get(key) || []) {
+      if (s.kind === 'road' || seen.has(s)) continue; seen.add(s);
+      const interval = bodySegment(p, size, s.ax, s.az, s.bx, s.bz, s.hw); if (!interval) continue;
+      if (overlapsHeight(interval.map(t => s.ya + (s.yb - s.ya) * t), -0.3, 0.05)) return false;
+    }
+  }
+  return true;
+}
+
 export function trafficPoseClear(city: CityData, p: TrafficPose, size: number[]) {
   const halfW = size[0] / 2 + 0.08, halfL = size[2] / 2 + 0.12;
   // Support the corners, nose, tail and middle on actual loaded carriageway,
@@ -100,15 +152,7 @@ export function trafficPoseClear(city: CityData, p: TrafficPose, size: number[])
     const t = Math.max(0, Math.min(1, ((x - s.s.ax) * dx + (z - s.s.az) * dz) / ll));
     if (Math.hypot(x - s.s.ax - dx * t, z - s.s.az - dz * t) > (s.s.e?.w ?? s.s.hw * 2) / 2 + 0.15) return false;
   }
-  // Overlapping circles conservatively cover the body, including bus tail swing.
-  const n = Math.max(2, Math.ceil((size[2] - size[0]) / Math.max(0.5, halfW)));
-  const end = Math.max(0, size[2] / 2 - size[0] / 2);
-  for (let i = 0; i <= n; i++) {
-    const along = -end + 2 * end * i / n, x = p.x + p.hx * along, z = p.z + p.hz * along;
-    const roadY = supportAt(city, x, z, p.y + 0.3, true).y;
-    if (staticSolidAt(city, { x, z, y: roadY + size[1] / 2 + 0.32 }, halfW, Math.max(0.2, size[1] / 2 - 0.28))) return false;
-  }
-  return true;
+  return trafficStaticClear(city, p, size);
 }
 
 export function trafficCurveClear(curve: TrafficCurve, city: CityData, size: number[]) {
