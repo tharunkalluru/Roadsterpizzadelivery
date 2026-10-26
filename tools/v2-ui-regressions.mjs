@@ -275,11 +275,11 @@ try {
     hud.resetControls();
   });
   await test('action progress updates preserve a hold but changing or removing the action releases it', () => {
-    hud.prompt('Collect the pizza', 0, 'collect'); down('t-act', 44);
+    hud.prompt('Collect the pizza', 0, 'collect'); down('t-act', 44); assert.equal(root.classList.contains('has-context-action'), true);
     hud.prompt('Collecting the pizza…', .4, 'collect'); assert.equal(hud.touchAct, true); assert.equal(el['t-act'].hasPointerCapture(44), true);
     hud.prompt('Hand over the pizza', 0, 'handover'); actionReleased(); assert.equal(el['t-act'].hidden, false);
     down('t-act', 45); hud.prompt('Talk to the manager', 0, 'theatre'); actionReleased();
-    down('t-act', 46); hud.prompt(null); actionReleased(); assert.equal(el['t-act'].hidden, true);
+    down('t-act', 46); hud.prompt(null); actionReleased(); assert.equal(el['t-act'].hidden, true); assert.equal(root.classList.contains('has-context-action'), false);
     hud.prompt('Collect the pizza', 0, 'collect'); down('t-act', 47); hud.prompt('Drive closer'); actionReleased(); assert.equal(el['t-act'].hidden, true);
     hud.resetControls();
   });
@@ -305,19 +305,50 @@ try {
     hud.prompt('Collect the pizza', 0, 'collect'); hud.rotationBlocked = true; down('t-act', 53); assert.equal(hud.touchAct, false);
     hud.rotationBlocked = false; hud.resetControls();
   });
+  await test('cruise remains separate from the accelerator and releases on brake and overlays', () => {
+    const events = []; hud.onButton = id => events.push(id);
+    el['t-cruise'].emit('pointerdown'); assert.deepEqual(events, ['cruise']); assert.equal(hud.touchGas, false);
+    hud.setCruise(true); assert.equal(hud.cruiseOn, true);
+    assert.equal(el['t-cruise'].getAttribute('aria-pressed'), 'true'); assert.equal(el['cruise-label'].textContent, 'CRUISE ON');
+    down('t-brake', 61); assert.equal(hud.touchBrake, true); assert.equal(hud.cruiseOn, false);
+    hud.resetControls(); hud.setCruise(true);
+    el['t-brake'].emit('keydown', { code: 'Space', key: ' ' }); assert.equal(hud.cruiseOn, false);
+    hud.resetControls();
+    for (const reset of [() => hud.resetControls(), () => { hud.offer('<p>Offer</p>'); hud.offer(null); }, () => { hud.modal('<h2>Paused</h2>'); hud.modal(null); }, () => globalEvents.emit('blur')]) {
+      hud.setCruise(true); reset(); assert.equal(hud.cruiseOn, false); assert.equal(el['t-cruise'].getAttribute('aria-pressed'), 'false');
+    }
+  });
+  await test('flight label and busy state track actual flight state without duplicate keyboard toggles', () => {
+    const events = []; hud.onButton = id => events.push(id);
+    hud.flightState(true, false); assert.equal(el['fly-label'].textContent, 'LAND'); assert.equal(el['t-fly'].getAttribute('aria-label'), 'Land');
+    el['t-fly'].emit('keydown', { code: 'Space', key: ' ', repeat: false });
+    el['t-fly'].emit('keydown', { code: 'Space', key: ' ', repeat: true }); assert.deepEqual(events, ['fly']);
+    hud.flightState(false, true); assert.equal(el['fly-label'].textContent, 'LANDING…'); assert.equal(el['t-fly'].disabled, true);
+    el['t-fly'].emit('pointerdown'); el['t-fly'].emit('click', { detail: 0 }); assert.deepEqual(events, ['fly']);
+    hud.flightState(false, false); assert.equal(el['fly-label'].textContent, 'FLY'); assert.equal(el['t-fly'].disabled, false);
+    assert.equal(el['t-fly'].getAttribute('aria-label'), 'Take off');
+  });
+  await test('accepted pickup card exposes real next stop and hides pickup note after collection', () => {
+    hud.order({ state: 'Head to pickup', title: 'Kitchen', sub: '', dist: '373 m', time: '', meters: false, stage: 'pickup', next: 'Home in Panjeshah', orderId: 'PZ-1042' });
+    assert.equal(el.order.dataset.stage, 'pickup'); assert.equal(el['o-next'].textContent, 'Next: Home in Panjeshah');
+    assert.equal(el['o-note'].hidden, false); assert.equal(el['o-id'].textContent, '#PZ-1042');
+    hud.order({ state: 'Deliver', title: 'Home', sub: '', dist: '670 m', time: '141 s', meters: false, stage: 'delivery' });
+    assert.equal(el.order.dataset.stage, 'delivery'); assert.equal(el['o-note'].hidden, true); assert.equal(el['o-next'].hidden, true);
+  });
   await test('unlimited-flight wording and accessible map close rules survive integration', () => {
     assert.match(root.innerHTML, /id="fly-v">Unlimited/);
     assert.match(root.innerHTML, /id="t-left"[^>]*aria-label="Steer left"/);
     assert.match(root.innerHTML, /id="t-right"[^>]*aria-label="Steer right"/);
     assert.match(root.innerHTML, /id="t-gas"[^>]*aria-label="Accelerate"[^>]*>GO<\/button>/);
-    assert.match(root.innerHTML, /id="t-brake"[^>]*aria-label="Brake and reverse"[^>]*>BRAKE<\/button>/);
+    assert.match(root.innerHTML, /id="t-brake"[^>]*aria-label="Brake and reverse"[^>]*><svg[\s\S]*?<span>BRAKE<\/span><\/button>/);
     assert.doesNotMatch(root.innerHTML, />ACT<|aria-label="Accept order or hold/);
     const controls = root.innerHTML.slice(root.innerHTML.indexOf('<div class="touch pe">'), root.innerHTML.indexOf('<button type="button" class="rescue pe"'));
     assert.doesNotMatch(controls, /id="t-act"/, 'The action button is contextual, outside the permanent driving controls');
     assert.doesNotMatch(root.innerHTML, /id="stick"|id="knob"/);
     const title = readFileSync(new URL('../game/src/ui/title.ts', import.meta.url), 'utf8'), map = readFileSync(new URL('../game/src/ui/map.ts', import.meta.url), 'utf8');
     assert.match(title, /Flight is unlimited\. Press again to land/); assert.match(title, /title-screen/);
-    assert.match(title, /<b>GO<\/b> drive/); assert.match(title, /<b>BRAKE<\/b> brake \/ reverse/);
+    assert.match(title, /<b>GO<\/b> hold to accelerate/); assert.match(title, /<b>BRAKE<\/b> brake \/ reverse/);
+    assert.match(title, /<b>CRUISE<\/b> optional steady drive/);
     assert.match(title, /hold the button that appears in the middle/);
     assert.match(map, /\.fmap \.close\{[^}]*min-width:44px;min-height:44px;touch-action:manipulation/);
     assert.match(map, /\.fmap \.map-title\{[^}]*min-width:0;pointer-events:none/);

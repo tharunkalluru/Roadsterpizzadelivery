@@ -70,10 +70,10 @@ try {
       g.picker.onClose();
       assert.equal(g.order, original); assert.equal(generated, 0);
       assert.match(displayed, /Original kitchen/); assert.match(displayed, /Original customer/);
-      assert.match(displayed, /Drive to pickup:<\/b> 900 m/);
-      assert.match(displayed, /Pickup → customer:<\/b> 700 m/);
-      assert.match(displayed, /145 s after collection/); assert.match(displayed, /84 coins/);
-      assert.deepEqual(buttons.map((b) => b.label), ['Accept (E)', 'Another']);
+      assert.match(displayed, /900 m to pickup/);
+      assert.match(displayed, /700 m after pickup/);
+      assert.match(displayed, /Delivery window: 145 s/); assert.match(displayed, /Delivery timer starts after collection/); assert.match(displayed, /84 coins/);
+      assert.deepEqual(buttons.map((b) => b.label), ['Accept order (E)', 'Decline']);
       assert.equal(g.paused, false); assert.equal(g.choosing, false);
     } finally { globalThis.document = savedDocument; }
   });

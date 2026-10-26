@@ -1,5 +1,7 @@
 // DOM heads-up display. Plain DOM keeps it crisp on phones and easy to restyle.
 import { DialogFocus } from './dialog';
+import { controlIcon } from './control-icons';
+import { installPrototypeTheme } from './theme';
 
 export type ContextAction = 'collect' | 'handover' | 'theatre';
 
@@ -13,15 +15,19 @@ export function guidanceBounds(width: number, height: number, leftBottom: number
   return { left: gap, top, width: Math.max(0, right - gap), height: Math.max(0, bottom - top) };
 }
 
-export function orderOfferHtml(o: { level: number; pickupName: string; pickupRoad: string; customerName: string; approachMetres: number | null; approachEstimated?: boolean; deliveryMetres: number; deliverySeconds: number; basePay: number }) {
+export function orderOfferHtml(o: { level: number; pickupName: string; pickupRoad: string; customerName: string; approachMetres: number | null; approachEstimated?: boolean; deliveryMetres: number; deliverySeconds: number; basePay: number; orderId?: string }) {
   const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
   const metres = (n: number) => `${Math.round(n).toLocaleString('en-IN')} m`;
-  return `<div class="k">New order · Level ${o.level}</div>
-    <div class="big">Pick up at ${esc(o.pickupName)}</div>${o.pickupRoad ? `<div class="sm">${esc(o.pickupRoad)}</div>` : ''}
-    <div class="sm offer-leg"><b>Drive to pickup:</b> ${o.approachMetres == null ? 'route unavailable' : `${o.approachEstimated ? 'about ' : ''}${metres(o.approachMetres)}`}</div>
-    <div class="big">Deliver to ${esc(o.customerName)}</div>
-    <div class="sm offer-leg"><b>Pickup → customer:</b> ${metres(o.deliveryMetres)}<br><b>Delivery window:</b> ${Math.round(o.deliverySeconds)} s after collection</div>
-    <div class="sm">Base pay ${o.basePay} coins + tip · Pickup approach is untimed.</div>`;
+  const approach = o.approachMetres == null ? 'Route unavailable' : `${o.approachEstimated ? 'About ' : ''}${metres(o.approachMetres)} to pickup`;
+  const total = o.approachMetres == null ? 'Unavailable' : `${o.approachEstimated ? 'About ' : ''}${((o.approachMetres + o.deliveryMetres) / 1000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} km`;
+  return `<header class="dispatch-heading"><span class="dispatch-dot"></span><h2>New delivery</h2><span class="dispatch-id">${o.orderId ? esc(o.orderId) : `Level ${o.level}`}</span></header>
+    <div class="dispatch-reward">${controlIcon('coin')}<div><strong>${o.basePay.toLocaleString('en-IN')} coins</strong><span>Base reward</span></div></div>
+    <div class="dispatch-stops">
+      <div class="dispatch-stop pickup"><span class="stop-pin">${controlIcon('pin')}</span><div><span class="stop-label">Pickup</span><strong>${esc(o.pickupName)}</strong><span>${approach}</span>${o.pickupRoad ? `<small>${esc(o.pickupRoad)}</small>` : ''}</div></div>
+      <div class="dispatch-stop dropoff"><span class="stop-pin">${controlIcon('pin')}</span><div><span class="stop-label">Drop-off</span><strong>${esc(o.customerName)}</strong><span>${metres(o.deliveryMetres)} after pickup</span></div></div>
+    </div>
+    <div class="dispatch-summary"><div>${controlIcon('route')}<span>Total route<strong>${total}</strong></span></div><span class="dispatch-tip">${controlIcon('coin')}Tips may add extra</span></div>
+    <div class="dispatch-note">${controlIcon('info')}<span>Delivery timer starts after collection<small>Delivery window: ${Math.round(o.deliverySeconds)} s · Pickup approach is untimed.</small></span></div>`;
 }
 
 const CSS = `
@@ -142,6 +148,133 @@ const CSS = `
 .is-touch .rescue{top:auto;bottom:calc(var(--touch-bottom) + var(--touch-size) + var(--touch-size) + var(--touch-gap) + 12px);max-width:calc(100% - 24px);font-size:12px}
 @media (max-height:600px){.tip{font-size:12px;padding:6px 9px;max-height:min(68px,100%)}}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}.rotate svg{animation:none}}
+
+/* Approved prototype: luminous rims, chunky icons and a separate cruise switch. */
+#hud{--steer-size:clamp(78px,10.4vw,108px);--brake-size:clamp(72px,9vw,96px);--go-width:clamp(148px,19vw,222px);--go-height:clamp(78px,9.4vw,108px);--flight-height:52px;--cruise-height:38px;--stack-gap:10px}
+.ui-icon{display:block;width:24px;height:24px;flex:none;pointer-events:none}
+.steering{gap:18px}
+.steering .tb{isolation:isolate;width:var(--steer-size);height:var(--steer-size);border:3px solid #6a528b;background:radial-gradient(circle at 34% 15%,#39284e 0,#211731 65%,#150e26 100%);box-shadow:inset 0 0 0 3px #30213e,inset 0 2px 5px #b591db55,0 4px 0 #130d21,0 0 16px #9f73d34d;color:var(--cream)}
+.steering .tb:before{content:'';position:absolute;inset:5px;border:2px solid #b89bd859;border-radius:inherit;pointer-events:none}
+.steering .tb svg{width:50%;height:50%;filter:drop-shadow(0 2px 0 #100b20)}
+.steering .tb.on{background:radial-gradient(circle at 40% 20%,#6c4388,#2d1b4a);color:#fff3d9;border-color:#d1b2fa;box-shadow:inset 0 0 0 3px #38234c,0 0 22px #b48aff88}
+.pedals{gap:14px;align-items:flex-end}
+.tb{transition:transform 110ms ease-out,filter 110ms ease-out}
+.tb.on,.tb:active{filter:brightness(1.08);transform:translateY(2px) scale(.97)}
+#t-gas{width:var(--go-width);height:var(--go-height);border-radius:999px;border:3px solid #fff5c2;background:linear-gradient(135deg,#ffd52a 0%,#ffc500 48%,#ffad04 100%);box-shadow:inset 0 0 0 4px #ffbe16,inset 0 0 0 6px #d58c0a,0 0 0 3px #f7a82f,0 0 19px #ffb733b8,0 5px 0 #9d5b0d;color:#241335;font-size:clamp(29px,4.1vw,48px);letter-spacing:.02em;text-shadow:0 2px 0 #ffdf4b}
+#t-brake{--brake-face:#e5d6ff;width:var(--brake-size);height:var(--brake-size);display:flex;flex-direction:column;gap:3px;justify-content:center;border:3px solid #382449;background:radial-gradient(circle at 35% 20%,#f7efff,#dac7f5 70%);box-shadow:inset 0 0 0 3px #ffffff4d,0 0 0 2px #b9a2d36b,0 4px 0 #241432;color:#211333;font-size:clamp(12px,1.8vw,17px)}
+#t-brake .ui-icon{width:32%;height:32%}
+.touch-actions{left:auto;right:var(--touch-right);bottom:calc(var(--touch-bottom) + var(--go-height) + 14px);width:var(--go-width);display:flex;flex-direction:column;gap:var(--stack-gap)}
+#t-fly{width:100%;height:var(--flight-height);border-radius:999px;border:3px solid #1f1635;background:linear-gradient(145deg,#5bfff1,#21e9dd);box-shadow:inset 0 0 0 3px #c6fff65c,0 0 0 2px #7deee75c,0 0 17px #2be5db52,0 3px 0 #17102b;display:flex;align-items:center;justify-content:center;gap:12px;color:#1d1530;font-size:clamp(15px,2.2vw,23px)}
+#t-fly .ui-icon{width:30px;height:30px}
+#t-fly:disabled{cursor:default;filter:saturate(.6);opacity:.82;transform:none}
+#t-fly:disabled .ui-icon{width:24px;height:24px}
+#t-fly:disabled #fly-label{font-size:.84em}
+#t-cruise{box-sizing:border-box;width:100%;height:var(--cruise-height);display:flex;align-items:center;justify-content:center;gap:8px;padding:0 10px;border:3px solid #7a648e;border-radius:999px;background:linear-gradient(145deg,#30223f,#170e29);box-shadow:inset 0 0 0 2px #140d20,0 0 0 2px #291b3c,0 3px 0 #130c1f;color:var(--cream);font-family:var(--display);font-size:clamp(11px,1.7vw,16px);cursor:pointer;touch-action:none}
+.cruise-switch{width:38px;height:23px;padding:2px;box-sizing:border-box;background:#625a70;border:1px solid #91869e;border-radius:999px;flex:none}
+.cruise-switch:before{content:'';display:block;width:17px;height:17px;border-radius:50%;background:#fbf8ed;box-shadow:0 1px 3px #08040e}
+#t-cruise[aria-pressed=true]{background:linear-gradient(145deg,#075629,#052d1e);border-color:#45fa72;color:#77ff9c;box-shadow:inset 0 0 0 2px #07371e,0 0 14px #42ff794d,0 3px 0 #061f16}
+#t-cruise[aria-pressed=true] .cruise-switch{background:#22df61;border-color:#72ff9c}
+#t-cruise[aria-pressed=true] .cruise-switch:before{transform:translateX(14px)}
+#t-cruise:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
+.is-touch .speed{top:auto;right:50%;bottom:var(--touch-bottom);transform:translateX(50%);padding:5px 12px;background:linear-gradient(145deg,#21172fdd,#160e26ee);border:1px solid #61486f88;border-radius:17px;font-size:clamp(22px,3.7vw,36px);text-shadow:0 2px 0 #0e0718}
+.context-action{border-radius:999px;border-color:#ffe4f0;background:linear-gradient(135deg,#ff84bd,#f24c99);box-shadow:inset 0 0 0 3px #ffb4d24d,0 0 0 3px #a64b7f,0 0 20px #ff63af59,0 4px 0 #7b2e61}
+.context-action strong{text-transform:uppercase}
+.action-progress{background:#9e2b73}.action-progress:after{background:#fff0dd}
+.toast{z-index:6;top:max(78px,15%);transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;max-width:calc(100% - 32px);box-sizing:border-box;padding:8px 18px;border:2px solid #e8bf5b;background:linear-gradient(145deg,#392b28f5,#261a25f5);border-radius:999px;color:#fff0bb;box-shadow:0 0 18px #ffd02b3b;text-shadow:none;font-size:clamp(13px,1.8vw,21px);transition:opacity 180ms ease-out}
+.toast.show{transform:translate(-50%,-50%)}
+.toast.teal{border-color:#21b85a;background:linear-gradient(145deg,#09512d,#03351f);color:#c5ffda;box-shadow:0 0 16px #25eb6e59}
+.toast.pink{border-color:#ef74b5;background:linear-gradient(145deg,#62274f,#371b39);color:#ffe4f0;box-shadow:0 0 14px #f44da94d}
+.toast .ui-icon{padding:3px;width:20px;height:20px;box-sizing:border-box;border-radius:50%;background:currentColor;color:inherit}
+.toast .toast-check{background:#55ef98;color:#06422a}
+#hud #order{box-sizing:border-box;position:relative;overflow:hidden;min-width:0;border:1px solid #715080;border-radius:18px;padding:14px 16px;background:linear-gradient(135deg,#302039f5,#180f29ed);box-shadow:inset 0 1px 0 #b897cb45,0 4px 14px #100a204d;gap:5px}
+.order-id{font-size:11px;color:var(--muted);font-weight:800}
+#o-title{font-size:clamp(16px,2vw,24px);overflow-wrap:anywhere}
+#o-sub{overflow-wrap:anywhere}
+#o-state{color:#ffc326}
+.order-distance{font-family:var(--display);font-size:clamp(22px,3.2vw,34px);line-height:1.2;color:#ffb82b}
+.order-time{font-size:13px;color:var(--muted);font-weight:700}
+.order-steps{display:flex;align-items:center;gap:5px;padding-top:8px;margin-top:5px;border-top:1px solid #725b8188;font-size:12px;font-weight:800;color:#8b7d9f}
+.order-step{display:flex;align-items:center;gap:4px;white-space:nowrap}
+.order-step:before{content:'';width:11px;height:11px;border:2px solid currentColor;border-radius:50%;background:#635373;box-sizing:border-box}
+.order-step-line{flex:1;min-width:5px;border-top:2px dotted #81728f}
+#order[data-stage=pickup] .step-pickup,#order[data-stage=collect] .step-collect{color:#ffbf22}
+#order[data-stage=delivery] .step-deliver{color:#48edda}
+#order[data-stage=collect] .step-pickup:before,#order[data-stage=delivery] .step-pickup:before,#order[data-stage=delivery] .step-collect:before{background:#ffb627;border-color:#ffd471}
+#order[data-stage=pickup] .step-pickup:before,#order[data-stage=collect] .step-collect:before{background:#ffb627;border-color:#ffe254;box-shadow:0 0 6px #ffbd4566}
+#order[data-stage=delivery] .step-deliver:before{background:#2be8d5;border-color:#99fff4;box-shadow:0 0 6px #2be8d566}
+#order[data-stage=idle] .order-steps,#order[data-stage=idle] .order-next{display:none}
+.order-next{font-size:12px;color:var(--cream);font-weight:700;overflow-wrap:anywhere}
+.order-note{display:flex;align-items:flex-start;gap:6px;font-size:11px;line-height:1.25;color:var(--muted);padding-top:5px}
+.order-note .ui-icon{width:14px;height:14px}
+.has-offer .guidance{align-items:flex-start;justify-content:flex-start}
+#hud .offer{width:min(440px,100%);padding:14px;gap:8px;border:2px solid #b68be7;background:linear-gradient(135deg,#30203bf5,#1b102cf5);border-radius:20px;box-shadow:inset 0 0 0 2px #4f2f65,0 0 0 2px #5d367b,0 0 20px #a96eed59,0 6px 16px #10091d66}
+.offer-content{gap:9px}
+.dispatch-heading{display:flex;align-items:center;gap:9px;min-width:0}
+.dispatch-heading h2{margin:0;flex:1;font-family:var(--display);font-size:clamp(15px,2vw,22px);font-weight:400;line-height:1.15;text-transform:uppercase;color:var(--cream)}
+.dispatch-dot{width:14px;height:14px;border-radius:50%;flex:none;background:#ff9d18;box-shadow:0 0 13px #ff9d18aa}
+.dispatch-id{font-size:11px;color:#d7c3ed;font-weight:800;white-space:nowrap}
+.dispatch-reward{display:flex;gap:12px;align-items:center;padding:10px 12px;border:1px solid #785294;border-radius:14px;background:linear-gradient(140deg,#352145,#24162e)}
+.dispatch-reward>.ui-icon{width:40px;height:40px;color:#ffbf0f;filter:drop-shadow(0 0 7px #ffad1266)}
+.dispatch-reward div{display:flex;flex-direction:column}
+.dispatch-reward strong{font-family:var(--display);font-size:clamp(23px,3.1vw,35px);font-weight:400;line-height:1.15;color:#fff2d2}
+.dispatch-reward span{font-size:14px;font-weight:700;color:#d8c7e9}
+.dispatch-stops{position:relative;display:flex;flex-direction:column;gap:14px;padding:2px 5px}
+.dispatch-stops:before{content:'';position:absolute;left:17px;top:28px;bottom:26px;border-left:2px dotted #d8c5df}
+.dispatch-stop{display:flex;gap:11px;position:relative;min-width:0}
+.stop-pin{flex:none;width:24px;height:28px;position:relative;z-index:1;color:#ffb620;background:#291933}
+.stop-pin .ui-icon{width:24px;height:28px}
+.dispatch-stop>div{display:flex;flex-direction:column;min-width:0;line-height:1.2}
+.dispatch-stop .stop-label{color:#ffc12b;font-size:12px;font-weight:800}
+.dispatch-stop.dropoff .stop-label,.dispatch-stop.dropoff .stop-pin{color:#35eddf}
+.dispatch-stop strong{font-size:clamp(16px,2.2vw,21px);font-weight:800;overflow-wrap:anywhere;color:#fff6e5}
+.dispatch-stop span:not(.stop-pin):not(.stop-label){font-size:14px;font-weight:700;color:#d6c1e9}
+.dispatch-stop small{font-size:11px;color:#bba8cd;overflow-wrap:anywhere}
+.dispatch-summary{border-top:1px solid #78618a;display:flex;gap:12px;align-items:center;justify-content:space-between;padding-top:9px}
+.dispatch-summary>div{display:flex;gap:8px;align-items:center;min-width:0}
+.dispatch-summary>div>span{display:flex;flex-direction:column;font-size:12px;line-height:1.2;color:#d6c3e8}
+.dispatch-summary strong{font-family:var(--display);font-size:clamp(16px,2.1vw,22px);font-weight:400;color:#fff3d9}
+.dispatch-summary .ui-icon{width:23px;height:23px}
+.dispatch-tip{display:flex;gap:6px;align-items:center;font-size:11px;color:#d6c3e8;font-weight:700}
+.dispatch-tip .ui-icon{color:#ffc127;width:19px;height:19px}
+.dispatch-note{display:flex;align-items:flex-start;gap:7px;font-size:11px;line-height:1.2;color:#d8c7e9}
+.dispatch-note>.ui-icon{width:15px;height:15px}
+.dispatch-note small{display:block;padding-top:3px;color:#baa6ce;font-size:10px}
+.offer-actions{gap:9px;padding-top:3px}
+#hud .offer-actions .btn{flex:0 1 auto;min-width:0;font-size:clamp(12px,1.9vw,18px);padding:0 12px;height:50px;border-radius:999px;white-space:normal;line-height:1.2}
+#hud .offer-actions .btn.go{flex:1;border:2px solid #ffe86a;background:linear-gradient(135deg,#ffdc25,#ffb300);box-shadow:inset 0 0 0 2px #e39a11,0 0 12px #ffbc1c4d,0 3px 0 #9a5f12}
+#hud .offer-actions .btn.alt{border:2px solid #8f76a6;background:linear-gradient(145deg,#3f2d50,#271832);color:#fff1df}
+.is-touch #hud.has-offer .touch{display:block;opacity:.38}
+.has-offer .touch,.has-offer .touch *{pointer-events:none!important}
+.has-offer .speed{display:none}
+@media (max-height:520px){
+  #hud{--steer-size:76px;--brake-size:66px;--go-width:152px;--go-height:72px;--flight-height:44px;--cruise-height:32px;--stack-gap:6px}
+  .steering{gap:12px}.pedals{gap:10px}.touch-actions{bottom:calc(var(--touch-bottom) + var(--go-height) + 10px)}
+  #t-gas{font-size:31px}#t-fly{font-size:17px;gap:8px}#t-fly .ui-icon{width:25px;height:25px}#t-cruise{font-size:11px;gap:5px;padding:0 7px}.cruise-switch{width:32px;height:20px}.cruise-switch:before{width:14px;height:14px}#t-cruise[aria-pressed=true] .cruise-switch:before{transform:translateX(11px)}
+  #hud #order{padding:9px 11px;gap:3px}.order-id{font-size:9px}#o-title{font-size:16px}.order-distance{font-size:21px}.order-steps{font-size:10px;padding-top:5px;margin-top:3px}.order-next{font-size:10px}.order-note{font-size:9px}.order-note .ui-icon{width:12px;height:12px}
+  #hud .offer{padding:9px;gap:6px;border-radius:16px}.offer-content{gap:7px}.dispatch-heading h2{font-size:15px}.dispatch-id{font-size:10px}.dispatch-reward{padding:7px 9px;gap:9px}.dispatch-reward>.ui-icon{width:31px;height:31px}.dispatch-reward strong{font-size:24px}.dispatch-reward span{font-size:12px}.dispatch-stops{gap:9px}.dispatch-stop strong{font-size:15px}.dispatch-stop span:not(.stop-pin):not(.stop-label){font-size:12px}.dispatch-stop small{font-size:10px}.dispatch-summary{padding-top:6px}.dispatch-summary strong{font-size:17px}.dispatch-note{font-size:10px}.dispatch-note small{font-size:9px}.dispatch-tip{font-size:10px}#hud .offer-actions .btn{height:42px;font-size:13px}
+  .toast{top:21%;font-size:13px;padding:6px 12px}
+  #minimap{width:64px;height:64px}
+}
+@media (max-width:600px) and (orientation:portrait){
+  .is-touch #hud.has-offer .touch{display:none}
+  #hud{--steer-size:72px;--brake-size:66px;--go-width:132px;--go-height:74px;--flight-height:44px;--cruise-height:32px;--stack-gap:6px}
+  .steering{gap:10px}.pedals{right:var(--touch-right);flex-direction:column;align-items:center;gap:12px}.touch-actions{left:auto;right:var(--touch-right);width:var(--go-width);bottom:calc(var(--touch-bottom) + var(--go-height) + var(--brake-size) + 30px)}
+  .is-touch .speed{bottom:calc(var(--touch-bottom) + var(--steer-size) + 14px);left:calc(var(--touch-left) + var(--steer-size) + 5px);right:auto;transform:translateX(-50%);font-size:23px}
+  #t-fly{font-size:16px;gap:6px}#t-fly .ui-icon{width:24px;height:24px}#t-gas{font-size:32px}#t-cruise{font-size:10px;padding:0 5px;gap:5px}.cruise-switch{width:30px;height:19px}.cruise-switch:before{width:13px;height:13px}#t-cruise[aria-pressed=true] .cruise-switch:before{transform:translateX(10px)}
+  .is-touch .prompt.has-action{top:52%;max-width:calc(100% - 24px)}.context-action{min-width:200px;min-height:64px;padding:10px 18px 15px}.context-action strong{font-size:14px}
+  #hud .offer{width:100%}.dispatch-heading h2{font-size:17px}.dispatch-id{font-size:10px}.dispatch-reward strong{font-size:27px}.dispatch-stop strong{font-size:17px}.dispatch-stop span:not(.stop-pin):not(.stop-label){font-size:13px}.dispatch-summary strong{font-size:19px}.dispatch-tip{font-size:10px}#hud .offer-actions .btn{height:44px;font-size:13px}
+  .toast{top:41%;font-size:13px;white-space:normal;text-align:center}
+}
+@media (max-width:360px){#hud{--steer-size:66px;--go-width:118px;--go-height:70px;--brake-size:62px}.steering{gap:8px}.dispatch-tip{max-width:100px}.dispatch-heading h2{font-size:15px}}
+@media (max-width:600px) and (max-height:650px) and (orientation:portrait){
+  #hud.has-context-action #minimap{width:56px;height:56px}
+  #hud.has-context-action #order{padding:9px 10px;gap:3px}
+  #hud.has-context-action #order .order-id,#hud.has-context-action #o-sub,#hud.has-context-action #o-time,#hud.has-context-action #o-meters,#hud.has-context-action #order .order-steps,#hud.has-context-action #order .order-next,#hud.has-context-action #order .order-note{display:none}
+  #hud.has-context-action #o-title{font-size:15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .is-touch #hud.has-context-action .prompt.has-action{top:auto;bottom:calc(var(--touch-bottom) + var(--go-height) + var(--brake-size) + 30px + var(--flight-height) + var(--cruise-height) + var(--stack-gap) + 12px);transform:translateX(-50%)}
+  #hud.has-context-action .context-action{box-sizing:border-box;height:64px;min-height:64px;padding:6px 12px 11px}
+}
+@media (prefers-reduced-motion:reduce){.tb{transition:none}}
 `;
 
 export class Hud {
@@ -151,6 +284,8 @@ export class Hud {
   private controlReleases: (() => void)[] = [];
   private releaseAction = () => {};
   private contextAction: ContextAction | null = null;
+  cruiseOn = false;
+  private flightMode: 'ground' | 'air' | 'descending' = 'ground';
   onButton: (id: string) => void = () => {};
   onInputReset: () => void = () => {};
   rotationBlocked = false;
@@ -158,13 +293,17 @@ export class Hud {
   private resetInput = () => { this.resetControls(); this.onInputReset(); };
   constructor(touch: boolean) {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    installPrototypeTheme();
     if (touch) document.documentElement.classList.add('is-touch');
     this.root = document.getElementById('hud')!;
     this.root.innerHTML = `
       <div class="h-tl">
         <div class="h-tc"><div class="pill" id="clock">Day 1 · 8:00 AM</div><div class="pill" id="level">Level 1</div></div>
-        <section class="card" id="order"><div class="k" id="o-state">Finding an order…</div><div class="big" id="o-title"></div><div class="sm" id="o-sub"></div>
-          <div class="row"><span class="sm" id="o-dist"></span><span class="sm" id="o-time"></span></div>
+        <section class="card" id="order" data-stage="idle"><div class="order-id" id="o-id" hidden></div><div class="k" id="o-state">Finding an order…</div><div class="big" id="o-title"></div><div class="sm" id="o-sub"></div>
+          <div class="row"><span class="order-distance" id="o-dist"></span><span class="order-time" id="o-time"></span></div>
+          <div class="order-steps" aria-label="Delivery progress"><span class="order-step step-pickup">Pickup</span><i class="order-step-line"></i><span class="order-step step-collect">Collect</span><i class="order-step-line"></i><span class="order-step step-deliver">Deliver</span></div>
+          <div class="order-next" id="o-next" hidden></div>
+          <div class="order-note" id="o-note" hidden>${controlIcon('info')}<span>Delivery timer starts after collection</span></div>
           <div id="o-meters"><div class="row sm"><span id="o-heatl">Heat</span><span id="o-heatv"></span></div><div class="bar"><i id="o-heat" style="background:var(--heat)"></i></div>
           <div class="slices" id="o-slices" style="margin-top:6px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
         </section>
@@ -172,7 +311,7 @@ export class Hud {
       <div class="dev" id="dev" hidden></div>
       <div class="h-tr">
         <div class="btnrow pe"><button class="ib" id="b-theatre" type="button">Theatres</button><button class="ib" id="b-full" type="button" aria-label="Full screen" hidden><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button><button class="ib" id="b-help" type="button" aria-label="Pause, settings and help">II</button></div>
-        <div class="pill"><span style="color:var(--saffron)">●</span><span id="coins">0</span> coins</div>
+        <div class="pill wallet"><span style="color:var(--saffron)">${controlIcon('coin')}</span><span id="coins">0</span> coins</div>
         <div class="card" style="width:160px;padding:7px 10px"><div class="row sm"><span style="color:var(--teal)">Flight</span><span id="fly-v">Unlimited</span></div><div class="bar"><i id="fly" style="background:var(--teal);width:100%"></i></div></div>
         <canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas>
       </div>
@@ -186,15 +325,16 @@ export class Hud {
       <div class="speed"><span id="spd">0</span><small style="font-size:12px"> km/h</small></div>
       <div class="touch pe">
         <div class="steering" id="steering" role="group" aria-label="Arrow steering">
-          <button class="tb" id="t-left" type="button" aria-label="Steer left" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M26 16H6M15 6 5 16l10 10"/></svg></button>
-          <button class="tb" id="t-right" type="button" aria-label="Steer right" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16h20M17 6l10 10-10 10"/></svg></button>
+          <button class="tb" id="t-left" type="button" aria-label="Steer left" aria-pressed="false">${controlIcon('left')}</button>
+          <button class="tb" id="t-right" type="button" aria-label="Steer right" aria-pressed="false">${controlIcon('right')}</button>
         </div>
         <div class="pedals" role="group" aria-label="Drive and brake">
-          <button class="tb" id="t-brake" type="button" aria-label="Brake and reverse" aria-pressed="false">BRAKE</button>
+          <button class="tb" id="t-brake" type="button" aria-label="Brake and reverse" aria-pressed="false">${controlIcon('brake')}<span>BRAKE</span></button>
           <button class="tb" id="t-gas" type="button" aria-label="Accelerate" aria-pressed="false">GO</button>
         </div>
-        <div class="touch-actions" role="group" aria-label="Flight">
-          <button class="tb" id="t-fly" type="button" aria-label="Toggle flight">FLY</button>
+        <div class="touch-actions" role="group" aria-label="Flight and cruise">
+          <button class="tb" id="t-fly" type="button" aria-label="Take off"><span id="fly-icon">${controlIcon('up')}</span><span id="fly-label">FLY</span></button>
+          <button id="t-cruise" type="button" aria-label="Enable cruise" aria-pressed="false"><span class="cruise-switch" aria-hidden="true"></span><span id="cruise-label">CRUISE</span></button>
         </div>
       </div>
       <button type="button" class="rescue pe" id="rescue" hidden>Stuck? Get back on the road</button>
@@ -207,7 +347,20 @@ export class Hud {
     const left = this.root.querySelector('.h-tl')!, right = this.root.querySelector('.h-tr')!;
     const layout = () => {
       const root = this.root.getBoundingClientRect(), l = left.getBoundingClientRect(), r = right.getBoundingClientRect();
-      const bounds = guidanceBounds(root.width, root.height, l.bottom - root.top, r.left - root.left, r.bottom - root.top, touch && !this.root.classList.contains('has-offer'));
+      const offered = this.root.classList.contains('has-offer');
+      const bounds = guidanceBounds(root.width, root.height, l.bottom - root.top, r.left - root.left, r.bottom - root.top, touch && !offered);
+      if (offered) {
+        // Landscape offers sit in the free column between the two thumb clusters.
+        const steering = this.el.steering.getBoundingClientRect(), pedals = this.el['t-brake'].getBoundingClientRect();
+        const safeLeft = steering.right - root.left + 12, safeRight = pedals.left - root.left - 12;
+        if (touch && root.height <= 520 && safeRight - safeLeft >= 260) {
+          bounds.left = safeLeft; bounds.width = safeRight - safeLeft;
+        } else {
+          bounds.top = Math.max(bounds.top, root.height > 600 ? root.height * .14 : bounds.top);
+          const bottom = touch && Number.isFinite(steering.top) && steering.top > bounds.top ? steering.top - root.top - 12 : root.height - 14;
+          bounds.height = Math.max(0, bottom - bounds.top);
+        }
+      }
       Object.assign(this.el.guidance.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
     };
     const resize = new ResizeObserver(layout);
@@ -254,8 +407,20 @@ export class Hud {
     const steer = () => { this.touchSteer = Number(this.touchRight) - Number(this.touchLeft); };
     hold('t-left', (v) => { this.touchLeft = v; steer(); }, () => !this.tiltOn);
     hold('t-right', (v) => { this.touchRight = v; steer(); }, () => !this.tiltOn);
-    hold('t-gas', (v) => (this.touchGas = v)); hold('t-brake', (v) => (this.touchBrake = v));
-    this.el['t-fly'].addEventListener('pointerdown', (e) => { e.preventDefault(); this.onButton('fly'); });
+    hold('t-gas', (v) => (this.touchGas = v));
+    hold('t-brake', (v) => { this.touchBrake = v; if (v) this.setCruise(false); });
+    const tap = (id: string, action: string) => {
+      const button = this.el[id] as HTMLButtonElement;
+      const activate = () => { if (!button.disabled && !this.rotationBlocked && !this.modalOpen) this.onButton(action); };
+      button.addEventListener('pointerdown', (e) => { e.preventDefault(); activate(); });
+      button.addEventListener('keydown', (e) => {
+        if (e.code !== 'Space' && e.code !== 'Enter') return;
+        e.preventDefault(); e.stopPropagation(); if (!e.repeat) activate();
+      });
+      // Screen readers activate a button with a zero-detail click rather than a pointer.
+      button.addEventListener('click', (e) => { if (e.detail === 0) activate(); });
+    };
+    tap('t-fly', 'fly'); tap('t-cruise', 'cruise');
     this.releaseAction = hold('t-act', (v) => (this.touchAct = v), () => this.contextAction !== null && !this.el.prompt.hidden && !this.modalOpen && !this.rotationBlocked);
     this.el['t-act'].addEventListener('contextmenu', (e) => e.preventDefault());
     for (const n of this.root.querySelectorAll('.touch, .touch *')) n.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -272,6 +437,7 @@ export class Hud {
   // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
   resetControls() {
     for (const release of this.controlReleases) release();
+    this.setCruise(false);
     this.prompt(null);
     this.touchGas = false; this.touchBrake = false; this.touchBoost = false; this.touchLeft = false; this.touchRight = false; this.touchSteer = 0; this.tilt = 0;
   }
@@ -306,9 +472,28 @@ export class Hud {
   tiltBound = false;
   get steer() { return this.tiltOn ? (Math.abs(this.tilt) < 0.08 ? 0 : this.tilt) : this.touchSteer; }
   get activeAction() { return this.contextAction; }
+  setCruise(on: boolean) {
+    this.cruiseOn = on;
+    const button = this.el['t-cruise']; if (!button) return;
+    button.setAttribute('aria-pressed', String(on));
+    button.setAttribute('aria-label', on ? 'Disable cruise' : 'Enable cruise');
+    this.set('cruise-label', on ? 'CRUISE ON' : 'CRUISE');
+  }
+  flightState(flying: boolean, descending: boolean) {
+    const mode = descending ? 'descending' : flying ? 'air' : 'ground';
+    if (mode === this.flightMode) return;
+    this.flightMode = mode;
+    this.el['fly-icon'].innerHTML = controlIcon(mode === 'ground' ? 'up' : 'down');
+    this.set('fly-label', mode === 'ground' ? 'FLY' : mode === 'air' ? 'LAND' : 'LANDING…');
+    const button = this.el['t-fly'] as HTMLButtonElement;
+    button.disabled = mode === 'descending';
+    button.setAttribute('aria-label', mode === 'ground' ? 'Take off' : mode === 'air' ? 'Land' : 'Landing in progress');
+  }
   set(id: string, text: string) { const e = this.el[id]; if (e && e.textContent !== text) e.textContent = text; }
   toast(text: string, cls = '') {
-    const t = this.el.toast; t.textContent = text; t.className = 'toast show ' + cls;
+    const t = this.el.toast;
+    t.innerHTML = `${cls === 'teal' ? controlIcon('check', 'toast-check') : ''}<span></span>`;
+    t.querySelector('span')!.textContent = text; t.className = 'toast show ' + cls;
     clearTimeout(this.toastT); this.toastT = window.setTimeout(() => (t.className = 'toast ' + cls), 1900);
   }
   prompt(text: string | null, progress = 0, action: ContextAction | null = null) {
@@ -317,6 +502,7 @@ export class Hud {
     const next = visible ? action : null;
     if (next !== this.contextAction) this.releaseAction();
     this.contextAction = next; p.hidden = !visible;
+    this.root.classList.toggle('has-context-action', next !== null);
     p.classList.toggle('has-action', next !== null); button.hidden = next === null;
     if (!text) return;
     if (next) {
@@ -327,8 +513,12 @@ export class Hud {
     }
     this.set('prompt-t', text); this.el.ring.style.setProperty('--p', `${Math.round(progress * 100)}%`);
   }
-  order(o: { state: string; title: string; sub: string; dist: string; time: string; heat?: number; slices?: number; meters: boolean }) {
+  order(o: { state: string; title: string; sub: string; dist: string; time: string; heat?: number; slices?: number; meters: boolean; next?: string; stage?: 'pickup' | 'collect' | 'delivery' | 'idle'; orderId?: string }) {
     this.set('o-state', o.state); this.set('o-title', o.title); this.set('o-sub', o.sub); this.set('o-dist', o.dist); this.set('o-time', o.time);
+    this.el.order.dataset.stage = o.stage ?? (o.meters ? 'delivery' : 'idle');
+    this.el['o-next'].hidden = !o.next; if (o.next) this.set('o-next', `Next: ${o.next}`);
+    this.el['o-note'].hidden = o.stage !== 'pickup' && o.stage !== 'collect';
+    this.el['o-id'].hidden = !o.orderId; if (o.orderId) this.set('o-id', `#${o.orderId.replace(/^#/, '')}`);
     this.el['o-meters'].style.display = o.meters ? '' : 'none';
     if (o.meters && o.heat !== undefined) {
       this.el['o-heat'].style.width = `${Math.max(0, o.heat)}%`;
@@ -338,7 +528,7 @@ export class Hud {
     }
   }
   offer(html: string | null, buttons: { label: string; cls: string; fn: () => void }[] = []) {
-    if (html) this.prompt(null);
+    if (html) this.resetControls();
     const o = this.el.offer; o.hidden = !html; this.root.classList.toggle('has-offer', !!html); this.updateLayout(); if (!html) return;
     o.innerHTML = `<div class="offer-content">${html}</div><div class="offer-actions">${buttons.map((b, i) => `<button type="button" class="btn ${b.cls}" data-i="${i}">${b.label}</button>`).join('')}</div>`;
     o.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => buttons[+b.dataset.i!].fn()));

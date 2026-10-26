@@ -20,10 +20,10 @@ try {
   const fixture = () => {
     let generated = 0, shown = 0;
     const g = Object.assign(Object.create(Game.prototype), {
-      order: null, nextOfferAt: null, paused: false, choosing: false, relocating: false,
+      order: null, nextOfferAt: null, paused: false, choosing: false, relocating: false, keys: new Set(),
       sound: { cue() {}, vehicle() {} }, map: { open: false }, level: 0, doneInLevel: 0, streak: 1, coins: 500, totalDelivered: 0,
       player: { pos: { x: 0, y: .57, z: 0 }, forward: { x: 1, z: 0 }, flying: false }, graph: { route: () => ({ len: 100 }) },
-      hud: { modalOpen: false, offer(html) { if (html) shown++; }, toast() {} },
+      hud: { modalOpen: false, resetControls() {}, setCruise() {}, offer(html) { if (html) shown++; }, toast() {} },
       makeOffer() { generated++; return makeOrder(); }, setTarget() {}, save() {},
     });
     return { g, generated: () => generated, shown: () => shown };
@@ -80,7 +80,7 @@ try {
     assert.equal(live.len, 377); assert.ok(live.pts.some(p => p[0] === 200));
     assert.ok(g.graph.route(20, -3.5, 10, 3.5).len < live.len, 'fixture exposes the former heading-free underestimate');
     g.hud.offer = (value) => { html = value; }; g.showOffer();
-    assert.match(html, /Drive to pickup:<\/b> 377 m/);
+    assert.match(html, /377 m to pickup/);
   });
   await test('offer approach preserves current deck height and uses overview routing while flying', () => {
     const { g } = fixture(); const calls = [];
@@ -88,7 +88,7 @@ try {
     g.graph.route = (...args) => { calls.push(args); return { len: 150, complete: false }; };
     let html = ''; g.hud.offer = (value) => { html = value; };
     g.showOffer(); assert.deepEqual(calls[0][4], { hx: -.6, hz: .8, y: 9.5 });
-    assert.match(html, /Drive to pickup:<\/b> about 150 m/);
+    assert.match(html, /About 150 m to pickup/);
     g.player.flying = true; g.showOffer(); assert.equal(calls[1][4], undefined);
   });
   await test('pickup category matching distinguishes food tokens from public safety and substrings', () => {

@@ -4,6 +4,7 @@ import { DialogFocus } from './dialog';
 import { placeCatalogue, PLACE_CATEGORIES, type LandmarkPlace, type PlaceCategory } from '../world/landmark_catalog';
 import { layoutPlaceMarkers, hitPlaceMarker, placeIcon, type PlaceMarker } from './landmark-icons';
 import { metroCorridors, METRO_LINE_COLORS } from '../world/metro-geometry';
+import { installPrototypeTheme } from './theme';
 
 interface MapPack { roads: Record<string, number[][]>; areas: { k: 'park' | 'water'; r: number[] }[]; metro: number[][] }
 
@@ -18,31 +19,34 @@ export interface MapState {
 }
 
 const CSS = `
-.fmap{position:absolute;inset:0;background:#120f22;pointer-events:auto;touch-action:none;z-index:8}
+.fmap{position:absolute;inset:0;background:#191126;pointer-events:auto;touch-action:none;z-index:8}
 .fmap[hidden],.fmap [hidden]{display:none!important}
 .fmap canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab}
 .fmap canvas:active{cursor:grabbing}
 .fmap .mbar{position:absolute;top:max(12px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;gap:8px;pointer-events:none;z-index:3}
-.fmap .map-title{background:rgba(23,19,43,.9);border-radius:14px;padding:8px 14px;font-family:var(--display);font-size:15px;color:var(--cream);min-width:0;pointer-events:none}
+.fmap .map-title{background:var(--ui-plum);border:1px solid #8965AA;border-radius:16px;padding:9px 14px;font-family:var(--display);font-size:15px;color:var(--cream);box-shadow:var(--ui-panel-shadow);min-width:0;pointer-events:none}
+.fmap .map-heading{display:flex;align-items:center;gap:8px}.fmap .map-heading svg{width:17px;height:21px;color:var(--pink);filter:drop-shadow(0 0 4px rgba(255,79,174,.35))}
 .fmap .map-title small{display:block;font-family:var(--body);font-size:12px;color:var(--muted);font-weight:500}
 .fmap .zoom{position:absolute;right:max(14px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px}
-.fmap .zb{width:48px;height:48px;border:0;border-radius:14px;background:rgba(23,19,43,.92);color:var(--cream);font-family:var(--display);font-size:22px;cursor:pointer;pointer-events:auto}
+.fmap .zb{width:48px;height:48px;border:2px solid #AA85D0;border-radius:16px;background:var(--ui-plum);color:var(--cream);font-family:var(--display);font-size:22px;cursor:pointer;pointer-events:auto;display:grid;place-items:center;box-shadow:var(--ui-panel-shadow),0 0 9px rgba(179,127,230,.12)}
+.fmap .zb svg{width:23px;height:23px;display:block;pointer-events:none}.fmap .zb:active{transform:scale(.97)}
 .fmap .zb:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 .fmap .close{pointer-events:auto;flex:0 0 auto;min-width:44px;min-height:44px;touch-action:manipulation;white-space:nowrap}
-.fmap .legend{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));background:rgba(23,19,43,.9);border-radius:12px;padding:8px 12px;font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;max-width:min(560px,70vw)}
+.fmap .legend{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));background:var(--ui-plum);border:1px solid #74568F;border-radius:15px;padding:9px 12px;font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;max-width:min(560px,70vw);box-shadow:var(--ui-panel-shadow)}
 .fmap .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
 .fmap .movebtn{position:absolute;left:50%;transform:translateX(-50%);bottom:max(100px,calc(env(safe-area-inset-bottom,0px) + 88px));pointer-events:auto}
-.fmap .pickbar{position:absolute;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom,0px));width:min(460px,calc(100vw - 24px));background:rgba(23,19,43,.95);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;pointer-events:auto;z-index:2}
+.fmap .pickbar{position:absolute;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom,0px));box-sizing:border-box;width:min(460px,calc(100vw - 24px));background:var(--ui-plum);border:2px solid #B88DE3;border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:10px;pointer-events:auto;z-index:2;box-shadow:var(--ui-panel-shadow),0 0 18px rgba(179,127,230,.16)}
 .fmap .pickbar .where{font-weight:800;font-size:17px;color:var(--cream)}
 .fmap .pickbar .row{display:flex;gap:8px}.fmap .pickbar .btn{flex:1}
 .fmap .places{position:absolute;top:max(80px,calc(env(safe-area-inset-top,0px) + 68px));left:max(12px,env(safe-area-inset-left,0px));width:min(330px,calc(100% - 84px));z-index:2;color:var(--cream);pointer-events:auto;touch-action:pan-y}
-.fmap .places-toggle{min-height:44px;padding:8px 14px;border:1px solid #cfbb8b;border-radius:12px;background:#25213d;color:var(--cream);font:800 14px var(--body);cursor:pointer}
-.fmap .places-panel,.fmap .place-detail{margin-top:8px;padding:12px;background:rgba(23,19,43,.97);border:1px solid var(--line);border-radius:14px}
-.fmap .place-tools{display:flex;flex-direction:column;gap:8px}.fmap .place-tools input,.fmap .place-tools select{min-height:44px;width:100%;box-sizing:border-box;font:14px var(--body);background:#332b4b;color:var(--cream);border:1px solid #81728f;border-radius:8px;padding:8px}
+.fmap .places-toggle{min-height:44px;padding:8px 14px;border:1px solid #B08BD4;border-radius:15px;background:var(--ui-plum);color:var(--cream);font:800 14px var(--body);cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--ui-panel-shadow)}
+.fmap .places-toggle svg{width:18px;height:20px;color:var(--saffron);pointer-events:none}
+.fmap .places-panel,.fmap .place-detail{margin-top:8px;padding:12px;background:var(--ui-plum);border:1px solid #B08BD4;border-radius:18px;box-shadow:var(--ui-panel-shadow),0 0 12px rgba(179,127,230,.14)}
+.fmap .place-tools{display:flex;flex-direction:column;gap:8px}.fmap .place-tools input,.fmap .place-tools select{min-height:44px;width:100%;box-sizing:border-box;font:14px var(--body);background:#261B37;color:var(--cream);border:1px solid #87669F;border-radius:11px;padding:8px}.fmap .place-tools input::placeholder{color:#BCAFCC;opacity:1}
 .fmap .place-results{max-height:min(38vh,330px);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;margin-top:8px}
-.fmap .place-results button{min-height:48px;text-align:left;flex:0 0 auto;background:transparent;color:var(--cream);border:0;border-bottom:1px solid var(--line);padding:8px;font:700 14px var(--body);cursor:pointer}
+.fmap .place-results button{min-height:48px;text-align:left;flex:0 0 auto;background:transparent;color:var(--cream);border:0;border-bottom:1px solid #5C4276;padding:8px;font:700 14px var(--body);cursor:pointer;border-radius:8px}.fmap .place-results button:active{background:#4C335E}
 .fmap .place-results small{display:block;color:var(--muted);font-weight:400}.fmap .place-summary{color:var(--muted);font-size:12px;margin:6px 0}
-.fmap .place-detail{font-size:14px}.fmap .place-detail small{display:block;margin-top:5px;color:var(--muted)}.fmap .place-dismiss{min-height:44px;margin-top:8px;border:1px solid var(--line);border-radius:8px;background:#332b4b;color:var(--cream);padding:6px 12px}
+.fmap .place-detail{font-size:14px}.fmap .place-detail strong{color:var(--saffron)}.fmap .place-detail small{display:block;margin-top:5px;color:var(--muted)}.fmap .place-dismiss{min-height:44px;margin-top:8px;border:1px solid #9573B5;border-radius:12px;background:linear-gradient(145deg,#4C345F,#2C1F3D);color:var(--cream);padding:6px 12px;cursor:pointer}
 .fmap .places button:focus-visible,.fmap .places input:focus-visible,.fmap .places select:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 .fmap[data-pick] .places{display:none}
 @media(max-height:500px){.fmap .places{top:max(66px,calc(env(safe-area-inset-top,0px) + 54px))}.fmap .place-results{max-height:22vh}.fmap .places-panel{padding:8px}.fmap .place-tools{flex-direction:row}}
@@ -50,6 +54,7 @@ const CSS = `
 .fmap[data-pick] .zoom{bottom:max(150px,calc(env(safe-area-inset-bottom,0px) + 140px))}
 .fmap .pin{position:absolute;left:50%;top:50%;width:34px;height:46px;margin:-46px 0 0 -17px;pointer-events:none;display:none}
 .fmap[data-pick] .pin{display:block}
+@media(hover:hover) and (pointer:fine){.fmap .zb:hover,.fmap .places-toggle:hover,.fmap .place-dismiss:hover{border-color:#E2C8FF}.fmap .place-results button:hover{background:#3B284C}}
 `;
 
 export class FullMap {
@@ -67,15 +72,16 @@ export class FullMap {
   constructor(host: HTMLElement, public zone: CoreData, public state: () => MapState, public onClose: () => void, public src: { mapUrl: string; buildings: () => Building[] }) {
     this.places = placeCatalogue(zone.origin);
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    installPrototypeTheme();
     this.root = document.createElement('div'); this.root.className = 'fmap'; this.root.hidden = true;
     this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-modal', 'true'); this.root.setAttribute('aria-label', 'City map');
     this.root.innerHTML = `<canvas aria-label="Map of Hyderabad"></canvas>
-      <div class="mbar"><div class="map-title">Hyderabad<small>Drag to move · scroll or pinch to zoom</small></div><button type="button" class="ib close" id="map-close">Close map ✕</button></div>
-      <div class="places"><button type="button" class="places-toggle" id="map-places" aria-expanded="false" aria-controls="map-places-panel">Explore ${this.places.length} places</button>
+      <div class="mbar"><div class="map-title"><span class="map-heading"><svg viewBox="0 0 24 30" fill="currentColor" aria-hidden="true"><path d="M12 29C8 24 1 16 1 11a11 11 0 0 1 22 0c0 5-7 13-11 18Z"/><circle cx="12" cy="11" r="4" fill="#241630"/></svg>Hyderabad</span><small>Drag to move · scroll or pinch to zoom</small></div><button type="button" class="ib close" id="map-close">Close map <svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
+      <div class="places"><button type="button" class="places-toggle" id="map-places" aria-expanded="false" aria-controls="map-places-panel"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2V5Z"/><path d="M9 3v16M15 5v16"/></svg>Explore ${this.places.length} places</button>
         <section class="places-panel" id="map-places-panel" aria-label="Hyderabad places" hidden><div class="place-tools"><input id="map-place-search" type="search" placeholder="Search Hyderabad places" aria-label="Search Hyderabad places" autocomplete="off"><select id="map-place-category" aria-label="Place category"><option value="">All places</option>${PLACE_CATEGORIES.map((c) => `<option value="${c}">${c}</option>`).join('')}</select></div><div class="place-summary" id="map-place-summary" aria-live="polite"></div><div class="place-results" id="map-place-results"></div></section>
         <section class="place-detail" id="map-place-detail" aria-label="Selected place" hidden><strong id="map-place-name"></strong><small id="map-place-kind"></small><small>Stylised landmark · appearance and location may be approximate.</small><button type="button" class="place-dismiss" id="map-place-dismiss">Dismiss place</button></section>
       </div>
-      <div class="zoom"><button type="button" class="zb" id="map-in" aria-label="Zoom in">+</button><button type="button" class="zb" id="map-out" aria-label="Zoom out">−</button><button type="button" class="zb" id="map-me" aria-label="Centre on my car" style="font-size:15px">◎</button></div>
+      <div class="zoom"><button type="button" class="zb" id="map-in" aria-label="Zoom in"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button><button type="button" class="zb" id="map-out" aria-label="Zoom out"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg></button><button type="button" class="zb" id="map-me" aria-label="Centre on my car"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="6"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg></button></div>
       <svg class="pin" viewBox="0 0 34 46" aria-hidden="true"><path d="M17 45C17 45 3 27 3 17a14 14 0 0 1 28 0c0 10-14 28-14 28z" fill="#FF8FB1" stroke="#17132B" stroke-width="3"/><circle cx="17" cy="17" r="5.5" fill="#17132B"/></svg>
       <button type="button" class="btn go movebtn" id="map-move" hidden>Deliver from here…</button>
       <div class="pickbar" id="map-pickbar" hidden><div class="sm">Drag the map to put the pin where you want to start</div><div class="where" id="map-where">…</div>

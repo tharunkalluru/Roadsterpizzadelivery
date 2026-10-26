@@ -40,7 +40,7 @@ const TUT_KEY = 'p2ph-tutorial-v1';
 const AREA_KEY = 'p2ph-area-v1';
 
 interface Stop { x: number; z: number; y: number; label: string; sub: string }
-interface Order { pickup: Stop; drop: Stop; pickupName: string; dist: number; limit: number; t: number; state: 'offer' | 'toPickup' | 'toDrop'; heat: number; slices: number }
+interface Order { id?: string; pickup: Stop; drop: Stop; pickupName: string; dist: number; limit: number; t: number; state: 'offer' | 'toPickup' | 'toDrop'; heat: number; slices: number }
 interface TheatreSite { def: TheatreDef; poi: CityPoi; stop: Stop; poster: THREE.MeshBasicMaterial; posterTex: THREE.CanvasTexture | null; front?: THREE.Group }
 
 // cinema name board: deep red panel, gold letters, a running border of bulbs
@@ -66,6 +66,7 @@ export class Game {
   coins = 500; level = 0; doneInLevel = 0; streak = 1; totalDelivered = 0;
   day = 1; minutes = 8 * 60; paused = false;
   order: Order | null = null; actProgress = 0;
+  private offerSequence = 0;
   nextOfferAt: number | null = null;
   rotationWasBlocked = false;
   private mapKeyboardOpener = false;
@@ -316,7 +317,8 @@ export class Game {
     const dist = rt ? rt.len : Math.hypot(d.x - p.x, d.z - p.z) * 1.3;
     const drop: Stop = { ...d, label: `Home in ${this.areaName(d.x, d.z)}`, sub: d.label ? `off ${d.label}` : '' };
     const pickup: Stop = { ...p, label: pick.board, sub: p.sub };
-    return { pickup, drop, pickupName: pick.name, dist, limit: dist / 7 + 45, t: 0, state: 'offer', heat: 100, slices: 8 };
+    const id = `PZ-${String(this.totalDelivered + ++this.offerSequence).padStart(4, '0')}`;
+    return { id, pickup, drop, pickupName: pick.name, dist, limit: dist / 7 + 45, t: 0, state: 'offer', heat: 100, slices: 8 };
   }
   queueOffer(delayMs: number, now = performance.now()) {
     this.nextOfferAt = now + delayMs;
@@ -338,6 +340,7 @@ export class Game {
     const restored = !!o;
     for (let k = 0; k < 6 && !o; k++) o = this.makeOffer();
     if (!o) return;
+    this.resetInput();
     this.order = o; this.nextOfferAt = null;
     if (!restored) this.sound.cue('offer');
     const pay = Math.round(35 + o.dist * 0.07);
@@ -345,14 +348,16 @@ export class Game {
     const approach = this.graph.route(P.x, P.z, o.pickup.x, o.pickup.z, this.player.flying ? undefined : { hx: f.x, hz: f.z, y: P.y }, o.pickup.y);
     this.hud.offer(orderOfferHtml({ level: this.level + 1, pickupName: o.pickup.label, pickupRoad: o.pickup.sub || '',
       customerName: o.drop.label, approachMetres: approach?.len ?? null, approachEstimated: approach?.complete === false,
-      deliveryMetres: o.dist, deliverySeconds: o.limit, basePay: pay }),
-      [{ label: document.documentElement.classList.contains('is-touch') ? 'Accept' : 'Accept (E)', cls: 'go', fn: () => this.acceptOffer() }, { label: 'Another', cls: 'alt', fn: () => { this.order = null; this.hud.offer(null); this.showOffer(); } }]);
+      deliveryMetres: o.dist, deliverySeconds: o.limit, basePay: pay, orderId: o.id }),
+      [{ label: document.documentElement.classList.contains('is-touch') ? 'Accept order' : 'Accept order (E)', cls: 'go', fn: () => this.acceptOffer() }, { label: 'Decline', cls: 'alt', fn: () => { this.order = null; this.hud.offer(null); this.showOffer(); } }]);
   }
   acceptOffer() {
     if (!this.order || this.order.state !== 'offer') return;
+    this.resetInput();
     this.order.state = 'toPickup'; this.hud.offer(null); this.setTarget(this.order.pickup, '#FFB627');
     this.sound.cue('accept');
-    this.hud.toast('Order accepted!', 'teal');
+    this.hud.toast('Order accepted', 'teal');
+    this.updateHud();
   }
   routeColor = '#FFB627';
   setTarget(s: Stop | null, color = '#FFB627') {
@@ -383,6 +388,7 @@ export class Game {
     if (this.doneInLevel >= L.n && this.level < LEVELS.length - 1) { this.level++; this.doneInLevel = 0; setTimeout(() => this.hud.toast(`Level ${this.level + 1} unlocked!`, 'teal'), 2000); }
     this.player.chargeCap = 20 + this.level * 2.5;
     this.order = null; this.setTarget(null); this.save();
+    this.hud.setCruise?.(false);
     this.queueOffer(2500);
   }
 
@@ -400,6 +406,25 @@ export class Game {
     this.keys.clear(); this.flyQueued = false; this.actHeld = false; this.actTap = 0; this.actProgress = 0; this.dragging = false;
     this.hud?.resetControls();
     this.sound.vehicle({ speed: 0, throttle: 0, flying: false, active: false });
+  }
+  cruiseAvailable() {
+    return !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.rotationBlocked &&
+      !this.map?.open && !this.choosing && !this.relocating && !!this.area && this.order?.state !== 'offer' &&
+      !this.player.descending && !this.player.glide && this.player.speed >= 0;
+  }
+  toggleCruise() {
+    this.hud.setCruise(!this.hud.cruiseOn && this.cruiseAvailable() &&
+      !this.keys.has('KeyS') && !this.keys.has('ArrowDown') && !this.hud.touchBrake && !this.hud.touchAct && !this.actHeld);
+  }
+  private checkCruise() {
+    if (this.hud.cruiseOn && (!this.cruiseAvailable() || this.keys.has('KeyS') || this.keys.has('ArrowDown') ||
+      this.hud.touchBrake || this.hud.touchAct || this.actHeld || this.actTap > 0)) this.hud.setCruise(false);
+  }
+  queueFlight() {
+    // LANDING is a busy state: allow braking/steering, but never relaunch from a repeated toggle.
+    if (this.player.descending || this.order?.state === 'offer') return;
+    if (this.player.flying) this.hud.setCruise?.(false);
+    this.flyQueued = true;
   }
   resume() {
     this.resetInput(); this.paused = false; this.hud.modal(null); this.clock.getDelta();
@@ -506,7 +531,8 @@ export class Game {
       else if (id === 'rescue') this.rescue();
       else if (id === 'fullscreen') { if (isFullscreen()) exitFullscreen(); else goFullscreen(); }
       else if (id === 'tip-close') this.tipDismissed = this.tutStep;
-      else if (id === 'fly') this.flyQueued = true;
+      else if (id === 'fly') this.queueFlight();
+      else if (id === 'cruise') this.toggleCruise();
     };
     addEventListener('keydown', (e) => this.handleKeyDown(e));
     // full map from the minimap
@@ -572,12 +598,13 @@ export class Game {
   }
   handleKeyDown(e: KeyboardEvent) {
     if (this.hud.rotationBlocked) return;
-    if (e.repeat && ['Space', 'KeyT', 'KeyM', 'KeyN', 'KeyP', 'Escape', 'Backquote', 'Backslash'].includes(e.code)) return;
+    if (e.repeat && ['Space', 'KeyE', 'KeyT', 'KeyM', 'KeyN', 'KeyP', 'Escape', 'Backquote', 'Backslash'].includes(e.code)) return;
     if (this.map?.open) { this.map.handleKey(e); return; }
     if (this.choosing) return;
     if (this.hud.modalOpen && !['Escape', 'KeyP'].includes(e.code)) return;
     this.keys.add(e.code);
-    if (e.code === 'Space') { this.flyQueued = true; e.preventDefault(); }
+    if (e.code === 'Space') { this.queueFlight(); e.preventDefault(); }
+    if (e.code === 'KeyS' || e.code === 'ArrowDown') this.hud.setCruise?.(false);
     if (e.code.startsWith('Arrow')) e.preventDefault();
     if (e.code === 'KeyE') { this.actHeld = true; if (this.order?.state === 'offer') this.acceptOffer(); }
     if (e.code === 'KeyT') this.openTheatres();
@@ -798,13 +825,19 @@ export class Game {
     return { throttle: v < want ? 1 : 0, brake: v > want + 3 ? 1 : 0, steer, flyPressed: false, boost: false };
   }
   input(): Input {
-    if (this.autopilot) { const a = this.autoInput(); if (a) { this.flyQueued = false; return a; } }
     const k = this.keys, h = this.hud;
+    const brake = k.has('KeyS') || k.has('ArrowDown') || h.touchBrake;
+    this.checkCruise();
+    if (this.autopilot) { const a = this.autoInput(); if (a) { this.flyQueued = false; return a; } }
+    if (this.order?.state === 'offer') {
+      this.flyQueued = false;
+      return { throttle: 0, brake: 0, steer: 0, flyPressed: false, boost: false };
+    }
     const inp: Input = {
-      throttle: k.has('KeyW') || k.has('ArrowUp') || h.touchGas ? 1 : 0,
-      brake: k.has('KeyS') || k.has('ArrowDown') || h.touchBrake ? 1 : 0,
+      throttle: brake ? 0 : k.has('KeyW') || k.has('ArrowUp') || h.touchGas || h.cruiseOn ? 1 : 0,
+      brake: brake ? 1 : 0,
       steer: Math.max(-1, Math.min(1, (k.has('KeyD') || k.has('ArrowRight') ? 1 : 0) - (k.has('KeyA') || k.has('ArrowLeft') ? 1 : 0) + h.steer)),
-      flyPressed: this.flyQueued, boost: k.has('ShiftLeft') || k.has('ShiftRight'),
+      flyPressed: this.flyQueued && !this.player.descending, boost: k.has('ShiftLeft') || k.has('ShiftRight'),
     };
     this.flyQueued = false;
     return inp;
@@ -813,10 +846,13 @@ export class Game {
     const dt = Math.min(this.clock.getDelta(), 0.05);
     if (this.hud.rotationBlocked && !this.rotationWasBlocked) this.resetInput();
     this.rotationWasBlocked = this.hud.rotationBlocked;
+    this.checkCruise();
+    this.hud.flightState?.(this.player.flying, this.player.descending);
     this.tickCinemaReport();
     const active = !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.rotationBlocked && !this.map?.open && !this.choosing && !!this.area;
-    this.sound.vehicle({ speed: this.player.speed, throttle: this.keys.has('KeyW') || this.keys.has('ArrowUp') || this.hud.touchGas ? 1 : 0,
-      flying: this.player.flying, descending: this.player.descending, active });
+    this.sound.vehicle({ speed: this.player.speed, throttle: this.order?.state !== 'offer' && !this.keys.has('KeyS') && !this.keys.has('ArrowDown') && !this.hud.touchBrake &&
+      (this.keys.has('KeyW') || this.keys.has('ArrowUp') || this.hud.touchGas || this.hud.cruiseOn) ? 1 : 0,
+      flying: this.player.flying, descending: this.player.descending, active: active && this.order?.state !== 'offer' });
     this.tickOfferQueue();
     if (this.map?.open) { this.map.tick(dt); return; }
     if (!active) { this.engine.render(); return; }
@@ -834,6 +870,8 @@ export class Game {
     this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies];
     this.railContacts.beforePlayer(this.player, this.city.movingRail, inp.flyPressed, dt);
     this.player.update(dt, inp, this.t);
+    this.checkCruise();
+    this.hud.flightState?.(this.player.flying, this.player.descending);
     const railContact = this.railContacts.afterPlayer(this.player, dt);
     if (railContact.hit && this.player.hitCooldown <= 0) {
       this.player.hitCooldown = 1; this.player.bump = Math.max(this.player.bump, 0.45);
@@ -1044,18 +1082,20 @@ export class Game {
     h.set('level', `Level ${this.level + 1} · ${this.doneInLevel}/${L.n}`);
     h.set('spd', String(Math.round(Math.abs(this.player.speed) * 3.6)));
     h.set('fly-v', 'Unlimited');
+    h.flightState?.(this.player.flying, this.player.descending);
     (h.el.fly as HTMLElement).style.width = '100%';
     const navigation = (s: Stop) => navigationReadout(this.route, this.routeGuidanceBlocked, P, s, this.player.flying || this.player.descending);
     const distanceLabel = (s: Stop) => { const n = navigation(s); return `${n.approximate ? '~' : ''}${n.metres} m`; };
     const sub = (s: Stop) => [s.sub, navigation(s).note].filter(Boolean).join(' · ');
     if (!o || o.state === 'offer') {
       const t = this.routeTarget;
-      h.order({ state: t ? 'GPS' : 'Waiting for an order', title: t ? t.label : 'Orders appear here', sub: t ? sub(t) : (document.documentElement.classList.contains('is-touch') ? 'Tap Theatres to lease a picture hall' : 'Press T to see theatres'), dist: t ? distanceLabel(t) : '', time: '', meters: false });
+      h.order({ state: t ? 'GPS' : o ? 'New request' : 'Available for orders', title: t ? t.label : o ? 'Review delivery details' : 'Waiting for a delivery', sub: t ? sub(t) : (document.documentElement.classList.contains('is-touch') ? 'Tap Theatres to lease a picture hall' : 'Press T to see theatres'), dist: t ? distanceLabel(t) : '', time: '', meters: false, stage: 'idle' });
     } else if (o.state === 'toPickup') {
-      h.order({ state: 'Pick up', title: o.pickup.label, sub: sub(o.pickup), dist: distanceLabel(o.pickup), time: '', meters: false });
+      h.order({ state: 'Head to pickup', title: o.pickup.label, sub: sub(o.pickup) || 'Follow the orange route.', dist: distanceLabel(o.pickup), time: '', meters: false,
+        stage: h.activeAction === 'collect' ? 'collect' : 'pickup', next: o.drop.label, orderId: o.id });
     } else {
       const left = Math.max(0, o.limit - o.t);
-      h.order({ state: 'Deliver', title: o.drop.label, sub: sub(o.drop), dist: distanceLabel(o.drop), time: left > 0 ? `${Math.ceil(left)} s` : 'Late!', heat: o.heat, slices: o.slices, meters: true });
+      h.order({ state: 'Deliver to customer', title: o.drop.label, sub: sub(o.drop), dist: distanceLabel(o.drop), time: left > 0 ? `${Math.ceil(left)} s` : 'Late!', heat: o.heat, slices: o.slices, meters: true, stage: 'delivery', orderId: o.id });
     }
     this.drawMinimap();
   }

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T19:18:54.652025+00:00",
+  "scope": "Approved plum-and-neon controls, dispatch offer, accepted-order card, menus, map and area picker. Existing world and shopfront data preserved.",
+  "baseCommit": "4ba6cf0efd6ba4676a5836b4da8687a718d92096",
+  "testedSource": "Working tree committed with this report; final production asset index-BTW-pO6P.js",
+  "baseUrl": "http://127.0.0.1:4195/",
+  "implementation": [
+    "Native chunky SVG icons and layered glow, cream lettering, plum panels, gold GO, lavender BRAKE, turquoise FLY and green cruise-on state.",
+    "GO remains a held accelerator. Cruise is a separate forward-throttle toggle and releases on brake, overlays, interactions and interrupted input.",
+    "Flight control reads FLY, LAND or disabled LANDING from actual flight state.",
+    "Permanent ACT removed; held Collect, Hand over and Talk controls appear only when eligible.",
+    "Dispatch card shows the actual base reward, distinct approach and customer distances, order ID, total route and timer-after-collection note; Accept and Decline stay outside scrolling details.",
+    "Accepted card shows Pickup / Collect / Deliver progress, destination and confirmation toast. Shared theme extends to title, pause/settings, area picker and map."
+  ],
+  "automated": {
+    "command": "npm --prefix game run check",
+    "result": "PASS",
+    "suites": 24,
+    "uiHandlerChecks": 29,
+    "gameRegressionGroups": 22,
+    "productionBuild": "PASS"
+  },
+  "browser": {
+    "method": "Supported in-app browser with visible controls and native timed presses. Desktop pointer. The QA boot only selects the touch interface before normal production Game startup; no teleport, hidden state mutation, simulation stepping or autopilot.",
+    "realGameInteractionsCompleted": [
+      "Play and Charminar area selection; decline one offer; accept a real Domino's Pizza offer; accepted card and wallet 500 unchanged.",
+      "FLY to hover: LAND; initiate descent: disabled LANDING; touchdown: FLY.",
+      "Hold GO and brake/reverse inputs; enable cruise: CRUISE ON; brake cancels cruise.",
+      "Open full map and close it; order and driving controls restored; pause releases input."
+    ],
+    "realGameAttempts": [
+      "Domino's Pizza 198m approach / Home in Moghalpura 605m customer leg: drove/flew toward pickup to approximately19m off-road. No collection or handover confirmed.",
+      "Final UI acceptance: Domino's Pizza198m / Home in Riqab Gunj682m; accepted only, then map close and pause."
+    ],
+    "newBrowserPickups": 0,
+    "newBrowserDeliveries": 0,
+    "physicalPhoneTested": false,
+    "physicalGyroscopeTested": false,
+    "componentChecks": [
+      "Production Hud on an explicitly labelled inert background:844x390 landscape,390x844 portrait and320x568 compact portrait.",
+      "Compact offer retains visible Accept and Decline while details scroll; disabled driving controls hidden behind portrait offer.",
+      "Held Collect1.5s: completed UI holds1. This is not a gameplay pickup.",
+      "Simulated gyro hides arrows. This is not a physical sensor check.",
+      "At320x568 eligible action bounds x60 y230 w200 h64; minimap bottom218; FLY top306. No overlap; full order card restored after action clears."
+    ],
+    "consoleErrors": [],
+    "consoleWarnings": [],
+    "fixedDuringAcceptance": [
+      "Short landscape speed badge overlapped Accept.",
+      "Short landscape minimap crowded FLY.",
+      "Portrait pending offer controls overlaid the dispatch card.",
+      "Compact portrait contextual action overlapped FLY; measured layout now leaves12px gaps.",
+      "Pickup-only hint remained visible after collection due to display:flex overriding hidden.",
+      "Shared active transform made the centered map relocation button jump."
+    ],
+    "limits": "Automated production checks cover pickup, handover and reward timing. This UI round did not complete a new browser delivery; whole-map/world evidence and physical phone acceptance are not expanded."
+  },
+  "evidence": [
+    {
+      "file": "evidence/2026-10-26-prototype-final-offer.png",
+      "kind": "Real game final offer,1280x690"
+    },
+    {
+      "file": "evidence/2026-10-26-prototype-final-accepted.png",
+      "kind": "Real game final accepted HUD,1280x690"
+    },
+    {
+      "file": "evidence/2026-10-26-prototype-flight.png",
+      "kind": "Real game LAND state before final CSS-only refinements"
+    },
+    {
+      "file": "evidence/2026-10-26-prototype-landing.png",
+      "kind": "Real game LANDING state before final CSS-only refinements"
+    },
+    {
+      "file": "evidence/2026-10-26-prototype-cruise.png",
+      "kind": "Real game cruise-on before final CSS-only refinements"
+    },
+    {
+      "file": "evidence/2026-10-26-prototype-map.png",
+      "kind": "Real game themed map before final CSS-only refinements"
+    },
+    {
+      "file": "evidence/2026-10-26-prototype-compact-offer.png",
+      "kind": "Component-only320x568 final offer"
+    },
+    {
+      "file": "evidence/2026-10-26-prototype-compact-context.png",
+      "kind": "Component-only320x568 final Collect target"
+    }
+  ]
+}

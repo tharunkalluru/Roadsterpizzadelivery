@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Mobile UI playtest</title><link rel="stylesheet" href="./fonts/fonts.css">
+<style>html,body{margin:0;height:100%;background:#17132b;overflow:hidden}#game{position:fixed;inset:0}#game canvas{display:block;width:100%;height:100%}#loading{position:fixed;inset:0;display:grid;place-items:center;color:#f6eedc;font:800 20px 'Baloo 2',system-ui,sans-serif;pointer-events:none}#loading[hidden]{display:none}.qa-mode{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:30;padding:1px 6px;border-radius:4px;background:#17132b;color:#cfc6e4;font:9px system-ui;pointer-events:none}</style></head>
+<body><div id="game"></div><div id="hud"></div><div id="loading">Loading…</div><small class="qa-mode">QA · production game with touch UI · desktop pointer</small>
+<script type="module">
+// Desktop-only QA entry: choose the touch UI at boot. The production Game,
+// world, physics, offers and all interactions execute through their normal controls.
+// Vite's production entry remains index.html, so this file is not published.
+Object.defineProperty(window, 'ontouchstart', { value: null, configurable: true });
+await import('./src/main.ts');
+</script></body></html>

@@ -41,13 +41,15 @@ function sheetFrom(html) {
 
 function makeHud() {
   return {
-    root: new Control('hud'), el: { minimap: new Control('minimap'), 'b-full': new Control('fullscreen'), dev: new Control('dev') },
-    modalOpen: false, rotationBlocked: false, touchGas: false, touchBrake: false, touchSteer: 0, steer: 0, touchAct: false, activeAction: null,
-    toasts: [], modals: [], sheet: null, offerValue: null,
+    root: new Control('hud'), el: { minimap: new Control('minimap'), 'b-full': new Control('fullscreen'), dev: new Control('dev'), fly: { style: {} } },
+    modalOpen: false, rotationBlocked: false, touchGas: false, touchBrake: false, touchSteer: 0, steer: 0, touchAct: false, activeAction: null, cruiseOn: false,
+    toasts: [], modals: [], sheet: null, offerValue: null, values: new Map(), flightStates: [],
     modal(html, bind) { this.modalOpen = !!html; this.modals.push(html); this.sheet = html ? sheetFrom(html) : null; if (bind) bind(this.sheet); },
-    toast(...args) { this.toasts.push(args); }, offer(html) { this.offerValue = html; },
+    toast(...args) { this.toasts.push(args); }, offer(html, buttons = []) { this.offerValue = html; this.offerButtons = buttons; },
+    set(id, value) { this.values.set(id, value); }, order(value) { this.orderValue = value; },
+    setCruise(on) { this.cruiseOn = on; }, flightState(flying, descending) { this.flightStates.push({ flying, descending }); },
     prompt(text, progress = 0, action = null) { if (action !== this.activeAction) this.touchAct = false; this.activeAction = action; this.promptValue = { text, progress, action }; }, tip() {}, rescue() {},
-    resetControls() { this.touchGas = false; this.touchBrake = false; this.touchSteer = 0; this.steer = 0; this.touchAct = false; this.prompt(null); },
+    resetControls() { this.touchGas = false; this.touchBrake = false; this.touchSteer = 0; this.steer = 0; this.touchAct = false; this.cruiseOn = false; this.prompt(null); },
     async enableTilt() { return true; },
   };
 }
@@ -98,7 +100,7 @@ try {
     const sound = { muted: false, vehicles: [], cues: [], horns: [], vehicle(value) { this.vehicles.push(value); }, cue(value) { this.cues.push(value); }, horn(...args) { this.horns.push(args); }, setMuted(value) { this.muted = value; }, unlock() {} };
     const canvas = new Control('scene'), beacon = new Group(); beacon.visible = false; beacon.col = { material: new MeshBasicMaterial() }; beacon.ring = { material: new MeshBasicMaterial(), scale: { setScalar() {} } };
     const g = Object.assign(Object.create(Game.prototype), {
-      keys: new Set(), flyQueued: false, actHeld: false, actTap: 0, actProgress: 0, dragging: false, rotationWasBlocked: false,
+      keys: new Set(), flyQueued: false, actHeld: false, actTap: 0, actProgress: 0, dragging: false, rotationWasBlocked: false, offerSequence: 0,
       coins: 500, level: 0, doneInLevel: 0, day: 1, minutes: 480, totalDelivered: 0, streak: 1,
       order: null, nextOfferAt: null, cinemaReport: null, paused: false, choosing: false, relocating: false,
       area: { name: 'Test area', x: 0, z: 0 }, map: { open: false, ticks: 0, tick() { this.ticks++; }, show() { this.open = true; }, handleKey() {} },
@@ -157,6 +159,96 @@ try {
     for (const area of [{ name: 'RTC X Roads', x: 0, z: 0 }, { name: 'Edge', x: -1000, z: 1000 }]) { localStorage.setItem('p2ph-area-v1', JSON.stringify(area)); assert.deepEqual(g.savedArea(), area); }
     for (const area of [null, { name: ' ', x: 0, z: 0 }, { name: 'Bad', x: '0', z: 0 }, { name: 'Bad', x: 1001, z: 0 }, { name: 'Bad', x: 0, z: -1001 }, { name: 1, x: 0, z: 0 }]) { localStorage.setItem('p2ph-area-v1', JSON.stringify(area)); assert.equal(g.savedArea(), null); }
     localStorage.setItem('p2ph-area-v1', '{'); assert.equal(g.savedArea(), null);
+  });
+
+  await test('GO remains held acceleration while separate cruise latches only forward throttle', () => {
+    const { g, hud } = fixture(); g.order = order('toPickup');
+    assert.equal(g.input().throttle, 0); assert.equal(hud.cruiseOn, false);
+    hud.touchGas = true; assert.equal(g.input().throttle, 1); assert.equal(hud.cruiseOn, false);
+    hud.touchGas = false; assert.equal(g.input().throttle, 0);
+    g.toggleCruise(); assert.equal(hud.cruiseOn, true); assert.equal(g.input().throttle, 1);
+    assert.equal(g.input().brake, 0); g.keys.add('KeyD'); assert.equal(g.input().steer, 1, 'cruise never steers');
+    g.keys.clear(); g.toggleCruise(); assert.equal(hud.cruiseOn, false); assert.equal(g.input().throttle, 0);
+    g.player.speed = -1; g.toggleCruise(); assert.equal(hud.cruiseOn, false, 'cannot engage while reversing');
+    hud.setCruise(true); const reversed = g.input(); assert.equal(hud.cruiseOn, false); assert.equal(reversed.throttle, 0); assert.equal(reversed.brake, 0);
+    g.player.speed = 0; g.order = null; g.toggleCruise(); assert.equal(hud.cruiseOn, true, 'available between deliveries');
+    g.save(); const saved = localStorage.getItem('p2ph-save-v1');
+    assert.equal(Object.hasOwn(JSON.parse(saved), 'cruiseOn'), false, 'cruise is never persisted');
+    const reloaded = fixture(); localStorage.setItem('p2ph-save-v1', saved); reloaded.g.load();
+    assert.equal(reloaded.hud.cruiseOn, false, 'reload cannot resume an accelerator latch');
+  });
+
+  await test('every brake path immediately cancels cruise and overrides a held accelerator without removing reverse', () => {
+    for (const brake of ['KeyS', 'ArrowDown', 'touch']) {
+      const { g, hud } = fixture(); g.toggleCruise(); hud.touchGas = true;
+      if (brake === 'touch') hud.touchBrake = true; else g.handleKeyDown(key(brake));
+      const stopped = g.input(); assert.equal(stopped.brake, 1, brake); assert.equal(stopped.throttle, 0, brake); assert.equal(hud.cruiseOn, false, brake);
+      g.player.speed = 0; assert.equal(g.input().brake, 1, 'holding BRAKE still reaches normal reverse physics');
+      g.keys.clear(); hud.touchBrake = false; assert.equal(g.input().throttle, 1, 'GO remains independently held after brake release');
+      hud.touchGas = false; assert.equal(g.input().throttle, 0, 'no residual cruise throttle');
+    }
+  });
+
+  await test('inactive, offered, reversing, landing and recovery states cancel cruise rather than resuming it later', () => {
+    for (const blocker of ['paused', 'map', 'modal', 'rotation', 'hidden', 'choosing', 'relocating', 'area', 'offer', 'descending', 'glide', 'reverse']) {
+      const { g, hud, environment } = fixture(); g.toggleCruise(); assert.equal(hud.cruiseOn, true);
+      if (blocker === 'map') g.map.open = true;
+      else if (blocker === 'modal') hud.modalOpen = true;
+      else if (blocker === 'rotation') hud.rotationBlocked = true;
+      else if (blocker === 'hidden') environment.document.hidden = true;
+      else if (blocker === 'area') g.area = null;
+      else if (blocker === 'offer') g.order = order('offer');
+      else if (blocker === 'descending') g.player.descending = true;
+      else if (blocker === 'glide') g.player.glide = {};
+      else if (blocker === 'reverse') g.player.speed = -1;
+      else g[blocker] = true;
+      g.frame(); assert.equal(hud.cruiseOn, false, blocker); g.toggleCruise(); assert.equal(hud.cruiseOn, false, `cannot rearm during ${blocker}`);
+    }
+    const { g, hud } = fixture(); g.toggleCruise(); g.resetInput(); assert.equal(hud.cruiseOn, false); g.resume(); assert.equal(hud.cruiseOn, false);
+    for (const mode of ['touch', 'keyboard']) {
+      g.toggleCruise(); if (mode === 'touch') hud.touchAct = true; else g.actHeld = true;
+      g.input(); assert.equal(hud.cruiseOn, false, mode); g.resetInput();
+    }
+  });
+
+  await test('pending requests block vehicle controls and acceptance clears held input without awarding money', () => {
+    const { g, hud, sound } = fixture(); g.order = order('offer');
+    hud.touchGas = true; hud.touchBrake = true; hud.touchSteer = 1; hud.steer = 1; hud.setCruise(true); g.flyQueued = true; g.keys.add('KeyW');
+    assert.deepEqual(g.input(), { throttle: 0, brake: 0, steer: 0, flyPressed: false, boost: false });
+    assert.equal(hud.cruiseOn, false); g.queueFlight(); assert.equal(g.flyQueued, false);
+    const coins = g.coins; g.acceptOffer();
+    assert.equal(g.order.state, 'toPickup'); assert.equal(g.routeTarget, g.order.pickup); assert.equal(g.order.t, 12, 'pickup approach does not start the delivery timer');
+    assert.equal(g.coins, coins); assert.equal(g.totalDelivered, 0); assert.equal(g.keys.size, 0); assert.equal(hud.touchGas, false); assert.equal(hud.touchBrake, false);
+    assert.deepEqual(hud.toasts.at(-1), ['Order accepted', 'teal']); g.acceptOffer(); assert.equal(sound.cues.filter(c => c === 'accept').length, 1);
+  });
+
+  await test('flight presentation follows actual airborne and landing state and landing cannot be retriggered', () => {
+    const { g, hud } = fixture(); g.order = order('toPickup'); g.frame();
+    assert.deepEqual(hud.flightStates.at(-1), { flying: false, descending: false });
+    g.player.flying = true; g.toggleCruise(); assert.equal(hud.cruiseOn, true);
+    g.queueFlight(); assert.equal(g.flyQueued, true); assert.equal(hud.cruiseOn, false, 'starting descent cancels cruise');
+    g.player.update = (_dt, input) => { if (input.flyPressed) { g.player.flying = false; g.player.descending = true; } };
+    g.frame(); assert.deepEqual(hud.flightStates.at(-1), { flying: false, descending: true });
+    g.handleKeyDown(key('Space')); assert.equal(g.flyQueued, false); assert.equal(g.input().flyPressed, false, 'keyboard and button share busy landing state');
+    g.player.update = () => { g.player.descending = false; };
+    g.frame(); assert.deepEqual(hud.flightStates.at(-1), { flying: false, descending: false });
+    g.queueFlight(); assert.equal(g.input().flyPressed, true, 'FLY is available again after touchdown');
+  });
+
+  await test('request identity and active pickup cards use real order data and change stage only after collection', () => {
+    const { g, hud } = fixture();
+    g.food = [{ s: { x: 100, z: 0, y: 0 }, board: 'Test kitchen', name: 'Test kitchen', pizza: true }];
+    g.residences = [{ x: 350, z: 0, y: 0, label: 'Customer road' }];
+    g.graph = { route: () => ({ len: 250 }) }; g.areaName = () => 'Test area'; g.r = () => .1;
+    const first = g.makeOffer(), second = g.makeOffer(); assert.match(first.id, /^PZ-\d{4}$/); assert.notEqual(first.id, second.id);
+    g.order = first; g.showOffer(); const offered = JSON.parse(hud.offerValue);
+    assert.equal(offered.orderId, first.id); assert.equal(offered.pickupName, first.pickup.label); assert.equal(offered.customerName, first.drop.label);
+    assert.deepEqual(hud.offerButtons.map(b => b.label), ['Accept order (E)', 'Decline']);
+    g.drawMinimap = () => {}; g.acceptOffer(); Game.prototype.updateHud.call(g);
+    assert.equal(hud.orderValue.stage, 'pickup'); assert.equal(hud.orderValue.state, 'Head to pickup'); assert.equal(hud.orderValue.next, first.drop.label); assert.equal(hud.orderValue.orderId, first.id);
+    hud.activeAction = 'collect'; Game.prototype.updateHud.call(g); assert.equal(hud.orderValue.stage, 'collect');
+    g.order.state = 'toDrop'; g.setTarget(g.order.drop); Game.prototype.updateHud.call(g);
+    assert.equal(hud.orderValue.stage, 'delivery'); assert.equal(hud.orderValue.state, 'Deliver to customer'); assert.equal(hud.orderValue.title, first.drop.label);
   });
 
   await test('context actions follow real eligibility and require a sustained touch hold through pickup and handover', () => {
@@ -248,7 +340,7 @@ try {
     const { g, sound } = fixture();
     g.handleKeyDown(key('Space')); assert.equal(g.input().flyPressed, true); g.handleKeyDown(key('Space', true)); assert.equal(g.input().flyPressed, false);
     g.handleKeyDown(key('KeyW')); g.handleKeyDown(key('KeyW', true)); assert.equal(g.input().throttle, 1);
-    g.order = order('offer'); g.handleKeyDown(key('KeyE')); g.handleKeyDown(key('KeyE', true)); assert.equal(g.order.state, 'toPickup'); assert.equal(g.actHeld, true); assert.equal(sound.cues.filter(c => c === 'accept').length, 1);
+    g.order = order('offer'); g.handleKeyDown(key('KeyE')); g.handleKeyDown(key('KeyE', true)); assert.equal(g.order.state, 'toPickup'); assert.equal(g.actHeld, false, 'accepting cannot carry a held action into pickup'); assert.equal(sound.cues.filter(c => c === 'accept').length, 1);
     const toggles = { KeyT: 'openTheatres', KeyM: 'openMap', KeyR: 'rescue' };
     for (const [code, method] of Object.entries(toggles)) { let calls = 0; g[method] = () => calls++; g.handleKeyDown(key(code)); g.handleKeyDown(key(code, true)); assert.equal(calls, 1, code); }
     g.handleKeyDown(key('KeyH')); g.handleKeyDown(key('KeyH', true)); assert.equal(sound.horns.length, 1);

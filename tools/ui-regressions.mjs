@@ -30,13 +30,20 @@ try {
   });
   test('offer labels distinguish approach, delivery route, and timer start, escaping shop text', () => {
     const html = orderOfferHtml({ level: 2, pickupName: '<Kitchen & Co>', pickupRoad: 'Road "4"', customerName: 'Home', approachMetres: 1969, deliveryMetres: 456, deliverySeconds: 110, basePay: 67 });
-    assert.match(html, /Drive to pickup:<\/b> 1,969 m/);
-    assert.match(html, /Pickup → customer:<\/b> 456 m/);
-    assert.match(html, /Delivery window:<\/b> 110 s after collection/);
+    assert.match(html, /1,969 m to pickup/);
+    assert.match(html, /456 m after pickup/);
+    assert.match(html, /Delivery window: 110 s/);
+    assert.match(html, /Delivery timer starts after collection/);
+    assert.match(html, /2\.43 km/);
+    assert.match(html, /Base reward/); assert.match(html, /Tips may add extra/);
     assert.match(html, /Pickup approach is untimed/);
     assert.match(html, /&lt;Kitchen &amp; Co&gt;/); assert.doesNotMatch(html, /<Kitchen/);
     const unknown = orderOfferHtml({ level: 1, pickupName: 'Kitchen', pickupRoad: '', customerName: 'Home', approachMetres: null, deliveryMetres: 100, deliverySeconds: 60, basePay: 42 });
-    assert.match(unknown, /route unavailable/); assert.doesNotMatch(unknown, /NaN/);
+    assert.match(unknown, /Route unavailable/); assert.doesNotMatch(unknown, /NaN/);
+    assert.doesNotMatch(unknown, /Total route<strong>0/);
+    const estimate = orderOfferHtml({ level: 1, pickupName: 'Kitchen', pickupRoad: '', customerName: 'Home', approachMetres: 250, approachEstimated: true, deliveryMetres: 750, deliverySeconds: 120, basePay: 82, orderId: '<PZ&42>' });
+    assert.match(estimate, /About 250 m to pickup/); assert.match(estimate, /About 1 km/);
+    assert.match(estimate, /&lt;PZ&amp;42&gt;/); assert.doesNotMatch(estimate, /<PZ/);
   });
   test('tutorial cannot inherit conflicting top/bottom anchors; offer actions do not scroll with details', () => {
     const source = readFileSync(new URL('../game/src/ui/hud.ts', import.meta.url), 'utf8');

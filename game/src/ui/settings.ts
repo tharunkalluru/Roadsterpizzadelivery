@@ -29,7 +29,8 @@ export function settingsHtml(s: Settings, touch: boolean) {
     <div class="k">Sound</div>${seg('sound', s.sound ? 'on' : 'off', [['on', 'On'], ['off', 'Off']])}
     <div class="sm">Engine, thrusters, traffic and delivery sounds. Starts after your first tap or key press.</div>
     ${touch ? `<div class="k">Steering</div>${seg('steer', s.steer, [['stick', 'Arrow buttons'], ['tilt', 'Tilt the phone']])}
-    <div class="sm">Hold the left or right arrow to steer. Tilt steering hides the arrows; hold your phone sideways and tilt it like a steering wheel.</div>` : ''}
+    <div class="sm">Hold the left or right arrow to steer. Tilt steering hides the arrows; hold your phone sideways and tilt it like a steering wheel.</div>
+    <div class="k">Driving controls</div><div class="sm">Hold GO to accelerate. CRUISE is a separate optional toggle; BRAKE cancels it. FLY changes to LAND in the air, then LANDING while descending. Collection and handover buttons appear when you stop at the marked location.</div>` : ''}
     <div class="k">Tips while playing</div>${seg('tips', s.tips ? 'on' : 'off', [['on', 'Show'], ['off', 'Hide']])}`;
 }
 export function bindSettings(sheet: HTMLElement, s: Settings, apply: (s: Settings, changed: keyof Settings) => void) {
