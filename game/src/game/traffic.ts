@@ -8,12 +8,19 @@ import { TrafficCurve, roundedTrafficCorner, trafficCurveClear, trafficPoseClear
 import { isORR } from '../world/expressway';
 import { BusServices, type BusRun, type BusFeed } from './bus-services';
 import { signalAspect } from '../world/signals';
+import { busLane, busTurn, busRoundedCorner } from './bus-path';
 
 type Group = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
 interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
 interface Motion {
-  kind: 'bend' | 'junction' | 'lane' | 'uturn'; curve: TrafficCurve; startS: number; endS: number;
+  kind: 'bend' | 'junction' | 'lane' | 'uturn' | 'route'; curve: TrafficCurve; startS: number; endS: number;
   edge: GEdge; dir: 1 | -1; lane: number; progress: number; cap: number; node?: string;
+  busStep?: number;
+  busDistance?: number;
+  busPath?: BusRun['path'];
+  busSpans?: { edge: GEdge; dir: 1 | -1; start: number; end: number; base: number; index: number }[];
+  busStart?: number;
+  busStop?: boolean;
 }
 export interface Car {
   g: THREE.Group; kind: string; group: Group; size: number[]; edge: GEdge; dir: 1 | -1; s: number; speed: number; want: number;
@@ -63,7 +70,8 @@ export class Traffic {
   clear() { for (const c of this.cars) this.release(c); this.cars.length = 0; }
   // vehicles on roads of an unloaded tile leave with it
   dropEdges(gone: Set<GEdge>) {
-    for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge) || (this.cars[i].motion && gone.has(this.cars[i].motion!.edge))) { this.release(this.cars[i]); this.cars.splice(i, 1); }
+    for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge) || (this.cars[i].motion && (gone.has(this.cars[i].motion!.edge)
+        || this.cars[i].motion!.busSpans?.some(span => gone.has(span.edge))))) { this.release(this.cars[i]); this.cars.splice(i, 1); }
   }
   // Pedestrians and callers use the same mapped approach plan as the lamps.
   // An unbound/manual node flag cannot invent a traffic controller.
@@ -93,6 +101,7 @@ export class Traffic {
     return [inner + w / 2, Math.max(inner + w / 2, half - w / 2 - 0.3)];
   }
   pickLane(edge: GEdge, w: number, group: Group) {
+    if (group === 'bus') return busLane(edge);
     const e = edge.e, half = e.oneway ? e.w : e.w / 2;
     if (isORR(e) && e.expressway?.throughLanes) {
       const lw = e.expressway.laneWidth || 3.5, left = e.w / 2 - (e.expressway.shoulders?.[0] || 0);
@@ -102,7 +111,7 @@ export class Traffic {
     const lanes = Math.max(1, Math.floor(half / 3.2)), lw = Math.min(3.4, half / lanes);
     // k counts lanes from the left kerb (slow traffic keeps left in India)
     let k = Math.floor(this.r() * lanes);
-    if ((group === 'bus' || group === 'truck' || group === 'auto') && this.r() < 0.6) k = 0;
+    if ((group === 'truck' || group === 'auto') && this.r() < 0.6) k = 0;
     const [lo, hi] = this.laneRange(edge, w);
     const lane = e.oneway ? e.w / 2 - (k + 0.5) * lw : half - (k + 0.5) * lw;
     return Math.max(lo, Math.min(hi, lane + (group === 'bike' ? (this.r() - 0.5) * 1.2 : 0)));
@@ -170,10 +179,117 @@ export class Traffic {
     const index = (dir === 1) === end ? edge.cum.length - 1 : 1;
     return edge.cum[index] - edge.cum[index - 1];
   }
+  private prepareBusSpan(c: Car) {
+    const run = c.busRun; if (!run || run.ended) return false;
+    // Tiny source split records are not physical intersections. Plan a smooth
+    // swept span across their allotted chain, retaining exact edge ownership at
+    // the exit. The next published stop is a hard limit; no stop can be skipped.
+    this.services?.next(run, c.edge, c.dir, c.s);
+    if (run.path[run.step]?.edge !== c.edge || run.path[run.step]?.dir !== c.dir) return false;
+    const spans: { edge: GEdge; dir: 1 | -1; start: number; end: number; base: number; index: number }[] = [];
+    let length = 0;
+    // Look beyond the length of a typical motion. A corner close to the end
+    // of the horizon still needs its complete outgoing turning clearance.
+    const lookahead = 120;
+    for (let index = run.step; index < run.path.length && length < lookahead && index < run.step + 48; index++) {
+      const step = run.path[index], edge = step.edge;
+      if (this.graph.byId.get(edge.e.id) !== edge) return false;
+      const start = index === run.step ? c.s : 0;
+      let end = index === run.path.length - 1 ? run.stopPosition.s : edge.len;
+      // A source stop bar must retain the normal explicit red-light approach
+      // and queue logic instead of being interpolated across another edge.
+      const control = this.graph.signalsFor(edge, step.dir).find(control => control.approach.stopS >= start && control.approach.stopS <= end);
+      if (control && index === run.step) break;
+      if (control) end = Math.min(end, control.approach.stopS - c.size[2] / 2 - 1.35);
+      end = Math.min(end, start + lookahead - length);
+      if (end <= start) break;
+      spans.push({ edge, dir: step.dir, start, end, base: length, index }); length += Math.max(0, end - start);
+      if (control) break;
+    }
+    if (length < 1) return false;
+    const point = (distance: number) => {
+      const span = spans.find(s => distance < s.base + s.end - s.start - 1e-6) || spans[spans.length - 1];
+      const at = Math.min(span.end, span.start + Math.max(0, distance - span.base));
+      return { span, at, pose: this.graph.pointAt(span.edge, at, span.dir, busLane(span.edge)) };
+    };
+    const corners: { at:number; trim:number }[] = [];
+    const addCorner = (at:number, dot:number) => {
+      if (dot >= .9995) return;
+      const angle = Math.acos(Math.max(-1, Math.min(1, dot)));
+      corners.push({ at, trim:Math.max(.2, turnProfile('bus').radius * Math.tan(angle / 2)) });
+    };
+    for (let i = 0; i < spans.length; i++) {
+      const span = spans[i];
+      for (let k = 1; k < span.edge.cum.length - 1; k++) {
+        const at = span.dir === 1 ? span.edge.cum[k] : span.edge.len - span.edge.cum[k];
+        if (at <= span.start + .01 || at >= span.end) continue;
+        const p = this.graph.pointAt(span.edge, at - .001, span.dir), q = this.graph.pointAt(span.edge, at + .001, span.dir);
+        addCorner(span.base + at - span.start, p.hx * q.hx + p.hz * q.hz);
+      }
+      const next = spans[i + 1];
+      if (next) {
+        const p = this.graph.pointAt(span.edge, span.end - .001, span.dir), q = this.graph.pointAt(next.edge, next.start + .001, next.dir);
+        addCorner(span.base + span.end - span.start, p.hx * q.hx + p.hz * q.hz);
+      }
+    }
+    // Reserve the turning radius before the first physical corner, even when
+    // several short collinear source edges sit between here and that corner.
+    // Picking successive short straight spans otherwise commits the bus too
+    // close to a bend for its next smooth curve to fit.
+    corners.sort((a,b) => a.at - b.at);
+    const corner = corners[0];
+    // A shallow source bend needs a short tangent trim; reserving thirteen
+    // metres for every two-degree bend merges unrelated bends and can strand
+    // a bus on an otherwise smooth arterial road.
+    const wantedStart = corner ? Math.max(0, corner.at - corner.trim) : 0;
+    const currentRoom = c.edge.len - c.s;
+    const startDistance = wantedStart < currentRoom - .01 ? wantedStart : 0;
+    const waitForNextEdge = wantedStart >= currentRoom - .01;
+    const a = startDistance ? this.graph.pointAt(c.edge, c.s + startDistance, c.dir, c.lane) : this.graph.pointAt(c.edge, c.s, c.dir, c.lane);
+    const minimumEnd = corner && !waitForNextEdge ? corner.at + corner.trim : 0;
+    const targetDistances = [...new Set((waitForNextEdge ? [Math.max(.2, wantedStart)] : [minimumEnd, 8, 12, 18, 26, 38, 52, 65, 96, lookahead, length]).map(d => Math.min(d, length)))].sort((a, b) => a - b);
+    for (const distance of targetDistances) {
+      if (distance < .2 || distance < Math.min(length, minimumEnd) - .001 || distance <= startDistance + .05) continue;
+      if (!waitForNextEdge && corners.some(corner => corner.at > distance + .01 && corner.at - distance < corner.trim)) continue;
+      const end = point(distance), [lowLane, highLane] = this.laneRange(end.span.edge, c.size[0]);
+      for (const lane of [...new Set([busLane(end.span.edge), Math.max(lowLane, Math.min(highLane, 0)), lowLane, highLane])]) {
+      const endpoint = this.graph.pointAt(end.span.edge, end.at, end.span.dir, lane), baseCurve = busRoundedCorner(a, endpoint);
+      for (const [incoming, outgoing] of [[1,1],[1.25,.8],[1.5,.65],[.8,1.25],[.65,1.5]]) {
+      const curve = incoming === 1 && outgoing === 1 ? baseCurve : new TrafficCurve(a, endpoint, baseCurve.handleA * incoming, baseCurve.handleB * outgoing);
+      if (!this.curveOK(c, curve)) continue;
+      // Without a streamed city (offline tests), still reject a curve that
+      // leaves its prescribed road corridor or shortcuts a parallel street.
+      let follows = true;
+      for (let at = 0; at <= curve.length + .1; at += .8) {
+        const p = curve.sample(Math.min(at, curve.length)); let nearest = Infinity;
+        for (const span of spans) {
+          if (span.base > distance) break;
+          const lo = span.dir === 1 ? span.start : span.edge.len - span.end;
+          const hi = span.dir === 1 ? span.end : span.edge.len - span.start;
+          for (let k = 1; k < span.edge.cum.length; k++) {
+            if (span.edge.cum[k] < lo || span.edge.cum[k - 1] > hi) continue;
+            const u = span.edge.e.pts[k - 1], v = span.edge.e.pts[k], dx = v[0] - u[0], dz = v[1] - u[1];
+            const t = Math.max(0, Math.min(1, ((p.x - u[0]) * dx + (p.z - u[1]) * dz) / (dx * dx + dz * dz || 1)));
+            nearest = Math.min(nearest, Math.hypot(p.x - u[0] - dx * t, p.z - u[1] - dz * t) - span.edge.e.w / 2);
+          }
+        }
+        if (nearest > .15) { follows = false; break; }
+      }
+      if (!follows) continue;
+      this.remember(c, { kind: 'route', curve, startS: c.s + startDistance, endS: end.at, edge: end.span.edge, dir: end.span.dir, lane, busStep: end.span.index, busDistance: distance - startDistance, busPath: run.path,
+        busSpans: spans.filter(span => span.base < distance + .001), busStart: startDistance,
+        busStop: end.span.index === run.path.length - 1 && Math.abs(end.at - run.stopPosition.s) < .01 });
+      return true;
+      }
+      }
+    }
+    return false;
+  }
   // Prepare before braking distance. Pending paths remain fixed, so a new random
   // exit/lane is never selected while a vehicle is already turning.
   private prepare(c: Car) {
     if (c.motion || (c.planAfter || 0) > this.t) return;
+    if (c.group === 'bus' && c.busRun && this.prepareBusSpan(c)) return;
     const profile = turnProfile(c.group, c.assertive), edge = c.edge;
     let vertex = Infinity, prev = 0, next = edge.len;
     for (let i = 1; i < edge.cum.length - 1; i++) {
@@ -233,6 +349,13 @@ export class Traffic {
     const shuffled = [...opts];
     for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(this.r() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
     for (const out of shuffled) {
+      if (c.group === 'bus') {
+        const planned = busTurn(this.graph, edge, c.dir, out.edge, out.dir, c.s, c.lane);
+        if (planned && this.curveOK(c, planned.curve)) {
+          this.remember(c, { kind: 'junction', ...planned, edge: out.edge, dir: out.dir, node: node.id }); return;
+        }
+        continue;
+      }
       const entry = this.graph.pointAt(edge, edge.len - 0.001, c.dir), exit = this.graph.pointAt(out.edge, 0.001, out.dir);
       const angle = Math.acos(Math.max(-1, Math.min(1, entry.hx * exit.hx + entry.hz * exit.hz)));
       if (angle > Math.PI * 0.88) continue;
@@ -303,11 +426,17 @@ export class Traffic {
       if (active) {
         m!.progress += step;
         const u = m!.progress / m!.curve.length;
-        c.s = m!.startS + ((m!.kind === 'junction' || m!.kind === 'uturn' ? c.edge.len : m!.endS) - m!.startS) * u;
+        if (m!.kind === 'route') {
+          const progress = m!.busStart! + m!.busDistance! * u;
+          const span = m!.busSpans!.find(span => progress < span.base + span.end - span.start - 1e-6) || m!.busSpans![m!.busSpans!.length - 1];
+          c.edge = span.edge; c.dir = span.dir; c.s = Math.min(span.end, span.start + Math.max(0, progress - span.base));
+          if (c.busRun?.path === m!.busPath) c.busRun.step = span.index;
+        } else c.s = m!.startS + ((m!.kind === 'junction' || m!.kind === 'uturn' ? c.edge.len : m!.endS) - m!.startS) * u;
         if (m!.kind === 'lane') c.lane = c.lane + (m!.lane - c.lane) * step / Math.max(step, m!.curve.length - m!.progress + step);
         if (m!.progress >= m!.curve.length - 1e-6) {
           c.edge = m!.edge; c.dir = m!.dir; c.s = m!.endS; c.lane = m!.lane;
-          if (m!.kind === 'junction' || m!.kind === 'uturn') { c.base = c.laneT = c.lane; c.filtering = false; c.dwell = 0; }
+          if (m!.busStep !== undefined && c.busRun && c.busRun.path === m!.busPath) c.busRun.step = m!.busStep;
+          if (m!.kind === 'junction' || m!.kind === 'uturn' || m!.kind === 'route') { c.base = c.laneT = c.lane; c.filtering = false; c.dwell = 0; }
           c.motion = undefined; c.planAfter = 0;
           // Plan the next corner before consuming any remaining frame distance.
           this.prepare(c); m = c.motion;
@@ -386,7 +515,7 @@ export class Traffic {
           const sd = c.dir === 1 ? st.s : c.edge.len - st.s, ahead = sd - c.s;
           if (ahead < -2 || ahead > 45) continue;
           // Leave room for the long body's nose/tail sweep during pull-in.
-          c.laneT = leftSign * (c.edge.e.w / 2 - halfW - 0.7);
+          c.laneT = c.busRun ? c.base : leftSign * (c.edge.e.w / 2 - halfW - 0.7);
           target = Math.min(target, Math.max(0, ahead * 0.55));
           if (ahead < 1.5 && c.speed < 0.6) { c.dwell = this.r.range(4, 7); c.served.add(st); if (c.busRun) { this.services?.served(c.busRun, c.edge, c.dir, c.s); if (!c.motion || c.motion.progress < 0) { c.motion = undefined; c.planAfter = 0; } } }
           break;
@@ -408,6 +537,10 @@ export class Traffic {
       this.tryLane(c, player);
       if (c.motion) {
         const m = c.motion;
+        if (m.kind === 'route' && m.busStop) {
+          const remaining = m.progress < 0 ? m.curve.length + Math.max(0, m.startS - c.s) : Math.max(0, m.curve.length - m.progress);
+          target = Math.min(target, Math.sqrt(4 * remaining));
+        }
         // Braking starts on the approach, rather than after the vehicle yaws.
         const approach = m.progress < 0 ? Math.max(0, m.startS - c.s) : 0;
         target = Math.min(target, Math.sqrt(m.cap * m.cap + 2 * (c.group === 'bus' || c.group === 'truck' ? 2 : 3) * approach));

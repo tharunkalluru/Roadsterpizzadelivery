@@ -1,6 +1,7 @@
 // Shared, lightweight place catalogue. The map and model placement use the same identities and anchors.
 // Existing coordinates and unmeasured model dimensions are retained as provisional; see docs/landmark-audit.json.
 import { LM_DATA } from './landmarks_data';
+import { correctedLandmarkData } from './landmark-corrections';
 export type LmKind = 'charminar' | 'charkaman' | 'mecca' | 'chowmahalla' | 'falaknuma' | 'golconda' | 'balahisar' | 'fateh' | 'qstomb' | 'qsmosque' | 'taramati'
   | 'buddha' | 'secretariat' | 'ambedkar' | 'martyrs' | 'birla' | 'assembly' | 'highcourt' | 'osmania'
   | 'cybertowers' | 'cablebridge' | 'thub' | 'stadium' | 'clocktower' | 'salarjung' | 'ouarts' | 'paigah' | `x_${string}`;
@@ -84,7 +85,7 @@ function extraStyle(type: string): [PlaceCategory, PlaceIcon] {
   if (/stadium|ground_|racecourse/.test(type)) return ['Sport', 'stadium'];
   if (/bridge/.test(type)) return ['Heritage', 'bridge'];
   if (/clocktower/.test(type)) return ['Heritage', 'tower'];
-  if (/palace|colonial|indosaracenic|library_afzalgunj|market_mozamjahi/.test(type)) return ['Heritage', 'palace'];
+  if (/palace|city_gate|colonial|indosaracenic|library_afzalgunj|market_mozamjahi/.test(type)) return ['Heritage', 'palace'];
   if (/museum|auditorium|amphitheatre|cinema|imax|crafts|ramoji/.test(type)) return ['Culture', 'museum'];
   return ['City life', 'building'];
 }
@@ -93,7 +94,7 @@ export function placeCatalogue(origin: { lat: number; lon: number }): LandmarkPl
   const kx = Math.cos(origin.lat * Math.PI / 180) * 6380050.094 * Math.PI / 180, kz = 6341141.9 * Math.PI / 180;
   const entries = [
     ...BASE_LANDMARKS.map((l) => ({ id: landmarkId(l), name: l.name, lat: l.lat, lon: l.lon, style: BASE_STYLE[l.kind] })),
-    ...LM_DATA.map((l) => ({ id: l.key, name: l.name, lat: l.lat, lon: l.lon, style: extraStyle(l.type) })),
+    ...LM_DATA.map(correctedLandmarkData).map((l) => ({ id: l.key, name: l.name, lat: l.lat, lon: l.lon, style: extraStyle(l.type) })),
   ];
   return entries.map((p) => ({ id: p.id, name: p.name, lat: p.lat, lon: p.lon,
     x: (p.lon - origin.lon) * kx, z: -(p.lat - origin.lat) * kz,

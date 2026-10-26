@@ -1,0 +1,267 @@
+{
+  "schema": 1,
+  "verifiedAt": "2026-10-26T16:29:01.758Z",
+  "initialVerificationAt": "2026-10-26T16:04:27.839Z",
+  "verdict": "PASS_complete_published_pattern",
+  "method": {
+    "kind": "independent_offline_production_execution",
+    "engine": "Production Traffic.update and BusServices on the complete shipped RoadGraph",
+    "simulationStepSeconds": 0.03333333333333333,
+    "seed": 77,
+    "initialBusSpeedMps": 6.4,
+    "desiredBusSpeedMps": 8,
+    "successRequires": [
+      "15 distinct destination dwell events in exact published stop-ID order",
+      "Afzalgunj destination dwell observed",
+      "service ended at final target, not on an unresolved intermediate leg"
+    ],
+    "limitations": [
+      "Offline simulation, not human-style browser play or current agency route verification.",
+      "No streamed CityData obstacles, ambient vehicles, pedestrians or signal sites were instantiated; the player stayed far away.",
+      "Dwell events are recorded when the production controller starts a positive dwell at speed below 0.6 m/s. The terminal event ends this probe; its entire scheduled hold is not separately observed here.",
+      "Inferred road alignments are not agency shapes; 192 formerly affected source legs remain explicitly unresolved."
+    ],
+    "harness": "tools/bus-pattern-readiness.mjs",
+    "harnessSha256": "0783b6825cdefe70f45c4644a0cc13b607bee65fccc101651f4e293de3b2b594",
+    "command": "BUS_FULL_PATTERN=1:0 node tools/bus-pattern-readiness.mjs"
+  },
+  "inputs": {
+    "baselineCommit": "0377573697cdd287035aa99bc130959e88971977",
+    "candidatePath": "game/public/transit/tgsrtc.pack.wasm",
+    "candidateSha256": "47a9cea81007e14f05297d6b16131e358752a1e6e592b1b093533dd983b12724",
+    "sourceFeedVersion": "20260201",
+    "sourceFeedSha256": "e0a90bca1b9490a5cf92a805fecba7aca2c011527b2269904d54c5cc553be4d6",
+    "networkSha256": "04bbb50e3c74ad8b186d0e25f7a601752084334b93bf72841261972ec0b59069",
+    "networkInputFiles": 305,
+    "networkDigestIndependentlyRecomputed": true,
+    "candidateAdmissionControllerHashesMatchRuntime": true,
+    "sourceControllerHashes": [
+      {
+        "file": "game/src/game/traffic.ts",
+        "sha256": "431aa647ec92ad589d41f416086925c2a8023564f94955ace1aa23e1d369877e"
+      },
+      {
+        "file": "game/src/game/bus-services.ts",
+        "sha256": "336c6ac05552688c284d27036d2a7c572f0114969892ed26522005924bfe8b05"
+      },
+      {
+        "file": "game/src/game/bus-path.ts",
+        "sha256": "a585f61c5527a1a99cf29b5baace4a7ab0a04d77f13204c7d0880ceed8301efd"
+      },
+      {
+        "file": "game/src/game/traffic-path.ts",
+        "sha256": "04906734c66c59badc4d4219173be5fcfb83869e72848f5f43e06f40c3b48520"
+      },
+      {
+        "file": "game/src/game/roadgraph.ts",
+        "sha256": "b7fc724734ff8f99da332fc04650a335c115a09fce1ed0bc553d208d9c3b5842"
+      },
+      {
+        "file": "game/src/world/signals.ts",
+        "sha256": "a51cdd4424111c292b0ef92151ded8969a648d391421bfbfd459c4e1e227b441"
+      }
+    ]
+  },
+  "pattern": {
+    "id": "1:0",
+    "number": "1",
+    "direction": "0",
+    "from": "Secunderabad",
+    "to": "Afzalgunj",
+    "publishedStopCount": 16,
+    "expectedDestinationDwellsAfterDeparture": 15,
+    "storedAlignmentLengthM": 10150.6,
+    "storedSourceSteps": 223,
+    "origin": {
+      "id": "eNdxvjwG",
+      "name": "Secunderabad",
+      "role": "departure_origin_not_counted_as_observed_dwell"
+    },
+    "alignmentIds": [
+      "e4c1d7aafff8576e8d44",
+      "2e5b3aed5b09a0523411",
+      "4d74e03372df34084713",
+      "c1cef554e467905cf67b",
+      "dbba9d2450c55342603e",
+      "27c1d6a8672689579332",
+      "a89e4849bc0d324161bf",
+      "b4cf9ea8a8adab7d2768",
+      "f2e890174363ef935c21",
+      "0a8a9c199e966fb0eab9",
+      "716ddf38535e07ff43cc",
+      "754b5b9e50b5f96cc704",
+      "72869fbdd759de43358e",
+      "f8fb856fff451f0412ba",
+      "3db9818387d843c638ea"
+    ]
+  },
+  "observedDwells": [
+    {
+      "index": 1,
+      "id": "JmW0moXL",
+      "name": "Chilkalguda",
+      "elapsedSeconds": 75.56666666666666,
+      "distanceToTargetM": 1.0453453555094034,
+      "speedMps": 0.5856773638675933
+    },
+    {
+      "index": 2,
+      "id": "DDgeQvKN",
+      "name": "Bhoiguda Bus Stop",
+      "elapsedSeconds": 180.83333333333334,
+      "distanceToTargetM": 1.0329750650600298,
+      "speedMps": 0.5787466408654272
+    },
+    {
+      "index": 3,
+      "id": "H3BCTb4F",
+      "name": "Gandhi Hospital",
+      "elapsedSeconds": 252.8,
+      "distanceToTargetM": 1.0495622931738429,
+      "speedMps": 0.5880399944776834
+    },
+    {
+      "index": 4,
+      "id": "rUaGsUWW",
+      "name": "Musheerabad",
+      "elapsedSeconds": 359.6666666666667,
+      "distanceToTargetM": 1.037832484015961,
+      "speedMps": 0.5814681149835519
+    },
+    {
+      "index": 5,
+      "id": "UQzoJQx1",
+      "name": "Raja Delux",
+      "elapsedSeconds": 434.6333333333333,
+      "distanceToTargetM": 1.0500608802460252,
+      "speedMps": 0.5883193386777621
+    },
+    {
+      "index": 6,
+      "id": "lwL1zY20",
+      "name": "Golconda X Road",
+      "elapsedSeconds": 516,
+      "distanceToTargetM": 1.0511312345779245,
+      "speedMps": 0.5889190278620323
+    },
+    {
+      "index": 7,
+      "id": "RsudzIFL",
+      "name": "Rtc X Road",
+      "elapsedSeconds": 560.7333333333333,
+      "distanceToTargetM": 1.0364625868494652,
+      "speedMps": 0.5807006004419603
+    },
+    {
+      "index": 8,
+      "id": "gAiZU7VX",
+      "name": "Chikkadpally",
+      "elapsedSeconds": 670.7,
+      "distanceToTargetM": 1.0401625290036933,
+      "speedMps": 0.582773573126011
+    },
+    {
+      "index": 9,
+      "id": "54FDshBp",
+      "name": "Narayanaguda",
+      "elapsedSeconds": 739.5666666666667,
+      "distanceToTargetM": 1.040185530891512,
+      "speedMps": 0.5827864604315593
+    },
+    {
+      "index": 10,
+      "id": "75lZ77rU",
+      "name": "Ymca Narayanaguda",
+      "elapsedSeconds": 816.4666666666667,
+      "distanceToTargetM": 0.782623883327004,
+      "speedMps": 0.5782965835998148
+    },
+    {
+      "index": 11,
+      "id": "WmzuokM6",
+      "name": "Kachiguda X Roads",
+      "elapsedSeconds": 1091.2333333333333,
+      "distanceToTargetM": 1.0511884286401496,
+      "speedMps": 0.5889510720733959
+    },
+    {
+      "index": 12,
+      "id": "S4ZgJ4j0",
+      "name": "Koti Maternity Hospital",
+      "elapsedSeconds": 1209,
+      "distanceToTargetM": 1.0357986390012297,
+      "speedMps": 0.5803286092875366
+    },
+    {
+      "index": 13,
+      "id": "PdS5x1iC",
+      "name": "Koti",
+      "elapsedSeconds": 1319.6333333333334,
+      "distanceToTargetM": 1.0493758418405015,
+      "speedMps": 0.5879355310818547
+    },
+    {
+      "index": 14,
+      "id": "P7gQUU8q",
+      "name": "Cbs",
+      "elapsedSeconds": 1487.5333333333333,
+      "distanceToTargetM": 1.0436808738358316,
+      "speedMps": 0.5847448019792293
+    },
+    {
+      "index": 15,
+      "id": "Ij8M0H6H",
+      "name": "Afzalgunj",
+      "elapsedSeconds": 1619.6,
+      "distanceToTargetM": 1.0405093309833668,
+      "speedMps": 0.5829678764424919
+    }
+  ],
+  "completion": {
+    "status": "final_destination_dwell_observed_and_service_ended",
+    "observedDestinationDwells": 15,
+    "exactPublishedOrder": true,
+    "finalTargetIndex": 15,
+    "finalTargetId": "Ij8M0H6H",
+    "finalTargetName": "Afzalgunj",
+    "serviceEnded": true,
+    "prematureAbort": false,
+    "simulationElapsedSeconds": 1619.6,
+    "simulationFrames": 48588,
+    "wallElapsedSeconds": 4.556286542,
+    "finalEdge": "b0205f56-096_1",
+    "finalDirection": 1,
+    "finalSM": 14.95949066901628,
+    "terminalDwellScheduledSeconds": 4.161067450419068
+  },
+  "formerlyAffectedSweep": {
+    "command": "node tools/bus-pattern-readiness.mjs",
+    "baselineRef": "0377573697cdd287035aa99bc130959e88971977",
+    "baselineTransitPackSha256": "634ec22e004131ce88d49429a0cf1aa652659baf8fce5fa7227fbdcbc49c1fac",
+    "selection": "All 609 baseline inferred alignments containing a directed join above 158.4 degrees.",
+    "selected": 609,
+    "destinationDwellAndEnded": 417,
+    "explicitUnresolved": 192,
+    "runtimeStalls": 0,
+    "bindRejections": 0,
+    "otherFailures": 0,
+    "maximumDwellTargetDistanceM": 1.3258450790496872,
+    "stationaryFailureThresholdSeconds": 100,
+    "wallElapsedSeconds": 6.733237041,
+    "inputCandidateSha256": "47a9cea81007e14f05297d6b16131e358752a1e6e592b1b093533dd983b12724",
+    "sourceControllerHashesMatchRouteRun": true
+  },
+  "durableSyntheticSuite": {
+    "file": "tools/bus-execution-regressions.mjs",
+    "sha256": "b379d9825f0d939826963c0a09dc5155c70bf8da85bf20d57982dff2e966e3b7",
+    "groupsPassed": 6,
+    "coverage": [
+      "short split-chain turns",
+      "dense gentle arc followed by hard turn",
+      "stop braking and ended hold",
+      "downstream red signal hold/release",
+      "intermediate-edge unload",
+      "route and ordered stop identity"
+    ]
+  }
+}

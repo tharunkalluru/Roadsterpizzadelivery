@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mapped landmark plan review</title>
+<style>body{margin:0;padding:20px;background:#eee9df;color:#17132b;font:16px system-ui}h1{font-size:22px}main{display:flex;gap:16px;flex-wrap:wrap}figure{margin:0;width:min(600px,100%)}canvas{display:block;width:100%;aspect-ratio:3/2}figcaption{padding:8px 0;font-weight:700}p{max-width:1000px;line-height:1.5}</style>
+<h1>Mapped office plans — production geometry review</h1><p>Named OpenStreetMap outlines retain their geographic orientation and concavities. Heights, facade colours and window bands remain illustrative. Isolated development inspection, not a street or photo survey.</p><main></main>
+<script type="module">
+import * as THREE from 'three';
+import {initTemplates,TiledBatch} from '/src/core/util.ts';
+import {placeLandmarks,drawLandmark} from '/src/world/landmarks.ts';
+if(!import.meta.env.DEV)throw new Error('Development inspection only');initTemplates();
+const catalogue=placeLandmarks({lat:17.4063,lon:78.4966});
+for(const [id,span] of [['dlf',200],['tcs_synergy',90]]){
+ const model=catalogue.find(p=>p.id===id),B=Object.fromEntries(['st','wall','park','water','roof','lit','glow','road','marks','foot','kerb','shop'].map(k=>[k,new TiledBatch()]));
+ drawLandmark({...model,x:0,z:0,rot:0},{B,obstacle(){},solid(){},road(){return false},roadY(){return null},sign(){}});
+ const scene=new THREE.Scene();scene.background=new THREE.Color('#cbd4d9');scene.add(new THREE.AmbientLight('#ffffff',1.8));const sun=new THREE.DirectionalLight('#ffffff',2.3);sun.position.set(-100,200,-150);scene.add(sun);
+ const mat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.8,side:THREE.DoubleSide});for(const batch of Object.values(B))for(const mesh of batch.meshes(mat))scene.add(mesh);
+ const figure=document.createElement('figure'),caption=document.createElement('figcaption');caption.textContent=model.name+' — mapped footprint';document.querySelector('main').append(figure);figure.append(caption);
+ const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(600,400);renderer.setPixelRatio(1);figure.append(renderer.domElement);
+ const camera=new THREE.OrthographicCamera(-span,span,span*2/3,-span*2/3,.1,1500);camera.position.set(span,span*1.7,-span*1.3);camera.lookAt(0,15,0);renderer.render(scene,camera);
+}
+</script></html>

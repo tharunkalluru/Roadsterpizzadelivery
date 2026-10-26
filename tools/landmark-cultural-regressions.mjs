@@ -52,3 +52,4 @@ try {
   const stopped=player.pos.clone();step(300);assert.ok(player.pos.distanceTo(stopped)<1e-5,'parked car stays supported instead of sinking to ground');
   console.log(`Cultural/Golconda checks passed: four articulated lion heads and four outward24-spoke abacus wheels (${verts}vertices), folded Nishan cloth/spear, visible91.5m roof contacts and production Player landing/9m drive/brake/5s park. Offline simulation, not browser acceptance.`);
 } finally {rmSync(dir,{recursive:true,force:true});}
+await import('./landmark-contact-regressions.mjs');

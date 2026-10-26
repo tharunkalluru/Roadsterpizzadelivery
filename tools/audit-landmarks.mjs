@@ -54,7 +54,8 @@ try {
   flag.model.reviewedFeatures = ['National flag 3:2 ratio, equal horizontal stripes, centred navy 24-spoke Ashoka Chakra, outward geometry on both faces.'];
   flag.model.unresolved = ['Mast placement and 88m height inherited; no new site survey. Digital sRGB colours are approximations, not a textile/BIS certification.'];
   const osman = entries.find((p) => p.id === 'osman_sagar');
-  osman.model.unresolved = ['Recorded anchor may represent the reservoir rather than dam entrance; retained pending geospatial/photo verification.', 'Missing source tile is handled by nearest indexed render owner; no invented terrain or moved anchor.', 'Repeated dam bays remain a stylised placeholder, not a surveyed dam reconstruction.'];
+  osman.model.reviewedFeatures = ['Moved reservoir-centre fallback to named OSM dam POI n8987811327; removed the invented205m repeated spillway that had stood in the reservoir.', 'A small dam visitor marker preserves the mapped reservoir and adjoining roads; no architectural dam footprint is inferred from a point.'];
+  osman.model.unresolved = ['The dam structure, crest alignment, vertical dimensions and facade have not been reconstructed; a source POI is not an architectural survey.'];
   for (const [id,way,source] of [['rgia','1016464108','https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/VOHS-ADC.pdf'],['begumpet_airport','251098384','https://aim-india.aai.aero/eaip-v2-05-2025/eAIP/VOHY-ADC.pdf']]) {
     const airport=entries.find(p=>p.id===id);airport.anchor.confidence='mapped-terminal-polygon';
     airport.provenance.sourceUrls=[source,`https://www.openstreetmap.org/way/${way}`];airport.provenance.confidence='high-for-published-runway-dimensions-medium-for-map-outline';
@@ -64,8 +65,39 @@ try {
   const bridge=entries.find(p=>p.id==='cablebridge');bridge.anchor.confidence='mapped-bridge-polygon-centre';bridge.provenance.sourceUrls=['https://www.openstreetmap.org/way/761604461','https://www.larsentoubro.com/media/42542/2020-09-25-lt-built-iconic-durgam-cheruvu-cable-stay-bridge-dedicated-to-the-people-of-hyderbad.pdf','https://ateliervama.com/portfolio/durgam-cheravu-lake-bridge/'];
   bridge.model.reviewedFeatures=['Mapped axis/centre, continuous25.8m deck,233.85m pylon spacing,52single-plane structural cables and1.8m footpaths.', 'Pointed leaf/spear pylon head follows primary designer visualisations; unrelated bulb cap removed.'];bridge.model.unresolved=['Designer images are renders, not dated as-built photographs; decorative proportions remain stylised.', 'Mapped game road altitude retained; absolute water/bed/deck survey and precise lane widths remain open; canonical/context lane fields now use source-supported3lanes per direction and explicit3.2m model lane-width assumption.'];
   const lake=entries.find(p=>p.id==='durgam_lake');lake.provenance.sourceUrls=['https://www.openstreetmap.org/way/28131043'];lake.model.status='existing-mapped-water-polygon';lake.model.reviewedFeatures=['Removed invented concrete slabs at lake centre; retain existing mapped lake shoreline and water geometry.'];
+  const sourceLedger=JSON.parse(readFileSync(new URL('pipeline/evidence/landmark-source-decisions-2026-10-26.json',root)));
+  for(const decision of sourceLedger.entries){
+    const entry=entries.find(p=>p.id===decision.id);
+    entry.provenance.mapIdentityDecision=decision.decision;
+    entry.provenance.mapSourceRefs=decision.sourceRefs;
+    entry.provenance.contextSourceRefs=decision.contextSourceRefs||[];
+    entry.provenance.sourceUrls=[...new Set([...entry.provenance.sourceUrls,...decision.sourceRefs.map(s=>s.url),...(decision.contextSourceRefs||[]).map(s=>s.url),...decision.externalIdentitySources])];
+    entry.provenance.refusals=decision.refusals;
+    entry.provenance.sourceSnapshot=sourceLedger.sourceSnapshot;
+    entry.provenance.sourceSnapshotSha256=sourceLedger.sourceSha256;
+    if(decision.applicationChange){
+      entry.provenance.applicationCorrection=decision.applicationChange;
+      entry.anchor.confidence='reviewed-source-plan-or-identity-correction; see per-place limits';
+      entry.model.reviewedFeatures=[...(entry.model.reviewedFeatures||[]),decision.applicationChange.reason];
+    }
+    if(['dlf','tcs_synergy'].includes(entry.id)){
+      entry.model.status='mapped-named-building-outline; illustrative-height-and-facade';
+      entry.model.dimensions={footprint:decision.sourceRefs[0].footprint,height:entry.id==='dlf'?50:29.4,heightBasis:'inherited illustrative metres, not an OSM surveyed height',rotation:'geographic source vertices; no nearest-road rotation'};
+      entry.model.gaps=entry.model.gaps.filter(g=>g!=='measured-footprint');
+      entry.model.unresolved=['Named mapped outline is retained vertex-for-vertex. Facade, current glazing, vertical steps and height remain illustrative; site data is not photo verification.'];
+    }
+    if(entry.id==='sanjeevaiah')entry.model.unresolved=['Park anchor replaces an erroneous railway station footprint. Exact flagmast location within the park and the inherited88m height remain approximate.',...entry.model.unresolved];
+  }
+  const ambedkarEvidence=JSON.parse(readFileSync(new URL('pipeline/evidence/ambedkar-feature-review-2026-10-26.json',root)));
+  const ambedkar=entries.find(p=>p.id==='ambedkar');
+  ambedkar.provenance.sourceUrls=[...new Set([...ambedkar.provenance.sourceUrls,ambedkarEvidence.photo.page,ambedkarEvidence.photo.original,ambedkarEvidence.dimensions.source])];
+  ambedkar.provenance.originalPhoto={capturedAt:ambedkarEvidence.photo.capturedAt,author:ambedkarEvidence.photo.author,license:ambedkarEvidence.photo.license,sha256:ambedkarEvidence.photo.sha256};
+  ambedkar.model.reviewedFeatures=ambedkarEvidence.observedAndImplemented;
+  ambedkar.model.unresolved=ambedkarEvidence.limits;
+  ambedkar.model.dimensions={statueMetres:38.1,pedestalMetres:15.24,basis:ambedkarEvidence.dimensions.basis};
+  const photoFeatureIds=['charminar','golconda','jagannath','gurudwara','thalli','buddha','ambedkar'];
   const audit = { schema: 1, auditedOn: '2026-10-26', scope: 'All 191 catalogue/model IDs checked for uniqueness, finite anchors, playable bounds, source/render tile ownership and missing dimension metadata. This is not 191 photo-verified reconstructions.',
-    summary: { total: entries.length, inBounds: entries.filter((p) => p.inPlayableBounds).length, sourceTilesIndexed: entries.filter((p) => p.sourceTileIndexed).length, renderOwnersIndexed: entries.filter((p) => indexed.has(p.renderTile.join('_'))).length, photoVerifiedReconstructions: 0, modelsWithPhotoReviewedFeatures: 5 },
+    summary: { total: entries.length, inBounds: entries.filter((p) => p.inPlayableBounds).length, sourceTilesIndexed: entries.filter((p) => p.sourceTileIndexed).length, renderOwnersIndexed: entries.filter((p) => indexed.has(p.renderTile.join('_'))).length, reviewedMapSourceIdentities:sourceLedger.summary.reviewedSourceIdentities, noSafeMapSourceBinding:sourceLedger.summary.noSafeSourceBinding, sourceBackedApplicationCorrections:sourceLedger.summary.applicationCorrections, exactMappedBuildingPlans:sourceLedger.summary.exactMappedBuildingPlans, photoVerifiedReconstructions: 0, modelsWithPhotoReviewedFeatures: photoFeatureIds.length, photoFeatureIds },
     symbolAudit: [
       { id: 'sanjeevaiah-national-flag', status: 'corrected', confidence: 'high-for-construction', notes: 'One national-flag recipe found; uses shared official-specification geometry.' },
       { id: 'secretariat-lion-capital', status: 'corrected-source-backed-basic-form', confidence: 'high-for-four-lions-and-abacus-low-for-exact-sculpture', notes: 'Four articulated back-to-back lions and four outward24-spoke wheels replace gold boxes; primary government description supports the basic form. Exact reliefs, motto and site sculpture details remain open.' },

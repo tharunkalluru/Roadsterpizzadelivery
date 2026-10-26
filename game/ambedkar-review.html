@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ambedkar model review</title>
+<style>body{margin:0;padding:20px;background:#eee9df;color:#17132b;font:16px system-ui}h1{font-size:22px}main{display:flex;gap:16px;flex-wrap:wrap}figure{margin:0;width:min(600px,100%)}canvas{display:block;width:100%;aspect-ratio:3/4}figcaption{padding:10px 0;font-weight:700}p{max-width:900px;line-height:1.5}</style>
+<h1>Ambedkar — production geometry review</h1><p>Actual shared model, inspected against the original Government of Telangana photograph dated 22 June 2023. Development component inspection; this does not count as in-game driving or flight.</p><main></main>
+<script type="module">
+if(!import.meta.env.DEV) throw new Error('Development inspection only');
+import * as THREE from 'three';
+import {initTemplates,TiledBatch} from '/src/core/util.ts';
+import {Kit} from '/src/world/landmarks.ts';
+import {drawAmbedkarMonument} from '/src/world/ambedkar-monument.ts';
+initTemplates();
+const B=Object.fromEntries(['st','wall','park','water','roof','lit','glow','road','marks','foot','kerb','shop'].map(k=>[k,new TiledBatch()]));
+drawAmbedkarMonument(new Kit(0,0,0,{B,obstacle(){},solid(){},road(){return false},roadY(){return null}}));
+const scene=new THREE.Scene();scene.background=new THREE.Color('#cbd4d9');scene.add(new THREE.AmbientLight('#ffffff',1.8));const sun=new THREE.DirectionalLight('#ffffff',2.3);sun.position.set(-30,60,-50);scene.add(sun);
+const mat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.8});for(const batch of Object.values(B))for(const mesh of batch.meshes(mat))scene.add(mesh);
+for(const [label,eye] of [['Front view',[0,30,-95]],['Three-quarter view',[55,43,-85]]]){
+ const figure=document.createElement('figure'),caption=document.createElement('figcaption');caption.textContent=label;document.querySelector('main').append(figure);figure.append(caption);
+ const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(600,800);renderer.setPixelRatio(1);figure.append(renderer.domElement);
+ const camera=new THREE.OrthographicCamera(-25,25,33.333,-33.333,.1,300);camera.position.set(...eye);camera.lookAt(0,27,0);renderer.render(scene,camera);
+}
+</script></html>

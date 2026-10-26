@@ -1,11 +1,13 @@
 import type { GEdge, RoadGraph } from './roadgraph';
 import type { BusStop } from '../world/city';
+import { busTurnPossible } from './bus-path';
 
 export interface BusPattern { id: string; number: string; direction: string; from: string; to: string; stops: string[]; tripId: string; publishedTrips: number; alignmentIds?: string[] }
 export interface BusAlignment {
   status: 'inferred_legal_road_path' | 'unresolved'; fromStop: string; toStop: string; reason?: string;
   steps?: { edge: string; dir: 1 | -1; from: number; to: number }[];
   pts?: [number, number][]; lengthM?: number; maxStopSnapM?: number;
+  execution?: { status:'destination_dwell_verified'; stepSeconds:number; pathSha256?:string };
 }
 export interface BusFeed { schema: number; origin: { lat: number; lon: number }; stops: Record<string, [string, number, number]>; patterns: BusPattern[]; attribution: string; uncertainty: string; alignments?: Record<string, BusAlignment> }
 interface Step { edge: GEdge; dir: 1 | -1 }
@@ -28,6 +30,20 @@ export class BusServices {
   private stopCache = new Map<string, StopPosition | null>();
   private paths = new Map<string, Step[] | null>();
   private graphEdges: GEdge[]; private graphSize: number;
+  private rejectedTurns = new Set<string>();
+  private rejectedEdges = new Set<string>();
+  clearExecutionRejections() {
+    this.rejectedTurns.clear(); this.rejectedEdges.clear(); this.paths.clear();
+  }
+  rejectExecution(edge: GEdge, dir: 1 | -1, next?: Step) {
+    if (next) this.rejectedTurns.add(`${edge.e.id}:${dir}>${next.edge.e.id}:${next.dir}`);
+    else this.rejectedEdges.add(`${edge.e.id}:${dir}`);
+    this.paths.clear();
+  }
+  private executableTurn(before: GEdge, fromDir: 1 | -1, after: GEdge, toDir: 1 | -1, s = 0) {
+    return !this.rejectedEdges.has(`${after.e.id}:${toDir}`) && !this.rejectedTurns.has(`${before.e.id}:${fromDir}>${after.e.id}:${toDir}`)
+      && busTurnPossible(this.graph, before, fromDir, after, toDir, s);
+  }
   constructor(public graph: RoadGraph, public feed: BusFeed) {
     this.graphEdges = graph.edges; this.graphSize = graph.edges.length;
     for (const pattern of feed.patterns) for (let i = 0; i < pattern.stops.length - 1; i++) {
@@ -62,17 +78,26 @@ export class BusServices {
     const vx = after[1] - before[1], vz = after[2] - before[2], length = Math.hypot(vx, vz) || 1;
     let best: StopPosition | null = null, score = Infinity;
     for (const edge of this.graph.nearestEdges(stop[1], stop[2], 2)) {
-      if (edge.e.w < 6 || edge.e.cls === 'service') continue;
+      if (edge.e.w < 6 || edge.e.cls === 'service' || edge.len < 12) continue;
       for (let i = 1; i < edge.e.pts.length; i++) {
         const a = edge.e.pts[i - 1], b = edge.e.pts[i], q = segmentDistance(stop[1], stop[2], ...a, ...b);
         if (q.d > 100) continue;
-        const s = edge.cum[i - 1] + (edge.cum[i] - edge.cum[i - 1]) * q.u;
+        // A bus cannot dwell with its centre exactly on a graph split and then
+        // instantly reverse/turn its eleven-metre body. Keep the inferred stop
+        // inside a usable road section, still within100m of the published stop.
+        const setback = Math.min(16, edge.len / 2);
+        const s = Math.max(setback, Math.min(edge.len - setback, edge.cum[i - 1] + (edge.cum[i] - edge.cum[i - 1]) * q.u));
         for (const dir of [1, -1] as const) {
           if (edge.e.oneway === (dir === 1 ? 'forward' : 'backward')) continue;
           const p = this.graph.pointAt(edge, dir === 1 ? s : edge.len - s, dir);
           if (p.y > 1.5 && !/^motorway/.test(edge.e.cls)) continue;
           const dot = (p.hx * vx + p.hz * vz) / length;
-          const cost = q.d + (1 - dot) * 18;
+          const actualDistance = Math.hypot(p.x - stop[1], p.z - stop[2]);
+          if (actualDistance > 100) continue;
+          // A short residential spur beside a named bus corridor must not win
+          // solely because its endpoint is a few metres closer to the GTFS pin.
+          const accessPenalty = edge.e.cls === 'residential' || edge.e.cls === 'living_street' ? 28 : edge.e.cls === 'unclassified' || edge.e.cls === 'unknown' ? 14 : 0;
+          const cost = actualDistance + (1 - dot) * 18 + accessPenalty;
           if (cost >= score) continue;
           score = cost;
           const foot = this.graph.pointAt(edge, s, 1);
@@ -94,36 +119,55 @@ export class BusServices {
     };
     if (edge === target.edge && dir === target.dir && target.s >= s) return fits(edge, dir, s, target.s) ? [{ edge, dir }] : null;
     if (!fits(edge, dir, s, edge.len) || !fits(target.edge, target.dir, 0, target.s)) return null;
-    const start = dir === 1 ? edge.to : edge.from, goal = target.dir === 1 ? target.edge.from : target.edge.to;
+    const goal = target.dir === 1 ? target.edge.from : target.edge.to;
     const key = `${edge.e.id}:${dir}:${leg.pattern.id}:${leg.index + 1}`;
     if (this.paths.has(key)) return this.paths.get(key)!;
-    const distance = new Map<string, number>([[start, 0]]), previous = new Map<string, { node: string; step: Step }>();
-    const queue: [number, string][] = [[0, start]];
+    // Incoming direction is part of the search state. A node-only shortest path
+    // can immediately reverse its incoming road or arrive facing an impossible
+    // bus turn even though all source node IDs are connected.
+    const stateKey = (e: GEdge, d: 1 | -1) => `${e.e.id}:${d}`;
+    const initial = stateKey(edge, dir), states = new Map<string, Step>([[initial, { edge, dir }]]);
+    const distance = new Map<string, number>([[initial, 0]]), previous = new Map<string, { state: string; step: Step }>();
+    const physical = new Map<string, number>([[initial, edge.len - s]]);
+    const maximumPhysical = Math.hypot(leg.bx - leg.ax, leg.bz - leg.az) * 3 + 300 - target.s;
+    const queue: [number, string][] = [[0, initial]];
     const push = (value: [number, string]) => { queue.push(value); let i = queue.length - 1; while (i) { const p = (i - 1) >> 1; if (queue[p][0] <= value[0]) break; queue[i] = queue[p]; i = p; } queue[i] = value; };
     const pop = () => { const top = queue[0], last = queue.pop()!; if (queue.length) { let i = 0; while (i * 2 + 1 < queue.length) { let c = i * 2 + 1; if (c + 1 < queue.length && queue[c + 1][0] < queue[c][0]) c++; if (queue[c][0] >= last[0]) break; queue[i] = queue[c]; i = c; } queue[i] = last; } return top; };
     const end = this.graph.nodes.get(goal);
-    let found = false, visited = 0; const corridorEdges = new Map<GEdge, boolean>();
-    while (queue.length && visited++ < 2000) {
-      const [, id] = pop(), node = this.graph.nodes.get(id); if (!node) continue;
-      if (id === goal) { found = true; break; }
+    let found: string | null = null, visited = 0; const corridorEdges = new Map<GEdge, boolean>(), closed = new Set<string>();
+    while (queue.length && visited++ < 24000) {
+      const [, id] = pop(); if (closed.has(id)) continue; closed.add(id);
+      const incoming = states.get(id)!;
+      const nodeId = incoming.dir === 1 ? incoming.edge.to : incoming.edge.from;
+      const node = this.graph.nodes.get(nodeId); if (!node) continue;
+      if (nodeId === goal && this.executableTurn(incoming.edge, incoming.dir, target.edge, target.dir, id === initial ? s : 0)) { found = id; break; }
       for (const out of node.out) {
         if (out.edge.e.w < 6 || out.edge.e.cls === 'service') continue;
+        if (!this.executableTurn(incoming.edge, incoming.dir, out.edge, out.dir, id === initial ? s : 0)) continue;
         const next = out.dir === 1 ? out.edge.to : out.edge.from, n = this.graph.nodes.get(next); if (!n) continue;
         const corridor = segmentDistance(n.x, n.z, leg.ax, leg.az, leg.bx, leg.bz).d;
         if (corridor > 550) continue;
         if (!corridorEdges.has(out.edge)) corridorEdges.set(out.edge, fits(out.edge, out.dir, 0, out.edge.len));
         if (!corridorEdges.get(out.edge)) continue;
-        const cost = distance.get(id)! + out.edge.len * (1 + Math.min(3, corridor / 180));
-        if (cost >= (distance.get(next) ?? Infinity)) continue;
-        distance.set(next, cost); previous.set(next, { node: id, step: out });
-        push([cost + (end ? Math.hypot(n.x - end.x, n.z - end.z) : 0), next]);
+        // Prefer an arterial only while its actual drivable distance remains
+        // inside the published-stop detour bound. Rejecting the cheapest long
+        // path afterwards would overlook a shorter legal alternative.
+        const metres = physical.get(id)! + out.edge.len;
+        if (metres > maximumPhysical) continue;
+        const cls = out.edge.e.cls;
+        const roadPriority = cls === 'residential' || cls === 'living_street' ? 4 : cls === 'unclassified' || cls === 'unknown' ? 2.5 : cls === 'tertiary' || cls === 'tertiary_link' ? 1.25 : 1;
+        const narrowPenalty = 1 + Math.max(0, 9 - out.edge.e.w) * .4;
+        const cost = distance.get(id)! + out.edge.len * roadPriority * narrowPenalty * (1 + Math.min(3, corridor / 180)), nextState = stateKey(out.edge, out.dir);
+        if (cost >= (distance.get(nextState) ?? Infinity)) continue;
+        distance.set(nextState, cost); physical.set(nextState, metres); previous.set(nextState, { state: id, step: out }); states.set(nextState, out);
+        push([cost + (end ? Math.hypot(n.x - end.x, n.z - end.z) : 0), nextState]);
       }
     }
     let result: Step[] | null = null;
     if (found) {
-      const middle: Step[] = []; let id = goal;
-      while (id !== start) { const prev = previous.get(id); if (!prev) break; middle.push(prev.step); id = prev.node; }
-      if (id === start) {
+      const middle: Step[] = []; let id = found;
+      while (id !== initial) { const prev = previous.get(id); if (!prev) break; middle.push(prev.step); id = prev.state; }
+      if (id === initial) {
         result = [{ edge, dir }, ...middle.reverse(), { edge: target.edge, dir: target.dir }];
         result = result.filter((step, i) => !i || step.edge !== result![i - 1].edge || step.dir !== result![i - 1].dir);
       }
@@ -149,7 +193,8 @@ export class BusServices {
       if (!road || road.e.w < 6 || road.e.cls === 'service' || road.e.oneway === (item.dir === 1 ? 'forward' : 'backward')
           || item.from < 0 || item.to > road.len + .5 || item.to < item.from) return null;
       const prev = path[path.length - 1];
-      if (prev && (prev.dir === 1 ? prev.edge.to : prev.edge.from) !== (item.dir === 1 ? road.from : road.to)) return null;
+      if (prev && ((prev.dir === 1 ? prev.edge.to : prev.edge.from) !== (item.dir === 1 ? road.from : road.to)
+          || !busTurnPossible(this.graph, prev.edge, prev.dir, road, item.dir))) return null;
       path.push({ edge: road, dir: item.dir });
     }
     return path;
@@ -210,6 +255,31 @@ export class BusServices {
       const stopPosition = this.target(leg); if (!stopPosition) continue;
       if (stopPosition.edge === edge && stopPosition.dir === dir && stopPosition.s < s + 8) continue;
       const path = this.plan(edge, dir, s, stopPosition, leg); if (!path) continue;
+      // Ambient spawning must leave approach room for the first physical
+      // corner; a bus cannot materialise two metres before a turn it otherwise
+      // executes correctly when driven from its published previous stop.
+      let distance = 0, safe = true;
+      const needsApproach = (dot:number, room:number) => {
+        if (dot >= .995) return false;
+        const angle = Math.acos(Math.max(-1, Math.min(1, dot)));
+        return room + .01 < Math.max(.2, 13 * Math.tan(angle / 2));
+      };
+      for (let index = 0; index < path.length && distance < 75; index++) {
+        const item = path[index], start = index ? 0 : s, end = index === path.length - 1 ? stopPosition.s : item.edge.len;
+        for (let k = 1; k < item.edge.cum.length - 1; k++) {
+          const at = item.dir === 1 ? item.edge.cum[k] : item.edge.len - item.edge.cum[k];
+          if (at <= start || at >= end || distance + at - start >= 75) continue;
+          const a = this.graph.pointAt(item.edge, at - .001, item.dir), b = this.graph.pointAt(item.edge, at + .001, item.dir);
+          if (needsApproach(a.hx * b.hx + a.hz * b.hz, distance + at - start)) safe = false;
+        }
+        distance += Math.max(0, end - start);
+        const next = path[index + 1];
+        if (next && distance < 75) {
+          const a = this.graph.pointAt(item.edge, item.edge.len - .001, item.dir), b = this.graph.pointAt(next.edge, .001, next.dir);
+          if (needsApproach(a.hx * b.hx + a.hz * b.hz, distance)) safe = false;
+        }
+      }
+      if (!safe) continue;
       return { pattern: leg.pattern, target: leg.index + 1, path, step: 0, stopPosition, ended: false };
     }
     return null;

@@ -4,6 +4,8 @@ import { EXTRA_LANDMARKS, EXTRA_MODELS } from './landmarks2';
 import { drawDurgamBridge } from './durgam-bridge';
 import { drawLionCapital } from './landmark_symbols';
 import { drawGolcondaSummit } from './golconda-summit';
+import { drawAmbedkarMonument } from './ambedkar-monument';
+import { mappedLandmarkClearAt } from './landmark-source-plans';
 
 // Stylised monument models with inherited anchors and proportions. Per-feature evidence and unresolved accuracy
 // gaps are recorded in docs/landmark-audit.json; source coverage alone is not street verification.
@@ -27,6 +29,8 @@ export function placeLandmarks(origin: { lat: number; lon: number }, availableTi
 }
 // does a landmark's clear zone cover (x, z)? (plain map buildings there are replaced by the model)
 export function inClear(l: Landmark, x: number, z: number) {
+  const mapped = mappedLandmarkClearAt(l, x, z);
+  if (mapped != null) return mapped;
   const dx = x - l.x!, dz = z - l.z!;
   if (typeof l.clear === 'number') return l.clear > 0 && dx * dx + dz * dz < l.clear * l.clear;
   const r = (l.rot * Math.PI) / 180, c = Math.cos(r), s = Math.sin(r);
@@ -447,25 +451,8 @@ const MODELS: Partial<Record<LmKind, (K: Kit, l: Landmark) => void>> = {
     K.box(0, hv + 9, 0, 26, 9, 14, W); K.arcade('archRound', -13, hv + 16.05, 13, hv + 16.05, 3, 0, 7.5, 0.6, W); K.shape('dome', 0, hv + 9, 9, 8, 5, 8, W); K.solidRect(0, hv + 9, 26, 14, 9);
     K.box(0, 0, 3, 2 * hu - 2 * wing, 0.12, 2 * hv - 2 * wing, '#6E9B4E', 0, 'park');
   },
-  // Ambedkar statue: 38 m bronze standing figure, left hand holding the Constitution, right arm raised pointing,
-  // on a 15 m round colonnaded pedestal building modelled on the old Parliament House
-  ambedkar(K) {
-    const Bz = '#7B5332', Bh = '#A8743F', Sd = '#D8C6A2', Sr = '#A0523D';
-    K.cyl(0, 0, 0, 26.5, 1.2, Sr, 'cyl24'); K.cyl(0, 0, 1.2, 24, 13, Sd, 'cyl24');
-    for (let i = 0; i < 44; i++) { const a = (i / 44) * Math.PI * 2; K.cyl(Math.cos(a) * 25.6, Math.sin(a) * 25.6, 1.2, 0.55, 12.6, '#E8DCC0', 'cyl8'); }
-    K.cyl(0, 0, 13.8, 26.6, 1.4, Sr, 'cyl24'); K.cyl(0, 0, 15.2, 12, 0.6, Sd, 'cyl24');
-    K.solidCircle(0, 0, 26.6, 15.2, 16);
-    const y = 15.8;
-    K.box(-1.3, 0, y, 2.4, 1.0, 4.0, Bz); K.box(1.3, 0, y, 2.4, 1.0, 4.0, Bz);           // shoes
-    K.box(-1.3, 0, y + 1, 2.3, 15, 2.6, Bz); K.box(1.3, 0, y + 1, 2.3, 15, 2.6, Bz);     // trousers
-    K.shape('robe', 0, 0, y + 11, 7.6, 18, 5.0, Bz);                           // long coat
-    K.box(0, 0.4, y + 23.5, 7.4, 4.5, 4.4, Bz); K.box(0, 2.2, y + 21, 1.2, 6, 0.3, '#3b2a1b');    // chest, tie
-    K.cyl(0, 0, y + 28, 1.2, 1.5, Bz); K.sph(0, 0.2, y + 31.2, 2.2, Bz, 0, 2.6); K.sph(0, -0.3, y + 32.4, 2.15, '#2b1d12', 0, 1.6); K.box(0, 2.3, y + 31.4, 3.0, 0.5, 0.3, '#2a2018');   // head, spectacles
-    // left arm (u>0) holding the book at the chest; right arm (u<0) raised forward, index finger pointing
-    K.box(4.1, 0.6, y + 19.5, 1.6, 7, 1.8, Bz); K.box(2.6, 2.6, y + 22.0, 3.6, 4.4, 1.0, '#5a3a20');
-    K.shape('robe', -4.0, 0.3, y + 20.5, 2.0, 6.0, 2.0, Bz); K.box(-4.0, 3.2, y + 26.0, 1.6, 1.6, 6.0, Bz, 0); K.box(-4.0, 7.0, y + 26.8, 0.5, 0.5, 2.4, Bh);
-    K.ob(0, 0, 5, y + 34);
-  },
+  // Source-reviewed pointing silhouette, spectacles, book and published height.
+  ambedkar: drawAmbedkarMonument,
   // Martyrs' memorial: mirror-steel elliptical oil lamp with a sloped rim and a golden flame
   martyrs(K) {
     const St = '#C9CDD1', Au = '#E8A92A';

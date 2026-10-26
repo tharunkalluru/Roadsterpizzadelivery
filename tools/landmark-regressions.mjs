@@ -17,7 +17,7 @@ try {
   for (const p of places) { assert.ok([p.lat,p.lon,p.x,p.z].every(Number.isFinite), p.name); assert.ok(p.icon && p.category); assert.ok(p.x >= core.bounds.minX && p.x <= core.bounds.maxX && p.z >= core.bounds.minZ && p.z <= core.bounds.maxZ, p.name); }
   const byId = new Map(models.map((p) => [p.id,p]));
   for (const p of places) { const m=byId.get(p.id); assert.equal(p.x,m.x); assert.equal(p.z,m.z); assert.ok(keys.has(m.renderTile.join('_')),p.name); }
-  const osman = byId.get('osman_sagar'); assert.equal(osman.lat,17.375261); assert.equal(osman.lon,78.303112); assert.deepEqual(osman.renderTile,[-20,3]);
+  const osman = byId.get('osman_sagar'); assert.equal(osman.lat,17.3759728); assert.equal(osman.lon,78.3169135); assert.deepEqual(osman.renderTile,[-20,3]);
   assert.deepEqual(assignRenderTiles([{x:1200,z:1300}],[[1,1],[0,1]])[0].renderTile,[1,1]);
   assert.deepEqual(assignRenderTiles([{x:1000,z:1000}],[[0,1],[1,0]])[0].renderTile,[0,1]);
   // City-wide clustering never drops a catalogue ID; selected landmarks lead their cluster at any zoom.
@@ -77,3 +77,5 @@ try {
   console.log('Landmark regressions: all 191 catalogue/model identities, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite 191-model geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.');
 } finally { rmSync(temp,{recursive:true,force:true}); }
 await import('./landmark-cultural-regressions.mjs');
+await import('./ambedkar-model-regressions.mjs');
+await import('./landmark-source-regressions.mjs');

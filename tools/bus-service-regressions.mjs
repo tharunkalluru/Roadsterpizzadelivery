@@ -12,8 +12,8 @@ let passed = 0;
 const test = (name, fn) => { fn(); passed++; console.log('PASS ' + name); };
 const oldDocument = Object.getOwnPropertyDescriptor(globalThis, 'document');
 try {
-  await build({ stdin: { contents: `export * from './src/game/bus-services'; export { Traffic } from './src/game/traffic'; export { RoadGraph } from './src/game/roadgraph'; export { rng, initTemplates } from './src/core/util'; export { auto, busRouteBoards } from './src/world/traffic_models'; export * from './src/world/auto-quotes'; export { Scene, BufferGeometry, MeshBasicMaterial, BoxGeometry } from 'three';`, resolveDir: join(root, 'game'), loader: 'ts' }, outfile: join(out, 'buses.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
-  const { BusServices, Traffic, RoadGraph, rng, Scene, BufferGeometry, MeshBasicMaterial, BoxGeometry, initTemplates, auto, busRouteBoards, AUTO_QUOTES } = await import(pathToFileURL(join(out, 'buses.mjs')));
+  await build({ stdin: { contents: `export * from './src/game/bus-services'; export * from './src/game/bus-path'; export { Traffic } from './src/game/traffic'; export { RoadGraph } from './src/game/roadgraph'; export { rng, initTemplates } from './src/core/util'; export { auto, busRouteBoards } from './src/world/traffic_models'; export * from './src/world/auto-quotes'; export { Scene, BufferGeometry, MeshBasicMaterial, BoxGeometry } from 'three';`, resolveDir: join(root, 'game'), loader: 'ts' }, outfile: join(out, 'buses.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
+  const { BusServices, Traffic, RoadGraph, busRoundedCorner, busTurnPossible, rng, Scene, BufferGeometry, MeshBasicMaterial, BoxGeometry, initTemplates, auto, busRouteBoards, AUTO_QUOTES } = await import(pathToFileURL(join(out, 'buses.mjs')));
   const road = (id, pts, from, to, extra = {}) => ({ id, seg: id, pts, from, to, cls: 'primary', name: id, w: 18, lanes: 4, oneway: null, elev: null, maxspeed: null, ...extra });
   const roads = [road('approach', [[0, 0], [100, 0]], 'a', 'j'), road('allotted', [[100, 0], [100, 120]], 'j', 'b'), road('wrong-turn', [[100, 0], [220, 0]], 'j', 'c')];
   const feed = { schema: 1, origin: { lat: 0, lon: 0 }, attribution: 'Contains data provided by TGSRTC', uncertainty: 'fixture', stops: { a: ['START', 5, -3], b: ['MIDWAY', 75, -3], c: ['DESTINATION', 103, 100] }, patterns: [{ id: '8A:0', number: '8A', direction: '0', from: 'START', to: 'DESTINATION', stops: ['a', 'b', 'c'], tripId: 'fixture', publishedTrips: 10 }] };
@@ -57,6 +57,37 @@ try {
     });
     return { ...source, schema: 2, patterns, alignments };
   };
+  test('incoming directed road state excludes immediate reversals and rejects unsupported bus turns', () => {
+    const graph = new RoadGraph(roads), approach = graph.byId.get('approach'), allotted = graph.byId.get('allotted');
+    assert.equal(busTurnPossible(graph, approach, 1, approach, -1), false);
+    assert.equal(busTurnPossible(graph, approach, 1, allotted, 1), true);
+    const alignment = new BusServices(graph, feed).reconstruct(feed.patterns[0], 1);
+    assert.equal(alignment.status, 'inferred_legal_road_path');
+    for(let i=1;i<alignment.steps.length;i++) {
+      const a=alignment.steps[i-1],b=alignment.steps[i];
+      assert.ok(busTurnPossible(graph,graph.byId.get(a.edge),a.dir,graph.byId.get(b.edge),b.dir));
+    }
+  });
+  test('almost parallel source splits cannot create a distant loop during a bus lane-width change', () => {
+    const a={x:0,y:0,z:2.8,hx:1,hz:0},angle=.002,b={x:19,y:0,z:2.25,hx:Math.cos(angle),hz:Math.sin(angle)};
+    const curve=busRoundedCorner(a,b);
+    assert.ok(curve.length<20);assert.ok(curve.minRadius>6.5);
+    for(let s=0;s<curve.length;s+=.5){const p=curve.sample(s);assert.ok(p.x>=-.001&&p.x<=19.001);assert.ok(p.z>=2&&p.z<=3);}
+  });
+  test('arterial preference cannot discard a shorter legal path inside the published stop detour bound', () => {
+    const alternatives = [road('source',[[0,0],[100,0]],'a','j'),road('destination',[[200,0],[300,0]],'k','b'),
+      road('overlong-arterial',[[100,0],[100,410],[200,410],[200,0]],'j','k'),
+      road('legal-local',[[100,0],[100,-200],[200,-200],[200,0]],'j','k',{cls:'residential',w:6,lanes:2})];
+    const graph = new RoadGraph(alternatives), sample = { ...feed, stops:{ a:['START',50,-1],b:['MIDWAY',250,-1],c:['END',280,-1] } };
+    const alignment = new BusServices(graph,sample).reconstruct(sample.patterns[0],0);
+    assert.equal(alignment.status,'inferred_legal_road_path');
+    assert.ok(alignment.steps.some(step=>step.edge==='legal-local'));
+    assert.ok(alignment.lengthM<=900,'the rejected arterial cannot mask the bounded legal alternative');
+  });
+  test('ambient buses never bind immediately before a physical turn without their approach room', () => {
+    const graph=new RoadGraph(roads),shaped=persistedFeed(graph),services=new BusServices(graph,shaped),edge=graph.byId.get('approach');
+    assert.ok(services.bind(edge,1,30));assert.equal(services.bind(edge,1,94),null);
+  });
   test('persisted bus paths reject nearby parallel streets and retain the published identity', () => {
     const parallel = road('parallel', [[0, 8], [100, 8]], 'other-a', 'other-j'), graph = new RoadGraph([...roads, parallel]);
     const shaped = persistedFeed(graph), services = new BusServices(graph, shaped), approach = graph.byId.get('approach');
@@ -223,3 +254,4 @@ try {
   if (oldDocument) Object.defineProperty(globalThis, 'document', oldDocument); else delete globalThis.document;
   await rm(out, { recursive: true, force: true });
 }
+await import('./bus-execution-regressions.mjs');

@@ -4,6 +4,8 @@ import { drawNilaChakra, drawTemplePennant, drawFurledNishanSahib, JAGANNATH_HEI
 import type { Kit, Landmark } from './landmarks';
 import { LM_DATA, LmData } from './landmarks_data';
 import { drawAirportTerminal } from './airfields';
+import { correctedLandmarkData } from './landmark-corrections';
+import { drawMappedLandmarkPlan } from './landmark-source-plans';
 
 // 159 additional stylised Hyderabad places; dimensions and decorative details require per-place verification: temples, mosques and dargahs,
 // churches, palaces, heritage buildings, stations and bus terminals, civic buildings, hospitals, campuses, IT parks,
@@ -414,14 +416,14 @@ const R_: Record<string, Recipe> = {
   ccmb: { draw: (K) => { gate(K, 0, 0, 18, 7, '#cfc7b8', '#2f5d9a', 'CSIR-CCMB'); }, clear: 0, keepBuildings: true },
   // ---- IT and business ----
   mindspace: { draw: (K) => { for (const [u, v, h] of [[-50, 0, 60], [0, 10, 70], [50, 0, 55], [-25, -45, 45], [30, -45, 50]] as number[][]) tower(K, u, v, 34, 30, h, '#4f7d9c', '#dfe7ec', { fins: true }); K.board('MINDSPACE IT PARK', 0, 30, 5, 12); }, clear: [150, 110] },
-  dlf: { draw: (K) => { for (const [u, h] of [[-40, 50], [0, 64], [40, 50]]) tower(K, u, 0, 32, 32, h, '#5a86a6', '#e5ebef', { crown: true }); K.board('DLF CYBER CITY', 0, 18, 5, 10); }, clear: [120, 40] },
+  dlf: { draw: (K) => drawMappedLandmarkPlan(K, 'dlf'), rot: 0, clear: [300, 190, 0, 0] },
   microsoft: { draw: (K) => { for (const [u, v] of [[-50, 0], [0, 0], [50, 0], [-25, -50], [25, -50]]) tower(K, u, v, 38, 30, 20, '#7d9aaa', '#e5ebef'); K.board('MICROSOFT INDIA DEVELOPMENT CENTER', 0, 18, 5, 16); }, clear: [150, 100] },
   google: { draw: (K) => { tower(K, 0, 0, 140, 70, 34, '#7fa5b8', '#f2efe8', { fins: true }); K.board('GOOGLE', 0, 35.2, 26, 10, 2.4, '#ffffff', '#3b5f9a'); }, clear: [150, 80] },
   // Amazon's Hyderabad campus (2019): one of the largest office buildings in the world, glass with a spiral roof garden
   amazon: { draw: (K) => { tower(K, 0, 0, 180, 90, 58, '#6f97ad', '#e8edf0', { fins: true }); K.box(0, 0, 58, 120, 3, 60, '#5f8f45'); K.board('AMAZON', 0, 45.2, 46, 14, 2.6, '#1d2330', '#f2a93a'); }, clear: [190, 100] },
   infosys: { draw: (K) => { for (const [u, v] of [[-40, 0], [40, 0], [0, -50]]) tower(K, u, v, 40, 34, 26, '#8aa6b6', '#efeae2'); K.cyl(0, 30, 0, 14, 18, '#9fbccb', 'cyl24'); K.board('INFOSYS', 0, 48, 5, 8); }, clear: [130, 120] },
   wipro_circle: { draw: (K) => { for (const [u, h] of [[-30, 40], [30, 46]]) tower(K, u, 0, 40, 30, h, '#6b90a8', '#f0ece4'); K.board('WIPRO', 0, 16, 5, 8); }, clear: [110, 40] },
-  tcs_synergy: { draw: (K, D) => { tower(K, 0, 0, W(D, 100) * 0.9, Dp(D, 98) * 0.9, 34, '#5e88a3', '#e2e8ec', { fins: true }); K.board('TATA CONSULTANCY SERVICES', 0, Dp(D, 98) * 0.45 + 0.2, 6, 14); }, clear: [96, 96] },
+  tcs_synergy: { draw: (K) => drawMappedLandmarkPlan(K, 'tcs_synergy'), rot: 0, clear: [110, 110, 0, 0] },
   // HICC (2006): convention centre under a great curved metal roof, glass fronts
   hicc: { draw: (K, D) => { const w = W(D, 147) * 0.85, d = Dp(D, 140) * 0.85; K.box(0, 0, 0, w, 14, d, '#9fbccb'); for (let k = 0; k < 9; k++) addRaw(K, 'cyl', 0, -d / 2 + (k + 0.5) * (d / 9), 14 + Math.sin(((k + 0.5) / 9) * Math.PI) * 6, 1.6, w + 6, 1.6, '#c9ced4', 0, 0, Math.PI / 2); K.board('HYDERABAD INTERNATIONAL CONVENTION CENTRE', 0, d / 2 + 0.2, 6, 16); K.solidRect(0, 0, w, d, 14); }, clear: [150, 146] },
   hitex: { draw: (K) => { for (const u of [-90, -30, 30, 90]) { K.box(u, 0, 0, 54, 14, 100, '#d9dde3'); addRaw(K, 'prism', u, 0, 14, 56, 6, 102, '#9aa3ad'); K.solidRect(u, 0, 54, 100, 14); } K.board('HITEX EXHIBITION CENTRE', 0, 56, 6, 14); }, clear: [250, 120] },
@@ -463,7 +465,9 @@ const R_: Record<string, Recipe> = {
   snow_world: { draw: (K, D) => { K.box(0, 0, 0, W(D, 72) * 0.8, 10, Dp(D, 48) * 0.8, '#dfe9f0'); K.shape('dome', 0, 0, 10, W(D, 72) * 0.7, 8, Dp(D, 48) * 0.7, '#f4f8fb'); K.board('SNOW WORLD', 0, Dp(D, 48) * 0.4 + 0.2, 7, 10, 1.4, '#2f8ab8', '#ffffff'); K.solidRect(0, 0, W(D, 72) * 0.8, Dp(D, 48) * 0.8, 10); }, clear: [64, 44] },
   // Tank Bund: the statues of Telugu luminaries along the bund road
   tank_bund: { draw: (K) => { for (let k = -6; k <= 6; k++) statue(K, k * 22, 0, 4.2, 1.6, '#4a4a48'); K.board('TANK BUND', 0, 2.4, 3, 7); }, clear: 0, keepBuildings: true },
-  osman_sagar: { draw: (K) => { for (let k = -8; k <= 8; k++) { K.box(k * 12, 0, 0, 12.2, 9, 8, '#a59d90'); K.shape('arch', k * 12, 4.05, 0, 6, 6, 0.3, '#5a544c'); } K.box(0, 0, 9, 205, 1, 9, '#bdb3a2'); K.board('OSMAN SAGAR · GANDIPET', 0, 5, 12, 12); K.solidRect(0, 0, 205, 8, 9); }, clear: 0, keepBuildings: true },
+  // The source establishes a dam POI, not a 205m spillway footprint. Preserve
+  // the mapped reservoir/roads; a small visitor marker replaces invented bays.
+  osman_sagar: { draw: (K) => { for (const u of [-3.5, 3.5]) K.box(u, 0, 0, .16, 3.3, .16, '#64706c'); K.board('OSMAN SAGAR DAM · GANDIPET', 0, 0, 2.8, 8, 1.1, '#226447'); }, rot: 0, clear: 0, keepBuildings: true },
   himayat_sagar: { draw: (K) => { for (let k = -8; k <= 8; k++) { K.box(k * 12, 0, 0, 12.2, 9, 8, '#a59d90'); K.shape('arch', k * 12, 4.05, 0, 6, 6, 0.3, '#5a544c'); } K.box(0, 0, 9, 205, 1, 9, '#bdb3a2'); K.board('HIMAYAT SAGAR', 0, 5, 12, 10); K.solidRect(0, 0, 205, 8, 9); }, clear: 0, keepBuildings: true },
   ramoji: { draw: (K) => { gate(K, 0, 0, 26, 12, '#c9a77c', '#f2e6c8', 'RAMOJI FILM CITY'); for (const s of [-1, 1]) statue(K, s * 20, 6, 7, 2, '#d6b26a'); }, clear: 0, keepBuildings: true },
   wonderla: { draw: (K) => { gate(K, 0, 0, 20, 10, '#2f8ab8', '#e8c46a', 'WONDERLA'); K.box(30, -40, 0, 0.6, 40, 0.6, '#8a8f99'); K.cyl(30, -40, 40, 18, 1, '#e8762b', 'cyl24'); }, clear: 0, keepBuildings: true },
@@ -518,7 +522,8 @@ for (const [k, r] of Object.entries(R_)) EXTRA_MODELS[`x_${k}`] = (K, l) => r.dr
 
 export function EXTRA_LANDMARKS(): Landmark[] {
   const out: Landmark[] = [];
-  for (const D of LM_DATA) {
+  for (const original of LM_DATA) {
+    const D = correctedLandmarkData(original);
     const r = R_[D.key]; if (!r) continue;
     const rot = r.rot ?? D.rot ?? D.srot ?? 0;
     out.push({ kind: `x_${D.key}` as any, name: D.name, lat: D.lat, lon: D.lon, rot, clear: r.keepBuildings ? 0 : (r.clear ?? (D.w ? [D.w + 6, (D.d || D.w) + 6] : 14)), d: D });

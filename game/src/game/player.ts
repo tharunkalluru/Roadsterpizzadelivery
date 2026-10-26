@@ -3,6 +3,7 @@ import { roadster, type RoadsterNozzle } from '../world/vehicles';
 import { labelTexture } from '../world/signs';
 import type { CityData } from '../world/city';
 import { supportAt, collideBuildings, collideWalls, roofUnder, SupportKind } from './physics';
+import { landmarkCarContact } from './landmark-contact';
 
 export interface Input { throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean }
 export const ROAD_SPEED_LIMIT = 150 / 3.6;
@@ -50,7 +51,7 @@ export class Player {
     this.pos.set(x, 0, z); this.yaw = yaw; this.speed = 0; this.vy = 0; this.flying = false; this.descending = false;
     const s = supportAt(this.city, x, z, y + 0.5, true); this.pos.y = s.y + 0.55;
     this.lastSupport = s.y; this.lastKind = s.kind; this.lastElevRoad = s.elevatedRoad; this.onRoad = s.onRoad;
-    this.glide = null; this.lastEdge = null; this.roadPitch = 0; this.placementRevision++;
+    this.glide = null; this.lastEdge = null; this.roadPitch = 0; this.landmarkRoll = 0; this.resetWheelSuspension(); this.placementRevision++;
     this.group.position.copy(this.pos); this.group.rotation.set(0, yaw, 0, 'YXZ');
   }
   // one puff of vented gas from a nozzle (k), blown along the nozzle direction plus a share of the car's motion
@@ -66,6 +67,12 @@ export class Player {
   // a sudden drop there is a step in the data, not the edge of a flyover, so the car must not be held back
   lastEdge: any = null;
   roadPitch = 0;
+  landmarkRoll = 0;
+  wheelSuspension: number[] = [0, 0, 0, 0];
+  resetWheelSuspension() {
+    this.wheelSuspension = [0, 0, 0, 0];
+    this.wheels?.forEach(w => { w.position.y = .36; });
+  }
   continues(sup: { s: any; kind: string }) {
     const e = sup.s?.e, l = this.lastEdge;
     if (!e || !l || sup.kind !== 'road') return false;
@@ -86,7 +93,7 @@ export class Player {
     if ((d < 0.3 && Math.abs(P.y - g.y) < 0.15) || g.t > 8) {
       P.set(g.x, g.y, g.z); this.yaw = g.yaw; this.glide = null; this.vy = 0; this.speed = 0;
       this.lastSupport = g.y - 0.55; this.lastKind = 'road'; this.lastElevRoad = g.y - 0.55 > 1.2; this.lastEdge = null;
-      this.onRoad = true; this.roadPitch = 0; this.placementRevision++;
+      this.onRoad = true; this.roadPitch = 0; this.landmarkRoll = 0; this.resetWheelSuspension(); this.placementRevision++;
       this.group.position.copy(P); this.group.rotation.set(0, this.yaw, 0, 'YXZ');
       this.glow.position.set(P.x, P.y - 0.5, P.z); this.light.position.set(P.x, P.y - 0.2, P.z);
     }
@@ -133,7 +140,8 @@ export class Player {
     this.kerbT -= dt;
     // --- vertical ---
     const sup = supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55);
-    const ground = sup.y + 0.55;
+    const landmark = sup.kind === 'landmark' ? landmarkCarContact(this.city.landmarkSurfaceGrid, this.pos.x, this.pos.z, this.yaw, sup.y) : null;
+    const ground = landmark?.y ?? sup.y + 0.55;
     if (this.flying) {
       // cruise at 24 m, climbing over anything taller just ahead
       if ((this.altT -= dt) <= 0) {
@@ -147,6 +155,10 @@ export class Player {
       // Tyres follow a continuous grade in both directions. Applying free fall
       // on every small downhill step makes a descending car repeatedly detach.
       this.pos.y = ground; this.vy = 0;
+    } else if (!air && this.lastKind === 'landmark' && landmark && Math.abs(sup.y - this.lastSupport) <= Math.max(.25, Math.hypot(this.pos.x - prev.x, this.pos.z - prev.z) * 2 + .03)) {
+      // Real landmark facets use the same continuous contact rule as roads.
+      // Otherwise every downhill sample becomes another tiny fall/landing.
+      this.pos.y = ground; this.vy = 0;
     } else if (!air && this.lastElevRoad && sup.y < this.lastSupport - 1.5 && !this.continues(sup)) {
       // never roll off the side of a flyover deck: the parapet holds the car
       this.pos.x = prev.x; this.pos.z = prev.z; this.speed *= 0.5; this.bump = 0.3;
@@ -157,7 +169,7 @@ export class Player {
       if (this.pos.y <= ground) { if (this.vy < -9) { this.bump = 0.6; this.speed *= 0.6; } this.pos.y = ground; this.vy = 0; this.descending = false; }
     } else { this.pos.y = ground; this.vy = 0; }
     const sup2 = this.flying || this.descending ? sup : supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55);
-    const grounded = !this.flying && !this.descending && this.pos.y - (sup2.y + 0.55) < 0.1;
+    const grounded = !this.flying && !this.descending && this.pos.y - ground < 0.1;
     if (grounded) { this.lastSupport = sup2.y; this.lastKind = sup2.kind; this.lastElevRoad = sup2.elevatedRoad; this.lastEdge = sup2.s?.e || null; }
     this.onRoad = grounded && sup2.onRoad;
     // --- buildings ---
@@ -165,14 +177,31 @@ export class Player {
     if (hit > 0.05) { this.speed *= 0.55; this.bump = Math.min(0.6, hit); }
     this.hitCooldown -= dt; this.bump = Math.max(0, this.bump - dt);
     // --- visuals ---
-    this.group.position.set(this.pos.x, this.pos.y + (air ? Math.sin(t * 2.6) * 0.06 : 0), this.pos.z);
-    let pitch = 0;
+    let pitch = 0, roll = 0;
     if (!air && this.onRoad) {
       const nose = supportAt(this.city, this.pos.x + f.x * 1.6, this.pos.z + f.z * 1.6, this.pos.y - .55, true), tail = supportAt(this.city, this.pos.x - f.x * 1.6, this.pos.z - f.z * 1.6, this.pos.y - .55, true);
       if (nose.onRoad && tail.onRoad && Math.abs(nose.y - tail.y) < 1) pitch = Math.atan2(nose.y - tail.y, 3.2);
     }
+    const onLandmark = grounded && sup2.kind === 'landmark' && landmark;
+    if (onLandmark) { pitch = landmark.pitch; roll = landmark.roll; }
     this.roadPitch = (this.roadPitch || 0) + (pitch - (this.roadPitch || 0)) * Math.min(1, dt * 12);
-    this.group.rotation.set(air ? -0.06 : this.roadPitch, this.yaw, -this.steerVis * Math.min(1, Math.abs(this.speed) / 15) * 0.06, 'YXZ');
+    this.landmarkRoll = (this.landmarkRoll || 0) + (roll - (this.landmarkRoll || 0)) * Math.min(1, dt * 12);
+    const lean = -this.steerVis * Math.min(1, Math.abs(this.speed) / 15) * 0.06;
+    this.resetWheelSuspension();
+    if (onLandmark) {
+      // Recompute the actual tilted tyre positions after interpolation. Matching
+      // that posture's height and suspension prevents the easing itself from
+      // briefly burying wheels at a facet transition or after landing.
+      const contacts = landmarkCarContact(this.city.landmarkSurfaceGrid, this.pos.x, this.pos.z, this.yaw, sup2.y,
+        { pitch: this.roadPitch, roll: this.landmarkRoll + lean });
+      if (contacts) {
+        this.pos.y = contacts.y; this.vy = 0; this.wheelSuspension = contacts.suspension;
+        this.wheels?.forEach((w, i) => { w.position.y = .36 + contacts.suspension[i]; });
+      }
+    }
+    const visuallyAirborne = this.flying || this.descending;
+    this.group.position.set(this.pos.x, this.pos.y + (visuallyAirborne ? Math.sin(t * 2.6) * 0.06 : 0), this.pos.z);
+    this.group.rotation.set(visuallyAirborne ? -0.06 : this.roadPitch, this.yaw, (visuallyAirborne ? 0 : this.landmarkRoll) + lean, 'YXZ');
     this.glow.position.set(this.pos.x, (air ? sup.y : this.pos.y - 0.55) + 0.06, this.pos.z);
     this.glow.visible = this.pos.y - sup.y < 6;
     this.light.position.set(this.pos.x, this.pos.y - 0.2, this.pos.z);

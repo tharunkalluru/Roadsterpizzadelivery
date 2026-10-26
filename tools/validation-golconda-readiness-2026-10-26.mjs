@@ -1,7 +1,7 @@
 // Read-only validation probe. Uses production geometry, support, collision and
 // Player.update; it does not change the application or any shipped city data.
 // The existing flat-roof test is retained as a positive control before probing
-// a real visible hillside that still leaves the car horizontal.
+// a real visible hillside, including the production wheel suspension offsets.
 import assert from 'node:assert/strict';
 import { build } from '../game/node_modules/esbuild/lib/main.js';
 
@@ -85,12 +85,13 @@ step(slopePlayer, 120);
 slopePlayer.group.updateMatrixWorld(true);
 const contacts = [];
 for (const lateral of [-.945, .945]) for (const longitudinal of [-1.4, 1.4]) {
-  const wheelBottom = new m.Vector3(lateral, -.55, longitudinal).applyMatrix4(slopePlayer.group.matrixWorld);
+  const index=(longitudinal<0?0:2)+(lateral>0?1:0),suspension=slopePlayer.wheelSuspension?.[index]||0;
+  const wheelBottom = new m.Vector3(lateral, -.55+suspension, longitudinal).applyMatrix4(slopePlayer.group.matrixWorld);
   const worldX = wheelBottom.x, worldZ = wheelBottom.z;
   const terrainY = m.landmarkHeightAt(landmarkSurfaceGrid, worldX, worldZ, centerSurface + 2);
   assert.ok(terrainY !== null);
   const wheelBottomY = wheelBottom.y;
-  contacts.push({ lateral, longitudinal, worldX, worldZ, terrainY, wheelBottomY,
+  contacts.push({ lateral, longitudinal, suspension, worldX, worldZ, terrainY, wheelBottomY,
     penetrationM: Math.max(0, terrainY - wheelBottomY), floatingM: Math.max(0, wheelBottomY - terrainY) });
 }
 const maxPenetrationM = Math.max(...contacts.map(p => p.penetrationM));
@@ -102,7 +103,7 @@ console.log(JSON.stringify({
   slope: { local, world: [x, z], centerSurface, playerY: slopePlayer.pos.y, pitch: slopePlayer.group.rotation.x,
     roll: slopePlayer.group.rotation.z, lastKind: slopePlayer.lastKind, contacts, maxPenetrationM, maxFloatingM },
   readiness: ready ? 'PASS' : 'FAIL: landmark slope leaves wheels embedded/floating',
-  cause: 'Player.update computes pitch only when onRoad; landmark support samples only the car center.',
-  source: ['game/src/game/player.ts:135', 'game/src/game/player.ts:170', 'game/src/world/vehicles.ts:143'],
+  correction: 'Production Player fits pitch/roll and contact height to the real wheel footprint; bounded suspension follows facet seams.',
+  source: ['game/src/game/landmark-contact.ts', 'game/src/game/player.ts', 'game/src/world/vehicles.ts:143'],
 }, null, 2));
 if (!ready) process.exitCode = 1;
