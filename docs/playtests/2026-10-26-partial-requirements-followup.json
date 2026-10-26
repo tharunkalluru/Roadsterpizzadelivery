@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T14:33:03Z",
+  "implementationCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
+  "branch": "main",
+  "scope": "Concrete follow-up on every requirement previously marked partial in docs/requirements-status-2026-10-26.json.",
+  "release": {
+    "localOnly": true,
+    "pushed": false,
+    "deployed": false,
+    "preview": "http://127.0.0.1:4189/"
+  },
+  "preserved": [
+    "Upgraded Roadster geometry",
+    "Existing shopfront names, placements, attribution and original source evidence",
+    "Unlimited flight and sound",
+    "Version 2 menus and mobile map-close/input behavior"
+  ],
+  "changes": [
+    {
+      "requirements": ["R05", "R07"],
+      "area": "Landmark and cultural-symbol accuracy",
+      "completed": [
+        "Added a source-reviewed four-lion Secretariat capital with four outward 24-spoke wheels.",
+        "Replaced the Central Gurdwara rectangular flag with folded Nishan Sahib cloth and a spearhead.",
+        "Rebuilt the Golconda summit with a broad drivable terrace, open arcades, setback upper hall, parapets, finials and matching support geometry.",
+        "Kept explicit stylised/approximate disclosure for the catalogue entries that still lack enough public architectural evidence."
+      ],
+      "verification": [
+        "Cultural/Golconda production regressions passed: four lion heads, four outward wheels and production Player landing at 91.5 m, about 9 m of rooftop driving, braking and 5 s parking without sinking.",
+        "Controlled production-code landmark gallery rendered the flag, lion capital, Gurdwara flag and Golconda summit with no console warnings/errors."
+      ],
+      "remaining": "Five models have bounded photo-feature review and zero are claimed as fully survey-verified reconstructions. The remaining 191-place catalogue needs an evidence-led reconstruction queue rather than invented precision."
+    },
+    {
+      "requirements": ["R08"],
+      "area": "Outer Ring Road",
+      "completed": [
+        "One-lane toll ramps retain one booth lane instead of gaining a lane from shoulders.",
+        "Opposite carriageways receive independent toll canopies and a context tile cannot suppress the owning tile's canopy.",
+        "Existing continuous mainline, tapers, signs, recovery and barrier clipping remain intact."
+      ],
+      "verification": [
+        "11 new ORR/airport/bridge groups passed.",
+        "16 expressway, 5 ORR-exit and 13 ORR-recovery groups passed.",
+        "Full model audit: 307 ORR edges, 198 tiles and zero barrier intrusions."
+      ],
+      "remaining": "Every-exit natural driving, the full ring, exact toll operations/elevations and all real sign faces still need browser and field-reference coverage."
+    },
+    {
+      "requirements": ["R10"],
+      "area": "RGIA and Begumpet airports",
+      "completed": [
+        "Source taxiways now use their encoded 6 m width rather than a 12 m minimum.",
+        "Parked-aircraft clearance evaluates the full aircraft envelope against apron bounds, terminals, hangars, taxiways and other aircraft.",
+        "Both airports retain two low-quality or four normal-quality parked aircraft plus the connected departure when placement checks pass."
+      ],
+      "verification": [
+        "Airport and 11 follow-up geometry groups passed.",
+        "RGIA loaded in the live game with terminal, apron, parked aircraft and runway visible; an actual visible-control flight completed without console warnings/errors.",
+        "Controlled RGIA/Begumpet overview and apron fixtures rendered without console warnings/errors."
+      ],
+      "remaining": "Terminal facade detail, certified stand assignments, all taxiway widths, live airline/ATC behavior and physical-phone performance remain illustrative or unverified."
+    },
+    {
+      "requirements": ["R17"],
+      "area": "Durgam Cheruvu",
+      "completed": [
+        "Bridge deck, footpaths and railings now follow continuous sampled road elevation across both carriageways and the median gap instead of flat step-like sections.",
+        "The mapped shoreline, 233.85 m main span, 25.8 m deck, 52 stays and three lanes per direction remain preserved."
+      ],
+      "verification": [
+        "11 follow-up geometry groups passed.",
+        "The bridge was visible in the live game and the controlled full-span/pylon fixtures rendered without console warnings/errors."
+      ],
+      "remaining": "A complete natural drive over both approaches plus survey-level water/deck elevation and current decorative detail remain pending."
+    },
+    {
+      "requirements": ["R19"],
+      "area": "Golconda driving and parking",
+      "completed": [
+        "The visible summit and collision support now agree, preventing the car from being placed beneath the elevated surface.",
+        "Open arcades remain open instead of using a filled rectangular collision roof."
+      ],
+      "verification": [
+        "Production Player regression landed, drove, braked and parked on the 91.5 m visible roof without sinking.",
+        "The production-code summit rendered in the controlled browser gallery without console warnings/errors."
+      ],
+      "remaining": "A manual normal-world Golconda landing/drive/park is still pending; the offline production simulation is recorded separately from actual gameplay."
+    },
+    {
+      "requirements": ["R23"],
+      "area": "TGSRTC bus alignments",
+      "completed": [
+        "Supported GTFS stop legs now persist directed road-edge sequences in the shipped pack.",
+        "Runtime buses use those sequences and stop service if an edge is unavailable instead of switching to a nearby parallel road.",
+        "Unsupported legs stay explicitly unresolved."
+      ],
+      "verification": {
+        "completeStopLegs": 39070,
+        "playableStopLegs": 36457,
+        "playableResolved": 34912,
+        "playableUnresolved": 1545,
+        "fullyResolvedPatterns": 649,
+        "uniqueAlignments": 11868,
+        "resolvedUniqueAlignments": 9333,
+        "roadJoins": 157527,
+        "maxRoadJoinGapM": 0.0005,
+        "regressionGroups": 14,
+        "feedSha256": "e0a90bca1b9490a5cf92a805fecba7aca2c011527b2269904d54c5cc553be4d6",
+        "roadNetworkSha256": "04bbb50e3c74ad8b186d0e25f7a601752084334b93bf72841261972ec0b59069",
+        "outputSha256": "634ec22e004131ce88d49429a0cf1aa652659baf8fce5fa7227fbdcbc49c1fac"
+      },
+      "remaining": "The static TGSRTC feed has no shapes.txt; alignments are reproducible legal inferences, not agency-certified current routes/diversions. The 4.85 MB compressed/18.86 MB decoded pack parsed/indexed in roughly 200–230 ms on desktop but still needs lower-end physical-phone hitch profiling."
+    },
+    {
+      "requirements": ["R29"],
+      "area": "Citywide traffic signals",
+      "completed": [
+        "All 268 public mapped source nodes resolve, including two verified low-speed motorway-link/approach nodes that were previously queued.",
+        "Controllers expose source-node placement, per-approach priority and road-class/width green splits from 12 to 28 seconds.",
+        "Dominant corridors use deterministic offsets modelled at 45 km/h; all timings remain explicitly simulated-coordinated."
+      ],
+      "verification": {
+        "sourceNodes": 268,
+        "resolvedSourceNodes": 268,
+        "unresolvedSourceNodes": 0,
+        "controllers": 175,
+        "approaches": 376,
+        "raisedApproaches": 5,
+        "buriedApproaches": 0,
+        "signalRegressionGroups": 17,
+        "browser": "Controlled fixture visibly stopped the waiting car 0.35 m before the bar on red and displayed the shared controller state; console warnings/errors were empty."
+      },
+      "remaining": "No public authoritative current citywide inventory or live timing plans were found. Broader normal-world junction-cycle and physical-phone checks remain pending."
+    }
+  ],
+  "validation": {
+    "gameSuites": 24,
+    "pipelineTests": 83,
+    "typecheck": "PASS",
+    "productionBuild": "PASS",
+    "gitDiffCheck": "PASS",
+    "browserConsoleWarningsOrErrors": 0,
+    "physicalPhoneTested": false,
+    "freshCompletedDeliveryOnCurrentBuild": false
+  },
+  "browserInteractions": {
+    "actual": [
+      "Started the production build at Golconda, closed the full map with the visible Close control and entered unlimited flight using the visible game canvas/Space control.",
+      "Reached 237 km/h in flight.",
+      "Opened the 191-place map catalogue, selected Golconda Fort, Durgam Cheruvu Cable Bridge and Rajiv Gandhi International Airport, and used the visible start picker for bounded inspection.",
+      "Flew at Durgam Cheruvu and RGIA; inspected the bridge, terminal, apron, runway and parked aircraft."
+    ],
+    "notCountedAsCompleted": [
+      "No pickup, collection, customer handover or completed delivery was attempted.",
+      "Map-start relocation is not counted as a driven route.",
+      "No manual Golconda rooftop landing/drive/park was completed in the normal world.",
+      "No every-exit ORR route was completed."
+    ]
+  },
+  "evidence": [
+    "evidence/2026-10-26-partial-followup-landmarks.png",
+    "evidence/2026-10-26-partial-followup-golconda.png",
+    "evidence/2026-10-26-partial-followup-durgam.png",
+    "evidence/2026-10-26-partial-followup-rgia.png",
+    "evidence/2026-10-26-partial-followup-signals.png",
+    "pipeline/evidence/citywide-signal-runtime-audit-2026-10-26.json",
+    "pipeline/evidence/tgsrtc-alignment-audit-2026-10-26.json"
+  ]
+}

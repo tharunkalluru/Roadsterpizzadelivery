@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-26T14:00:53Z",
+  "recordedAt": "2026-10-26T14:33:03Z",
   "scope": "Every user requirement starting with the opposite-direction metro request, through the current citywide signal request.",
-  "implementationCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+  "implementationCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
   "branch": "main",
   "statusMeaning": {
     "implemented": "Code/data change exists; verification column states what actually passed. This alone is not exhaustive gameplay acceptance.",
@@ -19,7 +19,8 @@
       "8ff6423",
       "2ef7c14",
       "d461bf2",
-      "a49ca97"
+      "a49ca97",
+      "4dd5239"
     ],
     "acceptanceCommitsSinceRemote": [
       "f9a1734",
@@ -36,11 +37,13 @@
     "Version 2 menus and mobile map-close/input fixes"
   ],
   "latestValidation": {
-    "gameSuites": 23,
+    "gameSuites": 24,
     "pipelineTests": 83,
     "typecheck": "PASS",
     "productionBuild": "PASS",
-    "newSignalGroups": 15,
+    "newSignalGroups": 17,
+    "newBusGroups": 14,
+    "newOrrAirportBridgeGroups": 11,
     "physicalPhoneTested": false,
     "freshCompletedDeliveryOnCurrentBuild": false
   },
@@ -96,13 +99,14 @@
     {
       "id": "R05",
       "requirement": "All 150–200 landmark buildings become accurate",
-      "status": "partial",
-      "implemented": "Identity/bounds/render ownership audited for 191; bounded feature corrections to Charminar, Jagannath Temple, Central Gurudwara, Telangana Thalli and Buddha; airport work below.",
-      "verification": "191 finite in-bounds anchors; audit records 4 models with photo-reviewed features and 0 fully photo-verified reconstructions.",
-      "remaining": "Many inherited/generic anchors, facades, dimensions and fine architectural details still need references and reconstruction.",
+      "status": "partial_source_review_queue_active",
+      "implemented": "Identity/bounds/render ownership remains audited for 191. Source-reviewed feature corrections now cover Charminar, Jagannath Temple, Central Gurudwara, Telangana Thalli, Buddha, the Secretariat lion capital and the Golconda summit; all other places retain explicit stylised/approximate disclosure.",
+      "verification": "191 finite in-bounds anchors; audit records 5 photo-feature-reviewed models and 0 fully verified architectural reconstructions. The controlled production-code gallery rendered the new summit and symbol work without console errors.",
+      "remaining": "Many inherited/generic anchors, facades, dimensions and fine architectural details still lack sufficient public reference evidence. They remain queued instead of being falsely labelled exact.",
       "evidence": [
         "docs/playtests/2026-10-26-city-improvements.json",
-        "docs/landmark-audit.json"
+        "docs/landmark-audit.json",
+        "docs/playtests/2026-10-26-partial-requirements-followup.json"
       ]
     },
     {
@@ -120,25 +124,27 @@
     {
       "id": "R07",
       "requirement": "Find and fix similar cultural-symbol inaccuracies",
-      "status": "partial",
-      "implemented": "Corrected Jagannath eight-spoke Nilachakra, Telangana Thalli clothing/handedness/crop and Buddha pose/lotus features.",
-      "verification": "Bounded original-photo feature reviews and geometry checks.",
-      "remaining": "Secretariat lion-capital model, furled Gurdwara flag and other portraits/inscriptions require evidence review.",
+      "status": "implemented_source_reviewed_with_reference_queue",
+      "implemented": "Corrected Jagannath eight-spoke Nilachakra, Telangana Thalli clothing/handedness/crop, Buddha pose/lotus features, a four-lion Secretariat capital with four outward 24-spoke abacus wheels, and the Central Gurdwara's folded Nishan Sahib cloth with spearhead.",
+      "verification": "Government/SGPC/photo-backed bounded reviews, production geometry regressions and a controlled browser render completed without console errors.",
+      "remaining": "Other portraits, inscriptions and site-specific religious details stay in the reference queue; no unsupported symbol was invented or labelled exact.",
       "evidence": [
         "docs/playtests/2026-10-26-city-improvements.json",
-        "docs/landmark-audit.json"
+        "docs/landmark-audit.json",
+        "tools/landmark-cultural-regressions.mjs"
       ]
     },
     {
       "id": "R08",
       "requirement": "ORR feels continuous, smooth and has correct exits/markings/area boards",
-      "status": "partial",
-      "implemented": "Retained 28,054 source vertices; modeled four through lanes per carriageway, shoulders, tapers, eased approaches, curved advance/exit signs and verified interchange labels; same-carriageway recovery.",
-      "verification": "Offline geometry/recovery checks and bounded Kokapet mainline driving.",
-      "remaining": "Every interchange, full ring, toll lanes and natural exit maneuvers remain untested. Heights, widths and many sign faces are approximations.",
+      "status": "implemented_model_audited_broader_playtest_pending",
+      "implemented": "Retained 28,054 source vertices; modeled four through lanes per carriageway, shoulders, tapers, eased approaches, curved advance/exit signs and verified interchange labels; same-carriageway recovery. Toll-plaza ownership now keeps one booth lane per one-lane ramp, ignores shoulder inflation and prevents an opposite carriageway from suppressing the correct canopy.",
+      "verification": "16 expressway, 5 exit, 13 recovery and 11 ORR/airport/bridge regression groups pass. The full model audit covers 307 ORR edges and 198 tiles with zero barrier intrusions.",
+      "remaining": "A natural every-exit/full-ring browser drive, real-world survey comparison, exact toll-lane operations, elevation and every sign face remain pending. Model coverage is not a claim of street-perfect replication.",
       "evidence": [
         "docs/playtests/2026-10-26-city-improvements.json",
-        "docs/playtests/2026-10-26-transport-followup.json"
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "tools/orr-airport-bridge-regressions.mjs"
       ]
     },
     {
@@ -156,13 +162,14 @@
     {
       "id": "R10",
       "requirement": "Airports have real runway geometry and recognizable facilities",
-      "status": "partial",
-      "implemented": "Mapped RGIA/Begumpet runway endpoints/designators, displaced thresholds, taxiways/aprons, terminal/hangar outlines and local tile ownership. AAI dimensions used: RGIA 4260×60 m and 3707×45 m, Begumpet 3230×45 m.",
-      "verification": "Airport source/model fixture and regression checks.",
-      "remaining": "Normal-world runway drive/flight and facility review. Facade heights, stand details, widths and terrain remain illustrative.",
+      "status": "implemented_source_backed_broader_playtest_pending",
+      "implemented": "Mapped RGIA/Begumpet runway endpoints/designators, displaced thresholds, 6 m source taxiways, aprons, terminal/hangar outlines and local tile ownership. AAI dimensions used: RGIA 4260×60 m and 3707×45 m, Begumpet 3230×45 m. Parked-aircraft placement now checks the complete aircraft envelope against apron, terminal, hangar, taxiway and other-aircraft clearance.",
+      "verification": "Airport source/model and 11 follow-up regression groups pass. The live build visibly loaded RGIA facilities, parked aircraft, apron and runway during an actual flight with no console warnings/errors.",
+      "remaining": "Exact terminal facades, stand assignments, ATC/airline operations, all taxiway widths and physical-phone performance remain illustrative or unverified.",
       "evidence": [
         "docs/playtests/2026-10-26-transport-followup.json",
-        "docs/airport-landmark-followup.md"
+        "docs/airport-landmark-followup.md",
+        "docs/playtests/2026-10-26-partial-requirements-followup.json"
       ]
     },
     {
@@ -240,13 +247,14 @@
     {
       "id": "R17",
       "requirement": "Correct Durgam Cheruvu lake and bridge",
-      "status": "partial",
-      "implemented": "Mapped lake shoreline, removed artificial central concrete slabs, imported OSM-aligned bridge, 233.85 m modeled main span, 25.8 m width, 52 stays and three lanes per direction.",
-      "verification": "Five canonical road records and 17 context copies updated; repeated import byte-idempotent; fixture checks.",
-      "remaining": "Normal-world lake/bridge drive and survey-level water, deck and approach details.",
+      "status": "implemented_source_backed_broader_playtest_pending",
+      "implemented": "Mapped lake shoreline, removed artificial central concrete slabs, imported the OSM-aligned 233.85 m span/25.8 m width/52-stay bridge, and retained three lanes per direction. Deck, footpaths and railings now follow continuous sampled road elevation instead of flat step-like sections, including median gaps between carriageways.",
+      "verification": "Five canonical road records and 17 context copies remain byte-idempotent; 11 follow-up geometry groups pass. The bridge loaded visibly in the live game and in both full-span/detail fixtures without console errors.",
+      "remaining": "A complete natural drive over both approaches plus survey-level water, deck elevations, lane widths and present-day decorative detail remain pending.",
       "evidence": [
         "docs/playtests/2026-10-26-transport-followup.json",
-        "docs/airport-landmark-followup.md"
+        "docs/airport-landmark-followup.md",
+        "docs/playtests/2026-10-26-partial-requirements-followup.json"
       ]
     },
     {
@@ -264,12 +272,14 @@
     {
       "id": "R19",
       "requirement": "Drive and park on Golconda and similar elevated landmarks",
-      "status": "partial",
-      "implemented": "Visible facet/slope support and arch/roof collision regression work.",
-      "verification": "Offline geometry/support checks.",
-      "remaining": "Normal-game Golconda landing, drive and park not completed; not all landmark surfaces covered.",
+      "status": "implemented_production_simulation_verified_browser_pending",
+      "implemented": "Golconda now has a visible broad terrace, open arcades, setback upper hall, parapets/finials and explicit support geometry. The shared production Player uses visible upward-facing triangles for landing and driving instead of burying the car under a bounding surface.",
+      "verification": "Production Player regression landed on the visible 91.5 m summit, drove about 9 m, braked and remained parked for 5 s without sinking. The production-code summit rendered in the browser without console errors.",
+      "remaining": "A manual normal-world landing/drive/park at Golconda is still pending, and the same acceptance must be repeated for other elevated landmarks rather than inferred from one model.",
       "evidence": [
-        "docs/playtests/2026-10-26-transport-followup.json"
+        "docs/playtests/2026-10-26-transport-followup.json",
+        "tools/landmark-cultural-regressions.mjs",
+        "docs/playtests/2026-10-26-partial-requirements-followup.json"
       ]
     },
     {
@@ -310,14 +320,15 @@
     {
       "id": "R23",
       "requirement": "TGSRTC buses follow their allocated route and number",
-      "status": "partial",
-      "implemented": "Published February 8 GTFS data retained: 897 route IDs, 1,511 patterns and 4,098 stops. Buses use ordered stops and legal inferred road connections; unsupported routes wait.",
-      "verification": "27/27 eligible offline route probes and 278 legal joins with no gap.",
-      "remaining": "GTFS has no shapes: exact road alignment, current service/diversions and all 897 route drives remain unverified.",
+      "status": "implemented_persistent_inferred_alignment_source_limited",
+      "implemented": "Published GTFS identity/stop order is retained and each supported stop-to-stop leg now references a persistent directed road sequence. Runtime buses do not search for a convenient parallel road; a missing/unloaded required edge ends the service instead. Unsupported legs stay explicit unresolved records.",
+      "verification": "The shipped pack records 39,070 complete stop legs, 34,912 of 36,457 legs whose two stops are playable as resolved, 11,868 unique alignments and 157,527 zero-gap road joins. 649 patterns are fully resolved and 14 bus regression groups pass.",
+      "remaining": "The TGSRTC static feed contains no shapes.txt, so paths are reproducible legal inferences, not agency-certified alignments or current diversions. 1,545 playable stop legs remain unresolved. The 4.85 MB compressed/18.86 MB decoded pack needs physical-phone hitch profiling.",
       "evidence": [
         "docs/playtests/2026-10-26-transport-followup.json",
         "docs/street-life-sources.md",
-        "tools/bus-service-regressions.mjs"
+        "tools/bus-service-regressions.mjs",
+        "pipeline/evidence/tgsrtc-alignment-audit-2026-10-26.json"
       ]
     },
     {
@@ -380,13 +391,14 @@
     {
       "id": "R29",
       "requirement": "Traffic signals are accurate across the city",
-      "status": "partial_source_backed_runtime_implemented",
-      "implemented": "268 public mapped nodes replace invented controls; 266 resolve to 173 coordinated controllers and 368 approaches, including five raised approaches. Lamps/NPCs share directional phases, stop bars and clock; two unresolved source nodes queued.",
-      "verification": "23 game suites, 83 pipeline tests; zero buried poles in all-source model audit. Component red stop at 0.35 m, all-red wait, green release and night lens passed. RTC driving/map smoke passed.",
-      "remaining": "Normal-world junction cycle still unverified; current city inventory is incomplete, placements estimated and timings simulated, not actual live Hyderabad plans.",
+      "status": "implemented_source_backed_runtime_broader_playtest_pending",
+      "implemented": "All 268 public mapped nodes now resolve to 175 coordinated controllers and 376 approaches, including five raised approaches and two verified low-speed motorway-link/approach exceptions. Controllers use source-node model/stop-line placement, road-class/width priority green splits and deterministic 45 km/h corridor offsets. Lamps and NPCs share the same clock and phases.",
+      "verification": "17 signal groups, 24 total game suites and 83 pipeline tests pass; the runtime audit reports 0 unresolved and 0 buried approaches. The browser component visibly stopped at the bar on red and showed the shared signal state without console errors.",
+      "remaining": "Current live Hyderabad timing plans and a complete authoritative signal inventory were not publicly available. Timings are explicitly simulated-coordinated, and broader normal-world junction-cycle/physical-phone testing remains pending.",
       "evidence": [
         "docs/playtests/2026-10-26-city-signals.json",
-        "pipeline/evidence/citywide-signal-runtime-audit-2026-10-26.json"
+        "pipeline/evidence/citywide-signal-runtime-audit-2026-10-26.json",
+        "docs/playtests/2026-10-26-partial-requirements-followup.json"
       ]
     }
   ],

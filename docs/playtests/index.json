@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T14:00:53Z",
+  "updatedAt": "2026-10-26T14:33:03Z",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -10,7 +10,7 @@
     "resumedAfterRepairsAt": "2026-10-23T19:37:45.035986+00:00"
   },
   "baseUrl": "http://127.0.0.1:4189/",
-  "currentBuild": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+  "currentBuild": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
   "testMethod": "AI agents exercising visible browser controls in real time; not human participant testing. No teleporting or hidden state mutation. Shared Chrome input is serialized.",
   "nextAreaCursor": 16,
   "targetAreas": [
@@ -294,24 +294,30 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-26-city-signals",
-    "endedAt": "2026-10-26T14:00:53Z",
-    "status": "implemented_checks_passed_component_and_normal_smoke_broader_coverage_pending",
+    "id": "2026-10-26-partial-requirements-followup",
+    "endedAt": "2026-10-26T14:33:03Z",
+    "status": "all_prior_partial_rows_received_concrete_followup_checks_passed_source_and_broader_playtest_limits_recorded",
     "reports": [
-      "2026-10-26-city-signals.json"
+      "2026-10-26-partial-requirements-followup.json"
     ],
-    "runtimeSourceCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+    "runtimeSourceCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
     "testedAssets": [
-      "index-B6U1Qll3.js",
-      "tileworker-Da1aGs3F.js"
+      "index-DGGugp0K.js",
+      "tileworker-DDJgFCnR.js"
     ],
     "areas": [
-      "RTC X Roads"
+      "Golconda",
+      "Durgam Cheruvu",
+      "Rajiv Gandhi International Airport"
     ],
     "componentOnly": [
-      "Rotated signal junction red/all-red/green and night"
+      "Golconda rooftop landing, drive, brake and park production simulation",
+      "Secretariat lion capital and Central Gurdwara flag",
+      "ORR toll-canopy ownership and every-tile barrier audit",
+      "TGSRTC persistent alignment continuity",
+      "Source-node traffic-signal red stop and coordinated timing model"
     ],
-    "offersAccepted": 1,
+    "offersAccepted": 0,
     "pickupsCompleted": 0,
     "completedDeliveries": 0,
     "physicalPhoneTested": false,
@@ -320,13 +326,13 @@
     "browserOwnershipReleased": true,
     "helperServerStopped": true,
     "evidence": [
-      "evidence/2026-10-26-signal-red-stop-component-4dd4e6.jpg",
-      "evidence/2026-10-26-signal-all-red-component-5b56cf.jpg",
-      "evidence/2026-10-26-signal-green-release-component-c79393.jpg",
-      "evidence/2026-10-26-signal-night-component-a196cb.jpg",
-      "evidence/2026-10-26-signals-rtc-normal-smoke-cd7cb1.jpg"
+      "evidence/2026-10-26-partial-followup-landmarks.png",
+      "evidence/2026-10-26-partial-followup-golconda.png",
+      "evidence/2026-10-26-partial-followup-durgam.png",
+      "evidence/2026-10-26-partial-followup-rgia.png",
+      "evidence/2026-10-26-partial-followup-signals.png"
     ],
-    "summary": "Source-backed shared traffic-signal controllers replace unverified inferred sites.23 game suites and83 pipeline tests pass; component red/all-red/green/night passed. RTC loading/driving/pause/map smoke passed, but normal-world signal-cycle behavior was not clearly observed. No delivery completion or exhaustive city signal accuracy claimed."
+    "summary": "Every previously partial requirement received a concrete follow-up: cultural symbols and Golconda summit, ORR toll ownership, airport widths/aircraft clearance, continuous Durgam deck elevation, persistent TGSRTC road sequences and 268/268 signal-node resolution. 24 game suites,83 pipeline tests,typecheck and production build pass. Visible Golconda/map-close/unlimited-flight, Durgam and RGIA inspection passed without console errors. No delivery completion, every-exit ORR drive, normal-world Golconda rooftop landing or physical-phone acceptance is claimed."
   },
   "issueRegistry": [
     {
@@ -1702,8 +1708,8 @@
       "summary": "Source-backed shared traffic-signal controllers replace unverified inferred sites.23 game suites and83 pipeline tests pass; component red/all-red/green/night passed. RTC loading/driving/pause/map smoke passed, but normal-world signal-cycle behavior was not clearly observed. No delivery completion or exhaustive city signal accuracy claimed."
     }
   ],
-  "nextRoundPlan": "Observe normal-world source-mapped signal cycles at rotated, divided and elevated junctions and resolve two queued source nodes conservatively. Also finish normal-map flyover climb/descent, longer correct-road GPS, full ORR exit coverage, main-world metro direction and train roof ride, Golconda landing, physical-phone touch/gyro and a fresh complete delivery. Preserve historical issue statuses.",
-  "runtimeSourceCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+  "nextRoundPlan": "Observe normal-world source-mapped signal cycles at rotated, divided and elevated junctions; finish normal-map flyover climb/descent, longer correct-road GPS, every-exit ORR coverage, main-world metro direction and train roof ride, manual Golconda rooftop landing, physical-phone touch/gyro and TGSRTC pack hitch profiling, and a fresh complete delivery. Preserve historical issue statuses.",
+  "runtimeSourceCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
   "liveHandoff": null,
   "liveHandoffs": [
     {
@@ -1948,8 +1954,8 @@
     "finalBundleSmokePassed": true
   },
   "latestBuiltAssets": [
-    "index-B6U1Qll3.js",
-    "tileworker-Da1aGs3F.js"
+    "index-DGGugp0K.js",
+    "tileworker-DDJgFCnR.js"
   ],
   "transportFollowup": {
     "report": "2026-10-26-transport-followup.json",
@@ -1970,15 +1976,28 @@
   },
   "citySignals": {
     "report": "2026-10-26-city-signals.json",
-    "implementationCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
+    "followupReport": "2026-10-26-partial-requirements-followup.json",
+    "implementationCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
     "canonicalPublicNodes": 268,
-    "resolvedSourceNodes": 266,
-    "controllers": 173,
-    "unresolvedSourceNodes": 2,
+    "resolvedSourceNodes": 268,
+    "controllers": 175,
+    "approaches": 376,
+    "unresolvedSourceNodes": 0,
     "normalWorldSignalCycleVerdict": "not_verified",
     "realControllerTimings": false,
-    "gameSuites": 23,
+    "timingModel": "simulated-coordinated",
+    "gameSuites": 24,
     "pipelineTests": 83
+  },
+  "partialRequirementsFollowup": {
+    "report": "2026-10-26-partial-requirements-followup.json",
+    "implementationCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
+    "requirements": ["R05", "R07", "R08", "R10", "R17", "R19", "R23", "R29"],
+    "gameSuites": 24,
+    "pipelineTests": 83,
+    "physicalPhoneTested": false,
+    "pushed": false,
+    "deployed": false
   },
   "requirementsStatusReport": "../requirements-status-2026-10-26.json"
 }

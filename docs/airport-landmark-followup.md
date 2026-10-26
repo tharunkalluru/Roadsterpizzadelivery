@@ -25,6 +25,15 @@ Confidence: **high** for published runway lengths, width, threshold coordinates 
 
 The deck is continuous beneath inherited road paint, with two footpaths, railings, two pylons 233.85 m apart and 52 structural stays. Thin coloured illumination follows each white cable rather than doubling every stay into detached coloured bars. The existing mapped road altitude (~6.8 game metres) is retained; an absolute as-built water/bed/deck survey was not inferred. Current primary OSM API evidence also confirms three lanes on six named bridge source ways. The five canonical bridge edges match 97.7–100% of samples within 5 m, with 95th-percentile differences below 0.1 m. The serialized importer updates every canonical and context copy to three lanes and a 9.6 m carriageway, preserving all source XY and unrelated shopfronts. The 3.2 m per-lane width is an explicit rendering assumption; inherited edge segmentation extends up to 34 m beyond exact source-way overlap at two endpoints. See `pipeline/evidence/durgam-lanes-audit-2026-10-26.json` for counts and matching evidence.
 
+## Follow-up corrections in `4dd5239`
+
+- Source-mapped airport taxiways now render at their encoded 6 m width instead of being inflated to a 12 m minimum.
+- Parked-aircraft validation now keeps the complete aircraft envelope inside the mapped apron and rejects overlap with terminals, hangars, taxiways and another parked aircraft. Normal quality still places four aircraft per airport and low quality two, when each envelope passes those tests.
+- Durgam Cheruvu's road deck, both footpaths and railings now sample the source-road height continuously along the bridge. The midpoint sampling also covers the gap between the paired carriageways, removing the step-like/sliding surface introduced by flat deck sections.
+- The live game was opened at Durgam Cheruvu and RGIA using only visible map and driving controls. Durgam's bridge/cables and RGIA's terminal/apron/runway/parked aircraft were visible; an actual RGIA flight ran without console warnings or errors. This is bounded visual acceptance, not a full runway drive, bridge approach drive or physical-phone test.
+
+The follow-up regression suite contains 11 focused groups covering one-lane toll ramps and canopy ownership, exact taxiway width, full aircraft-envelope clearance, connected departures, and continuous bridge-deck/footpath/railing elevation. All passed together with the existing airport and bridge suites.
+
 ## Landing and parking on geometry
 
 Landmark support is captured from emitted geometry using the same YXZ transforms as rendering. Upward-facing triangles are stored in streamed 30 m cells with a source landmark ID. Height queries interpolate each triangle and respect the maximum reachable height. Undersides/near-vertical faces do not become roofs; arch openings are not filled by a bounding rectangle, and rocky hills use their actual visible facets instead of four invented concentric flat terraces.
