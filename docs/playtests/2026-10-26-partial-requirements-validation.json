@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26T14:54:38Z",
+  "testedCommit": "d157f4fc8a98e3ddcddcd7f0c34e74ebb41e456e",
+  "implementationCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
+  "branch": "main",
+  "scope": "Independent validation of all eight requirements previously marked partial.",
+  "story": "A player opens a Hyderabad area, streams source-backed world/transit data, sees matching rendered geometry and controls, and drives, lands or observes vehicles without collision/support or route-execution errors.",
+  "readiness": "NOT_READY_FOR_FULL_SIGNOFF",
+  "summary": {
+    "requirements": 8,
+    "conditionalPasses": 5,
+    "notReady": 3,
+    "confirmedGameplayDefects": 2
+  },
+  "method": {
+    "independentReviewers": 3,
+    "productionCodeOfflineProbes": true,
+    "realVisibleBrowserControls": true,
+    "componentFixturesLabelled": true,
+    "hiddenBrowserStateMutation": false,
+    "physicalPhoneTested": false
+  },
+  "baselineChecks": {
+    "fullGameCheck": "PASS: typecheck, 24 game regression suites and production build",
+    "pipelineTests": "PASS: 83 tests",
+    "testedAssets": [
+      "index-DGGugp0K.js",
+      "tileworker-DDJgFCnR.js"
+    ],
+    "buildWarning": "Existing fonts/fonts.css cannot be resolved at build time; runtime browser showed no warning/error.",
+    "gitDiffCheck": "PASS",
+    "interpretation": "The existing suites all pass. The two new independent readiness probes fail and prevent readiness sign-off."
+  },
+  "requirements": [
+    {
+      "id": "R05",
+      "requirement": "All 191 landmark buildings become accurate",
+      "verdict": "NOT_READY_EVIDENCE_INCOMPLETE",
+      "verified": [
+        "191 anchors are finite/in bounds; all 191 render owners exist.",
+        "Bounded corrected models render and pass geometry guards."
+      ],
+      "limits": [
+        "179/191 catalogue entries have no source URL.",
+        "32 recipe dimensions remain unsurveyed.",
+        "Five models have reviewed photo features; zero are fully verified reconstructions."
+      ],
+      "next": "Continue individual source/photo review and reconstruction; do not infer full architectural accuracy from finite geometry.",
+      "evidence": [
+        "docs/landmark-audit.json",
+        "tools/landmark-regressions.mjs"
+      ]
+    },
+    {
+      "id": "R07",
+      "requirement": "Correct cultural symbols",
+      "verdict": "CONDITIONAL_PASS_FOR_REVIEWED_FEATURES",
+      "verified": [
+        "Flag proportions and two-sided 24-spoke Chakra, four lion heads and four outward abacus wheels, eight-spoke Nilachakra, folded Gurdwara cloth, and statue pose guards pass.",
+        "No new deterministic defect found in these bounded corrections."
+      ],
+      "limits": [
+        "Exact reliefs/inscriptions, other portraits and current site-specific cloth details remain in the reference queue."
+      ],
+      "next": "Complete remaining cultural-reference review and physical/site appearance checks.",
+      "evidence": [
+        "tools/landmark-cultural-regressions.mjs",
+        "docs/landmark-audit.json"
+      ]
+    },
+    {
+      "id": "R08",
+      "requirement": "ORR continuous mainline, exits, tolls and boards",
+      "verdict": "CONDITIONAL_PASS_FOR_MODELLED_FIXES",
+      "verified": [
+        "16 expressway, 5 exit, 13 recovery and 11 follow-up regression groups pass.",
+        "Full road-barrier audit builds 198 tiles, 307 ORR/ramp edges and 104 joins; 429905 walls checked with zero through-road barrier intrusions.",
+        "77 toll source nodes resolved within 25 m of canonical roads retain at least 2.4 m visual booth gap and 2.1 m collision gap."
+      ],
+      "limits": [
+        "Barrier sweep excludes OSM extras and buildings, so its zero count does not cover every roadside object.",
+        "Five toll nodes did not match a canonical road within 25 m and need source review; this is not a proven ORR defect.",
+        "Natural every-exit/full-ring driving, exact toll operations, grades and all sign faces remain unverified."
+      ],
+      "next": "Drive and inspect every interchange with full world extras and traffic.",
+      "evidence": [
+        "tools/orr-exit-regressions.mjs",
+        "tools/orr-airport-bridge-regressions.mjs",
+        "tools/expressway-regressions.mjs",
+        "tools/orr-recovery-regressions.mjs",
+        "tools/validation-transport-readiness-2026-10-26.mjs"
+      ]
+    },
+    {
+      "id": "R10",
+      "requirement": "Airport runway/facility realism",
+      "verdict": "CONDITIONAL_PASS_FOR_MODELLED_FIXES",
+      "verified": [
+        "Official three-runway endpoint/width/displaced-threshold guards pass.",
+        "All nine runway tiles support their geometry independently.",
+        "Full parked-aircraft envelope and connected departure tests pass.",
+        "Every-metre departure envelope probe found zero terminal/hangar corner intrusions along RGIA's approximately 885 m and Begumpet's approximately 1847 m taxi paths."
+      ],
+      "limits": [
+        "Terminal facades, certified stand assignments, all taxiway widths and exact airline/ATC behavior remain illustrative.",
+        "Current RGIA operator page refresh supports 4260 m main runway/dependent standby arrangement; AAI PDF refresh timed out.",
+        "Complete runway driving and physical-phone performance remain unverified."
+      ],
+      "next": "Normal-world runway/taxiway traversal and current facility-photo comparison.",
+      "evidence": [
+        "tools/airport-landmark-regressions.mjs",
+        "tools/orr-airport-bridge-regressions.mjs",
+        "docs/airport-landmark-followup.md",
+        "tools/validation-transport-readiness-2026-10-26.mjs"
+      ]
+    },
+    {
+      "id": "R17",
+      "requirement": "Durgam Cheruvu lake and bridge",
+      "verdict": "CONDITIONAL_PASS_FOR_MODELLED_FIXES",
+      "verified": [
+        "Continuous slope/median sampling tests and source-dimension geometry guards pass.",
+        "Actual shipped owner tile [-12,-3] sampled at 221 positions every 2 m: road support 6.8 m, visible deck 6.75 m, maximum adjacent height discontinuity about 1.8e-15 m.",
+        "Rendered deck matches support with the intended 0.05 m offset."
+      ],
+      "limits": [
+        "A complete natural drive across both approaches and surveyed water/deck elevation comparison remain pending.",
+        "Retained L&T PDF URL returned 404 during source refresh; existing recorded evidence supports the implemented dimensions but was not freshly fetched."
+      ],
+      "next": "Drive both approaches naturally and refresh the unavailable primary bridge source.",
+      "evidence": [
+        "tools/orr-airport-bridge-regressions.mjs",
+        "tools/airport-landmark-regressions.mjs",
+        "docs/airport-landmark-followup.md",
+        "tools/validation-transport-readiness-2026-10-26.mjs"
+      ]
+    },
+    {
+      "id": "R19",
+      "requirement": "Drive and park on Golconda and other elevated landmarks",
+      "verdict": "NOT_READY_CONFIRMED_GAMEPLAY_DEFECT",
+      "verified": [
+        "91.5 m flat summit landing, >8 m drive, braking and 5 s parking positive control passes.",
+        "Browser isolated fixture confirms zero wheel gap on the flat roof."
+      ],
+      "defectId": "PT-018",
+      "next": "Use wheel/contact-aware pitch and roll/support on landmark slopes; repeat the existing flat-roof control and normal-world slope/roof acceptance.",
+      "evidence": [
+        "tools/validation-golconda-readiness-2026-10-26.mjs",
+        "game/landmark-readiness-review.html",
+        "evidence/2026-10-26-validation-golconda-slope-failure.png",
+        "evidence/2026-10-26-validation-golconda-flat-control.png"
+      ]
+    },
+    {
+      "id": "R23",
+      "requirement": "TGSRTC buses execute their assigned numbered routes",
+      "verdict": "NOT_READY_CONFIRMED_ROUTE_EXECUTION_DEFECT",
+      "verified": [
+        "Existing 14 bus regression groups pass.",
+        "157527 stored joins have zero direction/connectivity gaps."
+      ],
+      "defectId": "PT-017",
+      "limits": [
+        "1545 playable stop legs remain unresolved.",
+        "Static GTFS contains no agency road shapes; current diversions cannot be certified.",
+        "4.85 MB compressed/18.86 MB decoded pack measured about 320 ms parse plus 198 ms indexing during concurrent desktop validation; lower-end phone hitch profiling remains open."
+      ],
+      "next": "Reject/replan stored turns unsupported by bus motion, or implement safe supported bus U-turn paths, then run the full-pack readiness probe and actual bus traversal.",
+      "evidence": [
+        "tools/validation-bus-readiness-2026-10-26.mjs",
+        "tools/bus-service-regressions.mjs",
+        "pipeline/evidence/tgsrtc-alignment-audit-2026-10-26.json"
+      ]
+    },
+    {
+      "id": "R29",
+      "requirement": "Citywide traffic signals",
+      "verdict": "CONDITIONAL_PASS_FOR_MODELLED_FIXES",
+      "verified": [
+        "All 17 signal regression groups pass.",
+        "Fresh full-source audit reproduces 268/268 nodes, 175 controllers, 376 approaches, five raised approaches, zero unresolved and zero buried poles.",
+        "Real-time production component displayed green release/clearance; no browser warnings/errors."
+      ],
+      "limits": [
+        "OSM is a partial city inventory and controller timings remain explicitly simulated.",
+        "Normal-world city junction-cycle and physical-phone acceptance are still pending."
+      ],
+      "next": "Observe multiple normal-world junction types and retain the simulated timing disclosure.",
+      "evidence": [
+        "tools/signal-regressions.mjs",
+        "tools/signal-city-audit.mjs",
+        "pipeline/evidence/citywide-signal-runtime-audit-2026-10-26.json",
+        "game/signal-review.html"
+      ]
+    }
+  ],
+  "defects": [
+    {
+      "id": "PT-017",
+      "severity": "P1",
+      "confidence": "high",
+      "title": "Persisted TGSRTC paths can require turns the bus controller rejects",
+      "cause": "Stored directed paths permit 180-degree edge reversals; assigned buses bypass special U-turn handling, while Traffic.prepare rejects turns above 158.4 degrees.",
+      "counts": {
+        "resolvedUniqueAlignments": 9333,
+        "rejectedTurns": 628,
+        "affectedUniqueAlignments": 609,
+        "referencedPatterns": 782,
+        "referencedRouteNumbers": 573
+      },
+      "reproduction": {
+        "method": "Offline production Traffic with shipped pack, obstacle-free scene and fixed seed.",
+        "alignmentId": "754b5b9e50b5f96cc704",
+        "route": "1",
+        "pattern": "1:0",
+        "leg": "Kachiguda X Roads → Koti Maternity Hospital",
+        "edge": "bc562a5c-2f9_0",
+        "directions": [
+          -1,
+          1
+        ],
+        "turnDegrees": 180,
+        "simulationSeconds": 60,
+        "finalSM": 9.341115905621157,
+        "edgeLengthM": 19.876571182413244,
+        "finalSpeedMps": 0,
+        "servedStop": false,
+        "serviceEnded": false,
+        "command": "node tools/validation-bus-readiness-2026-10-26.mjs",
+        "exitCode": 1
+      },
+      "expected": "A supported assigned bus route executes its legal allotted turn and reaches its next stop, or the unsupported leg is explicitly unavailable.",
+      "actual": "The bus remains at zero speed before the turn, serves no stop and retains an active service.",
+      "affectedCountsLimit": "Referenced patterns/routes contain at least one rejected join; the isolated production simulation confirms one exact stalled route, not 573 manual route drives.",
+      "source": [
+        "game/src/game/traffic.ts:218",
+        "game/src/game/traffic.ts:224",
+        "game/src/game/traffic.ts:238"
+      ]
+    },
+    {
+      "id": "PT-018",
+      "severity": "P2",
+      "confidence": "high",
+      "title": "Golconda slopes leave Roadster wheels inside or above the visible surface",
+      "cause": "Landmark support uses the car centre. Pitch is computed only for roads and roll does not align with landmark terrain.",
+      "reproduction": {
+        "method": "Offline and real-time browser isolated fixture using production emitted Golconda/Player, 475 solid footprints, no input.",
+        "local": [
+          -18,
+          182
+        ],
+        "world": [
+          -10192.85075248289,
+          2516.421389652397
+        ],
+        "yaw": 1.5707963267948966,
+        "frames": 120,
+        "centerSurfaceM": 43.318369989324786,
+        "playerYM": 43.86836998932478,
+        "pitch": 0,
+        "roll": 0,
+        "maxPenetrationM": 0.6098811934776691,
+        "maxFloatingM": 0.6737186133228548,
+        "command": "node tools/validation-golconda-readiness-2026-10-26.mjs",
+        "exitCode": 1
+      },
+      "expected": "Wheel contacts and vehicle body align with the visible landable slope without deep embedding/floating.",
+      "actual": "The parked car stays horizontal and intersects the hillside. The flat summit positive control still passes.",
+      "source": [
+        "game/src/game/player.ts:135",
+        "game/src/game/player.ts:170",
+        "game/src/game/player.ts:175",
+        "game/src/world/vehicles.ts:143"
+      ]
+    }
+  ],
+  "browser": {
+    "originalScreenshots": [
+      "evidence/2026-10-26-validation-golconda-slope-failure.png",
+      "evidence/2026-10-26-validation-golconda-flat-control.png"
+    ],
+    "normalWorld": {
+      "areas": [
+        "Golconda start",
+        "Durgam Cheruvu/CBI Colony"
+      ],
+      "acceptedOffers": 1,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "description": "Loaded areas, opened/searched/closed the 191-place map, selected a visible start point and flew near the bridge. Full bridge driving and Golconda normal-world rooftop landing were not completed.",
+      "consoleWarnings": 0,
+      "consoleErrors": 0
+    },
+    "component": {
+      "golcondaSlope": "FAIL: 0.610 m embedded / 0.674 m floating, actual Roadster and production Player",
+      "golcondaFlatRoof": "PASS: wheels match 91.5 m roof",
+      "signals": "Green release/cleared junction observed; prior same-build red-stop evidence retained.",
+      "consoleWarnings": 0,
+      "consoleErrors": 0
+    },
+    "ownershipReleased": true,
+    "helper4194Stopped": true,
+    "existingPreview4189Retained": true
+  },
+  "release": {
+    "approvedAsReady": false,
+    "pushed": false,
+    "deployed": false,
+    "applicationBehaviorChanged": false,
+    "cityDataChanged": false,
+    "changes": "Validation probes, diagnostic fixture, screenshots and acceptance records only."
+  }
+}

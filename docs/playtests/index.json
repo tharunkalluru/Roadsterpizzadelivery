@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T14:33:03Z",
+  "updatedAt": "2026-10-26T14:54:38Z",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -294,11 +294,11 @@
     "short viewport layout"
   ],
   "currentRound": {
-    "id": "2026-10-26-partial-requirements-followup",
-    "endedAt": "2026-10-26T14:33:03Z",
-    "status": "all_prior_partial_rows_received_concrete_followup_checks_passed_source_and_broader_playtest_limits_recorded",
+    "id": "2026-10-26-partial-requirements-validation",
+    "endedAt": "2026-10-26T14:54:38Z",
+    "status": "not_ready_two_confirmed_gameplay_defects_and_source_acceptance_gaps",
     "reports": [
-      "2026-10-26-partial-requirements-followup.json"
+      "2026-10-26-partial-requirements-validation.json"
     ],
     "runtimeSourceCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
     "testedAssets": [
@@ -306,18 +306,16 @@
       "tileworker-DDJgFCnR.js"
     ],
     "areas": [
-      "Golconda",
-      "Durgam Cheruvu",
-      "Rajiv Gandhi International Airport"
+      "Golconda start",
+      "Durgam Cheruvu/CBI Colony"
     ],
     "componentOnly": [
-      "Golconda rooftop landing, drive, brake and park production simulation",
-      "Secretariat lion capital and Central Gurdwara flag",
-      "ORR toll-canopy ownership and every-tile barrier audit",
-      "TGSRTC persistent alignment continuity",
-      "Source-node traffic-signal red stop and coordinated timing model"
+      "Actual Golconda hillside wheel penetration",
+      "Flat Golconda summit positive control",
+      "Stored route-1 NPC bus turn stall",
+      "Signal fixture green release"
     ],
-    "offersAccepted": 0,
+    "offersAccepted": 1,
     "pickupsCompleted": 0,
     "completedDeliveries": 0,
     "physicalPhoneTested": false,
@@ -326,13 +324,10 @@
     "browserOwnershipReleased": true,
     "helperServerStopped": true,
     "evidence": [
-      "evidence/2026-10-26-partial-followup-landmarks.png",
-      "evidence/2026-10-26-partial-followup-golconda.png",
-      "evidence/2026-10-26-partial-followup-durgam.png",
-      "evidence/2026-10-26-partial-followup-rgia.png",
-      "evidence/2026-10-26-partial-followup-signals.png"
+      "evidence/2026-10-26-validation-golconda-slope-failure.png",
+      "evidence/2026-10-26-validation-golconda-flat-control.png"
     ],
-    "summary": "Every previously partial requirement received a concrete follow-up: cultural symbols and Golconda summit, ORR toll ownership, airport widths/aircraft clearance, continuous Durgam deck elevation, persistent TGSRTC road sequences and 268/268 signal-node resolution. 24 game suites,83 pipeline tests,typecheck and production build pass. Visible Golconda/map-close/unlimited-flight, Durgam and RGIA inspection passed without console errors. No delivery completion, every-exit ORR drive, normal-world Golconda rooftop landing or physical-phone acceptance is claimed."
+    "summary": "Existing full check and83pipeline tests pass, but independent production probes reproduce two blockers:628persisted bus turns rejected by NPC motion, and0.610m Golconda wheel embedding on slopes. R05 remains evidence-incomplete; R07/R08/R10/R17/R29 pass bounded implementation checks conditionally. Overall not ready for full sign-off."
   },
   "issueRegistry": [
     {
@@ -888,7 +883,37 @@
       ],
       "confidence": "High for reproduced source/runtime defects and isolated production-component stop/release; no normal-world junction-cycle pass claimed.",
       "fixCommit": "a49ca97f2d7ec29af0e679eae0bcdbe117a44f4e",
-      "nextStep": "Observe live normal-world junction cycles, resolve two source points after verifying road context and review additional current signal evidence."
+      "nextStep": "All268source points now resolve. Observe normal-world junction cycles and review additional current signal evidence; exact live timing plans remain unavailable."
+    },
+    {
+      "id": "PT-017",
+      "priority": "P1",
+      "status": "confirmed_production_simulation_readiness_failure",
+      "title": "Persisted TGSRTC paths can require turns the bus controller rejects",
+      "areas": ["Shipped TGSRTC network", "Route1 Kachiguda X Roads to Koti Maternity Hospital"],
+      "requirements": ["R23"],
+      "confidence": "High: full-pack scan and isolated production Traffic stall reproduced independently.",
+      "reports": ["2026-10-26-partial-requirements-validation.json"],
+      "source": "game/src/game/traffic.ts:218-238; stored alignment754b5b9e50b5f96cc704",
+      "counts": {"rejectedTurns":628,"affectedAlignments":609,"referencedPatterns":782,"referencedRouteNumbers":573},
+      "actual": "Production route1 remains at0m/s for60simulated seconds before a stored180degree reversal; no stop is served and service remains active.",
+      "reproduction": "node tools/validation-bus-readiness-2026-10-26.mjs (exits1)",
+      "nextStep": "Reject/replan unsupported turns or implement safe allotted bus U-turn paths, then rerun full-pack readiness and natural route traversal."
+    },
+    {
+      "id": "PT-018",
+      "priority": "P2",
+      "status": "confirmed_production_and_browser_component_readiness_failure",
+      "title": "Golconda slopes leave Roadster wheels embedded or floating",
+      "areas": ["Golconda"],
+      "requirements": ["R19"],
+      "confidence": "High: repeated production Player probe and visible browser diagnostic with all emitted solids.",
+      "reports": ["2026-10-26-partial-requirements-validation.json"],
+      "source": "game/src/game/player.ts:135,170-175",
+      "actual": "At local(-18,182), zero pitch/roll leaves wheels0.610m inside the hillside or0.674m above it. Flat91.5m roof positive control passes.",
+      "reproduction": "node tools/validation-golconda-readiness-2026-10-26.mjs (exits1)",
+      "evidence": ["evidence/2026-10-26-validation-golconda-slope-failure.png", "evidence/2026-10-26-validation-golconda-flat-control.png"],
+      "nextStep": "Align landmark support and body pitch/roll to wheel contacts, then rerun slope and flat-roof controls plus natural gameplay."
     }
   ],
   "futureRounds": "Create a new UTC-timestamped round directory, rotate starting areas, continue incomplete delivery scenarios, preserve prior evidence, and deduplicate issue IDs. Expand beyond popular areas after the initial rotation. Do not mark an area or delivery fully tested from loading, distance zero or build checks.",
@@ -905,6 +930,7 @@
     "2026-10-26 pass adds ORR recovery/short ground-drive and 191-place portrait-map/model QA; no fresh completed delivery or full-ring/every-exit verification. See 2026-10-26-city-improvements.json."
   ],
   "followUpPriorities": [
+    "Readiness blockers: PT-017 persisted bus turns rejected by runtime and PT-018 landmark slope wheel contact. Both independent probes currently exit1; fix and repeat before full sign-off.",
     "ORR/metro/traffic: natural ramp entry/exit, automatic blocked recovery, graded bridge and paired metro observation; preserve source uncertainty and measure busy-junction behavior.",
     "PT-012 reopened: legacy missing-category Police Station records still pass eligibility. See current source follow-up; no behavior fix was made in this issue-gathering round.",
     "Keep both immediate-pause and no-pause post-handover checks in regression rotation; the repaired-build explicit handover plus immediate pause/resume passed.",
@@ -1706,9 +1732,50 @@
         "evidence/2026-10-26-signals-rtc-normal-smoke-cd7cb1.jpg"
       ],
       "summary": "Source-backed shared traffic-signal controllers replace unverified inferred sites.23 game suites and83 pipeline tests pass; component red/all-red/green/night passed. RTC loading/driving/pause/map smoke passed, but normal-world signal-cycle behavior was not clearly observed. No delivery completion or exhaustive city signal accuracy claimed."
+    },
+    {
+      "id": "2026-10-26-partial-requirements-followup",
+      "endedAt": "2026-10-26T14:33:03Z",
+      "status": "all_prior_partial_rows_received_concrete_followup_checks_passed_source_and_broader_playtest_limits_recorded",
+      "reports": [
+        "2026-10-26-partial-requirements-followup.json"
+      ],
+      "runtimeSourceCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
+      "testedAssets": [
+        "index-DGGugp0K.js",
+        "tileworker-DDJgFCnR.js"
+      ],
+      "areas": [
+        "Golconda",
+        "Durgam Cheruvu",
+        "Rajiv Gandhi International Airport"
+      ],
+      "componentOnly": [
+        "Golconda rooftop landing, drive, brake and park production simulation",
+        "Secretariat lion capital and Central Gurdwara flag",
+        "ORR toll-canopy ownership and every-tile barrier audit",
+        "TGSRTC persistent alignment continuity",
+        "Source-node traffic-signal red stop and coordinated timing model"
+      ],
+      "offersAccepted": 0,
+      "pickupsCompleted": 0,
+      "completedDeliveries": 0,
+      "physicalPhoneTested": false,
+      "pushed": false,
+      "published": false,
+      "browserOwnershipReleased": true,
+      "helperServerStopped": true,
+      "evidence": [
+        "evidence/2026-10-26-partial-followup-landmarks.png",
+        "evidence/2026-10-26-partial-followup-golconda.png",
+        "evidence/2026-10-26-partial-followup-durgam.png",
+        "evidence/2026-10-26-partial-followup-rgia.png",
+        "evidence/2026-10-26-partial-followup-signals.png"
+      ],
+      "summary": "Every previously partial requirement received a concrete follow-up: cultural symbols and Golconda summit, ORR toll ownership, airport widths/aircraft clearance, continuous Durgam deck elevation, persistent TGSRTC road sequences and 268/268 signal-node resolution. 24 game suites,83 pipeline tests,typecheck and production build pass. Visible Golconda/map-close/unlimited-flight, Durgam and RGIA inspection passed without console errors. No delivery completion, every-exit ORR drive, normal-world Golconda rooftop landing or physical-phone acceptance is claimed."
     }
   ],
-  "nextRoundPlan": "Observe normal-world source-mapped signal cycles at rotated, divided and elevated junctions; finish normal-map flyover climb/descent, longer correct-road GPS, every-exit ORR coverage, main-world metro direction and train roof ride, manual Golconda rooftop landing, physical-phone touch/gyro and TGSRTC pack hitch profiling, and a fresh complete delivery. Preserve historical issue statuses.",
+  "nextRoundPlan": "Repair PT-017 bus paths that require unsupported turns and PT-018 landmark slope contact, then rerun both independent readiness probes. Continue R05 evidence-led landmark reconstruction. Retest natural ORR exits, airport/bridge traversal, city signal cycles and physical-phone performance before full sign-off.",
   "runtimeSourceCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
   "liveHandoff": null,
   "liveHandoffs": [
@@ -1998,6 +2065,16 @@
     "physicalPhoneTested": false,
     "pushed": false,
     "deployed": false
+  },
+  "latestReadinessValidation": {
+    "report": "2026-10-26-partial-requirements-validation.json",
+    "testedCommit": "d157f4fc8a98e3ddcddcd7f0c34e74ebb41e456e",
+    "readiness": "NOT_READY_FOR_FULL_SIGNOFF",
+    "conditionalRequirements": ["R07", "R08", "R10", "R17", "R29"],
+    "notReadyRequirements": ["R05", "R19", "R23"],
+    "newConfirmedDefects": ["PT-017", "PT-018"],
+    "existingGameCheck": "PASS",
+    "independentReadinessProbes": "FAIL"
   },
   "requirementsStatusReport": "../requirements-status-2026-10-26.json"
 }

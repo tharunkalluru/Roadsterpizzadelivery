@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-26T14:33:03Z",
+  "recordedAt": "2026-10-26T14:54:38Z",
   "scope": "Every user requirement starting with the opposite-direction metro request, through the current citywide signal request.",
   "implementationCommit": "4dd5239822b5bfb6e58893407c119d33e487fe7a",
   "branch": "main",
@@ -37,6 +37,11 @@
     "Version 2 menus and mobile map-close/input fixes"
   ],
   "latestValidation": {
+    "readiness": "NOT_READY_FOR_FULL_SIGNOFF",
+    "readinessReport": "docs/playtests/2026-10-26-partial-requirements-validation.json",
+    "confirmedBlockingDefects": ["PT-017", "PT-018"],
+    "independentBusReadiness": "FAIL: stored paths contain 628 turns rejected by production bus motion; route-1 stall reproduced",
+    "independentGolcondaReadiness": "FAIL: hillside wheels penetrate terrain by 0.610 m or float by 0.674 m; flat roof control passes",
     "gameSuites": 24,
     "pipelineTests": 83,
     "typecheck": "PASS",
@@ -98,6 +103,7 @@
     },
     {
       "id": "R05",
+      "validationVerdict": "NOT_READY_EVIDENCE_INCOMPLETE",
       "requirement": "All 150–200 landmark buildings become accurate",
       "status": "partial_source_review_queue_active",
       "implemented": "Identity/bounds/render ownership remains audited for 191. Source-reviewed feature corrections now cover Charminar, Jagannath Temple, Central Gurudwara, Telangana Thalli, Buddha, the Secretariat lion capital and the Golconda summit; all other places retain explicit stylised/approximate disclosure.",
@@ -123,6 +129,7 @@
     },
     {
       "id": "R07",
+      "validationVerdict": "CONDITIONAL_PASS_FOR_REVIEWED_FEATURES",
       "requirement": "Find and fix similar cultural-symbol inaccuracies",
       "status": "implemented_source_reviewed_with_reference_queue",
       "implemented": "Corrected Jagannath eight-spoke Nilachakra, Telangana Thalli clothing/handedness/crop, Buddha pose/lotus features, a four-lion Secretariat capital with four outward 24-spoke abacus wheels, and the Central Gurdwara's folded Nishan Sahib cloth with spearhead.",
@@ -136,6 +143,7 @@
     },
     {
       "id": "R08",
+      "validationVerdict": "CONDITIONAL_PASS_FOR_MODELLED_FIXES",
       "requirement": "ORR feels continuous, smooth and has correct exits/markings/area boards",
       "status": "implemented_model_audited_broader_playtest_pending",
       "implemented": "Retained 28,054 source vertices; modeled four through lanes per carriageway, shoulders, tapers, eased approaches, curved advance/exit signs and verified interchange labels; same-carriageway recovery. Toll-plaza ownership now keeps one booth lane per one-lane ramp, ignores shoulder inflation and prevents an opposite carriageway from suppressing the correct canopy.",
@@ -161,6 +169,7 @@
     },
     {
       "id": "R10",
+      "validationVerdict": "CONDITIONAL_PASS_FOR_MODELLED_FIXES",
       "requirement": "Airports have real runway geometry and recognizable facilities",
       "status": "implemented_source_backed_broader_playtest_pending",
       "implemented": "Mapped RGIA/Begumpet runway endpoints/designators, displaced thresholds, 6 m source taxiways, aprons, terminal/hangar outlines and local tile ownership. AAI dimensions used: RGIA 4260×60 m and 3707×45 m, Begumpet 3230×45 m. Parked-aircraft placement now checks the complete aircraft envelope against apron, terminal, hangar, taxiway and other-aircraft clearance.",
@@ -246,6 +255,7 @@
     },
     {
       "id": "R17",
+      "validationVerdict": "CONDITIONAL_PASS_FOR_MODELLED_FIXES",
       "requirement": "Correct Durgam Cheruvu lake and bridge",
       "status": "implemented_source_backed_broader_playtest_pending",
       "implemented": "Mapped lake shoreline, removed artificial central concrete slabs, imported the OSM-aligned 233.85 m span/25.8 m width/52-stay bridge, and retained three lanes per direction. Deck, footpaths and railings now follow continuous sampled road elevation instead of flat step-like sections, including median gaps between carriageways.",
@@ -271,11 +281,12 @@
     },
     {
       "id": "R19",
+      "validationVerdict": "NOT_READY_CONFIRMED_GAMEPLAY_DEFECT",
       "requirement": "Drive and park on Golconda and similar elevated landmarks",
-      "status": "implemented_production_simulation_verified_browser_pending",
+      "status": "not_ready_landmark_slope_contact_failure",
       "implemented": "Golconda now has a visible broad terrace, open arcades, setback upper hall, parapets/finials and explicit support geometry. The shared production Player uses visible upward-facing triangles for landing and driving instead of burying the car under a bounding surface.",
-      "verification": "Production Player regression landed on the visible 91.5 m summit, drove about 9 m, braked and remained parked for 5 s without sinking. The production-code summit rendered in the browser without console errors.",
-      "remaining": "A manual normal-world landing/drive/park at Golconda is still pending, and the same acceptance must be repeated for other elevated landmarks rather than inferred from one model.",
+      "verification": "The 91.5 m flat-roof landing/drive/brake/park positive control passes. Independent production Player and browser fixture reproduce hillside wheel penetration of 0.610 m and floating of 0.674 m because landmark slopes retain zero pitch/roll.",
+      "remaining": "Fix PT-018 wheel/contact-aware landmark slope support, then repeat both readiness probes and natural slope/rooftop acceptance. A flat-roof pass cannot establish sloped-surface readiness.",
       "evidence": [
         "docs/playtests/2026-10-26-transport-followup.json",
         "tools/landmark-cultural-regressions.mjs",
@@ -319,11 +330,12 @@
     },
     {
       "id": "R23",
+      "validationVerdict": "NOT_READY_CONFIRMED_ROUTE_EXECUTION_DEFECT",
       "requirement": "TGSRTC buses follow their allocated route and number",
-      "status": "implemented_persistent_inferred_alignment_source_limited",
+      "status": "not_ready_persisted_bus_turns_rejected_by_runtime",
       "implemented": "Published GTFS identity/stop order is retained and each supported stop-to-stop leg now references a persistent directed road sequence. Runtime buses do not search for a convenient parallel road; a missing/unloaded required edge ends the service instead. Unsupported legs stay explicit unresolved records.",
-      "verification": "The shipped pack records 39,070 complete stop legs, 34,912 of 36,457 legs whose two stops are playable as resolved, 11,868 unique alignments and 157,527 zero-gap road joins. 649 patterns are fully resolved and 14 bus regression groups pass.",
-      "remaining": "The TGSRTC static feed contains no shapes.txt, so paths are reproducible legal inferences, not agency-certified alignments or current diversions. 1,545 playable stop legs remain unresolved. The 4.85 MB compressed/18.86 MB decoded pack needs physical-phone hitch profiling.",
+      "verification": "Existing 14 bus groups and 157,527 directed join checks pass, but independent readiness fails: 628 joins exceed the NPC turn limit across 609 alignments referenced by 782 patterns/573 route numbers. Shipped route 1 stalls for 60 simulated seconds before a 180-degree reversal, with no stop served.",
+      "remaining": "Fix PT-017 by rejecting/replanning unsupported turns or implementing safe bus U-turn paths, then rerun the complete readiness audit. GTFS still has no shapes.txt, 1,545 playable stop legs remain unresolved, and physical-phone hitch profiling is pending.",
       "evidence": [
         "docs/playtests/2026-10-26-transport-followup.json",
         "docs/street-life-sources.md",
@@ -390,6 +402,7 @@
     },
     {
       "id": "R29",
+      "validationVerdict": "CONDITIONAL_PASS_FOR_MODELLED_FIXES",
       "requirement": "Traffic signals are accurate across the city",
       "status": "implemented_source_backed_runtime_broader_playtest_pending",
       "implemented": "All 268 public mapped nodes now resolve to 175 coordinated controllers and 376 approaches, including five raised approaches and two verified low-speed motorway-link/approach exceptions. Controllers use source-node model/stop-line placement, road-class/width priority green splits and deterministic 45 km/h corridor offsets. Lamps and NPCs share the same clock and phases.",
