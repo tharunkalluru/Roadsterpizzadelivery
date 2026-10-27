@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-27T00:17:02.460934+00:00",
+  "updatedAt": "2026-10-27T00:22:35.034311+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -2369,7 +2369,11 @@
   "latestAreaAndLandscapeValidation": {
     "report": "2026-10-26-area-landscape.json",
     "evidenceDirectory": "2026-10-26-v12/",
-    "status": "Checks and bounded visible-browser review passed; prepared for publication.",
-    "limits": "Exact reported intermittent incident not reproduced; no physical Nothing Phone test or new completed delivery."
+    "status": "Version 12 deployed; full checks and two live existing-area moves passed.",
+    "limits": "Exact reported intermittent incident not reproduced; no physical Nothing Phone test or new completed delivery.",
+    "implementationCommit": "4a57d4029619d4e44c722cd4809e1a3aa8a24d66",
+    "siteSourceCommit": "c92a4511b8f1ac2a41eb66568784d16056974457",
+    "version": 12,
+    "url": "https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site"
   }
 }

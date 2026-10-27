@@ -19,3 +19,5 @@ Full checks/build passed. New integration coverage includes rejected loads, bloc
 Fullscreen requests landscape where the browser allows it. A browser that cannot rotate automatically keeps the prompt until the user turns the device. Nothing Phone hardware remains untested. The existing menu remained covered by the gate when its viewport became portrait.
 
 Machine-readable results, source hashes, original screenshots, limitations and publication receipts: [validation record](playtests/2026-10-26-area-landscape.json).
+
+Version 12 is live at https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site . Implementation commit: `4a57d4029619d4e44c722cd4809e1a3aa8a24d66`; Site source: `c92a4511b8f1ac2a41eb66568784d16056974457`. The live JavaScript hash matches the tested build. A live existing saved game restored 631 coins, 1/3 progress and requests OFF; map relocation from Eastend Colony to Gachibowli and picker relocation from Gachibowli to Charminar both completed with those values preserved and no captured console warnings/errors. The retained live game is paused; owned local tabs and server were closed.
