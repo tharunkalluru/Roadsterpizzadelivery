@@ -151,6 +151,22 @@ try {
     w.update(5000, 5000, 0, true); assert.equal(removed, 0);
     await advance(65000); await rejected; assert.equal(w.tiles.has('-9_-9'), true);
   }));
+  await test('aborted area waits release timers without cancelling shared tile work or replacing a newer focus', () => clock(async ({ timers }) => {
+    const w=fakeWorld(), a=new AbortController(), b=new AbortController();
+    const old=w.ensure(0,0,650,a.signal), rejected=assert.rejects(old,{name:'AbortError'});
+    const latest=w.ensure(100,200,650,b.signal);
+    a.abort(); await rejected;
+    assert.deepEqual(w.focus,[100,200]); assert.equal(w.waiters.length,1); assert.equal(timers.size,1); assert.equal(w.pending.size,1);
+    reply(w,'empty'); await latest; assert.equal(w.waiters.length,0); assert.equal(timers.size,0);
+    const aborted=new AbortController(); aborted.abort(); const focus=w.focus;
+    await assert.rejects(w.ensure(900,900,650,aborted.signal),{name:'AbortError'}); assert.equal(w.focus,focus); assert.equal(timers.size,0);
+  }));
+  await test('same-coordinate area waits own their focus by identity, not coordinate equality', () => clock(async () => {
+    const w=fakeWorld(), a=new AbortController();
+    const old=w.ensure(100,200,650,a.signal), rejection=assert.rejects(old,{name:'AbortError'}), latest=w.ensure(100,200);
+    const focus=w.focus; a.abort(); await rejection; assert.equal(w.focus,focus);
+    reply(w,'empty'); await latest;
+  }));
   await test('retired worker events are ignored and initialization rejects terminate the new worker', () => clock(async ({ timers }) => {
     const savedWorker = globalThis.Worker, workers = []; let rejectInit = false;
     globalThis.Worker = class {

@@ -138,19 +138,19 @@ try {
     finally { console.error = oldError; }
     await rejected; assert.equal(w.waiters.length, 0); assert.equal(w.empty.size, 0);
   });
-  await test('failed relocation returns to area selection without placing or saving the player', async () => {
+  await test('failed relocation retains a destination-specific retry without placing or saving the player', async () => {
     const savedDocument = globalThis.document, oldError = console.error;
     globalThis.document = { getElementById: () => null }; console.error = () => {};
-    let placed = false, picked = false;
+    let placed = false, picked = false, retry = null;
     const g = Object.assign(Object.create(Game.prototype), {
-      relocating: false, keys: new Set(), area: { name: 'Original' }, player: { pos: { x: 20, z: 30 } },
-      picker: { hide() {} }, hud: { tip() {}, offer() {}, modal() {}, toast() {}, resetControls() {} }, sound: { vehicle() {}, cue() {} }, setTarget() {},
+      zone: { bounds: { minX:-10000,minZ:-10000,maxX:10000,maxZ:10000 } }, relocating: false, keys: new Set(), area: { name: 'Original' }, player: { pos: { x: 20, z: 30 } },
+      picker: { hide() {} }, hud: { tip() {}, offer() {}, modal(html) { retry=html; }, toast() {}, resetControls() {} }, sound: { vehicle() {}, cue() {} }, setTarget() {},
       city: { ensure: async () => { throw new Error('offline'); }, focus: [0, 0] },
       placeNear() { placed = true; }, chooseArea(first) { assert.equal(first, false); picked = true; },
     });
     try { await g.relocate({ name: 'Unavailable', x: 5000, z: 5000 }); }
     finally { globalThis.document = savedDocument; console.error = oldError; }
-    assert.equal(placed, false); assert.equal(picked, true); assert.equal(g.relocating, false);
+    assert.equal(placed, false); assert.equal(picked, false); assert.match(retry,/Could not move to Unavailable/); assert.match(retry,/Retry this destination/); assert.equal(g.relocating, false);
     assert.equal(g.area.name, 'Original'); assert.deepEqual(g.city.focus, [20, 30]);
   });
   await test('tile unload drops its rails while retaining shared rails in a loaded neighbor', () => {

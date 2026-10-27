@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-26T22:23:23.560718+00:00",
+  "updatedAt": "2026-10-27T00:17:02.460934+00:00",
   "automation": {
     "id": "hyderabad-gameplay-testing",
     "status": "ACTIVE",
@@ -1157,7 +1157,8 @@
     "2026-10-26-metro-service-validation.json",
     "2026-10-26-destination-render-audit.json",
     "2026-10-26-construction-transit-validation.json",
-    "2026-10-26-cinema-front-validation.json"
+    "2026-10-26-cinema-front-validation.json",
+    "2026-10-26-area-landscape.json"
   ],
   "roundHistory": [
     {
@@ -2364,5 +2365,11 @@
         "nativeValueTruncation": true
       }
     }
+  },
+  "latestAreaAndLandscapeValidation": {
+    "report": "2026-10-26-area-landscape.json",
+    "evidenceDirectory": "2026-10-26-v12/",
+    "status": "Checks and bounded visible-browser review passed; prepared for publication.",
+    "limits": "Exact reported intermittent incident not reproduced; no physical Nothing Phone test or new completed delivery."
   }
 }

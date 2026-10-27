@@ -705,11 +705,17 @@ export class Game {
 
   // ---------- where to deliver ----------
   picker!: AreaPicker; area: AreaChoice | null = null; choosing = false; relocating = false;
+  private relocationId = 0;
+  private relocationAbort?: AbortController;
+  private validArea(c: AreaChoice | null): c is AreaChoice {
+    const b = this.zone.bounds;
+    return !!c && typeof c.name === 'string' && !!c.name.trim() && Number.isFinite(c.x) && Number.isFinite(c.z) &&
+      typeof c.x === 'number' && typeof c.z === 'number' && c.x >= b.minX && c.x <= b.maxX && c.z >= b.minZ && c.z <= b.maxZ;
+  }
   savedArea(): AreaChoice | null {
     try {
-      const c = JSON.parse(localStorage.getItem(AREA_KEY) || 'null'), b = this.zone.bounds;
-      return c && typeof c.name === 'string' && c.name.trim() && typeof c.x === 'number' && Number.isFinite(c.x) &&
-        typeof c.z === 'number' && Number.isFinite(c.z) && c.x >= b[0] && c.x <= b[2] && c.z >= b[1] && c.z <= b[3] ? c : null;
+      const c = JSON.parse(localStorage.getItem(AREA_KEY) || 'null');
+      return this.validArea(c) ? c : null;
     } catch { return null; }
   }
   chooseArea(first: boolean) {
@@ -721,29 +727,32 @@ export class Game {
     this.picker.show({ first, last: first ? this.savedArea() : null, current: this.area?.name });
   }
   async relocate(c: AreaChoice) {
-    if (this.relocating) return;
+    // A delayed choice must never overwrite a newer destination or an accepted job.
+    if (this.order && this.order.state !== 'offer') { this.hud.toast('Finish this delivery first!', 'pink'); return; }
+    if (!this.validArea(c)) { this.hud.toast('Choose a spot inside the playable Hyderabad map.', 'pink'); return; }
+    c = { name: c.name.trim(), x: c.x, z: c.z };
+    const request = (this.relocationId || 0) + 1; this.relocationId = request;
+    this.relocationAbort?.abort();
+    const controller = new AbortController(); this.relocationAbort = controller;
     this.hud.tip(null);
     this.resetInput();
     this.relocating = true; this.choosing = true; this.paused = true;
     if (this.map?.open) this.map.hide();
     this.picker.hide(); this.hud.offer(null); this.hud.modal(null);
     setLoading(`Loading ${c.name}…`);
-    try { await this.city.ensure(c.x, c.z, 650); }
+    try { await this.city.ensure(c.x, c.z, 650, controller.signal); }
     catch (e) {
-      console.error('relocate', e); setLoading(''); this.relocating = false;
-      this.city.focus = [this.player.pos.x, this.player.pos.z];
-      this.sound.cue('error');
-      this.hud.toast('This area could not load. Check the connection and try again.', 'pink');
-      this.chooseArea(!this.area);
+      if (request !== this.relocationId) return;
+      console.error('relocate', e);
+      this.relocationFailed(c, 'The streets could not load. Check your connection and retry this same destination.');
       return;
     }
+    if (request !== this.relocationId) return;
     if (!this.placeNear(c.x, c.z)) {
-      setLoading(''); this.relocating = false;
-      this.city.focus = [this.player.pos.x, this.player.pos.z];
-      this.hud.toast('No clear street loaded here. Choose a nearby area.', 'pink');
-      this.chooseArea(!this.area);
+      this.relocationFailed(c, 'There is no safe, clear road close to this pin. Move the pin to a nearby street.');
       return;
     }
+    this.relocationAbort = undefined;
     this.order = null; this.nextOfferAt = null; this.setTarget(null);
     // the old neighbourhood's traffic and people stay behind
     this.traffic.clear();
@@ -757,6 +766,26 @@ export class Game {
     (window as any).__game = this;                 // tests start once the first area is ready
     setTimeout(() => this.map?.build().catch(() => {}), 4000);   // the city map is ready before anyone opens it
     this.queueOffer(2200);
+  }
+  private relocationFailed(c: AreaChoice, message: string) {
+    setLoading(''); this.relocating = false; this.relocationAbort = undefined;
+    this.city.focus = this.area ? [this.player.pos.x, this.player.pos.z] : null;
+    this.sound.cue('error');
+    const close = () => {
+      this.hud.modal(null);
+      if (this.area) { this.choosing = false; this.resume(); if (!this.order || this.order.state === 'offer') this.showOffer(); }
+      else this.chooseArea(true);
+    };
+    // Keep the exact destination and existing progress until placement succeeds.
+    this.hud.modal(`<h2>Could not move to ${esc(c.name)}</h2><p>${message}</p><div class="sm">Your current area and progress are unchanged.</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn go" id="area-retry">Retry this destination</button><button type="button" class="btn alt" id="area-nearby">Choose nearby street</button><button type="button" class="btn alt" id="area-stay">${this.area ? 'Stay here' : 'Back to areas'}</button></div>`, sheet => {
+      sheet.querySelector('#area-retry')!.addEventListener('click', () => this.relocate(c));
+      sheet.querySelector('#area-stay')!.addEventListener('click', close);
+      sheet.querySelector('#area-nearby')!.addEventListener('click', () => {
+        this.hud.modal(null);
+        this.map.showPick({ onPick: (x, z) => this.relocate({ name: this.areaName(x, z) || c.name, x, z }),
+          onCancel: () => this.relocationFailed(c, message) }, { x: c.x, z: c.z, scale: .5 });
+      });
+    });
   }
   // Recover on the current expressway carriageway, or on a loaded ground street.
   streetSpotNear(x: number, z: number): { x: number; z: number; y: number; yaw: number } | null {
@@ -792,7 +821,8 @@ export class Game {
     if (!onRoof && (this.stuckT > 9 || this.slowT > 26)) { this.slowT = 0; this.rescue(); }   // still wedged after a while: help without being asked
   }
   placeNear(x: number, z: number) {
-    const p = findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true });
+    const p = findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true }) ??
+      findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true, allowElevated: true });
     if (!p) return false;
     this.player.place(p.x, p.z, p.yaw, p.y);
     return true;

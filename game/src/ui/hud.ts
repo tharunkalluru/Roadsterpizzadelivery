@@ -1,5 +1,6 @@
 // DOM heads-up display. Plain DOM keeps it crisp on phones and easy to restyle.
 import { DialogFocus } from './dialog';
+import { goFullscreen } from './title';
 import { controlIcon } from './control-icons';
 import { installPrototypeTheme } from './theme';
 import { mobileHudLayout, type HudRect } from './hud-layout';
@@ -146,7 +147,7 @@ const CSS = `
 @media (max-width:600px) and (orientation:portrait){.pedals{flex-direction:column;align-items:center}.touch-actions{left:var(--touch-left);right:auto;bottom:calc(var(--touch-bottom) + var(--touch-size) + 12px + var(--touch-gap))}}
 .keys{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));background:var(--panel);border-radius:12px;padding:7px 11px;font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;max-width:62vw}
 .keys b{font-family:var(--display);font-size:10px;color:var(--cream);background:var(--line);border-radius:4px;padding:1px 5px;font-weight:400}
-.speed{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));font-family:var(--display);font-size:28px;text-shadow:0 3px 0 #0C0A1A}
+.speed{position:absolute;left:50%;right:auto;transform:translateX(-50%);bottom:max(12px,env(safe-area-inset-bottom,0px));font-family:var(--display);font-size:28px;text-shadow:0 3px 0 #0C0A1A}
 .is-touch .speed{bottom:auto;top:250px}
 .attr{position:absolute;right:8px;bottom:2px;font-size:9px;color:rgba(246,238,220,.55)}
 @media (max-width:760px){.h-tl{width:200px}#minimap{width:120px;height:120px}.pill{font-size:12px;height:32px}.toast{top:44%;white-space:normal;text-align:center;width:min(92vw,520px);font-size:clamp(18px,5vw,26px)}}
@@ -166,15 +167,14 @@ const CSS = `
 /* narrow portrait phones */
 @media (max-width:440px){.h-tl{width:47vw}.h-tr .card{width:38vw!important}#minimap{width:104px;height:104px}.is-touch .speed{top:auto;bottom:calc(max(18px,env(safe-area-inset-bottom,0px)) + 190px);right:22px;font-size:22px}}
 @media (max-width:360px){#hud{--touch-left:max(12px,env(safe-area-inset-left,0px));--touch-right:max(12px,env(safe-area-inset-right,0px));--touch-gap:8px}.tb svg{width:36px;height:36px}}
-.rotate{position:fixed;inset:0;z-index:20;background:#17132B;display:none;place-items:center;text-align:center;padding:24px;pointer-events:auto}
+.rotate{position:fixed;inset:0;z-index:100;background:#17132B;display:none;place-items:center;text-align:center;padding:24px;pointer-events:auto}
 .rotate>div{display:flex;flex-direction:column;gap:12px;align-items:center;max-width:320px}
 .rotate b{font-family:var(--display);font-weight:400;font-size:22px;color:var(--saffron)}.rotate span{color:var(--muted);font-size:15px}
 .rotate svg{width:84px;height:84px;animation:rot 2.4s ease-in-out infinite}
 @keyframes rot{0%,25%{transform:rotate(0)}55%,100%{transform:rotate(-90deg)}}
-@media (orientation:portrait) and (pointer:coarse){.rotate{display:grid}}
-.rotate.ok{display:none!important}
+
 /* Let an already-open menu finish before presenting the portrait rotation prompt. */
-.modal:not([hidden])~.rotate{display:none}
+
 .tip{box-sizing:border-box;flex:0 1 auto;min-height:0;max-height:min(88px,100%);overflow:auto;width:min(460px,100%);background:rgba(23,19,43,.94);border:2px solid var(--teal);border-radius:14px;padding:9px 12px;display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.25;touch-action:pan-y!important}
 .has-offer .tip,.has-offer #order{display:none}
 .is-touch #hud.has-offer .touch{display:none}
@@ -457,6 +457,7 @@ export class Hud {
   private acceptPendingOffer: (() => void) | null = null;
   private declinePendingOffer: (() => void) | null = null;
   private updateLayout = () => {};
+  private updateRotationGate = () => {};
   private controlReleases: (() => void)[] = [];
   private releaseAction = () => {};
   private contextAction: ContextAction | null = null;
@@ -519,7 +520,7 @@ export class Hud {
       <button type="button" class="rescue pe" id="rescue" hidden>Stuck? Get back on the road</button>
       <div class="area-chip" id="area-chip" aria-live="polite"></div>
       <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Game menu" hidden><div class="sheet" id="sheet"></div></div>
-      <div class="rotate" id="rotate"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b>Turn your phone sideways</b><span>Pizza to Picture Hall is made for landscape: the controls sit under your thumbs.</span><button type="button" class="btn alt" id="rot-ok">Play like this anyway</button></div></div>
+      <div class="rotate" id="rotate" role="dialog" aria-modal="true" aria-labelledby="rotate-title"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b id="rotate-title">Turn your phone sideways</b><span id="rotate-status" aria-live="polite">Play in landscape. Enter fullscreen, then rotate your phone if needed.</span><button type="button" class="btn go" id="rot-ok">Enter Full Screen Mode</button></div></div>
       <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary · Contains data provided by TGSRTC</div>`;
     for (const n of this.root.querySelectorAll('[id]')) this.el[n.id] = n as HTMLElement;
     this.el['tip-layer'].hidden = true; this.el.tip.hidden = true; this.el.offer.hidden = true; this.el.modal.hidden = true; this.el.prompt.hidden = true; this.el['orders-availability'].hidden = true; this.el.order.hidden = true;
@@ -558,6 +559,7 @@ export class Hud {
       if (touch) {
         for (const [id, box] of Object.entries({ 't-left': controls.leftSteer, 't-right': controls.rightSteer, 't-brake': controls.brake, 't-gas': controls.gas, 't-fly': controls.fly, 't-cruise': controls.cruise, speed: controls.speed })) {
           position(id === 'speed' ? this.root.querySelector<HTMLElement>('.speed')! : this.el[id], box);
+          if (id === 'speed') this.root.querySelector<HTMLElement>('.speed')!.style.fontSize = box.width < 90 ? '18px' : '22px';
         }
         position(this.el.prompt, controls.context);
       }
@@ -586,7 +588,13 @@ export class Hud {
     });
     // Keep native button activation without letting Space reach the flight shortcut.
     for (const type of ['keydown', 'keyup']) this.el['orders-toggle'].addEventListener(type, event => event.stopPropagation());
-    this.el['rot-ok'].addEventListener('click', () => { this.el.rotate.classList.add('ok'); this.rotationBlocked = false; });
+    this.el['rot-ok'].addEventListener('click', async () => {
+      // The gesture requests fullscreen and landscape; only real orientation
+      // changes unlock play. Unsupported/denied APIs never bypass the gate.
+      await goFullscreen();
+      this.updateRotationGate();
+      if (this.rotationBlocked) this.el['rotate-status'].textContent = 'Rotate your phone sideways to play. Your browser may require you to turn it manually.';
+    });
     // Each held control owns its pointer, so steering and pedals can be used together.
     const hold = (id: string, f: (v: boolean) => void, enabled = () => true) => {
       const b = this.el[id]; let pid = -1; const keys = new Set<string>();
@@ -642,13 +650,39 @@ export class Hud {
     addEventListener('blur', this.resetInput);
     addEventListener('resize', () => this.cancelOfferSwipe());
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.resetInput(); });
-    const portraitTouch = matchMedia('(orientation: portrait) and (pointer: coarse)');
-    const updateRotation = () => {
-      this.rotationBlocked = portraitTouch.matches && !this.el.rotate.classList.contains('ok');
-      if (this.rotationBlocked) this.resetInput();
+    const portrait = matchMedia('(orientation: portrait)');
+    let previousFocus: HTMLElement | null = null;
+    const focusGate = () => this.el['rot-ok'].focus({ preventScroll: true });
+    this.updateRotationGate = () => {
+      const blocked = touch && portrait.matches, changed = blocked !== this.rotationBlocked;
+      this.rotationBlocked = blocked;
+      this.el.rotate.style.display = blocked ? 'grid' : 'none';
+      this.el.rotate.inert = false;
+      if (blocked && changed) { previousFocus = document.activeElement as HTMLElement | null; this.resetInput(); }
+      if (blocked && !this.el.rotate.contains(document.activeElement)) focusGate();
+      if (!blocked && changed) { this.resetInput(); previousFocus?.focus?.({ preventScroll: true }); previousFocus = null; }
     };
-    portraitTouch.addEventListener('change', updateRotation);
-    updateRotation();
+    // Registered before any menu opens: its focus trap cannot steal focus from
+    // the orientation gate. Enter/Space retain native fullscreen activation.
+    document.addEventListener('focusin', event => {
+      if (!this.rotationBlocked) return;
+      event.stopImmediatePropagation();
+      if (!this.el.rotate.contains(event.target as Node)) focusGate();
+    }, true);
+    for (const type of ['keydown', 'keyup']) document.addEventListener(type, event => {
+      if (!this.rotationBlocked) return;
+      const e = event as KeyboardEvent;
+      e.stopImmediatePropagation();
+      if (e.key === 'Tab' || !this.el.rotate.contains(e.target as Node)) { e.preventDefault(); focusGate(); }
+    }, true);
+    // A map or menu opened while rotating may mark sibling panels inert.
+    // The orientation gate always stays operable above those dialogs.
+    if (typeof MutationObserver !== 'undefined') new MutationObserver(() => {
+      if (this.rotationBlocked && this.el.rotate.inert) this.updateRotationGate();
+    }).observe(this.el.rotate, { attributes: true, attributeFilter: ['inert'] });
+    portrait.addEventListener('change', this.updateRotationGate);
+    addEventListener('resize', this.updateRotationGate);
+    this.updateRotationGate();
   }
   // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
   resetControls() {
@@ -795,13 +829,14 @@ export class Hud {
       if (available() && this.ordersUnlocked) { decided = true; this.cancelOfferSwipe(); this.resetInput(); this.onButton('orders'); }
     });
     if (!this.modalOpen) this.offerFocus.show();
+    this.updateRotationGate();
   }
   modal(html: string | null, bind?: (sheet: HTMLElement) => void) {
-    this.el.modal.hidden = !html; if (!html) { this.modalFocus.hide(); if (!this.el.offer.hidden) this.offerFocus.show(); return; }
+    this.el.modal.hidden = !html; if (!html) { this.modalFocus.hide(); if (!this.el.offer.hidden) this.offerFocus.show(); this.updateRotationGate(); return; }
     this.tipAcknowledgement(null); this.offerFocus.hide();
     this.resetInput();
     this.el.sheet.innerHTML = html; bind?.(this.el.sheet);
-    this.modalFocus.show();
+    this.modalFocus.show(); this.updateRotationGate();
   }
   get modalOpen() { return !this.el.modal.hidden; }
   rescue(show: boolean, text = '') {
@@ -822,6 +857,7 @@ export class Hud {
     if (!text) { this.tipFocus.hide(); return; }
     this.set('tip-t', text);
     if (!wasOpen) { this.resetInput(); this.tipFocus.show(); }
+    this.updateRotationGate();
   }
   tip(text: string | null) { this.tipAcknowledgement(text); }
 }

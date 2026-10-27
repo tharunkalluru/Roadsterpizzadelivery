@@ -14,7 +14,7 @@ class Events {
   events = new Map();
   addEventListener(type, fn) { if (!this.events.has(type)) this.events.set(type, []); this.events.get(type).push(fn); }
   emit(type, values = {}) {
-    const event = { pointerId: 1, clientX: 0, clientY: 0, button: 0, isPrimary: true, prevented: false, stopped: false, preventDefault() { this.prevented = true; }, stopPropagation() { this.stopped = true; }, ...values };
+    const event = { pointerId: 1, clientX: 0, clientY: 0, button: 0, isPrimary: true, prevented: false, stopped: false, preventDefault() { this.prevented = true; }, stopPropagation() { this.stopped = true; }, stopImmediatePropagation() { this.stopped = true; }, ...values };
     for (const fn of [...this.events.get(type) || []]) fn(event);
     return event;
   }
@@ -29,6 +29,8 @@ class Element extends Events {
   querySelector(selector) { if (selector.startsWith('#')) return this.nodes.get(selector.slice(1)) || null; if (!this.nodes.has(selector)) this.nodes.set(selector, new Element(selector)); return this.nodes.get(selector); }
   querySelectorAll(selector) { return selector === '[id]' ? [...this.nodes.values()] : []; }
   appendChild() {}
+  focus() { document.activeElement = this; }
+  contains(node) { return node === this || [...this.nodes.values()].includes(node); }
   setAttribute(key, value) { this.attributes.set(key, String(value)); }
   getAttribute(key) { return this.attributes.get(key) ?? null; }
   getBoundingClientRect() { return { width: 844, height: 390, top: 0, left: 0, bottom: 120 }; }
@@ -114,12 +116,26 @@ try {
     pressed(); hud.modal('<h2>Settings</h2>'); released(); assert.equal(resets, 3); assert.equal(hud.modalOpen, true);
     hud.modal(null); assert.equal(resets, 3); assert.equal(hud.modalOpen, false);
   });
-  await test('portrait rotation blocks simulation input until landscape or explicit dismissal', () => {
+  await test('portrait fullscreen never bypasses landscape gating, including denied APIs', async () => {
     pressed(); portrait.matches = true; portrait.emit('change'); released(); assert.equal(hud.rotationBlocked, true); assert.equal(resets, 4);
     portrait.matches = false; portrait.emit('change'); assert.equal(hud.rotationBlocked, false);
     portrait.matches = true; portrait.emit('change'); assert.equal(hud.rotationBlocked, true);
-    el['rot-ok'].emit('click'); assert.equal(hud.rotationBlocked, false);
-    portrait.emit('change'); assert.equal(hud.rotationBlocked, false);
+    let fullscreen = 0, locks = 0;
+    document.documentElement.requestFullscreen = async () => { fullscreen++; throw Error('denied'); };
+    screen.orientation.lock = async type => { assert.equal(type, 'landscape'); locks++; throw Error('unsupported'); };
+    el['rot-ok'].emit('click'); for(let i=0;i<8;i++) await Promise.resolve();
+    assert.equal(fullscreen, 1); assert.equal(locks, 1); assert.equal(hud.rotationBlocked, true);
+    portrait.emit('change'); assert.equal(hud.rotationBlocked, true);
+    const key = docEvents.emit('keydown', {key:'Tab',target:el['rot-ok']}); assert.equal(key.prevented,true); assert.equal(document.activeElement,el['rot-ok']);
+    hud.modal('<h2>Menu during portrait</h2>'); assert.equal(hud.rotationBlocked,true); assert.equal(el.rotate.inert,false);
+    hud.modal(null);
+    portrait.matches=false; portrait.emit('change'); assert.equal(hud.rotationBlocked,false);
+    document.documentElement.requestFullscreen = async () => { fullscreen++; };
+    screen.orientation.lock = async () => { locks++; };
+    portrait.matches=true; portrait.emit('change'); el['rot-ok'].emit('click'); for(let i=0;i<8;i++) await Promise.resolve();
+    assert.equal(hud.rotationBlocked,true,'successful API calls alone cannot unlock a portrait viewport');
+    portrait.matches=false; portrait.emit('change');
+
   });
   await test('arrow controls remain available while gyro permission is pending and hide only after grant', async () => {
     let grant, requested = 0;

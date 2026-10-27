@@ -1,0 +1,561 @@
+
+> pizza-to-picture-hall@0.1.0 check
+> npm run typecheck && npm run typecheck:worker && npm test && npm run test:flyovers && npm run test:route-motion && npm run build
+
+
+> pizza-to-picture-hall@0.1.0 typecheck
+> tsc --noEmit
+
+
+> pizza-to-picture-hall@0.1.0 typecheck:worker
+> tsc --project tsconfig.worker.json
+
+
+> pizza-to-picture-hall@0.1.0 test
+> node ../tools/map-regressions.mjs && node ../tools/gameplay-regressions.mjs && node ../tools/ui-regressions.mjs && node ../tools/navigation-regressions.mjs && node ../tools/delivery-regressions.mjs && node ../tools/spatial-safety-regressions.mjs && node ../tools/audio-flight-regressions.mjs && node ../tools/v2-ui-regressions.mjs && node ../tools/v2-loading-regressions.mjs && node ../tools/v2-game-regressions.mjs && node ../tools/metro-regressions.mjs && node ../tools/traffic-regressions.mjs && node ../tools/landmark-regressions.mjs && node ../tools/expressway-regressions.mjs && node ../tools/covered-path-regressions.mjs && node ../tools/orr-recovery-regressions.mjs && node ../tools/orr-exit-regressions.mjs && node ../tools/orr-airport-bridge-regressions.mjs && node ../tools/moving-rail-regressions.mjs && node ../tools/airport-landmark-regressions.mjs && node ../tools/bus-service-regressions.mjs && node ../tools/signal-regressions.mjs && node ../tools/building-clearance-regressions.mjs && node ../tools/roadside-clearance-regressions.mjs && node ../tools/construction-regressions.mjs && node ../tools/street-lighting-regressions.mjs && node ../tools/metro-station-life-regressions.mjs && node ../tools/destination-regressions.mjs && node ../tools/cinema-front-regressions.mjs && node ../tools/bug-report-regressions.mjs && node ../tools/mobile-hud-layout-regressions.mjs && node ../tools/metro-interchange-regressions.mjs && node ../tools/audit-obb-regressions.mjs && node ../tools/bridge-grade-classification-regressions.mjs && node ../tools/bridge-deck-regressions.mjs
+
+Map regressions: close/cancel, initial picker, repeated keys, pointer cleanup, zoom, and failed-load retry passed.
+PASS GPS follows bends to a same-edge destination without overshooting
+PASS GPS includes the final partial road from a connected street
+PASS GPS permits only the allowed heading on a one-way destination
+PASS GPS does not U-turn through a divided same-edge road
+PASS GPS distance works for an order with no car heading
+PASS pickup selection uses the chosen restaurant pool consistently
+PASS cancelling area selection restores the exact pending offer and its controls
+PASS delayed offers never replace active deliveries or interrupt area selection
+PASS handover and theatre interaction require the same height and grounded car
+PASS focus loss clears all held controls and pending interactions
+PASS a transient tile error is retryable and never counts as an empty street
+PASS three failed tile attempts reject area loading instead of silently succeeding
+PASS failed relocation retains a destination-specific retry without placing or saving the player
+PASS tile unload drops its rails while retaining shared rails in a loaded neighbor
+PASS tile worker evicts a rejected pack promise so a later fetch can succeed
+15 gameplay/streaming regression groups passed.
+PASS offer/tutorial region excludes both measured HUD rails at short and wide viewports
+PASS offer labels distinguish approach, delivery route, and timer start, escaping shop text
+PASS tutorial cannot inherit conflicting top/bottom anchors; offer actions do not scroll with details
+PASS opening map isolates background controls and focuses its close action
+PASS Shift+Tab and repeated Tab stay within visible map buttons
+PASS programmatic background focus is redirected and game shortcuts cannot escape
+PASS Escape closes once and restores the opener and original inert state
+PASS reopen and content replacement retain original opener, with no stale listeners
+PASS closing restores a usable HUD control when the original opener was hidden or removed
+UI regressions: 9 checks passed. No browser acceptance claimed.
+PASS median route stays in the left carriageway instead of following divider
+PASS opposite-side destination requires a junction instead of crossing the median
+PASS wrong-facing car remains on its physical side of the median
+PASS lane-offset route length and HUD progress use the same geometry
+PASS off-road live guidance does not invent a line through a compound
+PASS unstreamed destination is marked incomplete and has no fabricated road spur
+PASS one-way GPS starts in the actual lane without a sideways car-to-centre connector
+PASS one-way outer lane survives collinear split edges and reversed source geometry
+PASS one-way lane fraction remains inside narrower downstream carriageways
+PASS edge snap respects physical grade and prefers the actual road at a shallow crossing
+PASS different elevated levels sharing source node IDs never acquire a false transfer
+PASS incomplete one-way guidance ends at its actual elevated terminal without dropping to ground
+PASS graph revisions change only when actual streaming connectivity changes
+PASS shipped ORR carriageways begin guidance in the actual outer lane and at the rendered source grade
+PASS ribbon stops before a solid median or bridge parapet, but permits a low kerb
+PASS bridge wall does not block a ground-level road beneath it
+PASS guidance cannot draw a connector through a building facade
+PASS guidance uses the same wall and facade clearance as the player
+PASS HUD distance subtracts progress equally in both axes without double counting
+PASS flight and descent show beacon distance without ground-route obstruction warnings
+20 navigation regressions passed
+PASS post-handover pause retains the next offer and delivers it once after resume
+PASS unpaused handover keeps its delay then presents the next order
+PASS due offers wait for map, area picker, relocation and modal to release input
+PASS pending offer retry is bounded and an accepted order cancels it
+PASS direct offer rendering is blocked under a pause or map overlay
+PASS offer approach uses the same legal carriageway and junction turn as accepted guidance
+PASS offer approach preserves current deck height and uses overview routing while flying
+PASS pickup category matching distinguishes food tokens from public safety and substrings
+PASS legacy police POIs are excluded from kitchens without altering city names or source records
+9 delivery/pickup regression groups passed.
+PASS recovery clears the whole car and faces away from a nearby facade
+PASS narrow streets keep spawn within the carriageway instead of a fixed 2.2 m offset
+PASS one-way recovery respects the denied heading while finding a clear departure
+PASS blocked nearest road uses a farther clear road and fully blocked areas refuse placement
+PASS graph-only roads cannot spawn into unloaded geometry or arbitrary area coordinates
+PASS a remote elevated segment no longer excludes the clear ground portion of the same road
+PASS area placement may fall back to a verified elevated carriageway without changing ground recovery
+PASS recovery avoids a bus at the otherwise preferred street point
+PASS camera sightline stops before a pole and solid wall, with edge clearance
+PASS close-wall camera fallback stays below an overhead slab and keeps a clear sightline
+PASS embedded camera pivot exits a facade even when the desired camera is also embedded
+PASS an embedded camera under a slab exits below it, with full camera-volume clearance
+PASS deeply embedded and below-ground camera pivots still return outside every local solid
+PASS clear pivot with embedded desired camera retains a fully checked ordinary sightline
+PASS full bus length occludes the chase camera and visibility restores after it leaves
+PASS rotated trucks occlude correctly but traffic overhead does not hide from below
+PASS Mecca facade and gate piers collide while their arch openings remain open
+PASS bridge parapet prevents a crossing step while clear flight can pass above it
+PASS takeoff does not disable wall collision before the car clears parapet height
+PASS a low kerb allows crossing but produces a visible bump and slows the car
+PASS placement cancels old glide and recovery completion immediately aligns model and heading
+21 spatial safety regressions passed
+PASS road speed is capped at 100 km/h with either boost setting; flight and descent never exceed 160 km/h
+PASS cruise holds actual 40 and 45 km/h setpoints instead of a latched accelerator, including a stationary hold
+PASS both front wheels steer toward the actual forward turn; rear wheels stay straight
+PASS zero-charge takeoff and 20 simulated minutes of unlimited flight
+PASS gesture unlock is lazy and does not duplicate persistent vehicle voices
+PASS engine and thrust follow driving, flight, descent and pause without automation flood
+PASS mute, blur, visibility and pagehide silence audio and resume cleanly
+PASS interrupted audio resumes once and plays only a fresh queued cue
+PASS closed context recreation rebuilds voices and reapplies current vehicle state
+PASS all gameplay cues schedule finite notes, throttle repeats and free transient nodes
+PASS distant traffic does not suppress nearby horn and double-horn nodes are released
+Audio/flight regressions: 11 passed (offline production-code tests).
+PASS second fingers cannot steal held steering or throttle input
+PASS opposite arrows cancel each other and releasing one preserves the other thumb
+PASS keyboard activation holds arrows and never reaches the global flight shortcut
+PASS a button held by pointer and keyboard stays active until both inputs release
+PASS pointer cancel and lost capture release both controls and visual pressed state
+PASS blur and hidden-page transitions release captures and also reset native game input
+PASS opening a menu clears held controls without recursive resets
+PASS portrait fullscreen never bypasses landscape gating, including denied APIs
+PASS arrow controls remain available while gyro permission is pending and hide only after grant
+PASS unavailable, denied and rejected gyro leave usable arrows without stale steering
+PASS saved gyro preference defers an iOS prompt until an explicit user action
+PASS late gyro permission results cannot override a newer steering mode
+PASS tilt steering respects landscape direction, dead zone and finite sensor values
+PASS area search ignores IME Enter, accepts completed Enter and lets Escape and Tab reach the dialog
+PASS invalid or unavailable saved settings recover to safe defaults
+PASS valid settings survive independently and unknown properties are discarded
+PASS denied gyro restores the persisted arrow mode and visible settings selection
+PASS startup deferral preserves the saved gyro choice without a denial toast or write
+PASS older permission failure cannot rewrite a newer successful gyro selection
+PASS contextual actions appear only with an available action and use specific labels
+PASS context action is held only for its captured finger and releases immediately
+PASS context action keyboard holds release on keyup or focus loss without triggering flight
+PASS action progress updates preserve a hold but changing or removing the action releases it
+PASS steering, throttle and contextual action fingers remain independent
+PASS reset, modal, new offer, page blur and visibility loss hide and release the context action
+PASS cruise remains separate from the accelerator and releases on brake and overlays
+PASS flight label and busy state track actual flight state without duplicate keyboard toggles
+PASS accepted pickup card exposes real next stop and hides pickup note after collection
+PASS order availability stays locked before the first completion and exposes accessible on/off state after it
+PASS an unlocked pending request can turn off offers from inside its focus-trapped panel
+PASS availability cannot toggle behind acknowledged tips, pause or rotation warning
+PASS delivery slider requires a captured horizontal swipe and never accepts a tap or short drag
+PASS slider owns one thumb, rejects starts away from its handle, and cancels vertical movement
+PASS slider cancellation, lost capture, blur and external reset never commit a partial gesture
+PASS delivery acceptance remains accessible to keyboard and screen readers without duplicate activation
+PASS pending delivery isolates its controls, preserves explicit decline and releases swipes on blur
+PASS driving tips block held input and remain until an acknowledged dismissal
+PASS reserve is inside FLY/LAND and idle availability never creates an extra task card
+PASS repeated frame HUD updates leave measured layout to its resize observer
+PASS accessible arrow, brake and map close rules survive integration
+V2 UI regressions: 40 checks passed. No browser acceptance claimed.
+PASS plain and gzip city downloads decode once and release their timeout
+PASS HTTP, malformed JSON and malformed gzip fail safely without URLs or leaked timers
+PASS a stalled network or response body ends after fifteen seconds and aborts the fetch
+PASS startup offers an explicit retry before constructing a second game runtime
+PASS streaming caps work at two requests and ignores stale or duplicate responses
+PASS three timed-out tile attempts reject once, restore the old focus and clear the ensure timer
+PASS explicit area retry clears prior failures and success releases its timer
+PASS connectivity events cannot extend the seventy-five-second area deadline
+PASS worker restarts are bounded, and an explicit area retry can recover afterwards
+PASS old playable tiles stay loaded throughout an unsuccessful relocation
+PASS aborted area waits release timers without cancelling shared tile work or replacing a newer focus
+PASS same-coordinate area waits own their focus by identity, not coordinate equality
+PASS retired worker events are ignored and initialization rejects terminate the new worker
+PASS worker evicts rejected and invalid packs, preserves request IDs, and caps decoded cache
+14 Version 2 loading regression groups passed.
+PASS valid saves round-trip zero values, final-level progress, negative balances and fractional time
+PASS corrupt or out-of-range numeric saves fall back without poisoning other progress
+PASS saved leases validate films, prices, theatre identity and ordered day reports
+PASS new players receive an offer and unlock order availability only after completed handover
+PASS orders OFF retracts an unaccepted request and queue without changing money, progress or theatre GPS
+PASS orders OFF preserves accepted pickup and customer legs through paid handover and suppresses the next offer
+PASS orders ON queues one request and waits for each overlay or hidden state before presenting it
+PASS order availability saves are backward compatible, boolean validated and locked ON before the first delivery
+PASS restored OFF remains free roaming through a real area relocation without scheduling offers
+PASS the HUD order switch invokes the lifecycle and blocked storage cannot disable free roam
+PASS saved areas accept playable bounds and reject malformed or off-map coordinates
+PASS latest destination wins even if obsolete loads resolve or reject after the new choice
+PASS failed loading or blocked placement retains destination for retry and keeps old progress
+PASS nearby retry opens at the selected pin, cancelling retains it, and Stay here resumes the old area
+PASS accepted orders and malformed or outside-map choices cannot relocate or start loading
+PASS GO remains held acceleration while cruise captures current speed and retargets after manual override
+PASS every brake path immediately cancels cruise and overrides a held accelerator without removing reverse
+PASS inactive, offered, reversing, landing and recovery states cancel cruise rather than resuming it later
+PASS pending requests block vehicle controls and acceptance clears held input without awarding money
+PASS flight presentation follows actual airborne and landing state and landing cannot be retriggered
+PASS request identity and active pickup cards use real order data and change stage only after collection
+PASS context actions follow real eligibility and require a sustained touch hold through pickup and handover
+PASS theatre action appears at its entrance and cannot inherit a collection hold or bypass an offer
+PASS a theatre manager hold completes during an accepted pickup or customer leg
+PASS handover pays a collected order once and ignores offers, pickups and duplicate calls
+PASS cinema settlement credits each day once and closes a seven-day lease once
+PASS weekly report waits for all overlays and hidden state, then appears exactly once
+PASS theatre GPS cannot erase an accepted delivery but can replace a pending offer
+PASS held keys retain driving input while repeated toggles and action acceptance stay single-shot
+PASS P and Escape pause/resume clear held controls and restore canvas focus
+PASS paused, rotated, hidden and covered frames freeze gameplay and send inactive vehicle audio
+PASS an acknowledged tip freezes the world and order clock, clears held input and cannot enable flight or cruise
+PASS tutorial steps appear before simulation, remain dismissed, respect map/menu/offers and replay on request
+PASS the delivery-complete tip requires acknowledgement rather than an automatic hide timer
+PASS moving trains update before player physics and rail impact reaches gameplay and traffic
+PASS train impulses obey absolute road and airborne speed limits without changing carry or push separation
+PASS Game.start wires map close to gameplay focus or the explicit keyboard opener
+Version 2 Game integration: 37 regression groups passed (offline production code).
+PASS six Hyderabad input tracks become three corridors with exactly one fixed run each way
+PASS opposite input direction does not create extra tracks and separate branches are retained
+PASS degenerate points are sanitized and track position and heading remain finite through bends
+PASS opposite tracks move in opposite world directions without additional per-train lateral offsets
+PASS a follower brakes behind a stopped platform train without overlap or overtaking
+PASS station matching respects line identity and aligns the train centre with its platform
+PASS station arrival tolerance cannot consume the safety headway behind a stopped train
+PASS an intermediate station dwells before departure and never changes its track direction
+PASS a visible terminal train waits without jumping rails or reversing across passengers
+PASS terminal re-entry waits for free space on the outgoing track
+PASS culling reuses train meshes without deleting service or changing track assignments
+PASS three coach bodies sample different points of a bend while staying on the shared rail path
+PASS one centreline and a paired source track set produce one identical rendered deck and rail set
+13 metro regression groups passed (offline production code).
+PASS ordinary densified flyovers retain 24 m pier spacing instead of a pier at each 2 m vertex
+PASS split source edges share one equal-height physical pier independent of context order
+PASS clearance checks body width, intermediate road heights, sloping intervals and safe overhead caps
+PASS acceleration and merge lane envelopes also exclude a support beyond the main ORR shoulder
+PASS a widened bridge edge retains its real approach width when the local span reaches ground
+PASS a stair endpoint being clear cannot permit its full run to cut through a road
+PASS station concourses and source metro columns clear a road between ground and platforms
+PASS stations have exactly two exterior ends and two inward wall names without track or roof obstructions
+RTC_NAME_SIGHTLINE {"end":-1,"oldHighBlocked":true,"newCentreBlocked":false,"camera":[-26.308929152342152,5.8,37.736290256026564],"name":[-10.724172456293577,10.05,-19.892965146844045]}
+RTC_NAME_SIGHTLINE {"end":1,"oldHighBlocked":false,"newCentreBlocked":false,"camera":[69.27520151152828,5.8,-199.7498650567213],"name":[44.529534259477494,10.05,-146.13031260855027]}
+PASS both actual RTC road approaches see the end names below the rendered viaduct rather than behind its girder
+RTC_CLEARANCE_AUDIT {"stationId":"st_rtc_cross_roads","sourcePoint":[21.5,-81],"sourceLines":["green"],"tile":"0_-1","oldOrdinaryBridgePiersWithin150m":153,"oldPiersBlockingRoad":83,"newBridgePiersWithin150m":6,"nearBridgeSourceIds":["427107ff-fee_0","5dbaa15e-212_0"],"allTileStructurePieces":65,"stationColumns":4,"stationStairs":0,"sourceBuildings":2482,"retainedSourceBuildingIdentities":2482,"renderedSourceBuildingFragments":2797,"roadConflictsAfter":0,"validation":"offline sourced tile geometry and colliders; not browser driving"}
+PASS actual RTC Cross Roads source tile has sparse safe supports and unchanged station identity/platforms
+CITY_STRUCTURE_AUDIT {"sourceRoads":52412,"bridgeCandidates":10075,"overlappingBridgeSitesMerged":82,"uniqueBridgeCandidates":9993,"bridgeRetained":8030,"bridgeOmitted":1963,"sourceMetroPillars":1258,"metroRetained":636,"metroOmitted":622,"modelHeadroomMetres":4.8,"sourceDataRewritten":false}
+PASS all shipped metro pillar sites and elevated bridge candidates use full 3D road clearance
+STATION_STRUCTURE_AUDIT {"sourceStations":57,"activeStationSites":56,"retainedAliases":1,"sourceStationTiles":52,"retainedStationStructurePieces":618,"retainedColumns":286,"retainedStairs":61,"exteriorNameBoards":112,"interiorNameBoards":118,"physicalCorridorAssemblies":59,"kerbOffsetExteriorBoards":112,"exteriorBoardHeadroomConflicts":0,"roadConflictsAfter":0,"validation":"offline source road/building station neighborhoods; not citywide browser verification"}
+PASS all sourced stations keep curved platforms, two exterior names per site and one interior name per physical platform
+PASS four independently reproduced source pier/approach intersections stay clear without removing their roads
+IKEA_RENDER_AUDIT {"sourceLandmark":{"id":"ikea","x":-12884.435649374247,"z":-3633.531675249355},"tile":"-13_-4","bridgeSourceIds":["740da8ae-7e2_0","881121ae-ac7_0"],"groundSourceId":"a4395de0-7c4_0","crossing":[-12720.799447513811,-3690.6832412523017],"results":[{"geometry":"shipped","actualBridgeCylinderDraws":55,"bridgeCylindersWithin150m":18,"bridgeCylindersWithin18mOfCrossing":0},{"geometry":"prepared","actualBridgeCylinderDraws":57,"bridgeCylindersWithin150m":20,"bridgeCylindersWithin18mOfCrossing":0}],"screenshotDenseWallReproducedInCurrentBuilder":false}
+PASS actual IKEA/Mindspace draw calls keep the sourced junction open in raw and prepared tile geometry
+14 metro/bridge clearance regression groups passed (offline production code and shipped city data).
+PASS construction corridors keep every vehicle in the open lane at25km/h without filtering or opportunistic U-turns
+PASS arc-length curve endpoints and tangents are exact in both turn directions
+PASS cars complete both junction turns with continuous motion at 30 and 60 Hz
+PASS buses use larger-radius paths and lower turn speed than autos
+PASS internal road-polyline corners also turn smoothly without changing graph routing
+PASS curve sweep rejects unloaded roads, buildings, medians and a bridge-level mismatch
+PASS the full bus nose and tail corners reject facade clips at straight and rotated headings
+PASS bus corner barrier and pole checks preserve separation from ground obstacles below a bridge
+PASS cross-edge oriented bodies block entry; crossing grade-separated vehicles do not
+PASS an auto can make a quick curved U-turn only through a supported clear opening
+PASS lane changes preserve tangent, enforce cooldown and reject occupied gaps
+PASS controlled ORR traffic stays in four through lanes, off both shoulders
+PASS stationary lane requests never slide sideways, and red signals hold before the turn
+PASS a committed junction turn finishes when its approach signal changes
+PASS bus kerb pull-in remains a moving curve and dwell completes before departure
+PASS swept runtime collision stops for another edge and a crossing pedestrian
+16 traffic regression groups passed.
+Landmark regressions: all 192 place identities, explicit shared-mall alias and three externally owned metro assemblies, bounds/ownership, cluster discoverability, touch hit regions, flag specification/two-sided wheel, finite owner geometry, 48.7m towers, 8-spoke Nilachakra, 11m Charminar arches subject-right statue poses and map search keyboard guards passed.
+Cultural/Golconda checks passed: four articulated lion heads and four outward24-spoke abacus wheels (32496vertices), folded Nishan cloth/spear, visible91.5m roof contacts and production Player landing/9m drive/brake/5s park. Offline simulation, not browser acceptance.
+PASS actual four-wheel posture follows compound slopes at eight headings without penetration or floating
+PASS driving uphill downhill and across a landmark keeps continuous contact at30and60Hz
+PASS a descent lands onto a slope with actual wheel contact and takeoff resets terrain suspension
+PASS upper roofs and an adjacent ledge cannot pull lower wheels through an overhead surface
+PASS a missing corner never invents contact on air or permits a separate landmark layer
+PASS ordinary road and moving-rail support do not inherit landmark roll or suspension
+PASS recovery placement clears old landmark posture and wheel travel
+PASS the real Golconda hillside uses four rendered wheel contacts across eight headings
+PASS the real Golconda hillside landing drive brake and parked contacts remain stable
+9 landmark contact regression groups passed, including compound slopes, real wheel suspension, layer gating, road/rail controls and actual Golconda.
+Ambedkar model: actual53.34m top, above-head subject-right pointing hand,15.24m terrace, finite rotated geometry and bounded vertex budget pass.
+Landmark sources: 191 explicit decisions; seven shared map/model corrections; two exact named outlines, bounded geometry and concavity-safe clearance passed.
+PASS ORR and ramps are distinguished without granting service-road access, including denied-heading encoding
+PASS road pose follows curved alignment, endpoint bounds and continuous grade
+PASS barrier openings require a nearby connected mapped ramp at the same height
+PASS auxiliary widening tapers within bounds and ignores unconnected ramps
+PASS exit-marker nearest-road ties select the directed diverge independent of source ordering
+PASS advance sign placement follows upstream connected carriageways through a bend
+PASS gantry signs face approaching traffic, follow road grade and keep posts beyond shoulder and auxiliary lane
+PASS ramp chevrons reverse correctly with mapped traffic direction and remain outside driving width
+PASS a context ORR road renders physical support over five kilometres from its distant owner
+PASS grade-separated crossing preserves both supports and never opens the ORR barrier to the street below
+PASS approach surface supports change continuously without adding a second ground-level ORR
+PASS bridge pier spacing remains24m after source densification and never doubles at segment boundaries
+PASS bridge piers avoid the full ground-carriageway width while retaining supports on either side
+PASS shipped ORR has four through lanes per carriageway and explicit source/grade uncertainty
+PASS shipped expressway grades are finite, bounded and continuous at shared nodes and street boundaries
+PASS all streamed copies retain the same ORR width, connectivity and grades as the core graph
+16 expressway regression groups passed (offline production code and shipped data).
+PASS cover alone remains at grade while positive bridge layers and underground paths retain their levels
+PASS future extraction and runtime classifiers agree, and covered paths survive the export whitelist
+PASS legacy Healthway pack tags render a ground cycle path and low solar roof without elevated deck or stair towers
+PASS ordinary covered footpaths receive simple ground roofs and do not claim solar infrastructure
+PASS tile integration provides ground support under Healthway without an elevated skywalk surface
+PASS explicit elevated covered bridges still have their deck, roof and stairs
+PASS explicit tunnel and negative-layer legacy paths retain subway entrances rather than solar roofs
+PASS new covered_path exports and legacy footbridge packs produce the same geometry
+PASS long covered paths have local tile ownership and never draw their whole canopy from a distant midpoint
+PASS canopy columns stay out of roads and buildings, and low-quality mode retains the solar roof
+Inspected 22 original Healthway ways with their unchanged source tags.
+PASS all shipped Healthway covered ways are recognized at grade without deleting or rewriting source evidence
+11 covered-path regression groups passed (offline production rendering and extraction classifiers).
+PASS ORR barrier recovery retains its deck and direction instead of gliding to a service road
+PASS normal ground recovery underneath or beside the ORR is unchanged
+PASS blocked or unloaded ORR returns null even when a clear service road is available
+PASS a close opposite carriageway and a nearby ramp cannot replace the current mainline
+PASS reverse-encoded carriageways recover with their legal travel direction
+PASS continuous same-carriageway edges support a clear forward exit across their shared node
+PASS ORR recovery keeps the actual local grade and checks its forward footprint
+PASS occupied lanes select another clear lane and a fully queued corridor refuses placement
+PASS separate mainline geometry without a graph join never grants a recovery shortcut
+PASS a source ramp connected to mainline is not used as a mid-block ORR escape
+PASS explicit ORR ramps retain their role and grade even without the mainline controlled flag
+PASS auxiliary-lane surface shifts do not move recovery into shoulders or reject a clear through lane
+PASS actual Game recovery throttles failed ORR searches and retries after three simulation seconds
+13 ORR recovery regression groups passed.
+PASS a shallow elevated exit cannot draw or collide with diagonal barriers across through lanes
+PASS split ramp chains and reverse-direction merges stay open beyond the old45m endpoint rule
+PASS unconnected service roads and grade-separated crossings retain their mainline barrier
+PASS foreign flyover parapets use the same clipped visible and collision geometry at an ORR overlap
+{"schema":1,"scope":"All shipped ORR mainline/ramp road barriers from production low-quality tile construction; source/context copies included. No browser traversal claimed.","sourceEdges":307,"mainlineEdges":109,"rampEdges":198,"mainlineRampJunctions":104,"tilesBuilt":198,"sourceEdgesRendered":307,"wallsChecked":428316,"violations":0}
+PASS every shipped ORR exit/merge/mainline context copy keeps through corridors free of crossing walls
+5 ORR exit/merge regression groups passed.
+PASS a one-lane ramp retains one driveable booth gap instead of being split in half
+PASS ORR four-lane metadata controls booth count rather than counting shoulders as a fifth lane
+PASS nearby entry and exit carriageways each retain their own toll canopy
+PASS out-of-tile toll context cannot hide the owned plaza at a tile boundary
+PASS explicit six-metre taxiways are drawn at six metres and missing widths use the documented fallback
+PASS parking requires the whole wing/tail envelope to fit, including narrow aprons and concave edges
+PASS parked aircraft refuse terminal, hangar and active taxiway clearance envelopes
+PASS both shipped airports retain bounded low/normal-quality parking and connected departures
+PASS Durgam slab and footpaths continuously follow the existing sloped road instead of a raised flat platform
+PASS median gaps sample both bridge carriageways and preserve the rotated source frame
+PASS Durgam retains documented dimensions, fifty-two stays and finite bounded emitted geometry
+11 ORR/airport/bridge follow-up regression groups passed. No browser play claimed.
+PASS shared corridor colors override mislabeled source colors without recoloring the physical train model
+PASS only two exterior station boards face approaches and two interior boards face train windows with correct line strips
+PASS map loading assigns each normalized route its own shared color rather than painting all lines green
+PASS moving roofs are height-gated and static streets below a train retain their own support
+PASS a car falling onto a train roof lands using production Player physics and rides without clipping
+PASS a parked car follows coach rotation in its moving local frame
+PASS a carried car can drive relative to the roof, leave the end and take off without staying glued
+PASS train front impact pushes the car forward rather than moving through it
+PASS a fast car cannot tunnel through a coach side and lateral train motion imparts a push
+PASS grade separation and roof clearance prevent ghost side impacts above or below trains
+PASS recovery placement invalidates carrier attachment and a removed train never drags the car away
+PASS metro and ordinary rail contact bodies use the exact rendered coach poses and disappear with hidden coaches
+PASS a lower landmark plinth cannot disable a taller facade collision while actual curved tops remain landable
+13 moving-rail and metro identity regression groups passed.
+Airport/landmark checks passed: official3runway endpoints/widths/displaced thresholds, mapped taxi routes, 9independent runway tiles (0without source packs), 44055render vertices, actual sloped/arch support, bounded aircraft and52stay bridge. Missing tile keys: none
+PASS source feed keeps published identities, stop coordinates, direction and attribution
+PASS every published stop leg has a persistent alignment or an explicit unresolved reason
+PASS incoming directed road state excludes immediate reversals and rejects unsupported bus turns
+PASS almost parallel source splits cannot create a distant loop during a bus lane-width change
+PASS arterial preference cannot discard a shorter legal path inside the published stop detour bound
+PASS ambient buses never bind immediately before a physical turn without their approach room
+PASS persisted bus paths reject nearby parallel streets and retain the published identity
+PASS unloaded or changed aligned roads never fall back to a competing legal road
+PASS unresolved stored legs never silently use the legacy inferred corridor
+PASS a bound service stops in published order then chooses its allotted branch
+PASS unmatched roads and an opposite heading never acquire a fictional service
+PASS the actual NPC bus dwells and follows its service despite a competing straight road
+PASS a stop near the junction is served before its bus advances to the allotted next leg
+PASS streamed roads invalidate negative stop/path caches and stale edges never authorize a bus turn
+PASS an edge that leaves and returns to a stop corridor cannot create a spurious bus detour
+{"probes":32,"eligible":27,"bound":22,"boundRatioOfEligible":0.815,"joins":153,"maxJoinGap":0,"constructorMs":168.12,"probeAndBindMs":9.32,"retainedUniqueRouteIds":897,"retainedPatterns":1511,"sourceRouteIds":1031}
+PASS a bounded actual-feed/core-network sample binds only legal continuous published-stop paths
+PASS front and rear bus boards carry one matching route identity and face both approaches
+PASS ten auto variants each have exactly one Telugu quote panel and retain the rear plate
+18 bus/service/street-text regression groups passed.
+PASS a bus drives a short split chain into both allotted turns and serves its destination at 30/60Hz
+PASS dense two-degree gentle bends retain progress and still leave room for a subsequent ninety-degree turn
+PASS a stop just beyond a five-metre source split brakes, dwells and remains stopped after service ends
+PASS a downstream red signal holds the whole bus behind the bar, then green releases it to a destination dwell
+PASS unloading an intermediate source edge removes a bus whose current and destination edges remain loaded
+PASS actual stop dwells retain the route number, destination and stop IDs in published order
+PASS every assigned stop holds five to six seconds, exchanges visible passengers and resumes without creep or spin
+Bus execution: 7 independent production movement/stop/signal/streaming groups passed.
+PASS only mapped source controls are resolved; nearby geometry cannot invent a signal
+PASS rotated opposite arms share a phase, perpendicular arms never share green
+PASS multi-arm plans retain separate skew approaches and deterministic road ordering
+PASS each phase has amber then full all-red clearance before another green
+PASS one-way and source-way direction control only legal incoming vehicles
+PASS motorways, flyovers, private signals and disjoint crossing roads cannot acquire ground controls
+PASS an exact low-speed mapped ORR approach resolves without signalling the high-speed mainline
+PASS source controls bind after tile arrival, clear on unload, and never leak to another grade
+PASS a mapped raised signal binds only an aligned native deck and stop paint follows its slope
+PASS per-site offsets are stable across streamed rebuilds and avoid citywide lockstep
+PASS green splits favour the wider higher-class corridor while retaining clearance
+PASS divided-junction source nodes share one controller only across an actual short same-level link
+PASS rendered lenses select exactly the same aspect as the NPC controller at every transition
+PASS all vehicle lengths stop with their nose behind a mapped mid-block stop bar and resume on green
+PASS a car that crossed the bar on green clears a subsequent red without stopping inside
+PASS tile geometry never bakes permanently illuminated RGB bulbs and retains only sourced controls
+PASS raised pole colliders occupy their native height and leave ground below clear
+17 traffic-signal regressions passed
+PASS ground-road conflict trims only its swept footprint and preserves source identity and area
+PASS low buildings below an elevated deck remain while tall intersecting extrusions are corrected
+PASS metro deck and complete station envelope clear tall source buildings with source line identities
+PASS metro physical girder end overlap cannot leave a thin source-building remnant
+PASS concave buildings and dense duplicate road copies retain the same corridor opening
+PASS actual widened ramp ends and joined corner paint cannot leave a solid building in the road
+PASS generated render fragments and collision solids agree: road opens, remaining building still collides
+PASS junction fan between separate source edges opens the rendered turning pavement
+PASS normal-quality rooftop rooms cannot extend outside a safe thin footprint into a flyover
+9 building/transport clearance regression groups passed.
+PASS clear fuel forecourts retain their meshes and matching rear kiosk collider
+PASS a side road clipping only the rear kiosk relocates the whole fuel group to the clear side
+PASS blocked fuel sites emit neither decorative geometry nor orphaned colliders
+PASS station concourse is omitted when a side road clips an end beyond its clear centre
+PASS bus bays reject long end overlaps before drawing shelters, parked buses or obstacles
+PASS subway entrance corners cannot intrude into a carriageway despite a clear centre
+PASS road level permits a safe forecourt below a high flyover while detecting a low ramp
+PASS legacy contexts check interiors and rotated corners rather than just structure centres
+PASS mapped-building overlap rejects the complete fuel group without altering source evidence
+9 roadside clearance regression groups passed (offline production geometry and colliders).
+PASS latest dated active sites bind shipped NH163 roads and exclude superseded KBR structures
+PASS guidance follows the open lane rather than the barricaded source centre
+PASS construction barriers have matching collisions and preserve a bus-width through lane in every affected tile
+PASS unfinished piers are spaced, non-drivable and never become a finished flyover route
+PASS the sourced IIIT site actually emits a clear excavation scene instead of an empty catalog entry
+5 construction regression groups passed;149 bound road fragments,148 open-lane-safe unfinished piers,1392 bus-width samples.
+PASS lamp arms, emissive heads and warm pools share an inward endpoint for every road heading and side
+PASS production city lamps point into their own ground, one-way, median and widened elevated carriageways
+PASS mapped kerb lights and two-headed median masts use the same aligned production fixture
+PASS ORR panels face the approaching heading, fit one carriageway and replace a blocked median post with a clear cantilever
+PASS generic exit signs follow source curves, face arrivals and emit no structure at a conflicting bridge height
+5 lamp/gantry regression groups passed (production geometry, offline).
+PASS all three official services reverse origin and destination with the actual sourced run direction
+PASS station geometry draws exactly two end boards and two inward platform boards with elevated bench collisions
+PASS compact platform names fit both train-window directions at square and narrow review aspect ratios
+PASS long official platform names keep every word and a readable atlas font on the same physical board
+PASS marquee keeps short routes still, pauses at both complete ends and never scrolls beyond the text
+PASS both sides of every visible coach receive the current directed service and long names scroll
+PASS actual station arrival emits correct-platform door positions only while the train is dwelling
+PASS peak and off-peak crowds are bounded explicitly heuristic choices, with stationary seated waiting figures
+PASS boarding and alighting use a real dwell, freeze with zero time and clear immediately when it ends
+PASS opposite runs expose opposite platform flows while leaving the physical roof/collision envelopes intact
+PASS station crowds cannot appear on an unloaded platform and disappear when that tile unloads
+METRO_MODELED_PLATFORM_COVERAGE {"sourceStations":57,"activeStationSites":56,"retainedAliases":1,"physicalCorridorAssemblies":59,"modeledPlatformDirections":118,"secondaryInterchangeDirections":6,"unmodeledInterchangeDirections":0,"unmodeledServices":[],"crowdModel":"Heuristic game crowd simulation; not measured passenger usage."}
+PASS 57 retained source records yield 56 active sites and 59 physical corridor assemblies have matched real services in both directions
+PASS published interchange floor heights and smooth game approaches are shared across each actual corridor
+13 metro station-life regression groups passed (offline production components).
+PASS complete shipped inventory has stable distinct IDs and conservative architecture gates
+PASS repair shops, lecture/operating theatres and unrelated place names are not promoted
+PASS campus/address and company amenity names are reviewed instead of promoted into institutions or offices
+PASS all five typologies emit visible geometry while preserving original source records
+PASS failed transport clearance emits no decorative bodies or orphaned colliders
+PASS corrected source fragments keep ID binding and cannot bridge a concave courtyard
+PASS every runtime source building and board ID resolves in its original shipped tile
+PASS hero plans bind exact named OSM IDs and retain every original geographic vertex
+PASS mall source models render finite source-plan roofs with upward support normals
+PASS Sarath City and Asian AMB retain two place IDs but only one physical mall/clear owner
+PASS Uppal bowl has six floodlight towers, seating rows, standard pitch and an open field
+PASS campus proximity requires a stable ground visit and rearms only after leaving
+12 destination source/architecture/proximity groups passed. Offline fixtures are not photo or gameplay verification.
+PASS complete canopy footprint rejects an off-centre side-road clash and retains independently clear posters
+PASS canopy, counter and hoarding height envelopes independently protect elevated roads and metro corridors
+PASS retained solid posts and ticket counters enter global and owner grids and leave with the actual World unload lifecycle
+Source fixture: 219 catalogue tiles scanned, 18 lease-facade tiles built, 22 lease matches, 13 mounted fronts, retained {"canopy":7,"name":12,"poster":13,"counter":8}.
+PASS all actual lease-front meshes preserve facade orientation and poster material while clearing loaded source roads and metro envelopes
+4 cinema-front regression groups passed (production geometry, offline).
+(node:44639) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS actual SQL migration stores precise game coordinates, source road and build; retries are idempotent
+PASS public API cannot read reports, rejects foreign origins, malformed coordinates and oversized bodies
+bug_report_store_failed
+PASS per-session burst limit is bounded and does not convert a failed insert into success
+PASS concurrent SQL admissions never exceed five reports; concurrent duplicate UUID retries remain idempotent
+PASS projection is city-data inverse and potential blockage is explicitly an inference
+PASS offline client retains frozen original report; truthful queued status and later retry use same ID
+PASS independent tab queues merge with exclusive Web Locks and the synchronous fallback
+PASS a delayed flush removes only its receipt and preserves another tab's newly queued report
+PASS invalid cached evidence is retained in quarantine and cannot starve a valid report
+PASS permanent server rejection quarantines the full original and continues later reports
+PASS full quarantine preserves rejected evidence while valid reports still flush; full pending queues never evict
+PASS queued acknowledgment requires durable verification and a receipt must match its report UUID
+PASS malformed stored JSON is preserved, invalid sessions are replaced and storage failure never claims queued
+PASS movement history uses wall-clock seconds, expires while paused, and rejects future samples after clock correction
+PASS a report opened after a long pause cannot infer blockage from expired throttle history
+PASS build fingerprint is deterministic, path-framed, and changes when only a public city pack changes
+16 bug-report storage, privacy and retry groups passed.
+PASS 800x360:150% brake, all controls/map/context inside viewport with no rectangle overlaps
+PASS 900x400:150% brake, all controls/map/context inside viewport with no rectangle overlaps
+PASS 844x390:150% brake, all controls/map/context inside viewport with no rectangle overlaps
+PASS 640x360:150% brake, all controls/map/context inside viewport with no rectangle overlaps
+PASS 568x320:150% brake, all controls/map/context inside viewport with no rectangle overlaps
+PASS 1280x720:150% brake, all controls/map/context inside viewport with no rectangle overlaps
+PASS 844x390:resolved safe-area insets preserve all control/map/context lanes
+PASS 800x360:resolved safe-area insets preserve all control/map/context lanes
+PASS six retained source anchors produce fifty-nine physical assemblies and no duplicate JBS service with exactly two exterior names per source site
+INTERCHANGE_RENDERED_CLEARANCE [{"stationId":"st_ameerpet","lineId":"blue","direction":1,"sourceId":"n6700511122","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_ameerpet","lineId":"blue","direction":-1,"sourceId":"n6700511122","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_ameerpet","lineId":"red","direction":1,"sourceId":"n6447191882","floor":30,"triangleConflicts":0,"samples":[]},{"stationId":"st_ameerpet","lineId":"red","direction":-1,"sourceId":"n6447191882","floor":30,"triangleConflicts":0,"samples":[]},{"stationId":"st_mahatma_gandhi_bus_station","lineId":"green","direction":1,"sourceId":"n7208768627","floor":22.86,"triangleConflicts":0,"samples":[]},{"stationId":"st_mahatma_gandhi_bus_station","lineId":"green","direction":-1,"sourceId":"n7208768627","floor":22.86,"triangleConflicts":0,"samples":[]},{"stationId":"st_mahatma_gandhi_bus_station","lineId":"red","direction":1,"sourceId":"n7208768626","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_mahatma_gandhi_bus_station","lineId":"red","direction":-1,"sourceId":"n7208768626","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_parade_grounds","lineId":"blue","direction":1,"sourceId":"n7052069758","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_parade_grounds","lineId":"blue","direction":-1,"sourceId":"n7052069758","floor":13.7,"triangleConflicts":0,"samples":[]},{"stationId":"st_parade_grounds","lineId":"green","direction":1,"sourceId":"n7195061310","floor":24.9,"triangleConflicts":0,"samples":[]},{"stationId":"st_parade_grounds","lineId":"green","direction":-1,"sourceId":"n7195061310","floor":24.9,"triangleConflicts":0,"samples":[]}]
+PASS all twelve interchange service directions stop at actual platform floors and their train plus roof-riding envelopes clear rendered structures
+PASS a roof rider follows both height and slope changes without losing the same moving coach
+3 metro interchange regression groups passed (offline production geometry).
+PASS renderer EulerYXZ vertices and oriented-box/prism SAT, pitched high/low ends, lateral separation and shared-boundary cases
+PASS a short slip-ramp graph path cannot turn a real perpendicular crossing into a pavement join
+PASS same-name parallel flyover and frontage-road ribbons at different levels are not a shared surface
+PASS independent coplanar elevated crossings remain explicit ambiguity without topology or source level evidence
+PASS protected survey/ORR controls stay immutable and infeasible candidates retain reasoned source-ID diagnostics
+PASS an actual same-level shared-endpoint junction remains connected and is not artificially grade separated
+5 bridge grade classification regression groups passed (independent synthetic finite-road fixtures).
+PASS ordinary coplanar deck crossings retain exterior parapets and remove actual visible/collidable road-blocking blades
+PASS independent low estimated deck crossings get real bus headroom and retain source XY/IDs
+PASS city grade controls converge, retain immutable source evidence and explicitly keep unresolved classifications
+PJR_RENDERED_BUS_CLEARANCE {"tile":"-15_-4","pack":"packs/p-5_-2.pack.wasm","upper":"0929bcb7-462_0","lower":["c898d540-669_0","ac6bc470-258_0"],"intersectedTrianglePairs":16,"minimumPhysicalSoffitHeadroom":4.95,"actualBusRoof":3.3399999141693115,"actualBusWidth":2.940000057220459,"roofMargin":1.6100000858306887}
+PASS actual sourced PJR soffit meshes clear the full Gachibowli road intersections and the production bus roof
+PASS actual bus and car collision footprints remain clear on both source Gachibowli approaches
+PEDESTRIAN_APPROACH_CLEARANCE {"tile":"-4_-3","source":"eef067f9-d2b_0","sourceClass":"pedestrian","roadQuads":16,"remainingPanelInteriorProbes":0}
+PASS actual tile-only pedestrian landing surface cannot retain the two low approach panels from the full source audit
+6 bridge deck/vehicle regression groups passed (actual source meshes; no browser driving claimed).
+
+> pizza-to-picture-hall@0.1.0 test:flyovers
+> node ../tools/flyover-regressions.mjs
+
+PASS generated near-vertical approaches ease over connected roads and keep same-level branches joined
+PASS explicit surveyed profiles and source-separated ground roads do not lift into a flyover
+PASS finite road triangles replace sticky endpoint caps and match actual curved asphalt triangles
+PASS thin lane paint follows the grade, has no vertical lip faces and continues across dense source pieces
+PASS a real elevated junction pavement patch supports the same corner region that is rendered
+PASS actual Player follows downhill/uphill grades without detaching or losing speed to repeated landings
+PASS road-bound pickup/drop heights rebase with the model while a genuine ground stop below a deck stays grounded
+{"roads":52412,"repairedRoads":1353,"sourceSteepSegments":1365,"modelSteepSegments":0,"maxModelGrade":0.09723140495869986,"protectedRoads":307,"protectedRoadsChanged":51,"separatedCrossings":817,"minCrossingSeparation":5.849999999999999,"joinedEndpointMaxDifference":0,"uncertainty":"Estimated game road heights and eased approaches, not a survey. OriginalXY/alignment, road IDs and connectivity retained. Verified relative source layers and classified finite-envelope headroom can extend inherited game elevation estimates; explicit surveyed profiles remain fixed.","bridgeClearance":{"mappedRoads":0,"mappedPoints":0,"finiteOverlaps":22547,"joinedPavements":1898,"separatedCrossings":12218,"ambiguousJoins":8431,"relaxationRounds":3,"minimumModelSeparation":5.849999999999999,"raisedRoads":472,"ambiguityReasons":{"independent-coplanar-or-near-level":7314,"connected-profile-clearance-infeasible":622,"parallel-corridor-order-unverified":146,"mapped-same-level-crossing-topology-unverified":143,"contradictory-lower-road-ceilings":206},"estimated":"Finite rendered road envelopes; same-level/near-connected and parallel-corridor pavement joins are preserved. Independent upper/lower crossings use estimated5.85m surface separation and6.5% control grades. Infeasible constraints remain explicit ambiguity, never an unlimited lifting loop. XY, source records and graph IDs are retained."},"mappedLevelRoads":8,"mappedLevelPoints":734,"rebasedStops":113,"ambiguousStops":0,"prepareMilliseconds":5297.5,"gradePatches":1353}
+PASS all shipped core estimates satisfy the new grade bound, crossing clearance and endpoint contracts
+PASS the worst shipped Nallagandla and Telugu Talli ramps use smooth real finite tile surfaces
+9 flyover grade/render/support regression groups passed.
+
+> pizza-to-picture-hall@0.1.0 test:route-motion
+> node ../tools/route-motion-regressions.mjs
+
+PASS route progress never jumps to a nearby later arm or another bridge level
+PASS one-point and coincident terminal paths remain stable while waiting to collect
+PASS straight road ribbon is exactly half the old width with finite joined/capped geometry
+PASS corner fillets require same-grade loaded road and full facade/wall clearance
+PASS actual Game retains a valid route across timers, progresses smoothly and reuses GPU storage
+PASS off-road departure hides guidance and does not thrash A-star while still off-road
+PASS opposite physical carriageway and recovery placement force a correct new route
+PASS delivery planning uses both published stop heights instead of a road below the flyover
+PASS landed route discards the stale flight overview and new obstacles clip the guide
+9 route-motion regression groups passed
+PASS real f731 source micro-join has no backward GPS spur or near180degree reversal after legal smoothing
+PASS production bus span still clears the actual shipped micro-join and serves its test destination with and without work structures
+PASS tiny-join cleanup retains uncertain pavement and different-height waypoints instead of inventing a shortcut
+3 shipped construction/guidance regression groups passed (offline production execution).
+
+> pizza-to-picture-hall@0.1.0 build
+> node scripts/build.mjs
+
+vite v5.4.10 building for production...
+
+./fonts/fonts.css doesn't exist at build time, it will remain unchanged to be resolved at runtime
+transforming...
+✓ 104 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/index.html                         0.76 kB │ gzip:   0.49 kB
+dist/client/assets/tileworker-DW831ylO.js    586.25 kB
+dist/client/assets/index-DAo2KaIB.js       1,978.66 kB │ gzip: 588.18 kB
+
+(!) Some chunks are larger than 1500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.54s
+Built game assets + bounded bug-report Worker.

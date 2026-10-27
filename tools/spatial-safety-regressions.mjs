@@ -84,6 +84,19 @@ try {
     const game = Object.assign(Object.create(Game.prototype), { graph: g, city: c, player: { place() { placed = true; } } });
     assert.equal(game.placeNear(50, 0), false); assert.equal(placed, false);
   });
+  test('a remote elevated segment no longer excludes the clear ground portion of the same road', () => {
+    const { c, g } = fixture([road('mixed-grade', [[0,0],[100,0],[200,0]], {elev:[0,0,12]})]);
+    const p=findClearStreetSpot(g,c,20,0); assertExit(c,p); assert.equal(p.y,0); assert.ok(p.x<100);
+  });
+  test('area placement may fall back to a verified elevated carriageway without changing ground recovery', () => {
+    const {c,g}=fixture([road('deck',[[0,0],[100,0]],{cls:'motorway',elev:[12,12]})]);
+    assert.equal(findClearStreetSpot(g,c,50,0),null);
+    const p=findClearStreetSpot(g,c,50,0,{allowElevated:true}); assertExit(c,p); assert.equal(p.y,12);
+    const elevatedOnly = new RoadGraph([road('missing-deck',[[0,0],[100,0]],{elev:[12,12]})]);
+    const ground=fixture([road('ground',[[0,0],[100,0]])]).c;
+    assert.equal(findClearStreetSpot(elevatedOnly,ground,50,0,{allowElevated:true}),null,'never snap an unloaded elevated edge onto an unrelated ground surface');
+    rect(c,-10,-10,110,10,30); assert.equal(findClearStreetSpot(g,c,50,0,{allowElevated:true}),null,'full car clearance still required');
+  });
   test('recovery avoids a bus at the otherwise preferred street point', () => {
     const { c, g } = fixture([road('main', [[0, 0], [100, 0]])]);
     const cars = [{ x: 50, z: -2, y: 0, hx: 1, hz: 0, size: [2.6, 3.2, 12] }];

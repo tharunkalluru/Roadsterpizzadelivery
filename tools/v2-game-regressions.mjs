@@ -108,7 +108,7 @@ try {
       order: null, nextOfferAt: null, cinemaReport: null, paused: false, choosing: false, relocating: false,
       area: { name: 'Test area', x: 0, z: 0 }, map: { open: false, ticks: 0, tick() { this.ticks++; }, show() { this.open = true; }, handleKey() {} },
       route: null, routeTarget: null, routeT: 0, routeGuide: [], routeGuidanceBlocked: false,
-      theatres: [theatre], lease: null, slate: [], food: [], residences: [], opts: { lowQ: true }, zone: { bounds: [-1000, -1000, 1000, 1000] },
+      theatres: [theatre], lease: null, slate: [], food: [], residences: [], opts: { lowQ: true }, zone: { bounds: { minX: -1000, minZ: -1000, maxX: 1000, maxZ: 1000 } },
       player: { pos: new Vector3(0, 0.55, 0), forward: new Vector3(0, 0, -1), speed: 0, yaw: 0, flying: false, descending: false, glide: null, lastSupport: 0, hitCooldown: 0, bump: 0, placementRevision: 0, enforceSpeedLimit: Player.prototype.enforceSpeedLimit, update() { counts.player++; } },
       hud, sound, beacon, gps: new Mesh(new BufferGeometry(), new MeshBasicMaterial()),
       settings: { quality: 'auto', sound: true, steer: 'stick', tips: true },
@@ -275,6 +275,62 @@ try {
     for (const area of [{ name: 'RTC X Roads', x: 0, z: 0 }, { name: 'Edge', x: -1000, z: 1000 }]) { localStorage.setItem('p2ph-area-v1', JSON.stringify(area)); assert.deepEqual(g.savedArea(), area); }
     for (const area of [null, { name: ' ', x: 0, z: 0 }, { name: 'Bad', x: '0', z: 0 }, { name: 'Bad', x: 1001, z: 0 }, { name: 'Bad', x: 0, z: -1001 }, { name: 1, x: 0, z: 0 }]) { localStorage.setItem('p2ph-area-v1', JSON.stringify(area)); assert.equal(g.savedArea(), null); }
     localStorage.setItem('p2ph-area-v1', '{'); assert.equal(g.savedArea(), null);
+  });
+
+  const relocatingFixture = () => {
+    const f = requestFixture(), { g } = f;
+    g.picker = { hide() {}, show() {} }; g.city.ensure = async () => {};
+    g.traffic.clear = () => {}; g.walkers.group = new Group();
+    g.map.hide = () => { g.map.open = false; };
+    g.map.showPick = (callbacks, at) => { g.map.open = true; g.map.pick = callbacks; g.map.at = at; };
+    g.map.build = async () => {}; g.placeNear = (x, z) => { g.player.pos.set(x, .55, z); return true; };
+    return f;
+  };
+  await test('latest destination wins even if obsolete loads resolve or reject after the new choice', async () => {
+    for (const lateFailure of [false, true]) {
+      const { g } = relocatingFixture(), waits = [];
+      g.city.ensure = (x, z, radius, signal) => new Promise((resolve, reject) => waits.push({ resolve, reject, signal }));
+      const old = g.relocate({ name:'Old destination',x:100,z:200 });
+      const latest = g.relocate({ name:'Latest destination',x:-700,z:-800 });
+      assert.equal(waits[0].signal.aborted,true); assert.equal(waits[1].signal.aborted,false);
+      waits[1].resolve(); await latest;
+      if(lateFailure) waits[0].reject(Error('old network request')); else waits[0].resolve();
+      await old;
+      assert.equal(g.area.name,'Latest destination'); assert.equal(g.player.pos.x,-700);
+      assert.equal(g.relocating,false); assert.equal(g.choosing,false); assert.equal(g.paused,false);
+      assert.equal(g.savedArea().name,'Latest destination');
+    }
+  });
+  await test('failed loading or blocked placement retains destination for retry and keeps old progress', async () => {
+    const savedError = console.error; console.error = () => {};
+    try { for (const failure of ['network','blocked']) {
+      const { g, hud } = relocatingFixture(), destination={name:'Selected destination',x:900,z:-900};
+      const oldArea=g.area, oldOrder=order('offer'); g.order=oldOrder; g.coins=1234;
+      localStorage.setItem('p2ph-area-v1',JSON.stringify(oldArea));
+      const requests=[];
+      g.city.ensure=async (x,z) => { requests.push([x,z]); if(failure==='network'&&requests.length===1) throw Error('offline'); };
+      g.placeNear = (x,z) => { if(failure==='blocked'&&requests.length===1) return false; g.player.pos.set(x,.55,z); return true; };
+      await g.relocate(destination);
+      assert.equal(g.area,oldArea); assert.equal(g.order,oldOrder); assert.equal(g.coins,1234); assert.equal(g.player.pos.x,0);
+      assert.deepEqual(g.savedArea(),oldArea); assert.match(hud.modals.at(-1),/Selected destination/);
+      assert.equal(g.paused,true); assert.equal(g.choosing,true); assert.equal(g.relocating,false);
+      hud.sheet.querySelector('#area-retry').emit('click'); await Promise.resolve(); await Promise.resolve();
+      assert.deepEqual(requests,[[900,-900],[900,-900]]); assert.deepEqual(g.area,destination); assert.equal(g.player.pos.x,900); assert.equal(g.order,null);
+    } } finally { console.error=savedError; }
+  });
+  await test('nearby retry opens at the selected pin, cancelling retains it, and Stay here resumes the old area', async () => {
+    const { g, hud } = relocatingFixture(), c={name:'Pin',x:400,z:500}, old=g.area;
+    g.placeNear=()=>false; await g.relocate(c);
+    hud.sheet.querySelector('#area-nearby').emit('click'); assert.deepEqual(g.map.at,{x:400,z:500,scale:.5});
+    g.map.pick.onCancel(); assert.match(hud.modals.at(-1),/Could not move to Pin/);
+    hud.sheet.querySelector('#area-stay').emit('click'); assert.equal(g.area,old); assert.equal(g.paused,false); assert.equal(g.choosing,false);
+  });
+  await test('accepted orders and malformed or outside-map choices cannot relocate or start loading', async () => {
+    const { g } = relocatingFixture(); let loads=0; g.city.ensure=async()=>{loads++;};
+    g.order=order('pickup'); await g.relocate({name:'Valid',x:500,z:500}); assert.equal(loads,0); assert.equal(g.order.state,'pickup');
+    g.order=null;
+    for(const c of [{name:'Outside',x:1001,z:0},{name:'Invalid',x:NaN,z:0},{name:' ',x:0,z:0},{name:'String',x:'20',z:0}]) await g.relocate(c);
+    assert.equal(loads,0); assert.equal(g.area.name,'Test area');
   });
 
   await test('GO remains held acceleration while cruise captures current speed and retargets after manual override', () => {

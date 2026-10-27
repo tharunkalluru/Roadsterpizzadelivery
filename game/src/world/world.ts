@@ -135,7 +135,8 @@ export class World implements CityData {
     catch { this.fail(k, 'Could not send this part of the city to the loader.'); }
   }
   // resolve once every tile within r of (x, z) is built (start-up, teleports, test scenes)
-  ensure(x: number, z: number, r = 700): Promise<void> {
+  ensure(x: number, z: number, r = 700, signal?: AbortSignal): Promise<void> {
+    if (signal?.aborted) return Promise.reject(new DOMException('Area choice cancelled', 'AbortError'));
     const previousFocus = this.focus, targetFocus: [number, number] = [x, z];
     this.focus = targetFocus;
     const want = this.wanted(x, z, r);
@@ -152,10 +153,12 @@ export class World implements CityData {
       const finish = (error?: Error) => {
         if (done) return;
         done = true; if (timer !== undefined) clearInterval(timer);
+        signal?.removeEventListener('abort', abort);
         this.waiters = this.waiters.filter((f) => f !== check);
-        if (error && this.focus?.[0] === x && this.focus?.[1] === z) this.focus = previousFocus;
+        if (error && this.focus === targetFocus) this.focus = previousFocus;
         if (error) reject(error); else resolve();
       };
+      const abort = () => finish(new DOMException('Area choice cancelled', 'AbortError'));
       const check = () => {
         if (done) return;
         this.expireRequests();
@@ -168,6 +171,7 @@ export class World implements CityData {
         if (performance.now() >= deadline) { finish(new Error('Loading this area took too long. Check your connection and try again.')); return; }
         for (const k of missing) this.request(k);
       };
+      signal?.addEventListener('abort', abort, { once: true });
       this.waiters.push(check); check();
       if (!done) timer = setInterval(check, 200);
     });

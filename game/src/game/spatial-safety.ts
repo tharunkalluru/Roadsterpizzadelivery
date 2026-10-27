@@ -8,7 +8,7 @@ import type { RoadEdge } from '../world/types';
 interface Point { x: number; y: number; z: number }
 export interface VehicleBounds extends Point { hx: number; hz: number; size: number[] }
 export interface StreetSpot extends Point { yaw: number }
-export interface StreetSpotOptions { preferMajor?: boolean; heading?: { x: number; z: number }; vehicles?: VehicleBounds[] }
+export interface StreetSpotOptions { allowElevated?: boolean; preferMajor?: boolean; heading?: { x: number; z: number }; vehicles?: VehicleBounds[] }
 
 function segmentDistance(x: number, z: number, ax: number, az: number, bx: number, bz: number) {
   const dx = bx - ax, dz = bz - az;
@@ -136,9 +136,9 @@ export function clearCameraPosition(city: CityData, from: Point, wanted: Point):
   return best;
 }
 
-function roadClearAt(city: CityData, x: number, z: number, y: number): boolean {
+function roadClearAt(city: CityData, x: number, z: number, y: number, allowElevated = false): boolean {
   const sup = supportAt(city, x, z, y + 0.5, true), s = sup.s;
-  if (!s || !sup.onRoad || sup.y > 1.2 || Math.abs(sup.y - y) > 0.6) return false;
+  if (!s || !sup.onRoad || (!allowElevated && sup.y > 1.2) || Math.abs(sup.y - y) > 0.6) return false;
   return segmentDistance(x, z, s.ax, s.az, s.bx, s.bz).d <= Math.max(0, (s.e?.w ?? s.hw * 2) / 2 - 1.15);
 }
 
@@ -155,9 +155,10 @@ export function streetFootprintClear(city: CityData, p: Point, hx: number, hz: n
 export function findClearStreetSpot(graph: RoadGraph, city: CityData, x: number, z: number,
   options: StreetSpotOptions = {}): StreetSpot | null {
   const allowed = new Set(['trunk', 'primary', 'secondary', 'tertiary', 'unclassified', 'residential', 'unknown', 'primary_link', 'secondary_link', 'tertiary_link', 'living_street', 'service']);
+  if (options.allowElevated) for (const cls of ['motorway', 'motorway_link', 'trunk_link']) allowed.add(cls);
   const projections: { g: ReturnType<RoadGraph['nearestEdges']>[number]; s: number; d: number }[] = [];
   for (const g of graph.nearestEdges(x, z, 10)) {
-    if (!allowed.has(g.e.cls) || g.len < 12 || g.e.w < 3 || g.e.elev?.some(y => y > 1.2)) continue;
+    if (!allowed.has(g.e.cls) || g.len < 12 || g.e.w < 3) continue;
     for (let i = 0; i < g.e.pts.length - 1; i++) {
       const a = g.e.pts[i], b = g.e.pts[i + 1], q = segmentDistance(x, z, ...a, ...b);
       if (q.d <= 550) projections.push({ g, s: g.cum[i] + (g.cum[i + 1] - g.cum[i]) * q.t, d: q.d });
@@ -175,7 +176,11 @@ export function findClearStreetSpot(graph: RoadGraph, city: CityData, x: number,
         const sf = Math.max(4, Math.min(g.len - 4, s + shift)), key = `${g.e.id}:${sf.toFixed(1)}:${dir}:${offset}`;
         if (visited.has(key)) continue; visited.add(key);
         const p = graph.pointAt(g, dir === 1 ? sf : g.len - sf, dir, offset);
-        const sup = supportAt(city, p.x, p.z, p.y + 0.5, true); p.y = sup.y;
+        // Inspect this part of the road, not every elevation on a long edge.
+        if (!options.allowElevated && p.y > 1.2) continue;
+        const sup = supportAt(city, p.x, p.z, p.y + 0.5, true);
+        if (!sup.onRoad || Math.abs(sup.y - p.y) > .6 || Math.hypot(p.x - x, p.z - z) > 550) continue;
+        p.y = sup.y;
         const headingCost = options.heading ? (1 - (p.hx * options.heading.x + p.hz * options.heading.z)) * 3 : 0;
         const score = Math.hypot(p.x - x, p.z - z) + headingCost + (options.preferMajor && ['residential', 'unclassified', 'unknown', 'service', 'living_street'].includes(g.e.cls) ? 20 : 0);
         if (best && score >= best.score) continue;
@@ -184,7 +189,7 @@ export function findClearStreetSpot(graph: RoadGraph, city: CityData, x: number,
         // Require a short forward exit as well as a free final footprint.
         for (const ahead of [0, 2, 4, 6, 8]) {
           const at = { x: p.x + p.hx * ahead, y: p.y, z: p.z + p.hz * ahead };
-          if (!roadClearAt(city, at.x, at.z, at.y) || !streetFootprintClear(city, at, p.hx, p.hz, options.vehicles)) { clear = false; break; }
+          if (!roadClearAt(city, at.x, at.z, at.y, options.allowElevated) || !streetFootprintClear(city, at, p.hx, p.hz, options.vehicles)) { clear = false; break; }
         }
         if (clear) best = { x: p.x, y: p.y, z: p.z, yaw: Math.atan2(-p.hx, -p.hz), score };
       }

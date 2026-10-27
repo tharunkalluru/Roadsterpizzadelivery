@@ -1,0 +1,134 @@
+{
+  "recordedAt": "2026-10-27T00:17:02.460934+00:00",
+  "baseCommit": "a3afea7922455d85aa84b6440d4a6d221b92c7e8",
+  "scope": "User area relocation bug, width-only BRAKE, centered speed, right GO/FLY/CRUISE stack and mandatory landscape mobile play.",
+  "diagnosis": {
+    "confirmed": [
+      "Failure branches previously discarded the selected destination and reopened the generic chooser.",
+      "Whole-edge elevation filtering rejected clear ground segments when any remote vertex was elevated. Ground-only placement also excluded supported elevated-only destinations.",
+      "Saved-area bounds were indexed as an array, but shipped CoreData uses minX/maxX/minZ/maxZ.",
+      "Overlapping relocation calls were silently dropped by the relocating guard."
+    ],
+    "limit": "Exact intermittent screenshot failure was not reproduced. Three actual source probes near the screenshot already found safe ground in the baseline; do not attribute that incident conclusively to elevation or network failure.",
+    "baselineNeighborhoodProbes": [
+      {
+        "target": [
+          -13788,
+          -3761
+        ],
+        "ground": {
+          "x": -13790.078172441343,
+          "y": 0,
+          "z": -3761.3117258662014,
+          "yaw": 2.9927027059802707
+        }
+      },
+      {
+        "target": [
+          -13790.1,
+          -2970.1
+        ],
+        "ground": {
+          "x": -13795.943376437544,
+          "y": 0,
+          "z": -2974.315910851491,
+          "yaw": 2.5165920155602937
+        }
+      },
+      {
+        "target": [
+          -14125,
+          -3592
+        ],
+        "ground": {
+          "x": -14126.61612035038,
+          "y": 0,
+          "z": -3606.625874140199,
+          "yaw": -2.428692903203812
+        }
+      }
+    ],
+    "pinPrecision": "The first probe is an approximate image-derived neighborhood coordinate, not the exact original pin."
+  },
+  "behavior": {
+    "relocation": "Latest valid choice owns loading; obsolete completions/rejections are ignored. Aborted waiters release timers without cancelling shared tile work. Existing area, pending offer, coins and saved choice remain intact until successful safe placement.",
+    "failures": "Retain exact destination in a Retry this destination / Choose nearby street / Stay here dialog. Nearby map starts at that destination; cancelling returns to the retry dialog. Invalid/off-map coordinates and accepted delivery changes are refused.",
+    "placement": "Ground first, then verified elevated carriageway within 550 metres. Actual local road support, full vehicle footprint, one-way heading and eight-metre clear departure are required. No arbitrary fallback to old area or unloaded road.",
+    "brake": "150% preceding width; height equals GO.",
+    "layout": "Speed centered at the bottom in desktop and touch UI. FLY and CRUISE share GO left/width and stack above it. Short-landscape map docks beside the thumb column when needed.",
+    "orientation": "Touch portrait is blocked at title, menu and gameplay; no Play anyway bypass. Enter Full Screen Mode requests native fullscreen then landscape lock. Only real orientation changes remove the gate; denied/unsupported calls retain manual-rotate guidance."
+  },
+  "validation": {
+    "fullCheck": {
+      "command": "npm --prefix game run check",
+      "exitCode": 0,
+      "log": "2026-10-26-v12/check.log"
+    },
+    "targetedGroups": {
+      "game": 37,
+      "loading": 14,
+      "ui": 40,
+      "spatial": 21,
+      "layoutViewports": 6,
+      "layoutSafeInsetVariants": 2
+    },
+    "offlineFailureCoverage": [
+      "network reject",
+      "no clear placement",
+      "retry exact destination",
+      "nearby-map cancel",
+      "stay in original area",
+      "late obsolete success",
+      "late obsolete error",
+      "same-coordinate focus ownership",
+      "pre-aborted wait",
+      "accepted-order guard",
+      "malformed/off-map coordinates",
+      "mixed ground/elevated road",
+      "elevated-only supported fallback",
+      "unloaded elevated edge refusal",
+      "portrait denied/unsupported/successful API calls cannot bypass orientation"
+    ],
+    "browser": {
+      "method": "Supported visible browser controls, no live hidden state changes. Component previews are explicitly labelled and separate from actual game actions.",
+      "actualGame": [
+        "Gachibowli selected through popular-area control; loaded and generated Gachibowli customer offer.",
+        "Reload showed Continue in Gachibowli, confirming saved-area restoration.",
+        "Initial map dragged west until Telecom Nagar label; Start delivering here loaded that pin, rendered the car and generated Bicha Reddy Sweets to Home in Telecom Nagar offer."
+      ],
+      "completedPickups": 0,
+      "completedHandovers": 0,
+      "componentViewportScreenshots": [
+        "800x360",
+        "640x360",
+        "844x390",
+        "900x400"
+      ],
+      "portraitScreens": [
+        "390x844",
+        "320x568 with existing menu"
+      ],
+      "fullscreen": "Enter Full Screen Mode from 390x844 gate produced a native 1280x720 landscape fullscreen viewport and unlocked controls.",
+      "localGameConsoleWarningsOrErrors": [],
+      "limits": [
+        "No physical Nothing Phone test, gyro/sensor acceptance or universal automatic orientation guarantee.",
+        "Exact intermittent prior screenshot case remains unconfirmed. Controlled failures/races are offline integration regressions, not fabricated live network failures.",
+        "No new completed delivery is claimed.",
+        "Component QA chrome can overlap its own preview; it is not shipped in the production build."
+      ]
+    },
+    "productionParity": {
+      "siteSourceCommit": "c92a4511b8f1ac2a41eb66568784d16056974457",
+      "sourceAndAssetsByteIdentical": true,
+      "clientFiles": 317,
+      "serverFiles": 2,
+      "databaseBinding": "DB preserved, no schema or backend behavior change"
+    }
+  },
+  "publication": {
+    "status": "prepared",
+    "version": null,
+    "url": "https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site"
+  },
+  "preserved": "No city source packs, shopfront evidence, Roadster model, bridge/world geometry, bus/metro data, speed caps or private bug-report endpoint changed."
+}
