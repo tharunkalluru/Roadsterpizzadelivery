@@ -1,5 +1,7 @@
 # Browser-control QA harnesses
 
+**Historical scope:** these optimization-era harnesses are preserved for `archive/mobile-performance-v23`. Production has returned to Version 21; helpers that read experimental diagnostics are not compatible with it. The recovery controller is `tools/diagnostics/v21-recovery-controls.js` at the repository root.
+
 These files are `async(page) => ...` callbacks for the installed Playwright CLI's
 `run-code --filename` command. They are not standalone Node executables. Use an
 agent-created browser session with one input owner, create `output/playwright/`,

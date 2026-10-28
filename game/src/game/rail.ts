@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Batch, rng, type Rng } from '../core/util';
+import { Batch } from '../core/util';
 import type { XZ } from '../world/types';
 import { MovingRailFrames, type MovingRailShape } from './moving-rail';
 
@@ -26,13 +26,8 @@ function coachGeo(kind: 'loco' | 'coach', livery: string) {
 export class RailTrains {
   group = new THREE.Group(); trains: Train[] = []; t = 0; geos: Record<string, THREE.BufferGeometry> = {};
   private nextTrain = 0; private frames = new MovingRailFrames();
-  private random: Rng;
   get bodies() { return this.frames.bodies; }
-  constructor(public mat: THREE.Material, seed = Math.floor(Math.random() * 4294967296)) {
-    // Rendering effects consume their own random values at presentation cadence.
-    // Train decisions must depend only on this simulation stream and its updates.
-    this.random = rng(seed);
-  }
+  constructor(public mat: THREE.Material) {}
   geo(k: string) { return this.geos[k] || (this.geos[k] = k === 'loco' ? coachGeo('loco', '') : coachGeo('coach', k)); }
   // chain connected ways into one long run through the given way
   buildRun(rails: Map<string, Track>, start: Track): Run {
@@ -81,19 +76,19 @@ export class RailTrains {
     if (this.trains.length < MAXT && this.t > 6 && rails.size) {
       this.t = 0;
       let cand: Track | null = null, bd = 900;
-      for (const r of rails.values()) { const m = r.pts[Math.floor(r.pts.length / 2)], d = Math.hypot(m[0] - px, m[1] - pz); if (d < bd && this.random() < 0.5) { bd = d; cand = r; } }
+      for (const r of rails.values()) { const m = r.pts[Math.floor(r.pts.length / 2)], d = Math.hypot(m[0] - px, m[1] - pz); if (d < bd && Math.random() < 0.5) { bd = d; cand = r; } }
       if (cand) {
         const run = this.buildRun(rails, cand);
         if (run.len > 700) {
-          const dir: 1 | -1 = this.random() < 0.5 ? 1 : -1;
+          const dir: 1 | -1 = Math.random() < 0.5 ? 1 : -1;
           // start at the end farther from the player
           // enter ~550 m up the line from where the player is closest to it
           let ns = 0, nd = 1e9; for (let i = 0; i < run.pts.length; i++) { const d = Math.hypot(run.pts[i][0] - px, run.pts[i][2] - pz); if (d < nd) { nd = d; ns = run.cum[i]; } }
-          const s = Math.max(0, Math.min(run.len, ns - dir * 550)), n = 8 + Math.floor(this.random() * 6);
-          const livery = ['#2f5d9a', '#7b2d26', '#2f5d9a', '#3d6b4f'][Math.floor(this.random() * 4)];
+          const s = Math.max(0, Math.min(run.len, ns - dir * 550)), n = 8 + Math.floor(Math.random() * 6);
+          const livery = ['#2f5d9a', '#7b2d26', '#2f5d9a', '#3d6b4f'][Math.floor(Math.random() * 4)];
           const cars: THREE.Mesh[] = [];
           for (let k = 0; k < n; k++) { const m = new THREE.Mesh(this.geo(k === 0 ? 'loco' : livery), this.mat); m.castShadow = true; this.group.add(m); cars.push(m); }
-          this.trains.push({ id: `rail:${this.nextTrain++}`, run, s, dir, v: 12 + this.random() * 8, cars });
+          this.trains.push({ id: `rail:${this.nextTrain++}`, run, s, dir, v: 12 + Math.random() * 8, cars });
         }
       }
     }

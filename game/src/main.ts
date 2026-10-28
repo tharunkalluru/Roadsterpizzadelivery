@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { measuredQuality } from './core/quality-profile';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { initTemplates } from './core/util';
 import { Engine } from './core/engine';
@@ -37,7 +36,7 @@ export async function loadCore(base: string): Promise<CoreData> {
 export async function boot() {
   const still = q.get('still') ? { w: +(q.get('w') || 1280), h: +(q.get('h') || 592) } : undefined;
   const pref = loadSettings().quality, touch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  const lowQ = !still && (q.get('q') ? q.get('q') === 'low' : pref === 'auto' ? measuredQuality() : pref === 'low');
+  const lowQ = !still && (q.get('q') ? q.get('q') === 'low' : pref === 'auto' ? touch : pref === 'low');
   showLoading('Getting your Roadster ready…', 'fonts');
   await loadFonts();
   initTemplates({ rbox: new RoundedBoxGeometry(1, 1, 1, 3, 0.12), ring: new THREE.RingGeometry(1.0, 1.35, 40) });
@@ -49,7 +48,7 @@ export async function boot() {
   rebaseRoadStops(core, originalRoads, core.roads);
   const container = document.getElementById('game')!;
   const engine = new Engine(container, { lowQ, still });
-  const world = new World(core, engine.mats, { lowQ, base, prepareMesh: mesh => engine.prepareMesh(mesh) });
+  const world = new World(core, engine.mats, { lowQ, base });
   engine.scene.add(world.group);
   world.signs.init(0.6);
   (window as any).__world = world;

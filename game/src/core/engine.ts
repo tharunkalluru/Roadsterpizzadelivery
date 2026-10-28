@@ -5,8 +5,6 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { asphaltTexture, tileTexture, radialTexture, facadeTextures, shopfrontTextures, kerbTexture } from './util';
 import { makeSky, Mood, sunDirection } from './sky';
-import { SceneResolutionController } from './performance-monitor';
-import { showLoading, hideLoading } from '../ui/loading';
 
 export class Engine {
   renderer: THREE.WebGLRenderer; scene = new THREE.Scene(); camera: THREE.PerspectiveCamera;
@@ -16,43 +14,12 @@ export class Engine {
   lampLights: THREE.PointLight[] = [];
   pmrem: THREE.PMREMGenerator; envRT: THREE.WebGLRenderTarget | null = null; envKey = '';
   mood!: Mood;
-  sceneScale = new SceneResolutionController();
-  targetFPS = 60; adaptiveResolution = false; gpuMs: number | null = null;
-  private envScene = new THREE.Scene(); private envSky = makeSky(); private envUpdated = -Infinity;
-  private gpuExtension: any = null; private gpuQuery: WebGLQuery | null = null; private gpuFrames = 0;
-  private renderSize = new THREE.Vector2(); private contextLost = false;
-  private restoring = false; private recoveryOwnsLoading = false;
-  private stopResize: (() => void) | undefined;
-  private lastRenderAt = 0;
-  private uploadScene = new THREE.Scene();
-  private uploadCamera = new THREE.OrthographicCamera(-1,1,1,-1,.01,2);
-  private uploadGeometry = new THREE.BufferGeometry();
-  private uploadMaterial = new THREE.MeshBasicMaterial({colorWrite:false,depthWrite:false,depthTest:false,toneMapped:false});
-  private uploadMesh = new THREE.Mesh(this.uploadGeometry,this.uploadMaterial);
-  private uploadTarget = new THREE.WebGLRenderTarget(1,1,{depthBuffer:false,stencilBuffer:false});
-  private uploaded = new WeakSet<THREE.BufferGeometry>();
-  readonly uploadStats = {count:0,totalMs:0,maxMs:0};
-  get graphicsReady() { return !this.contextLost && !this.restoring; }
-  get canPresent() { return this.graphicsReady && (typeof document==='undefined' || (!document.hidden && !document.documentElement.classList.contains('ui-blocks-world') && !document.documentElement.classList.contains('game-loading'))); }
   constructor(public container: HTMLElement, public opts: { lowQ: boolean; still?: { w: number; h: number } }) {
     const still = opts.still;
     this.renderer = new THREE.WebGLRenderer({ antialias: !still, preserveDrawingBuffer: !!still, powerPreference: 'high-performance' });
     const W = still ? still.w : container.clientWidth, H = still ? still.h : container.clientHeight;
     this.renderer.setPixelRatio(still ? 1 : Math.min(window.devicePixelRatio || 1, opts.lowQ ? 1.25 : 1.75));
     this.renderer.setSize(W, H);
-    this.gpuExtension = this.renderer.getContext().getExtension('EXT_disjoint_timer_query_webgl2');
-    this.envSky.scale.setScalar(.03); this.envScene.add(this.envSky);
-    this.renderer.domElement.addEventListener('webglcontextlost', event => {
-      event.preventDefault(); this.contextLost = true; this.resetAdaptiveAfterContextChange(false);
-      this.recoveryOwnsLoading=!document.documentElement.classList.contains('game-loading');
-      if(this.recoveryOwnsLoading)showLoading('Restoring graphics…','view');
-    });
-    this.renderer.domElement.addEventListener('webglcontextrestored', () => {
-      this.uploaded = new WeakSet();
-      this.contextLost = false; this.restoring=true; this.resetAdaptiveAfterContextChange(true); this.gpuExtension=this.renderer.getContext().getExtension('EXT_disjoint_timer_query_webgl2');
-      this.envKey = ''; this.envUpdated = -Infinity; if (this.mood) this.applyMood(this.mood);
-      void this.prepareFrame().then(()=>{this.restoring=false;if(this.recoveryOwnsLoading)hideLoading();this.recoveryOwnsLoading=false;}).catch(()=>{this.restoring=true;showLoading('Graphics recovery failed. Reload to try again.','view');});
-    });
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.shadowMap.enabled = true;
@@ -105,29 +72,15 @@ export class Engine {
       addEventListener('resize', resize);
       addEventListener('pageshow', resize);
       window.visualViewport?.addEventListener('resize', resize);
-      const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(resize) : null;
-      observer?.observe(container);
-      this.stopResize = () => { cancelAnimationFrame(resizeFrame); removeEventListener('resize',resize);removeEventListener('pageshow',resize);window.visualViewport?.removeEventListener('resize',resize);observer?.disconnect(); };
+      if (typeof ResizeObserver !== 'undefined') new ResizeObserver(resize).observe(container);
     }
   }
-  // Only used for invalidated GPU state on loss/restoration; no valid query is
-  // deleted here. Preserve the last visible scale while the context is lost.
-  private resetAdaptiveAfterContextChange(restored: boolean) {
-    this.gpuQuery = null; this.gpuMs = null; this.gpuFrames = 0; this.lastRenderAt = 0;
-    const ready = restored && !this.contextLost;
-    this.sceneScale.reset(ready);
-    // Read the current DOM size even if the scale was already 1: resize events
-    // skipped during loss may have changed the viewport. Still fixtures retain
-    // their explicit fixed dimensions. prepareFrame runs after this reset.
-    if (ready && !this.opts.still) this.resize();
-  }
   resize() {
-    if (this.contextLost) return;
     const w = this.container.clientWidth, h = this.container.clientHeight;
     if (w <= 0 || h <= 0) return;
-    const ratio = Math.min(window.devicePixelRatio || 1, this.opts.lowQ ? 1.25 : 1.75) * this.sceneScale.scale;
+    const ratio = Math.min(window.devicePixelRatio || 1, this.opts.lowQ ? 1.25 : 1.75);
     if (this.renderer.getPixelRatio() !== ratio) { this.renderer.setPixelRatio(ratio); this.composer?.setPixelRatio(ratio); }
-    const size = this.renderer.getSize(this.renderSize);
+    const size = this.renderer.getSize(new THREE.Vector2());
     if (size.x === w && size.y === h) return;
     this.renderer.setSize(w, h); this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
     this.composer?.setSize(w, h);
@@ -150,15 +103,12 @@ export class Engine {
     this.lampLights.forEach((p, i) => (p.intensity = i < Math.round(m.lampLights) ? 22 : 0));
     if (this.bloom) this.bloom.strength = m.bloom;
     // refresh the image-based light only when the sky changed noticeably
-    const colors = [new THREE.Color(m.skyTop), new THREE.Color(m.skyHor)];
-    const k = colors.map(c => [c.r,c.g,c.b].map(v=>Math.round(v*24)).join(',')).join(':');
-    const now = performance.now();
-    if (!this.envRT || k !== this.envKey && now - this.envUpdated >= 5000) {
+    const k = m.skyTop + m.skyHor;
+    if (k !== this.envKey) {
       this.envKey = k;
-      this.envUpdated = now;
-      const target = (this.envSky.material as THREE.ShaderMaterial).uniforms;
-      for (const name of Object.keys(u)) { const v=u[name].value; if (target[name].value?.copy) target[name].value.copy(v); else target[name].value=v; }
-      const rt = this.pmrem.fromScene(this.envScene, 0.02);
+      const env = new THREE.Scene(); const s2 = makeSky();
+      (s2.material as THREE.ShaderMaterial).uniforms = THREE.UniformsUtils.clone(u); s2.scale.setScalar(0.03); env.add(s2);
+      const rt = this.pmrem.fromScene(env, 0.02);
       this.envRT?.dispose(); this.envRT = rt;
       this.scene.environment = rt.texture;
     }
@@ -179,46 +129,11 @@ export class Engine {
     this.render(true);
     await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
   }
-  /** Upload one bounded base geometry behind the current view, using public APIs. */
-  prepareMesh(source: THREE.Mesh) {
-    if (this.contextLost || this.uploaded.has(source.geometry)) return;
-    const start=performance.now(), target=this.renderer.getRenderTarget();
-    // A regular Mesh deliberately ignores an InstancedMesh's count=0 LOD state.
-    // Small per-instance attributes still upload on first actual instance use.
-    this.uploadMesh.geometry=source.geometry;this.uploadMesh.frustumCulled=false;
-    this.uploadScene.add(this.uploadMesh);
-    try {
-      this.renderer.setRenderTarget(this.uploadTarget);
-      this.renderer.render(this.uploadScene,this.uploadCamera);
-      this.uploaded.add(source.geometry);
-    } finally {
-      this.renderer.setRenderTarget(target);this.uploadScene.remove(this.uploadMesh);this.uploadMesh.geometry=this.uploadGeometry;
-      const elapsed=performance.now()-start;this.uploadStats.count++;this.uploadStats.totalMs+=elapsed;this.uploadStats.maxMs=Math.max(this.uploadStats.maxMs,elapsed);
-    }
-  }
   render(force = false) {
-    if (this.contextLost) return false;
     // count every pass of the frame together (the stats overlay reads these after the frame)
     this.renderer.info.autoReset = false; this.renderer.info.reset();
-    if (!force && !this.canPresent) return false;
+    if (!force && typeof document !== 'undefined' && (document.hidden || document.documentElement.classList.contains('ui-blocks-world') || document.documentElement.classList.contains('game-loading'))) return;
     this.sky.position.copy(this.camera.position);
-    const gl = this.renderer.getContext() as WebGL2RenderingContext, ext = this.gpuExtension;
-    if (ext && this.gpuQuery && gl.getQueryParameter(this.gpuQuery, gl.QUERY_RESULT_AVAILABLE)) {
-      this.gpuMs = !gl.getParameter(ext.GPU_DISJOINT_EXT) ? gl.getQueryParameter(this.gpuQuery, gl.QUERY_RESULT) / 1e6 : null;
-      gl.deleteQuery(this.gpuQuery); this.gpuQuery = null;
-    }
-    const measure = ext && !this.gpuQuery && (++this.gpuFrames % 20 === 0);
-    if (measure) { this.gpuQuery = gl.createQuery(); if (this.gpuQuery) gl.beginQuery(ext.TIME_ELAPSED_EXT, this.gpuQuery); }
-    try { if (this.composer) this.composer.render(); else this.renderer.render(this.scene, this.camera); }
-    finally { if (measure && this.gpuQuery) gl.endQuery(ext.TIME_ELAPSED_EXT); }
-    if (!force) { const now=performance.now(), dt=this.lastRenderAt?Math.min(.25,(now-this.lastRenderAt)/1000):0;this.lastRenderAt=now;const old=this.sceneScale.scale; this.sceneScale.update(dt, this.gpuMs, this.targetFPS, this.adaptiveResolution); if(old!==this.sceneScale.scale)this.resize(); }
-    return true;
-  }
-  dispose() {
-    this.stopResize?.(); this.stopResize=undefined;
-    this.uploadTarget.dispose();this.uploadMaterial.dispose();this.uploadGeometry.dispose();
-    if (this.gpuQuery) (this.renderer.getContext() as WebGL2RenderingContext).deleteQuery(this.gpuQuery);
-    this.envSky.geometry.dispose(); (this.envSky.material as THREE.Material).dispose();
-    this.envRT?.dispose(); this.pmrem.dispose(); this.composer?.dispose(); this.renderer.dispose();
+    if (this.composer) this.composer.render(); else this.renderer.render(this.scene, this.camera);
   }
 }

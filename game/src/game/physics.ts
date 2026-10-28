@@ -4,41 +4,23 @@ import type { Building } from '../world/types';
 import { movingRailSupport, railRoofAt } from './moving-rail';
 import { landmarkHeightAt, landmarkRoofUnder } from '../world/landmark-support';
 import { roadQuadHeight } from '../world/road-surface';
-import { buildingBounds, segmentBounds, outsideBounds, staticQueryStats } from './static-neighborhood';
 
 const k30 = (x: number, z: number) => `${Math.floor(x / 30)},${Math.floor(z / 30)}`;
 const k50 = (x: number, z: number) => `${Math.floor(x / 50)},${Math.floor(z / 50)}`;
 
 export type SupportKind = 'ground' | 'road' | 'deck' | 'pad' | 'roof' | 'rail' | 'landmark';
 export interface Support { y: number; s: Surface | null; onRoad: boolean; kind: SupportKind; elevatedRoad: boolean }
-const roadNeighborhoods = new WeakMap<CityData, { revision: number; cells: Map<string, Surface[]> }>();
-function cachedRoadNeighborhood(city: CityData, x: number, z: number): Surface[] | undefined {
-  const revision = (city as CityData & { revision?: number }).revision;
-  if (revision === undefined) return undefined;
-  let cache = roadNeighborhoods.get(city);
-  if (!cache || cache.revision !== revision) { cache = { revision, cells: new Map() }; roadNeighborhoods.set(city, cache); }
-  const key = k30(x,z), existing=cache.cells.get(key); if(existing)return existing;
-  const roads: Surface[] = [], seen = new Set<Surface>();
-  const cx=Math.floor(x/30), cz=Math.floor(z/30);
-  // Preserve first-occurrence grid order, including coincident road-level ties.
-  for(let i=-1;i<=1;i++)for(let j=-1;j<=1;j++)for(const s of city.surfaceGrid.get(`${cx+i},${cz+j}`)||[])if(s.kind==='road'&&!seen.has(s)){seen.add(s);roads.push(s);}
-  if(cache.cells.size>=2048)cache.cells.delete(cache.cells.keys().next().value!);
-  cache.cells.set(key,roads);return roads;
-}
 
 // Highest surface under (x,z) that the car can reach from height `fromY`: roads and flyovers, the metro deck,
 // bus-shelter roofs and building roofs. Surfaces more than 1.6 m above `fromY` are overhead and ignored.
 export function supportAt(city: CityData, x: number, z: number, fromY: number, roadsOnly = false): Support {
   let best: Support = { y: 0, s: null, onRoad: false, kind: 'ground', elevatedRoad: false }, found = false, bestScore = Math.abs(fromY);
-  const cached = roadsOnly ? cachedRoadNeighborhood(city,x,z) : undefined;
   for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) {
-    const cell = cached ? i===-1&&j===-1 ? cached : undefined : city.surfaceGrid.get(`${Math.floor(x / 30) + i},${Math.floor(z / 30) + j}`);
+    const cell = city.surfaceGrid.get(`${Math.floor(x / 30) + i},${Math.floor(z / 30) + j}`);
     if (!cell) continue;
     for (const s of cell) {
       if (roadsOnly && s.kind !== 'road') continue;
-      const shape = segmentBounds(s);
-      if (outsideBounds(shape, x, z) || shape.minY > fromY + 1.6) { staticQueryStats.boundsRejects++; continue; }
-      const dx = shape.dx, dz = shape.dz, L2 = shape.length2;
+      const dx = s.bx - s.ax, dz = s.bz - s.az, L2 = dx * dx + dz * dz || 1;
       const rawT = ((x - s.ax) * dx + (z - s.az) * dz) / L2;
       const t = Math.max(0, Math.min(1, rawT));
       const px = s.ax + dx * t, pz = s.az + dz * t;
@@ -56,10 +38,10 @@ export function supportAt(city: CityData, x: number, z: number, fromY: number, r
       }
     }
   }
-  if (!roadsOnly) for (const b of nearbyBuildings(city, x, z, supportBuildings)) {
+  if (!roadsOnly) for (const b of nearbyBuildings(city, x, z)) {
     if (city.landmarkSurfaceGrid && b.cls === 'landmark') continue;
     if (b.h > fromY + 1.6 || b.h < best.y - 0.01) continue;
-    if (!outsideBounds(buildingBounds(b), x, z) && pointInRing(x, z, b.ring)) best = { y: b.h + 0.02, s: null, onRoad: false, kind: 'roof', elevatedRoad: false };
+    if (pointInRing(x, z, b.ring)) best = { y: b.h + 0.02, s: null, onRoad: false, kind: 'roof', elevatedRoad: false };
   }
   if (!roadsOnly) {
     const landmark = landmarkHeightAt(city.landmarkSurfaceGrid, x, z, fromY + 1.6);
@@ -70,20 +52,17 @@ export function supportAt(city: CityData, x: number, z: number, fromY: number, r
   return best;
 }
 
-const buildingStamps = new WeakMap<Building, number>();
-let buildingQueryStamp = 0;
-const supportBuildings: Building[] = [], roofBuildings: Building[] = [], collisionBuildings: Building[] = [];
-export function nearbyBuildings(city: CityData, x: number, z: number, out: Building[] = []): Building[] {
-  out.length = 0; const stamp = ++buildingQueryStamp;
+export function nearbyBuildings(city: CityData, x: number, z: number): Building[] {
+  const out = new Set<Building>();
   const cx = Math.floor(x / 50), cz = Math.floor(z / 50);
-  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const b of city.buildingGrid.get(`${cx + i},${cz + j}`) || []) if (buildingStamps.get(b) !== stamp) { buildingStamps.set(b, stamp); out.push(b); }
-  return out;
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const b of city.buildingGrid.get(`${cx + i},${cz + j}`) || []) out.add(b);
+  return [...out];
 }
 // tallest roof under any of the given points (used to lift the flight path over high-rises)
 export function roofUnder(city: CityData, pts: [number, number][]): number {
   let h = 0;
   for (const [x, z] of pts) {
-    for (const b of nearbyBuildings(city, x, z, roofBuildings)) if ((!city.landmarkSurfaceGrid || b.cls !== 'landmark') && b.h > h && !outsideBounds(buildingBounds(b), x, z) && pointInRing(x, z, b.ring)) h = b.h;
+    for (const b of nearbyBuildings(city, x, z)) if ((!city.landmarkSurfaceGrid || b.cls !== 'landmark') && b.h > h && pointInRing(x, z, b.ring)) h = b.h;
     h = Math.max(h, landmarkRoofUnder(city.landmarkSurfaceGrid, x, z));
     for (const body of city.movingRail || []) h = Math.max(h, railRoofAt(body, x, z) || 0);
   }
@@ -93,12 +72,12 @@ export function roofUnder(city: CityData, pts: [number, number][]): number {
 // Push a circle out of building footprints taller than the car's height. Returns penetration depth (0 = no hit).
 export function collideBuildings(city: CityData, pos: { x: number; z: number }, r: number, y: number): number {
   let hit = 0;
-  for (const b of nearbyBuildings(city, pos.x, pos.z, collisionBuildings)) {
+  for (const b of nearbyBuildings(city, pos.x, pos.z)) {
     if (city.landmarkSurfaceGrid && b.cls === 'landmark') {
       const top = landmarkHeightAt(city.landmarkSurfaceGrid, pos.x, pos.z);
       if (top !== null && Math.abs(top - y) < .8) continue;
     }
-    if (b.h < y + 0.5 || outsideBounds(buildingBounds(b), pos.x, pos.z, r)) continue;
+    if (b.h < y + 0.5) continue;
     const ring = b.ring;
     let inside = false, bestD = 1e9, bx = 0, bz = 0;
     for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {

@@ -1,0 +1,154 @@
+{
+  "scope": "Visible keyboard driving/takeoff/steering/landing on restored Version21; desktop CPU4.04x with touch layout, not a physical-phone/FPS or completed-delivery result.",
+  "source": "./assets/index-Deiow6w-.js",
+  "checkpoints": [
+    {
+      "label": "ready",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "speed": 0,
+      "flying": false,
+      "descending": false,
+      "area": "RTC X Roads",
+      "paused": false,
+      "keys": [],
+      "render": {
+        "frame": 337,
+        "calls": 529,
+        "triangles": 422508,
+        "points": 0,
+        "lines": 0
+      },
+      "tiles": 4,
+      "bootError": null
+    },
+    {
+      "label": "accelerated",
+      "position": {
+        "x": -29.633979351735995,
+        "y": 0.55,
+        "z": 33.19917952864253
+      },
+      "speed": 27.13909999999403,
+      "flying": false,
+      "descending": false,
+      "area": "RTC X Roads",
+      "paused": false,
+      "keys": [],
+      "render": {
+        "frame": 474,
+        "calls": 527,
+        "triangles": 364938,
+        "points": 0,
+        "lines": 0
+      },
+      "tiles": 4,
+      "bootError": null
+    },
+    {
+      "label": "airborne",
+      "position": {
+        "x": -96.49997156590364,
+        "y": 23.997101144179844,
+        "z": 189.71979253084254
+      },
+      "speed": 44.3668444444206,
+      "flying": true,
+      "descending": false,
+      "area": "RTC X Roads",
+      "paused": false,
+      "keys": [],
+      "render": {
+        "frame": 796,
+        "calls": 635,
+        "triangles": 473876,
+        "points": 0,
+        "lines": 0
+      },
+      "tiles": 6,
+      "bootError": null
+    },
+    {
+      "label": "flight steering",
+      "position": {
+        "x": -240.97885848449582,
+        "y": 28.115652376006018,
+        "z": 309.03492495740113
+      },
+      "speed": 44.38044444444444,
+      "flying": true,
+      "descending": false,
+      "area": "RTC X Roads",
+      "paused": false,
+      "keys": [],
+      "render": {
+        "frame": 1014,
+        "calls": 622,
+        "triangles": 477711,
+        "points": 0,
+        "lines": 0
+      },
+      "tiles": 8,
+      "bootError": null
+    },
+    {
+      "label": "landed",
+      "position": {
+        "x": -283.2863205107316,
+        "y": 10.370000000000001,
+        "z": 340.0507591857067
+      },
+      "speed": 0,
+      "flying": false,
+      "descending": false,
+      "area": "RTC X Roads",
+      "paused": false,
+      "keys": [],
+      "render": {
+        "frame": 1675,
+        "calls": 512,
+        "triangles": 456834,
+        "points": 0,
+        "lines": 0
+      },
+      "tiles": 8,
+      "bootError": null
+    },
+    {
+      "label": "paused",
+      "position": {
+        "x": -283.2863205107316,
+        "y": 10.370000000000001,
+        "z": 340.0507591857067
+      },
+      "speed": 0,
+      "flying": false,
+      "descending": false,
+      "area": "RTC X Roads",
+      "paused": true,
+      "keys": [],
+      "render": {
+        "frame": 1683,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "tiles": 8,
+      "bootError": null
+    }
+  ],
+  "errors": [],
+  "screenshot": "output/playwright/v21-restored-flight-landed.png",
+  "checks": {
+    "renderedWorld": true,
+    "roadMotion": true,
+    "flightStarted": true,
+    "landed": true,
+    "paused": true,
+    "keysReleased": true
+  }
+}

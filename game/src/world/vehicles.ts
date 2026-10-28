@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { Batch, TPL } from '../core/util';
-import { batchStaticChildren } from './static-child-batching';
 
 const PI = Math.PI;
 // Metro train and the hero roadster. Street traffic models live in traffic_models.ts.
@@ -187,6 +186,5 @@ export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE
     for (const r of retractors) r.group.position.copy(r.home).addScaledVector(r.delta, eased);
   };
   setDeployment(0);
-  outer.userData.staticBatching = batchStaticChildren(outer, [g, wing, ...wheelRollers], new Set<THREE.Object3D>([box, ...pods, ...wingSupports]));
   return { group: outer, pods, box, wheels, wheelRollers, nozzles, setDeployment };
 }

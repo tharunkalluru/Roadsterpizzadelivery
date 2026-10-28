@@ -11,8 +11,6 @@ import { signalAspect } from '../world/signals';
 import { busLane, busTurn, busRoundedCorner } from './bus-path';
 import { BusPassengerExchange } from './bus-passengers';
 import { constructionLane } from '../world/construction';
-import { DynamicSpatialIndex, vehicleBounds, type SpatialBounds } from './dynamic-spatial-index';
-import { PlanningBudget } from './planning-budget';
 
 type Group = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
 interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
@@ -27,7 +25,6 @@ interface Motion {
   busStop?: boolean;
 }
 export interface Car {
-  id: number; generation: number; proto: Proto; order: number; routeBoardKey?: string; routeMeshes?: THREE.Mesh[]; decisionAt?: number;
   g: THREE.Group; kind: string; group: Group; size: number[]; edge: GEdge; dir: 1 | -1; s: number; speed: number; want: number;
   lane: number; laneT: number; base: number; x: number; y: number; z: number; hx: number; hz: number; wob: number;
   blockedT: number; stuckT: number; passS: number; honkT: number; filtering: boolean; dwell: number; served: Set<BusStop>;
@@ -50,90 +47,6 @@ const MAJOR = new Set(['trunk', 'primary', 'secondary', 'motorway', 'motorway_li
 export class Traffic {
   cars: Car[] = []; protos: Proto[] = []; byGroup: Record<Group, Proto[]> = { car: [], auto: [], bike: [], bus: [], truck: [] };
   r = rng(77); t = 0;
-  private nextId = 1;
-  private pools = new Map<Proto, Car[]>();
-  private pooledCount = 0;
-  private boards = new Map<string, { decals: ReturnType<typeof M.busRouteBoards>; refs: number; last: number; bytes: number }>();
-  private boardBytes = 0;
-  private index = new DynamicSpatialIndex<Car>();
-  private walkerIndex = new DynamicSpatialIndex<Walker>();
-  private candidates: Car[] = []; private playerCandidates: Car[] = []; private walkerCandidates: Walker[] = [];
-  private byEdge = new Map<GEdge, Car[]>();
-  private edgeBuckets: Car[][] = [];
-  private pins = new Map<Car, { generation: number; until: number }>();
-  private retained = new Set<GEdge>();
-  private retentionClock = 0; private wasJumping = false;
-  private budget = new PlanningBudget();
-  private planningCandidates: Car[] = [];
-  private planJobs = new Map<Car, { generation: number; revision: number; edge: GEdge; path?: BusRun['path']; snapshot: Car; iterator: Generator<void, void, unknown> }>();
-  private focusX = 0; private focusZ = 0;
-  private renderedForward = new THREE.Vector3();
-  stats = { spawned: 0, reused: 0, released: 0, pooled: 0, boardEntries: 0, boardBytes: 0, plans: 0, planningMs: 0, planningOverruns: 0, collisionCandidates: 0 };
-  retainedEdges() { this.retained.clear(); for (const [c, pin] of this.pins) if (pin.generation === c.generation) { this.retained.add(c.edge); if (c.motion) { this.retained.add(c.motion.edge); for (const span of c.motion.busSpans || []) this.retained.add(span.edge); } } return this.retained; }
-  clearRetention() { this.pins.clear(); this.retained.clear(); this.wasJumping = false; }
-  updateJumpRetention(player: { jumping: boolean; x: number; y: number; z: number; hx: number; hz: number; speed: number }, dt: number) {
-    this.retentionClock += Math.max(0, dt);
-    if (this.wasJumping && !player.jumping) for (const pin of this.pins.values()) pin.until = this.retentionClock + 1;
-    if (player.jumping) {
-      const reach = Math.max(16, Math.abs(player.speed) * (5 / 3) + 14);
-      for (const c of this.cars) {
-        const dx = c.x - player.x, dz = c.z - player.z;
-        const along = dx * player.hx + dz * player.hz, side = dx * player.hz - dz * player.hx;
-        if (along > -18 && along < reach && Math.abs(side) < 14 + c.size[0] / 2 && Math.abs(c.y - player.y) < 14)
-          this.pins.set(c, { generation: c.generation, until: Infinity });
-      }
-    }
-    for (const [c, pin] of this.pins) {
-      const onSupport = Math.abs(player.x - c.x) < c.size[2] / 2 + 3 && Math.abs(player.z - c.z) < c.size[2] / 2 + 3 && Math.abs(player.y - c.y - c.size[1]) < 3;
-      if (pin.generation !== c.generation || !player.jumping && this.retentionClock >= pin.until && !onSupport) this.pins.delete(c);
-    }
-    this.wasJumping = player.jumping;
-  }
-  private pinned(c: Car) { return this.pins.get(c)?.generation === c.generation; }
-  private syncIndex() { for (let i = 0; i < this.cars.length; i++) { const c = this.cars[i]; c.order = i; this.index.upsert(c, vehicleBounds(c, .8), i); } }
-  private queryCars(bounds: SpatialBounds, output = this.candidates) { this.index.query(bounds, output); this.stats.collisionCandidates += output.length; return output; }
-  private acquire(pr: Proto): Car {
-    let pool = this.pools.get(pr); const c = pool?.pop();
-    if (c) { this.pooledCount--; this.stats.reused++; c.generation++; return c; }
-    const g = new THREE.Group(), body = new THREE.Mesh(pr.body, this.mats.vBody);
-    body.castShadow = body.receiveShadow = true; g.add(body, new THREE.Mesh(pr.lights, this.mats.vLight));
-    for (const dc of pr.decals) g.add(new THREE.Mesh(dc.geo, dc.mat));
-    this.stats.spawned++;
-    return { id: this.nextId++, generation: 1, proto: pr, g, served: new Set<BusStop>() } as Car;
-  }
-  private boardAcquire(run: BusRun) {
-    const key = `${run.pattern.id}|${run.pattern.direction}|${run.pattern.number}|${run.pattern.to}`;
-    let value = this.boards.get(key);
-    if (!value) {
-      const decals = M.busRouteBoards(run.pattern.number, run.pattern.to);
-      let bytes = 0; const textures = new Set<THREE.Texture>();
-      for (const dc of decals) { for (const a of Object.values(dc.geo.attributes)) bytes += a.array.byteLength; const texture = (dc.mat as THREE.MeshBasicMaterial).map; if (texture) textures.add(texture); }
-      for (const texture of textures) bytes += (texture.image?.width || 0) * (texture.image?.height || 0) * 4 * 4 / 3;
-      value = { decals, refs: 0, last: this.t, bytes }; this.boards.set(key, value); this.boardBytes += bytes;
-    }
-    value.refs++; value.last = this.t; return { key, decals: value.decals };
-  }
-  private trimBoards(force = false) {
-    if (!force && this.boards.size <= 96 && this.boardBytes <= 24 * 1024 * 1024) return;
-    for (const [key, value] of [...this.boards].filter(([, v]) => !v.refs).sort((a,b) => a[1].last - b[1].last)) {
-      if (!force && this.boards.size <= 96 && this.boardBytes <= 24 * 1024 * 1024) break;
-      const materials = new Set<THREE.Material>(), textures = new Set<THREE.Texture>();
-      for (const dc of value.decals) { dc.geo.dispose(); materials.add(dc.mat); const texture = (dc.mat as THREE.MeshBasicMaterial).map; if (texture) textures.add(texture); }
-      for (const texture of textures) texture.dispose(); for (const material of materials) material.dispose();
-      this.boards.delete(key); this.boardBytes -= value.bytes;
-    }
-  }
-  private resetCar(c: Car, values: Partial<Car>) {
-    c.served.clear(); c.g.visible = true;
-    c.motion = undefined; c.stopS = undefined; c.planAfter = undefined; c.assertive = false;
-    c.laneChangeAt = undefined; c.uturnAt = undefined; c.busRun = undefined; c.routeDecals = undefined;
-    c.routeBoardKey = undefined; c.routeMeshes = undefined; c.passengerExchange = undefined; c.decisionAt = undefined;
-    c.blockedT = c.stuckT = c.passS = c.dwell = 0; c.filtering = false;
-    Object.assign(c, values); c.order = this.cars.length;
-    c.g.userData.presentationGeneration = c.generation;
-    this.scene.add(c.g); c.g.position.set(c.x, c.y + .02, c.z); c.g.rotation.set(0, Math.atan2(-c.hx, -c.hz), 0, 'YXZ');
-    this.cars.push(c); this.index.upsert(c, vehicleBounds(c, .8), c.order);
-  }
   stopsByEdge = new Map<string, BusStop[]>();
   services: BusServices | null = null;
   passengerExchanges: BusPassengerExchange[] = [];
@@ -160,27 +73,21 @@ export class Traffic {
   }
   setBusFeed(feed: BusFeed) { this.services = new BusServices(this.graph, feed); }
   private release(c: Car) {
-    this.scene.remove(c.g); this.index.remove(c); this.pins.delete(c); this.planJobs.delete(c); this.stats.released++;
+    this.scene.remove(c.g);
     if (c.passengerExchange) {
       this.scene.remove(c.passengerExchange.group);
-      const at = this.passengerExchanges.indexOf(c.passengerExchange); if (at >= 0) this.passengerExchanges.splice(at, 1);
+      this.passengerExchanges = this.passengerExchanges?.filter(exchange => exchange !== c.passengerExchange) || [];
       c.passengerExchange = undefined;
     }
-    for (const mesh of c.routeMeshes || []) c.g.remove(mesh);
-    if (c.routeBoardKey) { const board = this.boards.get(c.routeBoardKey); if (board) { board.refs = Math.max(0, board.refs - 1); board.last = this.t; } }
-    c.routeMeshes = undefined; c.routeDecals = undefined; c.routeBoardKey = undefined;
-    c.motion = undefined; c.busRun = undefined; c.served.clear();
-    let pool = this.pools.get(c.proto); if (!pool) this.pools.set(c.proto, pool = []);
-    if (pool.length < 6 && this.pooledCount < 96) { pool.push(c); this.pooledCount++; }
-    this.trimBoards(); this.stats.pooled = this.pooledCount;
-    this.stats.boardEntries = this.boards.size; this.stats.boardBytes = this.boardBytes;
+    const materials = new Set<THREE.Material>();
+    for (const decal of c.routeDecals || []) { decal.geo.dispose(); materials.add(decal.mat); }
+    for (const material of materials) { (material as THREE.MeshBasicMaterial).map?.dispose(); material.dispose(); }
   }
-  clear() { this.clearRetention(); for (const c of this.cars) this.release(c); this.cars.length = 0; this.index.clear(); this.walkerIndex.clear(); this.byEdge.clear(); for (const exchange of this.passengerExchanges || []) this.scene.remove(exchange.group); this.passengerExchanges.length = 0; }
-  dispose() { this.clear(); this.trimBoards(true); this.pools.clear(); this.pooledCount = 0; this.edgeBuckets.length = 0; this.planningCandidates.length = 0; }
+  clear() { for (const c of this.cars) this.release(c); this.cars.length = 0; for (const exchange of this.passengerExchanges || []) this.scene.remove(exchange.group); this.passengerExchanges = []; }
   // vehicles on roads of an unloaded tile leave with it
   dropEdges(gone: Set<GEdge>) {
-    for (let i = this.cars.length - 1; i >= 0; i--) if (!this.pinned(this.cars[i]) && (gone.has(this.cars[i].edge) || (this.cars[i].motion && (gone.has(this.cars[i].motion!.edge)
-        || this.cars[i].motion!.busSpans?.some(span => gone.has(span.edge)))))) { this.release(this.cars[i]); this.cars.splice(i, 1); }
+    for (let i = this.cars.length - 1; i >= 0; i--) if (gone.has(this.cars[i].edge) || (this.cars[i].motion && (gone.has(this.cars[i].motion!.edge)
+        || this.cars[i].motion!.busSpans?.some(span => gone.has(span.edge))))) { this.release(this.cars[i]); this.cars.splice(i, 1); }
   }
   // Pedestrians and callers use the same mapped approach plan as the lamps.
   // An unbound/manual node flag cannot invent a traffic controller.
@@ -249,25 +156,32 @@ export class Traffic {
     const busRun = group === 'bus' ? this.services?.bind(edge, dir, s, this.r()) : null;
     if (group === 'bus' && !busRun) group = fast ? 'truck' : 'car';
     const pr = this.r.pick(this.byGroup[group]);
+    const g = new THREE.Group();
+    const b = new THREE.Mesh(pr.body, this.mats.vBody); b.castShadow = true; b.receiveShadow = true;
+    g.add(b, new THREE.Mesh(pr.lights, this.mats.vLight));
+    for (const dc of pr.decals) g.add(new THREE.Mesh(dc.geo, dc.mat));
     const lane = this.pickLane(edge, pr.size[0], group, dir);
     const pose = this.graph.pointAt(edge, s, dir, lane);
     if ((this.city && !trafficPoseClear(this.city, pose, pr.size)) || this.cars.some(c => trafficOverlap({ ...pose, size: pr.size }, c, 2))) return;
-    const c = this.acquire(pr), g = c.g;
+    this.scene.add(g); g.position.set(pose.x, pose.y + 0.02, pose.z); g.rotation.y = Math.atan2(-pose.hx, -pose.hz);
     const want = group === 'bike' ? this.r.range(9, 13) : group === 'bus' || group === 'truck' ? this.r.range(6.5, 9) : group === 'auto' ? this.r.range(7, 10) : this.r.range(8, 12);
-    const board = busRun ? this.boardAcquire(busRun) : undefined;
-    const routeMeshes = board?.decals.map(dc => new THREE.Mesh(dc.geo, dc.mat));
-    this.resetCar(c, { kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * .6, want, lane, laneT: lane, base: lane, ...pose, wob: this.r() * 10, honkT: this.r.range(.6, 2), assertive: group === 'auto' && this.r() < .38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55), busRun: busRun || undefined, routeDecals: board?.decals, routeBoardKey: board?.key, routeMeshes });
-    for (const mesh of routeMeshes || []) g.add(mesh);
+    const routeDecals = busRun ? M.busRouteBoards(busRun.pattern.number, busRun.pattern.to) : undefined;
+    for (const dc of routeDecals || []) g.add(new THREE.Mesh(dc.geo, dc.mat));
+    this.cars.push({ g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.6, want, lane, laneT: lane, base: lane, ...pose, wob: this.r() * 10, blockedT: 0, stuckT: 0, passS: 0, honkT: this.r.range(0.6, 2), filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55), busRun: busRun || undefined, routeDecals });
   }
   // place a specific vehicle (used by tests and scripted scenes)
   spawnAt(group: Group, edge: GEdge, dir: 1 | -1, s: number, lane?: number): Car {
     const pr = this.byGroup[group][0];
-    const c = this.acquire(pr), g = c.g;
+    const g = new THREE.Group();
+    g.add(new THREE.Mesh(pr.body, this.mats.vBody), new THREE.Mesh(pr.lights, this.mats.vLight));
+    for (const dc of pr.decals) g.add(new THREE.Mesh(dc.geo, dc.mat));
+    this.scene.add(g);
     const ln = constructionLane(edge.e, dir) ?? lane ?? this.pickLane(edge, pr.size[0], group, dir);
     const p = this.graph.pointAt(edge, s, dir, ln);
-    g.position.set(p.x, p.y + 0.02, p.z); g.rotation.set(0, Math.atan2(-p.hx, -p.hz), 0, 'YXZ');
+    g.position.set(p.x, p.y + 0.02, p.z); g.rotation.y = Math.atan2(-p.hx, -p.hz);
     const want = group === 'bike' ? 11 : group === 'bus' ? 8 : 10;
-    this.resetCar(c, { kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * .8, want, lane: ln, laneT: ln, base: ln, ...p, wob: 0, honkT: .5, assertive: group === 'auto' && this.r() < .38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55) });
+    const c: Car = { g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.8, want, lane: ln, laneT: ln, base: ln, ...p, wob: 0, blockedT: 0, stuckT: 0, passS: 0, honkT: 0.5, filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55) };
+    this.cars.push(c);
     return c;
   }
   private plans = 0;
@@ -275,14 +189,6 @@ export class Traffic {
   private curveOK(c: Car, curve: TrafficCurve) {
     return Number.isFinite(curve.length) && curve.length > 0.05 && curve.minRadius >= turnProfile(c.group, c.assertive).minRadius &&
       Math.abs(curve.a.y - curve.b.y) < 3 && (!this.city || trafficCurveClear(curve, this.city, c.size));
-  }
-  private *curveOKSteps(c: Car, curve: TrafficCurve): Generator<void, boolean, unknown> {
-    if (!Number.isFinite(curve.length) || curve.length <= .05 || curve.minRadius < turnProfile(c.group, c.assertive).minRadius || Math.abs(curve.a.y-curve.b.y) >= 3) return false;
-    if (this.city) {
-      const n = Math.max(2, Math.ceil(curve.length / .65));
-      for (let i=0; i<=n; i++) { if (i % 4 === 0) yield; if (!trafficPoseClear(this.city, curve.sample(curve.length*i/n), c.size)) return false; }
-    }
-    return true;
   }
   private remember(c: Car, motion: Omit<Motion, 'progress' | 'cap'>) {
     c.motion = { ...motion, progress: -1, cap: turnSpeed(motion.curve, c.group, c.assertive) };
@@ -292,7 +198,7 @@ export class Traffic {
     const index = (dir === 1) === end ? edge.cum.length - 1 : 1;
     return edge.cum[index] - edge.cum[index - 1];
   }
-  private *prepareBusSpan(c: Car): Generator<void, boolean, unknown> {
+  private prepareBusSpan(c: Car) {
     const run = c.busRun; if (!run || run.ended) return false;
     // Tiny source split records are not physical intersections. Plan a smooth
     // swept span across their allotted chain, retaining exact edge ownership at
@@ -362,7 +268,6 @@ export class Traffic {
     const minimumEnd = corner && !waitForNextEdge ? corner.at + corner.trim : 0;
     const targetDistances = [...new Set((waitForNextEdge ? [Math.max(.2, wantedStart)] : [minimumEnd, 8, 12, 18, 26, 38, 52, 65, 96, lookahead, length]).map(d => Math.min(d, length)))].sort((a, b) => a - b);
     for (const distance of targetDistances) {
-      yield;
       if (distance < .2 || distance < Math.min(length, minimumEnd) - .001 || distance <= startDistance + .05) continue;
       if (!waitForNextEdge && corners.some(corner => corner.at > distance + .01 && corner.at - distance < corner.trim)) continue;
       const end = point(distance), [lowLane, highLane] = this.laneRange(end.span.edge, c.size[0], end.span.dir);
@@ -370,19 +275,17 @@ export class Traffic {
       const endpoint = this.graph.pointAt(end.span.edge, end.at, end.span.dir, lane), baseCurve = busRoundedCorner(a, endpoint);
       for (const [incoming, outgoing] of [[1,1],[1.25,.8],[1.5,.65],[.8,1.25],[.65,1.5]]) {
       const curve = incoming === 1 && outgoing === 1 ? baseCurve : new TrafficCurve(a, endpoint, baseCurve.handleA * incoming, baseCurve.handleB * outgoing);
-      if (!(yield* this.curveOKSteps(c, curve))) continue;
+      if (!this.curveOK(c, curve)) continue;
       // Without a streamed city (offline tests), still reject a curve that
       // leaves its prescribed road corridor or shortcuts a parallel street.
       let follows = true;
-      for (let at = 0, sample = 0; at <= curve.length + .1; at += .8, sample++) {
-        if (sample % 8 === 0) yield;
+      for (let at = 0; at <= curve.length + .1; at += .8) {
         const p = curve.sample(Math.min(at, curve.length)); let nearest = Infinity;
         for (const span of spans) {
           if (span.base > distance) break;
           const lo = span.dir === 1 ? span.start : span.edge.len - span.end;
           const hi = span.dir === 1 ? span.end : span.edge.len - span.start;
           for (let k = 1; k < span.edge.cum.length; k++) {
-            if (k % 32 === 0) yield;
             if (span.edge.cum[k] < lo || span.edge.cum[k - 1] > hi) continue;
             const u = span.edge.e.pts[k - 1], v = span.edge.e.pts[k], dx = v[0] - u[0], dz = v[1] - u[1];
             const t = Math.max(0, Math.min(1, ((p.x - u[0]) * dx + (p.z - u[1]) * dz) / (dx * dx + dz * dz || 1)));
@@ -404,57 +307,8 @@ export class Traffic {
   // Prepare before braking distance. Pending paths remain fixed, so a new random
   // exit/lane is never selected while a vehicle is already turning.
   private prepare(c: Car) {
-    let job = this.planJobs.get(c);
-    if (c.motion) { if (job) this.planJobs.delete(c); return; }
-    const revision = this.graph.revision || 0;
-    if (job && (job.generation !== c.generation || job.revision !== revision || job.edge !== c.edge || job.path !== c.busRun?.path)) { this.planJobs.delete(c); job = undefined; }
-    if (!job && ((c.planAfter || 0) > this.t || this.t < (c.decisionAt || 0) && c.stopS !== undefined)) return;
-    // A deferred strategic plan never authorizes crossing an unplanned bend.
-    if (!job) {
-      let next = c.edge.len;
-      for (let i = 1; i < c.edge.cum.length - 1; i++) {
-        const at = c.dir === 1 ? c.edge.cum[i] : c.edge.len - c.edge.cum[i];
-        if (at <= c.s + .015 || at >= next) continue;
-        const a = this.graph.pointAt(c.edge, at - .001, c.dir), b = this.graph.pointAt(c.edge, at + .001, c.dir);
-        if (a.hx * b.hx + a.hz * b.hz < .9999999) next = at;
-      }
-      const assignedStop = c.busRun && !c.busRun.ended && c.busRun.stopPosition.edge === c.edge && c.busRun.stopPosition.dir === c.dir ? c.busRun.stopPosition.s : Infinity;
-      c.stopS = Math.min(c.stopS ?? Infinity, assignedStop < next ? assignedStop : Math.max(c.s, next - Math.min(16, c.size[2] + 3)));
-      if (!this.budget.available) return;
-      const snapshot: Car = { ...c, busRun: c.busRun ? { ...c.busRun } : undefined, motion: undefined };
-      job = { generation: c.generation, revision, edge: c.edge, path: c.busRun?.path, snapshot, iterator: this.preparePlan(snapshot) };
-      this.planJobs.set(c, job); this.plans++;
-    }
-    while (this.budget.available) {
-      const result = this.budget.run(() => job!.iterator.next());
-      if (!result?.done) { if (!result) break; continue; }
-      this.planJobs.delete(c);
-      const motion = job.snapshot.motion;
-      if (motion && c.s <= motion.startS + 1e-5) { c.motion = motion; c.stopS = undefined; }
-      else if (motion?.kind === 'route' && motion.busDistance && c.busRun?.path === motion.busPath) {
-        // A bus may progress along its current straight while a plan is built.
-        // Accept the old plan only at an identical pose/tangent; never snap it
-        // backward to the snapshot or join a curve it has already driven past.
-        const u = (c.s - job.snapshot.s - (motion.busStart || 0)) / motion.busDistance;
-        if (u >= 0 && u < 1) {
-          const pose = motion.curve.sample(u * motion.curve.length);
-          if (Math.hypot(pose.x-c.x, pose.z-c.z) <= .02 && Math.abs(pose.y-c.y) <= .02 && pose.hx*c.hx+pose.hz*c.hz >= .9999) {
-            motion.progress = u * motion.curve.length; c.motion = motion; c.stopS = undefined;
-          }
-        }
-      }
-      if (!c.motion && job.snapshot.stopS !== undefined) c.stopS = Math.max(c.s, Math.min(c.stopS ?? Infinity, job.snapshot.stopS));
-      const d = Math.hypot(c.x-this.focusX,c.z-this.focusZ), urgent = this.pinned(c) || (c.stopS ?? c.edge.len)-c.s < Math.max(30,c.speed*4);
-      c.decisionAt = this.t + 1 / (urgent || d < 90 ? 10 : d < 200 ? 5 : 2);
-      c.planAfter = c.motion ? 0 : job.snapshot.planAfter;
-      // Stale completed curves need a fresh starting pose, not a long retry delay.
-      if (motion && !c.motion) { c.decisionAt = this.t; c.planAfter = 0; }
-      break;
-    }
-  }
-  private *preparePlan(c: Car): Generator<void, void, unknown> {
     if (c.motion || (c.planAfter || 0) > this.t) return;
-    if (c.group === 'bus' && c.busRun && (yield* this.prepareBusSpan(c))) return;
+    if (c.group === 'bus' && c.busRun && this.prepareBusSpan(c)) return;
     const profile = turnProfile(c.group, c.assertive), edge = c.edge;
     let vertex = Infinity, prev = 0, next = edge.len;
     for (let i = 1; i < edge.cum.length - 1; i++) {
@@ -477,7 +331,8 @@ export class Traffic {
     }
     // An unplanned corner is a stop, never permission to snap to another heading.
     c.stopS = Math.max(c.s, at - Math.min(16, c.size[2] + 3));
-    c.planAfter = this.t + 1.1;
+    if (this.plans >= 3) return;
+    this.plans++; c.planAfter = this.t + 1.1;
     if (Number.isFinite(vertex)) {
       const before = this.graph.pointAt(edge, vertex - 0.001, c.dir), after = this.graph.pointAt(edge, vertex + 0.001, c.dir);
       const angle = Math.acos(Math.max(-1, Math.min(1, before.hx * after.hx + before.hz * after.hz)));
@@ -488,7 +343,7 @@ export class Traffic {
         const startS = Math.max(c.s, vertex - trim), endS = vertex + trim;
         const a = this.graph.pointAt(edge, startS, c.dir, c.lane), b = this.graph.pointAt(edge, endS, c.dir, c.lane);
         const curve = roundedTrafficCorner(a, b);
-        if (!(yield* this.curveOKSteps(c, curve))) continue;
+        if (!this.curveOK(c, curve)) continue;
         this.remember(c, { kind: 'bend', curve, startS, endS, edge, dir: c.dir, lane: c.lane }); return;
       }
       return;
@@ -506,17 +361,16 @@ export class Traffic {
       const startS = Math.max(c.s, edge.len - trim), endS = edge.len - startS;
       const a = this.graph.pointAt(edge, startS, c.dir, c.lane), b = this.graph.pointAt(edge, endS, reverse.dir, c.lane);
       const curve = new TrafficCurve(a, b, Math.abs(c.lane) * 4 / 3);
-      if (yield* this.curveOKSteps(c, curve)) {
+      if (this.curveOK(c, curve)) {
         this.remember(c, { kind: 'uturn', curve, startS, endS, edge, dir: reverse.dir, lane: c.lane, node: node.id }); return;
       }
     }
     const shuffled = [...opts];
     for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(this.r() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
     for (const out of shuffled) {
-      yield;
       if (c.group === 'bus') {
         const planned = busTurn(this.graph, edge, c.dir, out.edge, out.dir, c.s, c.lane);
-        if (planned && (yield* this.curveOKSteps(c, planned.curve))) {
+        if (planned && this.curveOK(c, planned.curve)) {
           this.remember(c, { kind: 'junction', ...planned, edge: out.edge, dir: out.dir, node: node.id }); return;
         }
         continue;
@@ -532,19 +386,19 @@ export class Traffic {
         const startS = Math.max(c.s, edge.len - trimIn), endS = trimOut;
         const a = this.graph.pointAt(edge, startS, c.dir, c.lane), b = this.graph.pointAt(out.edge, endS, out.dir, lane);
         const curve = roundedTrafficCorner(a, b);
-        if (!(yield* this.curveOKSteps(c, curve))) continue;
+        if (!this.curveOK(c, curve)) continue;
         this.remember(c, { kind: 'junction', curve, startS, endS, edge: out.edge, dir: out.dir, lane, node: node.id }); return;
       }
     }
   }
   private canEnter(c: Car, m: Motion, player: { x: number; z: number; y: number; hx?: number; hz?: number }) {
-    const other = this.cars;
+    const other = this.cars.filter(o => o !== c && Math.abs(o.y - c.y) < 4);
     const body = { x: player.x, z: player.z, y: player.y - 0.55, size: [2, 1.6, 4.8], hx: player.hx ?? c.hx, hz: player.hz ?? c.hz };
     for (let s = 0; s <= m.curve.length + 0.01; s += 1.1) {
       const p = { ...m.curve.sample(Math.min(s, m.curve.length)), size: c.size };
-      if (trafficOverlap(p, body, .5) || this.queryCars(vehicleBounds(p, 1)).some(o => o !== c && Math.abs(o.y - c.y) < 4 && trafficOverlap(p, o, .5))) return false;
+      if (trafficOverlap(p, body, 0.5) || other.some(o => trafficOverlap(p, o, 0.5))) return false;
     }
-    if (m.node && other.some(o => o !== c && Math.abs(o.y - c.y) < 4 && o.motion?.node === m.node && o.motion.progress >= 0)) return false;
+    if (m.node && other.some(o => o.motion?.node === m.node && o.motion.progress >= 0)) return false;
     return true;
   }
   private tryLane(c: Car, player: { x: number; z: number; y: number; hx?: number; hz?: number }) {
@@ -586,9 +440,8 @@ export class Traffic {
       const bounds = { ...p, size: c.size };
       const overlaps = (o: Parameters<typeof trafficOverlap>[1]) => trafficOverlap(bounds, o, 0.18) &&
         (!trafficOverlap(c, o, 0.18) || Math.hypot(p.x - o.x, p.z - o.z) <= Math.hypot(c.x - o.x, c.z - o.z));
-      this.walkerIndex.query(vehicleBounds(bounds, 1), this.walkerCandidates);
-      const walkerHit = this.walkerCandidates.some(w => w.crossing && trafficOverlap(bounds, { ...w, y: p.y, hx: 1, hz: 0, size: [.7, 1.8, .7] }, .5));
-      if (overlaps(body) || this.queryCars(vehicleBounds(bounds, .5)).some(o => o !== c && overlaps(o)) || walkerHit || (this.city && !trafficPoseClear(this.city, p, c.size))) { c.speed = 0; break; }
+      const walkerHit = walkers.some(w => w.crossing && trafficOverlap(bounds, { ...w, y: p.y, hx: 1, hz: 0, size: [0.7, 1.8, 0.7] }, 0.5));
+      if (overlaps(body) || this.cars.some(o => o !== c && overlaps(o)) || walkerHit || (this.city && !trafficPoseClear(this.city, p, c.size))) { c.speed = 0; break; }
       distance -= step;
       if (active) {
         m!.progress += step;
@@ -610,18 +463,13 @@ export class Traffic {
         }
       } else c.s += step;
       c.x = p.x; c.y = p.y; c.z = p.z; c.hx = p.hx; c.hz = p.hz;
-      this.index.upsert(c, vehicleBounds(c, .8), c.order);
     }
     c.g.position.set(c.x, c.y + 0.02, c.z);
-    c.g.rotation.set(0, Math.atan2(-c.hx, -c.hz), 0, 'YXZ');
+    c.g.rotation.y = Math.atan2(-c.hx, -c.hz);
   }
   update(dt: number, px: number, pz: number, player: { x: number; z: number; y: number; speed: number; hx?: number; hz?: number }, walkers: Walker[] = []) {
     this.plans = 0;
-    this.budget.beginFrame(dt);
-    this.t += dt; this.focusX = px; this.focusZ = pz;
-    this.walkerIndex.clear();
-    for (let wi = 0; wi < walkers.length; wi++) { const w = walkers[wi]; if (w.crossing) this.walkerIndex.upsert(w, { minX: w.x - .35, maxX: w.x + .35, minZ: w.z - .35, maxZ: w.z + .35 }, wi); }
-    this.syncIndex();
+    this.t += dt;
     for (let i = (this.passengerExchanges?.length || 0) - 1; i >= 0; i--) {
       const exchange = this.passengerExchanges[i]; exchange.update(dt);
       if (exchange.finished || Math.hypot(exchange.group.position.x - px, exchange.group.position.z - pz) > 200) {
@@ -632,20 +480,14 @@ export class Traffic {
     // over budget (moved somewhere quieter): retire the farthest vehicle once it is well out of the way
     if (this.cars.length > this.max) {
       let far = -1, fd = 160;
-      for (let i = 0; i < this.cars.length; i++) { const d = Math.hypot(this.cars[i].x - px, this.cars[i].z - pz); if (d > fd && !this.pinned(this.cars[i])) { fd = d; far = i; } }
+      for (let i = 0; i < this.cars.length; i++) { const d = Math.hypot(this.cars[i].x - px, this.cars[i].z - pz); if (d > fd) { fd = d; far = i; } }
       if (far >= 0) { this.release(this.cars[far]); this.cars.splice(far, 1); }
     }
-    for (const bucket of this.byEdge.values()) { bucket.length = 0; this.edgeBuckets.push(bucket); }
-    this.byEdge.clear(); const byEdge = this.byEdge;
-    for (const c of this.cars) { let bucket = byEdge.get(c.edge); if (!bucket) byEdge.set(c.edge, bucket = this.edgeBuckets.pop() || []); bucket.push(c); }
-    this.planningCandidates.length = 0;
-    for (const c of this.cars) if (!c.motion && c.dwell <= 0 && (this.planJobs.has(c) || this.t >= (c.planAfter || 0) && this.t >= (c.decisionAt || 0))) this.planningCandidates.push(c);
-    // Waiting age prevents the stable movement order from starving distant buses.
-    this.planningCandidates.sort((a,b) => ((this.pinned(b) ? 1000 : 0) + this.t - (b.decisionAt || 0) - Math.hypot(b.x-px,b.z-pz)/600) - ((this.pinned(a) ? 1000 : 0) + this.t - (a.decisionAt || 0) - Math.hypot(a.x-px,a.z-pz)/600));
-    for (const c of this.planningCandidates) { this.prepare(c); if (!this.budget.available) break; }
+    const byEdge = new Map<GEdge, Car[]>();
+    for (const c of this.cars) (byEdge.get(c.edge) || byEdge.set(c.edge, []).get(c.edge)!).push(c);
     for (let i = this.cars.length - 1; i >= 0; i--) {
       const c = this.cars[i];
-      if (Math.hypot(c.x - px, c.z - pz) > 340 && !this.pinned(c)) { this.release(c); this.cars.splice(i, 1); continue; }
+      if (Math.hypot(c.x - px, c.z - pz) > 340) { this.release(c); this.cars.splice(i, 1); continue; }
       const halfL = c.size[2] / 2, halfW = c.size[0] / 2;
       if (c.dwell > 0) {
         c.speed = 0; c.dwell = Math.max(0, c.dwell - dt);
@@ -746,7 +588,6 @@ export class Traffic {
       this.advance(c, c.speed * dt, player, walkers);
       if (c.edge.e.workZone) c.speed = Math.min(c.speed, c.edge.e.workZone.speed / 3.6);
     }
-    this.stats.plans += this.plans; this.stats.planningMs = this.budget.spentMs; this.stats.planningOverruns = this.budget.overruns;
   }
   // Ordinary chase views hide a vehicle across the camera-car sightline. During
   // a jump that vehicle is the stunt's reference, so retain it unless the actual
@@ -754,22 +595,16 @@ export class Traffic {
   // bus envelope even while the rolling Roadster clears the rendered roof.
   hideNear(cam: THREE.Vector3, tgt?: { x: number; y: number; z: number }, preserveOvertake = false) {
     for (const c of this.cars) {
-      // Camera visibility follows the displayed pose, including interpolation.
-      // A single decomposed Euler angle does not determine a quaternion's yaw.
-      const forward = this.renderedForward.set(0, 0, -1).applyQuaternion(c.g.quaternion), p = c.g.position;
-      const body = { x: p.x, y: p.y - .02, z: p.z, size: c.size, hx: forward.x, hz: forward.z };
-      c.g.visible = !segmentHitsVehicle(cam, cam, body, 1.2) && !(!preserveOvertake && !this.pinned(c) && tgt && segmentHitsVehicle(cam, tgt, body, 0.6));
+      // The rendered body and collision body share the path tangent.
+      const body = { x: c.x, y: c.y, z: c.z, size: c.size, hx: -Math.sin(c.g.rotation.y), hz: -Math.cos(c.g.rotation.y) };
+      c.g.visible = !segmentHitsVehicle(cam, cam, body, 1.2) && !(!preserveOvertake && tgt && segmentHitsVehicle(cam, tgt, body, 0.6));
     }
   }
   // keep the player's car out of other vehicles: push it out along the shallowest side of the overlap
   pushOut(pos: { x: number; y: number; z: number }, halfW: number, halfL: number, bounds?: TrafficVerticalBounds): Car | null {
     let hit: Car | null = null;
     const { bottom, top } = playerVerticalBounds(pos.y, bounds);
-    let lastOrder = -1;
-    const radius = Math.hypot(halfW, halfL);
-    for (;;) {
-      const c = this.queryCars({ minX: pos.x - radius, maxX: pos.x + radius, minZ: pos.z - radius, maxZ: pos.z + radius }, this.playerCandidates).find(v => v.order > lastOrder);
-      if (!c) break; lastOrder = c.order;
+    for (const c of this.cars) {
       if (bottom >= c.y + c.size[1] || top <= c.y) continue;
       const dx = pos.x - c.x, dz = pos.z - c.z;
       const along = dx * c.hx + dz * c.hz, side = dx * c.hz - dz * c.hx;
@@ -784,7 +619,7 @@ export class Traffic {
   // overlap test against the player; returns the vehicle hit, if any
   hitTest(x: number, y: number, z: number, r: number, bounds?: TrafficVerticalBounds): Car | null {
     const { bottom, top } = playerVerticalBounds(y, bounds);
-    for (const c of this.queryCars({ minX: x - r * 1.23, maxX: x + r * 1.23, minZ: z - r * 1.23, maxZ: z + r * 1.23 }, this.playerCandidates)) {
+    for (const c of this.cars) {
       if (bottom >= c.y + c.size[1] || top <= c.y) continue;
       const dx = x - c.x, dz = z - c.z;
       const along = dx * c.hx + dz * c.hz, side = dx * c.hz - dz * c.hx;

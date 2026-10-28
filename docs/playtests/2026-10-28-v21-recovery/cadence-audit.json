@@ -1,0 +1,396 @@
+{
+  "generatedAt": "2026-10-28T15:44:37.714Z",
+  "sourceCheckout": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-audit",
+  "sourceCommit": "ece70c6f799fe5abd7dd171fd42be531684eba4c",
+  "sourceSha256": {
+    "src/game/game.ts": "63791970dc5681092333132457dd7b70e9106545425b1b051e477a54576c3c6c",
+    "src/core/performance-monitor.ts": "68618aca0f78d48fbce24f24c6c8150fbe00c8d2870a069c374b6926ebd8a9fd",
+    "src/core/refresh-policy.ts": "33fad5a07809f4196d483401b97b082688295673611b3779b6079bb3b75bf7df",
+    "src/game/presentation.ts": "6c0d3f3228030c10a104f65f09f4b9613d1d980859941bccc5cf313d5a058e2a",
+    "src/game/player.ts": "25be9ca7b3cab024bc1f42c02d3fb3a76e6a9eedb0c5deecf55e19b981d4735d"
+  },
+  "scope": "Synthetic unmodified-module policy schedules and actual Game.updateCamera with unobstructed environment doubles. No real browser input, device, renderer, CPU benchmark, measured FPS, thermal or battery evidence.",
+  "cadence": [
+    {
+      "callbackHz": 60,
+      "suppliedSyntheticCPUMs": 10,
+      "requestedFPS": 60,
+      "syntheticDurationSeconds": 25,
+      "scheduledPresentationRate": 60,
+      "final": {
+        "requestedFPS": 60,
+        "effectiveFPS": 60,
+        "observedCadenceHz": 60,
+        "callbackDivisor": 1,
+        "reason": "compatible",
+        "healthySeconds": 5,
+        "pressureSeconds": 0,
+        "sampledCallbacks": 240,
+        "sampledPresentedFrames": 240,
+        "capacity": 240
+      },
+      "decisions": [
+        {
+          "atSyntheticSeconds": 0.016666666666666666,
+          "effectiveFPS": 60,
+          "reason": "warming"
+        }
+      ]
+    },
+    {
+      "callbackHz": 60,
+      "suppliedSyntheticCPUMs": 15.1,
+      "requestedFPS": 60,
+      "syntheticDurationSeconds": 25,
+      "scheduledPresentationRate": 34.28,
+      "final": {
+        "requestedFPS": 60,
+        "effectiveFPS": 30,
+        "observedCadenceHz": 60,
+        "callbackDivisor": 2,
+        "reason": "cooldown",
+        "healthySeconds": 0,
+        "pressureSeconds": 0,
+        "sampledCallbacks": 240,
+        "sampledPresentedFrames": 240,
+        "capacity": 240
+      },
+      "decisions": [
+        {
+          "atSyntheticSeconds": 0.016666666666666666,
+          "effectiveFPS": 60,
+          "reason": "warming"
+        },
+        {
+          "atSyntheticSeconds": 3.5666666666666567,
+          "effectiveFPS": 30,
+          "reason": "pressure"
+        }
+      ]
+    },
+    {
+      "callbackHz": 60,
+      "suppliedSyntheticCPUMs": 20,
+      "requestedFPS": 60,
+      "syntheticDurationSeconds": 25,
+      "scheduledPresentationRate": 34.28,
+      "final": {
+        "requestedFPS": 60,
+        "effectiveFPS": 30,
+        "observedCadenceHz": 60,
+        "callbackDivisor": 2,
+        "reason": "cooldown",
+        "healthySeconds": 0,
+        "pressureSeconds": 0,
+        "sampledCallbacks": 240,
+        "sampledPresentedFrames": 240,
+        "capacity": 240
+      },
+      "decisions": [
+        {
+          "atSyntheticSeconds": 0.016666666666666666,
+          "effectiveFPS": 60,
+          "reason": "warming"
+        },
+        {
+          "atSyntheticSeconds": 3.5666666666666567,
+          "effectiveFPS": 30,
+          "reason": "pressure"
+        }
+      ]
+    },
+    {
+      "callbackHz": 90,
+      "suppliedSyntheticCPUMs": 10,
+      "requestedFPS": 60,
+      "syntheticDurationSeconds": 25,
+      "scheduledPresentationRate": 46.24,
+      "final": {
+        "requestedFPS": 60,
+        "effectiveFPS": 45,
+        "observedCadenceHz": 90,
+        "callbackDivisor": 2,
+        "reason": "compatible",
+        "healthySeconds": 5,
+        "pressureSeconds": 0,
+        "sampledCallbacks": 240,
+        "sampledPresentedFrames": 240,
+        "capacity": 240
+      },
+      "decisions": [
+        {
+          "atSyntheticSeconds": 0.011111111111111112,
+          "effectiveFPS": 60,
+          "reason": "warming"
+        },
+        {
+          "atSyntheticSeconds": 2.011111111111107,
+          "effectiveFPS": 45,
+          "reason": "compatible"
+        }
+      ]
+    },
+    {
+      "callbackHz": 90,
+      "suppliedSyntheticCPUMs": 15.1,
+      "requestedFPS": 60,
+      "syntheticDurationSeconds": 25,
+      "scheduledPresentationRate": 46.24,
+      "final": {
+        "requestedFPS": 60,
+        "effectiveFPS": 45,
+        "observedCadenceHz": 90,
+        "callbackDivisor": 2,
+        "reason": "compatible",
+        "healthySeconds": 0,
+        "pressureSeconds": 0,
+        "sampledCallbacks": 240,
+        "sampledPresentedFrames": 240,
+        "capacity": 240
+      },
+      "decisions": [
+        {
+          "atSyntheticSeconds": 0.011111111111111112,
+          "effectiveFPS": 60,
+          "reason": "warming"
+        },
+        {
+          "atSyntheticSeconds": 2.011111111111107,
+          "effectiveFPS": 45,
+          "reason": "compatible"
+        }
+      ]
+    },
+    {
+      "callbackHz": 90,
+      "suppliedSyntheticCPUMs": 20,
+      "requestedFPS": 60,
+      "syntheticDurationSeconds": 25,
+      "scheduledPresentationRate": 46.24,
+      "final": {
+        "requestedFPS": 60,
+        "effectiveFPS": 45,
+        "observedCadenceHz": 90,
+        "callbackDivisor": 2,
+        "reason": "compatible",
+        "healthySeconds": 0,
+        "pressureSeconds": 0,
+        "sampledCallbacks": 240,
+        "sampledPresentedFrames": 240,
+        "capacity": 240
+      },
+      "decisions": [
+        {
+          "atSyntheticSeconds": 0.011111111111111112,
+          "effectiveFPS": 60,
+          "reason": "warming"
+        },
+        {
+          "atSyntheticSeconds": 2.011111111111107,
+          "effectiveFPS": 45,
+          "reason": "compatible"
+        }
+      ]
+    },
+    {
+      "callbackHz": 120,
+      "suppliedSyntheticCPUMs": 10,
+      "requestedFPS": 60,
+      "syntheticDurationSeconds": 25,
+      "scheduledPresentationRate": 60.04,
+      "final": {
+        "requestedFPS": 60,
+        "effectiveFPS": 60,
+        "observedCadenceHz": 120,
+        "callbackDivisor": 2,
+        "reason": "compatible",
+        "healthySeconds": 5,
+        "pressureSeconds": 0,
+        "sampledCallbacks": 240,
+        "sampledPresentedFrames": 240,
+        "capacity": 240
+      },
+      "decisions": [
+        {
+          "atSyntheticSeconds": 0.008333333333333333,
+          "effectiveFPS": 60,
+          "reason": "warming"
+        }
+      ]
+    },
+    {
+      "callbackHz": 120,
+      "suppliedSyntheticCPUMs": 15.1,
+      "requestedFPS": 60,
+      "syntheticDurationSeconds": 25,
+      "scheduledPresentationRate": 42.84,
+      "final": {
+        "requestedFPS": 60,
+        "effectiveFPS": 40,
+        "observedCadenceHz": 120,
+        "callbackDivisor": 3,
+        "reason": "cooldown",
+        "healthySeconds": 0,
+        "pressureSeconds": 0,
+        "sampledCallbacks": 240,
+        "sampledPresentedFrames": 240,
+        "capacity": 240
+      },
+      "decisions": [
+        {
+          "atSyntheticSeconds": 0.008333333333333333,
+          "effectiveFPS": 60,
+          "reason": "warming"
+        },
+        {
+          "atSyntheticSeconds": 3.5083333333333524,
+          "effectiveFPS": 40,
+          "reason": "pressure"
+        }
+      ]
+    },
+    {
+      "callbackHz": 120,
+      "suppliedSyntheticCPUMs": 20,
+      "requestedFPS": 60,
+      "syntheticDurationSeconds": 25,
+      "scheduledPresentationRate": 42.84,
+      "final": {
+        "requestedFPS": 60,
+        "effectiveFPS": 40,
+        "observedCadenceHz": 120,
+        "callbackDivisor": 3,
+        "reason": "cooldown",
+        "healthySeconds": 0,
+        "pressureSeconds": 0,
+        "sampledCallbacks": 240,
+        "sampledPresentedFrames": 240,
+        "capacity": 240
+      },
+      "decisions": [
+        {
+          "atSyntheticSeconds": 0.008333333333333333,
+          "effectiveFPS": 60,
+          "reason": "warming"
+        },
+        {
+          "atSyntheticSeconds": 3.5083333333333524,
+          "effectiveFPS": 40,
+          "reason": "pressure"
+        }
+      ]
+    }
+  ],
+  "camera": [
+    {
+      "callbackHz": 60,
+      "scheduledFPS": 60,
+      "flightSpeedKmH": 160,
+      "durationSeconds": 20,
+      "currentCallerDT": {
+        "cameraZ": -867.8619698864636,
+        "playerZ": -888.8888888888888,
+        "cameraToPlayerOffsetMetres": 21.02691900242519
+      },
+      "presentationElapsedDT": {
+        "cameraZ": -867.8619698864636,
+        "playerZ": -888.8888888888888,
+        "cameraToPlayerOffsetMetres": 21.02691900242519
+      }
+    },
+    {
+      "callbackHz": 120,
+      "scheduledFPS": 60,
+      "flightSpeedKmH": 160,
+      "durationSeconds": 20,
+      "currentCallerDT": {
+        "cameraZ": -858.9756524931789,
+        "playerZ": -888.8888888888888,
+        "cameraToPlayerOffsetMetres": 29.913236395709873
+      },
+      "presentationElapsedDT": {
+        "cameraZ": -867.8619698864636,
+        "playerZ": -888.8888888888888,
+        "cameraToPlayerOffsetMetres": 21.02691900242519
+      }
+    },
+    {
+      "callbackHz": 120,
+      "scheduledFPS": 40,
+      "flightSpeedKmH": 160,
+      "durationSeconds": 20,
+      "currentCallerDT": {
+        "cameraZ": -850.2706628184534,
+        "playerZ": -888.8888888888888,
+        "cameraToPlayerOffsetMetres": 38.61822607043541
+      },
+      "presentationElapsedDT": {
+        "cameraZ": -868.040727448181,
+        "playerZ": -888.8888888888888,
+        "cameraToPlayerOffsetMetres": 20.848161440707827
+      }
+    },
+    {
+      "callbackHz": 90,
+      "scheduledFPS": 45,
+      "flightSpeedKmH": 160,
+      "durationSeconds": 20,
+      "currentCallerDT": {
+        "cameraZ": -859.097108986827,
+        "playerZ": -888.8888888888889,
+        "cameraToPlayerOffsetMetres": 29.791779902061876
+      },
+      "presentationElapsedDT": {
+        "cameraZ": -867.9814270479393,
+        "playerZ": -888.8888888888889,
+        "cameraToPlayerOffsetMetres": 20.907461840949622
+      }
+    }
+  ],
+  "catchUp": {
+    "suppliedSeconds": 1,
+    "callbacks": 10,
+    "callbackIntervalSeconds": 0.1,
+    "executedSimulationSteps": 40,
+    "simulatedSeconds": 0.6666666666666666,
+    "droppedSeconds": 0.3333333333333333,
+    "stepsForOneCallback": [
+      {
+        "suppliedDTSeconds": 0.016666666666666666,
+        "version23WholeSimulationCalls": 1,
+        "version21WholeSimulationCalls": 1,
+        "version21ClampedDTSeconds": 0.016666666666666666
+      },
+      {
+        "suppliedDTSeconds": 0.03333333333333333,
+        "version23WholeSimulationCalls": 2,
+        "version21WholeSimulationCalls": 1,
+        "version21ClampedDTSeconds": 0.03333333333333333
+      },
+      {
+        "suppliedDTSeconds": 0.05,
+        "version23WholeSimulationCalls": 3,
+        "version21WholeSimulationCalls": 1,
+        "version21ClampedDTSeconds": 0.05
+      },
+      {
+        "suppliedDTSeconds": 0.06666666666666667,
+        "version23WholeSimulationCalls": 4,
+        "version21WholeSimulationCalls": 1,
+        "version21ClampedDTSeconds": 0.05
+      },
+      {
+        "suppliedDTSeconds": 0.1,
+        "version23WholeSimulationCalls": 4,
+        "version21WholeSimulationCalls": 1,
+        "version21ClampedDTSeconds": 0.05
+      }
+    ],
+    "interpretation": "Version 23 can execute several complete player/traffic/world/walker updates in one callback. This is a source-level workload count, not a measured slowdown; its catch-up cap also deliberately drops elapsed time under severe load."
+  },
+  "visualHierarchyRisk": {
+    "sourceConfirmed": true,
+    "browserReproduction": false,
+    "description": "Game.presentationObjects interpolates the player root/glow/light but not kickflipPivot, wheels, deployed thrusters or gas; Player updates those children at the current fixed tick. Parent and children therefore do not share the same presentation timestamp."
+  }
+}

@@ -1,5 +1,7 @@
 # Roadster mobile performance release
 
+**Production recovery:** Versions 22–23 failed the user's gameplay smoothness acceptance. The original [Version 21 runtime is restored](v21-smoothness-recovery-2026-10-28.md); the optimization releases and their measurements below are historical, not the current production recommendation.
+
 **Subsequent correction:** the moving-traffic rotation regression reported after Version 22 is fixed in [Version 23](traffic-shaking-fix-2026-10-28.md). Stationary FPS acceptance did not detect this visual bug; see the linked before/after movement evidence.
 
 This release brings the tested standalone delivery game and mobile-performance work into GitHub main. GitHub previously contained the Version 12 application; the hosted Site had advanced to Version 21. The release imports the later Site fixes and the optimized application together, preserving the repository's pipeline, tools, original review pages and existing evidence.

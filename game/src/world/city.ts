@@ -40,11 +40,10 @@ export interface BusStop { edge: string; s: number; side: 1 | -1; x: number; z: 
 export interface TileZone { i: number; j: number; roads: (RoadEdge & { ctx?: number })[]; nodes: Record<string, XZ>; buildings: Building[]; boards: Board[]; furniture: Furniture[]; areas: Area[]; osm?: OsmFeature[] }
 export interface MetroData { lines: { id: string; color?: string; pts: XZ[] }[]; stations: { id: string; name: string; p: XZ; lines?: string[] }[]; pillars: { p: XZ; h: number; line?: string }[]; deckHeight: number }
 export interface SignEntry { id: string; text: string; bg: string; fg: string; c: number[]; right: number[]; up: number[]; w: number; h: number }
-export interface BuiltBuffers { mat: string; pos: Float32Array; nor: Float32Array; uv: Float32Array; col: Float32Array; bounds?: { center: [number, number, number]; radius: number }; detailMeters?: number }
-export interface BuiltInstances { mat: string; template: 'cyl6' | 'ico0'; matrices: Float32Array; colors: Float32Array; chunk: string }
+export interface BuiltBuffers { mat: string; pos: Float32Array; nor: Float32Array; uv: Float32Array; col: Float32Array }
 export interface WalkPath { pts: XZ[]; edge: string; side: 1 | -1 }
 export interface TileBuilt {
-  key: string; i: number; j: number; buffers: BuiltBuffers[]; roads: RoadEdge[]; instances?: BuiltInstances[];
+  key: string; i: number; j: number; buffers: BuiltBuffers[]; roads: RoadEdge[];
   buildingGrid: Map<string, Building[]>; surfaceGrid: Map<string, Surface[]>; walls: Map<string, Wall[]>; obstacles: Map<string, { x: number; z: number; r: number; top: number }[]>;
   landmarkSurfaceGrid?: LandmarkSurfaceGrid;
   signals: SignalSite[]; lamps: number[][]; busStops: BusStop[]; walkPaths: WalkPath[]; signs: SignEntry[];
@@ -103,17 +102,6 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   const r = rng(20261021 + zone.i * 7919 + zone.j * 104729);
   const T = () => new TiledBatch(500);
   const B = { st: T(), wall: T(), shop: T(), roof: T(), road: T(), foot: T(), lit: T(), glow: T(), park: T(), water: T(), marks: T(), kerb: T() };
-  // Cosmetic High detail is generated for both presets and displayed by projected size.
-  // These batches never add walls, obstacles, support surfaces or semantic sign text.
-  const nearParapets = new TiledBatch(200), nearRoofDetail = new TiledBatch(200);
-  const treeInstances = new Map<string, { template: 'cyl6' | 'ico0'; chunk: string; matrices: number[]; colors: number[] }>();
-  const treeMatrix = new THREE.Matrix4(), treeColor = new THREE.Color();
-  const treePart = (template: 'cyl6' | 'ico0', x: number, y: number, z: number, sx: number, sy: number, sz: number, color: string) => {
-    const chunk = `${Math.floor(x / 500)},${Math.floor(z / 500)}`, key = `${chunk}:${template}`;
-    let item = treeInstances.get(key); if (!item) treeInstances.set(key, item = { template, chunk, matrices: [], colors: [] });
-    treeMatrix.makeScale(sx, sy, sz).setPosition(x, y, z); item.matrices.push(...treeMatrix.elements);
-    treeColor.set(color); item.colors.push(treeColor.r, treeColor.g, treeColor.b);
-  };
   const TX0 = zone.i * 1000, TZ0 = zone.j * 1000;
   const inTile = (x: number, z: number) => x >= TX0 && x < TX0 + 1000 && z >= TZ0 && z < TZ0 + 1000;
   const railway = railwayNetwork();
@@ -297,7 +285,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const elevated = !!e.elev && Math.max(...e.elev) > 1.2;
     const centreMedian = hasCentreMedian(e);
     // lane markings
-    {
+    if (!opts.lowQ || MAJOR.has(e.cls) || MOTORWAY.has(e.cls)) {
       const dash = (pts: XZ[], col: string, wid: number, on = 3, off = 6) => {
         let acc = 0;
         for (let i = 0; i < pts.length - 1; i++) {
@@ -792,7 +780,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         const v1 = h / (FLOOR_H * 4);
         B.wall.quad([p[0], 0, p[1]], [q[0], 0, q[1]], [q[0], h, q[1]], [p[0], h, p[1]], col, [[0, 0.02], [len / 12, 0.02], [len / 12, v1], [0, v1]]);
       }
-      if (h > 3 && !sheet) nearParapets.quad([p[0], h, p[1]], [q[0], h, q[1]], [q[0], h + 0.9, q[1]], [p[0], h + 0.9, p[1]], col.clone().multiplyScalar(0.92));
+      if (h > 3 && !opts.lowQ && !sheet) B.st.quad([p[0], h, p[1]], [q[0], h, q[1]], [q[0], h + 0.9, q[1]], [p[0], h + 0.9, p[1]], col.clone().multiplyScalar(0.92));
     }
     // shop units along the frontage: pillars between shutters, generic boards, parked bikes, carts (customers are the walkers)
     const shopFronts = shop ? fronts : [...fill.values()];
@@ -885,22 +873,22 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         flush(n);
       }
     }
-    if (area > 50 && !sheet && modelClearance.clear(ring, h, h + 3.5)) {
+    if (!opts.lowQ && area > 50 && !sheet && modelClearance.clear(ring, h, h + 3.5)) {
       if (br.chance(0.5)) {
         const n = br.int(1, area > 300 ? 2 : 1);
         for (let k = 0; k < n; k++) {
           const tx = cx + br.range(-2, 2), tz = cz + br.range(-2, 2);
           if (!modelClearance.clear([[tx - .7, tz - .7], [tx + .7, tz - .7], [tx + .7, tz + .7], [tx - .7, tz + .7]], h + .3, h + 1.6)) continue;
-          treePart('cyl6', tx, h + 0.95, tz, 0.62, 1.3, 0.62, '#1d1d22');      // repeated black Sintex tank shares the exact near template
+          B.st.add(TPL.cyl6, tx, h + 0.95, tz, 0.62, 1.3, 0.62, '#1d1d22');      // black Sintex tank on the roof
         }
       }
       if (area > 120 && br.chance(0.45)) {
         const x = cx + br.range(-3, 3), z = cz + br.range(-3, 3);
-        if (modelClearance.clear([[x - 1.3, z - 1.4], [x + 1.3, z - 1.4], [x + 1.3, z + 1.4], [x - 1.3, z + 1.4]], h, h + 2.6)) nearRoofDetail.box(x, h + 1.3, z, 2.6, 2.6, 2.8, col.clone().multiplyScalar(0.9), { ao: true, aoBase: h, aoH: 1.5 });
+        if (modelClearance.clear([[x - 1.3, z - 1.4], [x + 1.3, z - 1.4], [x + 1.3, z + 1.4], [x - 1.3, z + 1.4]], h, h + 2.6)) B.st.box(x, h + 1.3, z, 2.6, 2.6, 2.8, col.clone().multiplyScalar(0.9), { ao: true, aoBase: h, aoH: 1.5 });
       }
       if (br.chance(0.08)) for (let k = 0; k < 3; k++) {
         const x = cx + br.range(-3, 3), z = cz + br.range(-3, 3);
-        if (modelClearance.clear([[x - .04, z - .04], [x + .04, z - .04], [x + .04, z + .04], [x - .04, z + .04]], h, h + 1.6)) nearRoofDetail.box(x, h + .8, z, .06, 1.6, .06, '#6b3d2a');
+        if (modelClearance.clear([[x - .04, z - .04], [x + .04, z - .04], [x + .04, z + .04], [x - .04, z + .04]], h, h + 1.6)) B.st.box(x, h + .8, z, .06, 1.6, .06, '#6b3d2a');
       }
     }
     void cz;
@@ -1083,9 +1071,9 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   const treeAt = (x: number, z: number, s: Rng) => {
     if(airClear(x,z))return;
     const h = s.range(2.8, 4.4), cr = s.range(1.6, 2.6), g1 = s.pick(['#4e7d33', '#5c8f3a', '#6fa14a', '#3f6e2c']);
-    treePart('cyl6', x, h / 2, z, 0.17, h, 0.17, '#6b4a33');
-    treePart('ico0', x, h + cr * 0.55, z, cr, cr * 0.8, cr, g1);
-    treePart('ico0', x + 0.4, h + cr * 1.0, z - 0.5, cr * 0.7, cr * 0.6, cr * 0.7, s.pick(['#4e7d33', '#5c8f3a', '#6fa14a']));
+    B.st.add(TPL.cyl6, x, h / 2, z, 0.17, h, 0.17, '#6b4a33');
+    B.st.add(TPL.ico0, x, h + cr * 0.55, z, cr, cr * 0.8, cr, g1);
+    B.st.add(TPL.ico0, x + 0.4, h + cr * 1.0, z - 0.5, cr * 0.7, cr * 0.6, cr * 0.7, s.pick(['#4e7d33', '#5c8f3a', '#6fa14a']));
   };
   const inWater = (x: number, z: number) => waterRings.some((r) => pointInRing(x, z, r));
   // a ring edge made by cutting the area at the tile border is not a real shore or boundary
@@ -1461,22 +1449,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
 
   // ---------- hand back plain buffers ----------
   const buffers: BuiltBuffers[] = [];
-  const instances: BuiltInstances[] = [];
-  // Tiny groups stay merged; dense tree copies retain identical template/color/transform data.
-  for (const item of treeInstances.values()) {
-    const n = item.colors.length / 3;
-    if (n >= 24) instances.push({ mat: 'st', template: item.template, matrices: new Float32Array(item.matrices), colors: new Float32Array(item.colors), chunk: item.chunk });
-    else for (let i = 0; i < n; i++) {
-      treeMatrix.fromArray(item.matrices, i * 16); treeColor.fromArray(item.colors, i * 3);
-      B.st.addTpl(TPL[item.template], treeMatrix, treeColor);
-    }
-  }
   let verts = 0;
-  for (const [batch, detailMeters] of [[nearParapets, .9], [nearRoofDetail, 3]] as const) for (const bt of batch.tiles.values()) {
-    if (bt.empty) continue;
-    buffers.push({ mat: 'st', pos: new Float32Array(bt.pos), nor: new Float32Array(bt.nor), uv: new Float32Array(bt.uv), col: new Float32Array(bt.col), detailMeters });
-    verts += bt.pos.length / 3;
-  }
   for (const [mat, tb] of Object.entries(B)) for (const bt of tb.tiles.values()) {
     if (bt.empty) continue;
     buffers.push({ mat, pos: new Float32Array(bt.pos), nor: new Float32Array(bt.nor), uv: new Float32Array(bt.uv), col: new Float32Array(bt.col) });
@@ -1484,7 +1457,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   }
   void r; void byBuilding;
   return {
-    key: `${zone.i}_${zone.j}`, i: zone.i, j: zone.j, buffers, instances, roads: ownRoads,
+    key: `${zone.i}_${zone.j}`, i: zone.i, j: zone.j, buffers, roads: ownRoads,
     buildingGrid, surfaceGrid, landmarkSurfaceGrid, walls, obstacles, structureSupports, buildingCorrections, workZoneFeatures, lampFixtures, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, signs,
     activity: [...activity],
     rails: railways.filter(r => !r.service).map(r => ({ id: r.id, pts: r.pts, elev: r.elev, bridge: r.bridge })),

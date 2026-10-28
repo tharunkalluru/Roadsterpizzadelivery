@@ -16,17 +16,13 @@ export function hideLoading() {
   document.documentElement.classList.remove('game-loading');
   const hud = document.getElementById('hud'); if (hud) hud.inert = false;
 }
-export function loadingRetry(message: string, label = 'Retry loading', signal?: AbortSignal): Promise<void> {
-  if (signal?.aborted) return Promise.reject(new DOMException('Loading cancelled', 'AbortError'));
+export function loadingRetry(message: string, label = 'Retry loading'): Promise<void> {
   showLoading(message);
   const shell = document.getElementById('loading'); if (!shell) return Promise.reject(new Error(message));
   shell.setAttribute('data-state', 'error'); shell.setAttribute('aria-busy', 'false');
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     const button = document.createElement('button'); button.type = 'button'; button.className = 'loading-retry'; button.textContent = label;
-    const cleanup = () => { button.remove(); signal?.removeEventListener('abort', abort); };
-    const abort = () => { cleanup(); reject(new DOMException('Loading cancelled', 'AbortError')); };
-    button.addEventListener('click', () => { cleanup(); resolve(); }, { once: true });
-    signal?.addEventListener('abort', abort, { once: true });
+    button.addEventListener('click', () => { button.remove(); resolve(); }, { once: true });
     (document.getElementById('loading-actions') || shell).append(button); button.focus();
   });
 }

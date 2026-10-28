@@ -29,7 +29,7 @@ export class BusServices {
   private cells = new Map<string, Leg[]>();
   private stopCache = new Map<string, StopPosition | null>();
   private paths = new Map<string, Step[] | null>();
-  private graphEdges: GEdge[]; private graphSize: number; private graphRevision = -1;
+  private graphEdges: GEdge[]; private graphSize: number;
   private rejectedTurns = new Set<string>();
   private rejectedEdges = new Set<string>();
   clearExecutionRejections() {
@@ -45,7 +45,7 @@ export class BusServices {
       && busTurnPossible(this.graph, before, fromDir, after, toDir, s);
   }
   constructor(public graph: RoadGraph, public feed: BusFeed) {
-    this.graphEdges = graph.edges; this.graphSize = graph.edges.length; this.graphRevision = graph.revision || 0;
+    this.graphEdges = graph.edges; this.graphSize = graph.edges.length;
     for (const pattern of feed.patterns) for (let i = 0; i < pattern.stops.length - 1; i++) {
       const a = feed.stops[pattern.stops[i]], b = feed.stops[pattern.stops[i + 1]];
       if (!a || !b) continue;
@@ -66,8 +66,8 @@ export class BusServices {
     // Streamed streets can arrive after an earlier negative lookup, or be
     // removed/replaced without changing the final edge count. Cached GEdge
     // objects cannot authorize a bus to drive onto an unloaded old road.
-    if (this.graphRevision === (this.graph.revision || 0) && this.graphEdges === this.graph.edges && this.graphSize === this.graph.edges.length) return;
-    this.graphEdges = this.graph.edges; this.graphSize = this.graph.edges.length; this.graphRevision = this.graph.revision || 0;
+    if (this.graphEdges === this.graph.edges && this.graphSize === this.graph.edges.length) return;
+    this.graphEdges = this.graph.edges; this.graphSize = this.graph.edges.length;
     this.stopCache.clear(); this.paths.clear();
   }
   private locate(pattern: BusPattern, index: number): StopPosition | null {

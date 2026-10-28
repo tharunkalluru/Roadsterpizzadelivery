@@ -1,5 +1,7 @@
 # Version 23: traffic shaking correction
 
+**Superseded for production:** although this fixed the heading corruption, the user still reported frame drops and glitchy flight. The original [Version 21 runtime is restored](v21-smoothness-recovery-2026-10-28.md). Zero heading errors did not establish overall gameplay smoothness.
+
 Published to the existing public game URL on 2026-10-28. This corrects a moving-traffic regression introduced by Version 22's render interpolation. Restoring a quaternion changed a vehicle's Euler representation; the next yaw-only traffic update retained unintended half-turns and visibly flipped buses/autos. The fix preserves authoritative angles and order, sets full traffic orientations, handles pooled generations and uses the displayed pose for camera hiding.
 
 All five new regression tests fail before the fix and pass afterward. All 103 behavioral tests, both TypeScript checks and the production build pass. The local night-driving check recorded zero inconsistent headings in 113,638 vehicle poses; the deployed Version 23 check recorded zero in 113,676, including buses and autos. Both used external visible keyboard controls with read-only diagnostics. No new completed delivery or physical-phone certification is claimed.

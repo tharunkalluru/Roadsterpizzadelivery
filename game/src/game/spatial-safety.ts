@@ -4,7 +4,6 @@ import type { RoadGraph, GEdge } from './roadgraph';
 import { nearbyBuildings, supportAt } from './physics';
 import { isORR, isRamp, travelDirection } from '../world/expressway';
 import type { RoadEdge } from '../world/types';
-import { staticNeighborhood, buildingBounds, segmentBounds, outsideBounds, staticQueryStats } from './static-neighborhood';
 
 interface Point { x: number; y: number; z: number }
 export interface VehicleBounds extends Point { hx: number; hz: number; size: number[] }
@@ -21,37 +20,31 @@ function segmentDistance(x: number, z: number, ax: number, az: number, bx: numbe
 // well as building footprints. Horizontal and vertical clearance are independent.
 export function staticSolidAt(city: CityData, p: Point, radius = 0.35, halfHeight = radius): boolean {
   if (p.y - halfHeight < supportAt(city, p.x, p.z, p.y, true).y + 0.02) return true;
-  const near = staticNeighborhood(city, p.x, p.z), low = p.y-halfHeight, high = p.y+halfHeight;
-  for (const b of near.buildings) {
-    if (b.h < low || outsideBounds(buildingBounds(b), p.x, p.z, radius)) { staticQueryStats.boundsRejects++; continue; }
-    staticQueryStats.polygonTests++;
+  for (const b of nearbyBuildings(city, p.x, p.z)) {
+    if (b.h < p.y - halfHeight) continue;
     if (pointInRing(p.x, p.z, b.ring)) return true;
     for (let i = 0, j = b.ring.length - 1; i < b.ring.length; j = i++) {
-      const u=b.ring[j],v=b.ring[i];
-      if(p.x<Math.min(u[0],v[0])-radius||p.x>Math.max(u[0],v[0])+radius||p.z<Math.min(u[1],v[1])-radius||p.z>Math.max(u[1],v[1])+radius)continue;
-      staticQueryStats.segmentTests++;
-      if (segmentDistance(p.x, p.z, ...u, ...v).d < radius) return true;
+      if (segmentDistance(p.x, p.z, ...b.ring[j], ...b.ring[i]).d < radius) return true;
     }
   }
-  for (const o of near.obstacles) {
-    const reach=o.r+radius;
-    if(high<0||low>o.top||Math.abs(p.x-o.x)>=reach||Math.abs(p.z-o.z)>=reach)continue;
-    if(Math.hypot(p.x-o.x,p.z-o.z)<reach)return true;
+  const cx = Math.floor(p.x / 50), cz = Math.floor(p.z / 50);
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const o of city.obstacles.get(`${cx + i},${cz + j}`) || []) {
+    if (p.y + halfHeight >= 0 && p.y - halfHeight <= o.top && Math.hypot(p.x - o.x, p.z - o.z) < o.r + radius) return true;
   }
-  for (const w of near.walls) {
-    if(w.kind==='kerb')continue;
-    const bounds=segmentBounds(w);
-    if(outsideBounds(bounds,p.x,p.z,radius)||high<bounds.minY||low>bounds.maxY){staticQueryStats.boundsRejects++;continue;}
-    staticQueryStats.segmentTests++;
-    const {d,t}=segmentDistance(p.x,p.z,w.ax,w.az,w.bx,w.bz);
-    if(d<radius&&high>=w.y0a+(w.y0b-w.y0a)*t&&low<=w.y1a+(w.y1b-w.y1a)*t)return true;
-  }
-  for(const s of near.surfaces){
-    const bounds=segmentBounds(s);
-    if(outsideBounds(bounds,p.x,p.z,radius)||low>=bounds.maxY+.05||high<=bounds.minY-.3){staticQueryStats.boundsRejects++;continue;}
-    staticQueryStats.segmentTests++;
-    const {d,t}=segmentDistance(p.x,p.z,s.ax,s.az,s.bx,s.bz),y=s.ya+(s.yb-s.ya)*t;
-    if(d<s.hw+radius&&low<y+.05&&high>y-.3)return true;
+  const seen = new Set<Wall>(), sx = Math.floor(p.x / 30), sz = Math.floor(p.z / 30);
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) {
+    const cell = `${sx + i},${sz + j}`;
+    for (const w of city.walls.get(cell) || []) {
+      if (seen.has(w) || w.kind === 'kerb') continue; seen.add(w);
+      const { d, t } = segmentDistance(p.x, p.z, w.ax, w.az, w.bx, w.bz);
+      if (d < radius && p.y + halfHeight >= w.y0a + (w.y0b - w.y0a) * t && p.y - halfHeight <= w.y1a + (w.y1b - w.y1a) * t) return true;
+    }
+    for (const s of city.surfaceGrid.get(cell) || []) {
+      if (s.kind === 'road') continue;
+      const { d, t } = segmentDistance(p.x, p.z, s.ax, s.az, s.bx, s.bz);
+      const y = s.ya + (s.yb - s.ya) * t;
+      if (d < s.hw + radius && p.y - halfHeight < y + 0.05 && p.y + halfHeight > y - 0.3) return true;
+    }
   }
   return false;
 }

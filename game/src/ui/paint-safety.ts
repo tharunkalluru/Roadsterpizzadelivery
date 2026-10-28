@@ -59,7 +59,6 @@ export const PAINT_SAFETY_CSS = `
 .solid-ui #hud .btn:active,.solid-ui #hud .opt:active{filter:none!important;transform:none}
 .solid-ui #hud .ui-icon,.solid-ui #hud .tb svg{filter:none!important}
 .solid-ui #hud .toast,.solid-ui #hud .area-chip{transition:none}
-.solid-ui #hud .title-screen h1{text-shadow:0 3px 0 #8E421F!important}
 /* Recovery is an action, not a plum panel. Keep its readable face explicit
    after the generic button fallback in both decorated and opaque modes. */
 #hud .rescue,.solid-ui #hud .rescue{

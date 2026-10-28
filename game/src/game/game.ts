@@ -1,10 +1,3 @@
-import { rememberQuality } from '../core/quality-profile';
-import { PerformanceMonitor, FixedStepClock, PresentationPacer } from '../core/performance-monitor';
-import { RefreshPolicy } from '../core/refresh-policy';
-import { Presentation } from './presentation';
-import { RouteSearchGate } from './route-search-gate';
-import { movementCoverageNeed, type MovementCoverageNeed } from './streaming-boundary';
-import { MinimapBaseCache } from '../ui/minimap-cache';
 import { showLoading, hideLoading, loadingRetry } from '../ui/loading';
 import { frameTakeoff } from './kickflip-camera';
 import * as THREE from 'three';
@@ -56,112 +49,6 @@ interface Order { id?: string; pickup: Stop; drop: Stop; pickupName: string; dis
 function fmtTime(min: number) { const h = Math.floor(min / 60) % 24, m = Math.floor(min % 60); const ap = h >= 12 ? 'PM' : 'AM'; return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${ap}`; }
 
 export class Game {
-  performanceMonitor = new PerformanceMonitor();
-  private fixedStep = new FixedStepClock(); private presentation = new Presentation();
-  private routeSearchGate = new RouteSearchGate(); private minimapBase = new MinimapBaseCache();
-  private nextQualitySample = 30; private presentationPacer = new PresentationPacer(); private presentationRevision = -1;
-  private lastPresentedAt = 0;
-  private lastProjectionFov = NaN;
-  readonly refreshPolicy = new RefreshPolicy();
-  private resetRefreshPolicy = () => { this.refreshPolicy.reset('viewport'); this.presentationPacer.reset(); this.lastPresentedAt = 0; };
-  private streamingBoundary: { controller: AbortController; lease: ReturnType<World['acquireCoverageLease']> } | null = null;
-  private cameraPivot = new THREE.Vector3(); private cameraDesired = new THREE.Vector3(); private cameraTarget = new THREE.Vector3(); private sunTarget = new THREE.Vector3();
-  private resourcePins = new Set<string>();
-  private *presentationObjects() {
-    yield this.player.group; yield this.player.glow; yield this.player.light;
-    for(const car of this.traffic.cars) yield car.g;
-    for(const train of this.metro.trains) if(train.mesh){yield train.mesh; for(const coach of train.mesh.children)yield coach;}
-    for(const train of this.rail.trains)for(const car of train.cars)yield car;
-  }
-  private gameplayActive() { return !document.hidden && !this.streamingBoundary && !this.paused && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked && !this.map?.open && !this.choosing && !!this.area && this.engine.graphicsReady; }
-  private checkStreamingBoundary() {
-    if (this.streamingBoundary) return false;
-    const p = this.player, f = p.forward;
-    const need = movementCoverageNeed(this.city, p.pos.x, p.pos.z, f.x * p.speed, f.z * p.speed);
-    if (!need) return true;
-    void this.recoverStreamingBoundary(need);
-    return false;
-  }
-  private streamingRetry(signal: AbortSignal) {
-    return loadingRetry('The road ahead could not load. Your current position and delivery are safe.', 'Retry road loading', signal);
-  }
-  private cancelStreamingBoundary() {
-    const recovery = this.streamingBoundary; if (!recovery) return;
-    this.streamingBoundary = null; recovery.controller.abort(); recovery.lease.release(); hideLoading();
-  }
-  private async recoverStreamingBoundary(need: MovementCoverageNeed) {
-    const controller = new AbortController();
-    const recovery = { controller, lease: this.city.acquireCoverageLease(need.x, need.z, need.radius, this.player.pos, controller.signal) };
-    this.streamingBoundary = recovery;
-    const started = performance.now(), signal = recovery.controller.signal;
-    // Preserve committed support and all existing jump/train/traffic state. No relocation or player reset.
-    this.resetInput(); this.fixedStep.accumulator = 0;
-    try {
-      while (this.streamingBoundary === recovery && !signal.aborted) {
-        showLoading('Preparing the road ahead…', 'streets');
-        try {
-          await this.city.ensure(need.x, need.z, need.radius, signal);
-          if (this.streamingBoundary !== recovery || signal.aborted) return;
-          showLoading('Getting the road ready…', 'view');
-          await this.engine.prepareFrame();
-          if (this.streamingBoundary !== recovery || signal.aborted) return;
-          this.city.focus = [this.player.pos.x, this.player.pos.z];
-          // Keep a pending offer's wall-clock delay frozen along with simulation timers.
-          if (this.nextOfferAt !== null) this.nextOfferAt += performance.now() - started;
-          this.streamingBoundary = null; this.clock.getDelta(); hideLoading();
-          return;
-        } catch (error) {
-          if (signal.aborted || this.streamingBoundary !== recovery) return;
-          console.warn('Road coverage recovery', error);
-          await this.streamingRetry(signal);
-        }
-      }
-    } catch (error) {
-      if (!signal.aborted) console.warn('Road coverage retry', error);
-    } finally { recovery.lease.release(); }
-  }
-  frame() {
-    const frameStarted = performance.now();
-    const raw = this.clock.getDelta();
-    if (this.gameplayActive()) this.checkStreamingBoundary();
-    const active=this.gameplayActive();
-    // Offers may let the city clock run while an opaque panel covers the scene.
-    // Those callback rates are UI time, never evidence of gameplay rendering.
-    const measuring=active&&this.engine.canPresent;
-    const monitor=this.performanceMonitor; monitor.begin(measuring?'frameCPU':'inactiveFrameCPU');
-    if(measuring){monitor.record('rafInterval',raw*1000);monitor.activeSeconds+=raw;} else this.lastPresentedAt=0;
-    this.refreshPolicy.setRequestedFPS(this.settings.targetFPS || 60);
-    this.engine.targetFPS=this.refreshPolicy.state.effectiveFPS;
-    this.city.pumpJobs(Math.min(1.5,90/this.engine.targetFPS));
-    this.engine.adaptiveResolution=!!this.settings.adaptiveResolution;
-    if(this.player.placementRevision!==this.presentationRevision){this.presentationRevision=this.player.placementRevision;this.presentation.reset();this.fixedStep.accumulator=0;this.routeSearchGate.reset();}
-    const steps=this.fixedStep.advance(raw,active);
-    if(!active)this.simulationStep(0);
-    for(let i=0;i<steps;i++) {monitor.begin('simulation');this.simulationStep(this.fixedStep.step);monitor.end('simulation');this.presentation.capture(this.presentationObjects());}
-    const now=performance.now(), period=1000/this.engine.targetFPS;
-    let presented = false, presentationMs: number | null = null;
-    if(this.presentationPacer.due(raw,this.engine.targetFPS,measuring,this.refreshPolicy.state.callbackDivisor)){
-      if(active){this.presentation.apply(this.fixedStep.alpha);this.updateCamera(Math.min(raw,.05));this.city.updateVisualDetail(this.engine.camera,this.player.pos);}
-      const renderPhase=measuring?'renderSubmit':'inactiveRenderSubmit';monitor.begin(renderPhase);
-      let rendered=false;
-      try{rendered=this.engine.render();}finally{this.presentation.restore();monitor.end(renderPhase);}
-      if(rendered&&measuring){
-        presented = true;
-        if(this.lastPresentedAt){const interval=now-this.lastPresentedAt;presentationMs=interval;monitor.record('frameInterval',interval);monitor.count('presentedFrames');if(interval>period*1.5)monitor.count('framesOver1_5Budget');if(interval>period*2)monitor.count('framesOver2Budget');}
-        this.lastPresentedAt=now;
-        if(this.engine.gpuMs!==null)monitor.record('gpu',this.engine.gpuMs);
-        this.recordFrameStats();
-      }else this.lastPresentedAt=0;
-    }
-    monitor.end(measuring?'frameCPU':'inactiveFrameCPU');
-    this.refreshPolicy.observe({rafMs:raw*1000,cpuMs:performance.now()-frameStarted,presented,presentationMs,active:measuring});
-    if(measuring && monitor.activeSeconds>=this.nextQualitySample){
-      this.nextQualitySample=monitor.activeSeconds+30;
-      const phases=monitor.summary().phases;
-      if(!new URLSearchParams(location.search).has('perf'))rememberQuality(phases.frameCPU?.p95,phases.frameInterval?.p95,phases.gpu?.p95??null,this.opts.lowQ);
-    }
-  }
-
   railContacts = new MovingRailInteraction();
   aircraft!: AirportAircraft;
   stationLife!: MetroStationLife;
@@ -186,9 +73,8 @@ export class Game {
   beacon!: THREE.Group;
   camPos = new THREE.Vector3(); camLook = new THREE.Vector3(); clock = new THREE.Clock(); t = 0; moodT = 0;
   cameraPlacementRevision = -1;
-  r = rng(import.meta.env.DEV && new URLSearchParams(location.search).has('seed') ? Number(new URLSearchParams(location.search).get('seed')) : Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];
+  r = rng(Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];
   constructor(public engine: Engine, public zone: CoreData, public city: World, public opts: { lowQ: boolean; still?: boolean }) {
-    this.performanceMonitor.enabled = new URLSearchParams(location.search).get('monitor') !== 'off';
     this.graph = new RoadGraph(zone.roads, []);
     this.player = new Player(city, engine.mats);
     this.player.addTo(engine.scene);
@@ -222,11 +108,9 @@ export class Game {
     city.onTileRemoved = (t) => this.tileRemoved(t);
   }
   tileAdded(t: LoadedTile, paths: boolean) {
-    this.performanceMonitor.begin('graphPublish');
     this.graph.addRoads(t.built.roads, t.built.signals);
     this.traffic.setBusStops(this.city.busStops);
     if (paths) this.walkers.addPaths(t.built.walkPaths);
-    this.performanceMonitor.end('graphPublish');
   }
   tileRemoved(t: LoadedTile) {
     const gone = this.graph.removeRoads(t.built.roads.map((e) => e.id));
@@ -355,13 +239,13 @@ export class Game {
     if (this.order) { this.nextOfferAt = null; return; }
     // Keep a due offer pending while any overlay owns input. Resume/map close
     // will service it on the next frame rather than discard a one-shot timer.
-    if (now < this.nextOfferAt || !this.gameplayActive() || this.relocating) return;
+    if (now < this.nextOfferAt || document.hidden || this.paused || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating) return;
     this.showOffer();
     if (!this.order) this.nextOfferAt = now + 1000; // bounded retry if no valid route could be generated
   }
   showOffer() {
     // A delayed offer callback must not replace an accepted delivery or appear over area selection.
-    if (!this.orderOffersEnabled || !this.gameplayActive() || this.relocating || (this.order && this.order.state !== 'offer')) return;
+    if (!this.orderOffersEnabled || document.hidden || this.paused || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked || this.map?.open || this.choosing || this.relocating || (this.order && this.order.state !== 'offer')) return;
     // Reopening a cancelled area picker restores the same offer, including its route and pay.
     let o: Order | null = this.order;
     const restored = !!o;
@@ -432,7 +316,8 @@ export class Game {
     this.sound.vehicle({ speed: 0, throttle: 0, flying: false, active: false });
   }
   private motionAvailable() {
-    return this.gameplayActive() && !this.relocating && this.order?.state !== 'offer';
+    return !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked &&
+      !this.map?.open && !this.choosing && !this.relocating && !!this.area && this.order?.state !== 'offer';
   }
   jumpAvailable() {
     return this.motionAvailable() && this.player.canJump === true && !this.flyQueued &&
@@ -520,11 +405,6 @@ export class Game {
     // look around: drag on the scene while the car is stopped; scroll to move the camera in or out
     const cv = this.engine.renderer.domElement;
     cv.tabIndex = -1;
-    cv.addEventListener('webglcontextlost', () => this.resetInput());
-    addEventListener('resize', this.resetRefreshPolicy);
-    window.visualViewport?.addEventListener('resize', this.resetRefreshPolicy);
-    document.addEventListener('fullscreenchange', this.resetRefreshPolicy);
-    document.addEventListener('visibilitychange', this.resetRefreshPolicy);
     let last: { x: number; y: number } | null = null;
     cv.addEventListener('pointerdown', (e) => { if (this.paused || this.choosing || this.map?.open || this.hud.modalOpen || this.hud.rotationBlocked) return; last = { x: e.clientX, y: e.clientY }; this.dragging = true; });
     addEventListener('pointerup', () => { last = null; this.dragging = false; });
@@ -554,7 +434,6 @@ export class Game {
     requestAnimationFrame(loop);
   }
   handleKeyDown(e: KeyboardEvent) {
-    if (!this.engine.graphicsReady || this.streamingBoundary) return;
     if (this.hud.tipOpen) return;
     if (this.hud.rotationBlocked) return;
     if (e.repeat && ['Space', 'KeyJ', 'KeyE', 'KeyM', 'KeyN', 'KeyP', 'Escape', 'Backquote', 'Backslash'].includes(e.code)) return;
@@ -619,21 +498,17 @@ export class Game {
     // A delayed choice must never overwrite a newer destination or an accepted job.
     if (this.order && this.order.state !== 'offer') { this.hud.toast('Finish this delivery first!', 'pink'); return; }
     if (!this.validArea(c)) { this.hud.toast('Choose a spot inside the playable Hyderabad map.', 'pink'); return; }
-    this.cancelStreamingBoundary();
-    this.traffic.clearRetention(); this.routeSearchGate.reset(); this.presentation.reset();
     c = { name: c.name.trim(), x: c.x, z: c.z };
     const request = (this.relocationId || 0) + 1; this.relocationId = request;
     this.relocationAbort?.abort();
     const controller = new AbortController(); this.relocationAbort = controller;
-    const lease = this.city.acquireCoverageLease(c.x, c.z, 650, this.player.pos, controller.signal);
-    try {
     this.hud.tip(null);
     this.resetInput();
     this.relocating = true; this.choosing = true; this.paused = true;
     if (this.map?.open) this.map.hide();
     this.picker.hide(); this.hud.offer(null); this.hud.modal(null);
     setLoading(`Loading ${c.name}…`);
-    try { await this.city.ensure(c.x, c.z, 650, controller.signal); }
+    try { await this.city.ensure(c.x, c.z, Math.max(650, this.city.radius || 0), controller.signal); }
     catch (e) {
       if (request !== this.relocationId) return;
       console.error('relocate', e);
@@ -645,10 +520,7 @@ export class Game {
       this.relocationFailed(c, 'There is no safe, clear road close to this pin. Move the pin to a nearby street.');
       return;
     }
-    // The first next frame pumps before simulation; hand off focus while the
-    // lease still protects old support and the newly placed target together.
-    this.city.focus = [this.player.pos.x, this.player.pos.z];
-    this.city.setStreamFocus({ x: this.player.pos.x, z: this.player.pos.z, vx: 0, vz: 0, mode: 'road' });
+    this.relocationAbort = undefined;
     this.order = null; this.nextOfferAt = null; this.setTarget(null);
     // the old neighbourhood's traffic and people stay behind
     this.traffic.clear();
@@ -663,9 +535,7 @@ export class Game {
       catch (error) {
         if (request !== this.relocationId) return;
         console.error('Starting view', error);
-        try { await loadingRetry('Could not draw the starting view. Please reload the game.', 'Reload game', controller.signal); }
-        catch (retryError) { if (controller.signal.aborted) return; throw retryError; }
-        if (request !== this.relocationId) return;
+        await loadingRetry('Could not draw the starting view. Please reload the game.', 'Reload game');
         location.reload(); return;
       }
     }
@@ -679,10 +549,6 @@ export class Game {
     (window as any).__game = this;                 // tests start once the first area is ready
     setTimeout(() => this.map?.build().catch(() => {}), 4000);   // the city map is ready before anyone opens it
     this.queueOffer(2200);
-    } finally {
-      lease.release();
-      if (this.relocationAbort === controller) this.relocationAbort = undefined;
-    }
   }
   private relocationFailed(c: AreaChoice, message: string) {
     setLoading(''); this.relocating = false; this.relocationAbort = undefined;
@@ -904,8 +770,8 @@ export class Game {
     this.flyQueued = false; this.jumpQueued = false;
     return inp;
   }
-  private simulationStep(dt: number) {
-    if (this.streamingBoundary || this.gameplayActive() && !this.checkStreamingBoundary()) return;
+  frame() {
+    const dt = Math.min(this.clock.getDelta(), 0.05);
     this.bugReports?.retryPending();
     this.tutorialTick();
     if (this.hud.tipOpen && !this.tipWasOpen) this.resetInput();
@@ -914,13 +780,13 @@ export class Game {
     this.rotationWasBlocked = this.hud.rotationBlocked;
     this.hud.flightState?.(this.player.flying, this.player.descending);
     this.updateJumpState();
-    const active = this.gameplayActive();
+    const active = !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked && !this.map?.open && !this.choosing && !!this.area;
     this.sound.vehicle({ speed: this.player.speed, throttle: this.order?.state !== 'offer' && !this.keys.has('KeyS') && !this.keys.has('ArrowDown') && !this.hud.touchBrake &&
       (this.keys.has('KeyW') || this.keys.has('ArrowUp') || this.hud.touchGas) ? 1 : 0,
       flying: this.player.flying || this.player.jumping, descending: this.player.descending, active: active && this.order?.state !== 'offer' });
     this.tickOfferQueue();
     if (this.map?.open) { this.map.tick(dt); return; }
-    if (!active) { return; }
+    if (!active) { this.engine.render(); return; }
     this.t += dt;
     // clock
     const before = this.minutes;
@@ -933,11 +799,9 @@ export class Game {
     this.metro.update(dt, this.player.pos.x, this.player.pos.z);
     this.stationLife?.update(dt, this.minutes, this.metro.stationDwells, this.player.pos.x, this.player.pos.z);
     this.rail.update(dt, this.player.pos.x, this.player.pos.z, this.city.rails);
-    this.city.movingRail.length=0;
-    for(const body of this.metro.bodies)this.city.movingRail.push(body);
-    for(const body of this.rail.bodies)this.city.movingRail.push(body);
+    this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies];
     this.railContacts.beforePlayer(this.player, this.city.movingRail, !!(inp.flyPressed || inp.jumpPressed), dt);
-    this.performanceMonitor.begin('player'); this.player.update(dt, inp, this.t); this.performanceMonitor.end('player');
+    this.player.update(dt, inp, this.t);
     this.hud.flightState?.(this.player.flying, this.player.descending);
     this.updateJumpState();
     const railContact = this.railContacts.afterPlayer(this.player, dt);
@@ -955,16 +819,9 @@ export class Game {
     const P = this.player.pos;
     this.bugReports?.record({ time: this.t, x: P.x, y: P.y, z: P.z, speed: this.player.speed, throttle: inp.throttle, brake: inp.brake, steer: inp.steer, flying: this.player.flying, surface: this.player.lastKind });
     this.aircraft.update(dt, P.x, P.z);
-    this.traffic.updateJumpRetention({jumping:this.player.jumping,x:P.x,y:P.y,z:P.z,hx:this.player.forward.x,hz:this.player.forward.z,speed:this.player.speed},dt);
-    const forward=this.player.forward, velocity=this.player.speed;
-    this.city.setPinnedRoadIds(Array.from(this.traffic.retainedEdges(),e=>e.e.id));
-    this.city.setStreamFocus({x:P.x,z:P.z,vx:forward.x*velocity,vz:forward.z*velocity,mode:this.player.jumping?'jump':this.player.descending?'descending':this.player.flying?'flight':'road',landingBounds:this.player.descending?{minX:P.x-180,maxX:P.x+180,minZ:P.z-180,maxZ:P.z+180}:undefined});
     this.city.update(P.x, P.z, dt);
     if ((this.busyT -= dt) <= 0) { this.busyT = 1; this.setStreetLife(P.x, P.z); }
-
-    this.performanceMonitor.begin('traffic');
     this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, hx: this.player.forward.x, hz: this.player.forward.z }, this.walkers.list);
-    this.performanceMonitor.end('traffic');
     this.city.updateSignals(this.traffic.t);
     const fw = this.player.forward;
     this.walkers.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, fx: fw.x, fz: fw.z });
@@ -1005,13 +862,11 @@ export class Game {
     if (!promptText) this.actProgress = 0;
     this.hud.prompt(promptText, this.actProgress, promptAction);
     // gps
-    this.performanceMonitor.begin('routing'); this.updateRoute(dt); this.performanceMonitor.end('routing');
-
+    this.updateRoute(dt);
+    this.updateCamera(dt);
     if (this.beacon.visible) { const s = 1 + Math.sin(this.t * 3) * 0.08; (this.beacon as any).ring.scale.setScalar(s); }
-
+    this.engine.render();
     if (Math.floor(this.t * 8) !== Math.floor((this.t - dt) * 8)) { this.updateHud(); this.tutorialTick(); }
-  }
-  private recordFrameStats() {
     // stats overlay (real frame rate, not game time)
     this.fpsN++; const now = performance.now();
     if (now - this.fpsT > 1000) {
@@ -1025,7 +880,7 @@ export class Game {
   }
   private updateCamera(dt: number) {
     // Chase cam that the player can swing around while stopped; it never ends up inside a building or vehicle
-    const P = this.player.group.position;
+    const P = this.player.pos;
     if (this.cameraPlacementRevision !== this.player.placementRevision) {
       this.cameraPlacementRevision = this.player.placementRevision;
       this.camPos.set(0, 0, 0); this.camLook.set(0, 0, 0);
@@ -1040,8 +895,8 @@ export class Game {
     const bx = f.x * cy - f.z * sy, bz = f.x * sy + f.z * cy;          // camera looks along the rotated forward
     const pitch = air ? 0.62 : this.orbitPitch;
     const hd = back * Math.cos(pitch) / Math.cos(0.38), up = 0.4 + back * Math.sin(pitch) * 0.95;
-    const pivot = this.cameraPivot.set(P.x, P.y + 1.4, P.z);
-    let desired = this.cameraDesired.set(P.x - bx * hd, P.y + up, P.z - bz * hd);
+    const pivot = new THREE.Vector3(P.x, P.y + 1.4, P.z);
+    let desired = new THREE.Vector3(P.x - bx * hd, P.y + up, P.z - bz * hd);
     desired = this.clearCamera(pivot, desired);
     const k = 1 - Math.exp(-dt * (this.dragging ? 14 : 5));
     if (!this.camPos.lengthSq()) this.camPos.copy(desired); else this.camPos.lerp(desired, k);
@@ -1049,7 +904,7 @@ export class Game {
     if (this.insideSolid(this.camPos)) this.camPos.copy(desired);
     // and if a building corner comes between the lagging camera and the car (turning in a narrow lane), pull it in
     else { const vis = this.clearCamera(pivot, this.camPos); if (vis.distanceToSquared(this.camPos) > 0.01) this.camPos.copy(vis); }
-    const look = moving && Math.abs(this.orbitYaw) < 0.3 ? this.cameraTarget.set(P.x + f.x * 20, P.y + 1.2, P.z + f.z * 20) : this.cameraTarget.copy(pivot);
+    const look = moving && Math.abs(this.orbitYaw) < 0.3 ? new THREE.Vector3(P.x + f.x * 20, P.y + 1.2, P.z + f.z * 20) : pivot.clone();
     if (!this.camLook.lengthSq()) this.camLook.copy(look); else this.camLook.lerp(look, k);
     const cam = this.engine.camera;
     cam.position.copy(this.camPos);
@@ -1061,11 +916,9 @@ export class Game {
       frameTakeoff(cam, this.player.group, this.camLook, { solid: p => this.insideSolid(p), clear: (from, to) => this.clearCamera(from, to) });
       this.camPos.copy(cam.position);
     }
-    // Flight retains a broad lightweight skyline; driving keeps its local view.
-    const far = this.player.flying || this.player.descending ? 2400 : 900;
-    if (cam.far !== far || !Number.isFinite(this.lastProjectionFov) || Math.abs(cam.fov - this.lastProjectionFov) > .005) { cam.far = far; this.lastProjectionFov = cam.fov; cam.updateProjectionMatrix(); }
+    cam.updateProjectionMatrix();
     this.traffic.hideNear(cam.position, P, this.player.jumping);
-    this.engine.placeSun(this.sunTarget.set(P.x + f.x * 30, 0, P.z + f.z * 30));
+    this.engine.placeSun(new THREE.Vector3(P.x + f.x * 30, 0, P.z + f.z * 30));
     this.placeLampLights();
     this.city.signs.update(P.x, P.z);
   }
@@ -1095,28 +948,20 @@ export class Game {
   }
   lampT = 0;
   placeLampLights() {
-    if (this.t < this.lampT) return; this.lampT = this.t + .33;
+    if ((this.lampT -= 1) > 0) return; this.lampT = 20;
     const P = this.player.pos;
-    const near = this.city.nearbyLamps(P.x,P.z,70).sort((a, b) => a.distanceTo(P) - b.distanceTo(P));
+    const near = this.city.lamps.filter((l) => Math.abs(l.x - P.x) < 70 && Math.abs(l.z - P.z) < 70).sort((a, b) => a.distanceTo(P) - b.distanceTo(P));
     this.engine.lampLights.forEach((L, i) => { const p = near[i]; if (p) L.position.copy(p); else L.position.set(0, -200, 0); });
   }
   updateRoute(dt: number) {
     const tgt = this.routeTarget, P = this.player.pos, f = this.player.forward;
-    if (!tgt) { this.routeSearchGate.cancel(); this.gps.visible = false; return; }
+    if (!tgt) { this.gps.visible = false; return; }
     this.routeT -= dt; this.routeGuideT = (this.routeGuideT || 0) - dt;
     const airborne = this.player.flying || this.player.descending || this.player.jumping;
-    const targetKey = `${this.area?.name || ''}:${tgt.x},${tgt.y},${tgt.z}`;
-    const presentationFrame = this.engine.renderer.info?.render?.frame;
     if (airborne) {
       // Flight uses the beacon. The map may retain a coarse road overview, but
       // landing always creates a new route from the actual road and height.
-      const searchCount = this.routeSearchGate.searches;
-      const overview = this.routeSearchGate.updateSearch(this.t, { targetKey, graphRevision: this.graph.revision, placementRevision: this.player.placementRevision, airborne: true },
-        this.routeT <= 0 || this.routeGraphRevision !== this.graph.revision ? () => this.graph.routeJob(P.x, P.z, tgt.x, tgt.z, undefined, tgt.y) : undefined, 1, presentationFrame);
-      if (this.routeSearchGate.searches !== searchCount) this.performanceMonitor.count('routeSearches');
-      if (overview.state === 'complete') { this.route = overview.route; this.routeT = 4; }
-      else if (overview.state === 'failed') this.routeT = 1.2;
-      this.routeGraphRevision = this.graph.revision;
+      if (this.routeT <= 0) { this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, undefined, tgt.y); this.routeT = 4; }
       this.routeWasAirborne = true; this.gps.visible = false; return;
     }
     const revision = this.graph.revision || 0, changed = revision !== this.routeGraphRevision;
@@ -1139,25 +984,10 @@ export class Game {
     const offRoute = !!this.route && (oppositeSide || (!advanced || advanced.distance > Math.max(7, (on?.g.e.w || 10) * .6) || advanced.heightError > 1.6 || !on || (this.route.edgeIds?.length && !this.route.edgeIds.includes(on.g.e.id))));
     const missingRoad = changed && this.route?.edgeIds?.some(id => !this.graph.byId.has(id));
     const replan = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || offRoute || missingRoad || (changed && this.route?.complete === false) || (!this.route && this.routeT <= 0);
-    const searchCount = this.routeSearchGate.searches;
-    const replacement = this.routeSearchGate.updateSearch(this.t, {
-      targetKey, graphRevision: revision, placementRevision: this.player.placementRevision,
-      startKey: on?.g.e.id, airborne: false, sourceX: P.x, sourceZ: P.z,
-    }, replan ? () => this.graph.routeJob(P.x, P.z, tgt.x, tgt.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, tgt.y) : undefined, 1, presentationFrame);
-    if (this.routeSearchGate.searches !== searchCount) this.performanceMonitor.count('routeSearches');
-    if (replacement.state === 'complete') {
-      // The player can move while a search is pending. Trim its initial segment
-      // against the current road position before publishing the completed route.
-      const fresh = advanceRoadRoute(replacement.route, feet, 6 + (replacement.travelledMetres || 0) + Math.abs(this.player.speed) * Math.max(dt, .001) * 2);
-      const valid = fresh && fresh.distance <= Math.max(7, (on?.g.e.w || 10) * .6) && fresh.heightError <= 1.6 &&
-        (!replacement.route.edgeIds?.length || !!on && replacement.route.edgeIds.includes(on.g.e.id));
-      if (valid) {
-        this.route = fresh.route; this.routeT = .6; this.routeGuideT = 0; this.routeAlpha = 0; this.routeGuide = [];
-      } else if (advanced && !offRoute && !missingRoad) this.route = advanced.route;
-      else { this.route = null; this.routeGuide = []; }
-    } else if (advanced && !offRoute && !missingRoad && this.routePlacementRevision === this.player.placementRevision) this.route = advanced.route;
-    else if (offRoute || missingRoad || this.routePlacementRevision !== this.player.placementRevision) { this.route = null; this.routeGuide = []; }
-    if (replacement.state === 'failed') this.routeT = 1.2;
+    if (replan) {
+      this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, tgt.y);
+      this.routeT = .6; this.routeGuideT = 0; this.routeAlpha = 0; this.routeGuide = [];
+    } else if (advanced) this.route = advanced.route;
     this.routeWasAirborne = false; this.routeGraphRevision = revision; this.routePlacementRevision = this.player.placementRevision;
     if (changed || this.routeGuideT <= 0) {
       this.routeGuideT = .75;
@@ -1220,7 +1050,12 @@ export class Game {
     g.fillStyle = '#1B1633'; g.fillRect(0, 0, W, W);
     g.translate(W / 2, W / 2); g.rotate(yaw); g.scale(sc, sc); g.translate(-P.x, -P.z);
     g.lineCap = 'round';
-    this.minimapBase.draw(g,this.graph,this.zone.metro.lines,P.x,P.z,R,sc);
+    for (const e of this.graph.nearestEdges(P.x, P.z, 5)) {
+      g.strokeStyle = e.e.elev ? '#8a80b8' : ['trunk', 'primary', 'secondary'].includes(e.e.cls) ? '#CFC6E4' : '#5a4f8a';
+      g.lineWidth = Math.max(2.5, e.e.w * 0.9);
+      g.beginPath(); e.e.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke();
+    }
+    for (const l of metroCorridors(this.zone.metro.lines)) { g.strokeStyle = l.color; g.lineWidth = 3; g.setLineDash([10, 8]); g.beginPath(); l.center.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke(); g.setLineDash([]); }
     if (this.route) { g.strokeStyle = this.routeColor; g.lineWidth = 3.5; g.lineJoin = 'round'; g.beginPath(); (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts).forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
     if (this.routeTarget) { g.fillStyle = '#FFB627'; g.beginPath(); g.arc(this.routeTarget.x, this.routeTarget.z, 14, 0, 7); g.fill(); }
     g.restore();
@@ -1250,7 +1085,6 @@ export class Game {
       const P = this.player.pos;
       for (let i = 0; i < n; i++) { this.traffic.update(0.05, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: 0 }, this.walkers.list); this.walkers.update(0.05, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: 0, fx: 0, fz: 1 }); }
     }
-    this.performanceMonitor.end('traffic');
     this.city.updateSignals(this.traffic.t);
     const p = (q.get('player') || '').split(',').map(Number);
     if (p.length >= 3) { this.player.place(p[0], p[1], p[2]); this.player.update(0.016, { throttle: 0, brake: 0, steer: 0, flyPressed: false, boost: false }, 0.4); }

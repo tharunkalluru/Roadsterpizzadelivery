@@ -1,0 +1,25 @@
+{
+  "project_id": "appgprj_6adaefe0993481918802134463afcaab",
+  "restoredVersionNumber": 21,
+  "restoredSourceCommit": "bd7313d6d20cb3f6a448bedb2e52bccd269b1bba",
+  "restoredVersionId": "appgprj_6adaefe0993481918802134463afcaab~appgver_5a01d9a023e88191b59e494799450303",
+  "archiveContentHash": "sha256:69f33d9f3d30bb1555132bd4816bd23c97c5cc9c0bb13c43b4a92ee808078593",
+  "deployment": {
+    "id": "appgdep_6ae2168486508191bd704f9b86618166",
+    "project_id": "appgprj_6adaefe0993481918802134463afcaab",
+    "title": "Hyderabad Roadster",
+    "version_id": "appgprj_6adaefe0993481918802134463afcaab~appgver_5a01d9a023e88191b59e494799450303",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6adaefe0993481918802134463afcaab",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-10-28T15:36:47.556158+00:00"
+  },
+  "reason": "User reports Version23 frame drops and glitchy flying; original Version21 was smoother. Restore exact saved working version before further optimization.",
+  "progressPolicy": "Same origin, database binding and source data; no saved-progress reset requested or performed.",
+  "optimizedGithubArchiveBranch": "archive/mobile-performance-v23"
+}

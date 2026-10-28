@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { rng } from '../core/util';
-import { randomPerson, walkerGeometry, walkerGeometryCacheStats, legsVisible, PersonSpec } from '../world/people';
+import { randomPerson, walkerGeometry, legsVisible, PersonSpec } from '../world/people';
 import type { CityData, WalkPath } from '../world/city';
 import type { XZ } from '../world/types';
 import type { Walker as TrafficWalker } from './traffic';
@@ -15,7 +15,6 @@ interface W extends TrafficWalker {
 }
 
 export class Walkers {
-  get geometryStats() { return walkerGeometryCacheStats; }
   list: W[] = []; group = new THREE.Group(); r = rng(9917);
   grid = new Map<string, [WalkPath, number][]>();
   byEdge = new Map<string, WalkPath[]>();
@@ -48,8 +47,6 @@ export class Walkers {
     const spec = randomPerson(this.r);
     const geo = walkerGeometry(spec);
     const g = new THREE.Group();
-    // Covers distance retirement, path unload and Game's relocation clear alike.
-    g.addEventListener('removed', () => geo.release());
     const body = new THREE.Mesh(geo.body, this.mat); body.castShadow = true; g.add(body);
     let legL: THREE.Mesh | null = null, legR: THREE.Mesh | null = null;
     if (geo.leg && legsVisible(spec.kind)) {
