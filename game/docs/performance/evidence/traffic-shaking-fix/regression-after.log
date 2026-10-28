@@ -1,0 +1,13 @@
+✔ presentation restores the authoritative Euler representation, including order and headings beyond 90 degrees (1.030041ms)
+✔ actual buses and autos keep their road tangent through repeated updates and render interpolation (305.469833ms)
+✔ reusing a pooled vehicle never blends its new spawn with its previous occupant (41.228541ms)
+✔ camera hiding uses the rendered vehicle footprint at every heading (39.353125ms)
+✔ an inactive frame cannot restore a pose when interpolation was never applied (0.081542ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 432.084917

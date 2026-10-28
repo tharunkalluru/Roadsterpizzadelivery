@@ -1,0 +1,133 @@
+✖ presentation restores the authoritative Euler representation, including order and headings beyond 90 degrees (1.647958ms)
+✖ actual buses and autos keep their road tangent through repeated updates and render interpolation (51.626625ms)
+✖ reusing a pooled vehicle never blends its new spawn with its previous occupant (36.583375ms)
+✖ camera hiding uses the rendered vehicle footprint at every heading (33.603542ms)
+✖ an inactive frame cannot restore a pose when interpolation was never applied (0.094792ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 0
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 167.137667
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16169:1
+✖ presentation restores the authoritative Euler representation, including order and headings beyond 90 degrees (1.647958ms)
+  AssertionError [ERR_ASSERTION]: XYZ, yaw -3.12: rendering changed simulation rotation
+  + actual - expected
+  
+    [
+  +   -3.1115926535897933,
+  +   -0.021592653589793134,
+  +   3.121592653589793,
+  -   0.03,
+  -   -3.12,
+  -   -0.02,
+      'XYZ'
+    ]
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16177:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.start (node:internal/test_runner/test:1000:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ -3.1115926535897933, -0.021592653589793134, 3.121592653589793, 'XYZ' ],
+    expected: [ 0.03, -3.12, -0.02, 'XYZ' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16180:1
+✖ actual buses and autos keep their road tangent through repeated updates and render interpolation (51.626625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   3.141592653589793,
+  +   -0.7378691950464501,
+  +   3.141592653589793,
+  -   0,
+  -   -2.403723458543343,
+  -   0,
+      'XYZ'
+    ]
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16197:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 3.141592653589793, -0.7378691950464501, 3.141592653589793, 'XYZ' ],
+    expected: [ 0, -2.403723458543343, 0, 'XYZ' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16204:1
+✖ reusing a pooled vehicle never blends its new spawn with its previous occupant (36.583375ms)
+  AssertionError [ERR_ASSERTION]: pooled bus slides from the previous entity
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16214:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16219:1
+✖ camera hiding uses the rendered vehicle footprint at every heading (33.603542ms)
+  AssertionError [ERR_ASSERTION]: camera (-6.3,-3.499999999999999) disagrees with the displayed bus
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16233:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16238:1
+✖ an inactive frame cannot restore a pose when interpolation was never applied (0.094792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 3
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-wPfUNT/sim-traffic-presentation.test.mjs:16243:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

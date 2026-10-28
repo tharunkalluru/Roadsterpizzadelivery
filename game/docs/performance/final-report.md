@@ -2,6 +2,8 @@
 
 2026-10-28 · local branch `codex/mobile-performance` · baseline Version21 `bd7313d6d20cb3f6a448bedb2e52bccd269b1bba`.
 
+**Post-release correction:** Version 22 exposed a vehicle-rotation regression in render interpolation. It is fixed and covered by five new moving-traffic regressions. Live Version 22 produced 47,893 inconsistent headings in 113,673 vehicle observations; the patched night-driving run produced zero in 113,638, including buses and autos. See the [traffic shaking diagnosis and verification](traffic-shaking-fix.md). Earlier FPS measurements are retained as timing evidence and must not be treated as moving-traffic visual acceptance. The corrected build passes 103 behavioral tests.
+
 Core optimizations are implemented locally. The evidence establishes **47.5 minutes of active controls and observed movement across iterations**, 32 desktop deliveries and one independent Android delivery. The latest source passes 98 behavioral tests and the production build.
 
 Performance remains conditional: the latest High/native moving window passes its local interval gate, while the calibrated mid-tier moving window misses the 20 ms p95 target. Physical-phone FPS, heat and battery measurements await the signed-in Chrome control connection; account use is now authorized.

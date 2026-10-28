@@ -67,6 +67,7 @@ export class Traffic {
   private planningCandidates: Car[] = [];
   private planJobs = new Map<Car, { generation: number; revision: number; edge: GEdge; path?: BusRun['path']; snapshot: Car; iterator: Generator<void, void, unknown> }>();
   private focusX = 0; private focusZ = 0;
+  private renderedForward = new THREE.Vector3();
   stats = { spawned: 0, reused: 0, released: 0, pooled: 0, boardEntries: 0, boardBytes: 0, plans: 0, planningMs: 0, planningOverruns: 0, collisionCandidates: 0 };
   retainedEdges() { this.retained.clear(); for (const [c, pin] of this.pins) if (pin.generation === c.generation) { this.retained.add(c.edge); if (c.motion) { this.retained.add(c.motion.edge); for (const span of c.motion.busSpans || []) this.retained.add(span.edge); } } return this.retained; }
   clearRetention() { this.pins.clear(); this.retained.clear(); this.wasJumping = false; }
@@ -129,7 +130,8 @@ export class Traffic {
     c.routeBoardKey = undefined; c.routeMeshes = undefined; c.passengerExchange = undefined; c.decisionAt = undefined;
     c.blockedT = c.stuckT = c.passS = c.dwell = 0; c.filtering = false;
     Object.assign(c, values); c.order = this.cars.length;
-    this.scene.add(c.g); c.g.position.set(c.x, c.y + .02, c.z); c.g.rotation.y = Math.atan2(-c.hx, -c.hz);
+    c.g.userData.presentationGeneration = c.generation;
+    this.scene.add(c.g); c.g.position.set(c.x, c.y + .02, c.z); c.g.rotation.set(0, Math.atan2(-c.hx, -c.hz), 0, 'YXZ');
     this.cars.push(c); this.index.upsert(c, vehicleBounds(c, .8), c.order);
   }
   stopsByEdge = new Map<string, BusStop[]>();
@@ -263,7 +265,7 @@ export class Traffic {
     const c = this.acquire(pr), g = c.g;
     const ln = constructionLane(edge.e, dir) ?? lane ?? this.pickLane(edge, pr.size[0], group, dir);
     const p = this.graph.pointAt(edge, s, dir, ln);
-    g.position.set(p.x, p.y + 0.02, p.z); g.rotation.y = Math.atan2(-p.hx, -p.hz);
+    g.position.set(p.x, p.y + 0.02, p.z); g.rotation.set(0, Math.atan2(-p.hx, -p.hz), 0, 'YXZ');
     const want = group === 'bike' ? 11 : group === 'bus' ? 8 : 10;
     this.resetCar(c, { kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * .8, want, lane: ln, laneT: ln, base: ln, ...p, wob: 0, honkT: .5, assertive: group === 'auto' && this.r() < .38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55) });
     return c;
@@ -611,7 +613,7 @@ export class Traffic {
       this.index.upsert(c, vehicleBounds(c, .8), c.order);
     }
     c.g.position.set(c.x, c.y + 0.02, c.z);
-    c.g.rotation.y = Math.atan2(-c.hx, -c.hz);
+    c.g.rotation.set(0, Math.atan2(-c.hx, -c.hz), 0, 'YXZ');
   }
   update(dt: number, px: number, pz: number, player: { x: number; z: number; y: number; speed: number; hx?: number; hz?: number }, walkers: Walker[] = []) {
     this.plans = 0;
@@ -752,8 +754,10 @@ export class Traffic {
   // bus envelope even while the rolling Roadster clears the rendered roof.
   hideNear(cam: THREE.Vector3, tgt?: { x: number; y: number; z: number }, preserveOvertake = false) {
     for (const c of this.cars) {
-      // The rendered body and collision body share the path tangent.
-      const body = { x: c.x, y: c.y, z: c.z, size: c.size, hx: -Math.sin(c.g.rotation.y), hz: -Math.cos(c.g.rotation.y) };
+      // Camera visibility follows the displayed pose, including interpolation.
+      // A single decomposed Euler angle does not determine a quaternion's yaw.
+      const forward = this.renderedForward.set(0, 0, -1).applyQuaternion(c.g.quaternion), p = c.g.position;
+      const body = { x: p.x, y: p.y - .02, z: p.z, size: c.size, hx: forward.x, hz: forward.z };
       c.g.visible = !segmentHitsVehicle(cam, cam, body, 1.2) && !(!preserveOvertake && !this.pinned(c) && tgt && segmentHitsVehicle(cam, tgt, body, 0.6));
     }
   }
