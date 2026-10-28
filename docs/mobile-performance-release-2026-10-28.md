@@ -17,3 +17,9 @@ The release includes bounded city streaming and readiness protection, cooperativ
 Three stationary RTC X Roads pairs under calibrated 4.04× desktop CPU slowdown measured median FPS of 52.44 before and 59.76 after, with median Game-callback CPU of 17.8 ms and 8.4 ms. Three High static-view pairs have byte-identical screenshots, fewer draw calls and unchanged 60 FPS. These do not certify physical-phone performance. Long tasks remain; the earlier moving-delivery p95 miss and real-device testing remain open.
 
 The production target is the existing public Site at https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site/. Publication preserves its audience, logical database binding and existing data. The live release is confirmed separately by the Sites deployment result and the served build fingerprint.
+
+## Confirmed publication
+
+**Version 22** was published successfully on 2026-10-28 at the same URL. GitHub's application release is `c194a728f88786c7e76c23a499e437f6b453e8be`; Site source is `496eee3fe82576e960c0c15f201a67b05c84d3b8`. A fresh browser fetched `index-Dtm1sKiN.js` with SHA256 `4fc6cd25ed8e79334ec7dca62a99030927c538d29e4625418aa00a947235f61d`, exactly matching the tested local bundle. The title, area picker, RTC X Roads loading, order acceptance, acceleration, braking/reverse and pause were exercised on the live release. Held input was released and zero application errors were recorded during the controls check. This short smoke does not claim a new completed delivery or physical-phone performance result.
+
+[Deployment provenance and saved version](playtests/2026-10-28-v22/deployment.json) · [Original live controls result](playtests/2026-10-28-v22/live-controls.json) · [Ready scene screenshot](playtests/2026-10-28-v22/live-ready.png).

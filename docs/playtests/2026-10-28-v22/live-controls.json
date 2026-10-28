@@ -1,0 +1,92 @@
+{
+  "kind": "post-deployment visible-keyboard smoke; no completed delivery claimed",
+  "before": {
+    "area": "RTC X Roads",
+    "position": {
+      "x": -13.13522282480547,
+      "y": 0.55,
+      "z": -5.587370903088896
+    },
+    "speed": 0,
+    "order": "toPickup",
+    "tip": false,
+    "paused": false,
+    "keys": [],
+    "bootError": null,
+    "tiles": 4,
+    "render": {
+      "frame": 2802,
+      "calls": 540,
+      "triangles": 571628,
+      "points": 0,
+      "lines": 0
+    }
+  },
+  "accelerated": {
+    "area": "RTC X Roads",
+    "position": {
+      "x": -24.21762577008582,
+      "y": 0.55,
+      "z": 20.465997424412294
+    },
+    "speed": 22.499999999999964,
+    "order": "toPickup",
+    "tip": false,
+    "paused": false,
+    "keys": [],
+    "bootError": null,
+    "tiles": 4,
+    "render": {
+      "frame": 2954,
+      "calls": 527,
+      "triangles": 574061,
+      "points": 0,
+      "lines": 0
+    }
+  },
+  "braked": {
+    "area": "RTC X Roads",
+    "position": {
+      "x": -27.87098597574114,
+      "y": 0.55,
+      "z": 29.054598609637065
+    },
+    "speed": -6,
+    "order": "toPickup",
+    "tip": false,
+    "paused": false,
+    "keys": [],
+    "bootError": null,
+    "tiles": 4,
+    "render": {
+      "frame": 3086,
+      "calls": 506,
+      "triangles": 535288,
+      "points": 0,
+      "lines": 0
+    }
+  },
+  "after": {
+    "area": "RTC X Roads",
+    "position": {
+      "x": -27.87098597574114,
+      "y": 0.55,
+      "z": 29.054598609637065
+    },
+    "speed": -6,
+    "order": "toPickup",
+    "tip": false,
+    "paused": true,
+    "keys": [],
+    "bootError": null,
+    "tiles": 4,
+    "render": {
+      "frame": 3086,
+      "calls": 0,
+      "triangles": 0,
+      "points": 0,
+      "lines": 0
+    }
+  },
+  "errors": []
+}
