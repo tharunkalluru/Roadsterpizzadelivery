@@ -1,5 +1,7 @@
 # Roadster mobile performance release
 
+**Subsequent correction:** the moving-traffic rotation regression reported after Version 22 is fixed in [Version 23](traffic-shaking-fix-2026-10-28.md). Stationary FPS acceptance did not detect this visual bug; see the linked before/after movement evidence.
+
 This release brings the tested standalone delivery game and mobile-performance work into GitHub main. GitHub previously contained the Version 12 application; the hosted Site had advanced to Version 21. The release imports the later Site fixes and the optimized application together, preserving the repository's pipeline, tools, original review pages and existing evidence.
 
 The source snapshot is `7a2596a9f872520d8a1a1024e14426f01349469d` from the Site checkout. The optimized runtime source is `200af62af70dc4b682d601e11ff51db04d2f67d9`; later commits add evidence only. The release's `game/src`, `game/worker` and every public asset match that tested snapshot byte for byte. The obsolete `cinema.ts` and `cinema-front.ts` modules are removed to match the standalone delivery game.

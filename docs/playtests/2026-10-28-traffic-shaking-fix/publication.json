@@ -1,0 +1,43 @@
+{
+  "project_id": "appgprj_6adaefe0993481918802134463afcaab",
+  "githubApplicationCommit": "05723885941df7bc70a3c604f0e4b24935404254",
+  "siteSourceCommit": "ece70c6f799fe5abd7dd171fd42be531684eba4c",
+  "savedVersion": {
+    "id": "appgprj_6adaefe0993481918802134463afcaab~appgver_31c74c46f7bc819186430467eb72551b",
+    "project_id": "appgprj_6adaefe0993481918802134463afcaab",
+    "version_number": 23,
+    "source": {
+      "commit_sha": "ece70c6f799fe5abd7dd171fd42be531684eba4c"
+    },
+    "archive_storage": {
+      "archive_format": "tar",
+      "sediment_file_id": "file_00000000eb50821089cd275b37d7e445",
+      "content_hash": "sha256:9b9c9eb82d378f3df74c6119ea8c4303e053f50b325ebc9ee1b02c9a02cb08b2",
+      "size_bytes": 140482560,
+      "file_count": 323
+    },
+    "screenshot_url": null,
+    "deployment_id": null
+  },
+  "deployment": {
+    "id": "appgdep_6ae2141ff3008191b1040ea3b6b35ab6",
+    "project_id": "appgprj_6adaefe0993481918802134463afcaab",
+    "title": "Hyderabad Roadster",
+    "version_id": "appgprj_6adaefe0993481918802134463afcaab~appgver_31c74c46f7bc819186430467eb72551b",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6adaefe0993481918802134463afcaab",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-10-28T15:26:43.167138+00:00"
+  },
+  "build": {
+    "bundle": "index-DQKWabtU.js",
+    "fingerprint": "c743c97fa8221cfd7f2a39861061cafe91144d2980e85db531f665716866dd12",
+    "sha256": "62bbc83486f8491445b29079bb5521516c2535f1f873922d37767b5b684d493e"
+  },
+  "physicalPhoneCertification": false
+}
