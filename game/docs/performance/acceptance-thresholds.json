@@ -1,0 +1,19 @@
+{
+  "source": "implementation-plan.md section 7; thresholds unchanged",
+  "lockedAt": "2026-10-28",
+  "frameIntervals": {
+    "60": {"p95MaxMs": 20, "p99MaxMs": 33.3333333333},
+    "90": {"p95MaxMs": 13.3333333333, "p99MaxMs": 22.2222222222},
+    "120": {"p95MaxMs": 10, "p99MaxMs": 16.6666666667}
+  },
+  "broadphase": {"omittedReferenceCandidates": 0, "responsePositionToleranceMetres": 0.00001, "stableResponseOrder": true},
+  "structuralGeometry": {"transformedVertexToleranceMetres": 0.0001, "preserveSourceIdentityAndMaterials": true},
+  "jump": {"prematureRetirements": 0, "staleGenerationPinMatches": 0, "apexToleranceMetres": 0.02, "airtimeToleranceTicks": 1, "travelToleranceMetres": 0.1, "travelToleranceFraction": 0.01, "cooldownAfterLandingSeconds": 5},
+  "timingInvariance": {"presentationRates": [30,60,90,120], "matchingSimulationTickStates": true, "oneShotActionConsumptions": 1},
+  "brakingAndSteering": {"travelToleranceMetres": 0.1, "travelToleranceFraction": 0.01, "inputLatencyMedianRegressionMaxMs": 4, "inputLatencyP95RegressionMaxTicks": 1},
+  "performanceComparison": {"pairedRuns": 3, "runsWhenGainWithinVariance": 5, "minimumImprovementFraction": 0.05, "minimumImprovementBaselineMADMultiplier": 2, "nonTargetP95RegressionInvestigateFraction": 0.03},
+  "resourcePlateau": {"repeatedLoopsAfterWarmup": 10, "warmedRangeToleranceFraction": 0.05, "unreleasedZeroReferenceResources": 0},
+  "jobs": {"defaultForegroundSliceMs": 1.5, "recurringLongTaskMaxMs": 50, "logEveryOverrun": true, "boundedAdmissionFailure": true},
+  "visuals": {"unreadableProtectedSigns": 0, "newSamsungPanelStripingOrTransparency": 0, "controlOverlap": 0},
+  "certification": {"desktopOrEmulatorDoesNotCertifyPhysicalPhone": true, "physicalDeviceRequiredForSustainedMobileFPSHeatBattery": true}
+}

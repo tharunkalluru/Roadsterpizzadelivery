@@ -1,0 +1,46 @@
+{
+  "note": "Single synthetic Node worker fixture with actual0_0 source pack; no GPU/FPS inference; metro supplied; no landmark/roadgrade overrides.",
+  "results": [
+    {
+      "label": "before_detail",
+      "key": "0_0",
+      "workerMs": 352,
+      "buffers": 97,
+      "rawVertexBytes": 9740148,
+      "detailBytes": 0,
+      "detailBatches": 0,
+      "instances": 2
+    },
+    {
+      "label": "after_detail",
+      "key": "0_0",
+      "workerMs": 369,
+      "buffers": 337,
+      "rawVertexBytes": 16768356,
+      "detailBytes": 7028208,
+      "detailBatches": 240,
+      "instances": 2
+    },
+    {
+      "label": "after_detail_200m",
+      "key": "0_0",
+      "workerMs": 359,
+      "buffers": 174,
+      "rawVertexBytes": 16768356,
+      "detailBytes": 7028208,
+      "detailBatches": 77,
+      "instances": 2
+    },
+    {
+      "label": "final_detail_200m_with_instanced_roof_tanks",
+      "key": "0_0",
+      "workerMs": 273,
+      "buffers": 169,
+      "rawVertexBytes": 13980516,
+      "detailBytes": 4224528,
+      "detailBatches": 72,
+      "instances": 5,
+      "instanceCpuBytes": 72352
+    }
+  ]
+}

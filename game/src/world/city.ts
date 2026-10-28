@@ -9,6 +9,7 @@ import { drawExpresswaySigns, drawRampChevrons } from './expressway-signs';
 import { roadQuadHeight, type RoadQuad } from './road-surface';
 import { bridgeBoundaryClipper, roadRibbon } from './bridge-clearance';
 import { buildingTransportClearance, type BuildingCorrection } from './building-clearance';
+import { railwayNetwork } from './railway-geometry';
 import { metroStructureClearance } from './metro-clearance';
 import { metroCorridors, metroLineColor, metroStationFrame, metroDeckHeight, metroTrackDeckHeight, metroPlatformAssemblies, projectMetroPath, sampleMetroPath } from './metro-geometry';
 import { bridgeSupportPlan, roadStructureClearance, type BridgeSupportSite, type StructureSupport } from './structure-clearance';
@@ -39,16 +40,16 @@ export interface BusStop { edge: string; s: number; side: 1 | -1; x: number; z: 
 export interface TileZone { i: number; j: number; roads: (RoadEdge & { ctx?: number })[]; nodes: Record<string, XZ>; buildings: Building[]; boards: Board[]; furniture: Furniture[]; areas: Area[]; osm?: OsmFeature[] }
 export interface MetroData { lines: { id: string; color?: string; pts: XZ[] }[]; stations: { id: string; name: string; p: XZ; lines?: string[] }[]; pillars: { p: XZ; h: number; line?: string }[]; deckHeight: number }
 export interface SignEntry { id: string; text: string; bg: string; fg: string; c: number[]; right: number[]; up: number[]; w: number; h: number }
-export interface BuiltBuffers { mat: string; pos: Float32Array; nor: Float32Array; uv: Float32Array; col: Float32Array }
-export interface Facade { id: string; c: number[]; n: number[]; w: number; top: number; building: string }
+export interface BuiltBuffers { mat: string; pos: Float32Array; nor: Float32Array; uv: Float32Array; col: Float32Array; bounds?: { center: [number, number, number]; radius: number }; detailMeters?: number }
+export interface BuiltInstances { mat: string; template: 'cyl6' | 'ico0'; matrices: Float32Array; colors: Float32Array; chunk: string }
 export interface WalkPath { pts: XZ[]; edge: string; side: 1 | -1 }
 export interface TileBuilt {
-  key: string; i: number; j: number; buffers: BuiltBuffers[]; roads: RoadEdge[];
+  key: string; i: number; j: number; buffers: BuiltBuffers[]; roads: RoadEdge[]; instances?: BuiltInstances[];
   buildingGrid: Map<string, Building[]>; surfaceGrid: Map<string, Surface[]>; walls: Map<string, Wall[]>; obstacles: Map<string, { x: number; z: number; r: number; top: number }[]>;
   landmarkSurfaceGrid?: LandmarkSurfaceGrid;
-  signals: SignalSite[]; lamps: number[][]; busStops: BusStop[]; walkPaths: WalkPath[]; facades: Facade[]; signs: SignEntry[];
+  signals: SignalSite[]; lamps: number[][]; busStops: BusStop[]; walkPaths: WalkPath[]; signs: SignEntry[];
   activity: [string, number][];       // shop units per 100 m cell: how busy the street life around a spot should be
-  rails: { id: string; pts: XZ[] }[];  // railway main lines touching this tile (for running trains)
+  rails: { id: string; pts: XZ[]; elev?: number[]; bridge?: boolean }[];
   counts: { buildings: number; boards: number; roads: number; verts: number; fillShops: number; inferredSignals: number };
   structureSupports?: StructureSupport[];
   buildingCorrections?: BuildingCorrection[];
@@ -84,7 +85,7 @@ export interface CityData {
   landmarkSurfaceGrid?: LandmarkSurfaceGrid;
   signals: SignalSite[]; lamps: THREE.Vector3[]; bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
   obstacles: Map<string, { x: number; z: number; r: number; top: number }[]>;
-  centroid: (b: Building) => XZ; theatreFacades: Map<string, { c: THREE.Vector3; n: THREE.Vector3; w: number; top: number; building: Building }>;
+  centroid: (b: Building) => XZ;
   walls: Map<string, Wall[]>; busStops: BusStop[]; walkPaths: { pts: XZ[]; edge: string; side: 1 | -1 }[];
 }
 
@@ -102,8 +103,21 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   const r = rng(20261021 + zone.i * 7919 + zone.j * 104729);
   const T = () => new TiledBatch(500);
   const B = { st: T(), wall: T(), shop: T(), roof: T(), road: T(), foot: T(), lit: T(), glow: T(), park: T(), water: T(), marks: T(), kerb: T() };
+  // Cosmetic High detail is generated for both presets and displayed by projected size.
+  // These batches never add walls, obstacles, support surfaces or semantic sign text.
+  const nearParapets = new TiledBatch(200), nearRoofDetail = new TiledBatch(200);
+  const treeInstances = new Map<string, { template: 'cyl6' | 'ico0'; chunk: string; matrices: number[]; colors: number[] }>();
+  const treeMatrix = new THREE.Matrix4(), treeColor = new THREE.Color();
+  const treePart = (template: 'cyl6' | 'ico0', x: number, y: number, z: number, sx: number, sy: number, sz: number, color: string) => {
+    const chunk = `${Math.floor(x / 500)},${Math.floor(z / 500)}`, key = `${chunk}:${template}`;
+    let item = treeInstances.get(key); if (!item) treeInstances.set(key, item = { template, chunk, matrices: [], colors: [] });
+    treeMatrix.makeScale(sx, sy, sz).setPosition(x, y, z); item.matrices.push(...treeMatrix.elements);
+    treeColor.set(color); item.colors.push(treeColor.r, treeColor.g, treeColor.b);
+  };
   const TX0 = zone.i * 1000, TZ0 = zone.j * 1000;
   const inTile = (x: number, z: number) => x >= TX0 && x < TX0 + 1000 && z >= TZ0 && z < TZ0 + 1000;
+  const railway = railwayNetwork();
+  const railways = railway.profiles.filter(r => r.bounds[0] < TX0 + 1100 && r.bounds[1] > TX0 - 100 && r.bounds[2] < TZ0 + 1100 && r.bounds[3] > TZ0 - 100);
   const airClear=(x:number,z:number)=>airfieldClearAt(opts.airfields||[],x,z);
   const ownRoads = zone.roads.filter((e) => !e.ctx), ctxRoads = zone.roads.filter((e) => e.ctx);
   // Overture's ORR edges can span12km. Midpoint ownership would leave most of
@@ -128,7 +142,11 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const fixture = drawStreetLamp(B, site); lampFixtures.push(fixture); lamps.push(new THREE.Vector3(...fixture.head)); return fixture;
   };
   const obstacles = new Map<string, { x: number; z: number; r: number; top: number }[]>();
-  const structureSupports: StructureSupport[] = [], structureClearance = roadStructureClearance(zone.roads);
+  const structureSupports: StructureSupport[] = [], roadClearance = roadStructureClearance(zone.roads);
+  const structureClearance = {
+    clear: (p: import('./structure-clearance').StructureFootprint, bottom: number, top: number) => roadClearance.clear(p, bottom, top) && railway.clear(p, bottom, top),
+    conflicts: (p: import('./structure-clearance').StructureFootprint, bottom: number, top: number) => [...roadClearance.conflicts(p, bottom, top), ...railway.conflicts(p, bottom, top)],
+  };
   const addObstacle = (x: number, z: number, r: number, top: number) => { const k = key(x, z); (obstacles.get(k) || obstacles.set(k, []).get(k)!).push({ x, z, r, top }); };
   const walls = new Map<string, Wall[]>();
   const addWall = (w: Wall) => {
@@ -279,7 +297,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const elevated = !!e.elev && Math.max(...e.elev) > 1.2;
     const centreMedian = hasCentreMedian(e);
     // lane markings
-    if (!opts.lowQ || MAJOR.has(e.cls) || MOTORWAY.has(e.cls)) {
+    {
       const dash = (pts: XZ[], col: string, wid: number, on = 3, off = 6) => {
         let acc = 0;
         for (let i = 0; i < pts.length - 1; i++) {
@@ -682,8 +700,6 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
 
   // ---------- buildings ----------
   const shopBuildings = new Set(zone.boards.filter((b) => b.slot && b.slot.floor === 0).map((b) => b.building));
-  const theatreIds = new Set<string>();
-  const facades: Facade[] = [];
   const ownsLandmark = (l: Landmark) => l.renderTile ? l.renderTile[0] * 1000 === TX0 && l.renderTile[1] * 1000 === TZ0 : inTile(l.x!, l.z!);
   const marks = (opts.landmarks || []).filter((l) => ownsLandmark(l) || (Math.abs(l.x! - (TX0 + 500)) < 950 && Math.abs(l.z! - (TZ0 + 500)) < 950));
   // how built-up each 50 m cell's surroundings are (footprint share of a 250 m square): villages and outskirts get
@@ -699,7 +715,9 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   // than indexing only roads that cross an original building's base footprint.
   const buildingExtent = zone.buildings.reduce((a, b) => { for (const p of b.ring) { a[0] = Math.min(a[0], p[0] - 8); a[1] = Math.max(a[1], p[0] + 8); a[2] = Math.min(a[2], p[1] - 8); a[3] = Math.max(a[3], p[1] + 8); } return a; }, [TX0 - 16, TX0 + 1016, TZ0 - 16, TZ0 + 1016]);
   const roadPatches = [...new Set([...surfaceGrid.values()].flat())].filter(s => s.kind === 'road' && s.e && !/^(footway|path|steps|pedestrian|cycleway|bridleway|track)$/.test(s.e.cls) && s.roadQuad && s.roadQuad[2][0] === s.roadQuad[3][0] && s.roadQuad[2][2] === s.roadQuad[3][2]).map(s => ({ id: s.e!.id, ring: s.roadQuad!.slice(0, 3).map(p => [p[0], p[2]] as XZ), y: s.ya }));
-  const modelClearance = buildingTransportClearance(zone.roads, opts.metro, buildingExtent, roadPatches), buildingCorrections: BuildingCorrection[] = [];
+  const buildingRailways = railway.profiles.filter(r => r.bounds[0] < buildingExtent[1] && r.bounds[1] > buildingExtent[0] && r.bounds[2] < buildingExtent[3] && r.bounds[3] > buildingExtent[2]);
+  const modelClearance = buildingTransportClearance(zone.roads, opts.metro, buildingExtent, roadPatches, buildingRailways), buildingCorrections: BuildingCorrection[] = [];
+  const platformClearance = buildingTransportClearance([], undefined, undefined, [], buildingRailways);
   const indexBuilding = (b: Building) => {
     const xs = b.ring.map(p => p[0]), zs = b.ring.map(p => p[1]);
     for (let x = Math.floor(Math.min(...xs) / 50); x <= Math.floor(Math.max(...xs) / 50); x++) for (let z = Math.floor(Math.min(...zs) / 50); z <= Math.floor(Math.max(...zs) / 50); z++) {
@@ -774,7 +792,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         const v1 = h / (FLOOR_H * 4);
         B.wall.quad([p[0], 0, p[1]], [q[0], 0, q[1]], [q[0], h, q[1]], [p[0], h, p[1]], col, [[0, 0.02], [len / 12, 0.02], [len / 12, v1], [0, v1]]);
       }
-      if (h > 3 && !opts.lowQ && !sheet) B.st.quad([p[0], h, p[1]], [q[0], h, q[1]], [q[0], h + 0.9, q[1]], [p[0], h + 0.9, p[1]], col.clone().multiplyScalar(0.92));
+      if (h > 3 && !sheet) nearParapets.quad([p[0], h, p[1]], [q[0], h, q[1]], [q[0], h + 0.9, q[1]], [p[0], h + 0.9, p[1]], col.clone().multiplyScalar(0.92));
     }
     // shop units along the frontage: pillars between shutters, generic boards, parked bikes, carts (customers are the walkers)
     const shopFronts = shop ? fronts : [...fill.values()];
@@ -867,25 +885,25 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         flush(n);
       }
     }
-    if (!opts.lowQ && area > 50 && !sheet && modelClearance.clear(ring, h, h + 3.5)) {
+    if (area > 50 && !sheet && modelClearance.clear(ring, h, h + 3.5)) {
       if (br.chance(0.5)) {
         const n = br.int(1, area > 300 ? 2 : 1);
         for (let k = 0; k < n; k++) {
           const tx = cx + br.range(-2, 2), tz = cz + br.range(-2, 2);
           if (!modelClearance.clear([[tx - .7, tz - .7], [tx + .7, tz - .7], [tx + .7, tz + .7], [tx - .7, tz + .7]], h + .3, h + 1.6)) continue;
-          B.st.add(TPL.cyl6, tx, h + 0.95, tz, 0.62, 1.3, 0.62, '#1d1d22');      // black Sintex tank on the roof
+          treePart('cyl6', tx, h + 0.95, tz, 0.62, 1.3, 0.62, '#1d1d22');      // repeated black Sintex tank shares the exact near template
         }
       }
       if (area > 120 && br.chance(0.45)) {
         const x = cx + br.range(-3, 3), z = cz + br.range(-3, 3);
-        if (modelClearance.clear([[x - 1.3, z - 1.4], [x + 1.3, z - 1.4], [x + 1.3, z + 1.4], [x - 1.3, z + 1.4]], h, h + 2.6)) B.st.box(x, h + 1.3, z, 2.6, 2.6, 2.8, col.clone().multiplyScalar(0.9), { ao: true, aoBase: h, aoH: 1.5 });
+        if (modelClearance.clear([[x - 1.3, z - 1.4], [x + 1.3, z - 1.4], [x + 1.3, z + 1.4], [x - 1.3, z + 1.4]], h, h + 2.6)) nearRoofDetail.box(x, h + 1.3, z, 2.6, 2.6, 2.8, col.clone().multiplyScalar(0.9), { ao: true, aoBase: h, aoH: 1.5 });
       }
       if (br.chance(0.08)) for (let k = 0; k < 3; k++) {
         const x = cx + br.range(-3, 3), z = cz + br.range(-3, 3);
-        if (modelClearance.clear([[x - .04, z - .04], [x + .04, z - .04], [x + .04, z + .04], [x - .04, z + .04]], h, h + 1.6)) B.st.box(x, h + .8, z, .06, 1.6, .06, '#6b3d2a');
+        if (modelClearance.clear([[x - .04, z - .04], [x + .04, z - .04], [x + .04, z + .04], [x - .04, z + .04]], h, h + 1.6)) nearRoofDetail.box(x, h + .8, z, .06, 1.6, .06, '#6b3d2a');
       }
     }
-    void cz; void theatreIds;
+    void cz;
   }
 
   // Source-bound campus, retail, cinema and office architecture. Decorate the
@@ -947,7 +965,6 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         if (structureClearance.clear({ x, z, hx: right.x, hz: right.z, hw: 1.4, hl: 1.8 }, 0, 3.2)) bandi(B.st, B.lit, x, z, Math.atan2(right.x, right.z), rng(hh2 + 1));
       }
     }
-    if (bd.group === 'cinema' && bld) facades.push({ id: bd.id, c: [ax + (bx - ax) * 0.5, 0, az + (bz - az) * 0.5], n: [n.x, n.y, n.z], w: Math.min(len * 0.9, 24), top: h, building: bld.id });
   }
 
   // ---------- street furniture ----------
@@ -1066,9 +1083,9 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   const treeAt = (x: number, z: number, s: Rng) => {
     if(airClear(x,z))return;
     const h = s.range(2.8, 4.4), cr = s.range(1.6, 2.6), g1 = s.pick(['#4e7d33', '#5c8f3a', '#6fa14a', '#3f6e2c']);
-    B.st.add(TPL.cyl6, x, h / 2, z, 0.17, h, 0.17, '#6b4a33');
-    B.st.add(TPL.ico0, x, h + cr * 0.55, z, cr, cr * 0.8, cr, g1);
-    B.st.add(TPL.ico0, x + 0.4, h + cr * 1.0, z - 0.5, cr * 0.7, cr * 0.6, cr * 0.7, s.pick(['#4e7d33', '#5c8f3a', '#6fa14a']));
+    treePart('cyl6', x, h / 2, z, 0.17, h, 0.17, '#6b4a33');
+    treePart('ico0', x, h + cr * 0.55, z, cr, cr * 0.8, cr, g1);
+    treePart('ico0', x + 0.4, h + cr * 1.0, z - 0.5, cr * 0.7, cr * 0.6, cr * 0.7, s.pick(['#4e7d33', '#5c8f3a', '#6fa14a']));
   };
   const inWater = (x: number, z: number) => waterRings.some((r) => pointInRing(x, z, r));
   // a ring edge made by cutting the area at the tile border is not a real shore or boundary
@@ -1191,16 +1208,20 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     drawRampChevrons(zone.roads, C);
   }
   // ---------- OpenStreetMap extras: petrol bunks, toll plazas, exits, skywalks, subways, railway, bus terminals ----------
-  if (zone.osm?.length) {
+  if (zone.osm?.length || railways.length) {
     const roadsAround = (x: number, z: number, R: number) => {
       const out = new Set<Surface>(), n = Math.ceil(R / 30);
       for (let i = -n; i <= n; i++) for (let j = -n; j <= n; j++) { const k = `${Math.floor(x / 30) + i},${Math.floor(z / 30) + j}`; for (const s of surfaceGrid.get(k) || []) out.add(s); for (const s of ctxGrid.get(k) || []) out.add(s); }
       return out;
     };
     const NOTCAR = /footway|path|steps|cycleway|pedestrian|track/;
-    drawExtras(zone.osm, {
+    const extras = [...(zone.osm || []).filter(f => !(f.k === 'rail' && f.t.railway === 'rail') && f.k !== 'station'),
+      ...railways.map(r => r.source), ...railway.stations.filter(f => inTile(...railway.center(f)))];
+    drawExtras(extras, {
       B, inTile, lowQ: !!opts.lowQ,
       structureClear: structureClearance.clear,
+      railway,
+      platformPieces: ring => platformClearance.correct({ id: 'platform', name: null, cls: null, h: Math.max(1, ...ring.map(p => (railway.closest(...p, 30)?.y || 0) + 1)), hs: 'mapped', ring, fc: null, rc: null })?.pieces.map(p => p.ring) || [ring],
       nearestRoad: (x, z, maxD, ground = false) => {
         let best: RoadHit | null = null;
         for (const s of roadsAround(x, z, maxD)) {
@@ -1440,18 +1461,33 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
 
   // ---------- hand back plain buffers ----------
   const buffers: BuiltBuffers[] = [];
+  const instances: BuiltInstances[] = [];
+  // Tiny groups stay merged; dense tree copies retain identical template/color/transform data.
+  for (const item of treeInstances.values()) {
+    const n = item.colors.length / 3;
+    if (n >= 24) instances.push({ mat: 'st', template: item.template, matrices: new Float32Array(item.matrices), colors: new Float32Array(item.colors), chunk: item.chunk });
+    else for (let i = 0; i < n; i++) {
+      treeMatrix.fromArray(item.matrices, i * 16); treeColor.fromArray(item.colors, i * 3);
+      B.st.addTpl(TPL[item.template], treeMatrix, treeColor);
+    }
+  }
   let verts = 0;
+  for (const [batch, detailMeters] of [[nearParapets, .9], [nearRoofDetail, 3]] as const) for (const bt of batch.tiles.values()) {
+    if (bt.empty) continue;
+    buffers.push({ mat: 'st', pos: new Float32Array(bt.pos), nor: new Float32Array(bt.nor), uv: new Float32Array(bt.uv), col: new Float32Array(bt.col), detailMeters });
+    verts += bt.pos.length / 3;
+  }
   for (const [mat, tb] of Object.entries(B)) for (const bt of tb.tiles.values()) {
     if (bt.empty) continue;
     buffers.push({ mat, pos: new Float32Array(bt.pos), nor: new Float32Array(bt.nor), uv: new Float32Array(bt.uv), col: new Float32Array(bt.col) });
     verts += bt.pos.length / 3;
   }
-  void r; void theatreIds; void byBuilding;
+  void r; void byBuilding;
   return {
-    key: `${zone.i}_${zone.j}`, i: zone.i, j: zone.j, buffers, roads: ownRoads,
-    buildingGrid, surfaceGrid, landmarkSurfaceGrid, walls, obstacles, structureSupports, buildingCorrections, workZoneFeatures, lampFixtures, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, facades, signs,
+    key: `${zone.i}_${zone.j}`, i: zone.i, j: zone.j, buffers, instances, roads: ownRoads,
+    buildingGrid, surfaceGrid, landmarkSurfaceGrid, walls, obstacles, structureSupports, buildingCorrections, workZoneFeatures, lampFixtures, signals, lamps: lamps.map((v) => [v.x, v.y, v.z]), busStops, walkPaths, signs,
     activity: [...activity],
-    rails: (zone.osm || []).filter((f) => f.k === 'rail' && f.l && f.t.railway === 'rail' && !f.t.service && !(f.t.tunnel && f.t.tunnel !== 'no')).map((f) => ({ id: f.id, pts: f.l!, bridge: !!f.t.bridge && f.t.bridge !== 'no' } as any)),
+    rails: railways.filter(r => !r.service).map(r => ({ id: r.id, pts: r.pts, elev: r.elev, bridge: r.bridge })),
     counts: { buildings: zone.buildings.length, boards: zone.boards.length, roads: ownRoads.length, verts, fillShops, inferredSignals },
   };
 }

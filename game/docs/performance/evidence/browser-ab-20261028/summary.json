@@ -1,0 +1,2499 @@
+{
+  "createdAt": "2026-10-28T14:18:22.911Z",
+  "sourceDirectory": "output/playwright/ab-2026-10-28T13-58-48.969Z",
+  "scope": "Controlled High static renderer and repeated Low stationary production-Game observations on the same desktop Chrome with calibrated CPU slowdown. Game traffic/rail/deferred scheduling are not a deterministic replay.",
+  "physicalPhone": false,
+  "midrangeGPUEmulated": false,
+  "gameplayDrivingBenchmark": false,
+  "allExpectedRunsPresent": true,
+  "visibilityValid": true,
+  "allApplicationErrors": [],
+  "aggregation": "Median of three per-run metrics; MAD is median absolute deviation. CPU is synchronous JS/render submission, not GPU completion. Heap samples do not force GC or establish retained-memory bounds.",
+  "groups": [
+    {
+      "kind": "static",
+      "baseline": {
+        "fps": {
+          "median": 60,
+          "mad": 0,
+          "runs": [
+            60,
+            60,
+            60
+          ]
+        },
+        "renderSubmitMedianMs": {
+          "median": 4.100000001490116,
+          "mad": 0.10000000149011612,
+          "runs": [
+            4.300000004470348,
+            4,
+            4.100000001490116
+          ]
+        },
+        "renderSubmitP95Ms": {
+          "median": 5.299999997019768,
+          "mad": 0.10000000149011612,
+          "runs": [
+            5.600000001490116,
+            5.299999997019768,
+            5.199999995529652
+          ]
+        },
+        "frameIntervalP95Ms": {
+          "median": 18.5,
+          "mad": 0,
+          "runs": [
+            18.5,
+            18.5,
+            18.5
+          ]
+        },
+        "frameIntervalP99Ms": {
+          "median": 18.899999998509884,
+          "mad": 0,
+          "runs": [
+            19,
+            18.899999998509884,
+            18.899999998509884
+          ]
+        },
+        "frameCPUMedianMs": {
+          "median": null,
+          "mad": null,
+          "runs": [
+            null,
+            null,
+            null
+          ]
+        },
+        "frameCPUP95Ms": {
+          "median": null,
+          "mad": null,
+          "runs": [
+            null,
+            null,
+            null
+          ]
+        },
+        "medianDrawCalls": {
+          "median": 536,
+          "mad": 0,
+          "runs": [
+            536,
+            536,
+            536
+          ]
+        },
+        "medianTriangles": {
+          "median": 1286456,
+          "mad": 0,
+          "runs": [
+            1286456,
+            1286456,
+            1286456
+          ]
+        },
+        "observedEndHeapMiB": {
+          "median": 471.05268955230713,
+          "mad": 0.4211616516113281,
+          "runs": [
+            470.6315279006958,
+            478.2092752456665,
+            471.05268955230713
+          ]
+        },
+        "geometryCount": {
+          "median": 486,
+          "mad": 0,
+          "runs": [
+            486,
+            486,
+            486
+          ]
+        },
+        "textureCount": {
+          "median": 27,
+          "mad": 0,
+          "runs": [
+            27,
+            27,
+            27
+          ]
+        },
+        "activeTiles": {
+          "median": 12,
+          "mad": 0,
+          "runs": [
+            12,
+            12,
+            12
+          ]
+        },
+        "longTasks": {
+          "median": 0,
+          "mad": 0,
+          "runs": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "candidate": {
+        "fps": {
+          "median": 60,
+          "mad": 0,
+          "runs": [
+            60,
+            60,
+            60
+          ]
+        },
+        "renderSubmitMedianMs": {
+          "median": 4.0999999940395355,
+          "mad": 7.450580596923828e-9,
+          "runs": [
+            4,
+            4.100000001490116,
+            4.0999999940395355
+          ]
+        },
+        "renderSubmitP95Ms": {
+          "median": 5.399999998509884,
+          "mad": 0,
+          "runs": [
+            5.399999998509884,
+            5.399999998509884,
+            5.5
+          ]
+        },
+        "frameIntervalP95Ms": {
+          "median": 18.5,
+          "mad": 0,
+          "runs": [
+            18.5,
+            18.399999998509884,
+            18.5
+          ]
+        },
+        "frameIntervalP99Ms": {
+          "median": 18.900000005960464,
+          "mad": 0,
+          "runs": [
+            18.900000005960464,
+            18.899999998509884,
+            18.900000005960464
+          ]
+        },
+        "frameCPUMedianMs": {
+          "median": null,
+          "mad": null,
+          "runs": [
+            null,
+            null,
+            null
+          ]
+        },
+        "frameCPUP95Ms": {
+          "median": null,
+          "mad": null,
+          "runs": [
+            null,
+            null,
+            null
+          ]
+        },
+        "medianDrawCalls": {
+          "median": 410,
+          "mad": 0,
+          "runs": [
+            410,
+            410,
+            410
+          ]
+        },
+        "medianTriangles": {
+          "median": 648121,
+          "mad": 0,
+          "runs": [
+            648121,
+            648121,
+            648121
+          ]
+        },
+        "observedEndHeapMiB": {
+          "median": 304.6455011367798,
+          "mad": 0.9361076354980469,
+          "runs": [
+            305.58160877227783,
+            286.70445728302,
+            304.6455011367798
+          ]
+        },
+        "geometryCount": {
+          "median": 1287,
+          "mad": 0,
+          "runs": [
+            1287,
+            1287,
+            1287
+          ]
+        },
+        "textureCount": {
+          "median": 28,
+          "mad": 0,
+          "runs": [
+            28,
+            28,
+            28
+          ]
+        },
+        "activeTiles": {
+          "median": 7,
+          "mad": 0,
+          "runs": [
+            7,
+            7,
+            7
+          ]
+        },
+        "longTasks": {
+          "median": 0,
+          "mad": 0,
+          "runs": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "medianChangePercent": {
+        "fps": 0,
+        "renderSubmitMedianMs": -1.8172147790770653e-7,
+        "renderSubmitP95Ms": 1.8867924820065456,
+        "frameIntervalP95Ms": 0,
+        "frameIntervalP99Ms": 3.942106136249338e-8,
+        "frameCPUMedianMs": null,
+        "frameCPUP95Ms": null,
+        "medianDrawCalls": -23.507462686567163,
+        "medianTriangles": -49.61965275143495,
+        "observedEndHeapMiB": -35.32666134943042,
+        "geometryCount": 164.8148148148148,
+        "textureCount": 3.7037037037037037,
+        "activeTiles": -41.666666666666664,
+        "longTasks": null
+      },
+      "pairs": [
+        {
+          "pair": 1,
+          "exactScreenshotBytes": true,
+          "matchingInitialPlayerPosition": true,
+          "matchingDrawBuffer": true,
+          "matchingQuality": true,
+          "baselineTiles": [
+            "-1_-1",
+            "-1_-2",
+            "-1_0",
+            "-1_1",
+            "-2_-1",
+            "-2_0",
+            "0_-1",
+            "0_-2",
+            "0_0",
+            "0_1",
+            "1_-1",
+            "1_0"
+          ],
+          "candidateTiles": [
+            "-1_-1",
+            "-1_0",
+            "-1_1",
+            "0_-1",
+            "0_0",
+            "0_1",
+            "1_0"
+          ]
+        },
+        {
+          "pair": 2,
+          "exactScreenshotBytes": true,
+          "matchingInitialPlayerPosition": true,
+          "matchingDrawBuffer": true,
+          "matchingQuality": true,
+          "baselineTiles": [
+            "-1_-1",
+            "-1_-2",
+            "-1_0",
+            "-1_1",
+            "-2_-1",
+            "-2_0",
+            "0_-1",
+            "0_-2",
+            "0_0",
+            "0_1",
+            "1_-1",
+            "1_0"
+          ],
+          "candidateTiles": [
+            "-1_-1",
+            "-1_0",
+            "-1_1",
+            "0_-1",
+            "0_0",
+            "0_1",
+            "1_0"
+          ]
+        },
+        {
+          "pair": 3,
+          "exactScreenshotBytes": true,
+          "matchingInitialPlayerPosition": true,
+          "matchingDrawBuffer": true,
+          "matchingQuality": true,
+          "baselineTiles": [
+            "-1_-1",
+            "-1_-2",
+            "-1_0",
+            "-1_1",
+            "-2_-1",
+            "-2_0",
+            "0_-1",
+            "0_-2",
+            "0_0",
+            "0_1",
+            "1_-1",
+            "1_0"
+          ],
+          "candidateTiles": [
+            "-1_-1",
+            "-1_0",
+            "-1_1",
+            "0_-1",
+            "0_0",
+            "0_1",
+            "1_0"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "idle-game",
+      "baseline": {
+        "fps": {
+          "median": 52.44444444444444,
+          "mad": 0.43333333333333,
+          "runs": [
+            52.01111111111111,
+            52.44444444444444,
+            55.32222222222222
+          ]
+        },
+        "renderSubmitMedianMs": {
+          "median": 4.299999997019768,
+          "mad": 0.09999999403953552,
+          "runs": [
+            4.5,
+            4.299999997019768,
+            4.200000002980232
+          ]
+        },
+        "renderSubmitP95Ms": {
+          "median": 5.100000001490116,
+          "mad": 0.10000000149011612,
+          "runs": [
+            5.300000004470348,
+            5.100000001490116,
+            5
+          ]
+        },
+        "frameIntervalP95Ms": {
+          "median": 23.5,
+          "mad": 0.7999999970197678,
+          "runs": [
+            24.700000002980232,
+            23.5,
+            22.700000002980232
+          ]
+        },
+        "frameIntervalP99Ms": {
+          "median": 26.599999994039536,
+          "mad": 1,
+          "runs": [
+            27.700000002980232,
+            26.599999994039536,
+            25.599999994039536
+          ]
+        },
+        "frameCPUMedianMs": {
+          "median": 17.799999997019768,
+          "mad": 7.450580596923828e-9,
+          "runs": [
+            17.799999997019768,
+            17.80000000447035,
+            16.600000001490116
+          ]
+        },
+        "frameCPUP95Ms": {
+          "median": 22.599999994039536,
+          "mad": 0.6999999955296516,
+          "runs": [
+            23.899999998509884,
+            22.599999994039536,
+            21.899999998509884
+          ]
+        },
+        "medianDrawCalls": {
+          "median": 559,
+          "mad": 1,
+          "runs": [
+            558,
+            559,
+            571
+          ]
+        },
+        "medianTriangles": {
+          "median": 447882,
+          "mad": 8450,
+          "runs": [
+            432168,
+            456332,
+            447882
+          ]
+        },
+        "observedEndHeapMiB": {
+          "median": 269.4933671951294,
+          "mad": 1.392359733581543,
+          "runs": [
+            269.4933671951294,
+            268.10100746154785,
+            271.7611141204834
+          ]
+        },
+        "geometryCount": {
+          "median": 399,
+          "mad": 4,
+          "runs": [
+            399,
+            389,
+            403
+          ]
+        },
+        "textureCount": {
+          "median": 29,
+          "mad": 3,
+          "runs": [
+            29,
+            25,
+            32
+          ]
+        },
+        "activeTiles": {
+          "median": 4,
+          "mad": 0,
+          "runs": [
+            4,
+            4,
+            4
+          ]
+        },
+        "longTasks": {
+          "median": 1,
+          "mad": 0,
+          "runs": [
+            1,
+            1,
+            0
+          ]
+        }
+      },
+      "candidate": {
+        "fps": {
+          "median": 59.75555555555555,
+          "mad": 0.011111111111112848,
+          "runs": [
+            59.766666666666666,
+            59.75555555555555,
+            59.72222222222222
+          ]
+        },
+        "renderSubmitMedianMs": {
+          "median": 3.899999998509884,
+          "mad": 0.10000000149011612,
+          "runs": [
+            4,
+            3.7999999970197678,
+            3.899999998509884
+          ]
+        },
+        "renderSubmitP95Ms": {
+          "median": 4.700000002980232,
+          "mad": 0.09999999403953552,
+          "runs": [
+            4.700000002980232,
+            4.600000001490116,
+            4.799999997019768
+          ]
+        },
+        "frameIntervalP95Ms": {
+          "median": 18.899999998509884,
+          "mad": 0.19999999552965164,
+          "runs": [
+            18.899999998509884,
+            18.700000002980232,
+            22.899999998509884
+          ]
+        },
+        "frameIntervalP99Ms": {
+          "median": 19.899999998509884,
+          "mad": 0.19999999552965164,
+          "runs": [
+            19.899999998509884,
+            19.700000002980232,
+            26.700000002980232
+          ]
+        },
+        "frameCPUMedianMs": {
+          "median": 8.399999998509884,
+          "mad": 0.29999999701976776,
+          "runs": [
+            9,
+            8.100000001490116,
+            8.399999998509884
+          ]
+        },
+        "frameCPUP95Ms": {
+          "median": 11.299999997019768,
+          "mad": 0.5,
+          "runs": [
+            11.299999997019768,
+            10.799999997019768,
+            12.800000004470348
+          ]
+        },
+        "medianDrawCalls": {
+          "median": 492,
+          "mad": 0,
+          "runs": [
+            507,
+            492,
+            492
+          ]
+        },
+        "medianTriangles": {
+          "median": 530808,
+          "mad": 16984,
+          "runs": [
+            547792,
+            530808,
+            506060
+          ]
+        },
+        "observedEndHeapMiB": {
+          "median": 273.10292530059814,
+          "mad": 3.2647762298583984,
+          "runs": [
+            273.10292530059814,
+            266.5971508026123,
+            276.36770153045654
+          ]
+        },
+        "geometryCount": {
+          "median": 808,
+          "mad": 1,
+          "runs": [
+            809,
+            804,
+            808
+          ]
+        },
+        "textureCount": {
+          "median": 31,
+          "mad": 0,
+          "runs": [
+            31,
+            29,
+            31
+          ]
+        },
+        "activeTiles": {
+          "median": 4,
+          "mad": 0,
+          "runs": [
+            4,
+            4,
+            4
+          ]
+        },
+        "longTasks": {
+          "median": 1,
+          "mad": 1,
+          "runs": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "medianChangePercent": {
+        "fps": 13.940677966101692,
+        "renderSubmitMedianMs": -9.302325553188716,
+        "renderSubmitP95Ms": -7.843137223392393,
+        "frameIntervalP95Ms": -19.574468091447304,
+        "frameIntervalP99Ms": -25.18796991365027,
+        "frameCPUMedianMs": -52.80898876451525,
+        "frameCPUP95Ms": -50,
+        "medianDrawCalls": -11.985688729874777,
+        "medianTriangles": 18.515144613983146,
+        "observedEndHeapMiB": 1.3393866212874965,
+        "geometryCount": 102.5062656641604,
+        "textureCount": 6.896551724137931,
+        "activeTiles": 0,
+        "longTasks": 0
+      },
+      "pairs": [
+        {
+          "pair": 1,
+          "exactScreenshotBytes": null,
+          "matchingInitialPlayerPosition": true,
+          "matchingDrawBuffer": true,
+          "matchingQuality": true,
+          "baselineTiles": [
+            "-1_-1",
+            "-1_0",
+            "0_-1",
+            "0_0"
+          ],
+          "candidateTiles": [
+            "-1_-1",
+            "-1_0",
+            "0_-1",
+            "0_0"
+          ]
+        },
+        {
+          "pair": 2,
+          "exactScreenshotBytes": null,
+          "matchingInitialPlayerPosition": true,
+          "matchingDrawBuffer": true,
+          "matchingQuality": true,
+          "baselineTiles": [
+            "-1_-1",
+            "-1_0",
+            "0_-1",
+            "0_0"
+          ],
+          "candidateTiles": [
+            "-1_-1",
+            "-1_0",
+            "0_-1",
+            "0_0"
+          ]
+        },
+        {
+          "pair": 3,
+          "exactScreenshotBytes": null,
+          "matchingInitialPlayerPosition": true,
+          "matchingDrawBuffer": true,
+          "matchingQuality": true,
+          "baselineTiles": [
+            "-1_-1",
+            "-1_0",
+            "0_-1",
+            "0_0"
+          ],
+          "candidateTiles": [
+            "-1_-1",
+            "-1_0",
+            "0_-1",
+            "0_0"
+          ]
+        }
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "file": "static-1-baseline.json",
+      "kind": "static",
+      "pair": 1,
+      "variant": "baseline",
+      "measurementSeconds": 45,
+      "fps": 60,
+      "renderCount": 2700,
+      "renderSubmitMedianMs": 4.300000004470348,
+      "renderSubmitP95Ms": 5.600000001490116,
+      "frameIntervalMedianMs": 16.69999999552965,
+      "frameIntervalP95Ms": 18.5,
+      "frameIntervalP99Ms": 19,
+      "frameCPUMedianMs": null,
+      "frameCPUP95Ms": null,
+      "medianDrawCalls": 536,
+      "medianTriangles": 1286456,
+      "longTasks": 0,
+      "observedEndHeapMiB": 470.6315279006958,
+      "geometryCount": 486,
+      "textureCount": 27,
+      "activeTiles": 12,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_-2",
+          "-1_0",
+          "-1_1",
+          "-2_-1",
+          "-2_0",
+          "0_-1",
+          "0_-2",
+          "0_0",
+          "0_1",
+          "1_-1",
+          "1_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 64,
+          "calls": 249,
+          "triangles": 687803,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 206,
+          "textures": 27
+        },
+        "heap": 492391143,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_-2",
+          "-1_0",
+          "-1_1",
+          "-2_-1",
+          "-2_0",
+          "0_-1",
+          "0_-2",
+          "0_0",
+          "0_1",
+          "1_-1",
+          "1_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 54154,
+          "calls": 536,
+          "triangles": 1286456,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 486,
+          "textures": 27
+        },
+        "heap": 493492925,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T13:58:54.951Z",
+      "endedAt": "2026-10-28T13:59:55.057Z",
+      "url": "http://127.0.0.1:4201/?still=1&cam=30,6,40,0,2,-60&w=1280&h=592&r=650&mood=day",
+      "bundle": [
+        "http://127.0.0.1:4201/assets/index-Deiow6w-.js"
+      ],
+      "screenshotSha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "file": "static-1-candidate.json",
+      "kind": "static",
+      "pair": 1,
+      "variant": "candidate",
+      "measurementSeconds": 45,
+      "fps": 60,
+      "renderCount": 2700,
+      "renderSubmitMedianMs": 4,
+      "renderSubmitP95Ms": 5.399999998509884,
+      "frameIntervalMedianMs": 16.69999999552965,
+      "frameIntervalP95Ms": 18.5,
+      "frameIntervalP99Ms": 18.900000005960464,
+      "frameCPUMedianMs": null,
+      "frameCPUP95Ms": null,
+      "medianDrawCalls": 410,
+      "medianTriangles": 648121,
+      "longTasks": 0,
+      "observedEndHeapMiB": 305.58160877227783,
+      "geometryCount": 1287,
+      "textureCount": 28,
+      "activeTiles": 7,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "-1_1",
+          "0_-1",
+          "0_0",
+          "0_1",
+          "1_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 1334,
+          "calls": 951,
+          "triangles": 1249657,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1287,
+          "textures": 28
+        },
+        "heap": 297803842,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 363852408,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 3199,
+          "installMaxMs": 3.1999999955296516,
+          "activationMaxMs": 0.6000000014901161,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "-1_1",
+          "0_-1",
+          "0_0",
+          "0_1",
+          "1_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 55424,
+          "calls": 410,
+          "triangles": 648121,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1287,
+          "textures": 28
+        },
+        "heap": 320425541,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 363852408,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 3199,
+          "installMaxMs": 3.1999999955296516,
+          "activationMaxMs": 0.6000000014901161,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:00:01.782Z",
+      "endedAt": "2026-10-28T14:01:01.884Z",
+      "url": "http://127.0.0.1:4199/?still=1&cam=30,6,40,0,2,-60&w=1280&h=592&r=650&mood=day",
+      "bundle": [
+        "http://127.0.0.1:4199/assets/index-Dtm1sKiN.js"
+      ],
+      "screenshotSha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "file": "static-2-candidate.json",
+      "kind": "static",
+      "pair": 2,
+      "variant": "candidate",
+      "measurementSeconds": 45,
+      "fps": 60,
+      "renderCount": 2700,
+      "renderSubmitMedianMs": 4.100000001490116,
+      "renderSubmitP95Ms": 5.399999998509884,
+      "frameIntervalMedianMs": 16.69999999552965,
+      "frameIntervalP95Ms": 18.399999998509884,
+      "frameIntervalP99Ms": 18.899999998509884,
+      "frameCPUMedianMs": null,
+      "frameCPUP95Ms": null,
+      "medianDrawCalls": 410,
+      "medianTriangles": 648121,
+      "longTasks": 0,
+      "observedEndHeapMiB": 286.70445728302,
+      "geometryCount": 1287,
+      "textureCount": 28,
+      "activeTiles": 7,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "-1_1",
+          "0_-1",
+          "0_0",
+          "0_1",
+          "1_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 1334,
+          "calls": 951,
+          "triangles": 1249657,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1287,
+          "textures": 28
+        },
+        "heap": 298170098,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 363852408,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 3199,
+          "installMaxMs": 3,
+          "activationMaxMs": 0.5,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "-1_1",
+          "0_-1",
+          "0_0",
+          "0_1",
+          "1_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 55409,
+          "calls": 410,
+          "triangles": 648121,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1287,
+          "textures": 28
+        },
+        "heap": 300631413,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 363852408,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 3199,
+          "installMaxMs": 3,
+          "activationMaxMs": 0.5,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:01:08.790Z",
+      "endedAt": "2026-10-28T14:02:08.894Z",
+      "url": "http://127.0.0.1:4199/?still=1&cam=30,6,40,0,2,-60&w=1280&h=592&r=650&mood=day",
+      "bundle": [
+        "http://127.0.0.1:4199/assets/index-Dtm1sKiN.js"
+      ],
+      "screenshotSha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "file": "static-2-baseline.json",
+      "kind": "static",
+      "pair": 2,
+      "variant": "baseline",
+      "measurementSeconds": 45,
+      "fps": 60,
+      "renderCount": 2700,
+      "renderSubmitMedianMs": 4,
+      "renderSubmitP95Ms": 5.299999997019768,
+      "frameIntervalMedianMs": 16.600000001490116,
+      "frameIntervalP95Ms": 18.5,
+      "frameIntervalP99Ms": 18.899999998509884,
+      "frameCPUMedianMs": null,
+      "frameCPUP95Ms": null,
+      "medianDrawCalls": 536,
+      "medianTriangles": 1286456,
+      "longTasks": 0,
+      "observedEndHeapMiB": 478.2092752456665,
+      "geometryCount": 486,
+      "textureCount": 27,
+      "activeTiles": 12,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_-2",
+          "-1_0",
+          "-1_1",
+          "-2_-1",
+          "-2_0",
+          "0_-1",
+          "0_-2",
+          "0_0",
+          "0_1",
+          "1_-1",
+          "1_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 64,
+          "calls": 249,
+          "triangles": 687803,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 206,
+          "textures": 27
+        },
+        "heap": 492370953,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_-2",
+          "-1_0",
+          "-1_1",
+          "-2_-1",
+          "-2_0",
+          "0_-1",
+          "0_-2",
+          "0_0",
+          "0_1",
+          "1_-1",
+          "1_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 54139,
+          "calls": 536,
+          "triangles": 1286456,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 486,
+          "textures": 27
+        },
+        "heap": 501438769,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:02:15.660Z",
+      "endedAt": "2026-10-28T14:03:15.762Z",
+      "url": "http://127.0.0.1:4201/?still=1&cam=30,6,40,0,2,-60&w=1280&h=592&r=650&mood=day",
+      "bundle": [
+        "http://127.0.0.1:4201/assets/index-Deiow6w-.js"
+      ],
+      "screenshotSha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "file": "static-3-baseline.json",
+      "kind": "static",
+      "pair": 3,
+      "variant": "baseline",
+      "measurementSeconds": 45,
+      "fps": 60,
+      "renderCount": 2700,
+      "renderSubmitMedianMs": 4.100000001490116,
+      "renderSubmitP95Ms": 5.199999995529652,
+      "frameIntervalMedianMs": 16.69999999552965,
+      "frameIntervalP95Ms": 18.5,
+      "frameIntervalP99Ms": 18.899999998509884,
+      "frameCPUMedianMs": null,
+      "frameCPUP95Ms": null,
+      "medianDrawCalls": 536,
+      "medianTriangles": 1286456,
+      "longTasks": 0,
+      "observedEndHeapMiB": 471.05268955230713,
+      "geometryCount": 486,
+      "textureCount": 27,
+      "activeTiles": 12,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_-2",
+          "-1_0",
+          "-1_1",
+          "-2_-1",
+          "-2_0",
+          "0_-1",
+          "0_-2",
+          "0_0",
+          "0_1",
+          "1_-1",
+          "1_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 64,
+          "calls": 249,
+          "triangles": 687803,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 206,
+          "textures": 27
+        },
+        "heap": 492477557,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_-2",
+          "-1_0",
+          "-1_1",
+          "-2_-1",
+          "-2_0",
+          "0_-1",
+          "0_-2",
+          "0_0",
+          "0_1",
+          "1_-1",
+          "1_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 54154,
+          "calls": 536,
+          "triangles": 1286456,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 486,
+          "textures": 27
+        },
+        "heap": 493934545,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:03:22.593Z",
+      "endedAt": "2026-10-28T14:04:22.694Z",
+      "url": "http://127.0.0.1:4201/?still=1&cam=30,6,40,0,2,-60&w=1280&h=592&r=650&mood=day",
+      "bundle": [
+        "http://127.0.0.1:4201/assets/index-Deiow6w-.js"
+      ],
+      "screenshotSha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "file": "static-3-candidate.json",
+      "kind": "static",
+      "pair": 3,
+      "variant": "candidate",
+      "measurementSeconds": 45,
+      "fps": 60,
+      "renderCount": 2700,
+      "renderSubmitMedianMs": 4.0999999940395355,
+      "renderSubmitP95Ms": 5.5,
+      "frameIntervalMedianMs": 16.69999999552965,
+      "frameIntervalP95Ms": 18.5,
+      "frameIntervalP99Ms": 18.900000005960464,
+      "frameCPUMedianMs": null,
+      "frameCPUP95Ms": null,
+      "medianDrawCalls": 410,
+      "medianTriangles": 648121,
+      "longTasks": 0,
+      "observedEndHeapMiB": 304.6455011367798,
+      "geometryCount": 1287,
+      "textureCount": 28,
+      "activeTiles": 7,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "-1_1",
+          "0_-1",
+          "0_0",
+          "0_1",
+          "1_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 1334,
+          "calls": 951,
+          "triangles": 1249657,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1287,
+          "textures": 28
+        },
+        "heap": 297952558,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 363852408,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 3199,
+          "installMaxMs": 3.100000001490116,
+          "activationMaxMs": 0.6000000014901161,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": null,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "-1_1",
+          "0_-1",
+          "0_0",
+          "0_1",
+          "1_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 55424,
+          "calls": 410,
+          "triangles": 648121,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 1287,
+          "textures": 28
+        },
+        "heap": 319443961,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 363852408,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 3199,
+          "installMaxMs": 3.100000001490116,
+          "activationMaxMs": 0.6000000014901161,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "camera": {
+          "position": {
+            "x": 30,
+            "y": 6,
+            "z": 40
+          },
+          "fov": 55
+        },
+        "lowQ": false,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:04:29.578Z",
+      "endedAt": "2026-10-28T14:05:29.681Z",
+      "url": "http://127.0.0.1:4199/?still=1&cam=30,6,40,0,2,-60&w=1280&h=592&r=650&mood=day",
+      "bundle": [
+        "http://127.0.0.1:4199/assets/index-Dtm1sKiN.js"
+      ],
+      "screenshotSha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "file": "idle-game-1-baseline.json",
+      "kind": "idle-game",
+      "pair": 1,
+      "variant": "baseline",
+      "measurementSeconds": 90,
+      "fps": 52.01111111111111,
+      "renderCount": 4681,
+      "renderSubmitMedianMs": 4.5,
+      "renderSubmitP95Ms": 5.300000004470348,
+      "frameIntervalMedianMs": 18.5,
+      "frameIntervalP95Ms": 24.700000002980232,
+      "frameIntervalP99Ms": 27.700000002980232,
+      "frameCPUMedianMs": 17.799999997019768,
+      "frameCPUP95Ms": 23.899999998509884,
+      "medianDrawCalls": 558,
+      "medianTriangles": 432168,
+      "longTasks": 1,
+      "observedEndHeapMiB": 269.4933671951294,
+      "geometryCount": 399,
+      "textureCount": 29,
+      "activeTiles": 4,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 0.7448000000044699,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 112,
+          "calls": 521,
+          "triangles": 439022,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 343,
+          "textures": 21
+        },
+        "heap": 287741465,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 115.64679999999568,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 6514,
+          "calls": 530,
+          "triangles": 430786,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 399,
+          "textures": 29
+        },
+        "heap": 282584277,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:05:37.264Z",
+      "endedAt": "2026-10-28T14:07:32.373Z",
+      "url": "http://127.0.0.1:4201/?area=RTC%20X%20Roads&q=low&perf=1",
+      "bundle": [
+        "http://127.0.0.1:4201/assets/index-Deiow6w-.js"
+      ],
+      "screenshotSha256": "e09cbe3afea38a327257c540e1755683cab564238702ba31019e1b03998e0ea8"
+    },
+    {
+      "file": "idle-game-1-candidate.json",
+      "kind": "idle-game",
+      "pair": 1,
+      "variant": "candidate",
+      "measurementSeconds": 90,
+      "fps": 59.766666666666666,
+      "renderCount": 5379,
+      "renderSubmitMedianMs": 4,
+      "renderSubmitP95Ms": 4.700000002980232,
+      "frameIntervalMedianMs": 16.69999999552965,
+      "frameIntervalP95Ms": 18.899999998509884,
+      "frameIntervalP99Ms": 19.899999998509884,
+      "frameCPUMedianMs": 9,
+      "frameCPUP95Ms": 11.299999997019768,
+      "medianDrawCalls": 507,
+      "medianTriangles": 547792,
+      "longTasks": 2,
+      "observedEndHeapMiB": 273.10292530059814,
+      "geometryCount": 809,
+      "textureCount": 31,
+      "activeTiles": 4,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 1.2000000000000006,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 771,
+          "calls": 454,
+          "triangles": 517492,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 775,
+          "textures": 24
+        },
+        "heap": 729400451,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 1710,
+          "installMaxMs": 2.100000001490116,
+          "activationMaxMs": 1.9000000059604645,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "refresh": {
+          "requestedFPS": 60,
+          "effectiveFPS": 60,
+          "observedCadenceHz": null,
+          "callbackDivisor": null,
+          "reason": "inactive",
+          "healthySeconds": 0,
+          "pressureSeconds": 0,
+          "sampledCallbacks": 73,
+          "sampledPresentedFrames": 71,
+          "capacity": 240
+        },
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 116.18333333332802,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 7734,
+          "calls": 472,
+          "triangles": 518956,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 809,
+          "textures": 31
+        },
+        "heap": 286369173,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 1710,
+          "installMaxMs": 2.100000001490116,
+          "activationMaxMs": 1.9000000059604645,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "refresh": {
+          "requestedFPS": 60,
+          "effectiveFPS": 60,
+          "observedCadenceHz": null,
+          "callbackDivisor": null,
+          "reason": "unknown-cadence",
+          "healthySeconds": 0,
+          "pressureSeconds": 0,
+          "sampledCallbacks": 240,
+          "sampledPresentedFrames": 240,
+          "capacity": 240
+        },
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:07:39.896Z",
+      "endedAt": "2026-10-28T14:09:34.998Z",
+      "url": "http://127.0.0.1:4199/?area=RTC%20X%20Roads&q=low&perf=1",
+      "bundle": [
+        "http://127.0.0.1:4199/assets/index-Dtm1sKiN.js"
+      ],
+      "screenshotSha256": "923d4a570081da71297852e17b64147be5355d8a395bf40f12a4c999dbf758d8"
+    },
+    {
+      "file": "idle-game-2-candidate.json",
+      "kind": "idle-game",
+      "pair": 2,
+      "variant": "candidate",
+      "measurementSeconds": 90,
+      "fps": 59.75555555555555,
+      "renderCount": 5378,
+      "renderSubmitMedianMs": 3.7999999970197678,
+      "renderSubmitP95Ms": 4.600000001490116,
+      "frameIntervalMedianMs": 16.600000001490116,
+      "frameIntervalP95Ms": 18.700000002980232,
+      "frameIntervalP99Ms": 19.700000002980232,
+      "frameCPUMedianMs": 8.100000001490116,
+      "frameCPUP95Ms": 10.799999997019768,
+      "medianDrawCalls": 492,
+      "medianTriangles": 530808,
+      "longTasks": 1,
+      "observedEndHeapMiB": 266.5971508026123,
+      "geometryCount": 804,
+      "textureCount": 29,
+      "activeTiles": 4,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 1.2000000000000006,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 771,
+          "calls": 451,
+          "triangles": 508814,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 771,
+          "textures": 23
+        },
+        "heap": 1041051532,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 1710,
+          "installMaxMs": 3.8000000044703484,
+          "activationMaxMs": 1.4000000059604645,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "refresh": {
+          "requestedFPS": 60,
+          "effectiveFPS": 60,
+          "observedCadenceHz": null,
+          "callbackDivisor": null,
+          "reason": "inactive",
+          "healthySeconds": 0,
+          "pressureSeconds": 0,
+          "sampledCallbacks": 73,
+          "sampledPresentedFrames": 71,
+          "capacity": 240
+        },
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 116.18333333332802,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 7738,
+          "calls": 460,
+          "triangles": 513444,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 804,
+          "textures": 29
+        },
+        "heap": 279547374,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 1710,
+          "installMaxMs": 3.8000000044703484,
+          "activationMaxMs": 1.4000000059604645,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "refresh": {
+          "requestedFPS": 60,
+          "effectiveFPS": 60,
+          "observedCadenceHz": null,
+          "callbackDivisor": null,
+          "reason": "unknown-cadence",
+          "healthySeconds": 0,
+          "pressureSeconds": 0,
+          "sampledCallbacks": 240,
+          "sampledPresentedFrames": 240,
+          "capacity": 240
+        },
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:09:42.193Z",
+      "endedAt": "2026-10-28T14:11:37.296Z",
+      "url": "http://127.0.0.1:4199/?area=RTC%20X%20Roads&q=low&perf=1",
+      "bundle": [
+        "http://127.0.0.1:4199/assets/index-Dtm1sKiN.js"
+      ],
+      "screenshotSha256": "d99fc861d0eadad9a2dafe46e8b9779de94d25db91cccbe7870e372914762547"
+    },
+    {
+      "file": "idle-game-2-baseline.json",
+      "kind": "idle-game",
+      "pair": 2,
+      "variant": "baseline",
+      "measurementSeconds": 90,
+      "fps": 52.44444444444444,
+      "renderCount": 4720,
+      "renderSubmitMedianMs": 4.299999997019768,
+      "renderSubmitP95Ms": 5.100000001490116,
+      "frameIntervalMedianMs": 18.5,
+      "frameIntervalP95Ms": 23.5,
+      "frameIntervalP99Ms": 26.599999994039536,
+      "frameCPUMedianMs": 17.80000000447035,
+      "frameCPUP95Ms": 22.599999994039536,
+      "medianDrawCalls": 559,
+      "medianTriangles": 456332,
+      "longTasks": 1,
+      "observedEndHeapMiB": 268.10100746154785,
+      "geometryCount": 389,
+      "textureCount": 25,
+      "activeTiles": 4,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 1.2127999999970194,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 176,
+          "calls": 521,
+          "triangles": 439022,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 344,
+          "textures": 21
+        },
+        "heap": 285656036,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 116.14909999999306,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 6632,
+          "calls": 522,
+          "triangles": 433712,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 389,
+          "textures": 25
+        },
+        "heap": 281124282,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:11:44.497Z",
+      "endedAt": "2026-10-28T14:13:39.621Z",
+      "url": "http://127.0.0.1:4201/?area=RTC%20X%20Roads&q=low&perf=1",
+      "bundle": [
+        "http://127.0.0.1:4201/assets/index-Deiow6w-.js"
+      ],
+      "screenshotSha256": "19d7648793532a9ac5718baffef1bff6d3bbc72e440830a5cbb304f06f503018"
+    },
+    {
+      "file": "idle-game-3-baseline.json",
+      "kind": "idle-game",
+      "pair": 3,
+      "variant": "baseline",
+      "measurementSeconds": 90,
+      "fps": 55.32222222222222,
+      "renderCount": 4979,
+      "renderSubmitMedianMs": 4.200000002980232,
+      "renderSubmitP95Ms": 5,
+      "frameIntervalMedianMs": 17.5,
+      "frameIntervalP95Ms": 22.700000002980232,
+      "frameIntervalP99Ms": 25.599999994039536,
+      "frameCPUMedianMs": 16.600000001490116,
+      "frameCPUP95Ms": 21.899999998509884,
+      "medianDrawCalls": 571,
+      "medianTriangles": 447882,
+      "longTasks": 0,
+      "observedEndHeapMiB": 271.7611141204834,
+      "geometryCount": 403,
+      "textureCount": 32,
+      "activeTiles": 4,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 1.2061000000014899,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 176,
+          "calls": 521,
+          "triangles": 439022,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 344,
+          "textures": 21
+        },
+        "heap": 690645435,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 116.11730000001086,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "render": {
+          "frame": 6909,
+          "calls": 537,
+          "triangles": 436118,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 403,
+          "textures": 32
+        },
+        "heap": 284962182,
+        "stream": null,
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:13:46.632Z",
+      "endedAt": "2026-10-28T14:15:41.741Z",
+      "url": "http://127.0.0.1:4201/?area=RTC%20X%20Roads&q=low&perf=1",
+      "bundle": [
+        "http://127.0.0.1:4201/assets/index-Deiow6w-.js"
+      ],
+      "screenshotSha256": "74c270961b06f016f0dd066641bf5da13709b467b643d926758bf9d6ae4a9d4f"
+    },
+    {
+      "file": "idle-game-3-candidate.json",
+      "kind": "idle-game",
+      "pair": 3,
+      "variant": "candidate",
+      "measurementSeconds": 90,
+      "fps": 59.72222222222222,
+      "renderCount": 5375,
+      "renderSubmitMedianMs": 3.899999998509884,
+      "renderSubmitP95Ms": 4.799999997019768,
+      "frameIntervalMedianMs": 16.80000000447035,
+      "frameIntervalP95Ms": 22.899999998509884,
+      "frameIntervalP99Ms": 26.700000002980232,
+      "frameCPUMedianMs": 8.399999998509884,
+      "frameCPUP95Ms": 12.800000004470348,
+      "medianDrawCalls": 492,
+      "medianTriangles": 506060,
+      "longTasks": 0,
+      "observedEndHeapMiB": 276.36770153045654,
+      "geometryCount": 808,
+      "textureCount": 31,
+      "activeTiles": 4,
+      "visibilityChanges": [],
+      "errors": [],
+      "warnings": [],
+      "before": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 1.2000000000000006,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 770,
+          "calls": 451,
+          "triangles": 508814,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 771,
+          "textures": 23
+        },
+        "heap": 357822438,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 1710,
+          "installMaxMs": 3.2999999970197678,
+          "activationMaxMs": 1.6000000014901161,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "refresh": {
+          "requestedFPS": 60,
+          "effectiveFPS": 60,
+          "observedCadenceHz": null,
+          "callbackDivisor": null,
+          "reason": "inactive",
+          "healthySeconds": 0,
+          "pressureSeconds": 0,
+          "sampledCallbacks": 73,
+          "sampledPresentedFrames": 70,
+          "capacity": 240
+        },
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "after": {
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "speed": 0,
+        "simTime": 116.18333333332802,
+        "area": "RTC X Roads",
+        "accepting": false,
+        "autopilot": false,
+        "paused": false,
+        "tip": false,
+        "modal": false,
+        "tiles": [
+          "-1_-1",
+          "-1_0",
+          "0_-1",
+          "0_0"
+        ],
+        "pending": 0,
+        "staged": 0,
+        "render": {
+          "frame": 7647,
+          "calls": 455,
+          "triangles": 473924,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 808,
+          "textures": 31
+        },
+        "heap": 289792539,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 1710,
+          "installMaxMs": 3.2999999970197678,
+          "activationMaxMs": 1.6000000014901161,
+          "admissionFailures": 0,
+          "skylineBytes": 0,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "refresh": {
+          "requestedFPS": 60,
+          "effectiveFPS": 60,
+          "observedCadenceHz": null,
+          "callbackDivisor": null,
+          "reason": "unknown-cadence",
+          "healthySeconds": 0,
+          "pressureSeconds": 0,
+          "sampledCallbacks": 240,
+          "sampledPresentedFrames": 240,
+          "capacity": 240
+        },
+        "camera": {
+          "position": {
+            "x": -10.160343800200415,
+            "y": 3.6280457891617344,
+            "z": -12.58094615391482
+          },
+          "fov": 60
+        },
+        "lowQ": true,
+        "drawBuffer": [
+          1280,
+          592
+        ],
+        "dpr": 1,
+        "fonts": "loaded"
+      },
+      "startedAt": "2026-10-28T14:15:49.079Z",
+      "endedAt": "2026-10-28T14:17:44.182Z",
+      "url": "http://127.0.0.1:4199/?area=RTC%20X%20Roads&q=low&perf=1",
+      "bundle": [
+        "http://127.0.0.1:4199/assets/index-Dtm1sKiN.js"
+      ],
+      "screenshotSha256": "93867ed0d027de2483284d3ea544b513e58a750b663e58767c41f17ec60f176d"
+    }
+  ]
+}

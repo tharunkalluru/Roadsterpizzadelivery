@@ -1,0 +1,182 @@
+{
+  "kind": "syntheticStaticCPUQueryMicrobenchmark",
+  "createdAt": "2026-10-28T08:13:40.464Z",
+  "nodeVersion": "v24.13.1",
+  "hardware": "Same host Node process; no calibrated browser throttling",
+  "physicalPhoneCertification": false,
+  "wholeGameFPS": false,
+  "baselineRoot": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-baseline",
+  "candidateRoot": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-audit",
+  "fixture": {
+    "seed": 471,
+    "buildings": 60,
+    "walls": 30,
+    "obstacles": 20,
+    "surfaces": 3,
+    "querySeed": 42871,
+    "queries": 16384,
+    "pattern": "256 deterministic rays x64 probes at0.25m spacing",
+    "revisionAware": true
+  },
+  "equality": {
+    "queriesChecked": 49152,
+    "mismatches": 0
+  },
+  "warmup": "3 x4096 queries per method before five alternating-order paired runs; no forced GC",
+  "results": [
+    {
+      "name": "staticSolidAt",
+      "queryCountPerRun": 16384,
+      "pairedRuns": 5,
+      "original": {
+        "medianMs": 114.58304199999998,
+        "madMs": 11.997750999999994,
+        "runsMs": [
+          122.54216599999995,
+          102.58529099999998,
+          133.37750000000005,
+          114.58304199999998,
+          102.42845799999998
+        ]
+      },
+      "optimized": {
+        "medianMs": 6.2693329999999605,
+        "madMs": 0.05604199999993398,
+        "runsMs": [
+          6.3253749999998945,
+          6.321459000000004,
+          6.199665999999979,
+          6.2693329999999605,
+          5.935041999999839
+        ]
+      },
+      "medianSpeedup": 18.27675160978061,
+      "medianReductionPercent": 94.52856819772688,
+      "optimizedMicrosecondsPerQuery": 0.38264971923827884,
+      "optimizedCounters": {
+        "neighborhoodBuilds": 0,
+        "boundsRejects": 2200800,
+        "polygonTests": 6660,
+        "segmentTests": 8650
+      }
+    },
+    {
+      "name": "supportAtRoadOnly",
+      "queryCountPerRun": 16384,
+      "pairedRuns": 5,
+      "original": {
+        "medianMs": 13.595291999999972,
+        "madMs": 0.9232919999999467,
+        "runsMs": [
+          36.06266699999992,
+          18.702957999999853,
+          12.672000000000025,
+          13.13433299999997,
+          13.595291999999972
+        ]
+      },
+      "optimized": {
+        "medianMs": 1.9090840000001208,
+        "madMs": 0.30175100000019484,
+        "runsMs": [
+          1.6360829999998714,
+          3.024708000000146,
+          1.9090840000001208,
+          2.5028330000000096,
+          1.607332999999926
+        ]
+      },
+      "medianSpeedup": 7.121369201145215,
+      "medianReductionPercent": 85.9577565527822,
+      "optimizedMicrosecondsPerQuery": 0.11652124023438237,
+      "optimizedCounters": {
+        "neighborhoodBuilds": 0,
+        "boundsRejects": 151815,
+        "polygonTests": 0,
+        "segmentTests": 0
+      }
+    },
+    {
+      "name": "supportAtWithRoofs",
+      "queryCountPerRun": 16384,
+      "pairedRuns": 5,
+      "original": {
+        "medianMs": 32.471874999999955,
+        "madMs": 2.05600000000004,
+        "runsMs": [
+          30.630374999999958,
+          30.415874999999915,
+          39.456500000000005,
+          56.365583000000015,
+          32.471874999999955
+        ]
+      },
+      "optimized": {
+        "medianMs": 21.79012499999999,
+        "madMs": 0.08133399999996982,
+        "runsMs": [
+          21.87145899999996,
+          21.58112499999993,
+          26.686582999999928,
+          21.789957999999842,
+          21.79012499999999
+        ]
+      },
+      "medianSpeedup": 1.4902105885119967,
+      "medianReductionPercent": 32.895390241555134,
+      "optimizedMicrosecondsPerQuery": 1.3299636840820306,
+      "optimizedCounters": {
+        "neighborhoodBuilds": 0,
+        "boundsRejects": 1763925,
+        "polygonTests": 0,
+        "segmentTests": 0
+      }
+    }
+  ],
+  "monitor": {
+    "kind": "microestimate",
+    "frameIterationsPerRun": 200000,
+    "phasePairsPerFrame": 6,
+    "directRecordsPerFrame": 3,
+    "off": {
+      "medianMs": 4.455917000000227,
+      "madMs": 0.27062500000010914,
+      "runsMs": [
+        4.137584000000061,
+        4.571874999999864,
+        4.942250000000058,
+        4.185292000000118,
+        4.455917000000227
+      ]
+    },
+    "on": {
+      "medianMs": 108.99008299999991,
+      "madMs": 5.559040999999979,
+      "runsMs": [
+        108.99008299999991,
+        142.9306250000002,
+        103.43104199999993,
+        103.8672919999999,
+        138.5415409999996
+      ]
+    },
+    "medianExtraMillisecondsPerSyntheticFrame": 0.0005226708299999985,
+    "limitation": "Node timing of a representative call mix. Does not certify under1% overhead inside the actual browser game or compare CPU architectures/throttling.",
+    "browserFrameComparison": {
+      "available": false,
+      "reason": "Concurrent real browser QA uses calibrated Chrome CPU throttling; this unthrottled Node microbenchmark does not provide a matched monitor-enabled/disabled frameCPU comparison. No under1percent whole-game overhead certification."
+    }
+  },
+  "sink": 180572.33181294394,
+  "sourceSha256": {
+    "baseline": {
+      "src/game/physics.ts": "c52d0571cbc5afea54a774b39fdaa6beb86c569d35cb474160691e4298ef6e43",
+      "src/game/spatial-safety.ts": "9c51e041fac476fcb0abe09f7d3e526958f360c7b5b95ef5175403a6b38180ed"
+    },
+    "candidate": {
+      "src/game/physics.ts": "1b4b5caeddccce51e20f91ac1c957f0574e21be7d39f2de12041aa85778774c2",
+      "src/game/spatial-safety.ts": "e3987f9a334f4e8ff20d088dcbb4aaff9c3d46bf4639b53303a223f4b250bd2d",
+      "src/game/static-neighborhood.ts": "7d4c9de3d4b41e5b11e64db08ad1b137993cfd8cf4ff58fbce7d4ce608f53bdf"
+    }
+  }
+}

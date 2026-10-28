@@ -1,0 +1,20 @@
+{
+  "dataSource": "current core.pack.wasm and visible popular-area choices; no fabricated destination coordinates",
+  "inputPolicy": "Real visible buttons and keyboard/touch input. External scripted control is labeled separately from human play. Synthetic fixtures are never delivery/FPS evidence.",
+  "scenarios": [
+    {"id":"S01","name":"Cold/warm boot","checks":["opaque loader","world support before release","fonts/shaders prepared"]},
+    {"id":"S02","name":"RTC X Roads","checks":["shop boards","traffic","explicit delivery"]},
+    {"id":"S03","name":"Gachibowli/HITEC City","checks":["flyover levels","near detail","safe relocation"]},
+    {"id":"S04","name":"ORR 120 km/h","checks":["exits","streaming lead","turn buffer"]},
+    {"id":"S05","name":"Flight 160 km/h and descent","checks":["skyline","landing coverage","support","memory"]},
+    {"id":"S06","name":"Jump over auto/car/bus","checks":["id/generation retained","visibility","arc/distance/cooldown"]},
+    {"id":"S07","name":"Metro/train roof ride","checks":["carry interpolation","station signs","collision"]},
+    {"id":"S08","name":"Night and dawn/dusk","checks":["local lamps","sky reflections","resource growth"]},
+    {"id":"S09","name":"UI and device lifecycle","checks":["pause","map","settings","orders","fullscreen","rotation","app resume"]},
+    {"id":"S10","name":"Area changes and failed retry","checks":["selected destination retained","progress","stale results","cleanup"]},
+    {"id":"S11","name":"Off-road and delayed data","checks":["retry bound","route restored","legal road level"]},
+    {"id":"S12","name":"40-minute mixed endurance","checks":["frame tails","memory","loaded interactions"]},
+    {"id":"S13","name":"Failure recovery","checks":["offline/reconnect","worker stale/cancel","WebGL restore"]},
+    {"id":"S14","name":"Complete deliveries and orders off","checks":["accepted","collected","explicit handover","free roam","save retained"]}
+  ]
+}

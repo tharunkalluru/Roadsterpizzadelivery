@@ -11,7 +11,7 @@ const paths = {
   route: '<circle cx="7" cy="25" r="5"/><circle cx="25" cy="7" r="5"/><path d="M7 20v-5h11V7h3v11H10v2Z"/>',
   info: '<circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="16" cy="9" r="2"/><path d="M14 14h4v11h-4z"/>',
   check: '<path d="m5 16 7 7L27 8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>',
-  cruise: '<path d="M16 3a13 13 0 0 0-9 22l3-3a9 9 0 1 1 12 0l3 3A13 13 0 0 0 16 3Z"/><path d="m15 14 9-5-5 9a3 3 0 1 1-4-4Z"/><path d="M14 4h4v5h-4zM4 13h5v4H4zM23 13h5v4h-5z"/>',
+  jump: '<path d="M3 23C4 13 9 6 16 6c6 0 10 5 12 11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="m23 10 7 9-11-1 4-8Z"/><path d="m7 23 3-5h9l4 5v4H7v-4Zm5-3-2 3h10l-2-3h-6Z"/><circle cx="10" cy="28" r="2.5"/><circle cx="20" cy="28" r="2.5"/>',
 };
 
 export function controlIcon(name: keyof typeof paths, cls = '') {

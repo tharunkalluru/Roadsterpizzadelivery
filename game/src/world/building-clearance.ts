@@ -2,6 +2,7 @@ import { ShapeUtils, Vector2 } from 'three';
 import type { Building, RoadEdge, XZ } from './types';
 import { auxiliaryLane, travelDirection } from './expressway';
 import { metroCorridors, metroPlatformAssemblies, metroDeckHeight, type MetroLineInput } from './metro-geometry';
+import type { RailProfile } from './railway-geometry';
 
 // Source footprints are retained in the packs. Only the generated, solid model
 // is trimmed where conflicting source layers otherwise close a transport route.
@@ -36,7 +37,7 @@ function subtract(poly: XZ[], cut: XZ[]) {
 }
 function triangles(ring: XZ[]) { return ShapeUtils.triangulateShape(ring.map(p => new Vector2(...p)), []).map(t => t.map(i => ring[i])); }
 
-export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: Metro, extent?: number[], patches: readonly TransportPatch[] = []) {
+export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: Metro, extent?: number[], patches: readonly TransportPatch[] = [], rails: readonly RailProfile[] = []) {
   const grid = new Map<string, Cut[]>(), cuts: Cut[] = [];
   const add = (id: string, ring: XZ[], floor: number, top: number) => {
     const original = ring;
@@ -77,6 +78,10 @@ export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: M
     }
   }
   for (const patch of patches) add(`junction:${patch.id}`, patch.ring, patch.y > 1.2 ? patch.y - 1 : -.1, patch.y + 4.8);
+  for (const rail of rails) for (let i = 1; i < rail.pts.length; i++) {
+    const a = rail.elev[i - 1], b = rail.elev[i];
+    span(`rail:${rail.id}`, rail.pts[i - 1], rail.pts[i], 3, 3, Math.min(a, b) - (Math.max(a, b) > .2 ? 1.4 : .2), Math.max(a, b) + 6.4, .1);
+  }
   if (metro) {
     const corridors = metroCorridors(metro.lines), dh = metro.deckHeight || 11;
     // Physical girders/decks/parapets overlap their segment ends by 0.1 m.

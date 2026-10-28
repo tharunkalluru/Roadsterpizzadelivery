@@ -1,0 +1,60 @@
+{
+  "sourceCommit": "200af62af70dc4b682d601e11ff51db04d2f67d9",
+  "buildFingerprint": "d178c429fa808a6845ded32aef78011288d4d03df898c80b3d9455fe4996fe3e",
+  "bundle": "index-Dtm1sKiN.js",
+  "worker": "tileworker-DlLUFAI1.js",
+  "branch": "codex/mobile-performance",
+  "preview": "http://127.0.0.1:4199/",
+  "physicalPhone": false,
+  "performanceEvidenceIsNotPhoneCertification": true,
+  "finalSourceFrozenAt": "2026-10-28T10:35:00Z",
+  "evidenceRule": "Every artifact retains its own build/time; earlier evidence is not silently relabeled as this build.",
+  "enduranceBuild": {
+    "sourceCommit": "6390d3ed7d763ccd6c8cf64b028a8af2a418dcd4",
+    "buildFingerprint": "68739301065a0f26881402e10b9f2b6651654bc6ac280007e5cd168c03ab947d",
+    "bundle": "index-BJHn7S3q.js",
+    "worker": "tileworker-DlLUFAI1.js"
+  },
+  "latestTargetedChecks": {
+    "highNative": "p9518.5/p9919.5ms;0errors",
+    "lowMidCPU": "p9522.5FAIL/p9930.5ms;0errors",
+    "contextRecovery": "8/8liveacceptedorder+lostviewportresize",
+    "physicsReplay": "12exactcomparisons,maxdiff0",
+    "resourceCycles": "60/60relocations;heap/geometry rangespass,texture5%gateFAIL",
+    "inputs": "released",
+    "game": "paused",
+    "prefs": "Auto/60/adaptiveOFF;ordersOFF"
+  },
+  "targetedBuildBeforeFinalFileEndingCleanup": {
+    "sourceCommit": "1e28c22ed786637f816e0ef07c7dea3eec2622d8",
+    "buildFingerprint": "bb9dccbf1b887a12b44b5f3cbf37404b351beb4e7899531a8eeec63e720730d6",
+    "bundle": "index-BqqcYt0B.js"
+  },
+  "finalEquivalence": "evidence/final-build-equivalence.json: entire JS matches targeted build after replacing embedded build identifier",
+  "browserComparisonFollowup": {
+    "report": "version-comparison.md",
+    "evidence": "evidence/browser-ab-20261028/summary.json",
+    "runCount": 12,
+    "stationaryLowGame": {
+      "pairedRuns": 3,
+      "cpuRate": 4.04,
+      "baselineFPS": 52.44444444444444,
+      "optimizedFPS": 59.75555555555555,
+      "baselineFrameCPUMedianMs": 17.799999997019768,
+      "optimizedFrameCPUMedianMs": 8.399999998509884,
+      "deterministicActorReplay": false
+    },
+    "staticHigh": {
+      "pairedRuns": 3,
+      "exactScreenshotPairs": 3,
+      "baselineDrawCalls": 536,
+      "optimizedDrawCalls": 410,
+      "baselineFPS": 60,
+      "optimizedFPS": 60
+    },
+    "physicalPhone": false,
+    "accountUseAuthorized": true,
+    "physicalBlocker": "Normal Chrome browser-control connection unavailable; asynchronous enablement request pending. No new phone results.",
+    "drivingPerformanceGateUnchanged": true
+  }
+}

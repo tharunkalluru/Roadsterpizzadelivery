@@ -3,6 +3,7 @@ import { TPL, rng, hash } from '../core/util';
 import type { XZ } from './types';
 import { isORR, roadPose, roadLength, travelDirection } from './expressway';
 import type { StructureFootprint } from './structure-clearance';
+import type { makeRailwayNetwork } from './railway-geometry';
 
 // OpenStreetMap extras drawn into a tile: petrol bunks, toll plazas, motorway exit signs, skywalks and foot
 // overbridges, pedestrian subways, railway lines and stations, bus terminals, bus-stop names.
@@ -16,6 +17,8 @@ export interface ExtrasCtx {
   onRoad: (x: number, z: number, pad?: number) => boolean;
   inBuilding: (x: number, z: number) => boolean;
   structureClear?: (footprint: StructureFootprint, bottom: number, top: number) => boolean;
+  railway?: ReturnType<typeof makeRailwayNetwork>;
+  platformPieces?: (ring: XZ[]) => XZ[][];
   obstacle: (x: number, z: number, r: number, top: number) => void;
   wall: (ax: number, az: number, bx: number, bz: number, top: number) => void;
   solid: (ring: XZ[], h: number) => void;
@@ -292,30 +295,33 @@ function subway(f: OsmFeature, C: ExtrasCtx) {
 
 // ---------- railway lines: ballast, sleepers and broad-gauge rails; on bridges, a girder deck ----------
 function rail(f: OsmFeature, C: ExtrasCtx) {
-  const L = f.l; if (!L || L.length < 2) return;
+  const profile = C.railway?.byId.get(f.id);
+  const L = profile?.pts || f.l; if (!L || L.length < 2) return;
   const t = f.t.railway; if (t === 'subway' || t === 'light_rail' || t === 'monorail') return;   // the metro is drawn with its viaduct
   if (f.t.tunnel && f.t.tunnel !== 'no') return;
-  const bridge = !!f.t.bridge && f.t.bridge !== 'no', y = bridge ? 6.2 : 0, B = C.B, siding = !!f.t.service;
+  const bridge = !!f.t.bridge && f.t.bridge !== 'no', B = C.B, siding = !!f.t.service;
   let acc = 0;
   for (let i = 0; i < L.length - 1; i++) {
     const [ax, az] = L[i], [bx, bz] = L[i + 1], len = Math.hypot(bx - ax, bz - az); if (len < 0.3) continue;
-    const mx = (ax + bx) / 2, mz = (az + bz) / 2, ang = Math.atan2(bx - ax, bz - az), nx = (bz - az) / len, nz = -(bx - ax) / len;
+    const ya = profile?.elev[i] ?? (bridge ? 6.2 : 0), yb = profile?.elev[i + 1] ?? ya, y = (ya + yb) / 2;
+    const mx = (ax + bx) / 2, mz = (az + bz) / 2, ang = Math.atan2(bx - ax, bz - az), nx = (bz - az) / len, nz = -(bx - ax) / len, rx = -Math.atan2(yb - ya, len), span = Math.hypot(len, yb - ya);
     if (C.inTile(mx, mz)) {
-      if (bridge) {
-        B.st.box(mx, y - 0.6, mz, 5.2, 1.4, len + 0.2, '#8e8a93', { ry: ang });
-        for (const s of [-1, 1]) B.st.box(mx + nx * s * 2.5, y + 0.6, mz + nz * s * 2.5, 0.3, 1.2, len + 0.2, '#6e6a74', { ry: ang });
-      } else B.foot.box(mx, 0.09, mz, 3.4, 0.18, len + 0.2, '#8b8179', { ry: ang, uvScale: [0.6, len / 4] });
-      for (const s of [-1, 1]) B.st.box(mx + nx * s * 0.84, y + 0.26, mz + nz * s * 0.84, 0.08, 0.1, len + 0.05, '#8c8f96', { ry: ang });
+      if (bridge || y > .2) {
+        B.st.box(mx, y - 0.6, mz, 5.2, 1.4, span + 0.2, '#8e8a93', { ry: ang, rx });
+        for (const s of [-1, 1]) B.st.box(mx + nx * s * 2.5, y + 0.6, mz + nz * s * 2.5, 0.3, 1.2, span + 0.2, '#6e6a74', { ry: ang, rx });
+      } else B.foot.box(mx, y + 0.09, mz, 3.4, 0.18, span + 0.2, '#8b8179', { ry: ang, rx, uvScale: [0.6, len / 4] });
+      for (const s of [-1, 1]) B.st.box(mx + nx * s * 0.84, y + 0.26, mz + nz * s * 0.84, 0.08, 0.1, span + 0.05, '#8c8f96', { ry: ang, rx });
       if (!C.lowQ && !siding) for (let d = (1.2 - (acc % 1.2)) % 1.2; d < len; d += 1.2) {
         const x = ax + (bx - ax) * d / len, z = az + (bz - az) * d / len;
-        B.st.box(x, y + 0.2, z, 2.6, 0.07, 0.24, '#6b6460', { ry: ang });
+        B.st.box(x, ya + (yb - ya) * d / len + 0.2, z, 2.6, 0.07, 0.24, '#6b6460', { ry: ang, rx });
       }
       // overhead line masts on electrified main lines
       if (!siding && !C.lowQ) for (let d = (60 - (acc % 60)) % 60; d < len; d += 60) {
-        const x = ax + (bx - ax) * d / len + nx * 2.6, z = az + (bz - az) * d / len + nz * 2.6;
-        if (!extrasFootprintClear(C, { x, z, r: .25 }, y, y + 7)) continue;
-        B.st.box(x, y + 3.5, z, 0.22, 7, 0.22, '#7c7f86'); B.st.box(x - nx * 1.4, y + 6.8, z - nz * 1.4, 0.12, 0.12, 3, '#7c7f86', { ry: ang + Math.PI / 2 });
-        C.obstacle(x, z, 0.25, y + 7);
+        const x = ax + (bx - ax) * d / len + nx * 3.0, z = az + (bz - az) * d / len + nz * 3.0;
+        const poleY = ya + (yb - ya) * d / len;
+        if (!extrasFootprintClear(C, { x, z, r: .25 }, poleY, poleY + 7)) continue;
+        B.st.box(x, poleY + 3.5, z, 0.22, 7, 0.22, '#7c7f86'); B.st.box(x - nx * 1.4, poleY + 6.8, z - nz * 1.4, 0.12, 0.12, 3, '#7c7f86', { ry: ang + Math.PI / 2 });
+        C.obstacle(x, z, 0.25, poleY + 7);
       }
     }
     acc += len;
@@ -325,47 +331,50 @@ function rail(f: OsmFeature, C: ExtrasCtx) {
 // ---------- railway / metro platforms ----------
 function platform(f: OsmFeature, C: ExtrasCtx) {
   const B = C.B;
-  if (f.r && f.r[0] && f.r[0].length > 2) {
-    const ring = f.r[0]; const [mx, mz] = mid(f); if (!C.inTile(mx, mz)) return;
-    try {
-      const tris = THREE.ShapeUtils.triangulateShape(ring.map((p) => new THREE.Vector2(p[0], p[1])), []);
-      for (const t of tris) { const a = ring[t[0]], b = ring[t[1]], c = ring[t[2]]; B.foot.tri([a[0], 0.95, a[1]], [c[0], 0.95, c[1]], [b[0], 0.95, b[1]], '#cfc8bb'); }
-    } catch { /* odd outline */ }
+  const base = (p: XZ) => C.railway?.closest(...p, 30)?.y || 0;
+  const draw = (ring: XZ[]) => {
+    for (const piece of C.platformPieces?.(ring) || [ring]) {
+      if (piece.length < 3) continue;
+      const tris = THREE.ShapeUtils.triangulateShape(piece.map(p => new THREE.Vector2(...p)), []);
+      for (const t of tris) { const a=piece[t[0]],b=piece[t[1]],c=piece[t[2]]; B.foot.tri([a[0],base(a)+.95,a[1]],[c[0],base(c)+.95,c[1]],[b[0],base(b)+.95,b[1]],'#cfc8bb'); }
+    }
+  };
+  if (f.r?.[0]?.length && f.r[0].length > 2) {
+    if (C.inTile(...mid(f))) draw(f.r[0]);
     return;
   }
-  const L = f.l; if (!L || L.length < 2) return;
-  for (let i = 0; i < L.length - 1; i++) {
-    const [ax, az] = L[i], [bx, bz] = L[i + 1], len = Math.hypot(bx - ax, bz - az); if (len < 1) continue;
-    const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (!C.inTile(mx, mz)) continue;
-    const ang = Math.atan2(bx - ax, bz - az);
-    B.st.box(mx, 0.48, mz, 6, 0.96, len, '#cfc8bb', { ry: ang });
-    B.st.box(mx, 5.2, mz, 7, 0.25, len, '#b8b2a6', { ry: ang });
-    for (let d = 4; d < len; d += 9) { const x = ax + (bx - ax) * d / len, z = az + (bz - az) * d / len; B.st.box(x, 3, z, 0.25, 4.4, 0.25, '#7c7f86'); }
+  const L=f.l; if(!L||L.length<2)return;
+  for(let i=1;i<L.length;i++){
+    const a=L[i-1],b=L[i],len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(len<1)continue;
+    const mx=(a[0]+b[0])/2,mz=(a[1]+b[1])/2;if(!C.inTile(mx,mz))continue;
+    const hx=(b[0]-a[0])/len,hz=(b[1]-a[1])/len,ang=Math.atan2(hx,hz);
+    draw([[a[0]-hz*3,a[1]+hx*3],[b[0]-hz*3,b[1]+hx*3],[b[0]+hz*3,b[1]-hx*3],[a[0]+hz*3,a[1]-hx*3]]);
+    const ya=base(a),yb=base(b),y=(ya+yb)/2;
+    if(extrasFootprintClear(C,boxFootprint(mx,mz,ang,7,len),Math.min(ya,yb)+6.65,Math.max(ya,yb)+6.95,false))B.st.box(mx,y+6.8,mz,7,.25,Math.hypot(len,yb-ya),'#b8b2a6',{ry:ang,rx:-Math.atan2(yb-ya,len)});
+    for(let d=4;d<len;d+=9){const x=a[0]+hx*d,z=a[1]+hz*d;const y=base([x,z]);if(extrasFootprintClear(C,{x,z,r:.18},y+.95,y+6.8)){B.st.box(x,y+3.8,z,.25,5.7,.25,'#7c7f86');C.obstacle(x,z,.2,y+6.8);}}
   }
 }
 
-// ---------- stations: name boards (Indian Railways yellow), concourse box where no building is mapped ----------
+// Source station points identify a station, not the footprint of a building.
+// Keep the mapped platforms/buildings and place railway-yellow boards facing
+// the actual tracks, rather than inventing a concourse box across their center.
 function station(f: OsmFeature, C: ExtrasCtx) {
-  const [px, pz] = mid(f); if (!C.inTile(px, pz)) return;
-  const name = nm(f); if (!name) return;
-  if (f.t.station === 'subway' || f.t.subway === 'yes' || /metro/i.test(name + (f.t.network || ''))) return;   // metro stations are drawn with the metro
-  const B = C.B, te = f.t['name:te'] || '', hi = f.t['name:hi'] || '';
-  const r = C.nearestRoad(px, pz, 80, true);
-  const ang = r ? Math.atan2(r.hx, r.hz) : 0, hx = r ? r.hx : 0, hz = r ? r.hz : 1;
-  if (extrasFootprintClear(C, boxFootprint(px, pz, ang, 16, 36), 0, 8.6)) {
-    B.st.box(px, 4, pz, 14, 8, 34, '#e4d7c3', { ry: ang, ao: true, aoH: 4 });
-    B.st.box(px, 8.3, pz, 16, 0.6, 36, '#a8442f', { ry: ang });
-    const a = (u: number, v: number): XZ => [px + hx * u - hz * v, pz + hz * u + hx * v];
-    C.solid([a(-17, -7), a(17, -7), a(17, 7), a(-17, 7)], 8);
+  const [px,pz]=mid(f),name=nm(f);if(!name||!C.inTile(px,pz))return;
+  if(/metro|subway|light_rail/i.test(`${f.t.station||''} ${f.t.network||''} ${name}`))return;
+  const rail=C.railway?.closest(px,pz,150);if(!rail)return;
+  const B=C.B,{hx,hz}=rail,ang=Math.atan2(hx,hz),lines=[f.t['name:te'],f.t['name:hi'],name.replace(/ (railway )?station$/i,'')].filter(Boolean) as string[];
+  for(const side of [-1,1]){
+    let at: XZ|null=null;
+    placement: for(const along of [0,-12,12,-24,24]) for(const offset of [4.5,6,8,10,2.75,14,18,24,32]){
+      const x=rail.x+hx*along-hz*side*offset,z=rail.z+hz*along+hx*side*offset;
+      if(extrasFootprintClear(C,boxFootprint(x,z,ang,.5,6.2),rail.y+.9,rail.y+4.5)){at=[x,z];break placement;}
+    }
+    if(!at)continue;const [x,z]=at;
+    for(const s of [-1,1])B.st.box(x+hx*s*2.6,rail.y+2.1,z+hz*s*2.6,.16,2.4,.16,'#29272d');
+    B.st.box(x,rail.y+3.4,z,.14,2.2,6.2,'#242029',{ry:ang});
+    lines.slice(-3).forEach((text,k)=>C.sign(`${f.id}:${side}:${k}`,upper(text),'#f7d21d','#121116',[x+hz*side*.09,rail.y+4.1-k*.68,z-hx*side*.09],[hz*side,0,-hx*side],5.8,.62));
+    C.obstacle(x,z,.3,rail.y+4.5);
   }
-  // big yellow board on two legs by the road, three languages
-  const bx = r ? r.cx + (-hz) * (r.w / 2 + 3) : px + 12, bz = r ? r.cz + hx * (r.w / 2 + 3) : pz;
-  if (!extrasFootprintClear(C, boxFootprint(bx, bz, ang, 1.2, 6.2), 0, 4.8)) return;
-  for (const s of [-1, 1]) B.st.box(bx + hx * s * 2.6, 1.6, bz + hz * s * 2.6, 0.18, 3.2, 0.18, '#2b2a30');
-  B.st.box(bx, 3.6, bz, 0.14, 2.4, 6.2, '#1b1a20', { ry: ang });
-  const lines = [te, hi, name.replace(/ (railway )?station$/i, '')].filter(Boolean).slice(-3);
-  lines.forEach((t, k) => C.sign(f.id + k, upper(t).slice(0, 24), '#f7d21d', '#121116', [bx + hz * 0.09, 4.4 - k * 0.78, bz - hx * 0.09], [hz, 0, -hx], 5.8, 0.7));
-  C.obstacle(bx, bz, 0.6, 4.8);
 }
 
 // ---------- bus terminals: long shelters over the bays, a terminal block, name board ----------

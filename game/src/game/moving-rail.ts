@@ -4,7 +4,7 @@ export interface MovingRailShape extends RailPose { id: string; halfWidth: numbe
 export interface MovingRailBody extends MovingRailShape { previous: RailPose }
 interface Point { x: number; y: number; z: number }
 export interface RailPlayer {
-  pos: Point; yaw: number; speed: number; vy: number; flying: boolean; descending: boolean;
+  pos: Point; yaw: number; speed: number; vy: number; flying: boolean; descending: boolean; jumping?: boolean;
   placementRevision?: number; glide?: unknown; bump?: number; lastKind?: string; lastSupport?: number;
   lastElevRoad?: boolean; onRoad?: boolean;
   group?: { position: Point }; glow?: { position: Point }; light?: { position: Point };
@@ -76,7 +76,7 @@ export class MovingRailInteraction {
     this.previous = { ...player.pos };
     if (this.revision !== player.placementRevision) { this.attached = null; this.drift = { x: 0, z: 0 }; }
     this.revision = player.placementRevision;
-    if (player.glide || player.flying || flyPressed) this.attached = null;
+    if (player.glide || player.flying || player.jumping || flyPressed) this.attached = null;
     if (this.attached) {
       const body = bodies.find(b => b.id === this.attached);
       if (!body) this.attached = null;
@@ -135,7 +135,7 @@ export class MovingRailInteraction {
       player.bump = Math.max(player.bump || 0, .35);
     }
     this.attached = null;
-    if (!player.flying && !player.glide && player.vy <= .1) {
+    if (!player.flying && !player.jumping && !player.glide && player.vy <= .1) {
       const roof = movingRailSupport(this.bodies, player.pos.x, player.pos.z, player.pos.y - FOOT);
       if (roof && Math.abs(player.pos.y - FOOT - roof.y) <= .2) {
         this.attached = roof.body.id; player.pos.y = roof.y + FOOT; player.vy = 0; player.descending = false;

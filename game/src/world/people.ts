@@ -178,11 +178,40 @@ function legPart(put: (t: Tpl, lx: number, ly: number, lz: number, sx: number, s
 }
 
 // ---------- animated walkers ----------
-const cache = new Map<string, { body: THREE.BufferGeometry; leg: THREE.BufferGeometry | null }>();
+interface WalkerGeometry { body: THREE.BufferGeometry; leg: THREE.BufferGeometry | null }
+interface WalkerGeometryEntry extends WalkerGeometry { refs: number; used: number; bytes: number }
+const cache = new Map<string, WalkerGeometryEntry>();
+const UNUSED_GEOMETRY_LIMIT = 128, UNUSED_GEOMETRY_BYTES = 16 * 1024 * 1024;
+let geometryUse = 0;
+export const walkerGeometryCacheStats = { entries: 0, activeEntries: 0, activeReferences: 0, unusedEntries: 0, estimatedBytes: 0, unusedBytes: 0,
+  created: 0, disposed: 0, maxUnusedEntries: UNUSED_GEOMETRY_LIMIT, maxUnusedBytes: UNUSED_GEOMETRY_BYTES };
+function refreshGeometryStats() {
+  const s = walkerGeometryCacheStats; s.entries = cache.size; s.activeEntries = s.activeReferences = s.unusedEntries = s.estimatedBytes = s.unusedBytes = 0;
+  for (const item of cache.values()) {
+    s.estimatedBytes += item.bytes; s.activeReferences += item.refs;
+    if (item.refs) s.activeEntries++; else { s.unusedEntries++; s.unusedBytes += item.bytes; }
+  }
+}
+/** Evict only unused appearances; active walkers and cached station figures retain their exact geometry. */
+export function trimWalkerGeometryCache(force = false) {
+  const unused = [...cache].filter(([, item]) => !item.refs).sort((a, b) => a[1].used - b[1].used);
+  let count = unused.length, bytes = unused.reduce((n, [, item]) => n + item.bytes, 0);
+  for (const [key, item] of unused) {
+    if (!force && count <= UNUSED_GEOMETRY_LIMIT && bytes <= UNUSED_GEOMETRY_BYTES) break;
+    cache.delete(key); item.body.dispose(); item.leg?.dispose(); count--; bytes -= item.bytes; walkerGeometryCacheStats.disposed++;
+  }
+  refreshGeometryStats();
+}
+function geometryLease(item: WalkerGeometryEntry): WalkerGeometry & { release(): void } {
+  item.refs++; item.used = ++geometryUse; refreshGeometryStats(); let released = false;
+  return { body: item.body, leg: item.leg, release() {
+    if (released) return; released = true; item.refs--; item.used = ++geometryUse; trimWalkerGeometryCache();
+  } };
+}
 export function walkerGeometry(p: PersonSpec) {
   const key = JSON.stringify({ ...p, s: 1, walk: 0 });
   let g = cache.get(key);
-  if (g) return g;
+  if (g) return geometryLease(g);
   const body = new Batch(); drawPerson(body, { ...p, s: 1 }, 0, 0, 0, false);
   let leg: THREE.BufferGeometry | null = null;
   if (legsVisible(p.kind)) {
@@ -192,8 +221,10 @@ export function walkerGeometry(p: PersonSpec) {
     legPart(put, { ...p, s: 1 }, 1);
     leg = lb.geometry();
   }
-  g = { body: body.geometry(), leg };
-  if (cache.size > 400) cache.clear();
+  const built = { body: body.geometry(), leg };
+  const byteSize = (geo: THREE.BufferGeometry | null) => geo ? (Object.values(geo.attributes).reduce((n, a) => n + a.array.byteLength, 0) + (geo.index?.array.byteLength || 0)) * 2 : 0;
+  g = { ...built, refs: 0, used: ++geometryUse, bytes: byteSize(built.body) + byteSize(leg) };
   cache.set(key, g);
-  return g;
+  walkerGeometryCacheStats.created++;
+  return geometryLease(g);
 }

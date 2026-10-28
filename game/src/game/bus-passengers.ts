@@ -15,6 +15,8 @@ export class BusPassengerExchange {
     const r = rng(5291);
     for (let i = 0; i < 4; i++) {
       const spec = randomPerson(r), geometry = walkerGeometry(spec), group = new THREE.Group(), legs: THREE.Mesh[] = [];
+      // Traffic retires the whole exchange on completion, distance or bus release.
+      this.group.addEventListener('removed', () => geometry.release());
       const body = new THREE.Mesh(geometry.body, material); body.castShadow = true; group.add(body);
       if (geometry.leg && legsVisible(spec.kind)) for (const sign of [-1, 1]) {
         const leg = new THREE.Mesh(geometry.leg, material); leg.position.set(sign * .085, .84, 0); leg.castShadow = true; group.add(leg); legs.push(leg);

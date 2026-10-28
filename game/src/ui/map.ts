@@ -2,7 +2,7 @@ import type { CoreData, Building } from '../world/types';
 import { fetchPack } from '../world/packs';
 import { DialogFocus } from './dialog';
 import { placeCatalogue, PLACE_CATEGORIES, type LandmarkPlace, type PlaceCategory } from '../world/landmark_catalog';
-import { layoutPlaceMarkers, hitPlaceMarker, placeIcon, type PlaceMarker } from './landmark-icons';
+import { layoutPlaceMarkers, mapPlaceCandidates, hitPlaceMarker, placeIcon, type PlaceMarker } from './landmark-icons';
 import { metroCorridors, METRO_LINE_COLORS, metroPlatformAssemblies } from '../world/metro-geometry';
 import { installPrototypeTheme } from './theme';
 import { DESTINATION_MAP_IDENTITIES } from '../world/destination-data';
@@ -16,7 +16,6 @@ export interface MapState {
   canMove?: boolean;                     // "Deliver from here" is offered (no order in progress)
   route: [number, number, number][] | null;
   target: { x: number; z: number; label: string } | null;
-  theatres: { x: number; z: number; name: string; leased: boolean }[];
   pickups: { x: number; z: number; pizza: boolean }[];
 }
 
@@ -101,7 +100,7 @@ export class FullMap {
       <button type="button" class="btn go movebtn" id="map-move" hidden>Deliver from here…</button>
       <div class="pickbar" id="map-pickbar" hidden><div class="sm">Drag the map to put the pin where you want to start</div><div class="where" id="map-where">…</div>
         <div class="row"><button type="button" class="btn alt" id="map-pick-cancel">Cancel</button><button type="button" class="btn go" id="map-pick-ok">Start delivering here</button></div></div>
-      <div class="legend"><span><i style="background:#FFB627"></i>You</span><span><i style="background:#45E3D3"></i>Route</span><span><i style="background:#FF8FB1"></i>Cinemas</span><span><i style="background:#F2994A"></i>Pizza pickups</span><span>${Object.entries(METRO_LINE_COLORS).map(([id, color]) => '<i title="' + id + ' line" style="background:' + color + '"></i>').join('')}Metro</span><span><i style="background:#cfbb8b"></i>Places · tap icons</span></div>`;
+      <div class="legend"><span><i style="background:#FFB627"></i>You</span><span><i style="background:#45E3D3"></i>Route</span><span><i style="background:#F2994A"></i>Pizza pickups</span><span>${Object.entries(METRO_LINE_COLORS).map(([id, color]) => '<i title="' + id + ' line" style="background:' + color + '"></i>').join('')}Metro</span><span><i style="background:#cfbb8b"></i>Places · tap icons</span></div>`;
     host.appendChild(this.root);
     this.focus = new DialogFocus(this.root, {
       initial: () => this.root.querySelector('#map-close'),
@@ -317,8 +316,9 @@ export class FullMap {
     if (s > 0.25) for (const p of st.pickups) { const [x, y] = toS(p.x, p.z); if (x < -10 || y < -10 || x > W + 10 || y > H + 10) continue; g.fillStyle = p.pizza ? '#F2994A' : 'rgba(242,153,74,.55)'; g.beginPath(); g.arc(x, y, p.pizza ? 5 : 3, 0, 7); g.fill(); }
     // neighbourhood names
     g.font = `700 ${s > 0.6 ? 14 : 12}px "Baloo 2", sans-serif`; g.fillStyle = 'rgba(246,238,220,.55)';
-    for (const p of this.zone.places || []) { if (/^Ward \d+/.test(p.name)) continue; if ((p.kind === 'neighborhood' || p.kind === 'microhood') && s < 0.15) continue; if (p.kind !== 'locality' && s < 0.04) continue; const [x, y] = toS(p.p[0], p.p[1]); if (x > 0 && y > 0 && x < W && y < H) g.fillText(p.name, x, y); }
-    this.markers = layoutPlaceMarkers(this.filteredPlaces(), { cx: this.cx, cz: this.cz, scale: s, width: W, height: H }, this.selectedPlace?.id);
+    const areaLabels: { x: number; y: number; w: number }[] = [];
+    for (const p of this.zone.places || []) { if (/^Ward \d+/.test(p.name)) continue; if ((p.kind === 'neighborhood' || p.kind === 'microhood') && s < 0.24) continue; if (p.kind !== 'locality' && s < 0.08) continue; const [x, y] = toS(p.p[0], p.p[1]), w = g.measureText(p.name).width + 20; if (x > 0 && y > 0 && x < W && y < H && !areaLabels.some(b => Math.abs(y-b.y)<24 && Math.abs(x-b.x)<(w+b.w)/2)) { g.fillText(p.name, x, y); areaLabels.push({x,y,w}); } }
+    this.markers = layoutPlaceMarkers(mapPlaceCandidates(this.filteredPlaces(), s, this.selectedPlace?.id, !!this.placeCategory), { cx: this.cx, cz: this.cz, scale: s, width: W, height: H }, this.selectedPlace?.id);
     // Cached screen-space icons keep the full catalogue inexpensive; groups expand as you zoom.
     const labels: { x: number; y: number; w: number }[] = [];
     for (const marker of this.markers) {
@@ -326,18 +326,12 @@ export class FullMap {
       g.drawImage(placeIcon(place.icon), x - 15, y - 15, 30, 30);
       if (selected) { g.strokeStyle = '#45E3D3'; g.lineWidth = 3; g.strokeRect(x - 17, y - 17, 34, 34); }
       if (members.length > 1) { g.fillStyle = '#cfbb8b'; g.beginPath(); g.arc(x + 13, y - 12, 9, 0, Math.PI * 2); g.fill(); g.fillStyle = '#17132b'; g.font = '800 10px sans-serif'; g.fillText(String(members.length), x + 13, y - 12); }
-      if (s >= 0.2 || selected || (place.priority === 2 && s >= 0.055)) {
+      if (selected || s >= 1.6 || (place.priority >= 1 && s >= .9) || (place.priority >= 2 && s >= .055)) {
         g.font = '800 12px "Baloo 2", sans-serif'; const w = g.measureText(place.name).width + 8, ly = y + 25;
         if (selected || !labels.some((b) => Math.abs(ly - b.y) < 16 && Math.abs(x - b.x) < (w + b.w) / 2)) {
           g.strokeStyle = '#17132b'; g.lineWidth = 4; g.strokeText(place.name, x, ly); g.fillStyle = '#f6eedc'; g.fillText(place.name, x, ly); labels.push({ x, y: ly, w });
         }
       }
-    }
-    for (const t of st.theatres) {
-      const [x, y] = toS(t.x, t.z);
-      g.fillStyle = t.leased ? '#FFB627' : '#FF8FB1'; g.beginPath(); g.arc(x, y, 8, 0, 7); g.fill();
-      g.fillStyle = '#17132B'; g.font = '11px "Bungee", sans-serif'; g.fillText('▶', x + 1, y);
-      if (s > 0.18) { g.font = '800 12px "Baloo 2", sans-serif'; g.fillStyle = '#F6EEDC'; g.strokeStyle = 'rgba(18,15,34,.85)'; g.lineWidth = 3; g.strokeText(t.name, x, y - 16); g.fillText(t.name, x, y - 16); }
     }
     if (st.target) { const [x, y] = toS(st.target.x, st.target.z); g.fillStyle = '#FFB627'; g.beginPath(); g.arc(x, y, 11, 0, 7); g.fill(); g.strokeStyle = '#17132B'; g.lineWidth = 3; g.stroke(); g.font = '800 13px "Baloo 2", sans-serif'; g.fillStyle = '#F6EEDC'; g.strokeStyle = 'rgba(18,15,34,.9)'; g.lineWidth = 4; g.strokeText(st.target.label, x, y - 20); g.fillText(st.target.label, x, y - 20); }
     if (st.player) {

@@ -48,100 +48,180 @@ function drawBoard(g: CanvasRenderingContext2D, x: number, y: number, w: number,
   } else g.fillText(t, x + w / 2, y + h * 0.54);
 }
 
+interface SignPage {
+  c: HTMLCanvasElement; g: CanvasRenderingContext2D; tex: THREE.CanvasTexture;
+  mesh: THREE.Mesh; free: number[]; owner: (string | null)[];
+  capacity: number; signature: string;
+}
+
 export class SignSystem {
   signs: SignInst[] = [];
-  pages: { c: HTMLCanvasElement; g: CanvasRenderingContext2D; tex: THREE.CanvasTexture; mesh: THREE.Mesh; free: number[]; owner: (string | null)[] }[] = [];
+  pages: SignPage[] = [];
   group = new THREE.Group();
   material: THREE.MeshStandardMaterial[] = [];
   grid = new Map<string, SignInst[]>();
   frame = 0;
+  readonly stats = { selections: 0, geometryUpdates: 0, geometryAllocations: 0, texturePaints: 0 };
+  private revision = 0;
+  private selectedRevision = -1;
+  private lastSelectionMs = -Infinity;
+  private lastX = NaN;
+  private lastZ = NaN;
+  private nextIdentity = 1;
+  private identities = new WeakMap<SignInst, number>();
+  private active = new Set<SignInst>();
+  private fontSet: FontFaceSet | null = null;
+  private fontRevision = 0;
+  private readonly onFontsLoaded = () => { this.fontRevision++; this.revision++; };
   constructor(public pageCount = 3, public radius = 230) {}
   add(s: Omit<SignInst, 'slot' | 'page' | 'lastUse'>) {
     const inst: SignInst = { ...s, slot: -1, page: -1, lastUse: 0 };
+    this.identities.set(inst, this.nextIdentity++);
     this.signs.push(inst);
     const k = `${Math.floor(inst.c.x / 100)},${Math.floor(inst.c.z / 100)}`;
     (this.grid.get(k) || this.grid.set(k, []).get(k)!).push(inst);
+    this.revision++;
     return inst;
   }
-  // forget boards of an unloaded tile (their shared atlas slots are released by the next update)
+  // Call after changing text, style or transform of an existing immutable source board.
+  invalidate() { this.revision++; }
   remove(list: SignInst[]) {
     const gone = new Set(list);
+    const cells = new Set<string>();
     for (const inst of list) {
       inst.page = -1; inst.slot = -1;
-      const k = `${Math.floor(inst.c.x / 100)},${Math.floor(inst.c.z / 100)}`;
-      const l = this.grid.get(k); if (l) { const f = l.filter((s) => !gone.has(s)); if (f.length) this.grid.set(k, f); else this.grid.delete(k); }
+      cells.add(`${Math.floor(inst.c.x / 100)},${Math.floor(inst.c.z / 100)}`);
+      this.active.delete(inst);
     }
-    this.signs = this.signs.filter((s) => !gone.has(s));
+    for (const k of cells) {
+      const l = this.grid.get(k); if (!l) continue;
+      const remain = l.filter(s => !gone.has(s));
+      if (remain.length) this.grid.set(k, remain); else this.grid.delete(k);
+    }
+    this.signs = this.signs.filter(s => !gone.has(s));
+    this.revision++;
   }
   init(emissive: number) {
+    // Font loading may finish after the initial loader's timeout. Retained
+    // atlas slots need fresh pixels then, not new source boards or geometry.
+    const fonts = typeof document === 'undefined' ? null : document.fonts;
+    if (!this.fontSet && fonts && typeof fonts.addEventListener === 'function' && typeof fonts.removeEventListener === 'function') {
+      this.fontSet = fonts; fonts.addEventListener('loadingdone', this.onFontsLoaded);
+    }
+    if (this.pages.length) { this.setEmissive(emissive); return; }
     for (let p = 0; p < this.pageCount; p++) {
       const c = canvas(PAGE, PAGE), g = c.getContext('2d')!;
       const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8; tex.generateMipmaps = true;
       const mat = new THREE.MeshStandardMaterial({ map: tex, emissiveMap: tex, emissive: new THREE.Color('#ffffff'), emissiveIntensity: emissive, roughness: 0.55, polygonOffset: true, polygonOffsetFactor: -2 });
       this.material.push(mat);
       const mesh = new THREE.Mesh(new THREE.BufferGeometry(), mat); mesh.frustumCulled = false;
+      mesh.geometry.setDrawRange(0, 0);
       this.group.add(mesh);
-      this.pages.push({ c, g, tex, mesh, free: Array.from({ length: PER }, (_, i) => PER - 1 - i), owner: new Array(PER).fill(null) });
+      this.pages.push({ c, g, tex, mesh, free: Array.from({ length: PER }, (_, i) => PER - 1 - i), owner: new Array(PER).fill(null), capacity: 0, signature: '' });
     }
+    this.revision++;
   }
-  setEmissive(v: number) { this.material.forEach((m) => (m.emissiveIntensity = v)); }
-  // stream: give the nearest boards a slot, rebuild page meshes. Boards with the same text and colours share one slot,
-  // so streets full of generic signs don't crowd the named shops out of the atlas.
-  slotOf = new Map<string, { page: number; slot: number }>();
-  update(px: number, pz: number, force = false) {
+  setEmissive(v: number) { for (const m of this.material) if (m.emissiveIntensity !== v) m.emissiveIntensity = v; }
+  slotOf = new Map<string, { page: number; slot: number; paintedFontRevision: number }>();
+  private allocateGeometry(pg: SignPage, vertices: number) {
+    if (pg.capacity >= vertices) return;
+    let capacity = Math.max(192, pg.capacity);
+    while (capacity < vertices) capacity *= 2;
+    const geo = new THREE.BufferGeometry();
+    for (const [name, width] of [['position', 3], ['normal', 3], ['uv', 2]] as const) {
+      geo.setAttribute(name, new THREE.BufferAttribute(new Float32Array(capacity * width), width).setUsage(THREE.DynamicDrawUsage));
+    }
+    pg.mesh.geometry.dispose(); pg.mesh.geometry = geo; pg.capacity = capacity;
+    this.stats.geometryAllocations++;
+  }
+  update(px: number, pz: number, force = false, nowMs = performance.now()) {
     this.frame++;
-    if (!force && this.frame % 45) return;
+    if (!this.pages.length || !Number.isFinite(px) || !Number.isFinite(pz)) return;
+    const changed = this.selectedRevision !== this.revision;
+    const moved2 = (px - this.lastX) ** 2 + (pz - this.lastZ) ** 2;
+    // Time-based cap does not double the selection cost on a 120 Hz screen.
+    // A stationary, unchanged scene never rebuilds geometry or repaints an atlas.
+    if (!force && !changed && (moved2 < 4 || nowMs - this.lastSelectionMs < 250)) return;
+    this.lastSelectionMs = nowMs; this.lastX = px; this.lastZ = pz;
+    this.selectedRevision = this.revision; this.stats.selections++;
     const R = this.radius, near: [SignInst, number][] = [];
     const cx = Math.floor(px / 100), cz = Math.floor(pz / 100), rc = Math.ceil(R / 100);
     for (let i = -rc; i <= rc; i++) for (let j = -rc; j <= rc; j++) {
       const l = this.grid.get(`${cx + i},${cz + j}`); if (!l) continue;
-      for (const s of l) { const d = Math.hypot(s.c.x - px, s.c.z - pz); if (d < R) near.push([s, d]); }
+      for (const s of l) { const d2 = (s.c.x - px) ** 2 + (s.c.z - pz) ** 2; if (d2 < R * R) near.push([s, d2]); }
     }
     near.sort((a, b) => a[1] - b[1]);
-    const cap = this.pageCount * PER;
-    const want = new Map<string, SignInst[]>();
+    const cap = this.pageCount * PER, want = new Map<string, SignInst[]>();
     for (const [s] of near) {
-      const k = `${s.text}|${s.bg}|${s.fg}`;
-      let l = want.get(k);
-      if (!l) { if (want.size >= cap) continue; l = []; want.set(k, l); }
-      l.push(s);
+      const key = JSON.stringify([s.text, s.bg, s.fg]);
+      let list = want.get(key);
+      if (!list) { if (want.size >= cap) continue; list = []; want.set(key, list); }
+      list.push(s);
     }
-    // free slots of texts no longer wanted
-    for (const [k, sl] of this.slotOf) if (!want.has(k)) { const pg = this.pages[sl.page]; pg.owner[sl.slot] = null; pg.free.push(sl.slot); this.slotOf.delete(k); }
-    const dirty = new Set<number>();
-    for (const [k, l] of want) {
-      if (this.slotOf.has(k)) continue;
-      const pi = this.pages.findIndex((p) => p.free.length > 0); if (pi < 0) break;
-      const pg = this.pages[pi]; const slot = pg.free.pop()!, s = l[0];
-      pg.owner[slot] = k; this.slotOf.set(k, { page: pi, slot });
-      drawBoard(pg.g, (slot % COLS) * SW, Math.floor(slot / COLS) * SH, SW, SH, s.text, s.bg, s.fg);
-      dirty.add(pi);
+    for (const [key, slot] of this.slotOf) if (!want.has(key)) {
+      const pg = this.pages[slot.page]; pg.owner[slot.slot] = null; pg.free.push(slot.slot); this.slotOf.delete(key);
     }
-    const out = this.pages.map(() => ({ pos: [] as number[], nor: [] as number[], uv: [] as number[] }));
-    for (const s of this.signs) { s.page = -1; s.slot = -1; }
-    for (const [k, l] of want) {
-      const sl = this.slotOf.get(k); if (!sl) continue;
-      const i = sl.slot, o = out[sl.page];
-      const u0 = (i % COLS) / COLS, v1 = 1 - Math.floor(i / COLS) / ROWS, u1 = u0 + 1 / COLS, v0 = v1 - 1 / ROWS;
-      for (const s of l) {
-        s.page = sl.page; s.slot = i;
+    const dirtyTextures = new Set<number>();
+    for (const [key, list] of want) {
+      let at = this.slotOf.get(key);
+      if (!at) {
+        const page = this.pages.findIndex(p => p.free.length > 0); if (page < 0) break;
+        const pg = this.pages[page], slot = pg.free.pop()!;
+        pg.owner[slot] = key; at = { page, slot, paintedFontRevision: -1 }; this.slotOf.set(key, at);
+      }
+      if (at.paintedFontRevision === this.fontRevision) continue;
+      const pg = this.pages[at.page], slot = at.slot, s = list[0];
+      drawBoard(pg.g, slot % COLS * SW, Math.floor(slot / COLS) * SH, SW, SH, s.text, s.bg, s.fg);
+      at.paintedFontRevision = this.fontRevision;
+      dirtyTextures.add(at.page); this.stats.texturePaints++;
+    }
+    for (const s of this.active) { s.page = -1; s.slot = -1; }
+    this.active.clear();
+    const members: SignInst[][] = this.pages.map(() => []);
+    for (const [key, list] of want) {
+      const at = this.slotOf.get(key); if (!at) continue;
+      for (const s of list) { s.page = at.page; s.slot = at.slot; this.active.add(s); members[at.page].push(s); }
+    }
+    const n = new THREE.Vector3();
+    for (let page = 0; page < this.pages.length; page++) {
+      const pg = this.pages[page], list = members[page];
+      if (dirtyTextures.has(page)) pg.tex.needsUpdate = true;
+      // Stable source order means camera motion does not reshuffle unchanged quads.
+      list.sort((a, b) => this.identities.get(a)! - this.identities.get(b)!);
+      const signature = list.map(s => `${this.identities.get(s)}:${s.slot}:${s.c.x},${s.c.y},${s.c.z},${s.right.x},${s.right.y},${s.right.z},${s.up.x},${s.up.y},${s.up.z},${s.w},${s.h}`).join(';');
+      if (signature === pg.signature) continue;
+      pg.signature = signature;
+      const vertices = list.length * 6;
+      this.allocateGeometry(pg, vertices);
+      const geo = pg.mesh.geometry;
+      geo.setDrawRange(0, vertices);
+      if (!vertices) { this.stats.geometryUpdates++; continue; }
+      const pos = geo.getAttribute('position') as THREE.BufferAttribute;
+      const nor = geo.getAttribute('normal') as THREE.BufferAttribute;
+      const uv = geo.getAttribute('uv') as THREE.BufferAttribute;
+      let vertex = 0;
+      for (const s of list) {
+        const i = s.slot, u0 = i % COLS / COLS, v1 = 1 - Math.floor(i / COLS) / ROWS, u1 = u0 + 1 / COLS, v0 = v1 - 1 / ROWS;
         const hw = s.w / 2, hh = s.h / 2;
-        const corners = [[-hw, -hh, u0, v0], [hw, -hh, u1, v0], [hw, hh, u1, v1], [-hw, -hh, u0, v0], [hw, hh, u1, v1], [-hw, hh, u0, v1]];
-        const n = new THREE.Vector3().crossVectors(s.right, s.up).normalize();
-        for (const [a, b, uu, vv] of corners) {
-          o.pos.push(s.c.x + s.right.x * a + s.up.x * b, s.c.y + s.right.y * a + s.up.y * b, s.c.z + s.right.z * a + s.up.z * b);
-          o.nor.push(n.x, n.y, n.z); o.uv.push(uu, vv);
+        n.crossVectors(s.right, s.up).normalize();
+        for (const [a, b, uu, vv] of [[-hw, -hh, u0, v0], [hw, -hh, u1, v0], [hw, hh, u1, v1], [-hw, -hh, u0, v0], [hw, hh, u1, v1], [-hw, hh, u0, v1]]) {
+          pos.setXYZ(vertex, s.c.x + s.right.x * a + s.up.x * b, s.c.y + s.right.y * a + s.up.y * b, s.c.z + s.right.z * a + s.up.z * b);
+          nor.setXYZ(vertex, n.x, n.y, n.z); uv.setXY(vertex++, uu, vv);
         }
       }
+      for (const attr of [pos, nor, uv]) { attr.clearUpdateRanges(); attr.addUpdateRange(0, vertices * attr.itemSize); attr.needsUpdate = true; }
+      // Frustum culling stays disabled as before; retained unused buffer capacity
+      // must not influence bounds, visibility or source facade placement.
+      this.stats.geometryUpdates++;
     }
-    this.pages.forEach((pg, pi) => {
-      if (dirty.has(pi)) pg.tex.needsUpdate = true;
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.Float32BufferAttribute(out[pi].pos, 3));
-      geo.setAttribute('normal', new THREE.Float32BufferAttribute(out[pi].nor, 3));
-      geo.setAttribute('uv', new THREE.Float32BufferAttribute(out[pi].uv, 2));
-      pg.mesh.geometry.dispose(); pg.mesh.geometry = geo;
-    });
+  }
+  dispose() {
+    this.fontSet?.removeEventListener('loadingdone', this.onFontsLoaded); this.fontSet = null;
+    for (const pg of this.pages) { pg.mesh.geometry.dispose(); pg.tex.dispose(); }
+    for (const mat of this.material) mat.dispose();
+    this.group.clear(); this.pages.length = 0; this.material.length = 0;
+    this.signs.length = 0; this.grid.clear(); this.slotOf.clear(); this.active.clear();
+    this.revision++; this.selectedRevision = -1;
   }
 }
 

@@ -1,14 +1,25 @@
 import type { LandmarkPlace, PlaceIcon } from '../world/landmark_catalog';
 
 export interface PlaceMarker { x: number; y: number; place: LandmarkPlace; members: LandmarkPlace[] }
+// Search and category browsing still use the full catalogue. The default map
+// reveals local detail only as streets become readable at the corresponding zoom.
+export function mapPlaceCandidates(places: LandmarkPlace[], scale: number, selected?: string, filtered = false) {
+  return places.filter(p => p.id === selected || filtered || scale >= 1.3 || (p.priority >= 1 && scale >= .75) || (p.priority >= 2 && scale >= .04));
+}
 export function layoutPlaceMarkers(places: LandmarkPlace[], view: { cx: number; cz: number; scale: number; width: number; height: number }, selected?: string): PlaceMarker[] {
   const { cx, cz, scale, width, height } = view, markers: PlaceMarker[] = [], occupied = new Map<string, PlaceMarker>();
-  const cell = scale < 0.07 ? 52 : scale < 0.2 ? 36 : 26;
+  const cell = scale < 0.07 ? 64 : scale < 0.2 ? 56 : 44;
   const sorted = [...places].sort((a, b) => Number(b.id === selected) - Number(a.id === selected) || b.priority - a.priority || a.id.localeCompare(b.id));
   for (const place of sorted) {
     const x = width / 2 + (place.x - cx) * scale, y = height / 2 + (place.z - cz) * scale;
     if (x < -24 || y < -24 || x > width + 24 || y > height + 24) continue;
-    const key = `${Math.floor(x / cell)}_${Math.floor(y / cell)}`, prior = occupied.get(key);
+    const ix = Math.floor(x / cell), iy = Math.floor(y / cell), key = `${ix}_${iy}`;
+    let prior = occupied.get(key);
+    for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) {
+      const candidate = occupied.get(`${ix + dx}_${iy + dy}`);
+      if (candidate && Math.hypot(x - candidate.x, y - candidate.y) < cell &&
+        (!prior || Math.hypot(x - candidate.x, y - candidate.y) < Math.hypot(x - prior.x, y - prior.y))) prior = candidate;
+    }
     if (prior) prior.members.push(place);
     else { const marker = { x, y, place, members: [place] }; markers.push(marker); occupied.set(key, marker); }
   }

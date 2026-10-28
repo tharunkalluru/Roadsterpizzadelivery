@@ -1,16 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="game-loading">
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2317132b'/%3E%3Cpath d='M7 22L14 8h6l5 14H7Z' fill='%2345e3d3'/%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pizza to Picture Hall</title>
+<title>Hyderabad Roadster</title>
+<meta name="description" content="Drive, fly and deliver pizza across Hyderabad in your Roadster.">
 <link rel="stylesheet" href="./fonts/fonts.css">
-<style>html,body{margin:0;height:100%;background:#17132B;overflow:hidden}#game{position:fixed;inset:0}#game canvas{display:block;width:100%;height:100%}#loading{position:fixed;inset:0;display:grid;place-items:center;color:#F6EEDC;font:800 20px 'Baloo 2',system-ui,sans-serif;pointer-events:none}#loading[hidden]{display:none}</style>
+<style>
+html,body{margin:0;height:100%;background:#17132B;overflow:hidden}#game{position:fixed;inset:0}#game canvas{display:block;width:100%;height:100%}.game-loading #game,.game-loading #hud{visibility:hidden!important;pointer-events:none!important}
+#loading{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;box-sizing:border-box;padding:24px;color:#F6EEDC;background:#17132B;font:700 16px 'Baloo 2',system-ui,sans-serif;text-align:center;isolation:isolate}#loading[hidden]{display:none}.loading-card{width:min(580px,100%)}.loading-kicker{color:#45E3D3;letter-spacing:.2em;font-size:12px;text-transform:uppercase}.loading-title{margin:7px 0 0;font:400 clamp(24px,5vw,42px)/1.2 'Bungee',system-ui,sans-serif;color:#FFB627}.loading-art{display:block;width:min(430px,90%);height:auto;max-height:28vh;margin:22px auto 16px}.loading-status{margin:16px 0 6px;font-size:18px;min-height:1.6em}.loading-steps{display:flex;gap:6px;max-width:290px;margin:0 auto}.loading-steps span{flex:1;height:5px;border-radius:5px;background:#443457}.loading-steps [data-state=done]{background:#45E3D3}.loading-steps [data-state=current]{background:#FFB627;animation:load-pulse 1.4s ease-in-out infinite}.loading-note{font-size:13px;color:#BDAED6;margin:12px 0 0}.loading-retry{margin:18px auto 0;border:2px solid #FFE7A3;border-radius:20px;padding:12px 24px;color:#17132B;background:#FFB627;font:400 16px 'Bungee',system-ui,sans-serif;cursor:pointer}.loading-retry:focus-visible{outline:3px solid #45E3D3;outline-offset:5px}#loading[data-state=error] .loading-steps{visibility:hidden}@keyframes load-pulse{50%{opacity:.45}}
+@media(max-height:460px){#loading{padding:12px}.loading-art{max-height:24vh;margin:8px auto}.loading-title{font-size:25px}.loading-status{margin:8px 0 5px}.loading-note{margin-top:6px}.loading-kicker{font-size:10px}}@media(prefers-reduced-motion:reduce){.loading-steps [data-state=current]{animation:none}}
+</style>
 </head>
 <body>
 <div id="game"></div>
 <div id="hud"></div>
-<div id="loading">Loading…</div>
+<div id="loading" role="region" aria-label="Loading Hyderabad Roadster" aria-busy="true"><div class="loading-card">
+<div class="loading-kicker">Your Hyderabad delivery drive</div><h1 class="loading-title">Hyderabad Roadster</h1>
+<svg class="loading-art" viewBox="0 0 460 160" aria-hidden="true" focusable="false">
+<path fill="#271936" d="M15 130V70h42v60h12V40h50v90h13V60h38v70h17V25h38v105h17V48h56v82h19V68h42v62h15V46h47v84h19V82h35v48Z"/>
+<path stroke="#70568B" stroke-width="3" d="M21 135h418M80 55h28m-28 14h28m35 7h17m37-32h17m-17 15h17m43 4h35m-35 16h35m86-16h27m-27 17h27"/>
+<path fill="none" stroke="#FFB627" stroke-width="5" stroke-linecap="round" stroke-dasharray="16 12" d="M34 150h392"/>
+<g transform="translate(123 72)"><path fill="#45E3D3" stroke="#0D0B1C" stroke-width="4" d="m10 33 26-11 21-25h72l26 25 39 9 6 23H4Z"/><path fill="#17132B" d="M62 3h61l18 19H45Z"/><path stroke="#F6EEDC" stroke-width="3" d="m94 3-3 19m-62 9h143"/><rect x="78" y="-13" width="36" height="11" rx="2" fill="#FFB627"/><path fill="#FF5D7D" d="M7 36h11v8H7Z"/><path fill="#F6EEDC" d="M182 36h11v8h-11Z"/><circle cx="43" cy="52" r="17" fill="#0D0B1C" stroke="#BDAED6" stroke-width="4"/><circle cx="162" cy="52" r="17" fill="#0D0B1C" stroke="#BDAED6" stroke-width="4"/><circle cx="43" cy="52" r="6" fill="#45E3D3"/><circle cx="162" cy="52" r="6" fill="#45E3D3"/></g></svg>
+<p class="loading-status" id="loading-status" role="status" aria-live="polite">Getting your Roadster ready…</p><div class="loading-steps" aria-hidden="true"><span data-load-step data-state="current"></span><span data-load-step></span><span data-load-step></span><span data-load-step></span></div><p class="loading-note">Drive. Fly. Deliver.</p><div id="loading-actions"></div></div></div>
 <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

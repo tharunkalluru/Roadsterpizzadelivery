@@ -1,7 +1,22 @@
 // Shared chrome for the approved plum-and-neon interface. World rendering stays separate.
 export const PROTOTYPE_THEME_CSS = `
-:root{--ink:#171125;--panel:rgba(25,16,43,.96);--line:#5C427D;--cream:#FFF9EA;--muted:#D3C8E8;--saffron:#FFBF00;--teal:#20F2D5;--heat:#FF8A24;--pink:#FF4FAE;--success:#30ED78;--ui-plum:linear-gradient(155deg,rgba(54,33,78,.98),rgba(24,15,41,.97) 65%);--ui-rim:#B98CEB;--ui-panel-shadow:inset 0 1px 0 rgba(255,249,234,.15),0 3px 0 #130D20,0 6px 18px rgba(10,6,23,.24);--ui-gold-shadow:inset 0 2px 0 #FFF0A2,inset 0 -4px 0 #E38B00,0 0 0 2px #522748,0 0 14px rgba(255,177,29,.26);--display:'Bungee','Arial Black',system-ui,sans-serif;--body:'Baloo 2','Noto Sans Telugu','Trebuchet MS',system-ui,sans-serif}
+:root{--ink:#171125;--panel:#19102B;--line:#5C427D;--cream:#FFF9EA;--muted:#D3C8E8;--saffron:#FFBF00;--teal:#20F2D5;--heat:#FF8A24;--pink:#FF4FAE;--success:#30ED78;--ui-plum:linear-gradient(155deg,#36214E,#180F29 65%);--ui-rim:#B98CEB;--ui-panel-shadow:inset 0 1px 0 rgba(255,249,234,.15),0 3px 0 #130D20,0 6px 18px rgba(10,6,23,.24);--ui-gold-shadow:inset 0 2px 0 #FFF0A2,inset 0 -4px 0 #E38B00,0 0 0 2px #522748,0 0 14px rgba(255,177,29,.26);--display:'Bungee','Arial Black',system-ui,sans-serif;--body:'Baloo 2','Noto Sans Telugu','Trebuchet MS',system-ui,sans-serif}
 #hud [hidden]{display:none!important}
+#hud{isolation:isolate;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+/* Fullscreen surfaces also suppress covered layers: opaque paint alone must not
+   be the only protection against stale Android WebGL/compositor textures. */
+#hud.title-open>:not(.title-screen):not(.modal):not(.rotate),
+#hud.area-picker-open>:not(.apick):not(.modal):not(.rotate),
+#hud.has-modal>:not(.modal):not(.rotate),
+#hud.has-tip>:not(.tip-overlay):not(.rotate),
+#hud.rotation-blocked>:not(.rotate){visibility:hidden!important;pointer-events:none!important}
+#hud.title-open.has-modal>.title-screen{visibility:hidden!important}
+#hud .title-screen,#hud .apick,#hud .rotate{box-sizing:border-box;background-color:#171125;isolation:isolate}
+#hud .offer,#hud .sheet,#hud .tip{background-color:#21152F}
+#hud .tip-overlay,#hud .modal{backdrop-filter:none;-webkit-backdrop-filter:none}
+.is-touch #hud .ui-icon,.is-touch #hud .tb,.is-touch #hud .tb:active,.is-touch #hud .tb.on{filter:none}
+.is-touch #hud.has-offer .touch{visibility:hidden}
+
 #hud *{scrollbar-width:thin;scrollbar-color:#9771B5 #241832}
 #hud ::-webkit-scrollbar{width:6px;height:6px}
 #hud ::-webkit-scrollbar-track{background:#241832;border-radius:8px}
@@ -15,7 +30,7 @@ export const PROTOTYPE_THEME_CSS = `
 #hud .btn{box-sizing:border-box;min-height:44px;border:2px solid #B99AE1;border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,249,234,.22),0 3px 0 #100B1D;display:inline-flex;align-items:center;justify-content:center;gap:8px}
 #hud .btn.go{background:linear-gradient(160deg,#FFD52B,#FFBF00 58%,#FFAA00);border-color:#FFF0A2;color:var(--ink);box-shadow:var(--ui-gold-shadow)}
 #hud .btn.alt{background:linear-gradient(155deg,#443158,#2C203E);border-color:#82629F;color:var(--cream)}
-#hud .modal{background:rgba(12,7,24,.8);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+#hud .modal{background:#140D22}
 #hud .sheet{background:var(--ui-plum);border:2px solid var(--ui-rim);border-radius:24px;box-shadow:inset 0 0 0 2px rgba(234,210,255,.08),0 0 18px rgba(160,100,234,.22),0 20px 70px rgba(0,0,0,.48);padding:20px;color:var(--cream)}
 #hud .sheet h2{color:var(--cream);text-shadow:0 2px 0 #10091D}
 #hud .sheet .k{color:var(--saffron)}

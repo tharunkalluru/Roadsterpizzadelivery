@@ -15,10 +15,7 @@ const CSS = `
 .title-screen .how svg{width:23px;height:23px;display:block}
 .title-screen .how b{font-family:var(--display);font-weight:400;font-size:15px}
 .title-screen .how span{font-size:14px;color:var(--muted);line-height:1.3}
-.title-screen .ctl{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 14px;line-height:1.6}
-.title-screen .ctl b{font-family:var(--display);font-weight:400;font-size:11px;color:var(--cream);background:linear-gradient(150deg,#51376B,#2A1C3B);border:1px solid #7A5899;border-radius:7px;padding:2px 7px;white-space:nowrap}
 .title-screen .acts{display:flex;gap:8px;flex-wrap:wrap}.title-screen .acts .btn{flex:1;min-width:180px;height:52px;font-size:17px}
-.title-screen .src{font-size:11px;color:rgba(246,238,220,.55)}
 @media (max-height:520px){.title-screen{padding-block:12px}.title-screen h1{font-size:30px}.title-screen .br{display:none}.title-screen .tag{font-size:14px}.title-screen .in{gap:9px}.title-screen .how>div{padding:10px;gap:5px}.title-screen .how .how-icon{width:28px;height:28px}.title-screen .how svg{width:18px;height:18px}.title-screen .how span{font-size:12px}.title-screen .acts .btn{height:44px}.title-screen .eyebrow{padding:4px 10px;font-size:9px}}
 `;
 
@@ -30,29 +27,23 @@ export class TitleScreen {
     const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
     installPrototypeTheme();
     this.root = document.createElement('div'); this.root.className = 'title-screen'; this.root.hidden = true;
-    this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-label', 'Pizza to Picture Hall');
-    const keys = touch
-      ? '<span><b>← →</b> steer</span><span><b>GO</b> hold to accelerate</span><span><b>BRAKE</b> brake / reverse</span><span><b>CRUISE</b> hold your current speed</span><span><b>FLY / LAND</b> take off / descend</span><span><b>Collect / Hand over</b> hold the button that appears in the middle</span><span><b>MAP</b> tap the minimap</span>'
-      : '<span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>S</b> brake / reverse</span><span><b>SPACE</b> fly</span><span><b>E</b> accept, hold to collect / hand over</span><span><b>M</b> map</span><span><b>T</b> theatres</span><span><b>P</b> pause</span>';
+    this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-label', 'Hyderabad Roadster');
     this.root.innerHTML = `<div class="in">
-      <div class="eyebrow"><i aria-hidden="true"></i>Hyderabad · Delivery & cinema</div>
-      <h1>Pizza to<br class="br"> Picture Hall</h1>
-      <p class="tag">Fly a pizza roadster across Hyderabad. Deliver it hot, earn coins, run a picture hall.</p>
+      <div class="eyebrow"><i aria-hidden="true"></i>Hyderabad · Delivery & flight</div>
+      <h1>Hyderabad<br class="br"> Roadster</h1>
+      <p class="tag">Deliver it hot. Take to the skies.</p>
       <div class="how">
-        <div><span class="how-icon" style="color:var(--saffron)" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l1 14H4L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2M8 13h8M9 17h6"/></svg></span><b style="color:var(--saffron)">1 · Deliver</b><span>Accept an order, collect the pizza at the kitchen (orange marker) and race it to the customer (teal marker) before it goes cold. Bumping into traffic costs slices.</span></div>
-        <div><span class="how-icon" style="color:var(--teal)" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.5 7.5L22 14v3l-8-3v5l3 2v1l-5-1-5 1v-1l3-2v-5l-8 3v-3l6.5-4.5L12 2Z"/></svg></span><b style="color:var(--teal)">2 · Fly</b><span>Press ${touch ? 'FLY' : 'Space'} to lift off over traffic, flyovers and rooftops. Flight is unlimited. Press again to land.${touch ? ' The button changes to LAND in the air.' : ''}</span></div>
-        <div><span class="how-icon" style="color:var(--pink)" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 3v18M17 3v18M3 8h4m10 0h4M3 16h4m10 0h4m-10-6 5 3-5 3v-6Z"/></svg></span><b style="color:var(--pink)">3 · Run a picture hall</b><span>Spend your coins to lease a single-screen theatre, choose a film and a campaign, and watch the collections come in each night.</span></div>
+        <div><span class="how-icon" style="color:var(--saffron)" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l1 14H4L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2M8 13h8M9 17h6"/></svg></span><b style="color:var(--saffron)">1 · Deliver</b><span>Accept an order, collect the pizza, and deliver to the customer.</span></div>
+        <div><span class="how-icon" style="color:var(--teal)" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.5 7.5L22 14v3l-8-3v5l3 2v1l-5-1-5 1v-1l3-2v-5l-8 3v-3l6.5-4.5L12 2Z"/></svg></span><b style="color:var(--teal)">2 · Fly</b><span>Press ${touch ? 'FLY' : 'Space'} to fly, or ${touch ? 'JUMP' : 'J'} for a short moving kickflip.</span></div>
       </div>
-      <div class="ctl">${keys}</div>
       <div class="acts"><button type="button" class="btn go" id="tt-play">Play</button><button type="button" class="btn alt" id="tt-set">Settings</button></div>
-      <div class="src">Streets, buildings and shop names from OpenStreetMap, Overture Maps, Foursquare and Mapillary street photos. Films and orders are made up.</div>
     </div>`;
     host.appendChild(this.root);
     this.root.querySelector('#tt-play')!.addEventListener('click', () => { if (touch) goFullscreen(); this.hide(); this.onPlay(); });
-    this.root.querySelector('#tt-set')!.addEventListener('click', () => this.onSettings());
+    this.root.querySelector('#tt-set')!.addEventListener('click', () => { this.hide(); this.onSettings(); });
   }
-  show() { this.root.hidden = false; (this.root.querySelector('#tt-play') as HTMLElement).focus(); }
-  hide() { this.root.hidden = true; }
+  show() { this.root.hidden = false; this.root.parentElement?.classList.add('title-open'); (this.root.querySelector('#tt-play') as HTMLElement).focus(); }
+  hide() { this.root.hidden = true; this.root.parentElement?.classList.remove('title-open'); }
   get open() { return !this.root.hidden; }
 }
 

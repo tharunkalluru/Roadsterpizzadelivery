@@ -1,0 +1,1298 @@
+{
+  "kind": "bounded synthetic actual-Player/Engine baseline vs batched comparison; no gameplay/FPS claim",
+  "started": "2026-10-28T10:58:34.136Z",
+  "ended": "2026-10-28T10:58:54.975Z",
+  "environment": "isolated headless Chrome on host; root gameplay paused after frozen endurance;1280x720 DPR1; High physical materials,PMREM,shadowmap,bloom; no other agent browser input",
+  "records": [
+    {
+      "name": "front-day-ground",
+      "baseline": "output/playwright/roadster-visual-fixture/captures/front-day-ground-baseline.png",
+      "candidate": "output/playwright/roadster-visual-fixture/captures/front-day-ground-candidate.png",
+      "diff": "output/playwright/roadster-visual-fixture/captures/front-day-ground-diff.png",
+      "mae": 0.0,
+      "maxChannelDiff": 0,
+      "changedPixels": 0,
+      "totalPixels": 921600,
+      "changedPercent": 0.0,
+      "baselineSha256": "585486436a07babe4812d0a207e99a07459f415529dca06b502803f6bdbebd64",
+      "candidateSha256": "585486436a07babe4812d0a207e99a07459f415529dca06b502803f6bdbebd64"
+    },
+    {
+      "name": "front-day-partial",
+      "baseline": "output/playwright/roadster-visual-fixture/captures/front-day-partial-baseline.png",
+      "candidate": "output/playwright/roadster-visual-fixture/captures/front-day-partial-candidate.png",
+      "diff": "output/playwright/roadster-visual-fixture/captures/front-day-partial-diff.png",
+      "mae": 0.0,
+      "maxChannelDiff": 0,
+      "changedPixels": 0,
+      "totalPixels": 921600,
+      "changedPercent": 0.0,
+      "baselineSha256": "c8b0dabf0e4af24a7a5e7683b68f571da9d87097af9cfd6061e300d2bf7fc9b6",
+      "candidateSha256": "c8b0dabf0e4af24a7a5e7683b68f571da9d87097af9cfd6061e300d2bf7fc9b6"
+    },
+    {
+      "name": "front-night-ground",
+      "baseline": "output/playwright/roadster-visual-fixture/captures/front-night-ground-baseline.png",
+      "candidate": "output/playwright/roadster-visual-fixture/captures/front-night-ground-candidate.png",
+      "diff": "output/playwright/roadster-visual-fixture/captures/front-night-ground-diff.png",
+      "mae": 3.616898148148148e-07,
+      "maxChannelDiff": 1,
+      "changedPixels": 1,
+      "totalPixels": 921600,
+      "changedPercent": 0.00010850694444444444,
+      "baselineSha256": "1e5ad75581f55c50aff45bf6d487828118e842edb8d49988e8a4726a6999a1af",
+      "candidateSha256": "36228e27f7320f3c549cd8a92f3278dd490b65b3932c8114c39f40ca20f16de7"
+    },
+    {
+      "name": "rear-day-ground",
+      "baseline": "output/playwright/roadster-visual-fixture/captures/rear-day-ground-baseline.png",
+      "candidate": "output/playwright/roadster-visual-fixture/captures/rear-day-ground-candidate.png",
+      "diff": "output/playwright/roadster-visual-fixture/captures/rear-day-ground-diff.png",
+      "mae": 1.8084490740740741e-06,
+      "maxChannelDiff": 2,
+      "changedPixels": 1,
+      "totalPixels": 921600,
+      "changedPercent": 0.00010850694444444444,
+      "baselineSha256": "4b53b62e965f21ee535b03d0c5639d380e4e7050adba0d854d08963429aa5b07",
+      "candidateSha256": "6d17d0e28c3c434cffb6c555af82ccbf85d197a0314271628b91dcd498e6f525"
+    },
+    {
+      "name": "rear-night-flight",
+      "baseline": "output/playwright/roadster-visual-fixture/captures/rear-night-flight-baseline.png",
+      "candidate": "output/playwright/roadster-visual-fixture/captures/rear-night-flight-candidate.png",
+      "diff": "output/playwright/roadster-visual-fixture/captures/rear-night-flight-diff.png",
+      "mae": 3.616898148148148e-07,
+      "maxChannelDiff": 1,
+      "changedPixels": 1,
+      "totalPixels": 921600,
+      "changedPercent": 0.00010850694444444444,
+      "baselineSha256": "c17943b8d93ee7703385811ab7280accc3533c71538421fc5b85c2b8ff7d879f",
+      "candidateSha256": "de9b2ea595bd052debe5ec3444fa6e60d0ef12b9f262e1478a5f59694bfe1879"
+    },
+    {
+      "name": "rear-night-ground",
+      "baseline": "output/playwright/roadster-visual-fixture/captures/rear-night-ground-baseline.png",
+      "candidate": "output/playwright/roadster-visual-fixture/captures/rear-night-ground-candidate.png",
+      "diff": "output/playwright/roadster-visual-fixture/captures/rear-night-ground-diff.png",
+      "mae": 0.0,
+      "maxChannelDiff": 0,
+      "changedPixels": 0,
+      "totalPixels": 921600,
+      "changedPercent": 0.0,
+      "baselineSha256": "856f8f3d4f861ff69252655ab1ed659d64ede3e160b9ec614ecaf59c2d8fc96c",
+      "candidateSha256": "856f8f3d4f861ff69252655ab1ed659d64ede3e160b9ec614ecaf59c2d8fc96c"
+    },
+    {
+      "name": "side-day-kickflip",
+      "baseline": "output/playwright/roadster-visual-fixture/captures/side-day-kickflip-baseline.png",
+      "candidate": "output/playwright/roadster-visual-fixture/captures/side-day-kickflip-candidate.png",
+      "diff": "output/playwright/roadster-visual-fixture/captures/side-day-kickflip-diff.png",
+      "mae": 1.4467592592592592e-06,
+      "maxChannelDiff": 1,
+      "changedPixels": 4,
+      "totalPixels": 921600,
+      "changedPercent": 0.00043402777777777775,
+      "baselineSha256": "e93bfbcd783bdfbaa81fdf4cbba7581a84e8fb93f316b5f773a5e817ab3c0ab6",
+      "candidateSha256": "307bed1798111723cd8a12d2014b55126a4a61a5c38f628433266666cff84a44"
+    },
+    {
+      "name": "wheel-day-steer",
+      "baseline": "output/playwright/roadster-visual-fixture/captures/wheel-day-steer-baseline.png",
+      "candidate": "output/playwright/roadster-visual-fixture/captures/wheel-day-steer-candidate.png",
+      "diff": "output/playwright/roadster-visual-fixture/captures/wheel-day-steer-diff.png",
+      "mae": 2.4956597222222224e-05,
+      "maxChannelDiff": 4,
+      "changedPixels": 43,
+      "totalPixels": 921600,
+      "changedPercent": 0.004665798611111111,
+      "baselineSha256": "c6acd25dcb316fad5b22e4d483dd466985ae184184c3c6695c2a272f698135a7",
+      "candidateSha256": "60ce2db116a1686e3d5151998105d1f6bb7b00e6df395e69f356d4177241387a"
+    },
+    {
+      "name": "wheel-night-steer",
+      "baseline": "output/playwright/roadster-visual-fixture/captures/wheel-night-steer-baseline.png",
+      "candidate": "output/playwright/roadster-visual-fixture/captures/wheel-night-steer-candidate.png",
+      "diff": "output/playwright/roadster-visual-fixture/captures/wheel-night-steer-diff.png",
+      "mae": 2.5318287037037036e-06,
+      "maxChannelDiff": 1,
+      "changedPixels": 7,
+      "totalPixels": 921600,
+      "changedPercent": 0.0007595486111111111,
+      "baselineSha256": "455faf7010ae1eae8052d0283fc1264923f9fe38e04977b410125abe7c57152f",
+      "candidateSha256": "5573ffd52b56bbfda43db9e9c7093dfdd159e2bbd5f9be7cf58eb809f451c29e"
+    }
+  ],
+  "runs": [
+    {
+      "started": "2026-10-28T10:58:34.136Z",
+      "ended": "2026-10-28T10:58:36.176Z",
+      "kind": "isolated headless synthetic actual Player/Engine image comparison; root gameplay paused; no FPS claim",
+      "results": [
+        {
+          "name": "rear-day-ground",
+          "variant": "baseline",
+          "path": "output/playwright/roadster-visual-fixture/captures/rear-day-ground-baseline.png",
+          "at": "2026-10-28T10:58:34.404Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "baseline",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "rear",
+              "mood": "day",
+              "deployment": 0,
+              "steer": 0,
+              "wheelRoll": 0,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 170,
+            "visibleMeshes": 146,
+            "uniqueGeometry": 164,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.129999999552965,
+                "y": -0.8149396736347957,
+                "z": -2.339999999552965
+              },
+              "max": {
+                "x": 1.129999999552965,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 318,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 158,
+              "textures": 20
+            },
+            "batching": null,
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "rear-day-ground",
+          "variant": "candidate",
+          "path": "output/playwright/roadster-visual-fixture/captures/rear-day-ground-candidate.png",
+          "at": "2026-10-28T10:58:34.682Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "candidate",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "rear",
+              "mood": "day",
+              "deployment": 0,
+              "steer": 0,
+              "wheelRoll": 0,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 89,
+            "visibleMeshes": 65,
+            "uniqueGeometry": 86,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.129999999552965,
+                "y": -0.8149396736347957,
+                "z": -2.3399999141693115
+              },
+              "max": {
+                "x": 1.129999999552965,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 156,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 80,
+              "textures": 20
+            },
+            "batching": {
+              "batches": 11,
+              "mergedMeshes": 92,
+              "disposedGeometries": 89
+            },
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "front-day-ground",
+          "variant": "baseline",
+          "path": "output/playwright/roadster-visual-fixture/captures/front-day-ground-baseline.png",
+          "at": "2026-10-28T10:58:34.926Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "baseline",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "front",
+              "mood": "day",
+              "deployment": 0,
+              "steer": 0,
+              "wheelRoll": 0,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 170,
+            "visibleMeshes": 146,
+            "uniqueGeometry": 164,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.129999999552965,
+                "y": -0.8149396736347957,
+                "z": -2.339999999552965
+              },
+              "max": {
+                "x": 1.129999999552965,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 318,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 158,
+              "textures": 20
+            },
+            "batching": null,
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "front-day-ground",
+          "variant": "candidate",
+          "path": "output/playwright/roadster-visual-fixture/captures/front-day-ground-candidate.png",
+          "at": "2026-10-28T10:58:35.176Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "candidate",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "front",
+              "mood": "day",
+              "deployment": 0,
+              "steer": 0,
+              "wheelRoll": 0,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 89,
+            "visibleMeshes": 65,
+            "uniqueGeometry": 86,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.129999999552965,
+                "y": -0.8149396736347957,
+                "z": -2.3399999141693115
+              },
+              "max": {
+                "x": 1.129999999552965,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 156,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 80,
+              "textures": 20
+            },
+            "batching": {
+              "batches": 11,
+              "mergedMeshes": 92,
+              "disposedGeometries": 89
+            },
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "rear-night-ground",
+          "variant": "baseline",
+          "path": "output/playwright/roadster-visual-fixture/captures/rear-night-ground-baseline.png",
+          "at": "2026-10-28T10:58:35.427Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "baseline",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "rear",
+              "mood": "night",
+              "deployment": 0,
+              "steer": 0,
+              "wheelRoll": 0,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 170,
+            "visibleMeshes": 146,
+            "uniqueGeometry": 164,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.129999999552965,
+                "y": -0.8149396736347957,
+                "z": -2.339999999552965
+              },
+              "max": {
+                "x": 1.129999999552965,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 318,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 158,
+              "textures": 20
+            },
+            "batching": null,
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "rear-night-ground",
+          "variant": "candidate",
+          "path": "output/playwright/roadster-visual-fixture/captures/rear-night-ground-candidate.png",
+          "at": "2026-10-28T10:58:35.675Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "candidate",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "rear",
+              "mood": "night",
+              "deployment": 0,
+              "steer": 0,
+              "wheelRoll": 0,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 89,
+            "visibleMeshes": 65,
+            "uniqueGeometry": 86,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.129999999552965,
+                "y": -0.8149396736347957,
+                "z": -2.3399999141693115
+              },
+              "max": {
+                "x": 1.129999999552965,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 156,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 80,
+              "textures": 20
+            },
+            "batching": {
+              "batches": 11,
+              "mergedMeshes": 92,
+              "disposedGeometries": 89
+            },
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "front-night-ground",
+          "variant": "baseline",
+          "path": "output/playwright/roadster-visual-fixture/captures/front-night-ground-baseline.png",
+          "at": "2026-10-28T10:58:35.925Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "baseline",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "front",
+              "mood": "night",
+              "deployment": 0,
+              "steer": 0,
+              "wheelRoll": 0,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 170,
+            "visibleMeshes": 146,
+            "uniqueGeometry": 164,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.129999999552965,
+                "y": -0.8149396736347957,
+                "z": -2.339999999552965
+              },
+              "max": {
+                "x": 1.129999999552965,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 318,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 158,
+              "textures": 20
+            },
+            "batching": null,
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "front-night-ground",
+          "variant": "candidate",
+          "path": "output/playwright/roadster-visual-fixture/captures/front-night-ground-candidate.png",
+          "at": "2026-10-28T10:58:36.176Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "candidate",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "front",
+              "mood": "night",
+              "deployment": 0,
+              "steer": 0,
+              "wheelRoll": 0,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 89,
+            "visibleMeshes": 65,
+            "uniqueGeometry": 86,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.129999999552965,
+                "y": -0.8149396736347957,
+                "z": -2.3399999141693115
+              },
+              "max": {
+                "x": 1.129999999552965,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 156,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 80,
+              "textures": 20
+            },
+            "batching": {
+              "batches": 11,
+              "mergedMeshes": 92,
+              "disposedGeometries": 89
+            },
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        }
+      ],
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "started": "2026-10-28T10:58:52.385Z",
+      "ended": "2026-10-28T10:58:54.975Z",
+      "kind": "isolated headless synthetic actual Player/Engine image comparison; root gameplay paused; no FPS claim",
+      "results": [
+        {
+          "name": "wheel-day-steer",
+          "variant": "baseline",
+          "path": "output/playwright/roadster-visual-fixture/captures/wheel-day-steer-baseline.png",
+          "at": "2026-10-28T10:58:52.645Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "baseline",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "wheel",
+              "mood": "day",
+              "deployment": 0,
+              "steer": 0.75,
+              "wheelRoll": 1.2,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 170,
+            "visibleMeshes": 146,
+            "uniqueGeometry": 164,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.1935731139291936,
+                "y": -0.8149396736347957,
+                "z": -2.339999999552965
+              },
+              "max": {
+                "x": 1.1935731139291936,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 318,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 158,
+              "textures": 20
+            },
+            "batching": null,
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "wheel-day-steer",
+          "variant": "candidate",
+          "path": "output/playwright/roadster-visual-fixture/captures/wheel-day-steer-candidate.png",
+          "at": "2026-10-28T10:58:52.878Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "candidate",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "wheel",
+              "mood": "day",
+              "deployment": 0,
+              "steer": 0.75,
+              "wheelRoll": 1.2,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 89,
+            "visibleMeshes": 65,
+            "uniqueGeometry": 86,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.2163453864254152,
+                "y": -0.8149396736347957,
+                "z": -2.3399999141693115
+              },
+              "max": {
+                "x": 1.2163453864254152,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 156,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 80,
+              "textures": 20
+            },
+            "batching": {
+              "batches": 11,
+              "mergedMeshes": 92,
+              "disposedGeometries": 89
+            },
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "wheel-night-steer",
+          "variant": "baseline",
+          "path": "output/playwright/roadster-visual-fixture/captures/wheel-night-steer-baseline.png",
+          "at": "2026-10-28T10:58:53.130Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "baseline",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "wheel",
+              "mood": "night",
+              "deployment": 0,
+              "steer": -0.75,
+              "wheelRoll": 2.8,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 170,
+            "visibleMeshes": 146,
+            "uniqueGeometry": 164,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.1918335685678951,
+                "y": -0.8149396736347957,
+                "z": -2.339999999552965
+              },
+              "max": {
+                "x": 1.1918335685678951,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 318,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 158,
+              "textures": 20
+            },
+            "batching": null,
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "wheel-night-steer",
+          "variant": "candidate",
+          "path": "output/playwright/roadster-visual-fixture/captures/wheel-night-steer-candidate.png",
+          "at": "2026-10-28T10:58:53.377Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "candidate",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "wheel",
+              "mood": "night",
+              "deployment": 0,
+              "steer": -0.75,
+              "wheelRoll": 2.8,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 89,
+            "visibleMeshes": 65,
+            "uniqueGeometry": 86,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.2149150936111937,
+                "y": -0.8149396736347957,
+                "z": -2.3399999141693115
+              },
+              "max": {
+                "x": 1.2149150936111937,
+                "y": 1.334330677986145,
+                "z": 3.3543675069210446
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 156,
+              "triangles": 28154,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 80,
+              "textures": 20
+            },
+            "batching": {
+              "batches": 11,
+              "mergedMeshes": 92,
+              "disposedGeometries": 89
+            },
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "side-day-kickflip",
+          "variant": "baseline",
+          "path": "output/playwright/roadster-visual-fixture/captures/side-day-kickflip-baseline.png",
+          "at": "2026-10-28T10:58:53.764Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "baseline",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "side",
+              "mood": "day",
+              "deployment": 1,
+              "steer": -0.7,
+              "wheelRoll": 2.8,
+              "kickflip": 1.1
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 170,
+            "visibleMeshes": 170,
+            "uniqueGeometry": 164,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.036978097909427,
+                "y": 0.8825172177060969,
+                "z": -2.339999999552965
+              },
+              "max": {
+                "x": 3.3429451859876846,
+                "y": 4.82723100158494,
+                "z": 3.8959813243395827
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 382,
+              "triangles": 29146,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 183,
+              "textures": 21
+            },
+            "batching": null,
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "side-day-kickflip",
+          "variant": "candidate",
+          "path": "output/playwright/roadster-visual-fixture/captures/side-day-kickflip-candidate.png",
+          "at": "2026-10-28T10:58:54.014Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "candidate",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "side",
+              "mood": "day",
+              "deployment": 1,
+              "steer": -0.7,
+              "wheelRoll": 2.8,
+              "kickflip": 1.1
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 89,
+            "visibleMeshes": 89,
+            "uniqueGeometry": 86,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.0369780922631184,
+                "y": 0.8825172177060969,
+                "z": -2.3399999141693115
+              },
+              "max": {
+                "x": 3.3429451859876846,
+                "y": 4.914485002898882,
+                "z": 3.8959813243395827
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 220,
+              "triangles": 29146,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 105,
+              "textures": 21
+            },
+            "batching": {
+              "batches": 11,
+              "mergedMeshes": 92,
+              "disposedGeometries": 89
+            },
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "rear-night-flight",
+          "variant": "baseline",
+          "path": "output/playwright/roadster-visual-fixture/captures/rear-night-flight-baseline.png",
+          "at": "2026-10-28T10:58:54.259Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "baseline",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "rear",
+              "mood": "night",
+              "deployment": 1,
+              "steer": 0.7,
+              "wheelRoll": 2.8,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 170,
+            "visibleMeshes": 170,
+            "uniqueGeometry": 164,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.4278360023161523,
+                "y": -2.7030294479193664,
+                "z": -2.339999999552965
+              },
+              "max": {
+                "x": 1.3983957887734648,
+                "y": 1.343393826597444,
+                "z": 3.8959813243395827
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 382,
+              "triangles": 29146,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 183,
+              "textures": 21
+            },
+            "batching": null,
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "rear-night-flight",
+          "variant": "candidate",
+          "path": "output/playwright/roadster-visual-fixture/captures/rear-night-flight-candidate.png",
+          "at": "2026-10-28T10:58:54.509Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "candidate",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "rear",
+              "mood": "night",
+              "deployment": 1,
+              "steer": 0.7,
+              "wheelRoll": 2.8,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 89,
+            "visibleMeshes": 89,
+            "uniqueGeometry": 86,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.4278360023161523,
+                "y": -2.7030294479193664,
+                "z": -2.3399999141693115
+              },
+              "max": {
+                "x": 1.3983957887734648,
+                "y": 1.3433938300075894,
+                "z": 3.8959813243395827
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 220,
+              "triangles": 29146,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 105,
+              "textures": 21
+            },
+            "batching": {
+              "batches": 11,
+              "mergedMeshes": 92,
+              "disposedGeometries": 89
+            },
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "front-day-partial",
+          "variant": "baseline",
+          "path": "output/playwright/roadster-visual-fixture/captures/front-day-partial-baseline.png",
+          "at": "2026-10-28T10:58:54.742Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "baseline",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "front",
+              "mood": "day",
+              "deployment": 0.5,
+              "steer": 0.6,
+              "wheelRoll": 1.2,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 170,
+            "visibleMeshes": 170,
+            "uniqueGeometry": 164,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.3628360023161523,
+                "y": -2.653029447919366,
+                "z": -2.339999999552965
+              },
+              "max": {
+                "x": 1.3333957887734649,
+                "y": 1.334330677986145,
+                "z": 3.8359813243395826
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 382,
+              "triangles": 29146,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 183,
+              "textures": 21
+            },
+            "batching": null,
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        },
+        {
+          "name": "front-day-partial",
+          "variant": "candidate",
+          "path": "output/playwright/roadster-visual-fixture/captures/front-day-partial-candidate.png",
+          "at": "2026-10-28T10:58:54.975Z",
+          "meta": {
+            "kind": "synthetic actual-Player/Engine material and geometry fixture; no gameplay/FPS claim",
+            "variant": "candidate",
+            "sourceHash": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720",
+            "pose": {
+              "view": "front",
+              "mood": "day",
+              "deployment": 0.5,
+              "steer": 0.6,
+              "wheelRoll": 1.2,
+              "kickflip": 0
+            },
+            "width": 1280,
+            "height": 720,
+            "dpr": 1,
+            "drawBuffer": [
+              1280,
+              720
+            ],
+            "fontsReady": "loaded",
+            "meshes": 89,
+            "visibleMeshes": 89,
+            "uniqueGeometry": 86,
+            "materials": 17,
+            "carBounds": {
+              "isBox3": true,
+              "min": {
+                "x": -1.3628360023161523,
+                "y": -2.653029447919366,
+                "z": -2.3399999141693115
+              },
+              "max": {
+                "x": 1.3333957887734649,
+                "y": 1.334330677986145,
+                "z": 3.8359813243395826
+              }
+            },
+            "kickflipCentre": 0.11716533184051509,
+            "jumpBodyTop": 2.199999984800815,
+            "render": {
+              "frame": 94,
+              "calls": 220,
+              "triangles": 29146,
+              "points": 0,
+              "lines": 0
+            },
+            "resources": {
+              "geometries": 105,
+              "textures": 21
+            },
+            "batching": {
+              "batches": 11,
+              "mergedMeshes": 92,
+              "disposedGeometries": 89
+            },
+            "physicalCanopy": true,
+            "actualLabelsAndTextures": true,
+            "actualSkyPMREMEnvironment": true,
+            "actualShadowMap": true
+          }
+        }
+      ],
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "contactSheet": "output/playwright/roadster-visual-fixture/captures/contact-sheet.png"
+}

@@ -1,0 +1,5995 @@
+{
+  "started": "2026-10-28T09:39:49.606Z",
+  "ended": "2026-10-28T09:40:16.694Z",
+  "seconds": 27.088,
+  "method": "Actual keyboard W/A/D/S and Space; read-only g.metro.bodies, g.rail.bodies, g.railContacts.attached and source train velocities. No teleport, simulation stepping, hidden mutation, or developer autopilot; CPU setting preserved.",
+  "supportSource": "src/game/moving-rail.ts: MovingRailInteraction.afterPlayer sets attached=roof.body.id, lastKind=rail; beforePlayer carries that body-local position.",
+  "criterion": "Same actual support body >=3 wall and simulation seconds, >=3m body and car world movement, along drift <=1m, side drift <=.45m, feet/roof error <=.25m, relative car speed <=.8m/s; at least 12 observations.",
+  "targetBodyId": "metro:green:0:1:1:0",
+  "outcome": "proven same-body moving-roof carry",
+  "provenRide": true,
+  "flightStarted": false,
+  "landPressed": true,
+  "longestStableSeconds": 3.016666666666495,
+  "maxSpeedKmh": 147.43986810497063,
+  "events": [
+    {
+      "ms": 2,
+      "name": "selected actual body",
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -173.7952806798836,
+        "y": 13.45,
+        "z": 601.1879235022302,
+        "hx": 0.159404921775874,
+        "hz": -0.9872132854219636,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -173.81724313577274,
+          "y": 13.45,
+          "z": 601.3239395548885,
+          "hx": 0.15940492177587232,
+          "hz": -0.9872132854219641,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 8.266666666666657,
+        "dwell": 0,
+        "distance": 628.691626789167,
+        "local": {
+          "along": 624.7275204745272,
+          "side": 70.4889122951858
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 5.630798561612448,
+        "headingDot": 0.9720604339944118
+      }
+    },
+    {
+      "ms": 21734,
+      "name": "LAND via Space over actual rear half of coach",
+      "bodyId": "metro:green:0:1:1:0",
+      "bodySpeedMps": 22,
+      "player": {
+        "x": -106.25965820991064,
+        "y": 24.000000000000696,
+        "z": 231.83400752392524,
+        "yaw": 43.66706607699134,
+        "speedMps": 21.82218558471397,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "local": {
+        "along": -7.740845573878039,
+        "side": 0.25261840062747876
+      },
+      "roof": 17.224999999999998
+    },
+    {
+      "ms": 22900,
+      "name": "actual rail support acquired",
+      "bodyId": "metro:green:0:1:1:0",
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "local": {
+        "along": -6.434831575817293,
+        "side": 0.10322624084945131
+      },
+      "position": {
+        "x": -96.3273079624362,
+        "y": 17.775,
+        "z": 206.75620381585057,
+        "yaw": 43.56899438026945,
+        "speedMps": 22.172185584713926,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      }
+    },
+    {
+      "ms": 27085,
+      "name": "ride proven",
+      "bodyId": "metro:green:0:1:1:0",
+      "startMs": 24067,
+      "startSimTime": 81.64999999999665,
+      "startBody": {
+        "x": -84.43715562083574,
+        "z": 176.9377343319371
+      },
+      "startCar": {
+        "x": -82.27202844984515,
+        "z": 171.7021920203377
+      },
+      "minAlong": 5.660591182541421,
+      "maxAlong": 5.665314894432954,
+      "minSide": 0.053722528099924505,
+      "maxSide": 0.05377938830987938,
+      "maxRoofError": 0,
+      "maxRelativeSpeedMps": 0.2278144152860639,
+      "samples": 27,
+      "wallSeconds": 3.018,
+      "simSeconds": 3.016666666666495,
+      "bodyWorldMetres": 66.36666666668883,
+      "carWorldMetres": 66.36194295482166
+    },
+    {
+      "ms": 27088,
+      "name": "paused via P after releasing controls"
+    }
+  ],
+  "samples": [
+    {
+      "ms": 0,
+      "phase": "initial",
+      "blocked": null,
+      "simTime": 57.583333333331346,
+      "body": null,
+      "candidates": [
+        {
+          "id": "metro:green:0:1:1:0",
+          "x": -173.7952806798836,
+          "y": 13.45,
+          "z": 601.1879235022302,
+          "hx": 0.159404921775874,
+          "hz": -0.9872132854219636,
+          "halfWidth": 1.5,
+          "halfLength": 12.2,
+          "bottom": 13.6,
+          "roof": 17.224999999999998,
+          "grade": 0,
+          "previous": {
+            "x": -173.81724313577274,
+            "y": 13.45,
+            "z": 601.3239395548885,
+            "hx": 0.15940492177587232,
+            "hz": -0.9872132854219641,
+            "grade": 0
+          },
+          "source": "metro",
+          "trainId": "metro:green:0:1:1",
+          "speedMps": 8.266666666666657,
+          "dwell": 0,
+          "distance": 628.691626789167,
+          "local": {
+            "along": 624.7275204745272,
+            "side": 70.4889122951858
+          },
+          "roofAtCar": 17.224999999999998,
+          "feetAboveRoof": 5.630798561612448,
+          "headingDot": 0.9720604339944118
+        },
+        {
+          "id": "metro:green:0:1:1:1",
+          "x": -177.31812945113037,
+          "y": 13.45,
+          "z": 623.0053371100556,
+          "hx": 0.15940492177587345,
+          "hz": -0.9872132854219638,
+          "halfWidth": 1.5,
+          "halfLength": 10.75,
+          "bottom": 13.6,
+          "roof": 17.224999999999998,
+          "grade": 0,
+          "previous": {
+            "x": -177.34009190701954,
+            "y": 13.45,
+            "z": 623.1413531627139,
+            "hx": 0.15940492177587057,
+            "hz": -0.9872132854219643,
+            "grade": 0
+          },
+          "source": "metro",
+          "trainId": "metro:green:0:1:1",
+          "speedMps": 8.266666666666657,
+          "dwell": 0,
+          "distance": 650.6569971957446,
+          "local": {
+            "along": 646.8275204745272,
+            "side": 70.48891229518615
+          },
+          "roofAtCar": 17.224999999999998,
+          "feetAboveRoof": 5.630798561612448,
+          "headingDot": 0.9720604339944118
+        },
+        {
+          "id": "metro:green:0:-1:1:2",
+          "x": -175.39533197277916,
+          "y": 13.45,
+          "z": 635.5632227882054,
+          "hx": -0.15940492177587282,
+          "hz": 0.9872132854219638,
+          "halfWidth": 1.5,
+          "halfLength": 12.2,
+          "bottom": 13.6,
+          "roof": 17.224999999999998,
+          "grade": 0,
+          "previous": {
+            "x": -175.39533197277916,
+            "y": 13.45,
+            "z": 635.5632227882054,
+            "hx": -0.15940492177587282,
+            "hz": 0.9872132854219638,
+            "grade": 0
+          },
+          "source": "metro",
+          "trainId": "metro:green:0:-1:1",
+          "speedMps": 0,
+          "dwell": 12.466666666666605,
+          "distance": 662.2744499823893,
+          "local": {
+            "along": -658.9183286711793,
+            "side": -66.58891229518655
+          },
+          "roofAtCar": 17.224999999999998,
+          "feetAboveRoof": 5.630798561612448,
+          "headingDot": -0.9720604339944116
+        },
+        {
+          "id": "metro:green:0:1:1:2",
+          "x": -180.84097822237715,
+          "y": 13.45,
+          "z": 644.8227507178809,
+          "hx": 0.15940492177587282,
+          "hz": -0.9872132854219638,
+          "halfWidth": 1.5,
+          "halfLength": 12.2,
+          "bottom": 13.6,
+          "roof": 17.224999999999998,
+          "grade": 0,
+          "previous": {
+            "x": -180.8629406782663,
+            "y": 13.45,
+            "z": 644.9587667705392,
+            "hx": 0.15940492177587282,
+            "hz": -0.9872132854219638,
+            "grade": 0
+          },
+          "source": "metro",
+          "trainId": "metro:green:0:1:1",
+          "speedMps": 8.266666666666657,
+          "dwell": 0,
+          "distance": 672.6311875052755,
+          "local": {
+            "along": 668.9275204745269,
+            "side": 70.48891229518652
+          },
+          "roofAtCar": 17.224999999999998,
+          "feetAboveRoof": 5.630798561612448,
+          "headingDot": 0.9720604339944116
+        },
+        {
+          "id": "metro:green:0:-1:1:1",
+          "x": -178.91657011580853,
+          "y": 13.45,
+          "z": 657.3808865215138,
+          "hx": -0.1533567297448438,
+          "hz": 0.9881708928327969,
+          "halfWidth": 1.5,
+          "halfLength": 10.75,
+          "bottom": 13.6,
+          "roof": 17.224999999999998,
+          "grade": 0,
+          "previous": {
+            "x": -178.91657011580853,
+            "y": 13.45,
+            "z": 657.3808865215138,
+            "hx": -0.1533567297448438,
+            "hz": 0.9881708928327969,
+            "grade": 0
+          },
+          "source": "metro",
+          "trainId": "metro:green:0:-1:1",
+          "speedMps": 0,
+          "dwell": 12.466666666666605,
+          "distance": 684.2658962669532,
+          "local": {
+            "along": -680.5978031526743,
+            "side": -70.75625158083392
+          },
+          "roofAtCar": 17.224999999999998,
+          "feetAboveRoof": 5.630798561612448,
+          "headingDot": -0.970604834750748
+        },
+        {
+          "id": "metro:green:0:-1:1:0",
+          "x": -182.176415301815,
+          "y": 13.45,
+          "z": 679.2391437567846,
+          "hx": -0.14750430705911713,
+          "hz": 0.9890614133606719,
+          "halfWidth": 1.5,
+          "halfLength": 12.2,
+          "bottom": 13.6,
+          "roof": 17.224999999999998,
+          "grade": 0,
+          "previous": {
+            "x": -182.176415301815,
+            "y": 13.45,
+            "z": 679.2391437567846,
+            "hx": -0.14750430705911713,
+            "hz": 0.9890614133606719,
+            "grade": 0
+          },
+          "source": "metro",
+          "trainId": "metro:green:0:-1:1",
+          "speedMps": 0,
+          "dwell": 12.466666666666605,
+          "distance": 706.2376434136156,
+          "local": {
+            "along": -702.267017656128,
+            "side": -74.78398817116505
+          },
+          "roofAtCar": 17.224999999999998,
+          "feetAboveRoof": 5.630798561612448,
+          "headingDot": -0.9691630672512913
+        }
+      ],
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -4.623048454654835,
+        "y": 23.405798561612446,
+        "z": -4.315104928464323,
+        "yaw": 43.585267769706256,
+        "speedMps": 0.48885225138067967,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 33,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 57.61666666666468,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -173.75122293067054,
+        "y": 13.45,
+        "z": 600.915068719176,
+        "hx": 0.159404921775874,
+        "hz": -0.9872132854219636,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -173.7732739448495,
+          "y": 13.45,
+          "z": 601.0516332236593,
+          "hx": 0.159404921775874,
+          "hz": -0.9872132854219636,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 8.299999999999992,
+        "dwell": 0,
+        "distance": 628.4298427474706,
+        "local": {
+          "along": 624.4637311825855,
+          "side": 70.4919548114124
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 5.662066761748044,
+        "headingDot": 0.9720605013612886
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -4.618036404449028,
+        "y": 23.437066761748042,
+        "z": -4.3270584259006775,
+        "yaw": 43.585268056702844,
+        "speedMps": 0.35551891804734637,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 498,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 58.08333333333132,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -173.11581720081395,
+        "y": 13.45,
+        "z": 596.9799268731192,
+        "hx": 0.15940492177587232,
+        "hz": -0.9872132854219641,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -173.13910803105122,
+          "y": 13.45,
+          "z": 597.1241697031559,
+          "hx": 0.15940492177587232,
+          "hz": -0.9872132854219641,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 8.766666666666682,
+        "dwell": 0,
+        "distance": 625.9013374796364,
+        "local": {
+          "along": 621.8471974165667,
+          "side": 71.123465353983
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 5.960891973140146,
+        "headingDot": 0.8085140094869551
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -3.7762834373799583,
+        "y": 23.735891973140145,
+        "z": -5.578457487749552,
+        "yaw": 43.19303555607982,
+        "speedMps": 5.955518918047349,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 851,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 58.4333333333313,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -172.616481283351,
+        "y": 13.45,
+        "z": 593.8874812565347,
+        "hx": 0.15940492177587232,
+        "hz": -0.9872132854219641,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -172.64070197563194,
+          "y": 13.45,
+          "z": 594.0374828307362,
+          "hx": 0.15940492177587517,
+          "hz": -0.9872132854219636,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 9.1166666666667,
+        "dwell": 0,
+        "distance": 624.4243611944185,
+        "local": {
+          "along": 620.1425217752773,
+          "side": 73.00024341916598
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.07528161563204,
+        "headingDot": 0.3729742176239004
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -1.6959009674327934,
+        "y": 23.85028161563204,
+        "z": -6.688857003246757,
+        "yaw": 42.633625472004724,
+        "speedMps": 6.42218558471402,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 1317,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 58.89999999999794,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -171.9203245666398,
+        "y": 13.45,
+        "z": 589.5761014583669,
+        "hx": 0.1565713424796853,
+        "hz": -0.9876666516158724,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -171.945785074979,
+          "y": 13.45,
+          "z": 589.7337813581217,
+          "hx": 0.1571519871131238,
+          "hz": -0.987574429066689,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 9.583333333333389,
+        "dwell": 0,
+        "distance": 620.4608191827199,
+        "local": {
+          "along": 615.5639160846226,
+          "side": 77.79905754863309
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.154757519376801,
+        "headingDot": -0.36138918725454205
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": 1.2988788247108907,
+        "y": 23.9297575193768,
+        "z": -6.214747512442332,
+        "yaw": 41.88452526081438,
+        "speedMps": 6.422185584714026,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 1783,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 59.36666666666458,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -171.18945300029736,
+        "y": 13.45,
+        "z": 585.0497285447067,
+        "hx": 0.1398748435767633,
+        "hz": -0.9901691916709872,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -171.21615332469483,
+          "y": 13.45,
+          "z": 585.2150867700149,
+          "hx": 0.14048568795264435,
+          "hz": -0.9900827094139519,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 10.050000000000079,
+        "dwell": 0,
+        "distance": 614.1479845235609,
+        "local": {
+          "along": 607.4768888361583,
+          "side": 90.27500442699434
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.3765003778021985,
+        "headingDot": -0.9069099136463379
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": 3.1688099637308653,
+        "y": 24.151500377802197,
+        "z": -3.8279693098808125,
+        "yaw": 41.135274858424665,
+        "speedMps": 6.422185584714033,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 2133,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 59.71666666666456,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -170.67379142574848,
+        "y": 13.45,
+        "z": 581.5065979922896,
+        "hx": 0.12679974782088957,
+        "hz": -0.9919283360971995,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -170.69129727570925,
+          "y": 13.45,
+          "z": 581.6790450556498,
+          "hx": 0.12743304733495187,
+          "hz": -0.9918471749452775,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 10.400000000000096,
+        "dwell": 0,
+        "distance": 607.7358071512676,
+        "local": {
+          "along": 599.6896200156026,
+          "side": 98.56556670229737
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 7.090493377838104,
+        "headingDot": -0.9941038562886946
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": 3.136679738522401,
+        "y": 24.865493377838103,
+        "z": -0.8444399628744872,
+        "yaw": 40.604916755556445,
+        "speedMps": 10.622185584714025,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 2599,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 60.1833333333312,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -170.17223760267302,
+        "y": 13.45,
+        "z": 576.5658790840272,
+        "hx": 0.10863759127537433,
+        "hz": -0.9940814220987557,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -170.1905289715423,
+          "y": 13.45,
+          "z": 576.7460641566407,
+          "hx": 0.10930044909725496,
+          "hz": -0.9940087584257689,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 10.866666666666786,
+        "dwell": 0,
+        "distance": 596.5736041292698,
+        "local": {
+          "along": 586.7071451681297,
+          "side": 108.04994656384557
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 7.586563106784993,
+        "headingDot": -0.9938638534147268
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": 0.9766579703261498,
+        "y": 25.361563106784992,
+        "z": 5.069491791920698,
+        "yaw": 40.621014962001084,
+        "speedMps": 16.222185584714005,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 2950,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 60.53333333333118,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -169.78163832542285,
+        "y": 13.45,
+        "z": 572.7181539828005,
+        "hx": 0.10099528823534579,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -169.80051883347352,
+          "y": 13.45,
+          "z": 572.9041425623543,
+          "hx": 0.10099528823534404,
+          "hz": -0.9948869040017866,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 11.216666666666804,
+        "dwell": 0,
+        "distance": 586.3445219822221,
+        "local": {
+          "along": 575.6451465347468,
+          "side": 111.50140685009558
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 7.776457522590594,
+        "headingDot": -0.9580536687177506
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -0.7129013769331409,
+        "y": 25.551457522590592,
+        "z": 11.27745306666377,
+        "yaw": 40.448872292544735,
+        "speedMps": 20.42218558471399,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 3301,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 60.88333333333116,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -169.3786671253638,
+        "y": 13.45,
+        "z": 568.7485552358331,
+        "hx": 0.10099528823534648,
+        "hz": -0.9948869040017861,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -169.39813677259582,
+          "y": 13.45,
+          "z": 568.9403473223268,
+          "hx": 0.10099528823534473,
+          "hz": -0.9948869040017864,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 11.566666666666821,
+        "dwell": 0,
+        "distance": 574.5372442593897,
+        "local": {
+          "along": 563.996926380363,
+          "side": 109.54684876653039
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 7.884105462991883,
+        "headingDot": -0.9909328610932068
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -3.4309097692442445,
+        "y": 25.65910546299188,
+        "z": 18.699114849200132,
+        "yaw": 40.60477119077835,
+        "speedMps": 24.622185584713975,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 3766,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 61.3499999999978,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -168.82212697869357,
+        "y": 13.45,
+        "z": 563.2661756798366,
+        "hx": 0.10099528823534579,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -168.84238214483412,
+          "y": 13.45,
+          "z": 563.4657057755836,
+          "hx": 0.10099528823534648,
+          "hz": -0.9948869040017861,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 12.03333333333351,
+        "dwell": 0,
+        "distance": 556.3188355904741,
+        "local": {
+          "along": 545.943319647626,
+          "side": 106.94175314100247
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 7.9588973511670815,
+        "headingDot": -0.9581077712263224
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -7.28947435974484,
+        "y": 25.73389735116708,
+        "z": 30.914929818021115,
+        "yaw": 40.44906113307955,
+        "speedMps": 30.222185584713955,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 4234,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 61.81666666666444,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -168.24359230258548,
+        "y": 13.45,
+        "z": 557.5671318647467,
+        "hx": 0.10099528823534404,
+        "hz": -0.9948869040017866,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -168.2646329876345,
+          "y": 13.45,
+          "z": 557.7743999697472,
+          "hx": 0.10099528823534648,
+          "hz": -0.9948869040017861,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 12.5000000000002,
+        "dwell": 0,
+        "distance": 535.2620006554415,
+        "local": {
+          "along": 525.0319740684646,
+          "side": 104.1481423331071
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 7.683703700758954,
+        "headingDot": -0.9820643085376909
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -11.602213865446954,
+        "y": 25.458703700758953,
+        "z": 45.73816833593365,
+        "yaw": 40.549855072492264,
+        "speedMps": 35.822185584714006,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 4699,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 62.28333333333108,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -167.6430630970394,
+        "y": 13.45,
+        "z": 551.6514237905625,
+        "hx": 0.10099528823534404,
+        "hz": -0.9948869040017866,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -167.66488930099695,
+          "y": 13.45,
+          "z": 551.8664299048164,
+          "hx": 0.10099528823534579,
+          "hz": -0.9948869040017864,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 12.96666666666689,
+        "dwell": 0,
+        "distance": 511.5128676187525,
+        "local": {
+          "along": 501.67427180498936,
+          "side": 99.84156823935174
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.909371307292016,
+        "headingDot": -0.9822025390265487
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -17.645256699506447,
+        "y": 24.684371307292015,
+        "z": 62.62578865934805,
+        "yaw": 40.55058961602753,
+        "speedMps": 39.555518918047376,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 5050,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 62.63333333333106,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -167.17823228293622,
+        "y": 13.45,
+        "z": 547.0724568148943,
+        "hx": 0.10099528823534579,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -167.20064762607512,
+          "y": 13.45,
+          "z": 547.2932664360881,
+          "hx": 0.10099528823534579,
+          "hz": -0.9948869040017864,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 13.316666666666908,
+        "dwell": 0,
+        "distance": 493.0744277014882,
+        "local": {
+          "along": 483.4719479841175,
+          "side": 96.83628847489493
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.61295854731792,
+        "headingDot": -0.9775982318563974
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -22.008688306764135,
+        "y": 24.38795854731792,
+        "z": 75.85255617942616,
+        "yaw": 40.52747111360796,
+        "speedMps": 40.022185584714066,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 5514,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 63.0999999999977,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -166.53921265087376,
+        "y": 13.45,
+        "z": 540.7775862872959,
+        "hx": 0.10099528823534508,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -166.56241351292118,
+          "y": 13.45,
+          "z": 541.006133917743,
+          "hx": 0.10099528823534332,
+          "hz": -0.9948869040017866,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 13.783333333333598,
+        "dwell": 0,
+        "distance": 468.31073767176343,
+        "local": {
+          "along": 459.0053725926786,
+          "side": 92.89249135278692
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.407016195657096,
+        "headingDot": -0.969468093111445
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -27.76430961731737,
+        "y": 24.182016195657095,
+        "z": 93.50085616745353,
+        "yaw": 40.49179269907916,
+        "speedMps": 40.022185584714066,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 5876,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 63.44999999999768,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -166.04551401688332,
+        "y": 13.45,
+        "z": 535.9142474715671,
+        "hx": 0.10099528823534508,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -166.06930401811206,
+          "y": 13.45,
+          "z": 536.1485986089541,
+          "hx": 0.10099528823534332,
+          "hz": -0.9948869040017866,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 14.133333333333615,
+        "dwell": 0,
+        "distance": 449.55493031665674,
+        "local": {
+          "along": 440.45028746002987,
+          "side": 90.01766298005705
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.328181910321277,
+        "headingDot": -0.9781612369246167
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -32.004716253811836,
+        "y": 24.103181910321275,
+        "z": 106.8073844327042,
+        "yaw": 40.53016280907576,
+        "speedMps": 38.622185584714046,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 138748476,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 79523168,
+        "installJobs": 1710,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 4,
+      "resources": {
+        "geometries": 968,
+        "textures": 48
+      }
+    },
+    {
+      "ms": 6232,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 63.816666666664325,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -165.51503626542714,
+        "y": 13.45,
+        "z": 530.6886040082976,
+        "hx": 0.10099528823534332,
+        "hz": -0.9948869040017866,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -165.53944346008404,
+          "y": 13.45,
+          "z": 530.9290350100982,
+          "hx": 0.10099528823534508,
+          "hz": -0.9948869040017864,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 14.5000000000003,
+        "dwell": 0,
+        "distance": 429.85614859141805,
+        "local": {
+          "along": 421.0159479903299,
+          "side": 86.72877273230128
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.281932295156505,
+        "headingDot": -0.9807381083985726
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -36.709089054953715,
+        "y": 24.056932295156503,
+        "z": 120.5845483772175,
+        "yaw": 40.54294553295112,
+        "speedMps": 38.7555189180474,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1306,
+        "textures": 49
+      }
+    },
+    {
+      "ms": 6583,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 64.16666666666431,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -164.99600464663766,
+        "y": 13.45,
+        "z": 525.5757143941482,
+        "hx": 0.10099528823534508,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -165.0210009804759,
+          "y": 13.45,
+          "z": 525.8219489028886,
+          "hx": 0.10099528823534332,
+          "hz": -0.9948869040017866,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 14.850000000000318,
+        "dwell": 0,
+        "distance": 410.96596726023023,
+        "local": {
+          "along": 402.3941614798736,
+          "side": 83.49829371338112
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.257273957556443,
+        "headingDot": -0.9659391671598655
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -41.28473140182029,
+        "y": 24.03227395755644,
+        "z": 133.67196713178436,
+        "yaw": 40.47778888506423,
+        "speedMps": 39.22218558471404,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1306,
+        "textures": 49
+      }
+    },
+    {
+      "ms": 6933,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 64.51666666666429,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -164.46460110503935,
+        "y": 13.45,
+        "z": 520.3409511342587,
+        "hx": 0.10099528823534579,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -164.490186578059,
+          "y": 13.45,
+          "z": 520.5929891499394,
+          "hx": 0.10099528823534404,
+          "hz": -0.9948869040017866,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 15.200000000000335,
+        "dwell": 0,
+        "distance": 392.00662159726426,
+        "local": {
+          "along": 383.6602371500735,
+          "side": 80.4612565527668
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.243295562009074,
+        "headingDot": -0.9751981818633478
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -45.66687444575099,
+        "y": 24.018295562009072,
+        "z": 146.76861340475585,
+        "yaw": 40.5163550776715,
+        "speedMps": 39.68885225138073,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1306,
+        "textures": 49
+      }
+    },
+    {
+      "ms": 7283,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 64.86666666666427,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -163.9208256406322,
+        "y": 13.45,
+        "z": 514.984314228629,
+        "hx": 0.10099528823534544,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -163.9470002528332,
+          "y": 13.45,
+          "z": 515.2421557512496,
+          "hx": 0.10099528823534544,
+          "hz": -0.9948869040017864,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 15.550000000000352,
+        "dwell": 0,
+        "distance": 372.89870148783916,
+        "local": {
+          "along": 364.85376437705946,
+          "side": 77.04006873832455
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.235371445418259,
+        "headingDot": -0.9738096125632826
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -50.42615907246375,
+        "y": 24.010371445418258,
+        "z": 159.77676612203706,
+        "yaw": 40.51016577690736,
+        "speedMps": 38.28885225138071,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1306,
+        "textures": 49
+      }
+    },
+    {
+      "ms": 7636,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 65.21666666666425,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -163.36467825341623,
+        "y": 13.45,
+        "z": 509.50580367725917,
+        "hx": 0.10099528823534544,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -163.3914420047986,
+          "y": 13.45,
+          "z": 509.7694487068195,
+          "hx": 0.10099528823534404,
+          "hz": -0.9948869040017866,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 15.90000000000037,
+        "dwell": 0,
+        "distance": 353.69009275831706,
+        "local": {
+          "along": 345.87063953307234,
+          "side": 73.96068161104577
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.230879397419475,
+        "headingDot": -0.9590947843687816
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -54.850859775755175,
+        "y": 24.005879397419474,
+        "z": 172.87331428447325,
+        "yaw": 40.45252741642183,
+        "speedMps": 40.62218558471406,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1307,
+        "textures": 49
+      }
+    },
+    {
+      "ms": 8100,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 65.68333333333089,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -162.6039031905367,
+        "y": 13.45,
+        "z": 502.01154171539173,
+        "hx": 0.10099528823534579,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -162.63145246082755,
+          "y": 13.45,
+          "z": 502.2829247542055,
+          "hx": 0.10099528823534544,
+          "hz": -0.9948869040017864,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 16.36666666666702,
+        "dwell": 0,
+        "distance": 327.93814786658936,
+        "local": {
+          "along": 320.49534149583394,
+          "side": 69.47060461546207
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.227758401789178,
+        "headingDot": -0.9752823794172236
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -61.119989053070135,
+        "y": 24.002758401789176,
+        "z": 190.1711274046287,
+        "yaw": 40.51673580741344,
+        "speedMps": 40.62218558471406,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1307,
+        "textures": 49
+      }
+    },
+    {
+      "ms": 8566,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 66.14999999999753,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -161.82113359821926,
+        "y": 13.45,
+        "z": 494.30061549443093,
+        "hx": 0.10099528823534544,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -161.84946838741863,
+          "y": 13.45,
+          "z": 494.5797365424981,
+          "hx": 0.10099528823534579,
+          "hz": -0.9948869040017864,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 16.83333333333366,
+        "dwell": 0,
+        "distance": 301.9812401856861,
+        "local": {
+          "along": 294.9722362504853,
+          "side": 64.68422733149788
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.226294142900652,
+        "headingDot": -0.9719424070735154
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -67.67683690909544,
+        "y": 24.00129414290065,
+        "z": 207.3694027883274,
+        "yaw": 40.502092883905654,
+        "speedMps": 40.62218558471406,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1306,
+        "textures": 49
+      }
+    },
+    {
+      "ms": 8920,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 66.49999999999751,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -161.21962249403762,
+        "y": 13.45,
+        "z": 488.3752349086806,
+        "hx": 0.10099528823534544,
+        "hz": -0.9948869040017864,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -161.24854642241834,
+          "y": 13.45,
+          "z": 488.6601594636876,
+          "hx": 0.10099528823534544,
+          "hz": -0.9948869040017864,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 17.18333333333364,
+        "dwell": 0,
+        "distance": 282.4506113157935,
+        "local": {
+          "along": 275.805082281482,
+          "side": 60.908984726150265
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225733627775462,
+        "headingDot": -0.9710470147459128
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -72.76705747215446,
+        "y": 24.00073362777546,
+        "z": 220.13189095823893,
+        "yaw": 40.49831571764681,
+        "speedMps": 39.22218558471404,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1306,
+        "textures": 49
+      }
+    },
+    {
+      "ms": 9382,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 66.96666666666415,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -160.3983624752038,
+        "y": 13.45,
+        "z": 480.2851462343056,
+        "hx": 0.14970500106412285,
+        "hz": -0.9887307078554762,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -160.42807192249305,
+          "y": 13.45,
+          "z": 480.577808798566,
+          "hx": 0.1478767814053863,
+          "hz": -0.9890057924608854,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 17.65000000000028,
+        "dwell": 0,
+        "distance": 256.15572143200865,
+        "local": {
+          "along": 252.4542821007079,
+          "side": 43.38881274440443
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225344191763895,
+        "headingDot": -0.9659418836410123
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -79.70484236689127,
+        "y": 24.000344191763894,
+        "z": 237.1713674497987,
+        "yaw": 40.428697252119456,
+        "speedMps": 39.22218558471404,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1310,
+        "textures": 50
+      }
+    },
+    {
+      "ms": 9732,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 67.31666666666413,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -159.16622042419937,
+        "y": 13.45,
+        "z": 474.1672061766581,
+        "hx": 0.1883479726898648,
+        "hz": -0.9821023577935336,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -159.22630379255628,
+          "y": 13.45,
+          "z": 474.4611279159817,
+          "hx": 0.18649846832190065,
+          "hz": -0.9824552515578431,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 18.00000000000026,
+        "dwell": 0,
+        "distance": 236.16330692816683,
+        "local": {
+          "along": 234.1157367591853,
+          "side": 31.031102799471725
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225195116503709,
+        "headingDot": -0.9787033263520388
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -84.59527680651804,
+        "y": 24.000195116503708,
+        "z": 250.08623441150326,
+        "yaw": 40.444475161995264,
+        "speedMps": 39.68885225138073,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1310,
+        "textures": 50
+      }
+    },
+    {
+      "ms": 10083,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 67.66666666666411,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -157.89161852380616,
+        "y": 13.45,
+        "z": 467.9319830566226,
+        "hx": 0.20027789452296002,
+        "hz": -0.9797391310779877,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -157.9528701798811,
+          "y": 13.45,
+          "z": 468.2316199408773,
+          "hx": 0.2002778945229583,
+          "hz": -0.9797391310779879,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 18.35000000000024,
+        "dwell": 0,
+        "distance": 216.01528563748377,
+        "local": {
+          "along": 214.4620898116072,
+          "side": 25.85760357577324
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225110608253928,
+        "headingDot": -0.990219776517351
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -89.60589666225638,
+        "y": 24.000110608253927,
+        "z": 262.99378793699447,
+        "yaw": 40.49909003594288,
+        "speedMps": 38.28885225138071,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1314,
+        "textures": 51
+      }
+    },
+    {
+      "ms": 10435,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 68.0166666666641,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -156.5924825813339,
+        "y": 13.45,
+        "z": 461.5767418930301,
+        "hx": 0.20027789452295763,
+        "hz": -0.9797391310779882,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -156.65490252512686,
+          "y": 13.45,
+          "z": 461.8820939222159,
+          "hx": 0.20027789452295933,
+          "hz": -0.9797391310779877,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 18.70000000000022,
+        "dwell": 0,
+        "distance": 195.80341979973375,
+        "local": {
+          "along": 194.4440493273516,
+          "side": 23.032387771423828
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.2250627019529645,
+        "headingDot": -0.9774274815833465
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -95.08390619770776,
+        "y": 24.000062701952963,
+        "z": 275.6851760904623,
+        "yaw": 40.426187612661224,
+        "speedMps": 40.62218558471406,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1314,
+        "textures": 51
+      }
+    },
+    {
+      "ms": 10898,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 68.48333333333073,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -154.82213725924782,
+        "y": 13.45,
+        "z": 452.91639227381756,
+        "hx": 0.20027789452296033,
+        "hz": -0.9797391310779875,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -154.88611491999822,
+          "y": 13.45,
+          "z": 453.2293644962452,
+          "hx": 0.2002778945229596,
+          "hz": -0.9797391310779876,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 19.16666666666686,
+        "dwell": 0,
+        "distance": 168.65473382475622,
+        "local": {
+          "along": 167.48915924786348,
+          "side": 19.793958066622352
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225029417500963,
+        "headingDot": -0.9726719129626259
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -101.88484581287821,
+        "y": 24.00002941750096,
+        "z": 292.78500117319203,
+        "yaw": 40.40474063102771,
+        "speedMps": 40.62218558471406,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1320,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 11254,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 68.83333333333071,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -153.46575521859108,
+        "y": 13.45,
+        "z": 446.28110900859184,
+        "hx": 0.20074446404097163,
+        "hz": -0.9796436393693898,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -153.53090116705957,
+          "y": 13.45,
+          "z": 446.59979637595103,
+          "hx": 0.2007167955472304,
+          "hz": -0.9796493086739005,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 19.51666666666684,
+        "dwell": 0,
+        "distance": 148.24089212038308,
+        "local": {
+          "along": 147.27144641283056,
+          "side": 16.92581366197338
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225016676284962,
+        "headingDot": -0.9780085916294025
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -107.32056194480501,
+        "y": 24.00001667628496,
+        "z": 305.40533666156267,
+        "yaw": 40.428479642531094,
+        "speedMps": 39.22218558471404,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1320,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 11716,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 69.29999999999735,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -151.609956281831,
+        "y": 13.45,
+        "z": 437.2492419530284,
+        "hx": 0.20152870815615861,
+        "hz": -0.9794826082115546,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -151.67711320684927,
+          "y": 13.45,
+          "z": 437.57545653042854,
+          "hx": 0.20150038273800805,
+          "hz": -0.9794884357441064,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 19.98333333333348,
+        "dwell": 0,
+        "distance": 120.83381786334992,
+        "local": {
+          "along": 120.20081444755571,
+          "side": 12.352155503291943
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225007823913064,
+        "headingDot": -0.9678447718965698
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -115.28731993749786,
+        "y": 24.000007823913062,
+        "z": 322.0039486503058,
+        "yaw": 40.38350653415817,
+        "speedMps": 39.22218558471404,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1320,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 12067,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 69.64999999999733,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -150.1867223663048,
+        "y": 13.45,
+        "z": 430.3358871475705,
+        "hx": 0.2016388073944868,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -150.2550555176996,
+          "y": 13.45,
+          "z": 430.66781524133904,
+          "hx": 0.2016388073944875,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 20.33333333333346,
+        "dwell": 0,
+        "distance": 100.2346369340179,
+        "local": {
+          "along": 99.87107865786417,
+          "side": 8.529366272419736
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225004435244298,
+        "headingDot": -0.9477452557572779
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -121.69466451983703,
+        "y": 24.000004435244296,
+        "z": 334.2360167992296,
+        "yaw": 40.31296986251169,
+        "speedMps": 39.68885225138073,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1320,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 12417,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 69.99999999999731,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -148.73878769687286,
+        "y": 13.45,
+        "z": 423.302548498382,
+        "hx": 0.2016388073944875,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -148.80829707464412,
+          "y": 13.45,
+          "z": 423.64019010851854,
+          "hx": 0.2016388073944892,
+          "hz": -0.9794599488251309,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 20.68333333333344,
+        "dwell": 0,
+        "distance": 79.85402071623092,
+        "local": {
+          "along": 79.77514932166673,
+          "side": 3.5482636956705793
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.22500251426516,
+        "headingDot": -0.9011949572552673
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -129.17763955015525,
+        "y": 24.00000251426516,
+        "z": 345.8814524861813,
+        "yaw": 40.18939610320832,
+        "speedMps": 38.28885225138071,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1320,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 12883,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 70.46666666666395,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -146.7697847426657,
+        "y": 13.45,
+        "z": 413.73812209810467,
+        "hx": 0.2016388073944875,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -146.84086242227227,
+          "y": 13.45,
+          "z": 414.08338173006547,
+          "hx": 0.2016388073944875,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 21.15000000000008,
+        "dwell": 0,
+        "distance": 57.72920007148768,
+        "local": {
+          "along": 57.45920383182064,
+          "side": -5.576776479933687
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225001179602774,
+        "headingDot": -0.6750219937700581
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -140.64600861382567,
+        "y": 24.000001179602773,
+        "z": 356.3346386949374,
+        "yaw": 39.80787187371116,
+        "speedMps": 28.955518918047346,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1320,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 13349,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 70.9333333333306,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -144.75686933707033,
+        "y": 13.45,
+        "z": 403.9603910867493,
+        "hx": 0.20163880739448578,
+        "hz": -0.9794599488251315,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -144.82951531851216,
+          "y": 13.45,
+          "z": 404.31326874053445,
+          "hx": 0.2016388073944875,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 21.61666666666672,
+        "dwell": 0,
+        "distance": 44.50838776439157,
+        "local": {
+          "along": 41.825686172448556,
+          "side": -15.218691060314178
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.22500055342719,
+        "headingDot": -0.36647487625615693
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -151.22928622592258,
+        "y": 24.00000055342719,
+        "z": 359.9251279332,
+        "yaw": 39.442094830099066,
+        "speedMps": 19.622185584714046,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1321,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 13803,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 71.38333333333057,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -142.77481587116225,
+        "y": 13.45,
+        "z": 394.3325718620058,
+        "hx": 0.2016388073944875,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -142.84875010054026,
+          "y": 13.45,
+          "z": 394.69170717657516,
+          "hx": 0.20163880739448647,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 35.272697271680705,
+        "local": {
+          "along": 28.44474867329329,
+          "side": -20.858078668295683
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.2250002667617785,
+        "headingDot": -0.7517278537273956
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -157.4689033370829,
+        "y": 24.000000266761777,
+        "z": 362.2662816749027,
+        "yaw": 39.91755559346802,
+        "speedMps": 10.622185584714048,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1321,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 14268,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 71.84999999999721,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -140.70465744857816,
+        "y": 13.45,
+        "z": 384.2767830540645,
+        "hx": 0.2016388073944882,
+        "hz": -0.9794599488251311,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -140.77859167795617,
+          "y": 13.45,
+          "z": 384.63591836863384,
+          "hx": 0.20163880739448578,
+          "hz": -0.9794599488251315,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 26.70069004648778,
+        "local": {
+          "along": 14.985453025451065,
+          "side": -22.098937679911476
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000125155027,
+        "headingDot": -0.999945812567963
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -159.32803294131594,
+        "y": 24.000000125155026,
+        "z": 365.1431285621723,
+        "yaw": 40.64808406056585,
+        "speedMps": 6.888852251380715,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1321,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 14732,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 72.31666666666385,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -138.63449902599407,
+        "y": 13.45,
+        "z": 374.22099424612315,
+        "hx": 0.2016388073944882,
+        "hz": -0.9794599488251311,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -138.70843325537209,
+          "y": 13.45,
+          "z": 374.58012956069246,
+          "hx": 0.20163880739448647,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 21.02640245539811,
+        "local": {
+          "along": 1.913423008222943,
+          "side": -20.93915978753624
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000058718237,
+        "headingDot": -0.7251007944412167
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -158.75774706651632,
+        "y": 24.000000058718236,
+        "z": 368.12472583700685,
+        "yaw": 41.39728926565362,
+        "speedMps": 6.8888522513807215,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1321,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 15084,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 72.66666666666383,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -137.081880209056,
+        "y": 13.45,
+        "z": 366.67915264016716,
+        "hx": 0.2016388073944882,
+        "hz": -0.9794599488251311,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -137.155814438434,
+          "y": 13.45,
+          "z": 367.03828795473646,
+          "hx": 0.2016388073944882,
+          "hz": -0.9794599488251311,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 20.141459566152452,
+        "local": {
+          "along": -6.9489059753505416,
+          "side": -18.90479037706294
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000033286374,
+        "headingDot": -0.2483410887260665
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -156.99953433789003,
+        "y": 24.000000033286373,
+        "z": 369.6733883455009,
+        "yaw": 41.95750269856676,
+        "speedMps": 5.4888522513807265,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1321,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 15551,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 73.13333333333047,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -135.0117217864719,
+        "y": 13.45,
+        "z": 356.6233638322258,
+        "hx": 0.20163880739448722,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -135.0856560158499,
+          "y": 13.45,
+          "z": 356.98249914679513,
+          "hx": 0.2016388073944882,
+          "hz": -0.9794599488251311,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 23.11740150235736,
+        "local": {
+          "along": -16.78289847700535,
+          "side": -15.89806815093349
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000015616779,
+        "headingDot": 0.47792050472729647
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -153.96732643752978,
+        "y": 24.000000015616777,
+        "z": 369.8558732138203,
+        "yaw": 42.70675584029653,
+        "speedMps": 5.488852251380733,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1321,
+        "textures": 53
+      }
+    },
+    {
+      "ms": 16015,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 73.59999999999711,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -132.9415633638878,
+        "y": 13.45,
+        "z": 346.56757502428445,
+        "hx": 0.2016388073944882,
+        "hz": -0.9794599488251311,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -133.01549759326582,
+          "y": 13.45,
+          "z": 346.9267103388538,
+          "hx": 0.2016388073944875,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 27.571741572690176,
+        "local": {
+          "along": -24.00505912336267,
+          "side": -13.563114311804426
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000007326834,
+        "headingDot": 0.9355292691900429
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -151.0664421067062,
+        "y": 24.000000007326832,
+        "z": 367.34471881041014,
+        "yaw": 43.418224408165116,
+        "speedMps": 11.088852251380724,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1329,
+        "textures": 56
+      }
+    },
+    {
+      "ms": 16367,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 73.94999999999709,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -131.38894454694974,
+        "y": 13.45,
+        "z": 339.02573341832846,
+        "hx": 0.2016388073944875,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -131.46287877632776,
+          "y": 13.45,
+          "z": 339.38486873289776,
+          "hx": 0.2016388073944875,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 29.932327211068262,
+        "local": {
+          "along": -27.168388784593514,
+          "side": -12.56275698720751
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000004153461,
+        "headingDot": 0.966991308900994
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -149.17186337609778,
+        "y": 24.00000000415346,
+        "z": 363.1029427704604,
+        "yaw": 43.52161579467604,
+        "speedMps": 15.288852251380709,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1329,
+        "textures": 56
+      }
+    },
+    {
+      "ms": 16718,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 74.29999999999707,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -129.83632573001168,
+        "y": 13.45,
+        "z": 331.4838918123724,
+        "hx": 0.2016388073944875,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -129.9102599593897,
+          "y": 13.45,
+          "z": 331.84302712694176,
+          "hx": 0.2016388073944875,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 31.256747602010922,
+        "local": {
+          "along": -29.137222165355297,
+          "side": -11.313998194384855
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000002354523,
+        "headingDot": 0.9855766124448357
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -146.79312855070197,
+        "y": 24.000000002354522,
+        "z": 357.74129284057864,
+        "yaw": 43.609218149768466,
+        "speedMps": 15.755518918047374,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1328,
+        "textures": 56
+      }
+    },
+    {
+      "ms": 17184,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 74.76666666666371,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -127.7661673074276,
+        "y": 13.45,
+        "z": 321.428103004431,
+        "hx": 0.2016388073944875,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -127.84010153680559,
+          "y": 13.45,
+          "z": 321.7872383190004,
+          "hx": 0.20163880739448578,
+          "hz": -0.9794599488251315,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 33.19311395107047,
+        "local": {
+          "along": -32.13977856037157,
+          "side": -8.295628237754471
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000001104657,
+        "headingDot": 0.8614043049651062
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -142.37202953548714,
+        "y": 24.000000001104656,
+        "z": 351.23500828397476,
+        "yaw": 43.24649805538718,
+        "speedMps": 19.488852251380695,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1328,
+        "textures": 56
+      }
+    },
+    {
+      "ms": 17650,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 75.23333333333035,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -125.69600888484351,
+        "y": 13.45,
+        "z": 311.3723141964897,
+        "hx": 0.20163880739448736,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -125.7699431142215,
+          "y": 13.45,
+          "z": 311.731449511059,
+          "hx": 0.2016388073944875,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 33.001704634184954,
+        "local": {
+          "along": -32.68216375526724,
+          "side": -4.581340528260333
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000000518271,
+        "headingDot": 0.9643105002623691
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -136.7732409668873,
+        "y": 24.00000000051827,
+        "z": 342.45940859533187,
+        "yaw": 43.5112968153233,
+        "speedMps": 25.088852251380676,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1328,
+        "textures": 56
+      }
+    },
+    {
+      "ms": 18001,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 75.58333333333033,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -124.14339006790543,
+        "y": 13.45,
+        "z": 303.83047259053365,
+        "hx": 0.2016388073944866,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -124.21732429728344,
+          "y": 13.45,
+          "z": 304.189607905103,
+          "hx": 0.20163880739448736,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 31.17076063735054,
+        "local": {
+          "along": -31.070196792035325,
+          "side": -2.5018373278851644
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000000293797,
+        "headingDot": 0.9919592490393412
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -132.85879695570264,
+        "y": 24.000000000293795,
+        "z": 333.75801845535756,
+        "yaw": 43.65236835380217,
+        "speedMps": 29.28885225138066,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1328,
+        "textures": 56
+      }
+    },
+    {
+      "ms": 18466,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 76.04999999999697,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -122.07323164532134,
+        "y": 13.45,
+        "z": 293.7746837825923,
+        "hx": 0.20163880739448736,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -122.14716587469935,
+          "y": 13.45,
+          "z": 294.1338190971617,
+          "hx": 0.2016388073944866,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 26.413171541192764,
+        "local": {
+          "along": -26.394832014110467,
+          "side": -0.9841106702828455
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000000137843,
+        "headingDot": 0.9952821571208161
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -128.3593510807779,
+        "y": 24.00000000013784,
+        "z": 319.42892969448087,
+        "yaw": 43.68209065367262,
+        "speedMps": 34.88885225138069,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 18817,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 76.39999999999695,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -120.52061282838328,
+        "y": 13.45,
+        "z": 286.2328421766363,
+        "hx": 0.2016388073944875,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -120.59454705776129,
+          "y": 13.45,
+          "z": 286.5919774912056,
+          "hx": 0.2016388073944866,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 21.604100802342494,
+        "local": {
+          "along": -21.589255934095174,
+          "side": -0.8007494551430918
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.22500000007814,
+        "headingDot": 0.9999952319301819
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -125.6581466678248,
+        "y": 24.00000000007814,
+        "z": 307.217191523861,
+        "yaw": 43.776178276980964,
+        "speedMps": 35.35551891804733,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 19167,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 76.74999999999693,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -118.96799401144521,
+        "y": 13.45,
+        "z": 278.6910005706803,
+        "hx": 0.2016388073944877,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -119.04192824082321,
+          "y": 13.45,
+          "z": 279.05013588524963,
+          "hx": 0.20163880739448836,
+          "hz": -0.9794599488251311,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 17.754928467543603,
+        "local": {
+          "along": -17.754415254273027,
+          "side": -0.13499580151804036
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.2250000000442895,
+        "headingDot": 0.9998184364700875
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -122.6801961101498,
+        "y": 24.000000000044288,
+        "z": 296.0535188346293,
+        "yaw": 43.760210160887375,
+        "speedMps": 32.0888522513806,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 19631,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 77.21666666666357,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -116.8978355888611,
+        "y": 13.45,
+        "z": 268.6352117627389,
+        "hx": 0.20163880739448853,
+        "hz": -0.9794599488251311,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -116.9717698182391,
+          "y": 13.45,
+          "z": 268.9943470773082,
+          "hx": 0.2016388073944877,
+          "hz": -0.9794599488251313,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 14.060600209678261,
+        "local": {
+          "along": -14.060252638735584,
+          "side": -0.09886349848890141
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000000020774,
+        "headingDot": 0.9999999826237812
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -119.82976099977157,
+        "y": 24.000000000020773,
+        "z": 282.3867313748131,
+        "yaw": 43.779452762325334,
+        "speedMps": 28.35551891804728,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 19983,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 77.56666666666355,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -115.34521677192302,
+        "y": 13.45,
+        "z": 261.09337015678284,
+        "hx": 0.2016388073944877,
+        "hz": -0.9794599488251313,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -115.41915100130102,
+          "y": 13.45,
+          "z": 261.45250547135214,
+          "hx": 0.2016388073944889,
+          "hz": -0.9794599488251311,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 12.098772164002536,
+        "local": {
+          "along": -12.098124092618045,
+          "side": -0.12522506161894986
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000000011772,
+        "headingDot": 0.9969878873693514
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -117.90732101811396,
+        "y": 24.00000000001177,
+        "z": 272.91774792933785,
+        "yaw": 43.70163096394684,
+        "speedMps": 26.955518918047286,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 20333,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 77.91666666666353,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -113.79259795498493,
+        "y": 13.45,
+        "z": 253.55152855082676,
+        "hx": 0.22105691317291762,
+        "hz": -0.9752609092640088,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -113.86653218436294,
+          "y": 13.45,
+          "z": 253.9106638653961,
+          "hx": 0.21745835835278696,
+          "hz": -0.9760695991488061,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 10.643500287683315,
+        "local": {
+          "along": -10.635050735916595,
+          "side": 0.4240214834117386
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.2250000000066805,
+        "headingDot": 0.9951718994220562
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -115.73001786464441,
+        "y": 24.00000000000668,
+        "z": 264.01721068184764,
+        "yaw": 43.8577046401283,
+        "speedMps": 25.55551891804729,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 20684,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 78.26666666666351,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -111.9806459168406,
+        "y": 13.45,
+        "z": 246.08528356383596,
+        "hx": 0.2960745610594489,
+        "hz": -0.9551648309550842,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -112.11127287010459,
+          "y": 13.45,
+          "z": 246.4278927340657,
+          "hx": 0.2925365689111697,
+          "hz": -0.9562543363821573,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 9.538256580580251,
+        "local": {
+          "along": -9.524441176561808,
+          "side": 0.5131850262784545
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000000003796,
+        "headingDot": 0.9996930839854342
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -114.31041436865374,
+        "y": 24.000000000003794,
+        "z": 255.33463584158594,
+        "yaw": 43.70649309427435,
+        "speedMps": 26.022185584713956,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 21151,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 78.73333333333015,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -108.32309122544905,
+        "y": 13.45,
+        "z": 236.49222679740365,
+        "hx": 0.36030600544636165,
+        "hz": -0.932834166633752,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -108.45371817871302,
+          "y": 13.45,
+          "z": 236.83483596763338,
+          "hx": 0.35991288763654766,
+          "hz": -0.9329859127088264,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 8.5162871208335,
+        "local": {
+          "along": -8.501112914805564,
+          "side": 0.5081589654828558
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000000001781,
+        "headingDot": 0.9984319582840444
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -110.91206521654745,
+        "y": 24.00000000000178,
+        "z": 244.6054481057306,
+        "yaw": 43.66970930430478,
+        "speedMps": 24.155518918047296,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 21501,
+      "phase": "approach",
+      "blocked": null,
+      "simTime": 79.08333333333013,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -105.52042610842068,
+        "y": 13.45,
+        "z": 229.32074827724102,
+        "hx": 0.3685467489346594,
+        "hz": -0.9296092156652135,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -105.65733046223617,
+          "y": 13.45,
+          "z": 229.6608977184443,
+          "hx": 0.3681549849047733,
+          "hz": -0.9297644363438334,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 8.02983880110091,
+        "local": {
+          "along": -8.002215580505544,
+          "side": 0.6654749993651583
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 6.225000000001014,
+        "headingDot": 0.9991933407434905
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -107.85098495268562,
+        "y": 24.000000000001013,
+        "z": 237.00494027413205,
+        "yaw": 43.6450207443078,
+        "speedMps": 22.7555189180473,
+        "vy": 0,
+        "flying": true,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 21965,
+      "phase": "landing",
+      "blocked": null,
+      "simTime": 79.54999999999677,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -101.68710420158705,
+        "y": 13.45,
+        "z": 219.79656392354937,
+        "hx": 0.37337551040574773,
+        "hz": -0.9276802941904325,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -101.82400855540254,
+          "y": 13.45,
+          "z": 220.13671336475264,
+          "hx": 0.37337551040574773,
+          "hz": -0.9276802941904325,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 7.529102789419087,
+        "local": {
+          "along": -7.523036682466659,
+          "side": 0.3021719508811507
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 5.700000000000696,
+        "headingDot": 0.999551582032276
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -104.21570289841468,
+        "y": 23.475000000000694,
+        "z": 226.888360412736,
+        "yaw": 43.56970378670904,
+        "speedMps": 23.92218558471395,
+        "vy": -4.199999999999999,
+        "flying": false,
+        "descending": true,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 22315,
+      "phase": "landing",
+      "blocked": null,
+      "simTime": 79.89999999999675,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -98.81211277146183,
+        "y": 13.45,
+        "z": 212.65342565828064,
+        "hx": 0.37337551040574773,
+        "hz": -0.9276802941904325,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -98.94901712527731,
+          "y": 13.45,
+          "z": 212.9935750994839,
+          "hx": 0.37337551040574773,
+          "hz": -0.9276802941904325,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 7.2942898399354315,
+        "local": {
+          "along": -7.293397878789831,
+          "side": 0.11406862254478822
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 3.6000000000006906,
+        "headingDot": 0.9996469637813514
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -101.42946971372693,
+        "y": 21.37500000000069,
+        "z": 219.4619575782882,
+        "yaw": 43.57307931966938,
+        "speedMps": 23.688852251380606,
+        "vy": -6,
+        "flying": false,
+        "descending": true,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 22669,
+      "phase": "landing",
+      "blocked": null,
+      "simTime": 80.24999999999673,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -95.93712134133659,
+        "y": 13.45,
+        "z": 205.51028739301188,
+        "hx": 0.3733755104057484,
+        "hz": -0.9276802941904323,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -96.07402569515209,
+          "y": 13.45,
+          "z": 205.85043683421517,
+          "hx": 0.373375510405747,
+          "hz": -0.9276802941904329,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 7.147286396813682,
+        "local": {
+          "along": -7.1472053688843555,
+          "side": 0.034033117232208365
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 1.3950000000006817,
+        "headingDot": 0.9987357597073335
+      },
+      "support": false,
+      "contacts": {
+        "attachedId": null,
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -98.5741409417123,
+        "y": 19.17000000000068,
+        "z": 212.15331610477523,
+        "yaw": 43.649941423448055,
+        "speedMps": 23.45551891804726,
+        "vy": -6,
+        "flying": false,
+        "descending": true,
+        "jumping": false,
+        "lastKind": "deck",
+        "lastSupport": 13.3,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 23133,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 80.71666666666337,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -92.10379943450297,
+        "y": 13.45,
+        "z": 195.98610303932028,
+        "hx": 0.37337551040574823,
+        "hz": -0.9276802941904323,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -92.24070378831846,
+          "y": 13.45,
+          "z": 196.32625248052355,
+          "hx": 0.37337551040574746,
+          "hz": -0.9276802941904326,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 1.8497562303814716,
+        "local": {
+          "along": -1.8449623315414732,
+          "side": 0.13308684017634131
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999844684123615
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -92.66920114767399,
+        "y": 17.775,
+        "z": 197.74732960469407,
+        "yaw": 43.605225567051484,
+        "speedMps": 17.505518918047276,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1332,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 23483,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 81.06666666666335,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -89.22880800437775,
+        "y": 13.45,
+        "z": 188.84296477405158,
+        "hx": 0.37337551040574807,
+        "hz": -0.9276802941904323,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -89.36571235819325,
+          "y": 13.45,
+          "z": 189.18311421525485,
+          "hx": 0.37337551040574823,
+          "hz": -0.9276802941904323,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 2.999615705289013,
+        "local": {
+          "along": 2.9983962479359434,
+          "side": 0.08552379657239517
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999319336723569
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -88.02994153414143,
+        "y": 17.775,
+        "z": 186.09334415186393,
+        "yaw": 43.611319781188854,
+        "speedMps": 10.50551891804727,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1333,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 23834,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 81.41666666666333,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -86.35381657425255,
+        "y": 13.45,
+        "z": 181.69982650878288,
+        "hx": 0.37337551040574823,
+        "hz": -0.9276802941904323,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -86.49072092806803,
+          "y": 13.45,
+          "z": 182.03997594998614,
+          "hx": 0.37337551040574807,
+          "hz": -0.9276802941904323,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 5.392126159299276,
+        "local": {
+          "along": 5.391824730355083,
+          "side": 0.05701398890534293
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999276353792623
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -84.2877505095372,
+        "y": 17.775,
+        "z": 176.71922458391163,
+        "yaw": 43.61168254429363,
+        "speedMps": 3.5055189180472697,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1333,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 24300,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 81.88333333332997,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -82.52049466741893,
+        "y": 13.45,
+        "z": 172.17564215509128,
+        "hx": 0.3733755104057488,
+        "hz": -0.9276802941904321,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -82.65739902123441,
+          "y": 13.45,
+          "z": 172.51579159629455,
+          "hx": 0.373375510405748,
+          "hz": -0.9276802941904324,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 5.660846646789925,
+        "local": {
+          "along": 5.6605911825414275,
+          "side": 0.0537793883098745
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999275609821395
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -80.35707846667056,
+        "y": 17.775,
+        "z": 166.944503168139,
+        "yaw": 43.61168872693817,
+        "speedMps": 0,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1333,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 24650,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 82.23333333332995,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -79.64550323729354,
+        "y": 13.45,
+        "z": 165.03250388982215,
+        "hx": 0.37337551040574807,
+        "hz": -0.9276802941904323,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -79.78240759110903,
+          "y": 13.45,
+          "z": 165.37265333102545,
+          "hx": 0.37337551040574807,
+          "hz": -0.9276802941904323,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 5.660846646789925,
+        "local": {
+          "along": 5.660591182541427,
+          "side": 0.05377938830987872
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999275609821394
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -77.48208703654517,
+        "y": 17.775,
+        "z": 159.80136490286986,
+        "yaw": 43.61168872693817,
+        "speedMps": 0,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1333,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 25116,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 82.69999999999659,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -75.81218133045992,
+        "y": 13.45,
+        "z": 155.50831953613056,
+        "hx": 0.37337551040574746,
+        "hz": -0.9276802941904326,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -75.94908568427542,
+          "y": 13.45,
+          "z": 155.84846897733382,
+          "hx": 0.37337551040574807,
+          "hz": -0.9276802941904323,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 5.660846646789919,
+        "local": {
+          "along": 5.660591182541422,
+          "side": 0.05377938830986939
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999275609821395
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -73.64876512971156,
+        "y": 17.775,
+        "z": 150.27718054917827,
+        "yaw": 43.61168872693817,
+        "speedMps": 0,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1333,
+        "textures": 58
+      }
+    },
+    {
+      "ms": 25583,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 83.16666666666323,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -71.9788594236263,
+        "y": 13.45,
+        "z": 145.98413518243896,
+        "hx": 0.37337551040574746,
+        "hz": -0.9276802941904326,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -72.1157637774418,
+          "y": 13.45,
+          "z": 146.32428462364223,
+          "hx": 0.37337551040574746,
+          "hz": -0.9276802941904326,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 5.660846646789919,
+        "local": {
+          "along": 5.660591182541422,
+          "side": 0.05377938830986939
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999275609821395
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -69.81544322287795,
+        "y": 17.775,
+        "z": 140.75299619548667,
+        "yaw": 43.61168872693817,
+        "speedMps": 0,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1335,
+        "textures": 59
+      }
+    },
+    {
+      "ms": 25934,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 83.51666666666321,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -69.1038679935011,
+        "y": 13.45,
+        "z": 138.84099691717026,
+        "hx": 0.37337551040574707,
+        "hz": -0.9276802941904329,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -69.24077234731658,
+          "y": 13.45,
+          "z": 139.18114635837352,
+          "hx": 0.37337551040574773,
+          "hz": -0.9276802941904325,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 5.660846646789919,
+        "local": {
+          "along": 5.660591182541422,
+          "side": 0.053779388309871834
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999275609821396
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -66.94045179275274,
+        "y": 17.775,
+        "z": 133.60985793021797,
+        "yaw": 43.61168872693817,
+        "speedMps": 0,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1335,
+        "textures": 59
+      }
+    },
+    {
+      "ms": 26398,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 83.98333333332985,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -65.27054608666752,
+        "y": 13.45,
+        "z": 129.31681256347878,
+        "hx": 0.3733755104057478,
+        "hz": -0.9276802941904324,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -65.40745044048302,
+          "y": 13.45,
+          "z": 129.65696200468204,
+          "hx": 0.3733755104057478,
+          "hz": -0.9276802941904324,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 5.660846646789933,
+        "local": {
+          "along": 5.660591182541435,
+          "side": 0.05377938830986184
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999275609821394
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -63.107129885919164,
+        "y": 17.775,
+        "z": 124.08567357652647,
+        "yaw": 43.61168872693817,
+        "speedMps": 0,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1335,
+        "textures": 59
+      }
+    },
+    {
+      "ms": 26857,
+      "phase": "carry",
+      "blocked": null,
+      "simTime": 84.43333333332983,
+      "body": {
+        "id": "metro:green:0:1:1:0",
+        "x": -61.57412853364945,
+        "y": 13.45,
+        "z": 120.13277765099058,
+        "hx": 0.37337551040574746,
+        "hz": -0.9276802941904326,
+        "halfWidth": 1.5,
+        "halfLength": 12.2,
+        "bottom": 13.6,
+        "roof": 17.224999999999998,
+        "grade": 0,
+        "previous": {
+          "x": -61.71103288746494,
+          "y": 13.45,
+          "z": 120.47292709219384,
+          "hx": 0.3733755104057471,
+          "hz": -0.9276802941904326,
+          "grade": 0
+        },
+        "source": "metro",
+        "trainId": "metro:green:0:1:1",
+        "speedMps": 22,
+        "dwell": 0,
+        "distance": 5.660846646789933,
+        "local": {
+          "along": 5.6605911825414355,
+          "side": 0.05377938830986406
+        },
+        "roofAtCar": 17.224999999999998,
+        "feetAboveRoof": 0,
+        "headingDot": 0.9999275609821395
+      },
+      "support": true,
+      "contacts": {
+        "attachedId": "metro:green:0:1:1:0",
+        "drift": {
+          "x": 0,
+          "z": 0
+        },
+        "placementRevision": 1
+      },
+      "player": {
+        "x": -59.41071233290109,
+        "y": 17.775,
+        "z": 114.90163866403827,
+        "yaw": 43.61168872693817,
+        "speedMps": 0,
+        "vy": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "lastKind": "rail",
+        "lastSupport": 17.224999999999998,
+        "onRoad": false
+      },
+      "area": "RTC X Roads",
+      "stream": {
+        "stagedBytes": 0,
+        "activeBytes": 204527096,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "installJobs": 2564,
+        "installMaxMs": 7.199999999254942,
+        "activationMaxMs": 1.800000000745058,
+        "admissionFailures": 0,
+        "skylineBytes": 29971656,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736
+      },
+      "tiles": 6,
+      "resources": {
+        "geometries": 1335,
+        "textures": 59
+      }
+    }
+  ],
+  "rideWindows": [
+    {
+      "bodyId": "metro:green:0:1:1:0",
+      "startMs": 24067,
+      "startSimTime": 81.64999999999665,
+      "startBody": {
+        "x": -84.43715562083574,
+        "z": 176.9377343319371
+      },
+      "startCar": {
+        "x": -82.27202844984515,
+        "z": 171.7021920203377
+      },
+      "minAlong": 5.660591182541421,
+      "maxAlong": 5.665314894432954,
+      "minSide": 0.053722528099924505,
+      "maxSide": 0.05377938830987938,
+      "maxRoofError": 0,
+      "maxRelativeSpeedMps": 0.2278144152860639,
+      "samples": 27,
+      "wallSeconds": 3.018,
+      "simSeconds": 3.016666666666495,
+      "bodyWorldMetres": 66.36666666668883,
+      "carWorldMetres": 66.36194295482166,
+      "endMs": 27085,
+      "reason": "proof complete"
+    }
+  ],
+  "final": {
+    "blocked": "paused",
+    "simTime": 84.66666666666315,
+    "body": {
+      "id": "metro:green:0:1:1:0",
+      "x": -59.65746758023267,
+      "y": 13.45,
+      "z": 115.37068547414484,
+      "hx": 0.37337551040574746,
+      "hz": -0.9276802941904326,
+      "halfWidth": 1.5,
+      "halfLength": 12.2,
+      "bottom": 13.6,
+      "roof": 17.224999999999998,
+      "grade": 0,
+      "previous": {
+        "x": -59.79437193404815,
+        "y": 13.45,
+        "z": 115.7108349153481,
+        "hx": 0.37337551040574785,
+        "hz": -0.9276802941904324,
+        "grade": 0
+      },
+      "source": "metro",
+      "trainId": "metro:green:0:1:1",
+      "speedMps": 22,
+      "dwell": 0,
+      "distance": 5.660846646789933,
+      "local": {
+        "along": 5.6605911825414355,
+        "side": 0.05377938830986406
+      },
+      "roofAtCar": 17.224999999999998,
+      "feetAboveRoof": 0,
+      "headingDot": 0.9999275609821395
+    },
+    "support": true,
+    "contacts": {
+      "attachedId": "metro:green:0:1:1:0",
+      "drift": {
+        "x": 0,
+        "z": 0
+      },
+      "placementRevision": 1
+    },
+    "player": {
+      "x": -57.49405137948431,
+      "y": 17.775,
+      "z": 110.13954648719253,
+      "yaw": 43.61168872693817,
+      "speedMps": 0,
+      "vy": 0,
+      "flying": false,
+      "descending": false,
+      "jumping": false,
+      "lastKind": "rail",
+      "lastSupport": 17.224999999999998,
+      "onRoad": false
+    },
+    "area": "RTC X Roads",
+    "stream": {
+      "stagedBytes": 0,
+      "activeBytes": 204527096,
+      "retiringBytes": 0,
+      "pendingReservedBytes": 0,
+      "installJobs": 2564,
+      "installMaxMs": 7.199999999254942,
+      "activationMaxMs": 1.800000000745058,
+      "admissionFailures": 0,
+      "skylineBytes": 29971656,
+      "skylineStagedBytes": 0,
+      "skylineRetiringBytes": 0,
+      "decodedCacheBytes": 65306736
+    },
+    "tiles": 6,
+    "resources": {
+      "geometries": 1335,
+      "textures": 59
+    }
+  },
+  "releasedKeys": true
+}

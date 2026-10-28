@@ -1,0 +1,101 @@
+{
+  "recordedUtc": "2026-10-28T11:02:29.334677+00:00",
+  "captureIntervalUtc": [
+    "2026-10-28T10:58:34.136Z",
+    "2026-10-28T10:58:54.975Z"
+  ],
+  "copyPolicy": "byte-for-byte copies; no image editing during preservation; contact sheet was already derived during comparison",
+  "files": [
+    {
+      "file": "docs/performance/evidence/roadster-batching/contact-sheet.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/contact-sheet.png",
+      "sha256": "fdd4b2de53d3a947f8b2dbc1d7b58d6ec62dfa9d7be6fc6973e331483c1ab50b",
+      "bytes": 1030017,
+      "kind": "derived comparison sheet"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/front-day-ground-baseline.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/front-day-ground-baseline.png",
+      "sha256": "585486436a07babe4812d0a207e99a07459f415529dca06b502803f6bdbebd64",
+      "bytes": 198685,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/front-day-ground-candidate.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/front-day-ground-candidate.png",
+      "sha256": "585486436a07babe4812d0a207e99a07459f415529dca06b502803f6bdbebd64",
+      "bytes": 198685,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/front-night-ground-baseline.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/front-night-ground-baseline.png",
+      "sha256": "1e5ad75581f55c50aff45bf6d487828118e842edb8d49988e8a4726a6999a1af",
+      "bytes": 278977,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/front-night-ground-candidate.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/front-night-ground-candidate.png",
+      "sha256": "36228e27f7320f3c549cd8a92f3278dd490b65b3932c8114c39f40ca20f16de7",
+      "bytes": 278977,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/rear-night-flight-baseline.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/rear-night-flight-baseline.png",
+      "sha256": "c17943b8d93ee7703385811ab7280accc3533c71538421fc5b85c2b8ff7d879f",
+      "bytes": 282388,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/rear-night-flight-candidate.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/rear-night-flight-candidate.png",
+      "sha256": "de9b2ea595bd052debe5ec3444fa6e60d0ef12b9f262e1478a5f59694bfe1879",
+      "bytes": 282387,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/wheel-day-steer-baseline.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/wheel-day-steer-baseline.png",
+      "sha256": "c6acd25dcb316fad5b22e4d483dd466985ae184184c3c6695c2a272f698135a7",
+      "bytes": 228078,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/wheel-day-steer-candidate.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/wheel-day-steer-candidate.png",
+      "sha256": "60ce2db116a1686e3d5151998105d1f6bb7b00e6df395e69f356d4177241387a",
+      "bytes": 228063,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/wheel-night-steer-baseline.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/wheel-night-steer-baseline.png",
+      "sha256": "455faf7010ae1eae8052d0283fc1264923f9fe38e04977b410125abe7c57152f",
+      "bytes": 315662,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/wheel-night-steer-candidate.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/wheel-night-steer-candidate.png",
+      "sha256": "5573ffd52b56bbfda43db9e9c7093dfdd159e2bbd5f9be7cf58eb809f451c29e",
+      "bytes": 315658,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/side-day-kickflip-baseline.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/side-day-kickflip-baseline.png",
+      "sha256": "e93bfbcd783bdfbaa81fdf4cbba7581a84e8fb93f316b5f773a5e817ab3c0ab6",
+      "bytes": 213432,
+      "kind": "original unmodified browser screenshot"
+    },
+    {
+      "file": "docs/performance/evidence/roadster-batching/side-day-kickflip-candidate.png",
+      "source": "output/playwright/roadster-visual-fixture/captures/side-day-kickflip-candidate.png",
+      "sha256": "307bed1798111723cd8a12d2014b55126a4a61a5c38f628433266666cff84a44",
+      "bytes": 213426,
+      "kind": "original unmodified browser screenshot"
+    }
+  ]
+}

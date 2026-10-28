@@ -18,13 +18,25 @@ export interface SignalResolution { sites: SignalSite[]; unresolved: { id: strin
 // has a full amber and all-red interval before another approach is released.
 export const SIGNAL_GREEN = 18, SIGNAL_AMBER = 3, SIGNAL_ALL_RED = 2;
 export const SIGNAL_PHASE = SIGNAL_GREEN + SIGNAL_AMBER + SIGNAL_ALL_RED;
-export function signalAspect(site: Pick<SignalSite, 'phaseCount'> & { offset?: number; phaseGreens?: number[] }, phase: number, seconds: number): SignalAspect {
-  const count = Math.max(2, site.phaseCount), greens = Array.from({ length: count }, (_, i) => site.phaseGreens?.[i] || SIGNAL_GREEN);
-  const spans = greens.map(g => g + SIGNAL_AMBER + SIGNAL_ALL_RED), cycle = spans.reduce((sum, span) => sum + span, 0);
+type SignalTiming = Pick<SignalSite, 'phaseCount'> & { offset?: number; phaseGreens?: number[] };
+const ASPECT_NAMES = ['red', 'amber', 'green'] as const;
+// Shared controller/render lookup without allocating timing arrays every frame.
+export function signalAspectIndex(site: SignalTiming, phase: number, seconds: number) {
+  const count = Math.floor(Math.max(2, site.phaseCount));
+  let cycle = 0;
+  for (let i = 0; i < count; i++) cycle += (site.phaseGreens?.[i] || SIGNAL_GREEN) + SIGNAL_AMBER + SIGNAL_ALL_RED;
   let t = (((seconds + (site.offset || 0)) % cycle) + cycle) % cycle, current = 0;
-  while (current < spans.length - 1 && t >= spans[current]) t -= spans[current++];
-  if (phase !== current || t >= greens[current] + SIGNAL_AMBER) return 'red';
-  return t < greens[current] ? 'green' : 'amber';
+  while (current < count - 1) {
+    const span = (site.phaseGreens?.[current] || SIGNAL_GREEN) + SIGNAL_AMBER + SIGNAL_ALL_RED;
+    if (!(t >= span)) break;
+    t -= span; current++;
+  }
+  const green = site.phaseGreens?.[current] || SIGNAL_GREEN;
+  if (phase !== current || t >= green + SIGNAL_AMBER) return 0;
+  return t < green ? 2 : 1;
+}
+export function signalAspect(site: SignalTiming, phase: number, seconds: number): SignalAspect {
+  return ASPECT_NAMES[signalAspectIndex(site, phase, seconds)];
 }
 function controllerHash(id: string) {
   let h = 2166136261;

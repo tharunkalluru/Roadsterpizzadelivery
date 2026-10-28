@@ -79,14 +79,14 @@ export class AreaPicker {
     const last = opts.last;
     this.root.innerHTML = `<div class="in">
       <h1>${opts.first ? 'Where do you want to deliver?' : 'Deliver somewhere else'}</h1>
-      <p class="lead">${opts.first ? 'Pick your part of Hyderabad. Pizza orders come from kitchens around you. You can move after any delivery: open the map and choose “Deliver from here”.' : `You're in ${esc(opts.current || 'Hyderabad')}. Choose a new area; your coins and theatres stay with you.`}</p>
+      <p class="lead">${opts.first ? 'Pick your part of Hyderabad. Pizza orders come from kitchens around you. You can move after any delivery: open the map and choose “Deliver from here”.' : `You're in ${esc(opts.current || 'Hyderabad')}. Choose a new area; your coins and delivery progress stay with you.`}</p>
       ${last ? `<div class="acts"><button type="button" class="btn go" id="ap-last">Continue in ${esc(last.name)}</button></div>` : ''}
       <div class="search"><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5"/></svg><input id="ap-q" type="search" placeholder="Search an area or metro station: Uppal, Nagaram, Tarnaka…" autocomplete="off" aria-label="Search an area"><div class="res" id="ap-res"></div></div>
       <div class="k">Popular areas</div>
       <div class="chips">${this.popular.map((p, i) => `<button type="button" data-i="${i}"><span class="area-icon" aria-hidden="true"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 29C8 24 1 16 1 11a11 11 0 0 1 22 0c0 5-7 13-11 18Z"/><circle cx="12" cy="11" r="4" fill="#241630"/></svg></span><span>${esc(p.name)}</span></button>`).join('')}</div>
       <div class="acts"><button type="button" class="btn alt" id="ap-map">Pick a spot on the map</button>${this.onClose ? '<button type="button" class="btn alt" id="ap-close">Stay here</button>' : ''}</div>
     </div>`;
-    this.root.hidden = false;
+    this.root.hidden = false; this.root.parentElement?.classList.add('area-picker-open');
     const q = this.root.querySelector('#ap-q') as HTMLInputElement, res = this.root.querySelector('#ap-res') as HTMLElement;
     const render = () => {
       const t = q.value.trim().toLowerCase();
@@ -109,7 +109,7 @@ export class AreaPicker {
     this.focus.show();
   }
   choose(c: AreaChoice) { this.hide(); this.onPick(c); }
-  hide() { this.root.hidden = true; this.focus.hide(); }
+  hide() { this.root.hidden = true; this.root.parentElement?.classList.remove('area-picker-open'); this.focus.hide(); }
   get open() { return !this.root.hidden; }
 }
 

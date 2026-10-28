@@ -1,0 +1,528 @@
+{
+  "checks": {
+    "clockFrozen": true,
+    "positionFrozen": true,
+    "orderFrozen": true,
+    "inputBlocked": true,
+    "restored": true,
+    "fullResolution": true,
+    "viewportRestored": true,
+    "progressPreserved": true
+  },
+  "kind": "explicit WebGL fault injection, separate from real gameplay",
+  "supported": true,
+  "states": [
+    {
+      "label": "before",
+      "at": "2026-10-28T11:15:19.456Z",
+      "t": 249.68333333342417,
+      "order": {
+        "id": "PZ-0033",
+        "state": "toDrop",
+        "t": 136.11666666666713,
+        "heat": 82.40060227782367,
+        "slices": 8
+      },
+      "scale": 1,
+      "pressure": 0,
+      "healthy": 1.3173000000007458,
+      "buffer": [
+        1280,
+        592
+      ],
+      "ready": true,
+      "p": {
+        "x": -357.0013485631098,
+        "y": 24.000000000000064,
+        "z": 1614.0504617452857
+      },
+      "speed": 0,
+      "flying": true,
+      "jumping": false,
+      "flyQueued": false,
+      "jumpQueued": false,
+      "keys": [],
+      "loading": false,
+      "total": 31,
+      "coins": 17172,
+      "uploads": {
+        "count": 4460,
+        "totalMs": 232.4000000655651,
+        "maxMs": 2.399999998509884
+      }
+    },
+    {
+      "label": "lost",
+      "at": "2026-10-28T11:15:19.483Z",
+      "t": 249.71666666675753,
+      "order": {
+        "id": "PZ-0033",
+        "state": "toDrop",
+        "t": 136.1500000000005,
+        "heat": 82.39629239715214,
+        "slices": 8
+      },
+      "scale": 1,
+      "pressure": 0,
+      "healthy": 0,
+      "buffer": [
+        1280,
+        592
+      ],
+      "ready": false,
+      "p": {
+        "x": -357.0013485631098,
+        "y": 24.000000000000064,
+        "z": 1614.0504617452857
+      },
+      "speed": 0,
+      "flying": true,
+      "jumping": false,
+      "flyQueued": false,
+      "jumpQueued": false,
+      "keys": [],
+      "loading": true,
+      "total": 31,
+      "coins": 17172,
+      "uploads": {
+        "count": 4460,
+        "totalMs": 232.4000000655651,
+        "maxMs": 2.399999998509884
+      }
+    },
+    {
+      "label": "lost-after-viewport-change",
+      "at": "2026-10-28T11:15:19.638Z",
+      "t": 249.71666666675753,
+      "order": {
+        "id": "PZ-0033",
+        "state": "toDrop",
+        "t": 136.1500000000005,
+        "heat": 82.39629239715214,
+        "slices": 8
+      },
+      "scale": 1,
+      "pressure": 0,
+      "healthy": 0,
+      "buffer": [
+        1280,
+        592
+      ],
+      "ready": false,
+      "p": {
+        "x": -357.0013485631098,
+        "y": 24.000000000000064,
+        "z": 1614.0504617452857
+      },
+      "speed": 0,
+      "flying": true,
+      "jumping": false,
+      "flyQueued": false,
+      "jumpQueued": false,
+      "keys": [],
+      "loading": true,
+      "total": 31,
+      "coins": 17172,
+      "uploads": {
+        "count": 4460,
+        "totalMs": 232.4000000655651,
+        "maxMs": 2.399999998509884
+      }
+    },
+    {
+      "label": "lost-after-input",
+      "at": "2026-10-28T11:15:21.143Z",
+      "t": 249.71666666675753,
+      "order": {
+        "id": "PZ-0033",
+        "state": "toDrop",
+        "t": 136.1500000000005,
+        "heat": 82.39629239715214,
+        "slices": 8
+      },
+      "scale": 1,
+      "pressure": 0,
+      "healthy": 0,
+      "buffer": [
+        1280,
+        592
+      ],
+      "ready": false,
+      "p": {
+        "x": -357.0013485631098,
+        "y": 24.000000000000064,
+        "z": 1614.0504617452857
+      },
+      "speed": 0,
+      "flying": true,
+      "jumping": false,
+      "flyQueued": false,
+      "jumpQueued": false,
+      "keys": [],
+      "loading": true,
+      "total": 31,
+      "coins": 17172,
+      "uploads": {
+        "count": 4460,
+        "totalMs": 232.4000000655651,
+        "maxMs": 2.399999998509884
+      }
+    },
+    {
+      "label": "restored",
+      "at": "2026-10-28T11:15:22.837Z",
+      "t": 251.21666666675873,
+      "order": {
+        "id": "PZ-0033",
+        "state": "toDrop",
+        "t": 137.65000000000168,
+        "heat": 82.20234776693331,
+        "slices": 8
+      },
+      "scale": 1,
+      "pressure": 0,
+      "healthy": 1.2001999999992548,
+      "buffer": [
+        1200,
+        650
+      ],
+      "ready": true,
+      "p": {
+        "x": -357.0013485631098,
+        "y": 24.000000000000064,
+        "z": 1614.0504617452857
+      },
+      "speed": 0,
+      "flying": true,
+      "jumping": false,
+      "flyQueued": false,
+      "jumpQueued": false,
+      "keys": [],
+      "loading": false,
+      "total": 31,
+      "coins": 17172,
+      "uploads": {
+        "count": 4460,
+        "totalMs": 232.4000000655651,
+        "maxMs": 2.399999998509884
+      }
+    }
+  ],
+  "errors": [
+    {
+      "at": "2026-10-28T08:49:27.904Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.904Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.904Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.910Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.910Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.910Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.910Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.910Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.910Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.911Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.911Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:27.911Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:28.420Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:29.437Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:29.437Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:29.437Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:29.456Z",
+      "kind": "console",
+      "text": "relocate Error: Could not load the streets in this area. Check your connection and choose the area again.\n    at m (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:252723)\n    at h_.notify (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:243235)\n    at h_.onMessage (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:255376)\n    at e.onmessage (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:242057)"
+    },
+    {
+      "at": "2026-10-28T08:49:29.456Z",
+      "kind": "console",
+      "text": "relocate Error: Could not load the streets in this area. Check your connection and choose the area again.\n    at m (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:252723)\n    at h_.notify (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:243235)\n    at h_.onMessage (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:255376)\n    at e.onmessage (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:242057)"
+    },
+    {
+      "at": "2026-10-28T08:49:29.456Z",
+      "kind": "console",
+      "text": "relocate Error: Could not load the streets in this area. Check your connection and choose the area again.\n    at m (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:252723)\n    at h_.notify (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:243235)\n    at h_.onMessage (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:255376)\n    at e.onmessage (http://127.0.0.1:4199/assets/index-mzPv3jPn.js:4004:242057)"
+    },
+    {
+      "at": "2026-10-28T08:49:29.459Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:29.459Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:29.459Z",
+      "kind": "console",
+      "text": "City tile loading failed. -1_-15 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:29.460Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:29.460Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T08:49:29.460Z",
+      "kind": "console",
+      "text": "City tile loading failed. -2_-16 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:04.953Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:04.953Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:04.953Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:05.016Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_-1 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:05.016Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_-1 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:05.016Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_-1 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:05.472Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:05.472Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:05.473Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:05.535Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_-1 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:05.535Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_-1 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:05.535Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_-1 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:06.485Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:06.485Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:06.485Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:06.552Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_-1 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:06.552Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_-1 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:06.552Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_-1 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:25.150Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:25.150Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:25.150Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:25.664Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:25.664Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:25.664Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:26.685Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:26.685Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    },
+    {
+      "at": "2026-10-28T10:25:26.685Z",
+      "kind": "console",
+      "text": "City tile loading failed. 9_0 Could not download city data. Check your connection and try again."
+    }
+  ]
+}

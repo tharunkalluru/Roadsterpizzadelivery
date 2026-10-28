@@ -42,6 +42,8 @@ export class MetroStationLife {
   readonly active = new Map<string, LiveStation>();
   private seconds = 0;
   private lowQ: boolean;
+  // At most 24 standing + 48 seated appearances. These shared leases outlive
+  // individual station groups and are released with the station-life owner.
   private figures = new Map<string, ReturnType<typeof walkerGeometry>>();
   private seatedLegs = new Map<string, THREE.BufferGeometry>();
   constructor(metro: { lines: MetroLineInput[]; stations: MetroStationSource[]; deckHeight: number }, private material: THREE.Material, private options: { lowQ?: boolean; isStationLoaded?: (station: MetroStationSource) => boolean } = {}) {
@@ -52,6 +54,12 @@ export class MetroStationLife {
     this.group.name = 'Metro station passengers · heuristic simulation';
   }
   private deckHeight: number;
+  dispose() {
+    for (const state of this.active.values()) state.waitingBatch?.geometry.dispose();
+    this.group.clear(); this.active.clear();
+    for (const geometry of this.figures.values()) geometry.release(); this.figures.clear();
+    for (const geometry of this.seatedLegs.values()) geometry.dispose(); this.seatedLegs.clear();
+  }
   private actor(seed: string, seated = false): Actor {
     const index = hash(seed) % 24, random = rng(hash(seed)), original = randomPerson(rng(index + 3049));
     const spec: PersonSpec = seated ? { ...original, kind: hash(seed) % 2 ? 'shirt' : 'western_f', s: .98 } : original;

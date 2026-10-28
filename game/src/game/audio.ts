@@ -1,5 +1,5 @@
 // Small synthesized game sounds. No downloads, media permissions, or autoplay before a gesture.
-export type SoundCue = 'start' | 'offer' | 'accept' | 'pickup' | 'delivery' | 'flight' | 'lease' | 'bump' | 'error';
+export type SoundCue = 'start' | 'offer' | 'accept' | 'pickup' | 'delivery' | 'flight' | 'bump' | 'error';
 export interface VehicleSound { speed: number; throttle: number; flying: boolean; descending?: boolean; active: boolean }
 
 export class Sound {
@@ -125,7 +125,6 @@ export class Sound {
       pickup: [[784, 0, 0.1], [988, 0.11, 0.1], [1175, 0.22, 0.17]],
       delivery: [[523, 0, 0.13], [659, 0.13, 0.13], [784, 0.26, 0.13], [1047, 0.39, 0.28]],
       flight: [[180, 0, 0.24]],
-      lease: [[262, 0, 0.28], [330, 0.08, 0.28], [392, 0.16, 0.38]],
       bump: [[100, 0, 0.14]],
       error: [[220, 0, 0.15], [165, 0.18, 0.2]],
     }[kind] as [number, number, number][];
