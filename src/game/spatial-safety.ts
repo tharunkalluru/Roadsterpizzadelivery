@@ -10,7 +10,7 @@ import { waterHeightAt } from '../world/water';
 interface Point { x: number; y: number; z: number }
 export interface VehicleBounds extends Point { hx: number; hz: number; size: number[] }
 export interface StreetSpot extends Point { yaw: number }
-export interface StreetSpotOptions { allowElevated?: boolean; preferMajor?: boolean; heading?: { x: number; z: number }; vehicles?: VehicleBounds[] }
+export interface StreetSpotOptions { majorOnly?:boolean; forwardClearance?:number; allowElevated?: boolean; preferMajor?: boolean; heading?: { x: number; z: number }; vehicles?: VehicleBounds[] }
 /** Opt-in camera medium for the active lake delivery only. Placement never supplies this. */
 export interface CameraCollisionOptions { underwater?: { x: number; z: number; radius: number } }
 
@@ -189,9 +189,11 @@ export function streetFootprintClear(city: CityData, p: Point, hx: number, hz: n
 export function findClearStreetSpot(graph: RoadGraph, city: CityData, x: number, z: number,
   options: StreetSpotOptions = {}): StreetSpot | null {
   const allowed = new Set(['trunk', 'primary', 'secondary', 'tertiary', 'unclassified', 'residential', 'unknown', 'primary_link', 'secondary_link', 'tertiary_link', 'living_street', 'service']);
+  if(options.majorOnly)allowed.add('motorway');
   if (options.allowElevated) for (const cls of ['motorway', 'motorway_link', 'trunk_link']) allowed.add(cls);
   const projections: { g: ReturnType<RoadGraph['nearestEdges']>[number]; s: number; d: number }[] = [];
   for (const g of graph.nearestEdges(x, z, 10)) {
+    if(options.majorOnly&&(!['primary','secondary','trunk','motorway'].includes(g.e.cls)||g.e.w<9||g.e.workZone))continue;
     if (!allowed.has(g.e.cls) || g.len < 12 || g.e.w < 3) continue;
     for (let i = 0; i < g.e.pts.length - 1; i++) {
       const a = g.e.pts[i], b = g.e.pts[i + 1], q = segmentDistance(x, z, ...a, ...b);
@@ -221,7 +223,8 @@ export function findClearStreetSpot(graph: RoadGraph, city: CityData, x: number,
         let clear = true;
         // A legal tangent at a bend may face an immediately adjacent facade.
         // Require a short forward exit as well as a free final footprint.
-        for (const ahead of [0, 2, 4, 6, 8]) {
+        const clearLength=Math.max(8,Math.min(60,options.forwardClearance??8));
+        for (let ahead=0;ahead<=clearLength;ahead+=2) {
           const at = { x: p.x + p.hx * ahead, y: p.y, z: p.z + p.hz * ahead };
           if (!roadClearAt(city, at.x, at.z, at.y, options.allowElevated) || !streetFootprintClear(city, at, p.hx, p.hz, options.vehicles)) { clear = false; break; }
         }

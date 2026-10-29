@@ -1,3 +1,4 @@
+import { campaignSession, campaignSpawn } from './campaign';
 import type { Game } from '../game/game';
 import { DeliveryController } from './systems/delivery-controller';
 import { loadLevels } from './content/levels';
@@ -10,6 +11,8 @@ import { roofUnder } from '../game/physics';
 import type { LevelConfig, StorageLike } from './core/types';
 import { projectRailwayRun, type RailwayRun } from '../game/railway-flow';
 import { verifiedRailPassages, type VerifiedRailPassage } from './rail-passages';
+import { sampleTruckRoute, truckLane } from './truck-route';
+import { signedFlightAngle } from '../ui/flight-navigation';
 
 /** Static support only: a passing train must not move a fixed delivery stage. */
 export function deliverySurfaceHeight(city: Game['city'], x: number, z: number) {
@@ -64,7 +67,8 @@ export class DeliveryRuntime {
   constructor(private game: Game, options: DeliveryRuntimeOptions = {}) {
     let storage: StorageLike | undefined = options.storage;
     if (!storage) try { storage = window.localStorage; } catch { /* Play remains available without persistent storage. */ }
-    this.controller = new DeliveryController(options.levels ?? loadLevels(), game.deliveryEvents, storage);
+    const campaign = options.levels ? { levels:options.levels,storage } : campaignSession(loadLevels(),storage);
+    this.controller = new DeliveryController(campaign.levels, game.deliveryEvents, campaign.storage);
     this.moduleFactory = options.moduleFactory ?? createDeliveryModule;
     this.ui = (options.uiFactory ?? ((host, actions) => new DeliveryUI(host, actions)))(game.hud.root, {
       call: () => this.act(() => this.controller.call()),
@@ -91,6 +95,7 @@ export class DeliveryRuntime {
       }));
     this.syncView();
   }
+  startArea() { const target=(this.controller.progress.nextLevel ?? this.controller.levels[this.controller.levels.length-1])?.destination; return target?campaignSpawn(this.game.graph,target):null; }
   get canPickup() { return this.controller.canPickup; }
   get blocking() { return this.ui.blocking; }
   get activeOrder() { return !!this.controller.activeLevel && !this.controller.complete; }
@@ -100,6 +105,34 @@ export class DeliveryRuntime {
     return `Level ${c.activeLevel?.level ?? c.progress.currentLevel} / ${c.progress.total}`;
   }
   get destination() { return this.target; }
+  /** Final metres follow the live scene, which may sit outside the road graph. */
+  get localNavigation(): { metres: number; hint: string; bearing: number } | undefined {
+    if (this.disposed || !this.activeOrder || !this.target) return;
+    const player = this.game.player, arrival = this.module?.arrival;
+    const rear = arrival?.side === 'rear' ? arrival : undefined;
+    // Arrival anchors the rear-door boundary; the target remains the safe
+    // approach point behind its ramp, including before the player calls.
+    const target = this.target;
+    if (![player.pos.x, player.pos.z, player.yaw, target.x, target.z].every(Number.isFinite)) return;
+    const dx = target.x - player.pos.x, dz = target.z - player.pos.z;
+    const metres = Math.hypot(dx, dz);
+    if (metres > (rear ? 80 : 40)) return;
+    let hint = rear ? (this.controller.canDrop ? 'Approach ramp' : 'Approach rear') : 'Approach marker';
+    let heading = metres < .01 ? player.yaw : Math.atan2(-dx, -dz);
+    const ramp = this.controller.canDrop && rear ? this.module?.supports.find(body => body.id === 'delivery-interior-ramp') : undefined;
+    if (ramp && rear && [ramp.x, ramp.z, ramp.hx, ramp.hz, ramp.halfLength, rear.hx, rear.hz].every(Number.isFinite)) {
+      const tipX = ramp.x - ramp.hx * ramp.halfLength, tipZ = ramp.z - ramp.hz * ramp.halfLength;
+      const tipDX = player.pos.x - tipX, tipDZ = player.pos.z - tipZ;
+      const sideOffset = Math.abs(tipDX * rear.hz - tipDZ * rear.hx);
+      // Only an aligned rear approach should point along the moving aisle;
+      // beside the truck, the arrow must still lead back to its actual ramp.
+      if (sideOffset < 1.6 && Math.hypot(tipDX, tipDZ) < 8) {
+        hint = 'Drive into truck';
+        heading = Math.atan2(-rear.hx, -rear.hz);
+      }
+    }
+    return { metres, hint, bearing: signedFlightAngle(player.yaw - heading) };
+  }
   private act(fn: () => unknown) { fn(); this.syncView(); }
   private setTarget(target: DeliveryPoint | null) {
     if (target && ![target.x, target.y, target.z].every(Number.isFinite)) return;
@@ -139,9 +172,10 @@ export class DeliveryRuntime {
     }
     this.module?.update(dt);
     this.trafficBodies.length = 0;
-    for (const body of this.module?.supports || []) if (body.id === 'delivery-log-truck') this.trafficBodies.push(body);
+    for (const body of this.module?.trafficBodies ?? this.module?.supports ?? []) if (body.id === 'delivery-log-truck') this.trafficBodies.push(body);
     this.game.traffic.setKinematicVehicles?.(this.trafficBodies, dt);
-    const movement = c.canDrop ? this.module?.movement : undefined;
+    const surfaceApproach=c.activeLevel?.moduleParams.scene==='surfaceEmergence';
+    const movement = c.canDrop || surfaceApproach ? this.module?.movement : undefined;
     p.deliveryMotion = movement && movement.mode !== 'normal' && movement.center ? {
       mode: movement.mode, x: movement.center.x, z: movement.center.z, radius: movement.radius ?? 80,
       altitude: movement.mode === 'underwater' ? (movement.center.y - (movement.depth ?? 4)) : (movement.altitude ?? movement.center.y + 3),
@@ -157,7 +191,13 @@ export class DeliveryRuntime {
     if (!visible) { this.syncBlocking(); return; }
     if (!this.ui.collectionOpen) {
       const d = this.target ? Math.hypot(this.game.player.pos.x - this.target.x, this.game.player.pos.z - this.target.z) : Infinity;
-      this.controller.update(dt, d);
+      const arrival=this.module?.arrival;
+      let callDistance=d;
+      if(arrival?.side==='rear') { const dx=this.game.player.pos.x-arrival.x,dz=this.game.player.pos.z-arrival.z;
+        const behind=dx*arrival.hx+dz*arrival.hz;const side=Math.abs(dx*arrival.hz-dz*arrival.hx);
+        callDistance=behind<=2&&side<Math.min(6,arrival.radius)?Math.hypot(dx,dz):Infinity; }
+      if(this.controller.activeLevel?.moduleParams.scene==='surfaceEmergence'&&this.game.player.pos.y>8)callDistance=Infinity;
+      this.controller.update(dt, callDistance);
       if (this.controller.calls.ringing && (this.ringingT -= dt) <= 0) { this.ringingT = 2.4; this.game.sound.cue('offer'); }
     }
     this.viewTime -= dt;
@@ -180,9 +220,11 @@ export class DeliveryRuntime {
     const train = level.module === 'matchAndLand' && level.moduleParams.vehicle === 'train';
     if (level.module === 'matchAndLand' && !train && Number(level.moduleParams.speed) > 0) {
       // Use an actual directed carriageway, keeping the truck out of buildings/medians.
+      const interior = level.moduleParams.scene === 'truckInterior', width = interior ? 6 : 3.8, halfLength = interior ? 10 : 5.25;
       let best: any = null, score = Infinity;
       for (const edge of this.game.graph.nearestEdges(destination.x, destination.z, 7)) {
-        if (edge.e.w < 7 || edge.len < 70 || /foot|path|steps|cycle/.test(edge.e.cls)) continue;
+        const direction = edge.e.oneway === 'forward' ? -1 : 1;
+        if (edge.len < 70 || truckLane(edge, direction, 0, width) == null) continue;
         for (let s = 10; s < edge.len - 10; s += 20) {
           const at = this.game.graph.pointAt(edge, s, 1), d = Math.hypot(at.x - destination.x, at.z - destination.z);
           if (d < score) { best = { edge, s }; score = d; }
@@ -190,27 +232,29 @@ export class DeliveryRuntime {
       }
       if (!best || score > 400) return;
       const { edge } = best, dir = edge.e.oneway === 'forward' ? -1 : 1;
-      const lane = this.game.traffic.pickLane(edge, 3.8, 'truck', dir);
-      // Use the full finite mapped segment, leaving room at both junctions.
-      // Truncating to 90m either side of the anchor let the truck stop before a
-      // player approaching from farther away could reach its moving target.
-      // pointAt already samples in travel direction; never reverse this twice.
-      const start = 6, end = edge.len - 6;
-      for (let s = start; s <= end; s += 4) {
-        const at = this.game.graph.pointAt(edge, s, dir, lane); route.push({ x: at.x, y: at.y, z: at.z });
-      }
-      const final = this.game.graph.pointAt(edge, end, dir, lane);
-      if (route.length && Math.hypot(route[route.length - 1].x - final.x, route[route.length - 1].z - final.z) > .01)
-        route.push({ x: final.x, y: final.y, z: final.z });
+      const lane = this.game.traffic.pickLane(edge, width, 'truck', dir);
+      // Follow legal, same-grade shared road nodes for up to four kilometres.
+      // Finite endpoints still brake; the route never invents a road/U-turn.
+      const routeOptions = { width, halfLength, centerOffset: interior ? 2 : 0 };
+      const laneRoute = sampleTruckRoute(this.game.graph, edge, dir, lane, routeOptions);
+      const centralRoute = edge.e.oneway && Math.abs(lane) > .01
+        ? sampleTruckRoute(this.game.graph, edge, dir, 0, routeOptions) : laneRoute;
+      // The authored walk-in truck is six metres wide. On a one-way road,
+      // keep it away from the outer median wall instead of using the narrow
+      // kerb-side preference intended for ordinary NPC trucks.
+      const preferCenter = interior && edge.e.oneway && centralRoute.length >= laneRoute.length - 10;
+      route = (preferCenter || centralRoute.length > laneRoute.length + 10 ? centralRoute : laneRoute).points;
       if (route.length < 2) return;
       // Do not introduce a new truck through an NPC already occupying the lane.
-      const roofHeight = Number(level.moduleParams.roofHeight) || 2.8;
+      const roofHeight = interior ? 5.8 : Number(level.moduleParams.roofHeight) || 2.8;
       const clearStart = route.findIndex((point, index) => {
         if (index >= route.length - 1) return false;
         const next = route[index + 1], n = Math.hypot(next.x - point.x, next.z - point.z) || 1;
+        const hx = (next.x - point.x) / n, hz = (next.z - point.z) / n;
         const body: MovingRailBody = { id: 'delivery-log-truck', ...point,
-          hx: (next.x - point.x) / n, hz: (next.z - point.z) / n,
-          bottom: point.y + .2, roof: point.y + roofHeight, halfWidth: 1.95, halfLength: 5.25,
+          x: point.x + (interior ? hx * 2 : 0), z: point.z + (interior ? hz * 2 : 0),
+          hx, hz,
+          bottom: point.y + .2, roof: point.y + roofHeight, halfWidth: interior ? 3 : 1.95, halfLength,
           previous: { ...point, hx: 0, hz: 1 } };
         return this.game.traffic.kinematicPoseClear?.(body) !== false;
       });
@@ -236,7 +280,7 @@ export class DeliveryRuntime {
     }
     const module = this.moduleFactory(level.module);
     this.module = module; this.selectedTrain = '';
-    module.setup({ scene: this.game.engine.scene, destination, route,
+    module.setup({ sceneEvent:(kind)=> { if(this.module===module&&c.activeLevel===level&&c.canDrop&&((kind==='interiorEntered'&&level.moduleParams.scene==='truckInterior')||(kind==='characterEmerged'&&level.moduleParams.scene==='surfaceEmergence')))this.controller.reveals.reveal(c.activeLevel); }, scene: this.game.engine.scene, destination, route,
       canInteract: () => c.canDrop,
       surfaceHeightAt: (x, z) => deliverySurfaceHeight(this.game.city, x, z),
       vehicleSpeedLimit: body => this.game.traffic.kinematicSpeedLimit?.(body, Number(level.moduleParams.speed) || 8) ?? Infinity,

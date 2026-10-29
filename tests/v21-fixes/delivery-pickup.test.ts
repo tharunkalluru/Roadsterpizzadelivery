@@ -15,7 +15,7 @@ function fixture() {
 }
 
 test('pickup tuning is finite, bounded, frozen and independent per override', () => {
-  assert.equal(PICKUP_CONFIG.boxHeightAboveRoof, .65); assert.equal(PICKUP_CONFIG.maxCarriersNearby, 3);
+  assert.equal(PICKUP_CONFIG.boxHeightAboveRoof, 1.2); assert.equal(PICKUP_CONFIG.maxCarriersNearby, 3);
   assert.ok(Object.isFrozen(PICKUP_CONFIG));
   assert.equal(createPickupConfig({ grabRadius: 2 }).grabRadius, 2); assert.equal(PICKUP_CONFIG.grabRadius, 1.7);
   for (const overrides of [{ grabRadius: NaN }, { carrierRange: 0 }, { maxCarriersNearby: 4 }, { maxCarriersNearby: 1.5 }, { recycleRange: 10 }])

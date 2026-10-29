@@ -35,12 +35,22 @@ export function railRoofAt(body: MovingRailBody, x: number, z: number) {
   const p = railLocal(body, x, z);
   return Math.abs(p.along) <= body.halfLength && Math.abs(p.side) <= body.halfWidth ? body.roof + p.along * (body.grade || 0) : null;
 }
-export function movingRailSupport(bodies: readonly MovingRailBody[], x: number, z: number, fromY: number) {
+export function deliveryRampClimb(body:MovingRailBody,x:number,z:number,previous?:{x:number;z:number;feet:number}) {
+  if(!previous||!body.id.startsWith('delivery-interior-ramp')||Math.abs(body.grade||0)>.3)return 0;
+  const old=railLocal(body.previous,previous.x,previous.z);
+  const oldRoof=body.roof-body.y+body.previous.y+old.along*(body.previous.grade??body.grade??0);
+  const distance=Math.hypot(x-previous.x,z-previous.z);
+  return distance<=3&&Math.abs(old.side)<=body.halfWidth+.1&&Math.abs(old.along)<=body.halfLength+1.2&&Math.abs(previous.feet-oldRoof)<=.2
+    ?Math.min(.6,.12+distance*Math.abs(body.grade||0)):0;
+}
+export function movingRailSupport(bodies: readonly MovingRailBody[], x: number, z: number, fromY: number, previous?: {x:number;z:number;feet:number}) {
   let best: { body: MovingRailBody; y: number } | null = null;
   for (const body of bodies) {
     const y = railRoofAt(body, x, z);
     // A car beneath the chassis cannot snap through it onto the roof.
-    if (y === null || y > fromY + .12) continue;
+    if (y === null) continue;
+    const climb=Math.max(.12,deliveryRampClimb(body,x,z,previous));
+    if(y>fromY+climb)continue;
     if (!best || (Number.isFinite(fromY) ? Math.abs(y - fromY) < Math.abs(best.y - fromY) : y > best.y)) best = { body, y };
   }
   return best;
@@ -49,6 +59,30 @@ function extents(body: RailPose, yaw: number) {
   const fx = -Math.sin(yaw), fz = -Math.cos(yaw), rx = -fz, rz = fx;
   return { along: Math.abs(fx * body.hx + fz * body.hz) * CAR_HALF_LENGTH + Math.abs(rx * body.hx + rz * body.hz) * CAR_HALF_WIDTH,
     side: Math.abs(-fx * body.hz + fz * body.hx) * CAR_HALF_LENGTH + Math.abs(-rx * body.hz + rz * body.hx) * CAR_HALF_WIDTH };
+}
+/** The joined open ramp/bed seam has neither a rear wall nor an extended slope. */
+function deliveryRampFloorJoin(body: MovingRailBody, bodies: readonly MovingRailBody[], player: RailPlayer, previous: Point) {
+  if (body.id !== 'delivery-interior-floor' && body.id !== 'delivery-interior-ramp' || player.flying || player.descending || player.jumping || player.vy > .1) return false;
+  const ramp = body.id === 'delivery-interior-ramp' ? body : bodies.find(candidate => candidate.id === 'delivery-interior-ramp');
+  const floor = body.id === 'delivery-interior-floor' ? body : bodies.find(candidate => candidate.id === 'delivery-interior-floor');
+  if (!ramp || !floor || Math.abs(ramp.grade || 0) > .3 || ramp.hx * floor.hx + ramp.hz * floor.hz < .995) return false;
+  const join = railWorld(ramp, ramp.halfLength, 0), rear = railWorld(floor, -floor.halfLength, 0);
+  if (Math.hypot(join.x - rear.x, join.z - rear.z) > .05 ||
+    Math.abs(ramp.roof + ramp.halfLength * (ramp.grade || 0) - (floor.roof - floor.halfLength * (floor.grade || 0))) > .05) return false;
+  const local = railLocal(ramp, player.pos.x, player.pos.z), old = railLocal(ramp.previous, previous.x, previous.z);
+  const width = extents(ramp, player.yaw).side;
+  const seamReach = CAR_HALF_LENGTH + .25;
+  if (Math.abs(local.side) + width > Math.min(ramp.halfWidth, floor.halfWidth) - .02 ||
+    Math.abs(local.along - ramp.halfLength) > seamReach ||
+    Math.abs(old.along - ramp.halfLength) > seamReach + .25 || Math.abs(old.side) + width > ramp.halfWidth) return false;
+  const floorLocal = railLocal(floor, player.pos.x, player.pos.z), oldFloor = railLocal(floor.previous, previous.x, previous.z);
+  const roof = local.along <= ramp.halfLength ? ramp.roof + local.along * (ramp.grade || 0) : floor.roof + floorLocal.along * (floor.grade || 0);
+  const oldRoof = old.along <= ramp.halfLength
+    ? ramp.roof - ramp.y + ramp.previous.y + old.along * (ramp.previous.grade ?? ramp.grade ?? 0)
+    : floor.roof - floor.y + floor.previous.y + oldFloor.along * (floor.previous.grade ?? floor.grade ?? 0);
+  // Require actual continuous tyre contact, so neither a car below the bed
+  // nor a missing/closed ramp can use this small rear-seam exception.
+  return Math.abs(player.pos.y - FOOT - roof) <= .2 && Math.abs(previous.y - FOOT - oldRoof) <= .2;
 }
 function sweep(a: { along: number; side: number }, b: { along: number; side: number }, along: number, side: number) {
   let enter = 0, exit = 1, axis: 'along' | 'side' = 'side', sign = 1;
@@ -105,6 +139,7 @@ export class MovingRailInteraction {
       const a = railLocal(body.previous, this.previous.x, this.previous.z), b = railLocal(body, player.pos.x, player.pos.z);
       const currentRoof = body.roof + b.along * (body.grade || 0), previousRoof = body.roof - body.y + body.previous.y + a.along * (body.previous.grade || 0);
       if (feet >= currentRoof - .12 && oldFeet >= previousRoof - .12) continue;
+      if (deliveryRampFloorJoin(body, this.bodies, player, this.previous)) continue;
       if (feet + CAR_HEIGHT < body.bottom + b.along * (body.grade || 0) || oldFeet > previousRoof + .2 && feet > currentRoof + .2) continue;
       const ex = extents(body, player.yaw), along = body.halfLength + ex.along, side = body.halfWidth + ex.side;
       const inside = Math.abs(b.along) < along && Math.abs(b.side) < side;

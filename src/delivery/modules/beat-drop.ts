@@ -1,14 +1,21 @@
 import { ModuleBase, numberParam } from './base';
+import type { SceneCharacter } from './character';
+import * as THREE from 'three';
 
 export class BeatDrop extends ModuleBase {
   private lastBeat = -1;
+  private receiver:SceneCharacter|null=null;
   protected build() {
-    this.lastBeat = -1;
+    this.lastBeat = -1;this.receiver=null;
     const tiny = this.params.theme === 'eega';
     if (tiny) {
       this.platform(9, 9, 0, '#656049');
-      this.cylinder(0, 1.8, 0, .18, .35, '#EFC74C');
-      this.box(-.28, 1.85, 0, .4, .04, .2, '#F2F4E5'); this.box(.28, 1.85, 0, .4, .04, .2, '#F2F4E5');
+      const insect=new THREE.Group();insect.name='delivery-character-eega';insect.position.y=1.8;this.root.add(insect);
+      this.cylinder(0,0,0,.18,.35,'#EFC74C',insect);
+      const wings=[-1,1].map(side=>{const wing=new THREE.Group();wing.position.set(side*.28,.05,0);insect.add(wing);this.box(0,0,0,.4,.04,.2,'#F2F4E5',wing);return wing;});
+      const anchor=new THREE.Object3D();anchor.name='delivery-eega-catch-point';anchor.position.y=-.04;insect.add(anchor);
+      this.receiver={group:insect,leftArm:wings[0],rightArm:wings[1],catchPoint:anchor,
+        catchPose:amount=>{wings[0].rotation.z=-Math.min(1,amount)*.8;wings[1].rotation.z=Math.min(1,amount)*.8;}};
     } else {
       this.platform(74, 92, 0, '#2F7E50');
       this.box(0, .03, 0, 5.8, .08, 22, '#D7B58B');
@@ -20,7 +27,7 @@ export class BeatDrop extends ModuleBase {
         this.box(x, 12, z, .6, 24, .6, '#A4B0BA');
         this.box(x, 24, z, 6, 3, .6, '#FFF0C4');
       }
-      this.person(3, 0, 2, '#E0E8EA'); this.person(-3, 0, -8, '#2C5F9A');
+      this.receiver=this.character('jersey',3,0,2); this.character('extra',-3,0,-8);
     }
     this.movement = { mode: 'approach', center: { ...this.target }, radius: 120, altitude: this.target.y + 5 };
     this.status = { instruction: 'Wait for the green break between overs', canDrop: false, actionLabel: 'DROP' };
@@ -38,9 +45,10 @@ export class BeatDrop extends ModuleBase {
     this.status.canDrop = this.unlocked() && ready && this.within(radius, 10);
     this.status.timing = { phase, start, end, ready };
     this.status.instruction = this.status.canDrop ? 'Break in play — drop now!' : !this.within(radius, 10) ? 'Hover above the glowing pitch marker' : 'Wait for the green break between overs';
+    this.advanceHandoff(dt);
   }
   onDrop() {
-    if (!this.unlocked() || this.ended) return;
-    if (this.status.canDrop) this.done(); else this.fail(this.within(numberParam(this.params, 'radius', 12), 10) ? 'Not between overs yet. Wait for green and retry.' : 'Move over the pitch marker first.');
+    if (!this.unlocked() || this.ended || this.handoffPending) return;
+    if (this.status.canDrop) this.beginHandoff(this.receiver,()=>this.done()); else this.fail(this.within(numberParam(this.params, 'radius', 12), 10) ? 'Not between overs yet. Wait for green and retry.' : 'Move over the pitch marker first.');
   }
 }

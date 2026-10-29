@@ -48,7 +48,7 @@ test('invalid content fails before play instead of yielding a locked gate', () =
   for (const mutation of [
     (a: LevelConfig[]) => { a[0].destination.x = NaN; },
     (a: LevelConfig[]) => { a[1].id = a[0].id; },
-    (a: LevelConfig[]) => { a[0].script = [{ who: 'customer', text: 'No reveal' }]; },
+    (a: LevelConfig[]) => { a[4].script = [{ who: 'customer', text: 'No reveal' }]; },
     (a: LevelConfig[]) => { a[1].script[0].reveal = true; },
     (a: LevelConfig[]) => { a[3].nagScript = []; },
     (a: LevelConfig[]) => { a[0].script[0].replies = ['Invalid customer reply']; },
@@ -69,7 +69,8 @@ test('pickup reveals location only, ignores duplicate catches, and cannot bypass
 });
 
 test('incoming calls repeat if ignored and early hangup never unlocks the drop', () => {
-  const { controller, bus } = fixture(); let rings = 0;
+  const incoming = loadLevels().find(level => level.callMode === 'CUSTOMER_CALLS')!;
+  const { controller, bus } = fixture([{ ...incoming, level: 1 }]); let rings = 0;
   bus.on('callRinging', () => rings++);
   controller.pickup(); controller.update(.1, 50);
   assert.equal(controller.state, 'ARRIVED'); assert.equal(controller.calls.buttonState, 'ringing');
@@ -95,14 +96,15 @@ test('player-call mode enables only near destination and after-delivery identity
 
 test('specific reveal line swaps unknown identity once; reply choices converge', () => {
   for (const reply of [0, 1]) {
-    const { controller, bus } = fixture(); let reveals = 0;
+    const callReveal = loadLevels().find(level => level.id === 'imax-seat-service')!;
+    const { controller, bus } = fixture([{ ...callReveal, level: 1 }]); let reveals = 0;
     bus.on('celebrityRevealed', () => reveals++);
     controller.pickup(); controller.update(.1, 0); controller.call();
     assert.equal(controller.reveals.current, null); controller.advanceCall();
     assert.equal(controller.calls.lineIndex, 1); assert.equal(controller.advanceCall(), false);
     assert.equal(controller.advanceCall(7), false); assert.equal(controller.calls.lineIndex, 1);
     controller.advanceCall(reply); assert.equal(controller.calls.lineIndex, 2);
-    assert.equal(controller.reveals.current?.name, 'Allu Arjun'); assert.equal(reveals, 1);
+    assert.equal(controller.reveals.current?.name, 'Mahesh Babu'); assert.equal(reveals, 1);
     finishCall(controller); controller.setpieceDone(); assert.equal(reveals, 1);
   }
 });
@@ -194,4 +196,21 @@ test('adding an eighth data entry updates the HUD denominator and unlock sequenc
 test('dispose unsubscribes controller lifecycle handlers', () => {
   const { controller, bus } = fixture(); controller.dispose();
   bus.emit('callStarted', { kind: 'arrival' }); assert.equal(controller.state, 'ROAMING');
+});
+
+// These two scene reveals are deliberately later than their anonymous calls.
+test('truck-interior and lake customers remain unknown throughout their player-initiated calls', () => {
+  for (const id of ['sandalwood-special', 'sagar-axe-special']) {
+    const content = loadLevels().find(level => level.id === id)!;
+    const { controller, bus } = fixture([{ ...content, level: 1 }]); let reveals = 0;
+    bus.on('celebrityRevealed', () => reveals++);
+    assert.equal(content.callMode, 'PLAYER_CALLS');
+    controller.pickup(); controller.update(.016, 0);
+    assert.equal(controller.calls.buttonState, 'enabled'); controller.call();
+    while (controller.calls.active) {
+      assert.equal(controller.reveals.current, null);
+      controller.advanceCall(controller.calls.currentLine?.replies ? 0 : undefined);
+    }
+    assert.equal(reveals, 0); assert.equal(controller.canDrop, true);
+  }
 });

@@ -1,3 +1,5 @@
+import { RoadGraph } from '../game/roadgraph';
+import type { RoadEdge } from '../world/types';
 import type { Game } from '../game/game';
 import type { StorageLike } from './core/types';
 import { loadLevels } from './content/levels';
@@ -5,7 +7,7 @@ import { ProgressSystem } from './systems/progress-system';
 import type { DeliveryRuntimeOptions } from './runtime';
 
 /** Imported only by main.ts's import.meta.env.DEV branch. No global test hooks. */
-export function createDeliveryQA(value: string | null) {
+export function createDeliveryQA(value: string | null, roads?: RoadEdge[]) {
   if (!value || !/^[1-9]\d*$/.test(value)) return null;
   const levels = loadLevels(), number = Number(value);
   if (!Number.isSafeInteger(number) || number > levels.length) return null;
@@ -20,10 +22,18 @@ export function createDeliveryQA(value: string | null) {
   const progress = new ProgressSystem(levels, storage);
   for (const previous of levels.slice(0, number - 1)) progress.complete(previous.id);
   const destination = levels[number - 1].destination;
+  let area={name:`QA scenario ${number}`,x:destination.x,z:destination.z};
+  if(levels[number-1].moduleParams.scene==='surfaceEmergence'&&roads){
+    const graph=new RoadGraph(roads);let nearest=Infinity;
+    for(const edge of graph.nearestEdges(destination.x,destination.z,25)){
+      if(edge.e.elev?.some(y=>y>1)||edge.e.w<7)continue;
+      for(let at=5;at<edge.len-5;at+=30){const p=graph.pointAt(edge,at,1),d=Math.hypot(p.x-destination.x,p.z-destination.z);if(d>80&&d<nearest){nearest=d;area={name:`QA scenario ${number} · lake approach`,x:p.x,z:p.z};}}
+    }
+  }
   const runtime: DeliveryRuntimeOptions = { levels, storage };
   return {
     number, runtime, storage,
-    area: { name: `QA scenario ${number}`, x: destination.x, z: destination.z },
+    area,
     attach(game: Game) {
       const panel = document.createElement('aside');
       panel.setAttribute('aria-label', 'Development delivery scenario');

@@ -1,7 +1,7 @@
 // Title screen with how-to-play, shown once per visit before choosing an area.
 import { installPrototypeTheme } from './theme';
 
-const CSS = `
+export const TITLE_SCREEN_CSS = `
 .title-screen{position:absolute;inset:0;z-index:8;pointer-events:auto;background:radial-gradient(ellipse at 15% 10%,rgba(175,94,238,.2),transparent 48%),radial-gradient(ellipse at 90% 85%,rgba(24,217,199,.09),transparent 45%),linear-gradient(145deg,#2D1A43,#171125 70%);display:flex;justify-content:center;overflow:auto;overscroll-behavior:contain;padding:max(22px,env(safe-area-inset-top,0px)) 18px max(22px,env(safe-area-inset-bottom,0px))}
 .title-screen[hidden]{display:none}
 .title-screen .in{width:min(900px,100%);display:flex;flex-direction:column;gap:18px;margin:auto 0}
@@ -17,6 +17,28 @@ const CSS = `
 .title-screen .how span{font-size:14px;color:var(--muted);line-height:1.3}
 .title-screen .acts{display:flex;gap:8px;flex-wrap:wrap}.title-screen .acts .btn{flex:1;min-width:180px;height:52px;font-size:17px}
 @media (max-height:520px){.title-screen{padding-block:12px}.title-screen h1{font-size:30px}.title-screen .br{display:none}.title-screen .tag{font-size:14px}.title-screen .in{gap:9px}.title-screen .how>div{padding:10px;gap:5px}.title-screen .how .how-icon{width:28px;height:28px}.title-screen .how svg{width:18px;height:18px}.title-screen .how span{font-size:12px}.title-screen .acts .btn{height:44px}.title-screen .eyebrow{padding:4px 10px;font-size:9px}}
+/* A third card must not wrap into another row on short phones: the resulting
+   extra row pushed Play below the 667×375 viewport. Keep the full instructions
+   visible, combine each icon/title into one row, and reserve real 44px actions. */
+@media (orientation:landscape) and (max-height:520px){
+  .title-screen{padding:max(10px,env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) max(10px,env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px))}
+  .title-screen .in{gap:8px;flex:none}
+  .title-screen .tag{line-height:1.2}
+  .title-screen .how{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .title-screen[data-steps="2"] .how{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .title-screen .how>div{min-width:0;display:grid;grid-template-columns:28px minmax(0,1fr);grid-template-rows:auto 1fr;align-items:center;gap:5px 6px;padding:9px;border-radius:14px}
+  .title-screen .how b{font-size:13px;line-height:1.2}
+  .title-screen .how>div>span:last-child{grid-column:1/-1;align-self:start;line-height:1.25}
+  .title-screen .acts{flex-wrap:nowrap;flex:none}
+  .title-screen .acts .btn{height:44px;min-height:44px;min-width:0;font-size:15px}
+}
+@media (orientation:landscape) and (max-height:340px){
+  .title-screen h1{font-size:27px}
+  .title-screen .in{gap:6px}
+  .title-screen .tag{font-size:13px}
+  .title-screen .how b{font-size:12px}
+}
+
 `;
 
 export class TitleScreen {
@@ -24,16 +46,16 @@ export class TitleScreen {
   onPlay: () => void = () => {};
   onSettings: () => void = () => {};
   constructor(host: HTMLElement, touch: boolean, carrierPickup = false) {
-    const st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    const st = document.createElement('style'); st.textContent = TITLE_SCREEN_CSS; document.head.appendChild(st);
     installPrototypeTheme();
-    this.root = document.createElement('div'); this.root.className = 'title-screen'; this.root.hidden = true;
+    this.root = document.createElement('div'); this.root.className = 'title-screen'; this.root.dataset.steps = carrierPickup ? '3' : '2'; this.root.hidden = true;
     this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-label', 'Hyderabad Roadster');
     this.root.innerHTML = `<div class="in">
       <div class="eyebrow"><i aria-hidden="true"></i>Hyderabad · Delivery & flight</div>
       <h1>Hyderabad<br class="br"> Roadster</h1>
       <p class="tag">${carrierPickup ? 'Mystery customers. One dream: your own pizza restaurant.' : 'Deliver it hot. Take to the skies.'}</p>
       <div class="how">
-        <div><span class="how-icon" style="color:var(--saffron)" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l1 14H4L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2M8 13h8M9 17h6"/></svg></span><b style="color:var(--saffron)">1 · ${carrierPickup ? 'Jump grab' : 'Deliver'}</b><span>${carrierPickup ? 'Jump through a glowing pizza box above traffic to catch it.' : 'Accept an order, collect the pizza, and deliver to the customer.'}</span></div>
+        <div><span class="how-icon" style="color:var(--saffron)" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l1 14H4L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2M8 13h8M9 17h6"/></svg></span><b style="color:var(--saffron)">1 · ${carrierPickup ? 'Jump grab' : 'Deliver'}</b><span>${carrierPickup ? 'Jump through a glowing pizza slice above traffic to catch it.' : 'Accept an order, collect the pizza, and deliver to the customer.'}</span></div>
         <div><span class="how-icon" style="color:var(--teal)" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.5 7.5L22 14v3l-8-3v5l3 2v1l-5-1-5 1v-1l3-2v-5l-8 3v-3l6.5-4.5L12 2Z"/></svg></span><b style="color:var(--teal)">2 · Fly</b><span>Press ${touch ? 'FLY' : 'Space'} to fly, or ${touch ? 'JUMP' : 'J'} for a short moving kickflip.</span></div>
         ${carrierPickup ? '<div><span class="how-icon" style="color:var(--pink)" aria-hidden="true">☎</span><b style="color:var(--pink)">3 · Deliver</b><span>Follow the location, answer the call, and deliver to grow your restaurant.</span></div>' : ''}
       </div>

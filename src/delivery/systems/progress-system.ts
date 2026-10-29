@@ -1,3 +1,4 @@
+import { savedCampaign } from '../campaign';
 import type { CelebrityCard, LevelConfig, StorageLike } from '../core/types';
 
 export const MYSTERY_SAVE_KEY = 'roadster-mystery-progress-v1';
@@ -35,15 +36,15 @@ export class ProgressSystem {
     try {
       const raw = this.storage.getItem(MYSTERY_SAVE_KEY); if (!raw) return;
       const parsed = JSON.parse(raw);
-      if (parsed?.version !== 1 || !Array.isArray(parsed.completed)) return;
-      const stored = new Set(parsed.completed.filter(id => typeof id === 'string'));
+      if (![1,2].includes(parsed?.version) || !Array.isArray(parsed.completed)) return;
+      const stored = new Set(savedCampaign(this.levels,raw).completed);
       // Keep only the contiguous unlocked prefix, including when new levels are inserted.
       for (const level of this.levels) { if (!stored.has(level.id)) break; this.completed.add(level.id); }
     } catch { this.saveAvailable = false; }
   }
   private save() {
     if (!this.storage) return;
-    try { this.storage.setItem(MYSTERY_SAVE_KEY, JSON.stringify({ version: 1, completed: this.completedIds })); this.saveAvailable = true; }
+    try { this.storage.setItem(MYSTERY_SAVE_KEY, JSON.stringify({ version: 2, order:this.levels.map(l=>l.id), completed: this.completedIds })); this.saveAvailable = true; }
     catch { this.saveAvailable = false; }
   }
 }

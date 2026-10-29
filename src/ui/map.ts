@@ -10,6 +10,7 @@ import { DESTINATION_MAP_IDENTITIES } from '../world/destination-data';
 import { destinationPlaceCatalogue } from '../world/destination-identity';
 import { createStadiumRoadMask } from './map-stadium';
 import { railwayMapLayer, drawRailways } from './railway-map';
+import { MAP_DETAIL, mapRoadMinScale, MapLabelIndex, ScreenLabelGrid, type MapLabel, type LabelRect } from './map-labels';
 
 type MapLayers = { park: Path2D; water: Path2D; roads: { p: Path2D; w: number; col: string; min: number }[]; minor: Map<string, Path2D>; metro: { p: Path2D; color: string }[] };
 
@@ -87,8 +88,11 @@ export class FullMap {
   private rejectBuild: ((error: Error) => void) | null = null;
   private labelWidths = new Map<string, number>();
   private markerView = '';
-  private areaLabelView = '';
-  private areaLabels: { text: string; x: number; y: number; w: number }[] = [];
+  private labelIndex?: MapLabelIndex;
+  private labelJob: Generator<void> | null = null;
+  private labelView = '';
+  private labelFontEpoch = 0;
+  private mapLabels: readonly MapLabel[] = [];
   private openStarted = 0;
   private firstBaseDrawForOpen = false;
   private stadiumRoadMask: Path2D | null = null;
@@ -188,7 +192,7 @@ export class FullMap {
     };
     cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up); cv.addEventListener('lostpointercapture', up);
     addEventListener('resize', () => (this.dirty = true));
-    document.fonts?.addEventListener?.('loadingdone', () => { this.labelWidths.clear(); this.areaLabelView = ''; this.dirty = true; });
+    document.fonts?.addEventListener?.('loadingdone', () => { this.labelWidths.clear(); this.labelView = ''; this.labelFontEpoch++; this.dirty = true; });
   }
   filteredPlaces() { return this.places.filter((p) => !this.placeCategory || p.category === this.placeCategory); }
   private placeResultLimit = 80;
@@ -270,7 +274,7 @@ export class FullMap {
     yield* appendMapPaths(park, data.park, true); yield* appendMapPaths(water, data.water, true);
     for (const group of data.roads) {
       const p = new Path2D(); yield* appendMapPaths(p, group.paths);
-      roads.push({ p, w: MAP_STYLES[group.kind][0], col: MAP_STYLES[group.kind][1], min: group.kind === 'ter' ? .03 : 0 });
+      roads.push({ p, w: MAP_STYLES[group.kind][0], col: MAP_STYLES[group.kind][1], min: mapRoadMinScale(group.kind) });
     }
     yield* this.prepareRailways();
     return { park, water, roads, minor: this.minorPaths!.ready, metro: this.metroPaths() };
@@ -301,13 +305,15 @@ export class FullMap {
       mapMinorSourceCells: this.minorPaths?.sourceCellCount || 0, mapMinorReadyCells: this.minorPaths?.ready.size || 0, mapMinorPendingCells: this.minorPaths?.pendingCount || 0,
       mapBaseRoadGroups: this.layers?.roads.length || 0, mapMetroCorridors: this.layers?.metro.length || 0,
       mapRailwayTracks: this.railwayTrackCount || 0,
+      mapLabelAreas: this.labelIndex?.stats.areas || 0, mapLabelRoadSpans: this.labelIndex?.stats.roadSpans || 0,
+      mapLabelsReady: !!this.labelIndex?.ready, mapVisibleLabels: this.mapLabels?.length || 0,
       mapOutlineBuildings: this.outlineBuildings?.length || 0, mapOutlinePending: !!this.outlineJob };
     for (const [key, value] of Object.entries(values)) if (this.root.dataset[key] !== String(value)) this.root.dataset[key] = String(value);
   }
   private requestMinor() {
     if (!this.minorPaths) return;
     const key = this.viewKey(); if (key === this.minorView) return; this.minorView = key;
-    this.minorPaths.request(this.cx, this.cz, this.scale, this.cv.clientWidth, this.cv.clientHeight);
+    this.minorPaths.request(this.cx, this.cz, this.scale >= MAP_DETAIL.localRoads ? this.scale : 0, this.cv.clientWidth, this.cv.clientHeight);
   }
   private *preparePreview(): Generator<void> {
     const paths = new Map<string, Path2D>(), preview: MapLayers = { park: new Path2D(), water: new Path2D(), roads: [], minor: new Map(), metro: this.metroPaths() };
@@ -322,7 +328,7 @@ export class FullMap {
       for (const [x, z] of road.pts) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); if (++commands >= 512) { commands = 0; yield; } }
       if (x1 < minX || x0 > maxX || z1 < minZ || z0 > maxZ || road.pts.length < 2) continue;
       const kind = road.elev?.some(y => y > 1) ? 'elev' : /motorway|trunk|primary/.test(road.cls) ? 'major' : /secondary|tertiary/.test(road.cls) ? 'ter' : 'minor';
-      let p = paths.get(kind); if (!p) { p = new Path2D(); paths.set(kind, p); const [w, col] = MAP_STYLES[kind]; preview.roads.push({ p, w, col, min: kind === 'minor' ? .07 : kind === 'ter' ? .03 : 0 }); }
+      let p = paths.get(kind); if (!p) { p = new Path2D(); paths.set(kind, p); const [w, col] = MAP_STYLES[kind]; preview.roads.push({ p, w, col, min: mapRoadMinScale(kind) }); }
       p.moveTo(road.pts[0][0], road.pts[0][1]);
       for (let i = 1; i < road.pts.length; i++) { p.lineTo(road.pts[i][0], road.pts[i][1]); if (++commands >= 512) { commands = 0; yield; } }
     }
@@ -340,6 +346,7 @@ export class FullMap {
   }
   private prepareVisible(budgetMs = 2) {
     if (!this.open) return;
+    if (!this.labelIndex) { this.labelIndex = new MapLabelIndex(this.zone); this.labelJob = this.labelIndex.prepare(); }
     this.requestMinor();
     if (!this.layers && this.previewKey !== this.viewKey()) { this.previewKey = this.viewKey(); this.previewJob = this.preparePreview(); }
     const started = performance.now(); let steps = 0;
@@ -349,6 +356,7 @@ export class FullMap {
         if (this.baseJob) { const step = this.baseJob.next(); worked = true; if (step.done) { this.layers = step.value; this.baseJob = null; this.previewJob = null; this.preview = null; } }
         else if (this.previewJob && !this.layers) { if (this.previewJob.next().done) this.previewJob = null; worked = true; }
         else if (this.minorPaths?.step()) worked = true;
+        else if (this.labelJob) { if (this.labelJob.next().done) this.labelJob = null; worked = true; }
         else if (this.outlineJob) { if (this.outlineJob.next().done) this.outlineJob = null; worked = true; }
         if (!worked) break;
         this.dirty = true; this.mapStats.maxStepMs = Math.max(this.mapStats.maxStepMs, performance.now() - stepStarted);
@@ -435,8 +443,8 @@ export class FullMap {
     g.lineCap = 'round'; g.lineJoin = 'round';
     this.stadiumRoadMask ??= createStadiumRoadMask(this.zone.origin, this.zone.bounds);
     g.save(); g.clip(this.stadiumRoadMask, 'evenodd');
-    if (s > 0.12) { g.fillStyle = '#3a3160'; g.fill(this.bld); }
-    if (s >= 0.07) {
+    if (s >= MAP_DETAIL.buildings) { g.fillStyle = '#3a3160'; g.fill(this.bld); }
+    if (s >= MAP_DETAIL.localRoads) {
       g.strokeStyle = '#8F86B8'; g.lineWidth = Math.max(6, 1.6 / s);
       const x0 = Math.floor((this.cx - W / 2 / s) / 2000), x1 = Math.floor((this.cx + W / 2 / s) / 2000), z0 = Math.floor((this.cz - H / 2 / s) / 2000), z1 = Math.floor((this.cz + H / 2 / s) / 2000);
       for (let i = x0; i <= x1; i++) for (let j = z0; j <= z1; j++) { const p = L.minor.get(`${i},${j}`); if (p) g.stroke(p); }
@@ -453,39 +461,52 @@ export class FullMap {
     const toS = (x: number, z: number) => [W / 2 + (x - this.cx) * s, H / 2 + (z - this.cz) * s];
     g.textAlign = 'center'; g.textBaseline = 'middle';
     if (s > 0.25) for (const p of st.pickups) { const [x, y] = toS(p.x, p.z); if (x < -10 || y < -10 || x > W + 10 || y > H + 10) continue; g.fillStyle = p.pizza ? '#F2994A' : 'rgba(242,153,74,.55)'; g.beginPath(); g.arc(x, y, p.pizza ? 5 : 3, 0, 7); g.fill(); }
-    // neighbourhood names
-    g.font = `700 ${s > 0.6 ? 14 : 12}px "Baloo 2", sans-serif`; g.fillStyle = 'rgba(246,238,220,.55)';
-    const labelView = `${this.viewKey()}|${g.font}`;
-    if (this.areaLabelView !== labelView) {
-      this.areaLabelView = labelView; this.areaLabels = [];
-      for (const p of this.zone.places || []) {
-        if (/^Ward \d+/.test(p.name)) continue;
-        if ((p.kind === 'neighborhood' || p.kind === 'microhood') && s < .24 || p.kind !== 'locality' && s < .08) continue;
-        const [x, y] = toS(p.p[0], p.p[1]);
-        if (x <= 0 || y <= 0 || x >= W || y >= H) continue; // reject before font measurement
-        const w = this.textWidth(g, p.name) + 20;
-        if (!this.areaLabels.some(b => Math.abs(y - b.y) < 24 && Math.abs(x - b.x) < (w + b.w) / 2)) this.areaLabels.push({ text: p.name, x, y, w });
-      }
-    }
-    for (const label of this.areaLabels) g.fillText(label.text, label.x, label.y);
     const markerView = `${this.viewKey()}|${this.placeCategory}|${this.selectedPlace?.id || ''}`;
     if (markerView !== this.markerView) {
       this.markerView = markerView;
       this.markers = layoutPlaceMarkers(mapPlaceCandidates(this.filteredPlaces(), s, this.selectedPlace?.id, !!this.placeCategory), { cx: this.cx, cz: this.cz, scale: s, width: W, height: H }, this.selectedPlace?.id);
     }
+    // One cached collision layout covers geographic labels, landmark names,
+    // navigation markers and visible map controls. Text never changes geometry.
+    const panel = this.root.querySelector<HTMLElement>('#map-places-panel'), detail = this.root.querySelector<HTMLElement>('#map-place-detail');
+    const labelView = `${markerView}|${this.labelIndex?.revision}|${this.labelFontEpoch}|${!!this.pick}|${panel?.hidden}|${detail?.hidden}|${st.target?.x},${st.target?.z},${st.target?.label}|${st.player?.x},${st.player?.z}`;
+    if (this.labelView !== labelView) {
+      this.labelView = labelView;
+      const measure = (text: string, font: string) => { g.font = font; return this.textWidth(g, text); };
+      const blocked: LabelRect[] = [{ x: W / 2, y: 34, w: W, h: 68 }, { x: W - 38, y: H - 85, w: 68, h: 170 },
+        { x: W / 2, y: H - 27, w: 230, h: 38 }];
+      if (!this.pick) blocked.push({ x: 175, y: 102, w: 330, h: 64 });
+      if (panel && !panel.hidden || detail && !detail.hidden) blocked.push({ x: 175, y: H / 2, w: 340, h: Math.max(60, H - 120) });
+      if (this.pick) blocked.push({ x: W / 2, y: H - 76, w: Math.min(480, W - 12), h: 152 });
+      for (const marker of this.markers) blocked.push({ x: marker.x, y: marker.y, w: 44, h: 44 });
+      if (st.player) { const [x, y] = toS(st.player.x, st.player.z); blocked.push({ x, y, w: 38, h: 38 }); }
+      if (st.target) {
+        const [x, y] = toS(st.target.x, st.target.z); blocked.push({ x, y: y - 10, w: Math.max(36, measure(st.target.label, '800 13px "Baloo 2", sans-serif') + 18), h: 56 });
+      }
+      const selected = this.markers.find(m => m.place.id === this.selectedPlace?.id), placeFont = '800 12px "Baloo 2", sans-serif';
+      if (selected) blocked.push({ x: selected.x, y: selected.y + 25, w: measure(selected.place.name, placeFont) + 12, h: 22 });
+      const labels = [...(this.labelIndex?.layout({ cx: this.cx, cz: this.cz, scale: s, width: W, height: H }, measure, blocked, String(this.labelFontEpoch)) || [])];
+      const occupied = new ScreenLabelGrid([...blocked, ...labels]);
+      for (const marker of this.markers) {
+        const chosen = marker === selected, { place, x, y } = marker;
+        if (!(chosen || s >= 1.6 || place.priority >= 1 && s >= .9 || place.priority >= 2 && s >= .055)) continue;
+        const box = { x, y: y + 25, w: measure(place.name, placeFont) + 12, h: 22 };
+        if (chosen || occupied.place(box)) labels.push({ ...box, text: place.name, font: placeFont, kind: 'place', major: true, angle: 0 });
+      }
+      this.mapLabels = labels;
+    }
     // Cached screen-space icons keep the full catalogue inexpensive; groups expand as you zoom.
-    const labels: { x: number; y: number; w: number }[] = [];
     for (const marker of this.markers) {
       const { x, y, place, members } = marker, selected = place.id === this.selectedPlace?.id;
       g.drawImage(placeIcon(place.icon), x - 15, y - 15, 30, 30);
       if (selected) { g.strokeStyle = '#45E3D3'; g.lineWidth = 3; g.strokeRect(x - 17, y - 17, 34, 34); }
       if (members.length > 1) { g.fillStyle = '#cfbb8b'; g.beginPath(); g.arc(x + 13, y - 12, 9, 0, Math.PI * 2); g.fill(); g.fillStyle = '#17132b'; g.font = '800 10px sans-serif'; g.fillText(String(members.length), x + 13, y - 12); }
-      if (selected || s >= 1.6 || (place.priority >= 1 && s >= .9) || (place.priority >= 2 && s >= .055)) {
-        g.font = '800 12px "Baloo 2", sans-serif'; const w = this.textWidth(g, place.name) + 8, ly = y + 25;
-        if (selected || !labels.some((b) => Math.abs(ly - b.y) < 16 && Math.abs(x - b.x) < (w + b.w) / 2)) {
-          g.strokeStyle = '#17132b'; g.lineWidth = 4; g.strokeText(place.name, x, ly); g.fillStyle = '#f6eedc'; g.fillText(place.name, x, ly); labels.push({ x, y: ly, w });
-        }
-      }
+    }
+    for (const label of this.mapLabels) {
+      g.save(); g.translate(label.x, label.y); if (label.angle) g.rotate(label.angle);
+      g.font = label.font; g.strokeStyle = '#1B1633'; g.lineWidth = label.kind === 'road' ? 3 : 4;
+      g.strokeText(label.text, 0, 0); g.fillStyle = label.kind === 'road' ? '#D9D2E7' : label.kind === 'place' ? '#F6EEDC' : label.major ? '#DED4E9' : '#BBB1CE';
+      g.fillText(label.text, 0, 0); g.restore();
     }
     if (st.target) { const [x, y] = toS(st.target.x, st.target.z); g.fillStyle = '#FFB627'; g.beginPath(); g.arc(x, y, 11, 0, 7); g.fill(); g.strokeStyle = '#17132B'; g.lineWidth = 3; g.stroke(); g.font = '800 13px "Baloo 2", sans-serif'; g.fillStyle = '#F6EEDC'; g.strokeStyle = 'rgba(18,15,34,.9)'; g.lineWidth = 4; g.strokeText(st.target.label, x, y - 20); g.fillText(st.target.label, x, y - 20); }
     if (st.player) {

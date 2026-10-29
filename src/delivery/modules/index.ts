@@ -17,4 +17,4 @@ export function createDeliveryModule(name: string): DeliveryModule {
   if (!Constructor) throw new Error(`Unknown delivery mechanic: ${name}`);
   return new Constructor();
 }
-export type { DeliveryModule, DeliveryModuleContext, DeliveryModuleName, ModuleParams, ModuleMovement, ModuleStatus, DeliveryPoint, DeliveryPlayer } from './types';
+export type { DeliveryModule, DeliveryModuleContext, DeliveryModuleName, ModuleParams, ModuleMovement, ModuleStatus, ModuleArrival, DeliveryPoint, DeliveryPlayer } from './types';

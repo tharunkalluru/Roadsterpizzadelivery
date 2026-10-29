@@ -1,7 +1,7 @@
 import type { CityData, Surface, Wall } from '../world/city';
 import { pointInRing } from '../world/city';
 import type { Building } from '../world/types';
-import { movingRailSupport, railRoofAt } from './moving-rail';
+import { movingRailSupport, railRoofAt, deliveryRampClimb } from './moving-rail';
 import { landmarkHeightAt, landmarkRoofUnder } from '../world/landmark-support';
 import { roadQuadHeight } from '../world/road-surface';
 import { waterHeightAt, WATER_DRAFT } from '../world/water';
@@ -14,7 +14,7 @@ export interface Support { y: number; s: Surface | null; onRoad: boolean; kind: 
 
 // Highest surface under (x,z) that the car can reach from height `fromY`: roads and flyovers, the metro deck,
 // bus-shelter roofs and building roofs. Surfaces more than 1.6 m above `fromY` are overhead and ignored.
-export function supportAt(city: CityData, x: number, z: number, fromY: number, roadsOnly = false): Support {
+export function supportAt(city: CityData, x: number, z: number, fromY: number, roadsOnly = false, previous?: {x:number;z:number;feet:number}): Support {
   let best: Support = { y: 0, s: null, onRoad: false, kind: 'ground', elevatedRoad: false }, found = false, bestScore = Math.abs(fromY);
   const water = roadsOnly ? null : waterHeightAt(city.waterGrid, x, z);
   if (water !== null) best = { y: water - WATER_DRAFT, s: null, onRoad: false, kind: 'water', elevatedRoad: false };
@@ -49,8 +49,8 @@ export function supportAt(city: CityData, x: number, z: number, fromY: number, r
   if (!roadsOnly) {
     const landmark = landmarkHeightAt(city.landmarkSurfaceGrid, x, z, fromY + 1.6);
     if (landmark !== null && landmark >= best.y - .01) best = { y: landmark, s: null, onRoad: false, kind: 'landmark', elevatedRoad: false };
-    const rail = movingRailSupport(city.movingRail || [], x, z, fromY);
-    if (rail && (Math.abs(rail.y - fromY) < Math.abs(best.y - fromY) + .01)) best = { y: rail.y, s: null, onRoad: false, kind: 'rail', elevatedRoad: false };
+    const rail = movingRailSupport(city.movingRail || [], x, z, fromY, previous);
+    if (rail && (Math.abs(rail.y - fromY) < Math.abs(best.y - fromY) + .01 || deliveryRampClimb(rail.body,x,z,previous)>0 && rail.y>=best.y)) best = { y: rail.y, s: null, onRoad: false, kind: 'rail', elevatedRoad: false };
   }
   return best;
 }

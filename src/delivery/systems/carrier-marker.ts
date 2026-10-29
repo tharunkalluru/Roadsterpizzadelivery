@@ -14,6 +14,7 @@ export interface CarrierView {
   forwardZ: number;
   jumping: boolean;
   airborne?: boolean;
+  cameraX?: number; cameraY?: number; cameraZ?: number;
 }
 
 interface MarkerSlot extends CarrierPickupMarker {
@@ -42,56 +43,35 @@ export class CarrierMarker {
   private forwardZ = -1;
   private hasView = false;
   private noForwardTime = 0;
+  private cameraPoint = new THREE.Vector3();
+  private hasCamera = false;
 
   constructor(private scene: THREE.Scene, private config: PickupConfig = PICKUP_CONFIG) {
-    // A complete closed cardboard box, not an emissive square. The cream lid,
-    // orange sides, dark seam and printed pizza remain readable in day/night.
-    const box = new THREE.BoxGeometry(1.52, .34, 1.52);
-    const seam = new THREE.BoxGeometry(1.58, .045, 1.58);
-    const lid = new THREE.BoxGeometry(1.62, .095, 1.62);
-    const seal = new THREE.BoxGeometry(.26, .018, 1.64);
-    const sideSeal = new THREE.BoxGeometry(.26, .35, .018);
-    const crust = new THREE.CylinderGeometry(.47, .47, .014, 20);
-    const cheese = new THREE.CylinderGeometry(.40, .40, .016, 20);
-    const topping = new THREE.CylinderGeometry(.066, .066, .018, 6);
+    // The cheese face is drawn toward the camera, with actual opaque thickness.
+    const wedge = new THREE.Shape(); wedge.moveTo(0, -.95); wedge.lineTo(-.85, .66);
+    wedge.quadraticCurveTo(0, 1.04, .85, .66); wedge.closePath();
+    const body = new THREE.ExtrudeGeometry(wedge, { depth: .15, bevelEnabled: false, curveSegments: 12 });
+    const cheese = new THREE.ShapeGeometry(wedge, 12);
+    const crustPath = new THREE.CatmullRomCurve3([new THREE.Vector3(-.85,.68,.19),new THREE.Vector3(-.43,.84,.19),new THREE.Vector3(0,.9,.19),new THREE.Vector3(.43,.84,.19),new THREE.Vector3(.85,.68,.19)]);
+    const crust = new THREE.TubeGeometry(crustPath, 16, .11, 6, false);
+    const topping = new THREE.CylinderGeometry(.095,.095,.035,10); topping.rotateX(Math.PI/2);
     const halo = new THREE.RingGeometry(1.02, 1.17, 28);
-    this.geometries.push(box, seam, lid, seal, sideSeal, crust, cheese, topping, halo);
-    const material = (color: string) => {
-      const m = new THREE.MeshBasicMaterial({ color, toneMapped: false });
-      this.materials.push(m); return m;
-    };
-    const baseMaterial = material('#DC692C'), sideMaterial = material('#FF9F45'), lidMaterial = material('#FFF0C4');
-    const seamMaterial = material('#4A2735'), sealMaterial = material('#D84731');
-    const crustMaterial = material('#AE5430'), pizzaMaterial = material('#FFB627');
-    const toppingMatrix = new THREE.Matrix4();
-    for (let i = 0; i < config.maxCarriersNearby; i++) {
-      const group = new THREE.Group(); group.name = 'delivery-carrier-box';
-      const visual = new THREE.Group(); visual.name = 'delivery-box-visual'; group.add(visual);
-      const base = new THREE.Mesh(box, [sideMaterial, baseMaterial, lidMaterial, seamMaterial, sideMaterial, baseMaterial]); visual.add(base);
-      const crease = new THREE.Mesh(seam, seamMaterial); crease.position.y = .18; visual.add(crease);
-      const top = new THREE.Mesh(lid, lidMaterial); top.position.y = .235; visual.add(top);
-      const tape = new THREE.Mesh(seal, sealMaterial); tape.position.set(-.53, .291, 0); visual.add(tape);
-      for (const z of [-.77, .77]) {
-        const tab = new THREE.Mesh(sideSeal, sealMaterial); tab.position.set(-.53, .01, z); visual.add(tab);
-      }
-      const print = new THREE.Mesh(crust, crustMaterial); print.position.set(.13, .291, 0); visual.add(print);
-      const pie = new THREE.Mesh(cheese, pizzaMaterial); pie.position.set(.13, .302, 0); visual.add(pie);
-      const pepperoni = new THREE.InstancedMesh(topping, sealMaterial, 6);
-      for (let j = 0; j < 6; j++) {
-        const angle = j * Math.PI / 3, radius = j === 0 ? 0 : .24;
-        toppingMatrix.makeTranslation(.13 + Math.cos(angle) * radius, .319, Math.sin(angle) * radius);
-        pepperoni.setMatrixAt(j, toppingMatrix);
-      }
+    this.geometries.push(body, cheese, crust, topping, halo);
+    const material = (color: string) => { const m = new THREE.MeshBasicMaterial({ color, toneMapped:false, side:THREE.DoubleSide }); this.materials.push(m); return m; };
+    const bread = material('#D8782D'), cheeseMaterial = material('#FFD453'), crustMaterial = material('#F5A13A'), pepperoniMaterial = material('#C93D2F');
+    const matrix = new THREE.Matrix4();
+    for(let i=0;i<config.maxCarriersNearby;i++) {
+      const group = new THREE.Group(); group.name='delivery-carrier-box';
+      const visual = new THREE.Group(); visual.name='delivery-box-visual'; group.add(visual);
+      const base = new THREE.Mesh(body,bread); base.name='delivery-pizza-slice'; visual.add(base);
+      const face = new THREE.Mesh(cheese,cheeseMaterial); face.position.z=.158; visual.add(face);
+      visual.add(new THREE.Mesh(crust,crustMaterial));
+      const pepperoni = new THREE.InstancedMesh(topping,pepperoniMaterial,5);
+      [[0,.44],[-.33,.35],[.34,.35],[-.14,-.03],[.12,-.35]].forEach(([x,y],j)=>pepperoni.setMatrixAt(j,matrix.makeTranslation(x,y,.19)));
       visual.add(pepperoni);
-      const glowMaterial = new THREE.MeshBasicMaterial({ color: '#FFB627', transparent: true, opacity: .5,
-        depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
-      this.materials.push(glowMaterial);
-      const glow = new THREE.Mesh(halo, glowMaterial); glow.name = 'delivery-box-halo';
-      glow.rotation.x = -Math.PI / 2; glow.position.y = -.27;
-      group.add(glow);
-      const point = { x: 0, y: 0, z: 0 };
-      this.slots.push({ carrierId: '', car: null, group, visual, halo: glow, position: point,
-        previousPosition: { ...point }, phase: i * 2.1 });
+      const glowMaterial = new THREE.MeshBasicMaterial({color:'#FFB627',transparent:true,opacity:.5,depthWrite:false,side:THREE.DoubleSide,toneMapped:false}); this.materials.push(glowMaterial);
+      const glow = new THREE.Mesh(halo,glowMaterial); glow.name='delivery-box-halo'; glow.rotation.x=-Math.PI/2; glow.position.y=-.7; group.add(glow);
+      const point={x:0,y:0,z:0}; this.slots.push({carrierId:'',car:null,group,visual,halo:glow,position:point,previousPosition:{...point},phase:i*2.1});
     }
     const catchMaterial = new THREE.MeshBasicMaterial({ color: '#45E3D3', transparent: true, opacity: 0,
       depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
@@ -113,6 +93,9 @@ export class CarrierMarker {
     if (this.disposed) return;
     const elapsed = Math.max(0, Number.isFinite(dt) ? dt : 0);
     this.time += elapsed;
+    this.hasCamera = !!view && [view.cameraX,view.cameraY,view.cameraZ].every(v => typeof v === 'number' && Number.isFinite(v));
+    if(this.hasCamera) this.cameraPoint.set(view!.cameraX!,view!.cameraY!,view!.cameraZ!);
+    if(this.carriedSlot) { this.carriedSlot.group.position.y=1.5+Math.sin(this.time*2.6)*.07; if(this.hasCamera) this.carriedSlot.visual.lookAt(this.cameraPoint); }
     this.updateCatch(dt);
     const viewLength = view ? Math.hypot(view.forwardX, view.forwardZ) : 0;
     this.hasView = Number.isFinite(viewLength) && viewLength > .001;
@@ -224,7 +207,7 @@ export class CarrierMarker {
       // Roadster's model is translated -.55 from its support root. This rests
       // above the cabin, rather than hovering at the traffic-marker height.
       this.carriedSlot = slot; slot.group.name = 'delivery-carried-box';
-      slot.group.position.set(0, .72, 0); slot.group.scale.setScalar(.7);
+      slot.group.position.set(0, 1.5, 0); slot.group.scale.setScalar(.7);
       slot.visual.rotation.set(0, 0, 0);
       slot.halo.visible = false; playerGroup.add(slot.group);
     }
@@ -267,8 +250,8 @@ export class CarrierMarker {
     slot.group.updateWorldMatrix(true, false); slot.group.getWorldPosition(this.scratch);
     slot.position.x = this.scratch.x; slot.position.y = this.scratch.y; slot.position.z = this.scratch.z;
     // Only the art tilts; swept pickup coordinates remain at the stable center.
-    slot.visual.rotation.set(.18 + Math.sin(this.time * .7 + slot.phase) * .035,
-      this.time * .16 + slot.phase, .08);
+    if(this.hasCamera) slot.visual.lookAt(this.cameraPoint);
+    else slot.visual.rotation.set(.15, slot.phase, 0);
     const close = Math.max(0, 1 - Math.hypot(car.x - player.x, car.z - player.z) / 32);
     const pulse = .5 + .5 * Math.sin(this.time * (3 + close * 5) + slot.phase);
     slot.halo.material.opacity = .3 + close * .25 + pulse * .16;

@@ -12,7 +12,7 @@ function orchestration() {
   const calls = { spawn: 0, markers: 0, detection: 0, allowAssign: [] as boolean[], render: 0, map: 0 };
   const player = { pos: new THREE.Vector3(0, .55, 0), jumping: false, speed: 0, flying: false, descending: false };
   const game: any = Object.assign(Object.create(Game.prototype), {
-    carrierPickupMode: true, player, carrierSpawnT: 0, keys: new Set(),
+    carrierPickupMode: true, player, carrierSpawnT: 0, keys: new Set(), engine: { camera: new THREE.PerspectiveCamera() },
     pickupBefore: { x: 0, y: .55, z: 0, bottom: 0, top: 1.35, jumping: false },
     pickupAfter: { x: 0, y: .55, z: 0, bottom: 0, top: 1.35, jumping: false },
     traffic: { max: 3, cars: [{}, {}, {}], spawn() { calls.spawn++; this.cars.push({}); } },
@@ -67,7 +67,7 @@ test('empty-carrier recovery requests safe spawn at most once per second and nev
   assert.ok(game.traffic.cars.length <= game.traffic.max + 1);
 });
 
-test('a caught box stops carrier assignment and spawn recovery', () => {
+test('a caught slice stops carrier assignment and spawn recovery', () => {
   const { game, calls } = orchestration(); game.pickupDetector.caught = true;
   for (let i = 0; i < 180; i++) game.updateCarrierPickup(1 / 60);
   assert.equal(calls.spawn, 0); assert.ok(calls.allowAssign.every(value => value === false));
@@ -110,7 +110,7 @@ function physicsPlayer(): any {
   });
 }
 
-test('production Player jump trajectory can collect a moving bus roof box at 30 and 60Hz without changing jump physics', () => {
+test('production Player jump trajectory can collect a moving bus roof slice at 30 and 60Hz without changing jump physics', () => {
   for (const hz of [30, 60]) {
     const player = physicsPlayer(), scene = new THREE.Scene(); scene.add(player.group);
     const bus: Car = { g: new THREE.Group(), group: 'bus', kind: 'bus', size: [2.5, 3.3, 12], x: 0, y: 0, z: 0 } as Car;
@@ -119,7 +119,7 @@ test('production Player jump trajectory can collect a moving bus roof box at 30 
     let caught = 0, catchHeight = 0;
     events.on('orderPicked', event => { caught++; catchHeight = player.pos.y; markers.collect(event.carrierId, player.group); });
     const game: any = Object.assign(Object.create(Game.prototype), {
-      player, city: player.city, carriers: markers, pickupDetector: detector, carrierSpawnT: 0,
+      player, city: player.city, carriers: markers, pickupDetector: detector, carrierSpawnT: 0, engine: { camera: new THREE.PerspectiveCamera() },
       traffic: { cars: [bus], max: 32, spawn() { throw Error('A valid carrier already exists'); } },
       pickupBefore: {} as JumpPickupPose, pickupAfter: {} as JumpPickupPose,
     });

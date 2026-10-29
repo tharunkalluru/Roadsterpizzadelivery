@@ -28,7 +28,7 @@ test('carrier pool caps nearby offers, retains leases and reuses objects and geo
   system.dispose();
 });
 
-test('all five traffic kinds may carry a box without encoding the customer identity', () => {
+test('all five traffic kinds may carry a slice without encoding the customer identity', () => {
   for (const group of ['auto', 'bus', 'bike', 'car', 'truck'] as const) {
     const { system, make, player } = fixture(), car = make(group);
     system.update(0, [car], player);
@@ -105,13 +105,13 @@ test('dispose releases owned shared resources once and leaves vehicle resources 
   assert.equal(system.activeCount, 0);
 });
 
-test('caught box remains on hero after feedback ends and traffic despawns; clear returns it to the pool', () => {
+test('caught slice remains on hero after feedback ends and traffic despawns; clear returns it to the pool', () => {
   const { system, make, player, scene } = fixture(), car = make('bus'), hero = new THREE.Group();
   scene.add(hero); system.update(0, [car], player);
   const pooledBox = car.g.getObjectByName('delivery-carrier-box')!;
   assert.equal(system.collect(system.markers[0].carrierId, hero), true);
   const carried = hero.getObjectByName('delivery-carried-box')!;
-  assert.equal(carried, pooledBox); assert.equal(carried.scale.x, .7); assert.equal(carried.position.y, .72);
+  assert.equal(carried, pooledBox); assert.equal(carried.scale.x, .7); assert.equal(carried.position.y, 1.5);
   assert.equal(carried.getObjectByName('delivery-box-halo')!.visible, false, 'floating halo is hidden while carrying');
   scene.remove(car.g); hero.position.set(50, 20, 30);
   for (let i = 0; i < 100; i++) { system.beforeFrame(); system.update(.02, [], player); }
@@ -124,18 +124,68 @@ test('caught box remains on hero after feedback ends and traffic despawns; clear
   system.dispose();
 });
 
-test('recognizable closed box keeps animated art separate from the swept grab center', () => {
-  const { system, make, player } = fixture(), car = make('auto');
-  system.update(0, [car], player);
+test('pizza slice has opaque cheese, visible thickness, pooled toppings and camera-facing art independent of its grab center', () => {
+  const { system, make, player } = fixture(), car = make('auto'); car.g.rotation.y = .73;
+  const view = { forwardX: 1, forwardZ: 0, jumping: false, cameraX: 0, cameraY: 8, cameraZ: 15 };
+  system.update(0, [car], player, true, view);
   const marker = system.markers[0], visual = car.g.getObjectByName('delivery-box-visual')!;
-  const x = marker.position.x, z = marker.position.z;
-  const body = visual.children[0] as THREE.Mesh<THREE.BoxGeometry>;
-  assert.equal(body.geometry.parameters.height, .34, 'visible cardboard sides');
-  assert.ok(visual.children.some(node => node instanceof THREE.InstancedMesh), 'printed toppings share one draw');
-  system.beforeFrame(); system.update(.5, [car], player);
-  assert.notEqual(visual.rotation.y, 0); assert.equal(marker.position.x, x); assert.equal(marker.position.z, z);
+  const body = visual.getObjectByName('delivery-pizza-slice') as THREE.Mesh<THREE.ExtrudeGeometry, THREE.MeshBasicMaterial>;
+  assert.ok(body.geometry instanceof THREE.ExtrudeGeometry);
+  body.geometry.computeBoundingBox(); const size = body.geometry.boundingBox!.getSize(new THREE.Vector3());
+  assert.ok(size.x > 1.5 && size.y > 1.5 && size.z >= .14, 'a real 3D slice, not a tiny or paper-thin marker');
+  assert.equal(body.material.transparent, false); assert.equal(body.material.opacity, 1);
+  assert.ok(visual.children.some(node => node instanceof THREE.InstancedMesh), 'toppings share one draw');
+  const point = { ...marker.position };
+  for (const camera of [{ x: 0, y: 8, z: 15 }, { x: 30, y: 2, z: -20 }, { x: -40, y: 22, z: 0 }]) {
+    Object.assign(view, { cameraX: camera.x, cameraY: camera.y, cameraZ: camera.z });
+    system.beforeFrame(); system.update(0, [car], player, true, view);
+    const world = visual.getWorldPosition(new THREE.Vector3());
+    const facing = visual.getWorldDirection(new THREE.Vector3());
+    const toward = new THREE.Vector3(camera.x, camera.y, camera.z).sub(world).normalize();
+    assert.ok(facing.dot(toward) > .9999, 'cheese face must remain readable from camera yaw and height changes');
+    assert.deepEqual(marker.position, point, 'camera billboard cannot move the grab volume');
+    assert.deepEqual(marker.previousPosition, point);
+  }
   const halo = car.g.getObjectByName('delivery-box-halo') as THREE.Mesh;
-  assert.ok(halo.position.y < -.2, 'glow stays below the box instead of washing over the lid');
+  assert.ok(halo.position.y < -.6, 'halo stays below the cheese face');
+  system.dispose();
+});
+
+test('slice hover remains separated from every carrier roof and anonymous across vehicle types', () => {
+  const fingerprints: string[] = [];
+  for (const group of ['auto', 'bus', 'bike', 'car', 'truck'] as const) {
+    const { system, make, player } = fixture(), car = make(group);
+    const view = { forwardX: 1, forwardZ: 0, jumping: false, cameraX: 0, cameraY: 3, cameraZ: 14 };
+    system.update(0, [car], player, true, view);
+    const marker = system.markers[0], visual = car.g.getObjectByName('delivery-box-visual')!;
+    const materials: string[] = [];
+    visual.traverse(node => { if (node instanceof THREE.Mesh) materials.push((node.material as THREE.MeshBasicMaterial).color.getHexString()); });
+    fingerprints.push(JSON.stringify(materials));
+    for (let i = 0; i < 120; i++) {
+      system.beforeFrame(); system.update(1 / 30, [car], player, true, view);
+      const aboveRoof = marker.position.y - car.g.position.y - car.size[1];
+      assert.ok(aboveRoof >= 1.13 && aboveRoof <= 1.27, '1.2m roof clearance with bounded breathing');
+      assert.ok(new THREE.Box3().setFromObject(visual).min.y > car.g.position.y + car.size[1] + .1, 'visible slice cannot sink into a bus or car roof');
+    }
+    assert.equal('celebrity' in marker, false);
+    assert.ok(!/\b(Allu Arjun|Nani|Jr NTR|Mahesh Babu|Pushpa|Simhadri|customer)\b/i.test(JSON.stringify(visual.toJSON())), 'marker art contains no customer identity');
+    system.dispose();
+  }
+  assert.equal(new Set(fingerprints).size, 1, 'vehicle kind never changes the anonymous pizza appearance');
+});
+
+test('carried slice keeps facing the camera on a rotated flying Roadster without losing its pooled lease', () => {
+  const { system, make, player, scene } = fixture(), car = make('bus'), hero = new THREE.Group();
+  scene.add(hero); hero.position.set(40, 30, -20); hero.rotation.set(-.06, 1.2, 0, 'YXZ');
+  const view = { forwardX: 0, forwardZ: -1, jumping: false, airborne: true, cameraX: 10, cameraY: 36, cameraZ: 5 };
+  system.update(0, [car], player, true, view); system.collect(system.markers[0].carrierId, hero);
+  const visual = hero.getObjectByName('delivery-box-visual')!;
+  for (let i = 0; i < 100; i++) {
+    hero.rotation.y += .02; system.update(.02, [], hero.position, false, view);
+    const toward = new THREE.Vector3(view.cameraX, view.cameraY, view.cameraZ).sub(visual.getWorldPosition(new THREE.Vector3())).normalize();
+    assert.ok(visual.getWorldDirection(new THREE.Vector3()).dot(toward) > .9999);
+    assert.equal(system.activeCount, 0); assert.equal(system.holding, true);
+  }
   system.dispose();
 });
 

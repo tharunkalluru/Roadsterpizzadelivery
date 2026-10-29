@@ -284,7 +284,7 @@ test('IMAX seat instancing preserves all64parts, palette, positions and local cu
   }
   assert.ok(Math.abs(bases.boundingBox!.min.x + 14.1) < .00001); assert.ok(Math.abs(bases.boundingBox!.max.z - 6.9) < .00001);
   scene.getObjectByName('delivery-setpiece')!.traverse(node => { if (node instanceof THREE.Mesh) meshes++; });
-  assert.equal(meshes, 18, 'entire hall draws18objects instead of80');
+  assert.equal(meshes, 17, 'batched seated character and instanced seats retain a bounded hall draw count');
   let disposed = 0; bases.addEventListener('dispose', () => disposed++); backs.addEventListener('dispose', () => disposed++);
   module.teardown(); module.teardown(); assert.equal(disposed,2,'instance GPU buffers release once');
 });

@@ -30,10 +30,11 @@ test('normal moving flight still recenters smoothly while stationary ground keep
  assert.ok(Math.abs(air.orbitYaw)<.01);assert.ok(Math.abs(air.airOrbitPitch-.62)<.01);assert.ok(air.airOrbitDist<.1);
  assert.equal(ground.orbitYaw,1);assert.equal(ground.orbitPitch,.9);assert.equal(ground.orbitDist,6);
 });
-test('default grounded framing, damping opportunity and speed-based field of view stay compatible with Version21',()=>{
+test('default grounded framing stays compatible with Version21 while the requested speed FOV delta is quartered',()=>{
  const g=fixture(0,false);g.updateCamera(0);assert.ok(Math.abs(g.engine.camera.position.z-7.6)<1e-9);
  assert.ok(Math.abs(g.engine.camera.position.y-(.55+.4+7.6*Math.sin(.38)*.95))<1e-9);assert.equal(g.engine.camera.fov,60);
- const moving=fixture(12,false);moving.updateCamera(0);assert.equal(moving.engine.camera.fov,63.6);
+ const moving=fixture(12,false);moving.updateCamera(0);assert.equal(moving.engine.camera.fov,60.9);
+ assert.ok(Math.abs(moving.engine.camera.position.z-(7.6+12*.06*.25))<1e-9);
 });
 test('accelerating after multiple hover orbits recenters by the shortest arc',()=>{
  for(const turns of [-3,-1,1,4]){

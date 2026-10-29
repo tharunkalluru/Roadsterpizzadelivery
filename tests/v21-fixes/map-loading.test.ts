@@ -126,7 +126,7 @@ function mapFixture() {
     open: false, dirty: true, focus: { show: () => trace.push('focus'), hide: () => trace.push('hide') },
     cx: 0, cz: 0, scale: .5, t: 0, bld: new Path(), layers: null, loading: false, loadError: false, buildP: null,
     mapData: null, loadAbort: null, baseJob: null, previewJob: null, preview: null, previewKey: '', outlineJob: null, outlineBuildings: null,
-    minorPaths: null, minorView: '', finishBuild: null, rejectBuild: null, labelWidths: new Map(), markerView: '', areaLabelView: '', areaLabels: [],
+    minorPaths: null, minorView: '', finishBuild: null, rejectBuild: null, labelWidths: new Map(), markerView: '', labelView: '', mapLabels: [], labelFontEpoch: 0,
     places: [], placeCategory: '', selectedPlace: null, markers: [], pointers: new Map(), pinch0: 0, gesture: null, pick: null,
     openStarted: 0, firstBaseDrawForOpen: false,
     mapStats: { source: 'none', slices: 0, preparationMs: 0, maxStepMs: 0, sourcePolylines: 0, sourcePoints: 0, draws: 0, firstBaseDrawMs: null },
@@ -187,8 +187,9 @@ test('actual map labels retain visible placement while offscreen measurements an
   const restore = globals();
   try {
     const { m, ctx } = mapFixture(); m.layers = { park: new Path(), water: new Path(), roads: [], minor: new Map(), metro: [] };
-    m.zone.places = [{ name: 'Visible locality', kind: 'locality', p: [0, 0] }, { name: 'Offscreen locality', kind: 'locality', p: [100000, 0] }];
-    m.draw(); assert.deepEqual(ctx.measures, ['Visible locality']); assert.ok(ctx.texts.includes('Visible locality'));
+    m.zone.places = [{ name: 'Visible locality', kind: 'locality', p: [300, 0] }, { name: 'Offscreen locality', kind: 'locality', p: [100300, 0] }];
+    m.root.querySelector('#map-places-panel').hidden = true; m.root.querySelector('#map-place-detail').hidden = true;
+    m.open = true; m.tick(.016); assert.deepEqual(ctx.measures, ['Visible locality']); assert.ok(ctx.texts.includes('Visible locality'));
     m.draw(); assert.deepEqual(ctx.measures, ['Visible locality'], 'quarter-second marker refresh reuses label widths and placements');
     m.cx = 100000; m.draw(); assert.deepEqual(ctx.measures, ['Visible locality', 'Offscreen locality']);
   } finally { restore(); }

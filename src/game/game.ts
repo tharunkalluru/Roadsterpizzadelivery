@@ -1,6 +1,8 @@
+import { roadNavigationCue } from '../ui/flight-navigation';
 import { showLoading, hideLoading, loadingRetry } from '../ui/loading';
 import { frameTakeoff } from './kickflip-camera';
 import { installCameraLook } from './camera-look';
+import { speedCameraDistance, speedCameraFov } from './camera';
 import * as THREE from 'three';
 import type { Engine } from '../core/engine';
 import type { CoreData, CityPoi, XZ } from '../world/types';
@@ -68,7 +70,7 @@ export class Game {
   carriers!: CarrierMarker;
   pickupDetector!: PickupDetector;
   private carrierSpawnT = 0;
-  private carrierView = { forwardX: 0, forwardZ: -1, jumping: false, airborne: false };
+  private carrierView = { cameraX:0,cameraY:0,cameraZ:0, forwardX: 0, forwardZ: -1, jumping: false, airborne: false };
   private cameraCollisionOptions: CameraCollisionOptions = {};
   private pickupBefore: JumpPickupPose = { x: 0, y: 0, z: 0, bottom: 0, top: 0, jumping: false };
   private pickupAfter: JumpPickupPose = { x: 0, y: 0, z: 0, bottom: 0, top: 0, jumping: false };
@@ -464,7 +466,7 @@ export class Game {
     // full map from the minimap
     this.map = new FullMap(this.hud.root, this.zone, () => ({
       player: this.area ? { x: this.player.pos.x, z: this.player.pos.z, yaw: this.player.yaw } : null,
-      canMove: !!this.area && !this.story?.activeOrder && (!this.order || this.order.state === 'offer'),
+      canMove: !this.carrierPickupMode && !!this.area && !this.story?.activeOrder && (!this.order || this.order.state === 'offer'),
       route: this.route ? (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts) : null,
       target: this.routeTarget ? { x: this.routeTarget.x, z: this.routeTarget.z, label: this.routeTarget.label } : null,
       pickups: this.carrierPickupMode ? [] : this.food.map((f) => ({ x: f.s.x, z: f.s.z, pizza: !!f.pizza })),
@@ -509,10 +511,10 @@ export class Game {
     const want = new URLSearchParams(location.search).get('area');
     const hit = want ? [...this.picker.popular, ...this.picker.list].find((c) => c.name.toLowerCase() === want.toLowerCase()) : null;
     this.title = new TitleScreen(this.hud.root, touch, this.carrierPickupMode);
-    this.title.onPlay = () => { this.sound.unlock(); this.sound.cue('start'); if (touch && this.settings.steer === 'tilt') void this.applySteering(); this.chooseArea(true); };
+    this.title.onPlay = () => { this.sound.unlock(); this.sound.cue('start'); if (touch && this.settings.steer === 'tilt') void this.applySteering(); this.carrierPickupMode ? this.startCampaign() : this.chooseArea(true); };
     this.title.onSettings = () => this.openSettings(() => { this.hud.modal(null); this.title!.show(); });
     if (this.opts.initialArea) this.relocate(this.opts.initialArea);
-    else if (hit) this.relocate(hit); else { this.choosing = true; this.paused = true; this.title.show(); }
+    else if (hit && !this.carrierPickupMode) this.relocate(hit); else { this.choosing = true; this.paused = true; this.title.show(); }
     const loop = () => { if (!this.halted) this.frame(); requestAnimationFrame(loop); };   // tests set halted and step frames themselves
     requestAnimationFrame(loop);
   }
@@ -570,7 +572,13 @@ export class Game {
       return this.validArea(c) ? c : null;
     } catch { return null; }
   }
+  startCampaign() {
+    const next=this.story?.startArea();
+    if(next) void this.relocate(next);
+    else this.hud.toast('No safe main-road start is available. Reload to retry.', 'pink');
+  }
   chooseArea(first: boolean) {
+    if(this.carrierPickupMode) { if(this.area)this.resume();else this.startCampaign();return; }
     this.hud.tip(null);
     this.resetInput();
     if (!first && this.order && this.order.state !== 'offer') { this.resume(); this.hud.toast('Finish this delivery first!', 'pink'); return; }
@@ -640,6 +648,12 @@ export class Game {
     this.queueOffer(2200);
   }
   private relocationFailed(c: AreaChoice, message: string) {
+    if(this.carrierPickupMode) {
+      setLoading('');this.relocating=false;this.relocationAbort=undefined;
+      this.hud.modal('<h2>Could not prepare the road</h2><p>Please retry loading the campaign start.</p><button class="btn go" id="campaign-retry">Retry</button>',sheet=>sheet.querySelector('#campaign-retry')!.addEventListener('click',()=>this.relocate(c)));
+      return;
+    }
+
     setLoading(''); this.relocating = false; this.relocationAbort = undefined;
     this.city.focus = this.area ? [this.player.pos.x, this.player.pos.z] : null;
     this.sound.cue('error');
@@ -693,8 +707,9 @@ export class Game {
     if (!onRoof && (this.stuckT > 9 || this.slowT > 26)) { this.slowT = 0; this.rescue(); }   // still wedged after a while: help without being asked
   }
   placeNear(x: number, z: number) {
-    const p = findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true }) ??
-      findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true, allowElevated: true });
+    const campaign=this.carrierPickupMode&&!this.opts.initialArea;
+    const p = findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true, majorOnly:campaign,forwardClearance:campaign?40:8 }) ??
+      (!campaign ? findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true, allowElevated: true }) : null);
     if (!p) return false;
     this.player.place(p.x, p.z, p.yaw, p.y);
     return true;
@@ -707,7 +722,8 @@ export class Game {
       if (this.carrierPickupMode) sh.querySelector('#reset')!.textContent = 'Restart current delivery';
       sh.querySelector('#resume')!.addEventListener('click', () => this.resume());
       sh.querySelector('#settings')!.addEventListener('click', () => this.openSettings(() => this.openPause()));
-      sh.querySelector('#area')!.addEventListener('click', () => this.chooseArea(false));
+      if(this.carrierPickupMode) sh.querySelector('#area')?.remove();
+      else sh.querySelector('#area')!.addEventListener('click', () => this.chooseArea(false));
       sh.querySelector('#unstick')!.addEventListener('click', () => { this.paused = false; this.hud.modal(null); this.clock.getDelta(); this.rescue(); });
       sh.querySelector('#reset')!.addEventListener('click', () => {
         if (this.carrierPickupMode) {
@@ -810,8 +826,8 @@ export class Game {
     if (this.carrierPickupMode) {
       const touch = document.documentElement.classList.contains('is-touch');
       this.hud.tip(touch
-        ? 'Look for a glowing pizza box above traffic. Hold GO to approach, release it, then tap JUMP to grab the box. Fly does not collect it.'
-        : 'Look for a glowing pizza box above traffic. Drive with W and steer with A / D, then press J to jump through the box. Space flies; it does not collect.');
+        ? 'Look for a glowing pizza slice floating above traffic. Hold GO to approach, release it, then tap JUMP to grab the slice. Fly does not collect it.'
+        : 'Look for a glowing pizza slice floating above traffic. Drive with W and steer with A / D, then press J to jump through the slice. Space flies; it does not collect.');
       return;
     }
     const touch = document.documentElement.classList.contains('is-touch'), o = this.order, P = this.player.pos;
@@ -989,10 +1005,16 @@ export class Game {
     const flightOrder = this.order;
     const flightStop = this.story?.destination ?? (flightOrder?.state === 'toPickup' ? flightOrder.pickup : flightOrder?.state === 'toDrop' ? flightOrder.drop : null);
     this.hud.flightNavigation(flightStop ? { x: P.x, z: P.z, yaw: this.player.yaw,
-      flying: this.player.flying, descending: this.player.descending,
+      flying: this.player.flying || this.player.jumping, descending: this.player.descending,
+      road: this.story ? this.story.localNavigation ?? roadNavigationCue(this.routeGuidanceBlocked ? undefined : this.route?.pts, this.route?.len ?? Math.hypot(flightStop.x-P.x,flightStop.z-P.z)) : undefined,
       target: { x: flightStop.x, z: flightStop.z, kind: flightOrder?.state === 'toPickup' ? 'pickup' : 'customer' } } : null, dt);
     this.updateCamera(dt);
-    if (this.beacon.visible) { const s = 1 + Math.sin(this.t * 3) * 0.08; (this.beacon as any).ring.scale.setScalar(s); }
+    if (this.beacon.visible) {
+      const s = 1 + Math.sin(this.t * 3) * 0.08;
+      (this.beacon as any).ring.scale.setScalar(s);
+      // Keep the distant landmark, then clear the actor and entrance on approach.
+      (this.beacon as any).col.visible = !this.story || !flightStop || Math.hypot(flightStop.x - P.x, flightStop.z - P.z) > 45;
+    }
     this.engine.render();
     if (Math.floor(this.t * 8) !== Math.floor((this.t - dt) * 8)) { this.updateHud(); this.tutorialTick(); }
     // stats overlay (real frame rate, not game time)
@@ -1036,7 +1058,7 @@ export class Game {
       this.orbitPitch += (0.38 - this.orbitPitch) * k2; this.orbitDist *= 1 - k2;
       if (flight) { this.airOrbitPitch += (.62 - this.airOrbitPitch) * k2; this.airOrbitDist *= 1 - k2; }
     }
-    const back = underwater ? 7 : 7.6 + Math.abs(this.player.speed) * 0.06 + (air ? 4 : 0) + (flight ? this.airOrbitDist : this.orbitDist);
+    const back = underwater ? 7 : 7.6 + speedCameraDistance(this.player.speed) + (air ? 4 : 0) + (flight ? this.airOrbitDist : this.orbitDist);
     const cy = Math.cos(this.orbitYaw), sy = Math.sin(this.orbitYaw);
     const bx = f.x * cy - f.z * sy, bz = f.x * sy + f.z * cy;          // camera looks along the rotated forward
     const pitch = underwater ? .12 : flight ? this.airOrbitPitch : air ? .62 : this.orbitPitch;
@@ -1056,7 +1078,7 @@ export class Game {
     cam.position.copy(this.camPos);
     if (this.player.bump > 0) cam.position.add(new THREE.Vector3((Math.random() - 0.5) * this.player.bump, (Math.random() - 0.5) * this.player.bump, 0));
     cam.lookAt(this.camLook);
-    const baseFov = 60 + Math.abs(this.player.speed) * .3;
+    const baseFov = speedCameraFov(this.player.speed);
     cam.fov = dt > 0 ? THREE.MathUtils.lerp(cam.fov, baseFov, 1 - Math.exp(-dt * 6)) : baseFov;
     if (this.player.takeoffAnimating) {
       frameTakeoff(cam, this.player.group, this.camLook, { solid: p => this.insideSolid(p), clear: (from, to) => this.clearCamera(from, to) });
@@ -1168,8 +1190,9 @@ export class Game {
     const P = this.player.pos;
     const available = !this.story || this.story.canPickup;
     this.pickupDetector.enabled = available;
-    const view = this.carrierView ??= { forwardX: 0, forwardZ: -1, jumping: false, airborne: false };
+    const view = this.carrierView ??= { cameraX:0,cameraY:0,cameraZ:0, forwardX: 0, forwardZ: -1, jumping: false, airborne: false };
     view.forwardX = -Math.sin(this.player.yaw); view.forwardZ = -Math.cos(this.player.yaw);
+    const camera = this.engine.camera.position; view.cameraX=camera.x; view.cameraY=camera.y; view.cameraZ=camera.z;
     view.jumping = this.player.jumping; view.airborne = this.player.flying || this.player.descending || this.player.jumping;
     this.carriers.update(dt, this.traffic.cars, P, available && !this.pickupDetector.caught, view);
     this.carrierSpawnT = Math.max(0, this.carrierSpawnT - dt);

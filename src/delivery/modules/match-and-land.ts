@@ -3,8 +3,24 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { MovingRailBody } from '../../game/moving-rail';
 import { ModuleBase, distanceXZ, heading, numberParam } from './base';
 import type { DeliveryPoint, VerifiedTrainPassage } from './types';
+import type { DeliveryModuleContext, ModuleParams } from './types';
+import { TruckInterior } from './truck-interior';
+import type { SceneCharacter } from './character';
 
 export class MatchAndLand extends ModuleBase {
+  private interior:TruckInterior|null=null;
+  private receiver:SceneCharacter|null=null;
+  get supports(){return this.interior?.supports??super.supports;}
+  get trafficBodies(){return this.interior?.trafficBodies??this.supports.filter(body=>body.id==='delivery-log-truck');}
+  get arrival(){return this.interior?.arrival;}
+  setup(ctx:DeliveryModuleContext,params:ModuleParams={}){
+    if(params.scene==='truckInterior'){
+      this.teardown();this.interior=new TruckInterior();this.interior.setup(ctx,params);this.syncInterior();return;
+    }
+    super.setup(ctx,params);
+  }
+  private syncInterior(){if(this.interior){this.target=this.interior.target;this.status=this.interior.status;this.movement=this.interior.movement;}}
+  teardown(){this.interior?.teardown();this.interior=null;super.teardown();}
   private vehicle = new THREE.Group();
   private passenger = new THREE.Group();
   private vehicleKind = 'truck';
@@ -28,6 +44,7 @@ export class MatchAndLand extends ModuleBase {
   private passageRequired = false;
 
   protected build() {
+    this.receiver=null;
     this.vehicleKind = String(this.params.vehicle || this.params.scene || 'truck');
     this.speed = numberParam(this.params, 'speed', this.vehicleKind === 'stationary' ? 0 : 10, 0, 25);
     this.matched = 0; this.routeDistance = 0; this.routeSpeed = 0; this.routeLoop = false; this.routeLength = 0; this.lengths = [];
@@ -44,14 +61,14 @@ export class MatchAndLand extends ModuleBase {
       this.box(0, .2, 9.5, 24, .4, 1, '#D45439');
       this.box(-11.5, .2, 0, 1, .4, 20, '#D45439');
       this.box(11.5, .2, 0, 1, .4, 20, '#D45439');
-      this.passenger = this.person(3, 0, 0, '#CDA878');
+      this.receiver=this.character('gabbar',3,0,0);this.passenger=this.receiver.group;
       for (const x of [-6, 0, 6]) { this.box(x, -2.5, 10.03, 3, 2, .12, '#22364F'); }
       this.box(0, 2.6, -8, 10, 1.3, .3, '#17315B');
       for (const x of [-2, 2]) this.cylinder(x, 2.6, -7.8, .25, .06, x < 0 ? '#EA334F' : '#32ACED').rotation.x = Math.PI / 2;
     } else if (this.vehicleKind === 'train') {
       // Attach the setpiece's customer/marker to a genuine simulation coach.
       // Its existing mesh, route, collision and lifetime remain owned by RailTrains.
-      this.passenger = this.person(0, 0, 0, '#F5E8DA', this.vehicle);
+      this.receiver=this.character('trainHero',0,0,0,false,this.vehicle);this.passenger=this.receiver.group;
       this.vehicle.name = 'delivery-train-customer';
     } else {
       this.vehicleKind = 'truck';
@@ -128,14 +145,16 @@ export class MatchAndLand extends ModuleBase {
   }
 
   update(dt: number) {
+    if(this.interior){this.interior.update(dt);this.syncInterior();return;}
     if (!this.tick(dt)) return;
     const elapsed = Math.max(0, Math.min(dt, .1));
     let targetSpeed = this.speed;
     if (this.vehicleKind === 'train') {
       const train = this.ctx.existingTrain?.();
-      if (!train) { this.vehicle.visible = false; this.status.canDrop = false; this.status.instruction = 'Follow the rail marker; waiting for the next train'; this.matched = 0; return; }
+      if (!train) { this.cancelHandoff();this.vehicle.visible = false; this.status.canDrop = false; this.status.instruction = 'Follow the rail marker; waiting for the next train'; this.matched = 0; return; }
       this.vehicle.visible = true;
       if (this.sourceTrainId && train.id !== this.sourceTrainId) {
+        this.cancelHandoff();
         this.matched = 0; this.passage = null; this.passageUnder = false; this.passageRequired = false; this.passageCleared = false;
       }
       this.sourceTrainId = train.id;
@@ -218,6 +237,7 @@ export class MatchAndLand extends ModuleBase {
     }
     this.movement = { mode: 'approach', center: { ...this.target }, radius: 110, altitude: this.target.y + 3 };
     this.priorPlayer.x = p.x; this.priorPlayer.z = p.z; this.priorDt = elapsed;
+    this.advanceHandoff(dt);
   }
 
   private updatePassage(train: MovingRailBody) {
@@ -260,7 +280,8 @@ export class MatchAndLand extends ModuleBase {
   }
 
   onDrop() {
-    if (!this.unlocked() || this.ended) return;
-    if (this.status.canDrop) this.done(); else this.fail('Missed the landing window. Match the vehicle and try again.');
+    if(this.interior){this.interior.onDrop();this.syncInterior();return;}
+    if (!this.unlocked() || this.ended || this.handoffPending) return;
+    if (this.status.canDrop) this.beginHandoff(this.receiver,()=>this.done()); else this.fail('Missed the landing window. Match the vehicle and try again.');
   }
 }

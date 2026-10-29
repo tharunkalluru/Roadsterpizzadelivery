@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import { FullMap } from '../../src/ui/map';
+import { MapLabelIndex } from '../../src/ui/map-labels';
 import { createStadiumRoadMask } from '../../src/ui/map-stadium';
 import { stadiumExclusions } from '../../src/world/stadium-roads';
 import { DESTINATION_HERO_PLANS } from '../../src/world/destination-hero-data';
@@ -72,10 +73,11 @@ function fixture(){
   const m:any=Object.assign(Object.create(FullMap.prototype),{root,cv:{clientWidth:800,clientHeight:500,width:800,height:500,getContext:()=>ctx,hasPointerCapture:()=>false},
     open:true,dirty:true,focus:{show(){},hide(){}},cx:0,cz:0,scale:.5,t:0,bld,layers:{park,water,roads:[{p:road,w:12,col:'#aaa',min:0}],minor:new Map([['0,0',minor]]),metro:[{p:metro,color:'#f00'}]},
     loading:false,loadError:false,buildP:Promise.resolve(),mapData:{},outlineBuildings:buildings,outlineJob:null,minorPaths:null,
-    labelWidths:new Map(),markerView:'',areaLabelView:'',areaLabels:[],places:[],placeCategory:'',selectedPlace:null,markers:[],pointers:new Map(),pinch0:0,gesture:null,pick:null,
+    labelWidths:new Map(),markerView:'',labelView:'',mapLabels:[],labelFontEpoch:0,places:[],placeCategory:'',selectedPlace:null,markers:[],pointers:new Map(),pinch0:0,gesture:null,pick:null,
     openStarted:0,firstBaseDrawForOpen:false,mapStats:{source:'worker',slices:0,preparationMs:0,maxStepMs:0,sourcePolylines:0,sourcePoints:0,draws:0,firstBaseDrawMs:null},
-    zone:{origin:DESTINATION_HERO_PLANS.uppal_stadium.anchor,bounds,roads:[],places:[{name:'Exterior access label',kind:'locality',p:[250,0]}],metro:{lines:[]}},
+    zone:{origin:DESTINATION_HERO_PLANS.uppal_stadium.anchor,bounds,roads:[],places:[{name:'Exterior access label',kind:'locality',p:[360,0]}],metro:{lines:[]}},
     src:{mapUrl:'/city/map.pack.wasm',buildings:()=>buildings},state:()=>({player:{x:0,z:0,yaw:0},canMove:true,route:[[0,0,0],[20,0,0]],target:{x:0,z:0,label:'Stadium target'},pickups:[]}),onClose(){}});
+  m.labelIndex=new MapLabelIndex(m.zone);for(const _ of m.labelIndex.prepare()){}
   return {m,calls,road,minor,metro,bld};
 }
 test('actual map drawing clips only road/building layers and reuses the mask after pan, zoom and close/reopen',()=>withPaths(()=>{

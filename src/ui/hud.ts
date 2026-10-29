@@ -475,14 +475,14 @@ const CSS = `
 @media(max-width:600px){#hud .pause-grid{grid-template-columns:1fr}#hud .pause-card{min-height:64px}#hud .h-tc .pill{padding:0 7px;font-size:10px;gap:4px}}
 @media(max-height:520px){#hud .pause-grid{gap:8px}#hud .pause-card{min-height:72px;padding:10px}#hud .pause-primary{min-height:44px}#hud .sheet-header h2{font-size:20px}}
 /* Opaque, noninteractive flight guidance stays in the measured central lane. */
-#hud .flight-navigation{box-sizing:border-box;position:absolute;z-index:2;display:flex;align-items:center;gap:8px;padding:9px 10px;border:2px solid #FFB627;border-radius:16px;background:#241832;color:#FFB627;box-shadow:0 3px 0 #130D20;pointer-events:none}
+#hud .flight-navigation{box-sizing:border-box;position:absolute;z-index:2;display:flex;align-items:center;gap:7px;padding:5px 10px;border:1px solid rgba(255,255,255,.38);border-radius:18px;background:rgba(28,24,44,.42);color:#FFF1D8;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);pointer-events:none}
 #hud .flight-navigation[hidden]{display:none!important}
-#hud .flight-navigation[data-kind=customer]{border-color:#45E3D3;color:#45E3D3}
+#hud .flight-navigation[data-kind=customer]{border-color:rgba(159,255,238,.45);color:#FFF1D8}
 #hud .flight-navigation *{pointer-events:none!important}
-#hud .flight-nav-arrow{flex:none;width:36px;height:36px;transform-origin:center;stroke:currentColor;fill:none}
+#hud .flight-nav-arrow{flex:none;width:28px;height:28px;transform-origin:center;stroke:currentColor;fill:none}
 #hud .flight-nav-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
 #hud .flight-nav-heading{display:flex;align-items:baseline;gap:5px;white-space:nowrap}
-#hud .flight-nav-target{font:800 12px/1.1 var(--body);color:var(--cream)}
+#hud .flight-nav-target{display:none;font:800 12px/1.1 var(--body);color:var(--cream)}
 #hud .flight-nav-distance{font:800 12px/1.1 var(--body);color:inherit}
 #hud .flight-nav-hint{font:700 11px/1.1 var(--body);color:var(--muted);white-space:nowrap}
 #hud .flight-navigation[data-compact=true]{gap:6px;padding:4px 8px}
@@ -536,7 +536,7 @@ export class Hud {
         <canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas>
       </div>
       <div class="toast" id="toast" aria-live="polite"></div>
-      <div class="flight-navigation" id="flight-navigation" role="group" aria-label="Flight guidance" hidden>
+      <div class="flight-navigation" id="flight-navigation" role="group" aria-label="Navigation guidance" hidden>
         <svg class="flight-nav-arrow" id="flight-nav-arrow" viewBox="0 0 32 32" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 27V5M6 15 16 5l10 10"/></svg>
         <div class="flight-nav-copy"><div class="flight-nav-heading"><span class="flight-nav-target" id="flight-nav-target"></span><span class="flight-nav-distance" id="flight-nav-distance"></span></div><span class="flight-nav-hint" id="flight-nav-hint"></span></div>
       </div>
@@ -618,14 +618,9 @@ export class Hud {
       const narrowFlight = touch && root.width < 600;
       const flightLeft = touch && !narrowFlight ? controls.rightSteer.left + controls.rightSteer.width : l.left - root.left + l.width;
       const flightRight = touch && !narrowFlight ? Math.min(map.left, controls.brake.left) : map.left;
-      const flightBox = flightNavigationLayout(root.width, root.height, headerBottom, area.top + area.height,
+      this.positionFlightNavigation(root, headerBottom, area,
         { left: l.left - root.left, top: taskTop, width: flightLeft - (l.left - root.left), height: Math.max(0, taskBottom - taskTop) }, { ...map, left: flightRight },
-        touch ? narrowFlight ? controls.leftSteer.top + 4 : controls.brake.top : root.height - 76, narrowFlight ? 44 : 64);
-      this.flightNavHasRoom = !!flightBox;
-      if (flightBox) {
-        position(this.el['flight-navigation'], flightBox);
-        this.el['flight-navigation'].dataset.compact = String(flightBox.width < 180 || flightBox.height < 64);
-      } else this.flightNavigation(null);
+        touch ? narrowFlight ? controls.leftSteer.top + 4 : controls.brake.top : root.height - 76, narrowFlight);
       this.root.style.setProperty('--task-bottom', `${Math.max(0, taskBottom)}px`);
       const offered = this.root.classList.contains('has-offer');
       const bounds = guidanceBounds(root.width, root.height, taskBottom, map.left, map.top + map.height, touch && !offered);
@@ -749,6 +744,16 @@ export class Hud {
     this.updateRotationGate();
     guardWorldPaint(this.root);
   }
+  private positionFlightNavigation(root: HudRect, headerBottom: number, area: HudRect, tasks: HudRect, map: HudRect, controlsTop: number, narrow: boolean) {
+    const areaBottom = this.el['area-chip'].classList.contains('show') ? area.top + area.height : 0;
+    const box = flightNavigationLayout(root.width, root.height, headerBottom, areaBottom, tasks, map, controlsTop, narrow ? 44 : 48);
+    this.flightNavHasRoom = !!box;
+    if (box) {
+      Object.assign(this.el['flight-navigation'].style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, height: `${box.height}px`, right: 'auto', bottom: 'auto' });
+      this.el['flight-navigation'].dataset.compact = String(box.width < 180 || box.height < 48);
+    } else this.flightNavigation(null);
+    return box;
+  }
   // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
   resetControls() {
     this.cancelOfferSwipe();
@@ -805,7 +810,7 @@ export class Hud {
   }
   pickupStatus(caught: boolean) {
     this.root.dataset.pickupState = caught ? 'carrying' : 'searching';
-    this.set('pickup-status', caught ? 'Pizza caught' : 'Look for a glowing pizza box above traffic');
+    this.set('pickup-status', caught ? 'Pizza caught' : 'Look for a glowing pizza slice above traffic');
   }
   storyBlocked = false;
   private get controlsAvailable() { return !this.storyBlocked && !this.root.classList.contains('has-offer') && !this.tipOpen && !this.modalOpen && !this.rotationBlocked; }
@@ -863,7 +868,7 @@ export class Hud {
       this.el['flight-nav-arrow'].style.transform = rotation; this.flightNavRenderedAngle = rotation;
     }
     if (panel.dataset.kind !== readout.kind) panel.dataset.kind = readout.kind;
-    this.set('flight-nav-target', readout.target); this.set('flight-nav-distance', readout.distance); this.set('flight-nav-hint', readout.hint);
+    this.set('flight-nav-target', ''); this.set('flight-nav-distance', readout.distance); this.set('flight-nav-hint', readout.hint);
     if (panel.hidden) panel.hidden = false;
   }
   flightReserve(fraction: number, unlimited = false) {
@@ -948,8 +953,9 @@ export class Hud {
   }
   areaT = 0;
   areaChip(name: string, label = 'Entering') {
-    const c = this.el['area-chip']; c.innerHTML = `<small>${label.replace(/[<>&]/g, '')}</small><span class="area-name">${name.replace(/[<>&]/g, '')}</span>`; c.classList.add('show');
-    clearTimeout(this.areaT); this.areaT = window.setTimeout(() => c.classList.remove('show'), 4200);
+    const c = this.el['area-chip'], wasVisible = c.classList.contains('show'); c.innerHTML = `<small>${label.replace(/[<>&]/g, '')}</small><span class="area-name">${name.replace(/[<>&]/g, '')}</span>`; c.classList.add('show');
+    if (!wasVisible) this.updateLayout();
+    clearTimeout(this.areaT); this.areaT = window.setTimeout(() => { c.classList.remove('show'); this.updateLayout(); }, 4200);
   }
   get tipOpen() { return !this.el['tip-layer'].hidden; }
   private acknowledgeTip() { if (!this.tipOpen) return; this.tipAcknowledgement(null); this.onButton('tip-close'); }

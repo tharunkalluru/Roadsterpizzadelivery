@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { ModuleBase, numberParam } from './base';
 import type { DeliveryPoint } from './types';
+import type { SceneCharacter } from './character';
 
 /** The opening must be crossed before a handover at the seat can count. */
 export class ThreadGap extends ModuleBase {
@@ -14,6 +15,7 @@ export class ThreadGap extends ModuleBase {
   private hazardLatch = false;
   private entranceTarget: DeliveryPoint = { x: 0, y: 0, z: 0 };
   private seatTarget: DeliveryPoint = { x: 0, y: 0, z: 0 };
+  private receiver!:SceneCharacter;
   protected build() {
     this.entered = false; this.hazardLatch = false;
     this.width = numberParam(this.params, 'width', 10, 6, 18);
@@ -40,7 +42,7 @@ export class ThreadGap extends ModuleBase {
       seatBacks.setMatrixAt(seatIndex, matrix.makeTranslation(x, 1.8, z + .8)); seatIndex++;
     }
     for (const mesh of [seatBases, seatBacks]) { mesh.instanceMatrix.needsUpdate = true; mesh.computeBoundingBox(); mesh.computeBoundingSphere(); }
-    this.person(3, 1.2, -7, '#E2E2E7'); this.box(3, .7, -7, 2.3, .5, 2.4, '#962F45');
+    this.receiver=this.character('imax',3,1.2,-7,true); this.box(3, .7, -7, 2.3, .5, 2.4, '#962F45');
     this.beam = this.box(0, 3.5, -2, .7, 6.5, 9, '#8C8C77'); this.beam.visible = this.params.hazards !== false;
     this.box(0, 9, this.entry - 2, 1.5, 1.3, 2, '#3E3A4D');
     this.entranceTarget = { x: d.x, y: d.y + 3, z: d.z + this.entry + 5, label: 'IMAX entrance opening' };
@@ -72,9 +74,10 @@ export class ThreadGap extends ModuleBase {
     this.status.canDrop = this.entered && this.within(6, 4) && Math.abs(p.speed) <= 8 && !hazard;
     this.status.instruction = this.status.canDrop ? 'At the seat. Hand over the pizza' : this.entered ? 'Slip past the sweeping beam to the glowing seat' : 'Enter through the lit opening';
     Object.assign(this.previous, p);
+    this.advanceHandoff(dt);
   }
   onDrop() {
-    if (!this.unlocked() || this.ended) return;
-    if (this.status.canDrop) this.done(); else this.fail(this.entered ? 'Get closer to the seat and slow down.' : 'Thread the opening first.');
+    if (!this.unlocked() || this.ended || this.handoffPending) return;
+    if (this.status.canDrop) this.beginHandoff(this.receiver,()=>this.done()); else this.fail(this.entered ? 'Get closer to the seat and slow down.' : 'Thread the opening first.');
   }
 }

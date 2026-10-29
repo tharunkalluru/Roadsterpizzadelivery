@@ -1,13 +1,15 @@
 import * as THREE from 'three';
 import { ModuleBase, numberParam } from './base';
 import type { DeliveryPoint } from './types';
+import type { SceneCharacter } from './character';
 
 export class ChainDrop extends ModuleBase {
   private targets: DeliveryPoint[] = [];
   private index = 0;
   private targetGroups: THREE.Group[] = [];
+  private directors:SceneCharacter[]=[];
   protected build() {
-    this.index = 0; this.targetGroups = [];
+    this.index = 0; this.targetGroups = [];this.directors=[];
     const d = this.ctx.destination;
     const defaults = [
       { label: 'Palace gate', dx: 0, dy: 2, dz: 0 },
@@ -32,7 +34,7 @@ export class ChainDrop extends ModuleBase {
     this.targets.forEach((target, index) => {
       const group = new THREE.Group(); group.name = `delivery-set-${index}`; group.position.set(target.x - d.x, target.y - d.y, target.z - d.z); this.root.add(group); this.targetGroups.push(group);
       this.box(0, -.3, 0, 18, .6, 18, '#AD8C63', group);
-      this.person(3, 0, 0, '#D4BC8B', group);
+      this.directors.push(this.character('director',3,0,0,false,group));
       if (index % 4 === 0) {
         for (const x of [-8, 8]) this.solidBox(x, 5, -4, 3, 10, 4, '#D2B185', group);
         this.solidBox(0, 10.5, -4, 19, 2, 4, '#C29D70', group);
@@ -61,11 +63,16 @@ export class ChainDrop extends ModuleBase {
     // Delivered sets remain physical scenery. Only the ring/nav moves on;
     // hiding their meshes would strand visible collision platforms behind.
     for (let i = 0; i < this.targetGroups.length; i++) this.targetGroups[i].visible = Math.hypot(this.ctx.player().x - this.targets[i].x, this.ctx.player().z - this.targets[i].z) < 800;
+    for(let i=0;i<this.directors.length;i++)this.directors[i].group.visible=i===this.index;
     this.movement = { mode: 'approach', center: { ...this.target }, radius: 85, altitude: this.target.y + 4 };
+    this.advanceHandoff(dt);
   }
   onDrop() {
-    if (!this.unlocked() || this.ended) return;
+    if (!this.unlocked() || this.ended || this.handoffPending) return;
     if (!this.status.canDrop) { this.fail('Retake #47 — same spot, one more try!', this.index + 1); return; }
+    this.beginHandoff(this.directors[this.index],()=>this.nextTake());
+  }
+  private nextTake(){
     this.index++;
     if (this.index === this.targets.length) { this.done(); return; }
     this.ctx.cue?.('success'); this.setTarget(this.targets[this.index]); this.status.canDrop = false;

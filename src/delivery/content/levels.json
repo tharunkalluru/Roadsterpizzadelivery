@@ -8,15 +8,15 @@
       "image": "/delivery/celebrities/allu-arjun.jpg"
     },
     "destination": {
-      "label": "Hyderabad–Jangaon Highway · Sandalwood truck",
-      "x": 8662.5,
-      "z": 504.4,
+      "label": "Inner Ring Road \u00b7 Sandalwood truck",
+      "x": 6597.702079788641,
+      "z": 1788.7502300308,
       "y": 0,
-      "lat": 17.40174246,
-      "lon": 78.57812654
+      "lat": 17.390231456790957,
+      "lon": 78.55871217026612
     },
-    "callMode": "CUSTOMER_CALLS",
-    "revealAt": "callLine",
+    "callMode": "PLAYER_CALLS",
+    "revealAt": "afterDelivery",
     "script": [
       {
         "who": "customer",
@@ -32,12 +32,11 @@
       },
       {
         "who": "customer",
-        "text": "Pushpa here. The logs have better suspension than my language lessons.",
-        "reveal": true
+        "text": "The rear door is opening. Follow the ramp inside. Mind the logs \u2014 I am studying in the corner."
       },
       {
         "who": "customer",
-        "text": "Match the truck speed and put it on the bed. Pizza thaggede le... except gently when you land."
+        "text": "Match the truck, enter slowly through the back and bring the pizza to my Japanese lesson."
       }
     ],
     "bonusScript": [
@@ -57,15 +56,17 @@
     "module": "matchAndLand",
     "moduleParams": {
       "vehicle": "truck",
-      "speed": 8,
-      "roofHeight": 2.8,
+      "speed": 6,
+      "roofHeight": 5.5,
       "radius": 7,
       "matchTolerance": 5,
-      "holdSeconds": 0.6
+      "holdSeconds": 0.6,
+      "scene": "truckInterior"
     },
-    "arrivalRadius": 110,
+    "arrivalRadius": 42,
     "restaurantStage": "Pizza cart",
-    "completionLine": "The first box becomes the first brick of your dream."
+    "completionLine": "The first box becomes the first brick of your dream.",
+    "campaignRole": "opening"
   },
   {
     "id": "train-top-table",
@@ -111,7 +112,8 @@
       "radius": 8,
       "matchTolerance": 6,
       "holdSeconds": 0.6,
-      "obstacles": true
+      "obstacles": true,
+      "immersiveHandoff": true
     },
     "arrivalRadius": 120,
     "restaurantStage": "Covered cart",
@@ -126,7 +128,7 @@
       "image": "/delivery/celebrities/pawan-kalyan.jpg"
     },
     "destination": {
-      "label": "Banjara Hills · Police rooftop",
+      "label": "Banjara Hills \u00b7 Police rooftop",
       "x": -5217.1,
       "z": -1051.4,
       "y": 12,
@@ -182,7 +184,8 @@
       "speed": 0,
       "radius": 8,
       "matchTolerance": 5,
-      "holdSeconds": 0.4
+      "holdSeconds": 0.4,
+      "immersiveHandoff": true
     },
     "arrivalRadius": 100,
     "restaurantStage": "Street stall",
@@ -197,7 +200,7 @@
       "image": "/delivery/celebrities/nani.png"
     },
     "destination": {
-      "label": "Uppal Stadium · Players pavilion",
+      "label": "Uppal Stadium \u00b7 Players pavilion",
       "x": 5724.4,
       "z": -30.5,
       "y": 7,
@@ -249,7 +252,8 @@
       "period": 4,
       "windowStart": 0.675,
       "windowEnd": 0.925,
-      "radius": 18
+      "radius": 18,
+      "immersiveHandoff": true
     },
     "arrivalRadius": 130,
     "restaurantStage": "Corner kiosk",
@@ -262,7 +266,7 @@
           "movie": "Eega"
         },
         "destination": {
-          "label": "Uppal · Garden table",
+          "label": "Uppal \u00b7 Garden table",
           "x": 5724.4,
           "z": -30.5,
           "y": 3,
@@ -294,7 +298,8 @@
           "period": 3,
           "windowStart": 0.67,
           "windowEnd": 0.9,
-          "radius": 7
+          "radius": 7,
+          "immersiveHandoff": true
         }
       }
     }
@@ -308,7 +313,7 @@
       "image": "/delivery/celebrities/mahesh-babu.jpg"
     },
     "destination": {
-      "label": "Prasads IMAX · Projection entrance",
+      "label": "Prasads IMAX \u00b7 Projection entrance",
       "x": -3311.1,
       "z": -682.0,
       "y": 22
@@ -358,7 +363,8 @@
       "height": 8,
       "entryDepth": 14,
       "sweepPeriod": 5,
-      "hazards": true
+      "hazards": true,
+      "immersiveHandoff": true
     },
     "arrivalRadius": 110,
     "restaurantStage": "Pizza shop",
@@ -374,15 +380,15 @@
       "image": "/delivery/celebrities/jr-ntr.jpg"
     },
     "destination": {
-      "label": "Hussain Sagar · Beneath the surface",
+      "label": "Hussain Sagar \u00b7 Water handoff",
       "x": -2273.8,
       "z": -1361.3,
       "y": 0,
       "lat": 17.4186,
       "lon": 78.4752
     },
-    "callMode": "CUSTOMER_CALLS",
-    "revealAt": "callLine",
+    "callMode": "PLAYER_CALLS",
+    "revealAt": "afterDelivery",
     "script": [
       {
         "who": "customer",
@@ -398,21 +404,21 @@
       },
       {
         "who": "customer",
-        "text": "Singamalai! Jr NTR here. Throw the pizza like the axe. Carefully. It has extra cheese.",
-        "reveal": true
+        "text": "Wait by the water. I am coming up. Keep the pizza ready for a proper throw."
       },
       {
         "who": "customer",
-        "text": "Move slowly through the water and throw when the target is close. Missed throws can be tried again."
+        "text": "Stay close to the surface. Throw toward my hands after I emerge. Missed throws can be tried again."
       }
     ],
     "module": "underwater",
     "moduleParams": {
-      "depth": 4,
+      "depth": 0,
       "radius": 12,
-      "throwRange": 12
+      "throwRange": 12,
+      "scene": "surfaceEmergence"
     },
-    "arrivalRadius": 100,
+    "arrivalRadius": 28,
     "restaurantStage": "Restaurant",
     "completionLine": "A legendary throw. Miraculously dry crust.",
     "failureLine": "The current caught it. Float closer and throw again."
@@ -426,7 +432,7 @@
       "image": "/delivery/celebrities/rajamouli.jpg"
     },
     "destination": {
-      "label": "Ramoji Film City · Baahubali sets",
+      "label": "Ramoji Film City \u00b7 Baahubali sets",
       "x": 19761.4,
       "z": 10478.8,
       "y": 6,
@@ -500,11 +506,13 @@
           "dy": 22,
           "dz": 25
         }
-      ]
+      ],
+      "immersiveHandoff": true
     },
     "arrivalRadius": 140,
     "restaurantStage": "Neon restaurant",
     "completionLine": "Grand opening! Your pizza dream now lights up Hyderabad.",
-    "failureLine": "Retake #47"
+    "failureLine": "Retake #47",
+    "campaignRole": "finale"
   }
 ]

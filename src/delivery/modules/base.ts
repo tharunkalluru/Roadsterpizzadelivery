@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import type { MovingRailBody } from '../../game/moving-rail';
 import type { DeliveryModule, DeliveryModuleContext, DeliveryPoint, ModuleMovement, ModuleParams, ModuleStatus } from './types';
+import { createSceneCharacter, type CharacterStyle, type SceneCharacter } from './character';
 
 export const numberParam = (p: ModuleParams, key: string, fallback: number, min = 0, max = Infinity) => {
   const value = p[key]; return typeof value === 'number' && Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : fallback;
@@ -23,6 +24,11 @@ export abstract class ModuleBase implements DeliveryModule {
   protected failureTime = 0;
   protected dropFeedback = '';
   protected bodies: MovingRailBody[] = [];
+  private handoff: { receiver:SceneCharacter; from:THREE.Vector3; elapsed:number; after:()=>void }|null=null;
+  private handoffPizza:THREE.Mesh|null=null;
+  private handoffLeft=new THREE.Vector3();
+  private handoffRight=new THREE.Vector3();
+  private handoffPosition=new THREE.Vector3();
   target: DeliveryPoint = { x: 0, y: 0, z: 0, label: '' };
   status: ModuleStatus = { instruction: '', canDrop: false, actionLabel: 'DROP' };
   movement: ModuleMovement = { mode: 'normal' };
@@ -78,6 +84,10 @@ export abstract class ModuleBase implements DeliveryModule {
     this.box(-.18, .45, 0, .23, .8, .25, '#272138', group); this.box(.18, .45, 0, .23, .8, .25, '#272138', group);
     return group;
   }
+  protected character(style: CharacterStyle, x: number, y: number, z: number, seated=false, parent=this.root) {
+    const character=createSceneCharacter(style,seated,{geometry:g=>this.own(g),material:(key,m)=>this.materials.set(`${key}:${this.materials.size}`,m)});
+    character.group.position.set(x,y,z);parent.add(character.group);return character;
+  }
   protected setTarget(point: DeliveryPoint) {
     Object.assign(this.target, point);
     if (this.ctx?.destination) this.ring?.position.set(point.x - this.ctx.destination.x, point.y - this.ctx.destination.y + .08, point.z - this.ctx.destination.z);
@@ -87,8 +97,48 @@ export abstract class ModuleBase implements DeliveryModule {
     const p = this.ctx.player(); return distanceXZ(p, this.target) <= radius && Math.abs(p.y - this.target.y) <= altitude;
   }
   protected unlocked() { return this.ready && (this.ctx.canInteract?.() ?? true); }
+  protected get handoffPending(){return this.handoff!==null;}
+  /** Optional physical pass. The caller keeps updating its moving scenery. */
+  protected beginHandoff(receiver:SceneCharacter|null,after:()=>void){
+    if(this.handoffPending||!this.unlocked()||this.ended)return;
+    if(!this.params.immersiveHandoff||!receiver){after();return;}
+    if(!this.handoffPizza){this.handoffPizza=this.box(0,0,0,.9,.18,.9,'#F3BA4D');this.handoffPizza.name='delivery-handoff-pizza';}
+    const p=this.ctx.player();
+    this.handoff={receiver,from:new THREE.Vector3(p.x,p.y+.35,p.z),elapsed:0,after};
+    this.handoffPizza.visible=true;this.handoffPizza.position.copy(this.root.worldToLocal(this.handoff.from.clone()));
+    this.status.canDrop=false;this.status.instruction='Passing the pizza…';this.ctx.cue?.('throw');
+    this.ctx.sceneEvent?.('catchStarted',{character:receiver.group.name.replace('delivery-character-','')});
+  }
+  /** Call after the receiver's pose changes, so train catches follow this frame's coach. */
+  protected advanceHandoff(dt:number){
+    const handoff=this.handoff;if(!handoff)return;
+    if(!this.unlocked()){this.status.canDrop=false;return;}
+    handoff.elapsed+=Math.max(0,Math.min(.1,Number.isFinite(dt)?dt:0));
+    const flight=Math.min(1,handoff.elapsed/.55);
+    handoff.receiver.catchPose(Math.min(1,handoff.elapsed/.4));
+    if(handoff.receiver.catchPoint){
+      handoff.receiver.catchPoint.updateWorldMatrix(true,false);this.handoffPosition.setFromMatrixPosition(handoff.receiver.catchPoint.matrixWorld);
+    }else{
+      handoff.receiver.leftArm.updateWorldMatrix(true,false);handoff.receiver.rightArm.updateWorldMatrix(true,false);
+      this.handoffLeft.set(0,-.5,.04).applyMatrix4(handoff.receiver.leftArm.matrixWorld);
+      this.handoffRight.set(0,-.5,.04).applyMatrix4(handoff.receiver.rightArm.matrixWorld);
+      this.handoffPosition.copy(this.handoffLeft).add(this.handoffRight).multiplyScalar(.5);
+    }
+    this.handoffPosition.lerpVectors(handoff.from,this.handoffPosition,flight);this.handoffPosition.y+=Math.sin(flight*Math.PI)*.75;
+    this.handoffPizza!.position.copy(this.root.worldToLocal(this.handoffPosition));
+    this.handoffPizza!.rotation.set(0,flight*Math.PI*2,0);
+    this.status.canDrop=false;this.status.instruction=flight<1?'Passing the pizza…':'Caught it!';
+    if(handoff.elapsed>=.75){
+      this.handoff=null;this.handoffPizza!.visible=false;
+      handoff.after(); // Completion may synchronously tear down the entire module.
+    }
+  }
+  protected cancelHandoff(){
+    if(this.handoff)this.handoff.receiver.catchPose(0);
+    this.handoff=null;if(this.handoffPizza)this.handoffPizza.visible=false;
+  }
   protected fail(reason: string, step?: number) {
-    if (this.ended || !this.unlocked()) return;
+    if (this.ended || !this.unlocked() || this.handoffPending) return;
     this.failureTime = 2.5; this.status.failure = reason; this.dropFeedback = reason;
     this.ctx.cue?.('retry'); this.ctx.emit('failed', { reason, step });
   }
@@ -104,6 +154,7 @@ export abstract class ModuleBase implements DeliveryModule {
       previous: { x: d.x, y: d.y, z: d.z, hx: 0, hz: 1 } });
   }
   teardown() {
+    this.cancelHandoff();this.handoffPizza=null;
     for (const mesh of this.instances) mesh.dispose();
     this.instances.clear();
     this.root.removeFromParent(); this.root.clear();

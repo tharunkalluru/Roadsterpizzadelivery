@@ -16,6 +16,7 @@ export interface LevelVariant {
 }
 export interface LevelConfig {
   id: string;
+  campaignRole?: 'opening' | 'finale';
   level: number;
   celebrity: Celebrity;
   destination: Destination;

@@ -76,7 +76,7 @@ export async function boot() {
   }
   // Vite removes this import and the QA module from production builds.
   const qa = import.meta.env.DEV && q.has('qaDelivery')
-    ? (await import('./delivery/qa')).createDeliveryQA(q.get('qaDelivery')) : null;
+    ? (await import('./delivery/qa')).createDeliveryQA(q.get('qaDelivery'),core.roads) : null;
   const game = new Game(engine, core, world, { lowQ, delivery: qa?.runtime,
     sessionStorage: qa?.storage, initialArea: qa?.area });
   (window as any).__gameBoot = game;              // __game is set once the first area has loaded

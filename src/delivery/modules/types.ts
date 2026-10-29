@@ -12,6 +12,7 @@ export interface ModuleStatus {
   failure?: string;
 }
 export interface ModuleMovement { mode: 'normal' | 'underwater' | 'approach'; center?: DeliveryPoint; radius?: number; depth?: number; altitude?: number }
+export interface ModuleArrival extends DeliveryPoint { hx: number; hz: number; side: 'rear'; radius: number }
 /** Evidence from the selected train's actual route and mapped overpass geometry. */
 export interface VerifiedTrainPassage { id: string; trainId: string; x: number; z: number; radius: number; ceiling: number; distanceAhead: number }
 export interface DeliveryModuleContext {
@@ -37,6 +38,7 @@ export interface DeliveryModuleContext {
   /** Underside of a real bridge/tunnel above a route point, when available. */
   clearanceAt?: (point: DeliveryPoint) => number | null;
   cue?: (kind: 'beat' | 'throw' | 'success' | 'retry') => void;
+  sceneEvent?: (kind: 'interiorEntered' | 'characterEmerged' | 'catchStarted', detail?: { character: string }) => void;
 }
 export type ModuleParams = Record<string, unknown>;
 export interface DeliveryModule {
@@ -48,5 +50,7 @@ export interface DeliveryModule {
   readonly status: ModuleStatus;
   readonly supports: readonly MovingRailBody[];
   readonly movement: ModuleMovement;
+  readonly arrival?: ModuleArrival;
+  readonly trafficBodies?: readonly MovingRailBody[];
 }
 export type DeliveryModuleName = 'matchAndLand' | 'threadGap' | 'beatDrop' | 'underwater' | 'chainDrop';

@@ -33,10 +33,10 @@ test('bearing smooths over the shortest wrap without a full rotation or a stale 
 });
 
 test('nearby pickup/customer cues ask for landing without implying collection or handover', () => {
-  assert.equal(flightNavigationReadout(input(0, -35))!.hint, 'Land for pickup');
+  assert.equal(flightNavigationReadout(input(0, -35))!.hint, 'Descend to marker');
   assert.equal(flightNavigationReadout(input(0, -36))!.hint, 'Straight ahead');
   const customer = input(0, -20); customer.target.kind = 'customer';
-  assert.equal(flightNavigationReadout(customer)!.hint, 'Land for customer');
+  assert.equal(flightNavigationReadout(customer)!.hint, 'Descend to marker');
   assert.equal(flightNavigationReadout(customer)!.kind, 'customer');
   customer.descending = true; customer.flying = false;
   assert.equal(flightNavigationReadout(customer)!.hint, 'Landing');
@@ -107,7 +107,7 @@ test('HUD updates the existing arrow and text without repeated stationary DOM wr
     for (let i = 0; i < 600; i++) hud.flightNavigation(target, 1 / 60);
     assert.equal(writes(), written);
     const next = input(-100, 0); next.target.kind = 'customer'; hud.flightNavigation(next, .016);
-    assert.equal(el['flight-navigation'].dataset.kind, 'customer'); assert.equal(el['flight-nav-target'].textContent, 'Customer');
+    assert.equal(el['flight-navigation'].dataset.kind, 'customer'); assert.equal(el['flight-nav-target'].textContent, '', 'navigation stays concise without the redundant Customer label');
     assert.equal(el['flight-nav-arrow'].style.transform, 'rotate(-90.0deg)', 'new stop has no stale smoothed pickup direction');
   } finally { (globalThis as any).document = previous; }
 });
@@ -128,4 +128,43 @@ test('HUD hides immediately for no job, ground, blocked surfaces, rotation and h
     show(); doc.hidden = true; hud.flightNavigation(input(0, -100), .016); assert.equal(el['flight-navigation'].hidden, true); doc.hidden = false;
     show(); doc.documentElement.classList.contains = (name: string) => name === 'ui-blocks-world'; hud.flightNavigation(input(0, -100), .016); assert.equal(el['flight-navigation'].hidden, true);
   } finally { (globalThis as any).document = previous; }
+});
+
+test('production HUD reclaims the top guidance lane while the area notice is hidden',()=>{
+  for(const [width,height] of [[568,320],[640,280],[800,360],[852,393],[918,384],[1280,720]]){
+    const controls=mobileHudLayout(width,height,62,106),narrow=width<600;
+    const area={left:(width-300)/2,top:62,width:300,height:42};
+    const classes=new Set<string>(),panel={style:{},dataset:{}};
+    const hud:any=Object.assign(Object.create(Hud.prototype),{el:{'area-chip':{classList:{contains:(name:string)=>classes.has(name)}},'flight-navigation':panel},flightNavigation(){assert.fail('supported landscape must retain guidance');}});
+    const left=narrow?154:controls.rightSteer.left+controls.rightSteer.width;
+    const right=narrow?controls.map.left:Math.min(controls.map.left,controls.brake.left);
+    const args=[{left:0,top:0,width,height},54,area,{left:12,top:62,width:left-12,height:0},{...controls.map,left:right},narrow?controls.leftSteer.top+4:controls.brake.top,narrow];
+    for(const visible of [false,true,false]){
+      visible?classes.add('show'):classes.delete('show');
+      const box=hud.positionFlightNavigation(...args);
+      assert.equal(box.top,visible?112:62,`${width}×${height}: hidden area cannot reserve a row`);
+      assert.equal(box.height,narrow?44:48,'quiet strip has no oversized 64px default');
+      assert.equal(panel.style['height' as keyof typeof panel.style],`${narrow?44:48}px`);
+      const blockers=[{left:0,top:0,width,height:54},controls.map,controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump,controls.speed];
+      if(visible)blockers.push(area);
+      for(const blocker of blockers)assert.equal(overlaps(box,blocker),false,`${width}×${height}: guidance overlaps ${JSON.stringify(blocker)}`);
+    }
+  }
+});
+
+test('area notice refreshes layout only on visibility transitions and replaces its single expiry timer',()=>{
+  const priorWindow=(globalThis as any).window,priorClear=globalThis.clearTimeout;
+  let timerId=0,layouts=0;const timers=new Map<number,()=>void>(),classes=new Set<string>();
+  const chip={innerHTML:'',classList:{contains:(name:string)=>classes.has(name),add:(name:string)=>classes.add(name),remove:(name:string)=>classes.delete(name)}};
+  const hud:any=Object.assign(Object.create(Hud.prototype),{el:{'area-chip':chip},areaT:0,updateLayout(){layouts++;}});
+  try{
+    (globalThis as any).window={setTimeout(fn:()=>void,ms:number){assert.equal(ms,4200);timers.set(++timerId,fn);return timerId;}};
+    (globalThis as any).clearTimeout=(id:number)=>timers.delete(id);
+    hud.areaChip('RTC X Roads');assert.equal(layouts,1);assert.equal(classes.has('show'),true);assert.equal(timers.size,1);
+    for(let i=0;i<20;i++)hud.areaChip(`Neighbourhood ${i}`);
+    assert.equal(layouts,1,'content changes within the same visible row do not repeat full HUD layout');assert.equal(timers.size,1);
+    const expire=timers.get(timerId)!;timers.delete(timerId);expire();
+    assert.equal(classes.has('show'),false);assert.equal(layouts,2,'expiry immediately reclaims the guidance row');
+    hud.areaChip('HITEC City');assert.equal(layouts,3);assert.equal(timers.size,1);
+  }finally{(globalThis as any).window=priorWindow;globalThis.clearTimeout=priorClear;}
 });
