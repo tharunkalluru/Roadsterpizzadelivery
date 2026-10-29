@@ -1,0 +1,556 @@
+{
+  "generatedAt": "2026-10-28T10:32:43.170Z",
+  "kind": "realCoreGraphRouteSearchDiagnostic",
+  "sourceCommit": "c6e851e012c9a6f257cd211a954f30e9fce357aa",
+  "graph": {
+    "edges": 52408,
+    "coreSha256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458"
+  },
+  "pairs": 3,
+  "queriesPerPair": 6,
+  "equality": {
+    "comparisons": 36,
+    "mismatches": 0,
+    "fields": "All points, lengths, completion flags and edge IDs compared exactly to frozen pre-change reference"
+  },
+  "legacySynchronous": {
+    "medianMs": 4.439625000000092,
+    "madMs": 3.695707999999911,
+    "maxMs": 12.751457999999957
+  },
+  "generatorSynchronous": {
+    "medianMs": 6.821083000000044,
+    "madMs": 4.923583000000008,
+    "maxMs": 14.71108300000003
+  },
+  "cooperativeSlices": {
+    "medianMs": 1.000833000000057,
+    "madMs": 0.001333999999928892,
+    "maxMs": 1.8154579999999783
+  },
+  "cooperativeTotal": {
+    "medianMs": 6.0070839999999635,
+    "madMs": 5.191458999999895,
+    "maxMs": 17.07995900000003
+  },
+  "rows": [
+    {
+      "pair": 0,
+      "query": [
+        0,
+        0,
+        6870,
+        419.6
+      ],
+      "resultPoints": 459,
+      "complete": false,
+      "legacySyncMs": 1.3745829999999728,
+      "generatorSyncMs": 2.671124999999961,
+      "cooperativeTotalMs": 3.325958000000014,
+      "sliceBudgetMs": 1,
+      "sliceCount": 3,
+      "sliceMs": [
+        1.048749999999984,
+        1.0121670000000336,
+        0.9795419999999808
+      ],
+      "maxSliceMs": 1.048749999999984,
+      "operations": 7930,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 0,
+      "query": [
+        -15368,
+        -4130,
+        6870,
+        419.6
+      ],
+      "resultPoints": 1574,
+      "complete": false,
+      "legacySyncMs": 8.135333000000003,
+      "generatorSyncMs": 12.118959000000018,
+      "cooperativeTotalMs": 16.13870800000001,
+      "sliceBudgetMs": 1,
+      "sliceCount": 15,
+      "sliceMs": [
+        1.0033329999999978,
+        1.0046670000000404,
+        1.0050830000000133,
+        1.0009589999999662,
+        1.0008750000000077,
+        1.0018340000000308,
+        1.003040999999996,
+        1.0034580000000233,
+        1.0717920000000163,
+        1.007874999999956,
+        1.0016250000000468,
+        1.0024159999999824,
+        1.8154579999999783,
+        1.001041999999984,
+        0.8370840000000044
+      ],
+      "maxSliceMs": 1.8154579999999783,
+      "operations": 40087,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 0,
+      "query": [
+        6870,
+        419.6,
+        -12022,
+        -4925
+      ],
+      "resultPoints": 1612,
+      "complete": false,
+      "legacySyncMs": 10.406542000000002,
+      "generatorSyncMs": 13.335916999999995,
+      "cooperativeTotalMs": 15.700125000000014,
+      "sliceBudgetMs": 1,
+      "sliceCount": 16,
+      "sliceMs": [
+        1.008958000000007,
+        1.0048329999999623,
+        1.0014999999999645,
+        1.0143750000000296,
+        1.001958000000002,
+        1.000833,
+        1.0021669999999858,
+        1.0014590000000112,
+        1.0007079999999746,
+        1.0006670000000213,
+        1.0007499999999823,
+        1.000541999999939,
+        1.0005840000000035,
+        1.000583000000006,
+        1.0027499999999918,
+        0.2926670000000513
+      ],
+      "maxSliceMs": 1.0143750000000296,
+      "operations": 47061,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 0,
+      "query": [
+        0,
+        0,
+        -15368,
+        -4130
+      ],
+      "resultPoints": 1099,
+      "complete": false,
+      "legacySyncMs": 6.460291999999981,
+      "generatorSyncMs": 6.821083000000044,
+      "cooperativeTotalMs": 6.614541999999915,
+      "sliceBudgetMs": 1,
+      "sliceCount": 7,
+      "sliceMs": [
+        1.0025839999999562,
+        1.0022500000000036,
+        0.9384579999999687,
+        1.002917000000025,
+        1.002375000000029,
+        1.0017080000000078,
+        0.4670419999999922
+      ],
+      "maxSliceMs": 1.002917000000025,
+      "operations": 23316,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 0,
+      "query": [
+        6870,
+        419.6,
+        12000,
+        4000
+      ],
+      "resultPoints": 737,
+      "complete": false,
+      "legacySyncMs": 2.412166999999954,
+      "generatorSyncMs": 3.599375000000009,
+      "cooperativeTotalMs": 3.971584000000007,
+      "sliceBudgetMs": 1,
+      "sliceCount": 4,
+      "sliceMs": [
+        0.8852090000000317,
+        1.000791999999933,
+        1.000833000000057,
+        0.9254170000000386
+      ],
+      "maxSliceMs": 1.000833000000057,
+      "operations": 14077,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 0,
+      "query": [
+        -12022,
+        -4925,
+        -15368,
+        -4130
+      ],
+      "resultPoints": 427,
+      "complete": false,
+      "legacySyncMs": 0.7405420000000049,
+      "generatorSyncMs": 0.6780420000000049,
+      "cooperativeTotalMs": 0.8156250000000682,
+      "sliceBudgetMs": 1,
+      "sliceCount": 1,
+      "sliceMs": [
+        0.745708000000036
+      ],
+      "maxSliceMs": 0.745708000000036,
+      "operations": 3859,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 1,
+      "query": [
+        0,
+        0,
+        6870,
+        419.6
+      ],
+      "resultPoints": 459,
+      "complete": false,
+      "legacySyncMs": 0.9263750000000073,
+      "generatorSyncMs": 1.8975000000000364,
+      "cooperativeTotalMs": 1.9165840000000571,
+      "sliceBudgetMs": 1,
+      "sliceCount": 2,
+      "sliceMs": [
+        0.8986660000000484,
+        0.9193749999999454
+      ],
+      "maxSliceMs": 0.9193749999999454,
+      "operations": 7930,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 1,
+      "query": [
+        -15368,
+        -4130,
+        6870,
+        419.6
+      ],
+      "resultPoints": 1574,
+      "complete": false,
+      "legacySyncMs": 9.493249999999989,
+      "generatorSyncMs": 10.84558299999992,
+      "cooperativeTotalMs": 12.006459000000063,
+      "sliceBudgetMs": 1,
+      "sliceCount": 12,
+      "sliceMs": [
+        1.0025829999999587,
+        1.0012500000000273,
+        1.001333000000045,
+        1.0004999999999882,
+        1.000583000000006,
+        1.022874999999999,
+        1.0012080000000196,
+        1.0004580000000942,
+        1.0006660000000238,
+        1.0028750000000173,
+        1.0025000000000546,
+        0.5963339999999562
+      ],
+      "maxSliceMs": 1.022874999999999,
+      "operations": 40087,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 1,
+      "query": [
+        6870,
+        419.6,
+        -12022,
+        -4925
+      ],
+      "resultPoints": 1612,
+      "complete": false,
+      "legacySyncMs": 11.741416999999956,
+      "generatorSyncMs": 13.284625000000005,
+      "cooperativeTotalMs": 17.07995900000003,
+      "sliceBudgetMs": 1,
+      "sliceCount": 17,
+      "sliceMs": [
+        1.0024999999999409,
+        1.001041999999984,
+        1.4785839999999553,
+        1.0016660000000002,
+        1.0008750000000646,
+        1.0065829999999778,
+        1.0033329999999978,
+        1.0032089999999698,
+        1.016999999999939,
+        1.002207999999996,
+        1.0011250000000018,
+        1.000750000000039,
+        1.0007920000000468,
+        1.0024579999999332,
+        0.9861670000000231,
+        1.001292000000035,
+        0.28808299999991505
+      ],
+      "maxSliceMs": 1.4785839999999553,
+      "operations": 47061,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 1,
+      "query": [
+        0,
+        0,
+        -15368,
+        -4130
+      ],
+      "resultPoints": 1099,
+      "complete": false,
+      "legacySyncMs": 4.439625000000092,
+      "generatorSyncMs": 9.318624999999997,
+      "cooperativeTotalMs": 6.0070839999999635,
+      "sliceBudgetMs": 1,
+      "sliceCount": 6,
+      "sliceMs": [
+        0.9273339999999735,
+        0.9996670000000449,
+        1.0012500000000273,
+        1.0006249999999,
+        1.0004579999999805,
+        0.8472090000000208
+      ],
+      "maxSliceMs": 1.0012500000000273,
+      "operations": 23316,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 1,
+      "query": [
+        6870,
+        419.6,
+        12000,
+        4000
+      ],
+      "resultPoints": 737,
+      "complete": false,
+      "legacySyncMs": 1.716542000000004,
+      "generatorSyncMs": 3.1892500000000155,
+      "cooperativeTotalMs": 3.0485419999999976,
+      "sliceBudgetMs": 1,
+      "sliceCount": 4,
+      "sliceMs": [
+        0.8376250000000027,
+        0.9038339999999607,
+        0.9528330000000551,
+        0.23370899999997619
+      ],
+      "maxSliceMs": 0.9528330000000551,
+      "operations": 14077,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 1,
+      "query": [
+        -12022,
+        -4925,
+        -15368,
+        -4130
+      ],
+      "resultPoints": 427,
+      "complete": false,
+      "legacySyncMs": 0.49579099999994014,
+      "generatorSyncMs": 0.889458999999988,
+      "cooperativeTotalMs": 0.7480829999999514,
+      "sliceBudgetMs": 1,
+      "sliceCount": 1,
+      "sliceMs": [
+        0.6832500000000437
+      ],
+      "maxSliceMs": 0.6832500000000437,
+      "operations": 3859,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 2,
+      "query": [
+        0,
+        0,
+        6870,
+        419.6
+      ],
+      "resultPoints": 459,
+      "complete": false,
+      "legacySyncMs": 1.2581669999999576,
+      "generatorSyncMs": 1.692625000000021,
+      "cooperativeTotalMs": 1.483333000000016,
+      "sliceBudgetMs": 1,
+      "sliceCount": 2,
+      "sliceMs": [
+        0.7322920000000295,
+        0.6756670000000895
+      ],
+      "maxSliceMs": 0.7322920000000295,
+      "operations": 7930,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 2,
+      "query": [
+        -15368,
+        -4130,
+        6870,
+        419.6
+      ],
+      "resultPoints": 1574,
+      "complete": false,
+      "legacySyncMs": 9.52966600000002,
+      "generatorSyncMs": 10.444209,
+      "cooperativeTotalMs": 12.473040999999967,
+      "sliceBudgetMs": 1,
+      "sliceCount": 13,
+      "sliceMs": [
+        1.0018749999999272,
+        1.0014580000000706,
+        1.001374999999939,
+        1.0007089999999152,
+        1.0005419999999958,
+        1.000583000000006,
+        1.0078750000000127,
+        1.0003340000000662,
+        1.0002090000000408,
+        1.0006250000000136,
+        1.0005419999999958,
+        1.011792000000014,
+        0.14337499999999181
+      ],
+      "maxSliceMs": 1.011792000000014,
+      "operations": 40087,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 2,
+      "query": [
+        6870,
+        419.6,
+        -12022,
+        -4925
+      ],
+      "resultPoints": 1612,
+      "complete": false,
+      "legacySyncMs": 12.751457999999957,
+      "generatorSyncMs": 14.71108300000003,
+      "cooperativeTotalMs": 15.465291999999977,
+      "sliceBudgetMs": 1,
+      "sliceCount": 15,
+      "sliceMs": [
+        1.0009170000000722,
+        1.001041999999984,
+        1.0004999999999882,
+        1.000750000000039,
+        1.0004579999999805,
+        1.000291999999945,
+        1.0006670000000213,
+        1.0004590000000917,
+        1.0003330000000688,
+        1.035333000000037,
+        1.0014169999999467,
+        1.0011250000000018,
+        1.001292000000035,
+        1.252834000000007,
+        0.9099169999999503
+      ],
+      "maxSliceMs": 1.252834000000007,
+      "operations": 47061,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 2,
+      "query": [
+        0,
+        0,
+        -15368,
+        -4130
+      ],
+      "resultPoints": 1099,
+      "complete": false,
+      "legacySyncMs": 4.504165999999941,
+      "generatorSyncMs": 7.594541000000049,
+      "cooperativeTotalMs": 9.95358299999998,
+      "sliceBudgetMs": 1,
+      "sliceCount": 10,
+      "sliceMs": [
+        1.0009579999999687,
+        1.0004579999999805,
+        1.0007499999999254,
+        1.000165999999922,
+        1.0003749999999627,
+        1.0007079999999178,
+        1.0004579999999805,
+        1.7132080000000087,
+        1.0004999999999882,
+        0.075458000000026
+      ],
+      "maxSliceMs": 1.7132080000000087,
+      "operations": 23316,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 2,
+      "query": [
+        6870,
+        419.6,
+        12000,
+        4000
+      ],
+      "resultPoints": 737,
+      "complete": false,
+      "legacySyncMs": 2.079417000000035,
+      "generatorSyncMs": 2.186083999999937,
+      "cooperativeTotalMs": 4.173124999999914,
+      "sliceBudgetMs": 1,
+      "sliceCount": 5,
+      "sliceMs": [
+        1.0079580000000306,
+        1.003417000000013,
+        1.000750000000039,
+        0.9868750000000546,
+        0.03895799999997962
+      ],
+      "maxSliceMs": 1.0079580000000306,
+      "operations": 14077,
+      "exactLegacyResult": true
+    },
+    {
+      "pair": 2,
+      "query": [
+        -12022,
+        -4925,
+        -15368,
+        -4130
+      ],
+      "resultPoints": 427,
+      "complete": false,
+      "legacySyncMs": 0.6662499999999909,
+      "generatorSyncMs": 0.6498330000000578,
+      "cooperativeTotalMs": 0.7684169999999995,
+      "sliceBudgetMs": 1,
+      "sliceCount": 1,
+      "sliceMs": [
+        0.7036659999999983
+      ],
+      "maxSliceMs": 0.7036659999999983,
+      "operations": 3859,
+      "exactLegacyResult": true
+    }
+  ],
+  "limitations": [
+    "Unthrottled Node CPU on real permanent core graph; dynamic loaded streets, browser GPU, phone and main Game guidance are excluded.",
+    "Cooperative1ms is a scheduling target. Individual primitive operations, garbage collection and host scheduling can overrun it; report every slice rather than hiding outliers.",
+    "The generator-backed synchronous wrapper retains exact outcomes but can cost more CPU. It remains only for existing offer/distance callers; normal grounded and flight route refreshes use the cooperative API.",
+    "These routes include different lengths; aggregate timing medians are diagnostics, not a matched whole-game percent speedup."
+  ]
+}

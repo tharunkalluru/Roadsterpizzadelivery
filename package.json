@@ -1,0 +1,35 @@
+{
+  "name": "pizza-to-picture-hall",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "node scripts/build.mjs",
+    "preview": "wrangler dev --config wrangler.jsonc --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+    "typecheck": "tsc --noEmit",
+    "test:v21-fixes": "node scripts/test-v21-fixes.mjs",
+    "test": "npm run test:v21-fixes && npm run test:legacy",
+    "test:flyovers": "node tests/legacy/flyover-regressions.mjs",
+    "check": "npm run typecheck && npm run typecheck:worker && npm test && npm run build",
+    "test:route-motion": "node tests/legacy/route-motion-regressions.mjs",
+    "build:client": "vite build --outDir dist/client",
+    "typecheck:worker": "tsc --project tsconfig.worker.json",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local --config wrangler.jsonc --persist-to .wrangler/state",
+    "test:legacy": "node scripts/test-legacy.mjs"
+  },
+  "dependencies": {
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261026.1",
+    "@types/three": "0.170.0",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2",
+    "esbuild": "^0.21.5",
+    "typescript": "5.6.3",
+    "vite": "5.4.10",
+    "wrangler": "^4.153.0"
+  }
+}

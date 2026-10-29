@@ -1,0 +1,164 @@
+{
+  "createdAt": "2026-10-28",
+  "rule": "Copies preserve original pixels. Extracted JSON preserves returned observations; source CLI logs remain in local output/playwright. Each result retains its own build/time.",
+  "entries": [
+    {
+      "original": "output/playwright/bus-jump-1793182554629-midjump.png",
+      "copy": "bus-overjump-original.png",
+      "sha256": "af070aa904e62c0755fae1b9d95afed480afc5f48c2413c6be31768ad3432c97",
+      "kind": "unmodified_original_copy"
+    },
+    {
+      "original": "output/playwright/bus-jump-1793182554629-landing.png",
+      "copy": "bus-landing-original.png",
+      "sha256": "82e1852436e75cde40a7c8fe8856a5b1a412154de1f942943fe546f76082812c",
+      "kind": "unmodified_original_copy"
+    },
+    {
+      "original": "output/playwright/android/final/13-mkht-high-ready.png",
+      "copy": "android-high-world-original.png",
+      "sha256": "5ef58685cb3fe319898b25587b373915c23c6a252a068df2ba2a1df0247599cb",
+      "kind": "unmodified_original_copy"
+    },
+    {
+      "original": "output/playwright/samsung-rtl-signin-required.png",
+      "copy": "samsung-rtl-access-original.png",
+      "sha256": "4a91d8121b6ee6f2df8b74f3c2acc7fca8cbc85ae3d95aade9016815398adf54",
+      "kind": "unmodified_original_copy"
+    },
+    {
+      "original": "output/playwright/browserstack-signin-required.png",
+      "copy": "browserstack-access-original.png",
+      "sha256": "372f5f9e3800715968c78a46dc6f35c469a7164d958d21f9523a2a9c23a55050",
+      "kind": "unmodified_original_copy"
+    },
+    {
+      "original": "output/playwright/static-fixtures/final/baseline-day.png",
+      "copy": "baseline-static-day-original.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe",
+      "kind": "unmodified_original_copy"
+    },
+    {
+      "original": "output/playwright/static-fixtures/final/candidate-day.png",
+      "copy": "candidate-static-day-original.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe",
+      "kind": "unmodified_original_copy"
+    },
+    {
+      "original": "output/playwright/static-fixtures/final/baseline-night.png",
+      "copy": "baseline-static-night-original.png",
+      "sha256": "a44689618a8a121ac17a3b732bbdc76a3c7be7437a2ac7a7970699330e5ff969",
+      "kind": "unmodified_original_copy"
+    },
+    {
+      "original": "output/playwright/static-fixtures/final/candidate-night.png",
+      "copy": "candidate-static-night-original.png",
+      "sha256": "a44689618a8a121ac17a3b732bbdc76a3c7be7437a2ac7a7970699330e5ff969",
+      "kind": "unmodified_original_copy"
+    },
+    {
+      "original": "output/playwright/final-bus-jump-04.txt",
+      "copy": "bus-overjump-result.json",
+      "originalSha256": "b2e37ae6fbd04cf6901a8151909d9e5ca9479b5ac334fbd06f19d08130fe9dea",
+      "kind": "JSON result extracted without the CLI echoed code; values unchanged"
+    },
+    {
+      "original": "output/playwright/final-train-ride-01.txt",
+      "copy": "metro-carry-result.json",
+      "originalSha256": "67bee27e488a111d6e31654076bafa48718cbaae28261698c866a25e4c2ced18",
+      "kind": "JSON result extracted without the CLI echoed code; values unchanged"
+    },
+    {
+      "original": "output/playwright/final-streaming-boundary-03.txt",
+      "copy": "offline-boundary-result.json",
+      "originalSha256": "f006388325f6a09313d6312eb25d741ed75901f304c7025e3588ae81ebe3428c",
+      "kind": "JSON result extracted without the CLI echoed code; values unchanged"
+    }
+  ],
+  "latestFiles": [
+    {
+      "copy": "android-high-world-original.png",
+      "sha256": "5ef58685cb3fe319898b25587b373915c23c6a252a068df2ba2a1df0247599cb"
+    },
+    {
+      "copy": "baseline-static-day-original.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "copy": "baseline-static-night-original.png",
+      "sha256": "a44689618a8a121ac17a3b732bbdc76a3c7be7437a2ac7a7970699330e5ff969"
+    },
+    {
+      "copy": "browserstack-access-original.png",
+      "sha256": "372f5f9e3800715968c78a46dc6f35c469a7164d958d21f9523a2a9c23a55050"
+    },
+    {
+      "copy": "bus-landing-original.png",
+      "sha256": "82e1852436e75cde40a7c8fe8856a5b1a412154de1f942943fe546f76082812c"
+    },
+    {
+      "copy": "bus-overjump-original.png",
+      "sha256": "af070aa904e62c0755fae1b9d95afed480afc5f48c2413c6be31768ad3432c97"
+    },
+    {
+      "copy": "bus-overjump-result.json",
+      "sha256": "5c703169bd23c0ceca141ad2f24fdf63f06c822c34639405321519ac7851c88e"
+    },
+    {
+      "copy": "candidate-static-day-original.png",
+      "sha256": "7c1446da359c7322e1919f11ce60730644022678c68fb45106e3ef8775375efe"
+    },
+    {
+      "copy": "candidate-static-night-original.png",
+      "sha256": "a44689618a8a121ac17a3b732bbdc76a3c7be7437a2ac7a7970699330e5ff969"
+    },
+    {
+      "copy": "check-88-tests-build.txt",
+      "sha256": "c64aacc8cc9e3d35ceb94fba339b8bf5a0eff151b8abad305b93cbca625c7020"
+    },
+    {
+      "copy": "check-98-tests-build.txt",
+      "sha256": "9bb440cdc89a8345e472d423f081613d9646c63207bcbda4dbb023636d1df91a"
+    },
+    {
+      "copy": "check-98-tests-final-build.txt",
+      "sha256": "8cca0b2e7087b69ea46f91e0a02edb09671e01331c26544c16a68b2b6a344f07"
+    },
+    {
+      "copy": "final-build-equivalence.json",
+      "sha256": "15a9e2a85e7c1d0ea9acbd1058d384934bdfa2e5004832bc34c08311c32be63b"
+    },
+    {
+      "copy": "final-synthetic-replay.json",
+      "sha256": "73acf1599eff320579eaa6390424027bb5ac217a8689b7eff2ccb560d4f8ec92"
+    },
+    {
+      "copy": "latest-context-recovery.json",
+      "sha256": "92d174bb1f57f1a8850ead74248dac92ec6ad49c731da5fadb1880d595d4e927"
+    },
+    {
+      "copy": "latest-context-restored-original.png",
+      "sha256": "73298cd086a0d5e227c965d81c35e21a9e2a20040c57fc09b5130d8f4e7f5607"
+    },
+    {
+      "copy": "latest-high-native.json",
+      "sha256": "98ce3b451b910d93cbdd5d223c255a3e671d2fba625c9e1d3641381754ae6a4a"
+    },
+    {
+      "copy": "latest-mid-cpu.json",
+      "sha256": "41479629087d0a3fddfb9b43339af249160b268c075a4ac64b35a0fe786a8f8e"
+    },
+    {
+      "copy": "metro-carry-result.json",
+      "sha256": "df1a89f478ef2cce12b09d5301ea1bdbf712cfd9ee23a3e207548e77bc5a2f19"
+    },
+    {
+      "copy": "offline-boundary-result.json",
+      "sha256": "521bb04c7eb962e270c8f1560e67394fea8829005629075cfd9933596246b88e"
+    },
+    {
+      "copy": "samsung-rtl-access-original.png",
+      "sha256": "4a91d8121b6ee6f2df8b74f3c2acc7fca8cbc85ae3d95aade9016815398adf54"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-28",
+  "kind": "Actual production Game heading consistency during external visible-keyboard night driving, plus desktop CPU timing observations",
+  "physicalPhone": false,
+  "deterministicTrafficReplay": false,
+  "cpuRate": 4.04,
+  "viewport": [
+    915,
+    412
+  ],
+  "mismatchThresholdDegrees": 0.25,
+  "results": {
+    "before": {
+      "source": "https://hyderabad-pizza-picture-hall.blithe-okapi-0017.chatgpt.site/assets/index-Dtm1sKiN.js",
+      "vehicleSamples": 113673,
+      "headingMismatchesAboveQuarterDegree": 47893,
+      "maximumHeadingErrorDegrees": 179.8535463032551,
+      "groups": {
+        "car": {
+          "samples": 42607,
+          "mismatches": 15233,
+          "maxErrorDegrees": 179.6800882811466
+        },
+        "bike": {
+          "samples": 40764,
+          "mismatches": 20067,
+          "maxErrorDegrees": 179.8535463032551
+        },
+        "auto": {
+          "samples": 19719,
+          "mismatches": 7836,
+          "maxErrorDegrees": 179.72124266946864
+        },
+        "bus": {
+          "samples": 6687,
+          "mismatches": 3268,
+          "maxErrorDegrees": 156.25493880106214
+        },
+        "truck": {
+          "samples": 3896,
+          "mismatches": 1489,
+          "maxErrorDegrees": 130.83685103486263
+        }
+      },
+      "seconds": 55.89769999999553,
+      "observedFPS": 59.465774083732704,
+      "p95FrameIntervalMs": 19,
+      "p99FrameIntervalMs": 20.700000002980232,
+      "p95FrameCPUms": 12.299999997019768,
+      "applicationErrors": [],
+      "originalJsonSha256": "eb39e24a1f380817970c03fddd159d4cbfda67e6e15b36f790e0b15aeec023ad",
+      "recordingScope": "Night RTC X Roads, real visible keyboard controls with read-only post-render heading checks; touch layout + desktop CPU slowdown, not a physical-phone benchmark or completed delivery."
+    },
+    "after": {
+      "source": "http://127.0.0.1:4199/assets/index-DQKWabtU.js",
+      "vehicleSamples": 113638,
+      "headingMismatchesAboveQuarterDegree": 0,
+      "maximumHeadingErrorDegrees": 1.7075472925031877e-06,
+      "groups": {
+        "car": {
+          "samples": 18945,
+          "mismatches": 0,
+          "maxErrorDegrees": 1.7075472925031877e-06
+        },
+        "bike": {
+          "samples": 57885,
+          "mismatches": 0,
+          "maxErrorDegrees": 1.7075472925031877e-06
+        },
+        "auto": {
+          "samples": 30900,
+          "mismatches": 0,
+          "maxErrorDegrees": 1.7075472925031877e-06
+        },
+        "bus": {
+          "samples": 1185,
+          "mismatches": 0,
+          "maxErrorDegrees": 1.7075472925031877e-06
+        },
+        "truck": {
+          "samples": 4723,
+          "mismatches": 0,
+          "maxErrorDegrees": 1.7075472925031877e-06
+        }
+      },
+      "seconds": 55.748700000002984,
+      "observedFPS": 59.60677109959196,
+      "p95FrameIntervalMs": 19.100000001490116,
+      "p99FrameIntervalMs": 21.100000001490116,
+      "p95FrameCPUms": 12.5,
+      "applicationErrors": [],
+      "originalJsonSha256": "7e83ccebe2dcc2967635c1926ed0d189de42c1c55ceb302bebaa491d001c0360",
+      "recordingScope": "Night RTC X Roads, real visible keyboard controls with read-only post-render heading checks; touch layout + desktop CPU slowdown, not a physical-phone benchmark or completed delivery."
+    }
+  }
+}

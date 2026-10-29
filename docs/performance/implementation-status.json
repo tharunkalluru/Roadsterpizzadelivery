@@ -1,0 +1,410 @@
+{
+  "baselineCommit": "bd7313d6d20cb3f6a448bedb2e52bccd269b1bba",
+  "sourceCommit": "200af62af70dc4b682d601e11ff51db04d2f67d9",
+  "branch": "codex/mobile-performance",
+  "tasks": [
+    {
+      "id": "P00",
+      "owner": "coordinator",
+      "dependencies": [],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "docs/performance/baseline.json",
+        "scripts/whole-game-replay-preflight.mjs"
+      ],
+      "checks": [
+        "Detached baseline verified; synthetic Player replay and static visual/query references captured."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "Full deterministic whole-Game baseline/candidate harness remains incomplete; see whole-game-replay-feasibility.md. Historical external regression scripts were absent."
+      ]
+    },
+    {
+      "id": "P01",
+      "owner": "coordinator",
+      "dependencies": [
+        "P00"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/core/performance-monitor.ts",
+        "src/core/engine.ts"
+      ],
+      "checks": [
+        "Bounded rings/histograms, active/inactive frames, asynchronous GPU queries/context recovery, local export."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "Full-Game monitoring enabled/disabled overhead comparison and per-optimization runtime switches are not complete. GPU timing remains unknown when unsupported."
+      ]
+    },
+    {
+      "id": "P02",
+      "owner": "ui-reuse/coordinator",
+      "dependencies": [
+        "P01"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/ui/minimap-cache.ts",
+        "src/world/signs.ts",
+        "src/core/engine.ts",
+        "src/game/game.ts"
+      ],
+      "checks": [
+        "Stationary cache/sign behavioral checks, retained buffers and PMREM reuse; bounded High day/night views exactly match baseline.",
+        "Late-loaded fonts repaint retained atlas slots once in place;3600stationary updates remain unchanged; listener disposal covered."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "Moving minimap/sign readability and all-city dawn/dusk visual comparison is limited to tested routes. Some route ribbon work remains synchronous."
+      ]
+    },
+    {
+      "id": "P03",
+      "owner": "simulation/coordinator",
+      "dependencies": [
+        "P01"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/game/roadgraph.ts",
+        "src/game/route-search-gate.ts",
+        "src/game/game.ts"
+      ],
+      "checks": [
+        "Bounded latest-request gate and resumable normal ground/flight route searches, ~1ms shared slice per rendered frame; 160 randomized and 36 real-core exact comparisons; actual Game moving50m publication test."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "Synchronous offer/distance estimates remain; generator wrapper median overhead is documented. Guidance clearance/smoothing/ribbon remains synchronous. Soft slice maximum measured1.8155ms, not a hard preemptive limit."
+      ]
+    },
+    {
+      "id": "P04",
+      "owner": "simulation",
+      "dependencies": [
+        "P01"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/game/dynamic-spatial-index.ts",
+        "src/game/spatial-safety.ts",
+        "tests/spatial-safety.test.ts"
+      ],
+      "checks": [
+        "Stable-order swept candidate indexing, vertical checks, reference outcome tests and static-neighborhood equality."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "No complete matched whole-Game dense-traffic CPU A/B gain is claimed."
+      ]
+    },
+    {
+      "id": "P05",
+      "owner": "simulation/world",
+      "dependencies": [
+        "P01",
+        "P04"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/game/traffic.ts",
+        "src/world/people.ts",
+        "src/game/walkers.ts",
+        "src/game/bus-passengers.ts",
+        "src/game/station-life.ts"
+      ],
+      "checks": [
+        "Generation-aware96-vehicle pool, refcounted board cache, geometry leases with128-unused/16MiB bounds; original appearance equality and disposal tests.",
+        "Final60selection forced-GC diagnostic:postwarm perareaheap<.9%,geometries<1.4%,alltracked caches bounded."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "Texture counts vary6.3-7.6% across tenpostwarm loops,above5%gate;totalGPUmemory unmeasured."
+      ]
+    },
+    {
+      "id": "P06",
+      "owner": "simulation/coordinator",
+      "dependencies": [
+        "P03",
+        "P04",
+        "P05"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/game/planning-budget.ts",
+        "src/game/traffic.ts",
+        "src/game/game.ts"
+      ],
+      "checks": [
+        "Per-time planning budget, resumable strategic work, immediate safety, generation/tile jump retention; real bus113Y/K overjump retained through landing+1.1s."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "Every speed/archetype/camera/tile-boundary jump combination is not exhaustively played. Precise safety operations can exceed a cooperative slice."
+      ]
+    },
+    {
+      "id": "P07",
+      "owner": "world/coordinator",
+      "dependencies": [
+        "P01"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/world/world.ts",
+        "src/world/tileworker.ts",
+        "src/world/streaming-utils.ts",
+        "src/game/streaming-boundary.ts",
+        "src/ui/loading.ts"
+      ],
+      "checks": [
+        "Bounded staged creation, atomic coherent activation, ownership rollback, epoch/cancel/reservations, paused loading pump and GPU preparation. Coverage leases repair reproduced eviction race. Real offline boundary freeze+Retry recovered."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "Atomic graph/sign metadata publication is still synchronous; measured overruns prevent claiming every job<=1.5ms. First actual shader/instance use can still cost a frame."
+      ]
+    },
+    {
+      "id": "P08",
+      "owner": "world/coordinator",
+      "dependencies": [
+        "P06",
+        "P07"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/world/world.ts",
+        "src/world/streaming-utils.ts",
+        "src/game/game.ts"
+      ],
+      "checks": [
+        "Bounded velocity lookahead, turn/landing buffer,32MiB visual-only skyline, essential missing-coverage recovery; max-speed flight and online cached/offline uncached boundaries exercised."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "ORR120km/h full mainline/exit scenario remains unproven; scene skyline is source-based massing, not exhaustive landmark-specific distant meshes."
+      ]
+    },
+    {
+      "id": "P09",
+      "owner": "world",
+      "dependencies": [
+        "P07"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/world/tileworker.ts",
+        "src/world/city.ts",
+        "tests/world-streaming.test.ts",
+        "src/world/static-child-batching.ts",
+        "src/world/vehicles.ts"
+      ],
+      "checks": [
+        "Local compatible tree/rooftop tank instancing, actual matrices/colors, bounds and ownership tests; real tile buffer comparison recorded.",
+        "Roadster fixed-child batching:9matchedactualPlayer/Engineviews, unchanged triangles/jumpbounds,318\u2192156 ground fixture draw calls;3behavioral tests."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md",
+        "docs/performance/roadster-visual-comparison.json"
+      ],
+      "unresolved": [
+        "No general primary-building/window instancing conversion or full per-category GPU A/B campaign; efficient existing merged geometry retained. Quality restoration adds memory rather than being called a performance gain."
+      ]
+    },
+    {
+      "id": "P10",
+      "owner": "world/coordinator/ui-reuse",
+      "dependencies": [
+        "P07",
+        "P08",
+        "P09"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/world/world.ts",
+        "src/world/tileworker.ts",
+        "src/core/engine.ts",
+        "src/world/signs.ts"
+      ],
+      "checks": [
+        "Protected near detail, cosmetic/tree projected-size hysteresis, restored Low road paint/parapets, spatial nearby lamps and environment reuse. High bounded static day/night equality. Opaque Samsung-safe panel treatment preserved."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "General building/landmark LOD and all protected-sign/threshold/night shadow visual scenarios are not exhaustive. Physical Samsung GPU behavior remains unverified."
+      ]
+    },
+    {
+      "id": "P11",
+      "owner": "coordinator/simulation",
+      "dependencies": [
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/core/performance-monitor.ts",
+        "src/game/presentation.ts",
+        "src/game/game.ts",
+        "src/game/rail.ts"
+      ],
+      "checks": [
+        "60Hz fixed simulation, bounded catch-up, render-only interpolation, independent rail RNG;12exact Player replays at30/60/90/120; actual moving metro roof ride proved."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "Physical input-to-display latency and moving regular-rail roof carry are unverified. Full-Game deterministic event replay is incomplete."
+      ]
+    },
+    {
+      "id": "P12",
+      "owner": "coordinator/ui-reuse",
+      "dependencies": [
+        "P01",
+        "P09",
+        "P10",
+        "P11"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "src/core/quality-profile.ts",
+        "src/core/refresh-policy.ts",
+        "src/core/performance-monitor.ts",
+        "src/ui/settings.ts"
+      ],
+      "checks": [
+        "Measured conservative Auto, explicit High/Low preserved; requested/effective refresh separation with compatible pacing/headroom/hysteresis; optional0.90-1.00 scene-only resolution defaultOFF. Ten refresh policy tests.",
+        "Adaptive context lifecycle clears oldtiming, guards lost-context allocation, restoresviewport+scale;6additional behavioraltests."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "Real90/120Hz display delivery and sustained phone capability are unverified; no hardware-mode unlock is claimed. Auto does not infer High from a fast Low session."
+      ]
+    },
+    {
+      "id": "P13",
+      "owner": "coordinator",
+      "dependencies": [
+        "P00",
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10",
+        "P11",
+        "P12"
+      ],
+      "status": "implemented_unverified",
+      "implementation": "enabled_and_tested_with_explicit_limits",
+      "files": [
+        "docs/performance/final-report.md",
+        "docs/performance/test-duration-ledger.json",
+        "docs/performance/coverage-verdict.json"
+      ],
+      "checks": [
+        "98behavioraltests, client/Worker TypeScript and productionbuild pass on1e28c22.",
+        "47.503min active controls/movement across builds; latestHigh/native,Low/mid,liveordercontext/resize,32desktop/1Androiddelivery evidence."
+      ],
+      "evidence": [
+        "docs/performance/final-report.md"
+      ],
+      "unresolved": [
+        "MidCPU p95 and textureplateau gates remainopen; fullGameAB/instrumentationoverhead/exhaustive scenarios and physicalphone certification incomplete."
+      ]
+    }
+  ],
+  "verification": {
+    "unitTests": {
+      "passed": 98,
+      "kind": "new behavioral tests, historical external suite unavailable"
+    },
+    "typecheck": "passed client+Worker",
+    "build": "passed final index-Dtm1sKiN.js",
+    "visual": "two bounded High static views match exactly",
+    "browserGameplay": "47.503min conservative active controls/movement across builds;32desktop deliveries plus1independent Android; latest targeted context8/8 and12physics comparisons pass",
+    "androidCompatibility": "listed interactions passed on earlier exact builds; see report",
+    "physicalDevice": "blocked_authentication",
+    "sustainedMidRange60FPS": "not certified: latest4.04xCPU p9522.5ms exceeds20ms; physicalphoneblocked",
+    "latestTargetedBuild": "index-BqqcYt0B.js",
+    "retainedResources": "60latest public relocations; tenpostwarm heap/geometries bounded,texture5%gateFAIL",
+    "finalBuildEquivalence": "Final EOF cleanup rebuild is byte-identical to Bqqc after build-ID replacement;98tests/typechecks/build rerunPASS"
+  },
+  "completionRule": "Formal task status remains implemented_unverified wherever ANY required acceptance measurement remains open; passing implementation tests does not silently close performance/device gates.",
+  "browserComparisonFollowup": {
+    "report": "version-comparison.md",
+    "evidence": "evidence/browser-ab-20261028/summary.json",
+    "runCount": 12,
+    "stationaryLowGame": {
+      "pairedRuns": 3,
+      "cpuRate": 4.04,
+      "baselineFPS": 52.44444444444444,
+      "optimizedFPS": 59.75555555555555,
+      "baselineFrameCPUMedianMs": 17.799999997019768,
+      "optimizedFrameCPUMedianMs": 8.399999998509884,
+      "deterministicActorReplay": false
+    },
+    "staticHigh": {
+      "pairedRuns": 3,
+      "exactScreenshotPairs": 3,
+      "baselineDrawCalls": 536,
+      "optimizedDrawCalls": 410,
+      "baselineFPS": 60,
+      "optimizedFPS": 60
+    },
+    "physicalPhone": false,
+    "accountUseAuthorized": true,
+    "physicalBlocker": "Normal Chrome browser-control connection unavailable; asynchronous enablement request pending. No new phone results.",
+    "drivingPerformanceGateUnchanged": true
+  }
+}

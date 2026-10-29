@@ -1,0 +1,375 @@
+{
+  "generatedAt": "2026-10-28T10:18:49.742Z",
+  "status": "whole_game_paired_benchmark_not_ready",
+  "scope": "Read-only source feasibility audit plus actual PlanningBudget admission counterexample. No Game instantiated, browser opened, hidden-state gameplay performed, production source modified or full-game performance measured.",
+  "provenance": [
+    {
+      "label": "candidate",
+      "root": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-audit",
+      "commit": "c38fa9a3bde9e7e0dffb72b59cec20b079a8a0a3",
+      "file": "src/game/game.ts",
+      "sha256": "b22084ed7ad3aafb622da590a960e7e1f27237638533478252cfc2fac4466de2"
+    },
+    {
+      "label": "candidate",
+      "root": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-audit",
+      "commit": "c38fa9a3bde9e7e0dffb72b59cec20b079a8a0a3",
+      "file": "src/game/rail.ts",
+      "sha256": "9469b8c5aebd521480e7f4767c8a68e062b9dc003c336c6416a64efd93e0334e"
+    },
+    {
+      "label": "candidate",
+      "root": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-audit",
+      "commit": "c38fa9a3bde9e7e0dffb72b59cec20b079a8a0a3",
+      "file": "src/game/traffic.ts",
+      "sha256": "2d4d9412540560b89912e955e3be3e96e520dacad0922a66c31024312b029d4a"
+    },
+    {
+      "label": "candidate",
+      "root": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-audit",
+      "commit": "c38fa9a3bde9e7e0dffb72b59cec20b079a8a0a3",
+      "file": "src/game/planning-budget.ts",
+      "sha256": "e2737a44102f7f366cf46dcdcbe4f5057c8af456a13e698c20eaf0d5a517eda9"
+    },
+    {
+      "label": "candidate",
+      "root": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-audit",
+      "commit": "c38fa9a3bde9e7e0dffb72b59cec20b079a8a0a3",
+      "file": "src/world/world.ts",
+      "sha256": "d677d232351bad2faf033788dd220822380d73b48a4fcfc73968dd942a6d9b91"
+    },
+    {
+      "label": "baseline",
+      "root": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-baseline",
+      "commit": "bd7313d6d20cb3f6a448bedb2e52bccd269b1bba",
+      "file": "src/game/game.ts",
+      "sha256": "99adbcb369162953ed36bd2bda15385514e815c952bba97ebf9413709c5d09ba"
+    },
+    {
+      "label": "baseline",
+      "root": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-baseline",
+      "commit": "bd7313d6d20cb3f6a448bedb2e52bccd269b1bba",
+      "file": "src/game/rail.ts",
+      "sha256": "b793456bda8fd90a858e08822994c1862cd6f37e963619e85213acb43420e526"
+    },
+    {
+      "label": "baseline",
+      "root": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-baseline",
+      "commit": "bd7313d6d20cb3f6a448bedb2e52bccd269b1bba",
+      "file": "src/game/traffic.ts",
+      "sha256": "fd4e437612a65aa37e2f0804ca1564da6989647a771b78e117f7e7381c8dc190"
+    },
+    {
+      "label": "baseline",
+      "root": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-baseline",
+      "commit": "bd7313d6d20cb3f6a448bedb2e52bccd269b1bba",
+      "file": "src/world/world.ts",
+      "sha256": "3e4cf8b4ca79f10b2dd37346703988c997ab2c2d9dc0a520af861fdfd12dcd3a"
+    }
+  ],
+  "actualGameReferenceRuns": 0,
+  "actualGamePairedBenchmarkRuns": 0,
+  "repeatedReferenceEventsVerified": false,
+  "schedulerCostProbe": {
+    "purpose": "Prove that equal ticks/input/seeds alone do not determine deferred-work admission when elapsed host work is authoritative. This does not prove a particular Game desync occurred.",
+    "globalRandomOverridden": false,
+    "performanceOverride": "Temporary harness-only object restored in finally; deterministic virtual work costs only, never performance results.",
+    "runs": [
+      {
+        "controlledWorkCostMs": 0.005,
+        "repeatable": true,
+        "repeats": [
+          {
+            "publishedByTick": [
+              145,
+              145,
+              145,
+              145,
+              145,
+              145,
+              126,
+              100
+            ],
+            "totalPublished": 1096
+          },
+          {
+            "publishedByTick": [
+              145,
+              145,
+              145,
+              145,
+              145,
+              145,
+              126,
+              100
+            ],
+            "totalPublished": 1096
+          },
+          {
+            "publishedByTick": [
+              145,
+              145,
+              145,
+              145,
+              145,
+              145,
+              126,
+              100
+            ],
+            "totalPublished": 1096
+          }
+        ]
+      },
+      {
+        "controlledWorkCostMs": 0.4,
+        "repeatable": true,
+        "repeats": [
+          {
+            "publishedByTick": [
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1
+            ],
+            "totalPublished": 14
+          },
+          {
+            "publishedByTick": [
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1
+            ],
+            "totalPublished": 14
+          },
+          {
+            "publishedByTick": [
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1
+            ],
+            "totalPublished": 14
+          }
+        ]
+      }
+    ],
+    "differentCostsAdmitDifferentDecisionCounts": true
+  },
+  "blockers": [
+    {
+      "id": "separate-simulation-event-and-profiling-clocks",
+      "concreteGap": "Offers use performance.now deadlines, while that same API meters traffic work and streaming jobs. Freezing/virtualizing it changes admitted work; leaving it real permits different publish ticks under different host load.",
+      "evidence": {
+        "candidateOffers": [
+          {
+            "line": 324,
+            "text": "} else if (!this.order) this.queueOffer(0);"
+          },
+          {
+            "line": 348,
+            "text": "queueOffer(delayMs: number, now = performance.now()) {"
+          },
+          {
+            "line": 352,
+            "text": "tickOfferQueue(now = performance.now()) {"
+          },
+          {
+            "line": 420,
+            "text": "this.queueOffer(2500);"
+          },
+          {
+            "line": 681,
+            "text": "this.queueOffer(2200);"
+          },
+          {
+            "line": 921,
+            "text": "this.tickOfferQueue();"
+          }
+        ],
+        "candidatePlanning": [
+          {
+            "line": 3,
+            "text": "private credit = 2; private frameLeft = .75;"
+          },
+          {
+            "line": 5,
+            "text": "beginFrame(dt: number) { this.credit = Math.min(2, this.credit + Math.max(0, dt) * 30); this.frameLeft = Math.min(.75, this.credit); }"
+          },
+          {
+            "line": 6,
+            "text": "get available() { return Math.min(this.credit, this.frameLeft) > .025; }"
+          },
+          {
+            "line": 9,
+            "text": "const start = performance.now(), result = work(), elapsed = Math.max(.005, performance.now() - start);"
+          },
+          {
+            "line": 10,
+            "text": "this.credit -= elapsed; this.frameLeft -= elapsed; this.spentMs += elapsed;"
+          }
+        ],
+        "candidateWorld": [
+          {
+            "line": 244,
+            "text": "this.pumpFrame = requestAnimationFrame(() => { this.pumpFrame = 0; this.pumpJobs(); if (this.staged.size || this.retirements.length) this.schedulePump(); });"
+          },
+          {
+            "line": 247,
+            "text": "pumpJobs(budgetMs = 1.5) {"
+          },
+          {
+            "line": 252,
+            "text": "while (performance.now() < deadline) {"
+          }
+        ]
+      },
+      "requiredEngineering": "Inject a deterministic simulation/event clock separately from an actual elapsed-work profiling clock. Capture/replay the tick at which each deferred strategic plan and residency publication becomes authoritative. Do not substitute one fake global performance clock for both purposes."
+    },
+    {
+      "id": "common-harness-only-rng-streams",
+      "concreteGap": "Candidate DEV order seed exists, but RailTrains default constructor still samples global randomness; baseline rail update consumes global randomness. A common global Math.random sequence remains coupled to camera, audio, mesh UUID and particle consumption.",
+      "evidence": {
+        "candidateOrders": [
+          {
+            "line": 189,
+            "text": "r = rng(import.meta.env.DEV && new URLSearchParams(location.search).has('seed') ? Number(new URLSearchParams(location.search).get('seed')) : Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];"
+          }
+        ],
+        "baselineOrders": [
+          {
+            "line": 76,
+            "text": "r = rng(Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];"
+          }
+        ],
+        "candidateRail": [
+          {
+            "line": 31,
+            "text": "constructor(public mat: THREE.Material, seed = Math.floor(Math.random() * 4294967296)) {"
+          },
+          {
+            "line": 84,
+            "text": "for (const r of rails.values()) { const m = r.pts[Math.floor(r.pts.length / 2)], d = Math.hypot(m[0] - px, m[1] - pz); if (d < bd && this.random() < 0.5) { bd = d; cand = r; } }"
+          },
+          {
+            "line": 88,
+            "text": "const dir: 1 | -1 = this.random() < 0.5 ? 1 : -1;"
+          },
+          {
+            "line": 92,
+            "text": "const s = Math.max(0, Math.min(run.len, ns - dir * 550)), n = 8 + Math.floor(this.random() * 6);"
+          },
+          {
+            "line": 93,
+            "text": "const livery = ['#2f5d9a', '#7b2d26', '#2f5d9a', '#3d6b4f'][Math.floor(this.random() * 4)];"
+          },
+          {
+            "line": 96,
+            "text": "this.trains.push({ id: `rail:${this.nextTrain++}`, run, s, dir, v: 12 + this.random() * 8, cars });"
+          }
+        ],
+        "baselineRail": [
+          {
+            "line": 79,
+            "text": "for (const r of rails.values()) { const m = r.pts[Math.floor(r.pts.length / 2)], d = Math.hypot(m[0] - px, m[1] - pz); if (d < bd && Math.random() < 0.5) { bd = d; cand = r; } }"
+          },
+          {
+            "line": 83,
+            "text": "const dir: 1 | -1 = Math.random() < 0.5 ? 1 : -1;"
+          },
+          {
+            "line": 87,
+            "text": "const s = Math.max(0, Math.min(run.len, ns - dir * 550)), n = 8 + Math.floor(Math.random() * 6);"
+          },
+          {
+            "line": 88,
+            "text": "const livery = ['#2f5d9a', '#7b2d26', '#2f5d9a', '#3d6b4f'][Math.floor(Math.random() * 4)];"
+          },
+          {
+            "line": 91,
+            "text": "this.trains.push({ id: `rail:${this.nextTrain++}`, run, s, dir, v: 12 + Math.random() * 8, cars });"
+          }
+        ]
+      },
+      "requiredEngineering": "Generate matching temporary baseline/candidate harness builds with explicit seed streams for orders, traffic, walkers and rail, plus independent visual/audio streams. Hash and retain every harness-only transform; never conflate the patched baseline with untouched production."
+    },
+    {
+      "id": "fixed-async-service-and-world-residency",
+      "concreteGap": "Game construction asynchronously loads the bus feed; world worker responses, ensure readiness and budgeted publication are not clocked by a common replay log. Preloading only a straight road can hide all of these paths rather than validate them.",
+      "evidence": {
+        "busFeed": [
+          {
+            "line": 196,
+            "text": "void fetchPack<BusFeed>('transit/tgsrtc.pack.wasm').then(feed => {"
+          },
+          {
+            "line": 197,
+            "text": "if (Math.abs(feed.origin.lat - zone.origin.lat) < 1e-7 && Math.abs(feed.origin.lon - zone.origin.lon) < 1e-7) this.traffic.setBusFeed(feed);"
+          }
+        ],
+        "worker": [
+          {
+            "line": 95,
+            "text": "const w = new Worker(new URL('./tileworker.ts', import.meta.url), { type: 'module' });"
+          },
+          {
+            "line": 96,
+            "text": "w.onmessage = (ev) => { if (this.worker === w) this.onMessage(ev.data); };"
+          },
+          {
+            "line": 98,
+            "text": "w.onmessageerror = () => { if (this.worker === w) this.workerError(); };"
+          },
+          {
+            "line": 99,
+            "text": "try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin), roadGrades: this.preparedGrades, trafficSignals: this.core.trafficSignals, construction: this.construction }); }"
+          },
+          {
+            "line": 328,
+            "text": "try { this.worker.postMessage({ type: 'build', protocolVersion: 1, worldEpoch: this.worldEpoch, key: k, url: this.packOf.get(k), requestId }); }"
+          },
+          {
+            "line": 597,
+            "text": "try { this.worker?.postMessage({ type: 'skyline', key, requestId, worldEpoch: this.worldEpoch, protocolVersion: 1, url: this.packOf.get(key) }); }"
+          }
+        ]
+      },
+      "requiredEngineering": "Create immutable hashed synthetic CoreData/tile/bus fixtures; wait for a declared quiescent residency snapshot. For streaming scenarios, capture immutable decoded messages plus scheduled authoritative publication ticks and replay identically in each revision. For fully resident benchmarks, state explicitly that worker/network/streaming transitions are excluded."
+    },
+    {
+      "id": "complete-state-and-reference-repeatability-gate",
+      "concreteGap": "Existing replay compares actual Player physics only. No complete Game event recorder currently proves repeatable order acceptance, pickup/handover, route topology, vehicle/coach decisions, saved state and resource ownership on a common initial fixture.",
+      "requiredEngineering": "Record semantic tick-indexed events and quantized numeric state before collecting timings. Run reference three times and verify matching hashes/event sequences. Reject a benchmark pair if event/residency/population/input identity differs; do not average dissimilar play paths."
+    },
+    {
+      "id": "isolated-paired-measurement-after-determinism",
+      "concreteGap": "Root is running a long headed active-control test on this host. Concurrent headless rendering would introduce host contention, and a headless SwiftShader result would not represent the Mac Metal or a phone GPU.",
+      "requiredEngineering": "After reference determinism passes, benchmark baseline/candidate sequentially in alternating order at equal quality, resolution, populations and residency with the same renderer/backend. Use >=3 pairs, medians and MAD; use five when improvement is within normal variance. Keep CPU, GPU, loader and native-input evidence separate."
+    }
+  ],
+  "boundedFeasibleAlternative": "A fully resident synthetic Game integration fixture with actual Player/traffic/order/rail logic and explicit engine/loader doubles could test bounded semantic behavior. It must be labeled as such; it would not close whole-city streaming, rendering, save lifecycle and paired performance gates by itself.",
+  "existingValidScopedEvidence": [
+    "output/playwright/synthetic-replay.json:12 exact actual Player baseline/candidate tick traces",
+    "docs/performance/static-query-benchmark.json:five paired deterministic synthetic static-query CPU runs",
+    "tests/sim-rail-random.test.ts:seeded actual rail state independence from interleaved visual randomness"
+  ],
+  "claimsNotMade": [
+    "deterministic whole Game",
+    "three comparable whole-Game baseline/candidate pairs",
+    "whole-game FPS gain",
+    "mid-range phone60FPS",
+    "headless testing counted as user-visible gameplay duration"
+  ]
+}

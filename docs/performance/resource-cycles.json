@@ -1,0 +1,6306 @@
+{
+  "scope": "Five visible-control RTC X Roads \u2192 Gachibowli \u2192 Uppal scripts; two loops per script. Desktop Chrome at4.04xCPU with concurrent software Android AVD. These are short relocation/resource observations, not physical-phone certification or a forced-GC leak test.",
+  "sourceBuild": "Use coordinator run manifest for exact build/quality; these text snapshots do not independently identify commit or settings.",
+  "sources": [
+    {
+      "path": "output/playwright/area-cycles-01.txt",
+      "start": "2026-10-28T08:05:11.360Z",
+      "end": "2026-10-28T08:05:31.161Z",
+      "status": "contaminated_attempt",
+      "kind": "visible-control area/resource loop with4.04xCPU and concurrent softwareAVD"
+    },
+    {
+      "path": "output/playwright/area-cycles-02.txt",
+      "start": "2026-10-28T08:07:05.181Z",
+      "end": "2026-10-28T08:07:23.745Z",
+      "status": "sequential_observation",
+      "kind": "visible-control area/resource loop with4.04xCPU and concurrent softwareAVD"
+    },
+    {
+      "path": "output/playwright/area-cycles-03.txt",
+      "start": "2026-10-28T08:07:25.443Z",
+      "end": "2026-10-28T08:07:44.279Z",
+      "status": "sequential_observation",
+      "kind": "visible-control area/resource loop with4.04xCPU and concurrent softwareAVD"
+    },
+    {
+      "path": "output/playwright/area-cycles-04.txt",
+      "start": "2026-10-28T08:07:46.251Z",
+      "end": "2026-10-28T08:08:05.238Z",
+      "status": "sequential_observation",
+      "kind": "visible-control area/resource loop with4.04xCPU and concurrent softwareAVD"
+    },
+    {
+      "path": "output/playwright/area-cycles-05.txt",
+      "start": "2026-10-28T08:08:07.094Z",
+      "end": "2026-10-28T08:08:26.403Z",
+      "status": "sequential_observation",
+      "kind": "visible-control area/resource loop with4.04xCPU and concurrent softwareAVD"
+    }
+  ],
+  "contamination": {
+    "file": "area-cycles-01.txt",
+    "status": "retained but excluded from endpoint plateau comparison",
+    "reason": "Coordinator reports an interrupted earlier browser command may have continued in the daemon and overlapped this script. One RTC-labeled sample contains Gachibowli coordinates and pending retirement. This is a contaminated attempt, not a confirmed product relocation defect."
+  },
+  "cleanSampleCount": 24,
+  "cleanLoops": 8,
+  "byArea": {
+    "RTC X Roads": {
+      "count": 8,
+      "coordinatesAgree": true,
+      "tiles": [
+        4
+      ],
+      "activeBytes": [
+        138748476
+      ],
+      "stagedBytes": [
+        0
+      ],
+      "retiringBytes": [
+        0
+      ],
+      "geometryFirstLast": [
+        523,
+        535
+      ],
+      "geometryGrowthPct": 2.294,
+      "textureFirstLast": [
+        63,
+        67
+      ],
+      "textureGrowthPct": 6.349,
+      "heapRangeBytes": [
+        364218552,
+        847872618
+      ],
+      "heapFirstLastBytes": [
+        364218552,
+        528348739
+      ],
+      "boardEntriesFirstLast": [
+        11,
+        24
+      ]
+    },
+    "Gachibowli": {
+      "count": 8,
+      "coordinatesAgree": true,
+      "tiles": [
+        8
+      ],
+      "activeBytes": [
+        110547340
+      ],
+      "stagedBytes": [
+        0
+      ],
+      "retiringBytes": [
+        0
+      ],
+      "geometryFirstLast": [
+        535,
+        547
+      ],
+      "geometryGrowthPct": 2.243,
+      "textureFirstLast": [
+        63,
+        67
+      ],
+      "textureGrowthPct": 6.349,
+      "heapRangeBytes": [
+        284821232,
+        684283388
+      ],
+      "heapFirstLastBytes": [
+        472753163,
+        589911986
+      ],
+      "boardEntriesFirstLast": [
+        12,
+        26
+      ]
+    },
+    "Uppal": {
+      "count": 8,
+      "coordinatesAgree": true,
+      "tiles": [
+        6
+      ],
+      "activeBytes": [
+        127414024
+      ],
+      "stagedBytes": [
+        0
+      ],
+      "retiringBytes": [
+        0
+      ],
+      "geometryFirstLast": [
+        498,
+        510
+      ],
+      "geometryGrowthPct": 2.41,
+      "textureFirstLast": [
+        63,
+        67
+      ],
+      "textureGrowthPct": 6.349,
+      "heapRangeBytes": [
+        378941757,
+        816957048
+      ],
+      "heapFirstLastBytes": [
+        563253942,
+        713286302
+      ],
+      "boardEntriesFirstLast": [
+        12,
+        26
+      ]
+    }
+  },
+  "summary": {
+    "worldActiveBytesStableAtSameEndpoints": true,
+    "allCleanSnapshotsStagedBytesZero": true,
+    "allCleanSnapshotsRetiringBytesZero": true,
+    "allCleanSnapshotsAdmissionFailuresZero": true,
+    "decodedCacheMaxBytes": 87959512,
+    "decodedCacheConfiguredEstimatedLimitBytes": 100663296,
+    "poolFirstLast": [
+      86,
+      96
+    ],
+    "poolMax": 96,
+    "poolConfiguredLimit": 96,
+    "boardEntriesFirstLast": [
+      11,
+      26
+    ],
+    "boardBytesLast": 20453888,
+    "boardCacheConfiguredSoftLimitBytes": 25165824,
+    "rendererTexturesFirstLast": [
+      63,
+      67
+    ],
+    "heapRangeBytes": [
+      284821232,
+      847872618
+    ],
+    "pendingReservationsObserved": false,
+    "deliveryProgressPreserved": true
+  },
+  "verdict": {
+    "worldTileResources": "observed stable at repeated quiescent endpoints",
+    "vehiclePool": "reaches configured96-object bound and stays there in final12samples",
+    "rendererResourcePlateau": "not established; geometries and textures continue slowly increasing while bounded destination-board cache is still warming",
+    "javascriptHeapLeak": "not established or disproved; heap has substantial upward allocation and collection sawtooth, no equal-state forced-GC comparison",
+    "pendingReservationPlateau": "not measured because snapshots omit pending reservation counts/bytes",
+    "performanceTarget": "not evaluated from these cumulative mixed-phase summaries; no newFPSclaim"
+  },
+  "recommendedFollowup": [
+    "Repeat equivalent endpoints after bus-board cache reaches its bounded steady state.",
+    "Record pending tile/reservation counts/bytes and wait for quiescence before equal-state memory comparisons.",
+    "Take same-endpoint post-collection heap snapshots and retained-object comparisons; do not use raw transient heap size as leak proof.",
+    "Keep transition/install/retirement timing samples in performance results rather than treating them as steady-state rendering."
+  ],
+  "samples": [
+    {
+      "source": "area-cycles-01.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:05:15.283Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "tiles": 4,
+      "activeBytes": 138748476,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 87959512,
+      "admissionFailures": 0,
+      "heapBytes": 483943258,
+      "geometries": 425,
+      "textures": 28,
+      "poolCount": 50,
+      "boardEntries": 2,
+      "boardBytes": 1573376,
+      "spawned": 61,
+      "reused": 34,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": true
+    },
+    {
+      "source": "area-cycles-01.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:05:18.139Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 5,
+      "activeBytes": 68080724,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 593580251,
+      "geometries": 380,
+      "textures": 43,
+      "poolCount": 65,
+      "boardEntries": 3,
+      "boardBytes": 2360064,
+      "spawned": 68,
+      "reused": 79,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": true
+    },
+    {
+      "source": "area-cycles-01.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:05:21.709Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 3,
+      "activeBytes": 82814096,
+      "stagedBytes": 39692784,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 68126592,
+      "admissionFailures": 0,
+      "heapBytes": 330875263,
+      "geometries": 403,
+      "textures": 51,
+      "poolCount": 72,
+      "boardEntries": 6,
+      "boardBytes": 4720128,
+      "spawned": 75,
+      "reused": 126,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": true
+    },
+    {
+      "source": "area-cycles-01.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:05:25.384Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 4,
+      "activeBytes": 27656624,
+      "stagedBytes": 0,
+      "retiringBytes": 98986892,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 81874528,
+      "admissionFailures": 0,
+      "heapBytes": 431951488,
+      "geometries": 594,
+      "textures": 56,
+      "poolCount": 82,
+      "boardEntries": 10,
+      "boardBytes": 7866880,
+      "spawned": 82,
+      "reused": 187,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": true
+    },
+    {
+      "source": "area-cycles-01.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:05:27.712Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 8,
+      "activeBytes": 110547340,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 504174124,
+      "geometries": 520,
+      "textures": 57,
+      "poolCount": 82,
+      "boardEntries": 10,
+      "boardBytes": 7866880,
+      "spawned": 82,
+      "reused": 226,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": true
+    },
+    {
+      "source": "area-cycles-01.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:05:31.148Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 6,
+      "activeBytes": 127414024,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 52188728,
+      "admissionFailures": 0,
+      "heapBytes": 616672453,
+      "geometries": 490,
+      "textures": 59,
+      "poolCount": 84,
+      "boardEntries": 10,
+      "boardBytes": 7866880,
+      "spawned": 85,
+      "reused": 277,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": true
+    },
+    {
+      "source": "area-cycles-02.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:07:08.614Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "tiles": 4,
+      "activeBytes": 138748476,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 87959512,
+      "admissionFailures": 0,
+      "heapBytes": 364218552,
+      "geometries": 523,
+      "textures": 63,
+      "poolCount": 86,
+      "boardEntries": 11,
+      "boardBytes": 8653568,
+      "spawned": 87,
+      "reused": 319,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-02.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:07:11.516Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 8,
+      "activeBytes": 110547340,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 472753163,
+      "geometries": 535,
+      "textures": 63,
+      "poolCount": 87,
+      "boardEntries": 12,
+      "boardBytes": 9440256,
+      "spawned": 88,
+      "reused": 344,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-02.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:07:14.435Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 6,
+      "activeBytes": 127414024,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 52188728,
+      "admissionFailures": 0,
+      "heapBytes": 563253942,
+      "geometries": 498,
+      "textures": 63,
+      "poolCount": 88,
+      "boardEntries": 12,
+      "boardBytes": 9440256,
+      "spawned": 88,
+      "reused": 371,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-02.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:07:17.710Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "tiles": 4,
+      "activeBytes": 138748476,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 87959512,
+      "admissionFailures": 0,
+      "heapBytes": 713827257,
+      "geometries": 523,
+      "textures": 63,
+      "poolCount": 88,
+      "boardEntries": 12,
+      "boardBytes": 9440256,
+      "spawned": 89,
+      "reused": 404,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-02.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:07:20.696Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 8,
+      "activeBytes": 110547340,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 290014342,
+      "geometries": 535,
+      "textures": 63,
+      "poolCount": 89,
+      "boardEntries": 14,
+      "boardBytes": 11013632,
+      "spawned": 89,
+      "reused": 430,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-02.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:07:23.698Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 6,
+      "activeBytes": 127414024,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 52188728,
+      "admissionFailures": 0,
+      "heapBytes": 392506891,
+      "geometries": 498,
+      "textures": 63,
+      "poolCount": 89,
+      "boardEntries": 14,
+      "boardBytes": 11013632,
+      "spawned": 90,
+      "reused": 456,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-03.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:07:28.667Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "tiles": 4,
+      "activeBytes": 138748476,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 87959512,
+      "admissionFailures": 0,
+      "heapBytes": 524949586,
+      "geometries": 525,
+      "textures": 63,
+      "poolCount": 90,
+      "boardEntries": 15,
+      "boardBytes": 11800320,
+      "spawned": 92,
+      "reused": 488,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-03.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:07:31.649Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 8,
+      "activeBytes": 110547340,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 606315765,
+      "geometries": 537,
+      "textures": 63,
+      "poolCount": 92,
+      "boardEntries": 15,
+      "boardBytes": 11800320,
+      "spawned": 92,
+      "reused": 514,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-03.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:07:34.826Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 6,
+      "activeBytes": 127414024,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 52188728,
+      "admissionFailures": 0,
+      "heapBytes": 729011479,
+      "geometries": 500,
+      "textures": 63,
+      "poolCount": 92,
+      "boardEntries": 15,
+      "boardBytes": 11800320,
+      "spawned": 92,
+      "reused": 541,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-03.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:07:38.133Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "tiles": 4,
+      "activeBytes": 138748476,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 87959512,
+      "admissionFailures": 0,
+      "heapBytes": 847872618,
+      "geometries": 525,
+      "textures": 63,
+      "poolCount": 92,
+      "boardEntries": 16,
+      "boardBytes": 12587008,
+      "spawned": 94,
+      "reused": 573,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-03.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:07:41.181Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 8,
+      "activeBytes": 110547340,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 360474917,
+      "geometries": 537,
+      "textures": 63,
+      "poolCount": 94,
+      "boardEntries": 17,
+      "boardBytes": 13373696,
+      "spawned": 96,
+      "reused": 597,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-03.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:07:44.215Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 6,
+      "activeBytes": 127414024,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 52188728,
+      "admissionFailures": 0,
+      "heapBytes": 491026752,
+      "geometries": 500,
+      "textures": 63,
+      "poolCount": 96,
+      "boardEntries": 17,
+      "boardBytes": 13373696,
+      "spawned": 97,
+      "reused": 623,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-04.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:07:49.679Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "tiles": 4,
+      "activeBytes": 138748476,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 87959512,
+      "admissionFailures": 0,
+      "heapBytes": 610372403,
+      "geometries": 527,
+      "textures": 64,
+      "poolCount": 96,
+      "boardEntries": 17,
+      "boardBytes": 13373696,
+      "spawned": 98,
+      "reused": 656,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-04.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:07:52.649Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 8,
+      "activeBytes": 110547340,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 684283388,
+      "geometries": 541,
+      "textures": 65,
+      "poolCount": 96,
+      "boardEntries": 19,
+      "boardBytes": 14947072,
+      "spawned": 98,
+      "reused": 682,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-04.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:07:55.730Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 6,
+      "activeBytes": 127414024,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 52188728,
+      "admissionFailures": 0,
+      "heapBytes": 816957048,
+      "geometries": 504,
+      "textures": 65,
+      "poolCount": 96,
+      "boardEntries": 20,
+      "boardBytes": 15733760,
+      "spawned": 99,
+      "reused": 708,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-04.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:07:59.029Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "tiles": 4,
+      "activeBytes": 138748476,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 87959512,
+      "admissionFailures": 0,
+      "heapBytes": 432424401,
+      "geometries": 529,
+      "textures": 65,
+      "poolCount": 96,
+      "boardEntries": 20,
+      "boardBytes": 15733760,
+      "spawned": 100,
+      "reused": 741,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-04.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:08:02.121Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 8,
+      "activeBytes": 110547340,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 498800329,
+      "geometries": 541,
+      "textures": 65,
+      "poolCount": 96,
+      "boardEntries": 22,
+      "boardBytes": 17307136,
+      "spawned": 101,
+      "reused": 766,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-04.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:08:05.180Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 6,
+      "activeBytes": 127414024,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 52188728,
+      "admissionFailures": 0,
+      "heapBytes": 608011810,
+      "geometries": 504,
+      "textures": 65,
+      "poolCount": 96,
+      "boardEntries": 22,
+      "boardBytes": 17307136,
+      "spawned": 102,
+      "reused": 792,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-05.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:08:10.482Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "tiles": 4,
+      "activeBytes": 138748476,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 87959512,
+      "admissionFailures": 0,
+      "heapBytes": 730530354,
+      "geometries": 531,
+      "textures": 65,
+      "poolCount": 96,
+      "boardEntries": 22,
+      "boardBytes": 17307136,
+      "spawned": 103,
+      "reused": 825,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-05.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:08:13.777Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 8,
+      "activeBytes": 110547340,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 284821232,
+      "geometries": 545,
+      "textures": 66,
+      "poolCount": 96,
+      "boardEntries": 22,
+      "boardBytes": 17307136,
+      "spawned": 105,
+      "reused": 849,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-05.txt",
+      "loop": 0,
+      "at": "2026-10-28T08:08:16.945Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 6,
+      "activeBytes": 127414024,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 52188728,
+      "admissionFailures": 0,
+      "heapBytes": 378941757,
+      "geometries": 508,
+      "textures": 66,
+      "poolCount": 96,
+      "boardEntries": 24,
+      "boardBytes": 18880512,
+      "spawned": 106,
+      "reused": 875,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-05.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:08:20.466Z",
+      "expected": "RTC X Roads",
+      "actual": "RTC X Roads",
+      "position": {
+        "x": -13.13522282480547,
+        "y": 0.55,
+        "z": -5.587370903088896
+      },
+      "tiles": 4,
+      "activeBytes": 138748476,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 87959512,
+      "admissionFailures": 0,
+      "heapBytes": 528348739,
+      "geometries": 535,
+      "textures": 67,
+      "poolCount": 96,
+      "boardEntries": 24,
+      "boardBytes": 18880512,
+      "spawned": 108,
+      "reused": 907,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-05.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:08:23.355Z",
+      "expected": "Gachibowli",
+      "actual": "Gachibowli",
+      "position": {
+        "x": -15701.125872823017,
+        "y": 0.55,
+        "z": -3743.7642928480545
+      },
+      "tiles": 8,
+      "activeBytes": 110547340,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 58860848,
+      "admissionFailures": 0,
+      "heapBytes": 589911986,
+      "geometries": 547,
+      "textures": 67,
+      "poolCount": 96,
+      "boardEntries": 26,
+      "boardBytes": 20453888,
+      "spawned": 108,
+      "reused": 933,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    },
+    {
+      "source": "area-cycles-05.txt",
+      "loop": 1,
+      "at": "2026-10-28T08:08:26.358Z",
+      "expected": "Uppal",
+      "actual": "Uppal",
+      "position": {
+        "x": 6640.872692043876,
+        "y": 0.55,
+        "z": 56.21143519896442
+      },
+      "tiles": 6,
+      "activeBytes": 127414024,
+      "stagedBytes": 0,
+      "retiringBytes": 0,
+      "skylineBytes": 0,
+      "decodedCacheBytes": 52188728,
+      "admissionFailures": 0,
+      "heapBytes": 713286302,
+      "geometries": 510,
+      "textures": 67,
+      "poolCount": 96,
+      "boardEntries": 26,
+      "boardBytes": 20453888,
+      "spawned": 110,
+      "reused": 958,
+      "delivered": 4,
+      "coins": 1221,
+      "ordersOff": true,
+      "hasOrder": false,
+      "contaminated": false
+    }
+  ],
+  "finalCoverageLeaseCycles": {
+    "analyzedAt": "2026-10-28T10:17:29.154105+00:00",
+    "sourceCommit": "c38fa9a",
+    "bundle": "index-BicV0JsZ.js",
+    "status": "relocation_coverage_pass_resource_plateau_partial",
+    "scope": "Five sequential public visible-control scripts, two RTC X Roads -> Gachibowli -> Uppal loops each: 10 loops, 30 settled endpoint observations at calibrated 4.04x CPU with the AVD stopped. This is a bounded relocation/resource regression, not 30 minutes of continuous driving or physical-phone certification.",
+    "qualityProvenance": "This dataset records viewport,DPR,render buffer and bundle but no explicit graphics setting; do not infer a setting from endpoint bytes alone.",
+    "sources": [
+      {
+        "path": "output/playwright/final-lease-cycles-01.txt",
+        "sha256": "3ea937b434e3b22edc6e0662a76d9cc84af97a20fa4d14fd04c0b0e5fb6a3311",
+        "start": "2026-10-28T10:09:45.036Z",
+        "end": "2026-10-28T10:10:02.425Z",
+        "kind": "visible-control area/resource loop with4.04xCPU; AVD stopped",
+        "environment": {
+          "viewport": [
+            1280,
+            592
+          ],
+          "dpr": 1,
+          "buffer": [
+            1280,
+            592
+          ],
+          "bundle": "http://127.0.0.1:4199/assets/index-BicV0JsZ.js"
+        },
+        "error": null
+      },
+      {
+        "path": "output/playwright/final-lease-cycles-02.txt",
+        "sha256": "c63990dca46e75dbbccfe1b695658209d2396c650d725e97ba2718f63bcb366c",
+        "start": "2026-10-28T10:10:04.033Z",
+        "end": "2026-10-28T10:10:21.920Z",
+        "kind": "visible-control area/resource loop with4.04xCPU; AVD stopped",
+        "environment": {
+          "viewport": [
+            1280,
+            592
+          ],
+          "dpr": 1,
+          "buffer": [
+            1280,
+            592
+          ],
+          "bundle": "http://127.0.0.1:4199/assets/index-BicV0JsZ.js"
+        },
+        "error": null
+      },
+      {
+        "path": "output/playwright/final-lease-cycles-03.txt",
+        "sha256": "a0938f1e25ed22ea045699f54a3cc18d355d74972d1834a8679c0cc6e69f3789",
+        "start": "2026-10-28T10:10:23.516Z",
+        "end": "2026-10-28T10:10:41.481Z",
+        "kind": "visible-control area/resource loop with4.04xCPU; AVD stopped",
+        "environment": {
+          "viewport": [
+            1280,
+            592
+          ],
+          "dpr": 1,
+          "buffer": [
+            1280,
+            592
+          ],
+          "bundle": "http://127.0.0.1:4199/assets/index-BicV0JsZ.js"
+        },
+        "error": null
+      },
+      {
+        "path": "output/playwright/final-lease-cycles-04.txt",
+        "sha256": "b8c16845af94b9d3c4a0c542a5e7c5fa364e889d12403cb1159e4790fdb2fe02",
+        "start": "2026-10-28T10:10:43.168Z",
+        "end": "2026-10-28T10:11:01.046Z",
+        "kind": "visible-control area/resource loop with4.04xCPU; AVD stopped",
+        "environment": {
+          "viewport": [
+            1280,
+            592
+          ],
+          "dpr": 1,
+          "buffer": [
+            1280,
+            592
+          ],
+          "bundle": "http://127.0.0.1:4199/assets/index-BicV0JsZ.js"
+        },
+        "error": null
+      },
+      {
+        "path": "output/playwright/final-lease-cycles-05.txt",
+        "sha256": "9279dd75f572919f077e3d59492b8ed99a637c01c215dbe6e47614ead0d3a701",
+        "start": "2026-10-28T10:11:02.661Z",
+        "end": "2026-10-28T10:11:20.868Z",
+        "kind": "visible-control area/resource loop with4.04xCPU; AVD stopped",
+        "environment": {
+          "viewport": [
+            1280,
+            592
+          ],
+          "dpr": 1,
+          "buffer": [
+            1280,
+            592
+          ],
+          "bundle": "http://127.0.0.1:4199/assets/index-BicV0JsZ.js"
+        },
+        "error": null
+      }
+    ],
+    "sampleCount": 30,
+    "loopCount": 10,
+    "successfulSelections": 30,
+    "failedSelections": 0,
+    "allSettledLifecycleFieldsZero": [
+      "stagedBytes",
+      "retiringBytes",
+      "pendingReservedBytes",
+      "coverageLeaseCount",
+      "relocationReserveBytes",
+      "skylineBytes",
+      "skylineStagedBytes",
+      "skylineRetiringBytes",
+      "admissionFailures"
+    ],
+    "preservedProgress": {
+      "coins": [
+        5810
+      ],
+      "delivered": [
+        17
+      ],
+      "acceptingOrders": [
+        false
+      ],
+      "hasOrder": [
+        false
+      ]
+    },
+    "byArea": {
+      "RTC X Roads": {
+        "sampleCount": 10,
+        "positionsAgree": true,
+        "tiles": [
+          4
+        ],
+        "activeBytes": [
+          138748476
+        ],
+        "stagedBytes": [
+          0
+        ],
+        "retiringBytes": [
+          0
+        ],
+        "pendingReservedBytes": [
+          0
+        ],
+        "coverageLeaseCount": [
+          0
+        ],
+        "relocationReserveBytes": [
+          0
+        ],
+        "skylineBytes": [
+          0
+        ],
+        "decodedCacheBytes": [
+          65306736,
+          85934216,
+          87596096
+        ],
+        "geometries": {
+          "observations": [
+            869,
+            928,
+            947,
+            973,
+            986,
+            992,
+            994,
+            996,
+            996,
+            998
+          ],
+          "first": 869,
+          "last": 998,
+          "min": 869,
+          "max": 998,
+          "firstToLastGrowthPercent": 14.845,
+          "lastFiveRangePercentOfMinimum": 0.605
+        },
+        "textures": {
+          "observations": [
+            26,
+            46,
+            53,
+            63,
+            67,
+            70,
+            71,
+            72,
+            72,
+            73
+          ],
+          "first": 26,
+          "last": 73,
+          "min": 26,
+          "max": 73,
+          "firstToLastGrowthPercent": 180.769,
+          "lastFiveRangePercentOfMinimum": 4.286
+        },
+        "boardEntries": {
+          "observations": [
+            3,
+            9,
+            12,
+            17,
+            19,
+            23,
+            26,
+            27,
+            30,
+            30
+          ],
+          "first": 3,
+          "last": 30,
+          "min": 3,
+          "max": 30,
+          "firstToLastGrowthPercent": 900.0,
+          "lastFiveRangePercentOfMinimum": 30.435
+        },
+        "boardBytes": {
+          "observations": [
+            2360064,
+            7080192,
+            9440256,
+            13373696,
+            14947072,
+            18093824,
+            20453888,
+            21240576,
+            23600640,
+            23600640
+          ],
+          "first": 2360064,
+          "last": 23600640,
+          "min": 2360064,
+          "max": 23600640,
+          "firstToLastGrowthPercent": 900.0,
+          "lastFiveRangePercentOfMinimum": 30.435
+        },
+        "poolCount": {
+          "observations": [
+            34,
+            69,
+            76,
+            90,
+            92,
+            96,
+            96,
+            96,
+            96,
+            96
+          ],
+          "first": 34,
+          "last": 96,
+          "min": 34,
+          "max": 96,
+          "firstToLastGrowthPercent": 182.353,
+          "lastFiveRangePercentOfMinimum": 0.0
+        },
+        "heapBytes": {
+          "observations": [
+            366117812,
+            483011946,
+            470202978,
+            731008328,
+            463566070,
+            733461854,
+            450479016,
+            714000220,
+            828970590,
+            1111231720
+          ],
+          "first": 366117812,
+          "last": 1111231720,
+          "min": 366117812,
+          "max": 1111231720,
+          "firstToLastGrowthPercent": 203.518,
+          "lastFiveRangePercentOfMinimum": 146.678
+        }
+      },
+      "Gachibowli": {
+        "sampleCount": 10,
+        "positionsAgree": true,
+        "tiles": [
+          8
+        ],
+        "activeBytes": [
+          110547340
+        ],
+        "stagedBytes": [
+          0
+        ],
+        "retiringBytes": [
+          0
+        ],
+        "pendingReservedBytes": [
+          0
+        ],
+        "coverageLeaseCount": [
+          0
+        ],
+        "relocationReserveBytes": [
+          0
+        ],
+        "skylineBytes": [
+          0
+        ],
+        "decodedCacheBytes": [
+          75065864
+        ],
+        "geometries": {
+          "observations": [
+            1137,
+            1170,
+            1195,
+            1212,
+            1225,
+            1231,
+            1233,
+            1235,
+            1235,
+            1239
+          ],
+          "first": 1137,
+          "last": 1239,
+          "min": 1137,
+          "max": 1239,
+          "firstToLastGrowthPercent": 8.971,
+          "lastFiveRangePercentOfMinimum": 0.65
+        },
+        "textures": {
+          "observations": [
+            36,
+            47,
+            57,
+            63,
+            67,
+            70,
+            71,
+            72,
+            72,
+            74
+          ],
+          "first": 36,
+          "last": 74,
+          "min": 36,
+          "max": 74,
+          "firstToLastGrowthPercent": 105.556,
+          "lastFiveRangePercentOfMinimum": 5.714
+        },
+        "boardEntries": {
+          "observations": [
+            6,
+            10,
+            15,
+            19,
+            21,
+            25,
+            26,
+            29,
+            30,
+            31
+          ],
+          "first": 6,
+          "last": 31,
+          "min": 6,
+          "max": 31,
+          "firstToLastGrowthPercent": 416.667,
+          "lastFiveRangePercentOfMinimum": 24.0
+        },
+        "boardBytes": {
+          "observations": [
+            4720128,
+            7866880,
+            11800320,
+            14947072,
+            16520448,
+            19667200,
+            20453888,
+            22813952,
+            23600640,
+            24387328
+          ],
+          "first": 4720128,
+          "last": 24387328,
+          "min": 4720128,
+          "max": 24387328,
+          "firstToLastGrowthPercent": 416.667,
+          "lastFiveRangePercentOfMinimum": 24.0
+        },
+        "poolCount": {
+          "observations": [
+            55,
+            72,
+            85,
+            91,
+            96,
+            96,
+            96,
+            96,
+            96,
+            96
+          ],
+          "first": 55,
+          "last": 96,
+          "min": 55,
+          "max": 96,
+          "firstToLastGrowthPercent": 74.545,
+          "lastFiveRangePercentOfMinimum": 0.0
+        },
+        "heapBytes": {
+          "observations": [
+            463650438,
+            282593878,
+            527763207,
+            274653048,
+            531252959,
+            270904165,
+            547233685,
+            659384304,
+            905274675,
+            1168467741
+          ],
+          "first": 463650438,
+          "last": 1168467741,
+          "min": 270904165,
+          "max": 1168467741,
+          "firstToLastGrowthPercent": 152.015,
+          "lastFiveRangePercentOfMinimum": 331.321
+        }
+      },
+      "Uppal": {
+        "sampleCount": 10,
+        "positionsAgree": true,
+        "tiles": [
+          6
+        ],
+        "activeBytes": [
+          127414024
+        ],
+        "stagedBytes": [
+          0
+        ],
+        "retiringBytes": [
+          0
+        ],
+        "pendingReservedBytes": [
+          0
+        ],
+        "coverageLeaseCount": [
+          0
+        ],
+        "relocationReserveBytes": [
+          0
+        ],
+        "skylineBytes": [
+          0
+        ],
+        "decodedCacheBytes": [
+          59124368
+        ],
+        "geometries": {
+          "observations": [
+            1055,
+            1084,
+            1110,
+            1124,
+            1132,
+            1136,
+            1138,
+            1140,
+            1142,
+            1144
+          ],
+          "first": 1055,
+          "last": 1144,
+          "min": 1055,
+          "max": 1144,
+          "firstToLastGrowthPercent": 8.436,
+          "lastFiveRangePercentOfMinimum": 0.704
+        },
+        "textures": {
+          "observations": [
+            41,
+            51,
+            60,
+            65,
+            68,
+            70,
+            71,
+            72,
+            73,
+            74
+          ],
+          "first": 41,
+          "last": 74,
+          "min": 41,
+          "max": 74,
+          "firstToLastGrowthPercent": 80.488,
+          "lastFiveRangePercentOfMinimum": 5.714
+        },
+        "boardEntries": {
+          "observations": [
+            9,
+            11,
+            16,
+            19,
+            22,
+            25,
+            27,
+            30,
+            30,
+            31
+          ],
+          "first": 9,
+          "last": 31,
+          "min": 9,
+          "max": 31,
+          "firstToLastGrowthPercent": 244.444,
+          "lastFiveRangePercentOfMinimum": 24.0
+        },
+        "boardBytes": {
+          "observations": [
+            7080192,
+            8653568,
+            12587008,
+            14947072,
+            17307136,
+            19667200,
+            21240576,
+            23600640,
+            23600640,
+            24387328
+          ],
+          "first": 7080192,
+          "last": 24387328,
+          "min": 7080192,
+          "max": 24387328,
+          "firstToLastGrowthPercent": 244.444,
+          "lastFiveRangePercentOfMinimum": 24.0
+        },
+        "poolCount": {
+          "observations": [
+            63,
+            75,
+            88,
+            92,
+            96,
+            96,
+            96,
+            96,
+            96,
+            96
+          ],
+          "first": 63,
+          "last": 96,
+          "min": 63,
+          "max": 96,
+          "firstToLastGrowthPercent": 52.381,
+          "lastFiveRangePercentOfMinimum": 0.0
+        },
+        "heapBytes": {
+          "observations": [
+            541516809,
+            357940226,
+            627737379,
+            374794235,
+            617809172,
+            364611664,
+            631408801,
+            728734093,
+            992325220,
+            338928765
+          ],
+          "first": 541516809,
+          "last": 338928765,
+          "min": 338928765,
+          "max": 992325220,
+          "firstToLastGrowthPercent": -37.411,
+          "lastFiveRangePercentOfMinimum": 192.783
+        }
+      }
+    },
+    "gates": {
+      "publicRelocationCoverage": "Passed 30 of 30 with the exact selected area and a position near its destination.",
+      "worldOwnedEndpointByteStability": "Passed: each area repeats an identical active-byte estimate and tile count 10 times.",
+      "reservationAndCoverageLeaseRelease": "Passed: pending, staged, retiring and skyline lifecycle counters, coverageLeaseCount and relocationReserveBytes are zero at all 30 endpoints.",
+      "boundedPoolAndBoardCache": "Observed within configured bounds: the idle vehicle pool reaches 96; maximum boardBytes 24387328 is below 24 MiB (25165824). The board cache still warms.",
+      "decodedWorkerEstimate": "Observed maximum 87596096 bytes is below 96 MiB (100663296). Decoded entry count is absent from these snapshots.",
+      "fullRendererResourcePlateau": "Not established: geometry and texture counts still trend upward as vehicle and board caches warm. Last-five texture range reaches 5.714 percent at Gachibowli and Uppal.",
+      "postWarmupTenStableLoops": "Not established: these 10 loops include initial cache warming; they are not 10 loops after all resources have warmed.",
+      "postGCHeapPlateau": "Not measured: no forced GC or equal-state post-GC capture. The peak of 1168467741 bytes and later Uppal sample of 338928765 show a collection sawtooth, not retained-memory proof.",
+      "strictForegroundJobBudget": "Not established by endpoint snapshots. Installation and activation maxima retain isolated overruns; inspect raw frame histories separately."
+    },
+    "findings": [
+      "All 30 public area selections succeeded after the coverage lease change. Selected area, position, coins, delivery total and orders OFF were consistent.",
+      "World-owned endpoint active bytes are exactly 138748476 at RTC X Roads, 110547340 at Gachibowli and 127414024 at Uppal. Pending, retiring, staged, lease and reserve counters are zero at all endpoints.",
+      "RTC renderer geometries increase 869 -> 998 and textures 26 -> 73; Gachibowli 1137 -> 1239 and 36 -> 74; Uppal 1055 -> 1144 and 41 -> 74. These growing resource counts do not establish a full GPU plateau.",
+      "Last-five geometry ranges are below 1 percent. Last-five texture range is 4.286 percent at RTC and 5.714 percent at Gachibowli and Uppal. A small range with a positive retention trend does not automatically pass the plan.",
+      "Bus-board caches grow toward 24 MiB and the vehicle pool reaches 96. Finite bounded warming is plausible, but this dataset alone does not prove all zero-reference GPU resources are released.",
+      "Heap observations span 270904165 to 1168467741 bytes. No post-GC leak verdict or physical-phone memory claim is made.",
+      "The earlier pre-lease area-cycles-06 timeout and Uppal placement failure are retained. Successful retry and the synthetic eviction-gap reproduction support the correction; the exact original runtime cause remains provisional."
+    ],
+    "retainedPriorFailureEvidence": [
+      "output/playwright/area-cycles-06.txt",
+      "output/playwright/resource-cycle-failure-state.txt",
+      "output/playwright/uppal-placement-diagnostic.txt",
+      "output/playwright/uppal-pre-placement.txt"
+    ],
+    "samples": [
+      {
+        "source": "final-lease-cycles-01.txt",
+        "globalLoop": 0,
+        "at": "2026-10-28T10:09:47.461Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 65306736,
+        "admissionFailures": 0,
+        "installMaxMs": 3.800000000745058,
+        "activationMaxMs": 1.800000000745058,
+        "heapBytes": 366117812,
+        "geometries": 869,
+        "textures": 26,
+        "poolCount": 34,
+        "boardEntries": 3,
+        "boardBytes": 2360064
+      },
+      {
+        "source": "final-lease-cycles-01.txt",
+        "globalLoop": 0,
+        "at": "2026-10-28T10:09:50.140Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 4.899999998509884,
+        "activationMaxMs": 4.899999998509884,
+        "heapBytes": 463650438,
+        "geometries": 1137,
+        "textures": 36,
+        "poolCount": 55,
+        "boardEntries": 6,
+        "boardBytes": 4720128
+      },
+      {
+        "source": "final-lease-cycles-01.txt",
+        "globalLoop": 0,
+        "at": "2026-10-28T10:09:53.391Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 5.699999999254942,
+        "activationMaxMs": 5.699999999254942,
+        "heapBytes": 541516809,
+        "geometries": 1055,
+        "textures": 41,
+        "poolCount": 63,
+        "boardEntries": 9,
+        "boardBytes": 7080192
+      },
+      {
+        "source": "final-lease-cycles-01.txt",
+        "globalLoop": 1,
+        "at": "2026-10-28T10:09:56.610Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 85934216,
+        "admissionFailures": 0,
+        "installMaxMs": 5.699999999254942,
+        "activationMaxMs": 5.699999999254942,
+        "heapBytes": 483011946,
+        "geometries": 928,
+        "textures": 46,
+        "poolCount": 69,
+        "boardEntries": 9,
+        "boardBytes": 7080192
+      },
+      {
+        "source": "final-lease-cycles-01.txt",
+        "globalLoop": 1,
+        "at": "2026-10-28T10:09:59.338Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 5.699999999254942,
+        "activationMaxMs": 5.699999999254942,
+        "heapBytes": 282593878,
+        "geometries": 1170,
+        "textures": 47,
+        "poolCount": 72,
+        "boardEntries": 10,
+        "boardBytes": 7866880
+      },
+      {
+        "source": "final-lease-cycles-01.txt",
+        "globalLoop": 1,
+        "at": "2026-10-28T10:10:02.407Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 7.400000002235174,
+        "activationMaxMs": 7.400000002235174,
+        "heapBytes": 357940226,
+        "geometries": 1084,
+        "textures": 51,
+        "poolCount": 75,
+        "boardEntries": 11,
+        "boardBytes": 8653568
+      },
+      {
+        "source": "final-lease-cycles-02.txt",
+        "globalLoop": 2,
+        "at": "2026-10-28T10:10:07.160Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 87596096,
+        "admissionFailures": 0,
+        "installMaxMs": 7.699999999254942,
+        "activationMaxMs": 7.699999999254942,
+        "heapBytes": 470202978,
+        "geometries": 947,
+        "textures": 53,
+        "poolCount": 76,
+        "boardEntries": 12,
+        "boardBytes": 9440256
+      },
+      {
+        "source": "final-lease-cycles-02.txt",
+        "globalLoop": 2,
+        "at": "2026-10-28T10:10:09.741Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 7.699999999254942,
+        "activationMaxMs": 7.699999999254942,
+        "heapBytes": 527763207,
+        "geometries": 1195,
+        "textures": 57,
+        "poolCount": 85,
+        "boardEntries": 15,
+        "boardBytes": 11800320
+      },
+      {
+        "source": "final-lease-cycles-02.txt",
+        "globalLoop": 2,
+        "at": "2026-10-28T10:10:12.837Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 7.699999999254942,
+        "activationMaxMs": 7.699999999254942,
+        "heapBytes": 627737379,
+        "geometries": 1110,
+        "textures": 60,
+        "poolCount": 88,
+        "boardEntries": 16,
+        "boardBytes": 12587008
+      },
+      {
+        "source": "final-lease-cycles-02.txt",
+        "globalLoop": 3,
+        "at": "2026-10-28T10:10:16.126Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 87596096,
+        "admissionFailures": 0,
+        "installMaxMs": 7.699999999254942,
+        "activationMaxMs": 7.699999999254942,
+        "heapBytes": 731008328,
+        "geometries": 973,
+        "textures": 63,
+        "poolCount": 90,
+        "boardEntries": 17,
+        "boardBytes": 13373696
+      },
+      {
+        "source": "final-lease-cycles-02.txt",
+        "globalLoop": 3,
+        "at": "2026-10-28T10:10:18.739Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 274653048,
+        "geometries": 1212,
+        "textures": 63,
+        "poolCount": 91,
+        "boardEntries": 19,
+        "boardBytes": 14947072
+      },
+      {
+        "source": "final-lease-cycles-02.txt",
+        "globalLoop": 3,
+        "at": "2026-10-28T10:10:21.892Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 374794235,
+        "geometries": 1124,
+        "textures": 65,
+        "poolCount": 92,
+        "boardEntries": 19,
+        "boardBytes": 14947072
+      },
+      {
+        "source": "final-lease-cycles-03.txt",
+        "globalLoop": 4,
+        "at": "2026-10-28T10:10:26.676Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 87596096,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 463566070,
+        "geometries": 986,
+        "textures": 67,
+        "poolCount": 92,
+        "boardEntries": 19,
+        "boardBytes": 14947072
+      },
+      {
+        "source": "final-lease-cycles-03.txt",
+        "globalLoop": 4,
+        "at": "2026-10-28T10:10:29.257Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 531252959,
+        "geometries": 1225,
+        "textures": 67,
+        "poolCount": 96,
+        "boardEntries": 21,
+        "boardBytes": 16520448
+      },
+      {
+        "source": "final-lease-cycles-03.txt",
+        "globalLoop": 4,
+        "at": "2026-10-28T10:10:32.422Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 617809172,
+        "geometries": 1132,
+        "textures": 68,
+        "poolCount": 96,
+        "boardEntries": 22,
+        "boardBytes": 17307136
+      },
+      {
+        "source": "final-lease-cycles-03.txt",
+        "globalLoop": 5,
+        "at": "2026-10-28T10:10:35.694Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 87596096,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 733461854,
+        "geometries": 992,
+        "textures": 70,
+        "poolCount": 96,
+        "boardEntries": 23,
+        "boardBytes": 18093824
+      },
+      {
+        "source": "final-lease-cycles-03.txt",
+        "globalLoop": 5,
+        "at": "2026-10-28T10:10:38.374Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 270904165,
+        "geometries": 1231,
+        "textures": 70,
+        "poolCount": 96,
+        "boardEntries": 25,
+        "boardBytes": 19667200
+      },
+      {
+        "source": "final-lease-cycles-03.txt",
+        "globalLoop": 5,
+        "at": "2026-10-28T10:10:41.456Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 364611664,
+        "geometries": 1136,
+        "textures": 70,
+        "poolCount": 96,
+        "boardEntries": 25,
+        "boardBytes": 19667200
+      },
+      {
+        "source": "final-lease-cycles-04.txt",
+        "globalLoop": 6,
+        "at": "2026-10-28T10:10:46.262Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 87596096,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 450479016,
+        "geometries": 994,
+        "textures": 71,
+        "poolCount": 96,
+        "boardEntries": 26,
+        "boardBytes": 20453888
+      },
+      {
+        "source": "final-lease-cycles-04.txt",
+        "globalLoop": 6,
+        "at": "2026-10-28T10:10:48.839Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 547233685,
+        "geometries": 1233,
+        "textures": 71,
+        "poolCount": 96,
+        "boardEntries": 26,
+        "boardBytes": 20453888
+      },
+      {
+        "source": "final-lease-cycles-04.txt",
+        "globalLoop": 6,
+        "at": "2026-10-28T10:10:51.908Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 631408801,
+        "geometries": 1138,
+        "textures": 71,
+        "poolCount": 96,
+        "boardEntries": 27,
+        "boardBytes": 21240576
+      },
+      {
+        "source": "final-lease-cycles-04.txt",
+        "globalLoop": 7,
+        "at": "2026-10-28T10:10:55.109Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 87596096,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 714000220,
+        "geometries": 996,
+        "textures": 72,
+        "poolCount": 96,
+        "boardEntries": 27,
+        "boardBytes": 21240576
+      },
+      {
+        "source": "final-lease-cycles-04.txt",
+        "globalLoop": 7,
+        "at": "2026-10-28T10:10:57.840Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 659384304,
+        "geometries": 1235,
+        "textures": 72,
+        "poolCount": 96,
+        "boardEntries": 29,
+        "boardBytes": 22813952
+      },
+      {
+        "source": "final-lease-cycles-04.txt",
+        "globalLoop": 7,
+        "at": "2026-10-28T10:11:01.024Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 728734093,
+        "geometries": 1140,
+        "textures": 72,
+        "poolCount": 96,
+        "boardEntries": 30,
+        "boardBytes": 23600640
+      },
+      {
+        "source": "final-lease-cycles-05.txt",
+        "globalLoop": 8,
+        "at": "2026-10-28T10:11:05.932Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 87596096,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 828970590,
+        "geometries": 996,
+        "textures": 72,
+        "poolCount": 96,
+        "boardEntries": 30,
+        "boardBytes": 23600640
+      },
+      {
+        "source": "final-lease-cycles-05.txt",
+        "globalLoop": 8,
+        "at": "2026-10-28T10:11:08.606Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 905274675,
+        "geometries": 1235,
+        "textures": 72,
+        "poolCount": 96,
+        "boardEntries": 30,
+        "boardBytes": 23600640
+      },
+      {
+        "source": "final-lease-cycles-05.txt",
+        "globalLoop": 8,
+        "at": "2026-10-28T10:11:11.775Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 992325220,
+        "geometries": 1142,
+        "textures": 73,
+        "poolCount": 96,
+        "boardEntries": 30,
+        "boardBytes": 23600640
+      },
+      {
+        "source": "final-lease-cycles-05.txt",
+        "globalLoop": 9,
+        "at": "2026-10-28T10:11:15.012Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 14.274200232096192,
+        "position": {
+          "x": -13.13522282480547,
+          "y": 0.55,
+          "z": -5.587370903088896
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 4,
+        "activeBytes": 138748476,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 87596096,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 1111231720,
+        "geometries": 998,
+        "textures": 73,
+        "poolCount": 96,
+        "boardEntries": 30,
+        "boardBytes": 23600640
+      },
+      {
+        "source": "final-lease-cycles-05.txt",
+        "globalLoop": 9,
+        "at": "2026-10-28T10:11:17.609Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 8.025089683388204,
+        "position": {
+          "x": -15701.125872823017,
+          "y": 0.55,
+          "z": -3743.7642928480545
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 8,
+        "activeBytes": 110547340,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 75065864,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 1168467741,
+        "geometries": 1239,
+        "textures": 74,
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "source": "final-lease-cycles-05.txt",
+        "globalLoop": 9,
+        "at": "2026-10-28T10:11:20.845Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "ready": true,
+        "distanceFromChosenAreaMetres": 0.8746369418962098,
+        "position": {
+          "x": 6640.872692043876,
+          "y": 0.55,
+          "z": 56.21143519896442
+        },
+        "coins": 5810,
+        "delivered": 17,
+        "acceptingOrders": false,
+        "hasOrder": false,
+        "tiles": 6,
+        "activeBytes": 127414024,
+        "stagedBytes": 0,
+        "retiringBytes": 0,
+        "pendingReservedBytes": 0,
+        "coverageLeaseCount": 0,
+        "relocationReserveBytes": 0,
+        "skylineBytes": 0,
+        "skylineStagedBytes": 0,
+        "skylineRetiringBytes": 0,
+        "decodedCacheBytes": 59124368,
+        "admissionFailures": 0,
+        "installMaxMs": 8.600000001490116,
+        "activationMaxMs": 8.5,
+        "heapBytes": 338928765,
+        "geometries": 1144,
+        "textures": 74,
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      }
+    ]
+  },
+  "finalPostGcAreaCycles": {
+    "source": "output/playwright/final-post-gc-area-cycles.txt",
+    "sourceSha256": "062fbbc2cc21caa1d2460973f4a790dab6618d6a4b527de96fade18add013792",
+    "sourceCommit": "1e28c22",
+    "bundle": "http://127.0.0.1:4199/assets/index-BqqcYt0B.js",
+    "startedUtc": "2026-10-28T11:21:56.870Z",
+    "endedUtc": "2026-10-28T11:25:14.909Z",
+    "kind": "Explicit resource diagnostic:20visible-control area loops; pause+forcedpageGC at each settledendpoint, first10warming,next10postwarm; not FPS/gameplay duration evidence;4.04xCPU,AVDstopped",
+    "method": "20 public area-selection loops through RTC X Roads, Gachibowli and Uppal; first 10 warm-up, next 10 post-warm. Pause and explicit CDP HeapProfiler.collectGarbage at each settled endpoint; 4.04x desktop CPU throttle, Android emulator stopped. Not gameplay duration, foreground phone cost or FPS evidence.",
+    "error": null,
+    "samples": [
+      {
+        "loop": 0,
+        "at": "2026-10-28T11:22:00.682Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 175781868,
+          "totalSize": 181993472,
+          "embedderHeapUsedSize": 21119288,
+          "backingStorageSize": 125760224
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 17337,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 65306736
+        },
+        "resources": {
+          "geometries": 884,
+          "textures": 51
+        },
+        "people": {
+          "entries": 20,
+          "activeEntries": 16,
+          "activeReferences": 16,
+          "unusedEntries": 4,
+          "estimatedBytes": 16084992,
+          "unusedBytes": 3349632,
+          "created": 20,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 22,
+        "boardBytes": 17307136
+      },
+      {
+        "loop": 0,
+        "at": "2026-10-28T11:22:03.684Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 175974864,
+          "totalSize": 179896320,
+          "embedderHeapUsedSize": 18306008,
+          "backingStorageSize": 105880207
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 19398,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1135,
+          "textures": 54
+        },
+        "people": {
+          "entries": 20,
+          "activeEntries": 16,
+          "activeReferences": 16,
+          "unusedEntries": 4,
+          "estimatedBytes": 16084992,
+          "unusedBytes": 3349632,
+          "created": 20,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 23,
+        "boardBytes": 18093824
+      },
+      {
+        "loop": 0,
+        "at": "2026-10-28T11:22:07.169Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 177279844,
+          "totalSize": 183058432,
+          "embedderHeapUsedSize": 19305648,
+          "backingStorageSize": 114148191
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 21401,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1040,
+          "textures": 55
+        },
+        "people": {
+          "entries": 20,
+          "activeEntries": 16,
+          "activeReferences": 16,
+          "unusedEntries": 4,
+          "estimatedBytes": 16084992,
+          "unusedBytes": 3349632,
+          "created": 20,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 24,
+        "boardBytes": 18880512
+      },
+      {
+        "loop": 1,
+        "at": "2026-10-28T11:22:10.725Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 178481152,
+          "totalSize": 182517760,
+          "embedderHeapUsedSize": 21438872,
+          "backingStorageSize": 129093193
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 23111,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 85934216
+        },
+        "resources": {
+          "geometries": 914,
+          "textures": 56
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 26,
+        "boardBytes": 20453888
+      },
+      {
+        "loop": 1,
+        "at": "2026-10-28T11:22:13.679Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179604360,
+          "totalSize": 183353344,
+          "embedderHeapUsedSize": 18605600,
+          "backingStorageSize": 109209256
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 25172,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1156,
+          "textures": 57
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 26,
+        "boardBytes": 20453888
+      },
+      {
+        "loop": 1,
+        "at": "2026-10-28T11:22:17.075Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 179884088,
+          "totalSize": 185073664,
+          "embedderHeapUsedSize": 19220328,
+          "backingStorageSize": 117477231
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 27175,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1064,
+          "textures": 58
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 26,
+        "boardBytes": 20453888
+      },
+      {
+        "loop": 2,
+        "at": "2026-10-28T11:22:20.757Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 178852636,
+          "totalSize": 183566336,
+          "embedderHeapUsedSize": 21503776,
+          "backingStorageSize": 129093621
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 28885,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 920,
+          "textures": 58
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 26,
+        "boardBytes": 20453888
+      },
+      {
+        "loop": 2,
+        "at": "2026-10-28T11:22:23.729Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179510032,
+          "totalSize": 183353344,
+          "embedderHeapUsedSize": 18600992,
+          "backingStorageSize": 109209256
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 30946,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1159,
+          "textures": 58
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 26,
+        "boardBytes": 20453888
+      },
+      {
+        "loop": 2,
+        "at": "2026-10-28T11:22:27.138Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 178593240,
+          "totalSize": 184762368,
+          "embedderHeapUsedSize": 19363200,
+          "backingStorageSize": 117477517
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 32949,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1074,
+          "textures": 62
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 26,
+        "boardBytes": 20453888
+      },
+      {
+        "loop": 3,
+        "at": "2026-10-28T11:22:30.702Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 178888504,
+          "totalSize": 183566336,
+          "embedderHeapUsedSize": 21745984,
+          "backingStorageSize": 129093915
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 34659,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 930,
+          "textures": 62
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 27,
+        "boardBytes": 21240576
+      },
+      {
+        "loop": 3,
+        "at": "2026-10-28T11:22:33.648Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 178788588,
+          "totalSize": 182779904,
+          "embedderHeapUsedSize": 19108568,
+          "backingStorageSize": 109210136
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 36720,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1177,
+          "textures": 65
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 30,
+        "boardBytes": 23600640
+      },
+      {
+        "loop": 3,
+        "at": "2026-10-28T11:22:36.961Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 179791080,
+          "totalSize": 185860096,
+          "embedderHeapUsedSize": 19572520,
+          "backingStorageSize": 117477551
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 38723,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1089,
+          "textures": 68
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 4,
+        "at": "2026-10-28T11:22:40.492Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179045564,
+          "totalSize": 183042048,
+          "embedderHeapUsedSize": 21804408,
+          "backingStorageSize": 129093941
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 40433,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 945,
+          "textures": 68
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 4,
+        "at": "2026-10-28T11:22:43.448Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179788468,
+          "totalSize": 183877632,
+          "embedderHeapUsedSize": 18851664,
+          "backingStorageSize": 109209576
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 42494,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1184,
+          "textures": 68
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 4,
+        "at": "2026-10-28T11:22:46.870Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 178965596,
+          "totalSize": 185024512,
+          "embedderHeapUsedSize": 19725784,
+          "backingStorageSize": 117478122
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 44497,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1093,
+          "textures": 70
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 5,
+        "at": "2026-10-28T11:22:50.456Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179199060,
+          "totalSize": 184352768,
+          "embedderHeapUsedSize": 21716704,
+          "backingStorageSize": 129094232
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 46207,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 949,
+          "textures": 70
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 5,
+        "at": "2026-10-28T11:22:53.413Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179028528,
+          "totalSize": 182779904,
+          "embedderHeapUsedSize": 18984864,
+          "backingStorageSize": 109209877
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 48268,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1188,
+          "textures": 70
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 5,
+        "at": "2026-10-28T11:22:56.739Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 178863004,
+          "totalSize": 185548800,
+          "embedderHeapUsedSize": 19622448,
+          "backingStorageSize": 117478128
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 50271,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1095,
+          "textures": 71
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 6,
+        "at": "2026-10-28T11:23:00.320Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179260688,
+          "totalSize": 184352768,
+          "embedderHeapUsedSize": 21793176,
+          "backingStorageSize": 129094031
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 51981,
+          "installMaxMs": 8.5,
+          "activationMaxMs": 8.5,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 951,
+          "textures": 71
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 6,
+        "at": "2026-10-28T11:23:03.262Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179168188,
+          "totalSize": 183042048,
+          "embedderHeapUsedSize": 18925480,
+          "backingStorageSize": 109210159
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 54042,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1190,
+          "textures": 71
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 6,
+        "at": "2026-10-28T11:23:06.624Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 178993532,
+          "totalSize": 183713792,
+          "embedderHeapUsedSize": 19715856,
+          "backingStorageSize": 117478141
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 56045,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1095,
+          "textures": 71
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 7,
+        "at": "2026-10-28T11:23:10.246Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179228916,
+          "totalSize": 184090624,
+          "embedderHeapUsedSize": 21824264,
+          "backingStorageSize": 129094255
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 57755,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 951,
+          "textures": 71
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 7,
+        "at": "2026-10-28T11:23:13.194Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179164864,
+          "totalSize": 182517760,
+          "embedderHeapUsedSize": 18915960,
+          "backingStorageSize": 109209890
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 59816,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1190,
+          "textures": 71
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 7,
+        "at": "2026-10-28T11:23:16.504Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 179033412,
+          "totalSize": 185024512,
+          "embedderHeapUsedSize": 19625472,
+          "backingStorageSize": 117477865
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 61819,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1095,
+          "textures": 72
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 8,
+        "at": "2026-10-28T11:23:20.027Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179194248,
+          "totalSize": 183566336,
+          "embedderHeapUsedSize": 21669880,
+          "backingStorageSize": 129093762
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 63529,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 951,
+          "textures": 72
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 8,
+        "at": "2026-10-28T11:23:22.994Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179073348,
+          "totalSize": 183042048,
+          "embedderHeapUsedSize": 18957672,
+          "backingStorageSize": 109209890
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 65590,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1190,
+          "textures": 72
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 8,
+        "at": "2026-10-28T11:23:26.430Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 179047376,
+          "totalSize": 184500224,
+          "embedderHeapUsedSize": 19760768,
+          "backingStorageSize": 117477868
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 67593,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1095,
+          "textures": 72
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 9,
+        "at": "2026-10-28T11:23:29.893Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179395408,
+          "totalSize": 184352768,
+          "embedderHeapUsedSize": 21929312,
+          "backingStorageSize": 129094823
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 69303,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 955,
+          "textures": 74
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 9,
+        "at": "2026-10-28T11:23:32.844Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179026532,
+          "totalSize": 182517760,
+          "embedderHeapUsedSize": 18930816,
+          "backingStorageSize": 109210753
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 71364,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1196,
+          "textures": 75
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 9,
+        "at": "2026-10-28T11:23:36.182Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 178918640,
+          "totalSize": 184762368,
+          "embedderHeapUsedSize": 19649040,
+          "backingStorageSize": 117478732
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 73367,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1101,
+          "textures": 75
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 10,
+        "at": "2026-10-28T11:23:39.677Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 180733692,
+          "totalSize": 184401920,
+          "embedderHeapUsedSize": 21745616,
+          "backingStorageSize": 129095118
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 75077,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 957,
+          "textures": 75
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 10,
+        "at": "2026-10-28T11:23:42.644Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179047784,
+          "totalSize": 183042048,
+          "embedderHeapUsedSize": 19028552,
+          "backingStorageSize": 109210758
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 77138,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1196,
+          "textures": 75
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 10,
+        "at": "2026-10-28T11:23:46.035Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 180077288,
+          "totalSize": 185860096,
+          "embedderHeapUsedSize": 19714376,
+          "backingStorageSize": 117478733
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 79141,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1101,
+          "textures": 75
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 11,
+        "at": "2026-10-28T11:23:49.525Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179186884,
+          "totalSize": 184614912,
+          "embedderHeapUsedSize": 21740376,
+          "backingStorageSize": 125672199
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 80851,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 957,
+          "textures": 75
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 11,
+        "at": "2026-10-28T11:23:52.448Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179062528,
+          "totalSize": 183042048,
+          "embedderHeapUsedSize": 18934776,
+          "backingStorageSize": 109210758
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 82912,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1196,
+          "textures": 75
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 11,
+        "at": "2026-10-28T11:23:55.820Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 179057708,
+          "totalSize": 184762368,
+          "embedderHeapUsedSize": 19714416,
+          "backingStorageSize": 117479013
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 84915,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1103,
+          "textures": 76
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 12,
+        "at": "2026-10-28T11:23:59.441Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179361572,
+          "totalSize": 183828480,
+          "embedderHeapUsedSize": 21992760,
+          "backingStorageSize": 125673755
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 86625,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 965,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 12,
+        "at": "2026-10-28T11:24:02.432Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179089984,
+          "totalSize": 183042048,
+          "embedderHeapUsedSize": 18945880,
+          "backingStorageSize": 109211890
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 88686,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1204,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 12,
+        "at": "2026-10-28T11:24:05.697Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 179072408,
+          "totalSize": 185548800,
+          "embedderHeapUsedSize": 19759344,
+          "backingStorageSize": 117479861
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 90689,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1109,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 13,
+        "at": "2026-10-28T11:24:09.116Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 180688280,
+          "totalSize": 186499072,
+          "embedderHeapUsedSize": 21846712,
+          "backingStorageSize": 125673262
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 92399,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 965,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 13,
+        "at": "2026-10-28T11:24:12.068Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179163488,
+          "totalSize": 183042048,
+          "embedderHeapUsedSize": 19061600,
+          "backingStorageSize": 109212171
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 94460,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1206,
+          "textures": 80
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 13,
+        "at": "2026-10-28T11:24:15.425Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 180182988,
+          "totalSize": 186908672,
+          "embedderHeapUsedSize": 19783136,
+          "backingStorageSize": 117479870
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 96463,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1110,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 14,
+        "at": "2026-10-28T11:24:19.030Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 180486680,
+          "totalSize": 185450496,
+          "embedderHeapUsedSize": 21790304,
+          "backingStorageSize": 125673267
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 98173,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 966,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 14,
+        "at": "2026-10-28T11:24:21.979Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179168892,
+          "totalSize": 183828480,
+          "embedderHeapUsedSize": 18918312,
+          "backingStorageSize": 109212171
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 100234,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1207,
+          "textures": 80
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 14,
+        "at": "2026-10-28T11:24:25.370Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 180201748,
+          "totalSize": 186646528,
+          "embedderHeapUsedSize": 19752136,
+          "backingStorageSize": 117480150
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 102237,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1112,
+          "textures": 80
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 15,
+        "at": "2026-10-28T11:24:28.867Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179337508,
+          "totalSize": 183828480,
+          "embedderHeapUsedSize": 22030584,
+          "backingStorageSize": 125673897
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 103947,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 970,
+          "textures": 81
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 15,
+        "at": "2026-10-28T11:24:31.843Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179189716,
+          "totalSize": 183042048,
+          "embedderHeapUsedSize": 18960296,
+          "backingStorageSize": 109212176
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 106008,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1207,
+          "textures": 80
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 15,
+        "at": "2026-10-28T11:24:35.144Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 180259360,
+          "totalSize": 185597952,
+          "embedderHeapUsedSize": 19750656,
+          "backingStorageSize": 117480151
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 108011,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1112,
+          "textures": 80
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 16,
+        "at": "2026-10-28T11:24:38.603Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179325796,
+          "totalSize": 184614912,
+          "embedderHeapUsedSize": 21937496,
+          "backingStorageSize": 125674032
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 109721,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 968,
+          "textures": 80
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 16,
+        "at": "2026-10-28T11:24:41.508Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 180154692,
+          "totalSize": 184401920,
+          "embedderHeapUsedSize": 18889552,
+          "backingStorageSize": 109211898
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 111782,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1205,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 16,
+        "at": "2026-10-28T11:24:44.878Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 180523396,
+          "totalSize": 186908672,
+          "embedderHeapUsedSize": 19614896,
+          "backingStorageSize": 117479873
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 113785,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1110,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 17,
+        "at": "2026-10-28T11:24:48.441Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179372028,
+          "totalSize": 184877056,
+          "embedderHeapUsedSize": 21883904,
+          "backingStorageSize": 125673274
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 115495,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 966,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 17,
+        "at": "2026-10-28T11:24:51.433Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179174660,
+          "totalSize": 183304192,
+          "embedderHeapUsedSize": 19070792,
+          "backingStorageSize": 109211902
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 117556,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1205,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 17,
+        "at": "2026-10-28T11:24:54.825Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 180192684,
+          "totalSize": 186908672,
+          "embedderHeapUsedSize": 19763768,
+          "backingStorageSize": 117479877
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 119559,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1110,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 18,
+        "at": "2026-10-28T11:24:58.405Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179391460,
+          "totalSize": 183828480,
+          "embedderHeapUsedSize": 21922784,
+          "backingStorageSize": 125673771
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 121269,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 966,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 18,
+        "at": "2026-10-28T11:25:01.429Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179167472,
+          "totalSize": 184877056,
+          "embedderHeapUsedSize": 19058000,
+          "backingStorageSize": 109211631
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 123330,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1203,
+          "textures": 78
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 18,
+        "at": "2026-10-28T11:25:04.797Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 179095160,
+          "totalSize": 184500224,
+          "embedderHeapUsedSize": 19747288,
+          "backingStorageSize": 117479602
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 125333,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1108,
+          "textures": 78
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 19,
+        "at": "2026-10-28T11:25:08.511Z",
+        "expected": "RTC X Roads",
+        "actual": "RTC X Roads",
+        "check": {
+          "ready": true,
+          "area": "RTC X Roads",
+          "distance": 14.274200232096192
+        },
+        "heapAfterGC": {
+          "usedSize": 179547560,
+          "totalSize": 184877056,
+          "embedderHeapUsedSize": 22030304,
+          "backingStorageSize": 125673296
+        },
+        "tiles": 4,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 138748476,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 127043,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 87596096
+        },
+        "resources": {
+          "geometries": 966,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 19,
+        "at": "2026-10-28T11:25:11.486Z",
+        "expected": "Gachibowli",
+        "actual": "Gachibowli",
+        "check": {
+          "ready": true,
+          "area": "Gachibowli",
+          "distance": 8.025089683388204
+        },
+        "heapAfterGC": {
+          "usedSize": 179197848,
+          "totalSize": 183304192,
+          "embedderHeapUsedSize": 19010424,
+          "backingStorageSize": 109211920
+        },
+        "tiles": 8,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 110547340,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 129104,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 75065864
+        },
+        "resources": {
+          "geometries": 1205,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      },
+      {
+        "loop": 19,
+        "at": "2026-10-28T11:25:14.850Z",
+        "expected": "Uppal",
+        "actual": "Uppal",
+        "check": {
+          "ready": true,
+          "area": "Uppal",
+          "distance": 0.8746369418962098
+        },
+        "heapAfterGC": {
+          "usedSize": 179211372,
+          "totalSize": 185548800,
+          "embedderHeapUsedSize": 19804424,
+          "backingStorageSize": 117479899
+        },
+        "tiles": 6,
+        "stream": {
+          "stagedBytes": 0,
+          "activeBytes": 127414024,
+          "retiringBytes": 0,
+          "pendingReservedBytes": 0,
+          "coverageLeaseCount": 0,
+          "relocationReserveBytes": 0,
+          "installJobs": 131107,
+          "installMaxMs": 22.100000001490116,
+          "activationMaxMs": 22.100000001490116,
+          "admissionFailures": 0,
+          "skylineBytes": 30280800,
+          "skylineStagedBytes": 0,
+          "skylineRetiringBytes": 0,
+          "decodedCacheBytes": 59124368
+        },
+        "resources": {
+          "geometries": 1110,
+          "textures": 79
+        },
+        "people": {
+          "entries": 28,
+          "activeEntries": 24,
+          "activeReferences": 25,
+          "unusedEntries": 4,
+          "estimatedBytes": 22743072,
+          "unusedBytes": 3349632,
+          "created": 28,
+          "disposed": 0,
+          "maxUnusedEntries": 128,
+          "maxUnusedBytes": 16777216
+        },
+        "poolCount": 96,
+        "boardEntries": 31,
+        "boardBytes": 24387328
+      }
+    ],
+    "byArea": {
+      "RTC X Roads": {
+        "postWarmSampleCount": 10,
+        "metrics": {
+          "jsUsedSize": {
+            "min": 179186884,
+            "median": 179381744.0,
+            "max": 180733692,
+            "rangePercentOfMedian": 0.8622995660026586,
+            "first": 180733692,
+            "last": 179547560
+          },
+          "backingStorageSize": {
+            "min": 125672199,
+            "median": 125673525.5,
+            "max": 129095118,
+            "rangePercentOfMedian": 2.7236595666284544,
+            "first": 129095118,
+            "last": 125673296
+          },
+          "geometries": {
+            "min": 957,
+            "median": 966.0,
+            "max": 970,
+            "rangePercentOfMedian": 1.3457556935817805,
+            "first": 957,
+            "last": 966
+          },
+          "textures": {
+            "min": 75,
+            "median": 79.0,
+            "max": 81,
+            "rangePercentOfMedian": 7.594936708860759,
+            "first": 75,
+            "last": 79
+          }
+        },
+        "tiles": [
+          4
+        ],
+        "activeBytes": [
+          138748476
+        ],
+        "fivePercentTextureGatePass": false
+      },
+      "Gachibowli": {
+        "postWarmSampleCount": 10,
+        "metrics": {
+          "jsUsedSize": {
+            "min": 179047784,
+            "median": 179168182.0,
+            "max": 180154692,
+            "rangePercentOfMedian": 0.6178038910949043,
+            "first": 179047784,
+            "last": 179197848
+          },
+          "backingStorageSize": {
+            "min": 109210758,
+            "median": 109211900.0,
+            "max": 109212176,
+            "rangePercentOfMedian": 0.0012983933069564764,
+            "first": 109210758,
+            "last": 109211920
+          },
+          "geometries": {
+            "min": 1196,
+            "median": 1205.0,
+            "max": 1207,
+            "rangePercentOfMedian": 0.9128630705394191,
+            "first": 1196,
+            "last": 1205
+          },
+          "textures": {
+            "min": 75,
+            "median": 79.0,
+            "max": 80,
+            "rangePercentOfMedian": 6.329113924050633,
+            "first": 75,
+            "last": 79
+          }
+        },
+        "tiles": [
+          8
+        ],
+        "activeBytes": [
+          110547340
+        ],
+        "fivePercentTextureGatePass": false
+      },
+      "Uppal": {
+        "postWarmSampleCount": 10,
+        "metrics": {
+          "jsUsedSize": {
+            "min": 179057708,
+            "median": 180130138.0,
+            "max": 180523396,
+            "rangePercentOfMedian": 0.8136828274677722,
+            "first": 180077288,
+            "last": 179211372
+          },
+          "backingStorageSize": {
+            "min": 117478733,
+            "median": 117479871.5,
+            "max": 117480151,
+            "rangePercentOfMedian": 0.001207015280060125,
+            "first": 117478733,
+            "last": 117479899
+          },
+          "geometries": {
+            "min": 1101,
+            "median": 1110.0,
+            "max": 1112,
+            "rangePercentOfMedian": 0.990990990990991,
+            "first": 1101,
+            "last": 1110
+          },
+          "textures": {
+            "min": 75,
+            "median": 79.0,
+            "max": 80,
+            "rangePercentOfMedian": 6.329113924050633,
+            "first": 75,
+            "last": 79
+          }
+        },
+        "tiles": [
+          6
+        ],
+        "activeBytes": [
+          127414024
+        ],
+        "fivePercentTextureGatePass": false
+      }
+    },
+    "checks": {
+      "successfulPublicSelections": 60,
+      "zeroAcrossAll60Samples": {
+        "stagedBytes": true,
+        "retiringBytes": true,
+        "pendingReservedBytes": true,
+        "coverageLeaseCount": true,
+        "relocationReserveBytes": true,
+        "skylineStagedBytes": true,
+        "skylineRetiringBytes": true,
+        "admissionFailures": true
+      },
+      "exactPerAreaActiveTileBytes": true,
+      "lastPeople": {
+        "entries": 28,
+        "activeEntries": 24,
+        "activeReferences": 25,
+        "unusedEntries": 4,
+        "estimatedBytes": 22743072,
+        "unusedBytes": 3349632,
+        "created": 28,
+        "disposed": 0,
+        "maxUnusedEntries": 128,
+        "maxUnusedBytes": 16777216
+      },
+      "lastPoolCount": 96,
+      "lastSkylineBytes": 30280800,
+      "maxDecodedCacheBytes": 87596096,
+      "maxBoardBytes": 24387328,
+      "maxInstallMs": 22.100000001490116
+    },
+    "boundedBudgets": {
+      "decodedCacheBytes": 100663296,
+      "boardCacheBytes": 25165824,
+      "trafficPoolCount": 96,
+      "unusedPeopleEntries": 128,
+      "unusedPeopleEstimatedBytes": 16777216,
+      "skylineBytes": 33554432
+    },
+    "verdict": "Post-warm JS heap, backing storage and renderer geometry count ranges are below 5% at each repeated endpoint; the texture count gate is NOT passed (6.33-7.59% ranges). All 60 endpoint samples have zero staged/retiring/reserved/lease/admission state, exact per-area active tile bytes and bounded cache counters. This is lifecycle/residency evidence, not certification of actual GPU VRAM plateau or leak freedom. Texture cache warm-up/ownership still needs longer or category-level analysis.",
+    "limitations": [
+      "Explicit GC changes workload and must not be used as frame-time or phone foreground-cost evidence. The cumulative install/activation maximum22.1ms occurred in this 4.04x+explicit-GC diagnostic.",
+      "Last people cache has28 entries,4 unused (3,349,632 estimated bytes),created28,disposed0: runtime did not trigger the420-variant unit-test eviction path; unit disposal tests remain separate evidence.",
+      "Skyline30,280,800bytes persists as a bounded visual cache; zero liveness counters do not mean zero caches or exact GPU VRAM accounting."
+    ]
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "createdAt": "2026-10-28T13:58:48.971Z",
+  "configs": [
+    {
+      "kind": "static",
+      "pair": 1,
+      "variant": "baseline",
+      "cpu": 4.04,
+      "warmMs": 15000,
+      "measureMs": 45000
+    },
+    {
+      "kind": "static",
+      "pair": 1,
+      "variant": "candidate",
+      "cpu": 4.04,
+      "warmMs": 15000,
+      "measureMs": 45000
+    },
+    {
+      "kind": "static",
+      "pair": 2,
+      "variant": "candidate",
+      "cpu": 4.04,
+      "warmMs": 15000,
+      "measureMs": 45000
+    },
+    {
+      "kind": "static",
+      "pair": 2,
+      "variant": "baseline",
+      "cpu": 4.04,
+      "warmMs": 15000,
+      "measureMs": 45000
+    },
+    {
+      "kind": "static",
+      "pair": 3,
+      "variant": "baseline",
+      "cpu": 4.04,
+      "warmMs": 15000,
+      "measureMs": 45000
+    },
+    {
+      "kind": "static",
+      "pair": 3,
+      "variant": "candidate",
+      "cpu": 4.04,
+      "warmMs": 15000,
+      "measureMs": 45000
+    },
+    {
+      "kind": "idle-game",
+      "pair": 1,
+      "variant": "baseline",
+      "cpu": 4.04,
+      "warmMs": 25000,
+      "measureMs": 90000
+    },
+    {
+      "kind": "idle-game",
+      "pair": 1,
+      "variant": "candidate",
+      "cpu": 4.04,
+      "warmMs": 25000,
+      "measureMs": 90000
+    },
+    {
+      "kind": "idle-game",
+      "pair": 2,
+      "variant": "candidate",
+      "cpu": 4.04,
+      "warmMs": 25000,
+      "measureMs": 90000
+    },
+    {
+      "kind": "idle-game",
+      "pair": 2,
+      "variant": "baseline",
+      "cpu": 4.04,
+      "warmMs": 25000,
+      "measureMs": 90000
+    },
+    {
+      "kind": "idle-game",
+      "pair": 3,
+      "variant": "baseline",
+      "cpu": 4.04,
+      "warmMs": 25000,
+      "measureMs": 90000
+    },
+    {
+      "kind": "idle-game",
+      "pair": 3,
+      "variant": "candidate",
+      "cpu": 4.04,
+      "warmMs": 25000,
+      "measureMs": 90000
+    }
+  ],
+  "scope": "Static High renderer at real RAF, then live stationary Low Game, with matching fixture save and no input. No deterministic Game/traffic replay, driving, phone, thermal or battery claims.",
+  "baselineCommit": "bd7313d6d20cb3f6a448bedb2e52bccd269b1bba",
+  "candidateSource": "200af62af70dc4b682d601e11ff51db04d2f67d9",
+  "fixturesAreNotCompletedDeliveries": true
+}

@@ -1,0 +1,108 @@
+{
+  "status": "Node prototype only; no production source edits or browser pixels/timing",
+  "source": "src/world/vehicles.ts roadster()",
+  "beforeMeshes": 170,
+  "beforeUniqueGeometry": 164,
+  "beforeGroundVisibleDrawCandidates": 146,
+  "afterMeshes": 89,
+  "afterGroundVisibleDrawCandidates": 65,
+  "savedGroundDrawCandidates": 81,
+  "predictedDrawReductionPercent": 55.47945205479452,
+  "createdBatches": 11,
+  "mergedSourceMeshes": 92,
+  "skipped": {
+    "transparent/alpha/multimaterial": 5,
+    "referenced or individually animated mesh": 11,
+    "hidden or hidden ancestor": 16
+  },
+  "states": [
+    0,
+    0.5,
+    1,
+    0.2
+  ],
+  "checkedVertices": 25480,
+  "maxPositionErrorMetres": 1.1996365477355513e-7,
+  "maxUnitNormalError": 3.570307743649303e-8,
+  "maxUvError": 0,
+  "indexMismatches": 0,
+  "protectedMeshCount": 11,
+  "referencedRetained": true,
+  "disposedSourceGeometries": 89,
+  "retainedGeometryDisposed": false,
+  "disposedMoreThanOnce": false,
+  "batches": [
+    {
+      "parent": "Group",
+      "material": "trim",
+      "sources": 29,
+      "vertices": 3360
+    },
+    {
+      "parent": "Group",
+      "material": "paint",
+      "sources": 2,
+      "vertices": 204
+    },
+    {
+      "parent": "Group",
+      "material": "accent",
+      "sources": 4,
+      "vertices": 96
+    },
+    {
+      "parent": "Group",
+      "material": "seat",
+      "sources": 2,
+      "vertices": 48
+    },
+    {
+      "parent": "Group",
+      "material": "head",
+      "sources": 3,
+      "vertices": 132
+    },
+    {
+      "parent": "Group",
+      "material": "trim",
+      "sources": 2,
+      "vertices": 6
+    },
+    {
+      "parent": "Group",
+      "material": "trim",
+      "sources": 2,
+      "vertices": 48
+    },
+    {
+      "parent": "front left roller",
+      "material": "rim",
+      "sources": 12,
+      "vertices": 619
+    },
+    {
+      "parent": "wheel roller",
+      "material": "rim",
+      "sources": 12,
+      "vertices": 619
+    },
+    {
+      "parent": "wheel roller",
+      "material": "rim",
+      "sources": 12,
+      "vertices": 619
+    },
+    {
+      "parent": "wheel roller",
+      "material": "rim",
+      "sources": 12,
+      "vertices": 619
+    }
+  ],
+  "limits": [
+    "Not a renderer/frame-time result.",
+    "Opaque draw ordering/coplanar ties, reflections and shadows need matched live rendering.",
+    "Production must use explicit animated/reference exclusion Set, not prototype deployment inference.",
+    "Negative/singular transforms are conservatively skipped; source indices and vertex/normal/UV values are checked."
+  ]
+}

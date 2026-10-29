@@ -1,0 +1,47 @@
+{
+  "sourceCommit": "bd7313d6d20cb3f6a448bedb2e52bccd269b1bba",
+  "baselineCheckout": "/Users/tharun/Documents/Codex/2026-10-28/roadster-performance-baseline",
+  "baselinePreview": "http://127.0.0.1:4201/",
+  "candidatePreview": "http://127.0.0.1:4199/",
+  "library": "three@0.170.0",
+  "knownBaselineLimit": "Original external ../tools regression scripts absent from hosted repository; preserved command under test:legacy; new behavioral suite plus real browser acceptance used. No claim that original suite passed.",
+  "calibratedCPU": {
+    "mid": 4.04,
+    "low": 16.05,
+    "method": "official Chrome DevTools calibration algorithm through CDP"
+  },
+  "physicalPhone": null,
+  "fullGameDeterministicABBenchmark": false,
+  "fullGameABLimitation": "No complete controlled clock/RNG/network-residency harness for whole Game. No whole-game percentage FPS gain claimed. Synthetic physics and collision algorithms have reproducible original/candidate comparisons.",
+  "syntheticReplay": "docs/performance/evidence/final-synthetic-replay.json",
+  "staticQueryBenchmark": "static-query-benchmark.json",
+  "staticVisualFixtureReport": "static-visual-fixtures.md",
+  "candidateEnvironment": "macOS ARM64 Chrome156;4.04x/16.05x calibrated CPU approximations; Android15 SwiftShader compatibility separate. Final AVD stop09:19:14UTC; all late endurance/High/mid/resource windows run after it stopped.",
+  "externalLegacySuite": "unavailable; new behavioral tests are separately counted, not substitutes asserted to pass historical suites",
+  "browserComparisonFollowup": {
+    "report": "version-comparison.md",
+    "evidence": "evidence/browser-ab-20261028/summary.json",
+    "runCount": 12,
+    "stationaryLowGame": {
+      "pairedRuns": 3,
+      "cpuRate": 4.04,
+      "baselineFPS": 52.44444444444444,
+      "optimizedFPS": 59.75555555555555,
+      "baselineFrameCPUMedianMs": 17.799999997019768,
+      "optimizedFrameCPUMedianMs": 8.399999998509884,
+      "deterministicActorReplay": false
+    },
+    "staticHigh": {
+      "pairedRuns": 3,
+      "exactScreenshotPairs": 3,
+      "baselineDrawCalls": 536,
+      "optimizedDrawCalls": 410,
+      "baselineFPS": 60,
+      "optimizedFPS": 60
+    },
+    "physicalPhone": false,
+    "accountUseAuthorized": true,
+    "physicalBlocker": "Normal Chrome browser-control connection unavailable; asynchronous enablement request pending. No new phone results.",
+    "drivingPerformanceGateUnchanged": true
+  }
+}

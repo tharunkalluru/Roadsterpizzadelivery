@@ -1,0 +1,207 @@
+
+> pizza-to-picture-hall@0.1.0 check
+> npm run typecheck && npm run typecheck:worker && npm test && npm run test:flyovers && npm run test:route-motion && npm run build
+
+
+> pizza-to-picture-hall@0.1.0 typecheck
+> tsc --noEmit
+
+
+> pizza-to-picture-hall@0.1.0 typecheck:worker
+> tsc --project tsconfig.worker.json
+
+
+> pizza-to-picture-hall@0.1.0 test
+> node scripts/test.mjs
+
+✔ resolution window reset preserves lost-context scale and discards 2.9s pressure (0.377125ms)
+✔ healthy recovery evidence also resets; restoration returns scale 1 without stale GPU evidence (0.07375ms)
+✔ lost context never reallocates targets and same-scale restore applies pending viewport size (0.542167ms)
+✔ restoration resets scale before resize and fixed still fixtures allocate no adaptive targets (0.098916ms)
+✔ first restored rendered frame has zero adaptation debt and cannot inherit pressure (0.184291ms)
+✔ High composer receives restored scale and current viewport after loss, without lost-context calls (0.093584ms)
+✔ monitor retains only bounded recent samples and reports percentiles (0.467875ms)
+✔ lifetime frame histogram retains stalls after rolling samples expire and resets cleanly (0.350042ms)
+✔ simulation time is presentation-rate independent and pauses discard debt (0.308417ms)
+✔ frame pacing preserves native refresh despite callback jitter and caps faster displays (2.011459ms)
+✔ adaptive resolution is opt-in, bounded, gradual, and needs GPU evidence (0.398083ms)
+✔ authorized jump and speed limits stay unchanged (0.176833ms)
+✔ unsupported GPU timers leave timing unknown and do not query GPU state (1.065833ms)
+✔ pending GPU timing never reads unavailable result or blocks rendering (0.080583ms)
+✔ disjoint GPU samples are discarded and query resources released (0.069375ms)
+✔ render failure closes an active GPU timing query exactly once (0.180625ms)
+✔ geometry preparation restores the current target, retains source ownership and reuses uploads (0.562708ms)
+✔ opaque offers/loading and hidden tabs cannot masquerade as presented gameplay frames (0.097625ms)
+✔ rejected area changes preserve active interaction pins and presentation state (0.710084ms)
+✔ graphics restoration blocks simulation input using the same lifecycle gate as frames (0.300041ms)
+✔ flight and keyboard actions cannot queue behind the graphics recovery loader (0.127667ms)
+✔ movement coverage ready/unmapped/known-empty fast paths do not stop ordinary streaming (0.657625ms)
+Road coverage recovery Error: offline
+    at game.city.ensure (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-jifbMm/game-streaming-boundary.test.mjs:28310:50)
+    at Game.recoverStreamingBoundary (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-jifbMm/game-streaming-boundary.test.mjs:25289:27)
+    at Game.checkStreamingBoundary (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-jifbMm/game-streaming-boundary.test.mjs:25264:15)
+    at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-tests-jifbMm/game-streaming-boundary.test.mjs:28317:10)
+    at Test.runInAsyncScope (node:async_hooks:214:14)
+    at Test.run (node:internal/test_runner/test:1103:25)
+    at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+    at Test.postRun (node:internal/test_runner/test:1232:19)
+    at Test.run (node:internal/test_runner/test:1160:12)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:785:7)
+✔ delayed movement coverage freezes player, delivery and city timers until coherent world and view are ready (3.754417ms)
+✔ failed boundary preparation keeps committed support and delivery, then retries the same movement envelope (2.759542ms)
+✔ valid explicit relocation aborts boundary recovery and stale completion cannot prepare or uncover its loader (0.631083ms)
+✔ shared pedestrian geometry preserves exact appearance and cannot be disposed while one figure retains it (20.394916ms)
+✔ many retired appearances evict unused GPU geometry while preserving active leases and bounded unused bytes (454.582541ms)
+✔ walker and bus exchange removal release geometry on relocation, path unload and exchange retirement (7.619208ms)
+✔ station-life retains its finite shared figure leases until owner disposal (54.3295ms)
+✔ Auto requires a current measured GPU/CPU profile and honors render density (0.424875ms)
+✔ compatible goals use integer callback divisors and never exceed preference (0.418958ms)
+✔ default remains conservative and a 60 callback stream cannot enable 90 or 120 (5.803708ms)
+✔ higher targets require sustained warm CPU and paced presentation evidence (9.59725ms)
+✔ compatible pacing has uniform callback gaps under mild callback jitter (0.312125ms)
+✔ sustained pressure lowers actual goal and recovery has cooldown hysteresis (7.774041ms)
+✔ CPU alone and unstable loaded callbacks never establish high-refresh capability (2.776584ms)
+✔ pause, viewport reset, preference changes and long gaps discard stale evidence (5.356208ms)
+✔ evidence storage stays bounded and unknown settings normalize to conservative preference (6.70425ms)
+✔ stale previously healthy presentation samples cannot enable a higher goal (1.777834ms)
+✔ lost cadence confidence does not raise a pressure-demoted presentation target (0.489917ms)
+✔ same-parent opaque batching preserves transformed attributes, indices, material and animated exclusions (4.098667ms)
+✔ transparent, mirrored, custom callback and differing render state remain separate (1.322625ms)
+✔ shared source geometry disposes once after every batch and never through a retained reference (1.377333ms)
+✔ spatial candidates cover randomized rotated OBB overlaps in stable active order (53.993417ms)
+✔ routing retries are bounded and graph/placement changes reject stale results (0.189125ms)
+✔ planning allowance refills with time and cannot be spent once per arbitrary render callback (1.051083ms)
+✔ complete vehicle pool reuses geometry and resets mutable vehicle state with a new generation (106.727417ms)
+✔ jump participants remain visible and retain edge identity through landing grace (56.669708ms)
+✔ bus board cache shares resources until the last user releases them (56.58175ms)
+✔ resumable bus planning advances without snapping to an old snapshot (78.300416ms)
+✔ indexed player hit query and pushout keep all-pairs response order (60.621417ms)
+✔ seeded rail spawn choices and coach poses ignore interleaved presentation randomness (373.077708ms)
+✔ actual Player state sequences are invariant at 30/60/90/120 presentation (382.367333ms)
+✔ jump preserves apex, momentum distance and five second cooldown after actual landing (12.231958ms)
+✔ one-shot flight action is not repeated by multi-step presentation frames (36.772958ms)
+✔ road acceleration, braking distance and travel retain baseline golden values (9.277375ms)
+✔ visual random draws cannot affect precomputed simulation input and global RNG restores (20.435375ms)
+✔ resumable and sync routes match frozen legacy outcomes over directed stacked random routes (186.033958ms)
+✔ route job is lazy, bounded by operations, cancelable and invalidated by graph revision (2.526834ms)
+✔ route gate rejects pending target, graph, placement and mode changes before publication (5.980833ms)
+✔ route gate null result retries are delayed, while changed context can start immediately (54.533667ms)
+✔ actual Game route publication reanchors after50m of movement while the search is pending (7.770417ms)
+✔ fixed ticks sharing a presentation frame cannot each spend a fresh route slice (0.188ms)
+✔ cached camera solids and road/roof supports equal exhaustive baseline at randomized points (419.238958ms)
+✔ neighborhood lists reuse within revision and invalidate after publication (0.287875ms)
+✔ exact road quad beyond nominal halfwidth and building roof corners are not rejected (15.489208ms)
+✔ sloping roads have continuous heights and finite ends, not invisible steps (0.596291ms)
+✔ ground car stays beneath overhead deck while elevated car stays on its deck (0.2905ms)
+✔ camera obstruction uses full bus length but separates flyover levels (0.103417ms)
+✔ road-neighborhood reuse preserves reference support and invalidates on tile publication (1.623417ms)
+✔ rail roofs support above contact without snapping a car from underneath (0.1105ms)
+✔ render interpolation restores authoritative transforms and drops retired entities (0.3515ms)
+✔ settings migrate old values without changing preferences or progress (1.413542ms)
+✔ stationary shop signs retain geometry and atlas uploads through 120 Hz updates (2.457458ms)
+✔ changed source signs update retained buffers and unload clears visible draw range (0.528541ms)
+✔ minimap reuses road imagery under motion and remote graph changes (0.501ms)
+✔ minimap bounds raster cache memory while traversing distant areas (1.959834ms)
+✔ late web fonts repaint retained selected atlas slots once without changing source or geometry (0.899584ms)
+✔ tile-owned grids publish and remove atomically without losing a shared neighbor cell (0.731417ms)
+✔ lookahead responds to velocity and preparation latency with a bounded reach (0.094667ms)
+✔ building ID directory publication retains overlapping tile ownership (0.138375ms)
+✔ duplicate-heavy building cells yield after bounded visits rather than unique-set size (19.800958ms)
+✔ worker completion stages data and paused/startup pump atomically publishes support (5.986833ms)
+✔ optional memory admission defers background work without poisoning required coverage (4.866084ms)
+✔ explicit essential coverage is requested ahead of optional surroundings and resolves after pump (7.394708ms)
+✔ coverage lease closes ensure microtask eviction gap and hands off focus before postrelease pressure (13.751666ms)
+✔ coverage leases release exactly once on abort and share one bounded reserve (6.448416ms)
+✔ stale worker epochs and request identities do not publish geometry (3.225833ms)
+✔ tree detail uses hysteresis and preserves exact nearby geometry independently of physics (11.1525ms)
+✔ Low restores protected minor road paint and cosmetic High roof detail without LOD collision changes (118.07275ms)
+✔ failed sign registration rolls back its prefix without publishing invisible pinned support (2.569833ms)
+✔ failed graph publication removes uncommitted target despite pins and preserves committed neighbor (2.253458ms)
+✔ cancelling prepared signal geometry releases its tile-owned material exactly once (4.683917ms)
+✔ mesh upload hook runs once per source mesh in separate jobs before tile publication (13.390583ms)
+✔ retirement and preparation cancellation dispose owned instance attributes exactly once (2.102458ms)
+✔ skyline upload preparation runs before publication and safely defers a failed upload (2.081083ms)
+✔ actual tile admission reconciles other pending build reservations (2.684125ms)
+✔ skyline bytes are reserved while queued and remain counted until disposal finishes (4.248292ms)
+ℹ tests 98
+ℹ suites 0
+ℹ pass 98
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 621.754708
+
+> pizza-to-picture-hall@0.1.0 test:flyovers
+> node scripts/test.mjs spatial
+
+✔ sloping roads have continuous heights and finite ends, not invisible steps (0.468791ms)
+✔ ground car stays beneath overhead deck while elevated car stays on its deck (0.2525ms)
+✔ camera obstruction uses full bus length but separates flyover levels (0.08775ms)
+✔ road-neighborhood reuse preserves reference support and invalidates on tile publication (1.105958ms)
+✔ rail roofs support above contact without snapping a car from underneath (0.143417ms)
+✔ render interpolation restores authoritative transforms and drops retired entities (0.303417ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 44.328625
+
+> pizza-to-picture-hall@0.1.0 test:route-motion
+> node scripts/test.mjs sim
+
+✔ spatial candidates cover randomized rotated OBB overlaps in stable active order (31.839541ms)
+✔ routing retries are bounded and graph/placement changes reject stale results (0.182042ms)
+✔ planning allowance refills with time and cannot be spent once per arbitrary render callback (0.690833ms)
+✔ complete vehicle pool reuses geometry and resets mutable vehicle state with a new generation (82.901375ms)
+✔ jump participants remain visible and retain edge identity through landing grace (47.762334ms)
+✔ bus board cache shares resources until the last user releases them (50.30075ms)
+✔ resumable bus planning advances without snapping to an old snapshot (46.832042ms)
+✔ indexed player hit query and pushout keep all-pairs response order (65.996334ms)
+✔ seeded rail spawn choices and coach poses ignore interleaved presentation randomness (153.739666ms)
+✔ actual Player state sequences are invariant at 30/60/90/120 presentation (265.643917ms)
+✔ jump preserves apex, momentum distance and five second cooldown after actual landing (15.349ms)
+✔ one-shot flight action is not repeated by multi-step presentation frames (43.873166ms)
+✔ road acceleration, braking distance and travel retain baseline golden values (10.914041ms)
+✔ visual random draws cannot affect precomputed simulation input and global RNG restores (18.939875ms)
+✔ resumable and sync routes match frozen legacy outcomes over directed stacked random routes (123.30175ms)
+✔ route job is lazy, bounded by operations, cancelable and invalidated by graph revision (2.758875ms)
+✔ route gate rejects pending target, graph, placement and mode changes before publication (4.01075ms)
+✔ route gate null result retries are delayed, while changed context can start immediately (36.399833ms)
+✔ actual Game route publication reanchors after50m of movement while the search is pending (6.388125ms)
+✔ fixed ticks sharing a presentation frame cannot each spend a fresh route slice (0.327416ms)
+✔ cached camera solids and road/roof supports equal exhaustive baseline at randomized points (307.777084ms)
+✔ neighborhood lists reuse within revision and invalidate after publication (0.3035ms)
+✔ exact road quad beyond nominal halfwidth and building roof corners are not rejected (17.751958ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 411.296042
+
+> pizza-to-picture-hall@0.1.0 build
+> node scripts/build.mjs
+
+vite v5.4.10 building for production...
+
+./fonts/fonts.css doesn't exist at build time, it will remain unchanged to be resolved at runtime
+transforming...
+✓ 121 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/client/index.html                         4.43 kB │ gzip:   2.01 kB
+dist/client/assets/tileworker-DlLUFAI1.js    855.66 kB
+dist/client/assets/index-BqqcYt0B.js       2,034.51 kB │ gzip: 602.63 kB
+
+(!) Some chunks are larger than 1500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.96s
+Built game assets + bounded bug-report Worker.
