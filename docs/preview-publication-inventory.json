@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "d2f70bd509d32cbdbe3eb1885537503423855ea4",
+  "source_commit": "b13ea789082bf5401ec7b0ba02a440628b73d1d2",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -41,7 +41,7 @@
     },
     {
       "path": "docs/mystery-immersion-epics.md",
-      "sha256": "395dfcf1a95fd192fa925d11860b6e44d270e9eebbba8ba1134411b7fb7590eb"
+      "sha256": "8211711c227447d4fe26a0972f5e05298ea354861d5560cc127fd8fcd7f0dee8"
     },
     {
       "path": "docs/performance/acceptance-thresholds.json",
@@ -2081,7 +2081,7 @@
     },
     {
       "path": "src/game/game.ts",
-      "sha256": "5cb8b6a375eacba2e591aa66a3ddb49027c1613e600775da6d9e6b6f770f6800"
+      "sha256": "14f1140cf55aa983fc31379c83dc4aef49cb07559579151845f49dafdefaeb06"
     },
     {
       "path": "src/game/jump-motion.ts",
@@ -2185,7 +2185,7 @@
     },
     {
       "path": "src/ui/flight-navigation.ts",
-      "sha256": "c1d082d65c14aeeb89333f49ec04f9735a34edf105d7718bbb18d2af22ed3810"
+      "sha256": "d1f009fa787bc756d6170109c0a1392b092e7f574475d157dad49f4c29a59d0f"
     },
     {
       "path": "src/ui/hud-layout.ts",
@@ -2921,7 +2921,7 @@
     },
     {
       "path": "tests/v21-fixes/delivery-road-cue.test.ts",
-      "sha256": "e4aee32691b162d23bbe33a8420fdf4c8a229c5e28bdb043b7196474dce7f401"
+      "sha256": "6a309ee94f4e184b8bfdc4a6e0d4d6e1bc9a86aa709272a14da7ab08fa831863"
     },
     {
       "path": "tests/v21-fixes/delivery-runtime.test.ts",
@@ -2966,6 +2966,10 @@
     {
       "path": "tests/v21-fixes/mobile-ui.test.ts",
       "sha256": "d7c6c5769d5e037b5cac5f633822bb2f7021258bc01895768fb2b13f561c8529"
+    },
+    {
+      "path": "tests/v21-fixes/navigation-route-source.test.ts",
+      "sha256": "a1d4d27446da669995235296fdd463648c663a764e75feb661cbb81831d38384"
     },
     {
       "path": "tests/v21-fixes/railway-crossings.test.ts",

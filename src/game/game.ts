@@ -1006,7 +1006,7 @@ export class Game {
     const flightStop = this.story?.destination ?? (flightOrder?.state === 'toPickup' ? flightOrder.pickup : flightOrder?.state === 'toDrop' ? flightOrder.drop : null);
     this.hud.flightNavigation(flightStop ? { x: P.x, z: P.z, yaw: this.player.yaw,
       flying: this.player.flying || this.player.jumping, descending: this.player.descending,
-      road: this.story ? this.story.localNavigation ?? roadNavigationCue(this.routeGuidanceBlocked ? undefined : this.route?.pts, this.route?.len ?? Math.hypot(flightStop.x-P.x,flightStop.z-P.z)) : undefined,
+      road: this.story && !this.player.airborne ? this.roadNavigation(flightStop) : undefined,
       target: { x: flightStop.x, z: flightStop.z, kind: flightOrder?.state === 'toPickup' ? 'pickup' : 'customer' } } : null, dt);
     this.updateCamera(dt);
     if (this.beacon.visible) {
@@ -1238,6 +1238,14 @@ export class Game {
     }
     this.drawMinimap();
   }
+  /** One local path for the ground cue, road ribbon and rotating minimap. */
+  private navigationRoadPoints() {
+    return this.player.flying || this.player.descending || this.player.jumping ? this.route?.pts || [] : this.routeGuide;
+  }
+  private roadNavigation(target: { x: number; z: number }) {
+    return this.story?.localNavigation ?? roadNavigationCue(this.routeGuidanceBlocked ? undefined : this.navigationRoadPoints(),
+      this.route?.len ?? Math.hypot(target.x - this.player.pos.x, target.z - this.player.pos.z), { yaw: this.player.yaw });
+  }
   drawMinimap() {
     const c = this.hud.el.minimap as HTMLCanvasElement; const g = c.getContext('2d')!;
     const W = c.width, R = 240, sc = (W / 2) / R, P = this.player.pos, yaw = this.player.yaw;
@@ -1254,7 +1262,7 @@ export class Game {
     const railways = railwayMapLayer(this.city.railway?.profiles || railwayNetwork().profiles);
     drawRailways(g, railways.nearby(P.x, P.z, R), sc);
     for (const l of metroCorridors(this.zone.metro.lines)) { g.strokeStyle = l.color; g.lineWidth = 3; g.setLineDash([10, 8]); g.beginPath(); l.center.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke(); g.setLineDash([]); }
-    if (this.route) { g.strokeStyle = this.routeColor; g.lineWidth = 3.5; g.lineJoin = 'round'; g.beginPath(); (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts).forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
+    if (this.route) { g.strokeStyle = this.routeColor; g.lineWidth = 3.5; g.lineJoin = 'round'; g.beginPath(); this.navigationRoadPoints().forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
     if (this.routeTarget) { g.fillStyle = '#FFB627'; g.beginPath(); g.arc(this.routeTarget.x, this.routeTarget.z, 14, 0, 7); g.fill(); }
     g.restore();
     g.fillStyle = '#FFB627'; g.beginPath(); g.moveTo(W / 2, W / 2 - 16); g.lineTo(W / 2 + 11, W / 2 + 12); g.lineTo(W / 2, W / 2 + 5); g.lineTo(W / 2 - 11, W / 2 + 12); g.closePath(); g.fill();
