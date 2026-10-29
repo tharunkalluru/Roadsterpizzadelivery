@@ -4,7 +4,7 @@ import { goFullscreen, fullscreenFallbackMessage } from './title';
 import { controlIcon } from './control-icons';
 import { installPrototypeTheme } from './theme';
 import { installPaintSafety, guardWorldPaint } from './paint-safety';
-import { mobileHudLayout, hudStatusLayout, type HudRect } from './hud-layout';
+import { mobileHudLayout, hudStatusLayout, hudTransientLayout, type HudRect } from './hud-layout';
 import { flightNavigationLayout, flightNavigationReadout, smoothFlightBearing, type FlightNavigationInput } from './flight-navigation';
 
 export type ContextAction = 'collect' | 'handover';
@@ -487,6 +487,17 @@ const CSS = `
 #hud .flight-nav-hint{font:700 11px/1.1 var(--body);color:var(--muted);white-space:nowrap}
 #hud .flight-navigation[data-compact=true]{gap:6px;padding:4px 8px}
 #hud .flight-navigation[data-compact=true] .flight-nav-arrow{width:28px;height:28px}
+
+#hud #hud-navigation-slot,#hud #hud-notice-slot{position:fixed;pointer-events:none;visibility:hidden}
+#hud .area-chip{position:fixed;display:block;box-sizing:border-box;padding:0 10px;border-radius:12px;font-size:11px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transform:none;transition:opacity 180ms ease-out}
+#hud .area-chip.show{transform:none}
+#hud .toast,#hud.compact-map .toast{position:fixed;box-sizing:border-box;min-height:0;max-height:none;padding:5px 8px;gap:5px;transform:none;white-space:normal;font-size:12px;line-height:1.15;overflow:hidden;pointer-events:none;box-shadow:0 2px 0 #130D20}
+#hud .toast.show,#hud.compact-map .toast.show{transform:none}
+#hud .toast>span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#hud.has-delivery-notice .toast{visibility:hidden!important}
+#hud[data-notice-space=false] .toast,#hud[data-notice-space=false] .du-notice{display:none!important}
+#hud .rescue{position:fixed;box-sizing:border-box;bottom:auto;margin:0;padding:4px 8px;max-width:none;white-space:normal;transform:none;font-size:11px;line-height:1.15;overflow:hidden}
+
 `;
 
 export class Hud {
@@ -535,6 +546,7 @@ export class Hud {
         <div class="pill wallet"><span style="color:var(--saffron)">${controlIcon('coin')}</span><span id="coins">0</span><span class="wallet-unit">coins</span></div>
         <canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas>
       </div>
+      <div id="hud-navigation-slot" aria-hidden="true"></div><div id="hud-notice-slot" aria-hidden="true"></div>
       <div class="toast" id="toast" aria-live="polite"></div>
       <div class="flight-navigation" id="flight-navigation" role="group" aria-label="Navigation guidance" hidden>
         <svg class="flight-nav-arrow" id="flight-nav-arrow" viewBox="0 0 32 32" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 27V5M6 15 16 5l10 10"/></svg>
@@ -598,9 +610,6 @@ export class Hud {
       const toggleWidth = this.el['orders-availability'].hidden ? 0 : this.el['orders-toggle'].getBoundingClientRect().width;
       const obstacles: HudRect[] = [];
       const { top: taskTop, mapTop, area } = hudStatusLayout(root.width, headerBottom, wallet.bottom - root.top, l.left - root.left, toggleWidth, obstacles);
-      this.root.style.setProperty('--area-top', `${area.top}px`);
-      this.root.style.setProperty('--area-left', `${area.left}px`);
-      this.root.style.setProperty('--area-width', `${area.width}px`);
       tasks.style.top = `${taskTop}px`; tasks.style.width = `${l.width}px`;
       const controls = mobileHudLayout(root.width, root.height, compact ? headerBottom + 8 : mapTop, tasks.getBoundingClientRect().bottom - root.top, insetLeft, insetRight, insetBottom);
       const taskLimit = portrait ? (root.height <= 650 ? controls.speed.top : controls.fly.top) - 88 : controls.leftSteer.top - 12;
@@ -618,9 +627,21 @@ export class Hud {
       const narrowFlight = touch && root.width < 600;
       const flightLeft = touch && !narrowFlight ? controls.rightSteer.left + controls.rightSteer.width : l.left - root.left + l.width;
       const flightRight = touch && !narrowFlight ? Math.min(map.left, controls.brake.left) : map.left;
-      this.positionFlightNavigation(root, headerBottom, area,
+      const navigation = this.positionFlightNavigation(root, headerBottom, area,
         { left: l.left - root.left, top: taskTop, width: flightLeft - (l.left - root.left), height: Math.max(0, taskBottom - taskTop) }, { ...map, left: flightRight },
         touch ? narrowFlight ? controls.leftSteer.top + 4 : controls.brake.top : root.height - 76, narrowFlight);
+      const blockers:HudRect[]=[map];
+      if(touch)blockers.push(controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump,controls.speed);
+      for(const id of ['orders-availability','prompt']) {
+        const element=this.el[id];if(element.hidden)continue;
+        const box=element.getBoundingClientRect();if(box.width&&box.height)blockers.push({left:box.left-root.left,top:box.top-root.top,width:box.width,height:box.height});
+      }
+      const notices=hudTransientLayout(root.width,root.height,headerBottom,Math.max(clock.height,level.height),navigation,blockers,insetLeft,insetRight,insetBottom);
+      const put=(element:HTMLElement,box:HudRect|null)=>{element.style.visibility=box?'':'hidden';if(box)position(element,box);else Object.assign(element.style,{width:'0px',height:'0px'});};
+      put(this.el['area-chip'],notices.area);if(notices.area)this.el['area-chip'].style.lineHeight=`${Math.max(1,notices.area.height-4)}px`;put(this.el.toast,notices.notice);put(this.el.rescue,notices.rescue);
+      put(this.el['hud-notice-slot'],notices.notice);
+      for(const key of ['left','top','width','height'] as const)this.root.style.setProperty(`--hud-notice-${key}`,`${notices.notice?.[key]||0}px`);
+      this.root.dataset.noticeSpace=String(!!notices.notice);
       this.root.style.setProperty('--task-bottom', `${Math.max(0, taskBottom)}px`);
       const offered = this.root.classList.contains('has-offer');
       const bounds = guidanceBounds(root.width, root.height, taskBottom, map.left, map.top + map.height, touch && !offered);
@@ -629,6 +650,7 @@ export class Hud {
         bounds.left = 12; bounds.top = 12; bounds.width = Math.max(0, root.width - 24); bounds.height = Math.max(0, root.height - 24);
       }
       Object.assign(this.el.guidance.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
+      this.root.dispatchEvent(new Event('hudlayoutchange'));
     };
     const resize = new ResizeObserver(layout);
     this.updateLayout = layout;
@@ -745,13 +767,16 @@ export class Hud {
     guardWorldPaint(this.root);
   }
   private positionFlightNavigation(root: HudRect, headerBottom: number, area: HudRect, tasks: HudRect, map: HudRect, controlsTop: number, narrow: boolean) {
-    const areaBottom = this.el['area-chip'].classList.contains('show') ? area.top + area.height : 0;
-    const box = flightNavigationLayout(root.width, root.height, headerBottom, areaBottom, tasks, map, controlsTop, narrow ? 44 : 48);
+    const box = flightNavigationLayout(root.width, root.height, headerBottom, 0, tasks, map, controlsTop, narrow ? 44 : 48);
     this.flightNavHasRoom = !!box;
     if (box) {
       Object.assign(this.el['flight-navigation'].style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, height: `${box.height}px`, right: 'auto', bottom: 'auto' });
       this.el['flight-navigation'].dataset.compact = String(box.width < 180 || box.height < 48);
-    } else this.flightNavigation(null);
+      const slot=this.el['hud-navigation-slot'];if(slot)Object.assign(slot.style,{left:`${box.left}px`,top:`${box.top}px`,width:`${box.width}px`,height:`${box.height}px`});
+    } else {
+      const slot=this.el['hud-navigation-slot'];if(slot)Object.assign(slot.style,{width:'0px',height:'0px'});
+      this.flightNavigation(null);
+    }
     return box;
   }
   // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
@@ -950,13 +975,14 @@ export class Hud {
   rescue(show: boolean, text = '') {
     const b = this.el.rescue; if (b.hidden === !show && (!show || b.dataset.t === text)) return;
     b.hidden = !show; if (show) { b.dataset.t = text; b.textContent = text + (document.documentElement.classList.contains('is-touch') ? '' : ' (R)'); }
+    this.updateLayout();
   }
   areaT = 0;
-  areaChip(name: string, label = 'Entering') {
-    const c = this.el['area-chip'], wasVisible = c.classList.contains('show'); c.innerHTML = `<small>${label.replace(/[<>&]/g, '')}</small><span class="area-name">${name.replace(/[<>&]/g, '')}</span>`; c.classList.add('show');
-    if (!wasVisible) this.updateLayout();
-    clearTimeout(this.areaT); this.areaT = window.setTimeout(() => { c.classList.remove('show'); this.updateLayout(); }, 4200);
+  areaChip(name: string, _label?: string) {
+    const c = this.el['area-chip']; c.textContent=name;c.title=name;c.classList.add('show');
+    clearTimeout(this.areaT);this.areaT=window.setTimeout(()=>c.classList.remove('show'),4200);
   }
+
   get tipOpen() { return !this.el['tip-layer'].hidden; }
   private acknowledgeTip() { if (!this.tipOpen) return; this.tipAcknowledgement(null); this.onButton('tip-close'); }
   tipAcknowledgement(text: string | null) {

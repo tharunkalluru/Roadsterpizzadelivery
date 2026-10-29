@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "b13ea789082bf5401ec7b0ba02a440628b73d1d2",
+  "source_commit": "aa5c48b23ac167f2ee8abde6bd27ff47d8b9ca5a",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -14,6 +14,38 @@
     {
       "path": "db/schema.ts",
       "sha256": "a1c3289283333f46e898f8940d6779029f82584f6a75430507b076686be161f7"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/game-flight.png",
+      "sha256": "70bf43c3beca0c28d038bab71204a91b2ed3ab08ea0d9b33a3e84a7f0808a990"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-1280x720.json",
+      "sha256": "535add03e9006bb513c9c6e0352d1cdec2b7a1a9c703b49e9eb87b49a5f27ddb"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-568x320.json",
+      "sha256": "e8bc89d167d0bd9fe6361b2afe242e2a45e2c30d52ef9f498f3b692f90f6f7fa"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-568x320.png",
+      "sha256": "caee33d8e0ef8d71ee3c98dfea15a1b8e06099e9b4ae01212fc2a5cdf0d2530c"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-667x375.json",
+      "sha256": "a97e6bb3f0bf50e8e8d01257ede572c8de84392673fca9d428f19965f1d098a0"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-667x375.png",
+      "sha256": "1472605b01ca421d3db6fe01e1bdc1d1b2c6f13d18b68409585b5a9c0c346afe"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-800x360.json",
+      "sha256": "dc81cc54c49f7e8425a6829147cb5431bf2e96bc76f4e723d9cf76980891761a"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-800x360.png",
+      "sha256": "6a2e2a5db14ba99b73c69f847721b0771c9544a4549c5ab8bff9af3cf29ce3e8"
     },
     {
       "path": "docs/delivery/evidence/immersion-v2/map-districts.png",
@@ -41,7 +73,7 @@
     },
     {
       "path": "docs/mystery-immersion-epics.md",
-      "sha256": "8211711c227447d4fe26a0972f5e05298ea354861d5560cc127fd8fcd7f0dee8"
+      "sha256": "29cf3023f52269f77ba009aeb50328c07d1f8cece5617bc45b3af2b41765bec0"
     },
     {
       "path": "docs/performance/acceptance-thresholds.json",
@@ -2037,11 +2069,11 @@
     },
     {
       "path": "src/delivery/ui/call-button-layout.ts",
-      "sha256": "97f85a42778874af8786789eadc11c09b5a20c21e51433a8e6ed1c4715337736"
+      "sha256": "4969468076163e5ce2e0ab750217c89a2442fda68b332a2a831fc815caa634fc"
     },
     {
       "path": "src/delivery/ui/delivery-ui.ts",
-      "sha256": "b26046e83a6ed956d8b4c33dc0f33c7e61e3519dbae7851feb8a78fa7f28c896"
+      "sha256": "145868575092474a7512d6562ecd45b8454c4c281a05177f63a711941eee3264"
     },
     {
       "path": "src/delivery/ui/restaurant.ts",
@@ -2185,15 +2217,15 @@
     },
     {
       "path": "src/ui/flight-navigation.ts",
-      "sha256": "d1f009fa787bc756d6170109c0a1392b092e7f574475d157dad49f4c29a59d0f"
+      "sha256": "d5249133777000394d98a049c0cdbc5a4d9a4b06b8e425cf45cd0720c64182a7"
     },
     {
       "path": "src/ui/hud-layout.ts",
-      "sha256": "aeb58f84c0eae0abaa30c15dc5f3bfdc620d30b818392ea60d31853c8ae4a8ae"
+      "sha256": "85cd1b094fdfce0fb74d8274c070c074fd9a1cfa90b3afd1b45e118c80c91518"
     },
     {
       "path": "src/ui/hud.ts",
-      "sha256": "ca5c1ede2f53583a45e26def8dc88fe0a988a1b7a9b0eea604e88fce00db8b8d"
+      "sha256": "34d51ff406fc15d24c7844c56d188ad9aa2c6e4034067110d9a2afdcb308edd3"
     },
     {
       "path": "src/ui/landmark-icons.ts",
@@ -2512,6 +2544,14 @@
       "sha256": "ee699b2e69beb84bd8221ddf0496fff04a04e990f47d73d4bdbaca2c19072e94"
     },
     {
+      "path": "tests/browser/hud-notices.browser.ts",
+      "sha256": "8397c9a4f0e29416071c9f9188763931278b0c66185a97c9d847f42f70f1ca72"
+    },
+    {
+      "path": "tests/browser/hud-notices.html",
+      "sha256": "267fa59a73bc689088d84a170f3903f4a952908d7f0da35f02cc76ad00067fea"
+    },
+    {
       "path": "tests/browser/title-layout.browser.ts",
       "sha256": "7d1256c79257a48ff01d007b1775dd0fa4f131dc9da6c63574b9957fdbf2d3fb"
     },
@@ -2789,7 +2829,7 @@
     },
     {
       "path": "tests/legacy/v2-ui-regressions.mjs",
-      "sha256": "94b42ed4f4709e05ef08960ce54124e25ae9f010c601da8cbdb9d94984caaf5a"
+      "sha256": "d7b2a854a0bab300b4862af3d517111b582ae57e7531582d08c8e5dbf0013801"
     },
     {
       "path": "tests/person-geometry-lifetime.test.ts",
@@ -2941,7 +2981,7 @@
     },
     {
       "path": "tests/v21-fixes/delivery-ui.test.ts",
-      "sha256": "6b3fb2da8dee715abf501549680e8c5aaee22739b3470a7a2bbec462078faff5"
+      "sha256": "c3d6ca6f3e758599c20498f8882e1c31cc809ec7bad064f009dd22587720c20d"
     },
     {
       "path": "tests/v21-fixes/delivery-world.test.ts",
@@ -2949,7 +2989,11 @@
     },
     {
       "path": "tests/v21-fixes/flight-navigation.test.ts",
-      "sha256": "e14feaf4d20466bdbe351671ba595aa819e600a193d960b58dfa87d22adcdd35"
+      "sha256": "cd57e8eccde50e4dd1e675a17f3b9a8c78e1737ed7dccbe7b1cb532464d78670"
+    },
+    {
+      "path": "tests/v21-fixes/hud-notice-layout.test.ts",
+      "sha256": "148b9ded849dbe60307dfeadf47150ee3f4ab0ee1e4f7783421e6d0549ef9bbd"
     },
     {
       "path": "tests/v21-fixes/map-labels.test.ts",

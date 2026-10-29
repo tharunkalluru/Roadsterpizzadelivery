@@ -34,7 +34,7 @@ export const DELIVERY_UI_CSS = `
 .du-call[data-state=enabled] svg{animation:du-call-ready 1.5s ease-in-out 2}
 .du-call[data-state=ringing] svg{animation:du-call-ring .9s ease-in-out infinite}
 .du-action-hint{margin:0;padding:6px 9px;border-radius:9px;background-color:#271936!important;color:#FFF1D8;font-size:11px;line-height:1.2;text-align:center}
-.du-notice{position:absolute;left:50%;top:100px;transform:translateX(-50%);max-width:min(330px,44vw);border-radius:12px;background-color:#271936!important;border:1px solid #8B6BA6;padding:7px 11px;font-size:13px;font-weight:700;text-align:center}
+.du-notice{box-sizing:border-box;position:fixed;left:var(--hud-notice-left,18px);top:var(--hud-notice-top,105px);width:var(--hud-notice-width,180px);height:var(--hud-notice-height,48px);margin:0;border-radius:10px;background-color:#271936!important;border:1px solid #8B6BA6;padding:6px 8px;font-size:11px;font-weight:700;line-height:14px;text-align:left;overflow:hidden;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
 .du-overlay{position:absolute;inset:0;padding:max(12px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));display:grid;place-items:center;background-color:#171125!important;pointer-events:auto;box-sizing:border-box;z-index:15;touch-action:pan-y}
 .du-sheet{box-sizing:border-box;width:min(720px,100%);max-height:100%;overflow:auto;overscroll-behavior:contain;background-color:#271936!important;border:2px solid #8B6BA6;border-radius:24px;padding:20px;box-shadow:0 5px 0 #100A18}
 .du-phone{display:grid;grid-template-columns:170px 1fr;gap:18px;max-width:650px;border-color:#20E8D0}
@@ -69,8 +69,8 @@ export const DELIVERY_UI_CSS = `
 @media(prefers-reduced-motion:reduce){.du-grand-opening .du-opening-door-left,.du-grand-opening .du-opening-door-right{transition:none}}
 @keyframes du-call-ready{50%{transform:scale(1.14)}}
 @keyframes du-call-ring{0%,50%,100%{transform:rotate(0)}15%{transform:rotate(-16deg)}30%{transform:rotate(16deg)}}
-@media(max-height:520px){.du-collection-button{top:10px;min-height:44px!important;padding:5px 9px!important;font-size:9px}.du-sheet{padding:14px;border-radius:20px}.du-phone{grid-template-columns:130px 1fr;gap:14px}.du-avatar{width:80px;height:80px}.du-caller-name{font-size:13px}.du-line{font-size:17px}.du-completion{gap:14px}.du-completion .du-avatar{width:76px;height:76px}.du-restaurant>svg{max-height:150px}.du-grand-opening .du-restaurant>svg{max-height:120px}.du-restaurant-label{font-size:12px;margin:3px 0 7px}.du-completion h2{font-size:21px}.du-collection-content{grid-template-columns:170px 1fr}.du-actions button{min-height:44px;font-size:11px;padding:6px 9px}.du-action-hint{font-size:10px}.du-notice{top:74px;font-size:11px}}
-@media(max-width:600px){.du-phone{grid-template-columns:90px 1fr;gap:10px}.du-avatar{width:65px;height:65px}.du-caller-name{font-size:11px}.du-line{font-size:15px}.du-call-footer button{padding:5px 7px;font-size:10px}.du-completion{grid-template-columns:1fr 1fr;gap:10px}.du-collection-content{grid-template-columns:1fr}.du-collection-content>.du-restaurant{display:none}.du-notice{max-width:36vw}.du-collection-button span{display:none}.du-collection-button{min-width:44px}}
+@media(max-height:520px){.du-collection-button{top:10px;min-height:44px!important;padding:5px 9px!important;font-size:9px}.du-sheet{padding:14px;border-radius:20px}.du-phone{grid-template-columns:130px 1fr;gap:14px}.du-avatar{width:80px;height:80px}.du-caller-name{font-size:13px}.du-line{font-size:17px}.du-completion{gap:14px}.du-completion .du-avatar{width:76px;height:76px}.du-restaurant>svg{max-height:150px}.du-grand-opening .du-restaurant>svg{max-height:120px}.du-restaurant-label{font-size:12px;margin:3px 0 7px}.du-completion h2{font-size:21px}.du-collection-content{grid-template-columns:170px 1fr}.du-actions button{min-height:44px;font-size:11px;padding:6px 9px}.du-action-hint{font-size:10px}}
+@media(max-width:600px){.du-phone{grid-template-columns:90px 1fr;gap:10px}.du-avatar{width:65px;height:65px}.du-caller-name{font-size:11px}.du-line{font-size:15px}.du-call-footer button{padding:5px 7px;font-size:10px}.du-completion{grid-template-columns:1fr 1fr;gap:10px}.du-collection-content{grid-template-columns:1fr}.du-collection-content>.du-restaurant{display:none}.du-collection-button span{display:none}.du-collection-button{min-width:44px}}
 @media(prefers-reduced-motion:reduce){.du-call[data-state=enabled] svg,.du-call[data-state=ringing] svg{animation:none}}
 `;
 
@@ -92,6 +92,8 @@ export class DeliveryUI {
   private layoutTimer = 0;
   private layoutKey = '';
   private keyboardMode = false;
+  private noticeActive = false;
+  private hostLayoutHandler = () => this.onHostLayout();
   private keyHandler: (event: KeyboardEvent) => void;
 
   constructor(private host: HTMLElement, actions: DeliveryUIActions) {
@@ -128,6 +130,7 @@ export class DeliveryUI {
       if (event.code === 'KeyE' && this.model?.action?.enabled) { event.preventDefault(); this.callback.drop(); }
     };
     document.addEventListener('keydown', this.keyHandler);
+    host.addEventListener('hudlayoutchange', this.hostLayoutHandler);
     if (typeof ResizeObserver !== 'undefined') { this.resize = new ResizeObserver(() => this.layoutDirty = true); this.resize.observe(host); }
   }
 
@@ -136,6 +139,7 @@ export class DeliveryUI {
   setVisible(visible: boolean) {
     if (this.root.hidden === !visible) return;
     this.root.hidden = !visible; this.layoutDirty = true;
+    this.syncNoticePriority();
     if (!visible) this.opening?.finish();
     if (!visible) this.dialogFocus.hide(); else { this.syncDialog(); if (this.currentDialog) this.dialogFocus.show(); }
   }
@@ -153,7 +157,7 @@ export class DeliveryUI {
     if (action.disabled !== !model.action?.enabled) action.disabled = !model.action?.enabled;
     this.text('drop-label', model.action?.label || 'Drop');
     this.hide(el.hint, !model.action?.hint || action.hidden); this.text('hint', model.action?.hint || '');
-    this.hide(el.notice, !model.notice || this.blocking); this.text('notice', model.notice || '');
+    this.syncNoticePriority(); this.text('notice', model.notice || '');
     this.hide(el['collection-button'], !!model.phone || !!model.completion);
     if (model.phone) this.updatePhone(model);
     if (model.completion) this.updateCompletion(model);
@@ -169,6 +173,19 @@ export class DeliveryUI {
 
   private text(name: string, value: string) { if (this.elements[name].textContent !== value) this.elements[name].textContent = value; }
   private hide(element: HTMLElement, hidden: boolean) { if (element.hidden !== hidden) element.hidden = hidden; }
+  private syncNoticePriority() {
+    const active = !this.root.hidden && !this.blocking && !!this.model?.notice?.trim();
+    this.hide(this.elements.notice, !active);
+    if (this.noticeActive !== active) {
+      this.host.classList.toggle('has-delivery-notice', active);
+      this.noticeActive = active;
+    }
+  }
+  private onHostLayout() {
+    this.layoutDirty = true;
+    if (this.root.hidden) return;
+    this.layout(); this.layoutTimer = performance.now(); this.layoutDirty = false;
+  }
   private avatar(element: HTMLElement, name: string, image?: string, revealed = true) {
     element.replaceChildren();
     const url = revealed ? portraitUrl(image) : '';
@@ -251,6 +268,7 @@ export class DeliveryUI {
     if (next !== 'completion') this.opening?.finish();
     for (const name of ['phone', 'completion', 'collection']) this.hide(el[name], next !== name);
     this.hide(el.overlay, !next);
+    this.syncNoticePriority();
     if (this.root.dataset.dialog !== next) this.root.dataset.dialog = next;
     if (next !== this.currentDialog) {
       el.overlay.setAttribute('aria-label', next === 'phone' ? 'Phone call' : next === 'completion' ? 'Delivery complete' : 'My restaurant');
@@ -271,8 +289,19 @@ export class DeliveryUI {
     };
     const anchor = touch ? measured(jump) : null;
     const obstacles: CallButtonRect[] = [];
-    for (const element of this.host.querySelectorAll<HTMLElement>('#minimap,.touch button,.btnrow button,.h-tc,.wallet,#orders-toggle,#flight-navigation,.speed,#area-chip,#rescue,#t-act,.du-collection-button,.du-notice')) {
+    for (const element of this.host.querySelectorAll<HTMLElement>('#minimap,.touch button,.btnrow button,.h-tc,.wallet,#orders-toggle,#flight-navigation,#hud-navigation-slot,#hud-notice-slot,.speed,#area-chip,#rescue,#t-act,.du-collection-button,.du-notice')) {
       const rect = measured(element); if (rect) obstacles.push(rect);
+    }
+    // Reserve the host-owned notice lane even between messages, so phone and
+    // delivery actions do not move into it immediately before a notice arrives.
+    // The opacity-hidden area chip above it intentionally remains an obstacle.
+    if (this.host.dataset?.noticeSpace !== 'false' && !measured(this.host.querySelector('#hud-notice-slot'))) {
+      const hostStyle = typeof getComputedStyle === 'function' ? getComputedStyle(this.host) : null;
+      const noticeValue = (name: string, fallback: number) => {
+        const value = Number.parseFloat(hostStyle?.getPropertyValue(`--hud-notice-${name}`) || '');
+        return Number.isFinite(value) ? value : fallback;
+      };
+      obstacles.push({ left: noticeValue('left', 18), top: noticeValue('top', 105), width: noticeValue('width', 180), height: noticeValue('height', 48) });
     }
     const insets = this.host.querySelector<HTMLElement>('#hud-insets');
     const padding = insets && typeof getComputedStyle === 'function' ? getComputedStyle(insets) : null;
@@ -314,6 +343,8 @@ export class DeliveryUI {
     if (placement) Object.assign(call.style, { left: `${placement.left}px`, top: `${placement.top}px`, width: `${placement.width}px`, height: `${placement.height}px`, right: 'auto', bottom: 'auto' });
   }
   dispose() {
+    this.host.removeEventListener('hudlayoutchange', this.hostLayoutHandler);
+    this.host.classList.remove('has-delivery-notice');
     this.opening?.dispose(); this.opening = null;
     this.dialogFocus.hide(); this.resize?.disconnect(); document.removeEventListener('keydown', this.keyHandler); this.root.remove();
   }

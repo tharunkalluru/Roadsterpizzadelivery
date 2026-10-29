@@ -1,3 +1,4 @@
+import { overlayBlockLayout } from '../delivery/ui/call-button-layout';
 export interface HudRect { left: number; top: number; width: number; height: number }
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 // Keep the area notice centered on the availability row, below the measured
@@ -42,4 +43,29 @@ export function mobileHudLayout(width: number, height: number, mapTop: number, _
   const contextWidth = Math.min(220, contextEnd - steerEnd - 24);
   const context = R((steerEnd + contextEnd - contextWidth) / 2, contextTop, contextWidth, 64);
   return { portrait, compactMap, oldBrake, leftSteer, rightSteer, brake, gas, fly, jump, speed, map, context };
+}
+
+/** Lower-priority overlays move around the reserved navigation, never vice versa. */
+export function hudTransientLayout(width:number,height:number,headerBottom:number,badgeHeight:number,navigation:HudRect|null,blockers:readonly HudRect[],left=18,right=18,bottom=18) {
+  const bounds={left,top:headerBottom+8,width:Math.max(0,width-left-right),height:Math.max(0,height-bottom-headerBottom-8)};
+  const obstacles=[...blockers,...(navigation?[navigation]:[])];
+  const place=(w:number,h:number,x:number,y:number,avoid:readonly HudRect[])=>overlayBlockLayout(bounds,avoid,{width:w,height:h},{left:x,top:y+h+8,width:w,height:0});
+  const available=navigation?Math.max(100,navigation.left-left-8):180;
+  const areaWidth=Math.min(180,available,bounds.width),chipHeight=badgeHeight>0?badgeHeight:28;
+  const area=place(areaWidth,chipHeight,left,headerBottom+8,obstacles);
+  if(area)obstacles.push(area);
+  let notice:HudRect|null=null;
+  for(const w of [areaWidth,140,120]) {
+    if(w>bounds.width)continue;
+    notice=place(w,48,left,(area?area.top+area.height:headerBottom)+8,obstacles);
+    if(notice)break;
+  }
+  if(notice)obstacles.push(notice);
+  let rescue:HudRect|null=null;
+  for(const w of [320,240,180,140]) {
+    if(w>bounds.width)continue;
+    rescue=place(w,48,(width-w)/2,navigation?navigation.top+navigation.height+8:headerBottom+8,obstacles);
+    if(rescue)break;
+  }
+  return {area,notice,rescue};
 }

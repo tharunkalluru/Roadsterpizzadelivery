@@ -67,7 +67,7 @@ test('compact guidance keeps its own free lane on supported landscape phone size
       { ...tasks, width: left - tasks.left }, { ...controls.map, left: Math.min(controls.map.left, controls.brake.left) }, controls.brake.top);
     assert.ok(box, `${width}x${height}`);
     assert.ok(box!.width >= 156 && box!.width <= 180 && box!.height <= 64);
-    assert.ok(box!.left >= 12 && box!.left + box!.width <= width - 12 && box!.top >= 112);
+    assert.ok(box!.left >= 12 && box!.left + box!.width <= width - 12 && box!.top === 62);
     for (const blocker of [tasks, controls.map, controls.leftSteer, controls.rightSteer, controls.brake, controls.gas, controls.fly, controls.jump, controls.speed]) {
       assert.equal(overlaps(box, blocker), false, `${width}x${height} intersects ${JSON.stringify(blocker)}`);
     }
@@ -130,7 +130,7 @@ test('HUD hides immediately for no job, ground, blocked surfaces, rotation and h
   } finally { (globalThis as any).document = previous; }
 });
 
-test('production HUD reclaims the top guidance lane while the area notice is hidden',()=>{
+test('production HUD keeps the navigation rectangle fixed while area notices show and expire',()=>{
   for(const [width,height] of [[568,320],[640,280],[800,360],[852,393],[918,384],[1280,720]]){
     const controls=mobileHudLayout(width,height,62,106),narrow=width<600;
     const area={left:(width-300)/2,top:62,width:300,height:42};
@@ -142,17 +142,16 @@ test('production HUD reclaims the top guidance lane while the area notice is hid
     for(const visible of [false,true,false]){
       visible?classes.add('show'):classes.delete('show');
       const box=hud.positionFlightNavigation(...args);
-      assert.equal(box.top,visible?112:62,`${width}×${height}: hidden area cannot reserve a row`);
+      assert.equal(box.top,62,`${width}×${height}: notice visibility cannot move navigation`);
       assert.equal(box.height,narrow?44:48,'quiet strip has no oversized 64px default');
       assert.equal(panel.style['height' as keyof typeof panel.style],`${narrow?44:48}px`);
       const blockers=[{left:0,top:0,width,height:54},controls.map,controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump,controls.speed];
-      if(visible)blockers.push(area);
       for(const blocker of blockers)assert.equal(overlaps(box,blocker),false,`${width}×${height}: guidance overlaps ${JSON.stringify(blocker)}`);
     }
   }
 });
 
-test('area notice refreshes layout only on visibility transitions and replaces its single expiry timer',()=>{
+test('area notice is name-only and replaces its timer without relaying out navigation',()=>{
   const priorWindow=(globalThis as any).window,priorClear=globalThis.clearTimeout;
   let timerId=0,layouts=0;const timers=new Map<number,()=>void>(),classes=new Set<string>();
   const chip={innerHTML:'',classList:{contains:(name:string)=>classes.has(name),add:(name:string)=>classes.add(name),remove:(name:string)=>classes.delete(name)}};
@@ -160,11 +159,24 @@ test('area notice refreshes layout only on visibility transitions and replaces i
   try{
     (globalThis as any).window={setTimeout(fn:()=>void,ms:number){assert.equal(ms,4200);timers.set(++timerId,fn);return timerId;}};
     (globalThis as any).clearTimeout=(id:number)=>timers.delete(id);
-    hud.areaChip('RTC X Roads');assert.equal(layouts,1);assert.equal(classes.has('show'),true);assert.equal(timers.size,1);
+    hud.areaChip('RTC X Roads');assert.equal(chip['textContent'],'RTC X Roads');assert.equal(layouts,0);assert.equal(classes.has('show'),true);assert.equal(timers.size,1);
     for(let i=0;i<20;i++)hud.areaChip(`Neighbourhood ${i}`);
-    assert.equal(layouts,1,'content changes within the same visible row do not repeat full HUD layout');assert.equal(timers.size,1);
+    assert.equal(layouts,0,'notice content must never move navigation');assert.equal(timers.size,1);
     const expire=timers.get(timerId)!;timers.delete(timerId);expire();
-    assert.equal(classes.has('show'),false);assert.equal(layouts,2,'expiry immediately reclaims the guidance row');
-    hud.areaChip('HITEC City');assert.equal(layouts,3);assert.equal(timers.size,1);
+    assert.equal(classes.has('show'),false);assert.equal(layouts,0,'expiry cannot move navigation');
+    hud.areaChip('HITEC City','Nearby');assert.equal(chip['textContent'],'HITEC City');assert.equal(layouts,0);assert.equal(timers.size,1);
   }finally{(globalThis as any).window=priorWindow;globalThis.clearTimeout=priorClear;}
+});
+
+
+test('invalid viewport clears the old reserved navigation bounds and restores them on resize',()=>{
+  const slot={style:{} as Record<string,string>},panel={style:{},dataset:{}};let hidden=0;
+  const hud:any=Object.assign(Object.create(Hud.prototype),{el:{'hud-navigation-slot':slot,'flight-navigation':panel},flightNavigation(){hidden++;}});
+  const root={left:0,top:0,width:800,height:360},area={left:18,top:62,width:180,height:28},tasks={left:18,top:62,width:200,height:0},map={left:660,top:62,width:122,height:122};
+  assert.ok(hud.positionFlightNavigation(root,54,area,tasks,map,250,false));
+  assert.equal(slot.style.width,'180px');assert.equal(slot.style.height,'48px');
+  assert.equal(hud.positionFlightNavigation({...root,height:130},54,area,tasks,map,90,false),null);
+  assert.equal(slot.style.width,'0px');assert.equal(slot.style.height,'0px');assert.equal(hidden,1);
+  assert.ok(hud.positionFlightNavigation(root,54,area,tasks,map,250,false));
+  assert.equal(slot.style.width,'180px');assert.equal(slot.style.height,'48px');
 });

@@ -45,8 +45,14 @@ export function callButtonLayout(bounds: CallButtonRect, obstacles: readonly Cal
 /** Place the complete delivery action, including its instruction, independently
  * of input mode. Desktop can also run in a shallow landscape window. */
 export function actionBlockLayout(bounds:CallButtonRect,obstacles:readonly CallButtonRect[],size:{width:number;height:number},anchor?:CallButtonRect):CallButtonRect|null {
-  const width=Math.ceil(size.width),height=Math.ceil(size.height);
-  if(width<44||height<44||width>bounds.width||height>bounds.height)return null;
+  if(size.width<44||size.height<44)return null;
+  return overlayBlockLayout(bounds,obstacles,{width:Math.ceil(size.width),height:Math.ceil(size.height)},anchor);
+}
+
+/** Shared geometry placement; noninteractive badges may be shorter than buttons. */
+export function overlayBlockLayout(bounds:CallButtonRect,obstacles:readonly CallButtonRect[],size:{width:number;height:number},anchor?:CallButtonRect):CallButtonRect|null {
+  const width=Math.ceil(size.width),height=size.height;
+  if(width<=0||height<=0||width>bounds.width||height>bounds.height)return null;
   const minX=Math.ceil(bounds.left),minY=Math.ceil(bounds.top),maxX=Math.floor(bounds.left+bounds.width-width),maxY=Math.floor(bounds.top+bounds.height-height);
   const clampX=(x:number)=>Math.max(minX,Math.min(maxX,Math.round(x))),clampY=(y:number)=>Math.max(minY,Math.min(maxY,Math.round(y)));
   const preferredX=clampX(anchor?anchor.left+(anchor.width-width)/2:maxX),preferredY=clampY(anchor?anchor.top-height-GAP:maxY-78);

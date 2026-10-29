@@ -13,6 +13,7 @@ const test = async (label, run) => { await run(); checks++; console.log(`PASS ${
 class Events {
   events = new Map();
   addEventListener(type, fn) { if (!this.events.has(type)) this.events.set(type, []); this.events.get(type).push(fn); }
+  dispatchEvent(event) { for (const fn of [...this.events.get(event.type) || []]) fn(event); return !event.defaultPrevented; }
   emit(type, values = {}) {
     const event = { pointerId: 1, clientX: 0, clientY: 0, button: 0, isPrimary: true, prevented: false, stopped: false, preventDefault() { this.prevented = true; }, stopPropagation() { this.stopped = true; }, stopImmediatePropagation() { this.stopped = true; }, ...values };
     for (const fn of [...this.events.get(type) || []]) fn(event);

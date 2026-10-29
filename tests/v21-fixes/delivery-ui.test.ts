@@ -141,7 +141,7 @@ test('phone state updates keep icon-only Call and Answer accessible and never re
     getAttribute(name: string) { return this.attributes[name]; }, setAttribute(name: string, value: string) { this.attributes[name] = value; } });
   const names = ['call', 'drop', 'drop-label', 'hint', 'notice', 'collection-button'];
   const elements = Object.fromEntries(names.map(name => [name, element()]));
-  const ui: any = Object.assign(Object.create(DeliveryUI.prototype), { root: { hidden: false }, elements, opening: null, collectionShown: false,
+  const ui: any = Object.assign(Object.create(DeliveryUI.prototype), { root: { hidden: false }, host: { classList: { toggle() {} } }, elements, opening: null, collectionShown: false,
     layoutDirty: false, layoutTimer: performance.now(), syncDialog() {}, layout() {}, updatePhone() {}, updateCompletion() {} });
   const model: any = { level: 1, total: 7, stage: 'EN_ROUTE', restaurantStage: 0, restaurantLabel: 'Dream', collection: [], nav: { label: 'Destination', distance: 10, angle: 0 }, call: { state: 'disabled', label: 'Unrevealed celebrity' } };
   ui.update(model); assert.equal(elements.call.disabled, true); assert.equal(elements.call.hidden, false);
@@ -154,4 +154,111 @@ test('phone state updates keep icon-only Call and Answer accessible and never re
   assert.equal(DELIVERY_UI_CSS.includes('.du-nav'), false, 'only the host navigation remains');
   assert.ok(DELIVERY_UI_CSS.includes('.du-call[data-state=enabled] svg,.du-call[data-state=ringing] svg{animation:none}'), 'both attention states honor reduced motion');
   assert.equal(/\.du-call\[data-state=disabled\][^{]*\{[^}]*animation/.test(DELIVERY_UI_CSS), false, 'idle/disabled cannot flash');
+});
+
+function noticeFixture() {
+  const classes = new Set<string>(); let classWrites = 0;
+  const element = () => ({ hidden: false, disabled: false, textContent: '', dataset: {} as Record<string, string>, title: '',
+    attributes: {} as Record<string, string>, getAttribute(name: string) { return this.attributes[name]; },
+    setAttribute(name: string, value: string) { this.attributes[name] = value; } });
+  const elements = Object.fromEntries(['call', 'drop', 'drop-label', 'hint', 'notice', 'collection-button', 'phone', 'completion', 'collection', 'overlay'].map(key => [key, element()]));
+  const removedListeners: string[] = [];
+  const host = { removeEventListener(name: string) { removedListeners.push(name); }, classList: { toggle(name: string, active: boolean) { classWrites++; active ? classes.add(name) : classes.delete(name); }, remove(name: string) { classes.delete(name); } } };
+  const ui: any = Object.assign(Object.create(DeliveryUI.prototype), { host, root: { hidden: false, dataset: {}, remove() {} }, elements,
+    model: null, opening: null, collectionShown: false, currentDialog: '', layoutDirty: false, layoutTimer: performance.now(), noticeActive: false,
+    callback: {}, dialogFocus: { show() {}, hide() {} }, keyHandler() {}, layout() {}, updatePhone() {}, updateCompletion() {}, updateCollection() {} });
+  const model: any = { level: 1, total: 7, stage: 'SETPIECE', restaurantStage: 0, restaurantLabel: 'Dream', collection: [], call: { state: 'enabled' } };
+  return { ui, model, elements, classes, removedListeners, writes: () => classWrites };
+}
+
+test('delivery notice owns host priority only while visible and clears for calls, collection, hide and disposal', () => {
+  const savedDocument = Object.getOwnPropertyDescriptor(globalThis, 'document');
+  Object.defineProperty(globalThis, 'document', { configurable: true, value: { removeEventListener() {} } });
+  try {
+    const f = noticeFixture(); f.ui.update(f.model);
+    assert.equal(f.classes.has('has-delivery-notice'), false); assert.equal(f.elements.notice.hidden, true);
+    f.model.notice = 'Stay near the surface and try again.'; f.ui.update(f.model);
+    assert.equal(f.classes.has('has-delivery-notice'), true); assert.equal(f.elements.notice.hidden, false);
+    const writes = f.writes(); for (let i = 0; i < 100; i++) f.ui.update(f.model);
+    assert.equal(f.writes(), writes, 'unchanged notice state does not rewrite the host priority class');
+    f.ui.setVisible(false); assert.equal(f.classes.has('has-delivery-notice'), false); assert.equal(f.elements.notice.hidden, true);
+    f.ui.setVisible(true); assert.equal(f.classes.has('has-delivery-notice'), true);
+    f.model.phone = {}; f.ui.update(f.model);
+    assert.equal(f.classes.has('has-delivery-notice'), false); assert.equal(f.elements.notice.hidden, true);
+    f.model.phone = undefined; f.ui.update(f.model); assert.equal(f.classes.has('has-delivery-notice'), true);
+    f.ui.openCollection(); assert.equal(f.classes.has('has-delivery-notice'), false);
+    f.ui.closeCollection(); assert.equal(f.classes.has('has-delivery-notice'), true);
+    f.model.completion = {}; f.ui.update(f.model); assert.equal(f.classes.has('has-delivery-notice'), false);
+    f.model.completion = undefined; f.ui.update(f.model); assert.equal(f.classes.has('has-delivery-notice'), true);
+    f.model.notice = '   '; f.ui.update(f.model); assert.equal(f.classes.has('has-delivery-notice'), false);
+    f.model.notice = 'Retry safely.'; f.ui.update(f.model); assert.equal(f.classes.has('has-delivery-notice'), true);
+    f.ui.dispose(); assert.equal(f.classes.has('has-delivery-notice'), false);
+    assert.deepEqual(f.removedListeners, ['hudlayoutchange'], 'disposal releases the synchronous host layout listener');
+  } finally {
+    if (savedDocument) Object.defineProperty(globalThis, 'document', savedDocument); else delete (globalThis as any).document;
+  }
+});
+
+test('host layout changes reposition visible delivery controls immediately without waiting for the slow tick', () => {
+  const f = noticeFixture(); let layouts = 0;
+  f.ui.layout = () => layouts++;
+  f.ui.layoutDirty = false; f.ui.layoutTimer = 0;
+  f.ui.onHostLayout();
+  assert.equal(layouts, 1); assert.equal(f.ui.layoutDirty, false); assert.ok(f.ui.layoutTimer > 0);
+  f.ui.root.hidden = true; f.ui.onHostLayout();
+  assert.equal(layouts, 1, 'hidden controls do not measure invisible geometry'); assert.equal(f.ui.layoutDirty, true);
+  f.ui.setVisible(true); f.ui.onHostLayout();
+  assert.equal(layouts, 2, 'restored controls use the latest host positions');
+});
+
+test('delivery notice uses the fixed host notice slot and cannot expand over navigation', () => {
+  const rule = DELIVERY_UI_CSS.match(/\.du-notice\{([^}]+)\}/)![1];
+  for (const name of ['left', 'top', 'width', 'height']) assert.ok(rule.includes(`var(--hud-notice-${name},`));
+  assert.match(rule, /position:fixed/); assert.match(rule, /overflow:hidden/); assert.match(rule, /-webkit-line-clamp:2/);
+  assert.doesNotMatch(DELIVERY_UI_CSS, /\.du-notice\{(?:top:74px|max-width:36vw)/);
+});
+
+test('a host-rejected notice slot does not create a fallback obstacle after a short resize', () => {
+  const f=layoutFixture(220,190);f.documentElement.classes.delete('is-touch');
+  f.host.querySelectorAll=()=>[];f.host.dataset={};
+  const read=()=>({left:parseFloat(f.call.style.left),top:parseFloat(f.call.style.top),width:parseFloat(f.call.style.width),height:parseFloat(f.call.style.height)});
+  const fallback={left:18,top:105,width:180,height:48};
+  f.ui.layout();assert.equal(overlaps(read(),fallback,7.9),false,'older hosts still get the default reservation');
+  f.host.dataset.noticeSpace='false';f.ui.layout();
+  assert.deepEqual(read(),callButtonLayout({left:12,top:12,width:196,height:166},[])!, 'an invalid host slot cannot displace the handset');
+  assert.equal(overlaps(read(),fallback),true,'the handset can reuse the now-unreserved region');
+  f.host.dataset.noticeSpace='true';f.ui.layout();
+  assert.equal(overlaps(read(),fallback,7.9),false,'restoring a real notice lane restores its reservation');
+});
+
+test('call and complete delivery actions reserve empty notice and navigation lanes before either appears', () => {
+  for (const [width, height] of [[568, 320], [667, 375], [800, 360], [1280, 720]]) {
+    const f = layoutFixture(width, height, { left: 12, top: 8 }, true);
+    const nav = { left: width / 2 - 90, top: 62, width: 180, height: 48 };
+    const notice = { left: 18, top: 106, width: Math.min(180, nav.left - 26), height: 48 };
+    const area = { left: 18, top: 62, width: notice.width, height: 28 };
+    const reserved = [nav, notice, area];
+    const nodes = reserved.map(rect => ({ hidden: false, getClientRects: () => [rect], getBoundingClientRect: () => ({ ...rect, left: rect.left + 12, top: rect.top + 8 }) }));
+    const originalQuery = f.host.querySelectorAll, originalSingle = f.host.querySelector;
+    f.host.querySelectorAll = (selector: string) => {
+      assert.match(selector, /#hud-navigation-slot/); assert.match(selector, /#hud-notice-slot/);
+      // Replace the earlier fixture's floating guide with the fixed reservation.
+      const touch = f.documentElement.classes.has('is-touch');
+      const base = originalQuery().slice(0, -1).filter((_: unknown, index: number) => touch || index === 0 || index >= 7);
+      return [...base, ...nodes];
+    };
+    f.host.querySelector = (selector: string) => selector === '#hud-notice-slot' ? nodes[1] : originalSingle(selector);
+    for (const touch of [true, false]) {
+      touch ? f.documentElement.classes.add('is-touch') : f.documentElement.classes.delete('is-touch');
+      f.ui.layout();
+      assert.equal(f.call.style.visibility, '', `${width}×${height}: phone remains reachable`);
+      assert.equal(f.actions.style.visibility, '', `${width}×${height} touch=${touch}: delivery remains reachable`);
+      const call = { left: parseFloat(f.call.style.left), top: parseFloat(f.call.style.top), width: parseFloat(f.call.style.width), height: parseFloat(f.call.style.height) };
+      const action = { left: parseFloat(f.actions.style.left), top: parseFloat(f.actions.style.top), width: parseFloat(f.actions.style.width), height: 85 };
+      for (const blocker of reserved) {
+        assert.equal(overlaps(call, blocker, 7.9), false, 'phone cannot claim an empty reserved notice/navigation slot');
+        assert.equal(overlaps(action, blocker, 7.9), false, 'action plus hint cannot claim an empty reserved slot');
+      }
+    }
+  }
 });

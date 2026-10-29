@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Roadster HUD notice regression</title>
+    <link rel="stylesheet" href="/fonts/fonts.css">
+    <style>
+      html,body{margin:0;height:100%;overflow:hidden;background:#758eb6}
+      body{background:linear-gradient(#7596c6 0 43%,#bbc5c8 43% 62%,#54576a 62%)}
+      #hud{position:fixed;inset:0}
+      #hud-audit-status{position:fixed;bottom:2px;left:4px;z-index:30;max-width:190px;box-sizing:border-box;padding:2px 5px;border-radius:4px;background:#171125;color:#fff1d8;font:10px/1.2 system-ui,sans-serif;pointer-events:none}
+      #hud-audit-status[data-result=pass]{color:#9affec}
+      #hud-audit-status[data-result=fail]{color:#ffb8cb}
+    </style>
+  </head>
+  <body>
+    <div id="hud"></div>
+    <output id="hud-audit-status" role="status">Checking production HUD…</output>
+    <script type="module" src="./hud-notices.browser.ts"></script>
+  </body>
+</html>

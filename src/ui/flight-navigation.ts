@@ -52,11 +52,11 @@ export function smoothFlightBearing(previous: number | null, wanted: number, dt:
 }
 
 // A separate central lane; existing controls, minimap and task panel never move.
-export function flightNavigationLayout(width: number, height: number, headerBottom: number, areaBottom: number,
+export function flightNavigationLayout(width: number, height: number, headerBottom: number, _areaBottom: number,
   tasks: HudRect, map: HudRect, controlsTop: number, panelHeight = 48): HudRect | null {
-  if (![width, height, headerBottom, areaBottom, tasks.left, tasks.width, map.left, controlsTop].every(Number.isFinite)) return null;
+  if (![width, height, headerBottom, tasks.left, tasks.width, map.left, controlsTop].every(Number.isFinite)) return null;
   const left = Math.max(12, tasks.left + tasks.width + 12), right = Math.min(width - 12, map.left - 12);
-  const available = right - left, top = Math.max(12, headerBottom + 8, areaBottom + 8);
+  const available = right - left, top = Math.max(12, headerBottom + 8);
   if (!Number.isFinite(panelHeight) || panelHeight < 44 || panelHeight > 64 || available < 156 || top + panelHeight > Math.min(height - 24, controlsTop - 12)) return null;
   const w = Math.min(180, available);
   return { left: Math.round(Math.max(left, Math.min(right - w, (width - w) / 2))), top: Math.round(top), width: Math.floor(w), height: panelHeight };
