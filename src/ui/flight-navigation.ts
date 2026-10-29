@@ -51,13 +51,24 @@ export function smoothFlightBearing(previous: number | null, wanted: number, dt:
   return previous + signedFlightAngle(wanted - previous) * (1 - Math.exp(-elapsed * 16));
 }
 
+const MIN_NAVIGATION_WIDTH = 156;
+const navigationLane = (width:number,taskRight:number,mapLeft:number) => ({
+  left:Math.max(12,taskRight+12),right:Math.min(width-12,mapLeft-12),
+});
+/** Pick the compact rail from measured free space, including safe-area insets.
+ * A viewport breakpoint left 600–618px phones without either navigation lane. */
+export function flightNavigationNeedsCompactLane(width:number,steeringRight:number,mapLeft:number,brakeLeft:number) {
+  const lane=navigationLane(width,steeringRight,Math.min(mapLeft,brakeLeft));
+  return width<600||lane.right-lane.left<MIN_NAVIGATION_WIDTH;
+}
+
 // A separate central lane; existing controls, minimap and task panel never move.
 export function flightNavigationLayout(width: number, height: number, headerBottom: number, _areaBottom: number,
   tasks: HudRect, map: HudRect, controlsTop: number, panelHeight = 48): HudRect | null {
   if (![width, height, headerBottom, tasks.left, tasks.width, map.left, controlsTop].every(Number.isFinite)) return null;
-  const left = Math.max(12, tasks.left + tasks.width + 12), right = Math.min(width - 12, map.left - 12);
+  const { left, right } = navigationLane(width,tasks.left+tasks.width,map.left);
   const available = right - left, top = Math.max(12, headerBottom + 8);
-  if (!Number.isFinite(panelHeight) || panelHeight < 44 || panelHeight > 64 || available < 156 || top + panelHeight > Math.min(height - 24, controlsTop - 12)) return null;
+  if (!Number.isFinite(panelHeight) || panelHeight < 44 || panelHeight > 64 || available < MIN_NAVIGATION_WIDTH || top + panelHeight > Math.min(height - 24, controlsTop - 12)) return null;
   const w = Math.min(180, available);
   return { left: Math.round(Math.max(left, Math.min(right - w, (width - w) / 2))), top: Math.round(top), width: Math.floor(w), height: panelHeight };
 }

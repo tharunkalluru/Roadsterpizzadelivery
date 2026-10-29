@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "aa5c48b23ac167f2ee8abde6bd27ff47d8b9ca5a",
+  "source_commit": "40345bdd427206974fcb594b328d87f10842d0eb",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -32,6 +32,18 @@
       "sha256": "caee33d8e0ef8d71ee3c98dfea15a1b8e06099e9b4ae01212fc2a5cdf0d2530c"
     },
     {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-600x320.json",
+      "sha256": "a8cbce1783cf5e98574b70e2aca37a844ccaae2cca43f5e2e5f83a2a026ad9cc"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-600x320.png",
+      "sha256": "87c3c93f1985b154c8c78d11e06266960dcdf51070d1473bcc80cd48c003cec6"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/hud-618x320.json",
+      "sha256": "6e12da56fb4231ab0c70c2adfe74434d3f4cb12ca56719a6c02ad8187175774b"
+    },
+    {
       "path": "docs/delivery/evidence/fixed-navigation/hud-667x375.json",
       "sha256": "a97e6bb3f0bf50e8e8d01257ede572c8de84392673fca9d428f19965f1d098a0"
     },
@@ -46,6 +58,22 @@
     {
       "path": "docs/delivery/evidence/fixed-navigation/hud-800x360.png",
       "sha256": "6a2e2a5db14ba99b73c69f847721b0771c9544a4549c5ab8bff9af3cf29ce3e8"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/imax-road-after.png",
+      "sha256": "17fca8d87edfe7f0c4b6054b52ba038130069931d5ee5eae8f323d6e002e0f18"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/road-approach-world-check.json",
+      "sha256": "8963d69ac2a8555f284bee8eb8047b64a92bbc41f91ca38860147c2d71592281"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/rooftop-road-after.png",
+      "sha256": "0a3bb206bcb158bb7f8f6fe7455066bcc9f03199fbda761e1e54d49b82ed2b2e"
+    },
+    {
+      "path": "docs/delivery/evidence/fixed-navigation/rooftop-road-before.png",
+      "sha256": "5d020ebe0a8dc24bc63d8dc972e798066f086cf70bc7b266b3d270a693a3b797"
     },
     {
       "path": "docs/delivery/evidence/immersion-v2/map-districts.png",
@@ -73,7 +101,7 @@
     },
     {
       "path": "docs/mystery-immersion-epics.md",
-      "sha256": "29cf3023f52269f77ba009aeb50328c07d1f8cece5617bc45b3af2b41765bec0"
+      "sha256": "7486951b4bfddd7340bffa9fd2c9c1614354ddf45444a52833ba7ffbd3df3b9a"
     },
     {
       "path": "docs/performance/acceptance-thresholds.json",
@@ -2024,8 +2052,12 @@
       "sha256": "d8f6e0e17e8762e9a8a4006626b8d4704e570cb5a441d4a781651c86bba1534a"
     },
     {
+      "path": "src/delivery/road-navigation-target.ts",
+      "sha256": "539852d7294f9b04a27e3c278cf2c27e35cb89a4a5d73779c3107d1b8aa08204"
+    },
+    {
       "path": "src/delivery/runtime.ts",
-      "sha256": "c02209ed665c1bc5a34f0041af3b7ff4c396dfc4b7f294202619e0ac6cc93b03"
+      "sha256": "80e70515dc0187f9d2c2d3dcac38169eeb09245a9efddc4c43924b6b905d2c73"
     },
     {
       "path": "src/delivery/systems/call-system.ts",
@@ -2113,7 +2145,7 @@
     },
     {
       "path": "src/game/game.ts",
-      "sha256": "14f1140cf55aa983fc31379c83dc4aef49cb07559579151845f49dafdefaeb06"
+      "sha256": "548037382e3a17a28d6db16943ded7cfdb7d578398c4ea86a3bf50b59471a801"
     },
     {
       "path": "src/game/jump-motion.ts",
@@ -2217,7 +2249,7 @@
     },
     {
       "path": "src/ui/flight-navigation.ts",
-      "sha256": "d5249133777000394d98a049c0cdbc5a4d9a4b06b8e425cf45cd0720c64182a7"
+      "sha256": "26980cc961ddbc8d8953fc64010fa2b8194273edeaf86c371635e336f475c4b9"
     },
     {
       "path": "src/ui/hud-layout.ts",
@@ -2225,7 +2257,7 @@
     },
     {
       "path": "src/ui/hud.ts",
-      "sha256": "34d51ff406fc15d24c7844c56d188ad9aa2c6e4034067110d9a2afdcb308edd3"
+      "sha256": "86dbb2fe4105ead6cb21a1a23d1129f2ede2f5f9ce10bf5fb52358e0ee601a49"
     },
     {
       "path": "src/ui/landmark-icons.ts",
@@ -2964,8 +2996,12 @@
       "sha256": "6a309ee94f4e184b8bfdc4a6e0d4d6e1bc9a86aa709272a14da7ab08fa831863"
     },
     {
+      "path": "tests/v21-fixes/delivery-road-target.test.ts",
+      "sha256": "b843a359c1461ff029ba84bfad2588c92b432532d8501c19ee6869496d52a65a"
+    },
+    {
       "path": "tests/v21-fixes/delivery-runtime.test.ts",
-      "sha256": "12c31007ec8459780c53e70a571172c08224edcf218f6f9071b22638bf48951a"
+      "sha256": "670930fcedcc5db94e313d472d212ac643bf7b8734c1f0909968b58e3596aab0"
     },
     {
       "path": "tests/v21-fixes/delivery-story.test.ts",
@@ -2989,11 +3025,11 @@
     },
     {
       "path": "tests/v21-fixes/flight-navigation.test.ts",
-      "sha256": "cd57e8eccde50e4dd1e675a17f3b9a8c78e1737ed7dccbe7b1cb532464d78670"
+      "sha256": "13845852b53d8a0b4f8ae04ad8ec1d453b1edf4e0e2757cb88d683129b971201"
     },
     {
       "path": "tests/v21-fixes/hud-notice-layout.test.ts",
-      "sha256": "148b9ded849dbe60307dfeadf47150ee3f4ab0ee1e4f7783421e6d0549ef9bbd"
+      "sha256": "1bc58b966c3e287fd56d033e4b6eff4554f9eca6dc2b83db3253da6566059a48"
     },
     {
       "path": "tests/v21-fixes/map-labels.test.ts",
@@ -3013,7 +3049,7 @@
     },
     {
       "path": "tests/v21-fixes/navigation-route-source.test.ts",
-      "sha256": "a1d4d27446da669995235296fdd463648c663a764e75feb661cbb81831d38384"
+      "sha256": "a7b307fd1866dd4c83f8da57bf5777bacdc3075c412568cc37a5926bd4cf3e3c"
     },
     {
       "path": "tests/v21-fixes/railway-crossings.test.ts",

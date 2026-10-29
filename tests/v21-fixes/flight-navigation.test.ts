@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { flightNavigationLayout, flightNavigationReadout, smoothFlightBearing, type FlightNavigationInput } from '../../src/ui/flight-navigation';
+import { flightNavigationLayout, flightNavigationNeedsCompactLane, flightNavigationReadout, smoothFlightBearing, type FlightNavigationInput } from '../../src/ui/flight-navigation';
 import { mobileHudLayout } from '../../src/ui/hud-layout';
 import { Hud } from '../../src/ui/hud';
 
@@ -131,8 +131,8 @@ test('HUD hides immediately for no job, ground, blocked surfaces, rotation and h
 });
 
 test('production HUD keeps the navigation rectangle fixed while area notices show and expire',()=>{
-  for(const [width,height] of [[568,320],[640,280],[800,360],[852,393],[918,384],[1280,720]]){
-    const controls=mobileHudLayout(width,height,62,106),narrow=width<600;
+  for(const [width,height] of [[568,320],[599,320],[600,320],[610,320],[618,320],[619,320],[640,280],[800,360],[852,393],[918,384],[1280,720]]){
+    const controls=mobileHudLayout(width,height,62,106),narrow=flightNavigationNeedsCompactLane(width,controls.rightSteer.left+controls.rightSteer.width,controls.map.left,controls.brake.left);
     const area={left:(width-300)/2,top:62,width:300,height:42};
     const classes=new Set<string>(),panel={style:{},dataset:{}};
     const hud:any=Object.assign(Object.create(Hud.prototype),{el:{'area-chip':{classList:{contains:(name:string)=>classes.has(name)}},'flight-navigation':panel},flightNavigation(){assert.fail('supported landscape must retain guidance');}});
@@ -179,4 +179,12 @@ test('invalid viewport clears the old reserved navigation bounds and restores th
   assert.equal(slot.style.width,'0px');assert.equal(slot.style.height,'0px');assert.equal(hidden,1);
   assert.ok(hud.positionFlightNavigation(root,54,area,tasks,map,250,false));
   assert.equal(slot.style.width,'180px');assert.equal(slot.style.height,'48px');
+});
+
+
+test('navigation selects its compact lane by free space rather than the 600px breakpoint',()=>{
+  for(const [width,compact] of [[568,true],[599,true],[600,true],[610,true],[618,true],[619,false],[667,false],[800,false]] as const){
+    const c=mobileHudLayout(width,320,62,106);
+    assert.equal(flightNavigationNeedsCompactLane(width,c.rightSteer.left+c.rightSteer.width,c.map.left,c.brake.left),compact,`${width}px`);
+  }
 });

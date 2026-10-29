@@ -1,0 +1,47 @@
+{
+  "scope": "Production city data and module setup; deterministic route diagnostics, not phone performance",
+  "results": [
+    {
+      "id": "police-rooftop",
+      "module": "MatchAndLand",
+      "target": {
+        "label": "Banjara Hills \u00b7 Police rooftop",
+        "x": -5217.1,
+        "z": -1051.4,
+        "y": 22.5,
+        "lat": 17.4158,
+        "lon": 78.4475
+      },
+      "roadApproach": {
+        "x": -5215,
+        "y": 0,
+        "z": -1057.2,
+        "label": "Banjara Hills \u00b7 Police rooftop"
+      },
+      "routePoints": 331,
+      "guidePoints": 550,
+      "blocked": false,
+      "gpsVisible": true
+    },
+    {
+      "id": "imax-seat-service",
+      "module": "ThreadGap",
+      "target": {
+        "label": "IMAX entrance opening",
+        "x": -3311.1,
+        "z": -663,
+        "y": 30
+      },
+      "roadApproach": {
+        "x": -3307.5546139402486,
+        "y": 0,
+        "z": -675.9168158785104,
+        "label": "IMAX entrance opening"
+      },
+      "routePoints": 150,
+      "guidePoints": 267,
+      "blocked": true,
+      "gpsVisible": true
+    }
+  ]
+}

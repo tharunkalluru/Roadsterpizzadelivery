@@ -289,7 +289,10 @@ test('other scenes use actual nearby marker distance and clear local guidance on
   const f = fixture({ levelIndex: 2 }); pickup(f); f.runtime.beforePlayer(.016);
   f.module.ctx.onTarget?.({ x: 150, y: 30, z: -7 });
   Object.assign(f.game.player.pos, { x: 150, z: 0 }); f.game.player.yaw = 0;
-  assert.deepEqual(f.runtime.localNavigation, { metres: 7, hint: 'Approach marker', bearing: 0 });
+  assert.deepEqual(f.runtime.localNavigation, { metres: 7, hint: 'Fly to marker', bearing: 0 }, 'the elevated marker requires flight from the street');
+  f.game.player.pos.y = 30;
+  assert.deepEqual(f.runtime.localNavigation, { metres: 7, hint: 'Approach marker', bearing: 0 }, 'a player already at the scene height keeps local handoff guidance');
+  f.game.player.pos.y = .55;
   f.game.player.pos.z = 34; assert.equal(f.runtime.localNavigation, undefined, 'road guidance remains outside forty metres');
   f.game.player.pos.z = -7;
   assert.equal(f.runtime.localNavigation?.bearing, 0, 'standing at the marker never produces a spurious turn');

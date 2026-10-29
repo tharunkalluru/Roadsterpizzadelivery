@@ -5,7 +5,7 @@ import { controlIcon } from './control-icons';
 import { installPrototypeTheme } from './theme';
 import { installPaintSafety, guardWorldPaint } from './paint-safety';
 import { mobileHudLayout, hudStatusLayout, hudTransientLayout, type HudRect } from './hud-layout';
-import { flightNavigationLayout, flightNavigationReadout, smoothFlightBearing, type FlightNavigationInput } from './flight-navigation';
+import { flightNavigationLayout, flightNavigationNeedsCompactLane, flightNavigationReadout, smoothFlightBearing, type FlightNavigationInput } from './flight-navigation';
 
 export type ContextAction = 'collect' | 'handover';
 
@@ -624,7 +624,7 @@ export class Hud {
         position(this.el.prompt, controls.context);
       }
       const taskBottom = tasks.getBoundingClientRect().bottom - root.top;
-      const narrowFlight = touch && root.width < 600;
+      const narrowFlight = touch && flightNavigationNeedsCompactLane(root.width,controls.rightSteer.left+controls.rightSteer.width,map.left,controls.brake.left);
       const flightLeft = touch && !narrowFlight ? controls.rightSteer.left + controls.rightSteer.width : l.left - root.left + l.width;
       const flightRight = touch && !narrowFlight ? Math.min(map.left, controls.brake.left) : map.left;
       const navigation = this.positionFlightNavigation(root, headerBottom, area,

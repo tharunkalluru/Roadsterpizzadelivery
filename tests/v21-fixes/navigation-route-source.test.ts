@@ -57,3 +57,34 @@ test('production minimap draws the same straight points used by the central cue'
   assert.deepEqual(strokes, [[[0, 0], [0, -200]]]);
   assert.equal(game.roadNavigation({ x: -100, z: -13 }).hint, 'Continue straight');
 });
+
+
+test('actual route update uses the mapped delivery approach while preserving the elevated scene marker',()=>{
+  const target={x:100,y:30,z:20,label:'Hall seat'},approach={x:100,y:0,z:0,label:'Hall seat'};
+  const planned:unknown[][]=[];
+  const graph={revision:1,byId:new Map(),edgeAt:()=>null,route(...args:unknown[]){planned.push(args);return{pts:[[0,0,0],[100,0,0]],len:100,complete:true};}};
+  const game:any=Object.assign(Object.create(Game.prototype),{
+    graph,city:{walls:new Map(),buildingGrid:new Map(),obstacles:new Map()},
+    player:{pos:new THREE.Vector3(0,.55,0),forward:{x:1,z:0},flying:false,descending:false,jumping:false,speed:0,placementRevision:1},
+    story:{roadNavigationTarget:approach},routeTarget:target,route:null,routeT:0,routeGuideT:0,routeGuide:[],routeAlpha:0,routeGraphRevision:-1,routePlacementRevision:-1,
+    gps:new THREE.Mesh(new THREE.BufferGeometry(),new THREE.MeshBasicMaterial()),
+  });
+  game.updateRoute(1/60);
+  assert.equal(planned.length,1);assert.equal(planned[0][2],100);assert.equal(planned[0][3],0);assert.equal(planned[0][5],0);
+  assert.equal((planned[0][4] as {y:number}).y,.55,'starting carriageway grade stays strict');
+  assert.equal(game.routeTarget,target);assert.equal(target.y,30,'scene and flight marker do not move onto the road');
+  assert.equal(game.gps.visible,true);assert.ok(game.gps.geometry.drawRange.count>0);
+  game.player.flying=true;game.routeT=0;game.updateRoute(1/60);
+  assert.equal(planned.length,2);assert.equal(planned[1][5],0,'airborne map overview uses the same real road approach');
+  assert.equal(game.routeTarget.y,30);assert.equal(game.gps.visible,false,'road ribbon remains a grounded guide');
+});
+
+test('ordinary road target retains its strict destination grade without a story approach',()=>{
+  let grade:unknown;const target={x:100,y:9,z:0};
+  const game:any=Object.assign(Object.create(Game.prototype),{
+    graph:{route(_x:number,_z:number,_tx:number,_tz:number,_car:unknown,y:unknown){grade=y;return null;}},
+    player:{pos:new THREE.Vector3(0,9.55,0),forward:{x:1,z:0},flying:true,descending:false,jumping:false},
+    routeTarget:target,routeT:0,routeGuideT:0,gps:{visible:true},
+  });
+  game.updateRoute(1/60);assert.equal(grade,9);assert.equal(game.routeTarget,target);
+});

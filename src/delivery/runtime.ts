@@ -13,6 +13,7 @@ import { projectRailwayRun, type RailwayRun } from '../game/railway-flow';
 import { verifiedRailPassages, type VerifiedRailPassage } from './rail-passages';
 import { sampleTruckRoute, truckLane } from './truck-route';
 import { signedFlightAngle } from '../ui/flight-navigation';
+import { resolveDeliveryRoadTarget } from './road-navigation-target';
 
 /** Static support only: a passing train must not move a fixed delivery stage. */
 export function deliverySurfaceHeight(city: Game['city'], x: number, z: number) {
@@ -60,6 +61,7 @@ export class DeliveryRuntime {
   private prepareAfter = 0;
   private lastPlan: (DeliveryPoint & { time: number }) | null = null;
   private disposed = false;
+  private roadTargetCache?: { revision: number; x: number; y: number; z: number; offRoad: boolean; roadHeight: number; point: DeliveryPoint | null };
   private moduleFactory: (name: string) => DeliveryModule;
   private trafficBodies: MovingRailBody[] = [];
   private passageCache: { coach: string; run: RailwayRun; revision: number; offset: number; center: number; candidates: VerifiedRailPassage[]; chosen: VerifiedRailPassage | null } | null = null;
@@ -105,6 +107,20 @@ export class DeliveryRuntime {
     return `Level ${c.activeLevel?.level ?? c.progress.currentLevel} / ${c.progress.total}`;
   }
   get destination() { return this.target; }
+  /** The GPS ends on a real street; the flight marker keeps its actual height. */
+  get roadNavigationTarget(): DeliveryPoint | null {
+    const target = this.target, level = this.controller.activeLevel;
+    if (!this.activeOrder || !target || !level || ![target.x, target.y, target.z].every(Number.isFinite)) return null;
+    const movingRoadVehicle = level.module === 'matchAndLand' && level.moduleParams.vehicle !== 'train' && Number(level.moduleParams.speed) > 0;
+    const vehicle = movingRoadVehicle ? (this.module?.trafficBodies ?? this.module?.supports ?? []).find(body => body.id === 'delivery-log-truck') : undefined;
+    const offRoad = !movingRoadVehicle, roadHeight = offRoad ? 0 : vehicle?.y ?? level.destination.y ?? 0;
+    const cache = this.roadTargetCache, revision = this.game.graph.revision;
+    if (cache && cache.revision === revision && cache.offRoad === offRoad && Math.abs(cache.roadHeight - roadHeight) < .25 &&
+      (offRoad || Math.abs(cache.y - target.y) < .25) && Math.hypot(cache.x - target.x, cache.z - target.z) < 8) return cache.point;
+    const point = resolveDeliveryRoadTarget(this.game.graph, target, { offRoad, roadHeight });
+    this.roadTargetCache = { revision, x: target.x, y: target.y, z: target.z, offRoad, roadHeight, point };
+    return point;
+  }
   /** Final metres follow the live scene, which may sit outside the road graph. */
   get localNavigation(): { metres: number; hint: string; bearing: number } | undefined {
     if (this.disposed || !this.activeOrder || !this.target) return;
@@ -116,8 +132,17 @@ export class DeliveryRuntime {
     if (![player.pos.x, player.pos.z, player.yaw, target.x, target.z].every(Number.isFinite)) return;
     const dx = target.x - player.pos.x, dz = target.z - player.pos.z;
     const metres = Math.hypot(dx, dz);
-    if (metres > (rear ? 80 : 40)) return;
-    let hint = rear ? (this.controller.canDrop ? 'Approach ramp' : 'Approach rear') : 'Approach marker';
+    let flyToMarker = false;
+    if (!rear && !player.flying && !player.descending && !player.jumping) {
+      flyToMarker = metres <= 40 && target.y - player.pos.y > 3;
+      if (!flyToMarker && metres > 15) {
+        const access = this.roadNavigationTarget;
+        flyToMarker = !!access && Math.abs(player.pos.y - .55 - access.y) <= 1.6 &&
+          Math.hypot(player.pos.x - access.x, player.pos.z - access.z) <= 12;
+      }
+    }
+    if (metres > (rear ? 80 : 40) && !flyToMarker) return;
+    let hint = rear ? (this.controller.canDrop ? 'Approach ramp' : 'Approach rear') : flyToMarker ? 'Fly to marker' : 'Approach marker';
     let heading = metres < .01 ? player.yaw : Math.atan2(-dx, -dz);
     const ramp = this.controller.canDrop && rear ? this.module?.supports.find(body => body.id === 'delivery-interior-ramp') : undefined;
     if (ramp && rear && [ramp.x, ramp.z, ramp.hx, ramp.hz, ramp.halfLength, rear.hx, rear.hz].every(Number.isFinite)) {

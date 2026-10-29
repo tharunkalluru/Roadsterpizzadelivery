@@ -1124,12 +1124,15 @@ export class Game {
   updateRoute(dt: number) {
     const tgt = this.routeTarget, P = this.player.pos, f = this.player.forward;
     if (!tgt) { this.gps.visible = false; return; }
+    // Authored scenes may be on a roof, inside a hall or on a train. Route
+    // the car along real roads to their approach; keep the exact scene marker.
+    const roadTarget = this.story?.roadNavigationTarget ?? tgt;
     this.routeT -= dt; this.routeGuideT = (this.routeGuideT || 0) - dt;
     const airborne = this.player.flying || this.player.descending || this.player.jumping;
     if (airborne) {
       // Flight uses the beacon. The map may retain a coarse road overview, but
       // landing always creates a new route from the actual road and height.
-      if (this.routeT <= 0) { this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, undefined, tgt.y); this.routeT = 4; }
+      if (this.routeT <= 0) { this.route = this.graph.route(P.x, P.z, roadTarget.x, roadTarget.z, undefined, roadTarget.y); this.routeT = 4; }
       this.routeWasAirborne = true; this.gps.visible = false; return;
     }
     const revision = this.graph.revision || 0, changed = revision !== this.routeGraphRevision;
@@ -1153,7 +1156,7 @@ export class Game {
     const missingRoad = changed && this.route?.edgeIds?.some(id => !this.graph.byId.has(id));
     const replan = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || offRoute || missingRoad || (changed && this.route?.complete === false) || (!this.route && this.routeT <= 0);
     if (replan) {
-      this.route = this.graph.route(P.x, P.z, tgt.x, tgt.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, tgt.y);
+      this.route = this.graph.route(P.x, P.z, roadTarget.x, roadTarget.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, roadTarget.y);
       this.routeT = .6; this.routeGuideT = 0; this.routeAlpha = 0; this.routeGuide = [];
     } else if (advanced) this.route = advanced.route;
     this.routeWasAirborne = false; this.routeGraphRevision = revision; this.routePlacementRevision = this.player.placementRevision;
