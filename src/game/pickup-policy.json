@@ -1,0 +1,14 @@
+{
+  "foodTerms": ["restaurant", "restaurants", "eatery", "eateries", "cafe", "cafes", "café", "cafés", "bakery", "bakeries", "sweet", "sweets", "dessert", "desserts", "fast food", "food court", "food stall", "food truck", "juice", "juices", "tea", "coffee", "biryani", "dining", "bar", "bars", "pub", "pubs", "ice cream", "tiffin", "dhaba", "mandi", "pizza", "pizzeria", "burger", "burgers", "chicken", "bistro", "canteen", "cafeteria", "snack", "snacks"],
+  "nonKitchenCategories": ["police", "public safety", "fire station", "ambulance service", "government office", "courthouse", "prison", "school", "college", "university", "education", "training institute", "hospital", "clinic", "pharmacy", "food bank", "food pantry", "food manufacturing", "food manufacturer", "restaurant supply", "grocery", "supermarket", "convenience store", "food and beverage retail"],
+  "excludedPlaceIds": {
+    "b_6d4468aa-c5da-40": {
+      "reason": "Kushaiguda Traffic PS was offered as a kitchen; original category is missing from the legacy export. Quarantine pickup eligibility pending source review; retain its map identity.",
+      "evidence": "docs/playtests/2026-10-23T1827Z/pickup-source-followup.json"
+    },
+    "b_d6fc7fdd-c2c9-4f": {
+      "reason": "Bhagyanagar Institute of Police was offered as a kitchen; same-ID historical source says police_station/public_safety_service. Retain its map identity.",
+      "evidence": "docs/playtests/2026-10-23T1827Z/pickup-source-followup.json"
+    }
+  }
+}

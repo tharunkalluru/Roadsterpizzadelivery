@@ -1,0 +1,10 @@
+async(page)=>{
+ const c=await page.context().newCDPSession(page);await c.send('Emulation.setCPUThrottlingRate',{rate:4.04});const runs=[];const start=new Date().toISOString();let error=null;
+ try{for(let loop=0;loop<2;loop++)for(const area of ['RTC X Roads','Gachibowli','Uppal']){
+  await page.locator('#game canvas').click({position:{x:450,y:250}});await page.keyboard.press('p');await page.getByRole('button',{name:'Change area',exact:true}).click();await page.getByRole('button',{name:area,exact:true}).click();
+  await page.waitForFunction(name=>window.__game?.area?.name===name&&!window.__game.choosing&&window.__game.engine.graphicsReady,area,{timeout:85000});await page.waitForTimeout(2000);
+  const check=await page.evaluate(name=>{const g=window.__game;return{ready:!g.choosing&&!g.relocating,area:g.area?.name,distance:Math.hypot(g.player.pos.x-g.area.x,g.player.pos.z-g.area.z)};},area);if(!check.ready||check.area!==area||check.distance>550)throw new Error('Relocation mismatch '+JSON.stringify(check));
+  runs.push({check,loop,expected:area,at:new Date().toISOString(),...await page.evaluate(()=>{const g=window.__game;return{actual:g.area.name,p:{...g.player.pos},coins:g.coins,delivered:g.totalDelivered,acceptingOrders:g.acceptingOrders,hasOrder:!!g.order,tiles:g.city.tiles.size,stream:{...g.city.streamStats},heap:performance.memory?.usedJSHeapSize,resources:{...g.engine.renderer.info.memory},pool:{...g.traffic.stats},perf:g.performanceMonitor.summary()};})});
+ }}catch(e){error=String(e);}finally{await c.send('Emulation.setCPUThrottlingRate',{rate:1});await c.detach();}
+ return{start,end:new Date().toISOString(),kind:'visible-control area/resource loop with4.04xCPU; AVD stopped',error,environment:await page.evaluate(()=>({viewport:[innerWidth,innerHeight],dpr:devicePixelRatio,buffer:[window.__game.engine.renderer.domElement.width,window.__game.engine.renderer.domElement.height],bundle:[...document.scripts].map(s=>s.src).find(s=>s.includes('/assets/index-'))})),runs};
+}

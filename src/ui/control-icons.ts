@@ -1,0 +1,19 @@
+// Small native vectors keep the prototype's chunky icon language crisp at phone sizes.
+const paths = {
+  left: '<path d="M21.8 3.5a4 4 0 0 1 0 5.7L15 16l6.8 6.8a4 4 0 1 1-5.6 5.7l-9.7-9.7a4 4 0 0 1 0-5.6l9.7-9.7a4 4 0 0 1 5.6 0Z"/>',
+  right: '<path d="M10.2 3.5a4 4 0 0 0 0 5.7L17 16l-6.8 6.8a4 4 0 1 0 5.6 5.7l9.7-9.7a4 4 0 0 0 0-5.6l-9.7-9.7a4 4 0 0 0-5.6 0Z"/>',
+  up: '<path d="M3.5 21.8a4 4 0 0 1 0-5.6l9.7-9.7a4 4 0 0 1 5.6 0l9.7 9.7a4 4 0 0 1-5.7 5.6L16 15l-6.8 6.8a4 4 0 0 1-5.7 0Z"/>',
+  down: '<path d="M13.2 27.5a4 4 0 0 0 5.6 0l9.7-9.7a4 4 0 0 0-5.7-5.6L20 15V6a4 4 0 0 0-8 0v9l-2.8-2.8a4 4 0 0 0-5.7 5.6l9.7 9.7Z"/>',
+  brake: '<path d="M21 2a15 15 0 0 1 10 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="15" cy="18" r="11"/><circle cx="15" cy="18" r="5" fill="var(--brake-face,#e5d6ff)"/><circle cx="15" cy="18" r="2.2"/><g fill="var(--brake-face,#e5d6ff)"><circle cx="15" cy="10" r="1.2"/><circle cx="22.6" cy="15.5" r="1.2"/><circle cx="19.7" cy="24.5" r="1.2"/><circle cx="10.3" cy="24.5" r="1.2"/><circle cx="7.4" cy="15.5" r="1.2"/></g>',
+  coin: '<circle cx="16" cy="16" r="14"/><circle cx="16" cy="16" r="10" fill="none" stroke="var(--coin-rim,#ffe68a)" stroke-width="2"/>',
+  pin: '<path d="M16 1A12 12 0 0 0 4 13c0 8 12 18 12 18s12-10 12-18A12 12 0 0 0 16 1Zm0 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>',
+  bag: '<path d="M9 9V7a7 7 0 0 1 14 0v2h4l3 20H2L5 9h4Zm4 0h6V7a3 3 0 0 0-6 0v2Z"/>',
+  route: '<circle cx="7" cy="25" r="5"/><circle cx="25" cy="7" r="5"/><path d="M7 20v-5h11V7h3v11H10v2Z"/>',
+  info: '<circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="16" cy="9" r="2"/><path d="M14 14h4v11h-4z"/>',
+  check: '<path d="m5 16 7 7L27 8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>',
+  jump: '<path d="M3 23C4 13 9 6 16 6c6 0 10 5 12 11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="m23 10 7 9-11-1 4-8Z"/><path d="m7 23 3-5h9l4 5v4H7v-4Zm5-3-2 3h10l-2-3h-6Z"/><circle cx="10" cy="28" r="2.5"/><circle cx="20" cy="28" r="2.5"/>',
+};
+
+export function controlIcon(name: keyof typeof paths, cls = '') {
+  return `<svg class="ui-icon ${cls}" viewBox="0 0 32 32" aria-hidden="true" focusable="false" fill="currentColor">${paths[name]}</svg>`;
+}
