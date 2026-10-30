@@ -117,6 +117,8 @@ export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE
   }
   boxAt(1.82, 0.14, 0.035, mats.trim, 0, 0.76, 2.31);
   boxAt(1.82, 0.035, 0.04, mats.tail, 0, 0.82, 2.335);
+  // Separate white reverse lenses sit outside the rear fascia, below the red strip.
+  for (const s of [-1, 1]) boxAt(.22, .075, .045, mats.reverse || mats.head, s * .68, .66, 2.35);
   boxAt(1.68, 0.19, 0.21, mats.trim, 0, 0.32, 2.25);
   for (let i = -3; i <= 3; i++) boxAt(0.025, 0.14, 0.32, mats.trim, i * 0.22, 0.27, 2.28);
   add(new THREE.PlaneGeometry(0.40, 0.13), labels.plate, 0, 0.63, 2.335);
@@ -186,5 +188,5 @@ export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE
     for (const r of retractors) r.group.position.copy(r.home).addScaledVector(r.delta, eased);
   };
   setDeployment(0);
-  return { group: outer, pods, box, wheels, wheelRollers, nozzles, setDeployment };
+  return { group: outer, pods, box, wheels, wheelRollers, nozzles, setDeployment, lampMount: g };
 }

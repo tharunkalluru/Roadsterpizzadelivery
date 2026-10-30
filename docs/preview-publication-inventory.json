@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "0a695650b047e9887d1e77aa5c25580aa8403ce1",
+  "source_commit": "0dd92e13b619640c238bff853bd87ac3f0b4564b",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -806,6 +806,38 @@
     {
       "path": "docs/ui-evidence/clean-hud/restaurant-from-pause.png",
       "sha256": "b5e9dae85b1710554dc746430464e04d7efa87faa3a733e748ad1619ee33a9d6"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/README.md",
+      "sha256": "f1b9ef88bfe613928d452810a34047cf7deec8a3e19272be01288a06681b7ebb"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/brake-red-lights.png",
+      "sha256": "5e06a072ad4320190a5058a9e127a7c47b0b9f8e8eca338ec8a5b3a60637effa"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/camera-orbit-headlights.png",
+      "sha256": "0fec0f936a8886cc3f8ac65a8b1384f33d7d8ddac97420416a94bf5bd78b3da1"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/daylight-no-road-beams.png",
+      "sha256": "8cf5c13c37499ea1ea8f9bd8fba83efb896211581af4297c7c3ae29690bb8db8"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/desktop-keyboard-stop.png",
+      "sha256": "7d0947090dc42c503bc9b458c8488940b043f75d92ddc7201c5ff45b507c7b24"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/high-graphics-night.png",
+      "sha256": "741ca1a1a0edb15357ac1b4ccbe65057e02d35f2cbdebe4a8718a6e17e1c30d6"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/night-tail-lights.png",
+      "sha256": "8ce65d390968ddab0373eace4cd0b9660584eb92cd3cf51ce55e19818f979528"
+    },
+    {
+      "path": "docs/ui-evidence/night-vehicle-lights/reverse-white-lights.png",
+      "sha256": "e3795535feb9602306a8cdbe5a86fe4bbc73698ceb0e382c900b382f1719298e"
     },
     {
       "path": "drizzle.config.ts",
@@ -2333,7 +2365,7 @@
     },
     {
       "path": "src/delivery/modules/match-and-land.ts",
-      "sha256": "50c62362467b7576dcdb20329997bdafa070be3bcb48f3a38fcb87c78f4ebc52"
+      "sha256": "3624b697f65bab9f34dd5dc928cf98bd0bbb34f8a3558e5ef4aa6b52c156eda2"
     },
     {
       "path": "src/delivery/modules/thread-gap.ts",
@@ -2341,7 +2373,7 @@
     },
     {
       "path": "src/delivery/modules/truck-interior.ts",
-      "sha256": "4969fb9b2ea546ff765ac4f883ceefac7359cb6efa9e77d71393648c4e98bc4f"
+      "sha256": "26d5f6aa914663bcc5ac959cf5f303ed0e7df4b3c3ecfaf4dc73b3537c138dce"
     },
     {
       "path": "src/delivery/modules/types.ts",
@@ -2353,7 +2385,7 @@
     },
     {
       "path": "src/delivery/qa.ts",
-      "sha256": "92dab40e24dbcde800a4cc637dac6204944595784d3bda93675e26d729772c5c"
+      "sha256": "aa8c8010c061f67dc88fa7dd1d4249ff332c43c7da31a4cd717b6cd7a4bf439f"
     },
     {
       "path": "src/delivery/rail-passages.ts",
@@ -2453,7 +2485,7 @@
     },
     {
       "path": "src/game/game.ts",
-      "sha256": "4eea48267ab76250029b14eeb6e40c444f6f81b2b73b3b0d2320ab35dad1e95e"
+      "sha256": "fa650268794d2c6a513953a1d5707cc5f4c617f6146ff9968d689080aab2f2b2"
     },
     {
       "path": "src/game/jump-motion.ts",
@@ -2492,8 +2524,12 @@
       "sha256": "af1f9bab85900a2345c99091bd12a77914428a98855d528566f8354b213b5aff"
     },
     {
+      "path": "src/game/player-lights.ts",
+      "sha256": "3d909a349258cb4394efb5131226c526bdb835c34ad1a5009e965ee951c8ed53"
+    },
+    {
       "path": "src/game/player.ts",
-      "sha256": "b04f97d625d13c0e6f0af4ceafb05d8ea5653163badc92de2fea7e2ab92db2bd"
+      "sha256": "98c3d38da865c8bfb9e8368a24d72ad4d3521895149c5e62083351442c5b8b0a"
     },
     {
       "path": "src/game/rail.ts",
@@ -2532,12 +2568,16 @@
       "sha256": "14ae5a6d3f9438842ee3c038e24428a874a33b9179912127e7baa30a1d8c326c"
     },
     {
+      "path": "src/game/traffic-headlights.ts",
+      "sha256": "734d92ea6e7049d8333e9dacbbaf5760aa9e5203098982596de89cede614d145"
+    },
+    {
       "path": "src/game/traffic-path.ts",
       "sha256": "04906734c66c59badc4d4219173be5fcfb83869e72848f5f43e06f40c3b48520"
     },
     {
       "path": "src/game/traffic.ts",
-      "sha256": "77123d17529664b5c96d1c5907a32261e7c3d44b6c042995ef42f06f80c99fbe"
+      "sha256": "2cf81cd7d4d3df333035a27e734cd30272b340540224f82a3478eb5d422a48b7"
     },
     {
       "path": "src/game/walkers.ts",
@@ -2873,7 +2913,7 @@
     },
     {
       "path": "src/world/traffic_models.ts",
-      "sha256": "26441a3cb5f541a7475683f2cc22806c902cfa4b4422b342873d68e06471ffd5"
+      "sha256": "d2fdd7ff4a7e1eece59ddb85fffd98f121750a9d3d370fd18067caddaa047660"
     },
     {
       "path": "src/world/types.ts",
@@ -2885,7 +2925,7 @@
     },
     {
       "path": "src/world/vehicles.ts",
-      "sha256": "1e4c7b18eb813e21a909f83173eca326dfcfe1d3398f6c369182c74e482c9720"
+      "sha256": "9db315f344e193a8be9b037ec3cad467d06c65dea982465b02581d23951a8082"
     },
     {
       "path": "src/world/water.ts",
@@ -3356,6 +3396,10 @@
       "sha256": "1306750a214b92487d01aee359c5ef5ba3edd8b53617ec0ed3ee9049663cc557"
     },
     {
+      "path": "tests/v21-fixes/delivery-truck-lights.test.ts",
+      "sha256": "c74092eaadeea112332dbefb449919d2fe76ec4efc4e614dbe9b6f11afed8f15"
+    },
+    {
       "path": "tests/v21-fixes/delivery-truck-route.test.ts",
       "sha256": "cfe39dde9fbfd9813d5de1c7fd03f05087ecc68a05f38db6a74dfa3c9fa075f2"
     },
@@ -3418,6 +3462,10 @@
     {
       "path": "tests/v21-fixes/pause-progress-hub.test.ts",
       "sha256": "0cee27847104e0e8218b792c2d400ac94b389dc3474c10895f727a4dcfb2bfeb"
+    },
+    {
+      "path": "tests/v21-fixes/player-lights.test.ts",
+      "sha256": "a6d6447d4f0921f902785c08d68587cea239d9b39cc7ab62be726ec68e9de31f"
     },
     {
       "path": "tests/v21-fixes/rail-track-fallback.test.ts",
@@ -3486,6 +3534,14 @@
     {
       "path": "tests/v21-fixes/traffic-camera-visibility.test.ts",
       "sha256": "4180b68a65cb4f7ffdec2af79077d9ce9ad2c6328278c9ca83b5e7736f891bcf"
+    },
+    {
+      "path": "tests/v21-fixes/traffic-headlights.test.ts",
+      "sha256": "069e1afdebd98562cc0741e989e90aa964164a08e1442ea5390ae74051dbf47b"
+    },
+    {
+      "path": "tests/v21-fixes/traffic-night-lamps.test.ts",
+      "sha256": "fe041bfa32fa408c1a350bbdc72a652d326c42c7ad773daf92b7da11c442e52c"
     },
     {
       "path": "tests/v21-fixes/underpass-evidence.test.ts",

@@ -15,7 +15,7 @@ import type { RailwayCrossings } from './railway-crossings';
 import type { MovingRailBody } from './moving-rail';
 
 type Group = 'car' | 'auto' | 'bike' | 'bus' | 'truck';
-interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
+interface Proto { body: THREE.BufferGeometry; lights: THREE.BufferGeometry; tailLights?: THREE.BufferGeometry; reverseLights?: THREE.BufferGeometry; headlights?: readonly M.LampAnchor[]; decals: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; size: number[]; group: Group }
 interface Motion {
   kind: 'bend' | 'junction' | 'lane' | 'uturn' | 'route'; curve: TrafficCurve; startS: number; endS: number;
   edge: GEdge; dir: 1 | -1; lane: number; progress: number; cap: number; node?: string;
@@ -26,13 +26,22 @@ interface Motion {
   busStart?: number;
   busStop?: boolean;
 }
+export interface TrafficLampRig {
+  /** Source positions in the model's local frame; front is -Z. */
+  headlights: readonly M.LampAnchor[];
+  rear: THREE.Mesh;
+  reverse: THREE.Mesh;
+  brakeHold: number;
+  braking: boolean;
+  reversing: boolean;
+}
 export interface Car {
   g: THREE.Group; kind: string; group: Group; size: number[]; edge: GEdge; dir: 1 | -1; s: number; speed: number; want: number;
   lane: number; laneT: number; base: number; x: number; y: number; z: number; hx: number; hz: number; wob: number;
   blockedT: number; stuckT: number; passS: number; honkT: number; filtering: boolean; dwell: number; served: Set<BusStop>;
   motion?: Motion; stopS?: number; planAfter?: number; assertive?: boolean; laneChangeAt?: number; uturnAt?: number;
   busRun?: BusRun; routeDecals?: ReturnType<typeof M.busRouteBoards>;
-  passengerExchange?: BusPassengerExchange;
+  passengerExchange?: BusPassengerExchange; lamps?: TrafficLampRig;
 }
 export interface Walker { x: number; z: number; crossing: boolean }
 export interface TrafficVerticalBounds { bottom: number; top: number }
@@ -51,6 +60,28 @@ const MAJOR = new Set(['trunk', 'primary', 'secondary', 'motorway', 'motorway_li
 export class Traffic {
   cars: Car[] = []; protos: Proto[] = []; byGroup: Record<Group, Proto[]> = { car: [], auto: [], bike: [], bus: [], truck: [] };
   r = rng(77); t = 0;
+  // Normal tails share the existing lamp batch. These two shared overlays draw
+  // only during braking/reversing and remain clear without bloom on phones.
+  private brakeLampMaterial = new THREE.MeshBasicMaterial({ vertexColors: true, color: new THREE.Color().setScalar(3.5), toneMapped: false });
+  private reverseLampMaterial = new THREE.MeshBasicMaterial({ vertexColors: true, color: new THREE.Color().setScalar(2.4), toneMapped: false });
+  private attachLamps(group: THREE.Group, proto: Proto): TrafficLampRig | undefined {
+    if (!proto.tailLights || !proto.reverseLights) return undefined;
+    const rear = new THREE.Mesh(proto.tailLights, this.brakeLampMaterial), reverse = new THREE.Mesh(proto.reverseLights, this.reverseLampMaterial);
+    rear.name = 'Traffic brake lamps'; rear.visible = false; reverse.name = 'Traffic reverse lamps'; reverse.visible = false;
+    group.add(rear, reverse);
+    return { headlights: proto.headlights || [], rear, reverse, brakeHold: 0, braking: false, reversing: false };
+  }
+  private updateLamps(car: Car, previousSpeed: number, dt: number) {
+    const lamps = car.lamps; if (!lamps) return;
+    const seconds = Number.isFinite(dt) ? Math.max(0, dt) : 0;
+    const slowing = Math.abs(previousSpeed) - Math.abs(car.speed) > Math.max(.015, seconds * .6);
+    const stopped = Math.abs(car.speed) < .15 && (car.want > .15 || car.dwell > 0);
+    lamps.brakeHold = slowing || stopped ? .22 : Math.max(0, lamps.brakeHold - seconds);
+    lamps.braking = lamps.brakeHold > 0;
+    lamps.reversing = car.speed < -.15;
+    lamps.rear.visible = lamps.braking;
+    lamps.reverse.visible = lamps.reversing && lamps.reverse.geometry.getAttribute('position').count > 0;
+  }
   stopsByEdge = new Map<string, BusStop[]>();
   services: BusServices | null = null;
   passengerExchanges: BusPassengerExchange[] = [];
@@ -103,7 +134,7 @@ export class Traffic {
   constructor(public graph: RoadGraph, public scene: THREE.Scene, public mats: Record<string, any>, public max = 55, busStops: BusStop[] = [], public city?: CityData) {
     const R = rng(4049);
     const add = (m: M.Model) => {
-      const p: Proto = { body: m.body.geometry(), lights: m.lights.geometry(), decals: m.decals || [], size: m.size, group: m.kind as Group };
+      const p: Proto = { body: m.body.geometry(), lights: m.lights.geometry(), tailLights: m.tailLights?.geometry(), reverseLights: m.reverseLights?.geometry(), headlights: m.headlights, decals: m.decals || [], size: m.size, group: m.kind as Group };
       this.protos.push(p); this.byGroup[p.group].push(p);
     };
     const CAR = ['#F3F2EE', '#F3F2EE', '#F3F2EE', '#C9CCD2', '#9ea3ad', '#5b5f68', '#b3202a', '#23356b', '#6b1f2a', '#1b1a1f', '#7a5a3a', '#2a5bd7'];
@@ -228,6 +259,7 @@ export class Traffic {
     const b = new THREE.Mesh(pr.body, this.mats.vBody); b.castShadow = true; b.receiveShadow = true;
     g.add(b, new THREE.Mesh(pr.lights, this.mats.vLight));
     for (const dc of pr.decals) g.add(new THREE.Mesh(dc.geo, dc.mat));
+    const lamps = this.attachLamps(g, pr);
     const lane = this.pickLane(edge, pr.size[0], group, dir);
     const pose = this.graph.pointAt(edge, s, dir, lane);
     if ((this.city && !trafficPoseClear(this.city, pose, pr.size)) || this.cars.some(c => trafficOverlap({ ...pose, size: pr.size }, c, 2)) ||
@@ -236,7 +268,7 @@ export class Traffic {
     const want = group === 'bike' ? this.r.range(9, 13) : group === 'bus' || group === 'truck' ? this.r.range(6.5, 9) : group === 'auto' ? this.r.range(7, 10) : this.r.range(8, 12);
     const routeDecals = busRun ? M.busRouteBoards(busRun.pattern.number, busRun.pattern.to) : undefined;
     for (const dc of routeDecals || []) g.add(new THREE.Mesh(dc.geo, dc.mat));
-    this.cars.push({ g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.6, want, lane, laneT: lane, base: lane, ...pose, wob: this.r() * 10, blockedT: 0, stuckT: 0, passS: 0, honkT: this.r.range(0.6, 2), filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55), busRun: busRun || undefined, routeDecals });
+    this.cars.push({ g, lamps, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.6, want, lane, laneT: lane, base: lane, ...pose, wob: this.r() * 10, blockedT: 0, stuckT: 0, passS: 0, honkT: this.r.range(0.6, 2), filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55), busRun: busRun || undefined, routeDecals });
   }
   // place a specific vehicle (used by tests and scripted scenes)
   spawnAt(group: Group, edge: GEdge, dir: 1 | -1, s: number, lane?: number): Car {
@@ -249,7 +281,8 @@ export class Traffic {
     const p = this.graph.pointAt(edge, s, dir, ln);
     g.position.set(p.x, p.y + 0.02, p.z); g.rotation.y = Math.atan2(-p.hx, -p.hz);
     const want = group === 'bike' ? 11 : group === 'bus' ? 8 : 10;
-    const c: Car = { g, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.8, want, lane: ln, laneT: ln, base: ln, ...p, wob: 0, blockedT: 0, stuckT: 0, passS: 0, honkT: 0.5, filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55) };
+    const lamps = this.attachLamps(g, pr);
+    const c: Car = { g, lamps, kind: pr.group, group, size: pr.size, edge, dir, s, speed: want * 0.8, want, lane: ln, laneT: ln, base: ln, ...p, wob: 0, blockedT: 0, stuckT: 0, passS: 0, honkT: 0.5, filtering: false, dwell: 0, served: new Set(), assertive: group === 'auto' && this.r() < 0.38, laneChangeAt: group === 'bus' ? 0 : this.t + this.r.range(5, 15), uturnAt: this.t + this.r.range(25, 55) };
     this.cars.push(c);
     return c;
   }
@@ -563,11 +596,13 @@ export class Traffic {
     for (let i = this.cars.length - 1; i >= 0; i--) {
       const c = this.cars[i];
       if (Math.hypot(c.x - px, c.z - pz) > 340) { this.release(c); this.cars.splice(i, 1); continue; }
+      const previousSpeed = c.speed;
       const halfL = c.size[2] / 2, halfW = c.size[0] / 2;
       if (c.dwell > 0) {
         c.speed = 0; c.dwell = Math.max(0, c.dwell - dt);
         if (c.dwell <= 0) { c.laneT = c.base; c.passengerExchange = undefined; c.planAfter = 0; }
         // No path replanning, yaw, creep or lane changes while passengers use the doors.
+        this.updateLamps(c, previousSpeed, dt);
         continue;
       }
       this.prepare(c);
@@ -674,6 +709,7 @@ export class Traffic {
       if (c.edge.e.workZone) c.speed = Math.min(c.speed, c.edge.e.workZone.speed / 3.6);
       this.advance(c, c.speed * dt, player, walkers);
       if (c.edge.e.workZone) c.speed = Math.min(c.speed, c.edge.e.workZone.speed / 3.6);
+      this.updateLamps(c, previousSpeed, dt);
     }
   }
   // Traffic stays visible when it crosses the camera-to-player sightline:

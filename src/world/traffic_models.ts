@@ -7,7 +7,24 @@ import { autoQuote } from './auto-quotes';
 // Hyderabad street traffic. Each builder returns a body batch, a lights batch (emissive at night),
 // optional text decals and its footprint size [width, height, length]. Local frame: ground y=0, front toward -z.
 const PI = Math.PI;
-export interface Model { body: Batch; lights: Batch; size: number[]; decals?: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; kind: string; quoteId?: string }
+export interface LampAnchor { x: number; y: number; z: number }
+export interface Model { body: Batch; lights: Batch; tailLights?: Batch; reverseLights?: Batch; headlights?: readonly LampAnchor[]; size: number[]; decals?: { geo: THREE.BufferGeometry; mat: THREE.Material }[]; kind: string; quoteId?: string }
+
+// Lamp surfaces sit beyond the body skin, so paint cannot hide them from an
+// exterior camera. Headlights stay in the shared emissive batch; separate rear
+// geometry overlays the dim tail lens only while braking, adding no draw for
+// ordinary cruising; shared materials never change another vehicle's lamps.
+type Lens = readonly [x: number, y: number, z: number, width: number, height: number];
+function roadLamps(lights: Batch, fronts: readonly Lens[], rears: readonly Lens[], reversing = true) {
+  const tailLights = new Batch(), reverseLights = new Batch();
+  for (const [x, y, z, w, h] of fronts) lights.box(x, y, z, w, h, .045, '#fff8e1');
+  for (const [x, y, z, w, h] of rears) {
+    lights.box(x, y, z, w, h, .045, '#8b0806');
+    tailLights.box(x, y, z + .008, w, h, .045, '#ff0805');
+    if (reversing) reverseLights.box(x * .72, y - h * .9, z, w * .52, h * .65, .045, '#fff8ed');
+  }
+  return { tailLights, reverseLights, headlights: fronts.map(([x, y, z]) => ({ x, y, z })) };
+}
 
 // side profile (z, y pairs, front = +z in the list) extruded across the width -> template in local frame
 const profCache = new Map<string, Tpl>();
@@ -69,13 +86,14 @@ export function car(kind: CarKind, color: string, r: Rng): Model {
   b.box(0, 0.6, -S.L / 2 - 0.03, W * 0.4, 0.14, 0.03, '#1b1a1f');                                              // grille
   const wy = kind === 'suv' ? 0.36 : 0.31, wz = S.L / 2 - (kind === 'suv' ? 0.78 : 0.7);
   for (const s of [-1, 1]) for (const z of [-wz, wz]) wheel(b, s * (W / 2 - 0.12), wy, z, wy, 0.22);
-  for (const s of [-1, 1]) {
-    l.box(s * W * 0.34, 0.72, -S.L / 2 - 0.035, 0.34, 0.11, 0.03, '#fff8e1');
-    l.box(s * W * 0.38, 0.8, S.L / 2 + 0.035, 0.3, 0.12, 0.03, '#ff2236');
-  }
+  // The bevel extends past the nominal footprint; the old ±.035 m lamps
+  // were inside the paint. Keep the full lens outside that actual skin.
+  const lighting = roadLamps(l,
+    [-1, 1].map(s => [s * W * .34, .72, -S.L / 2 - .16, .34, .14] as const),
+    [-1, 1].map(s => [s * W * .38, .8, S.L / 2 + .16, .30, .16] as const));
   const plate = plateMat(`TS ${r.int(7, 15).toString().padStart(2, '0')} ${String.fromCharCode(65 + r.int(0, 25))}${String.fromCharCode(65 + r.int(0, 25))} ${r.int(1000, 9999)}`, kind === 'cab' ? '#FFD600' : '#F6F4EE');
   const decals = [decal(0.52, 0.13, plate, 0, 0.5, S.L / 2 + 0.07), decal(0.52, 0.13, plate, 0, 0.45, -S.L / 2 - 0.07, PI)];
-  return { body: b, lights: l, size: [W, kind === 'suv' ? 1.75 : 1.5, S.L], decals, kind: 'car' };
+  return { body: b, lights: l, ...lighting, size: [W, kind === 'suv' ? 1.75 : 1.5, S.L], decals, kind: 'car' };
 }
 
 // ---------------- auto rickshaw (three-wheeler) ----------------
@@ -108,12 +126,13 @@ export function auto(r: Rng, quoteIndex = r.int(0, 9)): Model {
   const pax = r.int(0, 3);
   for (let i = 0; i < pax; i++) rider(b, passenger(r), -0.4 + i * 0.4, 0.86, 0.82, 'bench');
   wheel(b, 0, 0.24, -1.12, 0.24, 0.13); wheel(b, -0.6, 0.24, 0.8, 0.24, 0.14); wheel(b, 0.6, 0.24, 0.8, 0.24, 0.14);
-  l.add(TPL.cyl, 0, 1.0, -1.15, 0.1, 0.04, 0.1, '#fff6d8', { rx: PI / 2 });
-  for (const s of [-1, 1]) { l.box(s * 0.5, 0.62, 1.31, 0.14, 0.1, 0.03, '#ff2a2a'); l.box(s * 0.36, 1.02, -1.15, 0.08, 0.06, 0.03, '#ffb030'); }
+  const lighting = roadLamps(l, [[0, 1, -1.23, .22, .18]],
+    [-1, 1].map(s => [s * .5, .62, 1.35, .16, .14] as const));
+  for (const s of [-1, 1]) l.box(s * .36, 1.02, -1.23, .08, .06, .045, '#ffb030');
   const plate = plateMat(`TS 09 U${String.fromCharCode(65 + r.int(0, 25))} ${r.int(1000, 9999)}`, '#FFD600');
   const quote = autoQuote(quoteIndex);
   const quoteMaterial = new THREE.MeshBasicMaterial({ toneMapped: false, map: labelTexture(quote.lines.map(text => ({ text, font: '700 {s}px "Noto Sans Telugu", sans-serif', color: '#FFF6DC', size: 52 })), 768, 224, K) });
-  return { body: b, lights: l, size: [1.36, 1.85, 2.65], decals: [decal(0.42, 0.11, plate, 0, 0.62, 1.31), decal(1.17, 0.5, quoteMaterial, 0, 1.34, 1.35)], kind: 'auto', quoteId: quote.id };
+  return { body: b, lights: l, ...lighting, size: [1.36, 1.85, 2.65], decals: [decal(0.42, 0.11, plate, 0, 0.62, 1.31), decal(1.17, 0.5, quoteMaterial, 0, 1.34, 1.35)], kind: 'auto', quoteId: quote.id };
 }
 
 // ---------------- two-wheelers ----------------
@@ -135,9 +154,8 @@ export function motorbike(r: Rng): Model {
   const rd = riderSpec(r, false);
   rider(b, rd, 0, 0.9, 0.18, 'bike');
   if (r() < 0.35) rider(b, passenger(r), 0, 0.92, 0.6, r() < 0.5 ? 'pillionSide' : 'pillion');
-  l.box(0, 1.0, -0.8, 0.14, 0.12, 0.03, '#fff8e1');
-  l.box(0, 0.86, 0.96, 0.12, 0.06, 0.03, '#ff2236');
-  return { body: b, lights: l, size: [0.75, 1.9, 2.0], kind: 'bike' };
+  const lighting = roadLamps(l, [[0, 1, -.83, .18, .16]], [[0, .86, .99, .16, .10]], false);
+  return { body: b, lights: l, ...lighting, size: [0.75, 1.9, 2.0], kind: 'bike' };
 }
 export function scooter(r: Rng): Model {
   const b = new Batch(), l = new Batch();
@@ -152,9 +170,8 @@ export function scooter(r: Rng): Model {
   const rd = riderSpec(r, true);
   rider(b, rd, 0, 0.9, 0.3, 'scooter');
   if (r() < 0.25) rider(b, passenger(r, true), 0, 0.92, 0.72, 'pillion');
-  l.box(0, 1.15, -0.7, 0.2, 0.1, 0.03, '#fff8e1');
-  l.box(0, 0.78, 0.9, 0.18, 0.06, 0.03, '#ff2236');
-  return { body: b, lights: l, size: [0.75, 1.85, 1.8], kind: 'bike' };
+  const lighting = roadLamps(l, [[0, 1.15, -.73, .22, .14]], [[0, .78, .94, .20, .10]], false);
+  return { body: b, lights: l, ...lighting, size: [0.75, 1.85, 1.8], kind: 'bike' };
 }
 function riderSpec(r: Rng, scooterRide: boolean): PersonSpec {
   const woman = r() < (scooterRide ? 0.55 : 0.12);
@@ -229,10 +246,12 @@ export function bus(r: Rng): Model {
   for (const s of [-1, 1]) b.box(s * (W / 2 + 0.18), 2.3, -L / 2 + 0.1, 0.08, 0.5, 0.06, '#1b1a1f');   // mirrors
   for (const s of [-1, 1]) for (const z of [-3.4, 3.3]) wheel(b, s * (W / 2 - 0.2), 0.5, z, 0.5, 0.32, '#c9c6cf');
   for (let i = 0; i < 10; i++) b.add(TPL.sph, (i % 2 ? 0.75 : -0.75), 2.3, -4.2 + i * 0.95, 0.17, 0.2, 0.17, ['#6b4430', '#8d5a3b', '#a8704b', '#5b3a29'][i % 4]);
-  for (const s of [-1, 1]) { l.box(s * 0.95, 0.85, L / 2 + 0.06, 0.3, 0.2, 0.03, '#ff2236'); l.box(s * 0.95, 0.8, -L / 2 - 0.06, 0.3, 0.18, 0.03, '#fff8e1'); }
+  const lighting = roadLamps(l,
+    [-1, 1].map(s => [s * .95, .8, -L / 2 - .13, .34, .21] as const),
+    [-1, 1].map(s => [s * .95, .9, L / 2 + .13, .34, .25] as const));
   const label = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: red === '#B7322C' ? 'TGSRTC  CITY ORDINARY' : 'TGSRTC  METRO LUXURY', font: '{s}px "Bungee", sans-serif', color: '#F3EEDF', size: 40 }], 512, 64, red) });
   const decals = [decal(4.2, 0.5, label, W / 2 + 0.02, 1.15, -0.5, PI / 2), decal(4.2, 0.5, label, -W / 2 - 0.02, 1.15, 1.6, -PI / 2)];
-  return { body: b, lights: l, size: [W, 3.3, L], decals, kind: 'bus' };
+  return { body: b, lights: l, ...lighting, size: [W, 3.3, L], decals, kind: 'bus' };
 }
 export function lorry(r: Rng): Model {
   const b = new Batch(), l = new Batch();
@@ -250,10 +269,11 @@ export function lorry(r: Rng): Model {
   for (let i = 0; i < 3; i++) for (const s of [-1, 1]) b.box(s * 1.27, 1.4 + i * 0.4, 1.0, 0.02, 0.07, 6.0, ['#FFB627', '#ffffff', '#E53935'][i]);
   if (r() < 0.5) b.add(TPL.halfCyl, 0, 2.6, 1.0, 1.25, 6.0, 0.45, '#2E5E9E', { rx: -PI / 2 });   // tarpaulin
   for (const s of [-1, 1]) for (const z of [-3.15, 2.2, 3.3]) wheel(b, s * 1.08, 0.5, z, 0.5, 0.34, '#c9c6cf');
-  l.box(0, 0.75, -4.25, 1.9, 0.12, 0.03, '#fff8e1');
-  for (const s of [-1, 1]) l.box(s * 0.95, 0.9, 4.08, 0.28, 0.16, 0.03, '#ff2236');
+  const lighting = roadLamps(l,
+    [-1, 1].map(s => [s * .86, .8, -4.28, .34, .20] as const),
+    [-1, 1].map(s => [s * .95, .9, 4.12, .32, .20] as const));
   const hok = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'HORN OK PLEASE', font: '{s}px "Bungee", sans-serif', color: '#E53935', size: 60 }], 512, 96, '#FFD54F') });
-  return { body: b, lights: l, size: [2.5, 3.1, 8.4], decals: [decal(2.0, 0.38, hok, 0, 1.75, 4.08)], kind: 'truck' };
+  return { body: b, lights: l, ...lighting, size: [2.5, 3.1, 8.4], decals: [decal(2.0, 0.38, hok, 0, 1.75, 4.08)], kind: 'truck' };
 }
 let waterMat: THREE.Material | null = null;
 export function tanker(r: Rng): Model {
@@ -266,9 +286,10 @@ export function tanker(r: Rng): Model {
   b.box(0, 2.0, 1.1, 2.26, 0.14, 5.0, '#F6EEDC');
   b.add(TPL.cyl, 0, 3.15, 1.1, 0.3, 0.12, 0.3, '#2a2930');
   for (const s of [-1, 1]) for (const z of [-2.95, 1.6, 2.9]) wheel(b, s * 1.05, 0.48, z, 0.48, 0.3, '#c9c6cf');
-  l.box(0, 0.75, -4.02, 1.6, 0.14, 0.03, '#fff8e1');
-  for (const s of [-1, 1]) l.box(s * 0.8, 0.8, 3.95, 0.3, 0.16, 0.03, '#ff2236');
+  const lighting = roadLamps(l,
+    [-1, 1].map(s => [s * .80, .78, -4.05, .32, .20] as const),
+    [-1, 1].map(s => [s * .80, .8, 4.02, .34, .20] as const));
   if (!waterMat) waterMat = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'DRINKING WATER', font: '{s}px "Bungee", sans-serif', color: '#ffffff', size: 56 }], 512, 80, '#2E66C9') });
   void r;
-  return { body: b, lights: l, size: [2.3, 3.1, 8.2], decals: [decal(3.2, 0.5, waterMat, 1.13, 1.55, 1.1, PI / 2), decal(3.2, 0.5, waterMat, -1.13, 1.55, 1.1, -PI / 2)], kind: 'truck' };
+  return { body: b, lights: l, ...lighting, size: [2.3, 3.1, 8.2], decals: [decal(3.2, 0.5, waterMat, 1.13, 1.55, 1.1, PI / 2), decal(3.2, 0.5, waterMat, -1.13, 1.55, 1.1, -PI / 2)], kind: 'truck' };
 }

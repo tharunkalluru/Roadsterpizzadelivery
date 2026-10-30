@@ -15,6 +15,8 @@ import { RoadGraph, GEdge, RoadRoute } from './roadgraph';
 import { advanceRoadRoute, clearRoadGuidance, guidanceRibbon, navigationReadout, softenRoadCorners } from './route-guidance';
 import { metroCorridors, metroRuntimeStations } from '../world/metro-geometry';
 import { Traffic } from './traffic';
+import { TrafficHeadlights } from './traffic-headlights';
+import { vehicleDarkness } from './player-lights';
 import { Hud, orderOfferHtml } from '../ui/hud';
 import { eligiblePickup } from './pickups';
 import { FullMap } from '../ui/map';
@@ -79,6 +81,7 @@ export class Game {
   private pickupAfter: JumpPickupPose = { x: 0, y: 0, z: 0, bottom: 0, top: 0, jumping: false };
   railContacts = new MovingRailInteraction();
   railTrackFallback?: RailTrackFallback;
+  trafficHeadlights?: TrafficHeadlights;
   railwayCrossings?: RailwayCrossings;
   railwayGates?: RailwayCrossingGates;
   private crossingSites = new Map<string,RailwayCrossingSite>();
@@ -118,6 +121,7 @@ export class Game {
     this.player = new Player(city, engine.mats);
     this.player.addTo(engine.scene);
     this.traffic = new Traffic(this.graph, engine.scene, engine.mats, opts.lowQ ? 32 : 55, city.busStops, city);
+    this.trafficHeadlights = new TrafficHeadlights(engine.scene, opts.lowQ);
     this.carriers = new CarrierMarker(engine.scene);
     this.pickupDetector = new PickupDetector(this.deliveryEvents);
     this.deliveryEvents.on('orderPicked', event => {
@@ -1050,6 +1054,10 @@ export class Game {
       road: this.story && !this.player.airborne ? this.roadNavigation(flightStop) : undefined,
       target: { x: flightStop.x, z: flightStop.z, kind: flightOrder?.state === 'toPickup' ? 'pickup' : 'customer' } } : null, dt);
     this.updateCamera(dt);
+    // Apply after all driving, collision and camera-visibility transforms.
+    const darkness = vehicleDarkness(this.engine.mood?.lampLights ?? 0);
+    this.player.lamps?.update(darkness, inp.brake, this.player.speed, this.opts.lowQ ? 1 : .22);
+    this.trafficHeadlights?.update(P, this.traffic.cars, darkness);
     if (this.beacon.visible) {
       const s = 1 + Math.sin(this.t * 3) * 0.08;
       (this.beacon as any).ring.scale.setScalar(s);

@@ -110,6 +110,12 @@ export class MatchAndLand extends ModuleBase {
     box(0,2.35,2.6,3.5,1.5,.2,'#EA8C32');
     for(const x of [-1.65,1.65])box(x,2.55,5.45,.18,1.15,.18,'#EA8C32');
     box(.7,1.75,3.45,.8,.22,.85,'#272138');box(.7,2.15,3.05,.8,.9,.18,'#272138');
+    // This truck faces +Z. Keep its exterior lenses in the existing opaque
+    // vertex-coloured cab batch, so nighttime readability adds no draw calls.
+    for(const side of [-1,1]){
+      box(side*1.25,1.35,5.62,.42,.22,.08,'#fff5dd');
+      box(side*1.55,.95,-5.36,.34,.22,.08,'#ff2436');
+    }
     flush('delivery-truck-open-window-cab');
     // Torso/head stay under the cab roof. Bent thighs and shins face the windshield.
     box(.7,2.2,3.5,.55,.7,.35,'#BF4F37');

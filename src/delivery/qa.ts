@@ -15,6 +15,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
   const start=pose?.length===4&&pose.every(Number.isFinite)?{x:pose[0],z:pose[1],yaw:pose[2],y:pose[3]}:null;
   const touch=query?.get('qaTouch')==='1';
   const trafficOrbit=query?.get('qaTrafficOrbit')==='1';
+  const nightLights=query?.get('qaNight')==='1';
   const trainRide=query?.get('qaTrainRide')==='1'&&number===2;
   if (!Number.isSafeInteger(number) || number > levels.length) return null;
   const values = new Map<string, string>([['roadster-carrier-tutorial-v1', '1']]);
@@ -42,6 +43,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
     number, runtime, storage, touch, start,
     area,
     attach(game: Game) {
+      if(nightLights){game.minutes=23*60;game.moodT=0;}
       const panel = document.createElement('aside');
       panel.setAttribute('aria-label', 'Development delivery scenario');
       panel.style.cssText = 'position:absolute;z-index:6;left:50%;top:76px;transform:translateX(-50%);max-width:340px;width:calc(100vw - 30px);box-sizing:border-box;padding:8px 10px;border:2px solid #ffbf00;border-radius:12px;background:#20152f;color:#fff1d5;font:12px system-ui;pointer-events:auto';
@@ -98,6 +100,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         game.engine.renderer.domElement.focus({preventScroll:true});
       }):null;
       button('Restart scenario', () => location.reload());
+      if(nightLights)button('Toggle day / night',()=>{game.minutes=(game.engine.mood?.lampLights??0)>2?12*60:23*60;game.moodT=0;});
       button('Hide QA controls', () => cleanup());
       panel.addEventListener('pointerdown', event => event.stopPropagation());
       panel.addEventListener('keydown', event => event.stopPropagation());
@@ -114,11 +117,12 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         if(trainLanding&&support&&Math.abs(p.y-.55-support.y)<.25&&/^rail:\d+:\d+$/.test(support.body.id))contactedCoaches.add(support.body.id);
         const trains=trainRide?game.rail.trains.map(train=>`${train.id}: ${train.cars.filter(car=>car.visible).length}/${train.cars.length} coaches · ${train.run.ways.length} ways · ${Math.round(train.dir>0?train.run.len-train.s:train.s)}m to route end`).join('\n'):'';
         const trainReadout=trainRide?`\nRail contact: ${support&&Math.abs(p.y-.55-support.y)<.25?support.body.id:'air / off train'} · coaches reached: ${[...contactedCoaches].join(', ')||'none'}\nTrain marker: ${game.story?.destination?Math.round(Math.hypot(p.x-game.story.destination.x,p.z-game.story.destination.z))+' m':'no active order'} · car y ${p.y.toFixed(2)}\n${trains}\nActive drive: ${Math.round(game.t)}s · track offset: ${game.city.railway.closest(p.x,p.z,25)?.d.toFixed(2)??'off track'}m`:'';
-        const readout=text+(orbitVehicles.length?'\nTraffic: '+orbitVehicles.map(c=>`${c.group} ${c.g.visible?'visible':'hidden'}`).join(' · '):'')+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'');
+        const lightingReadout=nightLights?`\n${(game.engine.mood?.lampLights??0)>2?'Night':'Day'} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · brake ${game.player.lamps?.braking?'ON':'off'} · reverse ${game.player.lamps?.reversing?'ON':'off'} · real beams ${game.player.lamps?.headlights.filter(l=>l.intensity>0).length??0}+${game.trafficHeadlights?.lights.filter(l=>l.intensity>0).length??0}`:'';
+        const readout=text+(orbitVehicles.length?'\nTraffic: '+orbitVehicles.map(c=>`${c.group} ${c.g.visible?'visible':'hidden'}`).join(' · '):'')+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'')+lightingReadout;
         if (status.textContent !== readout+trainReadout) status.textContent = readout+trainReadout;
       };
       const timer = setInterval(update, 250);
-      const toggleDiagnostics=(event:KeyboardEvent)=>{if(trainRide&&event.code==='F2'){panel.hidden=!panel.hidden;event.preventDefault();}};
+      const toggleDiagnostics=(event:KeyboardEvent)=>{if((trainRide||nightLights)&&event.code==='F2'){panel.hidden=!panel.hidden;event.preventDefault();}};
       addEventListener('keydown',toggleDiagnostics);
       const cleanup = () => { clearInterval(timer); panel.remove(); removeEventListener('pagehide', cleanup); removeEventListener('keydown',toggleDiagnostics); };
       addEventListener('pagehide', cleanup, { once: true }); update();

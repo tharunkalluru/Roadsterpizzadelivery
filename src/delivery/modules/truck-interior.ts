@@ -38,6 +38,16 @@ export class TruckInterior extends ModuleBase {
     this.box(0,3.3,8,5.8,3.5,.3,'#793A29',this.vehicle);
     this.box(0,2.2,10,5.7,4.1,4,'#CA672D',this.vehicle);
     this.box(0,3.5,12.03,4.8,1.5,.04,'#233D4A',this.vehicle);
+    // The cab faces +Z. Opaque emissive lenses remain readable without bloom;
+    // rear lights sit beside the folding ramp so opening it cannot hide them.
+    for(const [name,color,x,y,z,w,h] of [
+      ['delivery-truck-headlights','#fff5dd',2.1,1.3,12.12,.65,.28],
+      ['delivery-truck-tail-lights','#ff2436',2.87,1.25,REAR-.14,.22,.30],
+    ] as const){
+      const lamps=this.ownInstances(new THREE.InstancedMesh(this.own(new THREE.BoxGeometry(w,h,.08)),this.mat(color),2));
+      lamps.name=name;for(let i=0;i<2;i++)lamps.setMatrixAt(i,new THREE.Matrix4().makeTranslation((i?1:-1)*x,y,z));
+      lamps.instanceMatrix.needsUpdate=true;this.vehicle.add(lamps);
+    }
     for(const x of [-2.7,2.7])for(const z of [-5,5,10]){const wheel=this.cylinder(x,.7,z,.85,.45,'#24252B',this.vehicle);wheel.rotation.z=Math.PI/2;}
     // The logs live along one wall, leaving an unobstructed Roadster-width aisle.
     for(let row=0;row<3;row++)for(let col=0;col<2;col++){

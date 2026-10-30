@@ -7,6 +7,7 @@ import { landmarkCarContact } from './landmark-contact';
 import { TakeoffKickflip } from './takeoff-kickflip';
 import { advanceJump, jumpCeiling, jumpProfile, JUMP_AIRTIME, JUMP_COOLDOWN_SECONDS } from './jump-motion';
 import { buoyantHeight, waterHeightAt } from '../world/water';
+import { PlayerLights } from './player-lights';
 
 export interface Input { throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean; jumpPressed?: boolean }
 export const ROAD_SPEED_LIMIT = 120 / 3.6;
@@ -14,6 +15,7 @@ export const FLIGHT_SPEED_LIMIT = 160 / 3.6;
 
 // Roadster: arcade car with real surfaces (flyovers/steel bridge are drivable) and unlimited flight.
 export class Player {
+  lamps!: PlayerLights;
   group: THREE.Group; pods: THREE.Mesh[]; glow: THREE.Mesh; light = new THREE.PointLight('#45E3D3', 0, 9, 1.8);
   pos = new THREE.Vector3(); yaw = 0; speed = 0; vy = 0; steerVis = 0;
   waterWake: THREE.Group | null = null;
@@ -74,6 +76,8 @@ export class Player {
   constructor(public city: CityData, mats: Record<string, any>) {
     const logo = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'HYDERABAD ROADSTER', font: '{s}px "Bungee", sans-serif', color: '#FFB627', size: 44 }], 512, 128, '#17132B') });
     const plate = new THREE.MeshBasicMaterial({ map: labelTexture([{ text: 'TG 09 P2P 01', font: '800 {s}px "Baloo 2", sans-serif', color: '#17132B', size: 70 }], 512, 128, '#F6EEDC', '#17132B') });
+    const tail = new THREE.MeshBasicMaterial({ color: '#ff160b', toneMapped: false });
+    const reverse = new THREE.MeshBasicMaterial({ color: '#292b32', toneMapped: false });
     const R = roadster({
       paint: new THREE.MeshPhysicalMaterial({ color: '#d5d9dc', metalness: 0.48, roughness: 0.23, clearcoat: 1, clearcoatRoughness: 0.06 }),
       canopy: new THREE.MeshPhysicalMaterial({ color: '#29221c', metalness: 0.38, roughness: 0.13, transparent: true, opacity: 0.94, side: THREE.DoubleSide }),
@@ -83,7 +87,7 @@ export class Player {
       pizzaBox: new THREE.MeshStandardMaterial({ color: '#FFB627', roughness: 0.55 }),
       red: new THREE.MeshStandardMaterial({ color: '#E8413A', roughness: 0.5 }),
       heatLed: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ff7a2a').multiplyScalar(2.5), toneMapped: false }),
-      tail: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ff210c').multiplyScalar(1.5), toneMapped: false }),
+      tail, reverse,
       head: new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffffff').multiplyScalar(2.5), toneMapped: false }),
       pod: new THREE.MeshStandardMaterial({ color: '#64686b', roughness: 0.28, metalness: 0.85 }),
       podGlow: new THREE.MeshBasicMaterial({ color: new THREE.Color('#bfeaff').multiplyScalar(1.6), toneMapped: false }),
@@ -110,6 +114,8 @@ export class Player {
     this.kickflipPivot = new THREE.Group(); this.kickflipPivot.name = 'Takeoff kickflip'; this.kickflipPivot.position.y = this.kickflipCentre;
     for (const child of [...this.group.children]) { child.position.y -= this.kickflipCentre; this.kickflipPivot.add(child); }
     this.group.add(this.kickflipPivot);
+    // Lights share the visual model's transform but add no collision geometry.
+    this.lamps = new PlayerLights(R.lampMount, tail, reverse);
     const plumes = new Set<THREE.Object3D>();
     for (const nozzle of this.nozzles) nozzle.jet?.traverse(node => plumes.add(node));
     this.group.traverse(node => {
