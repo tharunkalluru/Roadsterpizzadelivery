@@ -46,7 +46,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
       panel.setAttribute('aria-label', 'Development delivery scenario');
       panel.style.cssText = 'position:absolute;z-index:6;left:50%;top:76px;transform:translateX(-50%);max-width:340px;width:calc(100vw - 30px);box-sizing:border-box;padding:8px 10px;border:2px solid #ffbf00;border-radius:12px;background:#20152f;color:#fff1d5;font:12px system-ui;pointer-events:auto';
       const label = document.createElement('strong');
-      label.textContent = `QA scenario ${number} · temporary progress`;
+      label.textContent = `QA scenario ${number} · temporary progress${trainRide?' · F2 toggles diagnostics':''}`;
       const status = document.createElement('p'); status.style.margin = '5px 0';status.style.whiteSpace='pre-line';
       status.setAttribute('role', 'status');
       const buttons = document.createElement('div'); buttons.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap';
@@ -112,12 +112,15 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         const p=game.player.pos;
         const support=trainRide?movingRailSupport(game.city.movingRail||[],p.x,p.z,p.y-.55):null;
         if(trainLanding&&support&&Math.abs(p.y-.55-support.y)<.25&&/^rail:\d+:\d+$/.test(support.body.id))contactedCoaches.add(support.body.id);
-        const trainReadout=trainRide?`\nRail contact: ${support&&Math.abs(p.y-.55-support.y)<.25?support.body.id:'air / off train'} · coaches reached: ${[...contactedCoaches].join(', ')||'none'}\nTrain marker: ${game.story?.destination?Math.round(Math.hypot(p.x-game.story.destination.x,p.z-game.story.destination.z))+' m':'no active order'} · car y ${p.y.toFixed(2)}`:'';
+        const trains=trainRide?game.rail.trains.map(train=>`${train.id}: ${train.cars.filter(car=>car.visible).length}/${train.cars.length} coaches · ${train.run.ways.length} ways · ${Math.round(train.dir>0?train.run.len-train.s:train.s)}m to route end`).join('\n'):'';
+        const trainReadout=trainRide?`\nRail contact: ${support&&Math.abs(p.y-.55-support.y)<.25?support.body.id:'air / off train'} · coaches reached: ${[...contactedCoaches].join(', ')||'none'}\nTrain marker: ${game.story?.destination?Math.round(Math.hypot(p.x-game.story.destination.x,p.z-game.story.destination.z))+' m':'no active order'} · car y ${p.y.toFixed(2)}\n${trains}\nActive drive: ${Math.round(game.t)}s · track offset: ${game.city.railway.closest(p.x,p.z,25)?.d.toFixed(2)??'off track'}m`:'';
         const readout=text+(orbitVehicles.length?'\nTraffic: '+orbitVehicles.map(c=>`${c.group} ${c.g.visible?'visible':'hidden'}`).join(' · '):'')+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'');
         if (status.textContent !== readout+trainReadout) status.textContent = readout+trainReadout;
       };
       const timer = setInterval(update, 250);
-      const cleanup = () => { clearInterval(timer); panel.remove(); removeEventListener('pagehide', cleanup); };
+      const toggleDiagnostics=(event:KeyboardEvent)=>{if(trainRide&&event.code==='F2'){panel.hidden=!panel.hidden;event.preventDefault();}};
+      addEventListener('keydown',toggleDiagnostics);
+      const cleanup = () => { clearInterval(timer); panel.remove(); removeEventListener('pagehide', cleanup); removeEventListener('keydown',toggleDiagnostics); };
       addEventListener('pagehide', cleanup, { once: true }); update();
     },
   };

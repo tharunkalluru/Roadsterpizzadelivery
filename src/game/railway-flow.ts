@@ -84,6 +84,41 @@ export function projectRailwayRun(run: RailwayRun, x: number, z: number) {
   }
   return best;
 }
+
+export interface RailwayContinuation { run: RailwayRun; added: number; way: string; dot: number }
+/** Directed routing is separate from mutual-straight chain ownership. A siding
+ * may reach its actual onward junction without claiming the main line at spawn.
+ * Only an exact, height-compatible source endpoint can continue the route. */
+export function railwayContinuations(run: RailwayRun, direction: RailDirection, rails: ReadonlyMap<string, RailwayTrack>): RailwayContinuation[] {
+  if (run.pts.length < 2) return [];
+  const tip = direction > 0 ? run.pts.at(-1)! : run.pts[0];
+  const before = direction > 0 ? run.pts.at(-2)! : run.pts[1];
+  const dx = tip[0] - before[0], dz = tip[2] - before[2], length = Math.hypot(dx, dz);
+  if (length < .001) return [];
+  const used = new Set(run.ways.map(way => way.id)), choices: RailwayContinuation[] = [];
+  for (const [id, track] of rails) {
+    if (used.has(id) || track.pts.length < 2) continue;
+    for (const reversed of [false, true]) {
+      const index = reversed ? track.pts.length - 1 : 0, endpoint = track.pts[index];
+      // Shared source coordinates alone form a junction. Never bridge nearby
+      // but unjoined tracks, missing survey spans, or a separated railway.
+      if (Math.hypot(endpoint[0] - tip[0], endpoint[1] - tip[2]) > 1e-6 || Math.abs((track.elev?.[index] ?? (track.bridge ? 6.2 : 0)) + .11 - tip[1]) > .15) continue;
+      const points = track.pts.map((point, i) => [point[0], (track.elev?.[i] ?? (track.bridge ? 6.2 : 0)) + .11, point[1]]);
+      if (reversed) points.reverse();
+      const next = points.find(point => Math.hypot(point[0] - tip[0], point[2] - tip[2]) > .2);
+      if (!next) continue;
+      const nx = next[0] - tip[0], nz = next[2] - tip[2], dot = (nx * dx + nz * dz) / (Math.hypot(nx, nz) * length);
+      if (dot <= .7) continue; // no wrong-track U-turn or sharp invented turn
+      const pts = direction > 0 ? run.pts.concat(points.slice(1)) : points.slice(1).reverse().concat(run.pts);
+      const way = { id, dir: ((reversed ? -1 : 1) * direction) as RailDirection };
+      const ways = direction > 0 ? [...run.ways, way] : [way, ...run.ways], cum = [0];
+      for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][2] - pts[i - 1][2]));
+      const continued = { pts, cum, ways, len: cum.at(-1)! }, added = continued.len - run.len;
+      if (added > .2) choices.push({ run: continued, added, way: id, dot });
+    }
+  }
+  return choices.sort((a,b) => b.dot - a.dot || a.way.localeCompare(b.way));
+}
 export const sharedRailwayWay = (a: RailwayRun, b: RailwayRun) => a.ways.some(w => b.ways.some(v => v.id === w.id));
 
 // Only long, physically parallel mapped tracks can form an opposing pair. A

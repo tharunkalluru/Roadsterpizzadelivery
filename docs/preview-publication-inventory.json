@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "78ae06aeb7f7306f66bfe0a2545eedd388530e14",
+  "source_commit": "0a695650b047e9887d1e77aa5c25580aa8403ce1",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -198,6 +198,34 @@
     {
       "path": "docs/delivery/evidence/map-relocation/phone-tap-narsingi.png",
       "sha256": "1b8cbb726f49e2ddd8499b3cd0a3365f2eecad7e1d286aa5411731068cda3137"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/README.md",
+      "sha256": "f1e4a9c74f8eb0dbf624bfd11cd705e70f7cb40dc1aabe57ec057876bf5e72d9"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/intact-train-and-visible-track.png",
+      "sha256": "ec5c04d3dba72b37918b3f617eab55d340b97302b23828b370fc092b7e6eb045"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-later.png",
+      "sha256": "66b53a3556e032891951ef5064eae02ce8e842282c9e0c1a696628ea10744cdd"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-middle.png",
+      "sha256": "bd21002a21746b953695d59904cc505cef3c4d3edf0d44936845d22e1182ab48"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-observations.json",
+      "sha256": "99b6d4c226becab21a3c441197875da6649f6552f8676e7d54a5d0ab1e147806"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-start.png",
+      "sha256": "88b7ccaa24d28d150658d81c24deb8e4a576208e1621caeca5f006024e9755f4"
+    },
+    {
+      "path": "docs/delivery/evidence/rail-route-continuity/ride-terminal.png",
+      "sha256": "8857b1ed0e7cd76d3b6cdd1947647e36b9fb1e1cf551fc7c10857ce81f9cf21e"
     },
     {
       "path": "docs/delivery/evidence/traffic-visibility/orbit-auto-after.png",
@@ -2325,7 +2353,7 @@
     },
     {
       "path": "src/delivery/qa.ts",
-      "sha256": "990cab75fd4201b313cf5414541bd162e2a682d93933fe0380cc1af281b5ebd4"
+      "sha256": "92dab40e24dbcde800a4cc637dac6204944595784d3bda93675e26d729772c5c"
     },
     {
       "path": "src/delivery/rail-passages.ts",
@@ -2425,7 +2453,7 @@
     },
     {
       "path": "src/game/game.ts",
-      "sha256": "7b8e43e052f853c469afa2a78c38baaaf0a0efe55c6f0bac0856ffc23ca60022"
+      "sha256": "4eea48267ab76250029b14eeb6e40c444f6f81b2b73b3b0d2320ab35dad1e95e"
     },
     {
       "path": "src/game/jump-motion.ts",
@@ -2469,7 +2497,7 @@
     },
     {
       "path": "src/game/rail.ts",
-      "sha256": "b1b486ffcc5e74809dcb1e4caeea66dd3767cff4d76b4db5a4b5e4103ee17052"
+      "sha256": "a2fc196ab27349132ccc997e8f3f59e71bbe317e083010da78828f49ea3bfb90"
     },
     {
       "path": "src/game/railway-crossings.ts",
@@ -2477,7 +2505,7 @@
     },
     {
       "path": "src/game/railway-flow.ts",
-      "sha256": "b3f8905be4ff0279b75c5238e42cf1f1e2cd1a4d7fc140ce47e6b9c5693c7d8a"
+      "sha256": "286a69acd30ee9d8ed403dd6e1622fb18fb87cff446d90219237f9ece77d448c"
     },
     {
       "path": "src/game/roadgraph.ts",
@@ -2486,6 +2514,10 @@
     {
       "path": "src/game/route-guidance.ts",
       "sha256": "36d5f6e5a35204e365be84995ac8a87ed170206616aa279a86ce149045a449d6"
+    },
+    {
+      "path": "src/game/running-railway-tracks.ts",
+      "sha256": "e1c2dc2ec21c71969d3e97c155bb54500ffb4ba4e4c772385231c6bd81ed1e23"
     },
     {
       "path": "src/game/spatial-safety.ts",
@@ -2758,6 +2790,10 @@
     {
       "path": "src/world/people.ts",
       "sha256": "80564a9cb775e5417fcc8c3dc98a1a8ad630458a0a0ec9317623693de2a3e68e"
+    },
+    {
+      "path": "src/world/rail-track-fallback.ts",
+      "sha256": "1467325f81fb059859a8870ef2c98a819ea2e5a23c3bfaa3f1c18376d77569fa"
     },
     {
       "path": "src/world/railway-clearance.ts",
@@ -3384,6 +3420,10 @@
       "sha256": "0cee27847104e0e8218b792c2d400ac94b389dc3474c10895f727a4dcfb2bfeb"
     },
     {
+      "path": "tests/v21-fixes/rail-track-fallback.test.ts",
+      "sha256": "b46e010cfc2cd88dab8aa0940b842d523f714b4cb2459884a4f6329f04f8bb03"
+    },
+    {
       "path": "tests/v21-fixes/railway-coach-continuity.test.ts",
       "sha256": "e1ab5e476d817ba19d41b38e04988cf895266a21a3aeda72dba4c73ec1696d47"
     },
@@ -3402,6 +3442,10 @@
     {
       "path": "tests/v21-fixes/railway-horn.test.ts",
       "sha256": "f4d711204cfcf8fd718fa4d745ef6e45fa87be9482428160d93a96c1d9c464a8"
+    },
+    {
+      "path": "tests/v21-fixes/railway-lifecycle.test.ts",
+      "sha256": "5b944c0d03c2c034f5493d4fa90bc46c072e804c6551122784f151f7c837a5ae"
     },
     {
       "path": "tests/v21-fixes/railway-map.test.ts",
@@ -3430,6 +3474,10 @@
     {
       "path": "tests/v21-fixes/road-underpasses.test.ts",
       "sha256": "0e87c4ee8c0c2cf94315fe4a9cc8488360169d68db20d430b403d46ac7978e03"
+    },
+    {
+      "path": "tests/v21-fixes/running-railway-tracks.test.ts",
+      "sha256": "1bfa2232a7e353eebd708259fcf42f11c98757d2e0e64900b353fbebb7c8a389"
     },
     {
       "path": "tests/v21-fixes/stadium-roads.test.ts",

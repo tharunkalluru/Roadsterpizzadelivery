@@ -35,6 +35,8 @@ import { MovingRailInteraction } from './moving-rail';
 import { RailwayCrossings, buildRailwayCrossingSites, type RailwayCrossingSite, type RailwayRoadUser } from './railway-crossings';
 import { RailwayCrossingGates } from '../world/railway-crossing-gates';
 import { railwayNetwork } from '../world/railway-geometry';
+import { runningRailwayTracks } from './running-railway-tracks';
+import { RailTrackFallback } from '../world/rail-track-fallback';
 import { fetchPack } from '../world/packs';
 import type { BusFeed } from './bus-services';
 import { AirportAircraft } from '../world/airport-aircraft';
@@ -76,6 +78,7 @@ export class Game {
   private pickupBefore: JumpPickupPose = { x: 0, y: 0, z: 0, bottom: 0, top: 0, jumping: false };
   private pickupAfter: JumpPickupPose = { x: 0, y: 0, z: 0, bottom: 0, top: 0, jumping: false };
   railContacts = new MovingRailInteraction();
+  railTrackFallback?: RailTrackFallback;
   railwayCrossings?: RailwayCrossings;
   railwayGates?: RailwayCrossingGates;
   private crossingSites = new Map<string,RailwayCrossingSite>();
@@ -129,6 +132,8 @@ export class Game {
     this.metro = new MetroTrains(zone.metro as any, { body: engine.mats.vBody, lights: engine.mats.vLight }); engine.scene.add(this.metro.group);
     this.stationLife = new MetroStationLife(zone.metro, engine.mats.vBody, { lowQ: opts.lowQ, isStationLoaded: station => city.tiles.has(`${Math.floor(station.p[0] / 1000)}_${Math.floor(station.p[1] / 1000)}`) }); engine.scene.add(this.stationLife.group);
     this.rail = new RailTrains(engine.mats.vBody); engine.scene.add(this.rail.group);
+    this.railTrackFallback = new RailTrackFallback(city.railway || railwayNetwork(), { st: engine.mats.st, foot: engine.mats.foot }, { lowQ: opts.lowQ });
+    engine.scene.add(this.railTrackFallback.group);
     this.railwayCrossings = new RailwayCrossings([]);
     this.rail.setCrossings(this.railwayCrossings); this.traffic.setRailwayCrossings(this.railwayCrossings);
     this.addRailwayCrossings(zone.roads);
@@ -968,7 +973,7 @@ export class Game {
     this.metro.update(dt, this.player.pos.x, this.player.pos.z);
     this.stationLife?.update(dt, this.minutes, this.metro.stationDwells, this.player.pos.x, this.player.pos.z);
     this.updateRailwayCrossings(dt);
-    this.rail.update(dt, this.player.pos.x, this.player.pos.z, this.city.rails);
+    this.rail.update(dt, this.player.pos.x, this.player.pos.z, runningRailwayTracks(this.city.railway?.profiles || railwayNetwork().profiles));
     this.story?.beforePlayer(dt);
     this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies, ...(this.story?.supports ?? [])];
     this.railContacts.beforePlayer(this.player, this.city.movingRail, !!(inp.flyPressed || inp.jumpPressed), dt);
@@ -993,6 +998,7 @@ export class Game {
     this.bugReports?.record({ time: this.t, x: P.x, y: P.y, z: P.z, speed: this.player.speed, throttle: inp.throttle, brake: inp.brake, steer: inp.steer, flying: this.player.flying, surface: this.player.lastKind });
     this.aircraft.update(dt, P.x, P.z);
     this.city.update(P.x, P.z, dt);
+    this.railTrackFallback?.update(P.x, P.z, this.city.tiles, dt, this.rail.bodies);
     if ((this.busyT -= dt) <= 0) { this.busyT = 1; this.setStreetLife(P.x, P.z); }
     this.traffic.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, hx: this.player.forward.x, hz: this.player.forward.z }, this.walkers.list);
     if (this.carrierPickupMode) this.updateCarrierPickup(dt);

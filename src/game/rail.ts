@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { Batch } from '../core/util';
-import { buildRailwayRun, railwayPoint, projectRailwayRun, parallelRailwayRuns, sharedRailwayWay, RailwayFlow, railwaySweepsConflict, type RailwayTrack, type RailwayRun, type RailDirection } from './railway-flow';
+import { buildRailwayRun, railwayPoint, projectRailwayRun, parallelRailwayRuns, sharedRailwayWay, RailwayFlow, railwaySweepsConflict, railwayContinuations, type RailwayTrack, type RailwayRun, type RailDirection } from './railway-flow';
 import { MovingRailFrames, type MovingRailShape } from './moving-rail';
 import type { RailwayCrossings, RailwayApproach } from './railway-crossings';
 
@@ -8,8 +8,8 @@ import type { RailwayCrossings, RailwayApproach } from './railway-crossings';
 // follow the curves of the track, spawned a little way off and running through.
 type Track = RailwayTrack;
 type Run = RailwayRun;
-interface Train { id: string; run: Run; s: number; dir: 1 | -1; v: number; cars: THREE.Mesh[] }
-const CAR = 22.5, GAP = 0.9, MAXT = 2;
+interface Train { id: string; run: Run; s: number; dir: 1 | -1; v: number; cars: THREE.Mesh[]; cruise?: number; motionSpeed?: number }
+const CAR = 22.5, GAP = 0.9, MAXT = 2, END_BUFFER = 6, END_BRAKE = 1.5;
 
 function coachGeo(kind: 'loco' | 'coach', livery: string) {
   const b = new Batch();
@@ -30,26 +30,33 @@ export class RailTrains {
   get bodies() { return this.frames.bodies; }
   private crossings?: RailwayCrossings;
   setCrossings(crossings: RailwayCrossings) { this.crossings = crossings; }
-  get approaches(): RailwayApproach[] { return this.trains.map(t => ({ id: t.id, run: t.run, s: t.s, dir: t.dir, speed: t.v, length: t.cars.length * (CAR + GAP) })); }
+  get approaches(): RailwayApproach[] { return this.trains.map(t => ({ id: t.id, run: t.run, s: t.s, dir: t.dir, speed: t.motionSpeed ?? t.v, length: t.cars.length * (CAR + GAP) })); }
   constructor(public mat: THREE.Material) {}
   geo(k: string) { return this.geos[k] || (this.geos[k] = k === 'loco' ? coachGeo('loco', '') : coachGeo('coach', k)); }
   private flow = new RailwayFlow();
   private runSnapshot: Map<string, Track> | null = null;
   private canonicalRuns: Run[] = [];
+  private networkRevision = 0;
+  private continuationChecks = new WeakMap<Train, { run: Run; revision: number }>();
   // Both the physical mapped rails and the trains retain their source geometry.
   buildRun(rails: Map<string, Track>, start: Track): Run { return buildRailwayRun(rails, start); }
   private runsFor(rails: Map<string, Track>) {
     // Streamed track objects are immutable. A neighboring tile can replace a
     // way without changing the Map's size, so compare keys and object identity.
-    if (this.runSnapshot && this.runSnapshot.size === rails.size &&
-      [...rails].every(([id, track]) => this.runSnapshot!.get(id) === track)) return this.canonicalRuns;
+    if(this.runSnapshot&&this.runSnapshot.size===rails.size) {
+      let same=true;
+      // Map.forEach avoids allocating one entry tuple per canonical way on
+      // every frame, while still detecting in-place same-size replacement.
+      rails.forEach((track,id)=>{if(same&&this.runSnapshot!.get(id)!==track)same=false;});
+      if(same)return this.canonicalRuns;
+    }
     const runs: Run[] = [], used = new Set<string>();
     for (const [id, track] of rails) {
       if (track.pts.length < 2 || used.has(id)) continue;
       const run = this.buildRun(rails, track); runs.push(run);
       for (const way of run.ways) used.add(way.id);
     }
-    this.runSnapshot = new Map(rails); this.canonicalRuns = runs;
+    this.runSnapshot = new Map(rails); this.canonicalRuns = runs; this.networkRevision++;
     return runs;
   }
   private point(run: Run, s: number) {
@@ -72,6 +79,25 @@ export class RailTrains {
         roofGroup: t.id, roofIndex: k });
     });
     return bodies;
+  }
+  private limits(t: Pick<Train,'cars'|'dir'|'run'>) {
+    const length = Math.max(0,t.cars.length-1)*(CAR+GAP)+CAR;
+    return { min:t.dir>0?length+END_BUFFER:END_BUFFER, max:t.dir>0?t.run.len-END_BUFFER:t.run.len-length-END_BUFFER };
+  }
+  private onward(t: Train, rails: Map<string,Track>) {
+    for(let step=0;step<8;step++) {
+      const remaining=t.dir>0?t.run.len-t.s:t.s;
+      if(remaining>Math.max(500,t.v*t.v/(2*END_BRAKE)+200))break;
+      const checked=this.continuationChecks.get(t);
+      if(checked?.run===t.run&&checked.revision===this.networkRevision)break;
+      this.continuationChecks.set(t,{run:t.run,revision:this.networkRevision});
+      const next=railwayContinuations(t.run,t.dir,rails).find(option=>this.flow.reserve(option.run,t.dir));
+      if(!next)break;
+      // Prepending changes scalar distance only; every existing world-space
+      // point, coach ID, heading and carried passenger remains in place.
+      if(t.dir<0)t.s+=next.added;
+      t.run=next.run;
+    }
   }
   private spawn(px: number, pz: number, rails: Map<string, Track>) {
     const nearby: { run: Run; distance: number; pair: number }[] = [];
@@ -100,8 +126,11 @@ export class RailTrains {
       if (!this.flow.reserve(run, dir)) continue;
       const ns = projectRailwayRun(run, px, pz).s;
       const n = 8 + Math.floor(Math.random() * 6);
-      let s = Math.max(0, Math.min(run.len, ns - dir * 550));
+      const limits=this.limits({run,dir,cars:Array(n)});
+      if(limits.max<limits.min)continue;
+      let s = Math.max(limits.min, Math.min(limits.max, ns - dir * 550));
       s = this.crossings?.safeSpawn(run, s, dir, n * (CAR + GAP)) ?? s;
+      if(s<limits.min||s>limits.max)continue;
       const id = `rail:${this.nextTrain}`, draft = { id, run, dir, cars: Array(n).fill(null) as THREE.Mesh[] };
       const shape = this.shapes(draft, s);
       if (this.trains.some(t => railwaySweepsConflict(shape, shape, this.shapes(t, t.s), this.shapes(t, t.s)))) continue;
@@ -112,13 +141,25 @@ export class RailTrains {
   }
   update(dt: number, px: number, pz: number, rails: Map<string, Track>) {
     this.t += dt;
+    if(rails.size)this.runsFor(rails);
     if (this.trains.length < MAXT && this.t > 6 && rails.size) { this.t = 0; this.spawn(px, pz, rails); }
+    for(const train of this.trains)this.onward(train,rails);
+    const travelled=new Map(this.trains.map(train=>[train,0]));
     // At turnouts or genuinely crossing mapped lines, reserve the swept whole
     // rake before moving. Substeps bound rotation while priority lets one pass.
     const steps = Math.max(1, Math.ceil(dt / .05)), step = dt / steps;
     for (let i = 0; i < steps; i++) {
       const current = this.trains.map(t => this.shapes(t, t.s));
-      const distances = this.trains.map(t => this.crossings?.trainAdvance(t.run, t.s, t.dir, t.v * step) ?? t.v * step);
+      const distances = this.trains.map(t => {
+        const limits=this.limits(t),remaining=Math.max(0,t.dir>0?limits.max-t.s:t.s-limits.min);
+        const cruise=t.cruise??t.v,limit=Math.sqrt(2*END_BRAKE*remaining),desired=Math.min(cruise,limit);
+        if(limit<cruise)t.cruise=cruise;
+        if(t.v>desired)t.v=desired;
+        else if(t.v<desired&&step>0)t.v=Math.min(desired,t.v+step*1.2);
+        if(t.cruise!==undefined&&t.v>=cruise&&limit>=cruise)delete t.cruise;
+        const requested=Math.min(remaining,Math.max(0,t.v)*step);
+        return this.crossings?.trainAdvance(t.run,t.s,t.dir,requested)??requested;
+      });
       const next = this.trains.map((t, i) => this.shapes(t, t.s + t.dir * distances[i]));
       const advance = this.trains.map(() => true);
       for (let a = 0; a < this.trains.length; a++) for (let b = a + 1; b < this.trains.length; b++) {
@@ -127,20 +168,22 @@ export class RailTrains {
         else if (!railwaySweepsConflict(current[a], current[a], current[b], next[b])) advance[a] = false;
         else { advance[a] = false; advance[b] = false; }
       }
-      this.trains.forEach((t, i) => { if (advance[i]) t.s += t.dir * distances[i]; });
+      this.trains.forEach((t, i) => { if (advance[i]) {t.s += t.dir * distances[i];travelled.set(t,travelled.get(t)!+distances[i]);} });
     }
     const bodies: MovingRailShape[] = [];
     for (const t of [...this.trains]) {
-      const head = this.at(t.run, t.s);
-      const gone = t.dir > 0 ? t.s - t.cars.length * (CAR + GAP) > t.run.len : t.s + t.cars.length * (CAR + GAP) < 0;
-      if (gone || Math.hypot(head.x - px, head.z - pz) > 2600) { for (const c of t.cars) this.group.remove(c); this.trains.splice(this.trains.indexOf(t), 1); continue; }
+      if(dt>0)t.motionSpeed=travelled.get(t)!/dt;
+      const shapes=this.shapes(t,t.s);
+      // Retire only a whole distant rake. Its tail may still carry the player
+      // even when the locomotive has left the nearby visual region.
+      if(shapes.length&&shapes.every(coach=>Math.hypot(coach.x-px,coach.z-pz)>2600)) { for (const c of t.cars) this.group.remove(c); this.trains.splice(this.trains.indexOf(t), 1); continue; }
       t.cars.forEach((c, k) => {
         const s = t.s - t.dir * (k * (CAR + GAP) + CAR / 2);
         if (s < 0 || s > t.run.len) { c.visible = false; return; }
         const p = this.at(t.run, s); c.visible = true;
         c.position.set(p.x, p.y, p.z); c.rotation.set(t.dir * p.pitch, p.yaw + (t.dir > 0 ? Math.PI : 0), 0, 'YXZ');
       });
-      bodies.push(...this.shapes(t, t.s));
+      bodies.push(...shapes);
     }
     this.frames.set(bodies);
   }
