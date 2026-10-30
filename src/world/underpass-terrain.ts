@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import type { RoadEdge, XZ } from './types';
 import type { Wall, Surface, BuiltBuffers } from './city';
+import { roadRibbon } from './bridge-clearance';
+import { roadQuadHeight, type RoadQuad } from './road-surface';
 
 interface Cut { id: string; a: XZ; b: XZ; ya: number; yb: number; hw: number; ring: XZ[]; members?: Set<Cut> }
 const EPS = 1e-7;
@@ -107,13 +109,39 @@ export function underpassAreaClipper(roads:readonly RoadEdge[]) {
 }
 export class UnderpassTerrainIndex {
   private cells=new Map<string,Cut[]>();
+  private capRoads=new Map<string,{id:string;quad:RoadQuad}[]>();
   constructor(roads:readonly RoadEdge[]) {
-    for(const c of cutsFor(roads)) {
+    const cuts=cutsFor(roads);
+    if(cuts.length)for(const road of roads) {
+      if(/footway|path|steps|cycleway|pedestrian/.test(road.cls))continue;
+      for(const quad of roadRibbon(road,roads as RoadEdge[]).quads) {
+        // Only a real upper carriageway may cover the lip. A flyover does not
+        // remove a wall at ground level and the trench's own road stays below.
+        if(Math.min(...quad.map(p=>p[1]))<-.3||Math.max(...quad.map(p=>p[1]))>.3)continue;
+        const record={id:road.id,quad},xs=quad.map(p=>p[0]),zs=quad.map(p=>p[2]);
+        for(let x=Math.floor(Math.min(...xs)/60);x<=Math.floor(Math.max(...xs)/60);x++)for(let z=Math.floor(Math.min(...zs)/60);z<=Math.floor(Math.max(...zs)/60);z++) {
+          const key=`${x},${z}`,list=this.capRoads.get(key)||[];list.push(record);this.capRoads.set(key,list);
+        }
+      }
+    }
+    for(const c of cuts) {
       const xs=c.ring.map(p=>p[0]),zs=c.ring.map(p=>p[1]);
       for(let i=Math.floor(Math.min(...xs)/1000);i<=Math.floor(Math.max(...xs)/1000);i++)for(let j=Math.floor(Math.min(...zs)/1000);j<=Math.floor(Math.max(...zs)/1000);j++) {
         const key=`${i}_${j}`,list=this.cells.get(key)||[];list.push(c);this.cells.set(key,list);
       }
     }
+  }
+  private capAt(id:string,p:XZ) {
+    let top=.12;
+    for(const road of this.capRoads.get(`${Math.floor(p[0]/60)},${Math.floor(p[1]/60)}`)||[]) {
+      if(road.id===id)continue;
+      const y=roadQuadHeight(road.quad,p[0],p[1]);
+      // The concrete must finish underneath the asphalt, so its vertical face
+      // cannot scrape tyres rolling over this actual upper road. The full wall
+      // below this cap is retained for cars inside the underpass.
+      if(y!==null)top=Math.min(top,y-.025);
+    }
+    return top;
   }
   build(i:number,j:number) {
     const cuts=this.cells.get(`${i}_${j}`);if(!cuts?.length)return null;
@@ -132,13 +160,23 @@ export class UnderpassTerrainIndex {
       const local=tileRange(a,b,x,z);if(!local)continue;
       for(const [u,v] of boundaryIntervals(a,b,masks.filter(other=>!other.members!.has(c)))) {
         const lo=Math.max(u,local[0]),hi=Math.min(v,local[1]);if(lo>=hi)continue;
-        const P=(t:number):XZ=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t],p=P(lo),q=P(hi),mx=(p[0]+q[0])/2,mz=(p[1]+q[1])/2;
-        const ya=c.ya+(c.yb-c.ya)*lo-.06,yb=c.ya+(c.yb-c.ya)*hi-.06;
-        const vertices=[[p[0],ya,p[1]],[q[0],yb,q[1]],[q[0],.12,q[1]],[p[0],ya,p[1]],[q[0],.12,q[1]],[p[0],.12,p[1]]];
-        for(const v of vertices){positions.push(...v);colors.push(.59,.61,.66);uv.push(v[0]/4,v[1]/4);}
-        // Two-sided geometry works on both the approach and interior views.
-        for(const v of [...vertices].reverse()){positions.push(...v);colors.push(.59,.61,.66);uv.push(v[0]/4,v[1]/4);}
-        walls.push({ax:p[0],az:p[1],bx:q[0],bz:q[1],y0a:ya,y0b:yb,y1a:.12,y1b:.12,kind:'parapet'});
+        const P=(t:number):XZ=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+        const n=Math.max(1,Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])*(hi-lo)/1.5)),runs:{lo:number;hi:number;top:number}[]=[];
+        for(let k=0;k<n;k++) {
+          const u0=lo+(hi-lo)*k/n,u1=lo+(hi-lo)*(k+1)/n;
+          const top=Math.min(this.capAt(c.id,P(u0)),this.capAt(c.id,P((u0+u1)/2)),this.capAt(c.id,P(u1)));
+          const prior=runs.at(-1);if(prior&&Math.abs(prior.top-top)<1e-6)prior.hi=u1;else runs.push({lo:u0,hi:u1,top});
+        }
+        for(const run of runs) {
+          const p=P(run.lo),q=P(run.hi),top=run.top;
+          const ya=Math.min(top,c.ya+(c.yb-c.ya)*run.lo-.06),yb=Math.min(top,c.ya+(c.yb-c.ya)*run.hi-.06);
+          if(ya>=top-1e-6&&yb>=top-1e-6)continue;
+          const vertices=[[p[0],ya,p[1]],[q[0],yb,q[1]],[q[0],top,q[1]],[p[0],ya,p[1]],[q[0],top,q[1]],[p[0],top,p[1]]];
+          for(const v of vertices){positions.push(...v);colors.push(.59,.61,.66);uv.push(v[0]/4,v[1]/4);}
+          // Two-sided geometry works on both the approach and interior views.
+          for(const v of [...vertices].reverse()){positions.push(...v);colors.push(.59,.61,.66);uv.push(v[0]/4,v[1]/4);}
+          walls.push({ax:p[0],az:p[1],bx:q[0],bz:q[1],y0a:ya,y0b:yb,y1a:top,y1b:top,kind:'parapet'});
+        }
       }
     }
     const wallGeo=new THREE.BufferGeometry();wallGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));wallGeo.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));wallGeo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));wallGeo.computeVertexNormals();wallGeo.computeBoundingSphere();

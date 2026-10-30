@@ -21,6 +21,7 @@ export class TruckInterior extends ModuleBase {
   private priorBodies=new Map<string,MovingRailBody>();
   private pizza!:THREE.Mesh;
   private throwFrom=new THREE.Vector3();
+  private catchTo=new THREE.Vector3();
   get trafficBodies(){return this.envelope?[this.envelope]:[];}
   get arrival():ModuleArrival {const p=this.world(0,REAR,1);return {...p,hx:this.pose.hx,hz:this.pose.hz,side:'rear',radius:48};}
   protected build(){
@@ -29,7 +30,7 @@ export class TruckInterior extends ModuleBase {
     this.pose={...this.ctx.destination,hx:0,hz:1,grade:0};
     this.priorPlayer={x:this.ctx.player().x,z:this.ctx.player().z};this.priorDt=0;
     this.vehicle=new THREE.Group();this.vehicle.name='delivery-truck-interior';this.root.add(this.vehicle);
-    this.box(0,BED-.18,0,5.6,.36,16,'#8B4B32',this.vehicle);
+    this.box(0,BED-.18,0,5.6,.36,16,'#8B4B32',this.vehicle).name='delivery-truck-bed';
     for(const x of [-2.85,2.85]){
       this.box(x,3.63,0,.22,4.15,16,'#8B4229',this.vehicle);
       for(const z of [-7.5,-3.5,.5,4.5,7.5])this.box(x*1.01,3.6,z,.25,4.3,.16,'#D6AE6B',this.vehicle);
@@ -42,16 +43,17 @@ export class TruckInterior extends ModuleBase {
     for(let row=0;row<3;row++)for(let col=0;col<2;col++){
       const log=this.cylinder(-2.3+col*.58,BED+.3+row*.56,3,.3,8,row%2?'#B67F49':'#8E5B35',this.vehicle);log.rotation.x=Math.PI/2;
     }
-    this.box(1.6,BED+.3,6,.9,.6,.9,'#4B3430',this.vehicle);
-    this.reader=this.character('pushpa',1.6,BED+.2,6,true,this.vehicle);this.reader.group.rotation.y=Math.PI;
+    this.box(1.6,BED+.3,6,.9,.6,.6,'#4B3430',this.vehicle).name='delivery-truck-study-seat';
+    // The seated pelvis contacts y=.58 and shoe soles y=.025 in actor space.
+    this.reader=this.character('pushpa',1.6,BED+.02,6,true,this.vehicle);this.reader.group.rotation.y=Math.PI;
     this.reader.group.visible=false;
-    this.anonymous=this.character('unknown',1.6,BED+.2,6,true,this.vehicle);this.anonymous.group.rotation.y=Math.PI;
+    this.anonymous=this.character('unknown',1.6,BED+.02,6,true,this.vehicle);this.anonymous.group.rotation.y=Math.PI;
     this.hinge=new THREE.Group();this.hinge.position.set(0,BED-.08,REAR);this.vehicle.add(this.hinge);
     this.box(0,2.1,0,5.5,4.2,.16,'#AC713B',this.hinge);
     this.fold=new THREE.Group();this.fold.position.y=4.2;this.hinge.add(this.fold);
     this.box(0,2.1,0,5.5,4.2,.16,'#B8874D',this.fold);this.fold.rotation.x=Math.PI;
     for(let z=0;z<8;z++)this.box(0,BED+.015,-7+z*1.7,2.6,.025,.075,'#D3AA69',this.vehicle);
-    this.pizza=this.box(0,0,0,.9,.17,.9,'#F1B443',this.vehicle);this.pizza.visible=false;
+    this.pizza=this.box(0,0,0,.9,.17,.9,'#F1B443',this.vehicle);this.pizza.name='delivery-truck-handoff-pizza';this.pizza.visible=false;
     this.status={instruction:'Approach the truck from behind and call',canDrop:false,actionLabel:'HAND OVER'};
     this.movement={mode:'normal'};
     this.updatePose(0);
@@ -118,8 +120,13 @@ export class TruckInterior extends ModuleBase {
     this.status.progress=this.entered?'Inside the truck':'Rear entrance';
     this.movement={mode:'approach',center:this.world(0,-6,BED),radius:50,altitude:this.pose.y+BED+.8};
     if(this.caught>=0){
-      this.caught+=elapsed;const t=Math.min(1,this.caught/.65);this.pizza.position.lerpVectors(this.throwFrom,new THREE.Vector3(1.6,BED+1.2,5.45),t);this.pizza.position.y+=Math.sin(t*Math.PI)*.7;
-      this.reader.catchPose(Math.min(1,this.caught*3));this.status.instruction=t<1?'Passing the pizza…':'Caught it!';
+      this.caught+=elapsed;const t=Math.min(1,this.caught/.65);
+      this.reader.catchPose(Math.min(1,this.caught*3));
+      const hands=this.reader.catchPoint;
+      if(hands){hands.updateWorldMatrix(true,false);this.catchTo.setFromMatrixPosition(hands.matrixWorld);this.vehicle.worldToLocal(this.catchTo);}
+      else this.catchTo.set(1.6,BED+1.2,5.45);
+      this.pizza.position.lerpVectors(this.throwFrom,this.catchTo,t);this.pizza.position.y+=Math.sin(t*Math.PI)*.7;
+      this.status.instruction=t<1?'Passing the pizza…':'Caught it!';
       if(this.caught>=1.15)this.done();
     }
     this.root.visible=distanceXZ(p,this.pose)<850;this.previousLocal=local;this.priorPlayer={x:p.x,z:p.z};this.priorDt=elapsed;

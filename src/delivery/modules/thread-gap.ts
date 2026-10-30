@@ -42,7 +42,8 @@ export class ThreadGap extends ModuleBase {
       seatBacks.setMatrixAt(seatIndex, matrix.makeTranslation(x, 1.8, z + .8)); seatIndex++;
     }
     for (const mesh of [seatBases, seatBacks]) { mesh.instanceMatrix.needsUpdate = true; mesh.computeBoundingBox(); mesh.computeBoundingSphere(); }
-    this.receiver=this.character('imax',3,1.2,-7,true); this.box(3, .7, -7, 2.3, .5, 2.4, '#962F45');
+    this.receiver=this.character('imax',3,0,-7,true);
+    this.box(3,.29,-7.02,.8,.58,.68,'#962F45').name='delivery-imax-customer-seat';
     this.beam = this.box(0, 3.5, -2, .7, 6.5, 9, '#8C8C77'); this.beam.visible = this.params.hazards !== false;
     this.box(0, 9, this.entry - 2, 1.5, 1.3, 2, '#3E3A4D');
     this.entranceTarget = { x: d.x, y: d.y + 3, z: d.z + this.entry + 5, label: 'IMAX entrance opening' };

@@ -108,7 +108,7 @@ export class Game {
   r = rng(Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];
   constructor(public engine: Engine, public zone: CoreData, public city: World, public opts: {
     lowQ: boolean; still?: boolean; delivery?: DeliveryRuntimeOptions;
-    sessionStorage?: StorageLike; initialArea?: AreaChoice;
+    sessionStorage?: StorageLike; initialArea?: AreaChoice; touchControls?: boolean;
   }) {
     this.graph = new RoadGraph(zone.roads, []);
     this.player = new Player(city, engine.mats);
@@ -427,7 +427,7 @@ export class Game {
   // ---------- loop ----------
   start() {
     this.load();
-    const touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    const touch = this.opts.touchControls ?? (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
     this.hud = new Hud(touch);
     if (this.carrierPickupMode) this.story = new DeliveryRuntime(this, this.opts.delivery);
     this.bugReports = new BugReporter();

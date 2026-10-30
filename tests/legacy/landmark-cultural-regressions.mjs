@@ -46,7 +46,8 @@ try {
   const step=(count,change={})=>{for(let i=0;i<count;i++)player.update(1/60,{...input,...change},tick++/60);};
   step(1,{flyPressed:true});step(240);
   assert.equal(player.flying,false);assert.equal(player.descending,false);assert.equal(player.lastKind,'landmark');assert.ok(Math.abs(player.pos.y-(roof+.55))<1e-4,'Player lands on the visible upper terrace');
-  const parkedAt=player.pos.clone();step(78,{throttle:1});step(50,{brake:1});step(120);
+  // Allow the gentler road launch to cover the same terrace distance before braking.
+  const parkedAt=player.pos.clone();step(126,{throttle:1});step(50,{brake:1});step(120);
   assert.ok(player.pos.distanceTo(parkedAt)>8,'car genuinely drives before parking');assert.ok(Math.abs(player.speed)<.05);assert.ok(Math.abs(player.pos.y-(roof+.55))<1e-4);
   assert.equal(m.supportAt(city,player.pos.x,player.pos.z,roof).kind,'landmark');
   const stopped=player.pos.clone();step(300);assert.ok(player.pos.distanceTo(stopped)<1e-5,'parked car stays supported instead of sinking to ground');

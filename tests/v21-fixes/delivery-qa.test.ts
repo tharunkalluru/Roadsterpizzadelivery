@@ -28,3 +28,12 @@ test('invalid QA levels cannot launch, and the entry point gates its dynamic imp
   const qa = readFileSync('src/delivery/qa.ts', 'utf8');
   assert.doesNotMatch(qa, /localStorage|__qa|setpieceDone\(|advanceCall\(|onDrop\(/);
 });
+
+
+test('development driving QA exposes only a finite explicit start pose and optional touch controls',()=>{
+  const qa=createDeliveryQA('1',undefined,new URLSearchParams('qaTouch=1&qaStart=-12884,-3633,1.5,0'))!;
+  assert.equal(qa.touch,true);assert.deepEqual(qa.start,{x:-12884,z:-3633,yaw:1.5,y:0});
+  assert.deepEqual(qa.area,{name:'Road access drive',x:-12884,z:-3633});
+  assert.equal(createDeliveryQA('1')!.touch,false);assert.equal(createDeliveryQA('1')!.start,null);
+  for(const input of ['0,0,0','NaN,0,0,0','0,0,Infinity,0','0,0,0,0,5'])assert.equal(createDeliveryQA('1',undefined,new URLSearchParams({qaStart:input}))!.start,null);
+});

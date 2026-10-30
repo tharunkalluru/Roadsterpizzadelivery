@@ -130,3 +130,62 @@ test('Eega variant retains its insect geometry and timing while the pizza visibl
   assert.ok(insect.children.some(n=>n instanceof THREE.Group&&Math.abs(n.rotation.z)>.5),'wings react to receiving the pizza');
   assert.ok(!f.events.includes('done'));advance(f.module,.2);assert.equal(f.events.filter(e=>e==='done').length,1);f.module.teardown();
 });
+
+/** Contact samples come from the production body geometry. Restrict the rear
+ * pelvis and shoes rather than trusting the character group's origin. */
+function seatedContact(character:THREE.Object3D){
+  const body=character.getObjectByName(`${character.name}-body`) as THREE.Mesh,p=body.geometry.getAttribute('position');
+  let butt=Infinity,shoe=Infinity;const point=new THREE.Vector3();character.updateWorldMatrix(true,true);
+  for(let i=0;i<p.count;i++){
+    const y=p.getY(i),z=p.getZ(i),x=p.getX(i);
+    if(y>.4&&y<.8&&z<-.06&&Math.abs(x)<.15){point.fromBufferAttribute(p,i).applyMatrix4(body.matrixWorld);butt=Math.min(butt,point.y);}
+    if(y<.18&&z>.3){point.fromBufferAttribute(p,i).applyMatrix4(body.matrixWorld);shoe=Math.min(shoe,point.y);}
+  }
+  assert.ok(Number.isFinite(butt)&&Number.isFinite(shoe),'physical pelvis and shoe samples exist');return{butt,shoe};
+}
+
+test('both seated truck identities rest on the crate with their shoes at the actual bed',()=>{
+  const f=setup();advance(f.module,.2);f.scene.updateMatrixWorld(true);
+  const seat=new THREE.Box3().setFromObject(f.scene.getObjectByName('delivery-truck-study-seat')!),bed=new THREE.Box3().setFromObject(f.scene.getObjectByName('delivery-truck-bed')!);
+  for(const style of['pushpa','unknown']){
+    const actor=f.scene.getObjectByName(`delivery-character-${style}`)!,contact=seatedContact(actor);
+    assert.ok(Math.abs(contact.butt-seat.max.y)<.003,`${style}: pelvis rests on the seat`);
+    assert.ok(contact.shoe>=bed.max.y-.005&&contact.shoe-bed.max.y<.05,`${style}: shoes stay within five centimetres of the truck bed`);
+    const mesh=actor.getObjectByName(`${actor.name}-body`) as THREE.Mesh,points=mesh.geometry.getAttribute('position'),world=new THREE.Vector3();let buried=0;
+    for(let i=0;i<points.count;i++){world.fromBufferAttribute(points,i).applyMatrix4(mesh.matrixWorld);if(world.y>bed.max.y+.1&&world.y<seat.max.y-.05&&seat.containsPoint(world))buried++;}
+    assert.equal(buried,0,`${style}: lower legs and shoes stay outside the wood crate`);
+  }
+  f.module.teardown();
+});
+
+test('IMAX customer rests on the hero seat with shoes at the hall floor; scene gates and background seats stay unchanged',()=>{
+  const f=setup('threadGap',{hazards:false});f.scene.updateMatrixWorld(true);
+  const actor=f.scene.getObjectByName('delivery-character-imax')!,contact=seatedContact(actor),seat=new THREE.Box3().setFromObject(f.scene.getObjectByName('delivery-imax-customer-seat')!);
+  const floor=f.module.supports.find(b=>b.id.startsWith('delivery-platform:'))!;
+  assert.ok(Math.abs(seat.min.y-floor.roof)<.001,'hero seat base is on the hall floor');assert.ok(Math.abs(seat.max.y-floor.roof-.58)<.001);
+  assert.ok(Math.abs(contact.butt-seat.max.y)<.003,'pelvis contacts the actual cushion surface');
+  assert.ok(contact.shoe>=floor.roof-.005&&contact.shoe-floor.roof<.05,'no raised hidden riser or floating feet');
+  assert.ok(Math.abs(seat.max.z+6.68)<.001,'knees and shoes fit in front of the seat rather than inside its block');
+  const body=actor.getObjectByName(`${actor.name}-body`) as THREE.Mesh,points=body.geometry.getAttribute('position'),world=new THREE.Vector3();let buried=0;
+  for(let i=0;i<points.count;i++){world.fromBufferAttribute(points,i).applyMatrix4(body.matrixWorld);if(world.y>floor.roof+.1&&world.y<seat.max.y-.05&&seat.containsPoint(world))buried++;}
+  assert.equal(buried,0,'actual lower-leg vertices remain clear of the hero seat');
+  assert.deepEqual(f.module.target,{x:0,y:3,z:19,label:'IMAX entrance opening'},'entrance marker and height remain unchanged');
+  const bases=f.scene.getObjectByName('delivery-imax-seat-bases') as THREE.InstancedMesh;assert.equal(bases.count,32);
+  const matrix=new THREE.Matrix4();bases.getMatrixAt(0,matrix);assert.ok(Math.abs(matrix.elements[13]-.9)<.000001,'background seat placement is unchanged');
+  f.module.teardown();
+});
+
+test('moving rotated truck handoff ends at the lowered reader actual hands before the original settle time',()=>{
+  const f=setup();f.ctx.destination={x:40,y:7,z:-10};f.ctx.route=[{x:40,y:7,z:-10},{x:100,y:9,z:50}];
+  f.module.setup(f.ctx,{scene:'truckInterior',vehicle:'truck',speed:6});f.unlock();advance(f.module,2);
+  const place=(z:number)=>{const floor=f.module.supports.find(b=>b.id==='delivery-interior-floor')!;Object.assign(f.p,{x:floor.x+floor.hz*.55+floor.hx*z,y:floor.roof+z*(floor.grade||0)+.55,z:floor.z-floor.hx*.55+floor.hz*z,flying:false});};
+  place(-9);f.module.update(.05);place(-7);f.module.update(.05);
+  const follow=()=>{place(2);f.module.update(.05);};
+  for(let i=0;i<16;i++)follow();assert.equal(f.module.status.canDrop,true);f.module.onDrop();
+  for(let i=0;i<14;i++)follow();
+  const vehicle=f.scene.getObjectByName('delivery-truck-interior')!,pizza=f.scene.getObjectByName('delivery-truck-handoff-pizza')!;
+  const hands=f.scene.getObjectByName('delivery-character-pushpa-hands')!,actual=new THREE.Vector3(),wanted=new THREE.Vector3();vehicle.updateWorldMatrix(true,true);pizza.getWorldPosition(actual);hands.getWorldPosition(wanted);
+  assert.ok(actual.distanceTo(wanted)<.00001,'pizza reaches the moving/rotated physical hand anchor, not the old hard-coded point');
+  assert.equal(f.module.status.instruction,'Caught it!');assert.ok(!f.events.includes('done'),'the original catch-settle delay remains');
+  for(let i=0;i<10;i++)follow();assert.equal(f.events.filter(e=>e==='done').length,1);f.module.teardown();
+});

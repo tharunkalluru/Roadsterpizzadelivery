@@ -86,7 +86,8 @@ test('the real Golconda hillside uses four rendered wheel contacts across eight 
 test('the real Golconda hillside landing drive brake and parked contacts remain stable',()=>{
   const[x,z]=frame.P(-18,182),h=m.landmarkHeightAt(actual.landmarkSurfaceGrid,x,z),p=player(actual,x,z,h,Math.PI/2);p.pos.y+=7;p.descending=true;p.vy=-2;step(p,180);
   assert.equal(p.descending,false);assert.ok(Math.max(...wheelErrors(p,h+2))<.025);const start=p.pos.clone();
-  step(p,65,{throttle:1});step(p,35,{brake:1});step(p,120);assert.ok(p.pos.distanceTo(start)>5);assert.ok(Math.max(...wheelErrors(p,p.pos.y+2))<.025);
+  // Keep the driven contact distance with the gentler road acceleration.
+  step(p,105,{throttle:1});step(p,35,{brake:1});step(p,120);assert.ok(p.pos.distanceTo(start)>5);assert.ok(Math.max(...wheelErrors(p,p.pos.y+2))<.025);
   const parked=p.pos.clone();step(p,300);assert.ok(p.pos.distanceTo(parked)<1e-5);assert.ok(Math.max(...wheelErrors(p,p.pos.y+2))<.025);
 });
 console.log(`${groups} landmark contact regression groups passed, including compound slopes, real wheel suspension, layer gating, road/rail controls and actual Golconda.`);
