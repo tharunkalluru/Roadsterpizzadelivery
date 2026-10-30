@@ -68,7 +68,8 @@ export class RailTrains {
       const p = this.at(t.run, s);
       bodies.push({ id: `${t.id}:${k}`, x: p.x, y: p.y, z: p.z,
         hx: Math.sin(p.yaw) * t.dir, hz: Math.cos(p.yaw) * t.dir, grade: Math.tan(p.pitch) * t.dir,
-        halfWidth: 1.57, halfLength: k === 0 ? 10.05 : CAR / 2, bottom: p.y + .2, roof: p.y + (k === 0 ? 3.9 : 4.175) });
+        halfWidth: 1.57, halfLength: k === 0 ? 10.05 : CAR / 2, bottom: p.y + .2, roof: p.y + (k === 0 ? 3.9 : 4.175),
+        roofGroup: t.id, roofIndex: k });
     });
     return bodies;
   }

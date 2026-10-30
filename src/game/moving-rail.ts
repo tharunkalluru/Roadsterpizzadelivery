@@ -1,7 +1,13 @@
 // Shared kinematic train geometry. Gameplay consumes these same coach poses as rendering.
 export interface RailPose { x: number; y: number; z: number; hx: number; hz: number; grade?: number }
-export interface MovingRailShape extends RailPose { id: string; halfWidth: number; halfLength: number; bottom: number; roof: number }
-export interface MovingRailBody extends MovingRailShape { previous: RailPose }
+export interface MovingRailShape extends RailPose {
+  id: string; halfWidth: number; halfLength: number; bottom: number; roof: number;
+  /** Explicit rake membership prevents nearby/parallel trains sharing support. */
+  roofGroup?: string; roofIndex?: number;
+}
+interface RailRoofSpan extends RailPose { halfWidth: number; halfLength: number; roof: number }
+interface RailRoofJoin { a: string; b: string; current: RailRoofSpan; previous: RailRoofSpan }
+export interface MovingRailBody extends MovingRailShape { previous: RailPose; roofJoins?: RailRoofJoin[] }
 interface Point { x: number; y: number; z: number }
 export interface RailPlayer {
   pos: Point; yaw: number; speed: number; vy: number; flying: boolean; descending: boolean; jumping?: boolean;
@@ -11,6 +17,43 @@ export interface RailPlayer {
 }
 const FOOT = .55, CAR_HALF_WIDTH = 1.05, CAR_HALF_LENGTH = 2.3, CAR_HEIGHT = 1.2;
 const pose = (body: RailPose): RailPose => ({ x: body.x, y: body.y, z: body.z, hx: body.hx, hz: body.hz, grade: body.grade });
+function roofJoin(a: MovingRailBody, b: MovingRailBody, previous = false): RailRoofSpan | null {
+  const pa = previous ? a.previous : a, pb = previous ? b.previous : b;
+  if (pa.hx * pb.hx + pa.hz * pb.hz < .87) return null;
+  const start = railWorld(pb, b.halfLength, 0), end = railWorld(pa, -a.halfLength, 0);
+  const dx = end.x - start.x, dz = end.z - start.z, length = Math.hypot(dx, dz);
+  // Only an actual adjacent coupling gap is rideable, never a missing coach,
+  // another train, or a sharp turnout that separates the rendered roofs.
+  if (length < .02 || length > 3.5 || (dx * pa.hx + dz * pa.hz) / length < .5) return null;
+  const ya = a.roof - a.y + pa.y - a.halfLength * (pa.grade || 0);
+  const yb = b.roof - b.y + pb.y + b.halfLength * (pb.grade || 0);
+  const grade = (ya - yb) / length;
+  if (Math.abs(grade) > .3) return null;
+  const hx=dx/length,hz=dz/length,halfWidth=Math.min(a.halfWidth,b.halfWidth)-.03;
+  // Angled end faces leave a small wedge outside the centre line. Extend only
+  // into those existing faces so an offset tyre path stays joined on curves.
+  const endOverlap=halfWidth*Math.max(
+    Math.abs(hx*pa.hz-hz*pa.hx)/Math.max(.5,hx*pa.hx+hz*pa.hz),
+    Math.abs(hx*pb.hz-hz*pb.hx)/Math.max(.5,hx*pb.hx+hz*pb.hz))+.03;
+  return { x: (start.x + end.x) / 2, y: (pa.y + pb.y) / 2, z: (start.z + end.z) / 2,
+    hx, hz, halfLength: length / 2 + endOverlap,halfWidth,roof: (ya + yb) / 2, grade };
+}
+function addRoofJoins(bodies: MovingRailBody[]) {
+  const groups = new Map<string, Map<number, MovingRailBody>>();
+  for (const body of bodies) {
+    if (!body.roofGroup || !Number.isInteger(body.roofIndex)) continue;
+    let group = groups.get(body.roofGroup);
+    if (!group) groups.set(body.roofGroup, group = new Map());
+    group.set(body.roofIndex!, body);
+  }
+  for (const group of groups.values()) for (const [index, a] of group) {
+    const b = group.get(index + 1); if (!b) continue;
+    const current = roofJoin(a, b), previous = roofJoin(a, b, true);
+    if (!current || !previous) continue;
+    const join = { a:a.id, b:b.id, current, previous };
+    (a.roofJoins ||= []).push(join); (b.roofJoins ||= []).push(join);
+  }
+}
 export class MovingRailFrames {
   private prior = new Map<string, RailPose>();
   bodies: MovingRailBody[] = [];
@@ -21,6 +64,7 @@ export class MovingRailFrames {
       const body = { ...shape, hx: shape.hx / length, hz: shape.hz / length, previous: this.prior.get(shape.id) || pose(shape) };
       next.set(shape.id, pose(body)); return body;
     });
+    addRoofJoins(this.bodies);
     this.prior = next; return this.bodies;
   }
 }
@@ -31,9 +75,45 @@ export function railLocal(body: RailPose, x: number, z: number) {
 export function railWorld(body: RailPose, along: number, side: number) {
   return { x: body.x + body.hx * along - body.hz * side, z: body.z + body.hz * along + body.hx * side };
 }
-export function railRoofAt(body: MovingRailBody, x: number, z: number) {
-  const p = railLocal(body, x, z);
-  return Math.abs(p.along) <= body.halfLength && Math.abs(p.side) <= body.halfWidth ? body.roof + p.along * (body.grade || 0) : null;
+function spanRoofAt(span: RailRoofSpan, x: number, z: number) {
+  const p = railLocal(span, x, z);
+  return Math.abs(p.along) <= span.halfLength && Math.abs(p.side) <= span.halfWidth ? span.roof + p.along * (span.grade || 0) : null;
+}
+function bodyRoofAt(body: MovingRailBody, x: number, z: number, previous = false) {
+  const frame = previous ? body.previous : body, p = railLocal(frame, x, z);
+  if (Math.abs(p.along) <= body.halfLength && Math.abs(p.side) <= body.halfWidth)
+    return body.roof - body.y + frame.y + p.along * (frame.grade || 0);
+  return null;
+}
+export function railRoofAt(body: MovingRailBody, x: number, z: number, previous = false) {
+  const own = bodyRoofAt(body,x,z,previous);
+  if (own !== null) return own;
+  for (const join of body.roofJoins || []) {
+    const roof = spanRoofAt(previous ? join.previous : join.current, x, z);
+    if (roof !== null) return roof;
+  }
+  return null;
+}
+/** The tyres bridge only the small coupling between this coach and its real
+ * neighbour. Height checks keep cars below the chassis out of this exception. */
+function nearRoofJoin(span: RailRoofSpan, point: { x:number; z:number }) {
+  const p = railLocal(span, point.x, point.z);
+  return Math.abs(p.along) <= span.halfLength + CAR_HALF_LENGTH + .2 && Math.abs(p.side) <= span.halfWidth;
+}
+function joinHasContact(join: RailRoofJoin, bodies:readonly MovingRailBody[], point:{x:number;z:number;feet:number}, previous=false) {
+  const span = previous ? join.previous : join.current;
+  const y = spanRoofAt(span,point.x,point.z);
+  if(y !== null && Math.abs(point.feet-y)<=.08) return true;
+  for(const body of bodies) if(body.id===join.a||body.id===join.b) {
+    const own=bodyRoofAt(body,point.x,point.z,previous);
+    if(own!==null&&Math.abs(point.feet-own)<=.08)return true;
+  }
+  return false;
+}
+function roofJoinClimb(body: MovingRailBody, bodies:readonly MovingRailBody[], x: number, z: number, previous?: {x:number;z:number;feet:number}) {
+  if (!previous || Math.hypot(x - previous.x, z - previous.z) > 3.5) return 0;
+  return body.roofJoins?.some(join => nearRoofJoin(join.current, {x,z}) &&
+    (joinHasContact(join,bodies,previous,true)||joinHasContact(join,bodies,previous))) ? .35 : 0;
 }
 export function deliveryRampClimb(body:MovingRailBody,x:number,z:number,previous?:{x:number;z:number;feet:number}) {
   if(!previous||!body.id.startsWith('delivery-interior-ramp')||Math.abs(body.grade||0)>.3)return 0;
@@ -49,7 +129,7 @@ export function movingRailSupport(bodies: readonly MovingRailBody[], x: number, 
     const y = railRoofAt(body, x, z);
     // A car beneath the chassis cannot snap through it onto the roof.
     if (y === null) continue;
-    const climb=Math.max(.12,deliveryRampClimb(body,x,z,previous));
+    const climb=Math.max(.12,deliveryRampClimb(body,x,z,previous),roofJoinClimb(body,bodies,x,z,previous));
     if(y>fromY+climb)continue;
     if (!best || (Number.isFinite(fromY) ? Math.abs(y - fromY) < Math.abs(best.y - fromY) : y > best.y)) best = { body, y };
   }
@@ -116,7 +196,8 @@ export class MovingRailInteraction {
       if (!body) this.attached = null;
       else {
         const local = railLocal(body.previous, player.pos.x, player.pos.z);
-        if (Math.abs(local.along) > body.halfLength || Math.abs(local.side) > body.halfWidth || Math.abs(player.pos.y - FOOT - (body.roof - body.y + body.previous.y + local.along * (body.previous.grade || 0))) > .4) this.attached = null;
+        const oldRoof = railRoofAt(body, player.pos.x, player.pos.z, true);
+        if (oldRoof === null || Math.abs(player.pos.y - FOOT - oldRoof) > .4) this.attached = null;
         else {
           const next = railWorld(body, local.along, local.side);
           player.pos.x = next.x; player.pos.z = next.z; player.pos.y += body.y - body.previous.y + local.along * ((body.grade || 0) - (body.previous.grade || 0));
@@ -140,6 +221,10 @@ export class MovingRailInteraction {
       const currentRoof = body.roof + b.along * (body.grade || 0), previousRoof = body.roof - body.y + body.previous.y + a.along * (body.previous.grade || 0);
       if (feet >= currentRoof - .12 && oldFeet >= previousRoof - .12) continue;
       if (deliveryRampFloorJoin(body, this.bodies, player, this.previous)) continue;
+      if (!player.flying && !player.descending && !player.jumping && player.vy <= .1 &&
+        body.roofJoins?.some(join => nearRoofJoin(join.current,player.pos) &&
+          joinHasContact(join,this.bodies,{x:player.pos.x,z:player.pos.z,feet}) &&
+          joinHasContact(join,this.bodies,{x:this.previous.x,z:this.previous.z,feet:oldFeet},true))) continue;
       if (feet + CAR_HEIGHT < body.bottom + b.along * (body.grade || 0) || oldFeet > previousRoof + .2 && feet > currentRoof + .2) continue;
       const ex = extents(body, player.yaw), along = body.halfLength + ex.along, side = body.halfWidth + ex.side;
       const inside = Math.abs(b.along) < along && Math.abs(b.side) < side;

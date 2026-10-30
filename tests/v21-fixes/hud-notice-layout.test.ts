@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mobileHudLayout, hudTransientLayout, type HudRect } from '../../src/ui/hud-layout';
+import { mobileHudLayout, minimapSpeedBadgeLayout, hudTransientLayout, type HudRect } from '../../src/ui/hud-layout';
 import { flightNavigationLayout } from '../../src/ui/flight-navigation';
 
 const overlaps=(a:HudRect,b:HudRect,gap=0)=>a.left<b.left+b.width+gap&&a.left+a.width+gap>b.left&&a.top<b.top+b.height+gap&&a.top+a.height+gap>b.top;
@@ -11,7 +11,7 @@ for(const touch of [true,false])test(`${touch?'touch':'desktop'} notices and res
     const toolbar={left:width-rightInset-148,top:10,width:148,height:44};
     const navigation=flightNavigationLayout(width,height,header,0,{left,top:10,width:0,height:0},{...map,left:toolbar.left},touch?controls.leftSteer.top:height-76,height<=520?44:48);
     assert.ok(navigation,`${width}×${height}`);
-    const controlsAndMap=[map,...(touch?[controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump]:[]),...(controls.call?[controls.call]:[])];
+    const controlsAndMap=[map,minimapSpeedBadgeLayout(map),...(touch?[controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump]:[]),...(controls.call?[controls.call]:[])];
     const badgeHeight=height<=520?28:36;
     const layout=hudTransientLayout(width,height,header,badgeHeight,navigation,controlsAndMap,left,rightInset,bottom);
     assert.ok(layout.area,`area fits ${width}×${height}`);assert.ok(layout.notice,`notice fits ${width}×${height}`);assert.ok(layout.rescue,`rescue fits ${width}×${height}`);

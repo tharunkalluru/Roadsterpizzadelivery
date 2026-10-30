@@ -4,7 +4,7 @@ import { goFullscreen, fullscreenFallbackMessage } from './title';
 import { controlIcon } from './control-icons';
 import { installPrototypeTheme } from './theme';
 import { installPaintSafety, guardWorldPaint } from './paint-safety';
-import { mobileHudLayout, hudTransientLayout, type HudRect } from './hud-layout';
+import { mobileHudLayout, minimapSpeedBadgeLayout, hudTransientLayout, type HudRect } from './hud-layout';
 import { flightNavigationLayout, flightNavigationReadout, smoothFlightBearing, type FlightNavigationInput } from './flight-navigation';
 
 const CONTROL_KEYS: Record<string, readonly string[]> = {
@@ -506,10 +506,11 @@ const CSS = `
 
 
 /* The road view has one navigation row and one map-integrated speed display. */
-#hud .minimap-frame{position:absolute;pointer-events:none;z-index:1}
-#hud .minimap-frame #minimap{position:absolute!important;box-sizing:border-box;inset:0!important;width:100%!important;height:100%!important;margin:0}
-#hud .minimap-frame .speed,.is-touch #hud .minimap-frame .speed{box-sizing:border-box;position:absolute!important;display:flex;align-items:center;justify-content:center;gap:3px;margin:0;padding:0 5px;transform:none!important;line-height:1;border:1px solid #BBA3D4;border-radius:14px;background:#21172F;color:#FFF5DC;font-family:var(--display);font-size:18px;text-shadow:none;pointer-events:none;z-index:1;white-space:nowrap}
+#hud .minimap-frame{position:absolute;pointer-events:none;z-index:1;--map-rim:3px}
+#hud .minimap-frame #minimap{position:absolute!important;box-sizing:border-box;inset:0!important;width:100%!important;height:100%!important;margin:0;border:var(--map-rim) solid var(--cream);box-shadow:none!important}
+#hud .minimap-frame .speed,.is-touch #hud .minimap-frame .speed{box-sizing:border-box;position:absolute!important;display:flex;align-items:center;justify-content:center;gap:3px;margin:0;padding:0 3px;transform:none!important;line-height:1;border:var(--map-rim) solid var(--cream);border-radius:var(--speed-radius,10px);background:#21172F;color:#FFF5DC;font-family:var(--display);font-size:18px;text-shadow:none;pointer-events:none;z-index:1;white-space:nowrap}
 #hud .minimap-frame .speed small{font:800 8px/1 var(--body)}
+.solid-ui #hud .minimap-frame .speed{background-color:#21172F!important}
 #hud #hud-call-slot{position:absolute;pointer-events:none}
 #hud .touch #t-left,#hud .touch #t-right,#hud .touch #t-gas,#hud .touch #t-brake,#hud .touch #t-fly,#hud .touch #t-jump{transition:transform 90ms ease-out,box-shadow 90ms ease-out;transform-origin:center}
 #hud .touch .on{transform:translateY(2px) scale(.96)!important;box-shadow:inset 0 0 0 3px rgba(255,249,220,.65),0 1px 0 #130D20!important}
@@ -642,11 +643,13 @@ export class Hud {
       const map=touch?controls.map:{left:root.width-insetRight-168,top:mapTop,width:168,height:168};
       position(this.el['minimap-frame'],map);
       const speed=this.root.querySelector<HTMLElement>('.speed')!;
-      const speedWidth=Math.round(map.width*.78),speedHeight=Math.min(30,Math.max(map.width<56?20:24,Math.round(map.height*.22)));
-      position(speed,{left:(map.width-speedWidth)/2,top:map.height-speedHeight-(map.width<56?2:4),width:speedWidth,height:speedHeight});
-      speed.style.fontSize=map.width<56?'11px':map.width<80?'12px':map.width<112?'16px':map.width<140?'18px':'22px';
-      speed.style.flexDirection=map.width<80?'column':'row';speed.style.gap=map.width<80?'1px':'3px';
-      speed.querySelector('small')!.style.fontSize=map.width<56?'5px':map.width<80?'6px':'8px';
+      const badge=minimapSpeedBadgeLayout(map);
+      position(speed,{...badge,left:badge.left-map.left,top:badge.top-map.top});
+      speed.style.setProperty('--speed-radius',`${Math.max(6,Math.round(badge.height*.36))}px`);
+      this.el['minimap-frame'].style.setProperty('--map-rim',map.width<80?'2px':'3px');
+      speed.style.fontSize=`${Math.max(10,Math.min(24,Math.round(map.width*.14)))}px`;
+      speed.style.flexDirection=map.width<80?'column':'row';speed.style.gap=map.width<80?'0px':'2px';
+      speed.querySelector('small')!.style.fontSize=`${map.width<80?5:Math.max(6,Math.round(map.width*.065))}px`;
       if(touch){
         for(const[id,box]of Object.entries({'t-left':controls.leftSteer,'t-right':controls.rightSteer,'t-brake':controls.brake,'t-gas':controls.gas,'t-fly':controls.fly,'t-jump':controls.jump}))position(this.el[id],box);
         position(this.el.prompt,controls.context);
@@ -658,7 +661,7 @@ export class Hud {
       const navigation=this.positionFlightNavigation(root,headerBottom,{left:0,top:0,width:0,height:0},
         {left:navLeft,top:10,width:0,height:0},{...map,left:toolbar.left-root.left},
         touch?controls.leftSteer.top:root.height-76,root.height<=520);
-      const blockers:HudRect[]=[map];
+      const blockers:HudRect[]=[map,badge];
       if(touch)blockers.push(controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump);
       if(call)blockers.push(call);
       for(const id of ['orders-availability','prompt']) {

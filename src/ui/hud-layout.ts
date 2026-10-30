@@ -1,6 +1,12 @@
 import { overlayBlockLayout } from '../delivery/ui/call-button-layout';
 export interface HudRect { left: number; top: number; width: number; height: number }
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
+/** The opaque badge replaces the circle's lower rim rather than floating inside it. */
+export function minimapSpeedBadgeLayout(map:HudRect):HudRect {
+  const width=Math.min(map.width,Math.max(40,Math.round(map.width*.6))),height=Math.max(20,Math.round(map.width*.24));
+  const overhang=Math.round(height*.4);
+  return{left:Math.round(map.left+(map.width-width)/2),top:map.top+map.height+overhang-height,width,height};
+}
 // Keep the area notice centered on the availability row, below the measured
 // header. The map starts below that row even while the notice is fading out.
 export function hudStatusLayout(width: number, headerBottom: number, walletBottom: number, left: number, toggleWidth: number, obstacles: HudRect[] = []) {
@@ -37,8 +43,12 @@ export function mobileHudLayout(width: number, height: number, mapTop: number, _
   const mapSize = Math.round(Math.min(clamp(height * .34, 112, 152), compactMap ? Math.max(shallow?44:60, fly.top - (shallow?4:12) - mapTop) : Infinity));
   // The map stays below the top toolbar and above FLY, including short phones.
   const map = R(width - right - mapSize, mapTop, mapSize, mapSize);
-  const speedWidth=Math.round(map.width*.78),speedHeight=Math.min(30,Math.max(map.width<56?20:24,Math.round(map.height*.22)));
-  const speed=R(map.left+(map.width-speedWidth)/2,map.top+map.height-speedHeight-(map.width<56?2:4),speedWidth,speedHeight);
+  let speed=minimapSpeedBadgeLayout(map);
+  // Reserve the badge's full outer edge as well as the circle above FLY. Very
+  // short landscape screens may use the 8px gap below the toolbar for the rim.
+  if(compactMap&&speed.top+speed.height>fly.top-4){
+    map.top-=Math.ceil(speed.top+speed.height-fly.top+4);speed=minimapSpeedBadgeLayout(map);
+  }
   const contextHeight=shallow?44:64,contextTop = height - bottom - contextHeight;
   const contextEnd = contextTop < map.top + map.height && contextTop + contextHeight > map.top ? Math.min(brake.left, map.left) : brake.left;
   const contextWidth = Math.min(220, contextEnd - steerEnd - 24);

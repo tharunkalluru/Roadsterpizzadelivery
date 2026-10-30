@@ -16,11 +16,11 @@ try {
   const assertIntegratedSpeed=(layout)=>{
     const speed=layout.speed,map=layout.map;
     assert.ok(Math.abs(speed.left+speed.width/2-map.left-map.width/2)<=.5,'speed stays centered inside the minimap');
-    assert.ok(speed.left>=map.left&&speed.left+speed.width<=map.left+map.width&&speed.top>=map.top+map.height/2&&speed.top+speed.height<=map.top+map.height,'speed occupies the minimap bottom arc');
+    assert.ok(speed.left>=map.left&&speed.left+speed.width<=map.left+map.width&&speed.top>=map.top+map.height/2&&speed.top<map.top+map.height&&speed.top+speed.height>map.top+map.height,'speed crosses the minimap bottom rim, leaving no map beneath');
   };
   const assertSeparate=(layout,names,label)=>{
     for(let i=0;i<names.length;i++)for(let j=i+1;j<names.length;j++){
-      if(names[i]==='speed'&&names[j]==='map')continue; // speed is intentionally contained by the map
+      if(names[i]==='speed'&&names[j]==='map')continue; // speed intentionally overlaps the map rim
       assert.ok(!hit(layout[names[i]],layout[names[j]]),`${label}: ${names[i]} overlaps ${names[j]}`);
     }
   };

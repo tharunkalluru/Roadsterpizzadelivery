@@ -51,7 +51,8 @@ hud.carrierPickupMode();
 // Legacy game updates remain safe after their visible Day/Level nodes are gone.
 hud.set('clock','Day 1 · 9:08 AM');
 hud.set('level','Level 2 / 7');
-hud.set('spd','0');
+// Three digits exercise the largest supported road-speed readout in the badge.
+hud.set('spd','120');
 hud.flightState(true,false);
 delivery.setVisible(true);
 delivery.update(model);
@@ -105,11 +106,15 @@ async function audit() {
       if(isVisible&&(bounds.left<-.5||bounds.top<-.5||bounds.right>innerWidth+.5||bounds.bottom>innerHeight+.5))stateFailures.push(`${key} leaves the viewport`);
     }
     const map=overlays.minimap,speed=overlays.speed;
+    if(speed?.visible)for(const text of hud.root.querySelectorAll<HTMLElement>('.speed #spd,.speed small')){
+      const bounds=rect(text),rim=parseFloat(getComputedStyle(text.parentElement!).borderLeftWidth)||0;
+      if(bounds.left<speed.rect.left+rim-.5||bounds.right>speed.rect.right-rim+.5||bounds.top<speed.rect.top+rim-.5||bounds.bottom>speed.rect.bottom-rim+.5)stateFailures.push('three-digit speed text leaves the opaque badge');
+    }
     if(!map?.visible||!speed?.visible)stateFailures.push('minimap or integrated speed is hidden');
-    else if(speed.rect.left<map.rect.left-.5||speed.rect.right>map.rect.right+.5||speed.rect.top<map.rect.top+map.rect.height/2||speed.rect.bottom>map.rect.bottom+.5)stateFailures.push('speed is outside the minimap bottom arc');
+    else if(speed.rect.left<map.rect.left-.5||speed.rect.right>map.rect.right+.5||speed.rect.top<map.rect.top+map.rect.height/2||speed.rect.top>=map.rect.bottom||speed.rect.bottom<=map.rect.bottom)stateFailures.push('speed does not replace the minimap bottom rim');
     for(const name of ['du-call','du-actions']){
       const action=overlays[name];if(!action?.visible)continue;
-      for(const obstacle of ['minimap','t-left','t-right','t-gas','t-brake','t-fly','t-jump']){
+      for(const obstacle of ['minimap','speed','t-left','t-right','t-gas','t-brake','t-fly','t-jump']){
         if(overlays[obstacle]?.visible&&overlaps(action.rect,overlays[obstacle].rect))stateFailures.push(`${name} overlaps ${obstacle}`);
       }
     }

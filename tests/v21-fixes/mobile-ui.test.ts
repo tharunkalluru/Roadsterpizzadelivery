@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { mobileHudLayout } from '../../src/ui/hud-layout';
+import { mobileHudLayout, minimapSpeedBadgeLayout } from '../../src/ui/hud-layout';
 import { Hud, orderOfferHtml } from '../../src/ui/hud';
 import { settingsHtml, pauseMenuHtml, type Settings } from '../../src/ui/settings';
 import { goFullscreen, exitFullscreen, canFullscreen, fullscreenFallbackHtml } from '../../src/ui/title';
@@ -24,11 +24,21 @@ test('raised arrows and paired jump/brake and fly/go preserve usable, separate t
       if(names[i]==='speed'&&names[j]==='map')continue;
       assert.equal(overlaps(l[names[i]],l[names[j]]),false,`${width}x${height}: ${names[i]} / ${names[j]}`);
     }
-    assert.ok(l.speed.left>=l.map.left&&l.speed.top>=l.map.top&&l.speed.left+l.speed.width<=l.map.left+l.map.width&&l.speed.top+l.speed.height<=l.map.top+l.map.height,'speed occupies the minimap bottom arc');
+    assert.ok(l.speed.left>=l.map.left&&l.speed.left+l.speed.width<=l.map.left+l.map.width&&l.speed.top>l.map.top+l.map.height/2&&l.speed.top<l.map.top+l.map.height&&l.speed.top+l.speed.height>l.map.top+l.map.height,'speed replaces the bottom rim with no map beneath it');
     assert.ok(l.call,`${width}x${height}: action-only call has a reserved slot`);
     assert.ok(Math.abs(l.call!.left+l.call!.width/2-width/2)<=.5,'call stays horizontally centered');
     assert.ok(Math.abs(l.call!.top+l.call!.height/2-l.leftSteer.top-l.leftSteer.height/2)<=1,'call aligns with the steering row');
     for(const name of names)assert.equal(overlaps(l.call!,l[name]),false,`call clears ${name}`);
+  }
+});
+
+test('speed badge follows the prototype proportions and covers the complete lower map edge',()=>{
+  for(const diameter of [44,60,80,100,112,152,168]){
+    const map={left:200,top:62,width:diameter,height:diameter},badge=minimapSpeedBadgeLayout(map);
+    assert.ok(Math.abs(badge.left+badge.width/2-map.left-map.width/2)<=.5,'badge is centered on the circle');
+    assert.ok(badge.top<map.top+diameter&&badge.top+badge.height>map.top+diameter,'opaque badge crosses the circular bottom rim');
+    assert.ok(badge.top+badge.height-map.top-diameter>=8,'map cannot show as a crescent beneath the badge');
+    if(diameter>=80){assert.ok(Math.abs(badge.width/diameter-.6)<.015);assert.ok(Math.abs(badge.height/diameter-.24)<.015);}
   }
 });
 test('settings owns its top Done button and pause has a simple hierarchy without replay tips', () => {

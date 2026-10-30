@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "67b77903e7de39812830fb513efdb665ae7f4702",
+  "source_commit": "78ae06aeb7f7306f66bfe0a2545eedd388530e14",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -218,6 +218,54 @@
     {
       "path": "docs/delivery/evidence/traffic-visibility/phone-side-after.png",
       "sha256": "c8bb1a3fb847d45b44c585a1133870d2762fb62cb8a8db1af9d8e421b696a846"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/README.md",
+      "sha256": "0115e2f5a479cf8669c4d795a35daf5dc59abe8a51ddd6c7c9d6fd3b891177d8"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/layout-1280.json",
+      "sha256": "1e7d652640b9f02729350b40f9b397e85a190d259e69c5cd2bc4d64b1c7f1f71"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/layout-568x240.json",
+      "sha256": "5832b0a931c4901b56cff4d447fd8ef654583f879536d7f701433e5e88d0e2f1"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/layout-568x320.json",
+      "sha256": "2b3f5d367a5cc3c31c899d0c08cda308d7b23ff77ff47d51b98f5425eb9f7832"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/layout-800.json",
+      "sha256": "94aadb6eb372a97657461679958d36319451265b63b60aedbf951bec49afcb08"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/normal-train-hud.png",
+      "sha256": "c89e31d79e51cc8b05cf05249ec8df364caaa4f7c42848477aaf18f63edc3043"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/prototype-badge-568x240.png",
+      "sha256": "2c3890e3297defe1865a31d3def7cb6e1e34a33b7a2f532d5cfdc74bb509f8a8"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/prototype-badge-568x320.png",
+      "sha256": "0a2d46c8a5e3c441a314addcbb8b41ab104047fb1776678a3dde19b6f71e6695"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/prototype-badge-800.png",
+      "sha256": "b10b4dac57d35f262b1d95688c4293846fba754d96e3e5dc3cf0ca974a6da184"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/prototype-badge-desktop.png",
+      "sha256": "e862ed3880bb270e70d22f9dc7a76254508fa1b9030a788e2ad1b16a237c208e"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/rear-to-front-and-return.png",
+      "sha256": "9fb21bfcabc3c2e1537ebf07ace7bb6c7250685198838c6a3706e840c380d1bc"
+    },
+    {
+      "path": "docs/delivery/evidence/train-speedometer/train-delivery-complete.png",
+      "sha256": "6f00c08d40af0cf6ff3c46bd694fe074002af87ae0e11e6789eafe732755f7be"
     },
     {
       "path": "docs/mystery-deliveries-v1.md",
@@ -2277,7 +2325,7 @@
     },
     {
       "path": "src/delivery/qa.ts",
-      "sha256": "5a5965e24d792ea0c205ae2e720d1d7aeced7891b1dc5eeb90532d770c7d66c3"
+      "sha256": "990cab75fd4201b313cf5414541bd162e2a682d93933fe0380cc1af281b5ebd4"
     },
     {
       "path": "src/delivery/rail-passages.ts",
@@ -2401,7 +2449,7 @@
     },
     {
       "path": "src/game/moving-rail.ts",
-      "sha256": "e9cd646a064fd012737416a8ae506818037fd958e4df455a036c61bdbee39546"
+      "sha256": "b0f34187fb047c497e5d730a68fb0826db913b318b1cd67bf34bff2557cd5fca"
     },
     {
       "path": "src/game/physics.ts",
@@ -2421,7 +2469,7 @@
     },
     {
       "path": "src/game/rail.ts",
-      "sha256": "efdb431ddad4d09e5fc787a8a48314f7ed6ef35f4c0deb9aa6fc1be662264c46"
+      "sha256": "b1b486ffcc5e74809dcb1e4caeea66dd3767cff4d76b4db5a4b5e4103ee17052"
     },
     {
       "path": "src/game/railway-crossings.ts",
@@ -2485,11 +2533,11 @@
     },
     {
       "path": "src/ui/hud-layout.ts",
-      "sha256": "7fb250d56d708231e766cd8c597df2b6107536b0f9df63f9c1e6a9f543eecb4d"
+      "sha256": "82b1ac2949edff7ca5c6a880cc41c4796b1bbb35d2ae9088e8b11783169c3a5d"
     },
     {
       "path": "src/ui/hud.ts",
-      "sha256": "e36a23e3d0218570246372f392e0746e0ef9ae2eb5a3121b8a7348671c214c00"
+      "sha256": "2c2b8b4a971ee95d803fbd836be41f9c53028ac245a2ebd445b65db7113c226c"
     },
     {
       "path": "src/ui/landmark-icons.ts",
@@ -2825,7 +2873,7 @@
     },
     {
       "path": "tests/browser/hud-notices.browser.ts",
-      "sha256": "11ac2a12decb8bdce5c05c93dcda3720dde1e3093e2b2806ed3078cfcebfe987"
+      "sha256": "91cd49d63ab311d5a10fcbfe88efaad4570cef07bca3fcd5702feea559b452ce"
     },
     {
       "path": "tests/browser/hud-notices.html",
@@ -3041,7 +3089,7 @@
     },
     {
       "path": "tests/legacy/mobile-hud-layout-regressions.mjs",
-      "sha256": "7aa310b387dcc8945a19bfd07f71d5233b6f13fa459c9a7336ca1d3303955d1d"
+      "sha256": "e6ce7963c73876faab1522f86f7499b621453e73991421e46e7d41e86802b96f"
     },
     {
       "path": "tests/legacy/moving-rail-regressions.mjs",
@@ -3297,7 +3345,7 @@
     },
     {
       "path": "tests/v21-fixes/hud-notice-layout.test.ts",
-      "sha256": "ae67b9f89939363ec1428c311a4a02d4f16ae1701958265c1d3bbe5f9f84f38c"
+      "sha256": "3bc692f45e85245c684cf810f43bb20145172de7b5370800127995105f9c1968"
     },
     {
       "path": "tests/v21-fixes/map-labels.test.ts",
@@ -3325,7 +3373,7 @@
     },
     {
       "path": "tests/v21-fixes/mobile-ui.test.ts",
-      "sha256": "437ee0ac0cae037af910442d01aebfc00b5f014872ec4788136b828e6c32b9f8"
+      "sha256": "0899af9a8ff7afa7c98ad8c036e3e49dd8ab3ad9482781225cd29624f04a3aab"
     },
     {
       "path": "tests/v21-fixes/navigation-route-source.test.ts",
@@ -3334,6 +3382,10 @@
     {
       "path": "tests/v21-fixes/pause-progress-hub.test.ts",
       "sha256": "0cee27847104e0e8218b792c2d400ac94b389dc3474c10895f727a4dcfb2bfeb"
+    },
+    {
+      "path": "tests/v21-fixes/railway-coach-continuity.test.ts",
+      "sha256": "e1ab5e476d817ba19d41b38e04988cf895266a21a3aeda72dba4c73ec1696d47"
     },
     {
       "path": "tests/v21-fixes/railway-crossings.test.ts",

@@ -5,6 +5,7 @@ import type { StorageLike } from './core/types';
 import { loadLevels } from './content/levels';
 import { ProgressSystem } from './systems/progress-system';
 import type { DeliveryRuntimeOptions } from './runtime';
+import { movingRailSupport } from '../game/moving-rail';
 
 /** Imported only by main.ts's import.meta.env.DEV branch. No global test hooks. */
 export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query?: URLSearchParams) {
@@ -14,6 +15,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
   const start=pose?.length===4&&pose.every(Number.isFinite)?{x:pose[0],z:pose[1],yaw:pose[2],y:pose[3]}:null;
   const touch=query?.get('qaTouch')==='1';
   const trafficOrbit=query?.get('qaTrafficOrbit')==='1';
+  const trainRide=query?.get('qaTrainRide')==='1'&&number===2;
   if (!Number.isSafeInteger(number) || number > levels.length) return null;
   const values = new Map<string, string>([['roadster-carrier-tutorial-v1', '1']]);
   const storage: StorageLike = {
@@ -58,6 +60,24 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         game.resetInput(); game.sound.unlock(); game.story.controller.pickup(); update();
         game.engine.renderer.domElement.focus({ preventScroll: true });
       });
+      let trainLanding=false;
+      const contactedCoaches=new Set<string>();
+      const stageTrain=trainRide?button('Land above rear coach',()=>{
+        if(stageTrain?.disabled)return;
+        const physical=game.rail.bodies.filter(body=>/^rail:\d+:\d+$/.test(body.id));
+        const target=game.story?.destination;
+        const selected=target?physical.reduce<typeof physical[number]|null>((best,body)=>!best||Math.hypot(body.x-target.x,body.z-target.z)<Math.hypot(best.x-target.x,best.z-target.z)?body:best,null):null;
+        if(!selected)return;
+        const prefix=selected.id.slice(0,selected.id.lastIndexOf(':')+1);
+        const candidates=physical.filter(body=>body.id.startsWith(prefix)).sort((a,b)=>Number(a.id.split(':').at(-1))-Number(b.id.split(':').at(-1)));
+        const rear=candidates.at(-1);if(!rear)return;
+        const player=game.player;game.resetInput();game.sound.unlock();
+        player.place(rear.x,rear.z,Math.atan2(-rear.hx,-rear.hz),rear.roof);
+        // Normal descent and train carry must handle this real roof touchdown.
+        player.pos.set(rear.x,rear.roof+1.75,rear.z);player.descending=true;player.vy=0;
+        player.group.position.copy(player.pos);contactedCoaches.clear();trainLanding=true;
+        game.clock.getDelta();game.engine.renderer.domElement.focus({preventScroll:true});update();
+      }):null;
       let orbitVehicles: typeof game.traffic.cars = [];
       if(trafficOrbit)button('Stage nearby traffic',()=>{
         const edge=game.graph.nearestEdges(game.player.pos.x,game.player.pos.z,2)[0];if(!edge)return;
@@ -86,11 +106,15 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         const blocked = game.relocating || game.choosing || !game.area || game.paused || game.hud.modalOpen || game.hud.rotationBlocked || !!game.map?.open;
         prepare.disabled = blocked || !game.story?.canPickup;
         if(resetDrive)resetDrive.disabled=blocked;
+        if(stageTrain)stageTrain.disabled=blocked||!game.story?.activeOrder||game.rail.bodies.filter(body=>/^rail:\d+:\d+$/.test(body.id)).length<4;
         const text = game.relocating ? 'Loading through normal area placement…' : blocked ? 'Resume in landscape to prepare.' :
           game.story?.activeOrder ? 'Order prepared. Calls and delivery stay manual.' : 'Prepare skips only the pickup for this test.';
         const p=game.player.pos;
+        const support=trainRide?movingRailSupport(game.city.movingRail||[],p.x,p.z,p.y-.55):null;
+        if(trainLanding&&support&&Math.abs(p.y-.55-support.y)<.25&&/^rail:\d+:\d+$/.test(support.body.id))contactedCoaches.add(support.body.id);
+        const trainReadout=trainRide?`\nRail contact: ${support&&Math.abs(p.y-.55-support.y)<.25?support.body.id:'air / off train'} · coaches reached: ${[...contactedCoaches].join(', ')||'none'}\nTrain marker: ${game.story?.destination?Math.round(Math.hypot(p.x-game.story.destination.x,p.z-game.story.destination.z))+' m':'no active order'} · car y ${p.y.toFixed(2)}`:'';
         const readout=text+(orbitVehicles.length?'\nTraffic: '+orbitVehicles.map(c=>`${c.group} ${c.g.visible?'visible':'hidden'}`).join(' · '):'')+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'');
-        if (status.textContent !== readout) status.textContent = readout;
+        if (status.textContent !== readout+trainReadout) status.textContent = readout+trainReadout;
       };
       const timer = setInterval(update, 250);
       const cleanup = () => { clearInterval(timer); panel.remove(); removeEventListener('pagehide', cleanup); };
