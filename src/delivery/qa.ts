@@ -13,6 +13,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
   const pose=query?.get('qaStart')?.split(',').map(Number);
   const start=pose?.length===4&&pose.every(Number.isFinite)?{x:pose[0],z:pose[1],yaw:pose[2],y:pose[3]}:null;
   const touch=query?.get('qaTouch')==='1';
+  const trafficOrbit=query?.get('qaTrafficOrbit')==='1';
   if (!Number.isSafeInteger(number) || number > levels.length) return null;
   const values = new Map<string, string>([['roadster-carrier-tutorial-v1', '1']]);
   const storage: StorageLike = {
@@ -57,6 +58,20 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         game.resetInput(); game.sound.unlock(); game.story.controller.pickup(); update();
         game.engine.renderer.domElement.focus({ preventScroll: true });
       });
+      let orbitVehicles: typeof game.traffic.cars = [];
+      if(trafficOrbit)button('Stage nearby traffic',()=>{
+        const edge=game.graph.nearestEdges(game.player.pos.x,game.player.pos.z,2)[0];if(!edge)return;
+        game.resetInput();game.traffic.clear();game.busyT=3600;game.traffic.max=0;
+        const p=game.player.pos,f=game.player.forward;
+        const slots=[['auto',-3,0],['bike',3,0],['car',-3,10],['bus',3,16],['truck',-3,-15]] as const;
+        orbitVehicles=slots.map(([kind,side,ahead])=>{
+          const c=game.traffic.spawnAt(kind,edge,1,edge.len/2,0);
+          c.x=p.x+f.z*side+f.x*ahead;c.y=game.player.lastSupport;c.z=p.z-f.x*side+f.z*ahead;
+          c.hx=f.x;c.hz=f.z;c.speed=0;c.want=0;c.dwell=3600;
+          c.g.position.set(c.x,c.y+.02,c.z);c.g.rotation.y=Math.atan2(-c.hx,-c.hz);return c;
+        });
+        game.engine.renderer.domElement.focus({preventScroll:true});update();
+      });
       const resetDrive=start?button('Reset drive start',()=>{
         if(resetDrive?.disabled)return;
         game.resetInput();game.sound.unlock();game.player.place(start.x,start.z,start.yaw,start.y);
@@ -74,7 +89,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         const text = game.relocating ? 'Loading through normal area placement…' : blocked ? 'Resume in landscape to prepare.' :
           game.story?.activeOrder ? 'Order prepared. Calls and delivery stay manual.' : 'Prepare skips only the pickup for this test.';
         const p=game.player.pos;
-        const readout=text+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'');
+        const readout=text+(orbitVehicles.length?'\nTraffic: '+orbitVehicles.map(c=>`${c.group} ${c.g.visible?'visible':'hidden'}`).join(' · '):'')+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'');
         if (status.textContent !== readout) status.textContent = readout;
       };
       const timer = setInterval(update, 250);

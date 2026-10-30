@@ -676,15 +676,15 @@ export class Traffic {
       if (c.edge.e.workZone) c.speed = Math.min(c.speed, c.edge.e.workZone.speed / 3.6);
     }
   }
-  // Ordinary chase views hide a vehicle across the camera-car sightline. During
-  // a jump that vehicle is the stunt's reference, so retain it unless the actual
-  // camera volume enters its body. The low support root can sit inside a padded
-  // bus envelope even while the rolling Roadster clears the rendered roof.
-  hideNear(cam: THREE.Vector3, tgt?: { x: number; y: number; z: number }, preserveOvertake = false) {
+  // Traffic stays visible when it crosses the camera-to-player sightline:
+  // hiding the whole body makes an occupied lane look empty during an orbit.
+  // Only protect the near plane when the camera itself enters the vehicle.
+  // Keep the old arguments for callers; jumping/landing has the same policy.
+  hideNear(cam: THREE.Vector3, _tgt?: { x: number; y: number; z: number }, _preserveOvertake = false) {
     for (const c of this.cars) {
-      // The rendered body and collision body share the path tangent.
-      const body = { x: c.x, y: c.y, z: c.z, size: c.size, hx: -Math.sin(c.g.rotation.y), hz: -Math.cos(c.g.rotation.y) };
-      c.g.visible = !segmentHitsVehicle(cam, cam, body, 1.2) && !(!preserveOvertake && tgt && segmentHitsVehicle(cam, tgt, body, 0.6));
+      const p = c.g.position;
+      const body = { x: p.x, y: p.y - .02, z: p.z, size: c.size, hx: -Math.sin(c.g.rotation.y), hz: -Math.cos(c.g.rotation.y) };
+      c.g.visible = !segmentHitsVehicle(cam, cam, body, .1);
     }
   }
   // keep the player's car out of other vehicles: push it out along the shallowest side of the overlap

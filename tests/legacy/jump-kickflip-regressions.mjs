@@ -59,13 +59,13 @@ try {
     assert.equal(jumpCeiling(c,0,0,1.2),2.65);assert.equal(p.canJump,false);p.update(1/60,{...idle,jumpPressed:true},0);assert.equal(p.jumping,false);
     const open=player();open.update(1/60,{...idle,jumpPressed:true,flyPressed:true},0);assert.equal(open.flying,true);assert.equal(open.jumping,false);
   });
-  test('overtaken bus stays visible during JUMP while camera-inside protection still applies',()=>{
-    const bus={x:5,z:0,y:0,hx:1,hz:0,size:[2.6,3.2,12],g:new Group()};bus.g.rotation.y=-Math.PI/2;
+  test('overtaken bus stays visible before, during and after JUMP while camera-inside protection still applies',()=>{
+    const bus={x:5,z:0,y:0,hx:1,hz:0,size:[2.6,3.2,12],g:new Group()};bus.g.position.set(bus.x,bus.y+.02,bus.z);bus.g.rotation.y=-Math.PI/2;
     const traffic=Object.assign(Object.create(Traffic.prototype),{cars:[bus]});const cam=new Vector3(0,2.5,-10),target={x:0,y:.55,z:10};
-    traffic.hideNear(cam,target);assert.equal(bus.g.visible,false);
+    traffic.hideNear(cam,target);assert.equal(bus.g.visible,true,'ordinary exterior view must not hide an occupied lane');
     traffic.hideNear(cam,target,true);assert.equal(bus.g.visible,true,'jump must not hide the bus being cleared');
     traffic.hideNear(new Vector3(5,2,0),target,true);assert.equal(bus.g.visible,false,'camera physically inside bus still needs protection');
-    traffic.hideNear(cam,target,false);assert.equal(bus.g.visible,false,'ordinary chase occlusion resumes after landing');
+    traffic.hideNear(cam,target,false);assert.equal(bus.g.visible,true,'landing must not make the bus disappear again');
   });
   console.log(`${checks} Version21 jump and kickflip regressions passed.`);
 } finally { await rm(out,{recursive:true,force:true}); }

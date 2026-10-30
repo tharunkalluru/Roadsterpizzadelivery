@@ -153,13 +153,15 @@ try {
     assert.ok(p.z < 3.65); assert.equal(staticSolidAt(c, p), false);
     for (let t = 0; t <= 1; t += 0.05) assert.equal(staticSolidAt(c, { x: p.x * t, y: from.y + (p.y - from.y) * t, z: p.z * t }), false);
   });
-  test('full bus length occludes the chase camera and visibility restores after it leaves', () => {
-    const car = { x: 5, z: 0, y: 0, hx: 1, hz: 0, size: [2.6, 3.2, 12], g: { visible: true, rotation: { y: -Math.PI / 2 } } };
+  test('full bus length still blocks the geometric ray without disappearing from an exterior chase view', () => {
+    const car = { x: 5, z: 0, y: 0, hx: 1, hz: 0, size: [2.6, 3.2, 12], g: new Group() };
+    car.g.position.set(car.x, car.y + .02, car.z); car.g.rotation.y = -Math.PI / 2;
     const cam = new Vector3(0, 2.5, -10), target = { x: 0, y: 0.55, z: 10 };
     assert.equal(segmentHitsVehicle(cam, target, car), true, 'bus end crosses ray even though centre is 5 m away');
     const traffic = Object.assign(Object.create(Traffic.prototype), { ...trafficFixtureState(),  cars: [car] });
-    traffic.hideNear(cam, target); assert.equal(car.g.visible, false);
-    car.x = 20; traffic.hideNear(cam, target); assert.equal(car.g.visible, true);
+    traffic.hideNear(cam, target); assert.equal(car.g.visible, true, 'a blocking bus remains physically visible');
+    traffic.hideNear(new Vector3(5, 2, 0), target); assert.equal(car.g.visible, false, 'camera inside the body retains near-plane protection');
+    car.x = 20; car.g.position.x = 20; traffic.hideNear(cam, target); assert.equal(car.g.visible, true);
   });
   test('rotated trucks occlude correctly but traffic overhead does not hide from below', () => {
     const q = Math.SQRT1_2, car = { x: 0, z: 0, y: 0, hx: q, hz: q, size: [2.6, 3.5, 10] };

@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "f1567c91331867c14e56790cd03ee8cbd4efc4b6",
+  "source_commit": "4238ffe331fbf5a262932647e445cbd1f5f8ee64",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -130,6 +130,26 @@
     {
       "path": "docs/delivery/evidence/immersion-v2/touch-throw.png",
       "sha256": "7216b37bb938fd4985316d451a83214698b04187118874537f8b2b2059db6137"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/orbit-auto-after.png",
+      "sha256": "5b3593a9016171a1269429c424369d6415c3d613d2bd0fd52834f5d17cb2376b"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/orbit-auto-before.png",
+      "sha256": "12914918c526948952e8ac29ab533229500bb4aea81f4dab51b72372754136d1"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/phone-full-orbit.png",
+      "sha256": "2985e12b00383f3bbf336a35d4bb79b43988b6599adda9d082c80c26446f0e61"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/phone-landed-after.png",
+      "sha256": "158ef8a3afdbb151c0f7595c2b6ba0ba0d305ce35a2b142b8f2c0d8ea2c8f692"
+    },
+    {
+      "path": "docs/delivery/evidence/traffic-visibility/phone-side-after.png",
+      "sha256": "c8bb1a3fb847d45b44c585a1133870d2762fb62cb8a8db1af9d8e421b696a846"
     },
     {
       "path": "docs/mystery-deliveries-v1.md",
@@ -562,6 +582,10 @@
     {
       "path": "docs/playtests/2026-10-30-handling-characters.md",
       "sha256": "49096f38278bf3012e77aca4e94ed76e5fff6d8f2f8374150724200da73d1eb1"
+    },
+    {
+      "path": "docs/playtests/2026-10-30-traffic-camera-visibility.md",
+      "sha256": "db5c03d1c1938829430cb2583307b418e8d97d82e44d41a2f248098f8f6e9e06"
     },
     {
       "path": "docs/railway-research-2026-10-29.md",
@@ -2109,7 +2133,7 @@
     },
     {
       "path": "src/delivery/qa.ts",
-      "sha256": "de9e654fd8ed7da0ab961a1b59254ecaf0017a1d0bd5cca25df44615bcc29f49"
+      "sha256": "5a5965e24d792ea0c205ae2e720d1d7aeced7891b1dc5eeb90532d770c7d66c3"
     },
     {
       "path": "src/delivery/rail-passages.ts",
@@ -2289,7 +2313,7 @@
     },
     {
       "path": "src/game/traffic.ts",
-      "sha256": "8a8744ab51a91ac635aa1239ececfff25bb2334da38605aadef587ae707f66ab"
+      "sha256": "77123d17529664b5c96d1c5907a32261e7c3d44b6c042995ef42f06f80c99fbe"
     },
     {
       "path": "src/game/walkers.ts",
@@ -2825,7 +2849,7 @@
     },
     {
       "path": "tests/legacy/jump-kickflip-regressions.mjs",
-      "sha256": "46bca6baa3f930adde86140b004fbbf3533724c206f6092da75104e0aa4a1c9a"
+      "sha256": "e6ea3682739a8c79afc886ba0fad5d2281c3a6cd5a2c5104ca8be4ea512b6abb"
     },
     {
       "path": "tests/legacy/landmark-contact-regressions.mjs",
@@ -2909,7 +2933,7 @@
     },
     {
       "path": "tests/legacy/spatial-safety-regressions.mjs",
-      "sha256": "b5c1fe6d07001dde00afcdf7541bfcbe95a3f4101b75aed1940c001ba0888655"
+      "sha256": "2182cf9dadacbae4f1ae2946e5423522fec2f88f8d8c8b296e02806e14a4b7d1"
     },
     {
       "path": "tests/legacy/street-lighting-regressions.mjs",
@@ -3182,6 +3206,10 @@
     {
       "path": "tests/v21-fixes/stadium-roads.test.ts",
       "sha256": "de4a61d4149ea1b67197b0d63f0eaa6a34237b6f4e1cc3f3e0e0d7bdd6f5dd45"
+    },
+    {
+      "path": "tests/v21-fixes/traffic-camera-visibility.test.ts",
+      "sha256": "4180b68a65cb4f7ffdec2af79077d9ce9ad2c6328278c9ca83b5e7736f891bcf"
     },
     {
       "path": "tests/v21-fixes/underpass-evidence.test.ts",
