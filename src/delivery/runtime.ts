@@ -33,7 +33,7 @@ export function deliverySurfaceHeight(city: Game['city'], x: number, z: number) 
   return Number.isFinite(height) ? height : 0;
 }
 
-type RuntimeUI = Pick<DeliveryUI, 'blocking' | 'collectionOpen' | 'setVisible' | 'update' | 'dispose'>;
+type RuntimeUI = Pick<DeliveryUI, 'blocking' | 'collectionOpen' | 'setVisible' | 'update' | 'dispose'> & Partial<Pick<DeliveryUI, 'openCollection'>>;
 /** Content/adapters are injectable without changing the state machine or gameplay timing. */
 export interface DeliveryRuntimeOptions {
   levels?: LevelConfig[];
@@ -105,6 +105,16 @@ export class DeliveryRuntime {
   get levelLabel() {
     const c = this.controller;
     return `Level ${c.activeLevel?.level ?? c.progress.currentLevel} / ${c.progress.total}`;
+  }
+  get pauseProgress() {
+    const c = this.controller;
+    return { current: c.activeLevel?.level ?? c.progress.currentLevel, total: c.progress.total, completed: c.progress.completedIds.length };
+  }
+  /** Pause owns the entry point; the collection itself owns blocking/focus. */
+  openRestaurant() {
+    if (this.disposed || !this.ui.openCollection || this.controller.calls.active || this.controller.complete) return false;
+    this.ui.setVisible(true); this.ui.openCollection(); this.syncBlocking();
+    return this.ui.collectionOpen;
   }
   get destination() { return this.target; }
   /** The GPS ends on a real street; the flight marker keeps its actual height. */

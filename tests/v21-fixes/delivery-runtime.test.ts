@@ -16,6 +16,7 @@ class UIAdapter {
   visible = true; collectionOpen = false; model: DeliveryView | null = null; disposed = 0;
   get blocking() { return this.visible && (this.collectionOpen || !!this.model?.phone || !!this.model?.completion); }
   setVisible(visible: boolean) { this.visible = visible; }
+  openCollection() { this.collectionOpen = true; }
   update(model: DeliveryView) { this.model = model; }
   dispose() { this.disposed++; }
 }
@@ -335,4 +336,29 @@ test('other scenes use actual nearby marker distance and clear local guidance on
   f.game.player.pos.x = 150; completeCall(f); f.actions.drop();
   assert.equal(f.runtime.localNavigation, undefined, 'a completed marker must not leave a stale local cue');
   f.runtime.dispose();
+});
+
+
+test('pause restaurant entry restores UI visibility and blocks simulation immediately without changing delivery progress', () => {
+  const f = fixture();
+  f.ui.setVisible(false); f.game.paused = false;
+  const before = f.runtime.pauseProgress;
+  assert.deepEqual(before, { current: 1, total: 7, completed: 0 });
+  assert.equal(f.runtime.openRestaurant(), true);
+  assert.equal(f.ui.visible, true); assert.equal(f.ui.collectionOpen, true);
+  assert.equal(f.runtime.blocking, true); assert.equal(f.game.hud.storyBlocked, true);
+  assert.deepEqual(f.runtime.pauseProgress, before); assert.equal(f.storage.getItem(MYSTERY_SAVE_KEY), null);
+  f.ui.collectionOpen = false; f.actions.collectionClose?.(); f.runtime.tick(.016, true);
+  assert.equal(f.game.hud.storyBlocked, false); assert.ok(f.stats().focus > 0);
+});
+
+test('restaurant entry cannot replace a live phone call or completion card', () => {
+  const f = fixture(); pickup(f); f.runtime.beforePlayer(.016); approach(f); f.runtime.tick(.016, true); f.actions.call();
+  assert.equal(f.runtime.controller.calls.active, true); assert.equal(f.runtime.openRestaurant(), false); assert.equal(f.ui.collectionOpen, false);
+  while (f.runtime.controller.calls.active) f.actions.advanceCall(f.runtime.controller.calls.currentLine?.replies ? 0 : undefined);
+  f.actions.drop(); assert.equal(f.runtime.controller.complete, true);
+  assert.equal(f.runtime.openRestaurant(), false); assert.equal(f.ui.collectionOpen, false);
+  assert.deepEqual(f.runtime.pauseProgress, { current: 1, total: 7, completed: 1 });
+  f.actions.continue(); assert.deepEqual(f.runtime.pauseProgress, { current: 2, total: 7, completed: 1 });
+  f.runtime.dispose(); assert.equal(f.runtime.openRestaurant(), false);
 });

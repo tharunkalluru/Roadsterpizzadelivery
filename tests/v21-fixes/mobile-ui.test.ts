@@ -8,7 +8,7 @@ import { goFullscreen, exitFullscreen, canFullscreen, fullscreenFallbackHtml } f
 
 const overlaps = (a: any, b: any) => a.left < b.left + b.width && a.left + a.width > b.left && a.top < b.top + b.height && a.top + a.height > b.top;
 test('raised arrows and paired jump/brake and fly/go preserve usable, separate touch targets', () => {
-  for (const [width,height,left,right,bottom] of [[568,320,18,18,18],[640,280,18,18,18],[640,360,18,18,18],[800,360,18,18,34],[844,390,59,59,21],[915,412,18,18,18],[1280,720,18,18,18]]) {
+  for (const [width,height,left,right,bottom] of [[568,240,18,18,34],[568,240,18,18,18],[667,260,18,18,18],[568,320,18,18,18],[667,375,18,18,18],[1024,768,18,18,18],[640,280,18,18,18],[640,360,18,18,18],[800,360,18,18,34],[844,390,59,59,21],[915,412,18,18,18],[1280,720,18,18,18]]) {
     const l = mobileHudLayout(width,height,62,106,left,right,bottom);
     assert.equal(l.jump.left,l.brake.left); assert.equal(l.jump.width,l.brake.width);
     assert.equal(l.fly.left,l.gas.left); assert.equal(l.fly.width,l.gas.width); assert.equal(l.jump.top,l.fly.top);
@@ -16,10 +16,19 @@ test('raised arrows and paired jump/brake and fly/go preserve usable, separate t
     assert.ok(l.rightSteer.left-l.leftSteer.left-l.leftSteer.width>=24);
     assert.ok(l.leftSteer.left>left); assert.ok(Math.abs(l.leftSteer.top+l.leftSteer.height/2-l.fly.top-l.fly.height/2)<=1);
     assert.ok(l.context.width>=120,`${width}: collection hold has enough width`);
-    assert.equal(l.brake.height,l.gas.height); assert.equal(l.brake.width,l.oldBrake*1.5);
+    for(const name of ['leftSteer','rightSteer','gas','brake','fly','jump','context']as const)assert.ok(l[name].width>=44&&l[name].height>=44,`${width}x${height}: ${name} remains a usable touch target`);
+    assert.equal(l.brake.height,l.gas.height); assert.equal(l.brake.width,Math.round(l.oldBrake*1.5));
     const names = ['leftSteer','rightSteer','brake','gas','fly','jump','speed','map','context'] as const;
     for (const name of names) { const r=l[name]; assert.ok(r.width>0 && r.left>=left && r.top>=0 && r.left+r.width<=width-right+1 && r.top+r.height<=height-bottom+1,`${width}x${height}: ${name} stays in safe bounds`); }
-    for(let i=0;i<names.length;i++)for(let j=i+1;j<names.length;j++)assert.equal(overlaps(l[names[i]],l[names[j]]),false,`${width}x${height}: ${names[i]} / ${names[j]}`);
+    for(let i=0;i<names.length;i++)for(let j=i+1;j<names.length;j++){
+      if(names[i]==='speed'&&names[j]==='map')continue;
+      assert.equal(overlaps(l[names[i]],l[names[j]]),false,`${width}x${height}: ${names[i]} / ${names[j]}`);
+    }
+    assert.ok(l.speed.left>=l.map.left&&l.speed.top>=l.map.top&&l.speed.left+l.speed.width<=l.map.left+l.map.width&&l.speed.top+l.speed.height<=l.map.top+l.map.height,'speed occupies the minimap bottom arc');
+    assert.ok(l.call,`${width}x${height}: action-only call has a reserved slot`);
+    assert.ok(Math.abs(l.call!.left+l.call!.width/2-width/2)<=.5,'call stays horizontally centered');
+    assert.ok(Math.abs(l.call!.top+l.call!.height/2-l.leftSteer.top-l.leftSteer.height/2)<=1,'call aligns with the steering row');
+    for(const name of names)assert.equal(overlaps(l.call!,l[name]),false,`call clears ${name}`);
   }
 });
 test('settings owns its top Done button and pause has a simple hierarchy without replay tips', () => {

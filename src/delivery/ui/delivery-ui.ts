@@ -20,19 +20,22 @@ export const DELIVERY_UI_CSS = `
 .delivery-ui button:disabled{color:#B0A0C2!important;border-color:#574363;cursor:default;box-shadow:none}
 .delivery-ui button:focus-visible{outline:3px solid #20E8D0;outline-offset:3px}
 .delivery-ui svg{display:block;pointer-events:none}
-.du-collection-button{position:absolute;top:max(12px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));font-size:10px;display:flex;gap:7px;align-items:center}
-.du-collection-button svg{width:18px;height:18px;color:#FFBF00}
 .du-actions{position:absolute;right:24px;bottom:90px;display:flex;flex-direction:column;gap:7px;width:170px;pointer-events:none}
 .du-actions button{width:100%;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px}
 .du-actions svg{width:23px;height:23px;flex-shrink:0}
-/* The small handset is the only glass surface: no blur, filters, masks, or
-   composited full-screen panels. Opaque dialogs retain the Samsung fallback. */
-#hud .delivery-ui button.du-call{position:absolute;right:24px;bottom:164px;width:48px;height:48px;min-width:44px;min-height:44px;border-radius:50%;padding:0;display:grid;place-items:center;border:1px solid #AA9AB8;background-color:rgba(39,25,54,.86)!important;background-image:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,0) 66%)!important;color:#D0C1DC!important;box-shadow:inset 0 1px 0 #DDD1E5,0 2px 0 #171125;text-shadow:none}
-#hud .delivery-ui button.du-call:disabled{background-color:rgba(39,25,54,.88)!important;border-color:#756580;color:#B0A0C2!important;box-shadow:inset 0 1px 0 #776284}
-#hud .delivery-ui button.du-call[data-state=enabled],#hud .delivery-ui button.du-call[data-state=ringing]{background-color:rgba(15,82,75,.9)!important;border-color:#71F7DE;color:#FFF9EA!important;box-shadow:inset 0 1px 0 #B5FFF0,0 2px 0 #171125}
-.du-call svg{width:24px;height:24px;transform-origin:center}
+/* Only contextual guidance uses a light translucent surface. Full-screen
+   dialogs remain opaque for the proven Samsung rendering treatment. */
+#hud .delivery-ui button.du-call{position:absolute;left:50%;top:60%;width:156px;height:48px;min-width:44px;min-height:44px;border-radius:16px;padding:5px 9px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(160,255,236,.7);background-color:rgba(17,66,63,.76)!important;background-image:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,0) 66%)!important;color:#FFF9EA!important;box-shadow:inset 0 1px 0 rgba(207,255,243,.45),0 2px 0 #171125;text-shadow:none}
+.du-call svg{width:23px;height:23px;flex-shrink:0;transform-origin:center}
+.du-call-copy{display:flex;flex-direction:column;gap:1px;min-width:0;text-align:left;font:800 11px/1.2 var(--body,system-ui)}
+.du-call-copy small{font:600 10px/1.15 var(--body,system-ui);color:#B5FFF0}
+#hud .delivery-ui button.du-call[data-compact=true]{padding:4px;border-radius:12px;gap:0}
+.du-call[data-compact=true] svg,.du-call[data-compact=true] small{display:none}
+.du-call[data-compact=true] .du-call-copy{text-align:center;font-size:10px;line-height:1.15;overflow-wrap:normal}
 .du-call[data-state=enabled] svg{animation:du-call-ready 1.5s ease-in-out 2}
 .du-call[data-state=ringing] svg{animation:du-call-ring .9s ease-in-out infinite}
+.du-call[data-state=ringing]{animation:du-call-attention 1.2s ease-in-out infinite}
+#hud.has-modal .delivery-ui>.du-call,#hud.has-modal .delivery-ui>.du-actions,#hud.has-modal .delivery-ui>.du-notice{display:none!important}
 .du-action-hint{margin:0;padding:6px 9px;border-radius:9px;background-color:#271936!important;color:#FFF1D8;font-size:11px;line-height:1.2;text-align:center}
 .du-notice{box-sizing:border-box;position:fixed;left:var(--hud-notice-left,18px);top:var(--hud-notice-top,105px);width:var(--hud-notice-width,180px);height:var(--hud-notice-height,48px);margin:0;border-radius:10px;background-color:#271936!important;border:1px solid #8B6BA6;padding:6px 8px;font-size:11px;font-weight:700;line-height:14px;text-align:left;overflow:hidden;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
 .du-overlay{position:absolute;inset:0;padding:max(12px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));display:grid;place-items:center;background-color:#171125!important;pointer-events:auto;box-sizing:border-box;z-index:15;touch-action:pan-y}
@@ -68,10 +71,11 @@ export const DELIVERY_UI_CSS = `
 .du-grand-opening:not([data-opening=open]) .du-opening-neon-frame{stroke:#604D6E}.du-grand-opening:not([data-opening=open]) .du-opening-neon-text{fill:#9683A7}.du-grand-opening:not([data-opening=open]) .du-opening-rays{stroke:#432F50}
 @media(prefers-reduced-motion:reduce){.du-grand-opening .du-opening-door-left,.du-grand-opening .du-opening-door-right{transition:none}}
 @keyframes du-call-ready{50%{transform:scale(1.14)}}
+@keyframes du-call-attention{50%{border-color:#D2FFF4;box-shadow:inset 0 1px 0 rgba(207,255,243,.45),0 0 0 3px rgba(32,232,208,.2)}}
 @keyframes du-call-ring{0%,50%,100%{transform:rotate(0)}15%{transform:rotate(-16deg)}30%{transform:rotate(16deg)}}
-@media(max-height:520px){.du-collection-button{top:10px;min-height:44px!important;padding:5px 9px!important;font-size:9px}.du-sheet{padding:14px;border-radius:20px}.du-phone{grid-template-columns:130px 1fr;gap:14px}.du-avatar{width:80px;height:80px}.du-caller-name{font-size:13px}.du-line{font-size:17px}.du-completion{gap:14px}.du-completion .du-avatar{width:76px;height:76px}.du-restaurant>svg{max-height:150px}.du-grand-opening .du-restaurant>svg{max-height:120px}.du-restaurant-label{font-size:12px;margin:3px 0 7px}.du-completion h2{font-size:21px}.du-collection-content{grid-template-columns:170px 1fr}.du-actions button{min-height:44px;font-size:11px;padding:6px 9px}.du-action-hint{font-size:10px}}
-@media(max-width:600px){.du-phone{grid-template-columns:90px 1fr;gap:10px}.du-avatar{width:65px;height:65px}.du-caller-name{font-size:11px}.du-line{font-size:15px}.du-call-footer button{padding:5px 7px;font-size:10px}.du-completion{grid-template-columns:1fr 1fr;gap:10px}.du-collection-content{grid-template-columns:1fr}.du-collection-content>.du-restaurant{display:none}.du-collection-button span{display:none}.du-collection-button{min-width:44px}}
-@media(prefers-reduced-motion:reduce){.du-call[data-state=enabled] svg,.du-call[data-state=ringing] svg{animation:none}}
+@media(max-height:520px){.du-sheet{padding:14px;border-radius:20px}.du-phone{grid-template-columns:130px 1fr;gap:14px}.du-avatar{width:80px;height:80px}.du-caller-name{font-size:13px}.du-line{font-size:17px}.du-completion{gap:14px}.du-completion .du-avatar{width:76px;height:76px}.du-restaurant>svg{max-height:150px}.du-grand-opening .du-restaurant>svg{max-height:120px}.du-restaurant-label{font-size:12px;margin:3px 0 7px}.du-completion h2{font-size:21px}.du-collection-content{grid-template-columns:170px 1fr}.du-actions button{min-height:44px;font-size:11px;padding:6px 9px}.du-action-hint{font-size:10px}}
+@media(max-width:600px){.du-phone{grid-template-columns:90px 1fr;gap:10px}.du-avatar{width:65px;height:65px}.du-caller-name{font-size:11px}.du-line{font-size:15px}.du-call-footer button{padding:5px 7px;font-size:10px}.du-completion{grid-template-columns:1fr 1fr;gap:10px}.du-collection-content{grid-template-columns:1fr}.du-collection-content>.du-restaurant{display:none}}
+@media(prefers-reduced-motion:reduce){.du-call[data-state=enabled] svg,.du-call[data-state=ringing] svg,.du-call[data-state=ringing]{animation:none}}
 `;
 
 /** Plain opaque DOM overlay; gameplay owns physics and the pause boundary. */
@@ -102,8 +106,7 @@ export class DeliveryUI {
       const style = document.createElement('style'); style.id = 'delivery-story-style'; style.textContent = DELIVERY_UI_CSS; document.head.append(style);
     }
     this.root = document.createElement('section'); this.root.className = 'delivery-ui'; this.root.setAttribute('aria-label', 'Pizza delivery');
-    this.root.innerHTML = `<button class="du-collection-button" data-du="collection-button" aria-label="Open your restaurant and delivered customers">${pizzaIcon}<span>My restaurant</span></button>
-      <button class="du-call" data-du="call" type="button" aria-label="Call customer" title="Call customer" hidden>${phoneIcon}</button>
+    this.root.innerHTML = `<button class="du-call" data-du="call" type="button" aria-label="Call customer" title="Call customer" hidden>${phoneIcon}<span class="du-call-copy"><span data-du="call-label">Call customer</span><small data-du="call-hint">Tap to call</small></span></button>
       <div class="du-actions" data-du="actions"><button class="du-primary" data-du="drop" hidden>${pizzaIcon}<span data-du="drop-label">Drop</span></button><p class="du-action-hint" data-du="hint" hidden></p></div>
       <div class="du-notice" data-du="notice" role="status" hidden></div>
       <div class="du-overlay" data-du="overlay" role="dialog" aria-modal="true" aria-label="Delivery conversation" hidden>
@@ -119,12 +122,12 @@ export class DeliveryUI {
     const on = (name: string, fn: () => void) => this.elements[name].addEventListener('click', event => { event.stopPropagation(); fn(); });
     on('call', () => this.callback.call()); on('drop', () => this.callback.drop());
     on('next', () => this.callback.advanceCall()); on('end', () => this.callback.endCall());
-    on('collection-button', () => this.openCollection()); on('collection-close', () => this.closeCollection());
+    on('collection-close', () => this.closeCollection());
     this.root.addEventListener('pointerdown', event => { this.keyboardMode = false; if ((event.target as Element).closest('button,.du-overlay')) event.stopPropagation(); });
     this.root.addEventListener('contextmenu', event => event.preventDefault());
     this.keyHandler = event => {
       this.keyboardMode = true;
-      if (this.root.hidden || this.blocking || event.repeat || event.ctrlKey || event.metaKey || event.altKey || document.hidden) return;
+      if (this.root.hidden || this.blocking || ['has-modal','title-open','area-picker-open','has-tip','rotation-blocked'].some(name=>this.host.classList.contains(name)) || event.repeat || event.ctrlKey || event.metaKey || event.altKey || document.hidden) return;
       if ((event.target as Element | null)?.closest('input,textarea,select')) return;
       if (event.code === 'KeyC' && this.model && ['enabled', 'ringing'].includes(this.model.call.state)) { event.preventDefault(); this.callback.call(); }
       if (event.code === 'KeyE' && this.model?.action?.enabled) { event.preventDefault(); this.callback.drop(); }
@@ -147,18 +150,20 @@ export class DeliveryUI {
   update(model: DeliveryView) {
     this.model = model; const el = this.elements;
     const call = el.call as HTMLButtonElement;
-    this.hide(call, model.call.state === 'hidden' || !!model.phone || !!model.completion);
-    if (call.disabled !== (model.call.state === 'disabled')) call.disabled = model.call.state === 'disabled';
+    const callable = model.call.state === 'enabled' || model.call.state === 'ringing';
+    this.hide(call, !callable || this.collectionShown || !!model.phone || !!model.completion);
+    if (call.disabled !== !callable) call.disabled = !callable;
     if (call.dataset.state !== model.call.state) call.dataset.state = model.call.state;
-    const callLabel = model.call.state === 'ringing' ? 'Answer call' : model.call.state === 'disabled' ? 'Call unavailable until arrival' : 'Call customer';
+    const callLabel = model.call.state === 'ringing' ? 'Incoming call. Tap to answer' : 'Call customer';
+    this.text('call-label', model.call.state === 'ringing' ? 'Incoming call' : 'Call customer');
+    this.text('call-hint', model.call.state === 'ringing' ? 'Tap to answer' : 'Tap to call');
     if (call.getAttribute('aria-label') !== callLabel) { call.setAttribute('aria-label', callLabel); call.title = callLabel; }
     const action = el.drop as HTMLButtonElement;
-    this.hide(action, !model.action || !!model.phone || !!model.completion);
+    this.hide(action, !model.action || this.collectionShown || !!model.phone || !!model.completion);
     if (action.disabled !== !model.action?.enabled) action.disabled = !model.action?.enabled;
     this.text('drop-label', model.action?.label || 'Drop');
     this.hide(el.hint, !model.action?.hint || action.hidden); this.text('hint', model.action?.hint || '');
     this.syncNoticePriority(); this.text('notice', model.notice || '');
-    this.hide(el['collection-button'], !!model.phone || !!model.completion);
     if (model.phone) this.updatePhone(model);
     if (model.completion) this.updateCompletion(model);
     else if (this.opening) { this.opening.dispose(); this.opening = null; this.completionKey = ''; }
@@ -265,6 +270,10 @@ export class DeliveryUI {
   private syncDialog() {
     const next = this.model?.phone ? 'phone' : this.model?.completion ? 'completion' : this.collectionShown ? 'collection' : '';
     const el = this.elements;
+    const callable = this.model?.call.state === 'enabled' || this.model?.call.state === 'ringing';
+    this.hide(el.call, !!next || !callable);
+    this.hide(el.drop, !!next || !this.model?.action);
+    this.hide(el.hint, !!next || !this.model?.action?.hint || el.drop.hidden);
     if (next !== 'completion') this.opening?.finish();
     for (const name of ['phone', 'completion', 'collection']) this.hide(el[name], next !== name);
     this.hide(el.overlay, !next);
@@ -289,7 +298,7 @@ export class DeliveryUI {
     };
     const anchor = touch ? measured(jump) : null;
     const obstacles: CallButtonRect[] = [];
-    for (const element of this.host.querySelectorAll<HTMLElement>('#minimap,.touch button,.btnrow button,.h-tc,.wallet,#orders-toggle,#flight-navigation,#hud-navigation-slot,#hud-notice-slot,.speed,#area-chip,#rescue,#t-act,.du-collection-button,.du-notice')) {
+    for (const element of this.host.querySelectorAll<HTMLElement>('#minimap,.touch button,.btnrow button,.h-tc,.wallet,#orders-toggle,#flight-navigation,#hud-navigation-slot,#hud-notice-slot,.speed,#area-chip,#rescue,#t-act,.du-notice')) {
       const rect = measured(element); if (rect) obstacles.push(rect);
     }
     // Reserve the host-owned notice lane even between messages, so phone and
@@ -310,37 +319,47 @@ export class DeliveryUI {
     const right = Math.max(12, parseFloat(padding?.paddingRight || '') || 0);
     const bottom = Math.max(12, parseFloat(padding?.paddingBottom || '') || 0);
     const bounds = { left, top, width: host.width - left - right, height: host.height - top - bottom };
+    // The host reserves this center lane for calls even when no call is active,
+    // so notices and delivery actions never have to cover it on arrival.
+    let callSlot=measured(this.host.querySelector<HTMLElement>('#hud-call-slot'));
+    if(!callSlot&&touch){
+      const steer=measured(this.host.querySelector<HTMLElement>('#t-right'));
+      if(steer&&anchor){
+        const laneLeft=steer.left+steer.width+8,laneRight=anchor.left-8,height=44;
+        for(const width of [156,136,128,112,96,80,60]){
+          const x=(host.width-width)/2;
+          if(x>=laneLeft&&x+width<=laneRight){callSlot={left:x,top:steer.top+(steer.height-height)/2,width,height};break;}
+        }
+        if(!callSlot&&laneRight-laneLeft>=60)callSlot={left:laneLeft,top:steer.top+(steer.height-height)/2,width:Math.min(156,laneRight-laneLeft),height};
+      }
+    }
+    const call = this.elements.call;
+    const placement = call.hidden ? null : callButtonLayout(bounds,obstacles,callSlot||undefined);
+    call.style.visibility=call.hidden||placement?'':'hidden';
+    if(placement){
+      Object.assign(call.style,{left:`${placement.left}px`,top:`${placement.top}px`,width:`${placement.width}px`,height:`${placement.height}px`,right:'auto',bottom:'auto'});
+      call.dataset.compact=String(placement.width<112);
+    }
+    const actionObstacles=[...obstacles];
+    if(callSlot)actionObstacles.push(callSlot);
+    if(placement)actionObstacles.push(placement);
     if (!this.elements.drop.hidden) {
-      // Measure the entire block after choosing its width. A wrapped hint can
-      // be taller than the button; placing just the button covered the minimap
-      // on shallow desktop windows as well as foldable phone landscapes.
+      // Place the complete block, including its wrapped instruction. The call
+      // slot has priority and remains clear before a call becomes actionable.
       actions.style.width = `${anchor ? Math.max(100, Math.round(anchor.width)) : 170}px`;
       this.elements.hint.style.display = '';
       let actionRect = measured(actions);
-      let actionPlacement = actionBlockLayout(bounds, obstacles, { width: actionRect?.width || 170, height: Math.max(44, actionRect?.height || 44) }, anchor || undefined);
+      let actionPlacement = actionBlockLayout(bounds, actionObstacles, { width: actionRect?.width || 170, height: Math.max(44, actionRect?.height || 44) }, anchor || undefined);
       if (!actionPlacement) {
-        // Preserve the action's 44px target when an exceptionally crowded HUD
-        // leaves no space for its secondary instruction. The host navigation
-        // keeps the delivery instruction visible in its central guidance.
         this.elements.hint.style.display = 'none'; actionRect = measured(actions);
-        actionPlacement = actionBlockLayout(bounds, obstacles, { width: actionRect?.width || 170, height: Math.max(44, actionRect?.height || 44) }, anchor || undefined);
+        actionPlacement = actionBlockLayout(bounds, actionObstacles, { width: actionRect?.width || 170, height: Math.max(44, actionRect?.height || 44) }, anchor || undefined);
       }
       actions.style.visibility = actionPlacement ? '' : 'hidden';
-      if (actionPlacement) {
-        Object.assign(actions.style, { left: `${actionPlacement.left}px`, top: `${actionPlacement.top}px`, right: 'auto', bottom: 'auto' });
-        obstacles.push(actionPlacement);
-      }
+      if (actionPlacement) Object.assign(actions.style, { left: `${actionPlacement.left}px`, top: `${actionPlacement.top}px`, right: 'auto', bottom: 'auto' });
     } else {
       actions.style.visibility = ''; actions.style.left = ''; actions.style.width = ''; actions.style.top = ''; actions.style.right = ''; actions.style.bottom = '';
       this.elements.hint.style.display = '';
     }
-    const call = this.elements.call;
-    if (call.hidden) return;
-    const placement = callButtonLayout(bounds, obstacles, anchor || undefined);
-    // Unsupported tiny/portrait viewports are covered by the game's rotate
-    // screen. Never silently place a second action over a driving control.
-    call.style.visibility = placement ? '' : 'hidden';
-    if (placement) Object.assign(call.style, { left: `${placement.left}px`, top: `${placement.top}px`, width: `${placement.width}px`, height: `${placement.height}px`, right: 'auto', bottom: 'auto' });
   }
   dispose() {
     this.host.removeEventListener('hudlayoutchange', this.hostLayoutHandler);

@@ -19,6 +19,7 @@ import { Hud, orderOfferHtml } from '../ui/hud';
 import { eligiblePickup } from './pickups';
 import { FullMap } from '../ui/map';
 import { railwayMapLayer, drawRailways } from '../ui/railway-map';
+import { strokeMinimapRoute, drawMinimapPlayer, MINIMAP_NAVIGATION } from '../ui/minimap-navigation';
 import { AreaPicker, AreaChoice } from '../ui/areapicker';
 import { TitleScreen, goFullscreen, exitFullscreen, isFullscreen, fullscreenFallbackHtml } from '../ui/title';
 import { loadSettings, saveSettings, settingsHtml, bindSettings, Settings, pauseMenuHtml } from '../ui/settings';
@@ -500,7 +501,7 @@ export class Game {
       flight: () => this.player.flying || this.player.descending,
       speed: () => this.player.speed,
     });
-    addEventListener('keyup', (e) => { this.keys.delete(e.code); if (e.code === 'KeyE') this.actHeld = false; });
+    addEventListener('keyup', (e) => { this.keys.delete(e.code); this.hud.controlFeedback?.(e.code, false); if (e.code === 'KeyE') this.actHeld = false; });
     addEventListener('blur', () => this.background());
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.background(); });
     addEventListener('pagehide', () => { this.resetInput(); this.save(); });
@@ -527,6 +528,7 @@ export class Game {
     if (this.choosing) return;
     if (this.hud.modalOpen && !['Escape', 'KeyP'].includes(e.code)) return;
     this.keys.add(e.code);
+    this.hud.controlFeedback?.(e.code, true);
     if (e.code === 'Space') { this.queueFlight(); e.preventDefault(); }
     if (e.code === 'KeyJ') { this.queueJump(); e.preventDefault(); }
     if (e.code.startsWith('Arrow')) e.preventDefault();
@@ -743,11 +745,16 @@ export class Game {
     if (this.map?.open || this.choosing) return;
     this.resetInput();
     this.paused = true;
-    this.hud.modal(pauseMenuHtml(this.carrierPickupMode), (sh) => {
+    const sessionLabel = Number.isFinite(this.day) && Number.isFinite(this.minutes) ? `Day ${this.day} · ${fmtTime(this.minutes)}` : undefined;
+    this.hud.modal(pauseMenuHtml(this.carrierPickupMode, this.story?.pauseProgress, sessionLabel), (sh) => {
       sh.querySelector('#resume')!.addEventListener('click', () => this.resume());
       sh.querySelector('#settings')!.addEventListener('click', () => this.openSettings(() => this.openPause()));
-      if(this.carrierPickupMode) sh.querySelector('#area')?.remove();
-      else sh.querySelector('#area')!.addEventListener('click', () => this.chooseArea(false));
+      if (!this.carrierPickupMode) sh.querySelector('#area')!.addEventListener('click', () => this.chooseArea(false));
+      sh.querySelector('#restaurant')?.addEventListener('click', () => {
+        if (!this.story) return;
+        this.hud.modal(null); this.paused = false; this.resetInput(); this.clock.getDelta();
+        if (!this.story.openRestaurant()) this.openPause();
+      });
       sh.querySelector('#unstick')!.addEventListener('click', () => { this.paused = false; this.hud.modal(null); this.clock.getDelta(); this.rescue(); });
       sh.querySelector('#start-level-one')?.addEventListener('click', () => {
         this.story?.startFromLevelOne();
@@ -1280,6 +1287,7 @@ export class Game {
   drawMinimap() {
     const c = this.hud.el.minimap as HTMLCanvasElement; const g = c.getContext('2d')!;
     const W = c.width, R = 240, sc = (W / 2) / R, P = this.player.pos, yaw = this.player.yaw;
+    const backingPerCss = W / (c.clientWidth || W);
     g.clearRect(0, 0, W, W); g.save();
     g.beginPath(); g.arc(W / 2, W / 2, W / 2, 0, 7); g.clip();
     g.fillStyle = '#1B1633'; g.fillRect(0, 0, W, W);
@@ -1293,10 +1301,10 @@ export class Game {
     const railways = railwayMapLayer(this.city.railway?.profiles || railwayNetwork().profiles);
     drawRailways(g, railways.nearby(P.x, P.z, R), sc);
     for (const l of metroCorridors(this.zone.metro.lines)) { g.strokeStyle = l.color; g.lineWidth = 3; g.setLineDash([10, 8]); g.beginPath(); l.center.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke(); g.setLineDash([]); }
-    if (this.route) { g.strokeStyle = this.routeColor; g.lineWidth = 3.5; g.lineJoin = 'round'; g.beginPath(); this.navigationRoadPoints().forEach((p, i) => (i ? g.lineTo(p[0], p[2]) : g.moveTo(p[0], p[2]))); g.stroke(); }
-    if (this.routeTarget) { g.fillStyle = '#FFB627'; g.beginPath(); g.arc(this.routeTarget.x, this.routeTarget.z, 14, 0, 7); g.fill(); }
+    if (this.route) strokeMinimapRoute(g, this.navigationRoadPoints(), sc, backingPerCss);
+    if (this.routeTarget) { g.fillStyle = MINIMAP_NAVIGATION.target; g.strokeStyle = MINIMAP_NAVIGATION.casing; g.lineWidth = 2 * backingPerCss / sc; g.beginPath(); g.arc(this.routeTarget.x, this.routeTarget.z, 5 * backingPerCss / sc, 0, 7); g.fill(); g.stroke(); }
     g.restore();
-    g.fillStyle = '#FFB627'; g.beginPath(); g.moveTo(W / 2, W / 2 - 16); g.lineTo(W / 2 + 11, W / 2 + 12); g.lineTo(W / 2, W / 2 + 5); g.lineTo(W / 2 - 11, W / 2 + 12); g.closePath(); g.fill();
+    drawMinimapPlayer(g, W, backingPerCss);
   }
   stillFrame(q: URLSearchParams) {
     const sr = (q.get('showroom') || '').split(',').map(Number);

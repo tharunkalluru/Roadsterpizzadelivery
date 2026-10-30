@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { Game } from '../../src/game/game';
 import { flightNavigationReadout } from '../../src/ui/flight-navigation';
 import type { RoutePoint } from '../../src/game/route-guidance';
+import { MINIMAP_NAVIGATION } from '../../src/ui/minimap-navigation';
 
 function fixture() {
   return Object.assign(Object.create(Game.prototype), {
@@ -47,7 +48,7 @@ test('production minimap draws the same straight points used by the central cue'
   const context: any = {
     save() {}, restore() {}, clearRect() {}, translate() {}, rotate() {}, scale() {}, arc() {}, clip() {}, fillRect() {}, fill() {}, closePath() {}, setLineDash() {},
     beginPath() { path = []; }, moveTo(x: number, z: number) { path.push([x, z]); }, lineTo(x: number, z: number) { path.push([x, z]); },
-    stroke() { if (this.strokeStyle === '#45E3D3') strokes.push(path); },
+    stroke() { if (this.strokeStyle === MINIMAP_NAVIGATION.route) strokes.push(path); },
   };
   Object.assign(game, { hud: { el: { minimap: { width: 256, getContext: () => context } } },
     graph: { nearestEdges: () => [] }, city: { railway: { profiles: [] } }, zone: { metro: { lines: [] } }, routeColor: '#45E3D3' });

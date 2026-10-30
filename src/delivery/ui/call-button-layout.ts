@@ -5,37 +5,35 @@ const intersects = (a: CallButtonRect, b: CallButtonRect) =>
   a.left < b.left + b.width + GAP && a.left + a.width + GAP > b.left &&
   a.top < b.top + b.height + GAP && a.top + a.height + GAP > b.top;
 
-/** Keep the entire touch target clear, including the corners of the round map.
- * Inputs are measured CSS pixels relative to the HUD, never device pixels.
- * This runs on layout changes / the UI's slow layout tick, not every frame.
+/** Place the contextual call chip in the host's reserved steering-row slot.
+ * Narrow landscapes keep the chip centered by wrapping its label, rather than
+ * putting an icon over another driving control. All dimensions are CSS pixels.
  */
-export function callButtonLayout(bounds: CallButtonRect, obstacles: readonly CallButtonRect[], anchor?: CallButtonRect): CallButtonRect | null {
-  for (const size of [48, 44]) {
-    if (bounds.width < size || bounds.height < size) continue;
+export function callButtonLayout(bounds: CallButtonRect, obstacles: readonly CallButtonRect[], slot?: CallButtonRect): CallButtonRect | null {
+  const height = Math.min(slot?.height || 48, bounds.height >= 48 ? 48 : 44);
+  if (bounds.width < 44 || bounds.height < height) return null;
+  const preferredWidth = Math.min(slot?.width || 156, bounds.width);
+  const widths = [...new Set([preferredWidth, 136, 120, 96, 80, 60, 44].filter(width => width <= preferredWidth && width >= 44))];
+  for (const width of widths) {
     const minX = Math.ceil(bounds.left), minY = Math.ceil(bounds.top);
-    const maxX = Math.floor(bounds.left + bounds.width - size), maxY = Math.floor(bounds.top + bounds.height - size);
+    const maxX = Math.floor(bounds.left + bounds.width - width), maxY = Math.floor(bounds.top + bounds.height - height);
     if (maxX < minX || maxY < minY) continue;
     const clampX = (x: number) => Math.max(minX, Math.min(maxX, Math.round(x)));
     const clampY = (y: number) => Math.max(minY, Math.min(maxY, Math.round(y)));
-    const preferredX = clampX(anchor ? anchor.left + (anchor.width - size) / 2 : maxX);
-    const preferredY = clampY(anchor ? anchor.top - size - GAP : maxY - 72);
-    const xs = [preferredX, clampX(bounds.left), clampX(maxX)];
-    const ys = [preferredY, clampY(bounds.top), clampY(maxY)];
-    // A closest free position lies at the preferred point or an obstacle edge.
-    // Searching those edges avoids arbitrary percentage offsets and screen
-    // model exceptions (including foldable browser chrome / safe areas).
+    const preferredX = clampX(slot ? slot.left + (slot.width - width) / 2 : bounds.left + (bounds.width - width) / 2);
+    const preferredY = clampY(slot ? slot.top + (slot.height - height) / 2 : bounds.top + bounds.height * .68 - height / 2);
+    const xs = [preferredX, minX, maxX], ys = [preferredY, minY, maxY];
     for (const obstacle of obstacles) {
-      xs.push(clampX(obstacle.left - size - GAP), clampX(obstacle.left + obstacle.width + GAP));
-      ys.push(clampY(obstacle.top - size - GAP), clampY(obstacle.top + obstacle.height + GAP));
+      xs.push(clampX(obstacle.left - width - GAP), clampX(obstacle.left + obstacle.width + GAP));
+      ys.push(clampY(obstacle.top - height - GAP), clampY(obstacle.top + obstacle.height + GAP));
     }
     let best: CallButtonRect | null = null, bestScore = Infinity;
-    const candidate: CallButtonRect = { left: 0, top: 0, width: size, height: size };
     for (const left of xs) for (const top of ys) {
-      const score = (left - preferredX) ** 2 + (top - preferredY) ** 2 * 1.2;
+      const score = (left - preferredX) ** 2 + (top - preferredY) ** 2 * 4;
       if (score >= bestScore) continue;
-      candidate.left = left; candidate.top = top;
+      const candidate = { left, top, width, height };
       if (obstacles.some(obstacle => intersects(candidate, obstacle))) continue;
-      best = { ...candidate }; bestScore = score;
+      best = candidate; bestScore = score;
     }
     if (best) return best;
   }

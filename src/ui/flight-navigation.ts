@@ -62,15 +62,16 @@ export function flightNavigationNeedsCompactLane(width:number,steeringRight:numb
   return width<600||lane.right-lane.left<MIN_NAVIGATION_WIDTH;
 }
 
-// A separate central lane; existing controls, minimap and task panel never move.
-export function flightNavigationLayout(width: number, height: number, headerBottom: number, _areaBottom: number,
+// The former day/level row is now the fixed navigation row. Notices and
+// context controls cannot push it downward or change its screen-space center.
+export function flightNavigationLayout(width: number, height: number, _headerBottom: number, _areaBottom: number,
   tasks: HudRect, map: HudRect, controlsTop: number, panelHeight = 48): HudRect | null {
-  if (![width, height, headerBottom, tasks.left, tasks.width, map.left, controlsTop].every(Number.isFinite)) return null;
-  const { left, right } = navigationLane(width,tasks.left+tasks.width,map.left);
-  const available = right - left, top = Math.max(12, headerBottom + 8);
-  if (!Number.isFinite(panelHeight) || panelHeight < 44 || panelHeight > 64 || available < MIN_NAVIGATION_WIDTH || top + panelHeight > Math.min(height - 24, controlsTop - 12)) return null;
-  const w = Math.min(180, available);
-  return { left: Math.round(Math.max(left, Math.min(right - w, (width - w) / 2))), top: Math.round(top), width: Math.floor(w), height: panelHeight };
+  if (![width,height,tasks.left,tasks.width,map.left,controlsTop,panelHeight].every(Number.isFinite)||height>width||height<220) return null;
+  const top=10,left=Math.max(12,tasks.left),right=Math.min(width-12,map.left-8);
+  if(panelHeight<44||panelHeight>64||top+panelHeight>controlsTop-8)return null;
+  const available=2*Math.min(width/2-left,right-width/2),w=Math.floor(Math.min(220,available));
+  if(w<128)return null;
+  return{left:Math.round((width-w)/2),top,width:w,height:panelHeight};
 }
 
 type RoadPoint = readonly [number, number, number];

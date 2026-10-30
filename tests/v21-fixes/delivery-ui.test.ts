@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import { NavSystem } from '../../src/delivery/systems/nav-system';
 import { callTimer, deliveryDistance, portraitUrl } from '../../src/delivery/ui/view-model';
 import { restaurantArt } from '../../src/delivery/ui/restaurant';
@@ -66,33 +67,35 @@ function layoutFixture(width: number, height: number, offset = { left: 0, top: 0
   const rects = [controls.map, controls.leftSteer, controls.rightSteer, controls.brake, controls.gas, controls.fly, controls.jump, controls.speed,
     { left: width / 2 - 126, top: 10, width: 252, height: 38 },
     { left: width - 184, top: 10, width: 166, height: 44 },
-    { left: 12, top: 10, width: 130, height: 44 },
-    { left: width / 2 - 86, top: height - 188, width: 172, height: 64 }];
+    { left: 12, top: 62, width: 120, height: 28 }];
   const obstacles = rects.map(rect => new Node(host, rect));
-  const jump = obstacles[6], call = new Node(host), actions = new Node(host);
+  const jump = obstacles[6], call = new Node(host), actions = new Node(host);(call as any).dataset={};
   const dropNode = new Node(actions), hint = new Node(actions); dropNode.hidden = !drop; hint.hidden = !drop;
-  actions.getBoundingClientRect = () => ({ left: offset.left + Number.parseFloat(actions.style.left || '0'), top: offset.top + Number.parseFloat(actions.style.top || '0'), width: Number.parseFloat(actions.style.width || '170'), height: drop ? 85 : 0 });
-  host.querySelector = (selector: string) => selector === '#t-jump' ? jump : null;
+  actions.getBoundingClientRect = () => ({ left: offset.left + Number.parseFloat(actions.style.left || '0'), top: offset.top + Number.parseFloat(actions.style.top || '0'), width: Number.parseFloat(actions.style.width || '170'), height: drop ? hint.style.display==='none'?44:85 : 0 });
+  const callSlot=controls.call?new Node(host,controls.call):null;
+  host.querySelector = (selector: string) => selector === '#t-jump' ? jump : selector === '#t-right' ? obstacles[2] : selector === '#hud-call-slot' ? callSlot : null;
   host.querySelectorAll = () => obstacles;
   const ui: any = Object.assign(Object.create(DeliveryUI.prototype), { host, elements: { actions, call, drop: dropNode, hint } });
-  return { ui, host, documentElement, call, actions, controls, obstacles: () => drop ? [...rects, { left: Number.parseFloat(actions.style.left), top: Number.parseFloat(actions.style.top), width: Number.parseFloat(actions.style.width), height: 85 }] : rects };
+  return { ui, host, documentElement, call, actions, controls, obstacles: () => drop ? [...rects, { left: Number.parseFloat(actions.style.left), top: Number.parseFloat(actions.style.top), width: Number.parseFloat(actions.style.width), height: hint.style.display==='none'?44:85 }] : rects };
 }
 function overlaps(a: CallButtonRect, b: CallButtonRect, gap = 0) {
   return a.left < b.left + b.width + gap && a.left + a.width + gap > b.left && a.top < b.top + b.height + gap && a.top + a.height + gap > b.top;
 }
 
-for (const [width, height] of [[800, 360], [852, 393], [918, 384], [1024, 700]]) {
-  test(`circular Answer is separately tappable at ${width}x${height}, including a simultaneous Drop`, () => {
+for (const [width, height] of [[568, 320], [667, 375], [800, 360], [852, 393], [918, 384], [1024, 700]]) {
+  test(`contextual Answer is separately tappable at ${width}x${height}, including a simultaneous Drop`, () => {
     for (const drop of [false, true]) for (const offset of [{ left: 0, top: 0 }, { left: 12, top: 8 }]) {
       const f = layoutFixture(width, height, offset, drop);
       assert.equal(f.host.classList.contains('is-touch'), false, 'touch mode lives on documentElement');
       f.ui.layout();
       const style = f.call.style, answer = { left: parseFloat(style.left), top: parseFloat(style.top), width: parseFloat(style.width), height: parseFloat(style.height) };
-      assert.equal(style.visibility, ''); assert.equal(answer.width, answer.height);
-      assert.ok(answer.width >= 44 && answer.width <= 48, 'small visual, full minimum touch target');
+      assert.equal(style.visibility, '');
+      assert.ok(answer.width >= 60 && answer.width <= 176 && answer.height >= 44, 'readable contextual chip retains the minimum touch target');
+      assert.ok(Math.abs(answer.left+answer.width/2-width/2)<=1,'call remains horizontally centered');
+      assert.equal(answer.top,f.controls.call!.top,'call stays in the host steering-row reservation');
       assert.ok(answer.left >= 12 && answer.top >= 12 && answer.left + answer.width <= width - 12 && answer.top + answer.height <= height - 12);
       for (const obstacle of f.obstacles()) assert.equal(overlaps(answer, obstacle, 7.9), false, `must clear obstacle ${JSON.stringify(obstacle)}`);
-      assert.ok(Math.abs(answer.left + answer.width / 2 - (f.controls.jump.left + f.controls.jump.width / 2)) < 150, 'keep it reachable by the action thumb');
+      assert.equal(f.call.dataset.compact,String(answer.width<112),'tight layouts deliberately use the wrapped label');
       const first = { ...style }; f.ui.layout(); assert.deepEqual(style, first, 'an unchanged HUD cannot make the icon drift');
       f.documentElement.classes.delete('is-touch'); f.ui.layout();
       if(drop){
@@ -136,23 +139,23 @@ test('phone placement respects notches, blocked preferred slots, and the 44px mi
   assert.equal(callButtonLayout({ left: 0, top: 0, width: 43, height: 43 }, []), null, 'never shrink the hit area below 44px');
 });
 
-test('phone state updates keep icon-only Call and Answer accessible and never render a customer name early', () => {
+test('phone state updates show only actionable contextual calls and never render a customer name early', () => {
   const element = () => ({ hidden: false, disabled: false, textContent: '', dataset: {} as Record<string, string>, attributes: {} as Record<string, string>, title: '',
     getAttribute(name: string) { return this.attributes[name]; }, setAttribute(name: string, value: string) { this.attributes[name] = value; } });
-  const names = ['call', 'drop', 'drop-label', 'hint', 'notice', 'collection-button'];
+  const names = ['call', 'call-label', 'call-hint', 'drop', 'drop-label', 'hint', 'notice'];
   const elements = Object.fromEntries(names.map(name => [name, element()]));
   const ui: any = Object.assign(Object.create(DeliveryUI.prototype), { root: { hidden: false }, host: { classList: { toggle() {} } }, elements, opening: null, collectionShown: false,
     layoutDirty: false, layoutTimer: performance.now(), syncDialog() {}, layout() {}, updatePhone() {}, updateCompletion() {} });
   const model: any = { level: 1, total: 7, stage: 'EN_ROUTE', restaurantStage: 0, restaurantLabel: 'Dream', collection: [], nav: { label: 'Destination', distance: 10, angle: 0 }, call: { state: 'disabled', label: 'Unrevealed celebrity' } };
-  ui.update(model); assert.equal(elements.call.disabled, true); assert.equal(elements.call.hidden, false);
-  assert.equal(elements.call.attributes['aria-label'], 'Call unavailable until arrival');
+  ui.update(model); assert.equal(elements.call.disabled, true); assert.equal(elements.call.hidden, true,'en-route disabled calls do not occupy the HUD');
+  assert.equal(elements.call.attributes['aria-label'], 'Call customer');
   model.call.state = 'enabled'; ui.update(model); assert.equal(elements.call.disabled, false); assert.equal(elements.call.attributes['aria-label'], 'Call customer');
-  model.call.state = 'ringing'; ui.update(model); assert.equal(elements.call.attributes['aria-label'], 'Answer call'); assert.equal(elements.call.title, 'Answer call');
-  assert.equal(elements.call.textContent, '', 'the handset has no visible text row');
+  model.call.state = 'ringing'; ui.update(model); assert.equal(elements.call.attributes['aria-label'], 'Incoming call. Tap to answer'); assert.equal(elements.call.title, 'Incoming call. Tap to answer');
+  assert.equal(elements['call-label'].textContent,'Incoming call');assert.equal(elements['call-hint'].textContent,'Tap to answer');
   model.phone = {}; ui.update(model); assert.equal(elements.call.hidden, true, 'the HUD icon hides behind a call dialog');
   model.phone = null; model.call.state = 'hidden'; ui.update(model); assert.equal(elements.call.hidden, true, 'no order means no phone action');
   assert.equal(DELIVERY_UI_CSS.includes('.du-nav'), false, 'only the host navigation remains');
-  assert.ok(DELIVERY_UI_CSS.includes('.du-call[data-state=enabled] svg,.du-call[data-state=ringing] svg{animation:none}'), 'both attention states honor reduced motion');
+  assert.ok(DELIVERY_UI_CSS.includes('.du-call[data-state=enabled] svg,.du-call[data-state=ringing] svg,.du-call[data-state=ringing]{animation:none}'), 'icon and chip attention honor reduced motion');
   assert.equal(/\.du-call\[data-state=disabled\][^{]*\{[^}]*animation/.test(DELIVERY_UI_CSS), false, 'idle/disabled cannot flash');
 });
 
@@ -161,7 +164,7 @@ function noticeFixture() {
   const element = () => ({ hidden: false, disabled: false, textContent: '', dataset: {} as Record<string, string>, title: '',
     attributes: {} as Record<string, string>, getAttribute(name: string) { return this.attributes[name]; },
     setAttribute(name: string, value: string) { this.attributes[name] = value; } });
-  const elements = Object.fromEntries(['call', 'drop', 'drop-label', 'hint', 'notice', 'collection-button', 'phone', 'completion', 'collection', 'overlay'].map(key => [key, element()]));
+  const elements = Object.fromEntries(['call', 'call-label', 'call-hint', 'drop', 'drop-label', 'hint', 'notice', 'phone', 'completion', 'collection', 'overlay'].map(key => [key, element()]));
   const removedListeners: string[] = [];
   const host = { removeEventListener(name: string) { removedListeners.push(name); }, classList: { toggle(name: string, active: boolean) { classWrites++; active ? classes.add(name) : classes.delete(name); }, remove(name: string) { classes.delete(name); } } };
   const ui: any = Object.assign(Object.create(DeliveryUI.prototype), { host, root: { hidden: false, dataset: {}, remove() {} }, elements,
@@ -212,7 +215,7 @@ test('host layout changes reposition visible delivery controls immediately witho
 });
 
 test('delivery notice uses the fixed host notice slot and cannot expand over navigation', () => {
-  const rule = DELIVERY_UI_CSS.match(/\.du-notice\{([^}]+)\}/)![1];
+  const rule = DELIVERY_UI_CSS.match(/\n\.du-notice\{([^}]+)\}/)![1];
   for (const name of ['left', 'top', 'width', 'height']) assert.ok(rule.includes(`var(--hud-notice-${name},`));
   assert.match(rule, /position:fixed/); assert.match(rule, /overflow:hidden/); assert.match(rule, /-webkit-line-clamp:2/);
   assert.doesNotMatch(DELIVERY_UI_CSS, /\.du-notice\{(?:top:74px|max-width:36vw)/);
@@ -244,7 +247,7 @@ test('call and complete delivery actions reserve empty notice and navigation lan
       assert.match(selector, /#hud-navigation-slot/); assert.match(selector, /#hud-notice-slot/);
       // Replace the earlier fixture's floating guide with the fixed reservation.
       const touch = f.documentElement.classes.has('is-touch');
-      const base = originalQuery().slice(0, -1).filter((_: unknown, index: number) => touch || index === 0 || index >= 7);
+      const base = originalQuery().filter((_: unknown, index: number) => touch || index === 0 || index >= 7);
       return [...base, ...nodes];
     };
     f.host.querySelector = (selector: string) => selector === '#hud-notice-slot' ? nodes[1] : originalSingle(selector);
@@ -254,11 +257,23 @@ test('call and complete delivery actions reserve empty notice and navigation lan
       assert.equal(f.call.style.visibility, '', `${width}×${height}: phone remains reachable`);
       assert.equal(f.actions.style.visibility, '', `${width}×${height} touch=${touch}: delivery remains reachable`);
       const call = { left: parseFloat(f.call.style.left), top: parseFloat(f.call.style.top), width: parseFloat(f.call.style.width), height: parseFloat(f.call.style.height) };
-      const action = { left: parseFloat(f.actions.style.left), top: parseFloat(f.actions.style.top), width: parseFloat(f.actions.style.width), height: 85 };
+      const action = { left: parseFloat(f.actions.style.left), top: parseFloat(f.actions.style.top), width: parseFloat(f.actions.style.width), height: f.ui.elements.hint.style.display==='none'?44:85 };
       for (const blocker of reserved) {
         assert.equal(overlaps(call, blocker, 7.9), false, 'phone cannot claim an empty reserved notice/navigation slot');
         assert.equal(overlaps(action, blocker, 7.9), false, 'action plus hint cannot claim an empty reserved slot');
       }
     }
   }
+});
+
+
+test('restaurant is a pause-owned destination and opening its overlay immediately hides contextual HUD actions',()=>{
+  const f=noticeFixture();f.model.call.state='ringing';f.model.action={label:'Throw',enabled:true,hint:'Aim at the hands'};f.ui.update(f.model);
+  assert.equal(f.elements.call.hidden,false);assert.equal(f.elements.drop.hidden,false);
+  f.ui.openCollection();assert.equal(f.ui.collectionOpen,true);assert.equal(f.elements.call.hidden,true);assert.equal(f.elements.drop.hidden,true);assert.equal(f.elements.hint.hidden,true);
+  f.ui.closeCollection();assert.equal(f.elements.call.hidden,false);assert.equal(f.elements.drop.hidden,false);
+  f.model.call.state='disabled';f.ui.update(f.model);assert.equal(f.elements.call.hidden,true,'disabled calls stay out of the HUD after closing the restaurant');
+  const source=readFileSync('src/delivery/ui/delivery-ui.ts','utf8');
+  assert.doesNotMatch(source,/du-collection-button|data-du="collection-button"/,'the persistent restaurant shortcut is removed');
+  assert.match(DELIVERY_UI_CSS,/#hud\.has-modal \.delivery-ui>\.du-call/,'external pause/settings dialogs suppress contextual controls synchronously');
 });

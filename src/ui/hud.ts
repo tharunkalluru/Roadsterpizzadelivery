@@ -4,9 +4,13 @@ import { goFullscreen, fullscreenFallbackMessage } from './title';
 import { controlIcon } from './control-icons';
 import { installPrototypeTheme } from './theme';
 import { installPaintSafety, guardWorldPaint } from './paint-safety';
-import { mobileHudLayout, hudStatusLayout, hudTransientLayout, type HudRect } from './hud-layout';
-import { flightNavigationLayout, flightNavigationNeedsCompactLane, flightNavigationReadout, smoothFlightBearing, type FlightNavigationInput } from './flight-navigation';
+import { mobileHudLayout, hudTransientLayout, type HudRect } from './hud-layout';
+import { flightNavigationLayout, flightNavigationReadout, smoothFlightBearing, type FlightNavigationInput } from './flight-navigation';
 
+const CONTROL_KEYS: Record<string, readonly string[]> = {
+  't-left':['KeyA','ArrowLeft'],'t-right':['KeyD','ArrowRight'],'t-gas':['KeyW','ArrowUp'],
+  't-brake':['KeyS','ArrowDown'],'t-fly':['Space'],'t-jump':['KeyJ'],
+};
 export type ContextAction = 'collect' | 'handover';
 
 // A pointer must begin on the thumb and finish near the far end. A tap never accepts.
@@ -500,6 +504,29 @@ const CSS = `
 #hud[data-notice-space=false] .toast,#hud[data-notice-space=false] .du-notice{display:none!important}
 #hud .rescue{position:fixed;box-sizing:border-box;bottom:auto;margin:0;padding:4px 8px;max-width:none;white-space:normal;transform:none;font-size:11px;line-height:1.15;overflow:hidden}
 
+
+/* The road view has one navigation row and one map-integrated speed display. */
+#hud .minimap-frame{position:absolute;pointer-events:none;z-index:1}
+#hud .minimap-frame #minimap{position:absolute!important;box-sizing:border-box;inset:0!important;width:100%!important;height:100%!important;margin:0}
+#hud .minimap-frame .speed,.is-touch #hud .minimap-frame .speed{box-sizing:border-box;position:absolute!important;display:flex;align-items:center;justify-content:center;gap:3px;margin:0;padding:0 5px;transform:none!important;line-height:1;border:1px solid #BBA3D4;border-radius:14px;background:#21172F;color:#FFF5DC;font-family:var(--display);font-size:18px;text-shadow:none;pointer-events:none;z-index:1;white-space:nowrap}
+#hud .minimap-frame .speed small{font:800 8px/1 var(--body)}
+#hud #hud-call-slot{position:absolute;pointer-events:none}
+#hud .touch #t-left,#hud .touch #t-right,#hud .touch #t-gas,#hud .touch #t-brake,#hud .touch #t-fly,#hud .touch #t-jump{transition:transform 90ms ease-out,box-shadow 90ms ease-out;transform-origin:center}
+#hud .touch .on{transform:translateY(2px) scale(.96)!important;box-shadow:inset 0 0 0 3px rgba(255,249,220,.65),0 1px 0 #130D20!important}
+@media(prefers-reduced-motion:reduce){#hud .touch #t-left,#hud .touch #t-right,#hud .touch #t-gas,#hud .touch #t-brake,#hud .touch #t-fly,#hud .touch #t-jump{transition:none}}
+#hud .pause-menu{display:flex;flex-direction:column;gap:10px;min-width:0}
+#hud .pause-grid.campaign-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+#hud .pause-progress{display:flex;flex-direction:column;gap:6px;width:100%;color:#F6EEDC}
+#hud .pause-progress-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;font:800 12px/1.2 var(--body)}
+#hud .pause-segments{display:grid;grid-template-columns:repeat(var(--progress-columns),minmax(0,1fr));gap:4px}
+#hud .pause-segment{height:7px;border:1px solid #81698F;border-radius:3px;background:#493652}
+#hud .pause-segment[data-state=completed]{background:#21D8C1;border-color:#70F2E3}
+#hud .pause-segment[data-state=current]{background:#FFBF00;border-color:#FFF1BE}
+#hud .pause-progress .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+#hud .pause-session{font:600 11px/1.2 var(--body);color:#CFC6E4;white-space:nowrap}
+#hud .pause-credits{align-self:flex-start;font:600 11px/1.2 var(--body);color:#CFC6E4}
+@media(max-height:520px){#hud .pause-menu{gap:7px}#hud .pause-menu .pause-card{min-height:50px;padding:8px;font-size:12px;gap:3px}#hud .pause-menu .pause-card small{font-size:10px}#hud .pause-menu .pause-primary{min-height:40px}#hud .pause-menu .pause-footer{padding-top:7px}#hud .pause-menu .sheet-header{padding-bottom:7px}#hud .pause-menu .pause-reset{font-size:11px}}
+@media(max-height:360px){#hud .pause-menu{gap:5px}#hud .pause-menu .pause-card{min-height:46px;padding:6px}#hud .pause-menu .pause-primary{min-height:36px}#hud .pause-menu .pause-footer{padding-top:5px}#hud .pause-menu .sheet-header h2{font-size:18px}#hud .pause-progress{gap:4px}#hud .pause-segment{height:6px}#hud .pause-session{font-size:10px}}
 `;
 
 export class Hud {
@@ -513,6 +540,8 @@ export class Hud {
   private updateLayout = () => {};
   private updateRotationGate = () => {};
   private controlReleases: (() => void)[] = [];
+  private feedbackHeld=new Set<string>();
+  private feedbackKeys=new Set<string>();
   private releaseAction = () => {};
   private contextAction: ContextAction | null = null;
   private jumpMode = "";
@@ -539,16 +568,15 @@ export class Hud {
     this.root.innerHTML = `
       <div class="hud-insets" id="hud-insets" aria-hidden="true"></div>
       <div class="h-tl">
-        <div class="h-tc"><div class="pill" id="clock">Day 1 · 8:00 AM</div><div class="pill" id="level">Level 1</div></div>
         <div class="h-tasks"><div class="orders-availability" id="orders-availability" hidden><button type="button" class="orders-toggle" id="orders-toggle" aria-pressed="true" aria-label="Accept orders: on"><span>Accept orders<small id="orders-hint" hidden></small></span><b class="orders-switch" id="orders-status">ON</b></button></div></div>
       </div>
       <div class="dev" id="dev" hidden></div>
       <div class="h-tr">
         <div class="btnrow pe"><button class="ib toolbar-icon" id="b-full" type="button" aria-label="Full screen options"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg></button><button class="ib toolbar-icon" id="b-report" type="button" aria-label="Report a bug"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m8 3 2 3m6-3-2 3M8 9h8v8a4 4 0 0 1-8 0V9ZM9 9V7a3 3 0 0 1 6 0v2M3 10h5m8 0h5M3 15h5m8 0h5m-6 4 3 3M9 19l-3 3M12 10v10"/></svg></button><button class="ib toolbar-icon" id="b-help" type="button" aria-label="Pause, settings and help">II</button></div>
         <div class="pill wallet"><span style="color:var(--saffron)">${controlIcon('coin')}</span><span id="coins">0</span><span class="wallet-unit">coins</span></div>
-        <canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas>
       </div>
-      <div id="hud-navigation-slot" aria-hidden="true"></div><div id="hud-notice-slot" aria-hidden="true"></div>
+      <div class="minimap-frame" id="minimap-frame"><canvas id="minimap" class="pe" width="336" height="336" aria-label="Minimap. Tap to open the full map" role="button" tabindex="0" style="cursor:pointer"></canvas><div class="speed" aria-label="Speed"><span id="spd">0</span><small>km/h</small></div></div>
+      <div id="hud-navigation-slot" aria-hidden="true"></div><div id="hud-notice-slot" aria-hidden="true"></div><div id="hud-call-slot" aria-hidden="true"></div>
       <div class="toast" id="toast" aria-live="polite"></div>
       <div class="flight-navigation" id="flight-navigation" role="group" aria-label="Navigation guidance" hidden>
         <svg class="flight-nav-arrow" id="flight-nav-arrow" viewBox="0 0 32 32" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 27V5M6 15 16 5l10 10"/></svg>
@@ -560,7 +588,6 @@ export class Hud {
       </div>
       <div class="tip-overlay" id="tip-layer" role="dialog" aria-modal="true" aria-label="Driving tip" hidden><section class="tip pe" id="tip" hidden><div class="tip-heading">${controlIcon('info')}<span>Driving tip</span></div><span id="tip-t"></span><button type="button" class="btn go" id="tip-x">Got it</button></section></div>
       <div class="keys"><span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>S</b> brake/reverse</span><span><b>Space</b> fly</span><span><b>J</b> jump</span><span><b>E</b> collect / hand over / accept</span><span><b>M</b> map</span><span><b>H</b> horn</span><span><b>N</b> sound</span><span><b>Drag</b> look around when stopped</span><span><b>P</b> pause</span></div>
-      <div class="speed"><span id="spd">0</span><small style="font-size:12px"> km/h</small></div>
       <div class="touch pe">
         <div class="steering" id="steering" role="group" aria-label="Arrow steering">
           <button class="tb" id="t-left" type="button" aria-label="Steer left" aria-pressed="false">${controlIcon('left')}</button>
@@ -579,7 +606,7 @@ export class Hud {
       <div class="area-chip" id="area-chip" aria-live="polite"></div>
       <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Game menu" hidden><div class="sheet" id="sheet"></div></div>
       <div class="rotate" id="rotate" role="dialog" aria-modal="true" aria-labelledby="rotate-title"><div><svg viewBox="0 0 64 64" fill="none" stroke="#F6EEDC" stroke-width="4"><rect x="20" y="6" width="24" height="52" rx="5"/><circle cx="32" cy="50" r="2" fill="#F6EEDC"/></svg><b id="rotate-title">Turn your phone sideways</b><span id="rotate-status" aria-live="polite">Play in landscape. Enter fullscreen, then rotate your phone if needed.</span><button type="button" class="btn go" id="rot-ok">Enter Full Screen Mode</button></div></div>
-      <div class="attr">© OpenStreetMap contributors · Overture · Foursquare · Mapillary · Contains data provided by TGSRTC</div>`;
+      `;
     for (const n of this.root.querySelectorAll('[id]')) this.el[n.id] = n as HTMLElement;
     this.el['tip-layer'].hidden = true; this.el.tip.hidden = true; this.el.offer.hidden = true; this.el.modal.hidden = true; this.el.prompt.hidden = true; this.el['orders-availability'].hidden = true;
     this.flightReserve(1, true);
@@ -606,39 +633,39 @@ export class Hud {
       } else {
         for (const el of [toolbarEl, walletEl]) for (const key of ['position','left','top','width','height','right','bottom']) el.style.removeProperty(key);
       }
-      const clock = this.el.clock.getBoundingClientRect(), level = this.el.level.getBoundingClientRect(), toolbar = toolbarEl.getBoundingClientRect(), wallet = walletEl.getBoundingClientRect();
-      const portrait = root.width <= 600 && root.height > root.width;
-      const headerBottom = Math.max(clock.bottom, level.bottom, toolbar.bottom) - root.top;
-      const toggleWidth = this.el['orders-availability'].hidden ? 0 : this.el['orders-toggle'].getBoundingClientRect().width;
-      const obstacles: HudRect[] = [];
-      const { top: taskTop, mapTop, area } = hudStatusLayout(root.width, headerBottom, wallet.bottom - root.top, l.left - root.left, toggleWidth, obstacles);
-      tasks.style.top = `${taskTop}px`; tasks.style.width = `${l.width}px`;
-      const controls = mobileHudLayout(root.width, root.height, compact ? headerBottom + 8 : mapTop, tasks.getBoundingClientRect().bottom - root.top, insetLeft, insetRight, insetBottom);
-      const taskLimit = portrait ? (root.height <= 650 ? controls.speed.top : controls.fly.top) - 88 : controls.leftSteer.top - 12;
-      tasks.style.maxHeight = `${Math.max(44, taskLimit - taskTop)}px`;
-      const map = touch ? controls.map : { left: root.width - insetRight - 168, top: mapTop, width: 168, height: 168 };
-      position(this.el.minimap, map);
-      if (touch) {
-        for (const [id, box] of Object.entries({ 't-left': controls.leftSteer, 't-right': controls.rightSteer, 't-brake': controls.brake, 't-gas': controls.gas, 't-fly': controls.fly, 't-jump': controls.jump, speed: controls.speed })) {
-          position(id === 'speed' ? this.root.querySelector<HTMLElement>('.speed')! : this.el[id], box);
-          if (id === 'speed') this.root.querySelector<HTMLElement>('.speed')!.style.fontSize = box.width < 90 ? '18px' : '22px';
-        }
-        position(this.el.prompt, controls.context);
+      const toolbar=toolbarEl.getBoundingClientRect(),wallet=walletEl.getBoundingClientRect();
+      const headerBottom=toolbar.bottom-root.top;
+      const taskTop=headerBottom+8,mapTop=Math.max(headerBottom+8,walletEl.hidden?0:wallet.bottom-root.top+8);
+      tasks.style.top=`${taskTop}px`;tasks.style.width=`${l.width}px`;
+      const controls=mobileHudLayout(root.width,root.height,mapTop,tasks.getBoundingClientRect().bottom-root.top,insetLeft,insetRight,insetBottom);
+      tasks.style.maxHeight=`${Math.max(44,controls.leftSteer.top-12-taskTop)}px`;
+      const map=touch?controls.map:{left:root.width-insetRight-168,top:mapTop,width:168,height:168};
+      position(this.el['minimap-frame'],map);
+      const speed=this.root.querySelector<HTMLElement>('.speed')!;
+      const speedWidth=Math.round(map.width*.78),speedHeight=Math.min(30,Math.max(map.width<56?20:24,Math.round(map.height*.22)));
+      position(speed,{left:(map.width-speedWidth)/2,top:map.height-speedHeight-(map.width<56?2:4),width:speedWidth,height:speedHeight});
+      speed.style.fontSize=map.width<56?'11px':map.width<80?'12px':map.width<112?'16px':map.width<140?'18px':'22px';
+      speed.style.flexDirection=map.width<80?'column':'row';speed.style.gap=map.width<80?'1px':'3px';
+      speed.querySelector('small')!.style.fontSize=map.width<56?'5px':map.width<80?'6px':'8px';
+      if(touch){
+        for(const[id,box]of Object.entries({'t-left':controls.leftSteer,'t-right':controls.rightSteer,'t-brake':controls.brake,'t-gas':controls.gas,'t-fly':controls.fly,'t-jump':controls.jump}))position(this.el[id],box);
+        position(this.el.prompt,controls.context);
       }
-      const taskBottom = tasks.getBoundingClientRect().bottom - root.top;
-      const narrowFlight = touch && flightNavigationNeedsCompactLane(root.width,controls.rightSteer.left+controls.rightSteer.width,map.left,controls.brake.left);
-      const flightLeft = touch && !narrowFlight ? controls.rightSteer.left + controls.rightSteer.width : l.left - root.left + l.width;
-      const flightRight = touch && !narrowFlight ? Math.min(map.left, controls.brake.left) : map.left;
-      const navigation = this.positionFlightNavigation(root, headerBottom, area,
-        { left: l.left - root.left, top: taskTop, width: flightLeft - (l.left - root.left), height: Math.max(0, taskBottom - taskTop) }, { ...map, left: flightRight },
-        touch ? narrowFlight ? controls.leftSteer.top + 4 : controls.brake.top : root.height - 76, narrowFlight);
+      const call=controls.call;
+      if(call)position(this.el['hud-call-slot'],call);else Object.assign(this.el['hud-call-slot'].style,{width:'0px',height:'0px'});
+      const taskBottom=tasks.getBoundingClientRect().bottom-root.top;
+      const navLeft=walletEl.hidden?insetLeft:Math.max(insetLeft,wallet.right-root.left+8);
+      const navigation=this.positionFlightNavigation(root,headerBottom,{left:0,top:0,width:0,height:0},
+        {left:navLeft,top:10,width:0,height:0},{...map,left:toolbar.left-root.left},
+        touch?controls.leftSteer.top:root.height-76,root.height<=520);
       const blockers:HudRect[]=[map];
-      if(touch)blockers.push(controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump,controls.speed);
+      if(touch)blockers.push(controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump);
+      if(call)blockers.push(call);
       for(const id of ['orders-availability','prompt']) {
         const element=this.el[id];if(element.hidden)continue;
         const box=element.getBoundingClientRect();if(box.width&&box.height)blockers.push({left:box.left-root.left,top:box.top-root.top,width:box.width,height:box.height});
       }
-      const notices=hudTransientLayout(root.width,root.height,headerBottom,Math.max(clock.height,level.height),navigation,blockers,insetLeft,insetRight,insetBottom);
+      const notices=hudTransientLayout(root.width,root.height,headerBottom,root.height<=520?28:32,navigation,blockers,insetLeft,insetRight,insetBottom);
       const put=(element:HTMLElement,box:HudRect|null)=>{element.style.visibility=box?'':'hidden';if(box)position(element,box);else Object.assign(element.style,{width:'0px',height:'0px'});};
       put(this.el['area-chip'],notices.area);if(notices.area)this.el['area-chip'].style.lineHeight=`${Math.max(1,notices.area.height-4)}px`;put(this.el.toast,notices.notice);put(this.el.rescue,notices.rescue);
       put(this.el['hud-notice-slot'],notices.notice);
@@ -682,7 +709,7 @@ export class Hud {
       const b = this.el[id]; let pid = -1; const keys = new Set<string>();
       const paint = () => {
         const active = pid !== -1 || keys.size > 0;
-        f(active); b.classList.toggle('on', active); b.setAttribute('aria-pressed', String(active));
+        f(active); this.paintControl(id,active);
       };
       b.addEventListener('pointerdown', (e) => {
         e.preventDefault(); if (pid !== -1 || !enabled() || !this.controlsAvailable) return;
@@ -715,15 +742,25 @@ export class Hud {
     hold('t-gas', (v) => (this.touchGas = v));
     hold('t-brake', (v) => (this.touchBrake = v));
     const tap = (id: string, action: string) => {
-      const button = this.el[id] as HTMLButtonElement;
-      const activate = () => { if (!button.disabled && this.controlsAvailable) this.onButton(action); };
-      button.addEventListener('pointerdown', (e) => { e.preventDefault(); activate(); });
-      button.addEventListener('keydown', (e) => {
-        if (e.code !== 'Space' && e.code !== 'Enter') return;
-        e.preventDefault(); e.stopPropagation(); if (!e.repeat) activate();
+      const button=this.el[id] as HTMLButtonElement;let pointer=-1,key=false;
+      const activate=()=>{if(!button.disabled&&this.controlsAvailable)this.onButton(action);};
+      const paint=()=>this.paintControl(id,pointer!==-1||key);
+      const release=()=>{const old=pointer;pointer=-1;key=false;try{if(old!==-1&&button.hasPointerCapture(old))button.releasePointerCapture(old);}catch{/* ended */}paint();};
+      this.controlReleases.push(release);
+      button.addEventListener('pointerdown',e=>{
+        e.preventDefault();if(button.disabled||!this.controlsAvailable||pointer!==-1)return;
+        pointer=e.pointerId;try{button.setPointerCapture(pointer);}catch{/* already ended */}paint();activate();
       });
-      // Screen readers activate a button with a zero-detail click rather than a pointer.
-      button.addEventListener('click', (e) => { if (e.detail === 0) activate(); });
+      const up=(e:PointerEvent)=>{if(e.pointerId===pointer)release();};
+      for(const type of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(type,up as EventListener);
+      button.addEventListener('keydown',e=>{
+        if(e.code!=='Space'&&e.code!=='Enter')return;e.preventDefault();e.stopPropagation();
+        if(!e.repeat&&!button.disabled&&this.controlsAvailable){key=true;paint();activate();}
+      });
+      button.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='Enter'){e.preventDefault();e.stopPropagation();key=false;paint();}});
+      button.addEventListener('blur',release);
+      // Screen readers activate without a pointer; provide the same brief press.
+      button.addEventListener('click',e=>{if(e.detail===0&&!button.disabled&&this.controlsAvailable){this.paintControl(id,true);activate();setTimeout(()=>this.paintControl(id,false),120);}});
     };
     tap('t-fly', 'fly'); tap('t-jump', 'jump');
     this.releaseAction = hold('t-act', (v) => (this.touchAct = v), () => this.contextAction !== null && !this.el.prompt.hidden && !this.modalOpen && !this.rotationBlocked);
@@ -781,10 +818,25 @@ export class Hud {
     }
     return box;
   }
+  private paintControl(id:string,held?:boolean) {
+    this.feedbackHeld??=new Set();this.feedbackKeys??=new Set();
+    if(held!==undefined){if(held)this.feedbackHeld.add(id);else this.feedbackHeld.delete(id);}
+    const button=this.el[id];if(!button)return;
+    const pressed=this.feedbackHeld.has(id)||(CONTROL_KEYS[id]||[]).some(code=>this.feedbackKeys.has(code));
+    button.classList.toggle('on',pressed);button.setAttribute('aria-pressed',String(pressed));
+  }
+  /** Presentation only; Game retains all keyboard timing and driving behavior. */
+  controlFeedback(code:string,down:boolean) {
+    this.feedbackKeys??=new Set();
+    const id=Object.keys(CONTROL_KEYS).find(id=>CONTROL_KEYS[id].includes(code));
+    if(down&&this.controlsAvailable&&id&&!(this.el[id] as HTMLButtonElement)?.disabled)this.feedbackKeys.add(code);else this.feedbackKeys.delete(code);
+    for(const[id,codes]of Object.entries(CONTROL_KEYS))if(codes.includes(code))this.paintControl(id);
+  }
   // Also used by the game's keyboard reset; callbacks stay outside this method to avoid recursion.
   resetControls() {
     this.cancelOfferSwipe();
     for (const release of this.controlReleases) release();
+    this.feedbackKeys?.clear();this.feedbackHeld?.clear();for(const id of Object.keys(CONTROL_KEYS))this.paintControl(id,false);
     this.prompt(null);
     this.touchGas = false; this.touchBrake = false; this.touchBoost = false; this.touchLeft = false; this.touchRight = false; this.touchSteer = 0; this.tilt = 0;
   }

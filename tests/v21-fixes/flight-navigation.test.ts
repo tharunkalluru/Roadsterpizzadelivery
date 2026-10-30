@@ -58,26 +58,17 @@ test('grounded, missing and malformed targets never show a flight instruction', 
 });
 
 const overlaps = (a: any, b: any) => a.left < b.left + b.width && a.left + a.width > b.left && a.top < b.top + b.height && a.top + a.height > b.top;
-test('compact guidance keeps its own free lane on supported landscape phone sizes', () => {
-  for (const [width, height] of [[640, 280], [640, 360], [667, 375], [800, 360], [844, 390], [915, 412], [1280, 720]]) {
-    const controls = mobileHudLayout(width, height, 62, 106);
-    const tasks = { left: 12, top: 62, width: 142, height: 44 };
-    const left = controls.rightSteer.left + controls.rightSteer.width;
-    const box = flightNavigationLayout(width, height, 54, 104,
-      { ...tasks, width: left - tasks.left }, { ...controls.map, left: Math.min(controls.map.left, controls.brake.left) }, controls.brake.top);
-    assert.ok(box, `${width}x${height}`);
-    assert.ok(box!.width >= 156 && box!.width <= 180 && box!.height <= 64);
-    assert.ok(box!.left >= 12 && box!.left + box!.width <= width - 12 && box!.top === 62);
-    for (const blocker of [tasks, controls.map, controls.leftSteer, controls.rightSteer, controls.brake, controls.gas, controls.fly, controls.jump, controls.speed]) {
-      assert.equal(overlaps(box, blocker), false, `${width}x${height} intersects ${JSON.stringify(blocker)}`);
-    }
+test('guidance occupies the former status row at exact top center without covering controls', () => {
+  for (const [width,height] of [[568,240],[667,260],[568,320],[640,280],[640,360],[667,375],[800,360],[844,390],[915,412],[1024,768],[1280,720]]) {
+    const controls=mobileHudLayout(width,height,62,106),toolbar={left:width-18-148,top:10,width:148,height:44};
+    const box=flightNavigationLayout(width,height,54,104,{left:18,top:10,width:0,height:0},{...controls.map,left:toolbar.left},controls.leftSteer.top,height<=520?44:48);
+    assert.ok(box,`${width}x${height}`);
+    assert.ok(box!.width>=156&&box!.width<=220&&box!.height<=48);
+    assert.ok(Math.abs(box!.left+box!.width/2-width/2)<=.5);assert.equal(box!.top,10);
+    for(const blocker of [toolbar,controls.map,controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump,controls.speed,controls.context,controls.call!])assert.equal(overlaps(box,blocker),false,`${width}x${height} intersects ${JSON.stringify(blocker)}`);
   }
-  const narrowControls = mobileHudLayout(568, 320, 62, 106);
-  const narrowBox = flightNavigationLayout(568, 320, 54, 104, { left: 12, top: 62, width: 142, height: 44 }, narrowControls.map, narrowControls.leftSteer.top + 4, 44);
-  assert.ok(narrowBox, 'narrow landscape retains compact flight guidance');
-  for (const blocker of [narrowControls.map, narrowControls.leftSteer, narrowControls.rightSteer, narrowControls.brake, narrowControls.gas, narrowControls.fly, narrowControls.jump, narrowControls.speed, narrowControls.context]) assert.equal(overlaps(narrowBox, blocker), false);
-  assert.equal(flightNavigationLayout(320, 844, 90, 140, { left: 12, top: 90, width: 160, height: 200 }, { left: 190, top: 90, width: 112, height: 112 }, 700), null);
-  assert.equal(flightNavigationLayout(800, 180, 54, 104, { left: 12, top: 62, width: 230, height: 40 }, { left: 660, top: 10, width: 122, height: 122 }, 90), null);
+  assert.equal(flightNavigationLayout(320,844,90,140,{left:12,top:90,width:160,height:200},{left:190,top:90,width:112,height:112},700),null);
+  assert.equal(flightNavigationLayout(800,180,54,104,{left:12,top:62,width:230,height:40},{left:660,top:10,width:122,height:122},90),null);
 });
 
 function hudFixture() {
@@ -130,23 +121,18 @@ test('HUD hides immediately for no job, ground, blocked surfaces, rotation and h
   } finally { (globalThis as any).document = previous; }
 });
 
-test('production HUD keeps the navigation rectangle fixed while area notices show and expire',()=>{
-  for(const [width,height] of [[568,320],[599,320],[600,320],[610,320],[618,320],[619,320],[640,280],[800,360],[852,393],[918,384],[1280,720]]){
-    const controls=mobileHudLayout(width,height,62,106),narrow=flightNavigationNeedsCompactLane(width,controls.rightSteer.left+controls.rightSteer.width,controls.map.left,controls.brake.left);
-    const area={left:(width-300)/2,top:62,width:300,height:42};
+test('production HUD keeps top-center navigation fixed while area notices show and expire',()=>{
+  for(const [width,height] of [[568,320],[599,320],[600,320],[610,320],[618,320],[619,320],[640,280],[800,360],[852,393],[918,384],[1024,768],[1280,720]]){
+    const controls=mobileHudLayout(width,height,62,106),compact=height<=520,toolbar={left:width-18-148,top:10,width:148,height:44};
+    const area={left:18,top:62,width:180,height:28};
     const classes=new Set<string>(),panel={style:{},dataset:{}};
     const hud:any=Object.assign(Object.create(Hud.prototype),{el:{'area-chip':{classList:{contains:(name:string)=>classes.has(name)}},'flight-navigation':panel},flightNavigation(){assert.fail('supported landscape must retain guidance');}});
-    const left=narrow?154:controls.rightSteer.left+controls.rightSteer.width;
-    const right=narrow?controls.map.left:Math.min(controls.map.left,controls.brake.left);
-    const args=[{left:0,top:0,width,height},54,area,{left:12,top:62,width:left-12,height:0},{...controls.map,left:right},narrow?controls.leftSteer.top+4:controls.brake.top,narrow];
+    const args=[{left:0,top:0,width,height},54,area,{left:18,top:10,width:0,height:0},{...controls.map,left:toolbar.left},controls.leftSteer.top,compact];
     for(const visible of [false,true,false]){
-      visible?classes.add('show'):classes.delete('show');
-      const box=hud.positionFlightNavigation(...args);
-      assert.equal(box.top,62,`${width}×${height}: notice visibility cannot move navigation`);
-      assert.equal(box.height,narrow?44:48,'quiet strip has no oversized 64px default');
-      assert.equal(panel.style['height' as keyof typeof panel.style],`${narrow?44:48}px`);
-      const blockers=[{left:0,top:0,width,height:54},controls.map,controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump,controls.speed];
-      for(const blocker of blockers)assert.equal(overlaps(box,blocker),false,`${width}×${height}: guidance overlaps ${JSON.stringify(blocker)}`);
+      visible?classes.add('show'):classes.delete('show');const box=hud.positionFlightNavigation(...args);
+      assert.equal(box.top,10,`${width}×${height}: notice visibility cannot move navigation`);assert.equal(box.height,compact?44:48);
+      assert.equal(panel.style['height' as keyof typeof panel.style],`${compact?44:48}px`);
+      for(const blocker of [toolbar,area,controls.map,controls.leftSteer,controls.rightSteer,controls.brake,controls.gas,controls.fly,controls.jump,controls.speed,controls.call!])assert.equal(overlaps(box,blocker),false,`${width}×${height}: guidance overlaps ${JSON.stringify(blocker)}`);
     }
   }
 });
@@ -174,11 +160,11 @@ test('invalid viewport clears the old reserved navigation bounds and restores th
   const hud:any=Object.assign(Object.create(Hud.prototype),{el:{'hud-navigation-slot':slot,'flight-navigation':panel},flightNavigation(){hidden++;}});
   const root={left:0,top:0,width:800,height:360},area={left:18,top:62,width:180,height:28},tasks={left:18,top:62,width:200,height:0},map={left:660,top:62,width:122,height:122};
   assert.ok(hud.positionFlightNavigation(root,54,area,tasks,map,250,false));
-  assert.equal(slot.style.width,'180px');assert.equal(slot.style.height,'48px');
+  assert.equal(slot.style.width,'220px');assert.equal(slot.style.height,'48px');
   assert.equal(hud.positionFlightNavigation({...root,height:130},54,area,tasks,map,90,false),null);
   assert.equal(slot.style.width,'0px');assert.equal(slot.style.height,'0px');assert.equal(hidden,1);
   assert.ok(hud.positionFlightNavigation(root,54,area,tasks,map,250,false));
-  assert.equal(slot.style.width,'180px');assert.equal(slot.style.height,'48px');
+  assert.equal(slot.style.width,'220px');assert.equal(slot.style.height,'48px');
 });
 
 

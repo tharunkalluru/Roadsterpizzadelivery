@@ -69,9 +69,10 @@ test('actual minimap adds nearby conventional rail and reuses its paths across r
       hud:{el:{minimap:{width:336,getContext:()=>g}}},player:{pos:{x:0,z:0},yaw:.4},
       city:{railway:{profiles:tracks}},graph:{nearestEdges:()=>[]},zone:{metro:{lines:[]}},route:null,routeTarget:null,
     });
-    game.drawMinimap();const first=calls.map(c=>c.path);assert.equal(first.length,4);const made=Path.made;
+    game.drawMinimap();const first=calls.filter(c=>c.path).map(c=>c.path);assert.equal(first.length,4);const made=Path.made;
+    assert.equal(calls.filter(c=>!c.path).length,1,'player arrow has a contrasting outline independent of cached railway paths');
     for(let i=0;i<60;i++){game.player.pos.x=i;game.drawMinimap();}
     assert.equal(Path.made,made,'nearby native rail paths are not recreated per frame');
-    assert.ok(calls.every(c=>first.includes(c.path)));
+    assert.ok(calls.filter(c=>c.path).every(c=>first.includes(c.path)));
   }finally{Object.assign(globalThis,{Path2D:previous});}
 });

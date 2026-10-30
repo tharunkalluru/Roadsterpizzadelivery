@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "f73c5252c2b807db19f83e2ba2f7436080b4510f",
+  "source_commit": "67b77903e7de39812830fb513efdb665ae7f4702",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -662,6 +662,74 @@
     {
       "path": "docs/railway-research-2026-10-29.md",
       "sha256": "518ba2dffd1515eb62e13ed88222908f99fc3ffe04ccc1887acf3e03263b8d51"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/README.md",
+      "sha256": "d47597d7f5e0f3d6ffb43cebd9ded22fb53003bab5e094a021b50da9815c4b6a"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/call-and-navigation-800.png",
+      "sha256": "e481bba78ba560cbefc23d6fc6c463c922c055c7eaf2465e2d47f0a4ef55b2b0"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/control-presses.json",
+      "sha256": "89f9391b31edff9323c9d27017a573db9442908dbc0c112ee3a7a605603e71cf"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/desktop-driving.png",
+      "sha256": "1b97c58c6a6d4e85e64d7b8a3a1504ca07969bfa798a7c4b6406e49f269d67e2"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/desktop-pause.png",
+      "sha256": "1a14ba85a947f93aa7901ad7154bb6d3eabed91add9a659745a732a936e87c9d"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/go-pressed.png",
+      "sha256": "a9d2c4042c7082bfa7580e593b174942b1477dccdff93f0482ce233f66b778ae"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-1024.json",
+      "sha256": "30ae02a0e29a229d86fa83e6059b0bd925c3aacbd2867a34a7a7b03bd9f533d5"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-1280.json",
+      "sha256": "7f5b3cd4dba13cf61bbc0f1f8e4797d83408cd1a3d1efb7317cf38e8838f15e9"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-568.json",
+      "sha256": "9ed100303e196e289becbc505093e104f4af1a62746348abf0aa0f6974a2a8f8"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-568x240.json",
+      "sha256": "e500474a8ff688fade3c2f7cfed92ba913bae63dacab93953d41307d4bb9e0ed"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-667.json",
+      "sha256": "eef7412582a9b20cf840399a32ea325f5f58352ca8c2de10a1bd720cd10ba2d9"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-667x260.json",
+      "sha256": "2592e0fdfd19fe080b9bcf6f8420215a6f6cdb916ec97f936ba086898f356601"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/layout-800.json",
+      "sha256": "8cac18e9a0f91528d772940b777984b3fa61e77a8586e265221ec36fe724c285"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/overlays-568.png",
+      "sha256": "b4df18b3393617a3830c5e5112d6d21cd98a723d01cfb4b580c0f024152a3b19"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/overlays-568x240.png",
+      "sha256": "b3c0c2b9916570a69ec3c7a206ad3507af1fb863f40cda44354291c6c0bc8ca4"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/pause-progress-800.png",
+      "sha256": "d7624581a478ea8b8b760b9067df1a4d7fa90acb3b6abe3c444e7b7b32d394a4"
+    },
+    {
+      "path": "docs/ui-evidence/clean-hud/restaurant-from-pause.png",
+      "sha256": "b5e9dae85b1710554dc746430464e04d7efa87faa3a733e748ad1619ee33a9d6"
     },
     {
       "path": "drizzle.config.ts",
@@ -1916,6 +1984,10 @@
       "sha256": "e040a24b4fe5885d9888aab853c3598bf6a5c32c37f94c6a7b6e13869349a0db"
     },
     {
+      "path": "public/credits.html",
+      "sha256": "237f50f07f551fc2c0ea614dceb51db58ff8ff79ec48a3a347dbdcbbcf8f487e"
+    },
+    {
       "path": "public/delivery/celebrities/allu-arjun.jpg",
       "sha256": "a788ee4078cfc661eefd3cd23f60508b5fa0d37ec0e7698b3e834bfc38f635f0"
     },
@@ -2217,7 +2289,7 @@
     },
     {
       "path": "src/delivery/runtime.ts",
-      "sha256": "399f64f275bf1d54be6935a2f185102afdb6c23c2bcd616ba71faf24ceb6db10"
+      "sha256": "c8bd366747704703992ec5a8da8e283613de3d7e095b5926f6b5f91ee74d5527"
     },
     {
       "path": "src/delivery/systems/call-system.ts",
@@ -2261,11 +2333,11 @@
     },
     {
       "path": "src/delivery/ui/call-button-layout.ts",
-      "sha256": "4969468076163e5ce2e0ab750217c89a2442fda68b332a2a831fc815caa634fc"
+      "sha256": "9d1c718eec7940b4722d8bc4bad803bb0bc26a16e6c694c30642afc7a2f0ff21"
     },
     {
       "path": "src/delivery/ui/delivery-ui.ts",
-      "sha256": "145868575092474a7512d6562ecd45b8454c4c281a05177f63a711941eee3264"
+      "sha256": "8cf0498e22ecbad6b403127ac072b1d8f21b948e7b6c48bdfe72089334d567c9"
     },
     {
       "path": "src/delivery/ui/restaurant.ts",
@@ -2305,7 +2377,7 @@
     },
     {
       "path": "src/game/game.ts",
-      "sha256": "39aa8c4180ab803223a6b90f105113b8a7708155f0f781025daa1e9c3b967a70"
+      "sha256": "7b8e43e052f853c469afa2a78c38baaaf0a0efe55c6f0bac0856ffc23ca60022"
     },
     {
       "path": "src/game/jump-motion.ts",
@@ -2409,15 +2481,15 @@
     },
     {
       "path": "src/ui/flight-navigation.ts",
-      "sha256": "26980cc961ddbc8d8953fc64010fa2b8194273edeaf86c371635e336f475c4b9"
+      "sha256": "68bf3f6e74579a59d0d2845f052c81217f16cd586ea7b9a7324263d36a185120"
     },
     {
       "path": "src/ui/hud-layout.ts",
-      "sha256": "85cd1b094fdfce0fb74d8274c070c074fd9a1cfa90b3afd1b45e118c80c91518"
+      "sha256": "7fb250d56d708231e766cd8c597df2b6107536b0f9df63f9c1e6a9f543eecb4d"
     },
     {
       "path": "src/ui/hud.ts",
-      "sha256": "63fa62dcc1a16ea8ff9f2a0386c3e36893890cf1f96cb8b803994d257df64610"
+      "sha256": "e36a23e3d0218570246372f392e0746e0ef9ae2eb5a3121b8a7348671c214c00"
     },
     {
       "path": "src/ui/landmark-icons.ts",
@@ -2456,8 +2528,16 @@
       "sha256": "87deeb888f866b473bfc57926dd0387d21fe9680dcc1e90a36da819fdfc24856"
     },
     {
+      "path": "src/ui/minimap-navigation.ts",
+      "sha256": "a60aad62dd9129f3012e470f92dccf7385260b7768739ae4046c30bca0e844ed"
+    },
+    {
       "path": "src/ui/paint-safety.ts",
-      "sha256": "a46ee796248b6bdb8a98b0048b185f2f9f9c5d6045dbfe853036be8f320a308f"
+      "sha256": "936793e127d2a874deab8eb97ffc3282fc2f40fd7478f4dc52133d31250e8bf3"
+    },
+    {
+      "path": "src/ui/pause-progress.ts",
+      "sha256": "d03296fd368cf6dc3db7cc9d9d19df55d9b9b9617cb3721ae2e1eb074b94a933"
     },
     {
       "path": "src/ui/railway-map.ts",
@@ -2465,7 +2545,7 @@
     },
     {
       "path": "src/ui/settings.ts",
-      "sha256": "029f301db06592d1468428a164eba414e6459a2958ea510e921376a2b980899b"
+      "sha256": "949f222cba66b1c211cfbd7f952dd28f215c47033050e9905241fc154d947de4"
     },
     {
       "path": "src/ui/theme.ts",
@@ -2745,7 +2825,7 @@
     },
     {
       "path": "tests/browser/hud-notices.browser.ts",
-      "sha256": "8397c9a4f0e29416071c9f9188763931278b0c66185a97c9d847f42f70f1ca72"
+      "sha256": "11ac2a12decb8bdce5c05c93dcda3720dde1e3093e2b2806ed3078cfcebfe987"
     },
     {
       "path": "tests/browser/hud-notices.html",
@@ -2961,7 +3041,7 @@
     },
     {
       "path": "tests/legacy/mobile-hud-layout-regressions.mjs",
-      "sha256": "edfe75c0eef3419e60ff812f33dfa7d6535cd411913aac6db4e48d532d947506"
+      "sha256": "7aa310b387dcc8945a19bfd07f71d5233b6f13fa459c9a7336ca1d3303955d1d"
     },
     {
       "path": "tests/legacy/moving-rail-regressions.mjs",
@@ -3181,7 +3261,7 @@
     },
     {
       "path": "tests/v21-fixes/delivery-runtime.test.ts",
-      "sha256": "a6287c33630e748ce85b3e946ba9874b54fee73ed5ae6f5b4332338576a118e7"
+      "sha256": "5fda47e035fe071f5092d8976b2c96f29e3ba5971bb6c56e6e2ae99b788be66a"
     },
     {
       "path": "tests/v21-fixes/delivery-story.test.ts",
@@ -3197,7 +3277,7 @@
     },
     {
       "path": "tests/v21-fixes/delivery-ui.test.ts",
-      "sha256": "c3d6ca6f3e758599c20498f8882e1c31cc809ec7bad064f009dd22587720c20d"
+      "sha256": "6c6d8e7300832952f2933ca5f340e5bb1b36ceb4dafd2f95b8227cfc1bd4df1c"
     },
     {
       "path": "tests/v21-fixes/delivery-world.test.ts",
@@ -3209,11 +3289,15 @@
     },
     {
       "path": "tests/v21-fixes/flight-navigation.test.ts",
-      "sha256": "13845852b53d8a0b4f8ae04ad8ec1d453b1edf4e0e2757cb88d683129b971201"
+      "sha256": "d94f7c389b09e17ed5efdff1147241e310b6b3283b610a36c11e10469efb5e6d"
+    },
+    {
+      "path": "tests/v21-fixes/hud-control-feedback.test.ts",
+      "sha256": "ccdbc85a60876d76987dd1252b8e4073ef64f10b4fffb3c1a3e95cd5c7279adc"
     },
     {
       "path": "tests/v21-fixes/hud-notice-layout.test.ts",
-      "sha256": "1bc58b966c3e287fd56d033e4b6eff4554f9eca6dc2b83db3253da6566059a48"
+      "sha256": "ae67b9f89939363ec1428c311a4a02d4f16ae1701958265c1d3bbe5f9f84f38c"
     },
     {
       "path": "tests/v21-fixes/map-labels.test.ts",
@@ -3236,12 +3320,20 @@
       "sha256": "644034139b8396ca493f204ded3735843a233efe0b4bb9c4daddf81225509a34"
     },
     {
+      "path": "tests/v21-fixes/minimap-navigation.test.ts",
+      "sha256": "d96315c4a1187af80a58cc977ad820bb3fbf98290cf4146f6fd6954e9da6b686"
+    },
+    {
       "path": "tests/v21-fixes/mobile-ui.test.ts",
-      "sha256": "d7c6c5769d5e037b5cac5f633822bb2f7021258bc01895768fb2b13f561c8529"
+      "sha256": "437ee0ac0cae037af910442d01aebfc00b5f014872ec4788136b828e6c32b9f8"
     },
     {
       "path": "tests/v21-fixes/navigation-route-source.test.ts",
-      "sha256": "a7b307fd1866dd4c83f8da57bf5777bacdc3075c412568cc37a5926bd4cf3e3c"
+      "sha256": "6a37fff9b5c7835915a4708d1085f4a7bf624c2f79251b10fccf5c8abd8e06d9"
+    },
+    {
+      "path": "tests/v21-fixes/pause-progress-hub.test.ts",
+      "sha256": "0cee27847104e0e8218b792c2d400ac94b389dc3474c10895f727a4dcfb2bfeb"
     },
     {
       "path": "tests/v21-fixes/railway-crossings.test.ts",
@@ -3261,7 +3353,7 @@
     },
     {
       "path": "tests/v21-fixes/railway-map.test.ts",
-      "sha256": "5368aba14ee2499c5c0aceb42822af376fb2e843fc32c280b45a24bf6b33c5fd"
+      "sha256": "d122b750b52dd82b1879cde0757208ad8b4e55f51a2c70a342f1cdbf7075a99f"
     },
     {
       "path": "tests/v21-fixes/railway-physical.test.ts",

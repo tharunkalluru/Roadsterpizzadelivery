@@ -1,6 +1,6 @@
 /** Production-component layout fixture, deliberately independent of Game.
  * Open /tests/browser/hud-notices.html with Vite. The audit runs automatically
- * at 568×320, 667×375, 800×360 or 1280×720, and reruns after resizing.
+ * at 568×320, 667×375, 800×360, 1024×768 or 1280×720, and reruns after resizing.
  * Public APIs alone activate notices. The real 4.2-second area expiry is tested.
  * Results are visible and also readable on <html data-hud-layout-result>.
  * This verifies browser layout, not real-phone performance or rendering.
@@ -10,7 +10,7 @@ import type { FlightNavigationInput } from '../../src/ui/flight-navigation';
 import { DeliveryUI, type DeliveryView } from '../../src/delivery/ui/delivery-ui';
 
 type Rect = { left:number; top:number; width:number; height:number; right:number; bottom:number };
-type StateResult = { name:string; guide:Rect; chip:Rect; clock:Rect; overlays:Record<string,{ visible:boolean; rect:Rect }>; failures:string[] };
+type StateResult = { name:string; guide:Rect; chip:Rect; toolbar:Rect; overlays:Record<string,{ visible:boolean; rect:Rect }>; failures:string[] };
 
 const status = document.querySelector<HTMLOutputElement>('#hud-audit-status')!;
 const hud = new Hud(true);
@@ -48,6 +48,7 @@ const settled = async () => {
 };
 
 hud.carrierPickupMode();
+// Legacy game updates remain safe after their visible Day/Level nodes are gone.
 hud.set('clock','Day 1 · 9:08 AM');
 hud.set('level','Level 2 / 7');
 hud.set('spd','0');
@@ -81,22 +82,36 @@ async function audit() {
     delivery.update(modelWithNotice);
     hud.flightNavigation(navigation,1/60);
     await settled();if(run!==generation)return;
-    const guide=hud.el['flight-navigation'],area=hud.el['area-chip'],clock=hud.el.clock;
+    const guide=hud.el['flight-navigation'],area=hud.el['area-chip'],toolbar=hud.root.querySelector<HTMLElement>('.btnrow')!;
     const guideRect=rect(guide),stateFailures:string[]=[];
     if (!visible(guide)) stateFailures.push('navigation is not visible');
     if (!baseline) baseline=guideRect;
     for(const key of ['left','top','width','height'] as const) {
       if(Math.abs(guideRect[key]-baseline[key])>.25)stateFailures.push(`navigation ${key} moved: ${baseline[key]} → ${guideRect[key]}`);
     }
-    if(Math.abs(rect(area).height-rect(clock).height)>.5)stateFailures.push('area chip height differs from Day pill');
+    if(Math.abs(guideRect.top-10)>.5)stateFailures.push('navigation is outside the fixed top row');
+    if(Math.abs((guideRect.left+guideRect.right)/2-innerWidth/2)>.5)stateFailures.push('navigation is not horizontally centered');
+    if(overlaps(guideRect,rect(toolbar)))stateFailures.push('toolbar overlaps navigation');
+    if(hud.root.querySelector('#clock,#level,.du-collection-button'))stateFailures.push('removed status or restaurant HUD control is present');
+    const expectedChipHeight=innerHeight<=520?28:32;
+    if(Math.abs(rect(area).height-expectedChipHeight)>.5||rect(area).width>180.5)stateFailures.push('area chip is not compact');
     if(/\b(entering|nearby)\b/i.test(area.textContent||''))stateFailures.push('area chip contains a redundant prefix');
     const overlays:StateResult['overlays']={};
-    const selector='#clock,#level,#minimap,.btnrow,.du-collection-button,#area-chip,#toast,#rescue,.du-notice,.du-call,.du-actions,.touch button,.speed,#orders-toggle,#t-act';
+    const selector='#minimap,.btnrow,#area-chip,#toast,#rescue,.du-notice,.du-call,.du-actions,.touch button,.speed,#orders-toggle,#t-act';
     for(const [index,element] of [...hud.root.querySelectorAll<HTMLElement>(selector)].entries()) {
       const key=element.id||element.classList[0]||`overlay-${index}`,isVisible=visible(element),bounds=rect(element);
       overlays[key]={visible:isVisible,rect:bounds};
       if(isVisible&&overlaps(bounds,guideRect))stateFailures.push(`${key} overlaps navigation`);
       if(isVisible&&(bounds.left<-.5||bounds.top<-.5||bounds.right>innerWidth+.5||bounds.bottom>innerHeight+.5))stateFailures.push(`${key} leaves the viewport`);
+    }
+    const map=overlays.minimap,speed=overlays.speed;
+    if(!map?.visible||!speed?.visible)stateFailures.push('minimap or integrated speed is hidden');
+    else if(speed.rect.left<map.rect.left-.5||speed.rect.right>map.rect.right+.5||speed.rect.top<map.rect.top+map.rect.height/2||speed.rect.bottom>map.rect.bottom+.5)stateFailures.push('speed is outside the minimap bottom arc');
+    for(const name of ['du-call','du-actions']){
+      const action=overlays[name];if(!action?.visible)continue;
+      for(const obstacle of ['minimap','t-left','t-right','t-gas','t-brake','t-fly','t-jump']){
+        if(overlays[obstacle]?.visible&&overlaps(action.rect,overlays[obstacle].rect))stateFailures.push(`${name} overlaps ${obstacle}`);
+      }
     }
     const notices=['area-chip','toast','rescue','du-notice','du-call','du-actions'];
     for(let i=0;i<notices.length;i++)for(let j=i+1;j<notices.length;j++) {
@@ -118,7 +133,7 @@ async function audit() {
     if(!visible(guide))stateFailures.push('road navigation is not visible');
     for(const key of ['left','top','width','height'] as const)if(Math.abs(roadRect[key]-guideRect[key])>.25)stateFailures.push(`road/flight navigation ${key} changed`);
     hud.flightNavigation(navigation,1/60);
-    states.push({name,guide:guideRect,chip:rect(area),clock:rect(clock),overlays,failures:stateFailures});
+    states.push({name,guide:guideRect,chip:rect(area),toolbar:rect(toolbar),overlays,failures:stateFailures});
     failures.push(...stateFailures.map(failure=>`${name}: ${failure}`));
     status.textContent=`Checking ${innerWidth}×${innerHeight} · ${states.length}/8 states`;
   };
@@ -138,7 +153,7 @@ async function audit() {
   await measure('all-active');if(run!==generation)return;
   const result={
     passed:failures.length===0,viewport:{width:innerWidth,height:innerHeight},fonts:document.fonts.status,
-    fontFamilies:{clock:getComputedStyle(hud.el.clock).fontFamily,area:getComputedStyle(hud.el['area-chip']).fontFamily},
+    fontFamilies:{navigation:getComputedStyle(hud.el['flight-navigation']).fontFamily,toolbar:getComputedStyle(hud.root.querySelector<HTMLElement>('.btnrow')!).fontFamily,area:getComputedStyle(hud.el['area-chip']).fontFamily},
     productionComponents:['Hud(true)','DeliveryUI'],states,failures,
     note:'Browser layout only. Combined state remains active; production priority hides the lower-priority HUD toast.',
   };

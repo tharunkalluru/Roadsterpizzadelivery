@@ -1,6 +1,8 @@
 // Player settings, kept in this browser. Quality is read at start-up (changing it reloads the page).
 import { GAME_BUILD } from '../game/bug-report';
+import { pauseProgressHtml, type PauseProgress } from './pause-progress';
 export interface Settings { quality: 'auto' | 'high' | 'low'; sound: boolean; steer: 'stick' | 'tilt'; tips: boolean }
+const esc = (value: string) => value.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
 const KEY = 'p2ph-settings-v1';
 const DEF: Settings = { quality: 'auto', sound: true, steer: 'stick', tips: true };
 
@@ -36,15 +38,17 @@ export function settingsHtml(s: Settings, touch: boolean) {
     <small class="sm build-info">Build ${GAME_BUILD.slice(0, 8)} · ${touch ? 'Opaque touch UI' : 'Opaque panel fallback'}</small>`;
 }
 
-export function pauseMenuHtml(campaign = false) {
-  return `<header class="sheet-header"><div class="pause-heading"><span class="pause-kicker">Take a breather</span><h2>Game paused</h2></div></header>
+export function pauseMenuHtml(campaign = false, progress?: PauseProgress, sessionLabel?: string) {
+  return `<div class="pause-menu" data-pause-menu><header class="sheet-header"><div class="pause-heading"><span class="pause-kicker">Take a breather</span><h2>Game paused</h2></div>${sessionLabel ? `<small class="pause-session">${esc(sessionLabel)}</small>` : ''}</header>
+    ${campaign ? pauseProgressHtml(progress) : ''}
     <button type="button" class="btn go pause-primary" id="resume">Resume driving</button>
     <div class="pause-grid${campaign ? ' campaign-grid' : ''}">
       <button type="button" class="pause-card" id="settings"><span>Settings</span><small>Sound, steering and graphics</small></button>
-      <button type="button" class="pause-card" id="area"><span>Change area</span><small>Choose another part of Hyderabad</small></button>
+      ${campaign ? '<button type="button" class="pause-card" id="restaurant"><span>My restaurant</span><small>Restaurant and delivered customers</small></button>' : '<button type="button" class="pause-card" id="area"><span>Change area</span><small>Choose another part of Hyderabad</small></button>'}
       <button type="button" class="pause-card" id="unstick"><span>Back to the road</span><small>Recover your Roadster nearby</small></button>
     </div>
-    <footer class="pause-footer${campaign ? ' campaign-restarts' : ''}"><button type="button" class="pause-reset" id="reset">${campaign ? 'Restart current level' : 'Reset progress'}</button>${campaign ? '<button type="button" class="pause-reset" id="start-level-one">Start from level 1</button>' : ''}</footer>`;
+    <footer class="pause-footer${campaign ? ' campaign-restarts' : ''}"><button type="button" class="pause-reset" id="reset">${campaign ? 'Restart current level' : 'Reset progress'}</button>${campaign ? '<button type="button" class="pause-reset" id="start-level-one">Start from level 1</button>' : ''}</footer>
+    <a class="pause-credits" href="/credits.html" target="_blank" rel="noopener">Map credits</a></div>`;
 }
 export function bindSettings(sheet: HTMLElement, s: Settings, apply: (s: Settings, changed: keyof Settings) => void) {
   sheet.querySelectorAll<HTMLButtonElement>('.opt[data-k]').forEach((b) => b.addEventListener('click', () => {
