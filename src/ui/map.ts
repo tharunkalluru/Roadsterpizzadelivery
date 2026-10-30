@@ -2,7 +2,7 @@ import type { CoreData, Building } from '../world/types';
 import { appendMapPaths, MinorMapPaths, MAP_STYLES, type PreparedMapData } from './map-data';
 import { loadMapData, mapAbort } from './map-loader';
 import { DialogFocus } from './dialog';
-import { placeCatalogue, PLACE_CATEGORIES, type LandmarkPlace, type PlaceCategory } from '../world/landmark_catalog';
+import { placeCatalogue, type LandmarkPlace } from '../world/landmark_catalog';
 import { layoutPlaceMarkers, mapPlaceCandidates, hitPlaceMarker, placeIcon, type PlaceMarker } from './landmark-icons';
 import { metroCorridors, METRO_LINE_COLORS, metroPlatformAssemblies } from '../world/metro-geometry';
 import { installPrototypeTheme } from './theme';
@@ -44,23 +44,15 @@ const CSS = `
 .fmap .pickbar{position:absolute;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom,0px));box-sizing:border-box;width:min(460px,calc(100vw - 24px));background:var(--ui-plum);border:2px solid #B88DE3;border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:10px;pointer-events:auto;z-index:2;box-shadow:var(--ui-panel-shadow),0 0 18px rgba(179,127,230,.16)}
 .fmap .pickbar .where{font-weight:800;font-size:17px;color:var(--cream)}
 .fmap .pickbar .row{display:flex;gap:8px}.fmap .pickbar .btn{flex:1}
-.fmap .places{position:absolute;top:max(80px,calc(env(safe-area-inset-top,0px) + 68px));left:max(12px,env(safe-area-inset-left,0px));width:min(330px,calc(100% - 84px));z-index:2;color:var(--cream);pointer-events:auto;touch-action:pan-y}
-.fmap .places-toggle{min-height:44px;padding:8px 14px;border:1px solid #B08BD4;border-radius:15px;background:var(--ui-plum);color:var(--cream);font:800 14px var(--body);cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--ui-panel-shadow)}
-.fmap .places-toggle svg{width:18px;height:20px;color:var(--saffron);pointer-events:none}
-.fmap .places-panel,.fmap .place-detail{margin-top:8px;padding:12px;background:var(--ui-plum);border:1px solid #B08BD4;border-radius:18px;box-shadow:var(--ui-panel-shadow),0 0 12px rgba(179,127,230,.14)}
-.fmap .place-tools{display:flex;flex-direction:column;gap:8px}.fmap .place-tools input,.fmap .place-tools select{min-height:44px;width:100%;box-sizing:border-box;font:14px var(--body);background:#261B37;color:var(--cream);border:1px solid #87669F;border-radius:11px;padding:8px}.fmap .place-tools input::placeholder{color:#BCAFCC;opacity:1}
-.fmap .place-results{max-height:min(38vh,330px);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;margin-top:8px}
-.fmap .place-results button{min-height:48px;text-align:left;flex:0 0 auto;background:transparent;color:var(--cream);border:0;border-bottom:1px solid #5C4276;padding:8px;font:700 14px var(--body);cursor:pointer;border-radius:8px}.fmap .place-results button:active{background:#4C335E}
-.fmap .place-results small{display:block;color:var(--muted);font-weight:400}.fmap .place-summary{color:var(--muted);font-size:12px;margin:6px 0}
-.fmap .place-detail{font-size:14px}.fmap .place-detail strong{color:var(--saffron)}.fmap .place-detail small{display:block;margin-top:5px;color:var(--muted)}.fmap .place-dismiss{min-height:44px;margin-top:8px;border:1px solid #9573B5;border-radius:12px;background:linear-gradient(145deg,#4C345F,#2C1F3D);color:var(--cream);padding:6px 12px;cursor:pointer}
-.fmap .places button:focus-visible,.fmap .places input:focus-visible,.fmap .places select:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
-.fmap[data-pick] .places{display:none}
-@media(max-height:500px){.fmap .places{top:max(66px,calc(env(safe-area-inset-top,0px) + 54px))}.fmap .place-results{max-height:22vh}.fmap .places-panel{padding:8px}.fmap .place-tools{flex-direction:row}}
+.fmap .selectionbar .where{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fmap .selectionbar .row .btn{min-width:0;min-height:44px}
+.fmap[data-selection] .legend,.fmap[data-selection] .movebtn{display:none}
+@media(max-width:700px){.fmap .pickbar{left:max(12px,env(safe-area-inset-left,0px));transform:none;width:calc(100% - max(12px,env(safe-area-inset-left,0px)) - max(80px,calc(env(safe-area-inset-right,0px) + 68px)));padding:10px;gap:7px}.fmap .pickbar .where{font-size:15px}.fmap .pickbar .btn{font-size:13px;padding:9px 10px}.fmap .map-title small{font-size:10px}.fmap .movebtn{max-width:calc(100% - 100px);white-space:nowrap}}
 .fmap[data-pick] .legend,.fmap[data-pick] .movebtn{display:none}
-.fmap[data-pick] .zoom{bottom:max(150px,calc(env(safe-area-inset-bottom,0px) + 140px))}
+
 .fmap .pin{position:absolute;left:50%;top:50%;width:34px;height:46px;margin:-46px 0 0 -17px;pointer-events:none;display:none}
 .fmap[data-pick] .pin{display:block}
-@media(hover:hover) and (pointer:fine){.fmap .zb:hover,.fmap .places-toggle:hover,.fmap .place-dismiss:hover{border-color:#E2C8FF}.fmap .place-results button:hover{background:#3B284C}}
+@media(hover:hover) and (pointer:fine){.fmap .zb:hover{border-color:#E2C8FF}}
 `;
 
 export class FullMap {
@@ -69,8 +61,7 @@ export class FullMap {
   places: LandmarkPlace[];
   markers: PlaceMarker[] = [];
   selectedPlace: LandmarkPlace | null = null;
-  placeCategory: PlaceCategory | '' = '';
-  placeQuery = '';
+  selectedLocation: { x: number; z: number; label: string } | null = null;
   private gesture: { id: number; x: number; y: number; moved: boolean } | null = null;
   cx = 0; cz = 0; scale = 0.5;                       // pixels per metre
   layers: MapLayers | null = null; bld = new Path2D(); loading = false;
@@ -125,15 +116,12 @@ export class FullMap {
     this.root.setAttribute('role', 'dialog'); this.root.setAttribute('aria-modal', 'true'); this.root.setAttribute('aria-label', 'City map');
     this.root.innerHTML = `<canvas aria-label="Map of Hyderabad"></canvas>
       <div class="mbar"><div class="map-title"><span class="map-heading"><svg viewBox="0 0 24 30" fill="currentColor" aria-hidden="true"><path d="M12 29C8 24 1 16 1 11a11 11 0 0 1 22 0c0 5-7 13-11 18Z"/><circle cx="12" cy="11" r="4" fill="#241630"/></svg>Hyderabad</span><small>Drag to move · scroll or pinch to zoom</small></div><button type="button" class="ib close" id="map-close">Close map <svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
-      <div class="places"><button type="button" class="places-toggle" id="map-places" aria-expanded="false" aria-controls="map-places-panel"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2V5Z"/><path d="M9 3v16M15 5v16"/></svg>Explore ${this.places.length} places</button>
-        <section class="places-panel" id="map-places-panel" aria-label="Hyderabad places" hidden><div class="place-tools"><input id="map-place-search" type="search" placeholder="Search Hyderabad places" aria-label="Search Hyderabad places" autocomplete="off"><select id="map-place-category" aria-label="Place category"><option value="">All places</option>${PLACE_CATEGORIES.map((c) => `<option value="${c}">${c}</option>`).join('')}</select></div><div class="place-summary" id="map-place-summary" aria-live="polite"></div><div class="place-results" id="map-place-results"></div></section>
-        <section class="place-detail" id="map-place-detail" aria-label="Selected place" hidden><strong id="map-place-name"></strong><small id="map-place-kind"></small><small>Stylised landmark · appearance and location may be approximate.</small><button type="button" class="place-dismiss" id="map-place-dismiss">Dismiss place</button></section>
-      </div>
       <div class="zoom"><button type="button" class="zb" id="map-in" aria-label="Zoom in"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button><button type="button" class="zb" id="map-out" aria-label="Zoom out"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg></button><button type="button" class="zb" id="map-me" aria-label="Centre on my car"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="6"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg></button></div>
       <svg class="pin" viewBox="0 0 34 46" aria-hidden="true"><path d="M17 45C17 45 3 27 3 17a14 14 0 0 1 28 0c0 10-14 28-14 28z" fill="#FF8FB1" stroke="#17132B" stroke-width="3"/><circle cx="17" cy="17" r="5.5" fill="#17132B"/></svg>
-      <button type="button" class="btn go movebtn" id="map-move" hidden>Deliver from here…</button>
-      <div class="pickbar" id="map-pickbar" hidden><div class="sm">Drag the map to put the pin where you want to start</div><div class="where" id="map-where">…</div>
-        <div class="row"><button type="button" class="btn alt" id="map-pick-cancel">Cancel</button><button type="button" class="btn go" id="map-pick-ok">Start delivering here</button></div></div>
+      <button type="button" class="btn go movebtn" id="map-move" hidden>Deliver from here</button>
+      <div class="pickbar" id="map-pickbar" hidden><div class="sm">Drag or tap the map to choose a starting point</div><div class="where" id="map-where">…</div>
+        <div class="row"><button type="button" class="btn alt" id="map-pick-cancel">Cancel</button><button type="button" class="btn go" id="map-pick-ok">Deliver from here</button></div></div>
+      <div class="pickbar selectionbar" id="map-selection" aria-label="Selected location" hidden><div class="where" id="map-selected-where"></div><div class="row"><button type="button" class="btn alt" id="map-selection-cancel">Cancel</button><button type="button" class="btn go" id="map-selection-go">Deliver from here</button></div></div>
       <div class="legend"><span><i style="background:#FFB627"></i>You</span><span><i style="background:#45E3D3"></i>Route</span>${src.hidePickupLegend ? '' : '<span><i style="background:#F2994A"></i>Pizza pickups</span>'}<span><i class="rail-key"></i>Railway</span><span>${Object.entries(METRO_LINE_COLORS).map(([id, color]) => '<i title="' + id + ' line" style="background:' + color + '"></i>').join('')}Metro</span><span><i style="background:#cfbb8b"></i>Places · tap icons</span></div>`;
     host.appendChild(this.root);
     this.focus = new DialogFocus(this.root, {
@@ -143,35 +131,32 @@ export class FullMap {
     });
     this.cv = this.root.querySelector('canvas')!;
     (this.root.querySelector('#map-close') as HTMLElement).addEventListener('click', () => this.close());
-    (this.root.querySelector('#map-move') as HTMLElement).addEventListener('click', () => this.beginPick({ onPick: (x, z) => this.onMove(x, z), onCancel: () => this.endPick() }));
+    (this.root.querySelector('#map-move') as HTMLElement).addEventListener('click', () => this.moveFromHere());
     (this.root.querySelector('#map-pick-cancel') as HTMLElement).addEventListener('click', () => this.cancelPick());
-    (this.root.querySelector('#map-pick-ok') as HTMLElement).addEventListener('click', () => { const p = this.pick; if (!p) return; const x = this.cx, z = this.cz; this.endPick(); p.onPick(x, z); });
+    (this.root.querySelector('#map-pick-ok') as HTMLElement).addEventListener('click', () => this.confirmPick());
+    this.root.querySelector('#map-selection-go')!.addEventListener('click', () => this.commitSelection());
+    this.root.querySelector('#map-selection-cancel')!.addEventListener('click', () => { this.clearSelection(); this.root.querySelector<HTMLElement>('#map-move')!.focus({preventScroll:true}); });
     (this.root.querySelector('#map-in') as HTMLElement).addEventListener('click', () => this.zoomAt(1.5));
     (this.root.querySelector('#map-out') as HTMLElement).addEventListener('click', () => this.zoomAt(1 / 1.5));
-    (this.root.querySelector('#map-me') as HTMLElement).addEventListener('click', () => { const p = this.state().player; if (!p) return; this.cx = p.x; this.cz = p.z; this.dirty = true; });
-    const placesToggle = this.root.querySelector<HTMLButtonElement>('#map-places')!;
-    placesToggle.addEventListener('click', () => {
-      const panel = this.root.querySelector<HTMLElement>('#map-places-panel')!;
-      panel.hidden = !panel.hidden; placesToggle.setAttribute('aria-expanded', String(!panel.hidden));
-      if (!panel.hidden) { this.root.querySelector<HTMLElement>('#map-place-detail')!.hidden = true; this.renderPlaceResults(); this.root.querySelector<HTMLInputElement>('#map-place-search')!.focus(); }
-    });
-    this.root.querySelector<HTMLInputElement>('#map-place-search')!.addEventListener('input', (e) => { this.placeQuery = (e.target as HTMLInputElement).value; this.renderPlaceResults(); });
-    this.root.querySelector<HTMLSelectElement>('#map-place-category')!.addEventListener('change', (e) => { this.placeCategory = (e.target as HTMLSelectElement).value as PlaceCategory | ''; this.renderPlaceResults(); this.dirty = true; });
-    this.root.querySelector<HTMLElement>('#map-place-dismiss')!.addEventListener('click', () => { this.selectedPlace = null; this.root.querySelector<HTMLElement>('#map-place-detail')!.hidden = true; this.dirty = true; placesToggle.focus(); });
-    // The results panel is hidden; create its buttons only when it is opened.
+    (this.root.querySelector('#map-me') as HTMLElement).addEventListener('click', () => { const p = this.state().player; if (!p) return; this.clearSelection(); this.cx = p.x; this.cz = p.z; this.dirty = true; });
+    this.installMapGestures();
+    addEventListener('resize', () => (this.dirty = true));
+    document.fonts?.addEventListener?.('loadingdone', () => { this.labelWidths.clear(); this.labelView = ''; this.labelFontEpoch++; this.dirty = true; });
+  }
+  private installMapGestures() {
     const cv = this.cv;
     cv.addEventListener('wheel', (e) => { e.preventDefault(); this.zoomAt(Math.exp(-e.deltaY * 0.0015), e.offsetX, e.offsetY); }, { passive: false });
     cv.addEventListener('pointerdown', (e) => {
       try { cv.setPointerCapture(e.pointerId); } catch { /* pointer already ended */ }
       this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (this.pointers.size === 1) this.gesture = { id: e.pointerId, x: e.clientX, y: e.clientY, moved: false };
-      else this.gesture = null;
+      else { this.gesture = null; this.clearSelection(); }
       if (this.pointers.size === 2) { const [a, b] = [...this.pointers.values()]; this.pinch0 = Math.hypot(a.x - b.x, a.y - b.y); this.scale0 = this.scale; }
     });
     cv.addEventListener('pointermove', (e) => {
       const p = this.pointers.get(e.pointerId); if (!p) return;
-      if (this.gesture && Math.hypot(e.clientX - this.gesture.x, e.clientY - this.gesture.y) > 8) this.gesture.moved = true;
-      if (this.pointers.size === 1) { this.cx -= (e.clientX - p.x) / this.scale; this.cz -= (e.clientY - p.y) / this.scale; this.dirty = true; }
+      if (this.gesture && !this.gesture.moved && Math.hypot(e.clientX - this.gesture.x, e.clientY - this.gesture.y) > 8) { p.x=this.gesture.x;p.y=this.gesture.y;this.gesture.moved = true; this.clearSelection(); }
+      if (this.pointers.size === 1 && this.gesture?.moved) { this.cx -= (e.clientX - p.x) / this.scale; this.cz -= (e.clientY - p.y) / this.scale; this.dirty = true; }
       p.x = e.clientX; p.y = e.clientY;
       if (this.pointers.size === 2 && this.pinch0 > 0) {
         const [a, b] = [...this.pointers.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y);
@@ -180,60 +165,66 @@ export class FullMap {
       }
     });
     const up = (e: PointerEvent) => {
-      const tap = e.type === 'pointerup' && this.gesture?.id === e.pointerId && !this.gesture.moved && this.pointers.size === 1 && !this.pick;
+      if(!this.pointers.has(e.pointerId))return;
+      const tap = e.type === 'pointerup' && this.gesture?.id === e.pointerId && !this.gesture.moved && this.pointers.size === 1;
       this.pointers.delete(e.pointerId); if (this.pointers.size < 2) this.pinch0 = 0; this.gesture = null;
-      if (tap) {
-        const r = cv.getBoundingClientRect(), hit = hitPlaceMarker(this.markers, e.clientX - r.left, e.clientY - r.top);
-        if (hit) {
-          if (hit.members.length > 1) { this.cx = hit.place.x; this.cz = hit.place.z; this.zoomAt(2); }
-          this.selectPlace(hit.place, false);
-        }
-      }
+      if (tap) this.tapLocation(e.clientX, e.clientY);
+      else if(e.type==='pointercancel'||e.type==='lostpointercapture')this.clearSelection();
     };
     cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up); cv.addEventListener('lostpointercapture', up);
-    addEventListener('resize', () => (this.dirty = true));
-    document.fonts?.addEventListener?.('loadingdone', () => { this.labelWidths.clear(); this.labelView = ''; this.labelFontEpoch++; this.dirty = true; });
   }
-  filteredPlaces() { return this.places.filter((p) => !this.placeCategory || p.category === this.placeCategory); }
-  private placeResultLimit = 80;
-  renderPlaceResults(reset = true) {
-    if (reset) this.placeResultLimit = 80;
-    const q = this.placeQuery.trim().toLocaleLowerCase(), matches = this.filteredPlaces().filter((p) => p.name.toLocaleLowerCase().includes(q)).sort((a, b) => a.name.localeCompare(b.name));
-    const list = this.root.querySelector<HTMLElement>('#map-place-results')!; list.replaceChildren();
-    this.root.querySelector<HTMLElement>('#map-place-summary')!.textContent = `${matches.length} of ${this.places.length} places · tap to find on map`;
-    for (const p of matches.slice(0, this.placeResultLimit)) {
-      const button = document.createElement('button'); button.type = 'button'; button.textContent = p.name;
-      const category = document.createElement('small'); category.textContent = p.category; button.appendChild(category);
-      button.addEventListener('click', () => this.selectPlace(p, true)); list.appendChild(button);
-    }
-    if (matches.length > this.placeResultLimit) {
-      const more = document.createElement('button'); more.type = 'button'; more.textContent = `Show more places · ${this.placeResultLimit} of ${matches.length}`;
-      more.addEventListener('click', () => { this.placeResultLimit += 80; this.renderPlaceResults(false); }); list.appendChild(more);
-    }
-    if (!matches.length) list.textContent = 'No matching places. Try a different name or category.';
+  private tapLocation(clientX: number, clientY: number) {
+    if (!this.pick && !this.state().canMove) return;
+    const r=this.cv.getBoundingClientRect(),sx=clientX-r.left,sy=clientY-r.top;
+    // A quick tap may arrive before the next draw after a pan/zoom. Screen
+    // marker positions from the old view must not replace this tap's world point.
+    const markerKey=`${this.viewKey()}|${this.selectedPlace?.id||''}`;
+    const hit=this.markerView===markerKey?hitPlaceMarker(this.markers,sx,sy):null,place=hit?.members.length===1?hit.place:null;
+    const x=place?.x??this.cx+(sx-this.cv.clientWidth/2)/this.scale;
+    const z=place?.z??this.cz+(sy-this.cv.clientHeight/2)/this.scale;
+    if (!Number.isFinite(x)||!Number.isFinite(z)) return;
+    if (this.pick) { this.cx=x;this.cz=z;this.lastWhere='';this.dirty=true;return; }
+    this.selectedPlace=place;
+    this.selectedLocation={x,z,label:place?.name||this.areaName(x,z)||'Selected location'};
+    this.syncMoveControls();this.root.querySelector<HTMLElement>('#map-selection-go')!.focus({preventScroll:true});this.dirty=true;
   }
-  selectPlace(place: LandmarkPlace, centre: boolean) {
-    this.selectedPlace = place;
-    if (centre) { this.cx = place.x; this.cz = place.z; this.scale = Math.max(this.scale, 0.3); }
-    this.root.querySelector<HTMLElement>('#map-place-name')!.textContent = place.name;
-    this.root.querySelector<HTMLElement>('#map-place-kind')!.textContent = place.category;
-    this.root.querySelector<HTMLElement>('#map-places-panel')!.hidden = true;
-    this.root.querySelector<HTMLElement>('#map-place-detail')!.hidden = false;
-    this.root.querySelector<HTMLElement>('#map-places')!.setAttribute('aria-expanded', 'false');
-    this.root.querySelector<HTMLElement>('#map-place-dismiss')!.focus({ preventScroll: true });
-    this.dirty = true;
+  clearSelection() {
+    this.selectedPlace=null;this.selectedLocation=null;delete this.root.dataset.selection;
+    (this.root.querySelector('#map-selection') as HTMLElement).hidden=true;this.dirty=true;
+    this.syncMoveControls();
+  }
+  private syncMoveControls() {
+    const allowed=!!this.state().canMove,selected=!!this.selectedLocation&&!this.pick;
+    (this.root.querySelector('#map-move') as HTMLElement).hidden=!allowed||!!this.pick||selected;
+    const bar=this.root.querySelector<HTMLElement>('#map-selection')!;bar.hidden=!allowed||!selected;
+    if(allowed&&selected){this.root.dataset.selection='1';this.root.querySelector('#map-selected-where')!.textContent=this.selectedLocation!.label;}
+    else delete this.root.dataset.selection;
+    (this.root.querySelector('#map-selection-go') as HTMLButtonElement).disabled=!allowed;
+    (this.root.querySelector('#map-pick-ok') as HTMLButtonElement).disabled=!!this.pick?.requiresMovePermission&&!allowed;
+  }
+  moveFromHere() {
+    if(!this.state().canMove)return;
+    this.clearSelection();this.beginPick({onPick:(x,z)=>this.onMove(x,z),onCancel:()=>this.endPick(),requiresMovePermission:true});
+  }
+  commitSelection() {
+    const selected=this.selectedLocation;if(!selected||!this.state().canMove)return;
+    this.clearSelection();this.onMove(selected.x,selected.z);
+  }
+  confirmPick() {
+    const p=this.pick;if(!p||p.requiresMovePermission&&!this.state().canMove)return;
+    const x=this.cx,z=this.cz;this.endPick();p.onPick(x,z);
   }
   // ---------- choosing a place: the map moves under a fixed pin ----------
-  pick: { onPick: (x: number, z: number) => void; onCancel: () => void } | null = null;
+  pick: { onPick: (x: number, z: number) => void; onCancel: () => void; requiresMovePermission?: boolean } | null = null;
   onMove: (x: number, z: number) => void = () => {};
   areaName: (x: number, z: number) => string = () => '';
   lastWhere = '';
-  beginPick(p: { onPick: (x: number, z: number) => void; onCancel: () => void }) {
-    this.pick = p; this.root.dataset.pick = '1';
+  beginPick(p: { onPick: (x: number, z: number) => void; onCancel: () => void; requiresMovePermission?: boolean }) {
+    this.clearSelection();this.lastWhere='';this.pick = p; this.root.dataset.pick = '1';
     (this.root.querySelector('#map-pickbar') as HTMLElement).hidden = false;
-    this.dirty = true;
+    this.syncMoveControls();this.dirty = true;
   }
-  endPick() { this.pick = null; delete this.root.dataset.pick; (this.root.querySelector('#map-pickbar') as HTMLElement).hidden = true; this.dirty = true; }
+  endPick() { this.pick = null; delete this.root.dataset.pick; (this.root.querySelector('#map-pickbar') as HTMLElement).hidden = true; this.syncMoveControls();this.dirty = true; }
   cancelPick() { const p = this.pick; this.endPick(); p?.onCancel(); }
   // open straight into choosing (start of the game): centred on the city, or on a given spot
   showPick(p: { onPick: (x: number, z: number) => void; onCancel: () => void }, at?: { x: number; z: number; scale?: number }) {
@@ -372,7 +363,7 @@ export class FullMap {
   show(at?: { x: number; z: number; scale?: number }) {
     const st = this.state(), p = at || st.player || { x: 0, z: 0 };
     this.cx = p.x; this.cz = p.z; if (at?.scale) this.scale = at.scale;
-    (this.root.querySelector('#map-move') as HTMLElement).hidden = !st.canMove;
+    this.clearSelection();this.syncMoveControls();
     // Reveal and focus the shell before any path work or streamed-outline scan.
     this.openStarted = performance.now(); this.firstBaseDrawForOpen = false; this.mapStats.firstBaseDrawMs = null; delete this.root.dataset.mapFirstBaseDrawMs;
     this.root.hidden = false; this.open = true; this.dirty = true; this.focus?.show();
@@ -393,7 +384,7 @@ export class FullMap {
     if (!this.open) return;
     this.loadAbort?.abort(); this.loadAbort = null;
     if (!this.mapData) { this.buildP = null; this.loading = false; }
-    this.endPick();
+    this.endPick();this.clearSelection();
     for (const id of this.pointers.keys()) {
       try { if (this.cv.hasPointerCapture(id)) this.cv.releasePointerCapture(id); } catch { /* already released */ }
     }
@@ -412,6 +403,7 @@ export class FullMap {
       !(e.target as HTMLElement | null)?.closest?.('button,input,select,textarea,[role="button"]'))) e.preventDefault();
   }
   zoomTo(s: number, ox?: number, oy?: number) {
+    this.clearSelection();
     const W = this.cv.clientWidth, H = this.cv.clientHeight; ox ??= W / 2; oy ??= H / 2;
     const ns = Math.max(0.012, Math.min(6, s));
     const wx = this.cx + (ox - W / 2) / this.scale, wz = this.cz + (oy - H / 2) / this.scale;
@@ -422,7 +414,7 @@ export class FullMap {
   t = 0;
   tick(dt: number) {
     if (!this.open) return;
-    this.prepareVisible();
+    this.syncMoveControls();this.prepareVisible();
     this.t += dt; if (this.t > 0.25) { this.t = 0; this.dirty = true; }
     if (this.dirty) { this.dirty = false; this.draw(); }
   }
@@ -461,23 +453,20 @@ export class FullMap {
     const toS = (x: number, z: number) => [W / 2 + (x - this.cx) * s, H / 2 + (z - this.cz) * s];
     g.textAlign = 'center'; g.textBaseline = 'middle';
     if (s > 0.25) for (const p of st.pickups) { const [x, y] = toS(p.x, p.z); if (x < -10 || y < -10 || x > W + 10 || y > H + 10) continue; g.fillStyle = p.pizza ? '#F2994A' : 'rgba(242,153,74,.55)'; g.beginPath(); g.arc(x, y, p.pizza ? 5 : 3, 0, 7); g.fill(); }
-    const markerView = `${this.viewKey()}|${this.placeCategory}|${this.selectedPlace?.id || ''}`;
+    const markerView = `${this.viewKey()}|${this.selectedPlace?.id || ''}`;
     if (markerView !== this.markerView) {
       this.markerView = markerView;
-      this.markers = layoutPlaceMarkers(mapPlaceCandidates(this.filteredPlaces(), s, this.selectedPlace?.id, !!this.placeCategory), { cx: this.cx, cz: this.cz, scale: s, width: W, height: H }, this.selectedPlace?.id);
+      this.markers = layoutPlaceMarkers(mapPlaceCandidates(this.places, s, this.selectedPlace?.id, false), { cx: this.cx, cz: this.cz, scale: s, width: W, height: H }, this.selectedPlace?.id);
     }
     // One cached collision layout covers geographic labels, landmark names,
     // navigation markers and visible map controls. Text never changes geometry.
-    const panel = this.root.querySelector<HTMLElement>('#map-places-panel'), detail = this.root.querySelector<HTMLElement>('#map-place-detail');
-    const labelView = `${markerView}|${this.labelIndex?.revision}|${this.labelFontEpoch}|${!!this.pick}|${panel?.hidden}|${detail?.hidden}|${st.target?.x},${st.target?.z},${st.target?.label}|${st.player?.x},${st.player?.z}`;
+    const labelView = `${markerView}|${this.labelIndex?.revision}|${this.labelFontEpoch}|${!!this.pick}|${this.selectedLocation?.x},${this.selectedLocation?.z}|${st.target?.x},${st.target?.z},${st.target?.label}|${st.player?.x},${st.player?.z}`;
     if (this.labelView !== labelView) {
       this.labelView = labelView;
       const measure = (text: string, font: string) => { g.font = font; return this.textWidth(g, text); };
       const blocked: LabelRect[] = [{ x: W / 2, y: 34, w: W, h: 68 }, { x: W - 38, y: H - 85, w: 68, h: 170 },
         { x: W / 2, y: H - 27, w: 230, h: 38 }];
-      if (!this.pick) blocked.push({ x: 175, y: 102, w: 330, h: 64 });
-      if (panel && !panel.hidden || detail && !detail.hidden) blocked.push({ x: 175, y: H / 2, w: 340, h: Math.max(60, H - 120) });
-      if (this.pick) blocked.push({ x: W / 2, y: H - 76, w: Math.min(480, W - 12), h: 152 });
+      if (this.pick||this.selectedLocation) blocked.push({ x: W / 2, y: H - 76, w: Math.min(480, W - 12), h: 152 });
       for (const marker of this.markers) blocked.push({ x: marker.x, y: marker.y, w: 44, h: 44 });
       if (st.player) { const [x, y] = toS(st.player.x, st.player.z); blocked.push({ x, y, w: 38, h: 38 }); }
       if (st.target) {
@@ -515,6 +504,7 @@ export class FullMap {
       g.fillStyle = '#FFB627'; g.strokeStyle = '#17132B'; g.lineWidth = 2.5;
       g.beginPath(); g.moveTo(0, -14); g.lineTo(10, 11); g.lineTo(0, 5); g.lineTo(-10, 11); g.closePath(); g.fill(); g.stroke(); g.restore();
     }
+    if(this.selectedLocation&&!this.pick){const [x,y]=toS(this.selectedLocation.x,this.selectedLocation.z);g.fillStyle='#FF8FB1';g.strokeStyle='#17132B';g.lineWidth=3;g.beginPath();g.moveTo(x,y);g.lineTo(x-11,y-19);g.arc(x,y-24,13,Math.PI*.88,Math.PI*2.12);g.closePath();g.fill();g.stroke();}
     if (this.pick) { const w = this.areaName(this.cx, this.cz); if (w !== this.lastWhere) { this.lastWhere = w; (this.root.querySelector('#map-where') as HTMLElement).textContent = w || 'Somewhere in Hyderabad'; } }
     if (!this.layers || this.minorPaths && !this.minorPaths.visibleReady) {
       g.fillStyle = '#F6EEDC'; g.font = '700 12px \"Baloo 2\", sans-serif'; g.fillText(this.loadError ? 'Map unavailable. Close and reopen to retry.' : 'Local streets · loading detailed map…', W / 2, 28);

@@ -466,7 +466,7 @@ export class Game {
     // full map from the minimap
     this.map = new FullMap(this.hud.root, this.zone, () => ({
       player: this.area ? { x: this.player.pos.x, z: this.player.pos.z, yaw: this.player.yaw } : null,
-      canMove: !this.carrierPickupMode && !!this.area && !this.story?.activeOrder && (!this.order || this.order.state === 'offer'),
+      canMove: this.canMoveFromMap(),
       route: this.route ? (this.routeGuidanceBlocked ? this.routeGuide : this.route.pts) : null,
       target: this.routeTarget ? { x: this.routeTarget.x, z: this.routeTarget.z, label: this.routeTarget.label } : null,
       pickups: this.carrierPickupMode ? [] : this.food.map((f) => ({ x: f.s.x, z: f.s.z, pizza: !!f.pizza })),
@@ -479,7 +479,7 @@ export class Game {
       }
     }, { mapUrl: new URL('city/map.pack.wasm', location.href).href, buildings: () => this.city.loadedBuildings(), hidePickupLegend: this.carrierPickupMode });
     this.map.areaName = (x, z) => this.areaName(x, z);
-    this.map.onMove = (x, z) => this.relocate({ name: this.areaName(x, z) || 'Hyderabad', x, z });
+    this.map.onMove = (x, z) => this.relocate({ name: this.areaName(x, z) || 'Hyderabad', x, z }, 'map');
     // where to deliver: chosen at the start, changeable after any delivery
     this.picker = new AreaPicker(this.hud.root, this.zone);
     this.picker.onPick = (c) => this.relocate(c);
@@ -586,9 +586,12 @@ export class Game {
     this.picker.onClose = first ? null : () => { this.choosing = false; this.resume(); if (!this.order || this.order.state === 'offer') this.showOffer(); };
     this.picker.show({ first, last: first ? this.savedArea() : null, current: this.area?.name });
   }
-  async relocate(c: AreaChoice) {
+  canMoveFromMap() {
+    return !!this.area && !this.relocating && !this.story?.activeOrder && (!this.order || this.order.state === 'offer');
+  }
+  async relocate(c: AreaChoice, source: 'campaign' | 'map' = 'campaign') {
     // A delayed choice must never overwrite a newer destination or an accepted job.
-    if (this.order && this.order.state !== 'offer') { this.hud.toast('Finish this delivery first!', 'pink'); return; }
+    if (this.story?.activeOrder || this.order && this.order.state !== 'offer') { this.hud.toast('Finish this delivery first!', 'pink'); return; }
     if (!this.validArea(c)) { this.hud.toast('Choose a spot inside the playable Hyderabad map.', 'pink'); return; }
     c = { name: c.name.trim(), x: c.x, z: c.z };
     const request = (this.relocationId || 0) + 1; this.relocationId = request;
@@ -604,12 +607,12 @@ export class Game {
     catch (e) {
       if (request !== this.relocationId) return;
       console.error('relocate', e);
-      this.relocationFailed(c, 'The streets could not load. Check your connection and retry this same destination.');
+      this.relocationFailed(c, 'The streets could not load. Check your connection and retry this same destination.', source);
       return;
     }
     if (request !== this.relocationId) return;
-    if (!this.placeNear(c.x, c.z)) {
-      this.relocationFailed(c, 'There is no safe, clear road close to this pin. Move the pin to a nearby street.');
+    if (!this.placeNear(c.x, c.z, source !== 'map' && this.carrierPickupMode && !this.opts.initialArea)) {
+      this.relocationFailed(c, 'There is no safe, clear road close to this pin. Move the pin to a nearby street.', source);
       return;
     }
     this.relocationAbort = undefined;
@@ -647,29 +650,52 @@ export class Game {
     setTimeout(() => this.map?.build().catch(() => {}), 4000);   // the city map is ready before anyone opens it
     this.queueOffer(2200);
   }
-  private relocationFailed(c: AreaChoice, message: string) {
-    if(this.carrierPickupMode) {
+  private relocationFailed(c: AreaChoice, message: string, source: 'campaign' | 'map' = 'campaign') {
+    if(this.carrierPickupMode && source !== 'map') {
       setLoading('');this.relocating=false;this.relocationAbort=undefined;
-      this.hud.modal('<h2>Could not prepare the road</h2><p>Please retry loading the campaign start.</p><button class="btn go" id="campaign-retry">Retry</button>',sheet=>sheet.querySelector('#campaign-retry')!.addEventListener('click',()=>this.relocate(c)));
+      this.hud.modal('<h2>Could not prepare the road</h2><p>Please retry loading the campaign start.</p><button class="btn go" id="campaign-retry">Retry</button>',sheet=>sheet.querySelector('#campaign-retry')!.addEventListener('click',()=>this.relocate(c, source)));
       return;
     }
 
     setLoading(''); this.relocating = false; this.relocationAbort = undefined;
     this.city.focus = this.area ? [this.player.pos.x, this.player.pos.z] : null;
     this.sound.cue('error');
-    const close = () => {
+    const close = async () => {
+      if(this.map?.open)this.map.hide();
       this.hud.modal(null);
-      if (this.area) { this.choosing = false; this.resume(); if (!this.order || this.order.state === 'offer') this.showOffer(); }
-      else this.chooseArea(true);
+      if (this.area) {
+        if(source==='map') {
+          // The failed pin may be far enough away that ensure() retired the
+          // previous tiles. Keep the opaque loading screen up while restoring
+          // those streets, rather than resuming over an empty world.
+          const request=(this.relocationId||0)+1;this.relocationId=request;
+          this.relocationAbort?.abort();
+          const controller=new AbortController();this.relocationAbort=controller;
+          this.relocating=true;setLoading(`Returning to ${this.area.name}…`);
+          try {
+            await this.city.ensure(this.player.pos.x,this.player.pos.z,Math.max(650,this.city.radius||0),controller.signal);
+            if(request!==this.relocationId)return;
+            if(this.engine.prepareFrame){this.updateCamera(0);await this.engine.prepareFrame();}
+          } catch(error) {
+            if(request!==this.relocationId)return;
+            console.error('return to area',error);
+            this.relocationFailed(c,'The previous area could not reload. Check your connection and choose Stay here to retry.',source);
+            return;
+          }
+          if(request!==this.relocationId)return;
+          this.relocationAbort=undefined;this.relocating=false;setLoading('');
+        }
+        this.choosing = false; this.resume(); if (!this.order || this.order.state === 'offer') this.showOffer();
+      } else this.chooseArea(true);
     };
     // Keep the exact destination and existing progress until placement succeeds.
     this.hud.modal(`<h2>Could not move to ${esc(c.name)}</h2><p>${message}</p><div class="sm">Your current area and progress are unchanged.</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn go" id="area-retry">Retry this destination</button><button type="button" class="btn alt" id="area-nearby">Choose nearby street</button><button type="button" class="btn alt" id="area-stay">${this.area ? 'Stay here' : 'Back to areas'}</button></div>`, sheet => {
-      sheet.querySelector('#area-retry')!.addEventListener('click', () => this.relocate(c));
+      sheet.querySelector('#area-retry')!.addEventListener('click', () => this.relocate(c, source));
       sheet.querySelector('#area-stay')!.addEventListener('click', close);
       sheet.querySelector('#area-nearby')!.addEventListener('click', () => {
         this.hud.modal(null);
-        this.map.showPick({ onPick: (x, z) => this.relocate({ name: this.areaName(x, z) || c.name, x, z }),
-          onCancel: () => this.relocationFailed(c, message) }, { x: c.x, z: c.z, scale: .5 });
+        this.map.showPick({ onPick: (x, z) => this.relocate({ name: this.areaName(x, z) || c.name, x, z }, source),
+          onCancel: () => { this.map.hide(); this.relocationFailed(c, message, source); } }, { x: c.x, z: c.z, scale: .5 });
       });
     });
   }
@@ -706,8 +732,7 @@ export class Game {
     this.hud.rescue(show, onRoof ? 'On a roof? Glide down to the street' : 'Stuck? Get back on the road');
     if (!onRoof && (this.stuckT > 9 || this.slowT > 26)) { this.slowT = 0; this.rescue(); }   // still wedged after a while: help without being asked
   }
-  placeNear(x: number, z: number) {
-    const campaign=this.carrierPickupMode&&!this.opts.initialArea;
+  placeNear(x: number, z: number, campaign = this.carrierPickupMode && !this.opts.initialArea) {
     const p = findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true, majorOnly:campaign,forwardClearance:campaign?40:8 }) ??
       (!campaign ? findClearStreetSpot(this.graph, this.city, x, z, { preferMajor: true, allowElevated: true }) : null);
     if (!p) return false;
@@ -718,13 +743,16 @@ export class Game {
     if (this.map?.open || this.choosing) return;
     this.resetInput();
     this.paused = true;
-    this.hud.modal(pauseMenuHtml(), (sh) => {
-      if (this.carrierPickupMode) sh.querySelector('#reset')!.textContent = 'Restart current delivery';
+    this.hud.modal(pauseMenuHtml(this.carrierPickupMode), (sh) => {
       sh.querySelector('#resume')!.addEventListener('click', () => this.resume());
       sh.querySelector('#settings')!.addEventListener('click', () => this.openSettings(() => this.openPause()));
       if(this.carrierPickupMode) sh.querySelector('#area')?.remove();
       else sh.querySelector('#area')!.addEventListener('click', () => this.chooseArea(false));
       sh.querySelector('#unstick')!.addEventListener('click', () => { this.paused = false; this.hud.modal(null); this.clock.getDelta(); this.rescue(); });
+      sh.querySelector('#start-level-one')?.addEventListener('click', () => {
+        this.story?.startFromLevelOne();
+        this.startCampaign();
+      });
       sh.querySelector('#reset')!.addEventListener('click', () => {
         if (this.carrierPickupMode) {
           if (this.story) this.story.retry();

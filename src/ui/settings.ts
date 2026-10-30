@@ -36,15 +36,15 @@ export function settingsHtml(s: Settings, touch: boolean) {
     <small class="sm build-info">Build ${GAME_BUILD.slice(0, 8)} · ${touch ? 'Opaque touch UI' : 'Opaque panel fallback'}</small>`;
 }
 
-export function pauseMenuHtml() {
+export function pauseMenuHtml(campaign = false) {
   return `<header class="sheet-header"><div class="pause-heading"><span class="pause-kicker">Take a breather</span><h2>Game paused</h2></div></header>
     <button type="button" class="btn go pause-primary" id="resume">Resume driving</button>
-    <div class="pause-grid">
+    <div class="pause-grid${campaign ? ' campaign-grid' : ''}">
       <button type="button" class="pause-card" id="settings"><span>Settings</span><small>Sound, steering and graphics</small></button>
       <button type="button" class="pause-card" id="area"><span>Change area</span><small>Choose another part of Hyderabad</small></button>
       <button type="button" class="pause-card" id="unstick"><span>Back to the road</span><small>Recover your Roadster nearby</small></button>
     </div>
-    <footer class="pause-footer"><button type="button" class="pause-reset" id="reset">Reset progress</button></footer>`;
+    <footer class="pause-footer${campaign ? ' campaign-restarts' : ''}"><button type="button" class="pause-reset" id="reset">${campaign ? 'Restart current level' : 'Reset progress'}</button>${campaign ? '<button type="button" class="pause-reset" id="start-level-one">Start from level 1</button>' : ''}</footer>`;
 }
 export function bindSettings(sheet: HTMLElement, s: Settings, apply: (s: Settings, changed: keyof Settings) => void) {
   sheet.querySelectorAll<HTMLButtonElement>('.opt[data-k]').forEach((b) => b.addEventListener('click', () => {

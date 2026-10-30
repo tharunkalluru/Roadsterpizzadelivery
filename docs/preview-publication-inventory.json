@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "4238ffe331fbf5a262932647e445cbd1f5f8ee64",
+  "source_commit": "f73c5252c2b807db19f83e2ba2f7436080b4510f",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -130,6 +130,74 @@
     {
       "path": "docs/delivery/evidence/immersion-v2/touch-throw.png",
       "sha256": "7216b37bb938fd4985316d451a83214698b04187118874537f8b2b2059db6137"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/compact-empty-collection.png",
+      "sha256": "1597c3421219be66eecb1f46e4a776378019083786c659af0e09cb916949502c"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/compact-level-one-start.png",
+      "sha256": "c56bc7607e7ec5c65f3468f10e47726b08ddbdc5f2e794f71ea781452c968bbb"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/compact-restart-menu.png",
+      "sha256": "8639b0e66278b83146772069c57209c9af70a6bda0ea98e48ec50bd9a7ea7100"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/compact-selected-location.png",
+      "sha256": "9f213f1f364a93a8722e9ac70924d3490b3a57ce0d8165b55e8a691c2422d8d5"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-failed-pin.png",
+      "sha256": "2bf304b8deb7d05c4e49e135c96b8d0bd9a0d0bd66049ec390b975047cd7b0f3"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-isolated-pin.png",
+      "sha256": "b72cb4a6ebc0cae35a4cb370dde59183d0558bb42f744f64ef5dfde6c7eed7ed"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-lake-pin.png",
+      "sha256": "e6efdfa0ac6e9e3125a14fda6d01d634a3c8d1eca9ff0e92b2b2824e4b1984c5"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-retry-retained-pin.png",
+      "sha256": "3489e2f807125a4963a78354fa45c513d26e2aff3c336cd59a4b14e8518536d8"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-stay-loading.png",
+      "sha256": "6b558548f1aa0e779b9790bc9f858bc4618c946bb0e367953f4af0b327c3a1bd"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/desktop-stay-restored.png",
+      "sha256": "84e2985c93a17726c33735f18443a6f0b0201d8ce4aff249f338af13646a78ad"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-abdullapur-arrived.png",
+      "sha256": "024b6681f4f670ab74e2fac9929e89ed4fdb71d2501442b0c027840f852cff66"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-colony-arrived.png",
+      "sha256": "48e5a5b76cdc7148ee7091ec1405bf765e7909ead078559a4d527224a5c71b7a"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-direct-pin.png",
+      "sha256": "75ecc447b9815f2931c93d338344413ae7b25545ef737f4a5344fa433c898edf"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-narsingi-arrived.png",
+      "sha256": "f2b6f785e559dde75a7baff9aaf72eca14fc4b29aa5efa5ac79583c687afd385"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-restart-menu.png",
+      "sha256": "ff4d0cc098ae50adc813e82b60526ac6e515b92b289c3f6b42777467361bbdc8"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-tap-abdullapur.png",
+      "sha256": "f65a93b84df627082f235edd0d8443101b02e4ef7b330485bf49285e65f6db98"
+    },
+    {
+      "path": "docs/delivery/evidence/map-relocation/phone-tap-narsingi.png",
+      "sha256": "1b8cbb726f49e2ddd8499b3cd0a3365f2eecad7e1d286aa5411731068cda3137"
     },
     {
       "path": "docs/delivery/evidence/traffic-visibility/orbit-auto-after.png",
@@ -582,6 +650,10 @@
     {
       "path": "docs/playtests/2026-10-30-handling-characters.md",
       "sha256": "49096f38278bf3012e77aca4e94ed76e5fff6d8f2f8374150724200da73d1eb1"
+    },
+    {
+      "path": "docs/playtests/2026-10-30-map-relocation-restarts.md",
+      "sha256": "280920cf87cff4dd9520616300f05716aebe2dbbe6d207676e9d88bc502d11b5"
     },
     {
       "path": "docs/playtests/2026-10-30-traffic-camera-visibility.md",
@@ -2145,7 +2217,7 @@
     },
     {
       "path": "src/delivery/runtime.ts",
-      "sha256": "80e70515dc0187f9d2c2d3dcac38169eeb09245a9efddc4c43924b6b905d2c73"
+      "sha256": "399f64f275bf1d54be6935a2f185102afdb6c23c2bcd616ba71faf24ceb6db10"
     },
     {
       "path": "src/delivery/systems/call-system.ts",
@@ -2233,7 +2305,7 @@
     },
     {
       "path": "src/game/game.ts",
-      "sha256": "716d71b9b9d6f2c83ea62559337e2255c995d52783e6d774759aeda71122edcd"
+      "sha256": "39aa8c4180ab803223a6b90f105113b8a7708155f0f781025daa1e9c3b967a70"
     },
     {
       "path": "src/game/jump-motion.ts",
@@ -2345,7 +2417,7 @@
     },
     {
       "path": "src/ui/hud.ts",
-      "sha256": "86dbb2fe4105ead6cb21a1a23d1129f2ede2f5f9ce10bf5fb52358e0ee601a49"
+      "sha256": "63fa62dcc1a16ea8ff9f2a0386c3e36893890cf1f96cb8b803994d257df64610"
     },
     {
       "path": "src/ui/landmark-icons.ts",
@@ -2381,7 +2453,7 @@
     },
     {
       "path": "src/ui/map.ts",
-      "sha256": "8548552bc13f2d04107f82c874615d82338a1af1e66cacbeec2dabac27a6e097"
+      "sha256": "87deeb888f866b473bfc57926dd0387d21fe9680dcc1e90a36da819fdfc24856"
     },
     {
       "path": "src/ui/paint-safety.ts",
@@ -2393,7 +2465,7 @@
     },
     {
       "path": "src/ui/settings.ts",
-      "sha256": "4026bf02bfc7713a22de6b427320f755ee260bb8af62beaba84aa13d1d630f6d"
+      "sha256": "029f301db06592d1468428a164eba414e6459a2958ea510e921376a2b980899b"
     },
     {
       "path": "src/ui/theme.ts",
@@ -2869,7 +2941,7 @@
     },
     {
       "path": "tests/legacy/map-regressions.mjs",
-      "sha256": "538110442b3ae09f1dbe84ee2d6e31d077a7e844c1356288ff9148488735b200"
+      "sha256": "01f2a424936e24c914c8731331471ebc2ecb1fd1d1e499ff4f7829f917a79416"
     },
     {
       "path": "tests/legacy/metro-clearance-regressions.mjs",
@@ -3028,6 +3100,10 @@
       "sha256": "3761679ae80b605935b94f9cd8147c3a45aa54e560af4916491c34071e7dfab4"
     },
     {
+      "path": "tests/v21-fixes/campaign-restart-menu.test.ts",
+      "sha256": "f14faabaa89602f6498bf2c83634df99baa1b9a19e2a665ace801e93b5761877"
+    },
+    {
       "path": "tests/v21-fixes/campaign-spawn-world.test.ts",
       "sha256": "30594a8ac395bd84e67d751cabce2cac8400c847bab4065a69f1ce3463a089ad"
     },
@@ -3105,7 +3181,7 @@
     },
     {
       "path": "tests/v21-fixes/delivery-runtime.test.ts",
-      "sha256": "670930fcedcc5db94e313d472d212ac643bf7b8734c1f0909968b58e3596aab0"
+      "sha256": "a6287c33630e748ce85b3e946ba9874b54fee73ed5ae6f5b4332338576a118e7"
     },
     {
       "path": "tests/v21-fixes/delivery-story.test.ts",
@@ -3146,6 +3222,14 @@
     {
       "path": "tests/v21-fixes/map-loading.test.ts",
       "sha256": "44e6eec7dfbb820b4121ac5654e0586d64c272961cca00077de1ce18178e5e9f"
+    },
+    {
+      "path": "tests/v21-fixes/map-relocation-game.test.ts",
+      "sha256": "5eb8307b15318518f35a1da8ed5c03488a9fbf72b27264136aa4543ef08e45bf"
+    },
+    {
+      "path": "tests/v21-fixes/map-relocation.test.ts",
+      "sha256": "6562687dcc48e8a5d8a2334a89399f6c92bfcb866976fde594f6efba117e1ffe"
     },
     {
       "path": "tests/v21-fixes/map-stadium.test.ts",

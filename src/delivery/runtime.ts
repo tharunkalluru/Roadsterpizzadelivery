@@ -420,6 +420,8 @@ export class DeliveryRuntime {
     this.game.resetInput(); this.game.clock.getDelta();
   }
   retry() { this.controller.retry(); this.clearDelivery(); this.syncView(); }
+  /** Explicit campaign restart clears unlocks/cards and every active interaction. */
+  startFromLevelOne() { this.controller.reset(); this.clearDelivery(); this.syncView(); }
   dispose() {
     if (this.disposed) return;
     this.disposed = true; this.removeModule(); this.setTarget(null);

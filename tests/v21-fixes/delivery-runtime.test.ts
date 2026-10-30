@@ -10,6 +10,7 @@ import type { DeliveryUIActions, DeliveryView } from '../../src/delivery/ui/view
 import type { Game } from '../../src/game/game';
 import type { MovingRailBody } from '../../src/game/moving-rail';
 import { createDeliveryModule } from '../../src/delivery/modules';
+import { MYSTERY_SAVE_KEY, ProgressSystem } from '../../src/delivery/systems/progress-system';
 
 class UIAdapter {
   visible = true; collectionOpen = false; model: DeliveryView | null = null; disposed = 0;
@@ -35,6 +36,8 @@ function fixture({ oneway, missingRoads = false, levelIndex = 0, realModule = fa
   const source = loadLevels(), levels = levelIndex ? [{ ...source[levelIndex], level: 1 }] : source; levels[0].destination = { label: 'Mapped highway', x: 150, y: 0, z: 0 };
   const events = new EventBus<DeliveryEvents>(), ui = new UIAdapter(), module = new ModuleAdapter();
   const graph = new RoadGraph(missingRoads ? [] : [{ id: 'road', cls: 'primary', w: 16, pts: [[0, 0], [300, 0]], oneway } as any], []);
+  const saved = new Map<string, string>();
+  const storage = { getItem: (key: string) => saved.get(key) ?? null, setItem: (key: string, value: string) => { saved.set(key, value); } };
   let actions!: DeliveryUIActions, routeResets = 0, resets = 0, focus = 0, markerClears = 0, detectorResets = 0, laneDir = 0;
   const game: any = {
     deliveryEvents: events, graph, rail: { bodies: [] }, paused: false, map: { open: false },
@@ -49,10 +52,10 @@ function fixture({ oneway, missingRoads = false, levelIndex = 0, realModule = fa
     setTarget(target: unknown) { routeResets++; game.routeTarget = target; },
   };
   const runtime = new DeliveryRuntime(game as Game, { levels,
-    storage: { getItem() { return null; }, setItem() {} },
+    storage,
     uiFactory(_host, callbacks) { actions = callbacks; return ui; }, moduleFactory(name) { return realModule ? createDeliveryModule(name) : module; },
   });
-  return { runtime, game, events, ui, module, get actions() { return actions; },
+  return { runtime, game, events, ui, module, storage, get actions() { return actions; },
     stats: () => ({ routeResets, resets, focus, markerClears, detectorResets, laneDir }) };
 }
 function pickup(f: ReturnType<typeof fixture>) { f.events.emit('orderPicked', { carrierId: 'anonymous-auto', position: { x: 145, y: 3, z: 0 } }); }
@@ -152,6 +155,38 @@ test('retry removes scene and dive override while retaining completed story data
   f.runtime.retry(); assert.equal(f.runtime.controller.progress.currentLevel, 2);
   assert.equal(f.game.player.deliveryMotion, undefined); assert.equal(f.game.player.flying, true);
   assert.equal(f.runtime.destination, null); assert.equal(f.runtime.controller.calls.buttonState, 'hidden');
+});
+
+test('start from level 1 clears earned campaign progress and active interactions while preserving unrelated saves', () => {
+  const f = fixture();
+  f.storage.setItem('p2ph-save-v1', 'baseline progress');
+  f.storage.setItem('p2ph-settings-v1', 'graphics and sound');
+  pickup(f); f.runtime.beforePlayer(.016); completeCall(f); f.actions.drop(); f.actions.continue();
+  assert.equal(f.runtime.controller.progress.currentLevel, 2);
+  assert.equal(f.runtime.controller.progress.cards.length, 1);
+  pickup(f); f.runtime.beforePlayer(.016); approach(f); f.runtime.tick(.016, true); f.actions.call();
+  assert.equal(f.runtime.controller.calls.active, true);
+  f.game.player.deliveryMotion = { mode: 'underwater' }; f.game.player.pos.y = -4;
+  const before = f.stats();
+  f.runtime.startFromLevelOne();
+  const progress = f.runtime.controller.progress;
+  assert.equal(f.runtime.controller.state, 'ROAMING');
+  assert.equal(progress.currentLevel, 1); assert.equal(progress.finished, false);
+  assert.deepEqual(progress.completedIds, []); assert.deepEqual(progress.cards, []);
+  assert.equal(progress.restaurantIndex, 0); assert.equal(progress.restaurantStage, 'Your dream');
+  assert.equal(f.runtime.controller.calls.active, false); assert.equal(f.runtime.controller.calls.buttonState, 'hidden');
+  assert.equal(f.runtime.controller.activeLevel, null); assert.equal(f.runtime.destination, null);
+  assert.equal(f.game.routeTarget, null); assert.equal(f.runtime.module, null);
+  assert.equal(f.game.player.deliveryMotion, undefined); assert.equal(f.game.player.flying, true);
+  assert.equal(f.stats().markerClears, before.markerClears + 1);
+  assert.equal(f.stats().detectorResets, before.detectorResets + 1);
+  assert.match(f.runtime.levelLabel, /^Level 1 \/ 7$/);
+  assert.equal(f.ui.model?.completion, null); assert.deepEqual(f.ui.model?.collection, []);
+  assert.deepEqual(JSON.parse(f.storage.getItem(MYSTERY_SAVE_KEY)!).completed, []);
+  assert.equal(new ProgressSystem(f.runtime.controller.levels, f.storage).currentLevel, 1);
+  assert.equal(f.storage.getItem('p2ph-save-v1'), 'baseline progress');
+  assert.equal(f.storage.getItem('p2ph-settings-v1'), 'graphics and sound');
+  pickup(f); assert.equal(f.runtime.controller.activeLevel?.id, f.runtime.controller.levels[0].id);
 });
 
 test('dispose is idempotent and disconnects pickup callbacks and HUD blocking', () => {

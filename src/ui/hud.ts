@@ -463,11 +463,13 @@ const CSS = `
 #hud .pause-heading{display:flex;flex-direction:column;gap:5px}
 #hud .pause-primary{width:100%;min-height:50px}
 #hud .pause-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#hud .pause-grid.campaign-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 #hud .pause-card{box-sizing:border-box;min-height:88px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;text-align:left;padding:12px;border:1px solid #82629F;border-radius:14px;background:#372546;color:#F6EEDC;cursor:pointer;font:700 14px/1.2 var(--body)}
 #hud .pause-card small{font:500 12px/1.3 var(--body);color:#CFC6E4}
 #hud .pause-card:focus-visible{outline:3px solid #45E3D3;outline-offset:2px}
 #hud .pause-card:active{background:#4C355F}
 #hud .pause-footer{display:flex;align-items:center;justify-content:flex-end;border-top:1px solid #664982;padding-top:10px}
+#hud .pause-footer.campaign-restarts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 #hud .pause-reset{min-height:44px;padding:8px 12px;border:1px solid #95677F;border-radius:11px;background:#372338;color:#FFB8CB;font:700 12px/1.2 var(--body);cursor:pointer}
 #hud .pause-reset:focus-visible{outline:3px solid #45E3D3;outline-offset:2px}
 #hud .fullscreen-guide{margin:0;padding-left:22px;color:#F6EEDC;font-size:14px;line-height:1.5}

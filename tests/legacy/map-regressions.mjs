@@ -11,8 +11,11 @@ try {
   function fixture() {
     const calls = {closed:0,cancel:0,released:[],zoom:[]};
     const panel = {hidden:false};
+    const nodes = new Map([['#map-pickbar', panel]]);
+    const node = id => { if (!nodes.has(id)) nodes.set(id, { hidden: true, disabled: false, textContent: '' }); return nodes.get(id); };
     const m=Object.assign(Object.create(FullMap.prototype),{
-      root:{hidden:false,dataset:{pick:'1'},setAttribute(){},querySelector:()=>panel},open:true,dirty:false,
+      root:{hidden:false,dataset:{pick:'1'},setAttribute(){},querySelector:node},open:true,dirty:false,
+      selectedLocation:null,selectedPlace:null,state:()=>({canMove:true,player:null,route:null,target:null,pickups:[]}),
       pointers:new Map([[3,{x:1,y:1}]]),pinch0:7,
       cv:{hasPointerCapture:()=>true,releasePointerCapture:id=>calls.released.push(id)},
       onClose:()=>calls.closed++,pick:{onCancel:()=>calls.cancel++},
