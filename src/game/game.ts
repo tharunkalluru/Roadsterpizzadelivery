@@ -365,7 +365,11 @@ export class Game {
     this.updateHud();
   }
   routeColor = '#FFB627';
-  setTarget(s: Stop | null, color = '#FFB627') {
+  setTarget(s: Stop | null, color = '#FFB627', preserveRoad = false) {
+    if (s && preserveRoad && this.routeTarget && this.route) {
+      this.routeTarget = s; this.routeT = 0; this.routePlacementRevision = -1;
+      this.beacon.position.set(s.x,s.y,s.z); return;
+    }
     this.routeTarget = s; this.routeT = 0; this.route = null;
     this.routeGuide = []; this.routeGuidanceBlocked = false; this.routeGuideT = 0; this.routeAlpha = 0;
     this.beacon.visible = !!s; this.routeColor = color;
@@ -1226,6 +1230,9 @@ export class Game {
       attribute.setUsage(THREE.DynamicDrawUsage); geometry.setAttribute('position', attribute);
     }
     (attribute.array as Float32Array).set(vertices); attribute.needsUpdate = true; geometry.setDrawRange(0, vertices.length / 3);
+    // Dynamic route vertices move between streets; a cached sphere can cull
+    // the newly uploaded ribbon using the previous route location.
+    this.gps.frustumCulled = false;
     this.routeAlpha = (this.routeAlpha || 0) + (1 - (this.routeAlpha || 0)) * (1 - Math.exp(-dt * 12));
     const material = this.gps.material as THREE.MeshBasicMaterial;
     material.side = THREE.DoubleSide; material.opacity = .6 * this.routeAlpha;
@@ -1315,7 +1322,7 @@ export class Game {
     const railways = railwayMapLayer(this.city.railway?.profiles || railwayNetwork().profiles);
     drawRailways(g, railways.nearby(P.x, P.z, R), sc);
     for (const l of metroCorridors(this.zone.metro.lines)) { g.strokeStyle = l.color; g.lineWidth = 3; g.setLineDash([10, 8]); g.beginPath(); l.center.pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke(); g.setLineDash([]); }
-    if (this.route) strokeMinimapRoute(g, this.navigationRoadPoints(), sc, backingPerCss);
+    if (this.route) strokeMinimapRoute(g, this.navigationRoadPoints().length > 1 ? this.navigationRoadPoints() : this.route.pts, sc, backingPerCss);
     if (this.routeTarget) { g.fillStyle = MINIMAP_NAVIGATION.target; g.strokeStyle = MINIMAP_NAVIGATION.casing; g.lineWidth = 2 * backingPerCss / sc; g.beginPath(); g.arc(this.routeTarget.x, this.routeTarget.z, 5 * backingPerCss / sc, 0, 7); g.fill(); g.stroke(); }
     g.restore();
     drawMinimapPlayer(g, W, backingPerCss);

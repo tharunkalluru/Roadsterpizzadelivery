@@ -74,7 +74,7 @@ test('actual route update uses the mapped delivery approach while preserving the
   assert.equal(planned.length,1);assert.equal(planned[0][2],100);assert.equal(planned[0][3],0);assert.equal(planned[0][5],0);
   assert.equal((planned[0][4] as {y:number}).y,.55,'starting carriageway grade stays strict');
   assert.equal(game.routeTarget,target);assert.equal(target.y,30,'scene and flight marker do not move onto the road');
-  assert.equal(game.gps.visible,true);assert.ok(game.gps.geometry.drawRange.count>0);
+  assert.equal(game.gps.visible,true);assert.ok(game.gps.geometry.drawRange.count>0);assert.equal(game.gps.frustumCulled,false);
   game.player.flying=true;game.routeT=0;game.updateRoute(1/60);
   assert.equal(planned.length,2);assert.equal(planned[1][5],0,'airborne map overview uses the same real road approach');
   assert.equal(game.routeTarget.y,30);assert.equal(game.gps.visible,false,'road ribbon remains a grounded guide');
@@ -88,4 +88,34 @@ test('ordinary road target retains its strict destination grade without a story 
     routeTarget:target,routeT:0,routeGuideT:0,gps:{visible:true},
   });
   game.updateRoute(1/60);assert.equal(grade,9);assert.equal(game.routeTarget,target);
+});
+
+
+test('minimap retains the mapped route when the local road ribbon is blocked',()=>{
+  const game=fixture(),strokes:number[][][]=[];let path:number[][]=[];
+  const context:any={save(){},restore(){},clearRect(){},translate(){},rotate(){},scale(){},arc(){},clip(){},fillRect(){},fill(){},closePath(){},setLineDash(){},beginPath(){path=[];},moveTo(x:number,z:number){path.push([x,z]);},lineTo(x:number,z:number){path.push([x,z]);},stroke(){if(this.strokeStyle===MINIMAP_NAVIGATION.route)strokes.push(path);}};
+  Object.assign(game,{routeGuide:[],routeGuidanceBlocked:true,hud:{el:{minimap:{width:256,getContext:()=>context}}},graph:{nearestEdges:()=>[]},city:{railway:{profiles:[]}},zone:{metro:{lines:[]}}});
+  const original=globalThis.Path2D;Object.assign(globalThis,{Path2D:class{moveTo(){}lineTo(){}}});
+  try{game.drawMinimap();}finally{Object.assign(globalThis,{Path2D:original});}
+  assert.deepEqual(strokes,[[[0,0],[0,-13],[-100,-13]]]);
+  assert.equal(game.roadNavigation({x:-100,z:-13}).hint,'Follow the map marker');
+});
+
+test('a disconnected destination keeps only the reachable street prefix, never an invented connector',async()=>{
+  const {RoadGraph}=await import('../../src/game/roadgraph');
+  const edge=(id:string,from:string,to:string,a:number,b:number)=>({id,seg:id,from,to,pts:[[0,a],[0,b]],elev:null,w:10,lanes:2,oneway:null,cls:'residential',name:id});
+  const graph=new RoadGraph([edge('a','a','b',0,-100),edge('target','c','d',-200,-300)] as any);
+  const route=graph.route(0,-5,0,-250,{hx:0,hz:-1,y:.55});
+  assert.ok(route);assert.equal(route.complete,false);
+  assert.ok(route.pts.length>1);assert.ok(route.pts.every(p=>p[2]>=-100));
+  assert.ok(!route.edgeIds?.includes('target'));
+});
+
+
+test('moving delivery refresh retains the checked route until replanning, but a new delivery clears it',()=>{
+  const game=fixture(),old=game.route,guide=game.routeGuide;
+  Object.assign(game,{routeTarget:{x:10,y:0,z:10,label:'Truck'},beacon:{position:{set(){}},col:{}},gps:{material:{color:{set(){return this;},multiplyScalar(){}}}}});
+  game.setTarget({x:30,y:0,z:10,label:'Truck'},'#45E3D3',true);
+  assert.equal(game.route,old);assert.equal(game.routeGuide,guide);assert.equal(game.routeT,0);
+  assert.equal(game.routeTarget.x,30);
 });

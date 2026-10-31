@@ -183,7 +183,7 @@ export class DeliveryRuntime {
     const replan = !route || !planned || planned.label !== label || moved > 250 ||
       Math.abs(target.y - planned.y) > 10 || (this.elapsed - planned.time >= 4 && moved > 12);
     if (replan) {
-      this.game.setTarget({ ...target, label, sub: '' }, '#45E3D3');
+      this.game.setTarget({ ...target, label, sub: '' }, '#45E3D3', !!route && planned?.label === label);
       this.lastPlan = { ...target, label, time: this.elapsed };
     } else Object.assign(route!, target, { label });
     this.game.beacon?.position.set(target.x, target.y, target.z);

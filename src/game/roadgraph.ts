@@ -312,7 +312,21 @@ export class RoadGraph {
       }
     }
     if (direct) return direct;
-    if (endNode === null) return null;
+    let partial = false;
+    if (endNode === null) {
+      // A streamed/disconnected destination must not erase the legal road
+      // ahead. End at the closest reachable mapped node, never bridge a gap.
+      let remaining = Math.hypot(toX - fromX, toZ - fromZ) - 5;
+      for (const id of closed) {
+        const node = this.nodes.get(id); if (!node) continue;
+        const distance = Math.hypot(toX - node.x, toZ - node.z);
+        if (distance < remaining) { remaining = distance; endNode = id; }
+      }
+      if (endNode === null) return null;
+      const node = this.nodes.get(endNode)!;
+      ends.set(endNode, { pts: [[node.x,node.y,node.z]], len: 0, cost: 0 });
+      partial = true;
+    }
     const chain: { edge: GEdge; dir: 1 | -1 }[] = [];
     let cur = endNode; while (prev.has(cur)) { const p = prev.get(cur)!; chain.unshift({ edge: p.edge, dir: p.dir }); cur = p.node; }
     if (!lead.has(cur)) return null;
@@ -325,6 +339,6 @@ export class RoadGraph {
     }
     const end = ends.get(endNode)!;
     pts.push(...end.pts);
-    return result(pts, !!target && !!on && on.d <= on.g.e.w / 2 + 0.25, [leadEdge.get(cur), ...chain.map(c => c.edge.e.id), target?.g.e.id].filter((id): id is string => !!id));
+    return result(pts, !partial && !!target && !!on && on.d <= on.g.e.w / 2 + 0.25, [leadEdge.get(cur), ...chain.map(c => c.edge.e.id), ...(partial ? [] : [target?.g.e.id])].filter((id): id is string => !!id));
   }
 }

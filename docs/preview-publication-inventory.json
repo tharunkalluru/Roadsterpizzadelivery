@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "3924b96e2a1a404fce6c78b996610e4f3d1999b5",
+  "source_commit": "9fd13eacb30eaa054953189450b6c5b39bd8be9c",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -806,6 +806,22 @@
     {
       "path": "docs/ui-evidence/clean-hud/restaurant-from-pause.png",
       "sha256": "b5e9dae85b1710554dc746430464e04d7efa87faa3a733e748ad1619ee33a9d6"
+    },
+    {
+      "path": "docs/ui-evidence/desktop-navigation/README.md",
+      "sha256": "ac8d81706731ba928632a28e0f2445870e4ad8d74c7dda54be4ed10847a8ab96"
+    },
+    {
+      "path": "docs/ui-evidence/desktop-navigation/driving-route.png",
+      "sha256": "db0931aefc9b33d3c3f5d7295b79e7b671e9300fda75ca6b0852cfd96e21e9a2"
+    },
+    {
+      "path": "docs/ui-evidence/desktop-navigation/full-map-route.png",
+      "sha256": "c5a1c7bda902929f9020ba653312248a809ced55f9ba977d0271a6c98ce6fa8d"
+    },
+    {
+      "path": "docs/ui-evidence/desktop-navigation/pickup-route.png",
+      "sha256": "df7b3fd1edf4c7a1c46d8e2f81561d86997798ffd571a32d5c3f70717cc5a69c"
     },
     {
       "path": "docs/ui-evidence/night-vehicle-lights/README.md",
@@ -2401,7 +2417,7 @@
     },
     {
       "path": "src/delivery/qa.ts",
-      "sha256": "aa8c8010c061f67dc88fa7dd1d4249ff332c43c7da31a4cd717b6cd7a4bf439f"
+      "sha256": "b53942923d405962aeb1b0f9cc380e4a9597e7424178370f982281c40364ff91"
     },
     {
       "path": "src/delivery/rail-passages.ts",
@@ -2413,7 +2429,7 @@
     },
     {
       "path": "src/delivery/runtime.ts",
-      "sha256": "c8bd366747704703992ec5a8da8e283613de3d7e095b5926f6b5f91ee74d5527"
+      "sha256": "ab37840eb7acb92630f456b9c538e5bda898adbe5dfda1271d0ba98eb57b7a8a"
     },
     {
       "path": "src/delivery/systems/call-system.ts",
@@ -2501,7 +2517,7 @@
     },
     {
       "path": "src/game/game.ts",
-      "sha256": "5e426cea30604198158c03d81f304d661a90e378652cbd2680fad1fe19780b50"
+      "sha256": "220660c9af5d3f399fb46dd400c72fb1bd9abfb56488f9f5c6a28c9e388a41b3"
     },
     {
       "path": "src/game/jump-motion.ts",
@@ -2561,7 +2577,7 @@
     },
     {
       "path": "src/game/roadgraph.ts",
-      "sha256": "5456992cb7da51c4dc9c8c26e9ed0899e3f52f7626049d0a47cfe6f52e70cdce"
+      "sha256": "fd9795d1ca6088c7fa27fc0598c072fbc5899754a30b1771d02942cadc9b5bea"
     },
     {
       "path": "src/game/route-guidance.ts",
@@ -3441,7 +3457,7 @@
     },
     {
       "path": "tests/v21-fixes/hud-control-feedback.test.ts",
-      "sha256": "ccdbc85a60876d76987dd1252b8e4073ef64f10b4fffb3c1a3e95cd5c7279adc"
+      "sha256": "1b831b9076a08cf2c69115ac29496229e17e938c34b40e8522ce4e8f8d8483dc"
     },
     {
       "path": "tests/v21-fixes/hud-notice-layout.test.ts",
@@ -3477,7 +3493,7 @@
     },
     {
       "path": "tests/v21-fixes/navigation-route-source.test.ts",
-      "sha256": "6a37fff9b5c7835915a4708d1085f4a7bf624c2f79251b10fccf5c8abd8e06d9"
+      "sha256": "791dc4a020e1aedcb798c807923a170ca22511a3fa3b6b65c3cb3efbd92717bb"
     },
     {
       "path": "tests/v21-fixes/pause-progress-hub.test.ts",
