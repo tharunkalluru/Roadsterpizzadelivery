@@ -1,6 +1,6 @@
 {
   "project_id": "appgprj_6ae38c10537881919bc51535241d4207",
-  "source_commit": "0dd92e13b619640c238bff853bd87ac3f0b4564b",
+  "source_commit": "75b16e7b01268eed6282def57614dd3fadbfd78c",
   "source_branch": "codex/mystery-immersion-v2",
   "excluded_private_evidence": [
     "docs/performance/evidence/browserstack-access-original.png",
@@ -838,6 +838,22 @@
     {
       "path": "docs/ui-evidence/night-vehicle-lights/reverse-white-lights.png",
       "sha256": "e3795535feb9602306a8cdbe5a86fe4bbc73698ceb0e382c900b382f1719298e"
+    },
+    {
+      "path": "docs/ui-evidence/roadster-branding/README.md",
+      "sha256": "86d1cad6092bc655114e65a1ad3a61664ecc106c8bcb1111bdfae20d20c7f09c"
+    },
+    {
+      "path": "docs/ui-evidence/roadster-branding/rear.png",
+      "sha256": "e63908371b7ee7f255ba3704b0750c4c2ddad904668e8861db6f12ea94f8d08c"
+    },
+    {
+      "path": "docs/ui-evidence/roadster-branding/side-left.png",
+      "sha256": "12baa06b6cd48ca6f57492512a0a9ceda825940d167207a49ca6c7521ba8ed7c"
+    },
+    {
+      "path": "docs/ui-evidence/roadster-branding/side-right.png",
+      "sha256": "e2de5563cb3070c0e1164fb94885885de8a3cafd1747b8526e727638e24f091d"
     },
     {
       "path": "drizzle.config.ts",
@@ -2529,7 +2545,7 @@
     },
     {
       "path": "src/game/player.ts",
-      "sha256": "98c3d38da865c8bfb9e8368a24d72ad4d3521895149c5e62083351442c5b8b0a"
+      "sha256": "12bee7d7be8e96bfe5d0cabe4ef4dac029ecd12e51d01eae072cf9327d4c42e0"
     },
     {
       "path": "src/game/rail.ts",
@@ -2884,6 +2900,10 @@
       "sha256": "5e09a2f574d37bbc7da825f58b34740bb71465a559018a131ab32f7dde2552d1"
     },
     {
+      "path": "src/world/roadster-decals.ts",
+      "sha256": "f082bd092216dfddc64a1f3ad6fbf696dd75824c86bbf39f48877068a121051e"
+    },
+    {
       "path": "src/world/signal-lights.ts",
       "sha256": "9d75b69d8b1a29f23b1d281e8acd1b006f886d8b9dafcf2b1febe6ac1de9ce0e"
     },
@@ -2925,7 +2945,7 @@
     },
     {
       "path": "src/world/vehicles.ts",
-      "sha256": "9db315f344e193a8be9b037ec3cad467d06c65dea982465b02581d23951a8082"
+      "sha256": "bf9da921245e62919bfe36d9fbd85f8393395a73a615eebbaf34f2485737577b"
     },
     {
       "path": "src/world/water.ts",

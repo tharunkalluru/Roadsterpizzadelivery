@@ -8,6 +8,7 @@ import { TakeoffKickflip } from './takeoff-kickflip';
 import { advanceJump, jumpCeiling, jumpProfile, JUMP_AIRTIME, JUMP_COOLDOWN_SECONDS } from './jump-motion';
 import { buoyantHeight, waterHeightAt } from '../world/water';
 import { PlayerLights } from './player-lights';
+import { roadsterDecals } from '../world/roadster-decals';
 
 export interface Input { throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean; jumpPressed?: boolean }
 export const ROAD_SPEED_LIMIT = 120 / 3.6;
@@ -96,14 +97,14 @@ export class Player {
       seat: new THREE.MeshStandardMaterial({ color: '#e4e0d8', roughness: 0.7 }),
       jet: new THREE.MeshBasicMaterial({ color: '#eef1f2', alphaMap: jetFade(), transparent: true, opacity: 0.28, depthWrite: false, side: THREE.DoubleSide }),
       jetCore: new THREE.MeshBasicMaterial({ color: '#ffffff', alphaMap: jetFade(), transparent: true, opacity: 0.45, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }),
-    }, { logo, plate });
+    }, { logo, plate, ...roadsterDecals() });
     this.group = R.group; this.pods = R.pods; this.wheels = R.wheels; this.wheelRollers = R.wheelRollers; this.nozzles = R.nozzles; this.setDeployment = R.setDeployment;
     // The physical/support root keeps its normal yaw and road posture. Only its
     // model rolls, around the body's centre rather than the tyre contact plane.
     this.group.updateMatrixWorld(true);
     const bounds = new THREE.Box3();
     this.group.traverseVisible(node => {
-      if (!(node instanceof THREE.Mesh)) return;
+      if (!(node instanceof THREE.Mesh) || node.userData.roadsterDecal) return;
       node.geometry.computeBoundingBox();
       if (node.geometry.boundingBox) bounds.union(node.geometry.boundingBox.clone().applyMatrix4(node.matrixWorld));
     });
@@ -119,7 +120,7 @@ export class Player {
     const plumes = new Set<THREE.Object3D>();
     for (const nozzle of this.nozzles) nozzle.jet?.traverse(node => plumes.add(node));
     this.group.traverse(node => {
-      if (!(node instanceof THREE.Mesh) || plumes.has(node)) return;
+      if (!(node instanceof THREE.Mesh) || node.userData.roadsterDecal || plumes.has(node)) return;
       const positions = node.geometry.getAttribute('position');
       if (positions) this.jumpCollisionMeshes.push({ mesh: node, positions });
     });

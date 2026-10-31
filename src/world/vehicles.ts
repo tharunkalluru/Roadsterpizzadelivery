@@ -38,7 +38,7 @@ export interface RoadsterNozzle {
   jet: THREE.Object3D | null;
 }
 
-export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE.Material }) {
+export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE.Material; side?: THREE.Material; rear?: THREE.Material }) {
   const outer = new THREE.Group(), g = new THREE.Group(); g.position.y = -0.55; outer.add(g);
   outer.name = 'Roadster';
   const add = (geom: THREE.BufferGeometry, mat: THREE.Material, x = 0, y = 0, z = 0, to: THREE.Object3D = g) => {
@@ -85,6 +85,25 @@ export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE
   add(skin, mats.paint).name = 'Faceted body with open wheel arches';
   boxAt(1.57, 0.07, 4.15, mats.trim, 0, 0.20, 0.02);
 
+  if (labels.side) for (const s of [-1, 1]) {
+    const vertices: number[] = [], uv: number[] = [], triangles: number[] = [], steps = 16;
+    for (let i = 0; i <= steps; i++) {
+      const u = i / steps, z = s > 0 ? .70 - 1.53 * u : -.83 + 1.53 * u;
+      const low = archFloor(z), top = Math.max(low + .025, profile(z, 2) - .14);
+      for (const [y, v] of [[.43, 0], [.69, 1]]) {
+        const x = profile(z, 1) * (.98 + .02 * (y - low) / (top - low)) + .006;
+        vertices.push(s * x, y, z); uv.push(u, v);
+      }
+      if (i < steps) { const a = i * 2; triangles.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
+    }
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+    geometry.setIndex(triangles); geometry.computeVertexNormals();
+    const decal = add(geometry, labels.side); decal.name = `${s < 0 ? 'Left' : 'Right'} tfigames.com vinyl`;
+    decal.castShadow = false; decal.userData.roadsterDecal = true;
+  }
+
   // A shallow enclosed greenhouse, raked windscreen and long fastback replace the open tub.
   const windL = [-0.77, 0.852, -0.96], windR = [0.77, 0.852, -0.96], roofFL = [-0.615, 1.265, -0.22], roofFR = [0.615, 1.265, -0.22];
   const roofRL = [-0.62, 1.28, 0.43], roofRR = [0.62, 1.28, 0.43], rearL = [-0.78, 0.97, 1.45], rearR = [0.78, 0.97, 1.45];
@@ -122,6 +141,10 @@ export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE
   boxAt(1.68, 0.19, 0.21, mats.trim, 0, 0.32, 2.25);
   for (let i = -3; i <= 3; i++) boxAt(0.025, 0.14, 0.32, mats.trim, i * 0.22, 0.27, 2.28);
   add(new THREE.PlaneGeometry(0.40, 0.13), labels.plate, 0, 0.63, 2.335);
+  if (labels.rear) {
+    const decal = add(new THREE.PlaneGeometry(1.55, .10), labels.rear, 0, .75, 2.344);
+    decal.name = 'Rear pizzadeliveryboy vinyl'; decal.castShadow = false; decal.userData.roadsterDecal = true;
+  }
 
   // Active spoiler sits flush on the rear deck and rises during flight; gas nozzles deploy from below.
   const wing = new THREE.Group(); wing.position.set(0, 0.91, 1.96); g.add(wing);
