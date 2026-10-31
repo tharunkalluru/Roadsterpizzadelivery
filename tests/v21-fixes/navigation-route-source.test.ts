@@ -105,7 +105,7 @@ test('a disconnected destination keeps only the reachable street prefix, never a
   const {RoadGraph}=await import('../../src/game/roadgraph');
   const edge=(id:string,from:string,to:string,a:number,b:number)=>({id,seg:id,from,to,pts:[[0,a],[0,b]],elev:null,w:10,lanes:2,oneway:null,cls:'residential',name:id});
   const graph=new RoadGraph([edge('a','a','b',0,-100),edge('target','c','d',-200,-300)] as any);
-  const route=graph.route(0,-5,0,-250,{hx:0,hz:-1,y:.55});
+  const route=graph.route(0,-5,0,-250,{hx:0,hz:-1,y:.55},0,.55,true);
   assert.ok(route);assert.equal(route.complete,false);
   assert.ok(route.pts.length>1);assert.ok(route.pts.every(p=>p[2]>=-100));
   assert.ok(!route.edgeIds?.includes('target'));

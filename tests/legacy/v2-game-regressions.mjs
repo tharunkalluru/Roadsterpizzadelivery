@@ -347,7 +347,7 @@ try {
     g.queueFlight(); assert.equal(g.flyQueued, true); 
     g.player.update = (_dt, input) => { if (input.flyPressed) { g.player.flying = false; g.player.descending = true; } };
     g.frame(); assert.deepEqual(hud.flightStates.at(-1), { flying: false, descending: true });
-    g.handleKeyDown(key('Space')); assert.equal(g.flyQueued, false); assert.equal(g.input().flyPressed, false, 'keyboard and button share busy landing state');
+    g.handleKeyDown(key('KeyQ')); assert.equal(g.flyQueued, false); assert.equal(g.input().flyPressed, false, 'keyboard and button share busy landing state');
     g.player.update = () => { g.player.descending = false; };
     g.frame(); assert.deepEqual(hud.flightStates.at(-1), { flying: false, descending: false });
     g.queueFlight(); assert.equal(g.input().flyPressed, true, 'FLY is available again after touchdown');
@@ -407,10 +407,10 @@ try {
 
   await test('held keys retain driving input while repeated toggles and action acceptance stay single-shot', () => {
     const { g, sound } = fixture();
-    g.handleKeyDown(key('Space')); assert.equal(g.input().flyPressed, true); g.handleKeyDown(key('Space', true)); assert.equal(g.input().flyPressed, false);
+    g.handleKeyDown(key('KeyQ')); assert.equal(g.input().flyPressed, true); g.handleKeyDown(key('KeyQ', true)); assert.equal(g.input().flyPressed, false);
     g.handleKeyDown(key('KeyW')); g.handleKeyDown(key('KeyW', true)); assert.equal(g.input().throttle, 1);
-    g.order = order('offer'); g.handleKeyDown(key('KeyE')); g.handleKeyDown(key('KeyE', true)); assert.equal(g.order.state, 'toPickup'); assert.equal(g.actHeld, false, 'accepting cannot carry a held action into pickup'); assert.equal(sound.cues.filter(c => c === 'accept').length, 1);
-    const toggles = { KeyJ: 'queueJump', KeyM: 'openMap', KeyR: 'rescue' };
+    g.order = order('offer'); g.handleKeyDown(key('KeyF')); g.handleKeyDown(key('KeyF', true)); assert.equal(g.order.state, 'toPickup'); assert.equal(g.actHeld, false, 'accepting cannot carry a held action into pickup'); assert.equal(sound.cues.filter(c => c === 'accept').length, 1);
+    const toggles = { KeyE: 'queueJump', KeyM: 'openMap', KeyR: 'rescue' };
     for (const [code, method] of Object.entries(toggles)) { let calls = 0; g[method] = () => calls++; g.handleKeyDown(key(code)); g.handleKeyDown(key(code, true)); assert.equal(calls, 1, code); }
     g.handleKeyDown(key('KeyH')); g.handleKeyDown(key('KeyH', true)); assert.equal(sound.horns.length, 1);
     g.handleKeyDown(key('KeyN')); g.handleKeyDown(key('KeyN', true)); assert.equal(sound.muted, true); assert.equal(g.settings.sound, false);

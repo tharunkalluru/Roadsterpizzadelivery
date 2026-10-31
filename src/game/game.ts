@@ -1209,7 +1209,7 @@ export class Game {
     const missingRoad = changed && this.route?.edgeIds?.some(id => !this.graph.byId.has(id));
     const replan = this.routeWasAirborne || this.routePlacementRevision !== this.player.placementRevision || offRoute || missingRoad || (changed && this.route?.complete === false) || (!this.route && this.routeT <= 0);
     if (replan) {
-      this.route = this.graph.route(P.x, P.z, roadTarget.x, roadTarget.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, roadTarget.y);
+      this.route = this.graph.route(P.x, P.z, roadTarget.x, roadTarget.z, { hx: f.x, hz: f.z, y: P.y, edgeId: on?.g.e.id }, roadTarget.y, P.y, true);
       this.routeT = .6; this.routeGuideT = 0; this.routeAlpha = 0; this.routeGuide = [];
     } else if (advanced) this.route = advanced.route;
     this.routeWasAirborne = false; this.routeGraphRevision = revision; this.routePlacementRevision = this.player.placementRevision;

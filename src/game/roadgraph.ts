@@ -184,7 +184,7 @@ export class RoadGraph {
   }
   // GPS route. With the car's heading, it starts along the car's own road towards the junction ahead; turning back is
   // only offered where the road has no divider and it is legal, and costs a U-turn penalty.
-  route(fromX: number, fromZ: number, toX: number, toZ: number, car?: { hx: number; hz: number; y: number; edgeId?: string }, targetY = 0, sourceY = car?.y || 0): RoadRoute | null {
+  route(fromX: number, fromZ: number, toX: number, toZ: number, car?: { hx: number; hz: number; y: number; edgeId?: string }, targetY = 0, sourceY = car?.y || 0, allowPartial = false): RoadRoute | null {
     type Point = [number, number, number];
     const on = this.edgeAt(fromX, fromZ, sourceY, car);
     let sourceOffset = 0;
@@ -312,6 +312,7 @@ export class RoadGraph {
       }
     }
     if (direct) return direct;
+    if (endNode === null && !allowPartial) return null;
     let partial = false;
     if (endNode === null) {
       // A streamed/disconnected destination must not erase the legal road
