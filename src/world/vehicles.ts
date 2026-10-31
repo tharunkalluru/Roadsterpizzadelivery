@@ -158,7 +158,6 @@ export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE
   const box = boxAt(0.70, 0.14, 0.43, mats.pizzaBox, 0, 1.065, 1.42);
   boxAt(0.72, 0.025, 0.45, mats.red, 0, 1.14, 1.42);
   for (const s of [-1, 1]) boxAt(0.035, 0.16, 0.46, mats.trim, s * 0.25, 1.065, 1.42);
-  add(new THREE.PlaneGeometry(0.64, 0.11), labels.logo, 0, 1.07, 1.641);
 
   // Thin split-spoke wheels, machined rim lips, brake discs and fixed red calipers.
   const wheels: THREE.Group[] = [], wheelRollers: THREE.Group[] = [];
