@@ -104,3 +104,16 @@ for (const hz of [30, 60, 120]) test(`forward braking latches at rest until rele
   simulate(slowedByCollision, { ...idle, brake: 1 }, .8, hz);
   assert.equal(slowedByCollision.speed, 0, 'a low-speed scrape followed by a normal brake hold cannot roll backwards');
 });
+
+test('dedicated desktop brake stops both directions and never starts reversing', () => {
+  for (const speed of [0, 12, -4]) {
+    const player = car(speed);
+    simulate(player, { ...idle, brake: 1, allowReverse: false }, 3);
+    assert.equal(player.speed, 0);
+    simulate(player, { ...idle, brake: 1, allowReverse: false }, 3);
+    assert.equal(player.speed, 0);
+    simulate(player, idle, .1);
+    simulate(player, { ...idle, brake: 1 }, 1);
+    assert.ok(player.speed < 0);
+  }
+});

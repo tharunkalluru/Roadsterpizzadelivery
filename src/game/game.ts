@@ -510,7 +510,7 @@ export class Game {
       flight: () => this.player.flying || this.player.descending,
       speed: () => this.player.speed,
     });
-    addEventListener('keyup', (e) => { this.keys.delete(e.code); this.hud.controlFeedback?.(e.code, false); if (e.code === 'KeyE') this.actHeld = false; });
+    addEventListener('keyup', (e) => { this.keys.delete(e.code); this.hud.controlFeedback?.(e.code, false); if (e.code === 'KeyF') this.actHeld = false; });
     addEventListener('blur', () => this.background());
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.background(); });
     addEventListener('pagehide', () => { this.resetInput(); this.save(); });
@@ -532,16 +532,16 @@ export class Game {
     if (this.story?.blocking) return;
     if (this.hud.tipOpen) return;
     if (this.hud.rotationBlocked) return;
-    if (e.repeat && ['Space', 'KeyJ', 'KeyE', 'KeyM', 'KeyN', 'KeyP', 'Escape', 'Backquote', 'Backslash'].includes(e.code)) return;
+    if (e.repeat && ['KeyQ', 'KeyE', 'KeyF', 'KeyM', 'KeyN', 'KeyP', 'Escape', 'Backquote', 'Backslash'].includes(e.code)) return;
     if (this.map?.open) { this.map.handleKey(e); return; }
     if (this.choosing) return;
     if (this.hud.modalOpen && !['Escape', 'KeyP'].includes(e.code)) return;
     this.keys.add(e.code);
     this.hud.controlFeedback?.(e.code, true);
-    if (e.code === 'Space') { this.queueFlight(); e.preventDefault(); }
-    if (e.code === 'KeyJ') { this.queueJump(); e.preventDefault(); }
-    if (e.code.startsWith('Arrow')) e.preventDefault();
-    if (e.code === 'KeyE') { this.actHeld = true; if (this.order?.state === 'offer') this.acceptOffer(); }
+    if (e.code === 'KeyQ') { this.queueFlight(); e.preventDefault(); }
+    if (e.code === 'KeyE') { this.queueJump(); e.preventDefault(); }
+    if (e.code === 'Space' || e.code.startsWith('Arrow')) e.preventDefault();
+    if (e.code === 'KeyF') { this.actHeld = true; if (this.order?.state === 'offer') this.acceptOffer(); }
     if (e.code === 'KeyM') { this.openMap(); return; }
     if (e.code === 'KeyH' && !e.repeat) this.sound.horn('car', 4, 0, true);
     if (e.code === 'KeyR' && !e.repeat) this.rescue();
@@ -871,11 +871,11 @@ export class Game {
       const touch = document.documentElement.classList.contains('is-touch');
       this.hud.tip(touch
         ? 'Look for a glowing pizza slice floating above traffic. Hold GO to approach, release it, then tap JUMP to grab the slice. Fly does not collect it.'
-        : 'Look for a glowing pizza slice floating above traffic. Drive with W and steer with A / D, then press J to jump through the slice. Space flies; it does not collect.');
+        : 'Look for a glowing pizza slice floating above traffic. Drive with W and steer with A / D, then press E to jump through the slice. Q flies; it does not collect.');
       return;
     }
     const touch = document.documentElement.classList.contains('is-touch'), o = this.order, P = this.player.pos;
-    const act = touch ? 'the button in the middle of the screen' : 'E', fly = touch ? 'FLY' : 'Space';
+    const act = touch ? 'the button in the middle of the screen' : 'F', fly = touch ? 'FLY' : 'Q';
     let step = this.tutStep, text: string | null = null;
     if (step <= 1 && o?.state === 'offer') { step = 1; text = touch ? 'A new order! Review the request, then slide to accept.' : 'A new order! Press E or slide to accept.'; }
     else if (o && o.state === 'toPickup') {
@@ -929,7 +929,7 @@ export class Game {
   }
   input(): Input {
     const k = this.keys, h = this.hud;
-    const brake = k.has('KeyS') || k.has('ArrowDown') || h.touchBrake;
+    const brake = k.has('Space') || k.has('KeyS') || k.has('ArrowDown') || h.touchBrake;
     if (this.hud.tipOpen || this.order?.state === 'offer') {
       this.flyQueued = false; this.jumpQueued = false;
       return { throttle: 0, brake: 0, steer: 0, flyPressed: false, jumpPressed: false, boost: false };
@@ -937,7 +937,7 @@ export class Game {
     if (this.autopilot) { const a = this.autoInput(); if (a) { this.flyQueued = false; this.jumpQueued = false; return { ...a, jumpPressed: false }; } }
     const manualGo = k.has('KeyW') || k.has('ArrowUp') || h.touchGas;
     const inp: Input = {
-      throttle: brake ? 0 : manualGo ? 1 : 0, brake: brake ? 1 : 0,
+      throttle: brake ? 0 : manualGo ? 1 : 0, brake: brake ? 1 : 0, allowReverse: !k.has('Space'),
       steer: Math.max(-1, Math.min(1, (k.has('KeyD') || k.has('ArrowRight') ? 1 : 0) - (k.has('KeyA') || k.has('ArrowLeft') ? 1 : 0) + h.steer)),
       flyPressed: this.flyQueued && !this.player.descending && !this.player.jumping,
       jumpPressed: this.jumpQueued && this.jumpAvailable(), boost: k.has('ShiftLeft') || k.has('ShiftRight'),
@@ -958,7 +958,7 @@ export class Game {
     const storyVisible = !document.hidden && !this.paused && !this.hud.modalOpen && !this.hud.tipOpen && !this.hud.rotationBlocked && !this.map?.open && !this.choosing && !!this.area;
     this.story?.tick(dt, storyVisible);
     const active = storyVisible && !this.story?.blocking;
-    this.sound.vehicle({ speed: this.player.speed, throttle: this.order?.state !== 'offer' && !this.keys.has('KeyS') && !this.keys.has('ArrowDown') && !this.hud.touchBrake &&
+    this.sound.vehicle({ speed: this.player.speed, throttle: this.order?.state !== 'offer' && !this.keys.has('Space') && !this.keys.has('KeyS') && !this.keys.has('ArrowDown') && !this.hud.touchBrake &&
       (this.keys.has('KeyW') || this.keys.has('ArrowUp') || this.hud.touchGas) ? 1 : 0,
       flying: this.player.flying || this.player.jumping, descending: this.player.descending, active: active && this.order?.state !== 'offer' });
     this.tickOfferQueue();

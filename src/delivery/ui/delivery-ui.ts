@@ -130,7 +130,7 @@ export class DeliveryUI {
       if (this.root.hidden || this.blocking || ['has-modal','title-open','area-picker-open','has-tip','rotation-blocked'].some(name=>this.host.classList.contains(name)) || event.repeat || event.ctrlKey || event.metaKey || event.altKey || document.hidden) return;
       if ((event.target as Element | null)?.closest('input,textarea,select')) return;
       if (event.code === 'KeyC' && this.model && ['enabled', 'ringing'].includes(this.model.call.state)) { event.preventDefault(); this.callback.call(); }
-      if (event.code === 'KeyE' && this.model?.action?.enabled) { event.preventDefault(); this.callback.drop(); }
+      if (event.code === 'KeyF' && this.model?.action?.enabled) { event.preventDefault(); this.callback.drop(); }
     };
     document.addEventListener('keydown', this.keyHandler);
     host.addEventListener('hudlayoutchange', this.hostLayoutHandler);

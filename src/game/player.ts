@@ -10,7 +10,7 @@ import { buoyantHeight, waterHeightAt } from '../world/water';
 import { PlayerLights } from './player-lights';
 import { roadsterDecals } from '../world/roadster-decals';
 
-export interface Input { throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean; jumpPressed?: boolean }
+export interface Input { allowReverse?: boolean; throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean; jumpPressed?: boolean }
 export const ROAD_SPEED_LIMIT = 120 / 3.6;
 export const FLIGHT_SPEED_LIMIT = 160 / 3.6;
 
@@ -240,6 +240,9 @@ export class Player {
       this.roadBrakeHold = 0;
       // A hop carries the launch speed; holding GO never adds a jump boost.
       if (inp.brake > 0) this.speed = Math.max(0, this.speed - 20 * inp.brake * dt);
+    } else if (inp.brake > 0 && inp.allowReverse === false) {
+      this.speed = Math.sign(this.speed) * Math.max(0, Math.abs(this.speed) - 24 * inp.brake * dt) || 0;
+      this.roadBrakeHold = 0;
     } else if (this.flying || this.descending) {
       this.roadBrakeHold = 0;
       // Flight and descent keep their existing response.

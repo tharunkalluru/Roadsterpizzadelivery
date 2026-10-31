@@ -9,7 +9,7 @@ import { flightNavigationLayout, flightNavigationReadout, smoothFlightBearing, t
 
 const CONTROL_KEYS: Record<string, readonly string[]> = {
   't-left':['KeyA','ArrowLeft'],'t-right':['KeyD','ArrowRight'],'t-gas':['KeyW','ArrowUp'],
-  't-brake':['KeyS','ArrowDown'],'t-fly':['Space'],'t-jump':['KeyJ'],
+  't-brake':['Space','KeyS','ArrowDown'],'t-fly':['KeyQ'],'t-jump':['KeyE'],
 };
 export type ContextAction = 'collect' | 'handover';
 
@@ -121,7 +121,12 @@ const CSS = `
 .opt{background:#2A2347;border:2px solid transparent;border-radius:12px;padding:10px;color:var(--cream);text-align:left;font-family:var(--body);cursor:pointer;display:flex;flex-direction:column;gap:2px}
 .opt[aria-pressed=true]{border-color:var(--saffron)}.opt:disabled{opacity:.45;cursor:not-allowed}
 .seg{display:flex;gap:6px;flex-wrap:wrap}.seg .opt{flex-direction:row;align-items:center;justify-content:center;min-width:64px;font-weight:800}
-.touch{display:none}.is-touch .touch{display:block}.is-touch .keys{display:none}
+.touch{display:none}
+html:not(.is-touch) #hud .touch{display:block}
+html:not(.is-touch) #hud .touch .steering,html:not(.is-touch) #hud .touch .pedals{display:none}
+html:not(.is-touch) #hud .touch-actions{position:absolute;right:24px;bottom:55px;width:160px;display:flex;flex-direction:column;gap:12px;pointer-events:auto}
+html:not(.is-touch) #hud .touch-actions button{position:relative!important;inset:auto!important;width:160px!important;height:48px!important}
+.is-touch .touch{display:block}.is-touch .keys{display:none}
 /* the browser must not turn a thumb on the controls (or the scene) into a scroll / zoom / long-press menu */
 .touch,.touch *,.tb,#game canvas,#hud .pe{touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 .tb.on,.tb:active{filter:brightness(1.15);transform:translateY(3px) scale(.97)}
@@ -184,6 +189,11 @@ const CSS = `
 .tip{box-sizing:border-box;flex:0 1 auto;min-height:0;max-height:min(88px,100%);overflow:auto;width:min(460px,100%);background:rgba(23,19,43,.94);border:2px solid var(--teal);border-radius:14px;padding:9px 12px;display:flex;gap:10px;align-items:center;font-size:15px;font-weight:700;line-height:1.25;touch-action:pan-y!important}
 .has-offer .tip,.has-offer #order{display:none}
 .is-touch #hud.has-offer .touch{display:none}
+html:not(.is-touch) #hud .touch{display:block}
+html:not(.is-touch) #hud .touch .steering,html:not(.is-touch) #hud .touch .pedals{display:none}
+html:not(.is-touch) #hud .touch-actions{position:absolute;right:24px;bottom:55px;width:160px;display:flex;flex-direction:column;gap:12px;pointer-events:auto}
+html:not(.is-touch) #hud .touch-actions button{position:relative!important;inset:auto!important;width:160px!important;height:48px!important}
+
 .has-offer .prompt{display:none}
 .tip[hidden]{display:none}.tip>b{font-family:var(--display);font-weight:400;font-size:12px;color:var(--teal)}.tip>span{flex:1}
 .tip>button{border:0;background:transparent;color:var(--muted);font-size:18px;cursor:pointer;min-width:32px;min-height:32px}
@@ -308,6 +318,11 @@ const CSS = `
 }
 @media (max-width:600px) and (orientation:portrait){
   .is-touch #hud.has-offer .touch{display:none}
+html:not(.is-touch) #hud .touch{display:block}
+html:not(.is-touch) #hud .touch .steering,html:not(.is-touch) #hud .touch .pedals{display:none}
+html:not(.is-touch) #hud .touch-actions{position:absolute;right:24px;bottom:55px;width:160px;display:flex;flex-direction:column;gap:12px;pointer-events:auto}
+html:not(.is-touch) #hud .touch-actions button{position:relative!important;inset:auto!important;width:160px!important;height:48px!important}
+
   #hud{--steer-size:72px;--brake-size:66px;--go-width:132px;--go-height:74px;--flight-height:44px;--jump-height:32px;--stack-gap:6px}
   .steering{gap:10px}.pedals{right:var(--touch-right);flex-direction:column;align-items:center;gap:12px}.touch-actions{left:auto;right:var(--touch-right);width:var(--go-width);bottom:calc(var(--touch-bottom) + var(--go-height) + var(--brake-size) + 30px)}
   .is-touch .speed{bottom:calc(var(--touch-bottom) + var(--steer-size) + 14px);left:calc(var(--touch-left) + var(--steer-size) + 5px);right:auto;transform:translateX(-50%);font-size:23px}
@@ -588,7 +603,7 @@ export class Hud {
         <div class="offer pe" id="offer" role="dialog" aria-modal="true" aria-label="New delivery offer" hidden></div>
       </div>
       <div class="tip-overlay" id="tip-layer" role="dialog" aria-modal="true" aria-label="Driving tip" hidden><section class="tip pe" id="tip" hidden><div class="tip-heading">${controlIcon('info')}<span>Driving tip</span></div><span id="tip-t"></span><button type="button" class="btn go" id="tip-x">Got it</button></section></div>
-      <div class="keys"><span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>S</b> brake/reverse</span><span><b>Space</b> fly</span><span><b>J</b> jump</span><span><b>E</b> collect / hand over / accept</span><span><b>M</b> map</span><span><b>H</b> horn</span><span><b>N</b> sound</span><span><b>Drag</b> look around when stopped</span><span><b>P</b> pause</span></div>
+      <div class="keys"><span><b>W</b> drive</span><span><b>A D</b> steer</span><span><b>Space</b> brake</span><span><b>S</b> reverse</span><span><b>Q</b> fly</span><span><b>E</b> jump</span><span><b>F</b> collect / hand over / accept</span><span><b>M</b> map</span><span><b>H</b> horn</span><span><b>N</b> sound</span><span><b>Drag</b> look around when stopped</span><span><b>P</b> pause</span></div>
       <div class="touch pe">
         <div class="steering" id="steering" role="group" aria-label="Arrow steering">
           <button class="tb" id="t-left" type="button" aria-label="Steer left" aria-pressed="false">${controlIcon('left')}</button>
@@ -613,7 +628,7 @@ export class Hud {
     this.flightReserve(1, true);
     this.modalFocus = new DialogFocus(this.el.modal, { restore: () => this.el['b-help'] });
     this.offerFocus = new DialogFocus(this.el.offer, { initial: () => this.el.offer.querySelector('#offer-slide'), restore: () => this.el.minimap, captureKeys: true, key: (event) => {
-      if (event.code === 'KeyE' && !event.repeat) { event.preventDefault(); this.acceptPendingOffer?.(); }
+      if (event.code === 'KeyF' && !event.repeat) { event.preventDefault(); this.acceptPendingOffer?.(); }
       if (event.key === 'Escape' && !event.repeat) { event.preventDefault(); this.declinePendingOffer?.(); }
     } });
     this.tipFocus = new DialogFocus(this.el['tip-layer'], { initial: () => this.el['tip-x'], restore: () => this.el.minimap, captureKeys: true, key: (event) => {
@@ -882,7 +897,7 @@ export class Hud {
     this.orderAvailability({ unlocked: false, accepting: false });
     this.offer(null); this.prompt(null, 0, null);
     for (const key of this.root.querySelectorAll<HTMLElement>('.keys span')) {
-      if (key.querySelector('b')?.textContent === 'E') key.hidden = true;
+      if (key.querySelector('b')?.textContent === 'F') key.hidden = true;
     }
     const status = document.createElement('span'); status.id = 'pickup-status';
     status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
