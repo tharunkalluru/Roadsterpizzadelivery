@@ -2,6 +2,18 @@ import type { Game } from '../../game/game';
 import { GameplayCadence } from './gameplay-cadence';
 declare const __ROADSTER_BUILD__:string;
 
+/** Read-only paint-gate evidence. Class/attribute reads do not force layout. */
+export function gameplayPresentationDiagnostics(game:Game){
+  const root=game.hud.root,canvas=game.engine.renderer.domElement,html=document.documentElement;
+  const blockers=['title-open','area-picker-open','has-modal','has-tip','rotation-blocked'].filter(name=>root.classList.contains(name));
+  if([...root.querySelectorAll<HTMLElement>('.fmap')].some(map=>!map.hidden))blockers.push('map-open');
+  return {documentClasses:html.className,hudClasses:root.className,blockers,
+    worldPaintBlocked:html.classList.contains('ui-blocks-world'),loading:html.classList.contains('game-loading'),
+    documentHidden:document.hidden,focused:document.hasFocus(),
+    canvas:{width:canvas.width,height:canvas.height,inlineWidth:canvas.style.width,inlineHeight:canvas.style.height},
+    renderCalls:game.engine.renderer.info.render.calls};
+}
+
 /** Attached only by the optional development evidence panel. Never changes
  * rendering, quality, timing, camera or controls. Export is user initiated. */
 export function createGameplayPerformanceObserver(game:Game){
@@ -32,7 +44,8 @@ export function createGameplayPerformanceObserver(game:Game){
     report:()=>({schemaVersion:1,startedAt,build:typeof __ROADSTER_BUILD__==='string'?__ROADSTER_BUILD__:'development',source:location.href,userAgent:navigator.userAgent,
       environment:{quality:game.opts.lowQ?'low':'high',viewport:{width:innerWidth,height:innerHeight},devicePixelRatio,
         rendererPixelRatio:game.engine.renderer.getPixelRatio(),drawingBuffer:{width:game.engine.renderer.domElement.width,height:game.engine.renderer.domElement.height},
-        hardwareConcurrency:navigator.hardwareConcurrency??null,refreshCapability:'Not measured by this callback observer'},
+        hardwareConcurrency:navigator.hardwareConcurrency??null,refreshCapability:'Not measured by this callback observer',
+        presentation:gameplayPresentationDiagnostics(game)},
       measurement:'Focused, unblocked gameplay observer-callback cadence after the real simulation advances',
       limitations:['Not GPU-completed presentation timing or input latency.','Device, refresh capability, thermal state and battery life require separate hardware evidence.',
         'Hidden, unfocused, loading, map, pause and blocking-dialog intervals are excluded.','The existing Engine resets renderer counters once per frame and aggregates its scene, shadow and composer passes; these are submitted render counts, not GPU completion timing.',

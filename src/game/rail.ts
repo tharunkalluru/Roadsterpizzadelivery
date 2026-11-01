@@ -3,6 +3,7 @@ import { Batch } from '../core/util';
 import { buildRailwayRun, railwayPoint, projectRailwayRun, parallelRailwayRuns, sharedRailwayWay, RailwayFlow, railwaySweepsConflict, railwayContinuations, type RailwayTrack, type RailwayRun, type RailDirection } from './railway-flow';
 import { MovingRailFrames, type MovingRailShape } from './moving-rail';
 import type { RailwayCrossings, RailwayApproach } from './railway-crossings';
+import { RailConflictReservations } from './rail-conflict-reservations';
 
 // Suburban and express trains on the railway lines around the player: a locomotive and a rake of coaches that
 // follow the curves of the track, spawned a little way off and running through.
@@ -47,6 +48,7 @@ export class RailTrains {
   group = new THREE.Group(); trains: Train[] = []; t = 0; geos: Record<string, THREE.BufferGeometry> = {};
   private nextTrain = 0; private frames = new MovingRailFrames();
   private requestedStoryRun:Run|null=null;
+  private conflictReservations=new RailConflictReservations();
   get bodies() { return this.frames.bodies; }
   private crossings?: RailwayCrossings;
   setCrossings(crossings: RailwayCrossings) { this.crossings = crossings; }
@@ -213,6 +215,7 @@ export class RailTrains {
     if(rails.size)this.runsFor(rails);
     if (this.trains.length < MAXT && this.t > 6 && rails.size) { this.t = 0; this.spawn(px, pz, rails); }
     for(const train of this.trains)this.onward(train,rails);
+    this.conflictReservations.update(dt,this.trains);
     const travelled=new Map(this.trains.map(train=>[train,0]));
     // At turnouts or genuinely crossing mapped lines, reserve the swept whole
     // rake before moving. Substeps bound rotation while priority lets one pass.
@@ -220,8 +223,9 @@ export class RailTrains {
     for (let i = 0; i < steps; i++) {
       const current = this.trains.map(t => this.shapes(t, t.s));
       const distances = this.trains.map(t => {
-        const limits=this.limits(t),remaining=Math.max(0,t.dir>0?limits.max-t.s:t.s-limits.min);
-        if(t.story&&remaining<.04&&t.v<.3){
+        const limits=this.limits(t),terminalRemaining=Math.max(0,t.dir>0?limits.max-t.s:t.s-limits.min);
+        const remaining=Math.min(terminalRemaining,this.conflictReservations.stopDistance(t));
+        if(t.story&&terminalRemaining<.04&&t.v<.3){
           t.v=0;t.story.dwell+=step;
           if(t.story.dwell>=2.5){t.dir=-t.dir as RailDirection;t.story.dwell=0;t.cruise=16;}
           return 0;

@@ -11,6 +11,7 @@ import { attachCampaignQA } from './qa/campaign-observer';
 import type { CharacterGpuContext } from './art/gpu-preparation';
 import type { LocalPushpaArtReview } from './qa/pushpa-art-review';
 import type { LocalSceneArtReview } from './qa/scene-art-review';
+import { gameplayPresentationDiagnostics } from './qa/performance-observer';
 
 /** Imported only by main.ts's import.meta.env.DEV branch. No global test hooks. */
 export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query?: URLSearchParams) {
@@ -198,7 +199,9 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
           const right=dx*Math.cos(game.player.yaw)-dz*Math.sin(game.player.yaw);
           return `Slice ${index+1}: ${Math.hypot(dx,dz).toFixed(1)}m · ${ahead.toFixed(1)}m ahead / ${right.toFixed(1)}m right · height ${(marker.position.y-p.y).toFixed(1)}m`;
         }).join('\n'):'';
-        const readout=text+routeReadout+(orbitVehicles.length?'\nTraffic: '+orbitVehicles.map(c=>`${c.group} ${c.g.visible?'visible':'hidden'}`).join(' · '):'')+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'')+lightingReadout;
+        const paint=(trainRide||nightLights||query?.get('qaScene')==='1')?gameplayPresentationDiagnostics(game):null;
+        const paintReadout=paint?`\nPaint: ${paint.worldPaintBlocked||paint.loading?'BLOCKED':'clear'} · calls ${paint.renderCalls} · canvas ${paint.canvas.width}×${paint.canvas.height}\nDocument: ${paint.documentHidden?'hidden':'visible'} / ${paint.focused?'focused':'unfocused'} · blockers ${paint.blockers.join(', ')||'none'}\nHTML: ${paint.documentClasses||'(none)'} · HUD: ${paint.hudClasses||'(none)'}`:'';
+        const readout=text+paintReadout+routeReadout+(orbitVehicles.length?'\nTraffic: '+orbitVehicles.map(c=>`${c.group} ${c.g.visible?'visible':'hidden'}`).join(' · '):'')+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'')+lightingReadout;
         const nextReadout=readout+trainReadout+sceneReadout+pickupDiagnostics;
         if (status.textContent !== nextReadout) status.textContent = nextReadout;
       };
