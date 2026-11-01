@@ -1,0 +1,109 @@
+{
+  "characterId": "hasini",
+  "name": "Hasini",
+  "film": "Bommarillu",
+  "status": "approved",
+  "candidate": {
+    "assetId": "hasini-bommarillu-college-v1",
+    "sha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/hasini/college-v1.glb",
+      "sha256": "68f0ccc306214df2707f92974659a26162158802969520724ff3ebb704845965"
+    },
+    {
+      "path": "public/delivery/characters/hasini/college-v1.rig.json",
+      "sha256": "bb84c5a6eee447ccb64be86bdededc1a00fad445a40d6a5aa6031526b2ff49fe"
+    },
+    {
+      "path": "public/delivery/characters/hasini/portrait-v1.png",
+      "sha256": "e7b356b98ddaf797222876aa314ad9d273b027f05eb8e11bbf42fc2ea4b96184"
+    }
+  ],
+  "authorId": "authored-character-bounds-art-producer",
+  "reviewerId": "container-underwater-independent-review",
+  "reviewedAt": "2026-10-31T14:20:24.075108+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "hasini-aditya-primary-native-103s",
+      "characterId": "hasini",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=gsyvv6oQoLE",
+      "publisher": "Aditya Music official",
+      "path": "docs/delivery/character-review/production/references/hasini-aditya-103s.png",
+      "sha256": "791ad7a86e0d025121b07a1ab18fcba9052fc38b0eb9b98b42d68c4008582f78",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually re-opened native Bommarillu frame103. Genelia/Hasini on left: curled bob, smile, blue short-sleeved embroidered salwar top and dupatta. Lower trousers/sandals and college staging are inferred extensions rather than fully proven by this waist-up film still. Synthetic guides are not primary evidence."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-hasini-final-v6/offline/front.png",
+      "sha256": "5f3c57451343ebf54e80546bf7edf17e2e79ecdeb99306a042ef106ba9442e5e",
+      "assetSha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b",
+      "comparedReferenceIds": [
+        "hasini-aditya-primary-native-103s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-hasini-final-v6/offline/three-quarter.png",
+      "sha256": "685f5833b7d61bbd1a8b4b7bc999106b60102ff1a7499ab66e375ea49e371705",
+      "assetSha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b",
+      "comparedReferenceIds": [
+        "hasini-aditya-primary-native-103s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-hasini-final-v6/offline/profile.png",
+      "sha256": "13bbe18fe65b9f21067e146508a47cfc7125ab72a5ef286188ce9cadc4988ffe",
+      "assetSha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b",
+      "comparedReferenceIds": [
+        "hasini-aditya-primary-native-103s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-hasini-final-v6/offline/full-body.png",
+      "sha256": "97d5236f06d4b446802cb466f9ca8a80ed5ffacd52dcf6eb2bf2cda650244356",
+      "assetSha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b",
+      "comparedReferenceIds": [
+        "hasini-aditya-primary-native-103s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-hasini-final-v6/native-fixed-gate/02-night-fixed-transfer.png",
+      "sha256": "a56a96a25671e4d4933a63fe8edcf1d2dc77864a74e1983facedd7662bc4e284",
+      "assetSha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b",
+      "comparedReferenceIds": [
+        "hasini-aditya-primary-native-103s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    }
+  ],
+  "feedback": [
+    "Independent finite close-match approval for the exact stylized Genelia/Hasini actor. Actually viewed all five authored exact-GLB angles, clay profile, supported handoff full-body, native512 portrait, and actual Aditya103 source. Smile, face proportions, curled bob, selected blue embroidered outfit and dupatta are recognizable; simplified curls and cloth edges are accepted game stylization.",
+    "The named old pale/flat crown patch, dangling wrist fin and warm donor-looking underarm fabric are repaired. The narrow blue shape beside the Idle upper arm reads as the hanging dupatta and stays coherent when the arms lift; no broad geometry or head rebuild is requested. Both real palms plausibly support the diagnostic .4m carton. Diagnostic props are not described as native gameplay.",
+    "Actual Safari fixed23:00 isolated Q7 used assisted Prepare/Stage only, then manual F transfer, real completion, Next retained actor and arms returned to Idle. Initial small/dark gate screenshots are retained. The corrected physical porch light and explicitly bounded stationary-handoff camera give a visible warm face, blue costume and clear gate opening without a car covering the receiver. Manual drag overrides focus; normal S departure and Space braking restore Roadster view, with actor still at the physical gate.",
+    "Native evidence images capture the real passing-carton animation and completion, not a falsely claimed pixel-tight last palm-contact frame. One repeated later-frame attempt was interrupted by a rejected modifier-only CUA key, then completed normally; it is recorded as a result image. Final support is established independently by exact exported supported-handoff full-body geometry. No source animation or clock was advanced by script.",
+    "Export campaign-qa-mvwhknat verifies exact68f0 GLB/private0191 rig, level7 completed, manualHandoff true and no missing physical facts. Canonical public bb84 and private0191 rig JSON independently parse equal. Portrait e7b356 was actually viewed and faithfully renders this actor. This approves exact proposed three-file bundle50cc0093 only; the reviewer does not install or publish it.",
+    "No natural jump pickup, full14-level campaign acceptance, true-touch input, physical-phone, FPS, thermal or battery certification is implied. Private artPreview remains explicitly unreviewed in the observed game and allScenarioEvidence false until root registers the approved asset. Collection portrait installation is a release integration check, not claimed already visible in the private completion screen."
+  ]
+}

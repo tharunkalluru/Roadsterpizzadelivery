@@ -1,0 +1,119 @@
+{
+  "reviewerId": "likeness-release-gate-independent-final-review",
+  "reviewedAt": "2026-10-31T16:26:19.369520+00:00",
+  "scope": "Independent finite stylized appearance, exact native512portrait, and assisted actual night handover scene. No artist self-approval, no public registry mutation.",
+  "records": [
+    {
+      "characterId": "nani-jersey",
+      "candidate": {
+        "assetId": "nani-jersey-cricketer-v1",
+        "sha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3"
+      },
+      "sourceGlb": "docs/delivery/character-review/candidates/nani-jersey-at-stadium-v1.glb",
+      "sourceGlbSha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0",
+      "observedPrivateRigSha256": "1fea865434b3bf91cfad9b3f391984c676454520c3e14b72f62855bc7d914340",
+      "publicRigContractSemanticallyEqual": true,
+      "nativePortraitSha256": "d16013322b787e856167c40d1a2caaa653946230d610621888469b029d8f7df4",
+      "sourceCandidateFilesPublicPathsNotYetInstalled": true,
+      "formalReview": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-independent-approved-review.json",
+      "actuallyOpenedOfflineImages": [
+        "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/front.png",
+        "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/three-quarter.png",
+        "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/profile.png",
+        "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/back.png",
+        "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/full-body.png",
+        "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-clay/profile.png",
+        "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/handoff-supported/full-body.png",
+        "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/handoff-supported/profile.png",
+        "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/portrait.png"
+      ]
+    },
+    {
+      "characterId": "arjun-reddy",
+      "candidate": {
+        "assetId": "arjun-reddy-medical-courtyard-v1",
+        "sha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24"
+      },
+      "sourceGlb": "docs/delivery/character-review/candidates/arjun-reddy-at-medical-college-v1.glb",
+      "sourceGlbSha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5",
+      "observedPrivateRigSha256": "2cdbf68303b3adf03e3337443e1cbab6ca7701d952ed5a97d60dfc0633fd4a49",
+      "publicRigContractSemanticallyEqual": true,
+      "nativePortraitSha256": "87ab8145f553a37e38a81f954abbce29fb6bd2f9f1a5985ac00053b768ebe11e",
+      "sourceCandidateFilesPublicPathsNotYetInstalled": true,
+      "formalReview": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/arjun-independent-approved-review.json",
+      "actuallyOpenedOfflineImages": [
+        "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/front.png",
+        "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/three-quarter.png",
+        "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/profile.png",
+        "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/back.png",
+        "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/full-body.png",
+        "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-clay/profile.png",
+        "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/handoff-supported/full-body.png",
+        "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/handoff-supported/profile.png",
+        "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/portrait.png"
+      ]
+    }
+  ],
+  "captures": [
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/arjun-before-manual-handoff.png",
+      "sha256": "d1acafc4768824e216aa100127c9d8d01da905ab2eae0b888e0f1abacaec54c8"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/arjun-manual-completion.png",
+      "sha256": "4336d0c403bd643beeae163e6f0851ffee814b3e9d834b25f99cda1d387684fe"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/arjun-manual-handoff-observed.png",
+      "sha256": "4336d0c403bd643beeae163e6f0851ffee814b3e9d834b25f99cda1d387684fe"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/arjun-night-context-clean.png",
+      "sha256": "99a05147888f6ac7ae1e17e02dadd5641c713d842280bf036744e53e5acfcd1f"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/arjun-night-retained-idle.png",
+      "sha256": "b618d9d6ac48b37cd804a2065eef22650ad1ee1f9ff44f61f68decc9fdfc2e1b"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-manual-completion.png",
+      "sha256": "a50b5a0139feb815cdf1f287ce4773ce0af5f126518036c5d18c64e3e70badeb"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-manual-drop-observation.png",
+      "sha256": "f4cc54c84a3a1d0184937d8ce0d436448472a685696f2862ca3a34766b3a5a03"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-manual-retry-02.png",
+      "sha256": "5f7a8e38408921311c5eb99fe30f1f9890fb334bab8277290887c04a09f02e64"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-manual-retry-03.png",
+      "sha256": "2843ded480deaf9fd38d31d59088434f811645b9afb526fdce2f01b8f46faf47"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-manual-retry-04.png",
+      "sha256": "d69efc929a161fa212055d77f664a96df0f914551f1dcfb8a81d4dbb34f9fe0f"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-night-ready.png",
+      "sha256": "60416b7b4f1539eefcec7d257f6721cdcfafc9c54db57ab707f8c52d50ca05bb"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-retained-normal-driving.png",
+      "sha256": "d6a81fdd46625ca292e5ab84a438019e8b249534c1a3969f2044863585403a42"
+    }
+  ],
+  "sessionExport": {
+    "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-independent-campaign-qa-mvwlyvgi.json",
+    "sha256": "844ea201ef33c8e0e532b676fe39bea244edfcae5e4b4a76c5625ed5c3f90173"
+  },
+  "notClaimed": [
+    "Late native palm frame",
+    "Natural jump pickup/travel",
+    "Normal approved-loader integration",
+    "Physical phone or true touch",
+    "GPUFPS/thermal/battery",
+    "Full14 natural campaign acceptance"
+  ]
+}

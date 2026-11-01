@@ -1,0 +1,130 @@
+{
+  "status": "proposal-only-unregistered; pending updated underwater native review",
+  "candidate": {
+    "assetId": "devara-underwater-neck-grip-v1",
+    "sha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/devara/neck-grip-v1.glb",
+      "sha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399"
+    },
+    {
+      "path": "public/delivery/characters/devara/neck-grip-v1.rig.json",
+      "sha256": "225eeda36e87176a4db6019b4782d6c2ca48109e08111e94769c3dc07ccee6c6"
+    },
+    {
+      "path": "public/delivery/characters/devara/portrait-v1.png",
+      "sha256": "407b4e5353b7f45dc2e6eed4f97bc03e2c68e8f68782354ff2c3089359205690"
+    }
+  ],
+  "authorId": "likeness-release-gate-art-producer",
+  "contract": {
+    "id": "devara-neck-grip-in-water-v3",
+    "sceneName": "ReviewedCharacterScene",
+    "requireSkin": true,
+    "nodes": {
+      "leftArm": "LeftArm",
+      "rightArm": "RightArm",
+      "catchPoint": "PizzaCatch"
+    },
+    "pose": {
+      "mode": "authored-static"
+    },
+    "motions": {
+      "required": [
+        "idle"
+      ],
+      "clips": {
+        "idle": {
+          "clipName": "Idle"
+        }
+      }
+    },
+    "height": {
+      "min": 1.7289999999999999,
+      "max": 1.9110000000000003
+    },
+    "materialTreatment": "as-authored",
+    "motionBounds": {
+      "schemaVersion": 1,
+      "glbSha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399",
+      "sceneName": "ReviewedCharacterScene",
+      "sampling": {
+        "framesPerSecond": 24,
+        "marginMetres": 0.02,
+        "poseCount": 53,
+        "clips": [
+          {
+            "name": "Idle",
+            "duration": 2.0416667461395264,
+            "samples": 52
+          }
+        ]
+      },
+      "meshes": {
+        "geometry_0": {
+          "vertexCount": 30371,
+          "center": [
+            0.0017756301463972834,
+            0.9974292882409211,
+            0.06377130550466009
+          ],
+          "radius": 0.7155182710634462
+        },
+        "geometry_0_1": {
+          "vertexCount": 433,
+          "center": [
+            0.0005419924190915582,
+            1.3409122015662365,
+            0.10418463870224662
+          ],
+          "radius": 0.47734999576894127
+        },
+        "geometry_0_2": {
+          "vertexCount": 8317,
+          "center": [
+            0.015704469409964977,
+            0.2628550174174781,
+            0.04416973645387948
+          ],
+          "radius": 0.45037931139432125
+        },
+        "geometry_0_3": {
+          "vertexCount": 88,
+          "center": [
+            0.007430884926902026,
+            1.2878461580699536,
+            0.09123136029639885
+          ],
+          "radius": 0.456049973521814
+        },
+        "LeftAuthoredAnatomicalHand": {
+          "vertexCount": 2502,
+          "center": [
+            0.2090104925904076,
+            1.186483642364273,
+            0.2314722132354956
+          ],
+          "radius": 0.5635217437787123
+        },
+        "RightAuthoredAnatomicalHand": {
+          "vertexCount": 2502,
+          "center": [
+            -0.2048417562810682,
+            1.183729641809162,
+            0.22029342776523142
+          ],
+          "radius": 0.5704066242699373
+        }
+      }
+    }
+  },
+  "glbSource": "docs/delivery/character-review/candidates/devara-neck-grip-in-water-v3.glb",
+  "rigSource": "docs/delivery/character-review/candidates/devara-neck-grip-in-water-v3.rig.json",
+  "portraitSource": "/tmp/roadster-devara-production/devara-continuous-neck-uv-v8-portrait.png",
+  "pendingPrivateCopy": {
+    "glbSource": "/tmp/roadster-devara-production/devara-continuous-neck-uv-v8.glb",
+    "rigSource": "/tmp/roadster-devara-private-rig-v3.json"
+  }
+}

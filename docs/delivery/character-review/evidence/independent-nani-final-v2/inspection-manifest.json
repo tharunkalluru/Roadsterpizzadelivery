@@ -1,0 +1,87 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "identity": "Nani / Jersey",
+  "model": {
+    "path": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2.glb",
+    "sha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0"
+  },
+  "frozenArtistProposal": {
+    "path": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2.proposal.json",
+    "sha256": "99b1dea2de3f9c7a4c2d5a148b26159fc687647789e1038313aa753f979bd7f0"
+  },
+  "offlineVerdict": "close-match pass after all eight actual exported-GLB views and native512portrait",
+  "images": [
+    {
+      "source": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2-final8-exact-glb/idle-authored/front.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/front.png",
+      "sha256": "42d79b0cca55fb8b6e2fba78613aaf566bb7d998a3158327c239303678e1cfc1",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2-final8-exact-glb/idle-authored/three-quarter.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/three-quarter.png",
+      "sha256": "5ee1face6d67af71d703b8c55592f59d9ffb2d2a3086a60b3b1e9dc672765665",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2-final8-exact-glb/idle-authored/profile.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/profile.png",
+      "sha256": "94d580cc7a4460bb33f2cad0bbcccb49270da31e89dbfa10165bc15354890bad",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2-final8-exact-glb/idle-authored/back.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/back.png",
+      "sha256": "c4b7b384ca312d77560aa2e2c28e384bc279beb7be4cbf8f2b8f3c75d4cba62d",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2-final8-exact-glb/idle-authored/full-body.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/full-body.png",
+      "sha256": "81eefffc340731a061927c606fb74cf51997ab5046fa4ea575530194119bc39a",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2-final8-exact-glb/idle-clay/profile.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-clay/profile.png",
+      "sha256": "3a15a5fea76c0ebc31576599b9ee4327e8dbfccd849af4d47f43d3d66dad6797",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2-final8-exact-glb/handoff-supported/full-body.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/handoff-supported/full-body.png",
+      "sha256": "ee00f859fe4a6e7cb0de6ae7b3cf9acd43aa0d3a8abb6fa66603b9e1d79f50e3",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2-final8-exact-glb/handoff-supported/profile.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/handoff-supported/profile.png",
+      "sha256": "17725bb281e82a0152311eaff7a4a861afe456bca742aad1b3b560af775da8de",
+      "actuallyOpened": true
+    },
+    {
+      "source": "/tmp/roadster-standing-production/nani-posterior-native-hair-v2-portrait.png",
+      "evidence": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/portrait.png",
+      "sha256": "d16013322b787e856167c40d1a2caaa653946230d610621888469b029d8f7df4",
+      "actuallyOpened": true
+    }
+  ],
+  "notClaimed": [
+    "Full scene/release approval before actual corrected runtime review",
+    "True touch/physical-phone/FPS proof"
+  ],
+  "actualRuntime": {
+    "state": "needs scene readability repair",
+    "export": "docs/delivery/character-review/evidence/independent-nani-final-v2/native-before-stadium-light-fix/campaign-qa-mvwl609r.json",
+    "sha256": "0b23095865edd5b8f71b1da90c1e3aec8025205487dc4db30979a8fdcfc66381",
+    "manualHandoff": true,
+    "completed": true,
+    "missingPhysicalFacts": [],
+    "assistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "observed": "Fixed23:00 Stage; actual wicket/pitch/oval present; F outside-window retry and later actual F green-window transfer, grand opening, retained Idle after Explore, manual orbit. Default actor small and near-black. Corrected scene-only tower lighting/stationary focus pending. Saved03 is completion, not late contact."
+  }
+}

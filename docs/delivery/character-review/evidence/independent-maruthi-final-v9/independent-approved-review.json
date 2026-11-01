@@ -1,0 +1,143 @@
+{
+  "characterId": "maruthi",
+  "name": "Maruthi",
+  "film": "Director / public appearance",
+  "status": "approved",
+  "candidate": {
+    "assetId": "maruthi-kondapur-director-v1",
+    "sha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/maruthi/director-v1.glb",
+      "sha256": "26abecf55c2a27654d7d4ab6769128a9409d663bfaed3aa9b64017cd4748660f"
+    },
+    {
+      "path": "public/delivery/characters/maruthi/director-v1.rig.json",
+      "sha256": "ed3444f909dce0d7ac50e4b79f47074f496aa71744936fce38ac6a0e9b46d1e8"
+    },
+    {
+      "path": "public/delivery/characters/maruthi/portrait-v1.png",
+      "sha256": "759a4f3675f8686470c80adbd1a8d64ba8a341be82017d5686c104799aa18af8"
+    }
+  ],
+  "authorId": "authored-character-bounds-art-producer",
+  "reviewerId": "container-underwater-independent-review",
+  "reviewedAt": "2026-10-31T17:02:23.027508+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "maruthi-shreyas-primary-public-30s",
+      "characterId": "maruthi",
+      "kind": "public-appearance",
+      "sourceUrl": "https://www.youtube.com/watch?v=ZzEaFfgjvYE",
+      "publisher": "Shreyas Media, verified firsthand public event uploader",
+      "path": "docs/delivery/character-review/production/references/maruthi-shreyas-30s.png",
+      "sha256": "57aa22d24419ebeb0584e9473fc1d6493b6827cecfff48353509d093c8dbc8ad",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually opened native30s; Maruthi is the central director holding the microphone, navy crew-neck shirt and olive trousers. Real public appearance, not a fictional film role. Microphone partly obscures the mouth."
+    },
+    {
+      "id": "maruthi-shreyas-primary-public-60s",
+      "characterId": "maruthi",
+      "kind": "public-appearance",
+      "sourceUrl": "https://www.youtube.com/watch?v=ZzEaFfgjvYE",
+      "publisher": "Shreyas Media, verified firsthand public event uploader",
+      "path": "docs/delivery/character-review/production/references/maruthi-shreyas-60s.png",
+      "sha256": "7e63d24f5edddaf44813c8bc6b5b18464f13f3771b4cf4ff6e3d223969cb5118",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually opened native60s; Maruthi is the central director holding the microphone, navy crew-neck shirt and olive trousers. Real public appearance, not a fictional film role. Microphone partly obscures the mouth."
+    },
+    {
+      "id": "maruthi-shreyas-primary-public-90s",
+      "characterId": "maruthi",
+      "kind": "public-appearance",
+      "sourceUrl": "https://www.youtube.com/watch?v=ZzEaFfgjvYE",
+      "publisher": "Shreyas Media, verified firsthand public event uploader",
+      "path": "docs/delivery/character-review/production/references/maruthi-shreyas-90s.png",
+      "sha256": "1874cc0843493d2d44dc72b6a8d00a64c291e5596590e9d09e2ee567f95f9a1c",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually opened native90s; Maruthi is the central director holding the microphone, navy crew-neck shirt and olive trousers. Real public appearance, not a fictional film role. Microphone partly obscures the mouth."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-authored/front.png",
+      "sha256": "7d7538b88f75cfb99e18ab47bdd1a31f8b924535452b4fb43f8b5e2ac55ac9e7",
+      "assetSha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5",
+      "comparedReferenceIds": [
+        "maruthi-shreyas-primary-public-30s",
+        "maruthi-shreyas-primary-public-60s",
+        "maruthi-shreyas-primary-public-90s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-authored/three-quarter.png",
+      "sha256": "f81d4ab97ecdc07b5d3e5ab757ca9513e8a3c0a615f2615bdc18bf81b7705e8e",
+      "assetSha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5",
+      "comparedReferenceIds": [
+        "maruthi-shreyas-primary-public-30s",
+        "maruthi-shreyas-primary-public-60s",
+        "maruthi-shreyas-primary-public-90s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-authored/profile.png",
+      "sha256": "48df768d605bdba54740459a2fc146b350bb7d56d2e7dbeb9825cc2474c2228f",
+      "assetSha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5",
+      "comparedReferenceIds": [
+        "maruthi-shreyas-primary-public-30s",
+        "maruthi-shreyas-primary-public-60s",
+        "maruthi-shreyas-primary-public-90s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/offline/idle-authored/full-body.png",
+      "sha256": "208a84142f2bce6955d573eeaab8a67d2ae9cbf7b3b0d72da16122efadfe7335",
+      "assetSha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5",
+      "comparedReferenceIds": [
+        "maruthi-shreyas-primary-public-30s",
+        "maruthi-shreyas-primary-public-60s",
+        "maruthi-shreyas-primary-public-90s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-maruthi-final-v9/native/02-transfer-2.png",
+      "sha256": "27b77ffe086dd99f4d000dcce7fc275b31c2540cdcbb3010736188f22cd69e33",
+      "assetSha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5",
+      "comparedReferenceIds": [
+        "maruthi-shreyas-primary-public-30s",
+        "maruthi-shreyas-primary-public-60s",
+        "maruthi-shreyas-primary-public-90s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    }
+  ],
+  "feedback": [
+    "Independent finite close-match approval of the exact stylized director Maruthi under the public-appearance policy. All five actual final authored angles, clay profile, both supported handoff views and native512portrait were opened against actual Shreyas30/60/90. Short hair, close moustache/beard, face, navy crew-neck shirt and body are recognizable. Lower trousers/shoes and unseen surfaces include inferred art extensions; the film-role check means this configured real-director appearance.",
+    "Previously observed under-jaw/side-neck false black material band is repaired without replacing continuous head/neck geometry. Remaining ear concha facets, modest neck-tone transition and coarse posterior hair are accepted bounded stylization. Relaxed forearm-dominant receive keeps the shirt coherent, true hands support the diagnostic carton; no new head/body generation or cosmetic iteration requested.",
+    "Actual fixed23:00 privateV2 Q11 used explicit Prepare/Stage assistance for pickup and initial grounded arrival only. Native F300ms produced real passing carton and completion; Next retained the exact actor with natural Idle arms. Native drag orbit and S1000/Space500 reverse/brake worked. Villa79 facade and entrance remain legible, with no claim that a private residential address was independently verified.",
+    "Previous dark night image is preserved in independent-maruthi-final-v7. Final actual villa porch calibration using one existing pool light gives readable warm face and navy shirt in normal close view without bleaching authored textures. Native02-transfer-2 is the actual passing carton before completion, not claimed final palm-contact pixel; exact diagnostic supported views establish final carton support. Native02-transfer-3 onward are honestly completion images.",
+    "Actual export campaign-qa-mvwnb2sk verifies exact26abec GLB and the observed privateV2 rig SHA, completed manual handoff and missingPhysicalFacts empty. Observed private rig and proposed canonical public rig parse equal, exact model/canonical/portrait file SHA and ordered three-file bundle21fb5a are independently verified. Portrait759a was actually opened; root must integrate it on collection/reveal when registering. Reviewer does not install public assets, change manifest or publish.",
+    "Bounded desktop Safari keyboard/mouse scene acceptance only. Assisted pickup/arrival and no true touch remain explicit. No natural jump pickup, complete14-level campaign, physical-phone FPS/thermal/battery, GPU timing or sustained soak claim is made. Old4203 frozen natural-play tab was left untouched."
+  ]
+}

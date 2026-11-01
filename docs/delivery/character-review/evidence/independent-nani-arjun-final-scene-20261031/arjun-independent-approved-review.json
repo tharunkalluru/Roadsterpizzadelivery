@@ -1,0 +1,127 @@
+{
+  "characterId": "arjun-reddy",
+  "name": "Arjun Reddy",
+  "film": "Arjun Reddy",
+  "status": "approved",
+  "candidate": {
+    "assetId": "arjun-reddy-medical-courtyard-v1",
+    "sha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/arjun-reddy/medical-courtyard-v1.glb",
+      "sha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5"
+    },
+    {
+      "path": "public/delivery/characters/arjun-reddy/medical-courtyard-v1.rig.json",
+      "sha256": "0b1134b0f517b9d8f31d8aae0f81d8a2fbfc2a0b3257eca7eaca11d5fdf007f1"
+    },
+    {
+      "path": "public/delivery/characters/arjun-reddy/portrait-v1.png",
+      "sha256": "87ab8145f553a37e38a81f954abbce29fb6bd2f9f1a5985ac00053b768ebe11e"
+    }
+  ],
+  "authorId": "authored-character-bounds-art-producer",
+  "reviewerId": "likeness-release-gate-independent-final-review",
+  "reviewedAt": "2026-10-31T16:26:19.365748+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "arjun-aditya-native-240s",
+      "characterId": "arjun-reddy",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=jOst7Trpj7o",
+      "publisher": "Aditya Music",
+      "path": "docs/delivery/character-review/production/references/arjun-aditya-240s.png",
+      "sha256": "1f92be48dd3fb8530d4f555042984ff02a321cb46ea876fffb98c949e5a47896",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Freshly opened actual native frame in this independent review. clear long-bearded side face, neck-length hair and beard profile, worn green short-sleeve T-shirt. Limits: Mature/bearded phase, not clean-shaven college costume. Waist-up only; no footwear or full back."
+    },
+    {
+      "id": "arjun-aditya-native-300s",
+      "characterId": "arjun-reddy",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=jOst7Trpj7o",
+      "publisher": "Aditya Music",
+      "path": "docs/delivery/character-review/production/references/arjun-aditya-300s.png",
+      "sha256": "959ff4a4c67d1d8c6cf2d62778e2698eeba00ad69980b0d26d1601cf904308a7",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Freshly opened actual native frame in this independent review. clear three-quarter long-bearded face, swept damp hair and jaw beard, green loose round-neck T-shirt. Limits: Arjun is LEFT in green; right man in light-blue shirt is another character. Lower body absent; no doctor coat visible."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/front.png",
+      "sha256": "0806b9aa5c275ee8079997f1cda2a735b802134149d554870011843af02bc7f1",
+      "assetSha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24",
+      "comparedReferenceIds": [
+        "arjun-aditya-native-240s",
+        "arjun-aditya-native-300s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/three-quarter.png",
+      "sha256": "a53080335aefecc10b23056ac7045a2103b1ff9ef8a508d0d1db70d0e28c72f4",
+      "assetSha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24",
+      "comparedReferenceIds": [
+        "arjun-aditya-native-240s",
+        "arjun-aditya-native-300s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/profile.png",
+      "sha256": "37959ec9e35514d85388636082f838f189727a08534a58840540a83c067e9c2c",
+      "assetSha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24",
+      "comparedReferenceIds": [
+        "arjun-aditya-native-240s",
+        "arjun-aditya-native-300s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-arjun-final-v2/offline/idle-authored/full-body.png",
+      "sha256": "4cf305c1a66d4881e8e2f284c154d0c8366aa9d1cca3976090fa65f43b94930d",
+      "assetSha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24",
+      "comparedReferenceIds": [
+        "arjun-aditya-native-240s",
+        "arjun-aditya-native-300s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/arjun-before-manual-handoff.png",
+      "sha256": "d1acafc4768824e216aa100127c9d8d01da905ab2eae0b888e0f1abacaec54c8",
+      "assetSha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24",
+      "comparedReferenceIds": [
+        "arjun-aditya-native-240s",
+        "arjun-aditya-native-300s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    }
+  ],
+  "feedback": [
+    "Finite close-match PASS: mature Arjun hair length/swept shape, eyebrows, nose, full beard and worn green round-neck shirt are recognizable against the actual Aditya240s/300s film views. Coherent side/back scalp has no extra face; actual clay profile retains a connected head/neck volume. Simplified sculpted hair and softened facial detail are accepted stylization. Jeans/shoes are plausible inferred lower costume rather than verified exact film footwear.",
+    "Fresh actual23:00 scene: visible open classroom doorway, room13 sign, notice boards and existing courtyard post/light establish a classroom approach instead of an isolated numeral. Green shirt, beard and face read clearly at the stopped delivery camera. Prepare+Stage was followed by native F; I saw the arms reach while the real red-lid carton traveled, then level13/14 completed. That passing observation was visible in the tool image; the saved result is explicitly a completion image, not a late-contact frame. The actor had also been observed retained in Idle under normal driving framing before restart.",
+    "This is a fictional delivery visit to the configured medical-college classroom using the mature bearded green-shirt film appearance. It does not claim that every rear/lower garment detail or the constructed room frontage is an exact photographed film set or university survey. Root preserved the earlier campaign-qa-mvwlllwx record with the same exact4efa GLB/private2cdb rig; the fresh independent run separately confirmed the manual reach/completion. No false stuck/recovery prompt obstructed the parked interaction.",
+    "Independent reviewer is distinct from the authored-character-bounds artist; this reviewer did not create either candidate. Freshly opened all five authored exact-export angles, the clay profile, both supported-carton handoff views and native512 portrait, then used the actual frozen Safari scene. No approval is inferred from a test, topology count or previous reviewer verdict.",
+    "Required in-game-handoff evidence image shows the actual unobstructed delivery-ready receiver and scene; completion and retry/result captures are separately preserved. It is not labeled a final palm-contact instant. Actual supported .4m-carton diagnostic renders show plausible underside palm support with separate fingers; the live scene was exercised with native input. No late-palm frame was captured, and no pixel-exact live contact claim is made.",
+    "Scene starts explicitly used Prepare+Stage, so natural jump pickup/travel and a full14-level unassisted campaign are not claimed. qaTouch selected the touch layout but native mouse/keyboard were used on a desktop Safari session, not a physical phone. No phoneFPS, battery, thermal, 30\u201340minute soak or true-touch claim follows from this review.",
+    "The proposed public paths are not installed by this reviewer. Exact source GLB and portrait bytes are verified; private rig parses exactly equal to the proposed contract, and its canonical serializer digest is separately checked against the proposed public rig fingerprint. Approval applies only to the proposed exact three-file bundle after root installs those same bytes. The old completion photo/silhouette is not the newly reviewed native portrait and still requires release integration."
+  ]
+}

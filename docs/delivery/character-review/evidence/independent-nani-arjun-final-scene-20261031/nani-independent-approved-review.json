@@ -1,0 +1,161 @@
+{
+  "characterId": "nani-jersey",
+  "name": "Nani",
+  "film": "Jersey",
+  "status": "approved",
+  "candidate": {
+    "assetId": "nani-jersey-cricketer-v1",
+    "sha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/nani-jersey/cricketer-v1.glb",
+      "sha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0"
+    },
+    {
+      "path": "public/delivery/characters/nani-jersey/cricketer-v1.rig.json",
+      "sha256": "ab7dc4b63509e2a2a603670ec2e00f6dd4d35ee60000f417b8082fc7e579646c"
+    },
+    {
+      "path": "public/delivery/characters/nani-jersey/portrait-v1.png",
+      "sha256": "d16013322b787e856167c40d1a2caaa653946230d610621888469b029d8f7df4"
+    }
+  ],
+  "authorId": "authored-character-bounds-art-producer",
+  "reviewerId": "likeness-release-gate-independent-final-review",
+  "reviewedAt": "2026-10-31T16:26:19.344118+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "nani-native-89s",
+      "characterId": "nani-jersey",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=AjAe_Q1WZ_8",
+      "publisher": "Haarika & Hassine Creations",
+      "path": "docs/delivery/character-review/production/references/nani-jersey-haarika-89s.png",
+      "sha256": "87b110495629e893b75493c8b399c07d987856d0e997da8200fa48bd26475741",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Freshly opened actual native frame in this independent review. clear front face, hair/beard shape, frontal eye nose lip proportions. Limits: Grey off-field shirt; shoulders visible, lower body absent. Do not use shirt as cricket costume."
+    },
+    {
+      "id": "nani-native-85.5s",
+      "characterId": "nani-jersey",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=AjAe_Q1WZ_8",
+      "publisher": "Haarika & Hassine Creations",
+      "path": "docs/delivery/character-review/production/references/nani-jersey-haarika-85.5s.png",
+      "sha256": "9f927bba3237d4853dbbebfa71590087d5581fabab1898bb53e11cebf0e0d6f4",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Freshly opened actual native frame in this independent review. clear side profile, nose lip chin and beard profile, ear and hairline. Limits: Side face only, upper hairstyle partly cropped. Dark off-field collar, not full cricket body."
+    },
+    {
+      "id": "nani-native-116s",
+      "characterId": "nani-jersey",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=AjAe_Q1WZ_8",
+      "publisher": "Haarika & Hassine Creations",
+      "path": "docs/delivery/character-review/production/references/nani-jersey-haarika-116s.png",
+      "sha256": "b5aabb2be3f273c7c3331076ed1eb6b64d047cd6a82e696e66ae4e4fca90dc6f",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Freshly opened actual native frame in this independent review. three-quarter cricket appearance, short-sleeve white cricket shirt and chest badge, beard and side hair in field light. Limits: Foreground teammates partly occlude arms/body; lower body absent. Player on right is Nani, do not copy other cricketers faces."
+    },
+    {
+      "id": "nani-teaser-native-30s",
+      "characterId": "nani-jersey",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=Rl6T0bM94Qs",
+      "publisher": "Sithara Entertainments",
+      "path": "docs/delivery/character-review/production/references/nani-jersey-sithara-30s.png",
+      "sha256": "105b6dff0bd87c9384b1d849d476ac3e92e4c3d2e9890ed3ea353990a677f3f6",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Freshly opened actual native frame in this independent review. cricket leg pads and straps, white trousers, blue beige cricket shoes. Limits: Lower-body insert only; no face identity, so use with positively identified face/costume views. Cannot prove full body proportions alone."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/front.png",
+      "sha256": "42d79b0cca55fb8b6e2fba78613aaf566bb7d998a3158327c239303678e1cfc1",
+      "assetSha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3",
+      "comparedReferenceIds": [
+        "nani-native-89s",
+        "nani-native-85.5s",
+        "nani-native-116s",
+        "nani-teaser-native-30s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/three-quarter.png",
+      "sha256": "5ee1face6d67af71d703b8c55592f59d9ffb2d2a3086a60b3b1e9dc672765665",
+      "assetSha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3",
+      "comparedReferenceIds": [
+        "nani-native-89s",
+        "nani-native-85.5s",
+        "nani-native-116s",
+        "nani-teaser-native-30s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/profile.png",
+      "sha256": "94d580cc7a4460bb33f2cad0bbcccb49270da31e89dbfa10165bc15354890bad",
+      "assetSha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3",
+      "comparedReferenceIds": [
+        "nani-native-89s",
+        "nani-native-85.5s",
+        "nani-native-116s",
+        "nani-teaser-native-30s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-nani-final-v2/offline/idle-authored/full-body.png",
+      "sha256": "81eefffc340731a061927c606fb74cf51997ab5046fa4ea575530194119bc39a",
+      "assetSha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3",
+      "comparedReferenceIds": [
+        "nani-native-89s",
+        "nani-native-85.5s",
+        "nani-native-116s",
+        "nani-teaser-native-30s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-nani-arjun-final-scene-20261031/nani-night-ready.png",
+      "sha256": "60416b7b4f1539eefcec7d257f6721cdcfafc9c54db57ab707f8c52d50ca05bb",
+      "assetSha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3",
+      "comparedReferenceIds": [
+        "nani-native-89s",
+        "nani-native-85.5s",
+        "nani-native-116s",
+        "nani-teaser-native-30s"
+      ],
+      "observedBy": "likeness-release-gate-independent-final-review"
+    }
+  ],
+  "feedback": [
+    "Finite close-match PASS: brow/eyes, nose, curled front hair, full beard and profile read recognizably as stylized Nani/Jersey against actual89s and85.5s. White collared cricket shirt/badge, gloves, trousers/pads and shoes communicate the role. Rear hair is dark and coherent, with no repeated face; native512portrait faithfully renders the same model. Sculpted hair grooves, softened facial surface and simplified cricket gear are accepted game styling, not photoreal parity.",
+    "Fresh actual23:00 stadium scene: wicket/pitch, green field, surrounding stands and existing floodlight towers identify a cricket stadium; no road or moving city traffic crossed the inspected playing area. The near receiver is clear of driving controls and recognizable under the tower light pool. Failed early native F/drop attempts produced a retry instruction with no failure lock; later native F completed14/14 and the restaurant grand opening. Explore restored the ordinary Roadster camera and retained a lit Idle receiver.",
+    "Independent export campaign-qa-mvwlyvgi records exactd871 GLB/private1fea rig, completed manualHandoff and all five expected physical facts; four mistimed attempts are retained honestly in its notes. Metadata flags mouse input, unreviewed private preview and assisted staging; allScenarioEvidence/fullCampaignAccepted remain false. This actor approval does not change those broader acceptance limits.",
+    "Independent reviewer is distinct from the authored-character-bounds artist; this reviewer did not create either candidate. Freshly opened all five authored exact-export angles, the clay profile, both supported-carton handoff views and native512 portrait, then used the actual frozen Safari scene. No approval is inferred from a test, topology count or previous reviewer verdict.",
+    "Required in-game-handoff evidence image shows the actual unobstructed delivery-ready receiver and scene; completion and retry/result captures are separately preserved. It is not labeled a final palm-contact instant. Actual supported .4m-carton diagnostic renders show plausible underside palm support with separate fingers; the live scene was exercised with native input. No late-palm frame was captured, and no pixel-exact live contact claim is made.",
+    "Scene starts explicitly used Prepare+Stage, so natural jump pickup/travel and a full14-level unassisted campaign are not claimed. qaTouch selected the touch layout but native mouse/keyboard were used on a desktop Safari session, not a physical phone. No phoneFPS, battery, thermal, 30\u201340minute soak or true-touch claim follows from this review.",
+    "The proposed public paths are not installed by this reviewer. Exact source GLB and portrait bytes are verified; private rig parses exactly equal to the proposed contract, and its canonical serializer digest is separately checked against the proposed public rig fingerprint. Approval applies only to the proposed exact three-file bundle after root installs those same bytes. The old completion photo/silhouette is not the newly reviewed native portrait and still requires release integration."
+  ]
+}
