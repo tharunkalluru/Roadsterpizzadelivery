@@ -47,6 +47,9 @@ export class Walkers {
     const spec = randomPerson(this.r);
     const geo = walkerGeometry(spec);
     const g = new THREE.Group();
+    // These figures retire permanently on removal (distance, path unload or relocation).
+    // Body and both legs share one lease; never dispose borrowed geometry here.
+    g.addEventListener('removed', () => geo.release());
     const body = new THREE.Mesh(geo.body, this.mat); body.castShadow = true; g.add(body);
     let legL: THREE.Mesh | null = null, legR: THREE.Mesh | null = null;
     if (geo.leg && legsVisible(spec.kind)) {

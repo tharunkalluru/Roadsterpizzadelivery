@@ -78,7 +78,8 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
       if(reviewLighting)addEventListener('pagehide',()=>reviewLighting.dispose(),{once:true});
       const panel = document.createElement('aside');
       panel.setAttribute('aria-label', 'Development delivery scenario');
-      panel.style.cssText = 'position:absolute;z-index:6;left:50%;top:76px;transform:translateX(-50%);max-width:340px;width:calc(100vw - 30px);box-sizing:border-box;padding:8px 10px;border:2px solid #ffbf00;border-radius:12px;background:#20152f;color:#fff1d5;font:12px system-ui;pointer-events:auto';
+      panel.style.cssText = 'position:fixed;z-index:31;left:50%;top:76px;transform:translateX(-50%);max-width:340px;width:calc(100vw - 30px);max-height:calc(100dvh - 90px);overflow:auto;box-sizing:border-box;padding:8px 10px;border:2px solid #ffbf00;border-radius:12px;background:#20152f;color:#fff1d5;font:12px system-ui;pointer-events:auto';
+      const paintReview=trainRide||nightLights||query?.get('qaScene')==='1';
       const label = document.createElement('strong');
       label.textContent = fullCampaign?'Full campaign · normal pickup and travel':`QA scenario ${number} · temporary progress${trainRide?' · F2 toggles diagnostics':''}`;
       const status = document.createElement('p'); status.style.margin = '5px 0';status.style.whiteSpace='pre-line';
@@ -173,10 +174,47 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
       }):null;
       button('Restart scenario', () => location.reload());
       if(reviewLighting)button('Toggle day / night',()=>reviewLighting.toggle());
-      button('Hide QA controls', () => {evidence?.hide();if(pickupReadout)panel.hidden=true;else cleanup();});
+      const originalHudVisibility={value:game.hud.root.style.getPropertyValue('visibility'),priority:game.hud.root.style.getPropertyPriority('visibility')};
+      let hudIsolated=false,capturePreview:HTMLElement|null=null;
+      const restoreHudVisibility=()=>{
+        if(!hudIsolated)return;
+        if(originalHudVisibility.value)game.hud.root.style.setProperty('visibility',originalHudVisibility.value,originalHudVisibility.priority);
+        else game.hud.root.style.removeProperty('visibility');
+        hudIsolated=false;
+      };
+      const captureStatus=document.createElement('p');captureStatus.style.cssText='margin:4px 0;color:#8dffe0;font:11px system-ui';captureStatus.hidden=true;
+      if(paintReview){
+        const isolate=button('Hide HUD for paint check',()=>{
+          evidence?.noteAssistance('qa-hud-visibility-isolation');
+          if(hudIsolated)restoreHudVisibility();else{game.hud.root.style.setProperty('visibility','hidden','important');hudIsolated=true;}
+          isolate.textContent=hudIsolated?'Restore HUD':'Hide HUD for paint check';update();
+        });
+        const capture=button('Capture rendered scene',()=>{
+          const paint=gameplayPresentationDiagnostics(game);
+          captureStatus.hidden=false;
+          if(paint.documentHidden||paint.worldPaintBlocked||paint.loading||paint.blockers.length){captureStatus.textContent='Capture blocked by the normal visibility/loading gate. Resume the view first.';return;}
+          evidence?.noteAssistance('qa-rendered-scene-capture');
+          try{
+            // Deliberately use the ordinary render gate. Never force visibility,
+            // move the camera, advance time, or alter graphics for this capture.
+            game.engine.render();const png=game.engine.renderer.domElement.toDataURL('image/png');
+            capturePreview?.remove();capturePreview=document.createElement('section');capturePreview.setAttribute('aria-label','QA rendered scene capture');
+            capturePreview.style.cssText='position:fixed;z-index:40;left:8px;bottom:8px;width:min(360px,calc(100vw - 16px));max-height:65vh;overflow:auto;padding:8px;box-sizing:border-box;border:2px solid #70ffe5;border-radius:10px;background:#171125;color:#fff;font:12px system-ui;pointer-events:auto';
+            const heading=document.createElement('strong');heading.textContent='QA rendered pixels · diagnostic, not FPS evidence';
+            const image=document.createElement('img');image.src=png;image.alt='User-triggered QA image of the normally rendered 3D canvas';image.style.cssText='display:block;width:100%;height:auto;margin:6px 0';
+            const download=document.createElement('a');download.href=png;download.download=`qa-rendered-scene-${Date.now()}.png`;download.textContent='Download scene PNG';download.style.cssText='display:inline-block;padding:9px;color:#8dffe0';
+            const close=document.createElement('button');close.type='button';close.textContent='Close capture';close.style.cssText='min-height:36px;padding:6px;margin:4px;background:#39264b;color:#fff;border:1px solid #9677ad;border-radius:7px';
+            close.addEventListener('click',()=>{capturePreview?.remove();capturePreview=null;});
+            capturePreview.append(heading,image,download,close);document.body.append(capturePreview);
+            captureStatus.textContent='Canvas pixels captured with the normal renderer. Extra diagnostic draw; not a performance sample.';
+          }catch(error){captureStatus.textContent='Capture failed: '+String(error);}
+        });
+        buttons.prepend(isolate,capture);
+      }
+      button('Hide QA controls', () => {restoreHudVisibility();evidence?.hide();if(pickupReadout)panel.hidden=true;else cleanup();});
       panel.addEventListener('pointerdown', event => event.stopPropagation());
       panel.addEventListener('keydown', event => event.stopPropagation());
-      panel.append(label, status, buttons); game.hud.root.append(panel);
+      panel.append(label, buttons, captureStatus, status); (paintReview?document.body:game.hud.root).append(panel);
       const update = () => {
         const blocked = game.relocating || game.choosing || !game.area || game.paused || game.hud.modalOpen || game.hud.rotationBlocked || !!game.map?.open;
         prepare.disabled = fullCampaign || blocked || !game.story?.canPickup;
@@ -199,16 +237,16 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
           const right=dx*Math.cos(game.player.yaw)-dz*Math.sin(game.player.yaw);
           return `Slice ${index+1}: ${Math.hypot(dx,dz).toFixed(1)}m · ${ahead.toFixed(1)}m ahead / ${right.toFixed(1)}m right · height ${(marker.position.y-p.y).toFixed(1)}m`;
         }).join('\n'):'';
-        const paint=(trainRide||nightLights||query?.get('qaScene')==='1')?gameplayPresentationDiagnostics(game):null;
-        const paintReadout=paint?`\nPaint: ${paint.worldPaintBlocked||paint.loading?'BLOCKED':'clear'} · calls ${paint.renderCalls} · canvas ${paint.canvas.width}×${paint.canvas.height}\nDocument: ${paint.documentHidden?'hidden':'visible'} / ${paint.focused?'focused':'unfocused'} · blockers ${paint.blockers.join(', ')||'none'}\nHTML: ${paint.documentClasses||'(none)'} · HUD: ${paint.hudClasses||'(none)'}`:'';
+        const paint=paintReview?gameplayPresentationDiagnostics(game):null;
+        const paintReadout=paint?`\nPaint: ${paint.worldPaintBlocked||paint.loading?'BLOCKED':'clear'} · calls ${paint.renderCalls} · canvas ${paint.canvas.width}×${paint.canvas.height}\nDocument: ${paint.documentHidden?'hidden':'visible'} / ${paint.focused?'focused':'unfocused'} · blockers ${paint.blockers.join(', ')||'none'}\nHTML: ${paint.documentClasses||'(none)'} · HUD: ${paint.hudClasses||'(none)'}${hudIsolated?' · QA HIDDEN':''}\nCamera: ${paint.camera.poseFinite&&paint.camera.projectionFinite?'finite':'INVALID'} · ${paint.camera.position.map(n=>n.toFixed(1)).join(', ')} · aspect ${paint.camera.aspect.toFixed(3)}\nQuaternion: ${paint.camera.quaternion.map(n=>n.toFixed(3)).join(', ')} · context ${paint.contextLost?'LOST':'available'}`:'';
         const readout=text+paintReadout+routeReadout+(orbitVehicles.length?'\nTraffic: '+orbitVehicles.map(c=>`${c.group} ${c.g.visible?'visible':'hidden'}`).join(' · '):'')+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'')+lightingReadout;
         const nextReadout=readout+trainReadout+sceneReadout+pickupDiagnostics;
         if (status.textContent !== nextReadout) status.textContent = nextReadout;
       };
       const timer = setInterval(update, 250);
-      const toggleDiagnostics=(event:KeyboardEvent)=>{if((trainRide||nightLights||pickupReadout)&&event.code==='F2'){panel.hidden=!panel.hidden;event.preventDefault();}};
+      const toggleDiagnostics=(event:KeyboardEvent)=>{if((trainRide||nightLights||pickupReadout)&&event.code==='F2'){panel.hidden=!panel.hidden;if(panel.hidden)restoreHudVisibility();event.preventDefault();}};
       addEventListener('keydown',toggleDiagnostics);
-      const cleanup = () => { clearInterval(timer); panel.remove(); removeEventListener('pagehide', cleanup); removeEventListener('keydown',toggleDiagnostics); };
+      const cleanup = () => { restoreHudVisibility();capturePreview?.remove();capturePreview=null;clearInterval(timer); panel.remove(); removeEventListener('pagehide', cleanup); removeEventListener('keydown',toggleDiagnostics); };
       addEventListener('pagehide', cleanup, { once: true }); update();
     },
   };

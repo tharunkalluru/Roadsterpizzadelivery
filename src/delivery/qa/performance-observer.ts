@@ -5,13 +5,29 @@ declare const __ROADSTER_BUILD__:string;
 /** Read-only paint-gate evidence. Class/attribute reads do not force layout. */
 export function gameplayPresentationDiagnostics(game:Game){
   const root=game.hud.root,canvas=game.engine.renderer.domElement,html=document.documentElement;
+  const camera=game.engine.camera,position=camera.position.toArray(),quaternion=camera.quaternion.toArray();
   const blockers=['title-open','area-picker-open','has-modal','has-tip','rotation-blocked'].filter(name=>root.classList.contains(name));
   if([...root.querySelectorAll<HTMLElement>('.fmap')].some(map=>!map.hidden))blockers.push('map-open');
   return {documentClasses:html.className,hudClasses:root.className,blockers,
     worldPaintBlocked:html.classList.contains('ui-blocks-world'),loading:html.classList.contains('game-loading'),
     documentHidden:document.hidden,focused:document.hasFocus(),
     canvas:{width:canvas.width,height:canvas.height,inlineWidth:canvas.style.width,inlineHeight:canvas.style.height},
+    camera:{position,quaternion,aspect:camera.aspect,near:camera.near,far:camera.far,
+      poseFinite:[...position,...quaternion].every(Number.isFinite),projectionFinite:camera.projectionMatrix.elements.every(Number.isFinite)},
+    contextLost:game.engine.renderer.getContext().isContextLost(),
     renderCalls:game.engine.renderer.info.render.calls};
+}
+
+/** User-triggered export only. Computed style/rect reads stay outside the
+ * existing four-Hz readout and per-frame performance observer. */
+export function gameplayPresentationSnapshot(game:Game){
+  const elements=['#game','#game canvas','#hud'].map(selector=>{
+    const element=document.querySelector<HTMLElement>(selector);if(!element)return {selector,missing:true};
+    const rect=element.getBoundingClientRect(),style=getComputedStyle(element);
+    return {selector,rect:{x:rect.x,y:rect.y,width:rect.width,height:rect.height,top:rect.top,right:rect.right,bottom:rect.bottom,left:rect.left},
+      style:{display:style.display,visibility:style.visibility,opacity:style.opacity,backgroundColor:style.backgroundColor,zIndex:style.zIndex}};
+  });
+  return {...gameplayPresentationDiagnostics(game),elements};
 }
 
 /** Attached only by the optional development evidence panel. Never changes
@@ -45,11 +61,12 @@ export function createGameplayPerformanceObserver(game:Game){
       environment:{quality:game.opts.lowQ?'low':'high',viewport:{width:innerWidth,height:innerHeight},devicePixelRatio,
         rendererPixelRatio:game.engine.renderer.getPixelRatio(),drawingBuffer:{width:game.engine.renderer.domElement.width,height:game.engine.renderer.domElement.height},
         hardwareConcurrency:navigator.hardwareConcurrency??null,refreshCapability:'Not measured by this callback observer',
-        presentation:gameplayPresentationDiagnostics(game)},
+        presentation:gameplayPresentationSnapshot(game)},
       measurement:'Focused, unblocked gameplay observer-callback cadence after the real simulation advances',
       limitations:['Not GPU-completed presentation timing or input latency.','Device, refresh capability, thermal state and battery life require separate hardware evidence.',
         'Hidden, unfocused, loading, map, pause and blocking-dialog intervals are excluded.','The existing Engine resets renderer counters once per frame and aggregates its scene, shadow and composer passes; these are submitted render counts, not GPU completion timing.',
-        'Optional JS heap and WebGL resource counts do not measure full device or GPU memory.','Resource timeline retains up to the latest3600 one-second samples; cadence totals cover the session.'],
+        'Optional JS heap and WebGL resource counts do not measure full device or GPU memory.','Resource timeline retains up to the latest3600 one-second samples; cadence totals cover the session.',
+        'Explicit QA HUD-isolation and scene-capture actions are diagnostic assistance, not representative gameplay-performance samples.'],
       intervalHistogram:{binWidthMs:.25,lastBinAtLeastMs:1000},...cadence.summary(),resources:resources.map(sample=>({...sample}))}),
     dispose(){disposed=true;document.removeEventListener('visibilitychange',reset);window.removeEventListener('blur',reset);window.removeEventListener('focus',reset);}
   };
