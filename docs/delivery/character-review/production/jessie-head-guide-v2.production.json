@@ -1,0 +1,29 @@
+{
+  "status": "UNREVIEWED synthetic identity refinement guide, not film evidence or a3D/release approval",
+  "identity": "jessie",
+  "createdUtc": "2026-10-31T11:54:26.409369+00:00",
+  "tool": "built-in image_gen",
+  "mode": "identity-preserve/background-extraction from actual native film frames",
+  "transparentRequested": true,
+  "inputs": [
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/jessie-sony-40s.png",
+      "sha256": "96d0047799fe29dd84716ba85e60431ef44aa5efec6ecec2b6f25a397449f429",
+      "role": "Primary film identity reference; woman on left only"
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/references/jessie-sony-41s.png",
+      "sha256": "bb816912425c7d861d2eb26c95b3d45f7b2c32d86171b385c045a2bfde549eaa",
+      "role": "Primary film identity reference; woman on left only"
+    }
+  ],
+  "prompt": {
+    "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/jessie-head-guide-v2.prompt.txt",
+    "sha256": "53f23ec32c8eca92ff29bb5789908c7a15b4378beef0ee6c1719aa46fd37c642"
+  },
+  "toolOutput": "/Users/tharun/.codex/generated_images/01a190cf-9a50-7d00-8eae-1786000b510c/exec-6b246d6a-e65c-48a3-91b4-b65d3d4bbcec.png",
+  "workspaceGuide": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/production/jessie-head-guide-transparent-v2.png",
+  "guideSha256": "e0097b1c6fc89f4c7654fae31d38ba7bca173588ad0c98094d8c8319f9c32844",
+  "producerObservedChange": "Eyes are narrower and less round than guidev1; this observation is not independent acceptance",
+  "requiredNext": "Independent native40/41 facial proportion comparison before local3D generation; actual3D views and scene review remain required"
+}

@@ -1,0 +1,25 @@
+# Independent Vakeel four-actor finite review
+
+Reviewer: container-underwater-independent-review. All four V3 actors remain unapproved. Source creator and reviewer are separate. Exact source candidate SHA and actually inspected image hashes are in `evidence/independent-vakeel-v3-finite-findings/inspection-manifest.json`. The manifest names only the inspected subset, not an invented all20-view pass.
+
+Actual primary frames were reopened: official Dil Raju trailer106.5s for lawyer and court-day clothing, Aditya Maguva178s left/middle/right for three distinct women, and170s for the middle woman's clearer face. Synthetic head guides and numerical landmarks are not primary evidence.
+
+The lawyer's actual V3 three-quarter face, swept hair, stubble, white lawyer bands and black coat read recognizably as Pawan Kalyan/Vakeel Saab: that face/role component passes. However actual continuing Walk0.7m/s plus masked Take1 shows a large black coat tray/fan below his right forearm (image-left roughly x230–330/y410–480 in900x900), and a curled opposite hem. This is a real garment skin-ownership/deformation issue despite excellent numeric palm contact. Repair only lower-coat/hem ownership to Hips/Spine/Chest, preserving actual sleeve/forearm/hand skin and accepted palms. Recheck continuing Walk+Take0/.5/1. No camera concealment, black fill or head regeneration.
+
+The three women's inspected authored profiles/three-quarter views show major white/gray/skin posterior scalp/ponytail ownership projections, distinct from their plausible and distinct front identity cues. Woman1 also has horizontal ear/jaw texture bands; woman2 has a broad pale crown/back stripe; woman3 has a large silver side/back strip and sharp seam behind the ear. Approximate profile ROIs are woman1 x380–557/y365–658, woman2 x300–470/y275–610, woman3 x400–535/y360–670. Exact native surface inverse mapping is required, not blind screen painting. All three actual clay profiles show continuous rounded head/jaw/neck volumes rather than holes corresponding to these authored pale blocks. Repair hair UV ownership/detail from true dark tied-back source hair while preserving real exposed ears/forehead/neck and accepted front identities. Do not cut/graft another head or cover all skin with a constant black mask. Woman1 source watch is real, so generic light-wrist deletion would be unjustified.
+
+These finite fixes were sent directly to the creator. Full final exact five-view, gait/hand contact and actual four-person metro exit/handoff remain pending. No current actor is promoted based on model counts, loop equality or palm error. No physical-device or performance claim is made.
+
+Additional actual woman1 full-body view exposes flat triangular skin/sleeve fins just above both wrists, distinct from her small legitimate source watch. Approx768px ROIs x278–311/y422–454 and x451–485/y425–457. Producer received a bounded native geometry/ownership request, preserving real jewelry and distal palms. No blind deletion of all light wrist pieces.
+
+
+## Lawyer V4 moving-coat component
+
+Exact `594f0948ca5dbb9229ecb040d017e11122941b3c8f7b1e97b64a16ea1842e5d9` actual continuing-Walk0.7m/s@0.35 plus maskedTakePizza1 full-body and close carton images were opened. The previous lower-coat tray/fan is gone; coat hangs by the hips while sleeves/arms reach. This finite component passes, with no further coat revision requested for that phase. The close image looks down over the carton and obscures most palm undersides, so it is not relabelled as new underside proof. Final exact five views/portrait/other catch phases and actual four-person metro scene remain pending. Evidence: `evidence/independent-lawyer-coat-v4-component/inspection-manifest.json`.
+
+
+## Woman2 V15 and finite cross-role material review
+
+Actually opened V15 four native views (exact76f1bd08f98544ff99caf8ac2af6e5600cb7f7b342548951e03f0239881315f4) and actual sourceAditya178middle/170. Front identity is preserved; side-neck row bands and old back-cloth ponytail imprint improve. Whole material remains withheld for pale-grey hair versus dark source, sharp front-hair patch boundary, side-cheek tone/chart edge, sawtooth skin/cloth neckline and warm island on sleeve, and bright cloth-like motifs on actual ponytail. Exact ROIs sent producer. Controlled no-op copy does not prove old UV aliasing; no causal colorspace/alias claim made.
+
+Actual baseline current lawyer/Woman1/Woman3 profile+portrait samples were also opened with actualDilRaju106.5 court wardrobe/Aditya178 identities. Faces/court-costume bases are useful, but lawyer has jaw streaks and lateral pale scalp; Woman1 has severe side-ear/neck rectangular row bands and ponytail gray/skin blocks; Woman3 has warm skin patch on pink shoulder cloth and gray hair/front-chart boundary. These are bounded existing material-ownership tasks, not new face generation. Only the samples listed are inspected—not all60 baseline views. Woman1V14 wrist has no rendered evidence yet, so66-vertex metrics do not establish a visual pass. Evidence `evidence/independent-vakeel-material-v15/inspection-manifest.json`. No full appearance or actual metro approval.

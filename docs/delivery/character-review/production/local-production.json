@@ -1,0 +1,680 @@
+{
+  "schemaVersion": 1,
+  "producerRole": "asset production only; independent reviewer required",
+  "runtimeLocation": "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools",
+  "software": [
+    {
+      "repo": "https://github.com/ZimengXiong/Hunyuan3D-Swift",
+      "commit": "292331f4d26ddb80b9dcea6bcb5629ff82f12b82",
+      "runtime": "Python3.12.16 / MLX0.31.4 Apple GPU",
+      "license": "MIT code; Tencent Hunyuan Community model license in external weights/shape-small/LICENSE",
+      "note": "Swift build on this installed CLT fails PackageDescription ABI compatibility before inference; same-author parity-tested Python MLX port works."
+    },
+    {
+      "repo": "https://github.com/VAST-AI-Research/TripoSR",
+      "commit": "107cefdc244c39106fa830359024f6a2f1c78871",
+      "license": "MIT code and model",
+      "runtime": "Python3.9 / PyTorch2.8 MPS, OpenGL4.1 native baker",
+      "adaptations": "Explicit CPU scikit-image marching cubes adapter replaces torchmcubes C++ backend; intended inference weights unchanged. MPS texture query moves tensors to target device and reads result to CPU. Input alpha is official in-memory preprocessing, not source image edits."
+    }
+  ],
+  "weights": [
+    {
+      "repo": "zimengxiong/hunyuan3d-mlx-shape-small",
+      "revision": "b7536809d38ad13fe6a9b7769a41fd5d42e520df",
+      "file": "model.fp16.safetensors",
+      "sha256": "3cc66f3bea33e4062b7dbc875ffe1d70c4888914aec3e91b60f94e9bd01b522b",
+      "bytes": 3819958234,
+      "verification": "actual downloaded byte SHA matched Modelr pinned manifest; license and exact required NOTICE retained outside game"
+    },
+    {
+      "repo": "stabilityai/TripoSR",
+      "revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a",
+      "file": "model.ckpt",
+      "sha256": "429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee",
+      "bytes": 1677246742,
+      "verification": "actual downloaded byte SHA matched public model tree LFS object"
+    }
+  ],
+  "attempts": [
+    {
+      "id": "pushpa-hy3d-mlx-shape-v1",
+      "input": "docs/delivery/character-review/production/pushpa-a-pose-guide-v1.png",
+      "inputKind": "synthetic generated A-pose scaffold, not film evidence",
+      "inputSha256": "408ebdc0ec28176f8218b37ee7953b98062cb2bad2c3704909afde44ed77f38b",
+      "settings": {
+        "steps": 30,
+        "guidance": 5,
+        "octreeResolution": 256,
+        "seed": 42,
+        "dtype": "float16",
+        "quantizeBits": 8,
+        "octreeDecode": true
+      },
+      "output": "docs/delivery/character-review/candidates/pushpa-hy3d-mlx-shape-v1.glb",
+      "sha256": "56defa1837ebdd995643277a6f422d64dfc6b655f1a110a0152352b54823aa7a",
+      "vertices": 246316,
+      "triangles": 492396,
+      "bytes": 8865332,
+      "observedGenerationSeconds": 89.3,
+      "status": "untextured draft; appearance not yet independently reviewed; release unapproved"
+    },
+    {
+      "id": "pushpa-hy3d-mlx-shape-v2",
+      "input": "docs/delivery/character-review/production/pushpa-a-pose-guide-transparent-v2.png",
+      "inputSha256": "714a653d04f17b303a26beef3c623e4adbd55919d309a232eb36665db9dc5bb1",
+      "inputKind": "imagegen background-removal edit of synthetic guide; actual alpha, not film evidence",
+      "settings": {
+        "steps": 30,
+        "guidance": 5,
+        "octreeResolution": 256,
+        "seed": 42,
+        "dtype": "float16",
+        "quantizeBits": 8,
+        "octreeDecode": true
+      },
+      "status": "completed untextured draft; independent actual appearance review pending",
+      "sha256": "818bca2f30b50f08120a3846fc6d173bc49ecfa775e5603b008a77ffbe46366b",
+      "bytes": 2549036,
+      "vertices": 70786,
+      "triangles": 141568,
+      "bounds": [
+        [
+          -0.46516403555870056,
+          -0.9938128590583801,
+          -0.21244630217552185
+        ],
+        [
+          0.44665634632110596,
+          0.9900654554367065,
+          0.19564688205718994
+        ]
+      ],
+      "volume": 0.15200398780443,
+      "output": "docs/delivery/character-review/candidates/pushpa-hy3d-mlx-shape-v2.glb",
+      "observedGenerationSeconds": 66.7
+    },
+    {
+      "id": "pushpa-triposr-textured-v1",
+      "input": "docs/delivery/character-review/production/pushpa-a-pose-guide-transparent-v2.png",
+      "inputKind": "synthetic guide with actual alpha; not primary film reference",
+      "settings": {
+        "device": "mps",
+        "marchingCubesResolution": 256,
+        "textureSize": 2048,
+        "queryChunkSize": 4096,
+        "inMemoryPreprocess": "upstream alpha foreground resize/composite at .85 ratio; unchanged source file"
+      },
+      "status": "completed native textured draft; actual likeness review pending",
+      "file": "docs/delivery/character-review/candidates/pushpa-triposr-textured-v1.glb",
+      "sha256": "a94469fdb8f250c8b44e134c01d85c6fc751c7789b68d676e38113522b8f20bd",
+      "bytes": 4122068,
+      "vertices": 29416,
+      "triangles": 37782,
+      "seconds": 32.635237792,
+      "device": "mps",
+      "sourceSha256": "714a653d04f17b303a26beef3c623e4adbd55919d309a232eb36665db9dc5bb1",
+      "resolution": 256,
+      "textureSize": 2048,
+      "backend": "official MIT TripoSR with local CPU scikit-image marching-cubes/MPS baking adapters",
+      "release": "unapproved, independent actual comparison required",
+      "productionCode": {
+        "runnerSha256": "ef367e82d01875c6bc4afcc0b91f2ce9f357109aa8fb3c3b63b334dd2790b1be",
+        "localCpuAdapterVersion": "first attempt, inward winding; preserved rawv1 before explicit outward-normal correction",
+        "adapterContentSha256": "8d0b498e10f4e0f67c9e93de964e902087d58efda7ac559b182b820b891a4245",
+        "adapterPatch": "docs/delivery/character-review/production/triposr-first-attempt-inward-marching-cubes.patch",
+        "adapterPatchSha256": "dbe5068642b48425f0ad63b2604a99f9f0b0f781d582073ac475bbfe73a531be",
+        "captureNote": "Exact first adapter text reconstructed from recorded single-line correction; not a new generation or review. All inference weights unchanged."
+      },
+      "producerFeedback": "Parent inspected correctly oriented actual body renders and found the neural body texture too soft/melted for release. Retain as raw comparison; use clearer authored costume projection on the Hunyuan geometry, and separately reviewed high-face-pixel head. No appearance approval."
+    },
+    {
+      "id": "pushpa-triposr-textured-v2",
+      "parentCandidateSha256": "a94469fdb8f250c8b44e134c01d85c6fc751c7789b68d676e38113522b8f20bd",
+      "file": "docs/delivery/character-review/candidates/pushpa-triposr-textured-v2.glb",
+      "sha256": "00f8bbf1ea789da703d89ff0008c0382fa94b07302c664ee9a9c4363b9983aff",
+      "bytes": 3769572,
+      "triangles": 37782,
+      "originalVolume": -0.0150960721723734,
+      "correctedVolume": 0.0150960721723734,
+      "change": "Reverse globally inverted CPU marching-cubes triangle winding and normals; preserve the same geometry vertex positions, UVs and image texture pixels. Raw v1 is retained unmodified.",
+      "release": "unapproved, independent visual and deformation review required",
+      "decodedTexturePixelSha256": "8d9ab223cfb01a8c8394628d5eb92e1022837b0ead60673fe499390d4f267686",
+      "decodedTexturePixelEqualityToParent": "verified exact 2048x2048 RGBA pixel bytes equal",
+      "productionCode": {
+        "parentProduction": {
+          "runnerSha256": "ef367e82d01875c6bc4afcc0b91f2ce9f357109aa8fb3c3b63b334dd2790b1be",
+          "localCpuAdapterVersion": "first attempt, inward winding; preserved rawv1 before explicit outward-normal correction",
+          "adapterContentSha256": "8d0b498e10f4e0f67c9e93de964e902087d58efda7ac559b182b820b891a4245",
+          "adapterPatch": "docs/delivery/character-review/production/triposr-first-attempt-inward-marching-cubes.patch",
+          "adapterPatchSha256": "dbe5068642b48425f0ad63b2604a99f9f0b0f781d582073ac475bbfe73a531be",
+          "captureNote": "Exact first adapter text reconstructed from recorded single-line correction; not a new generation or review. All inference weights unchanged."
+        },
+        "postprocess": "Trimesh5.2 load(force=mesh),invert(),export newGLB; decoded texture pixel equality to parent verified",
+        "postprocessRuntime": "hy3d-venv Python3.12.16"
+      },
+      "producerFeedback": "Parent inspected correctly oriented actual body renders and found the neural body texture too soft/melted for release. Retain as raw comparison; use clearer authored costume projection on the Hunyuan geometry, and separately reviewed high-face-pixel head. No appearance approval."
+    },
+    {
+      "id": "ram-triposr-textured-v1",
+      "input": "docs/delivery/character-review/production/ram-vvr-a-pose-guide-transparent-v3.png",
+      "inputSha256": "8e4f5a42d3e075c42a2d9ca9c4a8110d96c451e62bfba2dbbd58ea8b49c840a4",
+      "inputKind": "synthetic alpha guide based on verified native DVV92s film face, not independent film evidence",
+      "status": "complete textured draft, outward winding verified, no approval",
+      "productionCode": {
+        "runnerSnapshot": "docs/delivery/character-review/production/local_character_generate.py",
+        "runnerSha256": "ef367e82d01875c6bc4afcc0b91f2ce9f357109aa8fb3c3b63b334dd2790b1be",
+        "localCpuAdapterPatch": "docs/delivery/character-review/production/triposr-cpu-marching-cubes.patch",
+        "patchSha256": "0598d996d1a97ef81ac512f80c0ca008cd66b5a66fe018046a09fca794123c06",
+        "actualIsosurfacePySha256": "ee2a0b104cee5291d733c3e33e57315695f532e7901082b54586e0837fe15bb9",
+        "patchVersionNote": "Correct outward winding after preserving initial Pushpa rawv1; subsequent runs use corrected adapter.",
+        "commandArgv": [
+          "PYTHONUNBUFFERED=1",
+          "PYTORCH_ENABLE_MPS_FALLBACK=1",
+          "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/triposr-venv/bin/python",
+          "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/TripoSR/local_character_generate.py",
+          "INPUT_ALPHA_GUIDE",
+          "--weights",
+          "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/weights/triposr",
+          "--output",
+          "NEW_CANDIDATE_GLB",
+          "--resolution",
+          "256",
+          "--texture",
+          "2048"
+        ],
+        "weightLicense": "MIT, complete source LICENSE retained in external weights/triposr/LICENSE",
+        "sourceLicenseSha256": "ade0a66629bdd7e01e46b3296b3851cff0fd27989bca53da470ad6e96ed620fb"
+      },
+      "file": "docs/delivery/character-review/candidates/ram-triposr-textured-v1.glb",
+      "sha256": "0a397470431811c6a8622bf13af0d20aa6cdc147fbaca767e5a9b113ee3d1e4d",
+      "bytes": 4331092,
+      "vertices": 37026,
+      "triangles": 49054,
+      "seconds": 43.395536166,
+      "device": "mps",
+      "sourceSha256": "8e4f5a42d3e075c42a2d9ca9c4a8110d96c451e62bfba2dbbd58ea8b49c840a4",
+      "resolution": 256,
+      "textureSize": 2048,
+      "backend": "official MIT TripoSR with local CPU scikit-image marching-cubes/MPS baking adapters",
+      "release": "unapproved, independent actual comparison required"
+    },
+    {
+      "id": "pushpa-triposr-textured-v3",
+      "file": "docs/delivery/character-review/candidates/pushpa-triposr-textured-v3.glb",
+      "sha256": "6869384ac43bffddae9283c30db9a9add5ddc41d2ba05c1a28272ffe707630c4",
+      "bytes": 4122844,
+      "triangles": 37782,
+      "change": "Materialize and explicitly export outward smooth vertex normals omitted by Trimesh on v2; same corrected geometry positions, UVs, base-color pixels and PBR material. Raw v1/v2 retained.",
+      "parentSha256": "00f8bbf1ea789da703d89ff0008c0382fa94b07302c664ee9a9c4363b9983aff",
+      "decodedTexturePixelSha256": "8d9ab223cfb01a8c8394628d5eb92e1022837b0ead60673fe499390d4f267686",
+      "release": "unapproved",
+      "producerFeedback": "Parent inspected correctly oriented actual body renders and found the neural body texture too soft/melted for release. Retain as raw comparison; use clearer authored costume projection on the Hunyuan geometry, and separately reviewed high-face-pixel head. No appearance approval."
+    },
+    {
+      "id": "devara-triposr-textured-v1",
+      "input": "docs/delivery/character-review/production/devara-a-pose-guide-transparent-v1.png",
+      "inputSha256": "9deea0afb0dd26052527a14732abf10cd34536f212fe7d56e58c3cbe53f09f2a",
+      "inputKind": "synthetic transparent body scaffold based on correct-film NTR Arts45s face; not independent evidence",
+      "settings": {
+        "marchingCubesResolution": 256,
+        "textureSize": 2048,
+        "device": "mps",
+        "queryChunkSize": 4096
+      },
+      "productionCode": {
+        "runnerSnapshot": "docs/delivery/character-review/production/local_character_generate.py",
+        "runnerSha256": "ef367e82d01875c6bc4afcc0b91f2ce9f357109aa8fb3c3b63b334dd2790b1be",
+        "localCpuAdapterPatch": "docs/delivery/character-review/production/triposr-cpu-marching-cubes.patch",
+        "patchSha256": "0598d996d1a97ef81ac512f80c0ca008cd66b5a66fe018046a09fca794123c06",
+        "actualIsosurfacePySha256": "ee2a0b104cee5291d733c3e33e57315695f532e7901082b54586e0837fe15bb9",
+        "patchVersionNote": "Correct outward winding after preserving initial Pushpa rawv1; subsequent runs use corrected adapter.",
+        "commandArgv": [
+          "PYTHONUNBUFFERED=1",
+          "PYTORCH_ENABLE_MPS_FALLBACK=1",
+          "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/triposr-venv/bin/python",
+          "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/TripoSR/local_character_generate.py",
+          "INPUT_ALPHA_GUIDE",
+          "--weights",
+          "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/weights/triposr",
+          "--output",
+          "NEW_CANDIDATE_GLB",
+          "--resolution",
+          "256",
+          "--texture",
+          "2048"
+        ],
+        "weightLicense": "MIT, complete source LICENSE retained in external weights/triposr/LICENSE",
+        "sourceLicenseSha256": "ade0a66629bdd7e01e46b3296b3851cff0fd27989bca53da470ad6e96ed620fb"
+      },
+      "status": "complete textured draft; no rig/appearance approval",
+      "file": "docs/delivery/character-review/candidates/devara-triposr-textured-v1.glb",
+      "sha256": "dcd1219a80f15f54165e762bc2cd8fc2a441c91f8a6b990434149b9fafde35ff",
+      "bytes": 4273564,
+      "vertices": 40087,
+      "triangles": 51288,
+      "seconds": 32.554659208,
+      "device": "mps",
+      "sourceSha256": "9deea0afb0dd26052527a14732abf10cd34536f212fe7d56e58c3cbe53f09f2a",
+      "resolution": 256,
+      "textureSize": 2048,
+      "backend": "official MIT TripoSR with local CPU scikit-image marching-cubes/MPS baking adapters",
+      "release": "unapproved, independent actual comparison required"
+    },
+    {
+      "id": "pushpa-triposr-head-v1",
+      "input": "docs/delivery/character-review/production/pushpa-head-guide-transparent-v1.png",
+      "inputSha256": "27033aebdb6960327a90770850a060bcc0b86ef8c9326b446a2b19748b8925a5",
+      "inputKind": "synthetic high-face-pixel transparent head guide, not film evidence",
+      "settings": {
+        "device": "mps",
+        "marchingCubesResolution": 384,
+        "textureSize": 2048,
+        "queryChunkSize": 4096
+      },
+      "productionCode": {
+        "runnerSnapshot": "docs/delivery/character-review/production/local_character_generate.py",
+        "runnerSha256": "ef367e82d01875c6bc4afcc0b91f2ce9f357109aa8fb3c3b63b334dd2790b1be",
+        "localCpuAdapterPatch": "docs/delivery/character-review/production/triposr-cpu-marching-cubes.patch",
+        "patchSha256": "0598d996d1a97ef81ac512f80c0ca008cd66b5a66fe018046a09fca794123c06",
+        "actualIsosurfacePySha256": "ee2a0b104cee5291d733c3e33e57315695f532e7901082b54586e0837fe15bb9",
+        "patchVersionNote": "Correct outward winding after preserving initial Pushpa rawv1; subsequent runs use corrected adapter.",
+        "commandArgv": [
+          "PYTHONUNBUFFERED=1",
+          "PYTORCH_ENABLE_MPS_FALLBACK=1",
+          "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/triposr-venv/bin/python",
+          "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/TripoSR/local_character_generate.py",
+          "INPUT_ALPHA_GUIDE",
+          "--weights",
+          "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/weights/triposr",
+          "--output",
+          "NEW_CANDIDATE_GLB",
+          "--resolution",
+          "256",
+          "--texture",
+          "2048"
+        ],
+        "weightLicense": "MIT, complete source LICENSE retained in external weights/triposr/LICENSE",
+        "sourceLicenseSha256": "ade0a66629bdd7e01e46b3296b3851cff0fd27989bca53da470ad6e96ed620fb"
+      },
+      "status": "cancelled producer job after384 dense mesh extraction caused severe memory pressure; no exported head asset, no approval",
+      "observed": "Inference completed7.2s; extraction remained pending beyond7minutes and Mac memory_pressure reported4percent free. Producer process terminated to release memory.",
+      "next": "Keep head conditioning high-pixel but restore256 geometry and stream density-only queries to CPU rather than retain all57million-point outputs on MPS."
+    },
+    {
+      "id": "pushpa-triposr-head-v2",
+      "input": "docs/delivery/character-review/production/pushpa-head-guide-transparent-v1.png",
+      "inputSha256": "27033aebdb6960327a90770850a060bcc0b86ef8c9326b446a2b19748b8925a5",
+      "inputKind": "synthetic high-face-pixel transparent head guide, not independent film evidence",
+      "settings": {
+        "device": "mps",
+        "marchingCubesResolution": 256,
+        "textureSize": 2048,
+        "densitySlicesPerBatch": 8,
+        "textureRowsPerBatch": 8,
+        "stopIfSystemFreeBelowPercent": 20,
+        "stopIfRssOrMpsDriverAboveGiB": 5
+      },
+      "productionCode": {
+        "runnerSnapshot": "docs/delivery/character-review/production/local_character_generate_streamed_v2.py",
+        "runnerSha256": "e4eff10660e93ee154be67127c40ecb9059bde77f0b16e7290975a76660743a5",
+        "revisionNote": "Direct streamed density-only CPU grid, never retains dense full positions/color tensors on MPS; original neural weights unchanged; explicit outward normals"
+      },
+      "status": "complete high-pixel textured head draft; no approval",
+      "file": "docs/delivery/character-review/candidates/pushpa-triposr-head-v2.glb",
+      "sha256": "3263cc6304665cf2ee94315a4c101f3e8f4a49917447d14e16bf181904b47a40",
+      "bytes": 10141132,
+      "vertices": 138442,
+      "triangles": 172908,
+      "seconds": 52.827495166000006,
+      "device": "mps",
+      "sourceSha256": "27033aebdb6960327a90770850a060bcc0b86ef8c9326b446a2b19748b8925a5",
+      "resolution": 256,
+      "memorySamples": [
+        {
+          "stage": "before-load",
+          "systemFreePercent": 70,
+          "rssBytes": 352731136,
+          "mpsDriverBytes": 475136
+        },
+        {
+          "stage": "weights-ready",
+          "systemFreePercent": 38,
+          "rssBytes": 794542080,
+          "mpsDriverBytes": 2559016960
+        },
+        {
+          "stage": "density-slices-0:8",
+          "systemFreePercent": 32,
+          "rssBytes": 258179072,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-8:16",
+          "systemFreePercent": 30,
+          "rssBytes": 264650752,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-16:24",
+          "systemFreePercent": 30,
+          "rssBytes": 267517952,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-24:32",
+          "systemFreePercent": 46,
+          "rssBytes": 268664832,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-32:40",
+          "systemFreePercent": 46,
+          "rssBytes": 269385728,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-40:48",
+          "systemFreePercent": 45,
+          "rssBytes": 264437760,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-48:56",
+          "systemFreePercent": 45,
+          "rssBytes": 267321344,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-56:64",
+          "systemFreePercent": 45,
+          "rssBytes": 266600448,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-64:72",
+          "systemFreePercent": 45,
+          "rssBytes": 268304384,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-72:80",
+          "systemFreePercent": 42,
+          "rssBytes": 267091968,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-80:88",
+          "systemFreePercent": 41,
+          "rssBytes": 270106624,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-88:96",
+          "systemFreePercent": 38,
+          "rssBytes": 269549568,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-96:104",
+          "systemFreePercent": 38,
+          "rssBytes": 272400384,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-104:112",
+          "systemFreePercent": 37,
+          "rssBytes": 275283968,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-112:120",
+          "systemFreePercent": 36,
+          "rssBytes": 278118400,
+          "mpsDriverBytes": 4776443904
+        },
+        {
+          "stage": "density-slices-120:128",
+          "systemFreePercent": 36,
+          "rssBytes": 278347776,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-128:136",
+          "systemFreePercent": 36,
+          "rssBytes": 281296896,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-136:144",
+          "systemFreePercent": 35,
+          "rssBytes": 279789568,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-144:152",
+          "systemFreePercent": 35,
+          "rssBytes": 278429696,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-152:160",
+          "systemFreePercent": 35,
+          "rssBytes": 281280512,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-160:168",
+          "systemFreePercent": 35,
+          "rssBytes": 284131328,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-168:176",
+          "systemFreePercent": 35,
+          "rssBytes": 287014912,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-176:184",
+          "systemFreePercent": 36,
+          "rssBytes": 289865728,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-184:192",
+          "systemFreePercent": 38,
+          "rssBytes": 260587520,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-192:200",
+          "systemFreePercent": 39,
+          "rssBytes": 263471104,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-200:208",
+          "systemFreePercent": 39,
+          "rssBytes": 266338304,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-208:216",
+          "systemFreePercent": 40,
+          "rssBytes": 269139968,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-216:224",
+          "systemFreePercent": 40,
+          "rssBytes": 272039936,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-224:232",
+          "systemFreePercent": 40,
+          "rssBytes": 274907136,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-232:240",
+          "systemFreePercent": 41,
+          "rssBytes": 277774336,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-240:248",
+          "systemFreePercent": 40,
+          "rssBytes": 280641536,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "density-slices-248:256",
+          "systemFreePercent": 40,
+          "rssBytes": 283492352,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "mesh-complete",
+          "systemFreePercent": 42,
+          "rssBytes": 393805824,
+          "mpsDriverBytes": 4170366976
+        },
+        {
+          "stage": "texture-rows-0:8",
+          "systemFreePercent": 32,
+          "rssBytes": 444219392,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-128:136",
+          "systemFreePercent": 31,
+          "rssBytes": 443514880,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-256:264",
+          "systemFreePercent": 31,
+          "rssBytes": 409796608,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-384:392",
+          "systemFreePercent": 31,
+          "rssBytes": 417808384,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-512:520",
+          "systemFreePercent": 31,
+          "rssBytes": 351305728,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-640:648",
+          "systemFreePercent": 31,
+          "rssBytes": 248856576,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-768:776",
+          "systemFreePercent": 34,
+          "rssBytes": 246595584,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-896:904",
+          "systemFreePercent": 33,
+          "rssBytes": 233095168,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-1024:1032",
+          "systemFreePercent": 33,
+          "rssBytes": 234176512,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-1152:1160",
+          "systemFreePercent": 33,
+          "rssBytes": 242286592,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-1280:1288",
+          "systemFreePercent": 33,
+          "rssBytes": 251052032,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-1408:1416",
+          "systemFreePercent": 33,
+          "rssBytes": 249708544,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-1536:1544",
+          "systemFreePercent": 32,
+          "rssBytes": 211533824,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-1664:1672",
+          "systemFreePercent": 33,
+          "rssBytes": 202899456,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-1792:1800",
+          "systemFreePercent": 33,
+          "rssBytes": 211468288,
+          "mpsDriverBytes": 4549558272
+        },
+        {
+          "stage": "texture-rows-1920:1928",
+          "systemFreePercent": 33,
+          "rssBytes": 220250112,
+          "mpsDriverBytes": 4549558272
+        }
+      ],
+      "maxRssBytes": 794542080,
+      "maxMpsDriverBytes": 4776443904,
+      "textureSize": 2048,
+      "backend": "official MIT TripoSR with local CPU scikit-image marching-cubes/MPS baking adapters",
+      "release": "unapproved, independent actual comparison required"
+    }
+  ],
+  "triposrReproduction": {
+    "runnerSnapshot": "docs/delivery/character-review/production/local_character_generate.py",
+    "runnerSha256": "ef367e82d01875c6bc4afcc0b91f2ce9f357109aa8fb3c3b63b334dd2790b1be",
+    "localCpuAdapterPatch": "docs/delivery/character-review/production/triposr-cpu-marching-cubes.patch",
+    "patchSha256": "0598d996d1a97ef81ac512f80c0ca008cd66b5a66fe018046a09fca794123c06",
+    "actualIsosurfacePySha256": "ee2a0b104cee5291d733c3e33e57315695f532e7901082b54586e0837fe15bb9",
+    "patchVersionNote": "Correct outward winding after preserving initial Pushpa rawv1; subsequent runs use corrected adapter.",
+    "commandArgv": [
+      "PYTHONUNBUFFERED=1",
+      "PYTORCH_ENABLE_MPS_FALLBACK=1",
+      "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/triposr-venv/bin/python",
+      "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/TripoSR/local_character_generate.py",
+      "INPUT_ALPHA_GUIDE",
+      "--weights",
+      "/Users/tharun/Documents/Codex/2026-10-29/character-production-tools/weights/triposr",
+      "--output",
+      "NEW_CANDIDATE_GLB",
+      "--resolution",
+      "256",
+      "--texture",
+      "2048"
+    ],
+    "weightLicense": "MIT, complete source LICENSE retained in external weights/triposr/LICENSE",
+    "sourceLicenseSha256": "ade0a66629bdd7e01e46b3296b3851cff0fd27989bca53da470ad6e96ed620fb"
+  },
+  "operationalState": {
+    "updatedAtUtc": "2026-10-31T09:06:39.120096+00:00",
+    "gpuProduction": "idle; paused by parent until browser/gameplay QA is restored",
+    "reason": "Earlier dense384 head extraction exhausted memory and disrupted Chrome GPU state. It was terminated; streamed256 replacement completed within bounds. Do not attribute that producer load to game performance.",
+    "lastReportedSystemFreePercent": 66,
+    "nextWork": "No automatic GPU jobs. Parent may resume only after QA. Independently review corrected neutral renders of actual high-pixel head and newly authored body/rig textures."
+  }
+}
