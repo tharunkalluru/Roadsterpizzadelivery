@@ -1,0 +1,378 @@
+{
+  "characterId": "vakeel-woman-3",
+  "name": "Vakeel Saab companion 3",
+  "film": "Vakeel Saab",
+  "status": "approved",
+  "candidate": {
+    "assetId": "vakeel-metro-companion-three-v1",
+    "sha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/vakeel-woman-3/platform-companion-v1.glb",
+      "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd"
+    },
+    {
+      "path": "public/delivery/characters/vakeel-woman-3/platform-companion-v1.rig.json",
+      "sha256": "bb0e3910c28625cb04553a062e053b915ded83bc32166aba258fa4cb61755d3b"
+    },
+    {
+      "path": "public/delivery/characters/vakeel-woman-3/portrait-v1.png",
+      "sha256": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc"
+    }
+  ],
+  "authorId": "likeness-release-gate-vakeel-art-producer",
+  "reviewerId": "independent-final-metro-native-review-20261031",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "vakeel-women-native-178s",
+      "characterId": "vakeel-woman-3",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=fqM8DJIZIDw",
+      "publisher": "Aditya Music official",
+      "path": "docs/delivery/character-review/production/references/vakeel-women-aditya-178s.png",
+      "sha256": "ed2c199c2e8d42c25480f8c101068d66311e762f6aec912b881e086e398b810d",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Frozen native primary film frame personally compared by the final reviewer through the labelled whole-frame comparison sheet. Distinct face/hair identity context; alternate everyday costume and warm lighting are not neutral court costume or skin evidence."
+    },
+    {
+      "id": "vakeel-native-106.5s",
+      "characterId": "vakeel-woman-3",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=P1xKV0Dmetg",
+      "publisher": "Dil Raju official",
+      "path": "docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png",
+      "sha256": "7e640d0338ab635905b500591e892f48c223194d3dab1705e52afc3cd62c618e",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Frozen native primary film frame personally compared by the final reviewer through the labelled whole-frame comparison sheet. Court-role costume context."
+    },
+    {
+      "id": "vakeel-women-native-138s",
+      "characterId": "vakeel-woman-3",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=fqM8DJIZIDw",
+      "publisher": "Aditya Music official",
+      "path": "docs/delivery/character-review/production/references/vakeel-women-aditya-138s.png",
+      "sha256": "033b521ba4e379012bcddf34c646f880c10a125554c5c25680b23ffecfb4a20b",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Frozen native primary film frame personally compared by the final reviewer through the labelled whole-frame comparison sheet. Distinct face/hair identity context; alternate everyday costume and warm lighting are not neutral court costume or skin evidence."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-3/offline/front.png",
+      "sha256": "a6f83f15e43afb0618db6f0d2d748262269a2cb965df7cad09ef2a53ec59add2",
+      "assetSha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5",
+      "comparedReferenceIds": [
+        "vakeel-women-native-178s",
+        "vakeel-native-106.5s",
+        "vakeel-women-native-138s"
+      ],
+      "observedBy": "independent-final-metro-native-review-20261031"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-3/offline/three-quarter.png",
+      "sha256": "63034660a21a1d8f53a17aee2d53e8397aa97e01a8f896fa438eab58224251ed",
+      "assetSha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5",
+      "comparedReferenceIds": [
+        "vakeel-women-native-178s",
+        "vakeel-native-106.5s",
+        "vakeel-women-native-138s"
+      ],
+      "observedBy": "independent-final-metro-native-review-20261031"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-3/offline/profile.png",
+      "sha256": "42f83ed011cdbc5c54b2c891c6fe8b46fff7294f4e8e94ad90027c8ad565447c",
+      "assetSha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5",
+      "comparedReferenceIds": [
+        "vakeel-women-native-178s",
+        "vakeel-native-106.5s",
+        "vakeel-women-native-138s"
+      ],
+      "observedBy": "independent-final-metro-native-review-20261031"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-3/offline/full-body.png",
+      "sha256": "625e010822eb0f8427ec0088f16059b334369da9fb0623c70d55f7f14706479d",
+      "assetSha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5",
+      "comparedReferenceIds": [
+        "vakeel-women-native-178s",
+        "vakeel-native-106.5s",
+        "vakeel-women-native-138s"
+      ],
+      "observedBy": "independent-final-metro-native-review-20261031"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-07.png",
+      "sha256": "232cc1d62ac7670e6efdf8855177367a3ef64fd6567fb2e0f586418c04d22377",
+      "assetSha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5",
+      "comparedReferenceIds": [
+        "vakeel-women-native-178s",
+        "vakeel-native-106.5s",
+        "vakeel-women-native-138s"
+      ],
+      "observedBy": "independent-final-metro-native-review-20261031"
+    }
+  ],
+  "feedback": [
+    "Distinct tied-back hair/face, bindi and pink buttoned kurta with matching trousers retain the correct-film companion appearance. The closed lower-kurta fold and small underside wrist crease remain accepted bounded details.",
+    "Renewed front/three-quarter/profile/full-body/portrait and five-Walk/Take0/.5/1/palm sheets were personally compared to three whole primary frames. The prior complete15view independent pass remains separately credited and was rehashed; it is not being falsely attributed as a new15view review.",
+    "Exact proposed GLB, private rig, semantically identical canonical rig, portrait and canonical three-file bundle were independently hash checked. Primary correct-film references and native scene evidence support the close-match verdict.",
+    "Actual Q10 metro boarding, next different station, sequential four-person exit, supported stopped platform parking, manual carton catch, completion, Next and all-four retained relaxed idle passed independent native observation. Fixed night/day readability passed."
+  ],
+  "provenance": {
+    "releaseProposal": {
+      "path": "/tmp/roadster-vakeel-woman-3-release-proposal-v1.json",
+      "sha256": "e1dcaf3ec0935d47f50e4889633a1f186d1f7886dd36bec593c13942cb478caf"
+    },
+    "privateGlb": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/candidates/vakeel-woman-3-on-metro-v1.glb",
+      "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd"
+    },
+    "privateRig": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/candidates/vakeel-woman-3-on-metro-v1.rig.json",
+      "sha256": "7b1af2669db4181953dc858ef37dade1454f86dfe911af0c1c23a9acea630586"
+    },
+    "canonicalRig": {
+      "path": "/tmp/roadster-vakeel-woman-3-release-canonical-rig-v1.json",
+      "sha256": "bb0e3910c28625cb04553a062e053b915ded83bc32166aba258fa4cb61755d3b"
+    },
+    "portrait": {
+      "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/portrait.png",
+      "sha256": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc"
+    },
+    "privateSceneDescriptor": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/candidates/vakeel-woman-3-on-metro-v1.json",
+      "sha256": "cd6fe1f78071a4c924986ef25ad59f7ffa75df83f78e91d5c3808290d387ee4d"
+    },
+    "privateBundle": {
+      "files": [
+        {
+          "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/candidates/vakeel-woman-3-on-metro-v1.glb",
+          "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd"
+        },
+        {
+          "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/candidates/vakeel-woman-3-on-metro-v1.rig.json",
+          "sha256": "7b1af2669db4181953dc858ef37dade1454f86dfe911af0c1c23a9acea630586"
+        },
+        {
+          "path": "/private/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/portrait.png",
+          "sha256": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc"
+        }
+      ],
+      "sha256": "114c988da73d648a00f6e81458ac737c4e011f81f2f6650d3675a5741a800271",
+      "hashMethod": "sha256(JSON.stringify(files)) in listed order",
+      "scope": "Audit-only private GLB/rig/portrait file-list fingerprint, not a registered release candidate."
+    },
+    "canonicalBundle": {
+      "candidate": {
+        "assetId": "vakeel-metro-companion-three-v1",
+        "sha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5"
+      },
+      "candidateFiles": [
+        {
+          "path": "public/delivery/characters/vakeel-woman-3/platform-companion-v1.glb",
+          "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd"
+        },
+        {
+          "path": "public/delivery/characters/vakeel-woman-3/platform-companion-v1.rig.json",
+          "sha256": "bb0e3910c28625cb04553a062e053b915ded83bc32166aba258fa4cb61755d3b"
+        },
+        {
+          "path": "public/delivery/characters/vakeel-woman-3/portrait-v1.png",
+          "sha256": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc"
+        }
+      ],
+      "hashMethod": "sha256(JSON.stringify(candidateFiles)) in listed order",
+      "verified": true
+    },
+    "privateAndCanonicalRigSemanticEquality": true,
+    "sourceProposal": {
+      "path": "/tmp/roadster-vakeel-woman-3-private-source-wrapper-v1.json",
+      "sha256": "cad76a5d6123194bdffcdf26ac60e770a8ebe51b84eddc154c674c209a424ff3"
+    },
+    "originalProducerProposal": {
+      "path": "/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/final-proposal.json",
+      "sha256": "f2a2b8737beeaf9e962912eb0c49421a4f56ee69ce8844d1035e5aac38bac909"
+    },
+    "priorIndependentOfflineReview": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-3/independent-offline-review.json",
+      "sha256": "4aff81b3d551332575abf856a842ed54756c7fd8b7f48a35c0b18ac3f6895545"
+    },
+    "priorOfflineReviewerId": "container-underwater-independent-review",
+    "frozenComparisonSheet": {
+      "path": "/tmp/roadster-vakeel-renewed-review-contact-sheets/woman-3-frozen-comparison.png",
+      "sha256": "0ce0d0b08e53d10934e9851430af653c97016aacedddd3bad246324a6c4b22f8"
+    },
+    "frozenMotionPalmsSheet": {
+      "path": "/tmp/roadster-vakeel-renewed-review-contact-sheets/woman-3-frozen-motion-palms.png",
+      "sha256": "e84d6990bda27e102016cde47207941669a0482f157e965ba6f5a7bf379b3ace"
+    },
+    "observationScope": "Exact frozen source and reference comparisons plus actual final four-person native scene, night/day, exit, carton catch and retained relaxed idle personally observed. Approval does not register or publish assets and makes no phone-performance claim.",
+    "nativeSceneAcceptance": {
+      "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/independent-scene-acceptance.json",
+      "sha256": "7d696c660979a6b58722c8c68715663fcd7bfe1dd7578b55b8eb37cc8a56f03b"
+    },
+    "exactObservedPrivateAsset": {
+      "id": "vakeel-woman-3-on-metro-v1",
+      "characterId": "vakeel-woman-3",
+      "descriptor": "/docs/delivery/character-review/candidates/vakeel-woman-3-on-metro-v1.json",
+      "glbSha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+      "rigSha256": "7b1af2669db4181953dc858ef37dade1454f86dfe911af0c1c23a9acea630586"
+    },
+    "oldLawyerEvidenceNotReused": true
+  },
+  "reviewedAt": "2026-10-31T23:38:46.595718+00:00",
+  "sceneEvidence": {
+    "status": "independent-native-scene-pass",
+    "reviewerId": "independent-final-metro-native-review-20261031",
+    "reviewedAt": "2026-10-31T23:38:46.595718+00:00",
+    "url": "http://127.0.0.1:4201/?qaDelivery=10&qaScene=1&qaCampaign=1&qaArt=scene-candidates-v1&q=low&qaTouch=1&qaNight=1&qaPerf=1&qaRoute=1",
+    "uiMethod": "Native Safari via mcp__cua_repl; no browser evaluation, CDP or direct game-state mutation.",
+    "actualFacts": [
+      "metro-roof-contact",
+      "metro-next-station",
+      "authored-metro-exit",
+      "four-exit-anchors",
+      "grounded-arrival",
+      "manual-handoff"
+    ],
+    "visualReviews": [
+      {
+        "check": "Four visible correct-film people exit the proper door onto the physical platform.",
+        "evidence": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/02-exit-20.png \u2014 Independent native review: all four exact final people visibly exit the real door onto the physical platform; 22-frame sequence retained.",
+        "at": 223271.99999996834
+      },
+      {
+        "check": "Vakeel Saab lawyer costume, three companion appearances and natural walking are independently approved.",
+        "evidence": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/04-night-full-group-crown.png; 05-day-full-group-crown.png; 06-transfer-07.png; 07-retained-13.png \u2014 independent-final-metro-native-review-20261031: exact lawyer032941 plus unchanged final three women pass film-reference appearance, visible walk, night/day full body, manual catch and retained relaxed idle. Formal four exact-bundle records follow.",
+        "at": 244199.9999999616
+      }
+    ],
+    "observedAssets": [
+      {
+        "id": "vakeel-saab-on-metro-v2",
+        "characterId": "vakeel-saab",
+        "descriptor": "/docs/delivery/character-review/candidates/vakeel-saab-on-metro-v2.json",
+        "glbSha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760",
+        "rigSha256": "2d633b662fdcba22b46ac45be0c5a21fb825e1c08b01556799ea9ac541f93871"
+      },
+      {
+        "id": "vakeel-woman-1-on-metro-v1",
+        "characterId": "vakeel-woman-1",
+        "descriptor": "/docs/delivery/character-review/candidates/vakeel-woman-1-on-metro-v1.json",
+        "glbSha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+        "rigSha256": "3e9c54a8b762d36735ee5af6ecae9812384b0c55da91be801aebca40db42e9c9"
+      },
+      {
+        "id": "vakeel-woman-2-on-metro-v1",
+        "characterId": "vakeel-woman-2",
+        "descriptor": "/docs/delivery/character-review/candidates/vakeel-woman-2-on-metro-v1.json",
+        "glbSha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702",
+        "rigSha256": "f425a9e216a0ee711cc65f607f26c2e506795242f6b8c3d1b6c8d2fd77f859f8"
+      },
+      {
+        "id": "vakeel-woman-3-on-metro-v1",
+        "characterId": "vakeel-woman-3",
+        "descriptor": "/docs/delivery/character-review/candidates/vakeel-woman-3-on-metro-v1.json",
+        "glbSha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+        "rigSha256": "7b1af2669db4181953dc858ef37dade1454f86dfe911af0c1c23a9acea630586"
+      }
+    ],
+    "export": {
+      "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/campaign-evidence.json",
+      "sha256": "ff62d338fd5f45f8d65ec5ebf061305cb802e73099d897cbf0b4e33c3c4159d0"
+    },
+    "evidence": [
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/02-exit-07.png",
+        "sha256": "d0a416e50a473a44f666b7e3d9be074bc8e2669af1941ff0da3959bd8442e4a0",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/02-exit-15.png",
+        "sha256": "2ad757de3b2d1adb21844a5b1e8b4d7f498a97b4eaa195791de435eff872bf2a",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/02-exit-20.png",
+        "sha256": "dbdfed5eacc798bf7c8676f6b266202c5928ae836aa8814fac4b6d12a8875009",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/04-night-full-group-crown.png",
+        "sha256": "3cd830f33b7590d6ae5ff704057d6ef5e38bf5b188214d14acdfd63d7eacaff4",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/05-day-full-group-crown.png",
+        "sha256": "6ebee4d3d3d3640e1e0f04d21b8e0e866e2e69755d68f4fc85fa4dd52a58e359",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-00.png",
+        "sha256": "5b4d06d794736bc2ee0123f4bd769249e830917242351971498a80f9e875fa20",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-06.png",
+        "sha256": "aa4f8e51b62afe34345225d60367845dd1b6a8f6894660b023e9fa7dbb6f6de0",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-07.png",
+        "sha256": "232cc1d62ac7670e6efdf8855177367a3ef64fd6567fb2e0f586418c04d22377",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-08.png",
+        "sha256": "c82ad85e1c0153ca4b5828f518ad66476dd6ef6b3b1de733ad7a47032dd68b52",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-09.png",
+        "sha256": "d817573433c35c436b31caa9cff4c2d7690352790685901eca3bcb1768777868",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/07-retained-00.png",
+        "sha256": "e28fc0d6d3af75465de8fbba83aca138eee23c9bac7fc80054239cf7390c7dbb",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      },
+      {
+        "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/07-retained-13.png",
+        "sha256": "66e5ab07f9ad7ff25122c42555cb24177a363ab1ffaa1bfb126056e71abaf537",
+        "actuallyOpenedBy": "independent-final-metro-native-review-20261031"
+      }
+    ],
+    "assistance": "Isolated order preparation and initial QA staging above a real metro. Actual descent, roof carry to a different station, exits, roof rolloff, platform parking and F handover followed with normal native controls. This is not a natural pickup or full-campaign proof.",
+    "observations": [
+      "All four exact candidates visibly walk out of the actual open metro door in sequence onto the existing physical platform. Full bodies, feet and cloth remain readable in the late exit frames.",
+      "Player rolled laterally off the actual train roof, landed at14.25m, aligned parallel to the platform and stopped within the marked bay. No post-boarding staging, teleport or reset occurred in this final run.",
+      "All four are readable in fixed night and daylight captures. New lawyer crown has no beige fallback band; ordinary coarse dark-gray variation remains. Cream/red, white floral and pink companion clothing remains distinct.",
+      "Manual F produces open articulated hands, a complete physical carton, visible passing/caught states and completion. Wrists meet the carton underside consistently with the exact separately viewed palmar diagnostic; front-view carton occludes palm faces naturally.",
+      "After Next, all four remain on the platform in the same close view. Lawyer arms visibly return fully down to relaxed idle; carton is removed and no catch hold or disappearance remains."
+    ],
+    "limits": [
+      "Desktop landscape touch-layout inspection, not physical-phone, FPS, thermal or battery evidence.",
+      "Approval binds the exact proposed source trio and canonical bundle. Public installation/manifest registration was not performed by this reviewer."
+    ]
+  }
+}

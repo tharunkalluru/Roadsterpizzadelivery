@@ -1,0 +1,62 @@
+{
+  "status": "READ-ONLY EXACT V2 BINDING AUDIT ONLY; NO APPROVAL",
+  "checks": {
+    "privateGlbExactSource": true,
+    "privateRigExactExpected": true,
+    "canonicalRigExactExpected": true,
+    "privateAndCanonicalRigSemanticallyEqual": true,
+    "canonicalEqualsProposalContract": true,
+    "portraitExactExpected": true,
+    "bundleExact": true,
+    "authorExact": true
+  },
+  "files": {
+    "proposal": {
+      "path": "/tmp/roadster-vakeel-saab-release-proposal-v2.json",
+      "sha256": "28de1b4968829a217fd20f20fa9ac4c39bbcc3e5502277aa2c0bf2c441ed9e72"
+    },
+    "privateGlb": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/candidates/vakeel-saab-on-metro-v2.glb",
+      "sha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760"
+    },
+    "privateRig": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/candidates/vakeel-saab-on-metro-v2.rig.json",
+      "sha256": "2d633b662fdcba22b46ac45be0c5a21fb825e1c08b01556799ea9ac541f93871"
+    },
+    "canonicalRig": {
+      "path": "/tmp/roadster-vakeel-saab-release-canonical-rig-v2.json",
+      "sha256": "be4b9f4e0110fcf06418459cb20bdcd5795aa92c36757cc184a4ec039952bfa3"
+    },
+    "descriptor": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/docs/delivery/character-review/candidates/vakeel-saab-on-metro-v2.json",
+      "sha256": "25e4ac5f3cd1e294c6028f3e3c005d03e0de030e4204e5c3cb2e42269aea8548"
+    },
+    "portrait": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1-portrait.png",
+      "sha256": "0579f1a95c5e55e36959f6a6e111a9f78f6cb78308d25b84e908b66d08ce39fc"
+    },
+    "sourceProposal": {
+      "path": "/tmp/roadster-vakeel-lawyer-crown-finite-v1/lawyer-crown-only-v1.proposal.json",
+      "sha256": "53fe13943fcd16a1bf579f845c47eb7bf352efe447b5614d19f0664a6e4a8ede"
+    }
+  },
+  "candidate": {
+    "assetId": "vakeel-saab-metro-lawyer-v1",
+    "sha256": "c711b033e1168850e4d8f93db57146053d7b10cf83da8adea0e226e87e6d4348"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/vakeel-saab/platform-lawyer-v1.glb",
+      "sha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760"
+    },
+    {
+      "path": "public/delivery/characters/vakeel-saab/platform-lawyer-v1.rig.json",
+      "sha256": "be4b9f4e0110fcf06418459cb20bdcd5795aa92c36757cc184a4ec039952bfa3"
+    },
+    {
+      "path": "public/delivery/characters/vakeel-saab/portrait-v1.png",
+      "sha256": "0579f1a95c5e55e36959f6a6e111a9f78f6cb78308d25b84e908b66d08ce39fc"
+    }
+  ],
+  "issues": []
+}
