@@ -1,0 +1,209 @@
+{
+  "id": "sukumar-at-studio-v1",
+  "sceneName": "ReviewedCharacterScene",
+  "requireSkin": true,
+  "nodes": {
+    "leftArm": "LeftArm",
+    "rightArm": "RightArm",
+    "catchPoint": "PizzaCatch"
+  },
+  "pose": {
+    "mode": "handoff-clip",
+    "clipName": "TakePizza",
+    "upperBodyNodes": [
+      "Chest",
+      "LeftShoulder",
+      "RightShoulder",
+      "LeftArm",
+      "RightArm",
+      "LeftForeArm",
+      "RightForeArm",
+      "LeftHand",
+      "RightHand",
+      "RightIndex1",
+      "RightIndex2",
+      "RightIndex3",
+      "RightMiddle1",
+      "RightMiddle2",
+      "RightMiddle3",
+      "RightRing1",
+      "RightRing2",
+      "RightRing3",
+      "RightPinky1",
+      "RightPinky2",
+      "RightPinky3",
+      "RightThumb1",
+      "RightThumb2",
+      "RightThumb3",
+      "RightWristTwist"
+    ]
+  },
+  "motions": {
+    "required": [
+      "idle"
+    ],
+    "clips": {
+      "idle": {
+        "clipName": "Idle"
+      }
+    }
+  },
+  "height": {
+    "min": 1.6909999999999998,
+    "max": 1.8690000000000002
+  },
+  "materialTreatment": "as-authored",
+  "catchPointSpace": "palm-contact",
+  "motionBounds": {
+    "schemaVersion": 1,
+    "glbSha256": "fe855d21176f43bb9818470508b59822d4f84d3eeef67bf3bc9c167252ea9292",
+    "sceneName": "ReviewedCharacterScene",
+    "sampling": {
+      "framesPerSecond": 24,
+      "marginMetres": 0.02,
+      "poseCount": 2040,
+      "clips": [
+        {
+          "name": "Idle",
+          "duration": 2.0416667461395264,
+          "samples": 83
+        },
+        {
+          "name": "TakePizza",
+          "duration": 1.0416666269302368,
+          "samples": 42
+        }
+      ],
+      "maskedHandoff": {
+        "clipName": "TakePizza",
+        "upperBodyNodes": [
+          "Chest",
+          "LeftShoulder",
+          "RightShoulder",
+          "LeftArm",
+          "RightArm",
+          "LeftForeArm",
+          "RightForeArm",
+          "LeftHand",
+          "RightHand",
+          "RightIndex1",
+          "RightIndex2",
+          "RightIndex3",
+          "RightMiddle1",
+          "RightMiddle2",
+          "RightMiddle3",
+          "RightRing1",
+          "RightRing2",
+          "RightRing3",
+          "RightPinky1",
+          "RightPinky2",
+          "RightPinky3",
+          "RightThumb1",
+          "RightThumb2",
+          "RightThumb3",
+          "RightWristTwist"
+        ],
+        "fractions": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          1
+        ],
+        "baseFramesPerSecond": 12
+      }
+    },
+    "meshes": {
+      "LeftAuthoredAnatomicalHand": {
+        "vertexCount": 2174,
+        "center": [
+          0.22058500870999145,
+          1.0021824673790747,
+          0.2009219015900074
+        ],
+        "radius": 0.4160482444356632
+      },
+      "RightAuthoredAnatomicalHand": {
+        "vertexCount": 2202,
+        "center": [
+          -0.2223654691006509,
+          0.9935420271447772,
+          0.1962207375177547
+        ],
+        "radius": 0.41848231981170025
+      },
+      "geometry_0": {
+        "vertexCount": 41143,
+        "center": [
+          0.0028492253307770277,
+          0.8899771262405624,
+          0.022887785551085338
+        ],
+        "radius": 0.9940992649253354
+      },
+      "geometry_0_1": {
+        "vertexCount": 12307,
+        "center": [
+          -0.004378121346235275,
+          1.6099929336149248,
+          -0.027257685365809137
+        ],
+        "radius": 0.2612967324030959
+      },
+      "geometry_0_2": {
+        "vertexCount": 185,
+        "center": [
+          0.07290148691175666,
+          1.5090115718194914,
+          0.053400625382657774
+        ],
+        "radius": 0.06751660432143125
+      },
+      "geometry_0_3": {
+        "vertexCount": 657,
+        "center": [
+          0.0016715858391097849,
+          1.1614738019586996,
+          0.031122794815821322
+        ],
+        "radius": 0.36159401852096973
+      },
+      "Measured_actual_eyes_and_eyelid_backing001": {
+        "vertexCount": 3780,
+        "center": [
+          -0.035161048639565706,
+          1.6171266346684843,
+          0.07079899009291155
+        ],
+        "radius": 0.07557650277759694
+      },
+      "Measured_actual_eyes_and_eyelid_backing001_1": {
+        "vertexCount": 834,
+        "center": [
+          -0.035161047242581844,
+          1.6171929749230136,
+          0.08134632238532243
+        ],
+        "radius": 0.06661058707731923
+      },
+      "Measured_actual_eyes_and_eyelid_backing001_2": {
+        "vertexCount": 834,
+        "center": [
+          -0.035161049803718925,
+          1.6172057481523145,
+          0.08233466232472951
+        ],
+        "radius": 0.06149223204185085
+      },
+      "Measured_actual_eyes_and_eyelid_backing001_3": {
+        "vertexCount": 320,
+        "center": [
+          -0.03516104817390442,
+          1.6172462247313557,
+          0.08165435448053066
+        ],
+        "radius": 0.09668692096985844
+      }
+    }
+  }
+}
