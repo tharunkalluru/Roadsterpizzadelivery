@@ -1,0 +1,142 @@
+{
+  "characterId": "arundhati",
+  "name": "Arundhati",
+  "film": "Arundhati",
+  "status": "approved",
+  "candidate": {
+    "assetId": "arundhati-haunted-gate-v1",
+    "sha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/arundhati/gate-presence-v1.glb",
+      "sha256": "560a4ae81f82b0d2695d47aa57177006e8325d5270533f3771b79e043fbfb24e"
+    },
+    {
+      "path": "public/delivery/characters/arundhati/gate-presence-v1.rig.json",
+      "sha256": "fa7eb4430f8565b224dedd7a453d7c6ae3886f48d998790a75ec6fc18b4a65f3"
+    },
+    {
+      "path": "public/delivery/characters/arundhati/portrait-v1.png",
+      "sha256": "e41d21c03141f40bc7e89e420ee8747d036451bf985b5ec594fb05040159ef08"
+    }
+  ],
+  "authorId": "authored-character-bounds-art-producer",
+  "reviewerId": "container-underwater-independent-review",
+  "reviewedAt": "2026-10-31T17:56:16.761504+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "arundhati-sunnxt-primary-film-30s",
+      "characterId": "arundhati",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=JbsX2H03MXI",
+      "publisher": "Sun NXT Telugu official film clip",
+      "path": "docs/delivery/character-review/production/references/arundhati-sunnxt-30s.png",
+      "sha256": "0b9e0a1727318d176a79b09c4ee5d3bc42dacf7d7bccba929ca4d44207a876f5",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually opened native 30s from the film Arundhati; face and frightened dramatic makeup. Generated artist guides are not identity evidence."
+    },
+    {
+      "id": "arundhati-sunnxt-primary-film-184s",
+      "characterId": "arundhati",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=JbsX2H03MXI",
+      "publisher": "Sun NXT Telugu official film clip",
+      "path": "docs/delivery/character-review/production/references/arundhati-sunnxt-184s.png",
+      "sha256": "fa5f71c0022fe763fd0d3614983a7729072d9945c5b2624b09d173cfd70a5d96",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually opened native 184s from the film Arundhati; orange/gold costume and full character styling. Generated artist guides are not identity evidence."
+    },
+    {
+      "id": "arundhati-sunnxt-primary-film-195s",
+      "characterId": "arundhati",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=JbsX2H03MXI",
+      "publisher": "Sun NXT Telugu official film clip",
+      "path": "docs/delivery/character-review/production/references/arundhati-sunnxt-195s.png",
+      "sha256": "32d240e849585f9075a32abd166e3afcfc6843db758636fa23e0031a6f997ad1",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually opened native 195s from the film Arundhati; face and ornate jewelry. Generated artist guides are not identity evidence."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-arundhati-final-v15/offline/static-authored/front.png",
+      "sha256": "ce5adb1ce655df20b9e8b8195e7290fc9131fc72e03895eba343519e0d461edc",
+      "assetSha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58",
+      "comparedReferenceIds": [
+        "arundhati-sunnxt-primary-film-30s",
+        "arundhati-sunnxt-primary-film-184s",
+        "arundhati-sunnxt-primary-film-195s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-arundhati-final-v15/offline/static-authored/three-quarter.png",
+      "sha256": "9b9487b29e91200ef9c5ae3ad25e582693770cfb6a7622aa297d047da6caca43",
+      "assetSha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58",
+      "comparedReferenceIds": [
+        "arundhati-sunnxt-primary-film-30s",
+        "arundhati-sunnxt-primary-film-184s",
+        "arundhati-sunnxt-primary-film-195s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-arundhati-final-v15/offline/static-authored/profile.png",
+      "sha256": "c3cbb09e304ca6d4f3f60ae5fceec082c309b79b0493451f5a114c7f59e08f4d",
+      "assetSha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58",
+      "comparedReferenceIds": [
+        "arundhati-sunnxt-primary-film-30s",
+        "arundhati-sunnxt-primary-film-184s",
+        "arundhati-sunnxt-primary-film-195s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-arundhati-final-v15/offline/static-authored/full-body.png",
+      "sha256": "c9e585363edce5c0bd207a24a2333b498f897134179c115f53345e97eb1feca3",
+      "assetSha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58",
+      "comparedReferenceIds": [
+        "arundhati-sunnxt-primary-film-30s",
+        "arundhati-sunnxt-primary-film-184s",
+        "arundhati-sunnxt-primary-film-195s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-arundhati-final-v15/native/05-orbit-outside-gate.png",
+      "sha256": "b6bbb8835bbe78fe7a17c3714c8ff6665010b327a21c04cdf8eb8fc958691b4c",
+      "assetSha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58",
+      "comparedReferenceIds": [
+        "arundhati-sunnxt-primary-film-30s",
+        "arundhati-sunnxt-primary-film-184s",
+        "arundhati-sunnxt-primary-film-195s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    }
+  ],
+  "feedback": [
+    "Independent finite close-match approval for the exact static Arundhati gate-presence role. All five actual final authored angles, clay profile, extra clay three-quarter and native512portrait were opened against actual Sun NXT30/184/195 film frames. Anushka/Arundhati facial appearance, long dark hair, dramatic makeup, orange/gold costume and jewelry are recognizable. Unseen rear styling and local closure tones include inferred game art; modest texture and hair coarseness are accepted finite stylization.",
+    "The exact asset is intentionally real static 3D: requireSkin false, authored-static and no motions. Her scene-pose pass means she stands behind the haunted gate and NEVER collects the pizza. Previously observed bilateral chest tunnels are genuinely closed in exact clay/geometry; no invented receiving animation is required for this role.",
+    "Actual corrected Q5 fixed23:00 and fixed12:00 views were checked. Scene-only outside-bar camera and existing lantern lighting retain the face above the horizontal gate rail, readable costume and a dark haunted atmosphere without the former beam washout. Native F150 leaves the physical pizza carton OUTSIDE; completion, Next and manual orbit show the same static actor retained BEHIND the bars and carton on the ground outside. Native S900/W600/brake inputs still operated normal controls. In-game-handoff evidence is this intentional outside-gate placement result, not an assertion of hand collection.",
+    "Exact campaign-qa-mvwp1elj export confirms GLB560a4a and observed private rig736c04, manual handoff/completed true, missingPhysicalFacts empty. Explicit Prepare/Stage assistance, pickup not observed and no true touch remain recorded. Proposed canonical fa7eb4 rig and observed private rig parse identically; exact GLB/canonical/portrait hashes and ordered three-file bundle76bbf8 independently verified. Old failed DEV static-loader and inadequate framing/night images are preserved as history, not relabelled successful.",
+    "Bounded desktop Safari keyboard/mouse scene acceptance only. This is not a natural jump-pickup or complete14-level campaign, actual touch/physical-phone FPS, thermal/battery or sustained performance claim. Left frozen4204 natural-play tab remained untouched. Reviewer does not install public assets, edit the production manifest or publish."
+  ]
+}

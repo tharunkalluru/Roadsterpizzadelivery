@@ -1,0 +1,45 @@
+{
+  "status": "proposal-only-unregistered; pending independent exact native scene review",
+  "candidate": {
+    "assetId": "arundhati-haunted-gate-v1",
+    "sha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/arundhati/gate-presence-v1.glb",
+      "sha256": "560a4ae81f82b0d2695d47aa57177006e8325d5270533f3771b79e043fbfb24e"
+    },
+    {
+      "path": "public/delivery/characters/arundhati/gate-presence-v1.rig.json",
+      "sha256": "fa7eb4430f8565b224dedd7a453d7c6ae3886f48d998790a75ec6fc18b4a65f3"
+    },
+    {
+      "path": "public/delivery/characters/arundhati/portrait-v1.png",
+      "sha256": "e41d21c03141f40bc7e89e420ee8747d036451bf985b5ec594fb05040159ef08"
+    }
+  ],
+  "authorId": "authored-character-bounds-art-producer",
+  "contract": {
+    "id": "arundhati-behind-haunted-gate-v1",
+    "sceneName": "ArundhatiGateStaticScene",
+    "requireSkin": false,
+    "nodes": {
+      "leftArm": "LeftArm",
+      "rightArm": "RightArm",
+      "catchPoint": "PizzaCatch"
+    },
+    "catchPointSpace": "palm-contact",
+    "pose": {
+      "mode": "authored-static"
+    },
+    "height": {
+      "min": 1.6624999999999999,
+      "max": 1.8375000000000001
+    },
+    "materialTreatment": "as-authored"
+  },
+  "glbSource": "docs/delivery/character-review/candidates/arundhati-behind-haunted-gate-v1.glb",
+  "rigSource": "docs/delivery/character-review/candidates/arundhati-behind-haunted-gate-v1.rig.json",
+  "portraitSource": "/tmp/roadster-standing-production/arundhati-paired-native-uv-static-v15-portrait.png",
+  "sourceProposal": "/tmp/roadster-standing-production/arundhati-paired-native-uv-static-v15.proposal.json"
+}

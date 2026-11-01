@@ -1,0 +1,126 @@
+{
+  "characterId": "bhanumathi",
+  "name": "Bhanumathi",
+  "film": "Fidaa",
+  "status": "approved",
+  "candidate": {
+    "assetId": "bhanumathi-fidaa-procession-v1",
+    "sha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e"
+  },
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/bhanumathi/wedding-dancer-v1.glb",
+      "sha256": "ded3ccb7a058170da92b6ec1b119d387bda33bf6a8f8ddb8b0a8f21ef40ec146"
+    },
+    {
+      "path": "public/delivery/characters/bhanumathi/wedding-dancer-v1.rig.json",
+      "sha256": "17f4d47be12c0bc3757229b9fc3db48dcd77b60cb1978f2d00b2d0bb9a9b5557"
+    },
+    {
+      "path": "public/delivery/characters/bhanumathi/portrait-v1.png",
+      "sha256": "3de99ce89c12eef3c242ea740e68c9e3aefd763526bcfe3c7350e5ff72287ea8"
+    }
+  ],
+  "authorId": "gpu-readiness-review-art-producer",
+  "reviewerId": "container-underwater-independent-review",
+  "reviewedAt": "2026-10-31T18:00:44.687704+00:00",
+  "checks": {
+    "identity": "close-match",
+    "film-role": "close-match",
+    "hair-and-face": "close-match",
+    "costume-and-body": "close-match",
+    "scene-pose": "close-match",
+    "in-game-readability": "close-match"
+  },
+  "references": [
+    {
+      "id": "bhanumathi-aditya-primary-film-21s",
+      "characterId": "bhanumathi",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=YFfEFbC9_XQ",
+      "publisher": "Aditya Music official Vachinde film-song uploader",
+      "path": "docs/delivery/character-review/production/references/bhanumathi-aditya-21s.png",
+      "sha256": "8c1d36383d20ef7b07b1b707b76978a9ca4e4c5e627bc8cbcdf1edd1c6c29a6a",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually opened native 21s of Fidaa; clear front face, curled side hair and burgundy/gold costume. Generated face/wardrobe guides are not primary identity evidence."
+    },
+    {
+      "id": "bhanumathi-aditya-primary-film-68s",
+      "characterId": "bhanumathi",
+      "kind": "film-still",
+      "sourceUrl": "https://www.youtube.com/watch?v=YFfEFbC9_XQ",
+      "publisher": "Aditya Music official Vachinde film-song uploader",
+      "path": "docs/delivery/character-review/production/references/bhanumathi-aditya-68s.png",
+      "sha256": "cde8f1a7eb7a13c9caf90ba9c4feee4772b56cdd30627a9af5087feec089160a",
+      "primarySource": true,
+      "visuallyVerified": true,
+      "note": "Actually opened native 68s of Fidaa; actual dancing figure in burgundy/gold costume at the centre; anatomy and drape styling. Generated face/wardrobe guides are not primary identity evidence."
+    }
+  ],
+  "evidence": [
+    {
+      "view": "front",
+      "path": "docs/delivery/character-review/evidence/independent-bhanumathi-final-v41/offline/bhanumathi-final-v41-five-views/front.png",
+      "sha256": "d9671c819ca2ddd0e2ba0f9a1e8e85efe72e58cc5e95a472feb70af4897e569e",
+      "assetSha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e",
+      "comparedReferenceIds": [
+        "bhanumathi-aditya-primary-film-21s",
+        "bhanumathi-aditya-primary-film-68s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "three-quarter",
+      "path": "docs/delivery/character-review/evidence/independent-bhanumathi-final-v41/offline/bhanumathi-final-v41-five-views/three-quarter.png",
+      "sha256": "8ff41974feeb8489e92bd0cce595554945720cf39f2d74f5d56b7baa49ec82bb",
+      "assetSha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e",
+      "comparedReferenceIds": [
+        "bhanumathi-aditya-primary-film-21s",
+        "bhanumathi-aditya-primary-film-68s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "profile",
+      "path": "docs/delivery/character-review/evidence/independent-bhanumathi-final-v41/offline/bhanumathi-final-v41-five-views/profile.png",
+      "sha256": "f5c7ad2d276a8f513a2706ae9f5b32b284a13ea5394146f1861836e7f1761d33",
+      "assetSha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e",
+      "comparedReferenceIds": [
+        "bhanumathi-aditya-primary-film-21s",
+        "bhanumathi-aditya-primary-film-68s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "full-body",
+      "path": "docs/delivery/character-review/evidence/independent-bhanumathi-final-v41/offline/bhanumathi-final-v41-five-views/full-body.png",
+      "sha256": "6b5c6dc22263e126a3ef0c394d0f567f12b397022c307ba84a36702cf8a096da",
+      "assetSha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e",
+      "comparedReferenceIds": [
+        "bhanumathi-aditya-primary-film-21s",
+        "bhanumathi-aditya-primary-film-68s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    },
+    {
+      "view": "in-game-handoff",
+      "path": "docs/delivery/character-review/evidence/independent-bhanumathi-final-v41/native/02-transfer-4.png",
+      "sha256": "6173e11b54981123564c0ac0d560e6ded0e35779edfb000cdff89586cd51ba6a",
+      "assetSha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e",
+      "comparedReferenceIds": [
+        "bhanumathi-aditya-primary-film-21s",
+        "bhanumathi-aditya-primary-film-68s"
+      ],
+      "observedBy": "container-underwater-independent-review"
+    }
+  ],
+  "feedback": [
+    "Independent finite close-match approval of exact V41 Bhanumathi in the Fidaa wedding-procession role. All five exact final authored angles, seven actual continuing Dance/maskedTake diagnostic views and exact native512portrait were opened against official Aditya21/68 film frames. Sai Pallavi/Bhanumathi face, side-gathered curls, burgundy/gold wardrobe and right-shoulder drape are recognizable. Modest inferred side-pattern/tone joins and coarse neural curls are accepted game stylization; no more broad face/body generation requested.",
+    "Previously rejected posterior hanging skin sheets, lateral holes/waist blade, flat tan deltoid cap and abrupt elbow deformation are repaired in the actual V41 authored/clay views. Rounded true shoulder and continuous bent elbow are visible through Dance/halfTake; final elbow is partly occluded by genuine hair, not claimed fully exposed in that angle. Actual diagnostic full-body/carton views show both palms supporting the physical0.4m box with articulated digits. These visual observations, not skeleton/bounds numerics, establish the anatomy/pose check.",
+    "Actual MAIN4201 corrected Q8 fixed23:00 and explicit Day12:00 were reviewed. The character stays recognizable and her articulated Dance is visible before and after manual transfer. Real lane-edge light fixtures borrow an existing engine light and the bounded at-rest receiver view makes the face/costume legible without recoloring the actor. Prior dark/behind-car presentation is preserved in independent-bhanumathi-v41-before-scene-fix. Cyan target ring remains visible during camera easing but does not cover face/body in the final observed view.",
+    "Night native F150 passes the physical carton toward her and completes. In-game-handoff native02-transfer-4 is an actual approaching carton during Take, not a claimed final palm-contact pixel. Exact diagnostic continuing-mixer supported/carton views independently show receiving support. Day F650 also completed, but its late screenshot series honestly shows the completion card; those frames are not relabelled hand contact. Next retains the exact actor with natural Dance/arms returning; native drag orbit and W900/space400 released normal camera/driving.",
+    "Exact final exports campaign-qa-mvwpdsa6 night and campaign-qa-mvwpg3bm day confirm GLBded3cc/private rig010a2f, manual handoff/completed true, missingPhysicalFacts empty and missingFacts empty including observed authored-dance. Explicit Prepare/Stage assistance/pickup not observed remain; these are isolated assisted scene checks. Observed private and proposed canonical rig parse identically; exact model/canonical/portrait and ordered three-file bundlec88457 hashes independently verified. Portrait3de99 was actually opened; root integrates it on registration.",
+    "Bounded desktop Safari keyboard/mouse acceptance, not true touch/physical-phone FPS, thermal/battery, natural jump pickup, full14-level campaign or sustained soak evidence. Background dancers are stylized supporting crowd; the named receiver is the independently compared actor. Left4204 frozen natural-play tab was not navigated/reloaded/changed. Reviewer does not install public assets, edit production manifest or publish."
+  ]
+}
