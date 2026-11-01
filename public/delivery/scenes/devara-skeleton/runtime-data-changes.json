@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "vertexCount": 19930,
+  "triangleCount": 38994,
+  "positionUnitMetres": 0.0001,
+  "sourceGlbSha256": "e0e8286021d2feea89c8a99f40f13ba5d5e816603f03bc348421279a47ab4125",
+  "license": "CC-BY-SA-4.0",
+  "attribution": "Ecorche by Charleeh; BodyParts3D, Database Center for Life Science; Z-Anatomy by Gauthier Kervyn",
+  "positionMaxErrorMetres": 4.9997520446654065e-05,
+  "normalMaxComponentError": 0.003936962349208373,
+  "dataSha256": "5f403d66447b2866fe9f5b5d3b105480d5a7fa15052615290449bc7061e1f978",
+  "geometrySource": "Offline intermediate generated from skeleton-v2.glb",
+  "modifications": [
+    "Offline position quantisation to 0.1mm, source had 0.1mm coordinates",
+    "Offline normalized 8-bit normals",
+    "16-bit indices; all 38,994 triangles preserved",
+    "No source geometry or texture code executes at runtime"
+  ],
+  "serializedDataBytes": 551576
+}

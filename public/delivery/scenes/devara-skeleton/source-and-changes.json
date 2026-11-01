@@ -1,0 +1,21 @@
+{
+  "status": "Source-license provenance for new skeleton geometry only; source attributions retained",
+  "preferredSource": "https://github.com/Charleeh/ecorche",
+  "preferredSourceModel": "https://raw.githubusercontent.com/Charleeh/ecorche/main/model/ecorche.glb",
+  "sourceModelSha256": "9744d3dffced835961104447d23a781ad469588289ce322d84d000e0d498326c",
+  "sourceAttribution": "skeleton-sources/ecorche-ATTRIBUTION.md",
+  "sourceLicenseText": "skeleton-sources/ecorche-CC-BY-SA-4.0.txt",
+  "derivativeLicense": "CC-BY-SA-4.0",
+  "suggestedCredit": "Anatomical skeleton adapted from Ecorche by Charleeh; source data BodyParts3D, The Database Center for Life Science, and Z-Anatomy by Gauthier Kervyn. CC BY-SA 4.0. Source attribution and license supplied with the mesh.",
+  "changes": [
+    "Selected only skeleton-layer bone, cartilage and tooth geometry; removed every muscle and eye structure.",
+    "Converted authored source hierarchy transforms to metres, ground soles, align cervical center with fixed actor neck grip.",
+    "Cervical horizontal envelope calibrated1.17x/1.22x for preauthored35mm opposed-palm grip; actual vertebral geometry retained.",
+    "Merged all structures into one opaque geometry/material, reduced249310triangles to38994, repaired6 duplicate faces after decimation.",
+    "Discarded source colors/textures; assigned single ivory material; recomputed smooth normals.",
+    "ExportedGLB andThreeYupFloat32positions/normals+Uint32indices; no downloaded source code executed."
+  ],
+  "rejectedCC0Source": "https://www.innerscene.com/tools/library/3d-parts/human-skeleton-simplified-anatomical-study-a93f4d8f",
+  "cc0SourceSha256": "c7a3cd753a6b5ebaa87dfca8b15aa373b8507c0f4f0bfd483a36b304af069b38",
+  "cc0NotSelectedBecause": "Native views show deliberately simplified oval skull, abstract pelvis and rounded limb endings; does not satisfy desired film-scene anatomy."
+}
