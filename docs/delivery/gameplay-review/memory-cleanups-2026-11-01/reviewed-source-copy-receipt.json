@@ -1,0 +1,41 @@
+{
+  "source": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes",
+  "destination": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-release",
+  "files": [
+    {
+      "path": "src/core/engine.ts",
+      "bytes": 9475,
+      "sha256": "d0bfd61f630eddacfdd919068cae9d4b73a84e7ea5319910ef8326992460871d"
+    },
+    {
+      "path": "src/world/people.ts",
+      "bytes": 16385,
+      "sha256": "9e5afc0910c1fa3447498db8f1df458158e796da98d8b8f73343573eebacbf91"
+    },
+    {
+      "path": "src/game/walkers.ts",
+      "bytes": 8600,
+      "sha256": "02925f17d28993017641218b5b5935f89021a6637f37353427721d9eff3b5809"
+    },
+    {
+      "path": "src/game/bus-passengers.ts",
+      "bytes": 2911,
+      "sha256": "4fa648ba3a8ae9aa444d90f89bbbbdd91adeb4d7613021e6bc94d8264a359ee5"
+    },
+    {
+      "path": "src/game/station-life.ts",
+      "bytes": 11294,
+      "sha256": "080d526e8a48864bbedf3e58705ba2da2932a8d26b7802fe5869647bfb34c2f2"
+    },
+    {
+      "path": "tests/v21-fixes/pedestrian-geometry-lifetime.test.ts",
+      "bytes": 2999,
+      "sha256": "1d6fabedaddffb06aeeba6fe27fb3e21d9bb5e4ad4a4c42fec028b7264fdffb0"
+    },
+    {
+      "path": "tests/v21-fixes/engine-environment-ownership.test.ts",
+      "bytes": 6276,
+      "sha256": "ae66cee49c105d9da2235f2a3e716824956ecc998435dc5dcde89ff69bb081f7"
+    }
+  ]
+}

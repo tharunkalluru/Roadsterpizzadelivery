@@ -1,0 +1,84 @@
+{
+  "status": "PATCH_ONLY_PROPOSAL_ROOT_SOURCE_UNCHANGED_TESTS_NOT_RUN",
+  "patch": "/tmp/roadster-pedestrian-geometry-lifecycle-ready.patch",
+  "patchSha256": "a78abf1b7c8394b9d1cf48338626d4b83d19fe6da485b58bab9c14792ff71d2d",
+  "finding": {
+    "owner": "src/world/people.ts:181-197",
+    "defect": "The global walker appearance cache calls cache.clear() above400 entries without disposing body/leg BufferGeometry. Individual walkers and bus exchanges only remove scene groups, so neither the cache nor retired borrowers free uploaded geometry.",
+    "baselineComparison": "people.ts and walkers.ts are byte-identical to both2026-10-28/roadster-v21-incremental and roadster-performance-baseline; this is inherited, not a new fourteen-scene source regression.",
+    "peopleSha256": "80564a9cb775e5417fcc8c3dc98a1a8ad630458a0a0ec9317623693de2a3e68e",
+    "walkersSha256": "886f17a249a356da4aba152a8efcc7420b213d19e0392b544953fae5e63b2bc9",
+    "counterEvidence": "Three r170 WebGLGeometries.js64-72 increments memory.geometries when uploaded;9-60 decrements and releases attributes/binding states only on geometry dispose. WebGLBindingStates.js70-97 stores states by geometryid and182-222 retains attribute references;504-526 releases VAOs only on explicit geometry teardown. A cleared JavaScript appearance map does not establish GPU release.",
+    "checkpointEvidence": "Healthy-server checkpoint2 resource observations grow2385at300.084active seconds to9360at1207.114active seconds (+6975), with loaded tiles9-14 and textures82to90. The specific fraction owned by walkers is not measured by this read-only source audit."
+  },
+  "ownershipMap": [
+    {
+      "owner": "Walkers",
+      "acquire": "src/game/walkers.ts48: one body/leg lease per spawned figure",
+      "release": "Individual group removed at walkers.ts37/66/70, plus Game relocation game.ts647",
+      "proposedHook": "One removed-event listener calls idempotent lease.release(). Both leg meshes share that single lease.",
+      "materials": "Borrowed engine material; never dispose it here."
+    },
+    {
+      "owner": "BusPassengerExchange",
+      "acquire": "src/game/bus-passengers.ts17: four leases per exchange",
+      "release": "Whole exchange group finally removed by Traffic.release158, clear166, update584",
+      "proposedHook": "Four idempotent lease releases on the whole exchange group's removed event. No motion/timing/density changes."
+    },
+    {
+      "owner": "MetroStationLife",
+      "acquire": "src/game/station-life.ts59: at most24standing+48seated cached appearance leases",
+      "release": "Only station-life owner.dispose; individual station or transfer removal does not own those shared bundles",
+      "proposedHook": "Dispose active merged waiting batches, clear groups, release all cached figure leases, dispose owner-created seated-leg geometry. Repeated disposal is safe because owner maps are cleared.",
+      "existingLifecycle": "Merged waiting batches already dispose on station removal/rebuild; temporary merge pieces already dispose. Curved source platform poses remain unchanged."
+    },
+    {
+      "owner": "QA showroom/review",
+      "acquire": "game.ts1381-1387 delegates to Walkers.spawn/update",
+      "release": "Same walker final-removal hooks; no direct walkerGeometry borrower."
+    },
+    {
+      "owner": "Static city people",
+      "acquire": "drawPerson appends vertices to worker tile-owned batches; does not call walkerGeometry",
+      "release": "World.unload255-259 disposes tile buffer meshes and signal-lights geometry",
+      "change": "None."
+    },
+    {
+      "owner": "Named delivery characters",
+      "acquire": "Separate approved-GLB registry and scene window",
+      "release": "Template retirement waits for live instances/GPU borrows; no walkerGeometry use",
+      "change": "None. Independent actor/window review found no allocation path explaining thousands of new geometries."
+    }
+  ],
+  "proposedCacheContract": {
+    "appearance": "Preserve current JSON key normalization(s1/walk0), exact drawPerson/leg builder and every position/color/shape attribute. Prefix through the appearance builder is byte-identical to the reference implementation.",
+    "leases": "Each caller receives shared body/leg plus idempotent release. Live references cannot be evicted or disposed.",
+    "idleBudget": "After final borrower release, an entry becomes idle. Least recently used idle entries are disposed until both<=128idle appearances and<=16MiB estimated array CPU+GPU bytes hold. Active appearances are additional and bounded by existing live-owner counts.",
+    "finalRelease": "Final release makes an appearance eligible for eviction; it may remain in the explicitly bounded idle reuse cache. Forced trim releases all idle entries, never live geometry.",
+    "instrumentation": "Exported created/disposed/refcount/estimated-byte counters support deterministic ownership tests. Estimated bytes are not measured GPU VRAM. No QA/HUD/rendering instrumentation is added by this patch."
+  },
+  "regressionsPreparedNotRun": [
+    "Existing four tests/person-geometry-lifetime.test.ts regressions are imported through a new tests/v21-fixes entry so the actual release runner includes them. The existing fixture is not modified or duplicated.",
+    "Exact generated appearance attributes remain unchanged; shared geometry survives one borrower release and release is idempotent.",
+    "420retired appearance requests dispose unused resources under both count/byte pressure while a live shared lease survives.",
+    "Walker path unload and direct relocation removal, bus exchange removal, and station cache owner disposal return references correctly.",
+    "New300actual walker spawn/removal cycles alternate distance retirement, path removal, direct relocation clearing and over-budget retirement. Created-minus-disposed appearance pairs must plateau within idle bounds, with zero leaked active references and full final trim."
+  ],
+  "risksAndLimits": [
+    "No tests, typechecks, builds, runtime mutation or performance measurements have been executed for this proposal during the frozen baseline soak. Root must review/apply and validate after baseline completion.",
+    "Removed-event hooks treat current walker/exchange groups as one-use figures. Static search found no reparent/re-add path. A future live reparent/reuse must retain/reacquire a lease rather than reuse a released group.",
+    "All three current production walkerGeometry callers are covered. Any future caller must release its lease; do not dispose shared body/leg buffers directly.",
+    "The idle cache adds bounded bookkeeping/filter-sort work at spawn/despawn, not every render frame. Actual frame impact still requires the subsequent frozen comparison; no timing or people-count change is proposed.",
+    "Station figures intentionally stay leased for the finite station-life owner's lifetime. A full engine/application teardown is outside this patch; page/context destruction ends remaining program-lifetime resources.",
+    "Blindly disposing all cache entries at old cache.clear() would invalidate live walkers, metro transfers and bus people. This proposal avoids that ownership error.",
+    "A separate inherited temporary-sky leak was independently found at engine.ts109-113/sky.ts45: makeSky geometry/material are not disposed after PMREM capture. It is outside this pedestrian patch, is already reported to Root, and may leave residual growth even when pedestrian retirement is fixed.",
+    "The current87e9 frozen baseline remains immutable. Final corrected release requires a new runtime fingerprint/freeze and fresh endurance comparison; no forty-minute or physical-phone performance acceptance is granted here."
+  ],
+  "postBaselineValidation": [
+    "Before applying, verify current source hashes match the proposal manifest; apply only the five reviewed patch targets.",
+    "Run focused node scripts/test-v21-fixes.mjs pedestrian-geometry-lifetime, then required typechecks/full release gate under Root scheduling.",
+    "Reconcile any separately reviewed sky fix; freeze a new exact runtime and compare live/resource counters in a fresh actual gameplay run.",
+    "Preserve the87e9 baseline export and source identity independently; do not rename its earlier evidence as fixed-build proof."
+  ],
+  "independentStaticReview": "No blocking ownership/type issue found; corrected regression to cover all4existing final-removal paths, including over-budget retirement. No tests/build executed."
+}

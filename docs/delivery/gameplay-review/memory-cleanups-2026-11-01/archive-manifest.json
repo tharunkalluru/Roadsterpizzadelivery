@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "archivedAt": "2026-11-01T03:23:59.325441+00:00",
+  "runtimeFingerprint": "8de505c1a3f4d736e56359df1769cd831a99aeb6d766d69b67c91c429de7d5aa",
+  "softwareValidation": "Completed v8 release check:762current tests,38portable legacy suites,application/Worker typechecks,production build,15/15character audit.",
+  "nativeComparison": "8de5 stopped before release at1242142active ms(20.7024min); no forty-minute acceptance. Later fe81 comparison belongs to a separate runtime packet.",
+  "historicalProposalCaveat": "Original proposal manifests/ownership map preserve their preparation-time not-applied/not-tested states. Later application and software results are evidenced separately by applied patch, source-copy receipt and v8log.",
+  "pedestrianMetadataCorrection": "Applied patch equals original proposal after adding only new file mode100644 to new test header.",
+  "credentialPatternScreen": "No matches in the eight small text artifacts; no credential/binding/raw-device files selected.",
+  "files": [
+    {
+      "file": "release-check-v8.txt",
+      "originalPath": "/tmp/roadster-fourteen-final-release-check-v8-memory.log",
+      "bytes": 99572,
+      "sha256": "58d61b3b1078a7ac513fb6c789cf7503a691dba4532fdb9bc79d68a735ce8d03",
+      "purpose": "Completed software check after both fixes",
+      "originalPreserved": true
+    },
+    {
+      "file": "pedestrian-proposed.patch",
+      "originalPath": "/tmp/roadster-pedestrian-geometry-lifecycle-ready.patch",
+      "bytes": 9509,
+      "sha256": "a78abf1b7c8394b9d1cf48338626d4b83d19fe6da485b58bab9c14792ff71d2d",
+      "purpose": "Original reviewed proposal; unchanged historical bytes",
+      "originalPreserved": true
+    },
+    {
+      "file": "pedestrian-applied.patch",
+      "originalPath": "/tmp/roadster-pedestrian-geometry-lifecycle-apply.patch",
+      "bytes": 9530,
+      "sha256": "3c5fe74b41fba00c9cebea789881f27b9525bff978e08c10578108bf2923abea",
+      "purpose": "Root-applied patch with new-file metadata correction only",
+      "originalPreserved": true
+    },
+    {
+      "file": "pedestrian-proposal-manifest.json",
+      "originalPath": "/tmp/roadster-pedestrian-geometry-lifecycle-proposal-20261101.json",
+      "bytes": 3060,
+      "sha256": "28bdad05b46f018432579a2a857e3abe54ab19b1ef3719560e5a595146dfd45b",
+      "purpose": "Historical proposal state; before/proposed hashes",
+      "originalPreserved": true
+    },
+    {
+      "file": "pedestrian-ownership-risk.json",
+      "originalPath": "/tmp/roadster-pedestrian-geometry-lifecycle-ownership-risk-20261101.json",
+      "bytes": 8513,
+      "sha256": "588e425212b5cc40fec37fc5d73242ef78e51570315cf3e83ab17836019e2eb6",
+      "purpose": "Historical ownership/risk analysis; predates validation",
+      "originalPreserved": true
+    },
+    {
+      "file": "engine-environment-proposed.patch",
+      "originalPath": "/tmp/roadster-env-owner-proposal/proposal.patch",
+      "bytes": 7592,
+      "sha256": "7860221c12fd29cdeef3a083832ba44293d69f6deb5ea8917fc45ff7a518a2d3",
+      "purpose": "Reviewed private PMREM sky cleanup and three regressions",
+      "originalPreserved": true
+    },
+    {
+      "file": "engine-environment-proposal-manifest.json",
+      "originalPath": "/tmp/roadster-env-owner-proposal/manifest.json",
+      "bytes": 652,
+      "sha256": "8076f3408fb1f403fc6781b0960b7eaffbdc80529180616946df987d5b5e8c6c",
+      "purpose": "Historical proposal state; before/proposed hashes",
+      "originalPreserved": true
+    },
+    {
+      "file": "reviewed-source-copy-receipt.json",
+      "originalPath": "/tmp/roadster-memory-cleanups-seven-file-copy-20261101.json",
+      "bytes": 1347,
+      "sha256": "1709fbe9eecce8e2800b2b582bae4e8df4d7f8b2e008e9708d836b3d7d61e65b",
+      "purpose": "Root receipt for five product files and two release test entries",
+      "originalPreserved": true
+    }
+  ],
+  "checkpointStatus": "SUPERSEDED_STOPPED_8DE5_CANDIDATE",
+  "supersededByRuntime": "fe8101e59186535fbe59cc16e742218af2409a625628f305943b404934a6d36a",
+  "supersededByPacket": "../environment-capture-reuse-2026-11-01/README.md",
+  "historicalNativeComparisonAtArchive": "Fresh corrected8de5run in progress; no resource plateau or final endurance acceptance asserted."
+}

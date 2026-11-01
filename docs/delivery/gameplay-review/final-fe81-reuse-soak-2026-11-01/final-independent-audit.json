@@ -1,0 +1,936 @@
+{
+  "schemaVersion": 1,
+  "reviewerId": "independent-final-metro-native-review-20261031",
+  "reviewedAt": "2026-11-01T04:35:56.629929+00:00",
+  "reportKind": "independent-final-desktop-soak-audit",
+  "decision": {
+    "status": "PASS_SCOPED_DESKTOP_40_ACTIVE_MINUTES_BOUNDED_COUNTERS",
+    "fortyMinutesAfterSupportedBaseline": true,
+    "identityAndResourceHistoryIntegrity": "pass",
+    "boundedRetainedGeometryAndTextureCounters": "pass within this run",
+    "sampledWorldLoading": "pass",
+    "formerJunctionClearance": "pass for the captured two 13-coach rakes",
+    "continuousRecordedReturnTravel": "pass within the retained checkpoint 5 and final snapshot tails",
+    "mainSoakCompleteApproachDwellReversalSequencePreserved": false,
+    "totalProcessMemoryOrVRAMAccepted": false,
+    "presentedGpuFpsAccepted": false,
+    "physicalPhonePerformanceAccepted": false,
+    "unassistedCampaignAccepted": false,
+    "fullCampaignAccepted": false,
+    "overallReleaseApprovalGrantedByThisAudit": false,
+    "summary": "The instrumented High desktop session exceeds 40 active minutes after its supported baseline. Retained geometry counters remain bounded, sampled city tiles remain loaded, and saved return tails preserve coach support. This is scoped acceptance, not total-memory, GPU-presentation, physical-device or campaign acceptance. The main-soak approach/dwell was operator-witnessed but not preserved in the saved sequence."
+  },
+  "identity": {
+    "runId": "campaign-qa-mvxahbjx",
+    "startedAt": "2026-11-01T03:47:30.621Z",
+    "buildFingerprint": "fe8101e59186535fbe59cc16e742218af2409a625628f305943b404934a6d36a",
+    "sourceUrl": "http://127.0.0.1:4211/?qaDelivery=2&qaScene=1&qaTrainRide=1&qaCampaign=1&qaPerf=1&qaRoute=1&qaStart=-11789.11,-6918.66,0,0.11&q=high&qaTouch=1",
+    "qaArtOverridePresent": false,
+    "metadata": {
+      "mode": "isolated-scene",
+      "layout": "touch-layout",
+      "environment": "Browser development session; hardware unverified",
+      "timebase": "active-gameplay",
+      "initialCompletedIds": [
+        "sandalwood-special"
+      ]
+    },
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+    "environment": {
+      "quality": "high",
+      "viewport": {
+        "width": 1264,
+        "height": 543
+      },
+      "devicePixelRatio": 1,
+      "rendererPixelRatio": 1,
+      "drawingBuffer": {
+        "width": 1264,
+        "height": 543
+      },
+      "hardwareConcurrency": 8,
+      "refreshCapability": "Not measured by this callback observer"
+    },
+    "inputEvidence": {
+      "pointerTypes": [],
+      "trustedTouchObserved": false,
+      "physicalHardwareVerified": false,
+      "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+    },
+    "runtimeSourceProvenance": "Every exported checkpoint and final file reports the same frozen fingerprint. Parent reports sourceRoot/private full-fingerprint equality before this run. This auditor did not recompute the full build fingerprint or per-asset runtime hashes during the quiet run.",
+    "workloadComparisonLimit": "This run adopted 13 coaches, used 1264×543 at DPR1, and had one Safari tab/context according to the operator. Earlier runs used 8/11 story coaches, 1264×505, different browser-context counts, and different driving/flight coverage. No controlled FPS A/B or causal speedup is claimed."
+  },
+  "duration": {
+    "totalActiveWallMs": 2574706,
+    "totalActiveMinutes": 42.911766666666665,
+    "supportedBaselineActiveWallMs": 121572,
+    "postBaselineActiveWallMs": 2453134,
+    "postBaselineActiveMinutes": 40.88556666666667,
+    "requiredPostBaselineActiveWallMs": 2400000,
+    "surplusMs": 53134,
+    "targetTotalActiveWallMs": 2521572,
+    "simulatedMs": 2564905.9999996745,
+    "activeMinusSimulatedMs": 9800.000000325497,
+    "basis": "Subtract the already supported 121,572 ms baseline, later than the approximately 86-second assisted landing and normal descent. Active observer intervals require advancing simulation and exclude hidden, unfocused, loading, map, pause and blocking-dialog states. Wall-clock time is not substituted."
+  },
+  "timelineIntegrity": {
+    "resourceSamples": 2565,
+    "retentionLimit": 3600,
+    "resourceHistoryTruncated": false,
+    "firstResourceActiveSeconds": 0.038,
+    "lastResourceActiveSeconds": 2574.422,
+    "lastResourceLagBehindActiveTotalSeconds": 0.2840000000001055,
+    "allResourceNumericValuesFinite": true,
+    "activeAndGameResourceTimesStrictlyIncreasing": true,
+    "largestActiveResourceGapSeconds": 1.4160000000000537,
+    "largestGameResourceGapSeconds": 1.048000000001025,
+    "checkpoints": [
+      {
+        "file": "baseline-export.json",
+        "sameRun": true,
+        "sameBuild": true,
+        "sameStart": true,
+        "activeWallMs": 121572,
+        "resourceCount": 122,
+        "exactResourcePrefix": true,
+        "retainedSnapshotCount": 220,
+        "retainedSnapshotGameRangeMs": [
+          65961.00000000147,
+          120955.9999999999
+        ],
+        "retainedSupportValues": [
+          "None",
+          "rail:1:12"
+        ],
+        "sha256": "0fbfef25ff265f44d8380a75d6c8c11133ec8b71f490924420adbe27d0de7d4e"
+      },
+      {
+        "file": "checkpoint-1-export.json",
+        "sameRun": true,
+        "sameBuild": true,
+        "sameStart": true,
+        "activeWallMs": 416456,
+        "resourceCount": 415,
+        "exactResourcePrefix": true,
+        "retainedSnapshotCount": 220,
+        "retainedSnapshotGameRangeMs": [
+          358848.99999997736,
+          414641.99999997806
+        ],
+        "retainedSupportValues": [
+          "rail:1:12"
+        ],
+        "sha256": "477cbf27cd8ef355da51ac624c57db0b9a922490483d3ffa206ef1cbe138351a"
+      },
+      {
+        "file": "checkpoint-2-export.json",
+        "sameRun": true,
+        "sameBuild": true,
+        "sameStart": true,
+        "activeWallMs": 843194,
+        "resourceCount": 840,
+        "exactResourcePrefix": true,
+        "retainedSnapshotCount": 204,
+        "retainedSnapshotGameRangeMs": [
+          788160.0000001553,
+          840011.0000002043
+        ],
+        "retainedSupportValues": [
+          "rail:1:12"
+        ],
+        "sha256": "9aa8b50103847032158b484f3d0eaa55723cd940bbb5424b0a0049f717a0bfd8"
+      },
+      {
+        "file": "checkpoint-3-export.json",
+        "sameRun": true,
+        "sameBuild": true,
+        "sameStart": true,
+        "activeWallMs": 1076976,
+        "resourceCount": 1071,
+        "exactResourcePrefix": true,
+        "retainedSnapshotCount": 223,
+        "retainedSnapshotGameRangeMs": [
+          1014889.0000002562,
+          1071636.0000003863
+        ],
+        "retainedSupportValues": [
+          "rail:1:12"
+        ],
+        "sha256": "c2ba94d034f952ac1c59bb9804b0fd4bfd744c591fb4c1be5106fff45adeeec1"
+      },
+      {
+        "file": "checkpoint-4-export.json",
+        "sameRun": true,
+        "sameBuild": true,
+        "sameStart": true,
+        "activeWallMs": 1835657,
+        "resourceCount": 1827,
+        "exactResourcePrefix": true,
+        "retainedSnapshotCount": 209,
+        "retainedSnapshotGameRangeMs": [
+          1775119.0000027253,
+          1827345.000002909
+        ],
+        "retainedSupportValues": [
+          "rail:1:12"
+        ],
+        "sha256": "c555275a28a809467148a8fa0029ecf8c304610bf9bc679f50430ce616fc085e"
+      },
+      {
+        "file": "checkpoint-5-reversal-export.json",
+        "sameRun": true,
+        "sameBuild": true,
+        "sameStart": true,
+        "activeWallMs": 2321523,
+        "resourceCount": 2312,
+        "exactResourcePrefix": true,
+        "retainedSnapshotCount": 216,
+        "retainedSnapshotGameRangeMs": [
+          2258097.00000287,
+          2312102.0000026487
+        ],
+        "retainedSupportValues": [
+          "rail:1:12"
+        ],
+        "sha256": "95745418e6ed70f8f63e76ed790c0270cf74fd7a224672001530cc8a97edd374"
+      }
+    ],
+    "limitation": "Resource history is sampled at approximately one-second wall intervals while active. It is not every rendered frame, every HTTP request or every support contact; excluded wall-time gaps collapse in the active counter."
+  },
+  "resourceBounds": {
+    "allSession": {
+      "geometries": {
+        "first": 402,
+        "last": 850,
+        "min": 402,
+        "median": 943,
+        "max": 1354
+      },
+      "textures": {
+        "first": 40,
+        "last": 88,
+        "min": 40,
+        "median": 88,
+        "max": 93
+      },
+      "tiles": {
+        "first": 10,
+        "last": 9,
+        "min": 9,
+        "median": 12,
+        "max": 14
+      },
+      "pendingTiles": {
+        "first": 0,
+        "last": 0,
+        "min": 0,
+        "median": 0,
+        "max": 2
+      },
+      "frameRenderCalls": {
+        "first": 553,
+        "last": 489,
+        "min": 455,
+        "median": 644,
+        "max": 1193
+      },
+      "frameRenderTriangles": {
+        "first": 503147,
+        "last": 357919,
+        "min": 341721,
+        "median": 880764,
+        "max": 2125413
+      },
+      "traffic": {
+        "first": 7,
+        "last": 30,
+        "min": 0,
+        "median": 39,
+        "max": 64
+      }
+    },
+    "postBaseline": {
+      "geometries": {
+        "first": 838,
+        "last": 850,
+        "min": 639,
+        "median": 952,
+        "max": 1354
+      },
+      "textures": {
+        "first": 78,
+        "last": 88,
+        "min": 78,
+        "median": 88,
+        "max": 93
+      },
+      "tiles": {
+        "first": 12,
+        "last": 9,
+        "min": 9,
+        "median": 12,
+        "max": 14
+      },
+      "pendingTiles": {
+        "first": 0,
+        "last": 0,
+        "min": 0,
+        "median": 0,
+        "max": 2
+      },
+      "frameRenderCalls": {
+        "first": 577,
+        "last": 489,
+        "min": 455,
+        "median": 640,
+        "max": 1193
+      },
+      "frameRenderTriangles": {
+        "first": 718173,
+        "last": 357919,
+        "min": 341721,
+        "median": 933754,
+        "max": 2125413
+      },
+      "traffic": {
+        "first": 30,
+        "last": 30,
+        "min": 28,
+        "median": 39,
+        "max": 64
+      }
+    },
+    "warmFirst300PostBaselineActiveSeconds": {
+      "geometries": {
+        "first": 838,
+        "last": 945,
+        "min": 773,
+        "median": 925,
+        "max": 1183
+      },
+      "textures": {
+        "first": 78,
+        "last": 84,
+        "min": 78,
+        "median": 80,
+        "max": 86
+      },
+      "tiles": {
+        "first": 12,
+        "last": 11,
+        "min": 9,
+        "median": 13,
+        "max": 14
+      },
+      "pendingTiles": {
+        "first": 0,
+        "last": 0,
+        "min": 0,
+        "median": 0,
+        "max": 1
+      },
+      "frameRenderCalls": {
+        "first": 577,
+        "last": 787,
+        "min": 456,
+        "median": 705,
+        "max": 938
+      },
+      "frameRenderTriangles": {
+        "first": 718173,
+        "last": 1135590,
+        "min": 509775,
+        "median": 1034289,
+        "max": 1557052
+      },
+      "traffic": {
+        "first": 30,
+        "last": 39,
+        "min": 29,
+        "median": 39,
+        "max": 55
+      }
+    },
+    "final300ActiveSeconds": {
+      "geometries": {
+        "first": 867,
+        "last": 850,
+        "min": 833,
+        "median": 988.0,
+        "max": 1153
+      },
+      "textures": {
+        "first": 88,
+        "last": 88,
+        "min": 88,
+        "median": 88.0,
+        "max": 88
+      },
+      "tiles": {
+        "first": 11,
+        "last": 9,
+        "min": 9,
+        "median": 11.0,
+        "max": 12
+      },
+      "pendingTiles": {
+        "first": 0,
+        "last": 0,
+        "min": 0,
+        "median": 0.0,
+        "max": 1
+      },
+      "frameRenderCalls": {
+        "first": 602,
+        "last": 489,
+        "min": 468,
+        "median": 522.0,
+        "max": 684
+      },
+      "frameRenderTriangles": {
+        "first": 637376,
+        "last": 357919,
+        "min": 341721,
+        "median": 478889.0,
+        "max": 683014
+      },
+      "traffic": {
+        "first": 30,
+        "last": 30,
+        "min": 29,
+        "median": 30.0,
+        "max": 55
+      }
+    },
+    "fiveMinuteGeometryBins": [
+      {
+        "activeRangeSeconds": [
+          0,
+          300
+        ],
+        "min": 402,
+        "median": 857,
+        "max": 1032
+      },
+      {
+        "activeRangeSeconds": [
+          300,
+          600
+        ],
+        "min": 773,
+        "median": 1038,
+        "max": 1330
+      },
+      {
+        "activeRangeSeconds": [
+          600,
+          900
+        ],
+        "min": 846,
+        "median": 1000.0,
+        "max": 1291
+      },
+      {
+        "activeRangeSeconds": [
+          900,
+          1200
+        ],
+        "min": 871,
+        "median": 1176.0,
+        "max": 1354
+      },
+      {
+        "activeRangeSeconds": [
+          1200,
+          1500
+        ],
+        "min": 798,
+        "median": 980,
+        "max": 1235
+      },
+      {
+        "activeRangeSeconds": [
+          1500,
+          1800
+        ],
+        "min": 758,
+        "median": 873,
+        "max": 1053
+      },
+      {
+        "activeRangeSeconds": [
+          1800,
+          2100
+        ],
+        "min": 639,
+        "median": 751,
+        "max": 967
+      },
+      {
+        "activeRangeSeconds": [
+          2100,
+          2400
+        ],
+        "min": 710,
+        "median": 867,
+        "max": 1153
+      }
+    ],
+    "baselineLastGeometry": 840,
+    "finalGeometry": 850,
+    "finalMinusBaselineGeometry": 10,
+    "zeroTileSamples": 0,
+    "heapBytesAllNull": true,
+    "lastSample": {
+      "activeSeconds": 2574.422,
+      "gameSeconds": 2564.6330000016196,
+      "fpsCounter": 60,
+      "frameRenderCalls": 489,
+      "frameRenderTriangles": 357919,
+      "geometries": 850,
+      "textures": 88,
+      "traffic": 30,
+      "tiles": 9,
+      "pendingTiles": 0,
+      "heapBytes": null,
+      "flying": false,
+      "speed": 0,
+      "level": "train-top-table"
+    },
+    "finding": "Geometry after baseline ranges 639–1,354 and ends at 850 versus 840 at baseline. Scene windows rise and fall rather than showing sustained retained-count accumulation: warm-window median 925, final 300-second median 988. Textures peak at 93 and are flat at 88 in the final 300 seconds. Loaded tiles remain 9–14, pending 0–2. This passes bounded counters and sampled world loading for this route/run.",
+    "limits": "Three.js geometry/texture counts do not measure byte size, all retained CPU data, total process memory, GPU VRAM, memory fragmentation or future sessions. Safari exposes no JS heap values. Changing scenes prevents a matched-view leak-rate estimate or controlled performance comparison."
+  },
+  "cadence": {
+    "measurement": "Focused, unblocked gameplay observer-callback cadence after the real simulation advances",
+    "intervals": 151520,
+    "observedCallbacksPerSecond": 58.849437566852295,
+    "intervalMs": {
+      "p50": 17.125,
+      "p95": 18.125,
+      "p99": 44.125,
+      "longest": 518,
+      "atLeast1000ms": 0
+    },
+    "histogramBinWidthMs": 0.25,
+    "missedBudgetWithHalfMillisecondTolerance": {
+      "fps60": 17491,
+      "fps90": 149916,
+      "fps120": 151017
+    },
+    "rawValuesAdjusted": false,
+    "longestIntervalCause": "Unexplained. The 518 ms longest interval is retained without attribution or subtraction.",
+    "instrumentationCaveat": "Source review confirms in-app export/capture work does not explicitly break cadence. The export summary is assembled before its later JSON serialization/Blob/download work; an earlier export/capture can affect a subsequent eligible interval unless focus/visibility or another normal gate breaks the sample. The amount and contribution are unknown. These are instrumented native-QA timings.",
+    "interpretation": "Callback cadence after advancing simulation, not GPU-completed presentation FPS, display refresh, input latency, phone performance, thermal or battery evidence. Percentiles use 0.25 ms histogram bins. No eligible interval reaches 1,000 ms."
+  },
+  "supportAssistanceAndInputs": {
+    "adoptedStoryTrain": "rail:1",
+    "coachCount": 13,
+    "sourceWays": 49,
+    "rearSupport": "rail:1:12",
+    "assistance": [
+      {
+        "kind": "qa-order-preparation",
+        "at": 15963.99999999991,
+        "levelId": null
+      },
+      {
+        "kind": "qa-train-landing",
+        "at": 86144.00000000106,
+        "levelId": "train-top-table"
+      },
+      {
+        "kind": "player-relocated",
+        "at": 86312.00000000106,
+        "levelId": "train-top-table"
+      }
+    ],
+    "assistanceUnchangedSinceBaseline": true,
+    "recordedInputs": [
+      {
+        "kind": "map",
+        "source": "keyboard",
+        "at": 1585931.000002066
+      }
+    ],
+    "newDriveFlightOrHandoffInputsAfterSetup": false,
+    "airborneResourceSamplesAfterBaseline": 0,
+    "deliveryCompleted": false,
+    "naturalPickupRecorded": false,
+    "manualHandoffRecorded": false,
+    "recordedFacts": [
+      "rail-roof-contact"
+    ],
+    "scope": "QA order preparation and one rear-coach landing/relocation remain explicit. Map was opened with the normal keyboard input and closed; map-open intervals are excluded by the observer. There is no later recorded driving, flight or staging, and retained tails keep the same coach/revision. Touch layout with no trusted touch is not physical-device or campaign evidence.",
+    "boundedSnapshotContinuity": "Campaign snapshots cap at 240 and evict 40. The final export preserves 55.174 seconds; checkpoint tails preserve selected earlier periods. This supports consistent sampled contact, not frame-by-frame proof of all 40 minutes."
+  },
+  "railEvidence": {
+    "formerJunction": {
+      "image": "02-thirteen-coach-junction-cleared.png",
+      "savedImageGameSeconds": 295,
+      "story": {
+        "id": "rail:1",
+        "visibleCoaches": 13,
+        "totalCoaches": 13,
+        "sourceWays": 49,
+        "metresToRouteEnd": 31333
+      },
+      "ordinary": {
+        "id": "rail:0",
+        "visibleCoaches": 13,
+        "totalCoaches": 13,
+        "sourceWays": 35,
+        "metresToRouteEnd": 6939
+      },
+      "interpretation": "Both captured 13-coach rakes progressed beyond the previously blocked near-junction section."
+    },
+    "mainSoakEndpointEvidence": {
+      "operatorWitnessed": "Parent reports live terminal approach and natural reversal. This auditor did not control or independently observe that live UI.",
+      "beforeDwellSequencePreserved": false,
+      "explicitDirectionFieldExported": false,
+      "savedImage06": {
+        "file": "06-final-terminal-approach-thirteen-coaches.png",
+        "actualSavedGameSeconds": 2244,
+        "actualSavedMetresToRouteEnd": 34718,
+        "actualPhase": "already returning after reversal"
+      },
+      "savedImage07": {
+        "file": "07-final-natural-reversal-same-coach.png",
+        "actualSavedGameSeconds": 2303,
+        "actualSavedMetresToRouteEnd": 33867,
+        "actualPhase": "returning after reversal"
+      },
+      "filenameAndEstimateCaution": "Image 06 filename and earlier operator estimates describe approach, but the actual saved pixels are already after reversal. The exact saved readouts above take precedence. No stop/plateau duration is inferred or invented for this run.",
+      "checkpoint5Tail": {
+        "snapshotCount": 216,
+        "gameRangeMs": [
+          2258097.00000287,
+          2312102.0000026487
+        ],
+        "durationSeconds": 54.00499999977881,
+        "supportValues": [
+          "rail:1:12"
+        ],
+        "placementRevisions": [
+          2
+        ],
+        "yRangeMetres": [
+          4.835,
+          4.835
+        ],
+        "ownSpeedRange": [
+          0,
+          0
+        ],
+        "anyFlightDescentOrJump": false,
+        "worldDisplacementMetres": 862.3470947175484,
+        "largestPositionStepMetres": 4.272000000002201,
+        "maximumInferredWorldSpeedMetresPerSecond": 16.001468841851455,
+        "positiveXSteps": 0,
+        "stationaryXSteps": 0,
+        "negativeXSteps": 215
+      },
+      "separateSupplement": "Parent plans a separate native saved terminal sequence with a separate RunID. It is not included in this soak duration or this report’s evidence set."
+    },
+    "finalReturn": {
+      "image": "08-final-same-coach-support.png",
+      "savedImageGameSeconds": 2546,
+      "visibleAndTotalStoryCoaches": [
+        13,
+        13
+      ],
+      "storySourceWays": 49,
+      "metresToRouteEnd": 29973,
+      "support": "rail:1:12",
+      "tail": {
+        "snapshotCount": 220,
+        "gameRangeMs": [
+          2509713.0000018175,
+          2564887.0000016186
+        ],
+        "durationSeconds": 55.17399999980116,
+        "supportValues": [
+          "rail:1:12"
+        ],
+        "placementRevisions": [
+          2
+        ],
+        "yRangeMetres": [
+          4.835,
+          4.835
+        ],
+        "ownSpeedRange": [
+          0,
+          0
+        ],
+        "anyFlightDescentOrJump": false,
+        "worldDisplacementMetres": 880.0275268563934,
+        "largestPositionStepMetres": 4.288000000000057,
+        "maximumInferredWorldSpeedMetresPerSecond": 16.006853858283932,
+        "positiveXSteps": 0,
+        "stationaryXSteps": 0,
+        "negativeXSteps": 219
+      },
+      "finding": "Both retained return tails move continuously back through the route while support, revision 2 and y 4.835 remain unchanged. No sampled position jump beyond normal approximately 16 m/s train travel is observed."
+    }
+  },
+  "savedImageReview": {
+    "imagesPersonallyViewed": [
+      "01-supported-rear-thirteen-coach-train.png",
+      "02-thirteen-coach-junction-cleared.png",
+      "03-night-full-rake-supported.png",
+      "04-orbit-keeps-car-and-coaches-visible.png",
+      "05-map-streets-and-railways.png",
+      "06-final-terminal-approach-thirteen-coaches.png",
+      "07-final-natural-reversal-same-coach.png",
+      "08-final-same-coach-support.png"
+    ],
+    "observations": [
+      "Day/night city, mapped rails and train roofs remain visible in selected saved captures.",
+      "Native orbit image 04 shows the car on the train roof and adjacent coaches.",
+      "Map image 05 shows streets, mapped railway lines, local labels and the destination along the corridor.",
+      "Final image 08 exactly reads game 2546 seconds, all 13 story coaches and rear-coach contact. The operator reports saving one captured buffer before emitting it; this audit reviews the resulting immutable file, not a second live capture.",
+      "This is a sampled visual check, not a complete character-likeness reapproval or assertion of pixel identity."
+    ]
+  },
+  "serverHealth": {
+    "file": "server-health.jsonl",
+    "pollRecords": 83,
+    "sampledRequests": 249,
+    "allSampledResponses200": true,
+    "firstPoll": "2026-11-01T03:49:46.725488+00:00",
+    "lastPoll": "2026-11-01T04:30:47.730269+00:00",
+    "firstPollDelayAfterStartSeconds": 136.104488,
+    "largestPollGapSeconds": 30.019588,
+    "checkedPaths": [
+      "qa-build-identity.json",
+      "city/core.pack.wasm",
+      "city/packs/p-2_-2.pack.wasm"
+    ],
+    "limits": "Sampled status and byte length for three paths, not a continuous trace of every asset request. Nonzero loaded-tile history separately supports continued world installation. Native final P pause, stopping monitor 96120 / own PID 61848 and leaving server 4211 up are parent-reported, not actions by this auditor."
+  },
+  "presentationAtFinalExport": {
+    "documentClasses": "solid-ui is-touch",
+    "hudClasses": "",
+    "blockers": [],
+    "worldPaintBlocked": false,
+    "loading": false,
+    "documentHidden": false,
+    "focused": true,
+    "canvas": {
+      "width": 1264,
+      "height": 543,
+      "inlineWidth": "1264px",
+      "inlineHeight": "543px"
+    },
+    "camera": {
+      "position": [
+        14164.288168276227,
+        7.913045789161733,
+        -5182.468843080718
+      ],
+      "quaternion": [
+        -0.08050573710360882,
+        0.6660134138704631,
+        0.07265146657988154,
+        0.7380153949897036
+      ],
+      "aspect": 2.32780847145488,
+      "near": 0.3,
+      "far": 900,
+      "poseFinite": true,
+      "projectionFinite": true
+    },
+    "contextLost": false,
+    "renderCalls": 489,
+    "elements": [
+      {
+        "selector": "#game",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1264,
+          "height": 543,
+          "top": 0,
+          "right": 1264,
+          "bottom": 543,
+          "left": 0
+        },
+        "style": {
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "zIndex": "auto"
+        }
+      },
+      {
+        "selector": "#game canvas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1264,
+          "height": 543,
+          "top": 0,
+          "right": 1264,
+          "bottom": 543,
+          "left": 0
+        },
+        "style": {
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "zIndex": "auto"
+        }
+      },
+      {
+        "selector": "#hud",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1264,
+          "height": 543,
+          "top": 0,
+          "right": 1264,
+          "bottom": 543,
+          "left": 0
+        },
+        "style": {
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "zIndex": "5"
+        }
+      }
+    ]
+  },
+  "campaignAcceptanceFlags": {
+    "allCompleted": false,
+    "naturalPickupAll": false,
+    "noAssistance": false,
+    "allScenarioEvidence": false,
+    "unreviewedArtPreview": false,
+    "observedSceneMechanicsAll": false,
+    "fullCampaignAccepted": false,
+    "note": "Completion events alone are not physical-scene, visual-likeness, true-touch or hardware acceptance."
+  },
+  "sourceInterpretationReferences": [
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/src/delivery/qa/performance-observer.ts",
+      "sha256": "95f58563dc18d713d0b6a99fe7f4e8fd9ab3ee0dcaa0b2fc27ce36e75e87fb62",
+      "purpose": "Active gates, resource retention, report environment and cadence summary."
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/src/delivery/qa/gameplay-cadence.ts",
+      "sha256": "196031774387183dce13e78013e597b07804f694543f6833262e807c44e9428f",
+      "purpose": "Eligible intervals, simulation-advance gate and histogram semantics."
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/src/delivery/qa/campaign-observer.ts",
+      "sha256": "34a327bd9340645834ce738a6edf711d7a6730f7c3d2a4deb2f23483ff28a6c3",
+      "purpose": "Export report followed by JSON serialization/Blob/download without explicit cadence break."
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/src/delivery/qa.ts",
+      "sha256": "2b3872a2e5a991b5e2692a96c3350422896416f5466803c4398a09a24978d217",
+      "purpose": "Diagnostic capture render/toDataURL without explicit cadence break."
+    },
+    {
+      "path": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes/src/delivery/qa/campaign-recorder.ts",
+      "sha256": "13cc71b14cd1884d468de81d2860ed76893aa40f2c44757b82adde1f712fe738",
+      "purpose": "Bounded support snapshots, assistance and input recording."
+    }
+  ],
+  "notCovered": [
+    "Total CPU/process/GPU/VRAM byte usage or physical-device memory.",
+    "GPU-completed presented frame rate, refresh capability, input latency, phone thermal/battery or real touch.",
+    "Controlled A/B performance attribution across different rakes, viewports, browser contexts and routes.",
+    "Natural pickup, manual delivery, full campaign or immutable asset-approval changes.",
+    "A preserved main-soak approach/dwell/return transition; a separate short native sequence is planned.",
+    "Planned focused High/Low delivery proofs, which require separate RunIDs/evidence and cannot be appended to this soak clock."
+  ],
+  "auditActions": "Filesystem-only parsing/hashing, source reading for reporting semantics, saved-image inspection and writing this report/README. No live UI actions, product edits, main acceptance-document changes, tests, builds, Git or publication.",
+  "evidenceFiles": [
+    {
+      "file": "baseline-export.json",
+      "bytes": 179392,
+      "sha256": "0fbfef25ff265f44d8380a75d6c8c11133ec8b71f490924420adbe27d0de7d4e"
+    },
+    {
+      "file": "checkpoint-1-export.json",
+      "bytes": 303484,
+      "sha256": "477cbf27cd8ef355da51ac624c57db0b9a922490483d3ffa206ef1cbe138351a"
+    },
+    {
+      "file": "checkpoint-2-export.json",
+      "bytes": 475069,
+      "sha256": "9aa8b50103847032158b484f3d0eaa55723cd940bbb5424b0a0049f717a0bfd8"
+    },
+    {
+      "file": "checkpoint-3-export.json",
+      "bytes": 582392,
+      "sha256": "c2ba94d034f952ac1c59bb9804b0fd4bfd744c591fb4c1be5106fff45adeeec1"
+    },
+    {
+      "file": "checkpoint-4-export.json",
+      "bytes": 895199,
+      "sha256": "c555275a28a809467148a8fa0029ecf8c304610bf9bc679f50430ce616fc085e"
+    },
+    {
+      "file": "checkpoint-5-reversal-export.json",
+      "bytes": 1103331,
+      "sha256": "95745418e6ed70f8f63e76ed790c0270cf74fd7a224672001530cc8a97edd374"
+    },
+    {
+      "file": "final-export.json",
+      "bytes": 1212387,
+      "sha256": "09b7a8842ffe813b61211395053ce8e9cdfe6aedc5ec654513bd09d0889e13bc"
+    },
+    {
+      "file": "server-health.jsonl",
+      "bytes": 22327,
+      "sha256": "49907f1c10406eef7e705bdecd1203acd7e0822affa53b42986e23aac3e3220f"
+    },
+    {
+      "file": "01-supported-rear-thirteen-coach-train.png",
+      "bytes": 192526,
+      "sha256": "fc57e48c4a880926e8b5c210945c7964d3f510171eee49668d4f38e11dea32df"
+    },
+    {
+      "file": "02-thirteen-coach-junction-cleared.png",
+      "bytes": 196432,
+      "sha256": "96a049cd705db05823b089b05d232f11621a31a5e996587e9280f60a1fedad96"
+    },
+    {
+      "file": "03-night-full-rake-supported.png",
+      "bytes": 224638,
+      "sha256": "37e38556b37aa8e65b906bc49f61344611fd34d81cff479d6619c8cb9efd03d0"
+    },
+    {
+      "file": "04-orbit-keeps-car-and-coaches-visible.png",
+      "bytes": 183654,
+      "sha256": "31a68d2af1f9e5f19f5d19aefc2136899a878425b1d065854d00892d99e7ee59"
+    },
+    {
+      "file": "05-map-streets-and-railways.png",
+      "bytes": 233758,
+      "sha256": "595a30eca84876456dddbeb655ed4d53050ee7e55b7da29295fea1b8b6f2cffb"
+    },
+    {
+      "file": "06-final-terminal-approach-thirteen-coaches.png",
+      "bytes": 205525,
+      "sha256": "24bbaad88e34e634538b6de6fa92a9cc709696c2036f516756c039b191be3350"
+    },
+    {
+      "file": "07-final-natural-reversal-same-coach.png",
+      "bytes": 198437,
+      "sha256": "eba27d4f725382cb16362db92acecc8b84aa4ed79da393f96a523add2863aa56"
+    },
+    {
+      "file": "08-final-same-coach-support.png",
+      "bytes": 210107,
+      "sha256": "56fc6a561a47daa11593c0ca6291642152cead08a53e62793db60090b0c6c157"
+    }
+  ]
+}

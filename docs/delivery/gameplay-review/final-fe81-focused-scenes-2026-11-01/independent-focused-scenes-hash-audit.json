@@ -1,0 +1,686 @@
+{
+  "schemaVersion": 1,
+  "reviewerId": "independent-final-metro-native-review-20261031",
+  "reviewedAt": "2026-11-01T04:52:07.720847+00:00",
+  "reportKind": "independent-focused-frozen-renderer-supplement",
+  "decision": {
+    "status": "PASS_SCOPED_NANI_HIGH_NIGHT_AND_METRO_LOW_NIGHT",
+    "naniHighNightManualCompletionAndReadability": "pass within the saved/exported evidence",
+    "metroLowNightManualCompletionFourActorReadabilityAndRetention": "pass within the saved/exported evidence",
+    "fe81MetroHighCompletionEstablished": false,
+    "fullCampaignAccepted": false,
+    "physicalPhoneOrTrustedTouchAccepted": false,
+    "fpsOrTotalMemoryAccepted": false,
+    "formalAssetApprovalsModified": false,
+    "summary": "Both exported manual deliveries complete on the frozen fe81 source, with readable saved night scenes. This supplements renderer/resource refinements; it does not replace earlier immutable art reviews or establish an unassisted campaign, physical-device performance or fe81 Metro High completion."
+  },
+  "commonIdentity": {
+    "buildFingerprint": "fe8101e59186535fbe59cc16e742218af2409a625628f305943b404934a6d36a",
+    "browser": "Native Safari, as recorded in both user agents",
+    "viewportAndDrawingBufferPixels": [
+      1264,
+      543
+    ],
+    "deviceAndRendererDpr": 1,
+    "layout": "touch-layout",
+    "inputs": "Mouse/keyboard evidence; trustedTouchObserved and physicalHardwareVerified are false.",
+    "loader": "Ordinary approved public loader URLs; neither contains qaArt. Per-asset runtime SHAs are not exported or recomputed by this audit.",
+    "separateRunIds": true,
+    "notPartOfLongSoakClock": true
+  },
+  "naniHighNight": {
+    "export": {
+      "file": "nani-high-evidence.json",
+      "runId": "campaign-qa-mvxcjodw",
+      "startedAt": "2026-11-01T04:45:19.796Z",
+      "buildFingerprint": "fe8101e59186535fbe59cc16e742218af2409a625628f305943b404934a6d36a",
+      "sourceUrl": "http://127.0.0.1:4211/?qaDelivery=14&qaScene=1&qaCampaign=1&qaPerf=1&qaTouch=1&q=high&qaNight=1",
+      "qaArtOverridePresent": false,
+      "quality": "high",
+      "environment": {
+        "quality": "high",
+        "viewport": {
+          "width": 1264,
+          "height": 543
+        },
+        "devicePixelRatio": 1,
+        "rendererPixelRatio": 1,
+        "drawingBuffer": {
+          "width": 1264,
+          "height": 543
+        },
+        "hardwareConcurrency": 8,
+        "refreshCapability": "Not measured by this callback observer"
+      },
+      "metadata": {
+        "mode": "isolated-scene",
+        "layout": "touch-layout",
+        "environment": "Browser development session; hardware unverified",
+        "timebase": "active-gameplay",
+        "initialCompletedIds": [
+          "sandalwood-special",
+          "train-top-table",
+          "devara-depths",
+          "paradise-rope-bucket",
+          "arundhati-haunted-gate",
+          "jessie-walking-delivery",
+          "hasini-college-gate",
+          "bhanumathi-wedding-street",
+          "sukumar-angle-parking",
+          "vakeel-next-station",
+          "maruthi-villa-79",
+          "salaar-inner-compound",
+          "arjun-classroom"
+        ]
+      },
+      "inputEvidence": {
+        "pointerTypes": [],
+        "trustedTouchObserved": false,
+        "physicalHardwareVerified": false,
+        "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+      },
+      "assistance": [
+        {
+          "kind": "qa-order-preparation",
+          "at": 13544.999999999927,
+          "levelId": null
+        },
+        {
+          "kind": "qa-scene-staging",
+          "at": 19202.999999999756,
+          "levelId": "between-overs"
+        },
+        {
+          "kind": "player-relocated",
+          "at": 19227.999999999756,
+          "levelId": "between-overs"
+        },
+        {
+          "kind": "pickup-not-observed",
+          "at": 27482.999999999316,
+          "levelId": "between-overs"
+        }
+      ],
+      "recordedInputs": [
+        {
+          "kind": "handoff",
+          "source": "keyboard",
+          "at": 26732.999999999356
+        }
+      ],
+      "facts": [
+        "real-stadium-surface",
+        "grounded-arrival",
+        "valid-timing-window",
+        "manual-handoff",
+        "final-opening"
+      ],
+      "handoffGameMs": 26732.999999999356,
+      "completedGameMs": 27482.999999999316,
+      "handoffToCompletionMs": 749.99999999996,
+      "readySnapshotAtHandoff": {
+        "x": 5730.556092228551,
+        "y": 0.5850000000000001,
+        "z": 5.93329211314066,
+        "yaw": 0,
+        "speed": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "placementRevision": 2,
+        "support": null,
+        "action": "DROP",
+        "ready": true,
+        "instruction": "Break in play — drop now!",
+        "at": 26732.999999999356
+      },
+      "passingSnapshotAfterHandoff": {
+        "x": 5730.556092228551,
+        "y": 0.5850000000000001,
+        "z": 5.93329211314066,
+        "yaw": 0,
+        "speed": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "placementRevision": 2,
+        "support": null,
+        "action": "DROP",
+        "ready": false,
+        "instruction": "Passing the pizza…",
+        "at": 26832.999999999352
+      },
+      "targetRow": {
+        "level": 14,
+        "id": "between-overs",
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": true,
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [
+          "Original oval field, wicket, stands and floodlights remain; no roads/traffic or duplicate pitch.",
+          "Jersey Nani is recognizable and physically present at the handoff."
+        ],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": false
+      },
+      "originalAcceptanceFlags": {
+        "allCompleted": false,
+        "naturalPickupAll": false,
+        "noAssistance": false,
+        "allScenarioEvidence": false,
+        "unreviewedArtPreview": false,
+        "observedSceneMechanicsAll": false,
+        "fullCampaignAccepted": false,
+        "note": "Completion events alone are not physical-scene, visual-likeness, true-touch or hardware acceptance."
+      },
+      "activeWallMs": 32293,
+      "lastResourceLevel": null,
+      "sampleCount": 78,
+      "sampleGameRangeMs": [
+        13544.999999999927,
+        31996.99999999906
+      ],
+      "placementRevisions": [
+        1,
+        2
+      ],
+      "supportValues": [
+        "None"
+      ],
+      "presentationAtExport": {
+        "documentClasses": "solid-ui is-touch",
+        "hudClasses": "has-delivery-notice",
+        "blockers": [],
+        "worldPaintBlocked": false,
+        "loading": false,
+        "documentHidden": false,
+        "focused": true,
+        "canvas": {
+          "width": 1264,
+          "height": 543,
+          "inlineWidth": "1264px",
+          "inlineHeight": "543px"
+        },
+        "camera": {
+          "position": [
+            5728.956092228551,
+            1.7349999999999999,
+            9.13329211314066
+          ],
+          "quaternion": [
+            -0.06390118587089066,
+            0.20063760866642685,
+            0.013116210564030206,
+            0.9774912549242328
+          ],
+          "aspect": 2.32780847145488,
+          "near": 0.3,
+          "far": 900,
+          "poseFinite": true,
+          "projectionFinite": true
+        },
+        "contextLost": false,
+        "renderCalls": 444,
+        "elements": [
+          {
+            "selector": "#game",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1264,
+              "height": 543,
+              "top": 0,
+              "right": 1264,
+              "bottom": 543,
+              "left": 0
+            },
+            "style": {
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "zIndex": "auto"
+            }
+          },
+          {
+            "selector": "#game canvas",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1264,
+              "height": 543,
+              "top": 0,
+              "right": 1264,
+              "bottom": 543,
+              "left": 0
+            },
+            "style": {
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "zIndex": "auto"
+            }
+          },
+          {
+            "selector": "#hud",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1264,
+              "height": 543,
+              "top": 0,
+              "right": 1264,
+              "bottom": 543,
+              "left": 0
+            },
+            "style": {
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "zIndex": "5"
+            }
+          }
+        ]
+      }
+    },
+    "savedImages": [
+      "nani-high-night-before-handoff.png",
+      "nani-high-night-complete-grand-opening.png"
+    ],
+    "independentImageFindings": [
+      "Before handoff: Nani is visible full length in cricket clothing; head, face and kit remain readable against the green field at High night. The bright headlamp region stays to the right and does not veil the figure.",
+      "The saved field view has readable grass/pitch, wicket and stands. This is a focused view, not a complete stadium audit.",
+      "The completion image clearly shows NANI / Jersey, Grand opening and the Explore Hyderabad button."
+    ],
+    "exploreAction": "Parent reports clicking Explore after the grand opening. There is no separate post-Explore saved image here; the export ends with no active resource level and cleared action, which is consistent with completion but does not by itself prove that button click.",
+    "limits": "One assisted scene stage and seeded prior progress. No natural pickup, wrong-timing rejection trial, mid-catch palm sequence or full finale playback timing is independently re-proven by these two images."
+  },
+  "metroLowNight": {
+    "export": {
+      "file": "metro-low-evidence.json",
+      "runId": "campaign-qa-mvxcl8cf",
+      "startedAt": "2026-11-01T04:46:32.319Z",
+      "buildFingerprint": "fe8101e59186535fbe59cc16e742218af2409a625628f305943b404934a6d36a",
+      "sourceUrl": "http://127.0.0.1:4211/?qaDelivery=10&qaScene=1&qaCampaign=1&qaPerf=1&qaTouch=1&q=low&qaNight=1",
+      "qaArtOverridePresent": false,
+      "quality": "low",
+      "environment": {
+        "quality": "low",
+        "viewport": {
+          "width": 1264,
+          "height": 543
+        },
+        "devicePixelRatio": 1,
+        "rendererPixelRatio": 1,
+        "drawingBuffer": {
+          "width": 1264,
+          "height": 543
+        },
+        "hardwareConcurrency": 8,
+        "refreshCapability": "Not measured by this callback observer"
+      },
+      "metadata": {
+        "mode": "isolated-scene",
+        "layout": "touch-layout",
+        "environment": "Browser development session; hardware unverified",
+        "timebase": "active-gameplay",
+        "initialCompletedIds": [
+          "sandalwood-special",
+          "train-top-table",
+          "devara-depths",
+          "paradise-rope-bucket",
+          "arundhati-haunted-gate",
+          "jessie-walking-delivery",
+          "hasini-college-gate",
+          "bhanumathi-wedding-street",
+          "sukumar-angle-parking"
+        ]
+      },
+      "inputEvidence": {
+        "pointerTypes": [
+          "mouse"
+        ],
+        "trustedTouchObserved": false,
+        "physicalHardwareVerified": false,
+        "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+      },
+      "assistance": [
+        {
+          "kind": "qa-order-preparation",
+          "at": 16411.99999999992,
+          "levelId": null
+        },
+        {
+          "kind": "qa-scene-staging",
+          "at": 22231.99999999965,
+          "levelId": "vakeel-next-station"
+        },
+        {
+          "kind": "player-relocated",
+          "at": 22262.999999999654,
+          "levelId": "vakeel-next-station"
+        },
+        {
+          "kind": "pickup-not-observed",
+          "at": 99950.00000000116,
+          "levelId": "vakeel-next-station"
+        }
+      ],
+      "recordedInputs": [
+        {
+          "kind": "drive",
+          "source": "keyboard",
+          "at": 91681.00000000103
+        },
+        {
+          "kind": "steer",
+          "source": "mouse",
+          "at": 91747.00000000105
+        },
+        {
+          "kind": "brake",
+          "source": "keyboard",
+          "at": 93253.00000000112
+        },
+        {
+          "kind": "handoff",
+          "source": "keyboard",
+          "at": 99200.00000000116
+        }
+      ],
+      "facts": [
+        "metro-roof-contact",
+        "metro-next-station",
+        "authored-metro-exit",
+        "four-exit-anchors",
+        "grounded-arrival",
+        "manual-handoff"
+      ],
+      "handoffGameMs": 99200.00000000116,
+      "completedGameMs": 99950.00000000116,
+      "handoffToCompletionMs": 750.0,
+      "readySnapshotAtHandoff": {
+        "x": -4231.788326834259,
+        "y": 14.25,
+        "z": -3441.9439175118036,
+        "yaw": 0.9491591700191525,
+        "speed": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "placementRevision": 2,
+        "support": null,
+        "action": "HAND OVER",
+        "ready": true,
+        "instruction": "Hand over the pizza at the platform",
+        "at": 99200.00000000116
+      },
+      "passingSnapshotAfterHandoff": {
+        "x": -4231.788326834259,
+        "y": 14.25,
+        "z": -3441.9439175118036,
+        "yaw": 0.9491591700191525,
+        "speed": 0,
+        "flying": false,
+        "descending": false,
+        "jumping": false,
+        "placementRevision": 2,
+        "support": null,
+        "action": "HAND OVER",
+        "ready": false,
+        "instruction": "Passing the pizza…",
+        "at": 99283.00000000118
+      },
+      "targetRow": {
+        "level": 10,
+        "id": "vakeel-next-station",
+        "configuredScenario": true,
+        "completed": true,
+        "naturalJumpPickup": false,
+        "manualHandoff": true,
+        "assistance": [
+          "qa-scene-staging",
+          "player-relocated",
+          "pickup-not-observed"
+        ],
+        "missingPhysicalFacts": [],
+        "missingFacts": [],
+        "missingArt": [],
+        "missingVisualChecks": [
+          "Four visible correct-film people exit the proper door onto the physical platform.",
+          "Vakeel Saab lawyer costume, three companion appearances and natural walking are independently approved."
+        ],
+        "observedSceneMechanics": true,
+        "allScenarioEvidence": false
+      },
+      "originalAcceptanceFlags": {
+        "allCompleted": false,
+        "naturalPickupAll": false,
+        "noAssistance": false,
+        "allScenarioEvidence": false,
+        "unreviewedArtPreview": false,
+        "observedSceneMechanicsAll": false,
+        "fullCampaignAccepted": false,
+        "note": "Completion events alone are not physical-scene, visual-likeness, true-touch or hardware acceptance."
+      },
+      "activeWallMs": 107046,
+      "lastResourceLevel": null,
+      "sampleCount": 203,
+      "sampleGameRangeMs": [
+        56851.000000000655,
+        106753.00000000122
+      ],
+      "placementRevisions": [
+        2
+      ],
+      "supportValues": [
+        "None",
+        "metro:blue:0:1:4:2"
+      ],
+      "presentationAtExport": {
+        "documentClasses": "solid-ui is-touch",
+        "hudClasses": "",
+        "blockers": [],
+        "worldPaintBlocked": false,
+        "loading": false,
+        "documentHidden": false,
+        "focused": true,
+        "canvas": {
+          "width": 1264,
+          "height": 543,
+          "inlineWidth": "1264px",
+          "inlineHeight": "543px"
+        },
+        "camera": {
+          "position": [
+            -4230.255643826731,
+            15.950000000000006,
+            -3443.7457418226286
+          ],
+          "quaternion": [
+            -0.1997627318692895,
+            -0.7657622705498495,
+            -0.28204761171206155,
+            0.5423579451671927
+          ],
+          "aspect": 2.32780847145488,
+          "near": 0.3,
+          "far": 900,
+          "poseFinite": true,
+          "projectionFinite": true
+        },
+        "contextLost": false,
+        "renderCalls": 426,
+        "elements": [
+          {
+            "selector": "#game",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1264,
+              "height": 543,
+              "top": 0,
+              "right": 1264,
+              "bottom": 543,
+              "left": 0
+            },
+            "style": {
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "zIndex": "auto"
+            }
+          },
+          {
+            "selector": "#game canvas",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1264,
+              "height": 543,
+              "top": 0,
+              "right": 1264,
+              "bottom": 543,
+              "left": 0
+            },
+            "style": {
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "zIndex": "auto"
+            }
+          },
+          {
+            "selector": "#hud",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 1264,
+              "height": 543,
+              "top": 0,
+              "right": 1264,
+              "bottom": 543,
+              "left": 0
+            },
+            "style": {
+              "display": "block",
+              "visibility": "visible",
+              "opacity": "1",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "zIndex": "5"
+            }
+          }
+        ]
+      }
+    },
+    "savedImages": [
+      "metro-low-night-actual-roof-ride.png",
+      "metro-low-night-platform-exit.png",
+      "metro-low-night-four-actors-parked.png",
+      "metro-low-night-delivery-complete.png",
+      "metro-low-night-after-next-retained.png"
+    ],
+    "independentImageFindings": [
+      "Roof-ride image shows the car physically on the elevated metro roof with the stay-until-next-station instruction.",
+      "Platform-exit image shows actors beside the actual train/platform after arrival; the export records next station, authored exit and four exit anchors.",
+      "Parked image shows all four faces, crowns and outfits readable under platform lighting; the hand-over prompt is ready. Close-view controls/car overlap part of the lawyer’s lower body, so unobstructed full-body/palm inspection is not claimed.",
+      "The completion image clearly shows PAWAN KALYAN / Vakeel Saab / Level 10/14 and Next delivery.",
+      "The after-Next image preserves all four actors beside the car with the hand-over prompt removed and hands relaxed."
+    ],
+    "platformEvidence": "At the recorded F input, car y 14.25, own speed 0, no flight/descent/jump and ready=true. The static platform is not a moving-rail support body, so support:null here does not negate grounded platform readiness. Passing-the-pizza follows, then completion 750 ms after F.",
+    "operatorControlContext": "Parent reports rolling from the coach roof with a short A+Go pulse, then Space, before F. Recorded drive-to-brake timestamps differ by 1572 ms. Steering is recorded as mouse source; the exact A-key pulse is operator context, not independently recorded key telemetry.",
+    "nextProgression": "Parent reports Next advanced to Level 11. The saved after-Next image verifies four retained actors and the cleared delivery prompt. This export has no explicit next-level index; final resource level is null, so Level 11 progression is not independently asserted from that field.",
+    "limits": "No saved mid-handoff carton/catch/palm sequence or complete walking video. All six physical/authored facts are present, but in-app visual checkboxes were left empty."
+  },
+  "inAppEvidenceAccounting": {
+    "visualCheckboxesLeftEmpty": true,
+    "allScenarioEvidenceFlagsRemainFalse": true,
+    "originalExportsUnmodified": true,
+    "interpretation": "Target rows complete with manualHandoff=true, observedSceneMechanics=true, no missing facts/art, but missingVisualChecks remain and fullCampaignAccepted remains false. This independent image review supplies a bounded readability observation without changing those exports or granting full-scenario/campaign acceptance."
+  },
+  "excludedOrSeparateEvidence": {
+    "fe81MetroHighAttempt": "Parent reports an earlier High attempt loaded/rendered and reached the ride/four-actor phase but missed platform parking. It was not saved/exported here. No fe81 High Metro completed-delivery claim is made.",
+    "earlierF096HighAndLowMetro": "Earlier complete High/Low proofs remain separate evidence on f096; they are not relabeled as fe81 completion.",
+    "assetApprovals": "The 15 immutable formal asset approvals remain unchanged; no art bytes, portraits, rigs, manifests or approval records were edited.",
+    "longSoakAndTerminal": "The fe81 soak and separate terminal/return sequence have their own RunIDs and reports. These short scene runs are not added to their time totals."
+  },
+  "performanceLimits": [
+    "These are assisted, instrumented native desktop functional/visual checks, not benchmark runs.",
+    "No GPU-presented FPS, refresh capability, input latency, full-memory/VRAM, physical-phone, true-touch, thermal or battery claim.",
+    "Export/capture work is not explicitly excluded by the cadence observer and may affect subsequent intervals. No cadence-based acceptance is granted here."
+  ],
+  "imagePackaging": {
+    "count": 7,
+    "filenameExtension": ".png",
+    "detectedFormat": "JPEG/JFIF",
+    "originalsPreserved": true
+  },
+  "auditActions": "Filesystem-only JSON reading, saved-image inspection and hashing; wrote only this hash-audit JSON and README. No UI, source/art edits, tests, builds, Git or publication.",
+  "evidenceFiles": [
+    {
+      "file": "nani-high-night-before-handoff.png",
+      "bytes": 137550,
+      "sha256": "366154ae9c3fe90ea1b1402bf456a2dc2cf0e2dcac210474c61856d9ae2613e4",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "nani-high-night-complete-grand-opening.png",
+      "bytes": 84486,
+      "sha256": "c14dc04d354218c77299cf23fea2c26daeb9ad8e731d83b8b4bd0959530c98b7",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "metro-low-night-actual-roof-ride.png",
+      "bytes": 173159,
+      "sha256": "6b3246aa00d2c60f1349a67ade204091c89b229eb8e9d0d35a5e10daa5e4fa84",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "metro-low-night-platform-exit.png",
+      "bytes": 161334,
+      "sha256": "6a2bd725c2c72e26430881a20da1c1fd11c45e013cdccef0e8f4714f98ef1a56",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "metro-low-night-four-actors-parked.png",
+      "bytes": 154508,
+      "sha256": "c58ca5370cb6eda009089a18d19a26a4a29b5ba8ca04eba2bacd4d7815df1627",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "metro-low-night-delivery-complete.png",
+      "bytes": 74097,
+      "sha256": "753e3415c779e4d293a30aae06b1464fc4fc8e73ac0172e035ef9d9c2183a412",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "metro-low-night-after-next-retained.png",
+      "bytes": 148822,
+      "sha256": "885c63546beb30e9963fe74cab7dbd6ab1c651de0e3bd5b2b271ece32cbc8b9a",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "nani-high-evidence.json",
+      "bytes": 68484,
+      "sha256": "65904a74de2b99c166c590bbc1cc4b0bd4c4fc10738f24af4d5c3aa056184a51"
+    },
+    {
+      "file": "metro-low-evidence.json",
+      "bytes": 163403,
+      "sha256": "aba05a965de60ca95806a8f510468a5db063bb13573beb9013f827e1a3f1b100"
+    }
+  ]
+}

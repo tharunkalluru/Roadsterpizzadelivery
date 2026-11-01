@@ -1,0 +1,655 @@
+{
+  "schemaVersion": 1,
+  "reviewerId": "independent-final-metro-native-review-20261031",
+  "reviewedAt": "2026-11-01T04:47:06.702937+00:00",
+  "reportKind": "independent-saved-terminal-and-return-supplement",
+  "decision": {
+    "status": "PASS_SCOPED_NEAR_TERMINAL_POSITION_THEN_SAMPLED_RETURN",
+    "nearTerminalPositionPreserved": true,
+    "sampledConsistentReturnPreserved": true,
+    "sustainedDwellProven": false,
+    "exactZeroDistanceOrTrainStopCaptured": false,
+    "uninterruptedTurnaroundCaptured": false,
+    "teleportFreeAcrossCaptureGapVerified": false,
+    "fpsAccepted": false,
+    "physicalPhoneAccepted": false,
+    "campaignAccepted": false,
+    "summary": "A saved near-terminal position is followed, after a capture gap, by a consistent returning train sequence. The gap hides stop/dwell/turnaround; no dwell duration or complete transition is claimed."
+  },
+  "identity": {
+    "runId": "campaign-qa-mvxc3rms",
+    "startedAt": "2026-11-01T04:32:57.508Z",
+    "buildFingerprint": "fe8101e59186535fbe59cc16e742218af2409a625628f305943b404934a6d36a",
+    "sourceUrl": "http://127.0.0.1:4211/?qaDelivery=2&qaScene=1&qaTrainRide=1&qaCampaign=1&qaPerf=1&qaRoute=1&qaStart=-11789.11,-6918.66,0,0.11&q=high&qaTouch=1",
+    "qaArtOverridePresent": false,
+    "metadata": {
+      "mode": "isolated-scene",
+      "layout": "touch-layout",
+      "environment": "Browser development session; hardware unverified",
+      "timebase": "active-gameplay",
+      "initialCompletedIds": [
+        "sandalwood-special"
+      ]
+    },
+    "environment": {
+      "quality": "high",
+      "viewport": {
+        "width": 1264,
+        "height": 543
+      },
+      "devicePixelRatio": 1,
+      "rendererPixelRatio": 1,
+      "drawingBuffer": {
+        "width": 1264,
+        "height": 543
+      },
+      "hardwareConcurrency": 8,
+      "refreshCapability": "Not measured by this callback observer"
+    },
+    "inputEvidence": {
+      "pointerTypes": [],
+      "trustedTouchObserved": false,
+      "physicalHardwareVerified": false,
+      "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+    },
+    "mainSoakRunId": "campaign-qa-mvxahbjx",
+    "separateRun": true,
+    "mainSoakDurationNotExtended": true,
+    "provenanceLimit": "The export identifies the parent-frozen fe81 source. Saved images do not embed their own source hashes; their association with this run is the saved-sequence provenance, bound here by exact file hashes."
+  },
+  "imagePackaging": {
+    "fileCount": 26,
+    "filenameExtension": ".png",
+    "detectedFileFormat": "JPEG/JFIF",
+    "allHeadersVerified": true,
+    "originalsChanged": false,
+    "finding": "All 26 native image files have .png names but JPEG/JFIF bytes. They decode normally and were inspected in their original form. No rename, re-encode or pixel modification was performed."
+  },
+  "captureTimeline": {
+    "timelineFile": "native-frame-timeline.json",
+    "frame00IncludedInReportedLoop": false,
+    "frame00ObservedFileWriteUtc": "2026-11-01T04:33:58.296373+00:00",
+    "loopStartedAtUtc": "2026-11-01T04:34:32.437Z",
+    "fileWriteToLoopStartGapSeconds": 34.140627,
+    "gapInterpretation": "Approximately 34.14 seconds is calculated from frame-00 file-write metadata to the reported loop start. File-write time is not an exact screen-presentation timestamp. Rounded native readouts independently progress from game 58 seconds in frame-00 to 94 seconds in frame-01, about 36 seconds between saved views including the first loop delay.",
+    "loopFrames": 25,
+    "firstFrameElapsedMs": 1594,
+    "lastFrameElapsedMs": 39042,
+    "firstToLastLoopSpanMs": 37448,
+    "reportedSpacingMs": {
+      "min": 1549,
+      "median": 1558.5,
+      "max": 1592
+    },
+    "timingLimit": "Reported capture timing establishes ordering and the missing interval. Sampling near 1.56-second intervals is not presentation FPS, input latency, smoothness or an exact dwell timer."
+  },
+  "savedImageReview": {
+    "all26FramesPersonallyViewed": true,
+    "readoutsManuallyTranscribedFromExactSavedImages": [
+      {
+        "file": "frame-00.png",
+        "roundedGameSeconds": 58,
+        "roundedMetresToRouteEnd": 6,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "near route endpoint; 6 m remaining"
+      },
+      {
+        "file": "frame-01.png",
+        "roundedGameSeconds": 94,
+        "roundedMetresToRouteEnd": 34589,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-02.png",
+        "roundedGameSeconds": 95,
+        "roundedMetresToRouteEnd": 34565,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-03.png",
+        "roundedGameSeconds": 97,
+        "roundedMetresToRouteEnd": 34536,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-04.png",
+        "roundedGameSeconds": 98,
+        "roundedMetresToRouteEnd": 34512,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-05.png",
+        "roundedGameSeconds": 100,
+        "roundedMetresToRouteEnd": 34487,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-06.png",
+        "roundedGameSeconds": 101,
+        "roundedMetresToRouteEnd": 34463,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-07.png",
+        "roundedGameSeconds": 103,
+        "roundedMetresToRouteEnd": 34439,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-08.png",
+        "roundedGameSeconds": 104,
+        "roundedMetresToRouteEnd": 34415,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-09.png",
+        "roundedGameSeconds": 106,
+        "roundedMetresToRouteEnd": 34387,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-10.png",
+        "roundedGameSeconds": 108,
+        "roundedMetresToRouteEnd": 34362,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-11.png",
+        "roundedGameSeconds": 109,
+        "roundedMetresToRouteEnd": 34338,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-12.png",
+        "roundedGameSeconds": 111,
+        "roundedMetresToRouteEnd": 34314,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-13.png",
+        "roundedGameSeconds": 112,
+        "roundedMetresToRouteEnd": 34289,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-14.png",
+        "roundedGameSeconds": 114,
+        "roundedMetresToRouteEnd": 34266,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-15.png",
+        "roundedGameSeconds": 115,
+        "roundedMetresToRouteEnd": 34242,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-16.png",
+        "roundedGameSeconds": 117,
+        "roundedMetresToRouteEnd": 34217,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-17.png",
+        "roundedGameSeconds": 118,
+        "roundedMetresToRouteEnd": 34193,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-18.png",
+        "roundedGameSeconds": 120,
+        "roundedMetresToRouteEnd": 34165,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-19.png",
+        "roundedGameSeconds": 122,
+        "roundedMetresToRouteEnd": 34140,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-20.png",
+        "roundedGameSeconds": 123,
+        "roundedMetresToRouteEnd": 34116,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-21.png",
+        "roundedGameSeconds": 125,
+        "roundedMetresToRouteEnd": 34092,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-22.png",
+        "roundedGameSeconds": 126,
+        "roundedMetresToRouteEnd": 34067,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-23.png",
+        "roundedGameSeconds": 128,
+        "roundedMetresToRouteEnd": 34043,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-24.png",
+        "roundedGameSeconds": 129,
+        "roundedMetresToRouteEnd": 34016,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      },
+      {
+        "file": "frame-25.png",
+        "roundedGameSeconds": 131,
+        "roundedMetresToRouteEnd": 33992,
+        "storyVisibleCoaches": 13,
+        "storyTotalCoaches": 13,
+        "storySourceWays": 49,
+        "support": "rail:1:12",
+        "displayedCarYMetres": 4.83,
+        "displayedOwnSpeedKmh": 0,
+        "phase": "returning along route"
+      }
+    ],
+    "returnDistanceProgressMetres": 597,
+    "returnDistanceMonotonicallyDecreases": true,
+    "sameRearSupportAndRakeAcrossAllFrames": true,
+    "findings": [
+      "Frame-00 preserves game 58 seconds, 6 m to route end, all 13 coaches, 49 source ways and supported rear coach 12. This is near-terminal position, not a recorded zero-distance stop.",
+      "Frames 01–25 preserve game 94–131 seconds and return distance 34,589–33,992 m, with the same 13-coach rake, rear support and y 4.83. Visible rails, scenery and camera heading progress consistently.",
+      "The 0 km/h HUD is the car’s own speed and does not establish a stopped train. No train velocity/direction field is exported.",
+      "A sustained stationary plateau is not preserved. Exact reversal dynamics and absence of a discontinuity within the gap cannot be verified from these files."
+    ]
+  },
+  "exportCorroboration": {
+    "file": "evidence-export.json",
+    "activeWallMs": 241367,
+    "simulatedMs": 240377.9999999991,
+    "assistance": [
+      {
+        "kind": "qa-order-preparation",
+        "at": 36740.9999999993,
+        "levelId": null
+      },
+      {
+        "kind": "qa-train-landing",
+        "at": 57176.00000000063,
+        "levelId": "train-top-table"
+      },
+      {
+        "kind": "player-relocated",
+        "at": 57242.00000000064,
+        "levelId": "train-top-table"
+      }
+    ],
+    "recordedInputs": [],
+    "completedAt": null,
+    "naturalPickup": null,
+    "facts": [
+      "rail-roof-contact"
+    ],
+    "retainedTail": {
+      "snapshotCount": 208,
+      "gameRangeMs": [
+        188007.99999998155,
+        240355.99999996577
+      ],
+      "supportValues": [
+        "rail:1:12"
+      ],
+      "placementRevisions": [
+        2
+      ],
+      "yRangeMetres": [
+        4.835,
+        4.835
+      ],
+      "ownSpeedRange": [
+        0,
+        0
+      ],
+      "anyFlightDescentOrJump": false,
+      "worldDisplacementMetres": 836.8084829485526,
+      "maximumInferredWorldSpeedMetresPerSecond": 16.000079530210257
+    },
+    "tailCoversImageLoopOrDwell": false,
+    "limitation": "The bounded export tail is later, at game 188–240 seconds, than the saved loop at game 94–131 seconds. It corroborates later same-coach travel but does not fill the transition gap.",
+    "assistanceScope": "Explicit order preparation and one rear-coach landing/relocation. No recorded drive, flight, handoff or later assistance. This is an assisted isolated scene, not natural pickup, a completed delivery, true touch or a full campaign.",
+    "campaignAcceptanceFlags": {
+      "allCompleted": false,
+      "naturalPickupAll": false,
+      "noAssistance": false,
+      "allScenarioEvidence": false,
+      "unreviewedArtPreview": false,
+      "observedSceneMechanicsAll": false,
+      "fullCampaignAccepted": false,
+      "note": "Completion events alone are not physical-scene, visual-likeness, true-touch or hardware acceptance."
+    }
+  },
+  "performanceLimits": [
+    "No FPS acceptance is made from native-image capture spacing or the short instrumented export.",
+    "Export/capture work does not explicitly break the cadence observer; earlier diagnostic work can affect a later interval unless normal focus/visibility/gating breaks it.",
+    "No GPU-completed presentation, display refresh, input latency, total-memory/VRAM, physical-phone, thermal or battery claim."
+  ],
+  "relationshipToLongSoak": {
+    "audit": "../final-fe81-reuse-soak-2026-11-01/final-independent-audit.json",
+    "scope": "This separate run adds a saved near-terminal position and subsequent return images on the same frozen source. It does not erase the missing approach/dwell from the main soak, prove sustained dwell, or add its 241,367 ms active duration to that run."
+  },
+  "auditActions": "Filesystem-only parsing, hashing and saved-image inspection. Wrote only this audit JSON and README. No source edits, UI actions, builds, tests, Git or publication.",
+  "evidenceFiles": [
+    {
+      "file": "frame-00.png",
+      "bytes": 204056,
+      "sha256": "028d8ca8a9d03ba4fda7ebcdf4e363c12f69dd354c819d30a1683f607ee3de06",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-01.png",
+      "bytes": 194948,
+      "sha256": "f67c7c99498b5baa4a3a782bcd94cea96c1da96409ab736bbf980a5f5ce4b5a0",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-02.png",
+      "bytes": 194906,
+      "sha256": "6cdd74996863769d157dffcc0e9cc8a991fed117a3c63a0eb3c733f1b879c0e5",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-03.png",
+      "bytes": 198052,
+      "sha256": "db72ec8b54af92c6ffcee883ebfe40d2ea5946795418948a66cb1cc8538d6578",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-04.png",
+      "bytes": 205437,
+      "sha256": "62e7a09dfb7dbf6b2ecb75456043ce5c2bc7145408bd5e3990de64195da69def",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-05.png",
+      "bytes": 199359,
+      "sha256": "0701acfd67df1a306d560672982097ebd9650c86d68448ea6a9bd727a4b77b2b",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-06.png",
+      "bytes": 197579,
+      "sha256": "a29137828b8f538fbad1d7a9fe99f04f6249fd556684422d17fc779784b8a1c4",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-07.png",
+      "bytes": 193317,
+      "sha256": "afa9d36bb4f00ccc8363e75c28ad863bd39b4229e7c913db277a416d0eaa212f",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-08.png",
+      "bytes": 193687,
+      "sha256": "ccf0e1b10a2711267943f052c7aab9a7f6929e13a7e85f8c8a453559efaf83aa",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-09.png",
+      "bytes": 193008,
+      "sha256": "860ceb605139a8ab91a50c5c3d112e0ab35ccccc26a025b23aba91957f9dcb96",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-10.png",
+      "bytes": 192741,
+      "sha256": "ab8df02b71620ceb806c35a8bcb821b29aeb78636632ffd6d4173f8ee59bdc62",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-11.png",
+      "bytes": 195011,
+      "sha256": "57f5e4a889d998b048c4ee533645e8150b51b3beb21ff3762fdca5f917955f50",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-12.png",
+      "bytes": 193346,
+      "sha256": "9e84f6ddaad52858b091cc8a8cc2a49cf33248a31f1d2e93d391b3edeaed5e67",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-13.png",
+      "bytes": 194111,
+      "sha256": "60e20c88b4b195ad4df584bbb1ba19913cb04a1eed7ce0bf47f24fba4f4eb708",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-14.png",
+      "bytes": 189948,
+      "sha256": "1472cc0e04714a43559c4166a2e710bf6c26ce4d909c8a59b897abcfe795290c",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-15.png",
+      "bytes": 189563,
+      "sha256": "9d95878ce7b8e6f5dddbae70ddf186cce0e277966271e96e2650dbc04e1b1ee7",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-16.png",
+      "bytes": 196312,
+      "sha256": "aa820d20a179a3c043879555c776982f17c0bf2bb17fb720b9024a44ed612f17",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-17.png",
+      "bytes": 188354,
+      "sha256": "5d000b7a9bb0fa42d13eeacb7a884af9499d8c180e5212368400b8eaa060702d",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-18.png",
+      "bytes": 190924,
+      "sha256": "7fa41d3972e19f85e6c8bfe9698163b17959cc9b484a5b4ded741a5994042866",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-19.png",
+      "bytes": 190942,
+      "sha256": "706e0dffdeda124302f392c4d2b776b2d8768b4e48da0a8d5c146656cdd7fbe7",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-20.png",
+      "bytes": 193228,
+      "sha256": "342b44960a79d0de277a488f35175d438ce1603beb451eb1d128da572049b342",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-21.png",
+      "bytes": 191307,
+      "sha256": "d22dbc3faf70825d081e26bc64a61aacce8853ae9bd5599bbb8d9a0bbda7065a",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-22.png",
+      "bytes": 191170,
+      "sha256": "e972f1f2af8b629f8924109cf6a2e7ff8289875f6e2ccd57e195a10b7b383611",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-23.png",
+      "bytes": 193407,
+      "sha256": "8f65d1382118a0afa8ac91527c3f4aad8afadff05fc0edb452f05ae6d0e0cf1b",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-24.png",
+      "bytes": 190850,
+      "sha256": "af0bb7a5198bc589c6111564915b9b3f04a25c4d65a3fc9b95cbf7ed90a328f3",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "frame-25.png",
+      "bytes": 193364,
+      "sha256": "5010fcc3b3f3f14ea42f8d301be13479f63196291bba5b90a70332d982a8bfa7",
+      "detectedFormat": "JPEG/JFIF despite .png filename"
+    },
+    {
+      "file": "native-frame-timeline.json",
+      "bytes": 1857,
+      "sha256": "9f3f29b7f272281b9b416486af411efbd9b85dd83c921474fa7879777b5fc828"
+    },
+    {
+      "file": "evidence-export.json",
+      "bytes": 223624,
+      "sha256": "5de60995a367927127828bd57127e99698177a000b3ccebc337bb5ae06685e3a"
+    }
+  ]
+}
