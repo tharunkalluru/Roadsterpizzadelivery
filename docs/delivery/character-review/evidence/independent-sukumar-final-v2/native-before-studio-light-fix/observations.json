@@ -1,0 +1,34 @@
+{
+  "model": {
+    "id": "sukumar-at-studio-v1",
+    "characterId": "sukumar",
+    "descriptor": "/docs/delivery/character-review/candidates/sukumar-at-studio-v1.json",
+    "glbSha256": "fe855d21176f43bb9818470508b59822d4f84d3eeef67bf3bc9c167252ea9292",
+    "rigSha256": "a46c2de5806b7cc8b66d0effb7bf8926ea4e5995e0d54f32a19e981173b3432d"
+  },
+  "observations": [
+    {
+      "path": "docs/delivery/character-review/evidence/independent-sukumar-final-v2/native-before-studio-light-fix/04-completion.png",
+      "sha256": "047e98f91a9081ecb2133c67b1e66026289d62b0eecafa49679a4c126f509d3e"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-sukumar-final-v2/native-before-studio-light-fix/02-night-ready-default.png",
+      "sha256": "f9330c5dde9543fad0033904d71835f8fc0ca3b1681e42932a2f31829d1e62e4"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-sukumar-final-v2/native-before-studio-light-fix/03-manual-passing-carton-before-light-fix.png",
+      "sha256": "9d85d99c0b050083dafbed8b6df1ac4e8eb6d67c7e911a29b6fd9a182fc5d01c"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-sukumar-final-v2/native-before-studio-light-fix/01-manual-46-degree-ready-diagnostics.png",
+      "sha256": "a57bcd5f6debb49ae71f14887fc28072c6e1c937475ad68ccd1a5c841ab52d7c"
+    },
+    {
+      "path": "docs/delivery/character-review/evidence/independent-sukumar-final-v2/native-before-studio-light-fix/05-retained-before-light-fix.png",
+      "sha256": "abd8fd6ad4779ae3c94cec0015a5a823801416791b341558ca3dc8fe4998a21e"
+    }
+  ],
+  "actualMechanics": "Assisted Stage yaw0; native mouseGO heldA1150ms, Space600 =>46.3deg; S900+Space550 puts car insidebay, readytrue; F100ms real carton transfer, completion and Next retainedIdle. No alignment staging shortcut.",
+  "appearanceVerdict": "Pending: actor very small and headlight bleached at fixed23:00. Accepted offline geometry should not be regenerated.",
+  "limits": "Mouse/keyboard in touch layout, no true touch/hardware/FPS or natural pickup/fullcampaign claim."
+}

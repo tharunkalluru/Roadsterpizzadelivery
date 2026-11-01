@@ -1,0 +1,401 @@
+{
+  "status": "Native actual exported gameplay-mixer pose views, not actual game or independent approval",
+  "sourceAsset": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+  "sourceSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+  "gaitSpeedMetresSecond": 0.8,
+  "gaitEvidence": "Actual GLB Walk sampled with current gameplay mixer. Offline native actor translated by .8*elapsed on a fixed .5m grid; no locomotion clock reset; source catch remains explicit historical box-center.",
+  "diagnosticProps": "floor grid, box and palm-point markers only; no invented source identity evidence",
+  "records": [
+    {
+      "image": "front.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-idle-v7.glb",
+      "snapshotSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "idle",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0,
+        "catchAmount": 0,
+        "baseClockBeforeCatch": 0,
+        "baseClockAfterCatch": 0,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0,
+      "cameraNativeMetres": [
+        0.0007110238075256348,
+        -4.100452899932861,
+        0.9350383281707764
+      ],
+      "targetNativeMetres": [
+        0.0007110238075256348,
+        -0.0004528313875198364,
+        0.8950383067131042
+      ]
+    },
+    {
+      "image": "three-quarter.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-idle-v7.glb",
+      "snapshotSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "idle",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0,
+        "catchAmount": 0,
+        "baseClockBeforeCatch": 0,
+        "baseClockAfterCatch": 0,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0,
+      "cameraNativeMetres": [
+        0.8469637036323547,
+        -1.2530033588409424,
+        1.6600526571273804
+      ],
+      "targetNativeMetres": [
+        0.0,
+        -0.014999999664723873,
+        1.620052695274353
+      ]
+    },
+    {
+      "image": "profile.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-idle-v7.glb",
+      "snapshotSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "idle",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0,
+        "catchAmount": 0,
+        "baseClockBeforeCatch": 0,
+        "baseClockAfterCatch": 0,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0,
+      "cameraNativeMetres": [
+        1.5,
+        -0.014999999664723873,
+        1.6600526571273804
+      ],
+      "targetNativeMetres": [
+        0.0,
+        -0.014999999664723873,
+        1.620052695274353
+      ]
+    },
+    {
+      "image": "back.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-idle-v7.glb",
+      "snapshotSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "idle",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0,
+        "catchAmount": 0,
+        "baseClockBeforeCatch": 0,
+        "baseClockAfterCatch": 0,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0,
+      "cameraNativeMetres": [
+        0.0007110238075256348,
+        4.099546909332275,
+        0.9350383281707764
+      ],
+      "targetNativeMetres": [
+        0.0007110238075256348,
+        -0.0004528313875198364,
+        0.8950383067131042
+      ]
+    },
+    {
+      "image": "full-body.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-idle-v7.glb",
+      "snapshotSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "0e5ba3c446c52f10809fd229e336918e6a8dd512fefb1b0764a4eabd64000f85",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "idle",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0,
+        "catchAmount": 0,
+        "baseClockBeforeCatch": 0,
+        "baseClockAfterCatch": 0,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0,
+      "cameraNativeMetres": [
+        2.3157451152801514,
+        -3.384328842163086,
+        0.9350383281707764
+      ],
+      "targetNativeMetres": [
+        0.0007110238075256348,
+        -0.0004528313875198364,
+        0.8950383067131042
+      ]
+    },
+    {
+      "image": "walk-01.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-walk-01-v7.glb",
+      "snapshotSha256": "7cc0be1588c581b04f476d09eb9ea53b8f2be76e96f5806930eda7a47a48cd04",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "7cc0be1588c581b04f476d09eb9ea53b8f2be76e96f5806930eda7a47a48cd04",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "walk",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0.25,
+        "catchAmount": 0,
+        "baseClockBeforeCatch": 0.24038460621467003,
+        "baseClockAfterCatch": 0.24038460621467003,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0.2,
+      "cameraNativeMetres": [
+        2.25,
+        -4.0,
+        1.350000023841858
+      ],
+      "targetNativeMetres": [
+        0.0,
+        -0.3499999940395355,
+        0.8500000238418579
+      ]
+    },
+    {
+      "image": "walk-03.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-walk-03-v7.glb",
+      "snapshotSha256": "740dd7fa8bc8d6e251c9a7141cc6e9d9e9b108d18b8c5fbb68fc9d60bff990c5",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "740dd7fa8bc8d6e251c9a7141cc6e9d9e9b108d18b8c5fbb68fc9d60bff990c5",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "walk",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0.75,
+        "catchAmount": 0,
+        "baseClockBeforeCatch": 0.7211538186440102,
+        "baseClockAfterCatch": 0.7211538186440102,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0.6000000000000001,
+      "cameraNativeMetres": [
+        2.25,
+        -4.0,
+        1.350000023841858
+      ],
+      "targetNativeMetres": [
+        0.0,
+        -0.3499999940395355,
+        0.8500000238418579
+      ]
+    },
+    {
+      "image": "handoff-full-body.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-handoff-v7.glb",
+      "snapshotSha256": "e4728efe99b515beec3ff112e4ba6fd751ce9cca88e3d366a07ec92097684420",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "e4728efe99b515beec3ff112e4ba6fd751ce9cca88e3d366a07ec92097684420",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "idle",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0.35,
+        "catchAmount": 1,
+        "baseClockBeforeCatch": 0.35,
+        "baseClockAfterCatch": 0.35,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0,
+      "cameraNativeMetres": [
+        1.7009185552597046,
+        -3.66361403465271,
+        1.0450383424758911
+      ],
+      "targetNativeMetres": [
+        0.0009185075759887695,
+        -0.16361403465270996,
+        0.8950383067131042
+      ]
+    },
+    {
+      "image": "handoff-palms.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-handoff-v7.glb",
+      "snapshotSha256": "e4728efe99b515beec3ff112e4ba6fd751ce9cca88e3d366a07ec92097684420",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "e4728efe99b515beec3ff112e4ba6fd751ce9cca88e3d366a07ec92097684420",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "idle",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0.35,
+        "catchAmount": 1,
+        "baseClockBeforeCatch": 0.35,
+        "baseClockAfterCatch": 0.35,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0,
+      "cameraNativeMetres": [
+        0.09976878762245178,
+        -1.2595584392547607,
+        0.9763368368148804
+      ],
+      "targetNativeMetres": [
+        -0.00023121386766433716,
+        -0.4095584750175476,
+        1.1063368320465088
+      ]
+    },
+    {
+      "image": "handoff-underside.png",
+      "snapshot": "/tmp/roadster-ram-production/ram-snapshot-handoff-v7.glb",
+      "snapshotSha256": "e4728efe99b515beec3ff112e4ba6fd751ce9cca88e3d366a07ec92097684420",
+      "sourceProof": {
+        "status": "DIAGNOSTIC frozen gameplay-mixer pose; never a production character or scene approval",
+        "input": "/tmp/roadster-ram-production/ram-vvr-neck-chest-v7.glb",
+        "inputSha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4",
+        "outputSha256": "e4728efe99b515beec3ff112e4ba6fd751ce9cca88e3d366a07ec92097684420",
+        "actualMixer": "createAuthoredMotionPlayer from current gameplay source",
+        "mode": "idle",
+        "speedMetresPerSecond": 0.8,
+        "elapsed": 0.35,
+        "catchAmount": 1,
+        "baseClockBeforeCatch": 0.35,
+        "baseClockAfterCatch": 0.35,
+        "skinnedVerticesBaked": 35447,
+        "allOriginalTexturesAndMaterialsRetained": true,
+        "catchWorldThree": [
+          -0.00023121386766433716,
+          1.1263368129730225,
+          0.4095584750175476
+        ],
+        "catchPointSpace": "box-center",
+        "note": "Actual masked skin deformation frozen into copied geometry; prop and bone transforms retain actual mixer pose. No GPU or performance evidence.",
+        "scriptSha256": "304be99e7f127f6ee66ce029db123ab62f2ecf2041db860be373f4b54da8e0eb"
+      },
+      "worldTravelMetres": 0,
+      "cameraNativeMetres": [
+        0.2997688055038452,
+        -1.059558391571045,
+        0.7413368225097656
+      ],
+      "targetNativeMetres": [
+        -0.00023121386766433716,
+        -0.4095584750175476,
+        1.0913368463516235
+      ]
+    }
+  ],
+  "rendererScriptSha256": "31ce81abed91d4b872e9db259a0ba51799c2d657462120613312811a9d3282d1"
+}
