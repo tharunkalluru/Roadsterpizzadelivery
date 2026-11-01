@@ -1,0 +1,83 @@
+{
+  "recordedAt": "2026-10-31T15:56:25.649904+00:00",
+  "device": "Physical Samsung Galaxy S25 Ultra SM-S938U1, Snapdragon SM8750, Android15/API35",
+  "browser": "Installed Chrome127.0.6533.103; historical lab image, not current Chrome",
+  "graphics": "q=high",
+  "snapshot": "five-approved-20261031, before Sukumar registration and intentional-stop recovery fix",
+  "apkSha256": "9aeac906c214143cdb4a83bc518c67acac0fe2c0ae04d00f6f6851b6009da872",
+  "bundleSha256": "a40dcde5a1f4d5c9ef7726b81fb20e75bfe513d107ac4e5bf39d6dd6978035da",
+  "method": "Own loopback asset helper on real phone, ordinary installed Chrome, native touch through Android Device Hub. No public tunnel or WebView game replacement.",
+  "observed": [
+    {
+      "state": "portrait startup",
+      "result": "Opaque landscape gate, no double intro/HUD/modal layers."
+    },
+    {
+      "state": "fullscreen landscape",
+      "result": "Normal Enter Full Screen action rotated landscape; intro three cards and Play legible."
+    },
+    {
+      "state": "normal campaign start",
+      "result": "Actual city, roadster, roads, NPC traffic and HUD visible after loading. Not HUD-only emulator evidence."
+    },
+    {
+      "state": "touch driving and jump",
+      "result": "Pressed visible GO for1.8s then visible JUMP. Car moved and actual kickflip displayed with city/traffic retained."
+    },
+    {
+      "state": "flight at night",
+      "result": "Pressed visible FLY then GO2.2s. Roadster above metro/streets, LAND state, night city and traffic drawn. Final directly observed viewer counter59fps,883 submitted draws,1145k submitted triangles."
+    },
+    {
+      "state": "full-resolution stationary screenshot",
+      "result": "Native2340x1080 phone capture verified60fps counter,870draws,1090k triangles,9tiles,3305kvertices,462MBreportedJSheap,55/55cars,32/32people. One snapshot only."
+    }
+  ],
+  "notCompleted": [
+    "Map touch check: reservation expired before result; image07 documents disconnection, not map success.",
+    "Background-return test",
+    "Sustained frame-time/GPU presentation profile",
+    "Character scene validation on this phone",
+    "Final build physical QA",
+    "Mid-range physical device performance",
+    "Battery endurance or thermally stable session"
+  ],
+  "end": "Free15-minute reservation expired automatically. Device Hub NoDevicesConnected and adb devices empty verified2026-10-31T15:54:27Z. No paid extension.",
+  "limits": [
+    "High-end device does not establish mid-range capability.",
+    "Native game FPS counter measures game callback cadence, not stream video FPS or GPU presentation.",
+    "Brief snapshots do not establish sustained60/90/120FPS.",
+    "USB-powered lab phone cannot establish unplugged battery hours.",
+    "No old Pixel failure-modal trace is used as gameplay FPS evidence."
+  ],
+  "evidence": [
+    {
+      "path": "01-portrait-landscape-gate.png",
+      "sha256": "8575e129bd7eda65426975f12e3391784926927f2986b741f4ba67e8dbb96ca7"
+    },
+    {
+      "path": "02-landscape-fullscreen-menu.png",
+      "sha256": "899267846c6ca249c98d8d5c131820beafaf138a05b98d9a31d8155abe665874"
+    },
+    {
+      "path": "03-high-graphics-real-city-visible.png",
+      "sha256": "88419b5c8c86ccc3c05f603eee0f2824da0fde7bc84d5422cd59ed1b26612d34"
+    },
+    {
+      "path": "04-real-touch-jump-high-graphics.png",
+      "sha256": "6f553e7547321c29265ab2c0c84498b10bb8c638907a90bec9b036bc62182f9a"
+    },
+    {
+      "path": "05-native-stationary-high-counter.png",
+      "sha256": "1927f7c15d131c1533ac234b97a2a8d052c7cfed9f0551972f8aefb68b40a16d"
+    },
+    {
+      "path": "06-real-touch-flight-high-graphics.png",
+      "sha256": "0ebbfb6ff3637219451a808e74519f532955ab9ddc5dd57c630416ae238cdbe2"
+    },
+    {
+      "path": "07-session-expired-before-map-check.png",
+      "sha256": "03ba787ae3f4e581fd8ee4c6ec040869ba4e347d34ae3f5be63308d43f9e7fb3"
+    }
+  ]
+}

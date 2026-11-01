@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "environment": "Native Safari on Mac; mouse using touch layout; not physical phone",
+  "assistedStart": true,
+  "unreviewedArtPreview": true,
+  "productionAppearanceApproval": false,
+  "naturalPickupTested": false,
+  "files": [
+    {
+      "path": "docs/delivery/gameplay-review/pushpa-glance-runtime-2026-10-31/05-exited-on-road.png",
+      "sha256": "4eded93fd67c8d10a4b79f1efa695b9315ddc82b736d45568b4181f50d567d60"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/pushpa-glance-runtime-2026-10-31/04-resumed-reading.png",
+      "sha256": "ca9c8d28c1422a536a27d5af66f160f9f4de8d78643189c4f4d263b008ba6b29"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/pushpa-glance-runtime-2026-10-31/02-look-up-handoff.png",
+      "sha256": "a43545d85c7bc37d38fea1ec519e345888a7ca669f663e8e68ab56638536d41d"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/pushpa-glance-runtime-2026-10-31/01-reading-night.png",
+      "sha256": "1dad40e76c49cf0fa6909c17a5c5fd81ec86e2c69a14481349de75820392a862"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/pushpa-glance-runtime-2026-10-31/03-completion-card.png",
+      "sha256": "86920d5d6ded7a54929432a429210ac2176c96db124a58583b8c35b39f611e28"
+    }
+  ],
+  "glbSha256": "4b439a313e9d4d1d222b525dac3550731e7c0377d144dd246b2e5fab2dbf141a",
+  "rigSha256": "3585d87378888f4e8bb31be15385c712c8d3ed3cd3f9deb32dc0122807223235",
+  "findings": [
+    "Read to natural face glance observed",
+    "Actual handoff completion observed",
+    "Read restored after Next",
+    "Completed truck retained through reverse exit",
+    "02 is early transfer, exact palm contact still needs a later native frame"
+  ]
+}

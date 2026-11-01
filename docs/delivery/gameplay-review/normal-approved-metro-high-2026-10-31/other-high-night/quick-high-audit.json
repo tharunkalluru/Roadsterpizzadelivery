@@ -1,0 +1,731 @@
+{
+  "schemaVersion": 1,
+  "auditor": "review_binding_audit independent structural/source-byte audit",
+  "recordedAt": "2026-11-01T00:13:25.932736+00:00",
+  "scope": "Four bounded High/night brightness samples. This audit checks exports and public source/server bytes; it grants no visual or full-scene acceptance.",
+  "runtimeViteBuildDefines": {
+    "url": "http://127.0.0.1:4206/@vite/env",
+    "sha256": "fddcf9d032744645e1f5354d5b562efb85ea8d61f17cbca1dadb1b45e7b7ee26",
+    "expectedF096Present": true
+  },
+  "scenes": [
+    {
+      "scene": "pushpa",
+      "level": 1,
+      "sourceExport": {
+        "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/other-high-night/pushpa-campaign-evidence.json",
+        "sha256": "05e25411f9c64896ab03cb4ae6253e2e9813adde4a958b4bcd0c87a366437320",
+        "runId": "campaign-qa-mvx2lg3y"
+      },
+      "validation": {
+        "exactF096Build": true,
+        "normal4206NoQaArt": true,
+        "highNightRequested": true,
+        "deviceAndRendererDpr1": true,
+        "viewportDrawingBuffer1264x505": true,
+        "completedManualHandoff": true,
+        "noMissingArtAndNoPrivatePreview": true,
+        "expectedStageCountPreserved": true,
+        "bothCheckboxesRemainUnrecorded": true,
+        "fullScenarioAcceptanceNotClaimed": true,
+        "rootRuntimeApprovedRecordExact": true,
+        "approvedPublicFilesRootRuntimeHttpExact": true,
+        "registeredBundleRecomputedExact": true,
+        "actualRuntimeCanonicalSerializerExact": true
+      },
+      "buildQuality": {
+        "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+        "source": "http://127.0.0.1:4206/?qaDelivery=1&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+        "quality": "high",
+        "viewport": {
+          "width": 1264,
+          "height": 505
+        },
+        "devicePixelRatio": 1,
+        "rendererPixelRatio": 1,
+        "drawingBuffer": {
+          "width": 1264,
+          "height": 505
+        }
+      },
+      "recordedMechanics": {
+        "facts": [
+          "container-closed",
+          "ramp-open",
+          "truck-interior-contact",
+          "grounded-arrival",
+          "manual-handoff"
+        ],
+        "completed": true,
+        "manualHandoff": true,
+        "handoffInputs": [
+          {
+            "kind": "handoff",
+            "source": "keyboard",
+            "at": 41549.999999999636
+          }
+        ],
+        "completedAt": 42731.999999999716,
+        "afterLastFMs": 1182.00000000008,
+        "missingPhysicalFacts": [
+          "truck-exit"
+        ],
+        "observedSceneMechanics": false
+      },
+      "formalAcceptanceLimits": {
+        "missingVisualChecks": [
+          "Closed corrugated container, roomy aisle, sandalwood logs and reading corner.",
+          "Recognizable seated Pushpa reading Japanese; handoff does not erase the truck beneath the car."
+        ],
+        "visualReviews": [],
+        "rowAllScenarioEvidence": false,
+        "globalFullCampaignAccepted": false,
+        "naturalJumpPickup": false
+      },
+      "assistance": {
+        "global": [
+          {
+            "kind": "qa-order-preparation",
+            "at": 623.0000000000003,
+            "levelId": null
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 1136.0000000000005,
+            "levelId": "sandalwood-special"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 1202.0000000000002,
+            "levelId": "sandalwood-special"
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 26884.99999999931,
+            "levelId": "sandalwood-special"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 27118.9999999993,
+            "levelId": "sandalwood-special"
+          },
+          {
+            "kind": "pickup-not-observed",
+            "at": 42731.999999999716,
+            "levelId": "sandalwood-special"
+          }
+        ],
+        "attempt": [
+          {
+            "kind": "qa-scene-staging",
+            "at": 1136.0000000000005,
+            "levelId": "sandalwood-special"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 1202.0000000000002,
+            "levelId": "sandalwood-special"
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 26884.99999999931,
+            "levelId": "sandalwood-special"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 27118.9999999993,
+            "levelId": "sandalwood-special"
+          },
+          {
+            "kind": "pickup-not-observed",
+            "at": 42731.999999999716,
+            "levelId": "sandalwood-special"
+          }
+        ],
+        "inputEvidence": {
+          "pointerTypes": [],
+          "trustedTouchObserved": false,
+          "physicalHardwareVerified": false,
+          "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+        },
+        "parentContext": "Second Stage caught up to moving truck. Truck-exit is not proven by this quick brightness export."
+      },
+      "normalPublicSourceServerAssetProof": {
+        "characterId": "pushpa-raj",
+        "candidate": {
+          "assetId": "pushpa-raj-seated-reader-v1",
+          "sha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835"
+        },
+        "approvedFiles": [
+          {
+            "path": "public/delivery/characters/pushpa-raj/reader-v1.glb",
+            "sha256": "eda3b3c9071a80593a1063672b3735495757f3fdd0385cd04b0e07a33498dffb",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/pushpa-raj/reader-v1.glb",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          },
+          {
+            "path": "public/delivery/characters/pushpa-raj/reader-v1.rig.json",
+            "sha256": "a7a5da8b660b39a519b72ea6aab73e5621c901a4c05e04319c594c5575b53f7d",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/pushpa-raj/reader-v1.rig.json",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          }
+        ],
+        "actualRuntimeSerializer": {
+          "characterId": "pushpa-raj",
+          "canonicalExact": true,
+          "canonicalSha256": "a7a5da8b660b39a519b72ea6aab73e5621c901a4c05e04319c594c5575b53f7d"
+        },
+        "configuredCompletionImageOutsideApprovedBundle": {
+          "path": "public/delivery/celebrities/allu-arjun.jpg",
+          "sha256": "a788ee4078cfc661eefd3cd23f60508b5fa0d37ec0e7698b3e834bfc38f635f0",
+          "httpUrl": "http://127.0.0.1:4206/delivery/celebrities/allu-arjun.jpg",
+          "httpStatus": 200,
+          "rootRuntimeHttpExact": true,
+          "matchesApprovedSha256": null
+        },
+        "scopeException": "Pushpa registered bundle contains GLB+rig only. Its configured celebrity JPG is separately byte-verified and is not a third reviewed model-bundle artifact.",
+        "perAssetDownloadedShaInRuntimeExport": false
+      }
+    },
+    {
+      "scene": "arundhati",
+      "level": 5,
+      "sourceExport": {
+        "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/other-high-night/arundhati-campaign-evidence.json",
+        "sha256": "9d3e010375f6af42a8ad167cb7b94f94824bffe333897ba3f5428567e88365bc",
+        "runId": "campaign-qa-mvx2nmav"
+      },
+      "validation": {
+        "exactF096Build": true,
+        "normal4206NoQaArt": true,
+        "highNightRequested": true,
+        "deviceAndRendererDpr1": true,
+        "viewportDrawingBuffer1264x505": true,
+        "completedManualHandoff": true,
+        "noMissingArtAndNoPrivatePreview": true,
+        "expectedStageCountPreserved": true,
+        "bothCheckboxesRemainUnrecorded": true,
+        "fullScenarioAcceptanceNotClaimed": true,
+        "rootRuntimeApprovedRecordExact": true,
+        "approvedPublicFilesRootRuntimeHttpExact": true,
+        "registeredBundleRecomputedExact": true,
+        "actualRuntimeCanonicalSerializerExact": true
+      },
+      "buildQuality": {
+        "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+        "source": "http://127.0.0.1:4206/?qaDelivery=5&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+        "quality": "high",
+        "viewport": {
+          "width": 1264,
+          "height": 505
+        },
+        "devicePixelRatio": 1,
+        "rendererPixelRatio": 1,
+        "drawingBuffer": {
+          "width": 1264,
+          "height": 505
+        }
+      },
+      "recordedMechanics": {
+        "facts": [
+          "haunted-gate",
+          "grounded-arrival",
+          "manual-handoff"
+        ],
+        "completed": true,
+        "manualHandoff": true,
+        "handoffInputs": [
+          {
+            "kind": "handoff",
+            "source": "keyboard",
+            "at": 8974.000000000027
+          }
+        ],
+        "completedAt": 9779.000000000027,
+        "afterLastFMs": 805.0,
+        "missingPhysicalFacts": [],
+        "observedSceneMechanics": true
+      },
+      "formalAcceptanceLimits": {
+        "missingVisualChecks": [
+          "Haunted property, webs, gate and aged scenery are legible from the driving camera.",
+          "Arundhati appears behind the gate in the correct film appearance."
+        ],
+        "visualReviews": [],
+        "rowAllScenarioEvidence": false,
+        "globalFullCampaignAccepted": false,
+        "naturalJumpPickup": false
+      },
+      "assistance": {
+        "global": [
+          {
+            "kind": "qa-order-preparation",
+            "at": 560.0000000000002,
+            "levelId": null
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 1775.9999999999986,
+            "levelId": "arundhati-haunted-gate"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 2025.9999999999984,
+            "levelId": "arundhati-haunted-gate"
+          },
+          {
+            "kind": "pickup-not-observed",
+            "at": 9779.000000000027,
+            "levelId": "arundhati-haunted-gate"
+          }
+        ],
+        "attempt": [
+          {
+            "kind": "qa-scene-staging",
+            "at": 1775.9999999999986,
+            "levelId": "arundhati-haunted-gate"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 2025.9999999999984,
+            "levelId": "arundhati-haunted-gate"
+          },
+          {
+            "kind": "pickup-not-observed",
+            "at": 9779.000000000027,
+            "levelId": "arundhati-haunted-gate"
+          }
+        ],
+        "inputEvidence": {
+          "pointerTypes": [],
+          "trustedTouchObserved": false,
+          "physicalHardwareVerified": false,
+          "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+        },
+        "parentContext": "Single Stage at gate. Bounded brightness/manual-interaction sample."
+      },
+      "normalPublicSourceServerAssetProof": {
+        "characterId": "arundhati",
+        "candidate": {
+          "assetId": "arundhati-haunted-gate-v1",
+          "sha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58"
+        },
+        "approvedFiles": [
+          {
+            "path": "public/delivery/characters/arundhati/gate-presence-v1.glb",
+            "sha256": "560a4ae81f82b0d2695d47aa57177006e8325d5270533f3771b79e043fbfb24e",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/arundhati/gate-presence-v1.glb",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          },
+          {
+            "path": "public/delivery/characters/arundhati/gate-presence-v1.rig.json",
+            "sha256": "fa7eb4430f8565b224dedd7a453d7c6ae3886f48d998790a75ec6fc18b4a65f3",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/arundhati/gate-presence-v1.rig.json",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          },
+          {
+            "path": "public/delivery/characters/arundhati/portrait-v1.png",
+            "sha256": "e41d21c03141f40bc7e89e420ee8747d036451bf985b5ec594fb05040159ef08",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/arundhati/portrait-v1.png",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          }
+        ],
+        "actualRuntimeSerializer": {
+          "characterId": "arundhati",
+          "canonicalExact": true,
+          "canonicalSha256": "fa7eb4430f8565b224dedd7a453d7c6ae3886f48d998790a75ec6fc18b4a65f3"
+        },
+        "configuredCompletionImageOutsideApprovedBundle": null,
+        "scopeException": null,
+        "perAssetDownloadedShaInRuntimeExport": false
+      }
+    },
+    {
+      "scene": "bhanu",
+      "level": 8,
+      "sourceExport": {
+        "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/other-high-night/bhanu-campaign-evidence.json",
+        "sha256": "ef2fa5c288ac464a1503b50cb655b5a1574a04cda27aa8605b805684b2bd7b4d",
+        "runId": "campaign-qa-mvx2p18v"
+      },
+      "validation": {
+        "exactF096Build": true,
+        "normal4206NoQaArt": true,
+        "highNightRequested": true,
+        "deviceAndRendererDpr1": true,
+        "viewportDrawingBuffer1264x505": true,
+        "completedManualHandoff": true,
+        "noMissingArtAndNoPrivatePreview": true,
+        "expectedStageCountPreserved": true,
+        "bothCheckboxesRemainUnrecorded": true,
+        "fullScenarioAcceptanceNotClaimed": true,
+        "rootRuntimeApprovedRecordExact": true,
+        "approvedPublicFilesRootRuntimeHttpExact": true,
+        "registeredBundleRecomputedExact": true,
+        "actualRuntimeCanonicalSerializerExact": true
+      },
+      "buildQuality": {
+        "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+        "source": "http://127.0.0.1:4206/?qaDelivery=8&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+        "quality": "high",
+        "viewport": {
+          "width": 1264,
+          "height": 505
+        },
+        "devicePixelRatio": 1,
+        "rendererPixelRatio": 1,
+        "drawingBuffer": {
+          "width": 1264,
+          "height": 505
+        }
+      },
+      "recordedMechanics": {
+        "facts": [
+          "street-procession",
+          "crowd-animation",
+          "authored-dance",
+          "grounded-arrival",
+          "manual-handoff"
+        ],
+        "completed": true,
+        "manualHandoff": true,
+        "handoffInputs": [
+          {
+            "kind": "handoff",
+            "source": "keyboard",
+            "at": 57490.000000000684
+          }
+        ],
+        "completedAt": 58303.00000000071,
+        "afterLastFMs": 813.0000000000291,
+        "missingPhysicalFacts": [],
+        "observedSceneMechanics": true
+      },
+      "formalAcceptanceLimits": {
+        "missingVisualChecks": [
+          "This is a wedding procession on a village street, not a static wedding venue.",
+          "Fidaa Bhanumathi dances with articulated limbs and remains recognizable during the handoff."
+        ],
+        "visualReviews": [],
+        "rowAllScenarioEvidence": false,
+        "globalFullCampaignAccepted": false,
+        "naturalJumpPickup": false
+      },
+      "assistance": {
+        "global": [
+          {
+            "kind": "qa-order-preparation",
+            "at": 445.0000000000003,
+            "levelId": null
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 1661.9999999999986,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 1745.9999999999982,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 15528.999999999944,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 15628.999999999944,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 54543.00000000052,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 54564.00000000052,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "pickup-not-observed",
+            "at": 58303.00000000071,
+            "levelId": "bhanumathi-wedding-street"
+          }
+        ],
+        "attempt": [
+          {
+            "kind": "qa-scene-staging",
+            "at": 1661.9999999999986,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 1745.9999999999982,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 15528.999999999944,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 15628.999999999944,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 54543.00000000052,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 54564.00000000052,
+            "levelId": "bhanumathi-wedding-street"
+          },
+          {
+            "kind": "pickup-not-observed",
+            "at": 58303.00000000071,
+            "levelId": "bhanumathi-wedding-street"
+          }
+        ],
+        "inputEvidence": {
+          "pointerTypes": [
+            "mouse"
+          ],
+          "trustedTouchObserved": false,
+          "physicalHardwareVerified": false,
+          "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+        },
+        "parentContext": "Parent reports extra Stage after module preparation, manual orbit, then another Stage after moving actor drifted. All three Stage/relocation events remain recorded."
+      },
+      "normalPublicSourceServerAssetProof": {
+        "characterId": "bhanumathi",
+        "candidate": {
+          "assetId": "bhanumathi-fidaa-procession-v1",
+          "sha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e"
+        },
+        "approvedFiles": [
+          {
+            "path": "public/delivery/characters/bhanumathi/wedding-dancer-v1.glb",
+            "sha256": "ded3ccb7a058170da92b6ec1b119d387bda33bf6a8f8ddb8b0a8f21ef40ec146",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/bhanumathi/wedding-dancer-v1.glb",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          },
+          {
+            "path": "public/delivery/characters/bhanumathi/wedding-dancer-v1.rig.json",
+            "sha256": "17f4d47be12c0bc3757229b9fc3db48dcd77b60cb1978f2d00b2d0bb9a9b5557",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/bhanumathi/wedding-dancer-v1.rig.json",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          },
+          {
+            "path": "public/delivery/characters/bhanumathi/portrait-v1.png",
+            "sha256": "3de99ce89c12eef3c242ea740e68c9e3aefd763526bcfe3c7350e5ff72287ea8",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/bhanumathi/portrait-v1.png",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          }
+        ],
+        "actualRuntimeSerializer": {
+          "characterId": "bhanumathi",
+          "canonicalExact": true,
+          "canonicalSha256": "17f4d47be12c0bc3757229b9fc3db48dcd77b60cb1978f2d00b2d0bb9a9b5557"
+        },
+        "configuredCompletionImageOutsideApprovedBundle": null,
+        "scopeException": null,
+        "perAssetDownloadedShaInRuntimeExport": false
+      }
+    },
+    {
+      "scene": "arjun",
+      "level": 13,
+      "sourceExport": {
+        "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/other-high-night/arjun-campaign-evidence.json",
+        "sha256": "974ab15e54e0edcab18e4d8b6f3f2d6b5bcce404977b0703275b61a462bc7bbf",
+        "runId": "campaign-qa-mvx2rcen"
+      },
+      "validation": {
+        "exactF096Build": true,
+        "normal4206NoQaArt": true,
+        "highNightRequested": true,
+        "deviceAndRendererDpr1": true,
+        "viewportDrawingBuffer1264x505": true,
+        "completedManualHandoff": true,
+        "noMissingArtAndNoPrivatePreview": true,
+        "expectedStageCountPreserved": true,
+        "bothCheckboxesRemainUnrecorded": true,
+        "fullScenarioAcceptanceNotClaimed": true,
+        "rootRuntimeApprovedRecordExact": true,
+        "approvedPublicFilesRootRuntimeHttpExact": true,
+        "registeredBundleRecomputedExact": true,
+        "actualRuntimeCanonicalSerializerExact": true
+      },
+      "buildQuality": {
+        "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+        "source": "http://127.0.0.1:4206/?qaDelivery=13&qaScene=1&qaCampaign=1&q=high&qaPerf=1&qaTouch=1&qaNight=1",
+        "quality": "high",
+        "viewport": {
+          "width": 1264,
+          "height": 505
+        },
+        "devicePixelRatio": 1,
+        "rendererPixelRatio": 1,
+        "drawingBuffer": {
+          "width": 1264,
+          "height": 505
+        }
+      },
+      "recordedMechanics": {
+        "facts": [
+          "classroom-doorway",
+          "grounded-arrival",
+          "manual-handoff"
+        ],
+        "completed": true,
+        "manualHandoff": true,
+        "handoffInputs": [
+          {
+            "kind": "handoff",
+            "source": "keyboard",
+            "at": 10137.000000000007
+          }
+        ],
+        "completedAt": 10938.999999999996,
+        "afterLastFMs": 801.9999999999891,
+        "missingPhysicalFacts": [],
+        "observedSceneMechanics": true
+      },
+      "formalAcceptanceLimits": {
+        "missingVisualChecks": [
+          "A doorway/room identity and medical classroom context replace an isolated number post.",
+          "Arjun Reddy appearance matches the film reference."
+        ],
+        "visualReviews": [],
+        "rowAllScenarioEvidence": false,
+        "globalFullCampaignAccepted": false,
+        "naturalJumpPickup": false
+      },
+      "assistance": {
+        "global": [
+          {
+            "kind": "qa-order-preparation",
+            "at": 662.0000000000003,
+            "levelId": null
+          },
+          {
+            "kind": "qa-scene-staging",
+            "at": 2377.999999999997,
+            "levelId": "arjun-classroom"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 2561.999999999997,
+            "levelId": "arjun-classroom"
+          },
+          {
+            "kind": "pickup-not-observed",
+            "at": 10938.999999999996,
+            "levelId": "arjun-classroom"
+          }
+        ],
+        "attempt": [
+          {
+            "kind": "qa-scene-staging",
+            "at": 2377.999999999997,
+            "levelId": "arjun-classroom"
+          },
+          {
+            "kind": "player-relocated",
+            "at": 2561.999999999997,
+            "levelId": "arjun-classroom"
+          },
+          {
+            "kind": "pickup-not-observed",
+            "at": 10938.999999999996,
+            "levelId": "arjun-classroom"
+          }
+        ],
+        "inputEvidence": {
+          "pointerTypes": [],
+          "trustedTouchObserved": false,
+          "physicalHardwareVerified": false,
+          "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+        },
+        "parentContext": "Single Stage at classroom. Bounded brightness/manual-interaction sample."
+      },
+      "normalPublicSourceServerAssetProof": {
+        "characterId": "arjun-reddy",
+        "candidate": {
+          "assetId": "arjun-reddy-medical-courtyard-v1",
+          "sha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24"
+        },
+        "approvedFiles": [
+          {
+            "path": "public/delivery/characters/arjun-reddy/medical-courtyard-v1.glb",
+            "sha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/arjun-reddy/medical-courtyard-v1.glb",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          },
+          {
+            "path": "public/delivery/characters/arjun-reddy/medical-courtyard-v1.rig.json",
+            "sha256": "0b1134b0f517b9d8f31d8aae0f81d8a2fbfc2a0b3257eca7eaca11d5fdf007f1",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/arjun-reddy/medical-courtyard-v1.rig.json",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          },
+          {
+            "path": "public/delivery/characters/arjun-reddy/portrait-v1.png",
+            "sha256": "87ab8145f553a37e38a81f954abbce29fb6bd2f9f1a5985ac00053b768ebe11e",
+            "httpUrl": "http://127.0.0.1:4206/delivery/characters/arjun-reddy/portrait-v1.png",
+            "httpStatus": 200,
+            "rootRuntimeHttpExact": true,
+            "matchesApprovedSha256": true
+          }
+        ],
+        "actualRuntimeSerializer": {
+          "characterId": "arjun-reddy",
+          "canonicalExact": true,
+          "canonicalSha256": "0b1134b0f517b9d8f31d8aae0f81d8a2fbfc2a0b3257eca7eaca11d5fdf007f1"
+        },
+        "configuredCompletionImageOutsideApprovedBundle": null,
+        "scopeException": null,
+        "perAssetDownloadedShaInRuntimeExport": false
+      }
+    }
+  ],
+  "crossSceneLimits": [
+    "All four exports intentionally retain both missing in-app visual checkboxes and allScenarioEvidence false. These are not fresh full formal in-app acceptance records.",
+    "Pushpa completion/manual interior facts do not prove truck-exit; that fact remains missing and observedSceneMechanics false.",
+    "Arundhati, Bhanu and Arjun have no missing physical facts, while visual checkbox acceptance remains incomplete.",
+    "Repeated Stage/player-relocation events remain intact. No natural jump pickup, true touch/physical phone, unassisted full14-level campaign, GPU/FPS/thermal/battery or soak claim is established.",
+    "Source/server public GLB/rig/portrait fingerprints are separate from the runtime export: no per-asset downloaded-SHA field is present.",
+    "Brightness, clarity and pose judgments belong to the native reviewer images/notes. This structural auditor did not use UI or personally inspect these scenes."
+  ],
+  "artifactCountSummary": {
+    "registeredPublicFilesByteVerified": 11,
+    "separateUnbundledConfiguredImageByteVerified": 1
+  },
+  "issues": [],
+  "result": "BOUNDED_HIGH_SAMPLE_METADATA_MANUAL_INTERACTION_AND_PUBLIC_SOURCE_BYTE_CHECKS_PASS",
+  "exportsPreserved": true
+}

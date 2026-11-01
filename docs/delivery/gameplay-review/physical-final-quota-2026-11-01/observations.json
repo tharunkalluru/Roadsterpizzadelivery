@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-01T00:35:07.203911+00:00",
+  "status": "blocked-quota",
+  "requestedDevice": "Samsung Galaxy S25 Ultra, physical cloud device",
+  "result": "Android Studio reported all Spark plan minutes for the current period had been used. The reservation did not allocate a device.",
+  "notice": "All Spark plan minutes for the current period have been used. Upgrade to a Blaze plan to immediately continue using this service.",
+  "deviceAllocated": false,
+  "adbDevices": "No devices connected at the conclusion of the attempt (reported by operator).",
+  "billingAction": "No upgrade, paid reservation or billing action was taken.",
+  "preparedCandidate": {
+    "apk": "/tmp/roadster-private-device-final-20261101.apk",
+    "apkSha256": "d23ba2f5f505e2ab13d81df9e82b7f6a3cbca0cf1d01e2a557ab0266686cdb0d",
+    "buildFingerprint": "734431db5999dc3291b5ae6d262ce401daf5b0c738b46ef92ce1e6bebceadc62",
+    "installedOrRunOnPhysicalDevice": false
+  },
+  "evidence": [
+    {
+      "path": "spark-quota-exhausted.png",
+      "sha256": "eb784417bfeb6e3335cfc7c5019a603b18407b4998b641b7b8ed81f706c5925c",
+      "description": "Native Android Studio device reservation quota dialog."
+    }
+  ],
+  "historicalPreflight": "../physical-s25-preflight-2026-10-31/observations.json",
+  "limitations": [
+    "No final-build physical device run was performed.",
+    "No FPS, frame pacing, GPU presentation, thermal behavior or battery-duration measurement is available from this attempt.",
+    "The earlier physical five-approved high-end S25 preflight is separate evidence and cannot establish final-build or mid-range performance.",
+    "The forty-active-minute frozen soak remains pending."
+  ]
+}

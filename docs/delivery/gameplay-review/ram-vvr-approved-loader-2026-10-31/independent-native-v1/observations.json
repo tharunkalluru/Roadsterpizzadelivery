@@ -1,0 +1,119 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "checkedAt": "2026-10-31T18:25:03.098781+00:00",
+  "scenario": 2,
+  "characterId": "ram-vvr",
+  "status": "normal-approved-loader-assisted-scene-pass",
+  "url": "http://127.0.0.1:4201/?qaDelivery=2&qaScene=1&qaCampaign=1&qaTrainRide=1&q=low&qaTouch=1&qaNight=1",
+  "qaArtParameterPresent": false,
+  "observations": "Explicit Prepare + rear-coach landing only: observed initial support rail:story:2:7, then manual W/space ~116m across actual roofs to Matched5m, F300 success, Next same-coach actor retention; orbit/W380+space300. No customer-coach shortcut/ordinary unrelated train, no terminal soak.",
+  "nativeInput": {
+    "pointerTypes": [],
+    "trustedTouchObserved": false,
+    "physicalHardwareVerified": false,
+    "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+  },
+  "metadata": {
+    "mode": "isolated-scene",
+    "layout": "touch-layout",
+    "environment": "Browser development session; hardware unverified",
+    "timebase": "active-gameplay",
+    "initialCompletedIds": [
+      "sandalwood-special"
+    ]
+  },
+  "row": {
+    "level": 2,
+    "id": "train-top-table",
+    "configuredScenario": true,
+    "completed": true,
+    "naturalJumpPickup": false,
+    "manualHandoff": true,
+    "assistance": [
+      "qa-train-landing",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "missingPhysicalFacts": [],
+    "missingFacts": [],
+    "missingArt": [],
+    "missingVisualChecks": [
+      "All coaches remain visible on continuous real tracks; no roof gap traps the car.",
+      "VVR Ram likeness/wardrobe and grounded figure remain stable through reversals."
+    ],
+    "observedSceneMechanics": true,
+    "allScenarioEvidence": false
+  },
+  "export": {
+    "path": "docs/delivery/gameplay-review/ram-vvr-approved-loader-2026-10-31/independent-native-v1/campaign-qa-mvwq7zuh.json",
+    "sha256": "910150afa77ea4d97ba3438f06361522aa0895d570ff00fa84f08875921fd3aa"
+  },
+  "approvedAssetProvenance": {
+    "candidate": {
+      "assetId": "ram-vvr-train-roof-v1",
+      "sha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d"
+    },
+    "files": [
+      {
+        "path": "public/delivery/characters/ram-vvr/train-roof-v1.glb",
+        "sha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4"
+      },
+      {
+        "path": "public/delivery/characters/ram-vvr/train-roof-v1.rig.json",
+        "sha256": "36030d99dd37495f83d864f79c49bb0734eb9b6c85cbaf6f2de80b90ea1f6eb7"
+      },
+      {
+        "path": "public/delivery/characters/ram-vvr/portrait-v1.png",
+        "sha256": "aa5a16d942dd7b8c7998a56daf9994c0ae7c49a44315fc80be7b672211236e1b"
+      }
+    ],
+    "glbUrl": "/delivery/characters/ram-vvr/train-roof-v1.glb",
+    "contractPath": "public/delivery/characters/ram-vvr/train-roof-v1.rig.json",
+    "source": "Current unchanged released asset/review registry plus verified public artifact bytes during source-frozen QA. Ordinary export has no per-runtime approved asset fingerprint field; this is source/served-file provenance, not an invented export observation."
+  },
+  "sourceRegistry": {
+    "path": "src/delivery/art/character-assets.json",
+    "sha256": "9eb2e2dcfe3f15b1f50d225cb68c10eabc6ea66f0cbd1cec75287114daa77c67"
+  },
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/ram-vvr-approved-loader-2026-10-31/independent-native-v1/01-rear-coach-contact.png",
+      "sha256": "07e85001b8133f9a9514b1450a9d0b4b89eedd20e1dc1344b9fde33fad58972e"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/ram-vvr-approved-loader-2026-10-31/independent-native-v1/02-roof-travel.png",
+      "sha256": "ca99326a69c6bd51b8336f727f4c9f7744040f2200f55eb6617340b1dee4cecb"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/ram-vvr-approved-loader-2026-10-31/independent-native-v1/03-multi-coach-arrival.png",
+      "sha256": "b9a097e2a348fe3cd14b27adc05dde359a6b3b6acbb14d7d31b5f5ff6cdd9ab7"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/ram-vvr-approved-loader-2026-10-31/independent-native-v1/04-matched-ready.png",
+      "sha256": "218bb96f1069acb3996cab1c35c9acf46d6b2820c94afe3489ed6678de5aeec7"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/ram-vvr-approved-loader-2026-10-31/independent-native-v1/05-transfer-0.png",
+      "sha256": "9891f726951070ad3416a3a57ee193c54c84d0132dabccba1b8468cacab76064"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/ram-vvr-approved-loader-2026-10-31/independent-native-v1/05-transfer-1.png",
+      "sha256": "bce432750b3aee0beb7e6eefad5b0fba5db25669e883194ce60d181a22fbede6"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/ram-vvr-approved-loader-2026-10-31/independent-native-v1/05-transfer-2.png",
+      "sha256": "61502ea51f81bb84b937f36b63b0da82ac98fea5b55bef3fbe01e047a3b3cff2"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/ram-vvr-approved-loader-2026-10-31/independent-native-v1/06-retained-same-coach.png",
+      "sha256": "b259e623682e9ad86ce659a7a3e25a41295a95ecfab974f71aaa11f2ff960654"
+    }
+  ],
+  "limitations": [
+    "Prepare/Stage or explicit rear-coach landing assistance recorded; no natural pickup claim.",
+    "Desktop Safari native trusted mouse/keyboard; no true touch or physical-phone FPS/thermal/battery evidence.",
+    "No measured performance/soak claim. Nani seeded13 prior levels is not a full campaign.",
+    "Left4204 paused natural-run tab preserved throughout. Source/runtime/public/catalog not edited by reviewer.",
+    "All physical/art/fact fields pass. Historical visual-checkbox fields remain unrecorded in export; actual screenshots and notes are separate visual evidence, not falsely checked boxes."
+  ]
+}
