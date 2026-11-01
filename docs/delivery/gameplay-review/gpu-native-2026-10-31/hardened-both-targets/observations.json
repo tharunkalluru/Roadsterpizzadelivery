@@ -1,0 +1,21 @@
+{
+  "scope": "Safari native isolated candidate readiness, not gameplay FPS or physical-phone performance",
+  "candidateId": "pushpa-reader-in-container-v4",
+  "candidateGlbSha256": "4b439a313e9d4d1d222b525dac3550731e7c0377d144dd246b2e5fab2dbf141a",
+  "change": "Zero-area scissor for both canvas and composer during authored draw; exact existing framebuffer contents preserved",
+  "codeFiles": [
+    {
+      "path": "src/delivery/art/gpu-authored-draw.ts",
+      "sha256": "1543c4186930b126d39f1deaec0f0f626a31d4ee35717bf72b699e5f411b964b"
+    },
+    {
+      "path": "src/delivery/art/gpu-preparation.ts",
+      "sha256": "d7868d7d72b339e30c8de4810c2683c4f6bced795bf9a7d1445e5c71e2831f84"
+    },
+    {
+      "path": "tests/browser/character-gpu-readiness.browser.ts",
+      "sha256": "d0006b2c020151953210a73494a569aa3924e000284efba2cb49d0d2eb4b24d1"
+    }
+  ],
+  "results": "Both downloaded native checks pass; parity run pixel-equal on canvas and linear composer target; separate timing-only run disables readback. preserveDrawingBuffer remains diagnostic-only. Final candidate v5 was integrated afterwards and needs its own readiness test."
+}

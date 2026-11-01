@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+    "viewport": [
+      628,
+      199
+    ],
+    "context": "WebGL2",
+    "physicalDeviceVerified": false
+  },
+  "candidate": {
+    "id": "pushpa-reader-in-container-v2",
+    "characterId": "pushpa-raj",
+    "descriptor": "/docs/delivery/character-review/candidates/pushpa-reader-in-container-v2.json",
+    "glbSha256": "fa7e75946bfbe675561660e22a14997f80ce147d52f8445cac86f7a512ad121d",
+    "rigSha256": "872545e260e144a621d40c685cec82050b009b49598b38d017fd1fcdbf5dd5b8"
+  },
+  "scope": "Isolated actual candidate and native WebGL calls; no city streaming, physical-phone benchmark or visual approval.",
+  "phases": [
+    {
+      "bufferData": 96,
+      "bufferBytes": 4116944,
+      "bufferSubData": 0,
+      "textureImages": 1,
+      "textureStorage": 2,
+      "shaderCompiles": 10,
+      "programLinks": 5,
+      "phase": "Initial exact-template preparation",
+      "elapsedMs": 1328,
+      "geometries": 26,
+      "textures": 3,
+      "programs": 5,
+      "drawCalls": 0
+    },
+    {
+      "bufferData": 0,
+      "bufferBytes": 0,
+      "bufferSubData": 0,
+      "textureImages": 0,
+      "textureStorage": 0,
+      "shaderCompiles": 0,
+      "programLinks": 0,
+      "phase": "Constructed-cabin preparation using an existing light slot",
+      "elapsedMs": 1,
+      "geometries": 26,
+      "textures": 3,
+      "programs": 5,
+      "drawCalls": 0
+    },
+    {
+      "bufferData": 0,
+      "bufferBytes": 0,
+      "bufferSubData": 0,
+      "textureImages": 0,
+      "textureStorage": 3,
+      "shaderCompiles": 0,
+      "programLinks": 0,
+      "phase": "First visible authored clone frame",
+      "elapsedMs": 180,
+      "geometries": 26,
+      "textures": 6,
+      "programs": 5,
+      "drawCalls": 26
+    },
+    {
+      "bufferData": 0,
+      "bufferBytes": 0,
+      "bufferSubData": 0,
+      "textureImages": 0,
+      "textureStorage": 0,
+      "shaderCompiles": 0,
+      "programLinks": 0,
+      "phase": "Second visible authored clone frame",
+      "elapsedMs": 1,
+      "geometries": 26,
+      "textures": 6,
+      "programs": 5,
+      "drawCalls": 26
+    },
+    {
+      "bufferData": 0,
+      "bufferBytes": 0,
+      "bufferSubData": 0,
+      "textureImages": 0,
+      "textureStorage": 3,
+      "shaderCompiles": 0,
+      "programLinks": 0,
+      "phase": "First frame with a second independently skinned clone",
+      "elapsedMs": 1,
+      "geometries": 26,
+      "textures": 9,
+      "programs": 5,
+      "drawCalls": 52
+    }
+  ],
+  "checks": {
+    "templateActuallyUploaded": true,
+    "pooledLightCountUnchanged": true,
+    "constructedCabinReusesSharedBuffers": true,
+    "constructedCabinNeedsNoNewShaders": true,
+    "firstVisibleCloneReusesSharedBuffers": true,
+    "secondFrameReusesSharedBuffers": true,
+    "secondCloneReusesSharedBuffers": true,
+    "actualAuthoredDraws": true
+  },
+  "limitations": [
+    "Per-instance bone textures and authored-program vertex-array bindings remain instance work.",
+    "bufferBytes counts requested bufferData array sizes, not resident GPU memory; WebGL2 offset overloads can request a subset.",
+    "Shader and texture counts include native renderer housekeeping; they are not FPS measurements.",
+    "A passing shared-buffer check does not prove whole-world shader readiness or device thermal behaviour."
+  ]
+}

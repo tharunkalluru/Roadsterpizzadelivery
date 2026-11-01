@@ -1,0 +1,59 @@
+{
+  "status": "First ordinary pickup/travel/container entry/manual handoff/normal reverse exit observed; one normal Recovery means this is NOT an unassisted full-campaign acceptance",
+  "buildManifest": "/tmp/roadster-nine-approved-frozen-qa-20261031.manifest.json",
+  "url": "http://127.0.0.1:4204/?qaDelivery=1&qaCampaign=1&qaCampaignMode=full&qaPerf=1&qaPickup=1&q=low&qaTouch=1",
+  "input": "Native Safari keyboard and mouse on touch layout; no actual phone touch",
+  "pickup": {
+    "carrierId": "6e567fc6-aeeb-4620-944b-04201c59772c",
+    "jumping": true,
+    "at": 41287.999999999665
+  },
+  "completedAtActiveSimulationMs": 210052.9999999758,
+  "facts": [
+    "jump-grab",
+    "container-closed",
+    "ramp-open",
+    "truck-interior-contact",
+    "grounded-arrival",
+    "manual-handoff",
+    "truck-exit"
+  ],
+  "assistance": [
+    {
+      "kind": "player-relocated",
+      "at": 187466.9999999827,
+      "levelId": "sandalwood-special"
+    }
+  ],
+  "recoveryExplanation": "After landing on an elevated deck, a canvas-focus click around x900/y300 hit the normal Stuck/Get back on the road affordance. Recorder correctly marks player-relocated. Later focus uses x380/y300, away from recovery/action UI. This is a tester mistake and was not silently erased or reclassified. No Prepare/Stage, custom placement or art override was used.",
+  "outcome": "Ground drive entered open physical ramp; final reviewed Pushpa reader appeared; trusted F passed pizza and produced Level1/14 completion; Next followed by S reversed fully down the retained ramp; Level2/14 unlocked.",
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/natural-pickup-diagnostic-2026-10-31/04-ordinary-container-entry.png",
+      "sha256": "f935fb387c5e188ff20ea72a9d9ec18e5c20a834ae7ad23e2d2fdcc38827573d"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/natural-pickup-diagnostic-2026-10-31/05-ordinary-container-handoff.png",
+      "sha256": "99c53dc8a89f8e085f4bc106f3878deff79e084f3343f68036f3527bfc355f68"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/natural-pickup-diagnostic-2026-10-31/06-ordinary-container-level-complete.png",
+      "sha256": "a4522f0a6b52ba444871c568868ea849b755bdf5b28f5455f417c806ce2aa04b"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/natural-pickup-diagnostic-2026-10-31/07-normal-reverse-exit.png",
+      "sha256": "3df14110cad5689a7046d7503b0372508ab3b959de2b5960634d920baeb3ea72"
+    }
+  ],
+  "evidence": {
+    "path": "docs/delivery/gameplay-review/natural-pickup-diagnostic-2026-10-31/campaign-qa-mvwo44rm-2.json",
+    "sha256": "a3f2b77be518b4f87c9d7b9d0b5ed63d8b85d25983106c12b37c9112e83d29bb"
+  },
+  "cadenceBoundary": {
+    "activeSeconds": 225.57,
+    "callbacksPerSecond": 58.42532251629206,
+    "p95Ms": 18.125,
+    "p99Ms": 39.125,
+    "limitations": "Only225.57activeSeconds, desktop Safari with competing Blender jobs. Not a40minute final soak, GPU presentation or mobile benchmark."
+  }
+}

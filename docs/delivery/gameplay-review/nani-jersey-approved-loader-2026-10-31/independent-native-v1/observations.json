@@ -1,0 +1,123 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "checkedAt": "2026-10-31T18:25:03.077489+00:00",
+  "scenario": 14,
+  "characterId": "nani-jersey",
+  "status": "normal-approved-loader-assisted-scene-pass",
+  "url": "http://127.0.0.1:4201/?qaDelivery=14&qaScene=1&qaCampaign=1&q=low&qaTouch=1&qaNight=1",
+  "qaArtParameterPresent": false,
+  "observations": "Original actual turf/wicket/stands visible, first F timing miss safely retries; later nativeF150 from current visible Break prompt using bounded accessibility-tree sampling, no hidden game state or clock modification. Actual transfer/grand-opening/Explore/free roam. Prior13 progress is seeded by isolated scenario, not a full natural campaign.",
+  "nativeInput": {
+    "pointerTypes": [],
+    "trustedTouchObserved": false,
+    "physicalHardwareVerified": false,
+    "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+  },
+  "metadata": {
+    "mode": "isolated-scene",
+    "layout": "touch-layout",
+    "environment": "Browser development session; hardware unverified",
+    "timebase": "active-gameplay",
+    "initialCompletedIds": [
+      "sandalwood-special",
+      "train-top-table",
+      "devara-depths",
+      "paradise-rope-bucket",
+      "arundhati-haunted-gate",
+      "jessie-walking-delivery",
+      "hasini-college-gate",
+      "bhanumathi-wedding-street",
+      "sukumar-angle-parking",
+      "vakeel-next-station",
+      "maruthi-villa-79",
+      "salaar-inner-compound",
+      "arjun-classroom"
+    ]
+  },
+  "row": {
+    "level": 14,
+    "id": "between-overs",
+    "configuredScenario": true,
+    "completed": true,
+    "naturalJumpPickup": false,
+    "manualHandoff": true,
+    "assistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "missingPhysicalFacts": [],
+    "missingFacts": [],
+    "missingArt": [],
+    "missingVisualChecks": [
+      "Original oval field, wicket, stands and floodlights remain; no roads/traffic or duplicate pitch.",
+      "Jersey Nani is recognizable and physically present at the handoff."
+    ],
+    "observedSceneMechanics": true,
+    "allScenarioEvidence": false
+  },
+  "export": {
+    "path": "docs/delivery/gameplay-review/nani-jersey-approved-loader-2026-10-31/independent-native-v1/campaign-qa-mvwq4f7o.json",
+    "sha256": "2cb930143581040146a0e8590b50e4fba0081f128233dbfac5a927cbc7c95aa5"
+  },
+  "approvedAssetProvenance": {
+    "candidate": {
+      "assetId": "nani-jersey-cricketer-v1",
+      "sha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3"
+    },
+    "files": [
+      {
+        "path": "public/delivery/characters/nani-jersey/cricketer-v1.glb",
+        "sha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0"
+      },
+      {
+        "path": "public/delivery/characters/nani-jersey/cricketer-v1.rig.json",
+        "sha256": "ab7dc4b63509e2a2a603670ec2e00f6dd4d35ee60000f417b8082fc7e579646c"
+      },
+      {
+        "path": "public/delivery/characters/nani-jersey/portrait-v1.png",
+        "sha256": "d16013322b787e856167c40d1a2caaa653946230d610621888469b029d8f7df4"
+      }
+    ],
+    "glbUrl": "/delivery/characters/nani-jersey/cricketer-v1.glb",
+    "contractPath": "public/delivery/characters/nani-jersey/cricketer-v1.rig.json",
+    "source": "Current unchanged released asset/review registry plus verified public artifact bytes during source-frozen QA. Ordinary export has no per-runtime approved asset fingerprint field; this is source/served-file provenance, not an invented export observation."
+  },
+  "sourceRegistry": {
+    "path": "src/delivery/art/character-assets.json",
+    "sha256": "9eb2e2dcfe3f15b1f50d225cb68c10eabc6ea66f0cbd1cec75287114daa77c67"
+  },
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/nani-jersey-approved-loader-2026-10-31/independent-native-v1/01-stadium-ready.png",
+      "sha256": "0fb03295c311e845837edf8a62a87a3a328b735253d7faab639bcb2b18b3ffd3"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/nani-jersey-approved-loader-2026-10-31/independent-native-v1/02-transfer-0.png",
+      "sha256": "11f18c75713a8a999ca635de415b5558cd43fe4981e6ca12526aae47831355a0"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/nani-jersey-approved-loader-2026-10-31/independent-native-v1/02-transfer-1.png",
+      "sha256": "f1ba5e49806d7d7c7d07956bea434aa4bee33b732f5eb9f7e809bfaecbe27d98"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/nani-jersey-approved-loader-2026-10-31/independent-native-v1/02-transfer-2.png",
+      "sha256": "b3c66b7cc69a5d3c1b5f161add37d90217eaf18898bc551579998d6686cd31be"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/nani-jersey-approved-loader-2026-10-31/independent-native-v1/03-grand-opening.png",
+      "sha256": "96748c85747f7d78e59196dbcd9f29637ab2854db2fcec8e22de80e8c943692c"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/nani-jersey-approved-loader-2026-10-31/independent-native-v1/04-retained-field.png",
+      "sha256": "35c12ccd357101406472e90a5446f9e2ed04e8b248811053ed7a59e35a9f4484"
+    }
+  ],
+  "limitations": [
+    "Prepare/Stage or explicit rear-coach landing assistance recorded; no natural pickup claim.",
+    "Desktop Safari native trusted mouse/keyboard; no true touch or physical-phone FPS/thermal/battery evidence.",
+    "No measured performance/soak claim. Nani seeded13 prior levels is not a full campaign.",
+    "Left4204 paused natural-run tab preserved throughout. Source/runtime/public/catalog not edited by reviewer.",
+    "All physical/art/fact fields pass. Historical visual-checkbox fields remain unrecorded in export; actual screenshots and notes are separate visual evidence, not falsely checked boxes."
+  ]
+}

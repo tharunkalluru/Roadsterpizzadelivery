@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "auditor": "review_binding_audit independent read-only metadata audit",
+  "recordedAt": "2026-11-01T00:02:08.225512+00:00",
+  "scope": "Export structure/recorded facts and source provenance only. No UI, image-based visual verdict, export mutation or benchmark.",
+  "sourceExport": {
+    "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/after-platform-light-18/campaign-evidence-high.json",
+    "sha256": "56d5993fcd25b34d5afbb8a97908f185122cbd93945bd8bcc043efee8956ac6a",
+    "runId": "campaign-qa-mvx21vu0"
+  },
+  "validation": {
+    "exactBuild": true,
+    "source4206NormalApprovedNoQaArt": true,
+    "urlAndEnvironmentHigh": true,
+    "deviceAndRendererDprExactly1": true,
+    "viewportAndDrawingBufferExactly1264x505": true,
+    "sixRequiredFactsPresent": true,
+    "completedManualHandoff": true,
+    "noMissingPhysicalFacts": true,
+    "sceneMechanicsObserved": true,
+    "normalArtExportFlagAndNoMissingArt": true,
+    "bothInAppVisualChecksRecorded": false
+  },
+  "buildQuality": {
+    "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+    "source": "http://127.0.0.1:4206/?qaDelivery=10&qaScene=1&qaCampaign=1&qaPerf=1&qaRoute=1&qaTouch=1&q=high&qaNight=1",
+    "quality": "high",
+    "viewport": {
+      "width": 1264,
+      "height": 505
+    },
+    "devicePixelRatio": 1,
+    "rendererPixelRatio": 1,
+    "drawingBuffer": {
+      "width": 1264,
+      "height": 505
+    },
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15"
+  },
+  "mechanics": {
+    "facts": [
+      "metro-roof-contact",
+      "metro-next-station",
+      "authored-metro-exit",
+      "four-exit-anchors",
+      "grounded-arrival",
+      "manual-handoff"
+    ],
+    "manualHandoff": true,
+    "completed": true,
+    "handoffInputAt": [
+      204523.99999997663
+    ],
+    "completedAt": 205276.9999999764,
+    "completionAfterLastHandoffMs": 752.9999999997672,
+    "missingPhysicalFacts": [],
+    "observedSceneMechanics": true
+  },
+  "visualMetadata": {
+    "requiredChecks": [
+      "Four visible correct-film people exit the proper door onto the physical platform.",
+      "Vakeel Saab lawyer costume, three companion appearances and natural walking are independently approved."
+    ],
+    "recordedChecks": [
+      "Four visible correct-film people exit the proper door onto the physical platform."
+    ],
+    "missingChecks": [
+      "Vakeel Saab lawyer costume, three companion appearances and natural walking are independently approved."
+    ],
+    "verdict": "INCOMPLETE_IN_APP_CHECKBOX_METADATA",
+    "parentReviewerPlan": "Parent reports personal inspection of exact High group, transfer and retained images and will provide a separate independent High brightness/appearance/natural-movement supplement. This audit does not create that verdict or backfill the export checkbox."
+  },
+  "normalPublicArtProvenance": {
+    "exportUnreviewedArtPreview": false,
+    "exportMissingArt": [],
+    "perAssetRuntimeShaExported": false,
+    "evidenceBoundary": "Export URL/flags are consistent with the ordinary approved loader. Exact model/rig/portrait fingerprints are separately proven by ROOT/runtime/source and independent HTTP bytes, not by a per-asset downloaded-SHA field in this runtime export.",
+    "separateSourceServerProof": {
+      "path": "/tmp/roadster-final-normal-loader-provenance-4206-lamp18-f0960332/normal-loader-provenance-4206.json",
+      "sha256": "5d4f87156e02048574d09bdac82851d0ceb09b44a3918e10e735b8694788fa72",
+      "verdict": "SOURCE_AND_SERVER_BYTE_PROVENANCE_PASS",
+      "build": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a"
+    }
+  },
+  "assistanceBounds": {
+    "mode": "isolated-scene",
+    "initialCompletedIds": [
+      "sandalwood-special",
+      "train-top-table",
+      "devara-depths",
+      "paradise-rope-bucket",
+      "arundhati-haunted-gate",
+      "jessie-walking-delivery",
+      "hasini-college-gate",
+      "bhanumathi-wedding-street",
+      "sukumar-angle-parking"
+    ],
+    "globalAssistance": [
+      {
+        "kind": "qa-order-preparation",
+        "at": 609.0000000000003,
+        "levelId": null
+      },
+      {
+        "kind": "qa-scene-staging",
+        "at": 1174.0000000000002,
+        "levelId": "vakeel-next-station"
+      },
+      {
+        "kind": "player-relocated",
+        "at": 1175,
+        "levelId": "vakeel-next-station"
+      },
+      {
+        "kind": "pickup-not-observed",
+        "at": 205276.9999999764,
+        "levelId": "vakeel-next-station"
+      }
+    ],
+    "rowAssistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "naturalJumpPickup": false,
+    "inputEvidence": {
+      "pointerTypes": [
+        "mouse"
+      ],
+      "trustedTouchObserved": false,
+      "physicalHardwareVerified": false,
+      "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+    },
+    "fullCampaignAccepted": false,
+    "allScenarioEvidence": false,
+    "note": "Assisted isolated Level10: Prepare+Stage/player relocation; natural pickup not observed. Native mouse/keyboard in touch layout is not physical touch/device proof; 14-level unassisted campaign and physical-phone/GPU/FPS/thermal/battery acceptance are not established."
+  },
+  "result": "MECHANICAL_AND_BUILD_QUALITY_METADATA_PASS_WITH_ONE_MISSING_IN_APP_VISUAL_CHECK",
+  "exportPreserved": true
+}

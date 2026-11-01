@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "auditor": "review_binding_audit filesystem-only independent source audit",
+  "recordedAt": "2026-11-01T00:24:44.759405+00:00",
+  "scope": "Bounded source/provenance verification only. No UI, source mutation, tests, new visual verdict or per-asset runtime claim.",
+  "validation": {
+    "rootRuntimeStreetBytesExact": true,
+    "knownPriorManifestHashExact": true,
+    "inMemoryTwoLineRemovedStreetMatchesRecordedF096Sha": true,
+    "exactlyTwoAddedZeroRemovedLines": true,
+    "rootRuntimeCurrentBuildFingerprintEqual": true,
+    "currentBuildDiffersFromF096": true,
+    "bothEntireBuildInputFingerprintsReconstructToF096": true
+  },
+  "streetSource": {
+    "path": "src/delivery/modules/street-scenes.ts",
+    "root": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes",
+    "runtime": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-release",
+    "currentBytes": 57626,
+    "rootSha256": "3d6177dc33c8167485ea4d85ba3f44bfe440c96e88cdf8f8948fb416a7009860",
+    "runtimeSha256": "3d6177dc33c8167485ea4d85ba3f44bfe440c96e88cdf8f8948fb416a7009860",
+    "recordedPrepatchF096Sha256": "d338e1d7d8f03af063ac765c08bd2870343e2df88965eee0461204cc04bc62e4",
+    "inMemoryReconstructedPrepatchSha256": "d338e1d7d8f03af063ac765c08bd2870343e2df88965eee0461204cc04bc62e4",
+    "inMemoryReconstructedPrepatchBytes": 57475
+  },
+  "prepatchEvidence": {
+    "path": "/tmp/roadster-normal-loader-native-review-map-f096.json",
+    "sha256": "834e0a3dcac81a9bdc3c6fce466e4b97b83bb00b908ca7e008527c51d2e73ae4",
+    "scope": "This prior read-only planning manifest independently recorded the street source SHA while both source/runtime were at f096. Old full street bytes were not preserved; the two inserted lines were removed only in memory and the reconstructed complete file matches that prior SHA."
+  },
+  "exactPatch": {
+    "addedLines": [
+      "  get hideWorldGuidance(){return this.theme==='haunted'&&!!this.cameraFocus;}",
+      "    if(this.theme==='haunted')this.ring.visible=!this.hideWorldGuidance;"
+    ],
+    "deletedLineCount": 0,
+    "currentLineNumbers": [
+      289,
+      497
+    ],
+    "unifiedDiff": "--- f096/src/delivery/modules/street-scenes.ts\n+++ postfix/src/delivery/modules/street-scenes.ts\n@@ -286,6 +286,7 @@\n       this.receiver.group.userData.characterRelease!=='withheld'&&this.grounded()&&this.within(9,3);\n   }\n   get headlightGain(){return this.nearHauntedReceiver() ? .02 : undefined;}\n+  get hideWorldGuidance(){return this.theme==='haunted'&&!!this.cameraFocus;}\n   get intentionalStop(){return this.nearHauntedReceiver()&&Math.abs(this.ctx.player().speed)<=.8;}\n   get sceneLamp(){\n     if(!this.ready||!['haunted','college','villa'].includes(this.theme)||!this.receiver?.group.visible||distanceXZ(this.ctx.player(),this.target)>35)return undefined;\n@@ -493,6 +494,7 @@\n     if (this.ready && this.ended) { this.receiver?.animate?.(elapsed(dt), 'idle', 1); this.releaseCatch(dt);this.updateDoors(dt); this.status.canDrop = false; return; }\n     if (!this.tick(dt)) return;\n     this.receiver?.animate?.(elapsed(dt), 'idle', 1); this.updateDoors(dt);\n+    if(this.theme==='haunted')this.ring.visible=!this.hideWorldGuidance;\n     const p = this.ctx.player(), scale = numberParam(this.params, 'sceneScale', 1, .5, 1);\n     const halfZ = Math.abs(Math.cos(p.yaw)) * 2.4 + Math.abs(Math.sin(p.yaw)) * 1.15;\n     const inside = this.theme !== 'salaar' || p.z + halfZ < this.ctx.destination.z - 8.5 * scale;\n",
+    "behavior": "GateDelivery hides world guidance only for the haunted theme while its existing stationary camera focus is active, and hides the haunted target ring under that same focus. Underlying camera/ground/interaction thresholds and other street modules are byte-preserved relative to the hash-verified reconstruction."
+  },
+  "buildFingerprint": {
+    "priorF096": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+    "currentSourceAndRuntime": [
+      {
+        "root": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes",
+        "currentBuildFingerprint": "734431db5999dc3291b5ae6d262ce401daf5b0c738b46ef92ce1e6bebceadc62",
+        "inMemoryTwoLineRevertedBuild": {
+          "sha256": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+          "fileCount": 584,
+          "bytes": 267914108
+        },
+        "helperSha256": "cc26d35dc87dce15a6ecd949b5849573b9e8a7505021653ed3d0ff72716001ae"
+      },
+      {
+        "root": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-release",
+        "currentBuildFingerprint": "734431db5999dc3291b5ae6d262ce401daf5b0c738b46ef92ce1e6bebceadc62",
+        "inMemoryTwoLineRevertedBuild": {
+          "sha256": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+          "fileCount": 584,
+          "bytes": 267914108
+        },
+        "helperSha256": "cc26d35dc87dce15a6ecd949b5849573b9e8a7505021653ed3d0ff72716001ae"
+      }
+    ],
+    "scope": "The in-memory whole-input fingerprint uses the same build-helper selection/order/length/bytes framing with only street-scenes bytes reverted. Matching f096 independently supports unchanged OTHER helper-selected src/worker/public/config inputs, including shipped asset bytes and src review/catalog manifests. This does not claim that tests, docs, evidence, git state or every repository file is unchanged."
+  },
+  "nativeImageInventory": [
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/01-stopped-gate-no-green-haze.png",
+      "bytes": 129134,
+      "sha256": "ba8f8daae786e441bdf1ef7ffacef05113813fc675e7496a885d1dfb9b1d6d14"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/02-manual-delivery.png",
+      "bytes": 128465,
+      "sha256": "a8e497cf43f99853e112190782f5a1b0a566261ada8ab500888e5f92afe82760"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/03-delivery-complete.png",
+      "bytes": 70420,
+      "sha256": "bd3e47d8d6453da3f9990217f2d80b33a3c14b1b140f5aa0c5ff93ade2796a2b"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/04-retained-gate-after-next.png",
+      "bytes": 125404,
+      "sha256": "858be8c1ab36aafa22cfdf7e59a10ba47a4c301cde768ba715f917b01b70b581"
+    }
+  ],
+  "nativeEvidenceLimits": {
+    "newRuntimeExportAvailable": false,
+    "highNightAttribution": "Root/parent reports native High/night captures and personal before/after comparison. This filesystem audit only binds the four PNG files by SHA; screenshot quality/DPR/loaded build/visual haze correction were not independently read from a new runtime export or UI.",
+    "visualSupplement": "To be authored separately by the native reviewer; this source audit grants no image or likeness approval."
+  },
+  "reportedValidation": {
+    "reportedBy": "parent/root; not rerun by this auditor",
+    "statements": [
+      "27 street tests PASS",
+      "741 + 38 types + build PASS"
+    ],
+    "auditRanTests": false
+  },
+  "immutableScope": {
+    "sourceFilesEditedByAuditor": false,
+    "assetsEditedByAuditor": false,
+    "formalReviewRecordsEditedByAuditor": false,
+    "onlyAuthoredArtifact": "source-audit.json in this new evidence folder"
+  },
+  "result": "EXACT_TWO_LINE_ADDITION_AND_SOURCE_RUNTIME_PROVENANCE_PASS"
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "environment": "Native Safari on Mac; mouse using touch layout; not physical phone",
+  "assistedStart": true,
+  "unreviewedArtPreview": true,
+  "productionAppearanceApproval": false,
+  "naturalPickupTested": false,
+  "files": [
+    {
+      "path": "docs/delivery/gameplay-review/devara-runtime-2026-10-31/03-orbit-proves-actor-present.png",
+      "sha256": "cf10fc6f7c89fa48d1cf005c0fdfccae9daa247ba69158eecec3cf1c2036df5f"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/devara-runtime-2026-10-31/04-completion.png",
+      "sha256": "c78f0e208f5900100b7cd66fc7c426e636d6602c2304da012157da58103eb269"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/devara-runtime-2026-10-31/01-surface-dive.png",
+      "sha256": "b30ac44f2023b40508b1d2f0dbfdb7842c2b1aa1a65933a85fee9ab5eae42d01"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/devara-runtime-2026-10-31/02-submerged-default-framing.png",
+      "sha256": "40de8ca3c8776804e2e912f8770b9c65be57e4a3db97a943c253db2a7479a08a"
+    }
+  ],
+  "glbSha256": "448252e6e0540c23b22985bbb1bc9ef3fb4fc92eea8ee1c229a03fddfff2d279",
+  "rigSha256": "c4fc4e91ddf1af8ee7f24840068b5dd55bb792c2c1e235c70e62020ea46fc8f6",
+  "findings": [
+    "Actual explicit DIVE, underwater placement and completion observed",
+    "Default chase camera occluded actor; orbit proved actor present",
+    "Baseline before scene-only close-camera fix",
+    "No final likeness approval"
+  ]
+}

@@ -1,0 +1,1076 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-31T23:50:18.212334+00:00",
+  "auditor": "review_binding_audit read-only subagent",
+  "scope": "Final normal approved-loader source/server-byte provenance; no UI or per-asset runtime export observation.",
+  "roots": {
+    "approvedSourceRoot": "/Users/tharun/Documents/Codex/2026-10-29/roadster-v21-fixes",
+    "runtimeRoot": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-release",
+    "serverOrigin": "http://127.0.0.1:4206"
+  },
+  "buildFingerprints": {
+    "runtime": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+    "source": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+    "expected": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+    "bothMatchExpected": true
+  },
+  "manifests": [
+    {
+      "path": "src/delivery/art/character-assets.json",
+      "rootSha256": "f025c01fd2a98bc790d5bd4bd1c51c945a81161e6b0beb9ca6c6b412e7174ca8",
+      "runtimeSha256": "f025c01fd2a98bc790d5bd4bd1c51c945a81161e6b0beb9ca6c6b412e7174ca8",
+      "server": {
+        "url": "http://127.0.0.1:4206/src/delivery/art/character-assets.json",
+        "status": 200,
+        "contentType": "application/json",
+        "bytes": 92791,
+        "sha256": "f025c01fd2a98bc790d5bd4bd1c51c945a81161e6b0beb9ca6c6b412e7174ca8",
+        "cacheControl": "no-cache",
+        "etag": "W/\"92791-1793490089016\""
+      },
+      "allBytesEqual": true
+    },
+    {
+      "path": "src/delivery/art/character-reviews.json",
+      "rootSha256": "1f0a30168db27fcce54555ab6d2f54855bb51e4e8717d1bcea549f30e34115f1",
+      "runtimeSha256": "1f0a30168db27fcce54555ab6d2f54855bb51e4e8717d1bcea549f30e34115f1",
+      "server": {
+        "url": "http://127.0.0.1:4206/src/delivery/art/character-reviews.json",
+        "status": 200,
+        "contentType": "application/json",
+        "bytes": 220355,
+        "sha256": "1f0a30168db27fcce54555ab6d2f54855bb51e4e8717d1bcea549f30e34115f1",
+        "cacheControl": "no-cache",
+        "etag": "W/\"220355-1793490089016\""
+      },
+      "allBytesEqual": true
+    }
+  ],
+  "registration": {
+    "registeredAssets": 15,
+    "approvedRecords": 15,
+    "matchingApprovedCatalogEntries": [
+      {
+        "characterId": "pushpa-raj",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "jessie",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "hasini",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "devara",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "ram-vvr",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "sukumar",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "nani-jersey",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "arjun-reddy",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "maruthi",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "arundhati",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "bhanumathi",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "vakeel-saab",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "vakeel-woman-1",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "vakeel-woman-2",
+        "matchingApprovedRecords": 1
+      },
+      {
+        "characterId": "vakeel-woman-3",
+        "matchingApprovedRecords": 1
+      }
+    ],
+    "all15RegisteredWithOneApprovedRecordEach": true
+  },
+  "selectedMetroRoles": [
+    {
+      "characterId": "vakeel-saab",
+      "candidate": {
+        "assetId": "vakeel-saab-metro-lawyer-v1",
+        "sha256": "c711b033e1168850e4d8f93db57146053d7b10cf83da8adea0e226e87e6d4348"
+      },
+      "authorId": "likeness-release-gate-vakeel-crown-art-producer",
+      "reviewerId": "independent-final-metro-native-review-20261031",
+      "reviewedAt": "2026-10-31T23:38:46.595718+00:00",
+      "recordCanonicalSha256": "d9a67276d2e4bc9af04fb1b5e8bcd8f4d93e84e9265402bb8b2e5abb004068c1",
+      "checks": {
+        "rootAndRuntimeSelectedRecordDeepEqual": true,
+        "rootAndRuntimeCatalogDeepEqual": true,
+        "recordApproved": true,
+        "sixCloseMatchChecks": true,
+        "independentReviewer": true,
+        "fiveUniqueRequiredViews": true,
+        "recomputedBundleExact": true,
+        "canonicalRigParsesEqualCatalogContract": true,
+        "catalogGlbHashInApprovedFiles": true,
+        "all12SourceServerFilesExact": true,
+        "referenceEvidenceByteHashesExact": true,
+        "canonicalRigBytesEqualActualRuntimeSerializer": true
+      },
+      "files": [
+        {
+          "path": "public/delivery/characters/vakeel-saab/platform-lawyer-v1.glb",
+          "approvedSha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760",
+          "rootSha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760",
+          "runtimeSha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-saab/platform-lawyer-v1.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary",
+            "bytes": 4589496,
+            "sha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760",
+            "cacheControl": "no-cache",
+            "etag": "W/\"4589496-1793490088951\""
+          },
+          "matchesExactApprovedBytes": true
+        },
+        {
+          "path": "public/delivery/characters/vakeel-saab/platform-lawyer-v1.rig.json",
+          "approvedSha256": "be4b9f4e0110fcf06418459cb20bdcd5795aa92c36757cc184a4ec039952bfa3",
+          "rootSha256": "be4b9f4e0110fcf06418459cb20bdcd5795aa92c36757cc184a4ec039952bfa3",
+          "runtimeSha256": "be4b9f4e0110fcf06418459cb20bdcd5795aa92c36757cc184a4ec039952bfa3",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-saab/platform-lawyer-v1.rig.json",
+            "status": 200,
+            "contentType": "application/json",
+            "bytes": 2789,
+            "sha256": "be4b9f4e0110fcf06418459cb20bdcd5795aa92c36757cc184a4ec039952bfa3",
+            "cacheControl": "no-cache",
+            "etag": "W/\"2789-1793490088955\""
+          },
+          "matchesExactApprovedBytes": true
+        },
+        {
+          "path": "public/delivery/characters/vakeel-saab/portrait-v1.png",
+          "approvedSha256": "0579f1a95c5e55e36959f6a6e111a9f78f6cb78308d25b84e908b66d08ce39fc",
+          "rootSha256": "0579f1a95c5e55e36959f6a6e111a9f78f6cb78308d25b84e908b66d08ce39fc",
+          "runtimeSha256": "0579f1a95c5e55e36959f6a6e111a9f78f6cb78308d25b84e908b66d08ce39fc",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-saab/portrait-v1.png",
+            "status": 200,
+            "contentType": "image/png",
+            "bytes": 224626,
+            "sha256": "0579f1a95c5e55e36959f6a6e111a9f78f6cb78308d25b84e908b66d08ce39fc",
+            "cacheControl": "no-cache",
+            "etag": "W/\"224626-1793490088955\""
+          },
+          "matchesExactApprovedBytes": true
+        }
+      ],
+      "referenceAndRenderEvidence": [
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-dil-raju-52.5s.png",
+          "sha256": "b23489a18ddf5f5d51a0fc70208126b90a4d899873b0424c3f3bf77b2c8bc08a",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-dil-raju-82.5s.png",
+          "sha256": "264b3eab6f9bddd303d0090eecc1fc355c260b2682e2c5d52c82af77f1990886",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-dil-raju-85.5s.png",
+          "sha256": "d6a2987fb1d7b46d9aa75ce432ce2235093b262e34ec75aece68834bb9e8a006",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-dil-raju-105s.png",
+          "sha256": "1a34e46773f511cbc2da4091a1fe78e17849f39eab0d9269bf31a1374af5326f",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png",
+          "sha256": "7e640d0338ab635905b500591e892f48c223194d3dab1705e52afc3cd62c618e",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-crown-final-v1/offline/front.png",
+          "sha256": "263fb84eae55831085ee37a38251580fd318f608fb480c47799deafd1004db7f",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-crown-final-v1/offline/three-quarter.png",
+          "sha256": "54546313ad75123249662bcbe626ec774fbdcef06347060f78e2e5fc937ecd19",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-crown-final-v1/offline/profile.png",
+          "sha256": "76962ec410f1eb4ccece2f3d6ee71edb96481917733ef872f948cf8778518e09",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-crown-final-v1/offline/full-body.png",
+          "sha256": "328a6948a896d5cd9f61362d0f19a14b31ea7c63ea1c83dd64752f5b9e3463e5",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-07.png",
+          "sha256": "232cc1d62ac7670e6efdf8855177367a3ef64fd6567fb2e0f586418c04d22377",
+          "rootAndRuntimeBytesVerified": true
+        }
+      ],
+      "canonicalRuntimeSerialization": {
+        "characterId": "vakeel-saab",
+        "serializedBytes": 2789,
+        "canonicalBytes": 2789,
+        "exact": true,
+        "sha256": "be4b9f4e0110fcf06418459cb20bdcd5795aa92c36757cc184a4ec039952bfa3"
+      }
+    },
+    {
+      "characterId": "vakeel-woman-1",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-one-v1",
+        "sha256": "cb61dba907ac639634fee7d66fd63f126433f4adba146095c99976a83666695b"
+      },
+      "authorId": "likeness-release-gate-vakeel-art-producer",
+      "reviewerId": "independent-final-metro-native-review-20261031",
+      "reviewedAt": "2026-10-31T23:38:46.595718+00:00",
+      "recordCanonicalSha256": "e67aef9f30a9d0a8afbf3b0139070936e1dfe753eb93f799b07d5d7eb5c8a282",
+      "checks": {
+        "rootAndRuntimeSelectedRecordDeepEqual": true,
+        "rootAndRuntimeCatalogDeepEqual": true,
+        "recordApproved": true,
+        "sixCloseMatchChecks": true,
+        "independentReviewer": true,
+        "fiveUniqueRequiredViews": true,
+        "recomputedBundleExact": true,
+        "canonicalRigParsesEqualCatalogContract": true,
+        "catalogGlbHashInApprovedFiles": true,
+        "all12SourceServerFilesExact": true,
+        "referenceEvidenceByteHashesExact": true,
+        "canonicalRigBytesEqualActualRuntimeSerializer": true
+      },
+      "files": [
+        {
+          "path": "public/delivery/characters/vakeel-woman-1/platform-companion-v1.glb",
+          "approvedSha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+          "rootSha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+          "runtimeSha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-woman-1/platform-companion-v1.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary",
+            "bytes": 6803536,
+            "sha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+            "cacheControl": "no-cache",
+            "etag": "W/\"6803536-1793490088959\""
+          },
+          "matchesExactApprovedBytes": true
+        },
+        {
+          "path": "public/delivery/characters/vakeel-woman-1/platform-companion-v1.rig.json",
+          "approvedSha256": "3e1f301dbad7d5df6c5beacc0e8a7f224ec3abe460dd4b4aeaaccc25ac1ffe39",
+          "rootSha256": "3e1f301dbad7d5df6c5beacc0e8a7f224ec3abe460dd4b4aeaaccc25ac1ffe39",
+          "runtimeSha256": "3e1f301dbad7d5df6c5beacc0e8a7f224ec3abe460dd4b4aeaaccc25ac1ffe39",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-woman-1/platform-companion-v1.rig.json",
+            "status": 200,
+            "contentType": "application/json",
+            "bytes": 3433,
+            "sha256": "3e1f301dbad7d5df6c5beacc0e8a7f224ec3abe460dd4b4aeaaccc25ac1ffe39",
+            "cacheControl": "no-cache",
+            "etag": "W/\"3433-1793490088965\""
+          },
+          "matchesExactApprovedBytes": true
+        },
+        {
+          "path": "public/delivery/characters/vakeel-woman-1/portrait-v1.png",
+          "approvedSha256": "7c01c354dbbb3feb58a3adb15e27d1161e8e88caba6385fada84867fad6baef3",
+          "rootSha256": "7c01c354dbbb3feb58a3adb15e27d1161e8e88caba6385fada84867fad6baef3",
+          "runtimeSha256": "7c01c354dbbb3feb58a3adb15e27d1161e8e88caba6385fada84867fad6baef3",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-woman-1/portrait-v1.png",
+            "status": 200,
+            "contentType": "image/png",
+            "bytes": 223220,
+            "sha256": "7c01c354dbbb3feb58a3adb15e27d1161e8e88caba6385fada84867fad6baef3",
+            "cacheControl": "no-cache",
+            "etag": "W/\"223220-1793490088965\""
+          },
+          "matchesExactApprovedBytes": true
+        }
+      ],
+      "referenceAndRenderEvidence": [
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-women-aditya-178s.png",
+          "sha256": "ed2c199c2e8d42c25480f8c101068d66311e762f6aec912b881e086e398b810d",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png",
+          "sha256": "7e640d0338ab635905b500591e892f48c223194d3dab1705e52afc3cd62c618e",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-women-aditya-138s.png",
+          "sha256": "033b521ba4e379012bcddf34c646f880c10a125554c5c25680b23ffecfb4a20b",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-1/offline/front.png",
+          "sha256": "71ec2995aa7a335209090cb636050d0c619cc1611e0a0bea127e0f91f790d4b6",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-1/offline/three-quarter.png",
+          "sha256": "719ab35fd99c836a5c67d0407e6b7a8cebb39260f1f1df0e9bb993e43c1c27a7",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-1/offline/profile.png",
+          "sha256": "0487902d0f25e97a066cf91d10a9c29d2b5d904a06c0a6607cd60e0a809d3e53",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-1/offline/full-body.png",
+          "sha256": "4057c72e3c044d45ba24183b80746b93f129e478c2e71116d9a791b63836d57a",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-07.png",
+          "sha256": "232cc1d62ac7670e6efdf8855177367a3ef64fd6567fb2e0f586418c04d22377",
+          "rootAndRuntimeBytesVerified": true
+        }
+      ],
+      "canonicalRuntimeSerialization": {
+        "characterId": "vakeel-woman-1",
+        "serializedBytes": 3433,
+        "canonicalBytes": 3433,
+        "exact": true,
+        "sha256": "3e1f301dbad7d5df6c5beacc0e8a7f224ec3abe460dd4b4aeaaccc25ac1ffe39"
+      }
+    },
+    {
+      "characterId": "vakeel-woman-2",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-two-v1",
+        "sha256": "585f53c0c2fb44cb3859ea15ea72959358db752b98e79f4bd86c58fe10b751bc"
+      },
+      "authorId": "likeness-release-gate-vakeel-art-producer",
+      "reviewerId": "independent-final-metro-native-review-20261031",
+      "reviewedAt": "2026-10-31T23:38:46.595718+00:00",
+      "recordCanonicalSha256": "590cbabaca69ed765fbda21810239b838de29b61b19831332bb44e9c86c073d3",
+      "checks": {
+        "rootAndRuntimeSelectedRecordDeepEqual": true,
+        "rootAndRuntimeCatalogDeepEqual": true,
+        "recordApproved": true,
+        "sixCloseMatchChecks": true,
+        "independentReviewer": true,
+        "fiveUniqueRequiredViews": true,
+        "recomputedBundleExact": true,
+        "canonicalRigParsesEqualCatalogContract": true,
+        "catalogGlbHashInApprovedFiles": true,
+        "all12SourceServerFilesExact": true,
+        "referenceEvidenceByteHashesExact": true,
+        "canonicalRigBytesEqualActualRuntimeSerializer": true
+      },
+      "files": [
+        {
+          "path": "public/delivery/characters/vakeel-woman-2/platform-companion-v1.glb",
+          "approvedSha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702",
+          "rootSha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702",
+          "runtimeSha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-woman-2/platform-companion-v1.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary",
+            "bytes": 6380540,
+            "sha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702",
+            "cacheControl": "no-cache",
+            "etag": "W/\"6380540-1793490088969\""
+          },
+          "matchesExactApprovedBytes": true
+        },
+        {
+          "path": "public/delivery/characters/vakeel-woman-2/platform-companion-v1.rig.json",
+          "approvedSha256": "3cdd13a56b76f60188f75cde60334d8a736a00bb70cf148e0be3a7f56e0dfb32",
+          "rootSha256": "3cdd13a56b76f60188f75cde60334d8a736a00bb70cf148e0be3a7f56e0dfb32",
+          "runtimeSha256": "3cdd13a56b76f60188f75cde60334d8a736a00bb70cf148e0be3a7f56e0dfb32",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-woman-2/platform-companion-v1.rig.json",
+            "status": 200,
+            "contentType": "application/json",
+            "bytes": 3177,
+            "sha256": "3cdd13a56b76f60188f75cde60334d8a736a00bb70cf148e0be3a7f56e0dfb32",
+            "cacheControl": "no-cache",
+            "etag": "W/\"3177-1793490088974\""
+          },
+          "matchesExactApprovedBytes": true
+        },
+        {
+          "path": "public/delivery/characters/vakeel-woman-2/portrait-v1.png",
+          "approvedSha256": "8569f1b2c35a66f2c7ec77c232cf4ca5b46be2811e39137a9e131437afa11abf",
+          "rootSha256": "8569f1b2c35a66f2c7ec77c232cf4ca5b46be2811e39137a9e131437afa11abf",
+          "runtimeSha256": "8569f1b2c35a66f2c7ec77c232cf4ca5b46be2811e39137a9e131437afa11abf",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-woman-2/portrait-v1.png",
+            "status": 200,
+            "contentType": "image/png",
+            "bytes": 217653,
+            "sha256": "8569f1b2c35a66f2c7ec77c232cf4ca5b46be2811e39137a9e131437afa11abf",
+            "cacheControl": "no-cache",
+            "etag": "W/\"217653-1793490088975\""
+          },
+          "matchesExactApprovedBytes": true
+        }
+      ],
+      "referenceAndRenderEvidence": [
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-women-aditya-178s.png",
+          "sha256": "ed2c199c2e8d42c25480f8c101068d66311e762f6aec912b881e086e398b810d",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png",
+          "sha256": "7e640d0338ab635905b500591e892f48c223194d3dab1705e52afc3cd62c618e",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-women-aditya-170s.png",
+          "sha256": "e01e3690ad73a16afba52982cdc48458eba06f465c09876f82bb9dd4722aaddf",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-2/offline/front.png",
+          "sha256": "c919d1a8b3b8a0fbed0f86c70d7dfd64cf773ca9dd34126606f020bb38027f0a",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-2/offline/three-quarter.png",
+          "sha256": "fdfc68af35e64079d9150c8718edf591b999e06b08ffe5f9513faba3d2b4684b",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-2/offline/profile.png",
+          "sha256": "e2663c561a5a6201daa5c76ba236e9d098c9e7253f5e511d10737a6e3d31756e",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-2/offline/full-body.png",
+          "sha256": "1c29d71bc439de5aa541870e09d5f35cecad044c9b2549703ec600b9b6cad8d4",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-07.png",
+          "sha256": "232cc1d62ac7670e6efdf8855177367a3ef64fd6567fb2e0f586418c04d22377",
+          "rootAndRuntimeBytesVerified": true
+        }
+      ],
+      "canonicalRuntimeSerialization": {
+        "characterId": "vakeel-woman-2",
+        "serializedBytes": 3177,
+        "canonicalBytes": 3177,
+        "exact": true,
+        "sha256": "3cdd13a56b76f60188f75cde60334d8a736a00bb70cf148e0be3a7f56e0dfb32"
+      }
+    },
+    {
+      "characterId": "vakeel-woman-3",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-three-v1",
+        "sha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5"
+      },
+      "authorId": "likeness-release-gate-vakeel-art-producer",
+      "reviewerId": "independent-final-metro-native-review-20261031",
+      "reviewedAt": "2026-10-31T23:38:46.595718+00:00",
+      "recordCanonicalSha256": "1d29f4ee00248106c691bab7d19595443d8ef8671c2ae98b5530af7cd0ee0aba",
+      "checks": {
+        "rootAndRuntimeSelectedRecordDeepEqual": true,
+        "rootAndRuntimeCatalogDeepEqual": true,
+        "recordApproved": true,
+        "sixCloseMatchChecks": true,
+        "independentReviewer": true,
+        "fiveUniqueRequiredViews": true,
+        "recomputedBundleExact": true,
+        "canonicalRigParsesEqualCatalogContract": true,
+        "catalogGlbHashInApprovedFiles": true,
+        "all12SourceServerFilesExact": true,
+        "referenceEvidenceByteHashesExact": true,
+        "canonicalRigBytesEqualActualRuntimeSerializer": true
+      },
+      "files": [
+        {
+          "path": "public/delivery/characters/vakeel-woman-3/platform-companion-v1.glb",
+          "approvedSha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+          "rootSha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+          "runtimeSha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-woman-3/platform-companion-v1.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary",
+            "bytes": 5842792,
+            "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+            "cacheControl": "no-cache",
+            "etag": "W/\"5842792-1793490088978\""
+          },
+          "matchesExactApprovedBytes": true
+        },
+        {
+          "path": "public/delivery/characters/vakeel-woman-3/platform-companion-v1.rig.json",
+          "approvedSha256": "bb0e3910c28625cb04553a062e053b915ded83bc32166aba258fa4cb61755d3b",
+          "rootSha256": "bb0e3910c28625cb04553a062e053b915ded83bc32166aba258fa4cb61755d3b",
+          "runtimeSha256": "bb0e3910c28625cb04553a062e053b915ded83bc32166aba258fa4cb61755d3b",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-woman-3/platform-companion-v1.rig.json",
+            "status": 200,
+            "contentType": "application/json",
+            "bytes": 3042,
+            "sha256": "bb0e3910c28625cb04553a062e053b915ded83bc32166aba258fa4cb61755d3b",
+            "cacheControl": "no-cache",
+            "etag": "W/\"3042-1793490088984\""
+          },
+          "matchesExactApprovedBytes": true
+        },
+        {
+          "path": "public/delivery/characters/vakeel-woman-3/portrait-v1.png",
+          "approvedSha256": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc",
+          "rootSha256": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc",
+          "runtimeSha256": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc",
+          "server": {
+            "url": "http://127.0.0.1:4206/delivery/characters/vakeel-woman-3/portrait-v1.png",
+            "status": 200,
+            "contentType": "image/png",
+            "bytes": 211595,
+            "sha256": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc",
+            "cacheControl": "no-cache",
+            "etag": "W/\"211595-1793490088984\""
+          },
+          "matchesExactApprovedBytes": true
+        }
+      ],
+      "referenceAndRenderEvidence": [
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-women-aditya-178s.png",
+          "sha256": "ed2c199c2e8d42c25480f8c101068d66311e762f6aec912b881e086e398b810d",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-dil-raju-106.5s.png",
+          "sha256": "7e640d0338ab635905b500591e892f48c223194d3dab1705e52afc3cd62c618e",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "reference",
+          "path": "docs/delivery/character-review/production/references/vakeel-women-aditya-138s.png",
+          "sha256": "033b521ba4e379012bcddf34c646f880c10a125554c5c25680b23ffecfb4a20b",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-3/offline/front.png",
+          "sha256": "a6f83f15e43afb0618db6f0d2d748262269a2cb965df7cad09ef2a53ec59add2",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-3/offline/three-quarter.png",
+          "sha256": "63034660a21a1d8f53a17aee2d53e8397aa97e01a8f896fa438eab58224251ed",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-3/offline/profile.png",
+          "sha256": "42f83ed011cdbc5c54b2c891c6fe8b46fff7294f4e8e94ad90027c8ad565447c",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-women-final-v39-v37-offline/woman-3/offline/full-body.png",
+          "sha256": "625e010822eb0f8427ec0088f16059b334369da9fb0623c70d55f7f14706479d",
+          "rootAndRuntimeBytesVerified": true
+        },
+        {
+          "type": "evidence",
+          "path": "docs/delivery/character-review/evidence/independent-vakeel-final-four-native-20261031/native-final-crown-v2/06-transfer-07.png",
+          "sha256": "232cc1d62ac7670e6efdf8855177367a3ef64fd6567fb2e0f586418c04d22377",
+          "rootAndRuntimeBytesVerified": true
+        }
+      ],
+      "canonicalRuntimeSerialization": {
+        "characterId": "vakeel-woman-3",
+        "serializedBytes": 3042,
+        "canonicalBytes": 3042,
+        "exact": true,
+        "sha256": "bb0e3910c28625cb04553a062e053b915ded83bc32166aba258fa4cb61755d3b"
+      }
+    }
+  ],
+  "sourceAndServerSourceFiles": [
+    {
+      "path": "src/main.ts",
+      "rootSha256": "5f782cdab2f180e2f00233a682342f0833d71423f09f10cb80322842c732918b",
+      "runtimeSha256": "5f782cdab2f180e2f00233a682342f0833d71423f09f10cb80322842c732918b",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/main.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 5459,
+        "sha256": "5f782cdab2f180e2f00233a682342f0833d71423f09f10cb80322842c732918b",
+        "cacheControl": "no-cache",
+        "etag": "W/\"5459-1793490089047\""
+      },
+      "decodedRawSourceSha256": "5f782cdab2f180e2f00233a682342f0833d71423f09f10cb80322842c732918b",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/runtime.ts",
+      "rootSha256": "534632a95d354cf71b8ad238a2087c1860e32f7b8250a757ea44bde3a9d9dbbe",
+      "runtimeSha256": "534632a95d354cf71b8ad238a2087c1860e32f7b8250a757ea44bde3a9d9dbbe",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/runtime.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 97185,
+        "sha256": "26db5e03a7326810802710f011045184dd651c78ce73ca08e0d00b6bb8b2a961",
+        "cacheControl": "no-cache",
+        "etag": "W/\"a10e-2730vYtR+iZXEwDWwv81pxCorj0\""
+      },
+      "decodedRawSourceSha256": "534632a95d354cf71b8ad238a2087c1860e32f7b8250a757ea44bde3a9d9dbbe",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/qa.ts",
+      "rootSha256": "591416ce744df0bb8a88a63a01a2358255a4dfe3617b2352ca5bcbc3735f5882",
+      "runtimeSha256": "591416ce744df0bb8a88a63a01a2358255a4dfe3617b2352ca5bcbc3735f5882",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/qa.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 43011,
+        "sha256": "2ad8f6682e286ef98af33a722dbc659409ea5422b413a5e049a60e85ceeed306",
+        "cacheControl": "no-cache",
+        "etag": "W/\"4720-8BA9c9AQOD7txhAh53gESxvDrR0\""
+      },
+      "decodedRawSourceSha256": "591416ce744df0bb8a88a63a01a2358255a4dfe3617b2352ca5bcbc3735f5882",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/modules/base.ts",
+      "rootSha256": "5560a850556da38360ea24c40c0f921fe463f2853a458188bb1be70210221258",
+      "runtimeSha256": "5560a850556da38360ea24c40c0f921fe463f2853a458188bb1be70210221258",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/modules/base.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 28537,
+        "sha256": "01fc4acc595144147586568ed122191e8fa295ebaab95c211083c93b1b694092",
+        "cacheControl": "no-cache",
+        "etag": "W/\"2f12-9Nn8B4s29rLcwpDCiWhklsmUSbE\""
+      },
+      "decodedRawSourceSha256": "5560a850556da38360ea24c40c0f921fe463f2853a458188bb1be70210221258",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/modules/metro-ride.ts",
+      "rootSha256": "1d8167b8c32f69dd729e3dde74104a110f26e6adc9731ae7f8b453021180acaa",
+      "runtimeSha256": "1d8167b8c32f69dd729e3dde74104a110f26e6adc9731ae7f8b453021180acaa",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/modules/metro-ride.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 28788,
+        "sha256": "d1f63258974ffc2428b12556175b564cff1f6c3a45f78197d316b82220ede578",
+        "cacheControl": "no-cache",
+        "etag": "W/\"2f7d-fosNT5c+lgvbMojY23Fc44AdmCw\""
+      },
+      "decodedRawSourceSha256": "1d8167b8c32f69dd729e3dde74104a110f26e6adc9731ae7f8b453021180acaa",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/metro-platform.ts",
+      "rootSha256": "431b160b1c536f30af58968e565c1cece9b40569dd9c2228415035ae0131c1ae",
+      "runtimeSha256": "431b160b1c536f30af58968e565c1cece9b40569dd9c2228415035ae0131c1ae",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/metro-platform.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 16578,
+        "sha256": "3662e845817f87a7b79bb261ec2c48ec4b6ea3269c9f36d968fdf6cd114a145d",
+        "cacheControl": "no-cache",
+        "etag": "W/\"1b37-2d4TckUnWQJdOEOk0bocdhTMPEA\""
+      },
+      "decodedRawSourceSha256": "431b160b1c536f30af58968e565c1cece9b40569dd9c2228415035ae0131c1ae",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/art/scene-character.ts",
+      "rootSha256": "2380c613ecf0ad316ac8f798a9e5acd55ad477cf84a4a450d9d0f7d38c2d1c09",
+      "runtimeSha256": "2380c613ecf0ad316ac8f798a9e5acd55ad477cf84a4a450d9d0f7d38c2d1c09",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/art/scene-character.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 9465,
+        "sha256": "d3054d542b8d0ddec499d70c3fdb610d3a29c5c61063f623026a93e1bc3f7562",
+        "cacheControl": "no-cache",
+        "etag": "W/\"f6a-cmVU2WkWTzpaiI0IvQk25FPgK24\""
+      },
+      "decodedRawSourceSha256": "2380c613ecf0ad316ac8f798a9e5acd55ad477cf84a4a450d9d0f7d38c2d1c09",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/art/released-gltf.ts",
+      "rootSha256": "ed3a59d01204e75a87eb92bbf922e0987245fe697ebe1c87f2fd8eefab4b52fa",
+      "runtimeSha256": "ed3a59d01204e75a87eb92bbf922e0987245fe697ebe1c87f2fd8eefab4b52fa",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/art/released-gltf.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 71878,
+        "sha256": "92d89af9d68b9630e10419919e66d68c8ff20efa132caca38f2c4bd709602b80",
+        "cacheControl": "no-cache",
+        "etag": "W/\"7743-yhpJ7vjetP3U2e1jSt8rb2jOFwg\""
+      },
+      "decodedRawSourceSha256": "ed3a59d01204e75a87eb92bbf922e0987245fe697ebe1c87f2fd8eefab4b52fa",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/art/release-gate.ts",
+      "rootSha256": "78eb6ece88f0a73dac52a89fe1478fb97cae94e035af899556d03416046c0514",
+      "runtimeSha256": "78eb6ece88f0a73dac52a89fe1478fb97cae94e035af899556d03416046c0514",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/art/release-gate.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 17210,
+        "sha256": "b6f9eff52fc01219329e8fef1f16ecc4aff04a7489e3102b46b969acba2ca4a0",
+        "cacheControl": "no-cache",
+        "etag": "W/\"1c47-5ERXp+g9VQc8pgVplLnTPVdk914\""
+      },
+      "decodedRawSourceSha256": "78eb6ece88f0a73dac52a89fe1478fb97cae94e035af899556d03416046c0514",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/art/scene-asset-window.ts",
+      "rootSha256": "4d245f31b76ef5da0e61226efff7d962978612566c555015d675cab1c3ba6a5f",
+      "runtimeSha256": "4d245f31b76ef5da0e61226efff7d962978612566c555015d675cab1c3ba6a5f",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/art/scene-asset-window.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 2345,
+        "sha256": "68a8ac27313f81d919c8cfb5eab6de9c7838d73bd4f578e216fbc32c218b52ca",
+        "cacheControl": "no-cache",
+        "etag": "W/\"38e-344E2stTwSHYiljBK77IfS6Jh7Y\""
+      },
+      "decodedRawSourceSha256": "4d245f31b76ef5da0e61226efff7d962978612566c555015d675cab1c3ba6a5f",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/content/levels.json",
+      "rootSha256": "a0b780f5c6e923f5630ea8ef0dfadb4aaccbcc09b424799b938557c9d429418d",
+      "runtimeSha256": "a0b780f5c6e923f5630ea8ef0dfadb4aaccbcc09b424799b938557c9d429418d",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/content/levels.json",
+        "status": 200,
+        "contentType": "application/json",
+        "bytes": 11287,
+        "sha256": "a0b780f5c6e923f5630ea8ef0dfadb4aaccbcc09b424799b938557c9d429418d",
+        "cacheControl": "no-cache",
+        "etag": "W/\"11287-1793490089020\""
+      },
+      "decodedRawSourceSha256": "a0b780f5c6e923f5630ea8ef0dfadb4aaccbcc09b424799b938557c9d429418d",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/delivery/ui/view-model.ts",
+      "rootSha256": "a8ce5b8df7c3ae96069a60e4e8150743542f4e52c42f85aefff84fc53ea81eda",
+      "runtimeSha256": "a8ce5b8df7c3ae96069a60e4e8150743542f4e52c42f85aefff84fc53ea81eda",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/delivery/ui/view-model.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 4650,
+        "sha256": "a5f8cf3b73f3fd55b1c3c62174ce25875f16ecc08201d96751b9d4485020b9e2",
+        "cacheControl": "no-cache",
+        "etag": "W/\"75b-fjF5aogk47LSViiKP2+j4y1IS3o\""
+      },
+      "decodedRawSourceSha256": "a8ce5b8df7c3ae96069a60e4e8150743542f4e52c42f85aefff84fc53ea81eda",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/game/scene-lamp-pool.ts",
+      "rootSha256": "b7999e1d09977403d04feed455b60eb0078359a910151cab8ce0174b4bb94103",
+      "runtimeSha256": "b7999e1d09977403d04feed455b60eb0078359a910151cab8ce0174b4bb94103",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/game/scene-lamp-pool.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 9520,
+        "sha256": "82e2b5c7d2b93f24fa13308ff765ef4000df2065511d55fb43cf9e449dd1fa07",
+        "cacheControl": "no-cache",
+        "etag": "W/\"f79-ULv1LOE01DNaWGGfL6cd3D889RI\""
+      },
+      "decodedRawSourceSha256": "b7999e1d09977403d04feed455b60eb0078359a910151cab8ce0174b4bb94103",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/game/player-lights.ts",
+      "rootSha256": "8fdc182f46945a1cb889078cd05f02274cbcf8c23052f8a63bc94cda6513d26b",
+      "runtimeSha256": "8fdc182f46945a1cb889078cd05f02274cbcf8c23052f8a63bc94cda6513d26b",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/game/player-lights.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 7521,
+        "sha256": "4ac3d0584bab88f3680ef38d1599fc0103c5b2fd5b5aeeffa142ebaa87f53c2b",
+        "cacheControl": "no-cache",
+        "etag": "W/\"c26-s5GoWcp3EhnjqwlvD+dzz1V1VYg\""
+      },
+      "decodedRawSourceSha256": "8fdc182f46945a1cb889078cd05f02274cbcf8c23052f8a63bc94cda6513d26b",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/world/metro-platform-lamps.ts",
+      "rootSha256": "b143b220123dea7ecb60b96e014bf6c098457b27139dded0880b366b27a29d2b",
+      "runtimeSha256": "b143b220123dea7ecb60b96e014bf6c098457b27139dded0880b366b27a29d2b",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/world/metro-platform-lamps.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 14296,
+        "sha256": "f9269d1df6527e9e1d2ac6f81b9bec49cc72cc8f40203f5dd45e5a5f7ecd3380",
+        "cacheControl": "no-cache",
+        "etag": "W/\"1765-kUT4WwclnVYjCohQJogXDJ70SLg\""
+      },
+      "decodedRawSourceSha256": "b143b220123dea7ecb60b96e014bf6c098457b27139dded0880b366b27a29d2b",
+      "allSourceBytesEqual": true
+    },
+    {
+      "path": "src/game/game.ts",
+      "rootSha256": "34fdaae339e3986dce873a5aea41b7800f321c5692d32717def7d3460ddcfe0d",
+      "runtimeSha256": "34fdaae339e3986dce873a5aea41b7800f321c5692d32717def7d3460ddcfe0d",
+      "serverResponse": {
+        "url": "http://127.0.0.1:4206/src/game/game.ts?raw",
+        "status": 200,
+        "contentType": "text/javascript",
+        "bytes": 225729,
+        "sha256": "31da914dcdc531231a4c3a5344d73d7b3017cdbd5eedbef0783ba1c4cbdda85e",
+        "cacheControl": "no-cache",
+        "etag": "W/\"1762a-lKQuqgjzkNTtrBYvks5OL/0IU2c\""
+      },
+      "decodedRawSourceSha256": "34fdaae339e3986dce873a5aea41b7800f321c5692d32717def7d3460ddcfe0d",
+      "allSourceBytesEqual": true
+    }
+  ],
+  "normalLoaderResolution": {
+    "httpEntryWithoutQaArt": {
+      "url": "http://127.0.0.1:4206/?qaDelivery=10&qaScene=1&qaCampaign=1&q=high&qaNight=1&qaTouch=1&qaPerf=1",
+      "status": 200,
+      "contentType": "text/html",
+      "bytes": 4521,
+      "sha256": "5e9aba39e91fcc997d0b7624567c0389eeecf8297399559dea0ef9c0db95d93a",
+      "cacheControl": "no-cache",
+      "etag": "W/\"11a9-kQdY0U7gRCRiID0E/D5epIj4UbE\""
+    },
+    "noPrivateCandidateGlbUrlsInOrdinaryCatalog": true,
+    "nativeBrowserUrlNotObservedByThisAuditor": true,
+    "sourceEvidence": [
+      {
+        "path": "src/delivery/runtime.ts",
+        "lines": [
+          101,
+          445
+        ],
+        "fact": "Default factory is createDeliveryModule; active level selects configured module."
+      },
+      {
+        "path": "src/delivery/modules/base.ts",
+        "lines": [
+          100
+        ],
+        "fact": "Default actor factory is createReleasedSceneCharacter."
+      },
+      {
+        "path": "src/delivery/art/scene-character.ts",
+        "lines": [
+          9,
+          12,
+          37
+        ],
+        "fact": "Four metro styles map to reviewed identities and createReleasedGltfCharacter."
+      },
+      {
+        "path": "src/delivery/art/released-gltf.ts",
+        "lines": [
+          191,
+          195,
+          212,
+          214,
+          217,
+          220
+        ],
+        "fact": "Unique approved public asset; canonical rig and bundle consistency; downloaded GLB SHA check before template install."
+      },
+      {
+        "path": "src/delivery/qa.ts",
+        "lines": [
+          20,
+          58,
+          66
+        ],
+        "fact": "Private moduleFactory override is conditional on qaArt. Absent qaArt uses normal approved loader."
+      },
+      {
+        "path": "src/delivery/art/scene-asset-window.ts",
+        "lines": [
+          5
+        ],
+        "fact": "Metro preparation includes lawyer and three companions."
+      }
+    ],
+    "level10": {
+      "id": "vakeel-next-station",
+      "module": "metroRide",
+      "moduleParams": {
+        "characterId": "vakeel-saab",
+        "immersiveHandoff": true,
+        "nearestMetro": true
+      },
+      "completionPortrait": "/delivery/characters/vakeel-saab/portrait-v1.png"
+    }
+  },
+  "serverBuildIdentity": {
+    "module": {
+      "url": "http://127.0.0.1:4206/@vite/env",
+      "status": 200,
+      "contentType": "text/javascript",
+      "bytes": 4285,
+      "sha256": "fddcf9d032744645e1f5354d5b562efb85ea8d61f17cbca1dadb1b45e7b7ee26",
+      "cacheControl": "no-cache",
+      "etag": "W/\"2d2-0LqEY56ecvU2eTEydfpqwFuGIyY\""
+    },
+    "expectedFingerprintLiteralPresent": true,
+    "method": "Vite development global defines endpoint inspected as text; no browser evaluation."
+  },
+  "boundaries": {
+    "uiUsed": false,
+    "sourceOrAppEdits": false,
+    "commitPushDeploy": false,
+    "browserEval": false,
+    "runtimePerAssetShaClaim": false,
+    "nativeSceneAcceptanceClaim": false,
+    "physicalPhoneFpsThermalBatteryClaim": false,
+    "note": "Independent HTTP GETs prove server bytes, not what the browser actually loaded. Native actual-ride/F/Next acceptance belongs to parent reviewer. Concurrent source hashing/HTTP reads are not a release CPU/FPS benchmark."
+  },
+  "issues": [],
+  "verdict": "SOURCE_AND_SERVER_BYTE_PROVENANCE_PASS",
+  "runtimeSerializerAudit": {
+    "path": "/tmp/roadster-final-normal-loader-provenance-4206-lamp18-f0960332/runtime-serializer-audit.json",
+    "sha256": "1cac30444a0e31632a9172ee21f6b5e68bd47b9aa70dd5c09ed42c5a35447954",
+    "method": "Exact local source serializer extracted and transpiled in Node. No browser evaluation."
+  },
+  "boundedLightingSourceProfile": {
+    "metroPooledLamp": {
+      "source": "src/game/scene-lamp-pool.ts",
+      "sourceLine": 14,
+      "profile": {
+        "intensity": 18.0,
+        "distance": 18.0,
+        "decay": 2.0
+      },
+      "expectedExactProfile": true
+    },
+    "stationaryMetroHeadlightGain": {
+      "source": "src/delivery/modules/metro-ride.ts",
+      "sourceLine": 33,
+      "sourceExpression": "return this.parkedNearGroup()||this.watchingExit() ? .02 : undefined;",
+      "gain02OnlyForParkedOrExit": true
+    },
+    "poolOwnership": "Source uses existing PointLight slot via applySceneLamp and restores street profile; no measured runtime illumination or performance claim."
+  },
+  "comparisonWithPreservedPriorAudit": {
+    "priorReport": "/tmp/roadster-final-normal-loader-provenance-4206/normal-loader-provenance-4206.json",
+    "priorReportSha256": "d83b1bca3afd560b6e757d20b3e388fd2f55b7144850d4db7c72250022c6d017",
+    "priorReportRemainsByteIdentical": true,
+    "priorBuildFingerprint": "53cb3b4494afdc59a7ad9613f3a327b6e8957846280e22273394d50d283fc2c6",
+    "newBuildFingerprint": "f09603328f4d8db80c27acdb95a934007588651ae9f3ddf9114e1c27e12ff66a",
+    "all15AssetCatalogAndReviewManifestBytesUnchanged": true,
+    "fourMetroRoles": [
+      {
+        "characterId": "vakeel-saab",
+        "candidateUnchanged": true,
+        "publicFilesUnchanged": true,
+        "approvedRecordUnchanged": true
+      },
+      {
+        "characterId": "vakeel-woman-1",
+        "candidateUnchanged": true,
+        "publicFilesUnchanged": true,
+        "approvedRecordUnchanged": true
+      },
+      {
+        "characterId": "vakeel-woman-2",
+        "candidateUnchanged": true,
+        "publicFilesUnchanged": true,
+        "approvedRecordUnchanged": true
+      },
+      {
+        "characterId": "vakeel-woman-3",
+        "candidateUnchanged": true,
+        "publicFilesUnchanged": true,
+        "approvedRecordUnchanged": true
+      }
+    ]
+  }
+}

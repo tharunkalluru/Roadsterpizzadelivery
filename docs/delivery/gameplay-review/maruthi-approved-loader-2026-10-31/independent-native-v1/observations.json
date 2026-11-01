@@ -1,0 +1,116 @@
+{
+  "reviewer": "container-underwater-independent-review",
+  "checkedAt": "2026-10-31T18:25:03.062512+00:00",
+  "scenario": 11,
+  "characterId": "maruthi",
+  "status": "normal-approved-loader-assisted-scene-pass",
+  "url": "http://127.0.0.1:4201/?qaDelivery=11&qaScene=1&qaCampaign=1&q=low&qaTouch=1&qaNight=1",
+  "qaArtParameterPresent": false,
+  "observations": "Fixed night lit villa actor; F300 actual transfer/result; Next retains Idle, S380+space300. No real private-address claim.",
+  "nativeInput": {
+    "pointerTypes": [],
+    "trustedTouchObserved": false,
+    "physicalHardwareVerified": false,
+    "note": "Pointer type and layout do not establish physical hardware or mobile performance."
+  },
+  "metadata": {
+    "mode": "isolated-scene",
+    "layout": "touch-layout",
+    "environment": "Browser development session; hardware unverified",
+    "timebase": "active-gameplay",
+    "initialCompletedIds": [
+      "sandalwood-special",
+      "train-top-table",
+      "devara-depths",
+      "paradise-rope-bucket",
+      "arundhati-haunted-gate",
+      "jessie-walking-delivery",
+      "hasini-college-gate",
+      "bhanumathi-wedding-street",
+      "sukumar-angle-parking",
+      "vakeel-next-station"
+    ]
+  },
+  "row": {
+    "level": 11,
+    "id": "maruthi-villa-79",
+    "configuredScenario": true,
+    "completed": true,
+    "naturalJumpPickup": false,
+    "manualHandoff": true,
+    "assistance": [
+      "qa-scene-staging",
+      "player-relocated",
+      "pickup-not-observed"
+    ],
+    "missingPhysicalFacts": [],
+    "missingFacts": [],
+    "missingArt": [],
+    "missingVisualChecks": [
+      "Villa number and frontage read clearly; scenery does not pretend to verify a private address.",
+      "The director is recognizable."
+    ],
+    "observedSceneMechanics": true,
+    "allScenarioEvidence": false
+  },
+  "export": {
+    "path": "docs/delivery/gameplay-review/maruthi-approved-loader-2026-10-31/independent-native-v1/campaign-qa-mvwq2454.json",
+    "sha256": "eeaf51796e42e2b93aad11140e3e35ad8ff3dcdd0e10ceb2ea98732e9b15ac30"
+  },
+  "approvedAssetProvenance": {
+    "candidate": {
+      "assetId": "maruthi-kondapur-director-v1",
+      "sha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5"
+    },
+    "files": [
+      {
+        "path": "public/delivery/characters/maruthi/director-v1.glb",
+        "sha256": "26abecf55c2a27654d7d4ab6769128a9409d663bfaed3aa9b64017cd4748660f"
+      },
+      {
+        "path": "public/delivery/characters/maruthi/director-v1.rig.json",
+        "sha256": "ed3444f909dce0d7ac50e4b79f47074f496aa71744936fce38ac6a0e9b46d1e8"
+      },
+      {
+        "path": "public/delivery/characters/maruthi/portrait-v1.png",
+        "sha256": "759a4f3675f8686470c80adbd1a8d64ba8a341be82017d5686c104799aa18af8"
+      }
+    ],
+    "glbUrl": "/delivery/characters/maruthi/director-v1.glb",
+    "contractPath": "public/delivery/characters/maruthi/director-v1.rig.json",
+    "source": "Current unchanged released asset/review registry plus verified public artifact bytes during source-frozen QA. Ordinary export has no per-runtime approved asset fingerprint field; this is source/served-file provenance, not an invented export observation."
+  },
+  "sourceRegistry": {
+    "path": "src/delivery/art/character-assets.json",
+    "sha256": "9eb2e2dcfe3f15b1f50d225cb68c10eabc6ea66f0cbd1cec75287114daa77c67"
+  },
+  "images": [
+    {
+      "path": "docs/delivery/gameplay-review/maruthi-approved-loader-2026-10-31/independent-native-v1/01-ready.png",
+      "sha256": "0efd0660ddedce8f9ffbacfc709d7423ce2692f4933ea9e6295626732d9a7cb5"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/maruthi-approved-loader-2026-10-31/independent-native-v1/02-transfer-0.png",
+      "sha256": "b5e9f5558362b3d7e0427fc3567bdbb7ecccfc935c1cdc73b4f2447fef9af82e"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/maruthi-approved-loader-2026-10-31/independent-native-v1/02-transfer-1.png",
+      "sha256": "970bdeb02ea5dda0a8059511c4e7b94013642571fdbf7c6cce3a99d8d92de05c"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/maruthi-approved-loader-2026-10-31/independent-native-v1/02-transfer-2.png",
+      "sha256": "24d50dc9a8f5101f80365fc427f4f5614a55346e4ab8c8818a1b5923fc7c45b3"
+    },
+    {
+      "path": "docs/delivery/gameplay-review/maruthi-approved-loader-2026-10-31/independent-native-v1/03-retained.png",
+      "sha256": "e7573354c2e2f8f33c0caf730d5ffce65085be41a49c87fcb7a5fb1c310f017b"
+    }
+  ],
+  "limitations": [
+    "Prepare/Stage or explicit rear-coach landing assistance recorded; no natural pickup claim.",
+    "Desktop Safari native trusted mouse/keyboard; no true touch or physical-phone FPS/thermal/battery evidence.",
+    "No measured performance/soak claim. Nani seeded13 prior levels is not a full campaign.",
+    "Left4204 paused natural-run tab preserved throughout. Source/runtime/public/catalog not edited by reviewer.",
+    "All physical/art/fact fields pass. Historical visual-checkbox fields remain unrecorded in export; actual screenshots and notes are separate visual evidence, not falsely checked boxes."
+  ]
+}

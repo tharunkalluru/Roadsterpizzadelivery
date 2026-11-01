@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 2,
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+    "viewport": [
+      1264,
+      497
+    ],
+    "context": "WebGL2",
+    "sceneOutput": "composer-linear",
+    "physicalDeviceVerified": false,
+    "preserveDrawingBufferDiagnosticOnly": true,
+    "preserveDrawingBufferActual": true,
+    "framebufferReadbackEnabled": false,
+    "emptyPrimingFrames": 2
+  },
+  "candidate": {
+    "id": "pushpa-reader-in-container-v4",
+    "characterId": "pushpa-raj",
+    "descriptor": "/docs/delivery/character-review/candidates/pushpa-reader-in-container-v4.json",
+    "glbSha256": "4b439a313e9d4d1d222b525dac3550731e7c0377d144dd246b2e5fab2dbf141a",
+    "rigSha256": "6f192f53cfbb1ce3739721ca00909cb41f54d2d8c3eb1767d9f119e9f6bb0baf"
+  },
+  "scope": "Isolated actual candidate and native WebGL calls; no city streaming, physical-phone benchmark or visual approval.",
+  "phases": [
+    {
+      "bufferData": 96,
+      "bufferBytes": 4116944,
+      "bufferSubData": 0,
+      "textureImages": 1,
+      "textureStorage": 3,
+      "shaderCompiles": 10,
+      "programLinks": 5,
+      "nativeDrawCalls": 52,
+      "phase": "Initial exact-template preparation",
+      "elapsedMs": 632,
+      "geometries": 27,
+      "textures": 6,
+      "programs": 6,
+      "drawCalls": 1
+    },
+    {
+      "bufferData": 0,
+      "bufferBytes": 0,
+      "bufferSubData": 0,
+      "textureImages": 0,
+      "textureStorage": 3,
+      "shaderCompiles": 0,
+      "programLinks": 0,
+      "nativeDrawCalls": 26,
+      "phase": "Constructed-cabin preparation using an existing light slot",
+      "elapsedMs": 31,
+      "geometries": 27,
+      "textures": 9,
+      "programs": 6,
+      "drawCalls": 1
+    },
+    {
+      "bufferData": 0,
+      "bufferBytes": 0,
+      "bufferSubData": 0,
+      "textureImages": 0,
+      "textureStorage": 0,
+      "shaderCompiles": 0,
+      "programLinks": 0,
+      "nativeDrawCalls": 27,
+      "phase": "First visible authored clone frame",
+      "elapsedMs": 1,
+      "geometries": 27,
+      "textures": 9,
+      "programs": 6,
+      "drawCalls": 1
+    },
+    {
+      "bufferData": 0,
+      "bufferBytes": 0,
+      "bufferSubData": 0,
+      "textureImages": 0,
+      "textureStorage": 0,
+      "shaderCompiles": 0,
+      "programLinks": 0,
+      "nativeDrawCalls": 27,
+      "phase": "Second visible authored clone frame",
+      "elapsedMs": 1,
+      "geometries": 27,
+      "textures": 9,
+      "programs": 6,
+      "drawCalls": 1
+    },
+    {
+      "bufferData": 0,
+      "bufferBytes": 0,
+      "bufferSubData": 0,
+      "textureImages": 0,
+      "textureStorage": 3,
+      "shaderCompiles": 0,
+      "programLinks": 0,
+      "nativeDrawCalls": 26,
+      "phase": "Second independent clone preparation",
+      "elapsedMs": 32,
+      "geometries": 27,
+      "textures": 12,
+      "programs": 6,
+      "drawCalls": 1
+    },
+    {
+      "bufferData": 0,
+      "bufferBytes": 0,
+      "bufferSubData": 0,
+      "textureImages": 0,
+      "textureStorage": 0,
+      "shaderCompiles": 0,
+      "programLinks": 0,
+      "nativeDrawCalls": 53,
+      "phase": "First frame with a second independently skinned clone",
+      "elapsedMs": 1,
+      "geometries": 27,
+      "textures": 12,
+      "programs": 6,
+      "drawCalls": 1
+    }
+  ],
+  "framebufferParity": {
+    "enabled": false,
+    "passed": null,
+    "records": []
+  },
+  "checks": {
+    "templateActuallyUploaded": true,
+    "pooledLightCountUnchanged": true,
+    "constructedCabinReusesSharedBuffers": true,
+    "constructedCabinNeedsNoNewShaders": true,
+    "firstVisibleCloneReusesSharedBuffers": true,
+    "secondFrameReusesSharedBuffers": true,
+    "secondCloneReusesSharedBuffers": true,
+    "actualAuthoredDraws": true,
+    "firstVisibleCloneNeedsNoTextures": true,
+    "firstVisibleCloneNeedsNoNewShaders": true,
+    "preparedSecondCloneNeedsNoNewTextures": true
+  },
+  "limitations": [
+    "Per-instance bone textures and authored-program vertex-array bindings remain instance work.",
+    "bufferBytes counts requested bufferData array sizes, not resident GPU memory; WebGL2 offset overloads can request a subset.",
+    "Shader and texture counts include native renderer housekeeping; they are not FPS measurements.",
+    "Framebuffer readback synchronizes GPU work outside phase timings. Use a separate ?parity=0 run for timing-only comparison; that run does not verify parity.",
+    "preserveDrawingBuffer:true and two empty priming frames belong only to this diagnostic, not production gameplay.",
+    "A passing shared-buffer/framebuffer check does not prove whole-world shader readiness, production frame timing or device thermal behaviour."
+  ]
+}

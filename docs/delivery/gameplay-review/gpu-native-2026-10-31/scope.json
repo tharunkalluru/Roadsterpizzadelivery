@@ -1,0 +1,22 @@
+{
+  "scope": "Two isolated native Safari runs, same exact candidate, both on this Mac. Not phone FPS, thermal or whole-city benchmarks. Times are synchronous main-thread call durations, not measured GPU completion. Cache/driver scheduling differs between runs; do not attribute the full timing ratio to a single change.",
+  "before": "before-instance-bone-preparation.json",
+  "after": "after-instance-bone-preparation.json",
+  "verifiedChanges": [
+    "Exact geometry shared; no bufferData on first visible instance draw",
+    "Existing light pool preserves count, no added cabin shader compilations",
+    "Actual instance bone texture allocations moved to preparation; after first visible draw has zero textureStorage calls",
+    "First draw observed 180ms before, 5ms after; limited diagnostic observation only"
+  ],
+  "candidateApproval": false,
+  "screenshot": "native-result-window.png",
+  "remainingColdDrawObservation": {
+    "source": "high-quality-before-authored-draw.json",
+    "firstVisibleMs": 55,
+    "secondVisibleMs": 1,
+    "shaderCompilesOnFirstVisible": 0,
+    "bufferDataOnFirstVisible": 0,
+    "textureStorageOnFirstVisible": 0,
+    "interpretation": "A cold first authored draw can still cost time after allocation/program preparation. Driver/pipeline cause is a hypothesis, not a measured diagnosis. Additional authored draw preparation is under native parity/timing validation."
+  }
+}

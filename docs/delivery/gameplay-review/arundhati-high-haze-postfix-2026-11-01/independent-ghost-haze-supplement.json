@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "reviewerId": "independent-final-metro-native-review-20261031",
+  "reviewedAt": "2026-11-01T00:24:39.898016+00:00",
+  "status": "pass-targeted-ghost-arrival-haze-review",
+  "scope": "Independent filesystem-only visual review of four root-captured native High/night Level5 screenshots after the GateDelivery guidance-ring correction. This supplements the qualified prior arrival haze finding; immutable character approvals remain unchanged.",
+  "reviewMethod": {
+    "personallyViewedNewScreenshots": [
+      "01-stopped-gate-no-green-haze.png",
+      "02-manual-delivery.png",
+      "03-delivery-complete.png",
+      "04-retained-gate-after-next.png"
+    ],
+    "personallyViewedPriorScreenshots": [
+      "arundhati-high-night-arrival.png",
+      "arundhati-high-night-retained.png"
+    ],
+    "browserOperatedByThisReviewer": false,
+    "captureOperator": "/root",
+    "captureOperatorReportedSequence": "Normal approved public loader High/night Q5; assisted Prepare/Stage at resolved approach, normal visible DELIVER click, completion card, Next, retained scene, P pause. Menu Level6/5 completed includes four seeded completions and only one actual observed delivery.",
+    "renderMetadataBoundary": "No new recorder export available after panels hidden. High/night are capture-operator context, not newly exported render-buffer/DPR attestation. Prior f096 High export metadata remains separate; do not claim its fingerprint for this changed source."
+  },
+  "visualFindings": [
+    {
+      "check": "stopped-arrival-haze",
+      "result": "pass",
+      "observation": "Prior bright cyan/green arrival ring and broad green bloom across the lower gate/character are absent in the new stopped view. Floor, bars and dress retain separate colors and edges.",
+      "newEvidence": "01-stopped-gate-no-green-haze.png",
+      "priorEvidence": "arundhati-high-night-arrival.png"
+    },
+    {
+      "check": "face-and-costume-readability",
+      "result": "pass-within-intended-dark-gate",
+      "observation": "Dark hair, face direction and facial light/shadow remain distinguishable at the normal gameplay distance; gold/orange dress and decorative skirt are readable. Intended vertical bars and horizontal chest-height bar remain; the face is above the horizontal bar. This is a scene-readability check, not a new likeness or high-detail portrait approval.",
+      "newEvidence": "01-stopped-gate-no-green-haze.png"
+    },
+    {
+      "check": "handover-state",
+      "result": "pass-visible-state",
+      "observation": "The second image visibly reads Passing the pizza while retaining the clear, haze-free gate/actor view. The still alone does not establish the complete carton path or physical timing; the normal visible DELIVER click is the capture operator\u2019s report.",
+      "newEvidence": "02-manual-delivery.png"
+    },
+    {
+      "check": "completion-card",
+      "result": "pass",
+      "observation": "Delivery complete card shows Arundhati, the approved portrait, Level5/14 and Next Delivery with readable opaque layout and no overlapping gameplay layer.",
+      "newEvidence": "03-delivery-complete.png"
+    },
+    {
+      "check": "retained-after-next",
+      "result": "pass",
+      "observation": "Retained Arundhati remains visible behind the intended gate without the green ring/veil, with Leave the delivery area to continue shown. The retained view is visually consistent with the earlier clear retained scene; no pixel identity claim is made.",
+      "newEvidence": "04-retained-gate-after-next.png",
+      "priorEvidence": "arundhati-high-night-retained.png"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/01-stopped-gate-no-green-haze.png",
+      "sha256": "ba8f8daae786e441bdf1ef7ffacef05113813fc675e7496a885d1dfb9b1d6d14",
+      "bytes": 129134
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/02-manual-delivery.png",
+      "sha256": "a8e497cf43f99853e112190782f5a1b0a566261ada8ab500888e5f92afe82760",
+      "bytes": 128465
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/03-delivery-complete.png",
+      "sha256": "bd3e47d8d6453da3f9990217f2d80b33a3c14b1b140f5aa0c5ff93ade2796a2b",
+      "bytes": 70420
+    },
+    {
+      "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/04-retained-gate-after-next.png",
+      "sha256": "858be8c1ab36aafa22cfdf7e59a10ba47a4c301cde768ba715f917b01b70b581",
+      "bytes": 125404
+    }
+  ],
+  "comparisonEvidence": [
+    {
+      "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/other-high-night/arundhati-high-night-arrival.png",
+      "sha256": "28a35dc7854ebb942e75baad43b10fd857a3ba5f55a26fc256abe3b3d9e9b87b",
+      "bytes": 135141
+    },
+    {
+      "path": "docs/delivery/gameplay-review/normal-approved-metro-high-2026-10-31/other-high-night/arundhati-high-night-retained.png",
+      "sha256": "8e4c64e617f83e8fb45ad421b17b458c0d62a0d3a5674cf3cf03331f690ba6c8",
+      "bytes": 125424
+    }
+  ],
+  "sourceEvidence": {
+    "path": "src/delivery/modules/street-scenes.ts",
+    "rootSha256": "3d6177dc33c8167485ea4d85ba3f44bfe440c96e88cdf8f8948fb416a7009860",
+    "runtimeSha256": "3d6177dc33c8167485ea4d85ba3f44bfe440c96e88cdf8f8948fb416a7009860",
+    "rootAndRuntimeEqual": true,
+    "observedGetter": {
+      "line": 289,
+      "text": "get hideWorldGuidance(){return this.theme==='haunted'&&!!this.cameraFocus;}"
+    },
+    "observedActiveUpdate": {
+      "line": 497,
+      "text": "if(this.theme==='haunted')this.ring.visible=!this.hideWorldGuidance;"
+    },
+    "readOnlyInterpretation": "Guidance is hidden only for haunted theme while the existing cameraFocus is available. Existing focus gates require visible released actor, ready characters, grounded player, speed at most0.75 and distance at most9m. Flight or movement beyond that speed disables focus, so active update restores ring visibility. No lighting or camera numeric value was changed by these two lines.",
+    "independentChangeScope": "Read-only child audit removed the exact two additions only in memory and reproduced previously recorded f096 street source SHA d338e1d7d8f03af063ac765c08bd2870343e2df88965eee0461204cc04bc62e4. Substituting those reconstructed bytes into the build helper reproduces f096 across584 selected inputs in both roots. This independently supports no other helper-selected src/worker/public/config byte changes, including model and review/catalog bytes; it does not assert unchanged tests/docs/evidence/all repository files."
+  },
+  "validationBoundary": {
+    "parentReported": "27 street tests passed including ring restore on driving; full v4 741 tests plus38 type checks and build reported passed, parent to confirm final process exit.",
+    "independentTestsRunHere": false,
+    "newRecorderExport": false,
+    "fullCampaignClaim": false,
+    "naturalPickupClaim": false,
+    "physicalTouchClaim": false,
+    "runtimePerAssetShaClaim": false,
+    "performanceOrSoakClaim": false,
+    "newAssetApprovalOrRegistration": false
+  },
+  "unchangedAssetBoundary": "The independently reconstructed584-input f096 build fingerprint supports unchanged other helper-selected app/config/public asset inputs, including fifteen model bundles and review/catalog manifests. The two inserted GateDelivery lines change ring visibility only; this review neither modifies nor regrants immutable formal asset approvals.",
+  "filesWrittenByReviewer": [
+    "independent-ghost-haze-supplement.json",
+    "preserved-f096-planning-source-manifest.json"
+  ],
+  "uiOwnership": "No native/browser UI actions performed during this filesystem-only task; root retains Safari.",
+  "changeScopeAudit": {
+    "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/source-audit.json",
+    "sha256": "50048f9d4801c15addaa3ec867d0127c68e2e2f78b5bb66bab08d9a6dfd72244",
+    "bytes": 7379
+  },
+  "preservedIndependentPrepatchSourceManifest": {
+    "path": "docs/delivery/gameplay-review/arundhati-high-haze-postfix-2026-11-01/preserved-f096-planning-source-manifest.json",
+    "sha256": "834e0a3dcac81a9bdc3c6fce466e4b97b83bb00b908ca7e008527c51d2e73ae4",
+    "bytes": 6843
+  },
+  "newFilesystemBuildFingerprint": "734431db5999dc3291b5ae6d262ce401daf5b0c738b46ef92ce1e6bebceadc62",
+  "resolvedQualification": "The prior qualified Arundhati arrival-ring haze finding is resolved for the new stationary haunted-gate source shown in these four captures. Prior f096 records remain unchanged and retain their historical finding; this does not retroactively claim new full High/Low campaign validation.",
+  "filesWrittenByDelegatedReadOnlyAuditor": [
+    "source-audit.json"
+  ]
+}
