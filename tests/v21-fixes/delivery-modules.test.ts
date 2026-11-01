@@ -1,3 +1,5 @@
+import { installLegacyCandidateActors } from './fixtures/legacy-candidate-actors';
+installLegacyCandidateActors();
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';

@@ -13,6 +13,25 @@ export class MatchAndLand extends ModuleBase {
   get supports(){return this.interior?.supports??super.supports;}
   get trafficBodies(){return this.interior?.trafficBodies??this.supports.filter(body=>body.id==='delivery-log-truck');}
   get arrival(){return this.interior?.arrival;}
+  get exitPending(){return this.interior?.exitPending??false;}
+  get sceneryPending(){return this.interior?.sceneryPending??(this.ready&&this.ended&&this.vehicleKind==='train'&&this.vehicle.visible&&distanceXZ(this.ctx.player(),this.target)<850);}
+  get hideWorldGuidance(){return this.interior?.hideWorldGuidance??false;}
+  get cameraFocus(){
+    if(this.interior)return this.interior.cameraFocus;
+    if(!this.roofCustomerNear(7)||Math.abs(this.ctx.player().speed)>.75||this.matched<numberParam(this.params,'holdSeconds',.45,0,2))return undefined;
+    const actor=this.receiver!.group;actor.updateWorldMatrix(true,false);
+    actor.localToWorld(this.roofFocusPosition.set(.9,1.7,2.6));actor.localToWorld(this.roofFocusTarget.set(0,1.1,0));return this.roofFocus;
+  }
+  get charactersReady(){return this.interior?.charactersReady??super.charactersReady;}
+  get headlightGain(){return this.interior ? this.interior.headlightGain : this.roofCustomerNear(14) ? .02 : undefined;}
+  get sceneLamp(){
+    if(this.interior)return this.interior.sceneLamp;
+    if(!this.ready||this.params.scene!=='trainRoof'||!this.vehicle.visible||!this.receiver?.group.visible||!this.liveBody||distanceXZ(this.ctx.player(),this.target)>30)return undefined;
+    const p=this.ctx.player();this.vehicle.updateWorldMatrix(true,false);this.roofLampPlayer.set(p.x,p.y,p.z);this.vehicle.worldToLocal(this.roofLampPlayer);
+    // Choose one of the actual coach-mounted worklights on the visitor's side.
+    // The fixtures move with the real coach; the light never floats with a face.
+    this.vehicle.localToWorld(this.roofLampWorld.set(this.roofLampPlayer.x>=0?1.62:-1.62,.9,this.roofLampPlayer.z>=0?1.47:-1.47));return this.roofLampRequest;
+  }
   setup(ctx:DeliveryModuleContext,params:ModuleParams={}){
     if(params.scene==='truckInterior'){
       this.teardown();this.interior=new TruckInterior();this.interior.setup(ctx,params);this.syncInterior();return;
@@ -38,13 +57,38 @@ export class MatchAndLand extends ModuleBase {
   private priorPlayer = { x: 0, z: 0 };
   private priorDt = 0;
   private liveBody: MovingRailBody | null = null;
+  private trainLookTarget = new THREE.Vector3();
+  private onRamCoach=false;
+  private catchReturn=0;
+  private roofFocusPosition=new THREE.Vector3();
+  private roofFocusTarget=new THREE.Vector3();
+  private roofFocus={position:this.roofFocusPosition,target:this.roofFocusTarget,context:'stationary-handoff' as const};
+  private roofLampPlayer=new THREE.Vector3();
+  private roofLampWorld=new THREE.Vector3();
+  private roofLampRequest={position:this.roofLampWorld,kind:'reading' as const};
+  private roofCustomerNear(radius:number){return this.ready&&this.charactersReady&&this.params.scene==='trainRoof'&&this.onRamCoach&&this.landedOnCoach(this.liveBody)&&this.vehicle.visible&&!!this.receiver?.group.visible&&this.within(radius,2);}
+  private landedOnCoach(body:MovingRailBody|null){
+    const p=this.ctx.player();return !!body&&!p.flying&&!p.descending&&!p.jumping&&
+      Math.abs((p.x-body.x)*body.hz-(p.z-body.z)*body.hx)<body.halfWidth+.35&&
+      Math.abs((p.x-body.x)*body.hx+(p.z-body.z)*body.hz)<body.halfLength+.4&&
+      Math.abs(p.y-body.roof-.55-(body.grade??0)*((p.x-body.x)*body.hx+(p.z-body.z)*body.hz))<.8;
+  }
+  private retainTrainCustomer(dt:number){
+    const body=this.ctx.existingTrain?.(this.sourceTrainId);this.onRamCoach=false;
+    if(!body||body.id!==this.sourceTrainId){this.vehicle.visible=false;return;}
+    this.liveBody=body;Object.assign(this.target,{x:body.x,y:body.roof,z:body.z});
+    this.vehicle.position.set(body.x-this.ctx.destination.x,body.roof-this.ctx.destination.y,body.z-this.ctx.destination.z);this.vehicle.rotation.y=Math.atan2(body.hx,body.hz);
+    this.onRamCoach=this.landedOnCoach(body);this.receiver?.animate?.(dt,'idle',1);
+    if(this.catchReturn>0){this.catchReturn=Math.max(0,this.catchReturn-dt);this.receiver?.catchPose(this.catchReturn/.45);}
+    this.status.canDrop=false;
+  }
   private passage: (VerifiedTrainPassage & { hx: number; hz: number }) | null = null;
   private passageUnder = false;
   private passageCleared = false;
   private passageRequired = false;
 
   protected build() {
-    this.receiver=null;
+    this.receiver=null;this.onRamCoach=false;this.catchReturn=0;
     this.vehicleKind = String(this.params.vehicle || this.params.scene || 'truck');
     this.speed = numberParam(this.params, 'speed', this.vehicleKind === 'stationary' ? 0 : 10, 0, 25);
     this.matched = 0; this.routeDistance = 0; this.routeSpeed = 0; this.routeLoop = false; this.routeLength = 0; this.lengths = [];
@@ -70,6 +114,7 @@ export class MatchAndLand extends ModuleBase {
       // Its existing mesh, route, collision and lifetime remain owned by RailTrains.
       this.receiver=this.character('trainHero',0,0,0,false,this.vehicle);this.passenger=this.receiver.group;
       this.vehicle.name = 'delivery-train-customer';
+      if(this.params.scene==='trainRoof')this.buildRoofWorklights();
     } else {
       this.vehicleKind = 'truck';
       this.box(0, 1.4, 0, 3.8, .65, 10.5, '#95442A', this.vehicle);
@@ -87,6 +132,21 @@ export class MatchAndLand extends ModuleBase {
     }
     this.status = { instruction: 'Approach the delivery marker', canDrop: false, actionLabel: 'DROP' };
     this.movement = { mode: 'approach', center: this.target, radius: 100, altitude: this.target.y + 4 };
+  }
+
+  private buildRoofWorklights(){
+    const parts:THREE.BufferGeometry[]=[];
+    const box=(x:number,y:number,z:number,w:number,h:number,d:number,color:string)=>{
+      const geometry=new THREE.BoxGeometry(w,h,d).translate(x,y,z),c=new THREE.Color(color),colors=new Float32Array(geometry.attributes.position.count*3);
+      for(let i=0;i<colors.length;i+=3){colors[i]=c.r;colors[i+1]=c.g;colors[i+2]=c.b;}geometry.setAttribute('color',new THREE.BufferAttribute(colors,3));parts.push(geometry);
+    };
+    for(const x of [-1.62,1.62])for(const z of [-1.6,1.6]){
+      box(x,.045,z,.16,.09,.16,'#465256');box(x,.44,z,.035,.8,.035,'#59666A');
+      box(x,.9,z,.22,.18,.2,'#3C484B');box(x,.9,z-Math.sign(z)*.11,.16,.1,.02,'#FFE0B0');
+    }
+    const geometry=this.own(mergeGeometries(parts,false)!);parts.forEach(part=>part.dispose());
+    const material=new THREE.MeshBasicMaterial({vertexColors:true,toneMapped:false});this.materials.set('roof-worklights',material);
+    const mesh=new THREE.Mesh(geometry,material);mesh.name='delivery-coach-worklights';this.vehicle.add(mesh);
   }
 
   /** Open-window cab and seated reader, batched by local scene rather than dozens of draws. */
@@ -152,7 +212,9 @@ export class MatchAndLand extends ModuleBase {
 
   update(dt: number) {
     if(this.interior){this.interior.update(dt);this.syncInterior();return;}
+    if(this.ready&&this.ended&&this.vehicleKind==='train'){this.retainTrainCustomer(Math.max(0,Math.min(.1,Number.isFinite(dt)?dt:0)));return;}
     if (!this.tick(dt)) return;
+    this.onRamCoach=false;
     const elapsed = Math.max(0, Math.min(dt, .1));
     let targetSpeed = this.speed;
     if (this.vehicleKind === 'train') {
@@ -232,9 +294,25 @@ export class MatchAndLand extends ModuleBase {
     const relativeSpeed = Math.hypot(velocityX - this.targetVelocity.x, velocityZ - this.targetVelocity.z);
     const within = this.within(numberParam(this.params, 'radius', 7, 3, 15), 5.5);
     const tolerance = numberParam(this.params, 'matchTolerance', targetSpeed ? 4 : 5, 1, 12);
-    this.matched = this.unlocked() && within && relativeSpeed <= tolerance && !p.jumping ? this.matched + elapsed : 0;
+    const landedOnRamCoach=this.params.scene!=='trainRoof'||this.landedOnCoach(body);
+    this.onRamCoach=this.params.scene==='trainRoof'&&landedOnRamCoach;
+    if(this.params.scene==='trainRoof'&&landedOnRamCoach&&this.receiver?.group.parent){
+      // The coach owns travel. Turn only the customer's scene transform toward
+      // a nearby grounded visitor; never rewrite the reviewed bones or clips.
+      const actor=this.receiver.group,parent=actor.parent;
+      parent.updateWorldMatrix(true,false);
+      this.trainLookTarget.set(p.x,p.y,p.z);parent.worldToLocal(this.trainLookTarget);
+      const dx=this.trainLookTarget.x-actor.position.x,dz=this.trainLookTarget.z-actor.position.z;
+      if(Math.hypot(dx,dz)>.5){
+        const goal=Math.atan2(dx,dz),delta=Math.atan2(Math.sin(goal-actor.rotation.y),Math.cos(goal-actor.rotation.y));
+        actor.rotation.y+=Math.max(-Math.PI*elapsed,Math.min(Math.PI*elapsed,delta));
+      }
+    }
+    this.matched = this.unlocked() && within && landedOnRamCoach && relativeSpeed <= tolerance && !p.jumping ? this.matched + elapsed : 0;
     this.status.canDrop = !this.passageRequired && this.matched >= numberParam(this.params, 'holdSeconds', .45, 0, 2);
     this.status.instruction = this.status.canDrop ? 'Matched! Drop the pizza' : !within ? 'Fly alongside the glowing landing ring' : `Match ${Math.round(targetSpeed * 3.6)} km/h and hold steady`;
+    if(!landedOnRamCoach)this.status.instruction='Land on the train, then drive along the roof to the marker';
+    else if(this.params.scene==='trainRoof'&&!this.status.canDrop)this.status.instruction=within?'Slow down on the coach and hold steady':'Drive along the roof to the marker';
     this.status.progress = this.status.canDrop ? 'Ready' : `${Math.round(Math.min(1, this.matched / .45) * 100)}% steady`;
     if(this.vehicleKind==='train'&&this.params.obstacles){
       if(this.passageRequired){this.status.instruction='Stay with the train below the mapped bridge, then clear its far edge';this.status.progress=this.passageUnder?'Under the bridge — keep following':'Real bridge passage ahead';}
@@ -243,7 +321,7 @@ export class MatchAndLand extends ModuleBase {
     }
     this.movement = { mode: 'approach', center: { ...this.target }, radius: 110, altitude: this.target.y + 3 };
     this.priorPlayer.x = p.x; this.priorPlayer.z = p.z; this.priorDt = elapsed;
-    this.advanceHandoff(dt);
+    this.receiver?.animate?.(elapsed,'idle',1);this.advanceHandoff(dt);
   }
 
   private updatePassage(train: MovingRailBody) {
@@ -288,6 +366,6 @@ export class MatchAndLand extends ModuleBase {
   onDrop() {
     if(this.interior){this.interior.onDrop();this.syncInterior();return;}
     if (!this.unlocked() || this.ended || this.handoffPending) return;
-    if (this.status.canDrop) this.beginHandoff(this.receiver,()=>this.done()); else this.fail('Missed the landing window. Match the vehicle and try again.');
+    if (this.status.canDrop) this.beginHandoff(this.receiver,()=>{if(this.vehicleKind==='train'){this.catchReturn=.45;this.ring.visible=false;}this.done();}); else this.fail('Missed the landing window. Match the vehicle and try again.');
   }
 }

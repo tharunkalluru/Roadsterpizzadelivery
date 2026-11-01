@@ -4,10 +4,10 @@ import { readFileSync } from 'node:fs';
 import { createDeliveryQA } from '../../src/delivery/qa';
 import { ProgressSystem, MYSTERY_SAVE_KEY } from '../../src/delivery/systems/progress-system';
 
-test('QA scenarios use the real seven levels and normal sequential progress with isolated storage', () => {
-  for (let number = 1; number <= 7; number++) {
+test('QA scenarios use the real fourteen levels and normal sequential progress with isolated storage', () => {
+  for (let number = 1; number <= 14; number++) {
     const qa = createDeliveryQA(String(number))!;
-    assert.equal(qa.runtime.levels!.length, 7);
+    assert.equal(qa.runtime.levels!.length, 14);
     const progress = new ProgressSystem(qa.runtime.levels!, qa.storage);
     assert.equal(progress.currentLevel, number); assert.equal(progress.completedIds.length, number - 1);
     assert.equal(qa.area.x, qa.runtime.levels![number - 1].destination.x);
@@ -21,7 +21,7 @@ test('QA scenarios use the real seven levels and normal sequential progress with
 });
 
 test('invalid QA levels cannot launch, and the entry point gates its dynamic import on Vite DEV', () => {
-  for (const value of [null, '', '0', '8', '-1', '1.5', '1x', 'Infinity', '01']) assert.equal(createDeliveryQA(value), null);
+  for (const value of [null, '', '0', '15', '-1', '1.5', '1x', 'Infinity', '01']) assert.equal(createDeliveryQA(value), null);
   const main = readFileSync('src/main.ts', 'utf8');
   assert.match(main, /import\.meta\.env\.DEV && q\.has\('qaDelivery'\)/);
   assert.match(main, /await import\('\.\/delivery\/qa'\)/);
@@ -36,4 +36,10 @@ test('development driving QA exposes only a finite explicit start pose and optio
   assert.deepEqual(qa.area,{name:'Road access drive',x:-12884,z:-3633});
   assert.equal(createDeliveryQA('1')!.touch,false);assert.equal(createDeliveryQA('1')!.start,null);
   for(const input of ['0,0,0','NaN,0,0,0','0,0,Infinity,0','0,0,0,0,5'])assert.equal(createDeliveryQA('1',undefined,new URLSearchParams({qaStart:input}))!.start,null);
+});
+
+test('customer-coach art staging is unavailable to normal scenarios and full campaigns',()=>{
+  assert.equal(createDeliveryQA('2',undefined,new URLSearchParams('qaTrainRide=1&qaArt=scene-candidates-v1'))!.artTrainStaging,true);
+  for(const [number,query] of [['2','qaTrainRide=1'],['2','qaArt=scene-candidates-v1'],['1','qaTrainRide=1&qaArt=scene-candidates-v1'],['1','qaCampaign=1&qaCampaignMode=full&qaTrainRide=1']])
+    assert.equal(createDeliveryQA(number,undefined,new URLSearchParams(query))!.artTrainStaging,false);
 });

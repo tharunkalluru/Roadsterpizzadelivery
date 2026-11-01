@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { EventBus, type DeliveryEvents } from '../../src/delivery/core/events';
-import { loadLevels } from '../../src/delivery/content/levels';
+// Historical scripted-call campaign exercises the retained five original mechanics.
+import { loadLegacyLevels as loadLevels } from './fixtures/legacy-levels';
 import { DeliveryController } from '../../src/delivery/systems/delivery-controller';
 import { createDeliveryModule, type DeliveryPlayer } from '../../src/delivery/modules';
 import type { MovingRailBody } from '../../src/game/moving-rail';

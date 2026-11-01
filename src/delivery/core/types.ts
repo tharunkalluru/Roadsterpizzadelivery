@@ -1,4 +1,4 @@
-export type CallMode = 'PLAYER_CALLS' | 'CUSTOMER_CALLS' | 'CUSTOMER_NAGS_EN_ROUTE';
+export type CallMode = 'NONE' | 'PLAYER_CALLS' | 'CUSTOMER_CALLS' | 'CUSTOMER_NAGS_EN_ROUTE';
 export type DeliveryState = 'ROAMING' | 'EN_ROUTE' | 'ARRIVED' | 'CALL' | 'SETPIECE' | 'REVEAL' | 'LEVEL_COMPLETE';
 export type CallButtonState = 'hidden' | 'disabled' | 'enabled' | 'ringing';
 export type CallKind = 'arrival' | 'nag' | 'bonus';
@@ -17,6 +17,7 @@ export interface LevelVariant {
 export interface LevelConfig {
   id: string;
   campaignRole?: 'opening' | 'finale';
+  campaignOrder?: 'fixed';
   level: number;
   celebrity: Celebrity;
   destination: Destination;

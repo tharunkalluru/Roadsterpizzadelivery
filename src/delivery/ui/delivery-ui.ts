@@ -169,7 +169,7 @@ export class DeliveryUI {
     else if (this.opening) { this.opening.dispose(); this.opening = null; this.completionKey = ''; }
     if (this.collectionShown) this.updateCollection(model);
     this.syncDialog();
-    const layoutKey = `${call.hidden}:${action.hidden}:${el.hint.hidden}:${!!model.nav}:${model.action?.hint || ''}`;
+    const layoutKey = `${call.hidden}:${action.hidden}:${el.hint.hidden}:${!!model.nav}:${model.noticeContext||''}:${model.action?.hint || ''}`;
     if (layoutKey !== this.layoutKey) { this.layoutKey = layoutKey; this.layoutDirty = true; }
     // Measurements are throttled and only made after layout-affecting changes.
     const now = performance.now();
@@ -181,6 +181,7 @@ export class DeliveryUI {
   private syncNoticePriority() {
     const active = !this.root.hidden && !this.blocking && !!this.model?.notice?.trim();
     this.hide(this.elements.notice, !active);
+    this.elements.notice.dataset.placement=active&&this.model?.noticeContext==='scene-exit'&&!this.model.nav?'guidance':'notice';
     if (this.noticeActive !== active) {
       this.host.classList.toggle('has-delivery-notice', active);
       this.noticeActive = active;
@@ -297,6 +298,15 @@ export class DeliveryUI {
       return { left: rect.left - host.left, top: rect.top - host.top, width: rect.width, height: rect.height };
     };
     const anchor = touch ? measured(jump) : null;
+    // After completion there is no route. Reuse its fixed top lane for the
+    // short exit instruction instead of placing a persistent box on the actor.
+    const notice=this.elements.notice;
+    if(notice){
+      const exitLane=notice.dataset.placement==='guidance'?measured(this.host.querySelector('#hud-navigation-slot')):null;
+      for(const key of ['left','top','width','height','textAlign'] as const)notice.style[key]='';
+      if(exitLane)Object.assign(notice.style,{left:`${exitLane.left}px`,top:`${exitLane.top}px`,width:`${exitLane.width}px`,height:`${Math.min(44,exitLane.height)}px`,textAlign:'center'});
+      notice.style.visibility=notice.dataset.placement==='guidance'&&!exitLane?'hidden':'';
+    }
     const obstacles: CallButtonRect[] = [];
     for (const element of this.host.querySelectorAll<HTMLElement>('#minimap,.touch button,.btnrow button,.h-tc,.wallet,#orders-toggle,#flight-navigation,#hud-navigation-slot,#hud-notice-slot,.speed,#area-chip,#rescue,#t-act,.du-notice')) {
       const rect = measured(element); if (rect) obstacles.push(rect);

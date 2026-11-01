@@ -9,7 +9,11 @@ import { fetchPack } from './world/packs';
 import type { CoreData } from './world/types';
 import { prepareRoadGrades, rebaseRoadStops } from './world/road-grades';
 import { Game } from './game/game';
-import { prewarmSceneCharacterAssets } from './delivery/modules/character';
+import { prewarmReleasedSceneCharacters as prewarmSceneCharacterAssets } from './delivery/art/scene-character';
+import { characterIdsForLevel } from './delivery/art/scene-asset-window';
+import { campaignSession } from './delivery/campaign';
+import { ProgressSystem } from './delivery/systems/progress-system';
+import { loadLevels } from './delivery/content/levels';
 import { loadSettings } from './ui/settings';
 import { showLoading, hideLoading, loadingRetry } from './ui/loading';
 
@@ -43,7 +47,11 @@ export async function boot() {
   await loadFonts();
   initTemplates({ rbox: new RoundedBoxGeometry(1, 1, 1, 3, 0.12), ring: new THREE.RingGeometry(1.0, 1.35, 40) });
   const base = new URL('city/', location.href).href;
-  const [core] = await Promise.all([loadCore(base), still ? Promise.resolve() : prewarmSceneCharacterAssets()]);
+  let storyStorage:Storage|undefined;try{storyStorage=window.localStorage;}catch{}
+  const story=campaignSession(loadLevels(),storyStorage),progress=new ProgressSystem(story.levels,story.storage);
+  const qaLevel=import.meta.env.DEV&&q.has('qaDelivery')?story.levels[Number(q.get('qaDelivery'))-1]:null;
+  const initialCharacters=characterIdsForLevel(qaLevel??progress.nextLevel);
+  const [core] = await Promise.all([loadCore(base), still ? Promise.resolve() : prewarmSceneCharacterAssets(initialCharacters)]);
   showLoading('Preparing Hyderabad streets…', 'streets');
   const originalRoads = core.roads;
   core.roads = prepareRoadGrades(originalRoads);
@@ -78,10 +86,11 @@ export async function boot() {
   // Vite removes this import and the QA module from production builds.
   const qa = import.meta.env.DEV && q.has('qaDelivery')
     ? (await import('./delivery/qa')).createDeliveryQA(q.get('qaDelivery'),core.roads,q) : null;
+  await qa?.prepareArtReview?.(engine);
   const game = new Game(engine, core, world, { lowQ, delivery: qa?.runtime,
     sessionStorage: qa?.storage, initialArea: qa?.area, touchControls: qa?.touch ? true : undefined });
   (window as any).__gameBoot = game;              // __game is set once the first area has loaded
-  game.start();
+  await game.start();
   qa?.attach(game);
   // Direct area links retain relocation's loading screen until the view is ready.
   if (!game.relocating) hideLoading();

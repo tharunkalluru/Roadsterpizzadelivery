@@ -120,6 +120,10 @@ test('actual runtime opening truck route keeps its complete body clear of packed
     const runtime:any=Object.assign(Object.create(DeliveryRuntime.prototype),{
       game:{graph:f.graph,city:f.city,traffic,engine:{scene:new THREE.Scene()}},
       controller:{activeLevel:level,canDrop:false},
+      // This geometry-only adapter does not construct a runtime or load art.
+      // Explicit readiness keeps the route test independent of which actors
+      // have passed visual review; the real loading gate has separate tests.
+      characterPreparation:{ready:()=>true},
       moduleFactory:()=>({setup(ctx:DeliveryModuleContext){route=ctx.route!;}}),
     });
     // Exercise production selection instead of copying its lane choice here.

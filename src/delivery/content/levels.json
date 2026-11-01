@@ -3,516 +3,423 @@
     "id": "sandalwood-special",
     "level": 1,
     "celebrity": {
-      "name": "Allu Arjun",
-      "movie": "Pushpa",
+      "name": "Pushpa Raj",
+      "movie": "Pushpa 2",
       "image": "/delivery/celebrities/allu-arjun.jpg"
     },
     "destination": {
-      "label": "Inner Ring Road \u00b7 Sandalwood truck",
+      "label": "Inner Ring Road · Sandalwood truck",
       "x": 6597.702079788641,
       "z": 1788.7502300308,
       "y": 0,
       "lat": 17.390231456790957,
       "lon": 78.55871217026612
     },
-    "callMode": "PLAYER_CALLS",
+    "callMode": "NONE",
     "revealAt": "afterDelivery",
-    "script": [
-      {
-        "who": "customer",
-        "text": "Moshi moshi! One pizza, extra cheese. I am practising Japanese inside this log truck."
-      },
-      {
-        "who": "player",
-        "text": "Sir, your address just overtook me.",
-        "replies": [
-          "I will catch up!",
-          "Is the truck also learning Japanese?"
-        ]
-      },
-      {
-        "who": "customer",
-        "text": "The rear door is opening. Follow the ramp inside. Mind the logs \u2014 I am studying in the corner."
-      },
-      {
-        "who": "customer",
-        "text": "Match the truck, enter slowly through the back and bring the pizza to my Japanese lesson."
-      }
-    ],
-    "bonusScript": [
-      {
-        "who": "customer",
-        "text": "I learnt another word: arigato. The driver learnt another word: brake."
-      },
-      {
-        "who": "player",
-        "text": "Next time I am measuring the address in kilometres per hour.",
-        "replies": [
-          "Only joking. Enjoy!",
-          "Please park for dessert."
-        ]
-      }
-    ],
+    "script": [],
     "module": "matchAndLand",
     "moduleParams": {
-      "vehicle": "truck",
-      "speed": 6,
-      "roofHeight": 5.5,
-      "radius": 7,
-      "matchTolerance": 5,
-      "holdSeconds": 0.6,
-      "scene": "truckInterior"
+      "scene": "truckInterior",
+      "speed": 8,
+      "immersiveHandoff": true,
+      "characterId": "pushpa-raj"
     },
-    "arrivalRadius": 42,
+    "arrivalRadius": 100,
     "restaurantStage": "Pizza cart",
-    "completionLine": "The first box becomes the first brick of your dream.",
-    "campaignRole": "opening"
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe.",
+    "campaignRole": "opening",
+    "campaignOrder": "fixed"
   },
   {
     "id": "train-top-table",
     "level": 2,
     "celebrity": {
-      "name": "Ram Charan",
+      "name": "Ram",
       "movie": "Vinaya Vidheya Rama",
-      "image": "/delivery/celebrities/ram-charan.jpg"
+      "image": "/delivery/characters/ram-vvr/portrait-v1.png"
     },
     "destination": {
-      "label": "Secunderabad rail corridor",
-      "x": 510.0,
+      "label": "Ghatkesar — Hitec City · Vande Bharat",
+      "x": 510,
       "z": -2844.3,
-      "y": 5,
-      "lat": 17.432,
-      "lon": 78.5014
+      "y": 4.2
     },
-    "callMode": "PLAYER_CALLS",
+    "callMode": "NONE",
     "revealAt": "afterDelivery",
-    "script": [
-      {
-        "who": "customer",
-        "text": "Yes, I ordered. Table for one. On the train. On top of the train."
-      },
-      {
-        "who": "player",
-        "text": "Window seat or roof seat?",
-        "replies": [
-          "Roof seat. Got it.",
-          "Your delivery instructions need a helmet."
-        ]
-      },
-      {
-        "who": "customer",
-        "text": "Duck before the bridge, then follow the carriage. I will stand very calmly. The train will do the worrying."
-      }
-    ],
+    "script": [],
     "module": "matchAndLand",
     "moduleParams": {
       "vehicle": "train",
-      "speed": 12,
-      "roofHeight": 4,
-      "radius": 8,
-      "matchTolerance": 6,
-      "holdSeconds": 0.6,
-      "obstacles": true,
-      "immersiveHandoff": true
-    },
-    "arrivalRadius": 120,
-    "restaurantStage": "Covered cart",
-    "completionLine": "Ram Charan. A rooftop table was somehow the least surprising part."
-  },
-  {
-    "id": "police-rooftop",
-    "level": 3,
-    "celebrity": {
-      "name": "Pawan Kalyan",
-      "movie": "Gabbar Singh",
-      "image": "/delivery/celebrities/pawan-kalyan.jpg"
-    },
-    "destination": {
-      "label": "Banjara Hills \u00b7 Police rooftop",
-      "x": -5217.1,
-      "z": -1051.4,
-      "y": 12,
-      "lat": 17.4158,
-      "lon": 78.4475
-    },
-    "callMode": "CUSTOMER_CALLS",
-    "revealAt": "callLine",
-    "script": [
-      {
-        "who": "customer",
-        "text": "Before the pizza arrives, antakshari. I say cheese, you say..."
-      },
-      {
-        "who": "player",
-        "text": "Please?",
-        "replies": [
-          "Please open the roof gate.",
-          "Please do not arrest the pineapple."
-        ]
-      },
-      {
-        "who": "customer",
-        "text": "Correct! Gabbar Singh approves this rhyme. Pawan Kalyan speaking.",
-        "reveal": true
-      },
-      {
-        "who": "player",
-        "text": "My next word is delivery.",
-        "replies": [
-          "Your turn, sir.",
-          "Rhyming is harder than flying."
-        ]
-      },
-      {
-        "who": "customer",
-        "text": "Then my next word is... hungry. Park above the rooftop circle and drop it. Your rhyme is officially on the station notice board."
-      }
-    ],
-    "bonusScript": [
-      {
-        "who": "customer",
-        "text": "Your pizza passed inspection. Only one complaint: the crust refused to sing."
-      },
-      {
-        "who": "player",
-        "text": "I will send the musical bread next time."
-      }
-    ],
-    "module": "matchAndLand",
-    "moduleParams": {
-      "vehicle": "stationary",
-      "speed": 0,
-      "radius": 8,
+      "scene": "trainRoof",
+      "speed": 18,
+      "radius": 6,
+      "holdSeconds": 0.35,
       "matchTolerance": 5,
-      "holdSeconds": 0.4,
-      "immersiveHandoff": true
+      "immersiveHandoff": true,
+      "shuttle": [
+        "n1974699692",
+        "n1425916857"
+      ],
+      "characterId": "ram-vvr"
     },
     "arrivalRadius": 100,
-    "restaurantStage": "Street stall",
-    "completionLine": "A rooftop delivery and an antakshari certificate. The stall is open."
+    "restaurantStage": "Cart canopy",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
   },
   {
-    "id": "between-overs",
-    "level": 4,
+    "id": "devara-depths",
+    "level": 3,
     "celebrity": {
-      "name": "Nani",
-      "movie": "Jersey",
-      "image": "/delivery/celebrities/nani.png"
+      "name": "Devara",
+      "movie": "Devara",
+      "image": "/delivery/characters/devara/portrait-v1.png"
     },
     "destination": {
-      "label": "Uppal Stadium \u00b7 Players pavilion",
-      "x": 5724.4,
-      "z": -30.5,
-      "y": 7,
-      "lat": 17.406576,
-      "lon": 78.550475
-    },
-    "callMode": "CUSTOMER_NAGS_EN_ROUTE",
-    "revealAt": "callLine",
-    "nagScript": [
-      {
-        "who": "customer",
-        "text": "Where are you? They have bowled two overs. My stomach has appealed three times."
-      },
-      {
-        "who": "player",
-        "text": "Coming over the traffic, literally.",
-        "replies": [
-          "One aerial shortcut!",
-          "Keep the umpire away from my pizza."
-        ]
-      },
-      {
-        "who": "customer",
-        "text": "Good. Call it an extra delivery. Just do not give them an extra ball."
-      }
-    ],
-    "script": [
-      {
-        "who": "customer",
-        "text": "Nani here. Jersey on, pads on, pizza still not on the table.",
-        "reveal": true
-      },
-      {
-        "who": "player",
-        "text": "When can I drop it?",
-        "replies": [
-          "Between overs?",
-          "After a six?"
-        ]
-      },
-      {
-        "who": "customer",
-        "text": "Between overs. Watch the green timing window. If you miss, wait for the next one. No one is out."
-      }
-    ],
-    "module": "beatDrop",
-    "moduleParams": {
-      "theme": "stadium",
-      "period": 4,
-      "windowStart": 0.675,
-      "windowEnd": 0.925,
-      "radius": 18,
-      "immersiveHandoff": true
-    },
-    "arrivalRadius": 130,
-    "restaurantStage": "Corner kiosk",
-    "completionLine": "Nani calls that a perfectly timed delivery.",
-    "defaultVariant": "jersey",
-    "variants": {
-      "jersey": {},
-      "eega": {
-        "celebrity": {
-          "movie": "Eega"
-        },
-        "destination": {
-          "label": "Uppal \u00b7 Garden table",
-          "x": 5724.4,
-          "z": -30.5,
-          "y": 3,
-          "lat": 17.406576,
-          "lon": 78.550475
-        },
-        "script": [
-          {
-            "who": "customer",
-            "text": "Hello down there. Nani here. Eega-sized appetite? Absolutely not.",
-            "reveal": true
-          },
-          {
-            "who": "player",
-            "text": "The receiver is smaller than the oregano packet.",
-            "replies": [
-              "I will aim carefully.",
-              "Family size still counts, right?"
-            ]
-          },
-          {
-            "who": "customer",
-            "text": "Watch the tiny green target. Wait until I settle, then drop."
-          }
-        ],
-        "module": "beatDrop",
-        "moduleParams": {
-          "theme": "eega",
-          "period": 3,
-          "windowStart": 0.67,
-          "windowEnd": 0.9,
-          "radius": 7,
-          "immersiveHandoff": true
-        }
-      }
-    }
-  },
-  {
-    "id": "imax-seat-service",
-    "level": 5,
-    "celebrity": {
-      "name": "Mahesh Babu",
-      "movie": "Pokiri",
-      "image": "/delivery/celebrities/mahesh-babu.jpg"
-    },
-    "destination": {
-      "label": "Prasads IMAX \u00b7 Projection entrance",
-      "x": -3311.1,
-      "z": -682.0,
-      "y": 22
-    },
-    "callMode": "PLAYER_CALLS",
-    "revealAt": "callLine",
-    "script": [
-      {
-        "who": "customer",
-        "text": "gun chudali anuko tappuledu, bullet chudali anukoku"
-      },
-      {
-        "who": "player",
-        "text": "Sir, I just wanted to see your seat number.",
-        "replies": [
-          "And possibly the exit.",
-          "The pizza is unarmed."
-        ]
-      },
-      {
-        "who": "customer",
-        "text": "Mahesh Babu here. The projector is dramatic, the order is simple.",
-        "reveal": true
-      },
-      {
-        "who": "customer",
-        "text": "Slip through the opening, avoid the sweeping projector beam, then bring it to the glowing seat. No interval spoilers."
-      }
-    ],
-    "bonusScript": [
-      {
-        "who": "customer",
-        "text": "The pizza arrived before the interval. That is the real blockbuster."
-      },
-      {
-        "who": "player",
-        "text": "Five stars?",
-        "replies": [
-          "For the pizza, not the review.",
-          "Only if the projector signs too."
-        ]
-      }
-    ],
-    "module": "threadGap",
-    "moduleParams": {
-      "width": 10,
-      "height": 8,
-      "entryDepth": 14,
-      "sweepPeriod": 5,
-      "hazards": true,
-      "immersiveHandoff": true
-    },
-    "arrivalRadius": 110,
-    "restaurantStage": "Pizza shop",
-    "completionLine": "Seat found. Pizza delivered. Not one spoiler.",
-    "failureLine": "Projector spotted you. Line up and try the entrance again."
-  },
-  {
-    "id": "sagar-axe-special",
-    "level": 6,
-    "celebrity": {
-      "name": "Jr NTR",
-      "movie": "Simhadri",
-      "image": "/delivery/celebrities/jr-ntr.jpg"
-    },
-    "destination": {
-      "label": "Hussain Sagar \u00b7 Water handoff",
+      "label": "Hussain Sagar · Water handoff",
       "x": -2273.8,
       "z": -1361.3,
       "y": 0,
       "lat": 17.4186,
       "lon": 78.4752
     },
-    "callMode": "PLAYER_CALLS",
+    "callMode": "NONE",
     "revealAt": "afterDelivery",
-    "script": [
-      {
-        "who": "customer",
-        "text": "The address says lake. The instructions say bring your own dramatic entrance."
-      },
-      {
-        "who": "player",
-        "text": "Does the lake have a doorbell?",
-        "replies": [
-          "I can knock with a bubble.",
-          "My car is currently a submarine."
-        ]
-      },
-      {
-        "who": "customer",
-        "text": "Wait by the water. I am coming up. Keep the pizza ready for a proper throw."
-      },
-      {
-        "who": "customer",
-        "text": "Stay close to the surface. Throw toward my hands after I emerge. Missed throws can be tried again."
-      }
-    ],
+    "script": [],
     "module": "underwater",
     "moduleParams": {
-      "depth": 0,
-      "radius": 12,
-      "throwRange": 12,
-      "scene": "surfaceEmergence"
+      "scene": "devaraUnderwater",
+      "depth": 6,
+      "characterId": "devara"
     },
-    "arrivalRadius": 28,
-    "restaurantStage": "Restaurant",
-    "completionLine": "A legendary throw. Miraculously dry crust.",
-    "failureLine": "The current caught it. Float closer and throw again."
+    "arrivalRadius": 100,
+    "restaurantStage": "Street stall",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
   },
   {
-    "id": "four-retakes",
-    "level": 7,
+    "id": "paradise-rope-bucket",
+    "level": 4,
     "celebrity": {
-      "name": "S.S. Rajamouli",
-      "movie": "Baahubali",
-      "image": "/delivery/celebrities/rajamouli.jpg"
+      "name": "Srikanth Odela",
+      "movie": "Paradise rooftop",
+      "image": "/delivery/celebrities/unknown.svg"
     },
     "destination": {
-      "label": "Ramoji Film City \u00b7 Baahubali sets",
-      "x": 19761.4,
-      "z": 10478.8,
-      "y": 6,
-      "lat": 17.311618,
-      "lon": 78.682583
+      "label": "Paradise Circle · Rooftop bucket",
+      "x": -1020.04,
+      "z": -3917.85,
+      "y": 0,
+      "lat": 17.4417,
+      "lon": 78.487
     },
-    "callMode": "CUSTOMER_CALLS",
-    "revealAt": "callLine",
-    "script": [
-      {
-        "who": "customer",
-        "text": "Lunch break? Interesting concept. Can we shoot it in four locations?"
-      },
-      {
-        "who": "player",
-        "text": "One order, four drops?",
-        "replies": [
-          "Do I get four interval cards?",
-          "The pizza has not rehearsed."
-        ]
-      },
-      {
-        "who": "customer",
-        "text": "Rajamouli here. First the palace gate, then the waterfall, battle arena and my crane.",
-        "reveal": true
-      },
-      {
-        "who": "customer",
-        "text": "Each Retake moves the mark. Keep going. The grand opening of your restaurant is the final shot."
-      }
-    ],
-    "bonusScript": [
-      {
-        "who": "customer",
-        "text": "Cut! Your restaurant is ready. Now we need a sequel."
-      },
-      {
-        "who": "player",
-        "text": "Let me finish one lunch break first.",
-        "replies": [
-          "Grand opening, take one!",
-          "No retake on the garlic bread."
-        ]
-      }
-    ],
-    "module": "chainDrop",
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "ropeBucket",
     "moduleParams": {
-      "radius": 10,
-      "targets": [
-        {
-          "label": "Palace gate",
-          "dx": 0,
-          "dy": 0,
-          "dz": 0
-        },
-        {
-          "label": "Waterfall",
-          "dx": 75,
-          "dy": 18,
-          "dz": -65
-        },
-        {
-          "label": "Battle arena",
-          "dx": -65,
-          "dy": -1,
-          "dz": -110
-        },
-        {
-          "label": "Director's crane",
-          "dx": -100,
-          "dy": 22,
-          "dz": 25
-        }
-      ],
+      "roofHeight": 15
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Counter and oven",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "arundhati-haunted-gate",
+    "level": 5,
+    "celebrity": {
+      "name": "Arundhati",
+      "movie": "Arundhati",
+      "image": "/delivery/characters/arundhati/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Old mansion · Fictional Hyderabad outskirts",
+      "x": -8610.261684147968,
+      "z": -5786.2969821742845,
+      "y": 0,
+      "lat": 17.458278952409042,
+      "lon": 78.41554116568253
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "haunted",
+      "characterId": "arundhati"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Takeaway stall",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "jessie-walking-delivery",
+    "level": 6,
+    "celebrity": {
+      "name": "Jessie",
+      "movie": "Ye Maaya Chesave",
+      "image": "/delivery/characters/jessie/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Jubilee Hills · Quiet residential lane",
+      "x": -8833.766936478234,
+      "z": -2017.753034909226,
+      "y": 0,
+      "lat": 17.424425700996313,
+      "lon": 78.41343703971258
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "walkingHandoff",
+    "moduleParams": {
+      "characterId": "jessie",
+      "walkSpeed": 0.7
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "First shop",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "hasini-college-gate",
+    "level": 7,
+    "celebrity": {
+      "name": "Hasini",
+      "movie": "Bommarillu",
+      "image": "/delivery/characters/hasini/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Nizam College · Basheerbagh entrance",
+      "x": -2241.95,
+      "z": 1007.13,
+      "y": 0,
+      "lat": 17.3972,
+      "lon": 78.4755
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "college",
+      "characterId": "hasini"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Shop seating",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "bhanumathi-wedding-street",
+    "level": 8,
+    "celebrity": {
+      "name": "Bhanumathi",
+      "movie": "Fidaa",
+      "image": "/delivery/characters/bhanumathi/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Shamirpet outskirts · Fictional wedding procession",
+      "x": 6311.47,
+      "z": -17453.26,
+      "y": 0,
+      "lat": 17.564,
+      "lon": 78.556
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "weddingHandoff",
+    "moduleParams": {
+      "characterId": "bhanumathi"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Brick oven",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "sukumar-angle-parking",
+    "level": 9,
+    "celebrity": {
+      "name": "Sukumar",
+      "movie": "Film Nagar production office",
+      "image": "/delivery/characters/sukumar/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Film Nagar · Fictional production courtyard",
+      "x": -9520.34,
+      "z": -741.51,
+      "y": 0,
+      "lat": 17.413,
+      "lon": 78.407
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "angleParking",
+    "moduleParams": {
+      "characterId": "sukumar",
+      "parkingYaw": 0.7853981633974483,
+      "angleTolerance": 8
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Restaurant kitchen",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "vakeel-next-station",
+    "level": 10,
+    "celebrity": {
+      "name": "Pawan Kalyan",
+      "movie": "Vakeel Saab",
+      "image": "/delivery/characters/vakeel-saab/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Nearest metro · Next-station handoff",
+      "x": -5482.69,
+      "z": -3176.34,
+      "y": 18,
+      "lat": 17.435,
+      "lon": 78.445
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "metroRide",
+    "moduleParams": {
+      "characterId": "vakeel-saab",
+      "immersiveHandoff": true,
+      "nearestMetro": true
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Dining room",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "maruthi-villa-79",
+    "level": 11,
+    "celebrity": {
+      "name": "Maruthi",
+      "movie": "Kondapur villa",
+      "image": "/delivery/characters/maruthi/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Kondapur · Fictional Villa 79 near Kolla Luxuria",
+      "x": -15364.29,
+      "z": -6828.57,
+      "y": 0,
+      "lat": 17.468,
+      "lon": 78.352
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "villa",
+      "villaNumber": 79,
+      "characterId": "maruthi"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Restaurant terrace",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "salaar-inner-compound",
+    "level": 12,
+    "celebrity": {
+      "name": "Prabhas",
+      "movie": "Salaar",
+      "image": "/delivery/celebrities/unknown.svg"
+    },
+    "destination": {
+      "label": "Fictional fortified compound · Hyderabad outskirts",
+      "x": -16636.87953851929,
+      "z": -6170.91953851929,
+      "y": 0,
+      "lat": 17.461734059814223,
+      "lon": 78.33997687848031
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "gateDelivery",
+    "moduleParams": {
+      "theme": "salaar"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "New facade",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "arjun-classroom",
+    "level": 13,
+    "celebrity": {
+      "name": "Arjun Reddy",
+      "movie": "Arjun Reddy",
+      "image": "/delivery/characters/arjun-reddy/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Osmania Medical College · Koti courtyard",
+      "x": -1615.06,
+      "z": 2589.77,
+      "y": 0,
+      "lat": 17.3829,
+      "lon": 78.4814
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "classroomHandoff",
+    "moduleParams": {
+      "characterId": "arjun-reddy"
+    },
+    "arrivalRadius": 100,
+    "restaurantStage": "Neon sign",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe."
+  },
+  {
+    "id": "between-overs",
+    "level": 14,
+    "celebrity": {
+      "name": "Nani",
+      "movie": "Jersey",
+      "image": "/delivery/characters/nani-jersey/portrait-v1.png"
+    },
+    "destination": {
+      "label": "Uppal Stadium · Field handoff",
+      "x": 5730.556092228551,
+      "z": 5.93329211314066,
+      "y": 7,
+      "lat": 17.40624638937244,
+      "lon": 78.55053274344411
+    },
+    "callMode": "NONE",
+    "revealAt": "afterDelivery",
+    "script": [],
+    "module": "beatDrop",
+    "moduleParams": {
+      "theme": "jersey",
+      "characterId": "nani-jersey",
+      "windowStart": 0.35,
+      "windowEnd": 0.65,
+      "period": 5,
       "immersiveHandoff": true
     },
-    "arrivalRadius": 140,
-    "restaurantStage": "Neon restaurant",
-    "completionLine": "Grand opening! Your pizza dream now lights up Hyderabad.",
-    "failureLine": "Retake #47",
+    "arrivalRadius": 100,
+    "restaurantStage": "Grand opening",
+    "completionLine": "One delivery closer to your restaurant.",
+    "failureLine": "Try again. Your pizza is safe.",
     "campaignRole": "finale"
   }
 ]

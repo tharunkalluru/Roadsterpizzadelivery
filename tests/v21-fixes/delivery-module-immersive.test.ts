@@ -1,3 +1,5 @@
+import { installLegacyCandidateActors } from './fixtures/legacy-candidate-actors';
+installLegacyCandidateActors();
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
@@ -120,13 +122,40 @@ test('train catch follows its actual moving coach every frame and is cancelled i
   assert.ok(g.scene.getObjectByName('delivery-handoff-pizza')?.visible);present=false;g.module.update(.05);advance(g.module,1);
   assert.ok(!g.events.includes('done'));assert.equal(g.scene.getObjectByName('delivery-handoff-pizza')!.visible,false);g.module.teardown();
 });
+test('train customer turns toward a visitor on his coach and gives roof directions without changing airborne approaches',()=>{
+  const f=setup('matchAndLand',{vehicle:'train',scene:'trainRoof',immersiveHandoff:true,holdSeconds:.2});f.unlock();
+  const body:MovingRailBody={id:'real-train',x:0,y:0,z:0,hx:0,hz:1,halfWidth:1.6,halfLength:12,bottom:.2,roof:4.2,previous:{x:0,y:0,z:0,hx:0,hz:1}};
+  f.ctx.existingTrain=()=>body;Object.assign(f.p,{x:.3,y:4.75,z:-9,speed:0,flying:false});
+  const actor=f.scene.getObjectByName('delivery-character-trainHero')!;
+  advance(f.module,1.3);
+  const angle=Math.atan2(.3,-9);
+  assert.ok(Math.abs(Math.atan2(Math.sin(actor.rotation.y-angle),Math.cos(actor.rotation.y-angle)))<.001);
+  assert.equal(f.module.status.instruction,'Drive along the roof to the marker');
+  const before=actor.rotation.y;Object.assign(f.p,{z:5,flying:true});advance(f.module,1);
+  assert.equal(actor.rotation.y,before,'a flying pass cannot spin the customer into a handover pose');
+  assert.equal(f.module.status.canDrop,false);f.module.teardown();
+});
+test('a matched train-roof handoff is readable, then its exact customer keeps riding without changing the next navigation',()=>{
+ const f=setup('matchAndLand',{vehicle:'train',scene:'trainRoof',immersiveHandoff:true,holdSeconds:.2});f.unlock();
+ const body:MovingRailBody={id:'stable-coach',x:0,y:0,z:0,hx:0,hz:1,halfWidth:1.6,halfLength:12,bottom:.2,roof:4.2,previous:{x:0,y:0,z:0,hx:0,hz:1}};
+ let present=true,targets=0;const requested:string[]=[];f.ctx.existingTrain=id=>{if(id)requested.push(id);return present?body:null;};f.ctx.onTarget=()=>targets++;
+ Object.assign(f.p,{x:.3,y:4.75,z:-5,speed:0,flying:false});advance(f.module,1.2);assert.equal(f.module.status.canDrop,true);
+ assert.equal(f.module.headlightGain,.02);assert.equal(f.module.cameraFocus!.context,'stationary-handoff');
+ const lamp=f.module.sceneLamp!;assert.equal(lamp.kind,'reading');assert.ok(f.scene.getObjectByName('delivery-coach-worklights'));assert.equal(f.scene.getObjectsByProperty('isLight',true).length,0);
+ f.p.speed=2;assert.equal(f.module.cameraFocus,undefined);f.p.speed=0;f.p.flying=true;assert.equal(f.module.headlightGain,undefined);assert.equal(f.module.cameraFocus,undefined);f.p.flying=false;
+ f.module.onDrop();advance(f.module,.8);assert.ok(f.events.includes('done'));assert.equal(f.module.sceneryPending,true);const before=targets;
+ for(let i=0;i<20;i++){body.previous.z=body.z;body.z+=.2;f.p.z+=.2;f.module.update(.05);}
+ const actor=f.scene.getObjectByName('delivery-character-trainHero')!,world=new THREE.Vector3();actor.getWorldPosition(world);assert.ok(Math.abs(world.z-body.z)<1e-6,'completed actor follows the same real coach');assert.equal(targets,before,'completed scenery cannot publish the next order target');assert.ok(requested.every(id=>id==='stable-coach'));
+ assert.equal(f.module.sceneLamp,lamp);assert.ok(Math.abs(lamp.position.z-body.z+1.47)<1e-6,'selected worklight remains fixed on the moving coach');
+ assert.equal(f.scene.getObjectByName('delivery-target-ring')!.visible,false);present=false;f.module.update(.05);assert.equal(f.module.sceneryPending,false,'missing exact coach cannot leave a floating customer');f.module.teardown();
+});
 test('Eega variant retains its insect geometry and timing while the pizza visibly reaches its receiver',()=>{
   const f=setup('beatDrop',{theme:'eega',period:3,windowStart:.67,windowEnd:.9,radius:7,immersiveHandoff:true});f.unlock();
   Object.assign(f.p,{x:0,y:3,z:0});advance(f.module,2.4);assert.equal(f.module.status.canDrop,true);
   const insect=f.scene.getObjectByName('delivery-character-eega')!;let parts=0;insect.traverse(n=>{if(n instanceof THREE.Mesh)parts++;});assert.equal(parts,3,'same body and two wing meshes');
   f.module.onDrop();assert.ok(!f.events.includes('done'));advance(f.module,.6);
   const pizza=f.scene.getObjectByName('delivery-handoff-pizza')!,anchor=f.scene.getObjectByName('delivery-eega-catch-point')!;
-  const p=new THREE.Vector3(),a=new THREE.Vector3();pizza.getWorldPosition(p);anchor.getWorldPosition(a);assert.ok(p.distanceTo(a)<.001);
+  const p=new THREE.Vector3(),a=new THREE.Vector3();pizza.getWorldPosition(p);anchor.getWorldPosition(a);a.y+=.035;assert.ok(p.distanceTo(a)<.001,'the actual .07m box underside rests at the receiving anchor');
   assert.ok(insect.children.some(n=>n instanceof THREE.Group&&Math.abs(n.rotation.z)>.5),'wings react to receiving the pizza');
   assert.ok(!f.events.includes('done'));advance(f.module,.2);assert.equal(f.events.filter(e=>e==='done').length,1);f.module.teardown();
 });
@@ -177,14 +206,16 @@ test('IMAX customer rests on the hero seat with shoes at the hall floor; scene g
 
 test('moving rotated truck handoff ends at the lowered reader actual hands before the original settle time',()=>{
   const f=setup();f.ctx.destination={x:40,y:7,z:-10};f.ctx.route=[{x:40,y:7,z:-10},{x:100,y:9,z:50}];
-  f.module.setup(f.ctx,{scene:'truckInterior',vehicle:'truck',speed:6});f.unlock();advance(f.module,2);
+  f.module.setup(f.ctx,{scene:'truckInterior',vehicle:'truck',speed:6});f.module.update(0);
+  const rear=f.module.arrival!;Object.assign(f.p,{x:rear.x-rear.hx*20,z:rear.z-rear.hz*20,y:7.55});
+  f.unlock();advance(f.module,2);
   const place=(z:number)=>{const floor=f.module.supports.find(b=>b.id==='delivery-interior-floor')!;Object.assign(f.p,{x:floor.x+floor.hz*.55+floor.hx*z,y:floor.roof+z*(floor.grade||0)+.55,z:floor.z-floor.hx*.55+floor.hz*z,flying:false});};
   place(-9);f.module.update(.05);place(-7);f.module.update(.05);
   const follow=()=>{place(2);f.module.update(.05);};
   for(let i=0;i<16;i++)follow();assert.equal(f.module.status.canDrop,true);f.module.onDrop();
   for(let i=0;i<14;i++)follow();
   const vehicle=f.scene.getObjectByName('delivery-truck-interior')!,pizza=f.scene.getObjectByName('delivery-truck-handoff-pizza')!;
-  const hands=f.scene.getObjectByName('delivery-character-pushpa-hands')!,actual=new THREE.Vector3(),wanted=new THREE.Vector3();vehicle.updateWorldMatrix(true,true);pizza.getWorldPosition(actual);hands.getWorldPosition(wanted);
+  const hands=f.scene.getObjectByName('delivery-character-pushpa-hands')!,actual=new THREE.Vector3(),wanted=new THREE.Vector3();vehicle.updateWorldMatrix(true,true);pizza.getWorldPosition(actual);hands.getWorldPosition(wanted);wanted.addScaledVector(new THREE.Vector3(0,1,0).transformDirection(vehicle.matrixWorld),.035);
   assert.ok(actual.distanceTo(wanted)<.00001,'pizza reaches the moving/rotated physical hand anchor, not the old hard-coded point');
   assert.equal(f.module.status.instruction,'Caught it!');assert.ok(!f.events.includes('done'),'the original catch-settle delay remains');
   for(let i=0;i<10;i++)follow();assert.equal(f.events.filter(e=>e==='done').length,1);f.module.teardown();

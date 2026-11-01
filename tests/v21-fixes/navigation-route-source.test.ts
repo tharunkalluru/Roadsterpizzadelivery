@@ -90,6 +90,21 @@ test('ordinary road target retains its strict destination grade without a story 
   game.updateRoute(1/60);assert.equal(grade,9);assert.equal(game.routeTarget,target);
 });
 
+test('occupied truck hides only world ribbon/beacon while map route and top local direction remain available',()=>{
+  const target={x:100,y:2,z:0},cue={metres:4,bearing:0,hint:'Hand over pizza'},planned:unknown[][]=[];
+  const graph={revision:1,byId:new Map(),edgeAt:()=>null,route(...args:unknown[]){planned.push(args);return{pts:[[0,0,0],[100,0,0]],len:100,complete:true};}};
+  const game:any=Object.assign(Object.create(Game.prototype),{
+    graph,city:{walls:new Map(),buildingGrid:new Map(),obstacles:new Map()},
+    player:{pos:new THREE.Vector3(0,.55,0),forward:{x:1,z:0},flying:false,descending:false,jumping:false,speed:0,placementRevision:1},
+    story:{roadNavigationTarget:{...target,y:0},hideWorldGuidance:true,localNavigation:cue},routeTarget:target,route:null,routeT:0,routeGuideT:0,routeGuide:[],routeAlpha:0,routeGraphRevision:-1,routePlacementRevision:-1,
+    gps:new THREE.Mesh(new THREE.BufferGeometry(),new THREE.MeshBasicMaterial()),beacon:new THREE.Group(),
+  });
+  game.updateRoute(1/60);assert.equal(game.gps.visible,false);assert.equal(game.beacon.visible,false);assert.ok(game.route.pts.length>1);
+  assert.ok(game.navigationRoadPoints().length>1,'the minimap retains its normal road route');assert.equal(game.roadNavigation(target),cue);
+  game.story.hideWorldGuidance=false;game.updateRoute(1/60);assert.equal(game.gps.visible,true);assert.equal(game.beacon.visible,true,'leaving the interior restores ordinary approach guidance');
+  assert.equal(game.roadNavigation(target),cue);assert.equal(game.routeTarget,target);
+});
+
 
 test('minimap retains the mapped route when the local road ribbon is blocked',()=>{
   const game=fixture(),strokes:number[][][]=[];let path:number[][]=[];

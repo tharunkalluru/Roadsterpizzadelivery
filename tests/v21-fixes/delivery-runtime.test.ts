@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { DeliveryRuntime, deliverySurfaceHeight } from '../../src/delivery/runtime';
 import { EventBus, type DeliveryEvents } from '../../src/delivery/core/events';
-import { loadLevels } from '../../src/delivery/content/levels';
+// Historical call-engine fixture; current scene-only campaign coverage is separate.
+import { loadLegacyLevels as loadLevels } from './fixtures/legacy-levels';
 import { RoadGraph } from '../../src/game/roadgraph';
 import type { DeliveryModule, DeliveryModuleContext, DeliveryPoint, ModuleArrival } from '../../src/delivery/modules/types';
 import type { DeliveryUIActions, DeliveryView } from '../../src/delivery/ui/view-model';
@@ -28,6 +29,9 @@ class ModuleAdapter implements DeliveryModule {
   movement: any = { mode: 'normal' };
   arrival?: ModuleArrival;
   frames = 0; teardownCount = 0;
+  exitPending = false;
+  sceneryPending = false;
+  cameraFocus:DeliveryModule['cameraFocus'];
   setup(ctx: DeliveryModuleContext) { this.ctx = ctx; this.target = { ...ctx.destination }; ctx.onTarget?.(this.target); }
   update() { this.frames++; }
   onDrop() { if (this.ctx.canInteract?.()) this.ctx.emit('done'); }
@@ -85,6 +89,134 @@ test('runtime connects anonymous pickup, mandatory call, module gate and complet
   assert.equal(f.runtime.controller.progress.currentLevel, 2); assert.equal(f.stats().detectorResets, 1);
 });
 
+test('a pending story shuttle waits for its designated coach and retries without adopting nearby ordinary trains', () => {
+  const f=fixture({levelIndex:1}),level=f.runtime.controller.levels[0];
+  level.callMode='NONE';level.script=[];level.revealAt='afterDelivery';
+  level.moduleParams={vehicle:'train',shuttle:['n1974699692','n1425916857']};
+  let ready=false,coachVisible=true,attempts=0;
+  f.game.rail.ensureStoryShuttle=()=>{attempts++;return ready?'rail:story:fixture':null;};
+  let designated:MovingRailBody;
+  f.game.rail.storyCoach=(id:string,index:number)=>{
+    assert.equal(id,'rail:story:fixture');assert.equal(index,2);
+    return ready&&coachVisible?designated:null;
+  };
+  pickup(f);approach(f);
+  const p=f.game.player.pos,body=(id:string):MovingRailBody=>({
+    id,x:p.x,y:0,z:p.z,hx:1,hz:0,halfWidth:1.57,halfLength:11.25,
+    bottom:.2,roof:4.175,previous:{x:p.x,y:0,z:p.z,hx:1,hz:0},
+  });
+  const ordinary=body('ordinary-wrong-route:2');designated=body('rail:story:fixture:2');
+  designated.x+=20;f.game.rail.bodies=[ordinary];
+  f.runtime.beforePlayer(.016);
+  assert.equal(f.runtime.module,f.module);
+  // Guard an already cached ordinary selection as well as the empty initial ID.
+  Object.assign(f.runtime,{selectedTrain:ordinary.id});
+  assert.equal(f.module.ctx.existingTrain?.(),null,'a busy story corridor is not permission to use an ordinary train');
+  ready=true;f.game.rail.bodies=[ordinary,designated];f.runtime.beforePlayer(.016);
+  assert.equal(f.module.ctx.existingTrain?.(),designated,'the designated coach wins even when the ordinary train is nearer');
+  assert.ok(attempts>=2,'booking retries on subsequent active frames');
+  coachVisible=false;f.runtime.beforePlayer(.016);
+  assert.equal(f.module.ctx.existingTrain?.(),null,'a missing story coach cannot leak a cached or nearby ordinary target');
+  coachVisible=true;f.runtime.beforePlayer(.016);
+  assert.equal(f.module.ctx.existingTrain?.(),designated);
+  ready=false;f.runtime.beforePlayer(.016);
+  assert.equal(f.module.ctx.existingTrain?.(),null,'losing the booking also clears its previous selected coach');
+  assert.equal(f.module.ctx.existingTrain?.(designated.id),designated,'explicit completed-scene lookups retain their exact coach');
+  assert.equal(f.module.teardownCount,0,'booking retries do not rebuild the delivery module');
+  f.runtime.dispose();
+});
+
+test('train deliveries without a story shuttle retain ordinary nearest-train selection', () => {
+  const f=fixture({levelIndex:1});
+  f.runtime.controller.levels[0].moduleParams={vehicle:'train'};
+  pickup(f);approach(f);f.runtime.beforePlayer(.016);
+  const p=f.game.player.pos,ordinary:MovingRailBody={
+    id:'ordinary:2',x:p.x,y:0,z:p.z,hx:1,hz:0,halfWidth:1.57,halfLength:11.25,
+    bottom:.2,roof:4.175,previous:{x:p.x,y:0,z:p.z,hx:1,hz:0},
+  };
+  f.game.rail.bodies=[ordinary];
+  assert.equal(f.module.ctx.existingTrain?.(),ordinary);
+  f.runtime.dispose();
+});
+
+test('a completed walk-in truck keeps its physical scene until the entire car exits and cannot revive old GPS',()=>{
+  const f=fixture();pickup(f);f.runtime.beforePlayer(.016);completeCall(f);
+  f.module.status.instruction='Reverse down the open ramp to leave the truck.';
+  f.module.exitPending=true;f.actions.drop();
+  assert.equal(f.runtime.controller.complete,true);assert.equal(f.module.teardownCount,0);assert.equal(f.runtime.module,f.module);
+  f.actions.continue();assert.equal(f.runtime.controller.state,'ROAMING');assert.equal(f.runtime.canPickup,false);
+  const previous=f.module.frames;f.runtime.beforePlayer(.05);assert.ok(f.module.frames>previous,'retained truck still receives physical updates');
+  f.module.ctx.onTarget?.({x:999,y:1,z:999});assert.equal(f.runtime.destination,null,'completed truck cannot resurrect GPS');
+  pickup(f);assert.equal(f.runtime.controller.activeLevel,null,'no second order can replace an occupied physical scene');
+  assert.match(f.ui.model?.notice??'',/ramp/);
+  f.module.exitPending=false;f.runtime.beforePlayer(.05);
+  assert.equal(f.runtime.module,null);assert.equal(f.module.teardownCount,1);assert.equal(f.runtime.canPickup,true);
+  assert.equal(f.runtime.controller.progress.completedIds.length,1);f.runtime.dispose();assert.equal(f.module.teardownCount,1);
+});
+
+test('completed ground scenes can retain their gate and walls for a physical exit without admitting another pickup',()=>{
+  const f=fixture();pickup(f);f.runtime.beforePlayer(.016);completeCall(f);
+  f.runtime.controller.activeLevel!.module='gateDelivery';f.runtime.controller.activeLevel!.moduleParams={theme:'salaar'};
+  f.module.status.instruction='Drive out through the open gate.';f.module.exitPending=true;f.actions.drop();
+  assert.equal(f.module.teardownCount,0);f.actions.continue();assert.equal(f.runtime.canPickup,false);
+  assert.match(f.ui.model?.notice??'',/gate/);f.runtime.beforePlayer(.1);assert.ok(f.module.frames>1);
+  f.module.ctx.onTarget?.({x:999,y:0,z:999});assert.equal(f.runtime.destination,null);
+  f.module.exitPending=false;f.runtime.beforePlayer(.1);assert.equal(f.module.teardownCount,1);assert.equal(f.runtime.canPickup,true);f.runtime.dispose();
+});
+
+test('safe-to-leave scenery remains visible and physical in the background without locking the next pickup',()=>{
+  const f=fixture();pickup(f);f.runtime.beforePlayer(.016);completeCall(f);
+  const body={id:'completed-ground-wall',x:1,z:2,y:0,hx:0,hz:1,bottom:0,roof:2,halfWidth:1,halfLength:1,previous:{x:1,z:2,y:0,hx:0,hz:1}};
+  f.module.supports=[body];f.module.exitPending=true;f.module.sceneryPending=true;f.actions.drop();f.actions.continue();
+  f.module.exitPending=false;f.runtime.beforePlayer(.1);
+  assert.equal(f.runtime.module,null);assert.equal(f.runtime.canPickup,true);assert.equal(f.module.teardownCount,0);assert.ok(f.runtime.supports.includes(body));
+  const previous=f.module.frames;f.runtime.beforePlayer(.1);assert.ok(f.module.frames>previous);
+  f.module.ctx.onTarget?.({x:999,y:0,z:999});assert.equal(f.runtime.destination,null,'completed backdrop cannot revive old GPS');
+  f.module.sceneryPending=false;f.runtime.beforePlayer(.1);assert.equal(f.module.teardownCount,1);assert.ok(!f.runtime.supports.includes(body));
+  f.runtime.dispose();assert.equal(f.module.teardownCount,1);
+});
+
+test('restart/disposal releases completed background scenery once and a successful throw clears the old failure notice',()=>{
+  const f=fixture();pickup(f);f.runtime.beforePlayer(.016);completeCall(f);
+  f.module.ctx.emit('failed',{reason:'Previous missed handoff'});for(let frame=0;frame<3;frame++)f.runtime.tick(.1,true);assert.match(f.ui.model?.notice??'',/Previous missed/);
+  f.module.ctx.cue?.('throw');for(let frame=0;frame<3;frame++)f.runtime.tick(.1,true);assert.equal(f.ui.model?.notice,'');
+  f.module.exitPending=true;f.module.sceneryPending=true;f.actions.drop();f.actions.continue();f.module.exitPending=false;f.runtime.beforePlayer(.1);
+  assert.equal(f.module.teardownCount,0);f.runtime.startFromLevelOne();assert.equal(f.module.teardownCount,1);f.runtime.dispose();assert.equal(f.module.teardownCount,1);
+});
+
+test('a completed open platform retains nearby actors immediately without imposing a physical-exit pickup lock',()=>{
+  const f=fixture();pickup(f);f.runtime.beforePlayer(.016);completeCall(f);
+  f.module.sceneryPending=true;f.module.exitPending=false;f.actions.drop();
+  assert.equal(f.runtime.module,null);assert.equal(f.module.teardownCount,0);
+  f.actions.continue();assert.equal(f.runtime.canPickup,true);
+  const frames=f.module.frames;f.runtime.beforePlayer(.1);assert.ok(f.module.frames>frames);
+  f.module.ctx.onTarget?.({x:999,y:0,z:999});assert.equal(f.runtime.destination,null);
+  f.module.sceneryPending=false;f.runtime.beforePlayer(.1);assert.equal(f.module.teardownCount,1);
+  f.runtime.dispose();assert.equal(f.module.teardownCount,1);
+});
+
+test('a retained stopped-scene focus remains after Next but cannot take the view from a new delivery',()=>{
+ const f=fixture();pickup(f);f.runtime.beforePlayer(.016);completeCall(f);
+ const focus={position:{x:1,y:2,z:3},target:{x:0,y:1,z:0},context:'stationary-handoff' as const};
+ f.module.cameraFocus=focus;f.module.sceneryPending=true;assert.equal(f.runtime.cameraFocus,focus);
+ f.actions.drop();f.actions.continue();assert.equal(f.runtime.module,null);assert.equal(f.runtime.cameraFocus,focus);
+ f.module.cameraFocus=undefined;assert.equal(f.runtime.cameraFocus,undefined,'scene movement gates release the view normally');
+ f.module.cameraFocus=focus;pickup(f);assert.equal(f.runtime.activeOrder,true);assert.equal(f.runtime.cameraFocus,undefined,'the former receiver cannot override a newly picked job');
+ f.runtime.dispose();
+});
+
+test('ground-accessible scene approaches never inherit the old off-road fly-to-marker fallback',()=>{
+  const f=fixture();pickup(f);f.runtime.beforePlayer(.016);
+  f.module.ctx.onTarget?.({x:150,y:0,z:20});Object.assign(f.game.player.pos,{x:150,y:.55,z:0});
+  for(const module of ['gateDelivery','ropeBucket','walkingHandoff','weddingHandoff','angleParking','classroomHandoff','beatDrop']){
+    f.runtime.controller.activeLevel!.module=module;
+    f.runtime.controller.activeLevel!.moduleParams={useExistingStadium:module==='beatDrop'};
+    assert.equal(f.runtime.localNavigation?.hint,'Approach marker',module);
+    assert.equal(f.runtime.localNavigation?.metres,20);
+  }
+  f.runtime.dispose();
+});
+
 test('mapped one-way route retains the legal direction and gives the oversized interior truck central clearance', () => {
   const f = fixture({ oneway: 'forward' }); pickup(f); f.runtime.beforePlayer(.016);
   const route = f.module.ctx.route!;
@@ -92,6 +224,17 @@ test('mapped one-way route retains the legal direction and gives the oversized i
   assert.ok(route[0].x > route[route.length - 1].x, 'dir -1 is already reversed by pointAt; do not reverse twice');
   assert.ok(route.every(point => Math.abs(point.z) < .001), 'wide interior truck stays centrally within the same one-way carriageway');
   assert.ok(Math.min(...route.map(point => Math.abs(point.x - 150))) <= 4, 'route must pass the chosen anchor');
+});
+
+test('a nearby phase change invalidates the cached street approach while ordinary motion still reuses it',()=>{
+  const f=fixture({levelIndex:1});pickup(f);f.runtime.beforePlayer(.016);
+  f.module.ctx.onTarget?.({x:150,y:17.25,z:0,label:'Metro roof · Ride to next station'});
+  const roof=f.runtime.roadNavigationTarget!;assert.equal(roof.label,'Metro roof · Ride to next station');
+  f.module.ctx.onTarget?.({x:155,y:13.7,z:2,label:'Metro platform · Handoff'});
+  const platform=f.runtime.roadNavigationTarget!;assert.equal(platform.label,'Metro platform · Handoff');assert.notEqual(platform,roof);assert.ok(Math.abs(platform.x-155)<1e-8);
+  f.module.ctx.onTarget?.({x:155.1,y:13.7,z:2,label:'Metro platform · Handoff'});
+  assert.equal(f.runtime.roadNavigationTarget,platform,'sub-threshold same-phase motion must retain the bounded route cache');
+  f.runtime.dispose();
 });
 
 test('moving target stays frame-exact while route invalidation is bounded', () => {

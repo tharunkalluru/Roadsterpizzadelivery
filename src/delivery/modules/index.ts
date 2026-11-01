@@ -4,9 +4,13 @@ import { ThreadGap } from './thread-gap';
 import { BeatDrop } from './beat-drop';
 import { Underwater } from './underwater';
 import { ChainDrop } from './chain-drop';
+import { MetroRide } from './metro-ride';
+import { RopeBucket, GateDelivery, WalkingHandoff, WeddingHandoff, AngleParking, ClassroomHandoff } from './street-scenes';
 
 const constructors = { matchAndLand: MatchAndLand, threadGap: ThreadGap, beatDrop: BeatDrop, underwater: Underwater, chainDrop: ChainDrop } satisfies Record<DeliveryModuleName, new () => DeliveryModule>;
-const registry = new Map<string, new () => DeliveryModule>(Object.entries(constructors));
+const registry = new Map<string, new () => DeliveryModule>(Object.entries({ ...constructors,
+  ropeBucket: RopeBucket, gateDelivery: GateDelivery, walkingHandoff: WalkingHandoff,
+  weddingHandoff: WeddingHandoff, angleParking: AngleParking, classroomHandoff: ClassroomHandoff, metroRide: MetroRide }));
 /** A genuinely unique future setpiece plugs in without changing the content schema. */
 export function registerDeliveryModule(name: string, Constructor: new () => DeliveryModule) {
   if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(name) || registry.has(name)) throw new Error(`Invalid or duplicate delivery mechanic: ${name}`);

@@ -43,3 +43,11 @@ export class PlayerLights {
 export function vehicleDarkness(lampLights: number) {
   return Number.isFinite(lampLights) ? THREE.MathUtils.clamp(lampLights / 4, 0, 1) : 0;
 }
+
+/** Smooth only an explicit scene request; the ordinary road gain stays exactly1. */
+export function stepSceneHeadlightGain(previous:number|undefined,requested:number|undefined,dt:number){
+  const before=Number.isFinite(previous)?THREE.MathUtils.clamp(previous!,0,1):1;
+  const target=Number.isFinite(requested)?THREE.MathUtils.clamp(requested!,0,1):1;
+  const elapsed=Number.isFinite(dt)?THREE.MathUtils.clamp(dt,0,.1):0;
+  return before+(target-before)*(1-Math.exp(-elapsed*10));
+}

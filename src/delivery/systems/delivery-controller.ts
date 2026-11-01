@@ -36,7 +36,7 @@ export class DeliveryController {
   get activeLevel() { return this.orders.level; }
   get destination() { return this.orders.destination; }
   get canPickup() { return this.state === 'ROAMING' && !this.progress.finished && !this.activeLevel; }
-  get canDrop() { return this.state === 'SETPIECE' && this.calls.arrivalComplete; }
+  get canDrop() { return this.state === 'SETPIECE' && (this.activeLevel?.callMode === 'NONE' || this.calls.arrivalComplete); }
   get complete() { return this.state === 'LEVEL_COMPLETE'; }
 
   pickup() {
@@ -57,6 +57,9 @@ export class DeliveryController {
     const near = this.lastDistance <= (this.activeLevel.arrivalRadius ?? 100);
     if (near && this.state === 'EN_ROUTE') {
       this.setState('ARRIVED'); this.events.emit('arrived', { levelId: this.activeLevel.id });
+      if (this.activeLevel.callMode === 'NONE') {
+        this.setState('SETPIECE'); this.events.emit('setpieceStarted', { level: this.activeLevel }); return;
+      }
     } else if (!near && this.state === 'ARRIVED') this.setState('EN_ROUTE');
     this.calls.update(dt, this.lastDistance);
   }

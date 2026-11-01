@@ -9,7 +9,8 @@ export class OrderSystem {
   get destination(): Destination | null { return this.active ? { ...this.active.destination } : null; }
   assign() {
     if (this.active) return null;
-    this.active = this.progress.nextLevel;
+    const next = this.progress.nextLevel;
+    this.active = next ? { ...next, destination: { ...next.destination }, moduleParams: { ...next.moduleParams } } : null;
     return this.active;
   }
   clear() { this.active = null; }

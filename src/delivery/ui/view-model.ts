@@ -15,6 +15,7 @@ export interface DeliveryView {
   completion?: DeliveryPortrait & { restaurantLabel: string; final: boolean; bonusAvailable?: boolean } | null;
   collection: DeliveryPortrait[];
   notice?: string;
+  noticeContext?: 'scene-exit';
 }
 
 export interface DeliveryUIActions {

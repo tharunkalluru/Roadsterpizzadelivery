@@ -141,8 +141,8 @@ try {
   });
   await test('build fingerprint is deterministic, path-framed, and changes when only a public city pack changes',async()=>{
     const {gameBuildFingerprint}=await import(pathToFileURL(join(temporary,'config.mjs'))),fixture=join(temporary,'build-fixture');
-    for(const dir of ['src','worker','public/city/packs'])await mkdir(join(fixture,dir),{recursive:true});
-    for(const [path,body] of [['src/main.ts','code'],['worker/index.ts','worker'],['package-lock.json','{}'],['public/city/packs/test.pack.wasm','original-city']])await writeFile(join(fixture,path),body);
+    for(const dir of ['src','worker','public/city/packs','scripts'])await mkdir(join(fixture,dir),{recursive:true});
+    for(const [path,body] of [['src/main.ts','code'],['worker/index.ts','worker'],['package-lock.json','{}'],['public/city/packs/test.pack.wasm','original-city'],['index.html','html'],['package.json','{}'],['vite.config.ts','config'],['wrangler.jsonc','{}'],['scripts/build.mjs','build'],['scripts/build-fingerprint.mjs','fingerprint']])await writeFile(join(fixture,path),body);
     const first=gameBuildFingerprint(fixture);assert.equal(first,gameBuildFingerprint(fixture));
     await writeFile(join(fixture,'public/city/packs/test.pack.wasm'),'updated--city');assert.notEqual(first,gameBuildFingerprint(fixture));
     await writeFile(join(fixture,'public/city/packs/test.pack.wasm'),'original-city');assert.equal(first,gameBuildFingerprint(fixture));

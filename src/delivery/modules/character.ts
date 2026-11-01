@@ -3,13 +3,18 @@ import { CharacterSculpt } from './character-sculpt';
 import { anatomicalCharacterHead, crownOffset, FACE_PROFILES } from './character-head';
 
 export type CharacterStyle = 'pushpa' | 'simhadri' | 'trainHero' | 'gabbar' | 'jersey' | 'imax' | 'director' | 'extra' | 'unknown';
+export type CharacterMotion = 'idle' | 'walk' | 'dance' | 'read';
 export interface SceneCharacter {
   group: THREE.Group;
   leftArm: THREE.Group;
   rightArm: THREE.Group;
   book?: THREE.Object3D;
   catchPoint?: THREE.Object3D;
+  /** Older authored rigs may already place the anchor at the box centre. */
+  catchPointSpace?: 'palm-contact'|'box-center';
   catchPose: (amount: number) => void;
+  /** Authored in-place motion; scene systems continue to own the world path. */
+  animate?: (dt: number, motion: CharacterMotion, speed?: number) => void;
 }
 interface Resources { geometry: <T extends THREE.BufferGeometry>(value: T) => T; material: (key: string, value: THREE.MeshBasicMaterial) => void }
 interface Look { shirt:string; pants:string; skin:string; hair:string; width:number; jaw:number; beard:number; hairHeight:number; moustache:boolean }

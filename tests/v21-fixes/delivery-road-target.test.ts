@@ -4,7 +4,8 @@ import * as THREE from 'three';
 import type { RoadEdge } from '../../src/world/types';
 import { RoadGraph } from '../../src/game/roadgraph';
 import { DeliveryRuntime } from '../../src/delivery/runtime';
-import { loadLevels } from '../../src/delivery/content/levels';
+// Historical scripted-call/IMAX target fixtures; production scene content is separate.
+import { loadLegacyLevels as loadLevels } from './fixtures/legacy-levels';
 import { createDeliveryModule } from '../../src/delivery/modules';
 import { resolveDeliveryRoadTarget } from '../../src/delivery/road-navigation-target';
 

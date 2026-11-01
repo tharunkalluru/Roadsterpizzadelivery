@@ -12,7 +12,10 @@ export interface VehicleBounds extends Point { hx: number; hz: number; size: num
 export interface StreetSpot extends Point { yaw: number }
 export interface StreetSpotOptions { majorOnly?:boolean; forwardClearance?:number; allowElevated?: boolean; preferMajor?: boolean; heading?: { x: number; z: number }; vehicles?: VehicleBounds[] }
 /** Opt-in camera medium for the active lake delivery only. Placement never supplies this. */
-export interface CameraCollisionOptions { underwater?: { x: number; z: number; radius: number } }
+export interface CameraCollisionOptions {
+  underwater?: { x: number; z: number; radius: number };
+  deliverySolids?: readonly import('./moving-rail').MovingRailBody[];
+}
 
 function inUnderwaterCameraMedium(city: CityData, p: Point, options?: CameraCollisionOptions) {
   const medium = options?.underwater;
@@ -41,6 +44,12 @@ function finiteRoadHeight(s:Surface,p:Point,radius:number):number|null {
 // Shared by camera clearance and placement: visible poles and barriers matter as
 // well as building footprints. Horizontal and vertical clearance are independent.
 export function staticSolidAt(city: CityData, p: Point, radius = 0.35, halfHeight = radius, options?: CameraCollisionOptions): boolean {
+  for(const body of options?.deliverySolids??[]){
+    const dx=p.x-body.x,dz=p.z-body.z,along=dx*body.hx+dz*body.hz,side=dx*body.hz-dz*body.hx;
+    const rise=(body.grade??0)*along;
+    if(Math.abs(along)<body.halfLength+radius&&Math.abs(side)<body.halfWidth+radius&&
+      p.y+halfHeight>body.bottom+rise&&p.y-halfHeight<body.roof+rise)return true;
+  }
   // Below-grade pavement pads are real floors. Query only surfaces no higher
   // than the camera center: the usual1.6m step allowance must not turn an
   // overhead ground-level road into the floor of a depressed camera.

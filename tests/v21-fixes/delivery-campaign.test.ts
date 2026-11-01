@@ -1,6 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {campaignPlan,campaignDistance,campaignSession,campaignSpawn,savedCampaign} from '../../src/delivery/campaign';
-import {loadLevels} from '../../src/delivery/content/levels';import {ProgressSystem} from '../../src/delivery/systems/progress-system';
+// Historical seven-level campaign/save-migration fixture.
+import {loadLegacyLevels as loadLevels} from './fixtures/legacy-levels';import {ProgressSystem} from '../../src/delivery/systems/progress-system';
 import {RoadGraph} from '../../src/game/roadgraph';import {readFileSync} from 'node:fs';import {gunzipSync} from 'node:zlib';
 test('campaign visits every configured customer once, preserves opening/finale and reduces waypoint travel',()=>{
  const source=loadLevels(),ordered=campaignPlan(source);assert.equal(ordered[0].id,source[0].id);assert.equal(ordered.at(-1)!.id,source.at(-1)!.id);

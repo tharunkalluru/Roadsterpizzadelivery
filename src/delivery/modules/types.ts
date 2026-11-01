@@ -1,5 +1,8 @@
 import type * as THREE from 'three';
 import type { MovingRailBody } from '../../game/moving-rail';
+import type { MetroStationDwell } from '../../game/metro';
+import type { SceneCharacter } from './character';
+import type { ReleasedCharacterResources } from '../art/released-gltf';
 
 export interface DeliveryPoint { x: number; y: number; z: number; label?: string }
 export interface DeliveryPlayer extends DeliveryPoint { yaw: number; speed: number; flying?: boolean; descending?: boolean; jumping?: boolean }
@@ -12,6 +15,8 @@ export interface ModuleStatus {
   failure?: string;
 }
 export interface ModuleMovement { mode: 'normal' | 'underwater' | 'approach'; center?: DeliveryPoint; radius?: number; depth?: number; altitude?: number }
+/** Optional close interaction framing; road/flight camera remains host-owned. */
+export interface ModuleCameraFocus { position:DeliveryPoint; target:DeliveryPoint; context?:'stationary-handoff' }
 export interface ModuleArrival extends DeliveryPoint { hx: number; hz: number; side: 'rear'; radius: number }
 /** Evidence from the selected train's actual route and mapped overpass geometry. */
 export interface VerifiedTrainPassage { id: string; trainId: string; x: number; z: number; radius: number; ceiling: number; distanceAhead: number }
@@ -27,13 +32,18 @@ export interface DeliveryModuleContext {
   routeLoop?: boolean;
   /** Story call gate. Scenery may move while delivery interaction is locked. */
   canInteract?: () => boolean;
+  /** Prepare authored actors against this fully built scene's actual lights. */
+  prepareCharacterGraphics?: (instance?:THREE.Group,valid?:()=>boolean) => Promise<void>;
+  /** Host-owned isolated art review only; normal runtime uses the release gate. */
+  characterFactory?: (style:string,seated:boolean,resources:ReleasedCharacterResources)=>SceneCharacter;
   /** Highest real roof/road/deck at a footprint sample; used once for static set placement. */
   surfaceHeightAt?: (x: number, z: number) => number | null;
   /** Existing traffic owns nearby following/overlap rules for the delivery truck. */
   vehicleSpeedLimit?: (body: MovingRailBody) => number;
   vehiclePoseClear?: (body: MovingRailBody) => boolean;
   /** Train surface from the existing railway simulation, not a replacement train. */
-  existingTrain?: () => MovingRailBody | null;
+  existingTrain?: (exactBodyId?: string) => MovingRailBody | null;
+  metroService?: () => { bodies: readonly MovingRailBody[]; dwells: readonly MetroStationDwell[] };
   trainPassage?: () => VerifiedTrainPassage | null;
   /** Underside of a real bridge/tunnel above a route point, when available. */
   clearanceAt?: (point: DeliveryPoint) => number | null;
@@ -52,5 +62,20 @@ export interface DeliveryModule {
   readonly movement: ModuleMovement;
   readonly arrival?: ModuleArrival;
   readonly trafficBodies?: readonly MovingRailBody[];
+  /** A completed physical scene remains until the whole car has left it. */
+  readonly exitPending?: boolean;
+  /** Completed scenery may remain visible after it is safe to pick up again. */
+  readonly sceneryPending?: boolean;
+  /** A deliberate, physically valid parked delivery position, including a
+   * retained completed set. Never suppresses recovery while trying to leave. */
+  readonly intentionalStop?: boolean;
+  readonly cameraFocus?: ModuleCameraFocus;
+  readonly charactersReady?:boolean;
+  /** Enclosed parking scenes can dim existing beams without changing light counts. */
+  readonly headlightGain?:number;
+  /** A nearby fixture may borrow an existing engine light, keeping its count fixed. */
+  readonly sceneLamp?: {position:Pick<DeliveryPoint,'x'|'y'|'z'>;kind?:'reading'|'porch'|'lantern'|'underwater'|'street-scene'|'stadium'|'metro-platform'};
+  /** Suppress only world-space ribbons/target rings in an occupied interior. */
+  readonly hideWorldGuidance?: boolean;
 }
 export type DeliveryModuleName = 'matchAndLand' | 'threadGap' | 'beatDrop' | 'underwater' | 'chainDrop';

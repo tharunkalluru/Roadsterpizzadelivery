@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Critical UI paint component QA</title><link rel="stylesheet" href="./fonts/fonts.css"><style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#171125;color:#fff9ea;font:13px system-ui}#game{position:fixed;inset:0;background:#6e8ab2}#game canvas{width:100%;height:100%;display:block}#qa-toolbar{position:fixed;z-index:200;left:8px;right:8px;top:4px;display:flex;flex-wrap:wrap;gap:4px;padding:5px;background:#110b20;border:1px solid #9982bd;border-radius:8px;pointer-events:auto}#qa-toolbar button{min-height:30px;font:700 11px system-ui;padding:4px 7px;color:inherit;border:1px solid #b896de;border-radius:7px;background:#352347}#qa-label{position:fixed;z-index:190;left:8px;bottom:4px;max-width:calc(100% - 16px);background:#110b20;color:#ffe7a7;padding:3px 8px;font:10px system-ui;pointer-events:none}.qa-clean #qa-toolbar{display:none}.qa-no-images #hud *,.qa-no-images #hud *:before,.qa-no-images #hud *:after{background-image:none!important}#qa-json{display:none}
+</style></head><body><div id="game"><canvas width="320" height="180" aria-label="Inert paint-test canvas"></canvas></div><div id="hud"></div><nav id="qa-toolbar" aria-label="Paint QA controls"><button id="qa-title">Show title</button><button id="qa-settings">Show settings</button><button id="qa-picker">Show area picker</button><button id="qa-offer">Show delivery</button><button id="qa-order">Show order HUD</button><button id="qa-tip">Show driving tip</button><button id="qa-jumping" type="button">Show jumping</button><button id="qa-cooldown" type="button">Show jump cooldown</button><button id="qa-roof">Show rooftop recovery</button><button id="qa-stuck">Show stuck recovery</button><button id="qa-images" aria-pressed="false">Remove decorative images</button><button id="qa-safety" aria-pressed="false">Disable safety for negative control</button><button id="qa-record">Record paint</button><button id="qa-clean">Hide QA toolbar</button></nav><div id="qa-label">Production UI components · inert canvas · CSS fault injection only · no gameplay or physical-phone pass</div><pre id="qa-json"></pre>
+<script type="module">
+import {Hud,orderOfferHtml} from './src/ui/hud';
+import {TitleScreen} from './src/ui/title';
+import {AreaPicker} from './src/ui/areapicker';
+import {settingsHtml} from './src/ui/settings';
+if(!import.meta.env.DEV)throw new Error('Development paint component review only');
+const touch=new URLSearchParams(location.search).get('touch')!=='0';
+const canvas=document.querySelector('#game canvas'),ctx=canvas.getContext('2d');ctx.fillStyle='#83a1c2';ctx.fillRect(0,0,320,180);ctx.fillStyle='#647065';ctx.fillRect(0,70,320,110);ctx.fillStyle='#302c38';ctx.beginPath();ctx.moveTo(128,70);ctx.lineTo(185,70);ctx.lineTo(280,180);ctx.lineTo(25,180);ctx.fill();for(let x=0;x<320;x+=38){ctx.fillStyle='#c8b8c8';ctx.fillRect(x,55,27,28);}
+const hud=new Hud(touch),host=document.getElementById('hud');
+const title=new TitleScreen(host,touch);
+const core={origin:{lat:17.4063,lon:78.4966},places:[],metro:{lines:[],stations:[],pillars:[],deckHeight:11}};
+const picker=new AreaPicker(host,core);picker.onClose=()=>{};picker.onPick=()=>showOrder();
+const clear=()=>{title.hide();picker.hide();hud.modal(null);hud.offer(null);hud.tipAcknowledgement(null);hud.rescue(false);};
+const settings=()=>{clear();hud.modal(settingsHtml({quality:'auto',sound:true,steer:'stick',tips:true},touch)+'<button type="button" class="btn go" id="qa-done">Done</button>',sheet=>sheet.querySelector('#qa-done').onclick=()=>hud.modal(null));};
+const showOrder=()=>{clear();hud.order({state:'Head to pickup',title:"Mom’s Kitchen and Restaurant",sub:'Follow the orange route.',dist:'2,224 m',time:'',meters:false,stage:'pickup',orderId:'PZ-QA-001',next:'Home in Hyderabad'});hud.orderAvailability({unlocked:true,accepting:true,activeOrder:true});hud.flightReserve(1,true);hud.jumpState({jumping:false,cooldown:0,available:true});};
+title.onPlay=showOrder;title.onSettings=settings;
+hud.onButton=id=>{if(id==='pause')settings();if(id==='fly')hud.flightState(true,false);};
+document.getElementById('qa-title').onclick=()=>{clear();title.show();};
+document.getElementById('qa-settings').onclick=settings;
+document.getElementById('qa-picker').onclick=()=>{clear();picker.show({first:false,current:'Hyderabad'});};
+document.getElementById('qa-order').onclick=showOrder;
+document.getElementById('qa-offer').onclick=()=>{clear();hud.offer(orderOfferHtml({level:1,orderId:'PZ-QA-002',pickupName:"Mom’s Kitchen and Restaurant",pickupRoad:'Hyderabad',customerName:'Home in Hyderabad',approachMetres:373,deliveryMetres:670,deliverySeconds:141,basePay:82}),[{label:'Accept order',cls:'go',fn:()=>showOrder()},{label:'Decline',cls:'alt',fn:()=>hud.offer(null)}]);};
+document.getElementById('qa-jumping').onclick=()=>{showOrder();hud.jumpState({jumping:true,cooldown:0,available:false});};
+document.getElementById('qa-cooldown').onclick=()=>{showOrder();hud.jumpState({jumping:false,cooldown:5,available:false});};
+document.getElementById('qa-roof').onclick=()=>{showOrder();hud.rescue(true,'On a roof? Glide down to the street');};
+document.getElementById('qa-stuck').onclick=()=>{showOrder();hud.rescue(true,'Stuck? Get back on the road');};
+document.getElementById('qa-tip').onclick=()=>{clear();hud.tipAcknowledgement('Hold GO to accelerate. Follow the route and collect the pizza.');};
+document.getElementById('qa-images').onclick=e=>{const on=document.body.classList.toggle('qa-no-images');e.currentTarget.setAttribute('aria-pressed',String(on));};
+document.getElementById('qa-safety').onclick=e=>{const style=document.getElementById('ui-paint-safety');style.disabled=!style.disabled;e.currentTarget.setAttribute('aria-pressed',String(style.disabled));};
+document.getElementById('qa-record').onclick=()=>document.getElementById('qa-json').textContent=JSON.stringify({touch,dpr:devicePixelRatio,viewport:[innerWidth,innerHeight],worldVisibility:getComputedStyle(document.getElementById('game')).visibility,solid:document.documentElement.classList.contains('solid-ui')});
+document.getElementById('qa-clean').onclick=()=>document.body.classList.add('qa-clean');
+showOrder();
+</script></body></html>

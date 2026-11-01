@@ -909,6 +909,7 @@ export class Hud {
     this.root.dataset.pickupState = caught ? 'carrying' : 'searching';
     this.set('pickup-status', caught ? 'Pizza caught' : 'Look for a glowing pizza slice above traffic');
   }
+  pickupHintVisible(visible:boolean) { const hint=this.el['pickup-status'];if(hint)hint.hidden=!visible; }
   storyBlocked = false;
   private get controlsAvailable() { return !this.storyBlocked && !this.root.classList.contains('has-offer') && !this.tipOpen && !this.modalOpen && !this.rotationBlocked; }
   orderAvailability({ unlocked, accepting, activeOrder = false }: { unlocked: boolean; accepting: boolean; activeOrder?: boolean }) {

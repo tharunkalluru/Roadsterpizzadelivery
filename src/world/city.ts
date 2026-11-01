@@ -11,7 +11,7 @@ import { bridgeBoundaryClipper, roadRibbon } from './bridge-clearance';
 import { buildingTransportClearance, type BuildingCorrection } from './building-clearance';
 import { railwayNetwork } from './railway-geometry';
 import { metroStructureClearance } from './metro-clearance';
-import { metroCorridors, metroLineColor, metroStationFrame, metroDeckHeight, metroTrackDeckHeight, metroPlatformAssemblies, projectMetroPath, sampleMetroPath } from './metro-geometry';
+import { metroCorridors, metroLineColor, metroStationFrame, metroDeckHeight, metroTrackDeckHeight, metroPlatformAssemblies, projectMetroPath, sampleMetroPath, METRO_PLATFORM_OFFSET, METRO_PLATFORM_HALF_WIDTH, METRO_PLATFORM_HALF_LENGTH } from './metro-geometry';
 import { bridgeSupportPlan, roadStructureClearance, type BridgeSupportSite, type StructureSupport } from './structure-clearance';
 import { captureLandmarkBatches } from './landmark-support-capture';
 import type { LandmarkSurfaceGrid } from './landmark-support';
@@ -22,6 +22,7 @@ import { resolveSignalSites, type SignalSite } from './signals';
 import { drawStreetLamp, type LampFixture } from './street-lamps';
 import { drawConstruction, type ConstructionPlan } from './construction';
 import { drawMetroStationVisuals } from './metro-station-visuals';
+import { drawMetroPlatformLamps } from './metro-platform-lamps';
 import { destinationIndex, type DestinationIdentity } from './destination-identity';
 import { decorateDestinationBuilding } from './destination-recognition';
 import { waterGrid, type WaterGrid } from './water';
@@ -1383,7 +1384,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   for (const assembly of metroPlatformAssemblies(M?.stations || [], corridors, baseMetroHeight)) {
     const st = { ...assembly.source, id: assembly.key, name: assembly.source.name || assembly.stationId }, best = assembly.frame, DH = assembly.deckHeight;
     const [sx, sz] = st.p; if (!inTile(sx, sz)) continue;
-    const { hx, hz, cx, cz } = best, ang = Math.atan2(hx, hz), nx = -hz, nz = hx, Ls = 130, Ws = 24;
+    const { hx, hz, cx, cz } = best, ang = Math.atan2(hx, hz), nx = -hz, nz = hx, Ls = METRO_PLATFORM_HALF_LENGTH * 2, Ws = 24;
     const P = (u: number, v: number): XZ => [cx + hx * u + nx * v, cz + hz * u + nz * v];
     const cY = DH - 4.2;                                                   // concourse floor under the platforms
     // A flyover can pass between ground and station platforms. Its height must
@@ -1409,12 +1410,12 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const stationS = projectMetroPath(assembly.corridor.center, [cx, cz]).s;
     const platformPoint = (u: number, v: number): XZ => { const p = sampleMetroPath(assembly.corridor.center, stationS + u); return [p.x - p.hz * v, p.z + p.hx * v]; };
     for (const side of [-1, 1]) for (let u = -Ls / 2; u < Ls / 2; u += 10) {
-      const end = Math.min(Ls / 2, u + 10), a = platformPoint(u, side * 5.6), b = platformPoint(end, side * 5.6), len = Math.hypot(b[0] - a[0], b[1] - a[1]), angle = Math.atan2(b[0] - a[0], b[1] - a[1]);
+      const end = Math.min(Ls / 2, u + 10), a = platformPoint(u, side * METRO_PLATFORM_OFFSET), b = platformPoint(end, side * METRO_PLATFORM_OFFSET), len = Math.hypot(b[0] - a[0], b[1] - a[1]), angle = Math.atan2(b[0] - a[0], b[1] - a[1]);
       if (len < .01) continue;
-      B.st.box((a[0] + b[0]) / 2, DH + .95, (a[1] + b[1]) / 2, 3.4, .5, len + .02, '#cdc8d2', { ry: angle });
+      B.st.box((a[0] + b[0]) / 2, DH + .95, (a[1] + b[1]) / 2, METRO_PLATFORM_HALF_WIDTH * 2, .5, len + .02, '#cdc8d2', { ry: angle });
       const c = platformPoint(u, side * 7.4), d = platformPoint(end, side * 7.4), wallLength = Math.hypot(d[0] - c[0], d[1] - c[1]);
       B.st.box((c[0] + d[0]) / 2, DH + 2, (c[1] + d[1]) / 2, .25, 2.6, wallLength + .02, '#e9eef2', { ry: Math.atan2(d[0] - c[0], d[1] - c[1]) });
-      addSurface(surfaceGrid, { e: null, i: 0, ax: a[0], az: a[1], bx: b[0], bz: b[1], ya: DH + 1.2, yb: DH + 1.2, hw: 1.7, kind: 'pad' });
+      addSurface(surfaceGrid, { e: null, i: 0, ax: a[0], az: a[1], bx: b[0], bz: b[1], ya: DH + 1.2, yb: DH + 1.2, hw: METRO_PLATFORM_HALF_WIDTH, kind: 'pad' });
     }
     // the curved 'umbrella' roof: a shallow vault of slats over platforms and tracks, on tall columns
     const segs = 7;
@@ -1426,6 +1427,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       B.st.box(q[0], hm, q[1], wv + 0.05, 0.3, Ls + 4, k % 2 ? '#f2f4f6' : '#e3e8ec', { ry: ang, rz: -tilt });
       void am;
     }
+    // Physical batched luminaires; their exact diffusers can borrow a pooled light.
+    drawMetroPlatformLamps(assembly, B);
     for (let u = -Ls / 2 + 6; u <= Ls / 2 - 6; u += 14) for (const s of [-1, 1]) { const q = P(u, s * 8.2); B.st.box(q[0], DH + 4.6, q[1], 0.4, 7.6, 0.4, '#a9a4b5'); }
     // station portal columns at the kerbs (not in the traffic), carrying the concourse
     for (let u = -Ls * 0.28; u <= Ls * 0.28; u += 20) for (const s of [-1, 1]) {

@@ -2,7 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { EventBus, type DeliveryEvents } from '../../src/delivery/core/events';
 import type { LevelConfig, StorageLike } from '../../src/delivery/core/types';
-import { loadLevels, validateLevels } from '../../src/delivery/content/levels';
+// Historical call/story regression fixture; the production scene campaign has fourteen levels.
+import { loadLegacyLevels as loadLevels } from './fixtures/legacy-levels';
+import { validateLevels } from '../../src/delivery/content/levels';
 import { ProgressSystem, MYSTERY_SAVE_KEY } from '../../src/delivery/systems/progress-system';
 import { DeliveryController } from '../../src/delivery/systems/delivery-controller';
 

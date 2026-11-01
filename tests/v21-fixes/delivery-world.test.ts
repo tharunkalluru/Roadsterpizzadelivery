@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { gunzipSync } from 'node:zlib';
 import * as THREE from 'three';
-import { loadLevels } from '../../src/delivery/content/levels';
+// Historical rooftop/IMAX world-footprint fixtures remain regression coverage.
+import { loadLegacyLevels as loadLevels } from './fixtures/legacy-levels';
 import { DeliveryRuntime } from '../../src/delivery/runtime';
 import { EventBus, type DeliveryEvents } from '../../src/delivery/core/events';
 import type { DeliveryModuleContext } from '../../src/delivery/modules/types';

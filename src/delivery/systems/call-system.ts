@@ -27,7 +27,8 @@ export class CallSystem {
   get isLastLine() { return this.active && this.lineIndex === this.script.length - 1; }
 
   prepare(level: LevelConfig, reveal: () => void) {
-    this.reset(); this.level = level; this.onReveal = reveal; this.buttonState = 'disabled';
+    this.reset(); if(level.callMode==='NONE')return;
+    this.level = level; this.onReveal = reveal; this.buttonState = 'disabled';
   }
   update(dt: number, distance: number) {
     if (!this.level) return;

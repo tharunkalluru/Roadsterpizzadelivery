@@ -1,7 +1,10 @@
 import * as THREE from 'three';
 import type { MovingRailBody } from '../../game/moving-rail';
 import type { DeliveryModule, DeliveryModuleContext, DeliveryPoint, ModuleMovement, ModuleParams, ModuleStatus } from './types';
-import { createSceneCharacter, type CharacterStyle, type SceneCharacter } from './character';
+import type { SceneCharacter } from './character';
+import { createReleasedSceneCharacter } from '../art/scene-character';
+import { InstancePreparation } from '../art/instance-preparation';
+import { deliveryPizzaBoxGeometry } from './pizza-box';
 
 export const numberParam = (p: ModuleParams, key: string, fallback: number, min = 0, max = Infinity) => {
   const value = p[key]; return typeof value === 'number' && Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : fallback;
@@ -16,7 +19,7 @@ export abstract class ModuleBase implements DeliveryModule {
   protected root = new THREE.Group();
   protected ring!: THREE.Mesh;
   protected geometries = new Set<THREE.BufferGeometry>();
-  protected materials = new Map<string, THREE.MeshBasicMaterial>();
+  protected materials = new Map<string, THREE.Material>();
   protected instances = new Set<THREE.InstancedMesh>();
   protected time = 0;
   protected ended = false;
@@ -24,6 +27,9 @@ export abstract class ModuleBase implements DeliveryModule {
   protected failureTime = 0;
   protected dropFeedback = '';
   protected bodies: MovingRailBody[] = [];
+  private actorPreparation:InstancePreparation|null=null;
+  protected get prepareActors(){return true;}
+  get charactersReady(){return this.actorPreparation?.ready??true;}
   private handoff: { receiver:SceneCharacter; from:THREE.Vector3; elapsed:number; after:()=>void }|null=null;
   private handoffPizza:THREE.Mesh|null=null;
   private handoffLeft=new THREE.Vector3();
@@ -36,6 +42,7 @@ export abstract class ModuleBase implements DeliveryModule {
 
   setup(ctx: DeliveryModuleContext, params: ModuleParams = {}) {
     this.teardown(); this.ctx = ctx; this.params = params; this.time = 0; this.ended = false; this.ready = true;
+    this.actorPreparation=ctx.prepareCharacterGraphics&&this.prepareActors?new InstancePreparation({now:()=>this.time,warm:(root,valid)=>ctx.prepareCharacterGraphics!(root,valid)}):null;
     this.target = { ...ctx.destination }; this.root = new THREE.Group(); this.root.name = 'delivery-setpiece';
     this.root.position.set(ctx.destination.x, ctx.destination.y, ctx.destination.z); ctx.scene.add(this.root);
     this.ring = new THREE.Mesh(this.own(new THREE.RingGeometry(2.8, 3.15, 36)), this.mat('#45E3D3'));
@@ -48,6 +55,7 @@ export abstract class ModuleBase implements DeliveryModule {
   protected tick(dt: number) {
     if (!this.ready || this.ended) return false;
     const elapsed = Math.max(0, Math.min(Number.isFinite(dt) ? dt : 0, .1)); this.time += elapsed;
+    this.actorPreparation?.tick();
     this.failureTime = Math.max(0, this.failureTime - elapsed);
     if (!this.failureTime) { this.status.failure = undefined; this.dropFeedback = ''; }
     this.root.visible = distanceXZ(this.ctx.player(), this.ctx.destination) < 850;
@@ -55,14 +63,18 @@ export abstract class ModuleBase implements DeliveryModule {
   }
   protected own<T extends THREE.BufferGeometry>(geometry: T): T { this.geometries.add(geometry); return geometry; }
   protected ownInstances<T extends THREE.InstancedMesh>(mesh: T): T { this.instances.add(mesh); return mesh; }
-  protected mat(color: string) {
-    let material = this.materials.get(color);
-    if (!material) { material = new THREE.MeshBasicMaterial({ color, toneMapped: false, side: THREE.DoubleSide }); this.materials.set(color, material); }
-    return material;
+  protected mat(color: string): THREE.MeshBasicMaterial {
+    const existing=this.materials.get(color);if(existing instanceof THREE.MeshBasicMaterial)return existing;
+    const material=new THREE.MeshBasicMaterial({color,toneMapped:false,side:THREE.DoubleSide});this.materials.set(color,material);return material;
   }
   protected box(x: number, y: number, z: number, width: number, height: number, depth: number, color: string, parent = this.root) {
     const mesh = new THREE.Mesh(this.own(new THREE.BoxGeometry(width, height, depth)), this.mat(color));
     mesh.position.set(x, y, z); parent.add(mesh); return mesh;
+  }
+  protected pizzaBox(parent=this.root){
+    const key='physical-pizza-carton';let material=this.materials.get(key);
+    if(!material){material=new THREE.MeshBasicMaterial({vertexColors:true,toneMapped:false});this.materials.set(key,material);}
+    const mesh=new THREE.Mesh(this.own(deliveryPizzaBoxGeometry()),material);parent.add(mesh);return mesh;
   }
   /** For axis-aligned structural scenery only: collision exactly matches the visible box. */
   protected solidBox(x: number, y: number, z: number, width: number, height: number, depth: number, color: string, parent = this.root) {
@@ -84,10 +96,11 @@ export abstract class ModuleBase implements DeliveryModule {
     this.box(-.18, .45, 0, .23, .8, .25, '#272138', group); this.box(.18, .45, 0, .23, .8, .25, '#272138', group);
     return group;
   }
-  protected character(style: CharacterStyle, x: number, y: number, z: number, seated=false, parent=this.root) {
-    const character=createSceneCharacter(style,seated,{geometry:g=>this.own(g),material:(key,m)=>this.materials.set(`${key}:${this.materials.size}`,m)});
-    character.group.position.set(x,y,z);parent.add(character.group);return character;
+  protected character(style: string, x: number, y: number, z: number, seated=false, parent=this.root) {
+    const character=(this.ctx.characterFactory??createReleasedSceneCharacter)(style,seated,{geometry:g=>this.own(g),material:(key,m)=>this.materials.set(`${key}:${this.materials.size}`,m)});
+    character.group.position.set(x,y,z);parent.add(character.group);this.prepareActor(character);return character;
   }
+  protected prepareActor(character:SceneCharacter){if(character.group.userData.releasedCharacter||character.group.userData.localCharacterArtPreview)this.actorPreparation?.add(character.group);}
   protected setTarget(point: DeliveryPoint) {
     Object.assign(this.target, point);
     if (this.ctx?.destination) this.ring?.position.set(point.x - this.ctx.destination.x, point.y - this.ctx.destination.y + .08, point.z - this.ctx.destination.z);
@@ -96,13 +109,13 @@ export abstract class ModuleBase implements DeliveryModule {
   protected within(radius = 7, altitude = 8) {
     const p = this.ctx.player(); return distanceXZ(p, this.target) <= radius && Math.abs(p.y - this.target.y) <= altitude;
   }
-  protected unlocked() { return this.ready && (this.ctx.canInteract?.() ?? true); }
+  protected unlocked() { return this.ready && this.charactersReady && (this.ctx.canInteract?.() ?? true); }
   protected get handoffPending(){return this.handoff!==null;}
   /** Optional physical pass. The caller keeps updating its moving scenery. */
   protected beginHandoff(receiver:SceneCharacter|null,after:()=>void){
     if(this.handoffPending||!this.unlocked()||this.ended)return;
     if(!this.params.immersiveHandoff||!receiver){after();return;}
-    if(!this.handoffPizza){this.handoffPizza=this.box(0,0,0,.9,.18,.9,'#F3BA4D');this.handoffPizza.name='delivery-handoff-pizza';}
+    if(!this.handoffPizza){this.handoffPizza=this.pizzaBox();this.handoffPizza.name='delivery-handoff-pizza';}
     const p=this.ctx.player();
     this.handoff={receiver,from:new THREE.Vector3(p.x,p.y+.35,p.z),elapsed:0,after};
     this.handoffPizza.visible=true;this.handoffPizza.position.copy(this.root.worldToLocal(this.handoff.from.clone()));
@@ -117,7 +130,7 @@ export abstract class ModuleBase implements DeliveryModule {
     const flight=Math.min(1,handoff.elapsed/.55);
     handoff.receiver.catchPose(Math.min(1,handoff.elapsed/.4));
     if(handoff.receiver.catchPoint){
-      handoff.receiver.catchPoint.updateWorldMatrix(true,false);this.handoffPosition.setFromMatrixPosition(handoff.receiver.catchPoint.matrixWorld);
+      handoff.receiver.catchPoint.updateWorldMatrix(true,false);this.handoffPosition.setFromMatrixPosition(handoff.receiver.catchPoint.matrixWorld);if(handoff.receiver.catchPointSpace!=='box-center')this.handoffPosition.y+=.035;
     }else{
       handoff.receiver.leftArm.updateWorldMatrix(true,false);handoff.receiver.rightArm.updateWorldMatrix(true,false);
       this.handoffLeft.set(0,-.5,.04).applyMatrix4(handoff.receiver.leftArm.matrixWorld);
@@ -154,6 +167,7 @@ export abstract class ModuleBase implements DeliveryModule {
       previous: { x: d.x, y: d.y, z: d.z, hx: 0, hz: 1 } });
   }
   teardown() {
+    this.actorPreparation?.dispose();this.actorPreparation=null;
     this.cancelHandoff();this.handoffPizza=null;
     for (const mesh of this.instances) mesh.dispose();
     this.instances.clear();

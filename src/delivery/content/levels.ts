@@ -1,7 +1,7 @@
 import data from './levels.json';
 import type { LevelConfig, ScriptLine } from '../core/types';
 
-const callModes = new Set(['PLAYER_CALLS', 'CUSTOMER_CALLS', 'CUSTOMER_NAGS_EN_ROUTE']);
+const callModes = new Set(['NONE', 'PLAYER_CALLS', 'CUSTOMER_CALLS', 'CUSTOMER_NAGS_EN_ROUTE']);
 function scriptValid(script: unknown): script is ScriptLine[] {
   return Array.isArray(script) && script.length > 0 && script.every(line => line &&
     ['customer', 'player'].includes(line.who) && typeof line.text === 'string' && line.text.trim() &&
@@ -22,7 +22,8 @@ export function validateLevels(input: unknown): LevelConfig[] {
     if (!level.destination || typeof level.destination.label !== 'string' || !level.destination.label.trim() ||
       ![level.destination.x, level.destination.z, level.destination.y ?? 0].every(Number.isFinite)) bad('destination is invalid.');
     if (!callModes.has(level.callMode)) bad('unknown call mode.');
-    if (!scriptValid(level.script)) bad('call script is invalid.');
+    if (level.callMode === 'NONE' ? !Array.isArray(level.script) || level.script.length !== 0 : !scriptValid(level.script)) bad('call script is invalid.');
+    if (level.callMode === 'NONE' && (level.revealAt !== 'afterDelivery' || level.nagScript || level.bonusScript)) bad('scene-only levels cannot require a call.');
     if (level.nagScript && !scriptValid(level.nagScript)) bad('nag script is invalid.');
     if (level.callMode === 'CUSTOMER_NAGS_EN_ROUTE' && !scriptValid(level.nagScript)) bad('nag call needs a script.');
     if (level.bonusScript && !scriptValid(level.bonusScript)) bad('bonus script is invalid.');

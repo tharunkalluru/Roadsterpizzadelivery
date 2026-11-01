@@ -1,3 +1,4 @@
+import { applySceneLamp } from './scene-lamp-pool';
 import { roadNavigationCue } from '../ui/flight-navigation';
 import { showLoading, hideLoading, loadingRetry } from '../ui/loading';
 import { frameTakeoff } from './kickflip-camera';
@@ -12,11 +13,12 @@ import { moodAt } from '../core/sky';
 import { rng } from '../core/util';
 import { Player, Input } from './player';
 import { RoadGraph, GEdge, RoadRoute } from './roadgraph';
+import { launchPreparedGame } from './startup-readiness';
 import { advanceRoadRoute, clearRoadGuidance, guidanceRibbon, navigationReadout, softenRoadCorners } from './route-guidance';
 import { metroCorridors, metroRuntimeStations } from '../world/metro-geometry';
 import { Traffic } from './traffic';
 import { TrafficHeadlights } from './traffic-headlights';
-import { vehicleDarkness } from './player-lights';
+import { vehicleDarkness, stepSceneHeadlightGain } from './player-lights';
 import { Hud, orderOfferHtml } from '../ui/hud';
 import { eligiblePickup } from './pickups';
 import { FullMap } from '../ui/map';
@@ -527,12 +529,15 @@ export class Game {
     this.title = new TitleScreen(this.hud.root, touch, this.carrierPickupMode);
     this.title.onPlay = () => { this.sound.unlock(); this.sound.cue('start'); if (touch && this.settings.steer === 'tilt') void this.applySteering(); this.carrierPickupMode ? this.startCampaign() : this.chooseArea(true); };
     this.title.onSettings = () => this.openSettings(() => { this.hud.modal(null); this.title!.show(); });
-    if (this.opts.initialArea) this.relocate(this.opts.initialArea);
-    else if (hit && !this.carrierPickupMode) this.relocate(hit); else { this.choosing = true; this.paused = true; this.title.show(); }
-    const loop = () => { if (!this.halted) this.frame(); requestAnimationFrame(loop); };   // tests set halted and step frames themselves
-    requestAnimationFrame(loop);
+    return launchPreparedGame(this.story?.initialCharacterPreparation(),()=>{
+      if (this.opts.initialArea) this.relocate(this.opts.initialArea);
+      else if (hit && !this.carrierPickupMode) this.relocate(hit); else { this.choosing = true; this.paused = true; this.title!.show(); }
+      const loop = () => { if (!this.halted) this.frame(); requestAnimationFrame(loop); };   // tests set halted and step frames themselves
+      requestAnimationFrame(loop);
+    });
   }
   handleKeyDown(e: KeyboardEvent) {
+    if(e.ctrlKey||e.metaKey||e.altKey||(e.target as Element|null)?.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;
     if (this.story?.blocking) return;
     if (this.hud.tipOpen) return;
     if (this.hud.rotationBlocked) return;
@@ -668,7 +673,8 @@ export class Game {
   private relocationFailed(c: AreaChoice, message: string, source: 'campaign' | 'map' = 'campaign') {
     if(this.carrierPickupMode && source !== 'map') {
       setLoading('');this.relocating=false;this.relocationAbort=undefined;
-      this.hud.modal('<h2>Could not prepare the road</h2><p>Please retry loading the campaign start.</p><button class="btn go" id="campaign-retry">Retry</button>',sheet=>sheet.querySelector('#campaign-retry')!.addEventListener('click',()=>this.relocate(c, source)));
+      const diagnostic=import.meta.env.DEV?`<p class="sm">Development loading evidence: ${esc(c.name)} ${c.x.toFixed(1)}, ${c.z.toFixed(1)} · ${this.city.tiles.size} tiles · ${this.city.pending.size} pending · ${this.city.failures.size} failed.</p>`:'';
+      this.hud.modal(`<h2>Could not prepare the road</h2><p>${esc(message)}</p>${diagnostic}<button class="btn go" id="campaign-retry">Retry</button>`,sheet=>sheet.querySelector('#campaign-retry')!.addEventListener('click',()=>this.relocate(c, source)));
       return;
     }
 
@@ -736,6 +742,11 @@ export class Game {
   watchStuck(dt: number, inp: Input) {
     const pl = this.player, P = pl.pos;
     if (pl.glide || pl.flying || pl.descending || pl.jumping || this.paused) { this.stuckT = 0; this.hud.rescue(false); return; }
+    const leaving=inp.throttle>0||(inp.brake>0&&inp.allowReverse!==false);
+    if(!leaving&&this.story?.intentionalStop){
+      this.stuckT=0;this.slowT=0;this.stuckRef[0]=this.slowRef[0]=P.x;this.stuckRef[1]=this.slowRef[1]=P.z;
+      this.hud.rescue(false);return;
+    }
     const onRoof = pl.lastKind === 'roof';
     const trying = inp.throttle > 0 || inp.brake > 0 || Math.abs(inp.steer) > 0.3;
     if (Math.hypot(P.x - this.stuckRef[0], P.z - this.stuckRef[1]) > 4) { this.stuckRef = [P.x, P.z]; if (!onRoof) this.stuckT = 0; }
@@ -1060,7 +1071,8 @@ export class Game {
     this.updateCamera(dt);
     // Apply after all driving, collision and camera-visibility transforms.
     const darkness = vehicleDarkness(this.engine.mood?.lampLights ?? 0);
-    this.player.lamps?.update(darkness, inp.brake, this.player.speed, this.opts.lowQ ? 1 : .22);
+    this.deliveryHeadlightGain=stepSceneHeadlightGain(this.deliveryHeadlightGain,this.story?.headlightGain,dt);
+    this.player.lamps?.update(darkness, inp.brake, this.player.speed, (this.opts.lowQ ? 1 : .22)*this.deliveryHeadlightGain);
     this.trafficHeadlights?.update(P, this.traffic.cars, darkness);
     if (this.beacon.visible) {
       const s = 1 + Math.sin(this.t * 3) * 0.08;
@@ -1101,6 +1113,15 @@ export class Game {
     const motion = this.player.deliveryMotion;
     this.cameraCollisionOptions ??= {};
     this.cameraCollisionOptions.underwater = underwater && motion ? motion : undefined;
+    const solids=this.story?.supports??[];
+    this.cameraCollisionOptions.deliverySolids=solids;
+    const bed=solids.find(b=>b.id==='delivery-interior-floor'),roof=solids.find(b=>b.id==='delivery-interior-roof');
+    const interior=!!bed&&!!roof&&P.y>bed.roof+.15&&P.y<roof.bottom&&
+      Math.abs((P.x-bed.x)*bed.hz-(P.z-bed.z)*bed.hx)<bed.halfWidth-.15&&
+      Math.abs((P.x-bed.x)*bed.hx+(P.z-bed.z)*bed.hz)<bed.halfLength+.5;
+    const requestedFocus=this.story?.cameraFocus;
+    const parkedHandoff=requestedFocus?.context==='stationary-handoff'&&!flight&&!this.player.jumping&&!this.player.descending&&Math.abs(this.player.speed)<=.75&&Math.abs(this.orbitPitch-.38)<.04&&Math.abs(this.orbitDist)<.1;
+    const interactionFocus=(interior||underwater||parkedHandoff)&&!this.dragging&&Math.abs(this.orbitYaw)<.12?requestedFocus:undefined;
     const air = flight || this.player.pos.y - (this.player.lastSupport + 0.55) > 2;
     // Airborne does not mean moving: a hovering player keeps their chosen view.
     const moving = Math.abs(this.player.speed) > 2;
@@ -1111,13 +1132,14 @@ export class Game {
       this.orbitPitch += (0.38 - this.orbitPitch) * k2; this.orbitDist *= 1 - k2;
       if (flight) { this.airOrbitPitch += (.62 - this.airOrbitPitch) * k2; this.airOrbitDist *= 1 - k2; }
     }
-    const back = underwater ? 7 : 7.6 + speedCameraDistance(this.player.speed) + (air ? 4 : 0) + (flight ? this.airOrbitDist : this.orbitDist);
+    const back = interior ? 3.5 : underwater ? 7 : 7.6 + speedCameraDistance(this.player.speed) + (air ? 4 : 0) + (flight ? this.airOrbitDist : this.orbitDist);
     const cy = Math.cos(this.orbitYaw), sy = Math.sin(this.orbitYaw);
     const bx = f.x * cy - f.z * sy, bz = f.x * sy + f.z * cy;          // camera looks along the rotated forward
-    const pitch = underwater ? .12 : flight ? this.airOrbitPitch : air ? .62 : this.orbitPitch;
+    const pitch = interior || underwater ? .12 : flight ? this.airOrbitPitch : air ? .62 : this.orbitPitch;
     const hd = back * Math.cos(pitch) / Math.cos(0.38), up = 0.4 + back * Math.sin(pitch) * 0.95;
     const pivot = new THREE.Vector3(P.x, P.y + 1.4, P.z);
     let desired = new THREE.Vector3(P.x - bx * hd, P.y + up, P.z - bz * hd);
+    if(interactionFocus)desired.set(interactionFocus.position.x,interactionFocus.position.y,interactionFocus.position.z);
     desired = this.clearCamera(pivot, desired);
     const k = 1 - Math.exp(-dt * (this.dragging ? 14 : 5));
     if (!this.camPos.lengthSq()) this.camPos.copy(desired); else this.camPos.lerp(desired, k);
@@ -1125,7 +1147,7 @@ export class Game {
     if (this.insideSolid(this.camPos)) this.camPos.copy(desired);
     // and if a building corner comes between the lagging camera and the car (turning in a narrow lane), pull it in
     else { const vis = this.clearCamera(pivot, this.camPos); if (vis.distanceToSquared(this.camPos) > 0.01) this.camPos.copy(vis); }
-    const look = moving && Math.abs(this.orbitYaw) < 0.3 ? new THREE.Vector3(P.x + f.x * 20, P.y + 1.2, P.z + f.z * 20) : pivot.clone();
+    const look = interactionFocus?new THREE.Vector3(interactionFocus.target.x,interactionFocus.target.y,interactionFocus.target.z):moving && Math.abs(this.orbitYaw) < 0.3 ? new THREE.Vector3(P.x + f.x * (interior?4:20), P.y + 1.2, P.z + f.z * (interior?4:20)) : pivot.clone();
     if (!this.camLook.lengthSq()) this.camLook.copy(look); else this.camLook.lerp(look, k);
     const cam = this.engine.camera;
     cam.position.copy(this.camPos);
@@ -1168,14 +1190,27 @@ export class Game {
     return new THREE.Vector3(p.x, p.y, p.z);
   }
   lampT = 0;
+  private streetLampPositions:THREE.Vector3[]=[];
+  private sceneLampReserved=false;
+  private deliveryHeadlightGain=1;
   placeLampLights() {
+    const sceneLamp=this.story?.sceneLamp,slot=this.engine.lampLights[0],mood=this.engine.mood?.lampLights??0;
+    // A moving fixture updates one pooled light each frame. Ordinary street
+    // selection keeps its Version21 cadence and there are no extra lights.
+    if(slot&&(sceneLamp||this.sceneLampReserved)){this.sceneLampReserved=applySceneLamp(slot,sceneLamp??null,this.streetLampPositions[0]??null,mood,0);}
     if ((this.lampT -= 1) > 0) return; this.lampT = 20;
     const P = this.player.pos;
     const near = this.city.lamps.filter((l) => Math.abs(l.x - P.x) < 70 && Math.abs(l.z - P.z) < 70).sort((a, b) => a.distanceTo(P) - b.distanceTo(P));
-    this.engine.lampLights.forEach((L, i) => { const p = near[i]; if (p) L.position.copy(p); else L.position.set(0, -200, 0); });
+    this.streetLampPositions=near;
+    this.engine.lampLights.forEach((L,i)=>applySceneLamp(L,i===0?sceneLamp??null:null,near[i]??null,mood,i));
+    this.sceneLampReserved=!!sceneLamp;
   }
   updateRoute(dt: number) {
     const tgt = this.routeTarget, P = this.player.pos, f = this.player.forward;
+    // Keep actual road/minimap planning and the small HUD direction cue. The
+    // occupied truck interior only clears its world-space beacon and ribbon.
+    const hideWorldGuidance=!!this.story?.hideWorldGuidance;
+    if(this.beacon)this.beacon.visible=!!tgt&&!hideWorldGuidance;
     if (!tgt) { this.gps.visible = false; return; }
     // Authored scenes may be on a roof, inside a hall or on a train. Route
     // the car along real roads to their approach; keep the exact scene marker.
@@ -1236,7 +1271,7 @@ export class Game {
     this.routeAlpha = (this.routeAlpha || 0) + (1 - (this.routeAlpha || 0)) * (1 - Math.exp(-dt * 12));
     const material = this.gps.material as THREE.MeshBasicMaterial;
     material.side = THREE.DoubleSide; material.opacity = .6 * this.routeAlpha;
-    this.gps.visible = !!this.route && vertices.length > 0;
+    this.gps.visible = !hideWorldGuidance && !!this.route && vertices.length > 0;
   }
   private capturePickupPose(pose: JumpPickupPose) {
     const p = this.player, bounds = p.jumpTrafficBounds;

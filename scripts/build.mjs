@@ -1,6 +1,7 @@
 import { spawnSync } from 'node:child_process';
 import { cpSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { build } from 'esbuild';
+import { gameBuildFingerprint } from './build-fingerprint.mjs';
 rmSync('dist', { recursive: true, force: true });
 const result = spawnSync(process.execPath, ['node_modules/vite/bin/vite.js', 'build', '--outDir', 'dist/client'], { stdio: 'inherit' });
 if (result.status !== 0) process.exit(result.status || 1);
@@ -14,10 +15,14 @@ writeFileSync('dist/server/wrangler.json', JSON.stringify(config, null, 2) + '\n
 // Site version without exposing any runtime or account state.
 const revision = spawnSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' });
 if (revision.status !== 0) throw new Error('Build requires a committed source revision.');
+const status = spawnSync('git', ['status', '--porcelain', '--untracked-files=normal'], { encoding: 'utf8' });
+if (status.status !== 0) throw new Error('Cannot verify build source status.');
 writeFileSync('dist/client/build-info.json', JSON.stringify({
   sourceCommit: revision.stdout.trim(),
+  sourceDirty: Boolean(status.stdout.trim()),
+  buildFingerprint: gameBuildFingerprint(process.cwd()),
   baseline: '02f6abef4946b701ebca6d66d51257e2c5f638be',
-  release: 'mystery-deliveries-v1',
+  release: 'fourteen-cinematic-deliveries-v1',
 }) + '\n');
 mkdirSync('dist/.openai', { recursive: true });
 try { cpSync('.openai/hosting.json', 'dist/.openai/hosting.json'); } catch (error) { if (error.code !== 'ENOENT') throw error; }

@@ -23,6 +23,8 @@ export function campaignDistance(levels:readonly LevelConfig[]) {return levels.r
 /** Exact waypoint route for small campaigns, bounded nearest-neighbour + 2-opt for larger content sets. */
 export function campaignPlan(source:readonly LevelConfig[],raw:string|null=null):LevelConfig[] {
   if(!source.length)return [];
+  // Numbered scene campaigns deliberately preserve the author's level order.
+  if(source[0].campaignOrder==='fixed')return source.map((level,i)=>({...level,level:i+1}));
   const saved=savedCampaign(source,raw),byId=new Map(source.map(l=>[l.id,l]));
   const completed=saved.completed.map(id=>byId.get(id)!);
   let pending=source.filter(l=>!saved.completed.includes(l.id));

@@ -277,3 +277,16 @@ test('restaurant is a pause-owned destination and opening its overlay immediatel
   assert.doesNotMatch(source,/du-collection-button|data-du="collection-button"/,'the persistent restaurant shortcut is removed');
   assert.match(DELIVERY_UI_CSS,/#hud\.has-modal \.delivery-ui>\.du-call/,'external pause/settings dialogs suppress contextual controls synchronously');
 });
+
+test('completed-scene instructions reuse the free fixed top guidance lane and never displace live navigation',()=>{
+  const f=noticeFixture();f.model.notice='Reverse down the ramp';f.model.noticeContext='scene-exit';f.ui.update(f.model);
+  assert.equal(f.elements.notice.dataset.placement,'guidance');
+  f.model.nav={label:'Next delivery',distance:100,angle:0};f.ui.update(f.model);assert.equal(f.elements.notice.dataset.placement,'notice','a live route keeps exclusive ownership of its lane');
+  const layout=layoutFixture(628,240),slot={left:190,top:10,width:200,height:44};
+  const node={hidden:false,getClientRects:()=>[slot],getBoundingClientRect:()=>slot};
+  const notice={hidden:false,dataset:{placement:'guidance'},style:{} as Record<string,string>};layout.ui.elements.notice=notice;
+  const query=layout.host.querySelector;layout.host.querySelector=(selector:string)=>selector==='#hud-navigation-slot'?node:query(selector);
+  layout.ui.layout();assert.equal(notice.style.left,'190px');assert.equal(notice.style.top,'10px');assert.equal(notice.style.height,'44px');assert.equal(notice.style.visibility,'');
+  layout.host.querySelector=(selector:string)=>selector==='#hud-navigation-slot'?null:query(selector);layout.ui.layout();assert.equal(notice.style.visibility,'hidden','no valid lane means no box over the reader');
+  notice.dataset.placement='notice';layout.ui.layout();assert.equal(notice.style.top,'');assert.equal(notice.style.visibility,'','ordinary notices return to the host-owned notice lane');
+});

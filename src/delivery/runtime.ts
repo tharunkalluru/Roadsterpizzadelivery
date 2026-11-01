@@ -1,3 +1,5 @@
+import type { Group } from 'three';
+import { prepareCharacterGpu } from './art/gpu-preparation';
 import { campaignSession, campaignSpawn } from './campaign';
 import type { Game } from '../game/game';
 import { DeliveryController } from './systems/delivery-controller';
@@ -14,6 +16,12 @@ import { verifiedRailPassages, type VerifiedRailPassage } from './rail-passages'
 import { sampleTruckRoute, truckLane } from './truck-route';
 import { signedFlightAngle } from '../ui/flight-navigation';
 import { resolveDeliveryRoadTarget } from './road-navigation-target';
+import { buildRailwayStoryRoute } from '../game/railway-story-route';
+import { createGroundScenePlacementJob, groundScenePlacementKey, needsGroundScenePlacement, type GroundScenePlacementJob } from './scene-placement';
+import { resolveUppalStadiumDelivery } from './stadium-delivery';
+import { prewarmReleasedSceneCharacters, retainSceneCharacters, hasRegisteredSceneCharacters } from './art/scene-character';
+import { sceneAssetWindow, characterIdsForLevel } from './art/scene-asset-window';
+import { ScenePreparation } from './art/scene-preparation';
 
 /** Static support only: a passing train must not move a fixed delivery stage. */
 export function deliverySurfaceHeight(city: Game['city'], x: number, z: number) {
@@ -50,6 +58,8 @@ export class DeliveryRuntime {
   module: DeliveryModule | null = null;
   private off: (() => void)[] = [];
   private selectedTrain = '';
+  private storyShuttle = '';
+  private storyRun: RailwayRun | null = null;
   private lastUIBlock = false;
   private target: DeliveryPoint | null = null;
   private noticeUntil = 0;
@@ -61,7 +71,16 @@ export class DeliveryRuntime {
   private prepareAfter = 0;
   private lastPlan: (DeliveryPoint & { time: number }) | null = null;
   private disposed = false;
-  private roadTargetCache?: { revision: number; x: number; y: number; z: number; offRoad: boolean; roadHeight: number; point: DeliveryPoint | null };
+  private retainedCompletedScene = false;
+  private retainedSceneLevelId:string|null=null;
+  private completedScenery:DeliveryModule[]=[];
+  private supportBuffer:MovingRailBody[]=[];
+  private characterPreparation: ScenePreparation;
+  private initialCharacters:Promise<void>=Promise.resolve();
+  private characterSelectionCurrent:string|null|undefined;
+  private characterSelectionRetained:string|null|undefined;
+  private groundPlacement?: { key: string; job: GroundScenePlacementJob };
+  private roadTargetCache?: { revision: number; x: number; y: number; z: number; label?:string; offRoad: boolean; roadHeight: number; point: DeliveryPoint | null };
   private moduleFactory: (name: string) => DeliveryModule;
   private trafficBodies: MovingRailBody[] = [];
   private passageCache: { coach: string; run: RailwayRun; revision: number; offset: number; center: number; candidates: VerifiedRailPassage[]; chosen: VerifiedRailPassage | null } | null = null;
@@ -71,21 +90,41 @@ export class DeliveryRuntime {
     if (!storage) try { storage = window.localStorage; } catch { /* Play remains available without persistent storage. */ }
     const campaign = options.levels ? { levels:options.levels,storage } : campaignSession(loadLevels(),storage);
     this.controller = new DeliveryController(campaign.levels, game.deliveryEvents, campaign.storage);
+    this.characterPreparation=new ScenePreparation({
+      warm:ids=>prewarmReleasedSceneCharacters(ids,this.game.engine.renderer?.compile?this.game.engine:undefined),
+      retain:retainSceneCharacters,now:()=>this.elapsed,
+      failed:(error,priority)=>{
+        if(priority==='current'){this.notice='Preparing delivery characters. Loading will retry shortly.';this.noticeUntil=this.elapsed+5;}
+        console.warn(priority==='current'?'Delivery character preparation failed.':'Upcoming delivery character preparation will retry.',error);
+      },
+    });
     this.moduleFactory = options.moduleFactory ?? createDeliveryModule;
     this.ui = (options.uiFactory ?? ((host, actions) => new DeliveryUI(host, actions)))(game.hud.root, {
       call: () => this.act(() => this.controller.call()),
       advanceCall: reply => this.act(() => this.controller.advanceCall(reply)),
       endCall: () => this.act(() => this.controller.endCall()),
       drop: () => { if (this.controller.canDrop && this.module) this.module.onDrop(); this.syncView(); },
-      continue: () => { if (this.controller.continueAfterCompletion()) this.clearDelivery(); this.syncView(); },
+      continue: () => { if (this.controller.continueAfterCompletion()) this.clearDelivery(true); this.syncView(); },
       bonusCall: () => this.act(() => this.controller.bonusCall()),
       collectionOpen: () => game.resetInput(),
       collectionClose: () => { game.resetInput(); game.clock.getDelta(); game.engine.renderer.domElement.focus({ preventScroll: true }); },
     });
     const events = game.deliveryEvents;
-    this.off.push(events.on('orderPicked', () => this.controller.pickup()),
+    this.off.push(events.on('orderPicked', () => { if(this.canPickup)this.controller.pickup(); }),
       events.on('locationSet', event => {
-        this.setTarget({ ...event.destination, y: event.destination.y ?? 0 }); this.syncView();
+        const level = this.controller.activeLevel;
+        let destination = { ...event.destination, y: event.destination.y ?? 0 };
+        if (level?.moduleParams.nearestMetro) {
+          const p=this.game.player.pos;
+          const station=[...this.game.zone.metro.stations].sort((a,b)=>Math.hypot(a.p[0]-p.x,a.p[1]-p.z)-Math.hypot(b.p[0]-p.x,b.p[1]-p.z))[0];
+          if(station)destination={...destination,x:station.p[0],z:station.p[1],y:this.game.zone.metro.deckHeight+4,label:'Metro · Ride to next station'};
+        }
+        if (level?.moduleParams.shuttle) {
+          this.storyRun=buildRailwayStoryRoute();
+          if(this.storyRun){const p=projectRailwayRun(this.storyRun,this.game.player.pos.x,this.game.player.pos.z);destination={...destination,x:p.x,z:p.z,y:p.y+4.2};}
+        }
+        if(level)level.destination={...destination};
+        this.setTarget(destination); this.syncView();
       }),
       events.on('callRinging', () => { this.ringingT = 1.4; game.sound.cue('offer'); }),
       events.on('callStarted', () => game.resetInput()),
@@ -93,15 +132,34 @@ export class DeliveryRuntime {
       events.on('setpieceFailed', event => { this.notice = event.reason; this.noticeUntil = this.elapsed + 3; }),
       events.on('levelComplete', () => {
         game.carriers.clear(); game.hud.pickupStatus(false); game.resetInput();
-        this.removeModule(); this.setTarget(null); this.syncView();
+        this.retainedCompletedScene=!!this.module?.exitPending;
+        this.retainedSceneLevelId=this.retainedCompletedScene?this.controller.activeLevel?.id??null:null;
+        if(!this.retainedCompletedScene)this.removeModule(true);
+        this.releaseStoryTrain(); this.setTarget(null); this.syncView();
       }));
     this.syncView();
+    this.prepareCharacterWindow(true);
+  }
+  initialCharacterPreparation(){return this.initialCharacters;}
+  /** Async preparation never advances the simulation or changes the camera. */
+  private prepareCharacterWindow(initial=false){
+    const current=this.controller.activeLevel??this.controller.progress.nextLevel;
+    const currentId=current?.id??null;
+    if(currentId===this.characterSelectionCurrent&&this.retainedSceneLevelId===this.characterSelectionRetained&&this.elapsed<this.characterPreparation.nextRetryAt)return;
+    this.characterSelectionCurrent=currentId;this.characterSelectionRetained=this.retainedSceneLevelId;
+    this.characterPreparation.select(characterIdsForLevel(current),sceneAssetWindow(this.controller.levels,currentId,this.retainedSceneLevelId));
+    if(initial)this.initialCharacters=this.characterPreparation.currentPreparation;
   }
   startArea() { const target=(this.controller.progress.nextLevel ?? this.controller.levels[this.controller.levels.length-1])?.destination; return target?campaignSpawn(this.game.graph,target):null; }
-  get canPickup() { return this.controller.canPickup; }
+  get canPickup() { return this.controller.canPickup&&!this.retainedCompletedScene; }
   get blocking() { return this.ui.blocking; }
   get activeOrder() { return !!this.controller.activeLevel && !this.controller.complete; }
-  get supports(): readonly MovingRailBody[] { return this.module?.supports ?? []; }
+  get supports(): readonly MovingRailBody[] {
+    this.supportBuffer.length=0;
+    for(const scene of this.completedScenery)this.supportBuffer.push(...scene.supports);
+    if(this.module)this.supportBuffer.push(...this.module.supports);
+    return this.supportBuffer;
+  }
   get levelLabel() {
     const c = this.controller;
     return `Level ${c.activeLevel?.level ?? c.progress.currentLevel} / ${c.progress.total}`;
@@ -117,6 +175,30 @@ export class DeliveryRuntime {
     return this.ui.collectionOpen;
   }
   get destination() { return this.target; }
+  get hideWorldGuidance(){return this.activeOrder&&!!this.module?.hideWorldGuidance;}
+  get cameraFocus(){
+    const active=this.module?.cameraFocus;if(active||this.activeOrder)return active;
+    // Let a parked player see a receiver settle after Next. The module's own
+    // stop/flight/orbit gates still release this view; a new job owns its camera.
+    for(let i=this.completedScenery.length-1;i>=0;i--){const focus=this.completedScenery[i].cameraFocus;if(focus)return focus;}
+    return undefined;
+  }
+  get intentionalStop(){
+    const p=this.game.player;
+    if(p.flying||p.descending||p.jumping||Math.abs(p.speed)>.8)return false;
+    return !!(this.module?.intentionalStop||this.module?.status.canDrop||this.completedScenery.some(scene=>scene.intentionalStop));
+  }
+  get headlightGain(){
+    let gain=this.module?.headlightGain??1;
+    for(const module of this.completedScenery)gain=Math.min(gain,module.headlightGain??1);
+    return Number.isFinite(gain)?Math.max(0,Math.min(1,gain)):1;
+  }
+  get sceneLamp(){
+    const p=this.game.player.pos;let selected=this.module?.sceneLamp;
+    let nearest=selected?(selected.position.x-p.x)**2+(selected.position.y-p.y)**2+(selected.position.z-p.z)**2:Infinity;
+    for(const module of this.completedScenery){const lamp=module.sceneLamp;if(!lamp)continue;const d=(lamp.position.x-p.x)**2+(lamp.position.y-p.y)**2+(lamp.position.z-p.z)**2;if(d<nearest){selected=lamp;nearest=d;}}
+    return selected;
+  }
   /** The GPS ends on a real street; the flight marker keeps its actual height. */
   get roadNavigationTarget(): DeliveryPoint | null {
     const target = this.target, level = this.controller.activeLevel;
@@ -125,16 +207,18 @@ export class DeliveryRuntime {
     const vehicle = movingRoadVehicle ? (this.module?.trafficBodies ?? this.module?.supports ?? []).find(body => body.id === 'delivery-log-truck') : undefined;
     const offRoad = !movingRoadVehicle, roadHeight = offRoad ? 0 : vehicle?.y ?? level.destination.y ?? 0;
     const cache = this.roadTargetCache, revision = this.game.graph.revision;
-    if (cache && cache.revision === revision && cache.offRoad === offRoad && Math.abs(cache.roadHeight - roadHeight) < .25 &&
+    if (cache && cache.revision === revision && cache.label === target.label && cache.offRoad === offRoad && Math.abs(cache.roadHeight - roadHeight) < .25 &&
       (offRoad || Math.abs(cache.y - target.y) < .25) && Math.hypot(cache.x - target.x, cache.z - target.z) < 8) return cache.point;
     const point = resolveDeliveryRoadTarget(this.game.graph, target, { offRoad, roadHeight });
-    this.roadTargetCache = { revision, x: target.x, y: target.y, z: target.z, offRoad, roadHeight, point };
+    this.roadTargetCache = { revision, x: target.x, y: target.y, z: target.z, label:target.label, offRoad, roadHeight, point };
     return point;
   }
   /** Final metres follow the live scene, which may sit outside the road graph. */
   get localNavigation(): { metres: number; hint: string; bearing: number } | undefined {
     if (this.disposed || !this.activeOrder || !this.target) return;
     const player = this.game.player, arrival = this.module?.arrival;
+    const level=this.controller.activeLevel;
+    const groundScene=!!level&&(needsGroundScenePlacement(level.module)||level.moduleParams.useExistingStadium===true);
     const rear = arrival?.side === 'rear' ? arrival : undefined;
     // Arrival anchors the rear-door boundary; the target remains the safe
     // approach point behind its ramp, including before the player calls.
@@ -145,7 +229,7 @@ export class DeliveryRuntime {
     let flyToMarker = false;
     if (!rear && !player.flying && !player.descending && !player.jumping) {
       flyToMarker = metres <= 40 && target.y - player.pos.y > 3;
-      if (!flyToMarker && metres > 15) {
+      if (!flyToMarker && !groundScene && metres > 15) {
         const access = this.roadNavigationTarget;
         flyToMarker = !!access && Math.abs(player.pos.y - .55 - access.y) <= 1.6 &&
           Math.hypot(player.pos.x - access.x, player.pos.z - access.z) <= 12;
@@ -153,6 +237,7 @@ export class DeliveryRuntime {
     }
     if (metres > (rear ? 80 : 40) && !flyToMarker) return;
     let hint = rear ? (this.controller.canDrop ? 'Approach ramp' : 'Approach rear') : flyToMarker ? 'Fly to marker' : 'Approach marker';
+    if(!rear&&this.controller.activeLevel?.moduleParams.scene==='truckInterior')hint=this.module?.status.canDrop?'Hand over pizza':'Ease into position';
     let heading = metres < .01 ? player.yaw : Math.atan2(-dx, -dz);
     const ramp = this.controller.canDrop && rear ? this.module?.supports.find(body => body.id === 'delivery-interior-ramp') : undefined;
     if (ramp && rear && [ramp.x, ramp.z, ramp.hx, ramp.hz, ramp.halfLength, rear.hx, rear.hz].every(Number.isFinite)) {
@@ -193,9 +278,32 @@ export class DeliveryRuntime {
     if (this.disposed || this.blocking) return;
     dt = Math.max(0, Math.min(.1, Number.isFinite(dt) ? dt : 0));
     this.elapsed += dt;
+    this.prepareCharacterWindow();
+    for(let index=this.completedScenery.length-1;index>=0;index--){
+      const scene=this.completedScenery[index];scene.update(dt);
+      if(!scene.sceneryPending){scene.teardown();this.completedScenery.splice(index,1);}
+    }
     const c = this.controller, p = this.game.player;
+    const groundLevel = c.activeLevel;
+    if (!this.module && groundLevel && !c.complete && needsGroundScenePlacement(groundLevel.module) && Math.hypot(groundLevel.destination.x - p.pos.x, groundLevel.destination.z - p.pos.z) < 700) {
+      const tiles = this.game.city.tiles, revision = tiles ? [...tiles.keys()].sort().join(',') : '';
+      const key = groundScenePlacementKey(this.game.city, this.game.graph, groundLevel, revision);
+      if (this.groundPlacement?.key !== key) {
+        this.groundPlacement?.job.cancel();
+        this.groundPlacement = { key, job: createGroundScenePlacementJob(this.game.city, this.game.graph, groundLevel, {
+          revision, isLoaded: (x, z) => !tiles || tiles.has(`${Math.floor(x / 1000)}_${Math.floor(z / 1000)}`),
+        }) };
+      }
+      this.groundPlacement.job.step(1.5, 64);
+      if (this.groundPlacement.job.done && this.groundPlacement.job.result) this.prepareAfter = 0;
+    } else if (this.groundPlacement) { this.groundPlacement.job.cancel(); this.groundPlacement = undefined; }
+    if(c.activeLevel?.moduleParams.shuttle&&this.storyRun){
+      this.storyShuttle=this.game.rail.ensureStoryShuttle?.(this.storyRun,p.pos)??'';
+      const coach=this.storyShuttle?this.game.rail.storyCoach?.(this.storyShuttle,2):null;
+      if(coach&&!this.module){c.activeLevel.destination={...c.activeLevel.destination,x:coach.x,y:coach.roof,z:coach.z};this.setTarget(c.activeLevel.destination as DeliveryPoint);}
+    }
     if (c.activeLevel && !this.module && !c.complete && c.state !== 'REVEAL' && c.destination &&
-      this.elapsed >= this.prepareAfter && Math.hypot(c.destination.x - p.pos.x, c.destination.z - p.pos.z) < 380) {
+      this.elapsed >= this.prepareAfter && (c.activeLevel.module==='metroRide'||Math.hypot(c.destination.x - p.pos.x, c.destination.z - p.pos.z) < 380)) {
       this.prepareAfter = this.elapsed + 1;
       try { this.prepareModule(); }
       catch (error) {
@@ -206,8 +314,10 @@ export class DeliveryRuntime {
       }
     }
     this.module?.update(dt);
+    if(this.retainedCompletedScene&&!this.module?.exitPending){this.removeModule(true);this.retainedCompletedScene=false;}
     this.trafficBodies.length = 0;
     for (const body of this.module?.trafficBodies ?? this.module?.supports ?? []) if (body.id === 'delivery-log-truck') this.trafficBodies.push(body);
+    for(const scene of this.completedScenery)for(const body of scene.trafficBodies??[])if(body.id==='delivery-log-truck')this.trafficBodies.push(body);
     this.game.traffic.setKinematicVehicles?.(this.trafficBodies, dt);
     const surfaceApproach=c.activeLevel?.moduleParams.scene==='surfaceEmergence';
     const movement = c.canDrop || surfaceApproach ? this.module?.movement : undefined;
@@ -215,7 +325,7 @@ export class DeliveryRuntime {
       mode: movement.mode, x: movement.center.x, z: movement.center.z, radius: movement.radius ?? 80,
       altitude: movement.mode === 'underwater' ? (movement.center.y - (movement.depth ?? 4)) : (movement.altitude ?? movement.center.y + 3),
     } : undefined;
-    if (this.wasDiving && !p.deliveryMotion && p.pos.y < .3) { p.flying = true; p.descending = false; p.altT = 0; }
+    if (this.wasDiving && movement?.mode !== 'underwater' && p.pos.y < .3) { p.flying = true; p.descending = false; p.altT = 0; }
     this.wasDiving = movement?.mode === 'underwater';
   }
   /** Active time includes reading a call, but excludes map/pause/portrait/background. */
@@ -250,6 +360,7 @@ export class DeliveryRuntime {
   }
   private prepareModule() {
     const c = this.controller, level = c.activeLevel!;
+    if(hasRegisteredSceneCharacters(characterIdsForLevel(level))&&!this.characterPreparation.ready(characterIdsForLevel(level)))return;
     const destination = { ...level.destination, y: level.destination.y ?? 0 };
     let route: DeliveryPoint[] = [];
     const train = level.module === 'matchAndLand' && level.moduleParams.vehicle === 'train';
@@ -297,6 +408,23 @@ export class DeliveryRuntime {
       if (clearStart) route = route.slice(clearStart);
       Object.assign(destination, route[0]);
     } else if (level.module !== 'underwater' && !train) {
+      if (level.module === 'beatDrop' && level.moduleParams.theme === 'jersey' && level.callMode === 'NONE') {
+        const stadium = resolveUppalStadiumDelivery(this.game.city.landmarkSurfaceGrid, destination);
+        if (!stadium) { this.notice = 'Preparing the stadium delivery point…'; this.noticeUntil = this.elapsed + 1.5; return; }
+        Object.assign(destination, stadium.destination); level.moduleParams = { ...level.moduleParams, ...stadium.moduleParams };
+      } else if (needsGroundScenePlacement(level.module)) {
+        const tiles = this.game.city.tiles, revision = tiles ? [...tiles.keys()].sort().join(',') : '';
+        const key = groundScenePlacementKey(this.game.city, this.game.graph, level, revision);
+        const placement = this.groundPlacement?.key === key && this.groundPlacement.job.done ? this.groundPlacement.job.result : null;
+        if (!placement) {
+          // beforePlayer already rate-limits this preparation retry to 1 Hz.
+          // Unknown/unloaded ground is not an invitation to float a scene over it.
+          this.notice = 'Preparing a clear ground approach nearby…'; this.noticeUntil = this.elapsed + 1.5;
+          return;
+        }
+        Object.assign(destination, placement.destination);
+        level.moduleParams = { ...level.moduleParams, ...placement.moduleParams };
+      } else {
       // Build the fictional delivery set above existing physical roof geometry,
       // never inside a streaming building. Named destinations remain unchanged.
       const hallDepth = Math.max(10, Math.min(30, Number(level.moduleParams.entryDepth) || 14));
@@ -312,18 +440,24 @@ export class DeliveryRuntime {
       // Police-station facade hangs seven metres below its roof platform.
       const underside = level.module === 'matchAndLand' ? 7.1 : .8;
       destination.y = Math.max(destination.y, roof + underside);
+      }
     }
     const module = this.moduleFactory(level.module);
     this.module = module; this.selectedTrain = '';
+    const characterIds=characterIdsForLevel(level),renderer=this.game.engine.renderer;
+    const prepareCharacterGraphics=hasRegisteredSceneCharacters(characterIds)&&typeof renderer?.compile==='function'&&typeof renderer?.getContext==='function'
+      ?async(instance?:Group,valid?:()=>boolean)=>{await prewarmReleasedSceneCharacters(characterIds,this.game.engine);if(instance)await prepareCharacterGpu(instance,this.game.engine,valid);}:undefined;
     module.setup({ sceneEvent:(kind)=> { if(this.module===module&&c.activeLevel===level&&c.canDrop&&((kind==='interiorEntered'&&level.moduleParams.scene==='truckInterior')||(kind==='characterEmerged'&&level.moduleParams.scene==='surfaceEmergence')))this.controller.reveals.reveal(c.activeLevel); }, scene: this.game.engine.scene, destination, route,
       canInteract: () => c.canDrop,
+      ...(prepareCharacterGraphics?{prepareCharacterGraphics}:{}),
       surfaceHeightAt: (x, z) => deliverySurfaceHeight(this.game.city, x, z),
       vehicleSpeedLimit: body => this.game.traffic.kinematicSpeedLimit?.(body, Number(level.moduleParams.speed) || 8) ?? Infinity,
       vehiclePoseClear: body => this.game.traffic.kinematicPoseClear?.(body) !== false,
       player: () => ({ x: this.game.player.pos.x, y: this.game.player.pos.y, z: this.game.player.pos.z,
         yaw: this.game.player.yaw, speed: this.game.player.speed, flying: this.game.player.flying,
         descending: this.game.player.descending, jumping: this.game.player.jumping }),
-      existingTrain: () => this.deliveryTrain(destination),
+      existingTrain: exactBodyId => exactBodyId ? this.game.rail?.bodies?.find(body=>body.id===exactBodyId)??null : this.deliveryTrain(destination),
+      metroService: () => ({ bodies: this.game.metro?.bodies ?? [], dwells: this.game.metro?.stationDwells ?? [] }),
       trainPassage: () => this.trainPassage(),
       clearanceAt: point => {
         let lowest = Infinity;
@@ -338,10 +472,10 @@ export class DeliveryRuntime {
       onTarget: point => {
         // Teardown may synchronously follow done(). Ignore a late callback from
         // an old module so it cannot revive a completed delivery's map target.
-        if (this.module === module && !c.complete)
+        if (this.module === module && c.activeLevel===level && !c.complete)
           this.setTarget({ ...point, label: point.label || level.destination.label });
       },
-      cue: kind => this.game.sound.cue(kind === 'success' ? 'delivery' : kind === 'retry' ? 'error' : kind === 'throw' ? 'flight' : 'accept'),
+      cue: kind => {if(kind==='throw'){this.notice='';this.noticeUntil=0;}this.game.sound.cue(kind === 'success' ? 'delivery' : kind === 'retry' ? 'error' : kind === 'throw' ? 'flight' : 'accept');},
       emit: (type, detail) => {
         if (this.module !== module || !c.canDrop) return;
         if (type === 'done') c.setpieceDone(); else c.setpieceFailed(detail?.reason);
@@ -349,6 +483,18 @@ export class DeliveryRuntime {
     }, level.moduleParams);
   }
   private deliveryTrain(destination: DeliveryPoint): MovingRailBody | null {
+    if(this.controller.activeLevel?.moduleParams.shuttle){
+      // A busy corridor can postpone the story shuttle. An unrelated nearby
+      // train must never become the delivery target while that booking retries.
+      const coach=this.storyShuttle?this.game.rail.storyCoach?.(this.storyShuttle,2)??null:null;
+      this.selectedTrain=coach?.id??'';
+      return coach;
+    }
+    const metro=this.controller.activeLevel?.module==='metroRide';
+    if(metro){
+      const p=this.game.player.pos,coach=this.game.metro?.storyBoardingBody?.(this.selectedTrain,p.x,p.z)??null;
+      this.selectedTrain=coach?.id??'';return coach;
+    }
     const bodies = this.game.rail.bodies;
     let best = bodies.find(body => body.id === this.selectedTrain);
     if (!best) {
@@ -405,36 +551,48 @@ export class DeliveryRuntime {
       call: { state: calls.buttonState, label: calls.ringing ? 'Answer' : 'Call' },
       phone: calls.active && line ? { revealed: !!revealed, name: revealed?.name, image: revealed?.image,
         elapsed: calls.elapsed, who: line.who, text: line.text, replies: line.replies, canAdvance: true } : null,
-      action: action ? { label: action.actionLabel, enabled: !!this.module,
-        hint: action.failure || [action.instruction, action.progress].filter(Boolean).join(' · ') } : null,
+      action: action ? { label: this.module?.charactersReady===false?'PREPARING':action.actionLabel, enabled: !!this.module&&this.module.charactersReady!==false,
+        hint: this.module?.charactersReady===false?'One moment…':action.failure || [action.instruction, action.progress].filter(Boolean).join(' · ') } : null,
       completion: c.complete && level && revealed ? { ...revealed, restaurantLabel: c.progress.restaurantStage,
         final: c.progress.finished, bonusAvailable: !!level.bonusScript?.length } : null,
       collection: c.progress.cards,
-      notice: this.noticeUntil > this.elapsed ? this.notice : c.progress.finished && !level ? 'Your restaurant is open. Hyderabad is yours to explore.' : '',
+      noticeContext:this.retainedCompletedScene&&!c.complete?'scene-exit':undefined,
+      notice: this.retainedCompletedScene&&!c.complete?(this.module?.status.actionLabel==='EXIT TRUCK'?'Reverse down the ramp':this.module?.status.instruction||'Leave the delivery scene'):this.noticeUntil > this.elapsed ? this.notice : c.progress.finished && !level ? 'Your restaurant is open. Hyderabad is yours to explore.' : '',
     };
     this.ui.update(view);
     this.game.hud.set('level', this.levelLabel);
+    this.game.hud.pickupHintVisible?.(!c.progress.finished);
   }
-  private removeModule() {
+  private removeModule(preserveScenery=false) {
+    this.groundPlacement?.job.cancel(); this.groundPlacement = undefined;
     const module = this.module;
-    this.module = null; this.selectedTrain = ''; this.wasDiving = false; this.passageCache = null;
-    module?.teardown();
+    this.module = null; this.retainedCompletedScene=false; this.retainedSceneLevelId=null; this.selectedTrain = ''; this.wasDiving = false; this.passageCache = null;
+    if(preserveScenery&&module?.sceneryPending){
+      this.completedScenery.push(module);
+      // Authored deliveries are kilometres apart. Keep a small, bounded return
+      // view without retaining an entire campaign's geometry and textures.
+      if(this.completedScenery.length>2)this.completedScenery.shift()!.teardown();
+    }else module?.teardown();
     this.trafficBodies.length = 0; this.game.traffic.setKinematicVehicles?.(this.trafficBodies, 0);
     const p = this.game.player;
     if (p.deliveryMotion?.mode === 'underwater' && p.pos.y < .3) { p.flying = true; p.descending = false; p.altT = 0; }
     p.deliveryMotion = undefined;
   }
-  private clearDelivery() {
-    this.removeModule(); this.setTarget(null); this.notice = ''; this.noticeUntil = 0; this.prepareAfter = 0;
+  private releaseStoryTrain(){this.game.rail?.clearStoryShuttle?.();this.storyShuttle='';this.storyRun=null;}
+  private clearDelivery(preserveExit=false) {
+    if(!preserveExit||!this.retainedCompletedScene||!this.module?.exitPending)this.removeModule(preserveExit);
+    if(!preserveExit){for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[];}
+    this.releaseStoryTrain(); this.setTarget(null); this.notice = ''; this.noticeUntil = 0; this.prepareAfter = 0;
     this.game.carriers.clear(); this.game.pickupDetector.reset(); this.game.hud.pickupStatus(false);
     this.game.resetInput(); this.game.clock.getDelta();
+    this.prepareCharacterWindow();
   }
   retry() { this.controller.retry(); this.clearDelivery(); this.syncView(); }
   /** Explicit campaign restart clears unlocks/cards and every active interaction. */
   startFromLevelOne() { this.controller.reset(); this.clearDelivery(); this.syncView(); }
   dispose() {
     if (this.disposed) return;
-    this.disposed = true; this.removeModule(); this.setTarget(null);
+    this.disposed = true; this.characterPreparation.dispose();this.removeModule();for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[]; this.releaseStoryTrain(); this.setTarget(null);retainSceneCharacters([]);
     for (const off of this.off) off(); this.off = [];
     this.controller.dispose(); this.ui.dispose(); this.game.hud.storyBlocked = false;
   }
