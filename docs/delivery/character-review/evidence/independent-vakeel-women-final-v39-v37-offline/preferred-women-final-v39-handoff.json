@@ -1,0 +1,88 @@
+{
+  "status": "PRODUCER HANDOFF ONLY; independent final scene/three-file release approval required",
+  "createdUtc": "2026-10-31T18:29:12.913001+00:00",
+  "roles": [
+    {
+      "role": "vakeel-woman-1",
+      "status": "FROZEN UNAPPROVED whole asset; producer is not independent approver",
+      "sourceManifest": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/exact-source-files.json",
+      "sourceManifestSha256": "f5df5c0f84e2c08807960ac4ed6fa36ea419f1377e05a85cf03f0199db7d0148",
+      "proposal": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/final-proposal.json",
+      "files": {
+        "model": "/tmp/roadster-vakeel-production/vakeel-woman-1/production-head-only-v38.glb",
+        "rig": "/tmp/roadster-vakeel-production/vakeel-woman-1/production-head-only-v38.rig.json",
+        "motionBounds": "/tmp/roadster-vakeel-production/vakeel-woman-1/production-head-only-v38.motion-bounds.json",
+        "portrait": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/portrait.png"
+      },
+      "sha256": {
+        "model": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02",
+        "rig": "4594aa011a5130231a4c2eed03bdedcfaa9d5ac37c53cda0404ccbdfa0b5492f",
+        "motionBounds": "8e6f3d55306b39912483accb18524f748a5278e6864192fa024bca92a2b07a3c",
+        "portrait": "7c01c354dbbb3feb58a3adb15e27d1161e8e88caba6385fada84867fad6baef3"
+      },
+      "actualProof": "/tmp/roadster-vakeel-production/vakeel-woman-1/final-v39/native-15-v5/inspection.json",
+      "producerActuallyOpenedAll15AndPortrait": true,
+      "limits": "Native frozen gameplay-mixer stills and diagnostic box contact; not actual four-person game scene or physical phone FPS evidence."
+    },
+    {
+      "role": "vakeel-woman-2",
+      "status": "FROZEN UNAPPROVED whole asset; producer is not independent approver",
+      "sourceManifest": "/tmp/roadster-vakeel-production/vakeel-woman-2/final-v37/exact-source-files.json",
+      "sourceManifestSha256": "86990702c86681fc0c4d132f02204b4ea62f2206948d67d17d81da036c79e70b",
+      "proposal": "/tmp/roadster-vakeel-production/vakeel-woman-2/final-v37/final-proposal.json",
+      "files": {
+        "model": "/tmp/roadster-vakeel-production/vakeel-woman-2/production-separated-recipient-v36.glb",
+        "rig": "/tmp/roadster-vakeel-production/vakeel-woman-2/production-separated-recipient-v36.rig.json",
+        "motionBounds": "/tmp/roadster-vakeel-production/vakeel-woman-2/production-separated-recipient-v36.motion-bounds.json",
+        "portrait": "/tmp/roadster-vakeel-production/vakeel-woman-2/final-v37/portrait.png"
+      },
+      "sha256": {
+        "model": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702",
+        "rig": "94b5f7535a6499bf652f0111290859c099a1ef5e179fce606dc46d96c4429c49",
+        "motionBounds": "1fe840765c93cc3e55de42d5532a771afc843c6c4bb9a21aa6cf95c41869fc3c",
+        "portrait": "8569f1b2c35a66f2c7ec77c232cf4ca5b46be2811e39137a9e131437afa11abf"
+      },
+      "actualProof": "/tmp/roadster-vakeel-production/vakeel-woman-2/final-v37/native-15-v5/inspection.json",
+      "producerActuallyOpenedAll15AndPortrait": true,
+      "limits": "Native frozen gameplay-mixer stills and diagnostic box contact; not actual four-person game scene or physical phone FPS evidence."
+    },
+    {
+      "role": "vakeel-woman-3",
+      "status": "FROZEN UNAPPROVED whole asset; producer is not independent approver",
+      "sourceManifest": "/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/exact-source-files.json",
+      "sourceManifestSha256": "b55e4abbf619228492953637f8c265416639f87ea01a3132d8bba0d3bd10c4ab",
+      "proposal": "/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/final-proposal.json",
+      "files": {
+        "model": "/tmp/roadster-vakeel-production/vakeel-woman-3/production-head-only-v38.glb",
+        "rig": "/tmp/roadster-vakeel-production/vakeel-woman-3/production-head-only-v38.rig.json",
+        "motionBounds": "/tmp/roadster-vakeel-production/vakeel-woman-3/production-head-only-v38.motion-bounds.json",
+        "portrait": "/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/portrait.png"
+      },
+      "sha256": {
+        "model": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd",
+        "rig": "742debc5bed36768ca039b8b6026885cf18eb427a4ca5d08e2ff789aa3b6d517",
+        "motionBounds": "feb6ca652b1c316fdd06dd3145a83e7355121f4625ac738bd7d98aa8ed57395e",
+        "portrait": "aefaec204ee820821ba970d68a5a2cd596def2582a99afb6f066e7afd700d5bc"
+      },
+      "actualProof": "/tmp/roadster-vakeel-production/vakeel-woman-3/final-v39/native-15-v5/inspection.json",
+      "producerActuallyOpenedAll15AndPortrait": true,
+      "limits": "Native frozen gameplay-mixer stills and diagnostic box contact; not actual four-person game scene or physical phone FPS evidence."
+    }
+  ],
+  "allDeclaredSourceFilesAnd45ImagesShaVerified": true,
+  "allCandidateBytesFrozen": true,
+  "resourceEstimate": "/tmp/roadster-vakeel-production/preferred-women-resource-estimate-v39.json",
+  "specificIndependentChecksPending": [
+    "W1 whole-role exact Q10 native scene (offline15+portrait already independently passed)",
+    "W2/W3 actual closed lower-kurta fold: read-only topology proves no authored side-slit boundary; measured3.99x/3.53x local fold stretch at leg/skirt support transition. Independent finite game-scale judgment required.",
+    "W3 small underside wrist crease accepted by independent reviewer, no more repair needed"
+  ],
+  "readOnlyHemDiagnosis": "/tmp/roadster-vakeel-production/frozen-hem-topology-diagnostic-v40.json",
+  "noJobsRunningInThisLane": true,
+  "sourceAndUiUntouched": true,
+  "producerSummary": {
+    "woman1": "Original cream floral/red dupatta retained; V35 independently passed closed-wrist buffers preserved; head-only semantic chart.",
+    "woman2": "Independently passed V36 material ownership untouched.",
+    "woman3": "Original pink cloth retained except621 measured shoulder-island texels repaired with adjacent same-model cloth; separate hair/skin chart; no anatomy changes."
+  }
+}
