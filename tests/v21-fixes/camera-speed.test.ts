@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
-import { speedCameraDistance, speedCameraFov } from '../../src/game/camera';
+import { speedCameraDistance, speedCameraFov, DRIVING_CAMERA, drivingCameraHeight } from '../../src/game/camera';
 import { Game } from '../../src/game/game';
 
 test('stationary camera keeps its baseline distance and 60 degree field of view', () => {
@@ -20,7 +20,7 @@ test('road, flight and reverse speeds contribute exactly a quarter of the prior 
   assert.equal(speedCameraFov(120 / 3.6), 62.5);
 });
 
-test('actual Game camera reaches the reduced target with the same position and FOV damping', () => {
+test('actual Game driving camera uses the lower profile with the same position and FOV damping', () => {
   const game: any = Object.assign(Object.create(Game.prototype), {
     cameraPlacementRevision: 0, camPos: new THREE.Vector3(), camLook: new THREE.Vector3(),
     orbitYaw: 0, orbitPitch: .38, orbitDist: 0, airOrbitPitch: .62, airOrbitDist: 0, dragging: false,
@@ -31,7 +31,8 @@ test('actual Game camera reaches the reduced target with the same position and F
   });
   game.updateCamera(0); const originalY = game.engine.camera.position.y;
   game.player.speed = 120 / 3.6; const dt = 1 / 60; game.updateCamera(dt);
-  assert.ok(Math.abs(game.engine.camera.position.z - (7.6 + .5 * (1 - Math.exp(-dt * 5)))) < 1e-10);
-  assert.ok(Math.abs(game.engine.camera.position.y - (originalY + .5 * Math.sin(.38) * .95 * (1 - Math.exp(-dt * 5)))) < 1e-10);
+  assert.ok(Math.abs(game.engine.camera.position.z - (DRIVING_CAMERA.distance + .5 * (1 - Math.exp(-dt * 5)))) < 1e-10);
+  const targetY=.55+drivingCameraHeight(game.player.speed,.38,DRIVING_CAMERA.distance+.5);
+  assert.ok(Math.abs(game.engine.camera.position.y - (originalY + (targetY-originalY) * (1 - Math.exp(-dt * 5)))) < 1e-10);
   assert.ok(Math.abs(game.engine.camera.fov - (60 + 2.5 * (1 - Math.exp(-dt * 6)))) < 1e-10);
 });

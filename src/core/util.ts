@@ -161,20 +161,27 @@ function tex(c: HTMLCanvasElement, repeat = true) {
 }
 export function asphaltTexture() {
   const c = canvas(512, 512), g = c.getContext('2d')!;
-  g.fillStyle = '#3a3740'; g.fillRect(0, 0, 512, 512);
+  g.fillStyle = '#3b3d40'; g.fillRect(0, 0, 512, 512);
   const r = rng(7);
-  for (let i = 0; i < 26000; i++) { const v = 40 + r() * 40 | 0; g.fillStyle = `rgba(${v},${v - 2},${v + 4},${0.25 + r() * 0.35})`; g.fillRect(r() * 512, r() * 512, 1 + r() * 2, 1 + r() * 2); }
-  for (let i = 0; i < 10; i++) { g.fillStyle = `rgba(${r() < 0.5 ? 30 : 70},${r() < 0.5 ? 28 : 66},${r() < 0.5 ? 34 : 72},0.25)`; g.beginPath(); g.ellipse(r() * 512, r() * 512, 20 + r() * 60, 10 + r() * 40, r() * 3, 0, 7); g.fill(); }
-  g.strokeStyle = 'rgba(20,18,24,0.5)'; g.lineWidth = 1.2;
-  for (let i = 0; i < 14; i++) { g.beginPath(); let x = r() * 512, y = r() * 512; g.moveTo(x, y); for (let k = 0; k < 6; k++) { x += (r() - 0.5) * 40; y += (r() - 0.5) * 40; g.lineTo(x, y); } g.stroke(); }
+  // Fine neutral aggregate reads as asphalt without the conspicuous repeated
+  // purple circles. Same texture size, allocation count and road geometry.
+  for (let i = 0; i < 26000; i++) { const v = 42 + r() * 36 | 0; g.fillStyle = `rgba(${v},${v + 1},${v + 2},${0.18 + r() * 0.24})`; g.fillRect(r() * 512, r() * 512, .7 + r() * 1.3, .7 + r() * 1.3); }
+  for (let i = 0; i < 7; i++) { const v = r() < .5 ? 30 : 75; g.fillStyle = `rgba(${v},${v + 1},${v + 2},0.07)`; g.beginPath(); g.ellipse(r() * 512, r() * 512, 20 + r() * 60, 10 + r() * 40, r() * 3, 0, 7); g.fill(); }
+  g.strokeStyle = 'rgba(22,24,26,0.25)'; g.lineWidth = .8;
+  for (let i = 0; i < 9; i++) { g.beginPath(); let x = r() * 512, y = r() * 512; g.moveTo(x, y); for (let k = 0; k < 6; k++) { x += (r() - 0.5) * 40; y += (r() - 0.5) * 40; g.lineTo(x, y); } g.stroke(); }
   return tex(c);
 }
 export function tileTexture() {
   const c = canvas(256, 256), g = c.getContext('2d')!;
-  g.fillStyle = '#b9aa98'; g.fillRect(0, 0, 256, 256);
-  const r = rng(11), cols = ['#c7b8a4', '#a8998a', '#bfae96', '#9e8f82', '#cbbca8'];
-  for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) { g.fillStyle = cols[(r() * cols.length) | 0]; g.fillRect(x * 64 + 2, y * 64 + 2, 60, 60); }
-  for (let i = 0; i < 3000; i++) { g.fillStyle = `rgba(60,50,40,${r() * 0.15})`; g.fillRect(r() * 256, r() * 256, 2, 2); }
+  g.fillStyle = '#8d8981'; g.fillRect(0, 0, 256, 256);
+  const r = rng(11), cols = ['#bdb8ae', '#b1ada4', '#c1bbaf', '#aaa79f', '#b9b5ac'];
+  for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) {
+    const X = x * 64, Y = y * 64;
+    g.fillStyle = cols[(r() * cols.length) | 0]; g.fillRect(X + 2, Y + 2, 60, 60);
+    g.fillStyle = 'rgba(245,242,231,.22)'; g.fillRect(X + 3, Y + 3, 58, 1); g.fillRect(X + 3, Y + 3, 1, 58);
+    g.fillStyle = 'rgba(50,50,46,.16)'; g.fillRect(X + 3, Y + 60, 58, 1); g.fillRect(X + 60, Y + 3, 1, 58);
+  }
+  for (let i = 0; i < 3000; i++) { g.fillStyle = `rgba(60,58,52,${r() * 0.09})`; g.fillRect(r() * 256, r() * 256, 1, 1); }
   return tex(c);
 }
 // kerb paint: alternating light / dark blocks, 1 m per pair along u (tinted yellow or white by vertex colour)
@@ -256,9 +263,41 @@ export function shopfrontTextures() {
         g.fillStyle = '#6b5240'; g.fillRect(X + 10, 14, 108, 104);
         for (let s = 0; s < 3; s++) for (let k = 0; k < 6; k++) { g.fillStyle = ['#E8413A', '#1F5FCC', '#FFB627', '#22B573', '#F06A9B', '#fff'][(k + s * 2 + i) % 6]; g.fillRect(X + 16 + k * 17, 24 + s * 30, 13, 20); }
       } else { // glass front
-        g.fillStyle = '#33425e'; g.fillRect(X + 10, 14, 108, 104);
-        g.fillStyle = 'rgba(255,255,255,0.25)'; g.fillRect(X + 18, 20, 20, 90);
+        const reflection = g.createLinearGradient(0, 14, 0, 118);
+        reflection.addColorStop(0, '#70858e'); reflection.addColorStop(.45, '#3a4c58'); reflection.addColorStop(1, '#24343e');
+        g.fillStyle = reflection; g.fillRect(X + 10, 14, 108, 104);
+        g.fillStyle = 'rgba(217,233,234,0.18)'; g.beginPath(); g.moveTo(X + 12, 18); g.lineTo(X + 56, 18); g.lineTo(X + 96, 116); g.lineTo(X + 68, 116); g.closePath(); g.fill();
+        // Painted door/frame/handle make an entrance legible without adding
+        // meshes or colliders to the narrow pavement.
+        g.fillStyle = '#abb4b6'; g.fillRect(X + 78, 14, 3, 104); g.fillRect(X + 114, 14, 3, 104); g.fillRect(X + 78, 14, 39, 3);
+        g.fillStyle = '#d5d9d5'; g.fillRect(X + 85, 65, 3, 15);
       }
+      // Recessed threshold and jamb rhythm on all storefront variants.
+      g.fillStyle = '#454a4b'; g.fillRect(X + 8, 116, 112, 4);
+      g.fillStyle = '#c3c0b5'; g.fillRect(X + 8, 120, 112, 4);
+    }
+    return tex(c);
+  };
+  return { map: mk(false), emissive: mk(true) };
+}
+
+/** Shared opaque station glazing, four metres per repeated bay. Its painted
+ * reflections and modest masked night light need no real-time glass pass. */
+export function stationWindowTextures() {
+  const mk = (lit: boolean) => {
+    const c = canvas(128, 128), g = c.getContext('2d')!;
+    g.fillStyle = lit ? '#000000' : '#c9d0d0'; g.fillRect(0, 0, 128, 128);
+    for (const x of [4, 66]) {
+      const gr = g.createLinearGradient(0, 6, 0, 120);
+      gr.addColorStop(0, lit ? '#26303a' : '#718d9c');
+      gr.addColorStop(.46, lit ? '#303d48' : '#3b5969');
+      gr.addColorStop(1, lit ? '#73818a' : '#273e4c');
+      g.fillStyle = gr; g.fillRect(x, 6, 58, 114);
+      if (!lit) {
+        g.fillStyle = 'rgba(222,236,239,.18)'; g.beginPath(); g.moveTo(x, 8); g.lineTo(x + 24, 8); g.lineTo(x + 55, 118); g.lineTo(x + 41, 118); g.closePath(); g.fill();
+        g.fillStyle = 'rgba(19,36,46,.3)'; g.fillRect(x, 81, 58, 3);
+        g.fillStyle = '#d9dfdd'; g.fillRect(x, 6, 58, 2);
+      } else { g.fillStyle = '#101820'; g.fillRect(x, 81, 58, 3); }
     }
     return tex(c);
   };

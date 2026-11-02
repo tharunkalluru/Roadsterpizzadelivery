@@ -1,9 +1,24 @@
 // Keep modal navigation inside its visible surface, including keyboard focus.
 // aria-modal describes the dialog; inert also prevents clicks and focus behind it.
+// Completion, pause and map dialogs may overlap for a frame and close out of
+// order. Share isolation ownership instead of snapshotting another dialog's
+// temporary `true`, which would leave the game inert after both dialogs close.
+const isolation = new WeakMap<HTMLElement, { original: boolean; owners: Set<DialogFocus> }>();
+function isolate(element: HTMLElement, owner: DialogFocus) {
+  let state = isolation.get(element);
+  if (!state) { state = { original: element.inert, owners: new Set() }; isolation.set(element, state); }
+  state.owners.add(owner); element.inert = true;
+}
+function release(element: HTMLElement, owner: DialogFocus) {
+  const state = isolation.get(element);
+  if (!state?.owners.delete(owner)) return;
+  if (state.owners.size) element.inert = true;
+  else { element.inert = state.original; isolation.delete(element); }
+}
 export class DialogFocus {
   private active = false;
   private previous: HTMLElement | null = null;
-  private isolated: { element: HTMLElement; inert: boolean }[] = [];
+  private isolated: HTMLElement[] = [];
   constructor(private root: HTMLElement, private options: {
     initial?: () => HTMLElement | null;
     restore?: () => HTMLElement | null;
@@ -42,8 +57,7 @@ export class DialogFocus {
       while (branch.parentElement) {
         for (const sibling of branch.parentElement.children) {
           if (sibling === branch || !(sibling instanceof HTMLElement)) continue;
-          this.isolated.push({ element: sibling, inert: sibling.inert });
-          sibling.inert = true;
+          this.isolated.push(sibling); isolate(sibling, this);
         }
         if (branch.parentElement === document.body) break;
         branch = branch.parentElement;
@@ -60,7 +74,7 @@ export class DialogFocus {
     this.active = false;
     document.removeEventListener('focusin', this.focus, true);
     document.removeEventListener('keydown', this.key);
-    for (const { element, inert } of this.isolated) element.inert = inert;
+    for (const element of this.isolated) release(element, this);
     this.isolated = [];
     const previous = this.previous; this.previous = null;
     const available = (el: HTMLElement | null | undefined) => el?.isConnected && el.tabIndex >= 0 && !el.closest('[hidden],[inert]') && el.getClientRects().length > 0;

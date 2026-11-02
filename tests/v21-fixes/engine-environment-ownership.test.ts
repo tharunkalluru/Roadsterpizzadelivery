@@ -25,7 +25,7 @@ function fixture() {
   Object.assign(engine, {
     sky: mainSky, hemi: new THREE.HemisphereLight(), sun: new THREE.DirectionalLight(),
     scene: new THREE.Scene(), renderer: { toneMappingExposure: 1 },
-    mats: { lit: { color: new THREE.Color() }, wall: {}, shop: {}, glow: {}, vLight: { color: new THREE.Color() } },
+    mats: { lit: { color: new THREE.Color() }, wall: {}, shop: {}, stationWindow: {}, glow: {}, vLight: { color: new THREE.Color() } },
     lampLights: [], bloom: null, envRT: previous, envKey: 'previous-environment',
     pmrem: {
       fromScene(scene: THREE.Scene, sigma: number) {

@@ -1,0 +1,217 @@
+{
+  "atUTC": "2026-11-02T18:33:47.149136+00:00",
+  "status": "ALL_FIVE_IMPLEMENTATION_AND_SCOPED_NATIVE_CHECKS_ACCEPTED; publication artifact and live isolation pending",
+  "runtimeFingerprint": "7eee91d9920bc4a277a13b6a3e58a738a73f1f504a7e917b498a7c6396ade234",
+  "sourceFingerprintIndependentlyRecomputed": true,
+  "frozenQA": "/tmp/roadster-final-frozen-qa-polish-20261102-v4",
+  "frozenBundleAnd15ModelHashesIndependentlyVerified": true,
+  "protectedBaselineFiles": [
+    {
+      "path": ".openai/hosting.json",
+      "sha256": "4067552dce03986f315f74094ae84457e9d13daa66740e1a88fe11505bb4c73a",
+      "matchesBaseline": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "e96e8915f8b5ba3230d51de4ecd35fc65f33d77bf1b4ac2cfd091ed7d1ecd3d0",
+      "matchesBaseline": true
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "4f6553d1e85caadbf5b6af31cfb426b3a608ca842789f594bbef5be0be31b09a",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/game/player.ts",
+      "sha256": "a63e5d406e39404db945b67f9f18d415b6fca03811932acd55a22685d7bdc860",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/game/traffic.ts",
+      "sha256": "2cf81cd7d4d3df333035a27e734cd30272b340540224f82a3478eb5d422a48b7",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/game/rail.ts",
+      "sha256": "2334c92c8ff1fca01c6303b7d2eede6c24dba04ab5039815febbc0204432d98a",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/game/metro.ts",
+      "sha256": "350a4cecfaf46d762b1a58f60004644ed75b36dc807881de459fd3e587a35c3e",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/core/environment-capture.ts",
+      "sha256": "e71835f822f09d1d2b7fd1d74a6d66bde3fe5faa21658ec8a6ee38a8bb344f83",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/delivery/content/levels.json",
+      "sha256": "a0b780f5c6e923f5630ea8ef0dfadb4aaccbcc09b424799b938557c9d429418d",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/delivery/art/character-assets.json",
+      "sha256": "f025c01fd2a98bc790d5bd4bd1c51c945a81161e6b0beb9ca6c6b412e7174ca8",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/delivery/art/character-reviews.json",
+      "sha256": "1f0a30168db27fcce54555ab6d2f54855bb51e4e8717d1bcea549f30e34115f1",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/world/metro-geometry.ts",
+      "sha256": "1edb9494402841b443cccfcfdc1c937f83d6c3a5479a639eb3ef2c1b11159e55",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/world/metro-platform-lamps.ts",
+      "sha256": "b143b220123dea7ecb60b96e014bf6c098457b27139dded0880b366b27a29d2b",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/world/structure-clearance.ts",
+      "sha256": "df006978ddede383bf25700b91a0e54896a879b61b3746f11f1c79e83c62bf90",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/game/spatial-safety.ts",
+      "sha256": "8c270d48dae6e9140cf52d7864cfb43f6e869218e81d386b8f9aad22602fadce",
+      "matchesBaseline": true
+    },
+    {
+      "path": "src/delivery/modules/metro-ride.ts",
+      "sha256": "1d8167b8c32f69dd729e3dde74104a110f26e6adc9731ae7f8b453021180acaa",
+      "matchesBaseline": true
+    }
+  ],
+  "releaseLog": {
+    "path": "/tmp/roadster-polish-release-v4-check-20261102.log",
+    "sha256": "57c576614da88f32d7774b51c7396d5b9305b38aa617680286ede204b4e3e53d",
+    "observed": {
+      "currentTests": 798,
+      "pass": 798,
+      "fail": 0,
+      "legacySuites": 38,
+      "approvedAppearances": 15,
+      "applicationAndWorkerTypechecks": "pass",
+      "productionBuild": "completed"
+    }
+  },
+  "acceptance": [
+    {
+      "feature": "camera",
+      "verdict": "accepted within functional and visual scope",
+      "evidence": "Production Game/Player traces at30/60/120Hz; actual-displacement/collision/carry/relocation/focus tests; matched baseline/candidate drive, jump, flight/manual orbit, container, metro and underwater native images."
+    },
+    {
+      "feature": "station boards",
+      "verdict": "accepted",
+      "evidence": "Count/orientation/aspect/source Telugu/shared bounded atlas tests for actual stations; exterior High/day and Low/night, inward RASOOLPURA English/Telugu/BLUE LINE viewed from actual deck/track side."
+    },
+    {
+      "feature": "station architecture",
+      "verdict": "accepted",
+      "evidence": "Finite shell/framing/clearance geometry tests over59assemblies; >4000 actual bay raycasts; open upper bays preserve receiver visibility; actual v4 closed blue entry/train icon compared to earlier plain housing; physical support/platform/track ownership unchanged."
+    },
+    {
+      "feature": "materials and lighting",
+      "verdict": "accepted within sampled day/night scope",
+      "evidence": "Shared opaque Standard lower-concourse material and unlit board atlas; same-sized fine road/paver/shop canvases; no new Light/transmission/blur/DPR/timing change; High/day and Low/night native contrast/frontage views."
+    },
+    {
+      "feature": "street detail",
+      "verdict": "accepted",
+      "evidence": "8Low/16High kit budget,216vertices/kit and actual tested prior shelter footprint; native shelter/bench/furniture close view off carriageway; no collider additions."
+    }
+  ],
+  "observedIssuesResolved": [
+    "Low ground pitch plus far zoom requested underground camera; blend/clamp and full legal range test repair it.",
+    "Opaque upper platform band obstructed external views; final upper bays are open with generated-mesh sightline tests.",
+    "Original overlapping dialog inert snapshots stranded controls after completion/background pause; shared ownership plus negative-control regression and real recovery/drive/orbit/jump sequence.",
+    "Roof trim alone left station entry unreadable from driving height; v4 adds bounded closed entry with train pictogram and side stair graphic."
+  ],
+  "nativeImagesIndependentlyViewed": [
+    {
+      "path": "/tmp/roadster-polish-native-20261102/baseline-rasoolpura-stopped.jpg",
+      "sha256": "3936fb2107ced7cf6b55a912285cd7a2a3b1352c35e32d9315dd0d054970fd7f"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/candidate-rasoolpura-stopped-high.jpg",
+      "sha256": "09ac457ee6b2f5973c2abdc80d3e638d76726ed0ad9aed75894a911038cd1c2b"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/candidate-rasoolpura-driving-high.jpg",
+      "sha256": "9c12b709067205033bc4986a167701fd11cb70830a1d323bcd2bb41922ea1e33"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v2-rasoolpura-board-low-night.jpg",
+      "sha256": "c2c82c590cbded2d6e9eb2dc1f43241fb5cfa141a02d9a63e83126009f7e5ac0"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v2-metro-platform-handoff-neutral-high.jpg",
+      "sha256": "c2a108762689ad08b680fc6c341f7493b324f2a9ad9fc359a6c4e231eb229e25"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/candidate-container-real-entry-low-night.jpg",
+      "sha256": "cf01118f6565a2168c679225fec7b830da6a39d62ecf15d7e8a21c3f94912076"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-input-restored-after-completion-pause-next.jpg",
+      "sha256": "4735db432232ed1b78c7c1832e24753d6e6da4284cbe6c43106e455ba86be310"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-reverse-exit-and-manual-orbit-restored.jpg",
+      "sha256": "a1afa73e2924fd4848c408ebf6af2e12164039f758f0b67a217bfef22924e0af"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-jump-camera-and-traffic.jpg",
+      "sha256": "f0975c1e4d38bd4ba651e4451f0f78a8225c6bc9ea31c5859ab7b500852e7b13"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-moving-flight-stop-and-orbit.jpg",
+      "sha256": "ee53bd1d238fe3d57aa7e29d39f00a6557384817f8564850944125f0d6318b24"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-rasoolpura-open-platform-concourse-high.jpg",
+      "sha256": "a1baec2acc975560f4682f9b0fd307c78413d863ea9a3291660f1f5c5aacd555"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-rasoolpura-vault-entrance-overview-high.jpg",
+      "sha256": "b73b14187509a4de2709f7cb145498eb1d4621d73880398abfdbc43ea1e9d011"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-mapped-shelter-kit-close-high.jpg",
+      "sha256": "48ac91355d6113e4c060acb4e05c8d99c5f73cf3fbb12a653b24b6a960efcd24"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-devara-submerged-authored-camera-high.jpg",
+      "sha256": "2332fdfd1b6218fe6cdb731d3e35d755eb1433e9bc0269eef2c8ce408ff61fe8"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-devara-delivery-complete.jpg",
+      "sha256": "901344e0f7ff53efac11bf3e541d7a4cffbce06e79e26b01a8a24b6c4ed5c1ad"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v3-station-deck-landing-platform-board-high.jpg",
+      "sha256": "dbcf1d8e0166d3a3a9a6bf42cbcb0ca644946208abfcafaff0818fbc77afa6db"
+    },
+    {
+      "path": "/tmp/roadster-polish-native-20261102/v4-rasoolpura-entrance-identity-high.jpg",
+      "sha256": "4977651dded74a5dd8d7ac757349a79a8cd7f3ec8ff0af797a198f17f75b7601"
+    }
+  ],
+  "qualifications": [
+    "Native Safari tests used assisted scenario starts and ordinary movement/handoff controls. This is not an unassisted fourteen-level campaign or a physical-phone touch test.",
+    "Behavior traces at30/60/120Hz and still images do not establish presented FPS, heat, battery life, or temporal smoothness on a phone.",
+    "Earlier native images apply to unchanged camera/board/material paths; v4 entrance-only source change has its own final image and full software check.",
+    "Pre-existing stair housings/colliders remain; new entry is depicted as closed glazing, not an actual new drive-through passage."
+  ],
+  "remainingPublicationGate": [
+    "Clean pushed source identity must equal final tested runtime fingerprint.",
+    "Inspect clean production archive and bundle/asset provenance; never publish instrumented QA snapshot.",
+    "Root must verify protected Version21 public project unchanged; monitor only verified private checkout binding and protected source files."
+  ]
+}

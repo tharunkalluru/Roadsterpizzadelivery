@@ -1,5 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import * as THREE from 'three';
 import {Game} from '../../src/game/game';
+import {DRIVING_CAMERA,drivingCameraHeight} from '../../src/game/camera';
 import {dragCameraOrbit,zoomCameraOrbit,installCameraLook,type CameraOrbitState} from '../../src/game/camera-look';
 const orbit=():CameraOrbitState=>({orbitYaw:0,orbitPitch:.38,orbitDist:0,airOrbitPitch:.62,airOrbitDist:0,dragging:false});
 function fixture(speed=0,flight=true){
@@ -30,11 +31,12 @@ test('normal moving flight still recenters smoothly while stationary ground keep
  assert.ok(Math.abs(air.orbitYaw)<.01);assert.ok(Math.abs(air.airOrbitPitch-.62)<.01);assert.ok(air.airOrbitDist<.1);
  assert.equal(ground.orbitYaw,1);assert.equal(ground.orbitPitch,.9);assert.equal(ground.orbitDist,6);
 });
-test('default grounded framing stays compatible with Version21 while the requested speed FOV delta is quartered',()=>{
- const g=fixture(0,false);g.updateCamera(0);assert.ok(Math.abs(g.engine.camera.position.z-7.6)<1e-9);
- assert.ok(Math.abs(g.engine.camera.position.y-(.55+.4+7.6*Math.sin(.38)*.95))<1e-9);assert.equal(g.engine.camera.fov,60);
+test('fourteen-scene grounded framing lowers the eye while retaining the requested speed lens',()=>{
+ const g=fixture(0,false);g.updateCamera(0);assert.ok(Math.abs(g.engine.camera.position.z-DRIVING_CAMERA.distance)<1e-9);
+ assert.ok(Math.abs(g.engine.camera.position.y-(.55+DRIVING_CAMERA.height))<1e-9);assert.equal(g.engine.camera.fov,60);
  const moving=fixture(12,false);moving.updateCamera(0);assert.equal(moving.engine.camera.fov,60.9);
- assert.ok(Math.abs(moving.engine.camera.position.z-(7.6+12*.06*.25))<1e-9);
+ assert.ok(Math.abs(moving.engine.camera.position.z-(DRIVING_CAMERA.distance+12*.06*.25))<1e-9);
+ assert.ok(Math.abs(moving.engine.camera.position.y-.55-drivingCameraHeight(12,.38,DRIVING_CAMERA.distance+12*.06*.25))<1e-9);
 });
 test('close cargo handoff frames the real receiver while manual orbit, normal streets and flight retain their cameras',()=>{
  const g=fixture(0,false);g.player.pos.set(.55,2.1,2);
@@ -45,7 +47,7 @@ test('close cargo handoff frames the real receiver while manual orbit, normal st
  g.engine.camera.updateMatrixWorld();const point=new THREE.Vector3(1.6,2.8,6).project(g.engine.camera);assert.ok(Math.abs(point.x)<.25&&point.y>0&&point.y<.8,'receiver face stays central and above the bottom controls');
  g.orbitYaw=.5;g.camPos.set(0,0,0);g.camLook.set(0,0,0);g.updateCamera(0);assert.ok(g.camPos.distanceTo(new THREE.Vector3(.7,4.15,3))>1);
  g.orbitYaw=0;g.dragging=true;g.camPos.set(0,0,0);g.updateCamera(0);assert.ok(g.camPos.distanceTo(new THREE.Vector3(.7,4.15,3))>1,'a deliberate camera gesture remains free');
- const road=fixture(0,false);road.story={supports:[],cameraFocus:focus};road.updateCamera(0);assert.equal(road.camPos.z,7.6);
+ const road=fixture(0,false);road.story={supports:[],cameraFocus:focus};road.updateCamera(0);assert.equal(road.camPos.z,DRIVING_CAMERA.distance);
  const air=fixture(0,true);air.story=g.story;air.updateCamera(0);assert.ok(air.camPos.y>40,'cargo focus cannot capture flight');
 });
 test('accelerating after multiple hover orbits recenters by the shortest arc',()=>{
@@ -72,7 +74,7 @@ test('an explicit stationary handoff can frame a gate customer without capturing
  for(const change of [{orbitYaw:.5},{orbitPitch:.8},{orbitDist:3},{dragging:true}]){
   const manual=fixture(0,false);Object.assign(manual,change);manual.story=g.story;manual.updateCamera(0);assert.notEqual(manual.camPos.x,-1.4,'manual yaw, pitch and zoom keep their chosen view');
  }
- const road=fixture(0,false);road.story={supports:[]};road.updateCamera(0);assert.equal(road.camPos.z,7.6);
+ const road=fixture(0,false);road.story={supports:[]};road.updateCamera(0);assert.equal(road.camPos.z,DRIVING_CAMERA.distance);
 });
 class Canvas extends EventTarget{captures=new Set<number>();focused=false;focus(){this.focused=true;}setPointerCapture(id:number){this.captures.add(id);}releasePointerCapture(id:number){this.captures.delete(id);}}
 const pointer=(type:string,id:number,x=0,y=0)=>Object.assign(new Event(type,{cancelable:true}),{pointerId:id,clientX:x,clientY:y});

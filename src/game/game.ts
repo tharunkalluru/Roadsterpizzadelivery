@@ -3,7 +3,8 @@ import { roadNavigationCue } from '../ui/flight-navigation';
 import { showLoading, hideLoading, loadingRetry } from '../ui/loading';
 import { frameTakeoff } from './kickflip-camera';
 import { installCameraLook } from './camera-look';
-import { speedCameraDistance, speedCameraFov } from './camera';
+import { speedCameraDistance, speedCameraFov, DRIVING_CAMERA, drivingCameraLookAhead, drivingCameraHeight, drivingCameraAimWeight } from './camera';
+import { CameraTranslationFollow } from './camera-translation';
 import * as THREE from 'three';
 import type { Engine } from '../core/engine';
 import type { CoreData, CityPoi, XZ } from '../world/types';
@@ -114,6 +115,7 @@ export class Game {
   beacon!: THREE.Group;
   camPos = new THREE.Vector3(); camLook = new THREE.Vector3(); clock = new THREE.Clock(); t = 0; moodT = 0;
   cameraPlacementRevision = -1;
+  private cameraTranslation?: CameraTranslationFollow;
   r = rng(Date.now() & 0xffff); food: (CityPoi & { s: Stop })[] = []; residences: Stop[] = [];
   constructor(public engine: Engine, public zone: CoreData, public city: World, public opts: {
     lowQ: boolean; still?: boolean; delivery?: DeliveryRuntimeOptions;
@@ -1106,6 +1108,7 @@ export class Game {
       this.camPos.set(0, 0, 0); this.camLook.set(0, 0, 0);
       this.orbitYaw = 0; this.orbitPitch = 0.38; this.orbitDist = 0;
       this.airOrbitPitch = .62; this.airOrbitDist = 0;
+      this.cameraTranslation?.reset();
     }
     const f = this.player.forward;
     const flight = this.player.flying || this.player.descending;
@@ -1132,23 +1135,33 @@ export class Game {
       this.orbitPitch += (0.38 - this.orbitPitch) * k2; this.orbitDist *= 1 - k2;
       if (flight) { this.airOrbitPitch += (.62 - this.airOrbitPitch) * k2; this.airOrbitDist *= 1 - k2; }
     }
-    const back = interior ? 3.5 : underwater ? 7 : 7.6 + speedCameraDistance(this.player.speed) + (air ? 4 : 0) + (flight ? this.airOrbitDist : this.orbitDist);
+    const driving = !air && !flight && !this.player.jumping && !interior && !underwater && !interactionFocus;
+    const back = interior ? 3.5 : underwater ? 7 : (driving ? DRIVING_CAMERA.distance : 7.6) + speedCameraDistance(this.player.speed) + (air ? 4 : 0) + (flight ? this.airOrbitDist : this.orbitDist);
     const cy = Math.cos(this.orbitYaw), sy = Math.sin(this.orbitYaw);
     const bx = f.x * cy - f.z * sy, bz = f.x * sy + f.z * cy;          // camera looks along the rotated forward
     const pitch = interior || underwater ? .12 : flight ? this.airOrbitPitch : air ? .62 : this.orbitPitch;
-    const hd = back * Math.cos(pitch) / Math.cos(0.38), up = 0.4 + back * Math.sin(pitch) * 0.95;
+    const hd = back * Math.cos(pitch) / Math.cos(0.38), up = driving ? drivingCameraHeight(this.player.speed, pitch, back) : 0.4 + back * Math.sin(pitch) * 0.95;
     const pivot = new THREE.Vector3(P.x, P.y + 1.4, P.z);
     let desired = new THREE.Vector3(P.x - bx * hd, P.y + up, P.z - bz * hd);
     if(interactionFocus)desired.set(interactionFocus.position.x,interactionFocus.position.y,interactionFocus.position.z);
     desired = this.clearCamera(pivot, desired);
+    this.cameraTranslation ??= new CameraTranslationFollow();
+    if (this.cameraTranslation.advance(this.camPos, this.camLook, P, dt, !interactionFocus)) {
+      this.camPos.set(0, 0, 0); this.camLook.set(0, 0, 0);
+    }
     const k = 1 - Math.exp(-dt * (this.dragging ? 14 : 5));
     if (!this.camPos.lengthSq()) this.camPos.copy(desired); else this.camPos.lerp(desired, k);
     // if the smoothed camera would sit inside something, snap to the clear point
     if (this.insideSolid(this.camPos)) this.camPos.copy(desired);
     // and if a building corner comes between the lagging camera and the car (turning in a narrow lane), pull it in
     else { const vis = this.clearCamera(pivot, this.camPos); if (vis.distanceToSquared(this.camPos) > 0.01) this.camPos.copy(vis); }
-    const look = interactionFocus?new THREE.Vector3(interactionFocus.target.x,interactionFocus.target.y,interactionFocus.target.z):moving && Math.abs(this.orbitYaw) < 0.3 ? new THREE.Vector3(P.x + f.x * (interior?4:20), P.y + 1.2, P.z + f.z * (interior?4:20)) : pivot.clone();
-    if (!this.camLook.lengthSq()) this.camLook.copy(look); else this.camLook.lerp(look, k);
+    const aimWeight = driving ? drivingCameraAimWeight(this.orbitYaw, this.orbitPitch, this.dragging) : 0;
+    const ahead = drivingCameraLookAhead(this.player.speed) * aimWeight;
+    const look = interactionFocus ? new THREE.Vector3(interactionFocus.target.x, interactionFocus.target.y, interactionFocus.target.z) : driving ?
+      new THREE.Vector3(P.x + f.x * ahead, P.y + 1.4 + (DRIVING_CAMERA.lookHeight - 1.4) * aimWeight, P.z + f.z * ahead) :
+      moving && Math.abs(this.orbitYaw) < 0.3 ? new THREE.Vector3(P.x + f.x * (interior ? 4 : 20), P.y + 1.2, P.z + f.z * (interior ? 4 : 20)) : pivot.clone();
+    const aimK = driving && !this.dragging ? 1 - Math.exp(-dt * DRIVING_CAMERA.aimDamping) : k;
+    if (!this.camLook.lengthSq()) this.camLook.copy(look); else this.camLook.lerp(look, aimK);
     const cam = this.engine.camera;
     cam.position.copy(this.camPos);
     if (this.player.bump > 0) cam.position.add(new THREE.Vector3((Math.random() - 0.5) * this.player.bump, (Math.random() - 0.5) * this.player.bump, 0));

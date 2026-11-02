@@ -3,7 +3,8 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
-import { asphaltTexture, tileTexture, radialTexture, facadeTextures, shopfrontTextures, kerbTexture } from './util';
+import { asphaltTexture, tileTexture, radialTexture, facadeTextures, shopfrontTextures, kerbTexture, stationWindowTextures } from './util';
+import { stationWindowMaterial } from './world-materials';
 import { makeSky, Mood, sunDirection } from './sky';
 import { EnvironmentSkyCapture } from './environment-capture';
 
@@ -38,7 +39,7 @@ export class Engine {
     this.pmrem = new THREE.PMREMGenerator(this.renderer);
     this.watchEnvironmentCaptureLifecycle(this.renderer.domElement, window);
 
-    const fac = facadeTextures(), shop = shopfrontTextures();
+    const fac = facadeTextures(), shop = shopfrontTextures(), station = stationWindowTextures();
     const DS = THREE.DoubleSide;
     this.mats = {
       ground: new THREE.MeshStandardMaterial({ color: '#8d8375', roughness: 0.95 }),
@@ -51,6 +52,7 @@ export class Engine {
       kerb: new THREE.MeshStandardMaterial({ vertexColors: true, map: kerbTexture(), roughness: 0.8, side: DS }),
       wall: new THREE.MeshStandardMaterial({ vertexColors: true, map: fac.map, emissiveMap: fac.emissive, emissive: new THREE.Color('#ffffff'), roughness: 0.85 }),
       shop: new THREE.MeshStandardMaterial({ vertexColors: true, map: shop.map, emissiveMap: shop.emissive, emissive: new THREE.Color('#ffffff'), roughness: 0.7 }),
+      stationWindow: stationWindowMaterial(station),
       roof: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, side: DS }),
       lit: new THREE.MeshBasicMaterial({ vertexColors: true, toneMapped: false }),
       glow: new THREE.MeshBasicMaterial({ map: radialTexture(), vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, opacity: 0.5 }),
@@ -100,6 +102,7 @@ export class Engine {
     this.renderer.toneMappingExposure = m.exposure;
     this.mats.lit.color.setScalar(m.lit);
     this.mats.wall.emissiveIntensity = m.windows; this.mats.shop.emissiveIntensity = m.windows * 1.15;
+    this.mats.stationWindow.emissiveIntensity = m.windows * .65;
     this.mats.glow.opacity = m.glow;
     this.mats.vLight.color.setScalar(m.lampLights > 2 ? 2.4 : 1.1);
     extra.signs?.(m.signs);

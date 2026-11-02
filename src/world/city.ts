@@ -23,6 +23,9 @@ import { drawStreetLamp, type LampFixture } from './street-lamps';
 import { drawConstruction, type ConstructionPlan } from './construction';
 import { drawMetroStationVisuals } from './metro-station-visuals';
 import { drawMetroPlatformLamps } from './metro-platform-lamps';
+import type { StationBoardContent } from './station-board';
+import { drawStationPresentation, drawStationEntrancePresentation } from './station-presentation';
+import { StreetPresentationBudget, STREET_DETAIL_KIT_LIMIT, drawShelterPresentation } from './street-presentation';
 import { destinationIndex, type DestinationIdentity } from './destination-identity';
 import { decorateDestinationBuilding } from './destination-recognition';
 import { waterGrid, type WaterGrid } from './water';
@@ -44,8 +47,8 @@ export interface Wall { ax: number; az: number; bx: number; bz: number; y0a: num
 export interface BusStop { edge: string; s: number; side: 1 | -1; x: number; z: number; hx: number; hz: number }
 // one 1 km map tile as exported by the pipeline; roads flagged ctx belong to a neighbour (kerbs/trimming context only)
 export interface TileZone { i: number; j: number; roads: (RoadEdge & { ctx?: number })[]; nodes: Record<string, XZ>; buildings: Building[]; boards: Board[]; furniture: Furniture[]; areas: Area[]; osm?: OsmFeature[] }
-export interface MetroData { lines: { id: string; color?: string; pts: XZ[] }[]; stations: { id: string; name: string; p: XZ; lines?: string[] }[]; pillars: { p: XZ; h: number; line?: string }[]; deckHeight: number }
-export interface SignEntry { id: string; text: string; bg: string; fg: string; c: number[]; right: number[]; up: number[]; w: number; h: number }
+export interface MetroData { lines: { id: string; color?: string; pts: XZ[] }[]; stations: { id: string; name: string; te?: string | null; p: XZ; lines?: string[] }[]; pillars: { p: XZ; h: number; line?: string }[]; deckHeight: number }
+export interface SignEntry { id: string; text: string; bg: string; fg: string; c: number[]; right: number[]; up: number[]; w: number; h: number; station?: StationBoardContent }
 export interface BuiltBuffers { mat: string; pos: Float32Array; nor: Float32Array; uv: Float32Array; col: Float32Array }
 export interface WalkPath { pts: XZ[]; edge: string; side: 1 | -1 }
 export interface TileBuilt {
@@ -113,7 +116,8 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
   zone={...zone,roads:excludeStadiumRoads(zone.roads,stadiums)};
   const r = rng(20261021 + zone.i * 7919 + zone.j * 104729);
   const T = () => new TiledBatch(500);
-  const B = { st: T(), wall: T(), shop: T(), roof: T(), road: T(), foot: T(), lit: T(), glow: T(), park: T(), water: T(), marks: T(), kerb: T() };
+  const B = { st: T(), wall: T(), shop: T(), stationWindow: T(), roof: T(), road: T(), foot: T(), lit: T(), glow: T(), park: T(), water: T(), marks: T(), kerb: T() };
+  const streetDetailBudget = new StreetPresentationBudget(opts.lowQ ? STREET_DETAIL_KIT_LIMIT.low : STREET_DETAIL_KIT_LIMIT.high);
   const TX0 = zone.i * 1000, TZ0 = zone.j * 1000;
   const inTile = (x: number, z: number) => x >= TX0 && x < TX0 + 1000 && z >= TZ0 && z < TZ0 + 1000;
   const railway = opts.railway || railwayNetwork();
@@ -1036,6 +1040,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       q = P(0, 0.9); B.st.box(q[0], base + 1.6, q[1], 0.03, 1.1, 2.6, '#FFB627', { ry: ang });                // advert
       for (const u of [-2.4, 2.4]) { q = P(u, 0.85); B.st.box(q[0], base + 1.3, q[1], 0.1, 2.6, 0.1, '#9aa0ab', { ry: ang }); q = P(u, -0.95); B.st.box(q[0], base + 1.3, q[1], 0.08, 2.6, 0.08, '#9aa0ab', { ry: ang }); }
       q = P(0, 0.45); B.st.box(q[0], base + 0.55, q[1], 0.45, 0.08, 4.2, '#9aa0ab', { ry: ang });             // bench
+      drawShelterPresentation(sx, sz, hx, hz, lx, lz, base, B, streetDetailBudget);
       // the stop's name from OpenStreetMap on a board above the roof edge
       { let nmB = '', bdB = 45; for (const o of zone.osm || []) { if (o.k !== 'bus_stop' || !o.p || !o.t.name) continue; const d = Math.hypot(o.p[0] - sx, o.p[1] - sz); if (d < bdB && !/^bus ?stop$/i.test(o.t.name)) { bdB = d; nmB = o.t.name; } }
         if (nmB) { q = P(0, -1.05); B.st.box(q[0], base + 3.05, q[1], 0.06, 0.6, 3.4, '#1f5fae', { ry: ang });
@@ -1393,7 +1398,12 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
     const concourse = { x: cx, z: cz, hx, hz, hw: (Ws - 4) / 2, hl: Ls * .31 };
     if (metroSupportClear(concourse, cY, cY + 3.4)) {
       B.st.box(cx, cY + 1.7, cz, Ws - 4, 3.4, Ls * .62, '#d9d6de', { ry: ang });
-      B.lit.box(cx, cY + 2, cz, Ws - 3.9, 1.1, Ls * .6, '#cfe6ff', { ry: ang });
+      // Opaque framed windows share a texture/material instead of a single
+      // permanently luminous ribbon. The physical concourse stays unchanged.
+      for (const side of [-1, 1]) {
+        const a = P(-Ls * .3, side * 10.06), b = P(Ls * .3, side * 10.06);
+        B.stationWindow.quad([a[0], cY + 1.45, a[1]], [b[0], cY + 1.45, b[1]], [b[0], cY + 2.55, b[1]], [a[0], cY + 2.55, a[1]], '#ffffff', [[0, 0], [Ls * .6 / 4, 0], [Ls * .6 / 4, 1], [0, 1]]);
+      }
       structureSupports.push({ source: st.id, part: 'station_concourse', footprint: concourse, bottom: cY, top: cY + 3.4 });
     } else {
       const nu = 14, nv = 5, du = Ls * .62 / nu, dv = (Ws - 4) / nv;
@@ -1401,7 +1411,10 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
         const q = P(-Ls * .31 + (i + .5) * du, -(Ws - 4) / 2 + (j + .5) * dv), footprint = { x: q[0], z: q[1], hx, hz, hw: dv / 2, hl: du / 2 };
         if (!metroSupportClear(footprint, cY, cY + 3.4)) continue;
         B.st.box(q[0], cY + 1.7, q[1], dv, 3.4, du, '#d9d6de', { ry: ang });
-        if (j === 0 || j === nv - 1) B.lit.box(q[0], cY + 2, q[1], dv + .02, 1.1, du, '#cfe6ff', { ry: ang });
+        if (j === 0 || j === nv - 1) {
+          const side = j === 0 ? -1 : 1, a = P(-Ls * .31 + i * du, side * 10.02), b = P(-Ls * .31 + (i + 1) * du, side * 10.02);
+          B.stationWindow.quad([a[0], cY + 1.45, a[1]], [b[0], cY + 1.45, b[1]], [b[0], cY + 2.55, b[1]], [a[0], cY + 2.55, a[1]], '#ffffff', [[0, 0], [du / 4, 0], [du / 4, 1], [0, 1]]);
+        }
         structureSupports.push({ source: st.id, part: 'station_concourse', footprint, bottom: cY, top: cY + 3.4 });
       }
     }
@@ -1427,6 +1440,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       B.st.box(q[0], hm, q[1], wv + 0.05, 0.3, Ls + 4, k % 2 ? '#f2f4f6' : '#e3e8ec', { ry: ang, rz: -tilt });
       void am;
     }
+    drawStationPresentation(assembly, B, opts.lowQ, metroSupportClear);
     // Physical batched luminaires; their exact diffusers can borrow a pooled light.
     drawMetroPlatformLamps(assembly, B);
     for (let u = -Ls / 2 + 6; u <= Ls / 2 - 6; u += 14) for (const s of [-1, 1]) { const q = P(u, s * 8.2); B.st.box(q[0], DH + 4.6, q[1], 0.4, 7.6, 0.4, '#a9a4b5'); }
@@ -1450,6 +1464,7 @@ export function buildTile(zone: TileZone, opts: { lowQ: boolean; metro?: MetroDa
       B.st.box(run[0], cY / 2, run[1], 3.6, cY, len, '#c9c4cf', { ry: ang, ao: true, aoH: 3 });
       for (let k = 0; k < 10; k++) { const sp = P(ue + Math.sign(ue) * (len - k * 1.5), v); B.st.box(sp[0], 0.3 + k * (cY / 10), sp[1], 3.7, 0.14, 0.6, '#a8a3ae', { ry: ang }); }
       B.st.box(run[0], cY + 2.3, run[1], 4.4, 0.18, len + 1, '#e9eef2', { ry: ang });
+      drawStationEntrancePresentation(run[0], run[1], ang, cY + 2.3, assembly.lineId, B, Math.sign(ue));
       const c0 = P(ue, v - 1.8), c1 = P(ue + Math.sign(ue) * len, v - 1.8), c2 = P(ue + Math.sign(ue) * len, v + 1.8), c3 = P(ue, v + 1.8);
       const bld: Building = { id: `ms_${st.id}_${ue}_${s}`, name: null, cls: 'structure', h: cY, hs: 'model', ring: [c0, c1, c2, c3], fc: null, rc: null } as any;
       const xs = bld.ring.map(p => p[0]), zs = bld.ring.map(p => p[1]);

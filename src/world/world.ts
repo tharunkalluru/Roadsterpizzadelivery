@@ -23,6 +23,7 @@ const RENDER: Record<string, { cast: boolean; receive: boolean; order?: number }
   ground: { cast: false, receive: true },
   park: { cast: false, receive: true }, water: { cast: false, receive: true }, road: { cast: false, receive: true }, marks: { cast: false, receive: true },
   foot: { cast: true, receive: true }, kerb: { cast: false, receive: true }, st: { cast: true, receive: true }, wall: { cast: true, receive: true }, shop: { cast: true, receive: true },
+  stationWindow: { cast: false, receive: true },
   roof: { cast: false, receive: true }, lit: { cast: false, receive: false }, glow: { cast: false, receive: false, order: 2 },
 };
 
@@ -243,7 +244,7 @@ export class World implements CityData {
     if (b.waterGrid) merge(this.waterGrid, b.waterGrid);
     const buildings = new Set<Building>(); for (const a of b.buildingGrid.values()) for (const x of a) buildings.add(x);
     for (const x of buildings) this.byBuilding.set(x.id, x);
-    const signs = b.signs.map((s) => this.signs.add({ id: s.id, text: s.text, bg: s.bg, fg: s.fg, c: new THREE.Vector3(...s.c), right: new THREE.Vector3(...s.right), up: new THREE.Vector3(0, 1, 0), w: s.w, h: s.h }));
+    const signs = b.signs.map((s) => this.signs.add({ id: s.id, text: s.text, bg: s.bg, fg: s.fg, c: new THREE.Vector3(...s.c), right: new THREE.Vector3(...s.right), up: new THREE.Vector3(0, 1, 0), w: s.w, h: s.h, station: s.station }));
     const lamps = b.lamps.map((l) => new THREE.Vector3(l[0], l[1], l[2]));
     for (const [k, n] of b.activity || []) this.activity.set(k, (this.activity.get(k) || 0) + n);
     for (const r of b.rails || []) this.rails.set(r.id, r);
