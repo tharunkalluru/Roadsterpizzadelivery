@@ -1,0 +1,19 @@
+✔ both track strands open the full median, curb and sidewalk width while adjacent street furniture stays intact (1.528416ms)
+✔ oblique crossings clear outer curbs, but parallel roads and vertically separate decks/underpasses keep their medians (0.475625ms)
+✔ production tile geometry and collision walls share an unobstructed railway gap in both quality modes (87.163042ms)
+✔ a long source-owned road keeps rail openings beyond the tile local railway preview extent (16.005083ms)
+✔ depressed approach curbs, sidewalks, collider tops and lamp bases follow signed road heights (42.544958ms)
+✔ all shipped genuine core crossings remove the divider at every mapped strand without shifting any source road (9300.44775ms)
+✔ production park and water overlays retain real holes over a depressed road instead of hiding the asphalt (20.906042ms)
+✔ negative junction direction signs and signal poles start at their actual depressed pavement (11.70475ms)
+✔ a shelter on depressed pavement keeps its roof, passengers, support and post bottoms with that road (100.156ms)
+✔ the background tile result transfers cut terrain and physical support; World only installs it (17.394ms)
+✔ road divider collision starts at visible pavement instead of extending a phantom basement into an underpass (14.664375ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9797.750208

@@ -1,0 +1,59 @@
+{
+  "status": "producer checks pass; independent fresh native day/night gate pending",
+  "sourceFiles": [
+    {
+      "path": "src/world/city.ts",
+      "sha256": "36d55ad45c9556bf5bac28feeed2b3b3e8618008e6a517abe228d50c329e78eb"
+    },
+    {
+      "path": "src/world/street-lamps.ts",
+      "sha256": "13698684ce71333c9fb7b4c852fb6aaa84a7bed07d15223d3714f1b738550b15"
+    },
+    {
+      "path": "src/world/metro-street-lamp-clearance.ts",
+      "sha256": "86bb5929f92b48c12cf016e8d45e997cf7b91bc8079f0ecf4da403e8a63b831a"
+    },
+    {
+      "path": "tests/v21-fixes/metro-street-lamps.test.ts",
+      "sha256": "7ce9b99e8146e3fe9c3ce6b85f0eb18e164676fa05245d06a6075c5433f96eca"
+    }
+  ],
+  "actuallyInspectedBeforeImages": [
+    {
+      "path": "docs/qa/evidence/main-expansion/metro-ground-st_chikkadpally-concourse-v3.png",
+      "sha256": "017dd8d8f165781dedf4b30c83a93ac3e3037acd9d5fd93f0fd9052bf6f2b235"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/metro-ground-st_rtc_cross_roads-concourse-v3.png",
+      "sha256": "414cb9a9a6c02478dd519a104cb368b5588abb7332bc4423ceb22f95ca99c10d"
+    }
+  ],
+  "scope": {
+    "stationTiles": 51,
+    "lineSpecificAssemblies": 59,
+    "metroLines": [
+      "blue",
+      "green",
+      "red"
+    ],
+    "raisedInterchangeAssemblies": 3,
+    "retainedStreetFixtures": 6613,
+    "remainingActualConcourseStairPillarConflicts": 0
+  },
+  "tests": {
+    "focused": 7,
+    "existingStreetLightingGroups": 5,
+    "railwayRoadClearance": 11,
+    "typecheck": "pass",
+    "diffCheck": "pass"
+  },
+  "logs": [
+    "metro-street-lamps-initial-core-only-diagnostic.log",
+    "metro-street-lamps-final.log",
+    "metro-street-lamps-legacy-preservation.log",
+    "metro-street-lamps-railway-preservation.log",
+    "metro-street-lamps-typecheck.log"
+  ],
+  "runtimePerformanceClaim": false,
+  "nativeAfterImages": []
+}

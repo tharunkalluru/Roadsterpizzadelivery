@@ -1,0 +1,18 @@
+✔ every retained production platform stair has a usable lower connection to its real concourse floor (11213.888083ms)
+ℹ {"assemblies":59,"retainedPlatformFlights":227,"gaps":[]}
+✔ retained curved lower landing links enter a real concourse slab through an open full-width parapet gap (23.140666ms)
+ℹ {"retainedLowerLinks":227,"guardCrossingSamples":936}
+✔ new curved lower landing vertices remain inside the indexed static flight envelope (31.383ms)
+ℹ {"newLowerLandingVertices":59544}
+✔ all access geometry including both platform landing links retains the per-station static vertex budget (140.148542ms)
+ℹ {"assemblies":59,"totalAccessVertices":1490700,"maxAccessVertices":41952,"maxStation":"st_ameerpet"}
+✔ moving a street stair past an adjacent building cannot route its upper landing through that same building (0.542375ms)
+✔ a clear lift shaft cannot leave its concourse/platform links inside a visible neighboring building (0.223666ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17675.563666

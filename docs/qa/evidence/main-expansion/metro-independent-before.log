@@ -1,0 +1,138 @@
+✖ every retained production platform stair has a usable lower connection to its real concourse floor (13496.587667ms)
+ℹ {"assemblies":59,"retainedPlatformFlights":227,"gaps":[{"station":"st_habsiguda","side":-1,"end":-1,"from":{"x":4661.817521177634,"y":8.3,"z":-1566.8150468625402},"supportedWidth":0.39999999999999997},{"station":"st_habsiguda","side":-1,"end":1,"from":{"x":4695.693276137401,"y":8.3,"z":-1517.819212560151},"supportedWidth":0.44999999999999996},{"station":"st_parade_grounds","side":-1,"end":-1,"from":{"x":117.20566196000368,"y":19.5,"z":-4196.383477095445},"supportedWidth":0.5499999999999999},{"station":"st_rtc_cross_roads","side":1,"end":1,"from":{"x":43.26563331060708,"y":8.3,"z":-104.03553786464117},"supportedWidth":0.5499999999999999},{"station":"st_secunderabad_west","side":-1,"end":-1,"from":{"x":278.5906941769199,"y":8.3,"z":-3040.0475447525023},"supportedWidth":0},{"station":"st_secunderabad_west","side":-1,"end":1,"from":{"x":329.8683798349097,"y":8.3,"z":-3069.0134564561235},"supportedWidth":0}]}
+✖ moving a street stair past an adjacent building cannot route its upper landing through that same building (0.7285ms)
+✖ a clear lift shaft cannot leave its concourse/platform links inside a visible neighboring building (0.304292ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20379.2275
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-I2n0wR/0.test.mjs:27128:1
+✖ every retained production platform stair has a usable lower connection to its real concourse floor (13496.587667ms)
+  AssertionError [ERR_ASSERTION]: curved stairs need a real lower landing or sufficient overlap with the actual concourse slab
+  + actual - expected
+  
+  + [
+  +   {
+  +     end: -1,
+  +     from: {
+  +       x: 4661.817521177634,
+  +       y: 8.3,
+  +       z: -1566.8150468625402
+  +     },
+  +     side: -1,
+  +     station: 'st_habsiguda',
+  +     supportedWidth: 0.39999999999999997
+  +   },
+  +   {
+  +     end: 1,
+  +     from: {
+  +       x: 4695.693276137401,
+  +       y: 8.3,
+  +       z: -1517.819212560151
+  +     },
+  +     side: -1,
+  +     station: 'st_habsiguda',
+  +     supportedWidth: 0.44999999999999996
+  +   },
+  +   {
+  +     end: -1,
+  +     from: {
+  +       x: 117.20566196000368,
+  +       y: 19.5,
+  +       z: -4196.383477095445
+  +     },
+  +     side: -1,
+  +     station: 'st_parade_grounds',
+  +     supportedWidth: 0.5499999999999999
+  +   },
+  +   {
+  +     end: 1,
+  +     from: {
+  +       x: 43.26563331060708,
+  +       y: 8.3,
+  +       z: -104.03553786464117
+  +     },
+  +     side: 1,
+  +     station: 'st_rtc_cross_roads',
+  +     supportedWidth: 0.5499999999999999
+  +   },
+  +   {
+  +     end: -1,
+  +     from: {
+  +       x: 278.5906941769199,
+  +       y: 8.3,
+  +       z: -3040.0475447525023
+  +     },
+  +     side: -1,
+  +     station: 'st_secunderabad_west',
+  +     supportedWidth: 0
+  +   },
+  +   {
+  +     end: 1,
+  +     from: {
+  +       x: 329.8683798349097,
+  +       y: 8.3,
+  +       z: -3069.0134564561235
+  +     },
+  +     side: -1,
+  +     station: 'st_secunderabad_west',
+  +     supportedWidth: 0
+  +   }
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-I2n0wR/0.test.mjs:27145:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.start (node:internal/test_runner/test:1000:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ { station: 'st_habsiguda', side: -1, end: -1, from: [Object], supportedWidth: 0.39999999999999997 }, { station: 'st_habsiguda', side: -1, end: 1, from: [Object], supportedWidth: 0.44999999999999996 }, { station: 'st_parade_grounds', side: -1, end: -1, from: [Object], supportedWidth: 0.5499999999999999 }, { station: 'st_rtc_cross_roads', side: 1, end: 1, from: [Object], supportedWidth: 0.5499999999999999 }, { station: 'st_secunderabad_west', side: -1, end: -1, from: [Object], supportedWidth: 0 }, { station: 'st_secunderabad_west', side: -1, end: 1, from: [Object], supportedWidth: 0 } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-I2n0wR/0.test.mjs:27166:1
+✖ moving a street stair past an adjacent building cannot route its upper landing through that same building (0.7285ms)
+  AssertionError [ERR_ASSERTION]: flight clearance alone does not protect its horizontal concourse link
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-I2n0wR/0.test.mjs:27169:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-I2n0wR/0.test.mjs:27171:1
+✖ a clear lift shaft cannot leave its concourse/platform links inside a visible neighboring building (0.304292ms)
+  AssertionError [ERR_ASSERTION]: check the full links as well as the shaft position
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-I2n0wR/0.test.mjs:27174:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

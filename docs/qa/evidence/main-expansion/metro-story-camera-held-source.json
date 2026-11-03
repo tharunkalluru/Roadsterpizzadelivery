@@ -1,0 +1,35 @@
+{
+  "scope": "Metro story camera and full physical approach correction; native19 acceptance separate",
+  "tests": 118,
+  "metrics": {
+    "shots": 32,
+    "maxGeometryCallsPerUpdate": 4,
+    "maxPlanningSliceMs": 42.99454100000003,
+    "maxPlanningFrames": 60,
+    "maxTotalPlanningMs": 115.69774799999686,
+    "ameerpetNativeCase": {
+      "station": "st_ameerpet:blue",
+      "direction": -1,
+      "coach": 22.1,
+      "along": 3.3,
+      "across": 1.4,
+      "reads": 14,
+      "poseReads": 85,
+      "planningMs": 23.35649900000226,
+      "maxSliceMs": 1.5828339999998207,
+      "planningFrames": 26,
+      "maxChecksPerFrame": 4
+    }
+  },
+  "hashes": {
+    "src/delivery/modules/metro-ride.ts": "238cf4150a84a80099cf56d08823ecd49f4491365b3b43f5f7da52a18224f1a8",
+    "src/delivery/modules/types.ts": "4574e258b693012d843db812646cc10d3ac315a9d4240f912698f7e99bec59ab",
+    "src/delivery/runtime.ts": "d9ea5c813aee2995fa76cbfd891e31c30bf980097965064f8bcb9fe0b5db29ca",
+    "src/game/game.ts": "2f334cf53add4efb8813f189ef7b93ed680c8f86f31a17813b8369a57f453150",
+    "src/game/spatial-safety.ts": "8c270d48dae6e9140cf52d7864cfb43f6e869218e81d386b8f9aad22602fadce",
+    "tests/v21-fixes/metro-story-camera.test.ts": "ed59b10ae30655f9148527c6838000bad8ea27608b892bf6bd8e33551be5ebb1",
+    "tests/v21-fixes/metro-story-physical-independent.test.ts": "983841b31df91d428fa6c22196f9175b33e495c82ddc4afb564d61a78e9a3ea5",
+    "tests/v21-fixes/metro-ride.test.ts": "9fc5aea73d0a87ed082dcc6d9269026c3f74550c2050976ac49dbdbbdcd9ea8b",
+    "tests/v21-fixes/delivery-runtime.test.ts": "25a4d2c099350d4d2ddf22deb1437f6df03fa4c62cb348b2cc8fbf5b92345cdf"
+  }
+}

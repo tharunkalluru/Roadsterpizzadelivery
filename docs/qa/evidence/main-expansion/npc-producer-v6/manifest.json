@@ -1,0 +1,52 @@
+{
+  "status": "producer inspected; independent native browser review required",
+  "renderer": "Blender 4.5.9 LTS Cycles CPU, threads 2, samples 12",
+  "source": "exact production Batch positions, split normals, and vertex colours; game roughness .42/metalness .18",
+  "sourceGeometryDirectory": "/tmp/roadster-npc-production-v6c",
+  "sourceFiles": {
+    "src/world/human-body.ts": "7566f5469e745bb4a35578e8e08216e0eacd3b8558013c224ea6eed801577545",
+    "src/world/human-skin.ts": "5defde186b8ac8eae0ebaeeb1473caca887f61c82937297702ddec77c9faee3d",
+    "src/world/people.ts": "95eb9f74ebcab5359a740c6a5fe9a0ccdba4f76895b5ef0bcb09d26cf1a53a78",
+    "src/world/npc-human-v4.json": "83c873bb5a9808193f264f42bb84eeb5b1c8408e904660687b27f26f98d64775",
+    "scripts/art/export-npc-production.ts": "b2fc9448cd05aeadc85277108e46f3c42362e29f34d4597d743b48cd500c9a18",
+    "scripts/art/render-npc-production.py": "38d9ce326b479ced0c381918738f9a6962ec1e6a0df7803c98e2b6003998b11e"
+  },
+  "views": [
+    {
+      "view": "front",
+      "image": "docs/qa/evidence/main-expansion/npc-producer-v6/front.png",
+      "sha256": "1478f991135a8f023bd396496f5bf5cbe0c3b21729600780c6e1dafd98f5ca15",
+      "geometryJSONSha256": "98b2d8aa6c571408f319e9e1ee42ed23aee647645a4e91e285c96e7e82a01058"
+    },
+    {
+      "view": "profile",
+      "image": "docs/qa/evidence/main-expansion/npc-producer-v6/profile.png",
+      "sha256": "96749f402ebc6a107603ea32c5d57f1be970c470994f971c80aae996b8d52fa2",
+      "geometryJSONSha256": "9a17dd3f090b8f33a77d760f15144ad34b120f082d073ee38797bef49c893518"
+    },
+    {
+      "view": "faces",
+      "image": "docs/qa/evidence/main-expansion/npc-producer-v6/faces.png",
+      "sha256": "ed1b9c903c4f4a708437c869de04cdd94be2d974dbbce21e0d61cc4ef718ab62",
+      "geometryJSONSha256": "f1487bc934a63bda387ba9f5cf74ee90720589dc108474f640937a84d436a72f"
+    },
+    {
+      "view": "seated",
+      "image": "docs/qa/evidence/main-expansion/npc-producer-v6/seated.png",
+      "sha256": "dcc708b173c458b1c28a109145df774ba4144ce50c16539afe1addb3dfeaf571",
+      "geometryJSONSha256": "8721c47399072a73dc61cd54bda27f358e22b0e375e1c235746610f6aaa3ff5a"
+    },
+    {
+      "view": "seated-side",
+      "image": "docs/qa/evidence/main-expansion/npc-producer-v6/seated-side.png",
+      "sha256": "6dfebb1d5c68929c9161116d5de6a667e2b374453d7837a1716e8ba35d3e7029",
+      "geometryJSONSha256": "2e58cfe875177dc0995a77b378498d654dfb673fde9bc0c328e1caaf65f81e5d"
+    },
+    {
+      "view": "seated-quarter",
+      "image": "docs/qa/evidence/main-expansion/npc-producer-v6/seated-quarter.png",
+      "sha256": "150dff6ee343da422b466fa65760f2c7b8e217e7b0eaa1639817fc051dad2b23",
+      "geometryJSONSha256": "ed9e14e3017bd2e9ae60f9cedd10178272b57595d6308982088a1881878997dc"
+    }
+  ]
+}
