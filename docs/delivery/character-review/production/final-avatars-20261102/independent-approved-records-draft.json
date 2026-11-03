@@ -1,0 +1,619 @@
+{
+  "schemaVersion": 1,
+  "status": "Independent exact-artifact visual approval completed; draft awaits Root registration/file-copy validation. No public/runtime registry was edited by reviewer.",
+  "reviewedAt": "2026-11-02T23:42:29.896312+00:00",
+  "reviewerId": "/root/missing_avatars_independent_review",
+  "records": [
+    {
+      "characterId": "srikanth-odela",
+      "name": "Srikanth Odela",
+      "film": "Director public appearance",
+      "status": "approved",
+      "candidate": {
+        "assetId": "srikanth-odela-visible-scene-v3",
+        "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+      },
+      "candidateFiles": [
+        {
+          "path": "public/delivery/characters/srikanth-odela/actor-v3.glb",
+          "sha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b"
+        },
+        {
+          "path": "public/delivery/characters/srikanth-odela/actor-v3.rig.json",
+          "sha256": "87136dfe45f86a4d11c901ca16239864303a079f26fc51314038794cff6c3bda"
+        }
+      ],
+      "authorId": "/root/missing_level_avatars_production",
+      "reviewerId": "/root/missing_avatars_independent_review",
+      "reviewedAt": "2026-11-02T23:42:29.896312+00:00",
+      "checks": {
+        "identity": "close-match",
+        "film-role": "close-match",
+        "hair-and-face": "close-match",
+        "costume-and-body": "close-match",
+        "scene-pose": "close-match",
+        "in-game-readability": "close-match"
+      },
+      "references": [
+        {
+          "id": "odela-slv-official-front-2002s",
+          "characterId": "srikanth-odela",
+          "kind": "public-appearance",
+          "sourceUrl": "https://www.youtube.com/watch?v=B1mtJLeagSQ&t=2002s",
+          "publisher": "SLV Cinemas official",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/references/slv-odela-official-interview-2002s.png",
+          "sha256": "e8a04a82a12823353dbd7616d763cb54d917d5ceb084eaaea1f38589c3c21ed3",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Director at official Dasara interview; actual near-front face, short dark hair, light beard, complexion and navy collared shirt. Reopened for the final actual-scene comparison."
+        },
+        {
+          "id": "odela-slv-official-three-quarter-1372s",
+          "characterId": "srikanth-odela",
+          "kind": "public-appearance",
+          "sourceUrl": "https://www.youtube.com/watch?v=B1mtJLeagSQ&t=1372s",
+          "publisher": "SLV Cinemas official",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/references/slv-odela-official-interview-1372s.png",
+          "sha256": "d560e7df2d8d81069b9d9fc8f63169ffab23b26105faefad51f348d75b297cc7",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Actual left three-quarter interview frame personally viewed during isolated review and compared to exact final views; curated copy hash matches those observed bytes."
+        },
+        {
+          "id": "odela-shreyas-official-profile-23s",
+          "characterId": "srikanth-odela",
+          "kind": "public-appearance",
+          "sourceUrl": "https://www.youtube.com/watch?v=jn6K-K7668U&t=23s",
+          "publisher": "Shreyas Media official",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/references/shreyas-official-odela-speech-023s-decoded.png",
+          "sha256": "63dc40b0e59aed2c0a1ba2f93b6f8b1202f3f7d903f109383d31027f52e144e9",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Central microphone speaker is Odela. Actual side-profile face and hair reference personally viewed during isolated review, with unchanged curated bytes."
+        },
+        {
+          "id": "odela-shreyas-official-rear-22s",
+          "characterId": "srikanth-odela",
+          "kind": "public-appearance",
+          "sourceUrl": "https://www.youtube.com/watch?v=jn6K-K7668U&t=22s",
+          "publisher": "Shreyas Media official",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/references/shreyas-official-odela-speech-022s-decoded.png",
+          "sha256": "f06d975c3279721046a89e93c8a2e47229dcbbf66cacf67bb608d4ad4f16f858",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Central microphone speaker is Odela. Actual rear-three-quarter/nape reference personally viewed during isolated review, with unchanged curated bytes."
+        }
+      ],
+      "evidence": [
+        {
+          "view": "front",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbIdleViews/front.png",
+          "sha256": "fbb3ef73c1b918dbf2a2b9ed577cf3010ded1177bcf73bd437aaff44df4b4aa2",
+          "assetSha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc",
+          "comparedReferenceIds": [
+            "odela-slv-official-front-2002s",
+            "odela-slv-official-three-quarter-1372s",
+            "odela-shreyas-official-profile-23s",
+            "odela-shreyas-official-rear-22s"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        },
+        {
+          "view": "three-quarter",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbIdleViews/three-quarter.png",
+          "sha256": "3e722c342a27795c3faf4a675060830a29f3de68f5eedb154b8d8ba37c372cc7",
+          "assetSha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc",
+          "comparedReferenceIds": [
+            "odela-slv-official-front-2002s",
+            "odela-slv-official-three-quarter-1372s",
+            "odela-shreyas-official-profile-23s",
+            "odela-shreyas-official-rear-22s"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        },
+        {
+          "view": "profile",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbIdleViews/profile.png",
+          "sha256": "6005fa7ff0a0645294aaebbd0e65f996002b62893d3382d59078c71dcd0b6af2",
+          "assetSha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc",
+          "comparedReferenceIds": [
+            "odela-slv-official-front-2002s",
+            "odela-slv-official-three-quarter-1372s",
+            "odela-shreyas-official-profile-23s",
+            "odela-shreyas-official-rear-22s"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        },
+        {
+          "view": "full-body",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/exactGlbIdleViews/full-body.png",
+          "sha256": "3fe5503e9741bd2b5e92920ba2687f5915de07cb0516cda2b4bf88967f222e77",
+          "assetSha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc",
+          "comparedReferenceIds": [
+            "odela-slv-official-front-2002s",
+            "odela-slv-official-three-quarter-1372s",
+            "odela-shreyas-official-profile-23s",
+            "odela-shreyas-official-rear-22s"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        },
+        {
+          "view": "in-game-handoff",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/srikanth-odela/actual-held-day.png",
+          "sha256": "2b159ecaadcc07d864800197e3c8f16afee6a8fc68c3dcd1fd02e354986a27bd",
+          "assetSha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc",
+          "comparedReferenceIds": [
+            "odela-slv-official-front-2002s",
+            "odela-slv-official-three-quarter-1372s",
+            "odela-shreyas-official-profile-23s",
+            "odela-shreyas-official-rear-22s"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        }
+      ],
+      "feedback": [
+        "Short dark hair, light beard, face/profile proportions, navy collared shirt and natural body form pass comparison to the actual SLV interview and Shreyas event director references. Directors use public-appearance evidence, not a film costume identity.",
+        "The approved actual RopeBucket story places Odela on the Paradise rooftop beside the pulley. Corrected footprint/roof height and camera avoid the original floating feet and foreground pole occlusion. Tighter held framing keeps face and full body readable.",
+        "Physical rooftop lamp key makes cheek, beard and jaw readable at night while retaining the dark city/sky. Day retains the authored skin/shirt appearance. Only Pause and Next occupy the held view.",
+        "Root directly watched bucket lower, receive the actual pizza and rise before Next hold for many minutes. No direct hand-to-palm carton collection is claimed in this bucket delivery.",
+        "Independent close-match judgment of a recognizable authored interpretation; not a photoreal scan, pixel-identical replica or numerical similarity claim. No generated guide was used as identity ground truth.",
+        "Front, three-quarter, profile, full body, opposite profile, back and TakePizza exact-model stills were personally viewed during the immutable isolated review. Their curated copies are byte-identical; final actual native day/night held-scene stills were personally opened and compared to primary photos.",
+        "The schema view named in-game-handoff points to the actual delivered-result/Next-held scene, not to a neutral offline TakePizza render and not to an independently watched continuous transfer video. This story intentionally does not use the TakePizza clip.",
+        "Continuous transfer and indefinite Next hold are Root\u2019s direct native gameplay observations. This reviewer directly inspected the supplied native scene stills. A 932x430 mobile-sized landscape viewport does not establish physical-phone FPS, touch behavior, thermals or battery life.",
+        "Approval applies only to the exact candidate file list and canonical rig. Any changed model, rig, texture, animation, material or appearance-affecting camera/light treatment requires review. Root must copy and verify the exact proposed public files and run release tests before registration/publication."
+      ],
+      "provenance": {
+        "isolatedIndependentReview": {
+          "path": "docs/qa/main-expansion-missing-avatars-review-v3.json",
+          "sha256": "61355074dcd3e58734cf592e1665e9277c82158f087bb731778239fc218a0151"
+        },
+        "curatedSourceDescriptor": {
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/source/srikanth-odela-asset-draft-round3-v7.json",
+          "sha256": "2f599f35d272eb33ae168a5d0a540364ec4f9a7fbe59a73cd9cfb0e34df3d986"
+        },
+        "canonicalRig": {
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/srikanth-odela/source/srikanth-odela-review-candidate-v7.canonical.rig.json",
+          "sha256": "87136dfe45f86a4d11c901ca16239864303a079f26fc51314038794cff6c3bda"
+        },
+        "independentNumericalContactProof": {
+          "path": "docs/qa/srikanth-odela-round3-reviewer-walk-contact.json",
+          "sha256": "36ea3e61b2127dc8abeb2a85eb1cd7761a5ae5d776b2da314aebbb80a4a13728",
+          "scope": "Exact-model five-phase .7m/s continuing walk/TakePizza numerical quality check, not this actual story mechanic or performance proof."
+        },
+        "canonicalBundleVerified": true,
+        "privateStagedModelSha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b",
+        "privateStagedRigSha256": "87136dfe45f86a4d11c901ca16239864303a079f26fc51314038794cff6c3bda",
+        "curatedCopiesOfPersonallyViewedStillsHashVerified": true
+      },
+      "sceneEvidence": {
+        "status": "actual-native-appearance-approved",
+        "mechanic": "RopeBucket: actual pizza carried by bucket, not TakePizza",
+        "screenshots": [
+          {
+            "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/srikanth-odela/actual-held-day.png",
+            "sha256": "2b159ecaadcc07d864800197e3c8f16afee6a8fc68c3dcd1fd02e354986a27bd",
+            "sourceScreenshot": "docs/qa/evidence/main-expansion/odela-actual-held-day-key-clear-v7.png",
+            "sourceBuildFingerprint": "82d75d90fc5e85b6a8e95982c701a41058acfc12271f2eb8e137bfbacca7abe5",
+            "frozenBuild": 11,
+            "lighting": "day",
+            "viewportCssPixels": {
+              "width": 932,
+              "height": 430
+            },
+            "actuallyViewedByIndependentReviewer": true,
+            "observedBy": "/root/missing_avatars_independent_review",
+            "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+          },
+          {
+            "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/srikanth-odela/actual-held-night.png",
+            "sha256": "0265218540e4f80cd16362db0aec9c872bda1dfa4705d87fe39252713c072098",
+            "sourceScreenshot": "docs/qa/evidence/main-expansion/odela-actual-held-night-key-v7.png",
+            "sourceBuildFingerprint": "82d75d90fc5e85b6a8e95982c701a41058acfc12271f2eb8e137bfbacca7abe5",
+            "frozenBuild": 11,
+            "lighting": "night",
+            "viewportCssPixels": {
+              "width": 932,
+              "height": 430
+            },
+            "actuallyViewedByIndependentReviewer": true,
+            "observedBy": "/root/missing_avatars_independent_review",
+            "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+          }
+        ],
+        "sourceBuildFingerprint": "82d75d90fc5e85b6a8e95982c701a41058acfc12271f2eb8e137bfbacca7abe5",
+        "fingerprintAttribution": "Root supplied the actual frozen native build identifier; reviewer independently hashed supplied exact screenshots and isolated model artifacts.",
+        "directlyObservedByReviewer": "Actual native held day/night scene stills",
+        "continuousBehaviorObserver": "/root",
+        "continuousBehaviorObservedByRoot": [
+          "bucket lowers",
+          "physical pizza transferred to bucket",
+          "bucket raises",
+          "held Next persists for many minutes without auto-advance"
+        ],
+        "reviewerContinuousPlaybackClaimed": false,
+        "physicalDevicePerformanceClaimed": false,
+        "touchControlsCertified": false
+      }
+    },
+    {
+      "characterId": "prabhas-salaar",
+      "name": "Prabhas as Salaar",
+      "film": "Salaar",
+      "status": "approved",
+      "candidate": {
+        "assetId": "prabhas-salaar-visible-scene-v4",
+        "sha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e"
+      },
+      "candidateFiles": [
+        {
+          "path": "public/delivery/characters/prabhas-salaar/actor-v4.glb",
+          "sha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab"
+        },
+        {
+          "path": "public/delivery/characters/prabhas-salaar/actor-v4.rig.json",
+          "sha256": "fa5eff795098d4fe7594398374b198ac9fb405117229de2cc78c0f00ac598444"
+        }
+      ],
+      "authorId": "/root/missing_level_avatars_production",
+      "reviewerId": "/root/missing_avatars_independent_review",
+      "reviewedAt": "2026-11-02T23:42:29.896312+00:00",
+      "checks": {
+        "identity": "close-match",
+        "film-role": "close-match",
+        "hair-and-face": "close-match",
+        "costume-and-body": "close-match",
+        "scene-pose": "close-match",
+        "in-game-readability": "close-match"
+      },
+      "references": [
+        {
+          "id": "salaar-hombale-official-poster",
+          "characterId": "prabhas-salaar",
+          "kind": "film-still",
+          "sourceUrl": "https://www.hombalefilms.com/movies/salaar-part-1-ceasefire",
+          "publisher": "Hombale Films official",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/references/salaar-official-hombale-poster.png",
+          "sha256": "9f01427d3d23b2d676354926e02c0be7f953e18aa2f9fbc3c1456f70b9cfa1b5",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Right foreground character is Prabhas as Salaar, not the man on the left. Actual film poster supplies face/profile, swept hair, layered nape, beard and charcoal crewneck/body reference; personally reopened for final scene review."
+        },
+        {
+          "id": "salaar-hombale-official-trailer",
+          "characterId": "prabhas-salaar",
+          "kind": "film-still",
+          "sourceUrl": "https://www.youtube.com/watch?v=4GPvYMKtrtI",
+          "publisher": "Hombale Films official",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/references/salaar-official-hombale-trailer-thumbnail.jpg",
+          "sha256": "fe42adb2b3b57463b4c7bb0bf4f9043d7cb4ab01d1d278d71826ef2657647108",
+          "primarySource": true,
+          "visuallyVerified": true,
+          "note": "Actual official Salaar trailer image supplies intended film identity, hair/beard and rugged build/costume context; personally reopened for final scene review."
+        }
+      ],
+      "evidence": [
+        {
+          "view": "front",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbIdleViews/front.png",
+          "sha256": "49ae1de9772304c0a0d55fead3aae97e4b74cd84ab330eca393c492803b49e22",
+          "assetSha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e",
+          "comparedReferenceIds": [
+            "salaar-hombale-official-poster",
+            "salaar-hombale-official-trailer"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        },
+        {
+          "view": "three-quarter",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbIdleViews/three-quarter.png",
+          "sha256": "d9fde44b07a5b65f1c0b0c2e52de47dafecbffa4bac807ca18f957a483db852b",
+          "assetSha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e",
+          "comparedReferenceIds": [
+            "salaar-hombale-official-poster",
+            "salaar-hombale-official-trailer"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        },
+        {
+          "view": "profile",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbIdleViews/profile.png",
+          "sha256": "77ceaabf29aba76587ee883454712d961c7779ec0671fc292e432a40ccbe0eae",
+          "assetSha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e",
+          "comparedReferenceIds": [
+            "salaar-hombale-official-poster",
+            "salaar-hombale-official-trailer"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        },
+        {
+          "view": "full-body",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/exactGlbIdleViews/full-body.png",
+          "sha256": "299571c44ebf80513d6c54f43fa80fa347408bce9250b83d23ba20386901476f",
+          "assetSha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e",
+          "comparedReferenceIds": [
+            "salaar-hombale-official-poster",
+            "salaar-hombale-official-trailer"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        },
+        {
+          "view": "in-game-handoff",
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/prabhas-salaar/actual-held-day.png",
+          "sha256": "b8013207d89d6bc6e267cf2eda5cde2322a81e355b3c6ba6a2a668e92d24a825",
+          "assetSha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e",
+          "comparedReferenceIds": [
+            "salaar-hombale-official-poster",
+            "salaar-hombale-official-trailer"
+          ],
+          "observedBy": "/root/missing_avatars_independent_review"
+        }
+      ],
+      "feedback": [
+        "Actual Salaar references support the strong brow, full beard, swept dark hair, charcoal crewneck and rugged build. Both profiles/back of v9 have a readable hairline, exposed nape and distinct shirt collar; rejected v8 hood/cape is not inherited.",
+        "Actual fortress held frames keep full actor/feet, grounded courtyard pizza and clear face visible. Nearby car/pole do not cross the head or torso. Night porch lighting retains readable beard/face with dark clothing; day preserves the authored material.",
+        "This approved story leaves the pizza on the real courtyard paving. It does not force a hand-to-palm collection. The delivered floor carton remains visible beside the feet.",
+        "Root directly watched floor transfer, long Next hold and Pause/Resume. The reviewer personally opened the resumed scene still, which retains the same actor, floor pizza, Pause and Next without a visible unintended transition.",
+        "Independent close-match judgment of a recognizable authored interpretation; not a photoreal scan, pixel-identical replica or numerical similarity claim. No generated guide was used as identity ground truth.",
+        "Front, three-quarter, profile, full body, opposite profile, back and TakePizza exact-model stills were personally viewed during the immutable isolated review. Their curated copies are byte-identical; final actual native day/night held-scene stills were personally opened and compared to primary photos.",
+        "The schema view named in-game-handoff points to the actual delivered-result/Next-held scene, not to a neutral offline TakePizza render and not to an independently watched continuous transfer video. This story intentionally does not use the TakePizza clip.",
+        "Continuous transfer and indefinite Next hold are Root\u2019s direct native gameplay observations. This reviewer directly inspected the supplied native scene stills. A 932x430 mobile-sized landscape viewport does not establish physical-phone FPS, touch behavior, thermals or battery life.",
+        "Approval applies only to the exact candidate file list and canonical rig. Any changed model, rig, texture, animation, material or appearance-affecting camera/light treatment requires review. Root must copy and verify the exact proposed public files and run release tests before registration/publication."
+      ],
+      "provenance": {
+        "isolatedIndependentReview": {
+          "path": "docs/qa/main-expansion-missing-avatars-review-v4.json",
+          "sha256": "a675a55c5976740db1bdf2cd935f7704d938df4c0f003f59a973b7a138193df9"
+        },
+        "curatedSourceDescriptor": {
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/source/prabhas-salaar-asset-draft-round4-v9.json",
+          "sha256": "b7c3a16a1af48eaf0ebcfa26013238c6134c0084d975040144070f75400456ba"
+        },
+        "canonicalRig": {
+          "path": "docs/delivery/character-review/production/final-avatars-20261102/prabhas-salaar/source/prabhas-salaar-review-candidate-v9.canonical.rig.json",
+          "sha256": "fa5eff795098d4fe7594398374b198ac9fb405117229de2cc78c0f00ac598444"
+        },
+        "independentNumericalContactProof": {
+          "path": "docs/qa/prabhas-salaar-round4-reviewer-walk-contact.json",
+          "sha256": "e582371629c3ef80271cf1c534e9acfbdbd0c24f3dbb611826a43f0aa0007681",
+          "scope": "Exact-model five-phase .7m/s continuing walk/TakePizza numerical quality check, not this actual story mechanic or performance proof."
+        },
+        "canonicalBundleVerified": true,
+        "privateStagedModelSha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab",
+        "privateStagedRigSha256": "fa5eff795098d4fe7594398374b198ac9fb405117229de2cc78c0f00ac598444",
+        "curatedCopiesOfPersonallyViewedStillsHashVerified": true
+      },
+      "sceneEvidence": {
+        "status": "actual-native-appearance-approved",
+        "mechanic": "GateDelivery: leave actual pizza on courtyard paving, not TakePizza",
+        "screenshots": [
+          {
+            "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/prabhas-salaar/actual-held-day.png",
+            "sha256": "b8013207d89d6bc6e267cf2eda5cde2322a81e355b3c6ba6a2a668e92d24a825",
+            "sourceScreenshot": "docs/qa/evidence/main-expansion/salaar-actual-held-day-porch-v9.png",
+            "sourceBuildFingerprint": "97f2ee7895f9dcfc149a4087af6f507ef632f0f2d6b8e43aae541089d9ba3eec",
+            "frozenBuild": 12,
+            "lighting": "day",
+            "viewportCssPixels": {
+              "width": 932,
+              "height": 430
+            },
+            "actuallyViewedByIndependentReviewer": true,
+            "observedBy": "/root/missing_avatars_independent_review",
+            "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+          },
+          {
+            "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/prabhas-salaar/actual-held-night.png",
+            "sha256": "dcb9db33e2c1fbb206d0fbe9c37282081542a9e248e8996b57a9377a551549c3",
+            "sourceScreenshot": "docs/qa/evidence/main-expansion/salaar-actual-held-night-porch-v9.png",
+            "sourceBuildFingerprint": "97f2ee7895f9dcfc149a4087af6f507ef632f0f2d6b8e43aae541089d9ba3eec",
+            "frozenBuild": 12,
+            "lighting": "night",
+            "viewportCssPixels": {
+              "width": 932,
+              "height": 430
+            },
+            "actuallyViewedByIndependentReviewer": true,
+            "observedBy": "/root/missing_avatars_independent_review",
+            "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+          },
+          {
+            "path": "docs/delivery/character-review/production/final-avatars-20261102/evidence/prabhas-salaar/actual-held-after-pause-resume.png",
+            "sha256": "a98d887b330782da6bd1875b46f116e7dde1881ae3f530d248896215e058aaf6",
+            "sourceScreenshot": "docs/qa/evidence/main-expansion/salaar-held-after-pause-resume-v9.png",
+            "sourceBuildFingerprint": "97f2ee7895f9dcfc149a4087af6f507ef632f0f2d6b8e43aae541089d9ba3eec",
+            "frozenBuild": 12,
+            "lighting": "day-resumed",
+            "viewportCssPixels": {
+              "width": 932,
+              "height": 430
+            },
+            "actuallyViewedByIndependentReviewer": true,
+            "observedBy": "/root/missing_avatars_independent_review",
+            "scope": "Actual native production-renderer post-delivery held scene still; continuous transfer/long hold behavior directly observed by Root, not reviewer playback."
+          }
+        ],
+        "sourceBuildFingerprint": "97f2ee7895f9dcfc149a4087af6f507ef632f0f2d6b8e43aae541089d9ba3eec",
+        "fingerprintAttribution": "Root supplied the actual frozen native build identifier; reviewer independently hashed supplied exact screenshots and isolated model artifacts.",
+        "directlyObservedByReviewer": "Actual native held day/night scene stills and resumed scene still",
+        "continuousBehaviorObserver": "/root",
+        "continuousBehaviorObservedByRoot": [
+          "physical pizza transfers to courtyard paving",
+          "held Next remains without auto-advance",
+          "Pause shows opaque menu and hides Next",
+          "Resume restores same actor/floor pizza/Pause/Next"
+        ],
+        "reviewerContinuousPlaybackClaimed": false,
+        "physicalDevicePerformanceClaimed": false,
+        "touchControlsCertified": false
+      }
+    }
+  ],
+  "assetEntries": [
+    {
+      "characterId": "srikanth-odela",
+      "candidate": {
+        "assetId": "srikanth-odela-visible-scene-v3",
+        "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+      },
+      "glb": {
+        "url": "/delivery/characters/srikanth-odela/actor-v3.glb",
+        "sha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b"
+      },
+      "contractPath": "public/delivery/characters/srikanth-odela/actor-v3.rig.json",
+      "contract": {
+        "id": "srikanth-odela-authored-rig-v1-anatomical-hands-v1-unified-anatomical-surface-v2-coherent-rear-hair-atlas-v2-targeted-review-surface-repair-v3-local-posterior-cloth-retopology-v3-continuous-cloth-bind-v3-correct-inner-cloth-paint-v3-coherent-native-navy-shirt-uv-v3",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "catchPointSpace": "palm-contact",
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "RightShoulder",
+            "LeftArm",
+            "RightArm",
+            "LeftForeArm",
+            "RightForeArm",
+            "LeftHand",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightWristTwist"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8380952380952382
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.672,
+          "max": 1.848
+        },
+        "materialTreatment": "as-authored"
+      }
+    },
+    {
+      "characterId": "prabhas-salaar",
+      "candidate": {
+        "assetId": "prabhas-salaar-visible-scene-v4",
+        "sha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e"
+      },
+      "glb": {
+        "url": "/delivery/characters/prabhas-salaar/actor-v4.glb",
+        "sha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab"
+      },
+      "contractPath": "public/delivery/characters/prabhas-salaar/actor-v4.rig.json",
+      "contract": {
+        "id": "prabhas-salaar-authored-rig-v1-anatomical-hands-v1-unified-anatomical-surface-v2-coherent-rear-hair-atlas-v2-targeted-review-surface-repair-v3-local-posterior-cloth-retopology-v3-continuous-cloth-bind-v3-correct-inner-cloth-paint-v3-coherent-native-plain-tee-uv-v3-natural-short-nape-collar-v4-native-conformal-rear-collar-v4",
+        "sceneName": "ReviewedCharacterScene",
+        "requireSkin": true,
+        "nodes": {
+          "leftArm": "LeftArm",
+          "rightArm": "RightArm",
+          "catchPoint": "PizzaCatch"
+        },
+        "catchPointSpace": "palm-contact",
+        "pose": {
+          "mode": "handoff-clip",
+          "clipName": "TakePizza",
+          "upperBodyNodes": [
+            "Chest",
+            "LeftShoulder",
+            "RightShoulder",
+            "LeftArm",
+            "RightArm",
+            "LeftForeArm",
+            "RightForeArm",
+            "LeftHand",
+            "RightHand",
+            "RightIndex1",
+            "RightIndex2",
+            "RightIndex3",
+            "RightMiddle1",
+            "RightMiddle2",
+            "RightMiddle3",
+            "RightRing1",
+            "RightRing2",
+            "RightRing3",
+            "RightPinky1",
+            "RightPinky2",
+            "RightPinky3",
+            "RightThumb1",
+            "RightThumb2",
+            "RightThumb3",
+            "RightWristTwist"
+          ]
+        },
+        "motions": {
+          "required": [
+            "idle",
+            "walk",
+            "dance",
+            "read"
+          ],
+          "clips": {
+            "idle": {
+              "clipName": "Idle"
+            },
+            "walk": {
+              "clipName": "Walk",
+              "metresPerCycle": 0.8952380952380953
+            },
+            "dance": {
+              "clipName": "Dance"
+            },
+            "read": {
+              "clipName": "Read"
+            }
+          }
+        },
+        "height": {
+          "min": 1.7859999999999998,
+          "max": 1.974
+        },
+        "materialTreatment": "as-authored"
+      }
+    }
+  ],
+  "registrationPerformed": false,
+  "publicationPerformed": false
+}

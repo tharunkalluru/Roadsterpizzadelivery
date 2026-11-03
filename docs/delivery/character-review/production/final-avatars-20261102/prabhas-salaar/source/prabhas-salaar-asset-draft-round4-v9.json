@@ -1,0 +1,99 @@
+{
+  "status": "UNAPPROVED DRAFT ONLY; no registration, no public copy, independent review round4 required",
+  "independentReviewRound": 4,
+  "producerArtifactRevision": 9,
+  "stagedGlb": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-review-candidate-v9.glb",
+  "stagedCanonicalContract": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-review-candidate-v9.canonical.rig.json",
+  "candidateFiles": [
+    {
+      "path": "public/delivery/characters/prabhas-salaar/actor-v4.glb",
+      "sha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab"
+    },
+    {
+      "path": "public/delivery/characters/prabhas-salaar/actor-v4.rig.json",
+      "sha256": "fa5eff795098d4fe7594398374b198ac9fb405117229de2cc78c0f00ac598444"
+    }
+  ],
+  "assetEntryDraft": {
+    "characterId": "prabhas-salaar",
+    "candidate": {
+      "assetId": "prabhas-salaar-visible-scene-v4",
+      "sha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e"
+    },
+    "glb": {
+      "url": "/delivery/characters/prabhas-salaar/actor-v4.glb",
+      "sha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab"
+    },
+    "contractPath": "public/delivery/characters/prabhas-salaar/actor-v4.rig.json",
+    "contract": {
+      "id": "prabhas-salaar-authored-rig-v1-anatomical-hands-v1-unified-anatomical-surface-v2-coherent-rear-hair-atlas-v2-targeted-review-surface-repair-v3-local-posterior-cloth-retopology-v3-continuous-cloth-bind-v3-correct-inner-cloth-paint-v3-coherent-native-plain-tee-uv-v3-natural-short-nape-collar-v4-native-conformal-rear-collar-v4",
+      "sceneName": "ReviewedCharacterScene",
+      "requireSkin": true,
+      "nodes": {
+        "leftArm": "LeftArm",
+        "rightArm": "RightArm",
+        "catchPoint": "PizzaCatch"
+      },
+      "catchPointSpace": "palm-contact",
+      "pose": {
+        "mode": "handoff-clip",
+        "clipName": "TakePizza",
+        "upperBodyNodes": [
+          "Chest",
+          "LeftShoulder",
+          "RightShoulder",
+          "LeftArm",
+          "RightArm",
+          "LeftForeArm",
+          "RightForeArm",
+          "LeftHand",
+          "RightHand",
+          "RightIndex1",
+          "RightIndex2",
+          "RightIndex3",
+          "RightMiddle1",
+          "RightMiddle2",
+          "RightMiddle3",
+          "RightRing1",
+          "RightRing2",
+          "RightRing3",
+          "RightPinky1",
+          "RightPinky2",
+          "RightPinky3",
+          "RightThumb1",
+          "RightThumb2",
+          "RightThumb3",
+          "RightWristTwist"
+        ]
+      },
+      "motions": {
+        "required": [
+          "idle",
+          "walk",
+          "dance",
+          "read"
+        ],
+        "clips": {
+          "idle": {
+            "clipName": "Idle"
+          },
+          "walk": {
+            "clipName": "Walk",
+            "metresPerCycle": 0.8952380952380953
+          },
+          "dance": {
+            "clipName": "Dance"
+          },
+          "read": {
+            "clipName": "Read"
+          }
+        }
+      },
+      "height": {
+        "min": 1.7859999999999998,
+        "max": 1.974
+      },
+      "materialTreatment": "as-authored"
+    }
+  }
+}
