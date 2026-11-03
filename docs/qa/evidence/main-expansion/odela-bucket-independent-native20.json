@@ -1,0 +1,70 @@
+{
+  "scope": "Independent actual viewing of six saved native PNGs; Root operated and captured the running game. Not a new independently played session or continuous video review.",
+  "frozenBuild": 20,
+  "runtimeFingerprint": "7ad22d508e9bd5236dfe8a004f3a49b7e96d0364cc9a602b46c9d479da4792c7",
+  "sourceSha256": "2d69e6cf618cff849b7b4e309bd129cb954f762b656264392925d6c1ecb20dd5",
+  "assistance": "Root reports Prepare-only QA road spawn about15m away, without Stage or R, then automatic entry. This is not natural carrier pickup evidence.",
+  "sequence": {
+    "samples": 81,
+    "throughFrame79Seconds": 6.71,
+    "frame79To80GapSeconds": 14.435,
+    "held80": true
+  },
+  "files": [
+    {
+      "file": "docs/qa/evidence/main-expansion/native-paradise-final20/frame-020.png",
+      "sha256": "c3c1093ff0842f9c88b362492135a41b0e66c26b83c2fa7e99b350f401a634cb",
+      "decision": "PASS in stated saved-frame scope",
+      "visible": "High/lowering physical basket, rope and Paradise frontage visible."
+    },
+    {
+      "file": "docs/qa/evidence/main-expansion/native-paradise-final20/frame-040.png",
+      "sha256": "b8292cd279204f251812d5990360ec9478e1846e9cd67efd80835866390d4139",
+      "decision": "PASS in stated saved-frame scope",
+      "visible": "Near-bottom basket and visibly separate car in the alley."
+    },
+    {
+      "file": "docs/qa/evidence/main-expansion/native-paradise-final20/frame-055.png",
+      "sha256": "5a9bcc60c18a2a41421b1de2dda1b2587db29fbd45abed20849d47d505c3d8b8",
+      "decision": "PASS in stated saved-frame scope",
+      "visible": "Actual red carton visible in mid-air near the car during the physical pass."
+    },
+    {
+      "file": "docs/qa/evidence/main-expansion/native-paradise-final20/frame-070.png",
+      "sha256": "b73769ed08969734cc73e9b66d09db56b493fc583fa8fa145ef0b9b716addae3",
+      "decision": "PASS in stated saved-frame scope",
+      "visible": "Actual carton visible inside the basket."
+    },
+    {
+      "file": "docs/qa/evidence/main-expansion/native-paradise-final20/frame-079.png",
+      "sha256": "3403d5839fae19eebcaa321aab65b5b24249372f9b252c20b9aa7e994e549d32",
+      "decision": "PASS in stated saved-frame scope",
+      "visible": "Carton retained inside the raised basket."
+    },
+    {
+      "file": "docs/qa/evidence/main-expansion/native-paradise-final20/frame-080.png",
+      "sha256": "ab89c861516bd0c10fc44c3fc774e5ef21f7ec8b4d5a5b648d6484ced8b92e7a",
+      "decision": "PASS in stated saved-frame scope",
+      "visible": "Approved full-body rooftop actor clear with Pause and Next."
+    }
+  ],
+  "limitations": [
+    "Only the six named frames were independently opened.",
+    "The frame79-to80 gap is explicit; no claim of uninterrupted complete lift motion across that gap.",
+    "Real geometry tests separately check physical car/carton clearance at50ms story steps.",
+    "Phone-shaped viewport screenshots do not establish a physical phone or FPS/thermal/battery results."
+  ],
+  "additionalHeldNight": {
+    "file": "docs/qa/evidence/main-expansion/native-paradise-final20/held-night.png",
+    "sha256": "fa1000a9f84a8383544c000fab4301c0d1d93f8f4be5da61a0142adc132e7eab",
+    "actuallyOpenedWithViewImage": true,
+    "decision": "PASS for clear held approved rooftop actor at night, retained Pause/Next and no opaque face/body obstruction."
+  },
+  "finalIndependentL4SourceTests": {
+    "groups": 6,
+    "passed": 6,
+    "failed": 0,
+    "log": "docs/qa/evidence/main-expansion/odela-bucket-independent-held-tests-v20.log",
+    "additionalCase": "Exact native20 initial pose (-1020,.55,-3932.4), yaw90degrees, complete171step physical approach; original3 cases preserved."
+  }
+}

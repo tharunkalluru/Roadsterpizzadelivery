@@ -1,0 +1,15 @@
+✔ the actual observer reads all four real WeddingCrowd batches without assuming the named Group is an InstancedMesh (194.61825ms)
+✔ legacy single-instanced wedding crowds retain actual matrix-motion evidence (0.878292ms)
+✔ every currently visible wedding draw must change its matrix version before group animation is certified (0.607709ms)
+✔ an empty or hidden named crowd Group supplies neither procession nor animation evidence (0.383875ms)
+✔ a passive observer exception cannot cancel real synchronous controller completion or downstream event listeners (0.594667ms)
+✔ a polling exception stays visibly invalid, keeps scheduling observations and cannot be erased by recovery or a new attempt (0.46ms)
+✔ observer diagnostics remain bounded and permanently fail closed across attempts (1.432292ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 266.5465

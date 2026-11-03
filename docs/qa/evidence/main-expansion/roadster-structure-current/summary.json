@@ -1,0 +1,98 @@
+{
+  "source": "src/world/vehicles.ts",
+  "textureNotice": "Offline structure review replaces canvas label textures with plain material; source decal geometry and names unchanged.",
+  "states": [
+    {
+      "deployment": 0,
+      "triangles": 13646,
+      "vertices": 40938,
+      "meshes": 150,
+      "bounds": {
+        "min": [
+          -1.1299999952316284,
+          -0.550000011920929,
+          -2.3399999141693115
+        ],
+        "max": [
+          1.1299999952316284,
+          0.7843306660652161,
+          2.440000057220459
+        ]
+      },
+      "wheelCenters": [
+        [
+          -0.945,
+          -0.19000000000000006,
+          -1.4
+        ],
+        [
+          0.945,
+          -0.19000000000000006,
+          -1.4
+        ],
+        [
+          -0.945,
+          -0.19000000000000006,
+          1.4
+        ],
+        [
+          0.945,
+          -0.19000000000000006,
+          1.4
+        ]
+      ],
+      "nozzleCount": 8,
+      "decals": [
+        "Left tfigames.com vinyl",
+        "Right tfigames.com vinyl",
+        "Rear pizzadeliveryboy vinyl"
+      ]
+    },
+    {
+      "deployment": 1,
+      "triangles": 13646,
+      "vertices": 40938,
+      "meshes": 150,
+      "bounds": {
+        "min": [
+          -1.1299999952316284,
+          -0.550000011920929,
+          -2.3399999141693115
+        ],
+        "max": [
+          1.1299999952316284,
+          0.7933938503265381,
+          2.476308584213257
+        ]
+      },
+      "wheelCenters": [
+        [
+          -0.945,
+          -0.19000000000000006,
+          -1.4
+        ],
+        [
+          0.945,
+          -0.19000000000000006,
+          -1.4
+        ],
+        [
+          -0.945,
+          -0.19000000000000006,
+          1.4
+        ],
+        [
+          0.945,
+          -0.19000000000000006,
+          1.4
+        ]
+      ],
+      "nozzleCount": 8,
+      "decals": [
+        "Left tfigames.com vinyl",
+        "Right tfigames.com vinyl",
+        "Rear pizzadeliveryboy vinyl"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "scope": "Source geometry proof, not native replay",
+  "pose": {
+    "carRootY": 0.55,
+    "carYawDegrees": 43,
+    "bucketRoot": [
+      0,
+      0,
+      0
+    ],
+    "bucketBottom": 1.1,
+    "worldTranslationNote": "Common actual destination translation cancels from this relative-space test."
+  },
+  "method": "Actual rendered nondegenerate mesh triangles versus strict interiors of exact drawn basket box panels; not encompassing bounds.",
+  "intersectingTriangles": 374,
+  "byShell": {
+    "floor": 374,
+    "left": 0,
+    "right": 0,
+    "back": 0,
+    "lip": 0
+  },
+  "byMesh": {
+    "Copper windscreen#2": 2,
+    "(unnamed actual mesh)#4": 2,
+    "(unnamed actual mesh)#5": 2,
+    "(unnamed actual mesh)#6": 89,
+    "(unnamed actual mesh)#7": 57,
+    "(unnamed actual mesh)#14": 2,
+    "(unnamed actual mesh)#15": 89,
+    "(unnamed actual mesh)#16": 57,
+    "(unnamed actual mesh)#23": 10,
+    "(unnamed actual mesh)#24": 10,
+    "(unnamed actual mesh)#48": 10,
+    "(unnamed actual mesh)#51": 12,
+    "(unnamed actual mesh)#52": 12,
+    "(unnamed actual mesh)#53": 10,
+    "(unnamed actual mesh)#54": 10
+  },
+  "examples": [
+    {
+      "mesh": "Copper windscreen#2",
+      "shell": "floor",
+      "triangle": [
+        [
+          -1.2178607473231977,
+          0.8519999980926514,
+          -0.1769608136212183
+        ],
+        [
+          -0.09157607472860496,
+          0.8519999980926514,
+          -1.227238262101293
+        ],
+        [
+          0.299742895069778,
+          1.2649999856948853,
+          -0.5803268114268557
+        ]
+      ]
+    },
+    {
+      "mesh": "Copper windscreen#2",
+      "shell": "floor",
+      "triangle": [
+        [
+          -1.2178607473231977,
+          0.8519999980926514,
+          -0.1769608136212183
+        ],
+        [
+          0.299742895069778,
+          1.2649999856948853,
+          -0.5803268114268557
+        ],
+        [
+          -0.5998221718712665,
+          1.2649999856948853,
+          0.25853118445810386
+        ]
+      ]
+    }
+  ]
+}

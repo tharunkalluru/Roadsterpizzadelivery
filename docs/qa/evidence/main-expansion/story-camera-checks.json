@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-02",
+  "scope": "L6/L8 actor camera and actual Game cinematic-orbit seam",
+  "environment": "Node production-code fixtures and TypeScript; no native browser or physical hardware verdict",
+  "results": [
+    { "command": "node scripts/test-v21-fixes.mjs story-actor-camera", "passed": 10, "failed": 0, "exitCode": 0, "toolChunk": "46e5d7" },
+    { "command": "node scripts/test-v21-fixes.mjs street-scenes", "passed": 27, "failed": 0, "exitCode": 0, "toolChunk": "17a463" },
+    { "command": "node scripts/test-v21-fixes.mjs story-mode", "passed": 17, "failed": 0, "exitCode": 0, "toolChunk": "ba57d3" },
+    { "command": "node scripts/test-v21-fixes.mjs scene-placement", "passed": 12, "failed": 0, "exitCode": 0, "toolChunk": "c79953" },
+    { "command": "node scripts/test-v21-fixes.mjs driving-camera", "passed": 8, "failed": 0, "exitCode": 0, "toolChunk": "2938d8" },
+    { "command": "node scripts/test-v21-fixes.mjs camera-look", "passed": 10, "failed": 0, "exitCode": 0, "toolChunk": "550806" },
+    { "command": "node scripts/test-v21-fixes.mjs camera-underwater", "passed": 5, "failed": 0, "exitCode": 0, "toolChunk": "95867a" },
+    { "command": "node scripts/test-v21-fixes.mjs camera-delivery-solids", "passed": 1, "failed": 0, "exitCode": 0, "toolChunk": "d6afbe" },
+    { "command": "npm run typecheck", "exitCode": 0, "toolChunk": "c4aa0c" },
+    { "command": "git diff --check", "exitCode": 0, "toolChunk": "1e6f14" }
+  ],
+  "totalFocusedTestsPassed": 90,
+  "beforeFixFailure": {
+    "command": "node scripts/test-v21-fixes.mjs story-actor-camera",
+    "passed": 9,
+    "failed": 1,
+    "toolChunk": "307d47",
+    "case": "actual Game camera rejected the captured actor shot when a previous sideways orbit remained"
+  },
+  "cameraPatchFingerprintsBeforeSeparateCrowdIntegration": {
+    "src/delivery/modules/street-scenes.ts": "b5faba263c3f7af115e39946de0446041c4f155306fe7ad0368f74000e4bc39d",
+    "src/game/game.ts": "2f334cf53add4efb8813f189ef7b93ed680c8f86f31a17813b8369a57f453150",
+    "tests/v21-fixes/story-actor-camera.test.ts": "03e7e00d2be8efa38f88b7e79fcef55e30a23fcbc23f883368ed9b9716879a5b"
+  },
+  "nativeApproval": "pending independent frozen-build L6/L8 replay",
+  "physicalHardwareVerified": false
+}

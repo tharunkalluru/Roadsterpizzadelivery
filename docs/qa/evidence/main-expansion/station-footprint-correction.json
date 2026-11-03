@@ -1,0 +1,29 @@
+{
+  "status": "producer checks pass; independent native gate pending",
+  "source": [
+    {
+      "path": "src/world/building-clearance.ts",
+      "sha256": "950afe1798f146048f72784858c08af54b8eeea6ec47de36a66ef52b30dd88b5"
+    },
+    {
+      "path": "tests/v21-fixes/metro-station-footprint.test.ts",
+      "sha256": "08fc0ee85c7fd69faa0b5a99b626aeedde7d0dcc921d8efc334e62f2b74de4b1"
+    }
+  ],
+  "verifiedCounts": {
+    "sourceStationRecords": 57,
+    "runtimeStationIdentities": 56,
+    "lineAssemblies": 59,
+    "missingGroundEntries": []
+  },
+  "paradise": [
+    {
+      "key": "st_paradise",
+      "arms": 1,
+      "lifts": 1,
+      "platformFlights": 2,
+      "shared": false
+    }
+  ],
+  "nativeProof": null
+}

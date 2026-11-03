@@ -1,0 +1,57 @@
+✔ a Next transaction cannot silently absorb multiple unobserved placements as one clean progression (0.831958ms)
+✔ a car that starts an old-scene departure under the loader cannot later acquire clean direct-Next proof (0.545459ms)
+✖ a vertical old-scene departure such as resurfacing under the loader cannot acquire clean direct-Next proof (0.458333ms)
+✔ a new order cannot inherit or finish an older attempt's pending Next transaction (0.295584ms)
+✔ the actual observer cannot certify a physical carton that is entirely behind the gameplay camera (2.71725ms)
+✖ the actual observer does not treat a hidden stale final-opening DOM node as a viewed ceremony (1.534375ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 4
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 57.214583
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-XE2j4b/0.test.mjs:17400:1
+✖ a vertical old-scene departure such as resurfacing under the loader cannot acquire clean direct-Next proof (0.458333ms)
+  AssertionError [ERR_ASSERTION]: vertical old-position drift is still departure and must remain a failure
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-XE2j4b/0.test.mjs:17406:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-XE2j4b/0.test.mjs:17579:1
+✖ the actual observer does not treat a hidden stale final-opening DOM node as a viewed ceremony (1.534375ms)
+  AssertionError [ERR_ASSERTION]: hidden DOM state and elapsed wall time do not prove a ceremony was actually visible
+  
+  true !== false
+  
+      at file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-XE2j4b/0.test.mjs:17630:10
+      at withObserverDom (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-XE2j4b/0.test.mjs:17497:5)
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-XE2j4b/0.test.mjs:17579:109)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

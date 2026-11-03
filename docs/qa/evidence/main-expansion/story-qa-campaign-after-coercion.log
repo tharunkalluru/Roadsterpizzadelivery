@@ -1,0 +1,18 @@
+✔ every approved campaign scene has a physical workflow, a negative trial and independent art requirements (2.7985ms)
+✔ completion alone cannot count as pickup, physical gameplay, touch or visual likeness acceptance (0.586542ms)
+✔ manual physical evidence at timestamp zero is recognized without automatically approving an actor (0.296792ms)
+✔ staging and later relocations remain explicit even when the manual scene action succeeds (0.203167ms)
+✔ synthetic input and mouse use in a touch layout cannot be reported as true touch or physical-phone testing (0.999042ms)
+✔ pickup must be a real jumping carrier pickup and an old handoff cannot validate later completion (0.531833ms)
+✔ recording stays bounded and report consumers cannot mutate the recorded attempts (3.57525ms)
+✔ paused active-time polling cannot evict real gameplay samples, while a changed action still records at the same instant (2.434208ms)
+✔ all physical facts and an artifact path do not automatically certify visual scene quality (0.810791ms)
+✔ future content increases the denominator and needs its own explicit scene acceptance checklist (1.143375ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 126.448208
