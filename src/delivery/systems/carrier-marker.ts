@@ -240,7 +240,7 @@ export class CarrierMarker {
   private detach(slot: MarkerSlot) {
     slot.group.removeFromParent(); slot.car = null; slot.carrierId = '';
     slot.group.name = 'delivery-carrier-box'; slot.group.scale.setScalar(1); slot.halo.visible = true;
-    slot.visual.rotation.set(0, 0, 0);
+    slot.visual.rotation.set(0, 0, 0); slot.visual.scale.setScalar(1);
     if (this.carriedSlot === slot) this.carriedSlot = null;
   }
 
@@ -250,12 +250,17 @@ export class CarrierMarker {
     slot.group.updateWorldMatrix(true, false); slot.group.getWorldPosition(this.scratch);
     slot.position.x = this.scratch.x; slot.position.y = this.scratch.y; slot.position.z = this.scratch.z;
     // Only the art tilts; swept pickup coordinates remain at the stable center.
+    // A carrier can pass directly through the chase camera while remaining
+    // behind the Roadster. Bound only its art's angular size; the vehicle and
+    // swept pickup centre/radius stay unchanged at every camera angle.
+    const artScale=this.hasCamera?Math.min(1,this.scratch.distanceTo(this.cameraPoint)/7):1;
+    slot.visual.scale.setScalar(artScale);
     if(this.hasCamera) slot.visual.lookAt(this.cameraPoint);
     else slot.visual.rotation.set(.15, slot.phase, 0);
     const close = Math.max(0, 1 - Math.hypot(car.x - player.x, car.z - player.z) / 32);
     const pulse = .5 + .5 * Math.sin(this.time * (3 + close * 5) + slot.phase);
     slot.halo.material.opacity = .3 + close * .25 + pulse * .16;
-    slot.halo.scale.setScalar(1 + pulse * (.05 + close * .12));
+    slot.halo.scale.setScalar(artScale * (1 + pulse * (.05 + close * .12)));
   }
 
   private updateCatch(dt: number) {

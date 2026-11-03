@@ -1,9 +1,20 @@
 import * as THREE from 'three';
-import { ModuleBase, numberParam, heading } from './base';
+import { ModuleBase, numberParam, heading, distanceXZ } from './base';
 import type { SceneCharacter } from './character';
 import { devaraSkeletonGeometry } from './devara-skeleton';
 
 export class Underwater extends ModuleBase {
+  private storyDiveYaw=0;
+  override get story(){
+    if(!this.devara)return super.story;
+    if(!this.ready||!this.ctx.automaticStories)return undefined;
+    const p=this.ctx.player(),surface=this.diveStage==='surface';
+    // Keep the car opposite the tableau, not on top of its skeleton/actor.
+    const h=heading(this.storyDiveYaw),point=surface?{...this.ctx.destination,y:this.ctx.destination.y+.45}:
+      {...this.target,x:this.target.x-h.x*5,z:this.target.z-h.z*5};
+    return {entry:this.charactersReady&&distanceXZ(p,this.ctx.destination)<24&&Math.abs(p.y-this.ctx.destination.y)<32&&!p.jumping,
+      point,yaw:surface?p.yaw:this.storyDiveYaw,water:!surface,maxSpeed:surface?5:2.5,verticalSpeed:surface?5:1.7};
+  }
   private pizza!: THREE.Mesh;
   private throwTime = -1;
   private throwFrom = new THREE.Vector3();
@@ -212,6 +223,7 @@ export class Underwater extends ModuleBase {
     }else if(this.diveStage==='placing'){
       this.placementTime+=elapsed;this.status.canDrop=false;this.status.instruction='Pizza delivered';
       if(this.placementTime>=.65){
+        if(this.ctx.automaticStories){this.done();return;}
         this.diveStage='returning';this.setTarget({...d,y:d.y+.45});this.movement={mode:'approach',center:{...d},radius,altitude:d.y+.45};
       }
     }
@@ -230,6 +242,7 @@ export class Underwater extends ModuleBase {
       // dive marker made the skeleton overlap the Roadster's roof and hid the
       // neck-grip pose behind the car in the normal mobile chase camera.
       const player=this.ctx.player(),forward=heading(player.yaw);
+      this.storyDiveYaw=player.yaw;
       this.underwaterSet.position.set(player.x-d.x+forward.x*6,0,player.z-d.z+forward.z*6);
       this.underwaterSet.rotation.y=Math.atan2(-forward.x,-forward.z);
       this.diveStage='descending';this.setTarget({...d,x:player.x+forward.x*6,z:player.z+forward.z*6,y:d.y-depth});this.movement={mode:'underwater',center:{...d},radius:numberParam(this.params,'approachRadius',60,20,120),depth};

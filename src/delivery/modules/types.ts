@@ -5,7 +5,11 @@ import type { SceneCharacter } from './character';
 import type { ReleasedCharacterResources } from '../art/released-gltf';
 
 export interface DeliveryPoint { x: number; y: number; z: number; label?: string }
-export interface DeliveryPlayer extends DeliveryPoint { yaw: number; speed: number; flying?: boolean; descending?: boolean; jumping?: boolean }
+export interface DeliveryPlayer extends DeliveryPoint {
+  yaw: number; speed: number; flying?: boolean; descending?: boolean; jumping?: boolean;
+  /** Undefined only for standalone scenes without the game's contact solver. */
+  railSupportId?: string | null; verticalSpeed?: number;
+}
 export interface ModuleStatus {
   instruction: string;
   canDrop: boolean;
@@ -18,6 +22,17 @@ export interface ModuleMovement { mode: 'normal' | 'underwater' | 'approach'; ce
 /** Optional close interaction framing; road/flight camera remains host-owned. */
 export interface ModuleCameraFocus { position:DeliveryPoint; target:DeliveryPoint; context?:'stationary-handoff' }
 export interface ModuleArrival extends DeliveryPoint { hx: number; hz: number; side: 'rear'; radius: number }
+/** Authored local story motion. Entry is separate from proximity/call gates:
+ * trains only grant it after a genuine player-controlled roof landing. */
+export interface ModuleStoryFrame {
+  entry: boolean;
+  point: DeliveryPoint;
+  yaw?: number;
+  speed?: number;
+  maxSpeed?: number;
+  verticalSpeed?: number;
+  water?: boolean;
+}
 /** Evidence from the selected train's actual route and mapped overpass geometry. */
 export interface VerifiedTrainPassage { id: string; trainId: string; x: number; z: number; radius: number; ceiling: number; distanceAhead: number }
 export interface DeliveryModuleContext {
@@ -32,17 +47,27 @@ export interface DeliveryModuleContext {
   routeLoop?: boolean;
   /** Story call gate. Scenery may move while delivery interaction is locked. */
   canInteract?: () => boolean;
+  automaticStories?: boolean;
+  storyActive?: () => boolean;
   /** Prepare authored actors against this fully built scene's actual lights. */
   prepareCharacterGraphics?: (instance?:THREE.Group,valid?:()=>boolean) => Promise<void>;
   /** Host-owned isolated art review only; normal runtime uses the release gate. */
   characterFactory?: (style:string,seated:boolean,resources:ReleasedCharacterResources)=>SceneCharacter;
   /** Highest real roof/road/deck at a footprint sample; used once for static set placement. */
   surfaceHeightAt?: (x: number, z: number) => number | null;
+  /** Read-only production camera clearance, including current delivery solids.
+   * Undefined means streaming is not ready, rather than a rejected station.
+   * Static scene shots may probe a few candidates once; never a driving loop. */
+  cameraPathClear?: (from: DeliveryPoint, to: DeliveryPoint) => boolean | undefined;
+  /** Full Roadster volume against current static geometry, with y at the
+   * player's root (tyre support is y-.55). Undefined means streaming pending. */
+  storyPoseClear?: (pose: DeliveryPoint & {yaw:number}) => boolean | undefined;
   /** Existing traffic owns nearby following/overlap rules for the delivery truck. */
   vehicleSpeedLimit?: (body: MovingRailBody) => number;
   vehiclePoseClear?: (body: MovingRailBody) => boolean;
   /** Train surface from the existing railway simulation, not a replacement train. */
   existingTrain?: (exactBodyId?: string) => MovingRailBody | null;
+  trainBodies?: () => readonly MovingRailBody[];
   metroService?: () => { bodies: readonly MovingRailBody[]; dwells: readonly MetroStationDwell[] };
   trainPassage?: () => VerifiedTrainPassage | null;
   /** Underside of a real bridge/tunnel above a route point, when available. */
@@ -56,6 +81,10 @@ export interface DeliveryModule {
   update(dt: number): void;
   onDrop(): void;
   teardown(): void;
+  setStoryPresentation?(active:boolean):void;
+  /** A genuine marked-rake roof touchdown satisfies arrival even when its
+   * customer is several coaches beyond the ordinary destination radius. */
+  readonly storyArrivalReady?:boolean;
   readonly target: DeliveryPoint;
   readonly status: ModuleStatus;
   readonly supports: readonly MovingRailBody[];
@@ -77,5 +106,6 @@ export interface DeliveryModule {
   readonly sceneLamp?: {position:Pick<DeliveryPoint,'x'|'y'|'z'>;kind?:'reading'|'porch'|'lantern'|'underwater'|'street-scene'|'stadium'|'metro-platform'};
   /** Suppress only world-space ribbons/target rings in an occupied interior. */
   readonly hideWorldGuidance?: boolean;
+  readonly story?: ModuleStoryFrame;
 }
 export type DeliveryModuleName = 'matchAndLand' | 'threadGap' | 'beatDrop' | 'underwater' | 'chainDrop';

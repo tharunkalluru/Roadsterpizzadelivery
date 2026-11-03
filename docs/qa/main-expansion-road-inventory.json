@@ -1,0 +1,839 @@
+{
+  "date": "2026-11-02T19:54:22.261Z",
+  "inventory": {
+    "coreRoads": 52412,
+    "packs": 304,
+    "tiles": 2527,
+    "tileRoadRecords": 610516,
+    "uniqueTileRoads": 479853,
+    "sourceOwnedRecords": 479853,
+    "contextRecords": 130663,
+    "malformedRoads": [],
+    "missingReferencedTiles": []
+  },
+  "geometry": {
+    "renderedQuads": 388807,
+    "nonFiniteQuads": 0,
+    "zeroAreaQuads": 0,
+    "mappedEndNodes": 170,
+    "mappedJunctionNodes": 47867,
+    "maximumSharedNodePositionDifference": 0,
+    "longContextRoadCount": 86,
+    "missingLocalCopies": [],
+    "longContextRoads": [
+      {
+        "id": "98ef8457-e87_1",
+        "name": null,
+        "sourceVertices": 54,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 138,
+        "maximumAreaError": 1.0913936421275139e-11
+      },
+      {
+        "id": "9d83a5a2-207_0",
+        "name": "kanakamamidi village road",
+        "sourceVertices": 14,
+        "neededPlayableTiles": 4,
+        "availableContextTiles": 6,
+        "clippedTriangles": 38,
+        "maximumAreaError": 2.710294211283326e-10
+      },
+      {
+        "id": "5558c375-9b9_0",
+        "name": null,
+        "sourceVertices": 50,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 110,
+        "maximumAreaError": 5.4569682106375694e-12
+      },
+      {
+        "id": "29867897-109_0",
+        "name": null,
+        "sourceVertices": 47,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 120,
+        "maximumAreaError": 3.092281986027956e-11
+      },
+      {
+        "id": "7a9c0507-bbe_0",
+        "name": null,
+        "sourceVertices": 20,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 50,
+        "maximumAreaError": 3.637978807091713e-11
+      },
+      {
+        "id": "f1a9da1d-564_0",
+        "name": null,
+        "sourceVertices": 5,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 16,
+        "maximumAreaError": 6.184563972055912e-11
+      },
+      {
+        "id": "a68e6b2c-b77_0",
+        "name": null,
+        "sourceVertices": 15,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 36,
+        "maximumAreaError": 2.219167072325945e-10
+      },
+      {
+        "id": "280156f2-543_0",
+        "name": null,
+        "sourceVertices": 124,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 4,
+        "clippedTriangles": 250,
+        "maximumAreaError": 7.275957614183426e-12
+      },
+      {
+        "id": "e1c465dd-c64_9",
+        "name": null,
+        "sourceVertices": 47,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 96,
+        "maximumAreaError": 5.4569682106375694e-12
+      },
+      {
+        "id": "e1c465dd-c64_11",
+        "name": null,
+        "sourceVertices": 54,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 6,
+        "clippedTriangles": 118,
+        "maximumAreaError": 9.094947017729282e-12
+      },
+      {
+        "id": "81d6a9ef-cc3_0",
+        "name": "Makthaguda road",
+        "sourceVertices": 23,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 52,
+        "maximumAreaError": 2.546585164964199e-11
+      },
+      {
+        "id": "ed0ccf5b-d27_7",
+        "name": null,
+        "sourceVertices": 23,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 48,
+        "maximumAreaError": 2.546585164964199e-11
+      },
+      {
+        "id": "4c8afc51-582_3",
+        "name": null,
+        "sourceVertices": 62,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 130,
+        "maximumAreaError": 7.275957614183426e-12
+      },
+      {
+        "id": "2acaa4cb-b1e_0",
+        "name": null,
+        "sourceVertices": 18,
+        "neededPlayableTiles": 5,
+        "availableContextTiles": 8,
+        "clippedTriangles": 50,
+        "maximumAreaError": 4.3655745685100555e-11
+      },
+      {
+        "id": "b12f15ea-055_0",
+        "name": null,
+        "sourceVertices": 19,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 44,
+        "maximumAreaError": 2.3646862246096134e-11
+      },
+      {
+        "id": "15b93a78-9dc_0",
+        "name": "Nagarguda-Shamshabad Road",
+        "sourceVertices": 15,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 32,
+        "maximumAreaError": 0
+      },
+      {
+        "id": "389f098f-f9d_0",
+        "name": null,
+        "sourceVertices": 13,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 32,
+        "maximumAreaError": 1.7280399333685637e-10
+      },
+      {
+        "id": "83093956-83b_3",
+        "name": null,
+        "sourceVertices": 22,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 6,
+        "clippedTriangles": 50,
+        "maximumAreaError": 1.0913936421275139e-11
+      },
+      {
+        "id": "10593bee-fa2_0",
+        "name": null,
+        "sourceVertices": 36,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 78,
+        "maximumAreaError": 2.546585164964199e-11
+      },
+      {
+        "id": "b910ac99-d2e_1",
+        "name": null,
+        "sourceVertices": 28,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 3,
+        "clippedTriangles": 58,
+        "maximumAreaError": 2.3646862246096134e-11
+      },
+      {
+        "id": "993101c8-22f_0",
+        "name": null,
+        "sourceVertices": 19,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 4,
+        "clippedTriangles": 40,
+        "maximumAreaError": 6.912159733474255e-11
+      },
+      {
+        "id": "12bc48be-c8d_0",
+        "name": "RGIAApproach Road",
+        "sourceVertices": 55,
+        "neededPlayableTiles": 4,
+        "availableContextTiles": 6,
+        "clippedTriangles": 120,
+        "maximumAreaError": 1.0913936421275139e-11
+      },
+      {
+        "id": "e6740028-532_0",
+        "name": null,
+        "sourceVertices": 5,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 16,
+        "maximumAreaError": 2.3283064365386963e-10
+      },
+      {
+        "id": "99ab24ab-b77_1",
+        "name": "Airport Road",
+        "sourceVertices": 14,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 34,
+        "maximumAreaError": 7.275957614183426e-12
+      },
+      {
+        "id": "2c463194-f84_0",
+        "name": null,
+        "sourceVertices": 25,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 56,
+        "maximumAreaError": 3.2741809263825417e-11
+      },
+      {
+        "id": "db28a48c-f8e_0",
+        "name": null,
+        "sourceVertices": 21,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 48,
+        "maximumAreaError": 1.3460521586239338e-10
+      },
+      {
+        "id": "3188af1e-b77_0",
+        "name": "RGIA (GMRHYD) Approach Rd",
+        "sourceVertices": 27,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 56,
+        "maximumAreaError": 2.546585164964199e-11
+      },
+      {
+        "id": "18d7650d-910_0",
+        "name": null,
+        "sourceVertices": 11,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 28,
+        "maximumAreaError": 1.7080310499295592e-9
+      },
+      {
+        "id": "6b85cc46-103_0",
+        "name": null,
+        "sourceVertices": 10,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 26,
+        "maximumAreaError": 1.2005330063402653e-10
+      },
+      {
+        "id": "c4154c03-e03_0",
+        "name": null,
+        "sourceVertices": 6,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 14,
+        "maximumAreaError": 1.0913936421275139e-11
+      },
+      {
+        "id": "7ffeaf51-5e2_0",
+        "name": null,
+        "sourceVertices": 89,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 3,
+        "clippedTriangles": 180,
+        "maximumAreaError": 3.637978807091713e-12
+      },
+      {
+        "id": "747119be-13e_1",
+        "name": null,
+        "sourceVertices": 87,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 176,
+        "maximumAreaError": 1.8189894035458565e-12
+      },
+      {
+        "id": "3f37d790-bac_0",
+        "name": null,
+        "sourceVertices": 31,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 6,
+        "clippedTriangles": 68,
+        "maximumAreaError": 5.4569682106375694e-11
+      },
+      {
+        "id": "b7187515-bbe_0",
+        "name": null,
+        "sourceVertices": 13,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 6,
+        "clippedTriangles": 32,
+        "maximumAreaError": 2.3283064365386963e-10
+      },
+      {
+        "id": "efa3e419-766_0",
+        "name": null,
+        "sourceVertices": 14,
+        "neededPlayableTiles": 5,
+        "availableContextTiles": 6,
+        "clippedTriangles": 44,
+        "maximumAreaError": 1.4370016288012266e-10
+      },
+      {
+        "id": "ae790320-048_0",
+        "name": null,
+        "sourceVertices": 24,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 54,
+        "maximumAreaError": 7.275957614183426e-11
+      },
+      {
+        "id": "49a625f8-60b_0",
+        "name": null,
+        "sourceVertices": 20,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 46,
+        "maximumAreaError": 5.820766091346741e-11
+      },
+      {
+        "id": "2d374edf-f07_0",
+        "name": "Terminal 2 Departure Road",
+        "sourceVertices": 12,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 6,
+        "clippedTriangles": 30,
+        "maximumAreaError": 2.455635694786906e-10
+      },
+      {
+        "id": "cd0115e2-106_1",
+        "name": null,
+        "sourceVertices": 6,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 3,
+        "clippedTriangles": 14,
+        "maximumAreaError": 3.8198777474462986e-11
+      },
+      {
+        "id": "c5cffa2f-614_0",
+        "name": null,
+        "sourceVertices": 17,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 36,
+        "maximumAreaError": 0
+      },
+      {
+        "id": "7aba04d8-07c_0",
+        "name": null,
+        "sourceVertices": 3,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 12,
+        "maximumAreaError": 1.5497789718210697e-9
+      },
+      {
+        "id": "ed0eb406-235_0",
+        "name": null,
+        "sourceVertices": 7,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 16,
+        "maximumAreaError": 2.7284841053187847e-11
+      },
+      {
+        "id": "1ecebfb0-0a1_0",
+        "name": null,
+        "sourceVertices": 15,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 32,
+        "maximumAreaError": 1.8189894035458565e-12
+      },
+      {
+        "id": "e44b5f98-3e6_0",
+        "name": null,
+        "sourceVertices": 21,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 44,
+        "maximumAreaError": 0
+      },
+      {
+        "id": "ed9a4e02-043_0",
+        "name": "Service Road",
+        "sourceVertices": 11,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 28,
+        "maximumAreaError": 6.002665031701326e-11
+      },
+      {
+        "id": "41a3dfbe-3b4_0",
+        "name": "Service Road",
+        "sourceVertices": 11,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 28,
+        "maximumAreaError": 3.8198777474462986e-11
+      },
+      {
+        "id": "9fa61c93-4a8_0",
+        "name": "Service Road",
+        "sourceVertices": 6,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 18,
+        "maximumAreaError": 1.8189894035458565e-11
+      },
+      {
+        "id": "d5726299-16d_0",
+        "name": null,
+        "sourceVertices": 9,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 24,
+        "maximumAreaError": 2.000888343900442e-11
+      },
+      {
+        "id": "7ae23763-0af_0",
+        "name": null,
+        "sourceVertices": 10,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 26,
+        "maximumAreaError": 4.729372449219227e-11
+      },
+      {
+        "id": "6726f386-bae_0",
+        "name": null,
+        "sourceVertices": 8,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 18,
+        "maximumAreaError": 1.7280399333685637e-11
+      },
+      {
+        "id": "f1f84810-dbd_0",
+        "name": null,
+        "sourceVertices": 7,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 16,
+        "maximumAreaError": 3.637978807091713e-12
+      },
+      {
+        "id": "1a02fb2e-86f_0",
+        "name": null,
+        "sourceVertices": 19,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 44,
+        "maximumAreaError": 6.366462912410498e-11
+      },
+      {
+        "id": "4710cb5c-035_0",
+        "name": null,
+        "sourceVertices": 8,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 18,
+        "maximumAreaError": 5.129550117999315e-10
+      },
+      {
+        "id": "4710cb5c-035_1",
+        "name": null,
+        "sourceVertices": 11,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 3,
+        "clippedTriangles": 24,
+        "maximumAreaError": 2.3646862246096134e-11
+      },
+      {
+        "id": "26c2c022-33f_0",
+        "name": "Flyover",
+        "sourceVertices": 119,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 240,
+        "maximumAreaError": 9.094947017729282e-12
+      },
+      {
+        "id": "e69d74b1-616_0",
+        "name": "Flyover",
+        "sourceVertices": 120,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 242,
+        "maximumAreaError": 3.637978807091713e-12
+      },
+      {
+        "id": "48814f11-02d_0",
+        "name": null,
+        "sourceVertices": 114,
+        "neededPlayableTiles": 4,
+        "availableContextTiles": 6,
+        "clippedTriangles": 246,
+        "maximumAreaError": 3.637978807091713e-12
+      },
+      {
+        "id": "0def7c5e-b4e_0",
+        "name": null,
+        "sourceVertices": 30,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 66,
+        "maximumAreaError": 8.185452315956354e-11
+      },
+      {
+        "id": "382f574b-5a1_2",
+        "name": "Service Road",
+        "sourceVertices": 31,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 4,
+        "clippedTriangles": 64,
+        "maximumAreaError": 1.000444171950221e-10
+      },
+      {
+        "id": "4f551b8d-44c_1",
+        "name": null,
+        "sourceVertices": 34,
+        "neededPlayableTiles": 4,
+        "availableContextTiles": 6,
+        "clippedTriangles": 78,
+        "maximumAreaError": 1.8189894035458565e-11
+      },
+      {
+        "id": "6cbf1b70-f90_0",
+        "name": null,
+        "sourceVertices": 2,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 6,
+        "maximumAreaError": 2.41016095969826e-10
+      },
+      {
+        "id": "27996046-1e6_0",
+        "name": null,
+        "sourceVertices": 2,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 6,
+        "maximumAreaError": 4.2382453102618456e-10
+      },
+      {
+        "id": "e0869666-966_0",
+        "name": null,
+        "sourceVertices": 10,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 22,
+        "maximumAreaError": 1.2732925824820995e-11
+      },
+      {
+        "id": "574734c2-8b7_0",
+        "name": null,
+        "sourceVertices": 13,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 28,
+        "maximumAreaError": 2.1645973902195692e-10
+      },
+      {
+        "id": "79be61ec-3a0_0",
+        "name": "ORR Service Road",
+        "sourceVertices": 5,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 16,
+        "maximumAreaError": 6.111804395914078e-10
+      },
+      {
+        "id": "47385fa8-eed_0",
+        "name": "ORR Service Road",
+        "sourceVertices": 12,
+        "neededPlayableTiles": 4,
+        "availableContextTiles": 6,
+        "clippedTriangles": 34,
+        "maximumAreaError": 3.8198777474462986e-10
+      },
+      {
+        "id": "a2fd28e1-d5f_0",
+        "name": "ORR Service Road",
+        "sourceVertices": 14,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 34,
+        "maximumAreaError": 6.184563972055912e-11
+      },
+      {
+        "id": "57db3340-f7e_0",
+        "name": null,
+        "sourceVertices": 108,
+        "neededPlayableTiles": 4,
+        "availableContextTiles": 9,
+        "clippedTriangles": 230,
+        "maximumAreaError": 1.0913936421275139e-11
+      },
+      {
+        "id": "f5c94c1a-456_0",
+        "name": null,
+        "sourceVertices": 67,
+        "neededPlayableTiles": 4,
+        "availableContextTiles": 9,
+        "clippedTriangles": 148,
+        "maximumAreaError": 6.912159733474255e-11
+      },
+      {
+        "id": "031fe35e-1ba_3",
+        "name": null,
+        "sourceVertices": 9,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 6,
+        "clippedTriangles": 20,
+        "maximumAreaError": 2.9467628337442875e-10
+      },
+      {
+        "id": "8240dc32-cc2_0",
+        "name": "Ramoji Film City Main Road",
+        "sourceVertices": 47,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 3,
+        "clippedTriangles": 96,
+        "maximumAreaError": 8.731149137020111e-11
+      },
+      {
+        "id": "3e416bcd-1ba_0",
+        "name": "Ramoji Film City Main Road",
+        "sourceVertices": 53,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 108,
+        "maximumAreaError": 7.275957614183426e-12
+      },
+      {
+        "id": "90409973-833_0",
+        "name": null,
+        "sourceVertices": 44,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 3,
+        "clippedTriangles": 90,
+        "maximumAreaError": 2.1827872842550278e-11
+      },
+      {
+        "id": "89f16543-024_0",
+        "name": null,
+        "sourceVertices": 8,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 18,
+        "maximumAreaError": 4.147295840084553e-10
+      },
+      {
+        "id": "4ac91a14-66f_0",
+        "name": null,
+        "sourceVertices": 24,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 54,
+        "maximumAreaError": 1.0913936421275139e-11
+      },
+      {
+        "id": "4ac91a14-66f_1",
+        "name": null,
+        "sourceVertices": 21,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 48,
+        "maximumAreaError": 2.9103830456733704e-11
+      },
+      {
+        "id": "17c0e973-f0b_0",
+        "name": null,
+        "sourceVertices": 22,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 50,
+        "maximumAreaError": 5.4569682106375694e-12
+      },
+      {
+        "id": "b4eb8d21-367_0",
+        "name": null,
+        "sourceVertices": 24,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 3,
+        "clippedTriangles": 54,
+        "maximumAreaError": 7.275957614183426e-12
+      },
+      {
+        "id": "7a785f9d-787_0",
+        "name": "ORR Service Road",
+        "sourceVertices": 86,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 174,
+        "maximumAreaError": 1.8189894035458565e-12
+      },
+      {
+        "id": "09d8aefa-5c7_0",
+        "name": "Medak Road",
+        "sourceVertices": 10,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 22,
+        "maximumAreaError": 4.729372449219227e-11
+      },
+      {
+        "id": "b69bf5cf-1fd_2",
+        "name": "Service Road",
+        "sourceVertices": 6,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 14,
+        "maximumAreaError": 4.3655745685100555e-11
+      },
+      {
+        "id": "a850e63b-2f4_0",
+        "name": "Service Road",
+        "sourceVertices": 18,
+        "neededPlayableTiles": 5,
+        "availableContextTiles": 8,
+        "clippedTriangles": 50,
+        "maximumAreaError": 2.000888343900442e-10
+      },
+      {
+        "id": "e90bd199-60a_2",
+        "name": "Service Road",
+        "sourceVertices": 9,
+        "neededPlayableTiles": 4,
+        "availableContextTiles": 6,
+        "clippedTriangles": 28,
+        "maximumAreaError": 2.801243681460619e-10
+      },
+      {
+        "id": "d057631e-542_0",
+        "name": null,
+        "sourceVertices": 12,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 42,
+        "maximumAreaError": 1.8189894035458565e-11
+      },
+      {
+        "id": "73715022-21b_0",
+        "name": null,
+        "sourceVertices": 19,
+        "neededPlayableTiles": 2,
+        "availableContextTiles": 2,
+        "clippedTriangles": 40,
+        "maximumAreaError": 3.637978807091713e-11
+      },
+      {
+        "id": "d1f81a8f-602_0",
+        "name": null,
+        "sourceVertices": 8,
+        "neededPlayableTiles": 3,
+        "availableContextTiles": 4,
+        "clippedTriangles": 22,
+        "maximumAreaError": 1.4551915228366852e-11
+      }
+    ]
+  },
+  "grades": {
+    "roads": 52412,
+    "repairedRoads": 1353,
+    "sourceSteepSegments": 1365,
+    "modelSteepSegments": 0,
+    "maxModelGrade": 0.09723140495869986,
+    "protectedRoads": 307,
+    "protectedRoadsChanged": 51,
+    "separatedCrossings": 817,
+    "minCrossingSeparation": 5.849999999999999,
+    "joinedEndpointMaxDifference": 0,
+    "uncertainty": "Estimated game road heights and eased approaches, not a survey. OriginalXY/alignment, road IDs and connectivity retained. Verified relative source layers and classified finite-envelope headroom can extend inherited game elevation estimates; explicit surveyed profiles remain fixed.",
+    "bridgeClearance": {
+      "mappedRoads": 0,
+      "mappedPoints": 0,
+      "finiteOverlaps": 22547,
+      "joinedPavements": 1898,
+      "separatedCrossings": 12218,
+      "ambiguousJoins": 8431,
+      "relaxationRounds": 3,
+      "minimumModelSeparation": 5.849999999999999,
+      "raisedRoads": 472,
+      "ambiguityReasons": {
+        "independent-coplanar-or-near-level": 7314,
+        "connected-profile-clearance-infeasible": 622,
+        "parallel-corridor-order-unverified": 146,
+        "mapped-same-level-crossing-topology-unverified": 143,
+        "contradictory-lower-road-ceilings": 206
+      },
+      "estimated": "Finite rendered road envelopes; same-level/near-connected and parallel-corridor pavement joins are preserved. Independent upper/lower crossings use estimated5.85m surface separation and6.5% control grades. Infeasible constraints remain explicit ambiguity, never an unlimited lifting loop. XY, source records and graph IDs are retained."
+    },
+    "mappedLevelRoads": 8,
+    "mappedLevelPoints": 734
+  },
+  "limitations": [
+    "Source records, finite rendered ribbons and tile-context coverage are inventoried citywide; hand-driven routes and actual obstacle checks are separate regression suites.",
+    "Mapped end nodes are retained as source boundaries/cul-de-sacs; no road links or underpasses are invented.",
+    "Existing uncertain crossing heights remain explicitly listed by the grade model rather than guessed to be real surveyed geometry."
+  ]
+}

@@ -22,6 +22,9 @@ import { resolveUppalStadiumDelivery } from './stadium-delivery';
 import { prewarmReleasedSceneCharacters, retainSceneCharacters, hasRegisteredSceneCharacters } from './art/scene-character';
 import { sceneAssetWindow, characterIdsForLevel } from './art/scene-asset-window';
 import { ScenePreparation } from './art/scene-preparation';
+import { StoryDirector, stepStoryPose } from './systems/story-director';
+import { clearCameraPosition, staticSolidAt } from '../game/spatial-safety';
+import type { CityData } from '../world/city';
 
 /** Static support only: a passing train must not move a fixed delivery stage. */
 export function deliverySurfaceHeight(city: Game['city'], x: number, z: number) {
@@ -39,6 +42,25 @@ export function deliverySurfaceHeight(city: Game['city'], x: number, z: number) 
       if (Number.isFinite(top)) height = Math.max(height, top);
     }
   return Number.isFinite(height) ? height : 0;
+}
+
+/** Overlapping conservative body cylinders cover the full Roadster,
+ * including its front/rear corners. The normal tyre support stays below this
+ * body volume; platforms, walls, lifts and current scene solids stay physical.
+ * Used only while preparing a bounded authored metro approach, never driving. */
+export function deliveryStoryPoseClear(city:CityData&{tiles?:Map<string,unknown>},pose:DeliveryPoint&{yaw:number},solids:readonly MovingRailBody[]=[]):boolean|undefined{
+  if(![pose.x,pose.y,pose.z,pose.yaw].every(Number.isFinite))return false;
+  const hx=-Math.sin(pose.yaw),hz=-Math.cos(pose.yaw),options={deliverySolids:solids};
+  for(const along of [-2.2,-1.7,-1.2,-.7,-.2,.3,.8,1.3,1.8,2.2]){
+    const point={x:pose.x+hx*along,y:pose.y+.4,z:pose.z+hz*along};
+    if(city.tiles&&!city.tiles.has(`${Math.floor(point.x/1000)}_${Math.floor(point.z/1000)}`))return undefined;
+    // The body occupies floor+.10 to floor+1.80. This excludes tyre-floor
+    // contact only; no station collider class is removed from the query.
+    // .5m spacing and1.2m radius cover the entire4.8×2.3m body
+    // rectangle without overestimating its width into the real track guard.
+    if(staticSolidAt(city,point,1.2,.85,options))return false;
+  }
+  return true;
 }
 
 type RuntimeUI = Pick<DeliveryUI, 'blocking' | 'collectionOpen' | 'setVisible' | 'update' | 'dispose'> & Partial<Pick<DeliveryUI, 'openCollection'>>;
@@ -71,6 +93,7 @@ export class DeliveryRuntime {
   private prepareAfter = 0;
   private lastPlan: (DeliveryPoint & { time: number }) | null = null;
   private disposed = false;
+  private restarting=false;
   private retainedCompletedScene = false;
   private retainedSceneLevelId:string|null=null;
   private completedScenery:DeliveryModule[]=[];
@@ -84,6 +107,9 @@ export class DeliveryRuntime {
   private moduleFactory: (name: string) => DeliveryModule;
   private trafficBodies: MovingRailBody[] = [];
   private passageCache: { coach: string; run: RailwayRun; revision: number; offset: number; center: number; candidates: VerifiedRailPassage[]; chosen: VerifiedRailPassage | null } | null = null;
+  readonly director = new StoryDirector();
+  private showFinale=false;
+  private storyPoseReady=false;
 
   constructor(private game: Game, options: DeliveryRuntimeOptions = {}) {
     let storage: StorageLike | undefined = options.storage;
@@ -104,7 +130,7 @@ export class DeliveryRuntime {
       advanceCall: reply => this.act(() => this.controller.advanceCall(reply)),
       endCall: () => this.act(() => this.controller.endCall()),
       drop: () => { if (this.controller.canDrop && this.module) this.module.onDrop(); this.syncView(); },
-      continue: () => { if (this.controller.continueAfterCompletion()) this.clearDelivery(true); this.syncView(); },
+      continue: () => { void this.continueStory(); },
       bonusCall: () => this.act(() => this.controller.bonusCall()),
       collectionOpen: () => game.resetInput(),
       collectionClose: () => { game.resetInput(); game.clock.getDelta(); game.engine.renderer.domElement.focus({ preventScroll: true }); },
@@ -132,26 +158,29 @@ export class DeliveryRuntime {
       events.on('setpieceFailed', event => { this.notice = event.reason; this.noticeUntil = this.elapsed + 3; }),
       events.on('levelComplete', () => {
         game.carriers.clear(); game.hud.pickupStatus(false); game.resetInput();
-        this.retainedCompletedScene=!!this.module?.exitPending;
+        this.director.complete();
+        this.retainedCompletedScene=this.cinematic||!!this.module?.exitPending;
         this.retainedSceneLevelId=this.retainedCompletedScene?this.controller.activeLevel?.id??null:null;
         if(!this.retainedCompletedScene)this.removeModule(true);
-        this.releaseStoryTrain(); this.setTarget(null); this.syncView();
+        if(!this.cinematic)this.releaseStoryTrain(); this.setTarget(null); this.syncView();
       }));
     this.syncView();
     this.prepareCharacterWindow(true);
   }
   initialCharacterPreparation(){return this.initialCharacters;}
+  prepareCurrentCharacters(){this.prepareCharacterWindow();return this.characterPreparation.retryCurrent();}
   /** Async preparation never advances the simulation or changes the camera. */
   private prepareCharacterWindow(initial=false){
-    const current=this.controller.activeLevel??this.controller.progress.nextLevel;
+    const current=this.controller.activeLevel??this.controller.nextLevel;
     const currentId=current?.id??null;
     if(currentId===this.characterSelectionCurrent&&this.retainedSceneLevelId===this.characterSelectionRetained&&this.elapsed<this.characterPreparation.nextRetryAt)return;
     this.characterSelectionCurrent=currentId;this.characterSelectionRetained=this.retainedSceneLevelId;
     this.characterPreparation.select(characterIdsForLevel(current),sceneAssetWindow(this.controller.levels,currentId,this.retainedSceneLevelId));
     if(initial)this.initialCharacters=this.characterPreparation.currentPreparation;
   }
-  startArea() { const target=(this.controller.progress.nextLevel ?? this.controller.levels[this.controller.levels.length-1])?.destination; return target?campaignSpawn(this.game.graph,target):null; }
-  get canPickup() { return this.controller.canPickup&&!this.retainedCompletedScene; }
+  startArea() { const target=(this.controller.nextLevel ?? this.controller.levels[this.controller.levels.length-1])?.destination; return target?campaignSpawn(this.game.graph,target):null; }
+  get canPickup() { return this.controller.canPickup&&!this.retainedCompletedScene&&!this.cinematic; }
+  get cinematic(){return this.director.captured;}
   get blocking() { return this.ui.blocking; }
   get activeOrder() { return !!this.controller.activeLevel && !this.controller.complete; }
   get supports(): readonly MovingRailBody[] {
@@ -162,11 +191,11 @@ export class DeliveryRuntime {
   }
   get levelLabel() {
     const c = this.controller;
-    return `Level ${c.activeLevel?.level ?? c.progress.currentLevel} / ${c.progress.total}`;
+    return `Level ${c.activeLevel?.level ?? c.nextLevel?.level ?? c.progress.currentLevel} / ${c.progress.total}`;
   }
   get pauseProgress() {
     const c = this.controller;
-    return { current: c.activeLevel?.level ?? c.progress.currentLevel, total: c.progress.total, completed: c.progress.completedIds.length };
+    return { current: c.activeLevel?.level ?? c.nextLevel?.level ?? c.progress.currentLevel, total: c.progress.total, completed: c.progress.completedIds.length };
   }
   /** Pause owns the entry point; the collection itself owns blocking/focus. */
   openRestaurant() {
@@ -175,7 +204,7 @@ export class DeliveryRuntime {
     return this.ui.collectionOpen;
   }
   get destination() { return this.target; }
-  get hideWorldGuidance(){return this.activeOrder&&!!this.module?.hideWorldGuidance;}
+  get hideWorldGuidance(){return this.cinematic||this.activeOrder&&!!this.module?.hideWorldGuidance;}
   get cameraFocus(){
     const active=this.module?.cameraFocus;if(active||this.activeOrder)return active;
     // Let a parked player see a receiver settle after Next. The module's own
@@ -314,19 +343,56 @@ export class DeliveryRuntime {
       }
     }
     this.module?.update(dt);
-    if(this.retainedCompletedScene&&!this.module?.exitPending){this.removeModule(true);this.retainedCompletedScene=false;}
+    if(this.director.tryStart(this.module?.story,c.canDrop)){
+      this.storyPoseReady=false;
+      this.game.resetInput();this.game.orbitYaw=0;this.game.orbitDist=0;this.game.orbitPitch=.38;
+      this.syncView();
+    }
+    this.module?.setStoryPresentation?.(this.cinematic);
+    if(this.director.actionReady(dt,this.storyPoseReady&&!!this.module?.status.canDrop&&c.canDrop))this.module?.onDrop();
+    if(this.retainedCompletedScene&&!this.cinematic&&!this.module?.exitPending){this.removeModule(true);this.retainedCompletedScene=false;}
     this.trafficBodies.length = 0;
     for (const body of this.module?.trafficBodies ?? this.module?.supports ?? []) if (body.id === 'delivery-log-truck') this.trafficBodies.push(body);
     for(const scene of this.completedScenery)for(const body of scene.trafficBodies??[])if(body.id==='delivery-log-truck')this.trafficBodies.push(body);
     this.game.traffic.setKinematicVehicles?.(this.trafficBodies, dt);
     const surfaceApproach=c.activeLevel?.moduleParams.scene==='surfaceEmergence';
-    const movement = c.canDrop || surfaceApproach ? this.module?.movement : undefined;
+    const movement = this.cinematic || c.canDrop || surfaceApproach ? this.module?.movement : undefined;
     p.deliveryMotion = movement && movement.mode !== 'normal' && movement.center ? {
       mode: movement.mode, x: movement.center.x, z: movement.center.z, radius: movement.radius ?? 80,
       altitude: movement.mode === 'underwater' ? (movement.center.y - (movement.depth ?? 4)) : (movement.altitude ?? movement.center.y + 3),
     } : undefined;
     if (this.wasDiving && movement?.mode !== 'underwater' && p.pos.y < .3) { p.flying = true; p.descending = false; p.altT = 0; }
     this.wasDiving = movement?.mode === 'underwater';
+  }
+  /** Apply only authored, local cinematic waypoints after ordinary supports
+   * have moved. Ordinary driving/flight/jump and manual boarding stay intact. */
+  afterPlayer(dt:number){
+    if(!this.cinematic||this.director.phase==='transition')return;
+    const frame=this.module?.story;if(!frame)return;
+    const p=this.game.player,next=stepStoryPose({...p.pos,yaw:p.yaw},frame,dt);if(!next)return;
+    const dx=next.x-p.pos.x,dz=next.z-p.pos.z,travel=Math.hypot(dx,dz),turn=Math.atan2(Math.sin(next.yaw-p.yaw),Math.cos(next.yaw-p.yaw));
+    const direction=dx*(-Math.sin(next.yaw))+dz*(-Math.cos(next.yaw))>=0?1:-1;
+    const pitch=p.group.rotation.x;
+    p.pos.set(next.x,next.y,next.z);p.yaw=next.yaw;p.speed=next.speed;p.vy=0;
+    p.flying=false;p.descending=false;p.bump=0;p.steerVis=dt>0?Math.max(-1,Math.min(1,turn/(dt*3))):0;p.lastSupport=next.y-.55;p.onRoad=true;
+    p.wheelRollers?.forEach(w=>{w.rotation.x-=direction*travel/.35;});
+    p.wheels?.forEach((w,i)=>{w.rotation.y=i<2?-p.steerVis*.38:0;});
+    p.group.position.copy(p.pos);p.group.rotation.set(frame.water?-.06:pitch,p.yaw,0,'YXZ');
+    this.storyPoseReady=Math.hypot(next.x-frame.point.x,next.z-frame.point.z)<.25&&Math.abs(next.y-frame.point.y)<.25&&
+      (frame.yaw===undefined||Math.abs(Math.atan2(Math.sin(next.yaw-frame.yaw),Math.cos(next.yaw-frame.yaw)))<.14);
+  }
+  private async continueStory(){
+    const c=this.controller;
+    if(this.director.viewing&&c.progress.finished&&!this.showFinale){this.showFinale=true;this.syncView();return;}
+    if(this.director.viewing&&!c.progress.finished){
+      const spawn=this.startArea();
+      if(!spawn){this.game.hud.toast('Preparing a safe road for the next delivery. Try Next again.','teal');return;}
+      if(!this.director.next()||!c.continueAfterCompletion())return;
+      this.clearDelivery();this.syncView();
+      await this.game.relocate(spawn);return;
+    }
+    const authored=this.cinematic;
+    if(c.continueAfterCompletion()){this.clearDelivery(!authored);this.syncView();}
   }
   /** Active time includes reading a call, but excludes map/pause/portrait/background. */
   tick(dt: number, visible: boolean) {
@@ -342,6 +408,7 @@ export class DeliveryRuntime {
         const behind=dx*arrival.hx+dz*arrival.hz;const side=Math.abs(dx*arrival.hz-dz*arrival.hx);
         callDistance=behind<=2&&side<Math.min(6,arrival.radius)?Math.hypot(dx,dz):Infinity; }
       if(this.controller.activeLevel?.moduleParams.scene==='surfaceEmergence'&&this.game.player.pos.y>8)callDistance=Infinity;
+      if(this.controller.activeLevel?.callMode==='NONE'&&this.module?.storyArrivalReady)callDistance=0;
       this.controller.update(dt, callDistance);
       if (this.controller.calls.ringing && (this.ringingT -= dt) <= 0) { this.ringingT = 2.4; this.game.sound.cue('offer'); }
     }
@@ -350,7 +417,8 @@ export class DeliveryRuntime {
     this.syncBlocking();
   }
   private syncBlocking() {
-    const blocked = this.blocking;
+    const blocked = this.blocking||this.cinematic;
+    this.game.hud.root?.classList.toggle('story-cinematic',this.cinematic&&!this.showFinale);
     if (blocked !== this.lastUIBlock) {
       this.lastUIBlock = blocked; this.game.resetInput();
       this.game.hud.storyBlocked = blocked;
@@ -448,15 +516,28 @@ export class DeliveryRuntime {
     const prepareCharacterGraphics=hasRegisteredSceneCharacters(characterIds)&&typeof renderer?.compile==='function'&&typeof renderer?.getContext==='function'
       ?async(instance?:Group,valid?:()=>boolean)=>{await prewarmReleasedSceneCharacters(characterIds,this.game.engine);if(instance)await prepareCharacterGpu(instance,this.game.engine,valid);}:undefined;
     module.setup({ sceneEvent:(kind)=> { if(this.module===module&&c.activeLevel===level&&c.canDrop&&((kind==='interiorEntered'&&level.moduleParams.scene==='truckInterior')||(kind==='characterEmerged'&&level.moduleParams.scene==='surfaceEmergence')))this.controller.reveals.reveal(c.activeLevel); }, scene: this.game.engine.scene, destination, route,
-      canInteract: () => c.canDrop,
+      canInteract: () => c.canDrop, automaticStories:level.callMode==='NONE', storyActive:()=>this.cinematic,
       ...(prepareCharacterGraphics?{prepareCharacterGraphics}:{}),
       surfaceHeightAt: (x, z) => deliverySurfaceHeight(this.game.city, x, z),
+      cameraPathClear: (from, to) => {
+        if(this.module!==module)return false;
+        const tiles=this.game.city.tiles;
+        // A source platform plan alone cannot certify an unbuilt city tile.
+        if(tiles&&[from,to].some(p=>!tiles.has(`${Math.floor(p.x/1000)}_${Math.floor(p.z/1000)}`)))return undefined;
+        // Use this frame's module supports, not the camera's previous-frame
+        // options. This is a one-time static shot query at a real station.
+        const clear=clearCameraPosition(this.game.city,from,to,{deliverySolids:this.supports});
+        return Math.hypot(clear.x-to.x,clear.y-to.y,clear.z-to.z)<.01;
+      },
+      storyPoseClear: pose => this.module===module?deliveryStoryPoseClear(this.game.city,pose,this.supports):false,
       vehicleSpeedLimit: body => this.game.traffic.kinematicSpeedLimit?.(body, Number(level.moduleParams.speed) || 8) ?? Infinity,
       vehiclePoseClear: body => this.game.traffic.kinematicPoseClear?.(body) !== false,
       player: () => ({ x: this.game.player.pos.x, y: this.game.player.pos.y, z: this.game.player.pos.z,
         yaw: this.game.player.yaw, speed: this.game.player.speed, flying: this.game.player.flying,
-        descending: this.game.player.descending, jumping: this.game.player.jumping }),
+        descending: this.game.player.descending, jumping: this.game.player.jumping,
+        railSupportId: this.game.railContacts?.supportId, verticalSpeed: this.game.player.vy }),
       existingTrain: exactBodyId => exactBodyId ? this.game.rail?.bodies?.find(body=>body.id===exactBodyId)??null : this.deliveryTrain(destination),
+      trainBodies:()=>this.game.rail?.bodies??[],
       metroService: () => ({ bodies: this.game.metro?.bodies ?? [], dwells: this.game.metro?.stationDwells ?? [] }),
       trainPassage: () => this.trainPassage(),
       clearanceAt: point => {
@@ -545,15 +626,18 @@ export class DeliveryRuntime {
       actionLabel: 'PREPARING', instruction: 'Preparing the mapped delivery scene', canDrop: false,
     } : null;
     const view: DeliveryView = {
-      level: level?.level ?? c.progress.currentLevel, total: c.progress.total, stage: c.state,
+      level: level?.level ?? c.nextLevel?.level ?? c.progress.currentLevel, total: c.progress.total, stage: c.state,
       restaurantStage: c.progress.restaurantIndex, restaurantLabel: c.progress.restaurantStage,
       nav: c.complete ? null : this.nav.update(this.game.player.pos, this.game.player.yaw),
       call: { state: calls.buttonState, label: calls.ringing ? 'Answer' : 'Call' },
       phone: calls.active && line ? { revealed: !!revealed, name: revealed?.name, image: revealed?.image,
         elapsed: calls.elapsed, who: line.who, text: line.text, replies: line.replies, canAdvance: true } : null,
-      action: action ? { label: this.module?.charactersReady===false?'PREPARING':action.actionLabel, enabled: !!this.module&&this.module.charactersReady!==false,
-        hint: this.module?.charactersReady===false?'One moment…':action.failure || [action.instruction, action.progress].filter(Boolean).join(' · ') } : null,
-      completion: c.complete && level && revealed ? { ...revealed, restaurantLabel: c.progress.restaurantStage,
+      // Arrival owns the interaction now. No manual drop, dive, or handover
+      // button competes with driving or the authored sequence.
+      action: level?.callMode==='NONE'||this.cinematic?null:action?{label:action.actionLabel,enabled:!!this.module&&this.module.charactersReady!==false,
+        hint:action.failure||[action.instruction,action.progress].filter(Boolean).join(' · ')}:null,
+      story: this.cinematic&&!this.showFinale?{viewing:this.director.viewing}:null,
+      completion: c.complete && (!this.cinematic||this.showFinale) && level && revealed ? { ...revealed, restaurantLabel: c.progress.restaurantStage,
         final: c.progress.finished, bonusAvailable: !!level.bonusScript?.length } : null,
       collection: c.progress.cards,
       noticeContext:this.retainedCompletedScene&&!c.complete?'scene-exit':undefined,
@@ -580,6 +664,7 @@ export class DeliveryRuntime {
   }
   private releaseStoryTrain(){this.game.rail?.clearStoryShuttle?.();this.storyShuttle='';this.storyRun=null;}
   private clearDelivery(preserveExit=false) {
+    this.director.reset();this.showFinale=false;this.storyPoseReady=false;
     if(!preserveExit||!this.retainedCompletedScene||!this.module?.exitPending)this.removeModule(preserveExit);
     if(!preserveExit){for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[];}
     this.releaseStoryTrain(); this.setTarget(null); this.notice = ''; this.noticeUntil = 0; this.prepareAfter = 0;
@@ -588,6 +673,19 @@ export class DeliveryRuntime {
     this.prepareCharacterWindow();
   }
   retry() { this.controller.retry(); this.clearDelivery(); this.syncView(); }
+  async restartCurrentLevel(){
+    if(this.restarting||this.disposed)return;
+    const level=this.controller.activeLevel??this.controller.nextLevel??this.controller.levels.at(-1);if(!level)return;
+    const spawn=campaignSpawn(this.game.graph,this.module?.target??level.destination);
+    if(!spawn){this.game.hud.toast('Preparing a safe road for this delivery. Try again.','teal');return;}
+    this.restarting=true;
+    try{
+      this.controller.restartCurrentLevel();this.clearDelivery();this.syncView();
+      // relocate() performs ordinary retry cleanup too; the explicit queued
+      // replay survives it and supplies the correct assets under the loader.
+      await this.game.relocate(spawn);
+    }finally{this.restarting=false;}
+  }
   /** Explicit campaign restart clears unlocks/cards and every active interaction. */
   startFromLevelOne() { this.controller.reset(); this.clearDelivery(); this.syncView(); }
   dispose() {
@@ -595,5 +693,6 @@ export class DeliveryRuntime {
     this.disposed = true; this.characterPreparation.dispose();this.removeModule();for(const scene of this.completedScenery)scene.teardown();this.completedScenery=[]; this.releaseStoryTrain(); this.setTarget(null);retainSceneCharacters([]);
     for (const off of this.off) off(); this.off = [];
     this.controller.dispose(); this.ui.dispose(); this.game.hud.storyBlocked = false;
+    this.game.hud.root?.classList.remove('story-cinematic');
   }
 }

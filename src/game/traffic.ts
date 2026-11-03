@@ -145,6 +145,10 @@ export class Traffic {
     for (let i = 0; i < 4; i++) add(M.bus(R));
     for (let i = 0; i < 2; i++) add(M.lorry(R));
     add(M.tanker(R));
+    // More recognizable silhouettes, using the same five simulation groups,
+    // traffic population cap, following rules, marker and lamp contracts.
+    add(M.miniTruck(R));
+    add(M.passengerVan(R));
     this.setBusStops(busStops);
   }
   setBusStops(busStops: BusStop[]) {

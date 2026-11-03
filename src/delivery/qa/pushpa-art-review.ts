@@ -143,6 +143,9 @@ class LocalArtMatchAndLand implements DeliveryModule {
   get cameraFocus(){return this.inner.cameraFocus;}
   get charactersReady(){return this.inner.charactersReady;}
   get headlightGain(){return this.inner.headlightGain;}
+  get story(){return this.inner.story;}
+  get storyArrivalReady(){return this.inner.storyArrivalReady;}
+  setStoryPresentation(active:boolean){this.inner.setStoryPresentation?.(active);}
   get sceneLamp(){return this.inner.sceneLamp;}
   setup(ctx:DeliveryModuleContext,params:ModuleParams){this.inner.teardown();this.inner=params.scene==='truckInterior'?new LocalArtTruckInterior(this.review):createDeliveryModule('matchAndLand');this.inner.setup(ctx,params);}
   update(dt:number){this.inner.update(dt);}onDrop(){this.inner.onDrop();}teardown(){this.inner.teardown();}

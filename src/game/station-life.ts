@@ -3,12 +3,13 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { Batch, hash, rng } from '../core/util';
 import { metroCorridors, metroPlatformAssemblies, sampleMetroPath, projectMetroPath, type MetroLineInput } from '../world/metro-geometry';
 import { metroCrowdDemand, STATION_CROWD_MODEL, type MetroStationSource } from '../world/metro-service';
-import { randomPerson, walkerGeometry, type PersonSpec } from '../world/people';
+import { randomPerson, walkerGeometry, drawSeatedPerson, legsVisible, type PersonSpec } from '../world/people';
+import { makeHumanWalkRig, type HumanWalkRig } from '../world/human-gait';
 import type { StationVisualFrame } from '../world/metro-station-visuals';
 import type { MetroStationDwell } from './metro';
 
 type Door = MetroStationDwell['doors'][number];
-interface Actor { group: THREE.Group; legs: THREE.Mesh[]; phase: number }
+interface Actor { group: THREE.Group; legs: THREE.Mesh[]; phase: number; rig?: HumanWalkRig }
 interface ResolvedStation { id: string; stationId: string; frame: StationVisualFrame; lineId: string; source: MetroStationSource; deckHeight: number }
 interface Transfer { kind: 'boarding' | 'alighting'; door: Door; index: number; actor: Actor }
 interface LiveStation { source: ResolvedStation; group: THREE.Group; waiting: { actor: Actor; side: 1 | -1; index: number }[]; transfers: Map<string, Transfer[]>; waitingBatch: THREE.Mesh | null; waitingCount: number }
@@ -54,35 +55,32 @@ export class MetroStationLife {
   }
   private deckHeight: number;
   dispose() {
-    for (const state of this.active.values()) state.waitingBatch?.geometry.dispose();
+    for (const state of this.active.values()) {state.waitingBatch?.geometry.dispose();for(const list of state.transfers.values())for(const actor of list)actor.actor.rig?.dispose();}
     this.group.clear(); this.active.clear();
     for (const geometry of this.figures.values()) geometry.release(); this.figures.clear();
     for (const geometry of this.seatedLegs.values()) geometry.dispose(); this.seatedLegs.clear();
   }
-  private actor(seed: string, seated = false): Actor {
+  private actor(seed: string, seated = false, animated = false): Actor {
     const index = hash(seed) % 24, random = rng(hash(seed)), original = randomPerson(rng(index + 3049));
-    const spec: PersonSpec = seated ? { ...original, kind: hash(seed) % 2 ? 'shirt' : 'western_f', s: .98 } : original;
+    const spec: PersonSpec = seated ? { ...original, kind: hash(seed) % 2 ? 'shirt' : 'western_f', age:'adult', s: .98 } : original;
     const key = `${index}:${seated ? spec.kind : 'standing'}`;
-    let geometry = this.figures.get(key); if (!geometry) { geometry = walkerGeometry(spec); this.figures.set(key, geometry); }
-    const group = new THREE.Group(), body = new THREE.Mesh(geometry.body, this.material), legs: THREE.Mesh[] = [];
-    body.castShadow = true; group.add(body);
+    let geometry = this.figures.get(key); if (!geometry) { geometry = walkerGeometry(spec,!seated); this.figures.set(key, geometry); }
+    const group = new THREE.Group(), legs: THREE.Mesh[] = [];let rig:HumanWalkRig|undefined;
+    if(animated){rig=makeHumanWalkRig(geometry.rigged!,this.material,spec,!legsVisible(spec.kind));group.add(rig.mesh);group.addEventListener('removed',()=>rig?.dispose());}
     if (seated) {
-      body.position.y = -.34;
-      let lowerGeometry = this.seatedLegs.get(spec.b);
+      let lowerGeometry = this.seatedLegs.get(key);
       if (!lowerGeometry) {
         const lower = new Batch();
-        for (const side of [-1, 1]) {
-          lower.box(side * .085, .49, -.17, .13, .13, .4, spec.b);
-          lower.box(side * .085, .25, -.35, .12, .46, .12, spec.b);
-          lower.box(side * .085, .035, -.42, .14, .07, .23, '#312c2a');
-        }
-        lowerGeometry = lower.geometry(); this.seatedLegs.set(spec.b, lowerGeometry);
+        drawSeatedPerson(lower,{...spec,s:1},0,.50,0,'bench');
+        lowerGeometry = lower.geometry(); this.seatedLegs.set(key, lowerGeometry);
       }
       const mesh = new THREE.Mesh(lowerGeometry, this.material); mesh.castShadow = true; group.add(mesh);
-    } else if (geometry.leg) {
+    } else if(!animated) {
+      const body=new THREE.Mesh(geometry.body,this.material);body.castShadow=true;group.add(body);
+      if(geometry.leg)
       for (const side of [-1, 1]) { const leg = new THREE.Mesh(geometry.leg, this.material); leg.position.set(side * .085, .84, 0); leg.castShadow = true; group.add(leg); legs.push(leg); }
     }
-    group.scale.setScalar(spec.s); return { group, legs, phase: random() * Math.PI * 2 };
+    group.scale.setScalar(spec.s); return { group, legs, rig, phase: random() * Math.PI * 2 };
   }
   private create(station: ResolvedStation) {
     const state: LiveStation = { source: station, group: new THREE.Group(), waiting: [], transfers: new Map(), waitingBatch: null, waitingCount: -1 };
@@ -103,7 +101,7 @@ export class MetroStationLife {
     const nearby = this.stations.filter(s => Math.hypot(s.frame.cx - px, s.frame.cz - pz) < 300 && (!this.options.isStationLoaded || this.options.isStationLoaded(s.source)))
       .sort((a, b) => Math.hypot(a.frame.cx - px, a.frame.cz - pz) - Math.hypot(b.frame.cx - px, b.frame.cz - pz)).slice(0, this.lowQ ? 2 : 3);
     const wanted = new Set(nearby.map(s => s.id));
-    for (const [id, state] of this.active) if (!wanted.has(id)) { this.group.remove(state.group); state.waitingBatch?.geometry.dispose(); this.active.delete(id); }
+    for (const [id, state] of this.active) if (!wanted.has(id)) { for(const list of state.transfers.values())for(const actor of list)actor.actor.rig?.dispose();this.group.remove(state.group); state.waitingBatch?.geometry.dispose(); this.active.delete(id); }
     for (const source of nearby) {
       const state = this.active.get(source.id) || this.create(source);
       const stopped = dwells.filter(d => d.stationId === source.stationId && d.lineId === source.lineId && d.remaining > .05 && d.doors.length > 0);
@@ -136,7 +134,7 @@ export class MetroStationLife {
         if (!passengers) {
           passengers = [];
           for (const kind of ['alighting', 'boarding'] as const) for (let index = 0; index < demand[kind]; index++) {
-            const door = dwell.doors[index % dwell.doors.length], actor = this.actor(`${dwell.trainId}:${source.id}:${kind}:${index}`);
+            const door = dwell.doors[index % dwell.doors.length], actor = this.actor(`${dwell.trainId}:${source.id}:${kind}:${index}`,false,true);
             state.group.add(actor.group); passengers.push({ kind, door, index, actor });
           }
           state.transfers.set(dwell.trainId, passengers);
@@ -146,6 +144,7 @@ export class MetroStationLife {
           passenger.actor.group.visible = pose.visible;
           passenger.actor.group.position.set(pose.x, pose.y, pose.z); passenger.actor.group.rotation.y = pose.yaw;
           for (let k = 0; k < passenger.actor.legs.length; k++) passenger.actor.legs[k].rotation.x = pose.moving ? Math.sin(this.seconds * 7 + passenger.actor.phase + k * Math.PI) * .35 : 0;
+          passenger.actor.rig?.update(this.seconds*7+passenger.actor.phase,pose.moving,dt);
         }
       }
     }

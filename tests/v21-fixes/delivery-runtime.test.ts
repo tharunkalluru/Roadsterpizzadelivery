@@ -32,6 +32,8 @@ class ModuleAdapter implements DeliveryModule {
   exitPending = false;
   sceneryPending = false;
   cameraFocus:DeliveryModule['cameraFocus'];
+  story:DeliveryModule['story'];
+  storyArrivalReady=false;
   setup(ctx: DeliveryModuleContext) { this.ctx = ctx; this.target = { ...ctx.destination }; ctx.onTarget?.(this.target); }
   update() { this.frames++; }
   onDrop() { if (this.ctx.canInteract?.()) this.ctx.emit('done'); }
@@ -75,6 +77,35 @@ function completeCall(f: ReturnType<typeof fixture>) {
   while (f.runtime.controller.calls.active) f.actions.advanceCall(f.runtime.controller.calls.currentLine?.replies ? 0 : undefined);
 }
 
+test('static scene camera queries use the current module solids immediately and reject a released module context',()=>{
+  const f=fixture();f.game.city.obstacles=new Map();f.game.city.walls=new Map();
+  pickup(f);f.runtime.beforePlayer(.05);
+  const query=f.module.ctx.cameraPathClear!;assert.equal(typeof query,'function');
+  const from={x:150,y:2,z:-2},to={x:150,y:2,z:2};
+  assert.equal(query(from,to),true);
+  f.module.supports.push({id:'current-delivery-solid',x:150,y:1,z:0,hx:0,hz:1,halfWidth:.8,halfLength:.5,bottom:0,roof:4,
+    previous:{x:150,y:1,z:0,hx:0,hz:1}});
+  assert.equal(query(from,to),false,'new scene geometry is checked before Game.updateCamera has refreshed its own cached options');
+  f.module.supports.length=0;assert.equal(query(from,to),true,'a released current support cannot leave stale obstruction state');
+  f.game.city.tiles=new Map();assert.equal(query(from,to),undefined,'pending geometry is distinct from an obstructed station, so the same dwell can retry');
+  f.game.city.tiles.set('0_-1',{});f.game.city.tiles.set('0_0',{});assert.equal(query(from,to),true,'query actual geometry once both endpoint tiles are ready');
+  f.runtime.retry();assert.equal(query(from,to),false,'an old setup callback cannot make a camera decision after its module is released');
+  f.runtime.dispose();
+});
+
+test('story volume queries retain tyre-floor contact, cover body corners and current solids, and fail closed for pending or released geometry',()=>{
+  const f=fixture();f.game.city.obstacles=new Map();f.game.city.walls=new Map();pickup(f);f.runtime.beforePlayer(.05);
+  const query=f.module.ctx.storyPoseClear!,pose={x:150,y:.55,z:0,yaw:0};
+  assert.equal(query(pose),true,'body clearance keeps ordinary tyre support below the body volume');
+  f.game.city.obstacles.set('3,0',[{x:151.05,z:2.25,r:.2,bottom:.1,top:2}]);
+  assert.equal(query(pose),false,'a front body corner cannot escape between the volume samples');
+  f.game.city.obstacles.clear();f.module.supports.push({id:'current-volume-solid',x:150,y:1,z:0,hx:0,hz:1,halfWidth:.3,halfLength:.3,bottom:.1,roof:3,previous:{x:150,y:1,z:0,hx:0,hz:1}});
+  assert.equal(query(pose),false);f.module.supports.length=0;assert.equal(query(pose),true);
+  f.game.city.tiles=new Map();assert.equal(query(pose),undefined);
+  f.game.city.tiles.set('0_-1',{});f.game.city.tiles.set('0_0',{});assert.equal(query(pose),true);
+  f.runtime.retry();assert.equal(query(pose),false,'released module cannot certify a later scene');f.runtime.dispose();
+});
+
 test('runtime connects anonymous pickup, mandatory call, module gate and completion without identity leak', () => {
   const f = fixture(); pickup(f); f.runtime.beforePlayer(.016);
   assert.equal(f.runtime.controller.state, 'EN_ROUTE'); assert.equal(f.module.ctx.canInteract?.(), false);
@@ -87,6 +118,41 @@ test('runtime connects anonymous pickup, mandatory call, module gate and complet
   assert.equal(f.ui.model?.completion?.name, 'Allu Arjun');
   f.actions.continue(); assert.equal(f.runtime.controller.state, 'ROAMING');
   assert.equal(f.runtime.controller.progress.currentLevel, 2); assert.equal(f.stats().detectorResets, 1);
+});
+
+test('automatic story keeps the real scene and simulation alive until Next, then relocates once near the next delivery without losing progress',async()=>{
+  const f=fixture(),first=f.runtime.controller.levels[0];first.callMode='NONE';first.script=[];first.revealAt='afterDelivery';
+  const next=f.runtime.controller.levels[1].destination;
+  f.game.graph.addRoads([{id:'next-main',cls:'primary',w:16,pts:[[next.x-1600,next.z],[next.x-1300,next.z]],from:'a',to:'b'}]);
+  const relocations:{x:number;z:number}[]=[];
+  f.game.relocate=async(point:{x:number;z:number})=>{relocations.push(point);f.runtime.retry();};
+  f.game.hud.toast=()=>{};
+  pickup(f);f.runtime.beforePlayer(.05);approach(f);f.runtime.tick(.05,true);
+  f.game.player.pos=new THREE.Vector3(f.game.player.pos.x,f.game.player.pos.y,f.game.player.pos.z);f.game.player.group=new THREE.Group();
+  f.module.story={entry:true,point:{...f.game.player.pos}};
+  for(let i=0;i<20;i++){f.runtime.beforePlayer(.05);f.runtime.afterPlayer(.05);}
+  assert.equal(f.runtime.controller.complete,true);assert.equal(f.runtime.director.viewing,true);assert.equal(f.runtime.blocking,false,'character viewing is not a simulation-blocking modal');
+  assert.equal(f.ui.model?.completion,null);assert.deepEqual(f.ui.model?.story,{viewing:true});assert.equal(f.ui.model?.action,null);
+  assert.equal(f.module.teardownCount,0);assert.equal(f.runtime.canPickup,false);
+  const frames=f.module.frames;for(let i=0;i<600;i++)f.runtime.beforePlayer(.05);
+  assert.ok(f.module.frames>frames,'the actual scene keeps animating during indefinite viewing');assert.equal(f.module.teardownCount,0);
+  f.actions.continue();f.actions.continue();await Promise.resolve();
+  assert.equal(relocations.length,1);assert.ok(Math.hypot(relocations[0].x-next.x,relocations[0].z-next.z)<4000);
+  assert.equal(f.module.teardownCount,1);assert.equal(f.runtime.controller.progress.completedIds.length,1);assert.equal(f.runtime.controller.progress.currentLevel,2);
+  assert.equal(f.runtime.cinematic,false);assert.equal(f.runtime.canPickup,true);
+  f.runtime.dispose();
+});
+
+test('a real marked-rake landing can satisfy arrival beyond the customer distance radius, while proximity alone cannot',()=>{
+  const f=fixture({levelIndex:1}),level=f.runtime.controller.levels[0];level.callMode='NONE';level.script=[];level.revealAt='afterDelivery';
+  pickup(f);f.runtime.beforePlayer(.05);
+  const target=f.runtime.destination!;Object.assign(f.game.player.pos,{x:target.x+140,z:target.z});
+  f.module.story={entry:true,point:{...f.game.player.pos}};
+  f.runtime.tick(.05,true);f.runtime.beforePlayer(.05);
+  assert.equal(f.runtime.controller.state,'EN_ROUTE');assert.equal(f.runtime.cinematic,false);
+  f.module.storyArrivalReady=true;f.runtime.tick(.05,true);f.runtime.beforePlayer(.05);
+  assert.equal(f.runtime.controller.canDrop,true);assert.equal(f.runtime.cinematic,true);
+  f.runtime.dispose();
 });
 
 test('a pending story shuttle waits for its designated coach and retries without adopting nearby ordinary trains', () => {

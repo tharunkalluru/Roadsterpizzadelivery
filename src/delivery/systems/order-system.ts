@@ -7,9 +7,9 @@ export class OrderSystem {
   constructor(private progress: ProgressSystem) {}
   get level() { return this.active; }
   get destination(): Destination | null { return this.active ? { ...this.active.destination } : null; }
-  assign() {
+  assign(level:LevelConfig|null=this.progress.nextLevel) {
     if (this.active) return null;
-    const next = this.progress.nextLevel;
+    const next = level;
     this.active = next ? { ...next, destination: { ...next.destination }, moduleParams: { ...next.moduleParams } } : null;
     return this.active;
   }

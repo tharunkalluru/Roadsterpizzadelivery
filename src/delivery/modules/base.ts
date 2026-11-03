@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import type { MovingRailBody } from '../../game/moving-rail';
-import type { DeliveryModule, DeliveryModuleContext, DeliveryPoint, ModuleMovement, ModuleParams, ModuleStatus } from './types';
+import type { DeliveryModule, DeliveryModuleContext, DeliveryPoint, ModuleMovement, ModuleParams, ModuleStatus, ModuleStoryFrame } from './types';
 import type { SceneCharacter } from './character';
 import { createReleasedSceneCharacter } from '../art/scene-character';
 import { InstancePreparation } from '../art/instance-preparation';
@@ -39,6 +39,13 @@ export abstract class ModuleBase implements DeliveryModule {
   status: ModuleStatus = { instruction: '', canDrop: false, actionLabel: 'DROP' };
   movement: ModuleMovement = { mode: 'normal' };
   get supports(): readonly MovingRailBody[] { return this.bodies; }
+  setStoryPresentation(active:boolean){if(active&&this.ring)this.ring.visible=false;}
+  get story(): ModuleStoryFrame | undefined {
+    if(!this.ready||!this.ctx.automaticStories)return undefined;
+    const p=this.ctx.player(),point={...this.target,y:this.ctx.destination.y+.55};
+    return {entry:this.charactersReady&&distanceXZ(p,point)<26&&Math.abs(p.y-point.y)<34&&!p.jumping,
+      point,maxSpeed:5,verticalSpeed:5};
+  }
 
   setup(ctx: DeliveryModuleContext, params: ModuleParams = {}) {
     this.teardown(); this.ctx = ctx; this.params = params; this.time = 0; this.ended = false; this.ready = true;

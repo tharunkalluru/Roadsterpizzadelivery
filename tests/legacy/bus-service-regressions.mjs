@@ -243,11 +243,30 @@ try {
       assert.equal(Math.sign(decal.geo.attributes.normal.getZ(0)), i ? 1 : -1);
     }
   });
-  test('ten auto variants each have exactly one Telugu quote panel and retain the rear plate', () => {
+  test('ten auto variants each retain one Telugu quote, one rear plate and separate clear glazing', () => {
     assert.equal(AUTO_QUOTES.length, 10); assert.equal(new Set(AUTO_QUOTES.map(q => q.id)).size, 10);
     for (let i = 0; i < 10; i++) {
-      const m = auto(rng(23 + i), i); assert.equal(m.quoteId, AUTO_QUOTES[i].id); assert.equal(m.decals.length, 2);
-      assert.deepEqual(canvases.at(-1).texts, [...AUTO_QUOTES[i].lines]);
+      const m = auto(rng(23 + i), i); assert.equal(m.quoteId, AUTO_QUOTES[i].id);
+      // Production now has a third, untextured windscreen surface. Count its
+      // role explicitly so glazing cannot masquerade as a missing plate/quote,
+      // and identity checks do not depend on texture creation/cache order.
+      assert.equal(m.decals.length, 3);
+      const glazed = m.decals.filter(d => d.mat.transparent && !d.mat.map);
+      const printed = m.decals.filter(d => d.mat.map);
+      assert.equal(glazed.length, 1); assert.equal(printed.length, 2);
+      assert.ok(glazed[0].mat.opacity > 0 && glazed[0].mat.opacity < 1);
+      const quote = printed.find(d => d.mat.map.image.texts.some(t => /[ఀ-౿]/.test(t)));
+      assert.ok(quote, 'one actual Telugu texture must remain on the rear quote panel');
+      const plate = printed.find(d => d !== quote);
+      assert.deepEqual(quote.mat.map.image.texts, [...AUTO_QUOTES[i].lines]);
+      assert.match(plate.mat.map.image.texts.join(''), /^TS 09 U[A-Z] \d{4}$/);
+      assert.notEqual(quote.mat, plate.mat);
+      for (const d of [quote, plate]) {
+        d.geo.computeBoundingBox();
+        assert.ok(d.geo.boundingBox.min.z > 1.30 && d.geo.boundingBox.max.z < 1.40, 'both printed surfaces must remain outside the real rear skin');
+        assert.ok(d.geo.attributes.normal.getZ(0) > .99, 'both printed surfaces must face following traffic');
+      }
+      assert.ok(quote.geo.boundingBox.min.y > plate.geo.boundingBox.max.y + .2, 'quote panel cannot replace or cover the separate low rear plate');
       assert.ok(AUTO_QUOTES[i].lines.join('').match(/[ఀ-౿]/)); assert.ok(AUTO_QUOTES[i].source.startsWith('https://'));
     }
   });

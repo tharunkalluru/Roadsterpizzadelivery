@@ -14,6 +14,7 @@ import { excludeStadiumRoads, stadiumExclusions } from './stadium-roads';
 import type { WaterGrid } from './water';
 import { RAILWAY_UNDERPASS_EVIDENCE } from './railway-evidence';
 import { prepareRoadUnderpasses } from './road-underpasses';
+import { metroFlightClearance } from './metro-flight-clearance';
 
 export interface LoadedTile { key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[]; signalLights?: SignalLights }
 
@@ -30,6 +31,7 @@ const RENDER: Record<string, { cast: boolean; receive: boolean; order?: number }
 // The streamed city: keeps the 1 km tiles around the player built (in a worker) and exposes them to the game
 // through the same grids the single-zone city used, so physics, traffic and walkers don't care where a tile ends.
 export class World implements CityData {
+  metroFlightClearance: ReturnType<typeof metroFlightClearance>;
   movingRail: import('../game/moving-rail').MovingRailBody[] = [];
   railwayWalls: Wall[] = [];
   group = new THREE.Group(); signs: SignSystem; lit = null; glow = null;
@@ -55,6 +57,7 @@ export class World implements CityData {
   activity = new Map<string, number>();          // shop units per 100 m cell across the loaded tiles
   radius: number; waiters: (() => void)[] = []; buildMs: number[] = []; addMs: number[] = []; t = 0; focus: [number, number] | null = null;
   constructor(public core: CoreData, public mats: Record<string, any>, public opts: { lowQ: boolean; base: string }) {
+    this.metroFlightClearance = metroFlightClearance(core.metro);
     const patches = new Map(roadGradePatches(core.roads).map(p=>[p.id,p]));
     const roadUnderpasses = prepareRoadUnderpasses(core.roads);
     if (roadUnderpasses.changes.length) {

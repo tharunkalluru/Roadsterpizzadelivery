@@ -116,6 +116,37 @@ test('an unavailable real platform is checked once per dwell and waits for a dif
   assert.equal(f.scene.getObjectByName('vakeel-platform-group')!.visible,true);assert.equal(f.module.status.actionLabel,'HAND OVER');assert.deepEqual(f.events,[]);f.module.teardown();
 });
 
+test('pending camera geometry waits for streaming and retries the same actual station instead of rejecting its dwell',()=>{
+  const f=fixture();(f.module as any).ctx.cameraPathClear=()=>undefined;
+  arriveAtNextStation(f);
+  assert.equal(f.scene.getObjectByName('vakeel-platform-group')!.visible,false);
+  assert.equal((f.module as any).phase,'riding');assert.equal((f.module as any).unavailableStation,'');
+  (f.module as any).ctx.cameraPathClear=()=>true;
+  for(let frame=0;frame<30&&(f.module as any).phase!=='exiting';frame++)f.module.update(.05);
+  assert.equal((f.module as any).phase,'exiting');assert.equal((f.module as any).exitTime,0,'the passenger clock starts only after the prepared scene is committed');
+  advance(f.module,3.5);
+  assert.equal((f.module as any).phase,'handoff');
+  assert.equal(f.scene.getObjectByName('vakeel-platform-group')!.visible,true);
+  assert.equal((f.module as any).unavailableStation,'');f.module.teardown();
+});
+
+test('bounded platform preparation keeps the marked roof, cancels on departure or player movement, and releases on teardown',()=>{
+  const f=fixture();let calls=0;
+  (f.module as any).ctx.automaticStories=true;
+  (f.module as any).ctx.storyPoseClear=()=>{calls++;return true;};
+  (f.module as any).ctx.cameraPathClear=()=>{calls++;return true;};
+  f.stop('a');f.module.update(.05);f.depart();for(let i=0;i<65;i++)f.move(1.1);
+  f.stop('b');f.module.update(.05);
+  assert.equal((f.module as any).phase,'riding');assert.ok((f.module as any).exitPreparation);assert.ok(calls<=4);
+  assert.equal(f.scene.getObjectByName('vakeel-platform-group')!.visible,false,'partially checked scene is never shown');
+  const roof=f.module.story!;assert.equal(roof.entry,true);assert.equal(roof.point.y,f.bodies[2].roof+.55,'automatic story remains on its marked real roof while cold geometry prepares');
+  f.depart();const before=calls;f.module.update(.05);assert.equal((f.module as any).exitPreparation,undefined);assert.equal(calls,before,'a departed train cannot continue an old platform plan');
+  f.stop('b');f.module.update(.05);assert.ok((f.module as any).exitPreparation);
+  f.p.x+=.5;const moved=calls;f.module.update(.05);assert.equal((f.module as any).exitPreparation,undefined);assert.equal(calls,moved,'a changed manual pose invalidates the prepared approach');
+  f.module.update(.05);assert.equal((f.module as any).phase,'riding','moving within a still-valid roof retains the existing ride gate');
+  f.module.teardown();const released=calls;advance(f.module,2);assert.equal(calls,released);assert.equal((f.module as any).exitPreparation,undefined);assert.deepEqual(f.events,[]);
+});
+
 test('platform framing stays inside the guard, requires visible actors and a deliberate parked stop, and releases for normal driving or flight',()=>{
   const f=fixture();arriveAtNextStation(f);Object.assign(f.p,f.module.target,{y:f.module.target.y+.55,speed:0});f.module.update(.05);
   assert.equal(f.module.cameraFocus,undefined,'withheld faces cannot trigger an empty character close-up');
@@ -124,6 +155,8 @@ test('platform framing stays inside the guard, requires visible actors and a del
   const focus=f.module.cameraFocus!;assert.ok(focus);assert.equal(focus.context,'stationary-handoff');
   const {door,outward}=f.module as any,dx=focus.position.x-door.x-outward.x*METRO_DELIVERY_WALK_DISTANCE,dz=focus.position.z-door.z-outward.z*METRO_DELIVERY_WALK_DISTANCE;
   assert.ok(Math.abs(dx*outward.x+dz*outward.z-1.4)<1e-8,'camera remains on the platform side of the outer guard with the host collision margin');
+  assert.ok(Math.hypot(focus.position.x-focus.target.x,focus.position.z-focus.target.z)>3.5,'a four-person group needs enough camera distance to avoid cropping a customer');
+  assert.ok(Math.hypot(focus.position.x-f.p.x,focus.position.z-f.p.z)>5,'the close-up must remain clear of the parked Roadster cabin');
   assert.equal(f.module.headlightGain,.02);assert.equal(f.module.hideWorldGuidance,true);
   f.p.speed=1;assert.equal(f.module.cameraFocus,undefined);assert.equal(f.module.headlightGain,undefined);assert.equal(f.module.hideWorldGuidance,false);
   f.p.speed=0;f.p.flying=true;assert.equal(f.module.cameraFocus,undefined);f.p.flying=false;f.p.y-=6;assert.equal(f.module.cameraFocus,undefined);

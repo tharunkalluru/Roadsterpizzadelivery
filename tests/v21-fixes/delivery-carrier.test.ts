@@ -39,6 +39,19 @@ test('all five traffic kinds may carry a slice without encoding the customer ide
   }
 });
 
+test('a carrier crossing the chase camera cannot fill the screen or change the real grab coordinates', () => {
+  const {system,make,player}=fixture(),car=make('bike');system.update(0,[car],player);
+  const point={...system.markers[0].position},visual=car.g.getObjectByName('delivery-box-visual')!;
+  const view={forwardX:1,forwardZ:0,jumping:false,cameraX:point.x,cameraY:point.y,cameraZ:point.z+.35};
+  system.update(0,[car],player,true,view);
+  assert.ok(Math.abs(visual.scale.x-.05)<1e-8);assert.deepEqual(system.markers[0].position,point);
+  view.cameraZ=point.z+14;system.update(0,[car],player,true,view);
+  assert.equal(visual.scale.x,1);assert.deepEqual(system.markers[0].position,point);
+  const hero=new THREE.Group();assert.equal(system.collect(system.markers[0].carrierId,hero),true);
+  assert.equal(visual.scale.x,1,'a collected or recycled marker cannot retain the camera-proximity scale');
+  system.dispose();
+});
+
 test('despawn, unloaded traffic and range recycling immediately free slots for nearby replacements', () => {
   const { system, make, player, scene } = fixture();
   const a = make('bus'), b = make('auto', 20), distant = make('car', PICKUP_CONFIG.carrierRange + 40);

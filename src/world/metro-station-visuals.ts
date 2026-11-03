@@ -1,5 +1,5 @@
 import type { TiledBatch } from '../core/util';
-import { metroLineColor, sampleMetroPath, type MetroPath } from './metro-geometry';
+import { metroLineColor, sampleMetroPath, METRO_PLATFORM_OUTER_EDGE, type MetroPath } from './metro-geometry';
 import type { SignEntry, Wall } from './city';
 import type { XZ } from './types';
 import type { StructureFootprint } from './structure-clearance';
@@ -40,7 +40,7 @@ export function drawMetroStationVisuals(station: StationVisualSource, frame: Sta
       C.B.st.box(q[0], (bottom + top) / 2, q[1], .07, top - bottom, .07, '#a9a8b2', { ry: angle }); }
   }
   for (const side of [-1, 1]) {
-    const p = P(0, side * 7.24), y = deckHeight + 3.35, id = `mst_interior_${station.id}_${side}`;
+    const p = P(0, side * (METRO_PLATFORM_OUTER_EDGE-.16)), y = deckHeight + 3.35, id = `mst_interior_${station.id}_${side}`;
     // A compact railing board fits across the opposite train-window view;
     // a 7m backing forced long station names outside even a square viewport.
     C.B.st.box(p[0], y, p[1], .14, 1.35, 4.6, '#f8fafb', { ry: angle });

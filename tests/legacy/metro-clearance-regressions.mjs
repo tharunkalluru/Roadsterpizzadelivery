@@ -12,7 +12,7 @@ let count = 0;
 const test = async (name, fn) => { await fn(); count++; console.log(`PASS ${name}`); };
 try {
   await build({ stdin: { contents: "export * from './src/world/structure-clearance'; export * from './src/world/metro-geometry'; export { buildTile } from './src/world/city'; export { prepareRoadGrades, roadGradePatches, applyRoadGradePatches } from './src/world/road-grades'; export { auxiliaryLane, isORR } from './src/world/expressway'; export { hash, initTemplates, TiledBatch, TPL } from './src/core/util'; export { placeLandmarks } from './src/world/landmarks'; export { BoxGeometry, RingGeometry, BufferGeometry, Float32BufferAttribute, Mesh, MeshBasicMaterial, Raycaster, Vector3, DoubleSide } from 'three';", resolveDir: root, loader: 'ts' }, outfile: join(temp, 'test.mjs'), bundle: true, platform: 'node', format: 'esm', logLevel: 'error' });
-  const { bridgeSupportSites, bridgeSupportPlan, roadStructureClearance, metroCorridors, metroStationFrame, metroPlatformAssemblies, metroRuntimeStations, buildTile, prepareRoadGrades, roadGradePatches, applyRoadGradePatches, auxiliaryLane, isORR, hash, initTemplates, TiledBatch, TPL, placeLandmarks, BoxGeometry, RingGeometry, BufferGeometry, Float32BufferAttribute, Mesh, MeshBasicMaterial, Raycaster, Vector3, DoubleSide } = await import(pathToFileURL(join(temp, 'test.mjs')));
+  const { bridgeSupportSites, bridgeSupportPlan, roadStructureClearance, metroCorridors, metroStationFrame, metroPlatformAssemblies, metroRuntimeStations, METRO_PLATFORM_HALF_WIDTH, buildTile, prepareRoadGrades, roadGradePatches, applyRoadGradePatches, auxiliaryLane, isORR, hash, initTemplates, TiledBatch, TPL, placeLandmarks, BoxGeometry, RingGeometry, BufferGeometry, Float32BufferAttribute, Mesh, MeshBasicMaterial, Raycaster, Vector3, DoubleSide } = await import(pathToFileURL(join(temp, 'test.mjs')));
   initTemplates({ rbox: new BoxGeometry(1, 1, 1), ring: new RingGeometry(1, 1.35, 12) });
   const road = (id, pts, extra = {}) => ({ id, seg: id, name: null, cls: 'primary', w: 9.4, lanes: 2, oneway: null, from: `${id}_a`, to: `${id}_b`, pts, elev: null, maxspeed: 50, ...extra });
   const zone = (roads, i = 0, j = 0) => ({ i, j, roads, nodes: {}, buildings: [], boards: [], furniture: [], areas: [], osm: [] });
@@ -84,7 +84,7 @@ try {
     safeSupports(built, [e]);
     assert.equal(built.structureSupports.some(s => s.part === 'metro_pillar'), false);
     assert.ok(built.structureSupports.filter(s => s.part === 'station_concourse').length > 0);
-    assert.equal(unique(built.surfaceGrid).filter(s => s.kind === 'pad').length, 26, 'both curved platforms remain rideable');
+    assert.equal(unique(built.surfaceGrid).filter(s => s.kind === 'pad' && s.hw === METRO_PLATFORM_HALF_WIDTH && Math.abs(s.ya - (metro.deckHeight + 1.2)) < 1e-8).length, 26, 'both inner curved platform strips remain rideable; connected concourse/access floors are additional pads');
     assert.ok(unique(built.surfaceGrid).some(s => s.kind === 'deck' && s.ya === 11.8));
   });
   await test('stations have exactly two exterior ends and two inward wall names without track or roof obstructions', () => {

@@ -142,7 +142,7 @@ test('phone placement respects notches, blocked preferred slots, and the 44px mi
 test('phone state updates show only actionable contextual calls and never render a customer name early', () => {
   const element = () => ({ hidden: false, disabled: false, textContent: '', dataset: {} as Record<string, string>, attributes: {} as Record<string, string>, title: '',
     getAttribute(name: string) { return this.attributes[name]; }, setAttribute(name: string, value: string) { this.attributes[name] = value; } });
-  const names = ['call', 'call-label', 'call-hint', 'drop', 'drop-label', 'hint', 'notice'];
+  const names = ['call', 'call-label', 'call-hint', 'drop', 'drop-label', 'hint', 'notice', 'story-next'];
   const elements = Object.fromEntries(names.map(name => [name, element()]));
   const ui: any = Object.assign(Object.create(DeliveryUI.prototype), { root: { hidden: false }, host: { classList: { toggle() {} } }, elements, opening: null, collectionShown: false,
     layoutDirty: false, layoutTimer: performance.now(), syncDialog() {}, layout() {}, updatePhone() {}, updateCompletion() {} });
@@ -164,7 +164,7 @@ function noticeFixture() {
   const element = () => ({ hidden: false, disabled: false, textContent: '', dataset: {} as Record<string, string>, title: '',
     attributes: {} as Record<string, string>, getAttribute(name: string) { return this.attributes[name]; },
     setAttribute(name: string, value: string) { this.attributes[name] = value; } });
-  const elements = Object.fromEntries(['call', 'call-label', 'call-hint', 'drop', 'drop-label', 'hint', 'notice', 'phone', 'completion', 'collection', 'overlay'].map(key => [key, element()]));
+  const elements = Object.fromEntries(['call', 'call-label', 'call-hint', 'drop', 'drop-label', 'hint', 'notice', 'phone', 'completion', 'collection', 'overlay', 'story-next'].map(key => [key, element()]));
   const removedListeners: string[] = [];
   const host = { removeEventListener(name: string) { removedListeners.push(name); }, classList: { toggle(name: string, active: boolean) { classWrites++; active ? classes.add(name) : classes.delete(name); }, remove(name: string) { classes.delete(name); } } };
   const ui: any = Object.assign(Object.create(DeliveryUI.prototype), { host, root: { hidden: false, dataset: {}, remove() {} }, elements,
@@ -173,6 +173,14 @@ function noticeFixture() {
   const model: any = { level: 1, total: 7, stage: 'SETPIECE', restaurantStage: 0, restaurantLabel: 'Dream', collection: [], call: { state: 'enabled' } };
   return { ui, model, elements, classes, removedListeners, writes: () => classWrites };
 }
+
+test('character viewing uses an unobscured nonblocking scene with Next only after completion',()=>{
+  const f=noticeFixture();f.model.call.state='hidden';f.model.story={viewing:false};f.ui.update(f.model);
+  assert.equal(f.elements['story-next'].hidden,true);assert.equal(f.ui.blocking,false);
+  f.model.story.viewing=true;f.ui.update(f.model);assert.equal(f.elements['story-next'].hidden,false);assert.equal(f.ui.blocking,false);
+  f.ui.collectionShown=true;f.ui.update(f.model);assert.equal(f.elements['story-next'].hidden,true);
+  f.ui.collectionShown=false;f.model.story=null;f.ui.update(f.model);assert.equal(f.elements['story-next'].hidden,true);
+});
 
 test('delivery notice owns host priority only while visible and clears for calls, collection, hide and disposal', () => {
   const savedDocument = Object.getOwnPropertyDescriptor(globalThis, 'document');

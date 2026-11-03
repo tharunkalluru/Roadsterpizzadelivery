@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-11-02T22:18:39.101246+00:00",
+  "reviewScope": "Round3 final Odela v7 / Salaar v8 only, exact immutable artifacts from handoff-v3",
+  "overallVerdict": "Odela isolated PASS pending actual story acceptance; Salaar isolated FAIL, remains withheld",
+  "previousReviewsPreserved": [
+    "docs/qa/main-expansion-missing-avatars-review.md",
+    "docs/qa/main-expansion-missing-avatars-review-v2.md"
+  ],
+  "primaryPhotographs": [
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/slv-odela-official-interview-0067s.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=B1mtJLeagSQ&t=67s",
+      "sha256": "561d946536624f68162f147740113e4fed6a08240b23bb413d0cc4be7de45212",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 67,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": false,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/slv-odela-official-interview-0967s.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=B1mtJLeagSQ&t=967s",
+      "sha256": "6604e8b0f13ca5315349a90131e3db1486e68018ba61f786bc014f0063d870fe",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 967,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": false,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/slv-odela-official-interview-1057s.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=B1mtJLeagSQ&t=1057s",
+      "sha256": "e87e94cc719d611abbeb6215c178b1777fa88a7c6516e0d86e718e7511e67772",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 1057,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": false,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/slv-odela-official-interview-1372s.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=B1mtJLeagSQ&t=1372s",
+      "sha256": "d560e7df2d8d81069b9d9fc8f63169ffab23b26105faefad51f348d75b297cc7",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 1372,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": true,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/slv-odela-official-interview-1777s.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=B1mtJLeagSQ&t=1777s",
+      "sha256": "78b5324876ad51a464126c52398f7c9eae9c00b7adc3e6265dc8c96ab31cb293",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 1777,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": false,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/slv-odela-official-interview-2002s.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=B1mtJLeagSQ&t=2002s",
+      "sha256": "e8a04a82a12823353dbd7616d763cb54d917d5ceb084eaaea1f38589c3c21ed3",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 2002,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": true,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/slv-odela-official-interview-2317s.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=B1mtJLeagSQ&t=2317s",
+      "sha256": "315448d4a402771cb57f08c339e17bcae5ddfea15c72749f984c1a2ad6a524b4",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 2317,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": false,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/shreyas-official-odela-speech-022s-decoded.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=jn6K-K7668U&t=22s",
+      "sha256": "f06d975c3279721046a89e93c8a2e47229dcbbf66cacf67bb608d4ad4f16f858",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 22,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": true,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/shreyas-official-odela-speech-023s-decoded.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=jn6K-K7668U&t=23s",
+      "sha256": "63dc40b0e59aed2c0a1ba2f93b6f8b1202f3f7d903f109383d31027f52e144e9",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 23,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": true,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/official-video-v2/shreyas-official-odela-speech-024s-decoded.png",
+      "sourceUrl": "https://www.youtube.com/watch?v=jn6K-K7668U&t=24s",
+      "sha256": "69b79e503da75d48915a1e3f769618e060b4f1331e6afdede9d9ea083eea9f70",
+      "hashMatchesManifest": true,
+      "actuallyViewed": true,
+      "generated": false,
+      "timestampSeconds": 24,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": false,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/salaar-official-hombale-poster.png",
+      "sourceUrl": "https://www.hombalefilms.com/movies/salaar-part-1-ceasefire",
+      "sha256": "9f01427d3d23b2d676354926e02c0be7f953e18aa2f9fbc3c1456f70b9cfa1b5",
+      "actuallyViewed": true,
+      "generated": false,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": true,
+      "previouslyActuallyViewedInRound2": true
+    },
+    {
+      "path": "docs/delivery/character-review/production/missing-avatars-20261102/references/salaar-official-hombale-trailer-thumbnail.jpg",
+      "sourceUrl": "https://www.youtube.com/watch?v=4GPvYMKtrtI",
+      "sha256": "fe42adb2b3b57463b4c7bb0bf4f9043d7cb4ab01d1d278d71826ef2657647108",
+      "actuallyViewed": true,
+      "generated": false,
+      "matchesPriorVerifiedPhotograph": true,
+      "reopenedThisRound": true,
+      "previouslyActuallyViewedInRound2": true
+    }
+  ],
+  "entries": [
+    {
+      "characterId": "srikanth-odela",
+      "isolatedVisualVerdict": "PASS",
+      "status": "isolated_pass_pending_actual_story_scene",
+      "reviewScope": "Offline exact final artifact visual/likeness; no actual production story approval",
+      "independentReviewRound": 3,
+      "producerArtifactRevision": 7,
+      "reviewer": "/root/missing_avatars_independent_review",
+      "independentOfProducer": true,
+      "modelSha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b",
+      "modelHashMatchesHandoff": true,
+      "canonicalContractSha256": "87136dfe45f86a4d11c901ca16239864303a079f26fc51314038794cff6c3bda",
+      "canonicalContractHashMatchesHandoff": true,
+      "candidateIdentity": {
+        "assetId": "srikanth-odela-visible-scene-v3",
+        "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+      },
+      "views": [
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-round3-v7-final-exact-glb-views/back.png",
+          "sha256": "b4b7b329a17e46ae27baf392e2a4074ec580a04ff6c0ddbdf73a1dbdee3b0208",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-round3-v7-final-exact-glb-views/front.png",
+          "sha256": "fbb3ef73c1b918dbf2a2b9ed577cf3010ded1177bcf73bd437aaff44df4b4aa2",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-round3-v7-final-exact-glb-views/full-body.png",
+          "sha256": "3fe5503e9741bd2b5e92920ba2687f5915de07cb0516cda2b4bf88967f222e77",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-round3-v7-final-exact-glb-views/profile.png",
+          "sha256": "6005fa7ff0a0645294aaebbd0e65f996002b62893d3382d59078c71dcd0b6af2",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-round3-v7-final-exact-glb-views/three-quarter.png",
+          "sha256": "3e722c342a27795c3faf4a675060830a29f3de68f5eedb154b8d8ba37c372cc7",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-round3-v7-final-exact-glb-handoff/front.png",
+          "sha256": "fdf4924145b4eab5a5e28b7377d05d5d99255bdb521a4aebb421a79df780a827",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-round3-v7-final-exact-glb-handoff/full-body.png",
+          "sha256": "52ea60b806d15e3b2da6fd5f27f7293cc35e947aa0a2e04a3eff7f65fd787722",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/srikanth-odela-round3-v7-final-opposite-profile/opposite-profile.png",
+          "sha256": "fef6d0836749a8a374732514d750e7ea094ae50473b671cbb6391ec035eca98d",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        }
+      ],
+      "observations": [
+        "The previous separate cylindrical neck, jaw shelf and attached hand cuff defects remain repaired.",
+        "The large branching upper-back gouges and angular garment artifacts are no longer visible in the supplied views.",
+        "The former repeated black rear-scalp slots are no longer visible in either supplied profile/back.",
+        "TakePizza stills show connected shoulders/arms, both palms beneath the review carton and no exposed inner-torso skin patch.",
+        "Darkened iris/pupil treatment removes the prior pale-eye mismatch.",
+        "Navy collared shirt/jeans, short dark hair, light beard, facial proportions and profile now form an acceptable recognizable authored Odela interpretation against the actual official photographs.",
+        "Sleeve boundaries retain small cloth/skin edge irregularities at this render scale, but the prior large sawtooth segmentation and floating band are no longer material blockers."
+      ],
+      "blockingFindings": [],
+      "numericalPalmVerification": {
+        "verdict": "PASS numerical contact only",
+        "reviewerRerun": true,
+        "mode": "walk",
+        "speedMetresPerSecond": 0.7,
+        "samples": 5,
+        "report": "docs/qa/srikanth-odela-round3-reviewer-walk-contact.json",
+        "maximumAnchorPalmErrorMetres": 4.5158513308092324e-05,
+        "maximumAbsoluteUndersideGapMetres": 0.006492820570253466,
+        "allPalmsInsideCartonFootprint": true,
+        "allCatchCallsPreserveMotionClock": true,
+        "sourceAndOutputMatchReviewedModel": true
+      },
+      "actualStorySceneVerified": false,
+      "productionRendererVerified": false,
+      "mobileCameraVerified": false,
+      "continuousVisualAnimationVerified": false,
+      "releaseApprovalGranted": false
+    },
+    {
+      "characterId": "prabhas-salaar",
+      "isolatedVisualVerdict": "FAIL",
+      "status": "rejected",
+      "reviewScope": "Offline exact final artifact visual/likeness; no actual production story approval",
+      "independentReviewRound": 3,
+      "producerArtifactRevision": 8,
+      "reviewer": "/root/missing_avatars_independent_review",
+      "independentOfProducer": true,
+      "modelSha256": "a8708feff32d78cabc6863e122dd5270a0bcbadd7bb6b5e7efd0c37a534bdce8",
+      "modelHashMatchesHandoff": true,
+      "canonicalContractSha256": "2c2e233067b8ad4383076a2c8ea985d4622ae61bd5738053f5080c159087813b",
+      "canonicalContractHashMatchesHandoff": true,
+      "candidateIdentity": {
+        "assetId": "prabhas-salaar-visible-scene-v3",
+        "sha256": "826ffbfa522309addd5d54462a05c7bbb26d1db5a0a58a9d1348cda863431966"
+      },
+      "views": [
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round3-final-exact-glb-views/back.png",
+          "sha256": "330c3665e26492e465970368e00a6c57608f070e922becc0e483a01ab16cb2f2",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round3-final-exact-glb-views/front.png",
+          "sha256": "bca1644f21af8ec527f4b769ec1c438729e90673851797241ff66f3856bc4fc2",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round3-final-exact-glb-views/full-body.png",
+          "sha256": "ef64048cb01c99186a28fcf6f95336488713d661fb95286a44a8e81100557729",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round3-final-exact-glb-views/profile.png",
+          "sha256": "9335ba3504e85b869955314a26dbfd0f707989b69084e9f5c3aaf03d15d21389",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round3-final-exact-glb-views/three-quarter.png",
+          "sha256": "0469f091fca3ed72f8e908d5b0510d855c9960881a1b01f2aaf49b5beda2682f",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round3-final-exact-glb-handoff/front.png",
+          "sha256": "9614baef0911fd4b261c61e81045f73ad1e04264cd3c709e11bb6771a560e7a0",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round3-final-exact-glb-handoff/full-body.png",
+          "sha256": "a7090bb1cae0eebfd4adad4261bfdb02c34b35bd5da749422ce88d8f60437cea",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        },
+        {
+          "path": "docs/delivery/character-review/production/missing-avatars-20261102/prabhas-salaar-round3-final-opposite-profile/opposite-profile.png",
+          "sha256": "f65b621389f413cf65ec7c99d49d9aacc33720d542464f9d9ee197b05736121e",
+          "hashMatchesHandoff": true,
+          "actuallyViewedByIndependentReviewer": true
+        }
+      ],
+      "observations": [
+        "The previous separate cylindrical neck, jaw shelf and attached hand cuff defects remain repaired.",
+        "The large branching upper-back gouges and angular garment artifacts are no longer visible in the supplied views.",
+        "The former repeated black rear-scalp slots are no longer visible in either supplied profile/back.",
+        "TakePizza stills show connected shoulders/arms, both palms beneath the review carton and no exposed inner-torso skin patch.",
+        "Face, beard and swept frontal/top hair remain recognizable as the intended Salaar character.",
+        "The rear repair has introduced a smooth hood-like nape mass that blends into the shirt/upper shoulders without a readable lower hairline or collar separation in either profile and the back."
+      ],
+      "blockingFindings": [
+        {
+          "id": "SALAAR3-NAPE",
+          "severity": "blocking",
+          "views": [
+            "profile",
+            "opposite-profile",
+            "back"
+          ],
+          "finding": "The posterior hair now reads as a smooth hood/cape merged into the charcoal shirt across the nape and shoulders. The dark material and uninterrupted sloped silhouette obscure a natural lower hairline and shirt collar. Removing the old slots did not yet produce coherent natural hair.",
+          "correction": "Preserve the repaired skin/neck and frontal face. Re-author the posterior hair envelope to end at a readable nape/hairline, with discrete layered hair texture/relief and a clear collar/material boundary. Remove any hair-colored shoulder/cape extension; do not hide the rear with a camera restriction. Re-render both profiles, back, front/three-quarter and TakePizza after exporting new immutable bytes."
+        }
+      ],
+      "numericalPalmVerification": {
+        "verdict": "PASS numerical contact only",
+        "reviewerRerun": true,
+        "mode": "walk",
+        "speedMetresPerSecond": 0.7,
+        "samples": 5,
+        "report": "docs/qa/prabhas-salaar-round3-reviewer-walk-contact.json",
+        "maximumAnchorPalmErrorMetres": 5.4251592160117266e-05,
+        "maximumAbsoluteUndersideGapMetres": 0.0004598616303670422,
+        "allPalmsInsideCartonFootprint": true,
+        "allCatchCallsPreserveMotionClock": true,
+        "sourceAndOutputMatchReviewedModel": true
+      },
+      "actualStorySceneVerified": false,
+      "productionRendererVerified": false,
+      "mobileCameraVerified": false,
+      "continuousVisualAnimationVerified": false,
+      "releaseApprovalGranted": false
+    }
+  ],
+  "limits": [
+    "No full production approval was granted or registry edited.",
+    "Six actual official photographs were reopened this round; all twelve were previously viewed in round2 and hashes remain unchanged.",
+    "All sixteen supplied final model stills were independently opened this round.",
+    "The independent CPU walk-contact reruns are numerical skin/marker checks, not visual continuous animation or runtime FPS evidence.",
+    "Root must capture actual Three.js day/night/mobile story placement, rigid production carton, continuous handoff and result hold; the independent reviewer must accept that exact runtime evidence before release."
+  ],
+  "filePolicy": "Only new review and contact JSON/Markdown artifacts written. Earlier failures, existing approvals, public files and game source untouched."
+}

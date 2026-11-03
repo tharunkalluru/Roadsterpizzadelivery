@@ -37,8 +37,26 @@ function subtract(poly: XZ[], cut: XZ[]) {
 }
 function triangles(ring: XZ[]) { return ShapeUtils.triangulateShape(ring.map(p => new Vector2(...p)), []).map(t => t.map(i => ring[i])); }
 
+// This packed transportation footprint is the Paradise metro station itself,
+// already replaced by the station assembly. Cropping its solid extrusion to
+// the platform width left a 15.9m-high perimeter wall across every entrance.
+// Keep the source feature, but omit only this exact reviewed duplicate model.
+// ID, class, height, geometry and an actual matching station are all required;
+// a changed source feature falls back to ordinary transport clearance.
+const PARADISE_SOURCE_STATION = {
+  id: '18f6a0df-e72', stationId: 'st_paradise', height: 15.9,
+  ring: [[-1169.4,-4129.5],[-1169.6,-4115.7],[-1095.6,-4112.6],[-1038.3,-4112.8],[-1038.5,-4113.2],[-1031.1,-4115.2],[-1030.8,-4127]] as XZ[],
+};
+function isReviewedParadiseShell(building: Building) {
+  const source = PARADISE_SOURCE_STATION;
+  return building.id === source.id && building.cls === 'transportation' && Math.abs(building.h - source.height) < .025 &&
+    building.ring.length === source.ring.length && source.ring.every(expected =>
+      building.ring.some(point => Math.hypot(point[0] - expected[0], point[1] - expected[1]) < .025));
+}
+
 export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: Metro, extent?: number[], patches: readonly TransportPatch[] = [], rails: readonly RailProfile[] = []) {
   const grid = new Map<string, Cut[]>(), cuts: Cut[] = [];
+  let paradiseAssembly: string | null = null;
   const add = (id: string, ring: XZ[], floor: number, top: number) => {
     const original = ring;
     ring = ccw(ring);
@@ -91,6 +109,8 @@ export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: M
     }
     for (const assembly of metroPlatformAssemblies(metro.stations, corridors, dh)) {
       const f = assembly.frame, height = assembly.deckHeight;
+      if (assembly.stationId === PARADISE_SOURCE_STATION.stationId && assembly.lineId === 'blue' &&
+        Math.hypot(f.cx + 1100.3, f.cz + 4113.2) < 2 && Math.abs(f.hx) > .995) paradiseAssembly = assembly.key;
       span(`station:${assembly.key}`, [f.cx - f.hx * 69, f.cz - f.hz * 69], [f.cx + f.hx * 69, f.cz + f.hz * 69], 13.4, 13.4, height - 4.2, height + 12.5);
     }
   }
@@ -103,6 +123,10 @@ export function buildingTransportClearance(roads: readonly RoadEdge[], metro?: M
   };
   const correct = (building: Building): { pieces: Building[]; correction: BuildingCorrection } | null => {
     if (building.ring.length < 3 || !(building.h > 0)) return null;
+    if (paradiseAssembly && isReviewedParadiseShell(building)) return { pieces: [], correction: {
+      sourceId: building.id, corridors: [`station:${paradiseAssembly}`], sourceArea: footprintArea(building.ring), retainedArea: 0, fragments: 0,
+      fallback: 'reviewed duplicate mapped metro station model replaced by station assembly',
+    } };
     const candidates = nearby(building.ring, 0, building.h + .9); if (!candidates.length) return null;
     const sourceArea = footprintArea(building.ring), original = triangles(building.ring);
     const intersecting = candidates.filter(c => original.some(t => footprintArea(intersection(t, c.ring)) > 1e-5));

@@ -1,13 +1,18 @@
 import * as THREE from 'three';
 import { ModuleBase, distanceXZ } from './base';
 import type { SceneCharacter } from './character';
-import type { MovingRailBody } from '../../game/moving-rail';
+import { railRoofAt, type MovingRailBody } from '../../game/moving-rail';
+import type { DeliveryPlayer, DeliveryPoint, ModuleStoryFrame } from './types';
 import type { MetroStationDwell } from '../../game/metro';
 import { METRO_PLATFORM_OFFSET, METRO_TRACK_OFFSET, METRO_DOOR_SIDE_OFFSET } from '../../world/metro-geometry';
 import { supportedMetroHandoffParking,METRO_DELIVERY_WALK_DISTANCE } from '../metro-platform';
 import { nearestActualMetroPlatformLamp } from '../../world/metro-platform-lamps';
+import { segmentHitsVehicle } from '../../game/spatial-safety';
+import { stepStoryPose } from '../systems/story-director';
 
 const trainId = (id:string) => id.slice(0,id.lastIndexOf(':'));
+type Door={x:number;y:number;z:number;hx:number;hz:number};
+interface PlatformExit {door:Door;outward:{x:number;z:number};parking:DeliveryPoint&{hx:number;hz:number};shot:{along:number;outward:number}}
 /** Uses the city's existing train and real station door frames. No replacement
  * metro, fake station, or direct-flight shortcut can satisfy the ride gate. */
 export class MetroRide extends ModuleBase {
@@ -21,6 +26,31 @@ export class MetroRide extends ModuleBase {
   private platformFocus={position:this.focusPosition,target:this.focusTarget,context:'stationary-handoff' as const};
   private group=new THREE.Group(); private actors:SceneCharacter[]=[];
   private door={x:0,y:0,z:0,hx:0,hz:1}; private outward={x:1,z:0};
+  private focusAlong=3.3;private focusOutward=1.4;
+  private exitPreparation:{stop:MetroStationDwell;body:MovingRailBody;origin:DeliveryPlayer;steps:Generator<undefined,PlatformExit|null|undefined>}|undefined;
+  get storyArrivalReady(){
+    if(!this.ready||!this.ctx.automaticStories)return false;
+    const eligible=this.ctx.existingTrain?.(),id=this.boarded||(eligible?trainId(eligible.id):'');
+    return !!id&&!!this.ctx.metroService?.().bodies.some(b=>trainId(b.id)===id&&this.aboard(b));
+  }
+  override get story():ModuleStoryFrame|undefined{
+    if(!this.ready||!this.ctx.automaticStories)return undefined;
+    const service=this.ctx.metroService?.(),body=service?.bodies.find(b=>b.id===this.referenceCoach);
+    // Only update() can establish riding, after aboard() verifies a genuine
+    // grounded landing on the marked real rake. Proximity never boards it.
+    if(this.phase==='boarding')return undefined;
+    if(this.phase==='riding')return body?{entry:true,point:{x:body.x,y:body.roof+.55,z:body.z},
+      yaw:Math.atan2(-body.hx,-body.hz),maxSpeed:4,verticalSpeed:3}:undefined;
+    return this.platformStory(this.target,this.ctx.player(),this.door,this.outward,body);
+  }
+  private platformStory(target:DeliveryPoint,p:Pick<DeliveryPlayer,'x'|'y'|'z'|'yaw'>,door:typeof this.door,outward:typeof this.outward,body?:MovingRailBody):ModuleStoryFrame{
+    const point={...target,y:target.y+.55};
+    // Leave the real roof laterally before lowering to the platform. A
+    // diagonal roof-to-platform chord would pass through the coach side.
+    const across=(p.x-point.x)*outward.x+(p.z-point.z)*outward.z;
+    if(p.y>point.y+.8&&Math.abs(across)>.35)point.y=Math.max(p.y,body?.roof!==undefined?body.roof+.55:p.y);
+    return {entry:true,point,yaw:Math.atan2(-door.hx,-door.hz),maxSpeed:4,verticalSpeed:2.5};
+  }
   private parkedNearGroup(){return this.charactersReady&&this.group.visible&&this.actors.every(actor=>actor.group.userData.characterRelease!=='withheld')&&this.intentionalStop&&Math.abs(this.ctx.player().speed)<=.75;}
   private watchingExit(){
     if(!this.ready||this.phase!=='exiting'||!this.charactersReady||!this.group.visible||this.actors.some(actor=>actor.group.userData.characterRelease==='withheld'))return false;
@@ -39,11 +69,12 @@ export class MetroRide extends ModuleBase {
     const x=this.door.x+this.outward.x*METRO_DELIVERY_WALK_DISTANCE,z=this.door.z+this.outward.z*METRO_DELIVERY_WALK_DISTANCE;
     // Reserve the host camera's .35m collision radius even where an offset
     // platform bends closer to its guard; never rely on the near plane alone.
-    this.focusPosition.set(x+this.outward.x*1.4-this.door.hx*.15,this.door.y+2.25,z+this.outward.z*1.4-this.door.hz*.15);
-    if(exiting){
-      let ax=0,az=0;for(const actor of this.actors){ax+=actor.group.position.x;az+=actor.group.position.z;}
-      this.focusTarget.set(this.ctx.destination.x+ax/4,this.door.y+1.05,this.ctx.destination.z+az/4);
-    }else this.focusTarget.set(x,this.door.y+1.05,z);
+    // Use the platform's length for a wider four-person shot. Moving outward
+    // instead would put the camera through the guard; the previous 1.4m shot
+    // also cropped the lawyer and looked steeply down at the group.
+    this.focusPosition.set(x+this.outward.x*this.focusOutward+this.door.hx*this.focusAlong,this.door.y+1.65,z+this.outward.z*this.focusOutward+this.door.hz*this.focusAlong);
+    let ax=0,az=0;for(const actor of this.actors){ax+=actor.group.position.x;az+=actor.group.position.z;}
+    this.focusTarget.set(this.ctx.destination.x+ax/4,this.door.y+1.05,this.ctx.destination.z+az/4);
     return this.platformFocus;
   }
   get sceneryPending(){return this.ready&&this.ended&&distanceXZ(this.ctx.player(),this.target)<850;}
@@ -54,6 +85,8 @@ export class MetroRide extends ModuleBase {
   protected build(){
     this.phase='boarding';this.boarded='';this.startStation='';this.departed=false;this.referenceCoach='';this.unavailableStation='';
     this.last=null;this.travelled=0;this.exitTime=0;this.catchReturn=0;this.platformLamp=undefined;
+    this.focusAlong=3.3;this.focusOutward=1.4;
+    this.exitPreparation=undefined;
     this.group=new THREE.Group();this.group.name='vakeel-platform-group';this.root.add(this.group);
     this.actors=['vakeelSaab','vakeelWoman1','vakeelWoman2','vakeelWoman3'].map((style,i)=>this.character(style,i*.7,0,0,false,this.group));
     this.group.visible=false;this.ring.visible=false;
@@ -61,9 +94,12 @@ export class MetroRide extends ModuleBase {
     this.movement={mode:'normal'};
   }
   private aboard(body:MovingRailBody){
-    const p=this.ctx.player(),dx=p.x-body.x,dz=p.z-body.z;
-    return !p.flying&&!p.descending&&!p.jumping&&Math.abs(p.y-body.roof-.55)<.8&&
-      Math.abs(dx*body.hx+dz*body.hz)<=body.halfLength+.5&&Math.abs(dx*body.hz-dz*body.hx)<=body.halfWidth+.4;
+    const p=this.ctx.player();
+    if(p.flying||p.descending||p.jumping)return false;
+    if(p.railSupportId!==undefined&&p.railSupportId!==body.id)return false;
+    if(p.verticalSpeed!==undefined&&Math.abs(p.verticalSpeed)>.1)return false;
+    const roof=railRoofAt(body,p.x,p.z);
+    return roof!==null&&Math.abs(p.y-roof-.55)<=.2;
   }
   update(dt:number){
     if(this.ready&&this.ended){
@@ -77,6 +113,9 @@ export class MetroRide extends ModuleBase {
       return;
     }
     if(!this.tick(dt))return;
+    // Continue only this cached, cold station plan. Keep the real roof story
+    // active until it is complete; no partial bay or passenger scene is used.
+    if(this.exitPreparation){this.advanceExitPreparation();return;}
     const service=this.ctx.metroService?.(),p=this.ctx.player();
     // The next real station can be kilometres from the initial boarding point.
     // Visibility follows the live ride/handoff target, not the setup location.
@@ -132,8 +171,56 @@ export class MetroRide extends ModuleBase {
       this.status.actionLabel='HAND OVER';this.advanceHandoff(dt);
     }
   }
-  private beginExit(stop:MetroStationDwell,body:MovingRailBody){
-    if(!stop.doors.length)return;
+  private *clearPlatformApproach(door:typeof this.door,outward:typeof this.outward,parking:DeliveryPoint,body:MovingRailBody):Generator<undefined,boolean|undefined>{
+    const clear=this.ctx.storyPoseClear;if(!clear)return true;
+    const final={...parking,y:parking.y+.55,yaw:Math.atan2(-door.hx,-door.hz)},endClear=clear(final);
+    yield;
+    if(endClear!==true)return endClear;
+    let pose={...this.ctx.player()};
+    // At most18s of the actual bounded StoryDirector motion, checked once for
+    // each real candidate. This also covers the turn and lateral roof exit,
+    // which a final supported rectangle alone cannot make obstruction-free.
+    for(let frame=0;frame<=360;frame++){
+      const poseClear=clear(pose);yield;if(poseClear!==true)return poseClear;
+      if(Math.hypot(pose.x-final.x,pose.y-final.y,pose.z-final.z)<.01&&Math.abs(Math.atan2(Math.sin(pose.yaw-final.yaw),Math.cos(pose.yaw-final.yaw)))<.01)return true;
+      const next=stepStoryPose(pose,this.platformStory(parking,pose,door,outward,body),.05);
+      if(!next)return false;pose={...pose,...next};
+    }
+    return false;
+  }
+  private *clearPlatformShot(door:typeof this.door,outward:typeof this.outward,parking:DeliveryPoint):Generator<undefined,{along:number;outward:number}|null|undefined>{
+    if(!this.ctx.cameraPathClear)return{along:3.3,outward:1.4};
+    const car={...parking,hx:door.hx,hz:door.hz,size:[2.3,1.75,4.8]};
+    // The old positive-along shot intersected Ameerpet's upper interchange
+    // pier. Keep a bounded eye-level strip inside the existing platform and
+    // check the whole passenger row at both ends of its real door exit.
+    for(const across of [1.4,1.1,1.8])for(const along of [3.3,-3.3,4.3,-4.3]){
+      const eye={x:door.x+outward.x*(METRO_DELIVERY_WALK_DISTANCE+across)+door.hx*along,
+        y:door.y+1.65,z:door.z+outward.z*(METRO_DELIVERY_WALK_DISTANCE+across)+door.hz*along};
+      let clear=true;
+      for(const walk of [.1,METRO_DELIVERY_WALK_DISTANCE]){
+        const center={x:door.x+outward.x*walk,y:door.y+1.05,z:door.z+outward.z*walk};
+        const centerClear=this.ctx.cameraPathClear(center,eye);
+        yield;
+        if(centerClear===undefined)return undefined;
+        if(!centerClear){clear=false;break;}
+        // The real low track guard can hide legs while passengers are still
+        // inside the doorway. Require their faces then, and the full standing
+        // row once they have actually stepped onto the handoff platform.
+        for(const lateral of [-.975,-.325,.325,.975])for(const height of walk<1?[1.8]:[.8,1.8]){
+          const actor={x:center.x+door.hx*lateral,y:door.y+height,z:center.z+door.hz*lateral};
+          const actorClear=this.ctx.cameraPathClear(actor,eye);
+          yield;
+          if(actorClear===undefined)return undefined;
+          if(!actorClear||segmentHitsVehicle(eye,actor,car,.1)){clear=false;break;}
+        }
+        if(!clear)break;
+      }
+      if(clear)return{along,outward:across};
+    }
+    return null;
+  }
+  private *preparePlatformExit(stop:MetroStationDwell,body:MovingRailBody):Generator<undefined,PlatformExit|null|undefined>{
     for(const door of [...stop.doors].sort((a,b)=>distanceXZ(a,body)-distanceXZ(b,body))){
       const dx=door.x-body.x,dz=door.z-body.z;
       const side=Math.sign(-dx*door.hz+dz*door.hx)||stop.platformSide;
@@ -142,11 +229,48 @@ export class MetroRide extends ModuleBase {
         x:door.x+outward.x*(METRO_PLATFORM_OFFSET-METRO_TRACK_OFFSET-METRO_DOOR_SIDE_OFFSET)-door.hx*4.8,
         y:door.y,z:door.z+outward.z*(METRO_PLATFORM_OFFSET-METRO_TRACK_OFFSET-METRO_DOOR_SIDE_OFFSET)-door.hz*4.8,hx:door.hx,hz:door.hz,
       };
+      yield;
       // Try the next existing door when a bench or curved pad seam prevents a
       // full car fit here. Never manufacture a platform or an airborne bay.
       if(!parking)continue;
+      const approach=yield* this.clearPlatformApproach(door,outward,parking,body);
+      if(approach===undefined)return;
+      if(!approach)continue;
+      const shot=yield* this.clearPlatformShot(door,outward,parking);
+      // A pending tile is not immutable bad geometry: retry this same actual
+      // dwell after streaming, instead of blacklisting the whole station.
+      if(shot===undefined)return;
+      if(!shot)continue;
+      return{door,outward,parking,shot};
+    }
+    return null;
+  }
+  private beginExit(stop:MetroStationDwell,body:MovingRailBody){
+    if(!stop.doors.length)return;
+    this.exitPreparation={stop,body:{...body,previous:{...body.previous}},origin:{...this.ctx.player()},steps:this.preparePlatformExit(stop,body)};
+    this.advanceExitPreparation();
+  }
+  private advanceExitPreparation(){
+    const prep=this.exitPreparation;if(!prep)return;
+    const p=this.ctx.player(),service=this.ctx.metroService?.(),currentBody=service?.bodies.find(b=>b.id===prep.body.id);
+    if(Math.hypot(p.x-prep.origin.x,p.y-prep.origin.y,p.z-prep.origin.z)>.15||
+      Math.abs(Math.atan2(Math.sin(p.yaw-prep.origin.yaw),Math.cos(p.yaw-prep.origin.yaw)))>.08||
+      service&&(!service.dwells.some(stop=>stop.trainId===prep.stop.trainId&&stop.stationId===prep.stop.stationId)||!currentBody||Math.hypot(currentBody.x-prep.body.x,currentBody.y-prep.body.y,currentBody.z-prep.body.z)>.05)){
+      this.exitPreparation=undefined;return;
+    }
+    const deadline=performance.now()+1.5;
+    // Each yielded operation is one real parking/volume/camera check. This
+    // bounds active-frame work without resetting or repeating prior searches.
+    for(let checks=0;checks<4;checks++){
+      const step=prep.steps.next();
+      if(!step.done){if(performance.now()>=deadline)return;continue;}
+      this.exitPreparation=undefined;
+      if(step.value===null)this.unavailableStation=prep.stop.stationId;
+      if(!step.value)return;
+      const {door,outward,parking,shot}=step.value;
+      this.focusAlong=shot.along;this.focusOutward=shot.outward;
       this.outward=outward;this.door={...door};
-      const fixture=stop.platform?nearestActualMetroPlatformLamp(stop.platform,door,outward,{x:door.x+outward.x*METRO_DELIVERY_WALK_DISTANCE,z:door.z+outward.z*METRO_DELIVERY_WALK_DISTANCE}):null;
+      const fixture=prep.stop.platform?nearestActualMetroPlatformLamp(prep.stop.platform,door,outward,{x:door.x+outward.x*METRO_DELIVERY_WALK_DISTANCE,z:door.z+outward.z*METRO_DELIVERY_WALK_DISTANCE}):null;
       this.platformLamp=fixture?{position:fixture.position,kind:'metro-platform'}:undefined;
       this.phase='exiting';this.exitTime=0;this.group.visible=true;
       this.actors.forEach((actor,i)=>{const along=(i-1.5)*.65;actor.group.position.set(door.x-this.ctx.destination.x+outward.x*.1+door.hx*along,door.y-this.ctx.destination.y,door.z-this.ctx.destination.z+outward.z*.1+door.hz*along);actor.group.rotation.y=Math.atan2(outward.x,outward.z);});
@@ -156,9 +280,6 @@ export class MetroRide extends ModuleBase {
       this.ring.scale.set(.43,.9,1);this.ring.rotation.set(-Math.PI/2,Math.atan2(parking.hx,parking.hz),0,'YXZ');
       this.status.canDrop=false;return;
     }
-    // The immutable geometry cannot become a better fit during this dwell.
-    // Retry at the next actual station, not with nine polygon tests per frame.
-    this.unavailableStation=stop.stationId;
   }
   onDrop(){
     if(!this.unlocked()||this.ended||this.handoffPending)return;
@@ -170,6 +291,7 @@ export class MetroRide extends ModuleBase {
     super.done();
   }
   teardown(){
+    this.exitPreparation=undefined;
     this.actors=[];this.boarded='';this.referenceCoach='';this.last=null;this.travelled=0;this.catchReturn=0;this.unavailableStation='';this.platformLamp=undefined;
     super.teardown();
   }

@@ -62,7 +62,9 @@ test('every real corridor assembly keeps exactly two primary exterior faces and 
         almost(s.w, 15.4); almost(s.h, 1.95); assert.ok(s.c[1] + s.h / 2 < a.deckHeight - 1.2);
       } else {
         assert.ok(n.x * -dx + n.z * -dz > 6, 'each platform must face the train window');
-        almost(s.w, 4.2); almost(s.h, 1.15); almost(Math.abs(-dx * hz + dz * hx), 7.15);
+        //6m side platform: inner edge3.9m, outer9.9m; inward sign face
+        // stays.25m inside the outer railing rather than in the walkway.
+        almost(s.w, 4.2); almost(s.h, 1.15); almost(Math.abs(-dx * hz + dz * hx), 9.65);
       }
     }
     assert.equal(boxes.filter(b => b[3] === 16 && b[4] === 2.25 && b[5] === .16).length, outside.length);

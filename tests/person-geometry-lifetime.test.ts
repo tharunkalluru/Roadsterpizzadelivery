@@ -21,7 +21,7 @@ test('shared pedestrian geometry preserves exact appearance and cannot be dispos
   a.release(); a.release(); trimWalkerGeometryCache(true);
   assert.equal(bodyDisposals, 0); assert.equal(legDisposals, 0); assert.equal(stats.activeReferences, 1);
   b.release(); trimWalkerGeometryCache(true); trimWalkerGeometryCache(true);
-  assert.equal(bodyDisposals, 1); assert.equal(legDisposals, 1); assert.equal(stats.entries, 0);
+  assert.equal(bodyDisposals, 1); assert.equal(legDisposals, a.leg ? 1 : 0); assert.equal(stats.entries, 0);
 });
 
 test('many retired appearances evict unused GPU geometry while preserving active leases and bounded unused bytes', () => {

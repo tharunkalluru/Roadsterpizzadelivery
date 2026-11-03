@@ -141,12 +141,12 @@ test('a matched train-roof handoff is readable, then its exact customer keeps ri
  let present=true,targets=0;const requested:string[]=[];f.ctx.existingTrain=id=>{if(id)requested.push(id);return present?body:null;};f.ctx.onTarget=()=>targets++;
  Object.assign(f.p,{x:.3,y:4.75,z:-5,speed:0,flying:false});advance(f.module,1.2);assert.equal(f.module.status.canDrop,true);
  assert.equal(f.module.headlightGain,.02);assert.equal(f.module.cameraFocus!.context,'stationary-handoff');
- const lamp=f.module.sceneLamp!;assert.equal(lamp.kind,'reading');assert.ok(f.scene.getObjectByName('delivery-coach-worklights'));assert.equal(f.scene.getObjectsByProperty('isLight',true).length,0);
+ const lamp=f.module.sceneLamp!;assert.equal(lamp.kind,'porch');assert.ok(Math.abs(lamp.position.y-body.roof-2.4)<1e-6);assert.ok(f.scene.getObjectByName('delivery-coach-worklights'));assert.equal(f.scene.getObjectsByProperty('isLight',true).length,0);
  f.p.speed=2;assert.equal(f.module.cameraFocus,undefined);f.p.speed=0;f.p.flying=true;assert.equal(f.module.headlightGain,undefined);assert.equal(f.module.cameraFocus,undefined);f.p.flying=false;
  f.module.onDrop();advance(f.module,.8);assert.ok(f.events.includes('done'));assert.equal(f.module.sceneryPending,true);const before=targets;
  for(let i=0;i<20;i++){body.previous.z=body.z;body.z+=.2;f.p.z+=.2;f.module.update(.05);}
  const actor=f.scene.getObjectByName('delivery-character-trainHero')!,world=new THREE.Vector3();actor.getWorldPosition(world);assert.ok(Math.abs(world.z-body.z)<1e-6,'completed actor follows the same real coach');assert.equal(targets,before,'completed scenery cannot publish the next order target');assert.ok(requested.every(id=>id==='stable-coach'));
- assert.equal(f.module.sceneLamp,lamp);assert.ok(Math.abs(lamp.position.z-body.z+1.47)<1e-6,'selected worklight remains fixed on the moving coach');
+ assert.equal(f.module.sceneLamp,lamp);assert.ok(Math.abs(lamp.position.z-body.z+1.49)<1e-6,'selected worklight remains fixed at the visible lens on the moving coach');
  assert.equal(f.scene.getObjectByName('delivery-target-ring')!.visible,false);present=false;f.module.update(.05);assert.equal(f.module.sceneryPending,false,'missing exact coach cannot leave a floating customer');f.module.teardown();
 });
 test('Eega variant retains its insect geometry and timing while the pizza visibly reaches its receiver',()=>{

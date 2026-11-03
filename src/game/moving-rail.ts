@@ -182,6 +182,8 @@ export interface RailContactResult { hit: boolean; impact: number; body: MovingR
 export class MovingRailInteraction {
   private bodies: readonly MovingRailBody[] = [];
   private attached: string | null = null;
+  /** Actual contact established by the shared collision/support pass. */
+  get supportId() { return this.attached; }
   private previous: Point = { x: 0, y: 0, z: 0 };
   private revision: number | undefined;
   private drift = { x: 0, z: 0 };

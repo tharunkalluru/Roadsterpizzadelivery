@@ -59,8 +59,11 @@ test('production tile geometry and collision walls share an unobstructed railway
 
 test('a long source-owned road keeps rail openings beyond the tile local railway preview extent',()=>{
   initTemplates();const e=road([[100,500],[1900,500]]),n=railway(1450),built=tile(e,true,n);
-  const walls=[...new Set([...built.walls.values()].flat())].filter(w=>w.kind==='median');
-  assert.ok(walls.some(w=>Math.min(w.ax,w.bx)>1500),'the long source-owned divider is actually drawn outside its owner tile');
+  const context=buildTile({i:1,j:0,roads:[{...e,ctx:true} as RoadEdge],nodes:{},buildings:[],boards:[],furniture:[],areas:[],osm:[]},{lowQ:true,railway:n});
+  const ownerWalls=[...new Set([...built.walls.values()].flat())].filter(w=>w.kind==='median');
+  assert.ok(ownerWalls.every(w=>Math.max(w.ax,w.bx)<=1000),'long-road furniture now belongs to its local streaming tile');
+  const walls=[...new Set([...context.walls.values()].flat())].filter(w=>w.kind==='median');
+  assert.ok(walls.some(w=>Math.min(w.ax,w.bx)>1500),'the far local tile retains the real long-road divider without its owner loaded');
   assert.ok(walls.every(w=>Math.max(w.ax,w.bx)<1443.7||Math.min(w.ax,w.bx)>1456.3),'far crossing keeps its opening even when its rails render in another tile');
 });
 

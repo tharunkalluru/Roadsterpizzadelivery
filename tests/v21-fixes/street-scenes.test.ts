@@ -105,10 +105,10 @@ test('Jessie handover needs an alongside moving car and its customer target neve
 
 test('village wedding uses a bounded animated procession and a retryable, speed-limited handover', () => {
   const f = fixture(), module = new WeddingHandoff(); module.setup(f.ctx, {});
-  const crowd = f.scene.getObjectByName('delivery-wedding-crowd') as THREE.InstancedMesh;
-  assert.equal(crowd.count, 16); const before = new THREE.Matrix4(); crowd.getMatrixAt(0, before);
-  advance(module, 1); const after = new THREE.Matrix4(); crowd.getMatrixAt(0, after);
-  assert.notDeepEqual(before.elements, after.elements); assert.equal(crowd.count, 16);
+  const crowd = f.scene.getObjectByName('delivery-wedding-crowd') as THREE.Group,templates=crowd.children as THREE.InstancedMesh[];
+  assert.equal(templates.reduce((n,m)=>n+m.count,0),16);assert.equal(templates.length,4);const before = new THREE.Matrix4(); templates[0].getMatrixAt(0, before);
+  advance(module, 1); const after = new THREE.Matrix4(); templates[0].getMatrixAt(0, after);
+  assert.notDeepEqual(before.elements, after.elements); assert.equal(templates.reduce((n,m)=>n+m.count,0),16);
   Object.assign(f.player, { x: module.target.x + 3, y: module.target.y, z: module.target.z, speed: 10 });
   module.update(.05); module.onDrop(); assert.equal(f.events.at(-1)?.type, 'failed');
   f.player.speed = 0; module.update(.05); assert.equal(module.status.canDrop, true); assert.equal(doneCount(f.events), 0);
@@ -282,6 +282,7 @@ test('a grounded gate handoff frames its visible customer and borrows a real ent
  for(const theme of ['college','villa']){
   const f=fixture(),module=new GateDelivery();module.setup(f.ctx,{theme,useExistingFacade:true});
   const actor=(module as any).receiver;assert.equal(module.cameraFocus,undefined,'withheld likenesses have no camera target');actor.group.visible=true;
+  actor.group.userData.characterRelease='test-approved-fixture';
   Object.assign(f.player,module.target);module.update(.05);const focus=module.cameraFocus!,lamp=module.sceneLamp!;
   assert.equal(focus.context,'stationary-handoff');assert.ok(focus.position.z>focus.target.z+4);assert.ok(focus.position.x<module.target.x,'camera remains outside the parked car footprint');
   assert.equal(lamp.kind,theme==='villa'?'porch':'reading');assert.ok(lamp.position.z>focus.target.z,'a real front-side fixture lights the face');assert.ok(f.scene.getObjectByName('delivery-entrance-light'));

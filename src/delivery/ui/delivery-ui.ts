@@ -21,6 +21,13 @@ export const DELIVERY_UI_CSS = `
 .delivery-ui button:focus-visible{outline:3px solid #20E8D0;outline-offset:3px}
 .delivery-ui svg{display:block;pointer-events:none}
 .du-actions{position:absolute;right:24px;bottom:90px;display:flex;flex-direction:column;gap:7px;width:170px;pointer-events:none}
+.du-story-next{position:absolute;bottom:max(22px,env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);min-width:140px;z-index:16}
+#hud.story-cinematic>*{visibility:hidden;pointer-events:none}
+#hud.story-cinematic #b-help{visibility:visible;pointer-events:auto}
+#hud.story-cinematic .delivery-ui>.du-story-next{visibility:visible;pointer-events:auto}
+#hud.story-cinematic .delivery-ui>.du-overlay{visibility:visible;pointer-events:auto}
+#hud.story-cinematic.has-modal #modal,#hud.story-cinematic.has-modal #modal *,#hud.story-cinematic.rotation-blocked #rotate,#hud.story-cinematic.rotation-blocked #rotate *{visibility:visible;pointer-events:auto}
+#hud.story-cinematic.has-modal .du-story-next,#hud.story-cinematic.rotation-blocked .du-story-next{visibility:hidden;pointer-events:none}
 .du-actions button{width:100%;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px}
 .du-actions svg{width:23px;height:23px;flex-shrink:0}
 /* Only contextual guidance uses a light translucent surface. Full-screen
@@ -109,6 +116,7 @@ export class DeliveryUI {
     this.root.innerHTML = `<button class="du-call" data-du="call" type="button" aria-label="Call customer" title="Call customer" hidden>${phoneIcon}<span class="du-call-copy"><span data-du="call-label">Call customer</span><small data-du="call-hint">Tap to call</small></span></button>
       <div class="du-actions" data-du="actions"><button class="du-primary" data-du="drop" hidden>${pizzaIcon}<span data-du="drop-label">Drop</span></button><p class="du-action-hint" data-du="hint" hidden></p></div>
       <div class="du-notice" data-du="notice" role="status" hidden></div>
+      <button class="du-story-next du-primary" data-du="story-next" type="button" hidden>Next →</button>
       <div class="du-overlay" data-du="overlay" role="dialog" aria-modal="true" aria-label="Delivery conversation" hidden>
         <section class="du-sheet du-phone" data-du="phone" hidden><div class="du-caller"><div class="du-avatar" data-du="caller-avatar">${silhouette}</div><h2 class="du-caller-name" data-du="caller-name">Unknown Customer</h2><span class="du-phone-time" data-du="timer">00:00</span></div><div class="du-dialogue"><div class="du-speaker" data-du="speaker"></div><p class="du-line" data-du="line" aria-live="polite"></p><div class="du-replies" data-du="replies"></div><div class="du-call-footer"><button class="du-teal du-next" data-du="next">Next line</button><button class="du-danger" data-du="end">End call</button></div></div></section>
         <section class="du-sheet du-completion" data-du="completion" hidden></section>
@@ -121,6 +129,7 @@ export class DeliveryUI {
     } });
     const on = (name: string, fn: () => void) => this.elements[name].addEventListener('click', event => { event.stopPropagation(); fn(); });
     on('call', () => this.callback.call()); on('drop', () => this.callback.drop());
+    on('story-next',()=>this.callback.continue());
     on('next', () => this.callback.advanceCall()); on('end', () => this.callback.endCall());
     on('collection-close', () => this.closeCollection());
     this.root.addEventListener('pointerdown', event => { this.keyboardMode = false; if ((event.target as Element).closest('button,.du-overlay')) event.stopPropagation(); });
@@ -149,6 +158,7 @@ export class DeliveryUI {
 
   update(model: DeliveryView) {
     this.model = model; const el = this.elements;
+    this.hide(el['story-next'],!model.story?.viewing||this.collectionShown);
     const call = el.call as HTMLButtonElement;
     const callable = model.call.state === 'enabled' || model.call.state === 'ringing';
     this.hide(call, !callable || this.collectionShown || !!model.phone || !!model.completion);
@@ -275,6 +285,7 @@ export class DeliveryUI {
     this.hide(el.call, !!next || !callable);
     this.hide(el.drop, !!next || !this.model?.action);
     this.hide(el.hint, !!next || !this.model?.action?.hint || el.drop.hidden);
+    this.hide(el['story-next'],!!next||!this.model?.story?.viewing);
     if (next !== 'completion') this.opening?.finish();
     for (const name of ['phone', 'completion', 'collection']) this.hide(el[name], next !== name);
     this.hide(el.overlay, !next);

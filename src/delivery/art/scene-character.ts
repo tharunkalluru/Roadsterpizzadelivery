@@ -11,6 +11,7 @@ const identities: Record<string, string> = {
   sukumar:'sukumar', vakeelSaab:'vakeel-saab', vakeelWoman1:'vakeel-woman-1',
   vakeelWoman2:'vakeel-woman-2', vakeelWoman3:'vakeel-woman-3', maruthi:'maruthi',
   arjunReddy:'arjun-reddy', jersey:'nani-jersey', gabbar:'vakeel-saab',
+  odela:'srikanth-odela', salaar:'prabhas-salaar',
 };
 export const sceneCharacterIdentity=(style:string):string|undefined=>identities[style];
 type Resources = { geometry:<T extends THREE.BufferGeometry>(geometry:T)=>T; material:(key:string,material:THREE.Material)=>void };

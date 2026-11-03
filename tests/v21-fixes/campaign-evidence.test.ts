@@ -2,12 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { loadLevels } from '../../src/delivery/content/levels';
 import { CampaignQARecorder, type CampaignQASnapshot } from '../../src/delivery/qa/campaign-recorder';
-import { CAMPAIGN_SCENARIOS, campaignScenario, campaignScenarioURL } from '../../src/delivery/qa/campaign-scenarios';
+import { CAMPAIGN_SCENARIOS, campaignRequiredFacts, campaignScenario, campaignScenarioURL } from '../../src/delivery/qa/campaign-scenarios';
 
 const snapshot = (overrides: Partial<CampaignQASnapshot> = {}): CampaignQASnapshot => ({ x: 0, y: .55, z: 0, yaw: 0, speed: 0,
   flying: false, descending: false, jumping: false, placementRevision: 1, support: null, action: 'DELIVER', ready: false, instruction: '', ...overrides });
-const fixture = (count = 14, mode: 'full-campaign' | 'isolated-scene' = 'full-campaign') => {
-  let now = 0; const levels = loadLevels().slice(0, count);
+const fixture = (count = 14, mode: 'full-campaign' | 'isolated-scene' = 'full-campaign', manual=false) => {
+  let now = 0; const levels = loadLevels().slice(0, count).map(level=>manual?{...level,callMode:'PLAYER_CALLS' as const}:level);
   const recorder = new CampaignQARecorder(levels, { mode, layout: 'desktop', environment: 'Unit fixture; no physical hardware' }, [], () => now);
   return { levels, recorder, advance: (ms: number) => now += ms };
 };
@@ -20,8 +20,8 @@ test('every approved campaign scene has a physical workflow, a negative trial an
     assert.ok(scenario.manualSteps.length >= 2); assert.ok(scenario.negativeTrial.length > 30); assert.ok(scenario.visualChecks.length >= 2);
     assert.ok(scenario.requiredFacts.includes('manual-handoff')); scenario.artIds.forEach(id => actors.add(id));
   }
-  assert.equal(actors.size, 15, 'twelve named primary actors and the three Vakeel Saab companions need approval');
-  assert.deepEqual(campaignScenario('paradise-rope-bucket')!.artIds, []); assert.deepEqual(campaignScenario('salaar-inner-compound')!.artIds, []);
+  assert.equal(actors.size, 17, 'fourteen named primary actors and the three Vakeel Saab companions need approval');
+  assert.deepEqual(campaignScenario('paradise-rope-bucket')!.artIds, ['srikanth-odela']); assert.deepEqual(campaignScenario('salaar-inner-compound')!.artIds, ['prabhas-salaar']);
   assert.ok(campaignScenario('vakeel-next-station')!.requiredFacts.includes('authored-metro-exit'));
   assert.ok(campaignScenario('jessie-walking-delivery')!.requiredFacts.includes('authored-walk'));
   assert.ok(campaignScenario('bhanumathi-wedding-street')!.requiredFacts.includes('authored-dance'));
@@ -37,7 +37,7 @@ test('completion alone cannot count as pickup, physical gameplay, touch or visua
 });
 
 test('manual physical evidence at timestamp zero is recognized without automatically approving an actor', () => {
-  const f = fixture(1), scenario = campaignScenario(f.levels[0].id)!;
+  const f = fixture(1,'full-campaign',true), scenario = campaignScenario(f.levels[0].id)!;
   f.recorder.sample(snapshot({ placementRevision: 0 })); f.recorder.sample(snapshot({ placementRevision: 1 }));
   f.recorder.begin(f.levels[0].id); f.recorder.picked('traffic:bus:1', true); f.recorder.input('handoff', 'keyboard', true);
   for (const fact of scenario.requiredFacts) f.recorder.fact(fact);
@@ -45,11 +45,12 @@ test('manual physical evidence at timestamp zero is recognized without automatic
   const report = f.recorder.report(); assert.equal(report.attempts.length, 1); assert.equal(report.attempts[0].completedAt, 0);
   assert.equal(report.rows[0].observedSceneMechanics, true); assert.equal(report.acceptance.noAssistance, true);
   assert.equal(report.rows[0].allScenarioEvidence, false, 'film resemblance requires independent art approval');
-  assert.deepEqual(f.recorder.summary(), { completed: 1, total: 1, trustedTouchObserved: false, activeLevel: 1, facts: 6 });
+  assert.deepEqual(f.recorder.summary(), { completed: 1, total: 1, trustedTouchObserved: false, activeLevel: 1, facts: 6,
+    observerHealthy:true,observerFailureCount:0,lastObserverFailure:null });
 });
 
 test('staging and later relocations remain explicit even when the manual scene action succeeds', () => {
-  const f = fixture(1, 'isolated-scene'); f.recorder.sample(snapshot()); f.recorder.begin(f.levels[0].id);
+  const f = fixture(1, 'isolated-scene',true); f.recorder.sample(snapshot()); f.recorder.begin(f.levels[0].id);
   f.recorder.noteAssistance('qa-order-preparation'); f.recorder.sample(snapshot({ placementRevision: 2 }));
   f.recorder.input('handoff', 'mouse', true); f.recorder.complete(f.levels[0].id);
   const report = f.recorder.report(); assert.ok(report.assistance.some(item => item.kind === 'player-relocated'));
@@ -88,9 +89,9 @@ test('paused active-time polling cannot evict real gameplay samples, while a cha
 
 test('all physical facts and an artifact path do not automatically certify visual scene quality', () => {
   const levels = [loadLevels()[3]], scenario = campaignScenario(levels[0].id)!;
-  const recorder = new CampaignQARecorder(levels, { mode: 'isolated-scene', layout: 'desktop', environment: 'Visual accounting fixture' });
+  const recorder = new CampaignQARecorder(levels, { mode: 'isolated-scene', layout: 'desktop', environment: 'Visual accounting fixture' },[{characterId:'srikanth-odela',allowed:true,status:'synthetic unit fixture only'}]);
   recorder.begin(levels[0].id); recorder.picked('bus:1',true); recorder.input('handoff','keyboard',true);
-  scenario.requiredFacts.forEach(fact=>recorder.fact(fact)); recorder.complete(levels[0].id); recorder.evidence('/fixture/scene.png');
+  campaignRequiredFacts(levels[0],true).forEach(fact=>recorder.fact(fact)); recorder.complete(levels[0].id); recorder.evidence('/fixture/scene.png');
   assert.equal(recorder.report().rows[0].observedSceneMechanics,true); assert.equal(recorder.report().rows[0].allScenarioEvidence,false);
   assert.equal(recorder.reviewVisualCheck('not a configured check','/fixture/scene.png'),false);
   assert.equal(recorder.reviewVisualCheck(scenario.visualChecks[0],''),false);

@@ -42,6 +42,15 @@ test('failed current actors remain gated and startup rejects until their own ret
   assert.deepEqual(f.calls[2].ids,['nani']);f.calls[2].job.resolve();await flush();
 });
 
+test('an explicit loading retry can recover current actors with a paused clock without duplicating pending work',async()=>{
+  const f=fixture();f.preparation.select(['new-customer'],['new-customer']);await flush();
+  const failed=f.preparation.currentPreparation;f.calls[0].job.reject(new Error('offline'));await assert.rejects(failed,/offline/);await flush();
+  assert.equal(f.preparation.nextRetryAt,5);
+  const retried=f.preparation.retryCurrent();await flush();assert.equal(f.calls.length,2,'retry does not depend on gameplay time advancing');
+  assert.equal(f.preparation.retryCurrent(),retried);await flush();assert.equal(f.calls.length,2);
+  f.calls[1].job.resolve();await retried;await flush();assert.equal(f.preparation.ready(['new-customer']),true);f.preparation.dispose();
+});
+
 test('obsolete current and background results cannot revive old selection readiness or retry notices',async()=>{
   const f=fixture();f.preparation.select(['a'],['a','b']);await flush();f.preparation.select(['c'],['c','d']);await flush();
   f.calls[0].job.resolve();await flush();assert.equal(f.preparation.ready(['a']),false);assert.equal(f.preparation.ready(['c']),false);

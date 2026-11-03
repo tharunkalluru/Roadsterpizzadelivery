@@ -33,9 +33,9 @@ export const REVIEWED_PROCEDURAL_CANDIDATE: Readonly<CharacterCandidate> = Objec
 export const CHARACTER_REVIEW_MANIFEST = reviewManifest as CharacterReviewManifest;
 const validSha = (value: unknown): value is string => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
 const localEvidencePath = (value: unknown): value is string => typeof value === 'string' && /^(docs\/delivery\/character-review\/|public\/delivery\/)/.test(value) && !value.includes('..');
-/** These two deliveries portray directors themselves, rather than a film role. */
+/** These deliveries portray directors themselves, rather than a film role. */
 export const requiredCharacterReferenceKind = (characterId: string): 'film-still' | 'public-appearance' =>
-  characterId === 'sukumar' || characterId === 'maruthi' ? 'public-appearance' : 'film-still';
+  ['sukumar','maruthi','srikanth-odela'].includes(characterId) ? 'public-appearance' : 'film-still';
 
 /**
  * Fail closed. This validates an independently recorded visual verdict; it does

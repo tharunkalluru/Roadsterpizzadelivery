@@ -1,11 +1,13 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import type { MovingRailBody } from '../../game/moving-rail';
+import { railRoofAt, type MovingRailBody } from '../../game/moving-rail';
 import { ModuleBase, distanceXZ, heading, numberParam } from './base';
-import type { DeliveryPoint, VerifiedTrainPassage } from './types';
+import type { DeliveryPoint, VerifiedTrainPassage, ModuleStoryFrame } from './types';
 import type { DeliveryModuleContext, ModuleParams } from './types';
 import { TruckInterior } from './truck-interior';
 import type { SceneCharacter } from './character';
+
+const ROOF_WORKLIGHT_X=1.62,ROOF_WORKLIGHT_Z=1.6,ROOF_WORKLIGHT_Y=2.4,ROOF_WORKLIGHT_LENS_INSET=.11;
 
 export class MatchAndLand extends ModuleBase {
   private interior:TruckInterior|null=null;
@@ -13,6 +15,23 @@ export class MatchAndLand extends ModuleBase {
   get supports(){return this.interior?.supports??super.supports;}
   get trafficBodies(){return this.interior?.trafficBodies??this.supports.filter(body=>body.id==='delivery-log-truck');}
   get arrival(){return this.interior?.arrival;}
+  override setStoryPresentation(active:boolean){if(this.interior)this.interior.setStoryPresentation(active);else super.setStoryPresentation(active);}
+  get storyArrivalReady(){return !this.interior&&this.vehicleKind==='train'&&this.story?.entry===true;}
+  override get story():ModuleStoryFrame|undefined{
+    if(this.interior)return this.interior.story;
+    if(this.vehicleKind!=='train')return super.story;
+    if(!this.ready||!this.ctx.automaticStories||!this.liveBody)return undefined;
+    const body=this.liveBody,id=body.id.slice(0,body.id.lastIndexOf(':'));
+    const coaches=(this.ctx.trainBodies?.()??[body]).filter(b=>b.id.slice(0,b.id.lastIndexOf(':'))===id)
+      .sort((a,b)=>Number(a.id.slice(a.id.lastIndexOf(':')+1))-Number(b.id.slice(b.id.lastIndexOf(':')+1)));
+    const p=this.ctx.player();let nearest=0;
+    for(let i=1;i<coaches.length;i++)if(distanceXZ(p,coaches[i])<distanceXZ(p,coaches[nearest]))nearest=i;
+    const goal=coaches.findIndex(b=>b.id===body.id),next=goal<0?body:coaches[nearest+Math.sign(goal-nearest)]??body;
+    const atCustomer=next.id===body.id;
+    return {entry:coaches.some(coach=>this.landedOnCoach(coach)),
+      point:{x:next.x-(atCustomer?next.hx*3.3:0),y:next.roof+.55,z:next.z-(atCustomer?next.hz*3.3:0)},
+      yaw:Math.atan2(-next.hx,-next.hz),maxSpeed:7,verticalSpeed:3};
+  }
   get exitPending(){return this.interior?.exitPending??false;}
   get sceneryPending(){return this.interior?.sceneryPending??(this.ready&&this.ended&&this.vehicleKind==='train'&&this.vehicle.visible&&distanceXZ(this.ctx.player(),this.target)<850);}
   get hideWorldGuidance(){return this.interior?.hideWorldGuidance??false;}
@@ -20,7 +39,9 @@ export class MatchAndLand extends ModuleBase {
     if(this.interior)return this.interior.cameraFocus;
     if(!this.roofCustomerNear(7)||Math.abs(this.ctx.player().speed)>.75||this.matched<numberParam(this.params,'holdSeconds',.45,0,2))return undefined;
     const actor=this.receiver!.group;actor.updateWorldMatrix(true,false);
-    actor.localToWorld(this.roofFocusPosition.set(.9,1.7,2.6));actor.localToWorld(this.roofFocusTarget.set(0,1.1,0));return this.roofFocus;
+    // The car stops 3.3m behind the receiver. A camera only .9m to the side
+    // sits in its cabin and hides the customer behind the windscreen.
+    actor.localToWorld(this.roofFocusPosition.set(3,1.8,2.4));actor.localToWorld(this.roofFocusTarget.set(0,1.1,0));return this.roofFocus;
   }
   get charactersReady(){return this.interior?.charactersReady??super.charactersReady;}
   get headlightGain(){return this.interior ? this.interior.headlightGain : this.roofCustomerNear(14) ? .02 : undefined;}
@@ -30,7 +51,8 @@ export class MatchAndLand extends ModuleBase {
     const p=this.ctx.player();this.vehicle.updateWorldMatrix(true,false);this.roofLampPlayer.set(p.x,p.y,p.z);this.vehicle.worldToLocal(this.roofLampPlayer);
     // Choose one of the actual coach-mounted worklights on the visitor's side.
     // The fixtures move with the real coach; the light never floats with a face.
-    this.vehicle.localToWorld(this.roofLampWorld.set(this.roofLampPlayer.x>=0?1.62:-1.62,.9,this.roofLampPlayer.z>=0?1.47:-1.47));return this.roofLampRequest;
+    this.vehicle.localToWorld(this.roofLampWorld.set(this.roofLampPlayer.x>=0?ROOF_WORKLIGHT_X:-ROOF_WORKLIGHT_X,ROOF_WORKLIGHT_Y,
+      (this.roofLampPlayer.z>=0?1:-1)*(ROOF_WORKLIGHT_Z-ROOF_WORKLIGHT_LENS_INSET)));return this.roofLampRequest;
   }
   setup(ctx:DeliveryModuleContext,params:ModuleParams={}){
     if(params.scene==='truckInterior'){
@@ -65,13 +87,15 @@ export class MatchAndLand extends ModuleBase {
   private roofFocus={position:this.roofFocusPosition,target:this.roofFocusTarget,context:'stationary-handoff' as const};
   private roofLampPlayer=new THREE.Vector3();
   private roofLampWorld=new THREE.Vector3();
-  private roofLampRequest={position:this.roofLampWorld,kind:'reading' as const};
+  private roofLampRequest={position:this.roofLampWorld,kind:'porch' as const};
   private roofCustomerNear(radius:number){return this.ready&&this.charactersReady&&this.params.scene==='trainRoof'&&this.onRamCoach&&this.landedOnCoach(this.liveBody)&&this.vehicle.visible&&!!this.receiver?.group.visible&&this.within(radius,2);}
   private landedOnCoach(body:MovingRailBody|null){
-    const p=this.ctx.player();return !!body&&!p.flying&&!p.descending&&!p.jumping&&
-      Math.abs((p.x-body.x)*body.hz-(p.z-body.z)*body.hx)<body.halfWidth+.35&&
-      Math.abs((p.x-body.x)*body.hx+(p.z-body.z)*body.hz)<body.halfLength+.4&&
-      Math.abs(p.y-body.roof-.55-(body.grade??0)*((p.x-body.x)*body.hx+(p.z-body.z)*body.hz))<.8;
+    const p=this.ctx.player();
+    if(!body||p.flying||p.descending||p.jumping)return false;
+    if(p.railSupportId!==undefined&&p.railSupportId!==body.id)return false;
+    if(p.verticalSpeed!==undefined&&Math.abs(p.verticalSpeed)>.1)return false;
+    const roof=railRoofAt(body,p.x,p.z);
+    return roof!==null&&Math.abs(p.y-roof-.55)<=.2;
   }
   private retainTrainCustomer(dt:number){
     const body=this.ctx.existingTrain?.(this.sourceTrainId);this.onRamCoach=false;
@@ -140,9 +164,12 @@ export class MatchAndLand extends ModuleBase {
       const geometry=new THREE.BoxGeometry(w,h,d).translate(x,y,z),c=new THREE.Color(color),colors=new Float32Array(geometry.attributes.position.count*3);
       for(let i=0;i<colors.length;i+=3){colors[i]=c.r;colors[i+1]=c.g;colors[i+2]=c.b;}geometry.setAttribute('color',new THREE.BufferAttribute(colors,3));parts.push(geometry);
     };
-    for(const x of [-1.62,1.62])for(const z of [-1.6,1.6]){
-      box(x,.045,z,.16,.09,.16,'#465256');box(x,.44,z,.035,.8,.035,'#59666A');
-      box(x,.9,z,.22,.18,.2,'#3C484B');box(x,.9,z-Math.sign(z)*.11,.16,.1,.02,'#FFE0B0');
+    for(const x of [-ROOF_WORKLIGHT_X,ROOF_WORKLIGHT_X])for(const z of [-ROOF_WORKLIGHT_Z,ROOF_WORKLIGHT_Z]){
+      // Raise the same physical fixtures above face height. A low source
+      // shone into the Roadster cabin instead of the visitor-facing actor.
+      box(x,.045,z,.16,.09,.16,'#465256');box(x,ROOF_WORKLIGHT_Y/2,z,.035,ROOF_WORKLIGHT_Y-.18,.035,'#59666A');
+      box(x,ROOF_WORKLIGHT_Y,z,.22,.18,.2,'#3C484B');
+      box(x,ROOF_WORKLIGHT_Y,z-Math.sign(z)*ROOF_WORKLIGHT_LENS_INSET,.16,.1,.02,'#FFE0B0');
     }
     const geometry=this.own(mergeGeometries(parts,false)!);parts.forEach(part=>part.dispose());
     const material=new THREE.MeshBasicMaterial({vertexColors:true,toneMapped:false});this.materials.set('roof-worklights',material);

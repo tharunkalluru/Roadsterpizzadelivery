@@ -48,6 +48,9 @@ class LocalSceneModule implements DeliveryModule {
   get hideWorldGuidance(){return this.inner.hideWorldGuidance;} get cameraFocus(){return this.inner.cameraFocus;}
   get charactersReady(){return this.inner.charactersReady;} get sceneLamp(){return this.inner.sceneLamp;}
   get headlightGain(){return this.inner.headlightGain;}
+  get story(){return this.inner.story;}
+  get storyArrivalReady(){return this.inner.storyArrivalReady;}
+  setStoryPresentation(active:boolean){this.inner.setStoryPresentation?.(active);}
   setup(ctx:DeliveryModuleContext,params:ModuleParams){this.inner.setup(this.context(ctx),params);}
   update(dt:number){this.inner.update(dt);} onDrop(){this.inner.onDrop();} teardown(){this.inner.teardown();}
 }

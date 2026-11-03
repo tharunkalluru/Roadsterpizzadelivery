@@ -10,7 +10,7 @@ function menu() {
   let markup = '';
   const game: any = {
     carrierPickupMode: true, map: { open: false }, choosing: false, paused: false,
-    story: { retry: () => calls.push('retry current level'), startFromLevelOne: () => calls.push('reset campaign') },
+    story: { restartCurrentLevel: () => calls.push('load current level'), startFromLevelOne: () => calls.push('reset campaign') },
     resetInput: () => calls.push('release input'), resume: () => calls.push('resume'),
     startCampaign: () => calls.push('place at campaign start'),
     hud: { modal(html: string, bind: (sheet: any) => void) {
@@ -37,10 +37,10 @@ test('campaign pause places current-level and level-one restart actions beside e
   assert.doesNotMatch(legacy, /id="start-level-one"/);
 });
 
-test('current-level restart retains its retry contract and does not reset the campaign or relocate', () => {
+test('current-level restart resumes before the dedicated safe-road replay and does not reset the campaign', () => {
   const f = menu(); assert.equal(f.game.paused, true);
   f.calls.length = 0; f.click('reset');
-  assert.deepEqual(f.calls, ['retry current level', 'resume']);
+  assert.deepEqual(f.calls, ['resume', 'load current level']);
 });
 
 test('start from level 1 explicitly resets the campaign before using the normal safe campaign start', () => {

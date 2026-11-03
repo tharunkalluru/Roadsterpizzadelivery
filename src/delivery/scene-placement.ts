@@ -159,7 +159,7 @@ export function* groundScenePlacementSearch(city: PlacementCity, graph: RoadGrap
   if (level.module === 'ropeBucket') {
     // Bind only at the known restaurant anchor, using its mapped frontage.
     // Keep the world's real building; install only a winch and lowered basket.
-    const candidates: { b: Building; x: number; z: number; ax: number; az: number; score: number }[] = [];
+    const candidates: { b: Building; x: number; z: number; ax: number; az: number; nx: number; nz: number; score: number }[] = [];
     for (const [b, bounds] of buildings) {
       if (b.h < 6 || b.h > 45 || Math.hypot(Math.max(bounds.x0 - origin.x, 0, origin.x - bounds.x1), Math.max(bounds.z0 - origin.z, 0, origin.z - bounds.z1)) > 40) continue;
       for (let i = 0; i < b.ring.length; i++) {
@@ -170,7 +170,7 @@ export function* groundScenePlacementSearch(city: PlacementCity, graph: RoadGrap
           const nx = -dz / length * side, nz = dx / length * side;
           if (pointIn(bx + nx, bz + nz, b.ring)) continue;
           const x = bx + nx * 4.2, z = bz + nz * 4.2;
-          candidates.push({ b, x, z, ax: bx - nx, az: bz - nz, score: Math.hypot(x - origin.x, z - origin.z) });
+          candidates.push({ b, x, z, ax: bx - nx, az: bz - nz, nx, nz, score: Math.hypot(x - origin.x, z - origin.z) });
         }
       }
       yield;
@@ -180,10 +180,31 @@ export function* groundScenePlacementSearch(city: PlacementCity, graph: RoadGrap
       attempts++;
       yield;
       if (!(yield* clear(rect(candidate.x - 2.6, candidate.x + 2.6, candidate.z - 2.1, candidate.z + 2.1, 3.8), false)) || !(yield* access(candidate.x, candidate.z, 0))) continue;
-      const floor = supportAt(staticCity, candidate.x, candidate.z, .12).y;
-      return { destination: { ...origin, x: candidate.x, z: candidate.z, y: Math.max(0, floor) + .02 }, attempts, reusedBuilding: candidate.b.id,
-        moduleParams: { useExistingFacade: true, roofHeight: candidate.b.h, winchAnchorX: candidate.ax - candidate.x, winchAnchorZ: candidate.az - candidate.z,
-          facadeNormalX: (candidate.x - candidate.ax) / 5.2, facadeNormalZ: (candidate.z - candidate.az) / 5.2 } };
+      // Keep the complete receiver footprint safely inside the real roof,
+      // including concave notches. A centre-only/corner-only test can leave a
+      // foot over an edge; distance to every boundary protects the whole disc.
+      const roofContains = (x: number, z: number, radius: number) => pointIn(x, z, candidate.b.ring) && candidate.b.ring.every((a, i) => {
+        const b = candidate.b.ring[(i + 1) % candidate.b.ring.length], dx = b[0] - a[0], dz = b[1] - a[1];
+        const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / (dx * dx + dz * dz || 1)));
+        return Math.hypot(x - a[0] - t * dx, z - a[1] - t * dz) >= radius;
+      });
+      const tx = -candidate.nz, tz = candidate.nx;
+      let receiver: { x: number; z: number; side: number } | undefined;
+      for (const inset of [1.3, 2.2, 3.2]) {
+        for (const lateral of [1.8, -1.8, 2.6, -2.6]) {
+          const x = candidate.ax - candidate.nx * inset + tx * lateral, z = candidate.az - candidate.nz * inset + tz * lateral;
+          const side = Math.sign(lateral);
+          const lx = x + candidate.nx * 1.6 - tx * side * .4, lz = z + candidate.nz * 1.6 - tz * side * .4;
+          if (roofContains(x, z, .85) && roofContains(lx, lz, .15)) { receiver = { x, z, side }; break; }
+        }
+        if (receiver) break;
+      }
+      if (!receiver) continue;
+      const floor = supportAt(staticCity, candidate.x, candidate.z, .12).y, groundY = Math.max(0, floor) + .02;
+      return { destination: { ...origin, x: candidate.x, z: candidate.z, y: groundY }, attempts, reusedBuilding: candidate.b.id,
+        moduleParams: { useExistingFacade: true, roofHeight: candidate.b.h - groundY, winchAnchorX: candidate.ax - candidate.x, winchAnchorZ: candidate.az - candidate.z,
+          rooftopActorX: receiver.x - candidate.x, rooftopActorZ: receiver.z - candidate.z, rooftopCameraSide: receiver.side,
+          facadeNormalX: candidate.nx, facadeNormalZ: candidate.nz } };
     }
     return null;
   }

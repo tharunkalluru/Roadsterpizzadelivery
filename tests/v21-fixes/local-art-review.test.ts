@@ -10,7 +10,7 @@ import type { CharacterRigContract } from '../../src/delivery/art/released-gltf'
 import { createDeliveryQA } from '../../src/delivery/qa';
 import { CampaignQARecorder } from '../../src/delivery/qa/campaign-recorder';
 import { loadLevels } from '../../src/delivery/content/levels';
-import { campaignScenario } from '../../src/delivery/qa/campaign-scenarios';
+import { campaignRequiredFacts, campaignScenario } from '../../src/delivery/qa/campaign-scenarios';
 
 const bytes=(value:unknown)=>new TextEncoder().encode(JSON.stringify(value)).buffer;
 const hash=async(value:ArrayBuffer)=>createHash('sha256').update(new Uint8Array(value)).digest('hex');
@@ -118,7 +118,7 @@ test('a failed private graphics borrow releases ownership and can be retried wit
 test('local art preview can never become accepted campaign evidence even with all synthetic approvals and visual checks',()=>{
   const level=loadLevels()[0],scenario=campaignScenario(level.id)!,recorder=new CampaignQARecorder([level],{mode:'full-campaign',layout:'desktop',environment:'Synthetic local comparison',
     artPreview:{id:PUSHPA_ART_REVIEW.id,characterId:'pushpa-raj',descriptor:PUSHPA_ART_REVIEW.descriptor,glbSha256:'a'.repeat(64),rigSha256:'b'.repeat(64)}},[{characterId:'pushpa-raj',allowed:true,status:'synthetic fixture only'}],()=>0);
-  recorder.begin(level.id);recorder.picked('carrier',true);recorder.input('handoff','mouse',true);scenario.requiredFacts.forEach(fact=>recorder.fact(fact));
+  recorder.begin(level.id);recorder.picked('carrier',true);recorder.input('handoff','mouse',true);campaignRequiredFacts(level,true).forEach(fact=>recorder.fact(fact));
   scenario.visualChecks.forEach(check=>recorder.reviewVisualCheck(check,'/fixture/preview.png'));recorder.complete(level.id);
   const report=recorder.report();assert.equal(report.rows[0].observedSceneMechanics,true);assert.equal(report.acceptance.unreviewedArtPreview,true);
   assert.equal(report.acceptance.fullCampaignAccepted,false);assert.equal(report.rows[0].allScenarioEvidence,false);
@@ -155,7 +155,7 @@ test('an authored static grip needs no reader book or invented catch animation a
 
 test('group scene comparison evidence stays explicitly unaccepted even if every requested visual decision is fabricated as passing',()=>{
   const level=loadLevels()[2],scenario=campaignScenario(level.id)!,recorder=new CampaignQARecorder([level],{mode:'full-campaign',layout:'touch-layout',environment:'Synthetic fixture',artPreview:{id:'scene-candidates-v1',assets:[{id:'fixed-grip',characterId:'devara',descriptor:'/fixture',glbSha256:'a'.repeat(64),rigSha256:'b'.repeat(64)}]}},[{characterId:'devara',allowed:true,status:'synthetic'}],()=>0);
-  recorder.begin(level.id);recorder.picked('carrier',true);recorder.input('handoff','touch',true);scenario.requiredFacts.forEach(fact=>recorder.fact(fact));scenario.visualChecks.forEach(check=>recorder.reviewVisualCheck(check,'/fixture.png'));recorder.complete(level.id);
+  recorder.begin(level.id);recorder.picked('carrier',true);recorder.input('handoff','touch',true);campaignRequiredFacts(level,true).forEach(fact=>recorder.fact(fact));scenario.visualChecks.forEach(check=>recorder.reviewVisualCheck(check,'/fixture.png'));recorder.complete(level.id);
   assert.equal(recorder.report().acceptance.fullCampaignAccepted,false);assert.equal(recorder.report().acceptance.unreviewedArtPreview,true);
 });
 

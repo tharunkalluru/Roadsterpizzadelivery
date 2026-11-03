@@ -10,6 +10,8 @@ import { StreetPresentationBudget, STREET_DETAIL_KIT_LIMIT, drawShelterPresentat
 import { metroCorridors, metroPlatformAssemblies, projectMetroPath, sampleMetroPath } from '../../src/world/metro-geometry';
 import type { CoreData } from '../../src/world/types';
 import { buildTile } from '../../src/world/city';
+import { roadStructureClearance } from '../../src/world/structure-clearance';
+import { metroStructureClearance } from '../../src/world/metro-clearance';
 
 const core = JSON.parse(gunzipSync(readFileSync('public/city/core.pack.wasm')).toString()) as CoreData;
 const assemblies = metroPlatformAssemblies(core.metro.stations, metroCorridors(core.metro.lines), core.metro.deckHeight);
@@ -44,7 +46,7 @@ test('all real station window bays follow the actual track curve outside platfor
     for (const bay of bays) for (const [u, q] of [[bay.u0, bay.a], [bay.u1, bay.b]] as const) {
       const p = sampleMetroPath(path, stationS + u), offset = bay.side * STATION_PRESENTATION.windowOffset;
       near(q[0], p.x - p.hz * offset); near(q[1], p.z + p.hx * offset);
-      near(Math.hypot(q[0] - p.x, q[1] - p.z), 8.45);
+      near(Math.hypot(q[0] - p.x, q[1] - p.z), 10.75);
       assert.ok(Math.abs(u) <= 56, '130 m platform retains at least 9 m of open access at either end');
       const localU = (q[0] - cx) * hx + (q[1] - cz) * hz, localV = -(q[0] - cx) * hz + (q[1] - cz) * hx;
       assert.ok(Math.abs(localU) <= 65 + 1e-6 && Math.abs(localV) <= 12.4 + 1e-6, 'no unsupported glazing outside the retained canopy');
@@ -146,7 +148,7 @@ test('entrance detail fits every mapped station orientation and both road sides 
   }
 });
 
-test('actual accepted Rasoolpura/Ameerpet entrances retain their original support envelopes with visible ground-end detail', () => {
+test('actual Rasoolpura/Ameerpet entrances use finite checked access sections and retain no invisible filled stair building', () => {
   const tiles = new Set<string>(); let checked = 0;
   for (const assembly of assemblies.filter(a => /Rasoolpura|Ameerpet/.test(a.source.name ?? ''))) {
     const i = Math.floor(assembly.source.p[0] / 1000), j = Math.floor(assembly.source.p[1] / 1000), key = `${i}_${j}`;
@@ -154,20 +156,17 @@ test('actual accepted Rasoolpura/Ameerpet entrances retain their original suppor
     const pack = core.packs.find(p => p.tiles.some(t => t[0] === i && t[1] === j))!;
     const zone = JSON.parse(gunzipSync(readFileSync(`public/city/${pack.file}`)).toString()).tiles[key];
     const built = buildTile(zone, { lowQ: false, metro: core.metro });
+    const roads=roadStructureClearance(zone.roads),trains=metroStructureClearance(metroCorridors(core.metro.lines),core.metro.deckHeight);
+    assert.ok(![...built.buildingGrid.values()].flat().some(b=>b.id.startsWith('ms_')),'painted solid stair housing was not removed');
     for (const support of built.structureSupports!.filter(s => s.part === 'station_stairs')) {
       const source = assemblies.find(a => a.key === support.source)!; assert.ok(source);
-      const fp = support.footprint; assert.ok('hx' in fp); if (!('hx' in fp)) continue;
-      const end = Math.sign((fp.x - source.frame.cx) * fp.hx + (fp.z - source.frame.cz) * fp.hz), st = batch();
-      drawStationEntrancePresentation(fp.x, fp.z, Math.atan2(fp.hx, fp.hz), support.top - .1, source.lineId, { st }, end);
-      for (const p of positions(st)) {
-        const dx = p[0] - fp.x, dz = p[2] - fp.z;
-        assert.ok(Math.abs(dx * fp.hx + dz * fp.hz) <= fp.hl + 1e-6 && Math.abs(dx * fp.hz - dz * fp.hx) <= fp.hw + 1e-6);
-        assert.ok(p[1] >= support.bottom && p[1] <= support.top + 1e-6);
-      }
+      const fp=support.footprint;assert.ok(Object.values(fp).every(Number.isFinite));assert.ok(support.top>support.bottom);
+      assert.ok(roads.clear(fp,support.bottom,support.top),'access/canopy crosses a mapped road');
+      assert.ok(trains.clear(fp,support.bottom,support.top),'access/canopy crosses an active metro reach');
       checked++;
     }
   }
-  assert.ok(checked >= 5, 'includes both actual Rasoolpura entries and stacked Ameerpet entrances');
+  assert.ok(checked >= 50, 'includes finite flights, rest landings, lifts and stacked Ameerpet access');
 });
 
 test('useful mapped bus-shelter detail has a strict per-tile budget and fits the existing cleared shelter', () => {

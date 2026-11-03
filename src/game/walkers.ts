@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { rng } from '../core/util';
 import { randomPerson, walkerGeometry, legsVisible, PersonSpec } from '../world/people';
+import { makeHumanWalkRig, type HumanWalkRig } from '../world/human-gait';
 import type { CityData, WalkPath } from '../world/city';
 import type { XZ } from '../world/types';
 import type { Walker as TrafficWalker } from './traffic';
@@ -9,6 +10,7 @@ import type { Walker as TrafficWalker } from './traffic';
 // cross main roads at the ends of a block (waiting for the red light at signals), and step aside for the car.
 interface W extends TrafficWalker {
   spec: PersonSpec; g: THREE.Group; legL: THREE.Mesh | null; legR: THREE.Mesh | null;
+  rig: HumanWalkRig;
   path: WalkPath; i: number; u: number; dir: 1 | -1; speed: number; phase: number;
   cross: { ax: number; az: number; bx: number; bz: number; t: number; to: WalkPath; hx: number; hz: number } | null;
   wait: number; ox: number; oz: number; vx: number; vz: number; dodgeT: number; pause: number;
@@ -45,21 +47,16 @@ export class Walkers {
     const d = Math.hypot(x - px, z - pz);
     if (d < 25 || d > 140) return;
     const spec = randomPerson(this.r);
-    const geo = walkerGeometry(spec);
+    const geo = walkerGeometry(spec,true);
     const g = new THREE.Group();
     // These figures retire permanently on removal (distance, path unload or relocation).
     // Body and both legs share one lease; never dispose borrowed geometry here.
-    g.addEventListener('removed', () => geo.release());
-    const body = new THREE.Mesh(geo.body, this.mat); body.castShadow = true; g.add(body);
+    const rig = makeHumanWalkRig(geo.rigged!,this.mat,spec,!legsVisible(spec.kind));g.add(rig.mesh);
+    g.addEventListener('removed', () => { rig.dispose();geo.release(); });
     let legL: THREE.Mesh | null = null, legR: THREE.Mesh | null = null;
-    if (geo.leg && legsVisible(spec.kind)) {
-      legL = new THREE.Mesh(geo.leg, this.mat); legR = new THREE.Mesh(geo.leg, this.mat);
-      legL.position.set(-0.085, 0.84, 0); legR.position.set(0.085, 0.84, 0); legL.castShadow = legR.castShadow = true;
-      g.add(legL, legR);
-    }
     g.scale.setScalar(spec.s);
     this.group.add(g);
-    this.list.push({ spec, g, legL, legR, path: pi, i, u, dir: this.r() < 0.5 ? 1 : -1, speed: spec.walk, phase: this.r() * 6, x, z, crossing: false, cross: null, wait: 0, ox: 0, oz: 0, vx: 0, vz: 0, dodgeT: 0, pause: 0 });
+    this.list.push({ spec, g, legL, legR, rig, path: pi, i, u, dir: this.r() < 0.5 ? 1 : -1, speed: spec.walk, phase: this.r() * 6, x, z, crossing: false, cross: null, wait: 0, ox: 0, oz: 0, vx: 0, vz: 0, dodgeT: 0, pause: 0 });
   }
   update(dt: number, px: number, pz: number, player: { x: number; z: number; speed: number; fx: number; fz: number; y: number }) {
     for (let k = 0; k < 3 && this.list.length < this.max; k++) this.spawn(px, pz);
@@ -114,10 +111,10 @@ export class Walkers {
       // pose
       if (moving && !(w.cross && w.wait > 0)) w.phase += dt * w.speed * 5.2;
       const sw = moving ? Math.sin(w.phase) : 0;
-      if (w.legL && w.legR) { w.legL.rotation.x = sw * 0.5; w.legR.rotation.x = -sw * 0.5; }
+      w.rig.update(w.phase,moving&&!(w.cross&&w.wait>0),dt);
       w.g.position.set(w.x, (w.cross ? 0.08 : 0.2) + Math.abs(sw) * 0.025, w.z);
       if (hx || hz) w.g.rotation.y = Math.atan2(-hx, -hz);
-      w.g.rotation.z = w.legL ? 0 : sw * 0.03;
+      w.g.rotation.z = legsVisible(w.spec.kind) ? 0 : sw * 0.015;
     }
   }
   // at the end of a footpath: turn back, or cross to the far side of the same road

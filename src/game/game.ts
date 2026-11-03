@@ -514,7 +514,7 @@ export class Game {
     const cv = this.engine.renderer.domElement;
     cv.tabIndex = -1;
     this.releaseCameraLook = installCameraLook(cv, this, {
-      blocked: () => this.paused || this.choosing || !!this.map?.open || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked,
+      blocked: () => this.paused || this.choosing || !!this.map?.open || this.hud.modalOpen || this.hud.tipOpen || this.hud.rotationBlocked || !!this.story?.cinematic,
       flight: () => this.player.flying || this.player.descending,
       speed: () => this.player.speed,
     });
@@ -541,6 +541,7 @@ export class Game {
   handleKeyDown(e: KeyboardEvent) {
     if(e.ctrlKey||e.metaKey||e.altKey||(e.target as Element|null)?.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;
     if (this.story?.blocking) return;
+    if(this.story?.cinematic&&!['KeyP','Escape'].includes(e.code))return;
     if (this.hud.tipOpen) return;
     if (this.hud.rotationBlocked) return;
     if (e.repeat && ['KeyQ', 'KeyE', 'KeyF', 'KeyM', 'KeyN', 'KeyP', 'Escape', 'Backquote', 'Backslash'].includes(e.code)) return;
@@ -572,7 +573,7 @@ export class Game {
     if (this.area && !this.choosing && !this.paused && !this.hud.modalOpen && !this.map?.open) this.openPause();
   }
   openMap(keyboardOpener = false) {
-    if (!this.map || this.hud.modalOpen || this.hud.rotationBlocked || this.choosing) return;
+    if (!this.map || this.hud.modalOpen || this.hud.rotationBlocked || this.choosing || this.story?.cinematic) return;
     this.mapKeyboardOpener = keyboardOpener;
     this.hud.tip(null);
     this.resetInput();
@@ -644,6 +645,13 @@ export class Game {
       this.hud.pickupStatus(false);
       this.story?.retry();
     }
+    try { await this.story?.prepareCurrentCharacters(); }
+    catch(error){
+      if(request!==this.relocationId)return;
+      console.error('Delivery character preparation',error);
+      this.relocationFailed(c,'The delivery characters could not load. Retry to prepare this same delivery.',source);return;
+    }
+    if(request!==this.relocationId)return;
     // the old neighbourhood's traffic and people stay behind
     this.traffic.clear();
     for (const w of this.walkers.list) this.walkers.group.remove(w.g); this.walkers.list.length = 0;
@@ -781,14 +789,16 @@ export class Game {
         this.hud.modal(null); this.paused = false; this.resetInput(); this.clock.getDelta();
         if (!this.story.openRestaurant()) this.openPause();
       });
-      sh.querySelector('#unstick')!.addEventListener('click', () => { this.paused = false; this.hud.modal(null); this.clock.getDelta(); this.rescue(); });
+      const unstick=sh.querySelector<HTMLButtonElement>('#unstick')!;
+      if(this.story?.cinematic){unstick.disabled=true;unstick.title='Resume the story, or restart this level.';}
+      unstick.addEventListener('click', () => { if(this.story?.cinematic)return;this.paused = false; this.hud.modal(null); this.clock.getDelta(); this.rescue(); });
       sh.querySelector('#start-level-one')?.addEventListener('click', () => {
         this.story?.startFromLevelOne();
         this.startCampaign();
       });
       sh.querySelector('#reset')!.addEventListener('click', () => {
         if (this.carrierPickupMode) {
-          if (this.story) this.story.retry();
+          if (this.story) {this.resume();void this.story.restartCurrentLevel();return;}
           else { this.carriers.clear(); this.pickupDetector.reset(); this.hud.pickupStatus(false); }
           this.resume();
         } else {
@@ -947,7 +957,7 @@ export class Game {
   input(): Input {
     const k = this.keys, h = this.hud;
     const brake = k.has('Space') || k.has('KeyS') || k.has('ArrowDown') || h.touchBrake;
-    if (this.hud.tipOpen || this.order?.state === 'offer') {
+    if (this.hud.tipOpen || this.order?.state === 'offer' || this.story?.cinematic) {
       this.flyQueued = false; this.jumpQueued = false;
       return { throttle: 0, brake: 0, steer: 0, flyPressed: false, jumpPressed: false, boost: false };
     }
@@ -996,6 +1006,9 @@ export class Game {
     this.updateRailwayCrossings(dt);
     this.rail.update(dt, this.player.pos.x, this.player.pos.z, runningRailwayTracks(this.city.railway?.profiles || railwayNetwork().profiles));
     this.story?.beforePlayer(dt);
+    // A capture can begin in beforePlayer, after this frame's input sample.
+    // Consume that old sample too: a queued Jump/Fly cannot leak into story.
+    if(this.story?.cinematic)Object.assign(inp,{throttle:0,brake:0,steer:0,flyPressed:false,jumpPressed:false,boost:false});
     this.city.movingRail = [...this.metro.bodies, ...this.rail.bodies, ...(this.story?.supports ?? [])];
     this.railContacts.beforePlayer(this.player, this.city.movingRail, !!(inp.flyPressed || inp.jumpPressed), dt);
     this.player.update(dt, inp, this.t);
@@ -1003,18 +1016,19 @@ export class Game {
     this.hud.flightState?.(this.player.flying, this.player.descending);
     this.updateJumpState();
     const railContact = this.railContacts.afterPlayer(this.player, dt);
+    this.story?.afterPlayer(dt);
     // External train impacts may impart momentum after the driving update.
     // Bound that velocity without altering coach carry or collision separation.
     this.player.enforceSpeedLimit();
     this.updateJumpState();
-    if (railContact.hit && this.player.hitCooldown <= 0) {
+    if (railContact.hit && !this.story?.cinematic && this.player.hitCooldown <= 0) {
       this.player.hitCooldown = 1; this.player.bump = Math.max(this.player.bump, 0.45);
       this.sound.cue('bump');
       this.hud.toast(railContact.body?.id.startsWith('delivery-') ? 'Watch your clearance!' : 'Mind the train!', 'pink');
       if (this.order?.state === 'toDrop') { this.order.slices = Math.max(0, this.order.slices - 1); this.streak = 1; }
     }
     if (!wasAirborne && (this.player.flying || this.player.jumping)) this.sound.cue('flight');
-    this.watchStuck(dt, inp);
+    if(!this.story?.cinematic)this.watchStuck(dt, inp);
     const P = this.player.pos;
     this.bugReports?.record({ time: this.t, x: P.x, y: P.y, z: P.z, speed: this.player.speed, throttle: inp.throttle, brake: inp.brake, steer: inp.steer, flying: this.player.flying, surface: this.player.lastKind });
     this.aircraft.update(dt, P.x, P.z);
@@ -1027,8 +1041,8 @@ export class Game {
     const fw = this.player.forward;
     this.walkers.update(dt, P.x, P.z, { x: P.x, z: P.z, y: P.y, speed: this.player.speed, fx: fw.x, fz: fw.z });
     const jumpBounds = this.player.jumping ? this.player.jumpTrafficBounds : undefined;
-    const hit = this.player.flying ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1, jumpBounds);
-    if (!this.player.flying) this.traffic.pushOut(P, 0.75, 1.6, jumpBounds);
+    const hit = this.player.flying || this.story?.cinematic ? null : this.traffic.hitTest(P.x, P.y, P.z, 1.1, jumpBounds);
+    if (!this.player.flying&&!this.story?.cinematic) this.traffic.pushOut(P, 0.75, 1.6, jumpBounds);
     if (hit && this.player.hitCooldown <= 0) {
       this.sound.cue('bump');
       this.player.hitCooldown = 1.5; this.player.speed *= 0.35; this.player.bump = 0.6;
@@ -1124,7 +1138,10 @@ export class Game {
       Math.abs((P.x-bed.x)*bed.hx+(P.z-bed.z)*bed.hz)<bed.halfLength+.5;
     const requestedFocus=this.story?.cameraFocus;
     const parkedHandoff=requestedFocus?.context==='stationary-handoff'&&!flight&&!this.player.jumping&&!this.player.descending&&Math.abs(this.player.speed)<=.75&&Math.abs(this.orbitPitch-.38)<.04&&Math.abs(this.orbitDist)<.1;
-    const interactionFocus=(interior||underwater||parkedHandoff)&&!this.dragging&&Math.abs(this.orbitYaw)<.12?requestedFocus:undefined;
+    // Once controls are captured, a previous manual orbit cannot lock the
+    // customer out of view. Ordinary driving/interior orbit keeps its gates.
+    const interactionFocus=this.story?.cinematic?requestedFocus:
+      (interior||underwater||parkedHandoff)&&!this.dragging&&Math.abs(this.orbitYaw)<.12?requestedFocus:undefined;
     const air = flight || this.player.pos.y - (this.player.lastSupport + 0.55) > 2;
     // Airborne does not mean moving: a hovering player keeps their chosen view.
     const moving = Math.abs(this.player.speed) > 2;
@@ -1144,7 +1161,11 @@ export class Game {
     const pivot = new THREE.Vector3(P.x, P.y + 1.4, P.z);
     let desired = new THREE.Vector3(P.x - bx * hd, P.y + up, P.z - bz * hd);
     if(interactionFocus)desired.set(interactionFocus.position.x,interactionFocus.position.y,interactionFocus.position.z);
-    desired = this.clearCamera(pivot, desired);
+    // Authored story shots may frame a rooftop customer while the car remains
+    // on the street. Test that real subject-to-camera line, not a ray from the
+    // car through the restaurant wall. Ordinary chase/orbit behavior is intact.
+    const cameraPivot=this.story?.cinematic&&interactionFocus?new THREE.Vector3(interactionFocus.target.x,interactionFocus.target.y,interactionFocus.target.z):pivot;
+    desired = this.clearCamera(cameraPivot, desired);
     this.cameraTranslation ??= new CameraTranslationFollow();
     if (this.cameraTranslation.advance(this.camPos, this.camLook, P, dt, !interactionFocus)) {
       this.camPos.set(0, 0, 0); this.camLook.set(0, 0, 0);
@@ -1154,7 +1175,7 @@ export class Game {
     // if the smoothed camera would sit inside something, snap to the clear point
     if (this.insideSolid(this.camPos)) this.camPos.copy(desired);
     // and if a building corner comes between the lagging camera and the car (turning in a narrow lane), pull it in
-    else { const vis = this.clearCamera(pivot, this.camPos); if (vis.distanceToSquared(this.camPos) > 0.01) this.camPos.copy(vis); }
+    else { const vis = this.clearCamera(cameraPivot, this.camPos); if (vis.distanceToSquared(this.camPos) > 0.01) this.camPos.copy(vis); }
     const aimWeight = driving ? drivingCameraAimWeight(this.orbitYaw, this.orbitPitch, this.dragging) : 0;
     const ahead = drivingCameraLookAhead(this.player.speed) * aimWeight;
     const look = interactionFocus ? new THREE.Vector3(interactionFocus.target.x, interactionFocus.target.y, interactionFocus.target.z) : driving ?

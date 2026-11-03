@@ -157,8 +157,8 @@ export class Player {
     v.addScaledVector(d, (5 + Math.random() * 3) * power).add(new THREE.Vector3((Math.random() - 0.5) * 1.2, (Math.random() - 0.5) * 0.8, (Math.random() - 0.5) * 1.2));
     this.gas.emit(p, v, 0.8 + Math.random() * 0.6, 0.3, (2.0 + Math.random() * 1.4) * Math.max(0.7, power));
   }
-  // the road under the car carries on from the one it was on (same piece, or the next piece at a shared junction):
-  // a sudden drop there is a step in the data, not the edge of a flyover, so the car must not be held back
+  // A shared source ID/node does not prove that two local surfaces are on the
+  // same level. Continuity is decided by the actual tyre-support height below.
   lastEdge: any = null;
   roadPitch = 0;
   landmarkRoll = 0;
@@ -166,11 +166,6 @@ export class Player {
   resetWheelSuspension() {
     this.wheelSuspension = [0, 0, 0, 0];
     this.wheels?.forEach(w => { w.position.y = .36; });
-  }
-  continues(sup: { s: any; kind: string }) {
-    const e = sup.s?.e, l = this.lastEdge;
-    if (!e || !l || sup.kind !== 'road') return false;
-    return e === l || e.id === l.id || (!!e.from && (e.from === l.from || e.from === l.to)) || (!!e.to && (e.to === l.from || e.to === l.to));
   }
   updateGlide(dt: number, t: number) {
     const g = this.glide!; g.t += dt;
@@ -336,7 +331,12 @@ export class Player {
       if ((this.altT -= dt) <= 0) {
         this.altT = 0.25;
         const f2 = this.forward, P = this.pos;
-        const roof = roofUnder(this.city, [[P.x, P.z], [P.x + f2.x * 15, P.z + f2.z * 15], [P.x + f2.x * 30, P.z + f2.z * 30], [P.x + f2.x * 45, P.z + f2.z * 45]]);
+        // Keep the original altitude easing, but prepare several seconds of
+        // road ahead at flight speed. A fixed 45m probe gave a tall Green-line
+        // station less than a second of warning and sampled only the car centre.
+        const reach = Math.max(60, Math.abs(this.speed) * 3.5), points: [number, number][] = [];
+        for (let d = 0; d <= reach + .01; d += reach / Math.ceil(reach / 8)) for (const side of [-2, 0, 2]) points.push([P.x + f2.x * d + f2.z * side, P.z + f2.z * d - f2.x * side]);
+        const roof = roofUnder(this.city, points);
         this.flyAlt = inDelivery && delivery.mode === 'approach' ? delivery.altitude : Math.max(24, roof + 6);
       }
       this.pos.y += (this.flyAlt - this.pos.y) * Math.min(1, dt * 1.6);
@@ -352,8 +352,10 @@ export class Player {
       // Real landmark facets use the same continuous contact rule as roads.
       // Otherwise every downhill sample becomes another tiny fall/landing.
       this.pos.y = ground; this.vy = 0;
-    } else if (!air && this.lastElevRoad && sup.y < this.lastSupport - 1.5 && !this.continues(sup)) {
-      // never roll off the side of a flyover deck: the parapet holds the car
+    } else if (!air && this.lastElevRoad && sup.y < this.lastSupport - Math.max(.35, Math.hypot(this.pos.x - prev.x, this.pos.z - prev.z) * .14 + .03)) {
+      // A real ramp follows the bounded local grade. Never let an unrelated
+      // lower road win after a tile seam or at a crossing just because its
+      // source ID/node also appears somewhere on this elevated road.
       this.pos.x = prev.x; this.pos.z = prev.z; this.speed *= 0.5; this.bump = 0.3;
     } else if (this.descending || this.pos.y > ground + 0.05) {
       // falling: off a roof edge, or the protected landing after a flight
@@ -362,7 +364,7 @@ export class Player {
       if (this.pos.y <= ground) { if (this.vy < -9) { this.bump = 0.6; this.speed *= 0.6; } this.pos.y = ground; this.vy = 0; this.descending = false; }
     } else { this.pos.y = ground; this.vy = 0; }
     const sup2 = this.airborne ? sup : supportAt(this.city, this.pos.x, this.pos.z, this.pos.y - 0.55, false, !this.airborne ? {x:prev.x,z:prev.z,feet:prev.y-.55} : undefined);
-    const grounded = !this.airborne && this.pos.y - ground < 0.1;
+    const grounded = !this.airborne && Math.abs(this.pos.y - (sup2.kind === 'landmark' && landmark ? landmark.y : sup2.y + .55)) < 0.1;
     // Descent can retain airborne speed, but the same touchdown frame obeys the road cap.
     if (grounded) this.enforceSpeedLimit();
     if (grounded) { this.lastSupport = sup2.y; this.lastKind = sup2.kind; this.lastElevRoad = sup2.elevatedRoad; this.lastEdge = sup2.s?.e || null; }

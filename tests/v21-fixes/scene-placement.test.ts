@@ -81,7 +81,7 @@ test('Paradise reuses a mapped local building and a clear ground frontage, witho
   const c = city(), graph = new RoadGraph([road('public-access', 8, true, 6)]); const b = building(c, -18, -6, -12, 12, 16.6);
   const content = level('ropeBucket', { roofHeight: 15 }); content.destination.label = 'Paradise Circle · Rooftop bucket';
   const result = findGroundScenePlacement(c, graph, content); assert.ok(result); assert.equal(result.reusedBuilding, b.id);
-  assert.equal(result.moduleParams.useExistingFacade, true); assert.equal(result.moduleParams.roofHeight, 16.6); assert.equal(result.destination.y, .02);
+  assert.equal(result.moduleParams.useExistingFacade, true); assert.ok(Math.abs(Number(result.moduleParams.roofHeight)+result.destination.y-16.6)<1e-9); assert.equal(result.destination.y, .02);
   const scene = new THREE.Scene(), module = new RopeBucket();
   module.setup({ scene, destination: result.destination, player: () => ({ x: 0, y: .55, z: 0, yaw: 0, speed: 0 }), emit() {} }, result.moduleParams);
   assert.equal(module.supports.length, 0, 'the real building remains the source of facade collision');

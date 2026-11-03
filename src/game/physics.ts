@@ -67,6 +67,18 @@ export function roofUnder(city: CityData, pts: [number, number][]): number {
   for (const [x, z] of pts) {
     for (const b of nearbyBuildings(city, x, z)) if ((!city.landmarkSurfaceGrid || b.cls !== 'landmark') && b.h > h && pointInRing(x, z, b.ring)) h = b.h;
     h = Math.max(h, landmarkRoofUnder(city.landmarkSurfaceGrid, x, z));
+    h = Math.max(h, city.metroFlightClearance?.heightAt(x, z) || 0);
+    // Road/metro decks and shelter pads are real overhead geometry even when
+    // there is no building footprint. Keep this distinct from supportAt's
+    // height-reachable tyre contact so manual train/metro landing is unchanged.
+    const seen = new Set<Surface>();
+    for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const surface of city.surfaceGrid.get(`${Math.floor(x / 30) + i},${Math.floor(z / 30) + j}`) || []) {
+      if (seen.has(surface)) continue; seen.add(surface);
+      const dx = surface.bx - surface.ax, dz = surface.bz - surface.az, u = Math.max(0, Math.min(1, ((x - surface.ax) * dx + (z - surface.az) * dz) / (dx * dx + dz * dz || 1)));
+      const exact = surface.roadQuad ? roadQuadHeight(surface.roadQuad, x, z) : undefined;
+      if (exact === null || exact === undefined && Math.hypot(x - surface.ax - dx * u, z - surface.az - dz * u) > surface.hw) continue;
+      h = Math.max(h, exact ?? surface.ya + (surface.yb - surface.ya) * u);
+    }
     for (const body of city.movingRail || []) h = Math.max(h, railRoofAt(body, x, z) || 0);
   }
   return h;

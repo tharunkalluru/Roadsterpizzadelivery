@@ -15,6 +15,7 @@ export class DeliveryController {
   lastFailure = '';
   private lastDistance = Infinity;
   private returnAfterCall: DeliveryState = 'EN_ROUTE';
+  private replayLevelId:string|null=null;
   private off: (() => void)[] = [];
 
   constructor(readonly levels: readonly LevelConfig[], readonly events: EventBus<DeliveryEvents>, storage?: StorageLike) {
@@ -35,13 +36,15 @@ export class DeliveryController {
   }
   get activeLevel() { return this.orders.level; }
   get destination() { return this.orders.destination; }
-  get canPickup() { return this.state === 'ROAMING' && !this.progress.finished && !this.activeLevel; }
+  get nextLevel(){return this.levels.find(level=>level.id===this.replayLevelId)??this.progress.nextLevel;}
+  get canPickup() { return this.state === 'ROAMING' && !!this.nextLevel && !this.activeLevel; }
   get canDrop() { return this.state === 'SETPIECE' && (this.activeLevel?.callMode === 'NONE' || this.calls.arrivalComplete); }
   get complete() { return this.state === 'LEVEL_COMPLETE'; }
 
   pickup() {
     if (!this.canPickup) return false;
-    const level = this.orders.assign(); if (!level) return false;
+    const level = this.orders.assign(this.nextLevel); if (!level) return false;
+    this.replayLevelId=null;
     this.reveals.clear(); this.lastFailure = ''; this.lastDistance = Infinity;
     this.calls.prepare(level, () => this.reveals.reveal(level));
     this.setState('EN_ROUTE');
@@ -95,8 +98,14 @@ export class DeliveryController {
   }
   /** Restart the current delivery without erasing any completed levels or restaurant progress. */
   retry() { this.clearActive(); }
+  /** Explicit Pause replay. Unlike relocation cleanup, this can select the
+   * just-completed scene without deleting its earned card or later unlock. */
+  restartCurrentLevel(){
+    const level=this.activeLevel??this.nextLevel??this.levels.at(-1);if(!level)return null;
+    this.clearActive();this.replayLevelId=level.id;return level;
+  }
   /** Explicit new-story action only; never touches the baseline game's storage. */
-  reset() { this.progress.reset(); this.clearActive(); }
+  reset() { this.replayLevelId=null;this.progress.reset(); this.clearActive(); }
   dispose() { for (const off of this.off) off(); this.off = []; this.calls.reset(); }
   private clearActive() {
     this.calls.reset(); this.orders.clear(); this.reveals.clear(); this.lastFailure = ''; this.lastDistance = Infinity;

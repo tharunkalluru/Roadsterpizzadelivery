@@ -28,6 +28,9 @@ export class ScenePreparation {
   constructor(private dependencies: ScenePreparationDependencies) {}
   get nextRetryAt() { return Math.min(this.currentRetry, this.ready(this.current) ? this.upcomingRetry : Infinity); }
   get currentPreparation() { return this.preparation; }
+  /** Explicit loading-screen Retry works while the simulation clock is
+   * paused. It never starts a duplicate pending preparation. */
+  retryCurrent(){if(!this.currentPending&&!this.ready(this.current)){this.currentRetry=0;this.startCurrent();}return this.preparation;}
   ready(ids: readonly string[]) { return !this.disposed && this.readyKey !== undefined && this.readyKey === unique(ids).join('|'); }
 
   select(currentIds: readonly string[], windowIds: readonly string[]) {

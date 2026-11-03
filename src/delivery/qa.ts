@@ -222,7 +222,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         if(stageTrain)stageTrain.disabled=blocked||!game.story?.activeOrder||game.rail.bodies.filter(body=>/^rail:(?:story:)?\d+:\d+$/.test(body.id)).length<4;
         if(stageCustomerCoach)stageCustomerCoach.disabled=blocked||!game.story?.activeOrder||!game.rail.bodies.some(body=>/^rail:(?:story:)?\d+:\d+$/.test(body.id));
         const text = game.relocating ? 'Loading through normal area placement…' : fullCampaign ? 'Use normal jump-grab, travel and handoff. Staging is disabled. F4 restores the evidence panel.' : blocked ? 'Resume in landscape to prepare.' :
-          game.story?.activeOrder ? 'Order prepared. Scene actions stay manual.' : 'Prepare skips only the pickup for this test.';
+          game.story?.activeOrder ? 'Order prepared. Reach the real arrival marker; trains require a manual landing.' : 'Prepare skips only the pickup for this test.';
         const p=game.player.pos;
         const support=trainRide?movingRailSupport(game.city.movingRail||[],p.x,p.z,p.y-.55):null;
         if(trainLanding&&support&&Math.abs(p.y-.55-support.y)<.25&&/^rail:(?:story:)?\d+:\d+$/.test(support.body.id))contactedCoaches.add(support.body.id);

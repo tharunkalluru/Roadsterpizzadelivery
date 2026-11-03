@@ -21,6 +21,10 @@ function rider(){
 }
 function stage(run:ReturnType<typeof buildRailwayRun>,dir:1|-1,s:number,n=8){
   const rail=new RailTrains(new THREE.MeshBasicMaterial()),cars=Array.from({length:n},()=>new THREE.Mesh());
+  // These are controlled one-rake continuation/retention scenarios. Ambient
+  // random services can legitimately reserve a turnout and hold this rake;
+  // multi-train reservation behavior has its own production-code suites.
+  (rail as any).spawn=()=>{};
   const train={id:'rail:journey',run,dir,s,v:20,cars};rail.group.add(...cars);rail.trains.push(train);
   return{rail,train};
 }

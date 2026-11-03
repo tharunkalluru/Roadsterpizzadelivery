@@ -42,7 +42,7 @@ function fixture() {
   const g: any = Object.assign(Object.create(Game.prototype), {
     carrierPickupMode: true, opts: { sessionStorage: storage },
     area: { name: 'Old area', x: 20, z: 30 }, zone: { bounds: { minX: -20000, minZ: -20000, maxX: 20000, maxZ: 20000 } },
-    story: { controller, get activeOrder() { return !!controller.activeLevel && !controller.complete; }, retry() { counts.retry++; controller.retry(); } },
+    story: { controller, get activeOrder() { return !!controller.activeLevel && !controller.complete; }, retry() { counts.retry++; controller.retry(); },prepareCurrentCharacters:()=>Promise.resolve() },
     city: { radius: 700, focus: [20, 30], async ensure(x: number, z: number, radius: number, signal: AbortSignal) { loads.push({ x, z, radius, signal }); } },
     player: { pos: new THREE.Vector3(20, .55, 30), yaw: 0, place(x: number, z: number, yaw: number, y: number) { this.pos.set(x, y + .55, z); this.yaw = yaw; } },
     map: { open: true, pick: null, at: null, hide() { this.open = false; }, async build() {}, showPick(pick: unknown, at: unknown) { this.open = true; this.pick = pick; this.at = at; } },

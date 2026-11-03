@@ -9,7 +9,7 @@ export interface StationPresentationBatches { st: BoxBatch & QuadBatch }
 
 /** Presentation only. The retained 130 m platforms, canopy liner, lamp
  * hangers, train clearance and delivery surfaces remain owned by city.ts. */
-export const STATION_PRESENTATION = Object.freeze({ halfLength: 67, halfSpan: 13, windowOffset: 8.45, windowBottom: 3.5, windowTop: 6.5, windowEnd: 56 });
+export const STATION_PRESENTATION = Object.freeze({ halfLength: 67, halfSpan: 13, windowOffset: 10.75, windowBottom: 3.5, windowTop: 6.5, windowEnd: 56 });
 export function stationVaultHeight(v: number, deckHeight: number) { return deckHeight + 9.47 - 2.4 * (v / 13) ** 2; }
 
 export interface StationWindowBay { side: number; a: XZ; b: XZ; u0: number; u1: number }

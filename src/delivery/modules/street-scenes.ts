@@ -4,6 +4,7 @@ import { ModuleBase, distanceXZ, heading, numberParam } from './base';
 import type { CharacterStyle, SceneCharacter } from './character';
 import type { DeliveryModuleContext, DeliveryPoint, ModuleParams } from './types';
 import { DELIVERY_PIZZA_BOX } from './pizza-box';
+import { WeddingCrowd } from '../art/wedding-crowd';
 
 const elapsed = (dt: number) => Math.max(0, Math.min(.1, Number.isFinite(dt) ? dt : 0));
 const angleDifference = (a: number, b: number) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
@@ -85,6 +86,7 @@ abstract class StreetScene extends ModuleBase {
   private transferPoint = new THREE.Vector3();
   private actorCatchPoint = new THREE.Vector3();
   private releasingActor: { actor: SceneCharacter; remaining: number } | null = null;
+  protected get transferArcHeight(){return 1.05;}
   protected releaseCatch(dt: number) {
     const release=this.releasingActor;if(!release)return;
     release.remaining=Math.max(0,release.remaining-elapsed(dt));
@@ -165,7 +167,7 @@ abstract class StreetScene extends ModuleBase {
     this.status.canDrop = false; this.status.instruction = transfer.instruction;
     if (!this.unlocked()) return;
     transfer.elapsed += elapsed(dt); const t = Math.min(1, transfer.elapsed / .8);
-    this.transferPoint.lerpVectors(transfer.from, transfer.to(), t); this.transferPoint.y += Math.sin(t * Math.PI) * 1.05;
+    this.transferPoint.lerpVectors(transfer.from, transfer.to(), t); this.transferPoint.y += Math.sin(t * Math.PI) * this.transferArcHeight;
     this.root.updateWorldMatrix(true, false); this.pizza!.position.copy(this.root.worldToLocal(this.transferPoint));
     this.pizza!.rotation.y = Math.PI * 2 * t;
     if (t >= 1) { this.transfer = null; this.pizza!.visible = transfer.keep; transfer.after(); }
@@ -188,13 +190,71 @@ abstract class StreetScene extends ModuleBase {
 }
 
 export class RopeBucket extends StreetScene {
+  // The same0.8s pass must clear the actual1.7m basket walls from the safe
+  // beside-basket bay. Other scene throws retain their original arc.
+  protected override get transferArcHeight(){return 2.2;}
+  override get story(){
+    const frame=super.story;if(!frame)return undefined;
+    const p=this.ctx.player(),d=this.ctx.destination,nx=numberParam(this.params,'facadeNormalX',0,-1,1),nz=numberParam(this.params,'facadeNormalZ',1,-1,1);
+    const entry=frame.entry&&((p.x-d.x)*nx+(p.z-d.z)*nz>=-.25),tx=-this.roofNormal.y,tz=this.roofNormal.x;
+    // The marker belongs to the basket, not a place to put the windscreen.
+    // Keep an already-low approach on its nearer tangent side; crossing to a
+    // fixed side would drive through the basket before reaching a clear bay.
+    if(!this.bucketParkingSide&&entry){
+      this.bucketParkingSide=Math.sign((p.x-d.x)*tx+(p.z-d.z)*tz)||-this.roofCameraSide;
+      const a=Math.atan2(tx,tz),b=a+Math.PI;
+      this.bucketParkingYaw=Math.abs(angleDifference(a,p.yaw))<=Math.abs(angleDifference(b,p.yaw))?a:b;
+    }
+    const side=this.bucketParkingSide||-this.roofCameraSide,distance=2.4+Math.abs(tx)*2.48+Math.abs(tz)*1.9+.4;
+    const point=this.localPoint(tx*side*distance,.55,tz*side*distance);
+    return {...frame,point,yaw:this.bucketParkingYaw,entry};
+  }
+  private rooftop:SceneCharacter|null=null;
+  private roofFocusPosition=new THREE.Vector3();
+  private roofFocusTarget=new THREE.Vector3();
+  private roofFocus={position:this.roofFocusPosition,target:this.roofFocusTarget,context:'stationary-handoff' as const};
+  private bucketFocusPosition=new THREE.Vector3();
+  private bucketFocusTarget=new THREE.Vector3();
+  private bucketFocus={position:this.bucketFocusPosition,target:this.bucketFocusTarget,context:'stationary-handoff' as const};
+  private roofLight=new THREE.Vector3();
+  private roofLightLocal=new THREE.Vector3();
+  private roofNormal=new THREE.Vector2(0,1);
+  private roofCameraSide=1;
+  private bucketParkingSide=0;
+  private bucketParkingYaw=0;
+  private roofLightRequest={position:this.roofLight,kind:'porch' as const};
+  get sceneLamp(){
+    if(!this.ended||!this.cameraFocus||!this.rooftop)return undefined;
+    this.root.localToWorld(this.roofLight.copy(this.roofLightLocal));return this.roofLightRequest;
+  }
+  get cameraFocus(){
+    if(this.ready&&!this.ended&&this.ctx.storyActive?.()&&this.bucket){
+      const height=this.bucket.position.y,side=this.bucketParkingSide?-this.bucketParkingSide:this.roofCameraSide;
+      const nx=this.roofNormal.x,nz=this.roofNormal.y,x=nx*1.5-nz*side*7.5,z=nz*1.5+nx*side*7.5;
+      // The basket keeps its actual world-axis panels, even at a rotated
+      // frontage. Look down over its1.7m walls so the40cm carton is visible;
+      // stay in the narrow street-side strip, not the opposite building.
+      const above=Math.max(Math.abs(x)/2.35,Math.abs(z)/1.82)*1.65;
+      this.root.updateWorldMatrix(true,false);
+      this.root.localToWorld(this.bucketFocusPosition.set(x,height*1.35+4.23+above,z));
+      this.root.localToWorld(this.bucketFocusTarget.set(0,height*.55+2.4,0));
+      return this.bucketFocus;
+    }
+    if(!this.ready||!this.ended||!this.ctx.storyActive?.()||!this.charactersReady||!this.rooftop||this.rooftop.group.userData.characterRelease==='withheld')return undefined;
+    const actor=this.rooftop.group.position;this.root.updateWorldMatrix(true,false);
+    const nx=this.roofNormal.x,nz=this.roofNormal.y,side=this.roofCameraSide;
+    // Actor and camera stay on the same tangent side of the winch. The old
+    // fixed world-axis shot could put its near plane inside the pulley brace.
+    this.root.localToWorld(this.roofFocusPosition.set(actor.x+nx*2.7-nz*side*.9,actor.y+1.6,actor.z+nz*2.7+nx*side*.9));
+    this.root.localToWorld(this.roofFocusTarget.set(actor.x,actor.y+1.1,actor.z));return this.roofFocus;
+  }
   private bucket!: THREE.Group;
   private rope!: THREE.Mesh;
   private phase: 'waiting' | 'lowering' | 'ready' | 'passing' | 'raising' = 'waiting';
   private top = 18;
   private low = 1.1;
   protected build() {
-    this.phase = 'waiting'; this.top = numberParam(this.params, 'roofHeight', 18, 5, 70); this.low = 1.1;
+    this.phase = 'waiting';this.bucketParkingSide=0;this.bucketParkingYaw=0; this.top = numberParam(this.params, 'roofHeight', 18, 5, 70); this.low = 1.1;
     const b = this.batch();
     // An original Paradise-inspired restaurant facade: stacked dining floors,
     // green band, red name fascia, public entrance and a rooftop service winch.
@@ -220,7 +280,24 @@ export class RopeBucket extends StreetScene {
     b.box(anchorX, this.top + 2.2, anchorZ, .5, 4.4, .5, '#494638');
     b.rod([anchorX, this.top + 4.2, anchorZ], [0, this.top + 4.2, 0], .23, '#494638');
     b.rod([anchorX, this.top + 1.8, anchorZ], [0, this.top + 4.2, 0], .11, '#494638');
-    b.cylinder(0, this.top + 3.4, 0, .48, .55, '#A59364'); b.flush('delivery-paradise-facade');
+    b.cylinder(0, this.top + 3.4, 0, .48, .55, '#A59364');
+    this.roofNormal.set(numberParam(this.params,'facadeNormalX',0,-1,1),numberParam(this.params,'facadeNormalZ',1,-1,1));
+    if(this.roofNormal.lengthSq()<.01)this.roofNormal.set(0,1);else this.roofNormal.normalize();
+    this.roofCameraSide=numberParam(this.params,'rooftopCameraSide',1,-1,1)<0?-1:1;
+    const nx=this.roofNormal.x,nz=this.roofNormal.y,side=this.roofCameraSide;
+    const actorX=numberParam(this.params,'rooftopActorX',anchorX-nx*1.3-nz*side*1.8,-40,40);
+    const actorZ=numberParam(this.params,'rooftopActorZ',anchorZ-nz*1.3+nx*side*1.8,-40,40);
+    const floorY=this.top+(this.params.useExistingFacade?0:.4);
+    const lampX=actorX+nx*1.6+nz*side*.4,lampZ=actorZ+nz*1.6-nx*side*.4;
+    b.cylinder(lampX,floorY+1.35,lampZ,.045,2.7,'#494638');
+    b.box(lampX,floorY+2.78,lampZ,.7,.12,.25,'#494638');
+    b.box(lampX,floorY+2.7,lampZ,.4,.025,.18,'#FFE0B0');
+    this.roofLightLocal.set(lampX,floorY+2.7,lampZ);
+    b.flush('delivery-paradise-facade');
+    // The same exact-asset release gate as every other scene owns this actor.
+    // Unreviewed art remains an empty rig, never a generic celebrity stand-in.
+    this.rooftop=this.actor('odela',actorX,floorY,actorZ);
+    this.rooftop.group.rotation.y=Math.atan2(nx,nz);
     this.bucket = new THREE.Group(); this.bucket.name = 'delivery-rope-bucket'; this.bucket.position.set(0, this.top - 1, 0); this.root.add(this.bucket);
     const basket = this.batch(this.bucket);
     basket.box(0, 0, 0, 4.8, .22, 3.8, '#625A4A'); basket.box(-2.35, .8, 0, .16, 1.7, 3.8, '#A7966B');
@@ -240,6 +317,7 @@ export class RopeBucket extends StreetScene {
     this.rope.scale.y = length; this.rope.position.set(0, low + length / 2, 0);
   }
   update(dt: number) {
+    if(this.ready)this.rooftop?.animate?.(elapsed(dt),'idle',1);
     if (!this.tick(dt)) return;
     const step = elapsed(dt), close = distanceXZ(this.ctx.player(), this.ctx.destination) < 42;
     if (this.phase === 'waiting' && close) this.phase = 'lowering';
@@ -268,6 +346,15 @@ export class RopeBucket extends StreetScene {
 export type GateTheme = 'haunted' | 'college' | 'villa' | 'salaar';
 
 export class GateDelivery extends StreetScene {
+  override get story(){
+    const frame=super.story;if(!frame)return undefined;
+    const p=this.ctx.player(),d=this.ctx.destination,s=numberParam(this.params,'sceneScale',1,.5,1),dx=p.x-d.x,dz=p.z-d.z;
+    if(this.theme!=='salaar')return{...frame,entry:frame.entry&&dz>=1&&Math.abs(dx)<14&&distanceXZ(p,this.target)<16};
+    const inside=Math.abs(dx)<19*s&&dz< -8.5*s&&dz> -43*s;
+    const atGate=Math.abs(dx)<8*s&&dz>=-6*s&&dz<18*s;
+    const point=!inside&&(Math.abs(dx)>.35||this.opening<1)?{x:d.x,y:d.y+.55,z:d.z+4*s}:frame.point;
+    return {...frame,entry:frame.entry&&(inside||atGate),point,yaw:0};
+  }
   private theme: GateTheme = 'haunted';
   private receiver: SceneCharacter | null = null;
   private doors: THREE.Group[] = [];
@@ -289,17 +376,18 @@ export class GateDelivery extends StreetScene {
   get hideWorldGuidance(){return this.theme==='haunted'&&!!this.cameraFocus;}
   get intentionalStop(){return this.nearHauntedReceiver()&&Math.abs(this.ctx.player().speed)<=.8;}
   get sceneLamp(){
-    if(!this.ready||!['haunted','college','villa'].includes(this.theme)||!this.receiver?.group.visible||distanceXZ(this.ctx.player(),this.target)>35)return undefined;
+    if(!this.ready||!['haunted','college','villa','salaar'].includes(this.theme)||!this.receiver?.group.visible||distanceXZ(this.ctx.player(),this.target)>35)return undefined;
     if(this.theme==='haunted'&&this.receiver.group.userData.characterRelease==='withheld')return undefined;
     this.root.updateWorldMatrix(true,false);this.porchWorld.copy(this.porchLocal);this.root.localToWorld(this.porchWorld);
-    return this.theme==='haunted'?this.hauntedLanternRequest:this.theme==='villa'?this.villaPorchRequest:this.porchRequest;
+    return this.theme==='haunted'?this.hauntedLanternRequest:['villa','salaar'].includes(this.theme)?this.villaPorchRequest:this.porchRequest;
   }
   get cameraFocus(){
-    if(!this.ready||!this.charactersReady||!['haunted','college','villa'].includes(this.theme)||!this.receiver?.group.visible||!this.grounded())return undefined;
-    if(this.theme==='haunted'&&this.receiver.group.userData.characterRelease==='withheld')return undefined;
+    if(!this.ready||!this.charactersReady||!['haunted','college','villa','salaar'].includes(this.theme)||!this.receiver?.group.visible||!this.grounded())return undefined;
+    if(this.receiver.group.userData.characterRelease==='withheld')return undefined;
     const p=this.ctx.player();if(Math.abs(p.speed)>.75||distanceXZ(p,this.target)>9)return undefined;
     const actor=this.receiver.group.position;this.root.updateWorldMatrix(true,false);
-    this.root.localToWorld(this.focusPosition.set(actor.x+1.8,1.7,actor.z+4.2));
+    const close=this.theme==='salaar'&&this.ended&&this.ctx.storyActive?.();
+    this.root.localToWorld(this.focusPosition.set(actor.x+(close?1.1:1.8),1.7,actor.z+(close?2.7:4.2)));
     this.root.localToWorld(this.focusTarget.set(actor.x,1.1,actor.z));return this.gateFocus;
   }
   override get exitPending() {
@@ -328,6 +416,7 @@ export class GateDelivery extends StreetScene {
       // scale. No new light or fixture is added to the haunted property.
       this.porchLocal.set(-9*scale,6.1,-3.75*scale);
     }
+    if(this.theme==='salaar'){this.porchLocal.x*=scale;this.porchLocal.z*=scale;}
     if(this.receiver&&['college','villa'].includes(this.theme)){
       const actor=this.receiver.group.position,x=actor.x+1.4,z=actor.z+1.5;
       // A small entrance light stands beside the human opening, outside the
@@ -477,7 +566,10 @@ export class GateDelivery extends StreetScene {
       this.doorBodies.push(index);
     }
     b.box(-17, 5, -33, 5, 10, 6, '#665C4B'); b.box(17, 4, -38, 6, 8, 8, '#665C4B');
-    // No Prabhas stand-in. The imposing fictional set is the delivery scene.
+    b.cylinder(4.3,1.55,-21.5,.055,3.1,'#494638');
+    b.box(4.3,3.18,-21.5,.7,.14,.28,'#252E30');b.box(4.3,3.1,-21.5,.4,.025,.18,'#FFE0B0');
+    this.receiver=this.actor('salaar',2.8,0,-23);
+    this.porchLocal.set(4.3,3.1,-21.5);
   }
   private updateDoors(dt: number) {
     if (this.theme === 'salaar') {
@@ -520,6 +612,12 @@ export class GateDelivery extends StreetScene {
 }
 
 export class WalkingHandoff extends StreetScene {
+  override get story(){
+    const frame=super.story;if(!frame)return undefined;
+    const side=numberParam(this.params,'walkSide',-3.5,-4,-1.5),point=this.localPoint(side+3.1,.55,this.localZ);
+    const streetYaw=this.params.useExistingStreet?numberParam(this.params,'streetYaw',0,-Math.PI*2,Math.PI*2):0;
+    return {...frame,point,yaw:streetYaw+(this.direction<0?0:Math.PI),speed:Math.max(.3,Math.min(1.8,Math.abs(this.walkSpeed))),maxSpeed:4};
+  }
   private receiver: SceneCharacter | null = null;
   private localZ = 0;
   private previousZ = 0;
@@ -527,6 +625,19 @@ export class WalkingHandoff extends StreetScene {
   private direction = -1;
   private streetLampWorld=new THREE.Vector3();
   private streetLampRequest={position:this.streetLampWorld,kind:'street-scene' as const};
+  private focusPosition=new THREE.Vector3();
+  private focusTarget=new THREE.Vector3();
+  private walkingFocus={position:this.focusPosition,target:this.focusTarget};
+  get cameraFocus(){
+    if(!this.ready||!this.ctx.storyActive?.()||!this.charactersReady||!this.receiver?.group.visible||
+      this.receiver.group.userData.characterRelease==='withheld'||distanceXZ(this.ctx.player(),this.target)>35)return undefined;
+    // Follow the actor's real facing direction, including her return walk.
+    // Stay on the road side, ahead of the beside-her car, rather than behind
+    // its cabin where her face and the physical handoff would disappear.
+    const actor=this.receiver.group;actor.updateWorldMatrix(true,false);
+    actor.localToWorld(this.focusPosition.set(this.direction<0?-1.8:1.8,1.65,3.8));
+    actor.localToWorld(this.focusTarget.set(0,1.05,0));return this.walkingFocus;
+  }
   get sceneLamp(){
     if(!this.ready||distanceXZ(this.ctx.player(),this.target)>35)return undefined;
     const length=numberParam(this.params,'walkLength',70,20,140),side=numberParam(this.params,'walkSide',-3.5,-4,-1.5);
@@ -598,6 +709,13 @@ export class WalkingHandoff extends StreetScene {
 }
 
 export class WeddingHandoff extends StreetScene {
+  override get story(){
+    const frame=super.story;if(!frame)return undefined;
+    // Keep a full car beside the dancer, not centered on her body. The bay
+    // also sits between the two nearest procession rows and clear of lamps.
+    const point=this.localPoint(3.3,.55,(this.receiver?.group.position.z??-4)+.5);
+    return {...frame,point,yaw:this.params.useExistingStreet?numberParam(this.params,'streetYaw',0,-Math.PI*2,Math.PI*2):0};
+  }
   private receiver: SceneCharacter | null = null;
   private readonly processionLampZ=[-13,-7,-1,5];
   private lampWorld=new THREE.Vector3();
@@ -617,16 +735,18 @@ export class WeddingHandoff extends StreetScene {
     this.root.updateWorldMatrix(true,false);this.root.localToWorld(this.lampWorld.set(-3.1,2.91,nearest));return this.lampRequest;
   }
   get cameraFocus(){
+    if(this.ctx?.storyActive?.()){
+      if(!this.ready||!this.charactersReady||!this.receiver?.group.visible||this.receiver.group.userData.characterRelease==='withheld'||distanceXZ(this.ctx.player(),this.target)>35)return undefined;
+      const actor=this.receiver.group;actor.updateWorldMatrix(true,false);
+      actor.localToWorld(this.focusPosition.set(-2.2,1.65,3.6));
+      actor.localToWorld(this.focusTarget.set(0,1.05,0));return this.handoffFocus;
+    }
     if(!this.charactersReady||!this.nearCustomer(8)||Math.abs(this.ctx.player().speed)>.75)return undefined;
     const actor=this.receiver!.group.position;this.root.updateWorldMatrix(true,false);
     this.root.localToWorld(this.focusPosition.set(actor.x+1.8,1.7,actor.z+4.2));
     this.root.localToWorld(this.focusTarget.set(actor.x,1.05,actor.z));return this.handoffFocus;
   }
-  private dancers!: THREE.InstancedMesh;
-  private crowdMatrix = new THREE.Matrix4();
-  private crowdPosition = new THREE.Vector3();
-  private crowdRotation = new THREE.Quaternion();
-  private crowdScale = new THREE.Vector3(1, 1, 1);
+  private dancers:WeddingCrowd|null=null;
   protected build() {
     const b = this.batch();
     if (!this.params.useExistingStreet) {
@@ -655,31 +775,16 @@ export class WeddingHandoff extends StreetScene {
     b.box(-12, 1.1, -2, 3.8, 2.2, 6, '#9A443D'); b.box(-12, 2.6, -2, 3.6, .4, 5.8, '#D7B567');
     b.flush('delivery-village-procession');
     this.receiver = this.actor('bhanumathi', 0, 0, -4);
-    // Anonymous background procession, one instanced draw for all 16 dancers.
-    // This geometry intentionally is not used as any named character's body.
-    const template = new THREE.Group(), crowd = this.batch(template);
-    crowd.box(0, 1.15, 0, .55, .72, .31, '#FFFFFF'); crowd.cylinder(0, 1.79, 0, .19, .34, '#FFFFFF');
-    crowd.rod([-.24, 1.42, 0], [-.58, 1.84, 0], .072, '#FFFFFF'); crowd.rod([.24, 1.42, 0], [.58, 1.68, 0], .072, '#FFFFFF');
-    crowd.rod([-.13, .82, 0], [-.22, .1, -.07], .09, '#FFFFFF'); crowd.rod([.13, .82, 0], [.24, .1, .1], .09, '#FFFFFF');
-    crowd.flush('delivery-background-dancer'); const mesh = template.children[0] as THREE.Mesh;
-    this.dancers = this.ownInstances(new THREE.InstancedMesh(mesh.geometry, mesh.material, 16)); this.dancers.name = 'delivery-wedding-crowd';
-    this.dancers.instanceMatrix.setUsage(THREE.DynamicDrawUsage); this.dancers.frustumCulled = false;
-    for (let i = 0; i < 16; i++) this.dancers.setColorAt(i, new THREE.Color(['#D4943E', '#B95767', '#53836E', '#A395C8'][i % 4]));
-    this.root.add(this.dancers);
+    // Anonymous guests share the approved reduced anatomical people source.
+    // Four internally coloured/posed templates preserve sixteen original slots.
+    this.dancers=new WeddingCrowd();this.root.add(this.dancers.group);
     this.streetTarget(0, -4, this.ctx.destination.label || 'Wedding procession');
     this.status = { instruction: 'Approach the dancing procession slowly', canDrop: false, actionLabel: 'HAND OVER' };
     this.animateCrowd();
   }
   private animateCrowd(dt = 0, notify = true) {
     const centerZ = -4 - Math.sin(this.time * .085) * 9;
-    for (let i = 0; i < 16; i++) {
-      const side = i % 2 ? 1 : -1;
-      this.crowdPosition.set(side * (4.6 + i % 3 * .8) + Math.sin(this.time * 2.3 + i) * .32,
-        Math.abs(Math.sin(this.time * 3.2 + i)) * .12, centerZ + 6 - Math.floor(i / 2) * 2.2);
-      this.crowdRotation.setFromEuler(new THREE.Euler(0, Math.sin(this.time * 2 + i) * .45, Math.sin(this.time * 2.3 + i) * .08));
-      this.crowdMatrix.compose(this.crowdPosition, this.crowdRotation, this.crowdScale); this.dancers.setMatrixAt(i, this.crowdMatrix);
-    }
-    this.dancers.instanceMatrix.needsUpdate = true;
+    this.dancers?.update(this.time);
     if (this.receiver) {
       const animated = typeof this.receiver.animate === 'function';
       this.receiver.group.position.set(0, animated ? 0 : Math.abs(Math.sin(this.time * 3)) * .06, centerZ);
@@ -700,9 +805,11 @@ export class WeddingHandoff extends StreetScene {
     if (!this.status.canDrop || !this.grounded()) { this.fail('Land and slow down beside the procession.'); return; }
     this.transferToActor(this.receiver, () => new THREE.Vector3(this.target.x, this.target.y + 1.2, this.target.z), () => this.done());
   }
+  override teardown(){this.dancers?.dispose();this.dancers=null;super.teardown();}
 }
 
 export class AngleParking extends StreetScene {
+  override get story(){const frame=super.story;return frame?{...frame,yaw:numberParam(this.params,'parkingYaw',Math.PI/4,-Math.PI*2,Math.PI*2)}:undefined;}
   private receiver: SceneCharacter | null = null;
   private studioLampLocal=new THREE.Vector3();
   private studioLampWorld=new THREE.Vector3();

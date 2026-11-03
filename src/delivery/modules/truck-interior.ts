@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import type { MovingRailBody } from '../../game/moving-rail';
 import { ModuleBase, distanceXZ, numberParam } from './base';
-import type { DeliveryPoint, ModuleArrival } from './types';
+import type { DeliveryPoint, ModuleArrival, ModuleStoryFrame } from './types';
 import type { SceneCharacter } from './character';
 
 const BED=1.55, REAR=-8, RAMP_LENGTH=8.4, RAMP_TIP=.12;
@@ -33,6 +33,18 @@ export class TruckInterior extends ModuleBase {
   private throwFrom=new THREE.Vector3();
   private catchTo=new THREE.Vector3();
   get trafficBodies(){return this.envelope?[this.envelope]:[];}
+  override get story():ModuleStoryFrame|undefined{
+    if(!this.ready||!this.ctx.automaticStories||!this.envelope)return undefined;
+    const p=this.ctx.player(),local=this.local(p),tip=REAR-RAMP_RUN;
+    const entry=local.z<REAR-1&&local.z>tip-24&&Math.abs(local.x)<7&&Math.abs(local.y-.55)<28&&!p.jumping;
+    let x=0,z=tip-.3,y=.55;
+    if(this.entered){x=.55;z=2;y=BED+.55;}
+    else if(Math.abs(local.x)<.45&&local.z>=tip-.7&&this.open===1){
+      z=Math.min(REAR+.7,local.z+1.4);y=RAMP_TIP+(BED-RAMP_TIP)*Math.max(0,Math.min(1,(z-tip)/RAMP_RUN))+.55;
+    }
+    return {entry,point:this.world(x,z,y),yaw:Math.atan2(-this.pose.hx,-this.pose.hz),
+      maxSpeed:this.entered?Math.max(2,this.speed+2):Math.max(6,this.speed+5),verticalSpeed:3};
+  }
   get hideWorldGuidance(){
     if(!this.ready||!this.envelope)return false;
     const p=this.local(this.ctx.player());

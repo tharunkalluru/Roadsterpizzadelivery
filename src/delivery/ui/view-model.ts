@@ -13,6 +13,7 @@ export interface DeliveryView {
   } | null;
   action?: { label: string; enabled: boolean; hint?: string; progress?: number } | null;
   completion?: DeliveryPortrait & { restaurantLabel: string; final: boolean; bonusAvailable?: boolean } | null;
+  story?: {viewing:boolean}|null;
   collection: DeliveryPortrait[];
   notice?: string;
   noticeContext?: 'scene-exit';
