@@ -1,0 +1,33 @@
+✔ actual World init and actual tileworker use real pack decode and transferred Float32 geometry (37976.460417ms)
+ℹ {"scope":"Actual World and tileworker code with Node-only message/file adapters; not browser concurrency, GPU or phone performance","modelActive":false,"buffers":72,"roadSurfaces":724,"transfers":[{"type":"built","transferCount":288,"detachedBuffers":288}]}
+﹣ conditioned core reuse, clone reuse and worker restart retain active tile/node geometry without double rebasing (0.214625ms) # SKIP
+✔ actual normal asphalt and shared-node caps match finite support by exact emitted vertices (68.990833ms)
+✔ long context clipping retains exact actual Float32 triangle/source association (8.566459ms)
+✔ a deliberately altered emitted asphalt vertex cannot be explained by approximate metadata (0.885208ms)
+✔ finite reviewer detects exact reduced headroom and reversed order on surviving geometry (1.362333ms)
+✔ unchanged physical identity cannot report a clearance regression even if every road is audited (0.149083ms)
+✔ a source-backed finite apron fragment cannot exempt a remote part of the same pair (0.261958ms)
+✔ even an approved apron polygon cannot waive a positive gap through the car or reversed bridge (0.517292ms)
+✔ missing old finite coverage and new unmatched pavement remain explicit unresolved evidence (0.11425ms)
+✔ local canonical arc matching does not substitute a remote level of a looping road (0.104542ms)
+✔ actual node-cap triangles participate rather than being discarded from finite overlap checks (0.093083ms)
+✔ triangle boundary clipping preserves finite footprints without capsule endpoint extensions (0.21625ms)
+✔ strict finite review protects positive historical gaps below4.5m and allows only1mm serialization error (0.328292ms)
+✔ sub4.5m positive history may become a proved co-elevated apron only inside its exact polygon (0.258375ms)
+✔ verified sibling identity can follow a moved cut but cannot hide geographic gaps or a remote loop branch (0.32025ms)
+✔ physical core/tile union preserves the core and admits only matching context plus actual owned side roads (0.77875ms)
+✔ stale heights, omitted owners, duplicate rows and unresolved rendering cannot masquerade as a complete physical union (0.510166ms)
+✔ corrected-source coordinates map to immutable historical edge coordinates without clamping repaired cuts (3.359292ms)
+✔ source-reference mapping rejects invalid or out-of-domain new coordinates rather than hiding a stage error (0.251375ms)
+✔ geographic sibling references use actual old cuts and the exact full Overture source UUID (2.746834ms)
+✔ missing and ambiguous source bindings stay explicitly unresolved instead of becoming a road-family waiver (1.907125ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 38109.908666
+
+TYPECHECK

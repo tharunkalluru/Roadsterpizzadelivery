@@ -60,7 +60,7 @@ test('completed reader smoothly returns to the authored reading loop beside a bo
   Object.assign(p,{z:-8.01,y:2.10});module.update(.1);p.z=-7.99;module.update(.1);
   p.z=2;for(let frame=0;frame<6;frame++)module.update(.1);
   assert.equal(module.status.canDrop,true);
-  const focus=module.cameraFocus!;assert.ok(focus);assert.ok(focus.position.y>3.5&&focus.position.y<5.5);assert.equal(focus.target.z,6);
+  assert.equal(module.cameraFocus,undefined,'a withheld mechanics fixture cannot attract an approved-face close-up; exact source camera coverage is separate');
   p.speed=2;assert.equal(module.cameraFocus,undefined,'driving always releases close interaction framing');p.speed=0;
   module.onDrop();
   for(let frame=0;frame<12;frame++)module.update(.1);

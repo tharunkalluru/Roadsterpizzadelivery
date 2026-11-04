@@ -1,0 +1,892 @@
+{
+  "schema": "one-control-generated-curvature-diagnostic-result-receipt-v1",
+  "researchOnly": true,
+  "releaseApproved": false,
+  "heightAuthorityGranted": false,
+  "activeProductionConsumer": false,
+  "scope": "One midpoint bound expansion in an inactive owned diagnostic context. Actual unchanged numeric consumer rerun; original held source, endpoints, all other bounds, grade/curvature coefficients and all full-matrix source-order/headroom/coupling expressions remain unchanged. No profile fit, production policy, geometry acceptance or release approval.",
+  "inputs": {
+    "parentFit": {
+      "path": "/tmp/roadster-controlled-interior-domain-experiment-v34-9413-v1.fit.json",
+      "sha256": "4cd429fcf3d6ffa84a0cdb0a246e5b414dc5aa89391d2ce29ff5a4e4b9db39e2"
+    },
+    "oneControlContext": {
+      "path": "/tmp/roadster-v34-one-control-curvature-diagnostic-9413-v1.context.pickle",
+      "sha256": "1bc2810d6c9bf389ef054682f8d39962364658defa3ed91fb7512b0620be634e"
+    },
+    "preparation": {
+      "path": "/tmp/roadster-v34-one-control-curvature-diagnostic-9413-v1.preparation.json",
+      "sha256": "caca0929b01dbd5f218c94f029164ab9893e795c0fb91e39a74770f1dfd57713"
+    },
+    "fit": {
+      "path": "/tmp/roadster-v34-one-control-curvature-diagnostic-9413-v1.fit.json",
+      "sha256": "ba4a6a28de526fbc5106ccd899381a8b8048646c875e2838a104233f579d7a96"
+    }
+  },
+  "target": {
+    "road": "e1a86c44-8fc_0",
+    "control": 1,
+    "fromBounds": [
+      0.0,
+      0.6049694939159029
+    ],
+    "diagnosticBounds": [
+      0.0,
+      1.1335517959276247
+    ],
+    "existingEndpointCeiling": 1.1335517959276247,
+    "localFeasibleInterval": [
+      0.62290308964572,
+      1.1335517959276247
+    ],
+    "minimumAdditionalMidpointFreedom": 0.01793359572981712
+  },
+  "summary": {
+    "variables": 224413,
+    "constraintsBefore": 4047590,
+    "constraintsAfter": 4047590,
+    "directConflictsBefore": 10720,
+    "directConflictsAfter": 10709,
+    "curvatureRowsRemoved": 1,
+    "apronRowsRemoved": 10,
+    "addedConflictRows": 0,
+    "status": 2,
+    "success": false,
+    "remainingCategories": {
+      "exact-joint-core-tile-node": 72,
+      "independent-finite-headroom": 3352,
+      "finite-apron-coelevation": 7285
+    },
+    "allCommonConflictConstraintTagsBoundsAndInputValuesExact": true,
+    "localRows": 14,
+    "fullMatrixHeadExpressionsUsingControl": 0,
+    "fullMatrixCouplingExpressionsUsingControl": 44
+  },
+  "removedDirectConflictRows": [
+    {
+      "row": 733020,
+      "constraint": {
+        "category": "bounded-grade-change",
+        "road": "e1a86c44-8fc_0",
+        "control": 1,
+        "gradeChangePerMetre": 0.00625,
+        "globalGradeChangePerMetre": 0.00625
+      },
+      "inputValue": 0.0877665944699918,
+      "minimumFromBounds": 0.0877665944699918,
+      "bound": 0.08461466141937113,
+      "controls": [
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": 0.12297044330205092,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.17575577692878105,
+          "authority": "generated estimated model profile",
+          "node": null
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 2,
+          "modelArc": 27.07669165419876,
+          "sourceArc": 27.07669165419876,
+          "inputHeight": 1.0362747998742794,
+          "bounds": [
+            1.0362747998742794,
+            1.0362747998742794
+          ],
+          "coefficient": 0.05278533362673012,
+          "authority": "generated estimated model profile",
+          "node": "852f35eb-225"
+        }
+      ]
+    },
+    {
+      "row": 1784360,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "001dc96a-773_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          0
+        ],
+        "point": [
+          -3557.8315988563413,
+          374.13408354840806
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.1094874134596865,
+      "minimumFromBounds": 0.10948741345968638,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "001dc96a-773_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 2.2751857127328377,
+          "bounds": [
+            2.2751857127328377,
+            2.2751857127328377
+          ],
+          "coefficient": 7.216449660063518e-15,
+          "authority": "generated estimated model profile",
+          "node": "a3cbe0c2-60a"
+        },
+        {
+          "road": "001dc96a-773_0",
+          "control": 1,
+          "modelArc": 17.5635987200802,
+          "sourceArc": 17.5635987200802,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": 0.9999999999999928,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": -0.7928659112441296,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.2071340887558703,
+          "authority": "generated estimated model profile",
+          "node": null
+        }
+      ]
+    },
+    {
+      "row": 1784362,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "001dc96a-773_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          0
+        ],
+        "point": [
+          -3559.3347903990207,
+          375.0043523362752
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.18917136431114737,
+      "minimumFromBounds": 0.18917136431114745,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "001dc96a-773_0",
+          "control": 1,
+          "modelArc": 17.5635987200802,
+          "sourceArc": 17.5635987200802,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": 1.0,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": -0.6421155918554526,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.3578844081445474,
+          "authority": "generated estimated model profile",
+          "node": null
+        }
+      ]
+    },
+    {
+      "row": 1784370,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "001dc96a-773_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          0
+        ],
+        "point": [
+          -3557.8315988563413,
+          374.13408354840806
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.10948741345968625,
+      "minimumFromBounds": 0.10948741345968616,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "001dc96a-773_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 2.2751857127328377,
+          "bounds": [
+            2.2751857127328377,
+            2.2751857127328377
+          ],
+          "coefficient": 7.216449660063518e-15,
+          "authority": "generated estimated model profile",
+          "node": "a3cbe0c2-60a"
+        },
+        {
+          "road": "001dc96a-773_0",
+          "control": 1,
+          "modelArc": 17.5635987200802,
+          "sourceArc": 17.5635987200802,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": 0.9999999999999928,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": -0.7928659112441301,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.2071340887558699,
+          "authority": "generated estimated model profile",
+          "node": null
+        }
+      ]
+    },
+    {
+      "row": 1784382,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "001dc96a-773_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          0
+        ],
+        "point": [
+          -3559.3347903990207,
+          375.0043523362752
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.18917136431114737,
+      "minimumFromBounds": 0.18917136431114745,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "001dc96a-773_0",
+          "control": 1,
+          "modelArc": 17.5635987200802,
+          "sourceArc": 17.5635987200802,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": 1.0,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": -0.6421155918554526,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.3578844081445474,
+          "authority": "generated estimated model profile",
+          "node": null
+        }
+      ]
+    },
+    {
+      "row": 1900942,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "05e903c7-687_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          1
+        ],
+        "point": [
+          -3580.1532968925476,
+          369.29835123480296
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.05747294111807684,
+      "minimumFromBounds": 0.05747294111807677,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "05e903c7-687_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.0362747998742794,
+          "bounds": [
+            1.0362747998742794,
+            1.0362747998742794
+          ],
+          "coefficient": 1.0000000000000189,
+          "authority": "generated estimated model profile",
+          "node": "852f35eb-225"
+        },
+        {
+          "road": "05e903c7-687_0",
+          "control": 1,
+          "modelArc": 6.488451279002998,
+          "sourceArc": 6.488451279002998,
+          "inputHeight": 0.6145254667390845,
+          "bounds": [
+            0.0,
+            0.6145254667390845
+          ],
+          "coefficient": -1.8956694371652704e-14,
+          "authority": "generated estimated model profile",
+          "node": null
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.1332534989115468,
+          "authority": "generated estimated model profile",
+          "node": null
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 2,
+          "modelArc": 27.07669165419876,
+          "sourceArc": 27.07669165419876,
+          "inputHeight": 1.0362747998742794,
+          "bounds": [
+            1.0362747998742794,
+            1.0362747998742794
+          ],
+          "coefficient": -0.8667465010884532,
+          "authority": "generated estimated model profile",
+          "node": "852f35eb-225"
+        }
+      ]
+    },
+    {
+      "row": 2218708,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "1e06c073-38b_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          0
+        ],
+        "point": [
+          -3558.796053944644,
+          375.1667537809002
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.1523588541551076,
+      "minimumFromBounds": 0.15235885415510753,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "1e06c073-38b_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": 1.0000000000000002,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": -0.7117594486700602,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.2882405513299398,
+          "authority": "generated estimated model profile",
+          "node": null
+        }
+      ]
+    },
+    {
+      "row": 2218710,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "1e06c073-38b_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          0
+        ],
+        "point": [
+          -3557.6734649915675,
+          374.3448582973978
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.09584344398199494,
+      "minimumFromBounds": 0.09584344398199485,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "1e06c073-38b_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": 0.9999999999999971,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "1e06c073-38b_0",
+          "control": 1,
+          "modelArc": 20.821383239352606,
+          "sourceArc": 20.821383239352606,
+          "inputHeight": 0.0,
+          "bounds": [
+            0,
+            0
+          ],
+          "coefficient": 2.8705673575959453e-15,
+          "authority": "generated estimated model profile",
+          "node": "9e5c51d8-24a"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": -0.8186782954759751,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.18132170452402488,
+          "authority": "generated estimated model profile",
+          "node": null
+        }
+      ]
+    },
+    {
+      "row": 2218712,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "1e06c073-38b_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          0
+        ],
+        "point": [
+          -3557.6773855319916,
+          375.1123596414846
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.04914615947941006,
+      "minimumFromBounds": 0.049146159479410034,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "1e06c073-38b_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": 0.970369294089354,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "1e06c073-38b_0",
+          "control": 1,
+          "modelArc": 20.821383239352606,
+          "sourceArc": 20.821383239352606,
+          "inputHeight": 0.0,
+          "bounds": [
+            0,
+            0
+          ],
+          "coefficient": 0.029630705910646007,
+          "authority": "generated estimated model profile",
+          "node": "9e5c51d8-24a"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": -0.8434792480486959,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.1565207519513041,
+          "authority": "generated estimated model profile",
+          "node": null
+        }
+      ]
+    },
+    {
+      "row": 2218716,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "1e06c073-38b_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          0
+        ],
+        "point": [
+          -3557.6734649915675,
+          374.3448582973978
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.09584344398199497,
+      "minimumFromBounds": 0.09584344398199485,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "1e06c073-38b_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": 0.9999999999999971,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "1e06c073-38b_0",
+          "control": 1,
+          "modelArc": 20.821383239352606,
+          "sourceArc": 20.821383239352606,
+          "inputHeight": 0.0,
+          "bounds": [
+            0,
+            0
+          ],
+          "coefficient": 2.8705673575959453e-15,
+          "authority": "generated estimated model profile",
+          "node": "9e5c51d8-24a"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 1.1335517959276247,
+          "bounds": [
+            1.1335517959276247,
+            1.1335517959276247
+          ],
+          "coefficient": -0.818678295475975,
+          "authority": "generated estimated model profile",
+          "node": "16e60f28-783"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.18132170452402502,
+          "authority": "generated estimated model profile",
+          "node": null
+        }
+      ]
+    },
+    {
+      "row": 3423322,
+      "constraint": {
+        "category": "finite-apron-coelevation",
+        "roads": [
+          "c0ab23c9-87e_0",
+          "e1a86c44-8fc_0"
+        ],
+        "segments": [
+          0,
+          1
+        ],
+        "point": [
+          -3580.1335814385134,
+          369.30363013921493
+        ],
+        "offset": 0,
+        "tolerance": 0.008
+      },
+      "inputValue": 0.057938171234413506,
+      "minimumFromBounds": 0.05793817123441347,
+      "bound": 0.008,
+      "controls": [
+        {
+          "road": "c0ab23c9-87e_0",
+          "control": 0,
+          "modelArc": 0.0,
+          "sourceArc": 0.0,
+          "inputHeight": 2.2751857127328377,
+          "bounds": [
+            2.2751857127328377,
+            2.2751857127328377
+          ],
+          "coefficient": 9.103828801926284e-15,
+          "authority": "generated estimated model profile",
+          "node": "a3cbe0c2-60a"
+        },
+        {
+          "road": "c0ab23c9-87e_0",
+          "control": 1,
+          "modelArc": 19.06016789013167,
+          "sourceArc": 19.06016789013167,
+          "inputHeight": 1.0362747998742794,
+          "bounds": [
+            1.0362747998742794,
+            1.0362747998742794
+          ],
+          "coefficient": 0.9999999999999909,
+          "authority": "generated estimated model profile",
+          "node": "852f35eb-225"
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 1,
+          "modelArc": 8.132035415564951,
+          "sourceArc": 8.132035415564951,
+          "inputHeight": 0.6049694939159029,
+          "bounds": [
+            0.0,
+            0.6049694939159029
+          ],
+          "coefficient": -0.13433215505119134,
+          "authority": "generated estimated model profile",
+          "node": null
+        },
+        {
+          "road": "e1a86c44-8fc_0",
+          "control": 2,
+          "modelArc": 27.07669165419876,
+          "sourceArc": 27.07669165419876,
+          "inputHeight": 1.0362747998742794,
+          "bounds": [
+            1.0362747998742794,
+            1.0362747998742794
+          ],
+          "coefficient": -0.8656678449488087,
+          "authority": "generated estimated model profile",
+          "node": "852f35eb-225"
+        }
+      ]
+    }
+  ]
+}

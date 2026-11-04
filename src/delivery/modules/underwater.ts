@@ -13,6 +13,7 @@ export class Underwater extends ModuleBase {
     const h=heading(this.storyDiveYaw),point=surface?{...this.ctx.destination,y:this.ctx.destination.y+.45}:
       {...this.target,x:this.target.x-h.x*5,z:this.target.z-h.z*5};
     return {entry:this.charactersReady&&distanceXZ(p,this.ctx.destination)<24&&Math.abs(p.y-this.ctx.destination.y)<32&&!p.jumping,
+      ...(surface?{landing:{point,radius:3.15,markerHeight:this.ctx.destination.y}}:{}),
       point,yaw:surface?p.yaw:this.storyDiveYaw,water:!surface,maxSpeed:surface?5:2.5,verticalSpeed:surface?5:1.7};
   }
   private pizza!: THREE.Mesh;

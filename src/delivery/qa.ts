@@ -12,6 +12,8 @@ import type { CharacterGpuContext } from './art/gpu-preparation';
 import type { LocalPushpaArtReview } from './qa/pushpa-art-review';
 import type { LocalSceneArtReview } from './qa/scene-art-review';
 import { gameplayPresentationDiagnostics } from './qa/performance-observer';
+import { cameraTrafficSnapshot } from './qa/camera-traffic-observer';
+declare const __ROADSTER_BUILD__: string;
 
 /** Imported only by main.ts's import.meta.env.DEV branch. No global test hooks. */
 export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query?: URLSearchParams) {
@@ -21,14 +23,16 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
   const artQuery=query?.get('qaArt')??null;
   if(artQuery!==null&&(fullCampaign||!(artQuery==='scene-candidates-v1'||artQuery==='pushpa-reader-v1'&&number===1)))throw new Error('This local art comparison is only available in an allowlisted isolated scene review.');
   let artReview:LocalPushpaArtReview|LocalSceneArtReview|null=null;
+  const reportedRoad=!fullCampaign&&number===1&&query?.get('qaRoad')==='tarnaka';
   const pose=query?.get('qaStart')?.split(',').map(Number);
-  const start=!fullCampaign&&pose?.length===4&&pose.every(Number.isFinite)?{x:pose[0],z:pose[1],yaw:pose[2],y:pose[3]}:null;
+  const start=reportedRoad?{x:3983.1,z:-2073.2,yaw:280.3*Math.PI/180,y:0}:!fullCampaign&&pose?.length===4&&pose.every(Number.isFinite)?{x:pose[0],z:pose[1],yaw:pose[2],y:pose[3]}:null;
   const touch=query?.get('qaTouch')==='1';
   const trafficOrbit=!fullCampaign&&query?.get('qaTrafficOrbit')==='1';
   const nightLights=!fullCampaign&&query?.get('qaNight')==='1';
   // Read-only pickup diagnostics can accompany an ordinary campaign. They do
   // not supply targets, change traffic, extend grabs or bypass a jump.
   const pickupReadout=query?.get('qaPickup')==='1';
+  const cameraTrafficReadout=query?.get('qaCameraTraffic')==='1';
   const trainRide=query?.get('qaTrainRide')==='1'&&number===2;
   const artTrainStaging=!fullCampaign&&trainRide&&artQuery==='scene-candidates-v1';
   if (!Number.isSafeInteger(number) || number > levels.length) return null;
@@ -81,7 +85,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
       panel.style.cssText = 'position:fixed;z-index:31;left:50%;top:76px;transform:translateX(-50%);max-width:340px;width:calc(100vw - 30px);max-height:calc(100dvh - 90px);overflow:auto;box-sizing:border-box;padding:8px 10px;border:2px solid #ffbf00;border-radius:12px;background:#20152f;color:#fff1d5;font:12px system-ui;pointer-events:auto';
       const paintReview=trainRide||nightLights||query?.get('qaScene')==='1';
       const label = document.createElement('strong');
-      label.textContent = fullCampaign?'Full campaign · normal pickup and travel':`QA scenario ${number} · temporary progress${trainRide?' · F2 toggles diagnostics':''}`;
+      label.textContent = reportedRoad?'Reported Tarnaka road · normal driving':fullCampaign?'Full campaign · normal pickup and travel':`QA scenario ${number} · temporary progress${trainRide?' · F2 toggles diagnostics':''}`;
       const status = document.createElement('p'); status.style.margin = '5px 0';status.style.whiteSpace='pre-line';
       status.setAttribute('role', 'status');
       const buttons = document.createElement('div'); buttons.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap';
@@ -166,13 +170,21 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         });
         game.engine.renderer.domElement.focus({preventScroll:true});update();
       });
-      const resetDrive=start?button('Reset drive start',()=>{
+      const resetDrive=start?button(reportedRoad?'Reset reported start':'Reset drive start',()=>{
         if(resetDrive?.disabled)return;
         evidence?.noteAssistance('qa-drive-reset');
         game.resetInput();game.sound.unlock();game.player.place(start.x,start.z,start.yaw,start.y);
         game.engine.renderer.domElement.focus({preventScroll:true});
       }):null;
       button('Restart scenario', () => location.reload());
+      const cameraMetadata=()=>({build:typeof __ROADSTER_BUILD__==='string'?__ROADSTER_BUILD__:'development',source:location.href});
+      let cameraDownloadUrl:string|null=null;
+      if(cameraTrafficReadout)button('Download camera / traffic snapshot',()=>{
+        const snapshot=cameraTrafficSnapshot(game,cameraMetadata(),true);
+        if(cameraDownloadUrl)URL.revokeObjectURL(cameraDownloadUrl);
+        cameraDownloadUrl=URL.createObjectURL(new Blob([JSON.stringify(snapshot,null,2)],{type:'application/json'}));
+        const link=document.createElement('a');link.href=cameraDownloadUrl;link.download=`qa-camera-traffic-${Date.now()}.json`;link.click();
+      });
       if(reviewLighting)button('Toggle day / night',()=>reviewLighting.toggle());
       const originalHudVisibility={value:game.hud.root.style.getPropertyValue('visibility'),priority:game.hud.root.style.getPropertyPriority('visibility')};
       let hudIsolated=false,capturePreview:HTMLElement|null=null;
@@ -211,7 +223,7 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         });
         buttons.prepend(isolate,capture);
       }
-      button('Hide QA controls', () => {restoreHudVisibility();evidence?.hide();if(pickupReadout)panel.hidden=true;else cleanup();});
+      button('Hide QA controls', () => {restoreHudVisibility();evidence?.hide();if(pickupReadout||cameraTrafficReadout)panel.hidden=true;else cleanup();});
       panel.addEventListener('pointerdown', event => event.stopPropagation());
       panel.addEventListener('keydown', event => event.stopPropagation());
       panel.append(label, buttons, captureStatus, status); (paintReview?document.body:game.hud.root).append(panel);
@@ -239,14 +251,16 @@ export function createDeliveryQA(value: string | null, roads?: RoadEdge[], query
         }).join('\n'):'';
         const paint=paintReview?gameplayPresentationDiagnostics(game):null;
         const paintReadout=paint?`\nPaint: ${paint.worldPaintBlocked||paint.loading?'BLOCKED':'clear'} · calls ${paint.renderCalls} · canvas ${paint.canvas.width}×${paint.canvas.height}\nDocument: ${paint.documentHidden?'hidden':'visible'} / ${paint.focused?'focused':'unfocused'} · blockers ${paint.blockers.join(', ')||'none'}\nHTML: ${paint.documentClasses||'(none)'} · HUD: ${paint.hudClasses||'(none)'}${hudIsolated?' · QA HIDDEN':''}\nCamera: ${paint.camera.poseFinite&&paint.camera.projectionFinite?'finite':'INVALID'} · ${paint.camera.position.map(n=>n.toFixed(1)).join(', ')} · aspect ${paint.camera.aspect.toFixed(3)}\nQuaternion: ${paint.camera.quaternion.map(n=>n.toFixed(3)).join(', ')} · context ${paint.contextLost?'LOST':'available'}`:'';
+        const cameraSnapshot=cameraTrafficReadout?cameraTrafficSnapshot(game,cameraMetadata()):null;
+        const cameraTrafficDiagnostics=cameraSnapshot?`\nRead-only camera / traffic · F2 hides/shows\nBuild ${cameraSnapshot.build}\nEye ${cameraSnapshot.camera.position.map(n=>n.toFixed(3)).join(', ')} · near ${cameraSnapshot.camera.near} · FOV ${cameraSnapshot.camera.fov.toFixed(2)} · aspect ${cameraSnapshot.camera.aspect.toFixed(3)}\nCar yaw ${cameraSnapshot.player.yaw.toFixed(6)} · camera quaternion ${cameraSnapshot.camera.quaternion.map(n=>n.toFixed(4)).join(', ')}\n`+cameraSnapshot.nearby.slice(0,6).map(c=>`#${c.index} ${c.group} ${c.size.join('×')} · ${c.display.visible?'visible':'hidden'}\n  xyz ${c.position.map(n=>n.toFixed(3)).join(', ')} · heading ${c.heading.map(n=>n.toFixed(5)).join(', ')}\n  player along/side ${c.playerAlong.toFixed(3)}/${c.playerSide.toFixed(3)} · aligned gap ${c.nominalAlignedBumperGap.toFixed(3)} · overlap ${c.nominalPlayerOverlap} · eye inside ${c.eyeInsideHideVolume}`).join('\n'):'';
         const readout=text+paintReadout+routeReadout+(orbitVehicles.length?'\nTraffic: '+orbitVehicles.map(c=>`${c.group} ${c.g.visible?'visible':'hidden'}`).join(' · '):'')+(start?`\nDrive: x ${p.x.toFixed(2)}, z ${p.z.toFixed(2)}, y ${p.y.toFixed(2)} · ${Math.round(Math.abs(game.player.speed)*3.6)} km/h · ${game.player.lastKind}`:'')+lightingReadout;
-        const nextReadout=readout+trainReadout+sceneReadout+pickupDiagnostics;
+        const nextReadout=readout+trainReadout+sceneReadout+pickupDiagnostics+cameraTrafficDiagnostics;
         if (status.textContent !== nextReadout) status.textContent = nextReadout;
       };
       const timer = setInterval(update, 250);
-      const toggleDiagnostics=(event:KeyboardEvent)=>{if((trainRide||nightLights||pickupReadout)&&event.code==='F2'){panel.hidden=!panel.hidden;if(panel.hidden)restoreHudVisibility();event.preventDefault();}};
+      const toggleDiagnostics=(event:KeyboardEvent)=>{if((trainRide||nightLights||pickupReadout||cameraTrafficReadout)&&event.code==='F2'){panel.hidden=!panel.hidden;if(panel.hidden)restoreHudVisibility();event.preventDefault();}};
       addEventListener('keydown',toggleDiagnostics);
-      const cleanup = () => { restoreHudVisibility();capturePreview?.remove();capturePreview=null;clearInterval(timer); panel.remove(); removeEventListener('pagehide', cleanup); removeEventListener('keydown',toggleDiagnostics); };
+      const cleanup = () => { restoreHudVisibility();capturePreview?.remove();capturePreview=null;if(cameraDownloadUrl)URL.revokeObjectURL(cameraDownloadUrl);cameraDownloadUrl=null;clearInterval(timer); panel.remove(); removeEventListener('pagehide', cleanup); removeEventListener('keydown',toggleDiagnostics); };
       addEventListener('pagehide', cleanup, { once: true }); update();
     },
   };

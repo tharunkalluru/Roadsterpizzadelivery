@@ -1,0 +1,38 @@
+{
+  "scope": "Read-only exact existing RoadGraph lane-XZ formula at the ordinary held road, no runtime change or acceptance.",
+  "modelSHA256": "1f989f2883da05c3a58c624df2ac2d707ffbf07d43c2665e0b3ca2fa2c165d67",
+  "road": "0d830829-554_0",
+  "vertex": 35,
+  "before": {
+    "s": 32.446071822993126,
+    "x": -2168.908337150677,
+    "z": 275.38975299039805,
+    "segment": 34,
+    "offsetWindow": [
+      33,
+      36
+    ],
+    "offsetHeading": [
+      0.12166411469575442,
+      -0.992571329021395
+    ]
+  },
+  "after": {
+    "s": 32.44607382299312,
+    "x": -2168.826199963426,
+    "z": 275.0440130659724,
+    "segment": 35,
+    "offsetWindow": [
+      34,
+      37
+    ],
+    "offsetHeading": [
+      0.33775032676520045,
+      -0.9412357392120215
+    ]
+  },
+  "lanePointJump": 0.35536264979788923,
+  "centrelineDistance": 2e-06,
+  "modelArc": 32.44607282299312,
+  "correctedSourceArc": 32.552320140312695
+}

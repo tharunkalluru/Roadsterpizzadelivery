@@ -20,18 +20,33 @@ export interface ModuleStatus {
 }
 export interface ModuleMovement { mode: 'normal' | 'underwater' | 'approach'; center?: DeliveryPoint; radius?: number; depth?: number; altitude?: number }
 /** Optional close interaction framing; road/flight camera remains host-owned. */
-export interface ModuleCameraFocus { position:DeliveryPoint; target:DeliveryPoint; context?:'stationary-handoff' }
+export interface ModuleCameraFocus {
+  position:DeliveryPoint;target:DeliveryPoint;context?:'stationary-handoff';
+  /** Checked collinear camera pivot outside a subject's invisible player
+   * keep-out. Optical aim remains on the actual subject; ordinary shots omit it. */
+  clearanceTarget?:DeliveryPoint;
+}
 export interface ModuleArrival extends DeliveryPoint { hx: number; hz: number; side: 'rear'; radius: number }
 /** Authored local story motion. Entry is separate from proximity/call gates:
  * trains only grant it after a genuine player-controlled roof landing. */
 export interface ModuleStoryFrame {
   entry: boolean;
   point: DeliveryPoint;
+  /** Manual arrival area before authored motion. Moving services can retain
+   * their actual landed coach rather than demanding an automatic transfer. */
+  landing?: ModuleStoryLandingZone;
   yaw?: number;
   speed?: number;
   maxSpeed?: number;
   verticalSpeed?: number;
   water?: boolean;
+}
+export interface ModuleStoryLandingZone {
+  /** Roadster root at the safe stopped approach, not the later handoff. */
+  point: DeliveryPoint;
+  radius: number;
+  /** Water markers sit on the water surface, above the car's drafted tyres. */
+  markerHeight?: number;
 }
 /** Evidence from the selected train's actual route and mapped overpass geometry. */
 export interface VerifiedTrainPassage { id: string; trainId: string; x: number; z: number; radius: number; ceiling: number; distanceAhead: number }
@@ -81,7 +96,7 @@ export interface DeliveryModule {
   update(dt: number): void;
   onDrop(): void;
   teardown(): void;
-  setStoryPresentation?(active:boolean):void;
+  setStoryPresentation?(active:boolean,landing?:ModuleStoryLandingZone):void;
   /** A genuine marked-rake roof touchdown satisfies arrival even when its
    * customer is several coaches beyond the ordinary destination radius. */
   readonly storyArrivalReady?:boolean;
@@ -91,6 +106,9 @@ export interface DeliveryModule {
   readonly movement: ModuleMovement;
   readonly arrival?: ModuleArrival;
   readonly trafficBodies?: readonly MovingRailBody[];
+  /** Empty NPC approach space, used only for traffic planning/spawn exclusion.
+   * Never part of player collisions, roof support or story landing surfaces. */
+  readonly trafficReservations?: readonly MovingRailBody[];
   /** A completed physical scene remains until the whole car has left it. */
   readonly exitPending?: boolean;
   /** Completed scenery may remain visible after it is safe to pick up again. */

@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "node scripts/build.mjs",
-    "preview": "wrangler dev --config wrangler.jsonc --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+    "cache:roads:generate": "node scripts/compile-road-profile-cache.mjs",
+    "cache:roads:verify": "node scripts/compile-road-profile-cache.mjs --verify",
+    "preview": "wrangler dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "typecheck": "tsc --noEmit",
     "test:v21-fixes": "node scripts/test-v21-fixes.mjs",
     "test": "npm run test:v21-fixes && npm run test:legacy",
@@ -19,7 +21,8 @@
     "db:migrate:local": "wrangler d1 migrations apply DB --local --config wrangler.jsonc --persist-to .wrangler/state",
     "test:legacy": "node scripts/test-legacy.mjs",
     "audit:characters": "node scripts/audit-character-release.mjs",
-    "check:release": "npm run audit:characters && npm run check"
+    "audit:road-profiles": "node scripts/verify-road-profile-corrections.mjs",
+    "check:release": "npm run audit:characters && npm run audit:road-profiles && npm run check"
   },
   "dependencies": {
     "three": "0.170.0"

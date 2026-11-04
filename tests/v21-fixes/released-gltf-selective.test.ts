@@ -145,3 +145,13 @@ test('empty mesh material lists cannot bypass the live-instance ownership contra
   f.dependencies.parse = async () => value.gltf; const registry = new ReleasedGltfRegistry(f.assets, f.reviews, f.dependencies), report = await registry.prewarm(['one']);
   assert.match(report.failed[0].reason, /At least one authored mesh material/); assert.equal(registry.create('one', owner().resources), null); registry.dispose();
 });
+
+test('meal source classification finishes inside the existing GPU borrow, cancels on retirement and retries before the GPU callback',async()=>{
+  const f=fixture(['jessie']);let sourceGeometry:THREE.BufferGeometry|undefined,disposals=0;
+  f.dependencies.parse=async()=>{const value=scene(),mesh=value.root.children.find(n=>n instanceof THREE.Mesh)as THREE.Mesh;const dense=new THREE.BoxGeometry(.6,1.8,.4,24,24,24);dense.translate(0,.9,0);mesh.geometry=dense;sourceGeometry=dense;dense.addEventListener('dispose',()=>disposals++);f.parsed.push(value);return value.gltf;};
+  const registry=new ReleasedGltfRegistry(f.assets,f.reviews,f.dependencies);await registry.prewarm(['jessie']);let gpuCalls=0;
+  const pending=registry.prepareGpu(['jessie'],async()=>{gpuCalls++;});await flush();registry.retire(['jessie']);const cancelled=await pending;assert.equal(cancelled.ready.length,0);assert.match(cancelled.failed[0].reason,/cancelled/);assert.equal(gpuCalls,0,'retired preprocessing cannot enter GPU work');assert.equal(disposals,1,'borrow releases the retired source exactly once');
+  const {prepareActorPerformanceGeometry}=await import('../../src/delivery/art/actor-meal-geometry');
+  const ready=await registry.prepareGpu(['jessie'],async root=>{gpuCalls++;let uncachedYields=0;await prepareActorPerformanceGeometry(root,()=>true,async()=>{uncachedYields++;});assert.equal(uncachedYields,0,'source classification must finish before GPU callback, not at first visible instance');});
+  assert.deepEqual(ready.ready,['jessie']);assert.equal(gpuCalls,1);assert.ok(sourceGeometry);registry.dispose();assert.equal(disposals,2);
+});

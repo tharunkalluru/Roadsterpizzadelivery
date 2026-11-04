@@ -1,0 +1,31 @@
+✔ independent outward cap rays see both ends; the historical three-face negative stays open (2.85175ms)
+✔ independent differential UVs retain fixed physical half-metre blocks and clipped-run phase (0.093875ms)
+✖ independent emitted solid paint holds perpendicular width at right-angle and unequal-leg corners (67.887708ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 133.124375
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-k79gcf/0.test.mjs:21137:1
+✖ independent emitted solid paint holds perpendicular width at right-angle and unequal-leg corners (67.887708ms)
+  AssertionError [ERR_ASSERTION]: outgoing 300: painted perpendicular width 0.08437850897576349
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-k79gcf/0.test.mjs:21150:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

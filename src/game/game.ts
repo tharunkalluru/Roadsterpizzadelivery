@@ -18,6 +18,7 @@ import { launchPreparedGame } from './startup-readiness';
 import { advanceRoadRoute, clearRoadGuidance, guidanceRibbon, navigationReadout, softenRoadCorners } from './route-guidance';
 import { metroCorridors, metroRuntimeStations } from '../world/metro-geometry';
 import { Traffic } from './traffic';
+import { trafficPopulationLimit } from './traffic-density';
 import { TrafficHeadlights } from './traffic-headlights';
 import { vehicleDarkness, stepSceneHeadlightGain } from './player-lights';
 import { Hud, orderOfferHtml } from '../ui/hud';
@@ -124,12 +125,12 @@ export class Game {
     this.graph = new RoadGraph(zone.roads, []);
     this.player = new Player(city, engine.mats);
     this.player.addTo(engine.scene);
-    this.traffic = new Traffic(this.graph, engine.scene, engine.mats, opts.lowQ ? 32 : 55, city.busStops, city);
+    this.traffic = new Traffic(this.graph, engine.scene, engine.mats, trafficPopulationLimit(opts.lowQ,0,.75), city.busStops, city);
     this.trafficHeadlights = new TrafficHeadlights(engine.scene, opts.lowQ);
     this.carriers = new CarrierMarker(engine.scene);
     this.pickupDetector = new PickupDetector(this.deliveryEvents);
     this.deliveryEvents.on('orderPicked', event => {
-      this.carriers.collect(event.carrierId, this.player.group);
+      if(this.carriers.collect(event.carrierId, this.player.group))this.player.setCarryingPizza(true);
       this.sound.cue('flight'); this.sound.cue('pickup');
       this.hud?.pickupStatus(true);
     });
@@ -1164,7 +1165,8 @@ export class Game {
     // Authored story shots may frame a rooftop customer while the car remains
     // on the street. Test that real subject-to-camera line, not a ray from the
     // car through the restaurant wall. Ordinary chase/orbit behavior is intact.
-    const cameraPivot=this.story?.cinematic&&interactionFocus?new THREE.Vector3(interactionFocus.target.x,interactionFocus.target.y,interactionFocus.target.z):pivot;
+    const clearFocus=interactionFocus?.clearanceTarget??interactionFocus?.target;
+    const cameraPivot=this.story?.cinematic&&clearFocus?new THREE.Vector3(clearFocus.x,clearFocus.y,clearFocus.z):pivot;
     desired = this.clearCamera(cameraPivot, desired);
     this.cameraTranslation ??= new CameraTranslationFollow();
     if (this.cameraTranslation.advance(this.camPos, this.camLook, P, dt, !interactionFocus)) {
@@ -1172,8 +1174,17 @@ export class Game {
     }
     const k = 1 - Math.exp(-dt * (this.dragging ? 14 : 5));
     if (!this.camPos.lengthSq()) this.camPos.copy(desired); else this.camPos.lerp(desired, k);
+    // This captured truck shot has a checked pivot beyond the car's nose.
+    // Its smoothed transition must not pass through the parked Roadster on
+    // the way there. Apply the existing solid-escape cut only to this opt-in
+    // story shot; ordinary chase/orbit/flight retain their original branch.
+    let insideHero=false;
+    if(this.story?.cinematic&&interactionFocus?.clearanceTarget){
+      const dx=this.camPos.x-P.x,dz=this.camPos.z-P.z;
+      insideHero=Math.abs(dx*f.x+dz*f.z)<2.75&&Math.abs(dx*f.z-dz*f.x)<1.5&&this.camPos.y+.35>P.y-.55&&this.camPos.y-.35<P.y+.8;
+    }
     // if the smoothed camera would sit inside something, snap to the clear point
-    if (this.insideSolid(this.camPos)) this.camPos.copy(desired);
+    if (insideHero||this.insideSolid(this.camPos)) this.camPos.copy(desired);
     // and if a building corner comes between the lagging camera and the car (turning in a narrow lane), pull it in
     else { const vis = this.clearCamera(cameraPivot, this.camPos); if (vis.distanceToSquared(this.camPos) > 0.01) this.camPos.copy(vis); }
     const aimWeight = driving ? drivingCameraAimWeight(this.orbitYaw, this.orbitPitch, this.dragging) : 0;
@@ -1211,7 +1222,7 @@ export class Game {
     }
     this.busy = shops;
     const low = this.opts.lowQ;
-    this.traffic.max = Math.round((low ? 16 : 26) + (low ? 18 : 38) * Math.max(shops, road));
+    this.traffic.max = trafficPopulationLimit(low,shops,road);
     this.walkers.max = Math.round((low ? 6 : 12) + (low ? 22 : 70) * shops + (low ? 4 : 8) * road);
   }
   // Camera volume against buildings, landmark piers, poles, walls and decks.

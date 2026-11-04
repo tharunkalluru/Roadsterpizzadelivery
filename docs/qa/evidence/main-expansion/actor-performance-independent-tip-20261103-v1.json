@@ -1,0 +1,486 @@
+{
+  "scope": "CPU tip/face-plane, articulation and culling only; original GLB BIN/skins retained and texture bindings stripped in memory; native mouth anatomical/appearance review remains required",
+  "checks": {
+    "actualAssets": 17,
+    "eaters": 11,
+    "sourceAssetsUnchanged": true,
+    "actualEdibleTipDistanceUnder35mm": true,
+    "pizzaVerticesAtLeast2mmInFrontOfRootLipPlane": true,
+    "sampledSkinBounds": true
+  },
+  "inputs": [
+    {
+      "path": "public/delivery/characters/pushpa-raj/reader-v1.glb",
+      "sha256": "eda3b3c9071a80593a1063672b3735495757f3fdd0385cd04b0e07a33498dffb"
+    },
+    {
+      "path": "public/delivery/characters/jessie/walking-v1.glb",
+      "sha256": "6142156a0d1c2663c27deaddbca530da711247e98d7b16add437f2baaba7fd64"
+    },
+    {
+      "path": "public/delivery/characters/hasini/college-v1.glb",
+      "sha256": "68f0ccc306214df2707f92974659a26162158802969520724ff3ebb704845965"
+    },
+    {
+      "path": "public/delivery/characters/devara/neck-grip-v1.glb",
+      "sha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399"
+    },
+    {
+      "path": "public/delivery/characters/ram-vvr/train-roof-v1.glb",
+      "sha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4"
+    },
+    {
+      "path": "public/delivery/characters/sukumar/director-v1.glb",
+      "sha256": "fe855d21176f43bb9818470508b59822d4f84d3eeef67bf3bc9c167252ea9292"
+    },
+    {
+      "path": "public/delivery/characters/nani-jersey/cricketer-v1.glb",
+      "sha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0"
+    },
+    {
+      "path": "public/delivery/characters/arjun-reddy/medical-courtyard-v1.glb",
+      "sha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5"
+    },
+    {
+      "path": "public/delivery/characters/maruthi/director-v1.glb",
+      "sha256": "26abecf55c2a27654d7d4ab6769128a9409d663bfaed3aa9b64017cd4748660f"
+    },
+    {
+      "path": "public/delivery/characters/arundhati/gate-presence-v1.glb",
+      "sha256": "560a4ae81f82b0d2695d47aa57177006e8325d5270533f3771b79e043fbfb24e"
+    },
+    {
+      "path": "public/delivery/characters/bhanumathi/wedding-dancer-v1.glb",
+      "sha256": "ded3ccb7a058170da92b6ec1b119d387bda33bf6a8f8ddb8b0a8f21ef40ec146"
+    },
+    {
+      "path": "public/delivery/characters/vakeel-saab/platform-lawyer-v1.glb",
+      "sha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760"
+    },
+    {
+      "path": "public/delivery/characters/vakeel-woman-1/platform-companion-v1.glb",
+      "sha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02"
+    },
+    {
+      "path": "public/delivery/characters/vakeel-woman-2/platform-companion-v1.glb",
+      "sha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702"
+    },
+    {
+      "path": "public/delivery/characters/vakeel-woman-3/platform-companion-v1.glb",
+      "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd"
+    },
+    {
+      "path": "public/delivery/characters/srikanth-odela/actor-v3.glb",
+      "sha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b"
+    },
+    {
+      "path": "public/delivery/characters/prabhas-salaar/actor-v4.glb",
+      "sha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab"
+    }
+  ],
+  "report": [
+    {
+      "identity": "pushpa-raj",
+      "received": true,
+      "bytes": 485076,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 389
+      },
+      "mouth": [
+        0,
+        1.1845189886032501,
+        0.17118494336226664
+      ],
+      "maxHandMouthDistance": 0.14857627128061449,
+      "minHandMouthDistance": 0.11448127916799085,
+      "maxTipDistance": 0.019632373394146328,
+      "minPizzaFacePlane": 0.014088951970824465,
+      "maxBoundFraction": 0.9884932845797861,
+      "nonFinite": 0
+    },
+    {
+      "identity": "jessie",
+      "received": true,
+      "bytes": 403248,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 84
+      },
+      "mouth": [
+        0,
+        1.5390101220260453,
+        0.16717958364046306
+      ],
+      "maxHandMouthDistance": 0.14078301902328982,
+      "minHandMouthDistance": 0.10868038933993193,
+      "maxTipDistance": 0.016887810635445036,
+      "minPizzaFacePlane": 0.003213035508963319,
+      "maxBoundFraction": 0.9315057296020941,
+      "nonFinite": 0
+    },
+    {
+      "identity": "hasini",
+      "received": true,
+      "bytes": 236844,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 126
+      },
+      "mouth": [
+        0,
+        1.4919588540805568,
+        0.15233506712050893
+      ],
+      "maxHandMouthDistance": 0.13997498735804317,
+      "minHandMouthDistance": 0.10803035743926735,
+      "maxTipDistance": 0.016662421136664135,
+      "minPizzaFacePlane": 0.0025733343009049225,
+      "maxBoundFraction": 0.9091636149377229,
+      "nonFinite": 0
+    },
+    {
+      "identity": "devara",
+      "received": false,
+      "bytes": 507708,
+      "state": {
+        "phase": "idle",
+        "time": 0,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": false,
+        "mouthVertices": 266
+      },
+      "mouth": [
+        0,
+        1.6344687118793475,
+        0.13032931727737693
+      ],
+      "maxHandMouthDistance": 0,
+      "minHandMouthDistance": null,
+      "maxTipDistance": 0,
+      "minPizzaFacePlane": null,
+      "maxBoundFraction": 0,
+      "nonFinite": 0
+    },
+    {
+      "identity": "ram-vvr",
+      "received": true,
+      "bytes": 446232,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 530
+      },
+      "mouth": [
+        0,
+        1.6239413942453198,
+        0.11902969257203488
+      ],
+      "maxHandMouthDistance": 0.14843181815664813,
+      "minHandMouthDistance": 0.11417418868237249,
+      "maxTipDistance": 0.019441780256258943,
+      "minPizzaFacePlane": 0.013591198732459842,
+      "maxBoundFraction": 0.8670466437383298,
+      "nonFinite": 0
+    },
+    {
+      "identity": "sukumar",
+      "received": true,
+      "bytes": 710616,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 582
+      },
+      "mouth": [
+        0,
+        1.598009130511275,
+        0.11655224564403632
+      ],
+      "maxHandMouthDistance": 0.14936236978094128,
+      "minHandMouthDistance": 0.11494676900684439,
+      "maxTipDistance": 0.02010003640508891,
+      "minPizzaFacePlane": 0.014769972755405411,
+      "maxBoundFraction": 0.9221880867702095,
+      "nonFinite": 0
+    },
+    {
+      "identity": "nani-jersey",
+      "received": true,
+      "bytes": 237864,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 589
+      },
+      "mouth": [
+        0,
+        1.6159452723460792,
+        -0.12329002945513802
+      ],
+      "maxHandMouthDistance": 0.15088883831600744,
+      "minHandMouthDistance": 0.11580708242472747,
+      "maxTipDistance": 0.020907606831544506,
+      "minPizzaFacePlane": 0.016741203467645585,
+      "maxBoundFraction": 0.9108520325668111,
+      "nonFinite": 0
+    },
+    {
+      "identity": "arjun-reddy",
+      "received": true,
+      "bytes": 660864,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 193
+      },
+      "mouth": [
+        0,
+        1.6345664710285013,
+        0.1371645231787731
+      ],
+      "maxHandMouthDistance": 0.14818711405018298,
+      "minHandMouthDistance": 0.11413775769041051,
+      "maxTipDistance": 0.019400106908984017,
+      "minPizzaFacePlane": 0.013258003234158544,
+      "maxBoundFraction": 0.9107069322809982,
+      "nonFinite": 0
+    },
+    {
+      "identity": "maruthi",
+      "received": true,
+      "bytes": 613368,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 420
+      },
+      "mouth": [
+        0,
+        1.5933507766339827,
+        0.1190947640571241
+      ],
+      "maxHandMouthDistance": 0.15088233977196622,
+      "minHandMouthDistance": 0.11571245770226692,
+      "maxTipDistance": 0.020883015842944004,
+      "minPizzaFacePlane": 0.01674861478304915,
+      "maxBoundFraction": 0.9144554588573292,
+      "nonFinite": 0
+    },
+    {
+      "identity": "arundhati",
+      "received": false,
+      "bytes": 0,
+      "state": {
+        "phase": "idle",
+        "time": 0,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": false,
+        "mouthVertices": 0
+      },
+      "maxHandMouthDistance": 0,
+      "minHandMouthDistance": null,
+      "maxTipDistance": 0,
+      "minPizzaFacePlane": null,
+      "maxBoundFraction": 0,
+      "nonFinite": 0
+    },
+    {
+      "identity": "bhanumathi",
+      "received": true,
+      "bytes": 363348,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 61
+      },
+      "mouth": [
+        -2.8995515147219065e-11,
+        1.507168481352286,
+        0.1318394210991057
+      ],
+      "maxHandMouthDistance": 0.14846479089928188,
+      "minHandMouthDistance": 0.11433271938081847,
+      "maxTipDistance": 0.019538411234397687,
+      "minPizzaFacePlane": 0.013699113612916591,
+      "maxBoundFraction": 0.8902414049529549,
+      "nonFinite": 0
+    },
+    {
+      "identity": "vakeel-saab",
+      "received": true,
+      "bytes": 322764,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 60
+      },
+      "mouth": [
+        0,
+        1.7354643888654782,
+        0.12118759624313657
+      ],
+      "maxHandMouthDistance": 0.14673304468617512,
+      "minHandMouthDistance": 0.11293158068511312,
+      "maxTipDistance": 0.019369684676266964,
+      "minPizzaFacePlane": 0.010075732505498564,
+      "maxBoundFraction": 0.9037424257658668,
+      "nonFinite": 0
+    },
+    {
+      "identity": "vakeel-woman-1",
+      "received": false,
+      "bytes": 320352,
+      "state": {
+        "phase": "idle",
+        "time": 0,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": false,
+        "mouthVertices": 62
+      },
+      "mouth": [
+        0,
+        1.4925735766646144,
+        0.12080224606575089
+      ],
+      "maxHandMouthDistance": 0,
+      "minHandMouthDistance": null,
+      "maxTipDistance": 0,
+      "minPizzaFacePlane": null,
+      "maxBoundFraction": 0,
+      "nonFinite": 0
+    },
+    {
+      "identity": "vakeel-woman-2",
+      "received": false,
+      "bytes": 261492,
+      "state": {
+        "phase": "idle",
+        "time": 0,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": false,
+        "mouthVertices": 93
+      },
+      "mouth": [
+        0,
+        1.5012262580127302,
+        0.1483339084271693
+      ],
+      "maxHandMouthDistance": 0,
+      "minHandMouthDistance": null,
+      "maxTipDistance": 0,
+      "minPizzaFacePlane": null,
+      "maxBoundFraction": 0,
+      "nonFinite": 0
+    },
+    {
+      "identity": "vakeel-woman-3",
+      "received": false,
+      "bytes": 310476,
+      "state": {
+        "phase": "idle",
+        "time": 0,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": false,
+        "mouthVertices": 66
+      },
+      "mouth": [
+        0,
+        1.485938438434948,
+        0.12592266609900768
+      ],
+      "maxHandMouthDistance": 0,
+      "minHandMouthDistance": null,
+      "maxTipDistance": 0,
+      "minPizzaFacePlane": null,
+      "maxBoundFraction": 0,
+      "nonFinite": 0
+    },
+    {
+      "identity": "srikanth-odela",
+      "received": true,
+      "bytes": 190992,
+      "state": {
+        "phase": "enjoying",
+        "time": 5.9999999999999885,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": true,
+        "mouthVertices": 407
+      },
+      "mouth": [
+        0,
+        1.5789115839461088,
+        0.13578630734486746
+      ],
+      "maxHandMouthDistance": 0.14696326393869966,
+      "minHandMouthDistance": 0.11319831081039314,
+      "maxTipDistance": 0.018668364250320937,
+      "minPizzaFacePlane": 0.011707062584922795,
+      "maxBoundFraction": 0.8698054197790731,
+      "nonFinite": 0
+    },
+    {
+      "identity": "prabhas-salaar",
+      "received": false,
+      "bytes": 183780,
+      "state": {
+        "phase": "idle",
+        "time": 0,
+        "mouth": 0,
+        "speech": 0,
+        "eligible": false,
+        "mouthVertices": 274
+      },
+      "mouth": [
+        0,
+        1.6714226756850499,
+        0.14390480353163615
+      ],
+      "maxHandMouthDistance": 0,
+      "minHandMouthDistance": null,
+      "maxTipDistance": 0,
+      "minPizzaFacePlane": null,
+      "maxBoundFraction": 0,
+      "nonFinite": 0
+    }
+  ]
+}

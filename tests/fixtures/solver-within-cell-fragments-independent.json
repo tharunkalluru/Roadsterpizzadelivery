@@ -1,0 +1,232 @@
+{
+  "scope": "Exact captured clipped-fragment polygons with disconnected unions within one road-segment cell. These must never establish whole-cell source-junction authority.",
+  "binding": {
+    "version": 1,
+    "minimumPolygonArea": 1e-06,
+    "inputs": {
+      "footprints": "469ba28e19ee3bebf6c96745bf3495a5ffcd82227c0384c2dad5dbfe2040315a",
+      "tiles": "c2f224c4647d2f925f6290472a6d438061b33ab4fb0fd09facc8387114f63d50",
+      "fixed": "5a02138a981a79c3f89cf4905149f264fd2a0240ccafff70548b31ec7760df5f"
+    }
+  },
+  "cacheSHA256": "4612d65ba5319790ea852c91132aaabfd2e24a53e6c2c261e3beae4731e61959",
+  "cells": [
+    {
+      "cell": [
+        "0b2d0722-c94_1",
+        "370065ed-0cb_0",
+        1,
+        165
+      ],
+      "components": 2,
+      "polygons": [
+        [
+          [
+            -7554.181785211836,
+            8626.93940492939
+          ],
+          [
+            -7554.005208913655,
+            8626.99826369545
+          ],
+          [
+            -7554.189993281815,
+            8626.997844272068
+          ]
+        ],
+        [
+          [
+            -7554.005208913658,
+            8626.99826369545
+          ],
+          [
+            -7553.872823314908,
+            8627.042392228368
+          ],
+          [
+            -7554.189993281814,
+            8626.997844272068
+          ]
+        ],
+        [
+          [
+            -7550.6402779643795,
+            8627.496417842505
+          ],
+          [
+            -7550.632192159683,
+            8627.449153863567
+          ],
+          [
+            -7552.754289871027,
+            8627.19949530929
+          ]
+        ]
+      ]
+    },
+    {
+      "cell": [
+        "53e6ab65-d79_0",
+        "53e6ab65-d79_1",
+        128,
+        0
+      ],
+      "components": 2,
+      "polygons": [
+        [
+          [
+            -11400.158511576648,
+            -8502.661809531059
+          ],
+          [
+            -11400.1038077977,
+            -8502.801903898851
+          ],
+          [
+            -11400.063015132779,
+            -8502.781507566391
+          ]
+        ],
+        [
+          [
+            -11400.174891399383,
+            -8502.61986140691
+          ],
+          [
+            -11400.158511576648,
+            -8502.661809531059
+          ],
+          [
+            -11400.063015132779,
+            -8502.781507566391
+          ],
+          [
+            -11395.9,
+            -8500.7
+          ]
+        ],
+        [
+          [
+            -11391.634033697557,
+            -8498.78414687016
+          ],
+          [
+            -11391.43660926322,
+            -8499.375071120701
+          ],
+          [
+            -11394.791105306569,
+            -8500.201993401155
+          ]
+        ]
+      ]
+    },
+    {
+      "cell": [
+        "94e0641e-d78_0",
+        "a4ead2a6-a8f_1",
+        596,
+        0
+      ],
+      "components": 2,
+      "polygons": [
+        [
+          [
+            -8064.907907980925,
+            5717.81995737792
+          ],
+          [
+            -8064.896838312105,
+            5717.810207082252
+          ],
+          [
+            -8064.423058424755,
+            5718.348097073034
+          ]
+        ],
+        [
+          [
+            -8064.2,
+            5718.601338920651
+          ],
+          [
+            -8061.028063868375,
+            5722.202489459453
+          ],
+          [
+            -8061.993663286951,
+            5722.567035097734
+          ],
+          [
+            -8064.2,
+            5720.62863769449
+          ]
+        ],
+        [
+          [
+            -8064.2,
+            5720.62863769449
+          ],
+          [
+            -8061.993663286951,
+            5722.567035097734
+          ],
+          [
+            -8062.699205430861,
+            5722.833400534828
+          ],
+          [
+            -8064.2,
+            5721.1295241177095
+          ]
+        ]
+      ]
+    }
+  ],
+  "classificationUpperBound": {
+    "scope": "Zero-level permissive upper bound on source-node reach; literal full-pair fragment graph checks whether apparently disconnected local fragments reconnect through other cells. Not final source classification.",
+    "results": [
+      {
+        "cell": [
+          "0b2d0722-c94_1",
+          "370065ed-0cb_0",
+          1,
+          165
+        ],
+        "commonNodes": [],
+        "acceptedByPermissiveLevelSharedNode": false,
+        "sharedNodeAcceptedCells": 0
+      },
+      {
+        "cell": [
+          "53e6ab65-d79_0",
+          "53e6ab65-d79_1",
+          128,
+          0
+        ],
+        "commonNodes": [
+          "4e4048e9-b9a"
+        ],
+        "acceptedByPermissiveLevelSharedNode": true,
+        "sharedNodeAcceptedCells": 2,
+        "fragmentConnectedInEntirePair": [
+          true,
+          true,
+          false
+        ],
+        "orphanFragments": 1
+      },
+      {
+        "cell": [
+          "94e0641e-d78_0",
+          "a4ead2a6-a8f_1",
+          596,
+          0
+        ],
+        "commonNodes": [],
+        "acceptedByPermissiveLevelSharedNode": false,
+        "sharedNodeAcceptedCells": 0
+      }
+    ]
+  }
+}

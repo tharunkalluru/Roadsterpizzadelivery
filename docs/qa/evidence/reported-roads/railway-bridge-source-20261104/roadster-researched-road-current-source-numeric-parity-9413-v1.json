@@ -1,0 +1,28 @@
+{
+  "schema": "researched-road-current-source-replay-v1",
+  "releaseApproved": false,
+  "scope": "New explicit offline exporter invocation using original preconditioning and held research evidence; semantic full equality proof, not actual runtime World activation or road acceptance. Original tuple hashes are preserved, never rebased.",
+  "inputs": {
+    "/tmp/source-9413-researched-rail-facilities-world-v1.json": "939084750f6d0c3a8acf92acff8feb378fde06c11c96b98128d711394c23945f",
+    "/tmp/source-9413-researched-rail-facilities-current-source-replay-v1.json": "14661dd243fefa7c8132156d13a609f560482360c4e252e44c69b6e6aa67e3f1",
+    "/tmp/source-9413-researched-rail-facilities-world-footprints-v1.json": "be92dcc01938888de2f947965e006d4c20162e9f462b793ad4d6c4eac99acd33",
+    "/tmp/source-9413-researched-rail-facilities-current-source-footprints-v1.json": "a054b3761931003d291d81e8413fef10e3571245637643a25a8d163d97683970"
+  },
+  "roads": 52411,
+  "ribbons": 52411,
+  "changedNonProvenanceKeys": [],
+  "allRoadRecordsExact": true,
+  "allActualRibbonsExact": true,
+  "allRailsExact": true,
+  "changedSourceFiles": {
+    "src/world/expressway.ts": {
+      "old": "882a1ffc0dc682f3ef8c6452aa697bc5480a3f3e638f056e809d7335c9eb6025",
+      "current": "20034c72e2d4ddba805e6313897acd20413c846c8593a6af72e62a4ef4593bd3"
+    },
+    "src/world/road-grades.ts": {
+      "old": "2afb9bb1063c59aba525e98c2dbac7ccc8d52b53b5c09c8ae778205d05799e65",
+      "current": "379d2439ea41a752b63ad783731984a59bc69dbce830227ac665fb1cd180bfdc"
+    }
+  },
+  "originalNumericTupleStillExactForThisReplay": true
+}

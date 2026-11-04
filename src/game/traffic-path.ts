@@ -21,6 +21,8 @@ export function turnProfile(group: TrafficGroup, assertive = false) {
 // polyline still lets the body cut corners and gives collision a different yaw.
 export class TrafficCurve {
   readonly lengths = [0]; readonly length: number; readonly minRadius: number;
+  private roadSupport?: { heightAt(x: number, z: number, guideY: number): number | null };
+  setRoadSupport(support: { heightAt(x: number, z: number, guideY: number): number | null }) { this.roadSupport = support; }
   constructor(readonly a: TrafficPose, readonly b: TrafficPose, readonly handleA: number, readonly handleB = handleA) {
     let last = this.at(0), length = 0, maxCurvature = 0;
     for (let i = 1; i <= 80; i++) {
@@ -42,9 +44,13 @@ export class TrafficCurve {
   at(t: number): TrafficPose {
     t = Math.max(0, Math.min(1, t));
     const { a, b } = this, { u, ax, az, bx, bz, dx, dz } = this.components(t), n = Math.hypot(dx, dz) || 1;
-    return { x: u ** 3 * a.x + 3 * u * u * t * ax + 3 * u * t * t * bx + t ** 3 * b.x,
+    const pose = { x: u ** 3 * a.x + 3 * u * u * t * ax + 3 * u * t * t * bx + t ** 3 * b.x,
       z: u ** 3 * a.z + 3 * u * u * t * az + 3 * u * t * t * bz + t ** 3 * b.z,
       y: a.y + (b.y - a.y) * t, hx: dx / n, hz: dz / n };
+    // Only the intended loaded road can refine Y. Missing/unowned pavement
+    // retains the prior chord and its existing traffic safety/retry checks.
+    pose.y = this.roadSupport?.heightAt(pose.x, pose.z, pose.y) ?? pose.y;
+    return pose;
   }
   curvature(t: number) {
     const { dx, dz, ddx, ddz } = this.components(t), n = Math.hypot(dx, dz);
@@ -63,7 +69,9 @@ export class TrafficCurve {
 export function roundedTrafficCorner(a: TrafficPose, b: TrafficPose) {
   const angle = Math.acos(Math.max(-1, Math.min(1, a.hx * b.hx + a.hz * b.hz)));
   const dx = b.x - a.x, dz = b.z - a.z, cross = a.hx * b.hz - a.hz * b.hx;
-  if (Math.abs(cross) < 0.0001) return new TrafficCurve(a, b, Math.hypot(dx, dz) / 3);
+  // Nearly parallel lane tangents can intersect far behind or ahead. Their
+  // short physical continuation is a stable cubic, not that distant corner.
+  if (Math.abs(cross) < 0.0001 || a.hx * b.hx + a.hz * b.hz > Math.cos(.12)) return new TrafficCurve(a, b, Math.hypot(dx, dz) / 3);
   const incoming = (dx * b.hz - dz * b.hx) / cross, outgoing = (a.hx * dz - a.hz * dx) / cross;
   const k = 4 / 3 * Math.tan(angle / 4) / Math.tan(angle / 2);
   return new TrafficCurve(a, b, Math.max(.02, incoming * k), Math.max(.02, outgoing * k));

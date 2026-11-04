@@ -8,7 +8,7 @@ import { prepareCharacterGpu, type CharacterGpuContext } from '../art/gpu-prepar
 import { TruckInterior } from '../modules/truck-interior';
 import { createDeliveryModule } from '../modules';
 import type { SceneCharacter } from '../modules/character';
-import type { DeliveryModule, DeliveryModuleContext, ModuleParams } from '../modules/types';
+import type { DeliveryModule, DeliveryModuleContext, ModuleParams, ModuleStoryLandingZone } from '../modules/types';
 
 export const PUSHPA_ART_REVIEW = {
   query: 'pushpa-reader-v1', id: 'pushpa-reader-in-container-v5', characterId: 'pushpa-raj',
@@ -137,7 +137,7 @@ class LocalArtMatchAndLand implements DeliveryModule {
   private inner=createDeliveryModule('matchAndLand');
   constructor(private review:LocalPushpaArtReview){}
   get target(){return this.inner.target;}get status(){return this.inner.status;}get supports(){return this.inner.supports;}
-  get movement(){return this.inner.movement;}get arrival(){return this.inner.arrival;}get trafficBodies(){return this.inner.trafficBodies;}
+  get movement(){return this.inner.movement;}get arrival(){return this.inner.arrival;}get trafficBodies(){return this.inner.trafficBodies;}get trafficReservations(){return this.inner.trafficReservations;}
   get exitPending(){return this.inner.exitPending;}get sceneryPending(){return this.inner.sceneryPending;}
   get hideWorldGuidance(){return this.inner.hideWorldGuidance;}
   get cameraFocus(){return this.inner.cameraFocus;}
@@ -145,7 +145,7 @@ class LocalArtMatchAndLand implements DeliveryModule {
   get headlightGain(){return this.inner.headlightGain;}
   get story(){return this.inner.story;}
   get storyArrivalReady(){return this.inner.storyArrivalReady;}
-  setStoryPresentation(active:boolean){this.inner.setStoryPresentation?.(active);}
+  setStoryPresentation(active:boolean,landing?:ModuleStoryLandingZone){this.inner.setStoryPresentation?.(active,landing);}
   get sceneLamp(){return this.inner.sceneLamp;}
   setup(ctx:DeliveryModuleContext,params:ModuleParams){this.inner.teardown();this.inner=params.scene==='truckInterior'?new LocalArtTruckInterior(this.review):createDeliveryModule('matchAndLand');this.inner.setup(ctx,params);}
   update(dt:number){this.inner.update(dt);}onDrop(){this.inner.onDrop();}teardown(){this.inner.teardown();}

@@ -1,0 +1,5429 @@
+{
+  "version": 1,
+  "release": "2026-10-21.0",
+  "source": "s3://overturemaps-us-west-2/release/2026-10-21.0/theme=transportation/type=segment/*",
+  "query": "SELECT id,names.primary AS name,class,width_rules,level_rules,road_flags,access_restrictions,connectors,sources,hex(geometry) AS geometryWKB,bbox FROM read_parquet(?,hive_partitioning=1) WHERE bbox.xmin<78.72 AND bbox.xmax>78.18 AND bbox.ymin<17.64 AND bbox.ymax>17.18 AND substring(id,1,12) IN ('006bc4c0-51e','0072a502-45c','03698d2f-fc8','036aaa66-bbb','03e82bcf-cca','080b08fc-52e','0a4cc261-827','0b1065d7-44b','0b67782c-2f6','0d3c12ce-bee','0d494567-563','11713dbc-471','11fa43f7-985','12331939-eb2','18189361-efd','1aa35f5d-814','1df36808-56e','2030c448-606','218958a9-d27','29ccadf5-033','29dc7d6d-088','2ee4a838-5b3','31c7acd8-afa','3ab2bca4-91f','3edc339a-38c','41eeb565-d9f','44d3e979-0d3','4d01c401-eb3','535c9c83-ea7','5bf8b4d5-25a','5f42a8c4-e33','669b6dcf-644','6ddec1f7-2ca','6e8b3ce1-597','6fea03df-9e0','7199f994-bce','77c9b8ed-709','79a7f89a-30d','7aeeb907-619','82ddb68a-e26','860b2212-48a','8b94c59b-0df','8b99c799-287','9199dabd-670','938f3cc3-2b7','98644641-fac','9a203e62-44d','9a70e56a-ade','9b5a604b-b76','9b787225-757','9b9a0858-5ca','9cec3e5b-787','9e423daf-137','a311f8f9-eaf','a5bf9129-8ea','a8a958bf-824','aaabc70f-16b','ab8ec7f1-ebe','af8b1ded-d98','b2d99b4d-b39','b3a89cbb-5f3','b3f2f771-776','b4b7dfe1-6ad','b77ef5e6-afc','bb89fc72-c18','c00672a7-37c','c0f63659-cdd','c3afaba5-9dd','c48c1a1c-9dd','c568985f-cd3','c7943860-145','cdc22930-75a','cdca004e-24d','ced977bf-527','d68383ca-770','d74a3765-b30','e06cedde-d7a','e233d523-84f','e2a8a462-5bb','e7138e3e-8f8','ee9206cd-573','f0ae14f3-843','f513bac6-b95','f53cd80d-2d6','f5840e10-3b9','f90e9d99-fe1','fbbd9cda-59f','ff21b2ff-144','ff3bb4e8-b34')",
+  "selectorSHA256": "8bb447fd8ae75d71e99529511686ebc5fe919e993359c24f712b4091b2553663",
+  "requestedPrefixes": [
+    "006bc4c0-51e",
+    "0072a502-45c",
+    "03698d2f-fc8",
+    "036aaa66-bbb",
+    "03e82bcf-cca",
+    "080b08fc-52e",
+    "0a4cc261-827",
+    "0b1065d7-44b",
+    "0b67782c-2f6",
+    "0d3c12ce-bee",
+    "0d494567-563",
+    "11713dbc-471",
+    "11fa43f7-985",
+    "12331939-eb2",
+    "18189361-efd",
+    "1aa35f5d-814",
+    "1df36808-56e",
+    "2030c448-606",
+    "218958a9-d27",
+    "29ccadf5-033",
+    "29dc7d6d-088",
+    "2ee4a838-5b3",
+    "31c7acd8-afa",
+    "3ab2bca4-91f",
+    "3edc339a-38c",
+    "41eeb565-d9f",
+    "44d3e979-0d3",
+    "4d01c401-eb3",
+    "535c9c83-ea7",
+    "5bf8b4d5-25a",
+    "5f42a8c4-e33",
+    "669b6dcf-644",
+    "6ddec1f7-2ca",
+    "6e8b3ce1-597",
+    "6fea03df-9e0",
+    "7199f994-bce",
+    "77c9b8ed-709",
+    "79a7f89a-30d",
+    "7aeeb907-619",
+    "82ddb68a-e26",
+    "860b2212-48a",
+    "8b94c59b-0df",
+    "8b99c799-287",
+    "9199dabd-670",
+    "938f3cc3-2b7",
+    "98644641-fac",
+    "9a203e62-44d",
+    "9a70e56a-ade",
+    "9b5a604b-b76",
+    "9b787225-757",
+    "9b9a0858-5ca",
+    "9cec3e5b-787",
+    "9e423daf-137",
+    "a311f8f9-eaf",
+    "a5bf9129-8ea",
+    "a8a958bf-824",
+    "aaabc70f-16b",
+    "ab8ec7f1-ebe",
+    "af8b1ded-d98",
+    "b2d99b4d-b39",
+    "b3a89cbb-5f3",
+    "b3f2f771-776",
+    "b4b7dfe1-6ad",
+    "b77ef5e6-afc",
+    "bb89fc72-c18",
+    "c00672a7-37c",
+    "c0f63659-cdd",
+    "c3afaba5-9dd",
+    "c48c1a1c-9dd",
+    "c568985f-cd3",
+    "c7943860-145",
+    "cdc22930-75a",
+    "cdca004e-24d",
+    "ced977bf-527",
+    "d68383ca-770",
+    "d74a3765-b30",
+    "e06cedde-d7a",
+    "e233d523-84f",
+    "e2a8a462-5bb",
+    "e7138e3e-8f8",
+    "ee9206cd-573",
+    "f0ae14f3-843",
+    "f513bac6-b95",
+    "f53cd80d-2d6",
+    "f5840e10-3b9",
+    "f90e9d99-fe1",
+    "fbbd9cda-59f",
+    "ff21b2ff-144",
+    "ff3bb4e8-b34"
+  ],
+  "rows": [
+    {
+      "id": "29dc7d6d-088e-4c5e-8305-d5f04d66837a",
+      "name": "Inner Ring Road",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        },
+        {
+          "access_type": "allowed",
+          "when": {
+            "during": null,
+            "heading": null,
+            "using": null,
+            "recognized": null,
+            "mode": [
+              "foot"
+            ],
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "d639a104-d379-444f-bc67-2f2effee55d8",
+          "at": 0.0
+        },
+        {
+          "connector_id": "4b851594-7fff-4ffc-9dcd-337124ac2035",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6424432@99",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w310345824@19",
+          "update_time": "2025-09-29T04:54:49Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000005000000F2DA5B80EC9B5340C30FCEA78E513140967439CAE69B5340B045C1429C513140764309E9DF9B534054C37E4FAC513140E9633E20D09B53401FE2D528DA513140A4C68498CB9B53402A317491E7513140",
+      "bbox": {
+        "xmin": 78.43429565429688,
+        "xmax": 78.43631744384766,
+        "ymin": 17.31858253479004,
+        "ymax": 17.3199405670166
+      }
+    },
+    {
+      "id": "44d3e979-0d3f-48dc-836b-b72fac703241",
+      "name": "Inner Ring Road",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        },
+        {
+          "access_type": "allowed",
+          "when": {
+            "during": null,
+            "heading": null,
+            "using": null,
+            "recognized": null,
+            "mode": [
+              "foot"
+            ],
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "aa541e22-38a5-41ab-ac7d-fd946569ac7a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "6f09a1ef-6023-4106-8b12-1c42eb6ec033",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6424432@99",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w312545124@22",
+          "update_time": "2025-09-29T04:54:49Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000069E5B919C99B534046274BADF751314039FC242DCB9B5340E4310395F1513140",
+      "bbox": {
+        "xmin": 78.43414306640625,
+        "xmax": 78.43428802490234,
+        "ymin": 17.320091247558594,
+        "ymax": 17.320186614990234
+      }
+    },
+    {
+      "id": "12331939-eb28-42e8-9f1d-4d0a8a994146",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "3b2a7425-7429-4c14-86f2-fb4efad5f736",
+          "at": 0.0
+        },
+        {
+          "connector_id": "91520cd7-c641-436a-9dff-29176263381e",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1383979955@1",
+          "update_time": "2025-05-06T10:05:37Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.098263706
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1273642692@6",
+          "update_time": "2026-02-15T08:36:23Z",
+          "confidence": null,
+          "between": [
+            0.098263706,
+            0.8331262
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1327171849@3",
+          "update_time": "2026-02-15T08:36:19Z",
+          "confidence": null,
+          "between": [
+            0.8331262,
+            0.90932611
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1273642687@4",
+          "update_time": "2026-02-15T08:36:18Z",
+          "confidence": null,
+          "between": [
+            0.90932611,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000001500000000AEBF80B997534078184971447B3140467C2766BD975340A7C4BF19467B314016180D74C897534084BD8921397B3140D23EB1A9CE975340DB977D68307B314029024125D3975340742DB539297B314009C0E4EBD79753403DC38A09207B3140259C7175DB97534088033285187B3140284A9DDBDF97534034C813F70E7B3140093C8B39E3975340EBBEAD05077B31400D912E91E6975340F5B3A217FF7A3140ACD8A903EA97534076B11F18F67A314045D61A4AED97534063C1B3F3EC7A3140D8898164F0975340EBAFB211E37A3140234333F4F4975340707D586FD47A3140F29881CAF8975340B8D0F0C1C67A314019A7C6F0FD975340E01DCF1DB37A3140D21D1F8807985340640DCD2B8D7A31403CFC901216985340A0C211A4527A3140E3D011AF2198534046877604267A31406793686E2A985340D3C49679067A31402049A4C83598534067DFCB33E5793140",
+      "bbox": {
+        "xmin": 78.37069702148438,
+        "xmax": 78.37828826904297,
+        "ymin": 17.476152420043945,
+        "ymax": 17.481538772583008
+      }
+    },
+    {
+      "id": "2ee4a838-5b34-4820-9952-6090f98f13f2",
+      "name": null,
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "893a1053-edd9-4c29-b74f-397e1bcca5b4",
+          "at": 0.0
+        },
+        {
+          "connector_id": "97d5cd30-0b30-4e36-a2f7-eb8b59f81b5c",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1240970406@4",
+          "update_time": "2024-06-11T13:33:52Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000074E6CF4209853408680327CFA7031409BD65C2423985340AC5791D101713140",
+      "bbox": {
+        "xmin": 78.37699890136719,
+        "xmax": 78.37715148925781,
+        "ymin": 17.441320419311523,
+        "ymax": 17.441434860229492
+      }
+    },
+    {
+      "id": "a311f8f9-eaff-46a5-83dd-9c10a749dfd7",
+      "name": "HITEC City Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "97d5cd30-0b30-4e36-a2f7-eb8b59f81b5c",
+          "at": 0.0
+        },
+        {
+          "connector_id": "2624e482-a842-4ed5-ac4f-e5fc3f83195a",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w563605074@19",
+          "update_time": "2026-01-03T11:04:59Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000009BD65C2423985340AC5791D10171314047AAEFFC229853400F71BDB733713140",
+      "bbox": {
+        "xmin": 78.37712860107422,
+        "xmax": 78.37715148925781,
+        "ymin": 17.441431045532227,
+        "ymax": 17.442195892333984
+      }
+    },
+    {
+      "id": "2030c448-606c-4de7-b967-24b56c7ee86b",
+      "name": null,
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "58b577e6-2490-4ef1-bb2b-47770824d8e1",
+          "at": 0.0
+        },
+        {
+          "connector_id": "5ebd6da0-d854-47b5-a18c-2d39f12e21db",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w631944863@6",
+          "update_time": "2024-06-11T13:33:52Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000003000000C394EDE824985340775E74C300713140B1ADFAB726985340878CA262F770314004C35ECD269853401460B3B7EF703140",
+      "bbox": {
+        "xmin": 78.37725067138672,
+        "xmax": 78.37738037109375,
+        "ymin": 17.4411563873291,
+        "ymax": 17.44141960144043
+      }
+    },
+    {
+      "id": "c3afaba5-9dd5-4634-a635-fa7529113805",
+      "name": "HITEC City Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "80341374-a385-4304-9176-0b5408106c3d",
+          "at": 0.0
+        },
+        {
+          "connector_id": "75b3c3b8-bd65-47a5-93d7-c2241e42ecd3",
+          "at": 0.025255615
+        },
+        {
+          "connector_id": "9d5c1970-43dd-4aec-a5c3-16afd5dd90da",
+          "at": 0.069085139
+        },
+        {
+          "connector_id": "4789dd66-8cb0-4b46-ac29-5f14cdc3e713",
+          "at": 0.129247644
+        },
+        {
+          "connector_id": "9384ad88-ea7d-48c0-97c0-97917f038258",
+          "at": 0.256128867
+        },
+        {
+          "connector_id": "6686b027-b78a-4669-b68d-b056def07506",
+          "at": 0.448908653
+        },
+        {
+          "connector_id": "74ce8024-d346-469b-9051-bf365d6bab7a",
+          "at": 0.509735635
+        },
+        {
+          "connector_id": "d32b02a7-d7e0-40ca-8a41-8b0f721f3803",
+          "at": 0.872412265
+        },
+        {
+          "connector_id": "8218e242-e6dd-409a-bc81-ff76639bdd1b",
+          "at": 0.888672486
+        },
+        {
+          "connector_id": "6b1a7e9b-174a-410f-acf0-c8f1a3606fb6",
+          "at": 0.941723844
+        },
+        {
+          "connector_id": "58b577e6-2490-4ef1-bb2b-47770824d8e1",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w313352846@26",
+          "update_time": "2026-01-03T11:04:59Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.50974301
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1209035335@9",
+          "update_time": "2026-01-03T11:04:59Z",
+          "confidence": null,
+          "between": [
+            0.50974301,
+            0.571268529
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1334236322@5",
+          "update_time": "2026-01-03T11:04:59Z",
+          "confidence": null,
+          "between": [
+            0.571268529,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000001700000057D526A927985340FD2A65BE287231408714A86A2798534013E2804C2172314039D62027279853409CDCEF50147231409F5912A02698534030D5CC5A0A72314034BDC458269853408D2441B8027231400ACBE9FC259853400A0962EAF8713140CF9ECBD4249853407D3AC379DD71314017F2086E249853400AFA66F6D47131404D36792524985340F71D68AACC713140F4ED13F623985340B97A04EDC4713140E2992BDE2398534022D45636BD713140D67844E0239853407495EEAEB37131405F2E3DF523985340292FE873A4713140D0A1670E2498534062B36D6292713140471A811D249853408404D6BB8971314076B52627249853403332C85D847131400B75FD2724985340347A7FCD837131405352712D249853406552431B8071314023FCE65924985340933F733161713140E7B287AC24985340A5750AA8267131408EAF3DB324985340AD5E8FD321713140F3EA77BC2498534032BCA31012713140C394EDE824985340775E74C300713140",
+      "bbox": {
+        "xmin": 78.37718200683594,
+        "xmax": 78.37743377685547,
+        "ymin": 17.441417694091797,
+        "ymax": 17.445934295654297
+      }
+    },
+    {
+      "id": "9b5a604b-b761-431c-b34c-1df5919dbc26",
+      "name": "100 Feet Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "d3bcecec-a0e9-4016-a994-6e6b1226817a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "377b9033-f08f-4022-8bb5-acd02e9a043f",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w229422270@25",
+          "update_time": "2026-05-13T06:58:25Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000000D28E5FF9F985340099B4BBBE2733140B38300CFAC98534029F4B006DE733140",
+      "bbox": {
+        "xmin": 78.38475799560547,
+        "xmax": 78.38555908203125,
+        "ymin": 17.452606201171875,
+        "ymax": 17.452678680419922
+      }
+    },
+    {
+      "id": "11fa43f7-9855-4ec8-be3d-7bbd421b14c6",
+      "name": "100 Feet Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "377b9033-f08f-4022-8bb5-acd02e9a043f",
+          "at": 0.0
+        },
+        {
+          "connector_id": "5f9824b2-c746-4b0d-9ca2-37c7051ff100",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w229422270@25",
+          "update_time": "2026-05-13T06:58:25Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000B38300CFAC98534029F4B006DE733140E0A7058AB39853409B87B8DEDB733140",
+      "bbox": {
+        "xmin": 78.38554382324219,
+        "xmax": 78.38597106933594,
+        "ymin": 17.452571868896484,
+        "ymax": 17.452608108520508
+      }
+    },
+    {
+      "id": "03e82bcf-ccab-4042-b4e6-8399a2925b08",
+      "name": "Hafeezpet to KPHB Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "51ef8e09-f22c-4ca1-abc5-aeddad12d298",
+          "at": 0.0
+        },
+        {
+          "connector_id": "91520cd7-c641-436a-9dff-29176263381e",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1273642688@3",
+          "update_time": "2026-07-08T10:30:37Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000629A8EA534985340408C6BD7DF7931402049A4C83598534067DFCB33E5793140",
+      "bbox": {
+        "xmin": 78.37821197509766,
+        "xmax": 78.37828826904297,
+        "ymin": 17.476070404052734,
+        "ymax": 17.476154327392578
+      }
+    },
+    {
+      "id": "1aa35f5d-8143-4629-a617-83bd05eefe8f",
+      "name": null,
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "a6672281-dbc5-47c0-b1a1-1526ba97aaba",
+          "at": 0.0
+        },
+        {
+          "connector_id": "4f1ebd1e-9210-40e3-a0b6-d7047e1c41b1",
+          "at": 0.267757659
+        },
+        {
+          "connector_id": "7e0aea98-9f4c-46d9-b9aa-7edbeed1fc26",
+          "at": 0.344958927
+        },
+        {
+          "connector_id": "cc3f4cb7-94c6-4f71-a54d-f29c18354830",
+          "at": 0.361899727
+        },
+        {
+          "connector_id": "18d1ff81-96ac-426d-be5a-6438e2c3656c",
+          "at": 0.421884955
+        },
+        {
+          "connector_id": "2c49d37f-a068-443a-bd8e-b139b4c351f6",
+          "at": 0.520795463
+        },
+        {
+          "connector_id": "2ea1af3e-59ef-43b8-8f1d-43de344dadd3",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1089070149@6",
+          "update_time": "2026-08-26T10:55:03Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.60399654
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1040720098@7",
+          "update_time": "2026-08-26T10:55:03Z",
+          "confidence": null,
+          "between": [
+            0.60399654,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000014000000305DD2623A9853409A66704A2F7A3140639236FA3D98534096AC2FB7207A3140607A562D44985340A0281AB50C7A31409637D1F84F985340DA53724EEC793140CFE451E053985340632E0494E1793140106FE70C569853402A70B20DDC79314084E9C59A5B985340F0749DFCCC79314024F25D4A5D98534052BD9069C879314040A610235F985340CCBD1B66C3793140F110C64F6398534019AE0E80B8793140879796476D985340DFA9807B9E793140CC689A667098534060BB6A549679314076830DF475985340CBB09B638A79314038E3EAB67A98534030C9B72D807931400DA3C5BE89985340B6B9313D617931400093AF5F8B985340EF2653605C7931405695229E9198534093A98251497931403020C54A969853401E0C86843979314092297A3B9D9853408940F50F22793140EB71DF6A9D985340B3075A8121793140",
+      "bbox": {
+        "xmin": 78.3785629272461,
+        "xmax": 78.3846206665039,
+        "ymin": 17.473167419433594,
+        "ymax": 17.477285385131836
+      }
+    },
+    {
+      "id": "9a203e62-44d1-4247-b3a8-dc12e2b48bb8",
+      "name": null,
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "9281a44b-51b8-4d3b-beab-217754339ede",
+          "at": 0.0
+        },
+        {
+          "connector_id": "e34af780-ac3f-4304-968a-542d6c5abba7",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w563608104@12",
+          "update_time": "2025-07-08T04:51:31Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000003E5695229E9853400B9A965819793140B04225099D9853400FEF39B01C793140",
+      "bbox": {
+        "xmin": 78.38458251953125,
+        "xmax": 78.38465881347656,
+        "ymin": 17.473041534423828,
+        "ymax": 17.473094940185547
+      }
+    },
+    {
+      "id": "82ddb68a-e267-4f99-b542-ab1e61a79e7a",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "e34af780-ac3f-4304-968a-542d6c5abba7",
+          "at": 0.0
+        },
+        {
+          "connector_id": "2ea1af3e-59ef-43b8-8f1d-43de344dadd3",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w823373068@6",
+          "update_time": "2024-05-09T10:20:22Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000B04225099D9853400FEF39B01C793140EB71DF6A9D985340B3075A8121793140",
+      "bbox": {
+        "xmin": 78.38458251953125,
+        "xmax": 78.3846206665039,
+        "ymin": 17.47309112548828,
+        "ymax": 17.473169326782227
+      }
+    },
+    {
+      "id": "b77ef5e6-afcd-478e-8fac-3c618847f3e1",
+      "name": "Underpass",
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": [
+        {
+          "value": -1,
+          "between": [
+            0.375077707,
+            0.46274657
+          ]
+        }
+      ],
+      "road_flags": [
+        {
+          "values": [
+            "is_tunnel"
+          ],
+          "between": [
+            0.375077707,
+            0.46274657
+          ]
+        }
+      ],
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "4e643138-ddb1-4502-abde-eae7806ddc0c",
+          "at": 0.0
+        },
+        {
+          "connector_id": "e34af780-ac3f-4304-968a-542d6c5abba7",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w693139597@4",
+          "update_time": "2024-04-18T09:06:03Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.375077707
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1198917114@2",
+          "update_time": "2024-10-15T10:30:46Z",
+          "confidence": null,
+          "between": [
+            0.375077707,
+            0.46274657
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1198917113@2",
+          "update_time": "2024-04-18T09:06:03Z",
+          "confidence": null,
+          "between": [
+            0.46274657,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000180000004D5D43BA69985340A6AEC62302793140779A71BF6898534029965B5A0D7931401E0DF1596898534072E778BB14793140BFEDAE5868985340F77E59901C793140BF32CA8E6898534083AB973A2379314012A452EC689853405C2D663A2A79314023DE95B86998534034AF343A317931403B4BDA9E6A985340140E187F3679314058303BD56B985340648401953B793140B0E595EB6D9853405B7B9FAA427931402F336C94759853400E38013C5879314056CBE7267B98534001CF0715667931404A7952CB7B9853400DA59B6967793140F60192FA7C98534030EB0FDE687931407839364C7E985340A76329ED687931406BFB0DC97F98534089DAECFE67793140E184F87681985340732EC5556579314076A6D0798D9853408E7340B73C7931406EBD4B4E92985340D01D0E5C2F7931405A74FC61959853405D95FA6827793140770E0AEF97985340CBD35EE92179314028C7AEFE99985340AF5692E11D793140E6B7431E9C98534087F7C19E1B793140B04225099D9853400FEF39B01C793140",
+      "bbox": {
+        "xmin": 78.38136291503906,
+        "xmax": 78.38459777832031,
+        "ymin": 17.472688674926758,
+        "ymax": 17.474260330200195
+      }
+    },
+    {
+      "id": "ced977bf-5275-4a8a-9d90-c3cd95d3c5c6",
+      "name": "Hitec - Kukatpally Main Road",
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "c680a7a7-1f61-4296-ac52-9d58c27fb541",
+          "at": 0.0
+        },
+        {
+          "connector_id": "ba6e444e-0a47-42b5-b693-0a8df5306b36",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w434906544@3",
+          "update_time": "2025-03-27T05:07:28Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000004FF74BD5879853409E955929A97831404F39CBD188985340D7C633C3A1783140",
+      "bbox": {
+        "xmin": 78.3832778930664,
+        "xmax": 78.38335418701172,
+        "ymin": 17.47121810913086,
+        "ymax": 17.471332550048828
+      }
+    },
+    {
+      "id": "fbbd9cda-59f9-4045-9b49-01531c7d2503",
+      "name": "Hitec - Kukatpally Main Road",
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "7ff1e3dc-f509-41b1-bab7-3b881d9c607b",
+          "at": 0.0
+        },
+        {
+          "connector_id": "c680a7a7-1f61-4296-ac52-9d58c27fb541",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w826148933@3",
+          "update_time": "2025-03-27T05:07:28Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000007F614381889853400EC1CCD2A97831404FF74BD5879853409E955929A9783140",
+      "bbox": {
+        "xmin": 78.3832778930664,
+        "xmax": 78.38333892822266,
+        "ymin": 17.471330642700195,
+        "ymax": 17.471342086791992
+      }
+    },
+    {
+      "id": "036aaa66-bbbf-4f94-a8a3-3797550e440f",
+      "name": "Hitec - Kukatpally Main Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "1c4d2e85-5f91-47cd-8d69-cc96c9c9b0cb",
+          "at": 0.0
+        },
+        {
+          "connector_id": "b8f81b06-5829-4427-9fa6-eafa91b560ff",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1040547456@4",
+          "update_time": "2025-07-08T04:51:31Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000007358D06AB79853407715AD37C5783140FCB44071B698534082131B3DC8783140",
+      "bbox": {
+        "xmin": 78.38612365722656,
+        "xmax": 78.3862075805664,
+        "ymin": 17.471757888793945,
+        "ymax": 17.471805572509766
+      }
+    },
+    {
+      "id": "ab8ec7f1-ebef-4ece-913f-e2e5cd7387a6",
+      "name": "Hitec - Kukatpally Main Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "9cffb89f-e861-49ae-b7a8-b7c47b2541e5",
+          "at": 0.0
+        },
+        {
+          "connector_id": "1c4d2e85-5f91-47cd-8d69-cc96c9c9b0cb",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1040547456@4",
+          "update_time": "2025-07-08T04:51:31Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000091F359F9C098534039605793A77831407358D06AB79853407715AD37C5783140",
+      "bbox": {
+        "xmin": 78.38619232177734,
+        "xmax": 78.38677978515625,
+        "ymin": 17.47130584716797,
+        "ymax": 17.471759796142578
+      }
+    },
+    {
+      "id": "006bc4c0-51e4-4214-9b24-c05e002c7f2f",
+      "name": null,
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "b8f81b06-5829-4427-9fa6-eafa91b560ff",
+          "at": 0.0
+        },
+        {
+          "connector_id": "9281a44b-51b8-4d3b-beab-217754339ede",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1080512084@4",
+          "update_time": "2025-07-08T04:51:31Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000006000000FCB44071B698534082131B3DC87831400350D6B9B3985340014AE8D3CF7831409BB45F2DAD985340C5991540E7783140736F3436AA98534013E4B1B0F1783140B452AD2AA09853400FE6C0BC117931403E5695229E9853400B9A965819793140",
+      "bbox": {
+        "xmin": 78.38465118408203,
+        "xmax": 78.38613891601562,
+        "ymin": 17.471803665161133,
+        "ymax": 17.47304344177246
+      }
+    },
+    {
+      "id": "6fea03df-9e03-4ba1-b7f4-fb1219455f74",
+      "name": null,
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": [
+        {
+          "values": [
+            "is_link"
+          ],
+          "between": null
+        }
+      ],
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "6dd5194c-6b55-4eec-a70b-7ddcc46eeac4",
+          "at": 0.0
+        },
+        {
+          "connector_id": "9de25316-8b9d-45c7-a5fb-4f6fd9ac7ed5",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w695549891@4",
+          "update_time": "2025-05-30T05:25:48Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000B661B94A9C9E5340F6926BAFAA5F3140B6EE8BF09B9E53408E84C7C8A35F3140",
+      "bbox": {
+        "xmin": 78.47825622558594,
+        "xmax": 78.47830200195312,
+        "ymin": 17.373592376708984,
+        "ymax": 17.373701095581055
+      }
+    },
+    {
+      "id": "8b99c799-2870-4996-aeb3-56f9b84e9eae",
+      "name": null,
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": [
+        {
+          "values": [
+            "is_tunnel"
+          ],
+          "between": [
+            0.0,
+            0.139939331
+          ]
+        }
+      ],
+      "access_restrictions": [
+        {
+          "access_type": "allowed",
+          "when": {
+            "during": null,
+            "heading": null,
+            "using": null,
+            "recognized": null,
+            "mode": [
+              "foot"
+            ],
+            "vehicle": null
+          },
+          "between": [
+            0.139939331,
+            1.0
+          ]
+        },
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "755dc0a7-74bb-4c51-832f-3a0c1ebcd064",
+          "at": 0.0
+        },
+        {
+          "connector_id": "e5baf0f1-7cd9-4d94-a7d2-d3765fd1976b",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r336888@655",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5826793@229",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w771971553@2",
+          "update_time": "2025-07-08T05:17:18Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.139939331
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w771971552@4",
+          "update_time": "2025-07-08T05:17:18Z",
+          "confidence": null,
+          "between": [
+            0.139939331,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000500000002EA1736949F5340AB71DB638E6031406E36B11B919F5340F279C5538F603140968C086B889F534044C8D4B892603140BFB44D967F9F5340AD86C43D96603140CB097F2B7E9F5340717C485398603140",
+      "bbox": {
+        "xmin": 78.49207305908203,
+        "xmax": 78.49342346191406,
+        "ymin": 17.377172470092773,
+        "ymax": 17.3773250579834
+      }
+    },
+    {
+      "id": "e7138e3e-8f85-48e8-99b3-0b873e9fb5a9",
+      "name": "Uppuguda Station Road",
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "eb496205-3507-4022-8097-61f8d62d4a76",
+          "at": 0.0
+        },
+        {
+          "connector_id": "6571a3f4-1a9e-4487-923c-9d11992efcc3",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w28471526@10",
+          "update_time": "2023-07-11T03:59:39Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000AC2BB011D29E5340320D79BAA9573140B13ED46CD49E5340568737C6A9573140",
+      "bbox": {
+        "xmin": 78.48155975341797,
+        "xmax": 78.48172760009766,
+        "ymin": 17.342432022094727,
+        "ymax": 17.342435836791992
+      }
+    },
+    {
+      "id": "77c9b8ed-7098-4941-83e7-9c65f9dda1e8",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "8db785dc-881c-43d1-ada3-3ecc809e19fd",
+          "at": 0.0
+        },
+        {
+          "connector_id": "d8fa8005-86ad-462d-94f4-c5ffaeac06ed",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w583755959@4",
+          "update_time": "2025-11-06T09:52:45Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000F95976D20C9F53401C615111A7573140EB54F99E119F5340A9E1B611AA573140",
+      "bbox": {
+        "xmin": 78.48514556884766,
+        "xmax": 78.4854507446289,
+        "ymin": 17.342390060424805,
+        "ymax": 17.342439651489258
+      }
+    },
+    {
+      "id": "f513bac6-b95e-476a-b6c6-9aa3afe5f2b1",
+      "name": null,
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "83598d21-8572-4268-8e57-101838a21d42",
+          "at": 0.0
+        },
+        {
+          "connector_id": "0d8b56d5-4aa7-4af4-9ad8-d2b96ac997cd",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w238186511@22",
+          "update_time": "2025-11-24T12:00:47Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000030000004A0856D54B9F53406DB2A1F6B65A3140F511F8C34F9F5340EB3B1AE2B35A3140843F0D29509F5340F19C2D20B45A3140",
+      "bbox": {
+        "xmin": 78.4889907836914,
+        "xmax": 78.4892807006836,
+        "ymin": 17.354307174682617,
+        "ymax": 17.354354858398438
+      }
+    },
+    {
+      "id": "03698d2f-fc84-43ef-a007-ebb42fd1e675",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "fe290148-7d12-466c-909b-0607f718868a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "720f8ea2-6f61-46d2-ae2c-6dd1397bd098",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w28471141@20",
+          "update_time": "2025-11-23T13:31:20Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000EB6B02B1919F53404F6E803E365C314085A059C8929F5340CF2B43C1315C3140",
+      "bbox": {
+        "xmin": 78.49325561523438,
+        "xmax": 78.49333953857422,
+        "ymin": 17.36013412475586,
+        "ymax": 17.36020278930664
+      }
+    },
+    {
+      "id": "c00672a7-37ca-4dfd-a5e9-9bebb576f323",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "bcf285fe-70cc-468e-b7ef-9f149cd30b4b",
+          "at": 0.0
+        },
+        {
+          "connector_id": "c1cdf9fd-26e6-4a37-b230-7eb05b8c06af",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w27935993@19",
+          "update_time": "2026-09-01T06:29:23Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000C173EFE1929F534071EFD0668B5C3140ADF9F197969F5340290FC1278C5C3140",
+      "bbox": {
+        "xmin": 78.49333953857422,
+        "xmax": 78.49356842041016,
+        "ymin": 17.361501693725586,
+        "ymax": 17.361515045166016
+      }
+    },
+    {
+      "id": "9cec3e5b-7872-41a1-907c-0a1c5dd21ce1",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "9bbe8101-9554-4d65-841d-5801c224153a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "bcc9e4f7-4121-44e4-a2e9-501cbd7e822a",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w28093132@30",
+          "update_time": "2025-11-20T08:14:03Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000033445F8BA79F534064C7EB66EB5F314059A25813B09F53408489F5FC1F603140",
+      "bbox": {
+        "xmin": 78.49459838867188,
+        "xmax": 78.49512481689453,
+        "ymin": 17.374685287475586,
+        "ymax": 17.37548828125
+      }
+    },
+    {
+      "id": "1df36808-56e1-4dc8-b689-5e998233840a",
+      "name": null,
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": [
+        {
+          "values": [
+            "is_tunnel"
+          ],
+          "between": [
+            0.885361377,
+            1.0
+          ]
+        }
+      ],
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "b11935eb-5aa5-4c54-8541-9d3750384ba1",
+          "at": 0.0
+        },
+        {
+          "connector_id": "9438ea3f-99db-4e49-937a-a0d154599bd8",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r336888@655",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5826793@229",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w27955567@13",
+          "update_time": "2025-11-25T11:41:36Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.885361377
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w771971550@1",
+          "update_time": "2020-02-12T19:33:27Z",
+          "confidence": null,
+          "between": [
+            0.885361377,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000B00000061DB4713949F5340DFED8B95E26031405572A9A5949F5340664E97C5C460314078488CF9949F53407C39FDEABB6031404EC642BE959F53403057F5A8AE6031409B8B6434979F5340C5B766E1A1603140D0FA4AD6979F534062461DC29D603140C404DAC2989F534076A911FA99603140EDAEFDAE999F53409B2F40EC96603140ABEAE5779A9F5340A811442795603140ECBFCE4D9B9F534026C396C3936031405D305D2D9C9F5340684293C492603140",
+      "bbox": {
+        "xmin": 78.49340057373047,
+        "xmax": 78.4939193725586,
+        "ymin": 17.377239227294922,
+        "ymax": 17.37845802307129
+      }
+    },
+    {
+      "id": "ff3bb4e8-b341-45b7-b2bd-53a1b619168e",
+      "name": null,
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "allowed",
+          "when": {
+            "during": null,
+            "heading": null,
+            "using": null,
+            "recognized": null,
+            "mode": [
+              "foot"
+            ],
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "ce3523cc-b51a-4441-8d7c-31a1ebd7fabb",
+          "at": 0.0
+        },
+        {
+          "connector_id": "2a067226-304f-4723-89cb-74b48dcd0f63",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r3249370@248",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r336372@207",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w22839658@35",
+          "update_time": "2025-11-06T17:11:43Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000500000016855D14BD9F53402C89A2F611623140A252DB3CC49F534023D1706F2362314022C08EA4C99F53403375B22F34623140D2A00D65CD9F5340B6A4FED53E623140BF993D75D19F53404BAFCDC64A623140",
+      "bbox": {
+        "xmin": 78.49590301513672,
+        "xmax": 78.49716186523438,
+        "ymin": 17.383085250854492,
+        "ymax": 17.383955001831055
+      }
+    },
+    {
+      "id": "ee9206cd-573f-4cab-8683-f8636b8beeb1",
+      "name": "Nallakunta Main Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "e4fb35e5-3b5e-481c-8f29-f098a4dde5fd",
+          "at": 0.0
+        },
+        {
+          "connector_id": "b9cee0ca-0150-45cc-9946-35ccbc241193",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1127708138@3",
+          "update_time": "2025-07-08T06:28:05Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000004000000A42F29E384A0534036B286E69566314028A14F3F83A0534039961C1C9166314077FF0EFB73A0534004FE953A6D663140A13C3D0073A05340051E73F96A663140",
+      "bbox": {
+        "xmin": 78.50701904296875,
+        "xmax": 78.50811767578125,
+        "ymin": 17.400068283081055,
+        "ymax": 17.400726318359375
+      }
+    },
+    {
+      "id": "18189361-efd1-405b-a7a1-fd952236b642",
+      "name": "Nallakunta Road",
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "1d9082df-929b-4d66-a42f-c81c4e666887",
+          "at": 0.0
+        },
+        {
+          "connector_id": "b9cee0ca-0150-45cc-9946-35ccbc241193",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1127708139@1",
+          "update_time": "2023-01-06T09:28:53Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000040000008A1AF1097EA05340405BBD7960663140D348F02B7BA053406D9F9FF364663140DCC47F7074A05340F442F0AE69663140A13C3D0073A05340051E73F96A663140",
+      "bbox": {
+        "xmin": 78.50701904296875,
+        "xmax": 78.50770568847656,
+        "ymin": 17.3999080657959,
+        "ymax": 17.400070190429688
+      }
+    },
+    {
+      "id": "c0f63659-cdd7-4e8c-af83-9b107915e736",
+      "name": "Tilak Nagar Main Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "5e580a4b-6f19-47c9-9b8f-6878c5bac416",
+          "at": 0.0
+        },
+        {
+          "connector_id": "fdd89135-ef15-41dc-93f1-e698006b912b",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1147904810@4",
+          "update_time": "2025-07-09T05:51:49Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000605EDB3667A0534024777D8BF3643140F3F1BF4B5FA053405898744AF6643140",
+      "bbox": {
+        "xmin": 78.50581359863281,
+        "xmax": 78.50630187988281,
+        "ymin": 17.39434051513672,
+        "ymax": 17.394384384155273
+      }
+    },
+    {
+      "id": "7199f994-bce0-4658-9491-199710b0e3ef",
+      "name": "Tilak Nagar Main Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "401572c7-a69f-41e4-bb1c-dfe5a666d249",
+          "at": 0.0
+        },
+        {
+          "connector_id": "d83b9f67-92af-44f9-9394-f854313b7f3e",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w28095679@21",
+          "update_time": "2025-07-09T05:51:49Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000030000004CC45BE75FA05340D4090D69F9643140A86CFD9966A053406A17D34CF7643140DB87BCE56AA05340472D8320F6643140",
+      "bbox": {
+        "xmin": 78.50585174560547,
+        "xmax": 78.50653076171875,
+        "ymin": 17.394380569458008,
+        "ymax": 17.394432067871094
+      }
+    },
+    {
+      "id": "6ddec1f7-2ca6-4bfe-b8b1-bc1e3cb69d94",
+      "name": "Nallakunta Main Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "757c72fe-1d65-4ddd-9242-5f61c03deb8c",
+          "at": 0.0
+        },
+        {
+          "connector_id": "02c3e958-282c-4d7e-be2c-da287cb4effc",
+          "at": 0.048386149
+        },
+        {
+          "connector_id": "e4fb35e5-3b5e-481c-8f29-f098a4dde5fd",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1127708138@3",
+          "update_time": "2025-07-08T06:28:05Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000005000000E597C11891A0534033A9A10DC06631400F5F268A90A0534028BFA0E0BD663140054713398EA05340CDEE247DB5663140C50A6DEF89A053406327BC04A7663140A42F29E384A0534036B286E695663140",
+      "bbox": {
+        "xmin": 78.50811004638672,
+        "xmax": 78.50885772705078,
+        "ymin": 17.400724411010742,
+        "ymax": 17.401371002197266
+      }
+    },
+    {
+      "id": "9b787225-7577-4a18-b50b-0d8c3014b2a4",
+      "name": "Nallakunta Road",
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "b8113660-8323-49dc-ba9f-d93e6922a20a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "4dc4f499-64b0-461e-ab63-5841822ec249",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w50108154@13",
+          "update_time": "2025-10-11T15:40:57Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000003000000562EAFB7A8A05340811B73E83E66314073863D48AAA05340DA0A50093E663140871D215EB2A05340E80C31033A663140",
+      "bbox": {
+        "xmin": 78.51029205322266,
+        "xmax": 78.5108871459961,
+        "ymin": 17.399322509765625,
+        "ymax": 17.399398803710938
+      }
+    },
+    {
+      "id": "a8a958bf-824e-4d12-8799-d15789f0a021",
+      "name": "Vijaywada Highway",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        },
+        {
+          "access_type": "allowed",
+          "when": {
+            "during": null,
+            "heading": null,
+            "using": null,
+            "recognized": null,
+            "mode": [
+              "foot"
+            ],
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "8afefe56-d940-41c2-97e3-4f7caa36891f",
+          "at": 0.0
+        },
+        {
+          "connector_id": "a8920729-d83f-4bef-9b2b-f63b8c07037d",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r336888@655",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5826793@229",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1324040438@4",
+          "update_time": "2025-12-11T07:04:37Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000EFF26382D0A35340CF0138AC5F5731405D209CAAD6A35340C623A7655A573140",
+      "bbox": {
+        "xmin": 78.55960083007812,
+        "xmax": 78.55998992919922,
+        "ymin": 17.341222763061523,
+        "ymax": 17.341304779052734
+      }
+    },
+    {
+      "id": "41eeb565-d9f8-4828-bdb1-8f1e91911937",
+      "name": "Vijaywada Highway",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        },
+        {
+          "access_type": "allowed",
+          "when": {
+            "during": null,
+            "heading": null,
+            "using": null,
+            "recognized": null,
+            "mode": [
+              "foot"
+            ],
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "a8920729-d83f-4bef-9b2b-f63b8c07037d",
+          "at": 0.0
+        },
+        {
+          "connector_id": "9f52ffbb-8a5d-4f52-9691-2ad1064c9a47",
+          "at": 0.598918452
+        },
+        {
+          "connector_id": "0c2d45d9-db8f-47fc-a7a0-ffdcafbcf0ac",
+          "at": 0.814803535
+        },
+        {
+          "connector_id": "9e5856c2-28a0-402b-a655-3162e2aa5dec",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r336888@655",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5826793@229",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w312182010@26",
+          "update_time": "2026-07-24T09:24:32Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000060000005D209CAAD6A35340C623A7655A573140CD902A8AD7A35340378364A65957314047C5A464DEA353405E7127C7535731405D8539E6E1A35340A77114C55057314043797A00E6A35340E41F6C674E573140AC376A85E9A353406E23545F4C573140",
+      "bbox": {
+        "xmin": 78.55997467041016,
+        "xmax": 78.5611343383789,
+        "ymin": 17.341007232666016,
+        "ymax": 17.341224670410156
+      }
+    },
+    {
+      "id": "c48c1a1c-9ddf-4955-bc68-b34072f4fc78",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "2cf82997-63b4-4e09-b041-0c2a59425ec9",
+          "at": 0.0
+        },
+        {
+          "connector_id": "ec72ce72-1689-417b-8306-48034854c95d",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1273623886@2",
+          "update_time": "2024-08-01T06:52:37Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000005B7D7555A0A35340A243E048A05731409C9A159BA0A35340248914B996573140",
+      "bbox": {
+        "xmin": 78.55664825439453,
+        "xmax": 78.55667877197266,
+        "ymin": 17.34214210510254,
+        "ymax": 17.3422908782959
+      }
+    },
+    {
+      "id": "b2d99b4d-b39e-4350-86ab-892d2fc43728",
+      "name": "Vijaywada Highway",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "6283336a-f782-45bc-82e8-da52ebc2ae38",
+          "at": 0.0
+        },
+        {
+          "connector_id": "8f326f78-392d-4824-8dde-838b209540ee",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r336888@655",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5826793@229",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w312182007@6",
+          "update_time": "2025-08-29T11:12:57Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000AF9EEE97AAA35340079046AA945731401E00CC10A2A3534084EBF6FEAB573140",
+      "bbox": {
+        "xmin": 78.55675506591797,
+        "xmax": 78.55728912353516,
+        "ymin": 17.342111587524414,
+        "ymax": 17.34246826171875
+      }
+    },
+    {
+      "id": "0d3c12ce-beeb-4b81-9fd6-5c624b319504",
+      "name": "Vijaywada Highway",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        },
+        {
+          "access_type": "allowed",
+          "when": {
+            "during": null,
+            "heading": null,
+            "using": null,
+            "recognized": null,
+            "mode": [
+              "foot"
+            ],
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "98091aa2-c075-4316-8a2b-933d30dd82ae",
+          "at": 0.0
+        },
+        {
+          "connector_id": "6283336a-f782-45bc-82e8-da52ebc2ae38",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r336888@655",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5826793@229",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1390667352@5",
+          "update_time": "2025-11-05T10:00:18Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000039D961A7B3A353405C881FAD7B573140AF9EEE97AAA35340079046AA94573140",
+      "bbox": {
+        "xmin": 78.55728149414062,
+        "xmax": 78.55784606933594,
+        "ymin": 17.34173011779785,
+        "ymax": 17.342113494873047
+      }
+    },
+    {
+      "id": "11713dbc-471c-47c6-a3d6-857962f20f3f",
+      "name": "Bairamalguda Main Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "df6a2d39-a9d3-4bb5-96e7-c589523eef10",
+          "at": 0.0
+        },
+        {
+          "connector_id": "2d464ac0-5330-4651-87da-d7f88f25dc5d",
+          "at": 0.137312046
+        },
+        {
+          "connector_id": "fa3ae15c-df5b-4276-baaa-45b422ac91e9",
+          "at": 0.578060397
+        },
+        {
+          "connector_id": "f4a7257c-aa4b-4aca-8ff2-466bf2cfae98",
+          "at": 0.732062203
+        },
+        {
+          "connector_id": "2cf82997-63b4-4e09-b041-0c2a59425ec9",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1324040437@2",
+          "update_time": "2025-07-08T05:54:14Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000050000005098E60C7BA3534023F02CE68C573140A72AC82A80A353402E9276A38F573140F217699890A3534088BE164F98573140893A185696A353403FBE29519B5731405B7D7555A0A35340A243E048A0573140",
+      "bbox": {
+        "xmin": 78.55438232421875,
+        "xmax": 78.5566635131836,
+        "ymin": 17.34199333190918,
+        "ymax": 17.3422908782959
+      }
+    },
+    {
+      "id": "31c7acd8-afa8-4034-b0b5-d22e4aabd105",
+      "name": null,
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "2b9e6163-d6fc-49ff-a3d7-4949943e801e",
+          "at": 0.0
+        },
+        {
+          "connector_id": "57de5311-9b23-428d-a542-d5cefca66abb",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w776123506@10",
+          "update_time": "2026-05-12T10:39:35Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000004BEA5FED83A3534037F7FCD5885731405BF8B0CD7CA353404ACA822E86573140",
+      "bbox": {
+        "xmin": 78.55448913574219,
+        "xmax": 78.55493927001953,
+        "ymin": 17.341890335083008,
+        "ymax": 17.34193229675293
+      }
+    },
+    {
+      "id": "e2a8a462-5bb3-4e91-b227-0b08d176600c",
+      "name": "Bairamalguda Main Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "87011000-5678-4622-baff-d2adddd62f00",
+          "at": 0.0
+        },
+        {
+          "connector_id": "df6a2d39-a9d3-4bb5-96e7-c589523eef10",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1324040437@2",
+          "update_time": "2025-07-08T05:54:14Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000B96466B073A353403DE87EF3875731405098E60C7BA3534023F02CE68C573140",
+      "bbox": {
+        "xmin": 78.55392456054688,
+        "xmax": 78.55439758300781,
+        "ymin": 17.341917037963867,
+        "ymax": 17.341995239257812
+      }
+    },
+    {
+      "id": "c7943860-1455-42aa-a4e3-ad0bf565ef17",
+      "name": "Bairamalguda Main Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "cf14b375-5e57-4905-9027-586f97068439",
+          "at": 0.0
+        },
+        {
+          "connector_id": "87011000-5678-4622-baff-d2adddd62f00",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w310320033@15",
+          "update_time": "2026-05-12T10:39:35Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000030000002A5CEA7B68A35340539F9A8180573140898F995569A353405F61C1FD80573140B96466B073A353403DE87EF387573140",
+      "bbox": {
+        "xmin": 78.5532455444336,
+        "xmax": 78.55393981933594,
+        "ymin": 17.34180450439453,
+        "ymax": 17.3419189453125
+      }
+    },
+    {
+      "id": "ff21b2ff-144b-4435-8f7c-d8447a2616ac",
+      "name": null,
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "73796070-7a00-4585-afde-817618d637ad",
+          "at": 0.0
+        },
+        {
+          "connector_id": "3e133c17-c317-47f8-bfe3-7ece7d2c0023",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w28670255@10",
+          "update_time": "2024-08-23T12:10:33Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000000502F8020E9D53402F76B11F1876314060A120C2099D5340B4CE53782B763140",
+      "bbox": {
+        "xmin": 78.45372009277344,
+        "xmax": 78.45398712158203,
+        "ymin": 17.4613037109375,
+        "ymax": 17.46160125732422
+      }
+    },
+    {
+      "id": "5f42a8c4-e333-497e-828a-56c3ea825a16",
+      "name": "Balanagar Main Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "e866eafe-9d6f-4ec4-808a-14f4140a9865",
+          "at": 0.0
+        },
+        {
+          "connector_id": "f6bd6ed8-c578-42d2-8ad4-62b0cb50b527",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w309513066@13",
+          "update_time": "2025-11-14T07:33:32Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000003C6645798B9D5340A9AF9DDE7B76314021F24C1E859D53409E2A3AED84763140",
+      "bbox": {
+        "xmin": 78.46124267578125,
+        "xmax": 78.46163940429688,
+        "ymin": 17.462825775146484,
+        "ymax": 17.462968826293945
+      }
+    },
+    {
+      "id": "cdca004e-24d7-42d7-bea1-53f69dd7cdec",
+      "name": null,
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": [
+        {
+          "values": [
+            "is_link"
+          ],
+          "between": null
+        }
+      ],
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "f6bd6ed8-c578-42d2-8ad4-62b0cb50b527",
+          "at": 0.0
+        },
+        {
+          "connector_id": "1722a8d1-cc2a-4d31-9885-19d0e0690819",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1450460444@1",
+          "update_time": "2025-11-14T07:33:32Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000021F24C1E859D53409E2A3AED84763140564A2AAE859D534031348DDC89763140",
+      "bbox": {
+        "xmin": 78.46124267578125,
+        "xmax": 78.46129608154297,
+        "ymin": 17.46296501159668,
+        "ymax": 17.463041305541992
+      }
+    },
+    {
+      "id": "5bf8b4d5-25ad-43cb-9413-d6ed4ae4602b",
+      "name": "Balanagar Main Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "54444b56-ca15-4893-b802-7868f108f808",
+          "at": 0.0
+        },
+        {
+          "connector_id": "1722a8d1-cc2a-4d31-9885-19d0e0690819",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w309513056@15",
+          "update_time": "2025-11-14T07:33:32Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000030000001E5EC603809D53404458439891763140ABB019E0829D5340E7470DB78D763140564A2AAE859D534031348DDC89763140",
+      "bbox": {
+        "xmin": 78.4609375,
+        "xmax": 78.46129608154297,
+        "ymin": 17.46303939819336,
+        "ymax": 17.463159561157227
+      }
+    },
+    {
+      "id": "0072a502-45c1-4384-93cc-983930791f6a",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "0fa3a1cd-2e15-4a99-8a5b-687c1ba8d8c7",
+          "at": 0.0
+        },
+        {
+          "connector_id": "805c75ca-d34a-4d4d-9c12-18db50bd4f35",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w418882358@11",
+          "update_time": "2024-10-06T18:35:06Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000339AA6199CA05340E9F3ACFFCE7D3140D73CFD56A1A05340B5D2B540CC7D3140",
+      "bbox": {
+        "xmin": 78.509521484375,
+        "xmax": 78.50984954833984,
+        "ymin": 17.491397857666016,
+        "ymax": 17.491439819335938
+      }
+    },
+    {
+      "id": "218958a9-d275-4a72-96b0-f26010650078",
+      "name": "St Johns Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "b5f2b533-e87d-4332-b765-2ea7b1e2040a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "1e6eac0e-2d72-4ca8-bc4a-77008f5c91d5",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1274819319@5",
+          "update_time": "2025-08-22T06:50:59Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000F60604DF59A0534096911F96726F31406314BA0155A0534085CC9541B56F3140",
+      "bbox": {
+        "xmin": 78.50518798828125,
+        "xmax": 78.50548553466797,
+        "ymin": 17.435340881347656,
+        "ymax": 17.43636131286621
+      }
+    },
+    {
+      "id": "860b2212-48af-4587-94bf-1bf4ff471e3b",
+      "name": "St Johns Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "8ec08bea-50fc-49d8-ab48-6b1305d4847d",
+          "at": 0.0
+        },
+        {
+          "connector_id": "5fac2a8f-7907-4d1d-90ee-eb8ff026e9a9",
+          "at": 0.726108703
+        },
+        {
+          "connector_id": "c07d69e5-2e24-4dea-8412-1f5a36b09413",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w211237574@25",
+          "update_time": "2025-08-22T06:50:59Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000007000000A86043264FA05340058DF4FD2F703140197849F74EA05340B2DBC24E0C7031406CBBBF304FA05340B75B374A03703140EF54C03D4FA0534070E3BB3901703140B7CDF9CE54A053409CF1C7FEC36F3140869CAD7257A0534057EFCBF4A66F314007E286295BA05340BFC81528736F3140",
+      "bbox": {
+        "xmin": 78.50481414794922,
+        "xmax": 78.50557708740234,
+        "ymin": 17.43535041809082,
+        "ymax": 17.438232421875
+      }
+    },
+    {
+      "id": "d68383ca-7700-4ca9-bedf-191ed67d65c3",
+      "name": null,
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "6153811d-d504-46ef-b327-55cb32d09b35",
+          "at": 0.0
+        },
+        {
+          "connector_id": "5208393d-6d8e-46b3-a087-3c90f69f4c56",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w166510407@11",
+          "update_time": "2025-07-09T05:26:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000005000000FDC863BC9CA05340B15EFBB8EC6E31405865F04199A053402276018AEC6E3140DCE4A6BC8CA053405F24592CEA6E3140064DA6657FA05340BAC381EBE56E3140BAB596137EA053402B7F6374E56E3140",
+      "bbox": {
+        "xmin": 78.50768280029297,
+        "xmax": 78.50956726074219,
+        "ymin": 17.43318748474121,
+        "ymax": 17.433300018310547
+      }
+    },
+    {
+      "id": "e233d523-84f0-4032-8ff0-2bc580fa04ae",
+      "name": null,
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "6cd62e3d-009c-413c-b035-9758deb40f7f",
+          "at": 0.0
+        },
+        {
+          "connector_id": "da87a817-0524-4d9e-91be-1ffe1ad8b259",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w29252507@15",
+          "update_time": "2025-07-09T05:26:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000003000000F79AD48679A05340941D763AEB6E31403FDA498E85A05340926D2A9CEE6E3140D07EA4888CA05340E4935F50F06E3140",
+      "bbox": {
+        "xmin": 78.50741577148438,
+        "xmax": 78.50858306884766,
+        "ymin": 17.43327522277832,
+        "ymax": 17.4333553314209
+      }
+    },
+    {
+      "id": "0b1065d7-44bc-4eed-9887-ae5ec3471544",
+      "name": "Minister's Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "2a1f2739-0551-4c92-aa0e-f5ef0cef7a27",
+          "at": 0.0
+        },
+        {
+          "connector_id": "cc477dac-5f6b-43c3-9bc5-c0f3f4ad0d1a",
+          "at": 0.321265883
+        },
+        {
+          "connector_id": "6a355cec-c45a-46ce-b4e6-73d9c8af8a95",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w26453695@38",
+          "update_time": "2026-04-10T03:18:55Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000005000000B00518F1F89E5340EF5A9DF75A6F3140A9C6A6F0FB9E5340733CB02D4D6F314049319B5BFC9E5340509A17714B6F314006C0D3BFFF9E534004A4A2563D6F3140C808A870049F5340895DDBDB2D6F3140",
+      "bbox": {
+        "xmin": 78.48393249511719,
+        "xmax": 78.48464965820312,
+        "ymin": 17.43429183959961,
+        "ymax": 17.434982299804688
+      }
+    },
+    {
+      "id": "29ccadf5-0334-4066-8336-c5fdd4e6ed31",
+      "name": "Necklace Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "3c4e938a-691d-442f-bb99-f57665785ceb",
+          "at": 0.0
+        },
+        {
+          "connector_id": "8d39283d-a1e6-4887-97fe-56db2992f167",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w580182841@9",
+          "update_time": "2025-10-24T12:56:08Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000001363997E099F5340001B1021AE6E3140426ED0A80A9F5340FD55DBA8A96E3140",
+      "bbox": {
+        "xmin": 78.48494720458984,
+        "xmax": 78.48503875732422,
+        "ymin": 17.432275772094727,
+        "ymax": 17.43234634399414
+      }
+    },
+    {
+      "id": "f0ae14f3-8433-42f6-a848-9553a3a6ccde",
+      "name": null,
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "eccfe072-76e1-4a4f-84ac-76ec11fff334",
+          "at": 0.0
+        },
+        {
+          "connector_id": "d69905dd-c137-41e2-baed-4d73e771a1cd",
+          "at": 0.325874819
+        },
+        {
+          "connector_id": "8744d61c-f42a-48d9-a4ce-ee8b69671e2f",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r17407315@218",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r334161@1476",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5803164@150",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6428573@152",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w26453523@32",
+          "update_time": "2026-04-10T18:33:09Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000004000000F33B4D663C9F534020F4C70FF06D31403A89528C3D9F5340E8AC05AC0B6E3140AB1386B73D9F534091628044136E314009E8740F3F9F534042751838456E3140",
+      "bbox": {
+        "xmin": 78.4880599975586,
+        "xmax": 78.48823547363281,
+        "ymin": 17.429443359375,
+        "ymax": 17.430744171142578
+      }
+    },
+    {
+      "id": "9e423daf-137c-441f-b03c-24de044df0a3",
+      "name": "Minister's Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "1f94d63d-d533-4205-857a-e860974b6fae",
+          "at": 0.0
+        },
+        {
+          "connector_id": "7c6e8b7c-5129-480e-bdd1-d47b1415ffc9",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w26453695@38",
+          "update_time": "2026-04-10T03:18:55Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000009F0E1AB01A9F5340150D0863FA6E314026B8A2DE1D9F534064FE767EF66E3140",
+      "bbox": {
+        "xmin": 78.48599243164062,
+        "xmax": 78.48619842529297,
+        "ymin": 17.433446884155273,
+        "ymax": 17.433509826660156
+      }
+    },
+    {
+      "id": "0d494567-5637-46e1-8baf-16589e366bec",
+      "name": "Minister's Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "7c6e8b7c-5129-480e-bdd1-d47b1415ffc9",
+          "at": 0.0
+        },
+        {
+          "connector_id": "a9ad7596-263b-4808-abba-e995b640e73e",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w26453695@38",
+          "update_time": "2026-04-10T03:18:55Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000026B8A2DE1D9F534064FE767EF66E3140018E9834219F53405A48C0E8F26E3140",
+      "bbox": {
+        "xmin": 78.48619079589844,
+        "xmax": 78.48640441894531,
+        "ymin": 17.433393478393555,
+        "ymax": 17.433448791503906
+      }
+    },
+    {
+      "id": "f53cd80d-2d62-4fb7-aa05-ee8a55d0abe1",
+      "name": "Mahatma Gandhi Road",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "10f2019c-e95c-41eb-a54a-a7a4bc94c8ec",
+          "at": 0.0
+        },
+        {
+          "connector_id": "31dfcd3e-9c4b-464b-88ed-21f6df2c8cc5",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r17407315@218",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r334161@1476",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5803164@150",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6428573@152",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w313217874@18",
+          "update_time": "2026-04-10T18:33:09Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000097ADF545429F5340D1950854FF6E3140D8CA958B429F5340518F238C556F3140",
+      "bbox": {
+        "xmin": 78.48841857910156,
+        "xmax": 78.48844909667969,
+        "ymin": 17.433582305908203,
+        "ymax": 17.434900283813477
+      }
+    },
+    {
+      "id": "938f3cc3-2b7e-467f-bb14-e2a3bd0c5a1d",
+      "name": "Mahatma Gandhi Road",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "8fdca2b7-f336-4015-8f82-70e50b07e492",
+          "at": 0.0
+        },
+        {
+          "connector_id": "d391eb84-1c75-4647-b82c-cf65c7f51d61",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r17407315@218",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r334161@1476",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5803164@150",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6428573@152",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w314668814@9",
+          "update_time": "2026-04-10T03:18:55Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000030000004E999B6F449F5340D3E352F06F6F3140B44A9F0C449F53404C06369D536F3140BA217CDE439F5340D8A5FC5A4D6F3140",
+      "bbox": {
+        "xmin": 78.48851013183594,
+        "xmax": 78.48856353759766,
+        "ymin": 17.434772491455078,
+        "ymax": 17.435302734375
+      }
+    },
+    {
+      "id": "535c9c83-ea76-447d-859a-7dae62e917c5",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "680837d9-da5b-4183-aac0-bd464eb0ec3c",
+          "at": 0.0
+        },
+        {
+          "connector_id": "35f6d2aa-3744-4a80-bfbf-131fcf8315bf",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w686238009@2",
+          "update_time": "2026-04-10T03:18:55Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000DED2C5014F9F53404BE3BCA4D66E31400E7D1C72589F5340FD4575DFD66E3140",
+      "bbox": {
+        "xmin": 78.48919677734375,
+        "xmax": 78.48977661132812,
+        "ymin": 17.43296241760254,
+        "ymax": 17.432966232299805
+      }
+    },
+    {
+      "id": "9a70e56a-ade5-4437-81f9-c53ca7c6e26c",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "ad12418e-9348-487f-bcc5-d27ab2d1db58",
+          "at": 0.0
+        },
+        {
+          "connector_id": "5eccd779-e828-43e9-8749-3bb892122201",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w686238008@4",
+          "update_time": "2026-04-10T03:18:55Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000004C82DCEA5E9F53401239D8F6D16E3140C0666FDF599F534047C263E4D16E3140",
+      "bbox": {
+        "xmin": 78.48985290527344,
+        "xmax": 78.49018096923828,
+        "ymin": 17.432889938354492,
+        "ymax": 17.432891845703125
+      }
+    },
+    {
+      "id": "0a4cc261-827e-468d-a351-6e19fb8be6d1",
+      "name": null,
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "b1e2e0cb-0949-4d9e-a21e-ad7a03c35663",
+          "at": 0.0
+        },
+        {
+          "connector_id": "968734f2-2ee3-48d2-95f8-b7e4cf3a54e7",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r17407315@218",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r334161@1476",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5803164@150",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6428573@152",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w184330172@26",
+          "update_time": "2026-04-10T18:33:09Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000098570971409F534095CF9783456E31401506C0D33F9F5340FB7A19202C6E3140",
+      "bbox": {
+        "xmin": 78.4882583618164,
+        "xmax": 78.48831176757812,
+        "ymin": 17.430360794067383,
+        "ymax": 17.430749893188477
+      }
+    },
+    {
+      "id": "b4b7dfe1-6adf-41bb-beeb-98b8c79005a6",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "007c313b-94ae-4e5b-824f-b29649dbd13a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "506700f6-5334-4406-938c-8c78a4a12ed0",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w207754667@15",
+          "update_time": "2025-04-12T05:25:10Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000047C9AB738C9F5340B20E4757E96E31408DB1B8A48F9F5340796462A9E46E3140",
+      "bbox": {
+        "xmin": 78.49293518066406,
+        "xmax": 78.49314880371094,
+        "ymin": 17.433176040649414,
+        "ymax": 17.43324851989746
+      }
+    },
+    {
+      "id": "9199dabd-6705-49d0-9768-343312e0d351",
+      "name": "Rashtrapati Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "506700f6-5334-4406-938c-8c78a4a12ed0",
+          "at": 0.0
+        },
+        {
+          "connector_id": "1895857c-e970-434f-adc6-337a760a9496",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5127860@92",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w314389447@5",
+          "update_time": "2025-07-08T06:28:05Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000050000008DB1B8A48F9F5340796462A9E46E3140561F590A929F534047EE44A4016F31409D103AE8929F5340D4D347E00F6F314014B7651B939F53406FCF98EE1A6F314085A059C8929F534034A6BB46266F3140",
+      "bbox": {
+        "xmin": 78.4931411743164,
+        "xmax": 78.49335479736328,
+        "ymin": 17.433176040649414,
+        "ymax": 17.434179306030273
+      }
+    },
+    {
+      "id": "b3f2f771-776d-4617-bd73-4538c2b8f2db",
+      "name": "Rashtrapati Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "95da1c72-aa7b-4174-92dd-77f49ac38375",
+          "at": 0.0
+        },
+        {
+          "connector_id": "21558e24-445c-498e-b6c5-4135b72e83c7",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5127860@92",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375702342@4",
+          "update_time": "2025-07-08T06:28:05Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000600000002BC0512949F53401CEE23B7266F3140195AF855949F53400B9A9658196F31400D0BFF33949F53409374289E0E6F31405B4C22B1939F5340E6690AAE036F31405C97755A929F534096C2CDF3F16E31406EA9DE75919F53409EB64604E36E3140",
+      "bbox": {
+        "xmin": 78.49324035644531,
+        "xmax": 78.4934310913086,
+        "ymin": 17.433151245117188,
+        "ymax": 17.434185028076172
+      }
+    },
+    {
+      "id": "3edc339a-38cf-4bec-ad2e-67e5e3f0d2be",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "506700f6-5334-4406-938c-8c78a4a12ed0",
+          "at": 0.0
+        },
+        {
+          "connector_id": "21558e24-445c-498e-b6c5-4135b72e83c7",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w314389448@2",
+          "update_time": "2017-06-14T10:20:03Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000008DB1B8A48F9F5340796462A9E46E31406EA9DE75919F53409EB64604E36E3140",
+      "bbox": {
+        "xmin": 78.4931411743164,
+        "xmax": 78.49325561523438,
+        "ymin": 17.433151245117188,
+        "ymax": 17.433177947998047
+      }
+    },
+    {
+      "id": "f5840e10-3b96-4ead-9331-cda10f6c661d",
+      "name": "Ghasmandi Road",
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "21558e24-445c-498e-b6c5-4135b72e83c7",
+          "at": 0.0
+        },
+        {
+          "connector_id": "09127dad-31fa-482d-9c28-9d5a41a96fe8",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w314389450@10",
+          "update_time": "2025-08-22T08:51:25Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000006EA9DE75919F53409EB64604E36E3140EE5BAD13979F53405CC7B8E2E26E3140",
+      "bbox": {
+        "xmin": 78.49324035644531,
+        "xmax": 78.49359893798828,
+        "ymin": 17.433149337768555,
+        "ymax": 17.43315315246582
+      }
+    },
+    {
+      "id": "cdc22930-75a1-4c59-9f14-8c4eab96119f",
+      "name": null,
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "6310e83c-c0f9-4eee-b2b3-31c0dcd208b4",
+          "at": 0.0
+        },
+        {
+          "connector_id": "425ead79-ff24-449a-9da2-9152d6e04815",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w32429118@19",
+          "update_time": "2025-07-08T06:28:05Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000003000000689E12C6859F5340A7A90AB20A6E3140F7860CF5859F5340196E652E156E31402750C422869F534020B017AF1E6E3140",
+      "bbox": {
+        "xmin": 78.49253845214844,
+        "xmax": 78.49256896972656,
+        "ymin": 17.429847717285156,
+        "ymax": 17.430158615112305
+      }
+    },
+    {
+      "id": "e06cedde-d7a2-4448-924c-1dba4948d9a1",
+      "name": "Rastrapathi Road (R.P Road)",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "a822a118-d043-4830-a440-ce9ffbf5fbb7",
+          "at": 0.0
+        },
+        {
+          "connector_id": "6425fc6c-f1d1-4572-9298-ab10686366bc",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5127860@92",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w184330208@15",
+          "update_time": "2025-07-08T06:28:05Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000003EF08C11649F534076C24B70EA6D31405F75898F749F5340BAADE3AE146E3140",
+      "bbox": {
+        "xmin": 78.49047088623047,
+        "xmax": 78.49150085449219,
+        "ymin": 17.42935562133789,
+        "ymax": 17.43000602722168
+      }
+    },
+    {
+      "id": "669b6dcf-6440-4a45-80d6-1cf12739b73a",
+      "name": "Rastrapathi Road (R.P Road)",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "950fc8dd-63ef-463e-83de-ff98d7cc92b7",
+          "at": 0.0
+        },
+        {
+          "connector_id": "6a30a80b-fd6c-4abb-b986-f181703fe0bb",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5127860@92",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w375702350@6",
+          "update_time": "2025-07-08T06:28:05Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000051DDB7B5609F53409C03BAE5D96D3140CAD70A3F5D9F534089DF032AD26D3140",
+      "bbox": {
+        "xmin": 78.49005889892578,
+        "xmax": 78.49028015136719,
+        "ymin": 17.428987503051758,
+        "ymax": 17.429107666015625
+      }
+    },
+    {
+      "id": "af8b1ded-d986-4088-baa4-3fbce8b276e3",
+      "name": "Krishna Deva Raya Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "542b4a82-8b92-41e2-a2bf-28611f1af9d7",
+          "at": 0.0
+        },
+        {
+          "connector_id": "890b3cf4-f027-42f3-8c6a-d06544e53f1c",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6424432@99",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w314525063@14",
+          "update_time": "2025-07-09T05:26:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000003000000FD5AA846F9A05340281DF68C8E6F31408E4F125CF6A05340809BC58B856F314075159C0BEDA053404337A04A726F3140",
+      "bbox": {
+        "xmin": 78.51446533203125,
+        "xmax": 78.51522064208984,
+        "ymin": 17.43533706665039,
+        "ymax": 17.43577003479004
+      }
+    },
+    {
+      "id": "7aeeb907-6192-4e24-86b3-25dbb7d2f29e",
+      "name": "Krishna Deva Raya Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "c352be34-345d-4e22-b11d-6e50709ac4d9",
+          "at": 0.0
+        },
+        {
+          "connector_id": "580ccc0e-6e55-4937-998c-9ca1a2d72f9a",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6424432@99",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w314525063@14",
+          "update_time": "2025-07-09T05:26:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000030000009CD8E841E6A053408A6A5BDE666F3140B4064A65E5A053409738F240646F31409164B1A8E3A05340D476B8C2606F3140",
+      "bbox": {
+        "xmin": 78.5138931274414,
+        "xmax": 78.5140609741211,
+        "ymin": 17.435070037841797,
+        "ymax": 17.435163497924805
+      }
+    },
+    {
+      "id": "79a7f89a-30d8-40e5-b1fb-fa31092ffde4",
+      "name": "Krishna Deva Raya Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "890b3cf4-f027-42f3-8c6a-d06544e53f1c",
+          "at": 0.0
+        },
+        {
+          "connector_id": "c352be34-345d-4e22-b11d-6e50709ac4d9",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6424432@99",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w314525063@14",
+          "update_time": "2025-07-09T05:26:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000075159C0BEDA053404337A04A726F31409CD8E841E6A053408A6A5BDE666F3140",
+      "bbox": {
+        "xmin": 78.51405334472656,
+        "xmax": 78.51448059082031,
+        "ymin": 17.435161590576172,
+        "ymax": 17.435338973999023
+      }
+    },
+    {
+      "id": "0b67782c-2f65-4f58-af75-71e7fc0c13af",
+      "name": "Rail Nilayam Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        },
+        {
+          "access_type": "allowed",
+          "when": {
+            "during": null,
+            "heading": null,
+            "using": null,
+            "recognized": null,
+            "mode": [
+              "foot"
+            ],
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "69438f53-16a5-4cb8-8745-4710f5aa14dd",
+          "at": 0.0
+        },
+        {
+          "connector_id": "56553011-2c7d-4dfd-b9a0-dfc8eb30b816",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w166508194@22",
+          "update_time": "2025-07-09T05:26:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000CA8B4CC0AFA0534087472C7304703140134ABAC1ABA053407756C15E17703140",
+      "bbox": {
+        "xmin": 78.51048278808594,
+        "xmax": 78.51073455810547,
+        "ymin": 17.43756675720215,
+        "ymax": 17.437856674194336
+      }
+    },
+    {
+      "id": "c568985f-cd39-4ddf-9be7-6eb8be632115",
+      "name": "Krishna Deva Raya Road",
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "b5ce1c7a-c379-44a6-bfab-007b5a5bbf4f",
+          "at": 0.0
+        },
+        {
+          "connector_id": "b851e98c-38b3-4659-b888-d72ee3914600",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r6424432@99",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w166510713@18",
+          "update_time": "2025-07-09T05:26:36Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000058F1FC58F7A0534053D96619986F3140686A23E8F9A053402CA3EC889E6F3140",
+      "bbox": {
+        "xmin": 78.51509094238281,
+        "xmax": 78.5152587890625,
+        "ymin": 17.4359130859375,
+        "ymax": 17.43601417541504
+      }
+    },
+    {
+      "id": "080b08fc-52e8-40ce-bf68-bd1a56ea43ee",
+      "name": null,
+      "class": "primary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": [
+        {
+          "values": [
+            "is_link"
+          ],
+          "between": null
+        }
+      ],
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "b5ce1c7a-c379-44a6-bfab-007b5a5bbf4f",
+          "at": 0.0
+        },
+        {
+          "connector_id": "542b4a82-8b92-41e2-a2bf-28611f1af9d7",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1148423996@2",
+          "update_time": "2025-01-06T12:18:05Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000058F1FC58F7A0534053D96619986F3140FD5AA846F9A05340281DF68C8E6F3140",
+      "bbox": {
+        "xmin": 78.51509094238281,
+        "xmax": 78.51522064208984,
+        "ymin": 17.435768127441406,
+        "ymax": 17.435914993286133
+      }
+    },
+    {
+      "id": "aaabc70f-16be-4123-996f-a321c724dfb9",
+      "name": "Hislop Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "8dbe14fc-9b67-4fdf-8340-937fe82947ee",
+          "at": 0.0
+        },
+        {
+          "connector_id": "19f13d28-524a-48c0-a5b5-e7becce740bb",
+          "at": 0.52595705
+        },
+        {
+          "connector_id": "19703889-8855-432e-8a51-fe50d506869a",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w288880470@8",
+          "update_time": "2020-07-09T18:53:43Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000600000065BA21D717A15340A235502A2B7D314076AF496D18A1534045B29135347D31409438865B19A153405846D9113D7D314016CFEA2E1AA15340846ADECC437D314099654F021BA1534093BDEF294A7D3140A9D83D1E1FA1534003EFE4D3637D3140",
+      "bbox": {
+        "xmin": 78.5170669555664,
+        "xmax": 78.51752471923828,
+        "ymin": 17.48893928527832,
+        "ymax": 17.489805221557617
+      }
+    },
+    {
+      "id": "9b9a0858-5ca6-49ba-bf38-dea316d91a59",
+      "name": "Sainikpuri Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "47ecd301-9943-4b7c-97a8-52e4d3c22690",
+          "at": 0.0
+        },
+        {
+          "connector_id": "844ec581-989a-4696-b258-66435b706c43",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w314538639@12",
+          "update_time": "2026-09-30T12:53:21Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000020000008D086B0833A25340F24817F60F7B31407D36BC6A2FA253403DE5E2B9087B3140",
+      "bbox": {
+        "xmin": 78.53414154052734,
+        "xmax": 78.53437042236328,
+        "ymin": 17.480600357055664,
+        "ymax": 17.480712890625
+      }
+    },
+    {
+      "id": "a5bf9129-8ea4-4ef9-be48-e09e76bae908",
+      "name": "Sainikpuri Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "e8def72e-c122-457f-ba0a-c0a9c9b645df",
+          "at": 0.0
+        },
+        {
+          "connector_id": "3ac72846-a506-4dc2-8bf4-576ce5d00a34",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w22839714@20",
+          "update_time": "2026-09-30T12:53:21Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000813DCB9827A253400E30F31DFC7A314041ABDDC02EA2534047F7BD970C7B3140",
+      "bbox": {
+        "xmin": 78.53366088867188,
+        "xmax": 78.53411102294922,
+        "ymin": 17.48040771484375,
+        "ymax": 17.480661392211914
+      }
+    },
+    {
+      "id": "d74a3765-b301-46aa-befe-c3d52395f3dc",
+      "name": "Uttam Nagar Road",
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "ca9fa92f-fc1e-4ec2-990e-98a47f75c44a",
+          "at": 0.0
+        },
+        {
+          "connector_id": "bf88bc2f-a7aa-4b0e-a916-e9d0fcf6c82b",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w822489821@9",
+          "update_time": "2025-08-22T06:10:31Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000050000006AC2F69331A25340008DD2A57F753140FC72C17435A253407100FDBE7F7531406CF420F337A253402AB05B5F7F753140D6FAC7E73AA25340E9503C1D7E7531408E1AB8A83BA2534049FD50C47D753140",
+      "bbox": {
+        "xmin": 78.53426361083984,
+        "xmax": 78.53489685058594,
+        "ymin": 17.45895004272461,
+        "ymax": 17.458980560302734
+      }
+    },
+    {
+      "id": "6e8b3ce1-5979-4e3c-bcc0-9610f5618276",
+      "name": "Uttam Nagar Road",
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "1930cb89-6599-46f7-891d-c4deb2d9a8d4",
+          "at": 0.0
+        },
+        {
+          "connector_id": "b0c6d32d-7550-4e7d-83a2-33c3bd853bd6",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w310935521@10",
+          "update_time": "2025-08-22T06:10:31Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000066E6B8092DA25340D33483537A753140D5B48B6926A25340997E2EBF78753140",
+      "bbox": {
+        "xmin": 78.5335922241211,
+        "xmax": 78.53401184082031,
+        "ymin": 17.458871841430664,
+        "ymax": 17.458898544311523
+      }
+    },
+    {
+      "id": "8b94c59b-0df4-4d7f-837b-39d304f86b80",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "f4834036-d40c-4110-a52c-617bd3c8647f",
+          "at": 0.0
+        },
+        {
+          "connector_id": "9e0f44b3-a731-414a-b8d2-08490268d8a3",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w822482072@4",
+          "update_time": "2025-12-29T06:52:32Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000044ABEEEC06A253400983D7D3B3753140081D740907A25340800F5EBBB4753140",
+      "bbox": {
+        "xmin": 78.53166961669922,
+        "xmax": 78.53169250488281,
+        "ymin": 17.459774017333984,
+        "ymax": 17.459789276123047
+      }
+    },
+    {
+      "id": "3ab2bca4-91f2-4e49-8d5f-b8c7ce682c48",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "9e0f44b3-a731-414a-b8d2-08490268d8a3",
+          "at": 0.0
+        },
+        {
+          "connector_id": "901651c7-2cbe-4e75-8dce-956dcfebd007",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w822482072@4",
+          "update_time": "2025-12-29T06:52:32Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000081D740907A25340800F5EBBB4753140D9F4FB5907A2534055CCF742B7753140",
+      "bbox": {
+        "xmin": 78.53167724609375,
+        "xmax": 78.53170013427734,
+        "ymin": 17.459787368774414,
+        "ymax": 17.459829330444336
+      }
+    },
+    {
+      "id": "b3a89cbb-5f33-465a-8e72-c45e3bf65e28",
+      "name": "Malkajgiri Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "2778f56a-7cdf-4db6-9821-16773a94c487",
+          "at": 0.0
+        },
+        {
+          "connector_id": "7bc2964e-6e20-41d3-b612-f36b460510c8",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w825778430@10",
+          "update_time": "2026-08-31T11:43:47Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000003000000F1E1485634A25340671D9FDA2A7431406FAAA40433A25340D3B6ABA11E743140B7D507ED30A25340CF786C150E743140",
+      "bbox": {
+        "xmin": 78.53423309326172,
+        "xmax": 78.5344467163086,
+        "ymin": 17.453338623046875,
+        "ymax": 17.453779220581055
+      }
+    },
+    {
+      "id": "f90e9d99-fe1c-4b9b-86c8-a6f6a0d2f034",
+      "name": "Malkajgiri Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "43bd120e-1abc-4cbe-ac6c-3858800a1bbd",
+          "at": 0.0
+        },
+        {
+          "connector_id": "c8a15172-8933-47a1-8b3a-5464bb7b3a07",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1291737676@2",
+          "update_time": "2025-08-22T06:27:54Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "0102000000030000004A7B832F4CA2534006346CEFAE7431405C4535DB4BA253407A072E45A8743140457CCCAC4AA2534002C2E2CB9F743140",
+      "bbox": {
+        "xmin": 78.53580474853516,
+        "xmax": 78.5359115600586,
+        "ymin": 17.455562591552734,
+        "ymax": 17.45579719543457
+      }
+    },
+    {
+      "id": "bb89fc72-c180-437d-add8-1c0246a854d4",
+      "name": "Malkajgiri Road",
+      "class": "secondary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": [
+        {
+          "access_type": "denied",
+          "when": {
+            "during": null,
+            "heading": "backward",
+            "using": null,
+            "recognized": null,
+            "mode": null,
+            "vehicle": null
+          },
+          "between": null
+        }
+      ],
+      "connectors": [
+        {
+          "connector_id": "328b0238-2c76-4898-af9e-17df8a657e15",
+          "at": 0.0
+        },
+        {
+          "connector_id": "43bd120e-1abc-4cbe-ac6c-3858800a1bbd",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w1291737674@2",
+          "update_time": "2025-08-22T06:27:54Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000300000028F38FBE49A253402AC58EC6A1743140FD288F134BA253405C165D28AA7431404A7B832F4CA2534006346CEFAE743140",
+      "bbox": {
+        "xmin": 78.5357437133789,
+        "xmax": 78.5359115600586,
+        "ymin": 17.45559310913086,
+        "ymax": 17.45579719543457
+      }
+    },
+    {
+      "id": "4d01c401-eb32-4409-9313-cad3591b88e7",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "8426a5e5-5d7e-4a43-85f4-99de098576a4",
+          "at": 0.0
+        },
+        {
+          "connector_id": "4b64481c-af0f-47d4-a128-b2a504d5594d",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w419606513@7",
+          "update_time": "2025-08-25T06:49:26Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "01020000000200000093EF085D78A2534062235A3C067731406B6E3B2380A25340A379008BFC763140",
+      "bbox": {
+        "xmin": 78.53858947753906,
+        "xmax": 78.53907775878906,
+        "ymin": 17.46479034423828,
+        "ymax": 17.46493911743164
+      }
+    },
+    {
+      "id": "98644641-faca-4f51-a1b9-1b587e91f952",
+      "name": null,
+      "class": "tertiary",
+      "width_rules": null,
+      "level_rules": null,
+      "road_flags": null,
+      "access_restrictions": null,
+      "connectors": [
+        {
+          "connector_id": "9e346020-bb5a-4ce2-9c2b-81027e3846b1",
+          "at": 0.0
+        },
+        {
+          "connector_id": "e413818f-a38c-40e3-851f-09e6c22661f2",
+          "at": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w419606513@7",
+          "update_time": "2025-08-25T06:49:26Z",
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "geometryWKB": "010200000002000000C3BCC799A6A25340B98F3754E77631400FAD5FFAA8A25340A0DD21C500773140",
+      "bbox": {
+        "xmin": 78.54141235351562,
+        "xmax": 78.54156494140625,
+        "ymin": 17.464466094970703,
+        "ymax": 17.46485710144043
+      }
+    }
+  ],
+  "missingPrefixes": [],
+  "complete": true,
+  "duckdbVersion": "1.4.5",
+  "seconds": 57.974389666,
+  "scope": "Anonymous read-only immutable-source completion for diagnosed road conflicts. No metric-height, structure, geometry or release approval."
+}

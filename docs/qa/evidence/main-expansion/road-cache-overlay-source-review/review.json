@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-11-03T09:46:55.496Z",
+  "sourceCheckout": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches",
+  "scope": "Synthetic source/transport review only. Final activated geometry/cache artifact, HTTP/native and release acceptance remain open.",
+  "sourceStable": true,
+  "sourceHashes": {
+    "src/world/road-profile-cache.ts": "82aecc91776ad2d73b506cf40bf696ac3cbd032bacfd097bfce46c063bd270d4",
+    "src/world/road-grades.ts": "a66824587b4a9093821117526283b632a4b93604f6f422c8a4dadb20602eb09b",
+    "src/world/road-model-overlay.ts": "c6bd060dffcb32b9279998a5dfb7117548f26516477f959efd070a1297eac59b",
+    "src/world/road-node-transport.ts": "479d83debb976dc250e5b01c7d58ae9f8790fb36757d4b92d00fd9799f6b0005",
+    "src/world/road-profile-corrections.ts": "5738d64ceee195493d6e8ca95b315f625db58d8e8c4d0765a406fda8e0455fb8",
+    "src/world/types.ts": "d789037b91ae94273a2bd07eda8e332bc87beb73155bbdf4309bbc18f7459413",
+    "src/world/world.ts": "4021b9456acc6acee5bf86d67164970c72cf3339ec57d4506800469be7184fe6",
+    "src/world/tileworker.ts": "150e58e8d177dd6d70439b17aefe2f96846ae501b2c6e049e55879bcb318b86e",
+    "src/main.ts": "bfaeed892443aebd1b9febc4ddd3c9bd660e70f745862fda863ffd3782183633",
+    "src/world/road-profile-corrections.json": "de842423f9a48726c03a36b77c0059b40a545cdee99502de0cc69a42d9222f0a",
+    "src/world/road-profile-cache-manifest.json": "00c5704f0bf0b89f14d7b8eba4eeb38199bc760f4d00dd78a2c2bcf32747c009",
+    "scripts/compile-road-profile-cache.mjs": "9d81edc2efd0ef66f59baee43470a341c1ffa77a18fbd70bbd27e5134d281cc8",
+    "scripts/verify-road-profile-corrections.mjs": "ae0b729bbb859ff0ac7bccf928ece4a303914df477cdb03dc3d271790c81d594",
+    "scripts/build.mjs": "fc1870422cf2abd28dca87863cdffdb38f068fad2bc3a2edd02b65c4eecacae3"
+  },
+  "results": [
+    {
+      "name": "cache",
+      "command": [
+        "/Users/tharun/.nvm/versions/node/v24.13.1/bin/node",
+        "scripts/test-v21-fixes.mjs",
+        "road-profile-cache"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "passed": true
+    },
+    {
+      "name": "overlay",
+      "command": [
+        "/Users/tharun/.nvm/versions/node/v24.13.1/bin/node",
+        "scripts/test-v21-fixes.mjs",
+        "road-model-overlay"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "passed": true
+    },
+    {
+      "name": "independent",
+      "command": [
+        "/Users/tharun/.nvm/versions/node/v24.13.1/bin/node",
+        "scripts/test-v21-fixes.mjs",
+        "road-cache-overlay-independent"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "passed": true
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "passed": true
+    },
+    {
+      "name": "cache-disabled-gate",
+      "command": [
+        "/Users/tharun/.nvm/versions/node/v24.13.1/bin/node",
+        "scripts/compile-road-profile-cache.mjs",
+        "--verify"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "global-model-disabled-gate",
+      "command": [
+        "/Users/tharun/.nvm/versions/node/v24.13.1/bin/node",
+        "scripts/verify-road-profile-corrections.mjs",
+        "--hash-only"
+      ],
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "passed": true
+    }
+  ]
+}

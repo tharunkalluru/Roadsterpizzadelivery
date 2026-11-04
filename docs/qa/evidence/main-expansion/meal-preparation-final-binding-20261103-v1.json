@@ -1,0 +1,54 @@
+{
+  "scope": "Expanded-source companion binding for the contact receipt and exact freeze28 parity benchmark. v5 recorded three runtime source hashes; this companion binds the new helper and registry hook through the final all-source parity receipt. Runtime source held throughout both completed audits. Native appearance approval remains separate; CPU timings are host observations only.",
+  "sourceHashes": [
+    {
+      "path": "src/delivery/art/actor-performance.ts",
+      "sha256": "ee9dc1fdb910725e3979894305250f5e45ad482d7c7df377c582becff3bbac5c"
+    },
+    {
+      "path": "src/delivery/art/actor-meal-geometry.ts",
+      "sha256": "2f50b29f6bdc39a50ce49b8820022810e9ba3e839d61608012d7d63592b2ee5e"
+    },
+    {
+      "path": "src/delivery/art/released-gltf.ts",
+      "sha256": "fbaefefe750ac0e9e51ddfdd2f5111075f1614339e60f856092a91875574b7c7"
+    },
+    {
+      "path": "src/delivery/art/face-annotations.ts",
+      "sha256": "1e6a6f592267edfe7eeaf6a431583d44b29000cc2b4c775f0c88f7b7c244aa69"
+    },
+    {
+      "path": "src/delivery/art/character-assets.json",
+      "sha256": "8bd45dd050e3ceae8e1c206f8b62e245de51a59a0486e526443a798a36b3b95a"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/qa/evidence/main-expansion/received-pizza-contacts-native17-20261103-v5.json",
+      "sha256": "530cab3efc7c211bb56acd9b3e9e51fba8c666ed0c4fb436c8356115f20c8f6b"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/meal-preparation-parity-performance-20261103-v2.json",
+      "sha256": "d601fff2efb971cff16ff060bd11a0dc2083ccb017c5a1ea1e2b40e10424b1e4"
+    },
+    {
+      "path": "docs/qa/evidence/main-expansion/meal-preparation-batches-20261103-v1.json",
+      "sha256": "06c20b51fa60ec005ff65e0b55dfa9800f1dc1c1241a4da4c7f74919cce039bf"
+    },
+    {
+      "path": "/tmp/audit-meal-cache-final.mjs",
+      "sha256": "b3c40d72c7ae36144e9e958d2777212704f711a9b5d593c2fb51cf073713b3a9"
+    }
+  ],
+  "summary": {
+    "all11DenseContactsPassed": true,
+    "contactSummaryIdenticalToVisuallyReviewedV4": true,
+    "posedCases": 792,
+    "maximumDepthResidual": 0,
+    "maximumPoseResidual": 0,
+    "medianBeforeReceiveMs": 13.66004200000134,
+    "medianAfterReceiveMs": 3.1182079999998678,
+    "maximumAfterReceiveMs": 9.266374999999925,
+    "maximumImmutablePreparationTaskMs": 1.9237909999999943
+  }
+}

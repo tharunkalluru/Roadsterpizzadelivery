@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "parent": {
+    "path": "/tmp/road-historical-joint-487-tile-806-context-505-core-9413-v3.json",
+    "sha256": "d746a980fcb73574f5759f779e487b68f7dac54794edaabd33f35ef6562ebd90"
+  },
+  "metadata": {
+    "path": "/tmp/road-historical-joint-487-tile-806-context-505-core-9413-metadata-v4.json",
+    "sha256": "e53f5e0393d812576aedf15cc0edf7f29915c3e7d80e99e75a46d965eb7e7108"
+  },
+  "summary": {
+    "legacyFieldsExact": true,
+    "triangles": 270767,
+    "bindings": 270768,
+    "ambiguousTriangles": 1,
+    "roads": 13285,
+    "footprints": 13285,
+    "tiles": 620,
+    "copies": 13962,
+    "sourceFiles": 63,
+    "allMetadataReproducesLiteralFloat32Triangles": true,
+    "sourceInputsUnchanged": true
+  },
+  "releaseApproved": false,
+  "exporterSources": {
+    "scripts/export-historical-tile-road-model.mjs": "1beb153e269d17b6db2075d2b5fee74d2394f80d7e47781f923bbdf44551392c",
+    "scripts/historical-road-surface-metadata.mjs": "da10c6737b672c716fc3771ade15641a2e84c384ce98fbb21ce72208d4ebcfc3",
+    "scripts/verify-historical-tile-metadata.mjs": "acfb802cd5586c5b97d076f4010418e2509eeae0253f82fef59235ac21f0dd9f",
+    "scripts/road-profile-inputs.mjs": "d31e8db186f64a26b7000aa64057f1d49e0ea1cfede73041cc19ad320f2137da"
+  },
+  "exporterResult": {
+    "exitCode": 1,
+    "reason": "One distinct literal structural binding preserved explicitly; no first-winner waiver."
+  },
+  "ambiguities": [
+    {
+      "index": 490,
+      "record": {
+        "road": "57571916-420_0",
+        "points": [
+          [
+            -28526.099609375,
+            1.5347943305969238,
+            -12995.7001953125
+          ],
+          [
+            -28524.314453125,
+            1.5347943305969238,
+            -12999.5009765625
+          ],
+          [
+            -28527.88671875,
+            1.5347943305969238,
+            -12991.8984375
+          ]
+        ],
+        "arc": [
+          726.9285712476006,
+          728.8829133683656
+        ],
+        "centre": [
+          [
+            -28524.33125,
+            -12994.868750000001
+          ],
+          [
+            -28526.1,
+            -12995.7
+          ]
+        ],
+        "tile": "-29_-13",
+        "cap": true,
+        "actualSurface": {
+          "paintLift": 0.055,
+          "structuralQuad": [
+            [
+              -28526.1,
+              1.4797942730308686,
+              -12995.7
+            ],
+            [
+              -28524.314110136354,
+              1.4797942730308686,
+              -12999.501394138331
+            ],
+            [
+              -28527.886406772333,
+              1.4797942730308686,
+              -12991.898848747584
+            ],
+            [
+              -28527.886406772333,
+              1.4797942730308686,
+              -12991.898848747584
+            ]
+          ],
+          "road": "57571916-420_0",
+          "segment": 366,
+          "sourceRoad": "57571916-420_0",
+          "sourceArc": [
+            726.9285712476006,
+            728.8829133683656
+          ],
+          "centre": [
+            [
+              -28524.33125,
+              -12994.868750000001
+            ],
+            [
+              -28526.1,
+              -12995.7
+            ]
+          ]
+        },
+        "actualSurfaceBindings": [
+          {
+            "paintLift": 0.055,
+            "structuralQuad": [
+              [
+                -28526.1,
+                1.4797942730308686,
+                -12995.7
+              ],
+              [
+                -28524.314110136354,
+                1.4797942730308686,
+                -12999.501394138331
+              ],
+              [
+                -28527.886406772333,
+                1.4797942730308686,
+                -12991.898848747584
+              ],
+              [
+                -28527.886406772333,
+                1.4797942730308686,
+                -12991.898848747584
+              ]
+            ],
+            "road": "57571916-420_0",
+            "segment": 366,
+            "sourceRoad": "57571916-420_0",
+            "sourceArc": [
+              726.9285712476006,
+              728.8829133683656
+            ],
+            "centre": [
+              [
+                -28524.33125,
+                -12994.868750000001
+              ],
+              [
+                -28526.1,
+                -12995.7
+              ]
+            ]
+          },
+          {
+            "paintLift": 0.055,
+            "structuralQuad": [
+              [
+                -28526.1,
+                1.4797942730308686,
+                -12995.7
+              ],
+              [
+                -28527.885889863643,
+                1.4797942730308686,
+                -12991.89860586167
+              ],
+              [
+                -28524.313593227664,
+                1.4797942730308686,
+                -12999.501151252418
+              ],
+              [
+                -28524.313593227664,
+                1.4797942730308686,
+                -12999.501151252418
+              ]
+            ],
+            "road": "57571916-420_0",
+            "segment": 366,
+            "sourceRoad": "57571916-420_0",
+            "sourceArc": [
+              726.9285712476006,
+              728.8829133683656
+            ],
+            "centre": [
+              [
+                -28524.33125,
+                -12994.868750000001
+              ],
+              [
+                -28526.1,
+                -12995.7
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "focusedTests": {
+    "command": "node --test tests/historical-road-surface-metadata.test.mjs",
+    "groups": 3,
+    "pass": 3
+  },
+  "scope": "Metadata-only strict historical replay. All old physical data and provenance exact. Independent metadata/structural-binding classification and final solved-world physics remain separate gates."
+}

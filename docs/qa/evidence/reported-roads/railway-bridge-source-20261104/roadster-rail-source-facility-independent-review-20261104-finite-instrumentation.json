@@ -1,0 +1,109 @@
+{
+  "schema": "roadster-scoped-independent-railway-finite-instrumentation-v1",
+  "recordedAtUTC": "2026-11-04T01:22:36.661850+00:00",
+  "releaseApproved": false,
+  "scope": "Persisted receipt of completed read-only in-memory instrumentation; broad checks were not rerun for persistence.",
+  "inputs": {
+    "model": {
+      "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/model-be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7.json",
+      "sha256": "be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7",
+      "observedSHA256": "be04dc1797d38d0112ad8bec9b7a405e5e766aed69f4420ec8200dd4850a72a7",
+      "hashVerified": true
+    },
+    "source-data": {
+      "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/sourceData-55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b.json",
+      "sha256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b",
+      "observedSHA256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b",
+      "hashVerified": true
+    },
+    "source-reference": {
+      "path": "/tmp/roadster-rail-bridge-complete-source-reference-9413-v7.json",
+      "sha256": "92d62e939fe13831c9d7fe45fcedf12d4bd4dbf828667a3df710c55822c978a0",
+      "observedSHA256": "92d62e939fe13831c9d7fe45fcedf12d4bd4dbf828667a3df710c55822c978a0",
+      "hashVerified": true
+    },
+    "current-rail-source": {
+      "path": "/tmp/roadster-all-rail-bridge-source-20261104/combined.json",
+      "sha256": "641231a77208137392356b2f6a12a6b6cd5fb9cddc1eb98203ac5a6c75d3e733",
+      "observedSHA256": "641231a77208137392356b2f6a12a6b6cd5fb9cddc1eb98203ac5a6c75d3e733",
+      "hashVerified": true
+    }
+  },
+  "artifacts": {
+    "crossingAuditV4": {
+      "path": "/tmp/roadster-all-source-railway-bridge-crossings-9413-v4.json",
+      "sha256": "e47862a2c99c14971e9bbbff34a979a666b6d58e8ae7c187c55a5fbf24cbc0aa"
+    },
+    "additionalFacilityProposalV1": {
+      "path": "/tmp/roadster-source-proved-additional-railway-facilities-9413-v1.json",
+      "sha256": "923a99aa1f8ae1d5775ecc86731fdd5b77a8f142cca59fe0156259d90b631dfe"
+    },
+    "preparationProbeV1": {
+      "path": "/tmp/roadster-source-proved-railway-facility-preparation-9413-v1.json",
+      "sha256": "c6ee7f799d946db4a443db03093cea8b2ee6a92f6ec2f476cfe316bf9c31742e"
+    }
+  },
+  "code": {
+    "auditOriginalGeneratorSHA256RecordedByV4": "6bc8e7aae5561d6d55646a7ab63e9ede906dda708adf17f9fe78a6db9227d79d",
+    "probeOriginalGeneratorSHA256RecordedByV1": "28e48e1a0b346a328c434a53c343d2ae7a1d03f82e6e28dbc1b36171d638265d",
+    "persistenceTimeSourceHashes": {
+      "scripts/qa/audit-source-railway-bridge-crossings.py": {
+        "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/qa/audit-source-railway-bridge-crossings.py",
+        "sha256": "61ffe66052f787224696dbac23e3a2d6e4f269391b1ea732a464321d3c047598"
+      },
+      "scripts/qa/probe-source-railway-facilities.mjs": {
+        "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/qa/probe-source-railway-facilities.mjs",
+        "sha256": "36275cf9ef6a0c7cfde3275b979bbb75eacdd9829f841b0caa3ad985c586bfcb"
+      },
+      "src/world/railway-clearance.ts": {
+        "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/src/world/railway-clearance.ts",
+        "sha256": "0db1e710dc744338f899b2bca8f5ec622fafc91e3d108d3f434049f4b3dfa3bc"
+      },
+      "src/world/railway-evidence.ts": {
+        "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/src/world/railway-evidence.ts",
+        "sha256": "bcf79d05349ceb4954d1716884b0ec7f8aa8a88a550960eb56998b91aceadeb5"
+      }
+    },
+    "sourceVersionNote": "Audit and probe scripts changed during parent work. Their persistence-time hashes are not substituted for original artifact generator hashes. Railway preparation and evidence source were read-only during this review."
+  },
+  "method": {
+    "baseline": "Bundled the real prepareRailwayClearance and RAILWAY_UNDERPASS_EVIDENCE with esbuild write:false, imported from an in-memory data URL, applied existing evidence alone and then existing plus proposedEntries to the same source model.",
+    "centreline": "Independently intersected all 816 retained railway profiles against the 205 changed roads, deduplicated coordinates, compared interpolated before/after road-minus-rail heights, and matched exact road/rail/location evidence.",
+    "finiteSpans": "Used a read-only esbuild onLoad transform in memory to capture constraints.filter(c=>c.above===rail) before underpassIndices. Captured final sampled recursion. Grouped by real preparation key and checked consecutive road span indices. No repository file was edited."
+  },
+  "baseline": {
+    "changedRoads": 0,
+    "loweredRoads": 0
+  },
+  "withProposal": {
+    "changedRoads": 205,
+    "proposalInducedChangedRoads": 205,
+    "uniqueChangedCentrelineCrossings": 70,
+    "changedCentrelineCrossingsWithoutExactEvidence": 0,
+    "newCentrelineUnderpassesWithoutExactEvidence": 0
+  },
+  "finiteSpanInstrumentation": {
+    "appliedConstraintRecords": 700,
+    "roadRailEvidenceGroups": 142,
+    "disconnectedGroups": [],
+    "proposedGroupsPresent": 70,
+    "missingProposedGroups": [],
+    "maximumAppliedProposedSpanEndpointDistanceFromAnchorM": 11.93617110511527,
+    "widestAppliedProposedGroup": {
+      "road": "1f1fb6e4-96b_0",
+      "rail": "w1308294352",
+      "radiusM": 38,
+      "distinctRoadSpans": 6
+    },
+    "largestProposedAdmissibleRadiusM": 144,
+    "noActualRemoteSamePairCutReproduced": true,
+    "instrumentationToolOutputChunk": "060d91",
+    "centrelineToolOutputChunk": "80b812",
+    "baselineToolOutputChunk": null
+  },
+  "limitations": [
+    "This receipt is a transcription of completed tool observations, not a newly rerun broad acceptance check.",
+    "Finite span grouping verifies contiguity in this snapshot. It does not prove that arbitrary future geometry or evidence radii are safe.",
+    "No full source graph, fitted whole world, rendered mesh, car drive or native acceptance is claimed."
+  ]
+}

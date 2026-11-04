@@ -1,0 +1,30 @@
+{
+  "status": "PASS bounded finite divider and paint leaf; native and global road gates separate",
+  "sourceSHA256": {
+    "src/world/city.ts": "a5803ceedfbfd66b6cb4b8bfaeb503e3951ab06286fb6658669547c078979557",
+    "src/world/road-divider-mesh.ts": "b801395a63c8dcf0247ba35ecb92f9556f4dfb786850fd936d4845bdf66d70bd",
+    "src/world/road-paint-mesh.ts": "28c779d254f07da883ff7e63ea1c517dfd03568bc873e96139926f26476c8a42",
+    "tests/v21-fixes/divider-marking-independent.test.ts": "ca7fe728d2294919e125a8e81cd395a7c4f1d14fe7f734ec5bdf66f199d2376e"
+  },
+  "independentGroups": 4,
+  "actualEmittedStraightSections": 36,
+  "widthRangeMetres": [
+    0.11997450167584228,
+    0.12001024875030311
+  ],
+  "requestedWidthMetres": 0.12,
+  "permittedCornerInfluenceMetres": 0.24,
+  "negativeControls": [
+    "historical open three-face kerb has no terminal hit",
+    "ceil length compression fails physical UV slope",
+    "historical chord-normal geometry fails same section-union oracle",
+    "unbounded near-reversal offset-line intersection exceeds7m while productionjoin stays<=.24m"
+  ],
+  "runtimeEditedByReviewer": false,
+  "actualAppearanceOrPhoneFPSCertified": false,
+  "replayGroups": {
+    "producer": 6,
+    "roadOpenings": 8,
+    "railwayRoadClearance": 11
+  }
+}

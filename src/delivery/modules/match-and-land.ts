@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { railRoofAt, type MovingRailBody } from '../../game/moving-rail';
 import { ModuleBase, distanceXZ, heading, numberParam } from './base';
-import type { DeliveryPoint, VerifiedTrainPassage, ModuleStoryFrame } from './types';
+import type { DeliveryPoint, VerifiedTrainPassage, ModuleStoryFrame, ModuleStoryLandingZone } from './types';
 import type { DeliveryModuleContext, ModuleParams } from './types';
 import { TruckInterior } from './truck-interior';
 import type { SceneCharacter } from './character';
@@ -14,8 +14,9 @@ export class MatchAndLand extends ModuleBase {
   private receiver:SceneCharacter|null=null;
   get supports(){return this.interior?.supports??super.supports;}
   get trafficBodies(){return this.interior?.trafficBodies??this.supports.filter(body=>body.id==='delivery-log-truck');}
+  get trafficReservations(){return this.interior?.trafficReservations??[];}
   get arrival(){return this.interior?.arrival;}
-  override setStoryPresentation(active:boolean){if(this.interior)this.interior.setStoryPresentation(active);else super.setStoryPresentation(active);}
+  override setStoryPresentation(active:boolean,landing?:ModuleStoryLandingZone){if(this.interior)this.interior.setStoryPresentation(active,landing);else super.setStoryPresentation(active,landing);}
   get storyArrivalReady(){return !this.interior&&this.vehicleKind==='train'&&this.story?.entry===true;}
   override get story():ModuleStoryFrame|undefined{
     if(this.interior)return this.interior.story;
@@ -28,7 +29,11 @@ export class MatchAndLand extends ModuleBase {
     for(let i=1;i<coaches.length;i++)if(distanceXZ(p,coaches[i])<distanceXZ(p,coaches[nearest]))nearest=i;
     const goal=coaches.findIndex(b=>b.id===body.id),next=goal<0?body:coaches[nearest+Math.sign(goal-nearest)]??body;
     const atCustomer=next.id===body.id;
-    return {entry:coaches.some(coach=>this.landedOnCoach(coach)),
+    const landed=coaches.find(coach=>this.landedOnCoach(coach));
+    return {entry:!!landed,
+      // Any real coach on this marked rake remains a manual landing zone.
+      // Its support is verified above; the director still waits for a stop.
+      landing:landed?{point:{x:p.x,y:railRoofAt(landed,p.x,p.z)!+.55,z:p.z},radius:3.15}:undefined,
       point:{x:next.x-(atCustomer?next.hx*3.3:0),y:next.roof+.55,z:next.z-(atCustomer?next.hz*3.3:0)},
       yaw:Math.atan2(-next.hx,-next.hz),maxSpeed:7,verticalSpeed:3};
   }

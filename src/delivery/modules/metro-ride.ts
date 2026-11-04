@@ -39,7 +39,9 @@ export class MetroRide extends ModuleBase {
     // Only update() can establish riding, after aboard() verifies a genuine
     // grounded landing on the marked real rake. Proximity never boards it.
     if(this.phase==='boarding')return undefined;
-    if(this.phase==='riding')return body?{entry:true,point:{x:body.x,y:body.roof+.55,z:body.z},
+    const p=this.ctx.player();
+    if(this.phase==='riding')return body?{entry:this.aboard(body),point:{x:body.x,y:body.roof+.55,z:body.z},
+      landing:{point:{x:p.x,y:(railRoofAt(body,p.x,p.z)??body.roof)+.55,z:p.z},radius:3.15},
       yaw:Math.atan2(-body.hx,-body.hz),maxSpeed:4,verticalSpeed:3}:undefined;
     return this.platformStory(this.target,this.ctx.player(),this.door,this.outward,body);
   }

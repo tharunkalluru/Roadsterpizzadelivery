@@ -1,0 +1,702 @@
+{
+  "scope": "NH44 bridge/ground fork source authority and finite estimated-width diagnostic. Not a source-metre altitude survey, measured lane count or physical acceptance. Source9413 unchanged.",
+  "sourceRoadGeometryGeneration": "9413c1f5f353f1f2f054717a0d461d6b1a17fc2627c0a5353ce85496985c53ac",
+  "retainedSource": {
+    "release": "2026-10-21.0",
+    "source": "https://overturemaps-us-west-2.s3.us-west-2.amazonaws.com/release/2026-10-21.0/theme=transportation/type=segment/",
+    "query": "SELECT id,names.primary AS name,class,width_rules,level_rules,road_flags,connectors,sources,hex(geometry) AS geometryWKB,bbox FROM read_parquet(?,hive_partitioning=1) WHERE bbox.xmin>=78.35 AND bbox.xmax<=78.53 AND bbox.ymin>=17.22 AND bbox.ymax<=17.48 AND substr(id,1,12) IN ('8473035d-a28','d7fa783b-140','2767b6ed-02c')",
+    "seconds": 28.181850542,
+    "rows": [
+      {
+        "id": "d7fa783b-140b-4238-bd64-9ff8bfcc5494",
+        "name": null,
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "road_flags": null,
+        "connectors": [
+          {
+            "connector_id": "85fdc8ac-40e5-448c-a1bd-dd20e978d23d",
+            "at": 0.0
+          },
+          {
+            "connector_id": "e8e7f778-de72-4019-a530-302258105a89",
+            "at": 1.0
+          }
+        ],
+        "sources": [
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1201589163@2",
+            "update_time": "2024-08-28T12:26:53Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "geometryWKB": "010200000004000000103922846C9853404031B2648E413140DF6696A96E9853407D4D2036A241314039BB100679985340DA4AF95AE14131402D38CD4C7A985340249C16BCE8413140",
+        "bbox": {
+          "xmin": 78.38162231445312,
+          "xmax": 78.38247680664062,
+          "ymin": 17.256078720092773,
+          "ymax": 17.257457733154297
+        }
+      },
+      {
+        "id": "8473035d-a28b-4c7c-9c82-cfd83ce15602",
+        "name": null,
+        "class": "trunk",
+        "width_rules": null,
+        "level_rules": [
+          {
+            "value": 1,
+            "between": [
+              0.079622211,
+              1.0
+            ]
+          }
+        ],
+        "road_flags": [
+          {
+            "values": [
+              "is_bridge"
+            ],
+            "between": [
+              0.079622211,
+              1.0
+            ]
+          }
+        ],
+        "connectors": [
+          {
+            "connector_id": "85fdc8ac-40e5-448c-a1bd-dd20e978d23d",
+            "at": 0.0
+          },
+          {
+            "connector_id": "eab349ca-adf2-4cee-9f6b-391944c907bb",
+            "at": 1.0
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r17407315@218",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r334161@1476",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r5803164@150",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6428573@152",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w96589804@25",
+            "update_time": "2026-05-18T11:18:22Z",
+            "confidence": null,
+            "between": [
+              0.0,
+              0.079622211
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1311762352@3",
+            "update_time": "2025-07-08T11:49:11Z",
+            "confidence": null,
+            "between": [
+              0.079622211,
+              0.99484197
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w1242471485@3",
+            "update_time": "2025-07-08T11:49:11Z",
+            "confidence": null,
+            "between": [
+              0.99484197,
+              1.0
+            ],
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "geometryWKB": "010200000007000000103922846C9853404031B2648E413140449F34796F985340A3772AE09E413140B078454B79985340A5A487A1D5413140FCCADEAD87985340911557F036423140BE2D58AA8B985340C08B08104F423140C9E30E408F98534063450DA661423140CE44227E8F985340B052E68B62423140",
+        "bbox": {
+          "xmin": 78.38162231445312,
+          "xmax": 78.38375854492188,
+          "ymin": 17.256078720092773,
+          "ymax": 17.25931739807129
+        }
+      },
+      {
+        "id": "2767b6ed-02c9-4ceb-a3d1-8561942696c4",
+        "name": "Sardar Patel Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "road_flags": null,
+        "connectors": [
+          {
+            "connector_id": "531419d2-9084-431c-9628-453269223a5e",
+            "at": 0.0
+          },
+          {
+            "connector_id": "53d1b117-ca47-4f70-a9a3-7df68b164cc2",
+            "at": 0.363492394
+          },
+          {
+            "connector_id": "2c6b3a0e-fabf-448b-aa99-19e36fcfd438",
+            "at": 1.0
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w166507695@6",
+            "update_time": "2025-07-09T05:26:36Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "geometryWKB": "01020000000B00000060A0B5EC5AA053404CFDBCA948713140C31F8F2A54A05340F6A1C15C4171314066E1462550A05340BDAF253F3D7131408BDAA2714DA053409F4EC3013E713140E60066634AA05340C118366F41713140362383DC45A053405D34643C4A713140FCEBCB8841A0534047D96CF6517131401C11E73C3EA0534052D7DAFB54713140DCA0F65B3BA053403F389F3A567131405B3343F435A05340B60CDD91567131408516C8A21FA05340688302A557713140",
+        "bbox": {
+          "xmin": 78.5019302368164,
+          "xmax": 78.50556182861328,
+          "ymin": 17.442338943481445,
+          "ymax": 17.442745208740234
+        }
+      }
+    ]
+  },
+  "exactOSM": {
+    "scope": "Exact retained OSM versions for remaining opposing approach and PV ramp source classification; no absolute altitude assumption.",
+    "fetchedAtUTC": "2026-11-03T13:43:55Z",
+    "seconds": 0.91316975,
+    "ways": [
+      {
+        "key": "96589804@25",
+        "sourceURL": "https://api.openstreetmap.org/api/0.6/way/96589804/25.json",
+        "id": 96589804,
+        "version": 25,
+        "timestamp": "2025-07-08T11:49:11Z",
+        "tags": {
+          "highway": "trunk",
+          "int_ref": "AH43",
+          "maxspeed": "60",
+          "motorroad": "no",
+          "oneway": "yes",
+          "ref": "NH44",
+          "ref:old": "NH7",
+          "sidewalk": "no"
+        },
+        "nodes": [
+          4311140164,
+          2180951820,
+          2180951755,
+          2180951774,
+          6163044705,
+          1118797590,
+          6329074949,
+          701289832,
+          11510531402,
+          11510531409,
+          6150924145,
+          3678629214,
+          3056863944,
+          12142009197
+        ]
+      },
+      {
+        "key": "1311762352@3",
+        "sourceURL": "https://api.openstreetmap.org/api/0.6/way/1311762352/3.json",
+        "id": 1311762352,
+        "version": 3,
+        "timestamp": "2025-07-08T11:49:11Z",
+        "tags": {
+          "bridge": "yes",
+          "highway": "trunk",
+          "int_ref": "AH43",
+          "layer": "1",
+          "maxspeed": "60",
+          "motorroad": "no",
+          "oneway": "yes",
+          "ref": "NH44",
+          "ref:old": "NH7",
+          "sidewalk": "no"
+        },
+        "nodes": [
+          12142009197,
+          2180952030,
+          2478094993,
+          2478094997,
+          2478094999
+        ]
+      },
+      {
+        "key": "1242471485@3",
+        "sourceURL": "https://api.openstreetmap.org/api/0.6/way/1242471485/3.json",
+        "id": 1242471485,
+        "version": 3,
+        "timestamp": "2025-07-08T11:49:11Z",
+        "tags": {
+          "bridge": "yes",
+          "highway": "trunk",
+          "int_ref": "AH43",
+          "layer": "1",
+          "maxspeed": "60",
+          "motorroad": "no",
+          "oneway": "yes",
+          "ref": "NH44",
+          "ref:old": "NH7",
+          "sidewalk": "no"
+        },
+        "nodes": [
+          2478094999,
+          12282549062,
+          2478095003,
+          2478095007,
+          2478095011,
+          2478095013,
+          2478095017,
+          2478095021,
+          701290549,
+          2478095025,
+          4311140174,
+          2478095029,
+          4194969582,
+          10041125618,
+          2478095036,
+          2478095040,
+          2478095046
+        ]
+      },
+      {
+        "key": "1201589163@2",
+        "sourceURL": "https://api.openstreetmap.org/api/0.6/way/1201589163/2.json",
+        "id": 1201589163,
+        "version": 2,
+        "timestamp": "2024-08-28T12:26:53Z",
+        "tags": {
+          "highway": "primary",
+          "oneway": "yes"
+        },
+        "nodes": [
+          3056863944,
+          1118797783,
+          1118797930,
+          2581958990
+        ]
+      }
+    ]
+  },
+  "genericFlattening": {
+    "stage": "prepareRoadGrades generic joinedApproaches.repairs[2]",
+    "node": "85fdc8ac-40e",
+    "roads": [
+      "d7fa783b-140_0",
+      "8473035d-a28_0"
+    ],
+    "runs": [
+      100.63569313399034,
+      100.02452222542753
+    ],
+    "historicalLoweringOverlayApplied": false,
+    "witness": [
+      -12169.5889017,
+      16547.6495365
+    ],
+    "rawBridgeHeight": 6.594285715976914,
+    "strictHistoricalBridgeHeight": 5.926318122147711,
+    "genericAndCandidateBridgeHeight": 0,
+    "groundHeight": 0
+  },
+  "widthVariants": [
+    {
+      "widths": [
+        10.8,
+        9.4
+      ],
+      "results": [
+        {
+          "roads": [
+            "8473035d-a28_0",
+            "d7fa783b-140_0"
+          ],
+          "sourceLengths": [
+            424.45373502389106,
+            177.19648413687474
+          ],
+          "modelLengths": [
+            424.45373502389066,
+            177.19648413687477
+          ],
+          "components": [
+            {
+              "allFiniteOverlap": {
+                "model": [
+                  [
+                    -3.034198406928457e-13,
+                    98.06540673797822
+                  ],
+                  [
+                    0.0,
+                    98.6683284341951
+                  ]
+                ],
+                "sourceCorrected": [
+                  [
+                    -3.034198406928458e-13,
+                    98.0654067379783
+                  ],
+                  [
+                    0.0,
+                    98.6683284341951
+                  ]
+                ]
+              },
+              "differingHeightAbove8mm": null,
+              "maximumHeightGap": 0.0,
+              "samples": 544,
+              "worst": [
+                85.47423512191676,
+                86.09816913423097,
+                85.47423512191679,
+                86.09816913423097,
+                0.0,
+                [
+                  -12172.631758871645,
+                  16552.06382224798
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "roads": [
+            "8473035d-a28_0",
+            "69d691d0-45b_0"
+          ],
+          "sourceLengths": [
+            424.45373502389106,
+            321.6515575076911
+          ],
+          "modelLengths": [
+            424.45373502389066,
+            321.65155750769134
+          ],
+          "components": []
+        }
+      ]
+    },
+    {
+      "widths": [
+        9.6,
+        9.4
+      ],
+      "results": [
+        {
+          "roads": [
+            "8473035d-a28_0",
+            "d7fa783b-140_0"
+          ],
+          "sourceLengths": [
+            424.45373502389106,
+            177.19648413687474
+          ],
+          "modelLengths": [
+            424.45373502389066,
+            177.19648413687477
+          ],
+          "components": [
+            {
+              "allFiniteOverlap": {
+                "model": [
+                  [
+                    0.0,
+                    83.23009784330827
+                  ],
+                  [
+                    0.0,
+                    83.79039836456636
+                  ]
+                ],
+                "sourceCorrected": [
+                  [
+                    0.0,
+                    83.2300978433083
+                  ],
+                  [
+                    0.0,
+                    83.79039836456636
+                  ]
+                ]
+              },
+              "differingHeightAbove8mm": null,
+              "maximumHeightGap": 0.0,
+              "samples": 485,
+              "worst": [
+                7.507954629328836,
+                8.395601468933872,
+                7.507954629328837,
+                8.395601468933872,
+                0.0,
+                [
+                  -12216.382922109151,
+                  16616.59444867921
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "roads": [
+            "8473035d-a28_0",
+            "69d691d0-45b_0"
+          ],
+          "sourceLengths": [
+            424.45373502389106,
+            321.6515575076911
+          ],
+          "modelLengths": [
+            424.45373502389066,
+            321.65155750769134
+          ],
+          "components": []
+        }
+      ]
+    },
+    {
+      "widths": [
+        9.6,
+        7
+      ],
+      "results": [
+        {
+          "roads": [
+            "8473035d-a28_0",
+            "d7fa783b-140_0"
+          ],
+          "sourceLengths": [
+            424.45373502389106,
+            177.19648413687474
+          ],
+          "modelLengths": [
+            424.45373502389066,
+            177.19648413687477
+          ],
+          "components": [
+            {
+              "allFiniteOverlap": {
+                "model": [
+                  [
+                    -1.0668318080789935e-12,
+                    55.04244580341608
+                  ],
+                  [
+                    0.0,
+                    55.52331642591356
+                  ]
+                ],
+                "sourceCorrected": [
+                  [
+                    -1.0668318080789937e-12,
+                    55.042445803416086
+                  ],
+                  [
+                    0.0,
+                    55.52331642591356
+                  ]
+                ]
+              },
+              "differingHeightAbove8mm": null,
+              "maximumHeightGap": 0.0,
+              "samples": 378,
+              "worst": [
+                7.507954629328836,
+                8.297225962884893,
+                7.507954629328837,
+                8.297225962884893,
+                0.0,
+                [
+                  -12216.382922109151,
+                  16616.59444867921
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "roads": [
+            "8473035d-a28_0",
+            "69d691d0-45b_0"
+          ],
+          "sourceLengths": [
+            424.45373502389106,
+            321.6515575076911
+          ],
+          "modelLengths": [
+            424.45373502389066,
+            321.65155750769134
+          ],
+          "components": []
+        }
+      ]
+    },
+    {
+      "widths": [
+        10.8,
+        7
+      ],
+      "results": [
+        {
+          "roads": [
+            "8473035d-a28_0",
+            "d7fa783b-140_0"
+          ],
+          "sourceLengths": [
+            424.45373502389106,
+            177.19648413687474
+          ],
+          "modelLengths": [
+            424.45373502389066,
+            177.19648413687477
+          ],
+          "components": [
+            {
+              "allFiniteOverlap": {
+                "model": [
+                  [
+                    -1.3135171962450555e-12,
+                    68.94677901586692
+                  ],
+                  [
+                    0.0,
+                    69.54163215147727
+                  ]
+                ],
+                "sourceCorrected": [
+                  [
+                    -1.3135171962450559e-12,
+                    68.94677901586691
+                  ],
+                  [
+                    0.0,
+                    69.54163215147727
+                  ]
+                ]
+              },
+              "differingHeightAbove8mm": null,
+              "maximumHeightGap": 0.0,
+              "samples": 435,
+              "worst": [
+                8.56801572122471,
+                9.40804703388451,
+                8.568015721224711,
+                9.40804703388451,
+                0.0,
+                [
+                  -12216.274202664366,
+                  16615.38122586337
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "roads": [
+            "8473035d-a28_0",
+            "69d691d0-45b_0"
+          ],
+          "sourceLengths": [
+            424.45373502389106,
+            321.6515575076911
+          ],
+          "modelLengths": [
+            424.45373502389066,
+            321.65155750769134
+          ],
+          "components": []
+        }
+      ]
+    }
+  ],
+  "modeledCapacityPolicy": "Source has no lanes/width tags. Preserve packed3 modeled lanes on847 using9.6m minimum physical pavement, and packed2 modeled lanes on d7 using7m minimum. These are explicit local shoulder estimates; retain source10.8/9.4 and exact old prepared scenery corridors. Narrow through the whole ORIGINAL attached overlap plus2m, with30m smooth recovery outside it; no far independent positive crossing is exempt.",
+  "sceneryInput": {
+    "file": "docs/qa/evidence/reported-roads/nh44-original-prepared-scenery-a679b72.json",
+    "sha256": "b9ebda3505f84954d67a37de8372c70ddbc1e22111b4a4e599cd09c4c39df8e9"
+  },
+  "classification": "847 is real relative bridge fromfraction.079622211 onward; d7 is an ordinary primary fork. No source width/lane count or absolute surveyed metre height exists. Generic100m flat control must not override genuine independent bridge headroom; final geographic historical/crossing/body/structure gates remain strict."
+}

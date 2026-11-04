@@ -1,0 +1,3062 @@
+{
+  "version": 1,
+  "kind": "literal-historical-tile-pavement-baseline",
+  "sourceRoadGeometryGeneration": "9413c1f5f353f1f2f054717a0d461d6b1a17fc2627c0a5353ce85496985c53ac",
+  "sourceDataSHA256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b",
+  "sourceCoreSHA256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+  "scope": "Exactly21 existing raised tile streets retain their literal old8.4m pavement and coarse ribbon frames, while source widths/lanes stay unchanged. No newly invented bridge/ground altitude. Joint grade/body/terrain gates remain mandatory.",
+  "historicalReference": {
+    "revision": "a679b72bacefb751057f0282a86571e8e6ef006d",
+    "artifactSHA256": "d746a980fcb73574f5759f779e487b68f7dac54794edaabd33f35ef6562ebd90",
+    "generatorSHA256": "acb839a485a5e7fd3ba001e3654c56a4b7f1807a7ccf63d0079243537d6eb6a2",
+    "sourceFiles": {
+      "src/core/util.ts": "95b53849ec130db189be88b927153f791a799d9fe9920cbac14166372dcd069d",
+      "src/world/airfield-data.ts": "9237c55685983349612bb0044c8abc42fb852e4ed42f671865e8bf9a26a67d75",
+      "src/world/airfields.ts": "745eead44a2db7731a3770937857fdce1e9631783e950174d30ce9eb3748cb48",
+      "src/world/ambedkar-monument.ts": "eafeeead046f62f925efcf685f765bfacbd839c77d22674afba08229f2e66d67",
+      "src/world/bridge-clearance.ts": "de28bebacf7c208fd9006926e9b35dc97e6d6d3a8e5edc1bfc83213099432564",
+      "src/world/bridge-level-data.json": "dfc144218071bd09d63b60363fdb5405e4c0d2291f974af476eb5d8b803e9eb5",
+      "src/world/building-clearance.ts": "950afe1798f146048f72784858c08af54b8eeea6ec47de36a66ef52b30dd88b5",
+      "src/world/city.ts": "bc6adedd9116534fb2ee32a74fc17ebe705d5ab454cba91ecf3629c50ec64a86",
+      "src/world/construction-data.ts": "534547f28c6a86df648132acfc31c6d9c37db18e6ff2582258e73f5babd30bda",
+      "src/world/construction.ts": "386f02ddfd63065e8ab2096f35291b0f9dd14c86e7b04cc6545ed07b3a668a70",
+      "src/world/destination-data.ts": "971568d5df2e387cdf64ea4426156f071334930725a03ce3de755a2f1da36755",
+      "src/world/destination-hero-data.ts": "ea0e4eb00efbd8408a614557e2892da51f0366961b073cc788462c7f88a6e7ba",
+      "src/world/destination-hero-models.ts": "e517e89cec0d09c0f1ec59087c1a744147e08203a9bc1fa0d9eb3e2858b4d035",
+      "src/world/destination-identity.ts": "20041b4917a01779a009c3361fcdc3e8d93d79a9214d789f89fc332e23c8f3a7",
+      "src/world/destination-recognition.ts": "5d2437401636eb4d71c6d20c9958d04532fec46f5a68578607fdd31ab2b6cda5",
+      "src/world/durgam-bridge.ts": "a33d5b1210044bcbdd814f026d2142af9d3376e3cf867fd3a48c9ee83c1813a3",
+      "src/world/expressway-signs.ts": "24589ff5e6ce7f5155bbf7264f808517c8f16b4f89b5f23f5343878c3a4da084",
+      "src/world/expressway.ts": "882a1ffc0dc682f3ef8c6452aa697bc5480a3f3e638f056e809d7335c9eb6025",
+      "src/world/extras.ts": "9c6901e9d5bd88d396309d2ed3b389e55e6904e2e7769ff4c0db8cfb4c23d3dc",
+      "src/world/golconda-summit.ts": "4bd40122e9571f9cdb56079cb64f6cd0f7c8155b1897289a8f1a48cd01993160",
+      "src/world/human-body.ts": "7566f5469e745bb4a35578e8e08216e0eacd3b8558013c224ea6eed801577545",
+      "src/world/human-gait.ts": "b66fbe520d4c09a7bd8eb915fab2702aea33ffd6d40e00299271dd58eb5ca76d",
+      "src/world/human-skin.ts": "5defde186b8ac8eae0ebaeeb1473caca887f61c82937297702ddec77c9faee3d",
+      "src/world/indian_flag.ts": "edd5dc69c12259ca5d608051995ff35cefa2e5a06d04b2a8852692ae6c9863dd",
+      "src/world/landmark_catalog.ts": "fb22a6aa1da682eaeb8a706bc1dbea28ecd120069ce76658369c7b58c53bc0d2",
+      "src/world/landmark_symbols.ts": "80ed2c2c31672b4a946f8b5e3d371018763850cfb5b9f2ab9f47123e6b63a2e9",
+      "src/world/landmark-corrections.ts": "f575eb043f507588d287e980c835bad0d61ca5e790dc90a63b6b558b709abbe7",
+      "src/world/landmark-source-plans.ts": "be62e84d72f10374573efe269503121ad2e31a7416d7316b58d529f63de53199",
+      "src/world/landmark-support-capture.ts": "a8214c73fc7cc906b220d23b1936a2bde01332a30a773aca116380ae3c1f74ca",
+      "src/world/landmark-support.ts": "71f79b3cec16525104ba70cec1338fc3c6ae28b1e931726028ac867f4dbcb5a5",
+      "src/world/landmarks_data.ts": "b338702e930ce61b54a09304add3a13c2f96b9a605c445ffbb9dcc113cc88c65",
+      "src/world/landmarks.ts": "78ed25fe3cba5e65db19a7eeb08955748692bd416f5d1b39cdb3e5c78dc2a4c1",
+      "src/world/landmarks2.ts": "d6fdc6cedcba2fe875efca590f00717136ef6a29170b23cdd38c2b51e2f04a46",
+      "src/world/metro-clearance.ts": "71a313851043bc3c3906ff573adef498154f8a5a362db6273c97081c0e58d5ae",
+      "src/world/metro-geometry.ts": "1cf28b5f8d25d3800f9f58022747c80399ef6e9f9cff9ca45c9e7176de941c14",
+      "src/world/metro-interchanges.ts": "112062092bb774c0d548855875cd48afb67e83e04f191c1771ef0f77544b1fff",
+      "src/world/metro-platform-lamps.ts": "b143b220123dea7ecb60b96e014bf6c098457b27139dded0880b366b27a29d2b",
+      "src/world/metro-station-access.ts": "724bd6f25e4c73709fb533ba3bc470053d3656fe4767c003f8798481e34a6ef0",
+      "src/world/metro-station-visuals.ts": "9233eeffa1e38611dde57aeeb92642fa42a8efd84fbc461cad5f1d62ff7eba23",
+      "src/world/metro-street-lamp-clearance.ts": "86bb5929f92b48c12cf016e8d45e997cf7b91bc8079f0ecf4da403e8a63b831a",
+      "src/world/npc-human-v4.json": "83c873bb5a9808193f264f42bb84eeb5b1c8408e904660687b27f26f98d64775",
+      "src/world/people.ts": "95eb9f74ebcab5359a740c6a5fe9a0ccdba4f76895b5ef0bcb09d26cf1a53a78",
+      "src/world/railway-clearance.ts": "0db1e710dc744338f899b2bca8f5ec622fafc91e3d108d3f434049f4b3dfa3bc",
+      "src/world/railway-evidence.ts": "bcf79d05349ceb4954d1716884b0ec7f8aa8a88a550960eb56998b91aceadeb5",
+      "src/world/railway-geometry.ts": "bdaaaf576cabe3acec647128a2e40a5f4e536cc35826b50b06543fe265b38185",
+      "src/world/railway-road-clearance.ts": "6f80da567f80374f773af58ec85187c540603b09f08fdcb8994c786637932012",
+      "src/world/railway-source.json": "55dda4425b8029630a30fa57e6c452d3281cdee327a035cda17eaf7393b21e9c",
+      "src/world/railway-stations.ts": "c4e413151c0dac06370c2228279fef0c400d4bbd3e04bdf960e8d4911e6a0dcf",
+      "src/world/road-crossing-levels.ts": "0fac3f4995fabe8ee5b094e5bb9a41014929f46be85df42c0a65857f49564d01",
+      "src/world/road-grades.ts": "5b67e2124fcbe3e6621870770832fa801f747345fe5734b99310074a38751f4d",
+      "src/world/road-openings.ts": "eef1650a8fd6725e790e96504ae163a1d82de5825da1a208bb018c7a9dce5d30",
+      "src/world/road-surface.ts": "f78eb899c6fe067f62121a16a22f22b9a7589cee820b7776f2a465bd82fb084f",
+      "src/world/signals.ts": "e39946522bfcf2135153556bba32d6c06b3faec39ccb47e2d41a01f9640fe71b",
+      "src/world/signs.ts": "b342365be70e0c9f8f1f40b426d0e8b5fe9b5e3a50da7d6732f0849fd0faed27",
+      "src/world/stadium-roads.ts": "c10b1393ac654866be29710a937fd0363223538b70702f9a91f9ac5f9acf8e2d",
+      "src/world/station-board.ts": "99c871e2042dd329fdd94b30955c4fea9e7cf8b8176c0419cb215c8b8c1f09f0",
+      "src/world/station-presentation.ts": "c97c61f030979d3ec805200029302140614c0ced5d29b2173b6146a8d9c55751",
+      "src/world/station-sign-atlas.ts": "fba64b8cd7fe4a870ec2231cca563c3abe7e30e235b62d1e9996b6593f492850",
+      "src/world/street-lamps.ts": "13698684ce71333c9fb7b4c852fb6aaa84a7bed07d15223d3714f1b738550b15",
+      "src/world/street-presentation.ts": "985cfc5c5629cdad3bf285442bd6b0109316562e133f14cd324b1cf68ab8c3ae",
+      "src/world/structure-clearance.ts": "df006978ddede383bf25700b91a0e54896a879b61b3746f11f1c79e83c62bf90",
+      "src/world/underpass-terrain.ts": "be8cc78bbf33fa47e88066ca8704d688cb1161a9641cbb766931370123a6a897",
+      "src/world/water.ts": "b1034eba03cf613d1bcc6414b70a1138cf819688897141408eed5112f8c28c34"
+    }
+  },
+  "sourcePackSHA256": {
+    "public/city/packs/p-10_-4.pack.wasm": "99e7f61913d277c329de635f06fae9e79a0d4739501a136da2f898760a72114c",
+    "public/city/packs/p-10_-5.pack.wasm": "7edb2adf2536cb0694c13de7eec3185176713fdf95798465c60f938d21ac4ff5",
+    "public/city/packs/p-1_-1.pack.wasm": "f1c48a7ba20754120193e919ea53db935278cf4e0069c949494f20f17da52665",
+    "public/city/packs/p-1_-2.pack.wasm": "0680a3fec0cf1b6c1395afa1e1e242083897ef4e5104cda61627b58f48bc2ffe",
+    "public/city/packs/p-1_-3.pack.wasm": "64753144228874d4170ab31a77a00852896de63685f07116eb71916fc8bced7f",
+    "public/city/packs/p-1_-4.pack.wasm": "2a05f13aeaf68f0723fd568a8869b4850f59aa96831c9c3a10b9b3c18371bdb0",
+    "public/city/packs/p-1_-5.pack.wasm": "3c358de30f4deb95fc52e2de009528a71e625b79d483cfdc0a23d1c7f49c5944",
+    "public/city/packs/p-1_-6.pack.wasm": "791170b5a85c29e8d00099057c2bbc2eb8983c8c83b81b9ee72bb24de965511b",
+    "public/city/packs/p-1_0.pack.wasm": "4453d15dbb3af7980604a77459f243ac1e74f20b85a1ffcdc05e74f392616ef7",
+    "public/city/packs/p-1_1.pack.wasm": "921854f67005942354ab025cb27b4af8e6879b24dccc14108fce60c8b350f57e",
+    "public/city/packs/p-1_2.pack.wasm": "bea46fc9b308b6aa1088f66f217c4ce45f04b21b87ae85b488f5120cfa0ee948",
+    "public/city/packs/p-1_3.pack.wasm": "a24c6c5840e1940a36bad2f8be056e21b18862c8a8999a0271b008be44bc40ae",
+    "public/city/packs/p-2_-1.pack.wasm": "6544a36703ccef7851913ed689b1cb1b0b1dc8a7ec62e673ba756c07a3ed3c53",
+    "public/city/packs/p-2_-2.pack.wasm": "ef177e667964698c121f9f6c09260aa5634b3022a685f1d47938d10cf4360dc0",
+    "public/city/packs/p-2_-3.pack.wasm": "0630eff8f4f7d47d4b422516a99e868663e43e577e1c1f7fd3c3daa6f3f22d6a",
+    "public/city/packs/p-2_-4.pack.wasm": "8658cc238258b52cecf64f48bae383de2860fa63d2cccdca109ce33d3de057a1",
+    "public/city/packs/p-2_-5.pack.wasm": "55fbe621a7431fe6e1553f905e37a44f5633260d0c4120ef8bc087f76fd7427a",
+    "public/city/packs/p-2_0.pack.wasm": "31c36ff63090e26e49e193c149424f0074376b21c57af5b94dcca67fef20db96",
+    "public/city/packs/p-2_1.pack.wasm": "52002c229f4dc54c147f94fe27da09c73382de87e2b2480f867787f25d5d9a51",
+    "public/city/packs/p-2_2.pack.wasm": "a265b6ec488a3c155b22da70421596e176f7b9f7c4e95c5ee1af981dfa3a267c",
+    "public/city/packs/p-2_3.pack.wasm": "6c216e10e4dfd24c6ea9a30ef90e9cc33858a9e11bef28506ee630c729f3faa3",
+    "public/city/packs/p-3_-1.pack.wasm": "b13cc585fce9db693a039c95ad3de405469cf20828ea4dfb99f29e10c03d8cb1",
+    "public/city/packs/p-3_-2.pack.wasm": "fe42c9deaa5ce4abe12d2579f46184a716ae13ab05fe66bfde75af61283b0670",
+    "public/city/packs/p-3_-3.pack.wasm": "990be23daa762e1ce47d8c8a9f106dfe8f54169264c59f23800106b1fc96de83",
+    "public/city/packs/p-3_-4.pack.wasm": "0b60af33f626aaba5310c009bd46d2679642320a76285c7574e0efac4226d913",
+    "public/city/packs/p-3_0.pack.wasm": "f6296abb619aaefc9091f758205c140b57da1dc3dc9b2f582363fc24f7e71894",
+    "public/city/packs/p-3_1.pack.wasm": "9c9a8a32adc2db975ef79834a9fd9948bd37ae145facc5f6046f18ea8797dde0",
+    "public/city/packs/p-3_2.pack.wasm": "39781ce3bbb8b2a232e4090d81aec3bfbc2f5171f1b80637e52ada42ad013329",
+    "public/city/packs/p-3_3.pack.wasm": "f703c66c90ad758d5504b20b2943366cd34e635a9ae8bd823ce7aa06d862bd94",
+    "public/city/packs/p-4_-1.pack.wasm": "3f22cc7d673d34cd9dc005edcf133c4b62816de247ead34adc4808212c9f9ae0",
+    "public/city/packs/p-4_-2.pack.wasm": "80c3c456a176256ac22b5423ce8614215cfea1585cb825894f4c56a83bd2e495",
+    "public/city/packs/p-4_-3.pack.wasm": "21c6c8efe6a4643f1890030d4574ea5fe630c381ef193e2722ceecc18e68560c",
+    "public/city/packs/p-4_-4.pack.wasm": "e35b990fa31312987afa25095503d0c52af84fe922bad423eb1930d6de6503f4",
+    "public/city/packs/p-4_0.pack.wasm": "b02de5d2b0bc53eda871c961ce660d2f1ab5978e39a83be72e66bbfcb551cb17",
+    "public/city/packs/p-4_1.pack.wasm": "494bef8c37195bd0a65e1800885b7189b412c89d5cb6b5a15235c38dcd56b3e7",
+    "public/city/packs/p-4_2.pack.wasm": "f271858505cc0c5a9a241926b9ce01b5fd505ddd83933b53242178451f63715f",
+    "public/city/packs/p-4_3.pack.wasm": "442739954695b02bea1a5d47496c1ca8695c94074159dbeafe85afaeec6401dd",
+    "public/city/packs/p-4_4.pack.wasm": "2521fffbff5200496d4ceb4b937b148348cdfb5c7df3a29908bb70d91c181f50",
+    "public/city/packs/p-4_5.pack.wasm": "15e2a7ad50b92a1dba5db6f481e2fb5bc41f3ee29298d44fb316ad04f19b9fea",
+    "public/city/packs/p-4_6.pack.wasm": "a7acefa5f74c59be07480613299f2d685d01a1af726a3fb8a977be83231d070c",
+    "public/city/packs/p-5_-1.pack.wasm": "8335ea23f484321baa225158c2ee6afef205d429eedac2d3f7a99b48275c1c0d",
+    "public/city/packs/p-5_-2.pack.wasm": "5e4d35c80bd77adce9dd4aebd23edb001f4e3af286165ffe80f0853fd048bb45",
+    "public/city/packs/p-5_-3.pack.wasm": "f5e5c54faef133971e450e4b297e44ffad7b9049de827b720bb83db63959b71f",
+    "public/city/packs/p-5_-4.pack.wasm": "57cb6544953c5090146f2e6ce84efef3d76eac4f2029868f840f5ca20f90a3f8",
+    "public/city/packs/p-5_-5.pack.wasm": "d0f18ab243b7581f0c05cb6e25c6360a0a1e04317eecb44852e6094bdfb1b312",
+    "public/city/packs/p-5_-6.pack.wasm": "70bceeb5ec3acaf4d4d82cd3bafade7ca1be5a6fad8e9223068b2440614890a2",
+    "public/city/packs/p-5_0.pack.wasm": "d6ad0991977d4728b14f9b5a3df64b481ca51db5b04b1a68fce7e3c1d723a8fc",
+    "public/city/packs/p-5_1.pack.wasm": "feb88a9daa1276065c585184365b2a7c0fde93aaafbbc6151718310929f91892",
+    "public/city/packs/p-5_2.pack.wasm": "e9ad279fbd2eba319a5ed962bf2c7dbf2e4468c02ef2fcbd4a7a14cf70019e82",
+    "public/city/packs/p-5_4.pack.wasm": "afaec309f6f548a154d9087ac6fcbddffcbfdd331fa6f10f60e086e86877132e",
+    "public/city/packs/p-5_5.pack.wasm": "1623681f39ec6072bc6a2ac98b7b8bd4fb7973ff2f7cf44d039d2496e73494df",
+    "public/city/packs/p-5_6.pack.wasm": "a4fd3832d5709a1245f3295195b52ccd776392cb9588820f18d38d826a2260bb",
+    "public/city/packs/p-6_-1.pack.wasm": "4353e67c4ee18c1b56d6cae5659e8e486c5a771a5c95defd1416ee63384579fc",
+    "public/city/packs/p-6_-2.pack.wasm": "8539fa95e932e1683db57a2ac5394faea0629433b75cb7ce44888c4399339184",
+    "public/city/packs/p-6_-3.pack.wasm": "6ffa57e7e3dbaefc1f9fcfb75a22a2dd33328d0eb7018a648caea56699f800b4",
+    "public/city/packs/p-6_-4.pack.wasm": "a12ad161ad1c7b4aea11007a08324bed340d2762c6b6f4924ca6800320cda0c1",
+    "public/city/packs/p-6_-5.pack.wasm": "819d2505397bc8f4c1c3292587c0e0008974ba52e341a91cf80af48e48010987",
+    "public/city/packs/p-6_-6.pack.wasm": "65d3d41f8a64afad05b0f91de8e2792b629c06f0349324847ca68a4db9af8563",
+    "public/city/packs/p-7_-3.pack.wasm": "e18cbd41e4213e770dd96f4c324f9a0214cf04a373d0c9804358efad13e7a12d",
+    "public/city/packs/p-7_-4.pack.wasm": "a9b326ba385a6d7d60be0de359cd42920e9d78ba426f56c62a4a7b031156474d",
+    "public/city/packs/p0_-1.pack.wasm": "4413c8308be5c45561eda6244815dfec44f73a6f8d62df88b67c01656aae09a8",
+    "public/city/packs/p0_-2.pack.wasm": "9f6630a5fb0f5f52cc4ae048a90d99ef5f219c028141369aa42b10debb3d4ba4",
+    "public/city/packs/p0_-3.pack.wasm": "4a4db23a2a73aa69b44ff59d993df3b3c457013fa5412ade84323fcd1205c425",
+    "public/city/packs/p0_-6.pack.wasm": "aa5fe38be6764d7d2a0a2362a85f59c95f6be5589d32872063b4f709d5c4e4b2",
+    "public/city/packs/p0_0.pack.wasm": "1d1c89054aa00998e5e3d86831306fabe97e24b9baffad71a93fe258f84ede42",
+    "public/city/packs/p0_1.pack.wasm": "50fbb05a09a345a3ee644e1789ab247644e47f22a137bc131bb41c1fcb01c2b5",
+    "public/city/packs/p0_2.pack.wasm": "f301010142133d48ffb799af9aff6153eab0e4969664b6ee560c60bab3e19017",
+    "public/city/packs/p1_-1.pack.wasm": "0b32b79ceb5866fb57481ec750150bbb16551608500dd421072f3277aba0a7e6",
+    "public/city/packs/p1_-2.pack.wasm": "85b4e3f61ed8b77edd2cb9170bcaf107425e126a3d99284bf927cc41991b140f",
+    "public/city/packs/p1_-3.pack.wasm": "62e25d14c514897e789c67c6bd5c5f6d73968a277e6f8d0444b0fe70afe8c770",
+    "public/city/packs/p1_0.pack.wasm": "bfb6514f4c8ec594f67c1e91b4d9949d3c8a65f1aac16e19f085cac874a10af9",
+    "public/city/packs/p1_1.pack.wasm": "015654e89f631ffb0b98a1b3329473c402d8ac03beced1d429d2d51a27d36b4a",
+    "public/city/packs/p1_2.pack.wasm": "f295a45f024dae75d04ad46b433ac3a814ec751a74d8df8eff59bb8dcd08c19b",
+    "public/city/packs/p2_-1.pack.wasm": "716879444c96602ff24ae0b0f495a0520e99655cf2848702d41919700bcd52b7",
+    "public/city/packs/p2_-2.pack.wasm": "d46a55c3af2a00e16d1da6c2e7e46dd03a35f8d12d7064128eedc53ae9f33a9f",
+    "public/city/packs/p2_-8.pack.wasm": "247c85bb06aef3c2a3ad2167379c777c250f3964a46a79a21c3e2e85a653ace1",
+    "public/city/packs/p2_0.pack.wasm": "2869ad7a1f1ec0afc7634d9aed5fdf8142a932e9af86d7b37fbf6d4d53165125",
+    "public/city/packs/p2_1.pack.wasm": "585d21a9d504c9463d1085ac66f48d8dc3d78bd9cb173292e6c2944a2741d985",
+    "public/city/packs/p2_2.pack.wasm": "7502785095d31f9d6eb5ea102d6d195b730eb3a4b29ada9f0d4a2bd2b38a0d57",
+    "public/city/packs/p3_-1.pack.wasm": "68fc7153e323ba6c4c6e1928cb7b57ace6e93c0a6b574b54ec3321e35ad85b60",
+    "public/city/packs/p3_-2.pack.wasm": "744bc39a21975ee765505cfb0db99ce90ebfe7771f93487b2614adf244a4dbf8",
+    "public/city/packs/p3_-3.pack.wasm": "181e3957e7e9091b45228bdb5203f097e2f29e40ead3d97eaeadf43c688084a0",
+    "public/city/packs/p3_-8.pack.wasm": "9f5587d5aa6e8295c9492a183d0e33f82a68066afac863ef664cc685f52cc33a",
+    "public/city/packs/p3_0.pack.wasm": "07562130fb6203e0ff8e8bbbdba5d3548c6fce7e01b95891338491ea9446513c",
+    "public/city/packs/p4_-1.pack.wasm": "c18dac48a41b3a1b9e445e54dc5182706a5e151823c0b3c3b7a1b2976f059df2",
+    "public/city/packs/p4_-2.pack.wasm": "f3afef37950f596517a2f1a139d3cb8be788fbc974d4f7fd536b2e8b06f97548",
+    "public/city/packs/p4_-3.pack.wasm": "88c1a65c73125f816391bd7bfa4558ab6c7ddf473c5611fc2b29ba1b564c2ab8",
+    "public/city/packs/p4_-8.pack.wasm": "2c9a0e7f6e76a2d5d546c394b79df36f4c55cda9cab1cf5c67688532284d5bef",
+    "public/city/packs/p4_0.pack.wasm": "a73f2efe861c8369a5e06f7ebcdba7f6cb25255678485865d25a790653d48935",
+    "public/city/packs/p5_-1.pack.wasm": "f5728d1b55e677b228a68a1f912ea98f39ff5f63b6694233f8ae3dd68f14b1ed",
+    "public/city/packs/p5_-2.pack.wasm": "43df0db9a110ba086fca1b78d7cff2a5db7820b7b87737a0412c0a902d00ad35",
+    "public/city/packs/p5_0.pack.wasm": "ad2033627e8d1ecca55de1d9fabcf7af2807b0e08dd482812bc90d6652eae534",
+    "public/city/packs/p5_1.pack.wasm": "3a3281ddc783284a2a23a69982e8f0c91491eef99527abefe86d7726290fd97c",
+    "public/city/packs/p5_3.pack.wasm": "71746824d296bd4c1218f41b54aed04e6b525087a09517ce44b89833a2bdb845",
+    "public/city/packs/p5_4.pack.wasm": "a670537fc4bf6f4f5159e3bf64d7f57cf8529453395807e46ea36208d42f1126",
+    "public/city/packs/p6_-2.pack.wasm": "2fe15bb7c785152d2e3ae580eeb1041500b738bce0784685a1f835d721c21d0a",
+    "public/city/packs/p6_-3.pack.wasm": "c575356a1e788aeea08ee9ee02f62e4569cf6a92ff64667a1f65c54e327a6b89",
+    "public/city/packs/p6_0.pack.wasm": "a0758f60744f51b257b1c9e3151efabf64f60714258586d52dac00e9a7144ec0",
+    "public/city/packs/p6_1.pack.wasm": "32ee77a9f007ab712c78b2b995919836acb0b613d50daac4fb7294eb1e523a17",
+    "public/city/packs/p6_3.pack.wasm": "a737516e9b131000ba41c79b516056e9f6b62ca542bfa6e1507a2d76f9f92189",
+    "public/city/packs/p6_4.pack.wasm": "ca44afcc3dabfb97c050e37fa2aabd55a663b786f109a397b7f8d45c5d9449ac",
+    "public/city/packs/p7_-2.pack.wasm": "46154ed2d992202dc187591bb9db1ffde5349d6d1f55f3508964a370d209c5c6",
+    "public/city/packs/p7_-3.pack.wasm": "db7ec06f135c77bcfce88267c32d68002260b33536da5a478171e8084c814230"
+  },
+  "roads": [
+    {
+      "id": "0fe759b9-c96_0",
+      "expected": {
+        "id": "0fe759b9-c96_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "3c534258-76a",
+        "to": "aa0158aa-1a5",
+        "pts": [
+          [
+            -8149.9,
+            -4114.4
+          ],
+          [
+            -8151.5,
+            -4102.5
+          ],
+          [
+            -8153.1,
+            -4090.5
+          ],
+          [
+            -8154.8,
+            -4078.6
+          ],
+          [
+            -8156.4,
+            -4066.7
+          ],
+          [
+            -8158,
+            -4054.7
+          ],
+          [
+            -8159.6,
+            -4042.8
+          ],
+          [
+            -8161.2,
+            -4030.8
+          ],
+          [
+            -8162.8,
+            -4018.9
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          5.66,
+          3.78,
+          1.88,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "0fe759b9-c96_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -8149.9,
+            -4114.4
+          ],
+          [
+            -8151.5,
+            -4102.5
+          ],
+          [
+            -8153.1,
+            -4090.5
+          ],
+          [
+            -8154.8,
+            -4078.6
+          ],
+          [
+            -8156.4,
+            -4066.7
+          ],
+          [
+            -8158,
+            -4054.7
+          ],
+          [
+            -8159.6,
+            -4042.8
+          ],
+          [
+            -8161.2,
+            -4030.8
+          ],
+          [
+            -8162.8,
+            -4018.9
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          5.66,
+          3.78,
+          1.88,
+          0
+        ],
+        "from": "3c534258-76a",
+        "to": "aa0158aa-1a5",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "0fe759b9-c96_0",
+        "L": [
+          [
+            -8154.062543667719,
+            -4114.959669736836
+          ],
+          [
+            -8155.662852316633,
+            -4103.057369347834
+          ],
+          [
+            -8157.260527449945,
+            -4091.074466133256
+          ],
+          [
+            -8158.960199760969,
+            -4079.1768344206384
+          ],
+          [
+            -8160.562852316632,
+            -4067.2573693478334
+          ],
+          [
+            -8162.162852316633,
+            -4055.2573693478334
+          ],
+          [
+            -8163.762852316633,
+            -4043.357369347834
+          ],
+          [
+            -8165.362852316633,
+            -4031.357369347834
+          ],
+          [
+            -8166.96254366772,
+            -4019.4596697368365
+          ]
+        ],
+        "R": [
+          [
+            -8145.73745633228,
+            -4113.840330263163
+          ],
+          [
+            -8147.337147683367,
+            -4101.942630652166
+          ],
+          [
+            -8148.939472550056,
+            -4089.925533866744
+          ],
+          [
+            -8150.6398002390315,
+            -4078.0231655793614
+          ],
+          [
+            -8152.237147683367,
+            -4066.142630652166
+          ],
+          [
+            -8153.837147683367,
+            -4054.142630652166
+          ],
+          [
+            -8155.437147683368,
+            -4042.2426306521666
+          ],
+          [
+            -8157.037147683367,
+            -4030.2426306521666
+          ],
+          [
+            -8158.637456332281,
+            -4018.3403302631637
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "01e7cac79b1ee420d26a2018c01b8f0be628b2942eb6670e05ce0570c0e04960"
+    },
+    {
+      "id": "104df982-1f4_0",
+      "expected": {
+        "id": "104df982-1f4_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "76b8684a-ce5",
+        "to": "cc49ab11-50c",
+        "pts": [
+          [
+            10912.9,
+            -557.5
+          ],
+          [
+            10912.5,
+            -573.9
+          ]
+        ],
+        "elev": [
+          1.31,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "104df982-1f4_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            10912.9,
+            -557.5
+          ],
+          [
+            10912.5,
+            -573.9
+          ]
+        ],
+        "elev": [
+          1.31,
+          0
+        ],
+        "from": "76b8684a-ce5",
+        "to": "cc49ab11-50c",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "104df982-1f4_0",
+        "L": [
+          [
+            10917.0987513007,
+            -557.6024085683097
+          ],
+          [
+            10916.6987513007,
+            -574.0024085683096
+          ]
+        ],
+        "R": [
+          [
+            10908.701248699299,
+            -557.3975914316903
+          ],
+          [
+            10908.3012486993,
+            -573.7975914316903
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "fc0455f9db13c5735af40e56fc3df604cc568092ed32f69729876d63e008177f"
+    },
+    {
+      "id": "140dc6fc-d84_0",
+      "expected": {
+        "id": "140dc6fc-d84_0",
+        "cls": "service",
+        "w": 4.5,
+        "lanes": 1,
+        "oneway": null,
+        "from": "52d41d89-48d",
+        "to": "ef87a002-54c",
+        "pts": [
+          [
+            -11155.8,
+            7198.7
+          ],
+          [
+            -11168.4,
+            7199.2
+          ],
+          [
+            -11181,
+            7199.7
+          ],
+          [
+            -11193.7,
+            7200.2
+          ],
+          [
+            -11206.3,
+            7200.7
+          ],
+          [
+            -11204.8,
+            7214.9
+          ],
+          [
+            -11203.4,
+            7229.1
+          ],
+          [
+            -11201.9,
+            7243.3
+          ],
+          [
+            -11210.1,
+            7245.8
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          5.5,
+          3.39,
+          1.27,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "140dc6fc-d84_0",
+        "cls": "service",
+        "w": 4.5,
+        "oneway": null,
+        "pts": [
+          [
+            -11155.8,
+            7198.7
+          ],
+          [
+            -11168.4,
+            7199.2
+          ],
+          [
+            -11181,
+            7199.7
+          ],
+          [
+            -11193.7,
+            7200.2
+          ],
+          [
+            -11206.3,
+            7200.7
+          ],
+          [
+            -11204.8,
+            7214.9
+          ],
+          [
+            -11203.4,
+            7229.1
+          ],
+          [
+            -11201.9,
+            7243.3
+          ],
+          [
+            -11210.1,
+            7245.8
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          5.5,
+          3.39,
+          1.27,
+          0
+        ],
+        "from": "52d41d89-48d",
+        "to": "ef87a002-54c",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "140dc6fc-d84_0",
+        "L": [
+          [
+            -11155.966535596113,
+            7194.503302977909
+          ],
+          [
+            -11168.566535596114,
+            7195.003302977909
+          ],
+          [
+            -11181.165878381442,
+            7195.503276949503
+          ],
+          [
+            -11193.865878381443,
+            7196.003276949503
+          ],
+          [
+            -11209.651773749509,
+            7198.1690688013905
+          ],
+          [
+            -11208.978273066075,
+            7215.326654644071
+          ],
+          [
+            -11207.578273066076,
+            7229.526654644072
+          ],
+          [
+            -11205.797990283156,
+            7241.736135634902
+          ],
+          [
+            -11211.324828195871,
+            7241.78256351754
+          ]
+        ],
+        "R": [
+          [
+            -11155.633464403885,
+            7202.896697022091
+          ],
+          [
+            -11168.233464403886,
+            7203.396697022091
+          ],
+          [
+            -11180.834121618558,
+            7203.896723050497
+          ],
+          [
+            -11193.534121618559,
+            7204.396723050497
+          ],
+          [
+            -11202.94822625049,
+            7203.230931198609
+          ],
+          [
+            -11200.621726933923,
+            7214.473345355928
+          ],
+          [
+            -11199.221726933923,
+            7228.673345355929
+          ],
+          [
+            -11198.002009716844,
+            7244.863864365098
+          ],
+          [
+            -11208.87517180413,
+            7249.81743648246
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "a2ba85ff3fe7cd08dba70c8c41fcb0fb8a4a6fd5c61e993c7d59557099ecb840"
+    },
+    {
+      "id": "1b5618ea-638_0",
+      "expected": {
+        "id": "1b5618ea-638_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "fae95c1d-b81",
+        "to": "3e7ac954-377",
+        "pts": [
+          [
+            -1391.5,
+            6982
+          ],
+          [
+            -1387.2,
+            6966.1
+          ]
+        ],
+        "elev": [
+          0,
+          1.32
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "1b5618ea-638_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -1391.5,
+            6982
+          ],
+          [
+            -1387.2,
+            6966.1
+          ]
+        ],
+        "elev": [
+          0,
+          1.32
+        ],
+        "from": "fae95c1d-b81",
+        "to": "3e7ac954-377",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "1b5618ea-638_0",
+        "L": [
+          [
+            -1387.4456473813132,
+            6983.096460142161
+          ],
+          [
+            -1383.1456473813132,
+            6967.196460142161
+          ]
+        ],
+        "R": [
+          [
+            -1395.5543526186868,
+            6980.903539857839
+          ],
+          [
+            -1391.2543526186869,
+            6965.003539857839
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "01a722335c710f2c0719445575ed6ff7dee216b36657533295a44e0847ca62b9"
+    },
+    {
+      "id": "1daa9bc1-355_0",
+      "expected": {
+        "id": "1daa9bc1-355_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "116e3c9b-b22",
+        "to": "17313eac-7c3",
+        "pts": [
+          [
+            -1972.6,
+            -5821.6
+          ],
+          [
+            -1976.2,
+            -5809.8
+          ],
+          [
+            -1979.8,
+            -5798.1
+          ],
+          [
+            -1992.9,
+            -5786.3
+          ],
+          [
+            -1999,
+            -5780.6
+          ],
+          [
+            -2013.3,
+            -5769.8
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          0,
+          2.42,
+          0.05,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "1daa9bc1-355_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -1972.6,
+            -5821.6
+          ],
+          [
+            -1976.2,
+            -5809.8
+          ],
+          [
+            -1979.8,
+            -5798.1
+          ],
+          [
+            -1992.9,
+            -5786.3
+          ],
+          [
+            -1999,
+            -5780.6
+          ],
+          [
+            -2013.3,
+            -5769.8
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          0,
+          2.42,
+          0.05,
+          0
+        ],
+        "from": "116e3c9b-b22",
+        "to": "17313eac-7c3",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "1daa9bc1-355_0",
+        "L": [
+          [
+            -1976.617204786537,
+            -5822.825587900978
+          ],
+          [
+            -1980.2157468687412,
+            -5811.030356487444
+          ],
+          [
+            -1983.223576689543,
+            -5800.532924711293
+          ],
+          [
+            -1995.7292468596477,
+            -5789.404087983156
+          ],
+          [
+            -2001.641250847611,
+            -5783.865546502501
+          ],
+          [
+            -2015.831235811781,
+            -5773.151543713747
+          ]
+        ],
+        "R": [
+          [
+            -1968.5827952134628,
+            -5820.374412099023
+          ],
+          [
+            -1972.1842531312589,
+            -5808.5696435125565
+          ],
+          [
+            -1976.3764233104569,
+            -5795.667075288708
+          ],
+          [
+            -1990.0707531403525,
+            -5783.195912016844
+          ],
+          [
+            -1996.358749152389,
+            -5777.334453497499
+          ],
+          [
+            -2010.768764188219,
+            -5766.4484562862535
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "b12d4a07c57c57a26fbefe96b19fa9aa970b2f1e0166fbffbda445b420d8363c"
+    },
+    {
+      "id": "31b2dc59-e57_0",
+      "expected": {
+        "id": "31b2dc59-e57_0",
+        "cls": "living_street",
+        "w": 5,
+        "lanes": 1,
+        "oneway": null,
+        "from": "49ed71e9-1a6",
+        "to": "8243b39e-59a",
+        "pts": [
+          [
+            -5986.6,
+            3597.6
+          ],
+          [
+            -5985,
+            3582.5
+          ],
+          [
+            -5984.6,
+            3580
+          ]
+        ],
+        "elev": [
+          1.42,
+          0.2,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "31b2dc59-e57_0",
+        "cls": "living_street",
+        "w": 5,
+        "oneway": null,
+        "pts": [
+          [
+            -5986.6,
+            3597.6
+          ],
+          [
+            -5985,
+            3582.5
+          ],
+          [
+            -5984.6,
+            3580
+          ]
+        ],
+        "elev": [
+          1.42,
+          0.2,
+          0
+        ],
+        "from": "49ed71e9-1a6",
+        "to": "8243b39e-59a",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "31b2dc59-e57_0",
+        "L": [
+          [
+            -5982.423381210665,
+            3598.042555633307
+          ],
+          [
+            -5980.826857929883,
+            3582.974220689786
+          ],
+          [
+            -5980.45274934595,
+            3580.6635601046473
+          ]
+        ],
+        "R": [
+          [
+            -5990.776618789336,
+            3597.1574443666927
+          ],
+          [
+            -5989.173142070117,
+            3582.025779310214
+          ],
+          [
+            -5988.747250654051,
+            3579.3364398953527
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "38a4cd5adcb062117067feec3da61e8440b96f7099ddcf2c6979989ce1d5a8f0"
+    },
+    {
+      "id": "35612a13-acd_0",
+      "expected": {
+        "id": "35612a13-acd_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "77dff411-02c",
+        "to": "6d2e0f10-0f8",
+        "pts": [
+          [
+            -7161.2,
+            -2916.5
+          ],
+          [
+            -7173.4,
+            -2930.5
+          ]
+        ],
+        "elev": [
+          1.49,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "35612a13-acd_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -7161.2,
+            -2916.5
+          ],
+          [
+            -7173.4,
+            -2930.5
+          ]
+        ],
+        "elev": [
+          1.49,
+          0
+        ],
+        "from": "77dff411-02c",
+        "to": "6d2e0f10-0f8",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "35612a13-acd_0",
+        "L": [
+          [
+            -7158.03358008845,
+            -2919.2593087800647
+          ],
+          [
+            -7170.23358008845,
+            -2933.2593087800647
+          ]
+        ],
+        "R": [
+          [
+            -7164.366419911549,
+            -2913.7406912199353
+          ],
+          [
+            -7176.566419911549,
+            -2927.7406912199353
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "bcbaf061edbac7636fe31208822a022cef90ff60c05b373ba801cef726e2a030"
+    },
+    {
+      "id": "4b86b809-cf8_0",
+      "expected": {
+        "id": "4b86b809-cf8_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "f9a18f83-5db",
+        "to": "be1e8b5a-86f",
+        "pts": [
+          [
+            -1355.8,
+            6803.5
+          ],
+          [
+            -1357.6,
+            6786.7
+          ]
+        ],
+        "elev": [
+          0,
+          1.35
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "4b86b809-cf8_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -1355.8,
+            6803.5
+          ],
+          [
+            -1357.6,
+            6786.7
+          ]
+        ],
+        "elev": [
+          0,
+          1.35
+        ],
+        "from": "f9a18f83-5db",
+        "to": "be1e8b5a-86f",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "4b86b809-cf8_0",
+        "L": [
+          [
+            -1351.6239015535368,
+            6803.052560880736
+          ],
+          [
+            -1353.4239015535368,
+            6786.2525608807355
+          ]
+        ],
+        "R": [
+          [
+            -1359.976098446463,
+            6803.947439119264
+          ],
+          [
+            -1361.776098446463,
+            6787.147439119264
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "fbdc1fff2cde3d6a90955831013a075dd0a34356c3ecb6d289afd1b85c9a6cc9"
+    },
+    {
+      "id": "54ddb931-bab_0",
+      "expected": {
+        "id": "54ddb931-bab_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "8977570c-f21",
+        "to": "068caa5d-96f",
+        "pts": [
+          [
+            -1402.8,
+            7026.6
+          ],
+          [
+            -1398.5,
+            7009.5
+          ]
+        ],
+        "elev": [
+          0,
+          1.41
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "54ddb931-bab_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -1402.8,
+            7026.6
+          ],
+          [
+            -1398.5,
+            7009.5
+          ]
+        ],
+        "elev": [
+          0,
+          1.41
+        ],
+        "from": "8977570c-f21",
+        "to": "068caa5d-96f",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "54ddb931-bab_0",
+        "L": [
+          [
+            -1398.7268065213907,
+            7027.624253330879
+          ],
+          [
+            -1394.4268065213907,
+            7010.524253330878
+          ]
+        ],
+        "R": [
+          [
+            -1406.8731934786092,
+            7025.575746669122
+          ],
+          [
+            -1402.5731934786093,
+            7008.475746669122
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "23475f46cb5efddd4a1ff43fc881e79cb84e43fe5290748b446c9b6f5b5d711a"
+    },
+    {
+      "id": "577c563e-e79_0",
+      "expected": {
+        "id": "577c563e-e79_0",
+        "cls": "service",
+        "w": 4.5,
+        "lanes": 1,
+        "oneway": null,
+        "from": "52d41d89-48d",
+        "to": "36abdd0c-4d9",
+        "pts": [
+          [
+            -11155.8,
+            7198.7
+          ],
+          [
+            -11140.1,
+            7198.2
+          ],
+          [
+            -11124.4,
+            7197.6
+          ],
+          [
+            -11108.6,
+            7197
+          ],
+          [
+            -11106.9,
+            7196.9
+          ],
+          [
+            -11093,
+            7196.5
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          3.75,
+          3.34,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "577c563e-e79_0",
+        "cls": "service",
+        "w": 4.5,
+        "oneway": null,
+        "pts": [
+          [
+            -11155.8,
+            7198.7
+          ],
+          [
+            -11140.1,
+            7198.2
+          ],
+          [
+            -11124.4,
+            7197.6
+          ],
+          [
+            -11108.6,
+            7197
+          ],
+          [
+            -11106.9,
+            7196.9
+          ],
+          [
+            -11093,
+            7196.5
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          3.75,
+          3.34,
+          0
+        ],
+        "from": "52d41d89-48d",
+        "to": "36abdd0c-4d9",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "577c563e-e79_0",
+        "L": [
+          [
+            -11155.666309817994,
+            7202.897871714957
+          ],
+          [
+            -11139.952956442528,
+            7202.397425186016
+          ],
+          [
+            -11124.240115973558,
+            7201.7969556940825
+          ],
+          [
+            -11108.432134238936,
+            7201.1966440266315
+          ],
+          [
+            -11106.765453706317,
+            7201.097844362866
+          ],
+          [
+            -11092.879186703916,
+            7200.698262038926
+          ]
+        ],
+        "R": [
+          [
+            -11155.933690182004,
+            7194.502128285043
+          ],
+          [
+            -11140.247043557472,
+            7194.002574813983
+          ],
+          [
+            -11124.559884026441,
+            7193.403044305918
+          ],
+          [
+            -11108.767865761065,
+            7192.8033559733685
+          ],
+          [
+            -11107.034546293682,
+            7192.702155637133
+          ],
+          [
+            -11093.120813296084,
+            7192.301737961074
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "c226095971715b1799edb4c7ef51d526faba374fddab3aab340ab84e43658aaf"
+    },
+    {
+      "id": "58d0ee63-78c_0",
+      "expected": {
+        "id": "58d0ee63-78c_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "3c534258-76a",
+        "to": "ecc40239-8e8",
+        "pts": [
+          [
+            -8149.9,
+            -4114.4
+          ],
+          [
+            -8147.9,
+            -4132.1
+          ]
+        ],
+        "elev": [
+          6.8,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "58d0ee63-78c_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -8149.9,
+            -4114.4
+          ],
+          [
+            -8147.9,
+            -4132.1
+          ]
+        ],
+        "elev": [
+          6.8,
+          0
+        ],
+        "from": "3c534258-76a",
+        "to": "ecc40239-8e8",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "58d0ee63-78c_0",
+        "L": [
+          [
+            -8145.726558172041,
+            -4113.9284246522075
+          ],
+          [
+            -8143.726558172041,
+            -4131.628424652208
+          ]
+        ],
+        "R": [
+          [
+            -8154.073441827958,
+            -4114.871575347792
+          ],
+          [
+            -8152.073441827958,
+            -4132.5715753477925
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "1006914be23b927fe9e8e753772889bcdeee76c6937c46bdb642e3a71d52bf17"
+    },
+    {
+      "id": "5cdd1cdb-890_0",
+      "expected": {
+        "id": "5cdd1cdb-890_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "edc22881-bf5",
+        "to": "aa2a550b-68c",
+        "pts": [
+          [
+            -8626.6,
+            3349.4
+          ],
+          [
+            -8631.4,
+            3349.5
+          ],
+          [
+            -8643.3,
+            3347.8
+          ],
+          [
+            -8655.3,
+            3346.1
+          ],
+          [
+            -8667.2,
+            3344.5
+          ],
+          [
+            -8679.1,
+            3342.8
+          ],
+          [
+            -8691.1,
+            3341.1
+          ]
+        ],
+        "elev": [
+          1.44,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "5cdd1cdb-890_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -8626.6,
+            3349.4
+          ],
+          [
+            -8631.4,
+            3349.5
+          ],
+          [
+            -8643.3,
+            3347.8
+          ],
+          [
+            -8655.3,
+            3346.1
+          ],
+          [
+            -8667.2,
+            3344.5
+          ],
+          [
+            -8679.1,
+            3342.8
+          ],
+          [
+            -8691.1,
+            3341.1
+          ]
+        ],
+        "elev": [
+          1.44,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "from": "edc22881-bf5",
+        "to": "aa2a550b-68c",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "5cdd1cdb-890_0",
+        "L": [
+          [
+            -8626.687481017463,
+            3345.200911161742
+          ],
+          [
+            -8630.999439014804,
+            3345.3191447170298
+          ],
+          [
+            -8642.70846613341,
+            3343.641864878978
+          ],
+          [
+            -8654.725533866744,
+            3341.9394725500556
+          ],
+          [
+            -8666.623165579362,
+            3340.339800239031
+          ],
+          [
+            -8678.508466133411,
+            3338.641864878978
+          ],
+          [
+            -8690.510882265977,
+            3336.941521877482
+          ]
+        ],
+        "R": [
+          [
+            -8626.512518982538,
+            3353.599088838258
+          ],
+          [
+            -8631.800560985195,
+            3353.6808552829702
+          ],
+          [
+            -8643.891533866588,
+            3351.958135121022
+          ],
+          [
+            -8655.874466133255,
+            3350.260527449944
+          ],
+          [
+            -8667.77683442064,
+            3348.660199760969
+          ],
+          [
+            -8679.69153386659,
+            3346.958135121022
+          ],
+          [
+            -8691.689117734024,
+            3345.2584781225178
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "216169840689255e57954764cbfeba90d9b11e99d509580e88dea474f764805b"
+    },
+    {
+      "id": "8400bb99-9aa_0",
+      "expected": {
+        "id": "8400bb99-9aa_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "0ee0a671-a8b",
+        "to": "2098157f-1ed",
+        "pts": [
+          [
+            -1376.7,
+            6925.6
+          ],
+          [
+            -1372.5,
+            6909.6
+          ]
+        ],
+        "elev": [
+          1.32,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "8400bb99-9aa_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -1376.7,
+            6925.6
+          ],
+          [
+            -1372.5,
+            6909.6
+          ]
+        ],
+        "elev": [
+          1.32,
+          0
+        ],
+        "from": "0ee0a671-a8b",
+        "to": "2098157f-1ed",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "8400bb99-9aa_0",
+        "L": [
+          [
+            -1372.6376299454064,
+            6926.6663721393315
+          ],
+          [
+            -1368.4376299454063,
+            6910.6663721393315
+          ]
+        ],
+        "R": [
+          [
+            -1380.7623700545937,
+            6924.533627860669
+          ],
+          [
+            -1376.5623700545937,
+            6908.533627860669
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "b3a3631460cd4be09b73c9f05c3a2fef47c51f7512fad42ca153ec90031714bd"
+    },
+    {
+      "id": "96153ed1-86c_0",
+      "expected": {
+        "id": "96153ed1-86c_0",
+        "cls": "service",
+        "w": 4.5,
+        "lanes": 1,
+        "oneway": null,
+        "from": "f4a59263-0c2",
+        "to": "cf49f221-a4a",
+        "pts": [
+          [
+            8107.8,
+            992.3
+          ],
+          [
+            8117.9,
+            1002.5
+          ],
+          [
+            8128.1,
+            1012.8
+          ],
+          [
+            8135.6,
+            1018.1
+          ],
+          [
+            8135.9,
+            1018.3
+          ]
+        ],
+        "elev": [
+          0,
+          5.65,
+          6.8,
+          6.8,
+          6.8
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "96153ed1-86c_0",
+        "cls": "service",
+        "w": 4.5,
+        "oneway": null,
+        "pts": [
+          [
+            8107.8,
+            992.3
+          ],
+          [
+            8117.9,
+            1002.5
+          ],
+          [
+            8128.1,
+            1012.8
+          ],
+          [
+            8135.6,
+            1018.1
+          ],
+          [
+            8135.9,
+            1018.3
+          ]
+        ],
+        "elev": [
+          0,
+          5.65,
+          6.8,
+          6.8,
+          6.8
+        ],
+        "from": "f4a59263-0c2",
+        "to": "cf49f221-a4a",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "96153ed1-86c_0",
+        "L": [
+          [
+            8104.815557934371,
+            995.2551828296914
+          ],
+          [
+            8114.915629294061,
+            1005.4552548941733
+          ],
+          [
+            8125.32295586442,
+            1015.9508769999856
+          ],
+          [
+            8133.179658603508,
+            1021.5324841622979
+          ],
+          [
+            8133.57025917585,
+            1021.7946112362166
+          ]
+        ],
+        "R": [
+          [
+            8110.784442065629,
+            989.3448171703085
+          ],
+          [
+            8120.884370705939,
+            999.5447451058267
+          ],
+          [
+            8130.877044135581,
+            1009.6491230000144
+          ],
+          [
+            8138.020341396493,
+            1014.6675158377021
+          ],
+          [
+            8138.229740824149,
+            1014.8053887637833
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "ac48f913ff17cd75c30da9f57690a7cda03ba10e5a5e4209321668a568c1329e"
+    },
+    {
+      "id": "a52720d3-a4a_0",
+      "expected": {
+        "id": "a52720d3-a4a_0",
+        "cls": "residential",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null,
+        "from": "f4fd9c7b-9f9",
+        "to": "bcdfae03-416",
+        "pts": [
+          [
+            -1359.8,
+            6765.2
+          ],
+          [
+            -1360.8,
+            6754.3
+          ],
+          [
+            -1360.8,
+            6747.6
+          ]
+        ],
+        "elev": [
+          0,
+          0.88,
+          1.41
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "a52720d3-a4a_0",
+        "cls": "residential",
+        "w": 6,
+        "oneway": null,
+        "pts": [
+          [
+            -1359.8,
+            6765.2
+          ],
+          [
+            -1360.8,
+            6754.3
+          ],
+          [
+            -1360.8,
+            6747.6
+          ]
+        ],
+        "elev": [
+          0,
+          0.88,
+          1.41
+        ],
+        "from": "f4fd9c7b-9f9",
+        "to": "bcdfae03-416",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "a52720d3-a4a_0",
+        "L": [
+          [
+            -1355.6175644797684,
+            6764.816290319244
+          ],
+          [
+            -1356.6067630715995,
+            6754.061747901796
+          ],
+          [
+            -1356.6,
+            6747.6
+          ]
+        ],
+        "R": [
+          [
+            -1363.9824355202315,
+            6765.583709680755
+          ],
+          [
+            -1364.9932369284004,
+            6754.538252098205
+          ],
+          [
+            -1365,
+            6747.6
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "b6c97c176a28e174bedbfec5e5c6e7fb3b82d230914db1230fe776c7047a20f1"
+    },
+    {
+      "id": "a7d70aad-dd0_0",
+      "expected": {
+        "id": "a7d70aad-dd0_0",
+        "cls": "service",
+        "w": 5.5,
+        "lanes": 1,
+        "oneway": "backward",
+        "from": "44ea164f-1d3",
+        "to": "a4615548-9ea",
+        "pts": [
+          [
+            -11696.4,
+            -3005.2
+          ],
+          [
+            -11689.7,
+            -3001.9
+          ],
+          [
+            -11683,
+            -3000.8
+          ],
+          [
+            -11676.3,
+            -3002.1
+          ],
+          [
+            -11669.6,
+            -3007.4
+          ],
+          [
+            -11664.9,
+            -3012.2
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "a7d70aad-dd0_0",
+        "cls": "service",
+        "w": 5.5,
+        "oneway": "backward",
+        "pts": [
+          [
+            -11696.4,
+            -3005.2
+          ],
+          [
+            -11689.7,
+            -3001.9
+          ],
+          [
+            -11683,
+            -3000.8
+          ],
+          [
+            -11676.3,
+            -3002.1
+          ],
+          [
+            -11669.6,
+            -3007.4
+          ],
+          [
+            -11664.9,
+            -3012.2
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8
+        ],
+        "from": "44ea164f-1d3",
+        "to": "a4615548-9ea",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "a7d70aad-dd0_0",
+        "L": [
+          [
+            -11698.255769254705,
+            -3001.4322260586273
+          ],
+          [
+            -11691.010275865365,
+            -2997.9096144100295
+          ],
+          [
+            -11682.937320413912,
+            -2996.600467732058
+          ],
+          [
+            -11674.444230745294,
+            -2998.332226058627
+          ],
+          [
+            -11666.814810476315,
+            -3004.2563207356425
+          ],
+          [
+            -11661.899056208727,
+            -3009.261575871045
+          ]
+        ],
+        "R": [
+          [
+            -11694.544230745294,
+            -3008.9677739413723
+          ],
+          [
+            -11688.389724134637,
+            -3005.8903855899707
+          ],
+          [
+            -11683.062679586088,
+            -3004.9995322679424
+          ],
+          [
+            -11678.155769254705,
+            -3005.867773941373
+          ],
+          [
+            -11672.385189523686,
+            -3010.5436792643577
+          ],
+          [
+            -11667.900943791272,
+            -3015.1384241289547
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "f39be79d9cfbbc7edadd4a6375e9fff94563538ee69352730f954ec9c49dd157"
+    },
+    {
+      "id": "acf3a433-0f4_0",
+      "expected": {
+        "id": "acf3a433-0f4_0",
+        "cls": "service",
+        "w": 4.5,
+        "lanes": 1,
+        "oneway": null,
+        "from": "76748ce6-f4e",
+        "to": "bf69cef6-9da",
+        "pts": [
+          [
+            -4051.4,
+            4375
+          ],
+          [
+            -4053.1,
+            4365.2
+          ],
+          [
+            -4057.3,
+            4353.3
+          ],
+          [
+            -4061.5,
+            4341.5
+          ],
+          [
+            -4065.7,
+            4329.6
+          ],
+          [
+            -4069.9,
+            4317.7
+          ],
+          [
+            -4074.1,
+            4305.9
+          ],
+          [
+            -4078.3,
+            4294
+          ],
+          [
+            -4082.5,
+            4282.1
+          ],
+          [
+            -4086.7,
+            4270.3
+          ],
+          [
+            -4090.9,
+            4258.4
+          ],
+          [
+            -4095.1,
+            4246.5
+          ],
+          [
+            -4099.3,
+            4234.7
+          ],
+          [
+            -4103.5,
+            4222.8
+          ],
+          [
+            -4107.7,
+            4210.9
+          ],
+          [
+            -4111.9,
+            4199.1
+          ],
+          [
+            -4121.6,
+            4178.9
+          ],
+          [
+            -4124.5,
+            4172.8
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          0.48,
+          1.49,
+          3.04,
+          4.56,
+          5.5,
+          6.46,
+          6.8,
+          6.8,
+          6.8,
+          6,
+          4.28,
+          2.32,
+          0.89,
+          0,
+          0,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "acf3a433-0f4_0",
+        "cls": "service",
+        "w": 4.5,
+        "oneway": null,
+        "pts": [
+          [
+            -4051.4,
+            4375
+          ],
+          [
+            -4053.1,
+            4365.2
+          ],
+          [
+            -4057.3,
+            4353.3
+          ],
+          [
+            -4061.5,
+            4341.5
+          ],
+          [
+            -4065.7,
+            4329.6
+          ],
+          [
+            -4069.9,
+            4317.7
+          ],
+          [
+            -4074.1,
+            4305.9
+          ],
+          [
+            -4078.3,
+            4294
+          ],
+          [
+            -4082.5,
+            4282.1
+          ],
+          [
+            -4086.7,
+            4270.3
+          ],
+          [
+            -4090.9,
+            4258.4
+          ],
+          [
+            -4095.1,
+            4246.5
+          ],
+          [
+            -4099.3,
+            4234.7
+          ],
+          [
+            -4103.5,
+            4222.8
+          ],
+          [
+            -4107.7,
+            4210.9
+          ],
+          [
+            -4111.9,
+            4199.1
+          ],
+          [
+            -4121.6,
+            4178.9
+          ],
+          [
+            -4124.5,
+            4172.8
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          0.48,
+          1.49,
+          3.04,
+          4.56,
+          5.5,
+          6.46,
+          6.8,
+          6.8,
+          6.8,
+          6,
+          4.28,
+          2.32,
+          0.89,
+          0,
+          0,
+          0
+        ],
+        "from": "76748ce6-f4e",
+        "to": "bf69cef6-9da",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "acf3a433-0f4_0",
+        "L": [
+          [
+            -4047.2618010940773,
+            4374.282149169381
+          ],
+          [
+            -4049.047131176681,
+            4364.098067923614
+          ],
+          [
+            -4053.3412942911,
+            4351.896914432288
+          ],
+          [
+            -4057.5412942911,
+            4340.096914432289
+          ],
+          [
+            -4061.7394405989517,
+            4328.202155505513
+          ],
+          [
+            -4065.9412942911,
+            4316.296914432289
+          ],
+          [
+            -4070.1412942910997,
+            4304.496914432288
+          ],
+          [
+            -4074.339440598952,
+            4292.602155505512
+          ],
+          [
+            -4078.5412942911,
+            4280.696914432289
+          ],
+          [
+            -4082.7412942910996,
+            4268.896914432289
+          ],
+          [
+            -4086.939440598952,
+            4257.002155505512
+          ],
+          [
+            -4091.1412942910997,
+            4245.096914432288
+          ],
+          [
+            -4095.3412942911,
+            4233.296914432288
+          ],
+          [
+            -4099.539440598952,
+            4221.402155505512
+          ],
+          [
+            -4103.7412942911,
+            4209.496914432289
+          ],
+          [
+            -4108.047731824555,
+            4197.426671011292
+          ],
+          [
+            -4117.812255762546,
+            4177.085339262664
+          ],
+          [
+            -4120.7068371807145,
+            4170.996693085914
+          ]
+        ],
+        "R": [
+          [
+            -4055.538198905923,
+            4375.717850830619
+          ],
+          [
+            -4057.152868823319,
+            4366.301932076386
+          ],
+          [
+            -4061.2587057089004,
+            4354.703085567712
+          ],
+          [
+            -4065.4587057089,
+            4342.903085567711
+          ],
+          [
+            -4069.660559401048,
+            4330.997844494488
+          ],
+          [
+            -4073.8587057089003,
+            4319.103085567711
+          ],
+          [
+            -4078.0587057089,
+            4307.303085567712
+          ],
+          [
+            -4082.2605594010483,
+            4295.397844494488
+          ],
+          [
+            -4086.4587057089,
+            4283.503085567711
+          ],
+          [
+            -4090.6587057089,
+            4271.703085567711
+          ],
+          [
+            -4094.8605594010482,
+            4259.797844494487
+          ],
+          [
+            -4099.058705708901,
+            4247.903085567712
+          ],
+          [
+            -4103.2587057089,
+            4236.103085567712
+          ],
+          [
+            -4107.460559401048,
+            4224.197844494488
+          ],
+          [
+            -4111.6587057089,
+            4212.303085567711
+          ],
+          [
+            -4115.752268175444,
+            4200.773328988709
+          ],
+          [
+            -4125.387744237455,
+            4180.714660737335
+          ],
+          [
+            -4128.2931628192855,
+            4174.603306914087
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "9883342cdc340f4b5d9c7a8595324e6559ab64d64733406018058d6e02388a41"
+    },
+    {
+      "id": "c5a4de33-6f9_0",
+      "expected": {
+        "id": "c5a4de33-6f9_0",
+        "cls": "service",
+        "w": 5.5,
+        "lanes": 1,
+        "oneway": "backward",
+        "from": "66267612-fa1",
+        "to": "44ea164f-1d3",
+        "pts": [
+          [
+            -11761.5,
+            -2982.6
+          ],
+          [
+            -11753,
+            -2998.1
+          ],
+          [
+            -11750.9,
+            -3000.7
+          ],
+          [
+            -11748.8,
+            -3003.2
+          ],
+          [
+            -11744.4,
+            -3005.7
+          ],
+          [
+            -11739.7,
+            -3007.2
+          ],
+          [
+            -11725.2,
+            -3006.5
+          ],
+          [
+            -11710.8,
+            -3005.9
+          ],
+          [
+            -11696.4,
+            -3005.2
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          0,
+          0.49,
+          1.65,
+          3.17,
+          6.8,
+          6.8,
+          6.8
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "c5a4de33-6f9_0",
+        "cls": "service",
+        "w": 5.5,
+        "oneway": "backward",
+        "pts": [
+          [
+            -11761.5,
+            -2982.6
+          ],
+          [
+            -11753,
+            -2998.1
+          ],
+          [
+            -11750.9,
+            -3000.7
+          ],
+          [
+            -11748.8,
+            -3003.2
+          ],
+          [
+            -11744.4,
+            -3005.7
+          ],
+          [
+            -11739.7,
+            -3007.2
+          ],
+          [
+            -11725.2,
+            -3006.5
+          ],
+          [
+            -11710.8,
+            -3005.9
+          ],
+          [
+            -11696.4,
+            -3005.2
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          0,
+          0.49,
+          1.65,
+          3.17,
+          6.8,
+          6.8,
+          6.8
+        ],
+        "from": "66267612-fa1",
+        "to": "44ea164f-1d3",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "c5a4de33-6f9_0",
+        "L": [
+          [
+            -11757.81738788358,
+            -2980.580503032931
+          ],
+          [
+            -11749.37576514271,
+            -2995.9775199178303
+          ],
+          [
+            -11747.657893010408,
+            -2998.030029537983
+          ],
+          [
+            -11746.239214804431,
+            -2999.8709792457603
+          ],
+          [
+            -11742.709913891678,
+            -3001.8550541035715
+          ],
+          [
+            -11739.525151712209,
+            -3003.003641093012
+          ],
+          [
+            -11725.388736483359,
+            -3002.304242793029
+          ],
+          [
+            -11710.989390488128,
+            -3001.704272263003
+          ],
+          [
+            -11696.603925866335,
+            -3001.0049536068072
+          ]
+        ],
+        "R": [
+          [
+            -11765.18261211642,
+            -2984.6194969670687
+          ],
+          [
+            -11756.62423485729,
+            -3000.2224800821696
+          ],
+          [
+            -11754.142106989591,
+            -3003.3699704620167
+          ],
+          [
+            -11751.360785195568,
+            -3006.5290207542394
+          ],
+          [
+            -11746.090086108321,
+            -3009.544945896428
+          ],
+          [
+            -11739.874848287793,
+            -3011.3963589069876
+          ],
+          [
+            -11725.011263516642,
+            -3010.695757206971
+          ],
+          [
+            -11710.61060951187,
+            -3010.095727736997
+          ],
+          [
+            -11696.196074133664,
+            -3009.3950463931924
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "162c81317524eb724713522fd3243c0878d6e57cb95a51940897c54a9e5ac047"
+    },
+    {
+      "id": "dbb99bac-943_0",
+      "expected": {
+        "id": "dbb99bac-943_0",
+        "cls": "service",
+        "w": 5.5,
+        "lanes": 1,
+        "oneway": "backward",
+        "from": "44ea164f-1d3",
+        "to": "a4615548-9ea",
+        "pts": [
+          [
+            -11696.4,
+            -3005.2
+          ],
+          [
+            -11691.3,
+            -3013.4
+          ],
+          [
+            -11686.6,
+            -3016.1
+          ],
+          [
+            -11682.4,
+            -3017.4
+          ],
+          [
+            -11676.9,
+            -3017.7
+          ],
+          [
+            -11672.3,
+            -3016.4
+          ],
+          [
+            -11664.9,
+            -3012.2
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "dbb99bac-943_0",
+        "cls": "service",
+        "w": 5.5,
+        "oneway": "backward",
+        "pts": [
+          [
+            -11696.4,
+            -3005.2
+          ],
+          [
+            -11691.3,
+            -3013.4
+          ],
+          [
+            -11686.6,
+            -3016.1
+          ],
+          [
+            -11682.4,
+            -3017.4
+          ],
+          [
+            -11676.9,
+            -3017.7
+          ],
+          [
+            -11672.3,
+            -3016.4
+          ],
+          [
+            -11664.9,
+            -3012.2
+          ]
+        ],
+        "elev": [
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8,
+          6.8
+        ],
+        "from": "44ea164f-1d3",
+        "to": "a4615548-9ea",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "dbb99bac-943_0",
+        "L": [
+          [
+            -11692.833528790236,
+            -3002.9818288817314
+          ],
+          [
+            -11688.17674021458,
+            -3010.5919315690717
+          ],
+          [
+            -11684.878258295686,
+            -3012.2691247078997
+          ],
+          [
+            -11681.716453059349,
+            -3013.2559966723074
+          ],
+          [
+            -11677.313818209053,
+            -3013.5204360885546
+          ],
+          [
+            -11674.04994978407,
+            -3012.581927743844
+          ],
+          [
+            -11666.973143181725,
+            -3008.5473191560077
+          ]
+        ],
+        "R": [
+          [
+            -11699.966471209764,
+            -3007.418171118268
+          ],
+          [
+            -11694.423259785419,
+            -3016.2080684309285
+          ],
+          [
+            -11688.321741704314,
+            -3019.9308752921
+          ],
+          [
+            -11683.08354694065,
+            -3021.5440033276927
+          ],
+          [
+            -11676.486181790946,
+            -3021.879563911445
+          ],
+          [
+            -11670.550050215928,
+            -3020.218072256156
+          ],
+          [
+            -11662.826856818274,
+            -3015.852680843992
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "66e77ee613727a4cef83e6482c2277ee0607780848173e7b58a60d2c3bf10b94"
+    },
+    {
+      "id": "f8d87d04-701_0",
+      "expected": {
+        "id": "f8d87d04-701_0",
+        "cls": "service",
+        "w": 4.5,
+        "lanes": 1,
+        "oneway": null,
+        "from": "19114662-8bd",
+        "to": "b8ed35b2-97d",
+        "pts": [
+          [
+            -4821.5,
+            -1234.6
+          ],
+          [
+            -4821.2,
+            -1215.5
+          ],
+          [
+            -4821.3,
+            -1207.6
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          1.45
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "f8d87d04-701_0",
+        "cls": "service",
+        "w": 4.5,
+        "oneway": null,
+        "pts": [
+          [
+            -4821.5,
+            -1234.6
+          ],
+          [
+            -4821.2,
+            -1215.5
+          ],
+          [
+            -4821.3,
+            -1207.6
+          ]
+        ],
+        "elev": [
+          0,
+          0,
+          1.45
+        ],
+        "from": "19114662-8bd",
+        "to": "b8ed35b2-97d",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "f8d87d04-701_0",
+        "L": [
+          [
+            -4825.699482017935,
+            -1234.5340395494563
+          ],
+          [
+            -4825.399884778404,
+            -1215.4688897423823
+          ],
+          [
+            -4825.499663555894,
+            -1207.6531602981759
+          ]
+        ],
+        "R": [
+          [
+            -4817.300517982065,
+            -1234.6659604505435
+          ],
+          [
+            -4817.0001152215955,
+            -1215.5311102576177
+          ],
+          [
+            -4817.100336444107,
+            -1207.546839701824
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "c0045747acae62cb1f2e635465ec9808f2d5272b50bd54c65363c42e4a9e2921"
+    },
+    {
+      "id": "f8d87d04-701_1",
+      "expected": {
+        "id": "f8d87d04-701_1",
+        "cls": "service",
+        "w": 4.5,
+        "lanes": 1,
+        "oneway": null,
+        "from": "b8ed35b2-97d",
+        "to": "29055edd-bb7",
+        "pts": [
+          [
+            -4821.3,
+            -1207.6
+          ],
+          [
+            -4821.6,
+            -1192.3
+          ],
+          [
+            -4821.8,
+            -1177.1
+          ],
+          [
+            -4821.6,
+            -1165
+          ],
+          [
+            -4821.5,
+            -1152.9
+          ],
+          [
+            -4821.3,
+            -1140.8
+          ],
+          [
+            -4821.1,
+            -1128.7
+          ]
+        ],
+        "elev": [
+          1.45,
+          2.8,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "physicalWidth": 8.4,
+      "preserveCoarseControls": true,
+      "historicalRoad": {
+        "id": "f8d87d04-701_1",
+        "cls": "service",
+        "w": 4.5,
+        "oneway": null,
+        "pts": [
+          [
+            -4821.3,
+            -1207.6
+          ],
+          [
+            -4821.6,
+            -1192.3
+          ],
+          [
+            -4821.8,
+            -1177.1
+          ],
+          [
+            -4821.6,
+            -1165
+          ],
+          [
+            -4821.5,
+            -1152.9
+          ],
+          [
+            -4821.3,
+            -1140.8
+          ],
+          [
+            -4821.1,
+            -1128.7
+          ]
+        ],
+        "elev": [
+          1.45,
+          2.8,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "from": "b8ed35b2-97d",
+        "to": "29055edd-bb7",
+        "name": null,
+        "lanes": 1,
+        "maxspeed": null
+      },
+      "historicalFootprint": {
+        "id": "f8d87d04-701_1",
+        "L": [
+          [
+            -4825.499192850958,
+            -1207.6823371147245
+          ],
+          [
+            -4825.799435749309,
+            -1192.368843209005
+          ],
+          [
+            -4826,
+            -1177.1
+          ],
+          [
+            -4825.7996773133345,
+            -1164.9479378845454
+          ],
+          [
+            -4825.699677313334,
+            -1152.8479378845454
+          ],
+          [
+            -4825.499426386231,
+            -1140.7305879936162
+          ],
+          [
+            -4825.299426386231,
+            -1128.630587993616
+          ]
+        ],
+        "R": [
+          [
+            -4817.100807149042,
+            -1207.5176628852753
+          ],
+          [
+            -4817.400564250692,
+            -1192.2311567909949
+          ],
+          [
+            -4817.6,
+            -1177.1
+          ],
+          [
+            -4817.400322686666,
+            -1165.0520621154546
+          ],
+          [
+            -4817.300322686666,
+            -1152.9520621154547
+          ],
+          [
+            -4817.1005736137695,
+            -1140.8694120063838
+          ],
+          [
+            -4816.90057361377,
+            -1128.769412006384
+          ]
+        ]
+      },
+      "historicalFootprintSHA256": "08de49e21238bca454571313454905d46f0e3561ecb7e16b0e787d417d1b03f5"
+    }
+  ]
+}

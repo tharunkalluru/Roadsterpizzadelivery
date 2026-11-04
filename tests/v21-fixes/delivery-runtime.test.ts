@@ -26,6 +26,7 @@ class ModuleAdapter implements DeliveryModule {
   target: DeliveryPoint = { x: 0, y: 0, z: 0 };
   status = { instruction: 'Match the truck', canDrop: true, actionLabel: 'DROP' };
   supports: MovingRailBody[] = [];
+  trafficReservations:MovingRailBody[]=[];
   movement: any = { mode: 'normal' };
   arrival?: ModuleArrival;
   frames = 0; teardownCount = 0;
@@ -93,6 +94,44 @@ test('static scene camera queries use the current module solids immediately and 
   f.runtime.dispose();
 });
 
+test('runtime forwards the rear bay as NPC-only avoidance and clears it on retry without adding player solids',()=>{
+  const f=fixture(),snapshots:{bodies:MovingRailBody[];reservations:MovingRailBody[]}[]=[];
+  f.game.traffic.setKinematicVehicles=(bodies:MovingRailBody[],_dt:number,reservations:MovingRailBody[]=[])=>snapshots.push({bodies:[...bodies],reservations:[...reservations]});
+  pickup(f);f.runtime.beforePlayer(.016);
+  const body:MovingRailBody={id:'delivery-log-truck',x:160,y:0,z:0,hx:1,hz:0,halfWidth:3.1,halfLength:10,bottom:.2,roof:5.8,previous:{x:160,y:0,z:0,hx:1,hz:0}};
+  const bay:MovingRailBody={...body,id:'delivery-log-truck:rear-approach',x:143,halfLength:7};
+  f.module.supports.push(body);f.module.trafficReservations.push(bay);f.runtime.beforePlayer(.016);
+  assert.deepEqual(snapshots.at(-1),{bodies:[body],reservations:[bay]});
+  assert.ok(f.runtime.supports.includes(body));assert.ok(!f.runtime.supports.includes(bay),'planning space must not become a roof or invisible car barrier');
+  f.runtime.retry();assert.deepEqual(snapshots.at(-1),{bodies:[],reservations:[]});f.runtime.dispose();
+});
+
+test('initial truck route selection rejects an occupied rear bay even when the physical container fits',()=>{
+  const f=fixture({oneway:'forward'}),tested:string[]=[];
+  f.game.traffic.kinematicPoseClear=(body:MovingRailBody)=>{tested.push(body.id);return body.id!=='delivery-log-truck:rear-approach';};
+  pickup(f);f.runtime.beforePlayer(.016);
+  assert.equal(f.module.frames,0,'the scene retries a clear placement rather than introducing its marker through parked traffic');
+  assert.ok(tested.includes('delivery-log-truck'));assert.ok(tested.includes('delivery-log-truck:rear-approach'));
+  f.game.traffic.kinematicPoseClear=()=>true;for(let i=0;i<70;i++)f.runtime.beforePlayer(.016);
+  assert.ok(f.module.frames>0,'a later real clearance can prepare the same level normally');f.runtime.dispose();
+});
+
+test('an almost entirely blocked truck route retries rather than spawning in its final short tail',()=>{
+  const f=fixture({oneway:'forward'});let bodies=0;
+  f.game.traffic.kinematicPoseClear=(body:MovingRailBody)=>{
+    if(body.id.endsWith(':rear-approach'))return true;
+    bodies++;return body.x<22;
+  };
+  pickup(f);f.runtime.beforePlayer(.016);
+  assert.ok(bodies>0,'the actual directed route was searched');
+  assert.equal(f.module.frames,0,'the clear last8m are insufficient for a physical truck approach');
+  assert.ok(f.runtime.activeOrder,'placement failure retains the collected delivery');
+  f.game.traffic.kinematicPoseClear=()=>true;
+  for(let i=0;i<70;i++)f.runtime.beforePlayer(.016);
+  assert.ok(f.module.frames>0,'unblocking an earlier real mapped start retries normally');
+  f.runtime.dispose();
+});
+
 test('story volume queries retain tyre-floor contact, cover body corners and current solids, and fail closed for pending or released geometry',()=>{
   const f=fixture();f.game.city.obstacles=new Map();f.game.city.walls=new Map();pickup(f);f.runtime.beforePlayer(.05);
   const query=f.module.ctx.storyPoseClear!,pose={x:150,y:.55,z:0,yaw:0};
@@ -143,6 +182,26 @@ test('automatic story keeps the real scene and simulation alive until Next, then
   f.runtime.dispose();
 });
 
+test('flying through a delivery region cannot capture controls, open an automatic scene or apply assisted movement',()=>{
+  const f=fixture(),level=f.runtime.controller.levels[0];level.callMode='NONE';level.script=[];
+  pickup(f);f.runtime.beforePlayer(.05);approach(f);f.runtime.tick(.05,true);
+  f.module.story={entry:true,point:{x:f.game.player.pos.x,y:.55,z:f.game.player.pos.z}};
+  f.module.movement={mode:'underwater',center:{...f.module.story.point},radius:50,depth:6};
+  f.game.player.flying=true;
+  for(let i=0;i<60;i++)f.runtime.beforePlayer(.05);
+  assert.equal(f.runtime.cinematic,false);assert.equal(f.module.ctx.canInteract?.(),false);
+  assert.equal(f.game.player.deliveryMotion,undefined);
+  f.game.player.flying=false;f.game.player.speed=3;
+  for(let i=0;i<20;i++)f.runtime.beforePlayer(.05);
+  assert.equal(f.runtime.cinematic,false,'touching the marker while still rolling is not a stop');
+  f.game.player.speed=0;
+  for(let i=0;i<7;i++)f.runtime.beforePlayer(.05);
+  assert.equal(f.runtime.cinematic,false);
+  f.runtime.beforePlayer(.05);assert.equal(f.runtime.cinematic,true);
+  assert.equal(f.game.player.deliveryMotion?.mode,'underwater','assistance is enabled only after physical arrival');
+  f.runtime.dispose();
+});
+
 test('a real marked-rake landing can satisfy arrival beyond the customer distance radius, while proximity alone cannot',()=>{
   const f=fixture({levelIndex:1}),level=f.runtime.controller.levels[0];level.callMode='NONE';level.script=[];level.revealAt='afterDelivery';
   pickup(f);f.runtime.beforePlayer(.05);
@@ -150,7 +209,7 @@ test('a real marked-rake landing can satisfy arrival beyond the customer distanc
   f.module.story={entry:true,point:{...f.game.player.pos}};
   f.runtime.tick(.05,true);f.runtime.beforePlayer(.05);
   assert.equal(f.runtime.controller.state,'EN_ROUTE');assert.equal(f.runtime.cinematic,false);
-  f.module.storyArrivalReady=true;f.runtime.tick(.05,true);f.runtime.beforePlayer(.05);
+  f.module.storyArrivalReady=true;f.runtime.tick(.05,true);for(let i=0;i<8;i++)f.runtime.beforePlayer(.05);
   assert.equal(f.runtime.controller.canDrop,true);assert.equal(f.runtime.cinematic,true);
   f.runtime.dispose();
 });

@@ -1,0 +1,1936 @@
+{
+  "scope": "Retained source audit of the held23-node inferred model. Missing source geometry is explicit; this analyzer performs no network query, model mutation, source activation or LP rebase.",
+  "preflightSHA256": "ae251cceb5a611eed9bee6280f491c09c393d28fd420ad1cd1bad20f90215c25",
+  "heldModelSHA256": "d2d097695c56afa7ad05a80c9a7b9fd97aed5fa9b1fc48dbe7fbf9e19cf7513b",
+  "sourceFiles": [
+    {
+      "file": "docs/qa/evidence/reported-roads/all114-overture-geometry.json",
+      "sha256": "163f9d37c22eb3d7e9945460cd552e1c90b20a021215a7c65d642ba8d531f3b9"
+    },
+    {
+      "file": "docs/qa/evidence/reported-roads/east-93f-source-bridge-binding.json",
+      "sha256": "9d7b8ef15845521e4504859068c413d51bf485c61d8af4ffb3544bb15cd6eadf"
+    },
+    {
+      "file": "docs/qa/evidence/reported-roads/extra14-overture-geometry.json",
+      "sha256": "e24e083619c5d1450a9a5c8fa9fc129e808222a938ea98f816aee799ec6c8737"
+    },
+    {
+      "file": "docs/qa/evidence/reported-roads/langar-de9-retained-geometry.json",
+      "sha256": "a894c8955e2efc40ea5fc64b5ef8ff82cb3d979412a549f76c940b72e3b72d89"
+    },
+    {
+      "file": "docs/qa/evidence/reported-roads/masab-golkonda-retained-source.json",
+      "sha256": "c8790055fedd958cb563ebc896d4b7db80570afde49c007575ce154acee694f5"
+    },
+    {
+      "file": "docs/qa/evidence/reported-roads/tile-boundary-source-audit-20261103/retained-source-2026-10-21.json",
+      "sha256": "5ff00c285ca24fd6553754be7ab4beee74a6011cb4ef2d37714ab6838c975f63"
+    },
+    {
+      "file": "docs/qa/evidence/reported-roads/geodetic-known-model-source-completion-20261103/retained-35-source-2026-10-21.json",
+      "sha256": "269077a489fc4397897923509e9f199eed7009290820ce32c873b4c46ad7e60e"
+    }
+  ],
+  "summary": {
+    "heldModelNodes": 23,
+    "incidentRoads": 47,
+    "availableIncidentRoads": 47,
+    "availableKnownNodes": 23,
+    "missingSourcePrefixes": 0,
+    "unavailableKnownNodes": 0,
+    "inheritedCutDisplacementsAbovePoint1m": 2,
+    "maximumInheritedCutDisplacement": 0.3169659964121155,
+    "heldAfterBeyond5mFromCorrectSource": 0,
+    "knownIncidentRoadIDsIn52CutRepair": []
+  },
+  "missingSourcePrefixes": [],
+  "unavailableKnownNodes": [],
+  "rows": [
+    {
+      "road": "51b5e834-d21_0",
+      "node": "926e8852-543",
+      "sourceSegmentID": "51b5e834-d21d-42cd-a01b-468c52300052",
+      "connectorID": "926e8852-543d-47fa-b917-4f0b269e1b2e",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4910.0,
+        754.7
+      ],
+      "geodeticSourceEndpoint": [
+        -4909.985661981931,
+        754.6736054451108
+      ],
+      "inheritedSourceCutDisplacement": 0.03003749806404586,
+      "heldInferredBefore": [
+        -4910,
+        754.7
+      ],
+      "heldInferredAfter": [
+        -4911.881678957482,
+        753.7344894093377
+      ],
+      "heldInferredDelta": [
+        -1.8816789574824335,
+        -0.9655105906623506
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 2.1158495457436546
+    },
+    {
+      "road": "adb701c2-bb8_0",
+      "node": "59eccfc1-3d5",
+      "sourceSegmentID": "adb701c2-bb8b-425c-ac4a-e102d7baf9c4",
+      "connectorID": "59eccfc1-3d56-452b-97a8-5ee2eee59290",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4904.9,
+        757.4
+      ],
+      "geodeticSourceEndpoint": [
+        -4904.896107487206,
+        757.4183157963249
+      ],
+      "inheritedSourceCutDisplacement": 0.01872485115738654,
+      "heldInferredBefore": [
+        -4904.9,
+        757.4
+      ],
+      "heldInferredAfter": [
+        -4903.0183210425175,
+        758.3655105906623
+      ],
+      "heldInferredDelta": [
+        1.8816789574824335,
+        0.9655105906623506
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 2.10315475186093
+    },
+    {
+      "road": "e0d9297d-546_0",
+      "node": "926e8852-543",
+      "sourceSegmentID": "e0d9297d-546c-4715-a8b0-e5afdf92e291",
+      "connectorID": "926e8852-543d-47fa-b917-4f0b269e1b2e",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4910.0,
+        754.7
+      ],
+      "geodeticSourceEndpoint": [
+        -4909.985661981931,
+        754.6736054451108
+      ],
+      "inheritedSourceCutDisplacement": 0.03003749806404586,
+      "heldInferredBefore": [
+        -4910,
+        754.7
+      ],
+      "heldInferredAfter": [
+        -4911.881678957482,
+        753.7344894093377
+      ],
+      "heldInferredDelta": [
+        -1.8816789574824335,
+        -0.9655105906623506
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 2.1158495457436546
+    },
+    {
+      "road": "d345a3dd-52a_0",
+      "node": "59eccfc1-3d5",
+      "sourceSegmentID": "d345a3dd-52a7-42b0-b7d2-c9d3301f677a",
+      "connectorID": "59eccfc1-3d56-452b-97a8-5ee2eee59290",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4904.9,
+        757.4
+      ],
+      "geodeticSourceEndpoint": [
+        -4904.896107487206,
+        757.4183157963249
+      ],
+      "inheritedSourceCutDisplacement": 0.01872485115738654,
+      "heldInferredBefore": [
+        -4904.9,
+        757.4
+      ],
+      "heldInferredAfter": [
+        -4903.0183210425175,
+        758.3655105906623
+      ],
+      "heldInferredDelta": [
+        1.8816789574824335,
+        0.9655105906623506
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 2.10315475186093
+    },
+    {
+      "road": "72e2e384-7c5_0",
+      "node": "7d6a6ea7-ed2",
+      "sourceSegmentID": "72e2e384-7c5f-4dc3-9f0b-85a9884b8ca0",
+      "connectorID": "7d6a6ea7-ed2f-42cd-b155-ba98d0c98b84",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4277.6,
+        313.6
+      ],
+      "geodeticSourceEndpoint": [
+        -4277.627110397393,
+        313.6163597866312
+      ],
+      "inheritedSourceCutDisplacement": 0.03166411636874319,
+      "heldInferredBefore": [
+        -4277.6,
+        313.6
+      ],
+      "heldInferredAfter": [
+        -4278.559938070891,
+        315.28838365438304
+      ],
+      "heldInferredDelta": [
+        -0.9599380708909319,
+        1.6883836543830377
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 1.914636070582333
+    },
+    {
+      "road": "72e2e384-7c5_0",
+      "node": "59eccfc1-3d5",
+      "sourceSegmentID": "72e2e384-7c5f-4dc3-9f0b-85a9884b8ca0",
+      "connectorID": "59eccfc1-3d56-452b-97a8-5ee2eee59290",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4904.9,
+        757.4
+      ],
+      "geodeticSourceEndpoint": [
+        -4904.896107487206,
+        757.4183157963249
+      ],
+      "inheritedSourceCutDisplacement": 0.01872485115738654,
+      "heldInferredBefore": [
+        -4904.9,
+        757.4
+      ],
+      "heldInferredAfter": [
+        -4903.0183210425175,
+        758.3655105906623
+      ],
+      "heldInferredDelta": [
+        1.8816789574824335,
+        0.9655105906623506
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 2.10315475186093
+    },
+    {
+      "road": "4e324c1c-ae5_0",
+      "node": "926e8852-543",
+      "sourceSegmentID": "4e324c1c-ae5b-4591-b786-81b4dc1882be",
+      "connectorID": "926e8852-543d-47fa-b917-4f0b269e1b2e",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4910.0,
+        754.7
+      ],
+      "geodeticSourceEndpoint": [
+        -4909.985661981931,
+        754.6736054451108
+      ],
+      "inheritedSourceCutDisplacement": 0.03003749806404586,
+      "heldInferredBefore": [
+        -4910,
+        754.7
+      ],
+      "heldInferredAfter": [
+        -4911.881678957482,
+        753.7344894093377
+      ],
+      "heldInferredDelta": [
+        -1.8816789574824335,
+        -0.9655105906623506
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 2.1158495457436546
+    },
+    {
+      "road": "4e324c1c-ae5_0",
+      "node": "ac957269-6fd",
+      "sourceSegmentID": "4e324c1c-ae5b-4591-b786-81b4dc1882be",
+      "connectorID": "ac957269-6fd1-4bec-9d86-52ec25bb4cd1",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4273.0,
+        307.8
+      ],
+      "geodeticSourceEndpoint": [
+        -4272.983821640435,
+        307.7727829096243
+      ],
+      "inheritedSourceCutDisplacement": 0.03166242768221871,
+      "heldInferredBefore": [
+        -4273,
+        307.8
+      ],
+      "heldInferredAfter": [
+        -4272.0400619291095,
+        306.111616345617
+      ],
+      "heldInferredDelta": [
+        0.9599380708909319,
+        -1.6883836543830377
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 1.9105383393424025
+    },
+    {
+      "road": "638e91f6-7b3_2",
+      "node": "10720ccf-b9f",
+      "sourceSegmentID": "638e91f6-7b3d-48c7-b51d-f05df195e7c4",
+      "connectorID": "10720ccf-b9fe-4a6d-a430-6e27566485b3",
+      "fraction": 0.655077484,
+      "packedEndpoint": [
+        -2275.2,
+        657.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2275.200865212184,
+        657.6237462866372
+      ],
+      "inheritedSourceCutDisplacement": 0.02376204370799484,
+      "heldInferredBefore": [
+        -2275.2,
+        657.6
+      ],
+      "heldInferredAfter": [
+        -2275.199910167022,
+        657.6000275231758
+      ],
+      "heldInferredDelta": [
+        8.983297752002451e-05,
+        2.75231757686113e-05
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.023737983305310503
+    },
+    {
+      "road": "638e91f6-7b3_3",
+      "node": "10720ccf-b9f",
+      "sourceSegmentID": "638e91f6-7b3d-48c7-b51d-f05df195e7c4",
+      "connectorID": "10720ccf-b9fe-4a6d-a430-6e27566485b3",
+      "fraction": 0.655077484,
+      "packedEndpoint": [
+        -2275.2,
+        657.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2275.200865212184,
+        657.6237462866372
+      ],
+      "inheritedSourceCutDisplacement": 0.02376204370799484,
+      "heldInferredBefore": [
+        -2275.2,
+        657.6
+      ],
+      "heldInferredAfter": [
+        -2275.199910167022,
+        657.6000275231758
+      ],
+      "heldInferredDelta": [
+        8.983297752002451e-05,
+        2.75231757686113e-05
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.023737983305310503
+    },
+    {
+      "road": "638e91f6-7b3_3",
+      "node": "0c31766a-322",
+      "sourceSegmentID": "638e91f6-7b3d-48c7-b51d-f05df195e7c4",
+      "connectorID": "0c31766a-3223-4e8a-940d-bf13c6120634",
+      "fraction": 0.855439831,
+      "packedEndpoint": [
+        -2264.1,
+        629.7
+      ],
+      "geodeticSourceEndpoint": [
+        -2264.0973486203775,
+        629.7339475548962
+      ],
+      "inheritedSourceCutDisplacement": 0.03405093680545273,
+      "heldInferredBefore": [
+        -2264.1,
+        629.7
+      ],
+      "heldInferredAfter": [
+        -2264.0996799633253,
+        629.7000980533642
+      ],
+      "heldInferredDelta": [
+        0.0003200366747493596,
+        9.805336408408638e-05
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.033929690742866815
+    },
+    {
+      "road": "638e91f6-7b3_4",
+      "node": "0c31766a-322",
+      "sourceSegmentID": "638e91f6-7b3d-48c7-b51d-f05df195e7c4",
+      "connectorID": "0c31766a-3223-4e8a-940d-bf13c6120634",
+      "fraction": 0.855439831,
+      "packedEndpoint": [
+        -2264.1,
+        629.7
+      ],
+      "geodeticSourceEndpoint": [
+        -2264.0973486203775,
+        629.7339475548962
+      ],
+      "inheritedSourceCutDisplacement": 0.03405093680545273,
+      "heldInferredBefore": [
+        -2264.1,
+        629.7
+      ],
+      "heldInferredAfter": [
+        -2264.0996799633253,
+        629.7000980533642
+      ],
+      "heldInferredDelta": [
+        0.0003200366747493596,
+        9.805336408408638e-05
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.033929690742866815
+    },
+    {
+      "road": "638e91f6-7b3_4",
+      "node": "02fa2dd1-ebb",
+      "sourceSegmentID": "638e91f6-7b3d-48c7-b51d-f05df195e7c4",
+      "connectorID": "02fa2dd1-ebbe-443e-bd28-d9aab33c3f71",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2256.1,
+        609.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2256.0539399513746,
+        609.624517278979
+      ],
+      "inheritedSourceCutDisplacement": 0.052178779670526226,
+      "heldInferredBefore": [
+        -2256.1,
+        609.6
+      ],
+      "heldInferredAfter": [
+        -2256.099514108507,
+        609.6001488682367
+      ],
+      "heldInferredDelta": [
+        0.0004858914928750175,
+        0.00014886823672176553
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.05168000813102182
+    },
+    {
+      "road": "5ddb8ac5-761_0",
+      "node": "a1be698c-bc7",
+      "sourceSegmentID": "5ddb8ac5-761e-44ac-8be8-de72ca251930",
+      "connectorID": "a1be698c-bc74-40f0-8f1a-ff64b1d06ee3",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2202.5,
+        621.1
+      ],
+      "geodeticSourceEndpoint": [
+        -2202.4808005714826,
+        621.1013908047545
+      ],
+      "inheritedSourceCutDisplacement": 0.01924973748544526,
+      "heldInferredBefore": [
+        -2202.5,
+        621.1
+      ],
+      "heldInferredAfter": [
+        -2202.4995855067405,
+        621.1001269931284
+      ],
+      "heldInferredDelta": [
+        0.0004144932596530048,
+        0.000126993128306265
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.018827400576476087
+    },
+    {
+      "road": "8fcc1cb8-13e_0",
+      "node": "8393192d-1b1",
+      "sourceSegmentID": "8fcc1cb8-13e6-4947-9688-15bf65742c96",
+      "connectorID": "8393192d-1b19-4297-a377-040034b7fc8a",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2225.9,
+        576.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2225.856624973776,
+        576.5773192578381
+      ],
+      "inheritedSourceCutDisplacement": 0.048947001593132165,
+      "heldInferredBefore": [
+        -2225.9,
+        576.6
+      ],
+      "heldInferredAfter": [
+        -2225.8920969799715,
+        576.6024213403068
+      ],
+      "heldInferredDelta": [
+        0.007903020028582904,
+        0.002421340306804999
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.043455468790479915
+    },
+    {
+      "road": "fd821a82-dc7_0",
+      "node": "02fa2dd1-ebb",
+      "sourceSegmentID": "fd821a82-dc73-4d80-9675-6306dd04f840",
+      "connectorID": "02fa2dd1-ebbe-443e-bd28-d9aab33c3f71",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2256.1,
+        609.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2256.0539399513746,
+        609.624517278979
+      ],
+      "inheritedSourceCutDisplacement": 0.052178779670526226,
+      "heldInferredBefore": [
+        -2256.1,
+        609.6
+      ],
+      "heldInferredAfter": [
+        -2256.099514108507,
+        609.6001488682367
+      ],
+      "heldInferredDelta": [
+        0.0004858914928750175,
+        0.00014886823672176553
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.05168000813102182
+    },
+    {
+      "road": "fd821a82-dc7_0",
+      "node": "b022f1e7-8b0",
+      "sourceSegmentID": "fd821a82-dc73-4d80-9675-6306dd04f840",
+      "connectorID": "b022f1e7-8b0d-4aab-86ad-427ad364d58d",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2240.0,
+        572.8
+      ],
+      "geodeticSourceEndpoint": [
+        -2239.977747987466,
+        572.7812077638599
+      ],
+      "inheritedSourceCutDisplacement": 0.029125593572559075,
+      "heldInferredBefore": [
+        -2240,
+        572.8
+      ],
+      "heldInferredAfter": [
+        -2239.997622277775,
+        572.8007284904556
+      ],
+      "heldInferredDelta": [
+        0.0023777222249599817,
+        0.000728490455656103
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.027857605462594512
+    },
+    {
+      "road": "0d3113f2-f63_0",
+      "node": "02fa2dd1-ebb",
+      "sourceSegmentID": "0d3113f2-f636-4a0b-a073-13e759afee7d",
+      "connectorID": "02fa2dd1-ebbe-443e-bd28-d9aab33c3f71",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2256.1,
+        609.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2256.0539399513746,
+        609.624517278979
+      ],
+      "inheritedSourceCutDisplacement": 0.052178779670526226,
+      "heldInferredBefore": [
+        -2256.1,
+        609.6
+      ],
+      "heldInferredAfter": [
+        -2256.099514108507,
+        609.6001488682367
+      ],
+      "heldInferredDelta": [
+        0.0004858914928750175,
+        0.00014886823672176553
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.05168000813102182
+    },
+    {
+      "road": "12909958-fdd_0",
+      "node": "02fa2dd1-ebb",
+      "sourceSegmentID": "12909958-fdd4-4c27-a283-3405f82cb9cb",
+      "connectorID": "02fa2dd1-ebbe-443e-bd28-d9aab33c3f71",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2256.1,
+        609.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2256.0539399513746,
+        609.624517278979
+      ],
+      "inheritedSourceCutDisplacement": 0.052178779670526226,
+      "heldInferredBefore": [
+        -2256.1,
+        609.6
+      ],
+      "heldInferredAfter": [
+        -2256.099514108507,
+        609.6001488682367
+      ],
+      "heldInferredDelta": [
+        0.0004858914928750175,
+        0.00014886823672176553
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.05168000813102182
+    },
+    {
+      "road": "881bd341-9e6_0",
+      "node": "b022f1e7-8b0",
+      "sourceSegmentID": "881bd341-9e6b-483c-a6ff-6590c11b02e2",
+      "connectorID": "b022f1e7-8b0d-4aab-86ad-427ad364d58d",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2240.0,
+        572.8
+      ],
+      "geodeticSourceEndpoint": [
+        -2239.977747987466,
+        572.7812077638599
+      ],
+      "inheritedSourceCutDisplacement": 0.029125593572559075,
+      "heldInferredBefore": [
+        -2240,
+        572.8
+      ],
+      "heldInferredAfter": [
+        -2239.997622277775,
+        572.8007284904556
+      ],
+      "heldInferredDelta": [
+        0.0023777222249599817,
+        0.000728490455656103
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.027857605462594512
+    },
+    {
+      "road": "22216740-b65_0",
+      "node": "e708c144-b29",
+      "sourceSegmentID": "22216740-b659-42f0-a58e-82818e05177a",
+      "connectorID": "e708c144-b295-412c-be3c-185a7da58dc1",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2204.2,
+        525.1
+      ],
+      "geodeticSourceEndpoint": [
+        -2204.1808605282604,
+        525.102932789045
+      ],
+      "inheritedSourceCutDisplacement": 0.019362867299212654,
+      "heldInferredBefore": [
+        -2204.2,
+        525.1
+      ],
+      "heldInferredAfter": [
+        -2204.115723114966,
+        525.1258208909919
+      ],
+      "heldInferredDelta": [
+        0.08427688503388048,
+        0.025820890991857512
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.06904163831649218
+    },
+    {
+      "road": "22216740-b65_0",
+      "node": "50017f89-190",
+      "sourceSegmentID": "22216740-b659-42f0-a58e-82818e05177a",
+      "connectorID": "50017f89-1908-486b-b3bb-ecd278ab9ee7",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2221.8,
+        568.5
+      ],
+      "geodeticSourceEndpoint": [
+        -2221.818982576618,
+        568.4870641493562
+      ],
+      "inheritedSourceCutDisplacement": 0.02297116555448082,
+      "heldInferredBefore": [
+        -2221.8,
+        568.5
+      ],
+      "heldInferredAfter": [
+        -2221.7854458909296,
+        568.5044591119338
+      ],
+      "heldInferredDelta": [
+        0.014554109070520049,
+        0.004459111933745843
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.037779544862785445
+    },
+    {
+      "road": "95bb5930-a37_0",
+      "node": "50017f89-190",
+      "sourceSegmentID": "95bb5930-a372-4bd4-82c1-4cabd4049750",
+      "connectorID": "50017f89-1908-486b-b3bb-ecd278ab9ee7",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2221.8,
+        568.5
+      ],
+      "geodeticSourceEndpoint": [
+        -2221.818982576618,
+        568.4870641493562
+      ],
+      "inheritedSourceCutDisplacement": 0.02297116555448082,
+      "heldInferredBefore": [
+        -2221.8,
+        568.5
+      ],
+      "heldInferredAfter": [
+        -2221.7854458909296,
+        568.5044591119338
+      ],
+      "heldInferredDelta": [
+        0.014554109070520049,
+        0.004459111933745843
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.037779544862785445
+    },
+    {
+      "road": "bc95f7d6-f2e_0",
+      "node": "8393192d-1b1",
+      "sourceSegmentID": "bc95f7d6-f2eb-4a1f-be7e-845ee354348d",
+      "connectorID": "8393192d-1b19-4297-a377-040034b7fc8a",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2225.9,
+        576.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2225.856624973776,
+        576.5773192578381
+      ],
+      "inheritedSourceCutDisplacement": 0.048947001593132165,
+      "heldInferredBefore": [
+        -2225.9,
+        576.6
+      ],
+      "heldInferredAfter": [
+        -2225.8920969799715,
+        576.6024213403068
+      ],
+      "heldInferredDelta": [
+        0.007903020028582904,
+        0.002421340306804999
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.043455468790479915
+    },
+    {
+      "road": "bc95f7d6-f2e_0",
+      "node": "b022f1e7-8b0",
+      "sourceSegmentID": "bc95f7d6-f2eb-4a1f-be7e-845ee354348d",
+      "connectorID": "b022f1e7-8b0d-4aab-86ad-427ad364d58d",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2240.0,
+        572.8
+      ],
+      "geodeticSourceEndpoint": [
+        -2239.977747987466,
+        572.7812077638599
+      ],
+      "inheritedSourceCutDisplacement": 0.029125593572559075,
+      "heldInferredBefore": [
+        -2240,
+        572.8
+      ],
+      "heldInferredAfter": [
+        -2239.997622277775,
+        572.8007284904556
+      ],
+      "heldInferredDelta": [
+        0.0023777222249599817,
+        0.000728490455656103
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.027857605462594512
+    },
+    {
+      "road": "e9f46502-b0e_0",
+      "node": "b022f1e7-8b0",
+      "sourceSegmentID": "e9f46502-b0e0-4c07-b39c-a46f3dfd47b2",
+      "connectorID": "b022f1e7-8b0d-4aab-86ad-427ad364d58d",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2240.0,
+        572.8
+      ],
+      "geodeticSourceEndpoint": [
+        -2239.977747987466,
+        572.7812077638599
+      ],
+      "inheritedSourceCutDisplacement": 0.029125593572559075,
+      "heldInferredBefore": [
+        -2240,
+        572.8
+      ],
+      "heldInferredAfter": [
+        -2239.997622277775,
+        572.8007284904556
+      ],
+      "heldInferredDelta": [
+        0.0023777222249599817,
+        0.000728490455656103
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.027857605462594512
+    },
+    {
+      "road": "6ae9879c-b4b_0",
+      "node": "50017f89-190",
+      "sourceSegmentID": "6ae9879c-b4ba-48d3-ae2e-ff28fd83e46a",
+      "connectorID": "50017f89-1908-486b-b3bb-ecd278ab9ee7",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2221.8,
+        568.5
+      ],
+      "geodeticSourceEndpoint": [
+        -2221.818982576618,
+        568.4870641493562
+      ],
+      "inheritedSourceCutDisplacement": 0.02297116555448082,
+      "heldInferredBefore": [
+        -2221.8,
+        568.5
+      ],
+      "heldInferredAfter": [
+        -2221.7854458909296,
+        568.5044591119338
+      ],
+      "heldInferredDelta": [
+        0.014554109070520049,
+        0.004459111933745843
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.037779544862785445
+    },
+    {
+      "road": "6ae9879c-b4b_0",
+      "node": "8393192d-1b1",
+      "sourceSegmentID": "6ae9879c-b4ba-48d3-ae2e-ff28fd83e46a",
+      "connectorID": "8393192d-1b19-4297-a377-040034b7fc8a",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2225.9,
+        576.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2225.856624973776,
+        576.5773192578381
+      ],
+      "inheritedSourceCutDisplacement": 0.048947001593132165,
+      "heldInferredBefore": [
+        -2225.9,
+        576.6
+      ],
+      "heldInferredAfter": [
+        -2225.8920969799715,
+        576.6024213403068
+      ],
+      "heldInferredDelta": [
+        0.007903020028582904,
+        0.002421340306804999
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.043455468790479915
+    },
+    {
+      "road": "eb88eae7-b38_0",
+      "node": "50017f89-190",
+      "sourceSegmentID": "eb88eae7-b38b-4f29-93b8-770d2fd38530",
+      "connectorID": "50017f89-1908-486b-b3bb-ecd278ab9ee7",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2221.8,
+        568.5
+      ],
+      "geodeticSourceEndpoint": [
+        -2221.818982576618,
+        568.4870641493562
+      ],
+      "inheritedSourceCutDisplacement": 0.02297116555448082,
+      "heldInferredBefore": [
+        -2221.8,
+        568.5
+      ],
+      "heldInferredAfter": [
+        -2221.7854458909296,
+        568.5044591119338
+      ],
+      "heldInferredDelta": [
+        0.014554109070520049,
+        0.004459111933745843
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.037779544862785445
+    },
+    {
+      "road": "eb88eae7-b38_0",
+      "node": "826901c1-6cf",
+      "sourceSegmentID": "eb88eae7-b38b-4f29-93b8-770d2fd38530",
+      "connectorID": "826901c1-6cfc-40e2-901b-71906ed1f482",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2192.8,
+        567.7
+      ],
+      "geodeticSourceEndpoint": [
+        -2192.8223349430127,
+        567.6680779963807
+      ],
+      "inheritedSourceCutDisplacement": 0.038959774055385164,
+      "heldInferredBefore": [
+        -2192.8,
+        567.7
+      ],
+      "heldInferredAfter": [
+        -2192.779114951923,
+        567.706398795465
+      ],
+      "heldInferredDelta": [
+        0.02088504807711447,
+        0.006398795464997097
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.057762022750717075
+    },
+    {
+      "road": "5229bc6b-b2f_0",
+      "node": "2832db78-bc6",
+      "sourceSegmentID": "5229bc6b-b2f7-43bc-88f2-9287615ead39",
+      "connectorID": "2832db78-bc66-4fa3-ac02-55e150427f73",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2194.0,
+        593.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2194.033627662613,
+        593.5878830079625
+      ],
+      "inheritedSourceCutDisplacement": 0.03574410705074084,
+      "heldInferredBefore": [
+        -2194,
+        593.6
+      ],
+      "heldInferredAfter": [
+        -2193.9980354149716,
+        593.6006019128002
+      ],
+      "heldInferredDelta": [
+        0.001964585028528582,
+        0.0006019128002355414
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.03779654259907225
+    },
+    {
+      "road": "5229bc6b-b2f_0",
+      "node": "8393192d-1b1",
+      "sourceSegmentID": "5229bc6b-b2f7-43bc-88f2-9287615ead39",
+      "connectorID": "8393192d-1b19-4297-a377-040034b7fc8a",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2225.9,
+        576.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2225.856624973776,
+        576.5773192578381
+      ],
+      "inheritedSourceCutDisplacement": 0.048947001593132165,
+      "heldInferredBefore": [
+        -2225.9,
+        576.6
+      ],
+      "heldInferredAfter": [
+        -2225.8920969799715,
+        576.6024213403068
+      ],
+      "heldInferredDelta": [
+        0.007903020028582904,
+        0.002421340306804999
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.043455468790479915
+    },
+    {
+      "road": "73ec0975-07e_0",
+      "node": "826901c1-6cf",
+      "sourceSegmentID": "73ec0975-07e9-40f9-8d85-2ba73579005a",
+      "connectorID": "826901c1-6cfc-40e2-901b-71906ed1f482",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2192.8,
+        567.7
+      ],
+      "geodeticSourceEndpoint": [
+        -2192.8223349430127,
+        567.6680779963807
+      ],
+      "inheritedSourceCutDisplacement": 0.038959774055385164,
+      "heldInferredBefore": [
+        -2192.8,
+        567.7
+      ],
+      "heldInferredAfter": [
+        -2192.779114951923,
+        567.706398795465
+      ],
+      "heldInferredDelta": [
+        0.02088504807711447,
+        0.006398795464997097
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.057762022750717075
+    },
+    {
+      "road": "8f08f7de-19e_0",
+      "node": "2832db78-bc6",
+      "sourceSegmentID": "8f08f7de-19e3-4c11-a413-c969e2a54ce8",
+      "connectorID": "2832db78-bc66-4fa3-ac02-55e150427f73",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2194.0,
+        593.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2194.033627662613,
+        593.5878830079625
+      ],
+      "inheritedSourceCutDisplacement": 0.03574410705074084,
+      "heldInferredBefore": [
+        -2194,
+        593.6
+      ],
+      "heldInferredAfter": [
+        -2193.9980354149716,
+        593.6006019128002
+      ],
+      "heldInferredDelta": [
+        0.001964585028528582,
+        0.0006019128002355414
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.03779654259907225
+    },
+    {
+      "road": "a72c3f25-034_0",
+      "node": "e708c144-b29",
+      "sourceSegmentID": "a72c3f25-0341-4a10-99b0-5354092904ec",
+      "connectorID": "e708c144-b295-412c-be3c-185a7da58dc1",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2204.2,
+        525.1
+      ],
+      "geodeticSourceEndpoint": [
+        -2204.1808605282604,
+        525.102932789045
+      ],
+      "inheritedSourceCutDisplacement": 0.019362867299212654,
+      "heldInferredBefore": [
+        -2204.2,
+        525.1
+      ],
+      "heldInferredAfter": [
+        -2204.115723114966,
+        525.1258208909919
+      ],
+      "heldInferredDelta": [
+        0.08427688503388048,
+        0.025820890991857512
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.06904163831649218
+    },
+    {
+      "road": "a72c3f25-034_0",
+      "node": "826901c1-6cf",
+      "sourceSegmentID": "a72c3f25-0341-4a10-99b0-5354092904ec",
+      "connectorID": "826901c1-6cfc-40e2-901b-71906ed1f482",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2192.8,
+        567.7
+      ],
+      "geodeticSourceEndpoint": [
+        -2192.8223349430127,
+        567.6680779963807
+      ],
+      "inheritedSourceCutDisplacement": 0.038959774055385164,
+      "heldInferredBefore": [
+        -2192.8,
+        567.7
+      ],
+      "heldInferredAfter": [
+        -2192.779114951923,
+        567.706398795465
+      ],
+      "heldInferredDelta": [
+        0.02088504807711447,
+        0.006398795464997097
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.057762022750717075
+    },
+    {
+      "road": "99741c4b-a2e_0",
+      "node": "114bac2c-e85",
+      "sourceSegmentID": "99741c4b-a2ef-4a94-a144-a33dcae07138",
+      "connectorID": "114bac2c-e851-45ba-9203-f5040c3ce132",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2186.4,
+        601.8
+      ],
+      "geodeticSourceEndpoint": [
+        -2186.404608607574,
+        601.810946681813
+      ],
+      "inheritedSourceCutDisplacement": 0.011877251638628166,
+      "heldInferredBefore": [
+        -2186.4,
+        601.8
+      ],
+      "heldInferredAfter": [
+        -2186.399054747882,
+        601.8002896079024
+      ],
+      "heldInferredDelta": [
+        0.0009452521180683593,
+        0.000289607902459298
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.012017428252961426
+    },
+    {
+      "road": "fffcfd39-cbe_0",
+      "node": "114bac2c-e85",
+      "sourceSegmentID": "fffcfd39-cbe6-4ac1-9cd7-aced1390d8eb",
+      "connectorID": "114bac2c-e851-45ba-9203-f5040c3ce132",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2186.4,
+        601.8
+      ],
+      "geodeticSourceEndpoint": [
+        -2186.404608607574,
+        601.810946681813
+      ],
+      "inheritedSourceCutDisplacement": 0.011877251638628166,
+      "heldInferredBefore": [
+        -2186.4,
+        601.8
+      ],
+      "heldInferredAfter": [
+        -2186.399054747882,
+        601.8002896079024
+      ],
+      "heldInferredDelta": [
+        0.0009452521180683593,
+        0.000289607902459298
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.012017428252961426
+    },
+    {
+      "road": "90406798-4ab_0",
+      "node": "114bac2c-e85",
+      "sourceSegmentID": "90406798-4abe-4f99-976f-06a75c63c83b",
+      "connectorID": "114bac2c-e851-45ba-9203-f5040c3ce132",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2186.4,
+        601.8
+      ],
+      "geodeticSourceEndpoint": [
+        -2186.404608607574,
+        601.810946681813
+      ],
+      "inheritedSourceCutDisplacement": 0.011877251638628166,
+      "heldInferredBefore": [
+        -2186.4,
+        601.8
+      ],
+      "heldInferredAfter": [
+        -2186.399054747882,
+        601.8002896079024
+      ],
+      "heldInferredDelta": [
+        0.0009452521180683593,
+        0.000289607902459298
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.012017428252961426
+    },
+    {
+      "road": "90406798-4ab_0",
+      "node": "2832db78-bc6",
+      "sourceSegmentID": "90406798-4abe-4f99-976f-06a75c63c83b",
+      "connectorID": "2832db78-bc66-4fa3-ac02-55e150427f73",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2194.0,
+        593.6
+      ],
+      "geodeticSourceEndpoint": [
+        -2194.033627662613,
+        593.5878830079625
+      ],
+      "inheritedSourceCutDisplacement": 0.03574410705074084,
+      "heldInferredBefore": [
+        -2194,
+        593.6
+      ],
+      "heldInferredAfter": [
+        -2193.9980354149716,
+        593.6006019128002
+      ],
+      "heldInferredDelta": [
+        0.001964585028528582,
+        0.0006019128002355414
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.03779654259907225
+    },
+    {
+      "road": "419e345b-31c_0",
+      "node": "114bac2c-e85",
+      "sourceSegmentID": "419e345b-31ce-4511-8216-b040525384b3",
+      "connectorID": "114bac2c-e851-45ba-9203-f5040c3ce132",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2186.4,
+        601.8
+      ],
+      "geodeticSourceEndpoint": [
+        -2186.404608607574,
+        601.810946681813
+      ],
+      "inheritedSourceCutDisplacement": 0.011877251638628166,
+      "heldInferredBefore": [
+        -2186.4,
+        601.8
+      ],
+      "heldInferredAfter": [
+        -2186.399054747882,
+        601.8002896079024
+      ],
+      "heldInferredDelta": [
+        0.0009452521180683593,
+        0.000289607902459298
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.012017428252961426
+    },
+    {
+      "road": "419e345b-31c_0",
+      "node": "a1be698c-bc7",
+      "sourceSegmentID": "419e345b-31ce-4511-8216-b040525384b3",
+      "connectorID": "a1be698c-bc74-40f0-8f1a-ff64b1d06ee3",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2202.5,
+        621.1
+      ],
+      "geodeticSourceEndpoint": [
+        -2202.4808005714826,
+        621.1013908047545
+      ],
+      "inheritedSourceCutDisplacement": 0.01924973748544526,
+      "heldInferredBefore": [
+        -2202.5,
+        621.1
+      ],
+      "heldInferredAfter": [
+        -2202.4995855067405,
+        621.1001269931284
+      ],
+      "heldInferredDelta": [
+        0.0004144932596530048,
+        0.000126993128306265
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.018827400576476087
+    },
+    {
+      "road": "e892d8e7-5f2_0",
+      "node": "a1be698c-bc7",
+      "sourceSegmentID": "e892d8e7-5f26-47de-8a73-a3a972e66a4a",
+      "connectorID": "a1be698c-bc74-40f0-8f1a-ff64b1d06ee3",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2202.5,
+        621.1
+      ],
+      "geodeticSourceEndpoint": [
+        -2202.4808005714826,
+        621.1013908047545
+      ],
+      "inheritedSourceCutDisplacement": 0.01924973748544526,
+      "heldInferredBefore": [
+        -2202.5,
+        621.1
+      ],
+      "heldInferredAfter": [
+        -2202.4995855067405,
+        621.1001269931284
+      ],
+      "heldInferredDelta": [
+        0.0004144932596530048,
+        0.000126993128306265
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.018827400576476087
+    },
+    {
+      "road": "5a23ce42-637_0",
+      "node": "29e61023-757",
+      "sourceSegmentID": "5a23ce42-6378-4f99-ab65-e135f2a128c9",
+      "connectorID": "29e61023-757d-446d-b939-9b6a9da68036",
+      "fraction": 0.35221554,
+      "packedEndpoint": [
+        -14420.1,
+        -5595.8
+      ],
+      "geodeticSourceEndpoint": [
+        -14420.35481711024,
+        -5595.988509106441
+      ],
+      "inheritedSourceCutDisplacement": 0.3169659964121155,
+      "heldInferredBefore": [
+        -14420.1,
+        -5595.8
+      ],
+      "heldInferredAfter": [
+        -14422.58962516578,
+        -5591.69612786092
+      ],
+      "heldInferredDelta": [
+        -2.489625165778404,
+        4.103872139080706
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 4.8393081945675185
+    },
+    {
+      "road": "5a23ce42-637_1",
+      "node": "29e61023-757",
+      "sourceSegmentID": "5a23ce42-6378-4f99-ab65-e135f2a128c9",
+      "connectorID": "29e61023-757d-446d-b939-9b6a9da68036",
+      "fraction": 0.35221554,
+      "packedEndpoint": [
+        -14420.1,
+        -5595.8
+      ],
+      "geodeticSourceEndpoint": [
+        -14420.35481711024,
+        -5595.988509106441
+      ],
+      "inheritedSourceCutDisplacement": 0.3169659964121155,
+      "heldInferredBefore": [
+        -14420.1,
+        -5595.8
+      ],
+      "heldInferredAfter": [
+        -14422.58962516578,
+        -5591.69612786092
+      ],
+      "heldInferredDelta": [
+        -2.489625165778404,
+        4.103872139080706
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 4.8393081945675185
+    },
+    {
+      "road": "cd18974b-973_0",
+      "node": "7d6a6ea7-ed2",
+      "sourceSegmentID": "cd18974b-9735-42c0-add7-8df4833801b2",
+      "connectorID": "7d6a6ea7-ed2f-42cd-b155-ba98d0c98b84",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4277.6,
+        313.6
+      ],
+      "geodeticSourceEndpoint": [
+        -4277.627110397393,
+        313.6163597866312
+      ],
+      "inheritedSourceCutDisplacement": 0.03166411636874319,
+      "heldInferredBefore": [
+        -4277.6,
+        313.6
+      ],
+      "heldInferredAfter": [
+        -4278.559938070891,
+        315.28838365438304
+      ],
+      "heldInferredDelta": [
+        -0.9599380708909319,
+        1.6883836543830377
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 1.914636070582333
+    },
+    {
+      "road": "7fa23180-147_0",
+      "node": "ac957269-6fd",
+      "sourceSegmentID": "7fa23180-1476-476a-a203-b6aa7916456f",
+      "connectorID": "ac957269-6fd1-4bec-9d86-52ec25bb4cd1",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4273.0,
+        307.8
+      ],
+      "geodeticSourceEndpoint": [
+        -4272.983821640435,
+        307.7727829096243
+      ],
+      "inheritedSourceCutDisplacement": 0.03166242768221871,
+      "heldInferredBefore": [
+        -4273,
+        307.8
+      ],
+      "heldInferredAfter": [
+        -4272.0400619291095,
+        306.111616345617
+      ],
+      "heldInferredDelta": [
+        0.9599380708909319,
+        -1.6883836543830377
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 1.9105383393424025
+    },
+    {
+      "road": "ef8ec534-d0f_0",
+      "node": "ac957269-6fd",
+      "sourceSegmentID": "ef8ec534-d0f1-4118-a98d-a66d15794918",
+      "connectorID": "ac957269-6fd1-4bec-9d86-52ec25bb4cd1",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4273.0,
+        307.8
+      ],
+      "geodeticSourceEndpoint": [
+        -4272.983821640435,
+        307.7727829096243
+      ],
+      "inheritedSourceCutDisplacement": 0.03166242768221871,
+      "heldInferredBefore": [
+        -4273,
+        307.8
+      ],
+      "heldInferredAfter": [
+        -4272.0400619291095,
+        306.111616345617
+      ],
+      "heldInferredDelta": [
+        0.9599380708909319,
+        -1.6883836543830377
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 1.9105383393424025
+    },
+    {
+      "road": "b3b69c85-e8a_1",
+      "node": "7d6a6ea7-ed2",
+      "sourceSegmentID": "b3b69c85-e8ae-4248-9817-c49e4f3556ac",
+      "connectorID": "7d6a6ea7-ed2f-42cd-b155-ba98d0c98b84",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4277.6,
+        313.6
+      ],
+      "geodeticSourceEndpoint": [
+        -4277.627110397393,
+        313.6163597866312
+      ],
+      "inheritedSourceCutDisplacement": 0.03166411636874319,
+      "heldInferredBefore": [
+        -4277.6,
+        313.6
+      ],
+      "heldInferredAfter": [
+        -4278.559938070891,
+        315.28838365438304
+      ],
+      "heldInferredDelta": [
+        -0.9599380708909319,
+        1.6883836543830377
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 1.914636070582333
+    },
+    {
+      "road": "f0aa5ed3-2a0_0",
+      "node": "25e8a829-ebc",
+      "sourceSegmentID": "f0aa5ed3-2a02-48ed-9d34-756de462bd14",
+      "connectorID": "25e8a829-ebcb-42dd-81ef-c4f8e9b1c684",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2168.0,
+        432.4
+      ],
+      "geodeticSourceEndpoint": [
+        -2167.980208827678,
+        432.402554147181
+      ],
+      "inheritedSourceCutDisplacement": 0.019955304300021227,
+      "heldInferredBefore": [
+        -2168,
+        432.4
+      ],
+      "heldInferredAfter": [
+        -2167.6262242585017,
+        432.5145180279593
+      ],
+      "heldInferredDelta": [
+        0.3737757414984878,
+        0.11451802795930627
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.37126942483026426
+    },
+    {
+      "road": "f0aa5ed3-2a0_0",
+      "node": "e708c144-b29",
+      "sourceSegmentID": "f0aa5ed3-2a02-48ed-9d34-756de462bd14",
+      "connectorID": "e708c144-b295-412c-be3c-185a7da58dc1",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2204.2,
+        525.1
+      ],
+      "geodeticSourceEndpoint": [
+        -2204.1808605282604,
+        525.102932789045
+      ],
+      "inheritedSourceCutDisplacement": 0.019362867299212654,
+      "heldInferredBefore": [
+        -2204.2,
+        525.1
+      ],
+      "heldInferredAfter": [
+        -2204.115723114966,
+        525.1258208909919
+      ],
+      "heldInferredDelta": [
+        0.08427688503388048,
+        0.025820890991857512
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.06904163831649218
+    },
+    {
+      "road": "3d9a16a3-8df_0",
+      "node": "25e8a829-ebc",
+      "sourceSegmentID": "3d9a16a3-8df7-4a67-aaab-b662af32ab71",
+      "connectorID": "25e8a829-ebcb-42dd-81ef-c4f8e9b1c684",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2168.0,
+        432.4
+      ],
+      "geodeticSourceEndpoint": [
+        -2167.980208827678,
+        432.402554147181
+      ],
+      "inheritedSourceCutDisplacement": 0.019955304300021227,
+      "heldInferredBefore": [
+        -2168,
+        432.4
+      ],
+      "heldInferredAfter": [
+        -2167.6262242585017,
+        432.5145180279593
+      ],
+      "heldInferredDelta": [
+        0.3737757414984878,
+        0.11451802795930627
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.37126942483026426
+    },
+    {
+      "road": "5225a6fd-700_0",
+      "node": "7d7242fc-4c2",
+      "sourceSegmentID": "5225a6fd-700e-4381-8da1-c5d5776b0ffb",
+      "connectorID": "7d7242fc-4c2d-49d7-a802-3d815d332810",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -2083.4,
+        443.4
+      ],
+      "geodeticSourceEndpoint": [
+        -2083.4341021142573,
+        443.4477998355084
+      ],
+      "inheritedSourceCutDisplacement": 0.05871778667016468,
+      "heldInferredBefore": [
+        -2083.4,
+        443.4
+      ],
+      "heldInferredAfter": [
+        -2083.2974921126274,
+        443.4314065355475
+      ],
+      "heldInferredDelta": [
+        0.1025078873726098,
+        0.0314065355475549
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.13759008986446286
+    },
+    {
+      "road": "5225a6fd-700_0",
+      "node": "25e8a829-ebc",
+      "sourceSegmentID": "5225a6fd-700e-4381-8da1-c5d5776b0ffb",
+      "connectorID": "25e8a829-ebcb-42dd-81ef-c4f8e9b1c684",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2168.0,
+        432.4
+      ],
+      "geodeticSourceEndpoint": [
+        -2167.980208827678,
+        432.402554147181
+      ],
+      "inheritedSourceCutDisplacement": 0.019955304300021227,
+      "heldInferredBefore": [
+        -2168,
+        432.4
+      ],
+      "heldInferredAfter": [
+        -2167.6262242585017,
+        432.5145180279593
+      ],
+      "heldInferredDelta": [
+        0.3737757414984878,
+        0.11451802795930627
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.37126942483026426
+    },
+    {
+      "road": "68f51cbd-f09_1",
+      "node": "7d7242fc-4c2",
+      "sourceSegmentID": "68f51cbd-f096-46fe-9361-b0733cf2eb4c",
+      "connectorID": "7d7242fc-4c2d-49d7-a802-3d815d332810",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -2083.4,
+        443.4
+      ],
+      "geodeticSourceEndpoint": [
+        -2083.4341021142573,
+        443.4477998355084
+      ],
+      "inheritedSourceCutDisplacement": 0.05871778667016468,
+      "heldInferredBefore": [
+        -2083.4,
+        443.4
+      ],
+      "heldInferredAfter": [
+        -2083.2974921126274,
+        443.4314065355475
+      ],
+      "heldInferredDelta": [
+        0.1025078873726098,
+        0.0314065355475549
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.13759008986446286
+    },
+    {
+      "road": "34a11925-bf1_0",
+      "node": "0b88cb51-464",
+      "sourceSegmentID": "34a11925-bf1d-4c16-9a7c-379efeca3c50",
+      "connectorID": "0b88cb51-464a-4641-94b9-0df746563b7c",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4776.4,
+        -2259.3
+      ],
+      "geodeticSourceEndpoint": [
+        -4776.350324023543,
+        -2259.295044882594
+      ],
+      "inheritedSourceCutDisplacement": 0.0499224981887983,
+      "heldInferredBefore": [
+        -4776.4,
+        -2259.3
+      ],
+      "heldInferredAfter": [
+        -4776.5054279930455,
+        -2259.683061677891
+      ],
+      "heldInferredDelta": [
+        -0.10542799304552586,
+        -0.38306167789102785
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.41786872913389295
+    },
+    {
+      "road": "17390715-e3a_0",
+      "node": "270fb7dc-2a3",
+      "sourceSegmentID": "17390715-e3a0-4b40-a495-210f1f119351",
+      "connectorID": "270fb7dc-2a30-4d77-817b-67cbc5c5f2c8",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4794.4,
+        -2256.1
+      ],
+      "geodeticSourceEndpoint": [
+        -4794.445337185275,
+        -2256.0523024108543
+      ],
+      "inheritedSourceCutDisplacement": 0.06580668947003969,
+      "heldInferredBefore": [
+        -4794.4,
+        -2256.1
+      ],
+      "heldInferredAfter": [
+        -4794.5398470056925,
+        -2256.6081195904544
+      ],
+      "heldInferredDelta": [
+        -0.1398470056928612,
+        -0.508119590454605
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.5637950365992735
+    },
+    {
+      "road": "17390715-e3a_0",
+      "node": "0b88cb51-464",
+      "sourceSegmentID": "17390715-e3a0-4b40-a495-210f1f119351",
+      "connectorID": "0b88cb51-464a-4641-94b9-0df746563b7c",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4776.4,
+        -2259.3
+      ],
+      "geodeticSourceEndpoint": [
+        -4776.350324023543,
+        -2259.295044882594
+      ],
+      "inheritedSourceCutDisplacement": 0.0499224981887983,
+      "heldInferredBefore": [
+        -4776.4,
+        -2259.3
+      ],
+      "heldInferredAfter": [
+        -4776.5054279930455,
+        -2259.683061677891
+      ],
+      "heldInferredDelta": [
+        -0.10542799304552586,
+        -0.38306167789102785
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.41786872913389295
+    },
+    {
+      "road": "45ca64ea-1d0_0",
+      "node": "2a9ee2a6-20f",
+      "sourceSegmentID": "45ca64ea-1d0c-4f9c-b2af-9ee67e6b8c14",
+      "connectorID": "2a9ee2a6-20f8-439b-901b-8a468d11c298",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4817.4,
+        -2252.6
+      ],
+      "geodeticSourceEndpoint": [
+        -4817.438648097407,
+        -2252.62141447164
+      ],
+      "inheritedSourceCutDisplacement": 0.04418433012786161,
+      "heldInferredBefore": [
+        -4817.4,
+        -2252.6
+      ],
+      "heldInferredAfter": [
+        -4817.583652373049,
+        -2253.267281849313
+      ],
+      "heldInferredDelta": [
+        -0.18365237304893317,
+        -0.6672818493131587
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.6619447933901379
+    },
+    {
+      "road": "45ca64ea-1d0_0",
+      "node": "270fb7dc-2a3",
+      "sourceSegmentID": "45ca64ea-1d0c-4f9c-b2af-9ee67e6b8c14",
+      "connectorID": "270fb7dc-2a30-4d77-817b-67cbc5c5f2c8",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4794.4,
+        -2256.1
+      ],
+      "geodeticSourceEndpoint": [
+        -4794.445337185275,
+        -2256.0523024108543
+      ],
+      "inheritedSourceCutDisplacement": 0.06580668947003969,
+      "heldInferredBefore": [
+        -4794.4,
+        -2256.1
+      ],
+      "heldInferredAfter": [
+        -4794.5398470056925,
+        -2256.6081195904544
+      ],
+      "heldInferredDelta": [
+        -0.1398470056928612,
+        -0.508119590454605
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.5637950365992735
+    },
+    {
+      "road": "a405ab6b-475_0",
+      "node": "753370ac-75e",
+      "sourceSegmentID": "a405ab6b-4756-427c-8044-84cb3b90b585",
+      "connectorID": "753370ac-75e8-4600-b755-6f1bc83b03c7",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        -4949.2,
+        -2196.2
+      ],
+      "geodeticSourceEndpoint": [
+        -4949.203920104396,
+        -2196.1556394201575
+      ],
+      "inheritedSourceCutDisplacement": 0.04453345105002123,
+      "heldInferredBefore": [
+        -4949.2,
+        -2196.2
+      ],
+      "heldInferredAfter": [
+        -4950.208152020109,
+        -2198.0238218117206
+      ],
+      "heldInferredDelta": [
+        -1.008152020109457,
+        -1.8238218117205707
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 2.12098731459729
+    },
+    {
+      "road": "a405ab6b-475_0",
+      "node": "2a9ee2a6-20f",
+      "sourceSegmentID": "a405ab6b-4756-427c-8044-84cb3b90b585",
+      "connectorID": "2a9ee2a6-20f8-439b-901b-8a468d11c298",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4817.4,
+        -2252.6
+      ],
+      "geodeticSourceEndpoint": [
+        -4817.438648097407,
+        -2252.62141447164
+      ],
+      "inheritedSourceCutDisplacement": 0.04418433012786161,
+      "heldInferredBefore": [
+        -4817.4,
+        -2252.6
+      ],
+      "heldInferredAfter": [
+        -4817.583652373049,
+        -2253.267281849313
+      ],
+      "heldInferredDelta": [
+        -0.18365237304893317,
+        -0.6672818493131587
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 0.6619447933901379
+    },
+    {
+      "road": "65ad1163-32c_0",
+      "node": "753370ac-75e",
+      "sourceSegmentID": "65ad1163-32cd-4eb7-b47d-647014e13b19",
+      "connectorID": "753370ac-75e8-4600-b755-6f1bc83b03c7",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        -4949.2,
+        -2196.2
+      ],
+      "geodeticSourceEndpoint": [
+        -4949.203920104396,
+        -2196.1556394201575
+      ],
+      "inheritedSourceCutDisplacement": 0.04453345105002123,
+      "heldInferredBefore": [
+        -4949.2,
+        -2196.2
+      ],
+      "heldInferredAfter": [
+        -4950.208152020109,
+        -2198.0238218117206
+      ],
+      "heldInferredDelta": [
+        -1.008152020109457,
+        -1.8238218117205707
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 2.12098731459729
+    },
+    {
+      "road": "d16808e2-449_0",
+      "node": "d6f0c4a0-612",
+      "sourceSegmentID": "d16808e2-449e-4ecf-922c-4e3e340ff9f0",
+      "connectorID": "d6f0c4a0-612b-44e3-9cd1-a39aeed6d13e",
+      "fraction": 1.0,
+      "packedEndpoint": [
+        20627.4,
+        -4368.5
+      ],
+      "geodeticSourceEndpoint": [
+        20627.443724432796,
+        -4368.4832087340765
+      ],
+      "inheritedSourceCutDisplacement": 0.046837726616031986,
+      "heldInferredBefore": [
+        20627.4,
+        -4368.5
+      ],
+      "heldInferredAfter": [
+        20625.365482853747,
+        -4364.6149467390105
+      ],
+      "heldInferredDelta": [
+        -2.034517146253218,
+        3.885053260989124
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 4.391188782477924
+    },
+    {
+      "road": "883afbc0-827_0",
+      "node": "d6f0c4a0-612",
+      "sourceSegmentID": "883afbc0-8275-4cf9-859c-436a17628bbf",
+      "connectorID": "d6f0c4a0-612b-44e3-9cd1-a39aeed6d13e",
+      "fraction": 0.0,
+      "packedEndpoint": [
+        20627.4,
+        -4368.5
+      ],
+      "geodeticSourceEndpoint": [
+        20627.443724432796,
+        -4368.4832087340765
+      ],
+      "inheritedSourceCutDisplacement": 0.046837726616031986,
+      "heldInferredBefore": [
+        20627.4,
+        -4368.5
+      ],
+      "heldInferredAfter": [
+        20625.365482853747,
+        -4364.6149467390105
+      ],
+      "heldInferredDelta": [
+        -2.034517146253218,
+        3.885053260989124
+      ],
+      "distanceFromCorrectSourceToHeldInferredAfter": 4.391188782477924
+    }
+  ]
+}

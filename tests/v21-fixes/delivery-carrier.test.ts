@@ -118,19 +118,18 @@ test('dispose releases owned shared resources once and leaves vehicle resources 
   assert.equal(system.activeCount, 0);
 });
 
-test('caught slice remains on hero after feedback ends and traffic despawns; clear returns it to the pool', () => {
+test('caught slice leaves the forward view while the order remains held; clear reuses its pooled offer', () => {
   const { system, make, player, scene } = fixture(), car = make('bus'), hero = new THREE.Group();
   scene.add(hero); system.update(0, [car], player);
   const pooledBox = car.g.getObjectByName('delivery-carrier-box')!;
   assert.equal(system.collect(system.markers[0].carrierId, hero), true);
-  const carried = hero.getObjectByName('delivery-carried-box')!;
-  assert.equal(carried, pooledBox); assert.equal(carried.scale.x, .7); assert.equal(carried.position.y, 1.5);
-  assert.equal(carried.getObjectByName('delivery-box-halo')!.visible, false, 'floating halo is hidden while carrying');
+  assert.equal(hero.getObjectByName('delivery-box-visual'), undefined);
+  assert.equal(pooledBox.parent, null, 'offer art is detached instead of obscuring the cabin');
   scene.remove(car.g); hero.position.set(50, 20, 30);
   for (let i = 0; i < 100; i++) { system.beforeFrame(); system.update(.02, [], player); }
-  assert.equal(carried.parent, hero); assert.equal(system.holding, true); assert.equal(system.activeCount, 0);
+  assert.equal(hero.children.length, 0); assert.equal(system.holding, true); assert.equal(system.activeCount, 0);
   assert.equal(scene.getObjectByName('delivery-caught-effect')!.visible, false);
-  system.clear(); assert.equal(carried.parent, null); assert.equal(system.holding, false);
+  system.clear(); assert.equal(pooledBox.parent, null); assert.equal(system.holding, false);
   scene.add(car.g); system.update(0, [car], player);
   assert.equal(car.g.getObjectByName('delivery-carrier-box'), pooledBox);
   assert.equal(pooledBox.scale.x, 1); assert.equal(pooledBox.getObjectByName('delivery-box-halo')!.visible, true);
@@ -187,16 +186,14 @@ test('slice hover remains separated from every carrier roof and anonymous across
   assert.equal(new Set(fingerprints).size, 1, 'vehicle kind never changes the anonymous pizza appearance');
 });
 
-test('carried slice keeps facing the camera on a rotated flying Roadster without losing its pooled lease', () => {
+test('a rotated flying Roadster never reacquires a carried billboard or new offer after collection', () => {
   const { system, make, player, scene } = fixture(), car = make('bus'), hero = new THREE.Group();
   scene.add(hero); hero.position.set(40, 30, -20); hero.rotation.set(-.06, 1.2, 0, 'YXZ');
   const view = { forwardX: 0, forwardZ: -1, jumping: false, airborne: true, cameraX: 10, cameraY: 36, cameraZ: 5 };
   system.update(0, [car], player, true, view); system.collect(system.markers[0].carrierId, hero);
-  const visual = hero.getObjectByName('delivery-box-visual')!;
   for (let i = 0; i < 100; i++) {
     hero.rotation.y += .02; system.update(.02, [], hero.position, false, view);
-    const toward = new THREE.Vector3(view.cameraX, view.cameraY, view.cameraZ).sub(visual.getWorldPosition(new THREE.Vector3())).normalize();
-    assert.ok(visual.getWorldDirection(new THREE.Vector3()).dot(toward) > .9999);
+    assert.equal(hero.getObjectByName('delivery-box-visual'), undefined);
     assert.equal(system.activeCount, 0); assert.equal(system.holding, true);
   }
   system.dispose();

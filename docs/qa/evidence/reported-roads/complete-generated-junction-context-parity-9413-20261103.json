@@ -1,0 +1,65 @@
+{
+  "scope": "Root complete generated-junction preparation parity; no height or release acceptance",
+  "releaseApproved": false,
+  "parentJoint": {
+    "path": "/tmp/source-9413-joint-core-context-coverage-v3.json",
+    "sha256": "c17dd1612542af697c3c089c10b6caf99193ad86396eb86326a3d2aed5ba39a0"
+  },
+  "expandedJoint": {
+    "path": "/tmp/source-9413-joint-core-context-coverage-v4.json",
+    "sha256": "c0dea06709fedd44d2bb718901d908adee0f3b6f3b4713359e3e71eaaebe8e69"
+  },
+  "parity": {
+    "version": true,
+    "scope": true,
+    "sourceCoreSHA256": true,
+    "sourceModelSHA256": true,
+    "sourceConditionedInputSHA256": true,
+    "sourceModelFile": true,
+    "sourceRoadGeometryGeneration": true,
+    "sourceDataSHA256": true,
+    "sourcePackSHA256": true,
+    "helperSources": true,
+    "selectionModelDiffersFromTarget": true,
+    "requiresFreshFinalSelectionInventory": true,
+    "endpointHeightDiagnosticsOnly": true,
+    "requestedRoadIDs": true,
+    "nodeSources": true,
+    "incidentSourceOffsets": true,
+    "summary": true,
+    "tileRoads": true,
+    "transports": true,
+    "footprints": true,
+    "preHeightWidths": true,
+    "contextRoads": true,
+    "contextFootprints": true,
+    "contextCopies": true,
+    "boundaryRoads": true,
+    "boundaryCopies": true,
+    "coreAnchorNodes": true,
+    "components": true,
+    "shortestAnchorLinks": true,
+    "sourceEvidence": true,
+    "copies": true,
+    "selectionConflictRows": true
+  },
+  "positiveFacilityNumericPolicyUnchanged": true,
+  "cache": {
+    "path": "/tmp/roadster-complete-universe-v19-overlap-cache.pickle",
+    "sha256": "772cb439cb311955891232f043a800ea21a65ea1d1ed276fa582fd762bbc415b",
+    "pairs": 38840
+  },
+  "physicalCoreCoverage": {
+    "sourceCoverageSHA256": "a1c3b9fbf86caac29db5b7b638f0fb722112918c4b7ab44a0770ab9b73564b18",
+    "sourceFootprintsSHA256": "5697db58a197b3037e10c77e48cdb64dd16890b0cd5ad15a09ad1d119a95176a",
+    "affectedCoreRoads": 1633,
+    "affectedCoreQuads": 192300,
+    "requiredForeignWitnessRoadIDs": [
+      "551f9213-352_0",
+      "c8594f29-bfe_0",
+      "f6178e1c-79a_0",
+      "936b4702-444_0"
+    ],
+    "scope": "Conservative affected-core and selected-detailed-road coverage; additional contexts remain immutable, not variable owners"
+  }
+}

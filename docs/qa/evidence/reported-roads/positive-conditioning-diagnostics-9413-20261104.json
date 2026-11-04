@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "releaseApproved": false,
+  "scope": "Failed bounded numeric diagnostics, not installed height profiles. New source-proved railway-facility geometry is separate and requires fresh closure and fitting. No runtime FPS or native drive claim.",
+  "runs": [
+    {
+      "path": "/tmp/roadster-complete-universe-v21-fit.json",
+      "sha256": "98e7884a0be0c8756f307fff48df751b15ffe9cfd5df83e501f07500e51ce8f3",
+      "success": false,
+      "directConflicts": 9788,
+      "categories": {
+        "independent-finite-headroom": 887,
+        "finite-apron-coelevation": 8901
+      },
+      "constraints": 3891623,
+      "scope": null,
+      "groundClassificationSourceSHA256": null,
+      "groundClassificationFunctionASTSHA256": null
+    },
+    {
+      "path": "/tmp/roadster-complete-universe-v25-positive-join-experiment.json",
+      "sha256": "6df858084c581c968251f90f1898d675c6ba26ef2b853f78b3b0e3fc10754020",
+      "success": false,
+      "directConflicts": 4016,
+      "categories": {
+        "independent-finite-headroom": 890,
+        "finite-apron-coelevation": 3126
+      },
+      "constraints": 3909267,
+      "scope": "Run bounded experiments against an OWN trusted local solver context.\n\nPickle input must be produced locally by this repository, never downloaded.\nOutput is diagnostic only and cannot install road profiles or approve release.\n",
+      "groundClassificationSourceSHA256": null,
+      "groundClassificationFunctionASTSHA256": null
+    },
+    {
+      "path": "/tmp/roadster-complete-universe-v26-source-domains-experiment.json",
+      "sha256": "f225ca1cd69ee3a6a5648d6c771994bbf1c2175008f20d60bce5edab40a11b20",
+      "success": false,
+      "directConflicts": 1758,
+      "categories": {
+        "independent-finite-headroom": 643,
+        "finite-apron-coelevation": 1115
+      },
+      "constraints": 3910971,
+      "scope": "Run bounded experiments against an OWN trusted local solver context.\n\nPickle input must be produced locally by this repository, never downloaded.\nOutput is diagnostic only and cannot install road profiles or approve release.\n",
+      "groundClassificationSourceSHA256": null,
+      "groundClassificationFunctionASTSHA256": null
+    },
+    {
+      "path": "/tmp/roadster-complete-universe-v27-finite-domains-experiment.json",
+      "sha256": "5aea691e5f07b0c57597e77c888dd6367ac3ab5c65f5b8e317322c3d6d09ad7d",
+      "success": false,
+      "directConflicts": 1659,
+      "categories": {
+        "independent-finite-headroom": 643,
+        "finite-apron-coelevation": 1016
+      },
+      "constraints": 3911155,
+      "scope": "Run bounded experiments against an OWN trusted local solver context.\n\nPickle input must be produced locally by this repository, never downloaded.\nOutput is diagnostic only and cannot install road profiles or approve release.\n",
+      "groundClassificationSourceSHA256": null,
+      "groundClassificationFunctionASTSHA256": null
+    },
+    {
+      "path": "/tmp/roadster-complete-universe-v28-source-carriageways-experiment.json",
+      "sha256": "7a38070f365ead32f3f1fea232bf54954662d31ece3c2cd88de1a4aa71c9c5e0",
+      "success": false,
+      "directConflicts": 1236,
+      "categories": {
+        "independent-finite-headroom": 143,
+        "finite-apron-coelevation": 1093
+      },
+      "constraints": 3916057,
+      "scope": "Run bounded experiments against an OWN trusted local solver context.\n\nPickle input must be produced locally by this repository, never downloaded.\nOutput is diagnostic only and cannot install road profiles or approve release.\n",
+      "groundClassificationSourceSHA256": null,
+      "groundClassificationFunctionASTSHA256": null
+    },
+    {
+      "path": "/tmp/roadster-complete-universe-v29-source-carriageways-experiment.json",
+      "sha256": "1d9591703f041ec7ecbc2bfa6500c1859d600c15a2f557049f7715137ddbf3a0",
+      "success": false,
+      "directConflicts": 1228,
+      "categories": {
+        "independent-finite-headroom": 143,
+        "finite-apron-coelevation": 1085
+      },
+      "constraints": 3916507,
+      "scope": "Run bounded experiments against an OWN trusted local solver context.\n\nPickle input must be produced locally by this repository, never downloaded.\nOutput is diagnostic only and cannot install road profiles or approve release.\n",
+      "groundClassificationSourceSHA256": null,
+      "groundClassificationFunctionASTSHA256": null
+    },
+    {
+      "path": "/tmp/roadster-complete-universe-v30-bound-source-carriageways-experiment.json",
+      "sha256": "5727c2b8a0f2db2ddd2672e4819154cbeaab3f72b7fb44bf06713d632c9ae46b",
+      "success": false,
+      "directConflicts": 1228,
+      "categories": {
+        "independent-finite-headroom": 143,
+        "finite-apron-coelevation": 1085
+      },
+      "constraints": 3916507,
+      "scope": "Run bounded experiments against an OWN trusted local solver context.\n\nPickle input must be produced locally by this repository, never downloaded.\nOutput is diagnostic only and cannot install road profiles or approve release.\n",
+      "groundClassificationSourceSHA256": "5c465e28d9a5a6880529425eefc9715f62ec6928ecfb30e7605f49d713a9ee3b",
+      "groundClassificationFunctionASTSHA256": "19484360be2b29198d531e2575c3721420ce57ada34c8a253913b9e4133ca139"
+    }
+  ]
+}

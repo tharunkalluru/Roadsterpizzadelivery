@@ -1,0 +1,88 @@
+✖ actual Tarnaka report has no intersecting asphalt through the full grounded car at its real merge and tile join (4686.987125ms)
+✖ the same finite joined-merge body clearance holds for primary/secondary road classes (4234.811541ms)
+✖ the same finite joined-merge body clearance holds for secondary/tertiary road classes (4649.211875ms)
+✖ the same finite joined-merge body clearance holds for trunk/primary road classes (4820.031084ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18638.317875
+
+✖ failing tests:
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27658:1
+✖ actual Tarnaka report has no intersecting asphalt through the full grounded car at its real merge and tile join (4686.987125ms)
+  AssertionError [ERR_ASSERTION]: drawn road cuts grounded car body {"distance":16.5,"along":2,"side":0.85,"x":4001.453855084619,"z":-2075.671538697409,"support":1.6548157339166396,"supportRoad":"ad6f78f1-dc9_0","rendered":3.4177550959894067,"gap":1.7629393620727671,"triangle":[4001.69189453125,3.3670289516448975,-2073.948486328125,3999.95654296875,3.4874212741851807,-2074.52685546875,4002.92919921875,3.4874212741851807,-2083.444580078125]}
+      at checkBodyClearance (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27637:16)
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27662:78)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.start (node:internal/test_runner/test:1000:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27665:3
+✖ the same finite joined-merge body clearance holds for primary/secondary road classes (4234.811541ms)
+  AssertionError [ERR_ASSERTION]: drawn road cuts grounded car body {"distance":16.5,"along":2,"side":0.85,"x":4001.453855084619,"z":-2075.671538697409,"support":1.6548157339166396,"supportRoad":"ad6f78f1-dc9_0","rendered":3.409755061023023,"gap":1.7549393271063836,"triangle":[4001.69189453125,3.3590288162231445,-2073.948486328125,3999.95654296875,3.479421377182007,-2074.52685546875,4002.92919921875,3.479421377182007,-2083.444580078125]}
+      at checkBodyClearance (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27637:16)
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27666:5)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27665:3
+✖ the same finite joined-merge body clearance holds for secondary/tertiary road classes (4649.211875ms)
+  AssertionError [ERR_ASSERTION]: drawn road cuts grounded car body {"distance":16.5,"along":2,"side":0,"x":4001.3018732017704,"z":-2076.5078409796524,"support":1.631713748625836,"supportRoad":"ad6f78f1-dc9_0","rendered":3.4296513517336638,"gap":1.7979376031078278,"triangle":[4001.69189453125,3.3520288467407227,-2073.948486328125,3999.95654296875,3.472421407699585,-2074.52685546875,4002.92919921875,3.472421407699585,-2083.444580078125]}
+      at checkBodyClearance (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27637:16)
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27666:5)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ../../../../../../private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27665:3
+✖ the same finite joined-merge body clearance holds for trunk/primary road classes (4820.031084ms)
+  AssertionError [ERR_ASSERTION]: drawn road cuts grounded car body {"distance":16.5,"along":2,"side":0.85,"x":4001.453855084619,"z":-2075.671538697409,"support":1.6548157339166396,"supportRoad":"ad6f78f1-dc9_0","rendered":3.4177550959894067,"gap":1.7629393620727671,"triangle":[4001.69189453125,3.3670289516448975,-2073.948486328125,3999.95654296875,3.4874212741851807,-2074.52685546875,4002.92919921875,3.4874212741851807,-2083.444580078125]}
+      at checkBodyClearance (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27637:16)
+      at TestContext.<anonymous> (file:///private/var/folders/vw/qmbng0js5537fykhvz7drprw0000gn/T/roadster-v21-fixes-A9liqT/0.test.mjs:27666:5)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1103:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:785:18)
+      at Test.postRun (node:internal/test_runner/test:1232:19)
+      at Test.run (node:internal/test_runner/test:1160:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:785:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

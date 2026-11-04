@@ -1,0 +1,14 @@
+PASS shared corridor colors override mislabeled source colors without recoloring the physical train model
+PASS only two exterior station boards face approaches and two interior boards face train windows with correct line strips
+PASS map loading assigns each normalized route its own shared color rather than painting all lines green
+PASS moving roofs are height-gated and static streets below a train retain their own support
+PASS a car falling onto a train roof lands using production Player physics and rides without clipping
+PASS a parked car follows coach rotation in its moving local frame
+PASS a carried car can drive relative to the roof, leave the end and take off without staying glued
+PASS train front impact pushes the car forward rather than moving through it
+PASS a fast car cannot tunnel through a coach side and lateral train motion imparts a push
+PASS grade separation and roof clearance prevent ghost side impacts above or below trains
+PASS recovery placement invalidates carrier attachment and a removed train never drags the car away
+PASS metro and ordinary rail contact bodies use the exact rendered coach poses and disappear with hidden coaches
+PASS a lower landmark plinth cannot disable a taller facade collision while actual curved tops remain landable
+13 moving-rail and metro identity regression groups passed.

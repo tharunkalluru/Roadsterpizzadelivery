@@ -1,0 +1,5991 @@
+{
+  "schema": "negative-component-existing-policy-overlap-review-v2",
+  "researchOnly": true,
+  "activePolicy": false,
+  "releaseApproved": false,
+  "heightAuthorityGranted": false,
+  "endpointPermissionGranted": false,
+  "inputs": {
+    "component": {
+      "path": "/tmp/roadster-negative-node-minimal-source-component-proposal-9413-v3.json",
+      "sha256": "05b07099990915fa340e7427daa3e3dd6a55fd27848ef7730f7c5f8df74a7a11"
+    },
+    "priorOverlap": {
+      "path": "/tmp/roadster-negative-component-existing-policy-overlap-review-9413-v1.json",
+      "sha256": "e95b110a87eb986430c2846cccbec7b02ee9437b583104f40a751a7c4f2e5ece"
+    },
+    "priorReplacement": {
+      "path": "/tmp/roadster-negative-component-replacement-and-preparation-review-9413-v1.json",
+      "sha256": "faaf7683aa057db22fa0c014fc2bf9c0de0046f0ba7af3ae577707eb41ab7f0e"
+    },
+    "priorHandoff": {
+      "path": "/tmp/roadster-negative-component-research-handoff-receipt-9413-v1.json",
+      "sha256": "337cad853d3bc718f0a98f68c434bc8eb58b829f95a3ed82470363d72733bf78"
+    },
+    "generator": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/scripts/qa/review-negative-source-component-preparation.py",
+      "sha256": "d944565f9fd940b7eb8368b35787e99e51fb2a521663e97e891a451c72c5f088"
+    },
+    "model": {
+      "path": "/tmp/source-9413-researched-rail-facilities-world-v1.json",
+      "sha256": "939084750f6d0c3a8acf92acff8feb378fde06c11c96b98128d711394c23945f"
+    },
+    "joint": {
+      "path": "/tmp/source-9413-researched-rail-facilities-joint-input-v2.json",
+      "sha256": "3b9e495d8e0ec4ec2d33d2fdb9fb2f7bab11e0b9f756c548c0b83568d4aab823"
+    },
+    "geo": {
+      "path": "/tmp/roadster-road-freezes/source-9413-af5-pjr-capacity-v1/sourceData-55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b.json",
+      "sha256": "55ee3dbc0c741072e204d7560731296db086959c23ef765a9518da4a27cd237b"
+    },
+    "interior8744": {
+      "path": "/tmp/roadster-source-backed-finite-interior-permission-proposal-9413-v2.json",
+      "sha256": "d3904983e7a390fc1ee8305d9aa131a969cc4b7b0a3d3e453dd4f0146431e4ae"
+    },
+    "interiorV3": {
+      "path": "/tmp/roadster-source-backed-finite-interior-permission-proposal-9413-v3.json",
+      "sha256": "963e46f1dbbaed147f8211ea810142f81a5a8660a11adb3cf7bac5664f75c879"
+    },
+    "node301": {
+      "path": "/tmp/roadster-researched-generated-node-datum-policy-9413-v4.json",
+      "sha256": "46305e30f8785f798a7b05ef049049fe72ae1a833a7dae3ab6b859e94ad5c884"
+    },
+    "positiveFacility": {
+      "path": "/tmp/roadster-researched-source-connected-positive-facilities-9413-v2.json",
+      "sha256": "e05eb1b8881743d219f8c09bb68267a14f03e3a5e6b1f5b5ac17aa51e7563368"
+    },
+    "Anand": {
+      "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/docs/qa/evidence/reported-roads/anandbagh-generated-approach-policy-9413.json",
+      "sha256": "ae74b4f9e2ba131fd4290af445e3969489849dfa59dfcfb487571061514aaf2c"
+    },
+    "fixed24": {
+      "path": "/tmp/roadster-negative-node-finite-diagnostic-review-9413-v1.json",
+      "sha256": "9e8d8ff59f9c4424b769ce5c0cb42017a68b193effdd23c3f7b1c65091563efa"
+    },
+    "oldSourceV11": {
+      "path": "/tmp/roadster-researched-joint-complete-source-reference-9413-v11.json",
+      "sha256": "9a27414d4b9ebee7486ea91f71313697261e450562f859688bab4d057b9e81c8"
+    },
+    "sourceUnionV13": {
+      "path": "/tmp/roadster-negative-component-complete-source-reference-9413-v13.json",
+      "sha256": "ef4732ac3409cf33f068c0093582ed449308a8536b5c1f60ae103fa760312779"
+    },
+    "sourceAuxD88": {
+      "path": "/tmp/roadster-negative-component-missing1-source-completion-20261104.json",
+      "sha256": "5a173ee69a166661132a64540ffef3ef0b0fb0ff61bad8641198680dc040922d"
+    },
+    "sourceAuxF2": {
+      "path": "/tmp/roadster-negative-component-owner-missing1-source-completion-20261104.json",
+      "sha256": "ffd58033773c3328903ed8da87deb9c982a4e11c4dc5487dfdb9a29241ae2770"
+    }
+  },
+  "summary": {
+    "node301": {
+      "sharedRoadCount": 0,
+      "overlappingControls": 0,
+      "statuses": {}
+    },
+    "positiveFacility": {
+      "sharedRoadCount": 0,
+      "overlappingControls": 0,
+      "statuses": {}
+    },
+    "Anand": {
+      "sharedRoadCount": 0,
+      "overlappingControls": 0,
+      "statuses": {}
+    },
+    "interior8744": {
+      "sharedRoadCount": 30,
+      "overlappingControls": 75,
+      "statuses": {
+        "compatible-intersection-only-no-union": 75
+      }
+    },
+    "signed346Anchors": {
+      "sharedRoadCount": 30,
+      "overlappingControls": 45,
+      "statuses": {
+        "compatible-intersection-only-no-union": 40,
+        "zero-only-intersection-removes-negative-freedom-replacement-review-required": 5
+      }
+    },
+    "newPerSeedDomainConflicts": 5
+  },
+  "scopeReports": {
+    "node301": {
+      "sharedRoads": [],
+      "sharedRoadCount": 0,
+      "overlappingControls": 0,
+      "statuses": {},
+      "controls": []
+    },
+    "positiveFacility": {
+      "sharedRoads": [],
+      "sharedRoadCount": 0,
+      "overlappingControls": 0,
+      "statuses": {},
+      "controls": []
+    },
+    "Anand": {
+      "sharedRoads": [],
+      "sharedRoadCount": 0,
+      "overlappingControls": 0,
+      "statuses": {},
+      "controls": []
+    },
+    "interior8744": {
+      "sharedRoads": [
+        "07d3034a-387_0",
+        "09c1bfe9-5f2_1",
+        "153405da-9f3_0",
+        "15d415b6-d8f_0",
+        "1f5fa9b1-c69_0",
+        "1fae246f-d27_0",
+        "272b7a8e-f77_0",
+        "32aff194-9eb_0",
+        "37e51f9d-b1c_0",
+        "397fbbcf-eba_0",
+        "397fbbcf-eba_1",
+        "3d9aa836-1ed_0",
+        "4c5f6856-b6e_0",
+        "4e5c2647-d15_0",
+        "4faf1721-f7a_0",
+        "63b6ecd9-48a_3",
+        "63b6ecd9-48a_5",
+        "68640954-01c_0",
+        "87873dc9-97f_0",
+        "882b33a6-0ab_0",
+        "90a456e6-e06_0",
+        "95b71ab7-702_0",
+        "98c1cbc0-478_0",
+        "9e2bde59-891_0",
+        "9e8e9cb1-ede_0",
+        "cfdfba4a-fac_0",
+        "e0a2d983-56a_0",
+        "e8148ea6-4f5_0",
+        "eb78223f-f59_0",
+        "ff4bed75-591_1"
+      ],
+      "sharedRoadCount": 30,
+      "overlappingControls": 75,
+      "statuses": {
+        "compatible-intersection-only-no-union": 75
+      },
+      "controls": [
+        {
+          "road": "07d3034a-387_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "36c64d54-f05",
+              "bounds": [
+                -0.8784023713290213,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -0.8784023713290213,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -1.5921034303800519,
+                0.0
+              ],
+              "from": [
+                -0.2840036635426988,
+                -0.2840036635426988
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -1.5921034303800519,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -0.8784023713290213,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "153405da-9f3_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "8f3cf6dc-79e",
+              "bounds": [
+                -2.5313197732563477,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -2.5313197732563477,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.816296230791937,
+                -0.08019054369702472
+              ],
+              "from": [
+                -2.5313197732563477,
+                -2.5313197732563477
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.816296230791937,
+            -0.08019054369702472
+          ],
+          "jointConservativeIntersection": [
+            -2.5313197732563477,
+            -0.08019054369702472
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "15d415b6-d8f_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -3.0386635518539693,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.0386635518539693,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.668975934139086,
+                0.0
+              ],
+              "from": [
+                -0.7444641266120318,
+                -0.7444641266120318
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.668975934139086,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.0386635518539693,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "15d415b6-d8f_0",
+          "control": 4,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -3.0386635518539693,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.0386635518539693,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.668975934139086,
+                0.0
+              ],
+              "from": [
+                -2.228800005043856,
+                -2.228800005043856
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.668975934139086,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.0386635518539693,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "15d415b6-d8f_0",
+          "control": 5,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -3.7441924459646994,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -3.7441924459646994,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.7441924459646994,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.668975934139086,
+                0.0
+              ],
+              "from": [
+                -3.7441924459646994,
+                -3.7441924459646994
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.668975934139086,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.7441924459646994,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1f5fa9b1-c69_0",
+          "control": 29,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -4.935157194573955,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.935157194573955,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1104623570737515
+              ],
+              "from": [
+                -4.935157194573955,
+                -4.935157194573955
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -4.935157194573955,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1f5fa9b1-c69_0",
+          "control": 30,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -4.707070339886422,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.707070339886422,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1104623570737515
+              ],
+              "from": [
+                -4.707070339886422,
+                -4.707070339886422
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -4.707070339886422,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1f5fa9b1-c69_0",
+          "control": 31,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -4.47898348519893,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.47898348519893,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1104623570737515
+              ],
+              "from": [
+                -4.47898348519893,
+                -4.47898348519893
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -4.47898348519893,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1f5fa9b1-c69_0",
+          "control": 32,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -4.250896630511397,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.250896630511397,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1104623570737515
+              ],
+              "from": [
+                -4.250896630511397,
+                -4.250896630511397
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -4.250896630511397,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1f5fa9b1-c69_0",
+          "control": 33,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -4.022809775823843,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.022809775823843,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1104623570737515
+              ],
+              "from": [
+                -4.022809775823843,
+                -4.022809775823843
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -4.022809775823843,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1f5fa9b1-c69_0",
+          "control": 34,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -3.7947229211363096,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.7947229211363096,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1104623570737515
+              ],
+              "from": [
+                -3.7947229211363096,
+                -3.7947229211363096
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -3.7947229211363096,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1f5fa9b1-c69_0",
+          "control": 35,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -3.566636066448776,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.566636066448776,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1104623570737515
+              ],
+              "from": [
+                -3.566636066448776,
+                -3.566636066448776
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -3.566636066448776,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1f5fa9b1-c69_0",
+          "control": 36,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -3.338549211761285,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.338549211761285,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1104623570737515
+              ],
+              "from": [
+                -3.338549211761285,
+                -3.338549211761285
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -3.338549211761285,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1fae246f-d27_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -1.8201357226478572,
+                0.0
+              ]
+            },
+            {
+              "seed": "ce927bfc-9ef",
+              "bounds": [
+                -1.216473186161889,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -1.216473186161889,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -2.5464977160108595,
+                -0.04893132395737765
+              ],
+              "from": [
+                -1.216473186161889,
+                -1.216473186161889
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -2.5464977160108595,
+            -0.04893132395737765
+          ],
+          "jointConservativeIntersection": [
+            -1.216473186161889,
+            -0.04893132395737765
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "272b7a8e-f77_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "f3decc14-280",
+              "bounds": [
+                -4.3228128487272794,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.3228128487272794,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.746609621444505,
+                -3.436211895648606
+              ],
+              "from": [
+                -4.3228128487272794,
+                -4.3228128487272794
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.746609621444505,
+            -3.436211895648606
+          ],
+          "jointConservativeIntersection": [
+            -4.3228128487272794,
+            -3.436211895648606
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "32aff194-9eb_0",
+          "control": 9,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -5.995458636329668,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -5.995458636329668,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.995458636329668,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.247729318164848,
+                -5.243724913351866
+              ],
+              "from": [
+                -5.995458636329668,
+                -5.995458636329668
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.247729318164848,
+            -5.243724913351866
+          ],
+          "jointConservativeIntersection": [
+            -5.995458636329668,
+            -5.243724913351866
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "32aff194-9eb_0",
+          "control": 10,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -5.743187954494516,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -5.743187954494516,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.743187954494516,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.247729318164848,
+                -5.243724913351866
+              ],
+              "from": [
+                -5.743187954494516,
+                -5.743187954494516
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.247729318164848,
+            -5.243724913351866
+          ],
+          "jointConservativeIntersection": [
+            -5.743187954494516,
+            -5.243724913351866
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "32aff194-9eb_0",
+          "control": 11,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -5.4909172726593365,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -5.4909172726593365,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.4909172726593365,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.247729318164848,
+                -5.243724913351866
+              ],
+              "from": [
+                -5.4909172726593365,
+                -5.4909172726593365
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.247729318164848,
+            -5.243724913351866
+          ],
+          "jointConservativeIntersection": [
+            -5.4909172726593365,
+            -5.243724913351866
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "32aff194-9eb_0",
+          "control": 12,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -5.243724913351866,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -5.243724913351866,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.243724913351866,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.247729318164848,
+                -5.243724913351866
+              ],
+              "from": [
+                -5.243724913351866,
+                -5.243724913351866
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.247729318164848,
+            -5.243724913351866
+          ],
+          "jointConservativeIntersection": [
+            -5.243724913351866,
+            -5.243724913351866
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "37e51f9d-b1c_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -1.8201357226478572,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -1.8201357226478572,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -1.8201357226478572,
+                0.0
+              ],
+              "from": [
+                -1.2948810225261271,
+                -1.2948810225261271
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -1.8201357226478572,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -1.8201357226478572,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "37e51f9d-b1c_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -1.8201357226478572,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -1.8201357226478572,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -1.8201357226478572,
+                0.0
+              ],
+              "from": [
+                -0.0480834246779156,
+                -0.0480834246779156
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -1.8201357226478572,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -1.8201357226478572,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "397fbbcf-eba_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -4.036468819554582,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -4.036468819554582,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.036468819554582,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.668975934139086,
+                -3.9074475034862783
+              ],
+              "from": [
+                -4.036468819554582,
+                -4.036468819554582
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.668975934139086,
+            -3.9074475034862783
+          ],
+          "jointConservativeIntersection": [
+            -4.036468819554582,
+            -3.9074475034862783
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "397fbbcf-eba_1",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -3.451844331855524,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -3.451844331855524,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.451844331855524,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.9074475034862783,
+                0.0
+              ],
+              "from": [
+                -3.451844331855524,
+                -3.451844331855524
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.9074475034862783,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.451844331855524,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "397fbbcf-eba_1",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -3.0386635518539693,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.0386635518539693,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.9074475034862783,
+                0.0
+              ],
+              "from": [
+                -0.6447322037067318,
+                -0.6447322037067318
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.9074475034862783,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.0386635518539693,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "3d9aa836-1ed_0",
+          "control": 7,
+          "newPerSeedDomains": [
+            {
+              "seed": "2e360436-d2f",
+              "bounds": [
+                -6.316907051534527,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.316907051534527,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -6.133814103069069
+              ],
+              "from": [
+                -6.316907051534527,
+                -6.316907051534527
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -6.133814103069069
+          ],
+          "jointConservativeIntersection": [
+            -6.316907051534527,
+            -6.133814103069069
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4c5f6856-b6e_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "dedd23d9-a30",
+              "bounds": [
+                -3.3702120312278443,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.3702120312278443,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1255761742894146
+              ],
+              "from": [
+                -3.3702120312278443,
+                -3.3702120312278443
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1255761742894146
+          ],
+          "jointConservativeIntersection": [
+            -3.3702120312278443,
+            -3.1255761742894146
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4c5f6856-b6e_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "dedd23d9-a30",
+              "bounds": [
+                -3.6148478881662744,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.6148478881662744,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1255761742894146
+              ],
+              "from": [
+                -3.6148478881662744,
+                -3.6148478881662744
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1255761742894146
+          ],
+          "jointConservativeIntersection": [
+            -3.6148478881662744,
+            -3.1255761742894146
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4c5f6856-b6e_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "dedd23d9-a30",
+              "bounds": [
+                -3.8594837451047046,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.8594837451047046,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1255761742894146
+              ],
+              "from": [
+                -3.8594837451047046,
+                -3.8594837451047046
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1255761742894146
+          ],
+          "jointConservativeIntersection": [
+            -3.8594837451047046,
+            -3.1255761742894146
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4c5f6856-b6e_0",
+          "control": 4,
+          "newPerSeedDomains": [
+            {
+              "seed": "dedd23d9-a30",
+              "bounds": [
+                -4.104119602043134,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.104119602043134,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1255761742894146
+              ],
+              "from": [
+                -4.104119602043134,
+                -4.104119602043134
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1255761742894146
+          ],
+          "jointConservativeIntersection": [
+            -4.104119602043134,
+            -3.1255761742894146
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4c5f6856-b6e_0",
+          "control": 5,
+          "newPerSeedDomains": [
+            {
+              "seed": "dedd23d9-a30",
+              "bounds": [
+                -4.3487554589815645,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.3487554589815645,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -3.1255761742894146
+              ],
+              "from": [
+                -4.3487554589815645,
+                -4.3487554589815645
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -3.1255761742894146
+          ],
+          "jointConservativeIntersection": [
+            -4.3487554589815645,
+            -3.1255761742894146
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4e5c2647-d15_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -3.013699336724804,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.013699336724804,
+                0.0
+              ],
+              "from": [
+                -2.191044791973519,
+                -2.191044791973519
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4e5c2647-d15_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -3.013699336724804,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.013699336724804,
+                0.0
+              ],
+              "from": [
+                -1.371297117380843,
+                -1.371297117380843
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4e5c2647-d15_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -3.013699336724804,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.013699336724804,
+                0.0
+              ],
+              "from": [
+                -0.5515494427882729,
+                -0.5515494427882729
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4faf1721-f7a_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -1.606670815669149,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -1.606670815669149,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.1104623570737515,
+                -0.6665946219486435
+              ],
+              "from": [
+                -1.606670815669149,
+                -1.606670815669149
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.1104623570737515,
+            -0.6665946219486435
+          ],
+          "jointConservativeIntersection": [
+            -1.606670815669149,
+            -0.6665946219486435
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "a187607c-216",
+              "bounds": [
+                -5.531039462161593,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.531039462161593,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.5245394621616875
+              ],
+              "from": [
+                -5.531039462161593,
+                -5.531039462161593
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.5245394621616875
+          ],
+          "jointConservativeIntersection": [
+            -5.531039462161593,
+            -5.5245394621616875
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "a187607c-216",
+              "bounds": [
+                -5.777478151855014,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.777478151855014,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.5245394621616875
+              ],
+              "from": [
+                -5.777478151855014,
+                -5.777478151855014
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.5245394621616875
+          ],
+          "jointConservativeIntersection": [
+            -5.777478151855014,
+            -5.5245394621616875
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "a187607c-216",
+              "bounds": [
+                -6.023916841548332,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.023916841548332,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.5245394621616875
+              ],
+              "from": [
+                -6.023916841548332,
+                -6.023916841548332
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.5245394621616875
+          ],
+          "jointConservativeIntersection": [
+            -6.023916841548332,
+            -5.5245394621616875
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 4,
+          "newPerSeedDomains": [
+            {
+              "seed": "a187607c-216",
+              "bounds": [
+                -6.270355531241753,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.270355531241753,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.5245394621616875
+              ],
+              "from": [
+                -6.270355531241753,
+                -6.270355531241753
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.5245394621616875
+          ],
+          "jointConservativeIntersection": [
+            -6.270355531241753,
+            -5.5245394621616875
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 12,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -6.270355531241753,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.270355531241753,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.374958412640202
+              ],
+              "from": [
+                -6.270355531241753,
+                -6.270355531241753
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.374958412640202
+          ],
+          "jointConservativeIntersection": [
+            -6.270355531241753,
+            -5.374958412640202
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 13,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -6.046506251591339,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.046506251591339,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.374958412640202
+              ],
+              "from": [
+                -6.046506251591339,
+                -6.046506251591339
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.374958412640202
+          ],
+          "jointConservativeIntersection": [
+            -6.046506251591339,
+            -5.374958412640202
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 14,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -5.8226569719409245,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.8226569719409245,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.374958412640202
+              ],
+              "from": [
+                -5.8226569719409245,
+                -5.8226569719409245
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.374958412640202
+          ],
+          "jointConservativeIntersection": [
+            -5.8226569719409245,
+            -5.374958412640202
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 15,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -5.598807692290617,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.598807692290617,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.374958412640202
+              ],
+              "from": [
+                -5.598807692290617,
+                -5.598807692290617
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.374958412640202
+          ],
+          "jointConservativeIntersection": [
+            -5.598807692290617,
+            -5.374958412640202
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_5",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -3.699780417938968,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.699780417938968,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.7062804179389914,
+                -3.013699336724804
+              ],
+              "from": [
+                -3.699780417938968,
+                -3.699780417938968
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.7062804179389914,
+            -3.013699336724804
+          ],
+          "jointConservativeIntersection": [
+            -3.699780417938968,
+            -3.013699336724804
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "68640954-01c_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -5.505610262471348,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -5.505610262471348,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.505610262471348,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.264036645327445
+              ],
+              "from": [
+                -5.505610262471348,
+                -5.505610262471348
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.264036645327445
+          ],
+          "jointConservativeIntersection": [
+            -5.505610262471348,
+            -5.264036645327445
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "68640954-01c_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -5.747183879615277,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -5.747183879615277,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.747183879615277,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.264036645327445
+              ],
+              "from": [
+                -5.747183879615277,
+                -5.747183879615277
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.264036645327445
+          ],
+          "jointConservativeIntersection": [
+            -5.747183879615277,
+            -5.264036645327445
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "68640954-01c_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -5.998122586410187,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -5.998122586410187,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.998122586410187,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.264036645327445
+              ],
+              "from": [
+                -5.998122586410187,
+                -5.998122586410187
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.264036645327445
+          ],
+          "jointConservativeIntersection": [
+            -5.998122586410187,
+            -5.264036645327445
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "68640954-01c_0",
+          "control": 4,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -6.249061293205091,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -6.249061293205091,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.249061293205091,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.5,
+                -5.264036645327445
+              ],
+              "from": [
+                -6.249061293205091,
+                -6.249061293205091
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.5,
+            -5.264036645327445
+          ],
+          "jointConservativeIntersection": [
+            -6.249061293205091,
+            -5.264036645327445
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "87873dc9-97f_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "6d7df42b-9c8",
+              "bounds": [
+                -3.183109830781952,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.183109830781952,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.183109830781952,
+                0.0
+              ],
+              "from": [
+                -1.0156351481155115,
+                -1.0156351481155115
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.183109830781952,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.183109830781952,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "882b33a6-0ab_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -3.0386635518539693,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.0386635518539693,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -2.456274880516516,
+                0.0
+              ],
+              "from": [
+                -1.308348380256153,
+                -1.308348380256153
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -2.456274880516516,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -2.456274880516516,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "90a456e6-e06_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "190f74a8-83e",
+              "bounds": [
+                -4.232226267484426,
+                0.0
+              ]
+            },
+            {
+              "seed": "336e3006-13c",
+              "bounds": [
+                -5.7207669961822685,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.232226267484426,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.232226267484426,
+                0.0
+              ],
+              "from": [
+                -1.3286390895267908,
+                -1.3286390895267908
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.232226267484426,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -4.232226267484426,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "95b71ab7-702_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "a824af6f-341",
+              "bounds": [
+                -5.24681404276828,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.24681404276828,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.249362808553659,
+                -4.996176851321939
+              ],
+              "from": [
+                -5.24681404276828,
+                -5.24681404276828
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.249362808553659,
+            -4.996176851321939
+          ],
+          "jointConservativeIntersection": [
+            -5.24681404276828,
+            -4.996176851321939
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "95b71ab7-702_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "a824af6f-341",
+              "bounds": [
+                -5.497451234214623,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.497451234214623,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.249362808553659,
+                -4.996176851321939
+              ],
+              "from": [
+                -5.497451234214623,
+                -5.497451234214623
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.249362808553659,
+            -4.996176851321939
+          ],
+          "jointConservativeIntersection": [
+            -5.497451234214623,
+            -4.996176851321939
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "95b71ab7-702_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "a824af6f-341",
+              "bounds": [
+                -5.748088425660976,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.748088425660976,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.249362808553659,
+                -4.996176851321939
+              ],
+              "from": [
+                -5.748088425660976,
+                -5.748088425660976
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.249362808553659,
+            -4.996176851321939
+          ],
+          "jointConservativeIntersection": [
+            -5.748088425660976,
+            -4.996176851321939
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "95b71ab7-702_0",
+          "control": 4,
+          "newPerSeedDomains": [
+            {
+              "seed": "a824af6f-341",
+              "bounds": [
+                -5.998725617107317,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.998725617107317,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.249362808553659,
+                -4.996176851321939
+              ],
+              "from": [
+                -5.998725617107317,
+                -5.998725617107317
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.249362808553659,
+            -4.996176851321939
+          ],
+          "jointConservativeIntersection": [
+            -5.998725617107317,
+            -4.996176851321939
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "98c1cbc0-478_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "5e6caa98-bcc",
+              "bounds": [
+                -5.131140560429326,
+                0.0
+              ]
+            },
+            {
+              "seed": "6d7df42b-9c8",
+              "bounds": [
+                -5.131140560429326,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.131140560429326,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.482922097750434,
+                -0.08081640344146224
+              ],
+              "from": [
+                -5.131140560429326,
+                -5.131140560429326
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.482922097750434,
+            -0.08081640344146224
+          ],
+          "jointConservativeIntersection": [
+            -5.131140560429326,
+            -0.08081640344146224
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "98c1cbc0-478_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "5e6caa98-bcc",
+              "bounds": [
+                -1.49741382331769,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -1.49741382331769,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.482922097750434,
+                -0.08081640344146224
+              ],
+              "from": [
+                -1.49741382331769,
+                -1.49741382331769
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.482922097750434,
+            -0.08081640344146224
+          ],
+          "jointConservativeIntersection": [
+            -1.49741382331769,
+            -0.08081640344146224
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "9e2bde59-891_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "2e360436-d2f",
+              "bounds": [
+                -4.390068708809917,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.390068708809917,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.83208999057776,
+                0.0
+              ],
+              "from": [
+                -1.1740350156007562,
+                -1.1740350156007562
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.83208999057776,
+            0.0
+          ],
+          "jointConservativeIntersection": [
+            -3.83208999057776,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "9e8e9cb1-ede_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "f3decc14-280",
+              "bounds": [
+                -2.1986487659457206,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -2.1986487659457206,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.436211895648606,
+                -0.7782388779204414
+              ],
+              "from": [
+                -2.1986487659457206,
+                -2.1986487659457206
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.436211895648606,
+            -0.7782388779204414
+          ],
+          "jointConservativeIntersection": [
+            -2.1986487659457206,
+            -0.7782388779204414
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "cfdfba4a-fac_0",
+          "control": 11,
+          "newPerSeedDomains": [
+            {
+              "seed": "f3decc14-280",
+              "bounds": [
+                -5.997739747629671,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.997739747629671,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.24886987381484,
+                -5.746609621444505
+              ],
+              "from": [
+                -5.997739747629671,
+                -5.997739747629671
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.24886987381484,
+            -5.746609621444505
+          ],
+          "jointConservativeIntersection": [
+            -5.997739747629671,
+            -5.746609621444505
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 13,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -6.248457558253087,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.248457558253087,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -6.248457558253087,
+                -6.248457558253087
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -6.248457558253087,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 14,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -6.122686337379626,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.122686337379626,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -6.122686337379626,
+                -6.122686337379626
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -6.122686337379626,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 15,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -5.99691511650617,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.99691511650617,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -5.99691511650617,
+                -5.99691511650617
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -5.99691511650617,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 16,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -5.870696879359434,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.870696879359434,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -5.870696879359434,
+                -5.870696879359434
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -5.870696879359434,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 17,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -5.744478642212698,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.744478642212698,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -5.744478642212698,
+                -5.744478642212698
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -5.744478642212698,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 18,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -5.618260405065958,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.618260405065958,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -5.618260405065958,
+                -5.618260405065958
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -5.618260405065958,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 19,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -5.492042167919222,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.492042167919222,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -5.492042167919222,
+                -5.492042167919222
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -5.492042167919222,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 20,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -5.365823930772486,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.365823930772486,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -5.365823930772486,
+                -5.365823930772486
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -5.365823930772486,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 21,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -5.239605693625754,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.239605693625754,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -5.239605693625754,
+                -5.239605693625754
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -5.239605693625754,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 22,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -5.1133874564790185,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.1133874564790185,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -5.1133874564790185,
+                -5.1133874564790185
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -5.1133874564790185,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 23,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -4.987169219332283,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.987169219332283,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -4.987169219332283,
+                -4.987169219332283
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -4.987169219332283,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 24,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -4.860950982185543,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.860950982185543,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -4.860950982185543,
+                -4.860950982185543
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -4.860950982185543,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 25,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -4.734732745038807,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.734732745038807,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.374228779126543,
+                -4.608514507892071
+              ],
+              "from": [
+                -4.734732745038807,
+                -4.734732745038807
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.374228779126543,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -4.734732745038807,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e8148ea6-4f5_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "190f74a8-83e",
+              "bounds": [
+                -4.968449908778305,
+                0.0
+              ]
+            },
+            {
+              "seed": "336e3006-13c",
+              "bounds": [
+                -5.7207669961822685,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.968449908778305,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.7207669961822685,
+                -4.232226267484426
+              ],
+              "from": [
+                -4.968449908778305,
+                -4.968449908778305
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.7207669961822685,
+            -4.232226267484426
+          ],
+          "jointConservativeIntersection": [
+            -4.968449908778305,
+            -4.232226267484426
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "eb78223f-f59_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "6d7df42b-9c8",
+              "bounds": [
+                -5.6442662367667324,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.6442662367667324,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.249150523221592,
+                -4.856692589416847
+              ],
+              "from": [
+                -5.6442662367667324,
+                -5.6442662367667324
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.249150523221592,
+            -4.856692589416847
+          ],
+          "jointConservativeIntersection": [
+            -5.6442662367667324,
+            -4.856692589416847
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "ff4bed75-591_1",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "caf42c0b-6eb",
+              "bounds": [
+                -1.5483644182767158,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -1.5483644182767158,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -2.2831232222389235,
+                -0.3376183672816866
+              ],
+              "from": [
+                -1.5483644182767158,
+                -1.5483644182767158
+              ],
+              "family": "negative",
+              "permissionProposalStatus": "source-backed-generated-estimate-reconstruction",
+              "provenanceGaps": [],
+              "authority": "inactive-interior-reconstruction-proposal"
+            }
+          ],
+          "existingScopeIntersection": [
+            -2.2831232222389235,
+            -0.3376183672816866
+          ],
+          "jointConservativeIntersection": [
+            -1.5483644182767158,
+            -0.3376183672816866
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        }
+      ]
+    },
+    "signed346Anchors": {
+      "sharedRoads": [
+        "07d3034a-387_0",
+        "09c1bfe9-5f2_1",
+        "153405da-9f3_0",
+        "15d415b6-d8f_0",
+        "1f5fa9b1-c69_0",
+        "1fae246f-d27_0",
+        "272b7a8e-f77_0",
+        "32aff194-9eb_0",
+        "37e51f9d-b1c_0",
+        "397fbbcf-eba_0",
+        "397fbbcf-eba_1",
+        "3d9aa836-1ed_0",
+        "4c5f6856-b6e_0",
+        "4e5c2647-d15_0",
+        "4faf1721-f7a_0",
+        "63b6ecd9-48a_3",
+        "63b6ecd9-48a_5",
+        "68640954-01c_0",
+        "87873dc9-97f_0",
+        "882b33a6-0ab_0",
+        "90a456e6-e06_0",
+        "95b71ab7-702_0",
+        "98c1cbc0-478_0",
+        "9e2bde59-891_0",
+        "9e8e9cb1-ede_0",
+        "cfdfba4a-fac_0",
+        "e0a2d983-56a_0",
+        "e8148ea6-4f5_0",
+        "eb78223f-f59_0",
+        "ff4bed75-591_1"
+      ],
+      "sharedRoadCount": 30,
+      "overlappingControls": 45,
+      "statuses": {
+        "compatible-intersection-only-no-union": 40,
+        "zero-only-intersection-removes-negative-freedom-replacement-review-required": 5
+      },
+      "controls": [
+        {
+          "road": "07d3034a-387_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "36c64d54-f05",
+              "bounds": [
+                -1.5921034303800519,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -1.5921034303800519,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -1.5921034303800519,
+                -1.5921034303800519
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -1.5921034303800519,
+            -1.5921034303800519
+          ],
+          "jointConservativeIntersection": [
+            -1.5921034303800519,
+            -1.5921034303800519
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "153405da-9f3_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "8f3cf6dc-79e",
+              "bounds": [
+                -0.08019054369702472,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -0.08019054369702472,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -0.08019054369702472,
+                -0.08019054369702472
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -0.08019054369702472,
+            -0.08019054369702472
+          ],
+          "jointConservativeIntersection": [
+            -0.08019054369702472,
+            -0.08019054369702472
+          ],
+          "namedFixedModeledDatum": [
+            -0.08019054369702472,
+            -0.08019054369702472
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "15d415b6-d8f_0",
+          "control": 6,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -4.668975934139086,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -4.668975934139086,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.668975934139086,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.668975934139086,
+                -4.668975934139086
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.668975934139086,
+            -4.668975934139086
+          ],
+          "jointConservativeIntersection": [
+            -4.668975934139086,
+            -4.668975934139086
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1f5fa9b1-c69_0",
+          "control": 37,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -3.1104623570737515,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.1104623570737515,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.1104623570737515,
+                -3.1104623570737515
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.1104623570737515,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -3.1104623570737515,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1fae246f-d27_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -2.5464977160108595,
+                0.0
+              ]
+            },
+            {
+              "seed": "ce927bfc-9ef",
+              "bounds": [
+                -2.5464977160108595,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -2.5464977160108595,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -2.5464977160108595,
+                -2.5464977160108595
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -2.5464977160108595,
+            -2.5464977160108595
+          ],
+          "jointConservativeIntersection": [
+            -2.5464977160108595,
+            -2.5464977160108595
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "1fae246f-d27_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -1.8201357226478572,
+                0.0
+              ]
+            },
+            {
+              "seed": "ce927bfc-9ef",
+              "bounds": [
+                -0.04893132395737765,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -0.04893132395737765,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -0.04893132395737765,
+                -0.04893132395737765
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -0.04893132395737765,
+            -0.04893132395737765
+          ],
+          "jointConservativeIntersection": [
+            -0.04893132395737765,
+            -0.04893132395737765
+          ],
+          "namedFixedModeledDatum": [
+            -0.04893132395737765,
+            -0.04893132395737765
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "272b7a8e-f77_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "f3decc14-280",
+              "bounds": [
+                -5.746609621444505,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.746609621444505,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.746609621444505,
+                -5.746609621444505
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.746609621444505,
+            -5.746609621444505
+          ],
+          "jointConservativeIntersection": [
+            -5.746609621444505,
+            -5.746609621444505
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "272b7a8e-f77_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "f3decc14-280",
+              "bounds": [
+                -3.436211895648606,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.436211895648606,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.436211895648606,
+                -3.436211895648606
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.436211895648606,
+            -3.436211895648606
+          ],
+          "jointConservativeIntersection": [
+            -3.436211895648606,
+            -3.436211895648606
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "32aff194-9eb_0",
+          "control": 13,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -5.264036645327445,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -5.264036645327445,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.264036645327445,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.264036645327445,
+                -5.264036645327445
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.264036645327445,
+            -5.264036645327445
+          ],
+          "jointConservativeIntersection": [
+            -5.264036645327445,
+            -5.264036645327445
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "37e51f9d-b1c_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -1.8201357226478572,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -1.8201357226478572,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -1.8201357226478572,
+                -1.8201357226478572
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -1.8201357226478572,
+            -1.8201357226478572
+          ],
+          "jointConservativeIntersection": [
+            -1.8201357226478572,
+            -1.8201357226478572
+          ],
+          "namedFixedModeledDatum": [
+            -1.8201357226478572,
+            -1.8201357226478572
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "37e51f9d-b1c_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -1.8201357226478572,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -1.8201357226478572,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                0,
+                0
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            0,
+            0
+          ],
+          "jointConservativeIntersection": [
+            0,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "zero-only-intersection-removes-negative-freedom-replacement-review-required",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "397fbbcf-eba_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -4.668975934139086,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -4.668975934139086,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.668975934139086,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.668975934139086,
+                -4.668975934139086
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.668975934139086,
+            -4.668975934139086
+          ],
+          "jointConservativeIntersection": [
+            -4.668975934139086,
+            -4.668975934139086
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "397fbbcf-eba_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -3.9074475034862783,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -3.9074475034862783,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.9074475034862783,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.9074475034862783,
+                -3.9074475034862783
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.9074475034862783,
+            -3.9074475034862783
+          ],
+          "jointConservativeIntersection": [
+            -3.9074475034862783,
+            -3.9074475034862783
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "397fbbcf-eba_1",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -3.9074475034862783,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -3.9074475034862783,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.9074475034862783,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.9074475034862783,
+                -3.9074475034862783
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.9074475034862783,
+            -3.9074475034862783
+          ],
+          "jointConservativeIntersection": [
+            -3.9074475034862783,
+            -3.9074475034862783
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "3d9aa836-1ed_0",
+          "control": 8,
+          "newPerSeedDomains": [
+            {
+              "seed": "2e360436-d2f",
+              "bounds": [
+                -6.133814103069069,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.133814103069069,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.133814103069069,
+                -6.133814103069069
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.133814103069069,
+            -6.133814103069069
+          ],
+          "jointConservativeIntersection": [
+            -6.133814103069069,
+            -6.133814103069069
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4c5f6856-b6e_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "dedd23d9-a30",
+              "bounds": [
+                -3.1255761742894146,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.1255761742894146,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.1255761742894146,
+                -3.1255761742894146
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.1255761742894146,
+            -3.1255761742894146
+          ],
+          "jointConservativeIntersection": [
+            -3.1255761742894146,
+            -3.1255761742894146
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4e5c2647-d15_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -3.013699336724804,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.013699336724804,
+                -3.013699336724804
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.013699336724804,
+            -3.013699336724804
+          ],
+          "jointConservativeIntersection": [
+            -3.013699336724804,
+            -3.013699336724804
+          ],
+          "namedFixedModeledDatum": [
+            -3.013699336724804,
+            -3.013699336724804
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4e5c2647-d15_0",
+          "control": 4,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -3.013699336724804,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                0,
+                0
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            0,
+            0
+          ],
+          "jointConservativeIntersection": [
+            0,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "zero-only-intersection-removes-negative-freedom-replacement-review-required",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4faf1721-f7a_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -3.1104623570737515,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.1104623570737515,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.1104623570737515,
+                -3.1104623570737515
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.1104623570737515,
+            -3.1104623570737515
+          ],
+          "jointConservativeIntersection": [
+            -3.1104623570737515,
+            -3.1104623570737515
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "4faf1721-f7a_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "5d397ad4-8be",
+              "bounds": [
+                -0.6665946219486435,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -0.6665946219486435,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -0.6665946219486435,
+                -0.6665946219486435
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -0.6665946219486435,
+            -0.6665946219486435
+          ],
+          "jointConservativeIntersection": [
+            -0.6665946219486435,
+            -0.6665946219486435
+          ],
+          "namedFixedModeledDatum": [
+            -0.6665946219486435,
+            -0.6665946219486435
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "a187607c-216",
+              "bounds": [
+                -5.5245394621616875,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.5245394621616875,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.5245394621616875,
+                -5.5245394621616875
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.5245394621616875,
+            -5.5245394621616875
+          ],
+          "jointConservativeIntersection": [
+            -5.5245394621616875,
+            -5.5245394621616875
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_3",
+          "control": 16,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -5.374958412640202,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.374958412640202,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.374958412640202,
+                -5.374958412640202
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.374958412640202,
+            -5.374958412640202
+          ],
+          "jointConservativeIntersection": [
+            -5.374958412640202,
+            -5.374958412640202
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_5",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -3.7062804179389914,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.7062804179389914,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.7062804179389914,
+                -3.7062804179389914
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.7062804179389914,
+            -3.7062804179389914
+          ],
+          "jointConservativeIntersection": [
+            -3.7062804179389914,
+            -3.7062804179389914
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "63b6ecd9-48a_5",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "70f12d37-a85",
+              "bounds": [
+                -3.013699336724804,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.013699336724804,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.013699336724804,
+                -3.013699336724804
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.013699336724804,
+            -3.013699336724804
+          ],
+          "jointConservativeIntersection": [
+            -3.013699336724804,
+            -3.013699336724804
+          ],
+          "namedFixedModeledDatum": [
+            -3.013699336724804,
+            -3.013699336724804
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "68640954-01c_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -5.264036645327445,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -5.264036645327445,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.264036645327445,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.264036645327445,
+                -5.264036645327445
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.264036645327445,
+            -5.264036645327445
+          ],
+          "jointConservativeIntersection": [
+            -5.264036645327445,
+            -5.264036645327445
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "87873dc9-97f_0",
+          "control": 1,
+          "newPerSeedDomains": [
+            {
+              "seed": "6d7df42b-9c8",
+              "bounds": [
+                -3.183109830781952,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.183109830781952,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                0,
+                0
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            0,
+            0
+          ],
+          "jointConservativeIntersection": [
+            0,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "zero-only-intersection-removes-negative-freedom-replacement-review-required",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "87873dc9-97f_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "6d7df42b-9c8",
+              "bounds": [
+                -3.183109830781952,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.183109830781952,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.183109830781952,
+                -3.183109830781952
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.183109830781952,
+            -3.183109830781952
+          ],
+          "jointConservativeIntersection": [
+            -3.183109830781952,
+            -3.183109830781952
+          ],
+          "namedFixedModeledDatum": [
+            -3.183109830781952,
+            -3.183109830781952
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "882b33a6-0ab_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "a28c428b-70b",
+              "bounds": [
+                -3.0386635518539693,
+                0.0
+              ]
+            },
+            {
+              "seed": "b4fbcd5d-22b",
+              "bounds": [
+                -2.456274880516516,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -2.456274880516516,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -2.456274880516516,
+                -2.456274880516516
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -2.456274880516516,
+            -2.456274880516516
+          ],
+          "jointConservativeIntersection": [
+            -2.456274880516516,
+            -2.456274880516516
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "90a456e6-e06_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "336e3006-13c",
+              "bounds": [
+                -5.7207669961822685,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.7207669961822685,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                0,
+                0
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            0,
+            0
+          ],
+          "jointConservativeIntersection": [
+            0,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "zero-only-intersection-removes-negative-freedom-replacement-review-required",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "90a456e6-e06_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "190f74a8-83e",
+              "bounds": [
+                -4.232226267484426,
+                0.0
+              ]
+            },
+            {
+              "seed": "336e3006-13c",
+              "bounds": [
+                -5.7207669961822685,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.232226267484426,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.232226267484426,
+                -4.232226267484426
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.232226267484426,
+            -4.232226267484426
+          ],
+          "jointConservativeIntersection": [
+            -4.232226267484426,
+            -4.232226267484426
+          ],
+          "namedFixedModeledDatum": [
+            -4.232226267484426,
+            -4.232226267484426
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "95b71ab7-702_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "a824af6f-341",
+              "bounds": [
+                -4.996176851321939,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.996176851321939,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.996176851321939,
+                -4.996176851321939
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.996176851321939,
+            -4.996176851321939
+          ],
+          "jointConservativeIntersection": [
+            -4.996176851321939,
+            -4.996176851321939
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "98c1cbc0-478_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "5e6caa98-bcc",
+              "bounds": [
+                -5.482922097750434,
+                0.0
+              ]
+            },
+            {
+              "seed": "6d7df42b-9c8",
+              "bounds": [
+                -5.482922097750434,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.482922097750434,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.482922097750434,
+                -5.482922097750434
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.482922097750434,
+            -5.482922097750434
+          ],
+          "jointConservativeIntersection": [
+            -5.482922097750434,
+            -5.482922097750434
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "98c1cbc0-478_0",
+          "control": 3,
+          "newPerSeedDomains": [
+            {
+              "seed": "5e6caa98-bcc",
+              "bounds": [
+                -0.08081640344146224,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -0.08081640344146224,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -0.08081640344146224,
+                -0.08081640344146224
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -0.08081640344146224,
+            -0.08081640344146224
+          ],
+          "jointConservativeIntersection": [
+            -0.08081640344146224,
+            -0.08081640344146224
+          ],
+          "namedFixedModeledDatum": [
+            -0.08081640344146224,
+            -0.08081640344146224
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "9e2bde59-891_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "2e360436-d2f",
+              "bounds": [
+                -4.390068708809917,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.390068708809917,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.83208999057776,
+                -3.83208999057776
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.83208999057776,
+            -3.83208999057776
+          ],
+          "jointConservativeIntersection": [
+            -3.83208999057776,
+            -3.83208999057776
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "9e2bde59-891_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "2e360436-d2f",
+              "bounds": [
+                -4.390068708809917,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.390068708809917,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                0,
+                0
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            0,
+            0
+          ],
+          "jointConservativeIntersection": [
+            0,
+            0.0
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "zero-only-intersection-removes-negative-freedom-replacement-review-required",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "9e8e9cb1-ede_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "f3decc14-280",
+              "bounds": [
+                -3.436211895648606,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -3.436211895648606,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -3.436211895648606,
+                -3.436211895648606
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -3.436211895648606,
+            -3.436211895648606
+          ],
+          "jointConservativeIntersection": [
+            -3.436211895648606,
+            -3.436211895648606
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "9e8e9cb1-ede_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "f3decc14-280",
+              "bounds": [
+                -0.7782388779204414,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -0.7782388779204414,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -0.7782388779204414,
+                -0.7782388779204414
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -0.7782388779204414,
+            -0.7782388779204414
+          ],
+          "jointConservativeIntersection": [
+            -0.7782388779204414,
+            -0.7782388779204414
+          ],
+          "namedFixedModeledDatum": [
+            -0.7782388779204414,
+            -0.7782388779204414
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "cfdfba4a-fac_0",
+          "control": 12,
+          "newPerSeedDomains": [
+            {
+              "seed": "f3decc14-280",
+              "bounds": [
+                -5.746609621444505,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.746609621444505,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.746609621444505,
+                -5.746609621444505
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.746609621444505,
+            -5.746609621444505
+          ],
+          "jointConservativeIntersection": [
+            -5.746609621444505,
+            -5.746609621444505
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e0a2d983-56a_0",
+          "control": 26,
+          "newPerSeedDomains": [
+            {
+              "seed": "4ce2a9c8-44d",
+              "bounds": [
+                -4.608514507892071,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.608514507892071,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.608514507892071,
+                -4.608514507892071
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.608514507892071,
+            -4.608514507892071
+          ],
+          "jointConservativeIntersection": [
+            -4.608514507892071,
+            -4.608514507892071
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e8148ea6-4f5_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "190f74a8-83e",
+              "bounds": [
+                -4.232226267484426,
+                0.0
+              ]
+            },
+            {
+              "seed": "336e3006-13c",
+              "bounds": [
+                -5.7207669961822685,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.232226267484426,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.232226267484426,
+                -4.232226267484426
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.232226267484426,
+            -4.232226267484426
+          ],
+          "jointConservativeIntersection": [
+            -4.232226267484426,
+            -4.232226267484426
+          ],
+          "namedFixedModeledDatum": [
+            -4.232226267484426,
+            -4.232226267484426
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "e8148ea6-4f5_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "190f74a8-83e",
+              "bounds": [
+                -5.7207669961822685,
+                0.0
+              ]
+            },
+            {
+              "seed": "336e3006-13c",
+              "bounds": [
+                -5.7207669961822685,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -5.7207669961822685,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -5.7207669961822685,
+                -5.7207669961822685
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -5.7207669961822685,
+            -5.7207669961822685
+          ],
+          "jointConservativeIntersection": [
+            -5.7207669961822685,
+            -5.7207669961822685
+          ],
+          "namedFixedModeledDatum": [
+            -5.7207669961822685,
+            -5.7207669961822685
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "eb78223f-f59_0",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "6d7df42b-9c8",
+              "bounds": [
+                -4.856692589416847,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -4.856692589416847,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -4.856692589416847,
+                -4.856692589416847
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -4.856692589416847,
+            -4.856692589416847
+          ],
+          "jointConservativeIntersection": [
+            -4.856692589416847,
+            -4.856692589416847
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "eb78223f-f59_0",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "5e6caa98-bcc",
+              "bounds": [
+                -6.249150523221592,
+                0.0
+              ]
+            },
+            {
+              "seed": "6d7df42b-9c8",
+              "bounds": [
+                -6.249150523221592,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -6.249150523221592,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -6.249150523221592,
+                -6.249150523221592
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -6.249150523221592,
+            -6.249150523221592
+          ],
+          "jointConservativeIntersection": [
+            -6.249150523221592,
+            -6.249150523221592
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "ff4bed75-591_1",
+          "control": 0,
+          "newPerSeedDomains": [
+            {
+              "seed": "caf42c0b-6eb",
+              "bounds": [
+                -2.2831232222389235,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -2.2831232222389235,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -2.2831232222389235,
+                -2.2831232222389235
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -2.2831232222389235,
+            -2.2831232222389235
+          ],
+          "jointConservativeIntersection": [
+            -2.2831232222389235,
+            -2.2831232222389235
+          ],
+          "namedFixedModeledDatum": null,
+          "directBlockingFootprint": false,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        },
+        {
+          "road": "ff4bed75-591_1",
+          "control": 2,
+          "newPerSeedDomains": [
+            {
+              "seed": "caf42c0b-6eb",
+              "bounds": [
+                -0.3376183672816866,
+                0.0
+              ]
+            }
+          ],
+          "newConservativeIntersection": [
+            -0.3376183672816866,
+            0.0
+          ],
+          "existingScope": [
+            {
+              "bounds": [
+                -0.3376183672816866,
+                -0.3376183672816866
+              ],
+              "authority": "previous-generated-domain-boundary-anchor-not-automatically-surveyed"
+            }
+          ],
+          "existingScopeIntersection": [
+            -0.3376183672816866,
+            -0.3376183672816866
+          ],
+          "jointConservativeIntersection": [
+            -0.3376183672816866,
+            -0.3376183672816866
+          ],
+          "namedFixedModeledDatum": [
+            -0.3376183672816866,
+            -0.3376183672816866
+          ],
+          "directBlockingFootprint": true,
+          "status": "compatible-intersection-only-no-union",
+          "actualCanonicalOrFloor": false,
+          "oldEstimatedScopeNotTreatedAsSurveyed": true,
+          "replacementAuthorityGranted": false
+        }
+      ]
+    }
+  },
+  "newPerSeedDomainConflicts": [
+    {
+      "road": "cde65603-783_0",
+      "control": 0,
+      "perSeed": [
+        {
+          "seed": "190f74a8-83e",
+          "bounds": [
+            -4.232226267484426,
+            0.0
+          ]
+        },
+        {
+          "seed": "336e3006-13c",
+          "bounds": [
+            -5.7207669961822685,
+            0.0
+          ]
+        }
+      ],
+      "conservativeIntersection": [
+        -4.232226267484426,
+        0.0
+      ],
+      "namedFixedModeledDatum": [
+        -5.7207669961822685,
+        -5.7207669961822685
+      ]
+    },
+    {
+      "road": "8b96e8dc-7f2_0",
+      "control": 47,
+      "perSeed": [
+        {
+          "seed": "32e6daeb-32d",
+          "bounds": [
+            -0.15953320907054858,
+            0.0
+          ]
+        },
+        {
+          "seed": "a28c428b-70b",
+          "bounds": [
+            -3.0386635518539693,
+            0.0
+          ]
+        },
+        {
+          "seed": "b4fbcd5d-22b",
+          "bounds": [
+            -1.6209928390295771,
+            0.0
+          ]
+        }
+      ],
+      "conservativeIntersection": [
+        -0.15953320907054858,
+        0.0
+      ],
+      "namedFixedModeledDatum": [
+        -3.0386635518539693,
+        -3.0386635518539693
+      ]
+    },
+    {
+      "road": "8fc998a5-3b3_0",
+      "control": 0,
+      "perSeed": [
+        {
+          "seed": "32e6daeb-32d",
+          "bounds": [
+            -0.15953320907054858,
+            0.0
+          ]
+        },
+        {
+          "seed": "a28c428b-70b",
+          "bounds": [
+            -3.0386635518539693,
+            0.0
+          ]
+        },
+        {
+          "seed": "b4fbcd5d-22b",
+          "bounds": [
+            -1.6209928390295771,
+            0.0
+          ]
+        }
+      ],
+      "conservativeIntersection": [
+        -0.15953320907054858,
+        0.0
+      ],
+      "namedFixedModeledDatum": [
+        -1.6209928390295771,
+        -1.6209928390295771
+      ]
+    },
+    {
+      "road": "4979b3aa-d6e_0",
+      "control": 0,
+      "perSeed": [
+        {
+          "seed": "6f224ec4-994",
+          "bounds": [
+            -0.7533738128954217,
+            0.0
+          ]
+        },
+        {
+          "seed": "a187607c-216",
+          "bounds": [
+            -1.354228412611512,
+            0.0
+          ]
+        }
+      ],
+      "conservativeIntersection": [
+        -0.7533738128954217,
+        0.0
+      ],
+      "namedFixedModeledDatum": [
+        -1.354228412611512,
+        -1.354228412611512
+      ]
+    },
+    {
+      "road": "87551a76-69d_0",
+      "control": 32,
+      "perSeed": [
+        {
+          "seed": "8df4f23d-05e",
+          "bounds": [
+            -2.6430008496105493,
+            0.0
+          ]
+        },
+        {
+          "seed": "bd07d255-d00",
+          "bounds": [
+            -0.13294019297294835,
+            0.0
+          ]
+        }
+      ],
+      "conservativeIntersection": [
+        -0.13294019297294835,
+        0.0
+      ],
+      "namedFixedModeledDatum": [
+        -2.6430008496105493,
+        -2.6430008496105493
+      ]
+    }
+  ],
+  "newPreparationOwnerInventory": [
+    {
+      "pack": {
+        "path": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/public/city/packs/p-1_1.pack.wasm",
+        "sha256": "921854f67005942354ab025cb27b4af8e6879b24dccc14108fce60c8b350f57e"
+      },
+      "tile": "-1_5",
+      "rawPhysical": {
+        "id": "f2ee8830-7c5_0",
+        "pts": [
+          [
+            -807.2,
+            5749.0
+          ],
+          [
+            -791.6,
+            5707.7
+          ]
+        ],
+        "elev": null,
+        "from": "83598d21-857",
+        "to": "eb963beb-50a",
+        "w": 6,
+        "lanes": 1,
+        "oneway": null
+      },
+      "rawPhysicalSHA256": "52807c2db1c9c28e0821d1f933479fc55a6bf20483e26485d554df5c771c47ce",
+      "rawNullNotSurveyedZero": true,
+      "conditioningAndFullJointInputRequired": true
+    }
+  ],
+  "additionalMissingSourcePrefixesFromAllArmProof": [
+    "d88b84ba-356"
+  ],
+  "requiredReplacementRule": "Compatible estimated domains may be intersected. Empty, zero-only or fixed-node-incompatible intersections require an explicit source-backed replacement proposal tied to the complete component and a fresh physical fit; no blind union and no old generated policy is called surveyed authority. Actual canonical/floor/source order and genuine explicit measured/declared fixed values remain hard.",
+  "sourceProofGates": [
+    "d88b84ba-356 all-arm source metadata missing fromV11",
+    "09c1bfe9-5f2 endpoint branch ambiguous with0.1599381466m official connector discrepancy; repair/review rather than increase tolerance",
+    "three nonadjacent pair finite polygon proofs remain pending even where a source-topology path is found",
+    "all activated nodes need refreshed304-pack owner incidence and new prepared raw ownerf2ee8830-7c5_0"
+  ],
+  "freshRecomputation": {
+    "allOverlapDomainsAndStatusesRecomputedFromActualInputs": true,
+    "oldPoliciesUnchanged": true,
+    "normalizedSelectedControlSetUnchanged": true,
+    "ownerPackedRecordRereadAndAll304PackHashesHeldByActualComponentProducer": true
+  }
+}

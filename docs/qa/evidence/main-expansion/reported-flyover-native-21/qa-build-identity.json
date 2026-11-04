@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-11-03T05:06:56.847Z",
+  "purpose": "Private instrumented native-control QA snapshot; never a publication archive.",
+  "sourceCheckout": "/Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches",
+  "sourceCommit": "a679b72bacefb751057f0282a86571e8e6ef006d",
+  "sourceDirty": true,
+  "runtimeFingerprint": "1945867ef0a923e983f98a5d3b113fce22bf91f1fc52bfd62dc39185082a5fde",
+  "qaOnlyDifference": "Vite DEV guards enabled for visible diagnostic controls and passive evidence export; no timing/camera/quality override.",
+  "models": [
+    {
+      "characterId": "pushpa-raj",
+      "candidate": {
+        "assetId": "pushpa-raj-seated-reader-v1",
+        "sha256": "7d11eac0a989196da789b381221673366d55009bd2bfaea531354cf033419835"
+      },
+      "glb": {
+        "url": "/delivery/characters/pushpa-raj/reader-v1.glb",
+        "sha256": "eda3b3c9071a80593a1063672b3735495757f3fdd0385cd04b0e07a33498dffb"
+      }
+    },
+    {
+      "characterId": "jessie",
+      "candidate": {
+        "assetId": "jessie-blue-saree-walking-v1",
+        "sha256": "22a408103f37a0d12de8834f0e8ef8bb31f0170078275d01cee52471b2052a82"
+      },
+      "glb": {
+        "url": "/delivery/characters/jessie/walking-v1.glb",
+        "sha256": "6142156a0d1c2663c27deaddbca530da711247e98d7b16add437f2baaba7fd64"
+      }
+    },
+    {
+      "characterId": "hasini",
+      "candidate": {
+        "assetId": "hasini-bommarillu-college-v1",
+        "sha256": "50cc00938c4c999b255e0d2c7562b761b9336723f5fbead1e0252d440b4f648b"
+      },
+      "glb": {
+        "url": "/delivery/characters/hasini/college-v1.glb",
+        "sha256": "68f0ccc306214df2707f92974659a26162158802969520724ff3ebb704845965"
+      }
+    },
+    {
+      "characterId": "devara",
+      "candidate": {
+        "assetId": "devara-underwater-neck-grip-v1",
+        "sha256": "22e74feb3011cd200c889a0e7c2ed1cda4bba3b056b70f317dd6d38337e41b2a"
+      },
+      "glb": {
+        "url": "/delivery/characters/devara/neck-grip-v1.glb",
+        "sha256": "6dfef843a9bd6ea5454a186f92338f36a8cce1c49b9355eedf6a5bd01448d399"
+      }
+    },
+    {
+      "characterId": "ram-vvr",
+      "candidate": {
+        "assetId": "ram-vvr-train-roof-v1",
+        "sha256": "83463991a33c76fbe015818867b1535c96296689df3afc48ffcfac0e38b0586d"
+      },
+      "glb": {
+        "url": "/delivery/characters/ram-vvr/train-roof-v1.glb",
+        "sha256": "8fb9fe21aa9c48fc2413b6dba8cbc8e1c1a3f49a55f3dbd2fe9927b2daf10fb4"
+      }
+    },
+    {
+      "characterId": "sukumar",
+      "candidate": {
+        "assetId": "sukumar-studio-director-v1",
+        "sha256": "16c105800c3169f253b05d2b9e2bba8f8ca070c4948d3e12db66db040491641d"
+      },
+      "glb": {
+        "url": "/delivery/characters/sukumar/director-v1.glb",
+        "sha256": "fe855d21176f43bb9818470508b59822d4f84d3eeef67bf3bc9c167252ea9292"
+      }
+    },
+    {
+      "characterId": "nani-jersey",
+      "candidate": {
+        "assetId": "nani-jersey-cricketer-v1",
+        "sha256": "f31adfacd3ac674156f4dfa428060529e212d63899fb3669c5ec023a96bf04d3"
+      },
+      "glb": {
+        "url": "/delivery/characters/nani-jersey/cricketer-v1.glb",
+        "sha256": "d871cda727dae09acc9222f3cd04bb8bf4c6637d20b26bd42779cb4c9f4a52f0"
+      }
+    },
+    {
+      "characterId": "arjun-reddy",
+      "candidate": {
+        "assetId": "arjun-reddy-medical-courtyard-v1",
+        "sha256": "3405f95c931501df23ccb0151bb3101481dadbae338b3d685d89d28d61c62a24"
+      },
+      "glb": {
+        "url": "/delivery/characters/arjun-reddy/medical-courtyard-v1.glb",
+        "sha256": "4efa98d6a74f1e75d3ac213f8596f52668930ed8af2a5fd70c93dcfe8b6b0bb5"
+      }
+    },
+    {
+      "characterId": "maruthi",
+      "candidate": {
+        "assetId": "maruthi-kondapur-director-v1",
+        "sha256": "21fb5a2e93a4c1cb15dab3b7f1f317b2172225b0332b48950a79d255c87b7bf5"
+      },
+      "glb": {
+        "url": "/delivery/characters/maruthi/director-v1.glb",
+        "sha256": "26abecf55c2a27654d7d4ab6769128a9409d663bfaed3aa9b64017cd4748660f"
+      }
+    },
+    {
+      "characterId": "arundhati",
+      "candidate": {
+        "assetId": "arundhati-haunted-gate-v1",
+        "sha256": "76bbf801d5756e8d7d918f98e6d1c65e73f86d0ed23407757233b6e9b3865c58"
+      },
+      "glb": {
+        "url": "/delivery/characters/arundhati/gate-presence-v1.glb",
+        "sha256": "560a4ae81f82b0d2695d47aa57177006e8325d5270533f3771b79e043fbfb24e"
+      }
+    },
+    {
+      "characterId": "bhanumathi",
+      "candidate": {
+        "assetId": "bhanumathi-fidaa-procession-v1",
+        "sha256": "c884570e464bacffa5900743796a339995b117f160d129b614772ffa5135870e"
+      },
+      "glb": {
+        "url": "/delivery/characters/bhanumathi/wedding-dancer-v1.glb",
+        "sha256": "ded3ccb7a058170da92b6ec1b119d387bda33bf6a8f8ddb8b0a8f21ef40ec146"
+      }
+    },
+    {
+      "characterId": "vakeel-saab",
+      "candidate": {
+        "assetId": "vakeel-saab-metro-lawyer-v1",
+        "sha256": "c711b033e1168850e4d8f93db57146053d7b10cf83da8adea0e226e87e6d4348"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-saab/platform-lawyer-v1.glb",
+        "sha256": "032941fc8663be960cd40fb73d8d702caf5df22ee1144c027cc12aa1c37c5760"
+      }
+    },
+    {
+      "characterId": "vakeel-woman-1",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-one-v1",
+        "sha256": "cb61dba907ac639634fee7d66fd63f126433f4adba146095c99976a83666695b"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-woman-1/platform-companion-v1.glb",
+        "sha256": "fa3e68057d4356d92b0fa6c46d9b950884a2fe2882a86e42cc4bd8ec92797c02"
+      }
+    },
+    {
+      "characterId": "vakeel-woman-2",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-two-v1",
+        "sha256": "585f53c0c2fb44cb3859ea15ea72959358db752b98e79f4bd86c58fe10b751bc"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-woman-2/platform-companion-v1.glb",
+        "sha256": "acfce5dfab78c6a1dc637b7e118a1f79fd05d0e812ab95432c60c621b9c4f702"
+      }
+    },
+    {
+      "characterId": "vakeel-woman-3",
+      "candidate": {
+        "assetId": "vakeel-metro-companion-three-v1",
+        "sha256": "9a11c28e2fb401648facbffe6c00992829f6220744b543d9be45900389515af5"
+      },
+      "glb": {
+        "url": "/delivery/characters/vakeel-woman-3/platform-companion-v1.glb",
+        "sha256": "e5521d17eb51e2c7d29cc8ad481e4307f022c6958a5af47c349b27002ef311cd"
+      }
+    },
+    {
+      "characterId": "srikanth-odela",
+      "candidate": {
+        "assetId": "srikanth-odela-visible-scene-v3",
+        "sha256": "5a2e6048d5472efb592ebd2be5065d354deb176ab296da952b3a586d8eee59dc"
+      },
+      "glb": {
+        "url": "/delivery/characters/srikanth-odela/actor-v3.glb",
+        "sha256": "7e353fb1274c0ee2633eb39111ebba7b1b6ae1a660edc6eb6134618b7853ef0b"
+      }
+    },
+    {
+      "characterId": "prabhas-salaar",
+      "candidate": {
+        "assetId": "prabhas-salaar-visible-scene-v4",
+        "sha256": "04919c55561a7a421875e4f7866dbff23bc51ff10d86a6f25b013994fb528d9e"
+      },
+      "glb": {
+        "url": "/delivery/characters/prabhas-salaar/actor-v4.glb",
+        "sha256": "b414f9004d785d04255d8aff0d9f5ccdc154fbeedcb61d041affa1ace4cfe2ab"
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "path": "assets/GLTFLoader-BDTDFsd8.js",
+      "bytes": 45081,
+      "sha256": "ac7e90b9f5eee23f266933f614b52d6da5331ba48908f73ae310d330dc7b5994"
+    },
+    {
+      "path": "assets/city-BmnLqwRK.js",
+      "bytes": 755103,
+      "sha256": "aa6ae814fff9d10e6f198f97519488a4d342d985d9f5311aa4a3b244652647e0"
+    },
+    {
+      "path": "assets/index-Ct70O0s0.js",
+      "bytes": 2342786,
+      "sha256": "237088c547d7b13c2959c29530ac6fc970c59448101af27f8e8d622573555d10"
+    },
+    {
+      "path": "assets/map-worker-ilv8np6I.js",
+      "bytes": 2201,
+      "sha256": "a592b7a1354a56bd523df38ec7c61eb055d4f35f0db3a9f26e96ee5947892fd7"
+    },
+    {
+      "path": "assets/metro-access-4MbdKdue.js",
+      "bytes": 4667,
+      "sha256": "8297b324deb447db5ab3fa290481ed8e9afd26e8ac685a8f60e68e567d85d7ae"
+    },
+    {
+      "path": "assets/npc-people-DYO6sg4X.js",
+      "bytes": 4881,
+      "sha256": "4d718f021821fca72c2177e1a33864f26118bc879b1215ffa8fd9659bbbaef68"
+    },
+    {
+      "path": "assets/people-CqF5LkN0.js",
+      "bytes": 2139501,
+      "sha256": "1b320aaf13418794fd61af2453f75c1cd9c3faf6028c99cfe719b6061257fc8f"
+    },
+    {
+      "path": "assets/pushpa-art-review-ClUYSqBt.js",
+      "bytes": 9276,
+      "sha256": "91e28dec4ce77e09a4ed67c1269d9f185cb8cdc58914dc33bf67f72af2d98614"
+    },
+    {
+      "path": "assets/qa-C6aRE78r.js",
+      "bytes": 59738,
+      "sha256": "ffb98f489636a1e06829d544e50d9c2ea189445437cd1e5f810a55ead09a99ab"
+    },
+    {
+      "path": "assets/scene-art-review-DXZ9Amuf.js",
+      "bytes": 7569,
+      "sha256": "93e5761d6aa555d2f4ed2b9cf4417171f2879ac061e244dc18776bcde2f6ac52"
+    },
+    {
+      "path": "assets/signs-WCShPo5H.js",
+      "bytes": 20420,
+      "sha256": "b870211c3da1334994b002b2c91616dca01a3823b6078bf864ff524fe43b71d2"
+    },
+    {
+      "path": "assets/tileworker-DKPQ28UN.js",
+      "bytes": 2358304,
+      "sha256": "5bc425fad5c03e58891f6cec001d6a8de017bcd27eae3115e925a5846e869cdb"
+    },
+    {
+      "path": "assets/traffic-vehicles-C9doxb2z.js",
+      "bytes": 3264,
+      "sha256": "5573cf14d8c7a0846ff92cb11ee66e87d92f661cfafede270cfbaeda99aeb464"
+    },
+    {
+      "path": "assets/traffic_models-Dcn58oIf.js",
+      "bytes": 38261,
+      "sha256": "9f0828ff797db851fb6700a062fcb5a709696d779fe2599f84778feda4925772"
+    }
+  ],
+  "noPrivateDocsCopied": true
+}

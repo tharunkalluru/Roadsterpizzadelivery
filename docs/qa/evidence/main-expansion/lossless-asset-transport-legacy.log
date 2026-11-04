@@ -1,0 +1,92 @@
+
+> pizza-to-picture-hall@0.1.0 test:legacy
+> node scripts/test-legacy.mjs
+
+PASS legacy map-regressions.mjs
+PASS legacy ui-regressions.mjs
+PASS legacy navigation-regressions.mjs
+PASS legacy delivery-regressions.mjs
+PASS legacy spatial-safety-regressions.mjs
+FAIL legacy metro-regressions.mjs
+PASS six Hyderabad input tracks become three corridors with exactly one fixed run each way
+PASS opposite input direction does not create extra tracks and separate branches are retained
+PASS degenerate points are sanitized and track position and heading remain finite through bends
+PASS opposite tracks move in opposite world directions without additional per-train lateral offsets
+PASS a follower brakes behind a stopped platform train without overlap or overtaking
+PASS station matching respects line identity and aligns the train centre with its platform
+PASS station arrival tolerance cannot consume the safety headway behind a stopped train
+PASS an intermediate station dwells before departure and never changes its track direction
+PASS a visible terminal train waits without jumping rails or reversing across passengers
+PASS terminal re-entry waits for free space on the outgoing track
+PASS culling reuses train meshes without deleting service or changing track assignments
+PASS three coach bodies sample different points of a bend while staying on the shared rail path
+PASS one centreline and a paired source track set produce one identical rendered deck and rail set
+13 metro regression groups passed (offline production code).
+PASS ordinary densified flyovers retain 24 m pier spacing instead of a pier at each 2 m vertex
+PASS split source edges share one equal-height physical pier independent of context order
+PASS clearance checks body width, intermediate road heights, sloping intervals and safe overhead caps
+PASS acceleration and merge lane envelopes also exclude a support beyond the main ORR shoulder
+PASS a widened bridge edge retains its real approach width when the local span reaches ground
+PASS a stair endpoint being clear cannot permit its full run to cut through a road
+PASS station concourses and source metro columns clear a road between ground and platforms
+PASS stations have exactly two exterior ends and two inward wall names without track or roof obstructions
+RTC_NAME_SIGHTLINE {"end":-1,"oldHighBlocked":true,"newCentreBlocked":false,"camera":[-26.308929152342152,5.8,37.736290256026564],"name":[-10.724172456293577,9.9,-19.892965146844045]}
+RTC_NAME_SIGHTLINE {"end":1,"oldHighBlocked":false,"newCentreBlocked":false,"camera":[69.27520151152828,5.8,-199.7498650567213],"name":[44.529534259477494,9.9,-146.13031260855027]}
+PASS both actual RTC road approaches see the end names below the rendered viaduct rather than behind its girder
+RTC_CLEARANCE_AUDIT {"stationId":"st_rtc_cross_roads","sourcePoint":[21.5,-81],"sourceLines":["green"],"tile":"0_-1","oldOrdinaryBridgePiersWithin150m":153,"oldPiersBlockingRoad":83,"newBridgePiersWithin150m":6,"nearBridgeSourceIds":["427107ff-fee_0","5dbaa15e-212_0"],"allTileStructurePieces":98,"stationColumns":0,"stationStairs":17,"sourceBuildings":2482,"retainedSourceBuildingIdentities":2482,"renderedSourceBuildingFragments":2797,"roadConflictsAfter":0,"validation":"offline sourced tile geometry and colliders; not browser driving"}
+PASS actual RTC Cross Roads source tile has sparse safe supports and unchanged station identity/platforms
+CITY_STRUCTURE_AUDIT {"sourceRoads":52412,"bridgeCandidates":9844,"overlappingBridgeSitesMerged":81,"uniqueBridgeCandidates":9763,"bridgeRetained":7843,"bridgeOmitted":1920,"sourceMetroPillars":1258,"metroRetained":636,"metroOmitted":622,"modelHeadroomMetres":4.8,"sourceDataRewritten":false}
+PASS all shipped metro pillar sites and elevated bridge candidates use full 3D road clearance
+STATION_STRUCTURE_AUDIT {"sourceStations":57,"activeStationSites":56,"retainedAliases":1,"sourceStationTiles":52,"retainedStationStructurePieces":7806,"retainedColumns":0,"retainedStairs":2701,"exteriorNameBoards":112,"interiorNameBoards":118,"physicalCorridorAssemblies":59,"kerbOffsetExteriorBoards":112,"exteriorBoardHeadroomConflicts":0,"roadConflictsAfter":0,"validation":"offline source road/building station neighborhoods; not citywide browser verification"}
+PASS all sourced stations keep curved platforms, two exterior names per site and one interior name per physical platform
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: d99323ba-b75_0: actual obstructing cylinder removed
+    at file:///Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/tests/legacy/metro-clearance-regressions.mjs:256:40
+    at async test (file:///Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/tests/legacy/metro-clearance-regressions.mjs:12:36)
+    at async file:///Users/tharun/Documents/Codex/2026-10-31/fourteen-delivery-private-upload-batches/tests/legacy/metro-clearance-regressions.mjs:248:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.13.1
+
+PASS legacy traffic-regressions.mjs
+PASS legacy expressway-regressions.mjs
+PASS legacy orr-recovery-regressions.mjs
+PASS legacy orr-exit-regressions.mjs
+PASS legacy orr-airport-bridge-regressions.mjs
+PASS legacy moving-rail-regressions.mjs
+PASS legacy airport-landmark-regressions.mjs
+PASS legacy bus-service-regressions.mjs
+PASS legacy building-clearance-regressions.mjs
+PASS legacy construction-regressions.mjs
+PASS legacy street-lighting-regressions.mjs
+PASS legacy metro-station-life-regressions.mjs
+PASS legacy bug-report-regressions.mjs
+PASS legacy metro-interchange-regressions.mjs
+PASS legacy audit-obb-regressions.mjs
+PASS legacy bridge-grade-classification-regressions.mjs
+PASS legacy bridge-deck-regressions.mjs
+PASS legacy flyover-regressions.mjs
+PASS legacy route-motion-regressions.mjs
+PASS legacy gameplay-regressions.mjs
+PASS legacy audio-flight-regressions.mjs
+PASS legacy v2-ui-regressions.mjs
+PASS legacy v2-loading-regressions.mjs
+PASS legacy v2-game-regressions.mjs
+PASS legacy landmark-regressions.mjs
+PASS legacy covered-path-regressions.mjs
+PASS legacy signal-regressions.mjs
+PASS legacy roadside-clearance-regressions.mjs
+PASS legacy destination-regressions.mjs
+PASS legacy mobile-hud-layout-regressions.mjs
+PASS legacy jump-kickflip-regressions.mjs
+PASS legacy paint-loading-regressions.mjs
+37/38 portable legacy suites passed

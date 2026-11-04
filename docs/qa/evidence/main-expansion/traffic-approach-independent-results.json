@@ -1,0 +1,174 @@
+{
+  "tests": 7,
+  "passed": 7,
+  "failed": 0,
+  "details": [
+    {
+      "variant": "actual",
+      "sourceModel": "be8246e417965d361e109a5eea9576b82888ffa4e9c6752df72992aaac15f132",
+      "pointCounts": [
+        68,
+        24
+      ],
+      "roomIn": 60,
+      "roomOut": 38.30567854874557,
+      "radius": 40.042291694162955,
+      "samples": 63,
+      "fullVisibleBusVertices": 11270,
+      "executionFrames": 72,
+      "maxStep": 0.13333333567915737,
+      "maxYaw": 0.0020732340128777954,
+      "nodeCapSurfaces": 6
+    },
+    {
+      "variant": "coarse",
+      "sourceModel": "be8246e417965d361e109a5eea9576b82888ffa4e9c6752df72992aaac15f132",
+      "pointCounts": [
+        5,
+        4
+      ],
+      "roomIn": 60,
+      "roomOut": 38.305678548745576,
+      "radius": 40.04229169404469,
+      "samples": 63,
+      "fullVisibleBusVertices": 11270,
+      "executionFrames": 72,
+      "maxStep": 0.13333333567970396,
+      "maxYaw": 0.002073234013112387,
+      "nodeCapSurfaces": 6
+    },
+    {
+      "variant": "dense",
+      "sourceModel": "be8246e417965d361e109a5eea9576b82888ffa4e9c6752df72992aaac15f132",
+      "pointCounts": [
+        1615,
+        489
+      ],
+      "roomIn": 60,
+      "roomOut": 38.305678548745576,
+      "radius": 40.042291693687645,
+      "samples": 63,
+      "fullVisibleBusVertices": 11270,
+      "executionFrames": 72,
+      "maxStep": 0.1333333356790672,
+      "maxYaw": 0.0020732340131694523,
+      "nodeCapSurfaces": 6
+    },
+    {
+      "group": "bus",
+      "variant": "actual",
+      "frames": 149,
+      "maxStep": 0.13333333333366956,
+      "maxYaw": 0.004069781881230154,
+      "reachedOutgoing": true,
+      "edge": "38a7824d-0e1_1",
+      "s": 9.10148013957918,
+      "speed": 8,
+      "pendingMotion": "bend"
+    },
+    {
+      "group": "bus",
+      "variant": "coarse",
+      "frames": 149,
+      "maxStep": 0.13333333333366956,
+      "maxYaw": 0.004069781881419115,
+      "reachedOutgoing": true,
+      "edge": "38a7824d-0e1_1",
+      "s": 9.101480139579465,
+      "speed": 8,
+      "pendingMotion": "bend"
+    },
+    {
+      "group": "bus",
+      "variant": "dense",
+      "frames": 148,
+      "maxStep": 0.13333333333403555,
+      "maxYaw": 0.004292642889444549,
+      "reachedOutgoing": true,
+      "edge": "38a7824d-0e1_1",
+      "s": 9.055556882529887,
+      "speed": 8,
+      "pendingMotion": "bend"
+    },
+    {
+      "group": "car",
+      "variant": "actual",
+      "frames": 135,
+      "maxStep": 0.13333333333366956,
+      "maxYaw": 0.007952440833794852,
+      "reachedOutgoing": true,
+      "edge": "38a7824d-0e1_1",
+      "s": 9.116240573340962,
+      "speed": 8,
+      "pendingMotion": "bend"
+    },
+    {
+      "group": "car",
+      "variant": "coarse",
+      "frames": 135,
+      "maxStep": 0.13333333333366956,
+      "maxYaw": 0.007952440833794852,
+      "reachedOutgoing": true,
+      "edge": "38a7824d-0e1_1",
+      "s": 9.116240573341328,
+      "speed": 8,
+      "pendingMotion": "bend"
+    },
+    {
+      "group": "car",
+      "variant": "dense",
+      "frames": 138,
+      "maxStep": 0.13333333333420924,
+      "maxYaw": 0.008502348746807224,
+      "reachedOutgoing": true,
+      "edge": "38a7824d-0e1_1",
+      "s": 9.031950771262336,
+      "speed": 8,
+      "pendingMotion": "bend"
+    },
+    {
+      "group": "auto",
+      "variant": "actual",
+      "frames": 135,
+      "maxStep": 0.13333333333366956,
+      "maxYaw": 0.007952440833794852,
+      "reachedOutgoing": true,
+      "edge": "38a7824d-0e1_1",
+      "s": 9.116240573340962,
+      "speed": 8,
+      "pendingMotion": "bend"
+    },
+    {
+      "group": "auto",
+      "variant": "coarse",
+      "frames": 135,
+      "maxStep": 0.13333333333366956,
+      "maxYaw": 0.007952440833794852,
+      "reachedOutgoing": true,
+      "edge": "38a7824d-0e1_1",
+      "s": 9.116240573341328,
+      "speed": 8,
+      "pendingMotion": "bend"
+    },
+    {
+      "group": "auto",
+      "variant": "dense",
+      "frames": 138,
+      "maxStep": 0.13333333333420924,
+      "maxYaw": 0.008502348746807224,
+      "reachedOutgoing": true,
+      "edge": "38a7824d-0e1_1",
+      "s": 9.031950771262336,
+      "speed": 8,
+      "pendingMotion": "bend"
+    }
+  ],
+  "sourceFiles": {
+    "src/game/traffic-approach.ts": "6aa7e68ebfec782f28a7664a328fc4d9a3796296663b937d287cf5ac07b4e2dc",
+    "src/game/traffic-path.ts": "66c688b24976bfd386afc52fea77ca474ead38f9e69065ff280e592f0c3e7e1d",
+    "src/game/traffic.ts": "9794757a99c341c09317561f212e897a05bfa06157fe3a595503a4404e62cf63",
+    "src/game/bus-path.ts": "60b6b3f59f0d774c0618edc2c49c606e3d120d7580245229dc5911a575e39c2e",
+    "tests/v21-fixes/traffic-approach-independent.test.ts": "d6b7af53b5faca882c8f10d9c4720855076d46221b1178afe0ee368de12545c1",
+    "tests/fixtures/reported-west-bus-continuation-independent.json": "8cafa52301d5e92ee33a4361cb34a1dcec439dfba510c1cadd3dcb4521d2c012"
+  }
+}

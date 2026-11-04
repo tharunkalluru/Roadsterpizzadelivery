@@ -1,0 +1,3139 @@
+{
+  "scope": "Read-only bdf-road-only local field. Canonical metro/rail unchanged; actual city obstacle probe has no cylinder/building/stair/pier flags in all measured poses. Centerline clearance is a supporting diagnostic, not actual structure/body acceptance.",
+  "sourceRoadGeometryGeneration": "9413c1f5f353f1f2f054717a0d461d6b1a17fc2627c0a5353ce85496985c53ac",
+  "sourceModelSHA256": "875b620c1583e54ec186f10954c1cb7636f7eb2010fb7f7159d4697b6a227cde",
+  "controls": 136,
+  "minimumMetroCenterClearanceChange": 0.001697690657861628,
+  "reducedClearanceControls": [],
+  "maximumAddedDisplacement": 1.3000000000000462,
+  "rows": [
+    {
+      "sourceArc": 0.9722919121848709,
+      "before": [
+        3500.4500318238534,
+        -2385.681329559633
+      ],
+      "after": [
+        3500.4506748378085,
+        -2385.6829370945206
+      ],
+      "addedDisplacement": 0.001731368060650304,
+      "oldMetroCenterDistance": 6.454793816751689,
+      "newMetroCenterDistance": 6.456491507409551,
+      "clearanceChange": 0.001697690657861628,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 1.9445838243697418,
+      "before": [
+        3501.2000636477064,
+        -2385.0626591192663
+      ],
+      "after": [
+        3501.2167801652818,
+        -2385.1044504132046
+      ],
+      "addedDisplacement": 0.04501060107226312,
+      "oldMetroCenterDistance": 6.346464712784376,
+      "newMetroCenterDistance": 6.390599798027724,
+      "clearanceChange": 0.04413508524334819,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 2.916875736554468,
+      "before": [
+        3501.9500493614523,
+        -2384.443873403631
+      ],
+      "after": [
+        3501.986669505273,
+        -2384.5354237631827
+      ],
+      "addedDisplacement": 0.09860275486746693,
+      "oldMetroCenterDistance": 6.238013868537842,
+      "newMetroCenterDistance": 6.334698669176631,
+      "clearanceChange": 0.09668480063878881,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 3.8891676487391944,
+      "before": [
+        3502.7000350751982,
+        -2383.8250876879965
+      ],
+      "after": [
+        3502.761953570577,
+        -2383.979883926444
+      ],
+      "addedDisplacement": 0.1667206511128095,
+      "oldMetroCenterDistance": 6.129563024291688,
+      "newMetroCenterDistance": 6.293040737839129,
+      "clearanceChange": 0.163477713547441,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 4.861459560924065,
+      "before": [
+        3503.450017537599,
+        -2383.2062938439985
+      ],
+      "after": [
+        3503.5417451711846,
+        -2383.435612927963
+      ],
+      "addedDisplacement": 0.24698421211407912,
+      "oldMetroCenterDistance": 6.021103595817223,
+      "newMetroCenterDistance": 6.2632836377570165,
+      "clearanceChange": 0.24218004193979326,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 5.833751473108936,
+      "before": [
+        3504.2,
+        -2382.5875
+      ],
+      "after": [
+        3504.3248305592133,
+        -2382.8995763980342
+      ],
+      "addedDisplacement": 0.3361165671660941,
+      "oldMetroCenterDistance": 5.912644167342625,
+      "newMetroCenterDistance": 6.2422228219302225,
+      "clearanceChange": 0.32957865458759716,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 6.806043385293663,
+      "before": [
+        3504.95,
+        -2381.96875
+      ],
+      "after": [
+        3505.1099959867806,
+        -2382.3687399669525
+      ],
+      "addedDisplacement": 0.4308023786478203,
+      "oldMetroCenterDistance": 5.804231041779811,
+      "newMetroCenterDistance": 6.226653743359191,
+      "clearanceChange": 0.42242270157937956,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 7.778335297478389,
+      "before": [
+        3505.7,
+        -2381.3500000000004
+      ],
+      "after": [
+        3505.896027706005,
+        -2381.840069265013
+      ],
+      "addedDisplacement": 0.5278207518009008,
+      "oldMetroCenterDistance": 5.6958179162173765,
+      "newMetroCenterDistance": 6.213371855044859,
+      "clearanceChange": 0.5175539388274828,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 8.75062720966326,
+      "before": [
+        3506.45,
+        -2380.7312500000003
+      ],
+      "after": [
+        3506.6817119690036,
+        -2381.31052992251
+      ],
+      "addedDisplacement": 0.6239035704356406,
+      "oldMetroCenterDistance": 5.587404790654562,
+      "newMetroCenterDistance": 6.199172609986662,
+      "clearanceChange": 0.6117678193321003,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 9.72291912184813,
+      "before": [
+        3507.2,
+        -2380.1125
+      ],
+      "after": [
+        3507.4658350278946,
+        -2380.7770875697374
+      ],
+      "addedDisplacement": 0.7157827183615838,
+      "oldMetroCenterDistance": 5.478991665091747,
+      "newMetroCenterDistance": 6.180851461184773,
+      "clearanceChange": 0.701859796093026,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 10.695211034033,
+      "before": [
+        3507.95,
+        -2379.49375
+      ],
+      "after": [
+        3508.247183134796,
+        -2380.2367078369907
+      ],
+      "addedDisplacement": 0.800190079389373,
+      "oldMetroCenterDistance": 5.370578539528932,
+      "newMetroCenterDistance": 6.155203861639887,
+      "clearanceChange": 0.7846253221109549,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 11.667502946217873,
+      "before": [
+        3508.7,
+        -2378.875
+      ],
+      "after": [
+        3509.024542541825,
+        -2379.686356354564
+      ],
+      "addedDisplacement": 0.8738575373284682,
+      "oldMetroCenterDistance": 5.262165413966119,
+      "newMetroCenterDistance": 6.1190252643514365,
+      "clearanceChange": 0.8568598503853178,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 12.639794858402599,
+      "before": [
+        3509.45,
+        -2378.2562500000004
+      ],
+      "after": [
+        3509.7966995011006,
+        -2379.122998752753
+      ],
+      "addedDisplacement": 0.9335169759902716,
+      "oldMetroCenterDistance": 5.153752288403684,
+      "newMetroCenterDistance": 6.0691111223213685,
+      "clearanceChange": 0.9153588339176846,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 13.612086770587325,
+      "before": [
+        3510.2,
+        -2377.6375000000003
+      ],
+      "after": [
+        3510.5602971759827,
+        -2378.5444549602325
+      ],
+      "addedDisplacement": 0.9759002791838595,
+      "oldMetroCenterDistance": 5.045339162840868,
+      "newMetroCenterDistance": 6.001801388688635,
+      "clearanceChange": 0.9564622258477673,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 14.584378682772197,
+      "before": [
+        3510.95,
+        -2377.01875
+      ],
+      "after": [
+        3511.3183600372836,
+        -2377.946001128335
+      ],
+      "addedDisplacement": 0.9977393307201075,
+      "oldMetroCenterDistance": 4.936926037278055,
+      "newMetroCenterDistance": 5.914792322831817,
+      "clearanceChange": 0.9778662855537616,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 15.556670594957067,
+      "before": [
+        3511.7,
+        -2376.4
+      ],
+      "after": [
+        3512.0691946643196,
+        -2377.329352086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.828512911715237,
+      "newMetroCenterDistance": 5.808594838372556,
+      "clearanceChange": 0.9800819266573182,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 16.524997115300256,
+      "before": [
+        3512.45,
+        -2375.7875
+      ],
+      "after": [
+        3512.8191946643196,
+        -2376.716852086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.725334295442366,
+      "newMetroCenterDistance": 5.705416222099682,
+      "clearanceChange": 0.9800819266573164,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 17.493323635643442,
+      "before": [
+        3513.2,
+        -2375.175
+      ],
+      "after": [
+        3513.5691946643196,
+        -2376.104352086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.622155679169872,
+      "newMetroCenterDistance": 5.602237605827188,
+      "clearanceChange": 0.9800819266573164,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 18.461650155986774,
+      "before": [
+        3513.95,
+        -2374.5625
+      ],
+      "after": [
+        3514.3191946643196,
+        -2375.491852086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.5189770628969965,
+      "newMetroCenterDistance": 5.499058989554314,
+      "clearanceChange": 0.9800819266573173,
+      "oldLine": {
+        "line": "blue",
+        "segment": 446
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 446
+      }
+    },
+    {
+      "sourceArc": 19.429976676330103,
+      "before": [
+        3514.7,
+        -2373.95
+      ],
+      "after": [
+        3515.0691946643196,
+        -2374.879352086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.471966073788894,
+      "newMetroCenterDistance": 5.430031094646717,
+      "clearanceChange": 0.9580650208578225,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 20.39830319667329,
+      "before": [
+        3515.45,
+        -2373.3374999999996
+      ],
+      "after": [
+        3515.8191946643196,
+        -2374.2668520860457
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.4564211169261885,
+      "newMetroCenterDistance": 5.414486137784011,
+      "clearanceChange": 0.9580650208578225,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 21.366629717016476,
+      "before": [
+        3516.2,
+        -2372.725
+      ],
+      "after": [
+        3516.5691946643196,
+        -2373.654352086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.44087616006384,
+      "newMetroCenterDistance": 5.398941180921662,
+      "clearanceChange": 0.9580650208578225,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 22.334956237359663,
+      "before": [
+        3516.95,
+        -2372.1125
+      ],
+      "after": [
+        3517.3191946643196,
+        -2373.041852086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.425331203201491,
+      "newMetroCenterDistance": 5.3833962240593145,
+      "clearanceChange": 0.9580650208578234,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 23.30328275770285,
+      "before": [
+        3517.7,
+        -2371.5
+      ],
+      "after": [
+        3518.0691946643196,
+        -2372.429352086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.409786246338786,
+      "newMetroCenterDistance": 5.367851267196609,
+      "clearanceChange": 0.9580650208578225,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 24.271609278046036,
+      "before": [
+        3518.45,
+        -2370.8875
+      ],
+      "after": [
+        3518.8191946643196,
+        -2371.816852086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.3942412894760805,
+      "newMetroCenterDistance": 5.352306310333903,
+      "clearanceChange": 0.9580650208578225,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 25.239935798389222,
+      "before": [
+        3519.2,
+        -2370.275
+      ],
+      "after": [
+        3519.5691946643196,
+        -2371.204352086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.378696332613733,
+      "newMetroCenterDistance": 5.336761353471554,
+      "clearanceChange": 0.9580650208578216,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 26.20826231873241,
+      "before": [
+        3519.95,
+        -2369.6625000000004
+      ],
+      "after": [
+        3520.3191946643196,
+        -2370.5918520860464
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.363151375751384,
+      "newMetroCenterDistance": 5.3212163966092065,
+      "clearanceChange": 0.9580650208578225,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 27.176588839075595,
+      "before": [
+        3520.7,
+        -2369.05
+      ],
+      "after": [
+        3521.0691946643196,
+        -2369.979352086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.347606418888677,
+      "newMetroCenterDistance": 5.3056714397465,
+      "clearanceChange": 0.9580650208578225,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 28.144915359418924,
+      "before": [
+        3521.45,
+        -2368.4375
+      ],
+      "after": [
+        3521.8191946643196,
+        -2369.366852086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.332061462025972,
+      "newMetroCenterDistance": 5.290126482883795,
+      "clearanceChange": 0.9580650208578234,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 29.113241879762256,
+      "before": [
+        3522.2,
+        -2367.825
+      ],
+      "after": [
+        3522.5691946643196,
+        -2368.754352086046
+      ],
+      "addedDisplacement": 1.0000000000001732,
+      "oldMetroCenterDistance": 4.316516505163268,
+      "newMetroCenterDistance": 5.274581526021089,
+      "clearanceChange": 0.9580650208578216,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 30.081568400105443,
+      "before": [
+        3522.95,
+        -2367.2124999999996
+      ],
+      "after": [
+        3523.329719757163,
+        -2368.1376015652454
+      ],
+      "addedDisplacement": 1.0000000000000497,
+      "oldMetroCenterDistance": 4.30097154830056,
+      "newMetroCenterDistance": 5.262227426514721,
+      "clearanceChange": 0.9612558782141605,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 31.04989492044863,
+      "before": [
+        3523.7,
+        -2366.6
+      ],
+      "after": [
+        3524.200153222552,
+        -2367.465936922628
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 4.285426591438213,
+      "newMetroCenterDistance": 5.274933736896121,
+      "clearanceChange": 0.9895071454579076,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 32.00418170402381,
+      "before": [
+        3524.5214285714283,
+        -2366.114285714286
+      ],
+      "after": [
+        3525.0215817939807,
+        -2366.980222636914
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 4.4136430985013115,
+      "newMetroCenterDistance": 5.403150243959219,
+      "clearanceChange": 0.9895071454579076,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 32.95846848759899,
+      "before": [
+        3525.342857142857,
+        -2365.6285714285714
+      ],
+      "after": [
+        3525.8430103654096,
+        -2366.4945083511993
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 4.541859605564334,
+      "newMetroCenterDistance": 5.531366751022243,
+      "clearanceChange": 0.9895071454579085,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 33.91275527117398,
+      "before": [
+        3526.1642857142856,
+        -2365.142857142857
+      ],
+      "after": [
+        3526.664438936838,
+        -2366.008794065485
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 4.670076112627076,
+      "newMetroCenterDistance": 5.659583258084984,
+      "clearanceChange": 0.9895071454579085,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 34.867042054748964,
+      "before": [
+        3526.985714285714,
+        -2364.657142857143
+      ],
+      "after": [
+        3527.4858675082664,
+        -2365.523079779771
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 4.798292619690175,
+      "newMetroCenterDistance": 5.7877997651480815,
+      "clearanceChange": 0.9895071454579067,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 35.82132883832415,
+      "before": [
+        3527.807142857143,
+        -2364.1714285714284
+      ],
+      "after": [
+        3528.3072960796953,
+        -2365.0373654940563
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 4.926509126753198,
+      "newMetroCenterDistance": 5.916016272211105,
+      "clearanceChange": 0.9895071454579067,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 36.77561562189933,
+      "before": [
+        3528.6285714285714,
+        -2363.6857142857143
+      ],
+      "after": [
+        3529.128724651124,
+        -2364.5516512083423
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 5.054725633816296,
+      "newMetroCenterDistance": 6.044232779274204,
+      "clearanceChange": 0.9895071454579085,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 37.72990240547431,
+      "before": [
+        3529.45,
+        -2363.2
+      ],
+      "after": [
+        3529.950153222552,
+        -2364.0659369226278
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 5.182942140879036,
+      "newMetroCenterDistance": 6.172449286336946,
+      "clearanceChange": 0.9895071454579094,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 38.6841891890493,
+      "before": [
+        3530.2714285714283,
+        -2362.714285714286
+      ],
+      "after": [
+        3530.7715817939807,
+        -2363.5802226369137
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 5.311158647942134,
+      "newMetroCenterDistance": 6.300665793400044,
+      "clearanceChange": 0.9895071454579094,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 39.63847597262448,
+      "before": [
+        3531.0928571428567,
+        -2362.2285714285717
+      ],
+      "after": [
+        3531.593010365409,
+        -2363.0945083511997
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 5.439375155005234,
+      "newMetroCenterDistance": 6.428882300463141,
+      "clearanceChange": 0.9895071454579076,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 40.59276275619966,
+      "before": [
+        3531.9142857142856,
+        -2361.7428571428572
+      ],
+      "after": [
+        3532.414438936838,
+        -2362.608794065485
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 5.567591662068256,
+      "newMetroCenterDistance": 6.557098807526165,
+      "clearanceChange": 0.9895071454579085,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 41.54704953977465,
+      "before": [
+        3532.735714285714,
+        -2361.2571428571428
+      ],
+      "after": [
+        3533.2358675082664,
+        -2362.1230797797707
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 5.6958081691309985,
+      "newMetroCenterDistance": 6.685315314588907,
+      "clearanceChange": 0.9895071454579085,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 42.50133632334963,
+      "before": [
+        3533.5571428571425,
+        -2360.7714285714287
+      ],
+      "after": [
+        3534.057296079695,
+        -2361.6373654940567
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 5.824024676194097,
+      "newMetroCenterDistance": 6.813531821652006,
+      "clearanceChange": 0.9895071454579094,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 43.45562310692482,
+      "before": [
+        3534.3785714285714,
+        -2360.285714285714
+      ],
+      "after": [
+        3534.878724651124,
+        -2361.151651208342
+      ],
+      "addedDisplacement": 0.9999999999999587,
+      "oldMetroCenterDistance": 5.952241183257119,
+      "newMetroCenterDistance": 6.94174832871503,
+      "clearanceChange": 0.9895071454579112,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 44.409909890499996,
+      "before": [
+        3535.200537724745,
+        -2359.800924214406
+      ],
+      "after": [
+        3535.7028935783032,
+        -2360.6643483377097
+      ],
+      "addedDisplacement": 0.9989307384931843,
+      "oldMetroCenterDistance": 6.081516216266186,
+      "newMetroCenterDistance": 7.070417526325019,
+      "clearanceChange": 0.9889013100588331,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 45.37398394134375,
+      "before": [
+        3536.033381515835,
+        -2359.315351759749
+      ],
+      "after": [
+        3536.5342894189066,
+        -2360.1698417120474
+      ],
+      "addedDisplacement": 0.9904856414601044,
+      "oldMetroCenterDistance": 6.2169216570639625,
+      "newMetroCenterDistance": 7.197915578644977,
+      "clearanceChange": 0.9809939215810148,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 46.338057992187515,
+      "before": [
+        3536.8662253069256,
+        -2358.8297793050915
+      ],
+      "after": [
+        3537.362862356855,
+        -2359.6769836843832
+      ],
+      "addedDisplacement": 0.9820405387018828,
+      "oldMetroCenterDistance": 6.35232709786202,
+      "newMetroCenterDistance": 7.3249568452176295,
+      "clearanceChange": 0.9726297473556098,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 47.30213204303116,
+      "before": [
+        3537.7039021518785,
+        -2358.352454931355
+      ],
+      "after": [
+        3538.191433785427,
+        -2359.184126541526
+      ],
+      "addedDisplacement": 0.9640356636942459,
+      "oldMetroCenterDistance": 6.497200458981112,
+      "newMetroCenterDistance": 7.451997870155356,
+      "clearanceChange": 0.9547974111742441,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 48.2662060938748,
+      "before": [
+        3538.5415789968306,
+        -2357.8751305576193
+      ],
+      "after": [
+        3539.020005213998,
+        -2358.691269398669
+      ],
+      "addedDisplacement": 0.9460307886868387,
+      "oldMetroCenterDistance": 6.642073820099995,
+      "newMetroCenterDistance": 7.579038895093163,
+      "clearanceChange": 0.936965074993168,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 49.23028014471856,
+      "before": [
+        3539.3836295569413,
+        -2357.4052672273874
+      ],
+      "after": [
+        3539.8485766425697,
+        -2358.198412255812
+      ],
+      "addedDisplacement": 0.9193774135516409,
+      "oldMetroCenterDistance": 6.795512803678203,
+      "newMetroCenterDistance": 7.706079920030892,
+      "clearanceChange": 0.9105671163526896,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 50.19435419556232,
+      "before": [
+        3540.2256801170515,
+        -2356.935403897155
+      ],
+      "after": [
+        3540.677148071141,
+        -2357.7055551129547
+      ],
+      "addedDisplacement": 0.8927240384168355,
+      "oldMetroCenterDistance": 6.948951787255773,
+      "newMetroCenterDistance": 7.83312094496834,
+      "clearanceChange": 0.8841691577125674,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 51.15842824640616,
+      "before": [
+        3541.0716435427903,
+        -2356.4722154553483
+      ],
+      "after": [
+        3541.5057194997125,
+        -2357.2126979700975
+      ],
+      "addedDisplacement": 0.8583334381388044,
+      "oldMetroCenterDistance": 7.1100538509608,
+      "newMetroCenterDistance": 7.960161969906069,
+      "clearanceChange": 0.8501081189452684,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 52.122502297249994,
+      "before": [
+        3541.917606968529,
+        -2356.0090270135415
+      ],
+      "after": [
+        3542.3342909282837,
+        -2356.7198408272407
+      ],
+      "addedDisplacement": 0.8239428378609356,
+      "oldMetroCenterDistance": 7.271155914665829,
+      "newMetroCenterDistance": 8.087202994843873,
+      "clearanceChange": 0.816047080178044,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 53.08657634809376,
+      "before": [
+        3542.7670224103676,
+        -2355.55172730508
+      ],
+      "after": [
+        3543.162862356856,
+        -2356.2269836843834
+      ],
+      "addedDisplacement": 0.782726287424731,
+      "oldMetroCenterDistance": 7.439018516165867,
+      "newMetroCenterDistance": 8.214244019781887,
+      "clearanceChange": 0.7752255036160198,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 54.05065039893751,
+      "before": [
+        3543.6164378522053,
+        -2355.0944275966185
+      ],
+      "after": [
+        3543.991433785427,
+        -2355.734126541526
+      ],
+      "addedDisplacement": 0.7415097369885264,
+      "oldMetroCenterDistance": 7.606881117665347,
+      "newMetroCenterDistance": 8.341285044719331,
+      "clearanceChange": 0.7344039270539842,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 55.014724449781156,
+      "before": [
+        3544.468844460613,
+        -2354.642230466424
+      ],
+      "after": [
+        3544.8200052139982,
+        -2355.241269398669
+      ],
+      "addedDisplacement": 0.6943785113778611,
+      "oldMetroCenterDistance": 7.780601714628253,
+      "newMetroCenterDistance": 8.468326069656781,
+      "clearanceChange": 0.6877243550285277,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 55.9787985006248,
+      "before": [
+        3545.3212510690214,
+        -2354.1900333362296
+      ],
+      "after": [
+        3545.64857664257,
+        -2354.748412255812
+      ],
+      "addedDisplacement": 0.6472472857671958,
+      "oldMetroCenterDistance": 7.954322311591798,
+      "newMetroCenterDistance": 8.595367094594865,
+      "clearanceChange": 0.6410447830030668,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 56.942872551468554,
+      "before": [
+        3546.1749160390045,
+        -2353.742892765448
+      ],
+      "after": [
+        3546.4758785121094,
+        -2354.256299337215
+      ],
+      "addedDisplacement": 0.5951173986290389,
+      "oldMetroCenterDistance": 8.132790425930574,
+      "newMetroCenterDistance": 8.722204877029121,
+      "clearanceChange": 0.5894144510985466,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 57.90694660231232,
+      "before": [
+        3547.0285810089886,
+        -2353.2957521946664
+      ],
+      "after": [
+        3547.3001532225526,
+        -2353.765936922628
+      ],
+      "addedDisplacement": 0.5429780341675008,
+      "oldMetroCenterDistance": 8.311258540270272,
+      "newMetroCenterDistance": 8.848539184905716,
+      "clearanceChange": 0.5372806446354446,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 58.87102065315608,
+      "before": [
+        3547.8852744282694,
+        -2352.8515838715443
+      ],
+      "after": [
+        3548.1287246511242,
+        -2353.273079779771
+      ],
+      "addedDisplacement": 0.4867512831618386,
+      "oldMetroCenterDistance": 8.493936337094004,
+      "newMetroCenterDistance": 8.975580209843447,
+      "clearanceChange": 0.48164387274944254,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 59.835094703999836,
+      "before": [
+        3548.7419678475494,
+        -2352.407415548422
+      ],
+      "after": [
+        3548.9572960796954,
+        -2352.7802226369135
+      ],
+      "addedDisplacement": 0.43052453215679753,
+      "oldMetroCenterDistance": 8.676614133916813,
+      "newMetroCenterDistance": 9.102621234780893,
+      "clearanceChange": 0.42600710086408,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 60.79916875484348,
+      "before": [
+        3549.6002521793184,
+        -2351.9660016409516
+      ],
+      "after": [
+        3549.785867508267,
+        -2352.2873654940568
+      ],
+      "addedDisplacement": 0.37111693093052894,
+      "oldMetroCenterDistance": 8.862439404762801,
+      "newMetroCenterDistance": 9.229662259718978,
+      "clearanceChange": 0.3672228549561769,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 61.76324280568712,
+      "before": [
+        3550.458536511087,
+        -2351.5245877334805
+      ],
+      "after": [
+        3550.6144389368383,
+        -2351.7945083511995
+      ],
+      "addedDisplacement": 0.3117093297046541,
+      "oldMetroCenterDistance": 9.048264675607793,
+      "newMetroCenterDistance": 9.356703284656428,
+      "clearanceChange": 0.3084386090486344,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 62.72731685653088,
+      "before": [
+        3551.3179559782234,
+        -2351.0851391350056
+      ],
+      "after": [
+        3551.4430103654095,
+        -2351.3016512083423
+      ],
+      "addedDisplacement": 0.2500321532423523,
+      "oldMetroCenterDistance": 9.236335707366297,
+      "newMetroCenterDistance": 9.483744309593872,
+      "clearanceChange": 0.24740860222757455,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 63.69139090737464,
+      "before": [
+        3552.1773754453607,
+        -2350.6456905365308
+      ],
+      "after": [
+        3552.271581793981,
+        -2350.808794065485
+      ],
+      "addedDisplacement": 0.18835497677982302,
+      "oldMetroCenterDistance": 9.424406739125361,
+      "newMetroCenterDistance": 9.610785334531602,
+      "clearanceChange": 0.18637859540624113,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 64.65546495821829,
+      "before": [
+        3553.0374742707463,
+        -2350.207418140396
+      ],
+      "after": [
+        3553.1001532225528,
+        -2350.3159369226278
+      ],
+      "addedDisplacement": 0.12531950006537884,
+      "oldMetroCenterDistance": 9.61382181868941,
+      "newMetroCenterDistance": 9.73782635946933,
+      "clearanceChange": 0.12400454077992151,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 65.61953900906192,
+      "before": [
+        3553.8975730961315,
+        -2349.7691457442616
+      ],
+      "after": [
+        3553.928724651124,
+        -2349.823079779771
+      ],
+      "addedDisplacement": 0.062284023350934636,
+      "oldMetroCenterDistance": 9.803236898253525,
+      "newMetroCenterDistance": 9.864867384407136,
+      "clearanceChange": 0.061630486153610775,
+      "oldLine": {
+        "line": "blue",
+        "segment": 447
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 447
+      }
+    },
+    {
+      "sourceArc": 544.2294113167815,
+      "before": [
+        3957.77468133674,
+        -2101.4001570396176
+      ],
+      "after": [
+        3957.7828450437855,
+        -2101.4244537867767
+      ],
+      "addedDisplacement": 0.025631582768888078,
+      "oldMetroCenterDistance": 10.793648707655853,
+      "newMetroCenterDistance": 10.819069866848444,
+      "clearanceChange": 0.025421159192591247,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 545.1645529081559,
+      "before": [
+        3958.64137707466,
+        -2101.0435542188015
+      ],
+      "after": [
+        3958.67119528827,
+        -2101.132298902165
+      ],
+      "addedDisplacement": 0.09362021516852422,
+      "oldMetroCenterDistance": 10.612590385265918,
+      "newMetroCenterDistance": 10.705442021269251,
+      "clearanceChange": 0.09285163600333313,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 546.0996944995302,
+      "before": [
+        3959.50807281258,
+        -2100.6869513979855
+      ],
+      "after": [
+        3959.5569095739843,
+        -2100.832298902165
+      ],
+      "addedDisplacement": 0.15333273047739457,
+      "oldMetroCenterDistance": 10.431532062875979,
+      "newMetroCenterDistance": 10.583606001736916,
+      "clearanceChange": 0.15207393886093712,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 547.0348360909047,
+      "before": [
+        3960.3744593720085,
+        -2100.329428403089
+      ],
+      "after": [
+        3960.442623859698,
+        -2100.5322989021656
+      ],
+      "addedDisplacement": 0.2140159731832703,
+      "oldMetroCenterDistance": 10.249510982317943,
+      "newMetroCenterDistance": 10.461769982205384,
+      "clearanceChange": 0.21225899988744068,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 547.9699776822793,
+      "before": [
+        3961.240845931438,
+        -2099.9719054081916
+      ],
+      "after": [
+        3961.328338145413,
+        -2100.232298902165
+      ],
+      "addedDisplacement": 0.2746992158888598,
+      "oldMetroCenterDistance": 10.06748990175919,
+      "newMetroCenterDistance": 10.33993396267278,
+      "clearanceChange": 0.27244406091359075,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 548.9051192736538,
+      "before": [
+        3962.1071793221663,
+        -2099.614224173113
+      ],
+      "after": [
+        3962.2140524311276,
+        -2099.932298902165
+      ],
+      "addedDisplacement": 0.3355493923110819,
+      "oldMetroCenterDistance": 9.885303257933607,
+      "newMetroCenterDistance": 10.218097943140537,
+      "clearanceChange": 0.33279468520692923,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 549.8402608650283,
+      "before": [
+        3962.9735127128943,
+        -2099.256542938035
+      ],
+      "after": [
+        3963.0997667168417,
+        -2099.632298902165
+      ],
+      "addedDisplacement": 0.39639956873330384,
+      "oldMetroCenterDistance": 9.703116614108385,
+      "newMetroCenterDistance": 10.096261923608647,
+      "clearanceChange": 0.3931453095002624,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 550.7754024564028,
+      "before": [
+        3963.8400489447117,
+        -2098.8994653966765
+      ],
+      "after": [
+        3963.985481002556,
+        -2099.3322989021653
+      ],
+      "addedDisplacement": 0.45661288519106824,
+      "oldMetroCenterDistance": 9.52156160191849,
+      "newMetroCenterDistance": 9.974425904076758,
+      "clearanceChange": 0.4528643021582681,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 551.7105440477774,
+      "before": [
+        3964.7065851765296,
+        -2098.5423878553174
+      ],
+      "after": [
+        3964.8711952882704,
+        -2099.032298902165
+      ],
+      "addedDisplacement": 0.5168262016488326,
+      "oldMetroCenterDistance": 9.340006589728238,
+      "newMetroCenterDistance": 9.852589884544514,
+      "clearanceChange": 0.5125832948162756,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 552.6456856391517,
+      "before": [
+        3965.573580259227,
+        -2098.186675941577
+      ],
+      "after": [
+        3965.7569095739846,
+        -2098.732298902165
+      ],
+      "addedDisplacement": 0.5755988644621975,
+      "oldMetroCenterDistance": 9.159880404074503,
+      "newMetroCenterDistance": 9.73075386501218,
+      "clearanceChange": 0.5708734609376762,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 553.5808272305261,
+      "before": [
+        3966.4405753419246,
+        -2097.8309640278367
+      ],
+      "after": [
+        3966.6426238596987,
+        -2098.432298902165
+      ],
+      "addedDisplacement": 0.6343715272755625,
+      "oldMetroCenterDistance": 8.979754218420766,
+      "newMetroCenterDistance": 9.608917845479844,
+      "clearanceChange": 0.6291636270590786,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 554.5159688219006,
+      "before": [
+        3967.310808339331,
+        -2097.4765183599097
+      ],
+      "after": [
+        3967.5308652963017,
+        -2098.131449779466
+      ],
+      "addedDisplacement": 0.6909126056407765,
+      "oldMetroCenterDistance": 8.801500386901262,
+      "newMetroCenterDistance": 9.486740915921649,
+      "clearanceChange": 0.6852405290203869,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 555.4511104132752,
+      "before": [
+        3968.181041336736,
+        -2097.1220726919832
+      ],
+      "after": [
+        3968.4259240786278,
+        -2097.8282461802282
+      ],
+      "addedDisplacement": 0.7474279582517943,
+      "oldMetroCenterDistance": 8.623246555382025,
+      "newMetroCenterDistance": 9.36358170667284,
+      "clearanceChange": 0.7403351512908145,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 556.3839850576089,
+      "before": [
+        3969.0502096816786,
+        -2096.7815016734125
+      ],
+      "after": [
+        3969.3116383643414,
+        -2097.5353890373713
+      ],
+      "addedDisplacement": 0.7979292660727912,
+      "oldMetroCenterDistance": 8.458394667970945,
+      "newMetroCenterDistance": 9.248751888885078,
+      "clearanceChange": 0.7903572209141334,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 557.3168597019428,
+      "before": [
+        3969.9193780266214,
+        -2096.440930654841
+      ],
+      "after": [
+        3970.1973526500565,
+        -2097.242531894514
+      ],
+      "addedDisplacement": 0.8484305738945158,
+      "oldMetroCenterDistance": 8.293542780559063,
+      "newMetroCenterDistance": 9.133922071097135,
+      "clearanceChange": 0.8403792905380723,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 558.2497343462766,
+      "before": [
+        3970.7896540001702,
+        -2096.1035537280645
+      ],
+      "after": [
+        3971.0830669357706,
+        -2096.949674751657
+      ],
+      "addedDisplacement": 0.8955511919162207,
+      "oldMetroCenterDistance": 8.132039501487387,
+      "newMetroCenterDistance": 9.019092253309461,
+      "clearanceChange": 0.8870527518220737,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 559.1826089906103,
+      "before": [
+        3971.659929973719,
+        -2095.766176801288
+      ],
+      "after": [
+        3971.968781221485,
+        -2096.6568176088
+      ],
+      "addedDisplacement": 0.9426718099380744,
+      "oldMetroCenterDistance": 7.970536222415712,
+      "newMetroCenterDistance": 8.904262435521876,
+      "clearanceChange": 0.9337262131061639,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 560.115483634944,
+      "before": [
+        3972.531534056457,
+        -2095.4326297707785
+      ],
+      "after": [
+        3972.8544955071993,
+        -2096.3639604659425
+      ],
+      "addedDisplacement": 0.9857387901569832,
+      "oldMetroCenterDistance": 7.813048113665895,
+      "newMetroCenterDistance": 8.789432617733755,
+      "clearanceChange": 0.9763845040678607,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 561.0483582792775,
+      "before": [
+        3973.403138139195,
+        -2095.0990827402698
+      ],
+      "after": [
+        3973.7402097929134,
+        -2096.0711033230855
+      ],
+      "addedDisplacement": 1.0288057703754623,
+      "oldMetroCenterDistance": 7.655560004916969,
+      "newMetroCenterDistance": 8.674602799946083,
+      "clearanceChange": 1.0190427950291134,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 561.9812329236113,
+      "before": [
+        3974.276290811706,
+        -2094.770001410501
+      ],
+      "after": [
+        3974.6259240786276,
+        -2095.7782461802285
+      ],
+      "addedDisplacement": 1.0671461647874925,
+      "oldMetroCenterDistance": 7.502753628473427,
+      "newMetroCenterDistance": 8.559772982158409,
+      "clearanceChange": 1.0570193536849812,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 562.9141075679452,
+      "before": [
+        3975.149443484217,
+        -2094.440920080732
+      ],
+      "after": [
+        3975.5116383643417,
+        -2095.485389037371
+      ],
+      "addedDisplacement": 1.1054865591995227,
+      "oldMetroCenterDistance": 7.3499472520294375,
+      "newMetroCenterDistance": 8.444943164370288,
+      "clearanceChange": 1.0949959123408508,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 563.7319966934015,
+      "before": [
+        3975.916061370469,
+        -2094.155542745558
+      ],
+      "after": [
+        3976.288180086155,
+        -2095.2286292745134
+      ],
+      "addedDisplacement": 1.135775962586791,
+      "oldMetroCenterDistance": 7.219269314049579,
+      "newMetroCenterDistance": 8.34426719486331,
+      "clearanceChange": 1.1249978808137309,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 564.7798568566129,
+      "before": [
+        3976.899286969952,
+        -2093.792960431621
+      ],
+      "after": [
+        3977.283066935771,
+        -2094.8996747516567
+      ],
+      "addedDisplacement": 1.1713682804038257,
+      "oldMetroCenterDistance": 7.055031087718741,
+      "newMetroCenterDistance": 8.215283528794673,
+      "clearanceChange": 1.160252441075932,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 565.7127315009465,
+      "before": [
+        3977.7761982637585,
+        -2093.4747179167516
+      ],
+      "after": [
+        3978.168781221485,
+        -2094.6068176087997
+      ],
+      "addedDisplacement": 1.1982366591924456,
+      "oldMetroCenterDistance": 6.9135878618349365,
+      "newMetroCenterDistance": 8.100453711006999,
+      "clearanceChange": 1.1868658491720625,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 566.64560614528,
+      "before": [
+        3978.653109557565,
+        -2093.1564754018823
+      ],
+      "after": [
+        3979.054495507199,
+        -2094.3139604659427
+      ],
+      "addedDisplacement": 1.2251050379810655,
+      "oldMetroCenterDistance": 6.772144635951129,
+      "newMetroCenterDistance": 7.985623893219325,
+      "clearanceChange": 1.2134792572681956,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 567.5784807896139,
+      "before": [
+        3979.5320726746354,
+        -2092.8446600100256
+      ],
+      "after": [
+        3979.940051848913,
+        -2094.0211580939886
+      ],
+      "addedDisplacement": 1.2452287935205753,
+      "oldMetroCenterDistance": 6.637405005050951,
+      "newMetroCenterDistance": 7.870817051074798,
+      "clearanceChange": 1.2334120460238474,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 568.5113554339476,
+      "before": [
+        3980.411035791705,
+        -2092.5328446181697
+      ],
+      "after": [
+        3980.8140524311275,
+        -2093.732298902165
+      ],
+      "addedDisplacement": 1.265350935924794,
+      "oldMetroCenterDistance": 6.502665374151579,
+      "newMetroCenterDistance": 7.757628357386492,
+      "clearanceChange": 1.254962983234913,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 569.4464970253222,
+      "before": [
+        3981.29253800456,
+        -2092.2203086870395
+      ],
+      "after": [
+        3981.699766716842,
+        -2093.432298902165
+      ],
+      "addedDisplacement": 1.278575576830116,
+      "oldMetroCenterDistance": 6.3677132819698175,
+      "newMetroCenterDistance": 7.635792337854245,
+      "clearanceChange": 1.268079055884428,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 570.3816386166967,
+      "before": [
+        3982.1740402174146,
+        -2091.90777275591
+      ],
+      "after": [
+        3982.585481002556,
+        -2093.132298902165
+      ],
+      "addedDisplacement": 1.291800217734862,
+      "oldMetroCenterDistance": 6.232761189788947,
+      "newMetroCenterDistance": 7.513956318322358,
+      "clearanceChange": 1.2811951285334109,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 571.316780208071,
+      "before": [
+        3983.058448680136,
+        -2091.6038863779554
+      ],
+      "after": [
+        3983.4711952882703,
+        -2092.8322989021653
+      ],
+      "addedDisplacement": 1.2959001088673423,
+      "oldMetroCenterDistance": 6.106858937356387,
+      "newMetroCenterDistance": 7.39212029879047,
+      "clearanceChange": 1.2852613614340829,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 572.2519217994453,
+      "before": [
+        3983.942857142857,
+        -2091.3
+      ],
+      "after": [
+        3984.3569095739845,
+        -2092.532298902165
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 5.980956684923377,
+      "newMetroCenterDistance": 7.270284279258137,
+      "clearanceChange": 1.2893275943347602,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 573.1870633908198,
+      "before": [
+        3984.828571428571,
+        -2091.0
+      ],
+      "after": [
+        3985.2426238596986,
+        -2092.232298902165
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 5.859120665391043,
+      "newMetroCenterDistance": 7.1484482597258,
+      "clearanceChange": 1.2893275943347575,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 574.1222049821944,
+      "before": [
+        3985.714285714286,
+        -2090.7000000000003
+      ],
+      "after": [
+        3986.128338145413,
+        -2091.9322989021653
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 5.737284645859244,
+      "newMetroCenterDistance": 7.026612240194001,
+      "clearanceChange": 1.2893275943347566,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 575.057346573569,
+      "before": [
+        3986.6000000000004,
+        -2090.4
+      ],
+      "after": [
+        3987.0140524311278,
+        -2091.632298902165
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 5.615448626326998,
+      "newMetroCenterDistance": 6.9047762206617564,
+      "clearanceChange": 1.2893275943347584,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 575.9924881649436,
+      "before": [
+        3987.4857142857145,
+        -2090.1
+      ],
+      "after": [
+        3987.899766716842,
+        -2091.332298902165
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 5.493612606794664,
+      "newMetroCenterDistance": 6.782940201129423,
+      "clearanceChange": 1.2893275943347593,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 576.9276297563179,
+      "before": [
+        3988.3714285714286,
+        -2089.8
+      ],
+      "after": [
+        3988.785481002556,
+        -2091.032298902165
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 5.371776587262775,
+      "newMetroCenterDistance": 6.661104181597533,
+      "clearanceChange": 1.2893275943347584,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 577.8627713476922,
+      "before": [
+        3989.2571428571428,
+        -2089.5
+      ],
+      "after": [
+        3989.67119528827,
+        -2090.732298902165
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 5.249940567730441,
+      "newMetroCenterDistance": 6.539268162065199,
+      "clearanceChange": 1.2893275943347584,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 578.7979129390667,
+      "before": [
+        3990.142857142857,
+        -2089.2
+      ],
+      "after": [
+        3990.5569095739843,
+        -2090.432298902165
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 5.128104548198106,
+      "newMetroCenterDistance": 6.417432142532865,
+      "clearanceChange": 1.2893275943347593,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 579.7330545304412,
+      "before": [
+        3991.0285714285715,
+        -2088.9
+      ],
+      "after": [
+        3991.442623859699,
+        -2090.132298902165
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 5.006268528666308,
+      "newMetroCenterDistance": 6.295596123001068,
+      "clearanceChange": 1.2893275943347602,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 580.6681961218158,
+      "before": [
+        3991.914285714286,
+        -2088.6000000000004
+      ],
+      "after": [
+        3992.3283381454135,
+        -2089.8322989021653
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 4.884432509134506,
+      "newMetroCenterDistance": 6.173760103469267,
+      "clearanceChange": 1.2893275943347602,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 581.6033377131903,
+      "before": [
+        3992.8,
+        -2088.3
+      ],
+      "after": [
+        3993.2140524311276,
+        -2089.532298902165
+      ],
+      "addedDisplacement": 1.2999999999998224,
+      "oldMetroCenterDistance": 4.762596489602172,
+      "newMetroCenterDistance": 6.051924083936933,
+      "clearanceChange": 1.2893275943347602,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 582.551725173836,
+      "before": [
+        3993.7285714285717,
+        -2088.107142857143
+      ],
+      "after": [
+        3994.1396675243936,
+        -2089.340431144609
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.754196614963726,
+      "newMetroCenterDistance": 6.043919147937277,
+      "clearanceChange": 1.2897225329735518,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 583.5001126344816,
+      "before": [
+        3994.657142857143,
+        -2087.914285714286
+      ],
+      "after": [
+        3995.0682389529647,
+        -2089.1475740017518
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.745796740325187,
+      "newMetroCenterDistance": 6.035519273298737,
+      "clearanceChange": 1.28972253297355,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 584.4485000951277,
+      "before": [
+        3995.5857142857144,
+        -2087.7214285714285
+      ],
+      "after": [
+        3995.9968103815363,
+        -2088.9547168588942
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.737396865686295,
+      "newMetroCenterDistance": 6.0271193986598455,
+      "clearanceChange": 1.2897225329735509,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 585.3968875557736,
+      "before": [
+        3996.514285714286,
+        -2087.5285714285715
+      ],
+      "after": [
+        3996.925381810108,
+        -2088.761859716037
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.728996991047846,
+      "newMetroCenterDistance": 6.018719524021396,
+      "clearanceChange": 1.28972253297355,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 586.3452750164192,
+      "before": [
+        3997.442857142857,
+        -2087.3357142857144
+      ],
+      "after": [
+        3997.853953238679,
+        -2088.56900257318
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.7205971164093095,
+      "newMetroCenterDistance": 6.0103196493828595,
+      "clearanceChange": 1.28972253297355,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 587.2936624770649,
+      "before": [
+        3998.3714285714286,
+        -2087.1428571428573
+      ],
+      "after": [
+        3998.7825246672505,
+        -2088.376145430323
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.712197241770857,
+      "newMetroCenterDistance": 6.001919774744409,
+      "clearanceChange": 1.2897225329735518,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 588.2420499377108,
+      "before": [
+        3999.3,
+        -2086.9500000000003
+      ],
+      "after": [
+        3999.711096095822,
+        -2088.183288287466
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.703797367132409,
+      "newMetroCenterDistance": 5.993519900105961,
+      "clearanceChange": 1.2897225329735527,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 589.1904373983568,
+      "before": [
+        4000.2285714285717,
+        -2086.7571428571428
+      ],
+      "after": [
+        4000.6396675243936,
+        -2087.9904311446085
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.695397492493516,
+      "newMetroCenterDistance": 5.985120025467066,
+      "clearanceChange": 1.28972253297355,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 590.1388248590025,
+      "before": [
+        4001.1571428571433,
+        -2086.5642857142857
+      ],
+      "after": [
+        4001.568238952965,
+        -2087.7975740017514
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.6869976178550665,
+      "newMetroCenterDistance": 5.9767201508286165,
+      "clearanceChange": 1.28972253297355,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 591.0872123196482,
+      "before": [
+        4002.0857142857144,
+        -2086.3714285714286
+      ],
+      "after": [
+        4002.4968103815363,
+        -2087.6047168588943
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.67859774321653,
+      "newMetroCenterDistance": 5.96832027619008,
+      "clearanceChange": 1.28972253297355,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 592.035599780294,
+      "before": [
+        4003.014285714286,
+        -2086.178571428571
+      ],
+      "after": [
+        4003.425381810108,
+        -2087.411859716037
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.670197868577635,
+      "newMetroCenterDistance": 5.959920401551185,
+      "clearanceChange": 1.28972253297355,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 592.9839872409397,
+      "before": [
+        4003.942857142857,
+        -2085.985714285714
+      ],
+      "after": [
+        4004.353953238679,
+        -2087.2190025731798
+      ],
+      "addedDisplacement": 1.3000000000000462,
+      "oldMetroCenterDistance": 4.661797993939098,
+      "newMetroCenterDistance": 5.951520526912648,
+      "clearanceChange": 1.28972253297355,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 593.9323747015856,
+      "before": [
+        4004.8714285714286,
+        -2085.792857142857
+      ],
+      "after": [
+        4005.278517570165,
+        -2087.014124139067
+      ],
+      "addedDisplacement": 1.2873284464052621,
+      "oldMetroCenterDistance": 4.653398119300647,
+      "newMetroCenterDistance": 5.930549276736545,
+      "clearanceChange": 1.277151157435898,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 594.8807621622315,
+      "before": [
+        4005.8,
+        -2085.6
+      ],
+      "after": [
+        4006.205980784501,
+        -2086.779277516883
+      ],
+      "addedDisplacement": 1.2472032148814072,
+      "oldMetroCenterDistance": 4.644998244662201,
+      "newMetroCenterDistance": 5.88074751610048,
+      "clearanceChange": 1.2357492714382792,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 595.8221571323667,
+      "before": [
+        4006.721428571429,
+        -2085.407142857143
+      ],
+      "after": [
+        4007.1068400036593,
+        -2086.5266713031447
+      ],
+      "addedDisplacement": 1.1840126323232603,
+      "oldMetroCenterDistance": 4.635207850235635,
+      "newMetroCenterDistance": 5.808346862634924,
+      "clearanceChange": 1.1731390123992886,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 596.7635521025019,
+      "before": [
+        4007.6428571428573,
+        -2085.214285714286
+      ],
+      "after": [
+        4008.0013813595856,
+        -2086.255713200973
+      ],
+      "addedDisplacement": 1.1014131032487384,
+      "oldMetroCenterDistance": 4.625417455808976,
+      "newMetroCenterDistance": 5.716715508646075,
+      "clearanceChange": 1.0912980528370992,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 597.7049470726372,
+      "before": [
+        4008.564285714286,
+        -2085.0214285714283
+      ],
+      "after": [
+        4008.8908601151975,
+        -2085.9700494502663
+      ],
+      "addedDisplacement": 1.0032608888509678,
+      "oldMetroCenterDistance": 4.615627061381965,
+      "newMetroCenterDistance": 5.609674300570679,
+      "clearanceChange": 0.9940472391887134,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 598.6463420427724,
+      "before": [
+        4009.4857142857145,
+        -2084.828571428571
+      ],
+      "after": [
+        4009.7765315334095,
+        -2085.673326290923
+      ],
+      "addedDisplacement": 0.8934122503210596,
+      "oldMetroCenterDistance": 4.605836666955309,
+      "newMetroCenterDistance": 5.491044084844509,
+      "clearanceChange": 0.8852074178892,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 599.5877370129076,
+      "before": [
+        4010.4071428571433,
+        -2084.635714285714
+      ],
+      "after": [
+        4010.6596508771377,
+        -2085.3691899628407
+      ],
+      "addedDisplacement": 0.7757234488512667,
+      "oldMetroCenterDistance": 4.596046272528743,
+      "newMetroCenterDistance": 5.364645707903609,
+      "clearanceChange": 0.768599435374866,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 600.5291319830428,
+      "before": [
+        4011.3285714285716,
+        -2084.442857142857
+      ],
+      "after": [
+        4011.5414734092974,
+        -2085.0612867059176
+      ],
+      "addedDisplacement": 0.6540507456338556,
+      "oldMetroCenterDistance": 4.586255878102088,
+      "newMetroCenterDistance": 5.234300016183923,
+      "clearanceChange": 0.6480441380818345,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 601.4705269531778,
+      "before": [
+        4012.25,
+        -2084.25
+      ],
+      "after": [
+        4012.4232543928047,
+        -2084.7532627600513
+      ],
+      "addedDisplacement": 0.5322504018603671,
+      "oldMetroCenterDistance": 4.576465483675432,
+      "newMetroCenterDistance": 5.103827856121057,
+      "clearanceChange": 0.5273623724456247,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 602.4119219233128,
+      "before": [
+        4013.1714285714284,
+        -2084.057142857143
+      ],
+      "after": [
+        4013.3062490905745,
+        -2084.448764365139
+      ],
+      "addedDisplacement": 0.414178678722194,
+      "oldMetroCenterDistance": 4.566675089248777,
+      "newMetroCenterDistance": 4.977050074150425,
+      "clearanceChange": 0.41037498490164737,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 603.353316893448,
+      "before": [
+        4014.0928571428567,
+        -2083.864285714286
+      ],
+      "after": [
+        4014.191712765524,
+        -2084.15143776108
+      ],
+      "addedDisplacement": 0.30369183741261113,
+      "oldMetroCenterDistance": 4.556884694822121,
+      "newMetroCenterDistance": 4.857787516709129,
+      "clearanceChange": 0.300902821887008,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 604.2947118635832,
+      "before": [
+        4015.0142857142855,
+        -2083.671428571429
+      ],
+      "after": [
+        4015.0809006805675,
+        -2083.8649291877714
+      ],
+      "addedDisplacement": 0.20464613912243323,
+      "oldMetroCenterDistance": 4.5470943003955515,
+      "newMetroCenterDistance": 4.749861030232144,
+      "clearanceChange": 0.2027667298365925,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 605.2361068337184,
+      "before": [
+        4015.935714285714,
+        -2083.4785714285717
+      ],
+      "after": [
+        4015.975068098621,
+        -2083.5928848851113
+      ],
+      "addedDisplacement": 0.12089784504420895,
+      "oldMetroCenterDistance": 4.5373039059688995,
+      "newMetroCenterDistance": 4.657091461155777,
+      "clearanceChange": 0.11978755518687745,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 606.1775018038537,
+      "before": [
+        4016.8571428571427,
+        -2083.285714285714
+      ],
+      "after": [
+        4016.875470282601,
+        -2083.338951092997
+      ],
+      "addedDisplacement": 0.056303216369775165,
+      "oldMetroCenterDistance": 4.527513511541885,
+      "newMetroCenterDistance": 4.58329965591545,
+      "clearanceChange": 0.055786144373564994,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    },
+    {
+      "sourceArc": 607.1188967739889,
+      "before": [
+        4017.778571428571,
+        -2083.092857142857
+      ],
+      "after": [
+        4017.779572497792,
+        -2083.0957650105934
+      ],
+      "addedDisplacement": 0.0030753592239243584,
+      "oldMetroCenterDistance": 4.51772311711523,
+      "newMetroCenterDistance": 4.520770233154544,
+      "clearanceChange": 0.0030471160393146235,
+      "oldLine": {
+        "line": "blue",
+        "segment": 453
+      },
+      "newLine": {
+        "line": "blue",
+        "segment": 453
+      }
+    }
+  ]
+}

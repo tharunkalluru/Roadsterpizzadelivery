@@ -38,7 +38,6 @@ export class CarrierMarker {
   private catchAge = Infinity;
   private catchRing: THREE.Mesh<THREE.RingGeometry, THREE.MeshBasicMaterial>;
   private catchFollower: THREE.Object3D | null = null;
-  private carriedSlot: MarkerSlot | null = null;
   private forwardX = 0;
   private forwardZ = -1;
   private hasView = false;
@@ -95,7 +94,6 @@ export class CarrierMarker {
     this.time += elapsed;
     this.hasCamera = !!view && [view.cameraX,view.cameraY,view.cameraZ].every(v => typeof v === 'number' && Number.isFinite(v));
     if(this.hasCamera) this.cameraPoint.set(view!.cameraX!,view!.cameraY!,view!.cameraZ!);
-    if(this.carriedSlot) { this.carriedSlot.group.position.y=1.5+Math.sin(this.time*2.6)*.07; if(this.hasCamera) this.carriedSlot.visual.lookAt(this.cameraPoint); }
     this.updateCatch(dt);
     const viewLength = view ? Math.hypot(view.forwardX, view.forwardZ) : 0;
     this.hasView = Number.isFinite(viewLength) && viewLength > .001;
@@ -203,14 +201,8 @@ export class CarrierMarker {
     this.catchRing.position.set(slot.position.x, slot.position.y, slot.position.z);
     this.catchRing.scale.setScalar(.7); this.catchRing.material.opacity = .95; this.catchRing.visible = true;
     for (const other of this.slots) this.detach(other);
-    if (playerGroup) {
-      // Roadster's model is translated -.55 from its support root. This rests
-      // above the cabin, rather than hovering at the traffic-marker height.
-      this.carriedSlot = slot; slot.group.name = 'delivery-carried-box';
-      slot.group.position.set(0, 1.5, 0); slot.group.scale.setScalar(.7);
-      slot.visual.rotation.set(0, 0, 0);
-      slot.halo.visible = false; playerGroup.add(slot.group);
-    }
+    // Offers are world-space slices only. The player's compact trunk carton
+    // represents the collected order, leaving the forward view unobstructed.
     this.markers.length = 0;
     return true;
   }
@@ -218,7 +210,7 @@ export class CarrierMarker {
   /** Relocation or the next delivery starts a fresh anonymous carrier search. */
   clear() {
     for (const slot of this.slots) this.detach(slot);
-    this.carriedSlot = null; this.noForwardTime = 0;
+    this.noForwardTime = 0;
     this.markers.length = 0; this.caught = false;
     this.catchAge = Infinity; this.catchRing.visible = false; this.catchFollower = null;
   }
@@ -241,7 +233,6 @@ export class CarrierMarker {
     slot.group.removeFromParent(); slot.car = null; slot.carrierId = '';
     slot.group.name = 'delivery-carrier-box'; slot.group.scale.setScalar(1); slot.halo.visible = true;
     slot.visual.rotation.set(0, 0, 0); slot.visual.scale.setScalar(1);
-    if (this.carriedSlot === slot) this.carriedSlot = null;
   }
 
   private place(slot: MarkerSlot, player: { x: number; z: number }) {

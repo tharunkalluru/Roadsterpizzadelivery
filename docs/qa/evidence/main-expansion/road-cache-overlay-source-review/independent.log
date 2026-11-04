@@ -1,0 +1,13 @@
+✔ nested original-corridor metadata preserves signed coordinates/heights in both cache transports and worker patches (13.380708ms)
+✔ a later malformed original-corridor patch cannot partially warm the prepared-road maps (3.884041ms)
+✔ reused modeled cores reject appended stale incident roads and any changed road inventory atomically (1.100042ms)
+✔ a mixed final-core-patch tile cannot move its nodes and side streets while one core endpoint stays at source geometry (0.3205ms)
+✔ a later stale tile-only source keeps the entire owner/context zone unchanged (0.232ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 54.95275

@@ -53,7 +53,7 @@ try {
   globalThis.location = { search: '' };
   const { World, fetchPack, loadCore } = await import(pathToFileURL(join(out, 'loading.mjs')));
   const fakeWorld = () => Object.assign(Object.create(World.prototype), { ...worldFixtureState(), 
-    tiles: new Map(), pending: new Map(), requestIds: new Map(), nextRequestId: 0,
+    tiles: new Map(), pending: new Map(), requestIds: new Map(), nextRequestId: 0, modeledRoadReport: { active: false },
     empty: new Set(), failures: new Map(), waiters: [], focus: [10, 20], buildMs: [], addMs: [], radius: 900, t: 0,
     worker: { postMessage() {}, terminate() {} }, workerUnavailable: false, workerFailed: false, workerRestarts: 0, workerTimer: null,
     wanted: () => ['0_0'], packOf: new Map([['0_0', 'https://city.test/one.pack.wasm']]),

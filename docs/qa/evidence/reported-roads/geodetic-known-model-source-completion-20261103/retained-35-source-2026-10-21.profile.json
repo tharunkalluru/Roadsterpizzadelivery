@@ -1,0 +1,84 @@
+{
+    "total_bytes_written": 0,
+    "total_bytes_read": 282330110,
+    "rows_returned": 35,
+    "latency": 34.912751917,
+    "result_set_size": 8585528,
+    "cumulative_rows_scanned": 1441349632,
+    "cpu_time": 119.37612620699998,
+    "extra_info": {},
+    "system_peak_buffer_memory": 374174125,
+    "blocked_thread_time": 0.0,
+    "cumulative_cardinality": 70,
+    "system_peak_temp_dir_size": 0,
+    "query_name": "SELECT id,names.primary AS name,class,width_rules,level_rules,road_flags,access_restrictions,connectors,sources,hex(geometry) AS geometryWKB,bbox FROM read_parquet(?,hive_partitioning=1) WHERE bbox.xmin<78.72 AND bbox.xmax>78.18 AND bbox.ymin<17.64 AND bbox.ymax>17.18 AND substring(id,1,12) IN ('0d3113f2-f63','12909958-fdd','17390715-e3a','22216740-b65','34a11925-bf1','3d9a16a3-8df','419e345b-31c','45ca64ea-1d0','5225a6fd-700','5229bc6b-b2f','5a23ce42-637','5ddb8ac5-761','68f51cbd-f09','6ae9879c-b4b','73ec0975-07e','7fa23180-147','881bd341-9e6','883afbc0-827','8f08f7de-19e','8fcc1cb8-13e','90406798-4ab','95bb5930-a37','99741c4b-a2e','a405ab6b-475','a72c3f25-034','bc95f7d6-f2e','d16808e2-449','e0d9297d-546','e892d8e7-5f2','e9f46502-b0e','eb88eae7-b38','ef8ec534-d0f','f0aa5ed3-2a0','fd821a82-dc7','fffcfd39-cbe')",
+    "children": [
+        {
+            "total_bytes_written": 0,
+            "result_set_size": 8585528,
+            "operator_timing": 0.00129075,
+            "operator_rows_scanned": 0,
+            "cumulative_rows_scanned": 1441349632,
+            "operator_cardinality": 35,
+            "operator_type": "PROJECTION",
+            "total_bytes_read": 0,
+            "operator_name": "PROJECTION",
+            "cpu_time": 119.37612620699998,
+            "extra_info": {
+                "Projections": [
+                    "id",
+                    "name",
+                    "class",
+                    "width_rules",
+                    "level_rules",
+                    "road_flags",
+                    "access_restrictions",
+                    "connectors",
+                    "sources",
+                    "geometryWKB",
+                    "bbox"
+                ],
+                "Estimated Cardinality": "72067481"
+            },
+            "cumulative_cardinality": 70,
+            "children": [
+                {
+                    "cumulative_cardinality": 35,
+                    "extra_info": {
+                        "Function": "READ_PARQUET",
+                        "Projections": [
+                            "bbox",
+                            "id",
+                            "names.primary",
+                            "class",
+                            "width_rules",
+                            "level_rules",
+                            "road_flags",
+                            "access_restrictions",
+                            "connectors",
+                            "sources",
+                            "geometry"
+                        ],
+                        "Filters": [
+                            "bbox.xmin<78.72 AND bbox.xmax>78.18 AND bbox.ymin<17.64 AND bbox.ymax>17.18",
+                            "(\"substring\"(id, 1, 12) IN ('0d3113f2-f63', '12909958-fdd', '17390715-e3a', '22216740-b65', '34a11925-bf1', '3d9a16a3-8df', '419e345b-31c', '45ca64ea-1d0', '5225a6fd-700', '5229bc6b-b2f', '5a23ce42-637', '5ddb8ac5-761', '68f51cbd-f09', '6ae9879c-b4b', '73ec0975-07e', '7fa23180-147', '881bd341-9e6', '883afbc0-827', '8f08f7de-19e', '8fcc1cb8-13e', '90406798-4ab', '95bb5930-a37', '99741c4b-a2e', 'a405ab6b-475', 'a72c3f25-034', 'bc95f7d6-f2e', 'd16808e2-449', 'e0d9297d-546', 'e892d8e7-5f2', 'e9f46502-b0e', 'eb88eae7-b38', 'ef8ec534-d0f', 'f0aa5ed3-2a0', 'fd821a82-dc7', 'fffcfd39-cbe'))"
+                        ],
+                        "Estimated Cardinality": "72067481",
+                        "Total Files Read": "128"
+                    },
+                    "operator_name": "READ_PARQUET ",
+                    "cpu_time": 119.37483545699999,
+                    "cumulative_rows_scanned": 1441349632,
+                    "operator_rows_scanned": 1441349632,
+                    "operator_timing": 119.37483545699999,
+                    "result_set_size": 16795032,
+                    "total_bytes_read": 0,
+                    "operator_type": "TABLE_SCAN",
+                    "total_bytes_written": 0,
+                    "operator_cardinality": 35,
+                    "children": []
+                }
+            ]
+        }
+    ]
+}

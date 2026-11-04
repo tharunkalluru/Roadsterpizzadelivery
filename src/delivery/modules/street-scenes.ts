@@ -160,6 +160,7 @@ abstract class StreetScene extends ModuleBase {
     this.root.updateWorldMatrix(true, false); pizza.position.copy(this.root.worldToLocal(this.transfer.from.clone())); pizza.visible = true;
     this.failureTime = 0; this.dropFeedback = ''; this.status.failure = undefined;
     this.status.canDrop = false; this.status.instruction = instruction; this.ctx.cue?.('throw');
+    this.ctx.sceneEvent?.('catchStarted',{character:'street-recipient'});
   }
   protected updateTransfer(dt: number) {
     this.releaseCatch(dt);
@@ -182,7 +183,7 @@ abstract class StreetScene extends ModuleBase {
       }
       return fallback();
     }, () => {
-      if(actor)this.releasingActor={actor,remaining:.45};
+      if(actor){this.releasingActor={actor,remaining:.45};actor.receivePizza?.();}
       after();
     });
   }
@@ -207,7 +208,7 @@ export class RopeBucket extends StreetScene {
     }
     const side=this.bucketParkingSide||-this.roofCameraSide,distance=2.4+Math.abs(tx)*2.48+Math.abs(tz)*1.9+.4;
     const point=this.localPoint(tx*side*distance,.55,tz*side*distance);
-    return {...frame,point,yaw:this.bucketParkingYaw,entry};
+    return {...frame,point,landing:{point,radius:3.15},yaw:this.bucketParkingYaw,entry};
   }
   private rooftop:SceneCharacter|null=null;
   private roofFocusPosition=new THREE.Vector3();
@@ -327,7 +328,7 @@ export class RopeBucket extends StreetScene {
     } else if (this.phase === 'raising') {
       this.bucket.position.y = Math.min(this.top - 1, this.bucket.position.y + step * 4.2);
       if (this.pizza) this.pizza.position.set(0, this.bucket.position.y + .23, 0);
-      if (this.bucket.position.y >= this.top - 1) { this.done(); return; }
+      if (this.bucket.position.y >= this.top - 1) { if(this.pizza)this.pizza.visible=false;this.rooftop?.receivePizza?.();this.done(); return; }
     }
     this.updateRope();
     this.status.canDrop = this.phase === 'ready' && this.unlocked() && this.grounded() && this.within(6.5, 3.5) && Math.abs(this.ctx.player().speed) < 2;
@@ -353,7 +354,7 @@ export class GateDelivery extends StreetScene {
     const inside=Math.abs(dx)<19*s&&dz< -8.5*s&&dz> -43*s;
     const atGate=Math.abs(dx)<8*s&&dz>=-6*s&&dz<18*s;
     const point=!inside&&(Math.abs(dx)>.35||this.opening<1)?{x:d.x,y:d.y+.55,z:d.z+4*s}:frame.point;
-    return {...frame,entry:frame.entry&&(inside||atGate),point,yaw:0};
+    return {...frame,entry:frame.entry&&(inside||atGate),point,landing:{point,radius:3.15},yaw:0};
   }
   private theme: GateTheme = 'haunted';
   private receiver: SceneCharacter | null = null;
@@ -616,7 +617,7 @@ export class WalkingHandoff extends StreetScene {
     const frame=super.story;if(!frame)return undefined;
     const side=numberParam(this.params,'walkSide',-3.5,-4,-1.5),point=this.localPoint(side+3.1,.55,this.localZ);
     const streetYaw=this.params.useExistingStreet?numberParam(this.params,'streetYaw',0,-Math.PI*2,Math.PI*2):0;
-    return {...frame,point,yaw:streetYaw+(this.direction<0?0:Math.PI),speed:Math.max(.3,Math.min(1.8,Math.abs(this.walkSpeed))),maxSpeed:4};
+    return {...frame,point,landing:{point,radius:3.15},yaw:streetYaw+(this.direction<0?0:Math.PI),speed:Math.max(.3,Math.min(1.8,Math.abs(this.walkSpeed))),maxSpeed:4};
   }
   private receiver: SceneCharacter | null = null;
   private localZ = 0;
@@ -714,7 +715,7 @@ export class WeddingHandoff extends StreetScene {
     // Keep a full car beside the dancer, not centered on her body. The bay
     // also sits between the two nearest procession rows and clear of lamps.
     const point=this.localPoint(3.3,.55,(this.receiver?.group.position.z??-4)+.5);
-    return {...frame,point,yaw:this.params.useExistingStreet?numberParam(this.params,'streetYaw',0,-Math.PI*2,Math.PI*2):0};
+    return {...frame,point,landing:{point,radius:3.15},yaw:this.params.useExistingStreet?numberParam(this.params,'streetYaw',0,-Math.PI*2,Math.PI*2):0};
   }
   private receiver: SceneCharacter | null = null;
   private readonly processionLampZ=[-13,-7,-1,5];

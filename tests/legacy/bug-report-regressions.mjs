@@ -2,9 +2,10 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFile, mkdtemp, rm, mkdir, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { build } from '../../node_modules/esbuild/lib/main.js';
+import { BUILD_DECLARED_INPUTS } from '../../scripts/build-fingerprint.mjs';
 const root = fileURLToPath(new URL('../../', import.meta.url)), temporary = await mkdtemp(join(tmpdir(), 'roadster-reports-'));
 const sqlite = new DatabaseSync(':memory:'); let groups = 0;
 const test = async (name, run) => { await run(); groups++; console.log('PASS '+name); };
@@ -141,8 +142,9 @@ try {
   });
   await test('build fingerprint is deterministic, path-framed, and changes when only a public city pack changes',async()=>{
     const {gameBuildFingerprint}=await import(pathToFileURL(join(temporary,'config.mjs'))),fixture=join(temporary,'build-fixture');
-    for(const dir of ['src','worker','public/city/packs','scripts'])await mkdir(join(fixture,dir),{recursive:true});
-    for(const [path,body] of [['src/main.ts','code'],['worker/index.ts','worker'],['package-lock.json','{}'],['public/city/packs/test.pack.wasm','original-city'],['index.html','html'],['package.json','{}'],['vite.config.ts','config'],['wrangler.jsonc','{}'],['scripts/build.mjs','build'],['scripts/build-fingerprint.mjs','fingerprint']])await writeFile(join(fixture,path),body);
+    for(const dir of ['src','worker','public/city/packs','scripts','docs/qa/evidence/reported-roads'])await mkdir(join(fixture,dir),{recursive:true});
+    for(const [path,body] of [['src/main.ts','code'],['worker/index.ts','worker'],['package-lock.json','{}'],['public/city/packs/test.pack.wasm','original-city'],['index.html','html'],['package.json','{}'],['vite.config.ts','config'],['wrangler.jsonc','{}'],['scripts/build.mjs','build'],['scripts/build-fingerprint.mjs','fingerprint'],['scripts/asset-transport.mjs','transport'],['scripts/compile-road-profile-cache.mjs','roads'],['scripts/generate-road-profile-corrections.mjs','generate'],['scripts/verify-road-profile-corrections.mjs','verify'],['scripts/road-profile-inputs.mjs','inputs']])await writeFile(join(fixture,path),body);
+    for(const path of BUILD_DECLARED_INPUTS){await mkdir(dirname(join(fixture,path)),{recursive:true});await writeFile(join(fixture,path),'declared-build-input');}
     const first=gameBuildFingerprint(fixture);assert.equal(first,gameBuildFingerprint(fixture));
     await writeFile(join(fixture,'public/city/packs/test.pack.wasm'),'updated--city');assert.notEqual(first,gameBuildFingerprint(fixture));
     await writeFile(join(fixture,'public/city/packs/test.pack.wasm'),'original-city');assert.equal(first,gameBuildFingerprint(fixture));

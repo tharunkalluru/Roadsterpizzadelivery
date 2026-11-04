@@ -1,3 +1,9 @@
+import { losslessAssetResponse, type LosslessAsset } from './asset-transport';
+
+// Build-only data; direct source/API development retains ordinary raw assets.
+declare const __LOSSLESS_ASSETS__: readonly LosslessAsset[];
+const losslessAssets = new Map((typeof __LOSSLESS_ASSETS__ === 'undefined' ? [] : __LOSSLESS_ASSETS__).map(entry => [entry.path, entry]));
+
 const json = (body: object, status = 200) => Response.json(body, { status, headers: { 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' } });
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const finite = (v: unknown, max = 100000) => typeof v === 'number' && Number.isFinite(v) && Math.abs(v) <= max;
@@ -24,7 +30,7 @@ export default {
     const url = new URL(request.url);
     if (url.pathname !== '/api/bug-reports') {
       if (url.pathname.startsWith('/api/')) return json({ error: 'Not found' }, 404);
-      return env.ASSETS.fetch(request);
+      return await losslessAssetResponse(request, env.ASSETS, losslessAssets) ?? env.ASSETS.fetch(request);
     }
     // Collection is public; reading reports is owner-only through Sites Settings.
     if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);

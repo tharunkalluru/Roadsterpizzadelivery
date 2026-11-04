@@ -1,0 +1,100 @@
+{
+  "release": "2026-10-21.0",
+  "source": "https://overturemaps-us-west-2.s3.us-west-2.amazonaws.com/release/2026-10-21.0/theme=transportation/type=segment/",
+  "query": "SELECT id,names.primary AS name,class,width_rules,level_rules,sources,bbox FROM read_parquet(?,hive_partitioning=1)\nWHERE bbox.xmin>=78.35 AND bbox.xmax<=78.46 AND bbox.ymin>=17.32 AND bbox.ymax<=17.41\nAND id LIKE 'de9d82ac-7f8%'",
+  "seconds": 28.181828749999998,
+  "rows": [
+    {
+      "id": "de9d82ac-7f82-42ff-832b-821835e1622c",
+      "name": "Langar House Flyover",
+      "class": "trunk",
+      "width_rules": null,
+      "level_rules": [
+        {
+          "value": 1,
+          "between": [
+            0.025057701,
+            0.919451077
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r3249370@248",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "/routes",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "r5661577@48",
+          "update_time": null,
+          "confidence": null,
+          "between": null,
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w380187101@6",
+          "update_time": "2026-02-24T06:45:07Z",
+          "confidence": null,
+          "between": [
+            0.0,
+            0.025057701
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w380186814@6",
+          "update_time": "2025-07-07T10:59:34Z",
+          "confidence": null,
+          "between": [
+            0.025057701,
+            0.919451077
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        },
+        {
+          "property": "",
+          "dataset": "OpenStreetMap",
+          "license": "ODbL-1.0",
+          "record_id": "w380187103@5",
+          "update_time": "2025-07-07T10:59:34Z",
+          "confidence": null,
+          "between": [
+            0.919451077,
+            1.0
+          ],
+          "provider": "osm",
+          "resource": "planet",
+          "version": "2026-10-10"
+        }
+      ],
+      "bbox": {
+        "xmin": 78.41838073730469,
+        "xmax": 78.42170715332031,
+        "ymin": 17.374494552612305,
+        "ymax": 17.380996704101562
+      }
+    }
+  ]
+}

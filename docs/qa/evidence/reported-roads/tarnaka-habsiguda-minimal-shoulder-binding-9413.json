@@ -1,0 +1,366 @@
+{
+  "version": 1,
+  "scope": "Source-bound local estimated pavement correction on exactlytwo source-width/lane-tag-null one-way roads. Retain TWO modeled lanes, allsourceXY/Y, original9.4m prepared scenery exclusion, no fan/headroom exemption. OfficialOSM tags are source authority;9.34m is an explicit modeled width, not a surveyed measurement. Qualification receipts remain generated evidence rather than generator inputs.",
+  "sourceManifestSHA256": "43ec75a86c41175368f1d7404a6fa0f0ef4b03c82b71067a4d7796915ba6ab04",
+  "sourceModelSHA256": "1f989f2883da05c3a58c624df2ac2d707ffbf07d43c2665e0b3ca2fa2c165d67",
+  "sourceRoadGeometryGeneration": "9413c1f5f353f1f2f054717a0d461d6b1a17fc2627c0a5353ce85496985c53ac",
+  "sourceCoreSHA256": "c8b9abd05d83b13684be08116abbf72065a0db66dadc4b2bd6572456f7e32458",
+  "retainedSource": {
+    "release": "2026-10-21.0",
+    "source": "https://overturemaps-us-west-2.s3.us-west-2.amazonaws.com/release/2026-10-21.0/theme=transportation/type=segment/",
+    "query": "SELECT id,names.primary AS name,class,width_rules,level_rules,road_flags,access_restrictions,connectors,sources,hex(geometry) AS geometryWKB,bbox FROM read_parquet(?,hive_partitioning=1) WHERE bbox.xmin>=78.20 AND bbox.xmax<=78.70 AND bbox.ymin>=17.20 AND bbox.ymax<=17.62 AND substr(id,1,12) IN ('1e7341b0-17c','5a961613-8ec')",
+    "duckdbVersion": "1.4.5",
+    "seconds": 36.271026292,
+    "rows": [
+      {
+        "id": "5a961613-8eca-423e-960b-bd54debe8700",
+        "name": "Habsiguda Main Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "road_flags": null,
+        "access_restrictions": [
+          {
+            "access_type": "denied",
+            "when": {
+              "during": null,
+              "heading": "backward",
+              "using": null,
+              "recognized": null,
+              "mode": null,
+              "vehicle": null
+            },
+            "between": null
+          }
+        ],
+        "connectors": [
+          {
+            "connector_id": "e97da6ca-7364-47fa-951f-276d1b04ba99",
+            "at": 0.0
+          },
+          {
+            "connector_id": "0e0702c2-bdaa-4dd0-9b53-a200c69bc805",
+            "at": 1.0
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w314532785@15",
+            "update_time": "2025-12-29T09:41:37Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "geometryWKB": "0102000000020000009E70C0F833A2534022E010AAD46C3140A3FC492135A253403AE05FA9D36C3140",
+        "bbox": {
+          "xmin": 78.53441619873047,
+          "xmax": 78.53450012207031,
+          "ymin": 17.42510414123535,
+          "ymax": 17.425121307373047
+        }
+      },
+      {
+        "id": "1e7341b0-17cd-4c75-a1a7-bdffcec1100f",
+        "name": "Habsiguda Main Road",
+        "class": "primary",
+        "width_rules": null,
+        "level_rules": null,
+        "road_flags": null,
+        "access_restrictions": [
+          {
+            "access_type": "denied",
+            "when": {
+              "during": null,
+              "heading": "backward",
+              "using": null,
+              "recognized": null,
+              "mode": null,
+              "vehicle": null
+            },
+            "between": null
+          }
+        ],
+        "connectors": [
+          {
+            "connector_id": "6c93bbf3-0ed4-42d3-af4b-112e1c7da9a0",
+            "at": 0.0
+          },
+          {
+            "connector_id": "ab61126e-a5b7-4580-bc29-aac1bf0a74cb",
+            "at": 0.394244067
+          },
+          {
+            "connector_id": "cf2becd6-7f07-4155-9807-45397dc3e47d",
+            "at": 0.691062712
+          },
+          {
+            "connector_id": "b9cade53-45ba-412a-b6c6-507a06f9928b",
+            "at": 0.803369036
+          },
+          {
+            "connector_id": "d6ba3a6d-36c1-42dd-9961-cee4fb94a583",
+            "at": 1.0
+          }
+        ],
+        "sources": [
+          {
+            "property": "/routes",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "r6424432@99",
+            "update_time": null,
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          },
+          {
+            "property": "",
+            "dataset": "OpenStreetMap",
+            "license": "ODbL-1.0",
+            "record_id": "w166513063@21",
+            "update_time": "2025-12-24T13:13:57Z",
+            "confidence": null,
+            "between": null,
+            "provider": "osm",
+            "resource": "planet",
+            "version": "2026-10-10"
+          }
+        ],
+        "geometryWKB": "01020000000D000000800D881057A25340674D87A9886C31401CF22AC654A253401B35BADE916C314070C8AB1853A25340294014CC986C31401E46521C51A25340A25D85949F6C314062026D614CA25340A7CF0EB8AE6C3140B64B1B0E4BA253401693ED32B26C31407CB207FF47A25340540E773FB86C3140E2523AFD45A253409A9A5F28BB6C3140B3A6C35444A25340C9A2FA18BD6C3140454541953FA2534067FEE263C16C31402F432D173BA253402A786572C56C3140D2F0773936A25340C29A1430CB6C314057F20C7533A25340AEEF6888CF6C3140",
+        "bbox": {
+          "xmin": 78.53437805175781,
+          "xmax": 78.53656768798828,
+          "ymin": 17.423959732055664,
+          "ymax": 17.4250431060791
+        }
+      }
+    ]
+  },
+  "exactOSM": {
+    "retainedSourceSHA256": "cd09c34e67ca47dc792fdebe29deeefab736b96f58cf82649981a75dd0413c26",
+    "rows": [
+      {
+        "url": "https://api.openstreetmap.org/api/0.6/way/166513063/21.json",
+        "sha256": "34a1588726bbb77cb7cdf78528c96a8f5d0d7aafd379c56052dde5452df9f2d9",
+        "response": {
+          "version": "0.6",
+          "generator": "OpenStreetMap server",
+          "copyright": "OpenStreetMap and contributors",
+          "attribution": "http://www.openstreetmap.org/copyright",
+          "license": "http://opendatacommons.org/licenses/odbl/1-0/",
+          "elements": [
+            {
+              "type": "way",
+              "id": 166513063,
+              "timestamp": "2025-12-24T13:13:57Z",
+              "version": 21,
+              "changeset": 176361821,
+              "user": "Pavang05",
+              "uid": 22848251,
+              "nodes": [
+                3217011434,
+                1779587184,
+                3598253855,
+                3598254123,
+                10244261093,
+                1779587188,
+                1779587182,
+                7103825088,
+                1779587186,
+                2241237686,
+                2241237699,
+                1779571954,
+                11064218862,
+                5432705837,
+                5432705838,
+                5430736688,
+                10185389587,
+                1779571961,
+                3598255378,
+                1779571947,
+                10185389591,
+                1779571959,
+                1779571960,
+                11873412209,
+                6531644743,
+                1779571950,
+                3229462600
+              ],
+              "tags": {
+                "highway": "primary",
+                "lit": "yes",
+                "maxspeed": "60",
+                "name": "Habsiguda Main Road",
+                "oneway": "yes",
+                "ref": "IRR"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "url": "https://api.openstreetmap.org/api/0.6/way/314532785/15.json",
+        "sha256": "73cbf1ccbbbc68e2b70d28342ad9e8c418ec8d502e92803b29a5880a475d8258",
+        "response": {
+          "version": "0.6",
+          "generator": "OpenStreetMap server",
+          "copyright": "OpenStreetMap and contributors",
+          "attribution": "http://www.openstreetmap.org/copyright",
+          "license": "http://opendatacommons.org/licenses/odbl/1-0/",
+          "elements": [
+            {
+              "type": "way",
+              "id": 314532785,
+              "timestamp": "2025-12-29T09:41:37Z",
+              "version": 15,
+              "changeset": 176566771,
+              "user": "ramshi04",
+              "uid": 22831341,
+              "nodes": [
+                308597340,
+                3598255468,
+                3598255444,
+                308597339,
+                11873248821,
+                308597337,
+                10185389588,
+                10185389589,
+                308597335,
+                10185389590,
+                5430736687,
+                5432705839,
+                308597334,
+                3598255034,
+                13415281823,
+                308597332,
+                7103825089,
+                308597329,
+                3159079581,
+                308597328,
+                308597325,
+                3217011436,
+                1779592744
+              ],
+              "tags": {
+                "highway": "primary",
+                "lit": "yes",
+                "maxspeed": "60",
+                "name": "Habsiguda Main Road",
+                "oneway": "yes",
+                "ref": "IRR"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "roads": [
+    {
+      "id": "1e7341b0-17c_3",
+      "expected": {
+        "id": "1e7341b0-17c_3",
+        "name": "Habsiguda Main Road",
+        "cls": "primary",
+        "w": 9.4,
+        "lanes": 2,
+        "oneway": "backward",
+        "from": "b9cade53-45b",
+        "to": "d6ba3a6d-36c",
+        "pts": [
+          [
+            4064.6,
+            -2057.3
+          ],
+          [
+            4033.3,
+            -2066.9
+          ],
+          [
+            4015.4,
+            -2074.2
+          ]
+        ],
+        "elev": null,
+        "maxspeed": 60
+      },
+      "width": 9.34,
+      "modeledLanes": 2,
+      "profile": {
+        "sourceWidth": 9.4,
+        "originalWidth": 9.4,
+        "intervals": [
+          [
+            49.32733199611485,
+            52.07044206470006
+          ]
+        ],
+        "taper": 30,
+        "usableLanes": 2,
+        "release": "2026-10-21.0"
+      },
+      "maximumControlSpacing": 0.75
+    },
+    {
+      "id": "5a961613-8ec_0",
+      "expected": {
+        "id": "5a961613-8ec_0",
+        "name": "Habsiguda Main Road",
+        "cls": "primary",
+        "w": 9.4,
+        "lanes": 2,
+        "oneway": "backward",
+        "from": "e97da6ca-736",
+        "to": "0e0702c2-bda",
+        "pts": [
+          [
+            4018.7,
+            -2082.9
+          ],
+          [
+            4026.3,
+            -2081.2
+          ]
+        ],
+        "elev": null,
+        "maxspeed": 60
+      },
+      "width": 9.34,
+      "modeledLanes": 2,
+      "profile": {
+        "sourceWidth": 9.4,
+        "originalWidth": 9.4,
+        "intervals": [
+          [
+            0,
+            1.1934464168983365
+          ]
+        ],
+        "taper": 6.594364572077092,
+        "usableLanes": 2,
+        "release": "2026-10-21.0"
+      },
+      "maximumControlSpacing": 0.75
+    }
+  ]
+}

@@ -1,7 +1,18 @@
 export type XZ = [number, number];
 export interface RoadEdge { id: string; seg: string; name: string | null; cls: string; w: number; lanes: number; oneway: 'forward' | 'backward' | null; from: string | null; to: string | null; pts: XZ[]; elev: number[] | null; maxspeed: number | null;
+  joinedPavement?: { sourceWidth: number; originalWidth: number; intervals: [number, number][]; taper: number; release: string; usableLanes?: number;
+    /** Bound tile-only baseline pavement target; source w and lane capacity stay unchanged. */
+    physicalWidth?: number };
+  laneEvidence?: { sources?: string[]; sourceWays?: number[]; reviewedOn?: string; confidence?: string; uncertainty?: string; [key:string]:unknown };
+  sourceLaneIntervals?:{from:number;to:number;lanes:number;oneway:boolean;sourceURL:string}[];
+  sceneryWidth?:number;
+  /** Original prepared corridor retained only for conservative scenery exclusion. */
+  scenerySource?: { pts: XZ[]; elev: number[] | null; width: number };
   workZone?: import('./construction').WorkZone;
   expressway?: { controlled: boolean; ramp: boolean; throughLanes: number; laneWidth?: number; shoulders?: [number, number]; sources: string[]; sourceDate: string; uncertainty: string };
+  /** Full-core ramp incidence for auxiliary pavement: bit 1 from, bit 2 to.
+   * Streamed copies use this instead of their incomplete local road inventory. */
+  auxiliaryLaneEnds?: 0 | 1 | 2 | 3;
 }
 export interface Building { id: string; name: string | null; cls: string | null; h: number; hs: string; ring: XZ[]; fc: string | null; rc: string | null; sourceId?: string }
 export interface Board { id: string; text: string; full: string; group: string; tier: string; conf: number; a: XZ; b: XZ; t: number; slot: { floor: number; index: number; of: number; overflow?: boolean }; building: string; road: string | null; seen?: number | null; seen_year?: number | null }
@@ -26,6 +37,10 @@ export type StopTuple = [number, number, number, string];        // x, z, y, roa
 export interface CityPoi { id: string; name: string; board: string; stop: StopTuple; tile: [number, number]; pizza?: boolean; a?: XZ; b?: XZ; t?: number; category?: string | null; source_ids?: string[]; sources?: string[]; pickupEligible?: boolean }
 export interface PackInfo { p: [number, number]; file: string; bytes: number; tiles: [number, number][] }
 export interface CoreData {
+  /** Bound raw-source normalization, installed before cache/grade preparation. */
+  sourceRoadGeometryGeneration?: string;
+  roadModelState?: { sourcePrototypeSHA256:string; generatorInputSHA256:string; stage:'modeled'|'conditioned'; roadCount:number; counts:[number,number,number];
+    stops:{kind:'food'|'theatres'|'drops';index:number;value:StopTuple;id?:string;tile?:[number,number]}[] };
   origin: { lat: number; lon: number }; tile: number; pack: number; packs: PackInfo[];
   bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
   roads: RoadEdge[]; nodes: Record<string, XZ>;

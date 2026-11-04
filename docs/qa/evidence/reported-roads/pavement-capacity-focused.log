@@ -1,0 +1,18 @@
+✔ a hump does not turn a one-lane source link into 8.4 m pavement; old scenery exclusion survives flattening (1.079041ms)
+✔ source lane intervals and conservative exclusion widths survive ordinary worker patch transfer (0.419416ms)
+✔ actual emitted single-lane asphalt keeps source width despite its elevated end (75.687459ms)
+✔ the actual source-network shoulder profiles preserve every tagged multi-lane interval and Durgam lane evidence (355.28275ms)
+ℹ {"taggedRoads":57,"localizedProfiles":78,"protectedIntervalSamples":8064}
+✔ cache hook rejects malformed capacity or scenery metadata before installing any prepared model (0.292583ms)
+✔ solved profile bindings retain lane-capacity and protected-road metadata as part of their exact input (0.122917ms)
+✔ a one-way modeled single lane centers the bus without changing bidirectional or construction lane selection (0.190833ms)
+✔ actual emitted lane paint retains a tagged four-lane span and stops its dividers in the modeled one-lane continuation (13.966ms)
+✔ new capacity-profile caps follow pavement while scenery keeps the larger original source exclusion (4.75825ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 535.81625

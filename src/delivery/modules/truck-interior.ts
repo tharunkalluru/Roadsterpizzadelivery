@@ -5,8 +5,25 @@ import type { DeliveryPoint, ModuleArrival, ModuleStoryFrame } from './types';
 import type { SceneCharacter } from './character';
 
 const BED=1.55, REAR=-8, RAMP_LENGTH=8.4, RAMP_TIP=.12;
+// Leave a real viewing/handoff gap ahead of the parked Roadster. A closer
+// parking point forced the camera/carton inside the normal lens's near plane.
+const PARK_Z=1.2;
 const CONTAINER_HALF_WIDTH=3.02, CONTAINER_WALL=.34, CONTAINER_TOP=5.82, CONTAINER_ROOF=.22;
+// Actual undeployed Roadster height is1.334331m; the1.55m bed plus
+// that envelope and0.215m clearance fit below3.1m. A rear bay is not the
+// six-metre container: unrelated elevated roads must not inherit its queue.
+export const TRUCK_REAR_APPROACH_CLEARANCE=3.1;
 const OPEN_ANGLE=-Math.acos((RAMP_TIP-BED)/RAMP_LENGTH), RAMP_RUN=Math.sqrt(RAMP_LENGTH**2-(BED-RAMP_TIP)**2);
+/** NPC planning only. This area contains the full ramp and the parked
+ * Roadster behind its blue marker; it must never join player support solids. */
+export function truckRearTrafficReservation(truck:MovingRailBody):MovingRailBody{
+  const run=RAMP_RUN+5.5,offset=-truck.halfLength-run/2+.15,grade=truck.grade??0;
+  const x=truck.x+truck.hx*offset,z=truck.z+truck.hz*offset,y=truck.y+grade*offset;
+  const prior=truck.previous,previousGrade=prior.grade??grade;
+  return {id:`${truck.id}:rear-approach`,x,y,z,hx:truck.hx,hz:truck.hz,grade,
+    bottom:y,roof:y+TRUCK_REAR_APPROACH_CLEARANCE,halfWidth:truck.halfWidth,halfLength:run/2+.15,
+    previous:{x:prior.x+prior.hx*offset,y:prior.y+previousGrade*offset,z:prior.z+prior.hz*offset,hx:prior.hx,hz:prior.hz,grade:previousGrade}};
+}
 export class TruckInterior extends ModuleBase {
   protected override get prepareActors(){return false;}
   override get charactersReady(){return this.graphicsReady;}
@@ -19,10 +36,14 @@ export class TruckInterior extends ModuleBase {
   private reader!:SceneCharacter;
   private anonymous!:SceneCharacter;
   private routeLength=0; private lengths:number[]=[]; private s=0; private speed=0;
+  private waitingForDelivery=false;
   private open=0; private entered=false; private revealed=false; private steady=0; private caught=-1;
   private readingReturn=0;
   private readingSource=new THREE.Object3D();
   private readingRequest={position:new THREE.Vector3()};
+  private cameraTime=0;private cameraRetryAt=0;
+  private cameraPlan:{received:boolean;position:THREE.Vector3;target:THREE.Vector3;clearance:THREE.Vector3}|null=null;
+  private readerFocus={position:new THREE.Vector3(),target:new THREE.Vector3(),clearanceTarget:new THREE.Vector3()};
   private graphicsEpoch=0;private graphicsReady=true;private graphicsPending=false;private graphicsRetryAt=Infinity;
   private pose={x:0,y:0,z:0,hx:0,hz:1,grade:0};
   private previousLocal:{x:number;y:number;z:number}|null=null;
@@ -33,12 +54,13 @@ export class TruckInterior extends ModuleBase {
   private throwFrom=new THREE.Vector3();
   private catchTo=new THREE.Vector3();
   get trafficBodies(){return this.envelope?[this.envelope]:[];}
+  get trafficReservations(){return this.envelope?[truckRearTrafficReservation(this.envelope)]:[];}
   override get story():ModuleStoryFrame|undefined{
     if(!this.ready||!this.ctx.automaticStories||!this.envelope)return undefined;
     const p=this.ctx.player(),local=this.local(p),tip=REAR-RAMP_RUN;
     const entry=local.z<REAR-1&&local.z>tip-24&&Math.abs(local.x)<7&&Math.abs(local.y-.55)<28&&!p.jumping;
     let x=0,z=tip-.3,y=.55;
-    if(this.entered){x=.55;z=2;y=BED+.55;}
+    if(this.entered){x=.55;z=PARK_Z;y=BED+.55;}
     else if(Math.abs(local.x)<.45&&local.z>=tip-.7&&this.open===1){
       z=Math.min(REAR+.7,local.z+1.4);y=RAMP_TIP+(BED-RAMP_TIP)*Math.max(0,Math.min(1,(z-tip)/RAMP_RUN))+.55;
     }
@@ -54,9 +76,56 @@ export class TruckInterior extends ModuleBase {
   get cameraFocus(){
     const p=this.ctx?.player();
     if(!p||!this.entered||!this.graphicsReady||!this.hideWorldGuidance||this.steady<=.35||Math.abs(p.speed)>.75||p.flying||p.jumping)return undefined;
-    // Parked handoff only: view from above the Roadster's roof, with the reader
-    // in the central clear area rather than beneath the steering controls.
-    return {position:this.world(.9,4.2,BED+2),target:this.world(1.6,6,BED+1)};
+    const parked=this.local(p);
+    // Keep the ordinary safe view while the captured car finishes parking;
+    // the close-up is checked for its final physical position, not mid-entry.
+    if(this.ctx.automaticStories&&this.ctx.storyActive?.()&&Math.hypot(parked.x-.55,parked.z-PARK_Z)>.18)return undefined;
+    const mouth=this.reader.group.getObjectByName('delivery-mouth-anchor'),head=this.reader.group.getObjectByName('Head');
+    if(!mouth||!head||!this.reader.group.visible)return undefined;
+    const carton=this.reader.group.getObjectByName('received-pizza-openable-carton'),received=carton?.visible===true;
+    if(this.cameraPlan?.received!==received){
+      if(this.cameraTime<this.cameraRetryAt)return undefined;this.cameraRetryAt=this.cameraTime+1;
+      this.vehicle.updateWorldMatrix(true,true);
+      const face=mouth.getWorldPosition(new THREE.Vector3()),up=new THREE.Vector3(0,1,0).transformDirection(this.vehicle.matrixWorld);
+      // Use the actual face azimuth, but not its downward reading pitch: that
+      // pitch otherwise lowers the camera into the Roadster's roof/nose.
+      const front=new THREE.Vector3(0,0,1).transformDirection(head.matrixWorld);front.addScaledVector(up,-front.dot(up)).normalize();
+      const side=new THREE.Vector3().crossVectors(up,front).normalize(),subject=face.clone().addScaledVector(up,-.10);
+      if(received&&carton)subject.lerp(carton.getWorldPosition(new THREE.Vector3()).addScaledVector(up,.02),.30);
+      const forwardAlong=Math.abs(-Math.sin(p.yaw)*this.pose.hx-Math.cos(p.yaw)*this.pose.hz),forwardSide=Math.sqrt(Math.max(0,1-forwardAlong*forwardAlong));
+      // The real car nose and the physical reader keep-out leave a narrow
+      // clear strip. Use its midpoint, rather than putting a low camera above
+      // the bonnet or relying on a fixed distance from a leaning reader.
+      const near=parked.z+forwardAlong*2.4+forwardSide*1.15+.38,far=6-.75-.38,strip=(near+far)/2;
+      const faceAlong=(face.x-this.pose.x)*this.pose.hx+(face.z-this.pose.z)*this.pose.hz,frontAlong=front.x*this.pose.hx+front.z*this.pose.hz,sideAlong=side.x*this.pose.hx+side.z*this.pose.hz,upAlong=up.x*this.pose.hx+up.z*this.pose.hz;
+      this.cameraPlan=null;
+      for(const elevation of [.02,.55])for(const lateral of [.22,-.15,0]){
+        if(this.cameraPlan)break;
+        const distance=near<=far&&frontAlong<-.5?(strip-faceAlong-sideAlong*lateral-upAlong*elevation)/frontAlong:1.45;
+        if(distance<.5||distance>2.2)continue;
+        const position=face.clone().addScaledVector(front,distance).addScaledVector(side,lateral).addScaledVector(up,elevation);
+        const local=this.vehicle.worldToLocal(position.clone());
+        if(Math.abs(local.x)>2.55||local.z<REAR+1||local.z>7.3||local.y<BED+.6||local.y>CONTAINER_TOP-.45)continue;
+        const dx=position.x-p.x,dz=position.z-p.z,fx=-Math.sin(p.yaw),fz=-Math.cos(p.yaw);
+        if(Math.abs(dx*fx+dz*fz)<2.75&&Math.abs(dx*fz-dz*fx)<1.5&&position.y+.35>p.y-.55&&position.y-.35<p.y+.8)continue;
+        // The old aim was inside the invisible reader/seat keep-out, causing
+        // Game.clearCamera to pull a frontal shot into a side profile. Keep
+        // the same subject framing ray but choose its clear point in front
+        // of that volume. Walls, ceiling, ramp and the full player remain real.
+        for(const towardCamera of [0,.2,.4,.6,.85,.95]){
+          const target=subject.clone().lerp(position,towardCamera);
+          const clear=this.ctx.cameraPathClear?.(target,position);
+          if(this.ctx.cameraPathClear&&clear!==true)continue;
+          this.cameraPlan={received,position:this.vehicle.worldToLocal(position),target:this.vehicle.worldToLocal(subject.clone()),clearance:this.vehicle.worldToLocal(target)};break;
+        }
+        if(this.cameraPlan)break;
+      }
+      if(!this.cameraPlan)return undefined;
+    }
+    this.vehicle.updateWorldMatrix(true,false);
+    this.vehicle.localToWorld(this.readerFocus.position.copy(this.cameraPlan.position));
+    this.vehicle.localToWorld(this.readerFocus.target.copy(this.cameraPlan.target));
+    this.vehicle.localToWorld(this.readerFocus.clearanceTarget.copy(this.cameraPlan.clearance));return this.readerFocus;
   }
   get sceneLamp(){
     if(!this.ready||!this.vehicle.visible||distanceXZ(this.ctx.player(),this.pose)>40)return undefined;
@@ -77,7 +146,8 @@ export class TruckInterior extends ModuleBase {
   }
   get arrival():ModuleArrival|undefined {if(this.entered)return undefined;const p=this.world(0,REAR,1);return {...p,hx:this.pose.hx,hz:this.pose.hz,side:'rear',radius:48};}
   protected build(){
-    this.s=0;this.speed=0;this.open=0;this.entered=false;this.revealed=false;this.steady=0;this.caught=-1;this.readingReturn=0;this.lengths=[];this.routeLength=0;this.priorBodies.clear();this.previousLocal=null;
+    this.s=0;this.speed=0;this.waitingForDelivery=false;this.open=0;this.entered=false;this.revealed=false;this.steady=0;this.caught=-1;this.readingReturn=0;this.lengths=[];this.routeLength=0;this.priorBodies.clear();this.previousLocal=null;
+    this.cameraTime=0;this.cameraRetryAt=0;this.cameraPlan=null;
     const route=this.ctx.route||[];for(let i=1;i<route.length;i++){this.routeLength+=distanceXZ(route[i-1],route[i]);this.lengths.push(this.routeLength);}
     this.pose={...this.ctx.destination,hx:0,hz:1,grade:0};
     this.priorPlayer={x:this.ctx.player().x,z:this.ctx.player().z};this.priorDt=0;
@@ -190,7 +260,22 @@ export class TruckInterior extends ModuleBase {
   private updatePose(dt:number){
     const old={...this.pose},priorS=this.s,remaining=this.routeLength-this.s;
     const limit=this.envelope?this.ctx.vehicleSpeedLimit?.(this.envelope):undefined;
-    const max=numberParam(this.params,'speed',6,2,10),desired=Math.min(max,limit!=null&&Number.isFinite(limit)?Math.max(0,limit):max,Math.sqrt(Math.max(0,5*remaining)));
+    const max=numberParam(this.params,'speed',6,2,10),p=this.ctx.player();
+    if(this.ctx.automaticStories&&!this.waitingForDelivery&&!this.ctx.storyActive?.()){
+      const approach=this.world(0,REAR-RAMP_RUN-2,.55);
+      // A delivery stop uses the normal 3m/s² truck braking below. It is
+      // requested early enough that the player can follow, brake and park on
+      // a stable blue bay. Flight overhead never requests or enters a story.
+      if(!p.flying&&!p.descending&&!p.jumping&&Math.abs(p.verticalSpeed??0)<=.15&&
+        Math.abs(p.y-approach.y)<=.65&&Math.abs(p.speed)<=max+1.5&&distanceXZ(p,approach)<22&&
+        // A vehicle already within a newly moving reservation brakes normally
+        // while the truck rolls ahead to establish the rear gap. Do not park
+        // the truck over that car and turn the temporary occupancy into a jam.
+        this.ctx.vehiclePoseClear?.(truckRearTrafficReservation(this.envelope??this.body('delivery-log-truck',0,2,.2,CONTAINER_TOP+.05,CONTAINER_HALF_WIDTH+.1,10)))!==false)
+        this.waitingForDelivery=true;
+    }
+    if(this.ended&&this.waitingForDelivery&&distanceXZ(p,this.pose)>70)this.waitingForDelivery=false;
+    const desired=Math.min(max,this.waitingForDelivery?0:Infinity,limit!=null&&Number.isFinite(limit)?Math.max(0,limit):max,Math.sqrt(Math.max(0,5*remaining)));
     this.speed+=Math.max(-3*dt,Math.min(4*dt,desired-this.speed));this.s=Math.min(this.routeLength,this.s+this.speed*dt);
     if(this.s>=this.routeLength-.01){this.s=this.routeLength;this.speed=0;}
     const next=this.sample(this.s);if(!next){this.vehicle.visible=false;this.envelope=null;this.bodies=[];return false;}
@@ -219,6 +304,7 @@ export class TruckInterior extends ModuleBase {
     this.priorBodies=new Map(this.bodies.map(b=>[b.id,b]));if(this.envelope)this.priorBodies.set(this.envelope.id,this.envelope);
   }
   update(dt:number){
+    this.cameraTime+=Math.max(0,Math.min(.1,Number.isFinite(dt)?dt:0));
     if(this.ready&&this.ended){this.updateExit(dt);return;}
     if(!this.tick(dt))return;const elapsed=Math.max(0,Math.min(.1,dt));this.prepareGraphics();
     this.reader.animate?.(elapsed,'read');
@@ -231,7 +317,7 @@ export class TruckInterior extends ModuleBase {
     const crossing=prior&&prior.z<REAR&&local.z>=REAR&&Math.abs(local.x)<1.5&&local.y>=BED+.35&&local.y<=BED+1.4&&!p.flying&&!p.jumping;
     if(this.unlocked()&&this.open===1&&!this.entered&&crossing){this.entered=true;this.showReader();}
     if(local.z<REAR-3||Math.abs(local.x)>3.5)this.entered=false;
-    const localTarget=this.entered?{x:.55,z:2,y:BED+.55}:{x:0,z:REAR-RAMP_RUN-2,y:.55};
+    const localTarget=this.entered?{x:.55,z:PARK_Z,y:BED+.55}:{x:0,z:REAR-RAMP_RUN-2,y:.55};
     this.setTarget({...this.world(localTarget.x,localTarget.z,localTarget.y),label:this.ctx.destination.label});
     this.ring.visible=this.caught<0&&!this.hideWorldGuidance;
     const onFloor=local.y>=BED+.3&&local.y<=BED+1.3;
@@ -251,7 +337,7 @@ export class TruckInterior extends ModuleBase {
       else this.catchTo.set(1.6,BED+1.2,5.45);
       this.pizza.position.lerpVectors(this.throwFrom,this.catchTo,t);this.pizza.position.y+=Math.sin(t*Math.PI)*.7;
       this.status.instruction=t<1?'Passing the pizza…':'Caught it!';
-      if(this.caught>=1.15)this.done();
+      if(this.caught>=1.15){this.reader.receivePizza?.();this.pizza.visible=false;this.done();}
     }
     this.root.visible=distanceXZ(p,this.pose)<850;this.previousLocal=local;this.priorPlayer={x:p.x,z:p.z};this.priorDt=elapsed;
   }
@@ -276,7 +362,7 @@ export class TruckInterior extends ModuleBase {
   }
   teardown(){
     this.graphicsEpoch++;this.graphicsReady=false;this.graphicsPending=false;this.graphicsRetryAt=Infinity;
-    this.envelope=null;this.priorBodies.clear();this.previousLocal=null;this.entered=false;this.caught=-1;
+    this.envelope=null;this.priorBodies.clear();this.previousLocal=null;this.entered=false;this.caught=-1;this.cameraPlan=null;
     super.teardown();
   }
 }

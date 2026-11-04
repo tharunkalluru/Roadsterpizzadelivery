@@ -2,6 +2,7 @@ import type { RoadEdge, XZ } from '../world/types';
 import { hasCentreMedian } from '../world/city';
 import type { SignalApproach, SignalSite } from '../world/signals';
 import { constructionLane } from '../world/construction';
+import { RoadGraphSurfaceCache } from './road-graph-surface';
 
 export interface GEdge { e: RoadEdge; len: number; cum: number[]; from: string; to: string }
 export interface SignalControl { site: SignalSite; approach: SignalApproach }
@@ -36,6 +37,7 @@ export class RoadGraph {
   nodes = new Map<string, GNode>(); edges: GEdge[] = []; byId = new Map<string, GEdge>();
   grid = new Map<string, GEdge[]>(); permanent = new Set<string>();
   revision = 0;
+  private roadSurfaces = new RoadGraphSurfaceCache();
   private levelNodes = new Map<string, { id: string; y: number }[]>();
   private nodeAtLevel(id: string, y: number) {
     const levels = this.levelNodes.get(id) || [];
@@ -56,7 +58,7 @@ export class RoadGraph {
       const from = e.from ? this.nodeAtLevel(e.from, e.elev?.[0] || 0) : `x${anon++}`, to = e.to ? this.nodeAtLevel(e.to, e.elev?.[e.pts.length - 1] || 0) : `x${anon++}`;
       const g: GEdge = { e, len: cum[cum.length - 1], cum, from, to };
       if (g.len < 1) continue;
-      this.edges.push(g); this.byId.set(e.id, g); added = true;
+      this.edges.push(g); this.byId.set(e.id, g); this.roadSurfaces.add(e); added = true;
       if (permanent) this.permanent.add(e.id);
       for (const [id, p, y] of [[from, e.pts[0], e.elev?.[0] || 0], [to, e.pts[e.pts.length - 1], e.elev?.[e.pts.length - 1] || 0]] as [string, XZ, number][]) {
         if (!this.nodes.has(id)) this.nodes.set(id, { id, x: p[0], y, z: p[1], out: [], signal: false });
@@ -125,6 +127,7 @@ export class RoadGraph {
     this.revision++;
     this.edges = this.edges.filter((g) => !gone.has(g));
     for (const g of gone) {
+      this.roadSurfaces.remove(g.e);
       for (const id of [g.from, g.to]) {
         const n = this.nodes.get(id); if (!n) continue;
         n.out = n.out.filter((o) => !gone.has(o.edge));
@@ -144,7 +147,8 @@ export class RoadGraph {
     const ya = g.e.elev ? g.e.elev[i - 1] : 0, yb = g.e.elev ? g.e.elev[i] : 0;
     // drive on the left: left of heading (hx,hz) is (hz,-hx)
     const [offsetX, offsetZ] = lateral ? offsetHeading(g.e.pts, i - 1, i) : [hx * dir, hz * dir];
-    return { x: a[0] + (b[0] - a[0]) * u + offsetZ * dir * lateral, y: ya + (yb - ya) * u, z: a[1] + (b[1] - a[1]) * u - offsetX * dir * lateral, hx, hz };
+    const x = a[0] + (b[0] - a[0]) * u + offsetZ * dir * lateral, z = a[1] + (b[1] - a[1]) * u - offsetX * dir * lateral;
+    return { x, y: this.roadSurfaces.height(g.e, i - 1, x, z, ya + (yb - ya) * u, g.cum), z, hx, hz };
   }
   nearestEdges(x: number, z: number, r = 1): GEdge[] {
     const cx = Math.floor(x / 60), cz = Math.floor(z / 60), out = new Set<GEdge>();

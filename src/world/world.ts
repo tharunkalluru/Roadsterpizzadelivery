@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { SignSystem, SignInst } from './signs';
 import type { CityData, TileBuilt, Surface, Wall, BusStop, WalkPath } from './city';
-import type { Building, CoreData, XZ } from './types';
+import type { Building, CoreData, StopTuple, XZ } from './types';
 import { placeLandmarks } from './landmarks';
 import type { LandmarkSurfaceGrid } from './landmark-support';
 import { placeAirfields } from './airfields';
@@ -15,6 +15,10 @@ import type { WaterGrid } from './water';
 import { RAILWAY_UNDERPASS_EVIDENCE } from './railway-evidence';
 import { prepareRoadUnderpasses } from './road-underpasses';
 import { metroFlightClearance } from './metro-flight-clearance';
+import { applyVerifiedRoadProfiles } from './road-profile-corrections';
+import { retainRaisedRoadExclusions } from './road-pavement';
+import { applyVerifiedRoadModel, markVerifiedRoadModelConditioned } from './road-model-overlay';
+import sourceRoadGeometryData from './road-source-geodesic-data.json';
 
 export interface LoadedTile { key: string; built: TileBuilt; group: THREE.Group; signs: SignInst[]; lamps: THREE.Vector3[]; buildings: Building[]; signalLights?: SignalLights }
 
@@ -31,6 +35,8 @@ const RENDER: Record<string, { cast: boolean; receive: boolean; order?: number }
 // The streamed city: keeps the 1 km tiles around the player built (in a worker) and exposes them to the game
 // through the same grids the single-zone city used, so physics, traffic and walkers don't care where a tile ends.
 export class World implements CityData {
+  readonly modeledRoadReport: ReturnType<typeof applyVerifiedRoadModel>;
+  readonly conditionedProfileReport:ReturnType<typeof applyVerifiedRoadProfiles>['report'];
   metroFlightClearance: ReturnType<typeof metroFlightClearance>;
   movingRail: import('../game/moving-rail').MovingRailBody[] = [];
   railwayWalls: Wall[] = [];
@@ -57,11 +63,15 @@ export class World implements CityData {
   activity = new Map<string, number>();          // shop units per 100 m cell across the loaded tiles
   radius: number; waiters: (() => void)[] = []; buildMs: number[] = []; addMs: number[] = []; t = 0; focus: [number, number] | null = null;
   constructor(public core: CoreData, public mats: Record<string, any>, public opts: { lowQ: boolean; base: string }) {
+    if (core.sourceRoadGeometryGeneration !== undefined && core.sourceRoadGeometryGeneration !== sourceRoadGeometryData.generationID) throw Error('Core source road geometry generation mismatch.');
+    const sourceGrades = roadGradePatches(core.roads);
+    this.modeledRoadReport = applyVerifiedRoadModel(core);
+    const modelStopChanges:StopTuple[]=[];
     this.metroFlightClearance = metroFlightClearance(core.metro);
-    const patches = new Map(roadGradePatches(core.roads).map(p=>[p.id,p]));
+    const patches = new Map(currentRoadGradePatches(core.roads, sourceGrades).map(p=>[p.id,p]));
     const roadUnderpasses = prepareRoadUnderpasses(core.roads);
     if (roadUnderpasses.changes.length) {
-      rebaseRoadStops(core,core.roads,roadUnderpasses.roads);core.roads=roadUnderpasses.roads;
+      modelStopChanges.push(...rebaseRoadStops(core,core.roads,roadUnderpasses.roads).changedStops);core.roads=roadUnderpasses.roads;
       for(const p of roadUnderpasses.changes)patches.set(p.id,p);
     }
     core.roads = excludeStadiumRoads(core.roads, stadiumExclusions(core.origin));
@@ -71,11 +81,16 @@ export class World implements CityData {
     const previousRoads = core.roads, transport = prepareRailwayTransport(previousRoads, { underpasses: RAILWAY_UNDERPASS_EVIDENCE });
     core.roads = transport.roads; this.railway = transport.railway; this.railwayClearance = transport.report; this.railwayPatches = transport.patches;
     if (transport.report.raisedRoads || transport.report.loweredRoads) {
-      rebaseRoadStops(core, previousRoads, core.roads);
+      modelStopChanges.push(...rebaseRoadStops(core, previousRoads, core.roads).changedStops);
       const patches = new Map(this.preparedGrades.map(p => [p.id, p]));
       core.roads.forEach((e, i) => { if (e !== previousRoads[i]) patches.set(e.id, { id: e.id, pts: e.pts, elev: e.elev }); });
       this.preparedGrades = [...patches.values()];
     }
+    core.roads=retainRaisedRoadExclusions(core.roads);
+    const conditionedSource=core.roads,conditioned=applyVerifiedRoadProfiles(conditionedSource,'conditionedWorld');
+    this.conditionedProfileReport=conditioned.report;
+    if(conditioned.report.applied.length){core.roads=conditioned.roads;modelStopChanges.push(...rebaseRoadStops(core,conditionedSource,core.roads).changedStops);}
+    if(this.modeledRoadReport.active&&!markVerifiedRoadModelConditioned(core,modelStopChanges))throw Error('Conditioned road model does not match its verified binding.');
     this.preparedGrades = currentRoadGradePatches(core.roads,this.preparedGrades);
     this.bounds = core.bounds;
     this.radius = opts.lowQ ? 900 : 1150;
@@ -91,7 +106,7 @@ export class World implements CityData {
     w.onmessage = (ev) => { if (this.worker === w) this.onMessage(ev.data); };
     w.onerror = (e) => { if (this.worker === w) { e.preventDefault(); this.workerError(); } };
     w.onmessageerror = () => { if (this.worker === w) this.workerError(); };
-    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin), roadGrades: this.preparedGrades, railwayPatches: this.railwayPatches, trafficSignals: this.core.trafficSignals, construction: this.construction }); }
+    try { w.postMessage({ type: 'init', lowQ: this.opts.lowQ, metro: this.core.metro, landmarks: placeLandmarks(this.core.origin, this.core.packs.flatMap((p) => p.tiles)), airfields:placeAirfields(this.core.origin), roadGrades: this.preparedGrades, modelOverlayActive: this.modeledRoadReport.active, sourceRoadGeometryGeneration: this.core.sourceRoadGeometryGeneration, railwayPatches: this.railwayPatches, trafficSignals: this.core.trafficSignals, construction: this.construction }); }
     catch (error) { w.terminate(); throw error; }
     return w;
   }

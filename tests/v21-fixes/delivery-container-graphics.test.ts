@@ -29,7 +29,9 @@ test('fully built lamp/reader scene prepares before revealing its actor or allow
   assert.match(f.module.status.instruction,/One moment/);assert.equal(f.module.cameraFocus,undefined);assert.deepEqual(f.reveals,[]);
   f.module.onDrop();assert.deepEqual(f.events,[],'loading is not a failed gameplay delivery');
   job.resolve();await flush();assert.equal(f.reader().visible,true);assert.deepEqual(f.reveals,['interiorEntered']);
-  f.module.update(.05);assert.equal(f.module.status.canDrop,true);assert.ok(f.module.cameraFocus);f.module.onDrop();advance(f.module,1.3);
+  f.module.update(.05);assert.equal(f.module.status.canDrop,true);
+  assert.equal(f.module.cameraFocus,undefined,'a headless graphics probe must not invent a face camera; exact-source framing is covered by truck-reader-camera');
+  f.module.onDrop();advance(f.module,1.3);
   assert.deepEqual(f.events,['done']);assert.equal(calls,1);f.module.teardown();
 });
 

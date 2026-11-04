@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "readOnly": true,
+  "build": "dd1e73b88bbb847e135e36de98670ab98494485d989ca0b955baaa42a5cbcbd5",
+  "source": "http://127.0.0.1:4283/?qaDelivery=1&qaCampaign=1&qaTouch=1&qaCameraTraffic=1&qaStart=-14534.002057443477,-2821.428003884871,2.8001402152800905,2.863&q=low",
+  "gameSeconds": 575.4827000001161,
+  "paused": false,
+  "player": {
+    "position": [
+      -14586.159916270839,
+      1.148841491307472,
+      -2674.6582150917366
+    ],
+    "yaw": 2.8001402152800905,
+    "heading": [
+      -0.33485603289394555,
+      0.9422693018636068
+    ],
+    "speed": 0,
+    "support": 0.5988414913074719,
+    "flying": false,
+    "jumping": false,
+    "descending": false,
+    "displayPosition": [
+      -14586.159916270839,
+      1.148841491307472,
+      -2674.6582150917366
+    ],
+    "displayRotation": [
+      -0.020184721397062243,
+      2.8001402152800905,
+      0,
+      "YXZ"
+    ],
+    "nominalBody": {
+      "x": -14586.159916270839,
+      "y": 0.598841491307472,
+      "z": -2674.6582150917366,
+      "hx": -0.33485603289394555,
+      "hz": 0.9422693018636068,
+      "size": [
+        2,
+        1.6,
+        4.8
+      ]
+    }
+  },
+  "camera": {
+    "position": [
+      -14592.289592399437,
+      2.998841491307472,
+      -2671.714226206153
+    ],
+    "quaternion": [
+      -0.02796151831459382,
+      -0.5321849557120807,
+      -0.017589824182369464,
+      0.8459834067477368
+    ],
+    "fov": 60,
+    "aspect": 1.338135593220339,
+    "near": 0.3,
+    "far": 900,
+    "followPosition": [
+      -14592.289592399437,
+      2.998841491307472,
+      -2671.714226206153
+    ],
+    "lookAt": [
+      -14586.15991627084,
+      2.5488414913074715,
+      -2674.658215091736
+    ],
+    "nearPlaneCorners": [
+      [
+        -14592.130408581279,
+        2.806204817897374,
+        -2672.047797532963
+      ],
+      [
+        -14592.10978927937,
+        3.151858940327454,
+        -2672.0577006655885
+      ],
+      [
+        -14591.909102853198,
+        3.151858940327454,
+        -2671.6398516710315
+      ],
+      [
+        -14591.92972215511,
+        2.806204817897374,
+        -2671.629948538406
+      ]
+    ],
+    "matrixWorld": [
+      0.43293954199792806,
+      6.938893903907228e-18,
+      0.9014229600884505,
+      0,
+      0.05952279754357857,
+      0.9978175031575519,
+      -0.028587881436283474,
+      0,
+      -0.8994556073243472,
+      0.06603204065019379,
+      0.43199465281454674,
+      0,
+      -14592.289592399437,
+      2.998841491307472,
+      -2671.714226206153,
+      1
+    ],
+    "matrixWorldInverse": [
+      0.4329395419979282,
+      0.05952279754357859,
+      -0.8994556073243475,
+      0,
+      0,
+      0.997817503157552,
+      0.0660320406501938,
+      0,
+      0.9014229600884506,
+      -0.02858788143628348,
+      0.43199465281454674,
+      0,
+      8725.92371913172,
+      789.2029530460256,
+      -11971.148457638032,
+      1
+    ],
+    "projectionMatrix": [
+      1.2943761576512194,
+      0,
+      0,
+      0,
+      0,
+      1.7320508075688774,
+      0,
+      0,
+      0,
+      0,
+      -1.0006668889629875,
+      -1,
+      0,
+      0,
+      -0.6002000666888962,
+      0
+    ]
+  },
+  "nearby": [
+    {
+      "index": 22,
+      "kind": "car",
+      "group": "car",
+      "edge": "c32df37f-b8f_0",
+      "direction": 1,
+      "lane": -2.5,
+      "s": 285.17543864746045,
+      "distanceToPlayer": 4.665416530528136,
+      "position": [
+        -14585.138043720573,
+        0.6964363689544222,
+        -2679.210345130997
+      ],
+      "heading": [
+        -0.24058314106264564,
+        0.9706285346291912
+      ],
+      "size": [
+        1.735,
+        1.525,
+        3.995
+      ],
+      "speed": 0,
+      "display": {
+        "position": [
+          -14585.138043720573,
+          0.7164363689544222,
+          -2679.210345130997
+        ],
+        "rotation": [
+          -0.021546698150923808,
+          2.8986260601816065,
+          0,
+          "YXZ"
+        ],
+        "visible": true,
+        "matrixWorld": [
+          -0.9706285346292012,
+          0,
+          -0.24058314106264791,
+          0,
+          -0.0051833712267919385,
+          0.9997678788799881,
+          0.020912221845961004,
+          0,
+          0.2405272966344885,
+          0.021545030977221248,
+          -0.9704032312466275,
+          0,
+          -14585.138043720573,
+          0.7164363689544222,
+          -2679.210345130997,
+          1
+        ]
+      },
+      "playerAlong": 4.664272617357646,
+      "playerSide": 0.10330708732898242,
+      "nominalAlignedBumperGap": 0.26677261735764635,
+      "nominalPlayerOverlap": false,
+      "sweptPlayerMarginOverlap": false,
+      "eyeInsideHideVolume": false,
+      "displayedMesh": {
+        "meshes": 6,
+        "triangles": 9026,
+        "nearPlaneCrossings": 0,
+        "minDepth": 7.869596606171083,
+        "maxDepth": 11.678469801579185,
+        "limitation": "Existing displayed matrices and render-enabled triangles; not pixel coverage, collision or performance acceptance."
+      }
+    },
+    {
+      "index": 18,
+      "kind": "truck",
+      "group": "truck",
+      "edge": "c32df37f-b8f_0",
+      "direction": 1,
+      "lane": -2.5,
+      "s": 274.0783319035266,
+      "distanceToPlayer": 15.881733017356419,
+      "position": [
+        -14582.159169125856,
+        0.9522370102647718,
+        -2690.027778062638
+      ],
+      "heading": [
+        -0.2893895012759695,
+        0.9572114272987043
+      ],
+      "size": [
+        2.3,
+        3.22,
+        8.2
+      ],
+      "speed": 0,
+      "display": {
+        "position": [
+          -14582.159169125856,
+          0.9722370102647718,
+          -2690.027778062638
+        ],
+        "rotation": [
+          -0.024434242236641257,
+          2.84800366618141,
+          0,
+          "YXZ"
+        ],
+        "visible": true,
+        "matrixWorld": [
+          -0.9572114272987153,
+          4.336808689942018e-19,
+          -0.289389501275973,
+          0,
+          -0.007070309592170108,
+          0.9997014987548417,
+          0.023386408651055138,
+          0,
+          0.28930311814950643,
+          0.024431810971012345,
+          -0.956925698495787,
+          0,
+          -14582.159169125856,
+          0.9722370102647718,
+          -2690.027778062638,
+          1
+        ]
+      },
+      "playerAlong": 15.869695529351588,
+      "playerSide": 0.618229278068748,
+      "nominalAlignedBumperGap": 9.369695529351588,
+      "nominalPlayerOverlap": false,
+      "sweptPlayerMarginOverlap": false,
+      "eyeInsideHideVolume": false,
+      "displayedMesh": {
+        "meshes": 6,
+        "triangles": 12876,
+        "nearPlaneCrossings": 0,
+        "minDepth": 13.35614737376742,
+        "maxDepth": 20.604438211806404,
+        "limitation": "Existing displayed matrices and render-enabled triangles; not pixel coverage, collision or performance acceptance."
+      }
+    },
+    {
+      "index": 40,
+      "kind": "car",
+      "group": "car",
+      "edge": "c32df37f-b8f_0",
+      "direction": 1,
+      "lane": -2.5,
+      "s": 262.42860629635754,
+      "distanceToPlayer": 27.526364582516624,
+      "position": [
+        -14578.787860842389,
+        1.2531080032029382,
+        -2701.179028538716
+      ],
+      "heading": [
+        -0.28938950127696145,
+        0.9572114272984136
+      ],
+      "size": [
+        1.925,
+        2.615,
+        5.1
+      ],
+      "speed": 0,
+      "display": {
+        "position": [
+          -14578.787860842389,
+          1.2731080032029383,
+          -2701.179028538716
+        ],
+        "rotation": [
+          -0.02712076699198512,
+          2.8480036661803765,
+          0,
+          "YXZ"
+        ],
+        "visible": true,
+        "matrixWorld": [
+          -0.9572114272984165,
+          -8.673617379884035e-19,
+          -0.28938950127696217,
+          0,
+          -0.007847503131319357,
+          0.9996322545405476,
+          0.025957125741993842,
+          0,
+          0.2892830796018544,
+          0.02711744239750029,
+          -0.9568594171422915,
+          0,
+          -14578.787860842389,
+          1.2731080032029383,
+          -2701.179028538716,
+          1
+        ]
+      },
+      "playerAlong": 27.519421136523427,
+      "playerSide": 0.6182292780910341,
+      "nominalAlignedBumperGap": 22.569421136523427,
+      "nominalPlayerOverlap": false,
+      "sweptPlayerMarginOverlap": false,
+      "eyeInsideHideVolume": false,
+      "displayedMesh": {
+        "meshes": 6,
+        "triangles": 14136,
+        "nearPlaneCrossings": 0,
+        "minDepth": 22.439915372912157,
+        "maxDepth": 27.37528629776051,
+        "limitation": "Existing displayed matrices and render-enabled triangles; not pixel coverage, collision or performance acceptance."
+      }
+    }
+  ],
+  "totalTraffic": 42,
+  "limitations": [
+    "Body overlap uses the existing nominal unpitched simulation boxes; literal displayed rotation is retained for review.",
+    "Aligned bumper gap is meaningful only for parallel, overlapping lanes. Mesh scan runs only on explicit snapshot download."
+  ]
+}

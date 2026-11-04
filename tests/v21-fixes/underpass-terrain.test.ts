@@ -77,7 +77,7 @@ test('a second World sends already-repaired negative and zero profiles to its wo
  Object.assign(globalThis,{Worker:FakeWorker});
  try {
   for(let pass=0;pass<2;pass++) {
-   const w:any=Object.assign(Object.create(World.prototype),{opts:{lowQ:true},core:{origin:{lat:17.4063,lon:78.4966},packs:[],metro:{lines:[],stations:[],pillars:[],deckHeight:12}},preparedGrades:currentRoadGradePatches([e,flat]),railwayPatches:[]});
+   const w:any=Object.assign(Object.create(World.prototype),{opts:{lowQ:true},modeledRoadReport:{active:false},core:{origin:{lat:17.4063,lon:78.4966},packs:[],metro:{lines:[],stations:[],pillars:[],deckHeight:12}},preparedGrades:currentRoadGradePatches([e,flat]),railwayPatches:[]});
    w.makeWorker();assert.equal(sent.type,'init');const rebuilt=applyRoadGradePatches(stale,sent.roadGrades);
    assert.deepEqual(rebuilt.map(e=>e.elev),[e.elev,flat.elev]);assert.deepEqual(rebuilt[0].pts,e.pts);
   }

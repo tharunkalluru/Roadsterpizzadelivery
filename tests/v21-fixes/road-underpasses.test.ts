@@ -34,7 +34,11 @@ test('verified road underpasses descend smoothly while the crossing road and con
   for (const p of lower.pts) assert.ok(repaired.pts.some(q => p[0] === q[0] && p[1] === q[1]), 'every original plan vertex survives');
   assert.ok(maxGrade(repaired) <= ROAD_UNDERPASS_MAX_GRADE);
   assert.ok(repaired.elev![1] > -.001, 'portal begins with an eased gradient');
-  assert.deepEqual(applyRoadGradePatches(source, out.changes), out.roads, 'the same patch drives worker geometry and core physics');
+  // Structured worker patches authoritatively clear optional model metadata.
+  // An explicit undefined field is equivalent to an absent one; retain exact
+  // numeric arrays (including signed zero) rather than normalizing via JSON.
+  const defined=(e:RoadEdge)=>Object.fromEntries(Object.entries(e).filter(([,value])=>value!==undefined));
+  assert.deepEqual(applyRoadGradePatches(source, out.changes).map(defined), out.roads.map(defined), 'the same patch drives worker geometry and core physics');
 });
 
 test('slope easing is continuous at both ramp ends without a jump in speed or road height', () => {

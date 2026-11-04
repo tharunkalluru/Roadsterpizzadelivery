@@ -9,6 +9,7 @@ import { advanceJump, jumpCeiling, jumpProfile, JUMP_AIRTIME, JUMP_COOLDOWN_SECO
 import { buoyantHeight, waterHeightAt } from '../world/water';
 import { PlayerLights } from './player-lights';
 import { roadsterDecals } from '../world/roadster-decals';
+import { roadWheelContact } from './road-wheel-contact';
 
 export interface Input { allowReverse?: boolean; throttle: number; brake: number; steer: number; flyPressed: boolean; boost: boolean; jumpPressed?: boolean }
 export const ROAD_SPEED_LIMIT = 120 / 3.6;
@@ -38,6 +39,11 @@ export class Player {
   private jumpForcedFall = false;
   private jumpCollisionMeshes: { mesh: THREE.Mesh; positions: THREE.BufferAttribute | THREE.InterleavedBufferAttribute }[] = [];
   private jumpBoundsDirty = true;
+  private pizzaCargo!: THREE.Group;
+  setCarryingPizza(carrying: boolean) {
+    if (this.pizzaCargo.visible === carrying) return;
+    this.pizzaCargo.visible = carrying; this.jumpBoundsDirty = true;
+  }
   private jumpBounds = { bottom: 0, top: 0 };
   get jumping() { return !!this.jumpActive; }
   get airborne() { return this.flying || this.descending || this.jumping; }
@@ -124,6 +130,9 @@ export class Player {
       const positions = node.geometry.getAttribute('position');
       if (positions) this.jumpCollisionMeshes.push({ mesh: node, positions });
     });
+    // Keep the existing jump envelope/equipment dimensions; only the current
+    // visible cargo changes. No duplicate billboard is attached to the cabin.
+    this.pizzaCargo=R.cargo;this.setCarryingPizza(false);
     this.gas = new GasPuffs(mats.radial);
     this.glow = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 5.6), new THREE.MeshBasicMaterial({ map: mats.radial, color: new THREE.Color('#45E3D3'), transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false }));
     this.glow.rotation.x = -Math.PI / 2;
@@ -147,6 +156,9 @@ export class Player {
     this.glide = null; this.lastEdge = null; this.roadPitch = 0; this.landmarkRoll = 0; this.resetWheelSuspension(); this.placementRevision++;
     this.resetKickflip();
     this.group.position.copy(this.pos); this.group.rotation.set(0, yaw, 0, 'YXZ');
+    if (s.kind === 'road' && this.wheels?.length === 4 && roadWheelContact(this.city, x, this.pos.y, z, yaw, 0, 0, s.y, this.wheelSuspension)) {
+      this.wheels.forEach((w, i) => { w.position.y = .36 + this.wheelSuspension[i]; });
+    } else this.resetWheelSuspension();
   }
   // one puff of vented gas from a nozzle (k), blown along the nozzle direction plus a share of the car's motion
   puff(power: number, k: number) {
@@ -395,6 +407,10 @@ export class Player {
         this.pos.y = contacts.y; this.vy = 0; this.wheelSuspension = contacts.suspension;
         this.wheels?.forEach((w, i) => { w.position.y = .36 + contacts.suspension[i]; });
       }
+    } else if (grounded && sup2.kind === 'road' && this.wheels?.length === 4) {
+      if (roadWheelContact(this.city, this.pos.x, this.pos.y, this.pos.z, this.yaw, this.roadPitch, this.landmarkRoll + lean, sup2.y, this.wheelSuspension)) {
+        this.wheels.forEach((w, i) => { w.position.y = .36 + this.wheelSuspension[i]; });
+      } else this.resetWheelSuspension();
     }
     const visuallyAirborne = this.airborne;
     if (!visuallyAirborne) this.resetKickflip();

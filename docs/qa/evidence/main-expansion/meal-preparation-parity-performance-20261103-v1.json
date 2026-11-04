@@ -1,0 +1,349 @@
+{
+  "scope": "Same real 11 GLBs, exact reference current-pose maximum versus conservative accelerated query; 72 pose/transform cases per actor, 3 baseline/after 180-frame meals and repeated/disposed/invalid-dt lifecycle checks. CPU measurements on this host only; not GPU or phone FPS.",
+  "sourceHashes": [
+    {
+      "path": "src/delivery/art/actor-performance.ts",
+      "sha256": "ee9dc1fdb910725e3979894305250f5e45ad482d7c7df377c582becff3bbac5c"
+    },
+    {
+      "path": "src/delivery/art/face-annotations.ts",
+      "sha256": "1e6a6f592267edfe7eeaf6a431583d44b29000cc2b4c775f0c88f7b7c244aa69"
+    },
+    {
+      "path": "src/delivery/art/character-assets.json",
+      "sha256": "8bd45dd050e3ceae8e1c206f8b62e245de51a59a0486e526443a798a36b3b95a"
+    }
+  ],
+  "report": [
+    {
+      "identity": "pushpa-raj",
+      "preparationMs": 22.34675,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 27.29604100000006,
+          "receiveMs": 15.475208999999836,
+          "afterSetupMs": 14.50591600000007,
+          "afterReceiveMs": 10.751666999999998
+        },
+        {
+          "repeat": 1,
+          "setupMs": 17.04170799999997,
+          "receiveMs": 12.121584000000212,
+          "afterSetupMs": 13.570999999999913,
+          "afterReceiveMs": 5.002958000000035
+        },
+        {
+          "repeat": 2,
+          "setupMs": 14.437583000000132,
+          "receiveMs": 12.307666000000154,
+          "afterSetupMs": 14.272917000000007,
+          "afterReceiveMs": 7.111833999999817
+        }
+      ]
+    },
+    {
+      "identity": "jessie",
+      "preparationMs": 16.16887500000007,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 28.401916999999685,
+          "receiveMs": 13.619666000000052,
+          "afterSetupMs": 22.373999999999796,
+          "afterReceiveMs": 7.2146670000001905
+        },
+        {
+          "repeat": 1,
+          "setupMs": 34.25599999999986,
+          "receiveMs": 15.046415999999681,
+          "afterSetupMs": 19.67004199999974,
+          "afterReceiveMs": 5.959583000000293
+        },
+        {
+          "repeat": 2,
+          "setupMs": 20.350582999999915,
+          "receiveMs": 15.093875000000025,
+          "afterSetupMs": 17.437834000000294,
+          "afterReceiveMs": 5.851500000000215
+        }
+      ]
+    },
+    {
+      "identity": "hasini",
+      "preparationMs": 20.201458000000002,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 18.517166999999972,
+          "receiveMs": 19.034083000000464,
+          "afterSetupMs": 14.824916999999914,
+          "afterReceiveMs": 2.91924999999992
+        },
+        {
+          "repeat": 1,
+          "setupMs": 17.585667000000285,
+          "receiveMs": 15.199083999999857,
+          "afterSetupMs": 14.556416999999783,
+          "afterReceiveMs": 5.275000000000546
+        },
+        {
+          "repeat": 2,
+          "setupMs": 20.084749999999985,
+          "receiveMs": 15.413582999999562,
+          "afterSetupMs": 11.126957999999831,
+          "afterReceiveMs": 5.575166999999965
+        }
+      ]
+    },
+    {
+      "identity": "ram-vvr",
+      "preparationMs": 6.638249999999971,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 20.149000000000342,
+          "receiveMs": 11.205665999999837,
+          "afterSetupMs": 11.227167000000009,
+          "afterReceiveMs": 2.9349590000001626
+        },
+        {
+          "repeat": 1,
+          "setupMs": 13.923334000000068,
+          "receiveMs": 11.302082999999584,
+          "afterSetupMs": 8.229874999999993,
+          "afterReceiveMs": 4.778999999999542
+        },
+        {
+          "repeat": 2,
+          "setupMs": 11.906500000000051,
+          "receiveMs": 13.926666999999725,
+          "afterSetupMs": 8.383708000000297,
+          "afterReceiveMs": 2.878874999999425
+        }
+      ]
+    },
+    {
+      "identity": "sukumar",
+      "preparationMs": 8.429415999999947,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 30.460667000000285,
+          "receiveMs": 20.34400000000005,
+          "afterSetupMs": 16.732499999999163,
+          "afterReceiveMs": 1.6465000000007421
+        },
+        {
+          "repeat": 1,
+          "setupMs": 29.334458000000268,
+          "receiveMs": 15.543790999999146,
+          "afterSetupMs": 18.661541999998917,
+          "afterReceiveMs": 2.1842909999995754
+        },
+        {
+          "repeat": 2,
+          "setupMs": 23.551124999999956,
+          "receiveMs": 11.769166000000041,
+          "afterSetupMs": 16.105083999998897,
+          "afterReceiveMs": 2.093290999999226
+        }
+      ]
+    },
+    {
+      "identity": "nani-jersey",
+      "preparationMs": 10.077666999999565,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 30.99566700000105,
+          "receiveMs": 17.492624999998952,
+          "afterSetupMs": 18.304540999999517,
+          "afterReceiveMs": 2.1303749999988213
+        },
+        {
+          "repeat": 1,
+          "setupMs": 30.226582999999664,
+          "receiveMs": 18.412749999999505,
+          "afterSetupMs": 21.164458000001105,
+          "afterReceiveMs": 1.9799160000002303
+        },
+        {
+          "repeat": 2,
+          "setupMs": 25.839458000000377,
+          "receiveMs": 16.785791000000245,
+          "afterSetupMs": 22.386333000000377,
+          "afterReceiveMs": 1.6790000000000873
+        }
+      ]
+    },
+    {
+      "identity": "arjun-reddy",
+      "preparationMs": 18.26616699999977,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 25.276165999999648,
+          "receiveMs": 14.348124999998618,
+          "afterSetupMs": 17.025666999999885,
+          "afterReceiveMs": 5.003582999999708
+        },
+        {
+          "repeat": 1,
+          "setupMs": 18.45220800000061,
+          "receiveMs": 17.003082999999606,
+          "afterSetupMs": 14.94012499999917,
+          "afterReceiveMs": 1.9652920000007725
+        },
+        {
+          "repeat": 2,
+          "setupMs": 19.90991600000052,
+          "receiveMs": 14.38537499999984,
+          "afterSetupMs": 14.628500000000713,
+          "afterReceiveMs": 1.8279999999995198
+        }
+      ]
+    },
+    {
+      "identity": "maruthi",
+      "preparationMs": 5.596000000001368,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 24.94304099999863,
+          "receiveMs": 15.653707999999824,
+          "afterSetupMs": 19.500583999999435,
+          "afterReceiveMs": 2.223541999999725
+        },
+        {
+          "repeat": 1,
+          "setupMs": 24.16399999999885,
+          "receiveMs": 12.319542000001093,
+          "afterSetupMs": 15.346167000001515,
+          "afterReceiveMs": 4.795665999999983
+        },
+        {
+          "repeat": 2,
+          "setupMs": 23.295625000000655,
+          "receiveMs": 14.45354099999895,
+          "afterSetupMs": 13.707749999999578,
+          "afterReceiveMs": 2.447707999999693
+        }
+      ]
+    },
+    {
+      "identity": "bhanumathi",
+      "preparationMs": 13.924124999999549,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 27.16795899999852,
+          "receiveMs": 22.456167000000278,
+          "afterSetupMs": 21.83795899999859,
+          "afterReceiveMs": 6.303584000001138
+        },
+        {
+          "repeat": 1,
+          "setupMs": 26.485749999999825,
+          "receiveMs": 21.78770799999984,
+          "afterSetupMs": 16.676249999998618,
+          "afterReceiveMs": 7.111042000000452
+        },
+        {
+          "repeat": 2,
+          "setupMs": 24.750833000000057,
+          "receiveMs": 18.787624999999025,
+          "afterSetupMs": 23.69512500000019,
+          "afterReceiveMs": 7.172625000001062
+        }
+      ]
+    },
+    {
+      "identity": "vakeel-saab",
+      "preparationMs": 4.756959000000279,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 17.94812499999898,
+          "receiveMs": 10.47320800000125,
+          "afterSetupMs": 16.251791000000594,
+          "afterReceiveMs": 5.847541999999521
+        },
+        {
+          "repeat": 1,
+          "setupMs": 16.55999999999949,
+          "receiveMs": 11.929125000000568,
+          "afterSetupMs": 12.958083000001352,
+          "afterReceiveMs": 4.958165999996709
+        },
+        {
+          "repeat": 2,
+          "setupMs": 14.410500000001775,
+          "receiveMs": 8.933415999999852,
+          "afterSetupMs": 10.764707999998791,
+          "afterReceiveMs": 4.3272500000020955
+        }
+      ]
+    },
+    {
+      "identity": "srikanth-odela",
+      "preparationMs": 6.509125000000495,
+      "poseCases": 72,
+      "maximumDepthResidual": 0,
+      "maximumPoseResidual": 0,
+      "runs": [
+        {
+          "repeat": 0,
+          "setupMs": 22.322707999999693,
+          "receiveMs": 18.02654099999927,
+          "afterSetupMs": 14.274916999998823,
+          "afterReceiveMs": 2.74383300000045
+        },
+        {
+          "repeat": 1,
+          "setupMs": 20.394290999996883,
+          "receiveMs": 15.496209000000817,
+          "afterSetupMs": 15.880083000000013,
+          "afterReceiveMs": 3.60137499999837
+        },
+        {
+          "repeat": 2,
+          "setupMs": 19.34545900000012,
+          "receiveMs": 16.480500000001484,
+          "afterSetupMs": 11.628124999999272,
+          "afterReceiveMs": 4.840875000001688
+        }
+      ]
+    }
+  ]
+}

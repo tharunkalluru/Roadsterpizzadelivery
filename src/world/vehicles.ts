@@ -155,9 +155,10 @@ export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE
     wingSupports.push(boxAt(0.04, 1, 0.09, mats.pod, s * 0.64, 0.93, 1.94));
   }
   // The compact insulated case is a game accessory, separate from the production reference.
-  const box = boxAt(0.70, 0.14, 0.43, mats.pizzaBox, 0, 1.065, 1.42);
-  boxAt(0.72, 0.025, 0.45, mats.red, 0, 1.14, 1.42);
-  for (const s of [-1, 1]) boxAt(0.035, 0.16, 0.46, mats.trim, s * 0.25, 1.065, 1.42);
+  const cargo = new THREE.Group(); cargo.name = 'Roadster collected pizza'; g.add(cargo);
+  const box = boxAt(0.70, 0.14, 0.43, mats.pizzaBox, 0, 1.065, 1.42, cargo);
+  boxAt(0.72, 0.025, 0.45, mats.red, 0, 1.14, 1.42, cargo);
+  for (const s of [-1, 1]) boxAt(0.035, 0.16, 0.46, mats.trim, s * 0.25, 1.065, 1.42, cargo);
 
   // Thin split-spoke wheels, machined rim lips, brake discs and fixed red calipers.
   const wheels: THREE.Group[] = [], wheelRollers: THREE.Group[] = [];
@@ -210,5 +211,5 @@ export function roadster(mats: any, labels: { logo: THREE.Material; plate: THREE
     for (const r of retractors) r.group.position.copy(r.home).addScaledVector(r.delta, eased);
   };
   setDeployment(0);
-  return { group: outer, pods, box, wheels, wheelRollers, nozzles, setDeployment, lampMount: g };
+  return { group: outer, pods, box, cargo, wheels, wheelRollers, nozzles, setDeployment, lampMount: g };
 }
